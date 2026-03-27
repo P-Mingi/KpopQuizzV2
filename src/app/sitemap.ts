@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { STATIC_MODES } from '@/lib/blind-test-modes';
 
 import type { MetadataRoute } from 'next';
 
@@ -6,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createServiceRoleClient();
   const siteUrl = 'https://kpopquiz.org';
 
-  const [quizzesResult, groupsResult, profilesResult] = await Promise.all([
+  const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult] = await Promise.all([
     supabase
       .from('quizzes')
       .select('slug, updated_at')
@@ -20,11 +21,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .from('profiles')
       .select('username, updated_at')
       .gte('total_quizzes_created', 3),
+    supabase
+      .from('blind_test_songs')
+      .select('groups!inner(slug)')
+      .eq('status', 'active')
+      .not('clip_chorus', 'is', null),
   ]);
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-{ url: `${siteUrl}/trending`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${siteUrl}/trending`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${siteUrl}/new`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${siteUrl}/most-liked`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${siteUrl}/easy-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
@@ -33,16 +39,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${siteUrl}/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${siteUrl}/blind-test`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${siteUrl}/blind-test/classic`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/intro-challenge`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/verse-only`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/bts`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/4th-gen-gg`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/girl-groups`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${siteUrl}/blind-test/boy-groups`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${siteUrl}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${siteUrl}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
   ];
+
+  // Static blind test mode pages
+  const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map(mode => ({
+    url: `${siteUrl}/blind-test/${mode.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }));
+
+  // Dynamic group blind test pages
+  const btGroupSlugs = [...new Set(
+    (btSongGroupsResult.data ?? [])
+      .map(r => (r.groups as unknown as { slug: string } | null)?.slug)
+      .filter(Boolean) as string[]
+  )];
+  const blindTestGroupPages: MetadataRoute.Sitemap = btGroupSlugs.map(slug => ({
+    url: `${siteUrl}/blind-test/group-${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.5,
+  }));
 
   const groupPages: MetadataRoute.Sitemap = (groupsResult.data ?? []).flatMap((g) => [
     {
@@ -73,5 +93,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.4,
   }));
 
-  return [...staticPages, ...groupPages, ...quizPages, ...profilePages];
+  return [...staticPages, ...blindTestModePages, ...blindTestGroupPages, ...groupPages, ...quizPages, ...profilePages];
 }
