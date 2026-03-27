@@ -202,3 +202,102 @@ export interface RecordPlayResult {
   play_id: string;
   percentile: number;
 }
+
+// ============================================
+// Game types (This or That, Blind Test, etc.)
+// ============================================
+
+export type GameType = 'this_or_that' | 'blind_test';
+export type GameStatus = 'draft' | 'published' | 'flagged' | 'removed';
+
+export interface Matchup {
+  id: string;
+  option_a: string;
+  option_b: string;
+  votes_a: number;
+  votes_b: number;
+}
+
+export interface ThisOrThatContent {
+  matchups: Matchup[];
+}
+
+export type ClipMode = 'chorus' | 'intro' | 'random' | 'custom';
+
+export interface BlindTestSong {
+  id: string;
+  youtube_id: string;
+  title: string;
+  artist: string;
+  clip_start: number;
+  clip_mode: ClipMode;
+  choices: [string, string, string, string];
+  correct_index: number;
+  times_correct: number;
+  times_played: number;
+  avg_answer_time: number;
+}
+
+export interface BlindTestSettings {
+  clip_duration: number;
+  song_count: number;
+  difficulty: Difficulty;
+}
+
+export interface BlindTestContent {
+  settings: BlindTestSettings;
+  songs: BlindTestSong[];
+}
+
+export type GameContent = ThisOrThatContent | BlindTestContent;
+
+export interface Game {
+  id: string;
+  creator_id: string;
+  group_id: number | null;
+  title: string;
+  slug: string;
+  game_type: GameType;
+  content: GameContent;
+  matchup_count: number;
+  status: GameStatus;
+  play_count: number;
+  like_count: number;
+  report_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GameCardData {
+  id: string;
+  title: string;
+  slug: string;
+  game_type: GameType;
+  content: GameContent;
+  matchup_count: number;
+  play_count: number;
+  like_count: number;
+  created_at: string;
+  group_name: string | null;
+  group_slug: string | null;
+  display_color: string | null;
+  text_color: string | null;
+  logo_url: string | null;
+  creator_username: string;
+  creator_avatar_url: string | null;
+  creator_avatar_bg: string;
+  creator_avatar_text: string;
+}
+
+export interface GameWithGroup extends Game {
+  group_name: string | null;
+  group_slug: string | null;
+  display_color: string | null;
+  text_color: string | null;
+  logo_url: string | null;
+  fandom_name: string | null;
+  creator_username: string;
+  creator_avatar_url: string | null;
+  creator_avatar_bg: string;
+  creator_avatar_text: string;
+}
