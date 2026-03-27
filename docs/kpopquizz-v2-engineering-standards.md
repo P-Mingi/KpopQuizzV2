@@ -1,4 +1,4 @@
-# KpopQuizz v2 — Engineering Standards & Build Instructions
+# KpopQuiz v2 — Engineering Standards & Build Instructions
 
 > **Read this BEFORE reading the spec. This document defines HOW you build.**
 > **The spec (kpopquizz-v2-spec-FINAL.md) defines WHAT you build.**

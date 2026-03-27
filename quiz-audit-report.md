@@ -1,4 +1,4 @@
-# KpopQuizz Content Audit Report
+# KpopQuiz Content Audit Report
 Generated: 2026-03-26
 
 ## Summary

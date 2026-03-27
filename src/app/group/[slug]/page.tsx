@@ -26,13 +26,13 @@ export async function generateMetadata({ params }: GroupPageProps): Promise<Meta
     title: `${group.name} Quizzes - Test Your Knowledge`,
     description,
     openGraph: {
-      title: `${group.name} Quizzes | KpopQuizz`,
+      title: `${group.name} Quizzes | KpopQuiz`,
       description,
       url: `/group/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${group.name} Quizzes | KpopQuizz`,
+      title: `${group.name} Quizzes | KpopQuiz`,
       description,
     },
     alternates: { canonical: `/group/${slug}` },

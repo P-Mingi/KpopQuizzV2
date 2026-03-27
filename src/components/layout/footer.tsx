@@ -28,7 +28,7 @@ export function Footer(): React.ReactElement {
         </div>
 
         <p className="text-xs text-txt-tertiary mt-4">
-          &copy; 2026 KpopQuizz
+          &copy; 2026 KpopQuiz
         </p>
       </div>
     </footer>

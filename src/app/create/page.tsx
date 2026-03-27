@@ -5,7 +5,7 @@ import { QuizCreator } from '@/components/quiz/quiz-creator';
 import { Spinner } from '@/components/ui/spinner';
 
 export const metadata = {
-  title: 'Create a Quiz | KpopQuizz',
+  title: 'Create a Quiz | KpopQuiz',
   description: 'Create a K-pop quiz in under 3 minutes and challenge your fandom.',
 };
 

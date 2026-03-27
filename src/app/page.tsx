@@ -10,16 +10,16 @@ import { SearchBar } from '@/components/home/search-bar';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'KpopQuizz - K-pop Quizzes Made by Fans',
+  title: 'KpopQuiz - K-pop Quizzes Made by Fans',
   description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
   openGraph: {
-    title: 'KpopQuizz - K-pop Quizzes Made by Fans',
+    title: 'KpopQuiz - K-pop Quizzes Made by Fans',
     description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
     url: '/',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KpopQuizz - K-pop Quizzes Made by Fans',
+    title: 'KpopQuiz - K-pop Quizzes Made by Fans',
     description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups.',
   },
   alternates: { canonical: '/' },
@@ -52,7 +52,7 @@ export default async function HomePage(): Promise<React.ReactElement> {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'KpopQuizz',
+            name: 'KpopQuiz',
             url: 'https://kpopquiz.org',
             description: 'K-pop quizzes made by fans, played by thousands.',
             potentialAction: {

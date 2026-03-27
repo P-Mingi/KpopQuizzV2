@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Most Liked K-pop Quizzes',
   description: 'The most loved K-pop quizzes as voted by fans. Play fan-favorite quizzes about BTS, BLACKPINK, Stray Kids, and more.',
   openGraph: {
-    title: 'Most Liked K-pop Quizzes | KpopQuizz',
+    title: 'Most Liked K-pop Quizzes | KpopQuiz',
     description: 'The most loved K-pop quizzes as voted by fans.',
     url: '/most-liked',
   },

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Admin | KpopQuizz',
+  title: 'Admin | KpopQuiz',
   robots: { index: false },
 };
 

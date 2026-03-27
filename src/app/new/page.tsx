@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'New K-pop Quizzes',
   description: 'The newest K-pop quizzes just published by fans. Fresh trivia about your favorite groups - be the first to play.',
   openGraph: {
-    title: 'New K-pop Quizzes | KpopQuizz',
+    title: 'New K-pop Quizzes | KpopQuiz',
     description: 'The newest K-pop quizzes just published by fans.',
     url: '/new',
   },

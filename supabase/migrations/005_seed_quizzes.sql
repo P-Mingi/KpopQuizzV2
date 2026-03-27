@@ -19,10 +19,10 @@ INSERT INTO public.profiles (id, username, display_name, avatar_bg, avatar_text,
 VALUES (
   '00000000-0000-0000-0000-000000000001',
   'kpopquizz',
-  'KpopQuizz Team',
+  'KpopQuiz Team',
   '#EEEDFE',
   '#3C3489',
-  'Official quizzes by the KpopQuizz team'
+  'Official quizzes by the KpopQuiz team'
 );
 
 -- ============================================

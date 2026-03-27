@@ -1,4 +1,4 @@
--- KpopQuizz Content Audit - Fix Commands
+-- KpopQuiz Content Audit - Fix Commands
 -- Generated: 2026-03-26
 -- Review each fix carefully before running.
 -- These are READ-ONLY suggestions - run manually after review.

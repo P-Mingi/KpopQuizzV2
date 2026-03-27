@@ -56,6 +56,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
           alt={`${groupName} logo`}
           width={size}
           height={size}
+          sizes={`${size}px`}
           className="object-cover w-full h-full"
         />
       </div>

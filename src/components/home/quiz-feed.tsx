@@ -129,10 +129,11 @@ export function QuizFeed({ initialQuizzes, groups }: QuizFeedProps): React.React
 
           {!loading && quizzes.length > 0 && (
             <div className="text-center mt-4 mb-2">
-              <Link href={tabToPath(activeTab)}>
-                <button className="px-6 py-2.5 rounded-full border border-border-light text-sm font-medium hover:border-border-medium transition-colors cursor-pointer">
-                  See all {tabToLabel(activeTab)} quizzes
-                </button>
+              <Link
+                href={tabToPath(activeTab)}
+                className="inline-block px-6 py-2.5 rounded-full border border-border-light text-sm font-medium hover:border-border-medium transition-colors"
+              >
+                See all {tabToLabel(activeTab)} quizzes
               </Link>
             </div>
           )}

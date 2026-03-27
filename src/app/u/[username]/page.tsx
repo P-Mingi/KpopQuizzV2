@@ -25,14 +25,14 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   if (!profile) return { title: 'User Not Found' };
 
   const displayName = profile.display_name ?? profile.username;
-  const description = `${displayName}'s K-pop quizzes on KpopQuizz. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;
+  const description = `${displayName}'s K-pop quizzes on KpopQuiz. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;
 
   return {
     title: `${displayName}'s K-pop Quizzes`,
     description,
     robots: profile.total_quizzes_created < 3 ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: `${displayName}'s K-pop Quizzes | KpopQuizz`,
+      title: `${displayName}'s K-pop Quizzes | KpopQuiz`,
       description,
       url: `/u/${username}`,
       type: 'profile',

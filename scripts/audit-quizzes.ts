@@ -44,7 +44,7 @@ async function main() {
 
   console.log(`Found ${quizzes.length} published quizzes.\n`);
 
-  let output = `# KpopQuizz Content Audit\n`;
+  let output = `# KpopQuiz Content Audit\n`;
   output += `# Generated: ${new Date().toISOString()}\n`;
   output += `# Total published quizzes: ${quizzes.length}\n\n`;
 

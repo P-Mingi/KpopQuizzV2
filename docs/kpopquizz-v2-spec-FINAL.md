@@ -1,4 +1,4 @@
-# KpopQuizz v2 — Complete Build Specification (FINAL)
+# KpopQuiz v2 — Complete Build Specification (FINAL)
 
 > **This document is the SINGLE SOURCE OF TRUTH.**
 > Follow every section precisely. Do not improvise. Do not add features not listed here.
@@ -80,7 +80,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJxxxxx
 
 # App
 NEXT_PUBLIC_SITE_URL=https://kpopquizz.com
-NEXT_PUBLIC_SITE_NAME=KpopQuizz
+NEXT_PUBLIC_SITE_NAME=KpopQuiz
 
 # OAuth (configured in Supabase dashboard, not here)
 # Google: Client ID + Secret → set in Supabase Auth settings
@@ -757,7 +757,7 @@ Made with ♥ by fans, for fans.
 
 [About]  [Contact]  [Terms]  [Privacy]
 
-© 2026 KpopQuizz
+© 2026 KpopQuiz
 ```
 
 - Logo line: `text-sm font-medium --text-primary`
@@ -897,7 +897,7 @@ LIMIT 5;
 - Button: "Create a quiz" `mt-4 px-6 py-3 rounded-full bg-[--text-primary] text-white text-sm font-medium`. Links to `/create`.
 
 **SEO**:
-- `<title>`: "KpopQuizz — K-pop Quizzes Made by Fans"
+- `<title>`: "KpopQuiz — K-pop Quizzes Made by Fans"
 - `<meta name="description">`: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, and 30+ groups. Made by real fans, played by millions."
 - `<h1>`: visually hidden (sr-only), text: "K-pop quizzes made by fans"
 - Schema: `WebSite` with `SearchAction` (even though we don't have search yet — prepares for future)
@@ -1029,10 +1029,10 @@ The page has 3 states, rendered as a single client component that transitions be
 **Ad placeholder** (below everything): same pattern as intro ad placeholder.
 
 **SEO (server-rendered)**:
-- `<title>`: "{quiz_title} | KpopQuizz"
+- `<title>`: "{quiz_title} | KpopQuiz"
 - `<meta name="description">`: "Play this {group_name} quiz by {username}. {play_count} fans have played — average score is {avg_score}%. Can you do better?"
 - `<meta property="og:image">`: `https://kpopquizz.com/api/og/{slug}`
-- `<meta property="og:title">`: "{quiz_title} | KpopQuizz"
+- `<meta property="og:title">`: "{quiz_title} | KpopQuiz"
 - `<meta property="og:description">`: same as meta description
 - `<meta name="twitter:card">`: "summary_large_image"
 - `<h1>`: quiz title (visible in intro screen)
@@ -1261,7 +1261,7 @@ The page has 3 states, rendered as a single client component that transitions be
 - Button: "Create a {group_name} quiz" → `/create?group={slug}`
 
 **SEO**:
-- `<title>`: "{Group Name} Quizzes — Test Your Knowledge | KpopQuizz"
+- `<title>`: "{Group Name} Quizzes — Test Your Knowledge | KpopQuiz"
 - `<meta name="description">`: "Play {quiz_count}+ {group_name} quizzes created by real fans. Test how well you really know {group_name}."
 - `<h1>`: "{Group Name} quizzes"
 - Schema: `CollectionPage`
@@ -1295,7 +1295,7 @@ The page has 3 states, rendered as a single client component that transitions be
 **404**: If username doesn't exist, show the 404 page (see §15).
 
 **SEO**:
-- `<title>`: "{display_name}'s K-pop Quizzes | KpopQuizz"
+- `<title>`: "{display_name}'s K-pop Quizzes | KpopQuiz"
 - Add `<meta name="robots" content="noindex">` if `total_quizzes_created < 3`
 
 ---
@@ -1365,13 +1365,13 @@ This page is shown ONCE after first OAuth login, when the user has no profile ro
 
 **Route**: `src/app/trending/page.tsx`
 Same as homepage feed with "Trending" tab permanently active. No hero section, no creators leaderboard, no CTA.
-- `<title>`: "Trending K-pop Quizzes | KpopQuizz"
+- `<title>`: "Trending K-pop Quizzes | KpopQuiz"
 
 ### 8J. NEW PAGE ( /new )
 
 **Route**: `src/app/new/page.tsx`
 Same as homepage feed with "New" tab permanently active.
-- `<title>`: "New K-pop Quizzes | KpopQuizz"
+- `<title>`: "New K-pop Quizzes | KpopQuiz"
 
 ---
 

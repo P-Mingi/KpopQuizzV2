@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
     title: quiz.title,
     description,
     openGraph: {
-      title: `${quiz.title} | KpopQuizz`,
+      title: `${quiz.title} | KpopQuiz`,
       description,
       url: `/q/${slug}`,
       type: 'article',
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${quiz.title} | KpopQuizz`,
+      title: `${quiz.title} | KpopQuiz`,
       description,
       images: [ogImageUrl],
     },
@@ -95,7 +95,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
             '@context': 'https://schema.org',
             '@type': 'Quiz',
             name: quiz.title,
-            description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuizz`,
+            description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
             educationalAlignment: {
               '@type': 'AlignmentObject',
               alignmentType: 'educationalSubject',
