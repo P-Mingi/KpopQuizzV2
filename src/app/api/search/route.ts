@@ -22,7 +22,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         .from('quizzes')
         .select(`
           id, title, slug, play_count,
-          groups!inner (name, display_color, text_color)
+          groups!inner (name, slug, display_color, text_color, logo_url)
         `)
         .eq('status', 'published')
         .ilike('title', pattern)
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       // Groups by name
       supabase
         .from('groups')
-        .select('id, name, slug, display_color, text_color, quiz_count')
+        .select('id, name, slug, display_color, text_color, logo_url, quiz_count')
         .ilike('name', pattern)
         .order('quiz_count', { ascending: false })
         .limit(3),
@@ -53,15 +53,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       title: string;
       slug: string;
       play_count: number;
-      groups: { name: string; display_color: string; text_color: string };
+      groups: { name: string; slug: string; display_color: string; text_color: string; logo_url: string | null };
     }>).map((q) => ({
       id: q.id,
       title: q.title,
       slug: q.slug,
       play_count: q.play_count,
       group_name: q.groups.name,
+      group_slug: q.groups.slug,
       display_color: q.groups.display_color,
       text_color: q.groups.text_color,
+      group_logo_url: q.groups.logo_url,
     }));
 
     return NextResponse.json({
