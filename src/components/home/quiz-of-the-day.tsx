@@ -17,33 +17,44 @@ export function QuizOfTheDay({ quiz }: QuizOfTheDayProps): React.ReactElement {
     : null;
 
   return (
-    <Link href={`/q/${quiz.slug}`} className="block bg-surface-primary rounded-lg border border-border-light p-5 mb-6 hover:border-border-medium transition-colors">
-      <span className="inline-block text-xs font-medium px-2.5 py-0.5 rounded-full bg-accent-pink-light text-accent-pink-dark mb-3">
-        quiz of the day
-      </span>
+    <Link href={`/q/${quiz.slug}`} className="block mb-6">
+      <div className="rounded-2xl overflow-hidden border border-[#F4C0D1] bg-surface-primary hover:border-[#ED93B1] transition-colors">
+        <div className="h-[3px] bg-[#ED93B1]" />
 
-      <div className="flex items-center gap-2 mb-2.5">
-        <GroupPill name={quiz.group_name} displayColor={quiz.display_color} textColor={quiz.text_color} />
-        <DifficultyBadge difficulty={quiz.difficulty} />
-        <span className="text-xs text-txt-secondary ml-auto">{formatCount(quiz.play_count)} plays</span>
-      </div>
+        <div className="p-5">
+          <div className="flex items-center gap-1.5 mb-3">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="#ED93B1" aria-hidden="true">
+              <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
+            </svg>
+            <span className="text-[11px] font-medium text-[#993556]">
+              Quiz of the day
+            </span>
+          </div>
 
-      <p className="text-lg font-medium leading-snug mb-2 text-txt-primary">{quiz.title}</p>
+          <div className="flex items-center gap-2 mb-2.5">
+            <GroupPill name={quiz.group_name} displayColor={quiz.display_color} textColor={quiz.text_color} />
+            <DifficultyBadge difficulty={quiz.difficulty} />
+            <span className="text-xs text-txt-secondary ml-auto">{formatCount(quiz.play_count)} plays</span>
+          </div>
 
-      <div className="flex items-center gap-2">
-        <UserAvatar
-          username={quiz.creator_username}
-          avatarUrl={quiz.creator_avatar_url}
-          bgColor={quiz.creator_avatar_bg}
-          textColor={quiz.creator_avatar_text}
-          size={22}
-        />
-        <span className="text-xs text-txt-secondary">
-          by <span className="font-medium text-txt-primary">{quiz.creator_username}</span>
-        </span>
-        <span className="text-xs text-txt-secondary">
-          · avg score {avgPct !== null ? `${avgPct}%` : <span className="text-txt-tertiary">new</span>}
-        </span>
+          <p className="text-lg font-medium leading-snug mb-2 text-txt-primary">{quiz.title}</p>
+
+          <div className="flex items-center gap-2">
+            <UserAvatar
+              username={quiz.creator_username}
+              avatarUrl={quiz.creator_avatar_url}
+              bgColor={quiz.creator_avatar_bg}
+              textColor={quiz.creator_avatar_text}
+              size={22}
+            />
+            <span className="text-xs text-txt-secondary">
+              by <span className="font-medium text-txt-primary">{quiz.creator_username}</span>
+            </span>
+            <span className="text-xs text-txt-secondary">
+              · avg score {avgPct !== null ? `${avgPct}%` : <span className="text-txt-tertiary">new</span>}
+            </span>
+          </div>
+        </div>
       </div>
     </Link>
   );
