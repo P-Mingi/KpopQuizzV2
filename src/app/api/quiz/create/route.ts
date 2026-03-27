@@ -105,6 +105,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     errors.push('Invalid quiz type');
   }
 
+  // Difficulty
+  const validDifficulties = ['easy', 'medium', 'hard'];
+  if (input.difficulty !== undefined && (typeof input.difficulty !== 'string' || !validDifficulties.includes(input.difficulty))) {
+    errors.push('Invalid difficulty');
+  }
+
   // Group
   if (input.group_id === undefined && (typeof input.group_name !== 'string' || input.group_name.trim().length < 2)) {
     errors.push('A group must be selected or typed');
@@ -146,12 +152,38 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       groupId = existingGroup.id;
     } else {
       // Create custom group
-      const groupSlug = groupName
+      let groupSlug = groupName
         .toLowerCase()
+        .replace(/[()]/g, '')
         .replace(/[^a-z0-9\s-]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
         .slice(0, 60);
+
+      // Ensure slug uniqueness
+      const { data: slugCheck } = await supabase
+        .from('groups')
+        .select('id')
+        .eq('slug', groupSlug)
+        .maybeSingle();
+
+      if (slugCheck) {
+        let suffix = 2;
+        while (true) {
+          const candidate = `${groupSlug}-${suffix}`;
+          const { data: check } = await supabase
+            .from('groups')
+            .select('id')
+            .eq('slug', candidate)
+            .maybeSingle();
+          if (!check) {
+            groupSlug = candidate;
+            break;
+          }
+          suffix++;
+        }
+      }
 
       const { data: newGroup, error: groupError } = await supabase
         .from('groups')
@@ -162,6 +194,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           display_color: '#F1EFE8',
           text_color: '#444441',
           is_custom: true,
+          needs_review: true,
+          created_by_user: true,
         })
         .select('id')
         .single();
@@ -213,6 +247,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       title,
       slug,
       quiz_type: input.quiz_type as string,
+      difficulty: (input.difficulty as string) || 'medium',
       questions: input.questions,
       settings: input.settings,
       question_count: (input.questions as unknown[]).length,

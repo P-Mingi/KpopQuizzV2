@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useToast } from '@/components/ui/toast-provider';
 
-import type { QuizType } from '@/lib/db/types';
+import type { QuizType, Difficulty } from '@/lib/db/types';
 
 // ============================================
 // Types
@@ -93,6 +93,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   // Step 2
   const [title, setTitle] = useState('');
   const [quizType, setQuizType] = useState<QuizType>('multiple_choice');
+  const [difficulty, setDifficulty] = useState<Difficulty>('medium');
 
   // Step 3
   const [savedQuestions, setSavedQuestions] = useState<SavedQuestion[]>([]);
@@ -141,10 +142,11 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           }
         }
 
-        // Pre-fill step 2: title and type
+        // Pre-fill step 2: title, type, and difficulty
         setTitle(data.title);
         setQuizType(data.quiz_type);
         setPreviousQuizType(data.quiz_type);
+        if (data.difficulty) setDifficulty(data.difficulty);
 
         // Pre-fill step 3: questions
         // Convert true_false questions back to editor format (boolean correct -> index)
@@ -286,6 +288,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
       group_name: selectedGroupId ? undefined : customGroupName.trim(),
       title: title.trim(),
       quiz_type: quizType,
+      difficulty,
       questions: quizType === 'true_false'
         ? savedQuestions.map((q) => ({ ...q, correct: q.correct === 0 }))
         : savedQuestions,
@@ -445,6 +448,16 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           className={`${INPUT_CLASSES} mt-3`}
         />
 
+        {customGroupName.trim().length >= 2 && !selectedGroupId && !groups.some((g) => g.name.toLowerCase() === customGroupName.trim().toLowerCase()) && (
+          <p className="text-xs text-txt-secondary mt-2 flex items-start gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 mt-0.5">
+              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M8 7v4M8 5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            &quot;{customGroupName.trim()}&quot; is not in our database yet. It will be added automatically when you publish your quiz.
+          </p>
+        )}
+
         <button
           onClick={() => setStep(2)}
           disabled={!canContinueStep1}
@@ -505,6 +518,31 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="mt-5">
+          <p className="text-sm text-txt-secondary mb-2">Difficulty</p>
+          <div className="flex gap-2">
+            {(['easy', 'medium', 'hard'] as const).map(level => (
+              <button
+                key={level}
+                type="button"
+                onClick={() => setDifficulty(level)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  difficulty === level
+                    ? 'bg-txt-primary text-white'
+                    : 'border border-border-light text-txt-secondary hover:border-border-medium'
+                }`}
+              >
+                {level.charAt(0).toUpperCase() + level.slice(1)}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-txt-tertiary mt-1.5">
+            {difficulty === 'easy' && 'Most fans should be able to pass this'}
+            {difficulty === 'medium' && 'Requires solid knowledge of the group'}
+            {difficulty === 'hard' && 'Only hardcore fans will pass'}
+          </p>
         </div>
 
         <div className="flex gap-2 mt-6">
@@ -778,7 +816,9 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               {customGroupName}
             </span>
           )}
-          <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-difficulty-medium-bg text-difficulty-medium-text">Medium</span>
+          <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-difficulty-${difficulty}-bg text-difficulty-${difficulty}-text`}>
+            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+          </span>
           <span className="text-xs text-txt-secondary ml-auto">{savedQuestions.length} questions</span>
         </div>
         <p className="text-base font-medium leading-snug mb-2 text-txt-primary">{title}</p>

@@ -28,7 +28,10 @@ export interface Group {
   logo_url: string | null;
   quiz_count: number;
   total_plays: number;
+  seo_intro: string | null;
   is_custom: boolean;
+  needs_review: boolean;
+  created_by_user: boolean;
   created_at: string;
 }
 

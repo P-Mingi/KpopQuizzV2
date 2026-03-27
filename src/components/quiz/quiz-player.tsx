@@ -447,7 +447,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <div className="flex justify-between items-start">
             <div>
               <div className="flex items-center gap-2">
-                <Link href={`/group/${quiz.groupSlug}`}>
+                <Link href={`/${quiz.groupSlug}-quiz`}>
                   <GroupPill name={quiz.groupName} displayColor={quiz.displayColor} textColor={quiz.textColor} />
                 </Link>
                 <DifficultyBadge difficulty={quiz.difficulty} />

@@ -99,6 +99,20 @@ interface QuizItem {
   creator_username: string;
 }
 
+interface PendingGroup {
+  id: number;
+  name: string;
+  slug: string;
+  fandom_name: string;
+  display_color: string;
+  text_color: string;
+  logo_url: string | null;
+  quiz_count: number;
+  total_plays: number;
+  created_at: string;
+  actual_quiz_count: number;
+}
+
 interface SearchResult {
   id: string;
   title: string;
@@ -201,6 +215,20 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   const allUsersSearchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { showToast } = useToast();
+
+  // Pending groups state
+  const [pendingGroups, setPendingGroups] = useState<PendingGroup[]>([]);
+  const [pendingGroupsLoaded, setPendingGroupsLoaded] = useState(false);
+  const [editingGroupId, setEditingGroupId] = useState<number | null>(null);
+  const [editGroupName, setEditGroupName] = useState('');
+  const [editGroupSlug, setEditGroupSlug] = useState('');
+  const [editGroupFandom, setEditGroupFandom] = useState('');
+  const [editGroupLogo, setEditGroupLogo] = useState('');
+  const [editGroupDisplayColor, setEditGroupDisplayColor] = useState('');
+  const [editGroupTextColor, setEditGroupTextColor] = useState('');
+  const [mergeGroupId, setMergeGroupId] = useState<number | null>(null);
+  const [mergeTargetId, setMergeTargetId] = useState<string>('');
+  const [allGroupsForMerge, setAllGroupsForMerge] = useState<{ id: number; name: string }[]>([]);
 
   // Quizzes browser state
   const [quizzes, setQuizzes] = useState(initialData.all_quizzes);
@@ -622,6 +650,15 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     }));
   }
 
+  async function handleQuizDifficulty(quizId: string, difficulty: string) {
+    await fetch(`/api/admin/quiz/${quizId}/difficulty`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ difficulty }),
+    });
+    setQuizzes(prev => prev.map(q => q.id === quizId ? { ...q, difficulty } : q));
+  }
+
   async function handleQuizSetQotd(quizId: string) {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -639,6 +676,92 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     // For now, load more isn't implemented via the stats endpoint.
     // The all_quizzes section is client-side only for the initial 20.
     setHasMoreQuizzes(false);
+  }
+
+  // Fetch pending groups on mount
+  useEffect(() => {
+    async function fetchPendingGroups() {
+      try {
+        const res = await fetch('/api/admin/pending-groups');
+        if (res.ok) {
+          const json = await res.json();
+          setPendingGroups(json.groups ?? []);
+          setAllGroupsForMerge(json.all_groups ?? []);
+        }
+      } catch {
+        // Silently fail
+      } finally {
+        setPendingGroupsLoaded(true);
+      }
+    }
+    fetchPendingGroups();
+  }, []);
+
+  async function handleApproveGroup(groupId: number, updates?: Record<string, string>) {
+    try {
+      const res = await fetch(`/api/admin/group/${groupId}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates ?? {}),
+      });
+      if (res.ok) {
+        setPendingGroups(prev => prev.filter(g => g.id !== groupId));
+        setEditingGroupId(null);
+        showToast('Group approved', 'success');
+      } else {
+        showToast('Failed to approve group', 'error');
+      }
+    } catch {
+      showToast('Failed to approve group', 'error');
+    }
+  }
+
+  async function handleMergeGroup(sourceId: number, targetId: number) {
+    try {
+      const res = await fetch(`/api/admin/group/${sourceId}/merge`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target_group_id: targetId }),
+      });
+      if (res.ok) {
+        setPendingGroups(prev => prev.filter(g => g.id !== sourceId));
+        setMergeGroupId(null);
+        setMergeTargetId('');
+        showToast('Group merged', 'success');
+      } else {
+        const json = await res.json();
+        showToast(json.error || 'Failed to merge group', 'error');
+      }
+    } catch {
+      showToast('Failed to merge group', 'error');
+    }
+  }
+
+  async function handleDeleteGroup(groupId: number) {
+    if (!confirm('Delete this group? This cannot be undone.')) return;
+    try {
+      const res = await fetch(`/api/admin/group/${groupId}`, { method: 'DELETE' });
+      if (res.ok) {
+        setPendingGroups(prev => prev.filter(g => g.id !== groupId));
+        showToast('Group deleted', 'success');
+      } else {
+        const json = await res.json();
+        showToast(json.error || 'Failed to delete group', 'error');
+      }
+    } catch {
+      showToast('Failed to delete group', 'error');
+    }
+  }
+
+  function startEditGroup(g: PendingGroup) {
+    setEditingGroupId(g.id);
+    setEditGroupName(g.name);
+    setEditGroupSlug(g.slug);
+    setEditGroupFandom(g.fandom_name);
+    setEditGroupLogo(g.logo_url ?? '');
+    setEditGroupDisplayColor(g.display_color);
+    setEditGroupTextColor(g.text_color);
+    setMergeGroupId(null);
   }
 
   // Filter and sort quizzes
@@ -832,6 +955,202 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           ))}
         </div>
       </div>
+
+      {/* Pending Groups */}
+      {pendingGroupsLoaded && pendingGroups.length > 0 && (
+        <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-sm font-medium text-txt-primary">Pending groups</h2>
+            <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-timeout-bg text-timeout-text">
+              {pendingGroups.length} pending
+            </span>
+          </div>
+          <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+            {pendingGroups.map((g) => (
+              <div key={g.id} className="py-3">
+                <div className="flex items-center justify-between">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="inline-flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold flex-shrink-0"
+                        style={{ backgroundColor: g.display_color, color: g.text_color }}
+                      >
+                        {g.name.slice(0, 3).toUpperCase()}
+                      </span>
+                      <span className="text-[13px] font-medium text-txt-primary">{g.name}</span>
+                    </div>
+                    <p className="text-[11px] text-txt-secondary mt-0.5 ml-9">
+                      {g.actual_quiz_count} quiz{g.actual_quiz_count !== 1 ? 'zes' : ''} &middot; {g.total_plays} plays &middot; {timeAgo(g.created_at)}
+                    </p>
+                  </div>
+                  <div className="flex gap-1.5 flex-shrink-0 ml-3">
+                    <button
+                      onClick={() => startEditGroup(g)}
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:bg-surface-secondary transition-colors"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleApproveGroup(g.id)}
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-correct-border text-correct-text hover:bg-correct-bg transition-colors"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => { setMergeGroupId(g.id); setEditingGroupId(null); setMergeTargetId(''); }}
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-info-text text-info-text hover:opacity-80 transition-opacity"
+                    >
+                      Merge
+                    </button>
+                    <button
+                      onClick={() => handleDeleteGroup(g.id)}
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-wrong-border text-wrong-text hover:bg-wrong-bg transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+
+                {/* Inline edit form */}
+                {editingGroupId === g.id && (
+                  <div className="mt-3 ml-9 bg-surface-secondary rounded-md p-3 space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Name</label>
+                        <input
+                          type="text"
+                          value={editGroupName}
+                          onChange={(e) => setEditGroupName(e.target.value)}
+                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Slug</label>
+                        <input
+                          type="text"
+                          value={editGroupSlug}
+                          onChange={(e) => setEditGroupSlug(e.target.value)}
+                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Fandom name</label>
+                        <input
+                          type="text"
+                          value={editGroupFandom}
+                          onChange={(e) => setEditGroupFandom(e.target.value)}
+                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Logo URL</label>
+                        <input
+                          type="text"
+                          value={editGroupLogo}
+                          onChange={(e) => setEditGroupLogo(e.target.value)}
+                          placeholder="https://..."
+                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Display color</label>
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="color"
+                            value={editGroupDisplayColor}
+                            onChange={(e) => setEditGroupDisplayColor(e.target.value)}
+                            className="w-6 h-6 rounded border border-border-light cursor-pointer"
+                          />
+                          <input
+                            type="text"
+                            value={editGroupDisplayColor}
+                            onChange={(e) => setEditGroupDisplayColor(e.target.value)}
+                            className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-txt-secondary mb-0.5">Text color</label>
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="color"
+                            value={editGroupTextColor}
+                            onChange={(e) => setEditGroupTextColor(e.target.value)}
+                            className="w-6 h-6 rounded border border-border-light cursor-pointer"
+                          />
+                          <input
+                            type="text"
+                            value={editGroupTextColor}
+                            onChange={(e) => setEditGroupTextColor(e.target.value)}
+                            className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <button
+                        onClick={() => setEditingGroupId(null)}
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:bg-surface-primary transition-colors"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => handleApproveGroup(g.id, {
+                          name: editGroupName,
+                          slug: editGroupSlug,
+                          fandom_name: editGroupFandom,
+                          logo_url: editGroupLogo || '',
+                          display_color: editGroupDisplayColor,
+                          text_color: editGroupTextColor,
+                        })}
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-correct-border text-correct-text bg-correct-bg hover:opacity-90 transition-opacity"
+                      >
+                        Save & Approve
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Merge dropdown */}
+                {mergeGroupId === g.id && (
+                  <div className="mt-3 ml-9 bg-surface-secondary rounded-md p-3">
+                    <p className="text-[11px] text-txt-secondary mb-2">Merge into existing group (moves all quizzes, then deletes &quot;{g.name}&quot;)</p>
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={mergeTargetId}
+                        onChange={(e) => setMergeTargetId(e.target.value)}
+                        className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                      >
+                        <option value="">Select target group...</option>
+                        {allGroupsForMerge.filter(mg => mg.id !== g.id).map(mg => (
+                          <option key={mg.id} value={mg.id}>{mg.name}</option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={() => { setMergeGroupId(null); setMergeTargetId(''); }}
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => mergeTargetId && handleMergeGroup(g.id, parseInt(mergeTargetId, 10))}
+                        disabled={!mergeTargetId}
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-info-text text-info-text disabled:opacity-40"
+                      >
+                        Merge
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quiz of the Day Manager */}
       <div className="bg-surface-primary border border-border-light rounded-lg p-4">
@@ -1156,6 +1475,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                 <th className="text-right py-2 font-medium">Plays</th>
                 <th className="text-right py-2 font-medium">Avg score</th>
                 <th className="text-right py-2 font-medium">Reports</th>
+                <th className="text-left py-2 font-medium">Difficulty</th>
                 <th className="text-left py-2 font-medium">Status</th>
                 <th className="text-right py-2 font-medium">Actions</th>
               </tr>
@@ -1173,6 +1493,23 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                   <td className="py-2.5 text-right text-txt-primary">{q.play_count.toLocaleString('en-US')}</td>
                   <td className="py-2.5 text-right text-txt-primary">{q.avg_score}%</td>
                   <td className="py-2.5 text-right text-txt-primary">{q.report_count}</td>
+                  <td className="py-2.5">
+                    <div className="flex gap-0.5">
+                      {(['easy', 'medium', 'hard'] as const).map(level => (
+                        <button
+                          key={level}
+                          onClick={() => handleQuizDifficulty(q.id, level)}
+                          className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
+                            q.difficulty === level
+                              ? `bg-difficulty-${level}-bg text-difficulty-${level}-text`
+                              : 'text-txt-tertiary hover:text-txt-secondary'
+                          }`}
+                        >
+                          {level.charAt(0).toUpperCase() + level.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </td>
                   <td className="py-2.5">
                     <StatusBadge status={q.status} />
                   </td>

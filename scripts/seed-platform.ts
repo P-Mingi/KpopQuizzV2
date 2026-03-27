@@ -836,8 +836,6 @@ async function main() {
       total_score_sum: totalScoreSum,
     }).eq('id', qr.id);
 
-    // Recalculate difficulty
-    await supabase.rpc('recalculate_difficulty', { quiz_uuid: qr.id });
   }
 
   // Update group stats

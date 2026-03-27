@@ -220,7 +220,7 @@ export function SearchBar(): React.ReactElement {
                   {results!.groups.map((g) => (
                     <Link
                       key={g.id}
-                      href={`/group/${g.slug}`}
+                      href={`/${g.slug}-quiz`}
                       onClick={() => setShowDropdown(false)}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors"
                     >

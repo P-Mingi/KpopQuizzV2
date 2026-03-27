@@ -120,6 +120,11 @@ export async function PUT(
     errors.push('Invalid quiz type');
   }
 
+  const validDifficulties = ['easy', 'medium', 'hard'];
+  if (input.difficulty !== undefined && (typeof input.difficulty !== 'string' || !validDifficulties.includes(input.difficulty))) {
+    errors.push('Invalid difficulty');
+  }
+
   if (typeof input.group_id !== 'number') {
     errors.push('A group must be selected');
   }
@@ -146,6 +151,7 @@ export async function PUT(
       group_id: input.group_id as number,
       title: (input.title as string).trim(),
       quiz_type: input.quiz_type as string,
+      difficulty: (input.difficulty as string) || undefined,
       questions: input.questions,
       settings: input.settings,
       updated_at: new Date().toISOString(),
@@ -156,9 +162,6 @@ export async function PUT(
     console.error('Failed to update quiz:', updateError);
     return NextResponse.json({ error: 'Failed to update quiz' }, { status: 500 });
   }
-
-  // Recalculate difficulty since questions may have changed
-  await supabase.rpc('recalculate_difficulty', { quiz_uuid: id });
 
   return NextResponse.json({ success: true, slug: existing.slug });
 }

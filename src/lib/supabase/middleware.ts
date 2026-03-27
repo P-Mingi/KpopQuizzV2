@@ -69,7 +69,9 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
   }
 
   // Redirect old/unknown paths to homepage (preserves link equity)
-  const isKnownRoute = pathname === '/' || KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r));
+  const isKnownRoute = pathname === '/'
+    || KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r))
+    || pathname.endsWith('-quiz'); // /bts-quiz, /blackpink-quiz, etc.
   if (!isKnownRoute) {
     return NextResponse.redirect(new URL('/', request.url), 301);
   }

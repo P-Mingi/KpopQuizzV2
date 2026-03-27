@@ -18,7 +18,7 @@ export async function GET(
 
   const { data: quiz, error } = await supabase
     .from('quizzes')
-    .select('id, title, slug, quiz_type, questions, settings, status, creator_id, group_id, groups!inner(id, name, slug, display_color, text_color)')
+    .select('id, title, slug, quiz_type, difficulty, questions, settings, status, creator_id, group_id, groups!inner(id, name, slug, display_color, text_color)')
     .eq('id', id)
     .single();
 
@@ -46,6 +46,7 @@ export async function GET(
     title: quiz.title,
     slug: quiz.slug,
     quiz_type: quiz.quiz_type,
+    difficulty: quiz.difficulty,
     questions: quiz.questions,
     settings: quiz.settings,
     group: group,

@@ -101,7 +101,7 @@ export function QuizFeed({ initialQuizzes, groups }: QuizFeedProps): React.React
           {groups.map((g) => (
             <Link
               key={g.id}
-              href={`/group/${g.slug}`}
+              href={`/${g.slug}-quiz`}
               className="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:opacity-80"
               style={{ backgroundColor: g.display_color, color: g.text_color }}
             >

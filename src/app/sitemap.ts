@@ -14,8 +14,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .order('updated_at', { ascending: false }),
     supabase
       .from('groups')
-      .select('slug')
-      .gt('quiz_count', 0),
+      .select('slug, quiz_count')
+      .gte('quiz_count', 3),
     supabase
       .from('profiles')
       .select('username, updated_at')
@@ -32,10 +32,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const groupPages: MetadataRoute.Sitemap = (groupsResult.data ?? []).map((g) => ({
-    url: `${siteUrl}/group/${g.slug}`,
+    url: `${siteUrl}/${g.slug}-quiz`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: 0.9,
   }));
 
   const quizPages: MetadataRoute.Sitemap = (quizzesResult.data ?? []).map((q) => ({
