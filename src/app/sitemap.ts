@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createServiceRoleClient();
   const siteUrl = 'https://kpopquiz.org';
 
-  const [quizzesResult, groupsResult, profilesResult] = await Promise.all([
+  const [quizzesResult, groupsResult, profilesResult, gamesResult] = await Promise.all([
     supabase
       .from('quizzes')
       .select('slug, updated_at')
@@ -20,6 +20,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .from('profiles')
       .select('username, updated_at')
       .gte('total_quizzes_created', 3),
+    supabase
+      .from('games')
+      .select('slug, updated_at')
+      .eq('status', 'published')
+      .order('updated_at', { ascending: false }),
   ]);
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -65,5 +70,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.4,
   }));
 
-  return [...staticPages, ...groupPages, ...quizPages, ...profilePages];
+  const gamePages: MetadataRoute.Sitemap = (gamesResult.data ?? []).map((g) => ({
+    url: `${siteUrl}/g/${g.slug}`,
+    lastModified: new Date(g.updated_at),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...groupPages, ...quizPages, ...gamePages, ...profilePages];
 }
