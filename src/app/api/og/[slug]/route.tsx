@@ -158,7 +158,7 @@ export async function GET(
 
         {/* Watermark */}
         <div style={{ fontSize: 16, color: '#9B9B9B', marginTop: 32 }}>
-          kpopquizz.com
+          kpopquiz.org
         </div>
       </div>
     ),

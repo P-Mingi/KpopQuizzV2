@@ -105,14 +105,14 @@ export default async function GroupPage({ params }: GroupPageProps): Promise<Rea
             '@type': 'CollectionPage',
             name: `${group.name} Quizzes`,
             description: `Play ${group.quiz_count}+ ${group.name} quizzes created by real fans.`,
-            url: `https://kpopquizz.com/group/${group.slug}`,
+            url: `https://kpopquiz.org/group/${group.slug}`,
             mainEntity: {
               '@type': 'ItemList',
               numberOfItems: group.quiz_count,
               itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
                 '@type': 'ListItem',
                 position: i + 1,
-                url: `https://kpopquizz.com/q/${q.slug}`,
+                url: `https://kpopquiz.org/q/${q.slug}`,
                 name: q.title,
               })),
             },

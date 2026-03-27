@@ -7,7 +7,7 @@ import { ToastProvider } from '@/components/ui/toast-provider';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kpopquizz.com'),
+  metadataBase: new URL('https://kpopquiz.org'),
   title: {
     default: 'KpopQuizz - K-pop Quizzes Made by Fans',
     template: '%s | KpopQuizz',

@@ -667,7 +667,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-lg font-medium text-txt-primary">Admin dashboard</h1>
-          <p className="text-sm text-txt-secondary">kpopquizz.com</p>
+          <p className="text-sm text-txt-secondary">kpopquiz.org</p>
         </div>
         <div className="flex items-center gap-3">
           {loading && <span className="text-xs text-txt-tertiary">Loading...</span>}

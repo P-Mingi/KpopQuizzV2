@@ -144,7 +144,7 @@ export function ResultCard({
         </div>
       </div>
 
-      <p className="text-xs text-txt-tertiary mt-4">kpopquizz.com</p>
+      <p className="text-xs text-txt-tertiary mt-4">kpopquiz.org</p>
     </div>
   );
 }

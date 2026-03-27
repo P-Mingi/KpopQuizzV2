@@ -53,13 +53,13 @@ export default async function HomePage(): Promise<React.ReactElement> {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'KpopQuizz',
-            url: 'https://kpopquizz.com',
+            url: 'https://kpopquiz.org',
             description: 'K-pop quizzes made by fans, played by thousands.',
             potentialAction: {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate: 'https://kpopquizz.com/search?q={search_term_string}',
+                urlTemplate: 'https://kpopquiz.org/search?q={search_term_string}',
               },
               'query-input': 'required name=search_term_string',
             },

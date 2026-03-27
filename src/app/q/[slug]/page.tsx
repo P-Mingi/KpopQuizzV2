@@ -104,7 +104,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
             author: {
               '@type': 'Person',
               name: quiz.creator_username,
-              url: `https://kpopquizz.com/u/${quiz.creator_username}`,
+              url: `https://kpopquiz.org/u/${quiz.creator_username}`,
             },
             dateCreated: quiz.created_at,
             dateModified: quiz.updated_at,

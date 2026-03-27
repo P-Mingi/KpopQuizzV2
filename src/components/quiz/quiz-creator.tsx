@@ -375,7 +375,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <p className="text-sm text-txt-secondary mt-1">Share it with your fandom and watch the plays roll in.</p>
 
         <div className="mt-6 bg-surface-secondary rounded-md px-4 py-3 flex items-center gap-2">
-          <p className="text-sm text-txt-secondary flex-1 truncate">kpopquizz.com/q/{published.slug}</p>
+          <p className="text-sm text-txt-secondary flex-1 truncate">kpopquiz.org/q/{published.slug}</p>
           <button
             onClick={() => handleCopyUrl(published.slug)}
             className="px-3 py-1.5 rounded-full border border-border-light bg-surface-primary text-xs font-medium cursor-pointer hover:border-border-medium transition-colors flex-shrink-0"

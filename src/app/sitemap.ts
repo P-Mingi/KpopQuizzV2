@@ -1,10 +1,10 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createServerClient();
-  const siteUrl = 'https://kpopquizz.com';
+  const supabase = createServiceRoleClient();
+  const siteUrl = 'https://kpopquiz.org';
 
   const [quizzesResult, groupsResult, profilesResult] = await Promise.all([
     supabase

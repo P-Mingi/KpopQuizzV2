@@ -205,7 +205,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
               mainEntity: {
                 '@type': 'Person',
                 name: displayName,
-                url: `https://kpopquizz.com/u/${profile.username}`,
+                url: `https://kpopquiz.org/u/${profile.username}`,
                 interactionStatistic: [
                   {
                     '@type': 'InteractionCounter',
