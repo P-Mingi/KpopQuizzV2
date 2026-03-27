@@ -30,7 +30,7 @@ export async function Navbar(): Promise<React.ReactElement> {
         {/* Right: nav links + create + profile */}
         <div className="flex items-center gap-3">
           <Link
-            href="/games"
+            href="/blind-test"
             className="text-sm text-txt-secondary hover:text-txt-primary transition-colors hidden sm:block"
           >
             Blind test

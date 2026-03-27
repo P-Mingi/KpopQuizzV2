@@ -9,25 +9,7 @@ import { shuffleChoices, scoreLabel, calculateAvgScore } from '@/lib/blind-test-
 
 import type { GameWithGroup, BlindTestContent, BlindTestSong } from '@/lib/db/types';
 
-declare global {
-  interface Window {
-    YT: {
-      Player: new (id: string, config: Record<string, unknown>) => YTPlayer;
-      PlayerState: { PLAYING: number; ENDED: number; PAUSED: number };
-    };
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
-
-interface YTPlayer {
-  loadVideoById: (config: { videoId: string; startSeconds: number; endSeconds: number }) => void;
-  cueVideoById: (config: { videoId: string; startSeconds: number; endSeconds: number }) => void;
-  playVideo: () => void;
-  pauseVideo: () => void;
-  getCurrentTime: () => number;
-  setSize: (width: number, height: number) => void;
-  destroy: () => void;
-}
+/* YouTube types are declared globally in src/components/blind-test/blind-test-player.tsx */
 
 type Phase = 'intro' | 'playing' | 'result';
 
@@ -55,7 +37,8 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
   const [skippedSongs, setSkippedSongs] = useState<string[]>([]);
   const [score, setScore] = useState(0);
 
-  const playerRef = useRef<YTPlayer | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const playerRef = useRef<any>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const answerStartRef = useRef<number>(0);
   const answeredRef = useRef(false);
