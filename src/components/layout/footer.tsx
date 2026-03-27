@@ -19,10 +19,10 @@ export function Footer(): React.ReactElement {
           <Link href="/most-liked" className="text-xs text-txt-secondary hover:text-txt-primary transition-colors">
             Most liked
           </Link>
-          <Link href="#" className="text-xs text-txt-secondary hover:text-txt-primary transition-colors">
+          <Link href="/terms" className="text-xs text-txt-secondary hover:text-txt-primary transition-colors">
             Terms
           </Link>
-          <Link href="#" className="text-xs text-txt-secondary hover:text-txt-primary transition-colors">
+          <Link href="/privacy" className="text-xs text-txt-secondary hover:text-txt-primary transition-colors">
             Privacy
           </Link>
         </div>

@@ -75,7 +75,7 @@ export default async function HomePage(): Promise<React.ReactElement> {
             className="bg-clip-text text-transparent"
             style={{ backgroundImage: 'linear-gradient(135deg, #ED93B1, #AFA9EC)' }}
           >
-            quizz
+            quiz
           </span>
         </p>
         <p className="mt-1 text-sm text-txt-secondary">

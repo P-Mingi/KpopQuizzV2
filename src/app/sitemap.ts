@@ -27,6 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/trending`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${siteUrl}/new`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${siteUrl}/most-liked`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
+    { url: `${siteUrl}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${siteUrl}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   const groupPages: MetadataRoute.Sitemap = (groupsResult.data ?? []).map((g) => ({

@@ -23,7 +23,7 @@ export async function Navbar(): Promise<React.ReactElement> {
       <nav className="flex items-center justify-between h-14 max-w-2xl mx-auto px-4">
         <Link href="/" className="text-lg font-medium">
           <span className="text-txt-primary">kpop</span>
-          <span className="text-accent-pink">quizz</span>
+          <span className="text-accent-pink">quiz</span>
         </Link>
 
         <div className="flex items-center gap-3">
