@@ -11,11 +11,18 @@ const nextConfig: NextConfig = {
       'red-velvet', 'le-sserafim', 'txt', 'shinee', 'got7', 'mamamoo',
       'nct', 'general-kpop',
     ];
-    return groupSlugs.map((slug) => ({
-      source: `/group/${slug}`,
-      destination: `/${slug}-quiz`,
-      permanent: true,
-    }));
+    return groupSlugs.flatMap((slug) => [
+      {
+        source: `/group/${slug}`,
+        destination: `/${slug}-quiz`,
+        permanent: true,
+      },
+      {
+        source: `/how-well-do-you-know-${slug}`,
+        destination: `/${slug}-quiz`,
+        permanent: true,
+      },
+    ]);
   },
   images: {
     formats: ['image/avif', 'image/webp'],

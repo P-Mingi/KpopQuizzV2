@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 import { getGroupBySlug } from '@/lib/db/queries/groups';
 import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
+import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
@@ -66,7 +68,13 @@ export default async function GroupQuizPage({ params }: GroupQuizPageProps): Pro
     notFound();
   }
 
-  const initialQuizzes = await getQuizzesByGroup(group.id, 'popular', 0, 10);
+  const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
+
+  const [initialQuizzes, relatedQuizzes] = await Promise.all([
+    getQuizzesByGroup(group.id, 'popular', 0, 10),
+    getRelatedQuizzes(relatedSlugs),
+  ]);
+
   const intro = group.seo_intro || generateDefaultIntro(group);
 
   return (
@@ -103,6 +111,49 @@ export default async function GroupQuizPage({ params }: GroupQuizPageProps): Pro
           Create a {group.name} quiz
         </Link>
       </div>
+
+      {relatedQuizzes.length > 0 && (
+        <section className="mt-12 pt-8 border-t border-[var(--border-light)]">
+          <h2 className="text-base font-medium text-[var(--text-primary)] mb-4">
+            Fans of {group.name} also play
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-3">
+            {relatedQuizzes.map(quiz => (
+              <Link
+                key={quiz.id}
+                href={`/q/${quiz.slug}`}
+                className="flex-1 border border-[var(--border-light)] rounded-lg p-3 hover:border-[var(--border-medium)] transition-colors"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  {quiz.group_logo_url && (
+                    <img src={quiz.group_logo_url} alt="" className="w-5 h-5 rounded object-contain" />
+                  )}
+                  <span className="text-xs font-medium" style={{ color: quiz.group_text_color }}>
+                    {quiz.group_name}
+                  </span>
+                </div>
+                <p className="text-sm font-medium text-[var(--text-primary)] truncate">
+                  {quiz.title}
+                </p>
+                <p className="text-[11px] text-[var(--text-tertiary)] mt-1">
+                  {formatCount(quiz.play_count)} plays · {quiz.difficulty}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="flex gap-2 mt-3">
+            {relatedSlugs.map(slug => (
+              <Link
+                key={slug}
+                href={`/${slug}-quiz`}
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              >
+                All {RELATED_GROUP_NAMES[slug]} quizzes &rarr;
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <script
         type="application/ld+json"

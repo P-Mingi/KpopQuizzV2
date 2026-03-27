@@ -295,6 +295,26 @@ export async function getQuizzesByDifficulty(
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
+export async function getQuizzesByYear(
+  year: number,
+  offset: number,
+  limit: number,
+): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published')
+    .gte('created_at', `${year}-01-01`)
+    .lt('created_at', `${year + 1}-01-01`)
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch ${year} quizzes: ${error.message}`);
+  return (data as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
 export async function getQuizzesByType(
   quizType: 'multiple_choice' | 'true_false' | 'guess_from_clues',
   offset: number,

@@ -9,7 +9,7 @@ const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
 const KNOWN_ROUTES = [
   '/', '/q/', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/terms', '/privacy', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
-  '/easy-kpop-quizzes', '/hard-kpop-quizzes',
+  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt',
 ];

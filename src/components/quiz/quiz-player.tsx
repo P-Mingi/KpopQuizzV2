@@ -32,6 +32,15 @@ interface QuestionData {
   clues?: string[];
 }
 
+interface RelatedQuiz {
+  id: string;
+  title: string;
+  slug: string;
+  difficulty: string;
+  play_count: number;
+  quiz_type: string;
+}
+
 interface ClueResult {
   cluesUsed: number;
   correct: boolean;
@@ -295,6 +304,7 @@ const LABELS = ['A', 'B', 'C', 'D'] as const;
 export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [state, dispatch] = useReducer(quizReducer, { phase: 'intro' });
   const [loading, setLoading] = useState(false);
+  const [relatedQuizzes, setRelatedQuizzes] = useState<RelatedQuiz[]>([]);
   const { showToast } = useToast();
   const router = useRouter();
   const timeRef = useRef(0);
@@ -306,12 +316,19 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     ? Math.round((quiz.totalScoreSum / quiz.totalCompletions) / (quiz.questionCount * maxPerQ) * 100)
     : null;
 
-  // Refresh server components (navbar XP) when result screen shows
+  // Refresh server components (navbar XP) and fetch related quizzes when result shows
   useEffect(() => {
     if (state.phase === 'result') {
       router.refresh();
+      fetch(`/api/quiz/${quiz.id}/related`)
+        .then(res => res.json())
+        .then((data: { quizzes: RelatedQuiz[] }) => setRelatedQuizzes(data.quizzes))
+        .catch(() => {});
+    } else {
+      setRelatedQuizzes([]);
     }
-  }, [state.phase, router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.phase, router, quiz.id]);
 
   // Timer logic
   useEffect(() => {
@@ -805,6 +822,42 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         </div>
 
         <ReportForm quizId={quiz.id} />
+
+        {relatedQuizzes.length >= 2 && (
+          <div className="mt-8 pt-6 border-t border-border-light animate-fade-in">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-medium text-txt-primary">
+                More {quiz.groupName} quizzes
+              </p>
+              <Link
+                href={`/${quiz.groupSlug}-quiz`}
+                className="text-xs text-txt-secondary hover:text-txt-primary transition-colors"
+              >
+                See all &rarr;
+              </Link>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2">
+              {relatedQuizzes.map(rq => (
+                <Link key={rq.id} href={`/q/${rq.slug}`} className="flex-1 min-w-0">
+                  <div className="border border-border-light rounded-lg p-3 hover:border-border-medium transition-colors">
+                    <p className="text-sm font-medium text-txt-primary truncate">
+                      {rq.title}
+                    </p>
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <span className="text-[11px] text-txt-tertiary capitalize">
+                        {rq.difficulty}
+                      </span>
+                      <span className="text-[11px] text-txt-tertiary">&middot;</span>
+                      <span className="text-[11px] text-txt-tertiary">
+                        {formatCount(rq.play_count)} plays
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div id="ad-result" className="w-full min-h-[90px] flex items-center justify-center text-xs text-txt-tertiary mt-4">
           Ad
