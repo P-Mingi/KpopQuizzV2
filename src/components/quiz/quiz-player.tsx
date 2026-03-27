@@ -170,11 +170,6 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
       return { ...state, cluesRevealed: state.cluesRevealed + 1 };
     }
 
-    case 'START_GUESSING': {
-      if (state.phase !== 'playing') return state;
-      return { ...state, isGuessing: true };
-    }
-
     case 'CLUE_ANSWER': {
       if (state.phase !== 'playing') return state;
       const question = state.questions[state.questionIndex];
@@ -248,7 +243,6 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
       if (state.phase !== 'answered') return state;
       const nextIndex = state.questionIndex + 1;
       if (nextIndex >= state.questions.length) return state;
-      const isClues = state.quizType === 'guess_from_clues';
       return {
         phase: 'playing',
         questionIndex: nextIndex,
@@ -260,7 +254,6 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         quizType: state.quizType,
         startTime: state.startTime,
         cluesRevealed: 1,
-        isGuessing: !isClues,
         clueResults: state.clueResults,
       };
     }
@@ -383,10 +376,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     dispatch({ type: 'REVEAL_CLUE' });
   }, []);
 
-  const handleStartGuessing = useCallback(() => {
-    dispatch({ type: 'START_GUESSING' });
-  }, []);
-
   const handleNext = useCallback(async () => {
     if (state.phase !== 'answered') return;
 
@@ -462,6 +451,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                   <GroupPill name={quiz.groupName} displayColor={quiz.displayColor} textColor={quiz.textColor} />
                 </Link>
                 <DifficultyBadge difficulty={quiz.difficulty} />
+                {quiz.quizType === 'true_false' && (
+                  <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-info-bg text-info-text">T/F</span>
+                )}
+                {quiz.quizType === 'guess_from_clues' && (
+                  <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-[#EEEDFE] text-[#3C3489]">Clues</span>
+                )}
               </div>
               <h1 className="text-2xl font-medium mt-3 leading-snug text-txt-primary">{quiz.title}</h1>
               <p className="text-xs text-txt-secondary mt-1">{quiz.questionCount} questions</p>
@@ -557,79 +552,26 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         <div key={state.questionIndex} className="animate-question-in mt-6">
 
           {/* ======================== */}
-          {/* GUESS FROM CLUES - CLUE REVEAL PHASE */}
+          {/* GUESS FROM CLUES */}
           {/* ======================== */}
-          {isClues && state.phase === 'playing' && !state.isGuessing && (
+          {isClues && (
             <>
-              <div className="flex flex-col gap-2 mb-5">
-                {question.clues!.map((clue, i) => (
-                  <div
-                    key={i}
-                    className={`text-sm transition-all duration-300 ${
-                      i < state.cluesRevealed
-                        ? 'opacity-100 animate-clue-reveal'
-                        : 'opacity-0 h-0 overflow-hidden'
-                    }`}
-                  >
-                    <span className="font-medium text-txt-secondary">Clue {i + 1}:</span>{' '}
-                    <span className={i === 0 ? 'text-txt-primary' : 'text-txt-secondary'}>{clue}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Clue dots */}
-              <div className="flex items-center gap-1.5 mb-5">
-                {question.clues!.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      i < state.cluesRevealed ? 'bg-accent-pink' : 'bg-border-light'
-                    }`}
-                  />
-                ))}
-                <span className="text-xs text-txt-tertiary ml-2">
-                  {state.cluesRevealed} of {question.clues!.length} clues
-                </span>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={handleStartGuessing}
-                  className="flex-1 py-3 rounded-full bg-txt-primary text-white text-sm font-medium cursor-pointer"
-                >
-                  Guess now ({4 - state.cluesRevealed}pt{4 - state.cluesRevealed !== 1 ? 's' : ''})
-                </button>
-                {state.cluesRevealed < question.clues!.length && (
-                  <button
-                    onClick={handleRevealClue}
-                    className="flex-1 py-3 rounded-full border border-border-light text-sm font-medium text-txt-secondary cursor-pointer hover:border-border-medium transition-colors"
-                  >
-                    {state.cluesRevealed < question.clues!.length - 1 ? 'Need another clue' : 'Last clue'}
-                  </button>
-                )}
-              </div>
-            </>
-          )}
-
-          {/* ======================== */}
-          {/* GUESS FROM CLUES - GUESSING PHASE (or answered) */}
-          {/* ======================== */}
-          {isClues && ((state.phase === 'playing' && state.isGuessing) || isAnswered) && (
-            <>
-              {/* Show revealed clues */}
-              <div className="flex flex-col gap-1.5 mb-4">
+              {/* Clues - always visible up to cluesRevealed */}
+              <div className="space-y-2 mb-5">
                 {question.clues!.slice(0, state.cluesRevealed).map((clue, i) => (
-                  <p key={i} className="text-sm text-txt-secondary">
-                    <span className="font-medium">Clue {i + 1}:</span> {clue}
+                  <p key={i} className="text-sm animate-question-in">
+                    <span className="text-txt-secondary font-medium">Clue {i + 1}:</span>{' '}
+                    <span className="text-txt-primary">{clue}</span>
                   </p>
                 ))}
               </div>
 
+              {/* Question prompt */}
               <p className="text-base font-medium leading-relaxed mb-5 text-txt-primary">
                 {question.question}
               </p>
 
+              {/* Answer options - ALWAYS visible */}
               <div className="flex flex-col gap-2.5">
                 {question.options.map((option, i) => {
                   let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
@@ -654,11 +596,43 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                   );
                 })}
               </div>
+
+              {/* Points indicator + clue button */}
+              {!isAnswered && (
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex items-center gap-1.5">
+                    {Array.from({ length: Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
+                      <svg key={`filled-${i}`} width="14" height="14" viewBox="0 0 14 14" fill="#EF9F27">
+                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
+                      </svg>
+                    ))}
+                    {Array.from({ length: 3 - Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
+                      <svg key={`empty-${i}`} width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#D3D1C7" strokeWidth="1">
+                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
+                      </svg>
+                    ))}
+                    <span className="text-xs text-txt-secondary ml-1">
+                      {Math.max(1, 4 - state.cluesRevealed)} {Math.max(1, 4 - state.cluesRevealed) === 1 ? 'point' : 'points'}
+                    </span>
+                  </div>
+
+                  {state.cluesRevealed < 3 ? (
+                    <button
+                      onClick={handleRevealClue}
+                      className="text-sm px-4 py-2 rounded-full border border-border-light text-txt-secondary hover:border-border-medium transition-colors cursor-pointer"
+                    >
+                      {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
+                    </button>
+                  ) : (
+                    <span className="text-xs text-txt-tertiary">No more clues</span>
+                  )}
+                </div>
+              )}
             </>
           )}
 
           {/* ======================== */}
-          {/* STANDARD (MC / TF) - PLAYING + ANSWERED */}
+          {/* STANDARD (MC / TF) */}
           {/* ======================== */}
           {!isClues && (
             <>
@@ -759,6 +733,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           textColor={quiz.textColor}
           logoUrl={quiz.logoUrl}
           difficulty={quiz.difficulty}
+          quizType={state.quizType}
           passRate={state.passRate ?? quiz.passRate}
         />
 

@@ -24,6 +24,7 @@ interface RawSearchQuizRow {
   id: string;
   title: string;
   slug: string;
+  quiz_type: string;
   difficulty: string;
   play_count: number;
   total_score_sum: number;
@@ -40,6 +41,7 @@ function toQuizCardData(row: RawSearchQuizRow): QuizCardData {
     id: row.id,
     title: row.title,
     slug: row.slug,
+    quiz_type: row.quiz_type as QuizCardData['quiz_type'],
     difficulty: row.difficulty as QuizCardData['difficulty'],
     play_count: row.play_count,
     total_score_sum: row.total_score_sum,
@@ -80,7 +82,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
     supabase
       .from('quizzes')
       .select(`
-        id, title, slug, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions,
+        id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions,
         groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
         profiles!inner (username, avatar_url, avatar_bg, avatar_text)
       `)

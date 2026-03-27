@@ -31,6 +31,12 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
           <div className="flex items-center gap-1.5 mb-2.5">
             <GroupPill name={quiz.group_name} displayColor={quiz.display_color} textColor={quiz.text_color} />
             <DifficultyBadge difficulty={quiz.difficulty} />
+            {quiz.quiz_type === 'true_false' && (
+              <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-info-bg text-info-text">T/F</span>
+            )}
+            {quiz.quiz_type === 'guess_from_clues' && (
+              <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-[#EEEDFE] text-[#3C3489]">Clues</span>
+            )}
           </div>
 
           <p className="text-base font-medium leading-snug mb-2 text-txt-primary">{quiz.title}</p>

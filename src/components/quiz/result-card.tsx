@@ -6,7 +6,7 @@ import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 
-import type { Difficulty } from '@/lib/db/types';
+import type { Difficulty, QuizType } from '@/lib/db/types';
 
 interface ResultCardProps {
   score: number;
@@ -19,6 +19,7 @@ interface ResultCardProps {
   textColor: string;
   logoUrl: string | null;
   difficulty: Difficulty;
+  quizType: QuizType;
   passRate: number | null;
 }
 
@@ -67,6 +68,7 @@ export function ResultCard({
   textColor,
   logoUrl,
   difficulty,
+  quizType,
   passRate,
 }: ResultCardProps): React.ReactElement {
   const scorePct = Math.round((score / maxScore) * 100);
@@ -91,6 +93,12 @@ export function ResultCard({
       <div className="flex items-center justify-center gap-2 mb-4">
         <GroupPill name={groupName} displayColor={displayColor} textColor={textColor} />
         <DifficultyBadge difficulty={difficulty} />
+        {quizType === 'true_false' && (
+          <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-info-bg text-info-text">T/F</span>
+        )}
+        {quizType === 'guess_from_clues' && (
+          <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-[#EEEDFE] text-[#3C3489]">Clues</span>
+        )}
       </div>
 
       <p className="text-5xl font-semibold text-txt-primary">
