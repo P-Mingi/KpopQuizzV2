@@ -7,7 +7,7 @@ const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
 
 // Known route prefixes - anything else from the old site gets 301 to homepage
 const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/', '/q/', '/g/', '/games', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/terms', '/privacy', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',

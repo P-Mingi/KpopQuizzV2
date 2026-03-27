@@ -30,6 +30,12 @@ export async function Navbar(): Promise<React.ReactElement> {
         {/* Right: nav links + create + profile */}
         <div className="flex items-center gap-3">
           <Link
+            href="/games"
+            className="text-sm text-txt-secondary hover:text-txt-primary transition-colors hidden sm:block"
+          >
+            Games
+          </Link>
+          <Link
             href="/create"
             aria-label="Create"
             className="flex items-center gap-1 px-4 py-2 text-sm font-medium bg-surface-primary border border-border-light rounded-full hover:border-border-medium transition-colors"
