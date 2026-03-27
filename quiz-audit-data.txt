@@ -1,0 +1,1343 @@
+# KpopQuizz Content Audit
+# Generated: 2026-03-26T22:57:25.473Z
+# Total published quizzes: 27
+
+======================================================================
+QUIZ: "aespa lore and KWANGYA universe trivia"
+ID: 5b0d30b2-9b1f-4cec-a86c-15237b27c8da
+Group: aespa
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/aespa-lore-and-kwangya-universe-trivia
+======================================================================
+
+  Q1: What is KWANGYA in aespa's universe?
+    A) A planet
+    B) A virtual world/dimension <<< CORRECT
+    C) A weapon
+    D) A song title
+  Fun fact: KWANGYA is the virtual world where aespa's AI counterparts (ae) exist alongside the human members.
+
+  Q2: What are aespa's AI counterparts called?
+    A) Avatars
+    B) ae-members <<< CORRECT
+    C) Synk
+    D) naevis
+  Fun fact: Each member has an ae counterpart: ae-Karina, ae-Giselle, ae-Winter, and ae-NingNing.
+
+  Q3: Who is naevis in aespa's lore?
+    A) The villain
+    B) An AI guide/ally <<< CORRECT
+    C) A rival group
+    D) A planet
+  Fun fact: naevis is an AI being who helps aespa navigate between the real world and KWANGYA.
+
+  Q4: Black Mamba in aespa's universe represents what?
+    A) An ally
+    B) A powerful weapon
+    C) The main villain/evil force <<< CORRECT
+    D) A portal
+  Fun fact: Black Mamba is an evil entity in KWANGYA that tries to sever the connection between aespa and their ae counterparts.
+
+  Q5: The song Next Level references traveling to where?
+    A) Earth
+    B) KWANGYA <<< CORRECT
+    C) Neverland
+    D) The metaverse
+  Fun fact: Next Level follows aespa's journey to KWANGYA to fight Black Mamba and find naevis.
+
+  Q6: What does the 'ae' in aespa stand for?
+    A) Artificial experience
+    B) Avatar and experience <<< CORRECT
+    C) Augmented experience
+    D) All of the above
+  Fun fact: ae represents both the members' Avatar and Experience, central concepts in their lore.
+
+
+======================================================================
+QUIZ: "aespa discography challenge"
+ID: b054c172-f54a-4c04-94bb-062130aca68f
+Group: aespa
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/aespa-discography-challenge
+======================================================================
+
+  Q1: Next Level was originally a song from which movie franchise?
+    A) Transformers
+    B) Fast & Furious <<< CORRECT
+    C) Mission Impossible
+    D) Marvel
+  Fun fact: Next Level was originally from the Fast & Furious Presents: Hobbs & Shaw soundtrack, reimagined by SM for aespa.
+
+  Q2: What is the name of aespa's first mini album?
+    A) Girls
+    B) Savage <<< CORRECT
+    C) MY WORLD
+    D) Armageddon
+  Fun fact: Savage was released in October 2021 and debuted at #20 on the Billboard 200.
+
+  Q3: Which song became a massive viral hit in 2024 for aespa?
+    A) Drama
+    B) Spicy
+    C) Supernova <<< CORRECT
+    D) Better Things
+  Fun fact: Supernova went viral across Asia and became one of the biggest K-pop songs of 2024.
+
+  Q4: Spicy is from which aespa album?
+    A) Savage
+    B) Girls
+    C) MY WORLD <<< CORRECT
+    D) Armageddon
+  Fun fact: MY WORLD was released in May 2023 and marked aespa's first release in about a year.
+
+  Q5: What is the title track of aespa's first full album?
+    A) Savage
+    B) Girls
+    C) Armageddon <<< CORRECT
+    D) Supernova
+  Fun fact: Armageddon was released in 2024 as aespa's first full-length studio album.
+
+
+======================================================================
+QUIZ: "aespa members facts quiz"
+ID: e24b0a24-0124-4d12-b56a-1e7c7239bec0
+Group: aespa
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/aespa-members-facts-quiz
+======================================================================
+
+  Q1: Which aespa member is from China?
+    A) Karina
+    B) Giselle
+    C) Winter
+    D) NingNing <<< CORRECT
+  Fun fact: NingNing (Ning Yizhuo) is from Harbin, China and speaks Mandarin, Korean, and English.
+
+  Q2: Giselle is of which nationality?
+    A) Korean
+    B) Japanese-Korean <<< CORRECT
+    C) Chinese-Korean
+    D) American-Korean
+  Fun fact: Giselle (Aeri Uchinaga) is half Japanese and half Korean, and speaks Japanese, Korean, and English fluently.
+
+  Q3: Which member is known for her powerful vocals and high notes?
+    A) Karina
+    B) Giselle
+    C) Winter <<< CORRECT
+    D) NingNing
+  Fun fact: Winter is the main vocalist of aespa and is known for her strong, stable vocals during live performances.
+
+  Q4: What was Karina known for before debut?
+    A) Acting in dramas
+    B) Being an SM rookie dancer <<< CORRECT
+    C) Modeling in Japan
+    D) YouTube covers
+  Fun fact: Karina appeared in several SM Station videos and was known as an SM rookie before aespa's debut.
+
+  Q5: Who is the youngest member of aespa?
+    A) Winter
+    B) NingNing <<< CORRECT
+    C) Karina
+    D) Giselle
+  Fun fact: NingNing was born on October 23, 2002, making her the maknae of the group.
+
+
+======================================================================
+QUIZ: "aespa achievements and milestones quiz"
+ID: c9478600-2df0-4355-b400-bee661faf56c
+Group: aespa
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 4
+Slug: /q/aespa-achievements-and-milestones-quiz
+======================================================================
+
+  Q1: How quickly did Black Mamba reach 100 million views on YouTube?
+    A) 1 month <<< CORRECT
+    B) 3 months
+    C) About 2 weeks
+    D) 6 months
+  Fun fact: Black Mamba reached 100 million views in about a month, setting records for SM Entertainment rookie groups.
+
+  Q2: aespa performed at which major US music festival?
+    A) Lollapalooza
+    B) Coachella
+    C) Both Coachella and Lollapalooza <<< CORRECT
+    D) Glastonbury
+  Fun fact: aespa performed at both Coachella and Lollapalooza, cementing their status as global artists.
+
+  Q3: Next Level topped music charts for how many consecutive weeks in Korea?
+    A) 2 weeks
+    B) 5 weeks
+    C) 8 weeks <<< CORRECT
+    D) Over 10 weeks
+  Fun fact: Next Level dominated Korean charts for about 8 weeks, one of the longest runs for a K-pop song in 2021.
+
+  Q4: aespa won Rookie of the Year at which major awards show?
+    A) Only MAMA
+    B) Only MMA
+    C) Both MAMA and MMA <<< CORRECT
+    D) They didn't win any
+  Fun fact: aespa swept multiple Rookie of the Year awards in 2021, winning at both MAMA and Melon Music Awards.
+
+  Q5: In what year did aespa release their first full-length studio album?
+    A) 2022
+    B) 2023
+    C) 2024 <<< CORRECT
+    D) They haven't yet
+  Fun fact: Armageddon was released in 2024 as aespa's first full studio album.
+
+
+======================================================================
+QUIZ: "Only real ARMYs can pass this BTS debut quiz"
+ID: cfad02ec-7149-4dbe-aadf-000dba82b567
+Group: BTS
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/only-real-armys-can-pass-this-bts-debut-quiz
+======================================================================
+
+  Q1: When did BTS officially debut?
+    A) June 13, 2012
+    B) June 13, 2013 <<< CORRECT
+    C) March 13, 2013
+    D) June 13, 2014
+  Fun fact: BTS debuted on June 13, 2013 under Big Hit Entertainment (now HYBE).
+
+  Q2: What was BTS's debut single?
+    A) No More Dream <<< CORRECT
+    B) We Are Bulletproof Pt.2
+    C) N.O
+    D) Boy in Luv
+  Fun fact: No More Dream was released as part of their debut album 2 Cool 4 Skool.
+
+  Q3: What does BTS stand for in Korean?
+    A) Beyond The Scene
+    B) Bangtan Sonyeondan <<< CORRECT
+    C) Born To Shine
+    D) Boys That Sing
+  Fun fact: Bangtan Sonyeondan translates to Bulletproof Boy Scouts. Beyond The Scene was added as an English meaning in 2017.
+
+  Q4: Which company did BTS debut under?
+    A) SM Entertainment
+    B) YG Entertainment
+    C) JYP Entertainment
+    D) Big Hit Entertainment <<< CORRECT
+  Fun fact: Big Hit Entertainment was later renamed to HYBE Corporation in 2021.
+
+  Q5: How many members are in BTS?
+    A) 5
+    B) 6
+    C) 7 <<< CORRECT
+    D) 8
+  Fun fact: BTS has 7 members: RM, Jin, Suga, J-Hope, Jimin, V, and Jungkook.
+
+  Q6: Who is the leader of BTS?
+    A) Jin
+    B) Suga
+    C) RM <<< CORRECT
+    D) J-Hope
+  Fun fact: RM (Kim Namjoon) has been the leader since debut. He was the first member recruited by Bang Si-hyuk.
+
+  Q7: What was BTS's debut album called?
+    A) O!RUL8,2?
+    B) 2 Cool 4 Skool <<< CORRECT
+    C) Skool Luv Affair
+    D) Dark & Wild
+  Fun fact: 2 Cool 4 Skool was released on June 12, 2013, one day before their official debut stage.
+
+
+======================================================================
+QUIZ: "BTS discography challenge - name that era"
+ID: 9063c131-1035-42ff-81b8-14dc78a1e4c5
+Group: BTS
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/bts-discography-challenge-name-that-era
+======================================================================
+
+  Q1: Which album features the song Blood Sweat & Tears?
+    A) The Most Beautiful Moment in Life
+    B) Wings <<< CORRECT
+    C) Love Yourself: Her
+    D) Map of the Soul: 7
+  Fun fact: Wings was released in October 2016 and marked BTS's first album to chart on the Billboard 200.
+
+  Q2: Spring Day belongs to which album?
+    A) Wings
+    B) You Never Walk Alone <<< CORRECT
+    C) Love Yourself: Her
+    D) Love Yourself: Answer
+  Fun fact: Spring Day has stayed on the Melon chart for years, making it one of the longest-charting K-pop songs ever.
+
+  Q3: What was BTS's first Billboard Hot 100 #1 song?
+    A) Boy With Luv
+    B) Dynamite <<< CORRECT
+    C) Butter
+    D) ON
+  Fun fact: Dynamite debuted at #1 in August 2020, making BTS the first all-South Korean act to top the Hot 100.
+
+  Q4: Which song features a collaboration with Halsey?
+    A) Fake Love
+    B) Boy With Luv <<< CORRECT
+    C) IDOL
+    D) Dynamite
+  Fun fact: Boy With Luv feat. Halsey was released in April 2019 as part of Map of the Soul: Persona.
+
+  Q5: DNA was the lead single from which album?
+    A) Love Yourself: Her <<< CORRECT
+    B) Love Yourself: Tear
+    C) Love Yourself: Answer
+    D) Wings
+  Fun fact: DNA was BTS's first song to enter the Billboard Hot 100, peaking at #67 in 2017.
+
+  Q6: Which BTS song has a music video set in a train and bus stop?
+    A) Run
+    B) Spring Day <<< CORRECT
+    C) I Need U
+    D) Save Me
+  Fun fact: The Spring Day MV is filled with references to the short story The Ones Who Walk Away from Omelas.
+
+
+======================================================================
+QUIZ: "BLACKPINK members facts - do you really know them?"
+ID: 774c267e-1640-4584-968b-98d2e0afedad
+Group: BLACKPINK
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/blackpink-members-facts-do-you-really-know
+======================================================================
+
+  Q1: Where did Jennie live before becoming a trainee?
+    A) Japan
+    B) New Zealand <<< CORRECT
+    C) Australia
+    D) United States
+  Fun fact: Jennie lived in Auckland, New Zealand for about 5 years as a child and speaks fluent English.
+
+  Q2: What nationality is Rose?
+    A) Korean
+    B) Korean-Australian <<< CORRECT
+    C) Korean-American
+    D) Korean-New Zealander
+  Fun fact: Rose (Park Chaeyoung) was born in New Zealand and raised in Melbourne, Australia.
+
+  Q3: What is Jisoo's birth name?
+    A) Kim Jisoo <<< CORRECT
+    B) Park Jisoo
+    C) Lee Jisoo
+    D) Jeon Jisoo
+  Fun fact: Kim Jisoo is the oldest member of BLACKPINK, born on January 3, 1995.
+
+  Q4: Lisa holds which position in BLACKPINK?
+    A) Main vocalist
+    B) Lead vocalist
+    C) Main dancer and lead rapper <<< CORRECT
+    D) Sub vocalist
+  Fun fact: Lisa won the YG audition in Thailand out of 4,000 applicants when she was just 13 years old.
+
+  Q5: Which BLACKPINK member acted in the K-drama Snowdrop?
+    A) Jennie
+    B) Rose
+    C) Lisa
+    D) Jisoo <<< CORRECT
+  Fun fact: Jisoo starred as the female lead in the 2021-2022 JTBC drama Snowdrop alongside Jung Hae-in.
+
+
+======================================================================
+QUIZ: "How well do you know BTS members?"
+ID: 45e13760-04eb-426d-91f9-bbfdba388588
+Group: BTS
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/how-well-do-you-know-bts-members
+======================================================================
+
+  Q1: Who is the youngest member (maknae) of BTS?
+    A) Jimin
+    B) V
+    C) Jungkook <<< CORRECT
+    D) Suga
+  Fun fact: Jungkook was born on September 1, 1997, making him the youngest member.
+
+  Q2: Who is the oldest member of BTS?
+    A) RM
+    B) Jin <<< CORRECT
+    C) Suga
+    D) J-Hope
+  Fun fact: Jin (Kim Seokjin) was born on December 4, 1992.
+
+  Q3: What is Suga's solo mixtape name?
+    A) Hope World
+    B) Agust D <<< CORRECT
+    C) Mono
+    D) D-Day
+  Fun fact: Agust D is Suga spelled backwards plus DT for Daegu Town, his hometown.
+
+  Q4: Which BTS member is known for the catchphrase 'I purple you'?
+    A) Jimin
+    B) V <<< CORRECT
+    C) Jungkook
+    D) RM
+  Fun fact: V (Kim Taehyung) coined the phrase at a fan meeting in 2016, saying purple is the last color of the rainbow meaning trust and love.
+
+  Q5: Which member released the solo mixtape Hope World?
+    A) RM
+    B) Suga
+    C) J-Hope <<< CORRECT
+    D) Jimin
+  Fun fact: Hope World was released in 2018 and debuted at #38 on the Billboard 200.
+
+  Q6: What position does Jimin hold in BTS?
+    A) Main rapper
+    B) Lead vocalist and main dancer <<< CORRECT
+    C) Visual
+    D) Leader
+  Fun fact: Jimin studied contemporary dance at Busan High School of Arts before joining Big Hit.
+
+
+======================================================================
+QUIZ: "BTS world records and achievements quiz"
+ID: a0189d77-42f3-499b-b6c3-e880ee158e21
+Group: BTS
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/bts-world-records-and-achievements-quiz
+======================================================================
+
+  Q1: What was BTS's first song to debut at #1 on the Billboard Hot 100?
+    A) Butter
+    B) Dynamite <<< CORRECT
+    C) Life Goes On
+    D) Permission to Dance
+  Fun fact: Dynamite debuted at #1 in September 2020.
+
+  Q2: BTS performed at which major US awards show in 2019 with Lil Nas X?
+    A) VMAs
+    B) Grammys <<< CORRECT
+    C) AMAs
+    D) Billboard Music Awards
+  Fun fact: They performed Old Town Road remix with Lil Nas X at the 2020 Grammys (62nd ceremony, held Jan 2020).
+
+  Q3: In what year did BTS first speak at the United Nations?
+    A) 2017
+    B) 2018 <<< CORRECT
+    C) 2019
+    D) 2020
+  Fun fact: BTS spoke at the 73rd UN General Assembly in September 2018 as part of their UNICEF Love Myself campaign.
+
+  Q4: What is the name of BTS's official fan club?
+    A) BLINK
+    B) ARMY <<< CORRECT
+    C) ONCE
+    D) CARAT
+  Fun fact: ARMY stands for Adorable Representative M.C. for Youth.
+
+  Q5: Which BTS song broke the YouTube record for most views in 24 hours in 2020?
+    A) ON
+    B) Dynamite <<< CORRECT
+    C) Life Goes On
+    D) Black Swan
+  Fun fact: Dynamite garnered 101.1 million views in its first 24 hours on YouTube.
+
+  Q6: How many consecutive #1 Billboard Hot 100 songs did BTS achieve?
+    A) 2
+    B) 3 <<< CORRECT
+    C) 4
+    D) 5
+  Fun fact: Dynamite, Butter, and Permission to Dance all debuted at #1 consecutively.
+
+
+======================================================================
+QUIZ: "How well do you know SKZ members?"
+ID: 7d2ea8a4-026f-40ed-9a27-983901fa309d
+Group: Stray Kids
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/how-well-do-you-know-skz-members
+======================================================================
+
+  Q1: Which Stray Kids members are from Australia?
+    A) Bang Chan and Felix <<< CORRECT
+    B) Felix and Hyunjin
+    C) Bang Chan and Han
+    D) Lee Know and Felix
+  Fun fact: Bang Chan is from Sydney and Felix is from Sydney as well. Both are Korean-Australian.
+
+  Q2: Who is the leader of Stray Kids?
+    A) Lee Know
+    B) Changbin
+    C) Bang Chan <<< CORRECT
+    D) Han
+  Fun fact: Bang Chan (Christopher Bang) trained at JYP for about 7 years before debuting.
+
+  Q3: Who is the maknae (youngest) of Stray Kids?
+    A) Felix
+    B) Seungmin
+    C) I.N <<< CORRECT
+    D) Han
+  Fun fact: I.N (Yang Jeongin) was born on February 8, 2001.
+
+  Q4: Felix is known for his distinctive what?
+    A) High-pitched voice
+    B) Deep voice <<< CORRECT
+    C) Whistle notes
+    D) Falsetto
+  Fun fact: Felix's surprisingly deep voice contrasts with his youthful appearance and is one of his most recognizable traits.
+
+  Q5: Which member was a backup dancer before becoming a trainee?
+    A) Felix
+    B) Hyunjin
+    C) Lee Know <<< CORRECT
+    D) I.N
+  Fun fact: Lee Know was a backup dancer for BTS before auditioning for JYP and joining Stray Kids.
+
+
+======================================================================
+QUIZ: "BTS music video trivia - can you get 100%?"
+ID: 7f0c64ca-a013-47a7-9620-52f7e741871b
+Group: BTS
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/bts-music-video-trivia-can-you-get-100
+======================================================================
+
+  Q1: In which MV does Jungkook jump off a building into water?
+    A) Run
+    B) I Need U
+    C) Euphoria <<< CORRECT
+    D) Spring Day
+  Fun fact: The Euphoria MV features dreamlike sequences with Jungkook bungee jumping and flying.
+
+  Q2: Which MV features BTS in a colorful retro-disco setting?
+    A) IDOL
+    B) Dynamite <<< CORRECT
+    C) Boy With Luv
+    D) Permission to Dance
+  Fun fact: Dynamite was BTS's first fully English-language song and had a vibrant retro concept.
+
+  Q3: The IDOL MV incorporates elements from which traditional Korean art?
+    A) Pansori
+    B) Buchaechum
+    C) Talchum
+    D) All of the above <<< CORRECT
+  Fun fact: IDOL blends Korean traditional art forms including mask dance (talchum), fan dance, and traditional drumming.
+
+  Q4: Which MV features the members in a fake love hotel setting with rooms for each member?
+    A) Blood Sweat & Tears
+    B) Fake Love <<< CORRECT
+    C) Black Swan
+    D) ON
+  Fun fact: Fake Love's MV had multiple versions including an extended version with different storylines.
+
+  Q5: In the Spring Day MV, what book is referenced through the setting?
+    A) 1984
+    B) The Little Prince
+    C) The Ones Who Walk Away from Omelas <<< CORRECT
+    D) Norwegian Wood
+  Fun fact: The Omelas motel sign and Ursula K. Le Guin's story themes are central to the MV's meaning.
+
+
+======================================================================
+QUIZ: "Are you a true BLINK? BLACKPINK trivia"
+ID: d905e04b-0753-4809-b0b4-80b00b978754
+Group: BLACKPINK
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/are-you-a-true-blink-blackpink-trivia
+======================================================================
+
+  Q1: When did BLACKPINK debut?
+    A) August 8, 2015
+    B) August 8, 2016 <<< CORRECT
+    C) November 1, 2016
+    D) January 15, 2017
+  Fun fact: BLACKPINK debuted under YG Entertainment with a double single: Boombayah and Whistle.
+
+  Q2: How many members are in BLACKPINK?
+    A) 3
+    B) 4 <<< CORRECT
+    C) 5
+    D) 6
+  Fun fact: BLACKPINK has 4 members: Jisoo, Jennie, Rose, and Lisa.
+
+  Q3: Which company is BLACKPINK under?
+    A) SM Entertainment
+    B) JYP Entertainment
+    C) YG Entertainment <<< CORRECT
+    D) HYBE
+  Fun fact: YG Entertainment is also home to artists like BIGBANG and WINNER.
+
+  Q4: What are BLACKPINK's two debut songs?
+    A) DDU-DU DDU-DU and Forever Young
+    B) Boombayah and Whistle <<< CORRECT
+    C) Playing with Fire and Stay
+    D) As If It's Your Last and Whistle
+  Fun fact: Both Boombayah and Whistle were released simultaneously as a double single on August 8, 2016.
+
+  Q5: What is BLACKPINK's fandom name?
+    A) ARMY
+    B) BLINK <<< CORRECT
+    C) ONCE
+    D) Reveluv
+  Fun fact: BLINK is a combination of BL from BLACK and INK from PINK.
+
+  Q6: Which BLACKPINK member is from Thailand?
+    A) Jisoo
+    B) Jennie
+    C) Rose
+    D) Lisa <<< CORRECT
+  Fun fact: Lisa (Lalisa Manobal) is from Buriram, Thailand and is the only non-Korean member.
+
+
+======================================================================
+QUIZ: "BLACKPINK solo careers quiz - test your knowledge"
+ID: fdac7b5a-8659-4498-95a1-f1e8563f09c9
+Group: BLACKPINK
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/blackpink-solo-careers-quiz
+======================================================================
+
+  Q1: What is the name of Jennie's first solo single?
+    A) Flower
+    B) SOLO <<< CORRECT
+    C) LALISA
+    D) On The Ground
+  Fun fact: SOLO was released in November 2018, making Jennie the first BLACKPINK member to debut solo.
+
+  Q2: What was Rose's debut solo single?
+    A) Gone
+    B) On The Ground <<< CORRECT
+    C) Hard to Love
+    D) Eyes Closed
+  Fun fact: On The Ground debuted at #70 on the Billboard Hot 100, the highest for a Korean solo artist at the time.
+
+  Q3: What is Lisa's debut solo song called?
+    A) Money
+    B) LALISA <<< CORRECT
+    C) Rockstar
+    D) Swallow
+  Fun fact: LALISA set the record for the most-viewed music video by a solo K-pop artist in 24 hours.
+
+  Q4: What is the title of Jisoo's solo debut album?
+    A) ME <<< CORRECT
+    B) FLOWER
+    C) CLARITY
+    D) JISOO
+  Fun fact: ME was released in March 2023 with lead single Flower, which went viral on TikTok.
+
+  Q5: Which Lisa solo song became a massive TikTok trend?
+    A) LALISA
+    B) Money <<< CORRECT
+    C) Rockstar
+    D) Swallow
+  Fun fact: Money became one of the most-used songs on TikTok in 2021-2022.
+
+  Q6: Rose featured on a song with which Bruno Mars track?
+    A) Apt. <<< CORRECT
+    B) That's What I Like
+    C) Die With a Smile
+    D) Locked Out of Heaven
+  Fun fact: Apt. became a global hit reaching #3 on the Billboard Hot 100.
+
+
+======================================================================
+QUIZ: "BLACKPINK title tracks challenge"
+ID: 08fbc359-7486-40ba-8cbd-652dd2c63fbe
+Group: BLACKPINK
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/blackpink-title-tracks-challenge
+======================================================================
+
+  Q1: Which BLACKPINK song features the lyrics 'look at you now look at me'?
+    A) DDU-DU DDU-DU
+    B) How You Like That <<< CORRECT
+    C) Kill This Love
+    D) Lovesick Girls
+  Fun fact: How You Like That was a pre-release single that broke multiple YouTube records in 2020.
+
+  Q2: What was BLACKPINK's first song to reach #1 on a US chart?
+    A) DDU-DU DDU-DU
+    B) How You Like That
+    C) Ice Cream <<< CORRECT
+    D) Pink Venom
+  Fun fact: Ice Cream with Selena Gomez topped the Billboard Global 200 chart.
+
+  Q3: Lovesick Girls is from which BLACKPINK album?
+    A) Square Up
+    B) Kill This Love EP
+    C) THE ALBUM <<< CORRECT
+    D) Born Pink
+  Fun fact: THE ALBUM (2020) was BLACKPINK's first full-length studio album after 4 years of releasing only singles and EPs.
+
+  Q4: Which song is from the Born Pink album?
+    A) How You Like That
+    B) Lovesick Girls
+    C) Shut Down <<< CORRECT
+    D) Kill This Love
+  Fun fact: Shut Down samples Paganini's La Campanella and debuted at #1 in multiple countries.
+
+  Q5: Playing with Fire was released in which year?
+    A) 2016 <<< CORRECT
+    B) 2017
+    C) 2018
+    D) 2019
+  Fun fact: Playing with Fire was from their second single album Square Two, released in November 2016.
+
+
+======================================================================
+QUIZ: "BLACKPINK world tour and performances quiz"
+ID: 089b6a69-52e4-4cb7-ae05-f096a8bb285d
+Group: BLACKPINK
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/blackpink-world-tour-and-performances
+======================================================================
+
+  Q1: BLACKPINK made history as the first K-pop girl group to perform at which festival?
+    A) Glastonbury
+    B) Coachella <<< CORRECT
+    C) Lollapalooza
+    D) Reading Festival
+  Fun fact: BLACKPINK performed at Coachella in 2019 and returned as headliners in 2023.
+
+  Q2: What was BLACKPINK's first world tour called?
+    A) Born Pink World Tour
+    B) In Your Area <<< CORRECT
+    C) The Show
+    D) Blinks World Tour
+  Fun fact: BLACKPINK In Your Area World Tour ran from 2018-2020 across Asia, North America, Europe, and Australia.
+
+  Q3: In which year did BLACKPINK headline Coachella?
+    A) 2019
+    B) 2020
+    C) 2022
+    D) 2023 <<< CORRECT
+  Fun fact: They were the first K-pop act and Asian act to headline Coachella in 2023.
+
+  Q4: BLACKPINK's Born Pink Tour became the highest-grossing tour by a K-pop act. How many shows did they perform?
+    A) About 30
+    B) About 45
+    C) About 66 <<< CORRECT
+    D) About 80
+  Fun fact: The Born Pink World Tour had 66 shows and grossed over $330 million.
+
+  Q5: BLACKPINK's 'The Show' online concert was held in which year?
+    A) 2019
+    B) 2020
+    C) 2021 <<< CORRECT
+    D) 2022
+  Fun fact: The Show was a paid livestream concert in January 2021 with over 280,000 viewers.
+
+
+======================================================================
+QUIZ: "Only real STAYs can ace this Stray Kids quiz"
+ID: 5efb91f1-24dc-4573-bb3d-83c7f8ecfd12
+Group: Stray Kids
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/only-real-stays-can-ace-stray-kids-quiz
+======================================================================
+
+  Q1: When did Stray Kids debut?
+    A) January 8, 2018
+    B) March 25, 2018 <<< CORRECT
+    C) October 1, 2017
+    D) June 15, 2018
+  Fun fact: Stray Kids officially debuted on March 25, 2018 with the EP I Am NOT.
+
+  Q2: Which company is Stray Kids under?
+    A) SM Entertainment
+    B) JYP Entertainment <<< CORRECT
+    C) YG Entertainment
+    D) HYBE
+  Fun fact: JYP Entertainment is also home to TWICE, ITZY, and GOT7.
+
+  Q3: How many members are currently in Stray Kids?
+    A) 7
+    B) 8 <<< CORRECT
+    C) 9
+    D) 6
+  Fun fact: Stray Kids has 8 members: Bang Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, and I.N.
+
+  Q4: What is Stray Kids' fandom name?
+    A) STAY <<< CORRECT
+    B) Stray
+    C) SKZOO
+    D) JYPnation
+  Fun fact: STAY means that fans will always stay with Stray Kids no matter what.
+
+  Q5: Which members make up the producing unit 3RACHA?
+    A) Bang Chan, Hyunjin, Felix
+    B) Bang Chan, Changbin, Han <<< CORRECT
+    C) Changbin, Han, Lee Know
+    D) Bang Chan, Seungmin, I.N
+  Fun fact: 3RACHA writes and produces most of Stray Kids' music, giving them creative control.
+
+  Q6: Stray Kids were formed through which TV show?
+    A) Produce 101
+    B) Kingdom
+    C) Stray Kids (reality show) <<< CORRECT
+    D) LOUD
+  Fun fact: The survival show Stray Kids aired on Mnet in 2017, where the members were selected by Bang Chan.
+
+
+======================================================================
+QUIZ: "Stray Kids discography challenge"
+ID: c27a46fa-f526-4bd0-9d12-5e6930d4cbe6
+Group: Stray Kids
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/stray-kids-discography-challenge
+======================================================================
+
+  Q1: Which Stray Kids song is known as their major breakthrough hit?
+    A) Miroh
+    B) God's Menu <<< CORRECT
+    C) Back Door
+    D) MANIAC
+  Fun fact: God's Menu from the album GO LIVE (2020) significantly boosted Stray Kids' domestic and international popularity.
+
+  Q2: MANIAC is from which album?
+    A) NOEASY
+    B) ODDINARY <<< CORRECT
+    C) MAXIDENT
+    D) 5-STAR
+  Fun fact: ODDINARY debuted at #1 on the Billboard 200, making Stray Kids only the third K-pop act to achieve this.
+
+  Q3: S-Class is from which Stray Kids album?
+    A) ODDINARY
+    B) MAXIDENT
+    C) 5-STAR <<< CORRECT
+    D) Rock-Star
+  Fun fact: 5-STAR was Stray Kids' third album to top the Billboard 200.
+
+  Q4: What is the Korean title of the song Thunderous?
+    A) Back Door
+    B) Ssoriggoon <<< CORRECT
+    C) Miroh
+    D) Hellevator
+  Fun fact: Ssoriggoon (Thunderous) incorporates traditional Korean musical elements like gayageum and pansori.
+
+  Q5: Which was Stray Kids' debut track?
+    A) Miroh
+    B) Hellevator
+    C) District 9 <<< CORRECT
+    D) My Pace
+  Fun fact: District 9 was the title track from their debut EP I Am NOT, though Hellevator was their pre-debut single.
+
+  Q6: Which Stray Kids album features the song Cheese?
+    A) ATE <<< CORRECT
+    B) MAXIDENT
+    C) Rock-Star
+    D) Christmas EveL
+  Fun fact: ATE was released in 2024 and features Chk Chk Boom as the title track.
+
+
+======================================================================
+QUIZ: "Stray Kids achievements and records quiz"
+ID: 31148326-a073-42ee-be52-c91f98181742
+Group: Stray Kids
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/stray-kids-achievements-and-records
+======================================================================
+
+  Q1: How many Stray Kids albums have reached #1 on the Billboard 200?
+    A) 1
+    B) 2
+    C) 3
+    D) 4 <<< CORRECT
+  Fun fact: ODDINARY, 5-STAR, ATE, and Rock-Star all reached #1 on the Billboard 200.
+
+  Q2: Stray Kids performed at which major competition show in 2021?
+    A) Produce 101
+    B) Kingdom: Legendary War <<< CORRECT
+    C) MAMA
+    D) Road to Kingdom
+  Fun fact: Stray Kids won Kingdom: Legendary War in 2021, significantly boosting their profile.
+
+  Q3: In what year did Stray Kids first perform at a US stadium?
+    A) 2022
+    B) 2023 <<< CORRECT
+    C) 2024
+    D) They haven't yet
+  Fun fact: Stray Kids became one of the few K-pop groups to sell out US stadium shows.
+
+  Q4: Stray Kids' SKZOO characters are what type of mascots?
+    A) Dinosaurs
+    B) Cute animals <<< CORRECT
+    C) Robots
+    D) Aliens
+  Fun fact: Each member has a unique animal character in the SKZOO line, like Wolf Chan, Leebit, and others.
+
+  Q5: Which streaming platform hosted Stray Kids' reality show SKZ Code?
+    A) Netflix
+    B) YouTube <<< CORRECT
+    C) Mnet
+    D) V Live
+  Fun fact: SKZ Code and other variety content are available on Stray Kids' official YouTube channel.
+
+
+======================================================================
+QUIZ: "SKZ producing and self-made trivia"
+ID: 3bc129d5-d2da-4b3f-941d-2fb89c2db5a5
+Group: Stray Kids
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/skz-producing-and-self-made-trivia
+======================================================================
+
+  Q1: What does 3RACHA stand for or reference?
+    A) Three rappers
+    B) A play on Sriracha sauce <<< CORRECT
+    C) Third generation
+    D) A Korean word
+  Fun fact: 3RACHA is a play on the hot sauce brand Sriracha, with 3 representing the three members.
+
+  Q2: Who in 3RACHA goes by the producing alias CB97?
+    A) Changbin
+    B) Han
+    C) Bang Chan <<< CORRECT
+    D) None of them
+  Fun fact: CB97 stands for Christopher Bang born in 1997.
+
+  Q3: Stray Kids are known as a 'self-produced' group. What percentage of their music do they typically write?
+    A) About 30%
+    B) About 50%
+    C) About 70%
+    D) Nearly all of it <<< CORRECT
+  Fun fact: Stray Kids members are credited on nearly all their songs, with 3RACHA leading production.
+
+  Q4: What is Changbin's rap alias in 3RACHA?
+    A) SpearB <<< CORRECT
+    B) J.ONE
+    C) CB97
+    D) DANCERACHA
+  Fun fact: SpearB references the Korean meaning of Changbin's name which relates to a bright spear.
+
+  Q5: What is Han's alias in 3RACHA?
+    A) SpearB
+    B) J.ONE <<< CORRECT
+    C) HAN.zip
+    D) Quokka
+  Fun fact: J.ONE is Han Jisung's producing alias used in 3RACHA credits.
+
+
+======================================================================
+QUIZ: "ONCE check - how well do you know TWICE?"
+ID: 77b919d9-abe4-454a-85b9-cd46eb2d4648
+Group: TWICE
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/once-check-how-well-do-you-know-twice
+======================================================================
+
+  Q1: How many members are in TWICE?
+    A) 7
+    B) 8
+    C) 9 <<< CORRECT
+    D) 10
+  Fun fact: TWICE has 9 members: Nayeon, Jeongyeon, Momo, Sana, Jihyo, Mina, Dahyun, Chaeyoung, and Tzuyu.
+
+  Q2: TWICE was formed through which survival show?
+    A) Produce 101
+    B) Sixteen <<< CORRECT
+    C) Nizi Project
+    D) Finding TWICE
+  Fun fact: Sixteen aired on Mnet in 2015. Originally 16 contestants competed for spots in a 7-member group, but JYP decided to debut 9 members.
+
+  Q3: Which company manages TWICE?
+    A) SM Entertainment
+    B) YG Entertainment
+    C) JYP Entertainment <<< CORRECT
+    D) HYBE
+
+  Q4: Who is the leader of TWICE?
+    A) Nayeon
+    B) Jihyo <<< CORRECT
+    C) Momo
+    D) Sana
+  Fun fact: Jihyo trained at JYP for 10 years before debuting, making her one of the longest-training idols.
+
+  Q5: How many Japanese members are in TWICE?
+    A) 1
+    B) 2
+    C) 3 <<< CORRECT
+    D) 4
+  Fun fact: Momo, Sana, and Mina are the three Japanese members, sometimes called MiSaMo.
+
+  Q6: Which member is from Taiwan?
+    A) Mina
+    B) Sana
+    C) Tzuyu <<< CORRECT
+    D) Dahyun
+  Fun fact: Tzuyu (Chou Tzu-yu) is from Tainan, Taiwan and is the youngest member of TWICE.
+
+
+======================================================================
+QUIZ: "TWICE title tracks challenge - name that song"
+ID: 72a06cdf-00d1-48aa-9d11-903749919c86
+Group: TWICE
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/twice-title-tracks-challenge-name-that-song
+======================================================================
+
+  Q1: What was TWICE's debut song?
+    A) Cheer Up
+    B) Like Ooh-Ahh <<< CORRECT
+    C) TT
+    D) Knock Knock
+  Fun fact: Like Ooh-Ahh was the first K-pop debut MV to reach 100 million views on YouTube.
+
+  Q2: Which TWICE song is famous for the 'shy shy shy' part?
+    A) TT
+    B) Cheer Up <<< CORRECT
+    C) What is Love?
+    D) Signal
+  Fun fact: Cheer Up won Song of the Year at the 2016 Melon Music Awards and Mnet Asian Music Awards.
+
+  Q3: The TT in TWICE's song TT represents what?
+    A) A dance move
+    B) A crying emoticon <<< CORRECT
+    C) Their initials
+    D) A drumbeat
+  Fun fact: TT represents the crying emoticon T_T and the song's iconic hand gesture mimics tears falling.
+
+  Q4: Which TWICE song marked their shift to a more mature concept?
+    A) What is Love?
+    B) Fancy <<< CORRECT
+    C) Signal
+    D) Likey
+  Fun fact: Fancy (2019) was widely praised for marking TWICE's evolution from cute concepts to a more sophisticated style.
+
+  Q5: Feel Special was released in which year?
+    A) 2018
+    B) 2019 <<< CORRECT
+    C) 2020
+    D) 2021
+  Fun fact: Feel Special has emotional significance as it was released when several members were dealing with health and personal issues.
+
+  Q6: What was TWICE's first English single?
+    A) The Feels <<< CORRECT
+    B) Moonlight Sunrise
+    C) Set Me Free
+    D) I Can't Stop Me
+  Fun fact: The Feels was released in October 2021 and peaked at #83 on the Billboard Hot 100.
+
+
+======================================================================
+QUIZ: "TWICE members facts quiz"
+ID: 73249d20-b694-43c3-a3d8-72fd0aa9a4e5
+Group: TWICE
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/twice-members-facts-quiz
+======================================================================
+
+  Q1: Which TWICE member was the first to release a solo album?
+    A) Jihyo
+    B) Nayeon <<< CORRECT
+    C) Momo
+    D) Chaeyoung
+  Fun fact: Nayeon released IM NAYEON in June 2022, debuting at #7 on the Billboard 200.
+
+  Q2: What is Nayeon's debut solo single?
+    A) ABCD
+    B) POP! <<< CORRECT
+    C) Dice
+    D) Santa Tell Me
+  Fun fact: POP! became a viral hit and established Nayeon as a successful solo artist.
+
+  Q3: Which member is known as the best dancer and was a contestant on a Japanese TV show?
+    A) Mina
+    B) Momo <<< CORRECT
+    C) Sana
+    D) Jihyo
+  Fun fact: Momo appeared on a Japanese dance survival show before joining JYP Entertainment.
+
+  Q4: Which member is known for her elegant ballet background?
+    A) Momo
+    B) Mina <<< CORRECT
+    C) Sana
+    D) Tzuyu
+  Fun fact: Mina trained in ballet for over 10 years and her graceful style is evident in TWICE's performances.
+
+  Q5: Dahyun is known for what signature move from Sixteen?
+    A) Shy shy shy
+    B) Eagle dance <<< CORRECT
+    C) TT gesture
+    D) Heart shake
+  Fun fact: Dahyun's eagle dance went viral during Sixteen and became one of her most iconic moments.
+
+
+======================================================================
+QUIZ: "TWICE from Sixteen to stardom quiz"
+ID: 9617acc8-a94f-468f-b175-23caab6ab35f
+Group: TWICE
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/twice-from-sixteen-to-stardom-quiz
+======================================================================
+
+  Q1: In what year did the survival show Sixteen air?
+    A) 2014
+    B) 2015 <<< CORRECT
+    C) 2016
+    D) 2017
+  Fun fact: Sixteen aired from May to July 2015 on Mnet, with TWICE debuting in October of the same year.
+
+  Q2: How many contestants were originally on Sixteen?
+    A) 12
+    B) 14
+    C) 16 <<< CORRECT
+    D) 20
+  Fun fact: 16 JYP trainees competed on the show, and JYP surprised everyone by debuting 9 members instead of the planned 7.
+
+  Q3: TWICE's first daesang (grand prize) at year-end awards was for which song?
+    A) Like Ooh-Ahh
+    B) Cheer Up <<< CORRECT
+    C) TT
+    D) Signal
+  Fun fact: Cheer Up won Song of the Year at both MAMA and MMA in 2016.
+
+  Q4: In what year did TWICE hold their first concert tour?
+    A) 2016
+    B) 2017
+    C) 2018 <<< CORRECT
+    D) 2019
+  Fun fact: TWICELAND The Opening was their first solo concert tour, starting in February 2017 in Seoul.
+
+  Q5: TWICE's Japanese debut single was which song?
+    A) TT Japanese ver.
+    B) One More Time <<< CORRECT
+    C) Candy Pop
+    D) Wake Me Up
+  Fun fact: One More Time was released in October 2017 and was an original Japanese song, not a Korean remake.
+
+
+======================================================================
+QUIZ: "TWICE music videos quiz - visual trivia"
+ID: 764ff1bb-69e1-4f19-b6b1-79fdf0eb84e9
+Group: TWICE
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/twice-music-videos-quiz-visual-trivia
+======================================================================
+
+  Q1: In the TT MV, the members dress up as what for Halloween?
+    A) Superheroes
+    B) Disney characters and movie characters <<< CORRECT
+    C) Animals
+    D) Historical figures
+  Fun fact: Members dressed as Tinker Bell, the Little Mermaid, Pinocchio, a pirate, and other characters.
+
+  Q2: Which TWICE MV features a colorful phone booth?
+    A) What is Love?
+    B) Likey <<< CORRECT
+    C) Heart Shaker
+    D) Dance The Night Away
+  Fun fact: Likey was filmed in Vancouver, Canada and features the members vlogging their adventures.
+
+  Q3: What is Love? MV pays tribute to scenes from famous what?
+    A) Anime
+    B) Movies <<< CORRECT
+    C) Musicals
+    D) TV shows
+  Fun fact: The MV recreates scenes from movies like La La Land, Romeo and Juliet, Ghost, and The Princess Diaries.
+
+  Q4: Dance The Night Away MV was filmed at which type of location?
+    A) An amusement park
+    B) A beach <<< CORRECT
+    C) A ski resort
+    D) A shopping mall
+  Fun fact: The summer-themed MV was filmed at a beach location, fitting the song's refreshing concept.
+
+  Q5: In which MV do the members go to school in different timelines?
+    A) Signal <<< CORRECT
+    B) Knock Knock
+    C) Like Ooh-Ahh
+    D) Yes or Yes
+  Fun fact: Signal has a time-travel concept with members communicating across different years.
+
+
+======================================================================
+QUIZ: "MY quiz - how well do you know aespa?"
+ID: a452cfa1-d6f9-4d17-b98b-7a40eee06cd0
+Group: aespa
+Creator: kpopquizz
+Type: multiple_choice
+Plays: 0
+Slug: /q/my-quiz-how-well-do-you-know-aespa
+======================================================================
+
+  Q1: When did aespa debut?
+    A) March 2020
+    B) November 2020 <<< CORRECT
+    C) January 2021
+    D) May 2021
+  Fun fact: aespa debuted on November 17, 2020 under SM Entertainment with the single Black Mamba.
+
+  Q2: How many members are in aespa?
+    A) 3
+    B) 4 <<< CORRECT
+    C) 5
+    D) 6
+  Fun fact: aespa has 4 members: Karina, Giselle, Winter, and NingNing.
+
+  Q3: Which company manages aespa?
+    A) JYP Entertainment
+    B) SM Entertainment <<< CORRECT
+    C) YG Entertainment
+    D) HYBE
+  Fun fact: SM Entertainment is also home to EXO, Red Velvet, and NCT.
+
+  Q4: What is aespa's fandom name?
+    A) KWANGYA
+    B) MY <<< CORRECT
+    C) Black Mamba
+    D) Synk
+  Fun fact: MY comes from the idea that fans are aespa's most precious 'MY' - symbolizing a deep connection.
+
+  Q5: What is the name of aespa's debut song?
+    A) Next Level
+    B) Savage
+    C) Black Mamba <<< CORRECT
+    D) Forever
+  Fun fact: Black Mamba is also the name of the villain in aespa's universe lore.
+
+  Q6: Who is the leader of aespa?
+    A) Winter
+    B) Karina <<< CORRECT
+    C) Giselle
+    D) NingNing
+  Fun fact: Karina (Yu Jimin) is the leader and one of the main dancers and rappers.
+
+
+======================================================================
+QUIZ: "Only real Bunnies can ace this NewJeans quiz"
+ID: 8e45a89f-84a8-4eb6-8162-44696e9d3c13
+Group: NewJeans
+Creator: mingi
+Type: multiple_choice
+Plays: 1
+Slug: /q/only-real-bunnies-can-ace-this-newjeans-quiz
+======================================================================
+
+  Q1: What was the first NewJeans song to hit #1 on Melon daily chart ?
+    A) Hype Boy
+    B) Attention <<< CORRECT
+    C) Cookie
+    D) Hurt
+  Fun fact: Attention reached #1 first, while Hype Boy climbed more slowly but stayed on charts longer.
+
+  Q2: Which company managed NewJeans ?
+    A) HYBE/ADOR <<< CORRECT
+    B) SM Entertainment
+    C) YG Entertainment
+    D) JYP Entertainment
+  Fun fact: ADOR is a sublabel of HYBE, led by creative director Min Hee-jin.
+
+  Q3: How many members are in NewJeans?
+    A) 4
+    B) 6
+    C) 7
+    D) 5 <<< CORRECT
+  Fun fact: Minji, Hanni, Danielle, Haerin, and Hyein.
+
+  Q4: Which member is from Australia ?
+    A) Minji
+    B) Hanni
+    C) Danielle <<< CORRECT
+    D) Haerin
+  Fun fact: Danielle Marsh was born in Korea but raised in Australia. She's Korean-Australian.
+
+  Q5: What is the name of NewJeans' fandom ?
+    A) Bunnies <<< CORRECT
+    B) Newbies
+    C) Jeanists
+    D) NJz
+  Fun fact: The bunny concept is central to NewJeans' branding and visuals.
+
+  Q6: Which NewJeans song features a flip phone concept in its MV ?
+    A) Super Shy
+    B) ETA
+    C) Ditto <<< CORRECT
+    D) Cool With You
+  Fun fact: Ditto's MV has a retro camcorder and Y2K aesthetic.
+
+  Q7: Who is the youngest member of NewJeans ?
+    A) Haerin
+    B) Hyein <<< CORRECT
+    C) Danielle
+    D) Hanni
+  Fun fact: Hyein was born on April 21, 2008, making her one of the youngest active K-pop idols.
+
+
+======================================================================
+QUIZ: "How well do you know SEVENTEEN ?"
+ID: 04ae4aaa-bea8-41cd-bd49-a2d689bcb9eb
+Group: SEVENTEEN
+Creator: mingi
+Type: true_false
+Plays: 3
+Slug: /q/how-well-do-you-know-seventeen-
+======================================================================
+
+  Q1: SEVENTEEN has 17 members
+  Answer: FALSE
+  Fun fact: SEVENTEEN has 13 members.
+
+  Q2: SEVENTEEN debuted under Pledis Entertainment
+  Answer: TRUE
+  Fun fact: Pledis Entertainment was later acquired by HYBE in 2020.
+
+  Q3: S.Coups is the leader of SEVENTEEN
+  Answer: TRUE
+  Fun fact: Choi Seungcheol (S.Coups) is the overall leader and leader of the hip-hop unit
+
+  Q4: SEVENTEEN has three sub-units: hip-hop, vocal, and dance
+  Answer: TRUE
+  Fun fact: This structure is unique in K-pop and lets all 13 members have defined roles
+
+  Q5: The8 and Jun are both from Japan
+  Answer: FALSE
+  Fun fact: Both The8 (Xu Minghao) and Jun (Wen Junhui) are from China.
+
+  Q6: SEVENTEEN's hit song "Super" was released in 2023
+  Answer: TRUE
+  Fun fact: Super was from their FML album which sold over 6 million copies in its first week.
+
+  Q7: Woozi is known as SEVENTEEN's main choreographer
+  Answer: FALSE
+  Fun fact: Woozi (Lee Jihoon) is the main producer and songwriter
+
+

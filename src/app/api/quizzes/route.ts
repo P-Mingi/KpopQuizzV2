@@ -1,0 +1,38 @@
+import { NextResponse } from 'next/server';
+
+import { getTrendingQuizzes, getNewQuizzes, getMostLikedQuizzes, getHardestQuizzes } from '@/lib/db/queries/quizzes';
+
+import type { NextRequest } from 'next/server';
+
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url);
+  const tab = searchParams.get('tab') ?? 'trending';
+  const offset = parseInt(searchParams.get('offset') ?? '0', 10);
+  const limitParam = parseInt(searchParams.get('limit') ?? '10', 10);
+  const limit = Math.min(Math.max(limitParam, 1), 50);
+
+  try {
+    let quizzes;
+
+    switch (tab) {
+      case 'new':
+        quizzes = await getNewQuizzes(offset, limit);
+        break;
+      case 'most_liked':
+        quizzes = await getMostLikedQuizzes(offset, limit);
+        break;
+      case 'hardest':
+        quizzes = await getHardestQuizzes(offset, limit);
+        break;
+      case 'trending':
+      default:
+        quizzes = await getTrendingQuizzes(offset, limit);
+        break;
+    }
+
+    return NextResponse.json({ quizzes });
+  } catch (err) {
+    console.error('Failed to fetch quizzes:', err);
+    return NextResponse.json({ error: 'Failed to fetch quizzes' }, { status: 500 });
+  }
+}

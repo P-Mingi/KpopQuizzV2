@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/admin/auto-select-qotd",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

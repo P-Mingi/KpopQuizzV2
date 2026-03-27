@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Surfaces */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F7F4;
+  --bg-tertiary: #F1EFE8;
+
+  /* Text */
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --text-tertiary: #9B9B9B;
+
+  /* Brand */
+  --accent-pink: #ED93B1;
+  --accent-pink-light: #FBEAF0;
+  --accent-pink-dark: #72243E;
+  --accent-purple: #AFA9EC;
+
+  /* Borders */
+  --border-light: #E8E6E1;
+  --border-medium: #D3D1C7;
+
+  /* Feedback: correct */
+  --correct-bg: #EAF3DE;
+  --correct-text: #27500A;
+  --correct-accent: #97C459;
+  --correct-border: #C0DD97;
+
+  /* Feedback: wrong */
+  --wrong-bg: #FCEBEB;
+  --wrong-text: #791F1F;
+  --wrong-accent: #E24B4A;
+  --wrong-border: #F7C1C1;
+
+  /* Feedback: timeout */
+  --timeout-bg: #FAEEDA;
+  --timeout-text: #633806;
+  --timeout-accent: #EF9F27;
+
+  /* Feedback: info */
+  --info-bg: #E6F1FB;
+  --info-text: #0C447C;
+
+  /* Difficulty badges */
+  --easy-bg: #EAF3DE;
+  --easy-text: #27500A;
+  --medium-bg: #FAEEDA;
+  --medium-text: #633806;
+  --hard-bg: #FCEBEB;
+  --hard-text: #791F1F;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
