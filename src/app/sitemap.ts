@@ -36,12 +36,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  const groupPages: MetadataRoute.Sitemap = (groupsResult.data ?? []).map((g) => ({
-    url: `${siteUrl}/${g.slug}-quiz`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }));
+  const groupPages: MetadataRoute.Sitemap = (groupsResult.data ?? []).flatMap((g) => [
+    {
+      url: `${siteUrl}/${g.slug}-quiz`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/${g.slug}-trivia`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.5,
+    },
+  ]);
 
   const quizPages: MetadataRoute.Sitemap = (quizzesResult.data ?? []).map((q) => ({
     url: `${siteUrl}/q/${q.slug}`,

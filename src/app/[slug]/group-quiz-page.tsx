@@ -1,7 +1,5 @@
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { getGroupBySlug } from '@/lib/db/queries/groups';
 import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
@@ -12,32 +10,11 @@ import { formatCount } from '@/lib/utils';
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 
-interface GroupQuizPageProps {
-  params: Promise<{ groupQuiz: string }>;
-}
-
-const RESERVED_SLUGS = [
-  'trending', 'new', 'most-liked', 'terms', 'privacy', 'login', 'settings',
-  'admin', 'search', 'onboarding', 'banned', 'create', 'easy-kpop-quizzes',
-  'hard-kpop-quizzes', 'kpop-quiz-2026', 'guess-the-kpop-idol', 'kpop-true-or-false',
-];
-
-export const revalidate = 60;
-
 function generateDefaultIntro(group: Group): string {
   return `Think you're a real ${group.fandom_name}? Play ${group.quiz_count}+ free ${group.name} quizzes created by fans who actually know ${group.name}. From easy trivia to impossible deep-cut challenges - prove you deserve your fan card. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
 }
 
-export async function generateMetadata({ params }: GroupQuizPageProps): Promise<Metadata> {
-  const { groupQuiz } = await params;
-
-  if (RESERVED_SLUGS.includes(groupQuiz) || !groupQuiz.endsWith('-quiz')) return {};
-
-  const groupSlug = groupQuiz.replace(/-quiz$/, '');
-  const group = await getGroupBySlug(groupSlug);
-
-  if (!group || group.quiz_count < 3) return {};
-
+export function generateGroupQuizMetadata(group: Group): Metadata {
   const description = group.seo_intro
     || `Play ${group.quiz_count}+ free ${group.name} quizzes. Prove you're a real ${group.fandom_name}.`;
 
@@ -54,20 +31,7 @@ export async function generateMetadata({ params }: GroupQuizPageProps): Promise<
   };
 }
 
-export default async function GroupQuizPage({ params }: GroupQuizPageProps): Promise<React.ReactElement> {
-  const { groupQuiz } = await params;
-
-  if (RESERVED_SLUGS.includes(groupQuiz) || !groupQuiz.endsWith('-quiz')) {
-    notFound();
-  }
-
-  const groupSlug = groupQuiz.replace(/-quiz$/, '');
-  const group = await getGroupBySlug(groupSlug);
-
-  if (!group || group.quiz_count < 3) {
-    notFound();
-  }
-
+export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
   const [initialQuizzes, relatedQuizzes] = await Promise.all([
@@ -100,6 +64,13 @@ export default async function GroupQuizPage({ params }: GroupQuizPageProps): Pro
           </p>
         </div>
       </div>
+
+      <Link
+        href={`/${group.slug}-trivia`}
+        className="inline-block mt-4 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+      >
+        Want to learn before you play? Read {group.name} trivia &rarr;
+      </Link>
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
 

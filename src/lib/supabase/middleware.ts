@@ -72,7 +72,8 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
   // Redirect old/unknown paths to homepage (preserves link equity)
   const isKnownRoute = pathname === '/'
     || KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r))
-    || pathname.endsWith('-quiz'); // /bts-quiz, /blackpink-quiz, etc.
+    || pathname.endsWith('-quiz') // /bts-quiz, /blackpink-quiz, etc.
+    || pathname.endsWith('-trivia'); // /bts-trivia, /blackpink-trivia, etc.
   if (!isKnownRoute) {
     return NextResponse.redirect(new URL('/', request.url), 301);
   }
