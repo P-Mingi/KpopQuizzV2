@@ -99,6 +99,19 @@ interface QuizItem {
   creator_username: string;
 }
 
+interface GameItem {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  play_count: number;
+  like_count: number;
+  matchup_count: number;
+  created_at: string;
+  groups: { name: string } | null;
+  profiles: { username: string };
+}
+
 interface PendingGroup {
   id: number;
   name: string;
@@ -236,6 +249,13 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   const [quizSort, setQuizSort] = useState('newest');
   const [quizSearchText, setQuizSearchText] = useState('');
   const [hasMoreQuizzes, setHasMoreQuizzes] = useState(initialData.all_quizzes.length === 20);
+
+  // Games admin state
+  const [games, setGames] = useState<GameItem[]>([]);
+  const [gamesLoaded, setGamesLoaded] = useState(false);
+  const [gamesLoading, setGamesLoading] = useState(false);
+  const [gamesSearch, setGamesSearch] = useState('');
+  const gamesSearchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Chart refs
   const activityChartRef = useRef<HTMLCanvasElement>(null);
@@ -676,6 +696,47 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     // For now, load more isn't implemented via the stats endpoint.
     // The all_quizzes section is client-side only for the initial 20.
     setHasMoreQuizzes(false);
+  }
+
+  async function loadGames(search: string) {
+    setGamesLoading(true);
+    try {
+      const q = search ? `&search=${encodeURIComponent(search)}` : '';
+      const res = await fetch(`/api/admin/games?limit=50${q}`);
+      if (res.ok) {
+        const json = await res.json();
+        setGames(json.games ?? []);
+      }
+    } catch { /* ignore */ }
+    finally {
+      setGamesLoading(false);
+      setGamesLoaded(true);
+    }
+  }
+
+  async function handleGameDelete(gameId: string) {
+    if (!confirm('Remove this game? Players will no longer be able to access it.')) return;
+    try {
+      const res = await fetch(`/api/admin/game/${gameId}`, { method: 'DELETE' });
+      if (res.ok) {
+        setGames(prev => prev.map(g => g.id === gameId ? { ...g, status: 'removed' } : g));
+        showToast('Game removed', 'success');
+      }
+    } catch { showToast('Failed to remove game', 'error'); }
+  }
+
+  async function handleGameRestore(gameId: string) {
+    try {
+      const res = await fetch(`/api/admin/game/${gameId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'published' }),
+      });
+      if (res.ok) {
+        setGames(prev => prev.map(g => g.id === gameId ? { ...g, status: 'published' } : g));
+        showToast('Game restored', 'success');
+      }
+    } catch { showToast('Failed to restore game', 'error'); }
   }
 
   // Fetch pending groups on mount
@@ -1561,6 +1622,109 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           >
             Load more
           </button>
+        )}
+      </div>
+
+      {/* Games Browser */}
+      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-medium text-txt-primary">All games</h2>
+          {!gamesLoaded && (
+            <button
+              onClick={() => loadGames('')}
+              className="text-xs font-medium text-txt-secondary border border-border-light rounded-full px-3 py-1 hover:border-border-medium transition-colors"
+            >
+              Load games
+            </button>
+          )}
+        </div>
+
+        {gamesLoaded && (
+          <>
+            <div className="mb-3">
+              <input
+                type="text"
+                value={gamesSearch}
+                onChange={(e) => {
+                  setGamesSearch(e.target.value);
+                  if (gamesSearchTimeout.current) clearTimeout(gamesSearchTimeout.current);
+                  gamesSearchTimeout.current = setTimeout(() => loadGames(e.target.value), 400);
+                }}
+                placeholder="Search games..."
+                className="px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink max-w-xs w-full"
+              />
+            </div>
+
+            {gamesLoading ? (
+              <div className="flex justify-center py-6">
+                <div className="w-4 h-4 border-2 border-border-light border-t-accent-pink rounded-full animate-spin" />
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-[11px] text-txt-secondary border-b" style={{ borderColor: 'var(--border-light)' }}>
+                      <th className="text-left py-2 font-medium">Title</th>
+                      <th className="text-left py-2 font-medium">Group</th>
+                      <th className="text-left py-2 font-medium">Creator</th>
+                      <th className="text-right py-2 font-medium">Plays</th>
+                      <th className="text-right py-2 font-medium">Matchups</th>
+                      <th className="text-left py-2 font-medium">Status</th>
+                      <th className="text-right py-2 font-medium">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {games.map((g) => (
+                      <tr key={g.id} className="border-b text-[13px]" style={{ borderColor: 'var(--border-light)' }}>
+                        <td className="py-2.5 pr-3">
+                          <a href={`/g/${g.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-txt-primary hover:underline">
+                            {g.title}
+                          </a>
+                        </td>
+                        <td className="py-2.5 pr-3 text-txt-secondary">{g.groups?.name ?? 'General'}</td>
+                        <td className="py-2.5 pr-3 text-txt-secondary">{g.profiles.username}</td>
+                        <td className="py-2.5 text-right text-txt-primary">{g.play_count.toLocaleString('en-US')}</td>
+                        <td className="py-2.5 text-right text-txt-primary">{g.matchup_count}</td>
+                        <td className="py-2.5">
+                          <StatusBadge status={g.status} />
+                        </td>
+                        <td className="py-2.5 text-right">
+                          <div className="flex gap-1 justify-end">
+                            <a
+                              href={`/g/${g.slug}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:border-border-medium"
+                            >
+                              View
+                            </a>
+                            {g.status !== 'removed' ? (
+                              <button
+                                onClick={() => handleGameDelete(g.id)}
+                                className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-wrong-border text-wrong-text"
+                              >
+                                Remove
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => handleGameRestore(g.id)}
+                                className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-correct-border text-correct-text"
+                              >
+                                Restore
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {games.length === 0 && !gamesLoading && (
+                  <p className="text-center text-sm text-txt-tertiary py-6">No games found</p>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

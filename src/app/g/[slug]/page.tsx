@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getGameBySlug } from '@/lib/db/queries/games';
+import { createServerClient } from '@/lib/supabase/server';
 import { GamePlayer } from '@/components/game/game-player';
 
 import type { Metadata } from 'next';
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
       title: `${game.title} | KpopQuiz`,
       description,
       url: `/g/${slug}`,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: game.title as string }],
+      images: [{ url: ogImage, width: 1080, height: 1350, alt: game.title as string }],
     },
     twitter: { card: 'summary_large_image', images: [ogImage] },
     alternates: { canonical: `/g/${slug}` },
@@ -40,9 +41,33 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
 
 export default async function GamePage({ params }: GamePageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  const game = await getGameBySlug(slug);
+
+  const [game, supabase] = await Promise.all([
+    getGameBySlug(slug),
+    createServerClient(),
+  ]);
 
   if (!game) notFound();
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // Check if logged-in user has already played
+  let initialPlay: { choices: Record<string, 'a' | 'b'>; created_at: string } | null = null;
+  if (user) {
+    const { data: existingPlay } = await supabase
+      .from('game_plays')
+      .select('choices, created_at')
+      .eq('game_id', game.id)
+      .eq('player_id', user.id)
+      .maybeSingle();
+
+    if (existingPlay) {
+      initialPlay = {
+        choices: existingPlay.choices as Record<string, 'a' | 'b'>,
+        created_at: existingPlay.created_at as string,
+      };
+    }
+  }
 
   const raw = game as Record<string, unknown>;
   const groups = raw.groups as { name: string; slug: string; display_color: string; text_color: string; logo_url: string | null; fandom_name: string } | null;
@@ -57,6 +82,8 @@ export default async function GamePage({ params }: GamePageProps): Promise<React
     matchupCount: game.matchup_count as number,
     playCount: game.play_count as number,
     likeCount: game.like_count as number,
+    creatorId: game.creator_id as string,
+    isCreator: user?.id === (game.creator_id as string),
     groupName: groups?.name ?? null,
     groupSlug: groups?.slug ?? null,
     displayColor: groups?.display_color ?? null,
@@ -70,7 +97,7 @@ export default async function GamePage({ params }: GamePageProps): Promise<React
 
   return (
     <div className="py-6">
-      <GamePlayer game={gameData} />
+      <GamePlayer game={gameData} initialPlay={initialPlay} />
 
       <script
         type="application/ld+json"

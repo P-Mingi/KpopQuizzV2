@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { UserDropdown } from '@/components/layout/user-dropdown';
+import { NavLinks } from '@/components/layout/nav-links';
 
 export async function Navbar(): Promise<React.ReactElement> {
   const supabase = await createServerClient();
@@ -21,18 +22,15 @@ export async function Navbar(): Promise<React.ReactElement> {
   return (
     <header className="sticky top-0 z-50 bg-surface-primary border-b border-border-light">
       <nav className="flex items-center justify-between h-14 max-w-2xl mx-auto px-4">
-        <Link href="/" className="text-lg font-medium">
-          <span className="text-txt-primary">kpop</span>
-          <span className="text-accent-pink">quiz</span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="text-lg font-medium flex-shrink-0">
+            <span className="text-txt-primary">kpop</span>
+            <span className="text-accent-pink">quiz</span>
+          </Link>
+          <NavLinks />
+        </div>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/games"
-            className="text-sm text-txt-secondary hover:text-txt-primary transition-colors hidden sm:inline"
-          >
-            Games
-          </Link>
           <Link
             href="/create"
             aria-label="Create quiz"

@@ -47,7 +47,7 @@ export async function GET(
         </div>
 
         {/* Matchup bars */}
-        {matchups.slice(0, 8).map((m, i) => {
+        {matchups.slice(0, 10).map((m, i) => {
           const total = m.votes_a + m.votes_b;
           const pctA = total > 0 ? Math.round((m.votes_a / total) * 100) : 50;
           const pctB = 100 - pctA;
@@ -79,9 +79,9 @@ export async function GET(
           );
         })}
 
-        {matchups.length > 8 && (
+        {matchups.length > 10 && (
           <p style={{ textAlign: 'center', fontSize: 16, color: '#9B9B9B', marginTop: 8 }}>
-            + {matchups.length - 8} more matchups
+            + {matchups.length - 10} more matchups
           </p>
         )}
 
@@ -92,6 +92,6 @@ export async function GET(
         </div>
       </div>
     ),
-    { width: 1200, height: 630 },
+    { width: 1080, height: 1350 },
   );
 }
