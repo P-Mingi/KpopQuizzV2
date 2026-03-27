@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function Footer(): React.ReactElement {
   return (
-    <footer className="border-t border-border-light">
+    <footer className="relative z-10 border-t border-border-light">
       <div className="max-w-2xl mx-auto px-4 py-8 text-center">
         <p className="text-sm font-medium text-txt-primary">kpopquiz.org</p>
         <p className="text-xs text-txt-secondary mt-0.5">
