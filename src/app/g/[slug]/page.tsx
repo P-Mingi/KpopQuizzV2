@@ -22,6 +22,8 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
     ? `${game.play_count.toLocaleString('en-US')} fans have played. Pick your favorite in each matchup and see what % of fans agree with you.`
     : `Pick your favorite in each matchup and see what other fans picked.`;
 
+  const ogImage = `https://kpopquiz.org/api/og/game/${slug}/status`;
+
   return {
     title: game.title,
     description,
@@ -29,8 +31,9 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
       title: `${game.title} | KpopQuiz`,
       description,
       url: `/g/${slug}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: game.title as string }],
     },
-    twitter: { card: 'summary_large_image' },
+    twitter: { card: 'summary_large_image', images: [ogImage] },
     alternates: { canonical: `/g/${slug}` },
   };
 }

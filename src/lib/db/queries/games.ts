@@ -3,7 +3,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import type { GameCardData } from '@/lib/db/types';
 
 const GAME_CARD_SELECT = `
-  id, title, slug, game_type, play_count, like_count, matchup_count, created_at,
+  id, title, slug, game_type, play_count, like_count, matchup_count, content, created_at,
   groups (name, slug, display_color, text_color, logo_url),
   profiles!games_creator_id_fkey (username, avatar_url, avatar_bg, avatar_text)
 `;
@@ -16,6 +16,7 @@ interface RawGameRow {
   play_count: number;
   like_count: number;
   matchup_count: number;
+  content: import('@/lib/db/types').GameContent;
   created_at: string;
   groups: { name: string; slug: string; display_color: string; text_color: string; logo_url: string | null } | null;
   profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string };
@@ -30,6 +31,7 @@ function toGameCardData(row: RawGameRow): GameCardData {
     play_count: row.play_count,
     like_count: row.like_count,
     matchup_count: row.matchup_count,
+    content: row.content,
     created_at: row.created_at,
     group_name: row.groups?.name ?? null,
     group_slug: row.groups?.slug ?? null,

@@ -216,6 +216,7 @@ export interface GameCardData {
   play_count: number;
   like_count: number;
   matchup_count: number;
+  content: GameContent;
   created_at: string;
   group_name: string | null;
   group_slug: string | null;
