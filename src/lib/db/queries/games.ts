@@ -139,6 +139,19 @@ export async function getGamesByCreator(creatorId: string, offset: number, limit
   return (data as unknown as GameRow[]).map(toGameCardData);
 }
 
+export async function getBlindTests(): Promise<GameWithGroup[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from('games')
+    .select(GAME_SELECT)
+    .eq('game_type', 'blind_test')
+    .eq('status', 'published')
+    .order('play_count', { ascending: false });
+
+  if (error) throw new Error(`Failed to fetch blind tests: ${error.message}`);
+  return (data as unknown as GameRow[]).map(toGameWithGroup);
+}
+
 export async function getAdminBlindTests(): Promise<GameCardData[]> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
