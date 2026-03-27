@@ -619,8 +619,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                   {state.cluesRevealed < 3 ? (
                     <button
                       onClick={handleRevealClue}
-                      className="text-sm px-4 py-2 rounded-full border border-border-light text-txt-secondary hover:border-border-medium transition-colors cursor-pointer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FBEAF0] border border-[#ED93B1] text-[#72243E] text-sm font-medium hover:bg-[#F4C0D1] transition-colors cursor-pointer"
                     >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#72243E" strokeWidth="1.5" strokeLinecap="round">
+                        <circle cx="8" cy="8" r="6" />
+                        <path d="M6.5 6.5C6.5 5.5 7.2 4.8 8 4.8C8.8 4.8 9.5 5.5 9.5 6.3C9.5 7 9 7.4 8.5 7.7C8.2 7.9 8 8.1 8 8.5" />
+                        <circle cx="8" cy="10.5" r="0.5" fill="#72243E" />
+                      </svg>
                       {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
                     </button>
                   ) : (

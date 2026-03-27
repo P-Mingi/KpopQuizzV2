@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 
+import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
             <Footer />
           </div>
         </ToastProvider>
+        <Analytics />
       </body>
     </html>
   );
