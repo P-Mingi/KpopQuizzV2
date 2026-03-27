@@ -33,7 +33,7 @@ export async function Navbar(): Promise<React.ReactElement> {
             href="/games"
             className="text-sm text-txt-secondary hover:text-txt-primary transition-colors hidden sm:block"
           >
-            Games
+            Blind test
           </Link>
           <Link
             href="/create"

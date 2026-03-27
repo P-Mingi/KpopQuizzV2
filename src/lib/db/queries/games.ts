@@ -97,12 +97,14 @@ export async function getGameBySlug(slug: string): Promise<GameWithGroup | null>
   return toGameWithGroup(data as unknown as GameRow);
 }
 
-export async function getPopularGames(offset: number, limit: number): Promise<GameCardData[]> {
+export async function getPopularGames(offset: number, limit: number, gameType?: string): Promise<GameCardData[]> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from('games')
     .select(GAME_SELECT)
-    .eq('status', 'published')
+    .eq('status', 'published');
+  if (gameType) query = query.eq('game_type', gameType);
+  const { data, error } = await query
     .order('play_count', { ascending: false })
     .range(offset, offset + limit - 1);
 
