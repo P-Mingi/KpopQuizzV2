@@ -172,62 +172,6 @@ export interface QuizCardData {
   question_count: number;
 }
 
-// ============================================
-// Game types
-// ============================================
-
-export type GameType = 'this_or_that';
-export type GameStatus = 'published' | 'flagged' | 'removed';
-
-export interface Matchup {
-  id: string;
-  option_a: string;
-  option_b: string;
-  votes_a: number;
-  votes_b: number;
-}
-
-export interface GameContent {
-  matchups: Matchup[];
-}
-
-export interface Game {
-  id: string;
-  creator_id: string;
-  group_id: number | null;
-  title: string;
-  slug: string;
-  game_type: GameType;
-  content: GameContent;
-  matchup_count: number;
-  status: GameStatus;
-  play_count: number;
-  like_count: number;
-  report_count: number;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface GameCardData {
-  id: string;
-  title: string;
-  slug: string;
-  game_type: GameType;
-  play_count: number;
-  like_count: number;
-  matchup_count: number;
-  content: GameContent;
-  created_at: string;
-  group_name: string | null;
-  group_slug: string | null;
-  display_color: string | null;
-  text_color: string | null;
-  logo_url: string | null;
-  creator_username: string;
-  creator_avatar_url: string | null;
-  creator_avatar_bg: string;
-  creator_avatar_text: string;
-}
 
 export interface BadgeDefinition {
   id: string;

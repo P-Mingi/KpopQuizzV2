@@ -6,7 +6,7 @@ import { Spinner } from '@/components/ui/spinner';
 
 export const metadata = {
   title: 'Create | KpopQuiz',
-  description: 'Create a K-pop quiz or This or That game in under 3 minutes and challenge your fandom.',
+  description: 'Create a K-pop quiz in under 3 minutes and challenge your fandom.',
 };
 
 export default async function CreatePage(): Promise<React.ReactElement> {

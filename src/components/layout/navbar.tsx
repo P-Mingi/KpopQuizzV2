@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { UserDropdown } from '@/components/layout/user-dropdown';
-import { ActiveNavLinks } from '@/components/layout/nav-links';
 
 export async function Navbar(): Promise<React.ReactElement> {
   const supabase = await createServerClient();
@@ -30,8 +29,6 @@ export async function Navbar(): Promise<React.ReactElement> {
 
         {/* Right: nav links + create + profile */}
         <div className="flex items-center gap-3">
-          <ActiveNavLinks />
-
           <Link
             href="/create"
             aria-label="Create"
