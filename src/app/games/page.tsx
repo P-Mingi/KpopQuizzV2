@@ -50,7 +50,7 @@ function FeaturedCard({ game }: { game: GameWithGroup }): React.ReactElement {
     <Link href={`/g/${game.slug}`}>
       <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl overflow-hidden hover:border-[var(--border-medium)] transition-colors mb-4">
         {/* Thumbnail mosaic */}
-        <div className="flex h-20 overflow-hidden">
+        <div className="flex h-20 overflow-hidden bg-[var(--bg-secondary)]">
           {thumbnails.map((url, i) => (
             <img
               key={i}
@@ -58,7 +58,6 @@ function FeaturedCard({ game }: { game: GameWithGroup }): React.ReactElement {
               alt=""
               className="flex-1 object-cover object-center"
               style={{ minWidth: 0 }}
-              onError={(e) => { (e.target as HTMLImageElement).style.background = 'var(--bg-secondary)'; (e.target as HTMLImageElement).src = ''; }}
             />
           ))}
         </div>
@@ -107,14 +106,13 @@ function BlindTestCard({ game }: { game: GameWithGroup }): React.ReactElement {
             </div>
           </div>
         ) : (
-          <div className="w-[90px] flex-shrink-0 grid grid-cols-2 grid-rows-2">
+          <div className="w-[90px] flex-shrink-0 grid grid-cols-2 grid-rows-2 bg-[var(--bg-secondary)]">
             {thumbnails.map((url, i) => (
               <img
                 key={i}
                 src={url}
                 alt=""
                 className="w-full h-10 object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).style.background = 'var(--bg-secondary)'; (e.target as HTMLImageElement).src = ''; }}
               />
             ))}
           </div>
@@ -155,7 +153,6 @@ export default async function GamesPage(): Promise<React.ReactElement> {
 
   return (
     <div className="py-6">
-      {/* Header */}
       <h1 className="text-2xl font-medium mb-1">Blind test</h1>
       <p className="text-sm text-[var(--text-secondary)] mb-4">
         Listen to a clip. Guess the song. No peeking.
@@ -181,7 +178,7 @@ export default async function GamesPage(): Promise<React.ReactElement> {
       {featured && (
         <>
           <SectionLabel>Featured</SectionLabel>
-          <FeaturedCard game={featured} />
+          <FeaturedCard game={featured!} />
         </>
       )}
 
@@ -197,7 +194,7 @@ export default async function GamesPage(): Promise<React.ReactElement> {
         </>
       )}
 
-      {/* Top players - empty state for now */}
+      {/* Top players */}
       <SectionLabel>Top players</SectionLabel>
       <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl p-4">
         <div className="text-center py-4">
@@ -206,7 +203,6 @@ export default async function GamesPage(): Promise<React.ReactElement> {
         </div>
       </div>
 
-      {/* Empty state */}
       {blindTests.length === 0 && (
         <div className="text-center py-16">
           <p className="text-lg font-medium mb-2">Coming soon</p>
