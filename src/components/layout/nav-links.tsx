@@ -3,16 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export function NavLinks(): React.ReactElement {
+export function ActiveNavLinks(): React.ReactElement {
   const pathname = usePathname();
-  const isGamesActive = pathname === '/games' || pathname.startsWith('/g/');
+  const isGames = pathname === '/games' || pathname.startsWith('/g/');
 
   return (
-    <div className="hidden sm:flex items-center gap-5">
+    <div className="flex items-center gap-4 mr-1">
       <Link
         href="/"
         className={`text-sm font-medium transition-colors ${
-          !isGamesActive ? 'text-txt-primary' : 'text-txt-tertiary hover:text-txt-secondary'
+          isGames ? 'text-txt-tertiary hover:text-txt-secondary' : 'text-txt-primary'
         }`}
       >
         Quizzes
@@ -20,7 +20,7 @@ export function NavLinks(): React.ReactElement {
       <Link
         href="/games"
         className={`text-sm font-medium transition-colors ${
-          isGamesActive ? 'text-txt-primary' : 'text-txt-tertiary hover:text-txt-secondary'
+          isGames ? 'text-txt-primary' : 'text-txt-tertiary hover:text-txt-secondary'
         }`}
       >
         Games

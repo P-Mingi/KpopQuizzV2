@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { UserDropdown } from '@/components/layout/user-dropdown';
-import { NavLinks } from '@/components/layout/nav-links';
+import { ActiveNavLinks } from '@/components/layout/nav-links';
 
 export async function Navbar(): Promise<React.ReactElement> {
   const supabase = await createServerClient();
@@ -22,34 +22,23 @@ export async function Navbar(): Promise<React.ReactElement> {
   return (
     <header className="sticky top-0 z-50 bg-surface-primary border-b border-border-light">
       <nav className="flex items-center justify-between h-14 max-w-2xl mx-auto px-4">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="text-lg font-medium flex-shrink-0">
-            <span className="text-txt-primary">kpop</span>
-            <span className="text-accent-pink">quiz</span>
-          </Link>
-          <NavLinks />
-        </div>
+        {/* Left: logo */}
+        <Link href="/" className="text-lg font-medium flex-shrink-0">
+          <span className="text-txt-primary">kpop</span>
+          <span className="text-accent-pink">quiz</span>
+        </Link>
 
+        {/* Right: nav links + create + profile */}
         <div className="flex items-center gap-3">
+          <ActiveNavLinks />
+
           <Link
             href="/create"
-            aria-label="Create quiz"
+            aria-label="Create"
             className="flex items-center gap-1 px-4 py-2 text-sm font-medium bg-surface-primary border border-border-light rounded-full hover:border-border-medium transition-colors"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-              className="text-txt-primary"
-            >
-              <path
-                d="M8 3v10M3 8h10"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="text-txt-primary">
+              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
             <span className="hidden sm:inline">Create</span>
           </Link>
@@ -63,10 +52,7 @@ export async function Navbar(): Promise<React.ReactElement> {
               xp={profile.xp}
             />
           ) : (
-            <Link
-              href="/login"
-              className="text-sm text-txt-secondary hover:text-txt-primary transition-colors"
-            >
+            <Link href="/login" className="text-sm text-txt-secondary hover:text-txt-primary transition-colors">
               Sign in
             </Link>
           )}
