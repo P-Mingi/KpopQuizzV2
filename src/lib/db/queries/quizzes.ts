@@ -276,6 +276,44 @@ export async function getQuizzesByCreator(
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
+export async function getQuizzesByDifficulty(
+  difficulty: 'easy' | 'medium' | 'hard',
+  offset: number,
+  limit: number,
+): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published')
+    .eq('difficulty', difficulty)
+    .order('play_count', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch ${difficulty} quizzes: ${error.message}`);
+  return (data as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
+export async function getQuizzesByType(
+  quizType: 'multiple_choice' | 'true_false' | 'guess_from_clues',
+  offset: number,
+  limit: number,
+): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published')
+    .eq('quiz_type', quizType)
+    .order('play_count', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch ${quizType} quizzes: ${error.message}`);
+  return (data as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
 export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
   const supabase = await createServerClient();
   const today = new Date().toISOString().split('T')[0]!;

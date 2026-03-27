@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 
 import type { NextRequest } from 'next/server';
@@ -32,7 +32,9 @@ export async function DELETE(
     return NextResponse.json({ error: 'Move or delete the quizzes first' }, { status: 400 });
   }
 
-  const { error } = await supabase
+  const adminDb = createServiceRoleClient();
+
+  const { error } = await adminDb
     .from('groups')
     .delete()
     .eq('id', groupId);

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 
 import type { NextRequest } from 'next/server';
@@ -34,8 +34,10 @@ export async function POST(
     return NextResponse.json({ error: 'Invalid target group ID' }, { status: 400 });
   }
 
+  const adminDb = createServiceRoleClient();
+
   // Move all quizzes from source to target
-  const { error: moveError } = await supabase
+  const { error: moveError } = await adminDb
     .from('quizzes')
     .update({ group_id: targetGroupId })
     .eq('group_id', sourceGroupId);
@@ -46,7 +48,7 @@ export async function POST(
   }
 
   // Delete the source group
-  const { error: deleteError } = await supabase
+  const { error: deleteError } = await adminDb
     .from('groups')
     .delete()
     .eq('id', sourceGroupId);
@@ -57,13 +59,13 @@ export async function POST(
   }
 
   // Recalculate quiz_count on target group
-  const { count } = await supabase
+  const { count } = await adminDb
     .from('quizzes')
     .select('id', { count: 'exact', head: true })
     .eq('group_id', targetGroupId)
     .eq('status', 'published');
 
-  await supabase
+  await adminDb
     .from('groups')
     .update({ quiz_count: count ?? 0 })
     .eq('id', targetGroupId);

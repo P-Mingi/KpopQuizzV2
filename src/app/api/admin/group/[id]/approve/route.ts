@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 
 import type { NextRequest } from 'next/server';
@@ -38,7 +38,9 @@ export async function POST(
     // No body provided, just approve
   }
 
-  const { error } = await supabase
+  const adminDb = createServiceRoleClient();
+
+  const { error } = await adminDb
     .from('groups')
     .update(updates)
     .eq('id', groupId);

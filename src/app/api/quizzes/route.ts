@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { getTrendingQuizzes, getNewQuizzes, getMostLikedQuizzes, getHardestQuizzes } from '@/lib/db/queries/quizzes';
+import { getTrendingQuizzes, getNewQuizzes, getMostLikedQuizzes, getHardestQuizzes, getQuizzesByDifficulty } from '@/lib/db/queries/quizzes';
 
 import type { NextRequest } from 'next/server';
 
@@ -23,6 +23,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         break;
       case 'hardest':
         quizzes = await getHardestQuizzes(offset, limit);
+        break;
+      case 'easy':
+        quizzes = await getQuizzesByDifficulty('easy', offset, limit);
+        break;
+      case 'hard':
+        quizzes = await getQuizzesByDifficulty('hard', offset, limit);
         break;
       case 'trending':
       default:
