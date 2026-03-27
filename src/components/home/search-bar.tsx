@@ -137,7 +137,7 @@ export function SearchBar(): React.ReactElement {
       </form>
 
       {showDropdown && (hasResults || noResults || loading) && (
-        <div className="absolute left-0 right-0 top-full mt-1 bg-surface-primary border border-border-light rounded-xl shadow-sm max-h-[420px] overflow-y-auto z-50">
+        <div className="absolute left-0 right-0 top-full mt-1.5 bg-surface-primary border border-border-light rounded-xl overflow-hidden max-h-[400px] overflow-y-auto z-50">
           {loading && !results && (
             <div className="px-4 py-4 text-center">
               <p className="text-xs text-txt-tertiary">Searching...</p>
@@ -155,131 +155,124 @@ export function SearchBar(): React.ReactElement {
             <div>
               {/* Quizzes section */}
               {results!.quizzes.length > 0 && (
-                <div>
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-txt-tertiary px-4 pt-3 pb-1">
-                    Quizzes
-                  </p>
+                <>
+                  <div className="px-4 pt-3 pb-1.5">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                      Quizzes
+                    </span>
+                  </div>
                   {results!.quizzes.map((q) => (
                     <Link
                       key={q.id}
                       href={`/q/${q.slug}`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-secondary transition-colors"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors border-b border-border-light last:border-b-0"
                     >
-                      {/* Group logo */}
-                      {q.group_logo_url ? (
-                        <img
-                          src={q.group_logo_url}
-                          alt={q.group_name}
-                          className="w-7 h-7 rounded-md object-contain flex-shrink-0"
-                        />
-                      ) : (
-                        <div
-                          className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: q.display_color }}
-                        >
-                          <span
-                            className="text-[9px] font-medium"
-                            style={{ color: q.text_color }}
+                      <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0 mt-0.5">
+                        {q.group_logo_url ? (
+                          <img src={q.group_logo_url} alt="" className="w-full h-full object-contain" />
+                        ) : (
+                          <div
+                            className="w-full h-full flex items-center justify-center"
+                            style={{ backgroundColor: q.display_color }}
                           >
-                            {q.group_name?.slice(0, 3).toUpperCase()}
+                            <span className="text-[9px] font-medium" style={{ color: q.text_color }}>
+                              {q.group_name?.slice(0, 3).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <p className="text-sm text-txt-primary truncate">{q.title}</p>
+                          <span className="text-xs text-txt-tertiary flex-shrink-0 whitespace-nowrap">
+                            {formatCount(q.play_count)} plays
                           </span>
                         </div>
-                      )}
-
-                      {/* Text content */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-txt-primary truncate">{q.title}</p>
-                        <div className="flex items-center gap-1.5 mt-0.5">
+                        <div className="flex items-center gap-1.5 mt-1">
                           <span
-                            className="text-[11px] font-medium px-1.5 py-0 rounded-full"
+                            className="text-[10px] font-medium px-1.5 py-px rounded-full"
                             style={{ backgroundColor: q.display_color, color: q.text_color }}
                           >
                             {q.group_name}
-                          </span>
-                          <span className="text-[11px] text-txt-tertiary">·</span>
-                          <span className="text-[11px] text-txt-tertiary">
-                            {formatCount(q.play_count)} plays
                           </span>
                         </div>
                       </div>
                     </Link>
                   ))}
-                </div>
+                </>
               )}
 
               {/* Divider between sections */}
               {results!.quizzes.length > 0 && results!.groups.length > 0 && (
-                <div className="h-px bg-border-light mx-4" />
+                <div className="h-px bg-border-light" />
               )}
 
               {/* Groups section */}
               {results!.groups.length > 0 && (
-                <div>
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-txt-tertiary px-4 pt-3 pb-1">
-                    Groups
-                  </p>
+                <>
+                  <div className="px-4 pt-3 pb-1.5">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                      Groups
+                    </span>
+                  </div>
                   {results!.groups.map((g) => (
                     <Link
                       key={g.id}
                       href={`/group/${g.slug}`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-secondary transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors"
                     >
-                      {/* Group logo */}
-                      {g.logo_url ? (
-                        <img
-                          src={g.logo_url}
-                          alt={g.name}
-                          className="w-7 h-7 rounded-md object-contain flex-shrink-0"
-                        />
-                      ) : (
-                        <div
-                          className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: g.display_color }}
-                        >
-                          <span
-                            className="text-[9px] font-medium"
-                            style={{ color: g.text_color }}
+                      <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0">
+                        {g.logo_url ? (
+                          <img src={g.logo_url} alt="" className="w-full h-full object-contain" />
+                        ) : (
+                          <div
+                            className="w-full h-full flex items-center justify-center"
+                            style={{ backgroundColor: g.display_color }}
                           >
-                            {g.name?.slice(0, 3).toUpperCase()}
-                          </span>
-                        </div>
-                      )}
+                            <span className="text-[9px] font-medium" style={{ color: g.text_color }}>
+                              {g.name?.slice(0, 3).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+                      </div>
 
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1">
                         <p className="text-sm font-medium text-txt-primary">{g.name}</p>
                         <p className="text-[11px] text-txt-tertiary mt-0.5">
                           {g.quiz_count} quizzes
                         </p>
                       </div>
 
-                      {/* Chevron */}
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0">
-                        <path d="M5 3L9 7L5 11" stroke="var(--text-tertiary)" strokeWidth="1.5" strokeLinecap="round" />
+                        <path d="M5 3L9 7L5 11" stroke="var(--text-tertiary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </Link>
                   ))}
-                </div>
+                </>
               )}
 
               {/* Divider before creators */}
               {(results!.quizzes.length > 0 || results!.groups.length > 0) && results!.creators.length > 0 && (
-                <div className="h-px bg-border-light mx-4" />
+                <div className="h-px bg-border-light" />
               )}
 
               {/* Creators section */}
               {results!.creators.length > 0 && (
-                <div className="pb-1">
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-txt-tertiary px-4 pt-3 pb-1">
-                    Creators
-                  </p>
+                <>
+                  <div className="px-4 pt-3 pb-1.5">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                      Creators
+                    </span>
+                  </div>
                   {results!.creators.map((c) => (
                     <Link
                       key={c.username}
                       href={`/u/${c.username}`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-secondary transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors"
                     >
                       <UserAvatar
                         username={c.username}
@@ -295,14 +288,15 @@ export function SearchBar(): React.ReactElement {
                         </p>
                       </div>
 
-                      {/* Chevron */}
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0">
-                        <path d="M5 3L9 7L5 11" stroke="var(--text-tertiary)" strokeWidth="1.5" strokeLinecap="round" />
+                        <path d="M5 3L9 7L5 11" stroke="var(--text-tertiary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </Link>
                   ))}
-                </div>
+                </>
               )}
+
+              <div className="h-1.5" />
             </div>
           )}
         </div>
