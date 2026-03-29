@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from 'next';
 export const metadata: Metadata = {
   title: 'K-pop Blind Test - How Well Do You REALLY Know K-pop?',
   description: 'The ultimate K-pop song guessing game. 600+ songs, 45+ groups, daily challenges, leaderboards. Free forever.',
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {

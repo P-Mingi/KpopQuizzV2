@@ -1,21 +1,53 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { ProfileView } from '@/components/profile/profile-view';
 
-export default function ProfilePage() {
-  return (
-    <div className="px-5 pt-7 pb-8 text-center">
-      <div className="w-16 h-16 rounded-full bg-bg-tertiary flex items-center justify-center mx-auto mb-4">
-        <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="7" r="3.5" stroke="var(--text-tertiary)" strokeWidth="1.5" />
-          <path d="M4 17C4 14 6.5 12 10 12C13.5 12 16 14 16 17" stroke="var(--text-tertiary)" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+async function fetchPlayerData(userId: string) {
+  const supabase = await createServerClient();
+
+  const { data: player } = await supabase
+    .from('players').select('*').eq('id', userId).single();
+  const { data: masteries } = await supabase
+    .from('player_group_mastery')
+    .select('*, groups!inner(name, slug)')
+    .eq('player_id', userId)
+    .order('mastery_xp', { ascending: false });
+  const { data: achievements } = await supabase
+    .from('player_achievements')
+    .select('achievement_id')
+    .eq('player_id', userId);
+  const { data: recentPlays } = await supabase
+    .from('bt_plays')
+    .select('mode_id, score, correct, total, created_at')
+    .eq('player_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  return {
+    player,
+    masteries: (masteries ?? []) as unknown as { group_id: number; mastery_level: number; mastery_xp: number; groups: { name: string; slug: string } | null }[],
+    achievements: (achievements ?? []) as { achievement_id: string }[],
+    recentPlays: (recentPlays ?? []) as { mode_id: string; score: number; correct: number; total: number; created_at: string }[],
+  };
+}
+
+export default async function ProfilePage() {
+  const supabase = await createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) redirect('/login');
+
+  const data = await fetchPlayerData(user.id);
+
+  if (!data.player) {
+    return (
+      <div className="pt-7 pb-8 text-center">
+        <p className="text-sm text-text-secondary">Player profile not found</p>
+        <Link href="/" className="text-sm text-pink-400 mt-2 inline-block">Back to home</Link>
       </div>
-      <p className="text-sm text-text-secondary mb-4">Sign in to track your progress</p>
-      <Link
-        href="/login"
-        className="inline-block px-6 py-3 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold"
-      >
-        Sign in
-      </Link>
-    </div>
-  );
+    );
+  }
+
+  return <ProfileView {...data} player={data.player} isOwnProfile={true} />;
 }
