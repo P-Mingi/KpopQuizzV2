@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { getTodayKST } from '@/lib/daily';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const supabase = createServiceRoleClient();
