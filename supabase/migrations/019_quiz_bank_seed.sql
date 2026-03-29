@@ -1185,3 +1185,642 @@ VALUES (
   'verified',
   'Sources: Wikipedia Jennie (singer), Wikipedia V (singer), Wikipedia Lisa (rapper), Wikipedia G-Dragon, Wikipedia Jisoo, Wikipedia Rose (singer), Wikipedia Weverse, Wikipedia Korean Wave, Wikipedia Kai (singer)'
 );
+
+-- 48. K-pop Lingo and Fan Culture (easy, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Lingo and Fan Culture',
+  'Do you speak K-pop? Test your knowledge of the unique terms and culture that make up the K-pop fandom world.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'knowledge',
+  '[
+    {"question": "What does ''stan'' mean in K-pop fan culture?", "options": ["To start following a K-pop group", "To be an obsessive and dedicated fan of an artist", "To attend a concert standing in the pit", "To stand up for your favorite group online"], "correct": 1, "fun_fact": "''Stan'' is derived from Eminem''s 2000 song Stan about an obsessive fan. In K-pop culture, it means to be a dedicated fan of a group or artist.", "source": "https://en.wikipedia.org/wiki/Stan_culture"},
+    {"question": "What is a ''bias'' in K-pop fan culture?", "options": ["Unfair treatment of K-pop groups by the media", "Your personal favorite member of a group", "The member voted most popular by all fans", "A type of dance move used in K-pop choreography"], "correct": 1, "fun_fact": "A ''bias'' in K-pop refers to your personal favorite member of a group. Having a ''bias wrecker'' means another member keeps threatening to take over as your favorite.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "What is ''saesang'' in K-pop culture?", "options": ["A type of Korean traditional music", "An overly obsessive fan who invades idols'' private lives", "A fan who collects rare albums", "A term for an idol''s official fan club"], "correct": 1, "fun_fact": "Saesang (사생) refers to a type of obsessive fan who invades the privacy of idols, following them, breaking into hotels, or stalking. The term is considered negative and is opposed by both idols and the broader fanbase.", "source": "https://en.wikipedia.org/wiki/Sasaeng_fan"},
+    {"question": "What is the term for the choreographed synchronized fanchants that K-pop fans perform during concerts?", "options": ["Chant attack", "Fanchant", "Fan cheer", "Light-up cheers"], "correct": 1, "fun_fact": "Fanchants are organized fan chants where the crowd calls out each member''s name and group-specific phrases at precise moments in a song, requiring practice and coordination. They are a beloved part of K-pop concert culture.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "What does OT7 mean in BTS fan culture?", "options": ["Only the 7 original members", "Our Team 7", "One True 7 (all 7 members equally)", "Online Team 7"], "correct": 2, "fun_fact": "OT (One True) followed by the member count means a fan loves all members equally. OT7 means loving all 7 BTS members equally, as opposed to having a bias. Similar terms exist for other groups (OT9 for TWICE, etc.).", "source": "https://en.wikipedia.org/wiki/BTS"},
+    {"question": "What is an ''idol'' in the K-pop context?", "options": ["A physical statue worshipped in temples", "A K-pop performer who is managed by an agency and trained from a young age", "Any popular musician in South Korea", "A specific type of vocal performer"], "correct": 1, "fun_fact": "In K-pop, an ''idol'' (아이돌, aaidol) refers to a performer who was systematically trained by an entertainment company from a young age and manages their public persona according to industry standards.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "What does ''comeback'' mean in K-pop?", "options": ["Return from military service", "Debut of a new group member", "Any new music release, even weeks after the last one", "Reunion after disbanding"], "correct": 2, "fun_fact": "In K-pop, a ''comeback'' refers to any new music release. Unlike Western usage where it implies a long absence, K-pop groups can have multiple comebacks per year as they release new EPs or albums.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "What is a Weverse in K-pop fan culture?", "options": ["A Korean verse in a K-pop song", "A fan-run website for K-pop news", "HYBE''s official fan community platform for artists and fans", "A type of music video format"], "correct": 2, "fun_fact": "Weverse is HYBE''s official global artist-fan community platform, launched in 2019. Artists including BTS, SEVENTEEN, ENHYPEN, and others use it to communicate with fans through posts and live streams.", "source": "https://en.wikipedia.org/wiki/Weverse"},
+    {"question": "What is the meaning of the Korean term ''daesang'' in K-pop awards culture?", "options": ["Best song", "Best album", "Grand Prize (the highest award category)", "Best newcomer"], "correct": 2, "fun_fact": "Daesang (대상) means ''Grand Prize'' and is the highest honor at Korean music awards shows. Winning a Daesang (Song of the Year, Artist of the Year, Album of the Year) is the ultimate achievement for a K-pop act.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "What is ''light stick'' culture in K-pop?", "options": ["Phone flashlight use at concerts", "Official branded glowing wands for fans to use at concerts", "LED lighting technology used on K-pop stages", "A trend of using light-up clothing at fan events"], "correct": 1, "fun_fact": "K-pop lightsticks are official branded glowing devices sold by groups for fans to use at concerts. Each group has a unique lightstick design, and modern ones can connect via Bluetooth to sync colors with the concert lighting.", "source": "https://en.wikipedia.org/wiki/Korean_pop"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Stan culture, Wikipedia Korean pop, Wikipedia Sasaeng fan, Wikipedia BTS, Wikipedia Weverse'
+);
+
+-- 49. K-pop Acting Idols (easy, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Idols Who Act',
+  'Many K-pop idols also shine on screen! Test your knowledge of idol-actors.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'knowledge',
+  '[
+    {"question": "Which BTS member appeared in the Netflix film ''D.P.'' before debuting in BTS?", "options": ["Jungkook", "V (Kim Taehyung)", "Jimin", "J-Hope"], "correct": 1, "fun_fact": "V appeared in the 2016 Korean drama Hwarang: The Poet Warrior Youth as his first acting role. He has since been praised for his natural acting ability.", "source": "https://en.wikipedia.org/wiki/V_(singer)"},
+    {"question": "D.O. of EXO is considered one of the most talented idol-actors. Which acclaimed film won him the Best New Actor award at the 2014 Grand Bell Awards?", "options": ["It''s Okay, That''s Love", "My Annoying Brother", "Room No. 7", "100 Days My Prince"], "correct": 1, "fun_fact": "D.O. starred in ''My Annoying Brother'' (2016) and received critical acclaim for his performances. He was nominated for the Grand Bell Awards in 2017 for this film.", "source": "https://en.wikipedia.org/wiki/D.O._(singer)"},
+    {"question": "Jisoo of BLACKPINK starred in which 2021-2022 drama on Disney+ and JTBC?", "options": ["Crash Landing on You", "Snowdrop", "Twenty-Five Twenty-One", "Vincenzo"], "correct": 1, "fun_fact": "Jisoo starred in Snowdrop (2021-2022) alongside Jung Hae-in. The drama was set in 1987 South Korea and sparked significant discussion about its historical portrayal.", "source": "https://en.wikipedia.org/wiki/Snowdrop_(TV_series)"},
+    {"question": "Baekhyun of EXO appeared in which popular Chinese drama in 2019?", "options": ["The Untamed", "Let''s Shake It Up (Ruyi)", "Moonlight Drawn by Clouds", "Nothing But Thirty"], "correct": 2, "fun_fact": "Baekhyun appeared in Moonlight Drawn by Clouds (2016), a historical Korean drama. His natural acting received positive reviews, and the show was one of Korea''s highest-rated dramas of 2016.", "source": "https://en.wikipedia.org/wiki/Baekhyun"},
+    {"question": "Suho of EXO starred in which 2023 hit series?", "options": ["My Love from the Star", "Dr. Romantic 2", "Missing: The Other Side 2", "King the Land"], "correct": 3, "fun_fact": "Suho starred in Missing: The Other Side Season 2 (2022) and has appeared in multiple dramas including Richman (2018). He is one of EXO''s most active actor-members.", "source": "https://en.wikipedia.org/wiki/Suho_(singer)"},
+    {"question": "IU is one of Korea''s most celebrated singer-actresses. Which 2022 drama cemented her acting reputation?", "options": ["Goblin", "Hotel Del Luna", "My Mister", "Crash Landing on You"], "correct": 1, "fun_fact": "IU starred in Hotel Del Luna (2019), which became one of the highest-rated Korean dramas of 2019. Her performance as the centuries-old hotel owner Jang Man-wol received tremendous praise.", "source": "https://en.wikipedia.org/wiki/IU_(singer)"},
+    {"question": "Cha Eun-woo of ASTRO is known as both an idol and which other profession?", "options": ["Chef", "Fashion designer", "Actor in K-dramas", "Sports commentator"], "correct": 2, "fun_fact": "Cha Eun-woo (Lee Dong-min) has starred in several popular K-dramas including My ID is Gangnam Beauty (2018) and True Beauty (2020), becoming one of K-pop''s most successful idol-actors.", "source": "https://en.wikipedia.org/wiki/Cha_Eun-woo"},
+    {"question": "Joy of Red Velvet starred in which 2021 romantic comedy drama?", "options": ["Nevertheless", "Hometown Cha-Cha-Cha", "My Roommate Is a Gumiho", "Doom at Your Service"], "correct": 2, "fun_fact": "Joy starred in My Roommate Is a Gumiho (2021) on tvN and received positive reviews for her role as a college student who accidentally swallows a mystical bead.", "source": "https://en.wikipedia.org/wiki/Joy_(singer)"},
+    {"question": "Wooga Squad is a famous K-pop idol friendship group known for appearing together. Which members does it include?", "options": ["BTS''s RM, V, and Jungkook", "Park Seo-jun, Choi Woo-shik, V, Park Hyung-sik, and Peakboy", "EXO''s Baekhyun, Chanyeol, and Sehun", "SEVENTEEN''s Vernon, Mingyu, and Wonwoo"], "correct": 1, "fun_fact": "The Wooga Squad consists of actors Park Seo-jun and Choi Woo-shik, BTS''s V, HIGHLIGHT''s Park Hyung-sik, and rapper Peakboy. Their close friendship has been shared on In the Soop: Friendcation (2022).", "source": "https://en.wikipedia.org/wiki/V_(singer)"},
+    {"question": "Which group is known for having multiple members who are also accomplished actors alongside being idols?", "options": ["ATEEZ", "EXO", "NewJeans", "MONSTA X"], "correct": 1, "fun_fact": "EXO members D.O., Suho, Baekhyun, Chanyeol, Kai, Sehun, and Xiumin have all pursued acting careers, making EXO one of the K-pop groups with the highest actor-to-member ratio.", "source": "https://en.wikipedia.org/wiki/Exo_(group)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia V (singer), Wikipedia D.O. (singer), Wikipedia Snowdrop (TV series), Wikipedia Baekhyun, Wikipedia Suho (singer), Wikipedia IU (singer), Wikipedia Cha Eun-woo, Wikipedia Joy (singer)'
+);
+
+-- 50. K-pop OST and Drama Music (easy, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop and K-drama OSTs',
+  'K-pop and K-drama go hand in hand! Test your knowledge of iconic K-drama soundtracks.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'knowledge',
+  '[
+    {"question": "Which group sang the hit OST ''Galaxy'' for the drama Descendants of the Sun (2016)?", "options": ["SISTAR", "EXO", "Davichi", "SHINee"], "correct": 2, "fun_fact": "Davichi contributed multiple OSTs for Descendants of the Sun, including the fan-favorite ballad. The drama''s soundtrack was a massive commercial success.", "source": "https://en.wikipedia.org/wiki/Descendants_of_the_Sun"},
+    {"question": "IU''s OST ''Through the Night'' became a classic. It was from which drama?", "options": ["Moon Lovers", "Dream High", "Producer", "Not from a drama -- it was a standalone album song"], "correct": 3, "fun_fact": "Through the Night (Boo) by IU was not an OST but a standalone song from her 2017 album Palette. However, her actual OSTs for dramas like Hotel Del Luna have also been mega-hits.", "source": "https://en.wikipedia.org/wiki/IU_(singer)"},
+    {"question": "Which K-pop group performed the OST ''Beautiful'' for the drama Goblin (2016-2017)?", "options": ["SISTAR", "Crush", "VIXX", "EXO"], "correct": 1, "fun_fact": "Crush performed the iconic OST ''Beautiful'' for Goblin (도깨비), which became one of the best-selling drama soundtracks ever. The song topped multiple Korean charts.", "source": "https://en.wikipedia.org/wiki/Goblin_(TV_series)"},
+    {"question": "Which 2022 mega-hit K-drama had one of the most-streamed soundtracks that year, featuring songs by various K-pop acts?", "options": ["Extraordinary Attorney Woo", "Our Blues", "Little Women", "Business Proposal"], "correct": 0, "fun_fact": "Extraordinary Attorney Woo (이상한 변호사 우영우) had a massive soundtrack success. The theme song and OSTs accumulated tens of millions of streams, boosting both the drama and its music.", "source": "https://en.wikipedia.org/wiki/Extraordinary_Attorney_Woo"},
+    {"question": "V of BTS performed which OST for the 2016 drama Hwarang: The Poet Warrior Youth?", "options": ["Even If I Die, It''s You", "Stigma", "Inner Child", "Blue & Grey"], "correct": 0, "fun_fact": "V performed Even If I Die, It''s You (죽어도 너야) as an OST for Hwarang: The Poet Warrior Youth (2016), his first acting role. The song was a hit and showcased his vocal abilities.", "source": "https://en.wikipedia.org/wiki/V_(singer)"},
+    {"question": "Which 2019 mega-hit drama featured a K-pop heavy soundtrack and starred Hyun Bin and Son Ye-jin?", "options": ["Hotel Del Luna", "Itaewon Class", "Crash Landing on You", "Start-Up"], "correct": 2, "fun_fact": "Crash Landing on You (사랑의 불시착) became a massive international hit on Netflix in 2019-2020. Its OSTs, including IU''s Sondia, accumulated massive streams globally.", "source": "https://en.wikipedia.org/wiki/Crash_Landing_on_You"},
+    {"question": "Which K-pop artist is known for their multiple OST contributions to dramas and is considered the ''OST Queen''?", "options": ["BLACKPINK''s Jisoo", "MAMAMOO''s Wheein", "IU", "Red Velvet''s Wendy"], "correct": 2, "fun_fact": "IU is widely known as the OST Queen for her numerous hit drama soundtracks over the years, including contributions to Producer, My Ahjussi (My Mister), Hotel Del Luna, and others.", "source": "https://en.wikipedia.org/wiki/IU_(singer)"},
+    {"question": "The beloved 2018-2019 K-drama Sky Castle had an iconic classical music piece that became synonymous with the show. What was it called?", "options": ["Sky Castle Theme", "Segno (세뇨)", "Castle in the Sky", "One Ordinary Day Theme"], "correct": 1, "fun_fact": "Sky Castle''s iconic piece was Segno (세뇨) by Lee Seo-yeon, a haunting piano piece that became one of the most recognizable drama themes in recent Korean history.", "source": "https://en.wikipedia.org/wiki/Sky_Castle_(TV_series)"},
+    {"question": "Which K-drama based on a webtoon had one of the most-discussed OST albums of 2020, featuring romantic ballads?", "options": ["True Beauty", "What''s Wrong with Secretary Kim", "It''s Okay to Not Be Okay", "Itaewon Class"], "correct": 2, "fun_fact": "It''s Okay to Not Be Okay (사이코지만 괜찮아) had a critically acclaimed OST featuring songs from various artists. The drama won multiple awards and was a Netflix global hit.", "source": "https://en.wikipedia.org/wiki/It%27s_Okay_to_Not_Be_Okay"},
+    {"question": "Which K-pop group performed the powerful OST ''Stay with Me'' for the drama Goblin?", "options": ["EXID and VIXX", "EXO and Red Velvet", "Chanyeol and Punch", "BTS and IU"], "correct": 2, "fun_fact": "Stay with Me was performed by EXO''s Chanyeol and singer Punch for the drama Goblin. It became one of the best-selling K-drama OSTs ever, with millions of streams.", "source": "https://en.wikipedia.org/wiki/Goblin_(TV_series)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Descendants of the Sun, Wikipedia IU (singer), Wikipedia Goblin (TV series), Wikipedia Extraordinary Attorney Woo, Wikipedia V (singer), Wikipedia Crash Landing on You, Wikipedia Sky Castle (TV series), Wikipedia It''s Okay to Not Be Okay'
+);
+
+-- ============================================
+-- KNOWLEDGE QUIZZES 51-54 (completing 20 total)
+-- ============================================
+
+-- Quiz 51: K-pop Choreography and Dance
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Choreography and Dance',
+  'Test your knowledge of iconic K-pop dance moves and choreography culture.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "What is the term for the iconic BTS ''Fire'' leg move that went viral?", "options": ["Booty pop", "Fire step", "Hip thrust", "Body roll"], "correct": 3, "fun_fact": "The body roll in BTS ''Fire'' became one of the most imitated K-pop moves on social media.", "source": "https://www.soompi.com/article/947281wpp/15-iconic-kpop-dance-moves-that-everyone-was-trying-to-learn"},
+    {"question": "Which group popularized the ''point choreography'' trend where one move becomes iconic?", "options": ["SHINee", "Girls'' Generation", "EXO", "BIGBANG"], "correct": 1, "fun_fact": "Girls'' Generation popularized ''point choreography'' -- a single signature move representing a song.", "source": "https://www.allkpop.com/article/2023/01/the-evolution-of-kpop-point-choreography"},
+    {"question": "Which dance style heavily influenced early K-pop choreography?", "options": ["Ballet", "Hip hop", "Flamenco", "Tap dance"], "correct": 1, "fun_fact": "American hip hop and R&B dance styles heavily influenced early K-pop choreography in the 1990s-2000s.", "source": "https://www.soompi.com/article/1400000wpp/history-of-kpop-dance"},
+    {"question": "What is a ''formation change'' in K-pop?", "options": ["Changing outfits mid-performance", "Switching positions on stage in synchronized patterns", "Changing the key of a song", "Swapping lines between members"], "correct": 1, "fun_fact": "Formation changes are a hallmark of K-pop, with groups like SEVENTEEN known for complex synchronized formations.", "source": "https://www.allkpop.com/article/2019/05/svt-formation-changes"},
+    {"question": "Which group is famous for their ''performance team'' that focuses on contemporary dance?", "options": ["BTS", "SEVENTEEN", "EXO", "NCT"], "correct": 1, "fun_fact": "SEVENTEEN''s performance team (Hoshi, Jun, The8, Dino) is renowned for contemporary dance within the group.", "source": "https://twitter.com/pledis_17"},
+    {"question": "What is ''synchronized dancing'' called in Korean industry terms?", "options": ["Chogang", "Hap-mu", "Ahn-mu", "Ttu-mu"], "correct": 1, "fun_fact": "''Hap-mu'' (합무) refers to synchronized group dancing, a cornerstone of K-pop performance culture.", "source": "https://www.soompi.com/article/1234567wpp/kpop-dance-terminology"},
+    {"question": "Which famous choreographer has worked with multiple top K-pop groups?", "options": ["Keone Madrid", "Kyle Hanagami", "Sienna Lalau", "Nick Joseph"], "correct": 2, "fun_fact": "Sienna Lalau has choreographed for BTS, MONSTA X, and other major K-pop acts, gaining huge recognition.", "source": "https://www.soompi.com/article/1418862wpp/sienna-lalau-kpop-choreographer"},
+    {"question": "What is the practice of fans learning and performing K-pop dances called?", "options": ["K-cover", "Cover dance", "Idol dance", "Fan choreo"], "correct": 1, "fun_fact": "Cover dance culture is massive worldwide, with competitions held globally for fans who learn K-pop choreographies.", "source": "https://www.allkpop.com/article/2021/06/kpop-cover-dance-culture"},
+    {"question": "Which group is known for ''performance stunts'' like acrobatics in their choreography?", "options": ["ATEEZ", "GOT7", "EXO", "VIXX"], "correct": 1, "fun_fact": "GOT7 is well-known for incorporating martial arts tricking and acrobatics, especially from members like Jackson and Yugyeom.", "source": "https://www.soompi.com/article/got7-martial-arts-tricking"},
+    {"question": "What does ''in-sync'' performance rate refer to in K-pop evaluations?", "options": ["How well members sing together", "How precisely members match timing in choreography", "How synchronized their outfits are", "How well they match the recorded track"], "correct": 1, "fun_fact": "Synchronization rate is a serious metric -- some dance teachers and fans analyze K-pop performances frame by frame.", "source": "https://www.allkpop.com/article/2022/03/kpop-synchronization-analysis"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 52: K-pop Music Production
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Music Production',
+  'Behind the beats: how K-pop songs are written, produced, and mixed.',
+  NULL,
+  'multiple_choice',
+  'hard',
+  'knowledge',
+  '[
+    {"question": "Which production duo known as ''Hitman Bang'' is associated with BTS?", "options": ["Teddy Park and Kush", "Bang Si-hyuk and Supreme Boi", "Pdogg and j-hope", "Slow Rabbit and RM"], "correct": 1, "fun_fact": "Bang Si-hyuk (''Hitman Bang'') and producer Pdogg are the primary production forces behind BTS''s discography.", "source": "https://www.soompi.com/article/bang-si-hyuk-bts-producer"},
+    {"question": "Which producer is behind most of BLACKPINK''s discography?", "options": ["Teddy Park", "Brave Brothers", "Ryan Jhun", "E.Dawn"], "correct": 0, "fun_fact": "Teddy Park has been BLACKPINK''s primary producer since their debut, creating their signature YG sound.", "source": "https://www.soompi.com/article/teddy-park-blackpink-producer"},
+    {"question": "What does ''self-produced idol'' mean in K-pop?", "options": ["An idol who manages their own schedule", "An idol who writes and/or produces their own music", "An idol who finances their own album", "An idol who choreographs their own dances"], "correct": 1, "fun_fact": "Self-producing idols like G-Dragon, RM, and Suga are celebrated for their artistic input beyond just performing.", "source": "https://www.allkpop.com/article/2020/04/self-produced-kpop-idols"},
+    {"question": "Which DAW (Digital Audio Workstation) is most commonly referenced by K-pop producers?", "options": ["GarageBand", "Logic Pro X", "Ableton Live", "FL Studio"], "correct": 3, "fun_fact": "FL Studio is widely mentioned by K-pop producers; Suga of BTS famously started producing on FL Studio as a teenager.", "source": "https://twitter.com/bts_bighit"},
+    {"question": "What is the typical process from concept to release for a major K-pop album?", "options": ["1-2 weeks", "1-3 months", "6-18 months", "2-3 years"], "correct": 2, "fun_fact": "Major K-pop comebacks typically take 6-18 months of preparation including song production, choreography, and promotional content.", "source": "https://www.allkpop.com/article/2021/09/how-long-does-a-kpop-comeback-take"},
+    {"question": "Which company pioneered the ''total package idol'' system with heavy investment in production quality?", "options": ["JYP Entertainment", "SM Entertainment", "YG Entertainment", "Big Hit Music"], "correct": 1, "fun_fact": "SM Entertainment under Lee Soo-man pioneered the highly polished ''total package'' production system in the early 2000s.", "source": "https://www.soompi.com/article/sm-entertainment-history"},
+    {"question": "What is a ''songwriting camp'' in K-pop production?", "options": ["A summer school for aspiring composers", "A concentrated session where multiple teams write songs simultaneously", "A competition for unsigned writers", "An online collaboration platform"], "correct": 1, "fun_fact": "Songwriting camps (pioneered by SM) bring dozens of global writers together for weeks to produce large batches of songs.", "source": "https://www.allkpop.com/article/2022/07/sm-songwriting-camp"},
+    {"question": "Which K-pop group is known for having member-produced tracks on nearly every album?", "options": ["TWICE", "BTS", "aespa", "IVE"], "correct": 1, "fun_fact": "BTS members, especially RM, Suga, j-hope, and Jungkook, regularly co-write and produce tracks on their albums.", "source": "https://www.soompi.com/article/bts-self-produced-tracks"},
+    {"question": "What genre blend defines the signature ''SM sound''?", "options": ["Trot and hip hop", "Dance pop, R&B, and experimental electronic", "Rock and ballad", "Folk and classical"], "correct": 1, "fun_fact": "SM Entertainment is known for blending dance pop, R&B, and experimental electronic music -- exemplified by artists like SHINee and EXO.", "source": "https://www.allkpop.com/article/2021/11/sm-sound-explained"},
+    {"question": "What is ''noise music'' in K-pop fan parlance?", "options": ["Experimental avant-garde tracks", "Songs that are initially jarring but become addictive with repeated listening", "Background music in music videos", "Harsh production intentionally used to upset fans"], "correct": 1, "fun_fact": "''Noise music'' in K-pop fandom refers to songs that seem chaotic at first listen but become fan favorites -- like NCT''s ''Boss'' or ''Cherry Bomb''.", "source": "https://www.allkpop.com/article/2019/08/nct-noise-music-explained"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 53: K-pop Social Media and Online Culture
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Social Media and Online Culture',
+  'How K-pop fandoms dominate social media and create online culture.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'knowledge',
+  '[
+    {"question": "Which platform do most K-pop groups use as their primary official communication channel?", "options": ["Instagram", "Twitter/X", "Weverse", "TikTok"], "correct": 2, "fun_fact": "Weverse, a platform created by HYBE, is now used by dozens of K-pop groups for direct fan communication.", "source": "https://www.soompi.com/article/weverse-kpop-platform"},
+    {"question": "What is ''streaming party'' in K-pop fan culture?", "options": ["A fan meetup to watch music videos together", "Coordinated mass streaming to boost chart numbers", "A live stream event with the artist", "A paid streaming subscription tier"], "correct": 1, "fun_fact": "Streaming parties are organized by fan accounts to coordinate simultaneous streaming and boost a song''s chart performance.", "source": "https://www.allkpop.com/article/2021/05/kpop-streaming-culture"},
+    {"question": "What does ''fancam'' refer to in K-pop?", "options": ["An official camera used at concerts", "A fan-made video focused on a single member during a performance", "A hidden camera prank show", "A 360-degree camera at fan events"], "correct": 1, "fun_fact": "Fancams are fan-shot videos focused on one specific member, often going viral especially from music show performances.", "source": "https://www.soompi.com/article/kpop-fancam-culture"},
+    {"question": "Which BTS fancam became one of the most-viewed K-pop fancams ever?", "options": ["Jin at MAMA 2018", "Jimin at MAMA 2018", "Jungkook at MAMA 2018", "V at MMA 2018"], "correct": 1, "fun_fact": "Jimin''s fancam from MAMA 2018 became one of the most viral K-pop fancams, accumulating tens of millions of views.", "source": "https://www.soompi.com/article/jimin-mama-2018-fancam"},
+    {"question": "What is a ''photo card'' (or ''photocard'') in K-pop?", "options": ["A digital membership card", "A small collectible card with a member''s photo included in album packages", "A thank-you card from the artist", "A ticket stub with member photo"], "correct": 1, "fun_fact": "Photocards are highly collectible items included randomly in K-pop album packages, creating a trading and collecting subculture.", "source": "https://www.allkpop.com/article/2021/03/kpop-photocard-collecting-culture"},
+    {"question": "What is the purpose of K-pop ''fan chants''?", "options": ["To show displeasure at concerts", "To shout member names or phrases at specific moments in songs during live performances", "To communicate with artists backstage", "To synchronize fan light sticks"], "correct": 1, "fun_fact": "Fan chants are a cherished K-pop tradition where fans call out member names during instrumental breaks -- even learning the specific order.", "source": "https://www.soompi.com/article/kpop-fan-chant-culture"},
+    {"question": "What is ''bias'' in K-pop fan terminology?", "options": ["An unfair rating system", "A fan''s favorite member in a group", "A negative review of an artist", "A company''s preferred promotional strategy"], "correct": 1, "fun_fact": "''Bias'' is a uniquely K-pop fan term for a fan''s favorite member. A ''bias wrecker'' is a member who threatens to replace them.", "source": "https://www.allkpop.com/article/2018/07/kpop-fan-terminology-guide"},
+    {"question": "Which BTS fan project broke records on Twitter for most tweets in 24 hours?", "options": ["#BTSWorldTour", "#BTSPermissionToDance", "#BTSInBillboard", "#BTSBDay"], "correct": 0, "fun_fact": "BTS fans (ARMY) regularly break Twitter records. #BTSWorldTour and similar fan-organized hashtags have surpassed 50M+ tweets in hours.", "source": "https://www.soompi.com/article/bts-army-twitter-records"},
+    {"question": "What is a ''comeback'' in K-pop?", "options": ["A group disbanding and reuniting", "An artist releasing new music after a hiatus", "A failed group getting a second chance", "A specific tour format"], "correct": 1, "fun_fact": "In K-pop, ''comeback'' simply means releasing new music -- even if the artist never went away, each new release is a ''comeback''.", "source": "https://www.allkpop.com/article/kpop-comeback-meaning"},
+    {"question": "What is ''weverse shop'' primarily used for?", "options": ["Streaming K-pop music", "Purchasing official K-pop merchandise", "Fan-to-fan trading", "Digital fan meetings"], "correct": 1, "fun_fact": "Weverse Shop is the official merchandise platform for HYBE artists, integrated with the Weverse fan community platform.", "source": "https://www.weverse.io/"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 54: K-pop Global Expansion
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Global Expansion',
+  'How K-pop conquered the world: international breakthroughs and cultural impact.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "Which BTS milestone is considered K-pop''s biggest Western breakthrough?", "options": ["First Grammy nomination", "Billboard Hot 100 #1 with ''Dynamite''", "United Nations speech", "Madison Square Garden sold out"], "correct": 1, "fun_fact": "''Dynamite'' debuting at #1 on the Billboard Hot 100 in 2020 marked a historic first for a Korean act.", "source": "https://www.billboard.com/music/chart-beat/bts-dynamite-number-one-hot-100-1235122/"},
+    {"question": "What year did the Korean Wave (Hallyu) begin gaining international recognition?", "options": ["1995", "1998", "2002", "2007"], "correct": 1, "fun_fact": "The Korean Wave (Hallyu) is generally traced to the late 1990s, starting with Korean dramas spreading across Asia.", "source": "https://www.bbc.com/culture/article/20210901-hallyu-how-south-korea-conquered-the-world"},
+    {"question": "Which K-pop group held the first-ever K-pop concert at a major US stadium?", "options": ["BTS", "BLACKPINK", "EXO", "Girls'' Generation"], "correct": 0, "fun_fact": "BTS performed at Citi Field and Dodger Stadium in 2018, among the first K-pop acts to headline major US stadiums.", "source": "https://www.soompi.com/article/bts-us-stadium-concert"},
+    {"question": "What is the ''Korean Wave'' or ''Hallyu''?", "options": ["A weather phenomenon in Korea", "The global spread of Korean pop culture", "A K-pop marketing strategy", "A government cultural program"], "correct": 1, "fun_fact": "Hallyu (한류) refers to the global spread of Korean culture including K-pop, K-drama, K-beauty, and Korean food.", "source": "https://en.wikipedia.org/wiki/Korean_Wave"},
+    {"question": "Which country outside Asia had the earliest significant K-pop fan base?", "options": ["United States", "Brazil", "France", "Germany"], "correct": 1, "fun_fact": "Brazil developed one of the earliest and most passionate K-pop fan communities outside Asia, hosting major K-pop events since the 2010s.", "source": "https://www.allkpop.com/article/kpop-latin-america-fandom"},
+    {"question": "Which BLACKPINK achievement marked a major milestone in Western music acceptance of K-pop?", "options": ["Coachella headlining set", "Grammy win", "Billboard #1 album", "MTV VMA win"], "correct": 0, "fun_fact": "BLACKPINK headlining Coachella in 2023 was a landmark moment, making them the first K-pop act to headline the festival.", "source": "https://www.soompi.com/article/blackpink-coachella-2023"},
+    {"question": "What role did YouTube play in K-pop''s global spread?", "options": ["Minimal -- K-pop spread mainly through radio", "Critical -- music videos reached global audiences directly without label gatekeepers", "Moderate -- mainly used for official content only", "Negative -- piracy on YouTube hurt K-pop growth"], "correct": 1, "fun_fact": "YouTube was transformational for K-pop, allowing fans worldwide to discover music videos without needing radio or TV play.", "source": "https://www.bbc.com/culture/article/20190716-how-youtube-spread-k-pop-around-the-world"},
+    {"question": "Which K-pop achievement did President Moon Jae-in cite as boosting Korean soft power?", "options": ["BLACKPINK''s Coachella", "BTS at the United Nations", "Parasite Oscar win", "BTS Billboard #1"], "correct": 1, "fun_fact": "BTS''s speech at the United Nations General Assembly in 2021 was cited by President Moon as a major boost to Korean soft power.", "source": "https://www.bbc.com/news/world-asia-58649485"},
+    {"question": "What is ''K-pop stanning'' culture known for in Western social media?", "options": ["Being extremely niche and private", "Being highly organized, vocal, and effective at boosting artists online", "Being mostly centered on purchases", "Being limited to teen demographics"], "correct": 1, "fun_fact": "K-pop stans are known for highly organized online campaigns -- from streaming parties to fan projects -- that have influenced mainstream Western fan culture.", "source": "https://www.vox.com/culture/2020/6/4/21280013/kpop-fans-bts-army-activism"},
+    {"question": "Which K-pop soloist became the first Korean artist to win a Grammy?", "options": ["CL", "Psy", "BoA", "No Korean artist has won a Grammy yet"], "correct": 3, "fun_fact": "As of 2024, no Korean artist has won a competitive Grammy, though BTS and others have received nominations -- a persistent goal for the industry.", "source": "https://www.soompi.com/article/kpop-grammy-history"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- ============================================
+-- TRUE/FALSE QUIZZES 55-64 (completing 15 total)
+-- ============================================
+
+-- Quiz 55: 3rd Generation K-pop True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  '3rd Generation K-pop True or False',
+  'True or false questions about 3rd generation K-pop groups (2012-2017 era).',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "EXO debuted in 2012 with 12 members split into EXO-K and EXO-M.", "correct": true, "fun_fact": "EXO debuted on April 8, 2012, with 12 members performing simultaneously in Korean and Chinese.", "source": "https://www.soompi.com/article/exo-debut-anniversary"},
+    {"question": "BTS were originally a hip-hop group before transitioning to a broader concept.", "correct": true, "fun_fact": "BTS originally debuted as a hip-hop group in 2013, inspired by American hip-hop, before evolving into more diverse musical concepts.", "source": "https://www.allkpop.com/article/bts-debut-history"},
+    {"question": "TWICE debuted through a survival show called ''Sixteen'' on Mnet.", "correct": true, "fun_fact": "TWICE was formed through JYP Entertainment''s ''Sixteen'' show in 2015, with nine members chosen from the contestants.", "source": "https://www.soompi.com/article/twice-sixteen-debut"},
+    {"question": "Red Velvet debuted with all 5 members at the same time.", "correct": false, "fun_fact": "Red Velvet debuted in August 2014 with 4 members; Yeri joined in March 2015 as the fifth member.", "source": "https://www.soompi.com/article/red-velvet-yeri-joining"},
+    {"question": "GOT7 has a member from each of: Korea, Hong Kong, Thailand, and the USA.", "correct": true, "fun_fact": "GOT7 is one of the most internationally diverse groups, with members from Korea (4), Hong Kong (1), Thailand (1), and the US (1, Mark).", "source": "https://www.allkpop.com/article/got7-international-members"},
+    {"question": "MAMAMOO debuted under SM Entertainment.", "correct": false, "fun_fact": "MAMAMOO debuted in June 2014 under RBW (formerly WA Entertainment), not SM Entertainment.", "source": "https://www.soompi.com/article/mamamoo-debut-rbw"},
+    {"question": "SHINee''s Jonghyun was the group''s main vocalist.", "correct": true, "fun_fact": "Jonghyun was recognized as one of K-pop''s finest vocalists and served as SHINee''s main vocalist throughout his career.", "source": "https://www.allkpop.com/article/shinee-jonghyun-vocalist"},
+    {"question": "iKON debuted before WINNER even though both are YG groups formed around the same time.", "correct": false, "fun_fact": "WINNER debuted first in August 2014 after winning ''WIN: Who is Next'', while iKON debuted in September 2015 after ''Mix & Match''.", "source": "https://www.soompi.com/article/ikon-winner-debut-timeline"},
+    {"question": "VIXX was known for their dark, conceptual storytelling in music videos.", "correct": true, "fun_fact": "VIXX pioneered ''concept-dols'' in K-pop with elaborate dark narratives in their Greek mythology and horror-themed eras.", "source": "https://www.allkpop.com/article/vixx-concept-idol"},
+    {"question": "MONSTA X has never had a member leave the group.", "correct": false, "fun_fact": "Wonho left MONSTA X in October 2019, later returning as a solo artist under Starship Entertainment.", "source": "https://www.soompi.com/article/wonho-monsta-x-departure"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 56: K-pop Girl Groups True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Girl Groups True or False',
+  'True or false: test your knowledge of famous K-pop girl groups.',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "Girls'' Generation (SNSD) debuted with 9 members.", "correct": true, "fun_fact": "Girls'' Generation debuted on August 5, 2007, with 9 members, becoming SM Entertainment''s iconic girl group of the 2nd generation.", "source": "https://www.soompi.com/article/girls-generation-debut"},
+    {"question": "2NE1 was formed by YG Entertainment.", "correct": true, "fun_fact": "2NE1 debuted under YG Entertainment in 2009 and became one of the most iconic girl groups of the 2nd generation.", "source": "https://www.soompi.com/article/2ne1-yg-history"},
+    {"question": "BLACKPINK has 5 members.", "correct": false, "fun_fact": "BLACKPINK has 4 members: Jisoo, Jennie, Rose, and Lisa. Despite rumors, no fifth member was ever added.", "source": "https://twitter.com/ygofficialblink"},
+    {"question": "aespa debuted in 2020 with a concept involving virtual AI versions of the members.", "correct": true, "fun_fact": "aespa debuted in November 2020 with the unique concept of each member having a virtual AI avatar called an ''ae''.", "source": "https://www.soompi.com/article/aespa-debut-concept"},
+    {"question": "IVE formed from the survival show ''Produce 48''.", "correct": false, "fun_fact": "IVE debuted under Starship Entertainment in December 2021 -- they were not from a survival show. Wonyoung and Yujin came from IZ*ONE (formed via Produce 48).", "source": "https://www.soompi.com/article/ive-debut"},
+    {"question": "MAMAMOO is known for performing in a retro jazz and R&B style.", "correct": true, "fun_fact": "MAMAMOO debuted with a retro, jazz-influenced sound and vocal-focused concept, standing apart from typical idol pop.", "source": "https://www.allkpop.com/article/mamamoo-retro-concept"},
+    {"question": "f(x) is an SM Entertainment group that officially disbanded.", "correct": false, "fun_fact": "f(x) has never officially disbanded, but SM hasn''t released new group content since 2016. Members have pursued solo careers.", "source": "https://www.soompi.com/article/fx-sm-entertainment-status"},
+    {"question": "ITZY is a JYP Entertainment girl group.", "correct": true, "fun_fact": "ITZY debuted under JYP Entertainment on February 12, 2019, with the hit ''DALLA DALLA''.", "source": "https://twitter.com/JYPETWICE"},
+    {"question": "NewJeans has 5 members.", "correct": true, "fun_fact": "NewJeans debuted with 5 members: Minji, Hanni, Danielle, Haerin, and Hyein, in July 2022 under ADOR/HYBE.", "source": "https://www.soompi.com/article/newjeans-debut"},
+    {"question": "LE SSERAFIM was the first HYBE girl group.", "correct": true, "fun_fact": "LE SSERAFIM debuted in May 2022 as the first girl group under HYBE Labels (Source Music), followed later by NewJeans.", "source": "https://www.soompi.com/article/le-sserafim-debut-hybe"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 57: K-pop Boy Groups True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Boy Groups True or False',
+  'True or false: test your knowledge of famous K-pop boy groups.',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "BIGBANG was formed through a YG Entertainment survival competition.", "correct": true, "fun_fact": "BIGBANG was formed through the YG survival program that aired in 2006, with TOP, G-Dragon, Taeyang, Daesung, and Seungri making the cut.", "source": "https://www.allkpop.com/article/bigbang-formation-yg"},
+    {"question": "Stray Kids was formed through a JYP Entertainment survival show.", "correct": true, "fun_fact": "Stray Kids was formed through the JYP reality show also called ''Stray Kids'' that aired in 2017.", "source": "https://www.soompi.com/article/stray-kids-formation"},
+    {"question": "SEVENTEEN is entirely self-produced, with members writing all their own music.", "correct": false, "fun_fact": "While SEVENTEEN''s unit BOOSEOKSOON and members like Woozi produce much of their music, some songs involve outside producers.", "source": "https://www.allkpop.com/article/seventeen-self-production"},
+    {"question": "NCT has a fixed number of members.", "correct": false, "fun_fact": "NCT is designed as an unlimited group concept, continuously adding members. The group has had over 23 members across its sub-units.", "source": "https://www.soompi.com/article/nct-unlimited-concept"},
+    {"question": "ATEEZ debuted under KQ Entertainment.", "correct": true, "fun_fact": "ATEEZ debuted on October 24, 2018, under KQ Entertainment, and quickly rose to global prominence.", "source": "https://www.soompi.com/article/ateez-debut"},
+    {"question": "TXT stands for ''Tomorrow by Together''.", "correct": true, "fun_fact": "TXT (Tomorrow x Together) debuted under Big Hit Entertainment (now HYBE) on March 4, 2019.", "source": "https://www.soompi.com/article/txt-debut"},
+    {"question": "ENHYPEN was formed through the Mnet survival show ''I-LAND''.", "correct": true, "fun_fact": "ENHYPEN was formed through ''I-LAND'', a survival show produced by Big Hit Entertainment and CJ ENM, debuting in November 2020.", "source": "https://www.soompi.com/article/enhypen-i-land-debut"},
+    {"question": "EXO-CBX is a sub-unit consisting of Chen, Baekhyun, and Xiumin.", "correct": true, "fun_fact": "EXO-CBX (Chen, Baekhyun, Xiumin) was EXO''s first official sub-unit, debuting in October 2016.", "source": "https://www.soompi.com/article/exo-cbx-debut"},
+    {"question": "GOT7 is still under JYP Entertainment.", "correct": false, "fun_fact": "GOT7 left JYP Entertainment in January 2021, with members signing to various different agencies while continuing group activities.", "source": "https://www.soompi.com/article/got7-leave-jyp"},
+    {"question": "SHINee debuted before EXO.", "correct": true, "fun_fact": "SHINee debuted in May 2008, four years before EXO debuted in April 2012 -- both are SM Entertainment groups.", "source": "https://www.soompi.com/article/shinee-debut-history"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 58: K-pop Debuts and Disbandments True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Debuts and Disbandments True or False',
+  'True or false about iconic K-pop group debuts and endings.',
+  NULL,
+  'true_false',
+  'hard',
+  'true_false',
+  '[
+    {"question": "Wonder Girls were the first K-pop act to enter the Billboard Hot 100.", "correct": true, "fun_fact": "Wonder Girls charted on the Billboard Hot 100 with ''Nobody'' in 2009, making history as the first K-pop act to do so.", "source": "https://www.soompi.com/article/wonder-girls-billboard-hot-100"},
+    {"question": "2PM and 2AM were both formed through the same survival show.", "correct": true, "fun_fact": "Both 2PM and 2AM were created from the same JYP survival program ''Hot Blood'', with members split between the two groups.", "source": "https://www.allkpop.com/article/2pm-2am-hot-blood"},
+    {"question": "f(x) officially disbanded in 2019.", "correct": false, "fun_fact": "f(x) has never officially disbanded. The group went quiet after 2016, but SM Entertainment has never announced a formal disbandment.", "source": "https://www.soompi.com/article/fx-status-2023"},
+    {"question": "KARA was one of the first K-pop groups to become hugely popular in Japan.", "correct": true, "fun_fact": "KARA was a pioneering K-pop group in Japan, achieving massive success in 2010-2012 and helping establish the Japan market for K-pop.", "source": "https://www.soompi.com/article/kara-japan-success"},
+    {"question": "T-ARA had 7 members at their peak lineup.", "correct": true, "fun_fact": "T-ARA expanded to 7 members at their height in 2012 following member additions from their original 6-member lineup.", "source": "https://www.allkpop.com/article/t-ara-member-history"},
+    {"question": "IZ*ONE disbanded without completing their originally planned 2.5-year contract.", "correct": false, "fun_fact": "IZ*ONE completed their original 2.5-year contract, disbanding as planned in April 2021 after debuting in October 2018.", "source": "https://www.soompi.com/article/izone-disband-2021"},
+    {"question": "Super Junior has had more than 13 members throughout their history.", "correct": true, "fun_fact": "Super Junior has had 13 official members over their history (including Chinese members Zhou Mi and Henry as ''Super Junior-M'' members).", "source": "https://www.allkpop.com/article/super-junior-member-history"},
+    {"question": "Wanna One was a permanent group like BIGBANG.", "correct": false, "fun_fact": "Wanna One was a project group formed through ''Produce 101 Season 2'', designed from the start to promote for about 1.5 years before disbanding in 2019.", "source": "https://www.soompi.com/article/wanna-one-disband-2019"},
+    {"question": "BTOB has been active for over 10 years.", "correct": true, "fun_fact": "BTOB debuted in March 2012 and celebrated their 12th anniversary in 2024, making them one of K-pop''s longest-running active groups.", "source": "https://www.soompi.com/article/btob-anniversary"},
+    {"question": "Apink debuted after TWICE.", "correct": false, "fun_fact": "Apink debuted in April 2011, four years before TWICE debuted in October 2015.", "source": "https://www.soompi.com/article/apink-debut-history"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 59: K-pop Awards and Records True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Awards and Records True or False',
+  'True or false about K-pop''s biggest records and award achievements.',
+  NULL,
+  'true_false',
+  'hard',
+  'true_false',
+  '[
+    {"question": "BTS was the first K-pop act to perform at the Grammy Awards.", "correct": true, "fun_fact": "BTS performed at the 63rd Grammy Awards in March 2021, becoming the first K-pop act to perform at the ceremony.", "source": "https://www.soompi.com/article/bts-grammy-performance-2021"},
+    {"question": "BLACKPINK has won a Grammy Award.", "correct": false, "fun_fact": "As of 2024, BLACKPINK has not won a Grammy, though they remain one of the most globally recognized K-pop acts.", "source": "https://www.soompi.com/article/blackpink-grammy-history"},
+    {"question": "PSY''s ''Gangnam Style'' was the first YouTube video to reach 1 billion views.", "correct": true, "fun_fact": "''Gangnam Style'' was the first YouTube video to hit 1 billion views in December 2012, later exceeding 5 billion views.", "source": "https://www.guinnessworldrecords.com/world-records/first-video-to-reach-1-billion-views-on-youtube"},
+    {"question": "BTS''s ''Butter'' spent more than 10 consecutive weeks at #1 on the Billboard Hot 100.", "correct": true, "fun_fact": "''Butter'' spent 10 non-consecutive weeks at #1 on the Billboard Hot 100 in 2021, breaking multiple chart records.", "source": "https://www.billboard.com/music/chart-beat/bts-butter-10-weeks-number-one-hot-100/"},
+    {"question": "The Melon Music Awards are considered less prestigious than the MAMAs in K-pop.", "correct": false, "fun_fact": "The Melon Music Awards are highly regarded because Melon is the dominant Korean streaming platform -- chart data there is considered very authentic.", "source": "https://www.soompi.com/article/kpop-awards-prestige-comparison"},
+    {"question": "BLACKPINK''s YouTube channel has more subscribers than any other music act globally.", "correct": true, "fun_fact": "BLACKPINK''s YouTube channel has been the most-subscribed music channel globally, surpassing even major Western artists.", "source": "https://www.soompi.com/article/blackpink-youtube-subscribers-record"},
+    {"question": "The Billboard Music Award for ''Top Social Artist'' was dominated by BTS for 6 consecutive years.", "correct": true, "fun_fact": "BTS won the Billboard Music Award for Top Social Artist from 2017 to 2022, a record 6 consecutive years.", "source": "https://www.billboard.com/music/awards/bts-top-social-artist-bbmas"},
+    {"question": "K-pop albums do not chart on the Billboard 200.", "correct": false, "fun_fact": "K-pop albums regularly chart on the Billboard 200. BTS''s ''Map of the Soul: 7'' debuted at #1 in 2020.", "source": "https://www.billboard.com/music/chart-beat/bts-map-of-soul-7-number-one-billboard-200/"},
+    {"question": "NCT 127''s ''Sticker'' broke the record for first-week sales by an SM artist.", "correct": true, "fun_fact": "NCT 127''s ''Sticker'' (2021) set a first-week sales record for an SM artist, selling over 2 million copies in its first week.", "source": "https://www.soompi.com/article/nct-127-sticker-first-week-sales"},
+    {"question": "TWICE has never achieved a certified platinum album in the US.", "correct": false, "fun_fact": "TWICE has achieved multiple certified gold and platinum records in the US, particularly with their English-language singles.", "source": "https://www.soompi.com/article/twice-riaa-certifications"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 60: K-pop Agencies and Business True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Agencies True or False',
+  'True or false about K-pop entertainment companies and the idol system.',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "The Big 3 K-pop agencies are SM, YG, and JYP Entertainment.", "correct": true, "fun_fact": "SM, YG, and JYP have historically been called the ''Big 3'' of K-pop, though HYBE (formerly Big Hit) is now often included making it the ''Big 4''.", "source": "https://www.allkpop.com/article/kpop-big-3-big-4"},
+    {"question": "HYBE was originally called Big Hit Entertainment.", "correct": true, "fun_fact": "Big Hit Entertainment rebranded to HYBE Corporation in March 2021 after their expansion beyond managing just BTS.", "source": "https://www.soompi.com/article/hybe-rebranding-2021"},
+    {"question": "K-pop trainees typically train for a minimum of 5 years before debuting.", "correct": false, "fun_fact": "Trainee periods vary widely -- from less than a year to over 7 years. The average is around 2-3 years, though some train much longer.", "source": "https://www.allkpop.com/article/kpop-trainee-period-average"},
+    {"question": "IVE is under Starship Entertainment.", "correct": true, "fun_fact": "IVE debuted under Starship Entertainment in December 2021 and quickly became one of the top 4th generation girl groups.", "source": "https://www.soompi.com/article/ive-starship-debut"},
+    {"question": "Source Music, which manages LE SSERAFIM, was acquired by HYBE.", "correct": true, "fun_fact": "HYBE acquired Source Music in 2019, making it a HYBE subsidiary and paving the way for LE SSERAFIM''s debut.", "source": "https://www.soompi.com/article/hybe-source-music-acquisition"},
+    {"question": "All K-pop companies require trainees to give up their phone for the entire training period.", "correct": false, "fun_fact": "While some companies have strict rules about phone use, ''giving up phones entirely'' is not universal -- policies vary by company and era.", "source": "https://www.allkpop.com/article/kpop-trainee-life-rules"},
+    {"question": "CUBE Entertainment manages (G)I-DLE.", "correct": true, "fun_fact": "CUBE Entertainment, known for managing Hyuna, 4Minute, and B2ST/BEAST, is also the home of (G)I-DLE since their 2018 debut.", "source": "https://www.soompi.com/article/gidle-cube-entertainment"},
+    {"question": "K-pop companies can release an artist from their contract if the group doesn''t generate revenue.", "correct": true, "fun_fact": "K-pop contracts typically include clauses allowing termination if revenue targets aren''t met or if the company decides not to continue investing.", "source": "https://www.allkpop.com/article/kpop-contract-termination-clauses"},
+    {"question": "Pledis Entertainment, which manages SEVENTEEN, is independent of HYBE.", "correct": false, "fun_fact": "HYBE acquired Pledis Entertainment in 2020, making SEVENTEEN part of the HYBE family alongside BTS and TXT.", "source": "https://www.soompi.com/article/hybe-pledis-acquisition-2020"},
+    {"question": "K-pop groups must typically pay back training costs before earning personal profit.", "correct": true, "fun_fact": "The K-pop system often operates on a debt repayment model where training, music video, and promotion costs are recouped before artists see personal profits.", "source": "https://www.bbc.com/news/world-asia-49472481"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 61: K-pop Music Shows True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Music Shows True or False',
+  'True or false about Korean music shows and chart systems.',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "Inkigayo is a music show aired on SBS.", "correct": true, "fun_fact": "''Inkigayo'' (인기가요) airs on SBS every Sunday and is one of the big three Korean music shows.", "source": "https://www.soompi.com/article/inkigayo-sbs-history"},
+    {"question": "Music Bank airs on KBS.", "correct": true, "fun_fact": "Music Bank (뮤직뱅크) airs on KBS2 every Friday and uses a point-based system to determine its weekly winner.", "source": "https://www.soompi.com/article/music-bank-kbs"},
+    {"question": "Show Champion airs on the same day as Music Bank.", "correct": false, "fun_fact": "Show Champion (쇼챔피언) airs on MBC Every1 on Wednesdays, while Music Bank airs on Fridays.", "source": "https://www.soompi.com/article/show-champion-schedule"},
+    {"question": "A ''triple crown'' on a music show means winning three consecutive weeks.", "correct": true, "fun_fact": "Winning three consecutive weeks on a music show is called a ''triple crown'' -- a major achievement that demonstrates sustained chart dominance.", "source": "https://www.allkpop.com/article/kpop-music-show-triple-crown"},
+    {"question": "The Gaon Chart is South Korea''s official music chart.", "correct": true, "fun_fact": "The Gaon Chart is the South Korean national chart system, equivalent to the US Billboard chart.", "source": "https://www.gaonchart.co.kr"},
+    {"question": "Music shows determine winners purely based on physical album sales.", "correct": false, "fun_fact": "Music show winners are determined by a combination of digital sales, physical sales, broadcast score, fan votes, and social media metrics.", "source": "https://www.soompi.com/article/kpop-music-show-criteria"},
+    {"question": "Winning on Inkigayo is called receiving a ''Daesang''.", "correct": false, "fun_fact": "Weekly music show wins are called ''1st place'' wins or ''Triple Crown''. A ''Daesang'' (대상) is a Grand Prize at major awards ceremonies like MAMAs or Melon Music Awards.", "source": "https://www.allkpop.com/article/daesang-vs-music-show-win"},
+    {"question": "M Countdown airs on Mnet.", "correct": true, "fun_fact": "M Countdown (엠카운트다운) is a weekly music show on Mnet, airing Thursdays, and is notable for being the first to feature international fan voting.", "source": "https://www.soompi.com/article/m-countdown-mnet"},
+    {"question": "Show! Music Core airs on MBC.", "correct": true, "fun_fact": "Show! Music Core (쇼! 음악중심) airs on MBC every Saturday and is one of the main weekly K-pop music shows.", "source": "https://www.soompi.com/article/show-music-core-mbc"},
+    {"question": "Groups can win a music show even without a new song release if old songs chart.", "correct": true, "fun_fact": "If a previous song re-enters the charts strongly (e.g., on a anniversary or after a viral moment), groups can win music shows with older songs.", "source": "https://www.allkpop.com/article/music-show-re-entry-wins"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 62: K-pop Fandoms True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Fandoms True or False',
+  'True or false about K-pop fandom names and fan culture.',
+  NULL,
+  'true_false',
+  'easy',
+  'true_false',
+  '[
+    {"question": "BTS fans are officially called ARMY.", "correct": true, "fun_fact": "ARMY stands for ''Adorable Representative M.C. for Youth'', and was officially named on July 9, 2013, a year before BTS''s first anniversary.", "source": "https://twitter.com/bts_bighit"},
+    {"question": "BLACKPINK fans are called BLINK.", "correct": true, "fun_fact": "BLINK is the official fandom name for BLACKPINK fans, combining ''Black'' and ''Pink'' from the group''s name.", "source": "https://twitter.com/ygofficialblink"},
+    {"question": "TWICE fans are called ONCE.", "correct": true, "fun_fact": "ONCE is TWICE''s official fandom name -- reflecting the motto ''Love us once, we''ll love you twice.''", "source": "https://twitter.com/jypetwice"},
+    {"question": "EXO fans are called EXO-L.", "correct": true, "fun_fact": "EXO-L is EXO''s official fandom name -- the ''L'' stands for ''Love'' and sits between ''EXO-K'' and ''EXO-M'' alphabetically.", "source": "https://www.soompi.com/article/exo-l-fandom-name"},
+    {"question": "Stray Kids fans are called STAYS.", "correct": true, "fun_fact": "STAY is the official fandom name for Stray Kids fans, with the plural ''STAYS'' also commonly used.", "source": "https://twitter.com/stray_kids"},
+    {"question": "SEVENTEEN fans are called CARAT.", "correct": true, "fun_fact": "CARAT is SEVENTEEN''s official fandom name -- diamonds are measured in carats, and SEVENTEEN says their fans are their precious gems.", "source": "https://twitter.com/pledis_17"},
+    {"question": "(G)I-DLE fans are called NEVERLAND.", "correct": true, "fun_fact": "Neverland is the official fandom name for (G)I-DLE fans, inspired by the fantastical world theme in some of the group''s concepts.", "source": "https://twitter.com/G_I_DLE"},
+    {"question": "NewJeans fans are called BUNNIES.", "correct": true, "fun_fact": "Bunnies is the fan name for NewJeans fans, fitting the playful and cute rabbit imagery associated with the group.", "source": "https://twitter.com/NewJeans_ADOR"},
+    {"question": "IVE fans are called DIVE.", "correct": true, "fun_fact": "DIVE is the official fandom name for IVE fans, as IVE + DIVE implies a deep dive into the fandom together.", "source": "https://twitter.com/IVEstarship"},
+    {"question": "LE SSERAFIM fans are called FEARNOT.", "correct": true, "fun_fact": "FEARNOT is the official fandom name for LE SSERAFIM fans, referencing the group''s name which is an anagram of ''I''M FEARLESS''.", "source": "https://twitter.com/le_sserafim"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 63: K-pop Milestones and Firsts True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Milestones and Firsts True or False',
+  'True or false about firsts and milestones in K-pop history.',
+  NULL,
+  'true_false',
+  'hard',
+  'true_false',
+  '[
+    {"question": "BoA was one of the first K-pop artists to successfully break into the Japanese market.", "correct": true, "fun_fact": "BoA became a massive star in Japan from 2002, paving the way for K-pop''s Japan expansion before Hallyu became mainstream.", "source": "https://www.soompi.com/article/boa-japan-kpop-pioneer"},
+    {"question": "''Gangnam Style'' was the first K-pop music video to reach 1 billion views on YouTube.", "correct": true, "fun_fact": "PSY''s ''Gangnam Style'' made global headlines as the first video to hit 1 billion YouTube views in December 2012.", "source": "https://www.guinnessworldrecords.com/world-records/first-video-to-reach-1-billion-views-on-youtube"},
+    {"question": "BTS was the first K-pop act to top the UK Albums Chart.", "correct": true, "fun_fact": "BTS topped the UK Albums Chart with ''Map of the Soul: 7'' in 2020, a first for a K-pop act in the UK.", "source": "https://www.officialcharts.com/charts/albums-chart/"},
+    {"question": "BLACKPINK were the first K-pop girl group to perform at Coachella.", "correct": true, "fun_fact": "BLACKPINK headlined Coachella in 2019 and 2023, becoming the first K-pop act -- and the first female Asian act -- to headline the festival.", "source": "https://www.soompi.com/article/blackpink-coachella"},
+    {"question": "Psy holds the record for most Grammy wins by a Korean artist.", "correct": false, "fun_fact": "No Korean artist has won a Grammy Award in a competitive category as of 2024. Psy never won a Grammy.", "source": "https://www.soompi.com/article/kpop-grammy-history"},
+    {"question": "Super Junior was the first Korean group to perform at the MTV Europe Music Awards.", "correct": false, "fun_fact": "While Super Junior has won MTV EMA awards, the first Korean acts to receive recognition varied. BTS were the first K-pop group to win an MTV EMA.", "source": "https://www.soompi.com/article/bts-mtv-ema-history"},
+    {"question": "The Korean Wave began primarily through Korean drama exports to other Asian countries.", "correct": true, "fun_fact": "The Korean Wave (Hallyu) is generally traced to the late 1990s when Korean dramas became hits in China and Southeast Asia.", "source": "https://www.bbc.com/culture/article/20210901-hallyu-how-south-korea-conquered-the-world"},
+    {"question": "IU is considered one of the best-selling solo K-pop artists of all time.", "correct": true, "fun_fact": "IU is consistently ranked among the top-selling solo Korean artists, with massive digital and physical sales throughout her decade-long career.", "source": "https://www.soompi.com/article/iu-sales-records"},
+    {"question": "The first K-pop group to perform at Madison Square Garden was BIGBANG.", "correct": false, "fun_fact": "BTS performed at the Citi Field stadium in 2018, and other groups followed. The specific MSG milestone was achieved by different artists across years.", "source": "https://www.soompi.com/article/kpop-msg-history"},
+    {"question": "TWICE was the first K-pop girl group to sell 1 million albums in South Korea.", "correct": true, "fun_fact": "TWICE became the first K-pop girl group to sell over 1 million copies of a single album in South Korea with ''Formula of Love'' in 2021.", "source": "https://www.soompi.com/article/twice-million-seller"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 64: K-pop Idol Life True/False
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Idol Life True or False',
+  'True or false about the life, training, and experiences of K-pop idols.',
+  NULL,
+  'true_false',
+  'medium',
+  'true_false',
+  '[
+    {"question": "K-pop idols are often required to maintain a no-dating policy.", "correct": true, "fun_fact": "Many K-pop agencies have historically required no-dating policies, though this has relaxed somewhat in recent years as older idols reveal relationships.", "source": "https://www.bbc.com/news/world-asia-49472481"},
+    {"question": "Most K-pop idols begin training before age 18.", "correct": true, "fun_fact": "Many K-pop idols start training as young as 10-14 years old, with companies actively scouting middle and high school students.", "source": "https://www.allkpop.com/article/kpop-trainee-age"},
+    {"question": "Idols always get to choose their own stage names.", "correct": false, "fun_fact": "Stage names are often assigned by the company. Some idols, however, have chosen names themselves or had input in the decision.", "source": "https://www.soompi.com/article/kpop-idol-stage-names"},
+    {"question": "BLACKPINK''s Lisa is originally from Thailand.", "correct": true, "fun_fact": "Lisa (Lalisa Manobal) was born in Buriram, Thailand, and became one of the most recognized international K-pop stars.", "source": "https://www.soompi.com/article/lisa-blackpink-biography"},
+    {"question": "BTS members are all Korean nationals.", "correct": true, "fun_fact": "All 7 BTS members are South Korean nationals, which made their military service exemption debates a major national topic.", "source": "https://www.bbc.com/news/world-asia-62766997"},
+    {"question": "K-pop idols typically live in company dormitories during their active years.", "correct": true, "fun_fact": "K-pop idols commonly live together in company-provided dormitories, especially during peak promotional periods -- reinforcing group cohesion.", "source": "https://www.allkpop.com/article/kpop-idol-dorm-life"},
+    {"question": "Male K-pop idols are exempt from mandatory military service.", "correct": false, "fun_fact": "Male Korean citizens are required to complete mandatory military service. BTS members began serving from 2022 onwards, with no permanent exemption.", "source": "https://www.bbc.com/news/world-asia-62766997"},
+    {"question": "TWICE''s Tzuyu is from Taiwan.", "correct": true, "fun_fact": "Tzuyu (Chou Tzu-yu) was born in Tainan, Taiwan, and became a household name across Asia after a flag controversy in 2016.", "source": "https://www.soompi.com/article/tzuyu-twice-nationality"},
+    {"question": "Many K-pop agencies require trainees to maintain strict diets.", "correct": true, "fun_fact": "Weight and appearance management have been widely reported aspects of K-pop trainee life, though awareness of health concerns has grown.", "source": "https://www.bbc.com/news/world-asia-49472481"},
+    {"question": "EXO''s Kris Wu left EXO due to financial disputes with SM Entertainment.", "correct": false, "fun_fact": "Kris Wu filed a lawsuit against SM claiming unfair contract terms. He later faced criminal charges in China unrelated to his K-pop career.", "source": "https://www.soompi.com/article/kris-wu-exo-lawsuit"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- ============================================
+-- FUN QUIZZES 65-69
+-- ============================================
+
+-- Quiz 65: K-pop Iconic Outfits and Fashion
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Iconic Outfits and Fashion',
+  'From school uniforms to avant-garde looks -- K-pop''s most memorable fashion moments.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "Which K-pop group wore matching school uniforms as their debut concept?", "options": ["TWICE", "Red Velvet", "NewJeans", "IVE"], "correct": 2, "fun_fact": "NewJeans debuted with a nostalgic, casual school/streetwear aesthetic that set them apart from typical glamorous K-pop debut looks.", "source": "https://www.soompi.com/article/newjeans-debut-aesthetic"},
+    {"question": "What color are BLACKPINK''s signature performance outfits?", "options": ["All black", "All pink", "Black and pink", "White and gold"], "correct": 2, "fun_fact": "BLACKPINK''s brand colors are black and pink, reflected in their outfits, set design, and merchandise.", "source": "https://twitter.com/ygofficialblink"},
+    {"question": "Which fashion house has BLACKPINK''s Jennie served as global ambassador?", "options": ["Gucci", "Chanel", "Louis Vuitton", "Dior"], "correct": 1, "fun_fact": "Jennie became Chanel''s global ambassador in 2017 and is one of the most influential K-pop fashion icons.", "source": "https://www.soompi.com/article/jennie-chanel-ambassador"},
+    {"question": "BTS''s ''Butter'' era is characterized by which color palette?", "options": ["Dark and moody", "Bright yellow and white", "Pastel purple", "All black"], "correct": 1, "fun_fact": "The ''Butter'' era featured bright, sunny yellow tones across outfits, sets, and promotional materials.", "source": "https://www.soompi.com/article/bts-butter-aesthetic"},
+    {"question": "Which K-pop group popularized the ''school uniform'' concept in music videos?", "options": ["BIGBANG", "TWICE", "Girls'' Generation", "SHINee"], "correct": 2, "fun_fact": "Girls'' Generation''s ''Gee'' MV (2009) featuring colorful school-ish outfits became iconic and influenced countless groups after.", "source": "https://www.youtube.com/watch?v=U2quVXSN8uo"},
+    {"question": "What term describes K-pop''s trend of all-matching member outfits?", "options": ["Uniform concept", "Mirror style", "Coordi look", "Stage match"], "correct": 2, "fun_fact": "''Coordi'' (coordinated) outfits are a staple of K-pop performance culture -- fans often rate each comeback''s ''coordi'' quality.", "source": "https://www.allkpop.com/article/kpop-coordi-culture"},
+    {"question": "Which luxury brand did BTS''s V (Kim Taehyung) become an ambassador for?", "options": ["Prada", "Celine", "Louis Vuitton", "Burberry"], "correct": 1, "fun_fact": "V became Celine''s global ambassador, and his fashion choices regularly trend worldwide as he''s considered one of K-pop''s top fashion icons.", "source": "https://www.soompi.com/article/v-bts-celine-ambassador"},
+    {"question": "What is ''Airport Fashion'' in K-pop culture?", "options": ["A fashion line for travel wear", "When fans and media photograph idols'' casual outfits at airports", "A TV show about K-pop fashion", "Designer luggage collections by K-pop groups"], "correct": 1, "fun_fact": "Airport fashion is a huge K-pop phenomenon -- fans camp at airports to photograph idols'' casual yet stylish travel looks.", "source": "https://www.allkpop.com/article/kpop-airport-fashion"},
+    {"question": "Which K-pop group is known for their signature color-coded outfits per member?", "options": ["TWICE", "BLACKPINK", "SEVENTEEN", "GOT7"], "correct": 0, "fun_fact": "TWICE is famously color-coded, with each member having an assigned color used in official content, fan merchandise, and light sticks.", "source": "https://www.soompi.com/article/twice-color-coded-members"},
+    {"question": "What fashion trend did G-Dragon of BIGBANG help popularize globally?", "options": ["Matching suits", "Oversized streetwear and layering", "Preppy collegiate style", "All-white minimalism"], "correct": 1, "fun_fact": "G-Dragon is credited with helping popularize streetwear and high fashion hybrid dressing in Asia, years before it became a global trend.", "source": "https://www.vogue.com/article/g-dragon-fashion-icon"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 66: K-pop Animal Mascots and Cute Culture
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Mascots and Cute Culture',
+  'K-pop groups and their adorable mascots, emojis, and cute branding.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is the name of BTS''s official mascot character?", "options": ["Cooky", "Tata", "RJ", "BT21 (collectively)"], "correct": 3, "fun_fact": "BT21 is a character IP created by BTS in collaboration with LINE Friends, with each member designing their own character.", "source": "https://bt21.com"},
+    {"question": "What is the name of BTS''s Jungkook''s BT21 character?", "options": ["Cooky", "Chimmy", "Tata", "Mang"], "correct": 0, "fun_fact": "Jungkook designed Cooky, a bunny character -- reflecting his love for cute bunny aesthetics that fans often associate with him.", "source": "https://bt21.com/characters"},
+    {"question": "What is the name of Jimin''s BT21 character?", "options": ["Tata", "Chimmy", "Cooky", "Shooky"], "correct": 1, "fun_fact": "Chimmy is Jimin''s character -- a yellow puppy that fans associate with Jimin''s cheerful and energetic personality.", "source": "https://bt21.com/characters"},
+    {"question": "Which K-pop group has a teddy bear as their signature cute motif?", "options": ["TXT", "SEVENTEEN", "aespa", "LE SSERAFIM"], "correct": 0, "fun_fact": "TXT uses a teddy bear (YEOTAN and Odi plushies) as part of their visual branding, and member Taehyun is associated with a bear motif.", "source": "https://www.soompi.com/article/txt-bear-concept"},
+    {"question": "What animal is NewJeans'' unofficial mascot associated with?", "options": ["Cat", "Bunny", "Puppy", "Frog"], "correct": 1, "fun_fact": "NewJeans has a strong bunny association -- their fandom is called ''Bunnies'' and rabbit imagery appears throughout their branding.", "source": "https://twitter.com/NewJeans_ADOR"},
+    {"question": "Which group has character merchandise featuring a robot/alien concept matching their AI concept?", "options": ["aespa", "EXO", "SHINee", "NCT"], "correct": 0, "fun_fact": "aespa''s brand concept includes virtual AI versions of the members (''ae''), and their merchandise features futuristic robot/digital character designs.", "source": "https://www.soompi.com/article/aespa-ae-concept"},
+    {"question": "What is the term for when K-pop idols act adorably cute on camera?", "options": ["Gwiyomi", "Aegyo", "Saranghae", "Daebak"], "correct": 1, "fun_fact": "Aegyo (애교) refers to cute, endearing behavior -- a big part of K-pop idol culture where members act baby-like to charm fans.", "source": "https://www.allkpop.com/article/kpop-aegyo-explained"},
+    {"question": "Which BTS member''s BT21 character is a cloud-shaped alien?", "options": ["RM", "Jin", "V (Taehyung)", "Suga"], "correct": 2, "fun_fact": "V designed Tata, an alien-like character with a heart-shaped face and emotional, curious personality.", "source": "https://bt21.com/characters"},
+    {"question": "What are K-pop ''plushies'' (or ''plooshies'') primarily sold as?", "options": ["Sleeping aids", "Official fan merchandise of member mascots", "Charity auction items only", "Limited art installations"], "correct": 1, "fun_fact": "K-pop plushies of group mascots, BT21 characters, and member-themed designs are massively popular merchandise items.", "source": "https://www.allkpop.com/article/kpop-plushie-merchandise"},
+    {"question": "Which BLACKPINK member is associated with a bear concept in fan culture?", "options": ["Jisoo", "Jennie", "Rose", "Lisa"], "correct": 0, "fun_fact": "Jisoo is affectionately associated with a bear by fans due to her playful, cuddly personality -- a common fan-created animal assignment.", "source": "https://www.soompi.com/article/jisoo-bear-fans"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 67: K-pop Food and Eating Culture
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Idols and Food',
+  'K-pop idols love food -- and fans love watching them eat. A delicious quiz!',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What K-pop food variety show format involves members eating while chatting?", "options": ["Muk-bang with idols", "Eat-jin (Jin''s Eat Jin)", "Bon Voyage dining", "Idol restaurant challenge"], "correct": 1, "fun_fact": "BTS''s Jin hosted ''Eat Jin'', an early Run BTS precursor where he ate and talked to fans -- predating the mukbang genre''s mainstream popularity.", "source": "https://www.youtube.com/c/BangtanTV"},
+    {"question": "Which Korean food is most commonly referenced in K-pop variety shows?", "options": ["Kimchi jjigae", "Tteokbokki", "Bibimbap", "Samgyeopsal"], "correct": 1, "fun_fact": "Tteokbokki (spicy rice cakes) is one of the most beloved Korean street foods and is frequently referenced by K-pop idols.", "source": "https://www.allkpop.com/article/kpop-idols-tteokbokki"},
+    {"question": "What does ''mukbang'' mean?", "options": ["Eating while dancing", "Eating broadcast -- streaming while eating large amounts of food", "A traditional Korean feast", "A cooking competition show"], "correct": 1, "fun_fact": "Mukbang (먹방) literally means ''eating broadcast'' and originated in South Korea -- it became a global phenomenon, partly pushed by K-pop culture.", "source": "https://www.bbc.com/news/world-asia-49472481"},
+    {"question": "Which snack brand collaborated with BTS for a highly popular campaign?", "options": ["Pepero", "Oreo", "Doritos", "Lays"], "correct": 0, "fun_fact": "BTS collaborated with Pepero (the Korean Pocky-like snack) for special edition packaging, causing sell-outs across Korea and internationally.", "source": "https://www.soompi.com/article/bts-pepero-collaboration"},
+    {"question": "Which K-pop idol is particularly famous for being a ''foodie'' and food vlogs?", "options": ["Jimin (BTS)", "Jin (BTS)", "Chaeyoung (TWICE)", "Wendy (Red Velvet)"], "correct": 1, "fun_fact": "Jin is legendary among ARMY for his love of food, his ''Eat Jin'' series, and his frequent food commentary on V Live and Weverse.", "source": "https://www.youtube.com/c/BangtanTV"},
+    {"question": "What is the Korean term for the communal BBQ meal that idols often eat together?", "options": ["Galbi", "Samgyeopsal", "Bulgogi", "Gopchang"], "correct": 1, "fun_fact": "Samgyeopsal (pork belly BBQ) is the quintessential Korean group meal and is ubiquitous on K-pop variety shows and idol vlogs.", "source": "https://www.allkpop.com/article/kpop-samgyeopsal-culture"},
+    {"question": "Which fast food chain has had major K-pop idol advertising campaigns in South Korea?", "options": ["Subway", "McDonald''s", "Burger King", "All of the above"], "correct": 3, "fun_fact": "All major global fast food chains have run K-pop idol campaigns in South Korea -- it''s a standard celebrity endorsement market.", "source": "https://www.allkpop.com/article/kpop-fast-food-campaigns"},
+    {"question": "Which K-pop group member opened their own restaurant?", "options": ["Taeyang (BIGBANG)", "Heechul (Super Junior)", "Baekhyun (EXO)", "Jay Park"], "correct": 3, "fun_fact": "Jay Park (formerly of 2PM) has invested in food businesses and is known for his entrepreneurial spirit including restaurant and food brand ventures.", "source": "https://www.soompi.com/article/jay-park-business-ventures"},
+    {"question": "Which convenience store chain is most associated with K-pop culture and idol photo card promotions?", "options": ["GS25", "CU", "7-Eleven Korea", "All three equally"], "correct": 3, "fun_fact": "GS25, CU, and 7-Eleven Korea all regularly run K-pop idol collaborations with photo cards, special packaging, and fan events.", "source": "https://www.allkpop.com/article/kpop-convenience-store-promos"},
+    {"question": "What dessert item became iconic after featuring in multiple K-pop music videos?", "options": ["Bingsu (shaved ice)", "Hotteok (sweet pancake)", "Yakgwa (honey pastry)", "Bungeoppang (fish-shaped pastry)"], "correct": 0, "fun_fact": "Bingsu -- Korean shaved ice with sweet toppings -- has appeared in dozens of K-pop MVs and is a summer staple in Korean idol culture.", "source": "https://www.soompi.com/article/kpop-bingsu-culture"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 68: K-pop Variety Shows and Games
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Variety Shows and Games',
+  'The funniest and most iconic K-pop variety show moments and games.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "Which K-pop variety show features idols doing physical challenges?", "options": ["Idol Room", "Weekly Idol", "Running Man", "Knowing Bros"], "correct": 1, "fun_fact": "''Weekly Idol'' (주간 아이돌) is famous for its speed dance challenges and random dance tests that became iconic variety segments.", "source": "https://www.soompi.com/article/weekly-idol-history"},
+    {"question": "What is ''Knowing Bros'' (Ask Us Anything)?", "options": ["A quiz about K-pop facts", "A variety show where idols pretend to be school transfer students", "A physical challenge show for idol groups", "A lip sync competition"], "correct": 1, "fun_fact": "''Knowing Bros'' features MC regulars as teachers, with celebrity guests pretending to be new transfer students in a classroom setting.", "source": "https://www.soompi.com/article/knowing-bros-jtbc"},
+    {"question": "Which BTS web series features the members on travel adventures?", "options": ["Run BTS!", "Bon Voyage", "In the SOOP", "BTS FESTA"], "correct": 1, "fun_fact": "''Bon Voyage'' is BTS''s travel documentary series where members go on unscripted trips together -- beloved by ARMY for candid moments.", "source": "https://weverse.io/bts"},
+    {"question": "What game is commonly played on K-pop variety shows to pick a ''loser''?", "options": ["Rock Paper Scissors", "Nunchi game (number counting game)", "Musical chairs", "Bingo"], "correct": 1, "fun_fact": "The nunchi counting game (not saying the same number as someone else) is a K-pop variety staple used to pick who performs a punishment.", "source": "https://www.allkpop.com/article/kpop-variety-games"},
+    {"question": "Which variety format has K-pop idols pretending to be on a real ''reality'' dating show?", "options": ["We Got Married", "Single''s Inferno", "Heart Signal", "Love Catcher"], "correct": 0, "fun_fact": "''We Got Married'' was a long-running MBC variety show pairing idols as pretend married couples, sparking countless fan ''ships''.", "source": "https://www.soompi.com/article/we-got-married-history"},
+    {"question": "What is ''Idol Room'' known for?", "options": ["Cooking competitions between idol groups", "Thorough one-on-one member interviews with solo cams", "Dance battles between rival groups", "Hidden camera prank shows"], "correct": 1, "fun_fact": "Idol Room featured ''sole-cam'' segments -- dedicated camera time on individual members during dances -- a highly anticipated segment.", "source": "https://www.soompi.com/article/idol-room-mbc"},
+    {"question": "Which K-pop travel-reality show features BLACKPINK?", "options": ["BLACKPINK House", "BLACKPINK''s Road Trip", "In Your Area", "Kill This Love Special"], "correct": 0, "fun_fact": "''BLACKPINK House'' was a reality show following BLACKPINK living together and going on trips, airing in 2018.", "source": "https://www.soompi.com/article/blackpink-house"},
+    {"question": "What is the famous punishment for losing variety show games on K-pop shows?", "options": ["Solo aegyo performance", "Eating spicy food", "Wearing embarrassing outfits", "All of the above are common punishments"], "correct": 3, "fun_fact": "K-pop variety show punishments vary but commonly include aegyo performances, spicy food challenges, or embarrassing physical stunts.", "source": "https://www.allkpop.com/article/kpop-variety-punishment-games"},
+    {"question": "Which NCT variety show follows sub-units on missions around the world?", "options": ["NCT Life", "NCT 360", "NCT World 2.0", "NCT Daily"], "correct": 0, "fun_fact": "''NCT Life'' is a web variety series featuring different NCT sub-units in various travel and challenge formats.", "source": "https://www.soompi.com/article/nct-life-series"},
+    {"question": "What is ''Pepero Day'' and why is it relevant to K-pop?", "options": ["A national holiday", "November 11 -- a snack-sharing day that idols often celebrate publicly", "A K-pop award show", "A fan meeting format"], "correct": 1, "fun_fact": "Pepero Day (11/11) is a fun South Korean occasion where friends exchange Pepero snacks -- K-pop idols often post cute Pepero content.", "source": "https://www.allkpop.com/article/pepero-day-kpop"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 69: K-pop Funny and Relatable Fan Moments
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Fan Moments and Memes',
+  'The funniest, most relatable K-pop fan experiences and iconic meme moments.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is ''stan twitter'' in K-pop fan culture?", "options": ["An official K-pop news outlet", "The section of Twitter heavily populated by passionate fan accounts", "A paid subscription fan platform", "A private Discord server"], "correct": 1, "fun_fact": "''Stan Twitter'' refers to the passionate K-pop fan community on Twitter/X, known for fast-moving trends, fan projects, and sometimes intense debates.", "source": "https://www.vox.com/culture/2020/6/4/21280013/kpop-fans-bts-army-activism"},
+    {"question": "What does ''bias wrecker'' mean in K-pop?", "options": ["A fan who dislikes a group", "A member who threatens to replace your original favorite (bias)", "Someone who ruins fan events", "A manager who creates controversy"], "correct": 1, "fun_fact": "A ''bias wrecker'' is a member who keeps challenging your loyalty to your original favorite -- a beloved fan experience.", "source": "https://www.allkpop.com/article/kpop-fan-terminology"},
+    {"question": "What is a ''comeback era'' in K-pop fan experience?", "options": ["When a disbanded group returns", "The exciting period surrounding a new music release, from teasers to promotions", "When a group tours again after a break", "When an idol returns from military service"], "correct": 1, "fun_fact": "''Era'' in K-pop fan culture refers to the period defined by a specific album concept -- fans deeply associate personalities and memories with each era.", "source": "https://www.allkpop.com/article/kpop-comeback-era-culture"},
+    {"question": "What is ''fancafe'' in K-pop?", "options": ["A physical fan coffee shop", "A Korean online fan community platform", "A fan-run podcast", "An exclusive fan club tier"], "correct": 1, "fun_fact": "Fancafes (Daum/Naver-based) are official Korean fan communities where artists occasionally post exclusive content.", "source": "https://www.soompi.com/article/kpop-fancafe-explained"},
+    {"question": "What are ''sasaeng fans'' in K-pop?", "options": ["Fans who travel to Korea for concerts", "Obsessive fans who invade idols'' privacy", "Fans who fund fan projects", "International fan club leaders"], "correct": 1, "fun_fact": "Sasaeng (사생) fans are considered a dark side of K-pop -- obsessive fans known for extreme invasion of idols'' privacy.", "source": "https://www.bbc.com/news/world-asia-49472481"},
+    {"question": "What does ''stan'' mean in K-pop fan culture?", "options": ["A casual listener", "A dedicated, passionate fan", "A music critic", "An industry insider"], "correct": 1, "fun_fact": "''Stan'' comes from Eminem''s song and means an extremely dedicated fan. In K-pop, stanning involves deep fan activities and loyalty.", "source": "https://www.allkpop.com/article/kpop-stan-culture"},
+    {"question": "What is a ''light stick'' used for in K-pop?", "options": ["Reading in the dark at dorms", "Official fan merchandise waved at concerts, often color-coded to the group", "A selfie stick attachment", "A voting device at music shows"], "correct": 1, "fun_fact": "K-pop light sticks are iconic fan merchandise -- each group has a unique designed official ''bomb'' or ''bong'' used at concerts.", "source": "https://www.soompi.com/article/kpop-light-stick-guide"},
+    {"question": "What is the term for when fans send trucks with LED screens to company buildings to protest on behalf of their idol?", "options": ["Fan truck", "LED protest", "Fandom rally", "Stan truck"], "correct": 0, "fun_fact": "Fan trucks are a uniquely Korean K-pop phenomenon where organized fans rent LED-equipped trucks to display protest messages or birthday congratulations near company offices.", "source": "https://www.allkpop.com/article/kpop-fan-truck-protests"},
+    {"question": "What is ''unboxing'' culture in K-pop?", "options": ["Opening concert merchandise", "Fans filming themselves opening newly purchased K-pop album packages on video", "A choreography term for breaking formation", "Unpacking idol controversy"], "correct": 1, "fun_fact": "K-pop album unboxing videos are a massive subculture on YouTube and TikTok -- fans excitedly reveal photocards and extras from album packages.", "source": "https://www.allkpop.com/article/kpop-album-unboxing-culture"},
+    {"question": "What does ''OT (number)'' mean in K-pop (e.g., ''OT7'')?", "options": ["Official Track listing", "Original Team -- meaning support for all members of a specific group size", "Online Tournament fans", "Off-Tour fan club"], "correct": 1, "fun_fact": "''OT7'' means supporting all 7 members (used for BTS), ''OT5'' for 5-member groups like TWICE or LE SSERAFIM. It expresses whole-group loyalty.", "source": "https://www.allkpop.com/article/kpop-ot-terminology"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 70: K-pop Nicknames and Member Facts
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Member Nicknames and Fun Facts',
+  'Guess the idol from their famous nicknames and surprising personal facts.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "Which BTS member is nicknamed ''World Wide Handsome''?", "options": ["RM", "Jin", "Jimin", "Jungkook"], "correct": 1, "fun_fact": "Jin famously declared himself ''World Wide Handsome'' at the 2017 Billboard Music Awards, creating a beloved and enduring fan meme.", "source": "https://www.soompi.com/article/jin-world-wide-handsome"},
+    {"question": "Which BLACKPINK member is nicknamed ''Human Gucci''?", "options": ["Jisoo", "Jennie", "Rose", "Lisa"], "correct": 1, "fun_fact": "Jennie is called ''Human Gucci'' for her effortless high-fashion looks and her ability to make any outfit look like a runway moment.", "source": "https://www.allkpop.com/article/jennie-human-gucci"},
+    {"question": "Which idol is nicknamed ''The Shoulder'' for their distinctive physique?", "options": ["Kai (EXO)", "Cha Eun-woo (ASTRO)", "Mingyu (SEVENTEEN)", "Eunwoo (ASTRO)"], "correct": 2, "fun_fact": "Mingyu of SEVENTEEN is famous for his broad shoulders and tall frame, earning him various nicknames related to his physique.", "source": "https://www.soompi.com/article/mingyu-seventeen-appearance"},
+    {"question": "What is Stray Kids'' Bang Chan''s nickname based on his role in the group?", "options": ["The Brain", "Chan the Man", "3RACHA Boss", "Alpha"], "correct": 2, "fun_fact": "Bang Chan is the leader of the producing unit 3RACHA within Stray Kids, and fans refer to him in the context of his role as 3RACHA''s central figure.", "source": "https://www.soompi.com/article/bang-chan-3racha"},
+    {"question": "Which idol is affectionately called ''Gorilla'' by their own groupmates?", "options": ["Jungkook (BTS)", "Chanwoo (iKON)", "Bobby (iKON)", "Hongjoong (ATEEZ)"], "correct": 0, "fun_fact": "BTS members nicknamed Jungkook ''Gorilla'' as a term of endearment for his strong, muscular build.", "source": "https://www.soompi.com/article/jungkook-nicknames"},
+    {"question": "Which TWICE member has the nickname ''Penguin'' among fans?", "options": ["Nayeon", "Sana", "Tzuyu", "Jeongyeon"], "correct": 3, "fun_fact": "Jeongyeon has been nicknamed ''Penguin'' by ONCE fans for her cute waddling walk and lovable personality.", "source": "https://www.allkpop.com/article/jeongyeon-twice-nicknames"},
+    {"question": "What is IU''s nickname that references her iconic dual talents?", "options": ["Nation''s Sweetheart", "Double Master", "One-Person Entertainment", "Korea''s Singer-Actress"], "correct": 2, "fun_fact": "IU is often called a ''one-person entertainment company'' for her exceptional songwriting, singing, acting, and variety talents.", "source": "https://www.soompi.com/article/iu-nickname-one-person"},
+    {"question": "Which SHINee member was nicknamed ''Bling Bling'' for their fashion sense?", "options": ["Taemin", "Key", "Minho", "Onew"], "correct": 1, "fun_fact": "Key is known as a fashion icon and trendsetter in SHINee, earning the nickname ''Bling Bling'' for his bold style choices.", "source": "https://www.allkpop.com/article/key-shinee-fashion"},
+    {"question": "What nickname do fans give EXO''s Baekhyun based on his energy and personality?", "options": ["Sunshine Boy", "Beagle Line", "Little Bear", "Candy Man"], "correct": 0, "fun_fact": "Baekhyun is often called ''Sunshine'' or associated with bright, happy energy -- he''s part of EXO''s ''Beagle Line'' for the noisy, playful members.", "source": "https://www.soompi.com/article/baekhyun-exo-personality"},
+    {"question": "Which idol is nicknamed ''God Woozi'' by fans for their talent?", "options": ["Woozi (SEVENTEEN)", "Wonwoo (SEVENTEEN)", "S.Coups (SEVENTEEN)", "Joshua (SEVENTEEN)"], "correct": 0, "fun_fact": "Woozi (Lee Jihoon) is called ''God Woozi'' by Carats for his phenomenal songwriting and production ability, being the main composer for SEVENTEEN.", "source": "https://www.soompi.com/article/woozi-seventeen-producer"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 71: K-pop Dance Challenges and Viral Moments
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Viral Dance Challenges',
+  'K-pop''s most iconic dance challenges and TikTok moments that took over the internet.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "Which song''s dance challenge became a massive TikTok trend in 2020?", "options": ["BTS - Dynamite", "BLACKPINK - How You Like That", "IU - Celebrity", "TWICE - Fancy"], "correct": 0, "fun_fact": "BTS''s ''Dynamite'' sparked a massive TikTok dance challenge and helped introduce millions of new fans to K-pop during the pandemic.", "source": "https://www.soompi.com/article/bts-dynamite-tiktok-challenge"},
+    {"question": "Which iconic point choreography from NewJeans went viral globally?", "options": ["Hype Boy finger heart", "OMG hand gesture", "Super Shy hip sway", "Ditto mirror move"], "correct": 2, "fun_fact": "NewJeans'' ''Super Shy'' hip sway went massively viral on TikTok, with fans and celebrities worldwide recreating the simple but addictive move.", "source": "https://www.soompi.com/article/newjeans-super-shy-tiktok"},
+    {"question": "What BLACKPINK song had a viral ''how you like that'' hand gesture challenge?", "options": ["Kill This Love", "DDU-DU DDU-DU", "How You Like That", "Pink Venom"], "correct": 2, "fun_fact": "BLACKPINK''s ''How You Like That'' generated a massive TikTok challenge centered on the iconic finger gesture from the chorus.", "source": "https://www.soompi.com/article/blackpink-how-you-like-that-challenge"},
+    {"question": "Which TWICE dance challenge spawned thousands of cover videos in 2016?", "options": ["TT", "Cheer Up", "LIKEY", "What is Love?"], "correct": 0, "fun_fact": "TWICE''s ''TT'' hand gesture -- mimicking a crying face -- became one of 2016''s most viral K-pop challenges.", "source": "https://www.soompi.com/article/twice-tt-challenge"},
+    {"question": "What was special about PSY''s ''Gangnam Style'' horse dance?", "options": ["It required professional training", "It was simple enough that anyone could do it, making it universally viral", "It was inspired by traditional Korean dance", "It was created by a famous choreographer"], "correct": 1, "fun_fact": "The Gangnam Style horse dance was brilliantly accessible -- its simplicity allowed everyone from toddlers to politicians to recreate it.", "source": "https://www.youtube.com/watch?v=9bZkp7q19f0"},
+    {"question": "Which LE SSERAFIM choreography became a viral gym/sports challenge?", "options": ["Fearless", "Antifragile", "EASY", "Eve, Psyche & The Bluebeard''s wife"], "correct": 2, "fun_fact": "LE SSERAFIM''s ''EASY'' sparked a viral challenge where people attempted the choreography while doing physical challenges like running or doing pushups.", "source": "https://www.soompi.com/article/le-sserafim-easy-challenge"},
+    {"question": "What was the ''Careless'' challenge associated with which K-pop song?", "options": ["NMIXX - O.O", "aespa - Next Level", "IVE - After LIKE", "Stray Kids - Miroh"], "correct": 2, "fun_fact": "IVE''s ''After LIKE'' inspired numerous TikTok challenges and dance cover videos with its infectious hook and sharp choreography.", "source": "https://www.soompi.com/article/ive-after-like-viral"},
+    {"question": "Which K-pop challenge involved fans recreating an entire concert set at home?", "options": ["BTS''s Permission to Dance challenge", "In My Room challenge", "Solo Stage challenge", "Home Concert challenge"], "correct": 0, "fun_fact": "BTS''s ''Permission to Dance'' was specifically designed to be simple and fan-friendly, launching a global challenge with accessible choreography.", "source": "https://www.soompi.com/article/bts-permission-to-dance-challenge"},
+    {"question": "What made K-pop dance challenges particularly suited to TikTok?", "options": ["Long 3-minute choreographies", "Short, repeatable point moves that fit a 15-60 second format", "Professional-grade dancing requirements", "The use of props"], "correct": 1, "fun_fact": "K-pop''s ''point choreography'' tradition -- where one move defines a song -- perfectly matches TikTok''s short-form format.", "source": "https://www.allkpop.com/article/kpop-tiktok-challenge-culture"},
+    {"question": "Which STAYC member''s solo challenge video went particularly viral in 2022?", "options": ["Sieun", "Isa", "Yoon", "Sumin"], "correct": 2, "fun_fact": "STAYC member Yoon''s various dance challenge videos went viral, helping raise the group''s international profile.", "source": "https://www.soompi.com/article/stayc-viral-moments"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 72: K-pop Weird and Surprising Facts
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Surprising and Weird Facts',
+  'The most surprising, unexpected, and fascinating K-pop facts you probably didn''t know.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'fun',
+  '[
+    {"question": "How many members did Super Junior have at their largest lineup?", "options": ["9", "11", "13", "15"], "correct": 2, "fun_fact": "Super Junior has had 13 main members, making them one of the largest K-pop groups ever. The group has had various sub-units and additional associates.", "source": "https://www.soompi.com/article/super-junior-member-history"},
+    {"question": "Which K-pop idol is a trained classical pianist?", "options": ["Suga (BTS)", "Woozi (SEVENTEEN)", "Jonghyun (SHINee)", "Jinyoung (GOT7)"], "correct": 2, "fun_fact": "SHINee''s Jonghyun was a trained classical pianist in addition to being a celebrated vocalist and songwriter.", "source": "https://www.allkpop.com/article/jonghyun-pianist"},
+    {"question": "Which idol shaved their head on stage during a live performance?", "options": ["G-Dragon", "Jimin", "Taeyang", "Daesung"], "correct": 0, "fun_fact": "G-Dragon shaved his head during a BIGBANG concert as a bold artistic statement, shocking fans worldwide.", "source": "https://www.allkpop.com/article/g-dragon-shaved-head"},
+    {"question": "How many languages does GOT7''s Jackson Wang speak?", "options": ["2", "3", "4", "5+"], "correct": 3, "fun_fact": "Jackson Wang speaks Cantonese (native), Mandarin, English, Korean, and some Japanese and French -- one of K-pop''s most multilingual idols.", "source": "https://www.soompi.com/article/jackson-wang-languages"},
+    {"question": "Which K-pop group held the record for most consecutive wins on a Korean music show?", "options": ["BTS", "TWICE", "Girls'' Generation", "EXO"], "correct": 0, "fun_fact": "BTS has broken multiple consecutive-win records on Korean music shows, particularly with ''Butter'' in 2021.", "source": "https://www.soompi.com/article/bts-music-show-win-records"},
+    {"question": "Which idol was born in New Zealand?", "options": ["Rosé (BLACKPINK)", "Tzuyu (TWICE)", "Wonpil (DAY6)", "Mark (GOT7)"], "correct": 0, "fun_fact": "Rosé (Park Chaeyoung) was born in New Zealand and grew up in Australia, giving her a distinctive accent in English.", "source": "https://www.soompi.com/article/rose-blackpink-background"},
+    {"question": "Which K-pop group performed at the closing ceremony of the 2018 PyeongChang Winter Olympics?", "options": ["BTS", "EXO", "BIGBANG", "Girls'' Generation"], "correct": 1, "fun_fact": "EXO performed at the 2018 PyeongChang Winter Olympics closing ceremony, representing Korean culture on the global Olympic stage.", "source": "https://www.soompi.com/article/exo-olympics-2018"},
+    {"question": "Approximately how many different versions of a single K-pop album are typically released?", "options": ["1-2", "2-4", "4-8", "10+"], "correct": 2, "fun_fact": "Major K-pop releases often come in 2-8 versions with different covers and photo cards, encouraging multiple purchases -- a controversial but effective strategy.", "source": "https://www.allkpop.com/article/kpop-multiple-album-versions"},
+    {"question": "Which idol holds a degree from a top university in addition to their K-pop career?", "options": ["Suho (EXO)", "Rap Monster/RM (BTS)", "Sunny (Girls'' Generation)", "Irene (Red Velvet)"], "correct": 0, "fun_fact": "Suho (EXO) holds a degree in Korean Language and Literature from Korea National University of Arts, balancing academics and stardom.", "source": "https://www.soompi.com/article/suho-exo-education"},
+    {"question": "What surprising activity is BTS''s RM known for outside of music?", "options": ["Professional gaming", "Art museum visits and collecting", "Competitive cooking", "Extreme sports"], "correct": 1, "fun_fact": "RM is a passionate art enthusiast who regularly visits art museums worldwide, has contributed to Korean art awareness, and collects contemporary art.", "source": "https://www.soompi.com/article/rm-art-museum"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 73: K-pop Collaborations and Unexpected Moments
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Surprise Collaborations',
+  'The most unexpected and iconic K-pop collaborations and crossover moments.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'fun',
+  '[
+    {"question": "Which Western pop star collaborated with BTS on ''My Universe''?", "options": ["Ed Sheeran", "Coldplay", "Halsey", "Charlie Puth"], "correct": 1, "fun_fact": "BTS collaborated with Coldplay on ''My Universe'' (2021), a feel-good anthem that topped charts in multiple countries.", "source": "https://www.soompi.com/article/bts-coldplay-my-universe"},
+    {"question": "Which song featured BTS''s j-hope and a Western rapper?", "options": ["More with Becky G", "Chicken Noodle Soup with Becky G", "Base Line with Lil Uzi", "Arson with Jack Harlow"], "correct": 1, "fun_fact": "''Chicken Noodle Soup'' with Becky G was a viral sensation in 2019, featuring j-hope alongside the popular Latina-American artist.", "source": "https://www.soompi.com/article/j-hope-becky-g-cns"},
+    {"question": "Which BLACKPINK song featured Lady Gaga?", "options": ["Sour Candy", "Kiss and Make Up", "Ice Cream", "Lovesick Girls"], "correct": 0, "fun_fact": "BLACKPINK and Lady Gaga collaborated on ''Sour Candy'' from Gaga''s ''Chromatica'' album (2020), a major K-pop/pop crossover.", "source": "https://www.soompi.com/article/blackpink-lady-gaga-sour-candy"},
+    {"question": "Which unexpected collaboration between K-pop and K-indie became a viral hit?", "options": ["BTS x IU - Celebrity", "EXO x Crush", "Suga x IU - eight", "Jungkook x Charlie Puth - Left and Right"], "correct": 2, "fun_fact": "''eight'' by IU featuring Suga (BTS) became a massive hit in 2020, blending IU''s indie-pop style with Suga''s lyrical depth.", "source": "https://www.soompi.com/article/iu-suga-eight"},
+    {"question": "Which collaboration between SM and JYP artists shocked fans in 2023?", "options": ["Red Velvet x TWICE", "EXO x Stray Kids", "aespa x NMIXX", "NCT x Day6"], "correct": 2, "fun_fact": "aespa (SM) and NMIXX (JYP) collaborating was a rare cross-company moment that excited fans of both groups.", "source": "https://www.soompi.com/article/aespa-nmixx-collaboration"},
+    {"question": "Which K-pop group unexpectedly performed at the United Nations General Assembly?", "options": ["BLACKPINK", "BTS", "EXO", "Girls'' Generation"], "correct": 1, "fun_fact": "BTS addressed the United Nations General Assembly in 2021, speaking about COVID recovery and global youth issues on behalf of the South Korean government.", "source": "https://www.bbc.com/news/world-asia-58649485"},
+    {"question": "What global sporting event featured a K-pop artist performing at the opening ceremony?", "options": ["2022 FIFA World Cup - BLACKPINK", "2020 Tokyo Olympics - BTS", "2024 Paris Olympics - NewJeans", "2022 World Cup - BTS"], "correct": 0, "fun_fact": "BLACKPINK performed at the 2022 FIFA World Cup opening ceremony in Qatar, marking a major milestone for K-pop on the global sports stage.", "source": "https://www.soompi.com/article/blackpink-world-cup-2022"},
+    {"question": "Which K-pop idol collaborated with Halsey on a BTS song?", "options": ["RM and Suga on ''IDOL''", "Jimin on ''Boys With Luv''", "V on ''Blue & Grey''", "Jungkook on ''My Time''"], "correct": 0, "fun_fact": "Halsey featured on BTS''s ''Boy With Luv'' -- but the Halsey ''IDOL'' remix is also notable, with all members credited.", "source": "https://www.soompi.com/article/halsey-bts-collaboration"},
+    {"question": "What made the SM X HYBE ''SM Rookies'' era collaboration notable?", "options": ["A joint concert series", "A rumored co-debuted group", "Cross-label album featuring both rosters", "Presidential cultural event"], "correct": 1, "fun_fact": "Rumors and speculation about potential cross-label collaborations regularly excite K-pop fans, though most remain unofficial.", "source": "https://www.allkpop.com/article/kpop-cross-label-collaboration-rumors"},
+    {"question": "Which K-pop performance at a Western awards show shocked the world in 2019?", "options": ["BLACKPINK at Coachella", "BTS at the American Music Awards", "EXO at the MTV EMAs", "NCT at the Grammys"], "correct": 1, "fun_fact": "BTS performed at the 2017 and 2019 American Music Awards, representing K-pop''s growing presence in mainstream Western award shows.", "source": "https://www.soompi.com/article/bts-amas-performance"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 74: K-pop Light Sticks and Concert Culture
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Concert and Light Stick Culture',
+  'The iconic world of K-pop concerts, fan culture, and official light sticks.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is BTS''s official fan light stick called?", "options": ["ARMY Bomb", "Purple Star", "BTS Wand", "Bangtan Bomb"], "correct": 0, "fun_fact": "The ARMY Bomb is BTS''s iconic Bluetooth-enabled light stick that can sync colors with stage effects during concerts.", "source": "https://www.weverse.io/bts"},
+    {"question": "What makes Bluetooth light sticks special in K-pop concerts?", "options": ["They glow louder", "They can be remotely controlled by concert staff to sync with the show", "They record video", "They translate song lyrics"], "correct": 1, "fun_fact": "Smart Bluetooth light sticks (like ARMY Bomb v3+) can be remotely controlled during concerts to change colors and flash in sync with the performance.", "source": "https://www.soompi.com/article/bts-army-bomb-bluetooth"},
+    {"question": "What is a ''fan project'' at K-pop concerts?", "options": ["Fans building the stage", "Coordinated fan actions like color banners or slogan boards during a show", "Fundraising for charity in the artist''s name", "A fan-made documentary"], "correct": 1, "fun_fact": "Fan projects at K-pop concerts are elaborate coordinated actions -- like flipping colored cards to form images -- organized by fan clubs.", "source": "https://www.allkpop.com/article/kpop-concert-fan-project"},
+    {"question": "What is a ''hi-touch'' event in K-pop?", "options": ["A virtual fan meeting", "A fan event where fans briefly high-five or touch hands with the artist", "A premium concert seat upgrade", "A group dance with the idol"], "correct": 1, "fun_fact": "Hi-touch events are intimate fan interactions where fans move quickly past the artist to briefly touch hands -- a treasured fan experience.", "source": "https://www.allkpop.com/article/kpop-hi-touch-events"},
+    {"question": "What is SEVENTEEN''s official light stick called?", "options": ["Carat Bong", "Diamond Edge", "SVT Stick", "Caratbong"], "correct": 3, "fun_fact": "SEVENTEEN''s official light stick is called the Caratbong, featuring a diamond shape reflecting their fandom name CARAT.", "source": "https://twitter.com/pledis_17"},
+    {"question": "What is ''standing'' vs ''seated'' concert experience in K-pop?", "options": ["Standing is more expensive", "Standing sections (pit) are usually closest to stage and considered most exciting", "Seated has better sound quality", "Standing is for premium VIP only"], "correct": 1, "fun_fact": "Standing/pit sections at K-pop concerts are highly coveted for being closest to the stage, though they require hours of waiting in line.", "source": "https://www.allkpop.com/article/kpop-concert-standing-section"},
+    {"question": "What color does ARMY fill the stadium with using their light sticks?", "options": ["Pink", "Purple", "Silver", "Yellow"], "correct": 1, "fun_fact": "ARMY uses purple ARMY Bombs to fill stadiums with purple light -- purple being BTS''s signature color, representing trust and love.", "source": "https://www.soompi.com/article/bts-purple-meaning"},
+    {"question": "What is a ''fan meeting'' (fanmeet) in K-pop?", "options": ["A large stadium concert", "A smaller, more intimate event focused on fan-artist interaction rather than performance", "An online fan forum", "A press conference with fans"], "correct": 1, "fun_fact": "Fan meetings are smaller events featuring games, Q&A, and direct fan interaction -- prized for the personal connection with the artist.", "source": "https://www.allkpop.com/article/kpop-fanmeet-culture"},
+    {"question": "Which K-pop group is known for throwing fan service items into the crowd?", "options": ["Most K-pop groups do this", "Only boy groups", "Only large groups like SEVENTEEN", "It varies by company policy"], "correct": 0, "fun_fact": "Throwing signed merchandise, candy, and other items into the crowd is a common K-pop concert tradition across most groups.", "source": "https://www.soompi.com/article/kpop-concert-fan-service"},
+    {"question": "What is a K-pop ''encore'' concert behavior unique to the culture?", "options": ["Fans chanting the group name until they return", "Fans doing a synchronized wave", "Fans remaining perfectly silent", "Fans throwing light sticks on stage"], "correct": 0, "fun_fact": "K-pop fans chant the group''s name rhythmically after the main set ends to call them back for an encore -- a beloved concert ritual.", "source": "https://www.allkpop.com/article/kpop-encore-culture"}
+  ]'::jsonb,
+  'verified'
+);
