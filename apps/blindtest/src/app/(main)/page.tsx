@@ -1,15 +1,9 @@
 import Link from 'next/link';
 import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { getModesData } from '@/lib/get-modes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ModeData = any;
-
-async function fetchModes() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3022';
-  const res = await fetch(`${baseUrl}/api/modes`, { next: { revalidate: 60 } });
-  if (!res.ok) return null;
-  return res.json();
-}
 
 async function fetchPlayer() {
   try {
@@ -24,7 +18,7 @@ async function fetchPlayer() {
 }
 
 export default async function HomePage() {
-  const [modesData, player] = await Promise.all([fetchModes(), fetchPlayer()]);
+  const [modesData, player] = await Promise.all([getModesData(), fetchPlayer()]);
 
   const modes = modesData?.modes ?? { difficulty: [], group: [], era: [], special: [] };
   const stats = modesData?.stats ?? { total_songs: 0, total_plays: 0, available_modes: 0 };
