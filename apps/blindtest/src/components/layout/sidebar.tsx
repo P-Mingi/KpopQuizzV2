@@ -24,7 +24,6 @@ export async function Sidebar() {
     <div className="sticky top-5 space-y-4">
       <SidebarLeaderboard />
       <SidebarStats totalSongs={stats.totalSongs} totalPlays={stats.totalPlays} />
-      <SidebarEra />
     </div>
   );
 }
@@ -79,27 +78,3 @@ function SidebarStats({ totalSongs, totalPlays }: { totalSongs: number; totalPla
   );
 }
 
-function SidebarEra() {
-  return (
-    <div className="bg-bg-secondary rounded-2xl p-4 border border-border-default shadow-card">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-3">
-        By era
-      </p>
-      <div className="space-y-1.5">
-        {[
-          { label: '2nd gen', id: '2nd-gen' },
-          { label: '3rd gen', id: '3rd-gen' },
-          { label: '4th gen', id: '4th-gen' },
-        ].map((era) => (
-          <Link
-            key={era.id}
-            href={`/play/${era.id}`}
-            className="block px-3 py-2 bg-bg-tertiary rounded-lg text-sm font-medium hover:bg-border-default transition-colors"
-          >
-            {era.label}
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}

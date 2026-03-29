@@ -63,7 +63,15 @@ interface YTPlayer {
 
 // ── Component ──
 
-export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
+interface GameProps {
+  mode: BlindTestMode;
+  /** New two-step params (if provided, used for generate API instead of mode.id) */
+  gameMode?: string;
+  gameFilter?: string;
+  gameGroup?: string | null;
+}
+
+export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GameProps) {
   const isDaily = mode.id === 'daily';
   const [gameState, setGameState] = useState<GameState>('intro');
   const [round, setRound] = useState<RoundData | null>(null);
@@ -168,14 +176,6 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
     return () => clearInterval(interval);
   }, [gameState, answered]);
 
-  // ── 3s delay before Next button ──
-
-  useEffect(() => {
-    if (answered && !showNextButton) {
-      const timer = setTimeout(() => setShowNextButton(true), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [answered, showNextButton]);
 
   // ── Resize YT player on reveal ──
 
@@ -277,6 +277,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
     setAnswers(prev => [...prev, answer]);
     setCombo(0);
     playSound('wrong');
+    setShowNextButton(true);
     setGameState('reveal');
   }
 
@@ -289,6 +290,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
     const song = roundData.songs[idx];
     if (!song || !playerRef.current) return;
 
+    if (timerRef.current) clearInterval(timerRef.current);
     setAnswered(false);
     answeredRef.current = false;
     setShowVideo(false);
@@ -345,6 +347,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
     } else {
       playSound('wrong');
     }
+    setShowNextButton(true);
     setGameState('reveal');
   }
 
@@ -375,10 +378,13 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
     setGameState('loading');
     try {
       const generateUrl = isDaily ? '/api/daily/generate' : '/api/play/generate';
+      const generateBody = gameMode
+        ? { mode: gameMode, filter: gameFilter ?? 'all', group: gameGroup ?? undefined }
+        : { mode_id: mode.id };
       const res = await fetch(generateUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mode_id: mode.id }),
+        body: JSON.stringify(generateBody),
       });
       if (!res.ok) {
         setGameState('intro');
@@ -676,7 +682,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
           ref={playerContainerRef}
           className={`mx-auto overflow-hidden transition-all duration-300 ease-out ${
             showVideo
-              ? 'w-full max-w-[335px] rounded-[14px] mb-3 opacity-100'
+              ? 'w-full max-w-[335px] rounded-[14px] mb-2 opacity-100'
               : 'w-px h-px opacity-0 pointer-events-none'
           }`}
           style={showVideo ? { aspectRatio: '16/9' } : undefined}
@@ -717,7 +723,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
 
         {/* Song info (reveal) */}
         {showVideo && currentSong && (
-          <div className="text-center mb-4">
+          <div className="text-center mb-2">
             <p className="text-[15px] font-semibold">{currentSong._answer.title}</p>
             <p className="text-[13px] text-text-secondary">{currentSong._answer.artist}</p>
             {currentAnswer?.correct && (
@@ -744,7 +750,7 @@ export function BlindTestGame({ mode }: { mode: BlindTestMode }) {
         )}
 
         {/* Answer choices */}
-        <div className="space-y-2.5 mt-auto mb-4">
+        <div className="space-y-2.5 mb-4">
           {currentSong?.choices.map((choice, i) => {
             let btnStyle = 'bg-bg-secondary border-border-default hover:border-border-hover';
 

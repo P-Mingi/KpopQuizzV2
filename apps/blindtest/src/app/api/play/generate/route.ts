@@ -1,94 +1,80 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@kpopquiz/shared/supabase/server';
-import {
-  STATIC_MODES,
-  isGroupModeId,
-  getGroupSlugFromModeId,
-  buildGroupMode,
-} from '@/lib/blind-test-modes';
 
-import type { BlindTestMode } from '@/lib/blind-test-modes';
+const MODES_CONFIG: Record<string, { clip_point: string; clip_duration: number; song_count: number }> = {
+  classic: { clip_point: 'chorus', clip_duration: 10, song_count: 10 },
+  intro: { clip_point: 'intro', clip_duration: 5, song_count: 10 },
+  speed: { clip_point: 'chorus', clip_duration: 5, song_count: 20 },
+};
 
-function resolveStaticMode(modeId: string): BlindTestMode | undefined {
-  return STATIC_MODES.find(m => m.id === modeId);
-}
+const FILTER_NAMES: Record<string, string> = {
+  all: 'All K-pop', gg: 'Girl groups', bg: 'Boy groups', solo: 'Solo artists',
+  '4th-gen': '4th gen', '3rd-gen': '3rd gen', '2nd-gen': '2nd gen',
+  'title-tracks': 'Title tracks', 'b-sides': 'B-sides',
+  recent: 'Recent hits', legends: 'Legends',
+};
 
 export async function POST(req: Request) {
-  const { mode_id } = await req.json() as { mode_id: string };
-  const supabase = await createServerClient();
+  const body = await req.json() as { mode: string; filter?: string; group?: string; mode_id?: string };
 
-  // Resolve mode
-  let mode: BlindTestMode | undefined;
+  // Support both new (mode+filter) and legacy (mode_id) formats
+  let mode = body.mode;
+  let filter = body.filter ?? 'all';
+  let group = body.group ?? null;
 
-  if (isGroupModeId(mode_id)) {
-    const slug = getGroupSlugFromModeId(mode_id);
-    if (!slug) return NextResponse.json({ error: 'Invalid group mode' }, { status: 400 });
-
-    const { data: group } = await supabase
-      .from('groups')
-      .select('id, name, slug')
-      .eq('slug', slug)
-      .single();
-
-    if (!group) return NextResponse.json({ error: 'Group not found' }, { status: 404 });
-
-    const { count } = await supabase
-      .from('blind_test_songs')
-      .select('id', { count: 'exact', head: true })
-      .eq('group_id', group.id)
-      .eq('status', 'active')
-      .not('clip_chorus', 'is', null);
-
-    mode = buildGroupMode({ name: group.name, slug: group.slug, song_count: count ?? 0 });
-  } else {
-    mode = resolveStaticMode(mode_id);
+  // Legacy support: if mode_id is passed (old format like "classic" or "group-bts")
+  if (body.mode_id && !body.mode) {
+    const legacy = resolveLegacyMode(body.mode_id);
+    mode = legacy.mode;
+    filter = legacy.filter;
+    group = legacy.group;
   }
 
-  if (!mode) return NextResponse.json({ error: 'Invalid mode' }, { status: 400 });
+  const modeConfig = MODES_CONFIG[mode];
+  if (!modeConfig) return NextResponse.json({ error: 'Invalid mode' }, { status: 400 });
 
-  const clipColumn = `clip_${mode.clip_point}`;
+  const clipColumn = `clip_${modeConfig.clip_point}`;
+  const supabase = await createServerClient();
 
-  // Build query -- select all clip columns so we can dynamically pick
+  // Build query with all clip columns for dynamic access
   let query = supabase
     .from('blind_test_songs')
-    .select('id, title, artist, youtube_id, wrong_answers, clip_intro, clip_chorus, clip_verse, clip_bridge, group_id, generation, gender')
+    .select('id, title, artist, youtube_id, wrong_answers, clip_intro, clip_chorus, clip_verse, clip_bridge, group_id, generation, gender, is_title_track, year')
     .eq('status', 'active')
     .not(clipColumn, 'is', null);
 
-  // Apply filters
-  if (mode.filter.group_slug) {
-    const { data: grp } = await supabase
-      .from('groups')
-      .select('id')
-      .eq('slug', mode.filter.group_slug)
-      .single();
-    if (grp) query = query.eq('group_id', grp.id);
-  }
-  if (mode.filter.gender) {
-    if (mode.id === 'solo-artists') {
-      query = query.in('gender', ['solo_female', 'solo_male']);
-    } else {
-      query = query.eq('gender', mode.filter.gender);
+  // Apply filter
+  if (group) {
+    const { data: groupData } = await supabase.from('groups').select('id, name').eq('slug', group).single();
+    if (!groupData) return NextResponse.json({ error: 'Group not found' }, { status: 404 });
+    query = query.eq('group_id', groupData.id);
+  } else if (filter && filter !== 'all') {
+    switch (filter) {
+      case 'gg': query = query.eq('gender', 'gg'); break;
+      case 'bg': query = query.eq('gender', 'bg'); break;
+      case 'solo': query = query.in('gender', ['solo_female', 'solo_male']); break;
+      case '4th-gen': query = query.eq('generation', '4th'); break;
+      case '3rd-gen': query = query.eq('generation', '3rd'); break;
+      case '2nd-gen': query = query.eq('generation', '2nd'); break;
+      case 'title-tracks': query = query.eq('is_title_track', true); break;
+      case 'b-sides': query = query.eq('is_title_track', false); break;
+      case 'recent': query = query.gte('year', 2024); break;
+      case 'legends': query = query.lte('year', 2017); break;
     }
   }
-  if (mode.filter.generation) query = query.eq('generation', mode.filter.generation);
-  if (mode.filter.year_min) query = query.gte('year', mode.filter.year_min);
-  if (mode.filter.year_max) query = query.lte('year', mode.filter.year_max);
-  if (mode.filter.is_title_track !== undefined) query = query.eq('is_title_track', mode.filter.is_title_track);
 
   const { data: allSongs } = await query;
 
-  if (!allSongs || allSongs.length < mode.song_count) {
-    return NextResponse.json(
-      { error: 'Not enough songs', available: allSongs?.length ?? 0 },
-      { status: 400 },
-    );
+  if (!allSongs || allSongs.length < modeConfig.song_count) {
+    return NextResponse.json({
+      error: 'Not enough songs for this combination',
+      available: allSongs?.length ?? 0,
+      needed: modeConfig.song_count,
+    }, { status: 400 });
   }
 
-  // Randomly select songs
-  const selected = [...allSongs].sort(() => Math.random() - 0.5).slice(0, mode.song_count);
+  const selected = [...allSongs].sort(() => Math.random() - 0.5).slice(0, modeConfig.song_count);
 
-  // Build round with question types
   const songs = await Promise.all(selected.map(async (song) => {
     const isArtistQuestion = Math.random() < 0.3;
     const songRecord = song as Record<string, unknown>;
@@ -124,20 +110,45 @@ export async function POST(req: Request) {
       group_id: song.group_id,
       question_type: questionType,
       choices,
-      _answer: {
-        correct_index: correctIndex,
-        title: song.title,
-        artist: song.artist,
-      },
+      _answer: { correct_index: correctIndex, title: song.title, artist: song.artist },
     };
   }));
 
+  const modeId = group ? `${mode}:group-${group}` : `${mode}:${filter}`;
+  const modeName = mode === 'classic' ? 'Classic' : mode === 'intro' ? 'Intro' : 'Speed';
+  const filterLabel = group
+    ? group.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+    : (FILTER_NAMES[filter] ?? 'All K-pop');
+
   return NextResponse.json({
-    mode_id: mode.id,
-    mode_title: mode.title,
-    clip_duration: mode.clip_duration,
+    mode_id: modeId,
+    mode_title: `${modeName} - ${filterLabel}`,
+    clip_duration: modeConfig.clip_duration,
     songs,
   });
+}
+
+function resolveLegacyMode(modeId: string): { mode: string; filter: string; group: string | null } {
+  if (modeId.startsWith('group-')) return { mode: 'classic', filter: 'all', group: modeId.replace('group-', '') };
+  const map: Record<string, { mode: string; filter: string }> = {
+    classic: { mode: 'classic', filter: 'all' },
+    'intro-challenge': { mode: 'intro', filter: 'all' },
+    'speed-round': { mode: 'speed', filter: 'all' },
+    'girl-groups': { mode: 'classic', filter: 'gg' },
+    'boy-groups': { mode: 'classic', filter: 'bg' },
+    'solo-artists': { mode: 'classic', filter: 'solo' },
+    '4th-gen': { mode: 'classic', filter: '4th-gen' },
+    '3rd-gen': { mode: 'classic', filter: '3rd-gen' },
+    '2nd-gen': { mode: 'classic', filter: '2nd-gen' },
+    'title-tracks': { mode: 'classic', filter: 'title-tracks' },
+    'b-sides': { mode: 'classic', filter: 'b-sides' },
+    'recent-hits': { mode: 'classic', filter: 'recent' },
+    'kpop-legends': { mode: 'classic', filter: 'legends' },
+    'random-all': { mode: 'classic', filter: 'all' },
+  };
+  const resolved = map[modeId];
+  if (resolved) return { ...resolved, group: null };
+  return { mode: 'classic', filter: 'all', group: null };
 }
 
 async function getConvincingWrongArtists(
@@ -157,7 +168,6 @@ async function getConvincingWrongArtists(
   const shuffled = uniqueArtists.sort(() => Math.random() - 0.5);
   const selected = shuffled.slice(0, 3);
 
-  // Fallback if not enough from same gen+gender
   if (selected.length < 3) {
     const { data: fallback } = await supabase
       .from('blind_test_songs')
@@ -165,9 +175,7 @@ async function getConvincingWrongArtists(
       .eq('status', 'active')
       .neq('artist', song.artist)
       .limit(20);
-
-    const fallbackArtists = [...new Set((fallback ?? []).map(s => s.artist))];
-    for (const a of fallbackArtists) {
+    for (const a of [...new Set((fallback ?? []).map(s => s.artist))]) {
       if (!selected.includes(a) && a !== song.artist) {
         selected.push(a);
         if (selected.length >= 3) break;

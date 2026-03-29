@@ -47,15 +47,15 @@ export async function getModesData() {
 
   const { data: songRows } = await supabase
     .from('blind_test_songs')
-    .select('group_id, groups!inner(name, slug)')
+    .select('group_id, groups!inner(name, slug, image_url)')
     .eq('status', 'active')
     .not('clip_chorus', 'is', null);
 
-  const groupMap: Record<string, { name: string; slug: string; count: number }> = {};
+  const groupMap: Record<string, { name: string; slug: string; count: number; image_url: string | undefined }> = {};
   for (const row of songRows ?? []) {
-    const g = row.groups as unknown as { name: string; slug: string } | null;
+    const g = row.groups as unknown as { name: string; slug: string; image_url?: string } | null;
     if (!g?.slug) continue;
-    if (!groupMap[g.slug]) groupMap[g.slug] = { name: g.name, slug: g.slug, count: 0 };
+    if (!groupMap[g.slug]) groupMap[g.slug] = { name: g.name, slug: g.slug, count: 0, image_url: g.image_url };
     groupMap[g.slug]!.count++;
   }
 
@@ -64,7 +64,7 @@ export async function getModesData() {
     .sort((a, b) => b.count - a.count)
     .map(g => {
       const mode = buildGroupMode({ name: g.name, slug: g.slug, song_count: g.count });
-      return { ...mode, song_count_available: g.count, available: g.count >= mode.song_count };
+      return { ...mode, song_count_available: g.count, available: g.count >= mode.song_count, image_url: g.image_url };
     });
 
   const { data: allActiveSongs } = await supabase

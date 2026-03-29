@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import { createServerClient } from '@kpopquiz/shared/supabase/server';
-import { getModesData } from '@/lib/get-modes';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ModeData = any;
+import { GameSelector } from '@/components/home/game-selector';
 
 async function fetchPlayer() {
   try {
@@ -17,11 +14,19 @@ async function fetchPlayer() {
   }
 }
 
-export default async function HomePage() {
-  const [modesData, player] = await Promise.all([getModesData(), fetchPlayer()]);
+async function fetchSongCounts() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3022';
+  try {
+    const res = await fetch(`${baseUrl}/api/song-counts`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
 
-  const modes = modesData?.modes ?? { difficulty: [], group: [], era: [], special: [] };
-  const stats = modesData?.stats ?? { total_songs: 0, total_plays: 0, available_modes: 0 };
+export default async function HomePage() {
+  const [songCounts, player] = await Promise.all([fetchSongCounts(), fetchPlayer()]);
 
   return (
     <div className="pt-5 pb-8">
@@ -41,72 +46,23 @@ export default async function HomePage() {
       {/* Daily challenge card */}
       <DailyChallengeCard />
 
-      {/* Pick your challenge */}
-      <SectionLabel>Pick your challenge</SectionLabel>
-      {/* Desktop: grid, Mobile: horizontal scroll */}
-      <div className="hidden md:grid md:grid-cols-3 gap-2.5 mb-7">
-        {modes.difficulty.filter((m: ModeData) => m.song_count_available > 0).map((m: ModeData) => (
-          <DifficultyModeCard key={m.id} mode={m} responsive />
-        ))}
-      </div>
-      <div className="md:hidden flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-4 px-4 mb-7">
-        {modes.difficulty.filter((m: ModeData) => m.song_count_available > 0).map((m: ModeData) => (
-          <DifficultyModeCard key={m.id} mode={m} />
-        ))}
-      </div>
-
-      {/* By group */}
-      {modes.group.length > 0 && (
-        <>
-          <SectionLabel>By group</SectionLabel>
-          <div className="hidden md:flex md:flex-wrap gap-2 mb-7">
-            {modes.group.map((m: ModeData) => (
-              <GroupModeCard key={m.id} mode={m} responsive />
-            ))}
-          </div>
-          <div className="md:hidden flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-4 px-4 mb-7">
-            {modes.group.map((m: ModeData) => (
-              <GroupModeCard key={m.id} mode={m} />
-            ))}
-          </div>
-        </>
+      {/* Game selector (mode + filter + group + play) */}
+      {songCounts && (
+        <GameSelector songCounts={songCounts} />
       )}
-
-      {/* By era */}
-      <SectionLabel>By era</SectionLabel>
-      <div className="grid grid-cols-3 gap-2 mb-7">
-        {modes.era.map((m: ModeData) => (
-          <EraModeCard key={m.id} mode={m} />
-        ))}
-      </div>
-
-      {/* Special modes */}
-      <SectionLabel>Special modes</SectionLabel>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 mb-7">
-        {modes.special.filter((m: ModeData) => m.song_count_available > 0).map((m: ModeData) => (
-          <SpecialModeCard key={m.id} mode={m} />
-        ))}
-      </div>
 
       {/* Stats (logged in) */}
       {player && (
-        <>
+        <div className="mt-7">
           <SectionLabel>Your stats</SectionLabel>
           <PlayerStatsCard player={player} />
-        </>
+        </div>
       )}
 
-      {/* Leaderboard - mobile only (sidebar has it on desktop) */}
-      <div className="md:hidden">
+      {/* Leaderboard - mobile only */}
+      <div className="md:hidden mt-7">
         <SectionLabel>Leaderboard</SectionLabel>
         <LeaderboardPreview />
-      </div>
-
-      {/* Global stats */}
-      <div className="text-center mt-6 pt-6 border-t border-border-default">
-        <p className="text-xs text-text-tertiary">
-          {stats.total_songs} songs - {stats.available_modes} modes - {stats.total_plays} plays
-        </p>
       </div>
 
       {/* SEO content for anonymous visitors */}
@@ -162,120 +118,6 @@ function DailyChallengeCard() {
         </div>
       </div>
     </Link>
-  );
-}
-
-function DifficultyModeCard({ mode, responsive }: { mode: ModeData; responsive?: boolean }) {
-  const isAvailable = mode.available;
-  const isHard = mode.difficulty === 'hard' || mode.difficulty === 'expert';
-
-  return (
-    <Link href={isAvailable ? `/play/${mode.id}` : '#'} className={!isAvailable ? 'pointer-events-none' : ''}>
-      <div className={`${responsive ? 'w-auto' : 'w-[130px] flex-shrink-0'} rounded-[14px] overflow-hidden bg-bg-secondary border border-border-default shadow-card transition-colors ${
-        isAvailable ? 'hover:border-border-hover' : 'opacity-40'
-      }`}>
-        {isHard ? (
-          <div className="h-14 bg-bg-tertiary flex items-center justify-center gap-[2px]">
-            {[12, 22, 30, 18, 8].map((h, i) => (
-              <div key={i} className="w-[3px] rounded-sm bg-wrong" style={{ height: h }} />
-            ))}
-          </div>
-        ) : (
-          <div className="h-14 flex overflow-hidden bg-bg-tertiary">
-            {(mode.thumbnails ?? []).slice(0, 2).map((ytId: string, i: number) => (
-              <img key={i} src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
-                alt="" className="flex-1 object-cover min-w-0" />
-            ))}
-          </div>
-        )}
-        <div className="p-2.5">
-          <DifficultyBadge difficulty={mode.difficulty} />
-          <p className="text-[13px] font-medium mt-1">{mode.title}</p>
-          <p className="text-[10px] text-text-tertiary">{mode.clip_duration}s - {mode.song_count} songs</p>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function GroupModeCard({ mode, responsive }: { mode: ModeData; responsive?: boolean }) {
-  return (
-    <Link href={mode.available ? `/play/${mode.id}` : '#'} className={!mode.available ? 'pointer-events-none' : ''}>
-      <div className={`${responsive ? 'w-auto' : 'w-[130px] flex-shrink-0'} rounded-xl overflow-hidden bg-bg-secondary border border-border-default shadow-card ${
-        mode.available ? 'hover:border-border-hover' : 'opacity-40'
-      }`}>
-        <div className="h-14 flex overflow-hidden bg-bg-tertiary">
-          {(mode.thumbnails ?? []).slice(0, 2).map((ytId: string, i: number) => (
-            <img key={i} src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
-              alt="" className="flex-1 object-cover min-w-0" />
-          ))}
-        </div>
-        <div className="p-2.5">
-          <p className="text-[13px] font-medium">{mode.title}</p>
-          <p className="text-[10px] text-text-tertiary">{mode.song_count_available} songs</p>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function EraModeCard({ mode }: { mode: ModeData }) {
-  return (
-    <Link href={mode.available ? `/play/${mode.id}` : '#'}>
-      <div className={`rounded-xl p-3 border border-border-default bg-bg-secondary shadow-card ${
-        mode.available ? 'hover:border-border-hover' : 'opacity-40'
-      }`}>
-        <p className="text-[13px] font-medium">{mode.title}</p>
-        <p className="text-[10px] text-text-tertiary mt-0.5">{mode.song_count_available} songs</p>
-      </div>
-    </Link>
-  );
-}
-
-function SpecialModeCard({ mode }: { mode: ModeData }) {
-  const isHard = mode.difficulty === 'hard' || mode.difficulty === 'expert';
-  return (
-    <Link href={mode.available ? `/play/${mode.id}` : '#'}>
-      <div className={`rounded-xl overflow-hidden border border-border-default bg-bg-secondary shadow-card ${
-        mode.available ? 'hover:border-border-hover' : 'opacity-40'
-      }`}>
-        {isHard ? (
-          <div className="h-12 bg-bg-tertiary flex items-center justify-center gap-[2px]">
-            {[10, 18, 26, 16, 8].map((h, i) => (
-              <div key={i} className="w-[3px] rounded-sm bg-wrong" style={{ height: h }} />
-            ))}
-          </div>
-        ) : (
-          <div className="h-12 flex overflow-hidden bg-bg-tertiary">
-            {(mode.thumbnails ?? []).slice(0, 4).map((ytId: string, i: number) => (
-              <img key={i} src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
-                alt="" className="flex-1 object-cover min-w-0" />
-            ))}
-          </div>
-        )}
-        <div className="p-2.5">
-          <DifficultyBadge difficulty={mode.difficulty} />
-          <p className="text-[13px] font-medium mt-1">{mode.title}</p>
-          <p className="text-[10px] text-text-tertiary line-clamp-1">
-            {mode.available ? mode.description : `Coming soon (${mode.song_count_available}/${mode.song_count})`}
-          </p>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function DifficultyBadge({ difficulty }: { difficulty: string }) {
-  const styles: Record<string, string> = {
-    easy: 'bg-correct-bg text-correct',
-    medium: 'bg-streak-bg text-streak',
-    hard: 'bg-wrong-bg text-wrong',
-    expert: 'bg-wrong-bg text-wrong',
-  };
-  return (
-    <span className={`text-[9px] font-semibold px-1.5 py-px rounded-md ${styles[difficulty] ?? styles.easy}`}>
-      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-    </span>
   );
 }
 
