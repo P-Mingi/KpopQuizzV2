@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createServerClient } from '@kpopquiz/shared/supabase/server';
 import { GameSelector } from '@/components/home/game-selector';
+import { getSongCounts } from '@/lib/get-song-counts';
 
 async function fetchPlayer() {
   try {
@@ -14,19 +15,8 @@ async function fetchPlayer() {
   }
 }
 
-async function fetchSongCounts() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3022';
-  try {
-    const res = await fetch(`${baseUrl}/api/song-counts`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
-
 export default async function HomePage() {
-  const [songCounts, player] = await Promise.all([fetchSongCounts(), fetchPlayer()]);
+  const [songCounts, player] = await Promise.all([getSongCounts(), fetchPlayer()]);
 
   return (
     <div className="pt-5 pb-8">
@@ -47,9 +37,7 @@ export default async function HomePage() {
       <DailyChallengeCard />
 
       {/* Game selector (mode + filter + group + play) */}
-      {songCounts && (
-        <GameSelector songCounts={songCounts} />
-      )}
+      <GameSelector songCounts={songCounts} />
 
       {/* Stats (logged in) */}
       {player && (
