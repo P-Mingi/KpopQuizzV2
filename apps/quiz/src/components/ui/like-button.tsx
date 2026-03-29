@@ -1,7 +1,27 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useCallback, useEffect } from 'react';
+
+const ANON_LIKES_KEY = 'anon_liked_quizzes';
+
+function getAnonLikes(): string[] {
+  try {
+    return JSON.parse(localStorage.getItem(ANON_LIKES_KEY) ?? '[]') as string[];
+  } catch {
+    return [];
+  }
+}
+
+function setAnonLiked(quizId: string, liked: boolean): void {
+  const likes = getAnonLikes();
+  if (liked && !likes.includes(quizId)) {
+    likes.push(quizId);
+  } else if (!liked) {
+    const idx = likes.indexOf(quizId);
+    if (idx !== -1) likes.splice(idx, 1);
+  }
+  localStorage.setItem(ANON_LIKES_KEY, JSON.stringify(likes));
+}
 
 interface LikeButtonProps {
   quizId: string;
@@ -13,7 +33,12 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
   const [liked, setLiked] = useState(initialLiked);
   const [count, setCount] = useState(initialCount || 0);
   const [pending, setPending] = useState(false);
-  const router = useRouter();
+
+  useEffect(() => {
+    if (!initialLiked && getAnonLikes().includes(quizId)) {
+      setLiked(true);
+    }
+  }, [quizId, initialLiked]);
 
   const handleClick = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -21,7 +46,6 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
 
     if (pending) return;
 
-    // Optimistic update
     const newLiked = !liked;
     setLiked(newLiked);
     setCount((c) => c + (newLiked ? 1 : -1));
@@ -34,16 +58,7 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
         body: JSON.stringify({ action: newLiked ? 'like' : 'unlike' }),
       });
 
-      if (res.status === 401) {
-        // Revert and redirect to login
-        setLiked(!newLiked);
-        setCount((c) => c + (newLiked ? -1 : 1));
-        router.push(`/login?returnTo=${encodeURIComponent(window.location.pathname)}`);
-        return;
-      }
-
       if (!res.ok) {
-        // Revert on error
         setLiked(!newLiked);
         setCount((c) => c + (newLiked ? -1 : 1));
         return;
@@ -52,14 +67,14 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
       const data: { liked: boolean; like_count: number } = await res.json();
       setLiked(data.liked);
       setCount(data.like_count);
+      setAnonLiked(quizId, data.liked);
     } catch {
-      // Revert on network error
       setLiked(!newLiked);
       setCount((c) => c + (newLiked ? -1 : 1));
     } finally {
       setPending(false);
     }
-  }, [quizId, liked, pending, router]);
+  }, [quizId, liked, pending]);
 
   return (
     <button

@@ -30,6 +30,12 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@kpopquiz/shared": [
+        "../../packages/shared/src"
+      ],
+      "@kpopquiz/shared/*": [
+        "../../packages/shared/src/*"
       ]
     }
   },

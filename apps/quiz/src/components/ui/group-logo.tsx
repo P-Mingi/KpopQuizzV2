@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface GroupLogoProps {
   groupName: string;
@@ -44,8 +47,9 @@ function getAbbreviation(name: string): string {
 
 export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 52 }: GroupLogoProps): React.ReactElement {
   const radius = Math.round(size * 0.19);
+  const [imgError, setImgError] = useState(false);
 
-  if (logoUrl) {
+  if (logoUrl && !imgError) {
     return (
       <div
         className="overflow-hidden flex-shrink-0 border border-border-light"
@@ -58,6 +62,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
           height={size}
           sizes={`${size}px`}
           className="object-cover w-full h-full"
+          onError={() => setImgError(true)}
         />
       </div>
     );

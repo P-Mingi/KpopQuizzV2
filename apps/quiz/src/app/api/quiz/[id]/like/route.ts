@@ -12,12 +12,6 @@ export async function POST(
 
   const supabase = await createServerClient();
 
-  // Auth check
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   // Parse body
   let body: unknown;
   try {
@@ -36,40 +30,47 @@ export async function POST(
     return NextResponse.json({ error: 'action must be "like" or "unlike"' }, { status: 400 });
   }
 
+  const { data: { user } } = await supabase.auth.getUser();
+
   try {
     if (action === 'like') {
-      // Insert like (ignore duplicate)
-      await supabase.from('likes').upsert(
-        { user_id: user.id, quiz_id: id },
-        { onConflict: 'user_id,quiz_id', ignoreDuplicates: true },
-      );
+      if (user) {
+        // Authenticated: record in likes table and award XP to creator
+        await supabase.from('likes').upsert(
+          { user_id: user.id, quiz_id: id },
+          { onConflict: 'user_id,quiz_id', ignoreDuplicates: true },
+        );
 
-      // Increment cached counts
-      await supabase.rpc('increment_like_count', { quiz_uuid: id });
+        await supabase.rpc('increment_like_count', { quiz_uuid: id });
 
-      // Award 2 XP to quiz creator
-      const { data: quiz } = await supabase
-        .from('quizzes')
-        .select('creator_id')
-        .eq('id', id)
-        .single();
+        const { data: quiz } = await supabase
+          .from('quizzes')
+          .select('creator_id')
+          .eq('id', id)
+          .single();
 
-      if (quiz && quiz.creator_id !== user.id) {
-        await supabase.rpc('award_xp', {
-          p_user_id: quiz.creator_id,
-          p_amount: 2,
-          p_reason: 'like_received',
-        });
+        if (quiz && quiz.creator_id !== user.id) {
+          await supabase.rpc('award_xp', {
+            p_user_id: quiz.creator_id,
+            p_amount: 2,
+            p_reason: 'like_received',
+          });
+        }
+      } else {
+        // Anonymous: just bump the count
+        await supabase.rpc('increment_like_count', { quiz_uuid: id });
       }
     } else {
-      // Delete like
-      await supabase.from('likes').delete().match({ user_id: user.id, quiz_id: id });
-
-      // Decrement cached counts
-      await supabase.rpc('decrement_like_count', { quiz_uuid: id });
+      if (user) {
+        // Authenticated: remove DB entry then decrement
+        await supabase.from('likes').delete().match({ user_id: user.id, quiz_id: id });
+        await supabase.rpc('decrement_like_count', { quiz_uuid: id });
+      } else {
+        // Anonymous: just lower the count
+        await supabase.rpc('decrement_like_count', { quiz_uuid: id });
+      }
     }
 
-    // Get updated count
     const { data: updated } = await supabase
       .from('quizzes')
       .select('like_count')

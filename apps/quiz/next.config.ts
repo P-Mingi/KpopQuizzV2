@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  transpilePackages: ['@kpopquiz/shared'],
   async redirects() {
     const groupSlugs = [
       'bts', 'blackpink', 'stray-kids', 'seventeen', 'twice', 'aespa',

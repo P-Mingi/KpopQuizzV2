@@ -1,7 +1,27 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useCallback, useEffect } from 'react';
+
+const ANON_LIKES_KEY = 'anon_liked_quizzes';
+
+function getAnonLikes(): string[] {
+  try {
+    return JSON.parse(localStorage.getItem(ANON_LIKES_KEY) ?? '[]') as string[];
+  } catch {
+    return [];
+  }
+}
+
+function setAnonLiked(quizId: string, liked: boolean): void {
+  const likes = getAnonLikes();
+  if (liked && !likes.includes(quizId)) {
+    likes.push(quizId);
+  } else if (!liked) {
+    const idx = likes.indexOf(quizId);
+    if (idx !== -1) likes.splice(idx, 1);
+  }
+  localStorage.setItem(ANON_LIKES_KEY, JSON.stringify(likes));
+}
 
 interface LikeQuizButtonProps {
   quizId: string;
@@ -13,7 +33,12 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
   const [liked, setLiked] = useState(initialLiked);
   const [count, setCount] = useState(initialCount || 0);
   const [pending, setPending] = useState(false);
-  const router = useRouter();
+
+  useEffect(() => {
+    if (!initialLiked && getAnonLikes().includes(quizId)) {
+      setLiked(true);
+    }
+  }, [quizId, initialLiked]);
 
   const handleClick = useCallback(async () => {
     if (pending) return;
@@ -30,13 +55,6 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
         body: JSON.stringify({ action: newLiked ? 'like' : 'unlike' }),
       });
 
-      if (res.status === 401) {
-        setLiked(!newLiked);
-        setCount((c) => c + (newLiked ? -1 : 1));
-        router.push(`/login?returnTo=${encodeURIComponent(window.location.pathname)}`);
-        return;
-      }
-
       if (!res.ok) {
         setLiked(!newLiked);
         setCount((c) => c + (newLiked ? -1 : 1));
@@ -46,13 +64,14 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
       const data: { liked: boolean; like_count: number } = await res.json();
       setLiked(data.liked);
       setCount(data.like_count);
+      setAnonLiked(quizId, data.liked);
     } catch {
       setLiked(!newLiked);
       setCount((c) => c + (newLiked ? -1 : 1));
     } finally {
       setPending(false);
     }
-  }, [quizId, liked, pending, router]);
+  }, [quizId, liked, pending]);
 
   return (
     <button
