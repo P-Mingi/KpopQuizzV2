@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Prevent theme flash -- runs before React hydrates */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
-            var theme = localStorage.getItem('kbt-theme') || 'dark';
+            var theme = localStorage.getItem('kbt-theme') || 'light';
             document.documentElement.setAttribute('data-theme', theme);
           })();
         `}} />

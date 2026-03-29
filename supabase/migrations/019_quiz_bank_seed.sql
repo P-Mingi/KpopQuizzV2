@@ -1824,3 +1824,609 @@ INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficult
   ]'::jsonb,
   'verified'
 );
+
+-- Quiz 75: K-pop Aesthetic and Concept Culture
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Aesthetics and Concepts',
+  'From girl crush to concept-dols -- explore K-pop''s most iconic visual and thematic eras.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'fun',
+  '[
+    {"question": "What is a ''concept'' in K-pop?", "options": ["A choreography style", "A group''s consistent visual, musical, and thematic identity for a promotion period", "A type of fan event", "An official group policy"], "correct": 1, "fun_fact": "Concept in K-pop encompasses everything -- outfits, colors, storyline, music style, MV aesthetic -- all carefully planned per promotion.", "source": "https://www.allkpop.com/article/kpop-concept-explained"},
+    {"question": "What is the ''girl crush'' concept in K-pop?", "options": ["A girl group covering a boy group''s song", "A bold, confident, and powerful female image rather than cute or soft", "A dating-themed concept", "A retro concept specific to girl groups"], "correct": 1, "fun_fact": "''Girl crush'' is a dominant K-pop concept for girl groups -- defined by powerful, self-confident imagery popularized by BLACKPINK and carried forward by IVE, LE SSERAFIM, etc.", "source": "https://www.allkpop.com/article/kpop-girl-crush-concept"},
+    {"question": "Which concept is VIXX famous for pioneering in K-pop?", "options": ["Cute bubblegum pop", "Dark, horror, and mythology-inspired storytelling", "Retro 80s style", "Classic trot revival"], "correct": 1, "fun_fact": "VIXX pioneered the ''concept-dol'' phenomenon with dark, elaborate mythological concepts in music videos, setting a template for concept-heavy groups.", "source": "https://www.allkpop.com/article/vixx-concept-dol"},
+    {"question": "What does ''teaser'' mean in K-pop promotion?", "options": ["A short promotional clip released before the full music video or album", "A practice video", "A partial lyrics reveal", "An unreleased song snippet on radio"], "correct": 0, "fun_fact": "Teasers are a major part of K-pop comebacks -- short mysterious clips building hype for an upcoming release, often analyzed intensely by fans.", "source": "https://www.allkpop.com/article/kpop-teaser-culture"},
+    {"question": "What is a ''concept photo'' in K-pop?", "options": ["A behind-the-scenes photo from a concert", "Official album promotional photos that visualize the era''s concept", "A fan-taken photo of the group", "A casual social media selfie"], "correct": 1, "fun_fact": "Concept photos are carefully art-directed promotional images released ahead of an album, building anticipation and establishing the visual identity.", "source": "https://www.soompi.com/article/kpop-concept-photo-culture"},
+    {"question": "Which group pioneered the ''universe/lore'' concept where each album is part of a larger narrative?", "options": ["NCT", "BTS", "EXO", "VIXX"], "correct": 1, "fun_fact": "BTS popularized the deep-lore concept with their ''HYYH'' (Hwa Yang Yeon Hwa) universe, followed by a cinematic story across multiple albums.", "source": "https://www.soompi.com/article/bts-hyyh-universe-lore"},
+    {"question": "What is the ''cute'' (or ''cutsie'') concept in K-pop?", "options": ["Groups acting as professional dancers only", "A concept featuring aegyo, bright colors, and charming innocent themes", "Retro-style soft music", "Japanese-influenced visual kei"], "correct": 1, "fun_fact": "The cute concept features pastel colors, aegyo-heavy performances, and charming storytelling -- iconic in groups like APINK and early TWICE.", "source": "https://www.allkpop.com/article/kpop-cute-concept"},
+    {"question": "What is EXO''s storytelling universe called?", "options": ["EXO Planet", "EXO Universe", "EXOVERSE", "EXO-Luniverse"], "correct": 0, "fun_fact": "EXO''s fictional universe is set on ''EXO Planet'' -- each member originally had a unique superpower connecting to their group concept.", "source": "https://www.soompi.com/article/exo-planet-concept"},
+    {"question": "Which concept features K-pop idols in retro 1970s-90s inspired visuals?", "options": ["Y2K concept", "Retro concept", "Vintage concept", "Throwback concept"], "correct": 1, "fun_fact": "The retro concept is recurring in K-pop -- MAMAMOO, Brave Girls, and IVE''s ''After LIKE'' all utilized retro aesthetics effectively.", "source": "https://www.allkpop.com/article/kpop-retro-concept-trend"},
+    {"question": "What is a ''mood sampler'' or ''mood film'' in K-pop releases?", "options": ["A playlist of an artist''s old songs", "A short atmospheric video capturing an album''s mood before release", "A fan-made compilation", "An official dance practice video"], "correct": 1, "fun_fact": "Mood films are cinematic preview clips released before K-pop albums, establishing the emotional and visual tone through visuals and ambient music.", "source": "https://www.allkpop.com/article/kpop-mood-film-culture"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 76: K-pop Humor and Inside Jokes
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Inside Jokes and Running Gags',
+  'The funniest recurring K-pop moments, inside jokes, and fan-beloved gags.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is the famous ''Jungkook is everywhere'' meme about?", "options": ["Jungkook performing in multiple countries simultaneously", "Jungkook unexpectedly appearing in other members'' content and going viral", "Jungkook''s multiple clone robots at concerts", "Jungkook having multiple stage personas"], "correct": 1, "fun_fact": "Jungkook has a running reputation for unexpectedly appearing in other artists'' content, photos, or backgrounds -- a beloved fan meme.", "source": "https://www.soompi.com/article/jungkook-everywhere-meme"},
+    {"question": "What is the ''eat, sleep, dance'' joke associated with TWICE?", "options": ["A TWICE workout routine", "TWICE members joking about their hectic lifestyle being reduced to basics", "A TWICE viral video", "A TWICE song title"], "correct": 1, "fun_fact": "''Eat, sleep, dance'' is a lighthearted joke about how idol life is often described -- K-pop groups use it to comedically summarize their schedules.", "source": "https://www.allkpop.com/article/kpop-idol-life-memes"},
+    {"question": "What does ''line'' mean in K-pop group terms (e.g., ''hyung line'', ''maknae line'')?", "options": ["The vocal line-up for a song", "A grouping of members by age or role -- ''hyung line'' is older members, ''maknae line'' is younger", "A dance formation", "The members'' social media grid aesthetic"], "correct": 1, "fun_fact": "''Lines'' in K-pop refer to age groupings -- ''hyung line'' (older brothers) and ''maknae line'' (youngest members) -- creating fun group dynamic nicknames.", "source": "https://www.allkpop.com/article/kpop-line-terminology"},
+    {"question": "What is the ''Bangtan Universe'' joke about?", "options": ["BTS having their own planet", "The increasingly complex lore of BTS''s cinematic universe that fans analyze intensely", "BTS members being aliens", "A BTS video game"], "correct": 1, "fun_fact": "The BTS Universe (BU) has become so complex that fans joke it''s more complicated than the Marvel Cinematic Universe.", "source": "https://www.soompi.com/article/bts-universe-complexity"},
+    {"question": "What is the ''visual'' position in K-pop and why is it funny to fans?", "options": ["The most talented dancer", "The member considered the most handsome/beautiful by the company -- often debated endlessly by fans", "The member who does facial expressions in MVs", "The member who appears most in promotional photos"], "correct": 1, "fun_fact": "Every K-pop group officially designates a ''visual'' -- the member deemed most conventionally attractive -- a position that fans debate passionately and endlessly.", "source": "https://www.allkpop.com/article/kpop-visual-position"},
+    {"question": "What is a K-pop ''crack video''?", "options": ["A bootleg recording of a concert", "A fan-edited compilation of funny or out-of-context idol moments set to humorous music", "A censored music video", "A controversial idol video"], "correct": 1, "fun_fact": "Crack videos are beloved fan creations editing together the funniest, most chaotic idol moments into absurdist compilations -- a K-pop YouTube tradition.", "source": "https://www.allkpop.com/article/kpop-crack-videos"},
+    {"question": "Which BTS meme became one of the internet''s most recognizable reaction images?", "options": ["RM smashing things", "The ''RM destroying things'' meme", "Jin''s windshield wiper laugh", "Suga sleeping anywhere"], "correct": 2, "fun_fact": "Jin''s distinctive ''windshield wiper'' laugh -- a high-pitched giggle -- became one of the most beloved and memed K-pop sounds.", "source": "https://www.soompi.com/article/jin-laugh-meme"},
+    {"question": "What is the fan joke about idol ''Mandarin'' in K-pop?", "options": ["All idols are secretly fluent in Mandarin", "Idols'' attempts at Mandarin on Chinese fan platforms are often amusingly imperfect", "Mandarin is always the last language idols learn", "SM groups always release Mandarin versions"], "correct": 1, "fun_fact": "The attempts of non-Chinese K-pop idols to speak Mandarin for Chinese fans often produce charming, beloved, occasionally chaotic content.", "source": "https://www.allkpop.com/article/kpop-idol-mandarin-attempts"},
+    {"question": "What is ''maknae on top'' in K-pop fan culture?", "options": ["The youngest member of a group dominating everyone else in talent or popularity", "A ranking system by age", "A game where the youngest performs first", "A choreography term for the youngest member''s position"], "correct": 0, "fun_fact": "''Maknae on top'' refers to the youngest member (maknae) surprisingly dominating -- like Jungkook being BTS''s most-streamed member despite being youngest.", "source": "https://www.allkpop.com/article/maknae-on-top-kpop"},
+    {"question": "What does fans calling a K-pop idol ''soft'' mean?", "options": ["The idol has weak dance skills", "The idol is gentle, sweet, and endearing -- often used affectionately", "The idol is unknown internationally", "The idol releases ballads only"], "correct": 1, "fun_fact": "Calling an idol ''soft'' is a high compliment in fan culture -- it means they come across as gentle, lovable, and emotionally endearing.", "source": "https://www.allkpop.com/article/kpop-soft-idol-meaning"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 77: K-pop Relationship with Japan
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop and Japan',
+  'K-pop''s fascinating relationship with the Japanese market -- the biggest K-pop market outside Korea.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'fun',
+  '[
+    {"question": "What is a ''Japanese debut'' for K-pop groups?", "options": ["When a group tours Japan for the first time", "When a group officially releases music under a Japanese label, targeting the Japanese market", "When a group performs at a Japanese awards show", "When a group collaborates with a Japanese artist"], "correct": 1, "fun_fact": "Japanese debuts are major milestones for K-pop groups -- it involves releasing Japanese-language versions of songs or original Japanese tracks under a Japanese label.", "source": "https://www.soompi.com/article/kpop-japan-debut-explained"},
+    {"question": "What is a Japanese ''single'' release vs an album in the K-pop Japan market?", "options": ["Singles are digital only", "Japanese singles are physical releases with limited tracks, a traditional Japanese music market format", "Singles have no music videos", "Japanese singles are shorter in length"], "correct": 1, "fun_fact": "The Japanese physical music market has a distinct culture of CD singles -- K-pop groups adapt by releasing multiple version CD singles specifically for Japan.", "source": "https://www.allkpop.com/article/kpop-japan-market-strategy"},
+    {"question": "What Japanese chart is the equivalent of the Billboard for Japan?", "options": ["Oricon Chart", "J-Wave", "Tower Records Chart", "Recochoku"], "correct": 0, "fun_fact": "The Oricon Chart is Japan''s dominant music chart system, and charting on Oricon is a major achievement for K-pop groups in Japan.", "source": "https://www.oricon.co.jp"},
+    {"question": "Which K-pop group is considered one of the first to successfully ''crack'' the Japanese mainstream market?", "options": ["BIGBANG", "BoA", "Girls'' Generation", "TVXQ"], "correct": 3, "fun_fact": "TVXQ (Tohoshinki) achieved unprecedented success in Japan, becoming one of the highest-selling foreign acts in Japanese history.", "source": "https://www.soompi.com/article/tvxq-japan-success"},
+    {"question": "What is ''Tohoshinki'' and why is it relevant to K-pop?", "options": ["A Japanese K-pop label", "The Japanese name for TVXQ", "A K-pop festival in Japan", "An award show for K-pop in Japan"], "correct": 1, "fun_fact": "Tohoshinki (東方神起) is TVXQ''s Japanese name, and they became one of the most successful foreign acts in Japan''s music history.", "source": "https://www.soompi.com/article/tvxq-tohoshinki-japan"},
+    {"question": "What controversy involved K-pop in Japan due to historical tensions?", "options": ["Music piracy", "Korean-Japanese historical tensions affecting idol promotions and anti-Korean sentiment", "Stage invasion incidents", "Visa restrictions for performers"], "correct": 1, "fun_fact": "Korean-Japanese historical tensions have occasionally impacted K-pop idols in Japan, with some groups facing protests or reduced promotion due to political sentiments.", "source": "https://www.bbc.com/news/world-asia-49472481"},
+    {"question": "Why do K-pop groups often release Japanese-language versions of their Korean songs?", "options": ["Because Japanese audiences can''t stream Korean music", "To better connect with Japanese fans and meet the Japanese market''s preference for local-language content", "Because Japanese lyrics improve vocal quality", "To avoid copyright issues"], "correct": 1, "fun_fact": "Japanese versions are produced to provide localized content for Japanese fans, fitting the Japanese market''s traditional preference for Japanese-language music.", "source": "https://www.allkpop.com/article/kpop-japanese-version-strategy"},
+    {"question": "Which K-pop group had the highest-grossing concert tour in Japan by a foreign act?", "options": ["BIGBANG", "TVXQ", "BTS", "BLACKPINK"], "correct": 2, "fun_fact": "BTS''s Japan tours have set records for foreign acts in terms of attendance and revenue, particularly their ''Love Yourself'' and ''Map of the Soul'' tours.", "source": "https://www.soompi.com/article/bts-japan-concert-records"},
+    {"question": "What Japanese idol system influenced Korean trainee culture?", "options": ["AKB48-style fan interaction model", "J-pop training academy system", "Osaka idol battle system", "Tokyo audition circuit"], "correct": 0, "fun_fact": "The AKB48 system influenced certain aspects of K-pop fan interaction, including fan voting and tiered fandom concepts.", "source": "https://www.allkpop.com/article/akb48-influence-kpop"},
+    {"question": "Which K-pop company has the strongest Japan operations?", "options": ["SM Entertainment Japan", "YG Japan", "HYBE Japan", "All three are similarly strong"], "correct": 3, "fun_fact": "All major K-pop companies have dedicated Japan subsidiaries with full teams managing local releases, promotions, and fan events.", "source": "https://www.allkpop.com/article/kpop-japan-labels"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 78: K-pop Friendship and Group Dynamics
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Group Friendships',
+  'The iconic friendships, rivalries, and dynamics within and between K-pop groups.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is an ''idol line'' friendship between members of different groups called?", "options": ["Cross-fandom", "Friend-line", "Idol line (or just -line friendships)", "Cross-group ship"], "correct": 2, "fun_fact": "''Lines'' extend beyond groups -- idols born in the same year often form tight friendships across companies, known as their ''year-line'' friendships.", "source": "https://www.allkpop.com/article/kpop-idol-friendship-lines"},
+    {"question": "What is the famous ''97-line'' in K-pop?", "options": ["Idols who debuted in 1997", "Idols born in 1997 who are friends across multiple groups", "TWICE''s 97-line subunit", "97 idol friends on an SNS group chat"], "correct": 1, "fun_fact": "The famous 97-line -- Jungkook (BTS), Mingyu (SVT), Yugyeom (GOT7), BamBam (GOT7), DK (SVT), and others -- is a beloved cross-group friendship.", "source": "https://www.soompi.com/article/97-line-kpop-friendship"},
+    {"question": "Which K-pop groups are famously known as ''sister groups'' due to shared company and similar fanbases?", "options": ["BTS and TXT (both HYBE)", "BLACKPINK and 2NE1 (both YG)", "TWICE and ITZY (both JYP)", "All of the above"], "correct": 3, "fun_fact": "Same-company groups are often called ''sister/brother groups'' by fans, with BTS/TXT, BLACKPINK/2NE1, and TWICE/ITZY all being famous examples.", "source": "https://www.allkpop.com/article/kpop-sister-groups"},
+    {"question": "What is a ''ship'' in K-pop fan culture?", "options": ["A group merchandise package", "A fan-supported romantic pairing between two idols", "An official subunit", "A concert venue arrangement"], "correct": 1, "fun_fact": "''Shipping'' (from ''relationship'') is the fan practice of rooting for two idols being romantically or platonically paired -- a universal internet culture term K-pop fans embraced early.", "source": "https://www.allkpop.com/article/kpop-shipping-culture"},
+    {"question": "What is the dynamic between ''sunbae'' and ''hoobae'' groups in K-pop?", "options": ["Competing for the same fans", "Senior (sunbae) and junior (hoobae) group hierarchy with mutual respect protocols", "Mentor and trainee programs", "Rival fandoms"], "correct": 1, "fun_fact": "Sunbae (선배) means senior and hoobae (후배) means junior -- Korean culture''s hierarchical respect system applies strongly in K-pop interactions.", "source": "https://www.allkpop.com/article/kpop-sunbae-hoobae"},
+    {"question": "Which BTS member is most famous for his friendships with other idol groups?", "options": ["RM", "V (Taehyung)", "Jimin", "Jin"], "correct": 1, "fun_fact": "V (Taehyung) is famous for his close friendships with idols from many groups, including his ''Wooga Squad'' (BTS''s V, Park Hyung-sik, Peakboy, Choi Woo-shik, and Park Seo-joon).", "source": "https://www.soompi.com/article/v-bts-wooga-squad"},
+    {"question": "What is the ''Wooga Squad''?", "options": ["A BTS sub-unit", "A cross-group friend squad featuring V and celebrities from film, music, and more", "A gaming squad of K-pop idols", "A fan club subsect"], "correct": 1, "fun_fact": "The Wooga Squad includes BTS''s V, actors Choi Woo-shik and Park Seo-joon, singer Park Hyung-sik, and rapper Peakboy -- one of K-pop''s most beloved celebrity friendships.", "source": "https://www.soompi.com/article/wooga-squad"},
+    {"question": "What is the TWICE members'' dynamic commonly described as by fans?", "options": ["Nine best friends who feel like a family", "Intense professional rivals pushing each other", "Independent solo artists who happen to be in the same group", "Strictly professional colleagues"], "correct": 0, "fun_fact": "TWICE fans (ONCE) often describe the nine members'' dynamic as extremely close -- like sisters -- which shows in their candid moments together.", "source": "https://www.soompi.com/article/twice-friendship"},
+    {"question": "What is ''OT'' used to express in K-pop?", "options": ["Only Team -- exclusive loyalty to one member", "Original Team -- support for all members of a group", "Online Together -- fan community gathering", "Off Topic -- unrelated discussion"], "correct": 1, "fun_fact": "''OT'' (Original Team) + number means supporting the full lineup: ''OT7'' = supporting all 7 BTS members, ''OT4'' = all 4 BLACKPINK members.", "source": "https://www.allkpop.com/article/kpop-ot-meaning"},
+    {"question": "What is a ''sub-unit'' in K-pop group dynamics?", "options": ["A rival group formed by former members", "A smaller group formed from members of a larger group for special releases", "The backup dancers of a group", "The group''s social media management team"], "correct": 1, "fun_fact": "Sub-units allow groups to explore different concepts -- like EXO-CBX, BTS''s OT3 unit, or SEVENTEEN''s performance/hip-hop/vocal units.", "source": "https://www.allkpop.com/article/kpop-subunit-explained"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 79: K-pop Merchandise and Collecting
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'K-pop Merchandise and Collecting',
+  'From photocards to limited editions -- the world of K-pop collecting culture.',
+  NULL,
+  'multiple_choice',
+  'easy',
+  'fun',
+  '[
+    {"question": "What is a ''random photocard'' in K-pop albums?", "options": ["A card with a random famous quote", "A collectible member photo randomly inserted into album packages", "A scratch-and-win card", "A fan-made trading card"], "correct": 1, "fun_fact": "Random photocards are inserted into albums without the buyer knowing which member''s card they''ll get -- driving collection and trading culture.", "source": "https://www.allkpop.com/article/kpop-photocard-random"},
+    {"question": "What is ''photocard trading'' in K-pop fan culture?", "options": ["Selling photos of concerts", "Fans exchanging duplicate photocards to complete their collection", "An official company trading event", "Fan meet trading games"], "correct": 1, "fun_fact": "Photocard trading communities exist on social media and apps -- fans trade duplicates of non-bias members for the member they want.", "source": "https://www.allkpop.com/article/kpop-photocard-trading"},
+    {"question": "What is a ''wts'' post in K-pop photocard communities?", "options": ["''Watch This Shine'' -- a fan hype post", "''Want to Sell'' -- offering a photocard for sale", "''Watch This Stage'' -- a concert clip share", "''Write To Star'' -- a fan letter post"], "correct": 1, "fun_fact": "''WTS'' (Want to Sell) and ''WTB'' (Want to Buy) are standard abbreviations in K-pop photocard trading communities.", "source": "https://www.allkpop.com/article/kpop-trading-terms"},
+    {"question": "Why do K-pop companies release multiple versions of the same album?", "options": ["To give fans more music content", "To offer different photo books and photocards, encouraging multiple purchases", "To test different production qualities", "Due to regional market requirements"], "correct": 1, "fun_fact": "Multiple album versions with different concept photos, books, and photocard sets are a sales strategy that fans both enjoy and debate.", "source": "https://www.allkpop.com/article/kpop-multiple-album-versions"},
+    {"question": "What is a ''fan site master'' (or ''fansiter'') in K-pop?", "options": ["A fan who runs a large news account", "A dedicated fan photographer who attends events to take professional-quality photos of their favorite member", "A fan club treasurer", "A fan who manages official translations"], "correct": 1, "fun_fact": "Fansiter masters are highly skilled photographers who invest heavily in equipment to take stunning high-quality photos of specific members at events.", "source": "https://www.allkpop.com/article/kpop-fansite-master"},
+    {"question": "What is ''sasaeng merchandise'' in K-pop and why is it controversial?", "options": ["Limited edition items sold only in Korea", "Merchandise featuring private photos or information obtained by obsessive fans invading idols'' privacy", "Bootleg unofficial merchandise", "Past-era discontinued merchandise"], "correct": 1, "fun_fact": "Sasaeng merchandise uses private photos or information illegally obtained -- it is widely condemned in the K-pop community.", "source": "https://www.allkpop.com/article/sasaeng-merchandise-controversy"},
+    {"question": "What are ''albums'' in K-pop typically called when they have fewer tracks than a full album?", "options": ["Short albums", "Mini albums or EPs", "Demo albums", "Preview albums"], "correct": 1, "fun_fact": "K-pop releases are typically: Full Album (10+ tracks), Mini Album/EP (4-7 tracks), Single Album (1-3 tracks) -- each with different photo book contents.", "source": "https://www.allkpop.com/article/kpop-album-types"},
+    {"question": "What is ''Hanteo'' in K-pop?", "options": ["A Korean music streaming service", "A chart system tracking real-time physical album sales", "A Korean music show", "An annual K-pop awards ceremony"], "correct": 1, "fun_fact": "Hanteo Chart tracks real-time physical album sales and is used by fans to boost first-week sales records -- a major competitive metric.", "source": "https://www.hanteo.com"},
+    {"question": "What is a ''season''s greeting'' in K-pop merchandise?", "options": ["A summer concert special", "A year-end calendar and photo package sold as a special yearly merchandise item", "A New Year fan meeting", "A holiday-themed music release"], "correct": 1, "fun_fact": "Season''s Greetings packages typically include a new year calendar, photo book, and exclusive cards -- a beloved annual K-pop merchandise tradition.", "source": "https://www.allkpop.com/article/kpop-seasons-greetings"},
+    {"question": "What does a K-pop album ''unboxing'' video on YouTube typically include?", "options": ["Reviewing the music content only", "Showing all physical contents -- photo book, CDs, photocards, stickers -- and reacting to which photocard was included", "A dance tutorial", "An interview with the artist"], "correct": 1, "fun_fact": "Unboxing videos are a massive K-pop YouTube subgenre -- fans open albums on camera, revealing photocards and reacting with excitement or disappointment.", "source": "https://www.allkpop.com/article/kpop-unboxing-video-culture"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- ============================================
+-- GROUP-SPECIFIC QUIZ 80 (completing 25 total)
+-- ============================================
+
+-- Quiz 80: ASTRO (group_id = 28)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'ASTRO: A to Z',
+  'Test your knowledge of ASTRO -- the bright and energetic K-pop group under Fantagio.',
+  28,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "When did ASTRO debut?", "options": ["2014", "2015", "2016", "2017"], "correct": 2, "fun_fact": "ASTRO debuted on February 23, 2016, under Fantagio Entertainment with their mini album ''Spring Up''.", "source": "https://www.soompi.com/article/astro-debut"},
+    {"question": "How many members does ASTRO have?", "options": ["5", "6", "7", "4"], "correct": 1, "fun_fact": "ASTRO debuted with 6 members: MJ, JinJin, Cha Eunwoo, Moonbin, Rocky, and Sanha.", "source": "https://www.soompi.com/article/astro-members"},
+    {"question": "Which ASTRO member is also a popular actor known for his visuals?", "options": ["JinJin", "Moonbin", "Cha Eunwoo", "Rocky"], "correct": 2, "fun_fact": "Cha Eunwoo is widely recognized as one of K-pop''s most visually striking idols and has starred in multiple hit K-dramas.", "source": "https://www.soompi.com/article/cha-eunwoo-actor"},
+    {"question": "What is ASTRO''s fandom name?", "options": ["AROHA", "Starlight", "Luna", "Comet"], "correct": 0, "fun_fact": "ASTRO''s official fandom name is AROHA, connecting to the group''s space and star-related concept.", "source": "https://twitter.com/offclASTRO"},
+    {"question": "Which ASTRO member tragically passed away in 2023?", "options": ["Rocky", "Moonbin", "MJ", "Sanha"], "correct": 1, "fun_fact": "Moonbin passed away on April 19, 2023, a devastating loss for the K-pop community and AROHA fans worldwide.", "source": "https://www.soompi.com/article/moonbin-astro-passing"},
+    {"question": "What was ASTRO''s debut concept centered around?", "options": ["Dark fantasy", "Youthful, bright energy and school romance", "Military-inspired", "Futuristic sci-fi"], "correct": 1, "fun_fact": "ASTRO debuted with a bright, fresh, youthful concept themed around school days and first love, matching their energetic image.", "source": "https://www.soompi.com/article/astro-debut-concept"},
+    {"question": "Which ASTRO sub-unit features Moonbin and Sanha?", "options": ["ASTRO MJ&JinJin", "ASTRO Moonbin&Sanha", "ASTRO Rocky&Eunwoo", "There are no official sub-units"], "correct": 1, "fun_fact": "Moonbin&Sanha debuted as an official sub-unit in 2021 with their mini album ''In-Out'', before Moonbin''s tragic passing.", "source": "https://www.soompi.com/article/moonbin-sanha-subunit"},
+    {"question": "Which drama made Cha Eunwoo a household name in Korea?", "options": ["Extraordinary You", "True Beauty", "My ID is Gangnam Beauty", "Are You Human?"], "correct": 1, "fun_fact": "''True Beauty'' (2020-2021) was a massive hit where Cha Eunwoo starred as the lead male, making him one of Korea''s most popular actor-idols.", "source": "https://www.soompi.com/article/true-beauty-drama"},
+    {"question": "What label is ASTRO under?", "options": ["SM Entertainment", "Fantagio", "Starship", "RBW"], "correct": 1, "fun_fact": "ASTRO is managed by Fantagio Entertainment, a mid-sized Korean entertainment company.", "source": "https://www.soompi.com/article/fantagio-entertainment"},
+    {"question": "What is the meaning behind the name ''ASTRO''?", "options": ["Short for ''astronaut''", "Related to stars and space -- reflecting the group''s concept of shining like stars", "Named after the Greek word for strength", "An acronym for the members'' first letters"], "correct": 1, "fun_fact": "ASTRO''s name references stars and the cosmos, fitting their bright, luminous concept. Each album era features space/astronomy-related titles.", "source": "https://www.soompi.com/article/astro-name-meaning"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- ============================================
+-- ERA QUIZZES 81-100 (20 total)
+-- ============================================
+
+-- Quiz 81: BTS HYYH Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'BTS: The HYYH Era (Hwa Yang Yeon Hwa)',
+  'The era that transformed BTS -- ''The Most Beautiful Moment in Life'' albums and the birth of the BTS Universe.',
+  1,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "What does HYYH stand for in BTS''s discography?", "options": ["Hwa Yang Yeon Hwa (The Most Beautiful Moment in Life)", "Hip Youth Year Hype", "Heartfelt Young Youth Horizon", "How Young Youthful Hearts"], "correct": 0, "fun_fact": "HYYH (화양연화) is a classical Chinese phrase meaning ''the most beautiful moment in life'' -- the era that defined BTS''s artistic identity.", "source": "https://www.soompi.com/article/bts-hyyh-era"},
+    {"question": "Which year did the HYYH era begin?", "options": ["2013", "2014", "2015", "2016"], "correct": 2, "fun_fact": "The HYYH era began with ''The Most Beautiful Moment in Life, Pt. 1'' in April 2015, followed by Pt. 2 in November 2015.", "source": "https://www.soompi.com/article/bts-hyyh-pt1-release"},
+    {"question": "What is the lead single from HYYH Part 1?", "options": ["I Need U", "Run", "Dope", "Butterfly"], "correct": 0, "fun_fact": "''I Need U'' was BTS''s first music show win and the track that marked a turning point in their career and public recognition.", "source": "https://www.youtube.com/watch?v=NMdTd47gxBQ"},
+    {"question": "What was the lead single from HYYH Part 2?", "options": ["Baepsae", "Run", "Butterfly", "Ma City"], "correct": 1, "fun_fact": "''Run'' deepened the HYYH narrative with a visually stunning MV and became one of BTS''s most beloved songs from the era.", "source": "https://www.youtube.com/watch?v=WoMFpOFHEOQ"},
+    {"question": "What concept defined the HYYH storyline?", "options": ["Alien invasion", "Youth, friendship, pain, and the bittersweet beauty of growing up", "Dystopian future society", "School bullying and revenge"], "correct": 1, "fun_fact": "The HYYH narrative explores themes of youth, friendship, trauma, and the fleeting beauty of adolescence -- deeply relatable for young fans.", "source": "https://www.soompi.com/article/bts-hyyh-storyline"},
+    {"question": "Which album completed the HYYH era?", "options": ["Young Forever", "Wings", "You Never Walk Alone", "Love Yourself: Her"], "correct": 0, "fun_fact": "''The Most Beautiful Moment in Life: Young Forever'' (2016) compiled the HYYH series and added new tracks, closing the era.", "source": "https://www.soompi.com/article/bts-young-forever-album"},
+    {"question": "What is the HYYH short film series called?", "options": ["BTS Universe Films", "HYYH Notes", "Highlight Reels", "HYYH Short Films"], "correct": 3, "fun_fact": "BTS released ''HYYH Short Films'' -- individual cinematic videos for each member exploring their characters'' inner pain and stories.", "source": "https://www.youtube.com/c/BangtanTV"},
+    {"question": "Which BTS song from the HYYH era has the most streams on Spotify?", "options": ["Run", "I Need U", "Butterfly", "Dope"], "correct": 3, "fun_fact": "''Dope'' (Jjeoreo) from HYYH Pt. 1 is one of BTS''s most-streamed songs from the era, with its energetic concept resonating widely.", "source": "https://open.spotify.com/artist/3Nrfpe0tUJi4K4DXYWgMUX"},
+    {"question": "What book is cited as an inspiration for the HYYH concept?", "options": ["Demian by Hermann Hesse", "The Catcher in the Rye by Salinger", "1984 by George Orwell", "The Little Prince by Saint-Exupery"], "correct": 0, "fun_fact": "''Demian'' by Hermann Hesse is a key literary reference in the HYYH universe, exploring the transition from youth to adulthood.", "source": "https://www.soompi.com/article/bts-demian-hyyh"},
+    {"question": "What visual element is iconic in the HYYH music videos?", "options": ["Neon cityscapes", "Abandoned houses, fields, and raw youth aesthetics", "Elaborate fantasy kingdoms", "Space and cosmos imagery"], "correct": 1, "fun_fact": "HYYH MVs feature raw, nostalgic visuals -- abandoned buildings, golden hour fields, and young men on the edge of adulthood.", "source": "https://www.youtube.com/watch?v=NMdTd47gxBQ"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 82: BLACKPINK Kill This Love Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'BLACKPINK: Kill This Love Era',
+  'The fierce 2019 era that solidified BLACKPINK as a global force.',
+  2,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "In which year was the ''Kill This Love'' EP released?", "options": ["2018", "2019", "2020", "2021"], "correct": 1, "fun_fact": "BLACKPINK released the ''Kill This Love'' EP on April 5, 2019, making it one of the most anticipated K-pop releases of the year.", "source": "https://www.soompi.com/article/blackpink-kill-this-love-release"},
+    {"question": "How many tracks are on the ''Kill This Love'' EP?", "options": ["3", "4", "5", "6"], "correct": 1, "fun_fact": "The ''Kill This Love'' EP contains 4 tracks: Kill This Love, Don''t Know What to Do, Kick It, and Hope Not.", "source": "https://open.spotify.com/album/0Ppj3Y0j5EBKCRJgcDnMwg"},
+    {"question": "What world record did ''Kill This Love'' set on YouTube?", "options": ["First 24-hour record for a girl group MV", "Most liked video by a K-pop group", "Most watched music video in 1 hour", "First K-pop group on YouTube Rewind"], "correct": 0, "fun_fact": "''Kill This Love'' broke the YouTube record for most views in 24 hours for a K-pop girl group MV at the time of release.", "source": "https://www.soompi.com/article/blackpink-kill-this-love-youtube-record"},
+    {"question": "What is the musical style of ''Kill This Love''?", "options": ["Soft ballad with strings", "High-energy EDM-influenced anthem with bold brass", "Retro synth pop", "Tropical house"], "correct": 1, "fun_fact": "''Kill This Love'' is a powerful EDM track with a distinctive brass-heavy drop, produced by Teddy Park.", "source": "https://www.soompi.com/article/blackpink-kill-this-love-production"},
+    {"question": "Which iconic event did BLACKPINK perform at during the Kill This Love era?", "options": ["Super Bowl", "Coachella", "Glastonbury", "Austin City Limits"], "correct": 1, "fun_fact": "BLACKPINK headlined Coachella''s Sahara Stage in April 2019 -- the same month as ''Kill This Love'' -- making history as K-pop acts.", "source": "https://www.soompi.com/article/blackpink-coachella-2019"},
+    {"question": "What color palette dominates the Kill This Love era visuals?", "options": ["Pastels and white", "Black, red, and bold primary colors", "Earth tones and beige", "Neon and holographic"], "correct": 1, "fun_fact": "The Kill This Love era featured high-contrast bold visuals with black, red, and white -- reinforcing BLACKPINK''s girl crush power image.", "source": "https://twitter.com/ygofficialblink"},
+    {"question": "Which member opens the ''Kill This Love'' music video?", "options": ["Jennie", "Lisa", "Jisoo", "Rose"], "correct": 2, "fun_fact": "Jisoo opens the Kill This Love MV with a powerful visual entrance, and the video''s opening scenes became iconic in K-pop.", "source": "https://www.youtube.com/watch?v=2S24-y0Ij3Y"},
+    {"question": "What was unique about BLACKPINK''s Coachella performance during this era?", "options": ["They premiered 10 new songs", "They were the first K-pop act to perform at Coachella", "They performed with Lady Gaga", "They broke a Guinness record on stage"], "correct": 1, "fun_fact": "BLACKPINK became the first K-pop act to perform at Coachella in 2019, a landmark milestone in K-pop''s global expansion.", "source": "https://www.soompi.com/article/blackpink-first-kpop-coachella"},
+    {"question": "Which ballad from the Kill This Love EP showed BLACKPINK''s emotional depth?", "options": ["Don''t Know What to Do", "Hope Not", "Kick It", "Forever Young"], "correct": 1, "fun_fact": "''Hope Not'' (아니길) is a heartfelt ballad from the EP, showing BLACKPINK''s vocal range beyond their fierce girl crush image.", "source": "https://open.spotify.com/track/6wEjDlqjb7WwuB3c3N2Tl0"},
+    {"question": "How many views did Kill This Love accumulate on YouTube in its first 24 hours?", "options": ["30 million", "56.7 million", "72 million", "100 million"], "correct": 1, "fun_fact": "''Kill This Love'' garnered approximately 56.7 million views in 24 hours at release, setting records at the time.", "source": "https://www.soompi.com/article/kill-this-love-24hour-views"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 83: EXO EXODUS Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'EXO: The EXODUS Era',
+  'EXO''s bold 2015 full album era and their evolution from debut concept.',
+  8,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was EXO''s ''EXODUS'' album released?", "options": ["2014", "2015", "2016", "2017"], "correct": 1, "fun_fact": "EXO released ''EXODUS'' on March 30, 2015, their second full-length Korean album.", "source": "https://www.soompi.com/article/exo-exodus-release"},
+    {"question": "What was the lead single from EXODUS?", "options": ["Overdose", "Call Me Baby", "Love Me Right", "What If"], "correct": 2, "fun_fact": "''Love Me Right'' (후련해) was the lead single from the EXODUS repackage, released in June 2015 after the original album.", "source": "https://www.youtube.com/watch?v=p_hU7hBZeQs"},
+    {"question": "How many album versions did EXODUS release?", "options": ["1", "2", "3", "4"], "correct": 1, "fun_fact": "EXODUS was released in Korean and Chinese versions simultaneously, maintaining EXO''s dual-language strategy.", "source": "https://www.soompi.com/article/exo-exodus-versions"},
+    {"question": "What was the original title track on EXODUS (before the repackage)?", "options": ["El Dorado", "Transformer", "Exodus", "Playboy"], "correct": 2, "fun_fact": "''Exodus'' was the album''s title track -- a dramatic, powerful song matching the album''s bold artistic direction.", "source": "https://open.spotify.com/album/0pjsL4OM9tjFY2FElqNKdq"},
+    {"question": "The EXODUS era came after which major member departure?", "options": ["Kris and Luhan", "Kris, Luhan, and Tao", "Luhan and Lay", "Only Luhan"], "correct": 0, "fun_fact": "EXO released EXODUS as an 10-member group after Kris and Luhan departed in 2014, marking the group''s resilience.", "source": "https://www.soompi.com/article/exo-after-member-departures"},
+    {"question": "What visual concept defined the EXODUS era?", "options": ["Bright pastel boys", "Dark, powerful, and cinematic -- like a film about escape and freedom", "School-themed youth", "Futuristic androids"], "correct": 1, "fun_fact": "EXODUS featured bold, dramatic visuals with a high-fashion, powerful concept -- a sharp evolution from EXO''s debut planet-powers concept.", "source": "https://www.soompi.com/article/exo-exodus-concept"},
+    {"question": "Which EXODUS track became a fan-favorite for its dance performance?", "options": ["Transformer", "El Dorado", "Playboy", "Lady Luck"], "correct": 0, "fun_fact": "''Transformer'' is one of the most admired EXODUS tracks for its intense choreography and powerful performance energy.", "source": "https://www.soompi.com/article/exo-transformer"},
+    {"question": "How did EXO''s first-week sales for EXODUS compare to their debut era?", "options": ["Lower due to member departures", "About the same", "Much higher -- cementing them as the top group of the era", "Only slightly higher"], "correct": 2, "fun_fact": "Despite member losses, EXO''s EXODUS sold over 440,000 copies in its first week, demonstrating their maintained dominance.", "source": "https://www.soompi.com/article/exo-exodus-sales"},
+    {"question": "What song from the EXODUS repackage became one of EXO''s most iconic performances?", "options": ["Love Me Right", "Call Me Baby", "Overdose", "El Dorado"], "correct": 0, "fun_fact": "''Love Me Right'' became one of EXO''s most celebrated tracks for its sunny concept -- a major tonal contrast to the darker EXODUS tracks.", "source": "https://www.youtube.com/watch?v=p_hU7hBZeQs"},
+    {"question": "What award did EXO win at the MAMAs during the EXODUS era year?", "options": ["Best Dance Performance", "Artist of the Year (Daesang)", "Best New Artist", "Best Music Video"], "correct": 1, "fun_fact": "EXO won the Artist of the Year (Daesang) at the 2015 Mnet Asian Music Awards, continuing their dominance of that era.", "source": "https://www.soompi.com/article/exo-mama-2015-daesang"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 84: TWICE Formula of Love Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'TWICE: Formula of Love Era',
+  'TWICE''s bold 3rd full album era and their transition from cute to mature pop.',
+  4,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was TWICE''s ''Formula of Love: O+T=<3'' album released?", "options": ["2020", "2021", "2022", "2023"], "correct": 1, "fun_fact": "TWICE released their 3rd studio album ''Formula of Love: O+T=<3'' on November 12, 2021.", "source": "https://www.soompi.com/article/twice-formula-of-love-release"},
+    {"question": "What was the lead single from Formula of Love?", "options": ["Scientist", "The Feels", "Cry For Me", "I Can''t Stop Me"], "correct": 0, "fun_fact": "''Scientist'' was the lead single from Formula of Love, a funky pop track with clever science-themed lyrics about love as an experiment.", "source": "https://www.youtube.com/watch?v=1Maq7V4Vu2U"},
+    {"question": "What milestone did Formula of Love achieve in sales?", "options": ["First TWICE album to sell 100,000", "First K-pop girl group album to sell over 1 million copies in South Korea", "First TWICE album to chart on Billboard 200", "First digital-only K-pop girl group album"], "correct": 1, "fun_fact": "Formula of Love became the first K-pop girl group album to sell over 1 million copies in South Korea, a historic milestone.", "source": "https://www.soompi.com/article/twice-formula-love-million-seller"},
+    {"question": "What concept defined the Formula of Love era?", "options": ["Cute school romance", "Scientific love experiment with a playful retro lab aesthetic", "Dark girl crush", "Futuristic city theme"], "correct": 1, "fun_fact": "The Formula of Love concept played with scientific imagery -- treating love as a mathematical formula -- with vibrant, retro lab visuals.", "source": "https://www.soompi.com/article/twice-formula-love-concept"},
+    {"question": "Which English single preceded Formula of Love and set the stage for the era?", "options": ["More & More", "The Feels", "I Can''t Stop Me", "Alcohol-Free"], "correct": 1, "fun_fact": "''The Feels'' was released in October 2021 as TWICE''s first fully English single, just weeks before Formula of Love dropped.", "source": "https://www.soompi.com/article/twice-the-feels"},
+    {"question": "What does the album title ''O+T=<3'' mean?", "options": ["Once (O) + TWICE (T) = Love (<3)", "Original + Transformation = Heart", "Open + Together = Home", "Outstanding + Talented = Hearts"], "correct": 0, "fun_fact": "The title is a love equation: ONCE (the fandom, O) + TWICE (T) = Love (<3) -- a beautiful message from TWICE to their fans.", "source": "https://www.soompi.com/article/twice-formula-love-title-meaning"},
+    {"question": "Which era preceded Formula of Love that showed TWICE''s more mature direction?", "options": ["Yes or Yes era", "Taste of Love era", "More and More era", "The Year of Yes"], "correct": 2, "fun_fact": "''More and More'' (2020) and ''Alcohol-Free'' (2021) began TWICE''s transition toward a more mature, sophisticated image before Formula of Love fully cemented it.", "source": "https://www.soompi.com/article/twice-more-and-more"},
+    {"question": "Which track from Formula of Love became a fan favorite for its bold choreography?", "options": ["Cruel", "Scientist", "Push & Pull", "Espresso"], "correct": 0, "fun_fact": "''Cruel'' from Formula of Love is beloved by ONCE for its fierce, powerful choreography that showed TWICE''s artistic maturity.", "source": "https://www.soompi.com/article/twice-cruel"},
+    {"question": "Who directed the music video for ''Scientist''?", "options": ["Director X", "JYP himself", "Naive", "VM Project Architecture"], "correct": 3, "fun_fact": "VM Project Architecture is the production company behind many JYP artists'' MVs, and directed the vibrant Scientist MV.", "source": "https://www.soompi.com/article/twice-scientist-mv"},
+    {"question": "How many tracks are on the Formula of Love album?", "options": ["10", "13", "15", "18"], "correct": 1, "fun_fact": "Formula of Love is TWICE''s most expansive album at 13 tracks, reflecting their artistic growth and varied musical range.", "source": "https://open.spotify.com/album/2RM4jf1Xa9zPgMGRDiht8O"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 85: Stray Kids MIROH Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'Stray Kids: The MIROH Era',
+  'The era where Stray Kids found their identity and broke out internationally.',
+  3,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was Stray Kids'' ''Clé 1: MIROH'' released?", "options": ["2018", "2019", "2020", "2021"], "correct": 1, "fun_fact": "''Clé 1: MIROH'' was released on March 25, 2019, as part of the Clé series that marked Stray Kids'' artistic consolidation.", "source": "https://www.soompi.com/article/stray-kids-cle-1-miroh"},
+    {"question": "What does ''MIROH'' mean?", "options": ["Mirror -- reflecting on oneself", "A maze -- a metaphor for life''s challenges and finding your path", "The future -- looking forward", "Freedom -- escaping constraints"], "correct": 1, "fun_fact": "MIROH means ''maze'' (미로) in Korean -- the album''s central concept is about navigating life''s challenges and forging your own path.", "source": "https://www.soompi.com/article/stray-kids-miroh-meaning"},
+    {"question": "What was the title track of ''Clé 1: MIROH''?", "options": ["Side Effects", "Double Knot", "Miroh", "Levanter"], "correct": 2, "fun_fact": "''Miroh'' is the powerful title track featuring 3RACHA-produced beats and a defiant message to those who doubt Stray Kids.", "source": "https://www.youtube.com/watch?v=Vc8BH2B7HQs"},
+    {"question": "What themes define the MIROH era?", "options": ["Cute school romance", "Self-confidence, defiance of critics, and pride in their path", "Dark introspection and depression", "Fantasy world escapism"], "correct": 1, "fun_fact": "MIROH is a declaration of Stray Kids'' confidence -- the lyrics challenge doubters and affirm the group''s identity as self-producers.", "source": "https://www.soompi.com/article/stray-kids-miroh-themes"},
+    {"question": "Which fan-favorite track from the MIROH mini-album became an anthem for STAY?", "options": ["Victory Song", "Get Cool", "My Pace", "Miroh"], "correct": 0, "fun_fact": "''Victory Song'' from the Clé 1 album became one of the most beloved tracks by STAY for its uplifting, triumphant energy.", "source": "https://www.soompi.com/article/stray-kids-victory-song"},
+    {"question": "How many members were in Stray Kids during the MIROH era?", "options": ["9", "8", "7", "10"], "correct": 1, "fun_fact": "Stray Kids had 8 members during the MIROH era after Woojin''s departure in 2019, with Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, and I.N.", "source": "https://www.soompi.com/article/stray-kids-woojin-departure"},
+    {"question": "What performance stage showcase did Stray Kids do during the MIROH era?", "options": ["Mnet Countdown exclusive", "District 9 -- Unlock concert", "SKZ Kingdom show", "Stray Kids World Domination Tour"], "correct": 1, "fun_fact": "Stray Kids held their first solo concert ''District 9 -- Unlock'' in 2019, during the MIROH era, marking a major milestone.", "source": "https://www.soompi.com/article/stray-kids-district-9-concert"},
+    {"question": "Which production unit within Stray Kids produced the MIROH tracks?", "options": ["B-Team", "3RACHA", "SKZ-Players", "Chan Unit"], "correct": 1, "fun_fact": "3RACHA (Bang Chan, Changbin, Han) is Stray Kids'' in-house hip hop/production unit responsible for most of their self-produced tracks.", "source": "https://www.soompi.com/article/3racha-stray-kids"},
+    {"question": "What chart milestone did MIROH achieve?", "options": ["First Stray Kids album to chart on Billboard 200", "First K-pop boy group album to sell 500k in one week", "First JYP group album to achieve platinum", "First K-pop album sold in Walmart"], "correct": 0, "fun_fact": "''Clé 1: MIROH'' charted on the US Billboard 200, marking a significant international breakthrough for Stray Kids.", "source": "https://www.soompi.com/article/stray-kids-miroh-billboard"},
+    {"question": "What is the visual aesthetic of the MIROH music video?", "options": ["Soft pastel dreamworld", "Dark urban maze with bold graffiti and chaotic energy", "Futuristic space theme", "Traditional Korean aesthetics"], "correct": 1, "fun_fact": "The MIROH MV features gritty, urban maze-like environments with bold typography and chaotic visual energy reflecting the maze metaphor.", "source": "https://www.youtube.com/watch?v=Vc8BH2B7HQs"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 86: SEVENTEEN AN ODE Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'SEVENTEEN: The ''An Ode'' Era',
+  'SEVENTEEN''s poetic third full album and their artistic maturity.',
+  7,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was SEVENTEEN''s ''An Ode'' released?", "options": ["2018", "2019", "2020", "2021"], "correct": 1, "fun_fact": "SEVENTEEN released their 3rd full album ''An Ode'' (세레나데) on September 16, 2019.", "source": "https://www.soompi.com/article/seventeen-an-ode-release"},
+    {"question": "What does ''An Ode'' (세레나데) mean in Korean?", "options": ["A farewell", "A serenade -- a song of devotion and love", "An oath of loyalty", "A new beginning"], "correct": 1, "fun_fact": "''An Ode'' (세레나데) translates to ''serenade'' -- the album is a devotional piece to fans and to SEVENTEEN''s journey.", "source": "https://www.soompi.com/article/seventeen-an-ode-meaning"},
+    {"question": "What was the lead single from ''An Ode''?", "options": ["Home", "Fear", "Getting Closer", "Snap Shoot"], "correct": 1, "fun_fact": "''Fear'' (독) is the haunting, emotional lead single from ''An Ode'', showcasing a darker, more mature side of SEVENTEEN.", "source": "https://www.youtube.com/watch?v=tGmgDi15n90"},
+    {"question": "What theme defines ''An Ode'' album?", "options": ["Youthful first love", "Reflection on past pain, growth, and devotion to their path", "Futuristic dystopia", "Carefree summer adventures"], "correct": 1, "fun_fact": "''An Ode'' is a reflective album addressing past hardships, the weight of success, and a dedication to continuing despite difficulties.", "source": "https://www.soompi.com/article/seventeen-an-ode-theme"},
+    {"question": "What fan-loved track from ''An Ode'' is a comforting message to themselves?", "options": ["Home", "Snap Shoot", "Happy Ending", "Getting Closer"], "correct": 0, "fun_fact": "''Home'' is one of SEVENTEEN''s most beloved tracks -- a message to themselves and Carats that wherever they are, together is home.", "source": "https://open.spotify.com/track/0Qxx4aelHhCb7d1yNMKFyI"},
+    {"question": "How many weeks did ''An Ode'' spend at #1 on the Gaon Album Chart?", "options": ["1 week", "2 weeks", "3 weeks", "5+ weeks"], "correct": 2, "fun_fact": "''An Ode'' achieved significant chart success and sustained album sales, reflecting SEVENTEEN''s growing fanbase by 2019.", "source": "https://www.gaonchart.co.kr"},
+    {"question": "What B-side from ''An Ode'' became a concert fan-chant anthem?", "options": ["Hot", "Getting Closer", "Darl+ing", "Pinwheel"], "correct": 1, "fun_fact": "''Getting Closer'' became an iconic SEVENTEEN concert moment -- its fan chant and choreography becoming synonymous with their live performances.", "source": "https://www.soompi.com/article/seventeen-getting-closer-concert"},
+    {"question": "How many tracks are on ''An Ode''?", "options": ["8", "10", "12", "14"], "correct": 1, "fun_fact": "''An Ode'' contains 10 tracks including the emotional lead single ''Fear'' and beloved fan favorites like ''Home'' and ''Getting Closer''.", "source": "https://open.spotify.com/album/1S4AywMQQJ4ZmB2QpjUVNH"},
+    {"question": "What visual color palette dominates the ''An Ode'' era?", "options": ["Bright reds and yellows", "Deep blue, black, and stark white", "Pastel greens and pinks", "Warm earth tones"], "correct": 1, "fun_fact": "The ''An Ode'' era features a dark, sophisticated palette with deep blues and stark contrasts, reflecting the album''s emotional weight.", "source": "https://www.soompi.com/article/seventeen-an-ode-visual"},
+    {"question": "Which SEVENTEEN unit''s sound is most prominently featured on ''An Ode''?", "options": ["Hip-hop unit", "Performance unit", "Vocal unit", "All three equally"], "correct": 3, "fun_fact": "''An Ode'' is a full SEVENTEEN album featuring all three units -- hip-hop, vocal, and performance -- in a cohesive whole-group statement.", "source": "https://www.soompi.com/article/seventeen-an-ode-units"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 87: aespa MY WORLD Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'aespa: MY WORLD Era',
+  'aespa''s 2023 mini album that expanded their concept and global reach.',
+  5,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was aespa''s ''MY WORLD'' mini album released?", "options": ["2022", "2023", "2024", "2021"], "correct": 1, "fun_fact": "aespa released their 3rd mini album ''MY WORLD'' on May 8, 2023, continuing their expansion in the K-pop and global markets.", "source": "https://www.soompi.com/article/aespa-my-world-release"},
+    {"question": "What was the lead single from ''MY WORLD''?", "options": ["Drama", "Spicy", "Better Things", "Armageddon"], "correct": 1, "fun_fact": "''Spicy'' is the lead single from MY WORLD -- a funky, retro-influenced track that showcased aespa''s versatility beyond sci-fi.", "source": "https://www.youtube.com/watch?v=mEMKIVXtkuY"},
+    {"question": "What concept does ''MY WORLD'' represent in aespa''s universe?", "options": ["Their return to debut concept", "The expansion and personalization of each member''s unique inner world", "A break from their AI/digital concept", "A tribute to SM''s 30th anniversary"], "correct": 1, "fun_fact": "''MY WORLD'' represents each aespa member owning and defining their personal world -- a maturation of their virtual/AI dual-existence concept.", "source": "https://www.soompi.com/article/aespa-my-world-concept"},
+    {"question": "How did aespa perform at Coachella 2023 during this era?", "options": ["They headlined the main stage", "They performed as a sub-stage act on the Sahara Stage", "They didn''t attend Coachella", "They performed with BLACKPINK"], "correct": 1, "fun_fact": "aespa performed at Coachella 2023 on the Sahara Stage, becoming one of the highest-profile 4th gen group appearances at the festival.", "source": "https://www.soompi.com/article/aespa-coachella-2023"},
+    {"question": "Which MY WORLD track features a darker, more aggressive sound?", "options": ["Spicy", "Welcome to MY World", "YEPPI YEPPI", "Better Things"], "correct": 1, "fun_fact": "''Welcome to MY World'' is one of the more intense tracks on the album, maintaining aespa''s signature digital/dark sonic identity.", "source": "https://open.spotify.com/album/0Ppj3Y0j5EBKCRJgcDnMwg"},
+    {"question": "What preceded MY WORLD in aespa''s discography?", "options": ["Girls mini album", "Savage", "Next Level single", "Drama"], "correct": 0, "fun_fact": "aespa''s 2nd mini album ''Girls'' (2022) preceded MY WORLD, featuring the title track and expanding their fictional lore.", "source": "https://www.soompi.com/article/aespa-girls-mini-album"},
+    {"question": "What does the MY WORLD visual direction contrast with compared to earlier aespa eras?", "options": ["It''s more colorful and vibrant vs earlier dark/chrome aesthetics", "It''s darker than before", "It removes the virtual concept entirely", "It uses only black and white"], "correct": 0, "fun_fact": "MY WORLD''s ''Spicy'' era featured warmer, more vibrant colors contrasting with aespa''s traditionally cool, metallic, and dark visuals.", "source": "https://www.soompi.com/article/aespa-my-world-visual-contrast"},
+    {"question": "What first for aespa happened at the 2023 Billboard Music Awards?", "options": ["First K-pop group win in the main categories", "First performance by a 4th gen group at BBMAs", "First K-pop group to win Top Social Artist", "First virtual concept group to perform"], "correct": 1, "fun_fact": "aespa performed at the 2023 Billboard Music Awards, one of the first major 4th generation K-pop groups to do so.", "source": "https://www.soompi.com/article/aespa-bbmas-2023"},
+    {"question": "How many tracks are on ''MY WORLD''?", "options": ["4", "5", "6", "7"], "correct": 2, "fun_fact": "''MY WORLD'' contains 6 tracks, a standard mini album format, featuring title track ''Spicy'' and 5 additional songs.", "source": "https://open.spotify.com/album/aespa-my-world"},
+    {"question": "What is the main message of ''Spicy'' by aespa?", "options": ["Overcoming heartbreak", "Self-confidence, uniqueness, and commanding attention", "Futuristic world-saving", "Friendship and loyalty"], "correct": 1, "fun_fact": "''Spicy'' is a self-confident anthem about aespa owning their uniqueness -- ''I know I''m spicy'' -- a confident departure from more narrative concepts.", "source": "https://www.youtube.com/watch?v=mEMKIVXtkuY"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 88: NewJeans OMG Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'NewJeans: The OMG Era',
+  'NewJeans'' record-breaking 2023 EP that cemented their status as 4th gen icons.',
+  6,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was NewJeans'' ''OMG'' EP released?", "options": ["2022", "January 2023", "April 2023", "September 2023"], "correct": 1, "fun_fact": "NewJeans released the ''OMG'' EP on January 2, 2023 -- an unusually early release that immediately dominated charts.", "source": "https://www.soompi.com/article/newjeans-omg-ep-release"},
+    {"question": "How many tracks are on the ''OMG'' EP?", "options": ["2", "3", "4", "5"], "correct": 0, "fun_fact": "The OMG EP contains just 2 tracks -- ''OMG'' and ''Ditto'' -- both released as double title tracks in an unconventional format.", "source": "https://open.spotify.com/album/NewJeans-OMG"},
+    {"question": "What chart record did ''Ditto'' set in South Korea?", "options": ["First K-pop song to chart for 10+ weeks at #1 on Melon", "First English-language song to top Gaon", "First K-pop group debut song to chart for 10 weeks at #1", "First song by a group formed in 2022 to reach 100M streams"], "correct": 0, "fun_fact": "''Ditto'' spent an extraordinary 10+ weeks at #1 on the Melon chart, a remarkable feat for any K-pop song -- especially from a group barely 6 months old.", "source": "https://www.soompi.com/article/newjeans-ditto-melon-record"},
+    {"question": "What visual style defines the OMG era?", "options": ["Futuristic chrome and neon", "Nostalgic Y2K, early 2000s aesthetic with camcorder footage and retro filters", "Bold primary colors and school uniform", "Minimalist white spaces"], "correct": 1, "fun_fact": "The OMG era doubles down on NewJeans'' nostalgic Y2K aesthetic with grainy camcorder footage, early 2000s fashion, and retro filter effects.", "source": "https://www.soompi.com/article/newjeans-omg-aesthetic"},
+    {"question": "What concept does the ''OMG'' music video explore?", "options": ["Sci-fi alien invasion", "Parasocial relationships and the intense bond between fans and idols", "School romance", "Summer beach vacation"], "correct": 1, "fun_fact": "The ''OMG'' music video explores parasocial relationships and fan obsession in a thought-provoking narrative -- unusually meta for a K-pop group.", "source": "https://www.youtube.com/watch?v=a4VTNnRUaI4"},
+    {"question": "What genre blend defines ''OMG'' the track?", "options": ["Heavy EDM drop", "Jersey club and R&B influenced", "Classic idol pop", "Reggaeton and Afrobeats"], "correct": 1, "fun_fact": "''OMG'' blends jersey club rhythms with R&B influences, continuing NewJeans'' signature experimental approach to mainstream pop.", "source": "https://www.soompi.com/article/newjeans-omg-genre"},
+    {"question": "Which NewJeans member has a particularly praised vocal performance on ''OMG''?", "options": ["Hyein", "Haerin", "Minji", "All members received equal praise"], "correct": 3, "fun_fact": "NewJeans'' vocal lines are intentionally distributed more evenly than typical K-pop groups, with each member''s voice used deliberately.", "source": "https://www.soompi.com/article/newjeans-vocal-distribution"},
+    {"question": "What company is NewJeans under?", "options": ["Big Hit Music", "ADOR under HYBE", "Source Music", "Starship"], "correct": 1, "fun_fact": "NewJeans debuted under ADOR (All Doors Open Records), a HYBE subsidiary led by Min Hee-jin, the creative director behind their aesthetic.", "source": "https://www.soompi.com/article/newjeans-ador-hybe"},
+    {"question": "What happened to NewJeans on Spotify following the OMG release?", "options": ["They became the first K-pop group to reach 1 billion streams", "They broke the record for fastest K-pop group to 10 million monthly listeners", "Multiple songs charted simultaneously on Spotify''s Global Top 50", "All of the above"], "correct": 2, "fun_fact": "Both ''OMG'' and ''Ditto'' charted simultaneously on Spotify''s Global Top 50, a rare achievement especially for a group less than 1 year old.", "source": "https://www.soompi.com/article/newjeans-spotify-global"},
+    {"question": "Which element of ''Ditto'' became a fan challenge on social media?", "options": ["The opening piano riff imitation", "The mirror choreography at the chorus", "The back-to-back member walk sequence", "The fan cam split screen format"], "correct": 1, "fun_fact": "''Ditto''s mirror point choreography inspired countless fan recreation videos and became one of 2023''s most recreated K-pop dance challenges.", "source": "https://www.soompi.com/article/newjeans-ditto-dance-challenge"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 89: IVE I've IVE Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'IVE: The ''I''ve IVE'' Era',
+  'IVE''s debut full album era and their rise to 4th gen dominance.',
+  10,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was IVE''s first full album ''I''ve IVE'' released?", "options": ["2022", "April 2023", "September 2023", "January 2024"], "correct": 1, "fun_fact": "IVE released their debut full album ''I''ve IVE'' on April 10, 2023, just over a year after their debut.", "source": "https://www.soompi.com/article/ive-ive-ive-album-release"},
+    {"question": "What was the lead single from ''I''ve IVE''?", "options": ["After LIKE", "I AM", "Kitsch", "Baddie"], "correct": 1, "fun_fact": "''I AM'' is the bold title track -- a declaration of self-identity and confidence that became one of 2023''s defining K-pop anthems.", "source": "https://www.youtube.com/watch?v=MfBBmwJpzRU"},
+    {"question": "How many tracks are on ''I''ve IVE''?", "options": ["6", "8", "10", "12"], "correct": 2, "fun_fact": "''I''ve IVE'' contains 10 tracks, a substantial debut full album showcasing IVE''s range of concepts and sounds.", "source": "https://open.spotify.com/album/IVE-Ive-Ive"},
+    {"question": "What does ''I AM'' by IVE thematically represent?", "options": ["A love song", "A powerful declaration of self-identity and individuality", "A farewell to a past era", "A tribute to their fans"], "correct": 1, "fun_fact": "''I AM'' is IVE''s most direct declaration of identity -- each member asserts their individuality in one of K-pop''s most anthemic songs.", "source": "https://www.soompi.com/article/ive-i-am-theme"},
+    {"question": "Which IVE member is a former IZ*ONE member?", "options": ["Leeseo", "Gaeul", "Wonyoung and Yujin", "Rei"], "correct": 2, "fun_fact": "Both Jang Wonyoung and An Yujin were members of project group IZ*ONE before IVE debuted -- their experience gave IVE an experienced core.", "source": "https://www.soompi.com/article/ive-iz-one-members"},
+    {"question": "What fan-favorite B-side from ''I''ve IVE'' became an instant classic?", "options": ["Kitsch", "Baddie", "Hypnotized", "My Satisfaction"], "correct": 0, "fun_fact": "''Kitsch'' became one of IVE''s most beloved fan-favorite tracks, celebrated for its catchy melody and playful energy.", "source": "https://www.soompi.com/article/ive-kitsch-fan-favorite"},
+    {"question": "What number of weeks did ''I AM'' stay at #1 on the Gaon Digital Chart?", "options": ["1-2 weeks", "3-4 weeks", "5+ weeks", "It didn''t reach #1"], "correct": 2, "fun_fact": "''I AM'' was a major chart success in Korea, staying at the top of charts for multiple weeks and dominating music shows in 2023.", "source": "https://www.gaonchart.co.kr"},
+    {"question": "What visual concept dominated the ''I AM'' era?", "options": ["Cyberpunk neon", "Elegant, classical and art-museum inspired grandeur", "Cute pastel spring", "Dark, edgy streetwear"], "correct": 1, "fun_fact": "The ''I AM'' MV features grand, museum-like aesthetics with classical art references -- befitting the song''s theme of self-declared greatness.", "source": "https://www.youtube.com/watch?v=MfBBmwJpzRU"},
+    {"question": "Which IVE debut single preceded the ''I''ve IVE'' album era?", "options": ["Eleven", "Love Dive", "After LIKE", "HEYA"], "correct": 2, "fun_fact": "''After LIKE'' (2022) was IVE''s third single before their full album, sampling Gloria Gaynor''s ''I Will Survive'' in a retro-inspired arrangement.", "source": "https://www.soompi.com/article/ive-after-like"},
+    {"question": "How long after IVE''s debut did they release their first full album?", "options": ["6 months", "About 1 year", "About 1.5 years", "2+ years"], "correct": 2, "fun_fact": "IVE debuted in December 2021 and released ''I''ve IVE'' in April 2023 -- approximately 16 months after debut, a strong pace for a full album.", "source": "https://www.soompi.com/article/ive-debut-to-album-timeline"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 90: NCT 127 Regular-Irregular Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'NCT 127: Regular-Irregular Era',
+  'The debut full album era that established NCT 127 as a major international force.',
+  12,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was NCT 127''s ''Regular-Irregular'' album released?", "options": ["2017", "2018", "2019", "2020"], "correct": 1, "fun_fact": "NCT 127 released their debut full album ''Regular-Irregular'' on October 12, 2018.", "source": "https://www.soompi.com/article/nct-127-regular-irregular-release"},
+    {"question": "What were the two title tracks from ''Regular-Irregular''?", "options": ["Simon Says and Highway to Heaven", "Regular and Irregular", "Regular (Korean) and Regular (English)", "Cherry Bomb and Regular"], "correct": 2, "fun_fact": "''Regular'' was released in both Korean and English versions as dual title tracks -- one of the first major simultaneous bilingual K-pop releases.", "source": "https://www.soompi.com/article/nct-127-regular-bilingual"},
+    {"question": "What made the bilingual ''Regular'' strategy significant?", "options": ["It was the first K-pop bilingual release", "It directly targeted English-speaking markets with an immediately accessible version", "It was required by SM''s Japanese label", "It was a fan-requested change"], "correct": 1, "fun_fact": "The simultaneous Korean and English ''Regular'' release was a deliberate strategy to reach Western audiences directly -- ahead of its time in 2018.", "source": "https://www.allkpop.com/article/nct-127-regular-english-strategy"},
+    {"question": "What is the conceptual theme of ''Regular-Irregular''?", "options": ["Space exploration", "Contrasting the structured (regular) and unpredictable (irregular) nature of life and identity", "School romance", "Celebrity excess and fame"], "correct": 1, "fun_fact": "The album plays with the tension between order and chaos, regular and irregular -- a conceptually rich framework for NCT 127''s sonic experiments.", "source": "https://www.soompi.com/article/nct-127-regular-irregular-concept"},
+    {"question": "How many members were in NCT 127 at the Regular-Irregular era?", "options": ["9", "10", "11", "12"], "correct": 1, "fun_fact": "NCT 127 had 10 members during the Regular-Irregular era: Taeil, Johnny, Taeyong, Yuta, Kun, Doyoung, Ten, Jaehyun, Winwin, Mark, and Haechan (note: Kun and Winwin later moved to WayV).", "source": "https://www.soompi.com/article/nct-127-members-2018"},
+    {"question": "What genre elements define ''Regular''?", "options": ["Classical crossover", "Trap, hip hop, and aggressive experimental pop", "Smooth R&B ballad", "Electronic dance music"], "correct": 1, "fun_fact": "''Regular'' features aggressive trap beats, hip hop flows, and experimental production -- consistent with NCT 127''s daring sonic identity.", "source": "https://www.soompi.com/article/nct-127-regular-production"},
+    {"question": "What was notable about NCT 127''s US debut promotions during this era?", "options": ["They performed at the Grammys", "They were the first K-pop group to perform at the Billboard Music Awards", "They embarked on the first ever K-pop group headlining North American tour", "They were first K-pop group to appear on Jimmy Fallon"], "correct": 2, "fun_fact": "NCT 127 embarked on a major North American tour in 2019 tied to the Regular-Irregular era, one of the earliest major 3rd gen group US tours.", "source": "https://www.soompi.com/article/nct-127-us-tour-2019"},
+    {"question": "Which member of NCT 127 is Canadian?", "options": ["Jaehyun", "Mark", "Johnny", "Yuta"], "correct": 1, "fun_fact": "Mark Lee was born in Vancouver, Canada, and is one of K-pop''s most prominent Canadian-Korean stars.", "source": "https://www.soompi.com/article/mark-nct-canadian"},
+    {"question": "Which fan-favorite B-side from Regular-Irregular became an NCT concert staple?", "options": ["Come Back", "Simon Says", "Touch", "Limitless"], "correct": 1, "fun_fact": "''Simon Says'' became one of NCT 127''s most popular tracks, known for its powerful, commanding energy in live performances.", "source": "https://www.soompi.com/article/nct-127-simon-says"},
+    {"question": "What was the first-week sales milestone for Regular-Irregular?", "options": ["100,000 copies", "200,000+ copies", "500,000+ copies", "1 million copies"], "correct": 1, "fun_fact": "Regular-Irregular sold over 200,000 copies in its first week, a significant commercial milestone for NCT 127 at that stage of their career.", "source": "https://www.soompi.com/article/nct-127-regular-irregular-sales"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 91: ATEEZ FEVER Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'ATEEZ: The FEVER Era',
+  'ATEEZ''s explosive FEVER series that transformed them from underdog to global phenomenon.',
+  14,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "What was the first entry in ATEEZ''s FEVER series?", "options": ["FEVER Part.1", "Fireworks", "ZERO: FEVER Part.1", "Inception"], "correct": 2, "fun_fact": "''ZERO: FEVER Part.1'' was released on July 29, 2020, launching the FEVER series that would define ATEEZ''s rise to global fame.", "source": "https://www.soompi.com/article/ateez-zero-fever-part1"},
+    {"question": "What was the title track from ZERO: FEVER Part.1?", "options": ["Fireworks", "Inception", "Fever", "Thanxx"], "correct": 1, "fun_fact": "''Inception'' was the title track from ZERO: FEVER Part.1 -- a dreamlike song about being trapped in a beautiful dream (love).", "source": "https://www.youtube.com/watch?v=_o9ZFMG7-Mk"},
+    {"question": "What was the iconic title track from ZERO: FEVER Part.2?", "options": ["Inception", "Fireworks", "Thanxx", "Eternal Sunshine"], "correct": 1, "fun_fact": "''Fireworks'' (I''ll be the light) became one of ATEEZ''s most beloved anthems -- a powerful message about shining brightly.", "source": "https://www.youtube.com/watch?v=NPBjY5xExoE"},
+    {"question": "The FEVER series how many parts?", "options": ["2", "3", "4", "5"], "correct": 1, "fun_fact": "The FEVER series comprised 3 parts: ZERO: FEVER Part.1 (2020), Part.2 (2020), and Part.3 (2021).", "source": "https://www.soompi.com/article/ateez-fever-series"},
+    {"question": "What concept defines the FEVER era narrative?", "options": ["Space exploration", "A magical world of intense emotion and youth -- a ''fever'' of passion", "Apocalyptic survival", "Time travel romance"], "correct": 1, "fun_fact": "The FEVER era concept is about youthful intensity -- a burning, all-consuming passion for life and connection, tied to ATEEZ''s energy-first performance ethos.", "source": "https://www.soompi.com/article/ateez-fever-concept"},
+    {"question": "Which FEVER era song was used in a key scene of a popular TV show, boosting ATEEZ''s international profile?", "options": ["Inception", "Fireworks", "Thanxx", "Inception was used in a film"], "correct": 0, "fun_fact": "''Inception'' was featured in the critically acclaimed HBO series ''The White Lotus'' in 2022, introducing ATEEZ to millions of new international listeners.", "source": "https://www.soompi.com/article/ateez-inception-white-lotus"},
+    {"question": "What does ''ZERO: FEVER'' mean in ATEEZ''s conceptual framework?", "options": ["The point before everything begins -- a burning zero, the start of passion", "Zero members getting sick", "A mathematical concept about identity", "A Korean pun"], "correct": 0, "fun_fact": "''ZERO'' represents the beginning -- the point before everything starts -- and ''FEVER'' is the burning intensity that drives them forward.", "source": "https://www.soompi.com/article/ateez-zero-fever-meaning"},
+    {"question": "What performance earned ATEEZ a standing ovation at Kingdom: Legendary War?", "options": ["Inception performance", "Thanxx + Say My Name medley", "FIREWORKS performance", "Pirate King finale"], "correct": 2, "fun_fact": "ATEEZ''s ''FIREWORKS'' stage at Kingdom: Legendary War in 2021 is widely considered one of the greatest performance stages in K-pop history.", "source": "https://www.soompi.com/article/ateez-kingdom-fireworks"},
+    {"question": "Which FEVER Part.3 track became a massive concert anthem?", "options": ["Fireworks", "Deja Vu", "Eternal Sunshine", "The Prophecy"], "correct": 1, "fun_fact": "''Deja Vu'' from FEVER Part.3 became one of ATEEZ''s most beloved live songs, known for its dramatic performance and fan chant.", "source": "https://www.soompi.com/article/ateez-deja-vu"},
+    {"question": "What competition series did ATEEZ participate in during the FEVER era?", "options": ["Road to Kingdom", "Kingdom: Legendary War", "Queendom", "The Debut"], "correct": 1, "fun_fact": "ATEEZ competed in ''Kingdom: Legendary War'' (2021) and won 1st place, with their performances cementing their reputation as K-pop''s greatest stage performers.", "source": "https://www.soompi.com/article/ateez-kingdom-win"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 92: TXT The Chaos Chapter Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'TXT: The Chaos Chapter Era',
+  'TXT''s bold 2021 album era that showcased their complex artistry.',
+  16,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was TXT''s ''The Chaos Chapter: FREEZE'' released?", "options": ["2020", "May 2021", "November 2021", "2022"], "correct": 1, "fun_fact": "TXT released ''The Chaos Chapter: FREEZE'' on May 31, 2021, their most critically acclaimed work at the time.", "source": "https://www.soompi.com/article/txt-chaos-chapter-freeze-release"},
+    {"question": "What was the title track from ''The Chaos Chapter: FREEZE''?", "options": ["0X1=LOVESONG", "Anti-Romantic", "LO$ER=LO♡ER", "Frost"], "correct": 0, "fun_fact": "''0X1=LOVESONG (I Know I Love You)'' features Øneheart''s Seori and became one of TXT''s most critically acclaimed singles.", "source": "https://www.youtube.com/watch?v=NrIWCe1iMIo"},
+    {"question": "Who featured on ''0X1=LOVESONG''?", "options": ["RM from BTS", "Seori from Øneheart", "BTS''s V", "Crush"], "correct": 1, "fun_fact": "Korean indie artist Seori provided the distinctive feminine vocals on ''0X1=LOVESONG'', creating a beloved duet dynamic.", "source": "https://www.soompi.com/article/txt-0x1-lovesong-seori"},
+    {"question": "What does ''0X1'' in the title mean?", "options": ["A binary code for love", "0 times 1 = 0 -- representing love that feels impossible but still exists", "The song number on the album", "TXT''s group number code"], "correct": 1, "fun_fact": "''0X1'' represents an impossible equation -- 0 times anything is 0 -- yet the song declares ''I Know I Love You'', a contradiction that defines chaotic love.", "source": "https://www.soompi.com/article/txt-0x1-meaning"},
+    {"question": "What concept defines the Chaos Chapter era?", "options": ["Dystopian future", "Chaotic adolescence, conflicting emotions, and growing up in a fractured world", "Fantasy kingdom", "Summer romance"], "correct": 1, "fun_fact": "The Chaos Chapter explores the turbulence of being young -- feeling frozen in chaos while time moves on -- a theme deeply resonant for TXT''s fanbase MOA.", "source": "https://www.soompi.com/article/txt-chaos-chapter-concept"},
+    {"question": "What was the second installment of the Chaos Chapter?", "options": ["THAW", "FIGHT OR ESCAPE", "DARKNESS", "HOLY FOOLS"], "correct": 1, "fun_fact": "''The Chaos Chapter: FIGHT OR ESCAPE'' was released as a repackage in August 2021 with new tracks including ''LO$ER=LO♡ER''.", "source": "https://www.soompi.com/article/txt-chaos-chapter-fight-or-escape"},
+    {"question": "What rock-influenced sound was prominent in the Chaos Chapter era?", "options": ["Traditional Korean rock", "Alternative rock, punk pop, and emo influences", "Heavy metal", "Classic 70s rock"], "correct": 1, "fun_fact": "The Chaos Chapter era leaned heavily into alternative rock, punk pop, and emo -- more explicitly than most K-pop groups had done before.", "source": "https://www.soompi.com/article/txt-rock-influence"},
+    {"question": "What US chart milestone did ''The Chaos Chapter: FREEZE'' achieve?", "options": ["#1 on Billboard Hot 100", "Top 5 on Billboard 200", "First TXT album on Billboard 200", "First K-pop album by a HYBE group on US charts"], "correct": 2, "fun_fact": "''The Chaos Chapter: FREEZE'' debuted at #2 on the Billboard 200, TXT''s highest charting album at the time.", "source": "https://www.soompi.com/article/txt-chaos-chapter-billboard"},
+    {"question": "Which Chaos Chapter track has the most streams on Spotify?", "options": ["0X1=LOVESONG", "Anti-Romantic", "LO$ER=LO♡ER", "Frost"], "correct": 0, "fun_fact": "''0X1=LOVESONG'' is TXT''s most-streamed track globally, transcending the K-pop listener base with its indie-pop crossover sound.", "source": "https://open.spotify.com/artist/TXT"},
+    {"question": "What visual aesthetic dominates the Chaos Chapter era?", "options": ["Bright school colors", "Dark, distorted, nighttime youth aesthetic with chaotic energy", "Pastel fantasy", "Corporate clean minimalism"], "correct": 1, "fun_fact": "The Chaos Chapter visuals feature dark, distorted imagery -- broken mirrors, night settings, and chaotic motion reflecting the album''s themes.", "source": "https://www.soompi.com/article/txt-chaos-chapter-visual"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 93: (G)I-DLE TOMBOY Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  '(G)I-DLE: The TOMBOY Era',
+  '(G)I-DLE''s breakthrough 2022 album as a 5-member group after Soojin''s departure.',
+  9,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was (G)I-DLE''s ''I NEVER DIE'' album (TOMBOY era) released?", "options": ["2021", "March 2022", "November 2022", "2023"], "correct": 1, "fun_fact": "(G)I-DLE released ''I NEVER DIE'' on March 14, 2022, their first album as a 5-member group after Soojin''s departure in August 2021.", "source": "https://www.soompi.com/article/gidle-i-never-die-release"},
+    {"question": "What was the lead single from ''I NEVER DIE''?", "options": ["HWAA", "Nxde", "TOMBOY", "MY BAG"], "correct": 2, "fun_fact": "''TOMBOY'' became one of (G)I-DLE''s most iconic songs -- a defiant anthem about rejecting labels and societal expectations.", "source": "https://www.youtube.com/watch?v=ya4UMn_gg6E"},
+    {"question": "What themes define ''TOMBOY''?", "options": ["Romantic love", "Defiance of gender norms and labels, doing whatever you want", "Grief and loss", "Patriotism"], "correct": 1, "fun_fact": "''TOMBOY'' is a powerful statement about rejecting labels -- ''Don''t call me baby'' -- expressing freedom from societal expectations.", "source": "https://www.soompi.com/article/gidle-tomboy-theme"},
+    {"question": "What milestone did ''TOMBOY'' achieve in South Korea?", "options": ["First K-pop song by a girl group to chart for 10 weeks at #1 on Melon simultaneously in multiple countries", "It became the best-selling single of 2022 in Korea", "It debuted at #1 on Billboard Hot 100", "It won Song of the Year at every major Korean awards show"], "correct": 3, "fun_fact": "''TOMBOY'' swept major awards at 2022 Korean year-end ceremonies, winning Song of the Year at multiple shows.", "source": "https://www.soompi.com/article/gidle-tomboy-awards"},
+    {"question": "What instrument does Minnie play in (G)I-DLE''s live performances?", "options": ["Violin", "Guitar", "Piano", "Drums"], "correct": 2, "fun_fact": "Minnie is a trained pianist who often performs on piano during (G)I-DLE''s live stages and concert performances.", "source": "https://www.soompi.com/article/minnie-gidle-piano"},
+    {"question": "Which (G)I-DLE member is the primary songwriter and producer?", "options": ["Miyeon", "Soyeon", "Minnie", "Shuhua"], "correct": 1, "fun_fact": "Soyeon is the central creative force in (G)I-DLE, writing, composing, and producing most of the group''s discography since debut.", "source": "https://www.soompi.com/article/soyeon-gidle-producer"},
+    {"question": "How many members does (G)I-DLE have during the TOMBOY era?", "options": ["6", "5", "4", "7"], "correct": 1, "fun_fact": "After Soojin''s departure in 2021, (G)I-DLE continued as a 5-member group: Miyeon, Minnie, Soyeon, Yuqi, and Shuhua.", "source": "https://www.soompi.com/article/gidle-5-members"},
+    {"question": "What fan-favorite track from I NEVER DIE became a concert staple?", "options": ["Already", "VILLAIN DIES", "My Bag", "Oh My God"], "correct": 1, "fun_fact": "''VILLAIN DIES'' became an acclaimed performance track from I NEVER DIE, praised for Soyeon''s dynamic rapping and Miyeon''s powerful vocals.", "source": "https://www.soompi.com/article/gidle-villain-dies"},
+    {"question": "What award did (G)I-DLE win at the 2022 Mnet Asian Music Awards?", "options": ["Best Choreography", "Artist of the Year", "Best Female Group", "Song of the Year"], "correct": 2, "fun_fact": "The I NEVER DIE era solidified (G)I-DLE as the top girl group of 2022, culminating in major award wins including Best Female Group at MAMAs.", "source": "https://www.soompi.com/article/gidle-mama-2022"},
+    {"question": "What era preceded TOMBOY that showed (G)I-DLE''s traditional/ethnic concept?", "options": ["Latata era", "HWAA era", "Oh My God era", "Lion era"], "correct": 1, "fun_fact": "The ''HWAA'' era (2021) featured traditional imagery including hanbok-inspired visuals, before TOMBOY''s bold contemporary concept pivot.", "source": "https://www.soompi.com/article/gidle-hwaa-era"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 94: ENHYPEN DARK BLOOD Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'ENHYPEN: The DARK BLOOD Era',
+  'ENHYPEN''s vampire lore expansion in 2023 that deepened their universe.',
+  15,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was ENHYPEN''s ''DARK BLOOD'' released?", "options": ["2022", "April 2023", "September 2023", "January 2024"], "correct": 1, "fun_fact": "ENHYPEN released their 4th mini album ''DARK BLOOD'' on May 22, 2023, continuing their vampire/dark mythology storyline.", "source": "https://www.soompi.com/article/enhypen-dark-blood-release"},
+    {"question": "What was the title track from ''DARK BLOOD''?", "options": ["Future Perfect (Pass the MIC)", "Bite Me", "ParaNormal", "Dark Blood"], "correct": 1, "fun_fact": "''Bite Me'' is a bold, charismatic title track leaning directly into the vampire concept with lyrics about being irresistibly drawn in.", "source": "https://www.youtube.com/watch?v=dI2Dz8K4CJo"},
+    {"question": "What ongoing lore does DARK BLOOD expand?", "options": ["Dystopian future", "Vampire mythology and the transition between human and vampire", "School spirit world", "Alien contact story"], "correct": 1, "fun_fact": "ENHYPEN''s entire discography is built around a vampire mythology -- the concept of crossing the border between human and dark existence.", "source": "https://www.soompi.com/article/enhypen-vampire-lore"},
+    {"question": "What US billboard achievement did DARK BLOOD accomplish?", "options": ["#1 on Hot 100", "#1 on Billboard 200", "Top 5 on Billboard 200", "First appearance on Billboard 200"], "correct": 1, "fun_fact": "''DARK BLOOD'' debuted at #1 on the Billboard 200, making ENHYPEN the first group formed through a survival show to top the chart.", "source": "https://www.soompi.com/article/enhypen-dark-blood-billboard-1"},
+    {"question": "How many members does ENHYPEN have?", "options": ["5", "6", "7", "8"], "correct": 2, "fun_fact": "ENHYPEN has 7 members: Jungwon, Heeseung, Jay, Jake, Sunghoon, Sunoo, and Ni-Ki.", "source": "https://twitter.com/ENHYPEN"},
+    {"question": "Which ENHYPEN member is Japanese?", "options": ["Jake", "Jay", "Ni-Ki", "Sunghoon"], "correct": 2, "fun_fact": "Nishimura Riki (Ni-Ki) is Japanese, making him one of the prominent Japanese K-pop idols of the 4th generation.", "source": "https://www.soompi.com/article/niki-enhypen-japanese"},
+    {"question": "What visual color palette dominates the DARK BLOOD era?", "options": ["Bright pastels", "Deep red, black, and stark white -- classic vampire aesthetics", "Neon purple and green", "Warm golden earth tones"], "correct": 1, "fun_fact": "DARK BLOOD uses a classic vampire color scheme -- crimson red, stark black, and white -- creating a dramatic visual identity.", "source": "https://www.soompi.com/article/enhypen-dark-blood-visual"},
+    {"question": "What was ENHYPEN''s first full album before the DARK BLOOD mini era?", "options": ["BORDER : DAY ONE", "DIMENSION : DILEMMA", "MANIFESTO : DAY 1", "DARK MOON"], "correct": 2, "fun_fact": "''MANIFESTO : DAY 1'' was ENHYPEN''s first full album (2022), followed by the DARK BLOOD mini album in 2023.", "source": "https://www.soompi.com/article/enhypen-manifesto-album"},
+    {"question": "What reality show did ENHYPEN form through?", "options": ["Produce X 101", "I-LAND", "The Unit", "Idol School"], "correct": 1, "fun_fact": "ENHYPEN was formed through ''I-LAND'', a Big Hit Entertainment and CJ ENM co-produced survival show in 2020.", "source": "https://www.soompi.com/article/enhypen-i-land-debut"},
+    {"question": "Which B-side from DARK BLOOD became an immediate fan favorite?", "options": ["Karma", "ParaNormal", "I Got You", "Orange Flower"], "correct": 1, "fun_fact": "''ParaNormal'' is a fan-favorite B-side from DARK BLOOD, praised for its atmospheric sound and the members'' vocal delivery.", "source": "https://www.soompi.com/article/enhypen-dark-blood-paranormal"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 95: Red Velvet Perfect Velvet Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'Red Velvet: The Perfect Velvet Era',
+  'Red Velvet''s darker, more mature second full album and their artistic peak.',
+  13,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was Red Velvet''s ''Perfect Velvet'' album released?", "options": ["2016", "November 2017", "2018", "2019"], "correct": 1, "fun_fact": "Red Velvet released ''Perfect Velvet'' on November 17, 2017, a landmark album representing their darker ''Velvet'' side.", "source": "https://www.soompi.com/article/red-velvet-perfect-velvet-release"},
+    {"question": "What was the title track from ''Perfect Velvet''?", "options": ["Bad Boy", "Peek-A-Boo", "Really Bad Boy", "Kingdom Come"], "correct": 1, "fun_fact": "''Peek-A-Boo'' is an unconventional, mysterious song about a group of girls who play with the hearts of boys -- one of K-pop''s most unique concepts.", "source": "https://www.youtube.com/watch?v=p7DR4QwbMdA"},
+    {"question": "What concept defines ''Peek-A-Boo''?", "options": ["Sweet first love", "Dark, playful girls playing dangerous games with a pizza delivery boy", "Horror movie satire", "Vintage fairy tale"], "correct": 1, "fun_fact": "''Peek-A-Boo'' features Red Velvet as mysterious girls in a vintage house who lure and play games with an unfortunate visitor.", "source": "https://www.soompi.com/article/red-velvet-peek-a-boo-concept"},
+    {"question": "What repackage followed ''Perfect Velvet'' with the iconic hit ''Bad Boy''?", "options": ["The Perfect Red Velvet", "Really Bad Boy", "Summer Magic", "La Rouge"], "correct": 0, "fun_fact": "''The Perfect Red Velvet'' (2018 repackage) included ''Bad Boy'' -- one of Red Velvet''s biggest hits with a sleek, mature R&B concept.", "source": "https://www.soompi.com/article/red-velvet-perfect-repackage"},
+    {"question": "What genre blend defined the Perfect Velvet sound?", "options": ["Pure bubblegum pop", "Sophisticated R&B, art pop, and unconventional sonic experiments", "Hard hip hop and rap", "Traditional Korean music fusion"], "correct": 1, "fun_fact": "Perfect Velvet showcased Red Velvet''s musically sophisticated side -- blending R&B, art pop, and experimental production.", "source": "https://www.soompi.com/article/red-velvet-perfect-velvet-sound"},
+    {"question": "Which Perfect Velvet album track became a massive slow-burn fan favorite?", "options": ["I Just", "Kingdom Come", "My Second Date", "Attaboy"], "correct": 1, "fun_fact": "''Kingdom Come'' is a theatrical, dramatic track from Perfect Velvet beloved for its cinematic sound and powerful vocal performances.", "source": "https://open.spotify.com/album/Red-Velvet-Perfect-Velvet"},
+    {"question": "What award did Red Velvet win at the 2017 MAMAs?", "options": ["Artist of the Year", "Best Female Group", "Song of the Year for Peek-A-Boo", "Best Dance Performance"], "correct": 1, "fun_fact": "Red Velvet won Best Female Group at the 2017 Mnet Asian Music Awards, cementing Perfect Velvet as their artistic peak moment.", "source": "https://www.soompi.com/article/red-velvet-mama-2017"},
+    {"question": "What is the duality of ''Red'' and ''Velvet'' in Red Velvet''s concept?", "options": ["Red = fiery stage presence, Velvet = choreography skill", "Red = bright, energetic pop, Velvet = darker, more sophisticated R&B", "Red = summer songs, Velvet = winter songs", "Red = solos, Velvet = group tracks"], "correct": 1, "fun_fact": "Red Velvet''s duality is central to their identity -- ''Red'' is bright, energetic pop while ''Velvet'' is darker, sophisticated R&B and art music.", "source": "https://www.soompi.com/article/red-velvet-concept-duality"},
+    {"question": "Which member of Red Velvet has the most distinctive vocal color recognized worldwide?", "options": ["Wendy", "Joy", "Seulgi", "Irene"], "correct": 0, "fun_fact": "Wendy is Red Velvet''s main vocalist and is consistently praised for her powerful, emotional voice and impressive vocal range.", "source": "https://www.soompi.com/article/wendy-red-velvet-vocalist"},
+    {"question": "What era directly followed Perfect Velvet that brought a lighter Red concept?", "options": ["Summer Magic", "The Red Summer", "Power Up era", "Cookie Jar era"], "correct": 2, "fun_fact": "''Power Up'' (2018) marked a return to Red Velvet''s bright, funky ''Red'' side after the sophisticated darkness of Perfect Velvet.", "source": "https://www.soompi.com/article/red-velvet-power-up-era"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 96: GOT7 Flight Log Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'GOT7: The Flight Log Trilogy',
+  'GOT7''s acclaimed Flight Log trilogy that defined their artistic peak at JYP.',
+  21,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "What are the three parts of GOT7''s Flight Log trilogy?", "options": ["Departure, Turbulence, Arrival", "Takeoff, Flight, Landing", "Beginning, Journey, Destination", "Launch, Cruise, Return"], "correct": 0, "fun_fact": "The Flight Log trilogy consists of ''Flight Log: Departure'' (March 2016), ''Turbulence'' (September 2016), and ''Arrival'' (March 2017).", "source": "https://www.soompi.com/article/got7-flight-log-trilogy"},
+    {"question": "What was the title track from ''Flight Log: Departure''?", "options": ["If You Do", "Hard Carry", "Never Ever", "Fly"], "correct": 3, "fun_fact": "''Fly'' was the title track from the first Flight Log installment -- a soaring anthem with a stunning aerial performance in the MV.", "source": "https://www.youtube.com/watch?v=b_6bFCgHgSA"},
+    {"question": "What was the title track from ''Flight Log: Turbulence''?", "options": ["Turbulence", "Hard Carry", "Lullaby", "Home Run"], "correct": 1, "fun_fact": "''Hard Carry'' was the powerful title track from Turbulence, featuring GOT7''s intense energy and martial arts performance elements.", "source": "https://www.youtube.com/watch?v=WmGnDuFwNwg"},
+    {"question": "What was the final Flight Log album title track?", "options": ["Never Ever", "You Are", "Look", "Love Loop"], "correct": 0, "fun_fact": "''Never Ever'' concluded the Flight Log trilogy with an emotional, anthemic track about unwavering devotion.", "source": "https://www.youtube.com/watch?v=PMJmB8RmJVQ"},
+    {"question": "What flight metaphor does the trilogy use for its narrative?", "options": ["GOT7 as planes carrying messages across the world", "A journey of love -- departing, facing turbulence, and ultimately arriving at acceptance", "GOT7 escaping their company like a flight", "Fan love as a flight path"], "correct": 1, "fun_fact": "The trilogy narrates a love journey using flight as a metaphor -- taking off (falling in love), turbulence (conflict), and arriving (resolution).", "source": "https://www.soompi.com/article/got7-flight-log-narrative"},
+    {"question": "Which Flight Log album won GOT7 their first MAMA award?", "options": ["Departure", "Turbulence", "Arrival", "They didn''t win MAMAs during this era"], "correct": 1, "fun_fact": "''Flight Log: Turbulence'' era marked GOT7''s breakout year -- they won multiple major awards including at the 2016 MAMAs.", "source": "https://www.soompi.com/article/got7-mama-2016"},
+    {"question": "Which member of GOT7 is from the United States?", "options": ["Jackson", "Mark", "BamBam", "Yugyeom"], "correct": 1, "fun_fact": "Mark Tuan (Mark) is from Los Angeles, California, making him one of K-pop''s most prominent American-born idols.", "source": "https://www.soompi.com/article/mark-got7-la"},
+    {"question": "What performance style is Jackson Wang of GOT7 particularly known for?", "options": ["Classical ballet techniques", "Intense energy and charismatic freestyle movement", "Precise synchronized formations", "Water dance (aquatic performances)"], "correct": 1, "fun_fact": "Jackson is known for his explosive, charismatic performance style -- he was a competitive fencer before joining K-pop.", "source": "https://www.soompi.com/article/jackson-got7-fencer"},
+    {"question": "What happened to GOT7 after the Flight Log era when their JYP contract expired?", "options": ["They disbanded", "They all renewed with JYP", "They left JYP and signed with various different agencies", "They merged with another group"], "correct": 2, "fun_fact": "In January 2021, all 7 GOT7 members left JYP Entertainment and signed with different agencies, continuing to collaborate as a group.", "source": "https://www.soompi.com/article/got7-leave-jyp-2021"},
+    {"question": "Which Flight Log track''s choreography became one of GOT7''s most iconic?", "options": ["Fly", "Hard Carry", "Never Ever", "Just Right"], "correct": 1, "fun_fact": "''Hard Carry''s choreography featuring martial arts tricks from Jackson and Yugyeom became one of the most memorable K-pop stage performances of 2016.", "source": "https://www.soompi.com/article/got7-hard-carry-choreography"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 97: MAMAMOO Curtain Call Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'MAMAMOO: The Curtain Call Era',
+  'MAMAMOO''s emotional 2022 album that celebrated their decade of music.',
+  22,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was MAMAMOO''s ''Curtain Call'' album released?", "options": ["2021", "October 2022", "2023", "2020"], "correct": 1, "fun_fact": "MAMAMOO released ''Curtain Call'' on October 14, 2022, celebrating nearly a decade of their musical journey.", "source": "https://www.soompi.com/article/mamamoo-curtain-call-release"},
+    {"question": "What was the lead single from ''Curtain Call''?", "options": ["Mic Drop", "Better", "Illella", "Wanna Be Myself"], "correct": 2, "fun_fact": "''Illella'' is the lead single -- a celebration of MAMAMOO''s identity and the joy of who they''ve become over their career.", "source": "https://www.youtube.com/watch?v=mamamoo-illella"},
+    {"question": "What does ''Curtain Call'' conceptually represent for MAMAMOO?", "options": ["Their farewell before disbandment", "A celebration and reflection on their journey -- taking a bow at the end of a chapter", "A literal theater-themed album", "Their return from hiatus"], "correct": 1, "fun_fact": "''Curtain Call'' metaphorically represents MAMAMOO taking a theatrical bow -- celebrating everything they''ve built while looking forward.", "source": "https://www.soompi.com/article/mamamoo-curtain-call-meaning"},
+    {"question": "Which MAMAMOO member is the main vocalist known for her powerful soprano?", "options": ["Wheein", "Moonbyul", "Hwasa", "Solar"], "correct": 3, "fun_fact": "Solar (Kim Yong-sun) is MAMAMOO''s main vocalist with a powerful soprano range, and she''s also known for her solo variety work.", "source": "https://www.soompi.com/article/solar-mamamoo-vocalist"},
+    {"question": "Which MAMAMOO member is the group''s only rapper?", "options": ["Hwasa", "Wheein", "Moonbyul", "Solar"], "correct": 2, "fun_fact": "Moonbyul is MAMAMOO''s rapper -- one of K-pop''s most well-respected female rappers -- and also handles much of the group''s charismatic stage presence.", "source": "https://www.soompi.com/article/moonbyul-mamamoo-rapper"},
+    {"question": "What is MAMAMOO''s musical signature that sets them apart?", "options": ["Heavy EDM and dance pop", "Strong live vocals, retro jazz-R&B influences, and charismatic stage presence", "Soft ballad-focused concept", "Experimental noise music"], "correct": 1, "fun_fact": "MAMAMOO is renowned for their outstanding live vocal performances, retro-jazz roots, and the genuine chemistry and humor between members.", "source": "https://www.allkpop.com/article/mamamoo-musical-identity"},
+    {"question": "Which era song is MAMAMOO most internationally known for?", "options": ["Um Oh Ah Yeah", "Yes I Am", "Hip", "Egotistic"], "correct": 2, "fun_fact": "''Hip'' (2019) was MAMAMOO''s international breakthrough moment, gaining huge traction on social media and introducing them to a wider global audience.", "source": "https://www.youtube.com/watch?v=Kk6Wnuiv9eU"},
+    {"question": "What is notable about MAMAMOO''s approach to comebacks?", "options": ["They release two albums per week", "They release all four solo albums sequentially before a group comeback -- the ''Season'' format", "They only release full group albums", "They alternate between subunit and full group releases every month"], "correct": 1, "fun_fact": "MAMAMOO has popularized the ''Season'' solo cycle, where each member releases a solo mini album before they come back together as a group.", "source": "https://www.soompi.com/article/mamamoo-season-format"},
+    {"question": "What major award did MAMAMOO win at the 2019 MAMAs?", "options": ["Artist of the Year", "Best Female Group", "Song of the Year", "Best Performance"], "correct": 0, "fun_fact": "MAMAMOO won Artist of the Year (Daesang) at the 2019 Mnet Asian Music Awards -- a remarkable achievement for an independent artist at a mid-tier label.", "source": "https://www.soompi.com/article/mamamoo-mama-daesang-2019"},
+    {"question": "Which Curtain Call track is a fan tribute ballad?", "options": ["Better", "Wanna Be Myself", "Curtain Call", "Three"], "correct": 3, "fun_fact": "''Three'' from the Curtain Call album is an emotional track where MAMAMOO reflects on their journey -- a heartfelt message to their fans.", "source": "https://www.soompi.com/article/mamamoo-curtain-call-three"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 98: ITZY CRAZY IN LOVE Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'ITZY: The CRAZY IN LOVE Era',
+  'ITZY''s 2021 first full album and their self-acceptance anthem.',
+  17,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was ITZY''s debut full album ''CRAZY IN LOVE'' released?", "options": ["2020", "July 2021", "2022", "2023"], "correct": 1, "fun_fact": "ITZY released their debut full album ''CRAZY IN LOVE'' on July 19, 2021, over two years after their debut.", "source": "https://www.soompi.com/article/itzy-crazy-in-love-release"},
+    {"question": "What was the title track from ''CRAZY IN LOVE''?", "options": ["In the Morning", "LOCO", "Tennis (0:0)", "Not Shy"], "correct": 1, "fun_fact": "''LOCO'' is the lead single from CRAZY IN LOVE -- a high-energy, colorful track about the crazy, irrational feeling of being in love.", "source": "https://www.youtube.com/watch?v=n9Caqe7Ci6E"},
+    {"question": "What is the central theme of the ITZY CRAZY IN LOVE album?", "options": ["Escaping heartbreak", "Self-acceptance and the beautiful madness of being true to yourself", "Coming-of-age school romance", "Dystopian survival"], "correct": 1, "fun_fact": "CRAZY IN LOVE continues ITZY''s consistent theme of self-love and self-acceptance -- embracing your ''crazy'' authentic self.", "source": "https://www.soompi.com/article/itzy-crazy-in-love-theme"},
+    {"question": "Which ITZY member is the main dancer and rapper?", "options": ["Yeji", "Lia", "Ryujin", "Chaeryeong"], "correct": 3, "fun_fact": "Chaeryeong is widely recognized as ITZY''s strongest dancer -- her dance skills have been highlighted in numerous fancams and performance analyses.", "source": "https://www.soompi.com/article/chaeryeong-itzy-dancer"},
+    {"question": "How many members are in ITZY?", "options": ["4", "5", "6", "7"], "correct": 1, "fun_fact": "ITZY has 5 members: Yeji, Lia, Ryujin, Chaeryeong, and Yuna.", "source": "https://twitter.com/ITZYofficial"},
+    {"question": "What was ITZY''s debut song that established their ''self-love'' concept?", "options": ["Not Shy", "Wannabe", "Dalla Dalla", "Icy"], "correct": 2, "fun_fact": "''DALLA DALLA'' (달라달라 -- ''Different Different'') was ITZY''s debut in 2019 -- a declaration of being different and proud of it.", "source": "https://www.youtube.com/watch?v=AAEN_xRcMB4"},
+    {"question": "What Western market milestone did the CRAZY IN LOVE album achieve?", "options": ["First ITZY album on Billboard 200", "First K-pop girl group album to chart in the UK", "First JYP girl group album to chart on US iTunes", "They charted on all major global platforms simultaneously"], "correct": 0, "fun_fact": "''CRAZY IN LOVE'' charted on the US Billboard 200, marking a significant US market presence for ITZY.", "source": "https://www.soompi.com/article/itzy-crazy-in-love-billboard"},
+    {"question": "Which CRAZY IN LOVE B-side became a fan-beloved concert staple?", "options": ["In the Morning", "Magic", "Swipe", "Secret Story of the Swan"], "correct": 0, "fun_fact": "''In the Morning'' is an acclaimed B-side from CRAZY IN LOVE beloved for its sophisticated production and the members'' standout vocal performances.", "source": "https://www.soompi.com/article/itzy-in-the-morning"},
+    {"question": "What dance move from ''LOCO'' became a point choreo trend?", "options": ["The shoulder bounce", "The loco spin", "The eye wink gesture", "The hair flip"], "correct": 0, "fun_fact": "The shoulder bounce sequence in ''LOCO'' became a popular reference point for ITZY fans and was widely recreated in cover dance videos.", "source": "https://www.soompi.com/article/itzy-loco-point-choreo"},
+    {"question": "What company is ITZY under?", "options": ["SM Entertainment", "JYP Entertainment", "YG Entertainment", "HYBE"], "correct": 1, "fun_fact": "ITZY debuted under JYP Entertainment on February 12, 2019, following in the footsteps of TWICE as JYP''s prominent girl group.", "source": "https://twitter.com/JYPnation"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 99: LE SSERAFIM UNFORGIVEN Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'LE SSERAFIM: The UNFORGIVEN Era',
+  'LE SSERAFIM''s debut full album and their ''fearless'' identity established globally.',
+  11,
+  'multiple_choice',
+  'medium',
+  'era',
+  '[
+    {"question": "When was LE SSERAFIM''s debut full album ''UNFORGIVEN'' released?", "options": ["2022", "May 2023", "September 2023", "January 2024"], "correct": 1, "fun_fact": "LE SSERAFIM released their debut full album ''UNFORGIVEN'' on May 1, 2023, approximately one year after their May 2022 debut.", "source": "https://www.soompi.com/article/le-sserafim-unforgiven-release"},
+    {"question": "What was the title track from ''UNFORGIVEN''?", "options": ["ANTIFRAGILE", "Eve, Psyche & The Bluebeard''s wife", "UNFORGIVEN", "SMART"], "correct": 2, "fun_fact": "''UNFORGIVEN'' features American R&B artist Nile Rodgers and became LE SSERAFIM''s most ambitious international collaboration.", "source": "https://www.youtube.com/watch?v=d5EkbBCMEXc"},
+    {"question": "Which Western artist featured on ''UNFORGIVEN''?", "options": ["Charlie Puth", "Nile Rodgers", "Khalid", "Doja Cat"], "correct": 1, "fun_fact": "Legendary producer and musician Nile Rodgers (of Chic) featured on ''UNFORGIVEN'', bringing his iconic guitar style to the track.", "source": "https://www.soompi.com/article/le-sserafim-unforgiven-nile-rodgers"},
+    {"question": "What does ''LE SSERAFIM'' translate to when rearranged?", "options": ["Light Seraphim Angels", "I''M FEARLESS (anagram)", "Le Seraphim in French", "LE = Leader, SSERAFIM = six stars"], "correct": 1, "fun_fact": "''LE SSERAFIM'' is an anagram of ''I''M FEARLESS'' -- a perfect encapsulation of the group''s core identity and message.", "source": "https://www.soompi.com/article/le-sserafim-name-meaning"},
+    {"question": "What milestone did the UNFORGIVEN album achieve on Spotify?", "options": ["First K-pop debut album to reach 1B streams", "Became the most-streamed HYBE girl group album", "Debuted at #1 on Spotify Global", "First K-pop girl group album to trend in 50 countries"], "correct": 1, "fun_fact": "UNFORGIVEN became LE SSERAFIM''s most streamed album, with ''Eve, Psyche & The Bluebeard''s wife'' being particularly successful globally.", "source": "https://www.soompi.com/article/le-sserafim-unforgiven-spotify"},
+    {"question": "Which fan-beloved B-side from UNFORGIVEN became a cult classic?", "options": ["Eve, Psyche & The Bluebeard''s wife", "Good Parts (when life gives you lemons)", "Flash Forward", "Sour Grapes"], "correct": 0, "fun_fact": "''Eve, Psyche & The Bluebeard''s wife'' became a massive fan favorite for its dark, mythology-inspired concept and addictive production.", "source": "https://www.soompi.com/article/le-sserafim-eve-psyche"},
+    {"question": "What performance did LE SSERAFIM give during this era that attracted both praise and scrutiny?", "options": ["First K-pop girl group at Super Bowl", "Their Coachella 2024 performance", "A live performance with zero backing tracks", "Their Grammy stage debut"], "correct": 1, "fun_fact": "LE SSERAFIM performed at Coachella 2024, where their performance sparked widespread discussion about live singing standards in K-pop.", "source": "https://www.soompi.com/article/le-sserafim-coachella-2024"},
+    {"question": "Which member of LE SSERAFIM is the leader?", "options": ["Yunjin", "Kazuha", "Chaewon", "Sakura"], "correct": 2, "fun_fact": "Kim Chaewon is the leader of LE SSERAFIM. She was previously a member of IZ*ONE before debuting with LE SSERAFIM.", "source": "https://www.soompi.com/article/chaewon-le-sserafim-leader"},
+    {"question": "What preceded UNFORGIVEN in LE SSERAFIM''s discography that became a global hit?", "options": ["Fearless", "ANTIFRAGILE", "EASY", "Eve, Psyche intro"], "correct": 1, "fun_fact": "''ANTIFRAGILE'' (2022 mini album title track) was LE SSERAFIM''s biggest hit before UNFORGIVEN, going viral globally for its powerful concept.", "source": "https://www.soompi.com/article/le-sserafim-antifragile"},
+    {"question": "How many members does LE SSERAFIM have?", "options": ["4", "5", "6", "7"], "correct": 1, "fun_fact": "LE SSERAFIM has 5 members: Chaewon, Sakura, Yunjin, Kazuha, and Eunchae. Garam was a founding member but left the group in July 2022.", "source": "https://www.soompi.com/article/le-sserafim-members"}
+  ]'::jsonb,
+  'verified'
+);
+
+-- Quiz 100: SHINee Sherlock Era
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status) VALUES (
+  'SHINee: The Sherlock Era',
+  'SHINee''s artistically bold 2012 mini album and the concept that cemented their legend status.',
+  23,
+  'multiple_choice',
+  'hard',
+  'era',
+  '[
+    {"question": "When was SHINee''s ''Sherlock'' mini album released?", "options": ["2010", "2011", "2012", "2013"], "correct": 2, "fun_fact": "SHINee released their 4th mini album ''Sherlock'' (셜록) on March 22, 2012.", "source": "https://www.soompi.com/article/shinee-sherlock-release"},
+    {"question": "What innovative musical technique was used in ''Sherlock'' (the title track)?", "options": ["Live orchestra accompaniment", "Mashup of two pre-existing SHINee B-sides (Clue + Note)", "Fan-chosen lyrics", "First K-pop acapella full track"], "correct": 1, "fun_fact": "''Sherlock'' was created by mashing together two B-sides from the same mini album -- ''Clue'' and ''Note'' -- a rare compositional technique in K-pop.", "source": "https://www.soompi.com/article/shinee-sherlock-mashup"},
+    {"question": "What concept defines the Sherlock era?", "options": ["Romantic school love", "Investigative mystery -- each member as a detective discovering clues about love", "Dark supernatural horror", "Futuristic space exploration"], "correct": 1, "fun_fact": "The Sherlock concept cast SHINee as sharp, sophisticated investigators -- a mature, clever concept that fit their artistically evolved image.", "source": "https://www.soompi.com/article/shinee-sherlock-concept"},
+    {"question": "Which SHINee member is considered K-pop''s greatest dancer of his generation?", "options": ["Key", "Minho", "Taemin", "Onew"], "correct": 2, "fun_fact": "Taemin is universally regarded as one of K-pop''s greatest dancers, with fluid, detailed technique that influenced countless idols.", "source": "https://www.soompi.com/article/taemin-shinee-dancer"},
+    {"question": "What was SHINee''s nickname during the Sherlock era?", "options": ["Syndrome", "Sseullers", "The Sherlocks", "Ballad Kings"], "correct": 0, "fun_fact": "SHINee were called ''Syndrome'' (SHINee Syndrome) by fans during their peak commercial years for their overwhelming cultural impact.", "source": "https://www.allkpop.com/article/shinee-syndrome"},
+    {"question": "Which SM artist was most influenced by SHINee''s Sherlock era musical experiments?", "options": ["f(x)", "EXO", "BoA", "Super Junior"], "correct": 1, "fun_fact": "EXO''s early SM experimental sonic identity was directly influenced by SHINee''s willingness to push genre boundaries in the Sherlock era.", "source": "https://www.soompi.com/article/shinee-exo-influence"},
+    {"question": "What choreographer worked on the Sherlock performance?", "options": ["Kasper", "Rino Nakasone", "Hwang Soo Yeon", "Tony Testa"], "correct": 3, "fun_fact": "Tony Testa, known for his work with Michael Jackson''s estate and major pop artists, choreographed the SHINee Sherlock performances.", "source": "https://www.soompi.com/article/shinee-sherlock-choreographer"},
+    {"question": "How did ''Sherlock'' perform on the South Korean charts upon release?", "options": ["Debuted outside top 10", "Debuted at #1", "Only charted on Japan charts", "Charted after a slow start"], "correct": 1, "fun_fact": "''Sherlock'' debuted at #1 on major South Korean charts, demonstrating SHINee''s commercial dominance in 2012.", "source": "https://www.gaonchart.co.kr"},
+    {"question": "What was SHINee''s Japanese parallel activity during the Sherlock era?", "options": ["They stopped all Japan activity", "They released a Japanese version of Sherlock simultaneously", "They focused only on Korea", "They debuted a Japan-exclusive sub-unit"], "correct": 1, "fun_fact": "SHINee released a Japanese version of Sherlock as part of their extensive Japan promotions, maintaining dual Korean-Japanese market activity.", "source": "https://www.soompi.com/article/shinee-sherlock-japan"},
+    {"question": "What is SHINee''s lasting legacy from the Sherlock era in K-pop history?", "options": ["Starting the self-produced idol trend", "Demonstrating that K-pop could be musically sophisticated, experimental, and conceptually rich", "First K-pop group to perform in Europe", "Pioneering the large-member group format"], "correct": 1, "fun_fact": "SHINee''s Sherlock era is cited as proof that K-pop could be artistically ambitious -- influencing the next generation of concept-driven groups.", "source": "https://www.allkpop.com/article/shinee-sherlock-legacy"}
+  ]'::jsonb,
+  'verified'
+);
