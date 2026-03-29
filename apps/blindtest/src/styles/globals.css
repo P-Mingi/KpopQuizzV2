@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* -- Light mode (matches kpopquiz.org warm beige) -- */
+  --bg-primary: #FAF9F6;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F1EFE8;
+  --bg-input: #FFFFFF;
+
+  --border-default: #E8E6E0;
+  --border-hover: #D3D1C7;
+  --border-active: #B4B2A9;
+
+  --text-primary: #2C2C2A;
+  --text-secondary: #6B6B6B;
+  --text-tertiary: #9A9A9A;
+  --text-ghost: #CCCCCC;
+
+  --pink-50: rgba(237,147,177,0.08);
+  --pink-100: rgba(237,147,177,0.15);
+  --pink-200: #F4C0D1;
+  --pink-400: #ED93B1;
+  --pink-600: #D4537E;
+  --pink-900: #4B1528;
+
+  --correct: #27500A;
+  --correct-bg: #EAF3DE;
+  --correct-border: #97C459;
+  --wrong: #791F1F;
+  --wrong-bg: #FCEBEB;
+  --wrong-border: #F09595;
+  --streak: #854F0B;
+  --streak-bg: #FAEEDA;
+
+  --combo-bg: rgba(237,147,177,0.12);
+  --combo-text: #D4537E;
+
+  --speed-lightning: #D4537E;
+  --speed-fast: #ED93B1;
+  --speed-normal: #9A9A9A;
+  --speed-slow: #CCCCCC;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
+
+  --logo-accent: #D4537E;
+
+  --daily-card-from: #FDF2F7;
+  --daily-card-to: #FFFFFF;
+  --daily-card-border: #F4C0D1;
+}
+
+[data-theme="dark"] {
+  /* -- Dark mode (game identity) -- */
+  --bg-primary: #0D0D0F;
+  --bg-secondary: #16161A;
+  --bg-tertiary: #1E1E24;
+  --bg-input: #16161A;
+
+  --border-default: #1E1E24;
+  --border-hover: #2A2A30;
+  --border-active: #3A3A42;
+
+  --text-primary: #E8E6E0;
+  --text-secondary: #7A786E;
+  --text-tertiary: #5A584E;
+  --text-ghost: #3A3A42;
+
+  --pink-50: rgba(237,147,177,0.08);
+  --pink-100: rgba(237,147,177,0.15);
+  --pink-200: #F4C0D1;
+  --pink-400: #ED93B1;
+  --pink-600: #D4537E;
+  --pink-900: #4B1528;
+
+  --correct: #97C459;
+  --correct-bg: rgba(151,196,89,0.12);
+  --correct-border: rgba(151,196,89,0.4);
+  --wrong: #E24B4A;
+  --wrong-bg: rgba(226,75,74,0.12);
+  --wrong-border: rgba(226,75,74,0.4);
+  --streak: #EF9F27;
+  --streak-bg: rgba(239,159,39,0.12);
+
+  --combo-bg: rgba(237,147,177,0.15);
+  --combo-text: #ED93B1;
+
+  --speed-lightning: #ED93B1;
+  --speed-fast: #F4C0D1;
+  --speed-normal: #7A786E;
+  --speed-slow: #5A584E;
+
+  --shadow-card: none;
+
+  --logo-accent: #ED93B1;
+
+  --daily-card-from: #1E1028;
+  --daily-card-to: #16161A;
+  --daily-card-border: #2A2030;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pointsFloat {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-fadeSlideUp { animation: fadeSlideUp 0.3s ease; }
+.animate-pointsFloat { animation: pointsFloat 0.8s ease forwards; }
+.animate-shake { animation: shake 0.15s ease infinite; }
+.animate-pulse { animation: pulse 1.5s ease infinite; }

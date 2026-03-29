@@ -1,30 +1,4 @@
 -- ============================================
--- FUNCTIONS: Auto-update difficulty
--- ============================================
-CREATE OR REPLACE FUNCTION public.recalculate_difficulty(quiz_uuid UUID)
-RETURNS VOID AS $$
-DECLARE
-  avg_pct NUMERIC;
-  new_difficulty TEXT;
-BEGIN
-  SELECT
-    CASE WHEN total_completions > 0
-      THEN (total_score_sum::NUMERIC / total_completions) /
-           jsonb_array_length(questions) * 100
-      ELSE 50
-    END INTO avg_pct
-  FROM public.quizzes WHERE id = quiz_uuid;
-
-  IF avg_pct >= 70 THEN new_difficulty := 'easy';
-  ELSIF avg_pct >= 40 THEN new_difficulty := 'medium';
-  ELSE new_difficulty := 'hard';
-  END IF;
-
-  UPDATE public.quizzes SET difficulty = new_difficulty WHERE id = quiz_uuid;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
--- ============================================
 -- FUNCTIONS: Record a play (atomic)
 -- ============================================
 CREATE OR REPLACE FUNCTION public.record_play(
@@ -70,9 +44,6 @@ BEGIN
   SET total_plays_received = total_plays_received + 1,
       updated_at = NOW()
   WHERE id = quiz_creator;
-
-  -- Recalculate difficulty
-  PERFORM public.recalculate_difficulty(p_quiz_id);
 
   -- Calculate percentile
   SELECT COUNT(*) INTO total_plays_count FROM public.plays WHERE quiz_id = p_quiz_id;
