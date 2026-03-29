@@ -40,7 +40,7 @@ export async function POST() {
   const songIds = challenge.song_ids as string[];
   const { data: songs } = await serviceClient
     .from('blind_test_songs')
-    .select('id, title, artist, youtube_id, wrong_answers, clip_chorus, group_id, generation, gender')
+    .select('id, title, artist, youtube_id, wrong_answers, clip_chorus, group_id, generation, gender, groups(name)')
     .in('id', songIds)
     .eq('status', 'active');
 
@@ -80,6 +80,7 @@ export async function POST() {
       youtube_id: song.youtube_id,
       clip_start: song.clip_chorus as number,
       group_id: song.group_id,
+      group_name: ((song as Record<string, unknown>).groups as { name: string } | null)?.name ?? null,
       question_type: questionType,
       choices,
       _answer: { correct_index: correctIndex, title: song.title, artist: song.artist },

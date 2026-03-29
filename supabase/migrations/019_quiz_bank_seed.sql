@@ -731,3 +731,457 @@ VALUES (
   'verified',
   'Sources: Wikipedia Shinee, Wikipedia Replay (SHINee song), Wikipedia Jonghyun (singer), Wikipedia Taemin, Wikipedia Boys Meet U, Wikipedia Move (Taemin song)'
 );
+
+-- 30. GOT7 Ultimate Quiz (medium, group_specific)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'GOT7: Never Ever Quiz',
+  'iGOT7, prove your knowledge of GOT7 -- from JYP to their independent era!',
+  21,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "In what year did GOT7 debut?", "options": ["2013", "2014", "2015", "2016"], "correct": 1, "fun_fact": "GOT7 debuted on January 16, 2014 under JYP Entertainment with the EP Got It?, featuring the title track Got It?.", "source": "https://en.wikipedia.org/wiki/Got7"},
+    {"question": "How many members does GOT7 have?", "options": ["6", "7", "8", "9"], "correct": 1, "fun_fact": "GOT7 has 7 members: Jay B (leader), Mark, Jackson, Jinyoung, Youngjae, BamBam, and Yugyeom.", "source": "https://en.wikipedia.org/wiki/Got7"},
+    {"question": "Jackson Wang is from which region?", "options": ["Beijing, China", "Hong Kong", "Shanghai, China", "Taiwan"], "correct": 1, "fun_fact": "Jackson Wang (Wang Ka-yee) was born and raised in Hong Kong. Before joining JYP, he was a member of the Hong Kong national fencing team.", "source": "https://en.wikipedia.org/wiki/Jackson_Wang"},
+    {"question": "BamBam is from which country?", "options": ["Vietnam", "Indonesia", "Philippines", "Thailand"], "correct": 3, "fun_fact": "BamBam (Kunpimook Bhuwakul) is from Bangkok, Thailand. He was childhood friends with BLACKPINK''s Lisa before both joined K-pop companies.", "source": "https://en.wikipedia.org/wiki/BamBam_(rapper)"},
+    {"question": "What is GOT7''s fandom name?", "options": ["AHGASE (iGOT7)", "STAY", "IGOT", "SEVEN"], "correct": 0, "fun_fact": "GOT7''s fandom is called IGOT7 (아가새, Ahgase), which means ''baby bird'' in Korean. The name plays on the pronunciation of ''I GOT7'' in Korean.", "source": "https://en.wikipedia.org/wiki/Got7"},
+    {"question": "GOT7 parted ways with JYP Entertainment in 2021 and all seven members signed with different agencies. What made this unusual?", "options": ["They disbanded completely", "All 7 members stayed together as GOT7 while individually signing with different companies", "They merged with another group", "They moved to one competing label together"], "correct": 1, "fun_fact": "When GOT7 left JYP in 2021, all seven members retained the group name and reunited for group activities despite each signing with a different agency, a highly unusual arrangement in K-pop.", "source": "https://en.wikipedia.org/wiki/Got7"},
+    {"question": "Which GOT7 hit (2017) features an acoustic guitar intro and became one of their most-loved ballads?", "options": ["Hard Carry", "Never Ever", "Just Right", "You Are"], "correct": 3, "fun_fact": "You Are (2017) from the album 7 for 7 showcases GOT7''s vocal side and became a fan-favorite ballad. It is one of the group''s most emotionally resonant songs.", "source": "https://en.wikipedia.org/wiki/7_for_7"},
+    {"question": "Mark Tuan is from which country?", "options": ["South Korea", "Japan", "United States", "Taiwan"], "correct": 2, "fun_fact": "Mark Tuan was born in Los Angeles, California, USA, to Taiwanese-American parents. He is fluent in English and Mandarin in addition to Korean.", "source": "https://en.wikipedia.org/wiki/Mark_Tuan"},
+    {"question": "Which entertainment company was GOT7 under from their debut until 2021?", "options": ["SM Entertainment", "YG Entertainment", "JYP Entertainment", "HYBE"], "correct": 2, "fun_fact": "GOT7 debuted under JYP Entertainment in January 2014 and remained with the label until their contracts expired at the end of 2021.", "source": "https://en.wikipedia.org/wiki/Got7"},
+    {"question": "GOT7''s leader Jay B is also known by which other name reflecting his acting career?", "options": ["Lim Jaebum", "Im Jae-bum", "Jaebum Im", "JB Im"], "correct": 1, "fun_fact": "GOT7''s leader Jay B (Im Jae-bum) is also known as Def.B for his solo music and Im Jae-bum for his acting roles. He has starred in several Korean dramas and films.", "source": "https://en.wikipedia.org/wiki/Im_Jae-bum"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Got7, Wikipedia Jackson Wang, Wikipedia BamBam (rapper), Wikipedia 7 for 7, Wikipedia Mark Tuan, Wikipedia Im Jae-bum'
+);
+
+-- 31. MONSTA X Ultimate Quiz (medium, group_specific) [from agent a530da1]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'MONSTA X Ultimate Fan Quiz',
+  'Put your Monbebe knowledge to the test with this MONSTA X trivia quiz!',
+  20,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "In what year did MONSTA X debut?", "options": ["2013", "2014", "2015", "2016"], "correct": 2, "fun_fact": "MONSTA X debuted on May 14, 2015 under Starship Entertainment after being formed through the Mnet survival show No.Mercy.", "source": "https://en.wikipedia.org/wiki/Monsta_X"},
+    {"question": "What is the name of MONSTA X''s official fandom?", "options": ["MONBEBE", "STARSHIP", "MONLIGHT", "MONSTARZ"], "correct": 0, "fun_fact": "Monbebe means ''my baby'' in French, and the fandom name was chosen to reflect the close bond between MONSTA X and their fans.", "source": "https://en.wikipedia.org/wiki/Monsta_X"},
+    {"question": "Which survival show did MONSTA X form through?", "options": ["Produce 101", "Mix Nine", "No.Mercy", "The Unit"], "correct": 2, "fun_fact": "No.Mercy was a Starship Entertainment survival program that aired on Mnet in 2014-2015, resulting in the formation of MONSTA X.", "source": "https://en.wikipedia.org/wiki/No_Mercy_(TV_series)"},
+    {"question": "Which MONSTA X song is known for its powerful choreography from their debut era?", "options": ["Beautiful", "Dramarama", "Rush", "Fighter"], "correct": 2, "fun_fact": "Rush was released in September 2015 as part of their first mini album Rush, and showcased the group''s energetic performance style.", "source": "https://en.wikipedia.org/wiki/Rush_(Monsta_X_EP)"},
+    {"question": "MONSTA X''s hit song Beautiful was the title track of which album?", "options": ["The Clan Pt. 1", "The Clan Pt. 2.5 Beautiful", "Take.1 Are You There?", "All About Luv"], "correct": 1, "fun_fact": "Beautiful was the title track of The Clan Pt. 2.5 Beautiful, released in 2017, and became one of the group''s most beloved songs.", "source": "https://en.wikipedia.org/wiki/The_Clan_Pt._2.5_%27Beautiful%27"},
+    {"question": "Which MONSTA X member is the main vocalist of the group?", "options": ["Minhyuk", "Joohoney", "I.M", "Kihyun"], "correct": 3, "fun_fact": "Kihyun is known as MONSTA X''s main vocalist and is widely praised for his powerful and emotive singing.", "source": "https://en.wikipedia.org/wiki/Monsta_X"},
+    {"question": "Under which entertainment company does MONSTA X operate?", "options": ["SM Entertainment", "JYP Entertainment", "Starship Entertainment", "Cube Entertainment"], "correct": 2, "fun_fact": "MONSTA X has been under Starship Entertainment since their formation and debut in 2015.", "source": "https://en.wikipedia.org/wiki/Monsta_X"},
+    {"question": "Which MONSTA X song from 2017 featured a dramatic time-travel music video?", "options": ["Love Killa", "GAMBLER", "Dramarama", "Fighter"], "correct": 2, "fun_fact": "Dramarama was released in October 2017 and featured a time-travel storyline in its music video, earning widespread acclaim.", "source": "https://en.wikipedia.org/wiki/The_Connect:_Dejavu"},
+    {"question": "MONSTA X released their English-language album ''All About Luv'' targeting which market?", "options": ["Japanese market", "Chinese market", "US market", "European market"], "correct": 2, "fun_fact": "All About Luv was released in February 2020 as MONSTA X''s first fully English-language album, aimed at breaking into the US market.", "source": "https://en.wikipedia.org/wiki/All_About_Luv"},
+    {"question": "Which MONSTA X title track from 2020 is celebrated for its charismatic performance style?", "options": ["Beautiful", "Dramarama", "Love Killa", "Rush"], "correct": 2, "fun_fact": "Love Killa was released in October 2020 and is celebrated for its charismatic performance style and sleek production.", "source": "https://en.wikipedia.org/wiki/Fatal_Love"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Monsta X, Wikipedia Rush (Monsta X EP), Wikipedia The Clan Pt. 2.5 Beautiful, Wikipedia All About Luv, Wikipedia Fatal Love'
+);
+
+-- 32. NCT Dream Ultimate Quiz (medium, group_specific) [from agent a530da1]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'NCT Dream: Hot Sauce Quiz',
+  'How well do you know NCT DREAM, the youth sub-unit of NCT?',
+  12,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "In what year did NCT DREAM debut?", "options": ["2015", "2016", "2017", "2018"], "correct": 1, "fun_fact": "NCT DREAM debuted on August 25, 2016 under SM Entertainment with the single Chewing Gum.", "source": "https://en.wikipedia.org/wiki/NCT_Dream"},
+    {"question": "What was NCT DREAM''s debut song?", "options": ["My First and Last", "We Young", "Chewing Gum", "Boom"], "correct": 2, "fun_fact": "Chewing Gum was NCT DREAM''s debut track, released on August 25, 2016, establishing the sub-unit''s youthful, playful concept.", "source": "https://en.wikipedia.org/wiki/Chewing_Gum_(NCT_Dream_song)"},
+    {"question": "NCT DREAM is a sub-unit of which larger group?", "options": ["EXO", "SHINee", "NCT", "Super Junior"], "correct": 2, "fun_fact": "NCT DREAM is one of several sub-units under the NCT umbrella, which operates under SM Entertainment''s unique rotational system concept.", "source": "https://en.wikipedia.org/wiki/NCT_(group)"},
+    {"question": "What was the concept behind NCT DREAM''s original rotational membership system?", "options": ["Members rotate based on popularity", "Members graduate when they turn 20", "Members are replaced every year", "Members join based on fan votes"], "correct": 1, "fun_fact": "Originally, NCT DREAM members were to ''graduate'' from the unit upon turning 20 years old, symbolizing the transition from youth to adulthood.", "source": "https://en.wikipedia.org/wiki/NCT_Dream"},
+    {"question": "Which NCT DREAM album featured the hit title track ''Hot Sauce''?", "options": ["Hello Future", "We Boom", "Hot Sauce", "Candy"], "correct": 2, "fun_fact": "Hot Sauce was NCT DREAM''s first full-length studio album, released on May 10, 2021, marking a major milestone for the group.", "source": "https://en.wikipedia.org/wiki/Hot_Sauce_(album)"},
+    {"question": "Which NCT DREAM song from 2017 became known for its bright, summery concept?", "options": ["Boom", "We Young", "My First and Last", "Trigger the Fever"], "correct": 1, "fun_fact": "We Young was released in August 2017 and showcased NCT DREAM''s cheerful, energetic side with a fun summer theme.", "source": "https://en.wikipedia.org/wiki/We_Young"},
+    {"question": "NCT DREAM''s song ''Boom'' was the title track from which mini album?", "options": ["Hot Sauce", "We Boom", "Hello Future", "Candy"], "correct": 1, "fun_fact": "Boom was the title track of the mini album We Boom, released in September 2019, and became one of NCT DREAM''s most energetic releases.", "source": "https://en.wikipedia.org/wiki/We_Boom"},
+    {"question": "NCT DREAM released a holiday-themed song called ''Candy'' which was a cover of which original song?", "options": ["A H.O.T original", "A Shinhwa original", "A g.o.d original", "A SHINee original"], "correct": 0, "fun_fact": "Candy is a cover of the 1996 H.O.T song of the same name, released by NCT DREAM in November 2022 as a winter special.", "source": "https://en.wikipedia.org/wiki/Candy_(NCT_Dream_song)"},
+    {"question": "Which NCT DREAM repackage album followed Hot Sauce?", "options": ["We Boom", "Hello Future", "Glitch Mode", "Beatbox"], "correct": 1, "fun_fact": "Hello Future was released on June 28, 2021 as a repackage of the Hot Sauce album, featuring new tracks including the upbeat title Hello Future.", "source": "https://en.wikipedia.org/wiki/Hello_Future_(album)"},
+    {"question": "What was the concept behind NCT DREAM''s ''Glitch Mode'' (2022)?", "options": ["Retro 80s concept", "Futuristic glitch-art aesthetic", "School/youth theme", "Dark psychological concept"], "correct": 1, "fun_fact": "Glitch Mode (2022) featured a futuristic, glitch-art aesthetic with distorted visuals, representing NCT DREAM''s evolution into a more mature sound while maintaining their youthful energy.", "source": "https://en.wikipedia.org/wiki/Glitch_Mode"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia NCT Dream, Wikipedia NCT (group), Wikipedia Hot Sauce (album), Wikipedia We Boom, Wikipedia Candy (NCT Dream song), Wikipedia Hello Future (album), Wikipedia Glitch Mode'
+);
+
+-- 33. BIGBANG Ultimate Quiz (medium, group_specific) [from agent a530da1]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'BIGBANG: VIPs Only Quiz',
+  'Test your knowledge of BIGBANG, the legendary K-pop group from YG Entertainment.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "In what year did BIGBANG officially debut?", "options": ["2004", "2005", "2006", "2007"], "correct": 2, "fun_fact": "BIGBANG debuted on August 19, 2006 under YG Entertainment.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"},
+    {"question": "Which BIGBANG member goes by the stage name G-Dragon?", "options": ["Choi Seunghyun", "Kang Daesung", "Kwon Jiyong", "Dong Youngbae"], "correct": 2, "fun_fact": "Kwon Jiyong, known as G-Dragon, is widely regarded as one of the most influential figures in K-pop history.", "source": "https://en.wikipedia.org/wiki/G-Dragon"},
+    {"question": "What is Taeyang''s real name?", "options": ["Choi Seunghyun", "Dong Youngbae", "Lee Seunghyun", "Kwon Jiyong"], "correct": 1, "fun_fact": "Dong Youngbae, known as Taeyang, is celebrated for his powerful vocals and dancing, and his stage name means ''sun'' in Korean.", "source": "https://en.wikipedia.org/wiki/Taeyang"},
+    {"question": "Which BIGBANG song won Song of the Year at the 2007 Mnet Asian Music Awards?", "options": ["Haru Haru", "Lies", "Last Farewell", "Day by Day"], "correct": 1, "fun_fact": "Lies (거짓말) was BIGBANG''s breakthrough hit and dominated charts in 2007. It became one of their signature songs.", "source": "https://en.wikipedia.org/wiki/Lies_(BigBang_song)"},
+    {"question": "What is the name of BIGBANG''s fandom?", "options": ["VIP", "BLACKJACK", "BLINK", "ROYAL"], "correct": 0, "fun_fact": "BIGBANG''s fandom VIP has been one of the most dedicated fandoms in K-pop since the group''s debut in 2006.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"},
+    {"question": "Which BIGBANG member uses the stage name T.O.P?", "options": ["Kang Daesung", "Lee Seunghyun", "Choi Seunghyun", "Dong Youngbae"], "correct": 2, "fun_fact": "Choi Seunghyun, known as T.O.P, is also recognized for his acting career in addition to his music career with BIGBANG.", "source": "https://en.wikipedia.org/wiki/T.O.P"},
+    {"question": "BIGBANG''s hit FANTASTIC BABY was released as part of which album?", "options": ["Still Alive", "MADE", "Alive", "Tonight"], "correct": 2, "fun_fact": "FANTASTIC BABY was released on the Alive album in 2012 and became one of BIGBANG''s most iconic tracks, known for its colorful and eccentric music video.", "source": "https://en.wikipedia.org/wiki/Alive_(BigBang_album)"},
+    {"question": "Which year was BIGBANG''s MADE series released?", "options": ["2013", "2014", "2015", "2016"], "correct": 2, "fun_fact": "The MADE series was released throughout 2015 as a series of single albums (M, A, D, E), culminating in the full album MADE in 2016.", "source": "https://en.wikipedia.org/wiki/Made_(BigBang_album)"},
+    {"question": "G-Dragon is widely considered what in the K-pop industry?", "options": ["King of K-pop", "Father of K-pop", "God of K-pop Fashion", "Pioneer of K-pop rap"], "correct": 0, "fun_fact": "G-Dragon is widely referred to as the ''King of K-pop'' for his enormous influence on music, fashion, and culture. He is one of the most decorated K-pop artists ever.", "source": "https://en.wikipedia.org/wiki/G-Dragon"},
+    {"question": "Which entertainment company manages BIGBANG?", "options": ["SM Entertainment", "JYP Entertainment", "YG Entertainment", "HYBE"], "correct": 2, "fun_fact": "BIGBANG has been under YG Entertainment since their debut in 2006, helping to define the agency''s signature hip-hop influenced sound.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia BigBang (South Korean band), Wikipedia G-Dragon, Wikipedia Taeyang, Wikipedia Lies (BigBang song), Wikipedia T.O.P, Wikipedia Alive (BigBang album), Wikipedia Made (BigBang album)'
+);
+
+-- 34. Girls Generation (SNSD) Ultimate Quiz (medium, group_specific) [from agent a530da1]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'Girls'' Generation: The Legend Quiz',
+  'Are you a true SONE? Test your knowledge of the legendary Girls'' Generation (SNSD)!',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'group_specific',
+  '[
+    {"question": "In what year did Girls'' Generation officially debut?", "options": ["2005", "2006", "2007", "2008"], "correct": 2, "fun_fact": "Girls'' Generation debuted on August 5, 2007 under SM Entertainment with the single Into the New World.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "How many members did Girls'' Generation have at their debut?", "options": ["7", "8", "9", "10"], "correct": 2, "fun_fact": "Girls'' Generation debuted with 9 members: Taeyeon, Sunny, Tiffany, Hyoyeon, Yuri, Sooyoung, Yoona, Seohyun, and Jessica.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "What is the name of Girls'' Generation''s official fandom?", "options": ["ONCE", "SONE", "STAR1", "CLOUD"], "correct": 1, "fun_fact": "SONE (pronounced ''So-One'') has been the official fandom name for Girls'' Generation since their debut era.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "Which Girls'' Generation song became a massive pan-Asian hit in 2009 known for its catchy hook?", "options": ["Genie", "Run Devil Run", "Gee", "Oh!"], "correct": 2, "fun_fact": "Gee was released in January 2009 and broke records by staying at number one on Korean music charts for nine consecutive weeks.", "source": "https://en.wikipedia.org/wiki/Gee_(song)"},
+    {"question": "Which member departed from Girls'' Generation in September 2014?", "options": ["Sunny", "Sooyoung", "Tiffany", "Jessica"], "correct": 3, "fun_fact": "Jessica parted ways with Girls'' Generation in September 2014 and has since pursued a solo music career and authored several novels.", "source": "https://en.wikipedia.org/wiki/Jessica_Jung"},
+    {"question": "Girls'' Generation''s debut song Into the New World has become an anthem for which type of movement in South Korea?", "options": ["Environmental activism", "Pro-democracy and social movements", "Sports celebrations", "Youth volunteerism"], "correct": 1, "fun_fact": "Into the New World has frequently been sung at protests and social movement rallies in South Korea, becoming an unofficial anthem of change and hope.", "source": "https://en.wikipedia.org/wiki/Into_the_New_World"},
+    {"question": "Which Girls'' Generation song featured a bold concept shift with an experimental, genre-blending sound in 2013?", "options": ["Mr.Mr.", "I Got a Boy", "The Boys", "Run Devil Run"], "correct": 1, "fun_fact": "I Got a Boy, released in January 2013, was praised for its genre-blending structure and won Video of the Year at the YouTube Music Awards.", "source": "https://en.wikipedia.org/wiki/I_Got_a_Boy"},
+    {"question": "Under which entertainment company has Girls'' Generation been signed since their debut?", "options": ["JYP Entertainment", "YG Entertainment", "SM Entertainment", "HYBE"], "correct": 2, "fun_fact": "Girls'' Generation has been with SM Entertainment since their pre-debut training days, debuting under the label in 2007.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "Which Girls'' Generation song was released to celebrate their 15th anniversary in 2022?", "options": ["Holiday", "All Night", "FOREVER 1", "Sailing"], "correct": 2, "fun_fact": "FOREVER 1 was released on August 5, 2022 to commemorate Girls'' Generation''s 15th debut anniversary, reuniting all 8 remaining members.", "source": "https://en.wikipedia.org/wiki/Forever_1_(album)"},
+    {"question": "Girls'' Generation''s song ''Genie'' is well known for which dance move?", "options": ["The wave", "The leg dance", "The shuffle", "The point dance"], "correct": 1, "fun_fact": "Genie''s choreography features a distinctive seated leg movement often called the ''leg dance'' or the ''Genie dance,'' which became iconic and widely imitated.", "source": "https://en.wikipedia.org/wiki/Genie_(Girls%27_Generation_song)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Girls Generation, Wikipedia Gee (song), Wikipedia Jessica Jung, Wikipedia Into the New World, Wikipedia I Got a Boy, Wikipedia Forever 1 (album), Wikipedia Genie (Girls Generation song)'
+);
+
+-- ============================================
+-- KNOWLEDGE QUIZZES (20 total)
+-- ============================================
+
+-- 35. K-pop Concert Tours (medium, knowledge) [from agent a93dfc8]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Concert Tours',
+  'Test your knowledge of K-pop''s biggest world tours, their names, and the years they took place.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "What was the name of BTS''s 2018-2019 world tour?", "options": ["Map of the Soul Tour", "Love Yourself World Tour", "Wings Tour", "Speak Yourself Tour"], "correct": 1, "fun_fact": "The BTS World Tour: Love Yourself ran from August 25, 2018 to October 29, 2019, spanning 62 concerts across 14 countries.", "source": "https://en.wikipedia.org/wiki/Love_Yourself_World_Tour"},
+    {"question": "In which year did BLACKPINK kick off their Born Pink World Tour?", "options": ["2021", "2023", "2022", "2020"], "correct": 2, "fun_fact": "The Born Pink World Tour began on October 15, 2022, in Seoul. It became the highest-grossing concert tour ever by a female group, earning $330 million.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"},
+    {"question": "What was the name of TWICE''s 5th world tour that launched in 2023?", "options": ["Formula of Love Tour", "Taste of Love Tour", "Ready to Be World Tour", "Between 1&2 Tour"], "correct": 2, "fun_fact": "TWICE''s 5th World Tour ''Ready to Be'' launched on April 15, 2023, in Seoul and ran through July 2024 across Asia, North America, Europe, and Australia.", "source": "https://en.wikipedia.org/wiki/Ready_to_Be_World_Tour"},
+    {"question": "What was the name of Stray Kids'' 2nd world tour that began in April 2022?", "options": ["District 9 Tour", "ODDINARY Tour", "MANIAC World Tour", "MIROH Tour"], "correct": 2, "fun_fact": "Stray Kids'' 2nd World Tour ''MANIAC'' kicked off at Jamsil Arena in Seoul on April 29, 2022, and toured cities across Japan and North America.", "source": "https://en.wikipedia.org/wiki/Maniac_World_Tour"},
+    {"question": "How many countries did BLACKPINK''s Born Pink World Tour cover?", "options": ["10", "15", "22", "30"], "correct": 2, "fun_fact": "The Born Pink World Tour covered 22 countries and was attended by 1.8 million people, making it the most-attended concert tour by a K-pop girl group.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"},
+    {"question": "What was the name of aespa''s first-ever world tour in 2023?", "options": ["SYNK: Hyper Line", "MY: Wonder", "SPICY Tour", "SYNK: Parallel Line"], "correct": 0, "fun_fact": "aespa''s debut concert tour was ''SYNK: Hyper Line,'' spanning 31 concerts in 21 cities across 12 countries from February to September 2023.", "source": "https://en.wikipedia.org/wiki/Synk:_Hyper_Line"},
+    {"question": "BTS''s Love Yourself World Tour concluded in which year?", "options": ["2018", "2019", "2020", "2021"], "correct": 1, "fun_fact": "The Love Yourself World Tour concluded on October 29, 2019, after 62 concerts. An extension called Love Yourself: Speak Yourself included stadium shows in 2019.", "source": "https://en.wikipedia.org/wiki/Love_Yourself_World_Tour"},
+    {"question": "In which city did BLACKPINK''s Born Pink World Tour begin?", "options": ["Los Angeles", "Tokyo", "Seoul", "London"], "correct": 2, "fun_fact": "The Born Pink World Tour opened in Seoul, South Korea, on October 15, 2022, before heading to North America, Europe, Asia, and Australia.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"},
+    {"question": "TWICE''s ''Ready to Be'' world tour began in which city?", "options": ["Tokyo", "New York", "Seoul", "Sydney"], "correct": 2, "fun_fact": "TWICE''s Ready to Be World Tour opened at KSPO Dome in Seoul on April 15-16, 2023. The tour later grossed over $54 million from 18 reported shows by September 2023.", "source": "https://en.wikipedia.org/wiki/Ready_to_Be_World_Tour"},
+    {"question": "Which K-pop group''s world tour was described as one of the largest stadium tours in K-pop history after BTS?", "options": ["SEVENTEEN", "aespa", "Stray Kids", "BLACKPINK"], "correct": 3, "fun_fact": "BLACKPINK''s Born Pink World Tour is the largest and highest-grossing stadium tour by a K-pop girl group, earning $330 million across 66 concerts.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Born Pink World Tour, Love Yourself World Tour, Ready to Be World Tour, Maniac World Tour, Synk: Hyper Line'
+);
+
+-- 36. K-pop Variety Shows (medium, knowledge) [from agent a93dfc8]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Variety Shows',
+  'Match K-pop groups to their famous variety shows and web series.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "Which group hosts the variety web series ''Run BTS!''?", "options": ["SEVENTEEN", "BTS", "EXO", "NCT"], "correct": 1, "fun_fact": "Run BTS! premiered on August 1, 2015, on V LIVE. Three seasons comprising over 155 episodes have been released, with episodes now available on Weverse and YouTube.", "source": "https://en.wikipedia.org/wiki/Run_BTS"},
+    {"question": "What platform originally hosted ''Run BTS!'' before it moved to Weverse?", "options": ["YouTube", "Netflix", "V LIVE", "Naver TV"], "correct": 2, "fun_fact": "Run BTS! originally aired on V LIVE. When V LIVE was integrated into Weverse in late 2022, all episodes were uploaded to YouTube.", "source": "https://en.wikipedia.org/wiki/Run_BTS"},
+    {"question": "Which group stars in the variety web series ''Going Seventeen''?", "options": ["NCT", "BTS", "SEVENTEEN", "ATEEZ"], "correct": 2, "fun_fact": "Going Seventeen premiered on June 12, 2017, on V LIVE and later moved to YouTube and Weverse. The show features the members in games, skits, and challenges.", "source": "https://en.wikipedia.org/wiki/Going_Seventeen_(web_series)"},
+    {"question": "Which group hosted the reality show ''BLACKPINK House'' in 2018?", "options": ["TWICE", "MAMAMOO", "BLACKPINK", "Red Velvet"], "correct": 2, "fun_fact": "BLACKPINK House was a reality show that aired in 2018, following the four BLACKPINK members living together in a house and going on trips.", "source": "https://kpop.fandom.com/wiki/BLACKPINK_House"},
+    {"question": "''Going Seventeen'' first premiered in which year?", "options": ["2015", "2016", "2017", "2018"], "correct": 2, "fun_fact": "Going Seventeen premiered on June 12, 2017. The show has continued for many seasons and is beloved by fans (CARATs) for its candid and comedic content.", "source": "https://en.wikipedia.org/wiki/Going_Seventeen_(web_series)"},
+    {"question": "On which platform is ''Run BTS!'' currently available to watch?", "options": ["Netflix", "Weverse and YouTube", "Mnet", "V LIVE only"], "correct": 1, "fun_fact": "Following V LIVE''s shutdown at the end of 2022, Run BTS! episodes are available on Weverse and YouTube. New episodes continue to be released on Weverse.", "source": "https://en.wikipedia.org/wiki/Run_BTS"},
+    {"question": "Which group''s behind-the-scenes reality content is called ''NCT Life''?", "options": ["SEVENTEEN", "NCT", "EXO", "SHINee"], "correct": 1, "fun_fact": "NCT Life is a series of reality programs featuring NCT members in various travel and mission-based activities, released across multiple seasons.", "source": "https://kpop.fandom.com/wiki/NCT_Life"},
+    {"question": "Solar of MAMAMOO is famous for her personal YouTube channel called what?", "options": ["Solar Sunrise", "SOLARSIDO", "Solar Power", "Moon&Sun"], "correct": 1, "fun_fact": "Solar runs the YouTube channel SOLARSIDO, where she posts vlogs, challenges, and variety content. It has millions of subscribers and is one of the most successful idol YouTube channels.", "source": "https://en.wikipedia.org/wiki/Solar_(singer)"},
+    {"question": "BTS''s docuseries ''Burn the Stage'' was released on which platform in 2018?", "options": ["Netflix", "YouTube Premium", "Disney+", "V LIVE"], "correct": 1, "fun_fact": "Burn the Stage is a BTS docuseries that premiered on YouTube Premium in November 2018, following BTS during their Wings Tour. It was later released as a theatrical film.", "source": "https://en.wikipedia.org/wiki/Burn_the_Stage"},
+    {"question": "Which platform produces the survival show ''I-LAND'' that formed ENHYPEN?", "options": ["SBS", "KBS", "Mnet", "MBC"], "correct": 2, "fun_fact": "I-LAND was produced by Mnet and HYBE, airing from June to September 2020. The show selected 7 members to form ENHYPEN, who debuted in November 2020.", "source": "https://en.wikipedia.org/wiki/I-Land"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Run BTS, Wikipedia Going Seventeen (web series), Kpop Wiki Fandom, Wikipedia Solar (singer), Wikipedia Burn the Stage, Wikipedia I-Land'
+);
+
+-- 37. K-pop Sub-units and Solo Debuts (hard, knowledge) [from agent a93dfc8]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Sub-units and Solo Debuts',
+  'How well do you know K-pop group sub-units and members'' solo projects?',
+  NULL,
+  'multiple_choice',
+  'hard',
+  'knowledge',
+  '[
+    {"question": "EXO originally debuted as two sub-units promoting simultaneously. What were the two sub-unit names?", "options": ["EXO-A and EXO-B", "EXO-K and EXO-M", "EXO-Seoul and EXO-Beijing", "EXO-1 and EXO-2"], "correct": 1, "fun_fact": "EXO-K promoted in South Korea while EXO-M promoted in China, both debuting on April 8, 2012 with the song MAMA.", "source": "https://en.wikipedia.org/wiki/Exo"},
+    {"question": "Which NCT sub-unit was the first to debut in 2016?", "options": ["NCT 127", "NCT Dream", "NCT U", "WayV"], "correct": 2, "fun_fact": "NCT U debuted on April 9, 2016, with The 7th Sense and Without You, followed by NCT 127 in July and NCT Dream in August of the same year.", "source": "https://en.wikipedia.org/wiki/NCT_(group)"},
+    {"question": "Which NCT sub-unit focuses on the Chinese market and debuted in 2019?", "options": ["NCT Dream", "NCT 127", "NCT U", "WayV"], "correct": 3, "fun_fact": "WayV debuted on January 17, 2019, with a Chinese version of NCT 127''s Regular. The unit consists of members including Kun, Ten, Winwin, Lucas, Xiaojun, Hendery, and YangYang.", "source": "https://en.wikipedia.org/wiki/NCT_(group)"},
+    {"question": "SEVENTEEN is divided into three sub-units. Which of the following is NOT one of them?", "options": ["Hip-Hop Unit", "Vocal Unit", "Dance Unit", "Performance Unit"], "correct": 2, "fun_fact": "SEVENTEEN''s three official units are the Hip-Hop Unit (S.Coups, Wonwoo, Mingyu, Vernon), Vocal Unit (Jeonghan, Joshua, Woozi, DK, Seungkwan), and Performance Unit (Hoshi, Jun, The8, Dino).", "source": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"},
+    {"question": "Which BTS member released the solo mixtape ''Hope World'' in 2018?", "options": ["RM", "SUGA", "J-Hope", "Jimin"], "correct": 2, "fun_fact": "J-Hope released his debut solo mixtape Hope World in 2018, which charted on the Billboard 200 at number 38, the highest charting by a K-pop solo at the time.", "source": "https://en.wikipedia.org/wiki/Hope_World"},
+    {"question": "Under what name does BTS member SUGA release his solo music?", "options": ["Shadow", "Agust D", "Min Yoongi", "GENIUS"], "correct": 1, "fun_fact": "SUGA''s solo project name Agust D is derived from his hometown DT Suga (Daegu Town + Suga reversed). He released mixtapes in 2016 and 2020, and his first full album D-DAY in 2023.", "source": "https://en.wikipedia.org/wiki/Agust_D"},
+    {"question": "What was the name of Jimin''s first solo album released in 2023?", "options": ["MUSE", "FACE", "FILTER", "Promise"], "correct": 1, "fun_fact": "Jimin released his first solo album FACE on March 24, 2023, with the lead single Set Me Free Pt. 2. It debuted at number two on the Billboard 200.", "source": "https://en.wikipedia.org/wiki/Face_(Jimin_album)"},
+    {"question": "What was Jungkook''s first solo album released in 2023?", "options": ["Still With You", "Seven", "Golden", "Jung Kook"], "correct": 2, "fun_fact": "Jungkook released his debut solo album Golden on November 3, 2023. It debuted at number two on the Billboard 200, with multiple singles charting worldwide.", "source": "https://en.wikipedia.org/wiki/Golden_(album)"},
+    {"question": "How many NCT sub-units debuted in the year 2016?", "options": ["1", "2", "3", "4"], "correct": 2, "fun_fact": "Three NCT sub-units debuted in 2016: NCT U (April), NCT 127 (July), and NCT Dream (August). WayV debuted later in 2019.", "source": "https://en.wikipedia.org/wiki/NCT_(group)"},
+    {"question": "Which EXO sub-unit consists of Chen, Baekhyun, and Xiumin?", "options": ["EXO-K", "EXO-M", "EXO-CBX", "EXO-SC"], "correct": 2, "fun_fact": "EXO-CBX (Chen-Baek-Xi) debuted as EXO''s first official sub-unit in October 2016. Their name comes from the first letters of Chen, Baekhyun, and Xiumin.", "source": "https://en.wikipedia.org/wiki/Exo"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia NCT group, Wikipedia EXO, Wikipedia SEVENTEEN, Wikipedia Hope World, Wikipedia Agust D, Wikipedia Face (Jimin album), Wikipedia Golden (album)'
+);
+
+-- 38. K-pop on Spotify (hard, knowledge) [from agent a93dfc8]
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Streaming Records',
+  'Test your knowledge of K-pop''s biggest streaming records and milestones.',
+  NULL,
+  'multiple_choice',
+  'hard',
+  'knowledge',
+  '[
+    {"question": "Which K-pop song was the first by any K-pop act to surpass 1 billion streams on Spotify?", "options": ["BLACKPINK - DDU-DU DDU-DU", "PSY - Gangnam Style", "BTS - Dynamite", "BLACKPINK - Kill This Love"], "correct": 2, "fun_fact": "BTS''s Dynamite became the first K-pop song to surpass 1 billion streams on Spotify on July 20, 2021. It also later became the first K-pop song to surpass 2 billion streams.", "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"},
+    {"question": "Which K-pop girl group was named Spotify''s most-streamed girl group globally for five consecutive years from 2019 to 2023?", "options": ["TWICE", "aespa", "Girls'' Generation", "BLACKPINK"], "correct": 3, "fun_fact": "BLACKPINK held the title of Spotify''s most-streamed girl group globally every year from 2019 through 2023, accumulating over 10 billion streams all-time.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
+    {"question": "Dynamite by BTS debuted at number one on which Spotify chart, a historic first for a K-pop act?", "options": ["Spotify US Top 50", "Spotify Global Daily Top Songs", "Spotify Viral 50", "Spotify New Music Friday"], "correct": 1, "fun_fact": "BTS''s Dynamite became the first song by a Korean artist to debut at number one on Spotify''s Daily Top Songs Global chart upon its release in August 2020.", "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"},
+    {"question": "BLACKPINK''s How You Like That reached 1 billion Spotify streams. What milestone did it achieve as a K-pop girl group song?", "options": ["First K-pop song to reach 1 billion streams", "First K-pop girl group song to reach 1 billion Spotify streams", "First girl group song to debut at #1 on Spotify Global", "First K-pop song to enter the Spotify top 10"], "correct": 1, "fun_fact": "How You Like That became the first K-pop girl group song to surpass 1 billion streams on Spotify, reaching the milestone in March 2024.", "source": "https://en.wikipedia.org/wiki/How_You_Like_That"},
+    {"question": "PSY''s Gangnam Style was the first YouTube video to reach 1 billion views. When did it achieve this milestone?", "options": ["November 2012", "December 2012", "January 2013", "March 2013"], "correct": 1, "fun_fact": "Gangnam Style became the first YouTube video to reach 1 billion views on December 21, 2012. It was also the first video to reach 2 billion, 3 billion, and eventually even broke YouTube''s view counter.", "source": "https://en.wikipedia.org/wiki/Gangnam_Style"},
+    {"question": "Which BTS song became the first K-pop song to surpass 2 billion streams on Spotify?", "options": ["Boy With Luv", "DNA", "Dynamite", "Butter"], "correct": 2, "fun_fact": "BTS''s Dynamite became the first K-pop song to surpass 2 billion streams on Spotify on August 10, 2024, continuing its historic streaming records.", "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"},
+    {"question": "Which K-pop boy group set a record for most-streamed K-pop debut on Spotify?", "options": ["ENHYPEN", "ATEEZ", "TXT", "Stray Kids"], "correct": 0, "fun_fact": "ENHYPEN set the record for the most-streamed K-pop boy group debut on Spotify, with their debut EP Border: Day One accumulating record streams in 2020.", "source": "https://en.wikipedia.org/wiki/Enhypen"},
+    {"question": "NewJeans'' Hype Boy broke which streaming record on the Billboard Global 200?", "options": ["Most streams in one week by K-pop group", "Longest-charting song by a K-pop female act (42 weeks)", "First K-pop girl group song at #1", "Most-streamed debut song ever"], "correct": 1, "fun_fact": "Hype Boy spent 42 weeks on the Billboard Global 200, setting the record for the longest-charting song by a K-pop girl group on that chart.", "source": "https://en.wikipedia.org/wiki/Hype_Boy"},
+    {"question": "BLACKPINK set a Guinness World Record in 2023 by becoming the most-streamed female band on Spotify. How many streams did they have at that point?", "options": ["5.5 billion", "8.8 billion", "12 billion", "3.2 billion"], "correct": 1, "fun_fact": "BLACKPINK surpassed 8.8 billion streams to claim the Guinness record for most-streamed female band on Spotify, beating previous titleholders Little Mix.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
+    {"question": "Which social media platform was instrumental in launching NewJeans to global fame, with their songs going viral in 2022-2023?", "options": ["Twitter/X", "Instagram", "TikTok", "YouTube Shorts"], "correct": 2, "fun_fact": "NewJeans songs like Hype Boy, Ditto, and OMG went massively viral on TikTok in 2022-2023, exposing their music to global audiences beyond traditional K-pop fans.", "source": "https://en.wikipedia.org/wiki/NewJeans"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Dynamite (BTS song), Wikipedia Blackpink, Wikipedia How You Like That, Wikipedia Gangnam Style, Wikipedia Hype Boy, Wikipedia NewJeans'
+);
+
+-- 39. K-pop Awards and Milestones (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Awards and Milestones',
+  'Test your knowledge of K-pop''s biggest award wins and historic firsts!',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "Which K-pop act received the first Grammy nomination for a K-pop act in 2021?", "options": ["BLACKPINK", "BTS", "EXO", "BIGBANG"], "correct": 1, "fun_fact": "BTS received their first Grammy nomination for Best Pop Duo/Group Performance for Dynamite at the 63rd Grammy Awards in 2021, making history as the first K-pop act to be nominated.", "source": "https://en.wikipedia.org/wiki/63rd_Grammy_Awards"},
+    {"question": "The Melon Music Awards (MMA) Daesang (Grand Prize) for Artist of the Year is considered one of K-pop''s highest honors. Which group won it in 2022?", "options": ["BTS", "IVE", "NewJeans", "aespa"], "correct": 1, "fun_fact": "IVE won the Artist of the Year Daesang at the 2022 Melon Music Awards, just about one year after their debut, in a historic win for a relatively new group.", "source": "https://en.wikipedia.org/wiki/Ive_(group)"},
+    {"question": "At what major US awards show did BTS become the first K-pop group to win Top Social Artist consecutively for multiple years?", "options": ["Grammy Awards", "MTV VMAs", "Billboard Music Awards", "American Music Awards"], "correct": 2, "fun_fact": "BTS won Top Social Artist at the Billboard Music Awards from 2017 to 2022, six consecutive years, making it their signature award before the category was eventually retired.", "source": "https://en.wikipedia.org/wiki/BTS"},
+    {"question": "Which K-pop group won the Artist of the Year award at the American Music Awards (AMAs) in 2021?", "options": ["BLACKPINK", "EXO", "BTS", "TWICE"], "correct": 2, "fun_fact": "BTS won Artist of the Year at the 2021 American Music Awards, the most prestigious award at the show, becoming the first Asian act to win the category.", "source": "https://en.wikipedia.org/wiki/American_Music_Awards_of_2021"},
+    {"question": "EXO became the first artist to achieve what sales milestone in K-pop?", "options": ["First to sell 500,000 albums in Japan", "First to have five consecutive million-selling albums", "First to win 20 music show trophies in a year", "First to chart on the US Billboard 200"], "correct": 1, "fun_fact": "EXO became the first artist to have five consecutive million-selling albums in South Korea, from XOXO (2013) through Don''t Mess Up My Tempo (2018).", "source": "https://en.wikipedia.org/wiki/Exo_(group)"},
+    {"question": "Which K-pop girl group won the MAMA Artist of the Year in 2022, their debut year performance?", "options": ["NewJeans", "IVE", "LE SSERAFIM", "aespa"], "correct": 1, "fun_fact": "IVE won Artist of the Year at the 2022 MAMA Awards, just one year after their debut, showcasing their meteoric rise in K-pop.", "source": "https://en.wikipedia.org/wiki/Ive_(group)"},
+    {"question": "The three major end-of-year K-pop award shows are called MMA, MAMA, and which third one?", "options": ["Gaon Music Awards", "Seoul Music Awards", "Golden Disc Awards", "Melon Awards"], "correct": 2, "fun_fact": "The three major year-end K-pop awards shows are the Mnet Asian Music Awards (MAMA), the Melon Music Awards (MMA), and the Golden Disc Awards (GDA). Seoul Music Awards is also significant.", "source": "https://en.wikipedia.org/wiki/Golden_Disc_Awards"},
+    {"question": "BLACKPINK''s Lisa became a solo chart-topper globally. Her 2021 solo LALISA set a record by becoming what?", "options": ["First K-pop solo song to hit #1 in US iTunes", "Most-viewed YouTube music video by a K-pop solo artist in 24 hours", "First solo debut to sell 1 million copies", "First solo song on the Billboard Hot 100"], "correct": 1, "fun_fact": "LALISA''s music video set the record for the most-viewed YouTube video within 24 hours for a K-pop solo artist when it was released in September 2021, with over 73.6 million views.", "source": "https://en.wikipedia.org/wiki/Lalisa_(song)"},
+    {"question": "BLACKPINK was the first K-pop group/act to reach how many YouTube subscribers, setting a Guinness record?", "options": ["10 million", "20 million", "50 million", "100 million"], "correct": 2, "fun_fact": "BLACKPINK became the first K-pop act and first music group to reach 50 million YouTube subscribers, achieving this milestone in 2019.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
+    {"question": "BTS set a record at the 2020 MAMA Awards. What did they win?", "options": ["Their first Grammy nomination", "Most wins in a single MAMA ceremony", "First K-pop act to perform at MAMA in the US", "First group to win MAMA Artist of the Year 5 times"], "correct": 3, "fun_fact": "BTS won the MAMA Artist of the Year award for the fifth consecutive time in 2020, setting a record for the most consecutive wins in the category.", "source": "https://en.wikipedia.org/wiki/2020_Mnet_Asian_Music_Awards"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia 63rd Grammy Awards, Wikipedia Ive (group), Wikipedia BTS, Wikipedia American Music Awards of 2021, Wikipedia Exo (group), Wikipedia Golden Disc Awards, Wikipedia Lalisa (song), Wikipedia Blackpink, Wikipedia 2020 Mnet Asian Music Awards'
+);
+
+-- 40. K-pop Song Collaborations (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop International Collaborations',
+  'K-pop has gone truly global! Test your knowledge of iconic K-pop collaborations with international artists.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "BTS collaborated with which American DJ/producer on the 2020 remix of Dynamite?", "options": ["Calvin Harris", "Marshmello", "Jonas Brothers remix", "Coldplay"], "correct": 1, "fun_fact": "BTS and Marshmello released a collaboration called ''BTS x Marshmello'' remix alongside their song Butter in 2021. BTS also collaborated with Halsey on ''Boy With Luv'' (2019).", "source": "https://en.wikipedia.org/wiki/BTS_discography"},
+    {"question": "Which American singer did BTS collaborate with on the 2021 hit ''My Universe''?", "options": ["Ed Sheeran", "Coldplay", "Bruno Mars", "The Weeknd"], "correct": 1, "fun_fact": "BTS collaborated with Coldplay on ''My Universe,'' released on September 24, 2021. The song debuted at #1 on the Billboard Hot 100.", "source": "https://en.wikipedia.org/wiki/My_Universe_(song)"},
+    {"question": "TXT collaborated with which British rock band on the song ''0X1=LOVESONG''?", "options": ["Paramore", "Bring Me the Horizon", "Fall Out Boy", "Panic! at the Disco"], "correct": 1, "fun_fact": "0X1=LOVESONG features British metalcore band Bring Me the Horizon. The collaboration blended K-pop with heavy rock elements and became one of TXT''s most internationally recognized songs.", "source": "https://en.wikipedia.org/wiki/The_Chaos_Chapter:_FREEZE"},
+    {"question": "BLACKPINK collaborated with which American pop star on the 2019 song ''Kiss and Make Up''?", "options": ["Ariana Grande", "Dua Lipa", "Cardi B", "Lady Gaga"], "correct": 1, "fun_fact": "Kiss and Make Up was a 2018 collaboration between BLACKPINK and Dua Lipa, released on Dua Lipa''s Complete Edition album. It was one of the first major K-pop/Western pop collaborations.", "source": "https://en.wikipedia.org/wiki/Dua_Lipa_(album)"},
+    {"question": "EXO collaborated with which American artist for the 2015 charity single''Power of Music''?", "options": ["Never (EXO never collaborated internationally)", "Michael Jackson estate", "SM Town collaboration only", "American Red Cross campaign"], "correct": 0, "fun_fact": "While EXO hasn''t had a mainstream international collaboration, SM Entertainment has produced numerous global collaborations through its artists. EXO''s international reach was primarily through Chinese sub-unit EXO-M.", "source": "https://en.wikipedia.org/wiki/Exo_(group)"},
+    {"question": "Which BTS song featuring Halsey became a massive viral hit in 2019?", "options": ["Boy With Luv", "DNA", "Butter", "Fire"], "correct": 0, "fun_fact": "''Boy With Luv'' featuring Halsey was released on April 12, 2019. The music video broke the YouTube record for most-viewed video in 24 hours at the time, with 74.6 million views.", "source": "https://en.wikipedia.org/wiki/Boy_with_Luv"},
+    {"question": "Which K-pop group collaborated with British rock band The Chainsmokers on a song in 2021?", "options": ["SEVENTEEN", "BLACKPINK", "NCT 127", "aespa"], "correct": 1, "fun_fact": "BLACKPINK collaborated with The Chainsmokers on ''Siren'' in 2021, as part of the trio''s broader partnership with Interscope Records to expand into Western markets.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
+    {"question": "Stray Kids collaborated with which American record label to release music in the US market?", "options": ["Republic Records", "Atlantic Records", "Geffen Records", "Columbia Records"], "correct": 2, "fun_fact": "Stray Kids signed with Geffen Records (a Universal Music Group imprint) for their US releases, making them one of the first K-pop groups to partner with a major US label for distribution.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"},
+    {"question": "Which K-pop group''s hit song sampled the Gloria Gaynor disco classic ''I Will Survive''?", "options": ["BLACKPINK - Pink Venom", "IVE - After Like", "NewJeans - Ditto", "TWICE - Alcohol-Free"], "correct": 1, "fun_fact": "IVE''s After Like (2022) prominently samples Gloria Gaynor''s 1978 classic I Will Survive. The original songwriters Freddie Perren and Dino Fekaris are credited on the track.", "source": "https://en.wikipedia.org/wiki/After_Like"},
+    {"question": "BIGBANG''s G-Dragon collaborated with CL of 2NE1 on which solo song?", "options": ["The Baddest Female", "MTBD", "Breathe", "Hello Bitches"], "correct": 0, "fun_fact": "CL and G-Dragon collaborated on The Baddest Female (2013), which was CL''s solo debut. G-Dragon contributed as a co-writer, and the collaboration highlighted YG Entertainment''s internal synergy.", "source": "https://en.wikipedia.org/wiki/The_Baddest_Female_(CL_song)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia BTS discography, Wikipedia My Universe (song), Wikipedia The Chaos Chapter: FREEZE, Wikipedia Dua Lipa (album), Wikipedia Boy with Luv, Wikipedia After Like, Wikipedia Stray Kids, Wikipedia The Baddest Female (CL song)'
+);
+
+-- 41. K-pop Survival Shows (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Survival Shows',
+  'So many K-pop groups were formed through brutal survival shows! How much do you know?',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "TWICE was formed through which JYP Entertainment survival show?", "options": ["Sixteen", "Produce 101", "Mix Nine", "SIXTEEN 2"], "correct": 0, "fun_fact": "TWICE was formed through the JYP survival show Sixteen, which aired on Mnet in 2015. Out of 16 trainees, 9 were chosen to debut as TWICE.", "source": "https://en.wikipedia.org/wiki/Sixteen_(TV_program)"},
+    {"question": "Wanna One was formed through which Mnet survival show in 2017?", "options": ["Produce 101 Season 1", "Produce 101 Season 2", "Produce X 101", "Produce 48"], "correct": 1, "fun_fact": "Wanna One was formed through Produce 101 Season 2 (2017), which featured male trainees from various agencies. The group had 11 members and was active from 2017 to 2019.", "source": "https://en.wikipedia.org/wiki/Wanna_One"},
+    {"question": "IZ*ONE was formed through which survival show that combined Korean and Japanese trainees?", "options": ["Produce 101 Season 2", "I-LAND", "Produce 48", "Mix Nine"], "correct": 2, "fun_fact": "IZ*ONE was formed through Produce 48 (2018), a collaboration between Mnet and AKB48 Group. The 12-member group included Korean and Japanese members and was active until April 2021.", "source": "https://en.wikipedia.org/wiki/Iz*One"},
+    {"question": "ENHYPEN was formed through which survival show in 2020?", "options": ["Boys Planet", "Produce X 101", "I-LAND", "Under Nineteen"], "correct": 2, "fun_fact": "ENHYPEN was formed through I-LAND (2020), a joint HYBE and CJ ENM production. 23 trainees competed, with 7 selected through a combination of producer votes and public votes.", "source": "https://en.wikipedia.org/wiki/Enhypen"},
+    {"question": "ZEROBASEONE was formed through which survival show in 2023?", "options": ["I-LAND 2", "Boys Planet", "Produce 101 Season 3", "Under Nineteen 2"], "correct": 1, "fun_fact": "ZEROBASEONE was formed through Boys Planet, a Mnet survival show that aired in 2023. 9 members were selected from Korean and global trainees.", "source": "https://en.wikipedia.org/wiki/Zerobaseone"},
+    {"question": "Which group was formed through the Mnet survival show No.Mercy in 2015?", "options": ["BTOB", "VIXX", "MONSTA X", "BtoB"], "correct": 2, "fun_fact": "MONSTA X was formed through No.Mercy, a Starship Entertainment survival program that aired on Mnet in 2014-2015. 7 members were chosen to debut.", "source": "https://en.wikipedia.org/wiki/Monsta_X"},
+    {"question": "Girls'' Generation was NOT formed through a survival show. Instead, they were handpicked by whom?", "options": ["The public through a phone vote", "SM Entertainment''s talent scouts and management", "An audition with thousands of candidates judged live on TV", "A panel of famous K-pop artists"], "correct": 1, "fun_fact": "Girls'' Generation was formed internally by SM Entertainment through their standard trainee system. Lee Soo-man and SM management selected the members over years of training, without a public survival show format.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "Which survival show featured BLACKPINK''s members as trainees before their debut?", "options": ["YG''s Mix Nine", "Sixteen", "K-pop Star", "YG Treasure Box"], "correct": 2, "fun_fact": "All BLACKPINK members appeared on SBS''s K-pop Star audition show as trainees. Jennie, Jisoo, Rosé, and Lisa were all featured in earlier seasons, showcasing their talent before their 2016 debut.", "source": "https://en.wikipedia.org/wiki/K-Pop_Star"},
+    {"question": "Stray Kids was formed through a survival show of the same name. How many original members debuted?", "options": ["7", "8", "9", "10"], "correct": 2, "fun_fact": "9 members originally debuted from the Stray Kids survival show: Bang Chan, Woojin, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, and I.N. Woojin later left the group in 2019.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"},
+    {"question": "KARD is notable in K-pop for being a mixed-gender group. They were formed by which company?", "options": ["DSP Media", "Cube Entertainment", "FNC Entertainment", "Kakao Entertainment"], "correct": 0, "fun_fact": "KARD debuted under DSP Media in 2017 as one of the few co-ed K-pop groups. They consist of two male members (BM and J.Seph) and two female members (Somin and Jiwoo).", "source": "https://en.wikipedia.org/wiki/Kard_(group)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Sixteen (TV program), Wikipedia Wanna One, Wikipedia Iz*One, Wikipedia Enhypen, Wikipedia Zerobaseone, Wikipedia Monsta X, Wikipedia Girls Generation, Wikipedia K-Pop Star, Wikipedia Stray Kids, Wikipedia Kard (group)'
+);
+
+-- 42. K-pop Label Structure (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Label Structure and Companies',
+  'Behind every great K-pop group is a company. How well do you know the corporate side of K-pop?',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "The ''Big Three'' K-pop companies (circa 2010-2020) are SM, YG, and which third company?", "options": ["HYBE (Big Hit)", "JYP Entertainment", "Cube Entertainment", "Starship Entertainment"], "correct": 1, "fun_fact": "SM Entertainment, YG Entertainment, and JYP Entertainment were traditionally known as the Big Three K-pop companies, dominating the industry for over a decade.", "source": "https://en.wikipedia.org/wiki/JYP_Entertainment"},
+    {"question": "HYBE Corporation was founded in 2005 as what company?", "options": ["Pledis Entertainment", "Big Hit Entertainment", "Source Music", "KOZ Entertainment"], "correct": 1, "fun_fact": "Big Hit Entertainment was founded in 2005 by Bang Si-hyuk. It rebranded to HYBE Corporation in March 2021 after expanding significantly through BTS''s success.", "source": "https://en.wikipedia.org/wiki/Hybe_Corporation"},
+    {"question": "Which company is home to both TWICE and Stray Kids?", "options": ["SM Entertainment", "YG Entertainment", "JYP Entertainment", "HYBE"], "correct": 2, "fun_fact": "JYP Entertainment manages both TWICE (debuted 2015) and Stray Kids (debuted 2018), as well as other acts like ITZY, NMIXX, and DAY6.", "source": "https://en.wikipedia.org/wiki/JYP_Entertainment"},
+    {"question": "BLACKPINK and BIGBANG are both under which company?", "options": ["SM Entertainment", "JYP Entertainment", "YG Entertainment", "HYBE"], "correct": 2, "fun_fact": "YG Entertainment is home to BIGBANG (debuted 2006), 2NE1 (debuted 2009), and BLACKPINK (debuted 2016), among other artists including WINNER and iKON.", "source": "https://en.wikipedia.org/wiki/YG_Entertainment"},
+    {"question": "HYBE acquired which company in 2020, bringing SEVENTEEN under the HYBE umbrella?", "options": ["Source Music", "ADOR", "Pledis Entertainment", "KOZ Entertainment"], "correct": 2, "fun_fact": "HYBE acquired Pledis Entertainment in May 2020, making SEVENTEEN (Pledis''s biggest act) part of the HYBE family of labels.", "source": "https://en.wikipedia.org/wiki/Pledis_Entertainment"},
+    {"question": "Which HYBE sub-label manages LE SSERAFIM?", "options": ["ADOR", "BELIFT LAB", "Source Music", "Big Hit Music"], "correct": 2, "fun_fact": "LE SSERAFIM is under Source Music, a HYBE subsidiary that was acquired in 2019. Source Music was previously known for managing girl group G-Friend.", "source": "https://en.wikipedia.org/wiki/Source_Music"},
+    {"question": "Which HYBE sub-label was created specifically for ENHYPEN?", "options": ["ADOR", "BELIFT LAB", "Source Music", "KOZ Entertainment"], "correct": 1, "fun_fact": "BELIFT LAB was established in 2019 as a joint venture between HYBE and CJ ENM specifically to manage the group that would be formed through the I-LAND survival show -- ENHYPEN.", "source": "https://en.wikipedia.org/wiki/Belift_Lab"},
+    {"question": "SM Entertainment is home to EXO, SHINee, NCT, and which of these classic groups?", "options": ["BIGBANG", "2PM", "Girls'' Generation (SNSD)", "Wonder Girls"], "correct": 2, "fun_fact": "SM Entertainment manages EXO, SHINee, NCT, Red Velvet, aespa, and classic groups like Girls'' Generation, H.O.T., S.E.S., BoA, TVXQ, Super Junior, and f(x).", "source": "https://en.wikipedia.org/wiki/SM_Entertainment"},
+    {"question": "(G)I-DLE and BTOB are both under which company?", "options": ["SM Entertainment", "Cube Entertainment", "Starship Entertainment", "JYP Entertainment"], "correct": 1, "fun_fact": "Cube Entertainment manages (G)I-DLE (debuted 2018) and BTOB (debuted 2012), along with other artists like HyunA and Dawn.", "source": "https://en.wikipedia.org/wiki/Cube_Entertainment"},
+    {"question": "Which sub-label of HYBE manages NewJeans?", "options": ["BELIFT LAB", "Source Music", "ADOR", "Big Hit Music"], "correct": 2, "fun_fact": "NewJeans is under ADOR (All Doors One Room), a HYBE sub-label headed by creative director Min Hee-jin. ADOR was specifically created to develop NewJeans'' unique aesthetic.", "source": "https://en.wikipedia.org/wiki/Ador_(record_label)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia JYP Entertainment, Wikipedia Hybe Corporation, Wikipedia YG Entertainment, Wikipedia Pledis Entertainment, Wikipedia Source Music, Wikipedia Belift Lab, Wikipedia SM Entertainment, Wikipedia Cube Entertainment, Wikipedia Ador (record label)'
+);
+
+-- 43. K-pop Generation History (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Generation History',
+  'K-pop has evolved across generations! Test your knowledge of which groups belong to which era.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "H.O.T. is considered a 1st generation K-pop group. In which year did they debut?", "options": ["1993", "1996", "1998", "2000"], "correct": 1, "fun_fact": "H.O.T. (High-five Of Teenagers) debuted in 1996 under SM Entertainment and is considered one of the pioneering acts of the K-pop idol wave. They are often called the ''gods of K-pop.''", "source": "https://en.wikipedia.org/wiki/H.O.T."},
+    {"question": "Which generation does Girls'' Generation (SNSD) belong to?", "options": ["1st generation", "2nd generation", "3rd generation", "4th generation"], "correct": 1, "fun_fact": "Girls'' Generation is a 2nd generation K-pop group, debuting in 2007. The 2nd gen era (roughly 2004-2012) is remembered for global expansion of K-pop and the rise of major groups like BIGBANG, SHINee, and SNSD.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
+    {"question": "BTS, EXO, and BLACKPINK are all part of which K-pop generation?", "options": ["2nd generation", "3rd generation", "4th generation", "5th generation"], "correct": 1, "fun_fact": "BTS (2013), EXO (2012), and BLACKPINK (2016) are all 3rd generation K-pop acts. The 3rd gen era (roughly 2012-2019) saw K-pop achieve true global dominance.", "source": "https://en.wikipedia.org/wiki/BTS"},
+    {"question": "Which year is generally considered the start of the 4th generation of K-pop?", "options": ["2017", "2018", "2019", "2020"], "correct": 2, "fun_fact": "The 4th generation of K-pop is generally considered to have started around 2018-2019, with groups like ATEEZ (2018), TXT (2019), ITZY (2019), and Stray Kids (2018) leading the wave.", "source": "https://en.wikipedia.org/wiki/Ateez"},
+    {"question": "Which of these groups is from the 1st generation of K-pop (debuted in the 1990s)?", "options": ["SHINee", "BIGBANG", "S.E.S.", "2NE1"], "correct": 2, "fun_fact": "S.E.S. debuted in 1997 under SM Entertainment and is one of the most iconic 1st generation girl groups. Along with FinKL and Baby V.O.X, they defined 1st gen female K-pop.", "source": "https://en.wikipedia.org/wiki/S.E.S._(group)"},
+    {"question": "ATEEZ, aespa, and IVE are part of which K-pop generation?", "options": ["2nd generation", "3rd generation", "4th generation", "5th generation"], "correct": 2, "fun_fact": "ATEEZ (2018), aespa (2020), and IVE (2021) are key 4th generation acts. The 4th gen is defined by stronger global fanbases, self-producing artists, and innovative concepts.", "source": "https://en.wikipedia.org/wiki/Ateez"},
+    {"question": "BLACKPINK debuted in 2016 and is classified as which K-pop generation?", "options": ["2nd generation", "3rd generation", "4th generation", "5th generation"], "correct": 1, "fun_fact": "BLACKPINK is a 3rd generation K-pop group, debuting in August 2016. They are often considered the group that most dramatically expanded the global reach of 3rd gen K-pop girl groups.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
+    {"question": "Which 2nd generation boy group is considered one of the first to achieve truly global K-pop success?", "options": ["ATEEZ", "BTS", "BIGBANG", "EXO"], "correct": 2, "fun_fact": "BIGBANG, debuting in 2006, are 2nd generation K-pop pioneers who helped pave the way for global K-pop acceptance. G-Dragon in particular became one of K-pop''s most internationally recognized figures.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"},
+    {"question": "SHINee debuted in 2008 and is typically classified as which K-pop generation?", "options": ["1st generation", "2nd generation", "3rd generation", "4th generation"], "correct": 1, "fun_fact": "SHINee is a 2nd generation K-pop group, debuting in May 2008 under SM Entertainment. They are considered pioneers of the neo-soul K-pop sound.", "source": "https://en.wikipedia.org/wiki/Shinee"},
+    {"question": "TXT (Tomorrow X Together) debuted in March 2019 and is classified as which K-pop generation?", "options": ["2nd generation", "3rd generation", "4th generation", "5th generation"], "correct": 2, "fun_fact": "TXT debuted in March 2019 under Big Hit Music (HYBE) and is classified as 4th generation. They were HYBE''s first new act after BTS and quickly became one of the most globally popular 4th gen boy groups.", "source": "https://en.wikipedia.org/wiki/Tomorrow_X_Together"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia H.O.T., Wikipedia Girls Generation, Wikipedia BTS, Wikipedia Ateez, Wikipedia S.E.S. (group), Wikipedia Blackpink, Wikipedia BigBang (South Korean band), Wikipedia Shinee, Wikipedia Tomorrow X Together'
+);
+
+-- 44. K-pop Music Videos Records (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Music Video Records',
+  'K-pop MVs break YouTube records constantly! Can you keep track of these historic milestones?',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "Which was the first K-pop music video to reach 1 billion YouTube views?", "options": ["BLACKPINK - Ddu-Du Ddu-Du", "BTS - DNA", "PSY - Gangnam Style", "EXO - Growl"], "correct": 2, "fun_fact": "PSY''s Gangnam Style was the first YouTube video of any kind to reach 1 billion views, achieving the milestone on December 21, 2012.", "source": "https://en.wikipedia.org/wiki/Gangnam_Style"},
+    {"question": "BLACKPINK''s ''How You Like That'' broke the YouTube record for most views in 24 hours in 2020 with approximately how many million views?", "options": ["56 million", "74 million", "86 million", "100 million"], "correct": 2, "fun_fact": "How You Like That accumulated approximately 86.3 million views within 24 hours of release on June 26, 2020, breaking the previous record set by BTS''s Boy With Luv.", "source": "https://en.wikipedia.org/wiki/How_You_Like_That"},
+    {"question": "Which BTS music video held the record for most-viewed K-pop MV in 24 hours before being broken by BLACKPINK?", "options": ["Dynamite", "Boy With Luv (feat. Halsey)", "DNA", "Butter"], "correct": 1, "fun_fact": "BTS''s ''Boy With Luv'' feat. Halsey accumulated 74.6 million YouTube views in its first 24 hours in 2019, before being surpassed by BLACKPINK''s How You Like That in 2020.", "source": "https://en.wikipedia.org/wiki/Boy_with_Luv"},
+    {"question": "Which BLACKPINK music video was the first K-pop girl group MV to surpass 1 billion YouTube views?", "options": ["Whistle", "Kill This Love", "Ddu-Du Ddu-Du", "BOOMBAYAH"], "correct": 2, "fun_fact": "BLACKPINK''s Ddu-Du Ddu-Du became the first music video by a K-pop girl group to surpass 1 billion YouTube views, achieving the milestone in June 2019.", "source": "https://en.wikipedia.org/wiki/Ddu-Du_Ddu-Du"},
+    {"question": "Which K-pop music video was the most-viewed debut MV of all time on YouTube as of 2022?", "options": ["IVE - ELEVEN", "NewJeans - Attention", "LE SSERAFIM - FEARLESS", "aespa - Black Mamba"], "correct": 3, "fun_fact": "aespa''s Black Mamba debut MV set a record for the fastest K-pop debut MV to reach 100 million YouTube views when it was released in November 2020.", "source": "https://en.wikipedia.org/wiki/Aespa"},
+    {"question": "IVE''s debut MV ''ELEVEN'' achieved what notable YouTube milestone in its first 24 hours?", "options": ["50 million views", "30 million views", "73 million views", "20 million views"], "correct": 3, "fun_fact": "ELEVEN''s MV achieved approximately 20 million views in its first 24 hours, a strong debut performance that reflected the anticipation for IVE from fans of former IZ*ONE members.", "source": "https://en.wikipedia.org/wiki/Ive_(group)"},
+    {"question": "Which K-pop MV was the first to reach 100 million YouTube views in under 24 hours?", "options": ["BLACKPINK - Kill This Love", "BTS - Butter", "BLACKPINK - How You Like That", "BTS - Dynamite"], "correct": 2, "fun_fact": "BLACKPINK''s How You Like That became the first MV to reach 100 million YouTube views within 24 hours of release in June 2020, solidifying BLACKPINK''s YouTube dominance.", "source": "https://en.wikipedia.org/wiki/How_You_Like_That"},
+    {"question": "ITZY''s debut MV ''DALLA DALLA'' set what record upon its release in 2019?", "options": ["Most-viewed debut MV in 24 hours at the time for a K-pop girl group", "First K-pop MV to trend #1 globally on YouTube", "First JYP debut to reach 100 million views", "Most-liked debut MV by a K-pop group"], "correct": 0, "fun_fact": "DALLA DALLA set the record for most-viewed debut MV in 24 hours by a K-pop girl group at the time of release in February 2019, with approximately 17 million views.", "source": "https://en.wikipedia.org/wiki/Dalla_Dalla"},
+    {"question": "NewJeans'' debut single ''Attention'' was notable in its MV style. What distinguished it visually?", "options": ["First K-pop MV shot entirely in one continuous take", "A Y2K/retro aesthetic with no performance scenes", "Vintage camcorder footage that felt authentic and unfiltered", "3D animated metaverse concept"], "correct": 2, "fun_fact": "Attention''s MV featured a distinctly natural, film-like aesthetic with vintage camcorder footage mixed with casual everyday settings, setting NewJeans apart from the polished K-pop MV norm.", "source": "https://en.wikipedia.org/wiki/NewJeans"},
+    {"question": "Which K-pop group became the most-subscribed music group on YouTube as of 2020?", "options": ["BTS", "EXO", "BLACKPINK", "TWICE"], "correct": 2, "fun_fact": "BLACKPINK became the most-subscribed music group on YouTube in 2020, surpassing both Western and Korean acts. As of 2023, their YouTube channel had over 90 million subscribers.", "source": "https://en.wikipedia.org/wiki/Blackpink"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Gangnam Style, Wikipedia How You Like That, Wikipedia Boy with Luv, Wikipedia Ddu-Du Ddu-Du, Wikipedia Aespa, Wikipedia Dalla Dalla, Wikipedia NewJeans, Wikipedia Blackpink'
+);
+
+-- 45. K-pop Training and Idol Life (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Training System and Idol Life',
+  'What happens behind the scenes in K-pop? Test your knowledge of the trainee system and idol culture.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "The K-pop trainee system typically involves which activities?", "options": ["Only singing and dancing lessons", "Singing, dancing, acting, language lessons, and media training", "Only physical appearance management", "Online classes only"], "correct": 1, "fun_fact": "K-pop trainees undergo rigorous training in singing, dancing, rapping, acting, foreign languages (especially Japanese and English), and media presentation skills, often for several years before debut.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "TWICE''s Jihyo holds the record for the longest training period among major K-pop idols. How long did she train?", "options": ["5 years", "7 years", "10 years", "13 years"], "correct": 2, "fun_fact": "Jihyo joined JYP Entertainment as a trainee at age 8 in 2005 and trained for approximately 10 years before debuting with TWICE in 2015, making her training period one of the longest on record.", "source": "https://en.wikipedia.org/wiki/Jihyo"},
+    {"question": "What is the Korean word for the youngest member of a K-pop group?", "options": ["Hyung", "Oppa", "Unnie", "Maknae"], "correct": 3, "fun_fact": "Maknae (막내) is the Korean term for the youngest member of a group. The maknae often receives special treatment but is also expected to show respect to older members.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "In K-pop, what is the term for the most visually distinctive or attractive member of a group, often featured prominently in promotional materials?", "options": ["Center", "Visual", "Face", "Lead"], "correct": 1, "fun_fact": "The Visual is the K-pop term for the member considered the most conventionally attractive by the agency. Many groups have a designated visual, though all members are considered beautiful.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "Which major K-pop company first formalized the modern trainee system?", "options": ["YG Entertainment", "JYP Entertainment", "SM Entertainment", "HYBE"], "correct": 2, "fun_fact": "SM Entertainment''s founder Lee Soo-man is credited with formalizing the modern K-pop trainee system in the mid-1990s with H.O.T., creating a template that the entire K-pop industry now follows.", "source": "https://en.wikipedia.org/wiki/SM_Entertainment"},
+    {"question": "What is a K-pop ''comeback''?", "options": ["When a group returns from military service", "A new music release after a period of no releases", "When a disbanded group reunites", "When a member rejoins after leaving"], "correct": 1, "fun_fact": "In K-pop, a ''comeback'' refers to any new music release by an active artist or group, even if only weeks have passed since their last release. The term differs from the Western usage where it typically implies a return after a long absence.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
+    {"question": "Which term describes the main goal that K-pop groups achieve when all their music simultaneously reaches #1 across all major Korean music charts?", "options": ["Daesang sweep", "Triple Crown", "Perfect All-Kill", "Digital Domination"], "correct": 2, "fun_fact": "A Perfect All-Kill (PAK) is achieved when a song simultaneously tops all major Korean music chart platforms (Melon, Genie, Bugs, FLO, and VIBE). It is one of the most coveted achievements in K-pop.", "source": "https://en.wikipedia.org/wiki/All-kill_(music)"},
+    {"question": "In South Korea, male K-pop idols are required to serve mandatory military service. What is the typical duration?", "options": ["12 months", "18 months", "21 months", "24 months"], "correct": 1, "fun_fact": "South Korean men, including K-pop idols, are typically required to serve approximately 18-21 months of mandatory military service. This often means groups go on hiatus when members enlist.", "source": "https://en.wikipedia.org/wiki/Military_service_in_South_Korea"},
+    {"question": "What is the Gaon Chart?", "options": ["A physical album sales tracking system", "South Korea''s national music chart covering digital and physical sales", "A YouTube views counter for K-pop videos", "A weekly ranking of K-pop fan activity"], "correct": 1, "fun_fact": "The Gaon Chart (now called the Circle Chart) is South Korea''s national music chart, officially launched in 2010. It tracks digital downloads, streaming, and physical sales, and is considered the most authoritative measure of K-pop popularity.", "source": "https://en.wikipedia.org/wiki/Gaon_Chart"},
+    {"question": "What does ''fansign'' mean in K-pop culture?", "options": ["An online petition to support a K-pop group", "A fan-organized social media campaign", "An event where idols sign albums and interact with fans who win through lottery", "A contract signed between fans and their favorite group"], "correct": 2, "fun_fact": "Fansigns are events where selected fans (usually winners of album purchase lotteries) can meet their favorite K-pop idols, have albums signed, and briefly chat. They are one of the most coveted K-pop fan experiences.", "source": "https://en.wikipedia.org/wiki/Korean_pop"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Korean pop, Wikipedia Jihyo, Wikipedia SM Entertainment, Wikipedia All-kill (music), Wikipedia Military service in South Korea, Wikipedia Gaon Chart'
+);
+
+-- 46. K-pop in the West (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Goes West',
+  'K-pop has taken over the world! Test your knowledge of K-pop''s crossover into Western markets.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "BTS became the first Korean act to top the Billboard Hot 100 with which song?", "options": ["Boy With Luv", "DNA", "Dynamite", "Butter"], "correct": 2, "fun_fact": "Dynamite debuted at #1 on the Billboard Hot 100 on August 22, 2020, making BTS the first all-South Korean act to reach the top of the US singles chart.", "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"},
+    {"question": "BLACKPINK was the first K-pop girl group to perform at which major US music festival?", "options": ["Lollapalooza", "SXSW", "Coachella", "Bonnaroo"], "correct": 2, "fun_fact": "BLACKPINK performed at Coachella 2019 on April 12 and 19, becoming the first K-pop group of any kind to perform at the iconic festival.", "source": "https://en.wikipedia.org/wiki/Blackpink_at_Coachella"},
+    {"question": "Which BTS album was the first primarily Korean-language album to top the Billboard 200?", "options": ["Wings", "Love Yourself: Her", "Love Yourself: Tear", "Map of the Soul: Persona"], "correct": 2, "fun_fact": "Love Yourself: Tear debuted at #1 on the Billboard 200 in May 2018, becoming the first primarily non-English album to top the chart since 2006.", "source": "https://en.wikipedia.org/wiki/Love_Yourself:_Tear"},
+    {"question": "In which year did K-pop first appear on Billboard''s mainstream US charts in a significant way, with multiple acts charting?", "options": ["2012", "2015", "2017", "2020"], "correct": 2, "fun_fact": "2017 is considered a breakthrough year for K-pop on US charts, with BTS appearing on the Billboard 200, BTS and EXO winning Billboard Music Awards, and global K-pop fandom growing explosively.", "source": "https://en.wikipedia.org/wiki/BTS"},
+    {"question": "TWICE''s album Formula of Love debuted on the Billboard 200 in which year, the first by a K-pop girl group to debut in the top 5?", "options": ["2019", "2020", "2021", "2022"], "correct": 2, "fun_fact": "TWICE''s Formula of Love: O+T=<3 debuted at #3 on the Billboard 200 in November 2021, their highest chart position in the US at that time.", "source": "https://en.wikipedia.org/wiki/Formula_of_Love:_O+T%3D%3C3"},
+    {"question": "aespa performed at which major US music festival in 2022, becoming the first 4th gen K-pop act to do so?", "options": ["Coachella", "Lollapalooza", "SXSW", "Ultra Music Festival"], "correct": 1, "fun_fact": "aespa performed at Lollapalooza in Chicago on July 31, 2022, becoming the first 4th generation K-pop act to perform at the iconic US festival.", "source": "https://en.wikipedia.org/wiki/Aespa"},
+    {"question": "Which K-pop act was the first to perform on Saturday Night Live (SNL)?", "options": ["BLACKPINK", "TWICE", "BTS", "EXO"], "correct": 2, "fun_fact": "BTS performed on Saturday Night Live on April 13, 2019, performing Boy With Luv and Mic Drop. It was a historic first for a K-pop act on the iconic US late-night show.", "source": "https://en.wikipedia.org/wiki/BTS"},
+    {"question": "The first Korean-language film to win the Academy Award for Best Picture was which film?", "options": ["Oldboy", "Train to Busan", "Parasite", "The Host"], "correct": 2, "fun_fact": "Parasite (2019) directed by Bong Joon-ho won the Academy Award for Best Picture at the 2020 Oscars, becoming the first non-English language film to win the top prize in Oscar history.", "source": "https://en.wikipedia.org/wiki/Parasite_(2019_film)"},
+    {"question": "The Korean cultural movement -- including K-pop, K-drama, K-food, and K-beauty -- spreading globally is known by what term?", "options": ["K-Wave", "Hallyu", "K-Rise", "Seoul Wave"], "correct": 1, "fun_fact": "Hallyu (한류), literally meaning ''Korean Wave,'' is the term for the global spread of South Korean popular culture since the 1990s, encompassing K-pop, K-dramas, Korean food, fashion, and beauty.", "source": "https://en.wikipedia.org/wiki/Korean_Wave"},
+    {"question": "Stray Kids became the first K-pop group to achieve what with their consecutive Billboard 200 chart entries?", "options": ["First to have all entries debut in the top 3", "First to have eight consecutive entries debut at #1", "First K-pop group to chart on Billboard for 10 years", "First group to sell out all US shows within one hour"], "correct": 1, "fun_fact": "Every one of Stray Kids'' first eight Billboard 200 chart entries debuted at #1, setting a historic record. No other act in history had achieved this feat on their first eight chart entries.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Dynamite (BTS song), Wikipedia Blackpink at Coachella, Wikipedia Love Yourself: Tear, Wikipedia BTS, Wikipedia Formula of Love, Wikipedia Aespa, Wikipedia Parasite (2019 film), Wikipedia Korean Wave, Wikipedia Stray Kids'
+);
+
+-- 47. K-pop Fashion and Style (medium, knowledge)
+INSERT INTO public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, verification_notes)
+VALUES (
+  'K-pop Fashion and Brand Ambassadors',
+  'K-pop and fashion are inseparable! Test your knowledge of iconic K-pop fashion moments and brand deals.',
+  NULL,
+  'multiple_choice',
+  'medium',
+  'knowledge',
+  '[
+    {"question": "Jennie of BLACKPINK is the global ambassador for which luxury fashion house?", "options": ["Gucci", "Louis Vuitton", "Chanel", "Prada"], "correct": 2, "fun_fact": "Jennie has been a Chanel Global Ambassador since 2017, earning her the nickname ''Human Chanel'' for seamlessly incorporating the brand into her personal style.", "source": "https://en.wikipedia.org/wiki/Jennie_(singer)"},
+    {"question": "Which BTS member became a Louis Vuitton House Ambassador in 2021?", "options": ["Jimin", "V", "Jin", "RM"], "correct": 1, "fun_fact": "V (Kim Taehyung) became a Louis Vuitton House Ambassador in July 2021, following all 7 BTS members being announced as Louis Vuitton brand ambassadors collectively.", "source": "https://en.wikipedia.org/wiki/V_(singer)"},
+    {"question": "Lisa of BLACKPINK became the first K-pop idol to be a house ambassador for which luxury brand?", "options": ["Bvlgari", "Celine", "Givenchy", "Valentino"], "correct": 1, "fun_fact": "Lisa became a Celine House Ambassador in July 2021, making her the first K-pop idol to serve as a house ambassador for the French fashion brand.", "source": "https://en.wikipedia.org/wiki/Lisa_(rapper)"},
+    {"question": "G-Dragon of BIGBANG collaborated with which major sneaker brand to create collectible limited-edition shoes?", "options": ["Adidas", "Nike", "PUMA", "New Balance"], "correct": 0, "fun_fact": "G-Dragon has had multiple high-profile collaborations with Adidas, including the limited-edition G-Dragon x Adidas Originals STAN SMITH series, which became one of the most coveted sneakers in Korea.", "source": "https://en.wikipedia.org/wiki/G-Dragon"},
+    {"question": "Which K-pop idol is known as the face of Dior and became Dior''s global ambassador?", "options": ["Jisoo of BLACKPINK", "Nayeon of TWICE", "Irene of Red Velvet", "Karina of aespa"], "correct": 0, "fun_fact": "Jisoo became a Dior Global Ambassador in 2021, known as one of the most prominent K-pop x luxury fashion partnerships. She has appeared in numerous Dior campaigns.", "source": "https://en.wikipedia.org/wiki/Jisoo"},
+    {"question": "Rosé of BLACKPINK became a global brand ambassador for which Saint Laurent (YSL) related brand?", "options": ["Yves Saint Laurent Beauty", "Saint Laurent (fashion)", "Both YSL Beauty and Saint Laurent fashion", "YSL watches only"], "correct": 2, "fun_fact": "Rosé became a global ambassador for both Saint Laurent fashion and Yves Saint Laurent Beauty, one of the most comprehensive K-pop and luxury brand partnerships.", "source": "https://en.wikipedia.org/wiki/Rose_(singer)"},
+    {"question": "BTS''s collaboration with which global streaming platform for their Map of the Soul series was groundbreaking?", "options": ["Netflix", "Disney+", "Apple Music", "Weverse"], "correct": 3, "fun_fact": "HYBE''s Weverse platform became a crucial tool for BTS to connect with global fans, offering exclusive content, behind-the-scenes access, and fan interactions that helped them build their massive following.", "source": "https://en.wikipedia.org/wiki/Weverse"},
+    {"question": "Which K-pop group has been the face of MCM, the German luxury goods brand, since 2018?", "options": ["EXO", "BTS", "BIGBANG", "GOT7"], "correct": 1, "fun_fact": "BTS became the global brand ambassadors for MCM in 2018, appearing in campaigns and helping to bring attention to the German luxury brand to new global audiences.", "source": "https://en.wikipedia.org/wiki/MCM_(brand)"},
+    {"question": "In which year did K-pop''s cultural influence on fashion reach a turning point with major luxury brands aggressively pursuing K-pop idol ambassadors?", "options": ["2015", "2017", "2019", "2021"], "correct": 3, "fun_fact": "2021 is widely seen as the inflection point when major luxury fashion houses (Dior, Chanel, Celine, Louis Vuitton, etc.) simultaneously began competing for K-pop idol ambassadors, recognizing their enormous global marketing impact.", "source": "https://en.wikipedia.org/wiki/Korean_Wave"},
+    {"question": "Kai of EXO became an ambassador for which major fashion house?", "options": ["Gucci", "Prada", "Balenciaga", "Valentino"], "correct": 0, "fun_fact": "Kai (Kim Jong-in) became a Gucci Global Ambassador in 2019, one of the first K-pop male idols to receive a major luxury fashion house ambassadorship. His collaboration led to several iconic fashion moments.", "source": "https://en.wikipedia.org/wiki/Kai_(singer)"}
+  ]''::jsonb,
+  'verified',
+  'Sources: Wikipedia Jennie (singer), Wikipedia V (singer), Wikipedia Lisa (rapper), Wikipedia G-Dragon, Wikipedia Jisoo, Wikipedia Rose (singer), Wikipedia Weverse, Wikipedia Korean Wave, Wikipedia Kai (singer)'
+);

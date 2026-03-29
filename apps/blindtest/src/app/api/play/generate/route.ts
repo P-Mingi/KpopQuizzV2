@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   // Build query with all clip columns for dynamic access
   let query = supabase
     .from('blind_test_songs')
-    .select('id, title, artist, youtube_id, wrong_answers, clip_intro, clip_chorus, clip_verse, clip_bridge, group_id, generation, gender, is_title_track, year')
+    .select('id, title, artist, youtube_id, wrong_answers, clip_intro, clip_chorus, clip_verse, clip_bridge, group_id, generation, gender, is_title_track, year, groups(name)')
     .eq('status', 'active')
     .not(clipColumn, 'is', null);
 
@@ -108,6 +108,7 @@ export async function POST(req: Request) {
       youtube_id: song.youtube_id,
       clip_start: songRecord[clipColumn] as number,
       group_id: song.group_id,
+      group_name: ((song as Record<string, unknown>).groups as { name: string } | null)?.name ?? null,
       question_type: questionType,
       choices,
       _answer: { correct_index: correctIndex, title: song.title, artist: song.artist },

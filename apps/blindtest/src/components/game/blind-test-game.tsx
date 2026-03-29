@@ -9,7 +9,6 @@ import { calculateGroupMasteryUpdates, getMasteryProgress } from '@/lib/progress
 import { getAchievementById } from '@/lib/achievements';
 import { SignupPromptModal } from '@/components/shared/signup-prompt-modal';
 
-import type { GroupMasteryUpdate } from '@/lib/progression';
 import type { BlindTestMode } from '@/lib/blind-test-modes';
 
 // ── Types ──
@@ -19,6 +18,7 @@ interface RoundSong {
   youtube_id: string;
   clip_start: number;
   group_id: number | null;
+  group_name: string | null;
   question_type: 'title' | 'artist';
   choices: string[];
   _answer: { correct_index: number; title: string; artist: string };
@@ -82,7 +82,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
   const [bestCombo, setBestCombo] = useState(0);
   const [answers, setAnswers] = useState<SongAnswer[]>([]);
   const [xpEarned, setXpEarned] = useState(0);
-  const [masteryUpdates, setMasteryUpdates] = useState<(GroupMasteryUpdate & { group_name?: string })[]>([]);
+  const [masteryUpdates, setMasteryUpdates] = useState<{ group_id: number; mastery_xp: number; group_name: string | undefined }[]>([]);
   const [newAchievements, setNewAchievements] = useState<string[]>([]);
   const [dailyRank, setDailyRank] = useState<{ rank: number; total: number } | null>(null);
 
@@ -313,7 +313,11 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
   function pickAnswer(choiceIndex: number) {
     if (answeredRef.current || gameState !== 'playing' || !round) return;
 
-    const answerTime = (Date.now() - startTimeRef.current) / 1000;
+    // startTimeRef is 0 until onStateChange(PLAYING) fires; guard against that
+    const rawTime = startTimeRef.current > 0
+      ? (Date.now() - startTimeRef.current) / 1000
+      : mode.clip_duration;
+    const answerTime = Math.min(rawTime, mode.clip_duration);
     const song = round.songs[currentIndex]!;
     const isCorrect = choiceIndex === song._answer.correct_index;
 
@@ -417,7 +421,13 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
     const songData = round?.songs.map(s => ({ song_id: s.song_id, group_id: s.group_id })) ?? [];
     const gmUpdates = calculateGroupMasteryUpdates(answers, songData);
-    setMasteryUpdates(gmUpdates);
+
+    // Enrich with group names from the round data
+    const enriched = gmUpdates.map(u => {
+      const song = round?.songs.find(s => s.group_id === u.group_id);
+      return { group_id: u.group_id, mastery_xp: u.mastery_xp, group_name: song?.group_name ?? undefined };
+    });
+    setMasteryUpdates(enriched);
 
     try {
       const recordUrl = isDaily ? '/api/daily/record' : '/api/play/record';
@@ -426,7 +436,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         score,
         correct: correctCount,
         total: round?.songs.length ?? 0,
-        total_time: Math.round(totalTime * 100) / 100,
+        total_time: Math.round(totalTime * 10) / 10,
         best_combo: bestCombo,
         songs: answers,
         xp_earned: earnedXp,
@@ -604,7 +614,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
               <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2">Group mastery earned</p>
               {masteryUpdates.map(update => (
                 <div key={update.group_id} className="flex items-center gap-2.5 py-1.5">
-                  <span className="text-xs min-w-[80px]">Group #{update.group_id}</span>
+                  <span className="text-xs min-w-[80px]">{update.group_name ?? `Group #${update.group_id}`}</span>
                   <div className="flex-1 h-1 bg-border-default rounded-full">
                     <div className="h-1 rounded-full bg-pink-400" style={{ width: `${getMasteryProgress(update.mastery_xp) * 100}%` }} />
                   </div>
