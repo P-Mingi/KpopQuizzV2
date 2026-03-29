@@ -5,7 +5,6 @@ import type { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kpopblindtest.com';
-  const supabase = createServiceRoleClient();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, changeFrequency: 'daily', priority: 1.0, lastModified: new Date() },
@@ -21,13 +20,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
-  const { data: groups } = await supabase.from('groups').select('slug');
-  const groupPages: MetadataRoute.Sitemap = (groups ?? []).map(g => ({
-    url: `${baseUrl}/group/${g.slug}`,
-    changeFrequency: 'weekly',
-    priority: 0.5,
-    lastModified: new Date(),
-  }));
+  let groupPages: MetadataRoute.Sitemap = [];
+  try {
+    const supabase = createServiceRoleClient();
+    const { data: groups } = await supabase.from('groups').select('slug');
+    groupPages = (groups ?? []).map(g => ({
+      url: `${baseUrl}/group/${g.slug}`,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+      lastModified: new Date(),
+    }));
+  } catch {
+    // No env vars at build time - group pages omitted from sitemap
+  }
 
   return [...staticPages, ...modePages, ...groupPages];
 }
