@@ -48,6 +48,9 @@ export const metadata: Metadata = {
       'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
     images: ['/og-default.png'],
   },
+  other: {
+    'p:domain_verify': '78daf33218de9b0d0115f0dbbaf48d6e',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
