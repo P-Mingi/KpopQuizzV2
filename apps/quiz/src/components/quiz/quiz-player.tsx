@@ -16,6 +16,7 @@ import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
+import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { formatCount } from '@/lib/utils';
 
 import type { Difficulty, QuizSettings, QuizType } from '@/lib/db/types';
@@ -487,17 +488,24 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             />
           </div>
 
-          <div className="flex items-center gap-2 mt-3">
-            <UserAvatar
-              username={quiz.creatorUsername}
-              avatarUrl={quiz.creatorAvatarUrl}
-              bgColor={quiz.creatorAvatarBg}
-              textColor={quiz.creatorAvatarText}
-              size={22}
+          <div className="flex items-center justify-between mt-3">
+            <div className="flex items-center gap-2">
+              <UserAvatar
+                username={quiz.creatorUsername}
+                avatarUrl={quiz.creatorAvatarUrl}
+                bgColor={quiz.creatorAvatarBg}
+                textColor={quiz.creatorAvatarText}
+                size={22}
+              />
+              <p className="text-sm text-txt-secondary">
+                by <Link href={`/u/${quiz.creatorUsername}`} className="font-medium text-txt-primary hover:underline">{quiz.creatorUsername}</Link>
+              </p>
+            </div>
+            <RedditShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+              title={`${quiz.title} - free K-pop quiz on kpopquiz.org`}
+              compact
             />
-            <p className="text-sm text-txt-secondary">
-              by <Link href={`/u/${quiz.creatorUsername}`} className="font-medium text-txt-primary hover:underline">{quiz.creatorUsername}</Link>
-            </p>
           </div>
 
           <div className="flex gap-6 mt-4">
@@ -819,6 +827,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           >
             Share result
           </button>
+        </div>
+        <div className="mt-2">
+          <RedditShareButton
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+            title={`I scored ${state.score}/${maxScore} on "${quiz.title}" - can you beat me?`}
+            className="w-full py-2.5 rounded-full border border-border-light text-sm font-medium bg-surface-primary cursor-pointer hover:border-[#FF4500] hover:text-[#FF4500] transition-colors flex items-center justify-center gap-2 text-txt-secondary"
+          />
         </div>
 
         <ReportForm quizId={quiz.id} />

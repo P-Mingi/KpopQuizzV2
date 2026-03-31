@@ -5,6 +5,7 @@ import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeButton } from '@/components/ui/like-button';
+import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { formatCount } from '@/lib/utils';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -66,6 +67,11 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
         <div className="flex flex-col items-center flex-shrink-0">
           {isOwner && (
             <div className="flex items-center gap-1.5 mb-1 relative z-10 pointer-events-auto">
+              <RedditShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+                title={`I made a ${quiz.group_name} quiz - test your knowledge!`}
+                compact
+              />
               <Link
                 href={`/create?edit=${quiz.id}`}
                 className="w-7 h-7 rounded-full flex items-center justify-center text-txt-secondary hover:bg-surface-secondary transition-colors"
