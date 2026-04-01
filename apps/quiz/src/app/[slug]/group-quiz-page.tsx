@@ -11,6 +11,9 @@ import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 
 function generateDefaultIntro(group: Group): string {
+  if (group.quiz_count === 0) {
+    return `No ${group.name} quizzes yet - be the first to create one! Think you know ${group.name} well enough to challenge other ${group.fandom_name}s? Create a free quiz at kpopquiz.org.`;
+  }
   return `Think you're a real ${group.fandom_name}? Play ${group.quiz_count}+ free ${group.name} quizzes created by fans who actually know ${group.name}. From easy trivia to impossible deep-cut challenges - prove you deserve your fan card. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
 }
 

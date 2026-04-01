@@ -15,8 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .order('updated_at', { ascending: false }),
     supabase
       .from('groups')
-      .select('slug, quiz_count')
-      .gte('quiz_count', 3),
+      .select('slug, quiz_count'),
     supabase
       .from('profiles')
       .select('username, updated_at')

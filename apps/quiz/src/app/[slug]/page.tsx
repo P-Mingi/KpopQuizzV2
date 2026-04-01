@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   if (!parsed) return {};
 
   const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group || group.quiz_count < 3) return {};
+  if (!group) return {};
 
   if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
   return generateGroupTriviaMetadata(group);
@@ -43,7 +43,7 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
   if (!parsed) notFound();
 
   const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group || group.quiz_count < 3) notFound();
+  if (!group) notFound();
 
   if (parsed.type === 'quiz') return GroupQuizPage({ group });
   return GroupTriviaPage({ group });
