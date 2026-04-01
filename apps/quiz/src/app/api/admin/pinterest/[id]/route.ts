@@ -58,8 +58,9 @@ export async function PATCH(
     'title', 'description', 'board', 'pin_type', 'link_url',
     'group_name', 'group_slug', 'headline', 'subtext', 'fact_date',
     'score_display', 'score_percent', 'image_url', 'generated_image_url',
-    'needs_photo', 'status', 'posted_at', 'scheduled_date',
-    'hashtags', 'category', 'sort_order',
+    'image_storage_path', 'image_public_url',
+    'needs_photo', 'status', 'posted_at', 'scheduled_date', 'scheduled_for',
+    'pinterest_pin_id', 'hashtags', 'category', 'sort_order',
   ];
   const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
 

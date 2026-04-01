@@ -5,8 +5,16 @@ import Link from 'next/link';
 
 import type { PinterestPin } from '../pinterest-dashboard';
 
+interface AuthStatus {
+  connected: boolean;
+  expiresAt?: string;
+  scope?: string;
+}
+
 interface Props {
   pin: PinterestPin;
+  boards: Array<{ board_name: string; pinterest_board_id: string }>;
+  authStatus: AuthStatus | null;
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -14,13 +22,28 @@ const TYPE_LABELS: Record<string, string> = {
   fact_card: 'Fact Card',
   did_you_know: 'Did You Know',
   score_challenge: 'Score Challenge',
+  aesthetic: 'Aesthetic',
+  meme: 'Meme',
+  quote: 'Quote',
+  wallpaper: 'Wallpaper',
+  fan_edit: 'Fan Edit',
+  concept_photo: 'Concept Photo',
 };
 
-export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement {
+const STATUS_COLORS: Record<string, string> = {
+  draft: 'bg-surface-secondary text-txt-secondary',
+  ready: 'bg-info-bg text-info-text',
+  approved: 'bg-[#EEEDFE] text-[#3C3489]',
+  scheduled: 'bg-[#FAEEDA] text-[#633806]',
+  posted: 'bg-[#EAF3DE] text-[#27500A]',
+  failed: 'bg-[#FBEAF0] text-[#72243E]',
+};
+
+export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props): React.ReactElement {
   const [pin, setPin] = useState<PinterestPin>(initialPin);
   const [saving, setSaving] = useState(false);
   const [downloading, setDownloading] = useState(false);
-  const [marking, setMarking] = useState(false);
+  const [posting, setPosting] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
@@ -30,6 +53,8 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
   const [description, setDescription] = useState(pin.description);
   const [headline, setHeadline] = useState(pin.headline);
   const [subtext, setSubtext] = useState(pin.subtext ?? '');
+  const [board, setBoard] = useState(pin.board);
+  const [linkUrl, setLinkUrl] = useState(pin.link_url ?? '');
   const [imageUrl, setImageUrl] = useState(pin.image_url ?? '');
   const [hashtags, setHashtags] = useState(pin.hashtags.join(' '));
 
@@ -50,6 +75,8 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
           description,
           headline,
           subtext: subtext || null,
+          board,
+          link_url: linkUrl || null,
           image_url: imageUrl || null,
           hashtags: hashtags.split(/\s+/).filter(Boolean),
         }),
@@ -63,13 +90,13 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
     } finally {
       setSaving(false);
     }
-  }, [pin.id, title, description, headline, subtext, imageUrl, hashtags]);
+  }, [pin.id, title, description, headline, subtext, board, linkUrl, imageUrl, hashtags]);
 
   const loadPreview = useCallback(async () => {
     setLoadingPreview(true);
     setImagePreviewUrl(null);
     try {
-      // Save current changes first so the image reflects latest state
+      // Save first so image reflects latest state
       const res = await fetch(`/api/admin/pinterest/${pin.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -78,6 +105,8 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
           description,
           headline,
           subtext: subtext || null,
+          board,
+          link_url: linkUrl || null,
           image_url: imageUrl || null,
           hashtags: hashtags.split(/\s+/).filter(Boolean),
         }),
@@ -95,7 +124,7 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
     } finally {
       setLoadingPreview(false);
     }
-  }, [pin.id, title, description, headline, subtext, imageUrl, hashtags]);
+  }, [pin.id, title, description, headline, subtext, board, linkUrl, imageUrl, hashtags]);
 
   const downloadImage = useCallback(async () => {
     setDownloading(true);
@@ -116,25 +145,54 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
     }
   }, [pin.id]);
 
-  const markPosted = useCallback(async () => {
-    setMarking(true);
+  const updateStatus = useCallback(async (status: string) => {
     try {
       const res = await fetch(`/api/admin/pinterest/${pin.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'posted' }),
+        body: JSON.stringify({ status }),
       });
       if (!res.ok) throw new Error('Failed to update');
       const { pin: updated } = await res.json() as { pin: PinterestPin };
       setPin(updated);
     } catch {
-      alert('Failed to mark as posted. Please try again.');
-    } finally {
-      setMarking(false);
+      alert('Failed to update status.');
     }
   }, [pin.id]);
 
+  const postToPin = useCallback(async () => {
+    if (!confirm('Post this pin to Pinterest now?')) return;
+    setPosting(true);
+    try {
+      // Save current edits first
+      await save();
+
+      const res = await fetch('/api/admin/pinterest/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin_id: pin.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPin((prev) => ({
+          ...prev,
+          status: 'posted',
+          posted_at: new Date().toISOString(),
+          pinterest_pin_id: data.pinterest_pin_id,
+        }));
+        alert('Pin posted to Pinterest!');
+      } else {
+        alert(`Post failed: ${data.error}`);
+      }
+    } catch {
+      alert('Failed to post to Pinterest.');
+    } finally {
+      setPosting(false);
+    }
+  }, [pin.id, save]);
+
   const canGenerateImage = !pin.needs_photo || !!imageUrl;
+  const canPost = authStatus?.connected && (pin.image_public_url || pin.generated_image_url || pin.image_url);
 
   return (
     <div className="py-6">
@@ -148,19 +206,32 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
           <h1 className="text-xl font-semibold text-txt-primary line-clamp-1">{pin.headline}</h1>
         </div>
         <div className="flex items-center gap-2">
-          {pin.status !== 'posted' && (
+          {pin.status !== 'posted' && pin.status !== 'approved' && (
             <button
-              onClick={markPosted}
-              disabled={marking}
-              className="px-3 py-1.5 bg-[#EAF3DE] text-[#27500A] text-sm font-medium rounded-lg hover:bg-[#D8EDCB] transition-colors disabled:opacity-50"
+              onClick={() => updateStatus('approved')}
+              className="px-3 py-1.5 bg-[#EEEDFE] text-[#3C3489] text-sm font-medium rounded-lg hover:bg-[#E0DEFD] transition-colors"
             >
-              {marking ? 'Saving...' : 'Mark as Posted'}
+              Approve
             </button>
+          )}
+          {canPost && pin.status !== 'posted' && (
+            <button
+              onClick={postToPin}
+              disabled={posting}
+              className="px-3 py-1.5 bg-[#E60023] text-white text-sm font-medium rounded-lg hover:bg-[#C2001D] transition-colors disabled:opacity-50"
+            >
+              {posting ? 'Posting...' : 'Post to Pinterest'}
+            </button>
+          )}
+          {pin.status === 'posted' && (
+            <span className="px-3 py-1.5 bg-[#EAF3DE] text-[#27500A] text-sm font-medium rounded-lg">
+              Posted
+            </span>
           )}
           <button
             onClick={save}
             disabled={saving}
-            className="px-3 py-1.5 bg-[#EEEDFE] text-[#3C3489] text-sm font-medium rounded-lg hover:bg-[#E0DEFD] transition-colors disabled:opacity-50"
+            className="px-3 py-1.5 bg-surface-secondary text-txt-primary text-sm font-medium rounded-lg hover:bg-surface-tertiary transition-colors disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save'}
           </button>
@@ -180,22 +251,45 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
               </div>
               <div>
                 <span className="text-txt-tertiary">Status</span>
-                <p className="text-txt-primary font-medium mt-0.5 capitalize">{pin.status}</p>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full mt-0.5 inline-block ${STATUS_COLORS[pin.status] ?? ''}`}>
+                  {pin.status.charAt(0).toUpperCase() + pin.status.slice(1)}
+                </span>
               </div>
               <div>
                 <span className="text-txt-tertiary">Group</span>
                 <p className="text-txt-primary font-medium mt-0.5">{pin.group_name ?? 'General'}</p>
               </div>
               <div>
-                <span className="text-txt-tertiary">Board</span>
-                <p className="text-txt-primary font-medium mt-0.5">{pin.board}</p>
+                <span className="text-txt-tertiary">Pinterest ID</span>
+                <p className="text-txt-primary font-medium mt-0.5 text-[10px] font-mono">
+                  {pin.pinterest_pin_id ?? 'Not posted'}
+                </p>
               </div>
             </div>
-            {pin.link_url && (
-              <div className="mt-2">
-                <span className="text-xs text-txt-tertiary">Link URL</span>
-                <p className="text-xs text-info-text mt-0.5 truncate">{pin.link_url}</p>
-              </div>
+          </div>
+
+          {/* Board */}
+          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+            <label className="text-sm font-semibold text-txt-primary block mb-2">Board</label>
+            {boards.length > 0 ? (
+              <select
+                value={board}
+                onChange={(e) => setBoard(e.target.value)}
+                className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+              >
+                {boards.map((b) => (
+                  <option key={b.board_name} value={b.board_name}>{b.board_name}</option>
+                ))}
+                {!boards.find((b) => b.board_name === board) && (
+                  <option value={board}>{board} (not synced)</option>
+                )}
+              </select>
+            ) : (
+              <input
+                value={board}
+                onChange={(e) => setBoard(e.target.value)}
+                className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+              />
             )}
           </div>
 
@@ -240,6 +334,18 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
             <p className="text-xs text-txt-tertiary mt-1">{description.length}/500 characters</p>
           </div>
 
+          {/* Link URL */}
+          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+            <label className="text-sm font-semibold text-txt-primary block mb-2">Link URL</label>
+            <input
+              value={linkUrl}
+              onChange={(e) => setLinkUrl(e.target.value)}
+              className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+              placeholder="https://kpopquiz.org"
+              type="url"
+            />
+          </div>
+
           {/* Hashtags */}
           <div className="bg-surface-primary border border-border-light rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
@@ -260,10 +366,9 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
             />
           </div>
 
-          {/* Image fields */}
+          {/* Image template fields */}
           <div className="bg-surface-primary border border-border-light rounded-lg p-4">
             <h2 className="text-sm font-semibold text-txt-primary mb-3">Image Template</h2>
-
             <div className="space-y-3">
               <div>
                 <label className="text-xs text-txt-tertiary block mb-1">Headline (shown on image)</label>
@@ -300,7 +405,7 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
           </div>
         </div>
 
-        {/* Right: Image preview */}
+        {/* Right: Image preview + stats */}
         <div className="space-y-4">
           <div className="bg-surface-primary border border-border-light rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
@@ -310,7 +415,6 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
                   onClick={loadPreview}
                   disabled={loadingPreview || !canGenerateImage}
                   className="px-3 py-1.5 text-xs bg-surface-secondary text-txt-primary rounded-lg hover:bg-surface-tertiary transition-colors disabled:opacity-50"
-                  title={!canGenerateImage ? 'Upload a photo first' : undefined}
                 >
                   {loadingPreview ? 'Generating...' : 'Preview'}
                 </button>
@@ -318,13 +422,13 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
                   onClick={downloadImage}
                   disabled={downloading || !canGenerateImage}
                   className="px-3 py-1.5 text-xs bg-[#EEEDFE] text-[#3C3489] rounded-lg hover:bg-[#E0DEFD] transition-colors disabled:opacity-50"
-                  title={!canGenerateImage ? 'Upload a photo first' : undefined}
                 >
                   {downloading ? 'Downloading...' : 'Download PNG'}
                 </button>
               </div>
             </div>
 
+            {/* Show uploaded image or preview */}
             {imagePreviewUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -333,6 +437,17 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
                 className="w-full rounded-lg border border-border-light"
                 style={{ aspectRatio: '1000/1500', objectFit: 'cover' }}
               />
+            ) : pin.image_public_url || pin.image_url ? (
+              <div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={(pin.image_public_url || pin.image_url)!}
+                  alt="Uploaded image"
+                  className="w-full rounded-lg border border-border-light object-cover"
+                  style={{ maxHeight: '500px' }}
+                />
+                <p className="text-xs text-txt-tertiary mt-2">Uploaded image. Click Preview to see the generated pin template.</p>
+              </div>
             ) : (
               <div
                 className="w-full rounded-lg border-2 border-dashed border-border-medium flex flex-col items-center justify-center text-txt-tertiary"
@@ -347,32 +462,78 @@ export function PinterestDetail({ pin: initialPin }: Props): React.ReactElement 
             )}
           </div>
 
-          {/* Workflow guide */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-            <h2 className="text-sm font-semibold text-txt-primary mb-3">Posting Workflow</h2>
-            <ol className="space-y-2 text-xs text-txt-secondary">
-              <li className="flex gap-2">
-                <span className="font-semibold text-txt-primary shrink-0">1.</span>
-                Preview the image, then click <span className="font-medium">Download PNG</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="font-semibold text-txt-primary shrink-0">2.</span>
-                Copy the <span className="font-medium">Pinterest Title</span> and <span className="font-medium">Description</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="font-semibold text-txt-primary shrink-0">3.</span>
-                Go to Pinterest, create a pin, upload the image
-              </li>
-              <li className="flex gap-2">
-                <span className="font-semibold text-txt-primary shrink-0">4.</span>
-                Paste the title, description, and link URL
-              </li>
-              <li className="flex gap-2">
-                <span className="font-semibold text-txt-primary shrink-0">5.</span>
-                Come back and click <span className="font-medium">Mark as Posted</span>
-              </li>
-            </ol>
-          </div>
+          {/* Analytics (if posted) */}
+          {pin.status === 'posted' && (
+            <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-txt-primary mb-3">Analytics</h2>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="text-center">
+                  <div className="text-lg font-semibold text-txt-primary">{pin.impressions}</div>
+                  <div className="text-xs text-txt-tertiary">Impressions</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-semibold text-txt-primary">{pin.saves}</div>
+                  <div className="text-xs text-txt-tertiary">Saves</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-semibold text-txt-primary">{pin.clicks}</div>
+                  <div className="text-xs text-txt-tertiary">Clicks</div>
+                </div>
+              </div>
+              {pin.posted_at && (
+                <p className="text-xs text-txt-tertiary mt-3 text-center">
+                  Posted {new Date(pin.posted_at).toLocaleDateString()}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Posting workflow */}
+          {pin.status !== 'posted' && (
+            <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-txt-primary mb-3">Posting Workflow</h2>
+              {authStatus?.connected ? (
+                <ol className="space-y-2 text-xs text-txt-secondary">
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">1.</span>
+                    Review and edit the title, description, board, and image
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">2.</span>
+                    Click <span className="font-medium">Approve</span> when ready
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">3.</span>
+                    Click <span className="font-medium text-[#E60023]">Post to Pinterest</span> to publish directly
+                  </li>
+                </ol>
+              ) : (
+                <ol className="space-y-2 text-xs text-txt-secondary">
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">1.</span>
+                    Preview the image, then click <span className="font-medium">Download PNG</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">2.</span>
+                    Copy the <span className="font-medium">Pinterest Title</span> and <span className="font-medium">Description</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">3.</span>
+                    Go to Pinterest, create a pin, upload the image
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-semibold text-txt-primary shrink-0">4.</span>
+                    Paste the title, description, and link URL
+                  </li>
+                  <li className="flex gap-2 mt-3 pt-3 border-t border-border-light">
+                    <span className="text-[#E60023] font-medium">
+                      Connect Pinterest in the dashboard for direct posting!
+                    </span>
+                  </li>
+                </ol>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
