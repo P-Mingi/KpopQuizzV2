@@ -3,13 +3,14 @@ import { BottomNav } from '@/components/layout/bottom-nav';
 import { Sidebar } from '@/components/layout/sidebar';
 import { createServerClient } from '@kpopquiz/shared/supabase/server';
 
-async function getNavUser() {
+async function getNavUser(): Promise<{ username: string; streak: number } | undefined> {
   try {
     const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return undefined;
     const { data } = await supabase.from('players').select('username, streak').eq('id', user.id).single();
-    return data ?? undefined;
+    if (!data) return undefined;
+    return { username: data.username as string, streak: data.streak as number };
   } catch {
     return undefined;
   }
@@ -19,7 +20,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const navUser = await getNavUser();
   return (
     <>
-      <TopNav {...(navUser ? { user: navUser } : {})} />
+      {navUser ? <TopNav user={navUser} /> : <TopNav />}
       <div className="flex gap-6 px-4 md:px-6 pb-24 md:pb-8">
         {/* Main content */}
         <main className="flex-1 min-w-0">
