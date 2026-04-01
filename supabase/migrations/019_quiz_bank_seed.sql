@@ -277,7 +277,7 @@ VALUES (
     {"question": "Which BTS member is from Busan and is the youngest in the group?", "options": ["Jimin", "V", "Jungkook", "Jin"], "correct": 2, "fun_fact": "Jungkook (Jeon Jeong-guk) was born on September 1, 1997, in Busan. As the youngest (maknae), he is nicknamed the Golden Maknae for his exceptional talents.", "source": "https://en.wikipedia.org/wiki/Jungkook"},
     {"question": "BTS addressed the United Nations General Assembly for the first time in which year?", "options": ["2018", "2019", "2020", "2021"], "correct": 0, "fun_fact": "BTS addressed the 73rd UN General Assembly on September 24, 2018, as part of the UNICEF Generation Unlimited initiative. RM delivered the speech in Korean.", "source": "https://en.wikipedia.org/wiki/BTS"},
     {"question": "Which BTS member released the solo mixtape ''Hope World'' in 2018?", "options": ["Suga", "RM", "J-Hope", "V"], "correct": 2, "fun_fact": "J-Hope released Hope World on March 2, 2018, as a free mixtape. It debuted at #38 on the Billboard 200, the highest ever for a Korean solo artist at the time.", "source": "https://en.wikipedia.org/wiki/Hope_World"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia BTS, Wikipedia 2 Cool 4 Skool, Wikipedia Love Yourself: Her, Wikipedia Dynamite (BTS song), Wikipedia J-Hope, Wikipedia Boy with Luv, Wikipedia RM (rapper), Wikipedia Jungkook, Wikipedia Hope World'
 );
@@ -302,7 +302,7 @@ VALUES (
     {"question": "BLACKPINK''s album Born Pink reached #1 on which major US chart in 2022?", "options": ["Billboard Hot 100", "Billboard 200", "Billboard Artist 100", "Billboard Global 200"], "correct": 1, "fun_fact": "Born Pink, released September 16, 2022, debuted at #1 on the Billboard 200, making BLACKPINK the first K-pop girl group to top the chart.", "source": "https://en.wikipedia.org/wiki/Born_Pink"},
     {"question": "Jisoo starred in which Korean drama that aired on Disney+ in 2021?", "options": ["Crash Landing on You", "Vincenzo", "Snowdrop", "Twenty-Five Twenty-One"], "correct": 2, "fun_fact": "Jisoo starred in Snowdrop (2021-2022) alongside Jung Hae-in. The drama aired on JTBC and Disney+ and was set in 1987 South Korea.", "source": "https://en.wikipedia.org/wiki/Snowdrop_(TV_series)"},
     {"question": "BLACKPINK''s 2022 world tour was titled what?", "options": ["In Your Area", "The Album Tour", "Born Pink", "Re: BLACKPINK"], "correct": 2, "fun_fact": "The Born Pink World Tour ran from October 2022 to September 2023, making it one of the highest-grossing concert tours by a K-pop act.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Blackpink, Wikipedia The Album (Blackpink album), Wikipedia Blackpink at Coachella, Wikipedia Lisa (rapper), Wikipedia Solo (Jennie song), Wikipedia How You Like That, Wikipedia Rose (singer), Wikipedia Born Pink, Wikipedia Snowdrop (TV series)'
 );
@@ -327,7 +327,7 @@ VALUES (
     {"question": "Stray Kids'' fan club name is what?", "options": ["STAY", "SKZ-land", "DISTRICT9", "MIROH"], "correct": 0, "fun_fact": "Stray Kids'' fandom name is STAY, chosen because the boys (Stray Kids) and their fans (STAY) complete each other. The name was selected through a fan vote.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"},
     {"question": "Bang Chan, the leader of Stray Kids, grew up in which city outside of Korea?", "options": ["Sydney, Australia", "Toronto, Canada", "Auckland, New Zealand", "Los Angeles, USA"], "correct": 0, "fun_fact": "Bang Chan (Christopher Bang) was born in Seoul but grew up in Sydney, Australia, where he trained in music. He speaks fluent English and has hosted the online show Chan''s Room.", "source": "https://en.wikipedia.org/wiki/Bang_Chan"},
     {"question": "Stray Kids released which viral hit featuring a unique hook in 2022?", "options": ["God''s Menu", "Miroh", "MANIAC", "CASE 143"], "correct": 2, "fun_fact": "MANIAC was released in March 2022 as the title track of Oddinary. Its catchy hook and choreography went viral, significantly boosting Stray Kids'' global fanbase.", "source": "https://en.wikipedia.org/wiki/Oddinary"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Stray Kids, Wikipedia 3racha, Wikipedia Felix (singer), Wikipedia Maxident, Wikipedia Bang Chan'
 );
@@ -352,7 +352,7 @@ VALUES (
     {"question": "Nayeon was the first TWICE member to release a solo debut. What was her debut EP called?", "options": ["IM NAYEON", "Nayeon''s Pop", "Pop!", "Solo Trip"], "correct": 0, "fun_fact": "Nayeon released her first solo EP IM NAYEON in June 2022, with the lead single Pop!. It debuted at #7 on the Billboard 200.", "source": "https://en.wikipedia.org/wiki/Im_Nayeon_(EP)"},
     {"question": "TWICE''s long-running concert series, featuring solo stages and dance breaks, is called what?", "options": ["TWICE WORLD TOUR ''III''", "TWICE DOME TOUR", "TWICELIGHTS", "TWICE LAND"], "correct": 2, "fun_fact": "TWICELIGHTS was TWICE''s 2019 world tour, their second world tour. TWICE has since become known for extravagant world tours including ''III'' and ''Ready To Be.''", "source": "https://en.wikipedia.org/wiki/Twicelights_World_Tour"},
     {"question": "Which member is TWICE''s leader?", "options": ["Nayeon", "Jihyo", "Jeongyeon", "Momo"], "correct": 1, "fun_fact": "Jihyo (Park Ji-hyo) is the leader of TWICE. She was one of JYP''s longest-serving trainees before TWICE debuted, having trained for about 10 years.", "source": "https://en.wikipedia.org/wiki/Jihyo"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Twice (group), Wikipedia Sixteen (TV series), Wikipedia Cheer Up (Twice song), Wikipedia Tzuyu, Wikipedia TT (song), Wikipedia Im Nayeon (EP), Wikipedia Twicelights World Tour, Wikipedia Jihyo'
 );
@@ -377,7 +377,7 @@ VALUES (
     {"question": "Giselle is from which country?", "options": ["China", "South Korea", "Japan", "Thailand"], "correct": 2, "fun_fact": "Giselle (Uchinaga Aeri) was born in Tokyo, Japan. Despite her Japanese background, she raps primarily in Korean and English as part of aespa.", "source": "https://en.wikipedia.org/wiki/Giselle_(singer)"},
     {"question": "Which aespa song was described as their ''second debut'' and featured a dramatic concept shift?", "options": ["Next Level", "Dreams Come True", "Spicy", "Better Things"], "correct": 0, "fun_fact": "Next Level (2021) was considered aespa''s second debut due to its massive impact. It sampled the song Next Level from the Fast and Furious soundtrack and topped Korean charts for weeks.", "source": "https://en.wikipedia.org/wiki/Next_Level_(aespa_song)"},
     {"question": "aespa''s fandom is called what?", "options": ["MYSTERY", "MY", "AERI", "KWANGYA"], "correct": 1, "fun_fact": "aespa''s official fandom name is MY (pronounced ''my''). The name connects to the group''s concept: each member''s ae (avatar) calls them ''MY,'' symbolizing the bond between aespa and their fans.", "source": "https://en.wikipedia.org/wiki/Aespa"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Aespa, Wikipedia Ningning, Wikipedia Savage (aespa EP), Wikipedia Karina (singer), Wikipedia Giselle (singer), Wikipedia Next Level (aespa song)'
 );
@@ -402,7 +402,7 @@ VALUES (
     {"question": "Which NewJeans member is the youngest and debuted at just 14 years old?", "options": ["Haerin", "Danielle", "Hyein", "Minji"], "correct": 2, "fun_fact": "Hyein (Lee Hye-in) was born on April 21, 2008, and debuted at age 14 when NewJeans released their EP New Jeans in July 2022.", "source": "https://en.wikipedia.org/wiki/Hyein"},
     {"question": "NewJeans performed at which global sporting event opening ceremony in 2024?", "options": ["FIFA World Cup", "Super Bowl", "NBA All-Star Game", "Paris Olympics"], "correct": 3, "fun_fact": "NewJeans performed at the Paris 2024 Olympic Games opening ceremony in July 2024, showcasing K-pop''s global reach on the world''s biggest sporting stage.", "source": "https://en.wikipedia.org/wiki/NewJeans"},
     {"question": "Danielle is of mixed Korean and which other heritage?", "options": ["Irish", "French", "Australian", "American"], "correct": 0, "fun_fact": "Danielle (Danielle Marsh) is of Korean and Irish descent. She was born in South Korea but has an Australian/Irish father, making her one of the most multicultural members in K-pop.", "source": "https://en.wikipedia.org/wiki/Danielle_(singer)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia NewJeans, Wikipedia Ditto (NewJeans song), Wikipedia Hanni (singer), Wikipedia Attention (NewJeans song), Wikipedia Hyein, Wikipedia Danielle (singer)'
 );
@@ -427,7 +427,7 @@ VALUES (
     {"question": "SEVENTEEN''s lightstick is called the Carat Bong. What color does it glow?", "options": ["Blue", "Pink", "Golden Yellow", "Green"], "correct": 2, "fun_fact": "The Carat Bong emits a golden yellow glow, representing the ''shining'' quality of CARATs (diamonds). The fandom name CARAT refers to the unit used to measure diamonds.", "source": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"},
     {"question": "Which SEVENTEEN album contains the hit song ''Left & Right''?", "options": ["You Make My Day", "Semicolon", "Heng:garae", "Director''s Cut"], "correct": 2, "fun_fact": "Left & Right was the title track of SEVENTEEN''s seventh mini-album Heng:garae, released in June 2020. It became one of their most internationally recognized songs.", "source": "https://en.wikipedia.org/wiki/Heng:garae"},
     {"question": "What does the name SEVENTEEN refer to, given there are 13 members?", "options": ["Their training years combined", "13 members + 3 units + 1 team = 17", "Their debut date (May 17)", "There were 17 trainees initially"], "correct": 1, "fun_fact": "The name SEVENTEEN represents 13 members + 3 units (Hip-Hop, Vocal, Performance) + 1 unified team, symbolizing how they all come together as one.", "source": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Seventeen (South Korean band), Wikipedia Woozi, Wikipedia Vernon (rapper), Wikipedia Face the Sun, Wikipedia Joshua (singer), Wikipedia Heng:garae'
 );
@@ -452,7 +452,7 @@ VALUES (
     {"question": "Which popular 2016 EXO song features a monster concept and became one of their biggest hits?", "options": ["Growl", "Call Me Baby", "Monster", "Ko Ko Bop"], "correct": 2, "fun_fact": "Monster was released in June 2016 as a double title track alongside Lucky One. The dark, intense music video and choreography made it one of EXO''s most iconic releases.", "source": "https://en.wikipedia.org/wiki/Monster_(EXO_song)"},
     {"question": "EXO''s fan club name is what?", "options": ["EXO-Star", "EXO Planet", "EXO-L", "EXOVERSE"], "correct": 2, "fun_fact": "EXO''s fandom is called EXO-L, where L represents the letter between K and M in the alphabet, symbolizing that EXO-L is between EXO-K and EXO-M -- the fans connecting the two sub-units.", "source": "https://en.wikipedia.org/wiki/Exo_(group)"},
     {"question": "Which member of EXO was the first to release a Korean solo studio album?", "options": ["Baekhyun", "Chen", "Sehun", "Xiumin"], "correct": 1, "fun_fact": "Chen (Kim Jong-dae) released his first solo EP April, and a Flower in April 2019, becoming the first EXO member to release a Korean solo mini-album.", "source": "https://en.wikipedia.org/wiki/Chen_(singer)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Exo (group), Wikipedia Mama (EXO EP), Wikipedia Xoxo (EXO album), Wikipedia Kris Wu, Wikipedia D.O. (singer), Wikipedia Lay Zhang, Wikipedia Monster (EXO song), Wikipedia Chen (singer)'
 );
@@ -477,7 +477,7 @@ VALUES (
     {"question": "What does the group name (G)I-DLE mean?", "options": ["Girls I Do Love Everyone", "I am a girl, I am free (from Korean ''I-DLE'')", "Global Idols Dancing and Living Energetically", "Girls Inspiring Daily Life Everywhere"], "correct": 1, "fun_fact": "The name (G)I-DLE comes from the Korean word ''I-DLE'' (아이들) meaning ''children'' or ''girls,'' combined with the English letter G for ''girl.'' Soyeon has also said the name can mean ''I am a girl who is free.''", "source": "https://en.wikipedia.org/wiki/(G)I-dle"},
     {"question": "Minnie is from which country?", "options": ["South Korea", "China", "Japan", "Thailand"], "correct": 3, "fun_fact": "Minnie (Nicha Yontararak) is from Thailand. She moved to South Korea to pursue her K-pop career and has also released Thai-language solo music.", "source": "https://en.wikipedia.org/wiki/Minnie_(singer)"},
     {"question": "Which (G)I-DLE mini-album features the tracks HWAA and Dumdi Dumdi?", "options": ["I Burn", "I Trust", "I Never Die", "I Feel"], "correct": 0, "fun_fact": "I Burn was released in January 2021 and features HWAA as the title track. Dumdi Dumdi was from their 2020 EP I Depend On You. The album I Burn became (G)I-DLE''s best-selling release at the time.", "source": "https://en.wikipedia.org/wiki/I_Burn_(EP)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia (G)I-dle, Wikipedia Soyeon, Wikipedia Yuqi, Wikipedia I Never Die, Wikipedia Shuhua, Wikipedia The Baddest (K/DA song), Wikipedia Minnie (singer), Wikipedia I Burn (EP)'
 );
@@ -502,7 +502,7 @@ VALUES (
     {"question": "IVE was named Artist of the Year at the 2022 Melon Music Awards. How long had they been active at that point?", "options": ["Less than 6 months", "About 1 year", "About 1.5 years", "About 2 years"], "correct": 1, "fun_fact": "IVE won Artist of the Year (Daesang) at the 2022 Melon Music Awards, just about 1 year after their debut. This made them one of the fastest groups to win a Daesang.", "source": "https://en.wikipedia.org/wiki/Ive_(group)"},
     {"question": "Which IVE member is the youngest?", "options": ["Gaeul", "Rei", "Liz", "Leeseo"], "correct": 3, "fun_fact": "Leeseo (Lee Seo) was born on February 21, 2007, making her the youngest member of IVE. She debuted at just 14 years old.", "source": "https://en.wikipedia.org/wiki/Leeseo"},
     {"question": "Which IVE song had a music video inspired by Audrey Hepburn and classic Hollywood?", "options": ["ELEVEN", "LOVE DIVE", "After LIKE", "I AM"], "correct": 2, "fun_fact": "After LIKE (2022) features a music video with Audrey Hepburn-inspired styling and samples the melody from Gloria Gaynor''s I Will Survive. It became a huge summer hit.", "source": "https://en.wikipedia.org/wiki/After_Like"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Ive (group), Wikipedia Iz*One, Wikipedia Eleven (IVE song), Wikipedia Rei (singer), Wikipedia Love Dive, Wikipedia Leeseo, Wikipedia After Like'
 );
@@ -527,7 +527,7 @@ VALUES (
     {"question": "Which LE SSERAFIM song became their breakout international hit in 2023?", "options": ["FEARLESS", "ANTIFRAGILE", "UNFORGIVEN", "Easy"], "correct": 3, "fun_fact": "Easy, released in February 2024, became LE SSERAFIM''s most internationally successful song to date, gaining massive traction on streaming platforms globally.", "source": "https://en.wikipedia.org/wiki/Easy_(Le_Sserafim_song)"},
     {"question": "Eunchae is the youngest member of LE SSERAFIM. She was born in which year?", "options": ["2004", "2005", "2006", "2007"], "correct": 2, "fun_fact": "Eunchae (Hong Eun-chae) was born on November 10, 2006, making her the youngest member of LE SSERAFIM. She joined after the initial lineup was reduced to 5.", "source": "https://en.wikipedia.org/wiki/Eunchae"},
     {"question": "LE SSERAFIM''s ANTIFRAGILE (2022) peaked at what position on the Billboard Hot 100?", "options": ["#7", "#22", "#57", "#100"], "correct": 2, "fun_fact": "ANTIFRAGILE peaked at #57 on the Billboard Hot 100, making it one of the highest-charting K-pop girl group songs on the chart at the time of release.", "source": "https://en.wikipedia.org/wiki/Antifragile_(Le_Sserafim_song)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Le Sserafim, Wikipedia Iz*One, Wikipedia Sakura Miyawaki, Wikipedia Yunjin, Wikipedia Easy (Le Sserafim song), Wikipedia Eunchae, Wikipedia Antifragile (Le Sserafim song)'
 );
@@ -552,7 +552,7 @@ VALUES (
     {"question": "Yuta is from which country?", "options": ["China", "Japan", "Thailand", "Vietnam"], "correct": 1, "fun_fact": "Yuta (Nakamoto Yuta) is from Osaka, Japan. He is NCT 127''s Japanese member and has a significant fanbase in Japan.", "source": "https://en.wikipedia.org/wiki/Yuta_(singer)"},
     {"question": "Which NCT 127 song from 2020 features a Bruce Lee-inspired concept and martial arts references?", "options": ["Regular", "Punch", "Kick It", "Highway to Heaven"], "correct": 2, "fun_fact": "Kick It (2020) was explicitly inspired by Bruce Lee, with the MV featuring numerous martial arts references. The song''s hook references the iconic film Enter the Dragon.", "source": "https://en.wikipedia.org/wiki/Kick_It_(NCT_127_song)"},
     {"question": "Winwin departed from NCT 127 to focus on which other NCT unit?", "options": ["NCT Dream", "NCT U", "WayV", "SuperM"], "correct": 2, "fun_fact": "Winwin (Dong Sicheng) transitioned to focus on WayV, the Chinese-language unit of NCT based in China. He remains an NCT member overall but stopped participating in NCT 127 activities.", "source": "https://en.wikipedia.org/wiki/WayV"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia NCT 127, Wikipedia Jaehyun, Wikipedia Superhuman (NCT 127 song), Wikipedia Johnny (singer), Wikipedia Sticker (album), Wikipedia Taeyong, Wikipedia Yuta (singer), Wikipedia Kick It (NCT 127 song), Wikipedia WayV'
 );
@@ -577,7 +577,7 @@ VALUES (
     {"question": "Joy starred in which popular Korean drama in 2021?", "options": ["Nevertheless", "My Roommate Is a Gumiho", "Hometown Cha-Cha-Cha", "Doom at Your Service"], "correct": 1, "fun_fact": "Joy starred in the drama My Roommate Is a Gumiho (2021) alongside Lee Hyun-woo on tvN. She received positive reviews for her acting in the role.", "source": "https://en.wikipedia.org/wiki/Joy_(singer)"},
     {"question": "Red Velvet''s group name reflects their two-sided concept. What does each part refer to?", "options": ["Two eras of their music", "Two genres: pop and R&B", "Two different fan bases", "Day and night concepts"], "correct": 1, "fun_fact": "Red symbolizes pop: bright, colorful, and bold. Velvet symbolizes R&B: smooth, elegant, and sophisticated. This dual identity is the foundation of their entire artistic concept.", "source": "https://en.wikipedia.org/wiki/Red_Velvet"},
     {"question": "Which Red Velvet member is known as the main vocalist with one of the most powerful voices in K-pop?", "options": ["Irene", "Seulgi", "Wendy", "Joy"], "correct": 2, "fun_fact": "Wendy (Son Seung-wan) is widely considered one of the strongest vocalists in K-pop, known for her powerful belt and R&B-influenced delivery. She has released multiple successful solo projects.", "source": "https://en.wikipedia.org/wiki/Wendy_(singer)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Red Velvet, Wikipedia Yeri, Wikipedia Wendy (singer), Wikipedia Psycho (Red Velvet song), Wikipedia Irene (singer), Wikipedia Joy (singer)'
 );
@@ -602,7 +602,7 @@ VALUES (
     {"question": "ATEEZ''s music video for which song features a stunning synchronization with a K-Drama clip that went viral?", "options": ["FIREWORKS", "WAVE", "WONDERLAND", "Inception"], "correct": 3, "fun_fact": "ATEEZ''s Inception (2020) went viral when fans edited the dance break to sync perfectly with a scene from the Korean drama Signal. It introduced many new fans to ATEEZ.", "source": "https://en.wikipedia.org/wiki/Zero:_Fever_Part_1"},
     {"question": "ATEEZ topped the Billboard 200 with which album in 2023?", "options": ["THE WORLD EP.2 : OUTLAW", "SPIN OFF: FROM THE WITNESS", "THE WORLD EP.FIN: WILL", "FEVER PART 3"], "correct": 2, "fun_fact": "THE WORLD EP.FIN: WILL debuted at #1 on the Billboard 200 in January 2024, making ATEEZ one of few K-pop groups to top the chart.", "source": "https://en.wikipedia.org/wiki/The_World_EP.Fin:_Will"},
     {"question": "ATEEZ performed on which popular US late-night show, helping to boost their US profile?", "options": ["The Tonight Show", "The Late Show with Stephen Colbert", "Jimmy Kimmel Live", "The Late Late Show with James Corden"], "correct": 0, "fun_fact": "ATEEZ performed on The Tonight Show Starring Jimmy Fallon in 2022, one of several US TV appearances that helped grow their American fanbase.", "source": "https://en.wikipedia.org/wiki/Ateez"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Ateez, Wikipedia Ateez discography, Wikipedia Jongho, Wikipedia Hongjoong, Wikipedia Zero: Fever Part 1, Wikipedia The World EP.Fin: Will'
 );
@@ -627,7 +627,7 @@ VALUES (
     {"question": "ENHYPEN''s Jay is from which US city?", "options": ["Los Angeles", "New York", "Seattle", "Chicago"], "correct": 2, "fun_fact": "Jay (Park Jong-seong) was born in Seattle, Washington and grew up in Seattle. He is Korean-American and is known for his English fluency within the group.", "source": "https://en.wikipedia.org/wiki/Jay_(singer)"},
     {"question": "Which ENHYPEN song features a catchy hook about being lost in a hazy state and became a fan favorite?", "options": ["Given-Taken", "Drunk-Dazed", "Fever", "Polaroid Love"], "correct": 1, "fun_fact": "Drunk-Dazed (2021) is the lead track of their EP BORDER: CARNIVAL and one of ENHYPEN''s most beloved songs. Its funky, retro-horror concept was acclaimed for its creativity.", "source": "https://en.wikipedia.org/wiki/Border:_Carnival"},
     {"question": "ENHYPEN debuted under BELIFT LAB. Who are the two parent companies behind BELIFT LAB?", "options": ["HYBE and SM Entertainment", "HYBE and CJ ENM", "Big Hit Music and Pledis", "Source Music and BELIFT"], "correct": 1, "fun_fact": "BELIFT LAB is a joint venture between HYBE (formerly Big Hit Entertainment) and CJ ENM, the media company behind Mnet. The label was specifically created to manage ENHYPEN.", "source": "https://en.wikipedia.org/wiki/Belift_Lab"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Enhypen, Wikipedia Ni-ki, Wikipedia Jake (singer), Wikipedia Dark Blood, Wikipedia Jay (singer), Wikipedia Border: Carnival, Wikipedia Belift Lab'
 );
@@ -652,7 +652,7 @@ VALUES (
     {"question": "Which TXT member is known as the main dancer and ''performance king'' of the group?", "options": ["Taehyun", "Soobin", "Beomgyu", "Yeonjun"], "correct": 3, "fun_fact": "Yeonjun is widely considered TXT''s strongest performer and one of the best dancers in the 4th generation K-pop. He ranked as a top trainee globally before his debut.", "source": "https://en.wikipedia.org/wiki/Yeonjun"},
     {"question": "TXT collaborated with which iconic rock band on the song 0X1=LOVESONG?", "options": ["Paramore", "Bring Me the Horizon", "Fall Out Boy", "Panic! at the Disco"], "correct": 1, "fun_fact": "0X1=LOVESONG (I Know I Love You) features British metalcore band Bring Me the Horizon. The collaboration was praised for blending K-pop with heavy rock elements.", "source": "https://en.wikipedia.org/wiki/The_Chaos_Chapter:_FREEZE"},
     {"question": "TXT''s miniseries concept is centered on what connecting narrative?", "options": ["The Chaos Chapter -- a story of chaos, temptation, and choices", "The Dream Chapter -- a coming-of-age story with magical elements", "Both A and B -- as one continuous story", "A separate narrative called The Youth Chapter"], "correct": 2, "fun_fact": "TXT''s discography forms a continuous narrative: The Dream Chapter covers youth and innocence, The Chaos Chapter explores temptation and loss, forming an interconnected story about growing up.", "source": "https://en.wikipedia.org/wiki/Tomorrow_X_Together"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Tomorrow X Together, Wikipedia Huening Kai, Wikipedia Yeonjun, Wikipedia 0X1=LOVESONG (I Know I Love You), Wikipedia The Chaos Chapter: FREEZE'
 );
@@ -677,7 +677,7 @@ VALUES (
     {"question": "Lia is from which country?", "options": ["South Korea", "United States", "Canada", "Australia"], "correct": 2, "fun_fact": "Lia (Choi Ji-su) was born in Seoul but grew up in Vancouver, Canada, where she attended school before returning to Korea to audition for JYP Entertainment.", "source": "https://en.wikipedia.org/wiki/Lia_(singer)"},
     {"question": "ITZY''s lightstick is called what?", "options": ["Midzy Bong", "ITZY Spark", "Blink Bong", "Checkmate Bong"], "correct": 0, "fun_fact": "ITZY''s lightstick is called the Midzy Bong, named after their fandom Midzy. The fandom name MIDZY comes from combining ITZY and''midzy'' (미지 meaning unknown/mysterious).", "source": "https://en.wikipedia.org/wiki/Itzy"},
     {"question": "Which ITZY song features them in a school setting with a catchy hook and debuted with a record-breaking music video?", "options": ["DALLA DALLA", "LOCO", "ICY", "Mafia In the Morning"], "correct": 0, "fun_fact": "DALLA DALLA set records for the most viewed K-pop girl group debut music video in 24 hours at the time of release in February 2019, with around 17 million views.", "source": "https://en.wikipedia.org/wiki/Dalla_Dalla"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Itzy, Wikipedia Yuna (singer), Wikipedia Wannabe (Itzy song), Wikipedia Ryujin, Wikipedia Chaeryeon, Wikipedia Lia (singer), Wikipedia Dalla Dalla'
 );
@@ -702,7 +702,7 @@ VALUES (
     {"question": "MAMAMOO''s HIP (2019) features lyrics about what theme?", "options": ["Revenge on an ex-lover", "Confidence and self-assurance in their own identity", "Political commentary on Korean society", "The meaning of true friendship"], "correct": 1, "fun_fact": "HIP''s lyrics celebrate self-confidence and individuality. The music video features MAMAMOO in bold, colorful outfits representing their unfiltered personas.", "source": "https://en.wikipedia.org/wiki/Reality_in_Black"},
     {"question": "Wheein is known for her talents beyond singing. What other artistic skill is she celebrated for?", "options": ["Film acting", "Painting and visual art", "Classical piano", "Creative writing"], "correct": 1, "fun_fact": "Wheein (Jung Wheein) is a talented visual artist who has shared her paintings and drawings with fans. She studied at the School of Performing Arts Seoul and often incorporates art into her personal branding.", "source": "https://en.wikipedia.org/wiki/Wheein"},
     {"question": "What is MAMAMOO''s fandom name?", "options": ["MOOBONG", "MOOMOO", "BLOOM", "MAMA"], "correct": 1, "fun_fact": "MAMAMOO''s fandom is called MOOMOO (무무). The name comes from combining two letters from MAMAMOO''s name: MO from MOO and MO from MAMO.", "source": "https://en.wikipedia.org/wiki/Mamamoo"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Mamamoo, Wikipedia Moonbyul, Wikipedia Hwasa, Wikipedia Hello (Mamamoo EP), Wikipedia Solar (singer), Wikipedia Reality in Black, Wikipedia Wheein'
 );
@@ -727,7 +727,7 @@ VALUES (
     {"question": "Which award category did SHINee often win at Korean music shows, reflecting their exceptional live performance skills?", "options": ["Best Choreography", "Best Vocal Performance", "Triple Crown (artist, song, album)", "Best Performance (Bonsang)"], "correct": 2, "fun_fact": "SHINee regularly won Triple Crowns (simultaneous #1 on multiple Korean music broadcast shows) and were known for their flawless live vocals and performances.", "source": "https://en.wikipedia.org/wiki/Shinee"},
     {"question": "Taemin''s solo song ''Move'' (2017) is iconic for which reason?", "options": ["First K-pop MV to use only one continuous camera shot", "Its sensual, fluid dance style that became one of K-pop''s most iconic choreographies", "First male idol song to top 100 million streams on Melon", "Featuring the first all-female backup dancer crew in a K-pop MV"], "correct": 1, "fun_fact": "Move features one of K-pop''s most celebrated choreographies, known for its fluid, sensual movements and snake-like quality. The performance cemented Taemin''s status as one of K-pop''s greatest dancers.", "source": "https://en.wikipedia.org/wiki/Move_(Taemin_song)"},
     {"question": "What is the name of SHINee''s fandom?", "options": ["Starlight", "Shawol", "SHINee World", "Pearl Aqua"], "correct": 1, "fun_fact": "SHINee''s fandom is called Shawol, combining SHINee + World. Their official fandom color is Pearl Aqua, and they are known for their passionate and loyal fanbase.", "source": "https://en.wikipedia.org/wiki/Shinee"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Shinee, Wikipedia Replay (SHINee song), Wikipedia Jonghyun (singer), Wikipedia Taemin, Wikipedia Boys Meet U, Wikipedia Move (Taemin song)'
 );
@@ -752,7 +752,7 @@ VALUES (
     {"question": "Mark Tuan is from which country?", "options": ["South Korea", "Japan", "United States", "Taiwan"], "correct": 2, "fun_fact": "Mark Tuan was born in Los Angeles, California, USA, to Taiwanese-American parents. He is fluent in English and Mandarin in addition to Korean.", "source": "https://en.wikipedia.org/wiki/Mark_Tuan"},
     {"question": "Which entertainment company was GOT7 under from their debut until 2021?", "options": ["SM Entertainment", "YG Entertainment", "JYP Entertainment", "HYBE"], "correct": 2, "fun_fact": "GOT7 debuted under JYP Entertainment in January 2014 and remained with the label until their contracts expired at the end of 2021.", "source": "https://en.wikipedia.org/wiki/Got7"},
     {"question": "GOT7''s leader Jay B is also known by which other name reflecting his acting career?", "options": ["Lim Jaebum", "Im Jae-bum", "Jaebum Im", "JB Im"], "correct": 1, "fun_fact": "GOT7''s leader Jay B (Im Jae-bum) is also known as Def.B for his solo music and Im Jae-bum for his acting roles. He has starred in several Korean dramas and films.", "source": "https://en.wikipedia.org/wiki/Im_Jae-bum"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Got7, Wikipedia Jackson Wang, Wikipedia BamBam (rapper), Wikipedia 7 for 7, Wikipedia Mark Tuan, Wikipedia Im Jae-bum'
 );
@@ -777,7 +777,7 @@ VALUES (
     {"question": "Which MONSTA X song from 2017 featured a dramatic time-travel music video?", "options": ["Love Killa", "GAMBLER", "Dramarama", "Fighter"], "correct": 2, "fun_fact": "Dramarama was released in October 2017 and featured a time-travel storyline in its music video, earning widespread acclaim.", "source": "https://en.wikipedia.org/wiki/The_Connect:_Dejavu"},
     {"question": "MONSTA X released their English-language album ''All About Luv'' targeting which market?", "options": ["Japanese market", "Chinese market", "US market", "European market"], "correct": 2, "fun_fact": "All About Luv was released in February 2020 as MONSTA X''s first fully English-language album, aimed at breaking into the US market.", "source": "https://en.wikipedia.org/wiki/All_About_Luv"},
     {"question": "Which MONSTA X title track from 2020 is celebrated for its charismatic performance style?", "options": ["Beautiful", "Dramarama", "Love Killa", "Rush"], "correct": 2, "fun_fact": "Love Killa was released in October 2020 and is celebrated for its charismatic performance style and sleek production.", "source": "https://en.wikipedia.org/wiki/Fatal_Love"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Monsta X, Wikipedia Rush (Monsta X EP), Wikipedia The Clan Pt. 2.5 Beautiful, Wikipedia All About Luv, Wikipedia Fatal Love'
 );
@@ -802,7 +802,7 @@ VALUES (
     {"question": "NCT DREAM released a holiday-themed song called ''Candy'' which was a cover of which original song?", "options": ["A H.O.T original", "A Shinhwa original", "A g.o.d original", "A SHINee original"], "correct": 0, "fun_fact": "Candy is a cover of the 1996 H.O.T song of the same name, released by NCT DREAM in November 2022 as a winter special.", "source": "https://en.wikipedia.org/wiki/Candy_(NCT_Dream_song)"},
     {"question": "Which NCT DREAM repackage album followed Hot Sauce?", "options": ["We Boom", "Hello Future", "Glitch Mode", "Beatbox"], "correct": 1, "fun_fact": "Hello Future was released on June 28, 2021 as a repackage of the Hot Sauce album, featuring new tracks including the upbeat title Hello Future.", "source": "https://en.wikipedia.org/wiki/Hello_Future_(album)"},
     {"question": "What was the concept behind NCT DREAM''s ''Glitch Mode'' (2022)?", "options": ["Retro 80s concept", "Futuristic glitch-art aesthetic", "School/youth theme", "Dark psychological concept"], "correct": 1, "fun_fact": "Glitch Mode (2022) featured a futuristic, glitch-art aesthetic with distorted visuals, representing NCT DREAM''s evolution into a more mature sound while maintaining their youthful energy.", "source": "https://en.wikipedia.org/wiki/Glitch_Mode"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia NCT Dream, Wikipedia NCT (group), Wikipedia Hot Sauce (album), Wikipedia We Boom, Wikipedia Candy (NCT Dream song), Wikipedia Hello Future (album), Wikipedia Glitch Mode'
 );
@@ -827,7 +827,7 @@ VALUES (
     {"question": "Which year was BIGBANG''s MADE series released?", "options": ["2013", "2014", "2015", "2016"], "correct": 2, "fun_fact": "The MADE series was released throughout 2015 as a series of single albums (M, A, D, E), culminating in the full album MADE in 2016.", "source": "https://en.wikipedia.org/wiki/Made_(BigBang_album)"},
     {"question": "G-Dragon is widely considered what in the K-pop industry?", "options": ["King of K-pop", "Father of K-pop", "God of K-pop Fashion", "Pioneer of K-pop rap"], "correct": 0, "fun_fact": "G-Dragon is widely referred to as the ''King of K-pop'' for his enormous influence on music, fashion, and culture. He is one of the most decorated K-pop artists ever.", "source": "https://en.wikipedia.org/wiki/G-Dragon"},
     {"question": "Which entertainment company manages BIGBANG?", "options": ["SM Entertainment", "JYP Entertainment", "YG Entertainment", "HYBE"], "correct": 2, "fun_fact": "BIGBANG has been under YG Entertainment since their debut in 2006, helping to define the agency''s signature hip-hop influenced sound.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia BigBang (South Korean band), Wikipedia G-Dragon, Wikipedia Taeyang, Wikipedia Lies (BigBang song), Wikipedia T.O.P, Wikipedia Alive (BigBang album), Wikipedia Made (BigBang album)'
 );
@@ -852,7 +852,7 @@ VALUES (
     {"question": "Under which entertainment company has Girls'' Generation been signed since their debut?", "options": ["JYP Entertainment", "YG Entertainment", "SM Entertainment", "HYBE"], "correct": 2, "fun_fact": "Girls'' Generation has been with SM Entertainment since their pre-debut training days, debuting under the label in 2007.", "source": "https://en.wikipedia.org/wiki/Girls%27_Generation"},
     {"question": "Which Girls'' Generation song was released to celebrate their 15th anniversary in 2022?", "options": ["Holiday", "All Night", "FOREVER 1", "Sailing"], "correct": 2, "fun_fact": "FOREVER 1 was released on August 5, 2022 to commemorate Girls'' Generation''s 15th debut anniversary, reuniting all 8 remaining members.", "source": "https://en.wikipedia.org/wiki/Forever_1_(album)"},
     {"question": "Girls'' Generation''s song ''Genie'' is well known for which dance move?", "options": ["The wave", "The leg dance", "The shuffle", "The point dance"], "correct": 1, "fun_fact": "Genie''s choreography features a distinctive seated leg movement often called the ''leg dance'' or the ''Genie dance,'' which became iconic and widely imitated.", "source": "https://en.wikipedia.org/wiki/Genie_(Girls%27_Generation_song)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Girls Generation, Wikipedia Gee (song), Wikipedia Jessica Jung, Wikipedia Into the New World, Wikipedia I Got a Boy, Wikipedia Forever 1 (album), Wikipedia Genie (Girls Generation song)'
 );
@@ -881,7 +881,7 @@ VALUES (
     {"question": "In which city did BLACKPINK''s Born Pink World Tour begin?", "options": ["Los Angeles", "Tokyo", "Seoul", "London"], "correct": 2, "fun_fact": "The Born Pink World Tour opened in Seoul, South Korea, on October 15, 2022, before heading to North America, Europe, Asia, and Australia.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"},
     {"question": "TWICE''s ''Ready to Be'' world tour began in which city?", "options": ["Tokyo", "New York", "Seoul", "Sydney"], "correct": 2, "fun_fact": "TWICE''s Ready to Be World Tour opened at KSPO Dome in Seoul on April 15-16, 2023. The tour later grossed over $54 million from 18 reported shows by September 2023.", "source": "https://en.wikipedia.org/wiki/Ready_to_Be_World_Tour"},
     {"question": "Which K-pop group''s world tour was described as one of the largest stadium tours in K-pop history after BTS?", "options": ["SEVENTEEN", "aespa", "Stray Kids", "BLACKPINK"], "correct": 3, "fun_fact": "BLACKPINK''s Born Pink World Tour is the largest and highest-grossing stadium tour by a K-pop girl group, earning $330 million across 66 concerts.", "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Born Pink World Tour, Love Yourself World Tour, Ready to Be World Tour, Maniac World Tour, Synk: Hyper Line'
 );
@@ -906,7 +906,7 @@ VALUES (
     {"question": "Solar of MAMAMOO is famous for her personal YouTube channel called what?", "options": ["Solar Sunrise", "SOLARSIDO", "Solar Power", "Moon&Sun"], "correct": 1, "fun_fact": "Solar runs the YouTube channel SOLARSIDO, where she posts vlogs, challenges, and variety content. It has millions of subscribers and is one of the most successful idol YouTube channels.", "source": "https://en.wikipedia.org/wiki/Solar_(singer)"},
     {"question": "BTS''s docuseries ''Burn the Stage'' was released on which platform in 2018?", "options": ["Netflix", "YouTube Premium", "Disney+", "V LIVE"], "correct": 1, "fun_fact": "Burn the Stage is a BTS docuseries that premiered on YouTube Premium in November 2018, following BTS during their Wings Tour. It was later released as a theatrical film.", "source": "https://en.wikipedia.org/wiki/Burn_the_Stage"},
     {"question": "Which platform produces the survival show ''I-LAND'' that formed ENHYPEN?", "options": ["SBS", "KBS", "Mnet", "MBC"], "correct": 2, "fun_fact": "I-LAND was produced by Mnet and HYBE, airing from June to September 2020. The show selected 7 members to form ENHYPEN, who debuted in November 2020.", "source": "https://en.wikipedia.org/wiki/I-Land"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Run BTS, Wikipedia Going Seventeen (web series), Kpop Wiki Fandom, Wikipedia Solar (singer), Wikipedia Burn the Stage, Wikipedia I-Land'
 );
@@ -931,7 +931,7 @@ VALUES (
     {"question": "What was Jungkook''s first solo album released in 2023?", "options": ["Still With You", "Seven", "Golden", "Jung Kook"], "correct": 2, "fun_fact": "Jungkook released his debut solo album Golden on November 3, 2023. It debuted at number two on the Billboard 200, with multiple singles charting worldwide.", "source": "https://en.wikipedia.org/wiki/Golden_(album)"},
     {"question": "How many NCT sub-units debuted in the year 2016?", "options": ["1", "2", "3", "4"], "correct": 2, "fun_fact": "Three NCT sub-units debuted in 2016: NCT U (April), NCT 127 (July), and NCT Dream (August). WayV debuted later in 2019.", "source": "https://en.wikipedia.org/wiki/NCT_(group)"},
     {"question": "Which EXO sub-unit consists of Chen, Baekhyun, and Xiumin?", "options": ["EXO-K", "EXO-M", "EXO-CBX", "EXO-SC"], "correct": 2, "fun_fact": "EXO-CBX (Chen-Baek-Xi) debuted as EXO''s first official sub-unit in October 2016. Their name comes from the first letters of Chen, Baekhyun, and Xiumin.", "source": "https://en.wikipedia.org/wiki/Exo"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia NCT group, Wikipedia EXO, Wikipedia SEVENTEEN, Wikipedia Hope World, Wikipedia Agust D, Wikipedia Face (Jimin album), Wikipedia Golden (album)'
 );
@@ -956,7 +956,7 @@ VALUES (
     {"question": "NewJeans'' Hype Boy broke which streaming record on the Billboard Global 200?", "options": ["Most streams in one week by K-pop group", "Longest-charting song by a K-pop female act (42 weeks)", "First K-pop girl group song at #1", "Most-streamed debut song ever"], "correct": 1, "fun_fact": "Hype Boy spent 42 weeks on the Billboard Global 200, setting the record for the longest-charting song by a K-pop girl group on that chart.", "source": "https://en.wikipedia.org/wiki/Hype_Boy"},
     {"question": "BLACKPINK set a Guinness World Record in 2023 by becoming the most-streamed female band on Spotify. How many streams did they have at that point?", "options": ["5.5 billion", "8.8 billion", "12 billion", "3.2 billion"], "correct": 1, "fun_fact": "BLACKPINK surpassed 8.8 billion streams to claim the Guinness record for most-streamed female band on Spotify, beating previous titleholders Little Mix.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
     {"question": "Which social media platform was instrumental in launching NewJeans to global fame, with their songs going viral in 2022-2023?", "options": ["Twitter/X", "Instagram", "TikTok", "YouTube Shorts"], "correct": 2, "fun_fact": "NewJeans songs like Hype Boy, Ditto, and OMG went massively viral on TikTok in 2022-2023, exposing their music to global audiences beyond traditional K-pop fans.", "source": "https://en.wikipedia.org/wiki/NewJeans"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Dynamite (BTS song), Wikipedia Blackpink, Wikipedia How You Like That, Wikipedia Gangnam Style, Wikipedia Hype Boy, Wikipedia NewJeans'
 );
@@ -981,7 +981,7 @@ VALUES (
     {"question": "BLACKPINK''s Lisa became a solo chart-topper globally. Her 2021 solo LALISA set a record by becoming what?", "options": ["First K-pop solo song to hit #1 in US iTunes", "Most-viewed YouTube music video by a K-pop solo artist in 24 hours", "First solo debut to sell 1 million copies", "First solo song on the Billboard Hot 100"], "correct": 1, "fun_fact": "LALISA''s music video set the record for the most-viewed YouTube video within 24 hours for a K-pop solo artist when it was released in September 2021, with over 73.6 million views.", "source": "https://en.wikipedia.org/wiki/Lalisa_(song)"},
     {"question": "BLACKPINK was the first K-pop group/act to reach how many YouTube subscribers, setting a Guinness record?", "options": ["10 million", "20 million", "50 million", "100 million"], "correct": 2, "fun_fact": "BLACKPINK became the first K-pop act and first music group to reach 50 million YouTube subscribers, achieving this milestone in 2019.", "source": "https://en.wikipedia.org/wiki/Blackpink"},
     {"question": "BTS set a record at the 2020 MAMA Awards. What did they win?", "options": ["Their first Grammy nomination", "Most wins in a single MAMA ceremony", "First K-pop act to perform at MAMA in the US", "First group to win MAMA Artist of the Year 5 times"], "correct": 3, "fun_fact": "BTS won the MAMA Artist of the Year award for the fifth consecutive time in 2020, setting a record for the most consecutive wins in the category.", "source": "https://en.wikipedia.org/wiki/2020_Mnet_Asian_Music_Awards"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia 63rd Grammy Awards, Wikipedia Ive (group), Wikipedia BTS, Wikipedia American Music Awards of 2021, Wikipedia Exo (group), Wikipedia Golden Disc Awards, Wikipedia Lalisa (song), Wikipedia Blackpink, Wikipedia 2020 Mnet Asian Music Awards'
 );
@@ -1006,7 +1006,7 @@ VALUES (
     {"question": "Stray Kids collaborated with which American record label to release music in the US market?", "options": ["Republic Records", "Atlantic Records", "Geffen Records", "Columbia Records"], "correct": 2, "fun_fact": "Stray Kids signed with Geffen Records (a Universal Music Group imprint) for their US releases, making them one of the first K-pop groups to partner with a major US label for distribution.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"},
     {"question": "Which K-pop group''s hit song sampled the Gloria Gaynor disco classic ''I Will Survive''?", "options": ["BLACKPINK - Pink Venom", "IVE - After Like", "NewJeans - Ditto", "TWICE - Alcohol-Free"], "correct": 1, "fun_fact": "IVE''s After Like (2022) prominently samples Gloria Gaynor''s 1978 classic I Will Survive. The original songwriters Freddie Perren and Dino Fekaris are credited on the track.", "source": "https://en.wikipedia.org/wiki/After_Like"},
     {"question": "BIGBANG''s G-Dragon collaborated with CL of 2NE1 on which solo song?", "options": ["The Baddest Female", "MTBD", "Breathe", "Hello Bitches"], "correct": 0, "fun_fact": "CL and G-Dragon collaborated on The Baddest Female (2013), which was CL''s solo debut. G-Dragon contributed as a co-writer, and the collaboration highlighted YG Entertainment''s internal synergy.", "source": "https://en.wikipedia.org/wiki/The_Baddest_Female_(CL_song)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia BTS discography, Wikipedia My Universe (song), Wikipedia The Chaos Chapter: FREEZE, Wikipedia Dua Lipa (album), Wikipedia Boy with Luv, Wikipedia After Like, Wikipedia Stray Kids, Wikipedia The Baddest Female (CL song)'
 );
@@ -1031,7 +1031,7 @@ VALUES (
     {"question": "Which survival show featured BLACKPINK''s members as trainees before their debut?", "options": ["YG''s Mix Nine", "Sixteen", "K-pop Star", "YG Treasure Box"], "correct": 2, "fun_fact": "All BLACKPINK members appeared on SBS''s K-pop Star audition show as trainees. Jennie, Jisoo, Rosé, and Lisa were all featured in earlier seasons, showcasing their talent before their 2016 debut.", "source": "https://en.wikipedia.org/wiki/K-Pop_Star"},
     {"question": "Stray Kids was formed through a survival show of the same name. How many original members debuted?", "options": ["7", "8", "9", "10"], "correct": 2, "fun_fact": "9 members originally debuted from the Stray Kids survival show: Bang Chan, Woojin, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, and I.N. Woojin later left the group in 2019.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"},
     {"question": "KARD is notable in K-pop for being a mixed-gender group. They were formed by which company?", "options": ["DSP Media", "Cube Entertainment", "FNC Entertainment", "Kakao Entertainment"], "correct": 0, "fun_fact": "KARD debuted under DSP Media in 2017 as one of the few co-ed K-pop groups. They consist of two male members (BM and J.Seph) and two female members (Somin and Jiwoo).", "source": "https://en.wikipedia.org/wiki/Kard_(group)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Sixteen (TV program), Wikipedia Wanna One, Wikipedia Iz*One, Wikipedia Enhypen, Wikipedia Zerobaseone, Wikipedia Monsta X, Wikipedia Girls Generation, Wikipedia K-Pop Star, Wikipedia Stray Kids, Wikipedia Kard (group)'
 );
@@ -1056,7 +1056,7 @@ VALUES (
     {"question": "SM Entertainment is home to EXO, SHINee, NCT, and which of these classic groups?", "options": ["BIGBANG", "2PM", "Girls'' Generation (SNSD)", "Wonder Girls"], "correct": 2, "fun_fact": "SM Entertainment manages EXO, SHINee, NCT, Red Velvet, aespa, and classic groups like Girls'' Generation, H.O.T., S.E.S., BoA, TVXQ, Super Junior, and f(x).", "source": "https://en.wikipedia.org/wiki/SM_Entertainment"},
     {"question": "(G)I-DLE and BTOB are both under which company?", "options": ["SM Entertainment", "Cube Entertainment", "Starship Entertainment", "JYP Entertainment"], "correct": 1, "fun_fact": "Cube Entertainment manages (G)I-DLE (debuted 2018) and BTOB (debuted 2012), along with other artists like HyunA and Dawn.", "source": "https://en.wikipedia.org/wiki/Cube_Entertainment"},
     {"question": "Which sub-label of HYBE manages NewJeans?", "options": ["BELIFT LAB", "Source Music", "ADOR", "Big Hit Music"], "correct": 2, "fun_fact": "NewJeans is under ADOR (All Doors One Room), a HYBE sub-label headed by creative director Min Hee-jin. ADOR was specifically created to develop NewJeans'' unique aesthetic.", "source": "https://en.wikipedia.org/wiki/Ador_(record_label)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia JYP Entertainment, Wikipedia Hybe Corporation, Wikipedia YG Entertainment, Wikipedia Pledis Entertainment, Wikipedia Source Music, Wikipedia Belift Lab, Wikipedia SM Entertainment, Wikipedia Cube Entertainment, Wikipedia Ador (record label)'
 );
@@ -1081,7 +1081,7 @@ VALUES (
     {"question": "Which 2nd generation boy group is considered one of the first to achieve truly global K-pop success?", "options": ["ATEEZ", "BTS", "BIGBANG", "EXO"], "correct": 2, "fun_fact": "BIGBANG, debuting in 2006, are 2nd generation K-pop pioneers who helped pave the way for global K-pop acceptance. G-Dragon in particular became one of K-pop''s most internationally recognized figures.", "source": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"},
     {"question": "SHINee debuted in 2008 and is typically classified as which K-pop generation?", "options": ["1st generation", "2nd generation", "3rd generation", "4th generation"], "correct": 1, "fun_fact": "SHINee is a 2nd generation K-pop group, debuting in May 2008 under SM Entertainment. They are considered pioneers of the neo-soul K-pop sound.", "source": "https://en.wikipedia.org/wiki/Shinee"},
     {"question": "TXT (Tomorrow X Together) debuted in March 2019 and is classified as which K-pop generation?", "options": ["2nd generation", "3rd generation", "4th generation", "5th generation"], "correct": 2, "fun_fact": "TXT debuted in March 2019 under Big Hit Music (HYBE) and is classified as 4th generation. They were HYBE''s first new act after BTS and quickly became one of the most globally popular 4th gen boy groups.", "source": "https://en.wikipedia.org/wiki/Tomorrow_X_Together"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia H.O.T., Wikipedia Girls Generation, Wikipedia BTS, Wikipedia Ateez, Wikipedia S.E.S. (group), Wikipedia Blackpink, Wikipedia BigBang (South Korean band), Wikipedia Shinee, Wikipedia Tomorrow X Together'
 );
@@ -1106,7 +1106,7 @@ VALUES (
     {"question": "ITZY''s debut MV ''DALLA DALLA'' set what record upon its release in 2019?", "options": ["Most-viewed debut MV in 24 hours at the time for a K-pop girl group", "First K-pop MV to trend #1 globally on YouTube", "First JYP debut to reach 100 million views", "Most-liked debut MV by a K-pop group"], "correct": 0, "fun_fact": "DALLA DALLA set the record for most-viewed debut MV in 24 hours by a K-pop girl group at the time of release in February 2019, with approximately 17 million views.", "source": "https://en.wikipedia.org/wiki/Dalla_Dalla"},
     {"question": "NewJeans'' debut single ''Attention'' was notable in its MV style. What distinguished it visually?", "options": ["First K-pop MV shot entirely in one continuous take", "A Y2K/retro aesthetic with no performance scenes", "Vintage camcorder footage that felt authentic and unfiltered", "3D animated metaverse concept"], "correct": 2, "fun_fact": "Attention''s MV featured a distinctly natural, film-like aesthetic with vintage camcorder footage mixed with casual everyday settings, setting NewJeans apart from the polished K-pop MV norm.", "source": "https://en.wikipedia.org/wiki/NewJeans"},
     {"question": "Which K-pop group became the most-subscribed music group on YouTube as of 2020?", "options": ["BTS", "EXO", "BLACKPINK", "TWICE"], "correct": 2, "fun_fact": "BLACKPINK became the most-subscribed music group on YouTube in 2020, surpassing both Western and Korean acts. As of 2023, their YouTube channel had over 90 million subscribers.", "source": "https://en.wikipedia.org/wiki/Blackpink"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Gangnam Style, Wikipedia How You Like That, Wikipedia Boy with Luv, Wikipedia Ddu-Du Ddu-Du, Wikipedia Aespa, Wikipedia Dalla Dalla, Wikipedia NewJeans, Wikipedia Blackpink'
 );
@@ -1131,7 +1131,7 @@ VALUES (
     {"question": "In South Korea, male K-pop idols are required to serve mandatory military service. What is the typical duration?", "options": ["12 months", "18 months", "21 months", "24 months"], "correct": 1, "fun_fact": "South Korean men, including K-pop idols, are typically required to serve approximately 18-21 months of mandatory military service. This often means groups go on hiatus when members enlist.", "source": "https://en.wikipedia.org/wiki/Military_service_in_South_Korea"},
     {"question": "What is the Gaon Chart?", "options": ["A physical album sales tracking system", "South Korea''s national music chart covering digital and physical sales", "A YouTube views counter for K-pop videos", "A weekly ranking of K-pop fan activity"], "correct": 1, "fun_fact": "The Gaon Chart (now called the Circle Chart) is South Korea''s national music chart, officially launched in 2010. It tracks digital downloads, streaming, and physical sales, and is considered the most authoritative measure of K-pop popularity.", "source": "https://en.wikipedia.org/wiki/Gaon_Chart"},
     {"question": "What does ''fansign'' mean in K-pop culture?", "options": ["An online petition to support a K-pop group", "A fan-organized social media campaign", "An event where idols sign albums and interact with fans who win through lottery", "A contract signed between fans and their favorite group"], "correct": 2, "fun_fact": "Fansigns are events where selected fans (usually winners of album purchase lotteries) can meet their favorite K-pop idols, have albums signed, and briefly chat. They are one of the most coveted K-pop fan experiences.", "source": "https://en.wikipedia.org/wiki/Korean_pop"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Korean pop, Wikipedia Jihyo, Wikipedia SM Entertainment, Wikipedia All-kill (music), Wikipedia Military service in South Korea, Wikipedia Gaon Chart'
 );
@@ -1156,7 +1156,7 @@ VALUES (
     {"question": "The first Korean-language film to win the Academy Award for Best Picture was which film?", "options": ["Oldboy", "Train to Busan", "Parasite", "The Host"], "correct": 2, "fun_fact": "Parasite (2019) directed by Bong Joon-ho won the Academy Award for Best Picture at the 2020 Oscars, becoming the first non-English language film to win the top prize in Oscar history.", "source": "https://en.wikipedia.org/wiki/Parasite_(2019_film)"},
     {"question": "The Korean cultural movement -- including K-pop, K-drama, K-food, and K-beauty -- spreading globally is known by what term?", "options": ["K-Wave", "Hallyu", "K-Rise", "Seoul Wave"], "correct": 1, "fun_fact": "Hallyu (한류), literally meaning ''Korean Wave,'' is the term for the global spread of South Korean popular culture since the 1990s, encompassing K-pop, K-dramas, Korean food, fashion, and beauty.", "source": "https://en.wikipedia.org/wiki/Korean_Wave"},
     {"question": "Stray Kids became the first K-pop group to achieve what with their consecutive Billboard 200 chart entries?", "options": ["First to have all entries debut in the top 3", "First to have eight consecutive entries debut at #1", "First K-pop group to chart on Billboard for 10 years", "First group to sell out all US shows within one hour"], "correct": 1, "fun_fact": "Every one of Stray Kids'' first eight Billboard 200 chart entries debuted at #1, setting a historic record. No other act in history had achieved this feat on their first eight chart entries.", "source": "https://en.wikipedia.org/wiki/Stray_Kids"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Dynamite (BTS song), Wikipedia Blackpink at Coachella, Wikipedia Love Yourself: Tear, Wikipedia BTS, Wikipedia Formula of Love, Wikipedia Aespa, Wikipedia Parasite (2019 film), Wikipedia Korean Wave, Wikipedia Stray Kids'
 );
@@ -1181,7 +1181,7 @@ VALUES (
     {"question": "Which K-pop group has been the face of MCM, the German luxury goods brand, since 2018?", "options": ["EXO", "BTS", "BIGBANG", "GOT7"], "correct": 1, "fun_fact": "BTS became the global brand ambassadors for MCM in 2018, appearing in campaigns and helping to bring attention to the German luxury brand to new global audiences.", "source": "https://en.wikipedia.org/wiki/MCM_(brand)"},
     {"question": "In which year did K-pop''s cultural influence on fashion reach a turning point with major luxury brands aggressively pursuing K-pop idol ambassadors?", "options": ["2015", "2017", "2019", "2021"], "correct": 3, "fun_fact": "2021 is widely seen as the inflection point when major luxury fashion houses (Dior, Chanel, Celine, Louis Vuitton, etc.) simultaneously began competing for K-pop idol ambassadors, recognizing their enormous global marketing impact.", "source": "https://en.wikipedia.org/wiki/Korean_Wave"},
     {"question": "Kai of EXO became an ambassador for which major fashion house?", "options": ["Gucci", "Prada", "Balenciaga", "Valentino"], "correct": 0, "fun_fact": "Kai (Kim Jong-in) became a Gucci Global Ambassador in 2019, one of the first K-pop male idols to receive a major luxury fashion house ambassadorship. His collaboration led to several iconic fashion moments.", "source": "https://en.wikipedia.org/wiki/Kai_(singer)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Jennie (singer), Wikipedia V (singer), Wikipedia Lisa (rapper), Wikipedia G-Dragon, Wikipedia Jisoo, Wikipedia Rose (singer), Wikipedia Weverse, Wikipedia Korean Wave, Wikipedia Kai (singer)'
 );
@@ -1206,7 +1206,7 @@ VALUES (
     {"question": "What is a Weverse in K-pop fan culture?", "options": ["A Korean verse in a K-pop song", "A fan-run website for K-pop news", "HYBE''s official fan community platform for artists and fans", "A type of music video format"], "correct": 2, "fun_fact": "Weverse is HYBE''s official global artist-fan community platform, launched in 2019. Artists including BTS, SEVENTEEN, ENHYPEN, and others use it to communicate with fans through posts and live streams.", "source": "https://en.wikipedia.org/wiki/Weverse"},
     {"question": "What is the meaning of the Korean term ''daesang'' in K-pop awards culture?", "options": ["Best song", "Best album", "Grand Prize (the highest award category)", "Best newcomer"], "correct": 2, "fun_fact": "Daesang (대상) means ''Grand Prize'' and is the highest honor at Korean music awards shows. Winning a Daesang (Song of the Year, Artist of the Year, Album of the Year) is the ultimate achievement for a K-pop act.", "source": "https://en.wikipedia.org/wiki/Korean_pop"},
     {"question": "What is ''light stick'' culture in K-pop?", "options": ["Phone flashlight use at concerts", "Official branded glowing wands for fans to use at concerts", "LED lighting technology used on K-pop stages", "A trend of using light-up clothing at fan events"], "correct": 1, "fun_fact": "K-pop lightsticks are official branded glowing devices sold by groups for fans to use at concerts. Each group has a unique lightstick design, and modern ones can connect via Bluetooth to sync colors with the concert lighting.", "source": "https://en.wikipedia.org/wiki/Korean_pop"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Stan culture, Wikipedia Korean pop, Wikipedia Sasaeng fan, Wikipedia BTS, Wikipedia Weverse'
 );
@@ -1231,7 +1231,7 @@ VALUES (
     {"question": "Joy of Red Velvet starred in which 2021 romantic comedy drama?", "options": ["Nevertheless", "Hometown Cha-Cha-Cha", "My Roommate Is a Gumiho", "Doom at Your Service"], "correct": 2, "fun_fact": "Joy starred in My Roommate Is a Gumiho (2021) on tvN and received positive reviews for her role as a college student who accidentally swallows a mystical bead.", "source": "https://en.wikipedia.org/wiki/Joy_(singer)"},
     {"question": "Wooga Squad is a famous K-pop idol friendship group known for appearing together. Which members does it include?", "options": ["BTS''s RM, V, and Jungkook", "Park Seo-jun, Choi Woo-shik, V, Park Hyung-sik, and Peakboy", "EXO''s Baekhyun, Chanyeol, and Sehun", "SEVENTEEN''s Vernon, Mingyu, and Wonwoo"], "correct": 1, "fun_fact": "The Wooga Squad consists of actors Park Seo-jun and Choi Woo-shik, BTS''s V, HIGHLIGHT''s Park Hyung-sik, and rapper Peakboy. Their close friendship has been shared on In the Soop: Friendcation (2022).", "source": "https://en.wikipedia.org/wiki/V_(singer)"},
     {"question": "Which group is known for having multiple members who are also accomplished actors alongside being idols?", "options": ["ATEEZ", "EXO", "NewJeans", "MONSTA X"], "correct": 1, "fun_fact": "EXO members D.O., Suho, Baekhyun, Chanyeol, Kai, Sehun, and Xiumin have all pursued acting careers, making EXO one of the K-pop groups with the highest actor-to-member ratio.", "source": "https://en.wikipedia.org/wiki/Exo_(group)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia V (singer), Wikipedia D.O. (singer), Wikipedia Snowdrop (TV series), Wikipedia Baekhyun, Wikipedia Suho (singer), Wikipedia IU (singer), Wikipedia Cha Eun-woo, Wikipedia Joy (singer)'
 );
@@ -1256,7 +1256,7 @@ VALUES (
     {"question": "The beloved 2018-2019 K-drama Sky Castle had an iconic classical music piece that became synonymous with the show. What was it called?", "options": ["Sky Castle Theme", "Segno (세뇨)", "Castle in the Sky", "One Ordinary Day Theme"], "correct": 1, "fun_fact": "Sky Castle''s iconic piece was Segno (세뇨) by Lee Seo-yeon, a haunting piano piece that became one of the most recognizable drama themes in recent Korean history.", "source": "https://en.wikipedia.org/wiki/Sky_Castle_(TV_series)"},
     {"question": "Which K-drama based on a webtoon had one of the most-discussed OST albums of 2020, featuring romantic ballads?", "options": ["True Beauty", "What''s Wrong with Secretary Kim", "It''s Okay to Not Be Okay", "Itaewon Class"], "correct": 2, "fun_fact": "It''s Okay to Not Be Okay (사이코지만 괜찮아) had a critically acclaimed OST featuring songs from various artists. The drama won multiple awards and was a Netflix global hit.", "source": "https://en.wikipedia.org/wiki/It%27s_Okay_to_Not_Be_Okay"},
     {"question": "Which K-pop group performed the powerful OST ''Stay with Me'' for the drama Goblin?", "options": ["EXID and VIXX", "EXO and Red Velvet", "Chanyeol and Punch", "BTS and IU"], "correct": 2, "fun_fact": "Stay with Me was performed by EXO''s Chanyeol and singer Punch for the drama Goblin. It became one of the best-selling K-drama OSTs ever, with millions of streams.", "source": "https://en.wikipedia.org/wiki/Goblin_(TV_series)"}
-  ]''::jsonb,
+  ]'::jsonb,
   'verified',
   'Sources: Wikipedia Descendants of the Sun, Wikipedia IU (singer), Wikipedia Goblin (TV series), Wikipedia Extraordinary Attorney Woo, Wikipedia V (singer), Wikipedia Crash Landing on You, Wikipedia Sky Castle (TV series), Wikipedia It''s Okay to Not Be Okay'
 );
