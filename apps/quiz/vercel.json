@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/pinterest-post",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 12 * * *"
     }
   ]
 }
