@@ -19,7 +19,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const navUser = await getNavUser();
   return (
     <>
-      <TopNav user={navUser ?? undefined} />
+      <TopNav {...(navUser ? { user: navUser } : {})} />
       <div className="flex gap-6 px-4 md:px-6 pb-24 md:pb-8">
         {/* Main content */}
         <main className="flex-1 min-w-0">
