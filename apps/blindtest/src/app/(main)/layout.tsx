@@ -8,9 +8,9 @@ async function getNavUser(): Promise<{ username: string; streak: number } | unde
     const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return undefined;
-    const { data } = await supabase.from('players').select('username, streak').eq('id', user.id).single();
+    const { data } = await supabase.from('players').select('username, current_streak').eq('id', user.id).single();
     if (!data) return undefined;
-    return { username: data.username as string, streak: data.streak as number };
+    return { username: data.username as string, streak: data.current_streak as number };
   } catch {
     return undefined;
   }
