@@ -79,9 +79,10 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist, mode, difficulty]);
 
-  // User taps "Start" - this satisfies browser autoplay policy
+  // User taps "Start" - unlock audio + start game
   const handleStart = useCallback(() => {
     if (!fetchedData) return;
+    audio.unlock(); // Unlock audio context on user gesture
     game.startGame(
       fetchedData.questions,
       fetchedData.timer_duration,
@@ -89,16 +90,14 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
       fetchedData.mode,
       fetchedData.difficulty,
     );
-  }, [fetchedData, game]);
+  }, [fetchedData, game, audio]);
 
   // Play audio when entering 'playing' phase
   useEffect(() => {
     if (game.state.phase === 'playing' && game.currentQuestion) {
       setSelectedChoice(null);
-      audio.load(game.currentQuestion.preview_url);
-      const t = setTimeout(() => audio.play(), 200);
+      audio.loadAndPlay(game.currentQuestion.preview_url);
       setTimerKey((k) => k + 1);
-      return () => clearTimeout(t);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.state.phase, game.state.currentIndex]);
