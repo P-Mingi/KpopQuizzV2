@@ -91,13 +91,25 @@ export async function POST(req: Request): Promise<NextResponse> {
   const isGroupPlaylist = !['all', 'gg', 'bg', 'solo', '4th-gen', '3rd-gen', '2nd-gen', 'title-tracks', 'hits', 'deep'].includes(playlist);
 
   if (isGroupPlaylist) {
-    // Group slug - look up by groups table
-    const { data: groupData } = await supabase.from('groups').select('id, name').eq('slug', playlist).single();
-    if (groupData) {
-      query = query.eq('group_id', groupData.id);
+    // First try exact artist name match (from home page group pills)
+    const { data: exactMatch } = await supabase
+      .from('songs')
+      .select('id')
+      .eq('artist_name', playlist)
+      .eq('status', 'active')
+      .limit(1);
+
+    if (exactMatch && exactMatch.length > 0) {
+      query = query.eq('artist_name', playlist);
     } else {
-      // Fallback: try matching artist_name
-      query = query.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
+      // Try group slug via groups table
+      const { data: groupData } = await supabase.from('groups').select('id, name').eq('slug', playlist).single();
+      if (groupData) {
+        query = query.eq('group_id', groupData.id);
+      } else {
+        // Fuzzy match on artist name
+        query = query.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
+      }
     }
   } else {
     switch (playlist) {

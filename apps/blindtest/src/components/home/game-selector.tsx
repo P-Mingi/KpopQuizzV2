@@ -3,226 +3,167 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const MODES = [
-  { id: 'classic', label: 'Classic', description: '10s chorus', difficulty: 'Easy', clipKey: 'chorus' },
-  { id: 'intro', label: 'Intro', description: '5s from start', difficulty: 'Medium', clipKey: 'intro' },
-  { id: 'speed', label: 'Speed', description: '20 songs - 5s', difficulty: 'Hard', clipKey: 'chorus' },
-] as const;
-
-const FILTERS = [
-  { id: 'all', label: 'All K-pop' },
-  { id: 'gg', label: 'Girl groups' },
-  { id: 'bg', label: 'Boy groups' },
-  { id: 'solo', label: 'Solo artists' },
-  { id: '4th-gen', label: '4th gen' },
-  { id: '3rd-gen', label: '3rd gen' },
-  { id: '2nd-gen', label: '2nd gen' },
-  { id: 'title-tracks', label: 'Title tracks' },
-  { id: 'b-sides', label: 'B-sides' },
-  { id: 'recent', label: 'Recent hits' },
-  { id: 'legends', label: 'Legends' },
-] as const;
-
-interface GroupInfo {
-  id: number;
-  name: string;
-  slug: string;
-  chorus: number;
-  intro: number;
-}
-
-interface SongCounts {
-  chorus: Record<string, number>;
-  intro: Record<string, number>;
-  groups: GroupInfo[];
+interface PlaylistStats {
+  categories: Array<{ id: string; name: string; count: number }>;
+  groups: Array<{ id: string; name: string; count: number }>;
+  total: number;
+  difficultyStats: { easy: number; medium: number; hard: number };
 }
 
 interface Props {
-  songCounts: SongCounts;
+  playlists: PlaylistStats;
 }
 
-export function GameSelector({ songCounts }: Props) {
+const DIFFICULTIES = [
+  { id: 'all', name: 'All', desc: 'Smart mix' },
+  { id: 'hits', name: 'Hits only', desc: 'Popular songs' },
+  { id: 'deep', name: 'Deep cuts', desc: 'For real fans' },
+];
+
+export function GameSelector({ playlists }: Props) {
   const router = useRouter();
-  const [mode, setMode] = useState('classic');
-  const [filter, setFilter] = useState('all');
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const [selectedPlaylist, setSelectedPlaylist] = useState('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [showAllGroups, setShowAllGroups] = useState(false);
 
-  const clipKey = MODES.find(m => m.id === mode)?.clipKey ?? 'chorus';
-  const minSongs = mode === 'speed' ? 10 : 5;
+  const playlistName =
+    selectedPlaylist === 'all'
+      ? 'All K-pop'
+      : playlists.categories.find((c) => c.id === selectedPlaylist)?.name ??
+        playlists.groups.find((g) => g.name === selectedPlaylist)?.name ??
+        selectedPlaylist;
 
-  function getFilterCount(filterId: string): number {
-    return (songCounts[clipKey as 'chorus' | 'intro'] as Record<string, number>)?.[filterId] ?? 0;
-  }
-
-  function getGroupCount(g: GroupInfo): number {
-    return clipKey === 'intro' ? g.intro : g.chorus;
-  }
-
-  const availableSongs = selectedGroup
-    ? getGroupCount(songCounts.groups.find(g => g.slug === selectedGroup) ?? { id: 0, name: '', slug: '', chorus: 0, intro: 0 })
-    : getFilterCount(filter);
-
-  const canPlay = availableSongs >= minSongs;
-
-  function handleFilterSelect(filterId: string) {
-    setFilter(filterId);
-    setSelectedGroup(null);
-  }
-
-  function handleGroupSelect(groupSlug: string) {
-    if (selectedGroup === groupSlug) {
-      setSelectedGroup(null);
-    } else {
-      setSelectedGroup(groupSlug);
-      setFilter('all');
-    }
-  }
-
-  function handlePlay() {
-    if (!canPlay) return;
-    const params = new URLSearchParams({ mode });
-    if (selectedGroup) {
-      params.set('group', selectedGroup);
-    } else {
-      params.set('filter', filter);
-    }
+  const handlePlay = (mode: 'quick' | 'challenge') => {
+    const params = new URLSearchParams({
+      playlist: selectedPlaylist,
+      mode,
+      difficulty: selectedDifficulty,
+    });
     router.push(`/play?${params.toString()}`);
-  }
+  };
 
-  const visibleGroups = showAllGroups ? songCounts.groups : songCounts.groups.slice(0, 8);
+  const visibleGroups = showAllGroups ? playlists.groups : playlists.groups.slice(0, 8);
+  const hiddenCount = playlists.groups.length - 8;
 
   return (
     <div>
-      {/* Mode selection */}
-      <SectionLabel>How do you want to play?</SectionLabel>
-      <div className="grid grid-cols-3 gap-2 mb-6">
-        {MODES.map(m => (
-          <button
-            key={m.id}
-            onClick={() => setMode(m.id)}
-            className={`p-3 rounded-xl text-center transition-all border ${
-              mode === m.id
-                ? 'bg-pink-50 border-pink-400'
-                : 'bg-bg-secondary border-border-default hover:border-border-hover'
-            }`}
+      {/* Category pills */}
+      <SectionLabel>Quick play</SectionLabel>
+      <div className="flex flex-wrap gap-1.5">
+        {playlists.categories.map((cat) => (
+          <Pill
+            key={cat.id}
+            active={selectedPlaylist === cat.id}
+            onClick={() => setSelectedPlaylist(cat.id)}
           >
-            <p className={`text-sm font-medium ${mode === m.id ? 'text-pink-400' : ''}`}>
-              {m.label}
-            </p>
-            <p className="text-[10px] text-text-tertiary mt-0.5">{m.description}</p>
-            <DifficultyBadge difficulty={m.difficulty} />
-          </button>
+            {cat.name}
+          </Pill>
         ))}
       </div>
 
-      {/* Category filter */}
-      <SectionLabel>What do you want to listen to?</SectionLabel>
-      <div className="flex flex-wrap gap-1.5 mb-6">
-        {FILTERS.map(f => {
-          const count = getFilterCount(f.id);
-          const isDisabled = count < minSongs;
-          const isActive = !selectedGroup && filter === f.id;
+      {/* Group pills */}
+      <SectionLabel className="mt-5">Pick a group</SectionLabel>
+      <div className="flex flex-wrap gap-1.5">
+        {visibleGroups.map((g) => (
+          <Pill
+            key={g.id}
+            active={selectedPlaylist === g.name}
+            onClick={() => setSelectedPlaylist(g.name)}
+            variant="elevated"
+          >
+            {g.name}
+          </Pill>
+        ))}
+      </div>
+      {playlists.groups.length > 8 && (
+        <button
+          onClick={() => setShowAllGroups(!showAllGroups)}
+          className="text-xs text-text-ghost mt-2 hover:text-text-secondary transition-colors"
+        >
+          {showAllGroups ? 'Show less' : `+ ${hiddenCount} more groups`}
+        </button>
+      )}
 
+      {/* Difficulty */}
+      <SectionLabel className="mt-5">Difficulty</SectionLabel>
+      <div className="flex gap-1.5">
+        {DIFFICULTIES.map((d) => {
+          const active = selectedDifficulty === d.id;
           return (
             <button
-              key={f.id}
-              onClick={() => !isDisabled && handleFilterSelect(f.id)}
-              disabled={isDisabled}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                isActive
-                  ? 'bg-pink-400 text-bg-primary'
-                  : isDisabled
-                    ? 'bg-bg-secondary text-text-ghost cursor-not-allowed'
-                    : 'bg-bg-secondary text-text-secondary hover:text-text-primary hover:bg-bg-tertiary'
+              key={d.id}
+              onClick={() => setSelectedDifficulty(d.id)}
+              className={`flex-1 py-2 px-3 rounded-xl text-center transition-all active:scale-[0.97] ${
+                active
+                  ? 'bg-pink-400 text-white'
+                  : 'bg-bg-secondary border border-border-default text-text-secondary hover:border-pink-400'
               }`}
             >
-              {f.label}
-              {isDisabled && <span className="ml-1 text-[9px]">({count})</span>}
+              <span className="text-[13px] font-medium block">{d.name}</span>
+              <span className={`text-[10px] block mt-0.5 ${active ? 'text-white/70' : 'text-text-ghost'}`}>
+                {d.desc}
+              </span>
             </button>
           );
         })}
       </div>
 
-      {/* Group filter */}
-      {songCounts.groups.length > 0 && (
-        <>
-          <SectionLabel>Or pick a group</SectionLabel>
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            {visibleGroups.map(g => {
-              const count = getGroupCount(g);
-              const isDisabled = count < minSongs;
-              const isActive = selectedGroup === g.slug;
-
-              return (
-                <button
-                  key={g.slug}
-                  onClick={() => !isDisabled && handleGroupSelect(g.slug)}
-                  disabled={isDisabled}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-pink-400 text-bg-primary'
-                      : isDisabled
-                        ? 'bg-bg-secondary text-text-ghost cursor-not-allowed'
-                        : 'bg-bg-secondary text-text-secondary hover:text-text-primary hover:bg-bg-tertiary'
-                  }`}
-                >
-                  {g.name}
-                  {isDisabled && <span className="ml-1 text-[9px]">({count})</span>}
-                </button>
-              );
-            })}
-          </div>
-          {songCounts.groups.length > 8 && (
-            <button
-              onClick={() => setShowAllGroups(!showAllGroups)}
-              className="text-[11px] text-text-tertiary mb-4 hover:text-text-secondary"
-            >
-              {showAllGroups ? 'Show less' : `Show all ${songCounts.groups.length} groups`}
-            </button>
-          )}
-        </>
-      )}
-
-      {/* Song count + Play */}
-      <div className="mt-4">
-        <p className="text-xs text-text-tertiary text-center mb-3">
-          {availableSongs} songs available
-          {!canPlay && <span className="text-wrong"> - need {minSongs}+ to play</span>}
-        </p>
+      {/* Play buttons */}
+      <div className="flex gap-2 mt-6">
         <button
-          onClick={handlePlay}
-          disabled={!canPlay}
-          className={`w-full py-3.5 rounded-xl text-sm font-semibold transition-all ${
-            canPlay
-              ? 'bg-pink-400 text-bg-primary active:scale-[0.98]'
-              : 'bg-bg-tertiary text-text-ghost cursor-not-allowed'
-          }`}
+          onClick={() => handlePlay('quick')}
+          className="flex-1 py-3.5 rounded-xl bg-pink-400 text-white text-[15px] font-semibold text-center active:scale-[0.98] transition-transform"
         >
           Play
         </button>
+        <button
+          onClick={() => handlePlay('challenge')}
+          className="py-3.5 px-5 rounded-xl bg-bg-secondary border border-border-default text-text-secondary text-[13px] font-medium hover:border-pink-400 hover:text-pink-400 transition-colors"
+        >
+          Challenge
+        </button>
       </div>
+
+      <p className="text-center text-xs text-text-ghost mt-2">
+        {playlistName} - {selectedDifficulty === 'all' ? 'Smart mix' : selectedDifficulty === 'hits' ? 'Hits only' : 'Deep cuts'}
+      </p>
     </div>
   );
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5">
+    <p className={`text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5 ${className ?? ''}`}>
       {children}
     </p>
   );
 }
 
-function DifficultyBadge({ difficulty }: { difficulty: string }) {
-  const styles: Record<string, string> = {
-    Easy: 'bg-correct-bg text-correct',
-    Medium: 'bg-streak-bg text-streak',
-    Hard: 'bg-wrong-bg text-wrong',
-  };
+function Pill({
+  children,
+  active,
+  onClick,
+  variant = 'default',
+}: {
+  children: React.ReactNode;
+  active: boolean;
+  onClick: () => void;
+  variant?: 'default' | 'elevated';
+}) {
+  const baseActive = 'bg-pink-400 text-white';
+  const baseDefault =
+    variant === 'elevated'
+      ? 'bg-bg-tertiary text-text-primary hover:border-pink-400 border border-transparent'
+      : 'bg-bg-secondary border border-border-default text-text-secondary hover:border-pink-400';
+
   return (
-    <span className={`text-[9px] font-semibold px-1.5 py-px rounded-md mt-1.5 inline-block ${styles[difficulty] ?? ''}`}>
-      {difficulty}
-    </span>
+    <button
+      onClick={onClick}
+      className={`px-3.5 py-2 rounded-xl text-[13px] font-medium transition-all active:scale-[0.97] ${
+        active ? baseActive : baseDefault
+      }`}
+    >
+      {children}
+    </button>
   );
 }
