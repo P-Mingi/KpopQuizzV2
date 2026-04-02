@@ -111,48 +111,57 @@ export function autoSchedule(
     .filter((q) => q.scheduled_date)
     .sort((a, b) => a.scheduled_date!.localeCompare(b.scheduled_date!));
 
-  function getEntryBefore(dateStr: string): QuizBankEntry | null {
-    // Check existing schedule first
-    for (let i = sortedExisting.length - 1; i >= 0; i--) {
-      if (sortedExisting[i]!.scheduled_date! < dateStr) return sortedExisting[i]!;
+  // Returns the closest preceding quiz from either the existing schedule or new assignments
+  function getClosestPreceding(dateStr: string): QuizBankEntry | null {
+    let closestDate = '';
+    let closestEntry: QuizBankEntry | null = null;
+
+    for (const e of sortedExisting) {
+      if (e.scheduled_date! < dateStr && e.scheduled_date! > closestDate) {
+        closestDate = e.scheduled_date!;
+        closestEntry = e;
+      }
     }
-    return null;
+
+    for (const [id, d] of assignments) {
+      if (d < dateStr && d > closestDate) {
+        closestDate = d;
+        closestEntry = unscheduled.find((q) => q.id === id) ?? null;
+      }
+    }
+
+    return closestEntry;
   }
 
   // Shuffle to avoid alphabetical bias
   const shuffled = [...unscheduled].sort(() => Math.random() - 0.5);
 
-  let cursor = new Date(startDate + 'T00:00:00Z');
+  // cursorDate is the earliest date to try for the next quiz.
+  // It advances only when a quiz is successfully placed, so failed
+  // attempts for one quiz never push the start point for the next one.
+  let cursorDate = startDate;
 
   for (const quiz of shuffled) {
-    let attempts = 0;
-    while (attempts < 60) {
-      const dateStr = cursor.toISOString().split('T')[0]!;
+    const candidate = new Date(cursorDate + 'T00:00:00Z');
 
-      if (!occupiedDates.has(dateStr) && ![...assignments.values()].includes(dateStr)) {
-        const prev = getEntryBefore(dateStr);
-        const prevAssignedDate = [...assignments.entries()]
-          .map(([id, d]) => ({ id, d }))
-          .filter(({ d }) => d < dateStr)
-          .sort((a, b) => b.d.localeCompare(a.d))[0];
+    for (let attempts = 0; attempts < 365; attempts++) {
+      const dateStr = candidate.toISOString().split('T')[0]!;
 
-        const prevEntry = prevAssignedDate
-          ? unscheduled.find((q) => q.id === prevAssignedDate.id) ?? prev
-          : prev;
-
+      if (!occupiedDates.has(dateStr)) {
+        const prevEntry = getClosestPreceding(dateStr);
         const sameGroup = quiz.group_id && prevEntry?.group_id === quiz.group_id;
         const sameCategory = prevEntry?.category === quiz.category;
 
         if (!sameGroup && !sameCategory) {
           assignments.set(quiz.id, dateStr);
           occupiedDates.add(dateStr);
-          cursor.setUTCDate(cursor.getUTCDate() + 1);
+          candidate.setUTCDate(candidate.getUTCDate() + 1);
+          cursorDate = candidate.toISOString().split('T')[0]!;
           break;
         }
       }
 
-      cursor.setUTCDate(cursor.getUTCDate() + 1);
-      attempts++;
+      candidate.setUTCDate(candidate.getUTCDate() + 1);
     }
   }
 

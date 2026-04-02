@@ -141,7 +141,19 @@ body {
   50% { opacity: 0.6; }
 }
 
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes float-up {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+
 .animate-fadeSlideUp { animation: fadeSlideUp 0.3s ease; }
 .animate-pointsFloat { animation: pointsFloat 0.8s ease forwards; }
-.animate-shake { animation: shake 0.15s ease infinite; }
+.animate-shake { animation: shake 0.15s ease 3; }
 .animate-pulse { animation: pulse 1.5s ease infinite; }
+.animate-float-up { animation: float-up 1s ease-out forwards; }
+.tabular-nums { font-variant-numeric: tabular-nums; }

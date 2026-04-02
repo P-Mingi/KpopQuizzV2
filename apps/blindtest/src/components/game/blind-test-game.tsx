@@ -521,7 +521,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         <div className="min-h-screen px-5 py-8">
           <div className="text-center mb-6">
             <p className="text-4xl font-semibold">{answers.filter(a => a.correct && !a.skipped).length}/{answers.filter(a => !a.skipped).length}</p>
-            <p className="text-sm text-text-secondary mt-1">{getScoreLabel(answers.filter(a => a.correct && !a.skipped).length, answers.filter(a => !a.skipped).length)}</p>
+            <p className="text-sm text-text-secondary mt-1">{getScoreLabel(answers.filter(a => a.correct && !a.skipped).length, answers.filter(a => !a.skipped).length).label}</p>
             {dailyRank && (
               <p className="text-xs text-pink-400 mt-1">
                 Rank #{dailyRank.rank} of {dailyRank.total} players
