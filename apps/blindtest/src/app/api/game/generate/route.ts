@@ -3,6 +3,7 @@ import { createServerClient } from '@kpopquiz/shared/supabase/server';
 
 interface SongRow {
   id: string;
+  deezer_track_id: number;
   title: string;
   artist_name: string;
   album_name: string | null;
@@ -84,7 +85,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   // Build query
   let query = supabase
     .from('songs')
-    .select('id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, difficulty, wrong_answers_artist, wrong_answers_title')
+    .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, difficulty, wrong_answers_artist, wrong_answers_title')
     .eq('status', 'active');
 
   // Playlist filter
@@ -159,6 +160,27 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   const selected = smartMix(easy, medium, hard, distribution, songsCount);
+
+  // Fetch fresh preview URLs from Deezer (stored URLs expire after a few hours)
+  await Promise.all(
+    selected.map(async (song) => {
+      try {
+        const res = await fetch(`https://api.deezer.com/track/${song.deezer_track_id}`);
+        const data = await res.json();
+        if (data.preview && typeof data.preview === 'string' && data.preview.length > 10) {
+          song.preview_url = data.preview;
+        }
+        if (data.album?.cover_medium) {
+          song.album_cover_medium = data.album.cover_medium as string;
+        }
+        if (data.album?.cover_big) {
+          song.album_cover_big = data.album.cover_big as string;
+        }
+      } catch {
+        // Keep the stored URL as fallback
+      }
+    }),
+  );
 
   // Build questions
   const questions: Question[] = selected.map((song) => {
