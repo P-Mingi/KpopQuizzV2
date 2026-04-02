@@ -203,6 +203,19 @@ export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: n
 
 // ---- ResultsScreen ----
 
+interface ProgressionData {
+  xpEarned: number;
+  totalXP: number;
+  level: number;
+  title: string;
+  leveledUp: boolean;
+  oldLevel: number;
+  streak: number;
+  isFirstGameToday: boolean;
+  isPerfectRound: boolean;
+  mastery: { play_count: number; best_score: number; mastery_stars: number } | null;
+}
+
 interface ResultsScreenProps {
   score: number;
   correctCount: number;
@@ -210,11 +223,13 @@ interface ResultsScreenProps {
   bestCombo: number;
   avgSpeed: number;
   results: Array<{ question: { reveal: { title: string; artist: string } }; correct: boolean }>;
+  progression: ProgressionData | null;
+  playlist: string;
   onPlayAgain: () => void;
   onHome: () => void;
 }
 
-export function ResultsScreen({ score, correctCount, total, bestCombo, avgSpeed, results, onPlayAgain, onHome }: ResultsScreenProps) {
+export function ResultsScreen({ score, correctCount, total, bestCombo, avgSpeed, results, progression, playlist, onPlayAgain, onHome }: ResultsScreenProps) {
   const { label, stars } = getScoreLabelLocal(correctCount, total);
   const missed = results.filter((r) => !r.correct);
 
@@ -249,6 +264,64 @@ export function ResultsScreen({ score, correctCount, total, bestCombo, avgSpeed,
         </div>
       </div>
 
+      {/* Progression (logged in only) */}
+      {progression && (
+        <div className="w-full mt-6 space-y-3">
+          {/* Level up */}
+          {progression.leveledUp && (
+            <div className="p-4 rounded-xl border border-pink-400 text-center" style={{ background: 'linear-gradient(135deg, var(--daily-card-from), var(--daily-card-to))' }}>
+              <p className="text-lg font-bold text-pink-400">Level up!</p>
+              <p className="text-sm text-text-primary">
+                Level {progression.oldLevel} &#8594; Level {progression.level} - {progression.title}
+              </p>
+            </div>
+          )}
+
+          {/* XP card */}
+          <div className="p-4 bg-bg-secondary rounded-xl border border-border-default">
+            <p className="text-sm font-medium text-pink-400 mb-2">
+              +{progression.xpEarned} XP
+              {progression.isFirstGameToday && <span className="text-text-ghost text-xs ml-1">(first game bonus!)</span>}
+            </p>
+            <div className="flex justify-between items-center text-xs mb-1">
+              <span className="text-pink-400 font-medium">Lv.{progression.level} {progression.title}</span>
+              <span className="text-text-ghost tabular-nums">{progression.totalXP.toLocaleString()} XP</span>
+            </div>
+            <div className="h-1.5 bg-bg-tertiary rounded-full overflow-hidden">
+              <div className="h-1.5 bg-pink-400 rounded-full transition-all duration-1000 ease-out" style={{ width: `${Math.min(100, Math.round((progression.totalXP / (progression.level >= 50 ? progression.totalXP : (progression.level + 1) * (progression.level + 1) * 150)) * 100))}%` }} />
+            </div>
+          </div>
+
+          {/* Streak */}
+          <div className="p-3 bg-bg-secondary rounded-xl border border-border-default flex items-center justify-between">
+            <div>
+              <p className="text-sm text-text-primary">Daily streak</p>
+              <p className="text-[10px] text-text-ghost">
+                {progression.streak >= 7 ? '+100 XP bonus active' : progression.streak >= 3 ? '+50 XP bonus active' : 'Play 3 days in a row for bonus XP'}
+              </p>
+            </div>
+            <p className="text-xl font-bold" style={{ color: 'var(--streak)' }}>
+              {progression.streak > 0 && '\uD83D\uDD25'} {progression.streak}
+            </p>
+          </div>
+
+          {/* Mastery */}
+          {progression.mastery && (
+            <div className="p-3 bg-bg-secondary rounded-xl border border-border-default flex items-center justify-between">
+              <div>
+                <p className="text-sm text-text-primary">{playlist} mastery</p>
+                <p className="text-[10px] text-text-ghost">
+                  {progression.mastery.play_count} plays
+                </p>
+              </div>
+              <span className="text-sm" style={{ color: 'var(--streak)' }}>
+                {'\u2605'.repeat(progression.mastery.mastery_stars)}{'\u2606'.repeat(5 - progression.mastery.mastery_stars)}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Missed songs */}
       {missed.length > 0 && (
         <div className="w-full mt-6">
@@ -263,6 +336,17 @@ export function ResultsScreen({ score, correctCount, total, bestCombo, avgSpeed,
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Sign in nudge for anonymous */}
+      {!progression && (
+        <div className="w-full mt-6 p-4 bg-bg-secondary rounded-xl border border-border-default text-center">
+          <p className="text-sm text-text-primary font-medium mb-1">Save your progress</p>
+          <p className="text-xs text-text-tertiary mb-3">Sign in to keep scores, level up, and compete</p>
+          <a href="/login" className="inline-block px-5 py-2 rounded-lg bg-pink-400 text-white text-xs font-semibold">
+            Sign up free
+          </a>
         </div>
       )}
 

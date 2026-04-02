@@ -1,15 +1,16 @@
 import Link from 'next/link';
-import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
+import { PlayerStatsCard } from '@/components/home/player-stats-card';
 
 async function fetchStats() {
   try {
-    const supabase = await createServerClient();
+    const supabase = createServiceRoleClient();
     const { count: totalSongs } = await supabase
-      .from('blind_test_songs')
+      .from('songs')
       .select('id', { count: 'exact', head: true })
       .eq('status', 'active');
     const { count: totalPlays } = await supabase
-      .from('bt_plays')
+      .from('bt_game_results')
       .select('id', { count: 'exact', head: true });
     return { totalSongs: totalSongs ?? 0, totalPlays: totalPlays ?? 0 };
   } catch {
@@ -22,6 +23,7 @@ export async function Sidebar() {
 
   return (
     <div className="sticky top-5 space-y-4">
+      <PlayerStatsCard />
       <SidebarLeaderboard />
       <SidebarStats totalSongs={stats.totalSongs} totalPlays={stats.totalPlays} />
     </div>
@@ -64,8 +66,8 @@ function SidebarStats({ totalSongs, totalPlays }: { totalSongs: number; totalPla
       </p>
       <div className="space-y-2">
         {[
-          { label: 'Songs', value: totalSongs > 0 ? `${totalSongs}` : '600+' },
-          { label: 'Groups', value: '45+' },
+          { label: 'Songs', value: totalSongs > 0 ? totalSongs.toLocaleString() : '20,000+' },
+          { label: 'Artists', value: '240+' },
           { label: 'Total plays', value: totalPlays.toLocaleString() },
         ].map((s) => (
           <div key={s.label} className="flex justify-between text-sm">
@@ -77,4 +79,3 @@ function SidebarStats({ totalSongs, totalPlays }: { totalSongs: number; totalPla
     </div>
   );
 }
-

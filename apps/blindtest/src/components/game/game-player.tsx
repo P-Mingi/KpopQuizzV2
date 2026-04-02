@@ -33,6 +33,18 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [allArtists, setAllArtists] = useState<string[]>([]);
   const [allTitles, setAllTitles] = useState<string[]>([]);
+  const [progressionData, setProgressionData] = useState<{
+    xpEarned: number;
+    totalXP: number;
+    level: number;
+    title: string;
+    leveledUp: boolean;
+    oldLevel: number;
+    streak: number;
+    isFirstGameToday: boolean;
+    isPerfectRound: boolean;
+    mastery: { play_count: number; best_score: number; mastery_stars: number } | null;
+  } | null>(null);
   const [ready, setReady] = useState(false);
   const [fetchedData, setFetchedData] = useState<{
     questions: Question[];
@@ -115,6 +127,51 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.state.phase, game.state.currentIndex]);
+
+  // Save result when game ends
+  useEffect(() => {
+    if (game.state.phase !== 'results') return;
+
+    async function saveResult() {
+      try {
+        const correctResults = game.state.results.filter((r) => r.correct);
+        const avgSpd = correctResults.length > 0
+          ? correctResults.reduce((sum, r) => sum + r.timeElapsed, 0) / correctResults.length
+          : 0;
+
+        const res = await fetch('/api/game/save-result', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            mode: game.state.mode,
+            playlist: game.state.playlist,
+            difficulty: game.state.difficulty,
+            score: game.state.totalScore,
+            correctCount: game.correctCount,
+            totalSongs: game.state.results.length,
+            bestCombo: game.state.bestCombo,
+            avgSpeed: Math.round(avgSpd * 10) / 10,
+            songResults: game.state.results.map((r) => ({
+              song_id: r.question.song_id,
+              correct: r.correct,
+              points: r.points,
+              time: r.timeElapsed,
+              answered: r.answered,
+            })),
+          }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.saved) setProgressionData(data);
+        }
+      } catch {
+        // Not logged in or network error - silent fail
+      }
+    }
+
+    saveResult();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game.state.phase]);
 
   // Cleanup audio on unmount
   useEffect(() => {
@@ -209,6 +266,8 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         bestCombo={game.state.bestCombo}
         avgSpeed={game.avgSpeed}
         results={game.state.results}
+        progression={progressionData}
+        playlist={game.state.playlist}
         onPlayAgain={handlePlayAgain}
         onHome={handleQuit}
       />
