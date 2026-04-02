@@ -87,7 +87,12 @@ export function useGameState() {
       const correct = choice !== null && choice === question.correct_answer;
       const newCombo = correct ? prev.currentCombo + 1 : 0;
       const comboForCalc = correct ? newCombo : 0;
-      const points = calculateFinalPoints(timeElapsed, prev.timerDuration, correct, comboForCalc);
+      let points = calculateFinalPoints(timeElapsed, prev.timerDuration, correct, comboForCalc);
+
+      // 1.5x multiplier for challenge mode
+      if (prev.mode === 'challenge') {
+        points = Math.round(points * 1.5);
+      }
 
       const result: SongResult = {
         question,

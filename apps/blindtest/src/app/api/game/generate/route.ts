@@ -185,6 +185,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     };
   });
 
+  // Collect all possible answers for challenge mode auto-suggest
+  const allArtists = [...new Set(songs.map((s) => s.artist_name))];
+  const allTitles = [...new Set(songs.map((s) => s.title))];
+
   return NextResponse.json({
     questions,
     playlist,
@@ -192,6 +196,8 @@ export async function POST(req: Request): Promise<NextResponse> {
     difficulty,
     timer_duration: timerDuration,
     songs_count: songsCount,
+    all_artists: allArtists,
+    all_titles: allTitles,
   });
 }
 

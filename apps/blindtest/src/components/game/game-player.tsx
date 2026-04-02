@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useCallback, useRef, useState } from 'react';
+import { useEffect, useCallback, useRef, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAudioPlayer } from './use-audio-player';
 import { useGameState } from './use-game-state';
+import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
   ProgressDots,
@@ -30,7 +31,11 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   const [timerKey, setTimerKey] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [allArtists, setAllArtists] = useState<string[]>([]);
+  const [allTitles, setAllTitles] = useState<string[]>([]);
   const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isChallenge = mode === 'challenge';
 
   // Fetch game data on mount
   useEffect(() => {
@@ -47,6 +52,9 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
           setError(data.error ?? 'Failed to generate game');
           return;
         }
+
+        setAllArtists((data.all_artists ?? []) as string[]);
+        setAllTitles((data.all_titles ?? []) as string[]);
 
         game.startGame(
           data.questions as Question[],
@@ -68,7 +76,6 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     if (game.state.phase === 'playing' && game.currentQuestion) {
       setSelectedChoice(null);
       audio.load(game.currentQuestion.preview_url);
-      // Small delay before play to let audio buffer
       const t = setTimeout(() => audio.play(), 200);
       setTimerKey((k) => k + 1);
       return () => clearTimeout(t);
@@ -96,10 +103,18 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Quick Play: button answer
   const handleAnswer = useCallback((choice: string) => {
     if (game.state.phase !== 'playing') return;
     setSelectedChoice(choice);
     game.submitAnswer(choice);
+  }, [game]);
+
+  // Challenge: typed answer
+  const handleChallengeSubmit = useCallback((answer: string | null) => {
+    if (game.state.phase !== 'playing') return;
+    setSelectedChoice(answer);
+    game.submitAnswer(answer);
   }, [game]);
 
   const handleTimeout = useCallback(() => {
@@ -117,6 +132,12 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     audio.cleanup();
     router.refresh();
   }, [audio, router]);
+
+  // Possible answers for challenge auto-suggest
+  const allPossibleAnswers = useMemo(() => {
+    if (!game.currentQuestion) return [];
+    return game.currentQuestion.question_type === 'artist' ? allArtists : allTitles;
+  }, [game.currentQuestion, allArtists, allTitles]);
 
   const q = game.currentQuestion;
   const phase = game.state.phase;
@@ -166,7 +187,6 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
 
   const isRevealing = phase === 'reveal';
 
-  // Determine button states
   function getButtonState(choice: string): 'default' | 'correct' | 'wrong' | 'dimmed' {
     if (!isRevealing) return 'default';
     if (choice === q!.correct_answer) return 'correct';
@@ -184,7 +204,9 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
           <span className="text-text-primary">test</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-text-ghost">{game.state.playlist} - {game.state.mode}</span>
+          <span className="text-xs text-text-ghost">
+            {game.state.playlist} - {isChallenge ? 'challenge' : game.state.mode}
+          </span>
           <button
             onClick={handleQuit}
             className="text-xs text-text-ghost px-3 py-1.5 border border-border-default rounded-md hover:text-text-secondary hover:border-border-hover transition-colors"
@@ -250,21 +272,38 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
           {!isRevealing && (
             <p className="text-sm text-text-secondary text-center mb-4">
               {q.question_text}
+              {isChallenge && (
+                <span className="ml-1.5 text-pink-400 text-xs font-medium">1.5x</span>
+              )}
             </p>
           )}
 
-          {/* Answer buttons */}
-          <div className="grid gap-2.5 md:grid-cols-2">
-            {q.choices.map((choice) => (
-              <AnswerButton
-                key={choice}
-                text={choice}
-                state={getButtonState(choice)}
-                onClick={() => handleAnswer(choice)}
-                disabled={isRevealing}
-              />
-            ))}
-          </div>
+          {/* Answer area */}
+          {isChallenge ? (
+            <ChallengeInput
+              questionType={q.question_type}
+              correctAnswer={q.correct_answer}
+              allPossibleAnswers={allPossibleAnswers}
+              onSubmit={handleChallengeSubmit}
+              disabled={isRevealing}
+              revealState={isRevealing && lastResult ? {
+                correct: lastResult.correct,
+                userAnswer: lastResult.answered,
+              } : null}
+            />
+          ) : (
+            <div className="grid gap-2.5 md:grid-cols-2">
+              {q.choices.map((choice) => (
+                <AnswerButton
+                  key={choice}
+                  text={choice}
+                  state={getButtonState(choice)}
+                  onClick={() => handleAnswer(choice)}
+                  disabled={isRevealing}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
