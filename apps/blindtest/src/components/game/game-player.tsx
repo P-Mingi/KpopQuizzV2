@@ -33,11 +33,19 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [allArtists, setAllArtists] = useState<string[]>([]);
   const [allTitles, setAllTitles] = useState<string[]>([]);
+  const [ready, setReady] = useState(false);
+  const [fetchedData, setFetchedData] = useState<{
+    questions: Question[];
+    timer_duration: number;
+    playlist: string;
+    mode: string;
+    difficulty: string;
+  } | null>(null);
   const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isChallenge = mode === 'challenge';
 
-  // Fetch game data on mount
+  // Fetch game data on mount (but don't start yet - wait for user tap)
   useEffect(() => {
     async function fetchGame() {
       try {
@@ -55,14 +63,14 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
 
         setAllArtists((data.all_artists ?? []) as string[]);
         setAllTitles((data.all_titles ?? []) as string[]);
-
-        game.startGame(
-          data.questions as Question[],
-          data.timer_duration as number,
-          data.playlist as string,
-          data.mode as string,
-          data.difficulty as string,
-        );
+        setFetchedData({
+          questions: data.questions as Question[],
+          timer_duration: data.timer_duration as number,
+          playlist: data.playlist as string,
+          mode: data.mode as string,
+          difficulty: data.difficulty as string,
+        });
+        setReady(true);
       } catch {
         setError('Failed to load game. Try again.');
       }
@@ -70,6 +78,18 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     fetchGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist, mode, difficulty]);
+
+  // User taps "Start" - this satisfies browser autoplay policy
+  const handleStart = useCallback(() => {
+    if (!fetchedData) return;
+    game.startGame(
+      fetchedData.questions,
+      fetchedData.timer_duration,
+      fetchedData.playlist,
+      fetchedData.mode,
+      fetchedData.difficulty,
+    );
+  }, [fetchedData, game]);
 
   // Play audio when entering 'playing' phase
   useEffect(() => {
@@ -143,7 +163,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   const phase = game.state.phase;
   const lastResult = game.state.results[game.state.results.length - 1];
 
-  // ---- Loading ----
+  // ---- Loading / Ready ----
   if (phase === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -155,6 +175,19 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
               className="text-sm px-4 py-2 bg-bg-secondary border border-border-default rounded-xl text-text-primary"
             >
               Go home
+            </button>
+          </>
+        ) : ready ? (
+          <>
+            <p className="text-lg font-semibold text-text-primary">Ready to play</p>
+            <p className="text-sm text-text-secondary">
+              10 songs - {isChallenge ? 'type your answer' : '4 choices'} - {isChallenge ? '10s' : '15s'} timer
+            </p>
+            <button
+              onClick={handleStart}
+              className="mt-4 px-8 py-3 rounded-xl bg-pink-600 text-white font-semibold text-base hover:bg-pink-400 transition-colors active:scale-[0.97]"
+            >
+              Start
             </button>
           </>
         ) : (

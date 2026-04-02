@@ -40,9 +40,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const force = body.force === true;
+
   const entries = (all ?? []) as QuizBankEntry[];
-  const unscheduled = entries.filter((q) => !q.scheduled_date && (q.status === 'verified' || q.status === 'scheduled'));
-  const existing = entries.filter((q) => q.scheduled_date);
+
+  // In force mode, reschedule everything (including already-scheduled quizzes).
+  // Published quizzes are never touched.
+  const unscheduled = force
+    ? entries.filter((q) => q.status !== 'published')
+    : entries.filter((q) => !q.scheduled_date && (q.status === 'verified' || q.status === 'scheduled'));
+  const existing = force
+    ? []  // treat as clean slate
+    : entries.filter((q) => q.scheduled_date);
 
   const assignments = autoSchedule(unscheduled, existing, startDate);
 

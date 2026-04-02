@@ -101,13 +101,14 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
     setEditingDateId(null);
   }, [updateEntry]);
 
-  const handleAutoSchedule = useCallback(async () => {
+  const handleAutoSchedule = useCallback(async (force = false) => {
+    if (force && !confirm('This will clear and reschedule ALL non-published quizzes. Continue?')) return;
     setAutoScheduling(true);
     try {
       const res = await fetch('/api/admin/quiz-bank/auto-schedule', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        body: JSON.stringify(force ? { force: true } : {}),
       });
       const data = await res.json() as { scheduled: number; assignments?: Record<string, string> };
       if (data.scheduled === 0) {
@@ -138,13 +139,22 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
             Pre-verified quizzes that auto-publish as Quiz of the Day
           </p>
         </div>
-        <button
-          onClick={handleAutoSchedule}
-          disabled={autoScheduling}
-          className="px-4 py-2 bg-[#EEEDFE] text-[#3C3489] text-sm font-medium rounded-lg hover:bg-[#E0DEFD] transition-colors disabled:opacity-50"
-        >
-          {autoScheduling ? 'Scheduling...' : 'Auto-schedule unscheduled'}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleAutoSchedule(false)}
+            disabled={autoScheduling}
+            className="px-4 py-2 bg-[#EEEDFE] text-[#3C3489] text-sm font-medium rounded-lg hover:bg-[#E0DEFD] transition-colors disabled:opacity-50"
+          >
+            {autoScheduling ? 'Scheduling...' : 'Auto-schedule unscheduled'}
+          </button>
+          <button
+            onClick={() => handleAutoSchedule(true)}
+            disabled={autoScheduling}
+            className="px-4 py-2 bg-[#FEF3EE] text-[#7C2D0A] text-sm font-medium rounded-lg hover:bg-[#FDE8DA] transition-colors disabled:opacity-50"
+          >
+            Reschedule all
+          </button>
+        </div>
       </div>
 
       {/* Stats */}
