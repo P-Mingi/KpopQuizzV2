@@ -1,1785 +1,1921 @@
 [
   {
-    "name": "IU",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "IU kpop",
-    "songCount": 200,
-    "deezer_id": 868
-  },
-  {
-    "name": "Jin",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Jin BTS",
-    "songCount": 200,
-    "deezer_id": 385
-  },
-  {
-    "name": "AOA",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "AOA kpop",
-    "songCount": 101,
-    "deezer_id": 147566
-  },
-  {
-    "name": "KNK",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "KNK kpop",
-    "songCount": 101,
-    "deezer_id": 1384
-  },
-  {
-    "name": "aespa",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "aespa",
-    "songCount": 100,
-    "deezer_id": 113547672
-  },
-  {
-    "name": "LE SSERAFIM",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "LE SSERAFIM",
-    "songCount": 100,
-    "deezer_id": 168158797
-  },
-  {
-    "name": "tripleS",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "tripleS",
-    "songCount": 100,
-    "deezer_id": 7712602
-  },
-  {
     "name": "TWICE",
     "gender": "gg",
     "generation": "3rd",
-    "deezer_search": "TWICE",
-    "songCount": 100,
+    "deezer_artist_id": 161553,
+    "songCount": 200,
     "deezer_id": 161553
   },
   {
-    "name": "T-ara",
+    "name": "Girls' Generation",
     "gender": "gg",
     "generation": "2nd",
-    "deezer_search": "T-ara",
-    "songCount": 100,
-    "deezer_id": 1389971
-  },
-  {
-    "name": "Stray Kids",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "Stray Kids",
-    "songCount": 100,
-    "deezer_id": 13923487
-  },
-  {
-    "name": "ONEUS",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "ONEUS",
-    "songCount": 100,
-    "deezer_id": 58547552
+    "deezer_artist_id": 1310497,
+    "songCount": 200,
+    "deezer_id": 1310497
   },
   {
     "name": "BTS",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "BTS",
-    "songCount": 100,
+    "deezer_artist_id": 6982223,
+    "songCount": 200,
     "deezer_id": 6982223
   },
   {
     "name": "EXO",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "EXO",
-    "songCount": 100,
+    "deezer_artist_id": 88684,
+    "songCount": 200,
     "deezer_id": 88684
+  },
+  {
+    "name": "SEVENTEEN",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 240582,
+    "songCount": 200,
+    "deezer_id": 240582
   },
   {
     "name": "GOT7",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "GOT7",
-    "songCount": 100,
+    "deezer_artist_id": 6209854,
+    "songCount": 200,
     "deezer_id": 6209854
   },
   {
     "name": "MONSTA X",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "MONSTA X",
-    "songCount": 100,
+    "deezer_artist_id": 5501870,
+    "songCount": 200,
     "deezer_id": 5501870
-  },
-  {
-    "name": "NCT DREAM",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "NCT DREAM",
-    "songCount": 100,
-    "deezer_id": 11999322
-  },
-  {
-    "name": "SHINee",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "SHINee",
-    "songCount": 100,
-    "deezer_id": 1377613
-  },
-  {
-    "name": "CNBLUE",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "CNBLUE",
-    "songCount": 100,
-    "deezer_id": 1492698
-  },
-  {
-    "name": "Woo Won Jae",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Woo Won Jae",
-    "songCount": 100,
-    "deezer_id": 151688
-  },
-  {
-    "name": "ITZY",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "ITZY",
-    "songCount": 99,
-    "deezer_id": 3649631
-  },
-  {
-    "name": "Red Velvet",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "Red Velvet",
-    "songCount": 99,
-    "deezer_id": 338654
-  },
-  {
-    "name": "Girls' Generation",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Girls Generation",
-    "songCount": 99,
-    "deezer_id": 1310497
-  },
-  {
-    "name": "TO1",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "TO1 kpop",
-    "songCount": 99,
-    "deezer_id": 65366
   },
   {
     "name": "NCT 127",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "NCT 127",
-    "songCount": 99,
+    "deezer_artist_id": 50306442,
+    "songCount": 200,
     "deezer_id": 50306442
-  },
-  {
-    "name": "ASTRO",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "ASTRO kpop",
-    "songCount": 99,
-    "deezer_id": 242530
-  },
-  {
-    "name": "AB6IX",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "AB6IX",
-    "songCount": 99,
-    "deezer_id": 65860082
-  },
-  {
-    "name": "Super Junior",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Super Junior",
-    "songCount": 99,
-    "deezer_id": 1020444
-  },
-  {
-    "name": "Taeyeon",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Taeyeon",
-    "songCount": 99,
-    "deezer_id": 2562931
-  },
-  {
-    "name": "BTOB",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "BTOB",
-    "songCount": 98,
-    "deezer_id": 1696083
-  },
-  {
-    "name": "Mark",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Mark NCT",
-    "songCount": 98,
-    "deezer_id": 6915
-  },
-  {
-    "name": "GFRIEND",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "GFRIEND",
-    "songCount": 97,
-    "deezer_id": 52083222
-  },
-  {
-    "name": "ENHYPEN",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "ENHYPEN",
-    "songCount": 97,
-    "deezer_id": 113915572
   },
   {
     "name": "SF9",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "SF9",
-    "songCount": 97,
+    "deezer_artist_id": 12564416,
+    "songCount": 200,
     "deezer_id": 12564416
   },
   {
-    "name": "TXT",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "TOMORROW X TOGETHER",
-    "songCount": 96,
-    "deezer_id": 60552072
-  },
-  {
-    "name": "VIXX",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "VIXX",
-    "songCount": 95,
-    "deezer_id": 5503925
-  },
-  {
-    "name": "JUNNY",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "JUNNY",
-    "songCount": 95,
-    "deezer_id": 1331356
-  },
-  {
-    "name": "(G)I-DLE",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "G I-DLE",
-    "songCount": 94,
-    "deezer_id": 15065941
-  },
-  {
-    "name": "BLACKPINK",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "BLACKPINK",
-    "songCount": 94,
-    "deezer_id": 10803980
-  },
-  {
-    "name": "OH MY GIRL",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "OH MY GIRL",
-    "songCount": 94,
-    "deezer_id": 58272932
-  },
-  {
-    "name": "CRAVITY",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "CRAVITY",
-    "songCount": 94,
-    "deezer_id": 11363266
-  },
-  {
-    "name": "B1A4",
+    "name": "BIGBANG",
     "gender": "bg",
     "generation": "2nd",
-    "deezer_search": "B1A4",
-    "songCount": 94,
-    "deezer_id": 2797281
+    "deezer_artist_id": 65209,
+    "songCount": 200,
+    "deezer_id": 65209
   },
   {
-    "name": "N.Flying",
+    "name": "SHINee",
     "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "N.Flying",
-    "songCount": 93,
-    "deezer_id": 9793684
+    "generation": "2nd",
+    "deezer_artist_id": 1377613,
+    "songCount": 200,
+    "deezer_id": 1377613
+  },
+  {
+    "name": "2PM",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_search": "2PM 투피엠",
+    "songCount": 200,
+    "deezer_id": 9530
+  },
+  {
+    "name": "INFINITE",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_search": "INFINITE 인피니트",
+    "songCount": 200,
+    "deezer_id": 1000622
+  },
+  {
+    "name": "CNBLUE",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 1492698,
+    "songCount": 200,
+    "deezer_id": 1492698
   },
   {
     "name": "FT Island",
     "gender": "bg",
     "generation": "2nd",
-    "deezer_search": "FT Island",
-    "songCount": 93,
+    "deezer_artist_id": 824393,
+    "songCount": 200,
     "deezer_id": 824393
-  },
-  {
-    "name": "Apink",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "Apink",
-    "songCount": 92,
-    "deezer_id": 6779515
-  },
-  {
-    "name": "Zico",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Zico kpop",
-    "songCount": 90,
-    "deezer_id": 159428
-  },
-  {
-    "name": "ONEWE",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "ONEWE",
-    "songCount": 86,
-    "deezer_id": 65486902
   },
   {
     "name": "U-KISS",
     "gender": "bg",
     "generation": "2nd",
-    "deezer_search": "U-KISS",
-    "songCount": 85,
+    "deezer_artist_id": 1493637,
+    "songCount": 200,
     "deezer_id": 1493637
   },
   {
-    "name": "ATEEZ",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "ATEEZ",
-    "songCount": 81,
-    "deezer_id": 49280302
-  },
-  {
-    "name": "WayV",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "WayV",
-    "songCount": 81,
-    "deezer_id": 14106799
-  },
-  {
-    "name": "Kang Daniel",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Kang Daniel",
-    "songCount": 81,
-    "deezer_id": 70157462
-  },
-  {
-    "name": "NU'EST",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "NU'EST",
-    "songCount": 80,
-    "deezer_id": 2797161
-  },
-  {
-    "name": "Giriboy",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Giriboy",
-    "songCount": 80,
-    "deezer_id": 7358828
-  },
-  {
-    "name": "BIG Naughty",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "BIG Naughty",
-    "songCount": 79,
-    "deezer_id": 72991442
-  },
-  {
-    "name": "WJSN",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "WJSN",
-    "songCount": 78,
-    "deezer_id": 13695737
-  },
-  {
-    "name": "P1Harmony",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "P1Harmony",
-    "songCount": 78,
-    "deezer_id": 111567892
-  },
-  {
-    "name": "Kid Milli",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Kid Milli",
-    "songCount": 78,
-    "deezer_id": 13151015
-  },
-  {
-    "name": "TREASURE",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "TREASURE kpop",
-    "songCount": 77,
-    "deezer_id": 119559102
-  },
-  {
-    "name": "SS501",
+    "name": "TVXQ",
     "gender": "bg",
     "generation": "1st",
-    "deezer_search": "SS501",
-    "songCount": 77,
-    "deezer_id": 345706
+    "deezer_artist_id": 63705822,
+    "songCount": 200,
+    "deezer_id": 63705822
   },
   {
-    "name": "Nafla",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Nafla",
-    "songCount": 76,
-    "deezer_id": 9288876
-  },
-  {
-    "name": "Brown Eyed Girls",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Brown Eyed Girls",
-    "songCount": 74,
-    "deezer_id": 2651261
-  },
-  {
-    "name": "Penomeco",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Penomeco",
-    "songCount": 74,
-    "deezer_id": 6291170
-  },
-  {
-    "name": "Lay",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Lay Zhang",
-    "songCount": 73,
-    "deezer_id": 101725
-  },
-  {
-    "name": "CLC",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "CLC kpop",
-    "songCount": 72,
-    "deezer_id": 7607232
-  },
-  {
-    "name": "EXID",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "EXID",
-    "songCount": 72,
-    "deezer_id": 6510693
-  },
-  {
-    "name": "PURPLE KISS",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "PURPLE KISS",
-    "songCount": 71,
-    "deezer_id": 4181009
-  },
-  {
-    "name": "MAMAMOO",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "MAMAMOO",
-    "songCount": 70,
-    "deezer_id": 7161880
-  },
-  {
-    "name": "Chungha",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Chungha",
-    "songCount": 70,
-    "deezer_id": 15014373
+    "name": "Super Junior",
+    "gender": "bg",
+    "generation": "1st",
+    "deezer_artist_id": 1020444,
+    "songCount": 200,
+    "deezer_id": 1020444
   },
   {
     "name": "Shinhwa",
     "gender": "bg",
     "generation": "1st",
-    "deezer_search": "Shinhwa",
-    "songCount": 69,
+    "deezer_artist_id": 1489573,
+    "songCount": 200,
     "deezer_id": 1489573
-  },
-  {
-    "name": "STAYC",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "STAYC",
-    "songCount": 68,
-    "deezer_id": 87703262
-  },
-  {
-    "name": "4Minute",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "4Minute",
-    "songCount": 68,
-    "deezer_id": 1408175
-  },
-  {
-    "name": "VICTON",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "VICTON",
-    "songCount": 68,
-    "deezer_id": 14517451
-  },
-  {
-    "name": "Xdinary Heroes",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "Xdinary Heroes",
-    "songCount": 67,
-    "deezer_id": 152856922
-  },
-  {
-    "name": "Bewhy",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Bewhy",
-    "songCount": 67,
-    "deezer_id": 7766832
-  },
-  {
-    "name": "Eric Nam",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Eric Nam",
-    "songCount": 66,
-    "deezer_id": 10502945
-  },
-  {
-    "name": "Billlie",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "Billlie",
-    "songCount": 65,
-    "deezer_id": 150971252
-  },
-  {
-    "name": "Wonder Girls",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Wonder Girls",
-    "songCount": 65,
-    "deezer_id": 410599
-  },
-  {
-    "name": "Fin.K.L",
-    "gender": "gg",
-    "generation": "1st",
-    "deezer_search": "Fin.K.L",
-    "songCount": 64,
-    "deezer_id": 10076214
-  },
-  {
-    "name": "Colde",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Colde",
-    "songCount": 64,
-    "deezer_id": 13423415
-  },
-  {
-    "name": "Jackson Wang",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Jackson Wang",
-    "songCount": 64,
-    "deezer_id": 11140418
-  },
-  {
-    "name": "Coogie",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Coogie",
-    "songCount": 64,
-    "deezer_id": 4929429
-  },
-  {
-    "name": "Super Junior-D&E",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Super Junior D&E",
-    "songCount": 64,
-    "deezer_id": 7674934
-  },
-  {
-    "name": "NMIXX",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "NMIXX",
-    "songCount": 63,
-    "deezer_id": 160138282
-  },
-  {
-    "name": "Kai",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Kai EXO",
-    "songCount": 63,
-    "deezer_id": 808980
   },
   {
     "name": "Epik High",
     "gender": "bg",
     "generation": "1st",
-    "deezer_search": "Epik High",
-    "songCount": 63,
+    "deezer_artist_id": 4814124,
+    "songCount": 200,
     "deezer_id": 4814124
   },
   {
-    "name": "Moonbyul",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Moonbyul",
-    "songCount": 62,
-    "deezer_id": 12608479
-  },
-  {
-    "name": "BOYNEXTDOOR",
+    "name": "Dynamic Duo",
     "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "BOYNEXTDOOR",
-    "songCount": 61,
-    "deezer_id": 215753985
+    "generation": "1st",
+    "deezer_search": "Dynamic Duo 다이나믹듀오",
+    "songCount": 200,
+    "deezer_id": 5585951
   },
   {
-    "name": "Secret",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Secret kpop",
-    "songCount": 60,
-    "deezer_id": 208537207
-  },
-  {
-    "name": "SAAY",
+    "name": "BoA",
     "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "SAAY",
-    "songCount": 59,
-    "deezer_id": 12080690
+    "generation": "1st",
+    "deezer_search": "BoA 보아",
+    "songCount": 199,
+    "deezer_id": 792
   },
   {
-    "name": "SISTAR",
-    "gender": "gg",
+    "name": "The Quiett",
+    "gender": "solo_male",
     "generation": "2nd",
-    "deezer_search": "SISTAR",
-    "songCount": 58,
-    "deezer_id": 2562881
-  },
-  {
-    "name": "KARD",
-    "gender": "coed",
-    "generation": "3rd",
-    "deezer_search": "KARD",
-    "songCount": 57,
-    "deezer_id": 4331560
-  },
-  {
-    "name": "Suran",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Suran",
-    "songCount": 56,
-    "deezer_id": 8042155
-  },
-  {
-    "name": "Highlight",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "Highlight kpop",
-    "songCount": 55,
-    "deezer_id": 456657
+    "deezer_artist_id": 116358,
+    "songCount": 197,
+    "deezer_id": 116358
   },
   {
     "name": "Dok2",
     "gender": "solo_male",
     "generation": "2nd",
-    "deezer_search": "Dok2",
-    "songCount": 55,
+    "deezer_artist_id": 345513,
+    "songCount": 195,
     "deezer_id": 345513
+  },
+  {
+    "name": "Highlight",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_search": "Highlight 하이라이트",
+    "songCount": 192,
+    "deezer_id": 456657
+  },
+  {
+    "name": "N.Flying",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 9793684,
+    "songCount": 187,
+    "deezer_id": 9793684
+  },
+  {
+    "name": "TEMPEST",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_search": "TEMPEST 템페스트",
+    "songCount": 186,
+    "deezer_id": 238767741
+  },
+  {
+    "name": "Leellamarz",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 12783959,
+    "songCount": 184,
+    "deezer_id": 12783959
+  },
+  {
+    "name": "SS501",
+    "gender": "bg",
+    "generation": "1st",
+    "deezer_artist_id": 345706,
+    "songCount": 179,
+    "deezer_id": 345706
+  },
+  {
+    "name": "IU",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 2810121,
+    "songCount": 179,
+    "deezer_id": 2810121
+  },
+  {
+    "name": "T-ara",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 1389971,
+    "songCount": 178,
+    "deezer_id": 1389971
+  },
+  {
+    "name": "THE BOYZ",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 84959312,
+    "songCount": 177,
+    "deezer_id": 84959312
+  },
+  {
+    "name": "Jay Park",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 650215,
+    "songCount": 174,
+    "deezer_id": 650215
+  },
+  {
+    "name": "Giriboy",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 7358828,
+    "songCount": 174,
+    "deezer_id": 7358828
+  },
+  {
+    "name": "ATEEZ",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 49280302,
+    "songCount": 172,
+    "deezer_id": 49280302
+  },
+  {
+    "name": "S.E.S.",
+    "gender": "gg",
+    "generation": "1st",
+    "deezer_artist_id": 1103,
+    "songCount": 169,
+    "deezer_id": 1103
+  },
+  {
+    "name": "Stray Kids",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 13923487,
+    "songCount": 169,
+    "deezer_id": 13923487
+  },
+  {
+    "name": "Taeyeon",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 2562931,
+    "songCount": 167,
+    "deezer_id": 2562931
+  },
+  {
+    "name": "Red Velvet",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 338654,
+    "songCount": 166,
+    "deezer_id": 338654
+  },
+  {
+    "name": "BIG Naughty",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 72991442,
+    "songCount": 166,
+    "deezer_id": 72991442
+  },
+  {
+    "name": "B1A4",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 2797281,
+    "songCount": 160,
+    "deezer_id": 2797281
+  },
+  {
+    "name": "NCT DREAM",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 11999322,
+    "songCount": 159,
+    "deezer_id": 11999322
+  },
+  {
+    "name": "Sik-K",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 11173818,
+    "songCount": 159,
+    "deezer_id": 11173818
+  },
+  {
+    "name": "tripleS",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 7712602,
+    "songCount": 158,
+    "deezer_id": 7712602
+  },
+  {
+    "name": "TXT",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 60552072,
+    "songCount": 156,
+    "deezer_id": 60552072
+  },
+  {
+    "name": "BTOB",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 1696083,
+    "songCount": 156,
+    "deezer_id": 1696083
+  },
+  {
+    "name": "Lay",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 1644588,
+    "songCount": 151,
+    "deezer_id": 1644588
+  },
+  {
+    "name": "VIXX",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 5503925,
+    "songCount": 147,
+    "deezer_id": 5503925
+  },
+  {
+    "name": "OH MY GIRL",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 58272932,
+    "songCount": 146,
+    "deezer_id": 58272932
+  },
+  {
+    "name": "Brown Eyed Girls",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 2651261,
+    "songCount": 146,
+    "deezer_id": 2651261
+  },
+  {
+    "name": "TREASURE",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 119559102,
+    "songCount": 146,
+    "deezer_id": 119559102
+  },
+  {
+    "name": "DAY6",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_search": "DAY6 데이식스",
+    "songCount": 146,
+    "deezer_id": 9069680
+  },
+  {
+    "name": "ITZY",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 3649631,
+    "songCount": 143,
+    "deezer_id": 3649631
+  },
+  {
+    "name": "2NE1",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 1492615,
+    "songCount": 142,
+    "deezer_id": 1492615
+  },
+  {
+    "name": "AB6IX",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 65860082,
+    "songCount": 141,
+    "deezer_id": 65860082
+  },
+  {
+    "name": "Dreamcatcher",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_search": "Dreamcatcher 드림캐쳐",
+    "songCount": 140,
+    "deezer_id": 15219
+  },
+  {
+    "name": "Eric Nam",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 10502945,
+    "songCount": 140,
+    "deezer_id": 10502945
+  },
+  {
+    "name": "KARA",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 70570,
+    "songCount": 137,
+    "deezer_id": 70570
+  },
+  {
+    "name": "Kid Milli",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 13151015,
+    "songCount": 135,
+    "deezer_id": 13151015
+  },
+  {
+    "name": "MAMAMOO",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 7161880,
+    "songCount": 134,
+    "deezer_id": 7161880
+  },
+  {
+    "name": "H.O.T.",
+    "gender": "bg",
+    "generation": "1st",
+    "deezer_artist_id": 178870,
+    "songCount": 134,
+    "deezer_id": 178870
+  },
+  {
+    "name": "iKON",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 16407,
+    "songCount": 133,
+    "deezer_id": 16407
+  },
+  {
+    "name": "Baby V.O.X",
+    "gender": "gg",
+    "generation": "1st",
+    "deezer_artist_id": 7935,
+    "songCount": 132,
+    "deezer_id": 7935
+  },
+  {
+    "name": "Apink",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 6779515,
+    "songCount": 131,
+    "deezer_id": 6779515
+  },
+  {
+    "name": "PENTAGON",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_search": "PENTAGON 펜타곤",
+    "songCount": 131,
+    "deezer_id": 62831
+  },
+  {
+    "name": "LE SSERAFIM",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 168158797,
+    "songCount": 125,
+    "deezer_id": 168158797
+  },
+  {
+    "name": "MBLAQ",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 1493325,
+    "songCount": 123,
+    "deezer_id": 1493325
+  },
+  {
+    "name": "EXID",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 6510693,
+    "songCount": 122,
+    "deezer_id": 6510693
+  },
+  {
+    "name": "ENHYPEN",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 113915572,
+    "songCount": 122,
+    "deezer_id": 113915572
+  },
+  {
+    "name": "ONEUS",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 58547552,
+    "songCount": 121,
+    "deezer_id": 58547552
+  },
+  {
+    "name": "Heize",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 6777467,
+    "songCount": 119,
+    "deezer_id": 6777467
+  },
+  {
+    "name": "aespa",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 113547672,
+    "songCount": 118,
+    "deezer_id": 113547672
+  },
+  {
+    "name": "Ailee",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_search": "Ailee 에일리",
+    "songCount": 117,
+    "deezer_id": 4803756
+  },
+  {
+    "name": "BLACKPINK",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 10803980,
+    "songCount": 116,
+    "deezer_id": 10803980
+  },
+  {
+    "name": "GFRIEND",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 52083222,
+    "songCount": 116,
+    "deezer_id": 52083222
+  },
+  {
+    "name": "LOONA",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 78598292,
+    "songCount": 116,
+    "deezer_id": 78598292
+  },
+  {
+    "name": "Fin.K.L",
+    "gender": "gg",
+    "generation": "1st",
+    "deezer_artist_id": 10076214,
+    "songCount": 116,
+    "deezer_id": 10076214
+  },
+  {
+    "name": "Block B",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 1407277,
+    "songCount": 116,
+    "deezer_id": 1407277
+  },
+  {
+    "name": "JUNNY",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 1331356,
+    "songCount": 115,
+    "deezer_id": 1331356
+  },
+  {
+    "name": "Golden Child",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_search": "Golden Child 골든차일드",
+    "songCount": 114,
+    "deezer_id": 1367865
+  },
+  {
+    "name": "Taemin",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_search": "Taemin 태민",
+    "songCount": 112,
+    "deezer_id": 7988496
+  },
+  {
+    "name": "WINNER",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 14156973,
+    "songCount": 111,
+    "deezer_id": 14156973
+  },
+  {
+    "name": "NU'EST",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 2797161,
+    "songCount": 111,
+    "deezer_id": 2797161
+  },
+  {
+    "name": "(G)I-DLE",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 15065941,
+    "songCount": 110,
+    "deezer_id": 15065941
+  },
+  {
+    "name": "CRAVITY",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 11363266,
+    "songCount": 109,
+    "deezer_id": 11363266
+  },
+  {
+    "name": "Bewhy",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 7766832,
+    "songCount": 109,
+    "deezer_id": 7766832
+  },
+  {
+    "name": "ZE:A",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 1479809,
+    "songCount": 108,
+    "deezer_id": 1479809
+  },
+  {
+    "name": "Chen",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 486430,
+    "songCount": 108,
+    "deezer_id": 486430
+  },
+  {
+    "name": "4Minute",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 1408175,
+    "songCount": 107,
+    "deezer_id": 1408175
+  },
+  {
+    "name": "ASTRO",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 242530,
+    "songCount": 107,
+    "deezer_id": 242530
+  },
+  {
+    "name": "Sechskies",
+    "gender": "bg",
+    "generation": "1st",
+    "deezer_artist_id": 11165440,
+    "songCount": 103,
+    "deezer_id": 11165440
+  },
+  {
+    "name": "Kang Daniel",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 70157462,
+    "songCount": 103,
+    "deezer_id": 70157462
+  },
+  {
+    "name": "Girl's Day",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 1455609,
+    "songCount": 101,
+    "deezer_id": 1455609
+  },
+  {
+    "name": "G-Dragon",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 1407280,
+    "songCount": 101,
+    "deezer_id": 1407280
+  },
+  {
+    "name": "Suran",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 8042155,
+    "songCount": 101,
+    "deezer_id": 8042155
+  },
+  {
+    "name": "Chungha",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 15014373,
+    "songCount": 100,
+    "deezer_id": 15014373
+  },
+  {
+    "name": "Kep1er",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 154701791,
+    "songCount": 99,
+    "deezer_id": 154701791
+  },
+  {
+    "name": "Jackson Wang",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 11140418,
+    "songCount": 99,
+    "deezer_id": 11140418
+  },
+  {
+    "name": "ONEWE",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 65486902,
+    "songCount": 97,
+    "deezer_id": 65486902
+  },
+  {
+    "name": "Key",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 5061,
+    "songCount": 97,
+    "deezer_id": 5061
+  },
+  {
+    "name": "BIBI",
+    "gender": "solo_female",
+    "generation": "4th",
+    "deezer_artist_id": 11467,
+    "songCount": 94,
+    "deezer_id": 11467
+  },
+  {
+    "name": "AOA",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 1271245,
+    "songCount": 92,
+    "deezer_id": 1271245
+  },
+  {
+    "name": "Changmo",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 12786195,
+    "songCount": 92,
+    "deezer_id": 12786195
+  },
+  {
+    "name": "WayV",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 14106799,
+    "songCount": 91,
+    "deezer_id": 14106799
+  },
+  {
+    "name": "WOODZ",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 5114606,
+    "songCount": 91,
+    "deezer_id": 5114606
+  },
+  {
+    "name": "fromis_9",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 14981411,
+    "songCount": 90,
+    "deezer_id": 14981411
+  },
+  {
+    "name": "UP10TION",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 49771572,
+    "songCount": 90,
+    "deezer_id": 49771572
+  },
+  {
+    "name": "STAYC",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 87703262,
+    "songCount": 89,
+    "deezer_id": 87703262
+  },
+  {
+    "name": "IVE",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_search": "IVE 아이브",
+    "songCount": 88,
+    "deezer_id": 153042292
+  },
+  {
+    "name": "Onew",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 53633732,
+    "songCount": 88,
+    "deezer_id": 53633732
+  },
+  {
+    "name": "Crush",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_search": "Crush 크러쉬",
+    "songCount": 88,
+    "deezer_id": 131641
+  },
+  {
+    "name": "pH-1",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 12039028,
+    "songCount": 88,
+    "deezer_id": 12039028
+  },
+  {
+    "name": "Justhis",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 8608996,
+    "songCount": 88,
+    "deezer_id": 8608996
+  },
+  {
+    "name": "Wonder Girls",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 410599,
+    "songCount": 86,
+    "deezer_id": 410599
+  },
+  {
+    "name": "Jin",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_search": "Jin 진 BTS",
+    "songCount": 85,
+    "deezer_id": 150688792
+  },
+  {
+    "name": "P1Harmony",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 111567892,
+    "songCount": 84,
+    "deezer_id": 111567892
+  },
+  {
+    "name": "DRIPPIN",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 5036424,
+    "songCount": 84,
+    "deezer_id": 5036424
+  },
+  {
+    "name": "f(x)",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_search": "f(x) 에프엑스",
+    "songCount": 83,
+    "deezer_id": 1493569
+  },
+  {
+    "name": "Super Junior-D&E",
+    "gender": "bg",
+    "generation": "1st",
+    "deezer_artist_id": 7674934,
+    "songCount": 82,
+    "deezer_id": 7674934
+  },
+  {
+    "name": "Billlie",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 150971252,
+    "songCount": 81,
+    "deezer_id": 150971252
+  },
+  {
+    "name": "WJSN",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 13695737,
+    "songCount": 81,
+    "deezer_id": 13695737
+  },
+  {
+    "name": "Nafla",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 9288876,
+    "songCount": 81,
+    "deezer_id": 9288876
+  },
+  {
+    "name": "IZ*ONE",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 53330262,
+    "songCount": 78,
+    "deezer_id": 53330262
+  },
+  {
+    "name": "PURPLE KISS",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 4181009,
+    "songCount": 77,
+    "deezer_id": 4181009
+  },
+  {
+    "name": "Penomeco",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 6291170,
+    "songCount": 76,
+    "deezer_id": 6291170
+  },
+  {
+    "name": "SAAY",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 12080690,
+    "songCount": 76,
+    "deezer_id": 12080690
+  },
+  {
+    "name": "Xdinary Heroes",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 152856922,
+    "songCount": 75,
+    "deezer_id": 152856922
+  },
+  {
+    "name": "Coogie",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 4929429,
+    "songCount": 75,
+    "deezer_id": 4929429
+  },
+  {
+    "name": "BOYNEXTDOOR",
+    "gender": "bg",
+    "generation": "5th",
+    "deezer_artist_id": 215753985,
+    "songCount": 74,
+    "deezer_id": 215753985
+  },
+  {
+    "name": "Loco",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 208931,
+    "songCount": 74,
+    "deezer_id": 208931
+  },
+  {
+    "name": "NMIXX",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 160138282,
+    "songCount": 73,
+    "deezer_id": 160138282
+  },
+  {
+    "name": "CLC",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_search": "CLC 씨엘씨",
+    "songCount": 73,
+    "deezer_id": 67797
+  },
+  {
+    "name": "SISTAR",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 2562881,
+    "songCount": 73,
+    "deezer_id": 2562881
+  },
+  {
+    "name": "Jimin",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 168047437,
+    "songCount": 72,
+    "deezer_id": 168047437
+  },
+  {
+    "name": "VICTON",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 14517451,
+    "songCount": 71,
+    "deezer_id": 14517451
+  },
+  {
+    "name": "Moonbyul",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 12608479,
+    "songCount": 71,
+    "deezer_id": 12608479
+  },
+  {
+    "name": "9Muses",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_artist_id": 101759992,
+    "songCount": 70,
+    "deezer_id": 101759992
+  },
+  {
+    "name": "HyunA",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 1389973,
+    "songCount": 70,
+    "deezer_id": 1389973
+  },
+  {
+    "name": "j-hope",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_search": "j-hope 제이홉",
+    "songCount": 70,
+    "deezer_id": 9031142
+  },
+  {
+    "name": "Ash Island",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 54085752,
+    "songCount": 70,
+    "deezer_id": 54085752
+  },
+  {
+    "name": "ZEROBASEONE",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 219364175,
+    "songCount": 69,
+    "deezer_id": 219364175
+  },
+  {
+    "name": "VERIVERY",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 51668762,
+    "songCount": 69,
+    "deezer_id": 51668762
+  },
+  {
+    "name": "Zion.T",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 4990400,
+    "songCount": 68,
+    "deezer_id": 4990400
+  },
+  {
+    "name": "RIIZE",
+    "gender": "bg",
+    "generation": "5th",
+    "deezer_artist_id": 225538625,
+    "songCount": 67,
+    "deezer_id": 225538625
+  },
+  {
+    "name": "Baekhyun",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 15067623,
+    "songCount": 67,
+    "deezer_id": 15067623
+  },
+  {
+    "name": "Colde",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 13423415,
+    "songCount": 67,
+    "deezer_id": 13423415
+  },
+  {
+    "name": "Tiger JK",
+    "gender": "solo_male",
+    "generation": "1st",
+    "deezer_artist_id": 4574381,
+    "songCount": 66,
+    "deezer_id": 4574381
+  },
+  {
+    "name": "H1-KEY",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 154788011,
+    "songCount": 65,
+    "deezer_id": 154788011
+  },
+  {
+    "name": "Soyou",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 1493304,
+    "songCount": 64,
+    "deezer_id": 1493304
+  },
+  {
+    "name": "KARD",
+    "gender": "coed",
+    "generation": "3rd",
+    "deezer_artist_id": 4331560,
+    "songCount": 64,
+    "deezer_id": 4331560
+  },
+  {
+    "name": "Taeyang",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 1493340,
+    "songCount": 63,
+    "deezer_id": 1493340
+  },
+  {
+    "name": "Yuju",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 49842502,
+    "songCount": 61,
+    "deezer_id": 49842502
+  },
+  {
+    "name": "Jungkook",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 9172904,
+    "songCount": 60,
+    "deezer_id": 9172904
+  },
+  {
+    "name": "Beenzino",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 4990404,
+    "songCount": 60,
+    "deezer_id": 4990404
+  },
+  {
+    "name": "Simon Dominic",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 5140525,
+    "songCount": 60,
+    "deezer_id": 5140525
+  },
+  {
+    "name": "ILLIT",
+    "gender": "gg",
+    "generation": "5th",
+    "deezer_search": "ILLIT 아일릿",
+    "songCount": 59,
+    "deezer_id": 259645622
+  },
+  {
+    "name": "OMEGA X",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 137763192,
+    "songCount": 59,
+    "deezer_id": 137763192
+  },
+  {
+    "name": "Jessi",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 1165265,
+    "songCount": 59,
+    "deezer_id": 1165265
+  },
+  {
+    "name": "CIX",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_search": "CIX 씨아이엑스",
+    "songCount": 58,
+    "deezer_id": 70306612
+  },
+  {
+    "name": "Sunmi",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 8904144,
+    "songCount": 57,
+    "deezer_id": 8904144
+  },
+  {
+    "name": "Sam Kim",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 10715569,
+    "songCount": 57,
+    "deezer_id": 10715569
+  },
+  {
+    "name": "DPR Ian",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 87397162,
+    "songCount": 57,
+    "deezer_id": 87397162
+  },
+  {
+    "name": "Cross Gene",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 3071721,
+    "songCount": 56,
+    "deezer_id": 3071721
+  },
+  {
+    "name": "After School",
+    "gender": "gg",
+    "generation": "2nd",
+    "deezer_search": "After School 애프터스쿨",
+    "songCount": 55,
+    "deezer_id": 3066041
   },
   {
     "name": "XIKERS",
     "gender": "bg",
     "generation": "5th",
     "deezer_search": "xikers",
-    "songCount": 54,
+    "songCount": 55,
     "deezer_id": 207354707
   },
   {
-    "name": "Sunmi",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Sunmi",
-    "songCount": 53,
-    "deezer_id": 8904144
-  },
-  {
-    "name": "Chen",
+    "name": "Gray",
     "gender": "solo_male",
     "generation": "3rd",
-    "deezer_search": "Chen EXO",
-    "songCount": 53,
-    "deezer_id": 118886562
-  },
-  {
-    "name": "Sam Kim",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Sam Kim",
-    "songCount": 53,
-    "deezer_id": 10715569
-  },
-  {
-    "name": "9Muses",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Nine Muses",
-    "songCount": 52,
-    "deezer_id": 101759992
-  },
-  {
-    "name": "DRIPPIN",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "DRIPPIN",
-    "songCount": 52,
-    "deezer_id": 5036424
-  },
-  {
-    "name": "Girl's Day",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Girl's Day",
-    "songCount": 51,
-    "deezer_id": 1455609
-  },
-  {
-    "name": "Baby V.O.X",
-    "gender": "gg",
-    "generation": "1st",
-    "deezer_search": "Baby VOX",
-    "songCount": 50,
-    "deezer_id": 7935
-  },
-  {
-    "name": "OMEGA X",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "OMEGA X",
-    "songCount": 50,
-    "deezer_id": 137763192
-  },
-  {
-    "name": "UP10TION",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "UP10TION",
-    "songCount": 49,
-    "deezer_id": 49771572
-  },
-  {
-    "name": "Sik-K",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Sik-K",
-    "songCount": 49,
-    "deezer_id": 11173818
-  },
-  {
-    "name": "HyunA",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "HyunA",
-    "songCount": 48,
-    "deezer_id": 1389973
-  },
-  {
-    "name": "Jay Park",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Jay Park",
-    "songCount": 48,
-    "deezer_id": 650215
-  },
-  {
-    "name": "Soyou",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Soyou",
-    "songCount": 47,
-    "deezer_id": 1493304
-  },
-  {
-    "name": "Paloalto",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Paloalto",
-    "songCount": 47,
-    "deezer_id": 10634
-  },
-  {
-    "name": "2NE1",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "2NE1",
-    "songCount": 46,
-    "deezer_id": 1492615
-  },
-  {
-    "name": "E'LAST",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "E'LAST",
-    "songCount": 45,
-    "deezer_id": 97281812
-  },
-  {
-    "name": "Block B",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "Block B",
-    "songCount": 45,
-    "deezer_id": 1407277
-  },
-  {
-    "name": "MBLAQ",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "MBLAQ",
-    "songCount": 45,
-    "deezer_id": 1493325
-  },
-  {
-    "name": "Weki Meki",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "Weki Meki",
-    "songCount": 43,
-    "deezer_id": 49589172
-  },
-  {
-    "name": "DIA",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "DIA kpop",
-    "songCount": 43,
-    "deezer_id": 330311451
-  },
-  {
-    "name": "Wheein",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Wheein",
-    "songCount": 43,
-    "deezer_id": 15194283
-  },
-  {
-    "name": "Jungkook",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Jungkook",
-    "songCount": 42,
-    "deezer_id": 9172904
-  },
-  {
-    "name": "Justhis",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Justhis",
-    "songCount": 42,
-    "deezer_id": 8608996
-  },
-  {
-    "name": "Seulgi",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Seulgi",
-    "songCount": 40,
-    "deezer_id": 11634341
-  },
-  {
-    "name": "WOODZ",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "WOODZ",
-    "songCount": 40,
-    "deezer_id": 5114606
-  },
-  {
-    "name": "YOUNG POSSE",
-    "gender": "gg",
-    "generation": "5th",
-    "deezer_search": "YOUNG POSSE",
-    "songCount": 39,
-    "deezer_id": 237432491
-  },
-  {
-    "name": "Rocket Punch",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "Rocket Punch",
-    "songCount": 39,
-    "deezer_id": 50329992
-  },
-  {
-    "name": "DPR Live",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "DPR Live",
-    "songCount": 39,
-    "deezer_id": 12133152
-  },
-  {
-    "name": "H1-KEY",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "H1-KEY",
-    "songCount": 38,
-    "deezer_id": 154788011
-  },
-  {
-    "name": "fromis_9",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "fromis_9",
-    "songCount": 38,
-    "deezer_id": 14981411
-  },
-  {
-    "name": "RIIZE",
-    "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "RIIZE",
-    "songCount": 38,
-    "deezer_id": 225538625
-  },
-  {
-    "name": "Teen Top",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "Teen Top",
-    "songCount": 38,
-    "deezer_id": 101762682
-  },
-  {
-    "name": "DPR Ian",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "DPR Ian",
-    "songCount": 37,
-    "deezer_id": 87397162
-  },
-  {
-    "name": "NewJeans",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "NewJeans",
-    "songCount": 36,
-    "deezer_id": 178008437
-  },
-  {
-    "name": "ZE:A",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "ZE:A",
-    "songCount": 35,
-    "deezer_id": 1479809
-  },
-  {
-    "name": "Jennie",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Jennie BLACKPINK",
-    "songCount": 35,
-    "deezer_id": 1228100
-  },
-  {
-    "name": "BIGBANG",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "BIGBANG",
-    "songCount": 34,
-    "deezer_id": 65209
-  },
-  {
-    "name": "Sogumm",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "Sogumm",
-    "songCount": 33,
-    "deezer_id": 15193823
-  },
-  {
-    "name": "EXO-CBX",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "EXO-CBX",
-    "songCount": 32,
-    "deezer_id": 13474099
-  },
-  {
-    "name": "Yuju",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Yuju",
-    "songCount": 31,
-    "deezer_id": 49842502
-  },
-  {
-    "name": "GWSN",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "GWSN",
-    "songCount": 30,
-    "deezer_id": 55146862
+    "deezer_artist_id": 96571,
+    "songCount": 55,
+    "deezer_id": 96571
   },
   {
     "name": "Brave Girls",
     "gender": "gg",
     "generation": "3rd",
-    "deezer_search": "Brave Girls",
-    "songCount": 30,
+    "deezer_artist_id": 2797211,
+    "songCount": 53,
     "deezer_id": 2797211
   },
   {
-    "name": "Lisa",
+    "name": "Hash Swan",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 10371178,
+    "songCount": 52,
+    "deezer_id": 10371178
+  },
+  {
+    "name": "Jennie",
     "gender": "solo_female",
     "generation": "3rd",
-    "deezer_search": "Lisa BLACKPINK",
-    "songCount": 30,
-    "deezer_id": 145068682
+    "deezer_artist_id": 1228100,
+    "songCount": 51,
+    "deezer_id": 1228100
   },
   {
-    "name": "Kep1er",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "Kep1er",
-    "songCount": 29,
-    "deezer_id": 154701791
-  },
-  {
-    "name": "ZEROBASEONE",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "ZEROBASEONE",
-    "songCount": 29,
-    "deezer_id": 219364175
-  },
-  {
-    "name": "V",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "V BTS",
-    "songCount": 29,
-    "deezer_id": 134200
-  },
-  {
-    "name": "WINNER",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "WINNER kpop",
-    "songCount": 28,
-    "deezer_id": 14156973
-  },
-  {
-    "name": "Agust D",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Agust D",
-    "songCount": 28,
-    "deezer_id": 14728175
-  },
-  {
-    "name": "Hwasa",
+    "name": "Sogumm",
     "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Hwasa",
-    "songCount": 27,
-    "deezer_id": 8719366
+    "generation": "4th",
+    "deezer_artist_id": 15193823,
+    "songCount": 51,
+    "deezer_id": 15193823
   },
   {
-    "name": "Jimin",
+    "name": "E'LAST",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 97281812,
+    "songCount": 50,
+    "deezer_id": 97281812
+  },
+  {
+    "name": "Suho",
     "gender": "solo_male",
     "generation": "3rd",
-    "deezer_search": "Jimin BTS",
-    "songCount": 27,
-    "deezer_id": 168047437
+    "deezer_artist_id": 9715666,
+    "songCount": 50,
+    "deezer_id": 9715666
   },
   {
-    "name": "G-Dragon",
+    "name": "Zico",
     "gender": "solo_male",
     "generation": "2nd",
-    "deezer_search": "G-Dragon",
-    "songCount": 27,
-    "deezer_id": 1407280
+    "deezer_search": "Zico 지코",
+    "songCount": 50,
+    "deezer_id": 369105
   },
   {
-    "name": "Dvwn",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Dvwn",
-    "songCount": 27,
-    "deezer_id": 12497058
-  },
-  {
-    "name": "MiSaMo",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "MiSaMo",
-    "songCount": 27,
-    "deezer_id": 201002147
-  },
-  {
-    "name": "IZ*ONE",
+    "name": "VIVIZ",
     "gender": "gg",
     "generation": "4th",
-    "deezer_search": "IZ ONE",
-    "songCount": 26,
-    "deezer_id": 53330262
+    "deezer_artist_id": 6986527,
+    "songCount": 49,
+    "deezer_id": 6986527
   },
   {
-    "name": "Gugudan",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "gugudan",
-    "songCount": 26,
-    "deezer_id": 10640703
-  },
-  {
-    "name": "Lee Young Ji",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "Lee Young Ji",
-    "songCount": 26,
-    "deezer_id": 63129952
-  },
-  {
-    "name": "VERIVERY",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "VERIVERY",
-    "songCount": 25,
-    "deezer_id": 51668762
-  },
-  {
-    "name": "iKON",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "iKON",
-    "songCount": 25,
-    "deezer_id": 16407
-  },
-  {
-    "name": "Ash Island",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Ash Island",
-    "songCount": 25,
-    "deezer_id": 54085752
-  },
-  {
-    "name": "SuperM",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "SuperM",
-    "songCount": 25,
-    "deezer_id": 75116692
-  },
-  {
-    "name": "MOMOLAND",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "MOMOLAND",
-    "songCount": 24,
-    "deezer_id": 5845339
-  },
-  {
-    "name": "Cross Gene",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "Cross Gene",
-    "songCount": 24,
-    "deezer_id": 3071721
-  },
-  {
-    "name": "Heize",
+    "name": "Wheein",
     "gender": "solo_female",
     "generation": "3rd",
-    "deezer_search": "Heize",
-    "songCount": 24,
-    "deezer_id": 6777467
+    "deezer_artist_id": 15194283,
+    "songCount": 49,
+    "deezer_id": 15194283
   },
   {
-    "name": "Beenzino",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Beenzino",
-    "songCount": 24,
-    "deezer_id": 4990404
-  },
-  {
-    "name": "Jvcki Wai",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "Jvcki Wai",
-    "songCount": 24,
-    "deezer_id": 13728933
-  },
-  {
-    "name": "100%",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "100% kpop",
-    "songCount": 23,
-    "deezer_id": 140522842
-  },
-  {
-    "name": "MYNAME",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "MYNAME",
-    "songCount": 23,
-    "deezer_id": 2776001
-  },
-  {
-    "name": "Taeyong",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Taeyong NCT",
-    "songCount": 23,
-    "deezer_id": 10031150
-  },
-  {
-    "name": "Tabber",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Tabber",
-    "songCount": 22,
-    "deezer_id": 61349382
-  },
-  {
-    "name": "Youha",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "Youha",
-    "songCount": 21,
-    "deezer_id": 52194882
-  },
-  {
-    "name": "ARTMS",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "ARTMS",
-    "songCount": 21,
-    "deezer_id": 111244772
-  },
-  {
-    "name": "Cherry Bullet",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "Cherry Bullet",
-    "songCount": 20,
-    "deezer_id": 68279042
-  },
-  {
-    "name": "Daesung",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Daesung",
-    "songCount": 20,
-    "deezer_id": 245809992
-  },
-  {
-    "name": "Yuzion",
-    "gender": "solo_male",
-    "generation": "5th",
-    "deezer_search": "Yuzion",
-    "songCount": 20,
-    "deezer_id": 60211062
-  },
-  {
-    "name": "GroovyRoom",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "GroovyRoom",
-    "songCount": 19,
-    "deezer_id": 12315770
-  },
-  {
-    "name": "Tiger JK",
-    "gender": "solo_male",
-    "generation": "1st",
-    "deezer_search": "Tiger JK",
-    "songCount": 18,
-    "deezer_id": 4574381
-  },
-  {
-    "name": "LIGHTSUM",
+    "name": "KISS OF LIFE",
     "gender": "gg",
     "generation": "4th",
-    "deezer_search": "LIGHTSUM",
-    "songCount": 17,
-    "deezer_id": 135029282
+    "deezer_artist_id": 6389700,
+    "songCount": 48,
+    "deezer_id": 6389700
   },
   {
-    "name": "Rosé",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Rosé BLACKPINK",
-    "songCount": 17,
-    "deezer_id": 126335112
-  },
-  {
-    "name": "OFFONOFF",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "OFFONOFF",
-    "songCount": 15,
-    "deezer_id": 3126681
-  },
-  {
-    "name": "EXO-SC",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "EXO-SC",
-    "songCount": 15,
-    "deezer_id": 71330722
-  },
-  {
-    "name": "BABYMONSTER",
+    "name": "Weki Meki",
     "gender": "gg",
-    "generation": "5th",
-    "deezer_search": "BABYMONSTER",
-    "songCount": 14,
-    "deezer_id": 244386532
+    "generation": "4th",
+    "deezer_artist_id": 49589172,
+    "songCount": 48,
+    "deezer_id": 49589172
   },
   {
-    "name": "The Quiett",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "The Quiett",
-    "songCount": 14,
-    "deezer_id": 116358
+    "name": "Rocket Punch",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 50329992,
+    "songCount": 47,
+    "deezer_id": 50329992
   },
   {
-    "name": "Sechskies",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Sechskies",
-    "songCount": 13,
-    "deezer_id": 11165440
-  },
-  {
-    "name": "Jisoo",
+    "name": "Seulgi",
     "gender": "solo_female",
     "generation": "3rd",
-    "deezer_search": "Jisoo BLACKPINK",
-    "songCount": 13,
-    "deezer_id": 206710097
+    "deezer_artist_id": 11634341,
+    "songCount": 47,
+    "deezer_id": 11634341
   },
   {
     "name": "Jo Yuri",
     "gender": "solo_female",
     "generation": "4th",
-    "deezer_search": "Jo Yuri",
-    "songCount": 13,
+    "deezer_artist_id": 111518042,
+    "songCount": 47,
     "deezer_id": 111518042
   },
   {
-    "name": "Zion.T",
+    "name": "8TURN",
+    "gender": "bg",
+    "generation": "5th",
+    "deezer_artist_id": 198939617,
+    "songCount": 44,
+    "deezer_id": 198939617
+  },
+  {
+    "name": "DPR Live",
     "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Zion.T",
-    "songCount": 13,
-    "deezer_id": 4990400
+    "generation": "4th",
+    "deezer_artist_id": 12133152,
+    "songCount": 44,
+    "deezer_id": 12133152
   },
   {
-    "name": "Red Velvet - IRENE & SEULGI",
+    "name": "YOUNG POSSE",
     "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "IRENE SEULGI",
-    "songCount": 13,
-    "deezer_id": 99548022
+    "generation": "5th",
+    "deezer_artist_id": 237432491,
+    "songCount": 42,
+    "deezer_id": 237432491
   },
   {
-    "name": "Lapillus",
+    "name": "Teen Top",
+    "gender": "bg",
+    "generation": "2nd",
+    "deezer_artist_id": 101762682,
+    "songCount": 42,
+    "deezer_id": 101762682
+  },
+  {
+    "name": "NewJeans",
     "gender": "gg",
     "generation": "4th",
-    "deezer_search": "Lapillus",
-    "songCount": 12,
-    "deezer_id": 173227717
+    "deezer_artist_id": 178008437,
+    "songCount": 40,
+    "deezer_id": 178008437
+  },
+  {
+    "name": "Hwasa",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 8719366,
+    "songCount": 40,
+    "deezer_id": 8719366
+  },
+  {
+    "name": "Jvcki Wai",
+    "gender": "solo_female",
+    "generation": "4th",
+    "deezer_artist_id": 13728933,
+    "songCount": 40,
+    "deezer_id": 13728933
+  },
+  {
+    "name": "TWS",
+    "gender": "bg",
+    "generation": "5th",
+    "deezer_search": "TWS 투어스",
+    "songCount": 39,
+    "deezer_id": 249377062
+  },
+  {
+    "name": "Wanna One",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 13577033,
+    "songCount": 38,
+    "deezer_id": 13577033
+  },
+  {
+    "name": "Dvwn",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 12497058,
+    "songCount": 38,
+    "deezer_id": 12497058
+  },
+  {
+    "name": "YENA",
+    "gender": "solo_female",
+    "generation": "4th",
+    "deezer_search": "YENA 최예나",
+    "songCount": 37,
+    "deezer_id": 188777057
+  },
+  {
+    "name": "V",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 134200,
+    "songCount": 37,
+    "deezer_id": 134200
+  },
+  {
+    "name": "Yuzion",
+    "gender": "solo_male",
+    "generation": "5th",
+    "deezer_artist_id": 60211062,
+    "songCount": 37,
+    "deezer_id": 60211062
+  },
+  {
+    "name": "Lisa",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 145068682,
+    "songCount": 36,
+    "deezer_id": 145068682
   },
   {
     "name": "RM",
     "gender": "solo_male",
     "generation": "3rd",
-    "deezer_search": "RM BTS",
-    "songCount": 12,
-    "deezer_id": 12264034
+    "deezer_artist_id": 83448,
+    "songCount": 36,
+    "deezer_id": 83448
   },
   {
-    "name": "pH-1",
+    "name": "Dean",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 70036,
+    "songCount": 36,
+    "deezer_id": 70036
+  },
+  {
+    "name": "MiSaMo",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 201002147,
+    "songCount": 36,
+    "deezer_id": 201002147
+  },
+  {
+    "name": "PLAVE",
+    "gender": "bg",
+    "generation": "5th",
+    "deezer_artist_id": 11135396,
+    "songCount": 35,
+    "deezer_id": 11135396
+  },
+  {
+    "name": "EXO-CBX",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 13474099,
+    "songCount": 35,
+    "deezer_id": 13474099
+  },
+  {
+    "name": "Gugudan",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 10640703,
+    "songCount": 34,
+    "deezer_id": 10640703
+  },
+  {
+    "name": "CL",
+    "gender": "solo_female",
+    "generation": "2nd",
+    "deezer_artist_id": 193587,
+    "songCount": 33,
+    "deezer_id": 193587
+  },
+  {
+    "name": "GWSN",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 55146862,
+    "songCount": 32,
+    "deezer_id": 55146862
+  },
+  {
+    "name": "Taeyong",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 10031150,
+    "songCount": 30,
+    "deezer_id": 10031150
+  },
+  {
+    "name": "BE'O",
     "gender": "solo_male",
     "generation": "4th",
-    "deezer_search": "pH-1",
-    "songCount": 12,
-    "deezer_id": 12039028
+    "deezer_artist_id": 80707342,
+    "songCount": 30,
+    "deezer_id": 80707342
   },
   {
-    "name": "PRISTIN",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "PRISTIN",
-    "songCount": 11,
-    "deezer_id": 13695735
-  },
-  {
-    "name": "EVERGLOW",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "EVERGLOW",
-    "songCount": 11,
-    "deezer_id": 3249881
-  },
-  {
-    "name": "THE BOYZ",
-    "gender": "bg",
+    "name": "Youha",
+    "gender": "solo_female",
     "generation": "4th",
-    "deezer_search": "THE BOYZ",
-    "songCount": 11,
-    "deezer_id": 84959312
+    "deezer_artist_id": 52194882,
+    "songCount": 30,
+    "deezer_id": 52194882
+  },
+  {
+    "name": "Kai",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 114834992,
+    "songCount": 29,
+    "deezer_id": 114834992
+  },
+  {
+    "name": "Tabber",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 61349382,
+    "songCount": 28,
+    "deezer_id": 61349382
+  },
+  {
+    "name": "SuperM",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 75116692,
+    "songCount": 28,
+    "deezer_id": 75116692
+  },
+  {
+    "name": "ARTMS",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 111244772,
+    "songCount": 28,
+    "deezer_id": 111244772
+  },
+  {
+    "name": "Lee Young Ji",
+    "gender": "solo_female",
+    "generation": "4th",
+    "deezer_artist_id": 63129952,
+    "songCount": 27,
+    "deezer_id": 63129952
+  },
+  {
+    "name": "Agust D",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 14728175,
+    "songCount": 27,
+    "deezer_id": 14728175
+  },
+  {
+    "name": "MOMOLAND",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 5845339,
+    "songCount": 24,
+    "deezer_id": 5845339
+  },
+  {
+    "name": "Daesung",
+    "gender": "solo_male",
+    "generation": "2nd",
+    "deezer_artist_id": 245809992,
+    "songCount": 24,
+    "deezer_id": 245809992
   },
   {
     "name": "Somi",
     "gender": "solo_female",
     "generation": "4th",
-    "deezer_search": "Jeon Somi",
-    "songCount": 11,
+    "deezer_artist_id": 504381,
+    "songCount": 23,
     "deezer_id": 504381
   },
   {
-    "name": "ONF",
+    "name": "OFFONOFF",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "ONF kpop",
-    "songCount": 10,
-    "deezer_id": 206137037
+    "deezer_artist_id": 3126681,
+    "songCount": 22,
+    "deezer_id": 3126681
   },
   {
-    "name": "Super Junior-K.R.Y.",
+    "name": "KNK",
     "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Super Junior KRY",
-    "songCount": 10,
-    "deezer_id": 9111040
+    "generation": "3rd",
+    "deezer_search": "KNK 크나큰",
+    "songCount": 21,
+    "deezer_id": 6858519
+  },
+  {
+    "name": "GroovyRoom",
+    "gender": "bg",
+    "generation": "4th",
+    "deezer_artist_id": 12315770,
+    "songCount": 21,
+    "deezer_id": 12315770
+  },
+  {
+    "name": "Cherry Bullet",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 68279042,
+    "songCount": 20,
+    "deezer_id": 68279042
+  },
+  {
+    "name": "Nayeon",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 13601441,
+    "songCount": 20,
+    "deezer_id": 13601441
+  },
+  {
+    "name": "LIGHTSUM",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 135029282,
+    "songCount": 19,
+    "deezer_id": 135029282
+  },
+  {
+    "name": "Rose",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 126335112,
+    "songCount": 19,
+    "deezer_id": 126335112
+  },
+  {
+    "name": "BABYMONSTER",
+    "gender": "gg",
+    "generation": "5th",
+    "deezer_artist_id": 244386532,
+    "songCount": 17,
+    "deezer_id": 244386532
+  },
+  {
+    "name": "MKIT RAIN",
+    "gender": "solo_male",
+    "generation": "4th",
+    "deezer_artist_id": 14025785,
+    "songCount": 17,
+    "deezer_id": 14025785
+  },
+  {
+    "name": "EXO-SC",
+    "gender": "bg",
+    "generation": "3rd",
+    "deezer_artist_id": 71330722,
+    "songCount": 17,
+    "deezer_id": 71330722
+  },
+  {
+    "name": "Lapillus",
+    "gender": "gg",
+    "generation": "4th",
+    "deezer_artist_id": 173227717,
+    "songCount": 16,
+    "deezer_id": 173227717
+  },
+  {
+    "name": "Jisoo",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 206710097,
+    "songCount": 15,
+    "deezer_id": 206710097
+  },
+  {
+    "name": "Red Velvet - IRENE & SEULGI",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 99548022,
+    "songCount": 13,
+    "deezer_id": 99548022
+  },
+  {
+    "name": "EVERGLOW",
+    "gender": "gg",
+    "generation": "3rd",
+    "deezer_artist_id": 3249881,
+    "songCount": 12,
+    "deezer_id": 3249881
+  },
+  {
+    "name": "Solar",
+    "gender": "solo_female",
+    "generation": "3rd",
+    "deezer_artist_id": 144604312,
+    "songCount": 12,
+    "deezer_id": 144604312
   },
   {
     "name": "Jihyo",
     "gender": "solo_female",
     "generation": "3rd",
-    "deezer_search": "Jihyo TWICE",
-    "songCount": 9,
+    "deezer_artist_id": 379431,
+    "songCount": 11,
     "deezer_id": 379431
   },
   {
     "name": "Kwon Eunbi",
     "gender": "solo_female",
     "generation": "4th",
-    "deezer_search": "Kwon Eunbi",
-    "songCount": 9,
+    "deezer_artist_id": 138548442,
+    "songCount": 11,
     "deezer_id": 138548442
   },
   {
-    "name": "MKIT RAIN",
+    "name": "D.O.",
     "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "MKIT RAIN",
-    "songCount": 9,
-    "deezer_id": 14025785
-  },
-  {
-    "name": "bugAboo",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "bugAboo",
-    "songCount": 8,
-    "deezer_id": 15104149
-  },
-  {
-    "name": "BE'O",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "BE'O",
-    "songCount": 8,
-    "deezer_id": 80707342
-  },
-  {
-    "name": "VIVIZ",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "VIVIZ",
-    "songCount": 7,
-    "deezer_id": 6986527
-  },
-  {
-    "name": "Cosmic Girls",
-    "gender": "gg",
     "generation": "3rd",
-    "deezer_search": "Cosmic Girls",
-    "songCount": 7,
-    "deezer_id": 11740129
+    "deezer_artist_id": 178582907,
+    "songCount": 11,
+    "deezer_id": 178582907
   },
   {
-    "name": "PLAVE",
+    "name": "Super Junior-K.R.Y.",
     "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "PLAVE",
-    "songCount": 7,
-    "deezer_id": 11135396
-  },
-  {
-    "name": "BoA",
-    "gender": "solo_female",
     "generation": "1st",
-    "deezer_search": "BoA kpop",
-    "songCount": 7,
-    "deezer_id": 11681217
-  },
-  {
-    "name": "Simon Dominic",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Simon Dominic",
-    "songCount": 7,
-    "deezer_id": 5140525
-  },
-  {
-    "name": "Changmo",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Changmo",
-    "songCount": 7,
-    "deezer_id": 12786195
+    "deezer_artist_id": 9111040,
+    "songCount": 11,
+    "deezer_id": 9111040
   },
   {
     "name": "GOT the beat",
     "gender": "gg",
     "generation": "3rd",
-    "deezer_search": "GOT the beat",
+    "deezer_artist_id": 155899692,
     "songCount": 7,
     "deezer_id": 155899692
   },
   {
-    "name": "ILLIT",
+    "name": "ODD EYE CIRCLE",
     "gender": "gg",
-    "generation": "5th",
-    "deezer_search": "ILLIT",
-    "songCount": 6,
-    "deezer_id": 14569735
+    "generation": "3rd",
+    "deezer_artist_id": 203431627,
+    "songCount": 7,
+    "deezer_id": 203431627
   },
   {
     "name": "Bang Chan",
     "gender": "solo_male",
     "generation": "4th",
-    "deezer_search": "Bang Chan Stray Kids",
+    "deezer_artist_id": 14596657,
     "songCount": 6,
     "deezer_id": 14596657
-  },
-  {
-    "name": "Dean",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Dean krnb",
-    "songCount": 6,
-    "deezer_id": 161806892
-  },
-  {
-    "name": "LOONA / ODD EYE CIRCLE",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "ODD EYE CIRCLE",
-    "songCount": 6,
-    "deezer_id": 203431627
-  },
-  {
-    "name": "IVE",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "IVE kpop",
-    "songCount": 4,
-    "deezer_id": 226539715
-  },
-  {
-    "name": "S.E.S.",
-    "gender": "gg",
-    "generation": "1st",
-    "deezer_search": "S.E.S. kpop",
-    "songCount": 4,
-    "deezer_id": 9504526
-  },
-  {
-    "name": "8TURN",
-    "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "8TURN",
-    "songCount": 4,
-    "deezer_id": 198939617
-  },
-  {
-    "name": "CL",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "CL kpop",
-    "songCount": 4,
-    "deezer_id": 84431292
-  },
-  {
-    "name": "Solar",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Solar MAMAMOO",
-    "songCount": 4,
-    "deezer_id": 144604312
-  },
-  {
-    "name": "Loco",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Loco kpop",
-    "songCount": 4,
-    "deezer_id": 77789062
   },
   {
     "name": "Yoon Mirae",
     "gender": "solo_female",
     "generation": "1st",
-    "deezer_search": "Yoon Mirae",
-    "songCount": 4,
+    "deezer_artist_id": 13902697,
+    "songCount": 5,
     "deezer_id": 13902697
   },
   {
-    "name": "3RACHA",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "3RACHA",
+    "name": "Woozi",
+    "gender": "solo_male",
+    "generation": "3rd",
+    "deezer_artist_id": 10983150,
     "songCount": 4,
-    "deezer_id": 108265652
-  },
-  {
-    "name": "TWS",
-    "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "TWS kpop",
-    "songCount": 3,
-    "deezer_id": 1563952
-  },
-  {
-    "name": "BIBI",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "BIBI kpop",
-    "songCount": 3,
-    "deezer_id": 9011232
+    "deezer_id": 10983150
   },
   {
     "name": "Lee Hi",
     "gender": "solo_female",
     "generation": "3rd",
-    "deezer_search": "Lee Hi",
+    "deezer_artist_id": 4741249,
     "songCount": 3,
     "deezer_id": 4741249
-  },
-  {
-    "name": "Suho",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Suho EXO",
-    "songCount": 3,
-    "deezer_id": 175098777
-  },
-  {
-    "name": "Leellamarz",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Leellamarz",
-    "songCount": 3,
-    "deezer_id": 12783959
-  },
-  {
-    "name": "Hash Swan",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Hash Swan",
-    "songCount": 3,
-    "deezer_id": 10371178
-  },
-  {
-    "name": "KARA",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "KARA kpop",
-    "songCount": 2,
-    "deezer_id": 5220836
-  },
-  {
-    "name": "INFINITE",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "INFINITE kpop",
-    "songCount": 2,
-    "deezer_id": 53025682
   },
   {
     "name": "T.O.P",
     "gender": "solo_male",
     "generation": "2nd",
-    "deezer_search": "T.O.P BIGBANG",
+    "deezer_artist_id": 288100631,
     "songCount": 2,
     "deezer_id": 288100631
   },
@@ -1787,480 +1923,32 @@
     "name": "Henry",
     "gender": "solo_male",
     "generation": "2nd",
-    "deezer_search": "Henry Lau",
+    "deezer_artist_id": 5848729,
     "songCount": 2,
     "deezer_id": 5848729
-  },
-  {
-    "name": "Lil Boi",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Lil Boi",
-    "songCount": 2,
-    "deezer_id": 12452068
-  },
-  {
-    "name": "SOLE",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "SOLE kpop",
-    "songCount": 2,
-    "deezer_id": 129841652
-  },
-  {
-    "name": "WEi",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "WEi kpop",
-    "songCount": 1,
-    "deezer_id": 9346686
-  },
-  {
-    "name": "TVXQ",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "TVXQ",
-    "songCount": 1,
-    "deezer_id": 213231877
-  },
-  {
-    "name": "RAIN",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Rain kpop",
-    "songCount": 1,
-    "deezer_id": 370615862
-  },
-  {
-    "name": "Jessi",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Jessi kpop",
-    "songCount": 1,
-    "deezer_id": 51549562
-  },
-  {
-    "name": "D.O.",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "D.O. EXO",
-    "songCount": 1,
-    "deezer_id": 178582907
-  },
-  {
-    "name": "j-hope",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "j-hope BTS",
-    "songCount": 1,
-    "deezer_id": 377383631
-  },
-  {
-    "name": "Changbin",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Changbin Stray Kids",
-    "songCount": 1,
-    "deezer_id": 226644355
-  },
-  {
-    "name": "Gray",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Gray kpop",
-    "songCount": 1,
-    "deezer_id": 206538147
-  },
-  {
-    "name": "KISS OF LIFE",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "KISS OF LIFE kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "CSR",
-    "gender": "gg",
-    "generation": "4th",
-    "deezer_search": "CSR kpop",
-    "songCount": 0,
-    "deezer_id": 208795217
-  },
-  {
-    "name": "LOONA",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "LOONA kpop",
-    "songCount": 0,
-    "deezer_id": 507041
-  },
-  {
-    "name": "Dreamcatcher",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "Dreamcatcher kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "f(x)",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "f(x) kpop",
-    "songCount": 0,
-    "deezer_id": null
   },
   {
     "name": "miss A",
     "gender": "gg",
     "generation": "2nd",
-    "deezer_search": "miss A kpop",
+    "deezer_artist_id": 2797271,
     "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "After School",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "After School kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Rainbow",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Rainbow kpop",
-    "songCount": 0,
-    "deezer_id": 1692324
-  },
-  {
-    "name": "Stellar",
-    "gender": "gg",
-    "generation": "2nd",
-    "deezer_search": "Stellar kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "TEMPEST",
-    "gender": "bg",
-    "generation": "4th",
-    "deezer_search": "TEMPEST kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "NOWADAYS",
-    "gender": "bg",
-    "generation": "5th",
-    "deezer_search": "NOWADAYS kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "SEVENTEEN",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "SEVENTEEN kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "DAY6",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "DAY6",
-    "songCount": 0,
-    "deezer_id": 222476365
-  },
-  {
-    "name": "PENTAGON",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "PENTAGON kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "CIX",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "CIX kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Wanna One",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "Wanna One",
-    "songCount": 0,
-    "deezer_id": 13577033
-  },
-  {
-    "name": "Stray Kids",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "Stray Kids",
-    "songCount": 0,
-    "deezer_id": 13923487
-  },
-  {
-    "name": "Golden Child",
-    "gender": "bg",
-    "generation": "3rd",
-    "deezer_search": "Golden Child kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "2PM",
-    "gender": "bg",
-    "generation": "2nd",
-    "deezer_search": "2PM kpop",
-    "songCount": 0,
-    "deezer_id": null
+    "deezer_id": 2797271
   },
   {
     "name": "B.A.P",
     "gender": "bg",
     "generation": "2nd",
-    "deezer_search": "B.A.P kpop",
+    "deezer_search": "B.A.P 비에이피",
     "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "H.O.T.",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "H.O.T. kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "g.o.d",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "g.o.d kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Ailee",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Ailee kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Nayeon",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Nayeon TWICE",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Yubin",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Yubin kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Wendy",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Wendy Red Velvet",
-    "songCount": 0,
-    "deezer_id": 11615663
-  },
-  {
-    "name": "Joy",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Joy Red Velvet",
-    "songCount": 0,
-    "deezer_id": 338654
-  },
-  {
-    "name": "Suzy",
-    "gender": "solo_female",
-    "generation": "2nd",
-    "deezer_search": "Suzy kpop",
-    "songCount": 0,
-    "deezer_id": 65561112
-  },
-  {
-    "name": "YENA",
-    "gender": "solo_female",
-    "generation": "4th",
-    "deezer_search": "YENA kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Baekhyun",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Baekhyun EXO",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Taemin",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Taemin SHINee",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Key",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Key SHINee",
-    "songCount": 0,
-    "deezer_id": 5588422
-  },
-  {
-    "name": "Taeyang",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Taeyang BIGBANG",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Onew",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Onew SHINee",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Minho",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Minho SHINee",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Woozi",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Woozi SEVENTEEN",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Hoshi",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Hoshi SEVENTEEN",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Han",
-    "gender": "solo_male",
-    "generation": "4th",
-    "deezer_search": "Han Stray Kids",
-    "songCount": 0,
-    "deezer_id": 352361382
-  },
-  {
-    "name": "Crush",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Crush kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Dynamic Duo",
-    "gender": "bg",
-    "generation": "1st",
-    "deezer_search": "Dynamic Duo kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Swings",
-    "gender": "solo_male",
-    "generation": "2nd",
-    "deezer_search": "Swings kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "DEAN",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "DEAN krnb",
-    "songCount": 0,
-    "deezer_id": 161806892
-  },
-  {
-    "name": "Babylon",
-    "gender": "solo_male",
-    "generation": "3rd",
-    "deezer_search": "Babylon kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "Hoody",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "Hoody kpop",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "George",
-    "gender": "solo_female",
-    "generation": "3rd",
-    "deezer_search": "George kpop singer",
-    "songCount": 0,
-    "deezer_id": null
-  },
-  {
-    "name": "K.A.R.D",
-    "gender": "coed",
-    "generation": "3rd",
-    "deezer_search": "KARD",
-    "songCount": 0,
-    "deezer_id": 4331560
-  },
-  {
-    "name": "CHECKMATE",
-    "gender": "coed",
-    "generation": "4th",
-    "deezer_search": "CHECKMATE kpop",
-    "songCount": 0,
-    "deezer_id": null
+    "deezer_id": 4019794
   },
   {
     "name": "BSS",
     "gender": "bg",
     "generation": "3rd",
-    "deezer_search": "BSS SEVENTEEN",
+    "deezer_artist_id": 319264051,
     "songCount": 0,
     "deezer_id": 319264051
-  },
-  {
-    "name": "LOONA 1/3",
-    "gender": "gg",
-    "generation": "3rd",
-    "deezer_search": "LOONA 1/3",
-    "songCount": 0,
-    "deezer_id": 157307712
   }
 ]

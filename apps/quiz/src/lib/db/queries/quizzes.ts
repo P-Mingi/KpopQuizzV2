@@ -1,4 +1,5 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { generateSlug } from '@/lib/utils';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
@@ -334,6 +335,66 @@ export async function getQuizzesByType(
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
+async function publishBankQuizForDate(date: string): Promise<string | null> {
+  const admin = createServiceRoleClient();
+
+  const { data: scheduled } = await admin
+    .from('quiz_bank')
+    .select('*')
+    .eq('scheduled_date', date)
+    .in('status', ['verified', 'scheduled'])
+    .maybeSingle();
+
+  if (!scheduled) return null;
+
+  const publishQuestions = (scheduled.questions as Record<string, unknown>[]).map(
+    ({ source: _source, ...rest }) => rest,
+  );
+
+  let slug = generateSlug(scheduled.title as string);
+  const { data: slugCheck } = await admin.from('quizzes').select('id').eq('slug', slug).maybeSingle();
+  if (slugCheck) slug = `${slug}-${Date.now()}`;
+
+  await admin
+    .from('quizzes')
+    .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null })
+    .eq('quiz_of_the_day_date', date);
+
+  const { data: newQuiz, error } = await admin
+    .from('quizzes')
+    .insert({
+      title: scheduled.title,
+      description: scheduled.description ?? null,
+      creator_id: '00000000-0000-0000-0000-000000000001',
+      group_id: scheduled.group_id ?? null,
+      slug,
+      quiz_type: scheduled.quiz_type ?? 'multiple_choice',
+      difficulty: scheduled.difficulty ?? 'medium',
+      questions: publishQuestions,
+      question_count: publishQuestions.length,
+      settings: { timer: true, timer_seconds: 15, shuffle: true, show_answers: false },
+      status: 'published',
+      is_quiz_of_the_day: true,
+      quiz_of_the_day_date: date,
+    })
+    .select('id')
+    .single();
+
+  if (error) return null;
+
+  await admin
+    .from('quiz_bank')
+    .update({ status: 'published', published_quiz_id: newQuiz.id, updated_at: new Date().toISOString() })
+    .eq('id', scheduled.id);
+
+  await admin.from('qotd_log').upsert(
+    { quiz_id: newQuiz.id, featured_date: date, selection_method: 'bank' },
+    { onConflict: 'featured_date' },
+  );
+
+  return newQuiz.id as string;
+}
+
 export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
   const supabase = await createServerClient();
   const today = new Date().toISOString().split('T')[0]!;
@@ -349,6 +410,17 @@ export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
 
   if (error) throw new Error(`Failed to fetch quiz of the day: ${error.message}`);
   if (data) return toQuizCardData(data as unknown as RawQuizRow);
+
+  // Lazy publish: if a bank quiz is scheduled for today but not yet published, publish it now
+  const publishedId = await publishBankQuizForDate(today);
+  if (publishedId) {
+    const { data: newData } = await supabase
+      .from('quizzes')
+      .select(QUIZ_CARD_SELECT)
+      .eq('id', publishedId)
+      .maybeSingle();
+    if (newData) return toQuizCardData(newData as unknown as RawQuizRow);
+  }
 
   // Fallback: yesterday's QOTD (grace period for cron timing)
   const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]!;

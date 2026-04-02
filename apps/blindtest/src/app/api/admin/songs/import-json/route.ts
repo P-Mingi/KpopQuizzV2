@@ -16,6 +16,7 @@ interface SongImport {
   generation?: string | null;
   wrong_answers_artist?: string[];
   wrong_answers_title?: string[];
+  deezer_rank?: number;
   difficulty?: string;
   status?: string;
 }
@@ -58,6 +59,7 @@ export async function POST(req: Request): Promise<NextResponse> {
           generation: s.generation ?? null,
           wrong_answers_artist: s.wrong_answers_artist ?? [],
           wrong_answers_title: s.wrong_answers_title ?? [],
+          deezer_rank: s.deezer_rank ?? 0,
           difficulty: s.difficulty ?? 'medium',
           status: s.status ?? 'active',
         })),

@@ -1,65 +1,52 @@
 /**
- * Calculate points for a single correct answer.
- * Formula: base (50) + time_bonus (0-100 scaled by clip duration)
+ * Scoring system for the K-pop Blind Test game.
+ *
+ * Base: 1000 max per song, decreases linearly with time.
+ * Combo multiplier: 3-streak=1.5x, 5=2x, 8=3x, 10=5x
+ * Perfect round bonus: +2000
  */
-export function calculatePoints(answerTime: number, clipDuration: number, correct: boolean): number {
+
+export function calculatePoints(timeElapsed: number, timerDuration: number, correct: boolean): number {
   if (!correct) return 0;
-  const base = 50;
-  const timeBonus = Math.max(0, (clipDuration - answerTime) * (100 / clipDuration));
-  return Math.round(base + timeBonus);
+  const raw = 1000 * (1 - (timeElapsed / timerDuration) * 0.935);
+  return Math.max(50, Math.round(raw));
 }
 
-/**
- * Combo multiplier for consecutive correct answers.
- */
 export function getComboMultiplier(combo: number): number {
-  if (combo >= 10) return 1.5;
-  if (combo >= 6) return 1.25;
-  if (combo >= 5) return 1.2;
-  if (combo >= 4) return 1.15;
-  if (combo >= 3) return 1.1;
-  if (combo >= 2) return 1.05;
-  return 1.0;
+  if (combo >= 10) return 5;
+  if (combo >= 8) return 3;
+  if (combo >= 5) return 2;
+  if (combo >= 3) return 1.5;
+  return 1;
 }
 
-export function calculateFinalPoints(answerTime: number, clipDuration: number, correct: boolean, combo: number): number {
-  const basePoints = calculatePoints(answerTime, clipDuration, correct);
+export function calculateFinalPoints(timeElapsed: number, timerDuration: number, correct: boolean, combo: number): number {
+  const base = calculatePoints(timeElapsed, timerDuration, correct);
   const multiplier = getComboMultiplier(combo);
-  return Math.round(basePoints * multiplier);
+  return Math.round(base * multiplier);
 }
 
-/**
- * Speed label for visual feedback (does NOT affect scoring).
- */
-export function getSpeedLabel(answerTime: number): { label: string; cssVar: string } {
-  if (answerTime < 2) return { label: 'Lightning', cssVar: 'var(--speed-lightning)' };
-  if (answerTime < 4) return { label: 'Fast', cssVar: 'var(--speed-fast)' };
-  if (answerTime < 6) return { label: 'Nice', cssVar: 'var(--speed-normal)' };
-  if (answerTime < 8) return { label: 'Slow', cssVar: 'var(--speed-slow)' };
+export function getSpeedLabel(time: number): { label: string; cssVar: string } {
+  if (time < 2) return { label: 'Lightning', cssVar: 'var(--speed-lightning)' };
+  if (time < 4) return { label: 'Fast', cssVar: 'var(--speed-fast)' };
+  if (time < 6) return { label: 'Nice', cssVar: 'var(--speed-normal)' };
+  if (time < 8) return { label: 'Slow', cssVar: 'var(--speed-slow)' };
   return { label: 'Close call', cssVar: 'var(--speed-slow)' };
 }
 
-/**
- * Score label for results screen.
- */
-export function getScoreLabel(correct: number, total: number): string {
-  const pct = total > 0 ? correct / total : 0;
-  if (pct === 1) return 'Perfect score';
-  if (pct >= 0.8) return 'Impressive';
-  if (pct >= 0.5) return 'Not bad';
-  if (pct >= 0.3) return 'Room to improve';
-  return 'Better luck next time';
+export function getScoreLabel(correct: number, total: number): { label: string; stars: number } {
+  if (correct === total) return { label: 'PERFECT!', stars: 5 };
+  if (correct >= 9) return { label: 'Amazing!', stars: 4 };
+  if (correct >= 7) return { label: 'Great round!', stars: 3 };
+  if (correct >= 5) return { label: 'Not bad!', stars: 2 };
+  return { label: 'Keep trying!', stars: 1 };
 }
 
-/**
- * XP earned from a game.
- */
-export function calculateXP(answers: { correct: boolean; time: number; skipped?: boolean }[]): number {
-  const validAnswers = answers.filter(a => !a.skipped);
-  const correctAnswers = validAnswers.filter(a => a.correct);
+export function calculateXP(answers: { correct: boolean; time: number }[]): number {
+  const correctAnswers = answers.filter((a) => a.correct);
   let xp = 0;
   xp += correctAnswers.length * 10;
-  xp += correctAnswers.filter(a => a.time < 2).length * 5;
-  if (correctAnswers.length === validAnswers.length && validAnswers.length >= 5) xp += 50;
+  xp += correctAnswers.filter((a) => a.time < 2).length * 5;
+  if (correctAnswers.length === answers.length && answers.length >= 5) xp += 50;
   return xp;
 }
