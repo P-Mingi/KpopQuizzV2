@@ -35,7 +35,7 @@ export interface Group {
   created_at: string;
 }
 
-export type QuizType = 'multiple_choice' | 'true_false' | 'guess_from_clues';
+export type QuizType = 'multiple_choice' | 'true_false' | 'guess_from_clues' | 'image' | 'intruder';
 export type QuizStatus = 'draft' | 'published' | 'flagged' | 'removed';
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
@@ -67,7 +67,27 @@ export interface GuessFromCluesQuestion {
   fun_fact?: string;
 }
 
-export type Question = MultipleChoiceQuestion | TrueFalseQuestion | GuessFromCluesQuestion;
+export interface ImageQuestion {
+  question: string;
+  image_url: string;
+  options: [string, string, string, string];
+  correct: number;
+  fun_fact?: string;
+}
+
+export interface IntruderOption {
+  label: string;
+  image_url: string;
+}
+
+export interface IntruderQuestion {
+  question: string;
+  options: [IntruderOption, IntruderOption, IntruderOption, IntruderOption];
+  correct: number; // index of the intruder
+  fun_fact?: string;
+}
+
+export type Question = MultipleChoiceQuestion | TrueFalseQuestion | GuessFromCluesQuestion | ImageQuestion | IntruderQuestion;
 
 export interface Quiz {
   id: string;

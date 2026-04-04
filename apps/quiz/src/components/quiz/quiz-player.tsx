@@ -11,8 +11,11 @@ import { ProgressBar } from '@/components/quiz/progress-bar';
 import { FeedbackBox } from '@/components/quiz/feedback-box';
 import { ResultCard } from '@/components/quiz/result-card';
 import { ReportForm } from '@/components/quiz/report-form';
+import { ImageQuestionView } from '@/components/quiz/image-question';
+import { IntruderQuestionView } from '@/components/quiz/intruder-question';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
+import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
@@ -469,11 +472,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                   <GroupPill name={quiz.groupName} displayColor={quiz.displayColor} textColor={quiz.textColor} />
                 </Link>
                 <DifficultyBadge difficulty={quiz.difficulty} />
-                {quiz.quizType === 'true_false' && (
-                  <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-info-bg text-info-text">T/F</span>
-                )}
-                {quiz.quizType === 'guess_from_clues' && (
-                  <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-[#EEEDFE] text-[#3C3489]">Clues</span>
+                {quiz.quizType !== 'multiple_choice' && (
+                  <QuizTypeBadge type={quiz.quizType} />
                 )}
               </div>
               <h1 className="text-2xl font-medium mt-3 leading-snug text-txt-primary">{quiz.title}</h1>
@@ -555,6 +555,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     const isAnswered = state.phase === 'answered';
     const isLast = state.questionIndex >= state.questions.length - 1;
     const isClues = state.quizType === 'guess_from_clues' && question.clues && question.clues.length > 0;
+    const isImageQuiz = state.quizType === 'image' && 'image_url' in question;
+    const isIntruderQuiz = state.quizType === 'intruder';
 
     return (
       <div>
@@ -662,9 +664,35 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           )}
 
           {/* ======================== */}
+          {/* IMAGE QUIZ */}
+          {/* ======================== */}
+          {isImageQuiz && (
+            <ImageQuestionView
+              question={question as { question: string; image_url: string; options: string[] }}
+              correctIndex={getCorrectIndex(question)}
+              selectedAnswer={isAnswered ? state.selectedAnswer : null}
+              isAnswered={isAnswered}
+              onAnswer={handleAnswer}
+            />
+          )}
+
+          {/* ======================== */}
+          {/* INTRUDER */}
+          {/* ======================== */}
+          {isIntruderQuiz && (
+            <IntruderQuestionView
+              question={question as unknown as { question: string; options: Array<{ label: string; image_url: string }> }}
+              correctIndex={getCorrectIndex(question)}
+              selectedAnswer={isAnswered ? state.selectedAnswer : null}
+              isAnswered={isAnswered}
+              onAnswer={handleAnswer}
+            />
+          )}
+
+          {/* ======================== */}
           {/* STANDARD (MC / TF) */}
           {/* ======================== */}
-          {!isClues && (
+          {!isClues && !isImageQuiz && !isIntruderQuiz && (
             <>
               <p className="text-base font-medium leading-relaxed mb-5 text-txt-primary">
                 {question.question}
