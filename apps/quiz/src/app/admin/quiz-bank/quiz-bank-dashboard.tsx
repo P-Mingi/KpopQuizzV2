@@ -32,6 +32,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
   const [editingDateId, setEditingDateId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [autoScheduling, setAutoScheduling] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [savingId, setSavingId] = useState<string | null>(null);
 
   const groupMap = useMemo(
@@ -101,6 +102,27 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
     setEditingDateId(null);
   }, [updateEntry]);
 
+  const handlePublishToday = useCallback(async () => {
+    if (!confirm('Publish today\'s scheduled quiz bank entry now?')) return;
+    setPublishing(true);
+    try {
+      const res = await fetch('/api/qotd/publish');
+      const data = await res.json() as { success?: boolean; already_published?: boolean; error?: string; quiz_id?: string };
+      if (data.already_published) {
+        alert('Today\'s quiz is already published.');
+      } else if (data.success) {
+        alert(`Published! Quiz ID: ${data.quiz_id}. Reloading...`);
+        window.location.reload();
+      } else {
+        alert(data.error ?? 'Publish failed.');
+      }
+    } catch {
+      alert('Publish failed.');
+    } finally {
+      setPublishing(false);
+    }
+  }, []);
+
   const handleAutoSchedule = useCallback(async (force = false) => {
     if (force && !confirm('This will clear and reschedule ALL non-published quizzes. Continue?')) return;
     setAutoScheduling(true);
@@ -140,6 +162,13 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
           </p>
         </div>
         <div className="flex gap-2">
+          <button
+            onClick={handlePublishToday}
+            disabled={publishing}
+            className="px-4 py-2 bg-[#EAF3DE] text-[#27500A] text-sm font-medium rounded-lg hover:bg-[#D5EAC0] transition-colors disabled:opacity-50"
+          >
+            {publishing ? 'Publishing...' : 'Publish Today'}
+          </button>
           <button
             onClick={() => handleAutoSchedule(false)}
             disabled={autoScheduling}

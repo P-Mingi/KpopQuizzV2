@@ -2,18 +2,28 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 import { generateSlug } from '@/lib/utils';
+import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 
 import type { NextRequest } from 'next/server';
 
 // Called by Vercel cron at 15:00 UTC (midnight KST) daily.
-// Also callable manually by admins (POST with CRON_SECRET).
+// Also callable manually by admins (GET with cookie auth or CRON_SECRET).
+// Optional ?date=YYYY-MM-DD query param to publish for a specific date.
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const cronSecret = process.env.CRON_SECRET;
   const isVercelCron = req.headers.get('x-vercel-cron') === '1';
   const authHeader = req.headers.get('authorization');
   const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
 
+  let isAdminUser = false;
   if (!isVercelCron && !isManualAuth) {
+    const serverClient = await createServerClient();
+    const { data: { user } } = await serverClient.auth.getUser();
+    isAdminUser = !!(user && isAdmin(user.id));
+  }
+
+  if (!isVercelCron && !isManualAuth && !isAdminUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -22,7 +32,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
-  const today = new Date().toISOString().split('T')[0]!;
+  const dateParam = req.nextUrl.searchParams.get('date');
+  const today = dateParam ?? new Date().toISOString().split('T')[0]!;
 
   // Already published today?
   const { data: alreadyPublished } = await supabase

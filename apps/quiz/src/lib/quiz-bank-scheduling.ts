@@ -133,6 +133,21 @@ export function autoSchedule(
     return closestEntry;
   }
 
+  // Returns the quiz already scheduled for the day immediately after dateStr
+  function getImmediateFollowing(dateStr: string): QuizBankEntry | null {
+    const next = new Date(dateStr + 'T00:00:00Z');
+    next.setUTCDate(next.getUTCDate() + 1);
+    const nextStr = next.toISOString().split('T')[0]!;
+
+    for (const e of sortedExisting) {
+      if (e.scheduled_date === nextStr) return e;
+    }
+    for (const [id, d] of assignments) {
+      if (d === nextStr) return unscheduled.find((q) => q.id === id) ?? null;
+    }
+    return null;
+  }
+
   // Shuffle to avoid alphabetical bias
   const shuffled = [...unscheduled].sort(() => Math.random() - 0.5);
 
@@ -149,10 +164,13 @@ export function autoSchedule(
 
       if (!occupiedDates.has(dateStr)) {
         const prevEntry = getClosestPreceding(dateStr);
+        const nextEntry = getImmediateFollowing(dateStr);
         const sameGroup = quiz.group_id && prevEntry?.group_id === quiz.group_id;
         const sameCategory = prevEntry?.category === quiz.category;
+        const sameGroupNext = quiz.group_id && nextEntry?.group_id === quiz.group_id;
+        const sameCategoryNext = nextEntry?.category === quiz.category;
 
-        if (!sameGroup && !sameCategory) {
+        if (!sameGroup && !sameCategory && !sameGroupNext && !sameCategoryNext) {
           assignments.set(quiz.id, dateStr);
           occupiedDates.add(dateStr);
           candidate.setUTCDate(candidate.getUTCDate() + 1);
