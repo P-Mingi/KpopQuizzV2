@@ -352,6 +352,7 @@ async function publishBankQuizForDate(date: string): Promise<string | null> {
   );
 
   let slug = generateSlug(scheduled.title as string);
+  if (!slug) slug = `quiz-${Date.now()}`;
   const { data: slugCheck } = await admin.from('quizzes').select('id').eq('slug', slug).maybeSingle();
   if (slugCheck) slug = `${slug}-${Date.now()}`;
 

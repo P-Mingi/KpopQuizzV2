@@ -233,6 +233,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // 5. Generate unique slug
   const title = (input.title as string).trim();
   let slug = generateSlug(title);
+  if (!slug) slug = `quiz-${Date.now()}`;
 
   const { data: slugCheck } = await supabase
     .from('quizzes')
