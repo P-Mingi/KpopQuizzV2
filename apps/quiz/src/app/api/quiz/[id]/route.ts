@@ -19,7 +19,7 @@ function validateQuestions(questions: unknown[], quizType: string): string[] {
       errors.push(`Question ${i + 1}: question text must be 500 characters or less`);
     }
 
-    if (quizType === 'multiple_choice' || quizType === 'guess_from_clues') {
+    if (quizType === 'multiple_choice' || quizType === 'guess_from_clues' || quizType === 'image') {
       if (!Array.isArray(q.options) || q.options.length !== 4) {
         errors.push(`Question ${i + 1}: must have 4 options`);
       } else {
@@ -29,6 +29,28 @@ function validateQuestions(questions: unknown[], quizType: string): string[] {
             errors.push(`Question ${i + 1}: option ${j + 1} is required`);
           } else if (opt.length > 200) {
             errors.push(`Question ${i + 1}: option ${j + 1} must be 200 characters or less`);
+          }
+        }
+      }
+      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
+        errors.push(`Question ${i + 1}: correct answer index must be 0-3`);
+      }
+      if (quizType === 'image' && (typeof q.image_url !== 'string' || q.image_url.trim().length === 0)) {
+        errors.push(`Question ${i + 1}: image_url is required`);
+      }
+    }
+
+    if (quizType === 'intruder') {
+      if (!Array.isArray(q.options) || q.options.length !== 4) {
+        errors.push(`Question ${i + 1}: must have 4 options`);
+      } else {
+        for (let j = 0; j < q.options.length; j++) {
+          const opt = q.options[j] as Record<string, unknown>;
+          if (!opt || typeof opt.label !== 'string' || opt.label.trim().length === 0) {
+            errors.push(`Question ${i + 1}: option ${j + 1} label is required`);
+          }
+          if (!opt || typeof opt.image_url !== 'string' || opt.image_url.trim().length === 0) {
+            errors.push(`Question ${i + 1}: option ${j + 1} image_url is required`);
           }
         }
       }
@@ -115,7 +137,7 @@ export async function PUT(
     errors.push('Title must be at most 100 characters');
   }
 
-  const validTypes = ['multiple_choice', 'true_false', 'guess_from_clues'];
+  const validTypes = ['multiple_choice', 'true_false', 'guess_from_clues', 'image', 'intruder'];
   if (typeof input.quiz_type !== 'string' || !validTypes.includes(input.quiz_type)) {
     errors.push('Invalid quiz type');
   }
@@ -160,7 +182,7 @@ export async function PUT(
 
   if (updateError) {
     console.error('Failed to update quiz:', updateError);
-    return NextResponse.json({ error: 'Failed to update quiz' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update quiz', detail: updateError.message, code: updateError.code }, { status: 500 });
   }
 
   return NextResponse.json({ success: true, slug: existing.slug });
