@@ -261,28 +261,28 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
-  // 6. Insert quiz
-  console.log('[quiz/create] inserting quiz_type:', JSON.stringify(input.quiz_type), 'slug:', slug);
-  const { data: quiz, error: quizError } = await supabase
-    .from('quizzes')
-    .insert({
-      creator_id: user.id,
-      group_id: groupId,
-      title,
-      slug,
-      quiz_type: input.quiz_type as string,
-      difficulty: (input.difficulty as string) || 'medium',
-      questions: input.questions,
-      settings: input.settings,
-      question_count: (input.questions as unknown[]).length,
-    })
-    .select('id, slug')
-    .single();
+  // 6. Insert quiz via RPC to bypass PostgREST schema cache constraint validation
+  const { data: quizResult, error: quizError } = await supabase
+    .rpc('create_quiz_bypass', {
+      p_data: {
+        creator_id: user.id,
+        group_id: groupId,
+        title,
+        slug,
+        quiz_type: input.quiz_type as string,
+        difficulty: (input.difficulty as string) || 'medium',
+        questions: input.questions,
+        settings: input.settings,
+        question_count: (input.questions as unknown[]).length,
+      },
+    });
 
   if (quizError) {
     console.error('Failed to create quiz:', quizError);
-    return NextResponse.json({ error: 'Failed to create quiz', detail: quizError.message, code: quizError.code, received_quiz_type: input.quiz_type }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create quiz', detail: quizError.message, code: quizError.code }, { status: 500 });
   }
+
+  const quiz = quizResult as { id: string; slug: string };
 
   // Award XP for creating a quiz
   try {
