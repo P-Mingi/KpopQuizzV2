@@ -84,7 +84,7 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileInputRef.current?.click()}
-          className="w-full border-2 border-dashed border-border-medium rounded-lg p-6 text-center cursor-pointer hover:border-accent-default transition-colors"
+          className="w-full border-2 border-dashed border-border-medium rounded-lg p-4 text-center cursor-pointer hover:border-accent-default transition-colors"
         >
           {loading ? (
             <p className="text-sm text-txt-secondary">Uploading...</p>
@@ -109,18 +109,19 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
       />
 
       {!value && (
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-2 mt-2 w-full min-w-0">
           <input
             type="text"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            placeholder="Or paste image URL..."
-            className="flex-1 text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleUrl(); } }}
+            placeholder="Or paste URL..."
+            className="min-w-0 flex-1 text-sm border border-border-light rounded-lg px-2 py-1.5 bg-surface-tertiary text-txt-primary"
           />
           <button
             onClick={handleUrl}
             disabled={loading || !urlInput.trim()}
-            className="px-3 py-2 bg-surface-secondary border border-border-light rounded-lg text-sm font-medium text-txt-primary disabled:opacity-50"
+            className="flex-shrink-0 px-2.5 py-1.5 bg-surface-secondary border border-border-light rounded-lg text-xs font-medium text-txt-primary disabled:opacity-50"
           >
             Fetch
           </button>

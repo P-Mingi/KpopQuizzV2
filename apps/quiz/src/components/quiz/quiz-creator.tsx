@@ -850,7 +850,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             {quizType === 'intruder' && (
               <div className="mt-4">
                 <p className="text-xs text-txt-secondary mb-2">4 images (mark one as the intruder)</p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {currentIntruderOptions.map((opt, i) => (
                     <div key={i} className={`border rounded-lg p-2 ${currentIntruderIndex === i ? 'border-[#7F77DD] bg-[#EEEDFE]' : 'border-border-light'}`}>
                       <ImageUploader
