@@ -240,7 +240,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   }
 
   function canSaveQuestion(): boolean {
-    if (!currentQuestion.trim()) return false;
+    if (quizType !== 'intruder' && !currentQuestion.trim()) return false;
 
     if (quizType === 'multiple_choice') {
       return currentOptions.every((o) => o.trim().length > 0);
@@ -287,7 +287,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
 
     if (quizType === 'intruder') {
       q = {
-        question: currentQuestion.trim(),
+        question: 'Find the intruder',
         options: currentIntruderOptions.map((o) => ({ label: o.label.trim(), image_url: o.image_url })),
         correct: currentIntruderIndex,
         fun_fact: currentFunFact.trim(),
@@ -678,14 +678,16 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               {editingIndex !== null ? `Editing question ${editingIndex + 1}` : `Question ${savedQuestions.length + 1}`}
             </p>
 
-            <input
-              type="text"
-              placeholder="Type your question..."
-              value={currentQuestion}
-              onChange={(e) => setCurrentQuestion(e.target.value)}
-              maxLength={500}
-              className={INPUT_CLASSES}
-            />
+            {quizType !== 'intruder' && (
+              <input
+                type="text"
+                placeholder="Type your question..."
+                value={currentQuestion}
+                onChange={(e) => setCurrentQuestion(e.target.value)}
+                maxLength={500}
+                className={INPUT_CLASSES}
+              />
+            )}
 
             {/* Multiple choice answers */}
             {quizType === 'multiple_choice' && (
