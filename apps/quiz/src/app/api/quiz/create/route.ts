@@ -280,7 +280,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   if (quizError) {
     console.error('Failed to create quiz:', quizError);
-    return NextResponse.json({ error: 'Failed to create quiz', detail: quizError.message, code: quizError.code }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create quiz', detail: quizError.message, code: quizError.code, received_quiz_type: input.quiz_type }, { status: 500 });
   }
 
   // Award XP for creating a quiz
