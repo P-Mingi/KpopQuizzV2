@@ -262,6 +262,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   // 6. Insert quiz
+  console.log('[quiz/create] inserting quiz_type:', JSON.stringify(input.quiz_type), 'slug:', slug);
   const { data: quiz, error: quizError } = await supabase
     .from('quizzes')
     .insert({
