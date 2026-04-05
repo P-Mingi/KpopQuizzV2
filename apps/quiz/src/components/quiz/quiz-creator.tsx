@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useToast } from '@/components/ui/toast-provider';
+import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
+import { ImageUploader } from '@/components/admin/image-uploader';
 
 import type { QuizType, Difficulty } from '@/lib/db/types';
 
@@ -17,12 +19,18 @@ interface GroupOption {
   slug: string;
 }
 
+interface IntruderOptionData {
+  label: string;
+  image_url: string;
+}
+
 interface SavedQuestion {
   question: string;
-  options: string[];
+  options: string[] | IntruderOptionData[];
   correct: number;
   fun_fact: string;
   clues?: string[];
+  image_url?: string;
 }
 
 interface QuizCreatorProps {
@@ -103,6 +111,12 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   const [currentFunFact, setCurrentFunFact] = useState('');
   const [currentClues, setCurrentClues] = useState(['', '', '']);
   const [currentTFCorrect, setCurrentTFCorrect] = useState(true);
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
+  const [currentIntruderOptions, setCurrentIntruderOptions] = useState<IntruderOptionData[]>([
+    { label: '', image_url: '' }, { label: '', image_url: '' },
+    { label: '', image_url: '' }, { label: '', image_url: '' },
+  ]);
+  const [currentIntruderIndex, setCurrentIntruderIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -168,6 +182,9 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           if (Array.isArray(q.clues)) {
             result.clues = q.clues as string[];
           }
+          if (typeof q.image_url === 'string') {
+            result.image_url = q.image_url;
+          }
           return result;
         });
         setSavedQuestions(questions);
@@ -213,6 +230,12 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     setCurrentFunFact('');
     setCurrentClues(['', '', '']);
     setCurrentTFCorrect(true);
+    setCurrentImageUrl('');
+    setCurrentIntruderOptions([
+      { label: '', image_url: '' }, { label: '', image_url: '' },
+      { label: '', image_url: '' }, { label: '', image_url: '' },
+    ]);
+    setCurrentIntruderIndex(0);
   }
 
   function canSaveQuestion(): boolean {
@@ -227,6 +250,12 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     if (quizType === 'guess_from_clues') {
       return currentOptions.every((o) => o.trim().length > 0) && currentClues.every((c) => c.trim().length > 0);
     }
+    if (quizType === 'image') {
+      return !!currentImageUrl && currentOptions.every((o) => o.trim().length > 0);
+    }
+    if (quizType === 'intruder') {
+      return currentIntruderOptions.every((o) => o.label.trim().length > 0 && o.image_url.length > 0);
+    }
     return false;
   }
 
@@ -236,12 +265,16 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     setCurrentQuestion(q.question);
     if (quizType === 'true_false') {
       setCurrentTFCorrect(q.correct === 0);
+    } else if (quizType === 'intruder') {
+      setCurrentIntruderOptions(q.options as IntruderOptionData[]);
+      setCurrentIntruderIndex(q.correct);
     } else {
-      setCurrentOptions(q.options);
+      setCurrentOptions(q.options as string[]);
       setCurrentCorrect(q.correct);
     }
     setCurrentFunFact(q.fun_fact || '');
     setCurrentClues(q.clues || ['', '', '']);
+    setCurrentImageUrl(q.image_url || '');
     setEditingIndex(index);
   }
 
@@ -249,15 +282,30 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     if (!canSaveQuestion()) return;
     if (editingIndex === null && savedQuestions.length >= 20) return;
 
-    const q: SavedQuestion = {
-      question: currentQuestion.trim(),
-      options: quizType === 'true_false' ? ['True', 'False'] : currentOptions.map((o) => o.trim()),
-      correct: quizType === 'true_false' ? (currentTFCorrect ? 0 : 1) : currentCorrect,
-      fun_fact: currentFunFact.trim(),
-    };
+    let q: SavedQuestion;
+
+    if (quizType === 'intruder') {
+      q = {
+        question: currentQuestion.trim(),
+        options: currentIntruderOptions.map((o) => ({ label: o.label.trim(), image_url: o.image_url })),
+        correct: currentIntruderIndex,
+        fun_fact: currentFunFact.trim(),
+      };
+    } else {
+      q = {
+        question: currentQuestion.trim(),
+        options: quizType === 'true_false' ? ['True', 'False'] : currentOptions.map((o) => o.trim()),
+        correct: quizType === 'true_false' ? (currentTFCorrect ? 0 : 1) : currentCorrect,
+        fun_fact: currentFunFact.trim(),
+      };
+    }
 
     if (quizType === 'guess_from_clues') {
       q.clues = currentClues.map((c) => c.trim());
+    }
+
+    if (quizType === 'image') {
+      q.image_url = currentImageUrl;
     }
 
     if (editingIndex !== null) {
@@ -496,6 +544,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               { type: 'multiple_choice' as QuizType, name: 'Multiple choice', desc: '4 options, 1 correct answer per question' },
               { type: 'true_false' as QuizType, name: 'True or false', desc: 'Fast-paced, great for trivia facts' },
               { type: 'guess_from_clues' as QuizType, name: 'Guess from clues', desc: 'Give 3 clues, they guess the idol or song' },
+              { type: 'image' as QuizType, name: 'Image quiz', desc: 'Show a photo, guess the idol/album/group' },
+              { type: 'intruder' as QuizType, name: 'Intruder', desc: '4 images, find the one that doesn\'t belong' },
             ]).map((t) => (
               <button
                 key={t.type}
@@ -513,7 +563,10 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                     : 'border-border-light bg-surface-primary hover:border-border-medium'
                 }`}
               >
-                <p className="text-sm font-medium text-txt-primary">{t.name}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium text-txt-primary">{t.name}</p>
+                  <QuizTypeBadge type={t.type} />
+                </div>
                 <p className="text-xs text-txt-secondary mt-0.5">{t.desc}</p>
               </button>
             ))}
@@ -739,6 +792,90 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               </>
             )}
 
+            {/* Image quiz */}
+            {quizType === 'image' && (
+              <>
+                <div className="mt-4 mb-3">
+                  <ImageUploader
+                    value={currentImageUrl || null}
+                    onChange={(url) => setCurrentImageUrl(url)}
+                    label="Image"
+                  />
+                </div>
+                <div className="mt-4">
+                  <p className="text-xs text-txt-secondary mb-2">Answers (click circle for correct answer)</p>
+                  {['A', 'B', 'C', 'D'].map((label, i) => (
+                    <div key={i} className="flex items-center gap-2 mb-2.5">
+                      <button
+                        onClick={() => setCurrentCorrect(i)}
+                        className={`w-5 h-5 rounded-full border-2 cursor-pointer flex items-center justify-center flex-shrink-0 ${
+                          currentCorrect === i
+                            ? 'border-correct-accent bg-correct-accent'
+                            : 'border-border-medium'
+                        }`}
+                      >
+                        {currentCorrect === i && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                      </button>
+                      <input
+                        type="text"
+                        placeholder={`Answer ${label}`}
+                        value={currentOptions[i] ?? ''}
+                        onChange={(e) => {
+                          const next = [...currentOptions];
+                          next[i] = e.target.value;
+                          setCurrentOptions(next);
+                        }}
+                        maxLength={200}
+                        className={`flex-1 ${INPUT_CLASSES}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Intruder quiz */}
+            {quizType === 'intruder' && (
+              <div className="mt-4">
+                <p className="text-xs text-txt-secondary mb-2">4 images (mark one as the intruder)</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {currentIntruderOptions.map((opt, i) => (
+                    <div key={i} className={`border rounded-lg p-2 ${currentIntruderIndex === i ? 'border-[#7F77DD] bg-[#EEEDFE]' : 'border-border-light'}`}>
+                      <ImageUploader
+                        value={opt.image_url || null}
+                        onChange={(url) => {
+                          const next = [...currentIntruderOptions];
+                          next[i] = { ...next[i]!, image_url: url };
+                          setCurrentIntruderOptions(next);
+                        }}
+                      />
+                      <input
+                        type="text"
+                        value={opt.label}
+                        onChange={(e) => {
+                          const next = [...currentIntruderOptions];
+                          next[i] = { ...next[i]!, label: e.target.value };
+                          setCurrentIntruderOptions(next);
+                        }}
+                        placeholder={`Name ${i + 1}`}
+                        className={`w-full mt-2 ${INPUT_CLASSES}`}
+                      />
+                      <button
+                        onClick={() => setCurrentIntruderIndex(i)}
+                        className={`w-full mt-1.5 py-1 rounded text-xs font-medium transition-colors ${
+                          currentIntruderIndex === i
+                            ? 'bg-[#EEEDFE] text-[#3C3489]'
+                            : 'bg-surface-secondary text-txt-tertiary hover:bg-surface-tertiary'
+                        }`}
+                      >
+                        {currentIntruderIndex === i ? 'INTRUDER' : 'Mark as intruder'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Fun fact */}
             <input
               type="text"
@@ -841,7 +978,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                       : 'bg-surface-primary text-txt-secondary border-border-light'
                   }`}
                 >
-                  {opt}
+                  {typeof opt === 'string' ? opt : (opt as IntruderOptionData).label}
                 </span>
               ))}
             </div>

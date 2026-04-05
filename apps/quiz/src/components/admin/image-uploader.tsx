@@ -22,7 +22,7 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
     formData.append('file', file);
 
     try {
-      const res = await fetch('/api/admin/quiz/upload-image', { method: 'POST', body: formData });
+      const res = await fetch('/api/quiz/upload-image', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.error) {
         setError(data.error as string);
@@ -44,7 +44,7 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
     formData.append('external_url', urlInput.trim());
 
     try {
-      const res = await fetch('/api/admin/quiz/upload-image', { method: 'POST', body: formData });
+      const res = await fetch('/api/quiz/upload-image', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.error) {
         setError(data.error as string);
