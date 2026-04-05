@@ -166,6 +166,19 @@ export async function PUT(
     return NextResponse.json({ error: 'Validation error', details: errors }, { status: 400 });
   }
 
+  // Compute cover_image_url from first question for image/intruder types
+  let coverImageUrl: string | null = null;
+  if (input.quiz_type === 'image' && Array.isArray(input.questions) && input.questions.length > 0) {
+    const firstQ = input.questions[0] as Record<string, unknown>;
+    if (typeof firstQ.image_url === 'string') coverImageUrl = firstQ.image_url;
+  } else if (input.quiz_type === 'intruder' && Array.isArray(input.questions) && input.questions.length > 0) {
+    const firstQ = input.questions[0] as Record<string, unknown>;
+    if (Array.isArray(firstQ.options) && firstQ.options.length > 0) {
+      const firstOpt = firstQ.options[0] as Record<string, unknown>;
+      if (typeof firstOpt.image_url === 'string') coverImageUrl = firstOpt.image_url;
+    }
+  }
+
   // Update - do NOT change slug
   const { error: updateError } = await supabase
     .from('quizzes')
@@ -176,6 +189,7 @@ export async function PUT(
       difficulty: (input.difficulty as string) || undefined,
       questions: input.questions,
       settings: input.settings,
+      cover_image_url: coverImageUrl,
       updated_at: new Date().toISOString(),
     })
     .eq('id', id);

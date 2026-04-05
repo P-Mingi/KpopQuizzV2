@@ -4,7 +4,7 @@ import { generateSlug } from '@/lib/utils';
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
 const QUIZ_CARD_SELECT = `
-  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at,
+  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
@@ -27,6 +27,7 @@ interface RawQuizRow {
   like_count: number;
   question_count: number;
   created_at: string;
+  cover_image_url: string | null;
   questions?: unknown[];
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
   profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string };
@@ -56,6 +57,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
     creator_avatar_bg: row.profiles.avatar_bg,
     creator_avatar_text: row.profiles.avatar_text,
     question_count: row.question_count ?? 0,
+    cover_image_url: row.cover_image_url ?? null,
   };
 }
 

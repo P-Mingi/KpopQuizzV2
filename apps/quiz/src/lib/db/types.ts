@@ -190,6 +190,7 @@ export interface QuizCardData {
   creator_avatar_bg: string;
   creator_avatar_text: string;
   question_count: number;
+  cover_image_url: string | null;
 }
 
 
