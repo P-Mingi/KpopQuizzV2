@@ -13,6 +13,8 @@ import { ResultCard } from '@/components/quiz/result-card';
 import { ReportForm } from '@/components/quiz/report-form';
 import { ImageQuestionView } from '@/components/quiz/image-question';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
+import { RunningTimer } from '@/components/quiz/running-timer';
+import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
@@ -313,6 +315,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const router = useRouter();
   const timeRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const questionStartRef = useRef(Date.now());
+  const perQuestionTimesRef = useRef<number[]>([]);
 
   const isCluesQuiz = quiz.quizType === 'guess_from_clues';
   const maxPerQ = isCluesQuiz ? 3 : 1;
@@ -372,6 +376,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       const res = await fetch(`/api/quiz/${quiz.id}/questions`);
       if (!res.ok) throw new Error('Failed to fetch questions');
       const data: { questions: QuestionData[]; settings: QuizSettings; quiz_type: string } = await res.json();
+      questionStartRef.current = Date.now();
+      perQuestionTimesRef.current = [];
       dispatch({
         type: 'START',
         questions: data.questions,
@@ -386,6 +392,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   }, [quiz.id, quiz.quizType]);
 
   const handleAnswer = useCallback((index: number) => {
+    const qTime = Math.round((Date.now() - questionStartRef.current) / 100) / 10;
+    perQuestionTimesRef.current.push(qTime);
     dispatch({ type: 'ANSWER', selectedAnswer: index });
   }, []);
 
@@ -402,6 +410,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     const isLast = state.questionIndex >= state.questions.length - 1;
     if (!isLast) {
+      questionStartRef.current = Date.now();
       dispatch({ type: 'NEXT_QUESTION' });
       return;
     }
@@ -424,6 +433,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           total_questions: state.questions.length,
           time_taken_seconds: timeTaken,
           max_score: maxScore,
+          per_question_times: perQuestionTimesRef.current,
         }),
       });
       if (res.ok) {
@@ -444,7 +454,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     const maxScore = state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
     const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=share&s=${state.score}&t=${maxScore}`;
-    const shareText = `I scored ${state.score}/${maxScore} on "${quiz.title}" Can you beat me?`;
+    const timeStr = state.timeTaken > 0 ? ` in ${state.timeTaken}s` : '';
+    const shareText = `I scored ${state.score}/${maxScore}${timeStr} on "${quiz.title}" Can you beat me?`;
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
@@ -564,14 +575,17 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <span className="text-sm text-txt-secondary">
             {state.questionIndex + 1} of {state.questions.length}
           </span>
-          {state.phase === 'playing' && 'settings' in state && state.settings.timer && (
-            <TimerCircle seconds={state.timeRemaining} isUrgent={state.timeRemaining <= 5} />
-          )}
-          {state.phase === 'answered' && isClues && (
-            <span className="text-sm font-medium text-accent-pink">
-              +{state.pointsEarned}pt{state.pointsEarned !== 1 ? 's' : ''}
-            </span>
-          )}
+          <div className="flex items-center gap-3">
+            <RunningTimer isRunning={state.phase === 'playing' || state.phase === 'answered'} />
+            {state.phase === 'playing' && 'settings' in state && state.settings.timer && (
+              <TimerCircle seconds={state.timeRemaining} isUrgent={state.timeRemaining <= 5} />
+            )}
+            {state.phase === 'answered' && isClues && (
+              <span className="text-sm font-medium text-accent-pink">
+                +{state.pointsEarned}pt{state.pointsEarned !== 1 ? 's' : ''}
+              </span>
+            )}
+          </div>
         </div>
 
         <ProgressBar current={state.questionIndex + (isAnswered ? 1 : 0)} total={state.questions.length} />
@@ -794,6 +808,16 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           quizType={state.quizType}
           passRate={state.passRate ?? quiz.passRate}
         />
+
+        {/* Time comparison */}
+        {state.timeTaken > 0 && (
+          <TimeComparison
+            quizId={quiz.id}
+            userTime={state.timeTaken}
+            score={state.score}
+            totalQuestions={state.totalQuestions}
+          />
+        )}
 
         {/* Clue breakdown for guess_from_clues */}
         {isClues && state.clueResults.length > 0 && (

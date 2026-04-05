@@ -22,7 +22,7 @@ export async function POST(
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
   }
 
-  const { score, total_questions, time_taken_seconds, max_score } = body as Record<string, unknown>;
+  const { score, total_questions, time_taken_seconds, max_score, per_question_times } = body as Record<string, unknown>;
 
   if (typeof score !== 'number' || typeof total_questions !== 'number') {
     return NextResponse.json({ error: 'score and total_questions are required' }, { status: 400 });
@@ -111,6 +111,54 @@ export async function POST(
             { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
           );
         }
+      }
+    }
+
+    // Save per-question times if provided
+    if (Array.isArray(per_question_times)) {
+      await supabase
+        .from('plays')
+        .update({ per_question_times })
+        .eq('id', result?.play_id);
+    }
+
+    // Update time stats cache
+    const timeTaken = typeof time_taken_seconds === 'number' ? time_taken_seconds : null;
+    if (timeTaken && timeTaken > 0) {
+      try {
+        const { data: existing } = await supabase
+          .from('quiz_time_stats')
+          .select('*')
+          .eq('quiz_id', id)
+          .eq('score', score)
+          .eq('total_questions', total_questions)
+          .single();
+
+        if (existing) {
+          const newCount = (existing.attempt_count as number) + 1;
+          const oldAvg = existing.avg_time_seconds as number;
+          const newAvg = ((oldAvg * (existing.attempt_count as number)) + timeTaken) / newCount;
+          const oldFastest = existing.fastest_time_seconds as number | null;
+          const newFastest = oldFastest !== null ? Math.min(oldFastest, timeTaken) : timeTaken;
+
+          await supabase.from('quiz_time_stats').update({
+            attempt_count: newCount,
+            avg_time_seconds: Math.round(newAvg * 10) / 10,
+            fastest_time_seconds: Math.round(newFastest * 10) / 10,
+            updated_at: new Date().toISOString(),
+          }).eq('id', existing.id);
+        } else {
+          await supabase.from('quiz_time_stats').insert({
+            quiz_id: id,
+            score: score as number,
+            total_questions: total_questions as number,
+            attempt_count: 1,
+            avg_time_seconds: Math.round(timeTaken * 10) / 10,
+            fastest_time_seconds: Math.round(timeTaken * 10) / 10,
+          });
+        }
+      } catch {
+        // Non-critical - don't fail the play save
       }
     }
 
