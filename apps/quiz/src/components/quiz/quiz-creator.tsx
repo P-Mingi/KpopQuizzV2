@@ -377,8 +377,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         });
 
         if (!res.ok) {
-          const data: { error: string; detail?: string; details?: string[]; code?: string; received_quiz_type?: unknown } = await res.json();
-          console.error('Publish error:', data.error, data.detail ?? '', data.details ?? '', data.code ?? '', 'received_quiz_type:', data.received_quiz_type);
+          const data = await res.json();
+          console.error('Publish error:', JSON.stringify(data));
           setPublishing(false);
           return;
         }

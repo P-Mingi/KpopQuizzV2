@@ -152,7 +152,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   if (errors.length > 0) {
-    return NextResponse.json({ error: 'Validation error', details: errors }, { status: 400 });
+    return NextResponse.json({
+      error: 'Validation error',
+      details: errors,
+      received_quiz_type: input.quiz_type,
+      received_group_id: input.group_id,
+      received_group_name: input.group_name,
+    }, { status: 400 });
   }
 
   // 4. Resolve group
