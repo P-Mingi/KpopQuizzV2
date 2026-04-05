@@ -59,6 +59,7 @@ function toQuizCardData(row: RawSearchQuizRow): QuizCardData {
     creator_avatar_bg: row.profiles.avatar_bg,
     creator_avatar_text: row.profiles.avatar_text,
     question_count: Array.isArray(row.questions) ? row.questions.length : 0,
+    cover_image_url: null,
   };
 }
 

@@ -86,6 +86,7 @@ function toLikedQuizCardData(row: LikedQuizRow): QuizCardData {
     creator_avatar_bg: p.avatar_bg,
     creator_avatar_text: p.avatar_text,
     question_count: Array.isArray(q.questions) ? q.questions.length : 0,
+    cover_image_url: (q as Record<string, unknown>).cover_image_url as string | null ?? null,
   };
 }
 
