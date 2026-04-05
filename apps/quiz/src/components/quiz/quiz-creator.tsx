@@ -220,6 +220,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     : 'fan';
 
   const canContinueStep1 = selectedGroupId !== null || customGroupName.trim().length >= 2;
+  const effectiveGroupId = selectedGroupId === -1 ? null : selectedGroupId;
   const canContinueStep2 = title.trim().length >= 5;
   const canContinueStep3 = savedQuestions.length >= 5;
 
@@ -332,8 +333,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
     setPublishing(true);
 
     const payload = {
-      group_id: selectedGroupId ?? undefined,
-      group_name: selectedGroupId ? undefined : customGroupName.trim(),
+      group_id: effectiveGroupId ?? undefined,
+      group_name: effectiveGroupId ? undefined : (customGroupName.trim() || undefined),
       title: title.trim(),
       quiz_type: quizType,
       difficulty,
@@ -473,6 +474,17 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <StepHeader step={1} title="Pick a group" description="Which group is your quiz about?" />
 
         <div className="flex flex-wrap gap-2 mb-5">
+          {/* None option */}
+          <button
+            onClick={() => { setSelectedGroupId(-1); setCustomGroupName(''); }}
+            className={`px-5 py-2 rounded-full text-sm font-medium border-2 cursor-pointer transition-colors ${
+              selectedGroupId === -1
+                ? 'border-accent-pink bg-accent-pink-light text-accent-pink-dark'
+                : 'border-border-medium text-txt-primary bg-surface-secondary hover:border-accent-pink'
+            }`}
+          >
+            None / General K-pop
+          </button>
           {groups.map((g) => (
             <button
               key={g.id}
