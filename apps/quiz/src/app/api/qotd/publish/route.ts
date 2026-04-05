@@ -75,6 +75,22 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     slug = `${slug}-${Date.now()}`;
   }
 
+  // Resolve group_id: fall back to General K-pop for quizzes without a specific group
+  let groupId = scheduled.group_id as number | null;
+  if (!groupId) {
+    const { data: generalGroup } = await supabase
+      .from('groups')
+      .select('id')
+      .eq('slug', 'general-kpop')
+      .single();
+    groupId = (generalGroup as { id: number } | null)?.id ?? null;
+  }
+
+  if (!groupId) {
+    console.error('[qotd/publish] Could not resolve group_id for bank entry', scheduled.id);
+    return NextResponse.json({ error: 'Could not resolve group_id' }, { status: 500 });
+  }
+
   // Clear any existing QOTD for today
   await supabase
     .from('quizzes')
@@ -88,7 +104,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       title: scheduled.title,
       description: scheduled.description ?? null,
       creator_id: '00000000-0000-0000-0000-000000000001', // kpopquizz system user
-      group_id: scheduled.group_id ?? null,
+      group_id: groupId,
       slug,
       quiz_type: scheduled.quiz_type ?? 'multiple_choice',
       difficulty: scheduled.difficulty ?? 'medium',

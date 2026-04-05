@@ -355,6 +355,19 @@ async function publishBankQuizForDate(date: string): Promise<string | null> {
   const { data: slugCheck } = await admin.from('quizzes').select('id').eq('slug', slug).maybeSingle();
   if (slugCheck) slug = `${slug}-${Date.now()}`;
 
+  // Resolve group_id: fall back to General K-pop for quizzes without a specific group
+  let groupId = scheduled.group_id as number | null;
+  if (!groupId) {
+    const { data: generalGroup } = await admin
+      .from('groups')
+      .select('id')
+      .eq('slug', 'general-kpop')
+      .single();
+    groupId = (generalGroup as { id: number } | null)?.id ?? null;
+  }
+
+  if (!groupId) return null;
+
   await admin
     .from('quizzes')
     .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null })
@@ -366,7 +379,7 @@ async function publishBankQuizForDate(date: string): Promise<string | null> {
       title: scheduled.title,
       description: scheduled.description ?? null,
       creator_id: '00000000-0000-0000-0000-000000000001',
-      group_id: scheduled.group_id ?? null,
+      group_id: groupId,
       slug,
       quiz_type: scheduled.quiz_type ?? 'multiple_choice',
       difficulty: scheduled.difficulty ?? 'medium',
