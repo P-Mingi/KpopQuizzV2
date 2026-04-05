@@ -334,7 +334,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
 
     const payload = {
       group_id: effectiveGroupId ?? undefined,
-      group_name: effectiveGroupId ? undefined : (customGroupName.trim() || undefined),
+      group_name: effectiveGroupId ? undefined : (customGroupName.trim() || 'General K-pop'),
       title: title.trim(),
       quiz_type: quizType,
       difficulty,
