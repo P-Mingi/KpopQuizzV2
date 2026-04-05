@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -19,6 +21,12 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         transform: 'translateX(-50%)',
       }}
     >
+      <nav className="flex items-center gap-4 py-3 border-b border-border-light mb-4 text-sm overflow-x-auto">
+        <Link href="/admin" className="font-medium text-txt-primary hover:text-accent-pink whitespace-nowrap">Dashboard</Link>
+        <Link href="/admin/quiz-bank" className="text-txt-secondary hover:text-txt-primary whitespace-nowrap">Quiz Bank</Link>
+        <Link href="/admin/pinterest" className="text-txt-secondary hover:text-txt-primary whitespace-nowrap">Pinterest</Link>
+        <Link href="/admin/quiz/search" className="text-txt-secondary hover:text-txt-primary whitespace-nowrap">Edit Quizzes</Link>
+      </nav>
       {children}
     </div>
   );
