@@ -32,7 +32,7 @@ import type { Difficulty, QuizSettings, QuizType } from '@/lib/db/types';
 
 interface QuestionData {
   question: string;
-  options: string[];
+  options?: string[];
   correct: number | boolean;
   fun_fact?: string;
   clues?: string[];
@@ -85,18 +85,30 @@ interface QuizPlayerProps {
 // True/false helpers
 // ============================================
 
+const TRUE_FALSE_OPTIONS = ['True', 'False'];
+
+function getEffectiveOptions(question: QuestionData): string[] {
+  return question.options && question.options.length > 0 ? question.options : TRUE_FALSE_OPTIONS;
+}
+
 function getCorrectIndex(question: QuestionData): number {
   if (typeof question.correct === 'boolean') {
-    const correctText = question.correct ? 'true' : 'false';
-    return question.options.findIndex((opt) => opt.toLowerCase() === correctText);
+    if (question.options && question.options.length > 0) {
+      const correctText = question.correct ? 'true' : 'false';
+      return question.options.findIndex((opt) => opt.toLowerCase() === correctText);
+    }
+    return question.correct ? 0 : 1;
   }
   return question.correct;
 }
 
 function isAnswerCorrect(question: QuestionData, selectedIndex: number): boolean {
   if (typeof question.correct === 'boolean') {
-    const selectedOption = question.options[selectedIndex];
-    return selectedOption !== undefined && (selectedOption.toLowerCase() === 'true') === question.correct;
+    if (question.options && question.options.length > 0) {
+      const selectedOption = question.options[selectedIndex];
+      return selectedOption !== undefined && (selectedOption.toLowerCase() === 'true') === question.correct;
+    }
+    return selectedIndex === 0 ? question.correct : !question.correct;
   }
   return selectedIndex === question.correct;
 }
@@ -614,7 +626,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
               {/* Answer options - ALWAYS visible */}
               <div className="flex flex-col gap-2.5">
-                {question.options.map((option, i) => {
+                {getEffectiveOptions(question).map((option, i) => {
                   let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
                   if (isAnswered) {
                     if (i === getCorrectIndex(question)) {
@@ -713,7 +725,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
               </p>
 
               <div className="flex flex-col gap-2.5">
-                {question.options.map((option, i) => {
+                {getEffectiveOptions(question).map((option, i) => {
                   let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
                   if (isAnswered) {
                     if (i === getCorrectIndex(question)) {
@@ -750,7 +762,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                     type="timeout"
                     title="Time's up!"
                     text={typeof question.correct === 'boolean'
-                      ? `The answer is ${question.options[getCorrectIndex(question)] ?? ''}.`
+                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.`
                       : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.`}
                   />
                 ) : state.isCorrect ? (
@@ -764,7 +776,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                     type="wrong"
                     title="Wrong!"
                     text={typeof question.correct === 'boolean'
-                      ? `The answer is ${question.options[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`
+                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`
                       : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`}
                   />
                 )}
