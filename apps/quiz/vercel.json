@@ -1,14 +1,6 @@
 {
   "crons": [
     {
-      "path": "/api/qotd/publish",
-      "schedule": "0 15 * * *"
-    },
-    {
-      "path": "/api/admin/auto-select-qotd",
-      "schedule": "0 0 * * *"
-    },
-    {
       "path": "/api/cron/pinterest-post",
       "schedule": "0 12 * * *"
     }
