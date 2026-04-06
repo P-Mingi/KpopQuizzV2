@@ -45,6 +45,9 @@ export async function GET(
 
     // Shuffle options within each question and update correct index
     questions = questions.map((q) => {
+      // true_false questions have no options array
+      if (!q.options || q.options.length === 0) return q;
+
       const optionIndices = q.options.map((_, idx) => idx);
       for (let i = optionIndices.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -52,8 +55,6 @@ export async function GET(
       }
 
       const newOptions = optionIndices.map((idx) => q.options[idx]!);
-
-      // For true/false quizzes, correct is a boolean - shuffle options but keep the boolean as-is
       const newCorrect = typeof q.correct === 'boolean'
         ? q.correct
         : optionIndices.indexOf(q.correct);
