@@ -15,7 +15,7 @@ export interface BlindTestMode {
     is_title_track?: boolean;
   };
   category: 'difficulty' | 'group' | 'era' | 'special';
-  /** Group banner image URL — Pinterest-style photo, filled in per group */
+  /** Group banner image URL; Pinterest-style photo, filled in per group. */
   image_url?: string;
 }
 

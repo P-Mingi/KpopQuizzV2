@@ -21,7 +21,7 @@ export default function SettingsPage() {
       <p className="text-xl font-semibold mb-5">Settings</p>
 
       {/* Sign out */}
-      <div className="pt-5 border-t border-border-default">
+      <div className="pt-5 border-t border-default">
         <button
           onClick={handleSignOut}
           disabled={signingOut}

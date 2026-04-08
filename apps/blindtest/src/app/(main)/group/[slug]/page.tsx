@@ -48,21 +48,21 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="pt-5 pb-8">
       <p className="text-xl font-semibold mb-1">{group.name}</p>
-      <p className="text-[13px] text-text-secondary mb-5">{songCount ?? 0} songs available</p>
+      <p className="text-[13px] text-secondary mb-5">{songCount ?? 0} songs available</p>
 
       <Link
         href={`/play/group-${group.slug}`}
-        className="block w-full py-3.5 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold text-center mb-6"
+        className="block w-full py-3.5 rounded-[14px] bg-accent text-bg-primary text-sm font-semibold text-center mb-6"
       >
         Play {group.name} blind test
       </Link>
 
       {(topMasteries ?? []).length > 0 && (
         <>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-tertiary mb-2.5">
             Top {group.name} fans
           </p>
-          <div className="rounded-[14px] bg-bg-secondary border border-border-default shadow-card overflow-hidden">
+          <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
             {(topMasteries ?? []).map((entry, i) => {
               const p = entry.players as unknown as { username: string; avatar_bg: string; avatar_text: string; level: number } | null;
               if (!p) return null;
@@ -70,10 +70,10 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
                 <Link
                   key={i}
                   href={`/player/${p.username}`}
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 border-b border-border-default last:border-b-0"
+                  className="flex items-center gap-2.5 px-3.5 py-2.5 border-b border-default last:border-b-0"
                 >
                   <span className={`text-xs font-semibold w-5 text-center ${
-                    i === 0 ? 'text-streak' : i === 1 ? 'text-text-secondary' : i === 2 ? 'text-wrong' : 'text-text-tertiary'
+                    i === 0 ? 'text-streak' : i === 1 ? 'text-secondary' : i === 2 ? 'text-wrong' : 'text-tertiary'
                   }`}>
                     {i + 1}
                   </span>
@@ -84,7 +84,7 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
                     {p.username.charAt(0).toUpperCase()}
                   </div>
                   <span className="flex-1 text-xs font-medium">{p.username}</span>
-                  <span className="text-[11px] text-pink-400 font-semibold">Lv.{entry.mastery_level}</span>
+                  <span className="text-[11px] text-accent font-semibold">Lv.{entry.mastery_level}</span>
                 </Link>
               );
             })}

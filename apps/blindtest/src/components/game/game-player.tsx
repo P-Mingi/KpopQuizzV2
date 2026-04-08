@@ -222,34 +222,34 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   // ---- Loading / Ready ----
   if (phase === 'loading') {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5">
         {error ? (
           <>
             <p className="text-wrong text-sm text-center">{error}</p>
             <button
               onClick={() => router.push('/')}
-              className="text-sm px-4 py-2 bg-bg-secondary border border-border-default rounded-xl text-text-primary"
+              className="text-sm px-4 py-2 bg-surface border border-default rounded-xl text-primary"
             >
               Go home
             </button>
           </>
         ) : ready ? (
           <>
-            <p className="text-lg font-semibold text-text-primary">Ready to play</p>
-            <p className="text-sm text-text-secondary">
+            <p className="text-2xl font-bold text-primary">Ready to play?</p>
+            <p className="text-xs text-ghost text-center">
               10 songs - {isChallenge ? 'type your answer' : '4 choices'} - {isChallenge ? '10s' : '15s'} timer
             </p>
             <button
               onClick={handleStart}
-              className="mt-4 px-8 py-3 rounded-xl bg-pink-600 text-white font-semibold text-base hover:bg-pink-400 transition-colors active:scale-[0.97]"
+              className="mt-4 px-12 py-4 rounded-2xl bg-accent text-primary font-bold text-lg active:scale-[0.97] transition-transform"
             >
-              Start
+              START
             </button>
           </>
         ) : (
           <>
-            <div className="w-8 h-8 border-2 border-pink-400 border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-text-secondary">Loading songs...</p>
+            <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-secondary">Loading songs...</p>
           </>
         )}
       </div>
@@ -286,116 +286,109 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Top bar */}
-      <div className="h-12 border-b border-border-default flex items-center justify-between px-4">
-        <div className="text-sm font-semibold">
-          <span className="text-text-primary">kpop</span>
-          <span className="text-[var(--logo-accent)]">blind</span>
-          <span className="text-text-primary">test</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-text-ghost">
-            {game.state.playlist} - {isChallenge ? 'challenge' : game.state.mode}
+    <div className="flex-1 flex flex-col">
+      {/* Top bar: quit | counter | score */}
+      <div className="flex items-center justify-between px-4 py-3">
+        <button
+          type="button"
+          onClick={handleQuit}
+          className="text-[11px] text-ghost hover:text-tertiary transition-colors"
+        >
+          Quit
+        </button>
+        <span className="text-xs text-ghost tabular-nums">
+          {game.state.currentIndex + 1} / {game.state.questions.length}
+        </span>
+        <div className="relative">
+          <span className="text-lg font-bold text-primary tabular-nums">
+            {game.state.totalScore.toLocaleString()}
           </span>
-          <button
-            onClick={handleQuit}
-            className="text-xs text-text-ghost px-3 py-1.5 border border-border-default rounded-md hover:text-text-secondary hover:border-border-hover transition-colors"
-          >
-            Quit
-          </button>
+          <PointsFloat
+            points={game.lastPoints}
+            show={isRevealing && lastResult?.correct === true}
+          />
         </div>
       </div>
 
-      {/* Game content */}
-      <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-[440px]">
-          {/* Header: progress + score */}
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-sm font-semibold text-text-primary">
-              {game.state.currentIndex + 1}/{game.state.questions.length}
-            </span>
-            <ProgressDots
-              total={game.state.questions.length}
-              current={game.state.currentIndex}
-              results={game.state.results}
-            />
-            <div className="relative">
-              <span className="text-sm font-semibold text-text-primary tabular-nums">
-                {game.state.totalScore.toLocaleString()}
-              </span>
-              <PointsFloat points={game.lastPoints} show={isRevealing && lastResult?.correct === true} />
-            </div>
-          </div>
+      {/* Progress dots */}
+      <div className="px-4 pb-3">
+        <ProgressDots
+          total={game.state.questions.length}
+          current={game.state.currentIndex}
+          results={game.state.results}
+        />
+      </div>
 
-          {/* Album art */}
-          <AlbumArt
-            src={q.album_cover_big ?? q.album_cover_medium}
-            revealed={isRevealing}
-          />
+      {/* Immersive body */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-5 px-5 pb-6">
+        {/* Album art */}
+        <AlbumArt
+          src={q.album_cover_big ?? q.album_cover_medium}
+          revealed={isRevealing}
+        />
 
-          {/* Timer + wave bars */}
-          <div className="flex items-center justify-center gap-4 my-4">
-            {isRevealing ? (
-              <div className="text-center">
-                <p className="text-base font-semibold text-text-primary">{q.reveal.title}</p>
-                <p className="text-sm text-text-secondary">{q.reveal.artist} - {q.reveal.album ?? ''}</p>
-              </div>
-            ) : (
-              <>
-                <CircularTimer
-                  duration={game.state.timerDuration}
-                  running={phase === 'playing'}
-                  onExpired={handleTimeout}
-                  timerKey={timerKey}
-                />
-                <WaveBars active={phase === 'playing'} />
-              </>
-            )}
-          </div>
-
-          {/* Combo */}
-          <div className="flex justify-center mb-3 h-5">
-            <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
-          </div>
-
-          {/* Question text */}
-          {!isRevealing && (
-            <p className="text-sm text-text-secondary text-center mb-4">
-              {q.question_text}
-              {isChallenge && (
-                <span className="ml-1.5 text-pink-400 text-xs font-medium">1.5x</span>
-              )}
+        {/* Reveal: song info; Playing: waves + timer */}
+        {isRevealing ? (
+          <div className="text-center">
+            <p className="text-[15px] font-semibold text-primary">{q.reveal.title}</p>
+            <p className="text-[11px] text-ghost mt-0.5">
+              {q.reveal.artist}
+              {q.reveal.album ? ` - ${q.reveal.album}` : ''}
             </p>
-          )}
-
-          {/* Answer area */}
-          {isChallenge ? (
-            <ChallengeInput
-              questionType={q.question_type}
-              correctAnswer={q.correct_answer}
-              allPossibleAnswers={allPossibleAnswers}
-              onSubmit={handleChallengeSubmit}
-              disabled={isRevealing}
-              revealState={isRevealing && lastResult ? {
-                correct: lastResult.correct,
-                userAnswer: lastResult.answered,
-              } : null}
+          </div>
+        ) : (
+          <>
+            <WaveBars active={phase === 'playing'} />
+            <CircularTimer
+              duration={game.state.timerDuration}
+              running={phase === 'playing'}
+              onExpired={handleTimeout}
+              timerKey={timerKey}
             />
-          ) : (
-            <div className="grid gap-2.5 md:grid-cols-2">
-              {q.choices.map((choice) => (
-                <AnswerButton
-                  key={choice}
-                  text={choice}
-                  state={getButtonState(choice)}
-                  onClick={() => handleAnswer(choice)}
-                  disabled={isRevealing}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+          </>
+        )}
+
+        {/* Combo (>= 3) */}
+        {!isRevealing && game.state.currentCombo >= 3 && (
+          <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
+        )}
+
+        {/* Question text (challenge only) */}
+        {!isRevealing && isChallenge && (
+          <p className="text-[13px] text-ghost text-center">
+            {q.question_text}
+            <span className="ml-1.5 text-accent text-xs font-semibold">1.5x</span>
+          </p>
+        )}
+      </div>
+
+      {/* Answer area pinned near the bottom */}
+      <div className="px-5 pb-8">
+        {isChallenge ? (
+          <ChallengeInput
+            questionType={q.question_type}
+            correctAnswer={q.correct_answer}
+            allPossibleAnswers={allPossibleAnswers}
+            onSubmit={handleChallengeSubmit}
+            disabled={isRevealing}
+            revealState={isRevealing && lastResult ? {
+              correct: lastResult.correct,
+              userAnswer: lastResult.answered,
+            } : null}
+          />
+        ) : (
+          <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
+            {q.choices.map((choice) => (
+              <AnswerButton
+                key={choice}
+                text={choice}
+                state={getButtonState(choice)}
+                onClick={() => handleAnswer(choice)}
+                disabled={isRevealing}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

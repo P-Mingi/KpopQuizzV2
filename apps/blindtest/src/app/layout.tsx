@@ -21,15 +21,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Prevent theme flash -- runs before React hydrates */}
+        {/* Prevent theme flash; runs before React hydrates. */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
-            var theme = localStorage.getItem('kbt-theme') || 'light';
-            document.documentElement.setAttribute('data-theme', theme);
+            try {
+              var saved = localStorage.getItem('kbt-theme');
+              var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+              var theme = saved || (prefersDark ? 'dark' : 'light');
+              document.documentElement.classList.add(theme);
+            } catch (_) {
+              document.documentElement.classList.add('dark');
+            }
           })();
         `}} />
       </head>
-      <body className="min-h-screen bg-bg-primary text-text-primary font-sans antialiased transition-colors">
+      <body className="min-h-screen bg-primary text-primary antialiased transition-colors">
         <ThemeProvider>
           <div className="mx-auto min-h-screen w-full max-w-[960px]">
             {children}

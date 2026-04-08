@@ -29,11 +29,11 @@ export function GroupSection({ modes }: { modes: ModeData[] }) {
         ))}
       </div>
 
-      {/* Show more button — desktop only */}
+      {/* Show more button; desktop only. */}
       {hasMore && !showAll && (
         <button
           onClick={() => setShowAll(true)}
-          className="hidden md:block w-full py-2.5 rounded-xl border border-border-default text-[13px] text-text-secondary hover:border-border-hover hover:text-text-primary transition-colors"
+          className="hidden md:block w-full py-2.5 rounded-xl border border-default text-[13px] text-secondary hover:border-default hover:text-primary transition-colors"
         >
           Show {modes.length - INITIAL_VISIBLE} more groups
         </button>
@@ -45,15 +45,15 @@ export function GroupSection({ modes }: { modes: ModeData[] }) {
 function GroupModeCard({ mode, mobile }: { mode: ModeData; mobile?: boolean }) {
   return (
     <Link href={mode.available ? `/play/${mode.id}` : '#'} className={!mode.available ? 'pointer-events-none' : ''}>
-      <div className={`${mobile ? 'w-[130px] flex-shrink-0' : 'w-auto'} rounded-xl overflow-hidden bg-bg-secondary border border-border-default shadow-card ${
-        mode.available ? 'hover:border-border-hover' : 'opacity-40'
+      <div className={`${mobile ? 'w-[130px] flex-shrink-0' : 'w-auto'} rounded-xl overflow-hidden bg-surface border border-default shadow-card ${
+        mode.available ? 'hover:border-default' : 'opacity-40'
       }`}>
         <div className="h-14 overflow-hidden">
           <GroupBanner name={mode.title} imageUrl={mode.image_url} />
         </div>
         <div className="p-2.5">
           <p className="text-[13px] font-medium">{mode.title}</p>
-          <p className="text-[10px] text-text-tertiary">{mode.song_count_available} songs</p>
+          <p className="text-[10px] text-tertiary">{mode.song_count_available} songs</p>
         </div>
       </div>
     </Link>

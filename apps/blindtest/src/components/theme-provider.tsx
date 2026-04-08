@@ -8,30 +8,48 @@ const ThemeContext = createContext<{
   theme: Theme;
   toggleTheme: () => void;
 }>({
-  theme: 'light',
+  theme: 'dark',
   toggleTheme: () => {},
 });
 
+function applyThemeClass(theme: Theme) {
+  const root = document.documentElement;
+  root.classList.remove('light', 'dark');
+  root.classList.add(theme);
+}
+
+function readInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark';
+  try {
+    const saved = localStorage.getItem('kbt-theme') as Theme | null;
+    if (saved === 'light' || saved === 'dark') return saved;
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  } catch {
+    return 'dark';
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const initial = readInitialTheme();
+    setTheme(initial);
+    applyThemeClass(initial);
     setMounted(true);
-    const saved = localStorage.getItem('kbt-theme') as Theme | null;
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute('data-theme', saved);
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
   }, []);
 
   const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
+    const next: Theme = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
-    localStorage.setItem('kbt-theme', next);
-    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('kbt-theme', next);
+    } catch {
+      // ignore storage errors
+    }
+    applyThemeClass(next);
   };
 
   if (!mounted) return null;

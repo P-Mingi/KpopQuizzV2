@@ -347,19 +347,19 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
   const selectedCount = selectedTracks.size;
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary">
+    <div className="min-h-screen bg-primary text-primary">
       <div className="max-w-[960px] mx-auto px-4 py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl font-semibold">Song Manager</h1>
-            <p className="text-sm text-text-secondary mt-0.5">
+            <p className="text-sm text-secondary mt-0.5">
               {stats.total} songs ({stats.active} active) - {stats.gg} GG / {stats.bg} BG
             </p>
           </div>
           <button
             onClick={() => setShowImport(!showImport)}
-            className="text-sm px-4 py-2 bg-bg-secondary border border-border-default rounded-md hover:border-border-hover transition-colors"
+            className="text-sm px-4 py-2 bg-surface border border-default rounded-md hover:border-default transition-colors"
           >
             Import JSON
           </button>
@@ -367,12 +367,12 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
 
         {/* Import JSON */}
         {showImport && (
-          <div className="bg-bg-secondary border border-border-default rounded-lg p-4 mb-6">
+          <div className="bg-surface border border-default rounded-lg p-4 mb-6">
             <h2 className="text-sm font-semibold mb-3">Import songs-database.json</h2>
             <div className="flex gap-3 mb-3">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="text-sm px-3 py-1.5 bg-bg-tertiary border border-border-default rounded-md"
+                className="text-sm px-3 py-1.5 bg-elevated border border-default rounded-md"
               >
                 Choose file
               </button>
@@ -380,18 +380,18 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               <button
                 onClick={doImport}
                 disabled={importing || !importJson}
-                className="text-sm px-3 py-1.5 bg-pink-600 text-white rounded-md disabled:opacity-50"
+                className="text-sm px-3 py-1.5 bg-accent text-white rounded-md disabled:opacity-50"
               >
                 {importing ? 'Importing...' : 'Import'}
               </button>
             </div>
-            {importJson && <p className="text-xs text-text-tertiary">File loaded ({Math.round(importJson.length / 1024)}KB)</p>}
-            {importResult && <p className="text-sm mt-2 text-text-secondary">{importResult}</p>}
+            {importJson && <p className="text-xs text-tertiary">File loaded ({Math.round(importJson.length / 1024)}KB)</p>}
+            {importResult && <p className="text-sm mt-2 text-secondary">{importResult}</p>}
           </div>
         )}
 
         {/* Deezer Search */}
-        <div className="bg-bg-secondary border border-border-default rounded-lg p-4 mb-6">
+        <div className="bg-surface border border-default rounded-lg p-4 mb-6">
           <h2 className="text-sm font-semibold mb-3">Search Deezer</h2>
 
           <div className="flex gap-2 mb-4">
@@ -400,12 +400,12 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               onChange={(e) => setArtistSearch(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') searchArtist(); }}
               placeholder="Artist name (e.g. aespa)"
-              className="flex-1 text-sm px-3 py-2 bg-bg-input border border-border-default rounded-md text-text-primary placeholder:text-text-ghost"
+              className="flex-1 text-sm px-3 py-2 bg-surface border border-default rounded-md text-primary placeholder:text-ghost"
             />
             <button
               onClick={searchArtist}
               disabled={searching}
-              className="text-sm px-4 py-2 bg-pink-600 text-white rounded-md disabled:opacity-50"
+              className="text-sm px-4 py-2 bg-accent text-white rounded-md disabled:opacity-50"
             >
               {searching ? 'Searching...' : 'Search'}
             </button>
@@ -420,7 +420,7 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                 )}
                 <div>
                   <p className="text-sm font-medium">{foundArtist.name}</p>
-                  <p className="text-xs text-text-tertiary">
+                  <p className="text-xs text-tertiary">
                     Deezer ID: {foundArtist.id} - {deezerTracks.length} tracks with previews
                     {newTrackCount < deezerTracks.length && ` (${deezerTracks.length - newTrackCount} already in DB)`}
                   </p>
@@ -430,7 +430,7 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               {/* Bulk metadata */}
               <div className="flex gap-3 mb-3 flex-wrap">
                 <select value={bulkGender} onChange={(e) => setBulkGender(e.target.value)}
-                  className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+                  className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
                   <option value="gg">Girl group</option>
                   <option value="bg">Boy group</option>
                   <option value="solo_female">Solo F</option>
@@ -438,7 +438,7 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                   <option value="coed">Co-ed</option>
                 </select>
                 <select value={bulkGeneration} onChange={(e) => setBulkGeneration(e.target.value)}
-                  className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+                  className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
                   <option value="1st">1st gen</option>
                   <option value="2nd">2nd gen</option>
                   <option value="3rd">3rd gen</option>
@@ -446,37 +446,37 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                   <option value="5th">5th gen</option>
                 </select>
                 <select value={bulkGroupId} onChange={(e) => setBulkGroupId(e.target.value)}
-                  className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+                  className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
                   <option value="">No group</option>
                   {groups.map((g) => (
                     <option key={g.id} value={g.id}>{g.name}</option>
                   ))}
                 </select>
-                <button onClick={selectAllNew} className="text-xs text-pink-400 hover:underline">
+                <button onClick={selectAllNew} className="text-xs text-accent hover:underline">
                   Select all new ({newTrackCount})
                 </button>
               </div>
 
               {/* Track list */}
               {deezerTracks.length > 0 && (
-                <div className="border border-border-default rounded-md overflow-hidden mb-3">
+                <div className="border border-default rounded-md overflow-hidden mb-3">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-bg-tertiary border-b border-border-default">
+                      <tr className="bg-elevated border-b border-default">
                         <th className="px-3 py-2 w-8"></th>
-                        <th className="text-left px-3 py-2 text-xs text-text-secondary">Title</th>
-                        <th className="text-left px-3 py-2 text-xs text-text-secondary w-32">Artist</th>
-                        <th className="text-left px-3 py-2 text-xs text-text-secondary w-40">Album</th>
-                        <th className="text-right px-3 py-2 text-xs text-text-secondary w-16">Dur</th>
-                        <th className="text-center px-3 py-2 text-xs text-text-secondary w-16">Play</th>
-                        <th className="text-center px-3 py-2 text-xs text-text-secondary w-16">DB</th>
+                        <th className="text-left px-3 py-2 text-xs text-secondary">Title</th>
+                        <th className="text-left px-3 py-2 text-xs text-secondary w-32">Artist</th>
+                        <th className="text-left px-3 py-2 text-xs text-secondary w-40">Album</th>
+                        <th className="text-right px-3 py-2 text-xs text-secondary w-16">Dur</th>
+                        <th className="text-center px-3 py-2 text-xs text-secondary w-16">Play</th>
+                        <th className="text-center px-3 py-2 text-xs text-secondary w-16">DB</th>
                       </tr>
                     </thead>
                     <tbody>
                       {deezerTracks.map((t) => {
                         const inDb = existingIds.has(t.deezer_track_id);
                         return (
-                          <tr key={t.deezer_track_id} className={`border-b border-border-default last:border-0 ${inDb ? 'opacity-50' : ''}`}>
+                          <tr key={t.deezer_track_id} className={`border-b border-default last:border-0 ${inDb ? 'opacity-50' : ''}`}>
                             <td className="px-3 py-1.5">
                               {!inDb && (
                                 <input
@@ -496,15 +496,15 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                                 <span className="truncate">{t.title}</span>
                               </div>
                             </td>
-                            <td className="px-3 py-1.5 text-text-secondary truncate">{t.artist_name}</td>
-                            <td className="px-3 py-1.5 text-text-tertiary text-xs truncate">{t.album_name}</td>
-                            <td className="px-3 py-1.5 text-right text-text-tertiary text-xs">
+                            <td className="px-3 py-1.5 text-secondary truncate">{t.artist_name}</td>
+                            <td className="px-3 py-1.5 text-tertiary text-xs truncate">{t.album_name}</td>
+                            <td className="px-3 py-1.5 text-right text-tertiary text-xs">
                               {t.duration ? `${Math.floor(t.duration / 60)}:${String(t.duration % 60).padStart(2, '0')}` : '-'}
                             </td>
                             <td className="px-3 py-1.5 text-center">
                               <button
                                 onClick={() => togglePreview(t.preview_url)}
-                                className="text-xs text-pink-400 hover:text-pink-600"
+                                className="text-xs text-accent hover:text-accent"
                               >
                                 {playingUrl === t.preview_url && isPlaying ? 'Stop' : 'Play'}
                               </button>
@@ -525,18 +525,18 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                 <button
                   onClick={bulkAdd}
                   disabled={adding}
-                  className="text-sm px-4 py-2 bg-pink-600 text-white rounded-md disabled:opacity-50"
+                  className="text-sm px-4 py-2 bg-accent text-white rounded-md disabled:opacity-50"
                 >
                   {adding ? 'Adding...' : `Add ${selectedCount} new song${selectedCount !== 1 ? 's' : ''}`}
                 </button>
               )}
-              {addResult && <p className="text-sm text-text-secondary mt-2">{addResult}</p>}
+              {addResult && <p className="text-sm text-secondary mt-2">{addResult}</p>}
             </div>
           )}
         </div>
 
         {/* Song Database */}
-        <div className="bg-bg-secondary border border-border-default rounded-lg p-4">
+        <div className="bg-surface border border-default rounded-lg p-4">
           <h2 className="text-sm font-semibold mb-3">All Songs in Database</h2>
 
           <div className="flex gap-2 mb-4 flex-wrap">
@@ -545,10 +545,10 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               onChange={(e) => setSearchDb(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') doSearch(); }}
               placeholder="Search title or artist..."
-              className="flex-1 min-w-48 text-sm px-3 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary placeholder:text-text-ghost"
+              className="flex-1 min-w-48 text-sm px-3 py-1.5 bg-surface border border-default rounded-md text-primary placeholder:text-ghost"
             />
             <select value={filterGender} onChange={(e) => { setFilterGender(e.target.value); setPage(1); }}
-              className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+              className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
               <option value="">All genders</option>
               <option value="gg">Girl group</option>
               <option value="bg">Boy group</option>
@@ -556,7 +556,7 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               <option value="solo_male">Solo M</option>
             </select>
             <select value={filterGeneration} onChange={(e) => { setFilterGeneration(e.target.value); setPage(1); }}
-              className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+              className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
               <option value="">All gens</option>
               <option value="2nd">2nd</option>
               <option value="3rd">3rd</option>
@@ -564,61 +564,61 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               <option value="5th">5th</option>
             </select>
             <select value={filterStatus} onChange={(e) => { setFilterStatus(e.target.value); setPage(1); }}
-              className="text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary">
+              className="text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary">
               <option value="">All status</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
-            <button onClick={doSearch} className="text-sm px-3 py-1.5 bg-bg-tertiary border border-border-default rounded-md">
+            <button onClick={doSearch} className="text-sm px-3 py-1.5 bg-elevated border border-default rounded-md">
               Filter
             </button>
           </div>
 
-          <div className="border border-border-default rounded-md overflow-hidden">
+          <div className="border border-default rounded-md overflow-hidden">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-bg-tertiary border-b border-border-default">
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary w-10">Art</th>
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary">Title</th>
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary w-32">Artist</th>
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary w-16">Gender</th>
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary w-12">Gen</th>
-                  <th className="text-left px-3 py-2 text-xs text-text-secondary w-16">Status</th>
-                  <th className="text-right px-3 py-2 text-xs text-text-secondary w-24">Actions</th>
+                <tr className="bg-elevated border-b border-default">
+                  <th className="text-left px-3 py-2 text-xs text-secondary w-10">Art</th>
+                  <th className="text-left px-3 py-2 text-xs text-secondary">Title</th>
+                  <th className="text-left px-3 py-2 text-xs text-secondary w-32">Artist</th>
+                  <th className="text-left px-3 py-2 text-xs text-secondary w-16">Gender</th>
+                  <th className="text-left px-3 py-2 text-xs text-secondary w-12">Gen</th>
+                  <th className="text-left px-3 py-2 text-xs text-secondary w-16">Status</th>
+                  <th className="text-right px-3 py-2 text-xs text-secondary w-24">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {songs.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-8 text-center text-text-tertiary">
+                    <td colSpan={7} className="px-4 py-8 text-center text-tertiary">
                       No songs found.
                     </td>
                   </tr>
                 )}
                 {songs.map((s) => (
-                  <tr key={s.id} className="border-b border-border-default last:border-0 hover:bg-bg-tertiary/50">
+                  <tr key={s.id} className="border-b border-default last:border-0 hover:bg-elevated/50">
                     <td className="px-3 py-1.5">
                       {s.album_cover_small ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={s.album_cover_small} alt="" className="w-8 h-8 rounded" />
                       ) : (
-                        <div className="w-8 h-8 bg-bg-tertiary rounded" />
+                        <div className="w-8 h-8 bg-elevated rounded" />
                       )}
                     </td>
                     <td className="px-3 py-1.5 truncate max-w-48">{s.title}</td>
-                    <td className="px-3 py-1.5 text-text-secondary truncate">{s.artist_name}</td>
-                    <td className="px-3 py-1.5 text-xs text-text-tertiary uppercase">{s.gender ?? '-'}</td>
-                    <td className="px-3 py-1.5 text-xs text-text-tertiary">{s.generation ?? '-'}</td>
+                    <td className="px-3 py-1.5 text-secondary truncate">{s.artist_name}</td>
+                    <td className="px-3 py-1.5 text-xs text-tertiary uppercase">{s.gender ?? '-'}</td>
+                    <td className="px-3 py-1.5 text-xs text-tertiary">{s.generation ?? '-'}</td>
                     <td className="px-3 py-1.5">
                       <span className={`text-xs px-1.5 py-0.5 rounded ${s.status === 'active' ? 'bg-correct-bg text-correct' : 'bg-wrong-bg text-wrong'}`}>
                         {s.status}
                       </span>
                     </td>
                     <td className="px-3 py-1.5 text-right">
-                      <button onClick={() => togglePreview(s.preview_url)} className="text-xs text-pink-400 hover:underline mr-2">
+                      <button onClick={() => togglePreview(s.preview_url)} className="text-xs text-accent hover:underline mr-2">
                         {playingUrl === s.preview_url && isPlaying ? 'Stop' : 'Play'}
                       </button>
-                      <button onClick={() => setEditSong(s)} className="text-xs text-text-tertiary hover:text-text-primary mr-2">
+                      <button onClick={() => setEditSong(s)} className="text-xs text-tertiary hover:text-primary mr-2">
                         Edit
                       </button>
                       <button onClick={() => deleteSong(s.id)} className="text-xs text-wrong hover:underline">
@@ -633,21 +633,21 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
 
           {/* Pagination */}
           <div className="flex items-center justify-between mt-3">
-            <p className="text-xs text-text-tertiary">
+            <p className="text-xs text-tertiary">
               Showing {(page - 1) * 50 + 1}-{Math.min(page * 50, total)} of {total}
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => { setPage((p) => Math.max(1, p - 1)); refreshSongList(); }}
                 disabled={page <= 1}
-                className="text-xs px-3 py-1 bg-bg-tertiary border border-border-default rounded disabled:opacity-30"
+                className="text-xs px-3 py-1 bg-elevated border border-default rounded disabled:opacity-30"
               >
                 Prev
               </button>
               <button
                 onClick={() => { setPage((p) => p + 1); refreshSongList(); }}
                 disabled={page * 50 >= total}
-                className="text-xs px-3 py-1 bg-bg-tertiary border border-border-default rounded disabled:opacity-30"
+                className="text-xs px-3 py-1 bg-elevated border border-default rounded disabled:opacity-30"
               >
                 Next
               </button>
@@ -659,10 +659,10 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
       {/* Edit Modal */}
       {editSong && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-bg-secondary rounded-xl border border-border-default shadow-xl max-w-lg w-full max-h-[85vh] overflow-auto">
-            <div className="flex items-center justify-between p-4 border-b border-border-default">
+          <div className="bg-surface rounded-xl border border-default shadow-xl max-w-lg w-full max-h-[85vh] overflow-auto">
+            <div className="flex items-center justify-between p-4 border-b border-default">
               <h2 className="text-base font-semibold">Edit song</h2>
-              <button onClick={() => setEditSong(null)} className="text-text-tertiary hover:text-text-primary text-lg">x</button>
+              <button onClick={() => setEditSong(null)} className="text-tertiary hover:text-primary text-lg">x</button>
             </div>
             <div className="p-4 space-y-3">
               {/* Preview */}
@@ -674,30 +674,30 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                 <div>
                   <button
                     onClick={() => togglePreview(editSong.preview_url)}
-                    className="text-sm text-pink-400 hover:underline"
+                    className="text-sm text-accent hover:underline"
                   >
                     {playingUrl === editSong.preview_url && isPlaying ? 'Stop preview' : 'Play preview'}
                   </button>
-                  <p className="text-xs text-text-tertiary mt-0.5">Deezer ID: {editSong.deezer_track_id}</p>
+                  <p className="text-xs text-tertiary mt-0.5">Deezer ID: {editSong.deezer_track_id}</p>
                 </div>
               </div>
 
               {/* Fields */}
               <div>
-                <label className="text-xs text-text-tertiary block mb-1">Title</label>
+                <label className="text-xs text-tertiary block mb-1">Title</label>
                 <input value={editSong.title} onChange={(e) => setEditSong({ ...editSong, title: e.target.value })}
-                  className="w-full text-sm px-3 py-2 bg-bg-input border border-border-default rounded-md text-text-primary" />
+                  className="w-full text-sm px-3 py-2 bg-surface border border-default rounded-md text-primary" />
               </div>
               <div>
-                <label className="text-xs text-text-tertiary block mb-1">Artist</label>
+                <label className="text-xs text-tertiary block mb-1">Artist</label>
                 <input value={editSong.artist_name} onChange={(e) => setEditSong({ ...editSong, artist_name: e.target.value })}
-                  className="w-full text-sm px-3 py-2 bg-bg-input border border-border-default rounded-md text-text-primary" />
+                  className="w-full text-sm px-3 py-2 bg-surface border border-default rounded-md text-primary" />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Gender</label>
+                  <label className="text-xs text-tertiary block mb-1">Gender</label>
                   <select value={editSong.gender ?? ''} onChange={(e) => setEditSong({ ...editSong, gender: e.target.value || null })}
-                    className="w-full text-sm px-2 py-2 bg-bg-input border border-border-default rounded-md text-text-primary">
+                    className="w-full text-sm px-2 py-2 bg-surface border border-default rounded-md text-primary">
                     <option value="">-</option>
                     <option value="gg">GG</option>
                     <option value="bg">BG</option>
@@ -706,9 +706,9 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Generation</label>
+                  <label className="text-xs text-tertiary block mb-1">Generation</label>
                   <select value={editSong.generation ?? ''} onChange={(e) => setEditSong({ ...editSong, generation: e.target.value || null })}
-                    className="w-full text-sm px-2 py-2 bg-bg-input border border-border-default rounded-md text-text-primary">
+                    className="w-full text-sm px-2 py-2 bg-surface border border-default rounded-md text-primary">
                     <option value="">-</option>
                     <option value="2nd">2nd</option>
                     <option value="3rd">3rd</option>
@@ -717,9 +717,9 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Difficulty</label>
+                  <label className="text-xs text-tertiary block mb-1">Difficulty</label>
                   <select value={editSong.difficulty} onChange={(e) => setEditSong({ ...editSong, difficulty: e.target.value })}
-                    className="w-full text-sm px-2 py-2 bg-bg-input border border-border-default rounded-md text-text-primary">
+                    className="w-full text-sm px-2 py-2 bg-surface border border-default rounded-md text-primary">
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
@@ -728,24 +728,24 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Year</label>
+                  <label className="text-xs text-tertiary block mb-1">Year</label>
                   <input type="number" value={editSong.year ?? ''} onChange={(e) => setEditSong({ ...editSong, year: e.target.value ? parseInt(e.target.value) : null })}
-                    className="w-full text-sm px-3 py-2 bg-bg-input border border-border-default rounded-md text-text-primary" />
+                    className="w-full text-sm px-3 py-2 bg-surface border border-default rounded-md text-primary" />
                 </div>
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Title track?</label>
+                  <label className="text-xs text-tertiary block mb-1">Title track?</label>
                   <select value={editSong.is_title_track === null ? '' : editSong.is_title_track ? 'yes' : 'no'}
                     onChange={(e) => setEditSong({ ...editSong, is_title_track: e.target.value === '' ? null : e.target.value === 'yes' })}
-                    className="w-full text-sm px-2 py-2 bg-bg-input border border-border-default rounded-md text-text-primary">
+                    className="w-full text-sm px-2 py-2 bg-surface border border-default rounded-md text-primary">
                     <option value="">Unknown</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-text-tertiary block mb-1">Status</label>
+                  <label className="text-xs text-tertiary block mb-1">Status</label>
                   <select value={editSong.status} onChange={(e) => setEditSong({ ...editSong, status: e.target.value })}
-                    className="w-full text-sm px-2 py-2 bg-bg-input border border-border-default rounded-md text-text-primary">
+                    className="w-full text-sm px-2 py-2 bg-surface border border-default rounded-md text-primary">
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                     <option value="review">Review</option>
@@ -756,8 +756,8 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
               {/* Wrong answers */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs text-text-tertiary">Wrong artist answers</label>
-                  <button onClick={generateWrongAnswers} className="text-xs text-pink-400 hover:underline">
+                  <label className="text-xs text-tertiary">Wrong artist answers</label>
+                  <button onClick={generateWrongAnswers} className="text-xs text-accent hover:underline">
                     Auto-generate
                   </button>
                 </div>
@@ -769,13 +769,13 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                         arr[i] = e.target.value;
                         setEditSong({ ...editSong, wrong_answers_artist: arr });
                       }}
-                      className="flex-1 text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary"
+                      className="flex-1 text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary"
                       placeholder={`Wrong ${i + 1}`} />
                   ))}
                 </div>
               </div>
               <div>
-                <label className="text-xs text-text-tertiary block mb-1">Wrong title answers</label>
+                <label className="text-xs text-tertiary block mb-1">Wrong title answers</label>
                 <div className="flex gap-2">
                   {[0, 1, 2].map((i) => (
                     <input key={i} value={editSong.wrong_answers_title[i] ?? ''}
@@ -784,17 +784,17 @@ export function SongManager({ initialSongs, initialTotal, stats, groups }: Props
                         arr[i] = e.target.value;
                         setEditSong({ ...editSong, wrong_answers_title: arr });
                       }}
-                      className="flex-1 text-sm px-2 py-1.5 bg-bg-input border border-border-default rounded-md text-text-primary"
+                      className="flex-1 text-sm px-2 py-1.5 bg-surface border border-default rounded-md text-primary"
                       placeholder={`Wrong ${i + 1}`} />
                   ))}
                 </div>
               </div>
             </div>
-            <div className="p-4 border-t border-border-default flex items-center justify-between">
+            <div className="p-4 border-t border-default flex items-center justify-between">
               <button onClick={() => deleteSong(editSong.id)} className="text-xs text-wrong hover:underline">Delete</button>
               <div className="flex gap-2">
-                <button onClick={() => setEditSong(null)} className="text-sm px-3 py-1.5 text-text-secondary hover:text-text-primary">Cancel</button>
-                <button onClick={saveSong} disabled={editSaving} className="text-sm px-4 py-1.5 bg-pink-600 text-white rounded-md disabled:opacity-50">
+                <button onClick={() => setEditSong(null)} className="text-sm px-3 py-1.5 text-secondary hover:text-primary">Cancel</button>
+                <button onClick={saveSong} disabled={editSaving} className="text-sm px-4 py-1.5 bg-accent text-white rounded-md disabled:opacity-50">
                   {editSaving ? 'Saving...' : 'Save'}
                 </button>
               </div>

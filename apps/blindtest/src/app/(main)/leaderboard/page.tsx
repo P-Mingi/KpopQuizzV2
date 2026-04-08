@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-type Period = 'today' | 'weekly' | 'alltime';
+type Tab = 'alltime' | 'weekly' | 'group';
 
 interface LeaderboardEntry {
   player_id: string;
@@ -14,117 +14,111 @@ interface LeaderboardEntry {
   total_points: number;
 }
 
-const MODE_FILTERS = [
-  { id: null, label: 'All modes' },
-  { id: 'classic', label: 'Classic' },
-  { id: 'intro-challenge', label: 'Intro' },
-  { id: 'speed-round', label: 'Speed' },
-  { id: 'daily', label: 'Daily' },
+const TABS: Array<{ id: Tab; label: string; period?: string }> = [
+  { id: 'alltime', label: 'All time', period: 'alltime' },
+  { id: 'weekly', label: 'This week', period: 'weekly' },
+  { id: 'group', label: 'By group' },
 ];
 
 export default function LeaderboardPage() {
-  const [tab, setTab] = useState<Period>('today');
-  const [modeFilter, setModeFilter] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>('alltime');
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (tab === 'group') {
+      setLoading(false);
+      setEntries([]);
+      return;
+    }
     setLoading(true);
-    const params = new URLSearchParams({ period: tab });
-    if (modeFilter) params.set('mode', modeFilter);
-
-    fetch(`/api/leaderboard?${params.toString()}`)
-      .then(r => r.json())
-      .then(data => {
-        setEntries(data.entries ?? []);
+    const period = TABS.find((t) => t.id === tab)?.period ?? 'alltime';
+    fetch(`/api/leaderboard?period=${period}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setEntries((data.entries ?? []) as LeaderboardEntry[]);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [tab, modeFilter]);
+  }, [tab]);
 
   return (
-    <div className="pt-5 pb-8">
-      <p className="text-xl font-semibold mb-4">Leaderboard</p>
+    <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
+      <h1 className="text-[22px] font-bold text-primary mb-4">Ranks</h1>
 
-      {/* Period tabs */}
-      <div className="flex bg-bg-secondary rounded-xl overflow-hidden mb-4 shadow-card">
-        {([
-          { key: 'today' as const, label: 'Today' },
-          { key: 'weekly' as const, label: 'This week' },
-          { key: 'alltime' as const, label: 'All time' },
-        ]).map(t => (
-          <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className={`flex-1 py-2.5 text-xs font-medium transition-colors ${
-              tab === t.key ? 'text-pink-400 bg-bg-tertiary' : 'text-text-tertiary'
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Mode filter chips */}
-      {tab === 'today' && (
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide mb-4 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
-          {MODE_FILTERS.map(m => (
+      {/* Tab selector */}
+      <div className="flex gap-1.5 mb-5">
+        {TABS.map((t) => {
+          const active = tab === t.id;
+          return (
             <button
-              key={m.id ?? 'all'}
-              onClick={() => setModeFilter(m.id)}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-medium transition-colors ${
-                modeFilter === m.id
-                  ? 'bg-pink-400 text-bg-primary'
-                  : 'bg-bg-secondary text-text-secondary'
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={`flex-1 py-2.5 px-3 rounded-[10px] text-xs font-medium border transition-colors ${
+                active
+                  ? 'bg-accent-bg text-accent border-accent'
+                  : 'bg-surface text-ghost border-default'
               }`}
             >
-              {m.label}
+              {t.label}
             </button>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
 
-      {/* Entries */}
-      {loading ? (
+      {tab === 'group' ? (
+        <div className="rounded-[14px] bg-surface border border-default shadow-card py-10 text-center">
+          <p className="text-sm text-tertiary">Group leaderboards coming soon</p>
+          <p className="text-[11px] text-ghost mt-1">Browse a specific group from the home page in the meantime</p>
+          <Link
+            href="/"
+            className="inline-block mt-3 px-4 py-2 rounded-[10px] bg-elevated text-[12px] text-primary hover:bg-accent-bg transition-colors"
+          >
+            Back to home
+          </Link>
+        </div>
+      ) : loading ? (
         <LeaderboardSkeleton />
-      ) : (
-        <div className="rounded-[14px] bg-bg-secondary border border-border-default shadow-card overflow-hidden">
-          {entries.length > 0 ? (
-            entries.map((entry, i) => (
+      ) : entries.length > 0 ? (
+        <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
+          {entries.map((entry, i) => {
+            const rankColor =
+              i === 0 ? 'text-combo'
+              : i === 1 ? 'text-secondary'
+              : i === 2 ? 'text-streak'
+              : 'text-tertiary';
+            return (
               <Link
                 key={entry.player_id}
                 href={`/player/${entry.username}`}
-                className="flex items-center gap-2.5 px-3.5 py-3 border-b border-border-default last:border-b-0 hover:bg-bg-tertiary transition-colors"
+                className="flex items-center gap-3 px-4 py-3.5 border-b border-subtle last:border-0 hover:bg-elevated transition-colors"
               >
-                <span className={`text-xs font-semibold w-6 text-center ${
-                  i === 0 ? 'text-streak'
-                    : i === 1 ? 'text-text-secondary'
-                    : i === 2 ? 'text-wrong'
-                    : 'text-text-tertiary'
-                }`}>
+                <span className={`text-base font-bold w-7 text-center tabular-nums ${rankColor}`}>
                   {i + 1}
                 </span>
                 <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-semibold flex-shrink-0"
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-semibold flex-shrink-0"
                   style={{ backgroundColor: entry.avatar_bg, color: entry.avatar_text }}
                 >
                   {entry.username?.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-xs font-medium truncate block">{entry.username}</span>
-                  <span className="text-[10px] text-text-tertiary">Lv.{entry.level}</span>
+                  <span className="text-sm font-medium text-primary truncate block">{entry.username}</span>
+                  <span className="text-[10px] text-ghost">Lv.{entry.level}</span>
                 </div>
-                <span className="text-xs font-medium text-pink-400">
-                  {entry.total_points.toLocaleString()} pts
-                </span>
+                <div className="text-right">
+                  <p className="text-base font-semibold text-primary tabular-nums">{entry.total_points.toLocaleString()}</p>
+                  <p className="text-[9px] text-ghost uppercase tracking-wide">total xp</p>
+                </div>
               </Link>
-            ))
-          ) : (
-            <div className="py-8 text-center">
-              <p className="text-sm text-text-tertiary">No plays yet</p>
-              <p className="text-xs text-text-ghost mt-1">Be the first to set a score</p>
-            </div>
-          )}
+            );
+          })}
+        </div>
+      ) : (
+        <div className="rounded-[14px] bg-surface border border-default shadow-card py-10 text-center">
+          <p className="text-sm text-tertiary">No plays yet</p>
+          <p className="text-[11px] text-ghost mt-1">Be the first to set a score</p>
         </div>
       )}
     </div>
@@ -133,16 +127,16 @@ export default function LeaderboardPage() {
 
 function LeaderboardSkeleton() {
   return (
-    <div className="rounded-[14px] bg-bg-secondary border border-border-default shadow-card overflow-hidden">
-      {[...Array(5)].map((_, i) => (
-        <div key={i} className="flex items-center gap-2.5 px-3.5 py-3 border-b border-border-default last:border-b-0">
-          <div className="w-6 h-4 bg-bg-tertiary rounded animate-pulse" />
-          <div className="w-7 h-7 bg-bg-tertiary rounded-full animate-pulse" />
+    <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="flex items-center gap-3 px-4 py-3.5 border-b border-subtle last:border-0">
+          <div className="w-7 h-5 bg-elevated rounded animate-pulse" />
+          <div className="w-9 h-9 bg-elevated rounded-full animate-pulse" />
           <div className="flex-1">
-            <div className="w-24 h-3 bg-bg-tertiary rounded animate-pulse mb-1" />
-            <div className="w-12 h-2.5 bg-bg-tertiary rounded animate-pulse" />
+            <div className="w-28 h-3 bg-elevated rounded animate-pulse mb-1.5" />
+            <div className="w-12 h-2.5 bg-elevated rounded animate-pulse" />
           </div>
-          <div className="w-16 h-3 bg-bg-tertiary rounded animate-pulse" />
+          <div className="w-16 h-4 bg-elevated rounded animate-pulse" />
         </div>
       ))}
     </div>

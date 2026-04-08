@@ -2,13 +2,22 @@ import Link from 'next/link';
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { GameSelector } from '@/components/home/game-selector';
 
-async function fetchPlayer() {
+interface Player {
+  username: string;
+  current_streak: number | null;
+}
+
+async function fetchPlayer(): Promise<Player | null> {
   try {
     const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return null;
-    const { data } = await supabase.from('players').select('*').eq('id', user.id).single();
-    return data;
+    const { data } = await supabase
+      .from('players')
+      .select('username, current_streak')
+      .eq('id', user.id)
+      .single();
+    return (data as Player) ?? null;
   } catch {
     return null;
   }
@@ -62,137 +71,93 @@ async function fetchPlaylistStats() {
   }
 }
 
+async function fetchDailyTeaserCount(): Promise<number> {
+  try {
+    const supabase = createServiceRoleClient();
+    const today = new Date().toISOString().slice(0, 10);
+    const { data: challenge } = await supabase
+      .from('daily_challenges')
+      .select('id')
+      .eq('date', today)
+      .maybeSingle();
+    if (!challenge) return 0;
+    const { count } = await supabase
+      .from('daily_challenge_plays')
+      .select('player_id', { count: 'exact', head: true })
+      .eq('challenge_id', challenge.id);
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
 export default async function HomePage() {
-  const [playlists, player] = await Promise.all([fetchPlaylistStats(), fetchPlayer()]);
+  const [playlists, player, dailyPlays] = await Promise.all([
+    fetchPlaylistStats(),
+    fetchPlayer(),
+    fetchDailyTeaserCount(),
+  ]);
+
+  const streak = player?.current_streak ?? 0;
 
   return (
-    <div className="pt-5 pb-8">
-      {/* Greeting */}
-      {player ? (
-        <div className="mb-5">
-          <p className="text-xl font-semibold">Hey {(player as Record<string, unknown>).username as string}</p>
-          <p className="text-[13px] text-text-secondary mt-0.5">Ready to play?</p>
-        </div>
-      ) : (
-        <div className="mb-5">
-          <p className="text-xl font-semibold">K-pop blind test</p>
-          <p className="text-[13px] text-text-secondary mt-0.5">
-            {playlists.total.toLocaleString()} songs from {playlists.groups.length}+ artists
-          </p>
-        </div>
+    <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
+      {/* Streak ribbon */}
+      {streak > 0 && (
+        <p className="text-center text-xs font-semibold text-streak mb-3">
+          {streak} day streak
+        </p>
       )}
 
-      {/* Daily challenge card */}
-      <DailyChallengeCard />
+      {/* Hero */}
+      <div className="text-center mb-6">
+        <h1 className="text-[28px] md:text-3xl font-bold text-primary leading-tight">
+          {player ? `Hey ${player.username}` : 'Ready to play?'}
+        </h1>
+        <p className="text-[13px] text-ghost mt-1">
+          {playlists.total.toLocaleString()} songs across {playlists.groups.length} artists
+        </p>
+      </div>
 
-      {/* Game selector */}
+      {/* Game selector lobby (mode + playlist + groups + difficulty + PLAY) */}
       <GameSelector playlists={playlists} />
 
-      {/* Stats (logged in) */}
-      {player && (
-        <div className="mt-7">
-          <SectionLabel>Your stats</SectionLabel>
-          <PlayerStatsCard player={player as Record<string, unknown>} />
-        </div>
-      )}
-
-      {/* Leaderboard - mobile only */}
-      <div className="md:hidden mt-7">
-        <SectionLabel>Leaderboard</SectionLabel>
-        <LeaderboardPreview />
+      {/* Daily teaser */}
+      <div className="mt-6">
+        <Link
+          href="/daily"
+          className="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-surface border border-default shadow-card hover:border-accent transition-colors"
+        >
+          <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" aria-hidden="true" />
+          <span className="flex-1 text-xs text-tertiary">
+            <span className="font-semibold text-primary">Daily challenge</span>
+            {dailyPlays > 0 && (
+              <span className="text-ghost"> - {dailyPlays.toLocaleString()} {dailyPlays === 1 ? 'play' : 'plays'} today</span>
+            )}
+          </span>
+          <span className="text-[11px] font-semibold text-accent">Play</span>
+        </Link>
       </div>
 
       {/* SEO content for anonymous visitors */}
       {!player && (
-        <section className="mt-8 pt-6 border-t border-border-default">
-          <h2 className="text-sm font-semibold mb-2">The best K-pop blind test on the web</h2>
-          <p className="text-xs text-text-secondary leading-relaxed mb-3">
-            Test your K-pop knowledge with over {playlists.total.toLocaleString()} songs from {playlists.groups.length}+ artists. From BTS and BLACKPINK to NewJeans and LE SSERAFIM,
-            can you name the song from just a clip? Play free - no app download, no subscription.
+        <section className="mt-8 pt-6 border-t border-subtle">
+          <h2 className="text-sm font-semibold mb-2 text-primary">The best K-pop blind test on the web</h2>
+          <p className="text-xs text-tertiary leading-relaxed mb-3">
+            Test your K-pop knowledge with over {playlists.total.toLocaleString()} songs from {playlists.groups.length}+ artists.
+            From BTS and BLACKPINK to NewJeans and LE SSERAFIM, can you name the song from just a clip? Play free, no app download, no subscription.
           </p>
-          <h3 className="text-xs font-semibold mb-1 mt-3">How it works</h3>
-          <p className="text-xs text-text-secondary leading-relaxed mb-3">
+          <h3 className="text-xs font-semibold mb-1 mt-3 text-primary">How it works</h3>
+          <p className="text-xs text-tertiary leading-relaxed mb-3">
             Listen to a 30-second preview of a K-pop song. Pick the correct answer from 4 choices (Quick Play) or type it yourself (Challenge Mode).
             The faster you answer, the more points you earn. Build combos, level up, and compete on leaderboards.
           </p>
-          <h3 className="text-xs font-semibold mb-1 mt-3">Available artists</h3>
-          <p className="text-xs text-text-secondary leading-relaxed">
+          <h3 className="text-xs font-semibold mb-1 mt-3 text-primary">Available artists</h3>
+          <p className="text-xs text-tertiary leading-relaxed">
             {playlists.groups.slice(0, 30).map((g) => g.name).join(', ')}, and many more.
           </p>
         </section>
       )}
-    </div>
-  );
-}
-
-// ---- Sub-components ----
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5">
-      {children}
-    </p>
-  );
-}
-
-function DailyChallengeCard() {
-  return (
-    <Link href="/play?playlist=all&mode=quick&difficulty=all">
-      <div className="mb-6 p-4 rounded-2xl border relative overflow-hidden shadow-card" style={{ background: 'linear-gradient(135deg, var(--daily-card-from), var(--daily-card-to))', borderColor: 'var(--daily-card-border)' }}>
-        <div className="absolute top-3 right-4 w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1L9.5 6.5L15 8L9.5 9.5L8 15L6.5 9.5L1 8L6.5 6.5L8 1Z" fill="var(--pink-400)"/>
-          </svg>
-        </div>
-        <span className="inline-block px-2 py-0.5 rounded-md bg-pink-400 text-white text-[10px] font-semibold uppercase tracking-wide mb-2">
-          Daily Challenge
-        </span>
-        <p className="text-[15px] font-semibold mb-0.5">Today&apos;s 10 songs</p>
-        <p className="text-xs text-text-secondary mb-3">
-          Same songs for everyone - compete on the leaderboard
-        </p>
-        <div className="inline-block px-5 py-2.5 rounded-xl bg-pink-400 text-bg-primary text-[13px] font-semibold">
-          Play daily
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function PlayerStatsCard({ player }: { player: Record<string, unknown> }) {
-  const totalPlayed = (player.total_songs_played as number) ?? 0;
-  const totalCorrect = (player.total_songs_correct as number) ?? 0;
-  const accuracy = totalPlayed > 0 ? Math.round(totalCorrect / totalPlayed * 100) : 0;
-
-  return (
-    <div className="p-3.5 rounded-[14px] bg-bg-secondary border border-border-default shadow-card mb-7">
-      <div className="flex items-center gap-2.5">
-        <div className="w-9 h-9 rounded-full bg-pink-400 flex items-center justify-center text-sm font-semibold text-bg-primary">
-          {((player.username as string) ?? '?').charAt(0).toUpperCase()}
-        </div>
-        <div>
-          <p className="text-[13px] font-medium">
-            Level {(player.level as number) ?? 1} <span className="text-text-tertiary font-normal">- {((player.xp as number) ?? 0).toLocaleString()} XP</span>
-          </p>
-          <p className="text-[11px] text-text-tertiary">
-            {totalCorrect.toLocaleString()} songs - {accuracy}% accuracy
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LeaderboardPreview() {
-  return (
-    <div className="rounded-[14px] bg-bg-secondary border border-border-default shadow-card overflow-hidden mb-4">
-      <div className="py-6 text-center">
-        <p className="text-xs text-text-tertiary">No plays yet</p>
-        <p className="text-[10px] text-text-ghost mt-0.5">Be the first to set a score</p>
-      </div>
-      <Link href="/leaderboard" className="block text-center py-2.5 text-[11px] text-text-tertiary border-t border-border-default">
-        View full leaderboard
-      </Link>
     </div>
   );
 }

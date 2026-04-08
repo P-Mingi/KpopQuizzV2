@@ -82,14 +82,32 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   const supabase = await createServerClient();
 
+  // Determine playlist scope first; both branches below need this.
+  const isGroupPlaylist = !['all', 'gg', 'bg', 'solo', '4th-gen', '3rd-gen', '2nd-gen', 'title-tracks', 'hits', 'deep'].includes(playlist);
+
   // Build query
   let query = supabase
     .from('songs')
     .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, difficulty, wrong_answers_artist, wrong_answers_title')
     .eq('status', 'active');
 
-  // Playlist filter
-  const isGroupPlaylist = !['all', 'gg', 'bg', 'solo', '4th-gen', '3rd-gen', '2nd-gen', 'title-tracks', 'hits', 'deep'].includes(playlist);
+  // Curation: general playlists pull from is_curated subset, group playlists exclude remixes only.
+  // Gated by SONGS_IS_CURATED env var so the code can ship before the migration is run.
+  const curationEnabled = process.env.SONGS_IS_CURATED === 'true';
+  if (!isGroupPlaylist && curationEnabled) {
+    query = query.eq('is_curated', true);
+  } else if (isGroupPlaylist) {
+    query = query
+      .not('title', 'ilike', '%remix%')
+      .not('title', 'ilike', '%instrumental%')
+      .not('title', 'ilike', '%inst.%')
+      .not('title', 'ilike', '%karaoke%')
+      .not('title', 'ilike', '%MR removed%')
+      .not('title', 'ilike', '%sped up%')
+      .not('title', 'ilike', '%speed up%')
+      .not('title', 'ilike', '%slowed%')
+      .not('title', 'ilike', '%reverb%');
+  }
 
   if (isGroupPlaylist) {
     // First try exact artist name match (from home page group pills)

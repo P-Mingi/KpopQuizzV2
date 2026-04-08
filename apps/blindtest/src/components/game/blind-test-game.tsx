@@ -495,24 +495,24 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         <div className="flex flex-col items-center justify-center min-h-screen px-5">
           <DifficultyBadge difficulty={mode.difficulty} />
           <h1 className="text-2xl font-semibold mt-3 mb-1">{mode.title}</h1>
-          <p className="text-sm text-text-secondary text-center mb-1">{mode.description}</p>
-          <p className="text-xs text-text-tertiary mb-8">{mode.clip_duration}s per clip - {mode.song_count} songs</p>
+          <p className="text-sm text-secondary text-center mb-1">{mode.description}</p>
+          <p className="text-xs text-tertiary mb-8">{mode.clip_duration}s per clip - {mode.song_count} songs</p>
           <button
             onClick={startGame}
             disabled={!playerReady}
-            className="px-10 py-4 rounded-[14px] bg-pink-400 text-bg-primary text-base font-semibold disabled:opacity-50 active:scale-[0.98] transition-transform"
+            className="px-10 py-4 rounded-[14px] bg-accent text-bg-primary text-base font-semibold disabled:opacity-50 active:scale-[0.98] transition-transform"
           >
             {playerReady ? 'Play' : 'Loading...'}
           </button>
-          <Link href="/" className="mt-4 text-sm text-text-tertiary">Back to home</Link>
+          <Link href="/" className="mt-4 text-sm text-tertiary">Back to home</Link>
         </div>
       )}
 
       {/* ── LOADING ── */}
       {gameState === 'loading' && (
         <div className="flex flex-col items-center justify-center min-h-screen">
-          <div className="w-12 h-12 rounded-full border-2 border-border-default border-t-pink-400 animate-spin mb-4" />
-          <p className="text-sm text-text-secondary">Loading your round...</p>
+          <div className="w-12 h-12 rounded-full border-2 border-default border-t-accent animate-spin mb-4" />
+          <p className="text-sm text-secondary">Loading your round...</p>
         </div>
       )}
 
@@ -521,9 +521,9 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         <div className="min-h-screen px-5 py-8">
           <div className="text-center mb-6">
             <p className="text-4xl font-semibold">{answers.filter(a => a.correct && !a.skipped).length}/{answers.filter(a => !a.skipped).length}</p>
-            <p className="text-sm text-text-secondary mt-1">{getScoreLabel(answers.filter(a => a.correct && !a.skipped).length, answers.filter(a => !a.skipped).length).label}</p>
+            <p className="text-sm text-secondary mt-1">{getScoreLabel(answers.filter(a => a.correct && !a.skipped).length, answers.filter(a => !a.skipped).length).label}</p>
             {dailyRank && (
-              <p className="text-xs text-pink-400 mt-1">
+              <p className="text-xs text-accent mt-1">
                 Rank #{dailyRank.rank} of {dailyRank.total} players
               </p>
             )}
@@ -531,41 +531,41 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
           {/* Stats row */}
           <div className="flex gap-px mb-6 bg-border-default rounded-[14px] overflow-hidden">
-            <div className="flex-1 py-3 text-center bg-bg-secondary">
-              <p className="text-lg font-semibold text-pink-400">{score.toLocaleString()}</p>
-              <p className="text-[10px] text-text-tertiary">points</p>
+            <div className="flex-1 py-3 text-center bg-surface">
+              <p className="text-lg font-semibold text-accent">{score.toLocaleString()}</p>
+              <p className="text-[10px] text-tertiary">points</p>
             </div>
-            <div className="flex-1 py-3 text-center bg-bg-secondary">
+            <div className="flex-1 py-3 text-center bg-surface">
               <p className="text-lg font-semibold">
                 {(() => {
                   const valid = answers.filter(a => !a.skipped);
                   return valid.length > 0 ? (valid.reduce((s, a) => s + a.time, 0) / valid.length).toFixed(1) : '0.0';
                 })()}s
               </p>
-              <p className="text-[10px] text-text-tertiary">avg speed</p>
+              <p className="text-[10px] text-tertiary">avg speed</p>
             </div>
-            <div className="flex-1 py-3 text-center bg-bg-secondary">
+            <div className="flex-1 py-3 text-center bg-surface">
               <p className="text-lg font-semibold">{bestCombo}x</p>
-              <p className="text-[10px] text-text-tertiary">best combo</p>
+              <p className="text-[10px] text-tertiary">best combo</p>
             </div>
           </div>
 
           {/* Missed songs */}
           {answers.some(a => !a.correct && !a.skipped) && (
             <div className="mb-6">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2">Missed songs</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-tertiary mb-2">Missed songs</p>
               <div className="space-y-1.5">
                 {answers.filter(a => !a.correct && !a.skipped).map(a => {
                   const song = round.songs.find(s => s.song_id === a.song_id);
                   return song ? (
-                    <div key={a.song_id} className="flex items-center gap-3 p-2.5 bg-bg-secondary rounded-xl border border-border-default">
+                    <div key={a.song_id} className="flex items-center gap-3 p-2.5 bg-surface rounded-xl border border-default">
                       <img
                         src={`https://img.youtube.com/vi/${song.youtube_id}/default.jpg`}
                         alt="" className="w-10 h-10 rounded-lg object-cover"
                       />
                       <div>
                         <p className="text-xs font-medium">{song._answer.title}</p>
-                        <p className="text-[11px] text-text-tertiary">{song._answer.artist}</p>
+                        <p className="text-[11px] text-tertiary">{song._answer.artist}</p>
                       </div>
                     </div>
                   ) : null;
@@ -576,8 +576,8 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
           {/* New achievements */}
           {newAchievements.length > 0 && (
-            <div className="mb-4 p-3 rounded-xl bg-pink-50 border border-pink-100">
-              <p className="text-xs font-semibold text-pink-400 mb-2">
+            <div className="mb-4 p-3 rounded-xl bg-accent-subtle border border-accent">
+              <p className="text-xs font-semibold text-accent mb-2">
                 New badge{newAchievements.length > 1 ? 's' : ''} earned!
               </p>
               {newAchievements.map(id => {
@@ -585,16 +585,16 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
                 const name = achievement?.name ?? id.replace('fandom_', '').replace(/_/g, ' ');
                 const colorStyles: Record<string, string> = {
                   gold: 'bg-streak-bg text-streak',
-                  pink: 'bg-pink-50 text-pink-400',
+                  pink: 'bg-accent-subtle text-accent',
                   green: 'bg-correct-bg text-correct',
-                  default: 'bg-bg-tertiary text-text-primary',
+                  default: 'bg-elevated text-primary',
                 };
                 return (
                   <div key={id} className="flex items-center gap-2 py-1">
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md ${colorStyles[achievement?.color ?? 'default']}`}>
                       {name}
                     </span>
-                    {achievement && <span className="text-[11px] text-text-secondary">{achievement.description}</span>}
+                    {achievement && <span className="text-[11px] text-secondary">{achievement.description}</span>}
                   </div>
                 );
               })}
@@ -603,22 +603,22 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
           {/* XP earned */}
           {xpEarned > 0 && (
-            <div className="mb-4 p-3 rounded-xl bg-pink-50 border border-pink-100">
-              <span className="text-xs font-medium text-pink-400">+{xpEarned} XP earned</span>
+            <div className="mb-4 p-3 rounded-xl bg-accent-subtle border border-accent">
+              <span className="text-xs font-medium text-accent">+{xpEarned} XP earned</span>
             </div>
           )}
 
           {/* Group mastery */}
           {masteryUpdates.length > 0 && (
             <div className="mb-6">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2">Group mastery earned</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-tertiary mb-2">Group mastery earned</p>
               {masteryUpdates.map(update => (
                 <div key={update.group_id} className="flex items-center gap-2.5 py-1.5">
                   <span className="text-xs min-w-[80px]">{update.group_name ?? `Group #${update.group_id}`}</span>
                   <div className="flex-1 h-1 bg-border-default rounded-full">
-                    <div className="h-1 rounded-full bg-pink-400" style={{ width: `${getMasteryProgress(update.mastery_xp) * 100}%` }} />
+                    <div className="h-1 rounded-full bg-accent" style={{ width: `${getMasteryProgress(update.mastery_xp) * 100}%` }} />
                   </div>
-                  <span className="text-[11px] text-pink-400">+{update.mastery_xp}</span>
+                  <span className="text-[11px] text-accent">+{update.mastery_xp}</span>
                 </div>
               ))}
             </div>
@@ -627,10 +627,10 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
           {/* Action buttons */}
           {isDaily ? (
             <>
-              <Link href="/daily" className="block w-full text-center py-3.5 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold mb-2.5">
+              <Link href="/daily" className="block w-full text-center py-3.5 rounded-[14px] bg-accent text-bg-primary text-sm font-semibold mb-2.5">
                 See daily leaderboard
               </Link>
-              <Link href="/" className="block w-full text-center py-3.5 rounded-[14px] border border-border-default text-sm font-semibold hover:border-border-hover transition-colors">
+              <Link href="/" className="block w-full text-center py-3.5 rounded-[14px] border border-default text-sm font-semibold hover:border-default transition-colors">
                 Try another mode
               </Link>
             </>
@@ -638,11 +638,11 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
             <>
               <button
                 onClick={() => startGame()}
-                className="w-full py-3.5 rounded-[14px] border border-border-default text-sm font-semibold mb-2.5 hover:border-border-hover transition-colors"
+                className="w-full py-3.5 rounded-[14px] border border-default text-sm font-semibold mb-2.5 hover:border-default transition-colors"
               >
                 Play again
               </button>
-              <Link href="/" className="block w-full text-center py-3.5 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold">
+              <Link href="/" className="block w-full text-center py-3.5 rounded-[14px] bg-accent text-bg-primary text-sm font-semibold">
                 Try another mode
               </Link>
             </>
@@ -668,11 +668,11 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-1">
-          <span className="text-xs text-text-tertiary">{currentIndex + 1} of {round?.songs.length ?? 0}</span>
+          <span className="text-xs text-tertiary">{currentIndex + 1} of {round?.songs.length ?? 0}</span>
           <div className="flex items-center gap-1.5">
-            <span className="text-[13px] font-medium text-pink-400">{score} pts</span>
+            <span className="text-[13px] font-medium text-accent">{score} pts</span>
             {combo >= 2 && (
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--combo-bg)', color: 'var(--combo-text)' }}>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--accent-bg)', color: 'var(--combo)' }}>
                 {combo}x
               </span>
             )}
@@ -684,7 +684,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
         {/* Progress bar */}
         <div className="h-1 bg-border-default rounded-full mb-6 overflow-hidden">
-          <div className="h-full bg-pink-400 rounded-full transition-all duration-300" style={{ width: `${progress * 100}%` }} />
+          <div className="h-full bg-accent rounded-full transition-all duration-300" style={{ width: `${progress * 100}%` }} />
         </div>
 
         {/* YouTube player container */}
@@ -705,10 +705,10 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
           <div className={`flex flex-col items-center mb-6 ${isUrgent ? 'animate-shake' : ''}`}>
             <div className="relative w-[128px] h-[128px] flex items-center justify-center">
               <svg className="absolute inset-0 -rotate-90" width="128" height="128" viewBox="0 0 128 128">
-                <circle cx="64" cy="64" r={ringRadius} fill="none" stroke="var(--border-default)" strokeWidth="3" />
+                <circle cx="64" cy="64" r={ringRadius} fill="none" stroke="var(--border)" strokeWidth="3" />
                 <circle
                   cx="64" cy="64" r={ringRadius} fill="none"
-                  stroke={isUrgent ? 'var(--wrong)' : 'var(--pink-400)'}
+                  stroke={isUrgent ? 'var(--wrong)' : 'var(--accent)'}
                   strokeWidth="3" strokeLinecap="round"
                   strokeDasharray={ringCircumference}
                   strokeDashoffset={ringOffset}
@@ -720,7 +720,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
                   <div
                     key={i}
                     className="w-[5px] rounded-sm transition-[height] duration-100"
-                    style={{ height: h, background: 'var(--pink-400)' }}
+                    style={{ height: h, background: 'var(--accent)' }}
                   />
                 ))}
               </div>
@@ -735,7 +735,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         {showVideo && currentSong && (
           <div className="text-center mb-2">
             <p className="text-[15px] font-semibold">{currentSong._answer.title}</p>
-            <p className="text-[13px] text-text-secondary">{currentSong._answer.artist}</p>
+            <p className="text-[13px] text-secondary">{currentSong._answer.artist}</p>
             {currentAnswer?.correct && (
               <p className="text-[15px] font-semibold text-correct mt-1.5 animate-pointsFloat">
                 +{currentAnswer.points}
@@ -754,7 +754,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
 
         {/* Question type indicator */}
         {!answered && currentSong && (
-          <p className="text-xs text-text-tertiary text-center mb-2">
+          <p className="text-xs text-tertiary text-center mb-2">
             {currentSong.question_type === 'artist' ? 'Who sings this?' : 'Name the song'}
           </p>
         )}
@@ -762,18 +762,18 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         {/* Answer choices */}
         <div className="space-y-2.5 mb-4">
           {currentSong?.choices.map((choice, i) => {
-            let btnStyle = 'bg-bg-secondary border-border-default hover:border-border-hover';
+            let btnStyle = 'bg-surface border-default hover:border-default';
 
             if (answered) {
               const isCorrect = i === currentSong._answer.correct_index;
               const isPicked = i === currentAnswer?.picked;
 
               if (isCorrect) {
-                btnStyle = 'bg-correct-bg border-correct-border text-correct';
+                btnStyle = 'bg-correct-bg border-correct text-correct';
               } else if (isPicked && !currentAnswer?.correct) {
-                btnStyle = 'bg-wrong-bg border-wrong-border text-wrong';
+                btnStyle = 'bg-wrong-bg border-wrong text-wrong';
               } else {
-                btnStyle = 'bg-bg-secondary border-border-default opacity-40';
+                btnStyle = 'bg-surface border-default opacity-40';
               }
             }
 
@@ -801,7 +801,7 @@ export function BlindTestGame({ mode, gameMode, gameFilter, gameGroup }: GamePro
         {showNextButton && (
           <button
             onClick={goToNextSong}
-            className="w-full py-3.5 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold mb-4 animate-fadeSlideUp active:scale-[0.98] transition-transform"
+            className="w-full py-3.5 rounded-[14px] bg-accent text-bg-primary text-sm font-semibold mb-4 animate-fadeSlideUp active:scale-[0.98] transition-transform"
           >
             {currentIndex + 1 >= (round?.songs.length ?? 0) ? 'See results' : 'Next song'}
           </button>

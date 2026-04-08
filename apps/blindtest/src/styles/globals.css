@@ -2,102 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* -- Light mode (matches kpopquiz.org warm beige) -- */
-  --bg-primary: #FAF9F6;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F1EFE8;
-  --bg-input: #FFFFFF;
+/* Dark mode is the default identity; light mode overrides below. */
+:root,
+:root.dark {
+  --bg-primary: #0D0D0F;
+  --bg-surface: #1A1A1E;
+  --bg-elevated: #1E1E24;
+  --bg-accent-subtle: #1E1020;
 
-  --border-default: #E8E6E0;
-  --border-hover: #D3D1C7;
-  --border-active: #B4B2A9;
+  --text-primary: #E8E6E0;
+  --text-secondary: #B4B2A9;
+  --text-tertiary: #7A786E;
+  --text-ghost: #5A584E;
+
+  --border: #2a2a2e;
+  --border-subtle: #1E1E24;
+
+  --accent: #ED93B1;
+  --accent-hover: #D4537E;
+  --accent-bg: #1E1020;
+  --accent-border: #3a2a3e;
+
+  --correct: #1D9E75;
+  --correct-bg: #0a1f15;
+  --correct-text: #1D9E75;
+
+  --wrong: #E24B4A;
+  --wrong-bg: #1f0a0a;
+  --wrong-text: #E24B4A;
+
+  --combo: #EF9F27;
+  --streak: #EF9F27;
+  --streak-bg: rgba(239,159,39,0.12);
+
+  --daily-gradient-from: #1a1a3e;
+  --daily-gradient-to: #2d1b4e;
+  --daily-border: #3a2a5e;
+  --daily-text: #9a8abf;
+
+  --shadow-card: none;
+
+  /* Speed labels (used by lib/scoring.ts) */
+  --speed-lightning: #ED93B1;
+  --speed-fast: #F4C0D1;
+  --speed-normal: #7A786E;
+  --speed-slow: #5A584E;
+}
+
+:root.light {
+  --bg-primary: #FAF9F6;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F0EDE8;
+  --bg-accent-subtle: #fdf2f6;
 
   --text-primary: #2C2C2A;
-  --text-secondary: #6B6B6B;
-  --text-tertiary: #9A9A9A;
-  --text-ghost: #CCCCCC;
+  --text-secondary: #888780;
+  --text-tertiary: #B4B2A9;
+  --text-ghost: #B4B2A9;
 
-  --pink-50: rgba(237,147,177,0.08);
-  --pink-100: rgba(237,147,177,0.15);
-  --pink-200: #F4C0D1;
-  --pink-400: #ED93B1;
-  --pink-600: #D4537E;
-  --pink-900: #4B1528;
+  --border: #E8E6E0;
+  --border-subtle: #F0EDE8;
 
-  --correct: #27500A;
+  --accent: #D4537E;
+  --accent-hover: #993556;
+  --accent-bg: #fdf2f6;
+  --accent-border: #f0d0e0;
+
+  --correct: #0F6E56;
   --correct-bg: #EAF3DE;
-  --correct-border: #97C459;
-  --wrong: #791F1F;
+  --correct-text: #27500A;
+
+  --wrong: #A32D2D;
   --wrong-bg: #FCEBEB;
-  --wrong-border: #F09595;
-  --streak: #854F0B;
+  --wrong-text: #791F1F;
+
+  --combo: #BA7517;
+  --streak: #D85A30;
   --streak-bg: #FAEEDA;
 
-  --combo-bg: rgba(237,147,177,0.12);
-  --combo-text: #D4537E;
+  --daily-gradient-from: #f4e8f0;
+  --daily-gradient-to: #ede0f4;
+  --daily-border: #e0d0e8;
+  --daily-text: #9a7a8e;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
 
   --speed-lightning: #D4537E;
   --speed-fast: #ED93B1;
   --speed-normal: #9A9A9A;
   --speed-slow: #CCCCCC;
-
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
-
-  --logo-accent: #D4537E;
-
-  --daily-card-from: #FDF2F7;
-  --daily-card-to: #FFFFFF;
-  --daily-card-border: #F4C0D1;
-}
-
-[data-theme="dark"] {
-  /* -- Dark mode (game identity) -- */
-  --bg-primary: #0D0D0F;
-  --bg-secondary: #16161A;
-  --bg-tertiary: #1E1E24;
-  --bg-input: #16161A;
-
-  --border-default: #1E1E24;
-  --border-hover: #2A2A30;
-  --border-active: #3A3A42;
-
-  --text-primary: #E8E6E0;
-  --text-secondary: #7A786E;
-  --text-tertiary: #5A584E;
-  --text-ghost: #3A3A42;
-
-  --pink-50: rgba(237,147,177,0.08);
-  --pink-100: rgba(237,147,177,0.15);
-  --pink-200: #F4C0D1;
-  --pink-400: #ED93B1;
-  --pink-600: #D4537E;
-  --pink-900: #4B1528;
-
-  --correct: #97C459;
-  --correct-bg: rgba(151,196,89,0.12);
-  --correct-border: rgba(151,196,89,0.4);
-  --wrong: #E24B4A;
-  --wrong-bg: rgba(226,75,74,0.12);
-  --wrong-border: rgba(226,75,74,0.4);
-  --streak: #EF9F27;
-  --streak-bg: rgba(239,159,39,0.12);
-
-  --combo-bg: rgba(237,147,177,0.15);
-  --combo-text: #ED93B1;
-
-  --speed-lightning: #ED93B1;
-  --speed-fast: #F4C0D1;
-  --speed-normal: #7A786E;
-  --speed-slow: #5A584E;
-
-  --shadow-card: none;
-
-  --logo-accent: #ED93B1;
-
-  --daily-card-from: #1E1028;
-  --daily-card-to: #16161A;
-  --daily-card-border: #2A2030;
 }
 
 * { box-sizing: border-box; }
@@ -105,6 +98,7 @@
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s, color 0.2s;

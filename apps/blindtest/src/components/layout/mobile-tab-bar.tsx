@@ -4,30 +4,38 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const tabs = [
-  { href: '/', label: 'Home', icon: 'home' },
+  { href: '/', label: 'Play', icon: 'play' },
   { href: '/daily', label: 'Daily', icon: 'clock' },
   { href: '/leaderboard', label: 'Ranks', icon: 'chart' },
   { href: '/profile', label: 'Profile', icon: 'user' },
 ] as const;
 
-export function BottomNav() {
+type TabIcon = (typeof tabs)[number]['icon'];
+
+export function MobileTabBar() {
   const pathname = usePathname();
 
+  // Hidden during gameplay for full immersion.
+  if (pathname.startsWith('/play')) return null;
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t border-border-default bg-bg-primary/95 backdrop-blur-sm z-50">
+    <nav
+      className="md:hidden fixed bottom-0 left-0 right-0 border-t border-subtle bg-primary/95 backdrop-blur-sm z-50"
+      aria-label="Main navigation"
+    >
       <div className="max-w-[960px] mx-auto">
-        <div className="flex py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {tabs.map((tab) => {
             const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
             return (
               <Link
                 key={tab.href}
                 href={tab.href}
-                className={`flex-1 flex flex-col items-center gap-0.5 pt-1 text-[10px] font-medium ${
-                  isActive ? 'text-pink-400' : 'text-text-tertiary'
+                className={`flex-1 flex flex-col items-center gap-0.5 pt-1 text-[9px] font-medium ${
+                  isActive ? 'text-accent' : 'text-ghost'
                 }`}
               >
-                <NavIcon name={tab.icon} active={isActive} />
+                <TabIcon name={tab.icon} active={isActive} />
                 {tab.label}
               </Link>
             );
@@ -38,15 +46,15 @@ export function BottomNav() {
   );
 }
 
-function NavIcon({ name, active }: { name: string; active: boolean }) {
-  const color = active ? 'var(--pink-400)' : 'var(--text-tertiary)';
-  const size = 20;
+function TabIcon({ name, active }: { name: TabIcon; active: boolean }) {
+  const color = active ? 'var(--accent)' : 'var(--text-ghost)';
+  const size = 18;
 
   switch (name) {
-    case 'home':
+    case 'play':
       return (
         <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-          <path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" fill={color} />
+          <path d="M6 4L16 10L6 16V4Z" fill={color} />
         </svg>
       );
     case 'clock':

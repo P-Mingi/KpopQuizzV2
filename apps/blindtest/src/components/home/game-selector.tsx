@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ModeCard } from './mode-card';
 
 interface PlaylistStats {
   categories: Array<{ id: string; name: string; count: number }>;
@@ -14,29 +15,36 @@ interface Props {
   playlists: PlaylistStats;
 }
 
-const DIFFICULTIES = [
-  { id: 'all', name: 'All', desc: 'Smart mix' },
-  { id: 'hits', name: 'Hits only', desc: 'Popular songs' },
-  { id: 'deep', name: 'Deep cuts', desc: 'For real fans' },
+const MODES = [
+  { id: 'quick' as const, name: 'Quick play', description: '4 choices, 15s' },
+  { id: 'challenge' as const, name: 'Challenge', description: 'Type answer, 1.5x' },
 ];
+
+const DIFFICULTIES = [
+  { id: 'all', label: 'Smart mix' },
+  { id: 'hits', label: 'Hits only' },
+  { id: 'deep', label: 'Deep cuts' },
+] as const;
 
 export function GameSelector({ playlists }: Props) {
   const router = useRouter();
+  const [selectedMode, setSelectedMode] = useState<'quick' | 'challenge'>('quick');
   const [selectedPlaylist, setSelectedPlaylist] = useState('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<'all' | 'hits' | 'deep'>('all');
   const [showAllGroups, setShowAllGroups] = useState(false);
 
   const playlistName =
-    selectedPlaylist === 'all'
-      ? 'All K-pop'
-      : playlists.categories.find((c) => c.id === selectedPlaylist)?.name ??
-        playlists.groups.find((g) => g.name === selectedPlaylist)?.name ??
-        selectedPlaylist;
+    playlists.categories.find((c) => c.id === selectedPlaylist)?.name ??
+    playlists.groups.find((g) => g.name === selectedPlaylist)?.name ??
+    selectedPlaylist;
 
-  const handlePlay = (mode: 'quick' | 'challenge') => {
+  const modeLabel = selectedMode === 'quick' ? 'Quick play' : 'Challenge';
+  const difficultyLabel = DIFFICULTIES.find((d) => d.id === selectedDifficulty)?.label ?? 'Smart mix';
+
+  const handlePlay = () => {
     const params = new URLSearchParams({
       playlist: selectedPlaylist,
-      mode,
+      mode: selectedMode,
       difficulty: selectedDifficulty,
     });
     router.push(`/play?${params.toString()}`);
@@ -46,94 +54,107 @@ export function GameSelector({ playlists }: Props) {
   const hiddenCount = playlists.groups.length - 8;
 
   return (
-    <div>
-      {/* Category pills */}
-      <SectionLabel>Quick play</SectionLabel>
-      <div className="flex flex-wrap gap-1.5">
-        {playlists.categories.map((cat) => (
-          <Pill
-            key={cat.id}
-            active={selectedPlaylist === cat.id}
-            onClick={() => setSelectedPlaylist(cat.id)}
-          >
-            {cat.name}
-          </Pill>
+    <div className="flex flex-col gap-5">
+      {/* Mode picker */}
+      <div className="flex gap-2">
+        {MODES.map((m) => (
+          <ModeCard
+            key={m.id}
+            name={m.name}
+            description={m.description}
+            active={selectedMode === m.id}
+            onClick={() => setSelectedMode(m.id)}
+          />
         ))}
       </div>
+
+      {/* Playlist categories */}
+      <section>
+        <SectionLabel>Playlist</SectionLabel>
+        <div className="flex flex-wrap gap-1.5">
+          {playlists.categories.map((cat) => (
+            <Pill
+              key={cat.id}
+              active={selectedPlaylist === cat.id}
+              onClick={() => setSelectedPlaylist(cat.id)}
+            >
+              {cat.name}
+            </Pill>
+          ))}
+        </div>
+      </section>
 
       {/* Group pills */}
-      <SectionLabel className="mt-5">Pick a group</SectionLabel>
-      <div className="flex flex-wrap gap-1.5">
-        {visibleGroups.map((g) => (
-          <Pill
-            key={g.id}
-            active={selectedPlaylist === g.name}
-            onClick={() => setSelectedPlaylist(g.name)}
-            variant="elevated"
-          >
-            {g.name}
-          </Pill>
-        ))}
-      </div>
-      {playlists.groups.length > 8 && (
-        <button
-          onClick={() => setShowAllGroups(!showAllGroups)}
-          className="text-xs text-text-ghost mt-2 hover:text-text-secondary transition-colors"
-        >
-          {showAllGroups ? 'Show less' : `+ ${hiddenCount} more groups`}
-        </button>
+      {playlists.groups.length > 0 && (
+        <section>
+          <div className="flex flex-wrap gap-1.5">
+            {visibleGroups.map((g) => (
+              <Pill
+                key={g.id}
+                active={selectedPlaylist === g.name}
+                onClick={() => setSelectedPlaylist(g.name)}
+                variant="elevated"
+              >
+                {g.name}
+              </Pill>
+            ))}
+            {playlists.groups.length > 8 && !showAllGroups && (
+              <button
+                type="button"
+                onClick={() => setShowAllGroups(true)}
+                className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-ghost hover:text-tertiary transition-colors"
+              >
+                +{hiddenCount} more
+              </button>
+            )}
+          </div>
+        </section>
       )}
 
-      {/* Difficulty */}
-      <SectionLabel className="mt-5">Difficulty</SectionLabel>
-      <div className="flex gap-1.5">
-        {DIFFICULTIES.map((d) => {
-          const active = selectedDifficulty === d.id;
-          return (
-            <button
-              key={d.id}
-              onClick={() => setSelectedDifficulty(d.id)}
-              className={`flex-1 py-2 px-3 rounded-xl text-center transition-all active:scale-[0.97] ${
-                active
-                  ? 'bg-pink-400 text-white'
-                  : 'bg-bg-secondary border border-border-default text-text-secondary hover:border-pink-400'
-              }`}
-            >
-              <span className="text-[13px] font-medium block">{d.name}</span>
-              <span className={`text-[10px] block mt-0.5 ${active ? 'text-white/70' : 'text-text-ghost'}`}>
-                {d.desc}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      {/* Difficulty (compact) */}
+      <section>
+        <SectionLabel>Difficulty</SectionLabel>
+        <div className="flex gap-1.5">
+          {DIFFICULTIES.map((d) => {
+            const active = selectedDifficulty === d.id;
+            return (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() => setSelectedDifficulty(d.id)}
+                className={`flex-1 py-2 px-3 rounded-xl text-[12px] font-medium transition-colors active:scale-[0.97] ${
+                  active
+                    ? 'bg-accent text-primary'
+                    : 'bg-surface border border-default text-tertiary hover:border-accent'
+                }`}
+              >
+                {d.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-      {/* Play buttons */}
-      <div className="flex gap-2 mt-6">
+      {/* Big PLAY button */}
+      <div className="mt-1">
         <button
-          onClick={() => handlePlay('quick')}
-          className="flex-1 py-3.5 rounded-xl bg-pink-400 text-white text-[15px] font-semibold text-center active:scale-[0.98] transition-transform"
+          type="button"
+          onClick={handlePlay}
+          className="w-full py-4 rounded-2xl bg-accent text-primary text-lg font-bold tracking-wide active:scale-[0.98] transition-transform"
         >
-          Play
+          PLAY
         </button>
-        <button
-          onClick={() => handlePlay('challenge')}
-          className="py-3.5 px-5 rounded-xl bg-bg-secondary border border-border-default text-text-secondary text-[13px] font-medium hover:border-pink-400 hover:text-pink-400 transition-colors"
-        >
-          Challenge
-        </button>
+        <p className="text-center text-[10px] text-ghost mt-2">
+          {modeLabel} - {playlistName} - {difficultyLabel}
+        </p>
       </div>
-
-      <p className="text-center text-xs text-text-ghost mt-2">
-        {playlistName} - {selectedDifficulty === 'all' ? 'Smart mix' : selectedDifficulty === 'hits' ? 'Hits only' : 'Deep cuts'}
-      </p>
     </div>
   );
 }
 
-function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className={`text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5 ${className ?? ''}`}>
+    <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-ghost mb-2">
       {children}
     </p>
   );
@@ -150,17 +171,18 @@ function Pill({
   onClick: () => void;
   variant?: 'default' | 'elevated';
 }) {
-  const baseActive = 'bg-pink-400 text-white';
-  const baseDefault =
+  const activeClasses = 'bg-accent text-primary border border-accent';
+  const inactive =
     variant === 'elevated'
-      ? 'bg-bg-tertiary text-text-primary hover:border-pink-400 border border-transparent'
-      : 'bg-bg-secondary border border-border-default text-text-secondary hover:border-pink-400';
+      ? 'bg-elevated text-primary border border-transparent hover:border-accent'
+      : 'bg-surface text-tertiary border border-default hover:border-accent';
 
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`px-3.5 py-2 rounded-xl text-[13px] font-medium transition-all active:scale-[0.97] ${
-        active ? baseActive : baseDefault
+      className={`px-3.5 py-2 rounded-xl text-[12px] font-medium transition-colors active:scale-[0.97] ${
+        active ? activeClasses : inactive
       }`}
     >
       {children}

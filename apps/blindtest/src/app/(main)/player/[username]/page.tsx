@@ -56,7 +56,14 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
   return (
     <ProfileView
       player={player}
-      masteries={(masteries ?? []) as unknown as { group_id: number; mastery_level: number; mastery_xp: number; groups: { name: string; slug: string } | null }[]}
+      masteries={(masteries ?? []) as unknown as {
+        group_id: number;
+        mastery_level: number;
+        mastery_xp: number;
+        songs_played?: number;
+        songs_correct?: number;
+        groups: { name: string; slug: string } | null;
+      }[]}
       achievements={(achievements ?? []) as { achievement_id: string }[]}
       recentPlays={(recentPlays ?? []) as { mode_id: string; score: number; correct: number; total: number; created_at: string }[]}
       isOwnProfile={user?.id === player.id}

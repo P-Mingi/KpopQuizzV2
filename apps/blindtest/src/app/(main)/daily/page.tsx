@@ -13,6 +13,15 @@ async function fetchDailyData() {
   }
 }
 
+function getResetCountdown(): string {
+  // Daily challenge resets at 00:00 KST (UTC+9).
+  const now = new Date();
+  const kstNow = new Date(now.getTime() + 9 * 3600 * 1000);
+  const hours = 23 - kstNow.getUTCHours();
+  const minutes = 59 - kstNow.getUTCMinutes();
+  return `${hours}h ${minutes}m`;
+}
+
 export default async function DailyPage() {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -28,7 +37,7 @@ export default async function DailyPage() {
   const stats = dailyData?.stats ?? { play_count: 0, avg_score: 0 };
 
   // Check if player already played today
-  let playerResult = null;
+  let playerResult: { score: number; correct: number; total_time: number; rank: number; total_players: number } | null = null;
   if (player && challenge) {
     const { data: play } = await supabase
       .from('daily_challenge_plays')
@@ -38,7 +47,6 @@ export default async function DailyPage() {
       .maybeSingle();
 
     if (play) {
-      // Get rank
       const { data: allPlays } = await supabase
         .from('daily_challenge_plays')
         .select('player_id, score')
@@ -46,16 +54,22 @@ export default async function DailyPage() {
         .order('score', { ascending: false });
 
       const rank = (allPlays ?? []).findIndex((p: { player_id: string }) => p.player_id === player!.id) + 1;
-      playerResult = { ...play, rank, total_players: allPlays?.length ?? 0 };
+      playerResult = {
+        score: play.score as number,
+        correct: play.correct as number,
+        total_time: play.total_time as number,
+        rank,
+        total_players: allPlays?.length ?? 0,
+      };
     }
   }
 
   // Leaderboard
-  let leaderboard: { player_id: string; score: number; username: string; avatar_bg: string; avatar_text: string }[] = [];
+  let leaderboard: { player_id: string; score: number; correct: number; total_time: number; username: string; avatar_bg: string; avatar_text: string }[] = [];
   if (challenge) {
     const { data } = await supabase
       .from('daily_challenge_plays')
-      .select('player_id, score, players!inner(username, avatar_bg, avatar_text)')
+      .select('player_id, score, correct, total_time, players!inner(username, avatar_bg, avatar_text)')
       .eq('challenge_id', challenge.id)
       .order('score', { ascending: false })
       .limit(20);
@@ -65,6 +79,8 @@ export default async function DailyPage() {
       return {
         player_id: row.player_id as string,
         score: row.score as number,
+        correct: (row.correct as number | null) ?? 0,
+        total_time: (row.total_time as number | null) ?? 0,
         username: p?.username ?? '?',
         avatar_bg: p?.avatar_bg ?? '#ED93B1',
         avatar_text: p?.avatar_text ?? '#0D0D0F',
@@ -73,94 +89,127 @@ export default async function DailyPage() {
   }
 
   const today = getTodayKST();
+  const resetIn = getResetCountdown();
 
   return (
-    <div className="pt-5 pb-8">
-      <p className="text-xl font-semibold mb-1">Daily challenge</p>
-      <p className="text-[13px] text-text-secondary mb-5">
-        {today} - {stats.play_count} player{stats.play_count !== 1 ? 's' : ''} today
-      </p>
+    <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
+      {/* Hero card */}
+      <div
+        className="p-6 rounded-[18px] mb-5"
+        style={{
+          background: 'linear-gradient(135deg, var(--daily-gradient-from), var(--daily-gradient-to))',
+          border: '1px solid var(--daily-border)',
+        }}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-daily mb-2">
+          Daily challenge
+        </p>
+        <h1 className="text-[32px] font-bold text-primary leading-tight">
+          {playerResult ? `${playerResult.correct}/10` : '10 songs.'}
+        </h1>
+        <p className="text-[13px] text-daily mt-1">
+          {playerResult
+            ? `${playerResult.score.toLocaleString()} pts - rank #${playerResult.rank} of ${playerResult.total_players}`
+            : 'One shot. Same songs for everyone.'}
+        </p>
+        {!challenge ? (
+          <p className="mt-5 text-sm text-tertiary">Daily challenge not available yet.</p>
+        ) : !playerResult ? (
+          <div className="mt-5">
+            {player ? (
+              <Link
+                href="/play/daily"
+                className="inline-block px-10 py-3.5 rounded-[14px] bg-accent text-primary text-sm font-bold active:scale-[0.98] transition-transform"
+              >
+                PLAY
+              </Link>
+            ) : (
+              <>
+                <span className="inline-block px-10 py-3.5 rounded-[14px] bg-elevated text-tertiary text-sm font-bold cursor-not-allowed">
+                  PLAY
+                </span>
+                <p className="text-xs text-tertiary mt-2.5">
+                  <Link href="/login" className="text-accent">Sign in</Link> to play the daily challenge
+                </p>
+              </>
+            )}
+          </div>
+        ) : null}
+        <p className="text-[11px] text-ghost mt-4">
+          {today} - resets in {resetIn}
+        </p>
+      </div>
 
-      {!challenge ? (
-        <div className="py-12 text-center">
-          <p className="text-sm text-text-tertiary">Daily challenge not available yet</p>
-        </div>
-      ) : !playerResult ? (
-        <div className="text-center mb-6">
-          <p className="text-sm text-text-secondary mb-4">
-            10 songs. One shot. Same songs for everyone.
-          </p>
-          {player ? (
-            <Link
-              href="/play/daily"
-              className="inline-block px-8 py-3.5 rounded-[14px] bg-pink-400 text-bg-primary text-sm font-semibold"
-            >
-              Play today&apos;s challenge
-            </Link>
-          ) : (
-            <>
-              <div className="inline-block px-8 py-3.5 rounded-[14px] bg-bg-tertiary text-text-tertiary text-sm font-semibold cursor-not-allowed">
-                Play today&apos;s challenge
-              </div>
-              <p className="text-xs text-text-tertiary mt-3">
-                <Link href="/login" className="text-pink-400">Sign in</Link> to play the daily challenge
-              </p>
-            </>
-          )}
-        </div>
-      ) : (
-        <div className="mb-6 p-4 rounded-2xl bg-bg-secondary border border-border-default shadow-card text-center">
-          <p className="text-3xl font-semibold">{playerResult.correct}/10</p>
-          <p className="text-sm text-text-secondary mt-1">
-            {playerResult.score} pts - Rank #{playerResult.rank} of {playerResult.total_players}
-          </p>
-          {stats.avg_score > 0 && (
-            <p className="text-xs text-text-tertiary mt-1">Average: {stats.avg_score} pts</p>
-          )}
-        </div>
-      )}
+      {/* Stats row */}
+      <div className="grid grid-cols-3 gap-px bg-default rounded-[12px] overflow-hidden mb-5">
+        <StatCell value={stats.play_count.toLocaleString()} label="players today" />
+        <StatCell value={stats.avg_score > 0 ? stats.avg_score.toLocaleString() : '-'} label="average score" />
+        <StatCell
+          value={playerResult ? `#${playerResult.rank}` : '-'}
+          label="your rank"
+        />
+      </div>
 
       {/* Today's leaderboard */}
-      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-text-tertiary mb-2.5">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-ghost mb-2.5">
         Today&apos;s ranking
       </p>
-      <div className="rounded-[14px] bg-bg-secondary border border-border-default shadow-card overflow-hidden">
-        {leaderboard.length > 0 ? (
-          leaderboard.map((entry, i) => {
+      {leaderboard.length > 0 ? (
+        <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
+          {leaderboard.map((entry, i) => {
             const isMe = entry.player_id === player?.id;
+            const rankColor =
+              i === 0 ? 'text-combo'
+              : i === 1 ? 'text-secondary'
+              : i === 2 ? 'text-streak'
+              : 'text-tertiary';
             return (
               <div
                 key={entry.player_id}
-                className={`flex items-center gap-2.5 px-3.5 py-2.5 border-b border-border-default last:border-b-0 ${
-                  isMe ? 'bg-pink-50' : ''
+                className={`flex items-center gap-3 px-4 py-3 border-b border-subtle last:border-0 ${
+                  isMe ? 'bg-accent-bg' : ''
                 }`}
               >
-                <span className={`text-xs font-semibold w-5 text-center ${
-                  i === 0 ? 'text-streak' : i === 1 ? 'text-text-secondary' : i === 2 ? 'text-wrong' : 'text-text-tertiary'
-                }`}>
+                <span className={`text-sm font-bold w-6 text-center tabular-nums ${rankColor}`}>
                   {i + 1}
                 </span>
                 <div
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold flex-shrink-0"
                   style={{ backgroundColor: entry.avatar_bg, color: entry.avatar_text }}
                 >
                   {entry.username.charAt(0).toUpperCase()}
                 </div>
-                <span className="flex-1 text-xs font-medium">
-                  {entry.username}
-                  {isMe && <span className="text-text-tertiary font-normal"> (you)</span>}
+                <div className="flex-1 min-w-0">
+                  <span className={`text-[13px] font-medium block truncate ${isMe ? 'text-accent' : 'text-primary'}`}>
+                    {entry.username}
+                    {isMe && <span className="font-normal text-tertiary"> (you)</span>}
+                  </span>
+                  <span className="text-[11px] text-ghost tabular-nums">
+                    {entry.correct}/10 - {entry.total_time.toFixed(1)}s
+                  </span>
+                </div>
+                <span className="text-sm font-semibold text-primary tabular-nums">
+                  {entry.score.toLocaleString()}
                 </span>
-                <span className="text-xs font-medium text-pink-400">{entry.score.toLocaleString()}</span>
               </div>
             );
-          })
-        ) : (
-          <div className="py-6 text-center">
-            <p className="text-xs text-text-tertiary">No plays yet today</p>
-            <p className="text-[10px] text-text-ghost mt-0.5">Be the first to set a score</p>
-          </div>
-        )}
-      </div>
+          })}
+        </div>
+      ) : (
+        <div className="rounded-[14px] bg-surface border border-default shadow-card py-8 text-center">
+          <p className="text-xs text-tertiary">No plays yet today</p>
+          <p className="text-[10px] text-ghost mt-0.5">Be the first to set a score</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StatCell({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="bg-surface px-3 py-3 text-center">
+      <p className="text-lg font-bold text-primary tabular-nums">{value}</p>
+      <p className="text-[9px] text-ghost mt-0.5 uppercase tracking-wide">{label}</p>
     </div>
   );
 }

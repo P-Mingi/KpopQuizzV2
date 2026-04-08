@@ -84,17 +84,19 @@ export function ChallengeInput({
     const isCorrect = revealState.correct;
     return (
       <div>
-        <div className={`w-full py-3.5 px-5 rounded-xl border-[1.5px] text-[15px] font-medium ${
-          isCorrect
-            ? 'bg-[var(--correct-bg)] border-[var(--correct)] text-[var(--correct)]'
-            : 'bg-[var(--wrong-bg)] border-[var(--wrong)] text-[var(--wrong)]'
-        }`}>
+        <div
+          className={`w-full py-3.5 px-5 rounded-xl border-[1.5px] text-[15px] font-medium text-center ${
+            isCorrect
+              ? 'bg-correct-bg border-correct text-correct-text'
+              : 'bg-wrong-bg border-wrong text-wrong-text'
+          }`}
+        >
           {isCorrect ? '\u2713 ' : '\u2717 '}
           {revealState.userAnswer || '(no answer)'}
         </div>
         {!isCorrect && (
-          <p className="text-center text-sm text-text-secondary mt-2">
-            Correct: <span className="font-semibold text-correct">{correctAnswer}</span>
+          <p className="text-center text-xs text-ghost mt-2">
+            Correct: <span className="font-semibold text-correct-text">{correctAnswer}</span>
           </p>
         )}
       </div>
@@ -119,9 +121,10 @@ export function ChallengeInput({
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck={false}
-          className="w-full py-3.5 px-5 pr-14 rounded-xl border-[1.5px] border-border-default bg-bg-secondary text-[15px] text-text-primary placeholder:text-text-ghost outline-none focus:border-pink-400 transition-colors"
+          className="w-full py-3.5 pl-5 pr-14 rounded-xl border-[1.5px] border-default bg-surface text-[15px] text-primary placeholder:text-ghost outline-none focus:border-accent transition-colors"
         />
         <button
+          type="button"
           onClick={() => {
             if (suggestions.length > 0 && input.length >= 2) {
               handleSubmit(suggestions[0]!);
@@ -130,7 +133,8 @@ export function ChallengeInput({
             }
           }}
           disabled={disabled || !input.trim()}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-pink-600 text-white flex items-center justify-center text-sm font-bold disabled:opacity-30 transition-opacity"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-accent text-primary flex items-center justify-center text-sm font-bold disabled:opacity-30 transition-opacity"
+          aria-label="Submit answer"
         >
           &#9166;
         </button>
@@ -141,13 +145,14 @@ export function ChallengeInput({
           {suggestions.map((s, i) => (
             <button
               key={`${s}-${i}`}
+              type="button"
               onClick={() => handleSuggestionTap(s)}
               disabled={disabled}
               className={`px-3 py-1.5 rounded-lg text-[13px] border transition-colors active:scale-[0.97] ${
                 i === 0
-                  ? 'bg-bg-tertiary text-pink-400 border-pink-400'
-                  : 'bg-bg-secondary text-text-secondary border-border-default'
-              } hover:border-pink-400`}
+                  ? 'bg-accent-bg text-accent border-accent'
+                  : 'bg-surface text-tertiary border-default hover:border-accent'
+              }`}
             >
               {s}
             </button>

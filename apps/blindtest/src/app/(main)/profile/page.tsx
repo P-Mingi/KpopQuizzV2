@@ -26,7 +26,14 @@ async function fetchPlayerData(userId: string) {
 
   return {
     player,
-    masteries: (masteries ?? []) as unknown as { group_id: number; mastery_level: number; mastery_xp: number; groups: { name: string; slug: string } | null }[],
+    masteries: (masteries ?? []) as unknown as {
+      group_id: number;
+      mastery_level: number;
+      mastery_xp: number;
+      songs_played?: number;
+      songs_correct?: number;
+      groups: { name: string; slug: string } | null;
+    }[],
     achievements: (achievements ?? []) as { achievement_id: string }[],
     recentPlays: (recentPlays ?? []) as { mode_id: string; score: number; correct: number; total: number; created_at: string }[],
   };
@@ -43,8 +50,8 @@ export default async function ProfilePage() {
   if (!data.player) {
     return (
       <div className="pt-7 pb-8 text-center">
-        <p className="text-sm text-text-secondary">Player profile not found</p>
-        <Link href="/" className="text-sm text-pink-400 mt-2 inline-block">Back to home</Link>
+        <p className="text-sm text-secondary">Player profile not found</p>
+        <Link href="/" className="text-sm text-accent mt-2 inline-block">Back to home</Link>
       </div>
     );
   }

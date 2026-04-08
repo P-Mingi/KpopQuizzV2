@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`bg-bg-tertiary rounded-lg animate-pulse ${className ?? ''}`} />;
+  return <div className={`bg-elevated rounded-lg animate-pulse ${className ?? ''}`} />;
 }
 
 export default function MainLoading() {
