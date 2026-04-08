@@ -320,7 +320,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
       </div>
 
       {/* Immersive body */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-5 px-5 pb-6">
+      <div className="flex flex-col items-center gap-4 px-5 pt-4 pb-2">
         {/* Album art */}
         <AlbumArt
           src={q.album_cover_big ?? q.album_cover_medium}

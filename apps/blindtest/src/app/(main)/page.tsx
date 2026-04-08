@@ -26,12 +26,26 @@ async function fetchPlayer(): Promise<Player | null> {
 async function fetchPlaylistStats() {
   try {
     const supabase = createServiceRoleClient();
-    const { data: songs } = await supabase
-      .from('songs')
-      .select('artist_name, gender, generation, difficulty')
-      .eq('status', 'active');
+    // Supabase has a server-side max-rows cap (1000 by default) that .limit() can't
+    // override. Paginate via .range() to pull the full ~22K active song catalog so
+    // per-artist and per-category counts are accurate.
+    const PAGE_SIZE = 1000;
+    const songs: { artist_name: string; gender: string | null; generation: string | null; difficulty: string | null }[] = [];
+    let from = 0;
+    while (true) {
+      const { data, error } = await supabase
+        .from('songs')
+        .select('artist_name, gender, generation, difficulty')
+        .eq('status', 'active')
+        .range(from, from + PAGE_SIZE - 1);
+      if (error || !data || data.length === 0) break;
+      songs.push(...data);
+      if (data.length < PAGE_SIZE) break;
+      from += PAGE_SIZE;
+      if (from > 100000) break; // safety stop
+    }
 
-    if (!songs) return { categories: [], groups: [], total: 0, difficultyStats: { easy: 0, medium: 0, hard: 0 } };
+    if (songs.length === 0) return { categories: [], groups: [], total: 0, difficultyStats: { easy: 0, medium: 0, hard: 0 } };
 
     const total = songs.length;
 

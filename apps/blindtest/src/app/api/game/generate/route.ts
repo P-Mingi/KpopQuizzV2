@@ -91,23 +91,39 @@ export async function POST(req: Request): Promise<NextResponse> {
     .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, difficulty, wrong_answers_artist, wrong_answers_title')
     .eq('status', 'active');
 
-  // Curation: general playlists pull from is_curated subset, group playlists exclude remixes only.
-  // Gated by SONGS_IS_CURATED env var so the code can ship before the migration is run.
+  // Curation acts as the popularity proxy.
+  // The current dataset has deezer_rank=0 and difficulty='medium' for every row,
+  // so we use is_curated as the only signal for "mainstream vs deep cut".
+  // Gated by SONGS_IS_CURATED env var so the code can ship before the migration runs.
+  //   - General playlist + 'all' (Smart mix) -> curated subset (friendly default)
+  //   - Any playlist + 'hits'                -> curated subset
+  //   - Any playlist + 'deep'                -> uncurated long tail
+  //   - Group playlist + 'all'               -> full group catalog (no curation filter)
   const curationEnabled = process.env.SONGS_IS_CURATED === 'true';
-  if (!isGroupPlaylist && curationEnabled) {
-    query = query.eq('is_curated', true);
-  } else if (isGroupPlaylist) {
-    query = query
-      .not('title', 'ilike', '%remix%')
-      .not('title', 'ilike', '%instrumental%')
-      .not('title', 'ilike', '%inst.%')
-      .not('title', 'ilike', '%karaoke%')
-      .not('title', 'ilike', '%MR removed%')
-      .not('title', 'ilike', '%sped up%')
-      .not('title', 'ilike', '%speed up%')
-      .not('title', 'ilike', '%slowed%')
-      .not('title', 'ilike', '%reverb%');
+  if (curationEnabled) {
+    if (difficulty === 'hits') {
+      query = query.eq('is_curated', true);
+    } else if (difficulty === 'deep') {
+      query = query.eq('is_curated', false);
+    } else if (!isGroupPlaylist) {
+      query = query.eq('is_curated', true);
+    }
   }
+
+  // Always exclude remixes / instrumentals / special versions, regardless of playlist
+  // scope or curation. The curated subset is already filtered by the migration, but
+  // Deep cuts (is_curated=false) and group playlists need this at query time too.
+  query = query
+    .not('title', 'ilike', '%remix%')
+    .not('title', 'ilike', '%instrumental%')
+    .not('title', 'ilike', '%inst.%')
+    .not('title', 'ilike', '%(inst)%')
+    .not('title', 'ilike', '%karaoke%')
+    .not('title', 'ilike', '%MR removed%')
+    .not('title', 'ilike', '%sped up%')
+    .not('title', 'ilike', '%speed up%')
+    .not('title', 'ilike', '%slowed%')
+    .not('title', 'ilike', '%reverb%');
 
   if (isGroupPlaylist) {
     // First try exact artist name match (from home page group pills)
@@ -141,14 +157,12 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
   }
 
-  // Difficulty filter
-  if (difficulty === 'hits') {
-    query = query.eq('difficulty', 'easy');
-  } else if (difficulty === 'deep') {
-    query = query.in('difficulty', ['medium', 'hard']);
-  }
+  // Difficulty bucketing via the songs.difficulty column is currently a no-op
+  // (the column is unpopulated -- every active row is 'medium'). Hits/Deep are
+  // expressed via is_curated above. If/when deezer_rank gets backfilled, this is
+  // where a rank-based filter would slot in.
 
-  const { data: allSongs } = await query;
+  const { data: allSongs } = await query.limit(50000);
 
   if (!allSongs || allSongs.length < songsCount) {
     return NextResponse.json({

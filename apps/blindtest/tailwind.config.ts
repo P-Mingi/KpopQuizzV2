@@ -32,6 +32,10 @@ export default {
         secondary: 'var(--text-secondary)',
         tertiary: 'var(--text-tertiary)',
         ghost: 'var(--text-ghost)',
+        // Override accent for text use: in light mode this resolves to a darker shade
+        // (--accent-text) so it stays legible on the cream bg, while bg-accent and
+        // border-accent keep using the lighter --accent. Dark mode aliases both vars.
+        accent: 'var(--accent-text)',
         correct: 'var(--correct)',
         'correct-text': 'var(--correct-text)',
         wrong: 'var(--wrong)',
