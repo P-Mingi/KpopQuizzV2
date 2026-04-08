@@ -12,9 +12,21 @@ import {
   PointsFloat,
   AnswerButton,
   AlbumArt,
+  SongInfoReveal,
   ComboBadge,
   ResultsScreen,
 } from './game-ui';
+import { ComboParticles } from './combo-particles';
+import {
+  playTap,
+  playCorrect,
+  playWrong,
+  playCombo,
+  playReveal,
+  toggleSound,
+  getSoundEnabled,
+} from '@/lib/sounds';
+import { hapticMedium, hapticSuccess, hapticError } from '@/lib/haptics';
 
 import type { Question } from './use-game-state';
 
@@ -54,6 +66,13 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     difficulty: string;
   } | null>(null);
   const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [comboParticleTrigger, setComboParticleTrigger] = useState(0);
+  const [urgentFlash, setUrgentFlash] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+
+  useEffect(() => {
+    setSoundEnabled(getSoundEnabled());
+  }, []);
 
   const isChallenge = mode === 'challenge';
 
@@ -114,10 +133,11 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.state.phase, game.state.currentIndex]);
 
-  // Auto-advance after reveal
+  // Auto-advance after reveal + play reveal whoosh
   useEffect(() => {
     if (game.state.phase === 'reveal') {
       audio.fadeOut(400);
+      playReveal();
       revealTimeoutRef.current = setTimeout(() => {
         game.nextSong();
       }, 1500);
@@ -179,25 +199,62 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Audio/haptic feedback for a submitted answer.
+  const feedbackFor = useCallback((answer: string | null) => {
+    if (!game.currentQuestion) return;
+    const correct = answer !== null && answer === game.currentQuestion.correct_answer;
+    if (correct) {
+      playCorrect();
+      hapticSuccess();
+      // Combo is about to increment; use the CURRENT value + 1 for pitch
+      const nextCombo = game.state.currentCombo + 1;
+      if (nextCombo >= 3) {
+        playCombo(nextCombo);
+        if (nextCombo >= 5) {
+          hapticMedium();
+          setComboParticleTrigger((t) => t + 1);
+        }
+      }
+    } else {
+      playWrong();
+      hapticError();
+    }
+  }, [game.currentQuestion, game.state.currentCombo]);
+
   // Quick Play: button answer
   const handleAnswer = useCallback((choice: string) => {
     if (game.state.phase !== 'playing') return;
     setSelectedChoice(choice);
+    feedbackFor(choice);
     game.submitAnswer(choice);
-  }, [game]);
+  }, [game, feedbackFor]);
 
   // Challenge: typed answer
   const handleChallengeSubmit = useCallback((answer: string | null) => {
     if (game.state.phase !== 'playing') return;
     setSelectedChoice(answer);
+    feedbackFor(answer);
     game.submitAnswer(answer);
-  }, [game]);
+  }, [game, feedbackFor]);
 
   const handleTimeout = useCallback(() => {
     if (game.state.phase !== 'playing') return;
     setSelectedChoice(null);
+    playWrong();
+    hapticError();
     game.submitAnswer(null);
   }, [game]);
+
+  const handleUrgentTick = useCallback(() => {
+    setUrgentFlash(true);
+    setTimeout(() => setUrgentFlash(false), 150);
+  }, []);
+
+  const handleToggleSound = useCallback(() => {
+    const enabled = toggleSound();
+    setSoundEnabled(enabled);
+    if (enabled) playTap();
+  }, []);
 
   const handleQuit = useCallback(() => {
     audio.cleanup();
@@ -268,6 +325,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         results={game.state.results}
         progression={progressionData}
         playlist={game.state.playlist}
+        mode={game.state.mode}
         onPlayAgain={handlePlayAgain}
         onHome={handleQuit}
       />
@@ -286,8 +344,13 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   }
 
   return (
-    <div className="flex-1 flex flex-col">
-      {/* Top bar: quit | counter | score */}
+    <div className="flex-1 flex flex-col relative">
+      {/* Red flash overlay on urgent timer ticks */}
+      {urgentFlash && (
+        <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />
+      )}
+
+      {/* Top bar: quit | counter | sound toggle + score */}
       <div className="flex items-center justify-between px-4 py-3">
         <button
           type="button"
@@ -299,14 +362,34 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         <span className="text-xs text-ghost tabular-nums">
           {game.state.currentIndex + 1} / {game.state.questions.length}
         </span>
-        <div className="relative">
-          <span className="text-lg font-bold text-primary tabular-nums">
-            {game.state.totalScore.toLocaleString()}
-          </span>
-          <PointsFloat
-            points={game.lastPoints}
-            show={isRevealing && lastResult?.correct === true}
-          />
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleToggleSound}
+            className="text-ghost hover:text-tertiary transition-colors"
+            aria-label={soundEnabled ? 'Mute sounds' : 'Unmute sounds'}
+          >
+            {soundEnabled ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M7 3L3.5 6H1v4h2.5L7 13V3z" fill="currentColor" />
+                <path d="M10 5.5a3 3 0 010 5M12 3.5a6 6 0 010 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M7 3L3.5 6H1v4h2.5L7 13V3z" fill="currentColor" />
+                <path d="M10 6l4 4M14 6l-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+          <div className="relative">
+            <span className="text-lg font-bold text-primary tabular-nums">
+              {game.state.totalScore.toLocaleString()}
+            </span>
+            <PointsFloat
+              points={game.lastPoints}
+              show={isRevealing && lastResult?.correct === true}
+            />
+          </div>
         </div>
       </div>
 
@@ -329,13 +412,12 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
 
         {/* Reveal: song info; Playing: waves + timer */}
         {isRevealing ? (
-          <div className="text-center">
-            <p className="text-[15px] font-semibold text-primary">{q.reveal.title}</p>
-            <p className="text-[11px] text-ghost mt-0.5">
-              {q.reveal.artist}
-              {q.reveal.album ? ` - ${q.reveal.album}` : ''}
-            </p>
-          </div>
+          <SongInfoReveal
+            title={q.reveal.title}
+            artist={q.reveal.artist}
+            album={q.reveal.album}
+            revealed
+          />
         ) : (
           <>
             <WaveBars active={phase === 'playing'} />
@@ -344,13 +426,17 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
               running={phase === 'playing'}
               onExpired={handleTimeout}
               timerKey={timerKey}
+              onUrgentTick={handleUrgentTick}
             />
           </>
         )}
 
-        {/* Combo (>= 3) */}
+        {/* Combo (>= 3) with particle burst on 5+ */}
         {!isRevealing && game.state.currentCombo >= 3 && (
-          <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
+          <div className="relative">
+            <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
+            <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
+          </div>
         )}
 
         {/* Question text (challenge only) */}

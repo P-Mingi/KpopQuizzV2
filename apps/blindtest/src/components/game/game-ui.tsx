@@ -1,7 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { xpForLevel } from '@/lib/progression';
+import { playTick, playReveal, playPerfect, playStreak } from '@/lib/sounds';
+import { hapticLight } from '@/lib/haptics';
+import { RollingNumber } from './rolling-number';
+import { LevelUpOverlay } from './level-up-overlay';
+import { MasteryProgress, getNextStarThreshold } from './mastery-progress';
 
 // ---- CircularTimer ----
 
@@ -10,16 +15,19 @@ interface TimerProps {
   running: boolean;
   onExpired: () => void;
   timerKey: number;
+  onUrgentTick?: () => void;
 }
 
-export function CircularTimer({ duration, running, onExpired, timerKey }: TimerProps) {
+export function CircularTimer({ duration, running, onExpired, timerKey, onUrgentTick }: TimerProps) {
   const [remaining, setRemaining] = useState(duration);
   const startRef = useRef(0);
   const expiredRef = useRef(false);
+  const lastTickSecondRef = useRef<number>(-1);
 
   useEffect(() => {
     setRemaining(duration);
     expiredRef.current = false;
+    lastTickSecondRef.current = -1;
     if (!running) return;
 
     startRef.current = Date.now();
@@ -27,6 +35,18 @@ export function CircularTimer({ duration, running, onExpired, timerKey }: TimerP
       const elapsed = (Date.now() - startRef.current) / 1000;
       const left = Math.max(0, duration - elapsed);
       setRemaining(left);
+
+      // Fire an urgent tick on each whole second in the last 3.
+      if (left > 0 && left <= 3) {
+        const sec = Math.ceil(left);
+        if (sec !== lastTickSecondRef.current) {
+          lastTickSecondRef.current = sec;
+          playTick();
+          hapticLight();
+          onUrgentTick?.();
+        }
+      }
+
       if (left <= 0 && !expiredRef.current) {
         expiredRef.current = true;
         clearInterval(interval);
@@ -42,7 +62,7 @@ export function CircularTimer({ duration, running, onExpired, timerKey }: TimerP
   const circumference = 2 * Math.PI * radius;
   const progress = remaining / duration;
   const dashOffset = circumference * (1 - progress);
-  const isLow = remaining <= 5;
+  const isUrgent = remaining <= 3;
   const seconds = Math.ceil(remaining);
 
   return (
@@ -51,14 +71,18 @@ export function CircularTimer({ duration, running, onExpired, timerKey }: TimerP
         <circle cx="30" cy="30" r={radius} fill="none" stroke="var(--bg-elevated)" strokeWidth="3" />
         <circle
           cx="30" cy="30" r={radius} fill="none"
-          stroke={isLow ? 'var(--wrong)' : 'var(--accent)'}
+          stroke={isUrgent ? 'var(--wrong)' : 'var(--accent)'}
           strokeWidth="3" strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
           className="transition-[stroke] duration-300"
         />
       </svg>
-      <span className={`absolute text-sm font-semibold tabular-nums ${isLow ? 'text-wrong' : 'text-primary'}`}>
+      <span
+        className={`absolute text-sm font-semibold tabular-nums ${
+          isUrgent ? 'text-wrong animate-pulse-urgent' : 'text-primary'
+        }`}
+      >
         {seconds}
       </span>
     </div>
@@ -139,23 +163,26 @@ interface AnswerButtonProps {
 }
 
 export function AnswerButton({ text, state, onClick, disabled }: AnswerButtonProps) {
-  let className = 'w-full py-3.5 px-4 rounded-xl border-[1.5px] text-[15px] font-medium text-center transition-colors duration-200 active:scale-[0.98] ';
+  let className = 'w-full py-3.5 px-4 rounded-xl border-[1.5px] text-[15px] font-medium text-center transition-all duration-300 ';
   let prefix: string | null = null;
 
   switch (state) {
     case 'correct':
-      className += 'bg-correct-bg border-correct text-correct-text';
+      // Scale up 1.02, green styling.
+      className += 'bg-correct-bg border-correct text-correct-text scale-[1.02]';
       prefix = '\u2713';
       break;
     case 'wrong':
+      // Horizontal shake, red styling.
       className += 'bg-wrong-bg border-wrong text-wrong-text animate-shake';
       prefix = '\u2717';
       break;
     case 'dimmed':
-      className += 'bg-surface border-default text-primary opacity-30';
+      // Fade to 20%, shrink to 97%.
+      className += 'bg-surface border-default text-primary opacity-20 scale-[0.97]';
       break;
     default:
-      className += 'bg-surface border-default text-primary hover:border-accent';
+      className += 'bg-surface border-default text-primary hover:border-accent active:scale-[0.96]';
   }
 
   return (
@@ -178,8 +205,8 @@ export function AlbumArt({ src, revealed }: { src: string | null; revealed: bool
           alt=""
           className="w-full h-full object-cover"
           style={{
-            filter: revealed ? 'blur(0px)' : 'blur(20px)',
-            transition: 'filter 500ms cubic-bezier(0.4, 0, 0.2, 1)',
+            filter: revealed ? 'blur(0px) brightness(1)' : 'blur(20px) brightness(0.7)',
+            transition: 'filter 800ms cubic-bezier(0.22, 1, 0.36, 1)',
           }}
         />
       ) : (
@@ -199,18 +226,80 @@ export function AlbumArt({ src, revealed }: { src: string | null; revealed: bool
   );
 }
 
+// ---- SongInfoReveal (staggered title + artist on reveal) ----
+
+export function SongInfoReveal({
+  title,
+  artist,
+  album,
+  revealed,
+}: {
+  title: string;
+  artist: string;
+  album: string | null;
+  revealed: boolean;
+}) {
+  return (
+    <div className="text-center h-[44px]">
+      <p
+        className="text-[15px] font-semibold text-primary transition-all duration-500"
+        style={{
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? 'translateY(0)' : 'translateY(8px)',
+          transitionDelay: revealed ? '300ms' : '0ms',
+        }}
+      >
+        {title}
+      </p>
+      <p
+        className="text-[11px] text-ghost transition-all duration-500 mt-0.5"
+        style={{
+          opacity: revealed ? 1 : 0,
+          transitionDelay: revealed ? '500ms' : '0ms',
+        }}
+      >
+        {artist}{album ? ` - ${album}` : ''}
+      </p>
+    </div>
+  );
+}
+
 // ---- ComboBadge ----
 
 export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: number }) {
+  const [bumping, setBumping] = useState(false);
+  const prevCombo = useRef(combo);
+
+  useEffect(() => {
+    if (combo > prevCombo.current && combo > 0) {
+      setBumping(true);
+      const t = setTimeout(() => setBumping(false), 150);
+      prevCombo.current = combo;
+      return () => clearTimeout(t);
+    }
+    prevCombo.current = combo;
+  }, [combo]);
+
   if (combo < 3) return null;
   const fire = combo >= 5;
+  const warm = combo >= 5;
 
   return (
-    <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-combo">
+    <div
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg transition-colors duration-300 ${
+        warm ? 'bg-accent-bg' : 'bg-elevated'
+      }`}
+    >
       {fire && <span>{'\uD83D\uDD25'}</span>}
-      <span>{combo}x combo</span>
+      <span
+        className={`text-[11px] font-bold text-combo tabular-nums transition-transform duration-150 inline-block ${
+          bumping ? 'scale-[1.4]' : 'scale-100'
+        }`}
+      >
+        {combo}x
+      </span>
       {multiplier > 1 && (
-        <span className="text-ghost ml-0.5">({multiplier}x)</span>
+        <span className="text-[10px] text-ghost">({multiplier}x)</span>
       )}
     </div>
   );
@@ -237,28 +326,82 @@ interface ResultsScreenProps {
   total: number;
   bestCombo: number;
   avgSpeed: number;
-  results: Array<{ question: { reveal: { title: string; artist: string; cover?: string | null } }; correct: boolean }>;
+  results: Array<{
+    question: { reveal: { title: string; artist: string; cover?: string | null } };
+    correct: boolean;
+  }>;
   progression: ProgressionData | null;
   playlist: string;
+  mode: string;
   onPlayAgain: () => void;
   onHome: () => void;
 }
 
-function getScoreLabel(correct: number, total: number): { label: string; stars: number } {
-  if (correct === total) return { label: 'PERFECT!', stars: 5 };
-  if (correct >= 9) return { label: 'Amazing!', stars: 4 };
-  if (correct >= 7) return { label: 'Great round!', stars: 3 };
-  if (correct >= 5) return { label: 'Not bad!', stars: 2 };
-  return { label: 'Keep trying!', stars: 1 };
+interface ResultMessage {
+  message: string;
+  subMessage: string | null;
+  colorVar: string;
 }
 
-function computeXpBarPercent(p: ProgressionData): number {
-  if (p.level >= 50) return 100;
-  const currentLevelXP = xpForLevel(p.level);
-  const nextLevelXP = xpForLevel(p.level + 1);
+function getResultMessage(correct: number, total: number): ResultMessage {
+  if (correct === total) {
+    return { message: 'PERFECT!', subMessage: null, colorVar: 'var(--combo)' };
+  }
+  if (correct === total - 1) {
+    return {
+      message: 'SO CLOSE!',
+      subMessage: '1 more for perfect, try again?',
+      colorVar: 'var(--combo)',
+    };
+  }
+  if (correct === total - 2) {
+    return {
+      message: 'Almost there!',
+      subMessage: '2 away from perfect',
+      colorVar: 'var(--accent)',
+    };
+  }
+  if (correct >= total * 0.7) {
+    return { message: 'Great round!', subMessage: null, colorVar: 'var(--accent)' };
+  }
+  if (correct >= total * 0.5) {
+    return {
+      message: 'Not bad!',
+      subMessage: `${total - correct} songs to learn, you got this`,
+      colorVar: 'var(--text-secondary)',
+    };
+  }
+  return {
+    message: 'Keep trying!',
+    subMessage: 'Every round makes you better',
+    colorVar: 'var(--text-secondary)',
+  };
+}
+
+function getStarsEarned(correct: number, total: number): number {
+  if (correct === total) return 5;
+  if (correct >= 9) return 4;
+  if (correct >= 7) return 3;
+  if (correct >= 5) return 2;
+  return 1;
+}
+
+function computeXpBarPercent(totalXp: number, level: number): number {
+  if (level >= 50) return 100;
+  const currentLevelXP = xpForLevel(level);
+  const nextLevelXP = xpForLevel(level + 1);
   const range = Math.max(1, nextLevelXP - currentLevelXP);
-  const within = Math.max(0, p.totalXP - currentLevelXP);
+  const within = Math.max(0, totalXp - currentLevelXP);
   return Math.min(100, Math.round((within / range) * 100));
+}
+
+function formatPlaylistName(p: string): string {
+  if (p === 'all') return 'All K-pop';
+  if (p === 'gg') return 'Girl groups';
+  if (p === 'bg') return 'Boy groups';
+  if (p === 'solo') return 'Solo';
+  if (p.endsWith('-gen')) return p.replace('-gen', ' gen');
+  return p;
 }
 
 export function ResultsScreen({
@@ -270,116 +413,209 @@ export function ResultsScreen({
   results,
   progression,
   playlist,
+  mode,
   onPlayAgain,
   onHome,
 }: ResultsScreenProps) {
-  const { label, stars } = getScoreLabel(correctCount, total);
+  const { message, subMessage, colorVar } = getResultMessage(correctCount, total);
+  const starsEarned = getStarsEarned(correctCount, total);
+  const isPerfect = correctCount === total;
   const missed = results.filter((r) => !r.correct);
 
-  // Animate XP bar from 0 to target percent on mount.
-  const [xpBarWidth, setXpBarWidth] = useState(0);
+  // Stars stagger in.
+  const [showStars, setShowStars] = useState(false);
+  // Show the missed songs list after the XP animation.
+  const [showMissed, setShowMissed] = useState(false);
+  // XP bar animation: starts at the OLD percentage, transitions to the NEW one.
+  const oldXp = progression ? progression.totalXP - progression.xpEarned : 0;
+  const oldPct = progression
+    ? computeXpBarPercent(oldXp, progression.leveledUp ? progression.oldLevel : progression.level)
+    : 0;
+  const newPct = progression ? computeXpBarPercent(progression.totalXP, progression.level) : 0;
+  const [barWidth, setBarWidth] = useState(oldPct);
+  // Show the XP card breakdown.
+  const [showXp, setShowXp] = useState(false);
+  // Level up overlay
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  // Score scale pulse for perfect rounds
+  const [scorePulse, setScorePulse] = useState(false);
+
   useEffect(() => {
-    if (!progression) return;
-    const target = computeXpBarPercent(progression);
-    // Two-frame delay so the CSS transition runs.
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setXpBarWidth(target));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [progression]);
+    // Timeline of the reveal.
+    const ts: Array<ReturnType<typeof setTimeout>> = [];
+    ts.push(setTimeout(() => setShowStars(true), 100));
+    ts.push(setTimeout(() => setShowXp(true), 400));
+    ts.push(setTimeout(() => setBarWidth(newPct), 500));
+    ts.push(setTimeout(() => setShowMissed(true), 1500));
+
+    // Perfect celebration.
+    if (isPerfect) {
+      ts.push(setTimeout(() => playPerfect(), 400));
+      ts.push(setTimeout(() => setScorePulse(true), 300));
+      ts.push(setTimeout(() => setScorePulse(false), 700));
+    }
+
+    // Streak fanfare.
+    if (progression && progression.streak >= 3 && progression.isFirstGameToday) {
+      ts.push(setTimeout(() => playStreak(), 900));
+    }
+
+    // Level up overlay fires AFTER the XP bar fills (~2s in).
+    if (progression?.leveledUp) {
+      ts.push(setTimeout(() => setShowLevelUp(true), 2000));
+    }
+
+    return () => ts.forEach(clearTimeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const masteryCard = progression?.mastery ? (
+    <MasteryProgress
+      playlistName={formatPlaylistName(playlist)}
+      currentStars={progression.mastery.mastery_stars}
+      playCount={progression.mastery.play_count}
+      nextStarAt={getNextStarThreshold(progression.mastery.mastery_stars)}
+    />
+  ) : null;
+
+  // Staggered XP breakdown rows.
+  const xpBreakdown = useMemo(() => {
+    if (!progression) return [];
+    const items: Array<{ label: string; value: number; delay: number }> = [];
+    const base = Math.round(score / 10);
+    items.push({ label: 'Base XP', value: base, delay: 500 });
+    if (mode === 'challenge') {
+      const challengeBonus = Math.round(base * 0.5);
+      if (challengeBonus > 0) items.push({ label: 'Challenge bonus', value: challengeBonus, delay: 700 });
+    }
+    if (mode === 'daily') {
+      items.push({ label: 'Daily bonus', value: 200, delay: 700 });
+    }
+    if (progression.isFirstGameToday) {
+      items.push({ label: 'First game today', value: 100, delay: 900 });
+    }
+    if (progression.streak >= 30) {
+      items.push({ label: 'Streak bonus', value: 200, delay: 1100 });
+    } else if (progression.streak >= 7) {
+      items.push({ label: 'Streak bonus', value: 100, delay: 1100 });
+    } else if (progression.streak >= 3) {
+      items.push({ label: 'Streak bonus', value: 50, delay: 1100 });
+    }
+    if (progression.isPerfectRound) {
+      items.push({ label: 'Perfect bonus', value: 500, delay: 1300 });
+    }
+    return items;
+  }, [progression, score, mode]);
 
   return (
     <div className="flex flex-col gap-4 max-w-[440px] mx-auto px-5 py-10 animate-fadeSlideUp">
-      {/* Stars */}
+      {/* Stars stagger in */}
       <div className="text-2xl text-combo text-center" style={{ letterSpacing: '4px' }}>
         {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} style={{ opacity: i < stars ? 1 : 0.2 }}>{'\u2605'}</span>
+          <span
+            key={i}
+            className="inline-block transition-all duration-300"
+            style={{
+              opacity: showStars ? 1 : 0,
+              transform: showStars ? 'scale(1) translateY(0)' : 'scale(0.5) translateY(10px)',
+              transitionDelay: `${i * 200}ms`,
+              color: i < starsEarned ? 'var(--combo)' : 'var(--text-ghost)',
+            }}
+          >
+            {i < starsEarned ? '\u2605' : '\u2606'}
+          </span>
         ))}
       </div>
 
-      {/* Score + label */}
+      {/* Score + message */}
       <div className="text-center">
-        <p className="text-5xl font-bold text-primary tabular-nums leading-none">
-          {correctCount} / {total}
+        <p
+          className="text-5xl font-bold text-primary tabular-nums leading-none transition-transform duration-300"
+          style={{ transform: scorePulse ? 'scale(1.1)' : 'scale(1)' }}
+        >
+          <RollingNumber value={correctCount} duration={800} /> / {total}
         </p>
-        <p className="text-sm font-semibold text-accent mt-2">{label}</p>
+        <p className="text-sm font-semibold mt-2" style={{ color: colorVar }}>{message}</p>
+        {subMessage && (
+          <p className="text-xs text-ghost mt-1">{subMessage}</p>
+        )}
       </div>
 
       {/* Stats row */}
       <div className="grid grid-cols-3 rounded-xl bg-surface border border-default overflow-hidden">
-        <StatCell value={score.toLocaleString()} label="points" />
+        <StatCell
+          value={<RollingNumber value={score} duration={1200} />}
+          label="points"
+        />
         <StatCell value={`${avgSpeed.toFixed(1)}s`} label="avg speed" border />
         <StatCell value={`${bestCombo}x`} label="best combo" />
       </div>
 
       {/* XP card */}
       {progression && (
-        <>
-          {progression.leveledUp && (
-            <div
-              className="p-4 rounded-2xl text-center"
-              style={{
-                background: 'linear-gradient(135deg, var(--daily-gradient-from), var(--daily-gradient-to))',
-                border: '1px solid var(--daily-border)',
-              }}
-            >
-              <p className="text-base font-bold text-accent">Level up!</p>
-              <p className="text-xs text-daily mt-0.5">
-                Level {progression.oldLevel} {'\u2192'} Level {progression.level} - {progression.title}
-              </p>
-            </div>
-          )}
-
-          <div className="p-4 rounded-2xl bg-surface border border-default">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[13px] font-semibold text-accent">
-                +{progression.xpEarned.toLocaleString()} XP
-                {progression.isFirstGameToday && <span className="ml-1 text-[10px] text-ghost font-normal">first game bonus</span>}
-              </p>
-              <p className="text-[10px] text-ghost">
-                Lv.{progression.level} - {progression.title}
-              </p>
-            </div>
-            <div className="h-1 rounded-full bg-elevated overflow-hidden">
-              <div
-                className="h-full bg-accent"
-                style={{ width: `${xpBarWidth}%`, transition: 'width 1.5s ease-out' }}
-              />
-            </div>
-          </div>
-
-          {/* Streak */}
-          <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
-            <div>
-              <p className="text-xs text-secondary">Daily streak</p>
-              <p className="text-[10px] text-ghost mt-0.5">
-                {progression.streak >= 7
-                  ? '+100 XP bonus active'
-                  : progression.streak >= 3
-                  ? '+50 XP bonus active'
-                  : 'Play 3 days in a row for bonus XP'}
-              </p>
-            </div>
-            <p className="text-lg font-bold text-combo tabular-nums">
-              {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
+        <div className="p-4 rounded-2xl bg-surface border border-default">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[13px] font-semibold text-accent">
+              <RollingNumber value={progression.xpEarned} prefix="+" suffix=" XP" duration={1000} />
+            </p>
+            <p className="text-[10px] text-ghost">
+              Lv.{progression.level} - {progression.title}
             </p>
           </div>
 
-          {/* Mastery */}
-          {progression.mastery && (
-            <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
-              <div>
-                <p className="text-xs text-secondary">{playlist} mastery</p>
-                <p className="text-[10px] text-ghost mt-0.5">{progression.mastery.play_count} plays</p>
-              </div>
-              <span className="text-sm text-combo">
-                {'\u2605'.repeat(progression.mastery.mastery_stars)}
-                {'\u2606'.repeat(5 - progression.mastery.mastery_stars)}
-              </span>
+          <div className="h-1 rounded-full bg-elevated overflow-hidden mb-3">
+            <div
+              className="h-full bg-accent"
+              style={{
+                width: `${barWidth}%`,
+                transition: 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
+              }}
+            />
+          </div>
+
+          {/* XP breakdown, staggered */}
+          {xpBreakdown.length > 0 && (
+            <div className="flex flex-col gap-1">
+              {xpBreakdown.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex justify-between text-[11px] transition-all duration-400"
+                  style={{
+                    opacity: showXp ? 1 : 0,
+                    transform: showXp ? 'translateY(0)' : 'translateY(6px)',
+                    transitionDelay: `${item.delay}ms`,
+                  }}
+                >
+                  <span className="text-ghost">{item.label}</span>
+                  <span className="text-accent font-semibold tabular-nums">+{item.value}</span>
+                </div>
+              ))}
             </div>
           )}
-        </>
+        </div>
       )}
+
+      {/* Streak card */}
+      {progression && (
+        <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
+          <div>
+            <p className="text-xs text-secondary">Daily streak</p>
+            <p className="text-[10px] text-ghost mt-0.5">
+              {progression.streak >= 7
+                ? '+100 XP bonus active'
+                : progression.streak >= 3
+                ? '+50 XP bonus active'
+                : 'Play 3 days in a row for bonus XP'}
+            </p>
+          </div>
+          <p className="text-lg font-bold text-combo tabular-nums">
+            {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
+          </p>
+        </div>
+      )}
+
+      {/* Mastery progress card */}
+      {masteryCard}
 
       {/* Sign in nudge */}
       {!progression && (
@@ -392,14 +628,38 @@ export function ResultsScreen({
         </div>
       )}
 
-      {/* Missed songs */}
+      {/* Missed songs with album thumbnails + staggered slide-in */}
       {missed.length > 0 && (
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">Songs you missed</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
+            Songs you missed
+          </p>
           <div>
             {missed.map((r, i) => (
-              <div key={i} className="flex items-center gap-3 py-2 border-b border-subtle last:border-0">
+              <div
+                key={i}
+                className="flex items-center gap-3 py-2.5 border-b border-subtle last:border-0 transition-all duration-400"
+                style={{
+                  opacity: showMissed ? 1 : 0,
+                  transform: showMissed ? 'translateX(0)' : 'translateX(-10px)',
+                  transitionDelay: `${i * 200}ms`,
+                }}
+              >
                 <span className="text-xs font-semibold text-wrong-text">{'\u2717'}</span>
+                <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 bg-elevated">
+                  {r.question.reveal.cover ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={r.question.reveal.cover}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-xs text-ghost">{'\u266A'}</span>
+                    </div>
+                  )}
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] text-primary truncate">{r.question.reveal.title}</p>
                   <p className="text-[10px] text-ghost truncate">{r.question.reveal.artist}</p>
@@ -427,11 +687,28 @@ export function ResultsScreen({
           Home
         </button>
       </div>
+
+      {/* Level up overlay (rendered last so it sits above everything) */}
+      {showLevelUp && progression?.leveledUp && (
+        <LevelUpOverlay
+          newLevel={progression.level}
+          title={progression.title}
+          onDismiss={() => setShowLevelUp(false)}
+        />
+      )}
     </div>
   );
 }
 
-function StatCell({ value, label, border }: { value: string; label: string; border?: boolean }) {
+function StatCell({
+  value,
+  label,
+  border,
+}: {
+  value: React.ReactNode;
+  label: string;
+  border?: boolean;
+}) {
   return (
     <div className={`text-center py-3 ${border ? 'border-x border-default' : ''}`}>
       <p className="text-lg font-semibold text-primary tabular-nums">{value}</p>
@@ -439,3 +716,6 @@ function StatCell({ value, label, border }: { value: string; label: string; bord
     </div>
   );
 }
+
+// Re-export playReveal so game-player.tsx can call it from a single module.
+export { playReveal };
