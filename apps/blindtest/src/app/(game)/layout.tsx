@@ -12,7 +12,10 @@ export default function GameLayout({ children }: { children: React.ReactNode }) 
         />
       </div>
 
-      <div className="max-w-[440px] mx-auto min-h-[100dvh] flex flex-col">
+      {/* Mobile: cap at 440px for immersive phone layout.
+          Desktop: remove the cap so ResultsScreen can use its own wider 900px layout.
+          The active gameplay (GamePlayer) sets its own 440px max-w internally. */}
+      <div className="max-w-[440px] md:max-w-none mx-auto min-h-[100dvh] flex flex-col">
         {children}
       </div>
     </div>

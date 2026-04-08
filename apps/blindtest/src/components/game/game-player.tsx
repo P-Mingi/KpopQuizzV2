@@ -279,7 +279,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   // ---- Loading / Ready ----
   if (phase === 'loading') {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5">
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5 max-w-[440px] mx-auto w-full">
         {error ? (
           <>
             <p className="text-wrong text-sm text-center">{error}</p>
@@ -344,7 +344,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   }
 
   return (
-    <div className="flex-1 flex flex-col relative">
+    <div className="flex-1 flex flex-col relative max-w-[440px] mx-auto w-full">
       {/* Red flash overlay on urgent timer ticks */}
       {urgentFlash && (
         <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />

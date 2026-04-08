@@ -507,185 +507,223 @@ export function ResultsScreen({
     return items;
   }, [progression, score, mode]);
 
-  return (
-    <div className="flex flex-col gap-4 max-w-[440px] mx-auto px-5 py-10 animate-fadeSlideUp">
-      {/* Stars stagger in */}
-      <div className="text-2xl text-combo text-center" style={{ letterSpacing: '4px' }}>
-        {Array.from({ length: 5 }, (_, i) => (
-          <span
+  // Stars block shared between mobile and desktop.
+  const starsBlock = (
+    <div
+      className="text-2xl md:text-4xl text-combo text-center"
+      style={{ letterSpacing: '4px' }}
+    >
+      {Array.from({ length: 5 }, (_, i) => (
+        <span
+          key={i}
+          className="inline-block transition-all duration-300"
+          style={{
+            opacity: showStars ? 1 : 0,
+            transform: showStars ? 'scale(1) translateY(0)' : 'scale(0.5) translateY(10px)',
+            transitionDelay: `${i * 200}ms`,
+            color: i < starsEarned ? 'var(--combo)' : 'var(--text-ghost)',
+          }}
+        >
+          {i < starsEarned ? '\u2605' : '\u2606'}
+        </span>
+      ))}
+    </div>
+  );
+
+  // Score + message hero.
+  const scoreBlock = (
+    <div className="text-center">
+      <p
+        className="text-5xl md:text-7xl font-bold text-primary tabular-nums leading-none transition-transform duration-300"
+        style={{ transform: scorePulse ? 'scale(1.1)' : 'scale(1)' }}
+      >
+        <RollingNumber value={correctCount} duration={800} /> / {total}
+      </p>
+      <p className="text-sm md:text-base font-semibold mt-3" style={{ color: colorVar }}>
+        {message}
+      </p>
+      {subMessage && (
+        <p className="text-xs md:text-sm text-ghost mt-1">{subMessage}</p>
+      )}
+    </div>
+  );
+
+  // Stats row.
+  const statsBlock = (
+    <div className="grid grid-cols-3 rounded-xl bg-surface border border-default overflow-hidden">
+      <StatCell
+        value={<RollingNumber value={score} duration={1200} />}
+        label="points"
+      />
+      <StatCell value={`${avgSpeed.toFixed(1)}s`} label="avg speed" border />
+      <StatCell value={`${bestCombo}x`} label="best combo" />
+    </div>
+  );
+
+  // XP card.
+  const xpBlock = progression ? (
+    <div className="p-4 rounded-2xl bg-surface border border-default">
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-[13px] md:text-sm font-semibold text-accent">
+          <RollingNumber value={progression.xpEarned} prefix="+" suffix=" XP" duration={1000} />
+        </p>
+        <p className="text-[10px] md:text-xs text-ghost">
+          Lv.{progression.level} - {progression.title}
+        </p>
+      </div>
+
+      <div className="h-1 rounded-full bg-elevated overflow-hidden mb-3">
+        <div
+          className="h-full bg-accent"
+          style={{
+            width: `${barWidth}%`,
+            transition: 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+      </div>
+
+      {xpBreakdown.length > 0 && (
+        <div className="flex flex-col gap-1">
+          {xpBreakdown.map((item, i) => (
+            <div
+              key={i}
+              className="flex justify-between text-[11px] md:text-xs transition-all duration-400"
+              style={{
+                opacity: showXp ? 1 : 0,
+                transform: showXp ? 'translateY(0)' : 'translateY(6px)',
+                transitionDelay: `${item.delay}ms`,
+              }}
+            >
+              <span className="text-ghost">{item.label}</span>
+              <span className="text-accent font-semibold tabular-nums">+{item.value}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  ) : null;
+
+  // Streak card.
+  const streakBlock = progression ? (
+    <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
+      <div>
+        <p className="text-xs md:text-sm text-secondary">Daily streak</p>
+        <p className="text-[10px] md:text-xs text-ghost mt-0.5">
+          {progression.streak >= 7
+            ? '+100 XP bonus active'
+            : progression.streak >= 3
+            ? '+50 XP bonus active'
+            : 'Play 3 days in a row for bonus XP'}
+        </p>
+      </div>
+      <p className="text-lg md:text-xl font-bold text-combo tabular-nums">
+        {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
+      </p>
+    </div>
+  ) : null;
+
+  // Sign in nudge (anonymous).
+  const signInBlock = !progression ? (
+    <div className="p-4 rounded-2xl bg-surface border border-default text-center">
+      <p className="text-sm font-semibold text-primary mb-1">Save your progress</p>
+      <p className="text-xs text-ghost mb-3">Sign in to keep scores, level up, and compete</p>
+      <a href="/login" className="inline-block px-5 py-2 rounded-xl bg-accent text-primary text-xs font-bold">
+        Sign up free
+      </a>
+    </div>
+  ) : null;
+
+  // Missed songs list.
+  const missedBlock = missed.length > 0 ? (
+    <div>
+      <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-ghost mb-2">
+        Songs you missed
+      </p>
+      <div>
+        {missed.map((r, i) => (
+          <div
             key={i}
-            className="inline-block transition-all duration-300"
+            className="flex items-center gap-3 py-2.5 border-b border-subtle last:border-0 transition-all duration-400"
             style={{
-              opacity: showStars ? 1 : 0,
-              transform: showStars ? 'scale(1) translateY(0)' : 'scale(0.5) translateY(10px)',
+              opacity: showMissed ? 1 : 0,
+              transform: showMissed ? 'translateX(0)' : 'translateX(-10px)',
               transitionDelay: `${i * 200}ms`,
-              color: i < starsEarned ? 'var(--combo)' : 'var(--text-ghost)',
             }}
           >
-            {i < starsEarned ? '\u2605' : '\u2606'}
-          </span>
+            <span className="text-xs font-semibold text-wrong-text">{'\u2717'}</span>
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg overflow-hidden flex-shrink-0 bg-elevated">
+              {r.question.reveal.cover ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={r.question.reveal.cover}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-xs text-ghost">{'\u266A'}</span>
+                </div>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] md:text-sm text-primary truncate">{r.question.reveal.title}</p>
+              <p className="text-[10px] md:text-xs text-ghost truncate">{r.question.reveal.artist}</p>
+            </div>
+          </div>
         ))}
       </div>
+    </div>
+  ) : null;
 
-      {/* Score + message */}
-      <div className="text-center">
-        <p
-          className="text-5xl font-bold text-primary tabular-nums leading-none transition-transform duration-300"
-          style={{ transform: scorePulse ? 'scale(1.1)' : 'scale(1)' }}
-        >
-          <RollingNumber value={correctCount} duration={800} /> / {total}
-        </p>
-        <p className="text-sm font-semibold mt-2" style={{ color: colorVar }}>{message}</p>
-        {subMessage && (
-          <p className="text-xs text-ghost mt-1">{subMessage}</p>
-        )}
+  // Action buttons.
+  const buttonsBlock = (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        onClick={onPlayAgain}
+        className="flex-1 py-3.5 rounded-xl bg-accent text-primary font-bold text-sm active:scale-[0.98] transition-transform"
+      >
+        Play again
+      </button>
+      <button
+        type="button"
+        onClick={onHome}
+        className="flex-1 py-3.5 rounded-xl bg-surface border border-default text-secondary font-medium text-sm hover:border-accent transition-colors"
+      >
+        Home
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="max-w-[440px] md:max-w-[900px] mx-auto px-5 py-10 md:py-14 animate-fadeSlideUp">
+      {/* HERO: centered celebration. Full width on both mobile and desktop. */}
+      <div className="flex flex-col items-center gap-4 md:gap-6 mb-6 md:mb-10">
+        {starsBlock}
+        {scoreBlock}
       </div>
 
-      {/* Stats row */}
-      <div className="grid grid-cols-3 rounded-xl bg-surface border border-default overflow-hidden">
-        <StatCell
-          value={<RollingNumber value={score} duration={1200} />}
-          label="points"
-        />
-        <StatCell value={`${avgSpeed.toFixed(1)}s`} label="avg speed" border />
-        <StatCell value={`${bestCombo}x`} label="best combo" />
+      {/* Stats row. Wider on desktop. */}
+      <div className="mb-6 md:mb-10 md:max-w-[560px] md:mx-auto">
+        {statsBlock}
       </div>
 
-      {/* XP card */}
-      {progression && (
-        <div className="p-4 rounded-2xl bg-surface border border-default">
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-[13px] font-semibold text-accent">
-              <RollingNumber value={progression.xpEarned} prefix="+" suffix=" XP" duration={1000} />
-            </p>
-            <p className="text-[10px] text-ghost">
-              Lv.{progression.level} - {progression.title}
-            </p>
-          </div>
-
-          <div className="h-1 rounded-full bg-elevated overflow-hidden mb-3">
-            <div
-              className="h-full bg-accent"
-              style={{
-                width: `${barWidth}%`,
-                transition: 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
-              }}
-            />
-          </div>
-
-          {/* XP breakdown, staggered */}
-          {xpBreakdown.length > 0 && (
-            <div className="flex flex-col gap-1">
-              {xpBreakdown.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex justify-between text-[11px] transition-all duration-400"
-                  style={{
-                    opacity: showXp ? 1 : 0,
-                    transform: showXp ? 'translateY(0)' : 'translateY(6px)',
-                    transitionDelay: `${item.delay}ms`,
-                  }}
-                >
-                  <span className="text-ghost">{item.label}</span>
-                  <span className="text-accent font-semibold tabular-nums">+{item.value}</span>
-                </div>
-              ))}
-            </div>
-          )}
+      {/* 2-column split: progression on the left, missed songs on the right (desktop) */}
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-8 md:items-start">
+        <div className="flex flex-col gap-4">
+          {xpBlock}
+          {streakBlock}
+          {masteryCard}
+          {signInBlock}
         </div>
-      )}
-
-      {/* Streak card */}
-      {progression && (
-        <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
-          <div>
-            <p className="text-xs text-secondary">Daily streak</p>
-            <p className="text-[10px] text-ghost mt-0.5">
-              {progression.streak >= 7
-                ? '+100 XP bonus active'
-                : progression.streak >= 3
-                ? '+50 XP bonus active'
-                : 'Play 3 days in a row for bonus XP'}
-            </p>
-          </div>
-          <p className="text-lg font-bold text-combo tabular-nums">
-            {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
-          </p>
+        <div className="flex flex-col gap-4">
+          {missedBlock}
         </div>
-      )}
+      </div>
 
-      {/* Mastery progress card */}
-      {masteryCard}
-
-      {/* Sign in nudge */}
-      {!progression && (
-        <div className="p-4 rounded-2xl bg-surface border border-default text-center">
-          <p className="text-sm font-semibold text-primary mb-1">Save your progress</p>
-          <p className="text-xs text-ghost mb-3">Sign in to keep scores, level up, and compete</p>
-          <a href="/login" className="inline-block px-5 py-2 rounded-xl bg-accent text-primary text-xs font-bold">
-            Sign up free
-          </a>
-        </div>
-      )}
-
-      {/* Missed songs with album thumbnails + staggered slide-in */}
-      {missed.length > 0 && (
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
-            Songs you missed
-          </p>
-          <div>
-            {missed.map((r, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 py-2.5 border-b border-subtle last:border-0 transition-all duration-400"
-                style={{
-                  opacity: showMissed ? 1 : 0,
-                  transform: showMissed ? 'translateX(0)' : 'translateX(-10px)',
-                  transitionDelay: `${i * 200}ms`,
-                }}
-              >
-                <span className="text-xs font-semibold text-wrong-text">{'\u2717'}</span>
-                <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 bg-elevated">
-                  {r.question.reveal.cover ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={r.question.reveal.cover}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-xs text-ghost">{'\u266A'}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] text-primary truncate">{r.question.reveal.title}</p>
-                  <p className="text-[10px] text-ghost truncate">{r.question.reveal.artist}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Action buttons */}
-      <div className="flex gap-2 mt-2">
-        <button
-          type="button"
-          onClick={onPlayAgain}
-          className="flex-1 py-3.5 rounded-xl bg-accent text-primary font-bold text-sm active:scale-[0.98] transition-transform"
-        >
-          Play again
-        </button>
-        <button
-          type="button"
-          onClick={onHome}
-          className="flex-1 py-3.5 rounded-xl bg-surface border border-default text-secondary font-medium text-sm hover:border-accent transition-colors"
-        >
-          Home
-        </button>
+      {/* Action buttons. Centered on desktop. */}
+      <div className="mt-6 md:mt-10 md:max-w-[440px] md:mx-auto">
+        {buttonsBlock}
       </div>
 
       {/* Level up overlay (rendered last so it sits above everything) */}
