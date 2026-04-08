@@ -2,7 +2,7 @@ import { TopNav } from '@/components/layout/top-nav';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Sidebar } from '@/components/layout/sidebar';
 import { getLevelFromXP } from '@/lib/progression';
-import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 
 interface NavUser {
   username: string;
@@ -18,28 +18,26 @@ async function getNavUser(): Promise<NavUser | undefined> {
     const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return undefined;
-    const { data } = await supabase
-      .from('players')
-      .select('username, current_streak, xp, avatar_bg, avatar_text')
-      .eq('id', user.id)
+    // bt_players is the canonical player table; the legacy 'players' is no longer in sync.
+    const adminDb = createServiceRoleClient();
+    const { data } = await adminDb
+      .from('bt_players')
+      .select('display_name, total_xp, current_streak')
+      .eq('user_id', user.id)
       .single();
     if (!data) return undefined;
 
-    const xp = (data.xp as number | null) ?? 0;
-    const info = getLevelFromXP(xp);
+    const totalXp = (data.total_xp as number | null) ?? 0;
+    const info = getLevelFromXP(totalXp);
+    const rawName = (data.display_name as string | null) ?? 'Player';
+    const username = rawName.replace(/#\d+$/, '');
 
-    const avatarBg = data.avatar_bg as string | null;
-    const avatarText = data.avatar_text as string | null;
-
-    const base: NavUser = {
-      username: data.username as string,
+    return {
+      username,
       streak: (data.current_streak as number | null) ?? 0,
       level: info.level,
       xpProgress: info.progressPercent / 100,
     };
-    if (avatarBg) base.avatarBg = avatarBg;
-    if (avatarText) base.avatarText = avatarText;
-    return base;
   } catch {
     return undefined;
   }

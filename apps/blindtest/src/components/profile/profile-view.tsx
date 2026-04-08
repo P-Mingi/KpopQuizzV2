@@ -1,41 +1,44 @@
 'use client';
 
 import Link from 'next/link';
-import { getLevelFromXP, calculateMasteryStars } from '@/lib/progression';
+import { getLevelFromXP } from '@/lib/progression';
 import { ACHIEVEMENTS } from '@/lib/achievements';
 import { MasteryCard } from './mastery-card';
 import { AchievementRow } from './achievement-row';
 
 interface MasteryRow {
-  group_id: number;
-  mastery_level: number;
-  mastery_xp: number;
-  songs_played?: number;
-  songs_correct?: number;
-  groups: { name: string; slug: string } | null;
+  id: string;
+  playlist: string;
+  play_count: number;
+  best_score: number;
+  total_correct: number;
+  total_songs_played: number;
+  mastery_stars: number;
 }
 
 interface PlayRow {
-  mode_id: string;
+  mode: string;
+  playlist: string;
   score: number;
-  correct: number;
-  total: number;
-  created_at: string;
+  correct_count: number;
+  total_songs: number;
+  played_at: string;
 }
 
 interface Props {
   player: {
     id: string;
-    username: string;
+    display_name: string | null;
+    avatar_url: string | null;
     level: number;
-    xp: number;
+    total_xp: number;
+    total_games: number;
+    total_correct: number;
     total_songs_played: number;
-    total_songs_correct: number;
-    total_points: number;
+    best_score: number;
     best_combo: number;
     current_streak: number;
-    avatar_bg?: string | null;
-    avatar_text?: string | null;
+    longest_streak: number;
   };
   masteries: MasteryRow[];
   achievements: { achievement_id: string }[];
@@ -43,10 +46,20 @@ interface Props {
   isOwnProfile: boolean;
 }
 
-function formatModeName(modeId: string): string {
-  if (modeId === 'daily') return 'Daily';
-  if (modeId.startsWith('group-')) return modeId.replace('group-', '').replace(/-/g, ' ');
-  return modeId.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+function formatPlaylistName(playlist: string): string {
+  if (playlist === 'all') return 'All K-pop';
+  if (playlist === 'gg') return 'Girl groups';
+  if (playlist === 'bg') return 'Boy groups';
+  if (playlist === 'solo') return 'Solo';
+  if (playlist.endsWith('-gen')) return playlist.replace('-gen', ' gen');
+  return playlist;
+}
+
+function formatModeName(mode: string): string {
+  if (mode === 'daily') return 'Daily';
+  if (mode === 'quick') return 'Quick play';
+  if (mode === 'challenge') return 'Challenge';
+  return mode.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function formatTimeAgo(dateStr: string): string {
@@ -61,22 +74,24 @@ function formatTimeAgo(dateStr: string): string {
 }
 
 export function ProfileView({ player, masteries, achievements, recentPlays, isOwnProfile }: Props) {
+  const username = player.display_name?.replace(/#\d+$/, '') ?? 'Player';
   const accuracy = player.total_songs_played > 0
-    ? Math.round((player.total_songs_correct / player.total_songs_played) * 100)
+    ? Math.round((player.total_correct / player.total_songs_played) * 100)
     : 0;
 
   const earnedIds = new Set(achievements.map((a) => a.achievement_id));
-  const levelInfo = getLevelFromXP(player.xp);
+  const levelInfo = getLevelFromXP(player.total_xp);
   const xpProgress = Math.max(0, Math.min(1, levelInfo.progressPercent / 100));
   const ringBg = `conic-gradient(var(--accent) ${xpProgress * 360}deg, var(--border) ${xpProgress * 360}deg 360deg)`;
+  const initial = username.charAt(0).toUpperCase();
 
   async function shareProfile() {
-    const url = `${window.location.origin}/player/${player.username}`;
-    const text = `Level ${player.level} - ${player.total_songs_correct} songs guessed - ${accuracy}% accuracy`;
+    const url = `${window.location.origin}/player/${username}`;
+    const text = `Level ${levelInfo.level} - ${player.total_correct} songs guessed - ${accuracy}% accuracy`;
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: `${player.username} - K-pop Blind Test`, text, url });
+        await navigator.share({ title: `${username} - K-pop Blind Test`, text, url });
       } catch { /* cancelled */ }
     } else {
       await navigator.clipboard.writeText(url);
@@ -92,17 +107,13 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
           style={{ background: ringBg, padding: '3px' }}
         >
           <div
-            className="w-full h-full rounded-full flex items-center justify-center text-2xl font-semibold"
-            style={{
-              background: player.avatar_bg ?? 'var(--bg-elevated)',
-              color: player.avatar_text ?? 'var(--text-primary)',
-              border: '3px solid var(--bg-primary)',
-            }}
+            className="w-full h-full rounded-full flex items-center justify-center text-2xl font-semibold bg-elevated text-primary"
+            style={{ border: '3px solid var(--bg-primary)' }}
           >
-            {player.username.charAt(0).toUpperCase()}
+            {initial}
           </div>
         </div>
-        <p className="text-lg font-bold text-primary">{player.username}</p>
+        <p className="text-lg font-bold text-primary">{username}</p>
         <p className="text-xs font-semibold text-accent mt-0.5">
           Level {levelInfo.level} - {levelInfo.title}
         </p>
@@ -121,7 +132,7 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
 
       {/* Stats grid */}
       <div className="grid grid-cols-4 gap-1 mb-6">
-        <StatCell value={player.total_songs_correct.toLocaleString()} label="songs" />
+        <StatCell value={player.total_correct.toLocaleString()} label="songs" />
         <StatCell value={`${accuracy}%`} label="accuracy" />
         <StatCell value={`${player.best_combo}x`} label="best combo" />
         <StatCell value={player.current_streak.toString()} label="streak" highlight />
@@ -129,17 +140,17 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
 
       {/* Mastery + Achievements (side by side on desktop) */}
       <div className="md:grid md:grid-cols-2 md:gap-6">
-        {/* Group mastery */}
+        {/* Playlist mastery */}
         <section className="mb-6 md:mb-0">
-          <SectionLabel>Group mastery</SectionLabel>
+          <SectionLabel>Playlist mastery</SectionLabel>
           {masteries.length > 0 ? (
             <div className="grid grid-cols-3 gap-1.5">
               {masteries.slice(0, 9).map((m) => (
                 <MasteryCard
-                  key={m.group_id}
-                  name={m.groups?.name ?? 'Unknown'}
-                  stars={calculateMasteryStars(m.songs_played ?? 0, m.mastery_xp)}
-                  plays={m.songs_played ?? 0}
+                  key={m.id}
+                  name={formatPlaylistName(m.playlist)}
+                  stars={m.mastery_stars}
+                  plays={m.play_count}
                 />
               ))}
             </div>
@@ -147,7 +158,7 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
             <p className="text-[11px] text-ghost">Play some games to start tracking mastery.</p>
           )}
           {masteries.length > 9 && (
-            <p className="text-[10px] text-ghost mt-2">+{masteries.length - 9} more groups</p>
+            <p className="text-[10px] text-ghost mt-2">+{masteries.length - 9} more playlists</p>
           )}
         </section>
 
@@ -175,15 +186,17 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
             {recentPlays.slice(0, 5).map((play, i) => (
               <div key={i} className="py-2.5 border-b border-subtle last:border-0">
                 <div className="flex items-center justify-between">
-                  <span className="text-[13px] font-medium text-primary">{formatModeName(play.mode_id)}</span>
+                  <span className="text-[13px] font-medium text-primary">
+                    {formatPlaylistName(play.playlist)}
+                  </span>
                   <span className="text-[13px] font-semibold text-accent tabular-nums">
-                    {play.correct}/{play.total}
+                    {play.correct_count}/{play.total_songs}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mt-0.5 text-[10px] text-ghost">
                   <span className="tabular-nums">{play.score.toLocaleString()} pts</span>
-                  <span>·</span>
-                  <span>{formatTimeAgo(play.created_at)}</span>
+                  <span>{formatModeName(play.mode)}</span>
+                  <span>{formatTimeAgo(play.played_at)}</span>
                 </div>
               </div>
             ))}

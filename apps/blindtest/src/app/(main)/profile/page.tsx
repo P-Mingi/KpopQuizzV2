@@ -1,41 +1,57 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { ProfileView } from '@/components/profile/profile-view';
 
 async function fetchPlayerData(userId: string) {
-  const supabase = await createServerClient();
+  // bt_players is the canonical table written by /api/game/save-result.
+  // The legacy 'players' table is no longer kept in sync.
+  const adminDb = createServiceRoleClient();
 
-  const { data: player } = await supabase
-    .from('players').select('*').eq('id', userId).single();
-  const { data: masteries } = await supabase
-    .from('player_group_mastery')
-    .select('*, groups!inner(name, slug)')
-    .eq('player_id', userId)
-    .order('mastery_xp', { ascending: false });
-  const { data: achievements } = await supabase
-    .from('player_achievements')
-    .select('achievement_id')
-    .eq('player_id', userId);
-  const { data: recentPlays } = await supabase
-    .from('bt_plays')
-    .select('mode_id, score, correct, total, created_at')
-    .eq('player_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(10);
+  const { data: player } = await adminDb
+    .from('bt_players')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+
+  if (!player) return { player: null, masteries: [], achievements: [], recentPlays: [] };
+
+  const [masteryRes, recentRes] = await Promise.all([
+    adminDb
+      .from('bt_playlist_mastery')
+      .select('id, playlist, play_count, best_score, total_correct, total_songs_played, mastery_stars')
+      .eq('player_id', player.id)
+      .order('play_count', { ascending: false }),
+    adminDb
+      .from('bt_game_results')
+      .select('mode, playlist, score, correct_count, total_songs, played_at')
+      .eq('player_id', player.id)
+      .order('played_at', { ascending: false })
+      .limit(10),
+  ]);
 
   return {
     player,
-    masteries: (masteries ?? []) as unknown as {
-      group_id: number;
-      mastery_level: number;
-      mastery_xp: number;
-      songs_played?: number;
-      songs_correct?: number;
-      groups: { name: string; slug: string } | null;
-    }[],
-    achievements: (achievements ?? []) as { achievement_id: string }[],
-    recentPlays: (recentPlays ?? []) as { mode_id: string; score: number; correct: number; total: number; created_at: string }[],
+    masteries: (masteryRes.data ?? []) as Array<{
+      id: string;
+      playlist: string;
+      play_count: number;
+      best_score: number;
+      total_correct: number;
+      total_songs_played: number;
+      mastery_stars: number;
+    }>,
+    // Achievements aren't tracked yet in bt_* tables; ProfileView shows the catalog
+    // with everything locked until we add a bt_player_achievements table.
+    achievements: [] as { achievement_id: string }[],
+    recentPlays: (recentRes.data ?? []) as Array<{
+      mode: string;
+      playlist: string;
+      score: number;
+      correct_count: number;
+      total_songs: number;
+      played_at: string;
+    }>,
   };
 }
 

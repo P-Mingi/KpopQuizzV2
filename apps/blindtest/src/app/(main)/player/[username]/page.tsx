@@ -1,25 +1,44 @@
 import { notFound } from 'next/navigation';
-import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { ProfileView } from '@/components/profile/profile-view';
 
 import type { Metadata } from 'next';
 
+async function findPlayerByUsername(username: string) {
+  const adminDb = createServiceRoleClient();
+  // bt_players stores display names like "mimimingi#0" (Discord-style).
+  // We accept either the full display_name or the prefix (no discriminator).
+  const decoded = decodeURIComponent(username);
+  const { data: exact } = await adminDb
+    .from('bt_players')
+    .select('*')
+    .eq('display_name', decoded)
+    .maybeSingle();
+  if (exact) return exact;
+  const { data: prefix } = await adminDb
+    .from('bt_players')
+    .select('*')
+    .ilike('display_name', `${decoded}#%`)
+    .limit(1)
+    .maybeSingle();
+  return prefix ?? null;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
   const { username } = await params;
-  const supabase = await createServerClient();
-  const { data: player } = await supabase
-    .from('players').select('username, level, total_songs_correct, total_songs_played, xp')
-    .eq('username', username).single();
-
+  const player = await findPlayerByUsername(username);
   if (!player) return {};
 
-  const accuracy = Math.round(player.total_songs_correct / Math.max(player.total_songs_played, 1) * 100);
+  const totalPlayed = (player.total_songs_played as number) ?? 0;
+  const totalCorrect = (player.total_correct as number) ?? 0;
+  const accuracy = Math.round((totalCorrect / Math.max(totalPlayed, 1)) * 100);
+  const display = (player.display_name as string)?.replace(/#\d+$/, '') ?? username;
 
   return {
-    title: `${player.username} - K-pop Blind Test Profile`,
-    description: `Level ${player.level} - ${player.total_songs_correct} songs guessed - ${accuracy}% accuracy`,
+    title: `${display} - K-pop Blind Test Profile`,
+    description: `Level ${player.level} - ${totalCorrect} songs guessed - ${accuracy}% accuracy`,
     openGraph: {
-      images: [{ url: `/api/og/profile/${player.username}`, width: 1200, height: 630 }],
+      images: [{ url: `/api/og/profile/${display}`, width: 1200, height: 630 }],
     },
   };
 }
@@ -27,46 +46,34 @@ export async function generateMetadata({ params }: { params: Promise<{ username:
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
   const supabase = await createServerClient();
-
   const { data: { user } } = await supabase.auth.getUser();
 
-  const { data: player } = await supabase
-    .from('players').select('*').eq('username', username).single();
-
+  const player = await findPlayerByUsername(username);
   if (!player) return notFound();
 
-  const { data: masteries } = await supabase
-    .from('player_group_mastery')
-    .select('*, groups!inner(name, slug)')
-    .eq('player_id', player.id)
-    .order('mastery_xp', { ascending: false });
+  const adminDb = createServiceRoleClient();
 
-  const { data: achievements } = await supabase
-    .from('player_achievements')
-    .select('achievement_id')
-    .eq('player_id', player.id);
-
-  const { data: recentPlays } = await supabase
-    .from('bt_plays')
-    .select('mode_id, score, correct, total, created_at')
-    .eq('player_id', player.id)
-    .order('created_at', { ascending: false })
-    .limit(10);
+  const [masteryRes, recentRes] = await Promise.all([
+    adminDb
+      .from('bt_playlist_mastery')
+      .select('id, playlist, play_count, best_score, total_correct, total_songs_played, mastery_stars')
+      .eq('player_id', player.id)
+      .order('play_count', { ascending: false }),
+    adminDb
+      .from('bt_game_results')
+      .select('mode, playlist, score, correct_count, total_songs, played_at')
+      .eq('player_id', player.id)
+      .order('played_at', { ascending: false })
+      .limit(10),
+  ]);
 
   return (
     <ProfileView
-      player={player}
-      masteries={(masteries ?? []) as unknown as {
-        group_id: number;
-        mastery_level: number;
-        mastery_xp: number;
-        songs_played?: number;
-        songs_correct?: number;
-        groups: { name: string; slug: string } | null;
-      }[]}
-      achievements={(achievements ?? []) as { achievement_id: string }[]}
-      recentPlays={(recentPlays ?? []) as { mode_id: string; score: number; correct: number; total: number; created_at: string }[]}
-      isOwnProfile={user?.id === player.id}
+      player={player as Parameters<typeof ProfileView>[0]['player']}
+      masteries={(masteryRes.data ?? []) as Parameters<typeof ProfileView>[0]['masteries']}
+      achievements={[]}
+      recentPlays={(recentRes.data ?? []) as Parameters<typeof ProfileView>[0]['recentPlays']}
+      isOwnProfile={user?.id === (player.user_id as string)}
     />
   );
 }
