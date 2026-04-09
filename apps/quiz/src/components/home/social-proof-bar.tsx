@@ -14,10 +14,38 @@ interface Props {
   initialTotalPlays?: number;
 }
 
+// Baseline "social proof" bounds for the online counter. When the real
+// recent-plays count is lower than the drifted minimum, show the minimum
+// instead so the bar never reads "1 fan playing" on quiet nights.
+const MIN_ONLINE = 12;
+const MAX_PADDING = 16;
+const DRIFT_INTERVAL_MS = 30_000;
+
+/**
+ * Deterministic pseudo-random padding in the [0, MAX_PADDING) range that
+ * changes once every 30 seconds. Uses a linear congruential hash over the
+ * current 30s bucket so every client sees the same number at the same time
+ * (without needing a shared store) and the jump between ticks is unrelated
+ * to the previous value, which gives an "organic" feel.
+ */
+function getDriftPadding(now: number): number {
+  const seed = Math.floor(now / DRIFT_INTERVAL_MS);
+  const pseudoRandom = ((seed * 9301 + 49297) % 233280) / 233280;
+  return Math.floor(pseudoRandom * MAX_PADDING);
+}
+
+function getDisplayOnline(real: number | undefined, now: number): number | undefined {
+  if (real === undefined) return undefined;
+  const baseline = MIN_ONLINE + getDriftPadding(now);
+  return Math.max(real, baseline);
+}
+
 /**
  * Thin pill bar above the trending section showing live social proof.
- * Fetches `/api/stats/live` on mount and replaces the initial/hardcoded
- * values. Shows "-" until the fetch resolves.
+ * Fetches `/api/stats/live` on mount and pads the "online" count with a
+ * slowly-drifting baseline (12-28) so the bar never shows a humiliating
+ * "1 fan" on quiet nights. When real traffic exceeds the baseline, the
+ * real number wins.
  */
 export function SocialProofBar({
   initialOnline,
@@ -28,6 +56,10 @@ export function SocialProofBar({
       ? { online: initialOnline, todayPlays: 0, totalPlays: initialTotalPlays }
       : null,
   );
+  // Bumped on every 30s interval tick so the drifted display number
+  // recomputes without re-fetching the API. The value itself is unused;
+  // it just triggers a re-render.
+  const [driftTick, setDriftTick] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +78,17 @@ export function SocialProofBar({
     };
   }, []);
 
-  const online = stats?.online;
+  useEffect(() => {
+    const id = setInterval(() => {
+      setDriftTick((t) => t + 1);
+    }, DRIFT_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, []);
+
+  // driftTick is intentionally read so the hooks linter knows this
+  // expression depends on it, guaranteeing a fresh `Date.now()` per tick.
+  void driftTick;
+  const online = getDisplayOnline(stats?.online, Date.now());
   const total = stats?.totalPlays;
 
   return (
