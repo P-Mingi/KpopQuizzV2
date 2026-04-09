@@ -59,7 +59,7 @@ export function playTap(): void {
     const g = ctx.createGain();
     o.type = 'sine';
     o.frequency.value = 800;
-    g.gain.setValueAtTime(0.25, ctx.currentTime);
+    g.gain.setValueAtTime(0.45, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
     o.connect(g);
     g.connect(ctx.destination);
@@ -83,7 +83,7 @@ export function playCorrect(): void {
     o.frequency.setValueAtTime(523, ctx.currentTime);
     o.frequency.linearRampToValueAtTime(784, ctx.currentTime + 0.1);
     o.frequency.linearRampToValueAtTime(1047, ctx.currentTime + 0.2);
-    g.gain.setValueAtTime(0.45, ctx.currentTime);
+    g.gain.setValueAtTime(0.75, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
     o.connect(g);
     g.connect(ctx.destination);
@@ -105,7 +105,7 @@ export function playWrong(): void {
     const g = ctx.createGain();
     o.type = 'sawtooth';
     o.frequency.value = 150;
-    g.gain.setValueAtTime(0.4, ctx.currentTime);
+    g.gain.setValueAtTime(0.7, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
     o.connect(g);
     g.connect(ctx.destination);
@@ -127,7 +127,7 @@ export function playCombo(comboCount: number): void {
     const g = ctx.createGain();
     o.type = 'sine';
     o.frequency.value = 400 + comboCount * 80;
-    g.gain.setValueAtTime(0.4, ctx.currentTime);
+    g.gain.setValueAtTime(0.7, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
     o.connect(g);
     g.connect(ctx.destination);
@@ -149,7 +149,7 @@ export function playTick(): void {
     const g = ctx.createGain();
     o.type = 'square';
     o.frequency.value = 1000;
-    g.gain.setValueAtTime(0.4, ctx.currentTime);
+    g.gain.setValueAtTime(0.7, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
     o.connect(g);
     g.connect(ctx.destination);
@@ -173,7 +173,7 @@ export function playLevelUp(): void {
       const g = ctx.createGain();
       o.type = 'sine';
       o.frequency.value = freq;
-      g.gain.setValueAtTime(0.4, ctx.currentTime + i * 0.1);
+      g.gain.setValueAtTime(0.7, ctx.currentTime + i * 0.1);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.3);
       o.connect(g);
       g.connect(ctx.destination);
@@ -198,7 +198,7 @@ export function playPerfect(): void {
       const g = ctx.createGain();
       o.type = 'sine';
       o.frequency.value = freq;
-      g.gain.setValueAtTime(0.4, ctx.currentTime + i * 0.08);
+      g.gain.setValueAtTime(0.7, ctx.currentTime + i * 0.08);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.4);
       o.connect(g);
       g.connect(ctx.destination);
@@ -222,7 +222,7 @@ export function playStreak(): void {
     o.type = 'sine';
     o.frequency.setValueAtTime(440, ctx.currentTime);
     o.frequency.linearRampToValueAtTime(660, ctx.currentTime + 0.3);
-    g.gain.setValueAtTime(0.3, ctx.currentTime);
+    g.gain.setValueAtTime(0.55, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
     o.connect(g);
     g.connect(ctx.destination);
@@ -243,7 +243,7 @@ export function playReveal(): void {
     const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.3), ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < data.length; i++) {
-      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 3) * 0.35;
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 3) * 0.6;
     }
     const source = ctx.createBufferSource();
     source.buffer = buffer;

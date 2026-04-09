@@ -42,7 +42,7 @@ export function useAudioPlayer() {
     const audio = new Audio();
     audio.preload = 'auto';
     // Song preview sits below 1.0 to leave headroom for SFX (correct/wrong/tick/reveal).
-    audio.volume = 0.65;
+    audio.volume = 0.5;
 
     audio.oncanplaythrough = () => setIsLoaded(true);
     audio.onplay = () => setIsPlaying(true);

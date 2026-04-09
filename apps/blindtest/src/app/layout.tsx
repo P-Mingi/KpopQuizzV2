@@ -4,10 +4,30 @@ import { ThemeProvider } from '@/components/theme-provider';
 
 import type { Metadata, Viewport } from 'next';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kpopblindtest.com';
+const SITE_NAME = 'K-pop Blindtest';
+const SITE_TITLE = 'K-pop Blindtest - Can You Name That Song?';
+const SITE_DESCRIPTION =
+  'Test your K-pop knowledge. 22,000+ songs from 230+ artists including BTS, BLACKPINK, aespa, NewJeans, LE SSERAFIM and more. Quick play, challenge mode, daily challenge. Free forever.';
+
 export const metadata: Metadata = {
-  title: 'K-pop Blind Test - How Well Do You REALLY Know K-pop?',
-  description: 'The ultimate K-pop song guessing game. 600+ songs, 45+ groups, daily challenges, leaderboards. Free forever.',
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   manifest: '/manifest.json',
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {

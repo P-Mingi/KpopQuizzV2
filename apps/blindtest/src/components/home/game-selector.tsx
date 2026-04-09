@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ModeCard } from './mode-card';
+import { GroupBrowser, type BrowserGroup } from './group-browser';
 
 interface PlaylistStats {
   categories: Array<{ id: string; name: string; count: number }>;
-  groups: Array<{ id: string; name: string; count: number }>;
+  groups: BrowserGroup[];
   total: number;
   difficultyStats: { easy: number; medium: number; hard: number };
 }
@@ -31,7 +32,7 @@ export function GameSelector({ playlists }: Props) {
   const [selectedMode, setSelectedMode] = useState<'quick' | 'challenge'>('quick');
   const [selectedPlaylist, setSelectedPlaylist] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<'all' | 'hits' | 'deep'>('all');
-  const [showAllGroups, setShowAllGroups] = useState(false);
+  const [showGroupBrowser, setShowGroupBrowser] = useState(false);
 
   const playlistName =
     playlists.categories.find((c) => c.id === selectedPlaylist)?.name ??
@@ -50,8 +51,13 @@ export function GameSelector({ playlists }: Props) {
     router.push(`/play?${params.toString()}`);
   };
 
-  const visibleGroups = showAllGroups ? playlists.groups : playlists.groups.slice(0, 8);
-  const hiddenCount = playlists.groups.length - 8;
+  // Top 8 groups by song count (playlists.groups is already sorted desc by count).
+  const popularGroups = playlists.groups.slice(0, 8);
+  // If the selected playlist is a group that's NOT in the top 8, surface it so the
+  // user can see what's currently picked without reopening the browser.
+  const selectedGroup = playlists.groups.find((g) => g.name === selectedPlaylist);
+  const extraSelectedGroup =
+    selectedGroup && !popularGroups.find((g) => g.id === selectedGroup.id) ? selectedGroup : null;
 
   return (
     <div className="flex flex-col gap-5">
@@ -84,11 +90,12 @@ export function GameSelector({ playlists }: Props) {
         </div>
       </section>
 
-      {/* Group pills */}
+      {/* Popular groups (top 8) + Browse all */}
       {playlists.groups.length > 0 && (
         <section>
+          <SectionLabel>Popular groups</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
-            {visibleGroups.map((g) => (
+            {popularGroups.map((g) => (
               <Pill
                 key={g.id}
                 active={selectedPlaylist === g.name}
@@ -98,16 +105,25 @@ export function GameSelector({ playlists }: Props) {
                 {g.name}
               </Pill>
             ))}
-            {playlists.groups.length > 8 && !showAllGroups && (
-              <button
-                type="button"
-                onClick={() => setShowAllGroups(true)}
-                className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-ghost hover:text-tertiary transition-colors"
+            {extraSelectedGroup && (
+              <Pill
+                key={extraSelectedGroup.id}
+                active
+                onClick={() => setSelectedPlaylist(extraSelectedGroup.name)}
+                variant="elevated"
               >
-                +{hiddenCount} more
-              </button>
+                {extraSelectedGroup.name}
+              </Pill>
             )}
           </div>
+
+          <button
+            type="button"
+            onClick={() => setShowGroupBrowser(true)}
+            className="w-full mt-2 py-2.5 rounded-[10px] bg-surface border border-default text-xs font-medium text-tertiary hover:border-accent hover:text-accent transition-colors"
+          >
+            Browse all {playlists.groups.length} artists
+          </button>
         </section>
       )}
 
@@ -148,6 +164,16 @@ export function GameSelector({ playlists }: Props) {
           {modeLabel} - {playlistName} - {difficultyLabel}
         </p>
       </div>
+
+      {/* Group browser overlay */}
+      {showGroupBrowser && (
+        <GroupBrowser
+          groups={playlists.groups}
+          selectedPlaylist={selectedPlaylist}
+          onSelect={(name) => setSelectedPlaylist(name)}
+          onClose={() => setShowGroupBrowser(false)}
+        />
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useDailyStatus } from '@/hooks/use-daily-status';
 
 const tabs = [
   { href: '/', label: 'Play', icon: 'play' },
@@ -14,6 +15,8 @@ type TabIcon = (typeof tabs)[number]['icon'];
 
 export function MobileTabBar() {
   const pathname = usePathname();
+  const dailyStatus = useDailyStatus();
+  const showDailyDot = dailyStatus !== null && !dailyStatus.hasPlayed;
 
   // Hidden during gameplay for full immersion.
   if (pathname.startsWith('/play')) return null;
@@ -27,6 +30,7 @@ export function MobileTabBar() {
         <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {tabs.map((tab) => {
             const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
+            const showDot = tab.href === '/daily' && showDailyDot;
             return (
               <Link
                 key={tab.href}
@@ -35,7 +39,15 @@ export function MobileTabBar() {
                   isActive ? 'text-accent' : 'text-ghost'
                 }`}
               >
-                <TabIcon name={tab.icon} active={isActive} />
+                <span className="relative inline-flex">
+                  <TabIcon name={tab.icon} active={isActive} />
+                  {showDot && (
+                    <span
+                      className="absolute -top-0.5 -right-1 w-1.5 h-1.5 rounded-full bg-accent"
+                      aria-hidden="true"
+                    />
+                  )}
+                </span>
                 {tab.label}
               </Link>
             );

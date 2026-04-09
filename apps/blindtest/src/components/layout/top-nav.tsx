@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/theme-provider';
 import { PlayerIdentityPill } from '@/components/layout/player-identity-pill';
+import { useDailyStatus } from '@/hooks/use-daily-status';
 
 interface NavUser {
   username: string;
@@ -15,6 +16,9 @@ interface NavUser {
 }
 
 export function TopNav({ user }: { user?: NavUser }) {
+  const dailyStatus = useDailyStatus();
+  const dailyUnplayed = dailyStatus !== null && !dailyStatus.hasPlayed;
+
   return (
     <header className="px-4 md:px-6 pt-4 md:pt-0 md:h-12 md:border-b md:border-subtle flex items-center justify-between">
       <div className="flex items-center gap-6">
@@ -27,7 +31,7 @@ export function TopNav({ user }: { user?: NavUser }) {
         {/* Desktop nav links */}
         <nav className="hidden md:flex items-center gap-1">
           <NavLink href="/" label="Play" />
-          <NavLink href="/daily" label="Daily" />
+          <NavLink href="/daily" label="Daily" dot={dailyUnplayed} />
           <NavLink href="/leaderboard" label="Ranks" />
           <NavLink href="/profile" label="Profile" />
         </nav>
@@ -49,18 +53,24 @@ export function TopNav({ user }: { user?: NavUser }) {
   );
 }
 
-function NavLink({ href, label }: { href: string; label: string }) {
+function NavLink({ href, label, dot }: { href: string; label: string; dot?: boolean }) {
   const pathname = usePathname();
   const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
     <Link
       href={href}
-      className={`text-xs font-medium px-3.5 py-2 rounded-lg transition-colors ${
+      className={`text-xs font-medium px-3.5 py-2 rounded-lg transition-colors inline-flex items-center gap-1.5 ${
         isActive ? 'text-accent bg-accent-bg' : 'text-ghost hover:text-tertiary'
       }`}
     >
       {label}
+      {dot && (
+        <span
+          className="inline-block w-1.5 h-1.5 rounded-full bg-accent"
+          aria-label="New"
+        />
+      )}
     </Link>
   );
 }

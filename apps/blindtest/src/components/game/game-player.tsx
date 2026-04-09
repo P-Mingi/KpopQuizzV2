@@ -34,9 +34,32 @@ interface Props {
   playlist: string;
   mode: string;
   difficulty: string;
+  /**
+   * Optional fetch override. When set, the player does a GET to this URL
+   * instead of POSTing to /api/game/generate. Used by the daily and challenge
+   * flows so everyone gets the same frozen questions.
+   */
+  presetUrl?: string;
+  /** When set, save completed results to /api/daily/record using this id. */
+  dailyChallengeId?: string;
+  /** Daily #N passed through to ResultsScreen for share formatting. */
+  dailyNumber?: number;
+  /** When set, save completed results to /api/challenge/attempt with this code. */
+  challengeCode?: string;
+  /** Nickname used when the player isn't logged in (challenge flow). */
+  challengePlayerName?: string;
 }
 
-export function GamePlayer({ playlist, mode, difficulty }: Props) {
+export function GamePlayer({
+  playlist,
+  mode,
+  difficulty,
+  presetUrl,
+  dailyChallengeId,
+  dailyNumber,
+  challengeCode,
+  challengePlayerName,
+}: Props) {
   const router = useRouter();
   const audio = useAudioPlayer();
   const game = useGameState();
@@ -56,6 +79,11 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     isFirstGameToday: boolean;
     isPerfectRound: boolean;
     mastery: { play_count: number; best_score: number; mastery_stars: number } | null;
+  } | null>(null);
+  const [challengeComparisonData, setChallengeComparisonData] = useState<{
+    creator: { name: string; score: number; correct: number; total: number; time: number | null };
+    player: { name: string; score: number; correct: number; total: number; time: number | null };
+    shortCode: string;
   } | null>(null);
   const [ready, setReady] = useState(false);
   const [fetchedData, setFetchedData] = useState<{
@@ -80,11 +108,13 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
   useEffect(() => {
     async function fetchGame() {
       try {
-        const res = await fetch('/api/game/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ playlist, mode, difficulty }),
-        });
+        const res = presetUrl
+          ? await fetch(presetUrl, { method: 'GET' })
+          : await fetch('/api/game/generate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ playlist, mode, difficulty }),
+            });
         const data = await res.json();
 
         if (!res.ok) {
@@ -96,10 +126,10 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         setAllTitles((data.all_titles ?? []) as string[]);
         setFetchedData({
           questions: data.questions as Question[],
-          timer_duration: data.timer_duration as number,
-          playlist: data.playlist as string,
-          mode: data.mode as string,
-          difficulty: data.difficulty as string,
+          timer_duration: (data.timer_duration as number) ?? (mode === 'challenge' ? 10 : 15),
+          playlist: (data.playlist as string) ?? playlist,
+          mode: (data.mode as string) ?? mode,
+          difficulty: (data.difficulty as string) ?? difficulty,
         });
         setReady(true);
       } catch {
@@ -108,7 +138,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
     }
     fetchGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playlist, mode, difficulty]);
+  }, [playlist, mode, difficulty, presetUrl]);
 
   // User taps "Start" - unlock audio + start game
   const handleStart = useCallback(() => {
@@ -158,7 +188,76 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         const avgSpd = correctResults.length > 0
           ? correctResults.reduce((sum, r) => sum + r.timeElapsed, 0) / correctResults.length
           : 0;
+        const totalTime = game.state.results.reduce((sum, r) => sum + r.timeElapsed, 0);
 
+        const songResults = game.state.results.map((r) => ({
+          song_id: r.question.song_id,
+          correct: r.correct,
+          points: r.points,
+          time: r.timeElapsed,
+          answered: r.answered,
+        }));
+
+        // Challenge flow posts to /api/challenge/attempt (writes challenge_attempts +
+        // also updates bt_players when signed in).
+        if (challengeCode) {
+          const res = await fetch('/api/challenge/attempt', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              challengeCode,
+              playerName: challengePlayerName,
+              score: game.state.totalScore,
+              correctCount: game.correctCount,
+              totalSongs: game.state.results.length,
+              bestCombo: game.state.bestCombo,
+              timeTaken: Math.round(totalTime * 10) / 10,
+              songResults,
+            }),
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.saved || data.success) setProgressionData(data);
+            if (data.creator && data.player && data.challenge?.short_code) {
+              setChallengeComparisonData({
+                creator: data.creator,
+                player: data.player,
+                shortCode: data.challenge.short_code,
+              });
+            }
+          }
+          return;
+        }
+
+        // Daily flow posts to /api/daily/record (writes daily_challenge_plays +
+        // also updates bt_players for XP/progression).
+        if (dailyChallengeId) {
+          const res = await fetch('/api/daily/record', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              challenge_id: dailyChallengeId,
+              score: game.state.totalScore,
+              correct: game.correctCount,
+              total: game.state.results.length,
+              total_time: Math.round(totalTime * 10) / 10,
+              best_combo: game.state.bestCombo,
+              songs: songResults,
+            }),
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.saved || data.success) setProgressionData(data);
+            // Flag "played today" in localStorage for client-side gating.
+            try {
+              const key = `kbt-daily-played-${new Date().toISOString().slice(0, 10)}`;
+              localStorage.setItem(key, 'true');
+            } catch { /* ignore storage errors */ }
+          }
+          return;
+        }
+
+        // Default flow (Quick / Challenge) posts to /api/game/save-result.
         const res = await fetch('/api/game/save-result', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -171,13 +270,7 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
             totalSongs: game.state.results.length,
             bestCombo: game.state.bestCombo,
             avgSpeed: Math.round(avgSpd * 10) / 10,
-            songResults: game.state.results.map((r) => ({
-              song_id: r.question.song_id,
-              correct: r.correct,
-              points: r.points,
-              time: r.timeElapsed,
-              answered: r.answered,
-            })),
+            songResults,
           }),
         });
         if (res.ok) {
@@ -263,8 +356,18 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
 
   const handlePlayAgain = useCallback(() => {
     audio.cleanup();
+    // Daily is one attempt per day; send them back to the daily page instead.
+    if (dailyChallengeId) {
+      router.push('/daily');
+      return;
+    }
+    // Challenge: back to the challenge landing so they can accept again / share.
+    if (challengeCode) {
+      router.push(`/challenge/${challengeCode}`);
+      return;
+    }
     router.refresh();
-  }, [audio, router]);
+  }, [audio, router, dailyChallengeId, challengeCode]);
 
   // Possible answers for challenge auto-suggest
   const allPossibleAnswers = useMemo(() => {
@@ -326,6 +429,9 @@ export function GamePlayer({ playlist, mode, difficulty }: Props) {
         progression={progressionData}
         playlist={game.state.playlist}
         mode={game.state.mode}
+        questions={game.state.questions}
+        {...(dailyNumber !== undefined ? { dailyNumber } : {})}
+        {...(challengeComparisonData ? { challengeComparison: challengeComparisonData } : {})}
         onPlayAgain={handlePlayAgain}
         onHome={handleQuit}
       />

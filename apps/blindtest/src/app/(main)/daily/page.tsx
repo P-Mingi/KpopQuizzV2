@@ -1,71 +1,123 @@
 import Link from 'next/link';
-import { createServerClient } from '@kpopquiz/shared/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { getTodayKST } from '@/lib/daily';
+import { DailyPlayedCard } from '@/components/daily/daily-played-card';
+import { CountdownTimer } from '@/components/daily/countdown-timer';
 
-async function fetchDailyData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3022';
-  try {
-    const res = await fetch(`${baseUrl}/api/daily`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
+interface ChallengeRow {
+  id: string;
+  day_number: number | null;
+  playlist: string | null;
 }
 
-function getResetCountdown(): string {
-  // Daily challenge resets at 00:00 KST (UTC+9).
+interface PlayerPlay {
+  score: number;
+  correct: number;
+  total_time: number | null;
+  best_combo: number | null;
+  songs: unknown;
+}
+
+interface LeaderboardRow {
+  player_id: string;
+  score: number;
+  correct: number;
+  total_time: number;
+  username: string;
+  avatar_bg: string;
+  avatar_text: string;
+}
+
+interface SongResult {
+  correct: boolean;
+  answered: string | null;
+}
+
+function msUntilKstMidnight(): number {
   const now = new Date();
   const kstNow = new Date(now.getTime() + 9 * 3600 * 1000);
-  const hours = 23 - kstNow.getUTCHours();
-  const minutes = 59 - kstNow.getUTCMinutes();
-  return `${hours}h ${minutes}m`;
+  const kstMidnightUTCms = Date.UTC(
+    kstNow.getUTCFullYear(),
+    kstNow.getUTCMonth(),
+    kstNow.getUTCDate() + 1,
+    0, 0, 0, 0,
+  );
+  const kstMidnightAsUtc = kstMidnightUTCms - 9 * 3600 * 1000;
+  return Math.max(0, kstMidnightAsUtc - now.getTime());
 }
 
 export default async function DailyPage() {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const authClient = await createServerClient();
+  const { data: { user } } = await authClient.auth.getUser();
+  const supabase = createServiceRoleClient();
+  const today = getTodayKST();
 
-  let player = null;
-  if (user) {
-    const { data } = await supabase.from('players').select('*').eq('id', user.id).single();
-    player = data;
+  // Fetch the challenge row. If the v2 columns aren't populated yet, hit our
+  // own /api/daily endpoint which lazily generates them.
+  let { data: challengeRow } = await supabase
+    .from('daily_challenges')
+    .select('id, day_number, playlist, questions')
+    .eq('date', today)
+    .maybeSingle();
+
+  if (!challengeRow || !Array.isArray(challengeRow.questions)) {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3022';
+      await fetch(`${baseUrl}/api/daily`, { cache: 'no-store' });
+      const { data: refreshed } = await supabase
+        .from('daily_challenges')
+        .select('id, day_number, playlist, questions')
+        .eq('date', today)
+        .maybeSingle();
+      challengeRow = refreshed;
+    } catch {
+      // Ignore; we'll render the not-available state below.
+    }
   }
 
-  const dailyData = await fetchDailyData();
-  const challenge = dailyData?.challenge;
-  const stats = dailyData?.stats ?? { play_count: 0, avg_score: 0 };
+  const challenge: ChallengeRow | null = challengeRow
+    ? { id: challengeRow.id as string, day_number: (challengeRow.day_number as number | null) ?? null, playlist: (challengeRow.playlist as string | null) ?? 'all' }
+    : null;
 
-  // Check if player already played today
-  let playerResult: { score: number; correct: number; total_time: number; rank: number; total_players: number } | null = null;
-  if (player && challenge) {
-    const { data: play } = await supabase
+  // Stats for today.
+  let playCount = 0;
+  let avgCorrect = 0;
+  let avgTime = 0;
+  if (challenge) {
+    const { data: stats } = await supabase
       .from('daily_challenge_plays')
       .select('score, correct, total_time')
-      .eq('player_id', player.id)
+      .eq('challenge_id', challenge.id);
+    if (stats && stats.length > 0) {
+      playCount = stats.length;
+      avgCorrect = Number((stats.reduce((s, r) => s + (r.correct as number), 0) / stats.length).toFixed(1));
+      avgTime = Math.round(stats.reduce((s, r) => s + ((r.total_time as number | null) ?? 0), 0) / stats.length);
+    }
+  }
+
+  // Player's own attempt.
+  let playerPlay: PlayerPlay | null = null;
+  let playerRank = 0;
+  if (user && challenge) {
+    const { data: mine } = await supabase
+      .from('daily_challenge_plays')
+      .select('score, correct, total_time, best_combo, songs')
+      .eq('player_id', user.id)
       .eq('challenge_id', challenge.id)
       .maybeSingle();
-
-    if (play) {
-      const { data: allPlays } = await supabase
+    if (mine) {
+      playerPlay = mine as PlayerPlay;
+      const { data: ranked } = await supabase
         .from('daily_challenge_plays')
         .select('player_id, score')
         .eq('challenge_id', challenge.id)
         .order('score', { ascending: false });
-
-      const rank = (allPlays ?? []).findIndex((p: { player_id: string }) => p.player_id === player!.id) + 1;
-      playerResult = {
-        score: play.score as number,
-        correct: play.correct as number,
-        total_time: play.total_time as number,
-        rank,
-        total_players: allPlays?.length ?? 0,
-      };
+      playerRank = (ranked ?? []).findIndex((r: { player_id: string }) => r.player_id === user.id) + 1;
     }
   }
 
-  // Leaderboard
-  let leaderboard: { player_id: string; score: number; correct: number; total_time: number; username: string; avatar_bg: string; avatar_text: string }[] = [];
+  // Leaderboard (top 20).
+  let leaderboard: LeaderboardRow[] = [];
   if (challenge) {
     const { data } = await supabase
       .from('daily_challenge_plays')
@@ -73,7 +125,6 @@ export default async function DailyPage() {
       .eq('challenge_id', challenge.id)
       .order('score', { ascending: false })
       .limit(20);
-
     leaderboard = (data ?? []).map((row: Record<string, unknown>) => {
       const p = row.players as { username: string; avatar_bg: string; avatar_text: string } | null;
       return {
@@ -81,19 +132,20 @@ export default async function DailyPage() {
         score: row.score as number,
         correct: (row.correct as number | null) ?? 0,
         total_time: (row.total_time as number | null) ?? 0,
-        username: p?.username ?? '?',
+        username: p?.username ?? 'Anonymous',
         avatar_bg: p?.avatar_bg ?? '#ED93B1',
         avatar_text: p?.avatar_text ?? '#0D0D0F',
       };
     });
   }
 
-  const today = getTodayKST();
-  const resetIn = getResetCountdown();
+  const dayNumber = challenge?.day_number ?? null;
+  const hasPlayed = Boolean(playerPlay);
+  const resetMs = msUntilKstMidnight();
 
   return (
     <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
-      {/* Hero card */}
+      {/* Hero card: swaps between "play now" and "completed" based on state */}
       <div
         className="p-6 rounded-[18px] mb-5"
         style={{
@@ -102,51 +154,70 @@ export default async function DailyPage() {
         }}
       >
         <p className="text-[10px] font-semibold uppercase tracking-wider text-daily mb-2">
-          Daily challenge
+          Daily challenge{dayNumber ? ` #${dayNumber}` : ''}
         </p>
-        <h1 className="text-[32px] font-bold text-primary leading-tight">
-          {playerResult ? `${playerResult.correct}/10` : '10 songs.'}
-        </h1>
-        <p className="text-[13px] text-daily mt-1">
-          {playerResult
-            ? `${playerResult.score.toLocaleString()} pts - rank #${playerResult.rank} of ${playerResult.total_players}`
-            : 'One shot. Same songs for everyone.'}
-        </p>
+
         {!challenge ? (
-          <p className="mt-5 text-sm text-tertiary">Daily challenge not available yet.</p>
-        ) : !playerResult ? (
-          <div className="mt-5">
-            {player ? (
-              <Link
-                href="/play/daily"
-                className="inline-block px-10 py-3.5 rounded-[14px] bg-accent text-primary text-sm font-bold active:scale-[0.98] transition-transform"
-              >
-                PLAY
-              </Link>
-            ) : (
-              <>
-                <span className="inline-block px-10 py-3.5 rounded-[14px] bg-elevated text-tertiary text-sm font-bold cursor-not-allowed">
+          <>
+            <h1 className="text-[28px] font-bold text-primary leading-tight">
+              Not available yet
+            </h1>
+            <p className="text-[13px] text-daily mt-1">Come back in a bit.</p>
+          </>
+        ) : hasPlayed && playerPlay ? (
+          <DailyPlayedCard
+            correct={playerPlay.correct}
+            score={playerPlay.score}
+            totalTime={playerPlay.total_time ?? 0}
+            bestCombo={playerPlay.best_combo ?? 0}
+            rank={playerRank}
+            totalPlayers={playCount}
+            songs={playerPlay.songs as SongResult[]}
+            {...(dayNumber !== null ? { dayNumber } : {})}
+            playlist={challenge.playlist ?? 'all'}
+            resetMs={resetMs}
+          />
+        ) : (
+          <>
+            <h1 className="text-[32px] font-bold text-primary leading-tight">
+              10 songs.
+            </h1>
+            <p className="text-[13px] text-daily mt-1">
+              One shot. Same songs for everyone.
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              {user ? (
+                <Link
+                  href="/play/daily"
+                  className="inline-block px-10 py-3.5 rounded-[14px] bg-accent text-primary text-sm font-bold active:scale-[0.98] transition-transform"
+                >
                   PLAY
-                </span>
-                <p className="text-xs text-tertiary mt-2.5">
-                  <Link href="/login" className="text-accent">Sign in</Link> to play the daily challenge
-                </p>
-              </>
-            )}
-          </div>
-        ) : null}
-        <p className="text-[11px] text-ghost mt-4">
-          {today} - resets in {resetIn}
-        </p>
+                </Link>
+              ) : (
+                <div>
+                  <span className="inline-block px-10 py-3.5 rounded-[14px] bg-elevated text-tertiary text-sm font-bold cursor-not-allowed">
+                    PLAY
+                  </span>
+                  <p className="text-xs text-tertiary mt-2.5">
+                    <Link href="/login" className="text-accent">Sign in</Link> to play the daily challenge
+                  </p>
+                </div>
+              )}
+            </div>
+            <p className="text-[11px] text-ghost mt-4">
+              <CountdownTimer msUntilReset={resetMs} prefix="Resets in " showSeconds={false} />
+            </p>
+          </>
+        )}
       </div>
 
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-px bg-default rounded-[12px] overflow-hidden mb-5">
-        <StatCell value={stats.play_count.toLocaleString()} label="players today" />
-        <StatCell value={stats.avg_score > 0 ? stats.avg_score.toLocaleString() : '-'} label="average score" />
+        <StatCell value={playCount.toLocaleString()} label="players today" />
+        <StatCell value={playCount > 0 ? avgCorrect.toFixed(1) : '-'} label="average score" />
         <StatCell
-          value={playerResult ? `#${playerResult.rank}` : '-'}
-          label="your rank"
+          value={hasPlayed && playerRank > 0 ? `#${playerRank}` : playCount > 0 ? `${avgTime}s` : '-'}
+          label={hasPlayed && playerRank > 0 ? 'your rank' : 'avg time'}
         />
       </div>
 
@@ -157,7 +228,7 @@ export default async function DailyPage() {
       {leaderboard.length > 0 ? (
         <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
           {leaderboard.map((entry, i) => {
-            const isMe = entry.player_id === player?.id;
+            const isMe = entry.player_id === user?.id;
             const rankColor =
               i === 0 ? 'text-combo'
               : i === 1 ? 'text-secondary'
@@ -198,7 +269,9 @@ export default async function DailyPage() {
       ) : (
         <div className="rounded-[14px] bg-surface border border-default shadow-card py-8 text-center">
           <p className="text-xs text-tertiary">No plays yet today</p>
-          <p className="text-[10px] text-ghost mt-0.5">Be the first to set a score</p>
+          <p className="text-[10px] text-ghost mt-0.5">
+            {hasPlayed ? "You're the first!" : 'Be the first to set a score'}
+          </p>
         </div>
       )}
     </div>

@@ -4,9 +4,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { xpForLevel } from '@/lib/progression';
 import { playTick, playReveal, playPerfect, playStreak } from '@/lib/sounds';
 import { hapticLight } from '@/lib/haptics';
+import { generateShareText } from '@/lib/share';
+import { generateShareCard } from '@/lib/share-card';
 import { RollingNumber } from './rolling-number';
 import { LevelUpOverlay } from './level-up-overlay';
 import { MasteryProgress, getNextStarThreshold } from './mastery-progress';
+import { ChallengeComparison } from '@/components/challenge/challenge-comparison';
 
 // ---- CircularTimer ----
 
@@ -320,19 +323,43 @@ interface ProgressionData {
   mastery: { play_count: number; best_score: number; mastery_stars: number } | null;
 }
 
+interface ResultsSongRow {
+  question: { reveal: { title: string; artist: string; cover?: string | null } };
+  correct: boolean;
+  /** Player's submitted answer (null = timed out). Used for the share emoji grid. */
+  answered: string | null;
+  /** Seconds spent on this question. Used for total round time on share. */
+  timeElapsed: number;
+}
+
+interface ChallengeSide {
+  name: string;
+  score: number;
+  correct: number;
+  total: number;
+  time: number | null;
+}
+
 interface ResultsScreenProps {
   score: number;
   correctCount: number;
   total: number;
   bestCombo: number;
   avgSpeed: number;
-  results: Array<{
-    question: { reveal: { title: string; artist: string; cover?: string | null } };
-    correct: boolean;
-  }>;
+  results: ResultsSongRow[];
   progression: ProgressionData | null;
   playlist: string;
   mode: string;
+  /** When set, the share sheet renders the daily format (Daily #N). */
+  dailyNumber?: number;
+  /** When set, the screen shows a comparison card at the top of the results. */
+  challengeComparison?: {
+    creator: ChallengeSide;
+    player: ChallengeSide;
+    shortCode: string;
+  };
+  /** Full questions payload used to spin up a new challenge from the current round. */
+  questions?: unknown[];
   onPlayAgain: () => void;
   onHome: () => void;
 }
@@ -414,6 +441,9 @@ export function ResultsScreen({
   progression,
   playlist,
   mode,
+  dailyNumber,
+  challengeComparison,
+  questions,
   onPlayAgain,
   onHome,
 }: ResultsScreenProps) {
@@ -421,6 +451,145 @@ export function ResultsScreen({
   const starsEarned = getStarsEarned(correctCount, total);
   const isPerfect = correctCount === total;
   const missed = results.filter((r) => !r.correct);
+
+  // Share state.
+  const [shareLabel, setShareLabel] = useState<'Share' | 'Copied!' | 'Sharing...'>('Share');
+  const [challengeLabel, setChallengeLabel] = useState<'Challenge a friend' | 'Creating...' | 'Link copied!' | 'Shared!'>(
+    'Challenge a friend',
+  );
+
+  async function handleShare() {
+    const totalTime = results.reduce((sum, r) => sum + (r.timeElapsed ?? 0), 0);
+    const shareText = generateShareText({
+      results: results.map((r) => ({ correct: r.correct, answered: r.answered })),
+      totalScore: score,
+      totalTime,
+      streak: progression?.streak ?? 0,
+      mode,
+      playlist,
+      ...(dailyNumber !== undefined ? { dailyNumber } : {}),
+    });
+
+    // Try the Web Share API first (mobile native sheet, supports files).
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      setShareLabel('Sharing...');
+      try {
+        let file: File | null = null;
+        try {
+          const blob = await generateShareCard({
+            results: results.map((r) => ({ correct: r.correct, answered: r.answered })),
+            totalScore: score,
+            avgSpeed,
+            bestCombo,
+            streak: progression?.streak ?? 0,
+            playlist,
+            mode,
+            ...(dailyNumber !== undefined ? { dailyNumber } : {}),
+          });
+          file = new File([blob], 'kpopblindtest-result.png', { type: 'image/png' });
+        } catch {
+          // Canvas failed; text-only share is still fine.
+        }
+
+        const sharePayload: ShareData & { files?: File[] } = { text: shareText };
+        if (file && typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
+          sharePayload.files = [file];
+        }
+
+        await navigator.share(sharePayload);
+        setShareLabel('Share');
+        return;
+      } catch {
+        // User cancelled or share failed. Fall through to clipboard.
+      }
+    }
+
+    // Fallback: clipboard.
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setShareLabel('Copied!');
+      setTimeout(() => setShareLabel('Share'), 2000);
+    } catch {
+      setShareLabel('Share');
+    }
+  }
+
+  async function handleCreateChallenge() {
+    // Re-challenge path: if we're already in a challenge completion, reuse the
+    // existing short_code instead of minting a new one.
+    if (challengeComparison?.shortCode) {
+      const fullUrl = `${window.location.origin}/challenge/${challengeComparison.shortCode}`;
+      const text = `I scored ${correctCount}/${total} on this K-pop blindtest. Can you beat me?`;
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        try {
+          await navigator.share({ title: 'K-pop Blindtest Challenge', text, url: fullUrl });
+          setChallengeLabel('Shared!');
+          setTimeout(() => setChallengeLabel('Challenge a friend'), 2000);
+          return;
+        } catch {
+          // fall through
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+        setChallengeLabel('Link copied!');
+        setTimeout(() => setChallengeLabel('Challenge a friend'), 2000);
+      } catch {
+        setChallengeLabel('Challenge a friend');
+      }
+      return;
+    }
+
+    if (!questions || questions.length === 0) {
+      // Can't create a challenge without the frozen question payload.
+      return;
+    }
+
+    setChallengeLabel('Creating...');
+    try {
+      const res = await fetch('/api/challenge/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playlist,
+          mode,
+          difficulty: 'all',
+          questions,
+          creatorScore: score,
+          creatorCorrect: correctCount,
+          creatorTotal: total,
+          creatorTime: results.reduce((sum, r) => sum + (r.timeElapsed ?? 0), 0),
+          creatorBestCombo: bestCombo,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.shortCode) {
+        setChallengeLabel('Challenge a friend');
+        return;
+      }
+      const fullUrl = `${window.location.origin}/challenge/${data.shortCode}`;
+      const text = `I scored ${correctCount}/${total} on this K-pop blindtest. Can you beat me?`;
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        try {
+          await navigator.share({ title: 'K-pop Blindtest Challenge', text, url: fullUrl });
+          setChallengeLabel('Shared!');
+          setTimeout(() => setChallengeLabel('Challenge a friend'), 2000);
+          return;
+        } catch {
+          // fall through
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+        setChallengeLabel('Link copied!');
+        setTimeout(() => setChallengeLabel('Challenge a friend'), 3000);
+      } catch {
+        setChallengeLabel('Challenge a friend');
+      }
+    } catch {
+      setChallengeLabel('Challenge a friend');
+    }
+  }
 
   // Stars stagger in.
   const [showStars, setShowStars] = useState(false);
@@ -675,7 +844,32 @@ export function ResultsScreen({
     </div>
   ) : null;
 
-  // Action buttons.
+  // Challenge comparison block (shown when the player finished a friend's challenge).
+  const challengeBlock = challengeComparison ? (
+    <div className="p-5 rounded-2xl bg-surface border border-default">
+      <ChallengeComparison
+        creator={challengeComparison.creator}
+        player={challengeComparison.player}
+      />
+    </div>
+  ) : null;
+
+  // "Challenge a friend" button (primary growth CTA). Only shown for normal
+  // rounds (not daily). When the player is inside a challenge already, the
+  // button re-shares the same short_code so the chain continues.
+  const canCreateChallenge = dailyNumber === undefined && (questions?.length ?? 0) > 0;
+  const challengeButtonBlock = canCreateChallenge || challengeComparison ? (
+    <button
+      type="button"
+      onClick={handleCreateChallenge}
+      className="w-full py-3.5 rounded-xl bg-surface border border-accent text-accent text-sm font-bold active:scale-[0.98] transition-transform hover:bg-accent-bg"
+      aria-live="polite"
+    >
+      {challengeComparison ? 'Challenge someone else' : challengeLabel}
+    </button>
+  ) : null;
+
+  // Action buttons (Play again + Share + Home).
   const buttonsBlock = (
     <div className="flex gap-2">
       <button
@@ -684,6 +878,14 @@ export function ResultsScreen({
         className="flex-1 py-3.5 rounded-xl bg-accent text-primary font-bold text-sm active:scale-[0.98] transition-transform"
       >
         Play again
+      </button>
+      <button
+        type="button"
+        onClick={handleShare}
+        className="flex-1 py-3.5 rounded-xl bg-surface border border-default text-secondary font-medium text-sm hover:border-accent hover:text-accent transition-colors"
+        aria-live="polite"
+      >
+        {shareLabel}
       </button>
       <button
         type="button"
@@ -697,6 +899,9 @@ export function ResultsScreen({
 
   return (
     <div className="max-w-[440px] md:max-w-[900px] mx-auto px-5 py-10 md:py-14 animate-fadeSlideUp">
+      {/* Challenge comparison (only when coming in from a shared link) */}
+      {challengeBlock && <div className="mb-6 md:mb-8">{challengeBlock}</div>}
+
       {/* HERO: centered celebration. Full width on both mobile and desktop. */}
       <div className="flex flex-col items-center gap-4 md:gap-6 mb-6 md:mb-10">
         {starsBlock}
@@ -721,8 +926,15 @@ export function ResultsScreen({
         </div>
       </div>
 
+      {/* Challenge a friend (primary growth CTA) */}
+      {challengeButtonBlock && (
+        <div className="mt-6 md:max-w-[440px] md:mx-auto">
+          {challengeButtonBlock}
+        </div>
+      )}
+
       {/* Action buttons. Centered on desktop. */}
-      <div className="mt-6 md:mt-10 md:max-w-[440px] md:mx-auto">
+      <div className="mt-3 md:mt-4 md:max-w-[440px] md:mx-auto">
         {buttonsBlock}
       </div>
 

@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { GameSelector } from '@/components/home/game-selector';
+import { DailyTeaser } from '@/components/home/daily-teaser';
 
 interface Player {
   username: string;
@@ -30,7 +30,8 @@ async function fetchPlaylistStats() {
     // override. Paginate via .range() to pull the full ~22K active song catalog so
     // per-artist and per-category counts are accurate.
     const PAGE_SIZE = 1000;
-    const songs: { artist_name: string; gender: string | null; generation: string | null; difficulty: string | null }[] = [];
+    type Row = { artist_name: string; gender: string | null; generation: string | null; difficulty: string | null };
+    const songs: Row[] = [];
     let from = 0;
     while (true) {
       const { data, error } = await supabase
@@ -39,7 +40,7 @@ async function fetchPlaylistStats() {
         .eq('status', 'active')
         .range(from, from + PAGE_SIZE - 1);
       if (error || !data || data.length === 0) break;
-      songs.push(...data);
+      songs.push(...(data as Row[]));
       if (data.length < PAGE_SIZE) break;
       from += PAGE_SIZE;
       if (from > 100000) break; // safety stop
@@ -59,17 +60,27 @@ async function fetchPlaylistStats() {
       { id: '2nd-gen', name: '2nd gen', count: songs.filter((s) => s.generation === '2nd').length },
     ].filter((c) => c.count >= 10);
 
-    const artistCounts: Record<string, number> = {};
+    // Per-artist aggregate: count + first-seen gender + first-seen generation.
+    const artistMeta: Record<string, { count: number; gender: string | null; generation: string | null }> = {};
     for (const s of songs) {
-      artistCounts[s.artist_name] = (artistCounts[s.artist_name] ?? 0) + 1;
+      const existing = artistMeta[s.artist_name];
+      if (existing) {
+        existing.count += 1;
+        if (!existing.gender && s.gender) existing.gender = s.gender;
+        if (!existing.generation && s.generation) existing.generation = s.generation;
+      } else {
+        artistMeta[s.artist_name] = { count: 1, gender: s.gender, generation: s.generation };
+      }
     }
 
-    const groups = Object.entries(artistCounts)
-      .filter(([, count]) => count >= 10)
-      .map(([name, count]) => ({
+    const groups = Object.entries(artistMeta)
+      .filter(([, meta]) => meta.count >= 10)
+      .map(([name, meta]) => ({
         id: name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
         name,
-        count,
+        count: meta.count,
+        gender: meta.gender,
+        generation: meta.generation,
       }))
       .sort((a, b) => b.count - a.count);
 
@@ -85,31 +96,10 @@ async function fetchPlaylistStats() {
   }
 }
 
-async function fetchDailyTeaserCount(): Promise<number> {
-  try {
-    const supabase = createServiceRoleClient();
-    const today = new Date().toISOString().slice(0, 10);
-    const { data: challenge } = await supabase
-      .from('daily_challenges')
-      .select('id')
-      .eq('date', today)
-      .maybeSingle();
-    if (!challenge) return 0;
-    const { count } = await supabase
-      .from('daily_challenge_plays')
-      .select('player_id', { count: 'exact', head: true })
-      .eq('challenge_id', challenge.id);
-    return count ?? 0;
-  } catch {
-    return 0;
-  }
-}
-
 export default async function HomePage() {
-  const [playlists, player, dailyPlays] = await Promise.all([
+  const [playlists, player] = await Promise.all([
     fetchPlaylistStats(),
     fetchPlayer(),
-    fetchDailyTeaserCount(),
   ]);
 
   const streak = player?.current_streak ?? 0;
@@ -136,21 +126,9 @@ export default async function HomePage() {
       {/* Game selector lobby (mode + playlist + groups + difficulty + PLAY) */}
       <GameSelector playlists={playlists} />
 
-      {/* Daily teaser */}
+      {/* Daily teaser (context-aware: shows urgency if not played, result if played) */}
       <div className="mt-6">
-        <Link
-          href="/daily"
-          className="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-surface border border-default shadow-card hover:border-accent transition-colors"
-        >
-          <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" aria-hidden="true" />
-          <span className="flex-1 text-xs text-tertiary">
-            <span className="font-semibold text-primary">Daily challenge</span>
-            {dailyPlays > 0 && (
-              <span className="text-ghost"> - {dailyPlays.toLocaleString()} {dailyPlays === 1 ? 'play' : 'plays'} today</span>
-            )}
-          </span>
-          <span className="text-[11px] font-semibold text-accent">Play</span>
-        </Link>
+        <DailyTeaser />
       </div>
 
       {/* SEO content for anonymous visitors */}
