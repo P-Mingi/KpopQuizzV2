@@ -154,10 +154,53 @@ body {
   100% { opacity: 0; transform: translateY(-40px); }
 }
 
+@keyframes fade-out-up {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+
+/* Mascot animations */
+@keyframes mascot-bounce-kf {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-12px); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+  70% { transform: translateY(0); }
+  85% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes mascot-droop-kf {
+  0% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(6px) rotate(-8deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes mascot-vibrate-kf {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10% { transform: translateX(-3px) rotate(-3deg); }
+  20% { transform: translateX(3px) rotate(3deg); }
+  30% { transform: translateX(-3px) rotate(-3deg); }
+  40% { transform: translateX(3px) rotate(3deg); }
+  50% { transform: translateX(-2px) rotate(-2deg); }
+  60% { transform: translateX(2px) rotate(2deg); }
+  70% { transform: translateX(-1px) rotate(-1deg); }
+  80% { transform: translateX(1px) rotate(1deg); }
+}
+
+@keyframes mascot-idle-kf {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
 .animate-fadeSlideUp { animation: fadeSlideUp 0.3s ease; }
 .animate-pointsFloat { animation: pointsFloat 0.8s ease forwards; }
 .animate-shake { animation: shake 0.4s ease-out; }
 .animate-pulse { animation: pulse 1.5s ease infinite; }
 .animate-pulse-urgent { animation: pulse-urgent 0.5s ease-in-out infinite; }
 .animate-float-up { animation: float-up 1s ease-out forwards; }
+.animate-fade-out { animation: fade-out-up 0.8s ease-out forwards; }
+.mascot-bounce { animation: mascot-bounce-kf 0.6s ease-out; }
+.mascot-droop { animation: mascot-droop-kf 0.6s ease-out; }
+.mascot-vibrate { animation: mascot-vibrate-kf 0.8s ease-out; }
+.mascot-idle { animation: mascot-idle-kf 2s ease-in-out infinite; }
 .tabular-nums { font-variant-numeric: tabular-nums; }

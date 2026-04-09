@@ -22,10 +22,32 @@ export function TopNav({ user }: { user?: NavUser }) {
   return (
     <header className="px-4 md:px-6 pt-4 md:pt-0 md:h-12 md:border-b md:border-subtle flex items-center justify-between">
       <div className="flex items-center gap-6">
-        <Link href="/" className="font-bold text-lg md:text-base leading-none">
-          <span className="text-primary">kpop</span>
-          <span className="text-accent">blind</span>
-          <span className="text-primary">test</span>
+        <Link href="/" className="flex items-center gap-1.5 font-bold text-lg md:text-base leading-none">
+          {/* Mini lightstick mascot icon */}
+          <svg
+            width="18"
+            height="26"
+            viewBox="0 0 20 28"
+            className="flex-shrink-0"
+            aria-hidden="true"
+          >
+            <circle cx="10" cy="7" r="6" fill="var(--accent)" />
+            <rect x="9" y="13" width="2" height="12" rx="1" fill="var(--text-ghost)" />
+            <circle cx="8" cy="6" r="1" fill="var(--bg-primary)" />
+            <circle cx="12" cy="6" r="1" fill="var(--bg-primary)" />
+            <path
+              d="M8 9 Q10 11 12 9"
+              fill="none"
+              stroke="var(--bg-primary)"
+              strokeWidth="0.8"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span>
+            <span className="text-primary">kpop</span>
+            <span className="text-accent">blind</span>
+            <span className="text-primary">test</span>
+          </span>
         </Link>
 
         {/* Desktop nav links */}

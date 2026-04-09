@@ -54,6 +54,13 @@ export function buildEmojiGrid(results: ShareResult[]): string {
     .join('');
 }
 
+function getKoreanLabel(correct: number, total: number): string {
+  if (correct === total) return '\uC62C\uD0AC!';         // 올킬!
+  if (correct === total - 1) return '\uC544\uAE4C\uB2E4!'; // 아깝다!
+  if (correct >= Math.ceil(total * 0.7)) return '\uB300\uBC15!'; // 대박!
+  return '';
+}
+
 export function generateShareText(data: ShareData): string {
   const {
     results,
@@ -70,7 +77,13 @@ export function generateShareText(data: ShareData): string {
   const correct = results.filter((r) => r.correct).length;
   const total = results.length;
   const isPerfect = correct === total && total > 0;
-  const scoreText = isPerfect ? `${correct}/${total} PERFECT!` : `${correct}/${total}`;
+  const koreanLabel = getKoreanLabel(correct, total);
+  const scoreText = isPerfect
+    ? `${correct}/${total} PERFECT!`
+    : `${correct}/${total}`;
+  const scoreLine = koreanLabel
+    ? `${grid} ${scoreText} ${koreanLabel}`
+    : `${grid} ${scoreText}`;
 
   // Header line.
   let header = '\uD83C\uDFB5 K-pop Blindtest'; // 🎵
@@ -85,7 +98,7 @@ export function generateShareText(data: ShareData): string {
 
   // Stats line.
   const parts: string[] = [`\u23F1 ${formatTime(totalTime)}`]; // ⏱
-  if (streak > 1) parts.push(`\uD83D\uDD25 ${streak} streak`); // 🔥
+  if (streak > 1) parts.push(`\uD83D\uDD25 ${streak} streak \uD654\uC774\uD305!`); // 🔥 hwaiting
   if (dailyNumber === undefined) {
     let pts = `\u26A1 ${totalScore.toLocaleString()}pts`; // ⚡
     if (mode === 'challenge') pts += ' (1.5x)';
@@ -97,5 +110,5 @@ export function generateShareText(data: ShareData): string {
   const cta = dailyNumber !== undefined ? 'How did you do?' : 'Can you beat me?';
   const url = dailyNumber !== undefined ? `${siteUrl}/daily` : siteUrl;
 
-  return [header, '', `${grid} ${scoreText}`, statsLine, '', cta, url].join('\n');
+  return [header, '', scoreLine, statsLine, '', cta, url].join('\n');
 }

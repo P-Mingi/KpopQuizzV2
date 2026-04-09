@@ -76,7 +76,7 @@ export function GameSelector({ playlists }: Props) {
 
       {/* Playlist categories */}
       <section>
-        <SectionLabel>Playlist</SectionLabel>
+        <SectionLabel>Vibe</SectionLabel>
         <div className="flex flex-wrap gap-1.5">
           {playlists.categories.map((cat) => (
             <Pill
@@ -93,7 +93,7 @@ export function GameSelector({ playlists }: Props) {
       {/* Popular groups (top 8) + Browse all */}
       {playlists.groups.length > 0 && (
         <section>
-          <SectionLabel>Popular groups</SectionLabel>
+          <SectionLabel>Pick your bias group</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
             {popularGroups.map((g) => (
               <Pill
@@ -122,7 +122,7 @@ export function GameSelector({ playlists }: Props) {
             onClick={() => setShowGroupBrowser(true)}
             className="w-full mt-2 py-2.5 rounded-[10px] bg-surface border border-default text-xs font-medium text-tertiary hover:border-accent hover:text-accent transition-colors"
           >
-            Browse all {playlists.groups.length} artists
+            Browse all {playlists.groups.length} groups
           </button>
         </section>
       )}

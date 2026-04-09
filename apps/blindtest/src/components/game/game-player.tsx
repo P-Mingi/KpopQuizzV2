@@ -17,6 +17,8 @@ import {
   ResultsScreen,
 } from './game-ui';
 import { ComboParticles } from './combo-particles';
+import { LightstickMascot, type MascotMood } from '@/components/mascot/lightstick-mascot';
+import { KOREAN_MOMENTS } from '@/lib/korean-moments';
 import {
   playTap,
   playCorrect,
@@ -97,6 +99,8 @@ export function GamePlayer({
   const [comboParticleTrigger, setComboParticleTrigger] = useState(0);
   const [urgentFlash, setUrgentFlash] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [mascotMood, setMascotMood] = useState<MascotMood>('idle');
+  const [wrongFlashKey, setWrongFlashKey] = useState(0);
 
   useEffect(() => {
     setSoundEnabled(getSoundEnabled());
@@ -157,6 +161,7 @@ export function GamePlayer({
   useEffect(() => {
     if (game.state.phase === 'playing' && game.currentQuestion) {
       setSelectedChoice(null);
+      setMascotMood('idle');
       audio.loadAndPlay(game.currentQuestion.preview_url);
       setTimerKey((k) => k + 1);
     }
@@ -292,7 +297,7 @@ export function GamePlayer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Audio/haptic feedback for a submitted answer.
+  // Audio/haptic/mascot feedback for a submitted answer.
   const feedbackFor = useCallback((answer: string | null) => {
     if (!game.currentQuestion) return;
     const correct = answer !== null && answer === game.currentQuestion.correct_answer;
@@ -301,16 +306,22 @@ export function GamePlayer({
       hapticSuccess();
       // Combo is about to increment; use the CURRENT value + 1 for pitch
       const nextCombo = game.state.currentCombo + 1;
-      if (nextCombo >= 3) {
+      if (nextCombo >= 5) {
         playCombo(nextCombo);
-        if (nextCombo >= 5) {
-          hapticMedium();
-          setComboParticleTrigger((t) => t + 1);
-        }
+        hapticMedium();
+        setComboParticleTrigger((t) => t + 1);
+        setMascotMood('combo');
+      } else if (nextCombo >= 3) {
+        playCombo(nextCombo);
+        setMascotMood('correct');
+      } else {
+        setMascotMood('correct');
       }
     } else {
       playWrong();
       hapticError();
+      setMascotMood('wrong');
+      setWrongFlashKey((k) => k + 1);
     }
   }, [game.currentQuestion, game.state.currentCombo]);
 
@@ -335,6 +346,8 @@ export function GamePlayer({
     setSelectedChoice(null);
     playWrong();
     hapticError();
+    setMascotMood('wrong');
+    setWrongFlashKey((k) => k + 1);
     game.submitAnswer(null);
   }, [game]);
 
@@ -451,9 +464,22 @@ export function GamePlayer({
 
   return (
     <div className="flex-1 flex flex-col relative max-w-[440px] mx-auto w-full">
+      {/* Reactive mascot (fixed-position, doesn't need to live inside this div) */}
+      <LightstickMascot mood={mascotMood} />
+
       {/* Red flash overlay on urgent timer ticks */}
       {urgentFlash && (
         <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />
+      )}
+
+      {/* Wrong-answer Korean flash (fades out over 800ms) */}
+      {isRevealing && lastResult && !lastResult.correct && (
+        <p
+          key={wrongFlashKey}
+          className="absolute top-[120px] left-1/2 -translate-x-1/2 text-base font-semibold text-wrong-text animate-fade-out pointer-events-none z-20"
+        >
+          {KOREAN_MOMENTS.wrong!.text}
+        </p>
       )}
 
       {/* Top bar: quit | counter | sound toggle + score */}

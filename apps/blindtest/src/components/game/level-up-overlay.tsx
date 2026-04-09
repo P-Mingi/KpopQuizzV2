@@ -3,10 +3,13 @@
 import { useEffect, useState } from 'react';
 import { playLevelUp } from '@/lib/sounds';
 import { hapticHeavy } from '@/lib/haptics';
+import { KOREAN_MOMENTS } from '@/lib/korean-moments';
 
 interface Props {
   newLevel: number;
   title: string;
+  /** Optional Korean subtitle for the level title, e.g. "덕". */
+  titleKr?: string;
   onDismiss: () => void;
 }
 
@@ -14,7 +17,7 @@ interface Props {
  * Full-screen celebratory overlay shown when the player levels up.
  * Stays visible for 3 seconds then calls onDismiss.
  */
-export function LevelUpOverlay({ newLevel, title, onDismiss }: Props) {
+export function LevelUpOverlay({ newLevel, title, titleKr, onDismiss }: Props) {
   const [show, setShow] = useState(false);
   const [showRing, setShowRing] = useState(false);
 
@@ -61,9 +64,12 @@ export function LevelUpOverlay({ newLevel, title, onDismiss }: Props) {
           }}
         >
           <p className="text-[10px] text-accent uppercase tracking-[0.15em] font-semibold mb-1">
-            Level up!
+            Level up! <span className="normal-case tracking-normal">{KOREAN_MOMENTS.levelUp!.text}</span>
           </p>
-          <p className="text-sm font-semibold text-primary">{title}</p>
+          <p className="text-sm font-semibold text-primary">
+            {title}
+            {titleKr && <span className="text-ghost font-normal"> ({titleKr})</span>}
+          </p>
         </div>
       </div>
     </div>

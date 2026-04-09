@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { xpForLevel } from '@/lib/progression';
+import { xpForLevel, getLevelFromXP } from '@/lib/progression';
 import { playTick, playReveal, playPerfect, playStreak } from '@/lib/sounds';
 import { hapticLight } from '@/lib/haptics';
 import { generateShareText } from '@/lib/share';
 import { generateShareCard } from '@/lib/share-card';
+import { KOREAN_MOMENTS, getComboKorean } from '@/lib/korean-moments';
 import { RollingNumber } from './rolling-number';
 import { LevelUpOverlay } from './level-up-overlay';
 import { MasteryProgress, getNextStarThreshold } from './mastery-progress';
@@ -286,6 +287,7 @@ export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: n
   if (combo < 3) return null;
   const fire = combo >= 5;
   const warm = combo >= 5;
+  const koreanSuffix = getComboKorean(combo);
 
   return (
     <div
@@ -301,6 +303,9 @@ export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: n
       >
         {combo}x
       </span>
+      {koreanSuffix && (
+        <span className="text-[10px] font-semibold text-combo">{koreanSuffix}</span>
+      )}
       {multiplier > 1 && (
         <span className="text-[10px] text-ghost">({multiplier}x)</span>
       )}
@@ -365,41 +370,56 @@ interface ResultsScreenProps {
 }
 
 interface ResultMessage {
-  message: string;
+  kr: string;
+  en: string;
   subMessage: string | null;
   colorVar: string;
 }
 
 function getResultMessage(correct: number, total: number): ResultMessage {
   if (correct === total) {
-    return { message: 'PERFECT!', subMessage: null, colorVar: 'var(--combo)' };
+    return {
+      kr: KOREAN_MOMENTS.perfect!.text,
+      en: 'PERFECT!',
+      subMessage: null,
+      colorVar: 'var(--combo)',
+    };
   }
   if (correct === total - 1) {
     return {
-      message: 'SO CLOSE!',
+      kr: KOREAN_MOMENTS.nearPerfect!.text,
+      en: 'SO CLOSE!',
       subMessage: '1 more for perfect, try again?',
       colorVar: 'var(--combo)',
     };
   }
   if (correct === total - 2) {
     return {
-      message: 'Almost there!',
+      kr: KOREAN_MOMENTS.great!.text,
+      en: 'Almost there!',
       subMessage: '2 away from perfect',
       colorVar: 'var(--accent)',
     };
   }
   if (correct >= total * 0.7) {
-    return { message: 'Great round!', subMessage: null, colorVar: 'var(--accent)' };
+    return {
+      kr: KOREAN_MOMENTS.great!.text,
+      en: 'Great round!',
+      subMessage: null,
+      colorVar: 'var(--accent)',
+    };
   }
   if (correct >= total * 0.5) {
     return {
-      message: 'Not bad!',
+      kr: KOREAN_MOMENTS.good!.text,
+      en: 'Not bad!',
       subMessage: `${total - correct} songs to learn, you got this`,
       colorVar: 'var(--text-secondary)',
     };
   }
   return {
-    message: 'Keep trying!',
+    kr: KOREAN_MOMENTS.tryAgain!.text,
+    en: 'Keep trying!',
     subMessage: 'Every round makes you better',
     colorVar: 'var(--text-secondary)',
   };
@@ -447,7 +467,7 @@ export function ResultsScreen({
   onPlayAgain,
   onHome,
 }: ResultsScreenProps) {
-  const { message, subMessage, colorVar } = getResultMessage(correctCount, total);
+  const { kr: messageKr, en: messageEn, subMessage, colorVar } = getResultMessage(correctCount, total);
   const starsEarned = getStarsEarned(correctCount, total);
   const isPerfect = correctCount === total;
   const missed = results.filter((r) => !r.correct);
@@ -476,6 +496,9 @@ export function ResultsScreen({
       try {
         let file: File | null = null;
         try {
+          const levelTitle = progression
+            ? `Lv.${progression.level} \u00B7 ${progression.title}`
+            : undefined;
           const blob = await generateShareCard({
             results: results.map((r) => ({ correct: r.correct, answered: r.answered })),
             totalScore: score,
@@ -484,6 +507,7 @@ export function ResultsScreen({
             streak: progression?.streak ?? 0,
             playlist,
             mode,
+            ...(levelTitle ? { levelTitle } : {}),
             ...(dailyNumber !== undefined ? { dailyNumber } : {}),
           });
           file = new File([blob], 'kpopblindtest-result.png', { type: 'image/png' });
@@ -699,7 +723,7 @@ export function ResultsScreen({
     </div>
   );
 
-  // Score + message hero.
+  // Score + bilingual message hero (Korean leads, English follows).
   const scoreBlock = (
     <div className="text-center">
       <p
@@ -709,7 +733,8 @@ export function ResultsScreen({
         <RollingNumber value={correctCount} duration={800} /> / {total}
       </p>
       <p className="text-sm md:text-base font-semibold mt-3" style={{ color: colorVar }}>
-        {message}
+        <span className="mr-1.5">{messageKr}</span>
+        {messageEn}
       </p>
       {subMessage && (
         <p className="text-xs md:text-sm text-ghost mt-1">{subMessage}</p>
@@ -722,10 +747,10 @@ export function ResultsScreen({
     <div className="grid grid-cols-3 rounded-xl bg-surface border border-default overflow-hidden">
       <StatCell
         value={<RollingNumber value={score} duration={1200} />}
-        label="points"
+        label="score"
       />
-      <StatCell value={`${avgSpeed.toFixed(1)}s`} label="avg speed" border />
-      <StatCell value={`${bestCombo}x`} label="best combo" />
+      <StatCell value={`${avgSpeed.toFixed(1)}s`} label="speed" border />
+      <StatCell value={`${bestCombo}x`} label="combo" />
     </div>
   );
 
@@ -806,7 +831,7 @@ export function ResultsScreen({
   const missedBlock = missed.length > 0 ? (
     <div>
       <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-ghost mb-2">
-        Songs you missed
+        Songs you need to stan
       </p>
       <div>
         {missed.map((r, i) => (
@@ -877,7 +902,7 @@ export function ResultsScreen({
         onClick={onPlayAgain}
         className="flex-1 py-3.5 rounded-xl bg-accent text-primary font-bold text-sm active:scale-[0.98] transition-transform"
       >
-        Play again
+        One more? {KOREAN_MOMENTS.streakGrow!.text}
       </button>
       <button
         type="button"
@@ -943,6 +968,7 @@ export function ResultsScreen({
         <LevelUpOverlay
           newLevel={progression.level}
           title={progression.title}
+          titleKr={getLevelFromXP(progression.totalXP).titleKr}
           onDismiss={() => setShowLevelUp(false)}
         />
       )}

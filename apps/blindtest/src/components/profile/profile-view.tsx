@@ -115,8 +115,9 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
         </div>
         <p className="text-lg font-bold text-primary">{username}</p>
         <p className="text-xs font-semibold text-accent mt-0.5">
-          Level {levelInfo.level} - {levelInfo.title}
+          Lv.{levelInfo.level} <span className="text-ghost">·</span> {levelInfo.title}
         </p>
+        <p className="text-[10px] text-ghost mt-0.5">{levelInfo.titleKr}</p>
         <div className="max-w-[200px] mx-auto mt-2">
           <div className="h-[5px] rounded-full bg-elevated overflow-hidden">
             <div
@@ -142,7 +143,7 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
       <div className="md:grid md:grid-cols-2 md:gap-6">
         {/* Playlist mastery */}
         <section className="mb-6 md:mb-0">
-          <SectionLabel>Playlist mastery</SectionLabel>
+          <SectionLabel>Stan card</SectionLabel>
           {masteries.length > 0 ? (
             <div className="grid grid-cols-3 gap-1.5">
               {masteries.slice(0, 9).map((m) => (
@@ -164,7 +165,7 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
 
         {/* Achievements */}
         <section className="mb-6 md:mb-0">
-          <SectionLabel>Achievements</SectionLabel>
+          <SectionLabel>Badges</SectionLabel>
           <div>
             {ACHIEVEMENTS.slice(0, 8).map((a) => (
               <AchievementRow
@@ -181,7 +182,7 @@ export function ProfileView({ player, masteries, achievements, recentPlays, isOw
       {/* Recent games */}
       {recentPlays.length > 0 && (
         <section className="mt-6">
-          <SectionLabel>Recent games</SectionLabel>
+          <SectionLabel>Recent plays</SectionLabel>
           <div>
             {recentPlays.slice(0, 5).map((play, i) => (
               <div key={i} className="py-2.5 border-b border-subtle last:border-0">

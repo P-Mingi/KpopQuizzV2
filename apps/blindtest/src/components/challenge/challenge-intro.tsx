@@ -55,10 +55,31 @@ export function ChallengeIntro({ challenge, attemptCount, isLoggedIn }: Props) {
     <div className="min-h-[100dvh] bg-primary flex flex-col items-center justify-center px-5 py-10">
       <div className="w-full max-w-[420px] text-center">
         {/* Logo */}
-        <Link href="/" className="inline-block text-base font-bold mb-10">
-          <span className="text-primary">kpop</span>
-          <span className="text-accent">blind</span>
-          <span className="text-primary">test</span>
+        <Link href="/" className="inline-flex items-center gap-1.5 text-base font-bold mb-10">
+          <svg
+            width="18"
+            height="26"
+            viewBox="0 0 20 28"
+            className="flex-shrink-0"
+            aria-hidden="true"
+          >
+            <circle cx="10" cy="7" r="6" fill="var(--accent)" />
+            <rect x="9" y="13" width="2" height="12" rx="1" fill="var(--text-ghost)" />
+            <circle cx="8" cy="6" r="1" fill="var(--bg-primary)" />
+            <circle cx="12" cy="6" r="1" fill="var(--bg-primary)" />
+            <path
+              d="M8 9 Q10 11 12 9"
+              fill="none"
+              stroke="var(--bg-primary)"
+              strokeWidth="0.8"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span>
+            <span className="text-primary">kpop</span>
+            <span className="text-accent">blind</span>
+            <span className="text-primary">test</span>
+          </span>
         </Link>
 
         {/* Challenge info */}

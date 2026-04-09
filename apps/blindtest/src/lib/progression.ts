@@ -28,11 +28,26 @@ export function calculateGameXP(params: {
 }
 
 // ---- Levels ----
+// Fan-culture titles with Korean subtitle. Each threshold is inclusive: level N
+// picks the title whose threshold is <= N. Displayed as "Lv.12 · Stan (덕)".
 
-export const LEVEL_TITLES: Record<number, string> = {
-  1: 'Trainee', 5: 'Rookie', 10: 'Fan', 15: 'Superfan',
-  20: 'Expert', 25: 'Master', 30: 'Idol', 35: 'Superstar',
-  40: 'Legend', 45: 'Hall of Fame', 50: 'K-pop God',
+export interface LevelTitle {
+  en: string;
+  kr: string;
+}
+
+export const LEVEL_TITLES: Record<number, LevelTitle> = {
+  1:  { en: 'Casual listener', kr: '\uCE90\uC8FC\uC5BC' },       // 캐주얼
+  5:  { en: 'Baby fan',        kr: '\uC544\uAE30\uD32C' },        // 아기팬
+  10: { en: 'Stan',            kr: '\uB355' },                    // 덕
+  15: { en: 'Hard stan',       kr: '\uB355\uB355' },              // 덕덕
+  20: { en: 'Ult stan',        kr: '\uCD5C\uC560' },              // 최애
+  25: { en: 'Fandom leader',   kr: '\uB9AC\uB354' },              // 리더
+  30: { en: 'Idol trainee',    kr: '\uC5F0\uC2B5\uC0DD' },        // 연습생
+  35: { en: 'Debut ready',     kr: '\uB370\uBDD4' },              // 데뷔
+  40: { en: 'Main vocal',      kr: '\uBA54\uC778\uBCF4\uCEEC' },  // 메인보컬
+  45: { en: 'Center',          kr: '\uC13C\uD130' },              // 센터
+  50: { en: 'All-kill',        kr: '\uC62C\uD0AC' },              // 올킬
 };
 
 export function xpForLevel(level: number): number {
@@ -43,6 +58,7 @@ export function xpForLevel(level: number): number {
 export function getLevelFromXP(totalXP: number): {
   level: number;
   title: string;
+  titleKr: string;
   currentLevelXP: number;
   nextLevelXP: number;
   progressXP: number;
@@ -54,9 +70,13 @@ export function getLevelFromXP(totalXP: number): {
     else break;
   }
 
-  let title = 'Trainee';
+  let title = LEVEL_TITLES[1]!.en;
+  let titleKr = LEVEL_TITLES[1]!.kr;
   for (const [lvl, t] of Object.entries(LEVEL_TITLES)) {
-    if (level >= parseInt(lvl)) title = t;
+    if (level >= parseInt(lvl)) {
+      title = t.en;
+      titleKr = t.kr;
+    }
   }
 
   const currentLevelXP = xpForLevel(level);
@@ -65,7 +85,7 @@ export function getLevelFromXP(totalXP: number): {
   const xpNeeded = nextLevelXP - currentLevelXP;
   const progressPercent = xpNeeded > 0 ? Math.min(100, Math.round((progressXP / xpNeeded) * 100)) : 100;
 
-  return { level, title, currentLevelXP, nextLevelXP, progressXP, progressPercent };
+  return { level, title, titleKr, currentLevelXP, nextLevelXP, progressXP, progressPercent };
 }
 
 // ---- Mastery ----

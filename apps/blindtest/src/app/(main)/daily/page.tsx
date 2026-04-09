@@ -183,7 +183,7 @@ export default async function DailyPage() {
               10 songs.
             </h1>
             <p className="text-[13px] text-daily mt-1">
-              One shot. Same songs for everyone.
+              Same 10 songs for everyone. Who&apos;s the real fan?
             </p>
             <div className="mt-5 flex items-center gap-3">
               {user ? (

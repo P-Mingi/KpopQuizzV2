@@ -1,6 +1,8 @@
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { GameSelector } from '@/components/home/game-selector';
 import { DailyTeaser } from '@/components/home/daily-teaser';
+import { LightstickMascot } from '@/components/mascot/lightstick-mascot';
+import { KOREAN_MOMENTS } from '@/lib/korean-moments';
 
 interface Player {
   username: string;
@@ -106,10 +108,12 @@ export default async function HomePage() {
 
   return (
     <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
+      <LightstickMascot mood="idle" />
+
       {/* Streak ribbon */}
       {streak > 0 && (
         <p className="text-center text-xs font-semibold text-streak mb-3">
-          {streak} day streak
+          {streak} day streak <span className="text-ghost font-normal">{KOREAN_MOMENTS.streakGrow!.text}</span>
         </p>
       )}
 

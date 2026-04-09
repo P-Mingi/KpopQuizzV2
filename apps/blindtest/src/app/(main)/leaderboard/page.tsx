@@ -44,7 +44,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
-      <h1 className="text-[22px] font-bold text-primary mb-4">Ranks</h1>
+      <h1 className="text-[22px] font-bold text-primary mb-4">Hall of fame</h1>
 
       {/* Tab selector */}
       <div className="flex gap-1.5 mb-5">
