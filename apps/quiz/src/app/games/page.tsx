@@ -48,9 +48,9 @@ function FeaturedCard({ game }: { game: GameWithGroup }): React.ReactElement {
 
   return (
     <Link href={`/g/${game.slug}`}>
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl overflow-hidden hover:border-[var(--border-medium)] transition-colors mb-4">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl overflow-hidden hover:border-[var(--border)] transition-colors mb-4">
         {/* Thumbnail mosaic */}
-        <div className="flex h-20 overflow-hidden bg-[var(--bg-secondary)]">
+        <div className="flex h-20 overflow-hidden bg-[var(--bg-surface)]">
           {thumbnails.map((url, i) => (
             <img
               key={i}
@@ -95,7 +95,7 @@ function BlindTestCard({ game }: { game: GameWithGroup }): React.ReactElement {
 
   return (
     <Link href={`/g/${game.slug}`}>
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl overflow-hidden hover:border-[var(--border-medium)] transition-colors flex">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl overflow-hidden hover:border-[var(--border)] transition-colors flex">
         {/* Thumbnail area */}
         {isHard ? (
           <div className="w-[90px] flex-shrink-0 bg-[#1a1a1a] flex items-center justify-center">
@@ -106,7 +106,7 @@ function BlindTestCard({ game }: { game: GameWithGroup }): React.ReactElement {
             </div>
           </div>
         ) : (
-          <div className="w-[90px] flex-shrink-0 grid grid-cols-2 grid-rows-2 bg-[var(--bg-secondary)]">
+          <div className="w-[90px] flex-shrink-0 grid grid-cols-2 grid-rows-2 bg-[var(--bg-surface)]">
             {thumbnails.map((url, i) => (
               <img
                 key={i}
@@ -160,15 +160,15 @@ export default async function GamesPage(): Promise<React.ReactElement> {
 
       {/* Stats */}
       <div className="flex gap-3 mb-6">
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{totalSongs}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">songs</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{blindTests.length}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">tests</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{formatCount(totalPlays)}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">plays</p>
         </div>
@@ -196,7 +196,7 @@ export default async function GamesPage(): Promise<React.ReactElement> {
 
       {/* Top players */}
       <SectionLabel>Top players</SectionLabel>
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl p-4">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl p-4">
         <div className="text-center py-4">
           <p className="text-sm text-[var(--text-tertiary)] mb-0.5">No plays yet</p>
           <p className="text-xs text-[var(--text-tertiary)]">Be the first to play and claim the top spot</p>

@@ -22,8 +22,8 @@ export default async function EasyQuizzesPage(): Promise<React.ReactElement> {
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary mb-1">Easy K-pop quizzes</h1>
-      <p className="text-sm text-txt-secondary mb-5">
+      <h1 className="text-xl font-medium text-primary mb-1">Easy K-pop quizzes</h1>
+      <p className="text-sm text-secondary mb-5">
         Perfect for new fans or a quick warm-up. These quizzes have an average pass rate above 70%.
       </p>
 
@@ -31,7 +31,7 @@ export default async function EasyQuizzesPage(): Promise<React.ReactElement> {
         <InfiniteQuizList initialQuizzes={initialQuizzes} fetchUrl="/api/quizzes?tab=easy" />
       ) : (
         <div className="text-center py-12">
-          <p className="text-sm text-txt-secondary mb-3">No easy quizzes yet.</p>
+          <p className="text-sm text-secondary mb-3">No easy quizzes yet.</p>
           <Link
             href="/create"
             className="inline-block px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium"

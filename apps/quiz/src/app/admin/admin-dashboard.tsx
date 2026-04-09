@@ -789,15 +789,15 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-medium text-txt-primary">Admin dashboard</h1>
-          <p className="text-sm text-txt-secondary">kpopquiz.org</p>
+          <h1 className="text-lg font-medium text-primary">Admin dashboard</h1>
+          <p className="text-sm text-secondary">kpopquiz.org</p>
         </div>
         <div className="flex items-center gap-3">
-          {loading && <span className="text-xs text-txt-tertiary">Loading...</span>}
+          {loading && <span className="text-xs text-tertiary">Loading...</span>}
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary"
+            className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -823,17 +823,17 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* Activity Chart */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+      <div className="bg-primary border border-default rounded-lg p-4">
         <div className="flex items-center gap-4 mb-3">
-          <span className="text-sm font-medium text-txt-primary">Activity</span>
+          <span className="text-sm font-medium text-primary">Activity</span>
           <div className="flex items-center gap-4 ml-auto">
-            <span className="flex items-center gap-1.5 text-xs text-txt-secondary">
+            <span className="flex items-center gap-1.5 text-xs text-secondary">
               <span className="w-3 h-0.5 rounded-full" style={{ backgroundColor: '#ED93B1' }} /> Plays
             </span>
-            <span className="flex items-center gap-1.5 text-xs text-txt-secondary">
+            <span className="flex items-center gap-1.5 text-xs text-secondary">
               <span className="w-3 h-0.5 rounded-full" style={{ backgroundColor: '#AFA9EC' }} /> New users
             </span>
-            <span className="flex items-center gap-1.5 text-xs text-txt-secondary">
+            <span className="flex items-center gap-1.5 text-xs text-secondary">
               <span className="w-3 h-0.5 rounded-full" style={{ backgroundColor: '#5DCAA5' }} /> Quizzes
             </span>
           </div>
@@ -844,8 +844,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* Top Groups by Plays */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-        <h2 className="text-sm font-medium text-txt-primary mb-3">Top groups by plays</h2>
+      <div className="bg-primary border border-default rounded-lg p-4">
+        <h2 className="text-sm font-medium text-primary mb-3">Top groups by plays</h2>
         <div style={{ height: 260 }}>
           <canvas ref={groupsChartRef} />
         </div>
@@ -854,45 +854,45 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       {/* Top Quizzes + Top Creators */}
       <div className="grid grid-cols-2 gap-4">
         {/* Top Quizzes */}
-        <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-          <h2 className="text-sm font-medium text-txt-primary mb-3">Top quizzes</h2>
-          <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+        <div className="bg-primary border border-default rounded-lg p-4">
+          <h2 className="text-sm font-medium text-primary mb-3">Top quizzes</h2>
+          <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
             {data.top_quizzes.length === 0 && (
-              <p className="text-xs text-txt-secondary py-2">No quizzes in this period</p>
+              <p className="text-xs text-secondary py-2">No quizzes in this period</p>
             )}
             {data.top_quizzes.map((q, i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="min-w-0">
-                  <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-txt-primary hover:underline truncate block">
+                  <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-primary hover:underline truncate block">
                     {q.title}
                   </a>
-                  <p className="text-[11px] text-txt-secondary">{q.group_name} &middot; {q.creator_username}</p>
+                  <p className="text-[11px] text-secondary">{q.group_name} &middot; {q.creator_username}</p>
                 </div>
-                <span className="text-[13px] font-medium text-txt-primary ml-3 flex-shrink-0">{q.play_count.toLocaleString('en-US')}</span>
+                <span className="text-[13px] font-medium text-primary ml-3 flex-shrink-0">{q.play_count.toLocaleString('en-US')}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Top Creators */}
-        <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-          <h2 className="text-sm font-medium text-txt-primary mb-3">Top creators</h2>
-          <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+        <div className="bg-primary border border-default rounded-lg p-4">
+          <h2 className="text-sm font-medium text-primary mb-3">Top creators</h2>
+          <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
             {data.top_creators.length === 0 && (
-              <p className="text-xs text-txt-secondary py-2">No creators in this period</p>
+              <p className="text-xs text-secondary py-2">No creators in this period</p>
             )}
             {data.top_creators.map((c, i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-[13px] font-medium text-txt-primary">{c.username}</span>
+                    <span className="text-[13px] font-medium text-primary">{c.username}</span>
                     {i === 0 && (
                       <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-correct-bg text-correct-text">Top creator</span>
                     )}
                   </div>
-                  <p className="text-[11px] text-txt-secondary">{c.total_quizzes} quizzes &middot; {c.total_plays.toLocaleString('en-US')} plays</p>
+                  <p className="text-[11px] text-secondary">{c.total_quizzes} quizzes &middot; {c.total_plays.toLocaleString('en-US')} plays</p>
                 </div>
-                <span className="text-[13px] font-medium text-txt-primary ml-3 flex-shrink-0">{c.period_plays.toLocaleString('en-US')}</span>
+                <span className="text-[13px] font-medium text-primary ml-3 flex-shrink-0">{c.period_plays.toLocaleString('en-US')}</span>
               </div>
             ))}
           </div>
@@ -900,18 +900,18 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* Moderation Queue */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+      <div className="bg-primary border border-default rounded-lg p-4">
         <div className="flex items-center gap-2 mb-3">
-          <h2 className="text-sm font-medium text-txt-primary">Moderation queue</h2>
+          <h2 className="text-sm font-medium text-primary">Moderation queue</h2>
           {pendingCount > 0 && (
             <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-wrong-bg text-wrong-text">
               {pendingCount} pending
             </span>
           )}
         </div>
-        <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+        <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
           {moderationItems.length === 0 && (
-            <p className="text-xs text-txt-secondary py-2">No pending reports</p>
+            <p className="text-xs text-secondary py-2">No pending reports</p>
           )}
           {moderationItems.map((m) => (
             <div
@@ -920,11 +920,11 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
               style={{ opacity: fadingItems.has(m.report_id) ? 0 : 1 }}
             >
               <div className="min-w-0">
-                <p className="text-[13px] font-medium text-txt-primary">
+                <p className="text-[13px] font-medium text-primary">
                   Report: {m.reason}
                   {m.report_count > 1 && <span className="text-wrong-text ml-1">({m.report_count} reports)</span>}
                 </p>
-                <p className="text-[11px] text-txt-secondary mt-0.5">
+                <p className="text-[11px] text-secondary mt-0.5">
                   {m.quiz_title} &middot; {timeAgo(m.report_date)} &middot; {m.details || 'No details'}
                 </p>
               </div>
@@ -933,20 +933,20 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                   href={`/q/${m.quiz_slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 rounded-full text-[12px] font-medium border text-info-text"
-                  style={{ borderColor: 'var(--info-text)' }}
+                  className="px-3 py-1 rounded-full text-[12px] font-medium border text-type-classic-text"
+                  style={{ borderColor: 'var(--type-classic-text)' }}
                 >
                   View quiz
                 </a>
                 <button
                   onClick={() => handleRemoveQuiz(m.quiz_id, m.report_id)}
-                  className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong-border text-wrong-text"
+                  className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong text-wrong-text"
                 >
                   Remove
                 </button>
                 <button
                   onClick={() => handleDismissReport(m.report_id)}
-                  className="px-3 py-1 rounded-full text-[12px] font-medium border border-border-light text-txt-secondary"
+                  className="px-3 py-1 rounded-full text-[12px] font-medium border border-default text-secondary"
                 >
                   Dismiss
                 </button>
@@ -958,14 +958,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
       {/* Pending Groups */}
       {pendingGroupsLoaded && pendingGroups.length > 0 && (
-        <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+        <div className="bg-primary border border-default rounded-lg p-4">
           <div className="flex items-center gap-2 mb-3">
-            <h2 className="text-sm font-medium text-txt-primary">Pending groups</h2>
-            <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-timeout-bg text-timeout-text">
+            <h2 className="text-sm font-medium text-primary">Pending groups</h2>
+            <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-type-clue-bg text-type-clue-text">
               {pendingGroups.length} pending
             </span>
           </div>
-          <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+          <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
             {pendingGroups.map((g) => (
               <div key={g.id} className="py-3">
                 <div className="flex items-center justify-between">
@@ -977,34 +977,34 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                       >
                         {g.name.slice(0, 3).toUpperCase()}
                       </span>
-                      <span className="text-[13px] font-medium text-txt-primary">{g.name}</span>
+                      <span className="text-[13px] font-medium text-primary">{g.name}</span>
                     </div>
-                    <p className="text-[11px] text-txt-secondary mt-0.5 ml-9">
+                    <p className="text-[11px] text-secondary mt-0.5 ml-9">
                       {g.actual_quiz_count} quiz{g.actual_quiz_count !== 1 ? 'zes' : ''} &middot; {g.total_plays} plays &middot; {timeAgo(g.created_at)}
                     </p>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0 ml-3">
                     <button
                       onClick={() => startEditGroup(g)}
-                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:bg-surface-secondary transition-colors"
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-default text-secondary hover:bg-surface transition-colors"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleApproveGroup(g.id)}
-                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-correct-border text-correct-text hover:bg-correct-bg transition-colors"
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-correct text-correct-text hover:bg-correct-bg transition-colors"
                     >
                       Approve
                     </button>
                     <button
                       onClick={() => { setMergeGroupId(g.id); setEditingGroupId(null); setMergeTargetId(''); }}
-                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-info-text text-info-text hover:opacity-80 transition-opacity"
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-info-text text-type-classic-text hover:opacity-80 transition-opacity"
                     >
                       Merge
                     </button>
                     <button
                       onClick={() => handleDeleteGroup(g.id)}
-                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-wrong-border text-wrong-text hover:bg-wrong-bg transition-colors"
+                      className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-wrong text-wrong-text hover:bg-wrong-bg transition-colors"
                     >
                       Delete
                     </button>
@@ -1013,80 +1013,80 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
                 {/* Inline edit form */}
                 {editingGroupId === g.id && (
-                  <div className="mt-3 ml-9 bg-surface-secondary rounded-md p-3 space-y-2">
+                  <div className="mt-3 ml-9 bg-surface rounded-md p-3 space-y-2">
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Name</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Name</label>
                         <input
                           type="text"
                           value={editGroupName}
                           onChange={(e) => setEditGroupName(e.target.value)}
-                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                          className="w-full px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Slug</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Slug</label>
                         <input
                           type="text"
                           value={editGroupSlug}
                           onChange={(e) => setEditGroupSlug(e.target.value)}
-                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                          className="w-full px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Fandom name</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Fandom name</label>
                         <input
                           type="text"
                           value={editGroupFandom}
                           onChange={(e) => setEditGroupFandom(e.target.value)}
-                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                          className="w-full px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Logo URL</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Logo URL</label>
                         <input
                           type="text"
                           value={editGroupLogo}
                           onChange={(e) => setEditGroupLogo(e.target.value)}
                           placeholder="https://..."
-                          className="w-full px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink"
+                          className="w-full px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary placeholder:text-tertiary focus:outline-none focus:border-accent"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Display color</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Display color</label>
                         <div className="flex items-center gap-1.5">
                           <input
                             type="color"
                             value={editGroupDisplayColor}
                             onChange={(e) => setEditGroupDisplayColor(e.target.value)}
-                            className="w-6 h-6 rounded border border-border-light cursor-pointer"
+                            className="w-6 h-6 rounded border border-default cursor-pointer"
                           />
                           <input
                             type="text"
                             value={editGroupDisplayColor}
                             onChange={(e) => setEditGroupDisplayColor(e.target.value)}
-                            className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                            className="flex-1 px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                           />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-[11px] text-txt-secondary mb-0.5">Text color</label>
+                        <label className="block text-[11px] text-secondary mb-0.5">Text color</label>
                         <div className="flex items-center gap-1.5">
                           <input
                             type="color"
                             value={editGroupTextColor}
                             onChange={(e) => setEditGroupTextColor(e.target.value)}
-                            className="w-6 h-6 rounded border border-border-light cursor-pointer"
+                            className="w-6 h-6 rounded border border-default cursor-pointer"
                           />
                           <input
                             type="text"
                             value={editGroupTextColor}
                             onChange={(e) => setEditGroupTextColor(e.target.value)}
-                            className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                            className="flex-1 px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                           />
                         </div>
                       </div>
@@ -1094,7 +1094,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                     <div className="flex gap-2 pt-1">
                       <button
                         onClick={() => setEditingGroupId(null)}
-                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:bg-surface-primary transition-colors"
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-default text-secondary hover:bg-primary transition-colors"
                       >
                         Cancel
                       </button>
@@ -1107,7 +1107,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                           display_color: editGroupDisplayColor,
                           text_color: editGroupTextColor,
                         })}
-                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-correct-border text-correct-text bg-correct-bg hover:opacity-90 transition-opacity"
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-correct text-correct-text bg-correct-bg hover:opacity-90 transition-opacity"
                       >
                         Save & Approve
                       </button>
@@ -1117,13 +1117,13 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
                 {/* Merge dropdown */}
                 {mergeGroupId === g.id && (
-                  <div className="mt-3 ml-9 bg-surface-secondary rounded-md p-3">
-                    <p className="text-[11px] text-txt-secondary mb-2">Merge into existing group (moves all quizzes, then deletes &quot;{g.name}&quot;)</p>
+                  <div className="mt-3 ml-9 bg-surface rounded-md p-3">
+                    <p className="text-[11px] text-secondary mb-2">Merge into existing group (moves all quizzes, then deletes &quot;{g.name}&quot;)</p>
                     <div className="flex items-center gap-2">
                       <select
                         value={mergeTargetId}
                         onChange={(e) => setMergeTargetId(e.target.value)}
-                        className="flex-1 px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary focus:outline-none focus:border-accent-pink"
+                        className="flex-1 px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary focus:outline-none focus:border-accent"
                       >
                         <option value="">Select target group...</option>
                         {allGroupsForMerge.filter(mg => mg.id !== g.id).map(mg => (
@@ -1132,14 +1132,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                       </select>
                       <button
                         onClick={() => { setMergeGroupId(null); setMergeTargetId(''); }}
-                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary"
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-default text-secondary"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={() => mergeTargetId && handleMergeGroup(g.id, parseInt(mergeTargetId, 10))}
                         disabled={!mergeTargetId}
-                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-info-text text-info-text disabled:opacity-40"
+                        className="px-3 py-1 rounded-full text-[11px] font-medium border border-info-text text-type-classic-text disabled:opacity-40"
                       >
                         Merge
                       </button>
@@ -1153,47 +1153,47 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       )}
 
       {/* Quiz of the Day Manager */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-        <h2 className="text-sm font-medium text-txt-primary mb-3">Quiz of the Day</h2>
+      <div className="bg-primary border border-default rounded-lg p-4">
+        <h2 className="text-sm font-medium text-primary mb-3">Quiz of the Day</h2>
 
         {/* Current QOTD */}
         {qotdCurrent ? (
-          <div className="flex items-center justify-between py-2 mb-3 bg-surface-secondary rounded-md px-3">
+          <div className="flex items-center justify-between py-2 mb-3 bg-surface rounded-md px-3">
             <div>
-              <p className="text-[13px] font-medium text-txt-primary">Today: {qotdCurrent.title}</p>
-              <p className="text-[11px] text-txt-secondary">by {qotdCurrent.username}</p>
+              <p className="text-[13px] font-medium text-primary">Today: {qotdCurrent.title}</p>
+              <p className="text-[11px] text-secondary">by {qotdCurrent.username}</p>
             </div>
-            <a href={`/q/${qotdCurrent.slug}`} target="_blank" rel="noopener noreferrer" className="text-[12px] text-info-text hover:underline">
+            <a href={`/q/${qotdCurrent.slug}`} target="_blank" rel="noopener noreferrer" className="text-[12px] text-type-classic-text hover:underline">
               View
             </a>
           </div>
         ) : (
-          <div className="py-2 mb-3 bg-timeout-bg rounded-md px-3">
-            <p className="text-[13px] font-medium text-timeout-text">No quiz of the day set for today</p>
+          <div className="py-2 mb-3 bg-type-clue-bg rounded-md px-3">
+            <p className="text-[13px] font-medium text-type-clue-text">No quiz of the day set for today</p>
           </div>
         )}
 
         {/* Set tomorrow's QOTD */}
         <div className="mb-3">
-          <p className="text-xs text-txt-secondary mb-1.5">Set tomorrow&apos;s QOTD</p>
+          <p className="text-xs text-secondary mb-1.5">Set tomorrow&apos;s QOTD</p>
           <div className="relative">
             <input
               type="text"
               value={qotdSearch}
               onChange={(e) => { setQotdSearch(e.target.value); setQotdSelected(null); }}
               placeholder="Search quizzes by title..."
-              className="w-full px-3 py-2 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink"
+              className="w-full px-3 py-2 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent"
             />
             {qotdResults.length > 0 && !qotdSelected && (
-              <div className="absolute z-10 w-full mt-1 bg-surface-primary border border-border-light rounded-md shadow-lg max-h-60 overflow-auto">
+              <div className="absolute z-10 w-full mt-1 bg-primary border border-default rounded-md shadow-lg max-h-60 overflow-auto">
                 {qotdResults.map((r) => (
                   <button
                     key={r.id}
                     onClick={() => { setQotdSelected(r); setQotdResults([]); setQotdSearch(r.title); }}
-                    className="w-full text-left px-3 py-2 hover:bg-surface-secondary transition-colors"
+                    className="w-full text-left px-3 py-2 hover:bg-surface transition-colors"
                   >
-                    <p className="text-[13px] font-medium text-txt-primary">{r.title}</p>
-                    <p className="text-[11px] text-txt-secondary">{r.group_name} &middot; {r.play_count.toLocaleString('en-US')} plays &middot; {r.username}</p>
+                    <p className="text-[13px] font-medium text-primary">{r.title}</p>
+                    <p className="text-[11px] text-secondary">{r.group_name} &middot; {r.play_count.toLocaleString('en-US')} plays &middot; {r.username}</p>
                   </button>
                 ))}
               </div>
@@ -1202,7 +1202,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           {qotdSelected && (
             <button
               onClick={handleSetQotd}
-              className="mt-2 px-4 py-1.5 rounded-full text-[12px] font-medium border border-correct-border text-correct-text hover:bg-correct-bg transition-colors"
+              className="mt-2 px-4 py-1.5 rounded-full text-[12px] font-medium border border-correct text-correct-text hover:bg-correct-bg transition-colors"
             >
               Set as QOTD
             </button>
@@ -1212,15 +1212,15 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         {/* Upcoming schedule */}
         {qotdUpcoming.length > 0 && (
           <div>
-            <p className="text-xs text-txt-secondary mb-1.5">Upcoming schedule</p>
-            <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+            <p className="text-xs text-secondary mb-1.5">Upcoming schedule</p>
+            <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
               {qotdUpcoming.map((q) => (
                 <div key={q.id} className="flex items-center justify-between py-2">
                   <div>
-                    <p className="text-[13px] font-medium text-txt-primary">{q.title}</p>
-                    <p className="text-[11px] text-txt-secondary">by {q.username}</p>
+                    <p className="text-[13px] font-medium text-primary">{q.title}</p>
+                    <p className="text-[11px] text-secondary">by {q.username}</p>
                   </div>
-                  <span className="text-[12px] text-txt-secondary">{q.date}</span>
+                  <span className="text-[12px] text-secondary">{q.date}</span>
                 </div>
               ))}
             </div>
@@ -1229,9 +1229,9 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* Recent Users */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-        <h2 className="text-sm font-medium text-txt-primary mb-3">Recent users</h2>
-        <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+      <div className="bg-primary border border-default rounded-lg p-4">
+        <h2 className="text-sm font-medium text-primary mb-3">Recent users</h2>
+        <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
           {users.map((u) => (
             <div key={u.id}>
               <div className="flex items-center justify-between py-2.5">
@@ -1248,12 +1248,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                   )}
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[13px] font-medium text-txt-primary">{u.username}</span>
+                      <span className="text-[13px] font-medium text-primary">{u.username}</span>
                       {u.banned_at && (
                         <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-wrong-bg text-wrong-text">Banned</span>
                       )}
                     </div>
-                    <p className="text-[11px] text-txt-secondary">
+                    <p className="text-[11px] text-secondary">
                       Joined {timeAgo(u.created_at)} &middot; {u.total_quizzes_created} quizzes &middot; {u.total_plays_received.toLocaleString('en-US')} plays
                     </p>
                   </div>
@@ -1261,7 +1261,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                 <div className="flex gap-2 flex-shrink-0 ml-3">
                   <button
                     onClick={() => editingUserId === u.id ? closeEditForm() : openEditForm(u)}
-                    style={{ padding: '3px 10px', borderRadius: 16, border: '0.5px solid var(--border-light)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+                    style={{ padding: '3px 10px', borderRadius: 16, border: '0.5px solid var(--border)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
                     className="text-xs"
                   >
                     Edit
@@ -1269,14 +1269,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                   {u.banned_at ? (
                     <button
                       onClick={() => handleUnbanUser(u.id)}
-                      className="px-3 py-1 rounded-full text-[12px] font-medium border border-correct-border text-correct-text"
+                      className="px-3 py-1 rounded-full text-[12px] font-medium border border-correct text-correct-text"
                     >
                       Unban
                     </button>
                   ) : (
                     <button
                       onClick={() => handleBanUser(u.id)}
-                      className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong-border text-wrong-text"
+                      className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong text-wrong-text"
                     >
                       Ban
                     </button>
@@ -1308,10 +1308,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* All Users */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+      <div className="bg-primary border border-default rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-medium text-txt-primary">All users</h2>
-          <span className="text-xs text-txt-secondary">{allUsersTotal} total</span>
+          <h2 className="text-sm font-medium text-primary">All users</h2>
+          <span className="text-xs text-secondary">{allUsersTotal} total</span>
         </div>
 
         <div className="flex items-center gap-3 mb-3">
@@ -1320,12 +1320,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
             value={allUsersSearch}
             onChange={(e) => setAllUsersSearch(e.target.value)}
             placeholder="Search users..."
-            className="px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink flex-1 max-w-xs"
+            className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent flex-1 max-w-xs"
           />
           <select
             value={allUsersSort}
             onChange={(e) => setAllUsersSort(e.target.value)}
-            className="px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary"
+            className="px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary"
           >
             <option value="newest">Newest</option>
             <option value="most_plays">Most plays</option>
@@ -1333,9 +1333,9 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           </select>
         </div>
 
-        <div className="divide-y" style={{ borderColor: 'var(--border-light)' }}>
+        <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
           {allUsersLoading && allUsers.length === 0 && (
-            <p className="text-xs text-txt-secondary py-3">Loading users...</p>
+            <p className="text-xs text-secondary py-3">Loading users...</p>
           )}
           {allUsers.map((u) => {
             const level = getLevelInfo(u.xp);
@@ -1354,21 +1354,21 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                       </div>
                     )}
                     <div className="min-w-0 flex items-center gap-2">
-                      <span className="text-[13px] font-medium text-txt-primary">{u.username}</span>
-                      <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-surface-secondary text-txt-secondary">
+                      <span className="text-[13px] font-medium text-primary">{u.username}</span>
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-surface text-secondary">
                         Lv.{level.level} {level.name}
                       </span>
                       {u.banned_at && (
                         <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-wrong-bg text-wrong-text">Banned</span>
                       )}
                     </div>
-                    <span className="text-[11px] text-txt-secondary flex-shrink-0">{u.total_quizzes_created} quizzes</span>
-                    <span className="text-[11px] text-txt-secondary flex-shrink-0">{formatCount(u.total_plays_received)} plays</span>
+                    <span className="text-[11px] text-secondary flex-shrink-0">{u.total_quizzes_created} quizzes</span>
+                    <span className="text-[11px] text-secondary flex-shrink-0">{formatCount(u.total_plays_received)} plays</span>
                   </div>
                   <div className="flex gap-2 flex-shrink-0 ml-3">
                     <button
                       onClick={() => editingUserId === u.id ? closeEditForm() : openEditForm(u)}
-                      style={{ padding: '3px 10px', borderRadius: 16, border: '0.5px solid var(--border-light)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+                      style={{ padding: '3px 10px', borderRadius: 16, border: '0.5px solid var(--border)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
                       className="text-xs"
                     >
                       Edit
@@ -1376,14 +1376,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                     {u.banned_at ? (
                       <button
                         onClick={() => handleUnbanUser(u.id)}
-                        className="px-3 py-1 rounded-full text-[12px] font-medium border border-correct-border text-correct-text"
+                        className="px-3 py-1 rounded-full text-[12px] font-medium border border-correct text-correct-text"
                       >
                         Unban
                       </button>
                     ) : (
                       <button
                         onClick={() => handleBanUser(u.id)}
-                        className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong-border text-wrong-text"
+                        className="px-3 py-1 rounded-full text-[12px] font-medium border border-wrong text-wrong-text"
                       >
                         Ban
                       </button>
@@ -1418,7 +1418,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           <button
             onClick={() => fetchAllUsers(allUsersSearch, allUsersSort, allUsers.length, true)}
             disabled={allUsersLoading}
-            className="mt-3 w-full py-2 text-sm font-medium text-txt-secondary border border-border-light rounded-md hover:bg-surface-secondary transition-colors"
+            className="mt-3 w-full py-2 text-sm font-medium text-secondary border border-default rounded-md hover:bg-surface transition-colors"
           >
             {allUsersLoading ? 'Loading...' : 'Load more'}
           </button>
@@ -1426,8 +1426,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       </div>
 
       {/* All Quizzes Browser */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-        <h2 className="text-sm font-medium text-txt-primary mb-3">All quizzes</h2>
+      <div className="bg-primary border border-default rounded-lg p-4">
+        <h2 className="text-sm font-medium text-primary mb-3">All quizzes</h2>
 
         {/* Controls */}
         <div className="flex items-center gap-3 mb-3">
@@ -1436,7 +1436,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
             value={quizSearchText}
             onChange={(e) => setQuizSearchText(e.target.value)}
             placeholder="Search by title..."
-            className="px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink flex-1 max-w-xs"
+            className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent flex-1 max-w-xs"
           />
           <div className="flex gap-1">
             {(['all', 'published', 'flagged', 'removed'] as const).map(f => (
@@ -1446,7 +1446,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                 className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-colors ${
                   quizFilter === f
                     ? 'bg-txt-primary text-white border-txt-primary'
-                    : 'text-txt-secondary border-border-light hover:border-border-medium'
+                    : 'text-secondary border-default hover:border-default'
                 }`}
               >
                 {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -1456,7 +1456,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           <select
             value={quizSort}
             onChange={(e) => setQuizSort(e.target.value)}
-            className="px-2.5 py-1.5 rounded-md border border-border-light bg-surface-primary text-[12px] text-txt-primary"
+            className="px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary"
           >
             <option value="newest">Newest</option>
             <option value="most_played">Most played</option>
@@ -1468,7 +1468,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="text-[11px] text-txt-secondary border-b" style={{ borderColor: 'var(--border-light)' }}>
+              <tr className="text-[11px] text-secondary border-b" style={{ borderColor: 'var(--border)' }}>
                 <th className="text-left py-2 font-medium">Title</th>
                 <th className="text-left py-2 font-medium">Group</th>
                 <th className="text-left py-2 font-medium">Creator</th>
@@ -1482,17 +1482,17 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
             </thead>
             <tbody>
               {filteredQuizzes.map((q) => (
-                <tr key={q.id} className="border-b text-[13px]" style={{ borderColor: 'var(--border-light)' }}>
+                <tr key={q.id} className="border-b text-[13px]" style={{ borderColor: 'var(--border)' }}>
                   <td className="py-2.5 pr-3">
-                    <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-txt-primary hover:underline">
+                    <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
                       {q.title}
                     </a>
                   </td>
-                  <td className="py-2.5 pr-3 text-txt-secondary">{q.group_name}</td>
-                  <td className="py-2.5 pr-3 text-txt-secondary">{q.creator_username}</td>
-                  <td className="py-2.5 text-right text-txt-primary">{q.play_count.toLocaleString('en-US')}</td>
-                  <td className="py-2.5 text-right text-txt-primary">{q.avg_score}%</td>
-                  <td className="py-2.5 text-right text-txt-primary">{q.report_count}</td>
+                  <td className="py-2.5 pr-3 text-secondary">{q.group_name}</td>
+                  <td className="py-2.5 pr-3 text-secondary">{q.creator_username}</td>
+                  <td className="py-2.5 text-right text-primary">{q.play_count.toLocaleString('en-US')}</td>
+                  <td className="py-2.5 text-right text-primary">{q.avg_score}%</td>
+                  <td className="py-2.5 text-right text-primary">{q.report_count}</td>
                   <td className="py-2.5">
                     <div className="flex gap-0.5">
                       {(['easy', 'medium', 'hard'] as const).map(level => (
@@ -1501,8 +1501,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                           onClick={() => handleQuizDifficulty(q.id, level)}
                           className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
                             q.difficulty === level
-                              ? `bg-difficulty-${level}-bg text-difficulty-${level}-text`
-                              : 'text-txt-tertiary hover:text-txt-secondary'
+                              ? `bg-${level}-bg text-${level}-text`
+                              : 'text-tertiary hover:text-secondary'
                           }`}
                         >
                           {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -1519,21 +1519,21 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                         href={`/q/${q.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-border-light text-txt-secondary hover:border-border-medium"
+                        className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-default text-secondary hover:border-default"
                       >
                         View
                       </a>
                       {q.status === 'published' || q.status === 'flagged' ? (
                         <button
                           onClick={() => handleQuizAction(q.id, 'remove')}
-                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-wrong-border text-wrong-text"
+                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-wrong text-wrong-text"
                         >
                           Remove
                         </button>
                       ) : q.status === 'removed' ? (
                         <button
                           onClick={() => handleQuizAction(q.id, 'restore')}
-                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-correct-border text-correct-text"
+                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-correct text-correct-text"
                         >
                           Restore
                         </button>
@@ -1541,7 +1541,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                       {q.status === 'published' && (
                         <button
                           onClick={() => handleQuizSetQotd(q.id)}
-                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-correct-border text-correct-text"
+                          className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-correct text-correct-text"
                         >
                           Set QOTD
                         </button>
@@ -1557,7 +1557,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         {hasMoreQuizzes && (
           <button
             onClick={loadMoreQuizzes}
-            className="mt-3 w-full py-2 text-sm font-medium text-txt-secondary border border-border-light rounded-md hover:bg-surface-secondary transition-colors"
+            className="mt-3 w-full py-2 text-sm font-medium text-secondary border border-default rounded-md hover:bg-surface transition-colors"
           >
             Load more
           </button>
@@ -1579,9 +1579,9 @@ function KPICard({ label, value, delta, deltaPositive, highlight }: {
   const displayValue = typeof value === 'number' ? value.toLocaleString('en-US') : value;
 
   return (
-    <div className="bg-surface-secondary rounded-md" style={{ padding: '14px 16px' }}>
-      <p className="text-xs text-txt-secondary">{label}</p>
-      <p className={`text-2xl font-medium mt-0.5 ${highlight ? 'text-wrong-text' : 'text-txt-primary'}`}>
+    <div className="bg-surface rounded-md" style={{ padding: '14px 16px' }}>
+      <p className="text-xs text-secondary">{label}</p>
+      <p className={`text-2xl font-medium mt-0.5 ${highlight ? 'text-wrong-text' : 'text-primary'}`}>
         {displayValue}
       </p>
       {delta && (
@@ -1596,9 +1596,9 @@ function KPICard({ label, value, delta, deltaPositive, highlight }: {
 function StatusBadge({ status }: { status: string }): React.ReactElement {
   const styles: Record<string, string> = {
     published: 'bg-correct-bg text-correct-text',
-    flagged: 'bg-timeout-bg text-timeout-text',
+    flagged: 'bg-type-clue-bg text-type-clue-text',
     removed: 'bg-wrong-bg text-wrong-text',
-    draft: 'bg-surface-secondary text-txt-secondary',
+    draft: 'bg-surface text-secondary',
   };
 
   return (
@@ -1649,7 +1649,7 @@ function UserEditForm({
       className="overflow-hidden"
       style={{ animation: 'fadeSlideIn 250ms ease-out forwards' }}
     >
-      <div className="px-3 py-4 mb-2 bg-surface-secondary rounded-lg space-y-3">
+      <div className="px-3 py-4 mb-2 bg-surface rounded-lg space-y-3">
         {/* Avatar preview */}
         <div className="flex justify-center">
           {showImage ? (
@@ -1675,12 +1675,12 @@ function UserEditForm({
 
         {/* Username */}
         <div>
-          <label className="block text-xs font-medium text-txt-secondary mb-1">Username</label>
+          <label className="block text-xs font-medium text-secondary mb-1">Username</label>
           <input
             type="text"
             value={editUsername}
             onChange={(e) => onUsernameChange(e.target.value)}
-            className="w-full px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary focus:outline-none focus:border-accent-pink"
+            className="w-full px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary focus:outline-none focus:border-accent"
           />
           {editUsernameError && (
             <p className="text-xs text-wrong-text mt-1">{editUsernameError}</p>
@@ -1689,40 +1689,40 @@ function UserEditForm({
 
         {/* Display name */}
         <div>
-          <label className="block text-xs font-medium text-txt-secondary mb-1">Display name</label>
+          <label className="block text-xs font-medium text-secondary mb-1">Display name</label>
           <input
             type="text"
             value={editDisplayName}
             onChange={(e) => onDisplayNameChange(e.target.value)}
-            className="w-full px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary focus:outline-none focus:border-accent-pink"
+            className="w-full px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary focus:outline-none focus:border-accent"
           />
         </div>
 
         {/* Avatar URL */}
         <div>
-          <label className="block text-xs font-medium text-txt-secondary mb-1">Avatar URL</label>
+          <label className="block text-xs font-medium text-secondary mb-1">Avatar URL</label>
           <input
             type="text"
             value={editAvatarUrl}
             onChange={(e) => onAvatarUrlChange(e.target.value)}
             placeholder="https://example.com/pic.jpg"
-            className="w-full px-3 py-1.5 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink"
+            className="w-full px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent"
           />
-          <p className="text-[11px] text-txt-tertiary mt-1">Paste a direct image URL. Leave empty for initials.</p>
+          <p className="text-[11px] text-tertiary mt-1">Paste a direct image URL. Leave empty for initials.</p>
         </div>
 
         {/* Actions */}
         <div className="flex gap-2 pt-1">
           <button
             onClick={onCancel}
-            className="px-4 py-1.5 rounded-full text-[12px] font-medium border border-border-light text-txt-secondary hover:bg-surface-primary transition-colors"
+            className="px-4 py-1.5 rounded-full text-[12px] font-medium border border-default text-secondary hover:bg-primary transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={onSave}
             disabled={editSaving}
-            className="px-4 py-1.5 rounded-full text-[12px] font-medium border border-accent-pink bg-accent-pink-light text-accent-pink-dark hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="px-4 py-1.5 rounded-full text-[12px] font-medium border border-accent bg-accent-bg text-accent-hover hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             {editSaving ? 'Saving...' : 'Save changes'}
           </button>

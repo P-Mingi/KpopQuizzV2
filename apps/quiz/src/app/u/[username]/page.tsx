@@ -7,9 +7,11 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { LevelBadge } from '@/components/ui/level-badge';
 import { XpProgress } from '@/components/ui/xp-progress';
 import { BadgeGrid } from '@/components/ui/badge-grid';
+import { NotificationsStrip } from '@/components/profile/notifications-strip';
 import { ProfileTabs } from './profile-tabs';
 import { formatCount, formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
+import { getTitleForLevel } from '@/lib/level-titles';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge, QuizCardData } from '@/lib/db/types';
@@ -130,6 +132,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
   return (
     <div className="py-6">
+      {isOwnProfile && <NotificationsStrip />}
+
       <UserAvatar
         username={profile.username}
         avatarUrl={profile.avatar_url}
@@ -138,14 +142,19 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         size={64}
       />
 
-      <div className="flex items-center gap-2 mt-3">
-        <h1 className="text-xl font-medium text-txt-primary">{displayName}</h1>
-        <LevelBadge level={levelInfo.level} name={levelInfo.name} size="sm" />
+      <div className="flex items-center gap-2 mt-3 flex-wrap">
+        <h1 className="text-xl font-medium text-primary">{displayName}</h1>
+        <LevelBadge level={levelInfo.level} size="sm" />
       </div>
-      <p className="text-sm text-txt-secondary">@{profile.username}</p>
+      <p className="text-sm text-secondary">
+        @{profile.username}
+        <span className="text-ghost">
+          {' '}&middot; Level {levelInfo.level} &middot; {getTitleForLevel(levelInfo.level).en} ({getTitleForLevel(levelInfo.level).kr})
+        </span>
+      </p>
 
       {profile.bio && (
-        <p className="text-sm mt-2 max-w-md text-txt-primary">{profile.bio}</p>
+        <p className="text-sm mt-2 max-w-md text-primary">{profile.bio}</p>
       )}
 
       {/* XP Progress */}
@@ -156,38 +165,41 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       )}
 
       {/* Stats row */}
-      <div className="flex gap-4 mt-4 flex-wrap">
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mt-6 mb-2">
+        Stan stats
+      </p>
+      <div className="flex gap-4 flex-wrap">
         <p className="text-sm">
-          <span className="font-medium text-txt-primary">{formatCount(profile.total_quizzes_created)}</span>{' '}
-          <span className="text-txt-secondary">quizzes</span>
+          <span className="font-medium text-primary">{formatCount(profile.total_quizzes_created)}</span>{' '}
+          <span className="text-secondary">quizzes</span>
         </p>
         <p className="text-sm">
-          <span className="font-medium text-txt-primary">{formatCount(profile.total_plays_received)}</span>{' '}
-          <span className="text-txt-secondary">plays</span>
+          <span className="font-medium text-primary">{formatCount(profile.total_plays_received)}</span>{' '}
+          <span className="text-secondary">plays</span>
         </p>
         <p className="text-sm">
-          <span className="font-medium text-txt-primary">{formatCount(profile.xp)}</span>{' '}
-          <span className="text-txt-secondary">XP</span>
+          <span className="font-medium text-primary">{formatCount(profile.xp)}</span>{' '}
+          <span className="text-secondary">XP</span>
         </p>
         <p className="text-sm">
-          <span className="font-medium text-txt-primary">{formatCount(profile.total_likes_received)}</span>{' '}
-          <span className="text-txt-secondary">likes received</span>
+          <span className="font-medium text-primary">{formatCount(profile.total_likes_received)}</span>{' '}
+          <span className="text-secondary">likes received</span>
         </p>
         <p className="text-sm">
-          <span className="text-txt-secondary">Joined {formatJoinDate(profile.created_at)}</span>
+          <span className="text-secondary">Joined {formatJoinDate(profile.created_at)}</span>
         </p>
       </div>
 
       {/* Badges */}
       {allBadges.length > 0 && (
         <div className="mt-6">
-          <p className="text-sm font-medium text-txt-primary mb-2">Badges</p>
+          <p className="text-sm font-medium text-primary mb-2">Badges</p>
           <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />
         </div>
       )}
 
       {/* Quizzes / Liked tabs */}
-      <div className="border-t border-border-light mt-6 pt-6">
+      <div className="border-t border-default mt-6 pt-6">
         <ProfileTabs
           isOwnProfile={isOwnProfile}
           initialQuizzes={initialQuizzes}

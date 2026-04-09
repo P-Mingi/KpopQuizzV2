@@ -18,7 +18,7 @@ export function QuizOfTheDay({ quiz }: QuizOfTheDayProps): React.ReactElement {
 
   return (
     <Link href={`/q/${quiz.slug}`} className="block mb-6">
-      <div className="rounded-2xl overflow-hidden border border-[#F4C0D1] bg-surface-primary hover:border-[#ED93B1] transition-colors">
+      <div className="rounded-2xl overflow-hidden border border-[#F4C0D1] bg-primary hover:border-[#ED93B1] transition-colors">
         <div className="h-[3px] bg-[#ED93B1]" />
 
         <div className="p-5">
@@ -34,10 +34,10 @@ export function QuizOfTheDay({ quiz }: QuizOfTheDayProps): React.ReactElement {
           <div className="flex items-center gap-2 mb-2.5">
             <GroupPill name={quiz.group_name} displayColor={quiz.display_color} textColor={quiz.text_color} />
             <DifficultyBadge difficulty={quiz.difficulty} />
-            <span className="text-xs text-txt-secondary ml-auto">{formatCount(quiz.play_count)} plays</span>
+            <span className="text-xs text-secondary ml-auto">{formatCount(quiz.play_count)} plays</span>
           </div>
 
-          <p className="text-lg font-medium leading-snug mb-2 text-txt-primary">{quiz.title}</p>
+          <p className="text-lg font-medium leading-snug mb-2 text-primary">{quiz.title}</p>
 
           <div className="flex items-center gap-2">
             <UserAvatar
@@ -47,11 +47,11 @@ export function QuizOfTheDay({ quiz }: QuizOfTheDayProps): React.ReactElement {
               textColor={quiz.creator_avatar_text}
               size={22}
             />
-            <span className="text-xs text-txt-secondary">
-              by <span className="font-medium text-txt-primary">{quiz.creator_username}</span>
+            <span className="text-xs text-secondary">
+              by <span className="font-medium text-primary">{quiz.creator_username}</span>
             </span>
-            <span className="text-xs text-txt-secondary">
-              · avg score {avgPct !== null ? `${avgPct}%` : <span className="text-txt-tertiary">new</span>}
+            <span className="text-xs text-secondary">
+              · avg score {avgPct !== null ? `${avgPct}%` : <span className="text-tertiary">new</span>}
             </span>
           </div>
         </div>

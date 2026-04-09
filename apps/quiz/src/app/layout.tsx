@@ -2,7 +2,8 @@ import '@/styles/globals.css';
 
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/react';
-import { Navbar } from '@/components/layout/navbar';
+import { TopNav } from '@/components/layout/top-nav';
+import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
 
@@ -69,15 +70,16 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
   return (
     <html lang="en" className={pretendard.variable} suppressHydrationWarning>
-      <body className="bg-surface-tertiary text-txt-primary font-sans antialiased">
+      <body className="bg-primary text-primary font-sans antialiased">
         <ToastProvider>
           <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-0">
+            <TopNav />
+            <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-0 pb-24 md:pb-8">
               {children}
             </main>
             <Footer />
           </div>
+          <MobileTabBar />
         </ToastProvider>
         <Analytics />
       </body>

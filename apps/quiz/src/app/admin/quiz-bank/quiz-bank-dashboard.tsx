@@ -12,8 +12,8 @@ interface Props {
 
 const STATUS_ORDER = ['draft', 'verified', 'scheduled', 'published'];
 const STATUS_COLORS: Record<string, string> = {
-  draft: 'bg-surface-secondary text-txt-secondary',
-  verified: 'bg-info-bg text-info-text',
+  draft: 'bg-surface text-secondary',
+  verified: 'bg-type-classic-bg text-type-classic-text',
   scheduled: 'bg-[#EAF3DE] text-[#27500A]',
   published: 'bg-[#EEEDFE] text-[#3C3489]',
 };
@@ -156,8 +156,8 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-txt-primary">Quiz Bank</h1>
-          <p className="text-sm text-txt-secondary mt-0.5">
+          <h1 className="text-xl font-semibold text-primary">Quiz Bank</h1>
+          <p className="text-sm text-secondary mt-0.5">
             Pre-verified quizzes that auto-publish as Quiz of the Day
           </p>
         </div>
@@ -189,15 +189,15 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
       {/* Stats */}
       <div className="grid grid-cols-5 gap-3 mb-6">
         {[
-          { label: 'Total', value: stats.total ?? 0, color: 'text-txt-primary' },
-          { label: 'Draft', value: stats.draft ?? 0, color: 'text-txt-secondary' },
-          { label: 'Verified', value: stats.verified ?? 0, color: 'text-info-text' },
+          { label: 'Total', value: stats.total ?? 0, color: 'text-primary' },
+          { label: 'Draft', value: stats.draft ?? 0, color: 'text-secondary' },
+          { label: 'Verified', value: stats.verified ?? 0, color: 'text-type-classic-text' },
           { label: 'Scheduled', value: stats.scheduled ?? 0, color: 'text-[#27500A]' },
           { label: 'Published', value: stats.published ?? 0, color: 'text-[#3C3489]' },
         ].map((s) => (
-          <div key={s.label} className="bg-surface-primary border border-border-light rounded-lg p-3 text-center">
+          <div key={s.label} className="bg-primary border border-default rounded-lg p-3 text-center">
             <div className={`text-2xl font-semibold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-txt-secondary mt-0.5">{s.label}</div>
+            <div className="text-xs text-secondary mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
@@ -211,7 +211,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
           <ul className="space-y-1">
             {violations.slice(0, 5).map((v, i) => (
               <li key={i} className="text-xs text-[#7A4F00]">
-                <span className="font-medium">{v.date}</span> — {v.quiz_title}: {v.message}
+                <span className="font-medium">{v.date}</span> - {v.quiz_title}: {v.message}
               </li>
             ))}
             {violations.length > 5 && (
@@ -226,7 +226,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary"
         >
           <option value="all">All statuses</option>
           {STATUS_ORDER.map((s) => (
@@ -236,36 +236,36 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary"
         >
           <option value="all">All categories</option>
           {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
             <option key={k} value={k}>{v}</option>
           ))}
         </select>
-        <span className="text-sm text-txt-secondary self-center ml-auto">
+        <span className="text-sm text-secondary self-center ml-auto">
           {filteredEntries.length} of {entries.length}
         </span>
       </div>
 
       {/* Table */}
-      <div className="bg-surface-primary border border-border-light rounded-lg overflow-hidden">
+      <div className="bg-primary border border-default rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border-light bg-surface-secondary">
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary w-32">Date</th>
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary">Title</th>
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary w-28">Group</th>
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary w-28">Category</th>
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary w-20">Diff.</th>
-              <th className="text-left px-4 py-3 text-xs font-medium text-txt-secondary w-28">Status</th>
-              <th className="text-right px-4 py-3 text-xs font-medium text-txt-secondary w-32">Actions</th>
+            <tr className="border-b border-default bg-surface">
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary w-32">Date</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary">Title</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary w-28">Group</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary w-28">Category</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary w-20">Diff.</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-secondary w-28">Status</th>
+              <th className="text-right px-4 py-3 text-xs font-medium text-secondary w-32">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredEntries.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-txt-secondary text-sm">
+                <td colSpan={7} className="px-4 py-8 text-center text-secondary text-sm">
                   No quizzes match the current filters.
                 </td>
               </tr>
@@ -274,7 +274,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
               <>
                 <tr
                   key={entry.id}
-                  className={`border-b border-border-light last:border-0 hover:bg-surface-secondary/50 transition-colors ${
+                  className={`border-b border-default last:border-0 hover:bg-surface/50 transition-colors ${
                     violationDates.has(entry.id) ? 'bg-[#FFFBF0]' : ''
                   }`}
                 >
@@ -284,7 +284,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                       <input
                         type="date"
                         defaultValue={entry.scheduled_date ?? ''}
-                        className="text-xs border border-border-medium rounded px-2 py-1 w-full"
+                        className="text-xs border border-default rounded px-2 py-1 w-full"
                         autoFocus
                         onBlur={(e) => handleDateSave(entry, e.target.value)}
                         onKeyDown={(e) => {
@@ -295,7 +295,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                     ) : (
                       <button
                         onClick={() => entry.status !== 'published' && setEditingDateId(entry.id)}
-                        className={`text-xs ${entry.scheduled_date ? 'text-txt-primary font-medium' : 'text-txt-tertiary'} ${
+                        className={`text-xs ${entry.scheduled_date ? 'text-primary font-medium' : 'text-tertiary'} ${
                           entry.status !== 'published' ? 'hover:underline cursor-pointer' : 'cursor-default'
                         }`}
                         title={entry.status !== 'published' ? 'Click to set date' : undefined}
@@ -311,33 +311,33 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                   <td className="px-4 py-3">
                     <button
                       onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
-                      className="text-left text-txt-primary font-medium hover:text-txt-secondary transition-colors line-clamp-1 max-w-xs"
+                      className="text-left text-primary font-medium hover:text-secondary transition-colors line-clamp-1 max-w-xs"
                       title={entry.title}
                     >
                       {entry.title}
                     </button>
                     {entry.verification_notes && (
-                      <p className="text-xs text-txt-tertiary mt-0.5 line-clamp-1">{entry.verification_notes}</p>
+                      <p className="text-xs text-tertiary mt-0.5 line-clamp-1">{entry.verification_notes}</p>
                     )}
                   </td>
 
                   {/* Group */}
                   <td className="px-4 py-3">
-                    <span className="text-xs text-txt-secondary">
+                    <span className="text-xs text-secondary">
                       {entry.group_id ? (groupMap.get(entry.group_id) ?? 'Unknown') : 'General'}
                     </span>
                   </td>
 
                   {/* Category */}
                   <td className="px-4 py-3">
-                    <span className="text-xs text-txt-secondary">
+                    <span className="text-xs text-secondary">
                       {CATEGORY_LABELS[entry.category] ?? entry.category}
                     </span>
                   </td>
 
                   {/* Difficulty */}
                   <td className="px-4 py-3">
-                    <span className="text-xs text-txt-secondary capitalize">{entry.difficulty}</span>
+                    <span className="text-xs text-secondary capitalize">{entry.difficulty}</span>
                   </td>
 
                   {/* Status */}
@@ -351,13 +351,13 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-1">
                       {savingId === entry.id ? (
-                        <span className="text-xs text-txt-tertiary">Saving...</span>
+                        <span className="text-xs text-tertiary">Saving...</span>
                       ) : (
                         <>
                           {entry.status !== 'published' && STATUS_ORDER.indexOf(entry.status) < STATUS_ORDER.length - 2 && (
                             <button
                               onClick={() => promoteStatus(entry)}
-                              className="text-xs text-info-text hover:underline"
+                              className="text-xs text-type-classic-text hover:underline"
                               title="Promote status"
                             >
                               Promote
@@ -366,7 +366,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                           {entry.status !== 'draft' && entry.status !== 'published' && (
                             <button
                               onClick={() => demoteStatus(entry)}
-                              className="text-xs text-txt-secondary hover:underline"
+                              className="text-xs text-secondary hover:underline"
                               title="Demote status"
                             >
                               Demote
@@ -380,15 +380,15 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
 
                 {/* Expanded questions */}
                 {expandedId === entry.id && (
-                  <tr key={`${entry.id}-expanded`} className="bg-surface-secondary/30">
+                  <tr key={`${entry.id}-expanded`} className="bg-surface/30">
                     <td colSpan={7} className="px-4 py-4">
                       <div className="max-h-80 overflow-y-auto space-y-3">
-                        <p className="text-xs font-semibold text-txt-secondary uppercase tracking-wide mb-2">
+                        <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-2">
                           Questions ({(entry.questions as Record<string, unknown>[]).length})
                         </p>
                         {(entry.questions as Record<string, unknown>[]).map((q, qi) => (
-                          <div key={qi} className="text-xs bg-surface-primary border border-border-light rounded-lg p-3">
-                            <p className="font-medium text-txt-primary mb-1">
+                          <div key={qi} className="text-xs bg-primary border border-default rounded-lg p-3">
+                            <p className="font-medium text-primary mb-1">
                               {qi + 1}. {q.question as string}
                             </p>
                             {Array.isArray(q.options) && (
@@ -399,7 +399,7 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                                     className={`px-2 py-0.5 rounded text-xs ${
                                       oi === (q.correct as number)
                                         ? 'bg-[#EAF3DE] text-[#27500A] font-medium'
-                                        : 'text-txt-secondary'
+                                        : 'text-secondary'
                                     }`}
                                   >
                                     {String.fromCharCode(65 + oi)}. {opt}
@@ -415,14 +415,14 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
                               </span>
                             )}
                             {q.fun_fact ? (
-                              <p className="text-txt-tertiary mt-1 italic">{String(q.fun_fact)}</p>
+                              <p className="text-tertiary mt-1 italic">{String(q.fun_fact)}</p>
                             ) : null}
                             {q.source ? (
                               <a
                                 href={String(q.source)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-info-text hover:underline text-xs mt-0.5 block truncate"
+                                className="text-type-classic-text hover:underline text-xs mt-0.5 block truncate"
                               >
                                 {String(q.source)}
                               </a>

@@ -15,7 +15,7 @@ export function GameCard({ game }: GameCardProps): React.ReactElement {
 
   return (
     <Link href={`/g/${game.slug}`}>
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl p-4 hover:border-[var(--border-medium)] transition-colors">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl p-4 hover:border-[var(--border)] transition-colors">
         {/* Badges */}
         <div className="flex gap-1.5 mb-2">
           {isBlindTest ? (
@@ -45,7 +45,7 @@ export function GameCard({ game }: GameCardProps): React.ReactElement {
 
         {/* Blind test preview */}
         {isBlindTest && blindContent && game.play_count >= 10 && (
-          <div className="bg-[var(--bg-secondary)] rounded-lg p-2.5 mb-3">
+          <div className="bg-[var(--bg-surface)] rounded-lg p-2.5 mb-3">
             <div className="flex justify-between text-[11px] font-medium">
               <span>Avg: {calculateAvgScore(blindContent.songs)}%</span>
               <span>Hardest: {getHardestSong(blindContent.songs)}</span>

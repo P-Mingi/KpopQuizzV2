@@ -43,8 +43,8 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ message: 'QOTD already set via quizzes table', skipped: true });
   }
 
-  // Check if a bank quiz is scheduled for tomorrow — if so, skip auto-select;
-  // the bank publish cron at 15:00 UTC will handle it.
+  // Check if a bank quiz is scheduled for tomorrow; if so, skip auto-select.
+  // The bank publish cron at 15:00 UTC will handle it.
   const { data: bankQuiz } = await supabase
     .from('quiz_bank')
     .select('id')
@@ -53,7 +53,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     .maybeSingle();
 
   if (bankQuiz) {
-    return NextResponse.json({ message: 'Bank quiz scheduled for tomorrow — skipping auto-select', skipped: true });
+    return NextResponse.json({ message: 'Bank quiz scheduled for tomorrow; skipping auto-select', skipped: true });
   }
 
   // 2. Get recent QOTD group IDs for diversity

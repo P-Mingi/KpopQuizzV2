@@ -322,7 +322,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
 
           {game.play_count >= 5 && (
             <div className="flex justify-center gap-4 mb-6">
-              <div className="px-5 py-3 bg-[var(--bg-secondary)] rounded-xl text-center">
+              <div className="px-5 py-3 bg-[var(--bg-surface)] rounded-xl text-center">
                 <p className="text-lg font-medium">{avgPct}%</p>
                 <p className="text-[10px] text-[var(--text-tertiary)]">avg score</p>
               </div>
@@ -346,7 +346,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
           <p className="text-xs text-[var(--text-tertiary)] mb-1">
             {currentIndex + 1} of {songs.length}
           </p>
-          <div className="h-[3px] bg-[var(--border-light)] rounded-full mb-8">
+          <div className="h-[3px] bg-[var(--border)] rounded-full mb-8">
             <div
               className="h-[3px] bg-[#ED93B1] rounded-full transition-all duration-400"
               style={{ width: `${((currentIndex + 1) / songs.length) * 100}%` }}
@@ -391,12 +391,12 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
                 disabled={answered}
                 className={`w-full text-left px-4 py-3.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
                   !answered
-                    ? 'border-[var(--border-light)] hover:border-[var(--border-medium)] hover:bg-[var(--bg-secondary)] active:scale-[0.98]'
+                    ? 'border-[var(--border)] hover:border-[var(--border)] hover:bg-[var(--bg-surface)] active:scale-[0.98]'
                     : i === shuffledData.correctIndex
                       ? 'bg-[#EAF3DE] border-[#97C459] text-[#27500A]'
                       : currentChoice && currentSong.choices.indexOf(shuffledData.shuffled[i]!) === currentChoice.picked && !currentChoice.correct
                         ? 'bg-[#FCEBEB] border-[#F09595] text-[#791F1F]'
-                        : 'opacity-35 border-[var(--border-light)]'
+                        : 'opacity-35 border-[var(--border)]'
                 }`}
               >
                 {choice}
@@ -438,7 +438,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
             <p className="text-5xl font-medium mb-1">{score}/{totalPlayed}</p>
             <p className="text-sm text-[var(--text-secondary)] mb-4">{label}</p>
 
-            <div className="h-1.5 rounded-full bg-[var(--border-light)] overflow-hidden mb-8">
+            <div className="h-1.5 rounded-full bg-[var(--border)] overflow-hidden mb-8">
               <div
                 className="h-full rounded-full bg-[#ED93B1]"
                 style={{ width: `${scorePct}%`, transition: 'width 0.8s ease' }}
@@ -463,7 +463,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
             <div className="flex gap-2">
               <button
                 onClick={startGame}
-                className="flex-1 py-3 rounded-full border border-[var(--border-light)] text-sm font-medium"
+                className="flex-1 py-3 rounded-full border border-[var(--border)] text-sm font-medium"
               >
                 Play again
               </button>
@@ -482,7 +482,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
               </button>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-[var(--border-light)]">
+            <div className="mt-6 pt-6 border-t border-[var(--border)]">
               <Link href="/games" className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                 More blind tests
               </Link>
@@ -499,7 +499,7 @@ function MissedSongRow({ song }: { song: BlindTestSong }): React.ReactElement {
 
   return (
     <div
-      className="flex gap-3 items-center p-3 bg-[var(--bg-secondary)] rounded-lg cursor-pointer"
+      className="flex gap-3 items-center p-3 bg-[var(--bg-surface)] rounded-lg cursor-pointer"
       onClick={() => setRevealed(true)}
     >
       <img

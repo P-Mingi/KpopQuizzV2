@@ -30,7 +30,7 @@ export function BlindTestEqualizer({ playing, timeLeft, clipDuration }: BlindTes
     <div className={`relative w-[120px] h-[120px] mx-auto mb-4 ${isUrgent ? 'animate-shake' : ''}`}>
       {/* Timer ring */}
       <svg className="absolute -top-1 -left-1" width="128" height="128" viewBox="0 0 128 128">
-        <circle cx="64" cy="64" r="58" fill="none" stroke="var(--border-light)" strokeWidth="3" />
+        <circle cx="64" cy="64" r="58" fill="none" stroke="var(--border)" strokeWidth="3" />
         <circle
           cx="64" cy="64" r="58" fill="none"
           stroke={isUrgent ? '#E24B4A' : '#ED93B1'}
@@ -44,7 +44,7 @@ export function BlindTestEqualizer({ playing, timeLeft, clipDuration }: BlindTes
       </svg>
 
       {/* Equalizer bars */}
-      <div className="w-full h-full rounded-full bg-[var(--bg-secondary)] flex items-center justify-center gap-[3px]">
+      <div className="w-full h-full rounded-full bg-[var(--bg-surface)] flex items-center justify-center gap-[3px]">
         {bars.map((h, i) => (
           <div
             key={i}

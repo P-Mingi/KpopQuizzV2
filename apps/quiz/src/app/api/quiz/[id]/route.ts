@@ -166,9 +166,12 @@ export async function PUT(
     return NextResponse.json({ error: 'Validation error', details: errors }, { status: 400 });
   }
 
-  // Compute cover_image_url from first question for image/intruder types
+  // Cover image: prefer explicit value from the body, fall back to the
+  // first-question auto-populate for image/intruder types.
   let coverImageUrl: string | null = null;
-  if (input.quiz_type === 'image' && Array.isArray(input.questions) && input.questions.length > 0) {
+  if (typeof input.cover_image_url === 'string' && input.cover_image_url.trim().length > 0) {
+    coverImageUrl = input.cover_image_url.trim();
+  } else if (input.quiz_type === 'image' && Array.isArray(input.questions) && input.questions.length > 0) {
     const firstQ = input.questions[0] as Record<string, unknown>;
     if (typeof firstQ.image_url === 'string') coverImageUrl = firstQ.image_url;
   } else if (input.quiz_type === 'intruder' && Array.isArray(input.questions) && input.questions.length > 0) {

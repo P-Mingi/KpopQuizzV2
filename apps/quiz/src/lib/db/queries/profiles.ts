@@ -92,3 +92,50 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
     .sort((a, b) => b.weekly_plays - a.weekly_plays)
     .slice(0, limit);
 }
+
+export interface TopCreatorAllTime {
+  username: string;
+  avatar_url: string | null;
+  avatar_bg: string;
+  avatar_text: string;
+  total_quizzes_created: number;
+  total_plays_received: number;
+}
+
+export async function getTopCreatorsAllTime(limit: number): Promise<TopCreatorAllTime[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, total_plays_received')
+    .gt('total_quizzes_created', 0)
+    .order('total_plays_received', { ascending: false })
+    .limit(limit);
+
+  if (error) throw new Error(`Failed to fetch top creators all time: ${error.message}`);
+
+  return (data ?? []) as TopCreatorAllTime[];
+}
+
+export interface TopPlayer {
+  username: string;
+  avatar_url: string | null;
+  avatar_bg: string;
+  avatar_text: string;
+  xp: number;
+}
+
+export async function getTopPlayersByXp(limit: number): Promise<TopPlayer[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('username, avatar_url, avatar_bg, avatar_text, xp')
+    .gt('xp', 0)
+    .order('xp', { ascending: false })
+    .limit(limit);
+
+  if (error) throw new Error(`Failed to fetch top players: ${error.message}`);
+
+  return (data ?? []) as TopPlayer[];
+}

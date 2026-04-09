@@ -44,7 +44,7 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
 
   if (submitted) {
     return (
-      <p className="text-xs text-txt-secondary mt-4 text-center">
+      <p className="text-xs text-secondary mt-4 text-center">
         Thanks for reporting. We&apos;ll review this quiz.
       </p>
     );
@@ -54,7 +54,7 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-txt-tertiary mt-4 text-center cursor-pointer underline block mx-auto"
+        className="text-xs text-tertiary mt-4 text-center cursor-pointer underline block mx-auto"
       >
         Report this quiz
       </button>
@@ -62,8 +62,8 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
   }
 
   return (
-    <div className="mt-4 bg-surface-primary border border-border-light rounded-md p-4">
-      <p className="text-sm font-medium text-txt-primary mb-3">Report this quiz</p>
+    <div className="mt-4 bg-primary border border-default rounded-md p-4">
+      <p className="text-sm font-medium text-primary mb-3">Report this quiz</p>
 
       <div className="flex flex-col gap-2">
         {REASONS.map((r) => (
@@ -74,9 +74,9 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
               value={r.value}
               checked={reason === r.value}
               onChange={(e) => setReason(e.target.value)}
-              className="accent-accent-pink"
+              className="accent-accent"
             />
-            <span className="text-sm text-txt-primary">{r.label}</span>
+            <span className="text-sm text-primary">{r.label}</span>
           </label>
         ))}
       </div>
@@ -86,7 +86,7 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
         maxLength={500}
         value={details}
         onChange={(e) => setDetails(e.target.value)}
-        className="w-full mt-3 px-4 py-3 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink focus:ring-1 focus:ring-accent-pink transition-colors resize-none h-20"
+        className="w-full mt-3 px-4 py-3 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none h-20"
       />
 
       <button

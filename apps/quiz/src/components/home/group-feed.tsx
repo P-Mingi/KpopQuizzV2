@@ -104,7 +104,7 @@ export function GroupFeed({ groupId, initialQuizzes }: GroupFeedProps): React.Re
       )}
 
       {!loading && quizzes.length === 0 && (
-        <p className="text-sm text-txt-secondary text-center py-8">No quizzes in this tab yet.</p>
+        <p className="text-sm text-secondary text-center py-8">No quizzes in this tab yet.</p>
       )}
 
       {hasMore && <div ref={sentinelRef} className="h-1" />}

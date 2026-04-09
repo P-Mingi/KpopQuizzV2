@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { notifyMilestone } from '@/lib/notifications';
+import { getLevelInfo } from '@/lib/constants';
 
 import type { NextRequest } from 'next/server';
 
@@ -57,8 +59,31 @@ export async function POST(
 
     const result = Array.isArray(data) ? data[0] : data;
 
+    // Fetch quiz meta post-increment (used for badges, creator XP, and
+    // milestone notifications - both authenticated and anonymous plays).
+    const { data: quizData } = await supabase
+      .from('quizzes')
+      .select('difficulty, creator_id, play_count, title')
+      .eq('id', id)
+      .single();
+
+    // Milestone notification (fires for ALL plays that hit a threshold,
+    // regardless of whether the player was signed in).
+    if (quizData && quizData.creator_id && quizData.creator_id !== playerId) {
+      await notifyMilestone({
+        creatorId: quizData.creator_id as string,
+        quizId: id,
+        quizTitle: (quizData.title as string) ?? '',
+        playCount: quizData.play_count as number,
+      });
+    }
+
     // Award XP to the player if logged in
     let xpEarned = 0;
+    let newXp: number | null = null;
+    let leveledUp = false;
+    let newLevel: number | null = null;
+    let newLevelName: string | null = null;
     if (playerId) {
       let xpAmount = 10; // base: completed quiz
       const scorePct = score / effectiveMaxScore;
@@ -66,11 +91,23 @@ export async function POST(
       if (scorePct === 1.0) xpAmount += 15; // perfect bonus
       xpEarned = xpAmount;
 
-      await supabase.rpc('award_xp', {
+      const { data: newXpValue } = await supabase.rpc('award_xp', {
         p_user_id: playerId,
         p_amount: xpAmount,
         p_reason: 'play',
       });
+
+      if (typeof newXpValue === 'number') {
+        newXp = newXpValue;
+        const oldXp = Math.max(0, newXpValue - xpAmount);
+        const oldLevel = getLevelInfo(oldXp).level;
+        const newLevelInfo = getLevelInfo(newXpValue);
+        if (newLevelInfo.level > oldLevel) {
+          leveledUp = true;
+          newLevel = newLevelInfo.level;
+          newLevelName = newLevelInfo.name;
+        }
+      }
 
       // Check for perfect_score badge
       if (score === effectiveMaxScore) {
@@ -79,13 +116,6 @@ export async function POST(
           { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
         );
       }
-
-      // Check for hard_mode badge
-      const { data: quizData } = await supabase
-        .from('quizzes')
-        .select('difficulty, creator_id, play_count')
-        .eq('id', id)
-        .single();
 
       if (quizData) {
         if (quizData.difficulty === 'hard' && score / effectiveMaxScore >= 0.7) {
@@ -186,6 +216,10 @@ export async function POST(
       percentile: result?.percentile ?? 50,
       xp_earned: xpEarned,
       pass_rate: passRate,
+      new_xp: newXp,
+      leveled_up: leveledUp,
+      new_level: newLevel,
+      new_level_name: newLevelName,
     });
   } catch (err) {
     console.error('Failed to record play:', err);

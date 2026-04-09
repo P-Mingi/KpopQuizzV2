@@ -2,55 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light mode only. The quiz app has no dark mode. */
 :root {
-  /* Surfaces */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F8F7F4;
-  --bg-tertiary: #F1EFE8;
+  --bg-primary: #FAF9F6;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F0EDE8;
+  --bg-accent-subtle: #FAF2F5;
 
-  /* Text */
-  --text-primary: #1A1A1A;
-  --text-secondary: #6B6B6B;
-  --text-tertiary: #9B9B9B;
+  --text-primary: #2C2C2A;
+  --text-secondary: #888780;
+  --text-tertiary: #B4B2A9;
+  --text-ghost: #D3D1C7;
 
-  /* Brand */
-  --accent-pink: #ED93B1;
-  --accent-pink-light: #FBEAF0;
-  --accent-pink-dark: #72243E;
-  --accent-purple: #AFA9EC;
+  --border: #E8E6E0;
+  --border-subtle: #F0EDE8;
 
-  /* Borders */
-  --border-light: #E8E6E1;
-  --border-medium: #D3D1C7;
+  --accent: #D4537E;
+  --accent-hover: #993556;
+  --accent-bg: #FAF2F5;
+  --accent-light: #ED93B1;
 
-  /* Feedback: correct */
+  --correct: #0F6E56;
   --correct-bg: #EAF3DE;
   --correct-text: #27500A;
-  --correct-accent: #97C459;
   --correct-border: #C0DD97;
 
-  /* Feedback: wrong */
+  --wrong: #A32D2D;
   --wrong-bg: #FCEBEB;
   --wrong-text: #791F1F;
-  --wrong-accent: #E24B4A;
   --wrong-border: #F7C1C1;
 
-  /* Feedback: timeout */
-  --timeout-bg: #FAEEDA;
-  --timeout-text: #633806;
-  --timeout-accent: #EF9F27;
+  --combo: #BA7517;
+  --streak: #BA7517;
 
-  /* Feedback: info */
-  --info-bg: #E6F1FB;
-  --info-text: #0C447C;
+  /* Quiz type accents */
+  --type-classic: #378ADD;
+  --type-image: #D4537E;
+  --type-intruder: #7F77DD;
+  --type-tf: #639922;
+  --type-clue: #EF9F27;
 
-  /* Difficulty badges */
+  --type-classic-bg: #E6F1FB;
+  --type-classic-text: #0C447C;
+  --type-image-bg: #FBEAF0;
+  --type-image-text: #72243E;
+  --type-intruder-bg: #EEEDFE;
+  --type-intruder-text: #3C3489;
+  --type-tf-bg: #EAF3DE;
+  --type-tf-text: #27500A;
+  --type-clue-bg: #FAEEDA;
+  --type-clue-text: #633806;
+
+  /* Difficulty badges (kept from the legacy quiz-card system) */
   --easy-bg: #EAF3DE;
   --easy-text: #27500A;
   --medium-bg: #FAEEDA;
   --medium-text: #633806;
   --hard-bg: #FCEBEB;
   --hard-text: #791F1F;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer utilities {
@@ -61,11 +81,107 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
+
+/* ---- Keyframes ---- */
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
 }
-.animate-shake { animation: shake 0.15s ease infinite; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, 16px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes clueReveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes badgePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeOutUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+
+.animate-shake { animation: shake 0.4s ease-out; }
+.animate-fadeSlideUp { animation: fadeSlideUp 0.3s ease; }
+.animate-slide-in-up { animation: slideInUp 0.4s ease-out both; }
+.animate-badge-pop { animation: badgePop 0.3s ease-out; }
+.animate-fade-out-up { animation: fadeOutUp 0.8s ease-out forwards; }
+
+/* Mascot animations */
+@keyframes mascot-idle-kf {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes mascot-bounce-kf {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-12px); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+  70% { transform: translateY(0); }
+  85% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+@keyframes mascot-droop-kf {
+  0% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(6px) rotate(-8deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes mascot-vibrate-kf {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10% { transform: translateX(-3px) rotate(-3deg); }
+  20% { transform: translateX(3px) rotate(3deg); }
+  30% { transform: translateX(-3px) rotate(-3deg); }
+  40% { transform: translateX(3px) rotate(3deg); }
+  50% { transform: translateX(-2px) rotate(-2deg); }
+  60% { transform: translateX(2px) rotate(2deg); }
+}
+.mascot-idle { animation: mascot-idle-kf 2s ease-in-out infinite; }
+.mascot-bounce { animation: mascot-bounce-kf 0.6s ease-out; }
+.mascot-droop { animation: mascot-droop-kf 0.6s ease-out; }
+.mascot-vibrate { animation: mascot-vibrate-kf 0.8s ease-out; }

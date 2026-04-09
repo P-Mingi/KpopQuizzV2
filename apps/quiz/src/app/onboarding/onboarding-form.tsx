@@ -97,9 +97,9 @@ export function OnboardingForm(): React.ReactElement {
 
   return (
     <div className="max-w-sm mx-auto mt-20 px-4">
-      <div className="bg-surface-primary rounded-lg border border-border-light p-6">
-        <h1 className="text-lg font-medium text-txt-primary">Pick a username</h1>
-        <p className="text-sm text-txt-secondary mt-1">
+      <div className="bg-primary rounded-lg border border-default p-6">
+        <h1 className="text-lg font-medium text-primary">Pick a username</h1>
+        <p className="text-sm text-secondary mt-1">
           This can&apos;t be changed later.
         </p>
 
@@ -112,17 +112,17 @@ export function OnboardingForm(): React.ReactElement {
             maxLength={20}
             value={username}
             onChange={(e) => setUsername(e.target.value.toLowerCase())}
-            className="w-full px-4 py-3 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink focus:ring-1 focus:ring-accent-pink transition-colors"
+            className="w-full px-4 py-3 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
           />
 
           <div className="h-5 mt-1">
             {validation.status === 'idle' && username.length === 0 && (
-              <p className="text-xs text-txt-secondary">
+              <p className="text-xs text-secondary">
                 3-20 characters, lowercase letters, numbers, and underscores only
               </p>
             )}
             {validation.status === 'checking' && (
-              <p className="text-xs text-txt-secondary">Checking...</p>
+              <p className="text-xs text-secondary">Checking...</p>
             )}
             {validation.status === 'available' && (
               <p className="text-xs text-correct-text">&#10003; Available!</p>

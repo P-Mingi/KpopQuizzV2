@@ -346,7 +346,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
           <p className="text-xs text-[var(--text-tertiary)] mb-1">
             {currentIndex + 1} of {round!.songs.length}
           </p>
-          <div className="h-[3px] bg-[var(--border-light)] rounded-full mb-8">
+          <div className="h-[3px] bg-[var(--border)] rounded-full mb-8">
             <div
               className="h-[3px] bg-[#ED93B1] rounded-full transition-all duration-300"
               style={{ width: `${((currentIndex + 1) / round!.songs.length) * 100}%` }}
@@ -391,12 +391,12 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
                 disabled={answered}
                 className={`w-full text-left px-4 py-3.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
                   !answered
-                    ? 'border-[var(--border-light)] hover:border-[var(--border-medium)] hover:bg-[var(--bg-secondary)] active:scale-[0.98]'
+                    ? 'border-[var(--border)] hover:border-[var(--border)] hover:bg-[var(--bg-surface)] active:scale-[0.98]'
                     : i === currentSong._answer.correct_index
                       ? 'bg-[#EAF3DE] border-[#97C459] text-[#27500A]'
                       : currentAnswer && i === currentAnswer.picked && !currentAnswer.correct
                         ? 'bg-[#FCEBEB] border-[#F09595] text-[#791F1F]'
-                        : 'opacity-35 border-[var(--border-light)]'
+                        : 'opacity-35 border-[var(--border)]'
                 }`}
               >
                 {choice}
@@ -440,7 +440,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
             <p className="text-5xl font-medium mb-1">{score}/{total}</p>
             <p className="text-sm text-[var(--text-secondary)] mb-4">{label}</p>
 
-            <div className="h-1.5 rounded-full bg-[var(--border-light)] overflow-hidden mb-8">
+            <div className="h-1.5 rounded-full bg-[var(--border)] overflow-hidden mb-8">
               <div className="h-full rounded-full bg-[#ED93B1]"
                 style={{ width: `${scorePct}%`, transition: 'width 0.8s ease' }} />
             </div>
@@ -462,7 +462,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
 
             <div className="flex gap-2">
               <button onClick={startGame}
-                className="flex-1 py-3 rounded-full border border-[var(--border-light)] text-sm font-medium">
+                className="flex-1 py-3 rounded-full border border-[var(--border)] text-sm font-medium">
                 Play again
               </button>
               <button
@@ -489,7 +489,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
 function MissedRow({ song }: { song: RoundSong }): React.ReactElement {
   const [revealed, setRevealed] = useState(false);
   return (
-    <div className="flex gap-3 items-center p-3 bg-[var(--bg-secondary)] rounded-lg cursor-pointer" onClick={() => setRevealed(true)}>
+    <div className="flex gap-3 items-center p-3 bg-[var(--bg-surface)] rounded-lg cursor-pointer" onClick={() => setRevealed(true)}>
       <img
         src={`https://img.youtube.com/vi/${song.youtube_id}/hqdefault.jpg`}
         alt=""

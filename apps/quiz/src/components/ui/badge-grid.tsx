@@ -82,7 +82,7 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
         return (
           <div
             key={badge.id}
-            className={`group relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border-[0.5px] border-border-light bg-surface-primary text-xs font-medium ${
+            className={`group relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border-[0.5px] border-default bg-primary text-xs font-medium ${
               earned ? '' : 'opacity-35'
             }`}
           >
@@ -91,7 +91,7 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
               colorBg={earned ? badge.color_bg : '#E5E5E5'}
               colorStroke={earned ? badge.color_stroke : '#999'}
             />
-            <span style={{ color: earned ? badge.color_text : undefined }} className={earned ? '' : 'text-txt-secondary'}>
+            <span style={{ color: earned ? badge.color_text : undefined }} className={earned ? '' : 'text-secondary'}>
               {badge.name}
             </span>
             {!earned && (

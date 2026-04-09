@@ -33,7 +33,7 @@ export function AddSongClient({ groups }: { groups: GroupOption[] }): React.Reac
       <SongEditForm key={key} initial={EMPTY} groups={groups} onSave={handleSave} showYouTubeInput />
       <button
         onClick={handleSaveAndAnother}
-        className="mt-3 px-4 py-2 rounded-full border border-[var(--border-light)] text-sm font-medium text-[var(--text-secondary)]"
+        className="mt-3 px-4 py-2 rounded-full border border-[var(--border)] text-sm font-medium text-[var(--text-secondary)]"
       >
         Reset form (add another)
       </button>

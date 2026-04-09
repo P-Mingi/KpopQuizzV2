@@ -20,7 +20,7 @@ export function ImageQuestionView({ question, correctIndex, selectedAnswer, isAn
   return (
     <>
       {/* Image */}
-      <div className="w-full max-h-[300px] rounded-lg overflow-hidden mb-4 bg-surface-secondary flex items-center justify-center">
+      <div className="w-full max-h-[300px] rounded-lg overflow-hidden mb-4 bg-surface flex items-center justify-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={question.image_url}
@@ -31,7 +31,7 @@ export function ImageQuestionView({ question, correctIndex, selectedAnswer, isAn
       </div>
 
       {/* Question */}
-      <p className="text-base font-medium leading-relaxed mb-5 text-txt-primary text-center">
+      <p className="text-base font-medium leading-relaxed mb-5 text-primary text-center">
         {question.question}
       </p>
 

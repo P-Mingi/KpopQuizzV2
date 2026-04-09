@@ -51,29 +51,29 @@ export function UserDropdown({ username, avatarUrl, avatarBg, avatarText, xp }: 
       </button>
 
       {open && (
-        <div className="absolute right-0 top-8 w-48 bg-surface-primary border border-border-light rounded-lg py-1 z-50">
+        <div className="absolute right-0 top-8 w-48 bg-primary border border-default rounded-lg py-1 z-50">
           <Link
             href={`/u/${username}`}
             onClick={() => setOpen(false)}
-            className="block px-4 py-2 text-sm text-txt-primary hover:bg-surface-secondary transition-colors"
+            className="block px-4 py-2 text-sm text-primary hover:bg-surface transition-colors"
           >
             My quizzes
           </Link>
           <Link
             href="/settings"
             onClick={() => setOpen(false)}
-            className="block px-4 py-2 text-sm text-txt-primary hover:bg-surface-secondary transition-colors"
+            className="block px-4 py-2 text-sm text-primary hover:bg-surface transition-colors"
           >
             Settings
           </Link>
-          <div className="border-t border-border-light my-1" />
-          <div className="px-4 py-2 text-xs text-txt-secondary">
+          <div className="border-t border-default my-1" />
+          <div className="px-4 py-2 text-xs text-secondary">
             Lv.{levelInfo.level} {levelInfo.name} · {formatCount(xp)} XP
           </div>
-          <div className="border-t border-border-light my-1" />
+          <div className="border-t border-default my-1" />
           <button
             onClick={handleSignOut}
-            className="block w-full text-left px-4 py-2 text-sm text-txt-primary hover:bg-surface-secondary transition-colors"
+            className="block w-full text-left px-4 py-2 text-sm text-primary hover:bg-surface transition-colors"
           >
             Sign out
           </button>

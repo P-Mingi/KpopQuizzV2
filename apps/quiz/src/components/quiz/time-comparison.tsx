@@ -48,12 +48,12 @@ export function TimeComparison({ quizId, userTime, score, totalQuestions }: Prop
   // No comparison data yet
   if (!stat || stat.attempt_count <= 1) {
     return (
-      <div className="mt-4 p-4 bg-surface-secondary rounded-lg border border-border-light">
+      <div className="mt-4 p-4 bg-surface rounded-lg border border-default">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-txt-secondary">Your time</span>
-          <span className="text-lg font-semibold tabular-nums text-txt-primary">{formatTime(userTime)}</span>
+          <span className="text-sm text-secondary">Your time</span>
+          <span className="text-lg font-semibold tabular-nums text-primary">{formatTime(userTime)}</span>
         </div>
-        <p className="text-xs text-txt-tertiary text-center">
+        <p className="text-xs text-tertiary text-center">
           You set the benchmark for {score}/{totalQuestions}!
         </p>
       </div>
@@ -79,24 +79,24 @@ export function TimeComparison({ quizId, userTime, score, totalQuestions }: Prop
     messageClass = 'text-correct-text';
   } else if (diffPercent <= 20) {
     message = `Right on pace with other ${score}/${totalQuestions} players.`;
-    messageClass = 'text-txt-secondary';
+    messageClass = 'text-secondary';
   } else {
     message = `Can you beat ${formatTime(avg)}? Try again!`;
-    messageClass = 'text-txt-secondary';
+    messageClass = 'text-secondary';
   }
 
   return (
-    <div className="mt-4 p-4 bg-surface-secondary rounded-lg border border-border-light">
+    <div className="mt-4 p-4 bg-surface rounded-lg border border-default">
       {/* Your time */}
       <div className="flex justify-between items-center mb-3">
-        <span className="text-sm text-txt-secondary">Your time</span>
-        <span className="text-xl font-bold tabular-nums text-txt-primary">{formatTime(userTime)}</span>
+        <span className="text-sm text-secondary">Your time</span>
+        <span className="text-xl font-bold tabular-nums text-primary">{formatTime(userTime)}</span>
       </div>
 
       {/* Divider */}
       <div className="flex items-center gap-2 mb-3">
         <div className="flex-1 h-px bg-border-light" />
-        <span className="text-[10px] text-txt-tertiary uppercase tracking-wider">
+        <span className="text-[10px] text-tertiary uppercase tracking-wider">
           vs other {score}/{totalQuestions}
         </span>
         <div className="flex-1 h-px bg-border-light" />
@@ -105,16 +105,16 @@ export function TimeComparison({ quizId, userTime, score, totalQuestions }: Prop
       {/* Stats grid */}
       <div className="grid grid-cols-3 gap-2 mb-3">
         <div className="text-center">
-          <p className="text-base font-semibold tabular-nums text-txt-primary">{formatTime(avg)}</p>
-          <p className="text-[10px] text-txt-tertiary">average</p>
+          <p className="text-base font-semibold tabular-nums text-primary">{formatTime(avg)}</p>
+          <p className="text-[10px] text-tertiary">average</p>
         </div>
         <div className="text-center">
-          <p className="text-base font-semibold tabular-nums text-txt-primary">{fastest !== null ? formatTime(fastest) : '-'}</p>
-          <p className="text-[10px] text-txt-tertiary">fastest</p>
+          <p className="text-base font-semibold tabular-nums text-primary">{fastest !== null ? formatTime(fastest) : '-'}</p>
+          <p className="text-[10px] text-tertiary">fastest</p>
         </div>
         <div className="text-center">
-          <p className="text-base font-semibold tabular-nums text-txt-primary">{count}</p>
-          <p className="text-[10px] text-txt-tertiary">players</p>
+          <p className="text-base font-semibold tabular-nums text-primary">{count}</p>
+          <p className="text-[10px] text-tertiary">players</p>
         </div>
       </div>
 

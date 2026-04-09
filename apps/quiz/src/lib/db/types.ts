@@ -166,6 +166,7 @@ export interface QuizWithGroup {
   creator_avatar_url: string | null;
   creator_avatar_bg: string;
   creator_avatar_text: string;
+  cover_image_url: string | null;
 }
 
 export interface QuizCardData {

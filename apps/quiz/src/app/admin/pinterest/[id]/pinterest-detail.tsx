@@ -31,8 +31,8 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  draft: 'bg-surface-secondary text-txt-secondary',
-  ready: 'bg-info-bg text-info-text',
+  draft: 'bg-surface text-secondary',
+  ready: 'bg-type-classic-bg text-type-classic-text',
   approved: 'bg-[#EEEDFE] text-[#3C3489]',
   scheduled: 'bg-[#FAEEDA] text-[#633806]',
   posted: 'bg-[#EAF3DE] text-[#27500A]',
@@ -199,11 +199,11 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Link href="/admin/pinterest" className="text-txt-secondary hover:text-txt-primary transition-colors text-sm">
+          <Link href="/admin/pinterest" className="text-secondary hover:text-primary transition-colors text-sm">
             Pinterest Pins
           </Link>
-          <span className="text-txt-tertiary">/</span>
-          <h1 className="text-xl font-semibold text-txt-primary line-clamp-1">{pin.headline}</h1>
+          <span className="text-tertiary">/</span>
+          <h1 className="text-xl font-semibold text-primary line-clamp-1">{pin.headline}</h1>
         </div>
         <div className="flex items-center gap-2">
           {pin.status !== 'posted' && pin.status !== 'approved' && (
@@ -231,7 +231,7 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
           <button
             onClick={save}
             disabled={saving}
-            className="px-3 py-1.5 bg-surface-secondary text-txt-primary text-sm font-medium rounded-lg hover:bg-surface-tertiary transition-colors disabled:opacity-50"
+            className="px-3 py-1.5 bg-surface text-primary text-sm font-medium rounded-lg hover:bg-elevated transition-colors disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save'}
           </button>
@@ -242,26 +242,26 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
         {/* Left: Edit fields */}
         <div className="space-y-4">
           {/* Meta */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-            <h2 className="text-sm font-semibold text-txt-primary mb-3">Pin Info</h2>
+          <div className="bg-primary border border-default rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-primary mb-3">Pin Info</h2>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <span className="text-txt-tertiary">Type</span>
-                <p className="text-txt-primary font-medium mt-0.5">{TYPE_LABELS[pin.pin_type] ?? pin.pin_type}</p>
+                <span className="text-tertiary">Type</span>
+                <p className="text-primary font-medium mt-0.5">{TYPE_LABELS[pin.pin_type] ?? pin.pin_type}</p>
               </div>
               <div>
-                <span className="text-txt-tertiary">Status</span>
+                <span className="text-tertiary">Status</span>
                 <span className={`text-xs font-medium px-2 py-0.5 rounded-full mt-0.5 inline-block ${STATUS_COLORS[pin.status] ?? ''}`}>
                   {pin.status.charAt(0).toUpperCase() + pin.status.slice(1)}
                 </span>
               </div>
               <div>
-                <span className="text-txt-tertiary">Group</span>
-                <p className="text-txt-primary font-medium mt-0.5">{pin.group_name ?? 'General'}</p>
+                <span className="text-tertiary">Group</span>
+                <p className="text-primary font-medium mt-0.5">{pin.group_name ?? 'General'}</p>
               </div>
               <div>
-                <span className="text-txt-tertiary">Pinterest ID</span>
-                <p className="text-txt-primary font-medium mt-0.5 text-[10px] font-mono">
+                <span className="text-tertiary">Pinterest ID</span>
+                <p className="text-primary font-medium mt-0.5 text-[10px] font-mono">
                   {pin.pinterest_pin_id ?? 'Not posted'}
                 </p>
               </div>
@@ -269,13 +269,13 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
           </div>
 
           {/* Board */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-            <label className="text-sm font-semibold text-txt-primary block mb-2">Board</label>
+          <div className="bg-primary border border-default rounded-lg p-4">
+            <label className="text-sm font-semibold text-primary block mb-2">Board</label>
             {boards.length > 0 ? (
               <select
                 value={board}
                 onChange={(e) => setBoard(e.target.value)}
-                className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+                className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
               >
                 {boards.map((b) => (
                   <option key={b.board_name} value={b.board_name}>{b.board_name}</option>
@@ -288,18 +288,18 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
               <input
                 value={board}
                 onChange={(e) => setBoard(e.target.value)}
-                className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+                className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
               />
             )}
           </div>
 
           {/* Pinterest title */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+          <div className="bg-primary border border-default rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-semibold text-txt-primary">Pinterest Title</label>
+              <label className="text-sm font-semibold text-primary">Pinterest Title</label>
               <button
                 onClick={() => copyText('title', title)}
-                className="text-xs text-info-text hover:underline"
+                className="text-xs text-type-classic-text hover:underline"
               >
                 {copied === 'title' ? 'Copied!' : 'Copy'}
               </button>
@@ -307,19 +307,19 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+              className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
               maxLength={100}
             />
-            <p className="text-xs text-txt-tertiary mt-1">{title.length}/100 characters</p>
+            <p className="text-xs text-tertiary mt-1">{title.length}/100 characters</p>
           </div>
 
           {/* Pinterest description */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+          <div className="bg-primary border border-default rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-semibold text-txt-primary">Description</label>
+              <label className="text-sm font-semibold text-primary">Description</label>
               <button
                 onClick={() => copyText('description', description)}
-                className="text-xs text-info-text hover:underline"
+                className="text-xs text-type-classic-text hover:underline"
               >
                 {copied === 'description' ? 'Copied!' : 'Copy'}
               </button>
@@ -328,31 +328,31 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary resize-none"
+              className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary resize-none"
               maxLength={500}
             />
-            <p className="text-xs text-txt-tertiary mt-1">{description.length}/500 characters</p>
+            <p className="text-xs text-tertiary mt-1">{description.length}/500 characters</p>
           </div>
 
           {/* Link URL */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-            <label className="text-sm font-semibold text-txt-primary block mb-2">Link URL</label>
+          <div className="bg-primary border border-default rounded-lg p-4">
+            <label className="text-sm font-semibold text-primary block mb-2">Link URL</label>
             <input
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
-              className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+              className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
               placeholder="https://kpopquiz.org"
               type="url"
             />
           </div>
 
           {/* Hashtags */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+          <div className="bg-primary border border-default rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-semibold text-txt-primary">Hashtags</label>
+              <label className="text-sm font-semibold text-primary">Hashtags</label>
               <button
                 onClick={() => copyText('hashtags', hashtags)}
-                className="text-xs text-info-text hover:underline"
+                className="text-xs text-type-classic-text hover:underline"
               >
                 {copied === 'hashtags' ? 'Copied!' : 'Copy'}
               </button>
@@ -361,41 +361,41 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
               value={hashtags}
               onChange={(e) => setHashtags(e.target.value)}
               rows={3}
-              className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary resize-none font-mono"
+              className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary resize-none font-mono"
               placeholder="#kpop #kpopquiz"
             />
           </div>
 
           {/* Image template fields */}
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-            <h2 className="text-sm font-semibold text-txt-primary mb-3">Image Template</h2>
+          <div className="bg-primary border border-default rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-primary mb-3">Image Template</h2>
             <div className="space-y-3">
               <div>
-                <label className="text-xs text-txt-tertiary block mb-1">Headline (shown on image)</label>
+                <label className="text-xs text-tertiary block mb-1">Headline (shown on image)</label>
                 <input
                   value={headline}
                   onChange={(e) => setHeadline(e.target.value)}
-                  className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+                  className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
                 />
               </div>
               <div>
-                <label className="text-xs text-txt-tertiary block mb-1">Subtext (shown on image)</label>
+                <label className="text-xs text-tertiary block mb-1">Subtext (shown on image)</label>
                 <input
                   value={subtext}
                   onChange={(e) => setSubtext(e.target.value)}
-                  className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+                  className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
                   placeholder="Optional"
                 />
               </div>
               {pin.needs_photo && (
                 <div>
-                  <label className="text-xs text-txt-tertiary block mb-1">
+                  <label className="text-xs text-tertiary block mb-1">
                     Photo URL <span className="text-[#7A4F00]">(required for quiz_link)</span>
                   </label>
                   <input
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary"
+                    className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary"
                     placeholder="https://..."
                     type="url"
                   />
@@ -407,14 +407,14 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
 
         {/* Right: Image preview + stats */}
         <div className="space-y-4">
-          <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+          <div className="bg-primary border border-default rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-txt-primary">Image Preview</h2>
+              <h2 className="text-sm font-semibold text-primary">Image Preview</h2>
               <div className="flex gap-2">
                 <button
                   onClick={loadPreview}
                   disabled={loadingPreview || !canGenerateImage}
-                  className="px-3 py-1.5 text-xs bg-surface-secondary text-txt-primary rounded-lg hover:bg-surface-tertiary transition-colors disabled:opacity-50"
+                  className="px-3 py-1.5 text-xs bg-surface text-primary rounded-lg hover:bg-elevated transition-colors disabled:opacity-50"
                 >
                   {loadingPreview ? 'Generating...' : 'Preview'}
                 </button>
@@ -434,7 +434,7 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
               <img
                 src={imagePreviewUrl}
                 alt="Pin preview"
-                className="w-full rounded-lg border border-border-light"
+                className="w-full rounded-lg border border-default"
                 style={{ aspectRatio: '1000/1500', objectFit: 'cover' }}
               />
             ) : pin.image_public_url || pin.image_url ? (
@@ -443,14 +443,14 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
                 <img
                   src={(pin.image_public_url || pin.image_url)!}
                   alt="Uploaded image"
-                  className="w-full rounded-lg border border-border-light object-cover"
+                  className="w-full rounded-lg border border-default object-cover"
                   style={{ maxHeight: '500px' }}
                 />
-                <p className="text-xs text-txt-tertiary mt-2">Uploaded image. Click Preview to see the generated pin template.</p>
+                <p className="text-xs text-tertiary mt-2">Uploaded image. Click Preview to see the generated pin template.</p>
               </div>
             ) : (
               <div
-                className="w-full rounded-lg border-2 border-dashed border-border-medium flex flex-col items-center justify-center text-txt-tertiary"
+                className="w-full rounded-lg border-2 border-dashed border-default flex flex-col items-center justify-center text-tertiary"
                 style={{ aspectRatio: '1000/1500' }}
               >
                 <p className="text-sm">1000 x 1500 px</p>
@@ -464,24 +464,24 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
 
           {/* Analytics (if posted) */}
           {pin.status === 'posted' && (
-            <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-              <h2 className="text-sm font-semibold text-txt-primary mb-3">Analytics</h2>
+            <div className="bg-primary border border-default rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-primary mb-3">Analytics</h2>
               <div className="grid grid-cols-3 gap-3">
                 <div className="text-center">
-                  <div className="text-lg font-semibold text-txt-primary">{pin.impressions}</div>
-                  <div className="text-xs text-txt-tertiary">Impressions</div>
+                  <div className="text-lg font-semibold text-primary">{pin.impressions}</div>
+                  <div className="text-xs text-tertiary">Impressions</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-semibold text-txt-primary">{pin.saves}</div>
-                  <div className="text-xs text-txt-tertiary">Saves</div>
+                  <div className="text-lg font-semibold text-primary">{pin.saves}</div>
+                  <div className="text-xs text-tertiary">Saves</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-semibold text-txt-primary">{pin.clicks}</div>
-                  <div className="text-xs text-txt-tertiary">Clicks</div>
+                  <div className="text-lg font-semibold text-primary">{pin.clicks}</div>
+                  <div className="text-xs text-tertiary">Clicks</div>
                 </div>
               </div>
               {pin.posted_at && (
-                <p className="text-xs text-txt-tertiary mt-3 text-center">
+                <p className="text-xs text-tertiary mt-3 text-center">
                   Posted {new Date(pin.posted_at).toLocaleDateString()}
                 </p>
               )}
@@ -490,42 +490,42 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
 
           {/* Posting workflow */}
           {pin.status !== 'posted' && (
-            <div className="bg-surface-primary border border-border-light rounded-lg p-4">
-              <h2 className="text-sm font-semibold text-txt-primary mb-3">Posting Workflow</h2>
+            <div className="bg-primary border border-default rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-primary mb-3">Posting Workflow</h2>
               {authStatus?.connected ? (
-                <ol className="space-y-2 text-xs text-txt-secondary">
+                <ol className="space-y-2 text-xs text-secondary">
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">1.</span>
+                    <span className="font-semibold text-primary shrink-0">1.</span>
                     Review and edit the title, description, board, and image
                   </li>
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">2.</span>
+                    <span className="font-semibold text-primary shrink-0">2.</span>
                     Click <span className="font-medium">Approve</span> when ready
                   </li>
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">3.</span>
+                    <span className="font-semibold text-primary shrink-0">3.</span>
                     Click <span className="font-medium text-[#E60023]">Post to Pinterest</span> to publish directly
                   </li>
                 </ol>
               ) : (
-                <ol className="space-y-2 text-xs text-txt-secondary">
+                <ol className="space-y-2 text-xs text-secondary">
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">1.</span>
+                    <span className="font-semibold text-primary shrink-0">1.</span>
                     Preview the image, then click <span className="font-medium">Download PNG</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">2.</span>
+                    <span className="font-semibold text-primary shrink-0">2.</span>
                     Copy the <span className="font-medium">Pinterest Title</span> and <span className="font-medium">Description</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">3.</span>
+                    <span className="font-semibold text-primary shrink-0">3.</span>
                     Go to Pinterest, create a pin, upload the image
                   </li>
                   <li className="flex gap-2">
-                    <span className="font-semibold text-txt-primary shrink-0">4.</span>
+                    <span className="font-semibold text-primary shrink-0">4.</span>
                     Paste the title, description, and link URL
                   </li>
-                  <li className="flex gap-2 mt-3 pt-3 border-t border-border-light">
+                  <li className="flex gap-2 mt-3 pt-3 border-t border-default">
                     <span className="text-[#E60023] font-medium">
                       Connect Pinterest in the dashboard for direct posting!
                     </span>

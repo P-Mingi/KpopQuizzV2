@@ -16,7 +16,7 @@ export function TabBar({ tabs, activeTab, onTabChange }: TabBarProps): React.Rea
           className={`px-4 py-2 rounded-full text-sm border whitespace-nowrap cursor-pointer transition-colors ${
             activeTab === tab
               ? 'border-txt-primary bg-txt-primary text-white font-medium'
-              : 'border-border-light text-txt-secondary bg-transparent hover:border-border-medium'
+              : 'border-default text-secondary bg-transparent hover:border-default'
           }`}
         >
           {tab}

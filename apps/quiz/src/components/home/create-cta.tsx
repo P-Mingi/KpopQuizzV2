@@ -2,11 +2,11 @@ import Link from 'next/link';
 
 export function CreateCTA(): React.ReactElement {
   return (
-    <div className="bg-surface-secondary rounded-lg p-5 text-center mt-6 mb-8">
-      <p className="text-base font-medium text-txt-primary">
+    <div className="bg-surface rounded-lg p-5 text-center mt-6 mb-8">
+      <p className="text-base font-medium text-primary">
         Think you know your group better than anyone?
       </p>
-      <p className="text-sm text-txt-secondary mt-1">
+      <p className="text-sm text-secondary mt-1">
         Create a quiz in under 3 minutes and challenge your mutuals.
       </p>
       <Link

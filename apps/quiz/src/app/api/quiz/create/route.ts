@@ -267,6 +267,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // Optional manual cover override. When present, it wins over the
+  // auto-populate logic in create_quiz_bypass (see migration 048).
+  let manualCoverUrl: string | null = null;
+  if (typeof input.cover_image_url === 'string' && input.cover_image_url.trim().length > 0) {
+    manualCoverUrl = input.cover_image_url.trim();
+  }
+
   // 6. Insert quiz via RPC to bypass PostgREST schema cache constraint validation
   const { data: quizResult, error: quizError } = await supabase
     .rpc('create_quiz_bypass', {
@@ -280,6 +287,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         questions: input.questions,
         settings: input.settings,
         question_count: (input.questions as unknown[]).length,
+        cover_image_url: manualCoverUrl,
       },
     });
 

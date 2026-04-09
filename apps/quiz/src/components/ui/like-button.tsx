@@ -89,11 +89,11 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
         fill={liked ? '#E24B4A' : 'none'}
         stroke={liked ? '#E24B4A' : 'currentColor'}
         strokeWidth="1.3"
-        className={liked ? '' : 'text-txt-secondary'}
+        className={liked ? '' : 'text-secondary'}
       >
         <path d="M7 12.1s-5.25-3.2-5.25-6.3a2.625 2.625 0 0 1 5.25-.9 2.625 2.625 0 0 1 5.25.9c0 3.1-5.25 6.3-5.25 6.3Z" />
       </svg>
-      <span className={`text-xs ${liked ? 'text-[#E24B4A]' : 'text-txt-secondary'}`}>
+      <span className={`text-xs ${liked ? 'text-[#E24B4A]' : 'text-secondary'}`}>
         {count}
       </span>
     </button>

@@ -19,7 +19,13 @@ export default async function CreatePage(): Promise<React.ReactElement> {
   }));
 
   return (
-    <div className="py-6">
+    <div className="pt-4 md:pt-6 pb-8">
+      <div className="mb-5">
+        <h1 className="text-[22px] font-bold text-primary">Create a quiz</h1>
+        <p className="text-xs text-ghost mt-0.5">
+          Pick a group, add your questions, share with the fandom.
+        </p>
+      </div>
       <Suspense fallback={<div className="flex justify-center py-12"><Spinner /></div>}>
         <CreateFormatSelector groups={groupOptions} />
       </Suspense>

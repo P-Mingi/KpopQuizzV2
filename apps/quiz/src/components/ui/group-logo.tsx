@@ -52,7 +52,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
   if (logoUrl && !imgError) {
     return (
       <div
-        className="overflow-hidden flex-shrink-0 border border-border-light"
+        className="overflow-hidden flex-shrink-0 border border-default"
         style={{ width: size, height: size, borderRadius: radius }}
       >
         <Image
@@ -70,7 +70,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
 
   return (
     <div
-      className="flex items-center justify-center flex-shrink-0 border border-border-light"
+      className="flex items-center justify-center flex-shrink-0 border border-default"
       style={{
         width: size,
         height: size,

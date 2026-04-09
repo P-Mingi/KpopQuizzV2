@@ -70,8 +70,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   if (query.length < 2) {
     return (
       <div className="py-6">
-        <h1 className="text-xl font-medium text-txt-primary mb-4">Search</h1>
-        <p className="text-sm text-txt-secondary text-center py-8">Enter at least 2 characters to search.</p>
+        <h1 className="text-xl font-medium text-primary mb-4">Search</h1>
+        <p className="text-sm text-secondary text-center py-8">Enter at least 2 characters to search.</p>
       </div>
     );
   }
@@ -116,17 +116,17 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary mb-1">Search results</h1>
-      <p className="text-sm text-txt-secondary mb-6">for &quot;{query}&quot;</p>
+      <h1 className="text-xl font-medium text-primary mb-1">Search results</h1>
+      <p className="text-sm text-secondary mb-6">for &quot;{query}&quot;</p>
 
       {!hasResults && (
-        <p className="text-sm text-txt-secondary text-center py-8">No results for &quot;{query}&quot;</p>
+        <p className="text-sm text-secondary text-center py-8">No results for &quot;{query}&quot;</p>
       )}
 
       {/* Quizzes */}
       {quizzes.length > 0 && (
         <div className="mb-8">
-          <p className="text-sm font-medium text-txt-primary mb-3">Quizzes ({quizzes.length})</p>
+          <p className="text-sm font-medium text-primary mb-3">Quizzes ({quizzes.length})</p>
           <div className="space-y-3">
             {quizzes.map((q) => (
               <QuizCard key={q.id} quiz={q} />
@@ -138,7 +138,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
       {/* Groups */}
       {groups.length > 0 && (
         <div className="mb-8">
-          <p className="text-sm font-medium text-txt-primary mb-3">Groups ({groups.length})</p>
+          <p className="text-sm font-medium text-primary mb-3">Groups ({groups.length})</p>
           <div className="flex flex-wrap gap-2">
             {groups.map((g) => (
               <Link
@@ -157,13 +157,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
       {/* Creators */}
       {creators.length > 0 && (
         <div className="mb-8">
-          <p className="text-sm font-medium text-txt-primary mb-3">Creators ({creators.length})</p>
+          <p className="text-sm font-medium text-primary mb-3">Creators ({creators.length})</p>
           <div className="space-y-2">
             {creators.map((c) => (
               <Link
                 key={c.username}
                 href={`/u/${c.username}`}
-                className="flex items-center gap-3 p-3 rounded-lg border border-border-light hover:border-border-medium transition-colors"
+                className="flex items-center gap-3 p-3 rounded-lg border border-default hover:border-default transition-colors"
               >
                 <UserAvatar
                   username={c.username}
@@ -173,8 +173,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
                   size={36}
                 />
                 <div>
-                  <p className="text-sm font-medium text-txt-primary">{c.username}</p>
-                  <p className="text-xs text-txt-secondary">{formatCount(c.total_quizzes_created)} quizzes created</p>
+                  <p className="text-sm font-medium text-primary">{c.username}</p>
+                  <p className="text-xs text-secondary">{formatCount(c.total_quizzes_created)} quizzes created</p>
                 </div>
               </Link>
             ))}

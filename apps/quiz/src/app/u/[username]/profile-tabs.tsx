@@ -34,7 +34,7 @@ export function ProfileTabs({ isOwnProfile, initialQuizzes, likedQuizzes, creato
             />
           ) : (
             <div className="text-center py-12">
-              <p className="text-sm text-txt-secondary">No quizzes yet.</p>
+              <p className="text-sm text-secondary">No quizzes yet.</p>
               {isOwnProfile && (
                 <Link
                   href="/create"
@@ -58,7 +58,7 @@ export function ProfileTabs({ isOwnProfile, initialQuizzes, likedQuizzes, creato
               ))}
             </div>
           ) : (
-            <p className="text-sm text-txt-secondary text-center py-8">No liked quizzes yet.</p>
+            <p className="text-sm text-secondary text-center py-8">No liked quizzes yet.</p>
           )}
         </>
       )}

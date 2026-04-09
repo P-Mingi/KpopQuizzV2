@@ -144,7 +144,7 @@ const CATEGORY_ICONS: Record<TriviaCategory, React.ReactElement> = {
 
 function TriviaFactCard({ item }: { item: TriviaFact }) {
   return (
-    <div className="group relative pl-5 border-l-2 border-[var(--border-light)] hover:border-[var(--accent-pink)] transition-colors py-1">
+    <div className="group relative pl-5 border-l-2 border-[var(--border)] hover:border-[var(--accent-light)] transition-colors py-1">
       <p className="text-sm text-[var(--text-primary)] leading-relaxed">
         {item.fact}
       </p>
@@ -228,7 +228,7 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
       </div>
 
       {/* Quick stats */}
-      <div className="flex justify-center gap-6 mb-10 pb-8 border-b border-[var(--border-light)]">
+      <div className="flex justify-center gap-6 mb-10 pb-8 border-b border-[var(--border)]">
         <div className="text-center">
           <p className="text-lg font-medium text-[var(--text-primary)]">{formatCount(group.quiz_count)}</p>
           <p className="text-xs text-[var(--text-tertiary)]">quizzes</p>
@@ -263,7 +263,7 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
       ))}
 
       {/* CTA */}
-      <div className="mt-12 pt-8 border-t border-[var(--border-light)] text-center">
+      <div className="mt-12 pt-8 border-t border-[var(--border)] text-center">
         <p className="text-lg font-medium text-[var(--text-primary)] mb-2">
           Think you knew all of these?
         </p>

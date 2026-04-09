@@ -25,8 +25,8 @@ export default async function GuessTheKpopIdolPage(): Promise<React.ReactElement
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary">Guess the K-pop idol</h1>
-      <p className="text-sm text-txt-secondary mt-1 leading-relaxed">
+      <h1 className="text-xl font-medium text-primary">Guess the K-pop idol</h1>
+      <p className="text-sm text-secondary mt-1 leading-relaxed">
         You get 3 clues. Guess with fewer clues for more points.
         How well do you really know your faves?
       </p>
@@ -39,7 +39,7 @@ export default async function GuessTheKpopIdolPage(): Promise<React.ReactElement
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-sm text-txt-secondary">No quizzes yet. Be the first to create one!</p>
+          <p className="text-sm text-secondary">No quizzes yet. Be the first to create one!</p>
           <Link
             href="/create"
             className="inline-block mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"

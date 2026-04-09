@@ -44,8 +44,8 @@ interface AuthStatus {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  draft: 'bg-surface-secondary text-txt-secondary',
-  ready: 'bg-info-bg text-info-text',
+  draft: 'bg-surface text-secondary',
+  ready: 'bg-type-classic-bg text-type-classic-text',
   approved: 'bg-[#EEEDFE] text-[#3C3489]',
   scheduled: 'bg-[#FAEEDA] text-[#633806]',
   posted: 'bg-[#EAF3DE] text-[#27500A]',
@@ -592,8 +592,8 @@ Rules:
       {/* Header + Connection Status */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-txt-primary">Pinterest Pins</h1>
-          <p className="text-sm text-txt-secondary mt-0.5">
+          <h1 className="text-xl font-semibold text-primary">Pinterest Pins</h1>
+          <p className="text-sm text-secondary mt-0.5">
             Upload, review, and post pins to Pinterest
           </p>
         </div>
@@ -604,14 +604,14 @@ Rules:
                 Connected
               </span>
               {authStatus.expiresAt && (
-                <span className="text-xs text-txt-tertiary">
+                <span className="text-xs text-tertiary">
                   Expires {new Date(authStatus.expiresAt).toLocaleDateString()}
                 </span>
               )}
               <button
                 onClick={syncBoards}
                 disabled={syncing}
-                className="text-xs px-3 py-1.5 bg-surface-secondary text-txt-primary rounded-lg hover:bg-surface-tertiary transition-colors disabled:opacity-50"
+                className="text-xs px-3 py-1.5 bg-surface text-primary rounded-lg hover:bg-elevated transition-colors disabled:opacity-50"
               >
                 {syncing ? 'Syncing...' : `Sync boards (${boards.length})`}
               </button>
@@ -637,35 +637,35 @@ Rules:
       {/* Stats */}
       <div className="grid grid-cols-7 gap-3 mb-6">
         {[
-          { label: 'Total', value: stats.total, color: 'text-txt-primary' },
-          { label: 'Draft', value: stats.draft, color: 'text-txt-secondary' },
-          { label: 'Ready', value: stats.ready, color: 'text-info-text' },
+          { label: 'Total', value: stats.total, color: 'text-primary' },
+          { label: 'Draft', value: stats.draft, color: 'text-secondary' },
+          { label: 'Ready', value: stats.ready, color: 'text-type-classic-text' },
           { label: 'Approved', value: stats.approved, color: 'text-[#3C3489]' },
           { label: 'Scheduled', value: stats.scheduled, color: 'text-[#633806]' },
           { label: 'Posted', value: stats.posted, color: 'text-[#27500A]' },
           { label: 'Failed', value: stats.failed, color: 'text-[#72243E]' },
         ].map((s) => (
-          <div key={s.label} className="bg-surface-primary border border-border-light rounded-lg p-3 text-center">
+          <div key={s.label} className="bg-primary border border-default rounded-lg p-3 text-center">
             <div className={`text-2xl font-semibold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-txt-secondary mt-0.5">{s.label}</div>
+            <div className="text-xs text-secondary mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Upload Zone */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-6 mb-6">
-        <h2 className="text-sm font-semibold text-txt-primary mb-3">Upload New Pins</h2>
+      <div className="bg-primary border border-default rounded-lg p-6 mb-6">
+        <h2 className="text-sm font-semibold text-primary mb-3">Upload New Pins</h2>
 
         <div
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-border-medium rounded-lg p-8 text-center cursor-pointer hover:border-[#7c3aed] hover:bg-surface-secondary/50 transition-colors"
+          className="border-2 border-dashed border-default rounded-lg p-8 text-center cursor-pointer hover:border-[#7c3aed] hover:bg-surface/50 transition-colors"
         >
-          <p className="text-sm text-txt-secondary">
+          <p className="text-sm text-secondary">
             Drag and drop images here, or click to browse
           </p>
-          <p className="text-xs text-txt-tertiary mt-1">
+          <p className="text-xs text-tertiary mt-1">
             Supports JPG, PNG, WebP - Max 20 images at once
           </p>
           <input
@@ -682,7 +682,7 @@ Rules:
         {uploadFiles.length > 0 && (
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-txt-secondary">{uploadFiles.length} file(s) selected</span>
+              <span className="text-xs text-secondary">{uploadFiles.length} file(s) selected</span>
               <button
                 onClick={() => setUploadFiles([])}
                 className="text-xs text-[#72243E] hover:underline"
@@ -697,7 +697,7 @@ Rules:
                   <img
                     src={URL.createObjectURL(file)}
                     alt={file.name}
-                    className="w-16 h-16 object-cover rounded-lg border border-border-light"
+                    className="w-16 h-16 object-cover rounded-lg border border-default"
                   />
                   <button
                     onClick={(e) => { e.stopPropagation(); removeFile(i); }}
@@ -705,7 +705,7 @@ Rules:
                   >
                     x
                   </button>
-                  <p className="text-[10px] text-txt-tertiary mt-0.5 max-w-16 truncate">{file.name}</p>
+                  <p className="text-[10px] text-tertiary mt-0.5 max-w-16 truncate">{file.name}</p>
                 </div>
               ))}
             </div>
@@ -721,8 +721,8 @@ Rules:
 
         {/* Metadata actions (shown after uploads or when pins need metadata) */}
         {(needsMetadataCount > 0 || uploadedUrls.length > 0) && (
-          <div className="mt-4 pt-4 border-t border-border-light">
-            <p className="text-sm text-txt-secondary mb-3">
+          <div className="mt-4 pt-4 border-t border-default">
+            <p className="text-sm text-secondary mb-3">
               {needsMetadataCount > 0
                 ? `${needsMetadataCount} image(s) need metadata`
                 : 'Images uploaded'}
@@ -730,7 +730,7 @@ Rules:
             <div className="flex items-center gap-3">
               <button
                 onClick={copyImageUrls}
-                className="px-4 py-2 bg-surface-secondary text-txt-primary text-sm font-medium rounded-lg hover:bg-surface-tertiary transition-colors"
+                className="px-4 py-2 bg-surface text-primary text-sm font-medium rounded-lg hover:bg-elevated transition-colors"
               >
                 {copiedUrls ? 'Copied!' : 'Copy image URLs'}
               </button>
@@ -741,7 +741,7 @@ Rules:
                 Import metadata
               </button>
             </div>
-            <p className="text-xs text-txt-tertiary mt-2">
+            <p className="text-xs text-tertiary mt-2">
               Copy URLs to paste into Claude, then import the generated JSON back here
             </p>
           </div>
@@ -751,41 +751,41 @@ Rules:
       {/* Import Modal */}
       {showImportModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface-primary rounded-xl border border-border-light shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-border-light">
-              <h2 className="text-base font-semibold text-txt-primary">Import metadata from Claude</h2>
+          <div className="bg-primary rounded-xl border border-default shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-default">
+              <h2 className="text-base font-semibold text-primary">Import metadata from Claude</h2>
               <button
                 onClick={() => setShowImportModal(false)}
-                className="text-txt-tertiary hover:text-txt-primary text-lg"
+                className="text-tertiary hover:text-primary text-lg"
               >
                 x
               </button>
             </div>
             <div className="p-4 flex-1 overflow-auto">
-              <p className="text-sm text-txt-secondary mb-3">
+              <p className="text-sm text-secondary mb-3">
                 Paste the JSON array generated by Claude:
               </p>
               <textarea
                 value={importJson}
                 onChange={(e) => setImportJson(e.target.value)}
                 rows={14}
-                className="w-full text-sm border border-border-light rounded-lg px-3 py-2 bg-surface-tertiary text-txt-primary resize-none font-mono"
+                className="w-full text-sm border border-default rounded-lg px-3 py-2 bg-elevated text-primary resize-none font-mono"
                 placeholder={`[\n  {\n    "image_url": "https://...",\n    "title": "Pin title",\n    "description": "Description with #hashtags",\n    "board_name": "BTS",\n    "pin_type": "aesthetic",\n    "group_name": "BTS",\n    "link_url": "",\n    "hashtags": ["bts", "kpop", "army"]\n  }\n]`}
               />
               {importResult && (
-                <pre className="mt-3 text-sm p-3 bg-surface-secondary rounded-lg whitespace-pre-wrap">
+                <pre className="mt-3 text-sm p-3 bg-surface rounded-lg whitespace-pre-wrap">
                   {importResult}
                 </pre>
               )}
             </div>
-            <div className="p-4 border-t border-border-light flex items-center justify-between">
-              <span className="text-xs text-txt-tertiary">
+            <div className="p-4 border-t border-default flex items-center justify-between">
+              <span className="text-xs text-tertiary">
                 {importJson.trim() ? 'Ready to import' : 'Paste JSON to begin'}
               </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => setShowImportModal(false)}
-                  className="px-4 py-2 text-sm text-txt-secondary hover:text-txt-primary transition-colors"
+                  className="px-4 py-2 text-sm text-secondary hover:text-primary transition-colors"
                 >
                   Cancel
                 </button>
@@ -807,7 +807,7 @@ Rules:
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary"
         >
           <option value="all">All statuses</option>
           <option value="draft">Draft</option>
@@ -820,7 +820,7 @@ Rules:
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary"
         >
           <option value="all">All types</option>
           {Object.entries(TYPE_LABELS).map(([k, v]) => (
@@ -830,7 +830,7 @@ Rules:
         <select
           value={groupFilter}
           onChange={(e) => setGroupFilter(e.target.value)}
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary"
         >
           <option value="all">All groups</option>
           {groups.map((g) => (
@@ -841,10 +841,10 @@ Rules:
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search..."
-          className="text-sm border border-border-light rounded-lg px-3 py-1.5 bg-surface-primary text-txt-primary w-48"
+          className="text-sm border border-default rounded-lg px-3 py-1.5 bg-primary text-primary w-48"
         />
 
-        <span className="text-sm text-txt-secondary ml-auto">
+        <span className="text-sm text-secondary ml-auto">
           {filtered.length} of {pins.length}
         </span>
       </div>
@@ -878,7 +878,7 @@ Rules:
           )}
           <button
             onClick={() => setSelectedIds(new Set())}
-            className="text-xs text-txt-secondary hover:text-txt-primary ml-auto"
+            className="text-xs text-secondary hover:text-primary ml-auto"
           >
             Clear selection
           </button>
@@ -904,10 +904,10 @@ Rules:
       )}
 
       {/* Table */}
-      <div className="bg-surface-primary border border-border-light rounded-lg overflow-hidden">
+      <div className="bg-primary border border-default rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border-light bg-surface-secondary">
+            <tr className="border-b border-default bg-surface">
               <th className="px-3 py-3 w-8">
                 <input
                   type="checkbox"
@@ -916,19 +916,19 @@ Rules:
                   className="rounded"
                 />
               </th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary w-16">Img</th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary">Title</th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary w-28">Group</th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary w-28">Type</th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary w-24">Board</th>
-              <th className="text-left px-3 py-3 text-xs font-medium text-txt-secondary w-24">Status</th>
-              <th className="text-right px-3 py-3 text-xs font-medium text-txt-secondary w-48">Actions</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary w-16">Img</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary">Title</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary w-28">Group</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary w-28">Type</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary w-24">Board</th>
+              <th className="text-left px-3 py-3 text-xs font-medium text-secondary w-24">Status</th>
+              <th className="text-right px-3 py-3 text-xs font-medium text-secondary w-48">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-txt-secondary text-sm">
+                <td colSpan={8} className="px-4 py-8 text-center text-secondary text-sm">
                   No pins match the current filters.
                 </td>
               </tr>
@@ -936,7 +936,7 @@ Rules:
             {filtered.map((pin) => (
               <tr
                 key={pin.id}
-                className={`border-b border-border-light last:border-0 hover:bg-surface-secondary/50 transition-colors ${
+                className={`border-b border-default last:border-0 hover:bg-surface/50 transition-colors ${
                   selectedIds.has(pin.id) ? 'bg-[#EEEDFE]/30' : ''
                 }`}
               >
@@ -960,7 +960,7 @@ Rules:
                       className="w-10 h-10 object-cover rounded"
                     />
                   ) : (
-                    <div className="w-10 h-10 bg-surface-tertiary rounded flex items-center justify-center text-xs text-txt-tertiary">
+                    <div className="w-10 h-10 bg-elevated rounded flex items-center justify-center text-xs text-tertiary">
                       --
                     </div>
                   )}
@@ -969,28 +969,28 @@ Rules:
                 {/* Title + headline */}
                 <td className="px-3 py-2">
                   <Link href={`/admin/pinterest/${pin.id}`} className="block">
-                    <p className="font-medium text-txt-primary line-clamp-1 hover:underline">
+                    <p className="font-medium text-primary line-clamp-1 hover:underline">
                       {pin.headline}
                     </p>
-                    <p className="text-xs text-txt-tertiary line-clamp-1 mt-0.5">{pin.title}</p>
+                    <p className="text-xs text-tertiary line-clamp-1 mt-0.5">{pin.title}</p>
                   </Link>
                 </td>
 
                 {/* Group */}
                 <td className="px-3 py-2">
-                  <span className="text-xs text-txt-secondary">{pin.group_name ?? 'General'}</span>
+                  <span className="text-xs text-secondary">{pin.group_name ?? 'General'}</span>
                 </td>
 
                 {/* Type */}
                 <td className="px-3 py-2">
-                  <span className="text-xs font-medium text-txt-secondary">
+                  <span className="text-xs font-medium text-secondary">
                     {TYPE_LABELS[pin.pin_type] ?? pin.pin_type}
                   </span>
                 </td>
 
                 {/* Board */}
                 <td className="px-3 py-2">
-                  <span className="text-xs text-txt-tertiary truncate block max-w-24">{pin.board}</span>
+                  <span className="text-xs text-tertiary truncate block max-w-24">{pin.board}</span>
                 </td>
 
                 {/* Status */}
@@ -999,7 +999,7 @@ Rules:
                     {pin.status.charAt(0).toUpperCase() + pin.status.slice(1)}
                   </span>
                   {pin.scheduled_for && pin.status === 'scheduled' && (
-                    <p className="text-[10px] text-txt-tertiary mt-0.5">
+                    <p className="text-[10px] text-tertiary mt-0.5">
                       {new Date(pin.scheduled_for).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </p>
                   )}
@@ -1037,7 +1037,7 @@ Rules:
                       <button
                         onClick={() => downloadImage(pin)}
                         disabled={actionId === pin.id}
-                        className="text-xs text-info-text hover:underline disabled:opacity-50"
+                        className="text-xs text-type-classic-text hover:underline disabled:opacity-50"
                         title="Download generated image"
                       >
                         PNG
@@ -1047,7 +1047,7 @@ Rules:
                     {/* Edit */}
                     <Link
                       href={`/admin/pinterest/${pin.id}`}
-                      className="text-xs text-txt-tertiary hover:text-txt-secondary transition-colors"
+                      className="text-xs text-tertiary hover:text-secondary transition-colors"
                     >
                       Edit
                     </Link>

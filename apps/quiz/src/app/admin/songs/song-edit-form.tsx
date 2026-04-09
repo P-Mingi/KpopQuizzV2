@@ -159,12 +159,12 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
               placeholder="https://youtube.com/watch?v=..."
               value={youtubeUrl}
               onChange={e => setYoutubeUrl(e.target.value)}
-              className="flex-1 px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm focus:outline-none focus:border-[var(--border-medium)]"
+              className="flex-1 px-3 py-2 rounded-lg border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--border)]"
             />
             <button
               onClick={fetchYouTube}
               disabled={fetching}
-              className="px-4 py-2 rounded-lg border border-[var(--border-light)] text-sm font-medium hover:border-[var(--border-medium)] disabled:opacity-50"
+              className="px-4 py-2 rounded-lg border border-[var(--border)] text-sm font-medium hover:border-[var(--border)] disabled:opacity-50"
             >
               {fetching ? '...' : 'Fetch'}
             </button>
@@ -177,7 +177,7 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
         <div className="flex gap-4 mb-6">
           <img
             src={`https://img.youtube.com/vi/${form.youtube_id}/hqdefault.jpg`}
-            className="w-40 h-24 rounded-lg object-cover bg-[var(--bg-secondary)]"
+            className="w-40 h-24 rounded-lg object-cover bg-[var(--bg-surface)]"
             alt=""
           />
           <div>
@@ -186,7 +186,7 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
               href={`https://www.youtube.com/watch?v=${form.youtube_id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--accent-pink)] hover:underline"
+              className="text-xs text-[var(--accent-light)] hover:underline"
             >
               Open MV
             </a>
@@ -204,7 +204,7 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
             <select
               value={form.group_id ?? ''}
               onChange={e => set({ group_id: e.target.value ? Number(e.target.value) : null })}
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm bg-white"
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] text-sm bg-white"
             >
               <option value="">No group</option>
               {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
@@ -239,7 +239,7 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
                   placeholder="-"
                   value={val}
                   onChange={e => set({ [key]: e.target.value } as Partial<SongFormData>)}
-                  className="w-20 px-3 py-1.5 rounded-lg border border-[var(--border-light)] text-sm text-center focus:outline-none focus:border-[var(--border-medium)]"
+                  className="w-20 px-3 py-1.5 rounded-lg border border-[var(--border)] text-sm text-center focus:outline-none focus:border-[var(--border)]"
                 />
                 <span className="text-xs text-[var(--text-tertiary)]">sec</span>
                 <button
@@ -250,8 +250,8 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
                     previewingClip === clip
                       ? 'bg-[#FCEBEB] border-[#F09595] text-[#791F1F]'
                       : val === '' || !form.youtube_id
-                        ? 'border-[var(--border-light)] text-[var(--text-tertiary)] cursor-not-allowed'
-                        : 'border-[var(--border-light)] text-[var(--text-secondary)] hover:border-[var(--border-medium)]'
+                        ? 'border-[var(--border)] text-[var(--text-tertiary)] cursor-not-allowed'
+                        : 'border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border)]'
                   }`}
                 >
                   {previewingClip === clip ? 'Stop' : `Preview ${clip === 'intro' ? '5s' : '10s'}`}
@@ -295,7 +295,7 @@ export function SongEditForm({ initial, groups, onSave, onDelete, showYouTubeInp
           <button onClick={onDelete} className="text-xs text-[#A32D2D] hover:underline">Delete song</button>
         )}
         <div className="flex gap-2 ml-auto">
-          <Link href="/admin/songs" className="px-4 py-2 rounded-full border border-[var(--border-light)] text-sm font-medium">
+          <Link href="/admin/songs" className="px-4 py-2 rounded-full border border-[var(--border)] text-sm font-medium">
             Cancel
           </Link>
           <button onClick={handleSave} disabled={saving}
@@ -319,7 +319,7 @@ function Field({ label, value, onChange, placeholder, type = 'text' }: {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm focus:outline-none focus:border-[var(--border-medium)]"
+        className="w-full px-3 py-2 rounded-lg border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--border)]"
       />
     </div>
   );
@@ -340,7 +340,7 @@ function PillSelect({ label, value, onChange, options }: {
             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
               value === val
                 ? 'bg-[var(--text-primary)] text-white'
-                : 'border border-[var(--border-light)] text-[var(--text-secondary)] hover:border-[var(--border-medium)]'
+                : 'border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border)]'
             }`}
           >
             {display}

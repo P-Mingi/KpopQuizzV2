@@ -11,7 +11,7 @@ interface FeedbackBoxProps {
 const STYLES: Record<FeedbackType, string> = {
   correct: 'bg-correct-bg text-correct-text',
   wrong: 'bg-wrong-bg text-wrong-text',
-  timeout: 'bg-timeout-bg text-timeout-text',
+  timeout: 'bg-type-clue-bg text-type-clue-text',
 };
 
 export function FeedbackBox({ type, title, text }: FeedbackBoxProps): React.ReactElement {

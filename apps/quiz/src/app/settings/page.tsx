@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/toast-provider';
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { SoundToggle } from '@/components/settings/sound-toggle';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 
 interface ProfileData {
@@ -164,27 +165,27 @@ export default function SettingsPage(): React.ReactElement {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="w-5 h-5 border-2 border-border-light border-t-accent-pink rounded-full animate-spin" />
+        <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (!profile) {
-    return <p className="text-sm text-txt-secondary py-12 text-center">Profile not found.</p>;
+    return <p className="text-sm text-secondary py-12 text-center">Profile not found.</p>;
   }
 
-  const INPUT = 'w-full px-4 py-3 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink focus:ring-1 focus:ring-accent-pink transition-colors';
+  const INPUT = 'w-full px-4 py-3 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors';
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary">Settings</h1>
-      <p className="text-sm text-txt-secondary mt-1 mb-6">Manage your profile</p>
+      <h1 className="text-xl font-medium text-primary">Settings</h1>
+      <p className="text-sm text-secondary mt-1 mb-6">Manage your profile</p>
 
-      <div className="bg-surface-primary border border-border-light rounded-lg p-5">
+      <div className="bg-primary border border-default rounded-lg p-5">
 
         {/* Profile picture */}
         <div className="mb-6">
-          <p className="text-sm font-medium text-txt-primary mb-3">Profile picture</p>
+          <p className="text-sm font-medium text-primary mb-3">Profile picture</p>
           <div className="flex items-start gap-4">
             <UserAvatar
               username={username}
@@ -201,7 +202,7 @@ export default function SettingsPage(): React.ReactElement {
                 onChange={(e) => setAvatarUrl(e.target.value)}
                 className={INPUT}
               />
-              <p className="text-xs text-txt-tertiary mt-1">Use a direct link to a .jpg or .png</p>
+              <p className="text-xs text-tertiary mt-1">Use a direct link to a .jpg or .png</p>
               {avatarPreviewError && avatarUrl && (
                 <p className="text-xs text-wrong-text mt-1">Couldn&apos;t load this image. Make sure it&apos;s a direct image link.</p>
               )}
@@ -231,8 +232,8 @@ export default function SettingsPage(): React.ReactElement {
 
         {/* Username */}
         <div className="mb-6">
-          <p className="text-sm font-medium text-txt-primary mb-1">Username</p>
-          <p className="text-sm text-txt-secondary mb-2">Current: @{profile.username}</p>
+          <p className="text-sm font-medium text-primary mb-1">Username</p>
+          <p className="text-sm text-secondary mb-2">Current: @{profile.username}</p>
           <input
             type="text"
             value={username}
@@ -241,19 +242,19 @@ export default function SettingsPage(): React.ReactElement {
             className={INPUT}
           />
           <div className="h-5 mt-1">
-            {usernameStatus === 'checking' && <p className="text-xs text-txt-secondary">Checking...</p>}
+            {usernameStatus === 'checking' && <p className="text-xs text-secondary">Checking...</p>}
             {usernameStatus === 'available' && <p className="text-xs text-correct-text">&#10003; Available!</p>}
             {usernameStatus === 'taken' && <p className="text-xs text-wrong-text">&#10007; {usernameError}</p>}
             {usernameStatus === 'invalid' && <p className="text-xs text-wrong-text">{usernameError}</p>}
           </div>
           {username !== profile.username && usernameStatus !== 'same' && (
-            <p className="text-xs text-timeout-text mt-1">Changing your username will break any existing links to your profile.</p>
+            <p className="text-xs text-type-clue-text mt-1">Changing your username will break any existing links to your profile.</p>
           )}
         </div>
 
         {/* Display name */}
         <div className="mb-6">
-          <p className="text-sm font-medium text-txt-primary mb-1">Display name</p>
+          <p className="text-sm font-medium text-primary mb-1">Display name</p>
           <input
             type="text"
             placeholder="Your display name"
@@ -262,12 +263,12 @@ export default function SettingsPage(): React.ReactElement {
             maxLength={40}
             className={INPUT}
           />
-          <p className="text-xs text-txt-tertiary mt-1">Optional. If not set, your username is shown.</p>
+          <p className="text-xs text-tertiary mt-1">Optional. If not set, your username is shown.</p>
         </div>
 
         {/* Bio */}
         <div className="mb-6">
-          <p className="text-sm font-medium text-txt-primary mb-1">Bio</p>
+          <p className="text-sm font-medium text-primary mb-1">Bio</p>
           <textarea
             placeholder="Tell other fans about yourself..."
             value={bio}
@@ -276,7 +277,7 @@ export default function SettingsPage(): React.ReactElement {
             rows={3}
             className={`${INPUT} resize-none`}
           />
-          <p className="text-xs text-txt-tertiary text-right mt-1">{bio.length}/160</p>
+          <p className="text-xs text-tertiary text-right mt-1">{bio.length}/160</p>
         </div>
 
         {/* Save */}
@@ -295,7 +296,13 @@ export default function SettingsPage(): React.ReactElement {
         </button>
       </div>
 
-      <p className="text-xs text-txt-tertiary mt-6 text-center">
+      {/* Preferences */}
+      <div className="bg-primary border border-default rounded-lg p-5 mt-4">
+        <p className="text-sm font-medium text-primary mb-2">Preferences</p>
+        <SoundToggle />
+      </div>
+
+      <p className="text-xs text-tertiary mt-6 text-center">
         Need to delete your account? Contact us.
       </p>
     </div>

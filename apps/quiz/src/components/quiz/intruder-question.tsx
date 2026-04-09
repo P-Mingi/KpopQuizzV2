@@ -21,10 +21,10 @@ export function IntruderQuestionView({ question, correctIndex, selectedAnswer, i
     <>
       {/* Header */}
       <div className="text-center mb-4">
-        <p className="text-xs font-medium text-txt-tertiary uppercase tracking-wider mb-1">
+        <p className="text-xs font-medium text-tertiary uppercase tracking-wider mb-1">
           Find the intruder
         </p>
-        <p className="text-base font-medium text-txt-primary">
+        <p className="text-base font-medium text-primary">
           {question.question}
         </p>
       </div>

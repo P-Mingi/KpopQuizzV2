@@ -23,7 +23,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
     : null;
 
   return (
-    <div className="relative bg-surface-primary border border-border-light rounded-lg p-4 hover:border-border-medium transition-colors">
+    <div className="relative bg-primary border border-default rounded-lg p-4 hover:border-default transition-colors">
       {/* Invisible stretched link for the whole card */}
       <Link href={`/q/${quiz.slug}`} className="absolute inset-0 z-0 rounded-lg" aria-label={quiz.title} tabIndex={-1} />
 
@@ -38,7 +38,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
             )}
           </div>
 
-          <p className="text-base font-medium leading-snug mb-2 text-txt-primary">{quiz.title}</p>
+          <p className="text-base font-medium leading-snug mb-2 text-primary">{quiz.title}</p>
 
           <div className="flex items-center gap-2">
             <UserAvatar
@@ -48,13 +48,13 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
               textColor={quiz.creator_avatar_text}
               size={22}
             />
-            <span className="text-xs text-txt-secondary">
-              by <span className="font-medium text-txt-primary">{quiz.creator_username}</span>
+            <span className="text-xs text-secondary">
+              by <span className="font-medium text-primary">{quiz.creator_username}</span>
             </span>
-            <span className="text-xs text-txt-secondary">
-              · avg {avgPct !== null ? `${avgPct}%` : <span className="text-txt-tertiary">new</span>}
+            <span className="text-xs text-secondary">
+              · avg {avgPct !== null ? `${avgPct}%` : <span className="text-tertiary">new</span>}
             </span>
-            <span className="text-xs text-txt-secondary">·</span>
+            <span className="text-xs text-secondary">·</span>
             <span className="relative z-10 pointer-events-auto">
               <LikeButton quizId={quiz.id} initialLiked={isLiked} initialCount={quiz.like_count} />
             </span>
@@ -72,7 +72,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
               />
               <Link
                 href={`/create?edit=${quiz.id}`}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-txt-secondary hover:bg-surface-secondary transition-colors"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-secondary hover:bg-surface transition-colors"
                 aria-label="Edit quiz"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -82,7 +82,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
             </div>
           )}
           {quiz.cover_image_url ? (
-            <div className="w-[52px] h-[52px] rounded-lg overflow-hidden border border-border-light">
+            <div className="w-[52px] h-[52px] rounded-lg overflow-hidden border border-default">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={quiz.cover_image_url}
@@ -99,7 +99,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
               size={52}
             />
           )}
-          <span className="text-xs text-txt-secondary mt-1.5 whitespace-nowrap">
+          <span className="text-xs text-secondary mt-1.5 whitespace-nowrap">
             {formatCount(quiz.play_count)} plays
           </span>
         </div>

@@ -66,10 +66,10 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
 
   return (
     <div>
-      {label && <label className="text-sm font-medium text-txt-primary mb-1 block">{label}</label>}
+      {label && <label className="text-sm font-medium text-primary mb-1 block">{label}</label>}
 
       {value ? (
-        <div className="relative w-full max-w-[200px] aspect-square rounded-lg overflow-hidden border border-border-light mb-2">
+        <div className="relative w-full max-w-[200px] aspect-square rounded-lg overflow-hidden border border-default mb-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={value} alt="" className="w-full h-full object-cover" />
           <button
@@ -84,14 +84,14 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileInputRef.current?.click()}
-          className="w-full border-2 border-dashed border-border-medium rounded-lg p-4 text-center cursor-pointer hover:border-accent-default transition-colors"
+          className="w-full border-2 border-dashed border-default rounded-lg p-4 text-center cursor-pointer hover:border-accent-default transition-colors"
         >
           {loading ? (
-            <p className="text-sm text-txt-secondary">Uploading...</p>
+            <p className="text-sm text-secondary">Uploading...</p>
           ) : (
             <>
-              <p className="text-sm text-txt-secondary">Drop an image here or click to browse</p>
-              <p className="text-xs text-txt-tertiary mt-1">JPG, PNG, WebP, GIF - Max 5MB</p>
+              <p className="text-sm text-secondary">Drop an image here or click to browse</p>
+              <p className="text-xs text-tertiary mt-1">JPG, PNG, WebP, GIF - Max 5MB</p>
             </>
           )}
         </div>
@@ -116,12 +116,12 @@ export function ImageUploader({ value, onChange, label }: Props): React.ReactEle
             onChange={(e) => setUrlInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleUrl(); } }}
             placeholder="Or paste URL..."
-            className="min-w-0 flex-1 text-sm border border-border-light rounded-lg px-2 py-1.5 bg-surface-tertiary text-txt-primary"
+            className="min-w-0 flex-1 text-sm border border-default rounded-lg px-2 py-1.5 bg-elevated text-primary"
           />
           <button
             onClick={handleUrl}
             disabled={loading || !urlInput.trim()}
-            className="flex-shrink-0 px-2.5 py-1.5 bg-surface-secondary border border-border-light rounded-lg text-xs font-medium text-txt-primary disabled:opacity-50"
+            className="flex-shrink-0 px-2.5 py-1.5 bg-surface border border-default rounded-lg text-xs font-medium text-primary disabled:opacity-50"
           >
             Fetch
           </button>

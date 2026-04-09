@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/toast-provider';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { ImageUploader } from '@/components/admin/image-uploader';
+import { CoverUpload } from '@/components/create/cover-upload';
 
 import type { QuizType, Difficulty } from '@/lib/db/types';
 
@@ -49,9 +50,9 @@ function ProgressDots({ step }: { step: number }): React.ReactElement {
           key={s}
           className={`h-2 rounded-full transition-all duration-300 ${
             s === step
-              ? 'w-6 bg-accent-pink'
+              ? 'w-6 bg-accent-light'
               : s < step
-                ? 'w-2 bg-correct-accent'
+                ? 'w-2 bg-correct'
                 : 'w-2 bg-border-light'
           }`}
         />
@@ -63,14 +64,14 @@ function ProgressDots({ step }: { step: number }): React.ReactElement {
 function StepHeader({ step, title, description }: { step: number; title: string; description: string }): React.ReactElement {
   return (
     <>
-      <p className="text-xs text-txt-secondary mb-1">Step {step} of 4</p>
-      <h1 className="text-lg font-medium text-txt-primary mb-1">{title}</h1>
-      <p className="text-sm text-txt-secondary mb-5">{description}</p>
+      <p className="text-xs text-secondary mb-1">Step {step} of 4</p>
+      <h1 className="text-lg font-medium text-primary mb-1">{title}</h1>
+      <p className="text-sm text-secondary mb-5">{description}</p>
     </>
   );
 }
 
-const INPUT_CLASSES = 'w-full px-4 py-3 rounded-md border border-border-light bg-surface-primary text-sm text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-accent-pink focus:ring-1 focus:ring-accent-pink transition-colors';
+const INPUT_CLASSES = 'w-full px-4 py-3 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors';
 
 // ============================================
 // Main Component
@@ -102,6 +103,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   const [title, setTitle] = useState('');
   const [quizType, setQuizType] = useState<QuizType>('multiple_choice');
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
 
   // Step 3
   const [savedQuestions, setSavedQuestions] = useState<SavedQuestion[]>([]);
@@ -156,11 +158,12 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           }
         }
 
-        // Pre-fill step 2: title, type, and difficulty
+        // Pre-fill step 2: title, type, difficulty, cover
         setTitle(data.title);
         setQuizType(data.quiz_type);
         setPreviousQuizType(data.quiz_type);
         if (data.difficulty) setDifficulty(data.difficulty);
+        if (typeof data.cover_image_url === 'string') setCoverImageUrl(data.cover_image_url);
 
         // Pre-fill step 3: questions
         // Convert true_false questions back to editor format (boolean correct -> index)
@@ -338,6 +341,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
       title: title.trim(),
       quiz_type: quizType,
       difficulty,
+      cover_image_url: coverImageUrl ?? undefined,
       questions: quizType === 'true_false'
         ? savedQuestions.map((q) => ({ ...q, correct: q.correct === 0 }))
         : savedQuestions,
@@ -406,7 +410,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   if (editLoading) {
     return (
       <div className="flex justify-center py-12">
-        <div className="w-5 h-5 border-2 border-border-light border-t-accent-pink rounded-full animate-spin" />
+        <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
       </div>
     );
   }
@@ -423,14 +427,14 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           </svg>
         </div>
 
-        <h2 className="text-lg font-medium mt-4 text-txt-primary">Your quiz is live!</h2>
-        <p className="text-sm text-txt-secondary mt-1">Share it with your fandom and watch the plays roll in.</p>
+        <h2 className="text-lg font-medium mt-4 text-primary">Your quiz is live!</h2>
+        <p className="text-sm text-secondary mt-1">Share it with your fandom and watch the plays roll in.</p>
 
-        <div className="mt-6 bg-surface-secondary rounded-md px-4 py-3 flex items-center gap-2">
-          <p className="text-sm text-txt-secondary flex-1 truncate">kpopquiz.org/q/{published.slug}</p>
+        <div className="mt-6 bg-surface rounded-md px-4 py-3 flex items-center gap-2">
+          <p className="text-sm text-secondary flex-1 truncate">kpopquiz.org/q/{published.slug}</p>
           <button
             onClick={() => handleCopyUrl(published.slug)}
-            className="px-3 py-1.5 rounded-full border border-border-light bg-surface-primary text-xs font-medium cursor-pointer hover:border-border-medium transition-colors flex-shrink-0"
+            className="px-3 py-1.5 rounded-full border border-default bg-primary text-xs font-medium cursor-pointer hover:border-default transition-colors flex-shrink-0"
           >
             {copyText}
           </button>
@@ -447,15 +451,15 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           </a>
           <button
             onClick={() => handleCopyUrl(published.slug)}
-            className="px-5 py-2.5 rounded-full border border-border-light text-sm font-medium bg-surface-primary hover:border-border-medium transition-colors"
+            className="px-5 py-2.5 rounded-full border border-default text-sm font-medium bg-primary hover:border-default transition-colors"
           >
             Share on Discord
           </button>
         </div>
 
-        <div className="mt-6 pt-5 border-t border-border-light">
-          <p className="text-xs text-txt-secondary">Pro tip</p>
-          <p className="text-sm mt-1 text-txt-primary">
+        <div className="mt-6 pt-5 border-t border-default">
+          <p className="text-xs text-secondary">Pro tip</p>
+          <p className="text-sm mt-1 text-primary">
             Tweet &quot;Only real {fandomName}s can pass my quiz&quot; with the link - fan challenge posts get 5x more engagement.
           </p>
         </div>
@@ -479,8 +483,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             onClick={() => { setSelectedGroupId(-1); setCustomGroupName(''); }}
             className={`px-5 py-2 rounded-full text-sm font-medium border-2 cursor-pointer transition-colors ${
               selectedGroupId === -1
-                ? 'border-accent-pink bg-accent-pink-light text-accent-pink-dark'
-                : 'border-border-medium text-txt-primary bg-surface-secondary hover:border-accent-pink'
+                ? 'border-accent bg-accent-bg text-accent-hover'
+                : 'border-default text-primary bg-surface hover:border-accent'
             }`}
           >
             None / General K-pop
@@ -491,8 +495,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               onClick={() => { setSelectedGroupId(g.id); setCustomGroupName(''); }}
               className={`px-4 py-2 rounded-full text-sm border cursor-pointer transition-colors ${
                 selectedGroupId === g.id
-                  ? 'border-accent-pink bg-accent-pink-light text-accent-pink-dark'
-                  : 'border-border-light text-txt-secondary bg-surface-primary hover:border-border-medium'
+                  ? 'border-accent bg-accent-bg text-accent-hover'
+                  : 'border-default text-secondary bg-primary hover:border-default'
               }`}
             >
               {g.name}
@@ -509,7 +513,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         />
 
         {customGroupName.trim().length >= 2 && !selectedGroupId && !groups.some((g) => g.name.toLowerCase() === customGroupName.trim().toLowerCase()) && (
-          <p className="text-xs text-txt-secondary mt-2 flex items-start gap-1.5">
+          <p className="text-xs text-secondary mt-2 flex items-start gap-1.5">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 mt-0.5">
               <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
               <path d="M8 7v4M8 5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -547,10 +551,20 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           onChange={(e) => setTitle(e.target.value)}
           className={INPUT_CLASSES}
         />
-        <p className="text-xs text-txt-tertiary text-right mt-1">{title.length}/100</p>
+        <p className="text-xs text-tertiary text-right mt-1">{title.length}/100</p>
 
         <div className="mt-5">
-          <p className="text-sm text-txt-secondary mb-2">Quiz type</p>
+          <p className="text-sm text-secondary mb-2">
+            Cover image <span className="text-tertiary font-normal">(optional)</span>
+          </p>
+          <CoverUpload value={coverImageUrl} onChange={setCoverImageUrl} />
+          <p className="text-[11px] text-ghost mt-1.5">
+            Shown on the quiz card and start screen. Image and Intruder quizzes auto-pick a cover from your first question if you skip this.
+          </p>
+        </div>
+
+        <div className="mt-5">
+          <p className="text-sm text-secondary mb-2">Quiz type</p>
           <div className="flex flex-col gap-2.5">
             {([
               { type: 'multiple_choice' as QuizType, name: 'Multiple choice', desc: '4 options, 1 correct answer per question' },
@@ -571,22 +585,22 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                 }}
                 className={`p-4 rounded-lg border cursor-pointer transition-colors text-left ${
                   quizType === t.type
-                    ? 'border-accent-pink bg-surface-primary'
-                    : 'border-border-light bg-surface-primary hover:border-border-medium'
+                    ? 'border-accent bg-primary'
+                    : 'border-default bg-primary hover:border-default'
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium text-txt-primary">{t.name}</p>
+                  <p className="text-sm font-medium text-primary">{t.name}</p>
                   <QuizTypeBadge type={t.type} />
                 </div>
-                <p className="text-xs text-txt-secondary mt-0.5">{t.desc}</p>
+                <p className="text-xs text-secondary mt-0.5">{t.desc}</p>
               </button>
             ))}
           </div>
         </div>
 
         <div className="mt-5">
-          <p className="text-sm text-txt-secondary mb-2">Difficulty</p>
+          <p className="text-sm text-secondary mb-2">Difficulty</p>
           <div className="flex gap-2">
             {(['easy', 'medium', 'hard'] as const).map(level => (
               <button
@@ -596,14 +610,14 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   difficulty === level
                     ? 'bg-txt-primary text-white'
-                    : 'border border-border-light text-txt-secondary hover:border-border-medium'
+                    : 'border border-default text-secondary hover:border-default'
                 }`}
               >
                 {level.charAt(0).toUpperCase() + level.slice(1)}
               </button>
             ))}
           </div>
-          <p className="text-xs text-txt-tertiary mt-1.5">
+          <p className="text-xs text-tertiary mt-1.5">
             {difficulty === 'easy' && 'Most fans should be able to pass this'}
             {difficulty === 'medium' && 'Requires solid knowledge of the group'}
             {difficulty === 'hard' && 'Only hardcore fans will pass'}
@@ -613,7 +627,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <div className="flex gap-2 mt-6">
           <button
             onClick={() => setStep(1)}
-            className="px-6 py-3 rounded-full border border-border-light text-sm font-medium bg-surface-primary hover:border-border-medium transition-colors"
+            className="px-6 py-3 rounded-full border border-default text-sm font-medium bg-primary hover:border-default transition-colors"
           >
             Back
           </button>
@@ -654,15 +668,15 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             <div
               key={i}
               onClick={() => editingIndex !== i && handleEditQuestion(i)}
-              className={`rounded-md px-4 py-3 mb-2 flex justify-between items-center cursor-pointer transition-colors ${editingIndex === i ? 'bg-correct-bg ring-1 ring-correct-accent' : 'bg-surface-secondary hover:bg-surface-tertiary'}`}
+              className={`rounded-md px-4 py-3 mb-2 flex justify-between items-center cursor-pointer transition-colors ${editingIndex === i ? 'bg-correct-bg ring-1 ring-correct-accent' : 'bg-surface hover:bg-elevated'}`}
             >
               <div className="flex items-center min-w-0">
-                <span className="text-xs text-txt-secondary flex-shrink-0">Q{i + 1}</span>
+                <span className="text-xs text-secondary flex-shrink-0">Q{i + 1}</span>
                 <span className="text-sm font-medium ml-2 truncate">{q.question.length > 40 ? q.question.slice(0, 40) + '...' : q.question}</span>
               </div>
               <button
                 onClick={(e) => { e.stopPropagation(); handleDeleteQuestion(i); }}
-                className="text-txt-tertiary hover:text-wrong-accent cursor-pointer p-1 flex-shrink-0"
+                className="text-tertiary hover:text-wrong cursor-pointer p-1 flex-shrink-0"
                 aria-label={`Delete question ${i + 1}`}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
@@ -673,8 +687,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
 
         {/* Question editor */}
         {(savedQuestions.length < 20 || editingIndex !== null) && (
-          <div className="bg-surface-primary border border-border-light rounded-lg p-5 mt-2">
-            <p className="text-xs text-txt-secondary mb-2">
+          <div className="bg-primary border border-default rounded-lg p-5 mt-2">
+            <p className="text-xs text-secondary mb-2">
               {editingIndex !== null ? `Editing question ${editingIndex + 1}` : `Question ${savedQuestions.length + 1}`}
             </p>
 
@@ -692,15 +706,15 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             {/* Multiple choice answers */}
             {quizType === 'multiple_choice' && (
               <div className="mt-4">
-                <p className="text-xs text-txt-secondary mb-2">Answers (click circle for correct answer)</p>
+                <p className="text-xs text-secondary mb-2">Answers (click circle for correct answer)</p>
                 {['A', 'B', 'C', 'D'].map((label, i) => (
                   <div key={i} className="flex items-center gap-2 mb-2.5">
                     <button
                       onClick={() => setCurrentCorrect(i)}
                       className={`w-5 h-5 rounded-full border-2 cursor-pointer flex items-center justify-center flex-shrink-0 ${
                         currentCorrect === i
-                          ? 'border-correct-accent bg-correct-accent'
-                          : 'border-border-medium'
+                          ? 'border-correct-accent bg-correct'
+                          : 'border-default'
                       }`}
                       aria-label={`Mark answer ${label} as correct`}
                     >
@@ -726,14 +740,14 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             {/* True/false answers */}
             {quizType === 'true_false' && (
               <div className="mt-4">
-                <p className="text-xs text-txt-secondary mb-2">Correct answer</p>
+                <p className="text-xs text-secondary mb-2">Correct answer</p>
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => setCurrentTFCorrect(true)}
                     className={`flex-1 py-3 rounded-md border text-sm ${
                       currentTFCorrect
-                        ? 'border-correct-border bg-correct-bg text-correct-text'
-                        : 'border-border-light bg-surface-primary text-txt-primary'
+                        ? 'border-correct bg-correct-bg text-correct-text'
+                        : 'border-default bg-primary text-primary'
                     }`}
                   >
                     True
@@ -742,8 +756,8 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                     onClick={() => setCurrentTFCorrect(false)}
                     className={`flex-1 py-3 rounded-md border text-sm ${
                       !currentTFCorrect
-                        ? 'border-wrong-border bg-wrong-bg text-wrong-text'
-                        : 'border-border-light bg-surface-primary text-txt-primary'
+                        ? 'border-wrong bg-wrong-bg text-wrong-text'
+                        : 'border-default bg-primary text-primary'
                     }`}
                   >
                     False
@@ -756,7 +770,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             {quizType === 'guess_from_clues' && (
               <>
                 <div className="mt-4">
-                  <p className="text-xs text-txt-secondary mb-2">Clues (give 3 hints, easiest last)</p>
+                  <p className="text-xs text-secondary mb-2">Clues (give 3 hints, easiest last)</p>
                   {['Clue 1 (hardest)', 'Clue 2', 'Clue 3 (easiest)'].map((ph, i) => (
                     <input
                       key={i}
@@ -774,15 +788,15 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                   ))}
                 </div>
                 <div className="mt-4">
-                  <p className="text-xs text-txt-secondary mb-2">Answer options (click circle for correct answer)</p>
+                  <p className="text-xs text-secondary mb-2">Answer options (click circle for correct answer)</p>
                   {['A', 'B', 'C', 'D'].map((label, i) => (
                     <div key={i} className="flex items-center gap-2 mb-2.5">
                       <button
                         onClick={() => setCurrentCorrect(i)}
                         className={`w-5 h-5 rounded-full border-2 cursor-pointer flex items-center justify-center flex-shrink-0 ${
                           currentCorrect === i
-                            ? 'border-correct-accent bg-correct-accent'
-                            : 'border-border-medium'
+                            ? 'border-correct-accent bg-correct'
+                            : 'border-default'
                         }`}
                         aria-label={`Mark answer ${label} as correct`}
                       >
@@ -817,15 +831,15 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                   />
                 </div>
                 <div className="mt-4">
-                  <p className="text-xs text-txt-secondary mb-2">Answers (click circle for correct answer)</p>
+                  <p className="text-xs text-secondary mb-2">Answers (click circle for correct answer)</p>
                   {['A', 'B', 'C', 'D'].map((label, i) => (
                     <div key={i} className="flex items-center gap-2 mb-2.5">
                       <button
                         onClick={() => setCurrentCorrect(i)}
                         className={`w-5 h-5 rounded-full border-2 cursor-pointer flex items-center justify-center flex-shrink-0 ${
                           currentCorrect === i
-                            ? 'border-correct-accent bg-correct-accent'
-                            : 'border-border-medium'
+                            ? 'border-correct-accent bg-correct'
+                            : 'border-default'
                         }`}
                       >
                         {currentCorrect === i && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -851,10 +865,10 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             {/* Intruder quiz */}
             {quizType === 'intruder' && (
               <div className="mt-4">
-                <p className="text-xs text-txt-secondary mb-2">4 images (mark one as the intruder)</p>
+                <p className="text-xs text-secondary mb-2">4 images (mark one as the intruder)</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {currentIntruderOptions.map((opt, i) => (
-                    <div key={i} className={`border rounded-lg p-2 ${currentIntruderIndex === i ? 'border-[#7F77DD] bg-[#EEEDFE]' : 'border-border-light'}`}>
+                    <div key={i} className={`border rounded-lg p-2 ${currentIntruderIndex === i ? 'border-[#7F77DD] bg-[#EEEDFE]' : 'border-default'}`}>
                       <ImageUploader
                         value={opt.image_url || null}
                         onChange={(url) => {
@@ -879,7 +893,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                         className={`w-full mt-1.5 py-1 rounded text-xs font-medium transition-colors ${
                           currentIntruderIndex === i
                             ? 'bg-[#EEEDFE] text-[#3C3489]'
-                            : 'bg-surface-secondary text-txt-tertiary hover:bg-surface-tertiary'
+                            : 'bg-surface text-tertiary hover:bg-elevated'
                         }`}
                       >
                         {currentIntruderIndex === i ? 'INTRUDER' : 'Mark as intruder'}
@@ -911,7 +925,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               {editingIndex !== null && (
                 <button
                   onClick={() => { setEditingIndex(null); resetEditor(); }}
-                  className="px-5 py-2.5 rounded-full border border-border-light text-sm font-medium hover:border-border-medium transition-colors"
+                  className="px-5 py-2.5 rounded-full border border-default text-sm font-medium hover:border-default transition-colors"
                 >
                   Cancel
                 </button>
@@ -923,7 +937,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <div className="flex gap-2 mt-5">
           <button
             onClick={() => setStep(2)}
-            className="px-6 py-3 rounded-full border border-border-light text-sm font-medium bg-surface-primary hover:border-border-medium transition-colors"
+            className="px-6 py-3 rounded-full border border-default text-sm font-medium bg-primary hover:border-default transition-colors"
           >
             Back
           </button>
@@ -936,7 +950,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           </button>
         </div>
         {!canContinueStep3 && remaining > 0 && (
-          <p className="text-xs text-txt-secondary mt-2">Add at least {remaining} more question{remaining > 1 ? 's' : ''}</p>
+          <p className="text-xs text-secondary mt-2">Add at least {remaining} more question{remaining > 1 ? 's' : ''}</p>
         )}
       </div>
     );
@@ -952,7 +966,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
       <StepHeader step={4} title="Review and publish" description="Here's how your quiz will look to players." />
 
       {/* Preview card */}
-      <div className="bg-surface-primary border border-border-light rounded-lg p-4">
+      <div className="bg-primary border border-default rounded-lg p-4">
         <div className="flex items-center gap-2 mb-2.5">
           {selectedGroup && (
             <span
@@ -963,33 +977,33 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             </span>
           )}
           {customGroupName && !selectedGroup && (
-            <span className="inline-block text-xs font-medium px-2.5 py-0.5 rounded-full bg-surface-tertiary text-txt-primary">
+            <span className="inline-block text-xs font-medium px-2.5 py-0.5 rounded-full bg-elevated text-primary">
               {customGroupName}
             </span>
           )}
-          <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-difficulty-${difficulty}-bg text-difficulty-${difficulty}-text`}>
+          <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-${difficulty}-bg text-${difficulty}-text`}>
             {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
           </span>
-          <span className="text-xs text-txt-secondary ml-auto">{savedQuestions.length} questions</span>
+          <span className="text-xs text-secondary ml-auto">{savedQuestions.length} questions</span>
         </div>
-        <p className="text-base font-medium leading-snug mb-2 text-txt-primary">{title}</p>
-        <p className="text-xs text-txt-secondary">by <span className="font-medium text-txt-primary">you</span></p>
+        <p className="text-base font-medium leading-snug mb-2 text-primary">{title}</p>
+        <p className="text-xs text-secondary">by <span className="font-medium text-primary">you</span></p>
       </div>
 
       {/* Question preview */}
       <div className="mt-4">
         {savedQuestions.slice(0, 3).map((q, i) => (
-          <div key={i} className="bg-surface-secondary rounded-md p-4 mb-2">
-            <p className="text-xs text-txt-secondary">Q{i + 1}</p>
-            <p className="text-sm font-medium mt-1 text-txt-primary">{q.question}</p>
+          <div key={i} className="bg-surface rounded-md p-4 mb-2">
+            <p className="text-xs text-secondary">Q{i + 1}</p>
+            <p className="text-sm font-medium mt-1 text-primary">{q.question}</p>
             <div className="flex flex-wrap gap-1.5 mt-2">
               {q.options.map((opt, j) => (
                 <span
                   key={j}
                   className={`text-xs px-2.5 py-1 rounded-full border ${
                     j === q.correct
-                      ? 'bg-correct-bg text-correct-text border-correct-border'
-                      : 'bg-surface-primary text-txt-secondary border-border-light'
+                      ? 'bg-correct-bg text-correct-text border-correct'
+                      : 'bg-primary text-secondary border-default'
                   }`}
                 >
                   {typeof opt === 'string' ? opt : (opt as IntruderOptionData).label}
@@ -999,23 +1013,23 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           </div>
         ))}
         {savedQuestions.length > 3 && (
-          <p className="text-sm text-txt-secondary text-center mt-2">+ {savedQuestions.length - 3} more questions</p>
+          <p className="text-sm text-secondary text-center mt-2">+ {savedQuestions.length - 3} more questions</p>
         )}
       </div>
 
       {/* Settings */}
       <div className="mt-5 flex flex-col gap-3">
         <label className="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" checked={timerEnabled} onChange={(e) => setTimerEnabled(e.target.checked)} className="w-4 h-4 accent-accent-pink" />
-          <span className="text-sm text-txt-primary">Show timer (15s per question)</span>
+          <input type="checkbox" checked={timerEnabled} onChange={(e) => setTimerEnabled(e.target.checked)} className="w-4 h-4 accent-accent" />
+          <span className="text-sm text-primary">Show timer (15s per question)</span>
         </label>
         <label className="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" checked={shuffleEnabled} onChange={(e) => setShuffleEnabled(e.target.checked)} className="w-4 h-4 accent-accent-pink" />
-          <span className="text-sm text-txt-primary">Shuffle question order</span>
+          <input type="checkbox" checked={shuffleEnabled} onChange={(e) => setShuffleEnabled(e.target.checked)} className="w-4 h-4 accent-accent" />
+          <span className="text-sm text-primary">Shuffle question order</span>
         </label>
         <label className="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" checked={showAnswers} onChange={(e) => setShowAnswers(e.target.checked)} className="w-4 h-4 accent-accent-pink" />
-          <span className="text-sm text-txt-primary">Allow players to see correct answers after finishing</span>
+          <input type="checkbox" checked={showAnswers} onChange={(e) => setShowAnswers(e.target.checked)} className="w-4 h-4 accent-accent" />
+          <span className="text-sm text-primary">Allow players to see correct answers after finishing</span>
         </label>
       </div>
 
@@ -1023,7 +1037,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
       <div className="flex gap-2 mt-6">
         <button
           onClick={() => setStep(3)}
-          className="px-6 py-3 rounded-full border border-border-light text-sm font-medium bg-surface-primary hover:border-border-medium transition-colors"
+          className="px-6 py-3 rounded-full border border-default text-sm font-medium bg-primary hover:border-default transition-colors"
         >
           Edit questions
         </button>

@@ -120,7 +120,7 @@ export function SearchBar(): React.ReactElement {
             height="16"
             viewBox="0 0 16 16"
             fill="none"
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-txt-tertiary"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-tertiary"
           >
             <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
             <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -131,23 +131,23 @@ export function SearchBar(): React.ReactElement {
             onChange={(e) => handleInputChange(e.target.value)}
             onFocus={() => { if (results && query.length >= 2) setShowDropdown(true); }}
             placeholder="Search quizzes or groups..."
-            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-border-light bg-surface-primary text-txt-primary placeholder:text-txt-tertiary focus:outline-none focus:border-border-medium transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-default bg-primary text-primary placeholder:text-tertiary focus:outline-none focus:border-default transition-colors"
           />
         </div>
       </form>
 
       {showDropdown && (hasResults || noResults || loading) && (
-        <div className="absolute left-0 right-0 top-full mt-1.5 bg-surface-primary border border-border-light rounded-xl overflow-hidden max-h-[400px] overflow-y-auto z-50">
+        <div className="absolute left-0 right-0 top-full mt-1.5 bg-primary border border-default rounded-xl overflow-hidden max-h-[400px] overflow-y-auto z-50">
           {loading && !results && (
             <div className="px-4 py-4 text-center">
-              <p className="text-xs text-txt-tertiary">Searching...</p>
+              <p className="text-xs text-tertiary">Searching...</p>
             </div>
           )}
 
           {noResults && (
             <div className="px-4 py-6 text-center">
-              <p className="text-sm text-txt-tertiary">No results for &quot;{query}&quot;</p>
-              <p className="text-xs text-txt-tertiary mt-1">Try a different group name or quiz title</p>
+              <p className="text-sm text-tertiary">No results for &quot;{query}&quot;</p>
+              <p className="text-xs text-tertiary mt-1">Try a different group name or quiz title</p>
             </div>
           )}
 
@@ -157,7 +157,7 @@ export function SearchBar(): React.ReactElement {
               {results!.quizzes.length > 0 && (
                 <>
                   <div className="px-4 pt-3 pb-1.5">
-                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-tertiary">
                       Quizzes
                     </span>
                   </div>
@@ -166,7 +166,7 @@ export function SearchBar(): React.ReactElement {
                       key={q.id}
                       href={`/q/${q.slug}`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors border-b border-border-light last:border-b-0"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-surface transition-colors border-b border-default last:border-b-0"
                     >
                       <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0 mt-0.5">
                         {q.group_logo_url ? (
@@ -185,8 +185,8 @@ export function SearchBar(): React.ReactElement {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-baseline justify-between gap-2">
-                          <p className="text-sm text-txt-primary truncate">{q.title}</p>
-                          <span className="text-xs text-txt-tertiary flex-shrink-0 whitespace-nowrap">
+                          <p className="text-sm text-primary truncate">{q.title}</p>
+                          <span className="text-xs text-tertiary flex-shrink-0 whitespace-nowrap">
                             {formatCount(q.play_count)} plays
                           </span>
                         </div>
@@ -213,7 +213,7 @@ export function SearchBar(): React.ReactElement {
               {results!.groups.length > 0 && (
                 <>
                   <div className="px-4 pt-3 pb-1.5">
-                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-tertiary">
                       Groups
                     </span>
                   </div>
@@ -222,7 +222,7 @@ export function SearchBar(): React.ReactElement {
                       key={g.id}
                       href={`/${g.slug}-quiz`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface transition-colors"
                     >
                       <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0">
                         {g.logo_url ? (
@@ -240,8 +240,8 @@ export function SearchBar(): React.ReactElement {
                       </div>
 
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-txt-primary">{g.name}</p>
-                        <p className="text-[11px] text-txt-tertiary mt-0.5">
+                        <p className="text-sm font-medium text-primary">{g.name}</p>
+                        <p className="text-[11px] text-tertiary mt-0.5">
                           {g.quiz_count} quizzes
                         </p>
                       </div>
@@ -263,7 +263,7 @@ export function SearchBar(): React.ReactElement {
               {results!.creators.length > 0 && (
                 <>
                   <div className="px-4 pt-3 pb-1.5">
-                    <span className="text-[10px] font-medium uppercase tracking-widest text-txt-tertiary">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-tertiary">
                       Creators
                     </span>
                   </div>
@@ -272,7 +272,7 @@ export function SearchBar(): React.ReactElement {
                       key={c.username}
                       href={`/u/${c.username}`}
                       onClick={() => setShowDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface-secondary transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-surface transition-colors"
                     >
                       <UserAvatar
                         username={c.username}
@@ -282,8 +282,8 @@ export function SearchBar(): React.ReactElement {
                         size={28}
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-txt-primary">{c.username}</p>
-                        <p className="text-[11px] text-txt-tertiary mt-0.5">
+                        <p className="text-sm font-medium text-primary">{c.username}</p>
+                        <p className="text-[11px] text-tertiary mt-0.5">
                           {c.total_quizzes_created} {c.total_quizzes_created === 1 ? 'quiz' : 'quizzes'}
                         </p>
                       </div>

@@ -22,8 +22,8 @@ export default async function HardQuizzesPage(): Promise<React.ReactElement> {
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary mb-1">Hardest K-pop quizzes</h1>
-      <p className="text-sm text-txt-secondary mb-5">
+      <h1 className="text-xl font-medium text-primary mb-1">Hardest K-pop quizzes</h1>
+      <p className="text-sm text-secondary mb-5">
         Only real stans pass these. Average score is under 40%. Think you can beat the odds?
       </p>
 
@@ -31,7 +31,7 @@ export default async function HardQuizzesPage(): Promise<React.ReactElement> {
         <InfiniteQuizList initialQuizzes={initialQuizzes} fetchUrl="/api/quizzes?tab=hard" />
       ) : (
         <div className="text-center py-12">
-          <p className="text-sm text-txt-secondary mb-3">No hard quizzes yet.</p>
+          <p className="text-sm text-secondary mb-3">No hard quizzes yet.</p>
           <Link
             href="/create"
             className="inline-block px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium"

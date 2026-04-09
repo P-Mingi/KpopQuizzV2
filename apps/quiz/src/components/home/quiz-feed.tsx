@@ -1,143 +1,188 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 
-import { TabBar } from '@/components/ui/tab-bar';
-import { QuizCard } from '@/components/quiz/quiz-card';
+import { QuizListCard } from '@/components/quiz/quiz-list-card';
+import {
+  GroupFilterPills,
+  TypeFilterPills,
+  SortTabs,
+  type SortKey,
+  type GroupOption,
+} from '@/components/quiz/quiz-filters';
 import { Spinner } from '@/components/ui/spinner';
+import { mapDbTypeToKey, type QuizTypeKey } from '@/components/ui/quiz-type-badge';
 
 import type { QuizCardData } from '@/lib/db/types';
 
-interface GroupForGrid {
-  id: number;
-  name: string;
-  slug: string;
-  display_color: string;
-  text_color: string;
-  quiz_count: number;
-}
-
-interface QuizFeedProps {
+interface Props {
   initialQuizzes: QuizCardData[];
-  groups: GroupForGrid[];
+  groups: GroupOption[];
+  /** Hide the "Browse all quizzes" footer link (already on /quizzes). */
+  hideBrowseAllLink?: boolean;
 }
 
-const TABS = ['Trending', 'New', 'Most liked', 'Hardest', 'By group'] as const;
-const HOMEPAGE_LIMIT = 15;
+const HOMEPAGE_LIMIT = 24;
 
-type TabKey = 'trending' | 'new' | 'most_liked' | 'hardest';
-
-function tabToKey(tab: string): TabKey {
-  if (tab === 'New') return 'new';
-  if (tab === 'Most liked') return 'most_liked';
-  if (tab === 'Hardest') return 'hardest';
-  return 'trending';
+/**
+ * Maps our sort-tab keys to the existing /api/quizzes `tab` values.
+ * Top rated is computed client-side by sorting the trending feed by avg %.
+ */
+function sortKeyToApiTab(key: SortKey): string {
+  switch (key) {
+    case 'newest':
+      return 'new';
+    case 'most_played':
+      return 'most_liked';
+    case 'top_rated':
+      return 'trending';
+    case 'trending':
+    default:
+      return 'trending';
+  }
 }
 
-function tabToPath(tab: string): string {
-  if (tab === 'New') return '/new';
-  if (tab === 'Most liked') return '/most-liked';
-  if (tab === 'Hardest') return '/trending';
-  return '/trending';
+function computeAvgPct(quiz: QuizCardData): number {
+  if (quiz.total_completions > 0 && quiz.question_count > 0) {
+    return (quiz.total_score_sum / quiz.total_completions / quiz.question_count) * 100;
+  }
+  return 0;
 }
 
-function tabToLabel(tab: string): string {
-  if (tab === 'New') return 'new';
-  if (tab === 'Most liked') return 'most liked';
-  if (tab === 'Hardest') return 'hardest';
-  return 'trending';
-}
-
-export function QuizFeed({ initialQuizzes, groups }: QuizFeedProps): React.ReactElement {
-  const [activeTab, setActiveTab] = useState('Trending');
-  const [quizzesByTab, setQuizzesByTab] = useState<Record<string, QuizCardData[]>>({
+/**
+ * Home-page quiz feed. Owns the group filter / type filter / sort tab state,
+ * fetches the sort tab's full set from the API, and filters group + type
+ * client-side.
+ */
+export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false }: Props): React.ReactElement {
+  const [sortKey, setSortKey] = useState<SortKey>('trending');
+  const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
+  const [selectedType, setSelectedType] = useState<QuizTypeKey | null>(null);
+  const [quizzesBySort, setQuizzesBySort] = useState<Record<string, QuizCardData[]>>({
     trending: initialQuizzes,
   });
   const [loading, setLoading] = useState(false);
 
-  const isGroupTab = activeTab === 'By group';
-  const tabKey = tabToKey(activeTab);
-  const quizzes = quizzesByTab[tabKey] ?? [];
-
-  const fetchQuizzes = useCallback(async (tab: TabKey) => {
+  const fetchSortTab = useCallback(async (key: SortKey) => {
+    // top_rated reuses the trending dataset (sorted client-side later).
+    const apiTab = sortKeyToApiTab(key);
+    if (quizzesBySort[apiTab]) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/quizzes?tab=${tab}&offset=0&limit=${HOMEPAGE_LIMIT}`);
+      const res = await fetch(`/api/quizzes?tab=${apiTab}&offset=0&limit=${HOMEPAGE_LIMIT}`);
       if (!res.ok) throw new Error('Failed to load quizzes');
       const data: { quizzes: QuizCardData[] } = await res.json();
-
-      setQuizzesByTab((prev) => ({
-        ...prev,
-        [tab]: data.quizzes,
-      }));
+      setQuizzesBySort((prev) => ({ ...prev, [apiTab]: data.quizzes }));
     } catch (err) {
       console.error('Failed to load quizzes:', err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [quizzesBySort]);
 
-  const handleTabChange = useCallback((tab: string) => {
-    setActiveTab(tab);
-    if (tab === 'By group') return;
+  useEffect(() => {
+    void fetchSortTab(sortKey);
+  }, [sortKey, fetchSortTab]);
 
-    const key = tabToKey(tab);
-    if (quizzesByTab[key] === undefined) {
-      fetchQuizzes(key);
+  const baseQuizzes = quizzesBySort[sortKeyToApiTab(sortKey)] ?? [];
+
+  // Apply client-side filters + top-rated reorder.
+  const visibleQuizzes = useMemo(() => {
+    let list = [...baseQuizzes];
+    if (selectedGroupId !== null) {
+      list = list.filter((q) => {
+        // QuizCardData doesn't carry group_id directly; match by group slug via the groups array.
+        const match = groups.find((g) => g.id === selectedGroupId);
+        return match ? q.group_slug === match.slug : true;
+      });
     }
-  }, [quizzesByTab, fetchQuizzes]);
+    if (selectedType !== null) {
+      list = list.filter((q) => mapDbTypeToKey(q.quiz_type) === selectedType);
+    }
+    if (sortKey === 'top_rated') {
+      list.sort((a, b) => computeAvgPct(b) - computeAvgPct(a));
+    }
+    return list;
+  }, [baseQuizzes, selectedGroupId, selectedType, groups, sortKey]);
 
   return (
-    <div>
-      <TabBar
-        tabs={[...TABS]}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+    <div className="flex flex-col gap-4">
+      {/* Group filter */}
+      <div>
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
+          Pick your bias group
+        </p>
+        <GroupFilterPills
+          groups={groups}
+          selectedId={selectedGroupId}
+          onChange={setSelectedGroupId}
+        />
+      </div>
 
-      {isGroupTab ? (
-        <div className="flex flex-wrap gap-2">
-          {groups.map((g) => (
-            <Link
-              key={g.id}
-              href={`/${g.slug}-quiz`}
-              className="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:opacity-80"
-              style={{ backgroundColor: g.display_color, color: g.text_color }}
+      {/* Type filter */}
+      <div>
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
+          Quiz type
+        </p>
+        <TypeFilterPills selected={selectedType} onChange={setSelectedType} />
+      </div>
+
+      {/* Sort tabs */}
+      <div className="flex items-center justify-between">
+        <SortTabs selected={sortKey} onChange={setSortKey} />
+        {(selectedGroupId !== null || selectedType !== null) && (
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedGroupId(null);
+              setSelectedType(null);
+            }}
+            className="text-[10px] font-medium text-tertiary hover:text-accent transition-colors"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      {/* Quiz list */}
+      {loading && baseQuizzes.length === 0 ? (
+        <div className="flex justify-center py-8">
+          <Spinner />
+        </div>
+      ) : visibleQuizzes.length === 0 ? (
+        <div className="text-center py-8">
+          <p className="text-sm text-tertiary">No quizzes match these filters.</p>
+          {(selectedGroupId !== null || selectedType !== null) && (
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedGroupId(null);
+                setSelectedType(null);
+              }}
+              className="text-xs text-accent mt-2 hover:underline"
             >
-              {g.name} ({g.quiz_count})
-            </Link>
-          ))}
+              Clear filters
+            </button>
+          )}
         </div>
       ) : (
-        <>
-          <div className="space-y-3">
-            {quizzes.map((q) => (
-              <QuizCard key={q.id} quiz={q} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {visibleQuizzes.map((quiz) => (
+            <QuizListCard key={quiz.id} quiz={quiz} />
+          ))}
+        </div>
+      )}
 
-          {loading && (
-            <div className="flex justify-center py-4">
-              <Spinner />
-            </div>
-          )}
-
-          {!loading && quizzes.length === 0 && (
-            <p className="text-sm text-txt-secondary text-center py-8">No quizzes yet.</p>
-          )}
-
-          {!loading && quizzes.length > 0 && (
-            <div className="text-center mt-4 mb-2">
-              <Link
-                href={tabToPath(activeTab)}
-                className="inline-block px-6 py-2.5 rounded-full border border-border-light text-sm font-medium hover:border-border-medium transition-colors"
-              >
-                See all {tabToLabel(activeTab)} quizzes
-              </Link>
-            </div>
-          )}
-        </>
+      {visibleQuizzes.length > 0 && !hideBrowseAllLink && (
+        <div className="text-center pt-2">
+          <Link
+            href="/quizzes"
+            className="inline-block px-5 py-2 rounded-[10px] border border-default text-xs font-medium text-secondary hover:border-accent hover:text-accent transition-colors"
+          >
+            Browse all quizzes
+          </Link>
+        </div>
       )}
     </div>
   );

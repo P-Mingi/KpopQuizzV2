@@ -20,11 +20,11 @@ export default async function NewPage(): Promise<React.ReactElement> {
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary mb-4">New quizzes</h1>
+      <h1 className="text-xl font-medium text-primary mb-4">New quizzes</h1>
       {initialQuizzes.length > 0 ? (
         <InfiniteQuizList initialQuizzes={initialQuizzes} fetchUrl="/api/quizzes?tab=new" />
       ) : (
-        <p className="text-sm text-txt-secondary text-center py-8">No quizzes yet.</p>
+        <p className="text-sm text-secondary text-center py-8">No quizzes yet.</p>
       )}
     </div>
   );

@@ -46,11 +46,11 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary">
+      <h1 className="text-xl font-medium text-primary">
         {group.name} Quiz - Test How Well You Know {group.name}
       </h1>
 
-      <p className="text-sm text-txt-secondary mt-2 leading-relaxed">{intro}</p>
+      <p className="text-sm text-secondary mt-2 leading-relaxed">{intro}</p>
 
       <div className="flex items-center gap-3 mt-4">
         <GroupLogo
@@ -61,8 +61,8 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           size={64}
         />
         <div>
-          <p className="text-sm font-medium text-txt-primary">{group.name}</p>
-          <p className="text-xs text-txt-secondary">
+          <p className="text-sm font-medium text-primary">{group.name}</p>
+          <p className="text-xs text-secondary">
             {formatCount(group.quiz_count)} quizzes · {formatCount(group.total_plays)} total plays
           </p>
         </div>
@@ -87,7 +87,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       </div>
 
       {relatedQuizzes.length > 0 && (
-        <section className="mt-12 pt-8 border-t border-[var(--border-light)]">
+        <section className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-base font-medium text-[var(--text-primary)] mb-4">
             Fans of {group.name} also play
           </h2>
@@ -96,7 +96,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
               <Link
                 key={quiz.id}
                 href={`/q/${quiz.slug}`}
-                className="flex-1 border border-[var(--border-light)] rounded-lg p-3 hover:border-[var(--border-medium)] transition-colors"
+                className="flex-1 border border-[var(--border)] rounded-lg p-3 hover:border-[var(--border)] transition-colors"
               >
                 <div className="flex items-center gap-2 mb-2">
                   {quiz.group_logo_url && (

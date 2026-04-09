@@ -38,12 +38,12 @@ export function SongTable({ songs }: { songs: SongRow[] }): React.ReactElement {
           placeholder="Search songs..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="flex-1 px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm focus:outline-none focus:border-[var(--border-medium)]"
+          className="flex-1 px-3 py-2 rounded-lg border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--border)]"
         />
         <select
           value={genFilter}
           onChange={e => setGenFilter(e.target.value)}
-          className="px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm bg-white"
+          className="px-3 py-2 rounded-lg border border-[var(--border)] text-sm bg-white"
         >
           <option value="all">All gens</option>
           <option value="2nd">2nd gen</option>
@@ -52,9 +52,9 @@ export function SongTable({ songs }: { songs: SongRow[] }): React.ReactElement {
         </select>
       </div>
 
-      <div className="border border-[var(--border-light)] rounded-xl overflow-hidden">
+      <div className="border border-[var(--border)] rounded-xl overflow-hidden">
         {/* Header */}
-        <div className="grid grid-cols-[2fr_1.2fr_0.8fr_0.5fr_0.4fr_36px_36px_36px_36px] gap-0 px-4 py-2 bg-[var(--bg-secondary)] text-[10px] font-medium text-[var(--text-tertiary)] uppercase tracking-wider">
+        <div className="grid grid-cols-[2fr_1.2fr_0.8fr_0.5fr_0.4fr_36px_36px_36px_36px] gap-0 px-4 py-2 bg-[var(--bg-surface)] text-[10px] font-medium text-[var(--text-tertiary)] uppercase tracking-wider">
           <span>Song</span>
           <span>Artist</span>
           <span>Group</span>
@@ -70,7 +70,7 @@ export function SongTable({ songs }: { songs: SongRow[] }): React.ReactElement {
           <Link
             key={song.id}
             href={`/admin/songs/${song.id}`}
-            className="grid grid-cols-[2fr_1.2fr_0.8fr_0.5fr_0.4fr_36px_36px_36px_36px] gap-0 px-4 py-2.5 border-t border-[var(--border-light)] hover:bg-[var(--bg-secondary)] transition-colors text-sm"
+            className="grid grid-cols-[2fr_1.2fr_0.8fr_0.5fr_0.4fr_36px_36px_36px_36px] gap-0 px-4 py-2.5 border-t border-[var(--border)] hover:bg-[var(--bg-surface)] transition-colors text-sm"
           >
             <span className="font-medium truncate">{song.title}</span>
             <span className="text-[var(--text-secondary)] truncate">{song.artist}</span>

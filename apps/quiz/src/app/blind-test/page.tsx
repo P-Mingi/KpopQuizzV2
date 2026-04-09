@@ -139,8 +139,8 @@ async function ModeCard({ mode }: { mode: ModeWithAvail }): Promise<React.ReactE
   const thumbs = isHard ? [] : await getThumbnails(mode, 4);
 
   const inner = (
-    <div className={`bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl overflow-hidden transition-colors h-full ${
-      mode.available ? 'hover:border-[var(--border-medium)]' : 'opacity-40'
+    <div className={`bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl overflow-hidden transition-colors h-full ${
+      mode.available ? 'hover:border-[var(--border)]' : 'opacity-40'
     }`}>
       {isHard ? (
         <div className="h-16 bg-[#1a1a1a] flex items-center justify-center">
@@ -151,11 +151,11 @@ async function ModeCard({ mode }: { mode: ModeWithAvail }): Promise<React.ReactE
           </div>
         </div>
       ) : (
-        <div className="flex h-16 overflow-hidden bg-[var(--bg-secondary)]">
+        <div className="flex h-16 overflow-hidden bg-[var(--bg-surface)]">
           {thumbs.map((url, i) => url ? (
             <img key={i} src={url} alt="" className="flex-1 object-cover object-center min-w-0" />
           ) : (
-            <div key={i} className="flex-1 bg-[var(--bg-secondary)]" />
+            <div key={i} className="flex-1 bg-[var(--bg-surface)]" />
           ))}
         </div>
       )}
@@ -177,14 +177,14 @@ async function GroupCard({ mode }: { mode: ModeWithAvail }): Promise<React.React
   const thumbs = await getThumbnails(mode, 2);
 
   const inner = (
-    <div className={`w-[140px] flex-shrink-0 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl overflow-hidden transition-colors ${
-      mode.available ? 'hover:border-[var(--border-medium)]' : 'opacity-40'
+    <div className={`w-[140px] flex-shrink-0 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl overflow-hidden transition-colors ${
+      mode.available ? 'hover:border-[var(--border)]' : 'opacity-40'
     }`}>
-      <div className="flex h-16 overflow-hidden bg-[var(--bg-secondary)]">
+      <div className="flex h-16 overflow-hidden bg-[var(--bg-surface)]">
         {thumbs.map((url, i) => url ? (
           <img key={i} src={url} alt="" className="flex-1 object-cover object-center min-w-0" />
         ) : (
-          <div key={i} className="flex-1 bg-[var(--bg-secondary)]" />
+          <div key={i} className="flex-1 bg-[var(--bg-surface)]" />
         ))}
       </div>
       <div className="p-2.5">
@@ -212,15 +212,15 @@ export default async function BlindTestPage(): Promise<React.ReactElement> {
 
       {/* Stats */}
       <div className="flex gap-3 mb-8">
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{totalSongs}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">songs</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{availableModes}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">modes</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] rounded-lg px-4 py-2.5 text-center flex-1">
+        <div className="bg-[var(--bg-surface)] rounded-lg px-4 py-2.5 text-center flex-1">
           <p className="text-lg font-medium">{formatCount(totalPlays)}</p>
           <p className="text-[11px] text-[var(--text-tertiary)]">plays</p>
         </div>
@@ -268,7 +268,7 @@ export default async function BlindTestPage(): Promise<React.ReactElement> {
 
       {/* Section 5: Top players */}
       <SectionLabel>Top players</SectionLabel>
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-2xl p-4">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl p-4">
         <div className="text-center py-4">
           <p className="text-sm text-[var(--text-tertiary)] mb-0.5">No plays yet</p>
           <p className="text-xs text-[var(--text-tertiary)]">Be the first to play and claim the top spot</p>

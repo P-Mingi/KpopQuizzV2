@@ -24,9 +24,9 @@ interface Toast {
 }
 
 const TYPE_STYLES: Record<ToastType, string> = {
-  success: 'bg-correct-bg text-correct-text border-correct-border',
-  error: 'bg-wrong-bg text-wrong-text border-wrong-border',
-  info: 'bg-info-bg text-info-text border-border-light',
+  success: 'bg-correct-bg text-correct-text border-correct',
+  error: 'bg-wrong-bg text-wrong-text border-wrong',
+  info: 'bg-type-classic-bg text-type-classic-text border-default',
 };
 
 interface ToastProviderProps {

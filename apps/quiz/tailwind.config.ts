@@ -1,69 +1,86 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: [
-    './src/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
         sans: ['var(--font-pretendard)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       colors: {
-        surface: {
-          primary: 'var(--bg-primary)',
-          secondary: 'var(--bg-secondary)',
-          tertiary: 'var(--bg-tertiary)',
-        },
-        txt: {
-          primary: 'var(--text-primary)',
-          secondary: 'var(--text-secondary)',
-          tertiary: 'var(--text-tertiary)',
-        },
+        // Shared semantic tokens available to all utilities (bg-, text-, border-, stroke-, fill-).
         accent: {
-          pink: 'var(--accent-pink)',
-          'pink-light': 'var(--accent-pink-light)',
-          'pink-dark': 'var(--accent-pink-dark)',
-          purple: 'var(--accent-purple)',
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          bg: 'var(--accent-bg)',
+          light: 'var(--accent-light)',
         },
-        border: {
-          light: 'var(--border-light)',
-          medium: 'var(--border-medium)',
+        combo: 'var(--combo)',
+        streak: 'var(--streak)',
+        // Quiz type accents (dots on filter pills, etc).
+        type: {
+          classic: 'var(--type-classic)',
+          image: 'var(--type-image)',
+          intruder: 'var(--type-intruder)',
+          tf: 'var(--type-tf)',
+          clue: 'var(--type-clue)',
         },
-        correct: {
-          bg: 'var(--correct-bg)',
-          text: 'var(--correct-text)',
-          accent: 'var(--correct-accent)',
-          border: 'var(--correct-border)',
-        },
-        wrong: {
-          bg: 'var(--wrong-bg)',
-          text: 'var(--wrong-text)',
-          accent: 'var(--wrong-accent)',
-          border: 'var(--wrong-border)',
-        },
-        timeout: {
-          bg: 'var(--timeout-bg)',
-          text: 'var(--timeout-text)',
-          accent: 'var(--timeout-accent)',
-        },
-        info: {
-          bg: 'var(--info-bg)',
-          text: 'var(--info-text)',
-        },
-        difficulty: {
-          'easy-bg': 'var(--easy-bg)',
-          'easy-text': 'var(--easy-text)',
-          'medium-bg': 'var(--medium-bg)',
-          'medium-text': 'var(--medium-text)',
-          'hard-bg': 'var(--hard-bg)',
-          'hard-text': 'var(--hard-text)',
-        },
+      },
+      backgroundColor: {
+        primary: 'var(--bg-primary)',
+        surface: 'var(--bg-surface)',
+        elevated: 'var(--bg-elevated)',
+        'accent-subtle': 'var(--bg-accent-subtle)',
+        'correct-bg': 'var(--correct-bg)',
+        'wrong-bg': 'var(--wrong-bg)',
+        correct: 'var(--correct)',
+        wrong: 'var(--wrong)',
+        // Type badge backgrounds
+        'type-classic-bg': 'var(--type-classic-bg)',
+        'type-image-bg': 'var(--type-image-bg)',
+        'type-intruder-bg': 'var(--type-intruder-bg)',
+        'type-tf-bg': 'var(--type-tf-bg)',
+        'type-clue-bg': 'var(--type-clue-bg)',
+        // Difficulty badges (kept for legacy quiz-card difficulty pills)
+        'easy-bg': 'var(--easy-bg)',
+        'medium-bg': 'var(--medium-bg)',
+        'hard-bg': 'var(--hard-bg)',
+      },
+      textColor: {
+        primary: 'var(--text-primary)',
+        secondary: 'var(--text-secondary)',
+        tertiary: 'var(--text-tertiary)',
+        ghost: 'var(--text-ghost)',
+        correct: 'var(--correct)',
+        'correct-text': 'var(--correct-text)',
+        wrong: 'var(--wrong)',
+        'wrong-text': 'var(--wrong-text)',
+        // Type badge text
+        'type-classic-text': 'var(--type-classic-text)',
+        'type-image-text': 'var(--type-image-text)',
+        'type-intruder-text': 'var(--type-intruder-text)',
+        'type-tf-text': 'var(--type-tf-text)',
+        'type-clue-text': 'var(--type-clue-text)',
+        // Difficulty text
+        'easy-text': 'var(--easy-text)',
+        'medium-text': 'var(--medium-text)',
+        'hard-text': 'var(--hard-text)',
+      },
+      borderColor: {
+        DEFAULT: 'var(--border)',
+        default: 'var(--border)',
+        subtle: 'var(--border-subtle)',
+        correct: 'var(--correct-border)',
+        wrong: 'var(--wrong-border)',
+      },
+      boxShadow: {
+        card: 'var(--shadow-card)',
       },
       borderRadius: {
         sm: '8px',
         md: '12px',
-        lg: '16px',
+        lg: '14px',
+        xl: '16px',
         full: '9999px',
       },
       keyframes: {

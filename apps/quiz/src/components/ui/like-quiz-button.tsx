@@ -79,7 +79,7 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
       className={`flex items-center justify-center gap-2 w-full py-3 rounded-full border text-sm font-medium transition-colors cursor-pointer ${
         liked
           ? 'bg-[#FCEBEB] border-[#F7C1C1] text-[#791F1F]'
-          : 'bg-surface-primary border-border-light text-txt-secondary hover:border-border-medium'
+          : 'bg-primary border-default text-secondary hover:border-default'
       }`}
       aria-label={liked ? 'Unlike this quiz' : 'Like this quiz'}
     >

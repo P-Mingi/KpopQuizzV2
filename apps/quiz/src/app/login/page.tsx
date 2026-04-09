@@ -29,11 +29,11 @@ export default function LoginPage(): React.ReactElement {
 
   return (
     <div className="max-w-sm mx-auto mt-20 px-4">
-      <div className="bg-surface-primary rounded-lg border border-border-light p-6 text-center">
-        <h1 className="text-lg font-medium text-txt-primary">
+      <div className="bg-primary rounded-lg border border-default p-6 text-center">
+        <h1 className="text-lg font-medium text-primary">
           Sign in to create quizzes
         </h1>
-        <p className="text-sm text-txt-secondary mt-1">
+        <p className="text-sm text-secondary mt-1">
           You don&apos;t need an account to play.
         </p>
 
@@ -41,10 +41,10 @@ export default function LoginPage(): React.ReactElement {
           <button
             onClick={() => handleLogin('google')}
             disabled={loading !== null}
-            className="w-full py-3 rounded-full border border-border-light text-sm font-medium flex items-center justify-center gap-2 hover:border-border-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full py-3 rounded-full border border-default text-sm font-medium flex items-center justify-center gap-2 hover:border-default transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {loading === 'google' ? (
-              <div className="w-5 h-5 border-2 border-border-light border-t-accent-pink rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
             ) : (
               <>
                 <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -61,10 +61,10 @@ export default function LoginPage(): React.ReactElement {
           <button
             onClick={() => handleLogin('discord')}
             disabled={loading !== null}
-            className="w-full py-3 rounded-full border border-border-light text-sm font-medium flex items-center justify-center gap-2 hover:border-border-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full py-3 rounded-full border border-default text-sm font-medium flex items-center justify-center gap-2 hover:border-default transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {loading === 'discord' ? (
-              <div className="w-5 h-5 border-2 border-border-light border-t-accent-pink rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
             ) : (
               <>
                 <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">

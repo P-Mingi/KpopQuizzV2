@@ -27,8 +27,8 @@ export default async function KpopQuiz2026Page(): Promise<React.ReactElement> {
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-txt-primary">K-pop quizzes {YEAR}</h1>
-      <p className="text-sm text-txt-secondary mt-1 leading-relaxed">
+      <h1 className="text-xl font-medium text-primary">K-pop quizzes {YEAR}</h1>
+      <p className="text-sm text-secondary mt-1 leading-relaxed">
         The latest quizzes covering this year&apos;s comebacks, debuts,
         and events. Updated daily as fans create new content.
       </p>
@@ -41,7 +41,7 @@ export default async function KpopQuiz2026Page(): Promise<React.ReactElement> {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-sm text-txt-secondary">No quizzes yet for {YEAR}. Be the first to create one!</p>
+          <p className="text-sm text-secondary">No quizzes yet for {YEAR}. Be the first to create one!</p>
           <Link
             href="/create"
             className="inline-block mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"

@@ -261,8 +261,10 @@ export function GroupBrowser({ groups, selectedPlaylist, onSelect, onClose }: Pr
           </div>
         </div>
 
-        {/* Filter tabs */}
-        <div className="flex gap-1.5 px-5 pb-3 overflow-x-auto scrollbar-hide">
+        {/* Filter tabs. flex-wrap avoids the overflow-x-auto vertical clipping
+            issue where tab tops got cropped, and lets the pills wrap to a
+            second row on narrow viewports if needed. */}
+        <div className="flex flex-wrap gap-1.5 px-5 pb-3">
           {FILTERS.map((f) => {
             const active = activeFilter === f.id;
             return (
@@ -270,10 +272,10 @@ export function GroupBrowser({ groups, selectedPlaylist, onSelect, onClose }: Pr
                 key={f.id}
                 type="button"
                 onClick={() => setActiveFilter(f.id)}
-                className={`px-3 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap flex-shrink-0 border transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap border transition-colors ${
                   active
                     ? 'bg-accent text-primary border-accent'
-                    : 'bg-surface text-ghost border-default hover:border-accent'
+                    : 'bg-surface text-secondary border-default hover:border-accent'
                 }`}
               >
                 {f.label}

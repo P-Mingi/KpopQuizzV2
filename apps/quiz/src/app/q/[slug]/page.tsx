@@ -75,6 +75,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     displayColor: quiz.display_color,
     textColor: quiz.text_color,
     logoUrl: quiz.logo_url,
+    coverImageUrl: quiz.cover_image_url ?? null,
     fandomName: quiz.fandom_name,
     creatorUsername: quiz.creator_username,
     creatorAvatarUrl: quiz.creator_avatar_url,
@@ -85,7 +86,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   };
 
   return (
-    <div className="py-6">
+    <div className="py-4 md:py-6">
       <QuizPlayer quiz={quizIntro} />
 
       <script

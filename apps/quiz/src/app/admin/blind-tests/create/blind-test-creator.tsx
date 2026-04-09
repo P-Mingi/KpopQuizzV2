@@ -131,7 +131,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
           <Link href={`/g/${published.slug}`} className="px-6 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium">
             View game
           </Link>
-          <Link href="/admin" className="px-6 py-3 rounded-full border border-[var(--border-light)] text-sm font-medium">
+          <Link href="/admin" className="px-6 py-3 rounded-full border border-[var(--border)] text-sm font-medium">
             Back to admin
           </Link>
         </div>
@@ -152,7 +152,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
       </div>
 
       {/* Tips */}
-      <div className="bg-[var(--bg-secondary)] rounded-xl p-4 mb-6 text-xs text-[var(--text-secondary)] space-y-1">
+      <div className="bg-[var(--bg-surface)] rounded-xl p-4 mb-6 text-xs text-[var(--text-secondary)] space-y-1">
         <p>Use official MVs from the group's YouTube channel</p>
         <p>For chorus mode: set the start to where the main hook begins</p>
         <p>Write wrong answers from the SAME group's discography</p>
@@ -168,7 +168,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
           onChange={e => setTitle(e.target.value)}
           placeholder="BTS title tracks blind test"
           maxLength={100}
-          className="w-full px-3 py-2.5 rounded-lg border border-[var(--border-light)] text-sm focus:border-[var(--border-medium)] focus:outline-none"
+          className="w-full px-3 py-2.5 rounded-lg border border-[var(--border)] text-sm focus:border-[var(--border)] focus:outline-none"
         />
         <p className="text-[10px] text-[var(--text-tertiary)] mt-1 text-right">{title.length}/100</p>
       </div>
@@ -179,7 +179,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
         <select
           value={groupId ?? ''}
           onChange={e => setGroupId(e.target.value ? Number(e.target.value) : null)}
-          className="w-full px-3 py-2.5 rounded-lg border border-[var(--border-light)] text-sm focus:border-[var(--border-medium)] focus:outline-none bg-white"
+          className="w-full px-3 py-2.5 rounded-lg border border-[var(--border)] text-sm focus:border-[var(--border)] focus:outline-none bg-white"
         >
           <option value="">Select a group</option>
           {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
@@ -198,7 +198,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                 className={`px-3 py-1.5 rounded-full text-xs font-medium ${
                   clipDuration === d
                     ? 'bg-[var(--text-primary)] text-white'
-                    : 'border border-[var(--border-light)] text-[var(--text-secondary)]'
+                    : 'border border-[var(--border)] text-[var(--text-secondary)]'
                 }`}
               >
                 {d}s
@@ -211,7 +211,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
       {/* Songs */}
       <div className="space-y-4 mb-6">
         {songs.map((song, i) => (
-          <div key={i} className="border border-[var(--border-light)] rounded-xl p-4">
+          <div key={i} className="border border-[var(--border)] rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-medium text-[var(--text-secondary)]">Song {i + 1}</p>
               {songs.length > 5 && (
@@ -232,7 +232,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
               value={song.youtube_url}
               onChange={e => handleYouTubeUrl(i, e.target.value)}
               placeholder="https://youtube.com/watch?v=..."
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border-light)] text-sm mb-2 focus:border-[var(--border-medium)] focus:outline-none"
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] text-sm mb-2 focus:border-[var(--border)] focus:outline-none"
             />
 
             {/* Thumbnail + detected info */}
@@ -245,14 +245,14 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                     value={song.title}
                     onChange={e => updateSong(i, { title: e.target.value })}
                     placeholder="Song title"
-                    className="w-full px-2 py-1 text-sm border-b border-[var(--border-light)] focus:border-[var(--border-medium)] focus:outline-none mb-1"
+                    className="w-full px-2 py-1 text-sm border-b border-[var(--border)] focus:border-[var(--border)] focus:outline-none mb-1"
                   />
                   <input
                     type="text"
                     value={song.artist}
                     onChange={e => updateSong(i, { artist: e.target.value })}
                     placeholder="Artist"
-                    className="w-full px-2 py-1 text-xs text-[var(--text-secondary)] border-b border-[var(--border-light)] focus:border-[var(--border-medium)] focus:outline-none"
+                    className="w-full px-2 py-1 text-xs text-[var(--text-secondary)] border-b border-[var(--border)] focus:border-[var(--border)] focus:outline-none"
                   />
                 </div>
               </div>
@@ -269,7 +269,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                       className={`px-3 py-1 rounded-full text-[11px] font-medium ${
                         song.clip_mode === mode
                           ? 'bg-[var(--text-primary)] text-white'
-                          : 'border border-[var(--border-light)] text-[var(--text-secondary)]'
+                          : 'border border-[var(--border)] text-[var(--text-secondary)]'
                       }`}
                     >
                       {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -285,13 +285,13 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                     value={song.clip_start}
                     onChange={e => updateSong(i, { clip_start: Math.max(0, Number(e.target.value)) })}
                     min={0}
-                    className="w-20 px-2 py-1 text-sm border border-[var(--border-light)] rounded focus:outline-none focus:border-[var(--border-medium)]"
+                    className="w-20 px-2 py-1 text-sm border border-[var(--border)] rounded focus:outline-none focus:border-[var(--border)]"
                   />
                   <a
                     href={`https://youtube.com/watch?v=${song.youtube_id}&t=${song.clip_start}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] text-[var(--accent-pink)] hover:underline"
+                    className="text-[11px] text-[var(--accent-light)] hover:underline"
                   >
                     Open MV
                   </a>
@@ -306,7 +306,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                         className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                           song.correct_index === ci
                             ? 'border-[#97C459] bg-[#EAF3DE]'
-                            : 'border-[var(--border-light)]'
+                            : 'border-[var(--border)]'
                         }`}
                       >
                         {song.correct_index === ci && (
@@ -325,7 +325,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
                         }}
                         placeholder={ci === 0 ? 'Correct answer' : `Wrong answer ${ci}`}
                         maxLength={100}
-                        className="flex-1 px-2 py-1.5 text-sm border border-[var(--border-light)] rounded focus:outline-none focus:border-[var(--border-medium)]"
+                        className="flex-1 px-2 py-1.5 text-sm border border-[var(--border)] rounded focus:outline-none focus:border-[var(--border)]"
                       />
                     </div>
                   ))}
@@ -340,7 +340,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
       {songs.length < 15 && (
         <button
           onClick={() => setSongs(prev => [...prev, emptySong()])}
-          className="w-full py-2.5 rounded-xl border border-dashed border-[var(--border-light)] text-sm text-[var(--text-secondary)] hover:border-[var(--border-medium)] mb-6"
+          className="w-full py-2.5 rounded-xl border border-dashed border-[var(--border)] text-sm text-[var(--text-secondary)] hover:border-[var(--border)] mb-6"
         >
           + Add song
         </button>
@@ -355,7 +355,7 @@ export function BlindTestCreator({ groups }: { groups: GroupOption[] }): React.R
         <button
           onClick={() => handlePublish('draft')}
           disabled={publishing || !title.trim()}
-          className="flex-1 py-3 rounded-full border border-[var(--border-light)] text-sm font-medium disabled:opacity-50"
+          className="flex-1 py-3 rounded-full border border-[var(--border)] text-sm font-medium disabled:opacity-50"
         >
           Save as draft
         </button>

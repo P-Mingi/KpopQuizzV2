@@ -5,9 +5,12 @@ import { QuizFeed } from '@/components/home/quiz-feed';
 import { QuizOfTheDay } from '@/components/home/quiz-of-the-day';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
 import { CreateCTA } from '@/components/home/create-cta';
-import { SearchBar } from '@/components/home/search-bar';
+import { SocialProofBar } from '@/components/home/social-proof-bar';
+import { TrendingCard } from '@/components/home/trending-card';
+import { LightstickMascot } from '@/components/ui/lightstick-mascot';
 
 import type { Metadata } from 'next';
+import type { GroupOption } from '@/components/quiz/quiz-filters';
 
 export const metadata: Metadata = {
   title: 'KpopQuiz - K-pop Quizzes Made by Fans',
@@ -27,23 +30,27 @@ export const metadata: Metadata = {
 
 export default async function HomePage(): Promise<React.ReactElement> {
   const [initialQuizzes, qotd, groups, topCreators] = await Promise.all([
-    getTrendingQuizzes(0, 15),
+    getTrendingQuizzes(0, 24),
     getQuizOfTheDay(),
     getAllGroups(),
     getTopCreatorsThisWeek(5),
   ]);
 
-  const groupsForGrid = groups.map((g) => ({
-    id: g.id,
-    name: g.name,
-    slug: g.slug,
-    display_color: g.display_color,
-    text_color: g.text_color,
-    quiz_count: g.quiz_count,
-  }));
+  const groupsForFilter: GroupOption[] = groups
+    .filter((g) => g.quiz_count > 0)
+    .slice(0, 30)
+    .map((g) => ({
+      id: g.id,
+      name: g.name,
+      slug: g.slug,
+      quiz_count: g.quiz_count,
+    }));
+
+  // Top 10 trending feed the horizontal scroller.
+  const trendingTop = initialQuizzes.slice(0, 10);
 
   return (
-    <div>
+    <div className="pt-4 md:pt-6 pb-8">
       <h1 className="sr-only">K-pop quizzes made by fans</h1>
 
       <script
@@ -67,34 +74,44 @@ export default async function HomePage(): Promise<React.ReactElement> {
         }}
       />
 
-      {/* Hero */}
-      <div className="text-center pt-8 pb-6">
-        <p className="text-3xl font-medium">
-          <span className="text-txt-primary">kpop</span>
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: 'linear-gradient(135deg, #ED93B1, #AFA9EC)' }}
-          >
-            quiz
-          </span>
-        </p>
-        <p className="mt-1 text-sm text-txt-secondary">
-          made by fans. played by millions.
-        </p>
-        <SearchBar />
-      </div>
+      {/* Social proof bar */}
+      <SocialProofBar />
 
-      {/* Quiz of the Day */}
-      {qotd && <QuizOfTheDay quiz={qotd} />}
+      {/* Trending this week (horizontal scroll) */}
+      {trendingTop.length > 0 && (
+        <section className="mb-5">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-[13px] font-bold text-primary">Trending this week</h2>
+            <a href="/trending" className="text-[11px] font-medium text-accent hover:underline">
+              See all
+            </a>
+          </div>
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
+            {trendingTop.map((q) => (
+              <TrendingCard key={q.id} quiz={q} />
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* Feed with tabs */}
-      <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForGrid} />
+      {/* Quiz of the day (retention card) */}
+      {qotd && (
+        <section className="mb-5">
+          <QuizOfTheDay quiz={qotd} />
+        </section>
+      )}
 
-      {/* Top creators */}
+      {/* Feed with group + type filters + sort tabs */}
+      <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForFilter} />
+
+      {/* Top creators this week */}
       <CreatorLeaderboard creators={topCreators} />
 
       {/* Create CTA */}
       <CreateCTA />
+
+      {/* Floating lightstick mascot (idle on home) */}
+      <LightstickMascot mood="idle" />
     </div>
   );
 }

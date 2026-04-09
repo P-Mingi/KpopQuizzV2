@@ -108,7 +108,11 @@ export default async function HomePage() {
 
   return (
     <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
-      <LightstickMascot mood="idle" />
+      {/* Mascot hidden on mobile home to avoid overlap with the daily teaser
+          card's Play link. Still visible on desktop home and during gameplay. */}
+      <div className="hidden md:block">
+        <LightstickMascot mood="idle" />
+      </div>
 
       {/* Streak ribbon */}
       {streak > 0 && (
