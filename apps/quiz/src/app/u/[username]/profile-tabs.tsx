@@ -38,7 +38,7 @@ export function ProfileTabs({ isOwnProfile, initialQuizzes, likedQuizzes, creato
               {isOwnProfile && (
                 <Link
                   href="/create"
-                  className="inline-block mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"
+                  className="inline-block mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium"
                 >
                   Create your first quiz
                 </Link>

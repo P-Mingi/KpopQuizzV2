@@ -53,7 +53,7 @@ function ProgressDots({ step }: { step: number }): React.ReactElement {
               ? 'w-6 bg-accent-light'
               : s < step
                 ? 'w-2 bg-correct'
-                : 'w-2 bg-border-light'
+                : 'w-2 bg-default'
           }`}
         />
       ))}
@@ -445,7 +445,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
             href={tweetUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium"
+            className="px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium"
           >
             Share on X
           </a>
@@ -525,7 +525,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <button
           onClick={() => setStep(2)}
           disabled={!canContinueStep1}
-          className="w-full mt-5 py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full mt-5 py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Continue
         </button>
@@ -609,7 +609,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                 onClick={() => setDifficulty(level)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   difficulty === level
-                    ? 'bg-txt-primary text-white'
+                    ? 'bg-accent text-white'
                     : 'border border-default text-secondary hover:border-default'
                 }`}
               >
@@ -641,7 +641,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               setStep(3);
             }}
             disabled={!canContinueStep2}
-            className="flex-1 py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex-1 py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Continue
           </button>
@@ -918,7 +918,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
               <button
                 onClick={handleSaveQuestion}
                 disabled={!canSaveQuestion()}
-                className="px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {editingIndex !== null ? 'Update question' : 'Save question'}
               </button>
@@ -944,7 +944,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
           <button
             onClick={() => setStep(4)}
             disabled={!canContinueStep3}
-            className="flex-1 py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex-1 py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Review quiz
           </button>
@@ -1044,7 +1044,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <button
           onClick={handlePublish}
           disabled={publishing}
-          className="flex-1 py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-60"
+          className="flex-1 py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-60"
         >
           {publishing
             ? (isEditMode ? 'Saving...' : 'Publishing...')

@@ -11,7 +11,7 @@ export default function ErrorPage({ reset }: ErrorPageProps): React.ReactElement
       <p className="text-sm text-secondary mt-2">Please try refreshing the page.</p>
       <button
         onClick={reset}
-        className="mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium cursor-pointer"
+        className="mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium cursor-pointer"
       >
         Try again
       </button>

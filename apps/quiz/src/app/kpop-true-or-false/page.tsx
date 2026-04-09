@@ -42,7 +42,7 @@ export default async function KpopTrueOrFalsePage(): Promise<React.ReactElement>
           <p className="text-sm text-secondary">No quizzes yet. Be the first to create one!</p>
           <Link
             href="/create"
-            className="inline-block mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"
+            className="inline-block mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium"
           >
             Create a quiz
           </Link>

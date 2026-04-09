@@ -139,7 +139,7 @@ export function OnboardingForm(): React.ReactElement {
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className="w-full mt-4 py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
+          className="w-full mt-4 py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
         >
           {submitting ? (
             <span className="flex items-center justify-center">

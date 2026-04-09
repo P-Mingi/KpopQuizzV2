@@ -206,7 +206,7 @@ export function SearchBar(): React.ReactElement {
 
               {/* Divider between sections */}
               {results!.quizzes.length > 0 && results!.groups.length > 0 && (
-                <div className="h-px bg-border-light" />
+                <div className="h-px bg-default" />
               )}
 
               {/* Groups section */}
@@ -256,7 +256,7 @@ export function SearchBar(): React.ReactElement {
 
               {/* Divider before creators */}
               {(results!.quizzes.length > 0 || results!.groups.length > 0) && results!.creators.length > 0 && (
-                <div className="h-px bg-border-light" />
+                <div className="h-px bg-default" />
               )}
 
               {/* Creators section */}

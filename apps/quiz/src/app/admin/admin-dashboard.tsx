@@ -1445,7 +1445,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                 onClick={() => setQuizFilter(f)}
                 className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-colors ${
                   quizFilter === f
-                    ? 'bg-txt-primary text-white border-txt-primary'
+                    ? 'bg-accent text-white border-accent'
                     : 'text-secondary border-default hover:border-default'
                 }`}
               >

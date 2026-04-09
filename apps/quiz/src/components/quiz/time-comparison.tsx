@@ -95,11 +95,11 @@ export function TimeComparison({ quizId, userTime, score, totalQuestions }: Prop
 
       {/* Divider */}
       <div className="flex items-center gap-2 mb-3">
-        <div className="flex-1 h-px bg-border-light" />
+        <div className="flex-1 h-px bg-default" />
         <span className="text-[10px] text-tertiary uppercase tracking-wider">
           vs other {score}/{totalQuestions}
         </span>
-        <div className="flex-1 h-px bg-border-light" />
+        <div className="flex-1 h-px bg-default" />
       </div>
 
       {/* Stats grid */}

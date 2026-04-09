@@ -95,7 +95,7 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
               {badge.name}
             </span>
             {!earned && (
-              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-txt-primary rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-accent rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                 {badge.description}
               </span>
             )}

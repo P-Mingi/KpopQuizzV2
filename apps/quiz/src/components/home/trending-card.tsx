@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { QuizTypeBadge, mapDbTypeToKey, type QuizTypeKey } from '@/components/ui/quiz-type-badge';
+import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
+import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -7,21 +8,6 @@ import type { QuizCardData } from '@/lib/db/types';
 interface Props {
   quiz: QuizCardData;
 }
-
-const GRADIENT_FROM: Record<QuizTypeKey, string> = {
-  classic: '#E6F1FB',
-  image: '#FBEAF0',
-  intruder: '#EEEDFE',
-  tf: '#EAF3DE',
-  clue: '#FAEEDA',
-};
-const GRADIENT_TO: Record<QuizTypeKey, string> = {
-  classic: '#EEEDFE',
-  image: '#EEEDFE',
-  intruder: '#E6F1FB',
-  tf: '#FAF2F5',
-  clue: '#FBEAF0',
-};
 
 /**
  * Wide banner card used in the horizontal "Trending this week" scroller on
@@ -54,11 +40,19 @@ export function TrendingCard({ quiz }: Props) {
           />
         ) : (
           <div
-            className="w-full h-full"
+            className="w-full h-full flex items-center justify-center"
             style={{
-              background: `linear-gradient(135deg, ${GRADIENT_FROM[typeKey]}, ${GRADIENT_TO[typeKey]})`,
+              background: `linear-gradient(135deg, ${quiz.display_color}, var(--bg-accent-subtle))`,
             }}
-          />
+          >
+            <GroupLogo
+              groupName={quiz.group_name}
+              logoUrl={quiz.logo_url}
+              displayColor={quiz.display_color}
+              textColor={quiz.text_color}
+              size={56}
+            />
+          </div>
         )}
 
         {/* Bottom-dark gradient so text is readable on top of the cover */}

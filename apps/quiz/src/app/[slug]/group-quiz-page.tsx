@@ -80,7 +80,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       <div className="mt-6 text-center">
         <Link
           href={`/create?group=${group.slug}`}
-          className="inline-block px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"
+          className="inline-block px-6 py-3 rounded-full bg-accent text-white text-sm font-medium"
         >
           Create a {group.name} quiz
         </Link>

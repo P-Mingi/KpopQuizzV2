@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { QuizTypeBadge, mapDbTypeToKey, type QuizTypeKey } from '@/components/ui/quiz-type-badge';
+import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
+import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -7,21 +8,6 @@ import type { QuizCardData } from '@/lib/db/types';
 interface Props {
   quiz: QuizCardData;
 }
-
-const GRADIENT_FROM: Record<QuizTypeKey, string> = {
-  classic: '#E6F1FB',
-  image: '#FBEAF0',
-  intruder: '#EEEDFE',
-  tf: '#EAF3DE',
-  clue: '#FAEEDA',
-};
-const GRADIENT_TO: Record<QuizTypeKey, string> = {
-  classic: '#EEEDFE',
-  image: '#EEEDFE',
-  intruder: '#E6F1FB',
-  tf: '#FAF2F5',
-  clue: '#FBEAF0',
-};
 
 /**
  * Simplified list card for the new home page + browse page. Image on the
@@ -54,24 +40,25 @@ export function QuizListCard({ quiz }: Props) {
           )}
         </div>
       </div>
-      <div className="w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-elevated">
-        {quiz.cover_image_url ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
+      {quiz.cover_image_url ? (
+        <div className="w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-elevated">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={quiz.cover_image_url}
             alt=""
             className="w-full h-full object-cover"
             loading="lazy"
           />
-        ) : (
-          <div
-            className="w-full h-full"
-            style={{
-              background: `linear-gradient(135deg, ${GRADIENT_FROM[typeKey]}, ${GRADIENT_TO[typeKey]})`,
-            }}
-          />
-        )}
-      </div>
+        </div>
+      ) : (
+        <GroupLogo
+          groupName={quiz.group_name}
+          logoUrl={quiz.logo_url}
+          displayColor={quiz.display_color}
+          textColor={quiz.text_color}
+          size={56}
+        />
+      )}
     </Link>
   );
 }

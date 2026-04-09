@@ -284,7 +284,7 @@ export default function SettingsPage(): React.ReactElement {
         <button
           onClick={handleSave}
           disabled={!canSave}
-          className="w-full py-3 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full py-3 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {saving ? (
             <span className="flex items-center justify-center">

@@ -4,7 +4,6 @@ import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { QuizFeed } from '@/components/home/quiz-feed';
 import { QuizOfTheDay } from '@/components/home/quiz-of-the-day';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
-import { CreateCTA } from '@/components/home/create-cta';
 import { SocialProofBar } from '@/components/home/social-proof-bar';
 import { TrendingCard } from '@/components/home/trending-card';
 import { LightstickMascot } from '@/components/ui/lightstick-mascot';
@@ -106,9 +105,6 @@ export default async function HomePage(): Promise<React.ReactElement> {
 
       {/* Top creators this week */}
       <CreatorLeaderboard creators={topCreators} />
-
-      {/* Create CTA */}
-      <CreateCTA />
 
       {/* Floating lightstick mascot (idle on home) */}
       <LightstickMascot mood="idle" />

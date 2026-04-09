@@ -7,7 +7,7 @@ export default function NotFound(): React.ReactElement {
       <p className="text-base text-secondary mt-2">This page doesn&apos;t exist.</p>
       <Link
         href="/"
-        className="inline-block mt-4 px-6 py-3 rounded-full bg-txt-primary text-white text-sm font-medium"
+        className="inline-block mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium"
       >
         Go home
       </Link>

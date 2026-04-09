@@ -34,7 +34,7 @@ export default async function HardQuizzesPage(): Promise<React.ReactElement> {
           <p className="text-sm text-secondary mb-3">No hard quizzes yet.</p>
           <Link
             href="/create"
-            className="inline-block px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium"
+            className="inline-block px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium"
           >
             Create the first one
           </Link>

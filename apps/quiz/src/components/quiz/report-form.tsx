@@ -92,7 +92,7 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
       <button
         onClick={handleSubmit}
         disabled={!reason || submitting}
-        className="mt-3 px-5 py-2.5 rounded-full bg-txt-primary text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+        className="mt-3 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {submitting ? 'Submitting...' : 'Submit report'}
       </button>

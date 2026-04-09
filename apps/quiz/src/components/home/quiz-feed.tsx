@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 
 import { QuizListCard } from '@/components/quiz/quiz-list-card';
+import { CreateCTA } from '@/components/home/create-cta';
 import {
   GroupFilterPills,
   TypeFilterPills,
@@ -167,11 +168,23 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false }: 
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {visibleQuizzes.map((quiz) => (
-            <QuizListCard key={quiz.id} quiz={quiz} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {visibleQuizzes.slice(0, 8).map((quiz) => (
+              <QuizListCard key={quiz.id} quiz={quiz} />
+            ))}
+          </div>
+          {visibleQuizzes.length > 8 && (
+            <>
+              <CreateCTA />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {visibleQuizzes.slice(8).map((quiz) => (
+                  <QuizListCard key={quiz.id} quiz={quiz} />
+                ))}
+              </div>
+            </>
+          )}
+        </>
       )}
 
       {visibleQuizzes.length > 0 && !hideBrowseAllLink && (

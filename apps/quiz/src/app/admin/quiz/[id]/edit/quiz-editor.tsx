@@ -80,7 +80,7 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="px-4 py-2 bg-txt-primary text-white text-sm font-medium rounded-lg disabled:opacity-50"
+            className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save changes'}
           </button>
@@ -294,7 +294,7 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="px-6 py-2.5 bg-txt-primary text-white text-sm font-medium rounded-lg disabled:opacity-50"
+          className="px-6 py-2.5 bg-accent text-white text-sm font-medium rounded-lg disabled:opacity-50"
         >
           {saving ? 'Saving...' : 'Save changes'}
         </button>
