@@ -12,6 +12,8 @@ const KNOWN_ROUTES = [
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt',
+  // New Phase 4 routes
+  '/hall-of-fame', '/quizzes', '/profile',
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
