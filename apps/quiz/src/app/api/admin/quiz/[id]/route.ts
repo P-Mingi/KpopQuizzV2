@@ -52,20 +52,35 @@ export async function PATCH(
   if (typeof body.difficulty === 'string') update.difficulty = body.difficulty;
   if (typeof body.status === 'string') update.status = body.status;
 
+  // Manual cover override - when present in the body, always wins.
+  // Pass null/empty string to clear the cover and fall back to auto.
+  const hasManualCover = Object.prototype.hasOwnProperty.call(body, 'cover_image_url');
+  if (hasManualCover) {
+    const raw = body.cover_image_url;
+    if (raw === null || (typeof raw === 'string' && raw.trim().length === 0)) {
+      update.cover_image_url = null;
+    } else if (typeof raw === 'string') {
+      update.cover_image_url = raw.trim();
+    }
+  }
+
   // Update questions (JSONB column)
   if (Array.isArray(body.questions)) {
     update.questions = body.questions;
     update.question_count = body.questions.length;
 
-    // Auto-update cover_image_url from first question
-    const firstQ = body.questions[0] as Record<string, unknown> | undefined;
-    if (firstQ) {
-      if (typeof firstQ.image_url === 'string' && firstQ.image_url) {
-        update.cover_image_url = firstQ.image_url;
-      } else if (Array.isArray(firstQ.options)) {
-        const firstOpt = firstQ.options[0] as Record<string, unknown> | undefined;
-        if (firstOpt && typeof firstOpt.image_url === 'string' && firstOpt.image_url) {
-          update.cover_image_url = firstOpt.image_url;
+    // Auto-update cover_image_url from first question - but only if the
+    // admin didn't explicitly set or clear it in this PATCH.
+    if (!hasManualCover) {
+      const firstQ = body.questions[0] as Record<string, unknown> | undefined;
+      if (firstQ) {
+        if (typeof firstQ.image_url === 'string' && firstQ.image_url) {
+          update.cover_image_url = firstQ.image_url;
+        } else if (Array.isArray(firstQ.options)) {
+          const firstOpt = firstQ.options[0] as Record<string, unknown> | undefined;
+          if (firstOpt && typeof firstOpt.image_url === 'string' && firstOpt.image_url) {
+            update.cover_image_url = firstOpt.image_url;
+          }
         }
       }
     }

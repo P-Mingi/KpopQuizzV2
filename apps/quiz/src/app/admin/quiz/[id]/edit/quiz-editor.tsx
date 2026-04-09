@@ -30,6 +30,9 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
   const [title, setTitle] = useState(quiz.title as string);
   const [difficulty, setDifficulty] = useState(quiz.difficulty as string);
   const [status, setStatus] = useState(quiz.status as string);
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(
+    (quiz.cover_image_url as string | null) ?? null,
+  );
   const [questions, setQuestions] = useState<QuestionData[]>(
     (quiz.questions as QuestionData[]) ?? [],
   );
@@ -50,7 +53,13 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
       const res = await fetch(`/api/admin/quiz/${quiz.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, difficulty, status, questions }),
+        body: JSON.stringify({
+          title,
+          difficulty,
+          status,
+          questions,
+          cover_image_url: coverImageUrl,
+        }),
       });
       if (res.ok) {
         setSaved(true);
@@ -64,7 +73,7 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
     } finally {
       setSaving(false);
     }
-  }, [quiz.id, title, difficulty, status, questions]);
+  }, [quiz.id, title, difficulty, status, questions, coverImageUrl]);
 
   return (
     <div className="py-6">
@@ -118,6 +127,20 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
               <option value="removed">Removed</option>
             </select>
           </div>
+        </div>
+
+        <div>
+          <ImageUploader
+            value={coverImageUrl}
+            onChange={(url) => {
+              setCoverImageUrl(url ? url : null);
+              setSaved(false);
+            }}
+            label="Cover image (shown on quiz card, trending card, start screen)"
+          />
+          <p className="text-[11px] text-tertiary mt-1">
+            Paste any image URL (Pinterest, Imgur, etc.) or drop a file. Leave empty to fall back to the first question&apos;s image (image/intruder quizzes) or the group logo.
+          </p>
         </div>
       </div>
 
