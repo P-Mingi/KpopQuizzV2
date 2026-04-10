@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getGroupBySlug } from '@/lib/db/queries/groups';
+import { getGroupBySlug, getAllGroups } from '@/lib/db/queries/groups';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
 import { GroupTriviaPage, generateGroupTriviaMetadata } from './group-trivia-page';
 
@@ -17,6 +17,24 @@ const RESERVED_SLUGS = [
 ];
 
 export const revalidate = 60;
+
+/**
+ * Pre-build `/{slug}-quiz` and `/{slug}-trivia` for every group that has at
+ * least one published quiz. Speeds up initial crawler visits on the most
+ * important landing pages; any group added after a deploy is generated
+ * on-demand via ISR thanks to the `revalidate = 60` above.
+ */
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  try {
+    const groups = await getAllGroups();
+    return groups
+      .filter((g) => g.quiz_count > 0)
+      .flatMap((g) => [{ slug: `${g.slug}-quiz` }, { slug: `${g.slug}-trivia` }]);
+  } catch {
+    // Fallback to on-demand generation if the DB is unreachable at build time.
+    return [];
+  }
+}
 
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;

@@ -50,7 +50,12 @@ export default async function HomePage(): Promise<React.ReactElement> {
 
   return (
     <div className="pt-4 md:pt-6 pb-8">
-      <h1 className="sr-only">K-pop quizzes made by fans</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-primary text-center mb-1">
+        K-pop quizzes made by fans
+      </h1>
+      <p className="text-xs md:text-sm text-ghost text-center mb-4">
+        Play trivia about BTS, BLACKPINK, Stray Kids and 30+ groups
+      </p>
 
       <script
         type="application/ld+json"

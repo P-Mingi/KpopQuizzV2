@@ -2,9 +2,31 @@ import { notFound } from 'next/navigation';
 
 import { getQuizBySlug } from '@/lib/db/queries/quizzes';
 import { getPassRate } from '@/lib/db/queries/plays';
+import { createServerClient } from '@/lib/supabase/server';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 import type { Metadata } from 'next';
+
+/**
+ * Pre-build the top 50 most-played quizzes at deploy time so the most
+ * popular pages are served from the cache on first crawl. Less popular
+ * quizzes are generated on-demand (ISR default).
+ */
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  try {
+    const supabase = await createServerClient();
+    const { data } = await supabase
+      .from('quizzes')
+      .select('slug')
+      .eq('status', 'published')
+      .order('play_count', { ascending: false })
+      .limit(50);
+    return (data ?? []).map((q) => ({ slug: q.slug as string }));
+  } catch {
+    return [];
+  }
+}
 
 interface QuizPageProps {
   params: Promise<{ slug: string }>;
@@ -87,6 +109,14 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   return (
     <div className="py-4 md:py-6">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: `${quiz.group_name} Quiz`, href: `/${quiz.group_slug}-quiz` },
+          { label: quiz.title },
+        ]}
+      />
+
       <QuizPlayer quiz={quizIntro} />
 
       <script

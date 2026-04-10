@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
@@ -31,12 +32,12 @@ export function TrendingCard({ quiz }: Props) {
       {/* Banner */}
       <div className="h-[100px] relative overflow-hidden">
         {quiz.cover_image_url ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
+          <Image
             src={quiz.cover_image_url}
-            alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
+            alt={`${quiz.title} quiz cover`}
+            fill
+            className="object-cover"
+            sizes="220px"
           />
         ) : (
           <div

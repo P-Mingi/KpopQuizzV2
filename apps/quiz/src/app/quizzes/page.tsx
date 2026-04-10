@@ -1,6 +1,7 @@
 import { getTrendingQuizzes } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { QuizFeed } from '@/components/home/quiz-feed';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 import type { Metadata } from 'next';
 import type { GroupOption } from '@/components/quiz/quiz-filters';
@@ -36,6 +37,13 @@ export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
 
   return (
     <div className="pt-4 md:pt-6 pb-8">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Browse All Quizzes' },
+        ]}
+      />
+
       <div className="mb-4">
         <h1 className="text-[22px] font-bold text-primary">Browse quizzes</h1>
         <p className="text-xs text-ghost mt-0.5">

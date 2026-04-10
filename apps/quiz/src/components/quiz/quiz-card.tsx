@@ -66,7 +66,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
           {isOwner && (
             <div className="flex items-center gap-1.5 mb-1 relative z-10 pointer-events-auto">
               <RedditShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=reddit&utm_medium=social&utm_campaign=quiz_share`}
                 title={`I made a ${quiz.group_name} quiz - test your knowledge!`}
                 compact
               />

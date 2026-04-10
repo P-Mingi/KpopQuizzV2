@@ -7,6 +7,7 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { LevelBadge } from '@/components/ui/level-badge';
 import { XpProgress } from '@/components/ui/xp-progress';
 import { BadgeGrid } from '@/components/ui/badge-grid';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
 import { ProfileTabs } from './profile-tabs';
 import { formatCount, formatJoinDate } from '@/lib/utils';
@@ -132,6 +133,13 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
   return (
     <div className="py-6">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: displayName },
+        ]}
+      />
+
       {isOwnProfile && <NotificationsStrip />}
 
       <UserAvatar
@@ -165,9 +173,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       )}
 
       {/* Stats row */}
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mt-6 mb-2">
+      <h2 className="text-[10px] font-semibold uppercase tracking-wider text-ghost mt-6 mb-2">
         Stan stats
-      </p>
+      </h2>
       <div className="flex gap-4 flex-wrap">
         <p className="text-sm">
           <span className="font-medium text-primary">{formatCount(profile.total_quizzes_created)}</span>{' '}
@@ -193,7 +201,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       {/* Badges */}
       {allBadges.length > 0 && (
         <div className="mt-6">
-          <p className="text-sm font-medium text-primary mb-2">Badges</p>
+          <h2 className="text-sm font-medium text-primary mb-2">Badges</h2>
           <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />
         </div>
       )}

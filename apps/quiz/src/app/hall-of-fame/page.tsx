@@ -3,6 +3,7 @@ import {
   getTopCreatorsAllTime,
   getTopPlayersByXp,
 } from '@/lib/db/queries/profiles';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { HallOfFameTabs } from './hall-of-fame-tabs';
 
 import type { Metadata } from 'next';
@@ -29,6 +30,13 @@ export default async function HallOfFamePage(): Promise<React.ReactElement> {
 
   return (
     <div className="pt-4 md:pt-6 pb-8">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Hall of Fame' },
+        ]}
+      />
+
       <div className="mb-4">
         <div className="flex items-center gap-2">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="var(--combo)" aria-hidden="true">

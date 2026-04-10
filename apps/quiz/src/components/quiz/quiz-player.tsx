@@ -3,6 +3,7 @@
 import { useReducer, useEffect, useRef, useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
 import { AnswerButton } from '@/components/quiz/answer-button';
@@ -545,7 +546,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     playShare();
 
     const maxScore = state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
-    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=share&s=${state.score}&t=${maxScore}`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=native_share&utm_medium=social&utm_campaign=quiz_share&s=${state.score}&t=${maxScore}`;
     const timeStr = state.timeTaken > 0 ? ` in ${state.timeTaken}s` : '';
     const shareText = `I scored ${state.score}/${maxScore}${timeStr} on "${quiz.title}" Can you beat me?`;
 
@@ -615,11 +616,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           >
             {quiz.coverImageUrl && (
               <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={quiz.coverImageUrl}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
+                  alt={`${quiz.title} - ${quiz.groupName || 'K-pop'} quiz`}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 440px) 100vw, 440px"
                 />
                 {/* Dark overlay so the group logo + future overlays stay readable */}
                 <div
@@ -709,7 +712,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
         <div className="flex items-center justify-center gap-4 mt-4">
           <RedditShareButton
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=reddit&utm_medium=social&utm_campaign=quiz_share`}
             title={`${quiz.title} - free K-pop quiz on kpopquiz.org`}
             compact
           />
@@ -1159,7 +1162,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
         <div className="mt-2">
           <RedditShareButton
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?ref=reddit`}
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=reddit&utm_medium=social&utm_campaign=quiz_share`}
             title={`I scored ${state.score}/${maxScore} on "${quiz.title}" - can you beat me?`}
             className="w-full py-2.5 rounded-xl border border-default text-[13px] font-medium bg-surface cursor-pointer hover:border-[#FF4500] hover:text-[#FF4500] transition-colors flex items-center justify-center gap-2 text-secondary"
           />

@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { GroupLogo } from '@/components/ui/group-logo';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 
 import type { Metadata } from 'next';
@@ -166,6 +167,8 @@ function TriviaFactCard({ item }: { item: TriviaFact }) {
 // ------------------------------------------------------------------
 
 export function generateGroupTriviaMetadata(group: Group): Metadata {
+  const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
+
   return {
     title: `${group.name} Trivia - Fun Facts for ${group.fandom_name}s`,
     description: `How well do you really know ${group.name}? Discover surprising facts about the members, music, and achievements - then test yourself with fan-made quizzes.`,
@@ -176,8 +179,12 @@ export function generateGroupTriviaMetadata(group: Group): Metadata {
       url: `https://kpopquiz.org/${group.slug}-trivia`,
       siteName: 'KpopQuiz',
       type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${group.name} Trivia` }],
     },
-    twitter: { card: 'summary_large_image' },
+    twitter: {
+      card: 'summary_large_image',
+      images: [ogImage],
+    },
   };
 }
 
@@ -204,6 +211,13 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: `${group.name} Quiz`, href: `/${group.slug}-quiz` },
+          { label: `${group.name} Trivia` },
+        ]}
+      />
 
       {/* Hero */}
       <div className="text-center mb-10">

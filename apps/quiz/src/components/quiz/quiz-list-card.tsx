@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
@@ -41,13 +42,13 @@ export function QuizListCard({ quiz }: Props) {
         </div>
       </div>
       {quiz.cover_image_url ? (
-        <div className="w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-elevated">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="relative w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-elevated">
+          <Image
             src={quiz.cover_image_url}
-            alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
+            alt={`${quiz.title} quiz cover`}
+            fill
+            className="object-cover"
+            sizes="56px"
           />
         </div>
       ) : (

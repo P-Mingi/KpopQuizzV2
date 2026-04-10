@@ -5,6 +5,7 @@ import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
 import { GroupLogo } from '@/components/ui/group-logo';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 
 import type { Metadata } from 'next';
@@ -21,6 +22,8 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
   const description = group.seo_intro
     || `Play ${group.quiz_count}+ free ${group.name} quizzes. Prove you're a real ${group.fandom_name}.`;
 
+  const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
+
   return {
     title: `${group.name} Quiz - Test Your Knowledge`,
     description,
@@ -29,8 +32,12 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
       title: `${group.name} Quiz | KpopQuiz`,
       description: `${group.quiz_count}+ free ${group.name} quizzes. Can you pass them all?`,
       url: `https://kpopquiz.org/${group.slug}-quiz`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${group.name} Quiz` }],
     },
-    twitter: { card: 'summary_large_image' },
+    twitter: {
+      card: 'summary_large_image',
+      images: [ogImage],
+    },
   };
 }
 
@@ -46,6 +53,13 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
   return (
     <div className="py-6">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: `${group.name} Quiz` },
+        ]}
+      />
+
       <h1 className="text-xl font-medium text-primary">
         {group.name} Quiz - Test How Well You Know {group.name}
       </h1>
