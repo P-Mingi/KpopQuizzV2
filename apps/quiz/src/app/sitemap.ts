@@ -12,6 +12,54 @@ const QUIZZES_LIMIT = 10000;
 const PROFILES_LIMIT = 500;
 const BT_SONG_LIMIT = 5000;
 
+// Must match the threshold used in group-trivia-page.tsx (`notFound()` when
+// `uniqueFacts.length < 12`). If that number changes, change it here too or
+// the sitemap will start advertising 404 pages again.
+const TRIVIA_MIN_FACTS = 12;
+const TRIVIA_MIN_FACT_LENGTH = 20;
+
+/**
+ * Mirror of the dedup/filter logic in group-trivia-page.tsx so the sitemap
+ * only lists `-trivia` URLs that will actually render with content. Keeping
+ * these in sync is intentional: if the page's threshold changes, update both.
+ */
+function buildTriviaEligibleGroupSet(
+  quizzes: Array<{ group_id: number | null; questions: unknown }>,
+): Set<number> {
+  const factsByGroup = new Map<number, Set<string>>();
+
+  for (const quiz of quizzes) {
+    if (quiz.group_id == null) continue;
+    const questions = Array.isArray(quiz.questions)
+      ? (quiz.questions as Array<{ fun_fact?: string }>)
+      : [];
+
+    for (const q of questions) {
+      const rawFact = q.fun_fact?.trim();
+      if (!rawFact || rawFact.length <= TRIVIA_MIN_FACT_LENGTH) continue;
+
+      const key = rawFact
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .trim()
+        .slice(0, 60);
+
+      let set = factsByGroup.get(quiz.group_id);
+      if (!set) {
+        set = new Set<string>();
+        factsByGroup.set(quiz.group_id, set);
+      }
+      set.add(key);
+    }
+  }
+
+  const eligible = new Set<number>();
+  for (const [groupId, facts] of factsByGroup) {
+    if (facts.size >= TRIVIA_MIN_FACTS) eligible.add(groupId);
+  }
+  return eligible;
+}
+
 /**
  * Dynamic sitemap. Queries are wrapped in try/catch so a database blip
  * returns the static pages only instead of a 500 - Google indexes what it
@@ -55,13 +103,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult] = await Promise.all([
       supabase
         .from('quizzes')
-        .select('slug, updated_at')
+        .select('slug, updated_at, group_id, questions')
         .eq('status', 'published')
         .order('updated_at', { ascending: false })
         .limit(QUIZZES_LIMIT),
       supabase
         .from('groups')
-        .select('slug, quiz_count'),
+        .select('id, slug, quiz_count'),
       supabase
         .from('profiles')
         .select('username, updated_at')
@@ -91,20 +139,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     }));
 
-    groupPages = (groupsResult.data ?? []).flatMap((g) => [
-      {
-        url: `${SITE_URL}/${g.slug}-quiz`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.9,
-      },
-      {
-        url: `${SITE_URL}/${g.slug}-trivia`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.5,
-      },
-    ]);
+    // Only list `-trivia` URLs for groups that have enough unique fun facts
+    // to actually render the page (matches `notFound()` guard in
+    // group-trivia-page.tsx). Prevents Google from indexing 404s.
+    const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(
+      (quizzesResult.data ?? []) as Array<{ group_id: number | null; questions: unknown }>,
+    );
+
+    groupPages = (groupsResult.data ?? []).flatMap((g) => {
+      const entries: MetadataRoute.Sitemap = [];
+
+      // `-quiz` page renders an empty "be the first" state when quiz_count
+      // is 0 - thin content that Google soft-404s. Skip those.
+      if ((g.quiz_count ?? 0) > 0) {
+        entries.push({
+          url: `${SITE_URL}/${g.slug}-quiz`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.9,
+        });
+      }
+
+      if (triviaEligibleGroupIds.has(g.id as number)) {
+        entries.push({
+          url: `${SITE_URL}/${g.slug}-trivia`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.5,
+        });
+      }
+
+      return entries;
+    });
 
     quizPages = (quizzesResult.data ?? []).map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
