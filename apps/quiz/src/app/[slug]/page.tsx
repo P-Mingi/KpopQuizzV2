@@ -16,7 +16,11 @@ const RESERVED_SLUGS = [
   'hard-kpop-quizzes', 'kpop-quiz-2026', 'guess-the-kpop-idol', 'kpop-true-or-false',
 ];
 
-export const revalidate = 60;
+// The child pages (group-quiz-page / group-trivia-page) instantiate the
+// Supabase server client, which reads cookies and forces dynamic rendering.
+// Setting this explicitly avoids the DYNAMIC_SERVER_USAGE error that happens
+// when `generateStaticParams` is combined with a cookie-reading child.
+export const dynamic = 'force-dynamic';
 
 /**
  * Pre-build `/{slug}-quiz` and `/{slug}-trivia` for every group that has at

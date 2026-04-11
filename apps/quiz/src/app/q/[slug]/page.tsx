@@ -9,6 +9,11 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
+// The page (and Supabase server client) reads cookies, which is incompatible
+// with static rendering. Force dynamic so cookies()/headers() work at request
+// time and every request always hits the server.
+export const dynamic = 'force-dynamic';
+
 /**
  * Pre-build the top 50 most-played quizzes at deploy time so the most
  * popular pages are served from the cache on first crawl. Less popular
