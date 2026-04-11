@@ -2,6 +2,7 @@ import { getTrendingQuizzes } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { QuizFeed } from '@/components/home/quiz-feed';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 import type { GroupOption } from '@/components/quiz/quiz-filters';
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
 
 export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
   const [initialQuizzes, groups] = await Promise.all([
-    getTrendingQuizzes(0, 48),
-    getAllGroups(),
+    safeFetch(getTrendingQuizzes(0, 48), [], '[browse] getTrendingQuizzes'),
+    safeFetch(getAllGroups(), [], '[browse] getAllGroups'),
   ]);
 
   const groupsForFilter: GroupOption[] = groups

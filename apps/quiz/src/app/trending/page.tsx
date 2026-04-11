@@ -1,5 +1,6 @@
 import { getTrendingQuizzes } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -16,7 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default async function TrendingPage(): Promise<React.ReactElement> {
-  const initialQuizzes = await getTrendingQuizzes(0, 10);
+  const initialQuizzes = await safeFetch(
+    getTrendingQuizzes(0, 10),
+    [],
+    '[trending] getTrendingQuizzes',
+  );
 
   return (
     <div className="py-6">

@@ -5,6 +5,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 import type { Group, Question } from '@/lib/db/types';
@@ -66,12 +67,18 @@ function deduplicateFacts(facts: TriviaFact[]): TriviaFact[] {
 async function getTriviaFacts(groupId: number): Promise<TriviaFact[]> {
   const supabase = await createServerClient();
 
-  const { data: quizzes } = await supabase
+  const { data: quizzes, error } = await supabase
     .from('quizzes')
     .select('title, slug, questions')
     .eq('group_id', groupId)
-    .eq('status', 'published');
+    .eq('status', 'published')
+    .order('play_count', { ascending: false })
+    .limit(200);
 
+  if (error) {
+    console.error('[getTriviaFacts] query failed:', error);
+    return [];
+  }
   if (!quizzes) return [];
 
   const allFacts: TriviaFact[] = [];
@@ -193,7 +200,11 @@ export function generateGroupTriviaMetadata(group: Group): Metadata {
 // ------------------------------------------------------------------
 
 export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
-  const uniqueFacts = await getTriviaFacts(group.id);
+  const uniqueFacts = await safeFetch(
+    getTriviaFacts(group.id),
+    [] as TriviaFact[],
+    '[group-trivia] getTriviaFacts',
+  );
 
   if (uniqueFacts.length < 12) {
     notFound();

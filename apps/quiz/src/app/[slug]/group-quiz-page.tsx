@@ -7,6 +7,7 @@ import { GroupFeed } from '@/components/home/group-feed';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -45,8 +46,8 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
   const [initialQuizzes, relatedQuizzes] = await Promise.all([
-    getQuizzesByGroup(group.id, 'popular', 0, 10),
-    getRelatedQuizzes(relatedSlugs),
+    safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
+    safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
   ]);
 
   const intro = group.seo_intro || generateDefaultIntro(group);

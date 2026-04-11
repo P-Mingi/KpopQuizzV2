@@ -1,6 +1,7 @@
 import { getTrendingQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
+import { safeFetch } from '@/lib/error-handling';
 import { QuizFeed } from '@/components/home/quiz-feed';
 import { QuizOfTheDay } from '@/components/home/quiz-of-the-day';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
@@ -29,10 +30,10 @@ export const metadata: Metadata = {
 
 export default async function HomePage(): Promise<React.ReactElement> {
   const [initialQuizzes, qotd, groups, topCreators] = await Promise.all([
-    getTrendingQuizzes(0, 24),
-    getQuizOfTheDay(),
-    getAllGroups(),
-    getTopCreatorsThisWeek(5),
+    safeFetch(getTrendingQuizzes(0, 24), [], '[home] getTrendingQuizzes'),
+    safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay'),
+    safeFetch(getAllGroups(), [], '[home] getAllGroups'),
+    safeFetch(getTopCreatorsThisWeek(5), [], '[home] getTopCreatorsThisWeek'),
   ]);
 
   const groupsForFilter: GroupOption[] = groups

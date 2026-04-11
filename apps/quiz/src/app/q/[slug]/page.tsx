@@ -5,6 +5,7 @@ import { getPassRate } from '@/lib/db/queries/plays';
 import { createServerClient } from '@/lib/supabase/server';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -34,7 +35,7 @@ interface QuizPageProps {
 
 export async function generateMetadata({ params }: QuizPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const quiz = await getQuizBySlug(slug);
+  const quiz = await safeFetch(getQuizBySlug(slug), null, '[q/[slug] metadata] getQuizBySlug');
 
   if (!quiz) {
     return { title: 'Quiz Not Found' };
@@ -73,13 +74,13 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
 
 export default async function QuizPage({ params }: QuizPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  const quiz = await getQuizBySlug(slug);
+  const quiz = await safeFetch(getQuizBySlug(slug), null, '[q/[slug]] getQuizBySlug');
 
   if (!quiz) notFound();
 
   const questionCount = (quiz.questions as unknown[]).length;
   const passRate = quiz.total_completions > 0
-    ? await getPassRate(quiz.id, questionCount)
+    ? await safeFetch(getPassRate(quiz.id, questionCount), null, '[q/[slug]] getPassRate')
     : null;
 
   const quizIntro = {

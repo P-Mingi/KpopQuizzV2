@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getQuizzesByYear } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -23,7 +24,11 @@ export const metadata: Metadata = {
 };
 
 export default async function KpopQuiz2026Page(): Promise<React.ReactElement> {
-  const quizzes = await getQuizzesByYear(YEAR, 0, 50);
+  const quizzes = await safeFetch(
+    getQuizzesByYear(YEAR, 0, 50),
+    [],
+    '[kpop-quiz-2026] getQuizzesByYear',
+  );
 
   return (
     <div className="py-6">

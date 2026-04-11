@@ -132,7 +132,7 @@ export async function GET(
         {/* Score (if personalized) */}
         {hasScore && (
           <div style={{ fontSize: 72, fontWeight: 700, color: '#1A1A1A', marginBottom: 8 }}>
-            {score}/{total}
+            {`${score}/${total}`}
           </div>
         )}
 

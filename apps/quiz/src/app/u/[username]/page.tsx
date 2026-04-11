@@ -10,6 +10,7 @@ import { BadgeGrid } from '@/components/ui/badge-grid';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
 import { ProfileTabs } from './profile-tabs';
+import { safeFetch } from '@/lib/error-handling';
 import { formatCount, formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -23,7 +24,11 @@ interface ProfilePageProps {
 
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const { username } = await params;
-  const profile = await getProfileByUsername(username);
+  const profile = await safeFetch(
+    getProfileByUsername(username),
+    null,
+    '[u/[username] metadata] getProfileByUsername',
+  );
 
   if (!profile) return { title: 'User Not Found' };
 
@@ -95,32 +100,60 @@ function toLikedQuizCardData(row: LikedQuizRow): QuizCardData {
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
   const { username } = await params;
-  const profile = await getProfileByUsername(username);
+  const profile = await safeFetch(
+    getProfileByUsername(username),
+    null,
+    '[u/[username]] getProfileByUsername',
+  );
 
   if (!profile) notFound();
 
   const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  const isOwnProfile = user?.id === profile.id;
+  let authUserId: string | null = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    authUserId = data?.user?.id ?? null;
+  } catch (err) {
+    console.error('[u/[username]] auth.getUser failed:', err);
+  }
+  const isOwnProfile = authUserId === profile.id;
 
-  // Fetch data in parallel
+  // Fetch data in parallel, tolerating individual failures. The supabase
+  // query builders are thenables but not native Promises, so we wrap them
+  // in `Promise.resolve(...)` so safeFetch can treat them as promises.
   const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult] = await Promise.all([
-    getQuizzesByCreator(profile.id, 0, 10),
-    supabase.from('badge_definitions').select('*').order('sort_order'),
-    supabase.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id),
+    safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
+    safeFetch(
+      Promise.resolve(supabase.from('badge_definitions').select('*').order('sort_order')),
+      { data: null } as { data: unknown },
+      '[u/[username]] badge_definitions',
+    ),
+    safeFetch(
+      Promise.resolve(
+        supabase.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id),
+      ),
+      { data: null } as { data: unknown },
+      '[u/[username]] user_badges',
+    ),
     isOwnProfile
-      ? supabase
-          .from('likes')
-          .select(`
-            created_at,
-            quizzes!inner (
-              id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions,
-              groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-              profiles!inner (username, avatar_url, avatar_bg, avatar_text)
-            )
-          `)
-          .eq('user_id', profile.id)
-          .order('created_at', { ascending: false })
+      ? safeFetch(
+          Promise.resolve(
+            supabase
+              .from('likes')
+              .select(`
+                created_at,
+                quizzes!inner (
+                  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions,
+                  groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
+                  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+                )
+              `)
+              .eq('user_id', profile.id)
+              .order('created_at', { ascending: false }),
+          ),
+          { data: null } as { data: unknown },
+          '[u/[username]] likes',
+        )
       : Promise.resolve({ data: null }),
   ]);
 

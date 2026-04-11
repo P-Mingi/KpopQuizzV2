@@ -5,6 +5,7 @@ import {
 } from '@/lib/db/queries/profiles';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { HallOfFameTabs } from './hall-of-fame-tabs';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -23,9 +24,9 @@ export const metadata: Metadata = {
 
 export default async function HallOfFamePage(): Promise<React.ReactElement> {
   const [weekly, allTime, topPlayers] = await Promise.all([
-    getTopCreatorsThisWeek(25),
-    getTopCreatorsAllTime(25),
-    getTopPlayersByXp(25),
+    safeFetch(getTopCreatorsThisWeek(25), [], '[hall-of-fame] getTopCreatorsThisWeek'),
+    safeFetch(getTopCreatorsAllTime(25), [], '[hall-of-fame] getTopCreatorsAllTime'),
+    safeFetch(getTopPlayersByXp(25), [], '[hall-of-fame] getTopPlayersByXp'),
   ]);
 
   return (

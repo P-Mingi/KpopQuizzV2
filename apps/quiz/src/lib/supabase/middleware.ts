@@ -17,6 +17,18 @@ const KNOWN_ROUTES = [
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
+  try {
+    return await updateSessionInner(request);
+  } catch (err) {
+    // Last-resort safety net: if anything in the middleware throws, let the
+    // request through untouched rather than returning a 500. Auth / SEO
+    // redirects won't apply for this request, but at least the page loads.
+    console.error('[middleware] unhandled error, passing request through:', err);
+    return NextResponse.next({ request: { headers: request.headers } });
+  }
+}
+
+async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
   let response = NextResponse.next({
     request: { headers: request.headers },
   });
@@ -44,7 +56,17 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
+  // Middleware runs on every request and MUST NOT throw. On any Supabase
+  // hiccup (rate limit, transient network, schema cache) we treat the user
+  // as anonymous and let the request proceed to the page handler.
+  let user: { id: string } | null = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data?.user ?? null;
+  } catch (err) {
+    console.error('[middleware] auth.getUser failed, treating as anonymous:', err);
+    user = null;
+  }
 
   const pathname = request.nextUrl.pathname;
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
@@ -58,12 +80,18 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
 
   // Redirect authenticated users away from login page
   if (pathname === '/login' && user) {
-    // Check if they have a profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('id', user.id)
-      .maybeSingle();
+    // Check if they have a profile (swallow any error and assume they do)
+    let profile: { id: string } | null = null;
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
+      profile = data;
+    } catch (err) {
+      console.error('[middleware] profile lookup failed:', err);
+    }
 
     if (!profile) {
       return NextResponse.redirect(new URL('/onboarding', request.url));

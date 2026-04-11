@@ -1,5 +1,6 @@
 import { getMostLikedQuizzes } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -16,7 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default async function MostLikedPage(): Promise<React.ReactElement> {
-  const initialQuizzes = await getMostLikedQuizzes(0, 10);
+  const initialQuizzes = await safeFetch(
+    getMostLikedQuizzes(0, 10),
+    [],
+    '[most-liked] getMostLikedQuizzes',
+  );
 
   return (
     <div className="py-6">

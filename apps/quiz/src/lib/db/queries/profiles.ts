@@ -61,7 +61,9 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
     .from('quizzes')
     .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created)')
     .eq('status', 'published')
-    .gte('created_at', sevenDaysAgo);
+    .gte('created_at', sevenDaysAgo)
+    .order('play_count', { ascending: false })
+    .limit(2000);
 
   if (error) throw new Error(`Failed to fetch top creators: ${error.message}`);
 

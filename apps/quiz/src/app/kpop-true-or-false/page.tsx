@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -21,7 +22,11 @@ export const metadata: Metadata = {
 };
 
 export default async function KpopTrueOrFalsePage(): Promise<React.ReactElement> {
-  const quizzes = await getQuizzesByType('true_false', 0, 30);
+  const quizzes = await safeFetch(
+    getQuizzesByType('true_false', 0, 30),
+    [],
+    '[kpop-true-or-false] getQuizzesByType',
+  );
 
   return (
     <div className="py-6">

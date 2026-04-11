@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -21,7 +22,11 @@ export const metadata: Metadata = {
 };
 
 export default async function GuessTheKpopIdolPage(): Promise<React.ReactElement> {
-  const quizzes = await getQuizzesByType('guess_from_clues', 0, 30);
+  const quizzes = await safeFetch(
+    getQuizzesByType('guess_from_clues', 0, 30),
+    [],
+    '[guess-the-kpop-idol] getQuizzesByType',
+  );
 
   return (
     <div className="py-6">

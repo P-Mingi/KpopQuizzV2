@@ -115,12 +115,12 @@ export async function GET(
             padding: '0 40px',
           }}
         >
-          {row.name} Quiz
+          {`${row.name} Quiz`}
         </div>
 
         {/* Subtitle */}
         <div style={{ fontSize: 24, color: '#888780', marginBottom: 36, textAlign: 'center' }}>
-          Test How Well You Know {row.name}
+          {`Test How Well You Know ${row.name}`}
         </div>
 
         {/* Stats row */}
