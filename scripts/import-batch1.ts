@@ -1,0 +1,839 @@
+import { createClient } from '@supabase/supabase-js';
+import * as fs from 'fs';
+import * as crypto from 'crypto';
+
+// Load env (same approach as seed-platform.ts)
+const envContent = fs.readFileSync('.env.local', 'utf-8');
+for (const line of envContent.split('\n')) {
+  const t = line.trim();
+  if (!t || t.startsWith('#')) continue;
+  const i = t.indexOf('=');
+  if (i > 0 && !process.env[t.slice(0, i)]) process.env[t.slice(0, i)] = t.slice(i + 1);
+}
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  { auth: { autoRefreshToken: false, persistSession: false } },
+);
+
+// ============================================================
+// Utilities
+// ============================================================
+
+function daysAgo(n: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  d.setHours(
+    Math.floor(Math.random() * 14) + 8,
+    Math.floor(Math.random() * 60),
+    Math.floor(Math.random() * 60),
+  );
+  return d.toISOString();
+}
+
+function randomBetween(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .slice(0, 60);
+}
+
+function pickRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)]!;
+}
+
+function weightedScore(totalQ: number): number {
+  const r = Math.random();
+  let pct: number;
+  if (r < 0.10) pct = randomBetween(0, 29) / 100;
+  else if (r < 0.30) pct = randomBetween(30, 49) / 100;
+  else if (r < 0.60) pct = randomBetween(50, 69) / 100;
+  else if (r < 0.85) pct = randomBetween(70, 89) / 100;
+  else pct = randomBetween(90, 100) / 100;
+  return Math.min(Math.round(pct * totalQ), totalQ);
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j]!, copy[i]!];
+  }
+  return copy;
+}
+
+// ============================================================
+// Avatar colors (same palette as seed-platform.ts)
+// ============================================================
+
+const AVATAR_COLORS = [
+  { bg: '#EEEDFE', text: '#3C3489' },
+  { bg: '#E1F5EE', text: '#085041' },
+  { bg: '#FAECE7', text: '#712B13' },
+  { bg: '#FBEAF0', text: '#72243E' },
+  { bg: '#E6F1FB', text: '#0C447C' },
+  { bg: '#FAEEDA', text: '#633806' },
+  { bg: '#EAF3DE', text: '#27500A' },
+  { bg: '#FCEBEB', text: '#791F1F' },
+];
+
+// ============================================================
+// Creator profiles
+// ============================================================
+
+interface Creator {
+  username: string;
+  display_name: string;
+  bio: string;
+  joined_days_ago: number;
+  color_idx: number;
+}
+
+const CREATORS: Creator[] = [
+  { username: 'soojinnie', display_name: 'Soojin', bio: 'girl group enthusiast. deep trivia lover.', joined_days_ago: 25, color_idx: 0 },
+  { username: 'joonified', display_name: 'Joon', bio: 'BTS encyclopedia. every era, every album.', joined_days_ago: 28, color_idx: 1 },
+  { username: 'pinkvelvet', display_name: 'Rosie', bio: 'girl group multi-stan. BP + RV forever.', joined_days_ago: 26, color_idx: 2 },
+  { username: 'caratland', display_name: 'Carat', bio: '13+3+1=17. CARAT since debut.', joined_days_ago: 24, color_idx: 3 },
+  { username: 'skzrealm', display_name: 'Felix_fan', bio: 'SKZ + ATEEZ. 4th gen bg supremacy.', joined_days_ago: 23, color_idx: 4 },
+  { username: 'njeansstan', display_name: 'Bunny', bio: '4th gen gg collector. NJ, IVE, LSRFM.', joined_days_ago: 22, color_idx: 5 },
+  { username: 'kpophistory', display_name: 'KpopProf', bio: 'been here since 2nd gen. I quiz everything.', joined_days_ago: 30, color_idx: 6 },
+  { username: 'twiceland', display_name: 'Nayeonist', bio: 'ONCE + MIDZY. JYP nation.', joined_days_ago: 27, color_idx: 7 },
+  { username: 'exoplanet99', display_name: 'ExoPlanet', bio: 'EXO-L and Shawol. 2nd/3rd gen specialist.', joined_days_ago: 26, color_idx: 0 },
+];
+
+// ============================================================
+// Quiz -> Creator assignment
+// ============================================================
+
+const CREATOR_MAP: Record<string, string> = {
+  // joonified - BTS + some general
+  'BTS debut era - how well do you remember?': 'joonified',
+  'BTS members - know your biases': 'joonified',
+  'BTS discography challenge': 'joonified',
+  'BTS true or false - test your ARMY knowledge': 'joonified',
+  'BTS solo careers quiz': 'joonified',
+  'BTS achievements and records': 'joonified',
+  'BTS true or false - harder edition': 'joonified',
+
+  // pinkvelvet - BP, RV, general
+  'BLACKPINK members quiz': 'pinkvelvet',
+  'BLACKPINK discography deep dive': 'pinkvelvet',
+  'BLACKPINK true or false': 'pinkvelvet',
+  'Red Velvet members quiz': 'pinkvelvet',
+  'BIGBANG legends quiz': 'pinkvelvet',
+
+  // caratland - SVT + general
+  'SEVENTEEN basics for CARATs': 'caratland',
+  'SEVENTEEN units quiz': 'caratland',
+  'SEVENTEEN true or false': 'caratland',
+
+  // skzrealm - SKZ, ATEEZ + general
+  'Stray Kids basics': 'skzrealm',
+  'Stray Kids discography test': 'skzrealm',
+  'Stray Kids true or false': 'skzrealm',
+  'ATEEZ basics for ATINYs': 'skzrealm',
+  'ATEEZ true or false': 'skzrealm',
+  'K-pop debut years challenge': 'skzrealm',
+  'K-pop debut years true or false': 'skzrealm',
+  'K-pop survival shows quiz': 'skzrealm',
+
+  // soojinnie - aespa, (G)I-DLE + general
+  'aespa members and concepts': 'soojinnie',
+  'aespa discography quiz': 'soojinnie',
+  'aespa true or false': 'soojinnie',
+  '(G)I-DLE members and facts': 'soojinnie',
+  '(G)I-DLE true or false': 'soojinnie',
+
+  // njeansstan - NJ, IVE, LSRFM
+  'NewJeans members quiz': 'njeansstan',
+  'NewJeans discography and facts': 'njeansstan',
+  'NewJeans true or false': 'njeansstan',
+  'IVE members quiz': 'njeansstan',
+  'IVE discography and hits': 'njeansstan',
+  'IVE true or false': 'njeansstan',
+  'LE SSERAFIM basics': 'njeansstan',
+  'LE SSERAFIM true or false': 'njeansstan',
+
+  // kpophistory - general K-pop quizzes
+  'K-pop companies quiz': 'kpophistory',
+  'K-pop fandom names quiz': 'kpophistory',
+  'K-pop fandom names true or false': 'kpophistory',
+  'K-pop generations quiz': 'kpophistory',
+  'Which company is this group from?': 'kpophistory',
+  'Which group is this member from?': 'kpophistory',
+  'Which group is this member from? (boy groups)': 'kpophistory',
+
+  // twiceland - TWICE, ITZY, NMIXX
+  'TWICE members - Once test': 'twiceland',
+  'TWICE discography quiz': 'twiceland',
+  'TWICE true or false': 'twiceland',
+  'ITZY members quiz': 'twiceland',
+  'ITZY true or false': 'twiceland',
+  'NMIXX members quiz': 'twiceland',
+
+  // exoplanet99 - EXO, SHINee, SNSD, GOT7, MONSTA X, NCT
+  'EXO members quiz': 'exoplanet99',
+  'EXO true or false': 'exoplanet99',
+  'SHINee legends quiz': 'exoplanet99',
+  "Girls' Generation / SNSD quiz": 'exoplanet99',
+  'GOT7 basics': 'exoplanet99',
+  'MONSTA X quiz': 'exoplanet99',
+  'NCT 127 basics': 'exoplanet99',
+};
+
+// ============================================================
+// Group name -> slug mapping (for groups not in DB by exact name)
+// ============================================================
+
+const GROUP_NAME_OVERRIDES: Record<string, string> = {
+  'General K-pop': 'general-kpop',
+  "Girls' Generation": 'girls-generation',
+  'NCT': 'nct',
+};
+
+// ============================================================
+// Play count generation
+// ============================================================
+
+const GROUP_POPULARITY: Record<string, number> = {
+  'BTS': 1.5,
+  'BLACKPINK': 1.4,
+  'NewJeans': 1.3,
+  'TWICE': 1.2,
+  'Stray Kids': 1.1,
+  'aespa': 1.1,
+  'IVE': 1.1,
+  'SEVENTEEN': 1.0,
+  'LE SSERAFIM': 1.0,
+  'ITZY': 0.95,
+  '(G)I-DLE': 0.95,
+  'EXO': 0.9,
+  'SHINee': 0.85,
+  'ATEEZ': 0.9,
+  'BIGBANG': 0.85,
+  "Girls' Generation": 0.8,
+  'GOT7': 0.8,
+  'Red Velvet': 0.85,
+  'NMIXX': 0.8,
+  'MONSTA X': 0.75,
+  'NCT': 0.9,
+  'General K-pop': 0.8,
+};
+
+function generatePlayCount(difficulty: string, group: string): number {
+  const base = randomBetween(60, 250);
+  const groupMult = GROUP_POPULARITY[group] ?? 0.8;
+  const diffMult = difficulty === 'easy' ? 1.2 : difficulty === 'hard' ? 0.8 : 1.0;
+  return Math.floor(base * groupMult * diffMult);
+}
+
+function generateLikeCount(playCount: number): number {
+  // ~5-12% of plays become likes
+  const rate = 0.05 + Math.random() * 0.07;
+  return Math.max(2, Math.floor(playCount * rate));
+}
+
+// ============================================================
+// Question format transformers
+// ============================================================
+
+interface InputMCQuestion {
+  q: string;
+  correct: string;
+  wrong: string[];
+}
+
+interface InputTFQuestion {
+  q: string;
+  correct: boolean;
+}
+
+interface DBMCQuestion {
+  question: string;
+  options: string[];
+  correct: number;
+}
+
+interface DBTFQuestion {
+  question: string;
+  correct: boolean;
+}
+
+function transformMCQuestion(input: InputMCQuestion): DBMCQuestion {
+  const options = shuffle([input.correct, ...input.wrong]);
+  return {
+    question: input.q,
+    options,
+    correct: options.indexOf(input.correct),
+  };
+}
+
+function transformTFQuestion(input: InputTFQuestion): DBTFQuestion {
+  return {
+    question: input.q,
+    correct: input.correct,
+  };
+}
+
+// ============================================================
+// Timer settings (matching seed-platform.ts)
+// ============================================================
+
+const TIMER_NORMAL = { timer: true, timer_seconds: 15, shuffle: true, show_answers: false };
+const TIMER_EASY = { timer: true, timer_seconds: 20, shuffle: true, show_answers: false };
+const TIMER_HARD = { timer: true, timer_seconds: 10, shuffle: true, show_answers: false };
+
+function getSettings(difficulty: string) {
+  if (difficulty === 'easy') return TIMER_EASY;
+  if (difficulty === 'hard') return TIMER_HARD;
+  return TIMER_NORMAL;
+}
+
+// ============================================================
+// Main
+// ============================================================
+
+async function main() {
+  const isDryRun = process.argv.includes('--dry-run');
+  const isClean = process.argv.includes('--clean');
+
+  // Load quiz data
+  const quizData = JSON.parse(fs.readFileSync('scripts/batch1-quizzes.json', 'utf-8')) as Array<{
+    title: string;
+    group: string;
+    type: string;
+    difficulty: string;
+    questions: Array<InputMCQuestion | InputTFQuestion>;
+  }>;
+
+  console.log(`Loaded ${quizData.length} quizzes from batch1-quizzes.json`);
+
+  if (isDryRun) {
+    console.log('\n[DRY RUN] Would create:');
+    const creatorCounts: Record<string, number> = {};
+    for (const q of quizData) {
+      const creator = CREATOR_MAP[q.title] ?? 'kpophistory';
+      creatorCounts[creator] = (creatorCounts[creator] ?? 0) + 1;
+    }
+    for (const [username, count] of Object.entries(creatorCounts)) {
+      console.log(`  ${username}: ${count} quizzes`);
+    }
+    console.log(`\nTotal: ${quizData.length} quizzes across ${Object.keys(creatorCounts).length} creators`);
+    return;
+  }
+
+  // Clean previous batch1 data if requested
+  if (isClean) {
+    console.log('\nCleaning previous batch1 data...');
+    const batch1Usernames = CREATORS.map(c => c.username);
+    const { data: existingProfiles } = await supabase
+      .from('profiles')
+      .select('id, username')
+      .in('username', batch1Usernames);
+
+    const existingIds = (existingProfiles ?? []).map(p => p.id);
+    if (existingIds.length > 0) {
+      // Delete quizzes by these users (cascades plays, likes)
+      await supabase.from('quizzes').delete().in('creator_id', existingIds);
+      // Delete profiles
+      await supabase.from('profiles').delete().in('id', existingIds);
+      // Delete auth users
+      for (const id of existingIds) {
+        await supabase.auth.admin.deleteUser(id);
+      }
+      console.log(`  Cleaned ${existingIds.length} batch1 users and their data.`);
+    } else {
+      console.log('  No batch1 users found to clean.');
+    }
+  }
+
+  // ---- Step 1: Create fake creator auth users + profiles ----
+  console.log('\n1. Creating creator profiles...');
+  const userMap = new Map<string, string>(); // username -> uuid
+
+  for (const c of CREATORS) {
+    const email = `${c.username}@fake.kpopquizz.com`;
+    const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
+      email,
+      password: crypto.randomUUID(),
+      email_confirm: true,
+    });
+
+    if (authError) {
+      // User might already exist from a previous run
+      const { data: existing } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('username', c.username)
+        .maybeSingle();
+      if (existing) {
+        userMap.set(c.username, existing.id);
+        console.log(`  ${c.username}: already exists (${existing.id})`);
+        continue;
+      }
+      console.error(`  Failed to create ${c.username}: ${authError.message}`);
+      continue;
+    }
+
+    const color = AVATAR_COLORS[c.color_idx % AVATAR_COLORS.length]!;
+    const { error: profileError } = await supabase.from('profiles').insert({
+      id: authUser.user.id,
+      username: c.username,
+      display_name: c.display_name,
+      avatar_url: null,
+      avatar_bg: color.bg,
+      avatar_text: color.text,
+      bio: c.bio,
+      created_at: daysAgo(c.joined_days_ago),
+    });
+
+    if (profileError) {
+      console.error(`  Failed profile for ${c.username}: ${profileError.message}`);
+      // Clean up auth user
+      await supabase.auth.admin.deleteUser(authUser.user.id);
+      continue;
+    }
+
+    userMap.set(c.username, authUser.user.id);
+    console.log(`  ${c.username}: created (${authUser.user.id})`);
+  }
+  console.log(`  Total: ${userMap.size} creators ready.`);
+
+  // ---- Step 2: Fetch group map ----
+  console.log('\n2. Loading groups...');
+  const { data: groups } = await supabase.from('groups').select('id, slug, name');
+  const groupBySlug = new Map<string, number>();
+  const groupByName = new Map<string, number>();
+  for (const g of groups ?? []) {
+    groupBySlug.set(g.slug, g.id);
+    groupByName.set(g.name.toLowerCase(), g.id);
+  }
+  console.log(`  Loaded ${groupBySlug.size} groups.`);
+
+  // Helper to find group_id from quiz group name
+  function resolveGroupId(groupName: string): number | null {
+    const override = GROUP_NAME_OVERRIDES[groupName];
+    if (override && groupBySlug.has(override)) return groupBySlug.get(override)!;
+
+    // Try exact slug match
+    const slug = groupName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+    if (groupBySlug.has(slug)) return groupBySlug.get(slug)!;
+
+    // Try name match (case-insensitive)
+    if (groupByName.has(groupName.toLowerCase())) return groupByName.get(groupName.toLowerCase())!;
+
+    return null;
+  }
+
+  // ---- Step 3: Insert quizzes ----
+  console.log('\n3. Inserting quizzes...');
+
+  interface QuizRecord {
+    id: string;
+    creator_id: string;
+    group_id: number | null;
+    question_count: number;
+    target_plays: number;
+    target_likes: number;
+    created_at: string;
+    difficulty: string;
+  }
+
+  const quizRecords: QuizRecord[] = [];
+  let skipped = 0;
+
+  // Stagger creation dates: spread over ~21 days, recent quizzes clustered
+  const sortedQuizzes = [...quizData].sort(() => Math.random() - 0.5); // randomize order
+
+  for (let idx = 0; idx < sortedQuizzes.length; idx++) {
+    const q = sortedQuizzes[idx]!;
+    const creatorUsername = CREATOR_MAP[q.title] ?? 'kpophistory';
+    const creatorId = userMap.get(creatorUsername);
+    const groupId = resolveGroupId(q.group);
+
+    if (!creatorId) {
+      console.error(`  Skipping "${q.title}" - creator ${creatorUsername} not found`);
+      skipped++;
+      continue;
+    }
+
+    if (groupId === null) {
+      console.error(`  Skipping "${q.title}" - group "${q.group}" not found in DB`);
+      skipped++;
+      continue;
+    }
+
+    // Transform questions to DB format
+    const dbQuestions = q.questions.map((question) => {
+      if (q.type === 'true_false') {
+        return transformTFQuestion(question as InputTFQuestion);
+      }
+      return transformMCQuestion(question as InputMCQuestion);
+    });
+
+    // Check minimum question count
+    if (dbQuestions.length < 5) {
+      console.error(`  Skipping "${q.title}" - only ${dbQuestions.length} questions (min 5)`);
+      skipped++;
+      continue;
+    }
+
+    // Generate slug + ensure uniqueness
+    let slug = generateSlug(q.title);
+    const { data: existing } = await supabase.from('quizzes').select('id').eq('slug', slug).maybeSingle();
+    if (existing) {
+      slug = `${slug}-${randomBetween(2, 99)}`;
+    }
+
+    // Stagger dates: spread over 21 days
+    const daysBack = Math.floor((idx / sortedQuizzes.length) * 21) + randomBetween(0, 2);
+    const createdAt = daysAgo(daysBack);
+
+    const quizType = q.type === 'true_false' ? 'true_false' : 'multiple_choice';
+    const settings = getSettings(q.difficulty);
+    const targetPlays = generatePlayCount(q.difficulty, q.group);
+    const targetLikes = generateLikeCount(targetPlays);
+
+    const { data: quiz, error } = await supabase
+      .from('quizzes')
+      .insert({
+        creator_id: creatorId,
+        group_id: groupId,
+        title: q.title,
+        slug,
+        quiz_type: quizType,
+        questions: dbQuestions,
+        settings,
+        status: 'published',
+        difficulty: q.difficulty,
+        question_count: dbQuestions.length,
+        created_at: createdAt,
+      })
+      .select('id')
+      .single();
+
+    if (error) {
+      console.error(`  Failed: "${q.title}": ${error.message}`);
+      skipped++;
+      continue;
+    }
+
+    quizRecords.push({
+      id: quiz.id,
+      creator_id: creatorId,
+      group_id: groupId,
+      question_count: dbQuestions.length,
+      target_plays: targetPlays,
+      target_likes: targetLikes,
+      created_at: createdAt,
+      difficulty: q.difficulty,
+    });
+
+    console.log(`  [${quizRecords.length}/${sortedQuizzes.length}] "${q.title}" -> ${creatorUsername} (${targetPlays} target plays)`);
+  }
+  console.log(`  Inserted ${quizRecords.length} quizzes, skipped ${skipped}.`);
+
+  if (quizRecords.length === 0) {
+    console.log('\nNo quizzes inserted. Exiting.');
+    return;
+  }
+
+  // ---- Step 4: Generate plays ----
+  console.log('\n4. Generating plays...');
+  const allUserIds = Array.from(userMap.values());
+  // Also fetch existing seed users to use as players
+  const { data: existingUsers } = await supabase
+    .from('profiles')
+    .select('id')
+    .limit(50);
+  const allPlayerIds = [...new Set([...allUserIds, ...(existingUsers ?? []).map(u => u.id)])];
+
+  let totalPlays = 0;
+
+  for (const qr of quizRecords) {
+    const playCount = qr.target_plays + randomBetween(-15, 15);
+    const quizCreatedDate = new Date(qr.created_at);
+    const now = new Date();
+    const daysSinceCreation = Math.max(1, Math.floor((now.getTime() - quizCreatedDate.getTime()) / 86400000));
+
+    const plays: Array<{
+      quiz_id: string;
+      player_id: string | null;
+      score: number;
+      total_questions: number;
+      time_taken_seconds: number;
+      created_at: string;
+    }> = [];
+
+    for (let i = 0; i < playCount; i++) {
+      // ~45% anonymous plays
+      const isAnon = Math.random() < 0.45;
+      const playerId = isAnon ? null : pickRandom(allPlayerIds);
+      const score = weightedScore(qr.question_count);
+      const timeTaken = randomBetween(25, 45) + qr.question_count * randomBetween(5, 15);
+
+      const daysOffset = Math.random() * daysSinceCreation;
+      const playDate = new Date(quizCreatedDate.getTime() + daysOffset * 86400000);
+      playDate.setHours(randomBetween(6, 23), randomBetween(0, 59), randomBetween(0, 59));
+
+      plays.push({
+        quiz_id: qr.id,
+        player_id: playerId,
+        score,
+        total_questions: qr.question_count,
+        time_taken_seconds: timeTaken,
+        created_at: playDate.toISOString(),
+      });
+    }
+
+    // Insert in batches of 500
+    for (let i = 0; i < plays.length; i += 500) {
+      const batch = plays.slice(i, i + 500);
+      const { error } = await supabase.from('plays').insert(batch);
+      if (error) {
+        console.error(`  Play insert error for "${qr.id}": ${error.message}`);
+        break;
+      }
+    }
+    totalPlays += plays.length;
+    process.stdout.write(`  Plays: ${totalPlays}\r`);
+  }
+  console.log(`  Generated ${totalPlays} plays.`);
+
+  // ---- Step 5: Update cached quiz stats ----
+  console.log('\n5. Updating quiz stats...');
+  for (const qr of quizRecords) {
+    const { data: playData } = await supabase.from('plays').select('score').eq('quiz_id', qr.id);
+    const plays = playData ?? [];
+    const playCount = plays.length;
+    const totalScoreSum = plays.reduce((s, p) => s + p.score, 0);
+
+    await supabase.from('quizzes').update({
+      play_count: playCount,
+      total_completions: playCount,
+      total_score_sum: totalScoreSum,
+    }).eq('id', qr.id);
+  }
+
+  // Update group stats (recalculate for ALL groups, not just batch1)
+  const { data: allGroups } = await supabase.from('groups').select('id');
+  for (const g of allGroups ?? []) {
+    const { data: gQuizzes } = await supabase
+      .from('quizzes')
+      .select('play_count')
+      .eq('group_id', g.id)
+      .eq('status', 'published');
+    const totalPlaysGroup = (gQuizzes ?? []).reduce((s, q) => s + (q.play_count ?? 0), 0);
+    const quizCount = (gQuizzes ?? []).length;
+    await supabase.from('groups').update({ total_plays: totalPlaysGroup, quiz_count: quizCount }).eq('id', g.id);
+  }
+
+  // Update profile stats for batch1 creators
+  for (const [username, userId] of userMap) {
+    const { data: userQuizzes } = await supabase
+      .from('quizzes')
+      .select('play_count')
+      .eq('creator_id', userId)
+      .eq('status', 'published');
+    const totalCreated = (userQuizzes ?? []).length;
+    const totalPlaysReceived = (userQuizzes ?? []).reduce((s, q) => s + (q.play_count ?? 0), 0);
+    await supabase.from('profiles').update({
+      total_quizzes_created: totalCreated,
+      total_plays_received: totalPlaysReceived,
+    }).eq('id', userId);
+    console.log(`  ${username}: ${totalCreated} quizzes, ${totalPlaysReceived} plays received`);
+  }
+  console.log('  Stats updated.');
+
+  // ---- Step 6: Generate likes ----
+  console.log('\n6. Generating likes...');
+  let totalLikes = 0;
+
+  for (const qr of quizRecords) {
+    const likeCount = Math.max(0, qr.target_likes + randomBetween(-2, 2));
+    const eligibleUsers = allPlayerIds.filter(id => id !== qr.creator_id);
+    const shuffled = shuffle(eligibleUsers);
+    const likers = shuffled.slice(0, Math.min(likeCount, shuffled.length));
+
+    const quizCreatedDate = new Date(qr.created_at);
+
+    for (const userId of likers) {
+      const likeDate = new Date(quizCreatedDate.getTime() + Math.random() * (Date.now() - quizCreatedDate.getTime()));
+      await supabase.from('likes').upsert({
+        user_id: userId,
+        quiz_id: qr.id,
+        created_at: likeDate.toISOString(),
+      }, { onConflict: 'user_id,quiz_id', ignoreDuplicates: true });
+    }
+    totalLikes += likers.length;
+  }
+  console.log(`  Generated ${totalLikes} likes.`);
+
+  // Update like counts on quizzes
+  for (const qr of quizRecords) {
+    const { count } = await supabase.from('likes').select('*', { count: 'exact', head: true }).eq('quiz_id', qr.id);
+    await supabase.from('quizzes').update({ like_count: count ?? 0 }).eq('id', qr.id);
+  }
+
+  // Update profile total_likes_received for batch1 creators
+  for (const [, userId] of userMap) {
+    const { data: userQuizzes } = await supabase.from('quizzes').select('like_count').eq('creator_id', userId);
+    const totalLikesReceived = (userQuizzes ?? []).reduce((s, q) => s + (q.like_count ?? 0), 0);
+    await supabase.from('profiles').update({ total_likes_received: totalLikesReceived }).eq('id', userId);
+  }
+
+  // ---- Step 7: Calculate XP ----
+  console.log('\n7. Calculating XP...');
+  for (const [username, userId] of userMap) {
+    let xp = 0;
+
+    // Playing XP
+    const { data: userPlays } = await supabase.from('plays').select('score, total_questions').eq('player_id', userId);
+    for (const p of userPlays ?? []) {
+      xp += 10;
+      if (p.total_questions > 0 && p.score / p.total_questions >= 0.7) xp += 5;
+      if (p.score === p.total_questions) xp += 15;
+    }
+
+    // Creating XP
+    const { data: userQuizzes } = await supabase
+      .from('quizzes')
+      .select('play_count')
+      .eq('creator_id', userId)
+      .eq('status', 'published');
+    const quizCount = (userQuizzes ?? []).length;
+    if (quizCount >= 1) {
+      xp += 75; // first quiz bonus
+      xp += Math.max(0, quizCount - 1) * 25;
+    }
+
+    // Plays received XP (capped at 500 per quiz)
+    for (const q of userQuizzes ?? []) {
+      xp += Math.min(q.play_count ?? 0, 500);
+    }
+
+    // Likes received XP
+    const { data: profile } = await supabase.from('profiles').select('total_likes_received').eq('id', userId).single();
+    xp += (profile?.total_likes_received ?? 0) * 2;
+
+    await supabase.from('profiles').update({ xp }).eq('id', userId);
+    console.log(`  ${username}: ${xp} XP`);
+  }
+
+  // ---- Step 8: Award badges ----
+  console.log('\n8. Awarding badges...');
+  for (const [username, userId] of userMap) {
+    const badges: string[] = [];
+
+    const { data: userPlays } = await supabase
+      .from('plays')
+      .select('score, total_questions, quiz_id')
+      .eq('player_id', userId);
+    const plays = userPlays ?? [];
+
+    const { data: userQuizzes } = await supabase
+      .from('quizzes')
+      .select('play_count, like_count, difficulty, group_id')
+      .eq('creator_id', userId)
+      .eq('status', 'published');
+    const quizzes = userQuizzes ?? [];
+
+    if (plays.length >= 1) badges.push('first_steps');
+    if (quizzes.length >= 1) badges.push('quiz_maker');
+    if (plays.some(p => p.score === p.total_questions)) badges.push('perfect_score');
+    if (quizzes.length >= 10) badges.push('prolific_creator');
+    if (quizzes.some(q => (q.play_count ?? 0) >= 1000)) badges.push('viral_hit');
+    if (plays.length >= 100) badges.push('dedicated_fan');
+
+    // multi_stan check
+    const groupIds = new Set<number>();
+    for (const p of plays.slice(0, 200)) { // limit to avoid too many queries
+      const { data: quiz } = await supabase.from('quizzes').select('group_id').eq('id', p.quiz_id).single();
+      if (quiz?.group_id) groupIds.add(quiz.group_id);
+    }
+    if (groupIds.size >= 10) badges.push('multi_stan');
+
+    // community_star
+    const totalLikesOnQuizzes = quizzes.reduce((s, q) => s + (q.like_count ?? 0), 0);
+    if (totalLikesOnQuizzes >= 100) badges.push('community_star');
+
+    // hard_mode
+    for (const p of plays) {
+      if (p.total_questions > 0 && p.score / p.total_questions >= 0.7) {
+        const { data: quiz } = await supabase.from('quizzes').select('difficulty').eq('id', p.quiz_id).single();
+        if (quiz?.difficulty === 'hard') {
+          badges.push('hard_mode');
+          break;
+        }
+      }
+    }
+
+    const uniqueBadges = [...new Set(badges)];
+    for (const badgeId of uniqueBadges) {
+      await supabase.from('user_badges').upsert({
+        user_id: userId,
+        badge_id: badgeId,
+        earned_at: daysAgo(randomBetween(1, 14)),
+      }, { onConflict: 'user_id,badge_id', ignoreDuplicates: true });
+    }
+    console.log(`  ${username}: ${uniqueBadges.join(', ') || '(none)'}`);
+  }
+
+  // ---- Step 9: Verification ----
+  console.log('\n9. Verification...');
+  const { count: totalQuizCount } = await supabase
+    .from('quizzes')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'published');
+  const { count: totalPlayCount } = await supabase
+    .from('plays')
+    .select('*', { count: 'exact', head: true });
+  const { count: totalLikeCount } = await supabase
+    .from('likes')
+    .select('*', { count: 'exact', head: true });
+
+  console.log(`  Total published quizzes: ${totalQuizCount}`);
+  console.log(`  Total plays: ${totalPlayCount}`);
+  console.log(`  Total likes: ${totalLikeCount}`);
+
+  // Show batch1 creators
+  console.log('\n  Batch1 creators:');
+  for (const [username] of userMap) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('username, xp, total_quizzes_created, total_plays_received, total_likes_received')
+      .eq('username', username)
+      .single();
+    if (profile) {
+      console.log(`    ${profile.username}: ${profile.total_quizzes_created} quizzes, ${profile.total_plays_received} plays, ${profile.total_likes_received} likes, ${profile.xp} XP`);
+    }
+  }
+
+  // Top batch1 quizzes
+  const batch1Ids = quizRecords.map(q => q.id);
+  const { data: topQuizzes } = await supabase
+    .from('quizzes')
+    .select('title, play_count, like_count, difficulty')
+    .in('id', batch1Ids)
+    .order('play_count', { ascending: false })
+    .limit(10);
+  console.log('\n  Top 10 batch1 quizzes:');
+  for (const q of topQuizzes ?? []) {
+    console.log(`    ${q.title}: ${q.play_count} plays, ${q.like_count} likes (${q.difficulty})`);
+  }
+
+  console.log('\nBatch1 import complete!');
+}
+
+main().catch(err => {
+  console.error('Fatal error:', err);
+  process.exit(1);
+});

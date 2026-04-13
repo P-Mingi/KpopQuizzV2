@@ -10,5 +10,9 @@
     "build:blindtest": "pnpm --filter blindtest build",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.100.1",
+    "tsx": "^4.21.0"
   }
 }
