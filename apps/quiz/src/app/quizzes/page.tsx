@@ -1,4 +1,4 @@
-import { getTrendingQuizzes } from '@/lib/db/queries/quizzes';
+import { getAllQuizzes } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { QuizFeed } from '@/components/home/quiz-feed';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
   const [initialQuizzes, groups] = await Promise.all([
-    safeFetch(getTrendingQuizzes(0, 48), [], '[browse] getTrendingQuizzes'),
+    safeFetch(getAllQuizzes(0, 48), [], '[browse] getAllQuizzes'),
     safeFetch(getAllGroups(), [], '[browse] getAllGroups'),
   ]);
 

@@ -122,6 +122,20 @@ export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
   } as QuizWithGroup;
 }
 
+export async function getAllQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published')
+    .order('play_count', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch all quizzes: ${error.message}`);
+  return (data as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
 export async function getTrendingQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = await createServerClient();
 

@@ -1,4 +1,4 @@
-import { getTrendingQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
+import { getAllQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage(): Promise<React.ReactElement> {
   const [initialQuizzes, qotd, groups, topCreators] = await Promise.all([
-    safeFetch(getTrendingQuizzes(0, 24), [], '[home] getTrendingQuizzes'),
+    safeFetch(getAllQuizzes(0, 24), [], '[home] getAllQuizzes'),
     safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay'),
     safeFetch(getAllGroups(), [], '[home] getAllGroups'),
     safeFetch(getTopCreatorsThisWeek(5), [], '[home] getTopCreatorsThisWeek'),

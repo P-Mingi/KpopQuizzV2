@@ -158,7 +158,7 @@ export function TypeFilterPills({
 // Sort tabs
 // ============================================
 
-export type SortKey = 'trending' | 'newest' | 'most_played' | 'top_rated';
+export type SortKey = 'all' | 'trending' | 'newest' | 'most_played' | 'top_rated';
 
 export interface SortOption {
   key: SortKey;
@@ -166,6 +166,7 @@ export interface SortOption {
 }
 
 const DEFAULT_SORTS: SortOption[] = [
+  { key: 'all', label: 'All' },
   { key: 'trending', label: 'Trending' },
   { key: 'newest', label: 'Newest' },
   { key: 'most_played', label: 'Most played' },

@@ -32,6 +32,8 @@ const HOMEPAGE_LIMIT = 24;
  */
 function sortKeyToApiTab(key: SortKey): string {
   switch (key) {
+    case 'all':
+      return 'all';
     case 'newest':
       return 'new';
     case 'most_played':
@@ -57,11 +59,11 @@ function computeAvgPct(quiz: QuizCardData): number {
  * client-side.
  */
 export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false }: Props): React.ReactElement {
-  const [sortKey, setSortKey] = useState<SortKey>('trending');
+  const [sortKey, setSortKey] = useState<SortKey>('all');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<QuizTypeKey | null>(null);
   const [quizzesBySort, setQuizzesBySort] = useState<Record<string, QuizCardData[]>>({
-    trending: initialQuizzes,
+    all: initialQuizzes,
   });
   const [loading, setLoading] = useState(false);
 
