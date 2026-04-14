@@ -338,3 +338,45 @@ export interface GameWithGroup extends Game {
   creator_avatar_bg: string;
   creator_avatar_text: string;
 }
+
+// ============================================================
+// This or That tournament game
+// ============================================================
+
+export type TotCategoryType = 'idol' | 'group' | 'song';
+
+export interface TotCategory {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  type: TotCategoryType;
+  pool_size: number;
+  play_count: number;
+  is_published: boolean;
+  created_at: string;
+}
+
+export interface TotItem {
+  id: string;
+  category_id: string;
+  name: string;
+  subtitle: string | null;
+  image_url: string | null;
+  color: string;
+  tags: string[];
+  pick_count: number;
+  appear_count: number;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface TotCategoryWithItems extends TotCategory {
+  items: TotItem[];
+}
+
+export interface TotBracketEntry {
+  winner_id: string;
+  loser_id: string;
+  round: number;
+}

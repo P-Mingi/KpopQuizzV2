@@ -7,7 +7,7 @@ import { GroupFilterPills } from '@/components/quiz/quiz-filters';
 import { formatCount } from '@/lib/utils';
 
 import type { GroupOption } from '@/components/quiz/quiz-filters';
-import type { GameCardData, NameAllMembersContent, NameAllMember } from '@/lib/db/types';
+import type { GameCardData, NameAllMembersContent, NameAllMember, TotCategory } from '@/lib/db/types';
 
 // ---------------------------------------------------------------------------
 // Props
@@ -15,6 +15,7 @@ import type { GameCardData, NameAllMembersContent, NameAllMember } from '@/lib/d
 
 interface GamesHubProps {
   initialGames: GameCardData[];
+  totCategories?: TotCategory[];
   groups: GroupOption[];
 }
 
@@ -159,7 +160,7 @@ function GameCard({ game }: { game: GameCardData }) {
 // Main component
 // ---------------------------------------------------------------------------
 
-export function GamesHub({ initialGames, groups }: GamesHubProps) {
+export function GamesHub({ initialGames, totCategories = [], groups }: GamesHubProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
 
@@ -233,6 +234,37 @@ export function GamesHub({ initialGames, groups }: GamesHubProps) {
           >
             Clear all filters
           </button>
+        </div>
+      )}
+
+      {/* This or That section */}
+      {totCategories.length > 0 && (
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-ghost)]">
+              This or that
+            </p>
+            <Link href="/games/this-or-that" className="text-[10px] font-medium text-[var(--accent)] hover:underline">
+              See all {totCategories.length}
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {totCategories.slice(0, 4).map((cat) => (
+              <Link key={cat.id} href={`/games/this-or-that/${cat.slug}`}>
+                <div className="rounded-[14px] border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden hover:border-[var(--accent)] hover:-translate-y-[2px] transition-all">
+                  <div className="h-[70px] flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F0EDE8 0%, #E8E5DF 100%)' }}>
+                    <div className="w-9 h-9 rounded-full bg-white/80 flex items-center justify-center">
+                      <span className="text-[10px] font-bold text-[var(--accent)]">VS</span>
+                    </div>
+                  </div>
+                  <div className="p-2.5 pb-3">
+                    <p className="text-xs font-medium text-[var(--text-primary)] leading-tight mb-1">{cat.title}</p>
+                    <p className="text-[10px] text-[var(--text-tertiary)]">{formatCount(cat.play_count)} plays</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

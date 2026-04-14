@@ -267,3 +267,91 @@ export function playFound(): void {
     o.stop(ctx.currentTime + i * 0.08 + 0.25);
   });
 }
+
+// ============================================
+// THIS OR THAT - PICK - rising pop (600->900Hz, 150ms)
+// ============================================
+
+/** Pick sound - rising pop (600->900Hz, 150ms) */
+export function playPick(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(600, ctx.currentTime);
+  o.frequency.linearRampToValueAtTime(900, ctx.currentTime + 0.08);
+  g.gain.setValueAtTime(0.1, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  o.connect(g);
+  g.connect(ctx.destination);
+  o.start();
+  o.stop(ctx.currentTime + 0.15);
+}
+
+// ============================================
+// THIS OR THAT - ELIMINATE - low buzz (180Hz sawtooth, 200ms)
+// ============================================
+
+/** Eliminate sound - low buzz (180Hz sawtooth, 200ms) */
+export function playEliminate(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = 'sawtooth';
+  o.frequency.value = 180;
+  g.gain.setValueAtTime(0.06, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  o.connect(g);
+  g.connect(ctx.destination);
+  o.start();
+  o.stop(ctx.currentTime + 0.2);
+}
+
+// ============================================
+// THIS OR THAT - NEXT MATCHUP - gentle rise (523->659Hz, 150ms)
+// ============================================
+
+/** Next matchup - gentle rise (523->659Hz, 150ms) */
+export function playNextMatchup(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(523, ctx.currentTime);
+  o.frequency.linearRampToValueAtTime(659, ctx.currentTime + 0.1);
+  g.gain.setValueAtTime(0.07, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  o.connect(g);
+  g.connect(ctx.destination);
+  o.start();
+  o.stop(ctx.currentTime + 0.15);
+}
+
+// ============================================
+// THIS OR THAT - VICTORY - 6-note celebration arpeggio
+// ============================================
+
+/** Victory - 6-note celebration arpeggio */
+export function playVictory(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  [523, 659, 784, 880, 1047, 1319].forEach((freq, i) => {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.1);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.4);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start(ctx.currentTime + i * 0.1);
+    o.stop(ctx.currentTime + i * 0.1 + 0.4);
+  });
+}

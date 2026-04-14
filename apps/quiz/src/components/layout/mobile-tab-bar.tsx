@@ -21,7 +21,7 @@ export function MobileTabBar() {
   const pathname = usePathname();
 
   // Hide during active quiz/game play so the answers get the full screen.
-  if (pathname.startsWith('/q/') || pathname.startsWith('/games/name-all/')) return null;
+  if (pathname.startsWith('/q/') || pathname.startsWith('/games/name-all/') || pathname.startsWith('/games/this-or-that/')) return null;
 
   return (
     <nav
