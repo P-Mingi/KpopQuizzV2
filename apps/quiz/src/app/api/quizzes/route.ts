@@ -9,7 +9,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const tab = searchParams.get('tab') ?? 'trending';
   const offset = parseInt(searchParams.get('offset') ?? '0', 10);
   const limitParam = parseInt(searchParams.get('limit') ?? '10', 10);
-  const limit = Math.min(Math.max(limitParam, 1), 50);
+  const limit = Math.min(Math.max(limitParam, 1), 100);
 
   try {
     let quizzes;

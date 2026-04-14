@@ -52,7 +52,7 @@ export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
         </p>
       </div>
 
-      <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForFilter} hideBrowseAllLink />
+      <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForFilter} hideBrowseAllLink showSearch />
     </div>
   );
 }
