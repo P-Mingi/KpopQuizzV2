@@ -1,59 +1,61 @@
 import { NextResponse } from 'next/server';
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 export async function GET(): Promise<NextResponse> {
+  const results: Record<string, unknown> = {
+    env: {
+      hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      hasServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      urlPrefix: process.env.NEXT_PUBLIC_SUPABASE_URL?.slice(0, 30),
+    },
+  };
+
+  // Test 1: Cookie-based client (createServerClient)
+  try {
+    const supabase = await createServerClient();
+    const { data, error } = await supabase
+      .from('games')
+      .select('id, title, game_type, status')
+      .eq('game_type', 'name_all_members')
+      .eq('status', 'published')
+      .limit(3);
+
+    results.cookieClient = error
+      ? { error: error.message, code: error.code, details: error.details }
+      : { count: data?.length, titles: data?.map(g => g.title) };
+  } catch (err) {
+    results.cookieClient = { thrown: String(err) };
+  }
+
+  // Test 2: Service role client
   try {
     const supabase = createServiceRoleClient();
-
-    // Test 1: Simple count
-    const { count, error: countError } = await supabase
+    const { data, error } = await supabase
       .from('games')
-      .select('*', { count: 'exact', head: true })
-      .eq('game_type', 'name_all_members')
-      .eq('status', 'published');
-
-    if (countError) {
-      return NextResponse.json({ step: 'count', error: countError.message, details: countError });
-    }
-
-    // Test 2: Simple select without joins
-    const { data: simple, error: simpleError } = await supabase
-      .from('games')
-      .select('id, title, slug, game_type, status, play_count')
+      .select('id, title, game_type, status')
       .eq('game_type', 'name_all_members')
       .eq('status', 'published')
       .limit(3);
 
-    if (simpleError) {
-      return NextResponse.json({ step: 'simple', error: simpleError.message, details: simpleError });
-    }
-
-    // Test 3: Full select with joins
-    const { data: full, error: fullError } = await supabase
-      .from('games')
-      .select(`
-        id, title, slug, game_type, content, matchup_count,
-        status, play_count, like_count, created_at,
-        groups (name, slug, display_color, text_color, logo_url, fandom_name),
-        profiles!games_creator_id_fkey (username, avatar_url, avatar_bg, avatar_text)
-      `)
-      .eq('game_type', 'name_all_members')
-      .eq('status', 'published')
-      .limit(3);
-
-    if (fullError) {
-      return NextResponse.json({ step: 'full_join', error: fullError.message, details: fullError });
-    }
-
-    return NextResponse.json({
-      ok: true,
-      count,
-      simple_titles: simple?.map(g => g.title),
-      full_titles: full?.map(g => g.title),
-      full_first_group: full?.[0] ? (full[0] as Record<string, unknown>).groups : null,
-      full_first_profile: full?.[0] ? (full[0] as Record<string, unknown>).profiles : null,
-    });
+    results.serviceClient = error
+      ? { error: error.message, code: error.code, details: error.details }
+      : { count: data?.length, titles: data?.map(g => g.title) };
   } catch (err) {
-    return NextResponse.json({ step: 'catch', error: String(err) }, { status: 500 });
+    results.serviceClient = { thrown: String(err) };
   }
+
+  // Test 3: All games regardless of type
+  try {
+    const supabase = await createServerClient();
+    const { count, error } = await supabase
+      .from('games')
+      .select('*', { count: 'exact', head: true });
+
+    results.totalGames = error ? { error: error.message } : { count };
+  } catch (err) {
+    results.totalGames = { thrown: String(err) };
+  }
+
+  return NextResponse.json(results);
 }
