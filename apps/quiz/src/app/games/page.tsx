@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/games' },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function GamesPage(): Promise<React.ReactElement> {
   const [games, groups] = await Promise.all([
