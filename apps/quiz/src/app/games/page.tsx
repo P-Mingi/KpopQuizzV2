@@ -1,4 +1,4 @@
-import { getAllGamesForHub } from '@/lib/db/queries/games';
+import { getNameAllGames } from '@/lib/db/queries/games';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
@@ -8,7 +8,7 @@ import type { GroupOption } from '@/components/quiz/quiz-filters';
 
 export const metadata: Metadata = {
   title: 'K-pop Games - Name All Members & More | KpopQuiz',
-  description: 'Play free K-pop games: name all members, blind tests, and more. Challenge your knowledge of BTS, BLACKPINK, Stray Kids, aespa and 30+ groups.',
+  description: 'Play free K-pop games: name all members of BTS, BLACKPINK, SEVENTEEN and 20+ groups. Blind mode and photo clue mode.',
   alternates: { canonical: '/games' },
 };
 
@@ -16,9 +16,11 @@ export const dynamic = 'force-dynamic';
 
 export default async function GamesPage(): Promise<React.ReactElement> {
   const [games, groups] = await Promise.all([
-    safeFetch(getAllGamesForHub(0, 50), [], '[games] getAllGamesForHub'),
+    safeFetch(getNameAllGames(0, 50), [], '[games] getNameAllGames'),
     safeFetch(getAllGroups(), [], '[games] getAllGroups'),
   ]);
+
+  console.log('[games page] fetched', games.length, 'name-all games');
 
   const groupsForFilter: GroupOption[] = groups
     .filter((g) => g.quiz_count > 0)
