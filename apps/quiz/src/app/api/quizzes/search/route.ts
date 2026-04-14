@@ -91,7 +91,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         display_color: r.groups.display_color,
         text_color: r.groups.text_color,
         fandom_name: r.groups.fandom_name,
-        group_logo_url: r.groups.logo_url,
+        logo_url: r.groups.logo_url,
         creator_username: r.profiles.username,
         creator_avatar_url: r.profiles.avatar_url,
         creator_avatar_bg: r.profiles.avatar_bg,

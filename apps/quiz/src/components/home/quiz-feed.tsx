@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { QuizListCard } from '@/components/quiz/quiz-list-card';
@@ -13,7 +13,7 @@ import {
   type GroupOption,
 } from '@/components/quiz/quiz-filters';
 import { Spinner } from '@/components/ui/spinner';
-import { mapDbTypeToKey, type QuizTypeKey } from '@/components/ui/quiz-type-badge';
+import { type QuizTypeKey } from '@/components/ui/quiz-type-badge';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -28,48 +28,48 @@ interface Props {
 
 const PAGE_SIZE = 48;
 
-/**
- * Maps our sort-tab keys to the existing /api/quizzes `tab` values.
- * Top rated is computed client-side by sorting the trending feed by avg %.
- */
+/** Maps sort-tab keys to API tab values. */
 function sortKeyToApiTab(key: SortKey): string {
   switch (key) {
-    case 'all':
-      return 'all';
-    case 'newest':
-      return 'new';
-    case 'most_played':
-      return 'most_liked';
-    case 'top_rated':
-      return 'trending';
+    case 'all': return 'all';
+    case 'newest': return 'new';
+    case 'most_played': return 'most_liked';
+    case 'top_rated': return 'top_rated';
     case 'trending':
-    default:
-      return 'trending';
+    default: return 'trending';
   }
 }
 
-function computeAvgPct(quiz: QuizCardData): number {
-  if (quiz.total_completions > 0 && quiz.question_count > 0) {
-    return (quiz.total_score_sum / quiz.total_completions / quiz.question_count) * 100;
+/** Maps QuizTypeKey to DB quiz_type. */
+function typeKeyToDbType(key: QuizTypeKey): string {
+  switch (key) {
+    case 'classic': return 'multiple_choice';
+    case 'image': return 'image';
+    case 'intruder': return 'intruder';
+    case 'tf': return 'true_false';
+    case 'clue': return 'guess_from_clues';
   }
-  return 0;
 }
 
-/**
- * Home-page quiz feed. Owns the group filter / type filter / sort tab state,
- * fetches the sort tab's full set from the API, and filters group + type
- * client-side.
- */
+/** Build a cache key for a particular filter combination. */
+function cacheKey(tab: string, groupId: number | null, typeKey: QuizTypeKey | null): string {
+  return `${tab}:${groupId ?? ''}:${typeKey ?? ''}`;
+}
+
 export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, showSearch = false }: Props): React.ReactElement {
   const [sortKey, setSortKey] = useState<SortKey>('all');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<QuizTypeKey | null>(null);
-  const [quizzesBySort, setQuizzesBySort] = useState<Record<string, QuizCardData[]>>({
-    all: initialQuizzes,
+
+  // Cache: key -> quizzes
+  const initialCK = cacheKey('all', null, null);
+  const [cache, setCache] = useState<Record<string, QuizCardData[]>>({
+    [initialCK]: initialQuizzes,
   });
-  const [hasMoreBySort, setHasMoreBySort] = useState<Record<string, boolean>>({
-    all: initialQuizzes.length >= PAGE_SIZE,
+  const [hasMore, setHasMore] = useState<Record<string, boolean>>({
+    [initialCK]: initialQuizzes.length >= PAGE_SIZE,
   });
+
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
 
@@ -101,72 +101,64 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
     }, 250);
   }, []);
 
-  const fetchSortTab = useCallback(async (key: SortKey) => {
-    // top_rated reuses the trending dataset (sorted client-side later).
-    const apiTab = sortKeyToApiTab(key);
-    if (quizzesBySort[apiTab]) return;
+  /** Build URL params for current filters. */
+  const buildUrl = useCallback((offset: number) => {
+    const apiTab = sortKeyToApiTab(sortKey);
+    const params = new URLSearchParams({
+      tab: apiTab,
+      offset: String(offset),
+      limit: String(PAGE_SIZE),
+    });
+    if (selectedGroupId !== null) params.set('group_id', String(selectedGroupId));
+    if (selectedType !== null) params.set('quiz_type', typeKeyToDbType(selectedType));
+    return `/api/quizzes?${params.toString()}`;
+  }, [sortKey, selectedGroupId, selectedType]);
+
+  const currentCK = cacheKey(sortKeyToApiTab(sortKey), selectedGroupId, selectedType);
+
+  // Fetch when filters change and we don't have cached data.
+  useEffect(() => {
+    if (cache[currentCK] !== undefined) return;
+    let cancelled = false;
     setLoading(true);
-    try {
-      const res = await fetch(`/api/quizzes?tab=${apiTab}&offset=0&limit=${PAGE_SIZE}`);
-      if (!res.ok) throw new Error('Failed to load quizzes');
-      const data: { quizzes: QuizCardData[] } = await res.json();
-      setQuizzesBySort((prev) => ({ ...prev, [apiTab]: data.quizzes }));
-      setHasMoreBySort((prev) => ({ ...prev, [apiTab]: data.quizzes.length >= PAGE_SIZE }));
-    } catch (err) {
-      console.error('Failed to load quizzes:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [quizzesBySort]);
+    (async () => {
+      try {
+        const res = await fetch(buildUrl(0));
+        if (!res.ok) throw new Error('Failed to load quizzes');
+        const data: { quizzes: QuizCardData[] } = await res.json();
+        if (cancelled) return;
+        setCache((prev) => ({ ...prev, [currentCK]: data.quizzes }));
+        setHasMore((prev) => ({ ...prev, [currentCK]: data.quizzes.length >= PAGE_SIZE }));
+      } catch (err) {
+        console.error('Failed to load quizzes:', err);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [currentCK, buildUrl, cache]);
 
   const loadMore = useCallback(async () => {
-    const apiTab = sortKeyToApiTab(sortKey);
-    const current = quizzesBySort[apiTab] ?? [];
+    const current = cache[currentCK] ?? [];
     setLoadingMore(true);
     try {
-      const res = await fetch(`/api/quizzes?tab=${apiTab}&offset=${current.length}&limit=${PAGE_SIZE}`);
+      const res = await fetch(buildUrl(current.length));
       if (!res.ok) throw new Error('Failed to load more');
       const data: { quizzes: QuizCardData[] } = await res.json();
-      // Deduplicate by id
       const existingIds = new Set(current.map((q) => q.id));
       const newQuizzes = data.quizzes.filter((q) => !existingIds.has(q.id));
-      setQuizzesBySort((prev) => ({ ...prev, [apiTab]: [...current, ...newQuizzes] }));
-      setHasMoreBySort((prev) => ({ ...prev, [apiTab]: data.quizzes.length >= PAGE_SIZE }));
+      setCache((prev) => ({ ...prev, [currentCK]: [...current, ...newQuizzes] }));
+      setHasMore((prev) => ({ ...prev, [currentCK]: data.quizzes.length >= PAGE_SIZE }));
     } catch (err) {
       console.error('Failed to load more quizzes:', err);
     } finally {
       setLoadingMore(false);
     }
-  }, [sortKey, quizzesBySort]);
-
-  useEffect(() => {
-    void fetchSortTab(sortKey);
-  }, [sortKey, fetchSortTab]);
+  }, [currentCK, buildUrl, cache]);
 
   const isSearchActive = showSearch && searchQuery.trim().length >= 2;
-  const apiTab = sortKeyToApiTab(sortKey);
-  const hasMore = !isSearchActive && (hasMoreBySort[apiTab] ?? false);
-  const baseQuizzes = isSearchActive ? (searchResults ?? []) : (quizzesBySort[apiTab] ?? []);
-
-  // Apply client-side filters + top-rated reorder.
-  const visibleQuizzes = useMemo(() => {
-    let list = [...baseQuizzes];
-    if (!isSearchActive) {
-      if (selectedGroupId !== null) {
-        list = list.filter((q) => {
-          const match = groups.find((g) => g.id === selectedGroupId);
-          return match ? q.group_slug === match.slug : true;
-        });
-      }
-      if (selectedType !== null) {
-        list = list.filter((q) => mapDbTypeToKey(q.quiz_type) === selectedType);
-      }
-      if (sortKey === 'top_rated') {
-        list.sort((a, b) => computeAvgPct(b) - computeAvgPct(a));
-      }
-    }
-    return list;
-  }, [baseQuizzes, selectedGroupId, selectedType, groups, sortKey, isSearchActive]);
+  const quizzes = isSearchActive ? (searchResults ?? []) : (cache[currentCK] ?? []);
+  const canLoadMore = !isSearchActive && (hasMore[currentCK] ?? false);
 
   return (
     <div className="flex flex-col gap-4">
@@ -259,11 +251,11 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
       )}
 
       {/* Quiz list */}
-      {(loading || searchLoading) && baseQuizzes.length === 0 ? (
+      {(loading || searchLoading) && quizzes.length === 0 ? (
         <div className="flex justify-center py-8">
           <Spinner />
         </div>
-      ) : visibleQuizzes.length === 0 ? (
+      ) : quizzes.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-sm text-tertiary">
             {isSearchActive ? `No quizzes found for "${searchQuery.trim()}"` : 'No quizzes match these filters.'}
@@ -284,15 +276,15 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {visibleQuizzes.slice(0, 8).map((quiz) => (
+            {quizzes.slice(0, 8).map((quiz) => (
               <QuizListCard key={quiz.id} quiz={quiz} />
             ))}
           </div>
-          {visibleQuizzes.length > 8 && (
+          {quizzes.length > 8 && (
             <>
               {!isSearchActive && <CreateCTA />}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {visibleQuizzes.slice(8).map((quiz) => (
+                {quizzes.slice(8).map((quiz) => (
                   <QuizListCard key={quiz.id} quiz={quiz} />
                 ))}
               </div>
@@ -302,7 +294,7 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
       )}
 
       {/* Load more button */}
-      {hasMore && !isSearchActive && visibleQuizzes.length > 0 && (
+      {canLoadMore && quizzes.length > 0 && (
         <div className="text-center pt-2">
           <button
             type="button"
@@ -322,7 +314,7 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
         </div>
       )}
 
-      {visibleQuizzes.length > 0 && !hideBrowseAllLink && (
+      {quizzes.length > 0 && !hideBrowseAllLink && (
         <div className="text-center pt-2">
           <Link
             href="/quizzes"
