@@ -4,24 +4,49 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const TABS = [
-  { href: '/', label: 'Play', icon: 'play' },
-  { href: '/create', label: 'Create', icon: 'create' },
-  { href: '/games', label: 'Games', icon: 'games' },
-  { href: '/hall-of-fame', label: 'Ranks', icon: 'chart' },
-  { href: '/profile', label: 'Profile', icon: 'user' },
+  {
+    label: 'Quizzes',
+    href: '/',
+    match: ['/q/', '/quizzes', '/trending', '/new', '/most-liked'],
+  },
+  {
+    label: 'Games',
+    href: '/games',
+    match: ['/games'],
+  },
+  {
+    label: 'Create',
+    href: '/create',
+    match: ['/create'],
+  },
+  {
+    label: 'Ranks',
+    href: '/hall-of-fame',
+    match: ['/hall-of-fame'],
+  },
+  {
+    label: 'Profile',
+    href: '/profile',
+    match: ['/profile', '/u/'],
+  },
 ] as const;
 
-type TabIcon = (typeof TABS)[number]['icon'];
-
 /**
- * Fixed bottom tab bar. Mobile only. Hidden on quiz play routes for full
- * immersion.
+ * Fixed bottom tab bar. Mobile only.
+ * Hidden on fullscreen game/quiz pages for immersion.
  */
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Hide during active quiz/game play so the answers get the full screen.
-  if (pathname.startsWith('/q/') || pathname.startsWith('/games/name-all/') || pathname.startsWith('/games/this-or-that/')) return null;
+  // Hide during active quiz/game play
+  if (pathname.startsWith('/q/')) return null;
+  if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
+  if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
+
+  function isActive(tab: typeof TABS[number]) {
+    if (tab.href === '/' && pathname === '/') return true;
+    return tab.match.some(m => pathname.startsWith(m));
+  }
 
   return (
     <nav
@@ -31,17 +56,16 @@ export function MobileTabBar() {
       <div className="max-w-[960px] mx-auto">
         <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {TABS.map((tab) => {
-            const isActive =
-              tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
+            const active = isActive(tab);
             return (
               <Link
                 key={tab.href}
                 href={tab.href}
                 className={`flex-1 flex flex-col items-center gap-[3px] pt-1 text-[9px] font-medium ${
-                  isActive ? 'text-accent' : 'text-tertiary'
+                  active ? 'text-accent' : 'text-tertiary'
                 }`}
               >
-                <TabIconSvg name={tab.icon} active={isActive} />
+                <TabIcon name={tab.label} active={active} />
                 {tab.label}
               </Link>
             );
@@ -52,42 +76,45 @@ export function MobileTabBar() {
   );
 }
 
-function TabIconSvg({ name, active }: { name: TabIcon; active: boolean }) {
+function TabIcon({ name, active }: { name: string; active: boolean }) {
   const color = active ? 'var(--accent)' : 'var(--text-tertiary)';
   const size = 18;
+
   switch (name) {
-    case 'play':
+    case 'Quizzes':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M6 4L16 10L6 16V4Z" fill={color} />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+          <circle cx="10" cy="10" r="7.5" />
+          <path d="M8 8c0-1.1.9-2 2-2s2 .9 2 2c0 .7-.4 1.3-1 1.6-.4.2-.5.4-.5.5V11" />
+          <circle cx="10.5" cy="13" r="0.6" fill={color} />
         </svg>
       );
-    case 'create':
+    case 'Games':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M10 3V17M3 10H17" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="6" height="6" rx="1.5" />
+          <rect x="11.5" y="2.5" width="6" height="6" rx="1.5" />
+          <rect x="2.5" y="11.5" width="6" height="6" rx="1.5" />
+          <rect x="11.5" y="11.5" width="6" height="6" rx="1.5" />
         </svg>
       );
-    case 'chart':
+    case 'Create':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M5 15V8M10 15V5M15 15V10" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+          <path d="M10 3V17M3 10H17" />
         </svg>
       );
-    case 'games':
+    case 'Ranks':
       return (
-        <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden="true">
-          <rect x="2" y="2" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <rect x="10.5" y="2" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <rect x="2" y="10.5" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M10 2.5l2.5 5 5.5 1-4 3.5 1 5.5L10 14.5l-5 3 1-5.5-4-3.5 5.5-1z" />
         </svg>
       );
-    case 'user':
+    case 'Profile':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <circle cx="10" cy="7" r="3.5" stroke={color} strokeWidth="1.5" />
-          <path d="M4 17C4 14 6.5 12 10 12C13.5 12 16 14 16 17" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+          <circle cx="10" cy="7" r="3.5" />
+          <path d="M4 17C4 14 6.5 12 10 12C13.5 12 16 14 16 17" />
         </svg>
       );
     default:
