@@ -164,3 +164,48 @@ export async function getAdminBlindTests(): Promise<GameCardData[]> {
   if (error) throw new Error(`Failed to fetch blind tests: ${error.message}`);
   return (data as unknown as GameRow[]).map(toGameCardData);
 }
+
+export async function getNameAllGames(offset: number, limit: number): Promise<GameCardData[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from('games')
+    .select(GAME_SELECT)
+    .eq('game_type', 'name_all_members')
+    .eq('status', 'published')
+    .order('play_count', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch name all members games: ${error.message}`);
+  return (data as unknown as GameRow[]).map(toGameCardData);
+}
+
+export async function getNameAllGameBySlug(slug: string): Promise<GameWithGroup | null> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from('games')
+    .select(GAME_SELECT)
+    .eq('slug', slug)
+    .eq('game_type', 'name_all_members')
+    .eq('status', 'published')
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') return null;
+    throw new Error(`Failed to fetch name all members game: ${error.message}`);
+  }
+
+  return toGameWithGroup(data as unknown as GameRow);
+}
+
+export async function getAllGamesForHub(offset: number, limit: number): Promise<GameCardData[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from('games')
+    .select(GAME_SELECT)
+    .eq('status', 'published')
+    .order('play_count', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) throw new Error(`Failed to fetch games: ${error.message}`);
+  return (data as unknown as GameRow[]).map(toGameCardData);
+}

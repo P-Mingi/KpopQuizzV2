@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const TABS = [
   { href: '/', label: 'Play', icon: 'play' },
   { href: '/create', label: 'Create', icon: 'create' },
+  { href: '/games', label: 'Games', icon: 'games' },
   { href: '/hall-of-fame', label: 'Ranks', icon: 'chart' },
   { href: '/profile', label: 'Profile', icon: 'user' },
 ] as const;
@@ -19,8 +20,8 @@ type TabIcon = (typeof TABS)[number]['icon'];
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Hide during active quiz play so the answers get the full screen.
-  if (pathname.startsWith('/q/')) return null;
+  // Hide during active quiz/game play so the answers get the full screen.
+  if (pathname.startsWith('/q/') || pathname.startsWith('/games/name-all/')) return null;
 
   return (
     <nav
@@ -71,6 +72,15 @@ function TabIconSvg({ name, active }: { name: TabIcon; active: boolean }) {
       return (
         <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <path d="M5 15V8M10 15V5M15 15V10" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      );
+    case 'games':
+      return (
+        <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="10.5" y="2" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="2" y="10.5" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
     case 'user':

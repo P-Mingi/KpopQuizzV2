@@ -244,3 +244,26 @@ export function playShare(): void {
     o.stop(ctx.currentTime + i * 0.06 + 0.2);
   });
 }
+
+// ============================================
+// FOUND MEMBER - rising 3-note chime, 80ms apart
+// ============================================
+
+/** Quick rising 3-note chime for finding a member. */
+export function playFound(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  [659, 784, 1047].forEach((freq, i) => {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.25);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start(ctx.currentTime + i * 0.08);
+    o.stop(ctx.currentTime + i * 0.08 + 0.25);
+  });
+}

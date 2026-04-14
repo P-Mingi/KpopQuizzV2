@@ -57,6 +57,10 @@ export async function POST(
     return recordBlindTestPlay(supabase, game, playerId, body);
   }
 
+  if (game.game_type === 'name_all_members') {
+    return recordNameAllPlay(supabase, game, playerId, body);
+  }
+
   return NextResponse.json({ error: 'Unsupported game type' }, { status: 400 });
 }
 
@@ -149,6 +153,73 @@ async function recordBlindTestPlay(
     content: updatedContent,
     play_count: game.play_count + 1,
     score,
+    already_played: false,
+  });
+}
+
+async function recordNameAllPlay(
+  supabase: Awaited<ReturnType<typeof createServerClient>>,
+  game: { id: string; content: unknown; play_count: number; creator_id: string },
+  playerId: string | null,
+  body: Record<string, unknown>,
+): Promise<NextResponse> {
+  const choices = body.choices as {
+    score: number;
+    total: number;
+    time_taken: number;
+    mode: string;
+    found_members: string[];
+  };
+
+  if (!choices || typeof choices.score !== 'number' || typeof choices.total !== 'number') {
+    return NextResponse.json({ error: 'Invalid choices data' }, { status: 400 });
+  }
+
+  // Increment play count
+  const { error: updateError } = await supabase
+    .from('games')
+    .update({
+      play_count: game.play_count + 1,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', game.id);
+
+  if (updateError) {
+    console.error('Failed to update game play count:', updateError);
+    return NextResponse.json({ error: 'Failed to record play' }, { status: 500 });
+  }
+
+  // Record the play
+  await supabase.from('game_plays').insert({
+    game_id: game.id,
+    player_id: playerId,
+    choices,
+  });
+
+  // Award XP: 15 per correct answer
+  if (playerId) {
+    const xpAmount = Math.min(choices.score * 15, 200);
+    if (xpAmount > 0) {
+      await supabase.rpc('award_xp', {
+        p_user_id: playerId,
+        p_amount: xpAmount,
+        p_reason: 'game_play',
+      });
+    }
+  }
+
+  // Award creator XP
+  if (game.creator_id && game.creator_id !== playerId && game.play_count < 500) {
+    await supabase.rpc('award_xp', {
+      p_user_id: game.creator_id,
+      p_amount: 1,
+      p_reason: 'play_received',
+    });
+  }
+
+  return NextResponse.json({
+    play_count: game.play_count + 1,
+    score: choices.score,
     already_played: false,
   });
 }

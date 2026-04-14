@@ -80,6 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/blind-test`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
   ];
@@ -96,11 +97,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let groupPages: MetadataRoute.Sitemap = [];
   let profilePages: MetadataRoute.Sitemap = [];
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
+  let gamePages: MetadataRoute.Sitemap = [];
 
   try {
     const supabase = createServiceRoleClient();
 
-    const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult] = await Promise.all([
+    const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult, gamesResult] = await Promise.all([
       supabase
         .from('quizzes')
         .select('slug, updated_at, group_id, questions')
@@ -122,6 +124,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .eq('status', 'active')
         .not('clip_chorus', 'is', null)
         .limit(BT_SONG_LIMIT),
+      supabase
+        .from('games')
+        .select('slug, game_type, updated_at')
+        .eq('status', 'published')
+        .eq('game_type', 'name_all_members')
+        .limit(500),
     ]);
 
     // Dynamic group blind test pages (deduplicated)
@@ -185,6 +193,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.4,
     }));
+
+    gamePages = (gamesResult.data ?? []).map((g) => ({
+      url: `${SITE_URL}/games/name-all/${g.slug}`,
+      lastModified: new Date(g.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
   } catch (err) {
     // Don't 500 the sitemap - log and return whatever we have.
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
@@ -197,5 +212,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...groupPages,
     ...quizPages,
     ...profilePages,
+    ...gamePages,
   ];
 }

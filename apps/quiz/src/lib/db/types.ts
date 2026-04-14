@@ -229,7 +229,7 @@ export interface RecordPlayResult {
 // Game types (This or That, Blind Test, etc.)
 // ============================================
 
-export type GameType = 'this_or_that' | 'blind_test';
+export type GameType = 'this_or_that' | 'blind_test' | 'name_all_members';
 export type GameStatus = 'draft' | 'published' | 'flagged' | 'removed';
 
 export interface Matchup {
@@ -271,7 +271,22 @@ export interface BlindTestContent {
   songs: BlindTestSong[];
 }
 
-export type GameContent = ThisOrThatContent | BlindTestContent;
+// Name All Members
+export interface NameAllMember {
+  name: string;
+  aliases: string[];
+  photo_url: string | null;
+  position: string;
+  color: string;
+}
+
+export interface NameAllMembersContent {
+  members: NameAllMember[];
+  timer_seconds: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+}
+
+export type GameContent = ThisOrThatContent | BlindTestContent | NameAllMembersContent;
 
 export interface Game {
   id: string;
