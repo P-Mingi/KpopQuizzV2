@@ -22,6 +22,11 @@ export default async function GamesPage(): Promise<React.ReactElement> {
 
   console.log('[games page] fetched', games.length, 'name-all games');
 
+  // Debug: if no games found, try a direct fallback query
+  if (games.length === 0) {
+    console.error('[games page] WARNING: 0 games returned, this likely means the query failed silently');
+  }
+
   const groupsForFilter: GroupOption[] = groups
     .filter((g) => g.quiz_count > 0)
     .slice(0, 30)
