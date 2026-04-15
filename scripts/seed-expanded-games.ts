@@ -776,18 +776,24 @@ async function main() {
     if (game.album) content.album = game.album;
     if (game.artist) content.artist = game.artist;
 
-    const { error } = await supabase.from('games').insert({
+    const insertData: Record<string, unknown> = {
       creator_id: creatorId,
       group_id: groupId,
       title: game.title,
       slug: game.slug,
       game_type: game.game_type,
-      sub_type: game.sub_type,
       content,
       matchup_count: game.items.length,
       status: 'published',
       play_count: Math.floor(Math.random() * 81) + 20,
-    });
+    };
+
+    // Try with sub_type first, fall back without it if column doesn't exist
+    let { error } = await supabase.from('games').insert({ ...insertData, sub_type: game.sub_type });
+    if (error?.message?.includes('sub_type')) {
+      console.log('  (sub_type column not found, inserting without it)');
+      ({ error } = await supabase.from('games').insert(insertData));
+    }
 
     if (error) {
       console.error(`  Failed "${game.title}": ${error.message}`);

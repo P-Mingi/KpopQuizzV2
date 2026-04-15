@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createBrowserClient } from '@kpopquiz/shared/supabase/client';
 
 interface PartyPlayer {

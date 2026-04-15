@@ -73,7 +73,6 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
       const answers = (p as unknown as { answers: unknown[] }).answers;
       return sum + (Array.isArray(answers) ? answers.length : 0);
     }, 0);
-    const expectedPerRound = players.length * (currentIndex + 1);
     setAnsweredCount(Math.min(total - players.length * currentIndex, players.length));
   }, [players, currentIndex]);
 
