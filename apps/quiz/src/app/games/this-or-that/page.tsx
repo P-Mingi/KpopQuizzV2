@@ -1,4 +1,4 @@
-import { createServiceRoleClient } from '@/lib/db/supabase-server';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { TotCategoryPicker } from '@/components/game/tot-category-picker';
 import type { Metadata } from 'next';
 

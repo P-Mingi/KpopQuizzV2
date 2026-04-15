@@ -75,9 +75,11 @@ const MODES = [
     iconStroke: '#854F0B',
     icon: (
       <>
-        <circle cx="7" cy="7" r="3.5" />
-        <circle cx="13" cy="7" r="3.5" />
-        <circle cx="10" cy="13" r="3.5" />
+        <circle cx="7" cy="6" r="2.5" />
+        <path d="M2.5 15c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" strokeLinecap="round" />
+        <circle cx="14" cy="7" r="2" />
+        <path d="M17 15c0-2 1.2-3 3-3" strokeLinecap="round" />
+        <path d="M11 15c0-1.5 1-2.5 3-3" strokeLinecap="round" />
       </>
     ),
   },
@@ -128,15 +130,15 @@ export function ModeSelect() {
           >
             {/* Icon */}
             <div
-              className={`w-11 h-11 md:absolute md:top-3.5 md:right-3.5 md:w-11 md:h-11 rounded-xl flex items-center justify-center flex-shrink-0 md:opacity-25 ${mode.badgeClass.split(' ')[0]}`}
+              className={`w-11 h-11 md:absolute md:top-3.5 md:right-3.5 md:w-12 md:h-12 rounded-xl flex items-center justify-center flex-shrink-0 md:opacity-50 ${mode.badgeClass.split(' ')[0]}`}
             >
               <svg
-                width="20"
-                height="20"
+                width="22"
+                height="22"
                 viewBox="0 0 20 20"
                 fill="none"
                 stroke={mode.iconStroke}
-                strokeWidth="1.5"
+                strokeWidth="1.4"
               >
                 {mode.icon}
               </svg>

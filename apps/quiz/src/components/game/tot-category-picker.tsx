@@ -121,7 +121,7 @@ function CategoryCard({ category }: { category: TotCategoryWithItems }) {
   const items = category.tot_items ?? [];
   const left = items[0];
   const right = items[1] ?? items[Math.min(1, items.length - 1)];
-  const typeInfo = TYPE_COLORS[category.type] ?? TYPE_COLORS.idol;
+  const typeInfo = (TYPE_COLORS[category.type] ?? TYPE_COLORS.idol)!;
   const typeLabel = category.type === 'idol' ? 'Idols' : category.type === 'group' ? 'Groups' : 'Songs';
 
   return (
