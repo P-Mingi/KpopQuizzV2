@@ -26,7 +26,7 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
 
   const [phase, setPhase] = useState<Phase>('waiting');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [timerKey, setTimerKey] = useState(0);
+  const [_timerKey, setTimerKey] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const revealTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);

@@ -1,6 +1,4 @@
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
-import { getLevelFromXP } from '@/lib/progression';
-import { getRank, getNextRank } from '@/lib/ranks';
 import { PlayButton } from '@/components/lobby/play-button';
 import { LobbyDaily } from '@/components/lobby/lobby-daily';
 import { StatsRow } from '@/components/lobby/stats-row';
@@ -59,7 +57,6 @@ export default async function HomePage() {
   ]);
 
   const totalXp = player?.total_xp ?? 0;
-  const rank = getRank(totalXp);
   const username = player?.display_name?.replace(/#\d+$/, '') ?? null;
 
   return (

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { formatCount } from '@/lib/utils';
 
-import type { GameCardData, NameAllMembersContent, NameAllMember } from '@/lib/db/types';
+import type { GameCardData, NameAllMember } from '@/lib/db/types';
 
 // ---------------------------------------------------------------------------
 // Props
@@ -305,11 +305,21 @@ function MemberAvatarStack({ members }: { members: NameAllMember[] }) {
 }
 
 function NameAllCard({ game }: { game: GameCardData }) {
-  const content = game.content as NameAllMembersContent;
-  const members = content?.members ?? [];
-  const difficulty = content?.difficulty ?? null;
-  const timer = content?.timer_seconds ?? null;
+  const rawContent = game.content as unknown as Record<string, unknown>;
+  // Normalize: old 'members' array or new 'items' array
+  const members: NameAllMember[] = (rawContent.members as NameAllMember[]) ??
+    ((rawContent.items as Array<{ name: string; color?: string }>)?.map((item, i) => ({
+      name: item.name,
+      aliases: [],
+      photo_url: null,
+      position: '',
+      color: item.color ?? ['#D4537E', '#7F77DD', '#0F6E56', '#BA7517', '#378ADD'][i % 5],
+    }))) ?? [];
+  const difficulty = (rawContent.difficulty as string) ?? null;
+  const timer = (rawContent.timer_seconds as number) ?? null;
   const diffColors = difficulty ? DIFFICULTY_COLORS[difficulty] : null;
+  const isSongGame = game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs';
+  const itemLabel = isSongGame ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members';
 
   return (
     <Link href={`/games/name-all/${game.slug}`}>
@@ -319,7 +329,20 @@ function NameAllCard({ game }: { game: GameCardData }) {
           className="h-[90px] relative flex items-center justify-center"
           style={{ background: getBannerBg(game) }}
         >
-          {members.length > 0 && <MemberAvatarStack members={members} />}
+          {isSongGame ? (
+            <div className="flex gap-1">
+              {[0, 1].map(i => (
+                <div key={i} className="w-7 h-7 rounded-md flex items-center justify-center border-2 border-white"
+                  style={{ background: members[i]?.color || '#3a2a4a' }}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round">
+                    <path d="M3 9h2l2-3 2 5 1.5-3H12" />
+                  </svg>
+                </div>
+              ))}
+            </div>
+          ) : (
+            members.length > 0 && <MemberAvatarStack members={members} />
+          )}
 
           {difficulty && diffColors && (
             <span
@@ -345,7 +368,7 @@ function NameAllCard({ game }: { game: GameCardData }) {
           <div className="flex items-center gap-1.5 text-[10px] text-[var(--text-tertiary)]">
             {members.length > 0 && (
               <>
-                <span>{members.length} members</span>
+                <span>{members.length} {itemLabel}</span>
                 <span className="w-[3px] h-[3px] rounded-full bg-[#D3D1C7]" />
               </>
             )}

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 
 export async function POST(
-  req: Request,
+  _req: Request,
   { params }: { params: Promise<{ code: string }> },
 ): Promise<NextResponse> {
   const { code } = await params;

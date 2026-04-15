@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { playFound, playPerfect } from '@/lib/sounds';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
 
-import type { GameWithGroup, NameAllMembersContent, NameAllMember } from '@/lib/db/types';
+import type { GameWithGroup, NameAllMember } from '@/lib/db/types';
 
 type Phase = 'start' | 'playing' | 'result';
 type Mode = 'blind' | 'photo';
@@ -179,9 +179,24 @@ function PhotoMemberCard({
 // ---- Main Component ----
 
 export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement {
-  const content = game.content as NameAllMembersContent;
-  const members = content.members;
-  const totalTime = content.timer_seconds;
+  const rawContent = game.content as unknown as Record<string, unknown>;
+
+  // Normalize: old format uses 'members', new format uses 'items'
+  const members: NameAllMember[] = (
+    (rawContent.members as NameAllMember[]) ??
+    ((rawContent.items as Array<{ name: string; aliases: string[]; color?: string; position?: string; group?: string }>)?.map((item, i) => ({
+      name: item.name,
+      aliases: item.aliases ?? [],
+      photo_url: null,
+      position: item.group ?? item.position ?? '',
+      color: item.color ?? ['#D4537E', '#7F77DD', '#0F6E56', '#BA7517', '#378ADD', '#E67E22', '#9B59B6', '#2ECC71'][i % 8],
+    }))) ??
+    []
+  );
+  const totalTime = (rawContent.timer_seconds as number) ?? 60;
+  const isSongGame = game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs';
+  const albumName = (rawContent.album as string) ?? null;
+  const artistName = (rawContent.artist as string) ?? null;
 
   const [phase, setPhase] = useState<Phase>('start');
   const [mode, setMode] = useState<Mode>('blind');
@@ -356,10 +371,13 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
           </div>
 
           <h1 className="text-xl font-medium mb-1">
-            Name all {game.group_name || 'group'} members
+            {game.title}
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mb-6">
-            {members.length} members / {formatTimer(totalTime)}
+          <p className="text-sm text-[var(--text-secondary)] mb-1">
+            {isSongGame && albumName ? `${albumName} - ${artistName}` : (game.group_name || '')}
+          </p>
+          <p className="text-xs text-[var(--text-tertiary)] mb-6">
+            {members.length} {isSongGame ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members'} / {formatTimer(totalTime)}
           </p>
 
           <p className="text-xs text-[var(--text-tertiary)] mb-3 font-medium uppercase tracking-wide">

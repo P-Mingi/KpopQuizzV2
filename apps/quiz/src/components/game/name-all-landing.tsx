@@ -140,30 +140,49 @@ export function NameAllLanding({ games }: NameAllLandingProps) {
       {filtered.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-4">
           {filtered.map(game => {
-            const content = game.content as NameAllMembersContent;
-            const members = content?.members ?? [];
-            const diff = content?.difficulty ?? 'medium';
-            const timer = content?.timer_seconds ?? 60;
+            const raw = game.content as unknown as Record<string, unknown>;
+            const members: NameAllMember[] = (raw.members as NameAllMember[]) ??
+              ((raw.items as Array<{ name: string; color?: string }>)?.map((it, i) => ({
+                name: it.name, aliases: [], photo_url: null, position: '',
+                color: it.color ?? ['#D4537E', '#7F77DD', '#0F6E56', '#BA7517', '#378ADD'][i % 5],
+              }))) ?? [];
+            const diff = (raw.difficulty as string) ?? 'medium';
+            const timer = (raw.timer_seconds as number) ?? 60;
             const diffColors = DIFF_COLORS[diff];
             const bannerBg = GROUP_BG[game.group_name ?? ''] ?? '#F0EDE8';
+            const isSong = game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs';
+            const itemLabel = isSong ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members';
 
             return (
               <Link key={game.id} href={`/games/name-all/${game.slug}`}>
                 <div className="rounded-[14px] border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden hover:border-[var(--accent)] hover:-translate-y-[2px] transition-all">
                   <div className="h-[70px] flex items-center justify-center relative" style={{ background: bannerBg }}>
-                    <div className="flex">
-                      {members.slice(0, 3).map((m: NameAllMember, i: number) => (
-                        <div key={i} className="w-7 h-7 rounded-full flex items-center justify-center text-[8px] font-medium text-white border-2 border-white"
-                          style={{ background: m.color || '#888780', marginLeft: i > 0 ? '-6px' : '0' }}>
-                          {getInitials(m.name)}
-                        </div>
-                      ))}
-                      {members.length > 3 && (
-                        <div className="w-7 h-7 rounded-full flex items-center justify-center text-[8px] font-medium text-[#888780] bg-[#E8E6E0] border-2 border-white" style={{ marginLeft: '-6px' }}>
-                          +{members.length - 3}
-                        </div>
-                      )}
-                    </div>
+                    {isSong ? (
+                      <div className="flex gap-1">
+                        {[0, 1].map(si => (
+                          <div key={si} className="w-7 h-7 rounded-md flex items-center justify-center border-2 border-white"
+                            style={{ background: members[si]?.color || '#3a2a4a' }}>
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round">
+                              <path d="M3 9h2l2-3 2 5 1.5-3H12" />
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex">
+                        {members.slice(0, 3).map((m: NameAllMember, i: number) => (
+                          <div key={i} className="w-7 h-7 rounded-full flex items-center justify-center text-[8px] font-medium text-white border-2 border-white"
+                            style={{ background: m.color || '#888780', marginLeft: i > 0 ? '-6px' : '0' }}>
+                            {getInitials(m.name)}
+                          </div>
+                        ))}
+                        {members.length > 3 && (
+                          <div className="w-7 h-7 rounded-full flex items-center justify-center text-[8px] font-medium text-[#888780] bg-[#E8E6E0] border-2 border-white" style={{ marginLeft: '-6px' }}>
+                            +{members.length - 3}
+                          </div>
+                        )}
+                      </div>
+                    )}
                     {diffColors && (
                       <span className="absolute top-[5px] left-[5px] px-[6px] py-[2px] rounded text-[9px] font-medium capitalize"
                         style={{ backgroundColor: diffColors.bg, color: diffColors.text }}>
@@ -176,7 +195,7 @@ export function NameAllLanding({ games }: NameAllLandingProps) {
                   </div>
                   <div className="px-2.5 py-2 pb-2.5">
                     <p className="text-[11px] font-medium text-[var(--text-primary)] leading-tight mb-[2px] line-clamp-2">{game.title}</p>
-                    <p className="text-[10px] text-[var(--text-tertiary)]">{members.length} members / {formatCount(game.play_count)} plays</p>
+                    <p className="text-[10px] text-[var(--text-tertiary)]">{members.length} {itemLabel} / {formatCount(game.play_count)} plays</p>
                   </div>
                 </div>
               </Link>

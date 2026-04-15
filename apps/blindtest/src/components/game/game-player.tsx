@@ -7,7 +7,6 @@ import { useGameState } from './use-game-state';
 import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
-  PointsFloat,
   AnswerButton,
   AlbumArt,
   SongInfoReveal,
@@ -24,13 +23,10 @@ import { LightstickMascot, type MascotMood } from '@/components/mascot/lightstic
 import { KOREAN_MOMENTS } from '@/lib/korean-moments';
 import { getInitialPowerups, type PowerupId } from '@/lib/powerups';
 import {
-  playTap,
   playCorrect,
   playWrong,
   playCombo,
   playReveal,
-  toggleSound,
-  getSoundEnabled,
 } from '@/lib/sounds';
 import { hapticMedium, hapticSuccess, hapticError } from '@/lib/haptics';
 
@@ -102,16 +98,12 @@ export function GamePlayer({
   const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [comboParticleTrigger, setComboParticleTrigger] = useState(0);
   const [urgentFlash, setUrgentFlash] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(true);
   const [mascotMood, setMascotMood] = useState<MascotMood>('idle');
   const [wrongFlashKey, setWrongFlashKey] = useState(0);
   const [powerups, setPowerups] = useState(getInitialPowerups());
   const [usedPowerupThisRound, setUsedPowerupThisRound] = useState<PowerupId | null>(null);
   const [removedAnswers, setRemovedAnswers] = useState<string[]>([]);
 
-  useEffect(() => {
-    setSoundEnabled(getSoundEnabled());
-  }, []);
 
   const isChallenge = mode === 'challenge';
 
@@ -388,11 +380,6 @@ export function GamePlayer({
     setTimeout(() => setUrgentFlash(false), 150);
   }, []);
 
-  const handleToggleSound = useCallback(() => {
-    const enabled = toggleSound();
-    setSoundEnabled(enabled);
-    if (enabled) playTap();
-  }, []);
 
   const handleUsePowerup = useCallback((id: PowerupId) => {
     if (game.state.phase !== 'playing' || usedPowerupThisRound) return;
