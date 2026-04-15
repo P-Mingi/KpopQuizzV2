@@ -165,17 +165,19 @@ export async function getAdminBlindTests(): Promise<GameCardData[]> {
   return (data as unknown as GameRow[]).map(toGameCardData);
 }
 
+const NAME_ALL_TYPES = ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols'];
+
 export async function getNameAllGames(offset: number, limit: number): Promise<GameCardData[]> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
     .from('games')
     .select(GAME_SELECT)
-    .eq('game_type', 'name_all_members')
+    .in('game_type', NAME_ALL_TYPES)
     .eq('status', 'published')
     .order('play_count', { ascending: false })
     .range(offset, offset + limit - 1);
 
-  if (error) throw new Error(`Failed to fetch name all members games: ${error.message}`);
+  if (error) throw new Error(`Failed to fetch name-all games: ${error.message}`);
   return (data as unknown as GameRow[]).map(toGameCardData);
 }
 
@@ -185,13 +187,13 @@ export async function getNameAllGameBySlug(slug: string): Promise<GameWithGroup 
     .from('games')
     .select(GAME_SELECT)
     .eq('slug', slug)
-    .eq('game_type', 'name_all_members')
+    .in('game_type', NAME_ALL_TYPES)
     .eq('status', 'published')
     .single();
 
   if (error) {
     if (error.code === 'PGRST116') return null;
-    throw new Error(`Failed to fetch name all members game: ${error.message}`);
+    throw new Error(`Failed to fetch name-all game: ${error.message}`);
   }
 
   return toGameWithGroup(data as unknown as GameRow);

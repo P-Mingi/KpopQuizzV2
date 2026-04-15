@@ -15,6 +15,10 @@
 --
 -- Idempotent: safe to re-run; resets the flag before recomputing.
 
+-- Ensure deezer_rank column exists (may be missing if 029 was partially applied)
+ALTER TABLE public.songs
+  ADD COLUMN IF NOT EXISTS deezer_rank INTEGER DEFAULT 0;
+
 ALTER TABLE public.songs
   ADD COLUMN IF NOT EXISTS is_curated BOOLEAN DEFAULT false;
 

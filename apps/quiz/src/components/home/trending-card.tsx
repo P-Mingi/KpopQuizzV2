@@ -8,6 +8,8 @@ import type { QuizCardData } from '@/lib/db/types';
 
 interface Props {
   quiz: QuizCardData;
+  /** Mark as high-priority for LCP (first few visible cards). */
+  priority?: boolean;
 }
 
 /**
@@ -15,7 +17,7 @@ interface Props {
  * the home page. Shows a cover banner (or a type-tinted gradient fallback),
  * type badge, plays and avg-score chips, then title + creator.
  */
-export function TrendingCard({ quiz }: Props) {
+export function TrendingCard({ quiz, priority = false }: Props) {
   const typeKey = mapDbTypeToKey(quiz.quiz_type);
   const avgPct =
     quiz.total_completions > 0 && quiz.question_count > 0
@@ -38,6 +40,8 @@ export function TrendingCard({ quiz }: Props) {
             fill
             className="object-cover"
             sizes="220px"
+            priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
           />
         ) : (
           <div

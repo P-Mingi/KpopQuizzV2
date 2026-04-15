@@ -9,6 +9,26 @@
 -- FKs target bt_players (the canonical player table post-migration 026), not
 -- the legacy `players` table.
 
+-- Ensure bt_players exists (may be missing if 026 was partially applied)
+CREATE TABLE IF NOT EXISTS public.bt_players (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) UNIQUE NOT NULL,
+  display_name TEXT,
+  avatar_url TEXT,
+  level INTEGER NOT NULL DEFAULT 1,
+  total_xp INTEGER NOT NULL DEFAULT 0,
+  total_games INTEGER NOT NULL DEFAULT 0,
+  total_correct INTEGER NOT NULL DEFAULT 0,
+  total_songs_played INTEGER NOT NULL DEFAULT 0,
+  best_score INTEGER NOT NULL DEFAULT 0,
+  best_combo INTEGER NOT NULL DEFAULT 0,
+  current_streak INTEGER NOT NULL DEFAULT 0,
+  longest_streak INTEGER NOT NULL DEFAULT 0,
+  last_played_date DATE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS public.challenges (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   short_code TEXT UNIQUE NOT NULL,

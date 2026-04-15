@@ -214,59 +214,64 @@ function HeroCards() {
 
 function TotCategoryCard({ cat }: { cat: any }) {
   const items = cat.tot_items ?? [];
+  const left = items[0];
+  const right = items[1] ?? items[Math.min(1, items.length - 1)];
   const typeInfo = TOT_TYPE_COLORS[cat.type] ?? TOT_TYPE_COLORS.idol;
   const typeLabel = cat.type === 'idol' ? 'Idols' : cat.type === 'group' ? 'Groups' : 'Songs';
 
   return (
-    <Link href={`/games/this-or-that/${cat.slug}`} className="shrink-0" style={{ width: 150 }}>
-      <div className="rounded-[14px] border-[1.5px] border-[#2a2a2a] overflow-hidden hover:-translate-y-[2px] transition-all">
-        {/* Dark banner with avatar previews */}
-        <div
-          className="h-[80px] relative flex items-center justify-center gap-[-4px]"
-          style={{ background: '#0C0C0E' }}
-        >
-          <div className="flex items-center">
-            {items.slice(0, 4).map((item: any, i: number) => (
-              <div
-                key={item.id}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-[9px] font-semibold text-white border-[1.5px] border-[#0C0C0E]"
-                style={{
-                  background: item.color || '#555',
-                  marginLeft: i > 0 ? '-6px' : '0',
-                  zIndex: 4 - i,
-                  position: 'relative',
-                }}
-              >
-                {item.image_url ? (
-                  <img
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                ) : (
-                  getInitials(item.name)
-                )}
-              </div>
-            ))}
+    <Link href={`/games/this-or-that/${cat.slug}`} className="shrink-0" style={{ width: 170 }}>
+      <div className="rounded-[14px] border-[1.5px] border-[#2a2a2a] bg-[#0C0C0E] overflow-hidden hover:border-[#D4537E] hover:-translate-y-[2px] transition-all">
+        {/* VS Banner - two halves */}
+        <div className="h-[88px] relative flex overflow-hidden">
+          {/* Left side */}
+          <div className="flex-1 flex items-center justify-center" style={{ background: left?.color || '#1a3f7a' }}>
+            <div className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20"
+              style={{ background: left?.color ? `${left.color}cc` : '#3d2e7a' }}>
+              {left?.image_url ? (
+                <img src={left.image_url} alt="" className="w-full h-full rounded-full object-cover" />
+              ) : (
+                getInitials(left?.name || '??')
+              )}
+            </div>
+          </div>
+
+          {/* Diagonal slash */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-white/[0.08]"
+            style={{ transform: 'rotate(12deg)', transformOrigin: 'top center' }} />
+
+          {/* VS badge */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-6 h-6 rounded-full bg-[#0C0C0E] border-[1.5px] border-white/[0.15] flex items-center justify-center">
+            <span className="text-[8px] font-bold text-white/50 tracking-wider">VS</span>
+          </div>
+
+          {/* Right side */}
+          <div className="flex-1 flex items-center justify-center" style={{ background: right?.color || '#0a4a36' }}>
+            <div className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20"
+              style={{ background: right?.color ? `${right.color}cc` : '#0d5a42' }}>
+              {right?.image_url ? (
+                <img src={right.image_url} alt="" className="w-full h-full rounded-full object-cover" />
+              ) : (
+                getInitials(right?.name || '??')
+              )}
+            </div>
           </div>
 
           {/* Type badge */}
-          <span
-            className="absolute top-2 left-2 text-[8px] font-medium px-1.5 py-[2px] rounded"
-            style={{ background: typeInfo?.bg ?? 'rgba(212,83,126,0.25)', color: typeInfo?.text ?? '#ED93B1' }}
-          >
+          <span className="absolute top-[5px] right-[5px] px-1.5 py-[2px] rounded text-[8px] font-medium z-[6]"
+            style={{ background: typeInfo?.bg ?? 'rgba(212,83,126,0.25)', color: typeInfo?.text ?? '#ED93B1' }}>
             {typeLabel}
           </span>
         </div>
 
         {/* Body */}
-        <div className="p-2.5 pb-3" style={{ background: 'var(--bg-surface)' }}>
-          <p className="text-[11px] font-medium text-[var(--text-primary)] leading-tight mb-1 line-clamp-2">
+        <div className="px-2.5 py-2 pb-2.5">
+          <p className="text-[11px] font-medium text-white leading-tight mb-[3px]">
             {cat.title}
           </p>
-          <div className="flex items-center gap-1.5 text-[9px] text-[var(--text-tertiary)]">
-            <span>{cat.pool_size} pool</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-[#D3D1C7]" />
+          <div className="flex items-center gap-1.5 text-[9px] text-white/[0.35]">
+            <span>{items.length} in pool</span>
+            <span className="w-[3px] h-[3px] rounded-full bg-white/20" />
             <span>{formatCount(cat.play_count)} plays</span>
           </div>
         </div>

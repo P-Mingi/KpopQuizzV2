@@ -229,7 +229,7 @@ export interface RecordPlayResult {
 // Game types (This or That, Blind Test, etc.)
 // ============================================
 
-export type GameType = 'this_or_that' | 'blind_test' | 'name_all_members';
+export type GameType = 'this_or_that' | 'blind_test' | 'name_all_members' | 'name_all_songs' | 'name_top_songs' | 'name_all_groups' | 'name_all_idols';
 export type GameStatus = 'draft' | 'published' | 'flagged' | 'removed';
 
 export interface Matchup {

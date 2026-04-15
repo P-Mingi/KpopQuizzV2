@@ -1,8 +1,10 @@
 import '@/styles/globals.css';
 
+import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/react';
 import { TopNav } from '@/components/layout/top-nav';
+import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
@@ -11,13 +13,14 @@ import type { Metadata } from 'next';
 
 const pretendard = localFont({
   src: [
-    { path: '../../public/fonts/Pretendard-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../../public/fonts/Pretendard-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../../public/fonts/Pretendard-Regular-latin.woff2', weight: '400', style: 'normal' },
+    { path: '../../public/fonts/Pretendard-Medium-latin.woff2', weight: '500', style: 'normal' },
   ],
   display: 'swap',
   variable: '--font-pretendard',
   fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
   adjustFontFallback: 'Arial',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -76,7 +79,9 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
       <body className="bg-primary text-primary font-sans antialiased">
         <ToastProvider>
           <div className="flex flex-col min-h-screen">
-            <TopNav />
+            <Suspense fallback={<TopNavSkeleton />}>
+              <TopNav />
+            </Suspense>
             <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-0 pb-24 md:pb-8">
               {children}
             </main>

@@ -1,6 +1,6 @@
 -- This or That tournament game tables
 
-CREATE TABLE public.tot_categories (
+CREATE TABLE IF NOT EXISTS public.tot_categories (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
@@ -12,10 +12,10 @@ CREATE TABLE public.tot_categories (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_tot_cat_slug ON public.tot_categories(slug);
-CREATE INDEX idx_tot_cat_type ON public.tot_categories(type);
+CREATE INDEX IF NOT EXISTS idx_tot_cat_slug ON public.tot_categories(slug);
+CREATE INDEX IF NOT EXISTS idx_tot_cat_type ON public.tot_categories(type);
 
-CREATE TABLE public.tot_items (
+CREATE TABLE IF NOT EXISTS public.tot_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   category_id UUID REFERENCES public.tot_categories(id) NOT NULL,
   name TEXT NOT NULL,
@@ -29,9 +29,9 @@ CREATE TABLE public.tot_items (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_tot_items_cat ON public.tot_items(category_id);
+CREATE INDEX IF NOT EXISTS idx_tot_items_cat ON public.tot_items(category_id);
 
-CREATE TABLE public.tot_plays (
+CREATE TABLE IF NOT EXISTS public.tot_plays (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   category_id UUID REFERENCES public.tot_categories(id) NOT NULL,
   user_id UUID REFERENCES auth.users(id),
@@ -40,17 +40,21 @@ CREATE TABLE public.tot_plays (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_tot_plays_cat ON public.tot_plays(category_id);
-CREATE INDEX idx_tot_plays_winner ON public.tot_plays(winner_id);
+CREATE INDEX IF NOT EXISTS idx_tot_plays_cat ON public.tot_plays(category_id);
+CREATE INDEX IF NOT EXISTS idx_tot_plays_winner ON public.tot_plays(winner_id);
 
 -- RLS
 ALTER TABLE public.tot_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tot_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tot_plays ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Anyone can read published categories" ON public.tot_categories;
 CREATE POLICY "Anyone can read published categories" ON public.tot_categories FOR SELECT USING (is_published = true);
+DROP POLICY IF EXISTS "Anyone can read items" ON public.tot_items;
 CREATE POLICY "Anyone can read items" ON public.tot_items FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Anyone can read plays" ON public.tot_plays;
 CREATE POLICY "Anyone can read plays" ON public.tot_plays FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Anyone can insert plays" ON public.tot_plays;
 CREATE POLICY "Anyone can insert plays" ON public.tot_plays FOR INSERT WITH CHECK (true);
 
 -- RPCs
