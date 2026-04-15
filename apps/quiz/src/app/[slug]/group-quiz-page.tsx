@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
+import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
 import { GroupLogo } from '@/components/ui/group-logo';
@@ -45,9 +46,10 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
+    safeFetch(hasTriviaPage(group.id), false, '[group-quiz] hasTriviaPage'),
   ]);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
@@ -83,12 +85,14 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         </div>
       </div>
 
-      <Link
-        href={`/${group.slug}-trivia`}
-        className="inline-block mt-4 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-      >
-        Want to learn before you play? Read {group.name} trivia &rarr;
-      </Link>
+      {triviaAvailable && (
+        <Link
+          href={`/${group.slug}-trivia`}
+          className="inline-block mt-4 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+        >
+          Want to learn before you play? Read {group.name} trivia &rarr;
+        </Link>
+      )}
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
 
