@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="26" fill="#FBEAF0"/>
-  <text x="60" y="80" text-anchor="middle" font-size="62" font-weight="500" fill="#ED93B1" font-family="sans-serif" letter-spacing="-3">kq</text>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="256" cy="256" r="220" fill="#D4537E"/>
+  <circle cx="190" cy="230" r="28" fill="#0D0D0F"/>
+  <circle cx="200" cy="218" r="10" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="322" cy="230" r="28" fill="#0D0D0F"/>
+  <circle cx="332" cy="218" r="10" fill="rgba(255,255,255,0.7)"/>
+  <path d="M190 300 Q256 360 322 300" fill="none" stroke="#0D0D0F" stroke-width="16" stroke-linecap="round"/>
 </svg>

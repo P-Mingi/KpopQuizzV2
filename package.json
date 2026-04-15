@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@supabase/supabase-js": "^2.100.1",
+    "sharp": "^0.34.5",
     "tsx": "^4.21.0"
   }
 }
