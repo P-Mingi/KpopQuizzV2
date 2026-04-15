@@ -13,12 +13,7 @@ export function findMatch(input: string, members: NameAllMember[], alreadyFound:
   for (const member of members) {
     if (alreadyFound.has(member.name)) continue;
     const allNames = [member.name, ...member.aliases].map(normalize);
-    const matched = allNames.some(name =>
-      name === clean ||
-      // Fuzzy: if input is 3+ chars and is a prefix that's at most 1 char short
-      (clean.length >= 3 && name.startsWith(clean) && clean.length >= name.length - 1)
-    );
-    if (matched) return member;
+    if (allNames.some(name => name === clean)) return member;
   }
   return null;
 }
