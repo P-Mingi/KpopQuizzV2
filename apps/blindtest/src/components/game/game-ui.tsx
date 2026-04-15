@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { xpForLevel, getLevelFromXP } from '@/lib/progression';
 import { playTick, playReveal, playPerfect, playStreak } from '@/lib/sounds';
 import { hapticLight } from '@/lib/haptics';
@@ -14,6 +14,10 @@ import { ChallengeComparison } from '@/components/challenge/challenge-comparison
 
 // ---- CircularTimer ----
 
+export interface TimerHandle {
+  addTime: (seconds: number) => void;
+}
+
 interface TimerProps {
   duration: number;
   running: boolean;
@@ -22,22 +26,32 @@ interface TimerProps {
   onUrgentTick?: () => void;
 }
 
-export function CircularTimer({ duration, running, onExpired, timerKey, onUrgentTick }: TimerProps) {
+export const CircularTimer = forwardRef<TimerHandle, TimerProps>(
+  function CircularTimer({ duration, running, onExpired, timerKey, onUrgentTick }, ref) {
   const [remaining, setRemaining] = useState(duration);
   const startRef = useRef(0);
+  const bonusRef = useRef(0);
   const expiredRef = useRef(false);
   const lastTickSecondRef = useRef<number>(-1);
+
+  useImperativeHandle(ref, () => ({
+    addTime(seconds: number) {
+      bonusRef.current += seconds;
+    },
+  }));
 
   useEffect(() => {
     setRemaining(duration);
     expiredRef.current = false;
     lastTickSecondRef.current = -1;
+    bonusRef.current = 0;
     if (!running) return;
 
     startRef.current = Date.now();
     const interval = setInterval(() => {
       const elapsed = (Date.now() - startRef.current) / 1000;
-      const left = Math.max(0, duration - elapsed);
+      const effectiveDuration = duration + bonusRef.current;
+      const left = Math.max(0, effectiveDuration - elapsed);
       setRemaining(left);
 
       // Fire an urgent tick on each whole second in the last 3.
@@ -62,9 +76,10 @@ export function CircularTimer({ duration, running, onExpired, timerKey, onUrgent
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timerKey, running, duration]);
 
+  const effectiveDuration = duration + bonusRef.current;
   const radius = 26;
   const circumference = 2 * Math.PI * radius;
-  const progress = remaining / duration;
+  const progress = remaining / Math.max(effectiveDuration, duration);
   const dashOffset = circumference * (1 - progress);
   const isUrgent = remaining <= 3;
   const seconds = Math.ceil(remaining);
@@ -91,7 +106,7 @@ export function CircularTimer({ duration, running, onExpired, timerKey, onUrgent
       </span>
     </div>
   );
-}
+});
 
 // ---- ProgressDots ----
 

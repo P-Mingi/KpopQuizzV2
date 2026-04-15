@@ -7,6 +7,7 @@ import { useGameState } from './use-game-state';
 import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
+  type TimerHandle,
   AnswerButton,
   AlbumArt,
   SongInfoReveal,
@@ -96,6 +97,7 @@ export function GamePlayer({
     difficulty: string;
   } | null>(null);
   const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerRef = useRef<TimerHandle>(null);
   const [comboParticleTrigger, setComboParticleTrigger] = useState(0);
   const [urgentFlash, setUrgentFlash] = useState(false);
   const [mascotMood, setMascotMood] = useState<MascotMood>('idle');
@@ -389,18 +391,16 @@ export function GamePlayer({
     setUsedPowerupThisRound(id);
 
     if (id === 'skip') {
-      // Skip this song, 0 points
       game.submitAnswer(null);
     } else if (id === 'fifty_fifty' && game.currentQuestion) {
-      // Remove 2 wrong answers
       const wrong = game.currentQuestion.choices.filter(
         (c) => c !== game.currentQuestion!.correct_answer,
       );
       const toRemove = wrong.sort(() => Math.random() - 0.5).slice(0, 2);
       setRemovedAnswers(toRemove);
+    } else if (id === 'extra_time') {
+      timerRef.current?.addTime(5);
     }
-    // extra_time: handled by adding time to timer (timer component would need extension)
-    // For now, extra_time just marks the round as power-up-used (50% point penalty)
   }, [game, powerups, usedPowerupThisRound]);
 
   const handleQuit = useCallback(() => {
@@ -560,6 +560,7 @@ export function GamePlayer({
             <>
               <AudioVisualizer isPlaying={phase === 'playing'} />
               <CircularTimer
+                ref={timerRef}
                 duration={game.state.timerDuration}
                 running={phase === 'playing'}
                 onExpired={handleTimeout}
@@ -602,15 +603,18 @@ export function GamePlayer({
             />
           ) : (
             <div className="grid grid-cols-2 gap-2">
-              {q.choices.map((choice) => (
-                <AnswerButton
-                  key={choice}
-                  text={choice}
-                  state={getButtonState(choice)}
-                  onClick={() => handleAnswer(choice)}
-                  disabled={isRevealing || removedAnswers.includes(choice)}
-                />
-              ))}
+              {q.choices.map((choice) => {
+                const isRemoved = removedAnswers.includes(choice);
+                return (
+                  <AnswerButton
+                    key={choice}
+                    text={choice}
+                    state={isRemoved ? 'dimmed' : getButtonState(choice)}
+                    onClick={() => handleAnswer(choice)}
+                    disabled={isRevealing || isRemoved}
+                  />
+                );
+              })}
             </div>
           )}
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { formatCount } from '@/lib/utils';
@@ -286,10 +287,14 @@ function MemberAvatarStack({ members }: { members: NameAllMember[] }) {
       {members.slice(0, 3).map((m, i) => (
         <div
           key={i}
-          className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-semibold text-white border-2 border-white"
+          className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center text-[10px] font-semibold text-white border-2 border-white"
           style={{ background: m.color || '#B0ADA5', marginLeft: i > 0 ? '-8px' : '0' }}
         >
-          {getInitials(m.name)}
+          {m.photo_url ? (
+            <Image src={m.photo_url} alt={m.name} width={36} height={36} className="w-full h-full object-cover" />
+          ) : (
+            getInitials(m.name)
+          )}
         </div>
       ))}
       {members.length > 3 && (

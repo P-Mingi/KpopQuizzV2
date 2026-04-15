@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { PlayerStatsCard } from '@/components/home/player-stats-card';
+import { LobbyDaily } from '@/components/lobby/lobby-daily';
 
 async function fetchStats() {
   try {
@@ -23,6 +24,7 @@ export async function Sidebar() {
 
   return (
     <div className="sticky top-5 space-y-4">
+      <LobbyDaily />
       <PlayerStatsCard />
       <SidebarLeaderboard />
       <SidebarStats totalSongs={stats.totalSongs} totalPlays={stats.totalPlays} />

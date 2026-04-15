@@ -1,9 +1,7 @@
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { PlayButton } from '@/components/lobby/play-button';
 import { LobbyDaily } from '@/components/lobby/lobby-daily';
-import { StatsRow } from '@/components/lobby/stats-row';
 import { StreakCalendar } from '@/components/lobby/streak-calendar';
-import { XpProgressBar } from '@/components/lobby/xp-progress-bar';
 import { LightstickMascot } from '@/components/mascot/lightstick-mascot';
 
 interface PlayerData {
@@ -56,73 +54,35 @@ export default async function HomePage() {
     fetchSongCount(),
   ]);
 
-  const totalXp = player?.total_xp ?? 0;
   const username = player?.display_name?.replace(/#\d+$/, '') ?? null;
 
   return (
-    <div className="pt-4 md:pt-8 pb-8">
-      {/* Desktop: 2-column layout */}
-      <div className="flex gap-8 items-start">
-        {/* Left column: main CTA */}
-        <div className="flex-1 flex flex-col items-center text-center pt-2 md:pt-8">
-          {/* Mascot */}
-          <div className="mb-4 md:mb-6">
-            <LightstickMascot mood="idle" />
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-xl md:text-2xl font-bold text-primary leading-tight mb-1">
-            {username ? `Hey ${username}` : 'Ready to play?'}
-          </h1>
-          <p className="text-xs text-ghost mb-4 md:mb-5">
-            Guess the K-pop song faster than anyone
-            {songCount > 0 && <span className="hidden md:inline"> &middot; {songCount.toLocaleString()} songs</span>}
-          </p>
-
-          {/* XP progress bar */}
-          {player && (
-            <div className="mb-5 md:mb-6">
-              <XpProgressBar totalXp={totalXp} />
-            </div>
-          )}
-
-          {/* PLAY button */}
-          <PlayButton />
-
-          <p className="text-[10px] text-ghost mt-3">Choose your mode after pressing play</p>
+    <div className="pt-6 md:pt-10 pb-8">
+      {/* Centered hero: mascot + headline + play button */}
+      <div className="flex flex-col items-center text-center">
+        {/* Mascot */}
+        <div className="mb-5 md:mb-8">
+          <LightstickMascot mood="idle" />
         </div>
 
-        {/* Right column: sidebar cards (desktop only) */}
-        <div className="hidden md:flex flex-col gap-2.5 w-[280px] pt-2">
-          <LobbyDaily />
+        {/* Headline */}
+        <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight mb-1">
+          {username ? `Hey ${username}` : 'Ready to play?'}
+        </h1>
+        <p className="text-xs text-ghost mb-6 md:mb-8">
+          Guess the K-pop song faster than anyone
+          {songCount > 0 && <> &middot; {songCount.toLocaleString()} songs</>}
+        </p>
 
-          {player && (
-            <StatsRow
-              totalGames={player.total_games}
-              totalCorrect={player.total_correct}
-              totalSongsPlayed={player.total_songs_played}
-              longestStreak={player.longest_streak}
-            />
-          )}
+        {/* PLAY button */}
+        <PlayButton />
 
-          {player && (
-            <StreakCalendar currentStreak={player.current_streak} />
-          )}
-        </div>
+        <p className="text-[10px] text-ghost mt-3 mb-6">Choose your mode after pressing play</p>
       </div>
 
-      {/* Mobile: stacked cards below the play button */}
-      <div className="md:hidden flex flex-col gap-2.5 mt-6 max-w-[400px] mx-auto">
+      {/* Mobile-only cards (sidebar handles desktop) */}
+      <div className="md:hidden flex flex-col gap-2.5 max-w-[400px] mx-auto">
         <LobbyDaily />
-
-        {player && (
-          <StatsRow
-            totalGames={player.total_games}
-            totalCorrect={player.total_correct}
-            totalSongsPlayed={player.total_songs_played}
-            longestStreak={player.longest_streak}
-          />
-        )}
 
         {player && (
           <StreakCalendar currentStreak={player.current_streak} />

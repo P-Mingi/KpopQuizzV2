@@ -176,8 +176,20 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // ---- Actions ----
 
   const startGame = useCallback(() => {
-    const shuffled = [...category.items].sort(() => Math.random() - 0.5);
-    const pool = shuffled.slice(0, Math.min(16, category.items.length));
+    // Fisher-Yates shuffle for unbiased randomization
+    const shuffled = [...category.items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    // Deduplicate by id to ensure each idol appears only once
+    const seen = new Set<string>();
+    const unique = shuffled.filter(item => {
+      if (seen.has(item.id)) return false;
+      seen.add(item.id);
+      return true;
+    });
+    const pool = unique.slice(0, Math.min(16, unique.length));
     setBracket([pool]);
     setCurrentRound(0);
     setCurrentMatchIndex(0);

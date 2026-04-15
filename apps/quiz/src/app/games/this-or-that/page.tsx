@@ -1,5 +1,4 @@
-import { getTotCategories } from '@/lib/db/queries/this-or-that';
-import { safeFetch } from '@/lib/error-handling';
+import { createServiceRoleClient } from '@/lib/db/supabase-server';
 import { TotCategoryPicker } from '@/components/game/tot-category-picker';
 import type { Metadata } from 'next';
 
@@ -12,10 +11,16 @@ export const metadata: Metadata = {
 };
 
 export default async function ThisOrThatPage() {
-  const categories = await safeFetch(getTotCategories(), [], '[tot] getCategories');
+  const supabase = createServiceRoleClient();
+  const { data } = await supabase
+    .from('tot_categories')
+    .select('*, tot_items(id, name, color, image_url)')
+    .eq('is_published', true)
+    .order('play_count', { ascending: false });
+
   return (
     <div className="py-6">
-      <TotCategoryPicker categories={categories} />
+      <TotCategoryPicker categories={data ?? []} />
     </div>
   );
 }

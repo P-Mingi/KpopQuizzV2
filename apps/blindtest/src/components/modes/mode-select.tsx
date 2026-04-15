@@ -128,7 +128,7 @@ export function ModeSelect() {
           >
             {/* Icon */}
             <div
-              className={`w-11 h-11 md:absolute md:top-3.5 md:right-3.5 md:w-11 md:h-11 rounded-xl flex items-center justify-center flex-shrink-0 md:opacity-10 ${mode.badgeClass.split(' ')[0]}`}
+              className={`w-11 h-11 md:absolute md:top-3.5 md:right-3.5 md:w-11 md:h-11 rounded-xl flex items-center justify-center flex-shrink-0 md:opacity-25 ${mode.badgeClass.split(' ')[0]}`}
             >
               <svg
                 width="20"

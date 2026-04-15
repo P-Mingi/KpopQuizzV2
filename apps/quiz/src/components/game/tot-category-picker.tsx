@@ -5,18 +5,38 @@ import Link from 'next/link';
 
 import { formatCount } from '@/lib/utils';
 
-import type { TotCategory, TotCategoryType } from '@/lib/db/types';
+import type { TotCategoryType } from '@/lib/db/types';
 
 // ---------------------------------------------------------------------------
 // Props
 // ---------------------------------------------------------------------------
 
+interface TotCategoryItem {
+  id: string;
+  name: string;
+  color: string;
+  image_url: string | null;
+}
+
+interface TotCategoryWithItems {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  type: TotCategoryType;
+  pool_size: number;
+  play_count: number;
+  is_published: boolean;
+  created_at: string;
+  tot_items: TotCategoryItem[];
+}
+
 interface TotCategoryPickerProps {
-  categories: TotCategory[];
+  categories: TotCategoryWithItems[];
 }
 
 // ---------------------------------------------------------------------------
-// Type filter config
+// Constants
 // ---------------------------------------------------------------------------
 
 const TYPE_FILTERS: { key: TotCategoryType | null; label: string }[] = [
@@ -25,6 +45,20 @@ const TYPE_FILTERS: { key: TotCategoryType | null; label: string }[] = [
   { key: 'group', label: 'Groups' },
   { key: 'song', label: 'Songs' },
 ];
+
+const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
+  idol: { bg: 'rgba(212,83,126,0.25)', text: '#ED93B1' },
+  group: { bg: 'rgba(99,168,237,0.25)', text: '#7CBCF5' },
+  song: { bg: 'rgba(168,212,83,0.25)', text: '#B5D96B' },
+};
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function getInitials(name: string): string {
+  return name.slice(0, 2).toUpperCase();
+}
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -83,45 +117,76 @@ function TypeFilterPills({
   );
 }
 
-function typeBadgeLabel(type: TotCategoryType): string {
-  if (type === 'idol') return 'Idols';
-  if (type === 'group') return 'Groups';
-  return 'Songs';
-}
+function CategoryCard({ category }: { category: TotCategoryWithItems }) {
+  const items = category.tot_items ?? [];
+  const left = items[0];
+  const right = items[1] ?? items[Math.min(1, items.length - 1)];
+  const typeInfo = TYPE_COLORS[category.type] ?? TYPE_COLORS.idol;
+  const typeLabel = category.type === 'idol' ? 'Idols' : category.type === 'group' ? 'Groups' : 'Songs';
 
-function CategoryCard({ category }: { category: TotCategory }) {
   return (
     <Link href={`/games/this-or-that/${category.slug}`}>
-      <div className="rounded-[14px] border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden hover:border-[var(--accent)] hover:-translate-y-[2px] transition-all">
-        {/* Banner */}
-        <div
-          className="h-[90px] relative flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #F0EDE8 0%, #E8E5DF 100%)' }}
-        >
-          {/* VS icon centered */}
-          <div className="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center">
-            <span className="text-xs font-bold text-[var(--accent)]">VS</span>
+      <div className="rounded-[14px] border-[1.5px] border-[#2a2a2a] bg-[#0C0C0E] overflow-hidden hover:border-[#D4537E] hover:-translate-y-[2px] transition-all">
+        {/* VS Banner */}
+        <div className="h-[88px] relative flex overflow-hidden">
+          {/* Left side */}
+          <div className="flex-1 flex items-center justify-center" style={{ background: left?.color || '#1a3f7a' }}>
+            <div
+              className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20 overflow-hidden"
+              style={{ background: left?.color ? `${left.color}cc` : '#3d2e7a' }}
+            >
+              {left?.image_url ? (
+                <img src={left.image_url} alt="" className="w-full h-full rounded-full object-cover" />
+              ) : (
+                getInitials(left?.name || '??')
+              )}
+            </div>
           </div>
 
-          {/* Type badge top-right */}
-          <span className="absolute top-2 right-2 px-2 py-[2px] rounded text-[9px] font-semibold bg-[var(--accent-bg)] text-[#993556]">
-            {typeBadgeLabel(category.type)}
-          </span>
+          {/* Diagonal slash */}
+          <div
+            className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-white/[0.08]"
+            style={{ transform: 'rotate(12deg)', transformOrigin: 'top center' }}
+          />
 
-          {/* Pool size bottom-left */}
-          <span className="absolute bottom-2 left-2 text-[10px] font-medium text-[var(--text-tertiary)]">
-            {category.pool_size} in pool
+          {/* VS badge */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-6 h-6 rounded-full bg-[#0C0C0E] border-[1.5px] border-white/[0.15] flex items-center justify-center">
+            <span className="text-[8px] font-bold text-white/50 tracking-wider">VS</span>
+          </div>
+
+          {/* Right side */}
+          <div className="flex-1 flex items-center justify-center" style={{ background: right?.color || '#0a4a36' }}>
+            <div
+              className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20 overflow-hidden"
+              style={{ background: right?.color ? `${right.color}cc` : '#0d5a42' }}
+            >
+              {right?.image_url ? (
+                <img src={right.image_url} alt="" className="w-full h-full rounded-full object-cover" />
+              ) : (
+                getInitials(right?.name || '??')
+              )}
+            </div>
+          </div>
+
+          {/* Type badge */}
+          <span
+            className="absolute top-[5px] right-[5px] px-1.5 py-[2px] rounded text-[8px] font-medium z-[6]"
+            style={{ background: typeInfo.bg, color: typeInfo.text }}
+          >
+            {typeLabel}
           </span>
         </div>
 
         {/* Body */}
-        <div className="p-2.5 pb-3">
-          <p className="text-xs font-medium text-[var(--text-primary)] leading-tight mb-1">
+        <div className="px-2.5 py-2 pb-2.5">
+          <p className="text-[11px] font-medium text-white leading-tight mb-[3px]">
             {category.title}
           </p>
-          <p className="text-[10px] text-[var(--text-tertiary)]">
-            {formatCount(category.play_count)} plays
-          </p>
+          <div className="flex items-center gap-1.5 text-[9px] text-white/[0.35]">
+            <span>{items.length} in pool</span>
+            <span className="w-[3px] h-[3px] rounded-full bg-white/20" />
+            <span>{formatCount(category.play_count)} plays</span>
+          </div>
         </div>
       </div>
     </Link>
@@ -139,12 +204,10 @@ export function TotCategoryPicker({ categories }: TotCategoryPickerProps) {
   const filteredCategories = useMemo(() => {
     let list = [...categories];
 
-    // Filter by type
     if (selectedType !== null) {
       list = list.filter((c) => c.type === selectedType);
     }
 
-    // Filter by search query
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter(
