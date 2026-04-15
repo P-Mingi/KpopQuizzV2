@@ -2,11 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useDailyStatus } from '@/hooks/use-daily-status';
 
 const tabs = [
   { href: '/', label: 'Play', icon: 'play' },
-  { href: '/daily', label: 'Daily', icon: 'clock' },
   { href: '/leaderboard', label: 'Ranks', icon: 'chart' },
   { href: '/profile', label: 'Profile', icon: 'user' },
 ] as const;
@@ -15,11 +13,9 @@ type TabIcon = (typeof tabs)[number]['icon'];
 
 export function MobileTabBar() {
   const pathname = usePathname();
-  const dailyStatus = useDailyStatus();
-  const showDailyDot = dailyStatus !== null && !dailyStatus.hasPlayed;
 
-  // Hidden during gameplay for full immersion.
-  if (pathname.startsWith('/play')) return null;
+  // Hidden during active gameplay and party
+  if (pathname.startsWith('/play') || pathname.startsWith('/party/')) return null;
 
   return (
     <nav
@@ -30,7 +26,6 @@ export function MobileTabBar() {
         <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {tabs.map((tab) => {
             const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
-            const showDot = tab.href === '/daily' && showDailyDot;
             return (
               <Link
                 key={tab.href}
@@ -39,15 +34,7 @@ export function MobileTabBar() {
                   isActive ? 'text-accent' : 'text-ghost'
                 }`}
               >
-                <span className="relative inline-flex">
-                  <TabIcon name={tab.icon} active={isActive} />
-                  {showDot && (
-                    <span
-                      className="absolute -top-0.5 -right-1 w-1.5 h-1.5 rounded-full bg-accent"
-                      aria-hidden="true"
-                    />
-                  )}
-                </span>
+                <TabIcon name={tab.icon} active={isActive} />
                 {tab.label}
               </Link>
             );
@@ -66,20 +53,14 @@ function TabIcon({ name, active }: { name: TabIcon; active: boolean }) {
     case 'play':
       return (
         <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-          <path d="M6 4L16 10L6 16V4Z" fill={color} />
-        </svg>
-      );
-    case 'clock':
-      return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="7" stroke={color} strokeWidth="1.5" />
-          <path d="M10 6V10L13 13" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M3 9l3.5-3.5 3.5 3.5 3.5-3.5 3.5 3.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M3 14l3.5-3.5 3.5 3.5 3.5-3.5 3.5 3.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case 'chart':
       return (
         <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-          <path d="M5 15V8M10 15V5M15 15V10" stroke={color} strokeWidth="2" strokeLinecap="round" />
+          <path d="M10 2l2.3 4.6L17 7.5l-3.5 3.4.8 4.8L10 13.5l-4.3 2.2.8-4.8L3 7.5l4.7-.9z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case 'user':

@@ -11,6 +11,8 @@ interface NavUser {
   xpProgress: number;
   avatarBg?: string;
   avatarText?: string;
+  rankTitle?: string;
+  rankLevel?: number;
 }
 
 async function getNavUser(): Promise<NavUser | undefined> {
@@ -22,7 +24,7 @@ async function getNavUser(): Promise<NavUser | undefined> {
     const adminDb = createServiceRoleClient();
     const { data } = await adminDb
       .from('bt_players')
-      .select('display_name, total_xp, current_streak')
+      .select('display_name, total_xp, current_streak, rank_title, rank_level')
       .eq('user_id', user.id)
       .single();
     if (!data) return undefined;
@@ -37,6 +39,8 @@ async function getNavUser(): Promise<NavUser | undefined> {
       streak: (data.current_streak as number | null) ?? 0,
       level: info.level,
       xpProgress: info.progressPercent / 100,
+      rankTitle: (data.rank_title as string | null) ?? 'trainee',
+      rankLevel: (data.rank_level as number | null) ?? 1,
     };
   } catch {
     return undefined;

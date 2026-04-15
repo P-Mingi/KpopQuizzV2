@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/theme-provider';
 import { PlayerIdentityPill } from '@/components/layout/player-identity-pill';
 import { useDailyStatus } from '@/hooks/use-daily-status';
+import { getRank } from '@/lib/ranks';
 
 interface NavUser {
   username: string;
@@ -13,6 +14,8 @@ interface NavUser {
   xpProgress: number;
   avatarBg?: string;
   avatarText?: string;
+  rankTitle?: string;
+  rankLevel?: number;
 }
 
 export function TopNav({ user }: { user?: NavUser }) {
@@ -69,6 +72,9 @@ export function TopNav({ user }: { user?: NavUser }) {
             {user.streak}d
           </span>
         )}
+        {user?.rankTitle && (
+          <RankPill title={user.rankTitle} level={user.rankLevel ?? 1} />
+        )}
         {user ? <PlayerIdentityPill {...user} /> : <PlayerIdentityPill />}
       </div>
     </header>
@@ -94,6 +100,28 @@ function NavLink({ href, label, dot }: { href: string; label: string; dot?: bool
         />
       )}
     </Link>
+  );
+}
+
+function RankPill({ title, level }: { title: string; level: number }) {
+  const rank = getRank(level * 500); // approximate XP from level
+  return (
+    <div
+      className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-medium capitalize"
+      style={{
+        backgroundColor: `${rank.color}15`,
+        borderColor: `${rank.color}40`,
+        color: rank.color,
+      }}
+    >
+      <div
+        className="w-[18px] h-[18px] rounded-full border-[1.5px] flex items-center justify-center text-[8px] font-bold"
+        style={{ borderColor: rank.color, color: rank.color }}
+      >
+        {level}
+      </div>
+      {title}
+    </div>
   );
 }
 
