@@ -271,7 +271,30 @@ export function GamePlayer({
           return;
         }
 
-        // Default flow (Quick / Challenge) posts to /api/game/save-result.
+        // Ranked mode posts to /api/play/ranked for separate leaderboard tracking.
+        if (game.state.mode === 'ranked') {
+          const rankedRes = await fetch('/api/play/ranked', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              playlist: game.state.playlist,
+              score: game.state.totalScore,
+              correctCount: game.correctCount,
+              totalSongs: game.state.results.length,
+              bestCombo: game.state.bestCombo,
+              avgSpeed: Math.round(avgSpd * 10) / 10,
+              songResults,
+              songIds: game.state.questions.map((q) => q.song_id),
+            }),
+          });
+          if (rankedRes.ok) {
+            const data = await rankedRes.json();
+            if (data.saved) setProgressionData(data);
+          }
+          return;
+        }
+
+        // Default flow (Quick / Solo) posts to /api/game/save-result.
         const res = await fetch('/api/game/save-result', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
