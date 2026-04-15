@@ -7,8 +7,6 @@ import { useGameState } from './use-game-state';
 import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
-  ProgressDots,
-  WaveBars,
   PointsFloat,
   AnswerButton,
   AlbumArt,
@@ -16,9 +14,15 @@ import {
   ComboBadge,
   ResultsScreen,
 } from './game-ui';
+import { GameHUD } from './game-hud';
+import { AudioVisualizer } from './audio-visualizer';
+import { PowerupBar } from './powerup-bar';
+import { RoundHistory } from './round-history';
+import { GameSidebar } from './game-sidebar';
 import { ComboParticles } from './combo-particles';
 import { LightstickMascot, type MascotMood } from '@/components/mascot/lightstick-mascot';
 import { KOREAN_MOMENTS } from '@/lib/korean-moments';
+import { getInitialPowerups, type PowerupId } from '@/lib/powerups';
 import {
   playTap,
   playCorrect,
@@ -101,6 +105,9 @@ export function GamePlayer({
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [mascotMood, setMascotMood] = useState<MascotMood>('idle');
   const [wrongFlashKey, setWrongFlashKey] = useState(0);
+  const [powerups, setPowerups] = useState(getInitialPowerups());
+  const [usedPowerupThisRound, setUsedPowerupThisRound] = useState<PowerupId | null>(null);
+  const [removedAnswers, setRemovedAnswers] = useState<string[]>([]);
 
   useEffect(() => {
     setSoundEnabled(getSoundEnabled());
@@ -162,6 +169,8 @@ export function GamePlayer({
     if (game.state.phase === 'playing' && game.currentQuestion) {
       setSelectedChoice(null);
       setMascotMood('idle');
+      setUsedPowerupThisRound(null);
+      setRemovedAnswers([]);
       audio.loadAndPlay(game.currentQuestion.preview_url);
       setTimerKey((k) => k + 1);
     }
@@ -362,6 +371,28 @@ export function GamePlayer({
     if (enabled) playTap();
   }, []);
 
+  const handleUsePowerup = useCallback((id: PowerupId) => {
+    if (game.state.phase !== 'playing' || usedPowerupThisRound) return;
+    if (powerups[id] <= 0) return;
+
+    setPowerups((prev) => ({ ...prev, [id]: prev[id] - 1 }));
+    setUsedPowerupThisRound(id);
+
+    if (id === 'skip') {
+      // Skip this song, 0 points
+      game.submitAnswer(null);
+    } else if (id === 'fifty_fifty' && game.currentQuestion) {
+      // Remove 2 wrong answers
+      const wrong = game.currentQuestion.choices.filter(
+        (c) => c !== game.currentQuestion!.correct_answer,
+      );
+      const toRemove = wrong.sort(() => Math.random() - 0.5).slice(0, 2);
+      setRemovedAnswers(toRemove);
+    }
+    // extra_time: handled by adding time to timer (timer component would need extension)
+    // For now, extra_time just marks the round as power-up-used (50% point penalty)
+  }, [game, powerups, usedPowerupThisRound]);
+
   const handleQuit = useCallback(() => {
     audio.cleanup();
     router.push('/');
@@ -462,152 +493,148 @@ export function GamePlayer({
     return 'dimmed';
   }
 
+  const avgSpeedMs = game.state.results.length > 0
+    ? (game.state.results.reduce((sum, r) => sum + r.timeElapsed, 0) / game.state.results.length) * 1000
+    : 0;
+
   return (
-    <div className="flex-1 flex flex-col relative max-w-[440px] mx-auto w-full">
-      {/* Reactive mascot (fixed-position, doesn't need to live inside this div) */}
-      <LightstickMascot mood={mascotMood} />
+    <div className="flex-1 flex gap-4 justify-center relative">
+      {/* Main game column */}
+      <div className="flex-1 flex flex-col relative max-w-[440px] w-full">
+        {/* Reactive mascot */}
+        <LightstickMascot mood={mascotMood} />
 
-      {/* Red flash overlay on urgent timer ticks */}
-      {urgentFlash && (
-        <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />
-      )}
+        {/* Red flash overlay on urgent timer ticks */}
+        {urgentFlash && (
+          <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />
+        )}
 
-      {/* Wrong-answer Korean flash (fades out over 800ms) */}
-      {isRevealing && lastResult && !lastResult.correct && (
-        <p
-          key={wrongFlashKey}
-          className="absolute top-[120px] left-1/2 -translate-x-1/2 text-base font-semibold text-wrong-text animate-fade-out pointer-events-none z-20"
-        >
-          {KOREAN_MOMENTS.wrong!.text}
-        </p>
-      )}
-
-      {/* Top bar: quit | counter | sound toggle + score */}
-      <div className="flex items-center justify-between px-4 py-3">
-        <button
-          type="button"
-          onClick={handleQuit}
-          className="text-[11px] text-ghost hover:text-tertiary transition-colors"
-        >
-          Quit
-        </button>
-        <span className="text-xs text-ghost tabular-nums">
-          {game.state.currentIndex + 1} / {game.state.questions.length}
-        </span>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={handleToggleSound}
-            className="text-ghost hover:text-tertiary transition-colors"
-            aria-label={soundEnabled ? 'Mute sounds' : 'Unmute sounds'}
+        {/* Wrong-answer Korean flash */}
+        {isRevealing && lastResult && !lastResult.correct && (
+          <p
+            key={wrongFlashKey}
+            className="absolute top-[120px] left-1/2 -translate-x-1/2 text-base font-semibold text-wrong-text animate-fade-out pointer-events-none z-20"
           >
-            {soundEnabled ? (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M7 3L3.5 6H1v4h2.5L7 13V3z" fill="currentColor" />
-                <path d="M10 5.5a3 3 0 010 5M12 3.5a6 6 0 010 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M7 3L3.5 6H1v4h2.5L7 13V3z" fill="currentColor" />
-                <path d="M10 6l4 4M14 6l-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-              </svg>
-            )}
-          </button>
-          <div className="relative">
-            <span className="text-lg font-bold text-primary tabular-nums">
-              {game.state.totalScore.toLocaleString()}
-            </span>
-            <PointsFloat
-              points={game.lastPoints}
-              show={isRevealing && lastResult?.correct === true}
+            {KOREAN_MOMENTS.wrong!.text}
+          </p>
+        )}
+
+        {/* HUD: quit, combo, score, health bar */}
+        <div className="px-4 py-3">
+          <GameHUD
+            round={game.state.currentIndex + (isRevealing ? 1 : 0)}
+            totalRounds={game.state.questions.length}
+            score={game.state.totalScore}
+            comboStreak={game.state.currentCombo}
+            mode={game.state.mode}
+          />
+        </div>
+
+        {/* Immersive body */}
+        <div className="flex flex-col items-center gap-4 px-5 pt-2 pb-2">
+          {/* Album art */}
+          <AlbumArt
+            src={q.album_cover_big ?? q.album_cover_medium}
+            revealed={isRevealing}
+          />
+
+          {/* Reveal: song info; Playing: visualizer + timer */}
+          {isRevealing ? (
+            <SongInfoReveal
+              title={q.reveal.title}
+              artist={q.reveal.artist}
+              album={q.reveal.album}
+              revealed
             />
-          </div>
+          ) : (
+            <>
+              <AudioVisualizer isPlaying={phase === 'playing'} />
+              <CircularTimer
+                duration={game.state.timerDuration}
+                running={phase === 'playing'}
+                onExpired={handleTimeout}
+                timerKey={timerKey}
+                onUrgentTick={handleUrgentTick}
+              />
+            </>
+          )}
+
+          {/* Combo (>= 3) with particle burst on 5+ */}
+          {!isRevealing && game.state.currentCombo >= 3 && (
+            <div className="relative">
+              <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
+              <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
+            </div>
+          )}
+
+          {/* Question text (challenge only) */}
+          {!isRevealing && isChallenge && (
+            <p className="text-[13px] text-ghost text-center">
+              {q.question_text}
+              <span className="ml-1.5 text-accent text-xs font-semibold">1.5x</span>
+            </p>
+          )}
+        </div>
+
+        {/* Answer area */}
+        <div className="px-5 pb-4">
+          {isChallenge ? (
+            <ChallengeInput
+              questionType={q.question_type}
+              correctAnswer={q.correct_answer}
+              allPossibleAnswers={allPossibleAnswers}
+              onSubmit={handleChallengeSubmit}
+              disabled={isRevealing}
+              revealState={isRevealing && lastResult ? {
+                correct: lastResult.correct,
+                userAnswer: lastResult.answered,
+              } : null}
+            />
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              {q.choices.map((choice) => (
+                <AnswerButton
+                  key={choice}
+                  text={choice}
+                  state={getButtonState(choice)}
+                  onClick={() => handleAnswer(choice)}
+                  disabled={isRevealing || removedAnswers.includes(choice)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Mobile: power-ups + round history */}
+        <div className="md:hidden px-5 pb-6 flex flex-col gap-3">
+          {!isChallenge && (
+            <PowerupBar
+              powerups={powerups}
+              onUse={handleUsePowerup}
+              disabled={isRevealing || usedPowerupThisRound !== null}
+            />
+          )}
+          <RoundHistory results={game.state.results} totalRounds={game.state.questions.length} />
         </div>
       </div>
 
-      {/* Progress dots */}
-      <div className="px-4 pb-3">
-        <ProgressDots
-          total={game.state.questions.length}
-          current={game.state.currentIndex}
+      {/* Desktop sidebar */}
+      {!isChallenge && (
+        <GameSidebar
+          score={game.state.totalScore}
+          lastRoundPoints={game.lastPoints}
+          comboStreak={game.state.currentCombo}
+          bestCombo={game.state.bestCombo}
+          correctCount={game.correctCount}
+          totalPlayed={game.state.results.length}
+          avgSpeedMs={avgSpeedMs}
+          powerups={powerups}
           results={game.state.results}
+          totalRounds={game.state.questions.length}
+          onUsePowerup={handleUsePowerup}
+          powerupsDisabled={isRevealing || usedPowerupThisRound !== null}
         />
-      </div>
-
-      {/* Immersive body */}
-      <div className="flex flex-col items-center gap-4 px-5 pt-4 pb-2">
-        {/* Album art */}
-        <AlbumArt
-          src={q.album_cover_big ?? q.album_cover_medium}
-          revealed={isRevealing}
-        />
-
-        {/* Reveal: song info; Playing: waves + timer */}
-        {isRevealing ? (
-          <SongInfoReveal
-            title={q.reveal.title}
-            artist={q.reveal.artist}
-            album={q.reveal.album}
-            revealed
-          />
-        ) : (
-          <>
-            <WaveBars active={phase === 'playing'} />
-            <CircularTimer
-              duration={game.state.timerDuration}
-              running={phase === 'playing'}
-              onExpired={handleTimeout}
-              timerKey={timerKey}
-              onUrgentTick={handleUrgentTick}
-            />
-          </>
-        )}
-
-        {/* Combo (>= 3) with particle burst on 5+ */}
-        {!isRevealing && game.state.currentCombo >= 3 && (
-          <div className="relative">
-            <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
-            <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
-          </div>
-        )}
-
-        {/* Question text (challenge only) */}
-        {!isRevealing && isChallenge && (
-          <p className="text-[13px] text-ghost text-center">
-            {q.question_text}
-            <span className="ml-1.5 text-accent text-xs font-semibold">1.5x</span>
-          </p>
-        )}
-      </div>
-
-      {/* Answer area pinned near the bottom */}
-      <div className="px-5 pb-8">
-        {isChallenge ? (
-          <ChallengeInput
-            questionType={q.question_type}
-            correctAnswer={q.correct_answer}
-            allPossibleAnswers={allPossibleAnswers}
-            onSubmit={handleChallengeSubmit}
-            disabled={isRevealing}
-            revealState={isRevealing && lastResult ? {
-              correct: lastResult.correct,
-              userAnswer: lastResult.answered,
-            } : null}
-          />
-        ) : (
-          <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-            {q.choices.map((choice) => (
-              <AnswerButton
-                key={choice}
-                text={choice}
-                state={getButtonState(choice)}
-                onClick={() => handleAnswer(choice)}
-                disabled={isRevealing}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }
