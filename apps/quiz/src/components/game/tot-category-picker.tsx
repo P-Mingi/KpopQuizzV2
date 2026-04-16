@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
-import { formatCount } from '@/lib/utils';
+import { TotCategoryCard } from '@/components/games/tot-category-card';
 
 import type { TotCategoryType } from '@/lib/db/types';
 
@@ -45,20 +45,6 @@ const TYPE_FILTERS: { key: TotCategoryType | null; label: string }[] = [
   { key: 'group', label: 'Groups' },
   { key: 'song', label: 'Songs' },
 ];
-
-const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
-  idol: { bg: 'rgba(212,83,126,0.25)', text: '#ED93B1' },
-  group: { bg: 'rgba(99,168,237,0.25)', text: '#7CBCF5' },
-  song: { bg: 'rgba(168,212,83,0.25)', text: '#B5D96B' },
-};
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function getInitials(name: string): string {
-  return name.slice(0, 2).toUpperCase();
-}
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -117,82 +103,6 @@ function TypeFilterPills({
   );
 }
 
-function CategoryCard({ category }: { category: TotCategoryWithItems }) {
-  const items = category.tot_items ?? [];
-  const left = items[0];
-  const right = items[1] ?? items[Math.min(1, items.length - 1)];
-  const typeInfo = (TYPE_COLORS[category.type] ?? TYPE_COLORS.idol)!;
-  const typeLabel = category.type === 'idol' ? 'Idols' : category.type === 'group' ? 'Groups' : 'Songs';
-
-  return (
-    <Link href={`/games/this-or-that/${category.slug}`}>
-      <div className="rounded-[14px] border-[1.5px] border-[#2a2a2a] bg-[#0C0C0E] overflow-hidden hover:border-[#D4537E] hover:-translate-y-[2px] transition-all">
-        {/* VS Banner */}
-        <div className="h-[88px] relative flex overflow-hidden">
-          {/* Left side */}
-          <div className="flex-1 flex items-center justify-center" style={{ background: left?.color || '#1a3f7a' }}>
-            <div
-              className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20 overflow-hidden"
-              style={{ background: left?.color ? `${left.color}cc` : '#3d2e7a' }}
-            >
-              {left?.image_url ? (
-                <img src={left.image_url} alt="" className="w-full h-full rounded-full object-cover" />
-              ) : (
-                getInitials(left?.name || '??')
-              )}
-            </div>
-          </div>
-
-          {/* Diagonal slash */}
-          <div
-            className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-white/[0.08]"
-            style={{ transform: 'rotate(12deg)', transformOrigin: 'top center' }}
-          />
-
-          {/* VS badge */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-6 h-6 rounded-full bg-[#0C0C0E] border-[1.5px] border-white/[0.15] flex items-center justify-center">
-            <span className="text-[8px] font-bold text-white/50 tracking-wider">VS</span>
-          </div>
-
-          {/* Right side */}
-          <div className="flex-1 flex items-center justify-center" style={{ background: right?.color || '#0a4a36' }}>
-            <div
-              className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20 overflow-hidden"
-              style={{ background: right?.color ? `${right.color}cc` : '#0d5a42' }}
-            >
-              {right?.image_url ? (
-                <img src={right.image_url} alt="" className="w-full h-full rounded-full object-cover" />
-              ) : (
-                getInitials(right?.name || '??')
-              )}
-            </div>
-          </div>
-
-          {/* Type badge */}
-          <span
-            className="absolute top-[5px] right-[5px] px-1.5 py-[2px] rounded text-[8px] font-medium z-[6]"
-            style={{ background: typeInfo.bg, color: typeInfo.text }}
-          >
-            {typeLabel}
-          </span>
-        </div>
-
-        {/* Body */}
-        <div className="px-2.5 py-2 pb-2.5">
-          <p className="text-[11px] font-medium text-white leading-tight mb-[3px]">
-            {category.title}
-          </p>
-          <div className="flex items-center gap-1.5 text-[9px] text-white/[0.35]">
-            <span>{items.length} in pool</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-white/20" />
-            <span>{formatCount(category.play_count)} plays</span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
@@ -243,9 +153,9 @@ export function TotCategoryPicker({ categories }: TotCategoryPickerProps) {
 
       {/* Category grid */}
       {filteredCategories.length > 0 ? (
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
+        <div className="mt-4 flex flex-wrap gap-2.5 justify-center sm:justify-start">
           {filteredCategories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
+            <TotCategoryCard key={category.id} category={category} />
           ))}
         </div>
       ) : (

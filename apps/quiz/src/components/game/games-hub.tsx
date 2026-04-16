@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
-import { formatCount } from '@/lib/utils';
+import { TotCategoryCard } from '@/components/games/tot-category-card';
+import { NameAllGrid } from '@/components/games/name-all-grid';
+import { toNameAllGame } from '@/components/games/adapters';
 
-import type { GameCardData, NameAllMember } from '@/lib/db/types';
+import type { GameCardData } from '@/lib/db/types';
 
 // ---------------------------------------------------------------------------
 // Props
@@ -35,50 +36,12 @@ const GROUP_PILLS = [
   { label: 'TXT', slug: 'txt' },
 ];
 
-const DIFFICULTY_COLORS: Record<string, { bg: string; text: string }> = {
-  easy: { bg: '#EAF3DE', text: '#27500A' },
-  medium: { bg: '#FAEEDA', text: '#633806' },
-  hard: { bg: '#FCEBEB', text: '#791F1F' },
-};
-
-const TOT_TYPE_COLORS: Record<string, { bg: string; text: string }> = {
-  idol: { bg: 'rgba(212,83,126,0.25)', text: '#ED93B1' },
-  group: { bg: 'rgba(99,168,237,0.25)', text: '#7CBCF5' },
-  song: { bg: 'rgba(168,212,83,0.25)', text: '#B5D96B' },
-};
-
 const COMING_SOON_GAMES = [
   { title: 'Guess the idol', icon: '\uD83D\uDD0D', color: '#FBEAF0' },
   { title: 'Song roulette', icon: '\uD83C\uDFB5', color: '#E6F1FB' },
   { title: 'Timeline race', icon: '\u23F1', color: '#FAEEDA' },
   { title: 'K-pop bingo', icon: '\uD83C\uDFB0', color: '#EAF3DE' },
 ];
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function getInitials(name: string): string {
-  return name.slice(0, 2).toUpperCase();
-}
-
-function formatTimer(s: number): string {
-  if (s >= 60) {
-    return `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
-  }
-  return `${s}s`;
-}
-
-function getBannerBg(game: GameCardData): string {
-  if (game.display_color) {
-    const hex = game.display_color.replace('#', '');
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, 0.10)`;
-  }
-  return '#F0EDE8';
-}
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -213,178 +176,6 @@ function HeroCards() {
   );
 }
 
-function TotCategoryCard({ cat }: { cat: any }) {
-  const items = cat.tot_items ?? [];
-  const left = items[0];
-  const right = items[1] ?? items[Math.min(1, items.length - 1)];
-  const typeInfo = TOT_TYPE_COLORS[cat.type] ?? TOT_TYPE_COLORS.idol;
-  const typeLabel = cat.type === 'idol' ? 'Idols' : cat.type === 'group' ? 'Groups' : 'Songs';
-
-  return (
-    <Link href={`/games/this-or-that/${cat.slug}`} className="shrink-0" style={{ width: 170 }}>
-      <div className="rounded-[14px] border-[1.5px] border-[#2a2a2a] bg-[#0C0C0E] overflow-hidden hover:border-[#D4537E] hover:-translate-y-[2px] transition-all">
-        {/* VS Banner - two halves */}
-        <div className="h-[88px] relative flex overflow-hidden">
-          {/* Left side */}
-          <div className="flex-1 flex items-center justify-center" style={{ background: left?.color || '#1a3f7a' }}>
-            <div className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20"
-              style={{ background: left?.color ? `${left.color}cc` : '#3d2e7a' }}>
-              {left?.image_url ? (
-                <img src={left.image_url} alt="" className="w-full h-full rounded-full object-cover" />
-              ) : (
-                getInitials(left?.name || '??')
-              )}
-            </div>
-          </div>
-
-          {/* Diagonal slash */}
-          <div className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-white/[0.08]"
-            style={{ transform: 'rotate(12deg)', transformOrigin: 'top center' }} />
-
-          {/* VS badge */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-6 h-6 rounded-full bg-[#0C0C0E] border-[1.5px] border-white/[0.15] flex items-center justify-center">
-            <span className="text-[8px] font-bold text-white/50 tracking-wider">VS</span>
-          </div>
-
-          {/* Right side */}
-          <div className="flex-1 flex items-center justify-center" style={{ background: right?.color || '#0a4a36' }}>
-            <div className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[10px] font-medium text-white border-2 border-white/20"
-              style={{ background: right?.color ? `${right.color}cc` : '#0d5a42' }}>
-              {right?.image_url ? (
-                <img src={right.image_url} alt="" className="w-full h-full rounded-full object-cover" />
-              ) : (
-                getInitials(right?.name || '??')
-              )}
-            </div>
-          </div>
-
-          {/* Type badge */}
-          <span className="absolute top-[5px] right-[5px] px-1.5 py-[2px] rounded text-[8px] font-medium z-[6]"
-            style={{ background: typeInfo?.bg ?? 'rgba(212,83,126,0.25)', color: typeInfo?.text ?? '#ED93B1' }}>
-            {typeLabel}
-          </span>
-        </div>
-
-        {/* Body */}
-        <div className="px-2.5 py-2 pb-2.5">
-          <p className="text-[11px] font-medium text-white leading-tight mb-[3px]">
-            {cat.title}
-          </p>
-          <div className="flex items-center gap-1.5 text-[9px] text-white/[0.35]">
-            <span>{items.length} in pool</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-white/20" />
-            <span>{formatCount(cat.play_count)} plays</span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function MemberAvatarStack({ members }: { members: NameAllMember[] }) {
-  return (
-    <div className="flex items-center justify-center">
-      {members.slice(0, 3).map((m, i) => (
-        <div
-          key={i}
-          className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center text-[10px] font-semibold text-white border-2 border-white"
-          style={{ background: m.color || '#B0ADA5', marginLeft: i > 0 ? '-8px' : '0' }}
-        >
-          {m.photo_url ? (
-            <Image src={m.photo_url} alt={m.name} width={36} height={36} className="w-full h-full object-cover" />
-          ) : (
-            getInitials(m.name)
-          )}
-        </div>
-      ))}
-      {members.length > 3 && (
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-semibold text-[#888780] bg-[#F0EDE8] border-2 border-white"
-          style={{ marginLeft: '-8px' }}
-        >
-          +{members.length - 3}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function NameAllCard({ game }: { game: GameCardData }) {
-  const rawContent = game.content as unknown as Record<string, unknown>;
-  // Normalize: old 'members' array or new 'items' array
-  const members: NameAllMember[] = (rawContent.members as NameAllMember[]) ??
-    ((rawContent.items as Array<{ name: string; color?: string }>)?.map((item, i) => ({
-      name: item.name,
-      aliases: [],
-      photo_url: null,
-      position: '',
-      color: item.color ?? ['#D4537E', '#7F77DD', '#0F6E56', '#BA7517', '#378ADD'][i % 5],
-    }))) ?? [];
-  const difficulty = (rawContent.difficulty as string) ?? null;
-  const timer = (rawContent.timer_seconds as number) ?? null;
-  const diffColors = difficulty ? DIFFICULTY_COLORS[difficulty] : null;
-  const isSongGame = game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs';
-  const itemLabel = isSongGame ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members';
-
-  return (
-    <Link href={`/games/name-all/${game.slug}`}>
-      <div className="rounded-[14px] border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden hover:border-[var(--accent)] hover:-translate-y-[2px] transition-all">
-        {/* Banner */}
-        <div
-          className="h-[90px] relative flex items-center justify-center"
-          style={{ background: getBannerBg(game) }}
-        >
-          {isSongGame ? (
-            <div className="flex gap-1">
-              {[0, 1].map(i => (
-                <div key={i} className="w-7 h-7 rounded-md flex items-center justify-center border-2 border-white"
-                  style={{ background: members[i]?.color || '#3a2a4a' }}>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round">
-                    <path d="M3 9h2l2-3 2 5 1.5-3H12" />
-                  </svg>
-                </div>
-              ))}
-            </div>
-          ) : (
-            members.length > 0 && <MemberAvatarStack members={members} />
-          )}
-
-          {difficulty && diffColors && (
-            <span
-              className="absolute top-2 left-2 text-[10px] font-medium px-2 py-0.5 rounded-full capitalize"
-              style={{ backgroundColor: diffColors.bg, color: diffColors.text }}
-            >
-              {difficulty}
-            </span>
-          )}
-
-          {timer != null && (
-            <span className="absolute top-2 right-2 text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/80 text-[var(--text-secondary)]">
-              {formatTimer(timer)}
-            </span>
-          )}
-        </div>
-
-        {/* Body */}
-        <div className="p-2.5 pb-3">
-          <p className="text-xs font-medium text-[var(--text-primary)] leading-tight mb-1 line-clamp-2">
-            {game.title}
-          </p>
-          <div className="flex items-center gap-1.5 text-[10px] text-[var(--text-tertiary)]">
-            {members.length > 0 && (
-              <>
-                <span>{members.length} {itemLabel}</span>
-                <span className="w-[3px] h-[3px] rounded-full bg-[#D3D1C7]" />
-              </>
-            )}
-            <span>{formatCount(game.play_count)} plays</span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
 function ComingSoonCard({ title, icon, color }: { title: string; icon: string; color: string }) {
   return (
     <div className="shrink-0 opacity-55" style={{ width: 130 }}>
@@ -494,7 +285,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps) {
           />
           <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
             {filteredTot.map((cat) => (
-              <TotCategoryCard key={cat.id} cat={cat} />
+              <TotCategoryCard key={cat.id} category={cat} />
             ))}
           </div>
         </div>
@@ -508,11 +299,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps) {
           href="/games/name-all"
         />
         {filteredNameAll.length > 0 ? (
-          <div className="grid grid-cols-2 gap-2">
-            {filteredNameAll.map((game) => (
-              <NameAllCard key={game.id} game={game} />
-            ))}
-          </div>
+          <NameAllGrid games={filteredNameAll.map(toNameAllGame)} />
         ) : (
           <div className="text-center py-8">
             <p className="text-sm text-[var(--text-tertiary)]">
