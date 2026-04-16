@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { playPick, playEliminate, playNextMatchup, playVictory } from '@/lib/sounds';
 import type { TotCategoryWithItems, TotItem, TotBracketEntry } from '@/lib/db/types';
 
@@ -56,8 +56,30 @@ function injectKeyframes() {
 }
 
 // ============================================
-// Helpers
+// Helpers — tournament math
 // ============================================
+
+function shuffle<T>(array: T[]): T[] {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j]!, a[i]!];
+  }
+  return a;
+}
+
+function nextPowerOfTwo(n: number): number {
+  if (n <= 1) return 1;
+  return Math.pow(2, Math.ceil(Math.log2(n)));
+}
+
+/** Pad an array of real items with `null` byes up to the next power of 2. */
+function padToPowerOfTwo<T>(items: T[]): (T | null)[] {
+  const target = nextPowerOfTwo(items.length);
+  const padded: (T | null)[] = [...items];
+  while (padded.length < target) padded.push(null);
+  return padded;
+}
 
 function getRoundLabel(round: number, totalRounds: number): string {
   const remaining = totalRounds - round;
@@ -67,27 +89,13 @@ function getRoundLabel(round: number, totalRounds: number): string {
   return `ROUND OF ${Math.pow(2, remaining)}`;
 }
 
-function computeTotalMatchups(poolSize: number): number {
-  // 16 items = 8 + 4 + 2 + 1 = 15 matchups
-  // poolSize items = poolSize - 1 matchups total
-  return Math.max(poolSize - 1, 0);
-}
-
-function computeGlobalMatchIndex(
-  bracket: TotItem[][],
-  currentRound: number,
-  currentMatchIndex: number,
-): number {
-  let count = 0;
-  for (let r = 0; r < currentRound; r++) {
-    count += Math.floor((bracket[r]?.length ?? 0) / 2);
+/** Real matchups (excludes bye-only and bye-vs-real pairs). */
+function realMatchupsInRound(items: (TotItem | null)[]): number {
+  let n = 0;
+  for (let i = 0; i < items.length; i += 2) {
+    if (items[i] !== null && items[i + 1] !== null) n++;
   }
-  return count + currentMatchIndex;
-}
-
-function computeTotalRounds(poolSize: number): number {
-  // 16 -> 4 rounds (R16, QF, SF, F)
-  return Math.ceil(Math.log2(poolSize));
+  return n;
 }
 
 // ============================================
@@ -136,13 +144,21 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // ---- Phase state ----
   const [phase, setPhase] = useState<Phase>('start');
 
-  // ---- Bracket state ----
-  const [bracket, setBracket] = useState<TotItem[][]>([]);
+  // ---- Tournament state (NEW elimination-safe state machine) ----
+  // currentRoundItems may contain `null` entries representing byes.
+  const [currentRoundItems, setCurrentRoundItems] = useState<(TotItem | null)[]>([]);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const [winnersThisRound, setWinnersThisRound] = useState<TotItem[]>([]);
   const [currentRound, setCurrentRound] = useState(0);
-  const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
-  const [nextRoundItems, setNextRoundItems] = useState<TotItem[]>([]);
+  // bracket: snapshot of REAL items per round (used by the result screen
+  // for "Survived X rounds"). Round 0 = initial pool; round k = winners of
+  // round k-1.
+  const [bracket, setBracket] = useState<TotItem[][]>([]);
   const [matchResults, setMatchResults] = useState<TotBracketEntry[]>([]);
   const [winner, setWinner] = useState<TotItem | null>(null);
+
+  // ---- Total tournament size (set when game starts) ----
+  const [poolRealSize, setPoolRealSize] = useState(0);
 
   // ---- Animation state ----
   const [animState, setAnimState] = useState<AnimState>('idle');
@@ -163,43 +179,110 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   }, []);
 
   // ---- Derived values ----
-  const poolSize = bracket[0]?.length ?? 16;
-  const totalMatchups = computeTotalMatchups(poolSize);
-  const totalRounds = computeTotalRounds(poolSize);
-  const globalMatchIndex = computeGlobalMatchIndex(bracket, currentRound, currentMatchIndex);
+  const totalRounds = useMemo(
+    () => (poolRealSize > 1 ? Math.ceil(Math.log2(poolRealSize)) : 1),
+    [poolRealSize],
+  );
+  // Total real matchups across the whole tournament = N - 1 (each match
+  // eliminates exactly one item, need N-1 eliminations to crown a champion).
+  const totalMatchups = Math.max(poolRealSize - 1, 0);
+  const completedMatchups = matchResults.length;
 
-  const currentRoundItems = bracket[currentRound] ?? [];
-  const itemA = currentRoundItems[currentMatchIndex * 2] ?? null;
-  const itemB = currentRoundItems[currentMatchIndex * 2 + 1] ?? null;
-  const isLastMatch = globalMatchIndex === totalMatchups - 1;
+  const itemA = currentRoundItems[currentItemIndex] ?? null;
+  const itemB = currentRoundItems[currentItemIndex + 1] ?? null;
+
+  const matchupsInThisRound = realMatchupsInRound(currentRoundItems);
+  const matchupsDoneThisRound = matchResults.filter((r) => r.round === currentRound).length;
+  const isLastMatch = completedMatchups === totalMatchups - 1;
+
+  // ---- Auto-advance through byes ----
+  // Whenever the current pair contains at least one bye, the real side
+  // (if any) advances to the next round automatically and we move on.
+  useEffect(() => {
+    if (phase !== 'playing') return;
+    if (currentItemIndex >= currentRoundItems.length) return;
+
+    const left = currentRoundItems[currentItemIndex] ?? null;
+    const right = currentRoundItems[currentItemIndex + 1] ?? null;
+    if (left !== null && right !== null) return; // both real, user picks
+
+    // Handle the bye(s) without animation/sound — these are skipped silently.
+    if (left === null && right === null) {
+      setCurrentItemIndex((i) => i + 2);
+      return;
+    }
+    const survivor = (left ?? right) as TotItem;
+    setWinnersThisRound((w) => [...w, survivor]);
+    setCurrentItemIndex((i) => i + 2);
+  }, [phase, currentItemIndex, currentRoundItems]);
+
+  // ---- End-of-round / end-of-tournament check ----
+  // Runs after byes have been processed. If we've consumed all slots in the
+  // current round, advance to the next round (winners only) or finish.
+  useEffect(() => {
+    if (phase !== 'playing') return;
+    if (currentItemIndex < currentRoundItems.length) return;
+    if (currentRoundItems.length === 0) return; // nothing to advance from
+
+    const winners = winnersThisRound;
+
+    if (winners.length <= 1) {
+      // Tournament complete (or degenerate single-item pool).
+      const champ = winners[0] ?? null;
+      if (champ) {
+        setWinner(champ);
+        setPhase('result');
+        if (soundEnabled) playVictory();
+        saveResult(category.id, champ.id, matchResults);
+      }
+      return;
+    }
+
+    // Advance to the next round: shuffle winners and pad to next power of 2.
+    setBracket((prev) => [...prev, winners]);
+    setCurrentRound((r) => r + 1);
+    setCurrentRoundItems(padToPowerOfTwo(shuffle(winners)));
+    setWinnersThisRound([]);
+    setCurrentItemIndex(0);
+    if (soundEnabled) playNextMatchup();
+  // matchResults intentionally omitted from deps — we only want to react to
+  // round-completion, not to every matchup recorded mid-round.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, currentItemIndex, currentRoundItems, winnersThisRound, soundEnabled, category.id]);
 
   // ---- Actions ----
 
   const startGame = useCallback(() => {
-    // Fisher-Yates shuffle for unbiased randomization
-    const shuffled = [...category.items];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j]!, shuffled[i]!];
-    }
-    // Deduplicate by id to ensure each idol appears only once
-    const seen = new Set<string>();
-    const unique = shuffled.filter(item => {
-      if (seen.has(item.id)) return false;
-      seen.add(item.id);
+    // Defensively dedupe by id AND by lowercase name. The current data has
+    // shown duplicate names with different UUIDs, which broke the "no
+    // reappearance" guarantee.
+    const seenIds = new Set<string>();
+    const seenNames = new Set<string>();
+    const unique = category.items.filter((item) => {
+      if (seenIds.has(item.id)) return false;
+      const nameKey = (item.name ?? '').trim().toLowerCase();
+      if (nameKey && seenNames.has(nameKey)) return false;
+      seenIds.add(item.id);
+      if (nameKey) seenNames.add(nameKey);
       return true;
     });
-    const pool = unique.slice(0, Math.min(16, unique.length));
+
+    // Use the configured pool size, capped at the number of real items.
+    const targetPoolSize = Math.max(1, Math.min(category.pool_size, unique.length));
+    const pool = shuffle(unique).slice(0, targetPoolSize);
+
+    setPoolRealSize(pool.length);
     setBracket([pool]);
     setCurrentRound(0);
-    setCurrentMatchIndex(0);
-    setNextRoundItems([]);
+    setCurrentRoundItems(padToPowerOfTwo(pool));
+    setCurrentItemIndex(0);
+    setWinnersThisRound([]);
     setMatchResults([]);
     setWinner(null);
     setPickedSide(null);
     setAnimState('idle');
     setPhase('playing');
-  }, [category.items]);
+  }, [category.items, category.pool_size]);
 
   const playAgain = useCallback(() => {
     startGame();
@@ -228,67 +311,32 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         navigator.vibrate(40);
       }
 
-      // Record this matchup
-      const newEntry: TotBracketEntry = {
-        winner_id: pickedWinner.id,
-        loser_id: loser.id,
-        round: currentRound,
-      };
-      const updatedResults = [...matchResults, newEntry];
-      setMatchResults(updatedResults);
-
-      // Add winner to next round pool
-      const newNextRound = [...nextRoundItems, pickedWinner];
-      setNextRoundItems(newNextRound);
+      // Record this matchup. The loser is intentionally never referenced
+      // again — they're permanently eliminated.
+      setMatchResults((prev) => [
+        ...prev,
+        { winner_id: pickedWinner.id, loser_id: loser.id, round: currentRound },
+      ]);
+      setWinnersThisRound((prev) => [...prev, pickedWinner]);
 
       // Eliminate sound after short delay
       setTimeout(() => {
         if (soundEnabled) playEliminate();
       }, 200);
 
-      // After animation delay, advance
+      // After animation delay, advance to the next pair. Round transitions
+      // and tournament completion are handled by the useEffects above so
+      // we don't have to duplicate that logic here.
       setTimeout(() => {
         setAnimState('transitioning');
-
         setTimeout(() => {
-          const pairsInRound = Math.floor(currentRoundItems.length / 2);
-
-          if (currentMatchIndex + 1 < pairsInRound) {
-            // Next match in same round
-            setCurrentMatchIndex((prev) => prev + 1);
-          } else if (newNextRound.length > 1) {
-            // Advance to next round
-            setBracket((prev) => [...prev, newNextRound]);
-            setCurrentRound((prev) => prev + 1);
-            setCurrentMatchIndex(0);
-            setNextRoundItems([]);
-          } else {
-            // Tournament complete!
-            setWinner(pickedWinner);
-            setPhase('result');
-            if (soundEnabled) playVictory();
-            saveResult(category.id, pickedWinner.id, updatedResults);
-            return;
-          }
-
+          setCurrentItemIndex((i) => i + 2);
           setPickedSide(null);
           setAnimState('idle');
-          if (soundEnabled) playNextMatchup();
         }, 300);
       }, 750);
     },
-    [
-      animState,
-      itemA,
-      itemB,
-      soundEnabled,
-      currentRound,
-      matchResults,
-      nextRoundItems,
-      currentRoundItems,
-      currentMatchIndex,
-      category.id,
-    ],
+    [animState, itemA, itemB, soundEnabled, currentRound],
   );
 
   // ============================================
@@ -296,6 +344,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // ============================================
 
   if (phase === 'start') {
+    const previewPoolSize = Math.min(category.pool_size, category.items.length);
     return (
       <div
         style={{
@@ -380,8 +429,8 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             textAlign: 'center',
           }}
         >
-          {category.pool_size} in pool / {Math.min(16, category.items.length)} per game /{' '}
-          {computeTotalMatchups(Math.min(16, category.items.length))} matchups
+          {category.pool_size} in pool / {previewPoolSize} per game /{' '}
+          {Math.max(previewPoolSize - 1, 0)} matchups
         </p>
 
         {/* Start button */}
@@ -698,7 +747,8 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             {getRoundLabel(currentRound, totalRounds)}
           </p>
           <p style={{ fontSize: 12, color: C.textSecondary, margin: 0 }}>
-            {globalMatchIndex + 1} / {totalMatchups}
+            {Math.min(matchupsDoneThisRound + 1, Math.max(matchupsInThisRound, 1))} /{' '}
+            {Math.max(matchupsInThisRound, 1)}
           </p>
         </div>
 
@@ -722,13 +772,14 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         </button>
       </div>
 
-      {/* Progress dots */}
+      {/* Progress dots — one per real matchup in the whole tournament */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           gap: 4,
           padding: '0 16px 8px',
+          flexWrap: 'wrap',
         }}
       >
         {Array.from({ length: totalMatchups }).map((_, i) => (
@@ -739,12 +790,12 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               height: 8,
               borderRadius: '50%',
               background:
-                i < globalMatchIndex
+                i < completedMatchups
                   ? C.accent
-                  : i === globalMatchIndex
+                  : i === completedMatchups
                     ? '#ffffff'
                     : 'rgba(255,255,255,0.1)',
-              transform: i === globalMatchIndex ? 'scale(1.3)' : 'scale(1)',
+              transform: i === completedMatchups ? 'scale(1.3)' : 'scale(1)',
               transition: 'all 300ms',
             }}
           />
@@ -763,7 +814,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         >
           {[itemA, itemB].map((item, sideIndex) => (
             <div
-              key={`${currentRound}-${currentMatchIndex}-${sideIndex}`}
+              key={`${currentRound}-${currentItemIndex}-${sideIndex}`}
               onClick={() => handlePick(sideIndex as 0 | 1)}
               style={{
                 flex: 1,
