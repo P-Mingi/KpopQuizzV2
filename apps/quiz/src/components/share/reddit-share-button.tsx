@@ -1,3 +1,5 @@
+import { REDDIT_SUBREDDIT } from '@kpopquiz/shared/social-links';
+
 interface RedditShareButtonProps {
   url: string;
   title: string;
@@ -10,7 +12,7 @@ interface RedditShareButtonProps {
 export function RedditShareButton({
   url,
   title,
-  subreddit = 'kpopquiz',
+  subreddit = REDDIT_SUBREDDIT,
   label = 'Share on Reddit',
   className,
   compact = false,
