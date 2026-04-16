@@ -2,13 +2,26 @@ import sharp from 'sharp';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const SVG = `<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="220" fill="#D4537E"/>
-  <circle cx="190" cy="230" r="28" fill="#0D0D0F"/>
-  <circle cx="200" cy="218" r="10" fill="rgba(255,255,255,0.7)"/>
-  <circle cx="322" cy="230" r="28" fill="#0D0D0F"/>
-  <circle cx="332" cy="218" r="10" fill="rgba(255,255,255,0.7)"/>
-  <path d="M190 300 Q256 360 322 300" fill="none" stroke="#0D0D0F" stroke-width="16" stroke-linecap="round"/>
+// Lightstick mascot favicon: head (pink circle with cute face) + stick below.
+// Matches the logo in logo.tsx. The head is large so it's recognizable at 16x16.
+const SVG = `<svg width="512" height="512" viewBox="0 0 512 716" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <circle cx="256" cy="200" r="190" fill="#D4537E"/>
+  <!-- Stick -->
+  <rect x="230" y="390" width="52" height="280" rx="26" fill="#B0ADA5"/>
+  <!-- Left eye -->
+  <circle cx="200" cy="180" r="22" fill="#FFFFFF"/>
+  <circle cx="200" cy="180" r="12" fill="#0D0D0F"/>
+  <circle cx="206" cy="174" r="5" fill="rgba(255,255,255,0.8)"/>
+  <!-- Right eye -->
+  <circle cx="312" cy="180" r="22" fill="#FFFFFF"/>
+  <circle cx="312" cy="180" r="12" fill="#0D0D0F"/>
+  <circle cx="318" cy="174" r="5" fill="rgba(255,255,255,0.8)"/>
+  <!-- Mouth -->
+  <path d="M210 260 Q256 310 302 260" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+  <!-- Cheek blushes -->
+  <circle cx="155" cy="240" r="24" fill="rgba(255,255,255,0.25)"/>
+  <circle cx="357" cy="240" r="24" fill="rgba(255,255,255,0.25)"/>
 </svg>`;
 
 const PUBLIC_DIR = path.join('apps', 'quiz', 'public');
