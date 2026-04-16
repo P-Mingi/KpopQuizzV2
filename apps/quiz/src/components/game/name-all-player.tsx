@@ -112,9 +112,10 @@ function PhotoMemberCard({
     if (v.length < 2) return;
     const clean = v.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ');
     const allNames = [member.name, ...member.aliases].map(n => n.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' '));
-    const matched = allNames.some(name =>
-      name === clean || (clean.length >= 3 && name.startsWith(clean) && clean.length >= name.length - 1)
-    );
+    // Exact match only — never validate on a prefix. Players must type the
+    // full name (or a full alias). Auto-validating on prefixes like "mom"
+    // for "Momo" feels broken.
+    const matched = allNames.some(name => name === clean);
     if (matched) {
       onMatch();
       setValue('');
