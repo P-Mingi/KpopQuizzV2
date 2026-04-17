@@ -126,23 +126,24 @@ export async function POST(req: Request): Promise<NextResponse> {
     .not('title', 'ilike', '%reverb%');
 
   if (isGroupPlaylist) {
-    // First try exact artist name match (from home page group pills)
+    // First try exact artist name match (case-insensitive)
     const { data: exactMatch } = await supabase
       .from('songs')
-      .select('id')
-      .eq('artist_name', playlist)
+      .select('artist_name')
+      .ilike('artist_name', playlist)
       .eq('status', 'active')
       .limit(1);
 
     if (exactMatch && exactMatch.length > 0) {
-      query = query.eq('artist_name', playlist);
+      // Use the exact casing from DB for the query
+      query = query.eq('artist_name', exactMatch[0]!.artist_name);
     } else {
-      // Try group slug via groups table
+      // Try group slug via groups table -> use group name for artist match
       const { data: groupData } = await supabase.from('groups').select('id, name').eq('slug', playlist).single();
       if (groupData) {
-        query = query.eq('group_id', groupData.id);
+        query = query.eq('artist_name', groupData.name as string);
       } else {
-        // Fuzzy match on artist name
+        // Fuzzy match on artist name (replace hyphens with spaces)
         query = query.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
       }
     }

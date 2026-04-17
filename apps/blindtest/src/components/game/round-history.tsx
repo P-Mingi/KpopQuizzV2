@@ -9,13 +9,13 @@ export function RoundHistory({ results, totalRounds }: { results: SongResult[]; 
 
         if (isCurrent) {
           return (
-            <div key={i} className="w-[9px] h-[9px] rounded-full bg-[#D4537E] outline-2 outline outline-white/25" />
+            <div key={i} className="w-[9px] h-[9px] rounded-full bg-accent outline-2 outline outline-accent/25" />
           );
         }
 
         if (!result) {
           return (
-            <div key={i} className="w-[7px] h-[7px] md:w-2 md:h-2 rounded-full bg-white/10" />
+            <div key={i} className="w-[7px] h-[7px] md:w-2 md:h-2 rounded-full bg-elevated" />
           );
         }
 
@@ -23,7 +23,7 @@ export function RoundHistory({ results, totalRounds }: { results: SongResult[]; 
           <div
             key={i}
             className={`w-[7px] h-[7px] md:w-2 md:h-2 rounded-full ${
-              result.correct ? 'bg-white/60' : 'bg-white/20'
+              result.correct ? 'bg-correct' : 'bg-wrong'
             }`}
           />
         );

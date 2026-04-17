@@ -438,8 +438,7 @@ export function GamePlayer({
   if (phase === 'loading') {
     return (
       <div
-        className="w-full h-screen overflow-hidden relative flex items-center justify-center"
-        style={{ background: 'radial-gradient(ellipse at 50% 30%, #2a1f4e 0%, #140e2e 60%, #0a0716 100%)' }}
+        className="w-full h-screen overflow-hidden relative flex items-center justify-center bg-primary"
       >
         <div className="flex flex-col items-center gap-4 px-5 max-w-[440px] mx-auto w-full">
           {error ? (
@@ -517,8 +516,7 @@ export function GamePlayer({
 
   return (
     <div
-      className="w-full h-screen overflow-hidden relative"
-      style={{ background: 'radial-gradient(ellipse at 50% 30%, #2a1f4e 0%, #140e2e 60%, #0a0716 100%)' }}
+      className="w-full h-screen overflow-hidden relative bg-primary"
     >
       {/* Timer bar at the very top */}
       {phase === 'playing' && (
@@ -574,13 +572,13 @@ export function GamePlayer({
 
           {/* Health/progress bar */}
           <div className="mt-3 md:mt-4">
-            <div className="h-[4px] md:h-[5px] rounded-full bg-white/[0.06] overflow-hidden">
+            <div className="h-[4px] md:h-[5px] rounded-full bg-elevated overflow-hidden">
               <div
-                className="h-full rounded-full bg-[#D4537E] transition-all duration-500"
+                className="h-full rounded-full bg-accent transition-all duration-500"
                 style={{ width: `${((game.state.currentIndex + (isRevealing ? 1 : 0)) / game.state.questions.length) * 100}%` }}
               />
             </div>
-            <div className="flex justify-between mt-1 text-[10px] md:text-[11px] text-white/25">
+            <div className="flex justify-between mt-1 text-[10px] md:text-[11px] text-ghost">
               <span>{game.state.currentIndex + (isRevealing ? 1 : 0)} / {game.state.questions.length}</span>
               {game.state.mode === 'ranked' && <span className="capitalize">Ranked</span>}
             </div>
@@ -623,12 +621,12 @@ export function GamePlayer({
 
                 {/* Question text */}
                 {isChallenge ? (
-                  <p className="mt-4 text-sm md:text-base text-white/80 text-center font-medium">
+                  <p className="mt-4 text-sm md:text-base text-primary text-center font-medium">
                     {q.question_text}
                     <span className="ml-1.5 text-[#ED93B1] text-xs font-semibold">1.5x</span>
                   </p>
                 ) : (
-                  <p className="mt-4 text-sm md:text-base text-white/80 text-center font-medium">
+                  <p className="mt-4 text-sm md:text-base text-primary text-center font-medium">
                     {q.question_text}
                   </p>
                 )}
@@ -662,12 +660,12 @@ export function GamePlayer({
                             disabled={isRevealing || isRemoved}
                             className={`px-4 py-5 md:py-6 rounded-xl md:rounded-2xl text-center text-[13px] md:text-[15px] font-semibold transition-all active:scale-[0.96] ${
                               isCorrect && isRevealing
-                                ? 'bg-white/10 border-[1.5px] border-[#4CAF50] text-[#4CAF50]'
+                                ? 'bg-correct-bg border-[1.5px] border-correct text-correct-text'
                                 : isWrong && isRevealing
-                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20 animate-shake'
+                                ? 'bg-surface border border-default text-ghost animate-shake'
                                 : isDimmed
-                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20 opacity-60'
-                                : 'bg-white/[0.05] border border-white/[0.08] text-white/80 hover:bg-white/[0.08]'
+                                ? 'bg-surface border border-default text-ghost opacity-60'
+                                : 'bg-surface border border-default text-primary hover:border-accent'
                             }`}
                           >
                             {isCorrect && isRevealing && (
