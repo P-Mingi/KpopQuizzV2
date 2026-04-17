@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { playPick, playEliminate, playNextMatchup, playVictory } from '@/lib/sounds';
 import type { TotCategoryWithItems, TotItem, TotBracketEntry } from '@/lib/db/types';
 
@@ -51,12 +51,16 @@ function injectKeyframes() {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    @keyframes totSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
   `;
   document.head.appendChild(style);
 }
 
 // ============================================
-// Helpers — tournament math
+// Helpers
 // ============================================
 
 function shuffle<T>(array: T[]): T[] {
@@ -68,34 +72,11 @@ function shuffle<T>(array: T[]): T[] {
   return a;
 }
 
-function nextPowerOfTwo(n: number): number {
-  if (n <= 1) return 1;
-  return Math.pow(2, Math.ceil(Math.log2(n)));
-}
-
-/** Pad an array of real items with `null` byes up to the next power of 2. */
-function padToPowerOfTwo<T>(items: T[]): (T | null)[] {
-  const target = nextPowerOfTwo(items.length);
-  const padded: (T | null)[] = [...items];
-  while (padded.length < target) padded.push(null);
-  return padded;
-}
-
-function getRoundLabel(round: number, totalRounds: number): string {
-  const remaining = totalRounds - round;
-  if (remaining === 1) return 'THE FINAL';
-  if (remaining === 2) return 'SEMI-FINAL';
-  if (remaining === 3) return 'QUARTER-FINAL';
-  return `ROUND OF ${Math.pow(2, remaining)}`;
-}
-
-/** Real matchups (excludes bye-only and bye-vs-real pairs). */
-function realMatchupsInRound(items: (TotItem | null)[]): number {
-  let n = 0;
-  for (let i = 0; i < items.length; i += 2) {
-    if (items[i] !== null && items[i + 1] !== null) n++;
-  }
-  return n;
+function getRoundLabel(matchesLeft: number): string {
+  if (matchesLeft <= 1) return 'THE FINAL';
+  if (matchesLeft <= 2) return 'SEMI-FINAL';
+  if (matchesLeft <= 4) return 'QUARTER-FINAL';
+  return `TOP ${matchesLeft + 1}`;
 }
 
 // ============================================
@@ -144,21 +125,20 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // ---- Phase state ----
   const [phase, setPhase] = useState<Phase>('start');
 
-  // ---- Tournament state (NEW elimination-safe state machine) ----
-  // currentRoundItems may contain `null` entries representing byes.
-  const [currentRoundItems, setCurrentRoundItems] = useState<(TotItem | null)[]>([]);
-  const [currentItemIndex, setCurrentItemIndex] = useState(0);
-  const [winnersThisRound, setWinnersThisRound] = useState<TotItem[]>([]);
-  const [currentRound, setCurrentRound] = useState(0);
-  // bracket: snapshot of REAL items per round (used by the result screen
-  // for "Survived X rounds"). Round 0 = initial pool; round k = winners of
-  // round k-1.
-  const [bracket, setBracket] = useState<TotItem[][]>([]);
+  // ---- "Champion stays" tournament state ----
+  // The winner of each matchup stays on their side of the screen.
+  // Only the loser's side gets replaced by the next challenger from the queue.
+  const [queue, setQueue] = useState<TotItem[]>([]);
+  const [champ, setChamp] = useState<TotItem | null>(null);
+  const [opponent, setOpponent] = useState<TotItem | null>(null);
+  // Which side (0=left, 1=right) the current champ is on.
+  const [champSide, setChampSide] = useState<0 | 1>(0);
   const [matchResults, setMatchResults] = useState<TotBracketEntry[]>([]);
   const [winner, setWinner] = useState<TotItem | null>(null);
+  const [poolSize, setPoolSize] = useState(0);
 
-  // ---- Total tournament size (set when game starts) ----
-  const [poolRealSize, setPoolRealSize] = useState(0);
+  // Key that increments each time the opponent changes, to trigger slide-in animation.
+  const [opponentKey, setOpponentKey] = useState(0);
 
   // ---- Animation state ----
   const [animState, setAnimState] = useState<AnimState>('idle');
@@ -170,6 +150,9 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // ---- Mobile detection ----
   const [isMobile, setIsMobile] = useState(true);
 
+  // Ref to prevent double-saving on strict mode re-renders
+  const savedRef = useRef(false);
+
   useEffect(() => {
     injectKeyframes();
     setIsMobile(window.innerWidth < 768);
@@ -179,83 +162,18 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   }, []);
 
   // ---- Derived values ----
-  const totalRounds = useMemo(
-    () => (poolRealSize > 1 ? Math.ceil(Math.log2(poolRealSize)) : 1),
-    [poolRealSize],
-  );
-  // Total real matchups across the whole tournament = N - 1 (each match
-  // eliminates exactly one item, need N-1 eliminations to crown a champion).
-  const totalMatchups = Math.max(poolRealSize - 1, 0);
+  const totalMatchups = Math.max(poolSize - 1, 0);
   const completedMatchups = matchResults.length;
+  const matchesLeft = totalMatchups - completedMatchups;
+  const isLastMatch = matchesLeft <= 1;
 
-  const itemA = currentRoundItems[currentItemIndex] ?? null;
-  const itemB = currentRoundItems[currentItemIndex + 1] ?? null;
-
-  const matchupsInThisRound = realMatchupsInRound(currentRoundItems);
-  const matchupsDoneThisRound = matchResults.filter((r) => r.round === currentRound).length;
-  const isLastMatch = completedMatchups === totalMatchups - 1;
-
-  // ---- Auto-advance through byes ----
-  // Whenever the current pair contains at least one bye, the real side
-  // (if any) advances to the next round automatically and we move on.
-  useEffect(() => {
-    if (phase !== 'playing') return;
-    if (currentItemIndex >= currentRoundItems.length) return;
-
-    const left = currentRoundItems[currentItemIndex] ?? null;
-    const right = currentRoundItems[currentItemIndex + 1] ?? null;
-    if (left !== null && right !== null) return; // both real, user picks
-
-    // Handle the bye(s) without animation/sound — these are skipped silently.
-    if (left === null && right === null) {
-      setCurrentItemIndex((i) => i + 2);
-      return;
-    }
-    const survivor = (left ?? right) as TotItem;
-    setWinnersThisRound((w) => [...w, survivor]);
-    setCurrentItemIndex((i) => i + 2);
-  }, [phase, currentItemIndex, currentRoundItems]);
-
-  // ---- End-of-round / end-of-tournament check ----
-  // Runs after byes have been processed. If we've consumed all slots in the
-  // current round, advance to the next round (winners only) or finish.
-  useEffect(() => {
-    if (phase !== 'playing') return;
-    if (currentItemIndex < currentRoundItems.length) return;
-    if (currentRoundItems.length === 0) return; // nothing to advance from
-
-    const winners = winnersThisRound;
-
-    if (winners.length <= 1) {
-      // Tournament complete (or degenerate single-item pool).
-      const champ = winners[0] ?? null;
-      if (champ) {
-        setWinner(champ);
-        setPhase('result');
-        if (soundEnabled) playVictory();
-        saveResult(category.id, champ.id, matchResults);
-      }
-      return;
-    }
-
-    // Advance to the next round: shuffle winners and pad to next power of 2.
-    setBracket((prev) => [...prev, winners]);
-    setCurrentRound((r) => r + 1);
-    setCurrentRoundItems(padToPowerOfTwo(shuffle(winners)));
-    setWinnersThisRound([]);
-    setCurrentItemIndex(0);
-    if (soundEnabled) playNextMatchup();
-  // matchResults intentionally omitted from deps — we only want to react to
-  // round-completion, not to every matchup recorded mid-round.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase, currentItemIndex, currentRoundItems, winnersThisRound, soundEnabled, category.id]);
+  // The items displayed on left and right sides.
+  const leftItem = champSide === 0 ? champ : opponent;
+  const rightItem = champSide === 1 ? champ : opponent;
 
   // ---- Actions ----
 
   const startGame = useCallback(() => {
-    // Defensively dedupe by id AND by lowercase name. The current data has
-    // shown duplicate names with different UUIDs, which broke the "no
-    // reappearance" guarantee.
     const seenIds = new Set<string>();
     const seenNames = new Set<string>();
     const unique = category.items.filter((item) => {
@@ -267,20 +185,20 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
       return true;
     });
 
-    // Use the configured pool size, capped at the number of real items.
-    const targetPoolSize = Math.max(1, Math.min(category.pool_size, unique.length));
+    const targetPoolSize = Math.max(2, Math.min(category.pool_size, unique.length));
     const pool = shuffle(unique).slice(0, targetPoolSize);
 
-    setPoolRealSize(pool.length);
-    setBracket([pool]);
-    setCurrentRound(0);
-    setCurrentRoundItems(padToPowerOfTwo(pool));
-    setCurrentItemIndex(0);
-    setWinnersThisRound([]);
+    setPoolSize(pool.length);
+    setChamp(pool[0]!);
+    setOpponent(pool[1]!);
+    setChampSide(0);
+    setQueue(pool.slice(2));
     setMatchResults([]);
     setWinner(null);
     setPickedSide(null);
     setAnimState('idle');
+    setOpponentKey(0);
+    savedRef.current = false;
     setPhase('playing');
   }, [category.items, category.pool_size]);
 
@@ -299,10 +217,10 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   const handlePick = useCallback(
     (sideIndex: 0 | 1) => {
       if (animState !== 'idle') return;
-      if (!itemA || !itemB) return;
+      if (!champ || !opponent) return;
 
-      const pickedWinner = sideIndex === 0 ? itemA : itemB;
-      const loser = sideIndex === 0 ? itemB : itemA;
+      const pickedItem = sideIndex === champSide ? champ : opponent;
+      const loserItem = sideIndex === champSide ? opponent : champ;
 
       setPickedSide(sideIndex);
       setAnimState('picked');
@@ -311,32 +229,52 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         navigator.vibrate(40);
       }
 
-      // Record this matchup. The loser is intentionally never referenced
-      // again — they're permanently eliminated.
-      setMatchResults((prev) => [
-        ...prev,
-        { winner_id: pickedWinner.id, loser_id: loser.id, round: currentRound },
-      ]);
-      setWinnersThisRound((prev) => [...prev, pickedWinner]);
+      // Record this matchup
+      const newEntry: TotBracketEntry = {
+        winner_id: pickedItem.id,
+        loser_id: loserItem.id,
+        round: completedMatchups,
+      };
+      const updatedResults = [...matchResults, newEntry];
+      setMatchResults(updatedResults);
 
-      // Eliminate sound after short delay
       setTimeout(() => {
         if (soundEnabled) playEliminate();
       }, 200);
 
-      // After animation delay, advance to the next pair. Round transitions
-      // and tournament completion are handled by the useEffects above so
-      // we don't have to duplicate that logic here.
+      // After animation delay, advance
       setTimeout(() => {
         setAnimState('transitioning');
         setTimeout(() => {
-          setCurrentItemIndex((i) => i + 2);
+          if (queue.length === 0) {
+            // Tournament complete!
+            setWinner(pickedItem);
+            setPhase('result');
+            if (soundEnabled) playVictory();
+            if (!savedRef.current) {
+              savedRef.current = true;
+              saveResult(category.id, pickedItem.id, updatedResults);
+            }
+            return;
+          }
+
+          // Winner stays on the side they were picked from.
+          // A new challenger slides into the loser's side.
+          const nextChallenger = queue[0]!;
+          const remainingQueue = queue.slice(1);
+
+          setChamp(pickedItem);
+          setChampSide(sideIndex);
+          setOpponent(nextChallenger);
+          setQueue(remainingQueue);
+          setOpponentKey((k) => k + 1);
           setPickedSide(null);
           setAnimState('idle');
+          if (soundEnabled) playNextMatchup();
         }, 300);
       }, 750);
     },
-    [animState, itemA, itemB, soundEnabled, currentRound],
+    [animState, champ, opponent, champSide, soundEnabled, completedMatchups, matchResults, queue, category.id],
   );
 
   // ============================================
@@ -358,7 +296,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           position: 'relative',
         }}
       >
-        {/* Close button */}
         <a
           href="/games/this-or-that"
           style={{
@@ -380,7 +317,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           <span style={{ color: C.textSecondary, fontSize: 16, lineHeight: 1 }}>X</span>
         </a>
 
-        {/* VS circle */}
         <div
           style={{
             width: 40,
@@ -396,7 +332,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           <span style={{ fontSize: 13, fontWeight: 700, color: C.accent }}>VS</span>
         </div>
 
-        {/* Title */}
         <h1
           style={{
             fontSize: 28,
@@ -409,31 +344,15 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         >
           This or that
         </h1>
-        <p
-          style={{
-            fontSize: 14,
-            color: C.textGhost,
-            margin: 0,
-            textAlign: 'center',
-          }}
-        >
+        <p style={{ fontSize: 14, color: C.textGhost, margin: 0, textAlign: 'center' }}>
           {category.subtitle}
         </p>
 
-        {/* Pool info */}
-        <p
-          style={{
-            fontSize: 12,
-            color: C.textSecondary,
-            marginTop: 24,
-            textAlign: 'center',
-          }}
-        >
+        <p style={{ fontSize: 12, color: C.textSecondary, marginTop: 24, textAlign: 'center' }}>
           {category.pool_size} in pool / {previewPoolSize} per game /{' '}
           {Math.max(previewPoolSize - 1, 0)} matchups
         </p>
 
-        {/* Start button */}
         <button
           onClick={startGame}
           style={{
@@ -476,7 +395,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           animation: 'totFadeIn 500ms ease-out',
         }}
       >
-        {/* Label */}
         <p
           style={{
             fontSize: 11,
@@ -490,7 +408,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           YOUR NUMBER ONE
         </p>
 
-        {/* Winner avatar */}
         <div
           style={{
             width: 120,
@@ -506,11 +423,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             <img
               src={winner.image_url}
               alt={winner.name}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
             <div
@@ -523,18 +436,11 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 justifyContent: 'center',
               }}
             >
-              <span
-                style={{
-                  fontSize: 36,
-                  fontWeight: 600,
-                  color: 'rgba(255,255,255,0.2)',
-                }}
-              >
+              <span style={{ fontSize: 36, fontWeight: 600, color: 'rgba(255,255,255,0.2)' }}>
                 {winner.name.slice(0, 2).toUpperCase()}
               </span>
             </div>
           )}
-          {/* Pulsing glow ring */}
           <div
             style={{
               position: 'absolute',
@@ -547,39 +453,20 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           />
         </div>
 
-        {/* Winner name */}
-        <h2
-          style={{
-            fontSize: 28,
-            fontWeight: 600,
-            marginTop: 16,
-            marginBottom: 2,
-            color: C.text,
-          }}
-        >
+        <h2 style={{ fontSize: 28, fontWeight: 600, marginTop: 16, marginBottom: 2, color: C.text }}>
           {winner.name}
         </h2>
-        <p style={{ fontSize: 14, color: C.textGhost, margin: 0 }}>
-          {winner.subtitle}
-        </p>
+        <p style={{ fontSize: 14, color: C.textGhost, margin: 0 }}>{winner.subtitle}</p>
 
-        {/* Round count */}
         <p style={{ fontSize: 12, color: C.accent, marginTop: 8 }}>
-          Survived {bracket.length} rounds
+          Survived {matchResults.length} matchups
         </p>
 
-        {/* Community stat */}
         <div style={{ marginTop: 24, width: '100%', maxWidth: 300 }}>
           <p style={{ fontSize: 11, color: C.textGhost, marginBottom: 6 }}>
             {winRate}% also picked {winner.name}
           </p>
-          <div
-            style={{
-              height: 6,
-              borderRadius: 3,
-              background: C.surface,
-            }}
-          >
+          <div style={{ height: 6, borderRadius: 3, background: C.surface }}>
             <div
               style={{
                 height: '100%',
@@ -592,7 +479,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           </div>
         </div>
 
-        {/* Bracket journey */}
         <div style={{ marginTop: 32, width: '100%', maxWidth: 300 }}>
           <p
             style={{
@@ -622,13 +508,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               >
                 <span style={{ color: C.accent, fontWeight: 500 }}>{w?.name}</span>
                 <span style={{ color: C.textGhost }}>vs</span>
-                <span
-                  style={{
-                    color: C.textSecondary,
-                    textDecoration: 'line-through',
-                    opacity: 0.5,
-                  }}
-                >
+                <span style={{ color: C.textSecondary, textDecoration: 'line-through', opacity: 0.5 }}>
                   {l?.name}
                 </span>
               </div>
@@ -636,21 +516,10 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           })}
         </div>
 
-        {/* Stats row */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 24,
-            marginTop: 24,
-            fontSize: 11,
-            color: C.textSecondary,
-          }}
-        >
+        <div style={{ display: 'flex', gap: 24, marginTop: 24, fontSize: 11, color: C.textSecondary }}>
           <span>{matchResults.length} Matchups</span>
-          <span>{bracket.length} Rounds</span>
         </div>
 
-        {/* Action buttons */}
         <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
           <button
             onClick={playAgain}
@@ -694,6 +563,21 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   // PLAYING SCREEN
   // ============================================
 
+  // Build the two sides. The champ keeps a stable key (no re-mount animation).
+  // The opponent gets a changing key to trigger slide-in animation.
+  const sides: Array<{ item: TotItem; isChamp: boolean; key: string }> = [
+    {
+      item: leftItem!,
+      isChamp: champSide === 0,
+      key: champSide === 0 ? `champ-${leftItem?.id}` : `opp-${opponentKey}`,
+    },
+    {
+      item: rightItem!,
+      isChamp: champSide === 1,
+      key: champSide === 1 ? `champ-${rightItem?.id}` : `opp-${opponentKey}`,
+    },
+  ];
+
   return (
     <div
       style={{
@@ -714,7 +598,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           zIndex: 20,
         }}
       >
-        {/* Close */}
         <button
           onClick={quit}
           style={{
@@ -732,7 +615,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           <span style={{ color: C.textSecondary, fontSize: 16, lineHeight: 1 }}>X</span>
         </button>
 
-        {/* Round + match */}
         <div style={{ textAlign: 'center' }}>
           <p
             style={{
@@ -744,15 +626,13 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               margin: 0,
             }}
           >
-            {getRoundLabel(currentRound, totalRounds)}
+            {getRoundLabel(matchesLeft)}
           </p>
           <p style={{ fontSize: 12, color: C.textSecondary, margin: 0 }}>
-            {Math.min(matchupsDoneThisRound + 1, Math.max(matchupsInThisRound, 1))} /{' '}
-            {Math.max(matchupsInThisRound, 1)}
+            {completedMatchups + 1} / {totalMatchups}
           </p>
         </div>
 
-        {/* Sound toggle */}
         <button
           onClick={toggleSoundState}
           style={{
@@ -772,7 +652,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
         </button>
       </div>
 
-      {/* Progress dots — one per real matchup in the whole tournament */}
+      {/* Progress dots */}
       <div
         style={{
           display: 'flex',
@@ -803,7 +683,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
       </div>
 
       {/* VS area */}
-      {itemA && itemB && (
+      {leftItem && rightItem && (
         <div
           style={{
             display: 'flex',
@@ -812,9 +692,9 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             position: 'relative',
           }}
         >
-          {[itemA, itemB].map((item, sideIndex) => (
+          {sides.map((side, sideIndex) => (
             <div
-              key={`${currentRound}-${currentItemIndex}-${sideIndex}`}
+              key={side.key}
               onClick={() => handlePick(sideIndex as 0 | 1)}
               style={{
                 flex: 1,
@@ -822,7 +702,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 cursor: animState === 'idle' ? 'pointer' : 'default',
                 overflow: 'hidden',
                 minHeight: isMobile ? 260 : 400,
-                background: item.color,
+                background: side.item.color,
                 filter:
                   animState === 'picked' && pickedSide !== sideIndex
                     ? 'grayscale(0.7) brightness(0.4)'
@@ -830,13 +710,13 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 opacity:
                   animState === 'picked' && pickedSide !== sideIndex ? 0.5 : 1,
                 transition: 'filter 200ms, opacity 200ms',
+                animation: !side.isChamp ? 'totSlideIn 300ms ease-out' : undefined,
               }}
             >
-              {/* Photo or initials placeholder */}
-              {item.image_url ? (
+              {side.item.image_url ? (
                 <img
-                  src={item.image_url}
-                  alt={item.name}
+                  src={side.item.image_url}
+                  alt={side.item.name}
                   style={{
                     position: 'absolute',
                     inset: 0,
@@ -855,19 +735,12 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                     justifyContent: 'center',
                   }}
                 >
-                  <span
-                    style={{
-                      fontSize: 72,
-                      fontWeight: 500,
-                      color: 'rgba(255,255,255,0.06)',
-                    }}
-                  >
-                    {item.name.slice(0, 2).toUpperCase()}
+                  <span style={{ fontSize: 72, fontWeight: 500, color: 'rgba(255,255,255,0.06)' }}>
+                    {side.item.name.slice(0, 2).toUpperCase()}
                   </span>
                 </div>
               )}
 
-              {/* Gradient overlay */}
               <div
                 style={{
                   position: 'absolute',
@@ -875,12 +748,11 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                   left: 0,
                   right: 0,
                   height: '50%',
-                  background: `linear-gradient(transparent, ${item.color})`,
+                  background: `linear-gradient(transparent, ${side.item.color})`,
                   pointerEvents: 'none',
                 }}
               />
 
-              {/* Pink tint when picked */}
               {animState === 'picked' && pickedSide === sideIndex && (
                 <div
                   style={{
@@ -893,7 +765,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 />
               )}
 
-              {/* Info overlay */}
               <div
                 style={{
                   position: 'absolute',
@@ -905,29 +776,14 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                   pointerEvents: 'none',
                 }}
               >
-                <p
-                  style={{
-                    fontSize: 22,
-                    fontWeight: 500,
-                    color: '#fff',
-                    marginBottom: 2,
-                    margin: 0,
-                  }}
-                >
-                  {item.name}
+                <p style={{ fontSize: 22, fontWeight: 500, color: '#fff', margin: 0 }}>
+                  {side.item.name}
                 </p>
-                <p
-                  style={{
-                    fontSize: 12,
-                    color: 'rgba(255,255,255,0.55)',
-                    marginBottom: 8,
-                    margin: '0 0 8px 0',
-                  }}
-                >
-                  {item.subtitle}
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: '0 0 8px 0' }}>
+                  {side.item.subtitle}
                 </p>
                 <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-                  {item.tags.map((tag) => (
+                  {side.item.tags.map((tag) => (
                     <span
                       key={tag}
                       style={{
@@ -944,7 +800,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 </div>
               </div>
 
-              {/* Check badge when picked */}
               {animState === 'picked' && pickedSide === sideIndex && (
                 <div
                   style={{
@@ -984,7 +839,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 </div>
               )}
 
-              {/* Hover glow */}
               <div
                 style={{
                   position: 'absolute',
@@ -995,8 +849,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
                 }}
                 onMouseEnter={(e) => {
                   if (animState === 'idle') {
-                    (e.target as HTMLElement).style.background =
-                      'rgba(255,255,255,0.08)';
+                    (e.target as HTMLElement).style.background = 'rgba(255,255,255,0.08)';
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -1025,13 +878,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               pointerEvents: 'none',
             }}
           >
-            <span
-              style={{
-                fontSize: 13,
-                fontWeight: 700,
-                color: 'rgba(255,255,255,0.5)',
-              }}
-            >
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)' }}>
               {isLastMatch ? 'FINAL' : 'VS'}
             </span>
           </div>
