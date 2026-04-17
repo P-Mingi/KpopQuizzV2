@@ -45,11 +45,27 @@ async function fetchPlayer(): Promise<PlayerData | null> {
 async function fetchSongCount(): Promise<number> {
   try {
     const supabase = createServiceRoleClient();
-    const { count } = await supabase
+    const curationEnabled = process.env.SONGS_IS_CURATED === 'true';
+
+    let query = supabase
       .from('songs')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active')
-      .not('preview_url', 'is', null);
+      .not('preview_url', 'is', null)
+      .not('title', 'ilike', '%remix%')
+      .not('title', 'ilike', '%instrumental%')
+      .not('title', 'ilike', '%inst.%')
+      .not('title', 'ilike', '%(inst)%')
+      .not('title', 'ilike', '%karaoke%')
+      .not('title', 'ilike', '%MR removed%')
+      .not('title', 'ilike', '%sped up%')
+      .not('title', 'ilike', '%speed up%');
+
+    if (curationEnabled) {
+      query = query.eq('is_curated', true);
+    }
+
+    const { count } = await query;
     return count ?? 0;
   } catch {
     return 0;
