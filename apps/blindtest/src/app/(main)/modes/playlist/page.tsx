@@ -47,7 +47,7 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
 
     const { count: total } = await totalQuery;
 
-    // For per-artist counts, get ALL playable songs (group playlists use full catalog)
+    // For per-artist counts, only count curated songs (no duplicates/remixes/live)
     const PAGE_SIZE = 1000;
     type Row = { artist_name: string; gender: string | null };
     const songs: Row[] = [];
@@ -62,6 +62,11 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
       // Apply same exclusions
       for (const pattern of EXCLUDED_PATTERNS) {
         query = query.not('title', 'ilike', pattern);
+      }
+
+      // Only count curated songs - removes duplicates, live versions, deep cuts
+      if (curationEnabled) {
+        query = query.eq('is_curated', true);
       }
 
       const { data, error } = await query.range(from, from + PAGE_SIZE - 1);
@@ -84,7 +89,7 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
     }
 
     const groups = Object.entries(artistMeta)
-      .filter(([, meta]) => meta.count >= 10)
+      .filter(([, meta]) => meta.count >= 5)
       .map(([name, meta]) => ({
         id: name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
         name,
