@@ -25,24 +25,18 @@ const EXCLUDED_PATTERNS = [
 async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: number }> {
   try {
     const supabase = createServiceRoleClient();
-    const curationEnabled = process.env.SONGS_IS_CURATED === 'true';
-
     // Build a base query that matches what the game actually plays
-    // For the "All K-pop" total, use curated songs if curation is enabled
+    // Only count curated songs (excludes duplicates, live versions, deep cuts)
     let totalQuery = supabase
       .from('songs')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active')
-      .not('preview_url', 'is', null);
+      .not('preview_url', 'is', null)
+      .eq('is_curated', true);
 
     // Apply remix/instrumental exclusions
     for (const pattern of EXCLUDED_PATTERNS) {
       totalQuery = totalQuery.not('title', 'ilike', pattern);
-    }
-
-    // For general playlists, game uses curated subset
-    if (curationEnabled) {
-      totalQuery = totalQuery.eq('is_curated', true);
     }
 
     const { count: total } = await totalQuery;
@@ -65,9 +59,7 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
       }
 
       // Only count curated songs - removes duplicates, live versions, deep cuts
-      if (curationEnabled) {
-        query = query.eq('is_curated', true);
-      }
+      query = query.eq('is_curated', true);
 
       const { data, error } = await query.range(from, from + PAGE_SIZE - 1);
       if (error || !data || data.length === 0) break;
