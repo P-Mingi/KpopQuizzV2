@@ -8,6 +8,7 @@ import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
   type TimerHandle,
+  ProgressDots,
   AlbumArt,
   SongInfoReveal,
   ComboBadge,
@@ -544,24 +545,45 @@ export function GamePlayer({
 
       <div className="flex h-full">
         {/* Main game column */}
-        <div className="flex-1 flex flex-col max-w-[440px] mx-auto px-3.5 md:px-4 relative">
+        <div className="flex-1 flex flex-col max-w-[600px] mx-auto px-4 md:px-6 relative">
+          {/* HUD: quit, score, progress */}
+          <GameHUD
+            round={game.state.currentIndex + (isRevealing ? 1 : 0)}
+            totalRounds={game.state.questions.length}
+            score={game.state.totalScore}
+            comboStreak={game.state.currentCombo}
+            mode={game.state.mode}
+          />
+
+          {/* Progress dots */}
+          <div className="flex justify-center mt-2">
+            <ProgressDots
+              total={game.state.questions.length}
+              current={game.state.currentIndex}
+              results={game.state.results}
+            />
+          </div>
+
           {/* Combo pill */}
-          {!isRevealing && game.state.currentCombo >= 3 && (
+          {!isRevealing && game.state.currentCombo >= 2 && (
             <div className="mt-2 flex justify-center relative">
               <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
               <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
             </div>
           )}
 
-          {/* HUD: quit, combo, score, health bar */}
-          <div className="mt-3">
-            <GameHUD
-              round={game.state.currentIndex + (isRevealing ? 1 : 0)}
-              totalRounds={game.state.questions.length}
-              score={game.state.totalScore}
-              comboStreak={game.state.currentCombo}
-              mode={game.state.mode}
-            />
+          {/* Health/progress bar */}
+          <div className="mt-3 md:mt-4">
+            <div className="h-[4px] md:h-[5px] rounded-full bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full bg-[#D4537E] transition-all duration-500"
+                style={{ width: `${((game.state.currentIndex + (isRevealing ? 1 : 0)) / game.state.questions.length) * 100}%` }}
+              />
+            </div>
+            <div className="flex justify-between mt-1 text-[10px] md:text-[11px] text-white/25">
+              <span>{game.state.currentIndex + (isRevealing ? 1 : 0)} / {game.state.questions.length}</span>
+              {game.state.mode === 'ranked' && <span className="capitalize">Ranked</span>}
+            </div>
           </div>
 
           {/* Central gameplay area */}
@@ -601,18 +623,18 @@ export function GamePlayer({
 
                 {/* Question text */}
                 {isChallenge ? (
-                  <p className="mt-3.5 text-[13px] text-white/80 text-center">
+                  <p className="mt-4 text-sm md:text-base text-white/80 text-center font-medium">
                     {q.question_text}
                     <span className="ml-1.5 text-[#ED93B1] text-xs font-semibold">1.5x</span>
                   </p>
                 ) : (
-                  <p className="mt-3.5 text-[13px] text-white/80 text-center">
+                  <p className="mt-4 text-sm md:text-base text-white/80 text-center font-medium">
                     {q.question_text}
                   </p>
                 )}
 
                 {/* Answer area */}
-                <div className="mt-3.5 w-full">
+                <div className="mt-4 w-full">
                   {isChallenge ? (
                     <ChallengeInput
                       questionType={q.question_type}
@@ -626,7 +648,7 @@ export function GamePlayer({
                       } : null}
                     />
                   ) : (
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2.5 md:gap-3">
                       {q.choices.map((choice) => {
                         const isRemoved = removedAnswers.includes(choice);
                         const btnState = isRemoved ? 'dimmed' : getButtonState(choice);
@@ -638,16 +660,19 @@ export function GamePlayer({
                             key={choice}
                             onClick={() => handleAnswer(choice)}
                             disabled={isRevealing || isRemoved}
-                            className={`px-3 py-4 md:py-[18px] rounded-[11px] md:rounded-xl text-center text-[12px] md:text-[13px] font-semibold transition-all active:scale-[0.96] ${
+                            className={`px-4 py-5 md:py-6 rounded-xl md:rounded-2xl text-center text-[13px] md:text-[15px] font-semibold transition-all active:scale-[0.96] ${
                               isCorrect && isRevealing
                                 ? 'bg-white/10 border-[1.5px] border-[#4CAF50] text-[#4CAF50]'
                                 : isWrong && isRevealing
-                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20'
+                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20 animate-shake'
                                 : isDimmed
-                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20'
-                                : 'bg-white/[0.05] border border-white/[0.06] text-white/70 hover:bg-white/[0.08]'
+                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20 opacity-60'
+                                : 'bg-white/[0.05] border border-white/[0.08] text-white/80 hover:bg-white/[0.08]'
                             }`}
                           >
+                            {isCorrect && isRevealing && (
+                              <svg width="12" height="12" viewBox="0 0 10 10" fill="none" stroke="#4CAF50" strokeWidth="1.5" strokeLinecap="round" className="inline mr-1.5"><path d="M2 5.5L4.2 7.5L8 3" /></svg>
+                            )}
                             {choice}
                           </button>
                         );
@@ -678,7 +703,7 @@ export function GamePlayer({
 
         {/* Desktop sidebar */}
         {!isChallenge && (
-          <div className="hidden md:block px-4">
+          <div className="hidden md:block px-4 pt-16 pb-4 overflow-y-auto">
             <GameSidebar
               score={game.state.totalScore}
               lastRoundPoints={game.lastPoints}

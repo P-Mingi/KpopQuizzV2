@@ -18,14 +18,14 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
   try {
     const supabase = createServiceRoleClient();
 
-    // Get total count (fast, no data transfer)
+    // Get total count - only songs with preview URLs (actually playable)
     const { count: total } = await supabase
       .from('songs')
       .select('*', { count: 'exact', head: true })
-      .eq('status', 'active');
+      .eq('status', 'active')
+      .not('preview_url', 'is', null);
 
-    // Get per-artist counts using a lightweight query
-    // Paginate to get all songs' artist_name + gender
+    // Get per-artist counts - only songs with preview URLs
     const PAGE_SIZE = 1000;
     type Row = { artist_name: string; gender: string | null };
     const songs: Row[] = [];
@@ -35,6 +35,7 @@ async function fetchPlaylistGroups(): Promise<{ groups: ArtistGroup[]; total: nu
         .from('songs')
         .select('artist_name, gender')
         .eq('status', 'active')
+        .not('preview_url', 'is', null)
         .range(from, from + PAGE_SIZE - 1);
       if (error || !data || data.length === 0) break;
       songs.push(...(data as Row[]));
