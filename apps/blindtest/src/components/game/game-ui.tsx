@@ -87,10 +87,10 @@ export const CircularTimer = forwardRef<TimerHandle, TimerProps>(
   return (
     <div className="relative w-[60px] h-[60px] flex items-center justify-center">
       <svg width="60" height="60" className="-rotate-90">
-        <circle cx="30" cy="30" r={radius} fill="none" stroke="var(--bg-elevated)" strokeWidth="3" />
+        <circle cx="30" cy="30" r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
         <circle
           cx="30" cy="30" r={radius} fill="none"
-          stroke={isUrgent ? 'var(--wrong)' : 'var(--accent)'}
+          stroke={isUrgent ? '#E24B4A' : '#D4537E'}
           strokeWidth="3" strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
@@ -99,7 +99,7 @@ export const CircularTimer = forwardRef<TimerHandle, TimerProps>(
       </svg>
       <span
         className={`absolute text-sm font-semibold tabular-nums ${
-          isUrgent ? 'text-wrong animate-pulse-urgent' : 'text-primary'
+          isUrgent ? 'text-[#E24B4A] animate-pulse-urgent' : 'text-white/80'
         }`}
       >
         {seconds}
@@ -118,16 +118,16 @@ interface DotsProps {
 
 export function ProgressDots({ total, current, results }: DotsProps) {
   return (
-    <div className="flex items-center justify-center gap-1">
+    <div className="flex items-center gap-[3px]">
       {Array.from({ length: total }, (_, i) => {
         const result = results[i];
-        let className = 'w-2 h-2 rounded-full transition-all duration-200 ';
-        if (result) {
-          className += result.correct ? 'bg-correct' : 'bg-wrong';
-        } else if (i === current) {
-          className += 'bg-accent shadow-[0_0_8px_var(--accent)]';
+        let className = 'rounded-full transition-all duration-200 ';
+        if (i === current) {
+          className += 'w-[9px] h-[9px] bg-[#D4537E] outline-2 outline outline-white/25';
+        } else if (result) {
+          className += result.correct ? 'w-[7px] h-[7px] bg-white/60' : 'w-[7px] h-[7px] bg-white/20';
         } else {
-          className += 'bg-elevated';
+          className += 'w-[7px] h-[7px] bg-white/10';
         }
         return <div key={i} className={className} />;
       })}
@@ -182,31 +182,29 @@ interface AnswerButtonProps {
 }
 
 export function AnswerButton({ text, state, onClick, disabled }: AnswerButtonProps) {
-  let className = 'w-full py-3.5 px-4 rounded-xl border-[1.5px] text-[15px] font-medium text-center transition-all duration-300 ';
-  let prefix: string | null = null;
+  let className = 'w-full px-3 py-4 md:py-[18px] rounded-[11px] md:rounded-xl text-[12px] md:text-[13px] font-semibold text-center transition-all duration-300 ';
 
   switch (state) {
     case 'correct':
-      // Scale up 1.02, green styling.
-      className += 'bg-correct-bg border-correct text-correct-text scale-[1.02]';
-      prefix = '\u2713';
+      className += 'bg-white/10 border-[1.5px] border-[#4CAF50] text-[#4CAF50] scale-[1.02]';
       break;
     case 'wrong':
-      // Horizontal shake, red styling.
-      className += 'bg-wrong-bg border-wrong text-wrong-text animate-shake';
-      prefix = '\u2717';
+      className += 'bg-white/[0.03] border border-white/[0.04] text-white/20 animate-shake';
       break;
     case 'dimmed':
-      // Fade to 20%, shrink to 97%.
-      className += 'bg-surface border-default text-primary opacity-20 scale-[0.97]';
+      className += 'bg-white/[0.03] border border-white/[0.04] text-white/20 scale-[0.97] opacity-60';
       break;
     default:
-      className += 'bg-surface border-default text-primary hover:border-accent active:scale-[0.96]';
+      className += 'bg-white/[0.05] border border-white/[0.06] text-white/70 hover:bg-white/[0.08]';
   }
 
   return (
     <button onClick={onClick} disabled={disabled} className={className}>
-      {prefix && <span className="mr-2">{prefix}</span>}
+      {state === 'correct' && (
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#4CAF50" strokeWidth="1.5" strokeLinecap="round" className="inline mr-1">
+          <path d="M2 5.5L4.2 7.5L8 3" />
+        </svg>
+      )}
       {text}
     </button>
   );
@@ -261,7 +259,7 @@ export function SongInfoReveal({
   return (
     <div className="text-center h-[44px]">
       <p
-        className="text-[15px] font-semibold text-primary transition-all duration-500"
+        className="text-[15px] md:text-[17px] font-semibold text-white/90 transition-all duration-500"
         style={{
           opacity: revealed ? 1 : 0,
           transform: revealed ? 'translateY(0)' : 'translateY(8px)',
@@ -271,7 +269,7 @@ export function SongInfoReveal({
         {title}
       </p>
       <p
-        className="text-[11px] text-ghost transition-all duration-500 mt-0.5"
+        className="text-[12px] md:text-[13px] text-white/50 transition-all duration-500 mt-0.5"
         style={{
           opacity: revealed ? 1 : 0,
           transitionDelay: revealed ? '500ms' : '0ms',
@@ -301,28 +299,25 @@ export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: n
 
   if (combo < 3) return null;
   const fire = combo >= 5;
-  const warm = combo >= 5;
   const koreanSuffix = getComboKorean(combo);
 
   return (
     <div
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg transition-colors duration-300 ${
-        warm ? 'bg-accent-bg' : 'bg-elevated'
-      }`}
+      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.06] border border-white/[0.08] transition-colors duration-300"
     >
       {fire && <span>{'\uD83D\uDD25'}</span>}
       <span
-        className={`text-[11px] font-bold text-combo tabular-nums transition-transform duration-150 inline-block ${
+        className={`text-[11px] font-bold text-[#EF9F27] tabular-nums transition-transform duration-150 inline-block ${
           bumping ? 'scale-[1.4]' : 'scale-100'
         }`}
       >
         {combo}x
       </span>
       {koreanSuffix && (
-        <span className="text-[10px] font-semibold text-combo">{koreanSuffix}</span>
+        <span className="text-[10px] font-semibold text-[#EF9F27]">{koreanSuffix}</span>
       )}
       {multiplier > 1 && (
-        <span className="text-[10px] text-ghost">({multiplier}x)</span>
+        <span className="text-[10px] text-white/30">({multiplier}x)</span>
       )}
     </div>
   );
@@ -759,31 +754,37 @@ export function ResultsScreen({
 
   // Stats row.
   const statsBlock = (
-    <div className="grid grid-cols-3 rounded-xl bg-surface border border-default overflow-hidden">
-      <StatCell
-        value={<RollingNumber value={score} duration={1200} />}
-        label="score"
-      />
-      <StatCell value={`${avgSpeed.toFixed(1)}s`} label="speed" border />
-      <StatCell value={`${bestCombo}x`} label="combo" />
+    <div className="grid grid-cols-3 gap-1 md:gap-1.5">
+      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
+        <p className="text-sm font-semibold text-primary"><RollingNumber value={score} duration={1200} /></p>
+        <p className="text-[7px] text-[#888780] dark:text-white/35">score</p>
+      </div>
+      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
+        <p className="text-sm font-semibold text-primary">{avgSpeed.toFixed(1)}s</p>
+        <p className="text-[7px] text-[#888780] dark:text-white/35">speed</p>
+      </div>
+      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
+        <p className="text-sm font-semibold text-primary">{bestCombo}x</p>
+        <p className="text-[7px] text-[#888780] dark:text-white/35">combo</p>
+      </div>
     </div>
   );
 
   // XP card.
   const xpBlock = progression ? (
-    <div className="p-4 rounded-2xl bg-surface border border-default">
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-[13px] md:text-sm font-semibold text-accent">
+    <div className="rounded-[10px] md:rounded-xl border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] bg-white dark:bg-[rgba(255,255,255,0.04)] px-3 md:px-3.5 py-2.5 md:py-3 flex flex-col gap-[5px] md:gap-1.5">
+      <div className="flex items-center justify-between mb-1">
+        <p className="text-[13px] md:text-sm font-semibold text-[#D4537E]">
           <RollingNumber value={progression.xpEarned} prefix="+" suffix=" XP" duration={1000} />
         </p>
-        <p className="text-[10px] md:text-xs text-ghost">
+        <p className="text-[10px] md:text-xs text-[#888780] dark:text-white/40">
           Lv.{progression.level} - {progression.title}
         </p>
       </div>
 
-      <div className="h-1 rounded-full bg-elevated overflow-hidden mb-3">
+      <div className="h-1 rounded-full bg-[#F0EDE8] dark:bg-white/[0.06] overflow-hidden mb-1">
         <div
-          className="h-full bg-accent"
+          className="h-full bg-[#D4537E]"
           style={{
             width: `${barWidth}%`,
             transition: 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -792,21 +793,26 @@ export function ResultsScreen({
       </div>
 
       {xpBreakdown.length > 0 && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-[5px] md:gap-1.5">
           {xpBreakdown.map((item, i) => (
             <div
               key={i}
-              className="flex justify-between text-[11px] md:text-xs transition-all duration-400"
+              className="flex justify-between items-center transition-all duration-400"
               style={{
                 opacity: showXp ? 1 : 0,
                 transform: showXp ? 'translateY(0)' : 'translateY(6px)',
                 transitionDelay: `${item.delay}ms`,
               }}
             >
-              <span className="text-ghost">{item.label}</span>
-              <span className="text-accent font-semibold tabular-nums">+{item.value}</span>
+              <span className="text-[11px] md:text-xs font-medium text-[#888780] dark:text-white/40">{item.label}</span>
+              <span className="font-semibold tabular-nums text-[11px] md:text-xs text-[#D4537E]">+{item.value}</span>
             </div>
           ))}
+          <div className="h-px bg-[#F0EDE8] dark:bg-white/[0.06]" />
+          <div className="flex justify-between items-center">
+            <span className="text-xs md:text-[13px] font-medium text-[#888780] dark:text-white/40">Total XP earned</span>
+            <span className="font-semibold tabular-nums text-sm md:text-[15px] text-[#D4537E]">+{progression.xpEarned}</span>
+          </div>
         </div>
       )}
     </div>
@@ -814,10 +820,10 @@ export function ResultsScreen({
 
   // Streak card.
   const streakBlock = progression ? (
-    <div className="p-3 px-4 rounded-2xl bg-surface border border-default flex items-center justify-between">
+    <div className="p-3 px-4 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] flex items-center justify-between">
       <div>
-        <p className="text-xs md:text-sm text-secondary">Daily streak</p>
-        <p className="text-[10px] md:text-xs text-ghost mt-0.5">
+        <p className="text-xs md:text-sm text-[#888780] dark:text-white/40">Daily streak</p>
+        <p className="text-[10px] md:text-xs text-[#888780] dark:text-white/35 mt-0.5">
           {progression.streak >= 7
             ? '+100 XP bonus active'
             : progression.streak >= 3
@@ -825,7 +831,7 @@ export function ResultsScreen({
             : 'Play 3 days in a row for bonus XP'}
         </p>
       </div>
-      <p className="text-lg md:text-xl font-bold text-combo tabular-nums">
+      <p className="text-lg md:text-xl font-bold text-[#EF9F27] tabular-nums">
         {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
       </p>
     </div>
@@ -833,10 +839,10 @@ export function ResultsScreen({
 
   // Sign in nudge (anonymous).
   const signInBlock = !progression ? (
-    <div className="p-4 rounded-2xl bg-surface border border-default text-center">
+    <div className="p-4 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
       <p className="text-sm font-semibold text-primary mb-1">Save your progress</p>
-      <p className="text-xs text-ghost mb-3">Sign in to keep scores, level up, and compete</p>
-      <a href="/login" className="inline-block px-5 py-2 rounded-xl bg-accent text-primary text-xs font-bold">
+      <p className="text-xs text-[#888780] dark:text-white/40 mb-3">Sign in to keep scores, level up, and compete</p>
+      <a href="/login" className="inline-block px-5 py-2 rounded-xl bg-[#D4537E] text-white text-xs font-bold">
         Sign up free
       </a>
     </div>
@@ -845,22 +851,22 @@ export function ResultsScreen({
   // Missed songs list.
   const missedBlock = missed.length > 0 ? (
     <div>
-      <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-ghost mb-2">
+      <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-[#888780] dark:text-white/35 mb-2">
         Songs you need to stan
       </p>
       <div>
         {missed.map((r, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 py-2.5 border-b border-subtle last:border-0 transition-all duration-400"
+            className="flex items-center gap-3 py-2.5 border-b border-[#F0EDE8] dark:border-white/[0.06] last:border-0 transition-all duration-400"
             style={{
               opacity: showMissed ? 1 : 0,
               transform: showMissed ? 'translateX(0)' : 'translateX(-10px)',
               transitionDelay: `${i * 200}ms`,
             }}
           >
-            <span className="text-xs font-semibold text-wrong-text">{'\u2717'}</span>
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg overflow-hidden flex-shrink-0 bg-elevated">
+            <span className="text-xs font-semibold text-[#E24B4A]">{'\u2717'}</span>
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[#F5F3EE] dark:bg-white/[0.04]">
               {r.question.reveal.cover ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
@@ -870,13 +876,13 @@ export function ResultsScreen({
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-xs text-ghost">{'\u266A'}</span>
+                  <span className="text-xs text-[#888780] dark:text-white/35">{'\u266A'}</span>
                 </div>
               )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-[13px] md:text-sm text-primary truncate">{r.question.reveal.title}</p>
-              <p className="text-[10px] md:text-xs text-ghost truncate">{r.question.reveal.artist}</p>
+              <p className="text-[10px] md:text-xs text-[#888780] dark:text-white/35 truncate">{r.question.reveal.artist}</p>
             </div>
           </div>
         ))}
@@ -886,7 +892,7 @@ export function ResultsScreen({
 
   // Challenge comparison block (shown when the player finished a friend's challenge).
   const challengeBlock = challengeComparison ? (
-    <div className="p-5 rounded-2xl bg-surface border border-default">
+    <div className="p-5 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)]">
       <ChallengeComparison
         creator={challengeComparison.creator}
         player={challengeComparison.player}
@@ -902,7 +908,7 @@ export function ResultsScreen({
     <button
       type="button"
       onClick={handleCreateChallenge}
-      className="w-full py-3.5 rounded-xl bg-surface border border-accent text-accent text-sm font-bold active:scale-[0.98] transition-transform hover:bg-accent-bg"
+      className="w-full py-3.5 rounded-[10px] md:rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] text-[#D4537E] text-sm font-bold active:scale-[0.98] transition-transform hover:bg-[#F5E5EC] dark:hover:bg-[rgba(212,83,126,0.15)]"
       aria-live="polite"
     >
       {challengeComparison ? 'Challenge someone else' : challengeLabel}
@@ -911,26 +917,32 @@ export function ResultsScreen({
 
   // Action buttons (Play again + Share + Home).
   const buttonsBlock = (
-    <div className="flex gap-2">
-      <button
-        type="button"
-        onClick={onPlayAgain}
-        className="flex-1 py-3.5 rounded-xl bg-accent text-primary font-bold text-sm active:scale-[0.98] transition-transform"
-      >
-        One more? {KOREAN_MOMENTS.streakGrow!.text}
-      </button>
+    <div className="flex gap-1.5 md:gap-2">
       <button
         type="button"
         onClick={handleShare}
-        className="flex-1 py-3.5 rounded-xl bg-surface border border-default text-secondary font-medium text-sm hover:border-accent hover:text-accent transition-colors"
+        className="w-11 h-11 md:w-12 md:h-12 rounded-[10px] md:rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center"
+        aria-label={shareLabel}
         aria-live="polite"
       >
-        {shareLabel}
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#D4537E" strokeWidth="1.3" strokeLinecap="round">
+          <path d="M3 8v3a1 1 0 001 1h6a1 1 0 001-1V8M7 2v7M4.5 4.5L7 2l2.5 2.5" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        onClick={onPlayAgain}
+        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 md:py-3 rounded-[10px] md:rounded-xl bg-[#D4537E] text-white text-[13px] md:text-sm font-semibold hover:bg-[#C44A72] active:scale-[0.97] transition-all"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" strokeWidth="1.3" strokeLinecap="round">
+          <path d="M2 7a5 5 0 1 1 1.5 3.5" /><path d="M2 11V7h3.5" />
+        </svg>
+        Play again
       </button>
       <button
         type="button"
         onClick={onHome}
-        className="flex-1 py-3.5 rounded-xl bg-surface border border-default text-secondary font-medium text-sm hover:border-accent transition-colors"
+        className="w-11 h-11 md:w-12 md:h-12 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] flex items-center justify-center text-[#888780] dark:text-white/40 text-xs font-medium"
       >
         Home
       </button>
@@ -938,7 +950,7 @@ export function ResultsScreen({
   );
 
   return (
-    <div className="max-w-[440px] md:max-w-[900px] mx-auto px-5 py-10 md:py-14 animate-fadeSlideUp">
+    <div className="max-w-[440px] md:max-w-[840px] mx-auto px-3.5 md:px-7 py-10 md:py-14 animate-fadeSlideUp">
       {/* Challenge comparison (only when coming in from a shared link) */}
       {challengeBlock && <div className="mb-6 md:mb-8">{challengeBlock}</div>}
 
@@ -948,20 +960,20 @@ export function ResultsScreen({
         {scoreBlock}
       </div>
 
-      {/* Stats row. Wider on desktop. */}
+      {/* Stats row */}
       <div className="mb-6 md:mb-10 md:max-w-[560px] md:mx-auto">
         {statsBlock}
       </div>
 
-      {/* 2-column split: progression on the left, missed songs on the right (desktop) */}
-      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-8 md:items-start">
-        <div className="flex flex-col gap-4">
+      {/* Desktop: 2-column (XP left, missed songs right) */}
+      <div className="md:flex md:gap-5">
+        <div className="md:w-1/2 flex flex-col gap-4">
           {xpBlock}
           {streakBlock}
           {masteryCard}
           {signInBlock}
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="md:w-1/2 flex flex-col gap-4 mt-4 md:mt-0">
           {missedBlock}
         </div>
       </div>
@@ -973,8 +985,8 @@ export function ResultsScreen({
         </div>
       )}
 
-      {/* Action buttons. Centered on desktop. */}
-      <div className="mt-3 md:mt-4 md:max-w-[440px] md:mx-auto">
+      {/* Action buttons */}
+      <div className="mt-2.5 md:mt-4 md:max-w-[440px] md:mx-auto">
         {buttonsBlock}
       </div>
 
@@ -987,23 +999,6 @@ export function ResultsScreen({
           onDismiss={() => setShowLevelUp(false)}
         />
       )}
-    </div>
-  );
-}
-
-function StatCell({
-  value,
-  label,
-  border,
-}: {
-  value: React.ReactNode;
-  label: string;
-  border?: boolean;
-}) {
-  return (
-    <div className={`text-center py-3 ${border ? 'border-x border-default' : ''}`}>
-      <p className="text-lg font-semibold text-primary tabular-nums">{value}</p>
-      <p className="text-[9px] text-ghost uppercase tracking-wide mt-0.5">{label}</p>
     </div>
   );
 }

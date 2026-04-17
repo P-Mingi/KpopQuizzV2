@@ -8,8 +8,7 @@ import { createBrowserClient } from '@kpopquiz/shared/supabase/client';
 
 import type { Question } from '@/components/game/use-game-state';
 
-const ANSWER_COLORS = ['#378ADD', '#D4537E', '#639922', '#BA7517'];
-const ANSWER_BG = ['#E6F1FB', '#FBEAF0', '#EAF3DE', '#FAEEDA'];
+const KAHOOT_COLORS = [{ bg: '#534AB7', label: 'A' }, { bg: '#D4537E', label: 'B' }, { bg: '#0F6E56', label: 'C' }, { bg: '#BA7517', label: 'D' }];
 
 interface Props {
   roomCode: string;
@@ -132,14 +131,14 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
   // Waiting screen
   if (phase === 'waiting') {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center bg-primary">
-        <p className="text-ghost text-xs uppercase tracking-widest mb-4">Kahoot Mode - Host Screen</p>
-        <p className="text-5xl font-bold text-primary tracking-[0.3em] mb-2">{roomCode}</p>
-        <p className="text-sm text-ghost mb-8">{players.length} players joined</p>
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center" style={{ background: '#0a0716' }}>
+        <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Kahoot Mode - Host Screen</p>
+        <p className="text-5xl font-bold text-white tracking-[0.3em] mb-2">{roomCode}</p>
+        <p className="text-sm text-white/40 mb-8">{players.length} players joined</p>
         <button
           onClick={handleStartRound}
           disabled={players.length < 2}
-          className="px-10 py-4 rounded-2xl bg-accent text-white font-bold text-lg active:scale-[0.97] disabled:opacity-50"
+          className="px-10 py-4 rounded-2xl bg-[#D4537E] text-white font-bold text-lg active:scale-[0.97] disabled:opacity-30"
         >
           Start Round 1
         </button>
@@ -150,8 +149,8 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
   // Podium
   if (phase === 'podium') {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center bg-primary px-8">
-        <p className="text-3xl font-bold text-primary mb-8">Final Standings</p>
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-8" style={{ background: '#0a0716' }}>
+        <p className="text-3xl font-bold text-white mb-8">Final Standings</p>
         <div className="flex items-end gap-4 mb-8">
           {sortedPlayers.slice(0, 3).map((p, i) => {
             const heights = ['h-32', 'h-24', 'h-20'];
@@ -159,18 +158,18 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
             return (
               <div key={p.id} className="flex flex-col items-center" style={{ order: i === 0 ? 1 : i === 1 ? 0 : 2 }}>
                 <p className={`text-2xl font-bold mb-1 ${medals[i]}`}>#{i + 1}</p>
-                <p className="text-sm font-medium text-primary mb-1">{p.display_name}</p>
-                <p className="text-xs text-ghost mb-2 tabular-nums">{p.score.toLocaleString()} pts</p>
-                <div className={`w-24 ${heights[i]} rounded-t-xl bg-accent/10 border-t-4 border-accent`} />
+                <p className="text-sm font-medium text-white mb-1">{p.display_name}</p>
+                <p className="text-xs text-white/40 mb-2 tabular-nums">{p.score.toLocaleString()} pts</p>
+                <div className={`w-24 ${heights[i]} rounded-t-xl bg-white/5 border-t-4 border-[#D4537E]`} />
               </div>
             );
           })}
         </div>
         {sortedPlayers.slice(3).map((p, i) => (
           <div key={p.id} className="flex items-center gap-3 w-full max-w-md px-4 py-2">
-            <span className="text-sm text-ghost w-6">#{i + 4}</span>
-            <span className="text-sm text-primary flex-1">{p.display_name}</span>
-            <span className="text-sm text-ghost tabular-nums">{p.score.toLocaleString()}</span>
+            <span className="text-sm text-white/40 w-6">#{i + 4}</span>
+            <span className="text-sm text-white flex-1">{p.display_name}</span>
+            <span className="text-sm text-white/40 tabular-nums">{p.score.toLocaleString()}</span>
           </div>
         ))}
       </div>
@@ -183,63 +182,73 @@ export function KahootHostScreen({ roomCode, roomId, questions, timerDuration }:
   const correctIdx = q.choices.indexOf(q.correct_answer);
 
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-primary px-6 py-4">
+    <div className="min-h-[100dvh] flex flex-col px-6 py-4" style={{ background: '#0a0716' }}>
       {/* Top bar */}
       <div className="flex justify-between items-center mb-4">
-        <span className="text-ghost text-xs">Room: {roomCode}</span>
-        <span className="text-ghost text-xs">Round {currentIndex + 1}/{questions.length}</span>
+        <span className="text-white/40 text-xs">Room: {roomCode}</span>
+        <span className="text-white/40 text-xs">{players.length} players</span>
+        <span className="text-white/40 text-xs">Round {currentIndex + 1}/{questions.length}</span>
       </div>
 
       {/* Audio area */}
       <div className="flex-1 flex flex-col items-center justify-center">
         {isRevealing ? (
           <div className="text-center">
-            <p className="text-2xl font-bold text-primary mb-1">{q.reveal.title}</p>
-            <p className="text-lg text-ghost">{q.reveal.artist}</p>
+            <p className="text-2xl font-bold text-white mb-1">{q.reveal.title}</p>
+            <p className="text-lg text-white/40">{q.reveal.artist}</p>
           </div>
         ) : (
           <>
             <AudioVisualizer isPlaying={phase === 'playing'} />
-            <div className="text-5xl font-bold text-primary tabular-nums mt-4 mb-2">{timeLeft}s</div>
-            <p className="text-sm text-ghost">Which group sings this song?</p>
+            <div className="text-5xl font-bold text-white tabular-nums mt-4 mb-2">{timeLeft}s</div>
+            <p className="text-sm text-white/40">Which group sings this song?</p>
           </>
         )}
       </div>
 
-      {/* Answer labels (host screen shows labels, not buttons) */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      {/* Answer grid */}
+      <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4">
         {q.choices.map((choice, i) => (
           <div
             key={choice}
-            className={`px-4 py-5 rounded-xl text-center text-sm font-medium transition-all ${
-              isRevealing && i === correctIdx
-                ? 'ring-4 ring-[#639922] scale-[1.03]'
-                : isRevealing
-                ? 'opacity-40'
-                : ''
+            className={`rounded-2xl px-6 py-8 md:py-10 text-center transition-all ${
+              isRevealing && i === correctIdx ? 'ring-4 ring-[#4CAF50] scale-[1.02]' :
+              isRevealing && i !== correctIdx ? 'opacity-25' : ''
             }`}
-            style={{
-              backgroundColor: ANSWER_BG[i % 4],
-              color: ANSWER_COLORS[i % 4],
-            }}
+            style={{ background: KAHOOT_COLORS[i]?.bg }}
           >
-            {choice}
+            <span className="text-white/40 text-sm font-semibold block mb-1">{KAHOOT_COLORS[i]?.label}</span>
+            <span className="text-white text-xl md:text-2xl font-semibold">{choice}</span>
+            {isRevealing && i === correctIdx && (
+              <div className="mt-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" className="mx-auto"><path d="M4 10.5L8.5 15L16 6" /></svg></div>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Bottom: answer count + leaderboard peek */}
-      <div className="flex justify-between items-center">
-        <span className="text-sm text-ghost">Answers: {answeredCount}/{players.length}</span>
-        {isRevealing && (
+      {/* Live counter */}
+      <div className="flex justify-between items-center mt-4 px-4">
+        <div className="flex items-center gap-2">
+          <span className="text-white/40 text-sm font-medium">Answers:</span>
+          <span className="text-white text-lg font-semibold tabular-nums">{answeredCount}/{players.length}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-white/40 text-sm font-medium">Timer:</span>
+          <span className="text-white text-lg font-semibold tabular-nums">{timeLeft}s</span>
+        </div>
+      </div>
+
+      {/* Next button on reveal */}
+      {isRevealing && (
+        <div className="flex justify-center mt-4">
           <button
             onClick={handleNext}
-            className="px-5 py-2 rounded-xl bg-accent text-white text-sm font-medium active:scale-[0.97]"
+            className="px-8 py-3 rounded-xl bg-[#D4537E] text-white text-sm font-semibold active:scale-[0.97] transition-all"
           >
             {isLast ? 'See Podium' : 'Next Round'}
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

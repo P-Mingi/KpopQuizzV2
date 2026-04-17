@@ -43,18 +43,35 @@ function BlindMemberCell({
     return (
       <div
         ref={cellRef}
-        className={`flex flex-col items-center justify-center rounded-xl bg-[#EAF3DE] p-2 relative ${justFound ? 'animate-pop-in' : ''}`}
+        className={`rounded-xl overflow-hidden relative ${justFound ? 'animate-pop-in' : ''}`}
         style={{ aspectRatio: '3/4' }}
       >
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold mb-1"
-          style={{ backgroundColor: member.color || '#0F6E56' }}
-        >
-          {getInitials(member.name)}
+        {member.photo_url ? (
+          <Image
+            src={member.photo_url}
+            alt={member.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 25vw, 20vw"
+          />
+        ) : (
+          <div
+            className="w-full h-full flex items-center justify-center"
+            style={{ backgroundColor: (member.color || '#0F6E56') + '20' }}
+          >
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              style={{ backgroundColor: member.color || '#0F6E56' }}
+            >
+              {getInitials(member.name)}
+            </div>
+          </div>
+        )}
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1.5">
+          <p className="text-[11px] font-medium text-white text-center leading-tight truncate">
+            {member.name}
+          </p>
         </div>
-        <p className="text-[11px] font-medium text-[#27500A] text-center leading-tight truncate w-full">
-          {member.name}
-        </p>
         <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#0F6E56] flex items-center justify-center animate-check-pop">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.5L4 7.5L8 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </div>

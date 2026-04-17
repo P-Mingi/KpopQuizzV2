@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 export type MascotMood = 'idle' | 'correct' | 'wrong' | 'combo';
 
 interface Props {
-  mood: MascotMood;
+  mood?: MascotMood;
+  size?: number;
 }
 
 const HEAD_COLOR: Record<MascotMood, string> = {
@@ -27,7 +28,7 @@ const GLOW_COLOR: Record<MascotMood, string> = {
  * animation (bounce / droop / vibrate), then idles gently. Render at the page
  * root; use `pointer-events-none` so it never blocks taps.
  */
-export function LightstickMascot({ mood }: Props) {
+export function LightstickMascot({ mood = 'idle', size }: Props) {
   const [animClass, setAnimClass] = useState<string>('mascot-idle');
 
   useEffect(() => {
@@ -51,6 +52,19 @@ export function LightstickMascot({ mood }: Props) {
 
   const headColor = HEAD_COLOR[mood];
   const glowColor = GLOW_COLOR[mood];
+
+  if (size) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 48 40" aria-hidden="true">
+        <circle cx="24" cy="18" r="16" fill={headColor} />
+        <circle cx="18" cy="16" r="2.5" fill="#0D0D0F" />
+        <circle cx="30" cy="16" r="2.5" fill="#0D0D0F" />
+        <circle cx="19" cy="15" r="0.8" fill="rgba(255,255,255,0.6)" />
+        <circle cx="31" cy="15" r="0.8" fill="rgba(255,255,255,0.6)" />
+        <path d="M18 22 Q24 26 30 22" fill="none" stroke="#0D0D0F" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    );
+  }
 
   return (
     <div

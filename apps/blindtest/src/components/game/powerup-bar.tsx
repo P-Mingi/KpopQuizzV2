@@ -38,22 +38,22 @@ export function PowerupBar({
   disabled: boolean;
 }) {
   return (
-    <div className="flex gap-1.5 md:gap-2 justify-center">
+    <div className="flex gap-[5px] md:gap-1.5 justify-center mt-3.5">
       {(Object.entries(powerups) as [PowerupId, number][]).map(([id, count]) => (
         <div key={id} className="flex flex-col items-center gap-[3px]">
           <button
             onClick={() => count > 0 && !disabled && onUse(id)}
             disabled={count === 0 || disabled}
-            className="w-[38px] h-[38px] md:w-[42px] md:h-[42px] rounded-[10px] bg-elevated flex items-center justify-center cursor-pointer relative border border-transparent transition-all hover:border-accent hover:bg-accent-bg active:bg-accent-bg disabled:opacity-30 disabled:cursor-default disabled:hover:border-transparent disabled:hover:bg-elevated text-secondary"
+            className="w-[34px] h-[34px] md:w-[36px] md:h-[36px] rounded-lg bg-white/[0.05] border border-white/[0.07] flex items-center justify-center cursor-pointer relative transition-all hover:bg-white/[0.1] disabled:opacity-25 disabled:cursor-default text-white/50"
           >
             {POWERUP_ICONS[id]}
             {count > 0 && (
-              <div className="absolute -top-[3px] -right-[3px] w-[14px] h-[14px] rounded-full bg-accent text-[8px] font-medium text-white flex items-center justify-center">
+              <div className="absolute -top-[3px] -right-[3px] w-3 h-3 md:w-[13px] md:h-[13px] rounded-full bg-[#D4537E] text-[7px] font-bold text-white flex items-center justify-center">
                 {count}
               </div>
             )}
           </button>
-          <span className="text-[8px] text-ghost font-medium">{POWERUP_LABELS[id]}</span>
+          <span className="text-[8px] text-white/25 font-medium">{POWERUP_LABELS[id]}</span>
         </div>
       ))}
     </div>

@@ -37,48 +37,52 @@ export function PartyLobby({ roomCode, roomId, isHost, mode }: Props) {
     return null;
   }
 
+  const copyCode = useCallback(() => {
+    navigator.clipboard.writeText(roomCode).catch(() => {});
+  }, [roomCode]);
+
+  const maxSlots = 8;
+  const playerSlots = Array.from({ length: maxSlots }, (_, i) => players[i] ?? null);
+
   return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-8">
-      <p className="text-ghost text-[10px] uppercase tracking-widest mb-2">
+    <div className="px-3.5 md:px-0 py-4 md:py-6 max-w-[500px] mx-auto">
+      {/* Mode label */}
+      <p className="text-[10px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] uppercase tracking-widest mb-2 text-center">
         {mode === 'everyone' ? 'Everyone mode' : 'Kahoot mode'}
       </p>
 
-      <h1 className="text-2xl font-bold text-primary mb-1">Party Room</h1>
+      <h1 className="text-lg md:text-xl font-semibold text-primary mb-4 text-center">Party Room</h1>
 
-      {/* Room code */}
-      <div className="flex items-center gap-2 bg-elevated rounded-xl px-6 py-3 mb-6">
-        <span className="text-3xl font-bold text-primary tracking-[0.2em] tabular-nums">
-          {roomCode}
-        </span>
+      {/* Room code display */}
+      <div className="flex justify-center mb-4">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)]">
+          <span className="text-[10px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] font-medium">Room</span>
+          <span className="text-lg font-semibold text-[#D4537E] tracking-[3px] tabular-nums">{roomCode}</span>
+          <button onClick={copyCode} className="w-7 h-7 rounded-lg bg-white/50 dark:bg-white/[0.06] flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#888780] dark:text-white/40"><rect x="4" y="4" width="7" height="7" rx="1.5" /><path d="M4 8H2.5A1.5 1.5 0 0 1 1 6.5V2.5A1.5 1.5 0 0 1 2.5 1h4A1.5 1.5 0 0 1 8 2.5V4" /></svg>
+          </button>
+        </div>
       </div>
-      <p className="text-xs text-ghost mb-6">Share this code with your friends</p>
 
-      {/* Player list */}
-      <div className="w-full max-w-sm mb-6">
-        <p className="text-[10px] text-ghost uppercase tracking-wider mb-2">
-          Players ({players.length}/8)
-        </p>
-        <div className="flex flex-col gap-1.5">
-          {players.map((p) => (
-            <div
-              key={p.id}
-              className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-primary border border-subtle"
-            >
-              <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-xs font-medium text-accent">
-                {p.display_name.charAt(0).toUpperCase()}
-              </div>
-              <span className="text-sm font-medium text-primary flex-1">{p.display_name}</span>
-              {p.is_host && (
-                <span className="text-[9px] font-medium text-accent bg-accent-bg px-2 py-0.5 rounded-full">
-                  Host
-                </span>
+      <p className="text-xs text-[#888780] dark:text-[rgba(255,255,255,0.35)] mb-6 text-center">Share this code with your friends</p>
+
+      {/* Player slots grid */}
+      <div className="grid grid-cols-4 gap-3 md:gap-4 mb-6">
+        {playerSlots.map((player, i) => (
+          <div key={player?.id ?? `empty-${i}`} className="flex flex-col items-center gap-1.5">
+            <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2 ${
+              player ? 'border-[#D4537E] bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.12)]' : 'border-dashed border-[#E8E6E0] dark:border-[rgba(255,255,255,0.1)]'
+            }`}>
+              {player ? (
+                <span className="text-lg font-semibold text-[#D4537E]">{player.display_name?.charAt(0)?.toUpperCase()}</span>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D3D1C7" strokeWidth="1.2" strokeLinecap="round"><path d="M8 4v8M4 8h8" /></svg>
               )}
             </div>
-          ))}
-          {players.length === 0 && (
-            <p className="text-xs text-ghost text-center py-4">Waiting for players...</p>
-          )}
-        </div>
+            <span className="text-[10px] font-medium text-primary truncate max-w-[60px]">{player?.display_name || 'Empty'}</span>
+            {player?.is_host && <span className="text-[8px] font-semibold text-[#D4537E]">Host</span>}
+          </div>
+        ))}
       </div>
 
       {/* Start button (host only) */}
@@ -86,14 +90,14 @@ export function PartyLobby({ roomCode, roomId, isHost, mode }: Props) {
         <button
           onClick={handleStart}
           disabled={starting || players.length < 2}
-          className="px-8 py-3 rounded-xl bg-accent text-white font-medium text-sm transition-all active:scale-[0.97] disabled:opacity-50"
+          className="w-full py-3.5 rounded-xl bg-[#D4537E] text-white text-sm font-semibold disabled:opacity-30 hover:bg-[#C44A72] active:scale-[0.97] transition-all"
         >
           {starting ? 'Starting...' : `Start game (${players.length} players)`}
         </button>
       )}
 
       {!isHost && (
-        <p className="text-sm text-ghost">Waiting for host to start the game...</p>
+        <p className="text-sm text-[#888780] dark:text-[rgba(255,255,255,0.35)] text-center">Waiting for host to start the game...</p>
       )}
     </div>
   );

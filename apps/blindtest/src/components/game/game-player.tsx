@@ -8,7 +8,6 @@ import { ChallengeInput } from './challenge-input';
 import {
   CircularTimer,
   type TimerHandle,
-  AnswerButton,
   AlbumArt,
   SongInfoReveal,
   ComboBadge,
@@ -21,6 +20,7 @@ import { RoundHistory } from './round-history';
 import { GameSidebar } from './game-sidebar';
 import { ComboParticles } from './combo-particles';
 import { LightstickMascot, type MascotMood } from '@/components/mascot/lightstick-mascot';
+import { TipBanner } from '@/components/shared/tip-banner';
 import { KOREAN_MOMENTS } from '@/lib/korean-moments';
 import { getInitialPowerups, type PowerupId } from '@/lib/powerups';
 import {
@@ -436,36 +436,41 @@ export function GamePlayer({
   // ---- Loading / Ready ----
   if (phase === 'loading') {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5 max-w-[440px] mx-auto w-full">
-        {error ? (
-          <>
-            <p className="text-wrong text-sm text-center">{error}</p>
-            <button
-              onClick={() => router.push('/')}
-              className="text-sm px-4 py-2 bg-surface border border-default rounded-xl text-primary"
-            >
-              Go home
-            </button>
-          </>
-        ) : ready ? (
-          <>
-            <p className="text-2xl font-bold text-primary">Ready to play?</p>
-            <p className="text-xs text-ghost text-center">
-              10 songs - {isChallenge ? 'type your answer' : '4 choices'} - {isChallenge ? '10s' : '15s'} timer
-            </p>
-            <button
-              onClick={handleStart}
-              className="mt-4 px-12 py-4 rounded-2xl bg-accent text-primary font-bold text-lg active:scale-[0.97] transition-transform"
-            >
-              START
-            </button>
-          </>
-        ) : (
-          <>
-            <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-secondary">Loading songs...</p>
-          </>
-        )}
+      <div
+        className="w-full h-screen overflow-hidden relative flex items-center justify-center"
+        style={{ background: 'radial-gradient(ellipse at 50% 30%, #2a1f4e 0%, #140e2e 60%, #0a0716 100%)' }}
+      >
+        <div className="flex flex-col items-center gap-4 px-5 max-w-[440px] mx-auto w-full">
+          {error ? (
+            <>
+              <p className="text-red-400 text-sm text-center">{error}</p>
+              <button
+                onClick={() => router.push('/')}
+                className="text-sm px-4 py-2 bg-white/[0.05] border border-white/[0.06] rounded-xl text-white/70"
+              >
+                Go home
+              </button>
+            </>
+          ) : ready ? (
+            <>
+              <p className="text-2xl font-bold text-white">Ready to play?</p>
+              <p className="text-xs text-white/30 text-center">
+                10 songs - {isChallenge ? 'type your answer' : '4 choices'} - {isChallenge ? '10s' : '15s'} timer
+              </p>
+              <button
+                onClick={handleStart}
+                className="w-full py-3 md:py-3.5 rounded-[10px] md:rounded-xl bg-[#D4537E] text-white text-sm font-semibold transition-all active:scale-[0.97] hover:bg-[#C44A72]"
+              >
+                START
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="w-8 h-8 border-2 border-[#D4537E] border-t-transparent rounded-full animate-spin" />
+              <p className="text-sm text-white/40">Loading songs...</p>
+            </>
+          )}
+        </div>
       </div>
     );
   }
@@ -473,22 +478,24 @@ export function GamePlayer({
   // ---- Results ----
   if (phase === 'results') {
     return (
-      <ResultsScreen
-        score={game.state.totalScore}
-        correctCount={game.correctCount}
-        total={game.state.questions.length}
-        bestCombo={game.state.bestCombo}
-        avgSpeed={game.avgSpeed}
-        results={game.state.results}
-        progression={progressionData}
-        playlist={game.state.playlist}
-        mode={game.state.mode}
-        questions={game.state.questions}
-        {...(dailyNumber !== undefined ? { dailyNumber } : {})}
-        {...(challengeComparisonData ? { challengeComparison: challengeComparisonData } : {})}
-        onPlayAgain={handlePlayAgain}
-        onHome={handleQuit}
-      />
+      <div className="w-full h-screen overflow-auto bg-primary">
+        <ResultsScreen
+          score={game.state.totalScore}
+          correctCount={game.correctCount}
+          total={game.state.questions.length}
+          bestCombo={game.state.bestCombo}
+          avgSpeed={game.avgSpeed}
+          results={game.state.results}
+          progression={progressionData}
+          playlist={game.state.playlist}
+          mode={game.state.mode}
+          questions={game.state.questions}
+          {...(dailyNumber !== undefined ? { dailyNumber } : {})}
+          {...(challengeComparisonData ? { challengeComparison: challengeComparisonData } : {})}
+          onPlayAgain={handlePlayAgain}
+          onHome={handleQuit}
+        />
+      </div>
     );
   }
 
@@ -508,147 +515,193 @@ export function GamePlayer({
     : 0;
 
   return (
-    <div className="flex-1 flex gap-4 justify-center relative">
-      {/* Main game column */}
-      <div className="flex-1 flex flex-col relative max-w-[440px] w-full">
-        {/* Reactive mascot */}
-        <LightstickMascot mood={mascotMood} />
+    <div
+      className="w-full h-screen overflow-hidden relative"
+      style={{ background: 'radial-gradient(ellipse at 50% 30%, #2a1f4e 0%, #140e2e 60%, #0a0716 100%)' }}
+    >
+      {/* Timer bar at the very top */}
+      {phase === 'playing' && (
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/[0.06] z-30" />
+      )}
 
-        {/* Red flash overlay on urgent timer ticks */}
-        {urgentFlash && (
-          <div className="absolute inset-0 bg-wrong opacity-[0.06] pointer-events-none rounded-2xl transition-opacity duration-150 z-10" />
-        )}
+      {/* Reactive mascot */}
+      <LightstickMascot mood={mascotMood} />
 
-        {/* Wrong-answer Korean flash */}
-        {isRevealing && lastResult && !lastResult.correct && (
-          <p
-            key={wrongFlashKey}
-            className="absolute top-[120px] left-1/2 -translate-x-1/2 text-base font-semibold text-wrong-text animate-fade-out pointer-events-none z-20"
-          >
-            {KOREAN_MOMENTS.wrong!.text}
-          </p>
-        )}
+      {/* Red flash overlay on urgent timer ticks */}
+      {urgentFlash && (
+        <div className="absolute inset-0 bg-red-500 opacity-[0.06] pointer-events-none transition-opacity duration-150 z-10" />
+      )}
 
-        {/* HUD: quit, combo, score, health bar */}
-        <div className="px-4 py-3">
-          <GameHUD
-            round={game.state.currentIndex + (isRevealing ? 1 : 0)}
-            totalRounds={game.state.questions.length}
-            score={game.state.totalScore}
-            comboStreak={game.state.currentCombo}
-            mode={game.state.mode}
-          />
-        </div>
+      {/* Wrong-answer Korean flash */}
+      {isRevealing && lastResult && !lastResult.correct && (
+        <p
+          key={wrongFlashKey}
+          className="absolute top-[120px] left-1/2 -translate-x-1/2 text-base font-semibold text-red-400 animate-fade-out pointer-events-none z-20"
+        >
+          {KOREAN_MOMENTS.wrong!.text}
+        </p>
+      )}
 
-        {/* Immersive body */}
-        <div className="flex flex-col items-center gap-4 px-5 pt-2 pb-2">
-          {/* Album art */}
-          <AlbumArt
-            src={q.album_cover_big ?? q.album_cover_medium}
-            revealed={isRevealing}
-          />
-
-          {/* Reveal: song info; Playing: visualizer + timer */}
-          {isRevealing ? (
-            <SongInfoReveal
-              title={q.reveal.title}
-              artist={q.reveal.artist}
-              album={q.reveal.album}
-              revealed
-            />
-          ) : (
-            <>
-              <AudioVisualizer isPlaying={phase === 'playing'} />
-              <CircularTimer
-                ref={timerRef}
-                duration={game.state.timerDuration}
-                running={phase === 'playing'}
-                onExpired={handleTimeout}
-                timerKey={timerKey}
-                onUrgentTick={handleUrgentTick}
-              />
-            </>
-          )}
-
-          {/* Combo (>= 3) with particle burst on 5+ */}
+      <div className="flex h-full">
+        {/* Main game column */}
+        <div className="flex-1 flex flex-col max-w-[440px] mx-auto px-3.5 md:px-4 relative">
+          {/* Combo pill */}
           {!isRevealing && game.state.currentCombo >= 3 && (
-            <div className="relative">
+            <div className="mt-2 flex justify-center relative">
               <ComboBadge combo={game.state.currentCombo} multiplier={game.comboMultiplier} />
               <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
             </div>
           )}
 
-          {/* Question text (challenge only) */}
-          {!isRevealing && isChallenge && (
-            <p className="text-[13px] text-ghost text-center">
-              {q.question_text}
-              <span className="ml-1.5 text-accent text-xs font-semibold">1.5x</span>
-            </p>
-          )}
-        </div>
-
-        {/* Answer area */}
-        <div className="px-5 pb-4">
-          {isChallenge ? (
-            <ChallengeInput
-              questionType={q.question_type}
-              correctAnswer={q.correct_answer}
-              allPossibleAnswers={allPossibleAnswers}
-              onSubmit={handleChallengeSubmit}
-              disabled={isRevealing}
-              revealState={isRevealing && lastResult ? {
-                correct: lastResult.correct,
-                userAnswer: lastResult.answered,
-              } : null}
+          {/* HUD: quit, combo, score, health bar */}
+          <div className="mt-3">
+            <GameHUD
+              round={game.state.currentIndex + (isRevealing ? 1 : 0)}
+              totalRounds={game.state.questions.length}
+              score={game.state.totalScore}
+              comboStreak={game.state.currentCombo}
+              mode={game.state.mode}
             />
-          ) : (
-            <div className="grid grid-cols-2 gap-2">
-              {q.choices.map((choice) => {
-                const isRemoved = removedAnswers.includes(choice);
-                return (
-                  <AnswerButton
-                    key={choice}
-                    text={choice}
-                    state={isRemoved ? 'dimmed' : getButtonState(choice)}
-                    onClick={() => handleAnswer(choice)}
-                    disabled={isRevealing || isRemoved}
+          </div>
+
+          {/* Central gameplay area */}
+          <div className="flex-1 flex flex-col items-center justify-center">
+            {/* Reveal: album art + song info */}
+            {isRevealing ? (
+              <div className="flex flex-col items-center gap-4">
+                <AlbumArt
+                  src={q.album_cover_big ?? q.album_cover_medium}
+                  revealed={isRevealing}
+                />
+                <SongInfoReveal
+                  title={q.reveal.title}
+                  artist={q.reveal.artist}
+                  album={q.reveal.album}
+                  revealed
+                />
+              </div>
+            ) : (
+              <>
+                {/* Visualizer area */}
+                <div className="mt-4 h-[70px] flex items-center justify-center">
+                  <AudioVisualizer isPlaying={phase === 'playing'} />
+                </div>
+
+                {/* Timer */}
+                <div className="mt-4">
+                  <CircularTimer
+                    ref={timerRef}
+                    duration={game.state.timerDuration}
+                    running={phase === 'playing'}
+                    onExpired={handleTimeout}
+                    timerKey={timerKey}
+                    onUrgentTick={handleUrgentTick}
                   />
-                );
-              })}
+                </div>
+
+                {/* Question text */}
+                {isChallenge ? (
+                  <p className="mt-3.5 text-[13px] text-white/80 text-center">
+                    {q.question_text}
+                    <span className="ml-1.5 text-[#ED93B1] text-xs font-semibold">1.5x</span>
+                  </p>
+                ) : (
+                  <p className="mt-3.5 text-[13px] text-white/80 text-center">
+                    {q.question_text}
+                  </p>
+                )}
+
+                {/* Answer area */}
+                <div className="mt-3.5 w-full">
+                  {isChallenge ? (
+                    <ChallengeInput
+                      questionType={q.question_type}
+                      correctAnswer={q.correct_answer}
+                      allPossibleAnswers={allPossibleAnswers}
+                      onSubmit={handleChallengeSubmit}
+                      disabled={isRevealing}
+                      revealState={isRevealing && lastResult ? {
+                        correct: lastResult.correct,
+                        userAnswer: lastResult.answered,
+                      } : null}
+                    />
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      {q.choices.map((choice) => {
+                        const isRemoved = removedAnswers.includes(choice);
+                        const btnState = isRemoved ? 'dimmed' : getButtonState(choice);
+                        const isCorrect = btnState === 'correct';
+                        const isWrong = btnState === 'wrong';
+                        const isDimmed = btnState === 'dimmed';
+                        return (
+                          <button
+                            key={choice}
+                            onClick={() => handleAnswer(choice)}
+                            disabled={isRevealing || isRemoved}
+                            className={`px-3 py-4 md:py-[18px] rounded-[11px] md:rounded-xl text-center text-[12px] md:text-[13px] font-semibold transition-all active:scale-[0.96] ${
+                              isCorrect && isRevealing
+                                ? 'bg-white/10 border-[1.5px] border-[#4CAF50] text-[#4CAF50]'
+                                : isWrong && isRevealing
+                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20'
+                                : isDimmed
+                                ? 'bg-white/[0.03] border border-white/[0.04] text-white/20'
+                                : 'bg-white/[0.05] border border-white/[0.06] text-white/70 hover:bg-white/[0.08]'
+                            }`}
+                          >
+                            {choice}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Mobile only: Power-ups + Round History */}
+          <div className="md:hidden pb-4">
+            {!isChallenge && (
+              <div className="mt-3.5">
+                <PowerupBar
+                  powerups={powerups}
+                  onUse={handleUsePowerup}
+                  disabled={isRevealing || usedPowerupThisRound !== null}
+                />
+              </div>
+            )}
+            <div className="mt-3.5">
+              <RoundHistory results={game.state.results} totalRounds={game.state.questions.length} />
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Mobile: power-ups + round history */}
-        <div className="md:hidden px-5 pb-6 flex flex-col gap-3">
-          {!isChallenge && (
-            <PowerupBar
+        {/* Desktop sidebar */}
+        {!isChallenge && (
+          <div className="hidden md:block px-4">
+            <GameSidebar
+              score={game.state.totalScore}
+              lastRoundPoints={game.lastPoints}
+              comboStreak={game.state.currentCombo}
+              bestCombo={game.state.bestCombo}
+              correctCount={game.correctCount}
+              totalPlayed={game.state.results.length}
+              avgSpeedMs={avgSpeedMs}
               powerups={powerups}
-              onUse={handleUsePowerup}
-              disabled={isRevealing || usedPowerupThisRound !== null}
+              results={game.state.results}
+              totalRounds={game.state.questions.length}
+              onUsePowerup={handleUsePowerup}
+              powerupsDisabled={isRevealing || usedPowerupThisRound !== null}
             />
-          )}
-          <RoundHistory results={game.state.results} totalRounds={game.state.questions.length} />
-        </div>
+          </div>
+        )}
       </div>
 
-      {/* Desktop sidebar */}
-      {!isChallenge && (
-        <GameSidebar
-          score={game.state.totalScore}
-          lastRoundPoints={game.lastPoints}
-          comboStreak={game.state.currentCombo}
-          bestCombo={game.state.bestCombo}
-          correctCount={game.correctCount}
-          totalPlayed={game.state.results.length}
-          avgSpeedMs={avgSpeedMs}
-          powerups={powerups}
-          results={game.state.results}
-          totalRounds={game.state.questions.length}
-          onUsePowerup={handleUsePowerup}
-          powerupsDisabled={isRevealing || usedPowerupThisRound !== null}
-        />
-      )}
+      {/* TipBanner at the bottom */}
+      <TipBanner
+        variant="gameplay"
+        tips={['Faster answers score more points', 'Build combos for bonus multipliers', 'Use power-ups strategically']}
+      />
     </div>
   );
 }

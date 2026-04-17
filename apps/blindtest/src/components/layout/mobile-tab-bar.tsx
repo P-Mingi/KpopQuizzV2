@@ -14,39 +14,35 @@ type TabIcon = (typeof tabs)[number]['icon'];
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Hidden during active gameplay and party
-  if (pathname.startsWith('/play') || pathname.startsWith('/party/')) return null;
+  // Hidden during active gameplay, party, and challenge
+  if (pathname.startsWith('/play') || pathname.startsWith('/party/') || pathname.startsWith('/challenge/')) return null;
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 left-0 right-0 border-t border-subtle bg-primary/95 backdrop-blur-sm z-50"
+      className="md:hidden fixed bottom-0 inset-x-0 flex pt-1.5 pb-5 border-t border-[#E8E6E0] dark:border-[#1a1a22] bg-white dark:bg-[#0D0D12] z-40"
       aria-label="Main navigation"
     >
-      <div className="max-w-[960px] mx-auto">
-        <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          {tabs.map((tab) => {
-            const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
-            return (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                className={`flex-1 flex flex-col items-center gap-0.5 pt-1 text-[9px] font-medium ${
-                  isActive ? 'text-accent' : 'text-ghost'
-                }`}
-              >
-                <TabIcon name={tab.icon} active={isActive} />
-                {tab.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+      {tabs.map((tab) => {
+        const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
+        return (
+          <Link
+            key={tab.href}
+            href={tab.href}
+            className={`flex-1 flex flex-col items-center gap-[2px] text-[8px] font-semibold ${
+              isActive ? 'text-[#D4537E]' : 'text-[#B4B2A9] dark:text-[rgba(255,255,255,0.3)]'
+            }`}
+          >
+            <TabIconSvg name={tab.icon} active={isActive} />
+            {tab.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
 
-function TabIcon({ name, active }: { name: TabIcon; active: boolean }) {
-  const color = active ? 'var(--accent)' : 'var(--text-ghost)';
+function TabIconSvg({ name, active }: { name: TabIcon; active: boolean }) {
+  const color = active ? '#D4537E' : 'currentColor';
   const size = 18;
 
   switch (name) {

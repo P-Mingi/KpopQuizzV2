@@ -2,31 +2,30 @@ import type { SongResult } from './use-game-state';
 
 export function RoundHistory({ results, totalRounds }: { results: SongResult[]; totalRounds: number }) {
   return (
-    <div className="flex gap-[3px] justify-center mt-2.5">
+    <div className="flex gap-[3px] justify-center mt-3.5">
       {Array.from({ length: totalRounds }).map((_, i) => {
         const result = results[i];
+        const isCurrent = i === results.length;
+
+        if (isCurrent) {
+          return (
+            <div key={i} className="w-[9px] h-[9px] rounded-full bg-[#D4537E] outline-2 outline outline-white/25" />
+          );
+        }
+
+        if (!result) {
+          return (
+            <div key={i} className="w-[7px] h-[7px] md:w-2 md:h-2 rounded-full bg-white/10" />
+          );
+        }
+
         return (
           <div
             key={i}
-            className={`w-[18px] h-[18px] md:w-[22px] md:h-[22px] rounded-[5px] md:rounded-md flex items-center justify-center ${
-              !result
-                ? 'bg-elevated'
-                : result.correct
-                ? 'bg-[#EAF3DE]'
-                : 'bg-[#FCEBEB]'
+            className={`w-[7px] h-[7px] md:w-2 md:h-2 rounded-full ${
+              result.correct ? 'bg-white/60' : 'bg-white/20'
             }`}
-          >
-            {result?.correct && (
-              <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="#27500A" strokeWidth="1.5" strokeLinecap="round">
-                <path d="M2 5.5L4.2 7.5L8 3" />
-              </svg>
-            )}
-            {result && !result.correct && (
-              <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="#791F1F" strokeWidth="1.5" strokeLinecap="round">
-                <path d="M3 3l4 4M7 3L3 7" />
-              </svg>
-            )}
-          </div>
+          />
         );
       })}
     </div>

@@ -4,8 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePartyChannel } from '@/hooks/use-party-channel';
 
-const ANSWER_COLORS = ['#378ADD', '#D4537E', '#639922', '#BA7517'];
-const ANSWER_BG = ['#E6F1FB', '#FBEAF0', '#EAF3DE', '#FAEEDA'];
+const KAHOOT_COLORS = [{ bg: '#534AB7', label: 'A' }, { bg: '#D4537E', label: 'B' }, { bg: '#0F6E56', label: 'C' }, { bg: '#BA7517', label: 'D' }];
 
 interface Props {
   roomCode: string;
@@ -75,13 +74,13 @@ export function KahootPlayerScreen({ roomCode, roomId, partyPlayerId, choicesPer
     const me = players.find((p) => p.id === partyPlayerId);
     const myRank = players.findIndex((p) => p.id === partyPlayerId) + 1;
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-5">
-        <p className="text-2xl font-bold text-primary mb-1">Game Over!</p>
-        <p className="text-4xl font-bold text-accent mb-2">{me?.score?.toLocaleString() ?? score.toLocaleString()}</p>
-        <p className="text-sm text-ghost mb-6">You placed #{myRank} of {players.length}</p>
+      <div className="w-full h-screen flex flex-col items-center justify-center" style={{ background: '#0a0716' }}>
+        <p className="text-2xl font-bold text-white mb-1">Game Over!</p>
+        <p className="text-4xl font-bold text-[#D4537E] mb-2">{me?.score?.toLocaleString() ?? score.toLocaleString()}</p>
+        <p className="text-sm text-white/40 mb-6">You placed #{myRank} of {players.length}</p>
         <button
           onClick={() => router.push('/')}
-          className="px-6 py-2.5 rounded-xl bg-accent text-white text-sm font-medium"
+          className="px-6 py-2.5 rounded-xl bg-[#D4537E] text-white text-sm font-semibold"
         >
           Back to lobby
         </button>
@@ -92,10 +91,10 @@ export function KahootPlayerScreen({ roomCode, roomId, partyPlayerId, choicesPer
   // Waiting for host to start
   if (roomState.status === 'waiting') {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-5">
-        <p className="text-lg font-bold text-primary mb-2">Room: {roomCode}</p>
-        <p className="text-sm text-ghost">Waiting for host to start...</p>
-        <p className="text-xs text-ghost mt-4">{players.length} players in room</p>
+      <div className="w-full h-screen flex flex-col items-center justify-center" style={{ background: '#0a0716' }}>
+        <p className="text-lg font-bold text-white mb-2">Room: {roomCode}</p>
+        <p className="text-sm text-white/30">Waiting for host to start...</p>
+        <p className="text-xs text-white/30 mt-4">{players.length} players in room</p>
       </div>
     );
   }
@@ -103,41 +102,43 @@ export function KahootPlayerScreen({ roomCode, roomId, partyPlayerId, choicesPer
   // Already answered this round
   if (waitingForNext || hasAnswered) {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-5">
-        <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-sm text-ghost">Answer submitted! Waiting for results...</p>
-        <p className="text-xs text-ghost mt-2 tabular-nums">Score: {score.toLocaleString()}</p>
+      <div className="w-full h-screen flex flex-col" style={{ background: '#0a0716' }}>
+        <div className="flex justify-between items-center px-4 py-3">
+          <span className="text-white/30 text-[10px] font-medium">Room {roomCode}</span>
+          <span className="text-white/30 text-[10px] font-medium tabular-nums">Round {currentRound + 1}/{totalRounds}</span>
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" className="mx-auto mb-3 opacity-30"><circle cx="20" cy="20" r="16" /><path d="M20 12v8l5 3" /></svg>
+            <p className="text-white/30 text-sm font-medium">Waiting for others...</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   // Show 4 colored answer buttons (no question text, no audio)
   return (
-    <div className="min-h-[100dvh] flex flex-col px-4 py-4">
-      <div className="flex justify-between items-center mb-4">
-        <span className="text-xs text-ghost">Room: {roomCode}</span>
-        <span className="text-xs text-ghost">Round {currentRound + 1}/{totalRounds}</span>
+    <div className="w-full h-screen flex flex-col" style={{ background: '#0a0716' }}>
+      <div className="flex justify-between items-center px-4 py-3">
+        <span className="text-white/30 text-[10px] font-medium">Room {roomCode}</span>
+        <span className="text-white/30 text-[10px] font-medium tabular-nums">Round {currentRound + 1}/{totalRounds}</span>
       </div>
 
-      <p className="text-center text-sm font-medium text-primary mb-6">Tap your answer!</p>
+      <p className="text-center text-white/40 text-xs font-medium py-3">Tap your answer</p>
 
-      <div className="flex-1 grid grid-cols-2 gap-3 content-center">
-        {choices.map((_, i) => (
+      <div className="flex-1 grid grid-cols-2 gap-2 px-3 pb-3">
+        {KAHOOT_COLORS.map((c, i) => (
           <button
             key={i}
             onClick={() => handleAnswer(i)}
-            className="rounded-2xl h-28 flex items-center justify-center active:scale-[0.95] transition-transform"
-            style={{ backgroundColor: ANSWER_BG[i % 4] }}
+            className="rounded-2xl flex items-center justify-center active:scale-95 transition-transform"
+            style={{ background: c.bg }}
           >
-            <div
-              className="w-10 h-10 rounded-full"
-              style={{ backgroundColor: ANSWER_COLORS[i % 4] }}
-            />
+            <span className="text-white/60 text-2xl font-semibold">{c.label}</span>
           </button>
         ))}
       </div>
-
-      <p className="text-center text-xs text-ghost mt-4 tabular-nums">Score: {score.toLocaleString()}</p>
     </div>
   );
 }

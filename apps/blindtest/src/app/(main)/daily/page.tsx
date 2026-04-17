@@ -3,6 +3,7 @@ import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/su
 import { getTodayKST } from '@/lib/daily';
 import { DailyPlayedCard } from '@/components/daily/daily-played-card';
 import { CountdownTimer } from '@/components/daily/countdown-timer';
+import { TipBanner } from '@/components/shared/tip-banner';
 
 interface ChallengeRow {
   id: string;
@@ -44,6 +45,11 @@ function msUntilKstMidnight(): number {
   );
   const kstMidnightAsUtc = kstMidnightUTCms - 9 * 3600 * 1000;
   return Math.max(0, kstMidnightAsUtc - now.getTime());
+}
+
+function formatTodayDate(): string {
+  const now = new Date();
+  return now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 export default async function DailyPage() {
@@ -142,29 +148,29 @@ export default async function DailyPage() {
   const dayNumber = challenge?.day_number ?? null;
   const hasPlayed = Boolean(playerPlay);
   const resetMs = msUntilKstMidnight();
+  const formattedDate = formatTodayDate();
 
   return (
-    <div className="pt-3 md:pt-6 pb-8 max-w-[560px] mx-auto">
-      {/* Hero card: swaps between "play now" and "completed" based on state */}
-      <div
-        className="p-6 rounded-[18px] mb-5"
-        style={{
-          background: 'linear-gradient(135deg, var(--daily-gradient-from), var(--daily-gradient-to))',
-          border: '1px solid var(--daily-border)',
-        }}
-      >
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-daily mb-2">
-          Daily challenge{dayNumber ? ` #${dayNumber}` : ''}
-        </p>
+    <div className="max-w-[500px] mx-auto px-3.5 md:px-7 py-4 md:py-6 relative pb-16">
+      {/* Back button + title with date */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2.5">
+          <Link href="/" className="w-[30px] h-[30px] rounded-full bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)] flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-primary"><path d="M8 1.5L3 6l5 4.5" /></svg>
+          </Link>
+          <h1 className="text-base md:text-lg font-medium text-primary">Daily challenge{dayNumber ? ` #${dayNumber}` : ''}</h1>
+        </div>
+        <span className="text-[10px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] font-medium">{formattedDate}</span>
+      </div>
 
-        {!challenge ? (
-          <>
-            <h1 className="text-[28px] font-bold text-primary leading-tight">
-              Not available yet
-            </h1>
-            <p className="text-[13px] text-daily mt-1">Come back in a bit.</p>
-          </>
-        ) : hasPlayed && playerPlay ? (
+      {/* Hero card */}
+      {!challenge ? (
+        <div className="p-4 md:p-5 rounded-2xl border-[1.5px] border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] bg-white dark:bg-[rgba(255,255,255,0.04)]">
+          <p className="text-sm font-semibold text-primary">Not available yet</p>
+          <p className="text-[11px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] mt-1">Come back in a bit.</p>
+        </div>
+      ) : hasPlayed && playerPlay ? (
+        <div className="p-4 md:p-5 rounded-2xl border-[1.5px] border-[#C0DD97] dark:border-[rgba(99,153,34,0.3)] bg-[#EAF3DE] dark:bg-[rgba(99,153,34,0.08)]">
           <DailyPlayedCard
             correct={playerPlay.correct}
             score={playerPlay.score}
@@ -177,42 +183,46 @@ export default async function DailyPage() {
             playlist={challenge.playlist ?? 'all'}
             resetMs={resetMs}
           />
-        ) : (
-          <>
-            <h1 className="text-[32px] font-bold text-primary leading-tight">
-              10 songs.
-            </h1>
-            <p className="text-[13px] text-daily mt-1">
-              Same 10 songs for everyone. Who&apos;s the real fan?
-            </p>
-            <div className="mt-5 flex items-center gap-3">
-              {user ? (
-                <Link
-                  href="/play/daily"
-                  className="inline-block px-10 py-3.5 rounded-[14px] bg-accent text-primary text-sm font-bold active:scale-[0.98] transition-transform"
-                >
-                  PLAY
-                </Link>
-              ) : (
-                <div>
-                  <span className="inline-block px-10 py-3.5 rounded-[14px] bg-elevated text-tertiary text-sm font-bold cursor-not-allowed">
-                    PLAY
-                  </span>
-                  <p className="text-xs text-tertiary mt-2.5">
-                    <Link href="/login" className="text-accent">Sign in</Link> to play the daily challenge
-                  </p>
-                </div>
-              )}
+        </div>
+      ) : (
+        <div className="p-4 md:p-5 rounded-2xl border-[1.5px] border-[#C0DD97] dark:border-[rgba(99,153,34,0.3)] bg-[#EAF3DE] dark:bg-[rgba(99,153,34,0.08)]">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-[#C0DD97] dark:bg-[rgba(99,153,34,0.2)] flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#3B6D11" strokeWidth="1.5" strokeLinecap="round"><circle cx="9" cy="9" r="7" /><path d="M9 5v4l3 2" /></svg>
             </div>
-            <p className="text-[11px] text-ghost mt-4">
-              <CountdownTimer msUntilReset={resetMs} prefix="Resets in " showSeconds={false} />
-            </p>
-          </>
-        )}
+            <div>
+              <p className="text-sm font-semibold text-[#173404] dark:text-[rgba(255,255,255,0.9)]">Today&apos;s challenge</p>
+              <p className="text-[10px] text-[#639922] dark:text-[#97C459]">10 songs - Same for everyone</p>
+            </div>
+          </div>
+          <p className="text-[11px] text-[#639922] dark:text-[#97C459] mb-3">One attempt only. +30% XP bonus.</p>
+
+          {user ? (
+            <Link href="/play/daily" className="block w-full py-3 rounded-xl bg-[#639922] dark:bg-[#4CAF50] text-white text-sm font-semibold text-center hover:bg-[#3B6D11] active:scale-[0.97] transition-all">
+              Play today&apos;s challenge
+            </Link>
+          ) : (
+            <div>
+              <span className="block w-full py-3 rounded-xl bg-[#C0DD97]/50 dark:bg-[rgba(99,153,34,0.15)] text-[#639922] text-sm font-semibold text-center cursor-not-allowed">
+                Play today&apos;s challenge
+              </span>
+              <p className="text-xs text-[#639922] dark:text-[#97C459] mt-2.5 text-center">
+                <Link href="/login" className="text-[#3B6D11] dark:text-[#97C459] underline">Sign in</Link> to play the daily challenge
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Countdown */}
+      <div className="flex items-center justify-center gap-1.5 mt-4 mb-6">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#888780] dark:text-[rgba(255,255,255,0.35)]"><circle cx="6" cy="6" r="4.5" /><path d="M6 3.5v2.5l2 1.5" /></svg>
+        <span className="text-[11px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] font-medium">Resets in </span>
+        <CountdownTimer msUntilReset={resetMs} className="text-[11px] text-[#639922] dark:text-[#97C459] font-semibold" showSeconds={false} />
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-px bg-default rounded-[12px] overflow-hidden mb-5">
+      <div className="grid grid-cols-3 gap-2 mb-5">
         <StatCell value={playCount.toLocaleString()} label="players today" />
         <StatCell value={playCount > 0 ? avgCorrect.toFixed(1) : '-'} label="average score" />
         <StatCell
@@ -222,67 +232,55 @@ export default async function DailyPage() {
       </div>
 
       {/* Today's leaderboard */}
-      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-ghost mb-2.5">
-        Today&apos;s ranking
-      </p>
+      <p className="text-xs font-semibold text-primary mb-2.5">Today&apos;s ranking</p>
       {leaderboard.length > 0 ? (
-        <div className="rounded-[14px] bg-surface border border-default shadow-card overflow-hidden">
+        <div>
           {leaderboard.map((entry, i) => {
             const isMe = entry.player_id === user?.id;
-            const rankColor =
-              i === 0 ? 'text-combo'
-              : i === 1 ? 'text-secondary'
-              : i === 2 ? 'text-streak'
-              : 'text-tertiary';
             return (
               <div
                 key={entry.player_id}
-                className={`flex items-center gap-3 px-4 py-3 border-b border-subtle last:border-0 ${
-                  isMe ? 'bg-accent-bg' : ''
+                className={`flex items-center gap-3 px-3.5 md:px-0 py-2.5 border-b border-[#F0EDE8] dark:border-[rgba(255,255,255,0.04)] ${
+                  isMe ? 'bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.08)] rounded-lg' : ''
                 }`}
               >
-                <span className={`text-sm font-bold w-6 text-center tabular-nums ${rankColor}`}>
-                  {i + 1}
-                </span>
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold flex-shrink-0"
-                  style={{ backgroundColor: entry.avatar_bg, color: entry.avatar_text }}
-                >
-                  {entry.username.charAt(0).toUpperCase()}
+                <span className="w-6 text-[11px] font-semibold text-[#888780] dark:text-[rgba(255,255,255,0.35)] tabular-nums text-right">{i + 1}</span>
+                <div className="w-9 h-9 rounded-full bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.12)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center">
+                  <span className="text-[10px] font-semibold text-[#D4537E]">{(entry.username || 'A').charAt(0).toUpperCase()}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className={`text-[13px] font-medium block truncate ${isMe ? 'text-accent' : 'text-primary'}`}>
+                  <p className={`text-xs font-semibold truncate ${isMe ? 'text-[#D4537E]' : 'text-primary'}`}>
                     {entry.username}
-                    {isMe && <span className="font-normal text-tertiary"> (you)</span>}
-                  </span>
-                  <span className="text-[11px] text-ghost tabular-nums">
+                    {isMe && <span className="font-normal text-[#888780] dark:text-[rgba(255,255,255,0.35)]"> (you)</span>}
+                  </p>
+                  <p className="text-[9px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] tabular-nums">
                     {entry.correct}/10 - {entry.total_time.toFixed(1)}s
-                  </span>
+                  </p>
                 </div>
-                <span className="text-sm font-semibold text-primary tabular-nums">
-                  {entry.score.toLocaleString()}
-                </span>
+                <span className="text-xs font-semibold text-primary tabular-nums">{entry.score.toLocaleString()}</span>
               </div>
             );
           })}
         </div>
       ) : (
-        <div className="rounded-[14px] bg-surface border border-default shadow-card py-8 text-center">
-          <p className="text-xs text-tertiary">No plays yet today</p>
-          <p className="text-[10px] text-ghost mt-0.5">
+        <div className="rounded-2xl border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] bg-white dark:bg-[rgba(255,255,255,0.04)] py-8 text-center">
+          <p className="text-xs text-[#888780] dark:text-[rgba(255,255,255,0.35)]">No plays yet today</p>
+          <p className="text-[10px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] mt-0.5">
             {hasPlayed ? "You're the first!" : 'Be the first to set a score'}
           </p>
         </div>
       )}
+
+      <TipBanner tips={['Same songs for everyone worldwide', 'Play daily to maintain your streak']} />
     </div>
   );
 }
 
 function StatCell({ value, label }: { value: string; label: string }) {
   return (
-    <div className="bg-surface px-3 py-3 text-center">
+    <div className="p-3 rounded-xl border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] bg-white dark:bg-[rgba(255,255,255,0.04)] text-center">
       <p className="text-lg font-bold text-primary tabular-nums">{value}</p>
-      <p className="text-[9px] text-ghost mt-0.5 uppercase tracking-wide">{label}</p>
+      <p className="text-[9px] text-[#888780] dark:text-[rgba(255,255,255,0.35)] mt-0.5 uppercase tracking-wide">{label}</p>
     </div>
   );
 }

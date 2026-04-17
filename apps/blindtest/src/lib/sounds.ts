@@ -254,6 +254,59 @@ export function playReveal(): void {
   }
 }
 
+// ---- GAME START ----
+// Countdown beep: 3 descending tones, 200ms apart.
+export function playGameStart(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  try {
+    [880, 660, 1047].forEach((freq, i) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0.5, ctx.currentTime + i * 0.2);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.2 + 0.15);
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start(ctx.currentTime + i * 0.2);
+      o.stop(ctx.currentTime + i * 0.2 + 0.15);
+    });
+  } catch {
+    // ignore
+  }
+}
+
+// ---- GAME END ----
+// Completion tone: descending C-G, 600ms total.
+export function playGameEnd(): void {
+  if (!isSoundEnabled()) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+  try {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(1047, ctx.currentTime);
+    o.frequency.linearRampToValueAtTime(523, ctx.currentTime + 0.4);
+    g.gain.setValueAtTime(0.6, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + 0.6);
+  } catch {
+    // ignore
+  }
+}
+
+// ---- PRELOAD ----
+// Warms up the AudioContext so the first sound plays instantly.
+export function preloadSounds(): void {
+  getCtx();
+}
+
 // ---- Legacy shim (used by blind-test-game.tsx) ----
 // Maps the old single-function API to the new individual functions.
 export function playSound(name: 'correct' | 'wrong' | 'combo' | 'tick'): void {
