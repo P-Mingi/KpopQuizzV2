@@ -42,7 +42,20 @@ export function PlaylistPicker({
     ? filtered.filter(g => g.name.toLowerCase().includes(search.toLowerCase()))
     : filtered;
 
-  const allPlaylist = { id: 'all', name: 'All K-pop', count: totalSongs, gender: null };
+  // "All" playlist adapts label and count based on active filter
+  const filterSongCount = filter === 'All'
+    ? totalSongs
+    : filtered.reduce((sum, g) => sum + g.count, 0);
+  const filterLabel = filter === 'All' ? 'All K-pop'
+    : filter === 'Boy groups' ? 'All boy groups'
+    : filter === 'Girl groups' ? 'All girl groups'
+    : 'All solo artists';
+  const filterPlaylistId = filter === 'All' ? 'all'
+    : filter === 'Boy groups' ? 'bg'
+    : filter === 'Girl groups' ? 'gg'
+    : 'solo';
+
+  const allPlaylist = { id: filterPlaylistId, name: filterLabel, count: filterSongCount, gender: null };
   const playlists = search.trim() ? searched : [allPlaylist, ...searched];
 
   function startGame() {

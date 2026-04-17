@@ -305,7 +305,7 @@ export function ComboBadge({ combo, multiplier }: { combo: number; multiplier: n
     <div
       className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.06] border border-white/[0.08] transition-colors duration-300"
     >
-      {fire && <span>{'\uD83D\uDD25'}</span>}
+      {fire && <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="inline"><path d="M8 1C8 1 3 6 3 10a5 5 0 0010 0c0-2-1.5-3.5-2.5-4.5C10 5 9 4 8 1z" fill="#EF9F27" /><path d="M8 7c0 0-2 2-2 4a2 2 0 004 0c0-1-.5-2-1-2.5C8.5 8 8 7.5 8 7z" fill="#F4C97E" /></svg></span>}
       <span
         className={`text-[11px] font-bold text-[#EF9F27] tabular-nums transition-transform duration-150 inline-block ${
           bumping ? 'scale-[1.4]' : 'scale-100'
@@ -435,14 +435,6 @@ function getResultMessage(correct: number, total: number): ResultMessage {
   };
 }
 
-function getStarsEarned(correct: number, total: number): number {
-  if (correct === total) return 5;
-  if (correct >= 9) return 4;
-  if (correct >= 7) return 3;
-  if (correct >= 5) return 2;
-  return 1;
-}
-
 function computeXpBarPercent(totalXp: number, level: number): number {
   if (level >= 50) return 100;
   const currentLevelXP = xpForLevel(level);
@@ -478,7 +470,6 @@ export function ResultsScreen({
   onHome,
 }: ResultsScreenProps) {
   const { kr: messageKr, en: messageEn, subMessage, colorVar } = getResultMessage(correctCount, total);
-  const starsEarned = getStarsEarned(correctCount, total);
   const isPerfect = correctCount === total;
   const missed = results.filter((r) => !r.correct);
 
@@ -710,26 +701,33 @@ export function ResultsScreen({
     return items;
   }, [progression, score, mode]);
 
-  // Stars block shared between mobile and desktop.
+  // Score grade ring shared between mobile and desktop.
+  const scoreGrade = correctCount === total ? 'S' : correctCount >= 8 ? 'A' : correctCount >= 6 ? 'B' : correctCount >= 4 ? 'C' : 'D';
+  const scoreColor = correctCount === total ? '#EF9F27' : correctCount >= 7 ? '#4CAF50' : correctCount >= 4 ? '#D4537E' : '#E24B4A';
+  const scorePctRing = (correctCount / total) * 100;
+
   const starsBlock = (
-    <div
-      className="text-2xl md:text-4xl text-combo text-center"
-      style={{ letterSpacing: '4px' }}
-    >
-      {Array.from({ length: 5 }, (_, i) => (
-        <span
-          key={i}
-          className="inline-block transition-all duration-300"
-          style={{
-            opacity: showStars ? 1 : 0,
-            transform: showStars ? 'scale(1) translateY(0)' : 'scale(0.5) translateY(10px)',
-            transitionDelay: `${i * 200}ms`,
-            color: i < starsEarned ? 'var(--combo)' : 'var(--text-ghost)',
-          }}
-        >
-          {i < starsEarned ? '\u2605' : '\u2606'}
-        </span>
-      ))}
+    <div className="flex items-center justify-center">
+      <div className="relative w-[80px] h-[80px] md:w-[100px] md:h-[100px]">
+        <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="var(--bg-elevated)" strokeWidth="6" />
+          <circle
+            cx="50" cy="50" r="42" fill="none"
+            stroke={scoreColor} strokeWidth="6" strokeLinecap="round"
+            strokeDasharray={`${scorePctRing * 2.64} 264`}
+            className="transition-all duration-1000"
+            style={{ opacity: showStars ? 1 : 0 }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span
+            className="text-2xl md:text-3xl font-bold transition-all duration-500"
+            style={{ color: scoreColor, opacity: showStars ? 1 : 0, transform: showStars ? 'scale(1)' : 'scale(0.5)' }}
+          >
+            {scoreGrade}
+          </span>
+        </div>
+      </div>
     </div>
   );
 
@@ -832,13 +830,13 @@ export function ResultsScreen({
         </p>
       </div>
       <p className="text-lg md:text-xl font-bold text-[#EF9F27] tabular-nums">
-        {progression.streak > 0 && '\uD83D\uDD25 '}{progression.streak}
+        {progression.streak > 0 && <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="inline mr-1"><path d="M8 1C8 1 3 6 3 10a5 5 0 0010 0c0-2-1.5-3.5-2.5-4.5C10 5 9 4 8 1z" fill="#EF9F27" /><path d="M8 7c0 0-2 2-2 4a2 2 0 004 0c0-1-.5-2-1-2.5C8.5 8 8 7.5 8 7z" fill="#F4C97E" /></svg>}{progression.streak}
       </p>
     </div>
   ) : null;
 
   // Sign in nudge (anonymous).
-  const signInBlock = !progression ? (
+  const signInBlock = (!progression && xpBreakdown.length === 0) ? (
     <div className="p-4 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
       <p className="text-sm font-semibold text-primary mb-1">Save your progress</p>
       <p className="text-xs text-[#888780] dark:text-white/40 mb-3">Sign in to keep scores, level up, and compete</p>
@@ -851,38 +849,35 @@ export function ResultsScreen({
   // Missed songs list.
   const missedBlock = missed.length > 0 ? (
     <div>
-      <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-[#888780] dark:text-white/35 mb-2">
-        Songs you need to stan
+      <p className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-[#888780] dark:text-white/35 mb-3">
+        Songs to discover
       </p>
-      <div>
+      <div className="flex flex-col gap-2">
         {missed.map((r, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 py-2.5 border-b border-[#F0EDE8] dark:border-white/[0.06] last:border-0 transition-all duration-400"
+            className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] transition-all duration-400"
             style={{
               opacity: showMissed ? 1 : 0,
-              transform: showMissed ? 'translateX(0)' : 'translateX(-10px)',
-              transitionDelay: `${i * 200}ms`,
+              transform: showMissed ? 'translateY(0)' : 'translateY(8px)',
+              transitionDelay: `${i * 100}ms`,
             }}
           >
-            <span className="text-xs font-semibold text-[#E24B4A]">{'\u2717'}</span>
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[#F5F3EE] dark:bg-white/[0.04]">
+            <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl overflow-hidden flex-shrink-0 bg-[#F5F3EE] dark:bg-white/[0.06]">
               {r.question.reveal.cover ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={r.question.reveal.cover}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <img src={r.question.reveal.cover} alt="" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-xs text-[#888780] dark:text-white/35">{'\u266A'}</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#B4B2A9" strokeWidth="1.2" strokeLinecap="round"><path d="M6 12V4l7 4-7 4z" /></svg>
                 </div>
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] md:text-sm text-primary truncate">{r.question.reveal.title}</p>
+              <p className="text-[13px] md:text-sm font-medium text-primary truncate">{r.question.reveal.title}</p>
               <p className="text-[10px] md:text-xs text-[#888780] dark:text-white/35 truncate">{r.question.reveal.artist}</p>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-[#FCEBEB] dark:bg-[rgba(226,75,74,0.12)] flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#E24B4A" strokeWidth="1.5" strokeLinecap="round"><path d="M3 3l4 4M7 3L3 7" /></svg>
             </div>
           </div>
         ))}

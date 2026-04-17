@@ -443,23 +443,23 @@ export function GamePlayer({
         <div className="flex flex-col items-center gap-4 px-5 max-w-[440px] mx-auto w-full">
           {error ? (
             <>
-              <p className="text-red-400 text-sm text-center">{error}</p>
+              <p className="text-wrong text-sm text-center">{error}</p>
               <button
                 onClick={() => router.push('/')}
-                className="text-sm px-4 py-2 bg-white/[0.05] border border-white/[0.06] rounded-xl text-white/70"
+                className="text-sm px-4 py-2 bg-surface border border-default rounded-xl text-primary"
               >
                 Go home
               </button>
             </>
           ) : ready ? (
             <>
-              <p className="text-2xl font-bold text-white">Ready to play?</p>
-              <p className="text-xs text-white/30 text-center">
+              <p className="text-2xl font-bold text-primary">Ready to play?</p>
+              <p className="text-xs text-secondary text-center">
                 10 songs - {isChallenge ? 'type your answer' : '4 choices'} - {isChallenge ? '10s' : '15s'} timer
               </p>
               <button
                 onClick={handleStart}
-                className="w-full py-3 md:py-3.5 rounded-[10px] md:rounded-xl bg-[#D4537E] text-white text-sm font-semibold transition-all active:scale-[0.97] hover:bg-[#C44A72]"
+                className="w-full py-3.5 md:py-4 rounded-xl md:rounded-2xl bg-[#D4537E] text-white text-base font-semibold transition-all active:scale-[0.97] hover:bg-[#C44A72]"
               >
                 START
               </button>
@@ -467,7 +467,7 @@ export function GamePlayer({
           ) : (
             <>
               <div className="w-8 h-8 border-2 border-[#D4537E] border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm text-white/40">Loading songs...</p>
+              <p className="text-sm text-secondary">Loading songs...</p>
             </>
           )}
         </div>
@@ -569,20 +569,6 @@ export function GamePlayer({
               <ComboParticles combo={game.state.currentCombo} trigger={comboParticleTrigger} />
             </div>
           )}
-
-          {/* Health/progress bar */}
-          <div className="mt-3 md:mt-4">
-            <div className="h-[4px] md:h-[5px] rounded-full bg-elevated overflow-hidden">
-              <div
-                className="h-full rounded-full bg-accent transition-all duration-500"
-                style={{ width: `${((game.state.currentIndex + (isRevealing ? 1 : 0)) / game.state.questions.length) * 100}%` }}
-              />
-            </div>
-            <div className="flex justify-between mt-1 text-[10px] md:text-[11px] text-ghost">
-              <span>{game.state.currentIndex + (isRevealing ? 1 : 0)} / {game.state.questions.length}</span>
-              {game.state.mode === 'ranked' && <span className="capitalize">Ranked</span>}
-            </div>
-          </div>
 
           {/* Central gameplay area */}
           <div className="flex-1 flex flex-col items-center justify-center">
