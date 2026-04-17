@@ -112,3 +112,28 @@ export function generateShareText(data: ShareData): string {
 
   return [header, '', scoreLine, statsLine, '', cta, url].join('\n');
 }
+
+// ---- Social sharing helpers ----
+
+export function shareToTwitter(text: string, url: string) {
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+    '_blank', 'noopener,noreferrer'
+  );
+}
+
+export function shareToReddit(text: string, url: string) {
+  window.open(
+    `https://www.reddit.com/r/Kpop_Verse/submit?title=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+    '_blank', 'noopener,noreferrer'
+  );
+}
+
+export async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}

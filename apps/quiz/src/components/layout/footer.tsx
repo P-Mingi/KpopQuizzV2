@@ -43,6 +43,15 @@ export function Footer(): React.ReactElement {
           </a>
         </div>
 
+        <a
+          href="https://kpopblindtest.com?utm_source=quiz&utm_medium=crosslink"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] text-secondary hover:text-[#D4537E] transition-colors mt-4 inline-block"
+        >
+          Blindtest on kpopblindtest.com
+        </a>
+
         <p className="text-xs text-tertiary mt-4">
           &copy; 2026 KpopQuiz
         </p>

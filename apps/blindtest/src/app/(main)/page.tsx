@@ -3,6 +3,13 @@ import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/su
 import { LightstickMascot } from '@/components/mascot/lightstick-mascot';
 import { TipBanner } from '@/components/shared/tip-banner';
 import { getLevelFromXP } from '@/lib/progression';
+import { SEO } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: SEO.home.title,
+  description: SEO.home.description,
+};
 
 interface PlayerData {
   display_name: string | null;
@@ -198,6 +205,18 @@ export default async function HomePage() {
           </p>
         </section>
       )}
+
+      {/* Cross-site link */}
+      <div className="text-center mt-8 mb-4">
+        <a
+          href="https://kpopquiz.org?utm_source=blindtest&utm_medium=crosslink"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] text-secondary hover:text-[#D4537E] transition-colors"
+        >
+          K-pop quizzes on kpopquiz.org
+        </a>
+      </div>
 
       {/* Tip banner */}
       <TipBanner tips={['Choose your mode after pressing play', 'Play daily to maintain your streak', 'Faster answers score more points']} />

@@ -2,6 +2,13 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createServerClient, createServiceRoleClient } from '@kpopquiz/shared/supabase/server';
 import { ProfileView } from '@/components/profile/profile-view';
+import { SEO } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: SEO.profile.title,
+  description: SEO.profile.description,
+};
 
 async function fetchPlayerData(userId: string) {
   // bt_players is the canonical table written by /api/game/save-result.

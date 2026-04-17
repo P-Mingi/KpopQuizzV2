@@ -4,6 +4,13 @@ import { getTodayKST } from '@/lib/daily';
 import { DailyPlayedCard } from '@/components/daily/daily-played-card';
 import { CountdownTimer } from '@/components/daily/countdown-timer';
 import { TipBanner } from '@/components/shared/tip-banner';
+import { SEO } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: SEO.daily.title,
+  description: SEO.daily.description,
+};
 
 interface ChallengeRow {
   id: string;

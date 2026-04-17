@@ -40,6 +40,8 @@ export function ChallengeIntro({ challenge, attemptCount, isLoggedIn }: Props) {
   const router = useRouter();
   const [nickname, setNickname] = useState('');
 
+  const creatorName = challenge.creator_name;
+
   function handleAccept() {
     if (!isLoggedIn && nickname.trim()) {
       try {
@@ -52,57 +54,33 @@ export function ChallengeIntro({ challenge, attemptCount, isLoggedIn }: Props) {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-primary flex flex-col items-center justify-center px-5 py-10">
-      <div className="w-full max-w-[420px] text-center">
-        {/* Logo */}
-        <Link href="/" className="inline-flex items-center gap-1.5 text-base font-bold mb-10">
-          <svg
-            width="18"
-            height="26"
-            viewBox="0 0 20 28"
-            className="flex-shrink-0"
-            aria-hidden="true"
-          >
-            <circle cx="10" cy="7" r="6" fill="var(--accent)" />
-            <rect x="9" y="13" width="2" height="12" rx="1" fill="var(--text-ghost)" />
-            <circle cx="8" cy="6" r="1" fill="var(--bg-primary)" />
-            <circle cx="12" cy="6" r="1" fill="var(--bg-primary)" />
-            <path
-              d="M8 9 Q10 11 12 9"
-              fill="none"
-              stroke="var(--bg-primary)"
-              strokeWidth="0.8"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span>
-            <span className="text-primary">kpop</span>
-            <span className="text-accent">blind</span>
-            <span className="text-primary">test</span>
-          </span>
-        </Link>
+    <div className="min-h-screen bg-primary flex flex-col items-center justify-center px-3.5 md:px-7">
+      <div className="w-full max-w-sm flex flex-col items-center">
+        {/* Challenger avatar */}
+        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.12)] border-2 border-[#D4537E] flex items-center justify-center mb-4">
+          <span className="text-lg md:text-xl font-semibold text-[#D4537E]">{creatorName?.charAt(0)?.toUpperCase()}</span>
+        </div>
 
-        {/* Challenge info */}
-        <div className="p-6 bg-surface rounded-2xl border border-default mb-6 shadow-card">
-          <p className="text-[10px] text-ghost uppercase tracking-wider mb-3">
-            Challenge from
-          </p>
-          <p className="text-xl font-bold text-primary mb-1">{challenge.creator_name}</p>
-          <p className="text-sm text-ghost mb-5">
-            scored {challenge.creator_correct}/{challenge.creator_total}
-            {challenge.creator_time && ` in ${Math.round(challenge.creator_time)}s`}
-          </p>
+        {/* Challenger name */}
+        <p className="text-xs text-[#888780] dark:text-white/40 uppercase tracking-wider mb-1">Challenge from</p>
+        <p className="text-base font-semibold text-primary mb-5">{creatorName}</p>
 
-          <p className="text-lg font-semibold text-accent">
-            Can you beat {challenge.creator_correct}/{challenge.creator_total}?
-          </p>
+        {/* Challenge card */}
+        <div className="w-full max-w-sm p-4 md:p-5 rounded-2xl border-[1.5px] border-[#F4C0D1] dark:border-[rgba(212,83,126,0.25)] bg-white dark:bg-[rgba(255,255,255,0.04)] mb-4">
+          <div className="text-center mb-3">
+            <p className="text-2xl font-bold text-primary tabular-nums">{challenge.creator_correct}/{challenge.creator_total}</p>
+            {challenge.creator_time && (
+              <p className="text-xs text-[#888780] dark:text-white/40 mt-0.5">in {Math.round(challenge.creator_time)}s</p>
+            )}
+          </div>
+          <p className="text-sm font-medium text-[#D4537E] text-center">Can you beat that score?</p>
         </div>
 
         {/* Meta row */}
-        <div className="flex justify-center gap-4 mb-6 text-[11px] text-ghost">
-          <span>{formatPlaylistName(challenge.playlist)}</span>
-          <span>{challenge.mode === 'challenge' ? 'Challenge mode' : 'Quick play'}</span>
-          <span>{attemptCount} played</span>
+        <div className="flex justify-center gap-3 mb-5 text-[11px] text-[#888780] dark:text-white/40">
+          <span className="px-2 py-1 rounded-md bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)]">{formatPlaylistName(challenge.playlist)}</span>
+          <span className="px-2 py-1 rounded-md bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)]">{challenge.mode === 'challenge' ? 'Challenge' : 'Quick play'}</span>
+          <span className="px-2 py-1 rounded-md bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)]">{attemptCount} played</span>
         </div>
 
         {/* Nickname prompt (anon only) */}
@@ -113,7 +91,7 @@ export function ChallengeIntro({ challenge, attemptCount, isLoggedIn }: Props) {
             onChange={(e) => setNickname(e.target.value)}
             placeholder="Your name (optional)"
             maxLength={20}
-            className="w-full py-3 px-4 rounded-xl bg-surface border border-default text-sm text-primary placeholder:text-ghost outline-none focus:border-accent mb-4 text-center transition-colors"
+            className="w-full py-3 px-4 rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-sm text-primary placeholder:text-[#888780] dark:placeholder:text-white/30 outline-none focus:border-[#D4537E] mb-4 text-center transition-colors"
           />
         )}
 
@@ -121,19 +99,19 @@ export function ChallengeIntro({ challenge, attemptCount, isLoggedIn }: Props) {
         <button
           type="button"
           onClick={handleAccept}
-          className="w-full py-4 rounded-2xl bg-accent text-primary text-lg font-bold active:scale-[0.97] transition-transform"
+          className="w-full py-3 rounded-xl bg-[#D4537E] text-white text-sm font-semibold hover:bg-[#C44A72] active:scale-[0.97] transition-all"
         >
-          ACCEPT CHALLENGE
+          Accept challenge
         </button>
 
-        <p className="text-[10px] text-ghost mt-3">
+        <p className="text-[10px] text-[#888780] dark:text-white/30 mt-3 text-center">
           Same 10 songs. Same order. Who&apos;s better?
         </p>
 
         {/* Footer link back home */}
         <Link
           href="/"
-          className="inline-block mt-8 text-xs text-ghost hover:text-tertiary transition-colors"
+          className="inline-block mt-6 text-xs text-[#888780] dark:text-white/40 hover:text-primary transition-colors"
         >
           Back to home
         </Link>
