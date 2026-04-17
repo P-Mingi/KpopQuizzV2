@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-primary text-primary antialiased transition-colors">
         <ThemeProvider>
-          <div className="mx-auto min-h-screen w-full max-w-[960px]">
+          <div className="mx-auto min-h-screen w-full">
             {children}
           </div>
         </ThemeProvider>

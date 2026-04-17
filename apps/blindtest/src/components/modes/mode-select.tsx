@@ -159,16 +159,16 @@ export function ModeSelect() {
   }
 
   return (
-    <div className="px-3.5 md:px-0 py-4 md:py-6 max-w-[800px] mx-auto">
+    <div className="px-4 md:px-8 py-5 md:py-8 max-w-[960px] mx-auto">
       {/* Back button + title */}
-      <div className="flex items-center gap-2.5 mb-3 md:mb-4 px-3.5 md:px-0">
+      <div className="flex items-center gap-3 mb-5 md:mb-6">
         <button
           onClick={() => router.push('/')}
-          className="w-[30px] h-[30px] rounded-full bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)] flex items-center justify-center flex-shrink-0"
+          className="w-[34px] h-[34px] md:w-[38px] md:h-[38px] rounded-full bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)] flex items-center justify-center flex-shrink-0"
         >
           <svg
-            width="12"
-            height="12"
+            width="14"
+            height="14"
             viewBox="0 0 12 12"
             fill="none"
             stroke="currentColor"
@@ -179,11 +179,11 @@ export function ModeSelect() {
             <path d="M8 1.5L3 6l5 4.5" />
           </svg>
         </button>
-        <h1 className="text-base md:text-lg font-medium text-primary">Choose your mode</h1>
+        <h1 className="text-lg md:text-xl font-semibold text-primary">Choose your mode</h1>
       </div>
 
       {/* Mode cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-2.5">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 md:gap-3">
         {MODES.map((mode) => {
           const c = isDark ? mode.dark : mode.light;
 
@@ -191,7 +191,7 @@ export function ModeSelect() {
             <button
               key={mode.id}
               onClick={() => handleSelect(mode.id)}
-              className="cursor-pointer transition-all hover:-translate-y-[2px] active:scale-[0.98] text-left border-[1.5px] relative overflow-hidden rounded-[14px] p-3.5 flex gap-3 items-center md:rounded-2xl md:p-5 md:flex-col md:items-start md:justify-end md:min-h-[200px]"
+              className="cursor-pointer transition-all hover:-translate-y-[2px] active:scale-[0.98] text-left border-[1.5px] relative overflow-hidden rounded-2xl p-4 flex gap-3.5 items-center md:rounded-[20px] md:p-6 md:flex-col md:items-start md:justify-end md:min-h-[260px]"
               style={{
                 background: c.bg,
                 borderColor: c.border,
@@ -199,16 +199,16 @@ export function ModeSelect() {
             >
               {/* Background icon - desktop only */}
               <div
-                className="hidden md:flex absolute top-3.5 right-3.5 w-11 h-11 rounded-xl items-center justify-center opacity-[0.08] dark:opacity-[0.06]"
+                className="hidden md:flex absolute top-5 right-5 w-14 h-14 rounded-xl items-center justify-center opacity-10 dark:opacity-[0.07]"
                 style={{ background: c.badgeBg }}
               >
                 <svg
-                  width="22"
-                  height="22"
+                  width="28"
+                  height="28"
                   viewBox="0 0 20 20"
                   fill="none"
                   stroke={c.iconStroke}
-                  strokeWidth="1.4"
+                  strokeWidth="1.3"
                 >
                   {mode.icon}
                 </svg>
@@ -216,16 +216,16 @@ export function ModeSelect() {
 
               {/* Mobile icon - mobile only */}
               <div
-                className="md:hidden w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                className="md:hidden w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ background: c.badgeBg }}
               >
                 <svg
-                  width="22"
-                  height="22"
+                  width="24"
+                  height="24"
                   viewBox="0 0 20 20"
                   fill="none"
                   stroke={c.iconStroke}
-                  strokeWidth="1.4"
+                  strokeWidth="1.3"
                 >
                   {mode.icon}
                 </svg>
@@ -234,25 +234,25 @@ export function ModeSelect() {
               {/* Content */}
               <div className="flex-1 md:flex-none">
                 <span
-                  className="inline-flex px-[7px] py-[2px] md:px-[9px] md:py-[3px] rounded-[5px] md:rounded-md text-[9px] md:text-[10px] font-medium mb-[3px] md:mb-2"
+                  className="inline-flex px-2 py-[3px] md:px-2.5 md:py-1 rounded-md text-[10px] md:text-[11px] font-semibold mb-1 md:mb-2.5"
                   style={{ background: c.badgeBg, color: c.badgeText }}
                 >
                   {mode.badge}
                 </span>
                 <p
-                  className="text-sm md:text-[17px] font-medium mb-[2px] md:mb-1"
+                  className="text-base md:text-xl font-semibold mb-[3px] md:mb-1.5"
                   style={{ color: c.title }}
                 >
                   {mode.title}
                 </p>
                 <p
-                  className="text-[11px] leading-snug md:mb-2"
+                  className="text-xs md:text-[13px] leading-snug md:mb-2.5"
                   style={{ color: c.desc }}
                 >
                   {mode.desc}
                 </p>
                 <p
-                  className="text-[10px] hidden md:block"
+                  className="text-[10px] md:text-[11px] hidden md:block"
                   style={{ color: c.meta }}
                 >
                   {mode.meta}
