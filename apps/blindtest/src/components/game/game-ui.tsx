@@ -10,6 +10,7 @@ import { KOREAN_MOMENTS, getComboKorean } from '@/lib/korean-moments';
 import { RollingNumber } from './rolling-number';
 import { LevelUpOverlay } from './level-up-overlay';
 import { MasteryProgress, getNextStarThreshold } from './mastery-progress';
+import { LightstickMascot } from '@/components/mascot/lightstick-mascot';
 import { ChallengeComparison } from '@/components/challenge/challenge-comparison';
 
 // ---- CircularTimer ----
@@ -469,7 +470,7 @@ export function ResultsScreen({
   onPlayAgain,
   onHome,
 }: ResultsScreenProps) {
-  const { kr: messageKr, en: messageEn, subMessage, colorVar } = getResultMessage(correctCount, total);
+  const { kr: _messageKr, en: _messageEn, subMessage: _subMessage, colorVar: _colorVar } = getResultMessage(correctCount, total);
   const isPerfect = correctCount === total;
   const missed = results.filter((r) => !r.correct);
 
@@ -617,7 +618,7 @@ export function ResultsScreen({
   }
 
   // Stars stagger in.
-  const [showStars, setShowStars] = useState(false);
+  const [_showStars, setShowStars] = useState(false);
   // Show the missed songs list after the XP animation.
   const [showMissed, setShowMissed] = useState(false);
   // XP bar animation: starts at the OLD percentage, transitions to the NEW one.
@@ -632,7 +633,7 @@ export function ResultsScreen({
   // Level up overlay
   const [showLevelUp, setShowLevelUp] = useState(false);
   // Score scale pulse for perfect rounds
-  const [scorePulse, setScorePulse] = useState(false);
+  const [_scorePulse, setScorePulse] = useState(false);
 
   useEffect(() => {
     // Timeline of the reveal.
@@ -700,73 +701,6 @@ export function ResultsScreen({
     }
     return items;
   }, [progression, score, mode]);
-
-  // Score grade ring shared between mobile and desktop.
-  const scoreGrade = correctCount === total ? 'S' : correctCount >= 8 ? 'A' : correctCount >= 6 ? 'B' : correctCount >= 4 ? 'C' : 'D';
-  const scoreColor = correctCount === total ? '#EF9F27' : correctCount >= 7 ? '#4CAF50' : correctCount >= 4 ? '#D4537E' : '#E24B4A';
-  const scorePctRing = (correctCount / total) * 100;
-
-  const starsBlock = (
-    <div className="flex items-center justify-center">
-      <div className="relative w-[80px] h-[80px] md:w-[100px] md:h-[100px]">
-        <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="none" stroke="var(--bg-elevated)" strokeWidth="6" />
-          <circle
-            cx="50" cy="50" r="42" fill="none"
-            stroke={scoreColor} strokeWidth="6" strokeLinecap="round"
-            strokeDasharray={`${scorePctRing * 2.64} 264`}
-            className="transition-all duration-1000"
-            style={{ opacity: showStars ? 1 : 0 }}
-          />
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span
-            className="text-2xl md:text-3xl font-bold transition-all duration-500"
-            style={{ color: scoreColor, opacity: showStars ? 1 : 0, transform: showStars ? 'scale(1)' : 'scale(0.5)' }}
-          >
-            {scoreGrade}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Score + bilingual message hero (Korean leads, English follows).
-  const scoreBlock = (
-    <div className="text-center">
-      <p
-        className="text-5xl md:text-7xl font-bold text-primary tabular-nums leading-none transition-transform duration-300"
-        style={{ transform: scorePulse ? 'scale(1.1)' : 'scale(1)' }}
-      >
-        <RollingNumber value={correctCount} duration={800} /> / {total}
-      </p>
-      <p className="text-sm md:text-base font-semibold mt-3" style={{ color: colorVar }}>
-        <span className="mr-1.5">{messageKr}</span>
-        {messageEn}
-      </p>
-      {subMessage && (
-        <p className="text-xs md:text-sm text-ghost mt-1">{subMessage}</p>
-      )}
-    </div>
-  );
-
-  // Stats row.
-  const statsBlock = (
-    <div className="grid grid-cols-3 gap-1 md:gap-1.5">
-      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
-        <p className="text-sm font-semibold text-primary"><RollingNumber value={score} duration={1200} /></p>
-        <p className="text-[7px] text-[#888780] dark:text-white/35">score</p>
-      </div>
-      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
-        <p className="text-sm font-semibold text-primary">{avgSpeed.toFixed(1)}s</p>
-        <p className="text-[7px] text-[#888780] dark:text-white/35">speed</p>
-      </div>
-      <div className="px-2 py-2 rounded-lg bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
-        <p className="text-sm font-semibold text-primary">{bestCombo}x</p>
-        <p className="text-[7px] text-[#888780] dark:text-white/35">combo</p>
-      </div>
-    </div>
-  );
 
   // XP card.
   const xpBlock = progression ? (
@@ -911,81 +845,126 @@ export function ResultsScreen({
   ) : null;
 
   // Action buttons (Play again + Share + Home).
-  const buttonsBlock = (
-    <div className="flex gap-1.5 md:gap-2">
-      <button
-        type="button"
-        onClick={handleShare}
-        className="w-11 h-11 md:w-12 md:h-12 rounded-[10px] md:rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center"
-        aria-label={shareLabel}
-        aria-live="polite"
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#D4537E" strokeWidth="1.3" strokeLinecap="round">
-          <path d="M3 8v3a1 1 0 001 1h6a1 1 0 001-1V8M7 2v7M4.5 4.5L7 2l2.5 2.5" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={onPlayAgain}
-        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 md:py-3 rounded-[10px] md:rounded-xl bg-[#D4537E] text-white text-[13px] md:text-sm font-semibold hover:bg-[#C44A72] active:scale-[0.97] transition-all"
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" strokeWidth="1.3" strokeLinecap="round">
-          <path d="M2 7a5 5 0 1 1 1.5 3.5" /><path d="M2 11V7h3.5" />
-        </svg>
-        Play again
-      </button>
-      <button
-        type="button"
-        onClick={onHome}
-        className="w-11 h-11 md:w-12 md:h-12 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] flex items-center justify-center text-[#888780] dark:text-white/40 text-xs font-medium"
-      >
-        Home
-      </button>
-    </div>
-  );
+  const playlistLabel = playlist === 'all' ? 'All K-pop' : playlist === 'bg' ? 'Boy groups' : playlist === 'gg' ? 'Girl groups' : playlist;
+  const modeLabel = mode === 'ranked' ? 'Ranked mode' : mode === 'challenge' ? 'Challenge' : 'Solo mode';
 
   return (
-    <div className="max-w-[440px] md:max-w-[840px] mx-auto px-3.5 md:px-7 py-10 md:py-14 animate-fadeSlideUp">
-      {/* Challenge comparison (only when coming in from a shared link) */}
+    <div className="max-w-[960px] mx-auto px-5 md:px-10 py-8 md:py-12 animate-fadeSlideUp">
+      {/* Challenge comparison */}
       {challengeBlock && <div className="mb-6 md:mb-8">{challengeBlock}</div>}
 
-      {/* HERO: centered celebration. Full width on both mobile and desktop. */}
-      <div className="flex flex-col items-center gap-4 md:gap-6 mb-6 md:mb-10">
-        {starsBlock}
-        {scoreBlock}
+      {/* Top bar: playlist badge + home button */}
+      <div className="flex justify-between items-start mb-8 md:mb-10">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.12)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)]">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#D4537E" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 2l1.5 3 3.5 0.5-2.5 2.5.6 3.5L7 9.5l-3.1 2L4.5 8 2 5.5l3.5-.5z" /></svg>
+          <div>
+            <p className="text-[11px] md:text-xs font-semibold text-[#993556] dark:text-[#ED93B1]">{playlistLabel}</p>
+            <p className="text-[9px] md:text-[10px] text-[#D4537E]">{modeLabel}</p>
+          </div>
+        </div>
+        <button onClick={onHome} className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)] flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" className="text-[#888780] dark:text-white/40"><path d="M2 8l6-5.5L14 8" /><path d="M4 7v5.5a1 1 0 001 1h2v-3h2v3h2a1 1 0 001-1V7" /></svg>
+        </button>
       </div>
 
-      {/* Stats row */}
-      <div className="mb-6 md:mb-10 md:max-w-[560px] md:mx-auto">
-        {statsBlock}
-      </div>
+      {/* Main layout: 2-column on desktop */}
+      <div className="flex flex-col md:flex-row md:gap-12 md:items-start">
+        {/* Left: Mascot + Score */}
+        <div className="flex flex-col items-center md:w-[240px] md:flex-shrink-0 mb-6 md:mb-0">
+          <div className="w-[140px] h-[140px] md:w-[180px] md:h-[180px] rounded-full bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.12)] flex items-center justify-center relative mb-4">
+            <div className="absolute -inset-[5px] md:-inset-2 rounded-full border-[2.5px] md:border-[3px] border-[#F4C0D1] dark:border-[rgba(212,83,126,0.3)]" />
+            <div
+              className="absolute -inset-[5px] md:-inset-2 rounded-full border-[2.5px] md:border-[3px] border-[#D4537E] transition-all duration-1000"
+              style={{ clipPath: `polygon(0 0, 100% 0, 100% ${(correctCount / total) * 100}%, 0 ${(correctCount / total) * 100}%)` }}
+            />
+            <LightstickMascot mood={correctCount >= 7 ? 'correct' : correctCount >= 4 ? 'idle' : 'wrong'} size={70} />
+          </div>
+          <p className="text-4xl md:text-5xl font-bold text-primary tabular-nums">
+            <RollingNumber value={correctCount} duration={800} /> / {total}
+          </p>
+          <p className="text-xs md:text-sm text-secondary mt-1">correct answers</p>
+        </div>
 
-      {/* Desktop: 2-column (XP left, missed songs right) */}
-      <div className="md:flex md:gap-5">
-        <div className="md:w-1/2 flex flex-col gap-4">
+        {/* Right: Match complete + XP breakdown */}
+        <div className="flex-1 min-w-0">
+          {/* Match complete heading + rank */}
+          <div className="flex items-center gap-3 mb-3">
+            <h2 className="text-xl md:text-2xl font-bold text-primary">Match complete</h2>
+            {progression && (
+              <span className="px-2.5 py-1 rounded-full bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] text-[10px] md:text-[11px] font-semibold text-[#993556] dark:text-[#ED93B1] capitalize whitespace-nowrap">
+                {progression.title} - LVL {progression.level}
+              </span>
+            )}
+          </div>
+
+          {/* XP progress bar */}
+          {progression && (
+            <div className="flex items-center gap-2 mb-5">
+              <div className="flex-1 h-2 md:h-2.5 rounded-full bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.08)] overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-[#D4537E] transition-all duration-1000 ease-out"
+                  style={{ width: `${barWidth}%` }}
+                />
+              </div>
+              <span className="text-[10px] md:text-[11px] text-secondary tabular-nums whitespace-nowrap">
+                {progression.totalXP.toLocaleString()} / {xpForLevel(progression.level + 1).toLocaleString()} XP
+              </span>
+            </div>
+          )}
+
+          {/* XP breakdown card */}
           {xpBlock}
+
+          {/* Action buttons */}
+          <div className="flex gap-2 mt-4">
+            <button
+              type="button"
+              onClick={handleShare}
+              className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center"
+              aria-label={shareLabel}
+            >
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="#D4537E" strokeWidth="1.3" strokeLinecap="round">
+                <path d="M3 8v3a1 1 0 001 1h6a1 1 0 001-1V8M7 2v7M4.5 4.5L7 2l2.5 2.5" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={onPlayAgain}
+              className="flex-1 flex items-center justify-center gap-2 py-3.5 md:py-4 rounded-xl bg-[#D4537E] text-white text-sm md:text-base font-semibold hover:bg-[#C44A72] active:scale-[0.97] transition-all"
+            >
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="#fff" strokeWidth="1.3" strokeLinecap="round">
+                <path d="M2 7a5 5 0 1 1 1.5 3.5" /><path d="M2 11V7h3.5" />
+              </svg>
+              Play again
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Missed songs section - full width below */}
+      {missedBlock && (
+        <div className="mt-8 md:mt-10">
+          {missedBlock}
+        </div>
+      )}
+
+      {/* Streak + mastery + sign-in below */}
+      {(streakBlock || masteryCard || signInBlock) && (
+        <div className="mt-6 flex flex-col gap-4 md:max-w-[500px]">
           {streakBlock}
           {masteryCard}
           {signInBlock}
         </div>
-        <div className="md:w-1/2 flex flex-col gap-4 mt-4 md:mt-0">
-          {missedBlock}
-        </div>
-      </div>
+      )}
 
-      {/* Challenge a friend (primary growth CTA) */}
+      {/* Challenge button */}
       {challengeButtonBlock && (
-        <div className="mt-6 md:max-w-[440px] md:mx-auto">
+        <div className="mt-6 md:max-w-[440px]">
           {challengeButtonBlock}
         </div>
       )}
 
-      {/* Action buttons */}
-      <div className="mt-2.5 md:mt-4 md:max-w-[440px] md:mx-auto">
-        {buttonsBlock}
-      </div>
-
-      {/* Level up overlay (rendered last so it sits above everything) */}
+      {/* Level up overlay */}
       {showLevelUp && progression?.leveledUp && (
         <LevelUpOverlay
           newLevel={progression.level}
