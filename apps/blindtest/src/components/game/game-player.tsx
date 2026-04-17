@@ -72,6 +72,7 @@ export function GamePlayer({
   const [error, setError] = useState<string | null>(null);
   const [allArtists, setAllArtists] = useState<string[]>([]);
   const [allTitles, setAllTitles] = useState<string[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [progressionData, setProgressionData] = useState<{
     xpEarned: number;
     totalXP: number;
@@ -226,7 +227,10 @@ export function GamePlayer({
           });
           if (res.ok) {
             const data = await res.json();
-            if (data.saved || data.success) setProgressionData(data);
+            if (data.saved || data.success) {
+              setProgressionData(data);
+              setIsLoggedIn(true);
+            }
             if (data.creator && data.player && data.challenge?.short_code) {
               setChallengeComparisonData({
                 creator: data.creator,
@@ -256,7 +260,7 @@ export function GamePlayer({
           });
           if (res.ok) {
             const data = await res.json();
-            if (data.saved || data.success) setProgressionData(data);
+            if (data.saved || data.success) { setProgressionData(data); setIsLoggedIn(true); }
             // Flag "played today" in localStorage for client-side gating.
             try {
               const key = `kbt-daily-played-${new Date().toISOString().slice(0, 10)}`;
@@ -284,7 +288,7 @@ export function GamePlayer({
           });
           if (rankedRes.ok) {
             const data = await rankedRes.json();
-            if (data.saved) setProgressionData(data);
+            if (data.saved) { setProgressionData(data); setIsLoggedIn(true); }
           }
           return;
         }
@@ -307,7 +311,7 @@ export function GamePlayer({
         });
         if (res.ok) {
           const data = await res.json();
-          if (data.saved) setProgressionData(data);
+          if (data.saved) { setProgressionData(data); setIsLoggedIn(true); }
         }
       } catch {
         // Not logged in or network error - silent fail
@@ -494,6 +498,7 @@ export function GamePlayer({
           {...(challengeComparisonData ? { challengeComparison: challengeComparisonData } : {})}
           onPlayAgain={handlePlayAgain}
           onHome={handleQuit}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     );
@@ -541,9 +546,9 @@ export function GamePlayer({
         </p>
       )}
 
-      <div className="flex h-full">
+      <div className="flex h-full justify-center">
         {/* Main game column */}
-        <div className="flex-1 flex flex-col max-w-[600px] mx-auto px-4 md:px-6 relative">
+        <div className="flex-1 flex flex-col max-w-[500px] md:max-w-[560px] mx-auto px-4 md:px-5 relative">
           {/* HUD: quit, score, progress */}
           <GameHUD
             round={game.state.currentIndex + (isRevealing ? 1 : 0)}
@@ -687,7 +692,7 @@ export function GamePlayer({
 
         {/* Desktop sidebar */}
         {!isChallenge && (
-          <div className="hidden md:block px-4 pt-16 pb-4 overflow-y-auto">
+          <div className="hidden md:block pr-6 pt-16 pb-4 overflow-y-auto">
             <GameSidebar
               score={game.state.totalScore}
               lastRoundPoints={game.lastPoints}

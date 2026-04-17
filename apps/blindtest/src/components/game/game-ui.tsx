@@ -260,7 +260,7 @@ export function SongInfoReveal({
   return (
     <div className="text-center h-[44px]">
       <p
-        className="text-[15px] md:text-[17px] font-semibold text-white/90 transition-all duration-500"
+        className="text-[15px] md:text-[17px] font-semibold text-primary transition-all duration-500"
         style={{
           opacity: revealed ? 1 : 0,
           transform: revealed ? 'translateY(0)' : 'translateY(8px)',
@@ -270,7 +270,7 @@ export function SongInfoReveal({
         {title}
       </p>
       <p
-        className="text-[12px] md:text-[13px] text-white/50 transition-all duration-500 mt-0.5"
+        className="text-[12px] md:text-[13px] text-secondary transition-all duration-500 mt-0.5"
         style={{
           opacity: revealed ? 1 : 0,
           transitionDelay: revealed ? '500ms' : '0ms',
@@ -378,6 +378,7 @@ interface ResultsScreenProps {
   questions?: unknown[];
   onPlayAgain: () => void;
   onHome: () => void;
+  isLoggedIn?: boolean;
 }
 
 interface ResultMessage {
@@ -469,6 +470,7 @@ export function ResultsScreen({
   questions,
   onPlayAgain,
   onHome,
+  isLoggedIn,
 }: ResultsScreenProps) {
   const { kr: _messageKr, en: _messageEn, subMessage: _subMessage, colorVar: _colorVar } = getResultMessage(correctCount, total);
   const isPerfect = correctCount === total;
@@ -770,7 +772,7 @@ export function ResultsScreen({
   ) : null;
 
   // Sign in nudge (anonymous).
-  const signInBlock = (!progression && xpBreakdown.length === 0) ? (
+  const signInBlock = (!progression && !isLoggedIn && xpBreakdown.length === 0) ? (
     <div className="p-4 rounded-[10px] md:rounded-xl bg-white dark:bg-[rgba(255,255,255,0.04)] border border-[#E8E6E0] dark:border-[rgba(255,255,255,0.06)] text-center">
       <p className="text-sm font-semibold text-primary mb-1">Save your progress</p>
       <p className="text-xs text-[#888780] dark:text-white/40 mb-3">Sign in to keep scores, level up, and compete</p>
@@ -920,7 +922,7 @@ export function ResultsScreen({
             <button
               type="button"
               onClick={handleShare}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center"
+              className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#FAF2F5] dark:bg-[rgba(212,83,126,0.1)] border border-[#F4C0D1] dark:border-[rgba(212,83,126,0.2)] flex items-center justify-center flex-shrink-0"
               aria-label={shareLabel}
             >
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="#D4537E" strokeWidth="1.3" strokeLinecap="round">
@@ -938,6 +940,23 @@ export function ResultsScreen({
               Play again
             </button>
           </div>
+
+          {/* Secondary actions below play again */}
+          <div className="flex flex-col gap-2.5 mt-3">
+            {/* Home button */}
+            <button
+              type="button"
+              onClick={onHome}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#F0EDE8] dark:bg-[rgba(255,255,255,0.06)] text-secondary text-sm font-medium hover:bg-[#E8E6E0] dark:hover:bg-[rgba(255,255,255,0.08)] active:scale-[0.97] transition-all"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M2 8l6-5.5L14 8" /><path d="M4 7v5.5a1 1 0 001 1h2v-3h2v3h2a1 1 0 001-1V7" /></svg>
+              Back to home
+            </button>
+            {/* Challenge button */}
+            {challengeButtonBlock}
+            {/* Sign in nudge - only for anonymous users */}
+            {signInBlock}
+          </div>
         </div>
       </div>
 
@@ -948,19 +967,11 @@ export function ResultsScreen({
         </div>
       )}
 
-      {/* Streak + mastery + sign-in below */}
-      {(streakBlock || masteryCard || signInBlock) && (
+      {/* Streak + mastery below */}
+      {(streakBlock || masteryCard) && (
         <div className="mt-6 flex flex-col gap-4 md:max-w-[500px]">
           {streakBlock}
           {masteryCard}
-          {signInBlock}
-        </div>
-      )}
-
-      {/* Challenge button */}
-      {challengeButtonBlock && (
-        <div className="mt-6 md:max-w-[440px]">
-          {challengeButtonBlock}
         </div>
       )}
 
