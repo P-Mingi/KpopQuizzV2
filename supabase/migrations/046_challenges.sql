@@ -58,6 +58,7 @@ CREATE INDEX IF NOT EXISTS idx_challenges_created ON public.challenges(created_a
 CREATE INDEX IF NOT EXISTS idx_challenges_creator ON public.challenges(creator_player_id);
 
 ALTER TABLE public.challenges ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "challenges_select_all" ON public.challenges;
 CREATE POLICY "challenges_select_all"
   ON public.challenges FOR SELECT USING (true);
 -- Writes go through service-role only (API routes enforce rules).
@@ -90,6 +91,7 @@ CREATE INDEX IF NOT EXISTS idx_challenge_attempts_player
   ON public.challenge_attempts(player_id);
 
 ALTER TABLE public.challenge_attempts ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "challenge_attempts_select_all" ON public.challenge_attempts;
 CREATE POLICY "challenge_attempts_select_all"
   ON public.challenge_attempts FOR SELECT USING (true);
 -- Writes go through service-role only.
