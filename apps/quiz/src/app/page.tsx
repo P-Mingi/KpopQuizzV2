@@ -8,6 +8,8 @@ import { safeFetch } from '@/lib/error-handling';
 import { QuizOfTheDay } from '@/components/home/quiz-of-the-day';
 import { TrendingCard } from '@/components/home/trending-card';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
+import { ByeolCTABanner } from '@/components/cards/byeol-cta-banner';
+import { QuizOfTheDay as DailyQuizCard } from '@/components/quiz/quiz-of-the-day';
 import { Spinner } from '@/components/ui/spinner';
 
 import type { Metadata } from 'next';
@@ -158,6 +160,12 @@ export default function HomePage(): React.ReactElement {
           }),
         }}
       />
+
+      {/* Byeol CTA + Daily Quiz */}
+      <div className="flex flex-col gap-2.5 mb-4">
+        <ByeolCTABanner />
+        <DailyQuizCard />
+      </div>
 
       {/* Social proof bar - deferred, non-critical */}
       <SocialProofBar />
