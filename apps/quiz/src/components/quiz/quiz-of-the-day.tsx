@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 interface QuizOfTheDayProps {
+  quizSlug?: string;
   playedToday?: boolean;
   score?: number;
   totalQuestions?: number;
   playersToday?: number;
 }
 
-export function QuizOfTheDay({ playedToday = false, score, totalQuestions = 10, playersToday = 0 }: QuizOfTheDayProps) {
+export function QuizOfTheDay({ quizSlug, playedToday = false, score, totalQuestions = 10, playersToday = 0 }: QuizOfTheDayProps) {
   const [timeLeft, setTimeLeft] = useState('');
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export function QuizOfTheDay({ playedToday = false, score, totalQuestions = 10, 
   const monthName = now.toLocaleDateString('en', { month: 'short' });
 
   return (
-    <Link href="/daily" style={{
+    <Link href={quizSlug ? `/q/${quizSlug}` : '/'} style={{
       display: "block", textDecoration: "none", color: "inherit",
       borderRadius: 14, overflow: "hidden", position: "relative",
       background: "#fff", border: "1.5px solid #F4C0D1",

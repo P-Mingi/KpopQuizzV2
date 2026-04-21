@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 // Allowed usernames for early access (cards page is in development)
-const EARLY_ACCESS_USERNAMES = ['mingi'];
+const EARLY_ACCESS_USERNAMES = ['mingi', 'mingii'];
 
 export const metadata: Metadata = {
   title: 'Cards - K-pop Card Collection | KpopQuiz',

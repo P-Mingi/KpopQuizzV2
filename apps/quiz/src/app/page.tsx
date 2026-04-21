@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import { getAllQuizzes } from '@/lib/db/queries/quizzes';
+import { getAllQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
@@ -63,6 +63,16 @@ async function TrendingSection(): Promise<React.ReactElement> {
           <TrendingCard key={q.id} quiz={q} priority={i < 3} />
         ))}
       </div>
+    </section>
+  );
+}
+
+async function DailySection(): Promise<React.ReactElement> {
+  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
+  if (!qotd) return <></>;
+  return (
+    <section className="mb-5">
+      <DailyQuizCard quizSlug={qotd.slug} />
     </section>
   );
 }
@@ -164,9 +174,9 @@ export default function HomePage(): React.ReactElement {
       </Suspense>
 
       {/* Quiz of the day */}
-      <section className="mb-5">
-        <DailyQuizCard />
-      </section>
+      <Suspense>
+        <DailySection />
+      </Suspense>
 
       {/* Feed with filters */}
       <Suspense fallback={<FeedSkeleton />}>
