@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
+import { awardByeol, BYEOL_REWARDS, checkXpConversion } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -107,6 +108,7 @@ export async function POST(
           newLevel = newLevelInfo.level;
           newLevelName = newLevelInfo.name;
         }
+        await checkXpConversion(playerId, oldXp, newXpValue);
       }
 
       // Check for perfect_score badge
@@ -142,6 +144,10 @@ export async function POST(
           );
         }
       }
+
+      // Award Byeol
+      const byeolAmount = BYEOL_REWARDS.quiz_complete(score as number, total_questions as number);
+      await awardByeol(playerId, byeolAmount, 'quiz_complete', id);
     }
 
     // Save per-question times if provided
@@ -211,6 +217,9 @@ export async function POST(
       }
     }
 
+    // Compute Byeol earned for response (mirrors the award above, 0 if anonymous)
+    const byeolEarned = playerId ? BYEOL_REWARDS.quiz_complete(score as number, total_questions as number) : 0;
+
     return NextResponse.json({
       play_id: result?.play_id ?? null,
       percentile: result?.percentile ?? 50,
@@ -220,6 +229,7 @@ export async function POST(
       leveled_up: leveledUp,
       new_level: newLevel,
       new_level_name: newLevelName,
+      byeol_earned: byeolEarned,
     });
   } catch (err) {
     console.error('Failed to record play:', err);

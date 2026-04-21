@@ -59,7 +59,7 @@ importers:
         version: 9.39.4(jiti@1.21.7)
       eslint-config-next:
         specifier: ^16.2.1
-        version: 16.2.1(@typescript-eslint/parser@8.57.2(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3))(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3)
+        version: 16.2.1(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3)
       postcss:
         specifier: ^8.5.8
         version: 8.5.8
@@ -83,10 +83,13 @@ importers:
         version: 2.100.1
       '@vercel/analytics':
         specifier: ^2.0.1
-        version: 2.0.1(next@16.2.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+        version: 2.0.1(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       '@vercel/og':
         specifier: ^0.11.1
         version: 0.11.1
+      framer-motion:
+        specifier: ^12.38.0
+        version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next:
         specifier: ^16.2.1
         version: 16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -114,7 +117,7 @@ importers:
         version: 9.39.4(jiti@1.21.7)
       eslint-config-next:
         specifier: ^16.2.1
-        version: 16.2.1(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3)
+        version: 16.2.1(@typescript-eslint/parser@8.57.2(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3))(eslint@9.39.4(jiti@1.21.7))(typescript@5.9.3)
       postcss:
         specifier: ^8.5.8
         version: 8.5.8
@@ -3031,7 +3034,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vercel/analytics@2.0.1(next@16.2.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)':
+  '@vercel/analytics@2.0.1(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)':
     optionalDependencies:
       next: 16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
+import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -313,6 +314,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       p_amount: xpAmount,
       p_reason: 'create',
     });
+
+    // Award Byeol
+    await awardByeol(user.id, isFirst ? BYEOL_REWARDS.quiz_creation_first : BYEOL_REWARDS.quiz_creation, 'quiz_creation', quiz.id);
   } catch (err) {
     // XP award is non-critical, don't fail the request
     console.error('Failed to award XP:', err);

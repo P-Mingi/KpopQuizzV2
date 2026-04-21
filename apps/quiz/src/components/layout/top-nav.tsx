@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
+import { getByeolBalance } from '@/lib/byeol';
 import { Logo } from './logo';
 import { PlayerIdentityPill } from './player-identity-pill';
 import { TopNavLinks } from './top-nav-links';
@@ -13,6 +15,7 @@ interface NavProfile {
   current_streak: number;
   level: number;
   progress: number;
+  byeol: number;
 }
 
 async function fetchNavProfile(): Promise<NavProfile | null> {
@@ -27,15 +30,17 @@ async function fetchNavProfile(): Promise<NavProfile | null> {
       .maybeSingle();
     if (!data) return null;
     const info = getLevelInfo((data.xp as number) ?? 0);
+    const byeol = await getByeolBalance(user.id);
     return {
       username: data.username as string,
       avatar_url: (data.avatar_url as string | null) ?? null,
       avatar_bg: (data.avatar_bg as string) ?? '#ED93B1',
       avatar_text: (data.avatar_text as string) ?? '#FFFFFF',
       xp: (data.xp as number) ?? 0,
-      current_streak: 0, // profiles table has no streak field yet; hidden until available
+      current_streak: 0,
       level: info.level,
       progress: info.progress,
+      byeol,
     };
   } catch {
     return null;
@@ -59,8 +64,20 @@ export async function TopNav(): Promise<React.ReactElement> {
         {/* Center: desktop nav links */}
         <TopNavLinks />
 
-        {/* Right: streak + identity pill */}
+        {/* Right: byeol + streak + identity pill */}
         <div className="flex items-center gap-2.5">
+          {profile && (
+            <Link
+              href="/cards"
+              className="hidden md:flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-50 border border-amber-100 hover:bg-amber-100 transition-colors"
+              title="Byeol balance"
+            >
+              <span className="text-[11px] font-bold text-amber-600 tabular-nums">
+                {profile.byeol.toLocaleString()}
+              </span>
+              <span className="text-[10px]" aria-hidden="true">&#11088;</span>
+            </Link>
+          )}
           {profile && profile.current_streak > 0 && (
             <span className="hidden md:inline text-[11px] font-semibold text-streak tabular-nums">
               {profile.current_streak} streak

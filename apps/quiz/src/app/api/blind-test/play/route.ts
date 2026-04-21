@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -73,6 +74,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         });
       } catch { /* XP is non-critical */ }
     }
+
+    // Award Byeol
+    await awardByeol(playerId, BYEOL_REWARDS.blindtest_play, 'blindtest_play');
   }
 
   return NextResponse.json({ success: true, xp_earned: xpEarned });

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -138,6 +139,9 @@ async function recordBlindTestPlay(
         p_reason: 'game_play',
       });
     }
+
+    // Award Byeol
+    await awardByeol(playerId, BYEOL_REWARDS.blindtest_play, 'blindtest_play', game.id);
   }
 
   // Award creator XP
@@ -206,6 +210,10 @@ async function recordNameAllPlay(
         p_reason: 'game_play',
       });
     }
+
+    // Award Byeol
+    const isPerfect = choices.score === choices.total;
+    await awardByeol(playerId, isPerfect ? BYEOL_REWARDS.name_all_perfect : BYEOL_REWARDS.name_all_partial, 'name_all', game.id);
   }
 
   // Award creator XP

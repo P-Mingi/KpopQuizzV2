@@ -214,3 +214,24 @@ body {
 .animate-check-pop { animation: checkPop 300ms ease-out both; }
 .animate-shake-input { animation: shakeInput 300ms ease-out; }
 .animate-korean-float { animation: koreanFloat 700ms ease-out forwards; }
+
+/* Card pack animations */
+@keyframes packFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0.85; }
+  100% { transform: translateY(800px) rotate(340deg); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}

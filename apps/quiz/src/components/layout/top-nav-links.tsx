@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const NAV_ITEMS = [
   { label: 'Quizzes', href: '/', match: ['/q/', '/quizzes', '/trending', '/new', '/most-liked'] },
   { label: 'Games', href: '/games', match: ['/games'] },
+  { label: 'Cards', href: '/cards', match: ['/cards'] },
   { label: 'Create', href: '/create', match: ['/create'] },
   { label: 'Ranks', href: '/hall-of-fame', match: ['/hall-of-fame'] },
 ] as const;
