@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import { getAllQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
+import { getAllQuizzes } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
-import { QuizOfTheDay } from '@/components/home/quiz-of-the-day';
 import { TrendingCard } from '@/components/home/trending-card';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
 import { ByeolCTABanner } from '@/components/cards/byeol-cta-banner';
@@ -64,16 +63,6 @@ async function TrendingSection(): Promise<React.ReactElement> {
           <TrendingCard key={q.id} quiz={q} priority={i < 3} />
         ))}
       </div>
-    </section>
-  );
-}
-
-async function QotdSection(): Promise<React.ReactElement> {
-  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
-  if (!qotd) return <></>;
-  return (
-    <section className="mb-5">
-      <QuizOfTheDay quiz={qotd} />
     </section>
   );
 }
@@ -161,26 +150,25 @@ export default function HomePage(): React.ReactElement {
         }}
       />
 
-      {/* Byeol CTA + Daily Quiz */}
-      <div className="flex flex-col gap-2.5 mb-4">
+      {/* Byeol CTA */}
+      <div className="mb-4">
         <ByeolCTABanner />
-        <DailyQuizCard />
       </div>
 
-      {/* Social proof bar - deferred, non-critical */}
+      {/* Social proof bar */}
       <SocialProofBar />
 
-      {/* Trending this week - streams independently */}
+      {/* Trending this week */}
       <Suspense fallback={<TrendingSkeleton />}>
         <TrendingSection />
       </Suspense>
 
-      {/* Quiz of the day - streams independently */}
-      <Suspense>
-        <QotdSection />
-      </Suspense>
+      {/* Quiz of the day */}
+      <section className="mb-5">
+        <DailyQuizCard />
+      </section>
 
-      {/* Feed with filters - streams independently */}
+      {/* Feed with filters */}
       <Suspense fallback={<FeedSkeleton />}>
         <FeedSection />
       </Suspense>

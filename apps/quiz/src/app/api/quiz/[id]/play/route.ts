@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
-import { awardByeol, BYEOL_REWARDS, checkXpConversion } from '@/lib/byeol';
+import { awardByeol, BYEOL_REWARDS, checkXpConversion, getByeolBalance } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -219,6 +219,7 @@ export async function POST(
 
     // Compute Byeol earned for response (mirrors the award above, 0 if anonymous)
     const byeolEarned = playerId ? BYEOL_REWARDS.quiz_complete(score as number, total_questions as number) : 0;
+    const newByeolBalance = playerId ? await getByeolBalance(playerId) : 0;
 
     return NextResponse.json({
       play_id: result?.play_id ?? null,
@@ -230,6 +231,7 @@ export async function POST(
       new_level: newLevel,
       new_level_name: newLevelName,
       byeol_earned: byeolEarned,
+      new_byeol_balance: newByeolBalance,
     });
   } catch (err) {
     console.error('Failed to record play:', err);
