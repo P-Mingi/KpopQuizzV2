@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { CardTile } from '@/components/cards/card-tile';
 
 interface Card {
   id: string;
@@ -411,83 +412,159 @@ function CardEditor({ card, saving, onSave, onClose }: {
 }) {
   const [form, setForm] = useState({ ...card });
   const [tagsStr, setTagsStr] = useState((card.tags ?? []).join(', '));
+  const [uploading, setUploading] = useState(false);
 
   function updateField(key: string, value: unknown) {
     setForm(prev => ({ ...prev, [key]: value }));
   }
 
+  async function handleImageUpload(file: File) {
+    setUploading(true);
+    try {
+      const { createBrowserClient } = await import('@/lib/supabase/client');
+      const supabase = createBrowserClient();
+      const ext = file.name.split('.').pop() ?? 'jpg';
+      const path = `card-art/${card.id}.${ext}`;
+      const { error: uploadErr } = await supabase.storage.from('quiz-images').upload(path, file, { upsert: true });
+      if (uploadErr) { alert('Upload failed: ' + uploadErr.message); return; }
+      const { data: urlData } = supabase.storage.from('quiz-images').getPublicUrl(path);
+      updateField('art_url', urlData.publicUrl);
+    } catch (err) {
+      alert('Upload error: ' + String(err));
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-12 overflow-y-auto">
-      <div className="bg-primary rounded-2xl shadow-xl border border-default w-full max-w-2xl mx-4 mb-12">
+    <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-8 overflow-y-auto">
+      <div className="bg-primary rounded-2xl shadow-xl border border-default w-full max-w-3xl mx-4 mb-12">
         <div className="flex items-center justify-between px-5 py-4 border-b border-default">
           <h2 className="text-sm font-bold">Edit Card #{card.card_number}</h2>
           <button onClick={onClose} className="text-tertiary hover:text-primary text-lg">&times;</button>
         </div>
 
-        <div className="p-5 grid grid-cols-2 gap-3">
-          <Field label="Name" value={form.name} onChange={v => updateField('name', v)} />
-          <Field label="Idol name" value={form.idol_name ?? ''} onChange={v => updateField('idol_name', v)} />
-
-          <div>
-            <label className="text-[10px] font-medium text-ghost block mb-1">Group</label>
-            <select
-              value={form.group_slug}
-              onChange={e => {
-                const slug = e.target.value;
-                const name = GROUP_OPTIONS.find(g => g === slug) ?? slug;
-                updateField('group_slug', slug);
-                updateField('group_name', name === 'stray-kids' ? 'Stray Kids' : name === 'newjeans' ? 'NewJeans' : name.toUpperCase());
-              }}
-              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
-            >
-              {GROUP_OPTIONS.map(g => <option key={g} value={g}>{g}</option>)}
-            </select>
-          </div>
-
-          <div>
-            <label className="text-[10px] font-medium text-ghost block mb-1">Rarity</label>
-            <select
-              value={form.rarity}
-              onChange={e => updateField('rarity', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
-            >
-              {['R', 'S', 'SS', 'SSS'].map(r => <option key={r} value={r}>{r}</option>)}
-            </select>
-          </div>
-
-          <Field label="Position" value={form.position ?? ''} onChange={v => updateField('position', v)} />
-          <Field label="Era" value={form.era ?? ''} onChange={v => updateField('era', v)} />
-
-          <div className="col-span-2">
-            <Field label="Tags (comma separated)" value={tagsStr} onChange={v => {
-              setTagsStr(v);
-              updateField('tags', v.split(',').map((t: string) => t.trim()).filter(Boolean));
-            }} />
-          </div>
-
-          <div className="col-span-2">
-            <label className="text-[10px] font-medium text-ghost block mb-1">Description</label>
-            <textarea
-              value={form.description ?? ''}
-              onChange={e => updateField('description', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm h-20 resize-y"
-            />
-          </div>
-
-          <div className="col-span-2">
-            <Field label="Art URL" value={form.art_url ?? ''} onChange={v => updateField('art_url', v)} />
-          </div>
-
-          <div className="col-span-2">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={form.is_published}
-                onChange={e => updateField('is_published', e.target.checked)}
-                className="rounded"
+        <div className="p-5 flex gap-6">
+          {/* Left: Live preview */}
+          <div className="flex-shrink-0 w-[200px]">
+            <p className="text-[10px] font-semibold text-ghost uppercase tracking-wider mb-2">Live preview</p>
+            <div className="w-[200px]">
+              <CardTile
+                card={{
+                  name: form.name || 'Card Name',
+                  rarity: form.rarity || 'R',
+                  group_slug: form.group_slug || 'blackpink',
+                  group_name: form.group_name || '',
+                  art_url: form.art_url || null,
+                  tags: form.tags ?? [],
+                  position: form.position,
+                  card_number: form.card_number,
+                }}
+                owned={true}
+                size="lg"
+                showHoverEffect={false}
               />
-              <span className="text-xs text-secondary">Published</span>
-            </label>
+            </div>
+
+            {/* Image upload */}
+            <div className="mt-3">
+              <label className="block w-full cursor-pointer">
+                <div className="border-2 border-dashed border-default rounded-lg p-3 text-center hover:border-accent transition-colors">
+                  {uploading ? (
+                    <span className="text-xs text-tertiary">Uploading...</span>
+                  ) : (
+                    <span className="text-xs text-secondary">
+                      {form.art_url ? 'Replace photo' : 'Upload photo'}
+                    </span>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (file) handleImageUpload(file);
+                  }}
+                />
+              </label>
+              {form.art_url && (
+                <button
+                  onClick={() => updateField('art_url', null)}
+                  className="text-[10px] text-wrong mt-1 hover:underline"
+                >
+                  Remove photo
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Right: Form fields */}
+          <div className="flex-1 grid grid-cols-2 gap-3">
+            <Field label="Name" value={form.name} onChange={v => updateField('name', v)} />
+            <Field label="Idol name" value={form.idol_name ?? ''} onChange={v => updateField('idol_name', v)} />
+
+            <div>
+              <label className="text-[10px] font-medium text-ghost block mb-1">Group</label>
+              <select
+                value={form.group_slug}
+                onChange={e => {
+                  const slug = e.target.value;
+                  const names: Record<string, string> = { bts: 'BTS', blackpink: 'BLACKPINK', aespa: 'aespa', 'stray-kids': 'Stray Kids', newjeans: 'NewJeans' };
+                  updateField('group_slug', slug);
+                  updateField('group_name', names[slug] ?? slug);
+                }}
+                className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
+              >
+                {GROUP_OPTIONS.map(g => <option key={g} value={g}>{g}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-[10px] font-medium text-ghost block mb-1">Rarity</label>
+              <select
+                value={form.rarity}
+                onChange={e => updateField('rarity', e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
+              >
+                {['R', 'S', 'SS', 'SSS'].map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+            </div>
+
+            <Field label="Position" value={form.position ?? ''} onChange={v => updateField('position', v)} />
+            <Field label="Era" value={form.era ?? ''} onChange={v => updateField('era', v)} />
+
+            <div className="col-span-2">
+              <Field label="Tags (comma separated)" value={tagsStr} onChange={v => {
+                setTagsStr(v);
+                updateField('tags', v.split(',').map((t: string) => t.trim()).filter(Boolean));
+              }} />
+            </div>
+
+            <div className="col-span-2">
+              <label className="text-[10px] font-medium text-ghost block mb-1">Description</label>
+              <textarea
+                value={form.description ?? ''}
+                onChange={e => updateField('description', e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm h-16 resize-y"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <Field label="Art URL (or upload above)" value={form.art_url ?? ''} onChange={v => updateField('art_url', v)} />
+            </div>
+
+            <div className="col-span-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.is_published}
+                  onChange={e => updateField('is_published', e.target.checked)}
+                  className="rounded"
+                />
+                <span className="text-xs text-secondary">Published</span>
+              </label>
+            </div>
           </div>
         </div>
 
