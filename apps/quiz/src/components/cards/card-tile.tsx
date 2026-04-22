@@ -120,7 +120,8 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
       <div style={{
         position: 'absolute', bottom: 0, left: 0, right: 0,
         padding: s.padBottom,
-        background: `linear-gradient(transparent, ${g.fadeBg} 30%, ${g.fadeBgStrong})`,
+        paddingTop: size === 'lg' ? 40 : 30,
+        background: `linear-gradient(transparent, ${g.fadeBg} 35%, ${g.fadeBgStrong})`,
       }}>
         <p style={{ fontSize: s.nameFs, fontWeight: 700, color: g.textColor, margin: 0, textAlign: 'center' }}>{card.name}</p>
         <p style={{ fontSize: s.groupFs, color: g.textMuted, margin: 0, marginTop: 2, textAlign: 'center', letterSpacing: 1 }}>{g.name} {g.emoji}</p>
@@ -128,7 +129,7 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
 
       {card.tags && card.tags.length > 0 && size !== 'sm' && (
         <div style={{
-          position: 'absolute', bottom: size === 'lg' ? 40 : 37, left: 0, right: 0,
+          position: 'absolute', bottom: size === 'lg' ? 52 : 45, left: 0, right: 0,
           display: 'flex', justifyContent: 'center', gap: 3,
         }}>
           {card.tags.slice(0, 3).map(t => (
