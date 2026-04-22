@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getActiveGroupPack } from '@/lib/pack-rotation';
 import { GROUPS } from '@/lib/cards/constants';
@@ -7,9 +6,6 @@ import { CardsLanding } from './cards-landing';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
-
-// Allowed usernames for early access (cards page is in development)
-const EARLY_ACCESS_USERNAMES = ['mingi', 'mingii'];
 
 export const metadata: Metadata = {
   title: 'Cards - K-pop Card Collection | KpopQuiz',
@@ -88,24 +84,6 @@ async function fetchCardsData() {
 }
 
 export default async function CardsPage() {
-  // Early access gate - must be OUTSIDE try-catch since redirect() throws
-  const supabase = await createServerClient();
-  let allowed = false;
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', user.id)
-        .maybeSingle();
-      if (profile && EARLY_ACCESS_USERNAMES.includes(profile.username as string)) {
-        allowed = true;
-      }
-    }
-  } catch { /* auth failed */ }
-
-  if (!allowed) redirect('/');
 
   try {
     const data = await fetchCardsData();

@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { QuizListCard } from '@/components/quiz/quiz-list-card';
 import { CreateCTA } from '@/components/home/create-cta';
 import {
-  GroupFilterPills,
-  TypeFilterPills,
   SortTabs,
   type SortKey,
   type GroupOption,
@@ -56,7 +54,8 @@ function cacheKey(tab: string, groupId: number | null, typeKey: QuizTypeKey | nu
   return `${tab}:${groupId ?? ''}:${typeKey ?? ''}`;
 }
 
-export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, showSearch = false }: Props): React.ReactElement {
+export function QuizFeed({ initialQuizzes, groups: _groups, hideBrowseAllLink = false, showSearch = false }: Props): React.ReactElement {
+  void _groups;
   const [sortKey, setSortKey] = useState<SortKey>('all');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<QuizTypeKey | null>(null);
@@ -238,29 +237,6 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
               <div className="absolute right-10 top-1/2 -translate-y-1/2">
                 <Spinner />
               </div>
-            )}
-          </div>
-
-          {/* Group + type filter row */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <GroupFilterPills
-              groups={groups}
-              selectedId={selectedGroupId}
-              onChange={setSelectedGroupId}
-            />
-            <div className="w-px h-5 bg-default mx-0.5" />
-            <TypeFilterPills selected={selectedType} onChange={setSelectedType} />
-            {(selectedGroupId !== null || selectedType !== null) && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedGroupId(null);
-                  setSelectedType(null);
-                }}
-                className="text-[10px] font-medium text-tertiary hover:text-accent transition-colors ml-1"
-              >
-                Clear
-              </button>
             )}
           </div>
 
