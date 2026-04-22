@@ -18,6 +18,7 @@ interface Card {
   art_url: string | null;
   is_published: boolean;
   is_limited: boolean;
+  idol_info: Record<string, string> | null;
 }
 
 interface Pack {
@@ -79,6 +80,8 @@ export function AdminCardsPanel({ initialData }: Props) {
   const [groupFilter, setGroupFilter] = useState<string>('');
   const [rarityFilter, setRarityFilter] = useState<string>('');
   const [search, setSearch] = useState('');
+  const [editingCard, setEditingCard] = useState<Card | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const { cards, packs, economy, rotation, cardFrequency } = initialData;
 
@@ -183,6 +186,7 @@ export function AdminCardsPanel({ initialData }: Props) {
                   <th className="px-3 py-2 font-medium">Art</th>
                   <th className="px-3 py-2 font-medium">Collected</th>
                   <th className="px-3 py-2 font-medium">Status</th>
+                  <th className="px-3 py-2 font-medium"></th>
                 </tr>
               </thead>
               <tbody>
@@ -217,6 +221,14 @@ export function AdminCardsPanel({ initialData }: Props) {
                     </td>
                     <td className="px-3 py-2">
                       <span className={`w-2 h-2 rounded-full inline-block ${card.is_published ? 'bg-correct' : 'bg-wrong'}`} />
+                    </td>
+                    <td className="px-3 py-2">
+                      <button
+                        onClick={() => setEditingCard(card)}
+                        className="text-[10px] font-medium text-accent hover:underline"
+                      >
+                        Edit
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -344,6 +356,171 @@ export function AdminCardsPanel({ initialData }: Props) {
           </div>
         </div>
       )}
+      {/* Card editor modal */}
+      {editingCard && (
+        <CardEditor
+          card={editingCard}
+          saving={saving}
+          onSave={async (updated) => {
+            setSaving(true);
+            try {
+              const { createBrowserClient } = await import('@/lib/supabase/client');
+              const supabase = createBrowserClient();
+              const { error } = await supabase
+                .from('dev_cards')
+                .update({
+                  name: updated.name,
+                  idol_name: updated.idol_name || null,
+                  group_name: updated.group_name,
+                  group_slug: updated.group_slug,
+                  position: updated.position || null,
+                  era: updated.era || null,
+                  description: updated.description || null,
+                  tags: updated.tags,
+                  rarity: updated.rarity,
+                  art_url: updated.art_url || null,
+                  is_published: updated.is_published,
+                  idol_info: updated.idol_info || {},
+                })
+                .eq('id', updated.id);
+              if (error) alert('Save failed: ' + error.message);
+              else {
+                alert('Card saved!');
+                window.location.reload();
+              }
+            } catch (err) {
+              alert('Error: ' + String(err));
+            } finally {
+              setSaving(false);
+            }
+          }}
+          onClose={() => setEditingCard(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── Card Editor Modal ───
+
+function CardEditor({ card, saving, onSave, onClose }: {
+  card: Card;
+  saving: boolean;
+  onSave: (card: Card) => void;
+  onClose: () => void;
+}) {
+  const [form, setForm] = useState({ ...card });
+  const [tagsStr, setTagsStr] = useState((card.tags ?? []).join(', '));
+
+  function updateField(key: string, value: unknown) {
+    setForm(prev => ({ ...prev, [key]: value }));
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-12 overflow-y-auto">
+      <div className="bg-primary rounded-2xl shadow-xl border border-default w-full max-w-2xl mx-4 mb-12">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-default">
+          <h2 className="text-sm font-bold">Edit Card #{card.card_number}</h2>
+          <button onClick={onClose} className="text-tertiary hover:text-primary text-lg">&times;</button>
+        </div>
+
+        <div className="p-5 grid grid-cols-2 gap-3">
+          <Field label="Name" value={form.name} onChange={v => updateField('name', v)} />
+          <Field label="Idol name" value={form.idol_name ?? ''} onChange={v => updateField('idol_name', v)} />
+
+          <div>
+            <label className="text-[10px] font-medium text-ghost block mb-1">Group</label>
+            <select
+              value={form.group_slug}
+              onChange={e => {
+                const slug = e.target.value;
+                const name = GROUP_OPTIONS.find(g => g === slug) ?? slug;
+                updateField('group_slug', slug);
+                updateField('group_name', name === 'stray-kids' ? 'Stray Kids' : name === 'newjeans' ? 'NewJeans' : name.toUpperCase());
+              }}
+              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
+            >
+              {GROUP_OPTIONS.map(g => <option key={g} value={g}>{g}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-[10px] font-medium text-ghost block mb-1">Rarity</label>
+            <select
+              value={form.rarity}
+              onChange={e => updateField('rarity', e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
+            >
+              {['R', 'S', 'SS', 'SSS'].map(r => <option key={r} value={r}>{r}</option>)}
+            </select>
+          </div>
+
+          <Field label="Position" value={form.position ?? ''} onChange={v => updateField('position', v)} />
+          <Field label="Era" value={form.era ?? ''} onChange={v => updateField('era', v)} />
+
+          <div className="col-span-2">
+            <Field label="Tags (comma separated)" value={tagsStr} onChange={v => {
+              setTagsStr(v);
+              updateField('tags', v.split(',').map((t: string) => t.trim()).filter(Boolean));
+            }} />
+          </div>
+
+          <div className="col-span-2">
+            <label className="text-[10px] font-medium text-ghost block mb-1">Description</label>
+            <textarea
+              value={form.description ?? ''}
+              onChange={e => updateField('description', e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm h-20 resize-y"
+            />
+          </div>
+
+          <div className="col-span-2">
+            <Field label="Art URL" value={form.art_url ?? ''} onChange={v => updateField('art_url', v)} />
+          </div>
+
+          <div className="col-span-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.is_published}
+                onChange={e => updateField('is_published', e.target.checked)}
+                className="rounded"
+              />
+              <span className="text-xs text-secondary">Published</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="flex gap-2 px-5 pb-5">
+          <button
+            onClick={() => onSave(form)}
+            disabled={saving}
+            className="flex-1 py-2.5 rounded-xl bg-accent text-white text-xs font-semibold disabled:opacity-50"
+          >
+            {saving ? 'Saving...' : 'Save card'}
+          </button>
+          <button
+            onClick={onClose}
+            className="px-6 py-2.5 rounded-xl border border-default text-xs font-medium text-secondary"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <label className="text-[10px] font-medium text-ghost block mb-1">{label}</label>
+      <input
+        type="text"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full px-3 py-2 rounded-lg border border-default bg-surface text-sm"
+      />
     </div>
   );
 }

@@ -201,48 +201,48 @@ export function QuizFeed({ initialQuizzes, groups: _groups, hideBrowseAllLink = 
         </div>
       )}
 
-      {/* Search + filters - hidden when inline search is active */}
-      {!isSearchActive && (
-        <>
-          {/* Search bar - only when showSearch is not already providing one */}
-          {!showSearch && (
-            <div className="relative">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-tertiary pointer-events-none"
-              >
-                <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Search bar - always visible */}
+      {!showSearch && (
+        <div className="relative">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-tertiary pointer-events-none"
+          >
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search by quiz title, group, or keyword..."
+            className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-default bg-primary text-primary placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
+          />
+          {searchQuery.length > 0 && (
+            <button
+              type="button"
+              onClick={() => { setSearchQuery(''); setSearchResults(null); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-tertiary hover:text-primary transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                placeholder="Search by quiz title, group, or keyword..."
-                className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-default bg-primary text-primary placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
-              />
-              {searchQuery.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => { setSearchQuery(''); setSearchResults(null); }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-tertiary hover:text-primary transition-colors"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </button>
-              )}
-              {searchLoading && (
-                <div className="absolute right-10 top-1/2 -translate-y-1/2">
-                  <Spinner />
-                </div>
-              )}
+            </button>
+          )}
+          {searchLoading && (
+            <div className="absolute right-10 top-1/2 -translate-y-1/2">
+              <Spinner />
             </div>
           )}
+        </div>
+      )}
 
+      {/* Filters + sort - hidden when search is active */}
+      {!isSearchActive && (
+        <>
           {/* Type filter - only on browse page */}
           {showSearch && (
             <TypeFilterPills selected={selectedType} onChange={setSelectedType} />
