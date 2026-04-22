@@ -365,11 +365,11 @@ export function AdminCardsPanel({ initialData }: Props) {
           onSave={async (updated) => {
             setSaving(true);
             try {
-              const { createBrowserClient } = await import('@/lib/supabase/client');
-              const supabase = createBrowserClient();
-              const { error } = await supabase
-                .from('dev_cards')
-                .update({
+              const res = await fetch('/api/admin/card-update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  id: updated.id,
                   name: updated.name,
                   idol_name: updated.idol_name || null,
                   group_name: updated.group_name,
@@ -382,9 +382,10 @@ export function AdminCardsPanel({ initialData }: Props) {
                   art_url: updated.art_url || null,
                   is_published: updated.is_published,
                   idol_info: updated.idol_info || {},
-                })
-                .eq('id', updated.id);
-              if (error) alert('Save failed: ' + error.message);
+                }),
+              });
+              const data = await res.json();
+              if (!res.ok) alert('Save failed: ' + (data.error ?? 'Unknown error'));
               else {
                 alert('Card saved!');
                 window.location.reload();
