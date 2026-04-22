@@ -91,7 +91,7 @@ export default async function CardDetailPage({ params }: PageProps) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold"
-              style={{ background: rarity.badgeBg, color: rarity.badgeText }}>
+              style={{ background: 'rgba(255,255,255,0.65)', color: group.textColor }}>
               {rarity.label}
             </span>
             <span className="text-xs text-ghost">#{String(card.card_number).padStart(3, '0')} / {totalCards ?? '?'}</span>

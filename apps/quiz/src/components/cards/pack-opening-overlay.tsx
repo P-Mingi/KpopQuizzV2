@@ -139,7 +139,6 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
     const bestOrder = (RARITY_CONFIG[best.rarity as Rarity]?.order ?? 0);
     return order > bestOrder ? c : best;
   }, cards[0]!);
-  const bestRarity = RARITY_CONFIG[bestCard.rarity as Rarity] ?? RARITY_CONFIG.R;
   const sparkles = useRef(genSparkles(isMobile ? 12 : 20)).current;
   const particles = useRef(genParticles(isMobile ? 30 : 50, bestCard.rarity)).current;
 
@@ -283,9 +282,9 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
               style={{
                 width: isMobile ? 180 : 220,
                 height: isMobile ? 260 : 320,
-                background: `linear-gradient(135deg, ${groupMeta.color}, ${groupMeta.color}dd, ${groupMeta.color}99)`,
-                border: '2px solid rgba(212,83,126,0.4)',
-                boxShadow: `0 0 30px ${groupMeta.color}40`,
+                background: `linear-gradient(135deg, ${groupMeta.textColor}, ${groupMeta.textColor}dd, ${groupMeta.textColor}99)`,
+                border: `2px solid ${groupMeta.borderColor}`,
+                boxShadow: `0 0 30px ${groupMeta.shadowColor}`,
                 animation: 'packFloat 3s ease-in-out infinite',
               }}
             >
@@ -325,7 +324,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
               className="absolute top-0 left-0 w-full overflow-hidden rounded-t-[18px]"
               style={{
                 height: '50%',
-                background: `linear-gradient(155deg, ${groupMeta.color}, ${groupMeta.color}dd)`,
+                background: `linear-gradient(155deg, ${groupMeta.textColor}, ${groupMeta.textColor}dd)`,
                 border: '2px solid rgba(212,83,126,0.35)',
                 borderBottom: 'none',
               }}
@@ -338,7 +337,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
               className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-[18px]"
               style={{
                 height: '50%',
-                background: `linear-gradient(155deg, ${groupMeta.color}dd, ${groupMeta.color}99)`,
+                background: `linear-gradient(155deg, ${groupMeta.textColor}dd, ${groupMeta.textColor}99)`,
                 border: '2px solid rgba(212,83,126,0.35)',
                 borderTop: 'none',
               }}
@@ -377,7 +376,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         className="absolute rounded-xl"
                         style={{
                           inset: card.rarity === 'SSS' ? -8 : card.rarity === 'SS' ? -6 : -3,
-                          background: (RARITY_CONFIG[card.rarity as Rarity]?.glow ?? RARITY_CONFIG.R.color) + '60',
+                          background: getGroupMeta(card.group_slug).shadowColor,
                           filter: `blur(${card.rarity === 'SSS' ? 12 : card.rarity === 'SS' ? 9 : 4}px)`,
                           zIndex: -1,
                         }}
@@ -434,11 +433,11 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                 <div key={i} className="relative rounded-md overflow-hidden"
                   style={{
                     width: isMobile ? 36 : 50, height: isMobile ? 54 : 75,
-                    background: getGroupMeta(card.group_slug).color,
-                    border: `1.5px solid ${RARITY_CONFIG[card.rarity as Rarity]?.color ?? '#4a4a6a'}`,
+                    background: getGroupMeta(card.group_slug).bg,
+                    border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
                   <span className="absolute top-0.5 right-0.5 text-[5px] md:text-[7px] font-extrabold px-1 rounded"
-                    style={{ background: RARITY_CONFIG[card.rarity as Rarity]?.badgeBg, color: RARITY_CONFIG[card.rarity as Rarity]?.badgeText }}>
+                    style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
                     {card.rarity}
                   </span>
                 </div>
@@ -465,7 +464,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                 className="absolute rounded-[36px]"
                 style={{
                   inset: -28,
-                  background: `radial-gradient(ellipse, ${bestRarity.glow !== 'none' ? bestRarity.glow : bestRarity.color + '40'}, transparent 70%)`,
+                  background: `radial-gradient(ellipse, ${getGroupMeta(bestCard.group_slug).shadowColor}, transparent 70%)`,
                   zIndex: -1,
                 }}
                 animate={{ opacity: [0.5, 1, 0.5] }}
@@ -478,8 +477,8 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
               className="mt-4 font-black tracking-[3px]"
               style={{
                 fontSize: isMobile ? 18 : 22,
-                color: bestRarity.color,
-                textShadow: `0 0 24px ${bestRarity.glow !== 'none' ? bestRarity.glow : bestRarity.color}, 0 0 48px ${bestRarity.color}40`,
+                color: getGroupMeta(bestCard.group_slug).textColor,
+                textShadow: `0 0 24px ${getGroupMeta(bestCard.group_slug).shadowColor}, 0 0 48px ${getGroupMeta(bestCard.group_slug).shadowColor}`,
               }}
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -505,11 +504,11 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                 <div key={i} className="relative rounded-md overflow-hidden"
                   style={{
                     width: isMobile ? 42 : 55, height: isMobile ? 63 : 82,
-                    background: getGroupMeta(card.group_slug).color,
-                    border: `1.5px solid ${RARITY_CONFIG[card.rarity as Rarity]?.color ?? '#4a4a6a'}`,
+                    background: getGroupMeta(card.group_slug).bg,
+                    border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
                   <span className="absolute top-0.5 right-0.5 text-[5px] md:text-[6px] font-extrabold px-0.5 rounded"
-                    style={{ background: RARITY_CONFIG[card.rarity as Rarity]?.badgeBg, color: RARITY_CONFIG[card.rarity as Rarity]?.badgeText }}>
+                    style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
                     {card.rarity}
                   </span>
                   <div className="absolute bottom-0 left-0 right-0 p-0.5">
@@ -526,7 +525,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
             <div className="flex justify-center gap-3 mb-2">
               {rarityBreakdown.filter(r => r.count > 0).map(({ rarity, count }) => (
                 <span key={rarity} className="text-xs font-bold"
-                  style={{ color: RARITY_CONFIG[rarity].color }}>
+                  style={{ color: 'rgba(255,255,255,0.7)' }}>
                   {count}x {rarity}
                 </span>
               ))}

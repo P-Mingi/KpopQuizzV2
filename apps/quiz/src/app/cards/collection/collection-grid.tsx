@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { CardTile } from '@/components/cards/card-tile';
-import { GROUPS, RARITY_CONFIG } from '@/lib/cards/constants';
+import { GROUPS } from '@/lib/cards/constants';
 
 interface Card {
   id: string;
@@ -79,12 +79,9 @@ export function CollectionGrid({ cards, ownedIds }: Props) {
         {(['R', 'S', 'SS', 'SSS'] as const).map(r => (
           <button key={r}
             onClick={() => setRarityFilter(rarityFilter === r ? '' : r)}
-            className="px-2.5 py-1 rounded-lg text-[10px] font-extrabold border transition-colors"
-            style={{
-              background: rarityFilter === r ? RARITY_CONFIG[r].badgeBg : undefined,
-              color: rarityFilter === r ? RARITY_CONFIG[r].badgeText : RARITY_CONFIG[r].color,
-              borderColor: rarityFilter === r ? RARITY_CONFIG[r].color : 'var(--border)',
-            }}>
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold border transition-colors ${
+              rarityFilter === r ? 'bg-accent text-white border-accent' : 'bg-surface text-secondary border-default hover:border-accent'
+            }`}>
             {r}
           </button>
         ))}

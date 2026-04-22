@@ -201,32 +201,55 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
         </div>
       )}
 
-      {/* Filters - hidden when search is active */}
+      {/* Search + filters - hidden when inline search is active */}
       {!isSearchActive && (
         <>
-          {/* Group filter */}
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
-              Pick your bias group
-            </p>
+          {/* Search bar */}
+          <div className="relative">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-tertiary pointer-events-none"
+            >
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search by quiz title, group, or keyword..."
+              className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-default bg-primary text-primary placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
+            />
+            {searchQuery.length > 0 && (
+              <button
+                type="button"
+                onClick={() => { setSearchQuery(''); setSearchResults(null); }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-tertiary hover:text-primary transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
+            )}
+            {searchLoading && (
+              <div className="absolute right-10 top-1/2 -translate-y-1/2">
+                <Spinner />
+              </div>
+            )}
+          </div>
+
+          {/* Group + type filter row */}
+          <div className="flex flex-wrap items-center gap-1.5">
             <GroupFilterPills
               groups={groups}
               selectedId={selectedGroupId}
               onChange={setSelectedGroupId}
             />
-          </div>
-
-          {/* Type filter */}
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-ghost mb-2">
-              Quiz type
-            </p>
+            <div className="w-px h-5 bg-default mx-0.5" />
             <TypeFilterPills selected={selectedType} onChange={setSelectedType} />
-          </div>
-
-          {/* Sort tabs */}
-          <div className="flex items-center justify-between">
-            <SortTabs selected={sortKey} onChange={setSortKey} />
             {(selectedGroupId !== null || selectedType !== null) && (
               <button
                 type="button"
@@ -234,12 +257,15 @@ export function QuizFeed({ initialQuizzes, groups, hideBrowseAllLink = false, sh
                   setSelectedGroupId(null);
                   setSelectedType(null);
                 }}
-                className="text-[10px] font-medium text-tertiary hover:text-accent transition-colors"
+                className="text-[10px] font-medium text-tertiary hover:text-accent transition-colors ml-1"
               >
-                Clear filters
+                Clear
               </button>
             )}
           </div>
+
+          {/* Sort tabs */}
+          <SortTabs selected={sortKey} onChange={setSortKey} />
         </>
       )}
 

@@ -57,9 +57,14 @@ export default async function GroupCollectionPage({ params }: PageProps) {
           &larr; Cards
         </Link>
         <div className="flex items-center gap-3 mt-2">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-extrabold text-white/70"
-            style={{ background: group.color }}>
-            {group.abbr}
+          <div style={{
+            width: 40, height: 40, borderRadius: '50%',
+            background: group.bg,
+            border: `1.5px solid ${group.borderColor}`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 16,
+          }}>
+            {group.emoji}
           </div>
           <div>
             <h1 className="text-xl font-bold text-primary">{group.name}</h1>
@@ -83,7 +88,7 @@ export default async function GroupCollectionPage({ params }: PageProps) {
             <div key={rarity} className="mb-6">
               <div className="flex items-center gap-2.5 mb-3">
                 <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold"
-                  style={{ background: cfg.badgeBg, color: cfg.badgeText }}>
+                  style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(groupSlug).textColor }}>
                   {cfg.label}
                 </span>
                 <span className="text-xs text-ghost">Coming soon</span>
@@ -110,7 +115,7 @@ export default async function GroupCollectionPage({ params }: PageProps) {
           <div key={rarity} className="mb-6">
             <div className="flex items-center gap-2.5 mb-3">
               <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold"
-                style={{ background: cfg.badgeBg, color: cfg.badgeText }}>
+                style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(groupSlug).textColor }}>
                 {cfg.label}
               </span>
               <span className="text-xs text-secondary">{ownedInRarity}/{rarityCards.length}</span>

@@ -28,20 +28,6 @@ async function fetchCardsData() {
     user = null;
   }
 
-  // Early access gate: only allowed usernames can view this page
-  if (user) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', user.id)
-      .maybeSingle();
-    if (!profile || !EARLY_ACCESS_USERNAMES.includes(profile.username as string)) {
-      redirect('/');
-    }
-  } else {
-    redirect('/');
-  }
-
   // These queries work for everyone (RLS allows SELECT)
   const [allCardsRes, packsRes] = await Promise.all([
     supabase.from('dev_cards').select('id, group_slug, rarity, name, slug').eq('is_published', true),
@@ -102,6 +88,25 @@ async function fetchCardsData() {
 }
 
 export default async function CardsPage() {
+  // Early access gate - must be OUTSIDE try-catch since redirect() throws
+  const supabase = await createServerClient();
+  let allowed = false;
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('id', user.id)
+        .maybeSingle();
+      if (profile && EARLY_ACCESS_USERNAMES.includes(profile.username as string)) {
+        allowed = true;
+      }
+    }
+  } catch { /* auth failed */ }
+
+  if (!allowed) redirect('/');
+
   try {
     const data = await fetchCardsData();
     return <CardsLanding data={data} />;

@@ -4,13 +4,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { BoosterPack } from '@/components/cards/booster-pack';
 import { PackOpeningOverlay, type PackOpenResult } from '@/components/cards/pack-opening-overlay';
-import { RARITY_CONFIG } from '@/lib/cards/constants';
+import { RARITY_CONFIG, getGroupMeta } from '@/lib/cards/constants';
 
 interface GroupStat {
   slug: string;
   name: string;
   abbr: string;
-  color: string;
+  emoji: string;
+  bg: string;
+  textColor: string;
+  borderColor: string;
+  shadowColor: string;
   total: number;
   owned: number;
 }
@@ -219,31 +223,49 @@ export function CardsLanding({ data }: Props) {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
-          {data.groupStats.map(g => (
-            <Link key={g.slug} href={`/cards/${g.slug}`}>
-              <div className="p-3.5 rounded-xl border border-[#E8E6E0] bg-white hover:border-[#D4537E] transition-all cursor-pointer">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-[10px] font-extrabold text-white/70"
-                    style={{ background: g.color }}>
-                    {g.abbr}
+          {data.groupStats.map(g => {
+            const gm = getGroupMeta(g.slug);
+            return (
+              <Link key={g.slug} href={`/cards/${g.slug}`}>
+                <div style={{
+                  padding: '10px 12px', borderRadius: 14, cursor: 'pointer',
+                  background: '#fff',
+                  border: `1.5px solid ${gm.borderColor}`,
+                  boxShadow: `0 2px 12px ${gm.shadowColor}`,
+                  transition: 'all 0.2s',
+                  fontFamily: "'Quicksand', 'Segoe UI', sans-serif",
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: '50%',
+                      background: gm.bg,
+                      border: `1.5px solid ${gm.borderColor}`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 14,
+                    }}>
+                      {gm.emoji}
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: gm.textColor, margin: 0 }}>{g.name}</p>
+                      <p style={{ fontSize: 10, color: gm.textMuted, margin: 0 }}>{g.owned}/{g.total} cards</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-bold text-primary">{g.name}</p>
-                    <p className="text-[10px] text-secondary">{g.owned}/{g.total} cards</p>
+                  <div style={{ height: 5, borderRadius: 3, background: '#F0EDE8', overflow: 'hidden' }}>
+                    <div style={{
+                      height: 5, borderRadius: 3, background: gm.textColor,
+                      transition: 'width 0.5s',
+                      width: `${g.total > 0 ? (g.owned / g.total) * 100 : 0}%`,
+                    }} />
                   </div>
+                  {g.owned === g.total && g.total > 0 && (
+                    <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 600, color: gm.textColor }}>
+                      <span>&#10003;</span> Complete!
+                    </div>
+                  )}
                 </div>
-                <div className="h-[5px] rounded-full bg-[#F0EDE8] overflow-hidden">
-                  <div className="h-[5px] rounded-full bg-[#D4537E] transition-all duration-500"
-                    style={{ width: `${g.total > 0 ? (g.owned / g.total) * 100 : 0}%` }} />
-                </div>
-                {g.owned === g.total && g.total > 0 && (
-                  <div className="mt-2 flex items-center gap-1 text-[9px] font-semibold text-[#D4537E]">
-                    <span>&#10003;</span> Complete!
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
