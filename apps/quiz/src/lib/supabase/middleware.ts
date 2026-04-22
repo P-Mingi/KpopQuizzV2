@@ -14,6 +14,8 @@ const KNOWN_ROUTES = [
   '/sitemap.xml', '/robots.txt',
   // New Phase 4 routes
   '/hall-of-fame', '/quizzes', '/profile',
+  // Cards / Fancard system
+  '/cards',
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
