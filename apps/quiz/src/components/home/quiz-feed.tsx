@@ -156,7 +156,7 @@ export function QuizFeed({ initialQuizzes, groups: _groups, hideBrowseAllLink = 
     }
   }, [currentCK, buildUrl, cache]);
 
-  const isSearchActive = showSearch && searchQuery.trim().length >= 2;
+  const isSearchActive = searchQuery.trim().length >= 2;
   const quizzes = isSearchActive ? (searchResults ?? []) : (cache[currentCK] ?? []);
   const canLoadMore = !isSearchActive && (hasMore[currentCK] ?? false);
 
