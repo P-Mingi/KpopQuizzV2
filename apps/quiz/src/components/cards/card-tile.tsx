@@ -23,6 +23,7 @@ interface CardTileProps {
   onClick?: () => void;
   showHoverEffect?: boolean;
   linkTo?: string;
+  hideTags?: boolean;
 }
 
 const SIZES = {
@@ -31,7 +32,7 @@ const SIZES = {
   lg: { nameFs: 15, groupFs: 7, tagFs: 5.5, rarityFs: 9, groupBadgeFs: 7, padBottom: '18px 10px 10px' },
 };
 
-export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = true, linkTo }: CardTileProps) {
+export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = true, linkTo, hideTags = false }: CardTileProps) {
   const rarity = (card.rarity as Rarity) in RARITY_CONFIG ? (card.rarity as Rarity) : 'R';
 
   if (!owned) {
@@ -128,7 +129,7 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
         <p style={{ fontSize: s.groupFs, color: g.textMuted, margin: 0, marginTop: 2, textAlign: 'center', letterSpacing: 1 }}>{g.name} {g.emoji}</p>
       </div>
 
-      {card.tags && card.tags.length > 0 && size !== 'sm' && (
+      {card.tags && card.tags.length > 0 && size !== 'sm' && !hideTags && (
         <div style={{
           position: 'absolute', bottom: size === 'lg' ? 52 : 45, left: 0, right: 0,
           display: 'flex', justifyContent: 'center', gap: 3,

@@ -392,7 +392,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                         style={{ transformStyle: 'preserve-3d', width: '100%' }}
                       >
-                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'lg'} showHoverEffect={false} />
+                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'lg'} showHoverEffect={false} hideTags />
                       </motion.div>
                       {/* NEW/DUP badge */}
                       <motion.div
@@ -438,6 +438,9 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                     background: getGroupMeta(card.group_slug).bg,
                     border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
+                  {card.art_url && (
+                    <img src={card.art_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  )}
                   <span className="absolute top-0.5 right-0.5 text-[5px] md:text-[7px] font-extrabold px-1 rounded"
                     style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
                     {card.rarity}
@@ -509,12 +512,15 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                     background: getGroupMeta(card.group_slug).bg,
                     border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
+                  {card.art_url && (
+                    <img src={card.art_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  )}
                   <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 text-[5px] md:text-[8px] font-extrabold px-0.5 md:px-1 rounded"
                     style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
                     {card.rarity}
                   </span>
-                  <div className="absolute bottom-0 left-0 right-0 p-0.5 md:p-1.5">
-                    <p className="text-[5px] md:text-[9px] text-white/70 truncate font-medium">{card.name}</p>
+                  <div className="absolute bottom-0 left-0 right-0 p-0.5 md:p-1.5" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.4))' }}>
+                    <p className="text-[5px] md:text-[9px] text-white/90 truncate font-medium">{card.name}</p>
                   </div>
                   {card.is_new && (
                     <span className="absolute top-0.5 left-0.5 md:top-1 md:left-1 text-[4px] md:text-[7px] px-0.5 md:px-1 rounded bg-green-900/40 text-green-400 font-bold">NEW</span>
