@@ -1,6 +1,7 @@
 'use client';
 
 import type { QuizTypeKey } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 
 // ============================================
 // Group filter pills (pink-tinted)
@@ -141,11 +142,7 @@ export function TypeFilterPills({
                 : 'bg-surface border-default text-secondary hover:border-secondary'
             }`}
           >
-            <span
-              className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ background: DOT_VAR[t.key] }}
-              aria-hidden="true"
-            />
+            <QuizTypeIcon type={t.key} size={12} />
             {t.label}
           </button>
         );

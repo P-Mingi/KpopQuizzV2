@@ -361,6 +361,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
           <div className="flex gap-1.5 md:gap-5">
             {cards.map((card, i) => {
               const isRevealed = phase === 'REVEALING' && i <= revealIndex;
+              const cardW = isMobile ? 60 : 140;
               return (
                 <motion.div
                   key={`${card.card_id}-${i}`}
@@ -368,6 +369,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.08, duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
                   className="text-center"
+                  style={{ width: cardW }}
                 >
                   {isRevealed ? (
                     <div className="relative">
@@ -390,11 +392,11 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                         style={{ transformStyle: 'preserve-3d' }}
                       >
-                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'md'} showHoverEffect={false} />
+                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'lg'} showHoverEffect={false} />
                       </motion.div>
                       {/* NEW/DUP badge */}
                       <motion.div
-                        className="mt-1"
+                        className="mt-1.5"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.3, duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
