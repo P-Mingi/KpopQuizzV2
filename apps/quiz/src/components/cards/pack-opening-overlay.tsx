@@ -372,7 +372,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                   style={{ width: cardW }}
                 >
                   {isRevealed ? (
-                    <div className="relative">
+                    <div className="relative" style={{ width: '100%' }}>
                       {/* Rarity glow */}
                       <motion.div
                         className="absolute rounded-xl"
@@ -390,7 +390,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         initial={{ rotateY: 90, scale: 0.85 }}
                         animate={{ rotateY: 0, scale: 1 }}
                         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                        style={{ transformStyle: 'preserve-3d' }}
+                        style={{ transformStyle: 'preserve-3d', width: '100%' }}
                       >
                         <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'lg'} showHoverEffect={false} />
                       </motion.div>
