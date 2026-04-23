@@ -52,6 +52,7 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
     <div
       onClick={onClick}
       style={{
+        width: '100%',
         aspectRatio: '2/3',
         borderRadius: 20,
         overflow: 'hidden',
@@ -175,6 +176,7 @@ function MissingCard({ card, size, onClick }: { card: CardData; size: string; on
     <div
       onClick={onClick}
       style={{
+        width: '100%',
         aspectRatio: '2/3',
         borderRadius: 20,
         overflow: 'hidden',
