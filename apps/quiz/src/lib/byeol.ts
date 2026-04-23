@@ -1,27 +1,57 @@
 import { createServerClient } from '@/lib/supabase/server';
 
 export const BYEOL_REWARDS = {
+  // ---- PLAYING ----
   quiz_complete: (score: number, total: number) => {
     const pct = total > 0 ? score / total : 0;
-    if (pct === 1) return 50;
-    if (pct >= 0.7) return 40;
-    return 30;
+    if (pct >= 1.0) return 50;     // perfect
+    if (pct >= 0.8) return 40;     // great
+    if (pct >= 0.6) return 30;     // good
+    return 20;                      // participated
   },
-  daily_quiz: 50,
-  daily_quiz_perfect: 80,
-  blindtest_play: 30,
+  daily_quiz: (score: number, total: number) => {
+    const pct = total > 0 ? score / total : 0;
+    if (pct >= 1.0) return 80;     // perfect daily
+    if (pct >= 0.8) return 65;
+    if (pct >= 0.6) return 50;
+    return 35;
+  },
+  blindtest_match: 30,
   blindtest_win: 50,
-  tier_list: 30,
   name_all_perfect: 50,
-  name_all_partial: 20,
   this_or_that: 20,
+  tier_list_complete: 30,
+
+  // ---- CREATING ----
+  quiz_creation: 80,
+  quiz_creation_10q: 100,          // 10+ questions
+  quiz_creation_20q: 130,          // 20+ questions
+
+  // ---- PASSIVE CREATOR INCOME ----
+  creator_play_reward: 3,
+  creator_play_cap_daily: 150,
+
+  // ---- CREATOR MILESTONES (one-time) ----
+  creator_milestone_50_plays: 50,
+  creator_milestone_100_plays: 100,
+  creator_milestone_500_plays: 250,
+  creator_milestone_1000_plays: 500,
+
+  // ---- SHARING ----
+  share_reddit_verified: 60,
+  share_twitter_verified: 40,
+  share_link_clicks_10: 30,
+  share_cooldown_hours: 24,
+
+  // ---- STREAKS & LOGIN ----
   daily_login: 20,
-  streak_7day: 100,
-  quiz_creation: 30,
-  quiz_creation_first: 80,
-  quiz_plays_50: 50,
-  quiz_plays_200: 150,
-  level_up: 100,
+  streak_3_day: 30,
+  streak_7_day: 100,
+  streak_14_day: 200,
+  streak_30_day: 500,
+
+  // ---- XP CONVERSION ----
+  xp_to_byeol_rate: 10,
 } as const;
 
 export async function awardByeol(

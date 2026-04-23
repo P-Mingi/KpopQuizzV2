@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 
@@ -34,6 +35,7 @@ export function QuizListCard({ quiz }: Props) {
       <div className="flex-1 min-w-0">
         <p className="text-xs font-semibold text-primary truncate">{quiz.title}</p>
         <div className="flex items-center gap-1.5 text-[10px] text-tertiary mt-[3px] flex-wrap">
+          <QuizTypeIcon type={typeKey} size={14} />
           <QuizTypeBadge type={typeKey} size="xs" />
           <span className="tabular-nums">{formatCount(quiz.play_count)} plays</span>
           {avgPct !== null && (

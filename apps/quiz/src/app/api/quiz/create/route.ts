@@ -315,8 +315,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       p_reason: 'create',
     });
 
-    // Award Byeol
-    await awardByeol(user.id, isFirst ? BYEOL_REWARDS.quiz_creation_first : BYEOL_REWARDS.quiz_creation, 'quiz_creation', quiz.id);
+    // Award Byeol based on question count
+    const questionCount = (input.questions as unknown[]).length;
+    const byeolAmount = questionCount >= 20
+      ? BYEOL_REWARDS.quiz_creation_20q
+      : questionCount >= 10
+        ? BYEOL_REWARDS.quiz_creation_10q
+        : BYEOL_REWARDS.quiz_creation;
+    await awardByeol(user.id, byeolAmount, 'quiz_creation', quiz.id);
   } catch (err) {
     // XP award is non-critical, don't fail the request
     console.error('Failed to award XP:', err);

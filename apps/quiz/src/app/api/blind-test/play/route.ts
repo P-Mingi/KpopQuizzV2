@@ -76,7 +76,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     // Award Byeol
-    await awardByeol(playerId, BYEOL_REWARDS.blindtest_play, 'blindtest_play');
+    await awardByeol(playerId, BYEOL_REWARDS.blindtest_match, 'blindtest_play');
   }
 
   return NextResponse.json({ success: true, xp_earned: xpEarned });

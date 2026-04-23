@@ -141,7 +141,7 @@ async function recordBlindTestPlay(
     }
 
     // Award Byeol
-    await awardByeol(playerId, BYEOL_REWARDS.blindtest_play, 'blindtest_play', game.id);
+    await awardByeol(playerId, BYEOL_REWARDS.blindtest_match, 'blindtest_play', game.id);
   }
 
   // Award creator XP
@@ -213,7 +213,7 @@ async function recordNameAllPlay(
 
     // Award Byeol
     const isPerfect = choices.score === choices.total;
-    await awardByeol(playerId, isPerfect ? BYEOL_REWARDS.name_all_perfect : BYEOL_REWARDS.name_all_partial, 'name_all', game.id);
+    await awardByeol(playerId, isPerfect ? BYEOL_REWARDS.name_all_perfect : 20, 'name_all', game.id);
   }
 
   // Award creator XP

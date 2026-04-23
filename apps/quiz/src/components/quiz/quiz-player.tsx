@@ -32,10 +32,12 @@ import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
 import { RedditShareButton } from '@/components/share/reddit-share-button';
+import { shareToReddit, copyShareLink } from '@/lib/share';
 import { ByeolGain } from '@/components/cards/byeol-gain';
 import { formatCount } from '@/lib/utils';
 
@@ -561,21 +563,24 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     playShare();
 
     const maxScore = state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
-    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=native_share&utm_medium=social&utm_campaign=quiz_share&s=${state.score}&t=${maxScore}`;
     const timeStr = state.timeTaken > 0 ? ` in ${state.timeTaken}s` : '';
     const shareText = `I scored ${state.score}/${maxScore}${timeStr} on "${quiz.title}" Can you beat me?`;
 
     if (typeof navigator !== 'undefined' && navigator.share) {
+      // Use tracked link for native share
+      const shareUrl = await copyShareLink(quiz.id, quiz.slug).then(() =>
+        `${window.location.origin}/q/${quiz.slug}`
+      );
       try {
         await navigator.share({ title: quiz.title, text: shareText, url: shareUrl });
       } catch {
         // User cancelled share
       }
     } else {
-      await navigator.clipboard.writeText(shareUrl);
-      showToast('Link copied!', 'success');
+      const copied = await copyShareLink(quiz.id, quiz.slug);
+      showToast(copied ? 'Link copied!' : 'Could not copy link', copied ? 'success' : 'error');
     }
-  }, [state, quiz.slug, quiz.title, showToast]);
+  }, [state, quiz.id, quiz.slug, quiz.title, showToast]);
 
   // ============================================
   // Mascot mood derived from game state
@@ -663,6 +668,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                 <GroupPill name={quiz.groupName} displayColor={quiz.displayColor} textColor={quiz.textColor} />
               </Link>
               <DifficultyBadge difficulty={quiz.difficulty} />
+              <QuizTypeIcon type={quiz.quizType} size={20} />
               <QuizTypeBadge type={quiz.quizType} size="sm" />
             </div>
 
@@ -1059,6 +1065,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             <span className="uppercase">{resultLabel.en}</span>
           </p>
           <p className="text-[12px] text-secondary mt-0.5">{labelSub}</p>
+          <div className="flex items-center justify-center gap-1 mt-2">
+            <QuizTypeIcon type={state.quizType} size={16} />
+            <QuizTypeBadge type={state.quizType} size="xs" />
+          </div>
         </div>
 
         {/* Stats row - 3 cells */}

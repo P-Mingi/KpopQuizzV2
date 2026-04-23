@@ -136,6 +136,15 @@ export async function POST(
           });
         }
 
+        // Award Byeol passive income to creator
+        if (quizData.creator_id && quizData.creator_id !== playerId) {
+          await supabase.rpc('dev_award_creator_play', {
+            p_quiz_id: id,
+            p_creator_id: quizData.creator_id,
+            p_player_id: playerId,
+          });
+        }
+
         // Check viral_hit badge for creator
         if (quizData.creator_id && quizData.play_count + 1 >= 1000) {
           await supabase.from('user_badges').upsert(

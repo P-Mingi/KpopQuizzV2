@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 
@@ -67,7 +68,8 @@ export function TrendingCard({ quiz, priority = false }: Props) {
         />
 
         {/* Type badge */}
-        <div className="absolute top-2 left-2">
+        <div className="absolute top-2 left-2 flex items-center gap-1">
+          <QuizTypeIcon type={typeKey} size={14} color="#fff" />
           <QuizTypeBadge type={typeKey} size="sm" className="backdrop-blur-sm" />
         </div>
 

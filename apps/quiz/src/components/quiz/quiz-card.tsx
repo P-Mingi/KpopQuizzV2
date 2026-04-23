@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeButton } from '@/components/ui/like-button';
@@ -34,7 +35,10 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
             <GroupPill name={quiz.group_name} displayColor={quiz.display_color} textColor={quiz.text_color} />
             <DifficultyBadge difficulty={quiz.difficulty} />
             {quiz.quiz_type !== 'multiple_choice' && (
-              <QuizTypeBadge type={quiz.quiz_type} />
+              <>
+                <QuizTypeIcon type={quiz.quiz_type} size={14} />
+                <QuizTypeBadge type={quiz.quiz_type} />
+              </>
             )}
           </div>
 

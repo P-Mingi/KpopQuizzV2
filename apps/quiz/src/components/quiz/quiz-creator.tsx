@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useToast } from '@/components/ui/toast-provider';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
+import { QuizTypeIcon, getQuizTypeColor } from '@/components/quiz/quiz-type-icon';
 import { ImageUploader } from '@/components/admin/image-uploader';
 import { CoverUpload } from '@/components/create/cover-upload';
 
@@ -88,6 +89,8 @@ function GroupDropdown({
 }): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [addingCustom, setAddingCustom] = useState(false);
+  const [customInput, setCustomInput] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedGroup = selectedGroupId && selectedGroupId !== -1
@@ -97,7 +100,7 @@ function GroupDropdown({
   const displayLabel = selectedGroup
     ? selectedGroup.name
     : selectedGroupId === -1
-      ? 'None / General K-pop'
+      ? 'General K-pop'
       : customGroupName || '';
 
   const filtered = search.trim()
@@ -126,7 +129,7 @@ function GroupDropdown({
       {/* Trigger button */}
       <button
         type="button"
-        onClick={() => { setOpen(!open); setSearch(''); }}
+        onClick={() => { setOpen(!open); setSearch(''); setAddingCustom(false); setCustomInput(''); }}
         className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border-2 text-sm font-medium cursor-pointer transition-all ${
           open
             ? 'border-accent bg-accent-bg'
@@ -178,27 +181,67 @@ function GroupDropdown({
 
           {/* Options list */}
           <div className="max-h-60 overflow-y-auto overscroll-contain py-1">
-            {/* General K-pop option */}
-            {(!searchTrimmed || 'general k-pop'.includes(searchTrimmed.toLowerCase()) || 'none'.includes(searchTrimmed.toLowerCase())) && (
+            {/* Add new group / artist option */}
+            {(!searchTrimmed || 'add new group artist'.includes(searchTrimmed.toLowerCase())) && (
               <button
                 type="button"
-                onClick={() => { onSelectGroup(-1); setOpen(false); setSearch(''); }}
-                className={`w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 ${
-                  selectedGroupId === -1
-                    ? 'bg-accent-bg text-accent-hover font-medium'
-                    : 'text-primary hover:bg-surface'
-                }`}
+                onClick={() => { setAddingCustom(true); }}
+                className="w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 text-accent hover:bg-accent-bg border-b border-default"
               >
-                <span className="w-5 h-5 rounded-full bg-elevated flex items-center justify-center text-[10px] text-tertiary flex-shrink-0">*</span>
-                None / General K-pop
+                <span className="w-5 h-5 rounded-full bg-accent-bg flex items-center justify-center flex-shrink-0">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </span>
+                Add a new group / artist
               </button>
+            )}
+
+            {/* Custom group name input (shown when "Add new" is clicked) */}
+            {addingCustom && (
+              <div className="px-4 py-2.5 border-b border-default bg-accent-bg">
+                <p className="text-[11px] text-accent font-medium mb-1.5">Enter the group or artist name</p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={customInput}
+                    onChange={(e) => setCustomInput(e.target.value)}
+                    placeholder="e.g. BLACKPINK, IU, BTS..."
+                    autoFocus
+                    className="flex-1 px-3 py-1.5 rounded-lg border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && customInput.trim().length >= 2) {
+                        onCustomGroup(customInput.trim());
+                        setOpen(false);
+                        setSearch('');
+                        setAddingCustom(false);
+                        setCustomInput('');
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    disabled={customInput.trim().length < 2}
+                    onClick={() => {
+                      onCustomGroup(customInput.trim());
+                      setOpen(false);
+                      setSearch('');
+                      setAddingCustom(false);
+                      setCustomInput('');
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-accent text-white text-xs font-medium disabled:opacity-40 cursor-pointer"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
             )}
 
             {filtered.map((g) => (
               <button
                 key={g.id}
                 type="button"
-                onClick={() => { onSelectGroup(g.id); setOpen(false); setSearch(''); }}
+                onClick={() => { onSelectGroup(g.id); setOpen(false); setSearch(''); setAddingCustom(false); }}
                 className={`w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 ${
                   selectedGroupId === g.id
                     ? 'bg-accent-bg text-accent-hover font-medium'
@@ -218,12 +261,12 @@ function GroupDropdown({
             ))}
 
             {/* No results */}
-            {filtered.length === 0 && searchTrimmed && (
+            {filtered.length === 0 && searchTrimmed && !addingCustom && (
               <p className="px-4 py-3 text-xs text-tertiary text-center">No groups found</p>
             )}
 
-            {/* Add new group option */}
-            {searchTrimmed.length >= 2 && !exactMatch && (
+            {/* Inline add when search doesn't match */}
+            {searchTrimmed.length >= 2 && !exactMatch && !addingCustom && (
               <button
                 type="button"
                 onClick={() => { onCustomGroup(searchTrimmed); setOpen(false); setSearch(''); }}
@@ -734,11 +777,24 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
                     : 'border-default bg-primary hover:border-default'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium text-primary">{t.name}</p>
-                  <QuizTypeBadge type={t.type} />
+                <div className="flex items-center gap-2.5">
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 8,
+                    background: `${getQuizTypeColor(t.type)}10`,
+                    border: `0.5px solid ${getQuizTypeColor(t.type)}20`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }}>
+                    <QuizTypeIcon type={t.type} size={18} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium text-primary">{t.name}</p>
+                      <QuizTypeBadge type={t.type} />
+                    </div>
+                    <p className="text-xs text-secondary mt-0.5">{t.desc}</p>
+                  </div>
                 </div>
-                <p className="text-xs text-secondary mt-0.5">{t.desc}</p>
               </button>
             ))}
           </div>

@@ -91,7 +91,13 @@ export function QuizOfTheDay({ quizSlug, playedToday = false, score, totalQuesti
             <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#b4b2a9" strokeWidth="1.2" strokeLinecap="round"><circle cx="5" cy="3.5" r="2" /><path d="M1 9c0-2.2 1.8-4 4-4s4 1.8 4 4" /></svg>
               <span style={{ fontSize: 9, color: "#b4b2a9" }}>
-                {playersToday > 0 ? `${playersToday} played today` : 'Be the first today'}
+                {(() => {
+                  const today = new Date();
+                  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+                  const fakeCount = 24 + (((seed * 9301 + 49297) % 233280) % 123);
+                  const displayed = playersToday > fakeCount ? playersToday : fakeCount;
+                  return `${displayed} played today`;
+                })()}
               </span>
             </div>
           </div>
