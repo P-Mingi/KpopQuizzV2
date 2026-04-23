@@ -45,7 +45,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .limit(1);
 
   if (recent && recent.length > 0) {
-    return NextResponse.json({ shareCode: recent[0].share_code, alreadyExists: true });
+    return NextResponse.json({ shareCode: recent[0]!.share_code, alreadyExists: true });
   }
 
   const shareCode = generateShareCode();

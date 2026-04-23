@@ -8,6 +8,7 @@ import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
+import { DailyLoginTracker } from '@/components/layout/daily-login-tracker';
 
 import type { Metadata } from 'next';
 
@@ -89,6 +90,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
           </div>
           <MobileTabBar />
         </ToastProvider>
+        <DailyLoginTracker />
         <Analytics />
       </body>
     </html>

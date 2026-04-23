@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 
 /** Short URL handler that redirects through the click tracker. */
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ code: string }> },
 ): Promise<NextResponse> {
   const { code } = await params;

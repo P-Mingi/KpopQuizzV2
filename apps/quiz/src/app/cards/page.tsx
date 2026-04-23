@@ -25,9 +25,10 @@ async function fetchCardsData() {
   }
 
   // These queries work for everyone (RLS allows SELECT)
-  const [allCardsRes, packsRes] = await Promise.all([
+  const [allCardsRes, packsRes, groupLogosRes] = await Promise.all([
     supabase.from('dev_cards').select('id, group_slug, rarity, name, slug').eq('is_published', true),
     supabase.from('dev_card_packs').select('*').order('rotation_order', { ascending: true, nullsFirst: true }),
+    supabase.from('groups').select('slug, logo_url, display_color, text_color, name'),
   ]);
 
   let byeol = 0;
@@ -56,11 +57,23 @@ async function fetchCardsData() {
 
   const rotation = getActiveGroupPack();
   const allCards = allCardsRes.data ?? [];
+  const groupLogos = groupLogosRes.data ?? [];
+
+  // Build a map of group slug -> logo info from the groups table
+  const logoMap = new Map(groupLogos.map(g => [g.slug, g]));
 
   const groupStats = GROUPS.map(g => {
     const total = allCards.filter(c => c.group_slug === g.slug).length;
     const owned = allCards.filter(c => c.group_slug === g.slug && ownedCardIds.includes(c.id)).length;
-    return { ...g, total, owned };
+    const dbGroup = logoMap.get(g.slug);
+    return {
+      ...g,
+      total,
+      owned,
+      logoUrl: (dbGroup?.logo_url as string | null) ?? null,
+      groupDisplayColor: (dbGroup?.display_color as string | null) ?? g.textColor,
+      groupTextColor: (dbGroup?.text_color as string | null) ?? '#fff',
+    };
   });
 
   return {
@@ -96,7 +109,7 @@ export default async function CardsPage() {
         isLoggedIn: false,
         userId: null,
         byeol: 0,
-        groupStats: GROUPS.map(g => ({ ...g, total: 0, owned: 0 })),
+        groupStats: GROUPS.map(g => ({ ...g, total: 0, owned: 0, logoUrl: null, groupDisplayColor: null, groupTextColor: null })),
         totalCards: 0,
         totalOwned: 0,
         needsStarter: false,

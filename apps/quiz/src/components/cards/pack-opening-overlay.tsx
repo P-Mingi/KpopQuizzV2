@@ -86,9 +86,9 @@ function genParticles(count: number, rarity: string) {
 
 // ---- Card back ----
 
-function CardBack({ size, delay = 0 }: { size: 'sm' | 'md'; delay?: number }) {
-  const w = size === 'sm' ? 60 : 100;
-  const h = size === 'sm' ? 90 : 150;
+function CardBack({ size, delay = 0 }: { size: 'sm' | 'md' | 'lg'; delay?: number }) {
+  const w = size === 'sm' ? 60 : size === 'md' ? 100 : 140;
+  const h = size === 'sm' ? 90 : size === 'md' ? 150 : 210;
   return (
     <div
       className="relative overflow-hidden rounded-lg"
@@ -105,7 +105,7 @@ function CardBack({ size, delay = 0 }: { size: 'sm' | 'md'; delay?: number }) {
       }} />
       {/* Center logo */}
       <div className="absolute inset-0 flex items-center justify-center text-white/[0.08] font-bold"
-        style={{ fontSize: size === 'sm' ? 8 : 11 }}>
+        style={{ fontSize: size === 'sm' ? 8 : size === 'md' ? 11 : 16 }}>
         KQ
       </div>
       {/* Shimmer */}
@@ -358,7 +358,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
 
         {/* ---- PHASE 3 & 4: Cards (face-down then revealing) ---- */}
         {(phase === 'CARDS_DOWN' || phase === 'REVEALING') && (
-          <div className="flex gap-1.5 md:gap-3.5">
+          <div className="flex gap-1.5 md:gap-5">
             {cards.map((card, i) => {
               const isRevealed = phase === 'REVEALING' && i <= revealIndex;
               return (
@@ -390,7 +390,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                         style={{ transformStyle: 'preserve-3d' }}
                       >
-                        <CardTile card={card} owned={true} size="sm" showHoverEffect={false} />
+                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'md'} showHoverEffect={false} />
                       </motion.div>
                       {/* NEW/DUP badge */}
                       <motion.div
@@ -400,14 +400,14 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         transition={{ delay: 0.3, duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
                       >
                         {card.is_new ? (
-                          <span className="text-[7px] md:text-[9px] px-1.5 py-0.5 rounded bg-green-900/25 text-green-400 font-bold">NEW</span>
+                          <span className="text-[7px] md:text-[11px] px-1.5 md:px-2.5 py-0.5 md:py-1 rounded bg-green-900/25 text-green-400 font-bold">NEW</span>
                         ) : (
-                          <span className="text-[7px] md:text-[9px] text-white/25">+{card.duplicate_refund}</span>
+                          <span className="text-[7px] md:text-[11px] text-white/25">+{card.duplicate_refund}</span>
                         )}
                       </motion.div>
                     </div>
                   ) : (
-                    <CardBack size={isMobile ? 'sm' : 'md'} delay={i * 0.3} />
+                    <CardBack size={isMobile ? 'sm' : 'lg'} delay={i * 0.3} />
                   )}
                 </motion.div>
               );
@@ -428,11 +428,11 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
             ))}
 
             {/* Mini card strip */}
-            <div className="flex gap-1.5 justify-center mb-6 opacity-35">
+            <div className="flex gap-1.5 md:gap-2.5 justify-center mb-6 opacity-35">
               {cards.map((card, i) => (
                 <div key={i} className="relative rounded-md overflow-hidden"
                   style={{
-                    width: isMobile ? 36 : 50, height: isMobile ? 54 : 75,
+                    width: isMobile ? 36 : 60, height: isMobile ? 54 : 90,
                     background: getGroupMeta(card.group_slug).bg,
                     border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
@@ -492,39 +492,39 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
         {/* ---- PHASE 6: Summary ---- */}
         {phase === 'SUMMARY' && (
           <motion.div
-            className="mx-4 md:mx-auto md:max-w-[420px] p-4 md:p-5 rounded-2xl w-full"
+            className="mx-4 md:mx-auto md:max-w-[640px] p-4 md:p-6 rounded-2xl w-full"
             style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(12px)' }}
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             {/* Mini cards row */}
-            <div className="flex gap-1.5 justify-center mb-3">
+            <div className="flex gap-2 md:gap-3 justify-center mb-4">
               {cards.map((card, i) => (
-                <div key={i} className="relative rounded-md overflow-hidden"
+                <div key={i} className="relative rounded-lg overflow-hidden"
                   style={{
-                    width: isMobile ? 42 : 55, height: isMobile ? 63 : 82,
+                    width: isMobile ? 48 : 90, height: isMobile ? 72 : 135,
                     background: getGroupMeta(card.group_slug).bg,
                     border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
                   }}>
-                  <span className="absolute top-0.5 right-0.5 text-[5px] md:text-[6px] font-extrabold px-0.5 rounded"
+                  <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 text-[5px] md:text-[8px] font-extrabold px-0.5 md:px-1 rounded"
                     style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
                     {card.rarity}
                   </span>
-                  <div className="absolute bottom-0 left-0 right-0 p-0.5">
-                    <p className="text-[5px] md:text-[6px] text-white/70 truncate font-medium">{card.name}</p>
+                  <div className="absolute bottom-0 left-0 right-0 p-0.5 md:p-1.5">
+                    <p className="text-[5px] md:text-[9px] text-white/70 truncate font-medium">{card.name}</p>
                   </div>
                   {card.is_new && (
-                    <span className="absolute top-0.5 left-0.5 text-[4px] px-0.5 rounded bg-green-900/40 text-green-400 font-bold">NEW</span>
+                    <span className="absolute top-0.5 left-0.5 md:top-1 md:left-1 text-[4px] md:text-[7px] px-0.5 md:px-1 rounded bg-green-900/40 text-green-400 font-bold">NEW</span>
                   )}
                 </div>
               ))}
             </div>
 
             {/* Rarity breakdown */}
-            <div className="flex justify-center gap-3 mb-2">
+            <div className="flex justify-center gap-3 md:gap-5 mb-2">
               {rarityBreakdown.filter(r => r.count > 0).map(({ rarity, count }) => (
-                <span key={rarity} className="text-xs font-bold"
+                <span key={rarity} className="text-xs md:text-base font-bold"
                   style={{ color: 'rgba(255,255,255,0.7)' }}>
                   {count}x {rarity}
                 </span>
@@ -532,7 +532,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
             </div>
 
             {/* Stats */}
-            <p className="text-[10px] text-white/25 text-center mb-3.5">
+            <p className="text-[10px] md:text-xs text-white/25 text-center mb-3.5">
               {currentResult.total_new} new card{currentResult.total_new !== 1 ? 's' : ''}
               {currentResult.total_duplicates > 0 && ` \u00B7 ${currentResult.total_duplicates} dup${currentResult.total_duplicates !== 1 ? 's' : ''} (+${currentResult.byeol_refunded} B)`}
               {currentResult.pity_triggered && ' \u00B7 \uD83C\uDF40 pity'}
@@ -545,12 +545,12 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
             )}
 
             {/* Buttons */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 md:gap-3">
               {!isStarter && onOpenAnother && (
                 <button
                   onClick={handleOpenAnother}
                   disabled={currentBalance < 100}
-                  className="flex-1 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer"
+                  className="flex-1 py-3 md:py-4 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer"
                   style={{
                     background: currentBalance >= 100 ? '#D4537E' : 'rgba(255,255,255,0.05)',
                     color: currentBalance >= 100 ? '#fff' : 'rgba(255,255,255,0.15)',
@@ -561,7 +561,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
               )}
               <button
                 onClick={onClose}
-                className="flex-1 py-3 rounded-xl text-xs font-medium text-white/45 border border-white/[0.08] hover:bg-white/[0.03] transition-colors cursor-pointer"
+                className="flex-1 py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium text-white/45 border border-white/[0.08] hover:bg-white/[0.03] transition-colors cursor-pointer"
               >
                 {isStarter ? 'Explore cards' : 'Done'}
               </button>

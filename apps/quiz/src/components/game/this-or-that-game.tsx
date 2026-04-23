@@ -581,10 +581,12 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   return (
     <div
       style={{
-        minHeight: '100vh',
+        height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         background: C.bg,
+        maxWidth: isMobile ? undefined : 900,
+        margin: isMobile ? undefined : '0 auto',
       }}
     >
       {/* Top bar */}
@@ -690,6 +692,9 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             flexDirection: isMobile ? 'column' : 'row',
             flex: 1,
             position: 'relative',
+            maxHeight: isMobile ? undefined : 'calc(100dvh - 100px)',
+            borderRadius: isMobile ? undefined : 16,
+            overflow: 'hidden',
           }}
         >
           {sides.map((side, sideIndex) => (
