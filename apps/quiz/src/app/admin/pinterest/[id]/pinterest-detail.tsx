@@ -119,6 +119,19 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
       if (!imgRes.ok) throw new Error('Failed to generate image');
       const blob = await imgRes.blob();
       setImagePreviewUrl(URL.createObjectURL(blob));
+
+      // Auto-upload to storage so pin can be posted
+      const { createBrowserClient } = await import('@/lib/supabase/client');
+      const supabase = createBrowserClient();
+      const path = `pinterest-pins/${pin.id}.png`;
+      await supabase.storage.from('quiz-images').upload(path, blob, { upsert: true, contentType: 'image/png' });
+      const { data: urlData } = supabase.storage.from('quiz-images').getPublicUrl(path);
+      await fetch(`/api/admin/pinterest/${pin.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_public_url: urlData.publicUrl }),
+      });
+      setPin(prev => ({ ...prev, image_public_url: urlData.publicUrl }));
     } catch (e) {
       alert(`Failed to load preview: ${e instanceof Error ? e.message : 'Unknown error'}`);
     } finally {
@@ -132,13 +145,34 @@ export function PinterestDetail({ pin: initialPin, boards, authStatus }: Props):
       const res = await fetch(`/api/admin/pinterest/generate-image?id=${pin.id}`);
       if (!res.ok) throw new Error('Failed to generate image');
       const blob = await res.blob();
+
+      // Upload to Supabase storage so the image is available for posting
+      const { createBrowserClient } = await import('@/lib/supabase/client');
+      const supabase = createBrowserClient();
+      const path = `pinterest-pins/${pin.id}.png`;
+      await supabase.storage.from('quiz-images').upload(path, blob, { upsert: true, contentType: 'image/png' });
+      const { data: urlData } = supabase.storage.from('quiz-images').getPublicUrl(path);
+      const publicUrl = urlData.publicUrl;
+
+      // Save the public URL to the pin record
+      await fetch(`/api/admin/pinterest/${pin.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_public_url: publicUrl }),
+      });
+
+      setPin(prev => ({ ...prev, image_public_url: publicUrl }));
+      setImagePreviewUrl(URL.createObjectURL(blob));
+
+      // Also download locally
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = `pin-${pin.id.slice(0, 8)}.png`;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
+    } catch (err) {
+      console.error('Download/upload error:', err);
       alert('Failed to download. Please try again.');
     } finally {
       setDownloading(false);

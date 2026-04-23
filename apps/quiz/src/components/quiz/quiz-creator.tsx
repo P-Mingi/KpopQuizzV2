@@ -73,6 +73,188 @@ function StepHeader({ step, title, description }: { step: number; title: string;
 
 const INPUT_CLASSES = 'w-full px-4 py-3 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors';
 
+function GroupDropdown({
+  groups,
+  selectedGroupId,
+  customGroupName,
+  onSelectGroup,
+  onCustomGroup,
+}: {
+  groups: GroupOption[];
+  selectedGroupId: number | null;
+  customGroupName: string;
+  onSelectGroup: (id: number) => void;
+  onCustomGroup: (name: string) => void;
+}): React.ReactElement {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const selectedGroup = selectedGroupId && selectedGroupId !== -1
+    ? groups.find((g) => g.id === selectedGroupId)
+    : null;
+
+  const displayLabel = selectedGroup
+    ? selectedGroup.name
+    : selectedGroupId === -1
+      ? 'None / General K-pop'
+      : customGroupName || '';
+
+  const filtered = search.trim()
+    ? groups.filter((g) => g.name.toLowerCase().includes(search.trim().toLowerCase()))
+    : groups;
+
+  const searchTrimmed = search.trim();
+  const exactMatch = searchTrimmed
+    ? groups.some((g) => g.name.toLowerCase() === searchTrimmed.toLowerCase())
+    : true;
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
+  return (
+    <div ref={containerRef} className="relative">
+      {/* Trigger button */}
+      <button
+        type="button"
+        onClick={() => { setOpen(!open); setSearch(''); }}
+        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border-2 text-sm font-medium cursor-pointer transition-all ${
+          open
+            ? 'border-accent bg-accent-bg'
+            : displayLabel
+              ? 'border-accent bg-accent-bg text-accent-hover'
+              : 'border-default bg-primary text-secondary hover:border-accent'
+        }`}
+      >
+        <span className={displayLabel ? 'text-primary' : 'text-tertiary'}>
+          {displayLabel || 'Select a group or artist...'}
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          className={`flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+        >
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Dropdown */}
+      {open && (
+        <div className="absolute z-50 top-full left-0 right-0 mt-1.5 bg-primary border border-default rounded-xl shadow-lg overflow-hidden animate-fade-in">
+          {/* Search input */}
+          <div className="p-2.5 border-b border-default">
+            <div className="relative">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary"
+              >
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search groups..."
+                autoFocus
+                className="w-full pl-9 pr-3 py-2 rounded-lg border border-default bg-surface text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* Options list */}
+          <div className="max-h-60 overflow-y-auto overscroll-contain py-1">
+            {/* General K-pop option */}
+            {(!searchTrimmed || 'general k-pop'.includes(searchTrimmed.toLowerCase()) || 'none'.includes(searchTrimmed.toLowerCase())) && (
+              <button
+                type="button"
+                onClick={() => { onSelectGroup(-1); setOpen(false); setSearch(''); }}
+                className={`w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 ${
+                  selectedGroupId === -1
+                    ? 'bg-accent-bg text-accent-hover font-medium'
+                    : 'text-primary hover:bg-surface'
+                }`}
+              >
+                <span className="w-5 h-5 rounded-full bg-elevated flex items-center justify-center text-[10px] text-tertiary flex-shrink-0">*</span>
+                None / General K-pop
+              </button>
+            )}
+
+            {filtered.map((g) => (
+              <button
+                key={g.id}
+                type="button"
+                onClick={() => { onSelectGroup(g.id); setOpen(false); setSearch(''); }}
+                className={`w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 ${
+                  selectedGroupId === g.id
+                    ? 'bg-accent-bg text-accent-hover font-medium'
+                    : 'text-primary hover:bg-surface'
+                }`}
+              >
+                <span className="w-5 h-5 rounded-full bg-elevated flex items-center justify-center text-[10px] font-medium text-secondary flex-shrink-0">
+                  {g.name.charAt(0)}
+                </span>
+                {g.name}
+                {selectedGroupId === g.id && (
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="ml-auto flex-shrink-0 text-accent">
+                    <path d="M3 8.5l3.5 3.5L13 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </button>
+            ))}
+
+            {/* No results */}
+            {filtered.length === 0 && searchTrimmed && (
+              <p className="px-4 py-3 text-xs text-tertiary text-center">No groups found</p>
+            )}
+
+            {/* Add new group option */}
+            {searchTrimmed.length >= 2 && !exactMatch && (
+              <button
+                type="button"
+                onClick={() => { onCustomGroup(searchTrimmed); setOpen(false); setSearch(''); }}
+                className="w-full text-left px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center gap-2 border-t border-default text-accent hover:bg-accent-bg"
+              >
+                <span className="w-5 h-5 rounded-full bg-accent-bg flex items-center justify-center flex-shrink-0">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </span>
+                Add &quot;{searchTrimmed}&quot; as new group
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Custom group info message */}
+      {customGroupName.trim().length >= 2 && !selectedGroupId && (
+        <p className="text-xs text-secondary mt-2 flex items-start gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 mt-0.5">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M8 7v4M8 5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          &quot;{customGroupName.trim()}&quot; is not in our database yet. It will be added automatically when you publish your quiz.
+        </p>
+      )}
+    </div>
+  );
+}
+
 // ============================================
 // Main Component
 // ============================================
@@ -477,50 +659,13 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
         <ProgressDots step={1} />
         <StepHeader step={1} title="Pick a group" description="Which group is your quiz about?" />
 
-        <div className="flex flex-wrap gap-2 mb-5">
-          {/* None option */}
-          <button
-            onClick={() => { setSelectedGroupId(-1); setCustomGroupName(''); }}
-            className={`px-5 py-2 rounded-full text-sm font-medium border-2 cursor-pointer transition-colors ${
-              selectedGroupId === -1
-                ? 'border-accent bg-accent-bg text-accent-hover'
-                : 'border-default text-primary bg-surface hover:border-accent'
-            }`}
-          >
-            None / General K-pop
-          </button>
-          {groups.map((g) => (
-            <button
-              key={g.id}
-              onClick={() => { setSelectedGroupId(g.id); setCustomGroupName(''); }}
-              className={`px-4 py-2 rounded-full text-sm border cursor-pointer transition-colors ${
-                selectedGroupId === g.id
-                  ? 'border-accent bg-accent-bg text-accent-hover'
-                  : 'border-default text-secondary bg-primary hover:border-default'
-              }`}
-            >
-              {g.name}
-            </button>
-          ))}
-        </div>
-
-        <input
-          type="text"
-          placeholder="Or type a group name..."
-          value={customGroupName}
-          onChange={(e) => { setCustomGroupName(e.target.value); setSelectedGroupId(null); }}
-          className={`${INPUT_CLASSES} mt-3`}
+        <GroupDropdown
+          groups={groups}
+          selectedGroupId={selectedGroupId}
+          customGroupName={customGroupName}
+          onSelectGroup={(id) => { setSelectedGroupId(id); setCustomGroupName(''); }}
+          onCustomGroup={(name) => { setCustomGroupName(name); setSelectedGroupId(null); }}
         />
-
-        {customGroupName.trim().length >= 2 && !selectedGroupId && !groups.some((g) => g.name.toLowerCase() === customGroupName.trim().toLowerCase()) && (
-          <p className="text-xs text-secondary mt-2 flex items-start gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 mt-0.5">
-              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M8 7v4M8 5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            &quot;{customGroupName.trim()}&quot; is not in our database yet. It will be added automatically when you publish your quiz.
-          </p>
-        )}
 
         <button
           onClick={() => setStep(2)}

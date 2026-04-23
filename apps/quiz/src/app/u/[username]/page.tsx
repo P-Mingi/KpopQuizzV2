@@ -9,6 +9,7 @@ import { XpProgress } from '@/components/ui/xp-progress';
 import { BadgeGrid } from '@/components/ui/badge-grid';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
+import { ProfileEditor } from '@/components/profile/profile-editor';
 import { ProfileTabs } from './profile-tabs';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount, formatJoinDate } from '@/lib/utils';
@@ -196,6 +197,17 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
       {profile.bio && (
         <p className="text-sm mt-2 max-w-md text-primary">{profile.bio}</p>
+      )}
+
+      {isOwnProfile && (
+        <ProfileEditor
+          username={profile.username}
+          displayName={profile.display_name}
+          avatarUrl={profile.avatar_url}
+          avatarBg={profile.avatar_bg}
+          avatarText={profile.avatar_text}
+          bio={profile.bio}
+        />
       )}
 
       {/* XP Progress */}

@@ -229,32 +229,33 @@ export function CardsLanding({ data }: Props) {
             View all {data.totalOwned}/{data.totalCards} &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {data.groupStats.map(g => {
             const gm = getGroupMeta(g.slug);
             return (
               <Link key={g.slug} href={`/cards/${g.slug}`}>
                 <div style={{
-                  padding: '10px 12px', borderRadius: 14, cursor: 'pointer',
+                  padding: '14px 16px', borderRadius: 16, cursor: 'pointer',
                   background: '#fff',
                   border: `1.5px solid ${gm.borderColor}`,
                   boxShadow: `0 2px 12px ${gm.shadowColor}`,
                   transition: 'all 0.2s',
                   fontFamily: "'Quicksand', 'Segoe UI', sans-serif",
+                  height: '100%',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginBottom: 10 }}>
                     <div style={{
-                      width: 36, height: 36, borderRadius: '50%',
+                      width: 42, height: 42, borderRadius: '50%',
                       background: gm.bg,
                       border: `1.5px solid ${gm.borderColor}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 14,
+                      fontSize: 18,
                     }}>
                       {gm.emoji}
                     </div>
-                    <div>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: gm.textColor, margin: 0 }}>{g.name}</p>
-                      <p style={{ fontSize: 10, color: gm.textMuted, margin: 0 }}>{g.owned}/{g.total} cards</p>
+                    <div style={{ textAlign: 'center' }}>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: gm.textColor, margin: 0 }}>{g.name}</p>
+                      <p style={{ fontSize: 10, color: gm.textMuted, margin: 0, marginTop: 2 }}>{g.owned}/{g.total} cards</p>
                     </div>
                   </div>
                   <div style={{ height: 5, borderRadius: 3, background: '#F0EDE8', overflow: 'hidden' }}>
