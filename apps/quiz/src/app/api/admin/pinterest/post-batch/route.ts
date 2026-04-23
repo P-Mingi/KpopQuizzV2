@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
-import { createPinterestPin } from '@/lib/pinterest-api';
+import { createPinterestPin, createPinterestBoard } from '@/lib/pinterest-api';
 
 import type { NextRequest } from 'next/server';
 
@@ -42,15 +42,20 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         continue;
       }
 
-      const { data: board } = await adminDb
+      let { data: board } = await adminDb
         .from('pinterest_boards')
         .select('pinterest_board_id')
         .eq('board_name', pin.board)
         .single();
 
       if (!board) {
-        results.push({ pin_id: pinId, success: false, error: `Board "${pin.board}" not found` });
-        continue;
+        const created = await createPinterestBoard(pin.board as string);
+        if (!created) {
+          results.push({ pin_id: pinId, success: false, error: `Board "${pin.board}" could not be created` });
+          continue;
+        }
+        await adminDb.from('pinterest_boards').insert({ pinterest_board_id: created.id, board_name: created.name });
+        board = { pinterest_board_id: created.id };
       }
 
       const imageUrl = pin.image_public_url || pin.generated_image_url || pin.image_url;

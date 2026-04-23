@@ -77,6 +77,13 @@ export function CardsLanding({ data }: Props) {
   }
 
   async function handleOpenPack(packSlug: string) {
+    // Find the pack cost and check balance
+    const pack = data.packs.find(p => p.slug === packSlug);
+    const cost = pack?.cost ?? 100;
+    if (currentByeol < cost) {
+      alert(`Not enough Byeol. You need ${cost} but have ${currentByeol}.`);
+      return;
+    }
     const result = await callOpenPack(packSlug);
     if (!result) return;
     setPackResult(result);

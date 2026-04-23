@@ -102,6 +102,31 @@ export async function getPinterestBoards(): Promise<Array<{ id: string; name: st
   }));
 }
 
+export async function createPinterestBoard(name: string, description?: string): Promise<{ id: string; name: string } | null> {
+  const token = await getPinterestToken();
+
+  const res = await fetch('https://api.pinterest.com/v5/boards', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      description: description ?? '',
+      privacy: 'PUBLIC',
+    }),
+  });
+
+  if (!res.ok) {
+    console.error('[pinterest] create board failed:', await res.text());
+    return null;
+  }
+
+  const data = await res.json();
+  return { id: data.id as string, name: data.name as string };
+}
+
 // ---------------------------------------------------------------------------
 // Pin creation
 // ---------------------------------------------------------------------------

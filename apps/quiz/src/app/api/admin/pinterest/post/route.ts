@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
-import { createPinterestPin } from '@/lib/pinterest-api';
+import { createPinterestPin, createPinterestBoard } from '@/lib/pinterest-api';
 
 import type { NextRequest } from 'next/server';
 
@@ -35,17 +35,30 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   // Resolve the board ID
-  const { data: board } = await adminDb
+  let { data: board } = await adminDb
     .from('pinterest_boards')
     .select('pinterest_board_id')
     .eq('board_name', pin.board)
     .single();
 
   if (!board) {
-    return NextResponse.json(
-      { error: `Board "${pin.board}" not found. Sync boards first.` },
-      { status: 400 },
-    );
+    // Auto-create the board on Pinterest
+    const boardName = pin.board as string;
+    const created = await createPinterestBoard(boardName);
+    if (!created) {
+      return NextResponse.json(
+        { error: `Board "${boardName}" could not be created on Pinterest.` },
+        { status: 500 },
+      );
+    }
+
+    // Save the new board to our DB
+    await adminDb.from('pinterest_boards').insert({
+      pinterest_board_id: created.id,
+      board_name: created.name,
+    });
+
+    board = { pinterest_board_id: created.id };
   }
 
   // Determine image URL: prefer image_public_url, then generated_image_url, then image_url
