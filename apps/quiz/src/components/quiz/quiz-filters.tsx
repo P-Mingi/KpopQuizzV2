@@ -103,14 +103,6 @@ interface TypeFilterPillsProps {
   types?: TypeOption[];
 }
 
-const DOT_VAR: Record<QuizTypeKey, string> = {
-  classic: 'var(--type-classic)',
-  image: 'var(--type-image)',
-  intruder: 'var(--type-intruder)',
-  tf: 'var(--type-tf)',
-  clue: 'var(--type-clue)',
-};
-
 export function TypeFilterPills({
   selected,
   onChange,
