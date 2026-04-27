@@ -5,6 +5,7 @@ import { getAllQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
+import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 import { TrendingCard } from '@/components/home/trending-card';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
 import { ByeolCTABanner } from '@/components/cards/byeol-cta-banner';
@@ -98,7 +99,7 @@ async function FeedSection(): Promise<React.ReactElement> {
 
 async function CreatorsSection(): Promise<React.ReactElement> {
   const topCreators = await safeFetch(getTopCreatorsThisWeek(5), [], '[home] getTopCreatorsThisWeek');
-  return <CreatorLeaderboard creators={topCreators} />;
+  return <CreatorLeaderboard creators={padWeeklyLeaderboard(topCreators, 6)} />;
 }
 
 /* ---------- Skeleton fallbacks ---------- */

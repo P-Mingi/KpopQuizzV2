@@ -27,8 +27,6 @@ export default async function ThisOrThatGamePage({ params }: PageProps) {
   if (!category) notFound();
 
   return (
-    <div style={{ background: '#0C0C0E', minHeight: '100vh', color: '#fff' }}>
-      <ThisOrThatGame category={category} />
-    </div>
+    <ThisOrThatGame category={category} />
   );
 }

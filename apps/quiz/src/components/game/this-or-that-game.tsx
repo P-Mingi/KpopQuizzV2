@@ -286,7 +286,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
     return (
       <div
         style={{
-          minHeight: '100vh',
+          minHeight: isMobile ? '100vh' : 'auto',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -294,6 +294,11 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           padding: '40px 20px',
           background: C.bg,
           position: 'relative',
+          maxWidth: isMobile ? undefined : 800,
+          margin: isMobile ? undefined : '24px auto',
+          borderRadius: isMobile ? undefined : 20,
+          overflow: 'hidden',
+          boxShadow: isMobile ? undefined : '0 8px 40px rgba(0,0,0,0.25)',
         }}
       >
         <a
@@ -385,7 +390,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
     return (
       <div
         style={{
-          minHeight: '100vh',
+          minHeight: isMobile ? '100vh' : 'auto',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -393,6 +398,11 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           padding: '40px 20px',
           background: C.bg,
           animation: 'totFadeIn 500ms ease-out',
+          maxWidth: isMobile ? undefined : 800,
+          margin: isMobile ? undefined : '24px auto',
+          borderRadius: isMobile ? undefined : 20,
+          overflow: 'hidden',
+          boxShadow: isMobile ? undefined : '0 8px 40px rgba(0,0,0,0.25)',
         }}
       >
         <p
@@ -581,12 +591,16 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   return (
     <div
       style={{
-        height: '100dvh',
+        height: isMobile ? '100dvh' : 'auto',
+        maxHeight: isMobile ? undefined : '85vh',
         display: 'flex',
         flexDirection: 'column',
         background: C.bg,
-        maxWidth: isMobile ? undefined : 900,
-        margin: isMobile ? undefined : '0 auto',
+        maxWidth: isMobile ? undefined : 800,
+        margin: isMobile ? undefined : '24px auto',
+        borderRadius: isMobile ? undefined : 20,
+        overflow: isMobile ? undefined : 'hidden',
+        boxShadow: isMobile ? undefined : '0 8px 40px rgba(0,0,0,0.25)',
       }}
     >
       {/* Top bar */}
@@ -692,8 +706,6 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
             flexDirection: isMobile ? 'column' : 'row',
             flex: 1,
             position: 'relative',
-            maxHeight: isMobile ? undefined : 'calc(100dvh - 100px)',
-            borderRadius: isMobile ? undefined : 16,
             overflow: 'hidden',
           }}
         >

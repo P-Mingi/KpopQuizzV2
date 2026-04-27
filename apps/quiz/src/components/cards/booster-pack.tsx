@@ -109,7 +109,7 @@ export function BoosterPack({ type, cost, groupSlug, endsIn, onClick, disabled }
         background: 'rgba(0,0,0,0.35)',
         backdropFilter: 'blur(4px)',
       }}>
-        <span style={{ fontSize: 14, fontWeight: 700, color: '#e8a060' }}>{cost} \u2B50</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#e8a060' }}>{cost} byeol</span>
         <span style={{
           padding: '6px 16px', borderRadius: 10,
           fontSize: 11, fontWeight: 700, color: '#fff',

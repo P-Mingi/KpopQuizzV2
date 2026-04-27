@@ -1,14 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CardTile } from './card-tile';
-import { RARITY_CONFIG, getGroupMeta, type Rarity } from '@/lib/cards/constants';
-import {
-  playTear, playFlipForRarity, playNewCard, playDuplicate, playCelebration,
-} from '@/lib/cards/sounds';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { getGroupMeta } from '@/lib/cards/constants';
 
-// ---- Types ----
+// ---- Types (kept for back-compat with cards-landing) ----
 
 interface PulledCard {
   card_id: string;
@@ -36,8 +32,6 @@ export interface PackOpenResult {
   new_balance: number;
 }
 
-type Phase = 'PACK_DISPLAY' | 'TEARING' | 'CARDS_DOWN' | 'REVEALING' | 'BEST_PULL' | 'SUMMARY';
-
 interface Props {
   result: PackOpenResult;
   packSlug: string;
@@ -47,536 +41,524 @@ interface Props {
   onOpenAnother?: ((slug: string) => Promise<PackOpenResult | null>) | undefined;
 }
 
-// ---- Helpers ----
+const RARITY_ORDER: Record<string, number> = { R: 1, S: 2, SS: 3, SSS: 4 };
 
-function useMobile() {
-  const [m, setM] = useState(false);
-  useEffect(() => {
-    setM(window.innerWidth < 768);
-    const h = () => setM(window.innerWidth < 768);
-    window.addEventListener('resize', h);
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return m;
-}
-
-function genSparkles(count: number) {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    dur: 1.5 + Math.random() * 2,
-    delay: Math.random() * 3,
-  }));
-}
-
-function genParticles(count: number, rarity: string) {
-  const colors = rarity === 'SSS'
-    ? ['#e8a060', '#f0d0a0', '#ffe8c0', '#fff']
-    : ['#c0a0e8', '#d0c0f0', '#e8d0ff', '#fff'];
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    size: 2 + Math.random() * 4,
-    dur: 2 + Math.random() * 3,
-    delay: Math.random() * 2,
-    color: colors[i % colors.length]!,
-  }));
-}
-
-// ---- Card back ----
-
-function CardBack({ size, delay = 0 }: { size: 'sm' | 'md' | 'lg'; delay?: number }) {
-  const w = size === 'sm' ? 60 : size === 'md' ? 100 : 140;
-  const h = size === 'sm' ? 90 : size === 'md' ? 150 : 210;
-  return (
-    <div
-      className="relative overflow-hidden rounded-lg"
-      style={{
-        width: w, height: h,
-        background: 'linear-gradient(155deg, #1a1a2e, #0f0f1a)',
-        border: '2px solid #2a2a3a',
-      }}
-    >
-      {/* Star pattern */}
-      <div className="absolute inset-0 opacity-[0.06]" style={{
-        backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-        backgroundSize: '12px 12px',
-      }} />
-      {/* Center logo */}
-      <div className="absolute inset-0 flex items-center justify-center text-white/[0.08] font-bold"
-        style={{ fontSize: size === 'sm' ? 8 : size === 'md' ? 11 : 16 }}>
-        KQ
-      </div>
-      {/* Shimmer */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-0 h-full w-[60%] -skew-x-12"
-          style={{
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)',
-            animation: `shimmer 2.5s ${delay}s ease-in-out infinite`,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-// ---- Main component ----
+// ---- Component ----
 
 export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClose, onOpenAnother }: Props) {
-  const isMobile = useMobile();
-  const [phase, setPhase] = useState<Phase>('PACK_DISPLAY');
-  const [revealIndex, setRevealIndex] = useState(-1);
-  const [showSkip, setShowSkip] = useState(false);
-  const [currentBalance, setCurrentBalance] = useState(balance);
+  const router = useRouter();
+  const [phase, setPhase] = useState('pack');
+  const [revealedCards, setRevealedCards] = useState<number[]>([]);
   const [currentResult, setCurrentResult] = useState(result);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [currentBalance, setCurrentBalance] = useState(balance);
+  const [bestPullIdx, setBestPullIdx] = useState(-1);
+  const [showSummary, setShowSummary] = useState(false);
+  const [particles, setParticles] = useState<Array<{ id: number; x: number; delay: number; dur: number; size: number; color: string }>>([]);
+  const [screenShake, setScreenShake] = useState(false);
+  const [showSkip, setShowSkip] = useState(false);
+  const audioRef = useRef<AudioContext | null>(null);
 
-  const cards = currentResult.cards;
-  const bestCard = cards.reduce((best, c) => {
-    const order = (RARITY_CONFIG[c.rarity as Rarity]?.order ?? 0);
-    const bestOrder = (RARITY_CONFIG[best.rarity as Rarity]?.order ?? 0);
-    return order > bestOrder ? c : best;
-  }, cards[0]!);
-  const sparkles = useRef(genSparkles(isMobile ? 12 : 20)).current;
-  const particles = useRef(genParticles(isMobile ? 30 : 50, bestCard.rarity)).current;
+  const CARDS = currentResult.cards;
 
-  const groupMeta = getGroupMeta(cards[0]?.group_slug ?? 'bts');
+  useEffect(() => {
+    setCurrentBalance(currentResult.new_balance);
+  }, [currentResult]);
 
-  // Show skip after 2s (not for starter packs)
   useEffect(() => {
     if (isStarter) return;
     const t = setTimeout(() => setShowSkip(true), 2000);
     return () => clearTimeout(t);
   }, [isStarter]);
 
-  // Update balance from result
-  useEffect(() => {
-    setCurrentBalance(currentResult.new_balance);
-  }, [currentResult]);
+  function playTone(freq: number, dur: number, type: OscillatorType = 'triangle', vol = 0.08) {
+    try {
+      if (!audioRef.current) audioRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      const ctx = audioRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + dur);
+    } catch { /* audio not available */ }
+  }
 
-  // Clean up timers
-  useEffect(() => {
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, []);
+  function playChord(freqs: number[], dur: number, delay = 60) {
+    freqs.forEach((f, i) => setTimeout(() => playTone(f, dur, 'triangle', 0.06), i * delay));
+  }
 
-  // ---- Phase transitions ----
+  function tearPack() {
+    setPhase('tearing');
+    playTone(200, 0.3, 'sawtooth', 0.04);
+    setTimeout(() => playTone(150, 0.2, 'sawtooth', 0.03), 100);
 
-  const startTear = useCallback(() => {
-    setPhase('TEARING');
-    playTear();
-    timerRef.current = setTimeout(() => {
-      setPhase('CARDS_DOWN');
-      timerRef.current = setTimeout(() => {
-        setPhase('REVEALING');
-        setRevealIndex(0);
-      }, 600);
-    }, 900);
-  }, []);
+    setTimeout(() => {
+      setPhase('burst');
+      playChord([400, 500, 600], 0.3, 40);
+    }, 700);
 
-  // Auto-reveal cards one by one
-  useEffect(() => {
-    if (phase !== 'REVEALING' || revealIndex < 0) return;
-    if (revealIndex >= cards.length) {
-      // All revealed, move to best pull
-      timerRef.current = setTimeout(() => {
-        setPhase('BEST_PULL');
-        playCelebration();
-        timerRef.current = setTimeout(() => setPhase('SUMMARY'), 2500);
-      }, 800);
+    setTimeout(() => {
+      setPhase('facedown');
+      [0, 1, 2, 3, 4].forEach((i) => {
+        setTimeout(() => playTone(300 + i * 40, 0.08, 'sine', 0.03), i * 80);
+      });
+    }, 1200);
+
+    setTimeout(() => revealNext(0), 2000);
+  }
+
+  const revealNext = useCallback((idx: number) => {
+    if (idx >= CARDS.length) {
+      setTimeout(() => doBestPull(), 600);
       return;
     }
+    setPhase('revealing');
 
-    // Play sounds for current card
-    const card = cards[revealIndex]!;
-    playFlipForRarity(card.rarity);
+    const card = CARDS[idx]!;
+    const r = card.rarity;
+
+    if (r === 'R') {
+      playTone(400, 0.15, 'sine', 0.05);
+    } else if (r === 'S') {
+      playChord([500, 630], 0.25, 50);
+    } else if (r === 'SS') {
+      playChord([400, 500, 630, 800], 0.4, 60);
+      setTimeout(() => { setScreenShake(true); setTimeout(() => setScreenShake(false), 400); }, 300);
+    } else if (r === 'SSS') {
+      playChord([350, 440, 550, 700, 880], 0.6, 70);
+      setTimeout(() => { setScreenShake(true); setTimeout(() => setScreenShake(false), 600); }, 200);
+    }
+
     setTimeout(() => {
-      if (card.is_new) playNewCard();
-      else playDuplicate();
-    }, 350);
+      if (card.is_new) playTone(880, 0.12, 'sine', 0.04);
+      else playTone(180, 0.08, 'sine', 0.03);
+    }, 500);
 
-    // Schedule next card
-    timerRef.current = setTimeout(() => {
-      setRevealIndex(i => i + 1);
-    }, 700);
-  }, [phase, revealIndex, cards]);
+    setRevealedCards(prev => [...prev, idx]);
+    setTimeout(() => revealNext(idx + 1), 900);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [CARDS]);
 
-  const handleSkip = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setRevealIndex(cards.length);
-    setPhase('SUMMARY');
-    if (bestCard.rarity === 'SS' || bestCard.rarity === 'SSS') playCelebration();
-  }, [cards.length, bestCard.rarity]);
+  function doBestPull() {
+    const bestIdx = CARDS.reduce((best, c, i) =>
+      (RARITY_ORDER[c.rarity] ?? 0) > (RARITY_ORDER[CARDS[best]!.rarity] ?? 0) ? i : best, 0);
+    setBestPullIdx(bestIdx);
+    setPhase('bestpull');
 
-  const handleOpenAnother = useCallback(async () => {
+    const best = CARDS[bestIdx]!;
+    const bestG = getGroupMeta(best.group_slug);
+    if (best.rarity === 'SS' || best.rarity === 'SSS') {
+      playChord([400, 500, 600, 750, 900], 0.5, 80);
+      setTimeout(() => playChord([500, 630, 800, 1000], 0.4, 60), 300);
+      setParticles(Array.from({ length: 40 }, (_, i) => ({
+        id: i, x: Math.random() * 100, delay: Math.random() * 2,
+        dur: 3 + Math.random() * 3, size: 3 + Math.random() * 5,
+        color: ['#e8a060', '#f0d0a0', '#ffe8c0', '#fff', bestG.textColor][i % 5]!,
+      })));
+    } else {
+      playChord([400, 500, 630], 0.35, 70);
+    }
+
+    setTimeout(() => { setShowSummary(true); setPhase('summary'); }, 2500);
+  }
+
+  function handleSkip() {
+    setRevealedCards(CARDS.map((_, i) => i));
+    setShowSummary(true);
+    setPhase('summary');
+    const bestIdx = CARDS.reduce((best, c, i) =>
+      (RARITY_ORDER[c.rarity] ?? 0) > (RARITY_ORDER[CARDS[best]!.rarity] ?? 0) ? i : best, 0);
+    setBestPullIdx(bestIdx);
+    if (CARDS[bestIdx]!.rarity === 'SS' || CARDS[bestIdx]!.rarity === 'SSS') {
+      playChord([400, 500, 600, 750, 900], 0.5, 80);
+    }
+  }
+
+  async function handleOpenAnother() {
     if (!onOpenAnother) return;
     const newResult = await onOpenAnother(packSlug);
     if (!newResult) return;
     setCurrentResult(newResult);
-    setRevealIndex(-1);
-    setPhase('PACK_DISPLAY');
+    setRevealedCards([]);
+    setBestPullIdx(-1);
+    setShowSummary(false);
+    setParticles([]);
+    setPhase('pack');
     setShowSkip(false);
     setTimeout(() => setShowSkip(true), 2000);
-  }, [onOpenAnother, packSlug]);
+  }
 
-  // Rarity breakdown for summary
-  const rarityBreakdown = (['R', 'S', 'SS', 'SSS'] as const).map(r => ({
-    rarity: r,
-    count: cards.filter(c => c.rarity === r).length,
-  }));
+  const bestCard = bestPullIdx >= 0 ? CARDS[bestPullIdx] : null;
+  const bestG = bestCard ? getGroupMeta(bestCard.group_slug) : null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
-        style={{ background: 'radial-gradient(ellipse at 50% 40%, #141428, #0a0a12)' }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Ambient sparkles */}
-        {sparkles.map(s => (
-          <div key={s.id} className="absolute w-[2px] h-[2px] rounded-full bg-white/[0.12] pointer-events-none"
-            style={{ left: `${s.x}%`, top: `${s.y}%`, animation: `sparkle ${s.dur}s ${s.delay}s infinite` }}
-          />
-        ))}
+    <div style={{
+      position: "fixed", inset: 0, zIndex: 100,
+      background: "radial-gradient(ellipse at 50% 35%, #1a1028, #0e0818, #080410)",
+      fontFamily: "'Quicksand', 'Segoe UI', sans-serif",
+      animation: screenShake ? "shake 0.4s ease-out" : "none",
+    }}>
+      {/* Close */}
+      <button onClick={onClose} style={{
+        position: "absolute", top: 20, left: 20, zIndex: 110,
+        fontSize: 12, color: "rgba(255,255,255,0.15)", background: "transparent",
+        border: "none", cursor: "pointer",
+      }}>{'\u2715'} Close</button>
 
-        {/* Close button */}
-        <button onClick={onClose}
-          className="absolute top-5 left-5 md:top-6 md:left-8 z-[110] text-xs text-white/15 hover:text-white/30 transition-colors cursor-pointer bg-transparent border-none">
-          x Close
-        </button>
+      {/* Balance */}
+      <div style={{
+        position: "absolute", top: 20, right: 20, zIndex: 110,
+        display: "flex", alignItems: "center", gap: 6, padding: "6px 12px",
+        borderRadius: 8, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "#e8a060" }}>{currentBalance}</span>
+        <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)" }}>{'\uBCC4'}</span>
+      </div>
 
-        {/* Balance */}
-        <div className="absolute top-5 right-5 md:top-6 md:right-8 z-[110] flex items-center gap-1.5 px-3 py-1.5 rounded-lg"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-          <span className="text-sm font-bold text-amber-500 tabular-nums">{currentBalance}</span>
-          <span className="text-xs">&#11088;</span>
-        </div>
+      {/* Skip */}
+      {showSkip && phase !== 'pack' && phase !== 'summary' && (
+        <button onClick={handleSkip} style={{
+          position: "absolute", top: 56, right: 20, zIndex: 110,
+          padding: "6px 14px", borderRadius: 8,
+          fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.25)",
+          background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)",
+          cursor: "pointer",
+        }}>Skip {'\u203A'}</button>
+      )}
 
-        {/* Skip */}
-        {showSkip && phase !== 'PACK_DISPLAY' && phase !== 'SUMMARY' && (
-          <motion.button
-            className="absolute top-14 right-5 md:top-16 md:right-8 z-[110] px-4 py-2 rounded-lg text-xs font-medium text-white/30 hover:text-white/50 transition-colors cursor-pointer"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            onClick={handleSkip}
-          >
-            Skip &rsaquo;
-          </motion.button>
-        )}
+      {/* Ambient sparkles */}
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div key={`sp${i}`} style={{
+          position: "absolute",
+          left: `${5 + (i * 47) % 90}%`,
+          top: `${5 + (i * 31) % 80}%`,
+          width: 2, height: 2, borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+          animation: `twinkle ${2 + (i % 3)}s ${(i * 0.3) % 2}s infinite`,
+        }} />
+      ))}
 
-        {/* ---- PHASE 1: Pack display ---- */}
-        {phase === 'PACK_DISPLAY' && (
-          <motion.div
-            className="text-center cursor-pointer"
-            onClick={startTear}
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="relative mx-auto rounded-[18px] overflow-hidden"
-              style={{
-                width: isMobile ? 180 : 220,
-                height: isMobile ? 260 : 320,
-                background: `linear-gradient(135deg, ${groupMeta.textColor}, ${groupMeta.textColor}dd, ${groupMeta.textColor}99)`,
-                border: `2px solid ${groupMeta.borderColor}`,
-                boxShadow: `0 0 30px ${groupMeta.shadowColor}`,
-                animation: 'packFloat 3s ease-in-out infinite',
-              }}
-            >
-              <div className="absolute inset-0 opacity-[0.025]" style={{
-                backgroundImage: 'repeating-linear-gradient(45deg, white 0px, white 1px, transparent 1px, transparent 8px)',
-              }} />
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="w-14 h-14 rounded-xl backdrop-blur-md flex items-center justify-center mb-3"
-                  style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="text-xl font-extrabold text-white/70">
-                    {isStarter ? '!' : groupMeta.abbr}
-                  </span>
-                </div>
-                <p className="text-[15px] font-bold text-white">
-                  {isStarter ? 'Starter Pack' : packSlug === 'standard' ? 'Standard Pack' : `${groupMeta.name} Pack`}
-                </p>
-                <p className="text-[11px] text-white/50">
-                  {isStarter ? 'Welcome gift' : '5 cards'}
-                </p>
-              </div>
+      {/* Falling particles */}
+      {particles.map(p => (
+        <div key={p.id} style={{
+          position: "absolute", left: `${p.x}%`, top: -10,
+          width: p.size, height: p.size, borderRadius: "50%",
+          background: p.color, zIndex: 5,
+          animation: `fall ${p.dur}s ${p.delay}s linear infinite`,
+        }} />
+      ))}
+
+      {/* PACK DISPLAY */}
+      {phase === 'pack' && (
+        <div onClick={tearPack} style={{
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+          height: "100vh", cursor: "pointer",
+        }}>
+          <div style={{
+            width: 160, height: 230, borderRadius: 18,
+            background: "linear-gradient(155deg, #fff0f3, #ffe0e8, #ffd0d8)",
+            border: "2.5px solid rgba(255,200,210,0.5)",
+            boxShadow: "0 0 40px rgba(255,150,180,0.2), 0 8px 24px rgba(0,0,0,0.3)",
+            animation: "packFloat 3s ease-in-out infinite",
+            position: "relative", overflow: "hidden",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.25) 40%, transparent 60%)",
+              animation: "shimmerSweep 2.5s ease-in-out infinite",
+            }} />
+            <div style={{
+              position: "absolute", inset: 0, opacity: 0.04,
+              backgroundImage: "repeating-linear-gradient(45deg, white 0px, white 1px, transparent 1px, transparent 8px)",
+            }} />
+            <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+              <div style={{
+                width: 44, height: 44, borderRadius: 12,
+                background: "rgba(255,255,255,0.4)", backdropFilter: "blur(8px)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                margin: "0 auto 8px", fontSize: 20,
+              }}>{'\uD83C\uDCCF'}</div>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "#d06080", margin: 0 }}>
+                {isStarter ? 'Starter Pack' : packSlug === 'standard' ? 'Standard Pack' : 'Group Pack'}
+              </p>
+              <p style={{ fontSize: 8, color: "rgba(220,100,140,0.5)", margin: 0, marginTop: 2 }}>
+                {isStarter ? 'Welcome gift' : '5 cards inside'}
+              </p>
             </div>
-            <motion.p
-              className="mt-6 text-xs text-white/25"
-              animate={{ opacity: [0.2, 0.5, 0.2] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Tap to open...
-            </motion.p>
-          </motion.div>
-        )}
-
-        {/* ---- PHASE 2: Tearing ---- */}
-        {phase === 'TEARING' && (
-          <div className="relative" style={{ width: isMobile ? 180 : 220, height: isMobile ? 260 : 320 }}>
-            {/* Top half */}
-            <motion.div
-              className="absolute top-0 left-0 w-full overflow-hidden rounded-t-[18px]"
-              style={{
-                height: '50%',
-                background: `linear-gradient(155deg, ${groupMeta.textColor}, ${groupMeta.textColor}dd)`,
-                border: '2px solid rgba(212,83,126,0.35)',
-                borderBottom: 'none',
-              }}
-              initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-              animate={{ x: -200, y: -120, rotate: -12, opacity: 0 }}
-              transition={{ duration: 0.8, ease: 'easeIn' }}
-            />
-            {/* Bottom half */}
-            <motion.div
-              className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-[18px]"
-              style={{
-                height: '50%',
-                background: `linear-gradient(155deg, ${groupMeta.textColor}dd, ${groupMeta.textColor}99)`,
-                border: '2px solid rgba(212,83,126,0.35)',
-                borderTop: 'none',
-              }}
-              initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-              animate={{ x: 200, y: 120, rotate: 12, opacity: 0 }}
-              transition={{ duration: 0.8, ease: 'easeIn' }}
-            />
-            {/* Light burst */}
-            <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{ width: 300, height: 300, background: 'radial-gradient(circle, rgba(212,83,126,0.35), transparent 70%)' }}
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: 2.5, opacity: [0, 0.8, 0] }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-            />
           </div>
-        )}
+          <p style={{ fontSize: 10, color: "rgba(255,255,255,0.15)", marginTop: 16, animation: "pulseText 2s infinite" }}>Tap to open...</p>
+        </div>
+      )}
 
-        {/* ---- PHASE 3 & 4: Cards (face-down then revealing) ---- */}
-        {(phase === 'CARDS_DOWN' || phase === 'REVEALING') && (
-          <div className="flex gap-1.5 md:gap-5">
-            {cards.map((card, i) => {
-              const isRevealed = phase === 'REVEALING' && i <= revealIndex;
-              const cardW = isMobile ? 60 : 140;
-              return (
-                <motion.div
-                  key={`${card.card_id}-${i}`}
-                  initial={{ y: 80, opacity: 0, scale: 0.6 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.08, duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
-                  className="text-center"
-                  style={{ width: cardW }}
-                >
+      {/* TEARING */}
+      {phase === 'tearing' && (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", position: "relative" }}>
+          <div style={{
+            position: "absolute", width: 160, height: 115, borderRadius: "18px 18px 0 0", overflow: "hidden",
+            background: "linear-gradient(155deg, #fff0f3, #ffe0e8)",
+            border: "2.5px solid rgba(255,200,210,0.5)", borderBottom: "none",
+            animation: "tearTop 0.7s ease-in forwards",
+          }} />
+          <div style={{
+            position: "absolute", width: 160, height: 115, borderRadius: "0 0 18px 18px", overflow: "hidden",
+            background: "linear-gradient(155deg, #ffe0e8, #ffd0d8)",
+            border: "2.5px solid rgba(255,200,210,0.5)", borderTop: "none",
+            animation: "tearBottom 0.7s ease-in forwards",
+          }} />
+          <div style={{
+            position: "absolute", width: 250, height: 250, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(255,150,180,0.3), transparent 70%)",
+            animation: "burstGlow 0.8s ease-out forwards",
+          }} />
+        </div>
+      )}
+
+      {/* BURST */}
+      {phase === 'burst' && (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+          <div style={{
+            width: 300, height: 300, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(255,200,220,0.15), transparent 60%)",
+            animation: "burstExpand 0.5s ease-out forwards",
+          }} />
+        </div>
+      )}
+
+      {/* FACE DOWN + REVEALING */}
+      {(phase === 'facedown' || phase === 'revealing') && (
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "center",
+          height: "100vh", gap: 6,
+        }}>
+          {CARDS.map((card, i) => {
+            const isRevealed = revealedCards.includes(i);
+            const cardG = getGroupMeta(card.group_slug);
+            return (
+              <div key={i} style={{
+                width: 62, textAlign: "center",
+                animation: !isRevealed && phase === 'facedown' ? `cardLand 0.4s ${i * 0.08}s cubic-bezier(0.34,1.56,0.64,1) both` : "none",
+              }}>
+                <div style={{
+                  width: 62, height: 93, borderRadius: 10, position: "relative",
+                  transformStyle: "preserve-3d", perspective: 600,
+                }}>
                   {isRevealed ? (
-                    <div className="relative" style={{ width: '100%' }}>
-                      {/* Rarity glow */}
-                      <motion.div
-                        className="absolute rounded-xl"
-                        style={{
-                          inset: card.rarity === 'SSS' ? -8 : card.rarity === 'SS' ? -6 : -3,
-                          background: getGroupMeta(card.group_slug).shadowColor,
-                          filter: `blur(${card.rarity === 'SSS' ? 12 : card.rarity === 'SS' ? 9 : 4}px)`,
-                          zIndex: -1,
-                        }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: [0, 1, 0.6] }}
-                        transition={{ duration: 0.9 }}
-                      />
-                      <motion.div
-                        initial={{ rotateY: 90, scale: 0.85 }}
-                        animate={{ rotateY: 0, scale: 1 }}
-                        transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                        style={{ transformStyle: 'preserve-3d', width: '100%' }}
-                      >
-                        <CardTile card={card} owned={true} size={isMobile ? 'sm' : 'lg'} showHoverEffect={false} hideTags />
-                      </motion.div>
-                      {/* NEW/DUP badge */}
-                      <motion.div
-                        className="mt-1.5"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.3, duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-                      >
-                        {card.is_new ? (
-                          <span className="text-[7px] md:text-[11px] px-1.5 md:px-2.5 py-0.5 md:py-1 rounded bg-green-900/25 text-green-400 font-bold">NEW</span>
-                        ) : (
-                          <span className="text-[7px] md:text-[11px] text-white/25">+{card.duplicate_refund}</span>
-                        )}
-                      </motion.div>
+                    <div style={{
+                      width: 62, height: 93, borderRadius: 10, overflow: "hidden",
+                      position: "relative",
+                      border: `2px solid ${cardG.textColor}40`,
+                      boxShadow: (RARITY_ORDER[card.rarity] ?? 0) >= 3
+                        ? `0 0 16px ${cardG.textColor}30, 0 4px 12px rgba(0,0,0,0.3)`
+                        : "0 4px 12px rgba(0,0,0,0.2)",
+                      animation: "cardRevealPop 0.5s cubic-bezier(0.34,1.56,0.64,1)",
+                    }}>
+                      {card.art_url ? (
+                        <img src={card.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                      ) : (
+                        <div style={{ position: "absolute", inset: 0, background: cardG.bg }} />
+                      )}
+                      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: `${cardG.textColor}30` }} />
+                      <div style={{
+                        position: "absolute", top: 3, right: 3,
+                        width: 16, height: 16, borderRadius: "50%",
+                        background: "rgba(255,255,255,0.6)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: 6, fontWeight: 800, color: cardG.textColor,
+                      }}>{card.rarity}</div>
+                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "10px 4px 5px", background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
+                        <p style={{ fontSize: 8, fontWeight: 700, color: cardG.textColor, margin: 0, textAlign: "center" }}>{card.name}</p>
+                        <p style={{ fontSize: 5, color: `${cardG.textColor}60`, margin: 0, textAlign: "center" }}>{cardG.abbr}</p>
+                      </div>
                     </div>
                   ) : (
-                    <CardBack size={isMobile ? 'sm' : 'lg'} delay={i * 0.3} />
+                    <div style={{
+                      width: 62, height: 93, borderRadius: 10,
+                      background: "linear-gradient(155deg, #1a1028, #120a20)",
+                      border: "1.5px solid rgba(255,255,255,0.06)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      position: "relative", overflow: "hidden",
+                    }}>
+                      <div style={{
+                        position: "absolute", inset: 0, opacity: 0.03,
+                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)",
+                        backgroundSize: "8px 8px",
+                      }} />
+                      <span style={{ fontSize: 10, color: "rgba(255,255,255,0.06)", fontWeight: 800 }}>?</span>
+                      <div style={{
+                        position: "absolute", inset: 0,
+                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)",
+                        animation: `shimmerCard 2s ${i * 0.3}s infinite`,
+                      }} />
+                    </div>
                   )}
-                </motion.div>
+                </div>
+                {isRevealed && (
+                  <div style={{ marginTop: 4, animation: "badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}>
+                    {card.is_new ? (
+                      <span style={{ fontSize: 7, fontWeight: 700, color: "#4CAF50", padding: "1px 6px", borderRadius: 4, background: "rgba(76,175,80,0.12)" }}>NEW</span>
+                    ) : (
+                      <span style={{ fontSize: 7, color: "rgba(255,255,255,0.2)" }}>+{card.duplicate_refund}{'\uBCC4'}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* BEST PULL */}
+      {phase === 'bestpull' && bestCard && bestG && (
+        <div style={{
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+          height: "100vh",
+        }}>
+          <div style={{ display: "flex", gap: 3, marginBottom: 16, opacity: 0.3 }}>
+            {CARDS.map((c, i) => {
+              const cG = getGroupMeta(c.group_slug);
+              return (
+                <div key={i} style={{
+                  width: 28, height: 42, borderRadius: 6, position: "relative",
+                  background: cG.bg, border: `1px solid ${cG.textColor}30`,
+                  overflow: "hidden",
+                }}>
+                  {c.art_url && (
+                    <img src={c.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                  )}
+                  <div style={{ position: "absolute", top: 1, right: 1, fontSize: 4, fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{c.rarity}</div>
+                </div>
               );
             })}
           </div>
-        )}
 
-        {/* ---- PHASE 5: Best pull ---- */}
-        {phase === 'BEST_PULL' && (
-          <div className="text-center relative">
-            {/* Falling particles for SS/SSS */}
-            {(bestCard.rarity === 'SS' || bestCard.rarity === 'SSS') && particles.map(p => (
-              <div key={p.id} className="absolute rounded-full pointer-events-none"
-                style={{
-                  left: `${p.x}%`, top: -10, width: p.size, height: p.size,
-                  background: p.color, animation: `fall ${p.dur}s ${p.delay}s linear infinite`, zIndex: 5,
-                }} />
-            ))}
+          <p style={{ fontSize: 9, color: "rgba(255,255,255,0.15)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 8, animation: "fadeUp 0.4s ease-out" }}>Best pull</p>
 
-            {/* Mini card strip */}
-            <div className="flex gap-1.5 md:gap-2.5 justify-center mb-6 opacity-35">
-              {cards.map((card, i) => (
-                <div key={i} className="relative rounded-md overflow-hidden"
-                  style={{
-                    width: isMobile ? 36 : 60, height: isMobile ? 54 : 90,
-                    background: getGroupMeta(card.group_slug).bg,
-                    border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
-                  }}>
-                  {card.art_url && (
-                    <img src={card.art_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                  )}
-                  <span className="absolute top-0.5 right-0.5 text-[5px] md:text-[7px] font-extrabold px-1 rounded"
-                    style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
-                    {card.rarity}
-                  </span>
-                </div>
-              ))}
+          <div style={{
+            position: "relative",
+            animation: "bestCardZoom 0.8s cubic-bezier(0.34,1.56,0.64,1)",
+          }}>
+            <div style={{
+              position: "absolute", inset: -24, borderRadius: 36,
+              background: `radial-gradient(ellipse, ${bestG.textColor}25, transparent 70%)`,
+              animation: "bestGlow 2.5s ease-in-out infinite",
+            }} />
+            <div style={{
+              width: 140, height: 210, borderRadius: 20, overflow: "hidden",
+              position: "relative",
+              border: `3px solid ${bestG.textColor}50`,
+              boxShadow: `0 0 30px ${bestG.textColor}20, 0 8px 24px rgba(0,0,0,0.3)`,
+            }}>
+              {bestCard.art_url ? (
+                <img src={bestCard.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
+                <div style={{ position: "absolute", inset: 0, background: bestG.bg }} />
+              )}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `${bestG.textColor}30` }} />
+              <div style={{
+                position: "absolute", top: 8, right: 8,
+                width: 24, height: 24, borderRadius: "50%",
+                background: "rgba(255,255,255,0.65)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 9, fontWeight: 800, color: bestG.textColor,
+              }}>{bestCard.rarity}</div>
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 10px 12px", background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
+                <p style={{ fontSize: 15, fontWeight: 700, color: bestG.textColor, margin: 0, textAlign: "center" }}>{bestCard.name}</p>
+                <p style={{ fontSize: 7, color: `${bestG.textColor}60`, margin: 0, marginTop: 2, textAlign: "center" }}>{bestG.abbr}</p>
+              </div>
             </div>
-
-            <motion.p
-              className="text-[10px] md:text-xs text-white/20 uppercase tracking-[4px] mb-3"
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              Best pull
-            </motion.p>
-
-            <motion.div
-              className="relative inline-block"
-              initial={{ scale: 0.5, y: 40, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-              {/* Glow */}
-              <motion.div
-                className="absolute rounded-[36px]"
-                style={{
-                  inset: -28,
-                  background: `radial-gradient(ellipse, ${getGroupMeta(bestCard.group_slug).shadowColor}, transparent 70%)`,
-                  zIndex: -1,
-                }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
-              />
-              <CardTile card={bestCard} owned={true} size="lg" showHoverEffect={false} />
-            </motion.div>
-
-            <motion.p
-              className="mt-4 font-black tracking-[3px]"
-              style={{
-                fontSize: isMobile ? 18 : 22,
-                color: getGroupMeta(bestCard.group_slug).textColor,
-                textShadow: `0 0 24px ${getGroupMeta(bestCard.group_slug).shadowColor}, 0 0 48px ${getGroupMeta(bestCard.group_slug).shadowColor}`,
-              }}
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              {bestCard.rarity} PULL!
-            </motion.p>
           </div>
-        )}
 
-        {/* ---- PHASE 6: Summary ---- */}
-        {phase === 'SUMMARY' && (
-          <motion.div
-            className="mx-4 md:mx-auto md:max-w-[640px] p-4 md:p-6 rounded-2xl w-full"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(12px)' }}
-            initial={{ y: 16, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
+          <p style={{
+            marginTop: 12, fontSize: 18, fontWeight: 800, color: bestG.textColor,
+            letterSpacing: 3, textShadow: `0 0 20px ${bestG.textColor}40`,
+            animation: "fadeUp 0.5s 0.3s both",
+          }}>{bestCard.rarity} PULL!</p>
+        </div>
+      )}
+
+      {/* SUMMARY */}
+      {showSummary && (
+        <div style={{
+          position: "absolute", bottom: 0, left: 0, right: 0,
+          padding: "16px",
+          background: "linear-gradient(transparent, rgba(8,4,16,0.95) 20%)",
+          animation: "slideUp 0.4s ease-out",
+        }}>
+          <div style={{
+            padding: "14px", borderRadius: 14,
+            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)",
+            backdropFilter: "blur(12px)",
+          }}>
             {/* Mini cards row */}
-            <div className="flex gap-2 md:gap-3 justify-center mb-4">
-              {cards.map((card, i) => (
-                <div key={i} className="relative rounded-lg overflow-hidden"
-                  style={{
-                    width: isMobile ? 48 : 90, height: isMobile ? 72 : 135,
-                    background: getGroupMeta(card.group_slug).bg,
-                    border: `1.5px solid ${getGroupMeta(card.group_slug).borderColor}`,
+            <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 8 }}>
+              {CARDS.map((card, i) => {
+                const cG = getGroupMeta(card.group_slug);
+                return (
+                  <div key={i} style={{
+                    width: 36, height: 54, borderRadius: 6, position: "relative",
+                    background: cG.bg, border: `1px solid ${cG.textColor}30`,
+                    overflow: "hidden",
                   }}>
-                  {card.art_url && (
-                    <img src={card.art_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                  )}
-                  <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 text-[5px] md:text-[8px] font-extrabold px-0.5 md:px-1 rounded"
-                    style={{ background: 'rgba(255,255,255,0.65)', color: getGroupMeta(card.group_slug).textColor }}>
-                    {card.rarity}
-                  </span>
-                  <div className="absolute bottom-0 left-0 right-0 p-0.5 md:p-1.5" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.4))' }}>
-                    <p className="text-[5px] md:text-[9px] text-white/90 truncate font-medium">{card.name}</p>
+                    {card.art_url && (
+                      <img src={card.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                    )}
+                    <div style={{ position: "absolute", top: 1, right: 1, fontSize: 4, fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{card.rarity}</div>
+                    {card.is_new && (
+                      <div style={{ position: "absolute", top: 1, left: 1, fontSize: 3, fontWeight: 700, color: "#4CAF50", background: "rgba(76,175,80,0.15)", borderRadius: 2, padding: "0 2px" }}>NEW</div>
+                    )}
                   </div>
-                  {card.is_new && (
-                    <span className="absolute top-0.5 left-0.5 md:top-1 md:left-1 text-[4px] md:text-[7px] px-0.5 md:px-1 rounded bg-green-900/40 text-green-400 font-bold">NEW</span>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* Rarity breakdown */}
-            <div className="flex justify-center gap-3 md:gap-5 mb-2">
-              {rarityBreakdown.filter(r => r.count > 0).map(({ rarity, count }) => (
-                <span key={rarity} className="text-xs md:text-base font-bold"
-                  style={{ color: 'rgba(255,255,255,0.7)' }}>
-                  {count}x {rarity}
-                </span>
-              ))}
+            <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 6 }}>
+              {['R', 'S', 'SS', 'SSS'].map(r => {
+                const count = CARDS.filter(c => c.rarity === r).length;
+                return count > 0 ? (
+                  <span key={r} style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>{count}{'\u00D7'} {r}</span>
+                ) : null;
+              })}
             </div>
-
-            {/* Stats */}
-            <p className="text-[10px] md:text-xs text-white/25 text-center mb-3.5">
-              {currentResult.total_new} new card{currentResult.total_new !== 1 ? 's' : ''}
-              {currentResult.total_duplicates > 0 && ` \u00B7 ${currentResult.total_duplicates} dup${currentResult.total_duplicates !== 1 ? 's' : ''} (+${currentResult.byeol_refunded} B)`}
+            <p style={{ fontSize: 9, color: "rgba(255,255,255,0.2)", textAlign: "center", marginBottom: 10 }}>
+              {currentResult.total_new} new {'\u00B7'} {currentResult.total_duplicates} duplicate{currentResult.total_duplicates !== 1 ? 's' : ''} (+{currentResult.byeol_refunded}{'\uBCC4'})
               {currentResult.pity_triggered && ' \u00B7 \uD83C\uDF40 pity'}
             </p>
 
             {isStarter && (
-              <p className="text-center text-xs text-[#D4537E] font-medium mb-3">
+              <p style={{ textAlign: "center", fontSize: 11, color: "#D4537E", fontWeight: 600, marginBottom: 8 }}>
                 Welcome to your collection!
               </p>
             )}
 
-            {/* Buttons */}
-            <div className="flex gap-2 md:gap-3">
+            <div style={{ display: "flex", gap: 6 }}>
               {!isStarter && onOpenAnother && (
-                <button
-                  onClick={handleOpenAnother}
-                  disabled={currentBalance < 100}
-                  className="flex-1 py-3 md:py-4 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer"
-                  style={{
-                    background: currentBalance >= 100 ? '#D4537E' : 'rgba(255,255,255,0.05)',
-                    color: currentBalance >= 100 ? '#fff' : 'rgba(255,255,255,0.15)',
-                  }}
-                >
-                  Open another ({currentBalance >= 100 ? '100' : 'need more'} B)
-                </button>
+                <button onClick={handleOpenAnother} disabled={currentBalance < 100} style={{
+                  flex: 1, padding: "10px 0", borderRadius: 10,
+                  background: currentBalance >= 100 ? "#D4537E" : "rgba(255,255,255,0.05)",
+                  color: currentBalance >= 100 ? "#fff" : "rgba(255,255,255,0.15)",
+                  border: "none", fontSize: 11, fontWeight: 700, cursor: currentBalance >= 100 ? "pointer" : "default",
+                }}>Open another (100{'\uBCC4'})</button>
               )}
-              <button
-                onClick={onClose}
-                className="flex-1 py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium text-white/45 border border-white/[0.08] hover:bg-white/[0.03] transition-colors cursor-pointer"
-              >
-                {isStarter ? 'Explore cards' : 'Done'}
-              </button>
+              <button onClick={() => { onClose(); router.push('/cards/collection'); }} style={{
+                flex: 1, padding: "10px 0", borderRadius: 10,
+                background: "transparent", color: "rgba(255,255,255,0.35)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                fontSize: 11, fontWeight: 500, cursor: "pointer",
+              }}>Collection</button>
             </div>
-          </motion.div>
-        )}
-      </motion.div>
-    </AnimatePresence>
+            <button onClick={onClose} style={{
+              width: "100%", marginTop: 6, padding: "6px 0",
+              background: "transparent", border: "none",
+              fontSize: 9, color: "rgba(255,255,255,0.1)", cursor: "pointer",
+            }}>{isStarter ? 'Explore cards' : 'Done'}</button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

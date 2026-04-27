@@ -6,6 +6,7 @@ import { BoosterPack } from '@/components/cards/booster-pack';
 import { PackOpeningOverlay, type PackOpenResult } from '@/components/cards/pack-opening-overlay';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { RARITY_CONFIG, getGroupMeta } from '@/lib/cards/constants';
+import { EarnByeolSection } from '@/components/cards/earn-byeol-section';
 
 interface GroupStat {
   slug: string;
@@ -52,7 +53,7 @@ function formatCountdown(ms: number): string {
 }
 
 export function CardsLanding({ data }: Props) {
-  const [showEarnInfo, setShowEarnInfo] = useState(false);
+
   const [starterOpened, setStarterOpened] = useState(!data.needsStarter);
   const [showOverlay, setShowOverlay] = useState(false);
   const [packResult, setPackResult] = useState<PackOpenResult | null>(null);
@@ -160,7 +161,7 @@ export function CardsLanding({ data }: Props) {
 
       {/* Balance */}
       {data.isLoggedIn && (
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-5 mt-4">
           <h1 className="text-lg font-bold text-primary">Open Packs</h1>
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-100">
             <span className="text-sm font-bold text-amber-600 tabular-nums">{currentByeol.toLocaleString()}</span>
@@ -199,89 +200,7 @@ export function CardsLanding({ data }: Props) {
       </div>
 
       {/* How to earn */}
-      <button
-        onClick={() => setShowEarnInfo(!showEarnInfo)}
-        className="w-full text-left text-xs font-medium text-tertiary hover:text-secondary transition-colors mb-3"
-      >
-        How to earn &#11088; Byeol {showEarnInfo ? '\u25B2' : '\u25BC'}
-      </button>
-      {showEarnInfo && (
-        <div className="mb-6 text-[10px] text-secondary">
-          <p className="text-[9px] uppercase tracking-wider text-ghost mb-1.5 px-1">Playing</p>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {[
-              ['Play quizzes', '20-50 B'],
-              ['Daily quiz', '35-80 B'],
-              ['Blindtest match', '30 B'],
-              ['Blindtest win', '50 B'],
-              ['Name All perfect', '50 B'],
-              ['This or That', '20 B'],
-              ['Tier list', '30 B'],
-            ].map(([src, amt]) => (
-              <div key={src as string} className="flex justify-between px-3 py-1.5 rounded-lg bg-elevated">
-                <span>{src}</span>
-                <span className="font-medium text-amber-600">{amt}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[9px] uppercase tracking-wider text-ghost mb-1.5 px-1">Creating</p>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {[
-              ['Create a quiz', '80 B'],
-              ['10+ questions', '100 B'],
-              ['20+ questions', '130 B'],
-              ['Someone plays yours', '+3 B/play'],
-            ].map(([src, amt]) => (
-              <div key={src as string} className="flex justify-between px-3 py-1.5 rounded-lg bg-elevated">
-                <span>{src}</span>
-                <span className="font-medium text-amber-600">{amt}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[9px] uppercase tracking-wider text-ghost mb-1.5 px-1">Milestones</p>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {[
-              ['50 plays on quiz', '+50 B'],
-              ['100 plays', '+100 B'],
-              ['500 plays', '+250 B'],
-              ['1000 plays', '+500 B'],
-            ].map(([src, amt]) => (
-              <div key={src as string} className="flex justify-between px-3 py-1.5 rounded-lg bg-elevated">
-                <span>{src}</span>
-                <span className="font-medium text-amber-600">{amt}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[9px] uppercase tracking-wider text-ghost mb-1.5 px-1">Sharing</p>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {[
-              ['Reddit (3+ clicks)', '+60 B'],
-              ['Twitter (3+ clicks)', '+40 B'],
-              ['Link (10+ clicks)', '+30 B'],
-            ].map(([src, amt]) => (
-              <div key={src as string} className="flex justify-between px-3 py-1.5 rounded-lg bg-elevated">
-                <span>{src}</span>
-                <span className="font-medium text-amber-600">{amt}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[9px] uppercase tracking-wider text-ghost mb-1.5 px-1">Daily</p>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              ['Daily login', '20 B'],
-              ['3-day streak', '+30 B'],
-              ['7-day streak', '+100 B'],
-              ['14-day streak', '+200 B'],
-              ['30-day streak', '+500 B'],
-            ].map(([src, amt]) => (
-              <div key={src as string} className="flex justify-between px-3 py-1.5 rounded-lg bg-elevated">
-                <span>{src}</span>
-                <span className="font-medium text-amber-600">{amt}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <EarnByeolSection balance={currentByeol} />
 
       {/* Collection overview */}
       <div className="mb-6">
