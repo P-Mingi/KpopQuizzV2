@@ -32,7 +32,9 @@ export function GroupFilterPills({
   const visible = groups.slice(0, visibleLimit);
 
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div>
+      <p style={{ fontSize: 8, fontWeight: 600, color: '#b4b2a9', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1, margin: '0 0 4px' }}>Group</p>
+      <div className="flex flex-wrap gap-1.5">
       <GroupPillButton
         label="All"
         active={selectedId === null}
@@ -47,6 +49,7 @@ export function GroupFilterPills({
           onClick={() => onChange(g.id)}
         />
       ))}
+      </div>
     </div>
   );
 }
@@ -109,36 +112,39 @@ export function TypeFilterPills({
   types = DEFAULT_TYPES,
 }: TypeFilterPillsProps) {
   return (
-    <div className="flex flex-wrap gap-1.5">
-      <button
-        type="button"
-        onClick={() => onChange(null)}
-        className={`px-3 py-[7px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-colors ${
-          selected === null
-            ? 'bg-primary border-accent text-accent'
-            : 'bg-surface border-default text-secondary hover:border-secondary'
-        }`}
-      >
-        All types
-      </button>
-      {types.map((t) => {
-        const active = selected === t.key;
-        return (
-          <button
-            key={t.key}
-            type="button"
-            onClick={() => onChange(active ? null : t.key)}
-            className={`inline-flex items-center gap-[5px] px-3 py-[7px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-colors ${
-              active
-                ? 'bg-primary border-accent text-accent'
-                : 'bg-surface border-default text-secondary hover:border-secondary'
-            }`}
-          >
-            <QuizTypeIcon type={t.key} size={12} />
-            {t.label}
-          </button>
-        );
-      })}
+    <div>
+      <p style={{ fontSize: 8, fontWeight: 600, color: '#b4b2a9', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1, margin: '0 0 4px' }}>Type</p>
+      <div className="flex flex-wrap gap-1.5">
+        <button
+          type="button"
+          onClick={() => onChange(null)}
+          className={`px-3 py-[7px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-colors ${
+            selected === null
+              ? 'bg-primary border-accent text-accent'
+              : 'bg-surface border-default text-secondary hover:border-secondary'
+          }`}
+        >
+          All types
+        </button>
+        {types.map((t) => {
+          const active = selected === t.key;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => onChange(active ? null : t.key)}
+              className={`inline-flex items-center gap-[5px] px-3 py-[7px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-colors ${
+                active
+                  ? 'bg-primary border-accent text-accent'
+                  : 'bg-surface border-default text-secondary hover:border-secondary'
+              }`}
+            >
+              <QuizTypeIcon type={t.key} size={12} />
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -170,7 +176,9 @@ interface SortTabsProps {
 
 export function SortTabs({ selected, onChange, tabs = DEFAULT_SORTS }: SortTabsProps) {
   return (
-    <div className="flex gap-1" role="tablist">
+    <div>
+      <p style={{ fontSize: 8, fontWeight: 600, color: '#b4b2a9', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1, margin: '0 0 4px' }}>Sort by</p>
+      <div className="flex gap-1" role="tablist">
       {tabs.map((t) => {
         const active = selected === t.key;
         return (
@@ -190,6 +198,7 @@ export function SortTabs({ selected, onChange, tabs = DEFAULT_SORTS }: SortTabsP
           </button>
         );
       })}
+      </div>
     </div>
   );
 }

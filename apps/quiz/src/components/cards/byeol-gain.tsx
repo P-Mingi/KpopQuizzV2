@@ -169,7 +169,7 @@ export function ByeolGain({ amount, xpBonusAmount = 0, newBalance, canOpenPack }
 
       {xpBonusAmount > 0 && pulsed && (
         <p style={{
-          fontSize: 8, color: "#d3d1c7", textAlign: "center", marginTop: 6,
+          fontSize: 8, color: "#888780", textAlign: "center", marginTop: 6,
           animation: "byeolSlideIn 0.3s 0.2s both",
         }}>
           +{xpBonusAmount} B bonus from XP conversion

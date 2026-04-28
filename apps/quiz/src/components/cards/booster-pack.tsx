@@ -9,13 +9,14 @@ interface Props {
   endsIn?: string;
   onClick: () => void;
   disabled?: boolean;
+  isLoggedIn?: boolean;
 }
 
-export function BoosterPack({ type, cost, groupSlug, endsIn, onClick, disabled }: Props) {
+export function BoosterPack({ type, cost, groupSlug, endsIn, onClick, disabled, isLoggedIn = true }: Props) {
   const group = groupSlug ? getGroupMeta(groupSlug) : null;
   const label = group?.name ? `${group.name} Pack` : 'Standard Pack';
   const subtitle = type === 'standard' ? '5 cards \u00B7 guaranteed \u22651 S' : '5 cards \u00B7 better SS & SSS odds';
-  const abbr = group?.abbr ?? '\u2B50';
+  const abbr = group?.abbr ?? '\u2605';
 
   // Dark gradient with group tint
   const bgDark = group
@@ -95,7 +96,7 @@ export function BoosterPack({ type, cost, groupSlug, endsIn, onClick, disabled }
           marginBottom: 14, fontSize: 20, fontWeight: 800,
           color: 'rgba(255,255,255,0.6)',
         }}>
-          {type === 'standard' ? '\u2B50' : abbr}
+          {type === 'standard' ? '\u2605' : abbr}
         </div>
         <p style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{label}</p>
         <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: 0, marginTop: 3 }}>{subtitle}</p>
@@ -110,13 +111,23 @@ export function BoosterPack({ type, cost, groupSlug, endsIn, onClick, disabled }
         backdropFilter: 'blur(4px)',
       }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#e8a060' }}>{cost} byeol</span>
-        <span style={{
-          padding: '6px 16px', borderRadius: 10,
-          fontSize: 11, fontWeight: 700, color: '#fff',
-          background: 'rgba(212,83,126,0.8)',
-        }}>
-          Open
-        </span>
+        {isLoggedIn ? (
+          <span style={{
+            padding: '6px 16px', borderRadius: 10,
+            fontSize: 11, fontWeight: 700, color: '#fff',
+            background: 'rgba(212,83,126,0.8)',
+          }}>
+            Open
+          </span>
+        ) : (
+          <span style={{
+            padding: '6px 16px', borderRadius: 10,
+            fontSize: 10, fontWeight: 600, color: '#888780',
+            background: 'rgba(255,255,255,0.1)',
+          }}>
+            Sign in to open
+          </span>
+        )}
       </div>
     </button>
   );

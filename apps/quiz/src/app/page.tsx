@@ -7,6 +7,7 @@ import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
 import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 import { TrendingCard } from '@/components/home/trending-card';
+import { CarouselWithArrows } from '@/components/home/carousel-with-arrows';
 import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
 import { ByeolCTABanner } from '@/components/cards/byeol-cta-banner';
 import { QuizOfTheDay as DailyQuizCard } from '@/components/quiz/quiz-of-the-day';
@@ -59,11 +60,11 @@ async function TrendingSection(): Promise<React.ReactElement> {
           See all
         </a>
       </div>
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
+      <CarouselWithArrows>
         {trendingTop.map((q, i) => (
           <TrendingCard key={q.id} quiz={q} priority={i < 3} />
         ))}
-      </div>
+      </CarouselWithArrows>
     </section>
   );
 }
@@ -73,7 +74,7 @@ async function DailySection(): Promise<React.ReactElement> {
   if (!qotd) return <></>;
   return (
     <section className="mb-5">
-      <DailyQuizCard quizSlug={qotd.slug} />
+      <DailyQuizCard quizSlug={qotd.slug} quizTitle={qotd.title} />
     </section>
   );
 }

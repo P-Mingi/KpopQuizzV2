@@ -82,7 +82,7 @@ export function CardDetailView({ card, isOwned, onSetFeatured }: CardDetailProps
             <span style={{ fontSize: 11, color: "#b4b2a9", fontWeight: 500 }}>{card.group_name} collection</span>
           </div>
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: 9, color: "#d3d1c7" }}>#{cardNum} / {totalCards}</span>
+          <span style={{ fontSize: 9, color: "#888780" }}>#{cardNum} / {totalCards}</span>
         </div>
 
         {/* Floating card */}
@@ -178,7 +178,7 @@ export function CardDetailView({ card, isOwned, onSetFeatured }: CardDetailProps
         }}>
           <div style={{ textAlign: "center", marginBottom: 16 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 4 }}>
-              <span style={{ fontSize: 9, color: "#d3d1c7", fontWeight: 500 }}>#{cardNum}</span>
+              <span style={{ fontSize: 9, color: "#888780", fontWeight: 500 }}>#{cardNum}</span>
               <span style={{
                 fontSize: 9, fontWeight: 800, color: g.textColor,
                 padding: "2px 8px", borderRadius: 8,

@@ -7,6 +7,7 @@ import { PackOpeningOverlay, type PackOpenResult } from '@/components/cards/pack
 import { GroupLogo } from '@/components/ui/group-logo';
 import { RARITY_CONFIG, getGroupMeta } from '@/lib/cards/constants';
 import { EarnByeolSection } from '@/components/cards/earn-byeol-section';
+import { RarityInfoButton } from '@/components/cards/rarity-info-modal';
 
 interface GroupStat {
   slug: string;
@@ -175,24 +176,29 @@ export function CardsLanding({ data }: Props) {
         <BoosterPack
           type="standard"
           cost={standardPack?.cost ?? 100}
-          onClick={() => handleOpenPack(standardPack?.slug ?? 'standard')}
+          onClick={() => data.isLoggedIn ? handleOpenPack(standardPack?.slug ?? 'standard') : window.location.assign('/login')}
           disabled={!data.isLoggedIn || currentByeol < (standardPack?.cost ?? 100)}
+          isLoggedIn={data.isLoggedIn}
         />
         <BoosterPack
           type="group"
           cost={groupPack?.cost ?? 150}
           groupSlug={data.rotation.groupSlug}
           endsIn={formatCountdown(data.rotation.msRemaining)}
-          onClick={() => handleOpenPack(groupPack?.slug ?? 'standard')}
+          onClick={() => data.isLoggedIn ? handleOpenPack(groupPack?.slug ?? 'standard') : window.location.assign('/login')}
           disabled={!data.isLoggedIn || currentByeol < (groupPack?.cost ?? 150)}
+          isLoggedIn={data.isLoggedIn}
         />
       </div>
 
       {/* Pack info */}
       <div className="text-center mb-6">
-        <p className="text-[10px] text-tertiary mb-1">
-          R {RARITY_CONFIG.R.drop} &middot; S {RARITY_CONFIG.S.drop} &middot; SS {RARITY_CONFIG.SS.drop} &middot; SSS {RARITY_CONFIG.SSS.drop}
-        </p>
+        <div className="flex items-center justify-center gap-1.5 mb-1">
+          <span className="text-[10px] text-tertiary">
+            R {RARITY_CONFIG.R.drop} &middot; S {RARITY_CONFIG.S.drop} &middot; SS {RARITY_CONFIG.SS.drop} &middot; SSS {RARITY_CONFIG.SSS.drop}
+          </span>
+          <RarityInfoButton />
+        </div>
         <p className="text-[10px] text-tertiary">Every pack: guaranteed at least 1 S or higher</p>
         <p className="text-[10px] text-secondary mt-1">
           Rotation: {data.rotation.groupName} this week &middot; Next: {data.rotation.nextGroupName}

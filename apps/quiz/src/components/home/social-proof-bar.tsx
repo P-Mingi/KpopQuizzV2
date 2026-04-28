@@ -91,6 +91,8 @@ export function SocialProofBar({
   const online = getDisplayOnline(stats?.online, Date.now());
   const total = stats?.totalPlays;
 
+  const loaded = online !== undefined;
+
   return (
     <div className="flex items-center gap-2 px-4 py-2 bg-accent-bg rounded-[10px] mb-4">
       <span
@@ -98,11 +100,20 @@ export function SocialProofBar({
         aria-hidden="true"
       />
       <span className="text-[11px] text-accent-hover flex-1 truncate">
-        <span className="tabular-nums">{online !== undefined ? online.toLocaleString() : '-'}</span>{' '}
-        {online === 1 ? 'fan' : 'fans'} playing right now
+        {loaded ? (
+          <span className="tabular-nums">{online.toLocaleString()}</span>
+        ) : (
+          <span className="inline-block align-middle" style={{ width: 30, height: 14, borderRadius: 4, background: 'var(--bg-elevated)', animation: 'shimmerBg 1.5s infinite' }} />
+        )}{' '}
+        fans playing right now
       </span>
       <span className="text-[11px] font-semibold text-accent-hover flex-shrink-0 tabular-nums">
-        {total !== undefined ? total.toLocaleString() : '-'} quizzes played
+        {loaded ? (
+          <>{(total ?? 0).toLocaleString()}</>
+        ) : (
+          <span className="inline-block align-middle" style={{ width: 36, height: 14, borderRadius: 4, background: 'var(--bg-elevated)', animation: 'shimmerBg 1.5s infinite' }} />
+        )}{' '}
+        quizzes played
       </span>
     </div>
   );

@@ -28,53 +28,79 @@ export default function LoginPage(): React.ReactElement {
   };
 
   return (
-    <div className="max-w-sm mx-auto mt-20 px-4">
-      <div className="bg-primary rounded-lg border border-default p-6 text-center">
-        <h1 className="text-lg font-medium text-primary">
-          Sign in to create quizzes
-        </h1>
-        <p className="text-sm text-secondary mt-1">
-          You don&apos;t need an account to play.
+    <div style={{ maxWidth: 380, margin: '0 auto', padding: '40px 16px' }}>
+      <div style={{
+        padding: '20px 16px', borderRadius: 14,
+        background: '#fff', border: '1px solid #e8e6e0',
+        textAlign: 'center',
+      }}>
+        <p style={{ fontSize: 16, fontWeight: 700, color: '#2c2c2a', margin: 0 }}>Join the community</p>
+        <p style={{ fontSize: 10, color: '#888780', margin: 0, marginTop: 4 }}>
+          Play as guest, or sign in for the full experience
         </p>
 
-        <div className="flex flex-col gap-3 mt-6">
+        {/* Benefits grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 14, textAlign: 'left' }}>
+          {[
+            { icon: '\uD83D\uDCCA', text: 'Track your scores & progress' },
+            { icon: '\uD83C\uDCCF', text: 'Collect fan cards' },
+            { icon: '\u2B50', text: 'Earn XP, Byeol & badges' },
+            { icon: '\u270F\uFE0F', text: 'Create your own quizzes' },
+          ].map(b => (
+            <div key={b.text} style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: '8px 8px', borderRadius: 8,
+              background: 'rgba(212,83,126,0.03)', border: '1px solid rgba(212,83,126,0.06)',
+            }}>
+              <span style={{ fontSize: 14 }}>{b.icon}</span>
+              <span style={{ fontSize: 9, fontWeight: 500, color: '#555550', lineHeight: 1.3 }}>{b.text}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* OAuth buttons */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 16 }}>
           <button
             onClick={() => handleLogin('google')}
             disabled={loading !== null}
-            className="w-full py-3 rounded-full border border-default text-sm font-medium flex items-center justify-center gap-2 hover:border-default transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              padding: '10px 0', borderRadius: 10,
+              background: '#fff', border: '1px solid #e8e6e0',
+              fontSize: 12, fontWeight: 500, color: '#2c2c2a', cursor: 'pointer',
+              opacity: loading !== null ? 0.5 : 1,
+            }}
           >
             {loading === 'google' ? (
-              <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
+              <div style={{ width: 16, height: 16, border: '2px solid #e8e6e0', borderTopColor: '#D4537E', borderRadius: '50%', animation: 'spin 0.6s linear infinite' }} />
             ) : (
-              <>
-                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-                  <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4" />
-                  <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853" />
-                  <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.997 8.997 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z" fill="#FBBC05" />
-                  <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58Z" fill="#EA4335" />
-                </svg>
-                Continue with Google
-              </>
+              <svg width="16" height="16" viewBox="0 0 16 16"><path d="M15.5 8.2c0-.6-.1-1-.2-1.5H8v2.8h4.2c-.2.9-.7 1.7-1.4 2.2v1.8h2.3c1.4-1.2 2.2-3.1 2.2-5.3z" fill="#4285F4"/><path d="M8 16c2.2 0 4-.7 5.3-2l-2.3-1.8c-.7.5-1.6.8-2.9.8-2.2 0-4.1-1.5-4.8-3.5H.8v1.9C2.2 14.1 4.9 16 8 16z" fill="#34A853"/><path d="M3.2 9.5c-.2-.5-.3-1-.3-1.5s.1-1 .3-1.5V4.6H.8C.3 5.6 0 6.8 0 8s.3 2.4.8 3.4l2.4-1.9z" fill="#FBBC05"/><path d="M8 3.2c1.3 0 2.4.4 3.3 1.3l2.4-2.4C12 .8 10.2 0 8 0 4.9 0 2.2 1.9.8 4.6l2.4 1.9C4 4.6 5.8 3.2 8 3.2z" fill="#EA4335"/></svg>
             )}
+            Continue with Google
           </button>
-
           <button
             onClick={() => handleLogin('discord')}
             disabled={loading !== null}
-            className="w-full py-3 rounded-full border border-default text-sm font-medium flex items-center justify-center gap-2 hover:border-default transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              padding: '10px 0', borderRadius: 10,
+              background: '#5865F2', border: 'none',
+              fontSize: 12, fontWeight: 500, color: '#fff', cursor: 'pointer',
+              opacity: loading !== null ? 0.5 : 1,
+            }}
           >
             {loading === 'discord' ? (
-              <div className="w-5 h-5 border-2 border-default border-t-accent rounded-full animate-spin" />
+              <div style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.6s linear infinite' }} />
             ) : (
-              <>
-                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-                  <path d="M15.248 3.13A14.163 14.163 0 0 0 11.74 2a9.272 9.272 0 0 0-.453.916 13.27 13.27 0 0 0-3.93 0A10.022 10.022 0 0 0 6.9 2a14.258 14.258 0 0 0-3.512 1.132C.862 6.37.222 9.513.542 12.61A14.26 14.26 0 0 0 4.88 14.8a10.6 10.6 0 0 0 .936-1.514 9.207 9.207 0 0 1-1.474-.706c.124-.09.245-.183.361-.28a10.18 10.18 0 0 0 8.636 0c.118.1.238.194.362.28a9.246 9.246 0 0 1-1.477.708 10.542 10.542 0 0 0 .936 1.512 14.21 14.21 0 0 0 4.342-2.188c.375-3.604-.64-6.718-2.654-9.482ZM6.208 10.84c-.822 0-1.5-.748-1.5-1.668 0-.92.66-1.672 1.5-1.672.84 0 1.512.752 1.5 1.672 0 .92-.66 1.668-1.5 1.668Zm5.584 0c-.822 0-1.5-.748-1.5-1.668 0-.92.66-1.672 1.5-1.672.84 0 1.508.752 1.5 1.672-.004.92-.66 1.668-1.5 1.668Z" fill="#5865F2" />
-                </svg>
-                Continue with Discord
-              </>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M13.554 2.893A12.634 12.634 0 0 0 10.436 1.8a8.268 8.268 0 0 0-.404.817 11.828 11.828 0 0 0-3.502 0A8.923 8.923 0 0 0 6.149 1.8a12.67 12.67 0 0 0-3.12 1.095C.767 5.685.214 8.487.49 11.25A12.697 12.697 0 0 0 4.35 13.2a9.437 9.437 0 0 0 .834-1.35 8.202 8.202 0 0 1-1.313-.629c.11-.08.218-.163.322-.25a9.07 9.07 0 0 0 7.698 0c.105.09.213.173.323.25a8.23 8.23 0 0 1-1.316.63 9.394 9.394 0 0 0 .834 1.348 12.65 12.65 0 0 0 3.863-1.95c.334-3.212-.57-5.986-2.04-8.456ZM5.53 9.665c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.348.67 1.336 1.49 0 .82-.588 1.487-1.336 1.487Zm4.94 0c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.344.67 1.336 1.49-.003.82-.588 1.487-1.336 1.487Z"/></svg>
             )}
+            Continue with Discord
           </button>
         </div>
+
+        <p style={{ fontSize: 8, color: '#888780', marginTop: 10 }}>
+          By signing in, you agree to our Terms of Service
+        </p>
       </div>
     </div>
   );
