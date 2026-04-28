@@ -20,9 +20,9 @@ const TABS = [
     match: ['/create'],
   },
   {
-    label: 'Ranks',
-    href: '/hall-of-fame',
-    match: ['/hall-of-fame'],
+    label: 'Cards',
+    href: '/cards',
+    match: ['/cards'],
   },
   {
     label: 'Profile',
@@ -104,10 +104,11 @@ function TabIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M10 3V17M3 10H17" />
         </svg>
       );
-    case 'Ranks':
+    case 'Cards':
       return (
         <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M10 2.5l2.5 5 5.5 1-4 3.5 1 5.5L10 14.5l-5 3 1-5.5-4-3.5 5.5-1z" />
+          <rect x="4" y="3" width="12" height="14" rx="2" />
+          <path d="M8 7h4M8 10h4M8 13h2" />
         </svg>
       );
     case 'Profile':

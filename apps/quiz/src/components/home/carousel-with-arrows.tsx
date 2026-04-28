@@ -21,6 +21,7 @@ export function CarouselWithArrows({ children }: CarouselWithArrowsProps) {
       <button
         className="carousel-arrow"
         onClick={() => scroll(-1)}
+        aria-label="Scroll left"
         style={{
           position: 'absolute', left: -4, top: '50%', transform: 'translateY(-50%)', zIndex: 5,
           width: 28, height: 28, borderRadius: '50%',
@@ -30,7 +31,7 @@ export function CarouselWithArrows({ children }: CarouselWithArrowsProps) {
           cursor: 'pointer',
         }}
       >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#888780" strokeWidth="1.5" strokeLinecap="round">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#888780" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
           <path d="M7.5 2.5L4 6l3.5 3.5" />
         </svg>
       </button>
@@ -39,6 +40,7 @@ export function CarouselWithArrows({ children }: CarouselWithArrowsProps) {
       <button
         className="carousel-arrow"
         onClick={() => scroll(1)}
+        aria-label="Scroll right"
         style={{
           position: 'absolute', right: -4, top: '50%', transform: 'translateY(-50%)', zIndex: 5,
           width: 28, height: 28, borderRadius: '50%',
@@ -48,7 +50,7 @@ export function CarouselWithArrows({ children }: CarouselWithArrowsProps) {
           cursor: 'pointer',
         }}
       >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#888780" strokeWidth="1.5" strokeLinecap="round">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#888780" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
           <path d="M4.5 2.5L8 6l-3.5 3.5" />
         </svg>
       </button>
