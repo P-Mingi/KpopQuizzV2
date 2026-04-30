@@ -23,15 +23,16 @@ export function HomeFeedCard({ quiz }: Props) {
       {/* Group logo thumbnail */}
       <div style={{
         width: 56, height: 56, borderRadius: 12, flexShrink: 0,
-        background: `linear-gradient(135deg, ${quiz.display_color}, color-mix(in srgb, ${quiz.display_color} 50%, #000))`,
+        background: quiz.display_color,
+        border: '1px solid var(--border)',
         position: 'relative', overflow: 'hidden',
       }}>
         {quiz.logo_url ? (
-          <Image src={quiz.logo_url} alt={quiz.group_name} width={56} height={56} style={{ objectFit: 'cover', opacity: 0.9 }} />
+          <Image src={quiz.logo_url} alt={quiz.group_name} width={56} height={56} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
           <div style={{
             width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.7)',
+            fontSize: 14, fontWeight: 700, color: quiz.text_color,
           }}>{quiz.group_name.slice(0, 3)}</div>
         )}
       </div>
