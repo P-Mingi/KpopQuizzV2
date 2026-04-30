@@ -1,32 +1,17 @@
 import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 
 import { getAllQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { safeFetch } from '@/lib/error-handling';
-import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
-import { TrendingCard } from '@/components/home/trending-card';
+import { HomeHero } from '@/components/home/home-hero';
+import { HomeQotd } from '@/components/home/home-qotd';
+import { HomeTrendingCard } from '@/components/home/home-trending-card';
+import { HomeGroupRail } from '@/components/home/home-group-rail';
+import { HomeFeed } from '@/components/home/home-feed';
 import { CarouselWithArrows } from '@/components/home/carousel-with-arrows';
-import { CreatorLeaderboard } from '@/components/home/creator-leaderboard';
-import { ByeolCTABanner } from '@/components/cards/byeol-cta-banner';
-import { QuizOfTheDay as DailyQuizCard } from '@/components/quiz/quiz-of-the-day';
 import { Spinner } from '@/components/ui/spinner';
 
 import type { Metadata } from 'next';
-import type { GroupOption } from '@/components/quiz/quiz-filters';
-
-// Dynamic imports: defer heavy client components to reduce initial JS bundle
-const QuizFeed = dynamic(
-  () => import('@/components/home/quiz-feed').then((m) => ({ default: m.QuizFeed })),
-  { ssr: true },
-);
-const SocialProofBar = dynamic(
-  () => import('@/components/home/social-proof-bar').then((m) => ({ default: m.SocialProofBar })),
-);
-const LightstickMascot = dynamic(
-  () => import('@/components/ui/lightstick-mascot').then((m) => ({ default: m.LightstickMascot })),
-);
 
 export const metadata: Metadata = {
   title: 'KpopQuiz - K-pop Quizzes Made by Fans',
@@ -46,86 +31,75 @@ export const metadata: Metadata = {
 
 /* ---------- Async streaming sections ---------- */
 
+async function QotdSection(): Promise<React.ReactElement> {
+  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
+  if (!qotd) return <></>;
+  return <HomeQotd quiz={qotd} />;
+}
+
 async function TrendingSection(): Promise<React.ReactElement> {
   const initialQuizzes = await safeFetch(getAllQuizzes(0, 24), [], '[home] getAllQuizzes');
   const trendingTop = initialQuizzes.slice(0, 10);
-
   if (trendingTop.length === 0) return <></>;
 
   return (
-    <section className="mb-5">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-[13px] font-bold text-primary">Trending this week</h2>
-        <a href="/trending" className="text-[11px] font-medium text-accent hover:underline">
-          See all
+    <section style={{ marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10 }}>
+        <h2 style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.01em', color: 'var(--text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+          </svg>
+          Trending this week
+        </h2>
+        <a href="/trending" style={{
+          fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em',
+          color: 'var(--accent)', textDecoration: 'none',
+        }}>
+          See all {'\u2192'}
         </a>
       </div>
       <CarouselWithArrows>
         {trendingTop.map((q, i) => (
-          <TrendingCard key={q.id} quiz={q} priority={i < 3} />
+          <HomeTrendingCard key={q.id} quiz={q} rank={i + 1} priority={i < 3} />
         ))}
       </CarouselWithArrows>
     </section>
   );
 }
 
-async function DailySection(): Promise<React.ReactElement> {
-  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
-  if (!qotd) return <></>;
-  return (
-    <section className="mb-5">
-      <DailyQuizCard quizSlug={qotd.slug} quizTitle={qotd.title} />
-    </section>
-  );
+async function GroupSection(): Promise<React.ReactElement> {
+  const groups = await safeFetch(getAllGroups(), [], '[home] getAllGroups:groups');
+  return <HomeGroupRail groups={groups} />;
 }
 
 async function FeedSection(): Promise<React.ReactElement> {
-  const [initialQuizzes, groups] = await Promise.all([
-    safeFetch(getAllQuizzes(0, 24), [], '[home] getAllQuizzes:feed'),
-    safeFetch(getAllGroups(), [], '[home] getAllGroups'),
-  ]);
-
-  const groupsForFilter: GroupOption[] = groups
-    .filter((g) => g.quiz_count > 0)
-    .slice(0, 30)
-    .map((g) => ({
-      id: g.id,
-      name: g.name,
-      slug: g.slug,
-      quiz_count: g.quiz_count,
-    }));
-
-  return <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForFilter} />;
-}
-
-async function CreatorsSection(): Promise<React.ReactElement> {
-  const topCreators = await safeFetch(getTopCreatorsThisWeek(5), [], '[home] getTopCreatorsThisWeek');
-  return <CreatorLeaderboard creators={padWeeklyLeaderboard(topCreators, 6)} />;
+  const initialQuizzes = await safeFetch(getAllQuizzes(0, 24), [], '[home] getAllQuizzes:feed');
+  return <HomeFeed quizzes={initialQuizzes} />;
 }
 
 /* ---------- Skeleton fallbacks ---------- */
 
-function FeedSkeleton(): React.ReactElement {
-  return (
-    <div className="flex justify-center py-12">
-      <Spinner />
-    </div>
-  );
-}
-
 function TrendingSkeleton(): React.ReactElement {
   return (
-    <section className="mb-5">
-      <div className="flex items-center justify-between mb-2">
-        <div className="h-4 w-32 bg-subtle rounded animate-pulse" />
-        <div className="h-3 w-12 bg-subtle rounded animate-pulse" />
+    <section style={{ marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10 }}>
+        <div style={{ height: 16, width: 130, background: 'var(--bg-elevated)', borderRadius: 4, animation: 'skeletonShimmer 1.5s infinite' }} />
+        <div style={{ height: 12, width: 50, background: 'var(--bg-elevated)', borderRadius: 4, animation: 'skeletonShimmer 1.5s infinite' }} />
       </div>
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
+      <div className="scrollbar-hide" style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 4 }}>
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="w-[220px] h-[164px] flex-shrink-0 bg-subtle rounded-[14px] animate-pulse" />
+          <div key={i} style={{ width: 200, height: 192, flexShrink: 0, background: 'var(--bg-elevated)', borderRadius: 14, animation: 'skeletonShimmer 1.5s infinite', animationDelay: `${i * 0.1}s` }} />
         ))}
       </div>
     </section>
+  );
+}
+
+function FeedSkeleton(): React.ReactElement {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '48px 0' }}>
+      <Spinner />
+    </div>
   );
 }
 
@@ -133,14 +107,7 @@ function TrendingSkeleton(): React.ReactElement {
 
 export default function HomePage(): React.ReactElement {
   return (
-    <div className="pt-4 md:pt-6 pb-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-primary text-center mb-1">
-        K-pop quizzes made by fans
-      </h1>
-      <p className="text-xs md:text-sm text-ghost text-center mb-4">
-        Play trivia about BTS, BLACKPINK, Stray Kids and 30+ groups
-      </p>
-
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -162,36 +129,28 @@ export default function HomePage(): React.ReactElement {
         }}
       />
 
-      {/* Byeol CTA */}
-      <div className="mb-4">
-        <ByeolCTABanner />
-      </div>
+      {/* 1. Hero */}
+      <HomeHero />
 
-      {/* Social proof bar */}
-      <SocialProofBar />
+      {/* 2. Quiz of the Day */}
+      <Suspense>
+        <QotdSection />
+      </Suspense>
 
-      {/* Trending this week */}
+      {/* 3. Trending this week */}
       <Suspense fallback={<TrendingSkeleton />}>
         <TrendingSection />
       </Suspense>
 
-      {/* Quiz of the day */}
+      {/* 4. Browse by group */}
       <Suspense>
-        <DailySection />
+        <GroupSection />
       </Suspense>
 
-      {/* Feed with filters */}
+      {/* 5. All quizzes feed with type filters */}
       <Suspense fallback={<FeedSkeleton />}>
         <FeedSection />
       </Suspense>
-
-      {/* Top creators - streams independently */}
-      <Suspense>
-        <CreatorsSection />
-      </Suspense>
-
-      {/* Floating lightstick mascot - deferred */}
-      <LightstickMascot mood="idle" />
     </div>
   );
 }
