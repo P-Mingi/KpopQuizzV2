@@ -57,6 +57,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
   const [screenShake, setScreenShake] = useState(false);
   const [showSkip, setShowSkip] = useState(false);
   const audioRef = useRef<AudioContext | null>(null);
+  const [scale, setScale] = useState(1);
 
   const CARDS = currentResult.cards;
 
@@ -69,6 +70,22 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
     const t = setTimeout(() => setShowSkip(true), 2000);
     return () => clearTimeout(t);
   }, [isStarter]);
+
+  // Responsive scale: bigger cards on wider screens
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      setScale(w >= 1200 ? 1.8 : w >= 768 ? 1.4 : 1);
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  /** Scale a pixel dimension */
+  const s = (v: number) => Math.round(v * scale);
+  /** Scale a font size (softer curve) */
+  const f = (v: number) => Math.round(v * (1 + (scale - 1) * 0.65));
 
   function playTone(freq: number, dur: number, type: OscillatorType = 'triangle', vol = 0.08) {
     try {
@@ -194,6 +211,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
 
   const bestCard = bestPullIdx >= 0 ? CARDS[bestPullIdx] : null;
   const bestG = bestCard ? getGroupMeta(bestCard.group_slug) : null;
+  const bestIsTopTier = bestCard ? bestCard.rarity === 'SS' || bestCard.rarity === 'SSS' : false;
 
   return (
     <div style={{
@@ -259,7 +277,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
           height: "100vh", cursor: "pointer",
         }}>
           <div style={{
-            width: 160, height: 230, borderRadius: 18,
+            width: s(160), height: s(230), borderRadius: s(18),
             background: "linear-gradient(155deg, #fff0f3, #ffe0e8, #ffd0d8)",
             border: "2.5px solid rgba(255,200,210,0.5)",
             boxShadow: "0 0 40px rgba(255,150,180,0.2), 0 8px 24px rgba(0,0,0,0.3)",
@@ -278,20 +296,20 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
             }} />
             <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
               <div style={{
-                width: 44, height: 44, borderRadius: 12,
+                width: s(44), height: s(44), borderRadius: s(12),
                 background: "rgba(255,255,255,0.4)", backdropFilter: "blur(8px)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                margin: "0 auto 8px", fontSize: 20,
+                margin: `0 auto ${s(8)}px`, fontSize: s(20),
               }}>{'\uD83C\uDCCF'}</div>
-              <p style={{ fontSize: 12, fontWeight: 700, color: "#d06080", margin: 0 }}>
+              <p style={{ fontSize: f(12), fontWeight: 700, color: "#d06080", margin: 0 }}>
                 {isStarter ? 'Starter Pack' : packSlug === 'standard' ? 'Standard Pack' : 'Group Pack'}
               </p>
-              <p style={{ fontSize: 8, color: "rgba(220,100,140,0.5)", margin: 0, marginTop: 2 }}>
+              <p style={{ fontSize: f(8), color: "rgba(220,100,140,0.5)", margin: 0, marginTop: 2 }}>
                 {isStarter ? 'Welcome gift' : '5 cards inside'}
               </p>
             </div>
           </div>
-          <p style={{ fontSize: 10, color: "rgba(255,255,255,0.15)", marginTop: 16, animation: "pulseText 2s infinite" }}>Tap to open...</p>
+          <p style={{ fontSize: f(10), color: "rgba(255,255,255,0.15)", marginTop: s(16), animation: "pulseText 2s infinite" }}>Tap to open...</p>
         </div>
       )}
 
@@ -299,19 +317,19 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
       {phase === 'tearing' && (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", position: "relative" }}>
           <div style={{
-            position: "absolute", width: 160, height: 115, borderRadius: "18px 18px 0 0", overflow: "hidden",
+            position: "absolute", width: s(160), height: s(115), borderRadius: `${s(18)}px ${s(18)}px 0 0`, overflow: "hidden",
             background: "linear-gradient(155deg, #fff0f3, #ffe0e8)",
             border: "2.5px solid rgba(255,200,210,0.5)", borderBottom: "none",
             animation: "tearTop 0.7s ease-in forwards",
           }} />
           <div style={{
-            position: "absolute", width: 160, height: 115, borderRadius: "0 0 18px 18px", overflow: "hidden",
+            position: "absolute", width: s(160), height: s(115), borderRadius: `0 0 ${s(18)}px ${s(18)}px`, overflow: "hidden",
             background: "linear-gradient(155deg, #ffe0e8, #ffd0d8)",
             border: "2.5px solid rgba(255,200,210,0.5)", borderTop: "none",
             animation: "tearBottom 0.7s ease-in forwards",
           }} />
           <div style={{
-            position: "absolute", width: 250, height: 250, borderRadius: "50%",
+            position: "absolute", width: s(250), height: s(250), borderRadius: "50%",
             background: "radial-gradient(circle, rgba(255,150,180,0.3), transparent 70%)",
             animation: "burstGlow 0.8s ease-out forwards",
           }} />
@@ -322,7 +340,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
       {phase === 'burst' && (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
           <div style={{
-            width: 300, height: 300, borderRadius: "50%",
+            width: s(300), height: s(300), borderRadius: "50%",
             background: "radial-gradient(circle, rgba(255,200,220,0.15), transparent 60%)",
             animation: "burstExpand 0.5s ease-out forwards",
           }} />
@@ -333,28 +351,29 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
       {(phase === 'facedown' || phase === 'revealing') && (
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "center",
-          height: "100vh", gap: 6,
+          height: "100vh", gap: s(6),
         }}>
           {CARDS.map((card, i) => {
             const isRevealed = revealedCards.includes(i);
             const cardG = getGroupMeta(card.group_slug);
+            const isTopTier = card.rarity === 'SS' || card.rarity === 'SSS';
             return (
               <div key={i} style={{
-                width: 62, textAlign: "center",
+                width: s(62), textAlign: "center",
                 animation: !isRevealed && phase === 'facedown' ? `cardLand 0.4s ${i * 0.08}s cubic-bezier(0.34,1.56,0.64,1) both` : "none",
               }}>
                 <div style={{
-                  width: 62, height: 93, borderRadius: 10, position: "relative",
+                  width: s(62), height: s(93), borderRadius: s(10), position: "relative",
                   transformStyle: "preserve-3d", perspective: 600,
                 }}>
                   {isRevealed ? (
                     <div style={{
-                      width: 62, height: 93, borderRadius: 10, overflow: "hidden",
+                      width: s(62), height: s(93), borderRadius: s(10), overflow: "hidden",
                       position: "relative",
                       border: `2px solid ${cardG.textColor}40`,
                       boxShadow: (RARITY_ORDER[card.rarity] ?? 0) >= 3
-                        ? `0 0 16px ${cardG.textColor}30, 0 4px 12px rgba(0,0,0,0.3)`
-                        : "0 4px 12px rgba(0,0,0,0.2)",
+                        ? `0 0 ${s(16)}px ${cardG.textColor}30, 0 ${s(4)}px ${s(12)}px rgba(0,0,0,0.3)`
+                        : `0 ${s(4)}px ${s(12)}px rgba(0,0,0,0.2)`,
                       animation: "cardRevealPop 0.5s cubic-bezier(0.34,1.56,0.64,1)",
                     }}>
                       {card.art_url ? (
@@ -362,22 +381,25 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                       ) : (
                         <div style={{ position: "absolute", inset: 0, background: cardG.bg }} />
                       )}
+                      {card.rarity !== 'R' && <span className="holo-foil" />}
+                      {isTopTier && <span className="holo-prism" />}
                       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: `${cardG.textColor}30` }} />
                       <div style={{
-                        position: "absolute", top: 3, right: 3,
-                        width: 16, height: 16, borderRadius: "50%",
+                        position: "absolute", top: s(3), right: s(3),
+                        width: s(16), height: s(16), borderRadius: "50%",
                         background: "rgba(255,255,255,0.6)",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 6, fontWeight: 800, color: cardG.textColor,
+                        fontSize: f(6), fontWeight: 800, color: cardG.textColor,
                       }}>{card.rarity}</div>
-                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "10px 4px 5px", background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
-                        <p style={{ fontSize: 8, fontWeight: 700, color: cardG.textColor, margin: 0, textAlign: "center" }}>{card.name}</p>
-                        <p style={{ fontSize: 5, color: `${cardG.textColor}60`, margin: 0, textAlign: "center" }}>{cardG.abbr}</p>
+                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: `${s(10)}px ${s(4)}px ${s(5)}px`, background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
+                        <p style={{ fontSize: f(8), fontWeight: 700, color: cardG.textColor, margin: 0, textAlign: "center" }}>{card.name}</p>
+                        <p style={{ fontSize: f(5), color: `${cardG.textColor}60`, margin: 0, textAlign: "center" }}>{cardG.abbr}</p>
                       </div>
+                      <span className="holo-edge" />
                     </div>
                   ) : (
                     <div style={{
-                      width: 62, height: 93, borderRadius: 10,
+                      width: s(62), height: s(93), borderRadius: s(10),
                       background: "linear-gradient(155deg, #1a1028, #120a20)",
                       border: "1.5px solid rgba(255,255,255,0.06)",
                       display: "flex", alignItems: "center", justifyContent: "center",
@@ -388,7 +410,7 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                         backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)",
                         backgroundSize: "8px 8px",
                       }} />
-                      <span style={{ fontSize: 10, color: "rgba(255,255,255,0.06)", fontWeight: 800 }}>?</span>
+                      <span style={{ fontSize: f(10), color: "rgba(255,255,255,0.06)", fontWeight: 800 }}>?</span>
                       <div style={{
                         position: "absolute", inset: 0,
                         background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)",
@@ -398,11 +420,11 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
                   )}
                 </div>
                 {isRevealed && (
-                  <div style={{ marginTop: 4, animation: "badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}>
+                  <div style={{ marginTop: s(4), animation: "badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}>
                     {card.is_new ? (
-                      <span style={{ fontSize: 7, fontWeight: 700, color: "#4CAF50", padding: "1px 6px", borderRadius: 4, background: "rgba(76,175,80,0.12)" }}>NEW</span>
+                      <span style={{ fontSize: f(7), fontWeight: 700, color: "#4CAF50", padding: `1px ${s(6)}px`, borderRadius: 4, background: "rgba(76,175,80,0.12)" }}>NEW</span>
                     ) : (
-                      <span style={{ fontSize: 7, color: "rgba(255,255,255,0.2)" }}>+{card.duplicate_refund}{'\uBCC4'}</span>
+                      <span style={{ fontSize: f(7), color: "rgba(255,255,255,0.2)" }}>+{card.duplicate_refund}{'\uBCC4'}</span>
                     )}
                   </div>
                 )}
@@ -418,63 +440,68 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
           height: "100vh",
         }}>
-          <div style={{ display: "flex", gap: 3, marginBottom: 16, opacity: 0.3 }}>
+          <div style={{ display: "flex", gap: s(3), marginBottom: s(16), opacity: 0.3 }}>
             {CARDS.map((c, i) => {
               const cG = getGroupMeta(c.group_slug);
               return (
                 <div key={i} style={{
-                  width: 28, height: 42, borderRadius: 6, position: "relative",
+                  width: s(28), height: s(42), borderRadius: s(6), position: "relative",
                   background: cG.bg, border: `1px solid ${cG.textColor}30`,
                   overflow: "hidden",
                 }}>
                   {c.art_url && (
                     <img src={c.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                   )}
-                  <div style={{ position: "absolute", top: 1, right: 1, fontSize: 4, fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{c.rarity}</div>
+                  <div style={{ position: "absolute", top: 1, right: 1, fontSize: f(4), fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{c.rarity}</div>
                 </div>
               );
             })}
           </div>
 
-          <p style={{ fontSize: 9, color: "rgba(255,255,255,0.15)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 8, animation: "fadeUp 0.4s ease-out" }}>Best pull</p>
+          <p style={{ fontSize: f(9), color: "rgba(255,255,255,0.15)", letterSpacing: 3, textTransform: "uppercase", marginBottom: s(8), animation: "fadeUp 0.4s ease-out" }}>Best pull</p>
 
           <div style={{
             position: "relative",
             animation: "bestCardZoom 0.8s cubic-bezier(0.34,1.56,0.64,1)",
           }}>
             <div style={{
-              position: "absolute", inset: -24, borderRadius: 36,
-              background: `radial-gradient(ellipse, ${bestG.textColor}25, transparent 70%)`,
+              position: "absolute", inset: -s(24), borderRadius: s(36),
+              background: `radial-gradient(ellipse, ${bestG.textColor}${bestIsTopTier ? '40' : '25'}, transparent 70%)`,
               animation: "bestGlow 2.5s ease-in-out infinite",
             }} />
             <div style={{
-              width: 140, height: 210, borderRadius: 20, overflow: "hidden",
+              width: s(140), height: s(210), borderRadius: s(20), overflow: "hidden",
               position: "relative",
               border: `3px solid ${bestG.textColor}50`,
-              boxShadow: `0 0 30px ${bestG.textColor}20, 0 8px 24px rgba(0,0,0,0.3)`,
+              boxShadow: bestIsTopTier
+                ? `0 0 ${s(40)}px ${bestG.textColor}40, 0 0 ${s(80)}px ${bestG.textColor}20, 0 ${s(8)}px ${s(24)}px rgba(0,0,0,0.3)`
+                : `0 0 ${s(30)}px ${bestG.textColor}20, 0 ${s(8)}px ${s(24)}px rgba(0,0,0,0.3)`,
             }}>
               {bestCard.art_url ? (
                 <img src={bestCard.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
               ) : (
                 <div style={{ position: "absolute", inset: 0, background: bestG.bg }} />
               )}
+              {bestCard.rarity !== 'R' && <span className="holo-foil" />}
+              {bestIsTopTier && <span className="holo-prism" />}
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `${bestG.textColor}30` }} />
               <div style={{
-                position: "absolute", top: 8, right: 8,
-                width: 24, height: 24, borderRadius: "50%",
+                position: "absolute", top: s(8), right: s(8),
+                width: s(24), height: s(24), borderRadius: "50%",
                 background: "rgba(255,255,255,0.65)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 9, fontWeight: 800, color: bestG.textColor,
+                fontSize: f(9), fontWeight: 800, color: bestG.textColor,
               }}>{bestCard.rarity}</div>
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 10px 12px", background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
-                <p style={{ fontSize: 15, fontWeight: 700, color: bestG.textColor, margin: 0, textAlign: "center" }}>{bestCard.name}</p>
-                <p style={{ fontSize: 7, color: `${bestG.textColor}60`, margin: 0, marginTop: 2, textAlign: "center" }}>{bestG.abbr}</p>
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: `${s(20)}px ${s(10)}px ${s(12)}px`, background: "linear-gradient(transparent, rgba(255,248,250,0.9))" }}>
+                <p style={{ fontSize: f(15), fontWeight: 700, color: bestG.textColor, margin: 0, textAlign: "center" }}>{bestCard.name}</p>
+                <p style={{ fontSize: f(7), color: `${bestG.textColor}60`, margin: 0, marginTop: 2, textAlign: "center" }}>{bestG.abbr}</p>
               </div>
+              <span className="holo-edge" />
             </div>
           </div>
 
           <p style={{
-            marginTop: 12, fontSize: 18, fontWeight: 800, color: bestG.textColor,
+            marginTop: s(12), fontSize: f(18), fontWeight: 800, color: bestG.textColor,
             letterSpacing: 3, textShadow: `0 0 20px ${bestG.textColor}40`,
             animation: "fadeUp 0.5s 0.3s both",
           }}>{bestCard.rarity} PULL!</p>
@@ -485,76 +512,77 @@ export function PackOpeningOverlay({ result, packSlug, isStarter, balance, onClo
       {showSummary && (
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0,
-          padding: "16px",
+          padding: s(16),
           background: "linear-gradient(transparent, rgba(8,4,16,0.95) 20%)",
           animation: "slideUp 0.4s ease-out",
         }}>
           <div style={{
-            padding: "14px", borderRadius: 14,
+            padding: s(14), borderRadius: s(14),
             background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)",
             backdropFilter: "blur(12px)",
+            maxWidth: s(400), margin: "0 auto",
           }}>
             {/* Mini cards row */}
-            <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 8 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: s(4), marginBottom: s(8) }}>
               {CARDS.map((card, i) => {
                 const cG = getGroupMeta(card.group_slug);
                 return (
                   <div key={i} style={{
-                    width: 36, height: 54, borderRadius: 6, position: "relative",
+                    width: s(36), height: s(54), borderRadius: s(6), position: "relative",
                     background: cG.bg, border: `1px solid ${cG.textColor}30`,
                     overflow: "hidden",
                   }}>
                     {card.art_url && (
                       <img src={card.art_url} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                     )}
-                    <div style={{ position: "absolute", top: 1, right: 1, fontSize: 4, fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{card.rarity}</div>
+                    <div style={{ position: "absolute", top: 1, right: 1, fontSize: f(4), fontWeight: 800, color: cG.textColor, background: "rgba(255,255,255,0.5)", borderRadius: 3, padding: "0 2px" }}>{card.rarity}</div>
                     {card.is_new && (
-                      <div style={{ position: "absolute", top: 1, left: 1, fontSize: 3, fontWeight: 700, color: "#4CAF50", background: "rgba(76,175,80,0.15)", borderRadius: 2, padding: "0 2px" }}>NEW</div>
+                      <div style={{ position: "absolute", top: 1, left: 1, fontSize: f(3), fontWeight: 700, color: "#4CAF50", background: "rgba(76,175,80,0.15)", borderRadius: 2, padding: "0 2px" }}>NEW</div>
                     )}
                   </div>
                 );
               })}
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 6 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: s(6), marginBottom: s(6) }}>
               {['R', 'S', 'SS', 'SSS'].map(r => {
                 const count = CARDS.filter(c => c.rarity === r).length;
                 return count > 0 ? (
-                  <span key={r} style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>{count}{'\u00D7'} {r}</span>
+                  <span key={r} style={{ fontSize: f(11), fontWeight: 700, color: "#fff" }}>{count}{'\u00D7'} {r}</span>
                 ) : null;
               })}
             </div>
-            <p style={{ fontSize: 9, color: "rgba(255,255,255,0.2)", textAlign: "center", marginBottom: 10 }}>
+            <p style={{ fontSize: f(9), color: "rgba(255,255,255,0.2)", textAlign: "center", marginBottom: s(10) }}>
               {currentResult.total_new} new {'\u00B7'} {currentResult.total_duplicates} duplicate{currentResult.total_duplicates !== 1 ? 's' : ''} (+{currentResult.byeol_refunded}{'\uBCC4'})
               {currentResult.pity_triggered && ' \u00B7 \uD83C\uDF40 pity'}
             </p>
 
             {isStarter && (
-              <p style={{ textAlign: "center", fontSize: 11, color: "#D4537E", fontWeight: 600, marginBottom: 8 }}>
+              <p style={{ textAlign: "center", fontSize: f(11), color: "#D4537E", fontWeight: 600, marginBottom: s(8) }}>
                 Welcome to your collection!
               </p>
             )}
 
-            <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ display: "flex", gap: s(6) }}>
               {!isStarter && onOpenAnother && (
                 <button onClick={handleOpenAnother} disabled={currentBalance < 100} style={{
-                  flex: 1, padding: "10px 0", borderRadius: 10,
+                  flex: 1, padding: `${s(10)}px 0`, borderRadius: s(10),
                   background: currentBalance >= 100 ? "#D4537E" : "rgba(255,255,255,0.05)",
                   color: currentBalance >= 100 ? "#fff" : "rgba(255,255,255,0.15)",
-                  border: "none", fontSize: 11, fontWeight: 700, cursor: currentBalance >= 100 ? "pointer" : "default",
+                  border: "none", fontSize: f(11), fontWeight: 700, cursor: currentBalance >= 100 ? "pointer" : "default",
                 }}>Open another (100{'\uBCC4'})</button>
               )}
               <button onClick={() => { onClose(); router.push('/cards/collection'); }} style={{
-                flex: 1, padding: "10px 0", borderRadius: 10,
+                flex: 1, padding: `${s(10)}px 0`, borderRadius: s(10),
                 background: "transparent", color: "rgba(255,255,255,0.35)",
                 border: "1px solid rgba(255,255,255,0.06)",
-                fontSize: 11, fontWeight: 500, cursor: "pointer",
+                fontSize: f(11), fontWeight: 500, cursor: "pointer",
               }}>Collection</button>
             </div>
             <button onClick={onClose} style={{
-              width: "100%", marginTop: 6, padding: "6px 0",
+              width: "100%", marginTop: s(6), padding: `${s(6)}px 0`,
               background: "transparent", border: "none",
-              fontSize: 9, color: "rgba(255,255,255,0.1)", cursor: "pointer",
+              fontSize: f(9), color: "rgba(255,255,255,0.1)", cursor: "pointer",
             }}>{isStarter ? 'Explore cards' : 'Done'}</button>
           </div>
         </div>

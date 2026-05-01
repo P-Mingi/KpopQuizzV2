@@ -312,7 +312,7 @@ body {
 }
 @keyframes fall {
   0% { transform: translateY(-10px) rotate(0deg); opacity: 0.8; }
-  100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0; transform: scale(0); }
@@ -345,6 +345,84 @@ body {
 @keyframes dailyShimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* Holographic card effects */
+.holo-foil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 180, 255, 0.18) 30%,
+    rgba(180, 255, 255, 0.18) 40%,
+    rgba(255, 255, 180, 0.18) 50%,
+    rgba(180, 180, 255, 0.18) 60%,
+    rgba(255, 180, 220, 0.18) 70%,
+    transparent 80%
+  );
+  background-size: 250% 100%;
+  animation: holoFoilShift 4s ease-in-out infinite;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.holo-prism {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 0, 100, 0.1),
+    rgba(255, 165, 0, 0.1),
+    rgba(255, 255, 0, 0.1),
+    rgba(0, 200, 100, 0.1),
+    rgba(0, 100, 255, 0.1),
+    rgba(180, 0, 255, 0.1),
+    rgba(255, 0, 100, 0.1)
+  );
+  mix-blend-mode: color-dodge;
+  animation: holoPrismRotate 6s linear infinite;
+  pointer-events: none;
+}
+
+.holo-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  opacity: 0.05;
+  background-image: repeating-conic-gradient(
+    rgba(255, 255, 255, 0.5) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 4px 4px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.holo-edge {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 12px rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+@keyframes holoFoilShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes holoPrismRotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
 /* Card shimmer on hover for SS/SSS */
