@@ -100,7 +100,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   } catch { /* ignore */ }
   const isOwnProfile = authUserId === profile.id;
 
-  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, byeol] = await Promise.all([
+  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, byeol, fandomResult] = await Promise.all([
     safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
     safeFetch(
       Promise.resolve(supabase.from('badge_definitions').select('*').order('sort_order')),
@@ -126,6 +126,15 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         )
       : Promise.resolve({ data: null }),
     isOwnProfile ? getByeolBalance(profile.id) : Promise.resolve(0),
+    safeFetch(
+      Promise.resolve(
+        supabase.from('plays').select(`
+          quiz_id,
+          quizzes!inner ( group_id, groups!inner ( name, slug, display_color, logo_url ) )
+        `).eq('player_id', profile.id),
+      ),
+      { data: null } as { data: unknown }, '[u/[username]] fandom_plays',
+    ),
   ]);
 
   const allBadges = (badgeDefsResult.data ?? []) as BadgeDefinition[];
@@ -135,6 +144,19 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const levelTitle = getTitleForLevel(levelInfo.level);
   const displayName = profile.display_name ?? profile.username;
   const xpPct = levelInfo.progress;
+
+  // Build top fandoms from play data
+  interface FandomRow { slug: string; name: string; color: string; logo: string | null; plays: number }
+  const fandomRows = fandomResult.data as Array<{ quizzes: { groups: { name: string; slug: string; display_color: string; logo_url: string | null } } }> | null;
+  const fandomMap = new Map<string, FandomRow>();
+  for (const row of fandomRows ?? []) {
+    const g = row.quizzes?.groups;
+    if (!g) continue;
+    const existing = fandomMap.get(g.slug);
+    if (existing) { existing.plays++; }
+    else { fandomMap.set(g.slug, { slug: g.slug, name: g.name, color: g.display_color, logo: g.logo_url, plays: 1 }); }
+  }
+  const topFandoms = [...fandomMap.values()].sort((a, b) => b.plays - a.plays).slice(0, 4);
 
   return (
     <div style={{ paddingTop: 16, paddingBottom: 32 }}>
@@ -224,6 +246,54 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           <ProfileStat label="Joined" value={formatJoinDate(profile.created_at)} small />
         </div>
       </div>
+
+      {/* Top fandoms */}
+      {topFandoms.length > 0 && (
+        <div style={{
+          background: 'var(--bg-surface)', border: '1px solid var(--border)',
+          borderRadius: 14, boxShadow: 'var(--shadow-card)',
+          padding: 16, marginBottom: 14,
+        }}>
+          <h2 style={{ fontSize: 13, fontWeight: 700, margin: '0 0 12px' }}>Top fandoms</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {topFandoms.map((f) => {
+              const max = topFandoms[0]!.plays;
+              return (
+                <div key={f.slug} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {f.logo ? (
+                    <img src={f.logo} alt={f.name} style={{
+                      width: 28, height: 28, borderRadius: '50%', objectFit: 'cover',
+                      border: '1px solid var(--border)', flexShrink: 0,
+                    }} />
+                  ) : (
+                    <div style={{
+                      width: 28, height: 28, borderRadius: '50%',
+                      background: f.color || 'var(--bg-elevated)',
+                      border: '1px solid var(--border)', flexShrink: 0,
+                    }} />
+                  )}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 4 }}>{f.name}</div>
+                    <div style={{ height: 6, background: 'var(--bg-elevated)', borderRadius: 9999, overflow: 'hidden' }}>
+                      <div style={{
+                        height: '100%',
+                        width: `${(f.plays / max) * 100}%`,
+                        background: f.color || 'var(--accent)',
+                        borderRadius: 9999,
+                      }} />
+                    </div>
+                  </div>
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
+                    letterSpacing: '0.12em', color: 'var(--text-tertiary)',
+                    fontVariantNumeric: 'tabular-nums',
+                  }}>{f.plays}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Badges */}
       {allBadges.length > 0 && (

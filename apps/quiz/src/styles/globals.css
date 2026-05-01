@@ -353,19 +353,20 @@ body {
   inset: 0;
   z-index: 2;
   border-radius: inherit;
+  mix-blend-mode: color-dodge;
+  opacity: 0.55;
   background: linear-gradient(
     115deg,
-    transparent 20%,
-    rgba(255, 180, 255, 0.18) 30%,
-    rgba(180, 255, 255, 0.18) 40%,
-    rgba(255, 255, 180, 0.18) 50%,
-    rgba(180, 180, 255, 0.18) 60%,
-    rgba(255, 180, 220, 0.18) 70%,
-    transparent 80%
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 38%,
+    rgba(255, 200, 240, 0.55) 44%,
+    rgba(190, 220, 255, 0.55) 50%,
+    rgba(255, 230, 180, 0.55) 56%,
+    rgba(255, 255, 255, 0.2) 62%,
+    transparent 70%
   );
-  background-size: 250% 100%;
-  animation: holoFoilShift 4s ease-in-out infinite;
-  mix-blend-mode: overlay;
+  background-size: 220% 100%;
+  animation: holoFoilShift 4.5s ease-in-out infinite;
   pointer-events: none;
 }
 
@@ -374,18 +375,13 @@ body {
   inset: 0;
   z-index: 3;
   border-radius: inherit;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    rgba(255, 0, 100, 0.1),
-    rgba(255, 165, 0, 0.1),
-    rgba(255, 255, 0, 0.1),
-    rgba(0, 200, 100, 0.1),
-    rgba(0, 100, 255, 0.1),
-    rgba(180, 0, 255, 0.1),
-    rgba(255, 0, 100, 0.1)
-  );
-  mix-blend-mode: color-dodge;
-  animation: holoPrismRotate 6s linear infinite;
+  opacity: 0.18;
+  background: conic-gradient(from 0deg,
+    #ff6b97, #ffa161, #efe07c, #84d6a4, #7ec3ff, #b58cff, #ff6b97);
+  mix-blend-mode: overlay;
+  filter: blur(20px);
+  animation: holoPrismRotate 8s linear infinite;
+  background-size: 200% 200%;
   pointer-events: none;
 }
 
@@ -394,13 +390,12 @@ body {
   inset: 0;
   z-index: 2;
   border-radius: inherit;
-  opacity: 0.05;
-  background-image: repeating-conic-gradient(
-    rgba(255, 255, 255, 0.5) 0% 25%,
-    transparent 0% 50%
-  );
-  background-size: 4px 4px;
-  mix-blend-mode: overlay;
+  opacity: 0.18;
+  background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7) 0.5px, transparent 1px),
+                    radial-gradient(circle at 70% 50%, rgba(255,255,255,0.5) 0.5px, transparent 1px),
+                    radial-gradient(circle at 30% 80%, rgba(255,255,255,0.6) 0.5px, transparent 1px);
+  background-size: 4px 4px, 6px 6px, 5px 5px;
+  mix-blend-mode: screen;
   pointer-events: none;
 }
 
@@ -410,19 +405,20 @@ body {
   z-index: 4;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 0 0 12px rgba(255, 255, 255, 0.04);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 0 0 0 4px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 5px rgba(255, 255, 255, 0.25);
   pointer-events: none;
 }
 
 @keyframes holoFoilShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0% { background-position: -120% 0; }
+  100% { background-position: 220% 0; }
 }
 
 @keyframes holoPrismRotate {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 /* Card shimmer on hover for SS/SSS */
