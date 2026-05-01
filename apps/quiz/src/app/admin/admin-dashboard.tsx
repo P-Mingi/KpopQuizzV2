@@ -1523,6 +1523,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                       >
                         View
                       </a>
+                      <a
+                        href={`/admin/quiz/${q.id}/edit`}
+                        className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-accent text-accent hover:bg-accent-bg transition-colors"
+                      >
+                        Edit
+                      </a>
                       {q.status === 'published' || q.status === 'flagged' ? (
                         <button
                           onClick={() => handleQuizAction(q.id, 'remove')}

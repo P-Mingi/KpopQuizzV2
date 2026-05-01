@@ -183,17 +183,6 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         </p>
       )}
 
-      {isOwnProfile && (
-        <ProfileEditor
-          username={profile.username}
-          displayName={profile.display_name}
-          avatarUrl={profile.avatar_url}
-          avatarBg={profile.avatar_bg}
-          avatarText={profile.avatar_text}
-          bio={profile.bio}
-        />
-      )}
-
       {/* Byeol + XP card */}
       {isOwnProfile && (
         <div style={{

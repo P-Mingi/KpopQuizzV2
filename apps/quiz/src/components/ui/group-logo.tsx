@@ -50,6 +50,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
   const [imgError, setImgError] = useState(false);
 
   if (logoUrl && !imgError) {
+    const isSvg = logoUrl.endsWith('.svg');
     return (
       <div
         className="overflow-hidden flex-shrink-0 border border-default"
@@ -63,6 +64,7 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
           sizes={`${size}px`}
           className="object-cover w-full h-full"
           onError={() => setImgError(true)}
+          unoptimized={isSvg}
         />
       </div>
     );
