@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { UserAvatar } from '@/components/ui/user-avatar';
@@ -69,18 +69,8 @@ export function HomeQotd({ quiz }: Props) {
                 Today&apos;s pick
               </span>
             </div>
-            <div style={{ position: 'absolute', bottom: -28, right: -10, opacity: 0.85 }}>
-              {quiz.logo_url ? (
-                <div style={{
-                  width: 140, height: 140, borderRadius: '50%', overflow: 'hidden',
-                  border: '2px solid var(--bg-surface)', boxShadow: 'var(--shadow-card)',
-                  background: quiz.display_color,
-                }}>
-                  <Image src={quiz.logo_url} alt={quiz.group_name} width={140} height={140} style={{ objectFit: 'cover' }} />
-                </div>
-              ) : (
-                <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={140} />
-              )}
+            <div style={{ position: 'absolute', bottom: -28, right: -10, opacity: 0.85, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--bg-surface)', boxShadow: 'var(--shadow-card)' }}>
+              <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={140} />
             </div>
           </div>
 

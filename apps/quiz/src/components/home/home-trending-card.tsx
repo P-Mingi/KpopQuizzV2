@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
+import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -50,23 +51,14 @@ export function HomeTrendingCard({ quiz, rank, priority = false }: Props) {
           letterSpacing: '-0.04em', lineHeight: 1, fontVariantNumeric: 'tabular-nums',
           textShadow: '0 2px 8px rgba(0,0,0,0.3)',
         }}>#{rank}</div>
-        <div style={{ position: 'absolute', bottom: -18, right: -6, zIndex: 2 }}>
-          {quiz.logo_url ? (
-            <div style={{
-              width: 70, height: 70, borderRadius: '50%', overflow: 'hidden',
-              border: '2px solid var(--bg-surface)', boxShadow: 'var(--shadow-card)',
-              background: quiz.display_color,
-            }}>
-              <Image src={quiz.logo_url} alt={quiz.group_name} width={70} height={70} style={{ objectFit: 'cover' }} />
-            </div>
-          ) : (
-            <div style={{
-              width: 70, height: 70, borderRadius: '50%', background: quiz.display_color,
-              border: '2px solid var(--bg-surface)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 14, fontWeight: 700, color: quiz.text_color,
-            }}>{quiz.group_name.slice(0, 3)}</div>
-          )}
+        <div style={{ position: 'absolute', bottom: -18, right: -6, zIndex: 2, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--bg-surface)', boxShadow: 'var(--shadow-card)' }}>
+          <GroupLogo
+            groupName={quiz.group_name}
+            logoUrl={quiz.logo_url}
+            displayColor={quiz.display_color}
+            textColor={quiz.text_color}
+            size={70}
+          />
         </div>
         <div style={{
           color: 'rgba(255,255,255,0.85)', fontSize: 10, fontWeight: 700,

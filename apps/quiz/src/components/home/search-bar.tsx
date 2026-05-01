@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 
 interface SearchQuiz {
@@ -168,19 +169,14 @@ export function SearchBar(): React.ReactElement {
                       onClick={() => setShowDropdown(false)}
                       className="flex items-start gap-3 px-4 py-3 hover:bg-surface transition-colors border-b border-default last:border-b-0"
                     >
-                      <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0 mt-0.5">
-                        {q.group_logo_url ? (
-                          <img src={q.group_logo_url} alt="" className="w-full h-full object-contain" />
-                        ) : (
-                          <div
-                            className="w-full h-full flex items-center justify-center"
-                            style={{ backgroundColor: q.display_color }}
-                          >
-                            <span className="text-[9px] font-medium" style={{ color: q.text_color }}>
-                              {q.group_name?.slice(0, 3).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
+                      <div className="flex-shrink-0 mt-0.5">
+                        <GroupLogo
+                          groupName={q.group_name ?? ''}
+                          logoUrl={q.group_logo_url}
+                          displayColor={q.display_color ?? '#EEEDFE'}
+                          textColor={q.text_color ?? '#3C3489'}
+                          size={28}
+                        />
                       </div>
 
                       <div className="flex-1 min-w-0">
@@ -224,19 +220,14 @@ export function SearchBar(): React.ReactElement {
                       onClick={() => setShowDropdown(false)}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-surface transition-colors"
                     >
-                      <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0">
-                        {g.logo_url ? (
-                          <img src={g.logo_url} alt="" className="w-full h-full object-contain" />
-                        ) : (
-                          <div
-                            className="w-full h-full flex items-center justify-center"
-                            style={{ backgroundColor: g.display_color }}
-                          >
-                            <span className="text-[9px] font-medium" style={{ color: g.text_color }}>
-                              {g.name?.slice(0, 3).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
+                      <div className="flex-shrink-0">
+                        <GroupLogo
+                          groupName={g.name ?? ''}
+                          logoUrl={g.logo_url}
+                          displayColor={g.display_color ?? '#EEEDFE'}
+                          textColor={g.text_color ?? '#3C3489'}
+                          size={28}
+                        />
                       </div>
 
                       <div className="flex-1">

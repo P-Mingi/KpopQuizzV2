@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -21,21 +21,13 @@ export function HomeFeedCard({ quiz }: Props) {
       transition: 'border-color 150ms ease, transform 150ms ease',
     }}>
       {/* Group logo thumbnail */}
-      <div style={{
-        width: 56, height: 56, borderRadius: 12, flexShrink: 0,
-        background: quiz.display_color,
-        border: '1px solid var(--border)',
-        position: 'relative', overflow: 'hidden',
-      }}>
-        {quiz.logo_url ? (
-          <Image src={quiz.logo_url} alt={quiz.group_name} width={56} height={56} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ) : (
-          <div style={{
-            width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 14, fontWeight: 700, color: quiz.text_color,
-          }}>{quiz.group_name.slice(0, 3)}</div>
-        )}
-      </div>
+      <GroupLogo
+        groupName={quiz.group_name}
+        logoUrl={quiz.logo_url}
+        displayColor={quiz.display_color}
+        textColor={quiz.text_color}
+        size={56}
+      />
 
       {/* Content */}
       <div style={{ flex: 1, minWidth: 0 }}>

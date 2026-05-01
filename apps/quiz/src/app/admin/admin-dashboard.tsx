@@ -236,6 +236,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   const [quizSort, setQuizSort] = useState('newest');
   const [quizSearchText, setQuizSearchText] = useState('');
   const [hasMoreQuizzes, setHasMoreQuizzes] = useState(initialData.all_quizzes.length === 20);
+  const [quizSearching, setQuizSearching] = useState(false);
+  const quizSearchDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Chart refs
   const activityChartRef = useRef<HTMLCanvasElement>(null);
@@ -671,11 +673,38 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   }
 
   async function loadMoreQuizzes() {
-    const res = await fetch(`/api/admin/stats?period=${period}`);
-    if (!res.ok) return;
-    // For now, load more isn't implemented via the stats endpoint.
-    // The all_quizzes section is client-side only for the initial 20.
-    setHasMoreQuizzes(false);
+    try {
+      const offset = quizzes.length;
+      const res = await fetch(`/api/admin/quizzes?offset=${offset}&limit=20&status=${quizFilter}&sort=${quizSort}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const newQuizzes = data.quizzes ?? [];
+      setQuizzes(prev => [...prev, ...newQuizzes]);
+      setHasMoreQuizzes(newQuizzes.length === 20);
+    } catch {
+      setHasMoreQuizzes(false);
+    }
+  }
+
+  async function searchQuizzesServer(query: string, filterOverride?: string, sortOverride?: string) {
+    setQuizSearching(true);
+    try {
+      const params = new URLSearchParams({
+        limit: '50',
+        status: filterOverride ?? quizFilter,
+        sort: sortOverride ?? quizSort,
+      });
+      if (query) params.set('q', query);
+      const res = await fetch(`/api/admin/quizzes?${params}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setQuizzes(data.quizzes ?? []);
+      setHasMoreQuizzes((data.quizzes ?? []).length === 50);
+    } catch {
+      // keep current list
+    } finally {
+      setQuizSearching(false);
+    }
   }
 
   // Fetch pending groups on mount
@@ -764,23 +793,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     setMergeGroupId(null);
   }
 
-  // Filter and sort quizzes
-  const filteredQuizzes = quizzes
-    .filter(q => {
-      if (quizFilter === 'published') return q.status === 'published';
-      if (quizFilter === 'flagged') return q.status === 'flagged';
-      if (quizFilter === 'removed') return q.status === 'removed';
-      return true;
-    })
-    .filter(q => {
-      if (!quizSearchText) return true;
-      return q.title.toLowerCase().includes(quizSearchText.toLowerCase());
-    })
-    .sort((a, b) => {
-      if (quizSort === 'most_played') return b.play_count - a.play_count;
-      if (quizSort === 'most_reported') return b.report_count - a.report_count;
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-    });
+  // Quizzes are now fetched server-side with filters applied
+  const filteredQuizzes = quizzes;
 
   const pendingCount = moderationItems.length;
 
@@ -1434,15 +1448,22 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
           <input
             type="text"
             value={quizSearchText}
-            onChange={(e) => setQuizSearchText(e.target.value)}
-            placeholder="Search by title..."
+            onChange={(e) => {
+              const val = e.target.value;
+              setQuizSearchText(val);
+              if (quizSearchDebounce.current) clearTimeout(quizSearchDebounce.current);
+              quizSearchDebounce.current = setTimeout(() => {
+                searchQuizzesServer(val.trim());
+              }, 400);
+            }}
+            placeholder="Search by title or creator..."
             className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary placeholder:text-tertiary focus:outline-none focus:border-accent flex-1 max-w-xs"
           />
           <div className="flex gap-1">
             {(['all', 'published', 'flagged', 'removed'] as const).map(f => (
               <button
                 key={f}
-                onClick={() => setQuizFilter(f)}
+                onClick={() => { setQuizFilter(f); searchQuizzesServer(quizSearchText.trim(), f); }}
                 className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-colors ${
                   quizFilter === f
                     ? 'bg-accent text-white border-accent'
@@ -1453,9 +1474,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
               </button>
             ))}
           </div>
+          {quizSearching && <div className="w-4 h-4 border-2 border-default border-t-accent rounded-full animate-spin" />}
           <select
             value={quizSort}
-            onChange={(e) => setQuizSort(e.target.value)}
+            onChange={(e) => { setQuizSort(e.target.value); searchQuizzesServer(quizSearchText.trim(), undefined, e.target.value); }}
             className="px-2.5 py-1.5 rounded-md border border-default bg-primary text-[12px] text-primary"
           >
             <option value="newest">Newest</option>
