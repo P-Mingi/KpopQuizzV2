@@ -251,11 +251,21 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
       </div>
 
       {/* Body */}
-      <div className="px-3 py-2.5 pb-3">
-        <p className="text-[13px] font-medium text-[#2C2C2A] leading-tight mb-[3px] line-clamp-2">
+      <div style={{ padding: '12px 14px 14px' }}>
+        <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-0.01em', color: 'var(--text-primary)', marginBottom: 4, lineHeight: 1.3 }}>
           {game.title}
-        </p>
-        <p className="text-[10px] text-[#B4B2A9]">{getMetaLine(game)}</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+          <div style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>
+            {getMetaLine(game)}
+          </div>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 3,
+            padding: '2px 7px', borderRadius: 9999,
+            background: '#FFF7E0', color: '#B98800',
+            fontSize: 10, fontWeight: 800,
+          }}>{'\u2B50'} +{itemCount * 10}</span>
+        </div>
       </div>
     </Link>
   );
