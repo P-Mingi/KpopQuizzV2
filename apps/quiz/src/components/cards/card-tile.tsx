@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { getGroupMeta, RARITY_CONFIG, getDecoPositions } from '@/lib/cards/constants';
+import { getGroupMeta, RARITY_CONFIG } from '@/lib/cards/constants';
 import type { Rarity } from '@/lib/cards/constants';
 
 interface CardData {
@@ -26,140 +26,105 @@ interface CardTileProps {
   hideTags?: boolean;
 }
 
-const SIZES = {
-  sm: { nameFs: 10, groupFs: 6, tagFs: 5, rarityFs: 7, groupBadgeFs: 5.5, padBottom: '14px 6px 6px' },
-  md: { nameFs: 13, groupFs: 7, tagFs: 5.5, rarityFs: 9, groupBadgeFs: 7, padBottom: '18px 10px 10px' },
-  lg: { nameFs: 15, groupFs: 7, tagFs: 5.5, rarityFs: 9, groupBadgeFs: 7, padBottom: '18px 10px 10px' },
-};
-
-export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = true, linkTo, hideTags = false }: CardTileProps) {
+export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = true, linkTo, hideTags: _hideTags = false }: CardTileProps) {
   const rarity = (card.rarity as Rarity) in RARITY_CONFIG ? (card.rarity as Rarity) : 'R';
 
   if (!owned) {
-    const el = <MissingCard card={card} size={size} onClick={onClick} />;
+    const el = <LockedCard card={card} size={size} onClick={onClick} />;
     if (linkTo) return <Link href={linkTo}>{el}</Link>;
     return el;
   }
 
   const g = getGroupMeta(card.group_slug);
   const r = RARITY_CONFIG[rarity];
-  const s = SIZES[size];
-  const cardIdx = card.card_number ?? 0;
-  const bubbles = getDecoPositions(cardIdx, r.bubbleCount, 'bubble');
-  const stars = getDecoPositions(cardIdx, r.starCount, 'star');
-  const starChars = ['\u2726', '\u2727', '\u2726', '\u22C6', '\u2727'];
+  const isTopTier = rarity === 'SSS' || rarity === 'SS';
+  const hasLogo = !!card.art_url;
 
   const content = (
     <div
       onClick={onClick}
       style={{
         width: '100%',
-        aspectRatio: '2/3',
-        borderRadius: 20,
-        overflow: 'hidden',
-        position: 'relative',
-        fontFamily: "'Quicksand', 'Segoe UI', sans-serif",
-        border: `${r.borderWidth}px solid ${g.borderColor}`,
-        boxShadow: r.glowSpread > 0
-          ? `0 4px 20px ${g.shadowColor}, 0 0 ${r.glowSpread}px ${g.shadowColor}`
-          : `0 4px 20px ${g.shadowColor}`,
+        aspectRatio: '5/7',
+        borderRadius: 14,
+        padding: 0,
+        border: 0,
+        background: 'transparent',
         cursor: onClick || linkTo ? 'pointer' : 'default',
-        transition: showHoverEffect ? 'transform 0.2s, box-shadow 0.2s' : 'none',
+        position: 'relative',
+        filter: `drop-shadow(0 14px 24px ${r.color}40)`,
+        transition: showHoverEffect ? 'transform 200ms ease' : 'none',
       }}
-      onMouseEnter={showHoverEffect ? (e) => {
-        e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)';
-        e.currentTarget.style.boxShadow = `0 8px 28px ${g.shadowColor}, 0 0 ${r.glowSpread + 10}px ${g.shadowColor}`;
-      } : undefined}
-      onMouseLeave={showHoverEffect ? (e) => {
-        e.currentTarget.style.transform = 'translateY(0) scale(1)';
-        e.currentTarget.style.boxShadow = r.glowSpread > 0
-          ? `0 4px 20px ${g.shadowColor}, 0 0 ${r.glowSpread}px ${g.shadowColor}`
-          : `0 4px 20px ${g.shadowColor}`;
-      } : undefined}
+      onMouseEnter={showHoverEffect ? (e) => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.015)'; } : undefined}
+      onMouseLeave={showHoverEffect ? (e) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; } : undefined}
     >
-      {card.art_url ? (
-        <img src={card.art_url} alt={card.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-      ) : (
-        <div style={{ position: 'absolute', inset: 0, background: g.bg }} />
-      )}
-
-      {!card.art_url && bubbles.map((b, i) => (
-        <div key={`b${i}`} style={{
-          position: 'absolute', top: b.top, left: `${b.left}%`,
-          width: b.size, height: b.size, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.35)',
-          border: b.hasBorder ? `1px solid ${g.bubbleBorder}` : 'none',
-        }} />
-      ))}
-
-      {!card.art_url && stars.map((st, i) => (
-        <div key={`s${i}`} style={{
-          position: 'absolute', top: st.top, left: `${st.left}%`,
-          fontSize: st.size, color: g.starColor,
-        }}>{starChars[i % starChars.length]}</div>
-      ))}
-
-      {rarity === 'SSS' && (
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'linear-gradient(135deg, transparent 20%, rgba(255,220,150,0.08) 40%, transparent 50%, rgba(255,200,100,0.06) 70%, transparent 85%)',
-        }} />
-      )}
-
-      {r.shimmer && (
-        <div className="card-shimmer" style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          opacity: 0, transition: 'opacity 0.3s',
-          background: 'linear-gradient(135deg, transparent 25%, rgba(255,255,255,0.12) 42%, transparent 50%, rgba(255,200,255,0.06) 68%, transparent 80%)',
-        }} />
-      )}
-
       <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-        background: `linear-gradient(90deg, ${g.ribbonA}, ${g.ribbonB}, ${g.ribbonA})`,
-      }} />
-
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        padding: s.padBottom,
-        paddingTop: size === 'lg' ? 40 : 30,
-        background: `linear-gradient(transparent, ${g.fadeBg} 35%, ${g.fadeBgStrong})`,
+        position: 'absolute', inset: 0, borderRadius: 14, overflow: 'hidden',
+        background: `linear-gradient(160deg, color-mix(in srgb, ${g.textColor} 80%, #000), ${g.textColor})`,
+        boxShadow: `inset 0 0 0 2px ${r.color}, 0 6px 20px -4px ${r.color}55`,
       }}>
-        <p style={{ fontSize: s.nameFs, fontWeight: 700, color: g.textColor, margin: 0, textAlign: 'center' }}>{card.name}</p>
-        <p style={{ fontSize: s.groupFs, color: g.textMuted, margin: 0, marginTop: 2, textAlign: 'center', letterSpacing: 1 }}>{g.name} {g.emoji}</p>
-      </div>
+        {/* Group photo - full bleed */}
+        {hasLogo ? (
+          <img src={card.art_url!} alt={card.name} style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          }} />
+        ) : (
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: `linear-gradient(160deg, color-mix(in srgb, ${g.textColor} 80%, #000), ${g.textColor})`,
+          }} />
+        )}
 
-      {card.tags && card.tags.length > 0 && size !== 'sm' && !hideTags && (
+        {/* Foil sheen for S+ */}
+        {rarity !== 'R' && <span className="holo-foil" />}
+        {isTopTier && <span className="holo-prism" />}
+        {isTopTier && <span className="holo-grain" />}
+
+        {/* Bottom darken for legibility */}
         <div style={{
-          position: 'absolute', bottom: size === 'lg' ? 52 : 45, left: 0, right: 0,
-          display: 'flex', justifyContent: 'center', gap: 3,
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0.85) 100%)',
+        }} />
+
+        {/* Top stamp - group name */}
+        <div style={{
+          position: 'absolute', top: 8, left: 10,
+          letterSpacing: '0.16em', fontWeight: 900, textTransform: 'uppercase',
+          color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.35)',
+          fontSize: size === 'sm' ? 6 : size === 'lg' ? 11 : 9,
+        }}>{g.name.replace(/\s/g, '')}</div>
+
+        {/* Rarity gem (top-right) */}
+        <div style={{
+          position: 'absolute', top: 6, right: 6,
+          padding: size === 'sm' ? '2px 5px' : '3px 7px', borderRadius: 6,
+          background: `linear-gradient(140deg, ${r.color}, color-mix(in srgb, ${r.color} 50%, #fff))`,
+          color: '#fff',
+          fontSize: size === 'sm' ? 7 : 9, fontWeight: 900, letterSpacing: '0.08em',
+          boxShadow: `0 2px 6px ${r.color}66, inset 0 1px 0 rgba(255,255,255,0.4)`,
+        }}>{r.label}</div>
+
+        {/* Member name plate (bottom) */}
+        <div style={{
+          position: 'absolute', bottom: size === 'sm' ? 5 : 8, left: size === 'sm' ? 6 : 10, right: size === 'sm' ? 6 : 10,
+          color: '#fff', textAlign: 'left',
         }}>
-          {card.tags.slice(0, 3).map(t => (
-            <span key={t} style={{
-              fontSize: s.tagFs, color: g.textTags,
-              padding: '1px 6px', borderRadius: 10,
-              background: 'rgba(255,255,255,0.5)',
-              border: `0.5px solid ${g.bubbleBorder}`,
-            }}>{t}</span>
-          ))}
+          <div style={{
+            fontSize: size === 'sm' ? 5 : size === 'lg' ? 9 : 8,
+            fontWeight: 700, letterSpacing: '0.16em',
+            opacity: 0.85, textTransform: 'uppercase',
+          }}>{g.name === card.group_name ? (card.group_name ?? g.name) : g.name}</div>
+          <div style={{
+            fontSize: size === 'sm' ? 9 : size === 'lg' ? 18 : 16,
+            fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.05,
+            textShadow: '0 1px 6px rgba(0,0,0,0.65)',
+            marginTop: 2,
+          }}>{card.name}</div>
         </div>
-      )}
 
-      <div style={{
-        position: 'absolute', top: 8, right: 8,
-        width: r.badgeSize, height: r.badgeSize, borderRadius: '50%',
-        background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(4px)',
-        border: `1.5px solid ${g.borderColor}`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: s.rarityFs, fontWeight: 800, color: g.textColor,
-      }}>{rarity}</div>
-
-      <div style={{
-        position: 'absolute', top: 8, left: 8,
-        fontSize: s.groupBadgeFs, fontWeight: 700, color: g.textTags,
-        padding: '2px 6px', borderRadius: 10,
-        background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(4px)',
-      }}>{'\u2661'} {g.abbr}</div>
+        {/* Embossed inner edge */}
+        <span className="holo-edge" />
+      </div>
     </div>
   );
 
@@ -167,62 +132,53 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
   return content;
 }
 
-function MissingCard({ card, size, onClick }: { card: CardData; size: string; onClick?: (() => void) | undefined }) {
+function LockedCard({ card, size, onClick }: { card: CardData; size: string; onClick?: (() => void) | undefined }) {
   const g = getGroupMeta(card.group_slug);
   const rarity = (card.rarity as Rarity) in RARITY_CONFIG ? (card.rarity as Rarity) : 'R';
   const r = RARITY_CONFIG[rarity];
-  const s = SIZES[size as keyof typeof SIZES] ?? SIZES.md;
 
   return (
     <div
       onClick={onClick}
       style={{
         width: '100%',
-        aspectRatio: '2/3',
-        borderRadius: 20,
+        aspectRatio: '5/7',
+        borderRadius: 14,
         overflow: 'hidden',
         position: 'relative',
-        fontFamily: "'Quicksand', 'Segoe UI', sans-serif",
-        border: `2px dashed ${g.borderColor}`,
-        background: 'linear-gradient(170deg, #fef8fa, #fdf2f5, #fcecf0)',
+        border: '1.5px dashed var(--border)',
+        background: 'linear-gradient(180deg, var(--bg-elevated), var(--bg-surface))',
         cursor: onClick ? 'pointer' : 'default',
       }}
     >
-      <div style={{
-        position: 'absolute', inset: 0,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      }}>
-        <span style={{ fontSize: 28, color: g.borderColor, opacity: 0.35 }}>?</span>
-        <span style={{ fontSize: 7, color: g.borderColor, opacity: 0.3, marginTop: 2 }}>{r.drop} chance</span>
-      </div>
-
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-        background: `linear-gradient(90deg, ${g.ribbonA}, ${g.ribbonB}, ${g.ribbonA})`,
-        opacity: 0.4,
-      }} />
-
-      <div style={{
-        position: 'absolute', top: 8, right: 8,
-        width: r.badgeSize, height: r.badgeSize, borderRadius: '50%',
-        background: 'rgba(255,255,255,0.4)',
-        border: `1.5px solid ${g.borderColor}`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: s.rarityFs, fontWeight: 800, color: g.textColor,
-        opacity: 0.3,
-      }}>{rarity}</div>
-
+      {/* Rarity badge top-left */}
       <div style={{
         position: 'absolute', top: 8, left: 8,
-        fontSize: s.groupBadgeFs, fontWeight: 700, color: g.textTags,
-        padding: '2px 6px', borderRadius: 10,
-        background: 'rgba(255,255,255,0.3)',
-        opacity: 0.35,
-      }}>{'\u2661'} {g.abbr}</div>
+        padding: '3px 8px', borderRadius: 6, background: 'var(--bg-surface)',
+        border: '1px solid var(--border)', color: 'var(--text-tertiary)',
+        fontSize: size === 'sm' ? 7 : 9, fontWeight: 800, letterSpacing: '0.08em',
+      }}>{r.label}</div>
 
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: s.padBottom }}>
-        <p style={{ fontSize: s.nameFs, fontWeight: 700, color: g.textColor, margin: 0, textAlign: 'center', opacity: 0.2 }}>{card.name}</p>
+      {/* Center lock */}
+      <div style={{
+        position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', gap: 6, color: 'var(--text-tertiary)',
+      }}>
+        <div style={{
+          width: 36, height: 36, borderRadius: '50%',
+          border: '1.5px dashed var(--text-tertiary)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18,
+        }}>?</div>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Locked</div>
       </div>
+
+      {/* Group name at bottom */}
+      <div style={{
+        position: 'absolute', bottom: 10, left: 0, right: 0, textAlign: 'center',
+        fontSize: 11, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase',
+        letterSpacing: '0.06em',
+      }}>{g.name}</div>
     </div>
   );
 }

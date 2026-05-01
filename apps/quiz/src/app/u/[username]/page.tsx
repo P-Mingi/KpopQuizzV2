@@ -6,7 +6,6 @@ import { createServerClient } from '@/lib/supabase/server';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { BadgeGrid } from '@/components/ui/badge-grid';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
-import { ProfileEditor } from '@/components/profile/profile-editor';
 import { ProfileTabs } from './profile-tabs';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount, formatJoinDate } from '@/lib/utils';

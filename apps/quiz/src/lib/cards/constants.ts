@@ -83,22 +83,22 @@ export const GROUPS = [
 
 export const RARITY_CONFIG = {
   R: {
-    label: 'R', order: 1, drop: '60%',
+    label: 'R', order: 1, drop: '60%', color: '#888780',
     borderWidth: 2, bubbleCount: 0, starCount: 2,
     glowSpread: 0, badgeSize: 22, shimmer: false,
   },
   S: {
-    label: 'S', order: 2, drop: '28%',
+    label: 'S', order: 2, drop: '28%', color: '#378ADD',
     borderWidth: 2.5, bubbleCount: 3, starCount: 3,
     glowSpread: 15, badgeSize: 24, shimmer: false,
   },
   SS: {
-    label: 'SS', order: 3, drop: '10%',
+    label: 'SS', order: 3, drop: '10%', color: '#D4537E',
     borderWidth: 3, bubbleCount: 4, starCount: 4,
     glowSpread: 22, badgeSize: 26, shimmer: true,
   },
   SSS: {
-    label: 'SSS', order: 4, drop: '2%',
+    label: 'SSS', order: 4, drop: '2%', color: '#EF9F27',
     borderWidth: 3, bubbleCount: 5, starCount: 5,
     glowSpread: 30, badgeSize: 28, shimmer: true,
   },
