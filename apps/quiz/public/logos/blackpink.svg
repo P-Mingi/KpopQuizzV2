@@ -1,0 +1,5 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="0" fill="#000000"/>
+  <rect x="30" y="82" width="140" height="36" rx="1" fill="none" stroke="#F5A0B8" stroke-width="2.5"/>
+  <text x="100" y="108" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="22" letter-spacing="3" fill="#F5A0B8">BLACKPINK</text>
+</svg>

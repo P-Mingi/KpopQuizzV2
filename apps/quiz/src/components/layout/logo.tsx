@@ -1,46 +1,32 @@
 import Link from 'next/link';
 
 interface Props {
-  /** Size of the logo text. Defaults to `md` (17px). */
   size?: 'sm' | 'md' | 'lg';
-  /** When true, don't wrap in a Link. Useful inside `<Link>` parents. */
   bare?: boolean;
 }
 
-/**
- * kpopquiz logo with a mini lightstick mascot icon.
- * "kpop" in text-primary, "quiz" in accent.
- */
 export function Logo({ size = 'md', bare }: Props) {
-  const textClass =
-    size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-2xl' : 'text-[17px]';
-  const iconSize = size === 'sm' ? 16 : size === 'lg' ? 24 : 18;
+  const iconSize = size === 'sm' ? 22 : size === 'lg' ? 32 : 28;
+  const fontSize = size === 'sm' ? 14 : size === 'lg' ? 22 : 18;
+  const radius = size === 'sm' ? 6 : size === 'lg' ? 10 : 8;
 
   const inner = (
-    <span className={`inline-flex items-center gap-1.5 font-bold ${textClass} leading-none`}>
-      <svg
-        width={iconSize}
-        height={Math.round(iconSize * 1.4)}
-        viewBox="0 0 20 28"
-        className="flex-shrink-0"
-        aria-hidden="true"
-      >
-        <circle cx="10" cy="7" r="6" fill="var(--accent)" />
-        <rect x="9" y="13" width="2" height="12" rx="1" fill="var(--text-secondary)" />
-        <circle cx="8" cy="6" r="1" fill="var(--bg-primary)" />
-        <circle cx="12" cy="6" r="1" fill="var(--bg-primary)" />
-        <path
-          d="M8 9 Q10 11 12 9"
-          fill="none"
-          stroke="var(--bg-primary)"
-          strokeWidth="0.8"
-          strokeLinecap="round"
-        />
-      </svg>
-      <span>
-        <span className="text-primary">kpop</span>
-        <span className="text-accent">quiz</span>
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 8,
+      fontWeight: 800, fontSize, letterSpacing: '-0.02em',
+    }}>
+      <span style={{
+        width: iconSize, height: iconSize, borderRadius: radius,
+        background: 'var(--accent)',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        color: 'var(--accent-fg, #fff)',
+        flexShrink: 0,
+      }}>
+        <svg width={iconSize * 0.57} height={iconSize * 0.57} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/>
+        </svg>
       </span>
+      <span>KpopQuiz</span>
     </span>
   );
 
