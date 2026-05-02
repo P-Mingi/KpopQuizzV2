@@ -87,10 +87,8 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
         }} />
 
         {/* Top stamp - group name */}
-        <div style={{
-          position: 'absolute', top: 8, left: 10,
-          letterSpacing: '0.16em', fontWeight: 900, textTransform: 'uppercase',
-          color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.35)',
+        <div className="holo-stamp" style={{
+          top: 8, left: 10,
           fontSize: size === 'sm' ? 6 : size === 'lg' ? 11 : 9,
         }}>{g.name.replace(/\s/g, '')}</div>
 
@@ -103,6 +101,17 @@ export function CardTile({ card, owned, size = 'md', onClick, showHoverEffect = 
           fontSize: size === 'sm' ? 7 : 9, fontWeight: 900, letterSpacing: '0.08em',
           boxShadow: `0 2px 6px ${r.color}66, inset 0 1px 0 rgba(255,255,255,0.4)`,
         }}>{r.label}</div>
+
+        {/* Duplicate count chip */}
+        {'owned_count' in card && typeof (card as { owned_count?: number }).owned_count === 'number' && (card as { owned_count: number }).owned_count > 1 && (
+          <div style={{
+            position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)',
+            padding: '2px 7px', borderRadius: 9999,
+            background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)',
+            color: '#fff', fontSize: 9, fontWeight: 800, letterSpacing: '0.04em',
+            zIndex: 2,
+          }}>{'\u00D7'}{(card as { owned_count: number }).owned_count}</div>
+        )}
 
         {/* Member name plate (bottom) */}
         <div style={{

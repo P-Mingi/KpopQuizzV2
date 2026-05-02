@@ -467,3 +467,34 @@ body {
 .quiz-thumb {
   transition: filter 0.15s ease-out;
 }
+
+@keyframes flashFade {
+  0% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+/* Holo stamp text */
+.holo-stamp {
+  position: absolute;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  font-size: 9px;
+}
+
+/* Responsive navigation */
+.mobile-tab-bar { display: none; }
+.top-nav { display: block; }
+
+@media (max-width: 767px) {
+  .top-nav { display: none; }
+  .mobile-tab-bar { display: block; }
+  body { padding-bottom: 72px; }
+}
+
+@media (max-width: 1080px) {
+  .top-nav-search-label,
+  .top-nav-create-label { display: none; }
+}

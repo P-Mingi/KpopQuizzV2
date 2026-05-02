@@ -3,7 +3,6 @@ import {
   getTopCreatorsAllTime,
   getTopPlayersByXp,
 } from '@/lib/db/queries/profiles';
-import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { HallOfFameTabs } from './hall-of-fame-tabs';
 import { safeFetch } from '@/lib/error-handling';
 import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
@@ -33,23 +32,20 @@ export default async function HallOfFamePage(): Promise<React.ReactElement> {
   const weekly = padWeeklyLeaderboard(weeklyRaw, 6);
 
   return (
-    <div className="pt-4 md:pt-6 pb-8">
-      <Breadcrumbs
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Hall of Fame' },
-        ]}
-      />
-
-      <div className="mb-4">
-        <div className="flex items-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="var(--combo)" aria-hidden="true">
-            <polygon points="10,1 13,7 19,7.8 14.5,12.2 15.8,19 10,15.8 4.2,19 5.5,12.2 1,7.8 7,7" />
-          </svg>
-          <h1 className="text-[22px] font-bold text-primary">Hall of fame</h1>
-        </div>
-        <p className="text-xs text-ghost mt-0.5">
-          The best creators and players in the fandom.
+    <div style={{ paddingTop: 16, paddingBottom: 32 }}>
+      <div style={{ textAlign: 'center', marginBottom: 18 }}>
+        <div style={{
+          fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
+          letterSpacing: '0.12em', color: 'var(--text-tertiary)', marginBottom: 6,
+        }}>Hall of Fame</div>
+        <h1 style={{
+          fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 800,
+          letterSpacing: '-0.025em', lineHeight: 1.05, margin: 0,
+        }}>Top fans this week</h1>
+        <p style={{
+          fontSize: 13, color: 'var(--text-secondary)', marginTop: 8, maxWidth: 420, marginLeft: 'auto', marginRight: 'auto',
+        }}>
+          Earn byeol by playing quizzes, maintaining streaks, and creating content.
         </p>
       </div>
 

@@ -359,85 +359,85 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
     <div>
       {/* START PHASE */}
       {phase === 'start' && (
-        <div className="text-center animate-fade-in">
-          <div className="mb-4">
-            <Link
-              href="/games"
-              className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-            >
-              &larr; Back to Games
-            </Link>
-          </div>
+        <div style={{ paddingTop: 24, maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+          <Link href="/games" style={{
+            fontSize: 13, color: 'var(--text-tertiary)', textDecoration: 'none',
+            background: 'transparent', border: 'none', cursor: 'pointer',
+          }}>
+            {'\u2190'} Back to Games
+          </Link>
 
-          {/* Group logo */}
-          <div className="flex justify-center mb-4">
+          {/* Logo medallion */}
+          <div style={{ marginTop: 18, marginBottom: 18, display: 'flex', justifyContent: 'center' }}>
             {game.logo_url ? (
-              <div
-                className="w-[60px] h-[60px] rounded-full overflow-hidden border-2"
-                style={{ borderColor: game.display_color || 'var(--border)' }}
-              >
-                <Image src={game.logo_url} alt={game.group_name || ''} width={60} height={60} className="object-cover" />
+              <div style={{
+                width: 96, height: 96, borderRadius: '50%', overflow: 'hidden',
+                border: `3px solid ${game.display_color || 'var(--border)'}`,
+                boxShadow: 'var(--shadow-card)',
+              }}>
+                <Image src={game.logo_url} alt={game.group_name || ''} width={96} height={96} className="object-cover" />
               </div>
             ) : (
-              <div
-                className="w-[60px] h-[60px] rounded-full flex items-center justify-center text-white text-lg font-bold"
-                style={{ backgroundColor: game.display_color || '#888' }}
-              >
+              <div style={{
+                width: 96, height: 96, borderRadius: '50%',
+                background: game.display_color || '#888',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff', fontSize: 36, fontWeight: 800,
+              }}>
                 {game.group_name ? getInitials(game.group_name) : '?'}
               </div>
             )}
           </div>
 
-          <h1 className="text-xl font-medium mb-1">
+          <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.02em', margin: 0, color: 'var(--text-primary)' }}>
             {game.title}
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mb-1">
+          <div style={{ marginTop: 8, color: 'var(--text-secondary)', fontSize: 16, fontWeight: 500 }}>
             {isSongGame && albumName ? `${albumName} - ${artistName}` : (game.group_name || '')}
-          </p>
-          <p className="text-xs text-[var(--text-tertiary)] mb-6">
-            {members.length} {isSongGame ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members'} / {formatTimer(totalTime)}
-          </p>
+          </div>
+          <div style={{ marginTop: 4, color: 'var(--text-tertiary)', fontSize: 13 }}>
+            {members.length} {isSongGame ? 'songs' : game.game_type === 'name_all_groups' ? 'groups' : game.game_type === 'name_all_idols' ? 'idols' : 'members'} &nbsp;/&nbsp; {formatTimer(totalTime)}
+          </div>
 
-          <p className="text-xs text-[var(--text-tertiary)] mb-3 font-medium uppercase tracking-wide">
-            Choose your mode
-          </p>
+          <div style={{
+            fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em',
+            color: 'var(--text-tertiary)', marginTop: 28, marginBottom: 14,
+          }}>Choose your mode</div>
 
           {/* Mode cards */}
-          <div className="grid grid-cols-2 gap-3 mb-6 max-w-sm mx-auto">
-            <button
-              onClick={() => setMode('blind')}
-              className={`p-4 rounded-xl border-2 text-left transition-all ${
-                mode === 'blind'
-                  ? 'border-[var(--accent)] bg-[var(--accent-bg)]'
-                  : 'border-[var(--border)] hover:border-[var(--text-tertiary)]'
-              }`}
-            >
-              <p className="text-sm font-medium mb-1">Blind mode</p>
-              <p className="text-[11px] text-[var(--text-secondary)] leading-snug">
-                No clues, pure memory. For hardcore fans.
-              </p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, maxWidth: 560, margin: '0 auto 28px' }}>
+            <button onClick={() => setMode('blind')} style={{
+              padding: '20px 18px', borderRadius: 16, textAlign: 'left',
+              border: mode === 'blind' ? '2px solid var(--accent)' : '1.5px solid var(--border)',
+              background: mode === 'blind' ? 'color-mix(in srgb, var(--accent) 6%, var(--bg-surface))' : 'var(--bg-surface)',
+              cursor: 'pointer', fontFamily: 'inherit', minHeight: 110,
+              transition: 'border-color 160ms ease, background 160ms ease',
+            }}>
+              <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--text-primary)', marginBottom: 6 }}>Blind mode</div>
+              <div style={{ fontSize: 13, color: 'var(--text-tertiary)', lineHeight: 1.45 }}>No clues, pure memory. For hardcore fans.</div>
             </button>
-            <button
-              onClick={() => setMode('photo')}
-              className={`p-4 rounded-xl border-2 text-left transition-all ${
-                mode === 'photo'
-                  ? 'border-[var(--accent)] bg-[var(--accent-bg)]'
-                  : 'border-[var(--border)] hover:border-[var(--text-tertiary)]'
-              }`}
-            >
-              <p className="text-sm font-medium mb-1">Photo mode</p>
-              <p className="text-[11px] text-[var(--text-secondary)] leading-snug">
-                See photos, type names. For everyone.
-              </p>
+            <button onClick={() => setMode('photo')} style={{
+              padding: '20px 18px', borderRadius: 16, textAlign: 'left',
+              border: mode === 'photo' ? '2px solid var(--accent)' : '1.5px solid var(--border)',
+              background: mode === 'photo' ? 'color-mix(in srgb, var(--accent) 6%, var(--bg-surface))' : 'var(--bg-surface)',
+              cursor: 'pointer', fontFamily: 'inherit', minHeight: 110,
+              transition: 'border-color 160ms ease, background 160ms ease',
+            }}>
+              <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--text-primary)', marginBottom: 6 }}>Photo mode</div>
+              <div style={{ fontSize: 13, color: 'var(--text-tertiary)', lineHeight: 1.45 }}>See photos, type names. For everyone.</div>
             </button>
           </div>
 
-          <button
-            onClick={startGame}
-            className="px-10 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
-          >
-            Start game
-          </button>
+          <button onClick={startGame} style={{
+            padding: '14px 38px', borderRadius: 9999,
+            background: 'var(--text-primary)', color: 'var(--bg-primary)',
+            border: 'none', fontSize: 15, fontWeight: 700,
+            cursor: 'pointer', letterSpacing: '-0.01em', fontFamily: 'inherit',
+          }}>Start game</button>
+
+          <div style={{ marginTop: 18, fontSize: 11, color: 'var(--text-tertiary)' }}>
+            Earn {'\u2605'} +{members.length * 10} byeol &nbsp;{'\u00B7'}&nbsp; 3 hints available
+          </div>
         </div>
       )}
 

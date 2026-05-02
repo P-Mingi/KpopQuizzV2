@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 const TABS = [
   {
-    label: 'Quizzes',
+    label: 'Home',
     href: '/',
     match: ['/q/', '/quizzes', '/trending', '/new', '/most-liked'],
   },
@@ -15,24 +15,24 @@ const TABS = [
     match: ['/games'],
   },
   {
-    label: 'Create',
-    href: '/create',
-    match: ['/create'],
-  },
-  {
     label: 'Cards',
     href: '/cards',
     match: ['/cards'],
   },
   {
-    label: 'Profile',
+    label: 'Ranks',
+    href: '/hall-of-fame',
+    match: ['/hall-of-fame'],
+  },
+  {
+    label: 'You',
     href: '/profile',
     match: ['/profile', '/u/'],
   },
 ] as const;
 
 /**
- * Fixed bottom tab bar. Mobile only.
+ * Fixed bottom tab bar. Mobile only (hidden on desktop via CSS).
  * Hidden on fullscreen game/quiz pages for immersion.
  */
 export function MobileTabBar() {
@@ -50,72 +50,76 @@ export function MobileTabBar() {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-subtle bg-primary/95 backdrop-blur-sm"
+      className="mobile-tab-bar"
+      style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
+        background: 'color-mix(in srgb, var(--bg-primary) 95%, transparent)',
+        backdropFilter: 'blur(12px)',
+        borderTop: '1px solid var(--border)',
+        padding: '8px 0 calc(8px + env(safe-area-inset-bottom))',
+      }}
       aria-label="Main navigation"
     >
-      <div className="max-w-[960px] mx-auto">
-        <div className="flex pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          {TABS.map((tab) => {
-            const active = isActive(tab);
-            return (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                className={`flex-1 flex flex-col items-center gap-[3px] pt-1 text-[9px] font-medium ${
-                  active ? 'text-accent' : 'text-tertiary'
-                }`}
-              >
-                <TabIcon name={tab.label} active={active} />
-                {tab.label}
-              </Link>
-            );
-          })}
-        </div>
+      <div style={{ maxWidth: 720, margin: '0 auto', display: 'flex', justifyContent: 'space-around', padding: 0 }}>
+        {TABS.map((tab) => {
+          const active = isActive(tab);
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+                background: 'transparent', border: 'none',
+                color: active ? 'var(--accent)' : 'var(--text-tertiary)',
+                fontSize: 10, fontWeight: 600, padding: '4px 8px',
+                textDecoration: 'none',
+              }}
+            >
+              <TabIcon name={tab.label} active={active} />
+              {tab.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
 }
 
 function TabIcon({ name, active }: { name: string; active: boolean }) {
-  const color = active ? 'var(--accent)' : 'var(--text-tertiary)';
-  const size = 18;
+  const stroke = active ? 'var(--accent)' : 'var(--text-tertiary)';
+  const fill = active ? 'currentColor' : 'none';
+  const size = 20;
 
   switch (name) {
-    case 'Quizzes':
+    case 'Home':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-          <circle cx="10" cy="10" r="7.5" />
-          <path d="M8 8c0-1.1.9-2 2-2s2 .9 2 2c0 .7-.4 1.3-1 1.6-.4.2-.5.4-.5.5V11" />
-          <circle cx="10.5" cy="13" r="0.6" fill={color} />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />
         </svg>
       );
     case 'Games':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="6" height="6" rx="1.5" />
-          <rect x="11.5" y="2.5" width="6" height="6" rx="1.5" />
-          <rect x="2.5" y="11.5" width="6" height="6" rx="1.5" />
-          <rect x="11.5" y="11.5" width="6" height="6" rx="1.5" />
-        </svg>
-      );
-    case 'Create':
-      return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-          <path d="M10 3V17M3 10H17" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0z" />
+          <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
         </svg>
       );
     case 'Cards':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="4" y="3" width="12" height="14" rx="2" />
-          <path d="M8 7h4M8 10h4M8 13h2" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
         </svg>
       );
-    case 'Profile':
+    case 'Ranks':
       return (
-        <svg width={size} height={size} viewBox="0 0 20 20" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-          <circle cx="10" cy="7" r="3.5" />
-          <path d="M4 17C4 14 6.5 12 10 12C13.5 12 16 14 16 17" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2" />
+        </svg>
+      );
+    case 'You':
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
         </svg>
       );
     default:

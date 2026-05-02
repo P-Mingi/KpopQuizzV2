@@ -83,7 +83,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
             <Suspense fallback={<TopNavSkeleton />}>
               <TopNav />
             </Suspense>
-            <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-0 pb-24 md:pb-8">
+            <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
               {children}
             </main>
             <Footer />

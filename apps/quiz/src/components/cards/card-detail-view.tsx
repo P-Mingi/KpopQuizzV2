@@ -71,6 +71,16 @@ export function CardDetailView({ card, isOwned, ownedCount = 0, onSetFeatured }:
         <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)' }}>
           #{serial} {'\u00B7'} {g.name}
         </span>
+        <button onClick={() => { if (navigator.share) navigator.share({ title: card.name, url: window.location.href }).catch(() => {}); }} style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          padding: 8, borderRadius: 10, background: 'transparent',
+          border: '1px solid var(--border)', cursor: 'pointer',
+        }} aria-label="Share">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+        </button>
       </div>
 
       {/* Hero card with holographic tilt */}
@@ -90,10 +100,22 @@ export function CardDetailView({ card, isOwned, ownedCount = 0, onSetFeatured }:
           {card.art_url ? (
             <img src={card.art_url} alt={card.name} style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+              mixBlendMode: 'soft-light', opacity: 0.95,
             }} />
           ) : (
             <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(160deg, color-mix(in srgb, ${g.textColor} 80%, #000), ${g.textColor})` }} />
           )}
+
+          {/* Member monogram circle */}
+          <div style={{
+            position: 'absolute', left: '50%', top: '38%', transform: 'translateX(-50%)',
+            width: '60%', aspectRatio: '1/1', borderRadius: '50%',
+            background: `radial-gradient(circle at 35% 30%, color-mix(in srgb, ${g.textColor} 50%, #fff), color-mix(in srgb, ${g.textColor} 80%, #000))`,
+            boxShadow: '0 10px 30px rgba(0,0,0,0.4), inset 0 0 0 2px rgba(255,255,255,0.4)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontWeight: 900, fontSize: 64, letterSpacing: '-0.05em',
+            textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+          }}>{card.name.charAt(0).toUpperCase()}</div>
 
           <span className="holo-foil" style={{ opacity: isTopTier ? 0.7 : 0.55 }} />
           {isTopTier && <span className="holo-prism" />}
@@ -142,6 +164,17 @@ export function CardDetailView({ card, isOwned, ownedCount = 0, onSetFeatured }:
 
           <span className="holo-edge" />
         </div>
+
+        {/* Reflection */}
+        <div style={{
+          position: 'absolute', left: '8%', right: '8%', top: '100%', height: 60,
+          background: `linear-gradient(160deg, color-mix(in srgb, ${g.textColor} 80%, #000), ${g.textColor})`,
+          borderRadius: '0 0 22px 22px',
+          opacity: 0.25, filter: 'blur(6px)',
+          transform: 'scaleY(-1)', transformOrigin: 'top',
+          maskImage: 'linear-gradient(180deg, rgba(0,0,0,0.7), transparent)',
+          WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,0.7), transparent)',
+        }} />
       </div>
 
       {/* Title block */}
@@ -160,7 +193,7 @@ export function CardDetailView({ card, isOwned, ownedCount = 0, onSetFeatured }:
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
         <StatTile label="In your dex" value={isOwned ? `\u00D7${ownedCount || 1}` : 'Locked'} accent={r.color} />
         <StatTile label="Drop rate" value={dropPct} accent={r.color} />
-        <StatTile label="Rarity" value={r.label} accent={r.color} />
+        <StatTile label="Trade value" value={`${Math.round(parseFloat(dropPct) * -10 + 200)}b`} accent={r.color} />
       </div>
 
       {/* About */}
@@ -184,7 +217,8 @@ export function CardDetailView({ card, isOwned, ownedCount = 0, onSetFeatured }:
         <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)', marginBottom: 12 }}>How to get more</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <PullSourceRow label="Standard pack" rate={`${dropPct} per slot`} accent={r.color} />
-          <PullSourceRow label={`${g.name} group pack`} rate="Better odds" accent={r.color} bonus />
+          <PullSourceRow label={`${g.name} group pack`} rate={`${parseFloat(dropPct) * 2}% per slot`} accent={r.color} bonus />
+          <PullSourceRow label="Weekly streak reward" rate="Guaranteed at 7 days" accent={r.color} />
         </div>
 
         <button onClick={() => router.push('/cards')} style={{
