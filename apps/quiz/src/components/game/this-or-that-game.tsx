@@ -435,52 +435,59 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               onClick={() => handlePick(sideIndex)}
               disabled={animState !== 'idle'}
               style={{
-                position: 'absolute', inset: 0,
-                clipPath: isTop
-                  ? 'polygon(0 0, 100% 0, 100% 42%, 0 58%)'
-                  : 'polygon(0 58%, 100% 42%, 100% 100%, 0 100%)',
+                position: 'absolute',
+                left: 0, right: 0,
+                top: isTop ? 0 : '50%',
+                bottom: isTop ? '50%' : 0,
                 background: `linear-gradient(${isTop ? '160deg' : '20deg'}, ${baseColor}, color-mix(in srgb, ${baseColor} 50%, #000))`,
                 border: 0, padding: 0,
                 cursor: animState === 'idle' ? 'pointer' : 'default',
                 transition: 'transform 220ms ease, opacity 220ms',
-                transform: isPicked ? 'scale(1.03)' : 'scale(1)',
+                transform: isPicked ? 'scale(1.02)' : 'scale(1)',
                 opacity: isFaded ? 0.35 : 1,
                 overflow: 'hidden',
                 fontFamily: 'inherit',
+                borderBottom: isTop ? '1px solid rgba(255,255,255,0.15)' : 'none',
               }}
             >
               {item.image_url ? (
                 <img src={item.image_url} alt="" style={{
                   position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-                  mixBlendMode: 'luminosity', opacity: 0.5,
+                  objectPosition: 'center 30%',
                 }} />
               ) : null}
+              {/* Subtle color tint overlay instead of desaturation */}
               <div style={{
                 position: 'absolute', inset: 0,
-                background: isTop
-                  ? `linear-gradient(180deg, transparent 30%, ${baseColor}cc)`
-                  : `linear-gradient(0deg, transparent 30%, ${baseColor}cc)`,
+                background: item.image_url
+                  ? (isTop
+                    ? `linear-gradient(180deg, ${baseColor}55 0%, transparent 40%, ${baseColor}dd 100%)`
+                    : `linear-gradient(0deg, ${baseColor}55 0%, transparent 40%, ${baseColor}dd 100%)`)
+                  : 'none',
               }} />
 
               {/* Side label */}
               <div style={{
                 position: 'absolute',
-                ...(isTop ? { top: 18 } : { bottom: 18 }),
+                ...(isTop ? { bottom: 16 } : { top: 16 }),
                 left: 20, right: 20,
                 color: '#fff', textAlign: 'left',
+                zIndex: 2,
               }}>
                 <div style={{
                   display: 'inline-block', padding: '3px 10px', borderRadius: 9999,
-                  background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)',
+                  background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(6px)',
                   fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase',
                 }}>{isTop ? 'Pick A' : 'Pick B'}</div>
                 <div style={{
-                  fontSize: 30, fontWeight: 800, letterSpacing: '-0.03em',
-                  marginTop: 8, lineHeight: 1,
+                  fontSize: 28, fontWeight: 800, letterSpacing: '-0.03em',
+                  marginTop: 6, lineHeight: 1,
+                  textShadow: '0 2px 8px rgba(0,0,0,0.5)',
                 }}>{item.name}</div>
                 <div style={{
-                  fontSize: 11, fontWeight: 600, opacity: 0.85,
+                  fontSize: 11, fontWeight: 600, opacity: 0.9,
                   marginTop: 4, letterSpacing: '0.04em',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.4)',
                 }}>{item.subtitle}</div>
               </div>
 
@@ -488,7 +495,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               {isPicked && (
                 <div style={{
                   position: 'absolute',
-                  ...(isTop ? { top: '20%' } : { bottom: '20%' }),
+                  top: '50%', transform: 'translateY(-50%)',
                   right: 20, width: 44, height: 44, borderRadius: '50%',
                   background: '#fff', color: baseColor,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',

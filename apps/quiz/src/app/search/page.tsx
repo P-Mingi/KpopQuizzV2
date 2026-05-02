@@ -4,6 +4,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { formatCount } from '@/lib/utils';
+import { SearchForm } from './search-form';
 
 import type { Metadata } from 'next';
 import type { QuizCardData } from '@/lib/db/types';
@@ -71,6 +72,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
     return (
       <div className="py-6">
         <h1 className="text-xl font-medium text-primary mb-4">Search</h1>
+        <SearchForm initial="" />
         <p className="text-sm text-secondary text-center py-8">Enter at least 2 characters to search.</p>
       </div>
     );
@@ -116,8 +118,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-medium text-primary mb-1">Search results</h1>
-      <p className="text-sm text-secondary mb-6">for &quot;{query}&quot;</p>
+      <h1 className="text-xl font-medium text-primary mb-4">Search</h1>
+      <SearchForm initial={query} />
 
       {!hasResults && (
         <p className="text-sm text-secondary text-center py-8">No results for &quot;{query}&quot;</p>
