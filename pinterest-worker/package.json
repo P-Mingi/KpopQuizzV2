@@ -1,0 +1,19 @@
+{
+  "name": "pinterest-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "python scripts/1-scrape.py",
+    "process": "tsx scripts/2-process.ts",
+    "export": "tsx scripts/3-export-csv.ts",
+    "all": "npm run scrape && npm run process && npm run export"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "csv-stringify": "^6.5.0",
+    "dotenv": "^16.4.5",
+    "sharp": "^0.33.0",
+    "tsx": "^4.7.0"
+  }
+}

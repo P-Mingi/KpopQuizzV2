@@ -9,7 +9,11 @@
     "build:quiz": "pnpm --filter quiz build",
     "build:blindtest": "pnpm --filter blindtest build",
     "build": "pnpm -r build",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "pinterest:scrape": "cd pinterest-worker && python scripts/1-scrape.py",
+    "pinterest:process": "cd pinterest-worker && npx tsx scripts/2-process.ts",
+    "pinterest:export": "cd pinterest-worker && npx tsx scripts/3-export-csv.ts",
+    "pinterest:all": "npm run pinterest:scrape && npm run pinterest:process && npm run pinterest:export"
   },
   "devDependencies": {
     "@supabase/supabase-js": "^2.100.1",

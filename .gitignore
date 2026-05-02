@@ -37,3 +37,11 @@ next-env.d.ts
 
 # data dumps
 scripts/*.json
+
+# pinterest worker (local-only)
+pinterest-worker/tmp/
+pinterest-worker/output/
+pinterest-worker/.env.local
+pinterest-worker/node_modules/
+pinterest-worker/__pycache__/
+pinterest-worker/venv/
