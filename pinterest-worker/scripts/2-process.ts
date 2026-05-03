@@ -19,17 +19,58 @@ const supabase = createClient(
 const SITE_URL = process.env.SITE_URL || 'https://kpopquiz.org';
 
 const TITLE_TEMPLATES = [
-  (group: string) => `${group} Aesthetic That Hits Different`,
-  (group: string) => `Only Real ${group} Fans Will Understand`,
-  (group: string) => `This ${group} Energy Is Everything`,
-  (group: string) => `POV: You're a ${group} Stan and You See This`,
-  (group: string) => `${group} Vibes For Your Soul`,
-  (group: string) => `Tell Me You're a ${group} Fan Without Telling Me`,
-  (group: string) => `The ${group} Content We Needed Today`,
-  (group: string) => `How Well Do You Know ${group}? Take the Quiz`,
-  (group: string) => `${group} Stans Will Love This`,
-  (group: string) => `Calling All ${group} Fans`,
+  (g: string) => `${g} Aesthetic That Hits Different`,
+  (g: string) => `Only Real ${g} Fans Will Understand`,
+  (g: string) => `This ${g} Energy Is Everything`,
+  (g: string) => `POV: You're a ${g} Stan`,
+  (g: string) => `${g} Vibes For Your Soul`,
+  (g: string) => `The ${g} Content We Needed Today`,
+  (g: string) => `How Well Do You Know ${g}?`,
+  (g: string) => `${g} Stans Will Love This`,
+  (g: string) => `Calling All ${g} Fans`,
+  (g: string) => `${g} Fan? Prove It With This Quiz`,
+  (g: string) => `${g} Moments That Live Rent Free`,
+  (g: string) => `Every ${g} Fan Needs to See This`,
+  (g: string) => `${g} Quiz: How Well Do You Know Them?`,
+  (g: string) => `This Is Your Sign to Stan ${g}`,
+  (g: string) => `${g} Core Aesthetic`,
+  (g: string) => `The Ultimate ${g} Fan Challenge`,
+  (g: string) => `Are You the Biggest ${g} Fan?`,
+  (g: string) => `${g} Appreciation Post`,
+  (g: string) => `${g} Pictures That Go Hard`,
+  (g: string) => `Why ${g} Fans Are Built Different`,
+  (g: string) => `${g} Content for Your Feed`,
+  (g: string) => `Tag a ${g} Stan`,
+  (g: string) => `${g} Quiz Time`,
+  (g: string) => `Only ${g} Stans Will Get This`,
+  (g: string) => `${g} Fan Check`,
+  (g: string) => `Can You Name Every ${g} Member?`,
+  (g: string) => `${g} Era Was Everything`,
+  (g: string) => `Living for This ${g} Moment`,
+  (g: string) => `${g} Trivia Challenge`,
+  (g: string) => `Test Your ${g} Knowledge`,
 ];
+
+// Track used titles to guarantee uniqueness within a batch
+const usedTitles = new Set<string>();
+
+function getUniqueTitle(group: string): string {
+  const emojis = ['', ' !!', ' ??', ' >>'];
+  for (let attempt = 0; attempt < 200; attempt++) {
+    const fn = TITLE_TEMPLATES[Math.floor(Math.random() * TITLE_TEMPLATES.length)]!;
+    const suffix = attempt < TITLE_TEMPLATES.length ? '' : emojis[attempt % emojis.length];
+    const candidate = (fn(group) + suffix).slice(0, 100);
+    if (!usedTitles.has(candidate)) {
+      usedTitles.add(candidate);
+      return candidate;
+    }
+  }
+  // Fallback: append a number
+  const fn = TITLE_TEMPLATES[Math.floor(Math.random() * TITLE_TEMPLATES.length)]!;
+  const fallback = `${fn(group)} #${usedTitles.size + 1}`.slice(0, 100);
+  usedTitles.add(fallback);
+  return fallback;
+}
 
 function rewriteDescription(group: string | null, quizSlug: string): string {
   const g = group || 'K-pop';
@@ -125,8 +166,7 @@ async function processOne(pin: ScrapedPin) {
   const tweakedUrl = urlData.publicUrl;
 
   const group = pin.detected_group || 'K-pop';
-  const titleFn = TITLE_TEMPLATES[Math.floor(Math.random() * TITLE_TEMPLATES.length)]!;
-  const title = titleFn(group).slice(0, 100);
+  const title = getUniqueTitle(group);
 
   const quizSlug = pin.target_quiz_slug || DEFAULT_QUIZ_SLUGS[group] || 'kpop-quiz';
   const description = rewriteDescription(pin.detected_group, quizSlug);
