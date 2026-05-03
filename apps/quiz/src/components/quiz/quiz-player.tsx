@@ -39,6 +39,7 @@ import { LikeQuizButton } from '@/components/ui/like-quiz-button';
 import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { shareToReddit, copyShareLink } from '@/lib/share';
 import { ByeolGain } from '@/components/cards/byeol-gain';
+import { ByeolResultBlock } from '@/components/byeol/result-block';
 import { formatCount } from '@/lib/utils';
 
 import type { Difficulty, QuizSettings, QuizType } from '@/lib/db/types';
@@ -176,6 +177,7 @@ type QuizState =
       timeTaken: number;
       xpEarned: number;
       byeolEarned: number;
+      wasFirstTime: boolean;
       newByeolBalance: number;
       leveledUp: boolean;
       newLevel: number | null;
@@ -197,6 +199,7 @@ type QuizAction =
       timeTaken: number;
       xpEarned: number;
       byeolEarned: number;
+      wasFirstTime: boolean;
       newByeolBalance: number;
       leveledUp: boolean;
       newLevel: number | null;
@@ -331,6 +334,7 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         timeTaken: action.timeTaken,
         xpEarned: action.xpEarned,
         byeolEarned: action.byeolEarned,
+        wasFirstTime: action.wasFirstTime,
         newByeolBalance: action.newByeolBalance,
         leveledUp: action.leveledUp,
         newLevel: action.newLevel,
@@ -500,6 +504,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     let passRate: number | null = null;
     let xpEarned = 0;
     let byeolEarned = 0;
+    let wasFirstTime = true;
     let newByeolBalance = 0;
     let leveledUp = false;
     let newLevel: number | null = null;
@@ -525,6 +530,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           percentile: number;
           xp_earned?: number;
           byeol_earned?: number;
+          was_first_time?: boolean;
           new_byeol_balance?: number;
           pass_rate?: number | null;
           leveled_up?: boolean;
@@ -534,6 +540,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         percentile = data.percentile;
         xpEarned = data.xp_earned ?? 0;
         byeolEarned = data.byeol_earned ?? 0;
+        wasFirstTime = data.was_first_time ?? true;
         newByeolBalance = data.new_byeol_balance ?? 0;
         passRate = data.pass_rate ?? null;
         leveledUp = data.leveled_up ?? false;
@@ -551,6 +558,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       timeTaken,
       xpEarned,
       byeolEarned,
+      wasFirstTime,
       newByeolBalance,
       leveledUp,
       newLevel,
@@ -1113,11 +1121,16 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         )}
 
         {/* Byeol earned */}
-        {state.byeolEarned > 0 && (
+        {state.wasFirstTime && state.byeolEarned > 0 ? (
           <ByeolGain
             amount={state.byeolEarned}
             newBalance={state.newByeolBalance}
             canOpenPack={state.newByeolBalance >= 100}
+          />
+        ) : (
+          <ByeolResultBlock
+            byeolEarned={state.byeolEarned}
+            wasFirstTime={state.wasFirstTime}
           />
         )}
 

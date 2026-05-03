@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
-import { awardByeol, BYEOL_REWARDS, checkXpConversion, getByeolBalance } from '@/lib/byeol';
+import { BYEOL_REWARDS, checkXpConversion, getByeolBalance } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -154,9 +154,14 @@ export async function POST(
         }
       }
 
-      // Award Byeol
-      const byeolAmount = BYEOL_REWARDS.quiz_complete(score as number, total_questions as number);
-      await awardByeol(playerId, byeolAmount, 'quiz_complete', id);
+      // Award Byeol (one-time per quiz via anti-farming RPC)
+      await supabase.rpc('award_first_time_byeol', {
+        p_user_id: playerId,
+        p_content_type: 'quiz',
+        p_content_id: id,
+        p_score: score as number,
+        p_total_questions: total_questions as number,
+      });
     }
 
     // Save per-question times if provided
@@ -226,9 +231,29 @@ export async function POST(
       }
     }
 
-    // Compute Byeol earned for response (mirrors the award above, 0 if anonymous)
-    const byeolEarned = playerId ? BYEOL_REWARDS.quiz_complete(score as number, total_questions as number) : 0;
-    const newByeolBalance = playerId ? await getByeolBalance(playerId) : 0;
+    // Fetch reward info from anti-farming RPC result
+    let byeolEarned = 0;
+    let wasFirstTime = false;
+    let newByeolBalance = 0;
+    if (playerId) {
+      const { data: rewardCheck } = await supabase.rpc('check_byeol_eligibility', {
+        p_user_id: playerId,
+        p_content_type: 'quiz',
+        p_content_id: id,
+      });
+      const elig = Array.isArray(rewardCheck) ? rewardCheck[0] : rewardCheck;
+      wasFirstTime = !elig?.is_eligible && elig?.reason === 'Already earned' ? false : true;
+      // If not eligible, they already earned before this play (the RPC above handled it)
+      // Look up what was actually awarded from history
+      if (elig && !elig.is_eligible) {
+        wasFirstTime = false;
+        byeolEarned = 0;
+      } else {
+        wasFirstTime = true;
+        byeolEarned = BYEOL_REWARDS.quiz_complete(score as number, total_questions as number);
+      }
+      newByeolBalance = await getByeolBalance(playerId);
+    }
 
     return NextResponse.json({
       play_id: result?.play_id ?? null,
@@ -241,6 +266,7 @@ export async function POST(
       new_level_name: newLevelName,
       byeol_earned: byeolEarned,
       new_byeol_balance: newByeolBalance,
+      was_first_time: wasFirstTime,
     });
   } catch (err) {
     console.error('Failed to record play:', err);

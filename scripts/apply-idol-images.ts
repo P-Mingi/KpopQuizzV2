@@ -585,6 +585,183 @@ async function updateExpandedGames() {
 }
 
 // ============================================================
+// 6. Update song games with MV thumbnails
+// ============================================================
+
+// YouTube video ID -> thumbnail URL helper
+function ytThumb(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+// Song name (lowercase) -> YouTube MV video ID
+// Key format: "song_title|artist" (both lowercase, stripped of special chars)
+const MV_THUMBNAILS: Record<string, string> = {
+  // ---- TWICE ----
+  'cheer up|twice': ytThumb('c7rCyll5AeY'),
+  'tt|twice': ytThumb('ePpPVE-GGJw'),
+  'fancy|twice': ytThumb('kOHB85vDuow'),
+  'what is love?|twice': ytThumb('i0p1bmr0EmE'),
+  'what is love|twice': ytThumb('i0p1bmr0EmE'),
+  'feel special|twice': ytThumb('3ymwOvzhwHs'),
+  'like ooh-ahh|twice': ytThumb('0rtV5esQT6U'),
+  'likey|twice': ytThumb('V2hlQkVJZhE'),
+  'dance the night away|twice': ytThumb('Fm5iP0S1z9w'),
+  'yes or yes|twice': ytThumb('mAKsZ26SabY'),
+  'i cant stop me|twice': ytThumb('CM4CkVFmTds'),
+  // ---- BTS ----
+  'dynamite|bts': ytThumb('gdZLi9oWNZg'),
+  'butter|bts': ytThumb('WMweEpGlu_U'),
+  'boy with luv|bts': ytThumb('XsX3ATc3FbA'),
+  'spring day|bts': ytThumb('xEeFrLSkMm8'),
+  'fake love|bts': ytThumb('7C2z4GqqS5E'),
+  'dna|bts': ytThumb('MBdVXkSdhwU'),
+  'blood sweat & tears|bts': ytThumb('hmE9f-TEutc'),
+  'idol|bts': ytThumb('pBuZEGYXA6E'),
+  'fire|bts': ytThumb('4ujQOR2DMFM'),
+  'mic drop|bts': ytThumb('kTlv5_Bs8aw'),
+  'black swan|bts': ytThumb('0lapF4DQPKQ'),
+  'on|bts': ytThumb('mPVDGOVjRQ0'),
+  // ---- BLACKPINK ----
+  'ddu-du ddu-du|blackpink': ytThumb('YQA0sFl44Fw'),
+  'how you like that|blackpink': ytThumb('ioNng23DkIM'),
+  'kill this love|blackpink': ytThumb('2S24-y0Ij3Y'),
+  'lovesick girls|blackpink': ytThumb('dyI2lDO6Hmc'),
+  'pink venom|blackpink': ytThumb('gQlMMD8auMs'),
+  'shut down|blackpink': ytThumb('POe9SOEKotk'),
+  'boombayah|blackpink': ytThumb('bwmSjveL3Lc'),
+  "as if its your last|blackpink": ytThumb('Amq-qlqbjYA'),
+  'playing with fire|blackpink': ytThumb('9pdj4iJD08s'),
+  'whistle|blackpink': ytThumb('dISNgvVpWlo'),
+  'ice cream|blackpink': ytThumb('vRXZj0DzXIA'),
+  'pretty savage|blackpink': ytThumb('F8c8f2nK82w'),
+  'ready for love|blackpink': ytThumb('x8dBx4JSIMY'),
+  // ---- aespa ----
+  'next level|aespa': ytThumb('4TWR90KJl84'),
+  'supernova|aespa': ytThumb('pHeVCnYhSJE'),
+  'savage|aespa': ytThumb('WPdWvnAAurg'),
+  'black mamba|aespa': ytThumb('ZeerrnuLi5E'),
+  'spicy|aespa': ytThumb('Os_heh8ILOQ'),
+  // ---- Stray Kids ----
+  'gods menu|stray kids': ytThumb('TQTlCHxyuu8'),
+  'maniac|stray kids': ytThumb('OvioeS1ZZ7o'),
+  'back door|stray kids': ytThumb('X-uJtV8ScYk'),
+  'thunderous|stray kids': ytThumb('EaswWiwKVz8'),
+  'miroh|stray kids': ytThumb('Dab4EENTW5I'),
+  'district 9|stray kids': ytThumb('u6unJQownW4'),
+  'my pace|stray kids': ytThumb('pok5yDw77uM'),
+  'case 143|stray kids': ytThumb('jk1oSs1kPYQ'),
+  's-class|stray kids': ytThumb('JUL03YIYaBk'),
+  'hellevator|stray kids': ytThumb('AdfIfFGCqgo'),
+  'venom|stray kids': ytThumb('pM-jnEMOwVo'),
+  // ---- NewJeans ----
+  'hype boy|newjeans': ytThumb('11cta61wi0g'),
+  'super shy|newjeans': ytThumb('ArmDp-zijuc'),
+  'ditto|newjeans': ytThumb('pSUydWEqKwE'),
+  'attention|newjeans': ytThumb('js1CtxSY38I'),
+  'omg|newjeans': ytThumb('sVTy_wmn5SU'),
+  // ---- SEVENTEEN ----
+  'dont wanna cry|seventeen': ytThumb('zEkg4GBQumc'),
+  "don't wanna cry|seventeen": ytThumb('zEkg4GBQumc'),
+  'super|seventeen': ytThumb('x-y3YHp_UPY'),
+  'very nice|seventeen': ytThumb('J-wFp43XOrA'),
+  'maestro|seventeen': ytThumb('dRHfKjMwGYM'),
+  'hot|seventeen': ytThumb('grdxnviP2JE'),
+  'left & right|seventeen': ytThumb('HdZdxocqID8'),
+  'thanks|seventeen': ytThumb('ShPZ-3eCmQc'),
+  'adore u|seventeen': ytThumb('9rUFQJrCT7M'),
+  'hit|seventeen': ytThumb('F9CrRG6j2SM'),
+  'oh my!|seventeen': ytThumb('_5PELxP8Udg'),
+  // ---- IVE ----
+  'i am|ive': ytThumb('6ZUIwj3FgUY'),
+  'eleven|ive': ytThumb('NKOv2jFw7Xo'),
+  'love dive|ive': ytThumb('Y8JFxS1HlDo'),
+  'after like|ive': ytThumb('F0B7HDiY-10'),
+  'kitsch|ive': ytThumb('dDpHHCbBekY'),
+  'baddie|ive': ytThumb('8-kVN-_FbWI'),
+  // ---- LE SSERAFIM ----
+  'fearless|le sserafim': ytThumb('4vbDFu0PUew'),
+  // ---- ITZY ----
+  'dalla dalla|itzy': ytThumb('pNfTK39k55U'),
+  // ---- (G)I-DLE ----
+  'tomboy|(g)i-dle': ytThumb('Jh4QFaPmdss'),
+  'queencard|(g)i-dle': ytThumb('7BDhkvfDago'),
+  // ---- ENHYPEN ----
+  'given-taken|enhypen': ytThumb('nQ6wLuYvGd4'),
+  'bite me|enhypen': ytThumb('wXFLzODIdUI'),
+  // ---- ATEEZ ----
+  'guerrilla|ateez': ytThumb('2HcVZm_4qAI'),
+  'bouncy|ateez': ytThumb('0jVBKcCnEZY'),
+  // ---- TXT ----
+  'crown|txt': ytThumb('W3iSnIMIF7w'),
+  'anti-romantic|txt': ytThumb('LYAn5M3BQIY'),
+};
+
+async function updateSongGames() {
+  console.log('\n=== Updating song games with MV thumbnails ===\n');
+
+  const { data: games } = await supabase
+    .from('games')
+    .select('id, slug, game_type, content')
+    .in('game_type', ['name_all_songs', 'name_top_songs']);
+
+  if (!games?.length) {
+    console.log('  No song games found.');
+    return;
+  }
+
+  let updated = 0;
+  for (const game of games) {
+    const content = game.content as {
+      items: { name: string; artist?: string; image_url?: string | null }[];
+      artist?: string;
+    };
+    if (!content.items) continue;
+
+    // Artist from content level or item level
+    const gameArtist = content.artist?.toLowerCase() ?? '';
+
+    let changed = false;
+    for (const item of content.items) {
+      const artist = (item.artist ?? gameArtist).toLowerCase();
+      const songName = item.name.toLowerCase();
+
+      // Try exact match, then without special chars
+      const key = `${songName}|${artist}`;
+      const thumb = MV_THUMBNAILS[key] ?? null;
+
+      if (thumb && item.image_url !== thumb) {
+        item.image_url = thumb;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      const { error } = await supabase
+        .from('games')
+        .update({ content })
+        .eq('id', game.id);
+
+      if (error) {
+        console.error(`  Failed to update "${game.slug}": ${error.message}`);
+      } else {
+        const count = content.items.filter(i => i.image_url).length;
+        console.log(`  Updated "${game.slug}" - ${count}/${content.items.length} songs have MV thumbnails`);
+        updated++;
+      }
+    } else {
+      const count = content.items.filter(i => i.image_url).length;
+      const total = content.items.length;
+      if (count < total) {
+        const missing = content.items.filter(i => !i.image_url).map(i => i.name);
+        console.log(`  "${game.slug}" - ${count}/${total} (missing: ${missing.join(', ')})`);
+      }
+    }
+  }
+
+  console.log(`\n  Updated ${updated}/${games.length} song games.`);
+}
+
+// ============================================================
 // Main
 // ============================================================
 
@@ -593,6 +770,7 @@ async function main() {
 
   await updateNameAllGames();
   await updateExpandedGames();
+  await updateSongGames();
   await updateTotItems();
   await updateIntruderQuizzes();
   await updateImageQuizzes();

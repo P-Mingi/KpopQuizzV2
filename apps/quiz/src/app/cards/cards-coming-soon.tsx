@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
-export function CardsComingSoon() {
+interface Props {
+  isLoggedIn: boolean;
+}
+
+export function CardsComingSoon({ isLoggedIn }: Props) {
   return (
     <div style={{
       minHeight: '70vh',
@@ -92,7 +96,7 @@ export function CardsComingSoon() {
           Play quizzes and earn Byeol now so you're ready to open packs on day one!
         </p>
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/games"
             style={{
@@ -125,6 +129,30 @@ export function CardsComingSoon() {
             Home
           </Link>
         </div>
+
+        {!isLoggedIn && (
+          <div style={{ marginTop: 24 }}>
+            <p style={{ fontSize: 13, color: 'var(--text-tertiary)', marginBottom: 10 }}>
+              Create an account to start earning Byeol
+            </p>
+            <Link
+              href="/login?returnTo=/cards"
+              style={{
+                display: 'inline-block',
+                padding: '10px 24px',
+                borderRadius: 9999,
+                background: 'var(--accent)',
+                color: '#fff',
+                fontSize: 13,
+                fontWeight: 700,
+                textDecoration: 'none',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              Sign up
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

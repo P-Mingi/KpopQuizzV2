@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { ByeolEligibilityHint } from '@/components/byeol/eligibility-hint';
 
 interface QuizDetailViewProps {
   quiz: {
+    id: string;
     title: string;
     description?: string;
     question_count: number;
@@ -124,9 +126,7 @@ export function QuizDetailView({ quiz, similarQuizzes = [], onStart }: QuizDetai
         }}>START QUIZ {'\u2192'}</button>
 
         {/* Byeol reward hint */}
-        <p style={{ fontSize: 8, color: '#b4b2a9', textAlign: 'center', marginTop: 6 }}>
-          Earn <span style={{ color: '#e8a060', fontWeight: 600 }}>30-50 {'\uBCC4'}</span> by completing this quiz
-        </p>
+        <ByeolEligibilityHint contentType="quiz" contentId={quiz.id} maxReward={50} />
       </div>
 
       {/* Similar quizzes */}

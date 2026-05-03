@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
-import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -61,8 +60,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       .eq('id', songId);
   }
 
-  // Award XP
+  // Award XP and Byeol
   let xpEarned = 0;
+  let byeolEarned = 0;
   if (playerId) {
     xpEarned = Math.min(body.score * 5, 50);
     if (xpEarned > 0) {
@@ -75,9 +75,22 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       } catch { /* XP is non-critical */ }
     }
 
-    // Award Byeol
-    await awardByeol(playerId, BYEOL_REWARDS.blindtest_match, 'blindtest_play');
+    // Award Byeol (one-time per blindtest mode via anti-farming RPC)
+    const { data: rewardResult } = await supabase.rpc('award_first_time_byeol', {
+      p_user_id: playerId,
+      p_content_type: 'blindtest',
+      p_content_id: body.mode_id,
+      p_score: body.score,
+      p_total_questions: body.total,
+    });
+    const reward = Array.isArray(rewardResult) ? rewardResult[0] : rewardResult;
+    byeolEarned = reward?.byeol_awarded ?? 0;
   }
 
-  return NextResponse.json({ success: true, xp_earned: xpEarned });
+  return NextResponse.json({
+    success: true,
+    xp_earned: xpEarned,
+    byeol_earned: byeolEarned,
+    was_first_time: byeolEarned > 0,
+  });
 }

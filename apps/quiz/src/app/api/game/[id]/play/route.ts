@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
-import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
+import { getByeolBalance } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -79,6 +79,9 @@ async function recordBlindTestPlay(
   const content = game.content as BlindTestContent;
   const songs = [...content.songs];
   let score = 0;
+  let byeolEarned = 0;
+  let wasFirstTime = false;
+  let newByeolBalance = 0;
 
   // Update song stats
   for (let i = 0; i < songs.length; i++) {
@@ -140,8 +143,18 @@ async function recordBlindTestPlay(
       });
     }
 
-    // Award Byeol
-    await awardByeol(playerId, BYEOL_REWARDS.blindtest_match, 'blindtest_play', game.id);
+    // Award Byeol (one-time per blindtest game via anti-farming RPC)
+    const { data: rewardResult } = await supabase.rpc('award_first_time_byeol', {
+      p_user_id: playerId,
+      p_content_type: 'blindtest',
+      p_content_id: game.id,
+      p_score: score,
+      p_total_questions: songs.length,
+    });
+    const reward = Array.isArray(rewardResult) ? rewardResult[0] : rewardResult;
+    byeolEarned = reward?.byeol_awarded ?? 0;
+    wasFirstTime = reward?.was_first_time ?? false;
+    newByeolBalance = reward?.new_balance ?? await getByeolBalance(playerId);
   }
 
   // Award creator XP
@@ -158,6 +171,9 @@ async function recordBlindTestPlay(
     play_count: game.play_count + 1,
     score,
     already_played: false,
+    byeol_earned: byeolEarned,
+    was_first_time: wasFirstTime,
+    new_byeol_balance: newByeolBalance,
   });
 }
 
@@ -178,6 +194,12 @@ async function recordNameAllPlay(
   if (!choices || typeof choices.score !== 'number' || typeof choices.total !== 'number') {
     return NextResponse.json({ error: 'Invalid choices data' }, { status: 400 });
   }
+
+  let nameAllByeolEarned = 0;
+  let nameAllCapReached = false;
+  let nameAllEarnedToday = 0;
+  let nameAllDailyCap = 60;
+  let nameAllNewBalance = 0;
 
   // Increment play count
   const { error: updateError } = await supabase
@@ -211,9 +233,17 @@ async function recordNameAllPlay(
       });
     }
 
-    // Award Byeol
-    const isPerfect = choices.score === choices.total;
-    await awardByeol(playerId, isPerfect ? BYEOL_REWARDS.name_all_perfect : 20, 'name_all', game.id);
+    // Award Byeol (daily-capped via anti-farming RPC)
+    const { data: rewardResult } = await supabase.rpc('award_daily_capped_byeol', {
+      p_user_id: playerId,
+      p_content_type: 'game_name_all',
+    });
+    const reward = Array.isArray(rewardResult) ? rewardResult[0] : rewardResult;
+    nameAllByeolEarned = reward?.byeol_awarded ?? 0;
+    nameAllCapReached = reward?.cap_reached ?? false;
+    nameAllEarnedToday = reward?.earned_today ?? 0;
+    nameAllDailyCap = reward?.daily_cap ?? 60;
+    nameAllNewBalance = reward?.new_balance ?? await getByeolBalance(playerId);
   }
 
   // Award creator XP
@@ -229,5 +259,10 @@ async function recordNameAllPlay(
     play_count: game.play_count + 1,
     score: choices.score,
     already_played: false,
+    byeol_earned: nameAllByeolEarned,
+    cap_reached: nameAllCapReached,
+    earned_today: nameAllEarnedToday,
+    daily_cap: nameAllDailyCap,
+    new_byeol_balance: nameAllNewBalance,
   });
 }

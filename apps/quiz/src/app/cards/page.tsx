@@ -104,11 +104,11 @@ export default async function CardsPage() {
   try {
     const data = await fetchCardsData();
     if (!data.isAdminUser) {
-      return <CardsComingSoon />;
+      return <CardsComingSoon isLoggedIn={data.isLoggedIn} />;
     }
     return <CardsLanding data={data} />;
   } catch (err) {
     console.error('[cards] page error:', err);
-    return <CardsComingSoon />;
+    return <CardsComingSoon isLoggedIn={false} />;
   }
 }
