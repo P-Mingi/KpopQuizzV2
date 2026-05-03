@@ -32,7 +32,206 @@ interface ItemDef {
   group?: string;   // for idol games
   album?: string;   // for album song games (item-level, optional)
   artist?: string;  // for top-hit songs with mixed artists
+  image_url?: string; // path to idol photo in /idols/
 }
+
+// Idol image filename lookup: key = "name:group" -> filename in public/idols/
+const IDOL_IMAGES: Record<string, string> = {
+  // BLACKPINK
+  'Jennie:BLACKPINK': 'Jennie BLACKPINK.jpg',
+  'Lisa:BLACKPINK': 'Lisa BLACKPINK.jpg',
+  'Rose:BLACKPINK': 'Rose BLACKPINK.jpg',
+  'Jisoo:BLACKPINK': 'Jisoo BLACKPINK.jpg',
+  // aespa
+  'Karina:aespa': 'Karina AESPA.jpg',
+  'Winter:aespa': 'Winter AESPA.jpg',
+  'Giselle:aespa': 'Giselle AESPA.jpg',
+  'Ningning:aespa': 'Ningning AESPA.jpg',
+  // IVE
+  'Wonyoung:IVE': 'Wonyoung IVE.jpg',
+  'Yujin:IVE': 'Yujin IVE.jpg',
+  'Gaeul:IVE': 'Gaeul IVE.jpg',
+  'Rei:IVE': 'Rei IVE.jpg',
+  'Liz:IVE': 'Liz IVE.jpg',
+  'Leeseo:IVE': 'Leeseo IVE.jpg',
+  // NewJeans
+  'Minji:NewJeans': 'Minji NEWJEANS.jpg',
+  'Hanni:NewJeans': 'Hanni NEWJEANS.jpg',
+  'Danielle:NewJeans': 'Danielle NEWJEANS.jpg',
+  'Haerin:NewJeans': 'Haerin NEWJEANS.jpg',
+  'Hyein:NewJeans': 'Hyein NEWJEANS.jpg',
+  // LE SSERAFIM
+  'Chaewon:LE SSERAFIM': 'Chaewon LESSERAFIM.jpg',
+  'Sakura:LE SSERAFIM': 'Sakura LESSERAFIM.jpg',
+  'Yunjin:LE SSERAFIM': 'Yunjin LESSERAFIM.jpg',
+  'Kazuha:LE SSERAFIM': 'Kazuha LESSERAFIM.jpg',
+  'Eunchae:LE SSERAFIM': 'Eunchae LESSERAFIM.jpg',
+  // TWICE
+  'Nayeon:TWICE': 'Nayeon Twice.jpg',
+  'Sana:TWICE': 'Sana Twice.jpg',
+  'Momo:TWICE': 'Momo Twice.jpg',
+  'Jihyo:TWICE': 'Jihyo Twice.jpg',
+  'Mina:TWICE': 'Mina Twice.jpg',
+  'Dahyun:TWICE': 'Dahyun TWICE.jpg',
+  'Chaeyoung:TWICE': 'Chaeyoung Twice.jpg',
+  'Tzuyu:TWICE': 'Tzuyu Twice.jpg',
+  'Jeongyeon:TWICE': 'Jeongyeon Twice.jpg',
+  // ITZY
+  'Yeji:ITZY': 'Yeji ITZY.jpg',
+  'Ryujin:ITZY': 'Ryujin ITZY.jpg',
+  'Lia:ITZY': 'Lia ITZY.jpg',
+  'Chaeryeong:ITZY': 'Chaeryeong ITZY.jpg',
+  'Yuna:ITZY': 'Yuna ITZY.jpg',
+  // (G)I-DLE
+  'Soyeon:(G)I-DLE': 'Soyeon G-IDLE.jpg',
+  'Miyeon:(G)I-DLE': 'Miyeon G-idle.jpg',
+  'Minnie:(G)I-DLE': 'Minnie G-IDLE.jpg',
+  'Yuqi:(G)I-DLE': 'Yuqi G-IDLE.jpg',
+  'Shuhua:(G)I-DLE': 'Shuhua G-IDLE.jpg',
+  // Red Velvet
+  'Irene:Red Velvet': 'Irene REDVELVET.jpg',
+  'Seulgi:Red Velvet': 'Seulgi REDVELVET.jpg',
+  'Wendy:Red Velvet': 'Wendy REDVELVET.jpg',
+  'Joy:Red Velvet': 'Joy REDVELVET.jpg',
+  'Yeri:Red Velvet': 'Yeri REDVELVET.jpg',
+  // MAMAMOO
+  'Hwasa:MAMAMOO': 'Hwasa MAMAMOO.jpg',
+  'Solar:MAMAMOO': 'Solar MAMAMOO.jpg',
+  'Moonbyul:MAMAMOO': 'Moonbyul MAMAMOO.jpg',
+  'Wheein:MAMAMOO': 'Wheein MAMAMOO.jpg',
+  // NMIXX
+  'Lily:NMIXX': 'Lily NMIXX.jpg',
+  'Haewon:NMIXX': 'Haewon NMIXX.jpg',
+  'Sullyoon:NMIXX': 'Sullyoon NMIXX.jpg',
+  'Bae:NMIXX': 'Bae NMIXX.jpg',
+  'Jiwoo:NMIXX': 'Jiwoo NMIXX.jpg',
+  'Kyujin:NMIXX': 'Kyujin NMIXX.jpg',
+  // BTS
+  'Jungkook:BTS': 'Jungkook BTS.jpg',
+  'V:BTS': 'V BTS.jpg',
+  'Jimin:BTS': 'Jimin BTS.jpg',
+  'RM:BTS': 'RM BTS.jpg',
+  'Suga:BTS': 'Suga BTS.jpg',
+  'Jin:BTS': 'Jin BTS.jpg',
+  'J-Hope:BTS': 'J-Hope BTS.jpg',
+  // Stray Kids
+  'Felix:Stray Kids': 'Felix STRAYKIDS.jpg',
+  'Hyunjin:Stray Kids': 'Hyunjin STRAYKIDS.jpg',
+  'Bang Chan:Stray Kids': 'Bang Chan STRYKIDS.jpg',
+  'Han:Stray Kids': 'Han STRAYKIDS.jpg',
+  'Lee Know:Stray Kids': 'Lee Know STAYKIDS.jpg',
+  'Changbin:Stray Kids': 'Changbin STRAYKIDS.jpg',
+  'Seungmin:Stray Kids': 'Seungmin STRAYKIDS.jpg',
+  'I.N:Stray Kids': 'I.N stray kids.jpg',
+  // SEVENTEEN
+  'Mingyu:SEVENTEEN': 'Mingyu SEVENTEEN.jpg',
+  'Hoshi:SEVENTEEN': 'Hoshi SEVENTEEN.jpg',
+  'Woozi:SEVENTEEN': 'Woozi SEVENTEEN.jpg',
+  'Seungkwan:SEVENTEEN': 'Seungkwan SEVENTEEN.jpg',
+  'S.Coups:SEVENTEEN': 'S.Coups SEVENTEEN.jpg',
+  'Jeonghan:SEVENTEEN': 'Jeonghan SEVENTEEN.jpg',
+  'Joshua:SEVENTEEN': 'Joshua SEVENTEEN.jpg',
+  'Jun:SEVENTEEN': 'Jun SEVENTEEN.jpg',
+  'Wonwoo:SEVENTEEN': 'Wonwoo SEVENTEEN.jpg',
+  'DK:SEVENTEEN': 'DK SEVENTEEN.jpg',
+  'The8:SEVENTEEN': 'The8 SEVENTEEN.jpg',
+  'Vernon:SEVENTEEN': 'Vernon SEVENTEEN.jpg',
+  'Dino:SEVENTEEN': 'Dino SEVENTEEN.jpg',
+  // ATEEZ
+  'San:ATEEZ': 'San ATEEZ.jpg',
+  'Hongjoong:ATEEZ': 'Hongjoong ATEEZ.jpg',
+  'Wooyoung:ATEEZ': 'Wooyoung ATEEZ.jpg',
+  'Seonghwa:ATEEZ': 'Seonghwa ATEEZ.jpg',
+  'Yunho:ATEEZ': 'Yunho ATEEZ.jpg',
+  'Yeosang:ATEEZ': 'Yeosang ATEEZ.jpg',
+  'Mingi:ATEEZ': 'Mingi ATEEZ.jpg',
+  'Jongho:ATEEZ': 'Jongho ATEEZ.jpg',
+  // TXT
+  'Yeonjun:TXT': 'Yeonjun TXT.jpg',
+  'Soobin:TXT': 'Soobin TXT.jpg',
+  'Beomgyu:TXT': 'Beomgyu TXT.jpg',
+  'Taehyun:TXT': 'Taehyun TXT.jpg',
+  'Huening Kai:TXT': 'Huening Kai TXT.jpg',
+  // ENHYPEN
+  'Heeseung:ENHYPEN': 'Heeseung ENHYPEN.jpg',
+  'Jake:ENHYPEN': 'Jake ENHYPEN.jpg',
+  'Sunghoon:ENHYPEN': 'Sunghoon ENHYPEN.jpg',
+  'Jay:ENHYPEN': 'Jay ENHYPEN.jpg',
+  'Sunoo:ENHYPEN': 'Sunoo ENHYPEN.jpg',
+  'Jungwon:ENHYPEN': 'Jungwon ENHYPEN.jpg',
+  'Ni-ki:ENHYPEN': 'Ni-ki ENHYPEN.jpg',
+  // NCT 127
+  'Taeyong:NCT 127': 'Taeyong NCT 127.jpg',
+  'Mark:NCT 127': 'Mark NCT 127.jpg',
+  'Haechan:NCT 127': 'Haechan NCT 127.jpg',
+  'Johnny:NCT 127': 'Johnny NCT 127.jpg',
+  'Yuta:NCT 127': 'Yuta NCT 127.jpg',
+  'Doyoung:NCT 127': 'Doyoung NCT 127.jpg',
+  'Jaehyun:NCT 127': 'Jaehyun NCT 127.jpg',
+  'Jungwoo:NCT 127': 'Jungwoo NCT 127.jpg',
+  'Taeil:NCT 127': 'Taeil NCT 127.jpg',
+  // EXO
+  'Baekhyun:EXO': 'Baekhyun EXO.jpg',
+  'Kai:EXO': 'Kai EXO.jpg',
+  'Chanyeol:EXO': 'Chanyeol EXO.jpg',
+  'D.O.:EXO': 'D.O. EXO.jpg',
+  'Suho:EXO': 'Suho EXO.jpg',
+  'Sehun:EXO': 'Sehun EXO.jpg',
+  'Chen:EXO': 'Chen EXO.jpg',
+  'Xiumin:EXO': 'Xiumin EXO.jpg',
+  'Lay:EXO': 'Lay EXO.jpg',
+  // SHINee
+  'Taemin:SHINee': 'Taemin SHINee.jpg',
+  'Key:SHINee': 'Key SHINee.jpg',
+  'Minho:SHINee': 'Minho SHINee.jpg',
+  'Onew:SHINee': 'Onew SHINEE.jpg',
+  // GOT7
+  'Jackson:GOT7': 'Jackson GOT7.jpg',
+  'JB:GOT7': 'JB GOT7.jpg',
+  'Mark:GOT7': 'Mark GOT7.jpg',
+  'Jinyoung:GOT7': 'Jinyoung GOT7.jpg',
+  'Youngjae:GOT7': 'Youngjae GOT7.jpg',
+  'BamBam:GOT7': 'BamBam GOT7.jpg',
+  'Yugyeom:GOT7': 'Yugyeom GOT7.jpg',
+};
+
+// Group image filename lookup for name_all_groups games
+const GROUP_IMAGES: Record<string, string> = {
+  'Stray Kids': 'Stray Kids.jpg',
+  'ATEEZ': 'ATEEZ.jpg',
+  'TXT': 'TXT.jpg',
+  'ENHYPEN': 'ENHYPEN.jpg',
+  'aespa': 'Aespa.jpg',
+  'IVE': 'IVE.jpg',
+  'NewJeans': 'NewJeans.jpg',
+  'LE SSERAFIM': 'LE SSERAFIM.jpg',
+  'ITZY': 'ITZY.jpg',
+  '(G)I-DLE': '(G)I-DLE.jpg',
+  'NMIXX': 'NMIXX.jpg',
+  'TREASURE': 'TREASURE.jpg',
+  'Kep1er': 'Kep1er.jpg',
+  'NCT Dream': 'NCT Dream.jpg',
+  'RIIZE': 'RIIZE.jpg',
+  'BTS': 'BTS.jpg',
+  'BLACKPINK': 'BLACKPINK.jpg',
+  'TWICE': 'TWICE.jpg',
+  'EXO': 'EXO.jpg',
+  'SEVENTEEN': 'SEVENTEEN.jpg',
+  'Red Velvet': 'Red Velvet.jpg',
+  'GOT7': 'GOT7.jpg',
+  'MAMAMOO': 'MAMAMOO.jpg',
+  'NCT 127': 'NCT 127.jpg',
+  'SHINee': 'SHINee.jpg',
+  "Girls' Generation": "Girls' Generation.jpg",
+  'Super Junior': 'Super Junior.jpg',
+  'BIGBANG': 'BIGBANG.jpg',
+  '2NE1': '2NE1.jpg',
+  'f(x)': 'f(x).jpg',
+  '2PM': '2PM.jpg',
+  'Wonder Girls': 'Wonder Girls.jpg',
+  'BABYMONSTER': 'BABYMONSTER.jpg',
+  'BOYNEXTDOOR': 'BOYNEXTDOOR.jpg',
+};
 
 interface GameDef {
   title: string;
@@ -765,7 +964,14 @@ async function main() {
           name: item.name,
           aliases: item.aliases,
         };
-        if (item.group) obj.group = item.group;
+        if (item.group) {
+          obj.group = item.group;
+          const imgFile = IDOL_IMAGES[`${item.name}:${item.group}`];
+          if (imgFile) obj.image_url = `/idols/${imgFile}`;
+        } else if (game.game_type === 'name_all_groups') {
+          const grpFile = GROUP_IMAGES[item.name];
+          if (grpFile) obj.image_url = `/idols/${grpFile}`;
+        }
         if (item.artist) obj.artist = item.artist;
         return obj;
       }),

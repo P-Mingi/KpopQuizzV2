@@ -202,10 +202,10 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
   // Normalize: old format uses 'members', new format uses 'items'
   const members: NameAllMember[] = (
     (rawContent.members as NameAllMember[]) ??
-    ((rawContent.items as Array<{ name: string; aliases: string[]; color?: string; position?: string; group?: string }>)?.map((item, i) => ({
+    ((rawContent.items as Array<{ name: string; aliases: string[]; color?: string; position?: string; group?: string; photo_url?: string; image_url?: string }>)?.map((item, i) => ({
       name: item.name,
       aliases: item.aliases ?? [],
-      photo_url: null,
+      photo_url: item.photo_url ?? item.image_url ?? null,
       position: item.group ?? item.position ?? '',
       color: item.color ?? ['#D4537E', '#7F77DD', '#0F6E56', '#BA7517', '#378ADD', '#E67E22', '#9B59B6', '#2ECC71'][i % 8],
     }))) ??
@@ -639,27 +639,67 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
                 return (
                   <div
                     key={member.name}
-                    className={`flex flex-col items-center justify-center rounded-xl p-2 ${
-                      wasFound ? 'bg-[#EAF3DE]' : 'bg-[#FCEBEB] opacity-70'
+                    className={`rounded-xl overflow-hidden relative ${
+                      wasFound ? '' : 'opacity-70'
                     }`}
                     style={{ aspectRatio: '3/4' }}
                   >
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold mb-1"
-                      style={{ backgroundColor: member.color || (wasFound ? '#0F6E56' : '#A32D2D') }}
-                    >
-                      {getInitials(member.name)}
-                    </div>
-                    <p className={`text-[11px] font-medium text-center leading-tight truncate w-full ${
-                      wasFound ? 'text-[#27500A]' : 'text-[#791F1F]'
-                    }`}>
-                      {member.name}
-                    </p>
-                    {wasFound && (
-                      <div className="mt-0.5">
-                        <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                          <path d="M2 5.5L4 7.5L8 3" stroke="#0F6E56" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                    {member.photo_url ? (
+                      <>
+                        <Image
+                          src={member.photo_url}
+                          alt={member.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 25vw, 20vw"
+                        />
+                        {!wasFound && (
+                          <div className="absolute inset-0 bg-red-900/30" />
+                        )}
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1.5">
+                          <p className="text-[11px] font-medium text-white text-center leading-tight truncate">
+                            {member.name}
+                          </p>
+                        </div>
+                        {wasFound && (
+                          <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#0F6E56] flex items-center justify-center">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                              <path d="M2 5.5L4 7.5L8 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        )}
+                        {!wasFound && (
+                          <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#A32D2D] flex items-center justify-center">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                              <path d="M3 3L7 7M7 3L3 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div
+                        className={`w-full h-full flex flex-col items-center justify-center p-2 ${
+                          wasFound ? 'bg-[#EAF3DE]' : 'bg-[#FCEBEB]'
+                        }`}
+                      >
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold mb-1"
+                          style={{ backgroundColor: member.color || (wasFound ? '#0F6E56' : '#A32D2D') }}
+                        >
+                          {getInitials(member.name)}
+                        </div>
+                        <p className={`text-[11px] font-medium text-center leading-tight truncate w-full ${
+                          wasFound ? 'text-[#27500A]' : 'text-[#791F1F]'
+                        }`}>
+                          {member.name}
+                        </p>
+                        {wasFound && (
+                          <div className="mt-0.5">
+                            <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
+                              <path d="M2 5.5L4 7.5L8 3" stroke="#0F6E56" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

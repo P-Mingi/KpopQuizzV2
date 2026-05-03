@@ -302,6 +302,27 @@ export default function SettingsPage(): React.ReactElement {
         <SoundToggle />
       </div>
 
+      {/* Disconnect */}
+      <div className="bg-primary border border-default rounded-lg p-5 mt-4">
+        <p className="text-sm font-medium text-primary mb-1">Account</p>
+        <p className="text-xs text-tertiary mb-3">Sign out of your account on this device.</p>
+        <button
+          onClick={async () => {
+            const supabase = createBrowserClient();
+            await supabase.auth.signOut();
+            router.push('/');
+          }}
+          className="w-full py-2.5 rounded-lg text-sm font-medium transition-colors"
+          style={{
+            background: 'transparent',
+            border: '1px solid var(--wrong-border)',
+            color: 'var(--wrong)',
+          }}
+        >
+          Sign out
+        </button>
+      </div>
+
       <p className="text-xs text-tertiary mt-6 text-center">
         Need to delete your account? Contact us.
       </p>
