@@ -2,7 +2,7 @@
 Reads pending scrape jobs from Supabase, runs pinterest-dl,
 writes scraped pins back to Supabase.
 
-Usage: python scripts/1-scrape.py (from pinterest-worker/)
+Usage: python3 scripts/1-scrape.py (from pinterest-worker/)
 """
 import os
 import json
@@ -33,7 +33,7 @@ GROUP_PATTERNS = {
     "IVE": r"\b(ive\b|wonyoung|yujin|gaeul|liz|leeseo|rei)\b",
     "EXO": r"\b(exo\b|baekhyun|chanyeol|sehun|kai\b|d\.o|chen|xiumin|suho|lay)\b",
     "LE SSERAFIM": r"\b(le sserafim|lesserafim|sakura|chaewon|yunjin|kazuha|eunchae)\b",
-    "ENHYPEN": r"\b(enhypen|jungwon|heeseung|jay\b|jake\b|sunghoon|sunoo|ni-ki)\b",
+    "ENHYPEN": r"\b(enhypen|jungwon|heeseung|jay\b|jake\b|sunghoon|sunoo|ni-ki|niki)\b",
     "TXT": r"\b(txt|tomorrow x together|yeonjun|soobin|beomgyu|taehyun|hueningkai)\b",
     "ITZY": r"\b(itzy|yeji|lia|ryujin|chaeryeong|yuna)\b",
     "Red Velvet": r"\b(red velvet|irene|seulgi|wendy|joy\b|yeri)\b",
@@ -52,6 +52,127 @@ def detect_group(text):
     return None
 
 
+def parse_dump_files(dump_dir):
+    """Parse pinterest-dl dump files to extract pin data."""
+    pins = []
+    dump_path = Path(dump_dir)
+    if not dump_path.exists():
+        return pins
+
+    # Look for JSON files in the dump directory
+    for json_file in sorted(dump_path.glob("**/*.json")):
+        try:
+            with open(json_file) as f:
+                data = json.load(f)
+
+            # pinterest-dl dumps API responses; extract pin data from various formats
+            if isinstance(data, list):
+                for item in data:
+                    pin = extract_pin(item)
+                    if pin:
+                        pins.append(pin)
+            elif isinstance(data, dict):
+                # Could be a single response or nested
+                if "resource_response" in data:
+                    results = data.get("resource_response", {}).get("data", [])
+                    if isinstance(results, list):
+                        for item in results:
+                            pin = extract_pin(item)
+                            if pin:
+                                pins.append(pin)
+                    elif isinstance(results, dict):
+                        pin = extract_pin(results)
+                        if pin:
+                            pins.append(pin)
+                else:
+                    pin = extract_pin(data)
+                    if pin:
+                        pins.append(pin)
+        except (json.JSONDecodeError, KeyError):
+            continue
+
+    return pins
+
+
+def extract_pin(item):
+    """Extract pin data from a pinterest-dl dump item."""
+    if not isinstance(item, dict):
+        return None
+
+    # Try various field names pinterest-dl might use
+    image_url = (
+        item.get("origin") or
+        item.get("src") or
+        item.get("image_url") or
+        item.get("url") or
+        item.get("images", {}).get("orig", {}).get("url") if isinstance(item.get("images"), dict) else None
+    )
+
+    if not image_url:
+        # Check nested image structures
+        images = item.get("images") or item.get("image_large_url") or item.get("image")
+        if isinstance(images, str):
+            image_url = images
+        elif isinstance(images, dict):
+            for key in ["orig", "original", "736x", "564x", "474x"]:
+                if key in images:
+                    val = images[key]
+                    image_url = val.get("url") if isinstance(val, dict) else val
+                    if image_url:
+                        break
+
+    if not image_url or not isinstance(image_url, str):
+        return None
+
+    # Skip non-image URLs
+    if not any(ext in image_url.lower() for ext in [".jpg", ".jpeg", ".png", ".webp", "pinimg.com"]):
+        return None
+
+    return {
+        "url": item.get("link") or item.get("pin_url"),
+        "image_url": image_url,
+        "title": item.get("alt") or item.get("title") or item.get("grid_title") or "",
+        "description": item.get("description") or item.get("closeup_description") or "",
+        "save_count": int(item.get("save_count") or item.get("repin_count") or item.get("aggregated_pin_data", {}).get("aggregated_stats", {}).get("saves", 0) or 0),
+        "width": item.get("images", {}).get("orig", {}).get("width") if isinstance(item.get("images"), dict) else item.get("width"),
+        "height": item.get("images", {}).get("orig", {}).get("height") if isinstance(item.get("images"), dict) else item.get("height"),
+    }
+
+
+def parse_caption_files(output_dir):
+    """Parse caption JSON files written by pinterest-dl --caption json.
+    Format: { id, src, alt, origin, resolution: { x, y } }
+    """
+    pins = []
+    out_path = Path(output_dir)
+    if not out_path.exists():
+        return pins
+
+    for json_file in sorted(out_path.glob("*.json")):
+        try:
+            with open(json_file) as f:
+                data = json.load(f)
+            if not isinstance(data, dict):
+                continue
+            src = data.get("src")
+            if not src or not isinstance(src, str):
+                continue
+            res = data.get("resolution", {})
+            pins.append({
+                "url": data.get("origin"),
+                "image_url": src,
+                "title": data.get("alt") or "",
+                "description": "",
+                "save_count": 0,
+                "width": res.get("x"),
+                "height": res.get("y"),
+            })
+        except (json.JSONDecodeError, KeyError):
+            continue
+
+    return pins
+
+
 def scrape_job(job):
     job_id = job["id"]
     query = job["query"]
@@ -65,30 +186,44 @@ def scrape_job(job):
         "status": "scraping"
     }).eq("id", job_id).execute()
 
-    output_file = TMP_DIR / f"{job_id}.json"
+    output_dir = TMP_DIR / job_id
+    dump_dir = TMP_DIR / f"{job_id}_dump"
 
-    # Build pinterest-dl command based on job type
+    # Build pinterest-dl command
     if job_type == "board":
         cmd = [
             "pinterest-dl", "scrape", query,
             "-n", str(target),
-            "-o", str(TMP_DIR / job_id),
-            "--json", str(output_file),
-            "--no-download",
+            "-o", str(output_dir),
+            "--caption", "json",
+            "--dump", str(dump_dir),
+            "--verbose",
         ]
     else:
         cmd = [
             "pinterest-dl", "search", query,
             "-n", str(target),
-            "-o", str(TMP_DIR / job_id),
-            "--json", str(output_file),
-            "--no-download",
+            "-o", str(output_dir),
+            "--caption", "json",
+            "--dump", str(dump_dir),
+            "--verbose",
         ]
 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+        print(f"  stdout: {result.stdout[-200:] if result.stdout else '(empty)'}")
         if result.returncode != 0:
-            raise Exception(f"pinterest-dl failed: {result.stderr}")
+            print(f"  stderr: {result.stderr[-300:] if result.stderr else '(empty)'}")
+            # Don't fail immediately - we might still have dump files
+            if not dump_dir.exists() and not output_dir.exists():
+                raise Exception(f"pinterest-dl failed (exit {result.returncode}): {result.stderr[-200:]}")
+    except subprocess.TimeoutExpired:
+        supabase.table("pinterest_scrape_jobs").update({
+            "status": "failed",
+            "error_message": "Timed out after 600s",
+        }).eq("id", job_id).execute()
+        print(f"  x Timed out")
+        return
     except Exception as e:
         supabase.table("pinterest_scrape_jobs").update({
             "status": "failed",
@@ -97,35 +232,56 @@ def scrape_job(job):
         print(f"  x Failed: {e}")
         return
 
-    if not output_file.exists():
+    # Collect pins from dump files and caption files
+    pins = parse_dump_files(dump_dir)
+    pins.extend(parse_caption_files(output_dir))
+
+    # Also check for images that were downloaded (extract URLs from filenames/captions)
+    if not pins:
+        # Last resort: look for any downloaded images and use their URLs
+        for img in sorted(Path(output_dir).glob("*.*")) if output_dir.exists() else []:
+            if img.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]:
+                # Check for companion JSON caption
+                caption_file = img.with_suffix(".json")
+                if caption_file.exists():
+                    try:
+                        with open(caption_file) as f:
+                            cap = json.load(f)
+                        pin = extract_pin(cap)
+                        if pin:
+                            pins.append(pin)
+                    except:
+                        pass
+
+    # Deduplicate by image URL
+    seen_urls = set()
+    unique_pins = []
+    for p in pins:
+        if p["image_url"] not in seen_urls:
+            seen_urls.add(p["image_url"])
+            unique_pins.append(p)
+    pins = unique_pins
+
+    print(f"  Found {len(pins)} pins from pinterest-dl output")
+
+    if len(pins) == 0:
         supabase.table("pinterest_scrape_jobs").update({
             "status": "failed",
-            "error_message": "No output file generated",
+            "error_message": "No pins found in output. pinterest-dl may need cookies or a different client.",
         }).eq("id", job_id).execute()
         return
-
-    with open(output_file) as f:
-        pins = json.load(f)
-
-    print(f"  OK Got {len(pins)} pins from Pinterest")
 
     inserted = 0
     skipped = 0
     for pin in pins:
-        image_url = pin.get("origin") or pin.get("src") or pin.get("image_url")
-        if not image_url:
-            continue
-
+        image_url = pin["image_url"]
         image_hash = hashlib.sha256(image_url.encode()).hexdigest()
 
-        title = pin.get("alt") or pin.get("title") or ""
-        desc = pin.get("description") or ""
-        combined = f"{title} {desc}"
+        title = pin.get("title", "")
+        desc = pin.get("description", "")
+        combined = f"{title} {desc} {query}"
 
-        save_count = int(pin.get("save_count", 0) or 0)
-        if save_count < 100:
-            skipped += 1
-            continue
+        save_count = pin.get("save_count", 0)
 
         detected_group = detect_group(combined)
 
@@ -150,7 +306,7 @@ def scrape_job(job):
             else:
                 print(f"    Insert error: {e}")
 
-    print(f"  -> Inserted: {inserted}, Skipped (dupes/low-engagement): {skipped}")
+    print(f"  -> Inserted: {inserted}, Skipped (dupes): {skipped}")
 
     supabase.table("pinterest_scrape_jobs").update({
         "status": "completed",
@@ -172,7 +328,7 @@ def main():
     for job in jobs:
         scrape_job(job)
 
-    print("\nDone. Now approve pins in /admin/pinterest, then run: npm run process")
+    print("\nDone. Review pins at /admin/pinterest -> Review Pins tab.")
 
 
 if __name__ == "__main__":

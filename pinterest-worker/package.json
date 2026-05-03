@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "scrape": "python scripts/1-scrape.py",
+    "scrape": "python3 scripts/1-scrape.py",
     "process": "tsx scripts/2-process.ts",
     "export": "tsx scripts/3-export-csv.ts",
     "all": "npm run scrape && npm run process && npm run export"
