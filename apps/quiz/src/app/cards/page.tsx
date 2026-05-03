@@ -1,7 +1,9 @@
 import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 import { getActiveGroupPack } from '@/lib/pack-rotation';
 import { GROUPS } from '@/lib/cards/constants';
 import { CardsLanding } from './cards-landing';
+import { CardsComingSoon } from './cards-coming-soon';
 
 import type { Metadata } from 'next';
 
@@ -78,6 +80,7 @@ async function fetchCardsData() {
 
   return {
     isLoggedIn: !!user,
+    isAdminUser: user ? isAdmin(user.id) : false,
     userId: user?.id ?? null,
     byeol,
     groupStats,
@@ -100,29 +103,12 @@ export default async function CardsPage() {
 
   try {
     const data = await fetchCardsData();
+    if (!data.isAdminUser) {
+      return <CardsComingSoon />;
+    }
     return <CardsLanding data={data} />;
   } catch (err) {
     console.error('[cards] page error:', err);
-    const rotation = getActiveGroupPack();
-    return (
-      <CardsLanding data={{
-        isLoggedIn: false,
-        userId: null,
-        byeol: 0,
-        groupStats: GROUPS.map(g => ({ ...g, total: 0, owned: 0, logoUrl: null, groupDisplayColor: null, groupTextColor: null })),
-        totalCards: 0,
-        totalOwned: 0,
-        needsStarter: false,
-        recentPulls: [],
-        rotation: {
-          groupSlug: rotation.groupSlug,
-          groupName: rotation.groupName,
-          nextGroupName: rotation.nextGroupName,
-          endsAt: rotation.endsAt.toISOString(),
-          msRemaining: rotation.msRemaining,
-        },
-        packs: [],
-      }} />
-    );
+    return <CardsComingSoon />;
   }
 }

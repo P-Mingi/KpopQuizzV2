@@ -1,4 +1,6 @@
+import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 import { CollectionGrid } from './collection-grid';
 
 import type { Metadata } from 'next';
@@ -14,6 +16,10 @@ export const metadata: Metadata = {
 export default async function CollectionPage() {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user || !isAdmin(user.id)) {
+    redirect('/cards');
+  }
 
   const { data: allCards } = await supabase
     .from('dev_cards')

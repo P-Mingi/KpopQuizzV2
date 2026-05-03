@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 import { RARITY_CONFIG, getGroupMeta, type Rarity } from '@/lib/cards/constants';
 import { CardTile } from '@/components/cards/card-tile';
 
@@ -28,6 +29,10 @@ export default async function GroupCollectionPage({ params }: PageProps) {
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user || !isAdmin(user.id)) {
+    redirect('/cards');
+  }
 
   const { data: cards } = await supabase
     .from('dev_cards')

@@ -38,8 +38,8 @@ function getScheduledDate(index: number, perDay: number): string {
   now.setUTCHours(8, 0, 0, 0);
   const dayOffset = Math.floor(index / perDay);
   const slotInDay = index % perDay;
-  const hourSpacing = Math.floor(14 / perDay);
-  const date = new Date(now.getTime() + dayOffset * 86400000 + slotInDay * hourSpacing * 3600000);
+  const minuteSpacing = Math.floor((14 * 60) / perDay);
+  const date = new Date(now.getTime() + dayOffset * 86400000 + slotInDay * minuteSpacing * 60000);
   return date.toISOString().slice(0, 19);
 }
 

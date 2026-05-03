@@ -485,6 +485,106 @@ async function updateImageQuizzes() {
 }
 
 // ============================================================
+// 5. Update expanded games (name_all_idols, name_all_groups)
+// ============================================================
+
+async function updateExpandedGames() {
+  console.log('\n=== Updating expanded games (name_all_idols, name_all_groups) ===\n');
+
+  const { data: games } = await supabase
+    .from('games')
+    .select('id, slug, game_type, content')
+    .in('game_type', ['name_all_idols', 'name_all_groups']);
+
+  if (!games?.length) {
+    console.log('  No expanded games found.');
+    return;
+  }
+
+  // Group name -> IDOL_IMAGE_MAP context mapping
+  const GROUP_TO_CTX: Record<string, string> = {
+    'BTS': 'BTS', 'BLACKPINK': 'BLACKPINK', 'TWICE': 'TWICE',
+    'Stray Kids': 'SKZ', 'SEVENTEEN': 'SVT', 'aespa': 'AESPA',
+    'NewJeans': 'NJ', 'IVE': 'IVE', 'LE SSERAFIM': 'LSF',
+    'EXO': 'EXO', 'ENHYPEN': 'ENH', 'TXT': 'TXT', 'ATEEZ': 'ATZ',
+    'Red Velvet': 'RV', 'ITZY': 'ITZY', '(G)I-DLE': 'IDLE',
+    'NCT 127': 'NCT127', 'NCT Dream': 'NCTD', 'SHINee': 'SHINEE',
+    'NMIXX': 'NMIXX', 'GOT7': 'GOT7', 'MAMAMOO': 'MMM',
+    'TREASURE': 'TRS', 'BABYMONSTER': 'BM',
+  };
+
+  // Group images for name_all_groups games
+  const GROUP_IMAGES: Record<string, string> = {
+    'Stray Kids': '/idols/Stray Kids.jpg', 'ATEEZ': '/idols/ATEEZ.jpg',
+    'TXT': '/idols/TXT.jpg', 'ENHYPEN': '/idols/ENHYPEN.jpg',
+    'aespa': '/idols/Aespa.jpg', 'IVE': '/idols/IVE.jpg',
+    'NewJeans': '/idols/NewJeans.jpg', 'LE SSERAFIM': '/idols/LE SSERAFIM.jpg',
+    'ITZY': '/idols/ITZY.jpg', '(G)I-DLE': '/idols/(G)I-DLE.jpg',
+    'NMIXX': '/idols/NMIXX.jpg', 'TREASURE': '/idols/TREASURE.jpg',
+    'Kep1er': '/idols/Kep1er.jpg', 'NCT Dream': '/idols/NCT Dream.jpg',
+    'RIIZE': '/idols/RIIZE.jpg', 'BTS': '/idols/BTS.jpg',
+    'BLACKPINK': '/idols/BLACKPINK.jpg', 'TWICE': '/idols/TWICE.jpg',
+    'EXO': '/idols/EXO.jpg', 'SEVENTEEN': '/idols/SEVENTEEN.jpg',
+    'Red Velvet': '/idols/Red Velvet.jpg', 'GOT7': '/idols/GOT7.jpg',
+    'MAMAMOO': '/idols/MAMAMOO.jpg', 'NCT 127': '/idols/NCT 127.jpg',
+    'SHINee': '/idols/SHINee.jpg', "Girls' Generation": "/idols/Girls' Generation.jpg",
+    'Super Junior': '/idols/Super Junior.jpg', 'BIGBANG': '/idols/BIGBANG.jpg',
+    '2NE1': '/idols/2NE1.jpg', 'f(x)': '/idols/f(x).jpg',
+    '2PM': '/idols/2PM.jpg', 'Wonder Girls': '/idols/Wonder Girls.jpg',
+    'BABYMONSTER': '/idols/BABYMONSTER.jpg', 'BOYNEXTDOOR': '/idols/BOYNEXTDOOR.jpg',
+  };
+
+  let updated = 0;
+  for (const game of games) {
+    const content = game.content as { items: { name: string; group?: string; image_url?: string | null }[] };
+    if (!content.items) continue;
+
+    let changed = false;
+    for (const item of content.items) {
+      let img: string | null = null;
+
+      if (game.game_type === 'name_all_groups') {
+        img = GROUP_IMAGES[item.name] ?? null;
+      } else if (item.group) {
+        const ctx = GROUP_TO_CTX[item.group];
+        if (ctx) {
+          img = IDOL_IMAGE_MAP[`${item.name}|${ctx}`] ?? FLAT_MAP[item.name] ?? null;
+        } else {
+          img = FLAT_MAP[item.name] ?? null;
+        }
+      }
+
+      if (img && item.image_url !== img) {
+        item.image_url = img;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      const { error } = await supabase
+        .from('games')
+        .update({ content })
+        .eq('id', game.id);
+
+      if (error) {
+        console.error(`  Failed to update "${game.slug}": ${error.message}`);
+      } else {
+        const count = content.items.filter(i => i.image_url).length;
+        console.log(`  Updated "${game.slug}" - ${count}/${content.items.length} items have images`);
+        updated++;
+      }
+    } else {
+      const count = content.items.filter(i => i.image_url).length;
+      if (count < content.items.length) {
+        console.log(`  "${game.slug}" - ${count}/${content.items.length} items have images (no new matches)`);
+      }
+    }
+  }
+
+  console.log(`\n  Updated ${updated}/${games.length} expanded games.`);
+}
+
+// ============================================================
 // Main
 // ============================================================
 
@@ -492,6 +592,7 @@ async function main() {
   console.log('Applying idol images to existing database records...');
 
   await updateNameAllGames();
+  await updateExpandedGames();
   await updateTotItems();
   await updateIntruderQuizzes();
   await updateImageQuizzes();

@@ -1,5 +1,6 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 import { RARITY_CONFIG, getGroupMeta, type Rarity } from '@/lib/cards/constants';
 import { CardDetailView } from '@/components/cards/card-detail-view';
 
@@ -34,10 +35,14 @@ export default async function CardDetailPage({ params }: PageProps) {
   void getGroupMeta(groupSlug); // validate slug
 
   const supabase = await createServerClient();
-  const { data: card } = await supabase.from('dev_cards').select('*').eq('slug', cardSlug).eq('group_slug', groupSlug).single();
-  if (!card) notFound();
 
   const { data: { user } } = await supabase.auth.getUser();
+  if (!user || !isAdmin(user.id)) {
+    redirect('/cards');
+  }
+
+  const { data: card } = await supabase.from('dev_cards').select('*').eq('slug', cardSlug).eq('group_slug', groupSlug).single();
+  if (!card) notFound();
   let isOwned = false;
   if (user) {
     const { data } = await supabase.from('dev_user_cards').select('id').eq('user_id', user.id).eq('card_id', card.id).maybeSingle();
