@@ -56,8 +56,10 @@ def scrape_job(job):
     job_id = job["id"]
     query = job["query"]
     target = job.get("target_count", 100)
+    job_type = job.get("job_type", "search")
 
-    print(f"\n-> Scraping: '{query}' (target: {target} pins)")
+    label = query[:60] + ("..." if len(query) > 60 else "")
+    print(f"\n-> Scraping ({job_type}): '{label}' (target: {target} pins)")
 
     supabase.table("pinterest_scrape_jobs").update({
         "status": "scraping"
@@ -65,13 +67,23 @@ def scrape_job(job):
 
     output_file = TMP_DIR / f"{job_id}.json"
 
-    cmd = [
-        "pinterest-dl", "search", query,
-        "-n", str(target),
-        "-o", str(TMP_DIR / job_id),
-        "--json", str(output_file),
-        "--no-download",
-    ]
+    # Build pinterest-dl command based on job type
+    if job_type == "board":
+        cmd = [
+            "pinterest-dl", "scrape", query,
+            "-n", str(target),
+            "-o", str(TMP_DIR / job_id),
+            "--json", str(output_file),
+            "--no-download",
+        ]
+    else:
+        cmd = [
+            "pinterest-dl", "search", query,
+            "-n", str(target),
+            "-o", str(TMP_DIR / job_id),
+            "--json", str(output_file),
+            "--no-download",
+        ]
 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)

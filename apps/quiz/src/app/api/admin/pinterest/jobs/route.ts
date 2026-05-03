@@ -27,9 +27,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!db) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const body = await req.json();
+
+  if (!body.query?.trim()) {
+    return NextResponse.json({ error: 'Query is required' }, { status: 400 });
+  }
+
+  const jobType = body.job_type === 'board' ? 'board' : 'search';
+  if (jobType === 'board' && !body.query.includes('pinterest.com/')) {
+    return NextResponse.json({ error: 'Board URL must contain pinterest.com/' }, { status: 400 });
+  }
+
   const { error } = await db
     .from('pinterest_scrape_jobs')
-    .insert({ query: body.query, target_count: body.target_count || 100 });
+    .insert({
+      query: body.query.trim(),
+      job_type: jobType,
+      target_count: body.target_count || 100,
+    });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
