@@ -93,7 +93,7 @@ async function exportReposts(batchId: string): Promise<number> {
       'Pinterest board': clean((pin.target_board as string) || 'K-pop Aesthetic', 100),
       'Thumbnail': '',
       'Description': clean(pin.rewritten_description as string, 500),
-      'Link': clean(`${SITE_URL}/q/${pin.target_quiz_slug}?utm_source=pinterest&utm_medium=repost&utm_campaign=${batchId.slice(0, 8)}`, 500),
+      'Link': clean(`${SITE_URL}/q/${pin.target_quiz_slug}?utm_source=pinterest&utm_medium=repost&utm_campaign=${batchId.slice(0, 8)}&utm_content=${(pin.id as string).slice(0, 8)}`, 500),
       'Publish date': getScheduledDate(i, 15),
       'Keywords': clean(`kpop, ${((pin.detected_group as string) ?? 'kpop').toLowerCase()}, kpop quiz, kpop aesthetic`, 200),
     });
@@ -149,7 +149,7 @@ async function exportOriginals(batchId: string): Promise<number> {
       'Pinterest board': clean(pin.group_tag ? `K-pop Quizzes/${pin.group_tag}` : 'K-pop Quizzes', 100),
       'Thumbnail': '',
       'Description': clean(description, 500),
-      'Link': clean(`${SITE_URL}/q/${pin.quiz_slug}?utm_source=pinterest&utm_medium=original&utm_campaign=${batchId.slice(0, 8)}`, 500),
+      'Link': clean(`${SITE_URL}/q/${pin.quiz_slug}?utm_source=pinterest&utm_medium=original&utm_campaign=${batchId.slice(0, 8)}&utm_content=${(pin.id as string).slice(0, 8)}`, 500),
       'Publish date': getScheduledDate(i, 10),
       'Keywords': clean(`kpop, kpop quiz, ${((pin.group_tag as string) ?? 'kpop').toLowerCase()}, kpop trivia`, 200),
     });
