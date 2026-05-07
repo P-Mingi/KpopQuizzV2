@@ -54,6 +54,25 @@ function clean(s: string | null | undefined, maxLen?: number): string {
   return out;
 }
 
+function buildKeywords(group: string | null, originalTitle: string | null): string {
+  const keywords: string[] = ['kpop'];
+  if (group) {
+    keywords.push(group.toLowerCase().replace(/[()'-]/g, ''));
+    keywords.push(`${group.toLowerCase().replace(/[()'-]/g, '')} aesthetic`);
+    keywords.push(`${group.toLowerCase().replace(/[()'-]/g, '')} meme`);
+  }
+  // Extract meaningful words from original title (skip short/common words)
+  if (originalTitle) {
+    const stopWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'and', 'or', 'of', 'to', 'in', 'for', 'on', 'with', 'this', 'that', 'my', 'your', 'i', 'me', 'they', 'them', 'so', 'but', 'not', 'no', 'if', 'do', 'it', 'at', 'be', 'we', 'he', 'she']);
+    const words = originalTitle.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+    for (const w of words.slice(0, 4)) {
+      if (!keywords.includes(w)) keywords.push(w);
+    }
+  }
+  keywords.push('kpop aesthetic');
+  return clean(keywords.join(', '), 200);
+}
+
 function csvQuote(val: string): string {
   return '"' + val.replace(/"/g, '""') + '"';
 }
@@ -93,9 +112,9 @@ async function exportReposts(batchId: string): Promise<number> {
       'Pinterest board': clean((pin.target_board as string) || 'K-pop Aesthetic', 100),
       'Thumbnail': '',
       'Description': clean(pin.rewritten_description as string, 500),
-      'Link': clean(`${SITE_URL}/q/${pin.target_quiz_slug}?utm_source=pinterest&utm_medium=repost&utm_campaign=${batchId.slice(0, 8)}&utm_content=${(pin.id as string).slice(0, 8)}`, 500),
+      'Link': clean(`${SITE_URL}?utm_source=pinterest&utm_medium=repost&utm_campaign=${batchId.slice(0, 8)}&utm_content=${(pin.id as string).slice(0, 8)}`, 500),
       'Publish date': getScheduledDate(i, 15),
-      'Keywords': clean(`kpop, ${((pin.detected_group as string) ?? 'kpop').toLowerCase()}, kpop quiz, kpop aesthetic`, 200),
+      'Keywords': buildKeywords(pin.detected_group as string | null, pin.original_title as string | null),
     });
   }
 

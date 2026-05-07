@@ -16,6 +16,8 @@ const KNOWN_ROUTES = [
   '/hall-of-fame', '/quizzes', '/profile',
   // Cards / Fancard system
   '/cards',
+  // Battle rooms (hidden from navbar, accessed via direct URL or admin)
+  '/battle',
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {

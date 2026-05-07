@@ -380,3 +380,140 @@ export interface TotBracketEntry {
   loser_id: string;
   round: number;
 }
+
+// ============================================================
+// Battle Rooms
+// ============================================================
+
+export type BattleRoomStatus = 'lobby' | 'active' | 'ended' | 'closed';
+export type BattleDifficulty = 'Easy' | 'Medium' | 'Hard' | 'Insane';
+export type BattleGroupFilterMode = 'all' | 'specific' | 'by_gen';
+export type BattleRoomPrivacy = 'public' | 'private';
+export type BattleRoundStatus = 'pending' | 'countdown' | 'active' | 'reveal' | 'ended';
+export type BattleQuestionStatus = 'draft' | 'pending' | 'approved' | 'rejected';
+export type BattleReportReason = 'wrong' | 'hard' | 'nsfw' | 'spam' | 'other';
+
+export interface BattleRoom {
+  id: string;
+  code: string;
+  host_user_id: string;
+  status: BattleRoomStatus;
+  difficulty: BattleDifficulty;
+  group_filter_mode: BattleGroupFilterMode;
+  group_filter_values: string[];
+  time_per_round: 10 | 15 | 20 | 30;
+  korean_mode: boolean;
+  privacy: BattleRoomPrivacy;
+  current_round_id: string | null;
+  winner_player_id: string | null;
+  created_at: string;
+  started_at: string | null;
+  ended_at: string | null;
+  last_activity_at: string;
+}
+
+export interface BattlePlayer {
+  id: string;
+  room_id: string;
+  user_id: string | null;
+  guest_session_id: string | null;
+  display_name: string;
+  avatar_color: string;
+  avatar_initial: string;
+  score: number;
+  is_host: boolean;
+  is_connected: boolean;
+  joined_at: string;
+  left_at: string | null;
+  correct_count: number;
+  fastest_answer_seconds: number | null;
+}
+
+export interface BattleQuestion {
+  id: string;
+  prompt: string;
+  text_content: string | null;
+  image_url: string | null;
+  answer: string;
+  variants: string[];
+  group_name: string;
+  difficulty: BattleDifficulty;
+  tags: string[];
+  status: BattleQuestionStatus;
+  submitter_user_id: string | null;
+  rejection_reason: string | null;
+  moderator_notes: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  plays: number;
+  correct_count: number;
+  upvotes: number;
+  reports: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BattleRound {
+  id: string;
+  room_id: string;
+  round_number: number;
+  question_id: string;
+  status: BattleRoundStatus;
+  started_at: string | null;
+  countdown_ends_at: string | null;
+  round_ends_at: string | null;
+  ended_at: string | null;
+  created_at: string;
+}
+
+export interface BattleRoundAnswer {
+  id: string;
+  round_id: string;
+  player_id: string;
+  answer_text: string;
+  is_correct: boolean;
+  points_awarded: number;
+  time_taken_seconds: number | null;
+  attempt_number: number;
+  submitted_at: string;
+}
+
+export interface BattleChatMessage {
+  id: string;
+  room_id: string;
+  player_id: string;
+  message: string;
+  created_at: string;
+}
+
+export interface BattleRoomSettings {
+  difficulty: BattleDifficulty;
+  group_filter_mode: BattleGroupFilterMode;
+  group_filter_values: string[];
+  time_per_round: 10 | 15 | 20 | 30;
+  korean_mode: boolean;
+  privacy: BattleRoomPrivacy;
+}
+
+// ============================================================
+// Pinterest Cards V2
+// ============================================================
+
+export type PinterestCardVariant = 'editorial' | 'neon' | 'y2k';
+export type PinterestGenerationStatus = 'pending' | 'generating' | 'ready' | 'failed';
+export type PinterestPostStatus = 'unposted' | 'queued' | 'posted' | 'failed';
+
+export interface QuizPinterestCard {
+  id: string;
+  quiz_id: string;
+  variant: PinterestCardVariant;
+  card_image_url: string | null;
+  generation_status: PinterestGenerationStatus;
+  generation_error: string | null;
+  generated_at: string | null;
+  pinterest_status: PinterestPostStatus;
+  pinterest_posted_at: string | null;
+  pinterest_pin_id: string | null;
+  created_at: string;
+  updated_at: string;
+}

@@ -1,19 +1,4 @@
-<svg width="512" height="512" viewBox="0 0 512 716" xmlns="http://www.w3.org/2000/svg">
-  <!-- Head -->
-  <circle cx="256" cy="200" r="190" fill="#D4537E"/>
-  <!-- Stick -->
-  <rect x="230" y="390" width="52" height="280" rx="26" fill="#B0ADA5"/>
-  <!-- Left eye -->
-  <circle cx="200" cy="180" r="22" fill="#FFFFFF"/>
-  <circle cx="200" cy="180" r="12" fill="#0D0D0F"/>
-  <circle cx="206" cy="174" r="5" fill="rgba(255,255,255,0.8)"/>
-  <!-- Right eye -->
-  <circle cx="312" cy="180" r="22" fill="#FFFFFF"/>
-  <circle cx="312" cy="180" r="12" fill="#0D0D0F"/>
-  <circle cx="318" cy="174" r="5" fill="rgba(255,255,255,0.8)"/>
-  <!-- Mouth -->
-  <path d="M210 260 Q256 310 302 260" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
-  <!-- Cheek blushes -->
-  <circle cx="155" cy="240" r="24" fill="rgba(255,255,255,0.25)"/>
-  <circle cx="357" cy="240" r="24" fill="rgba(255,255,255,0.25)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="28" fill="#D4537E"/>
+  <path d="M64 20L73.6 51.2L104 58L73.6 64.8L64 96L54.4 64.8L24 58L54.4 51.2L64 20Z" fill="#fff"/>
 </svg>

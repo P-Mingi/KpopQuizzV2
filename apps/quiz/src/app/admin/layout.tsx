@@ -28,6 +28,10 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         <Link href="/admin/quiz/search" className="text-secondary hover:text-primary whitespace-nowrap">Edit Quizzes</Link>
         <Link href="/admin/this-or-that" className="text-secondary hover:text-primary whitespace-nowrap">This or That</Link>
         <Link href="/admin/cards" className="text-secondary hover:text-primary whitespace-nowrap">Cards</Link>
+        <Link href="/battle" className="text-secondary hover:text-primary whitespace-nowrap" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Battle
+          <span style={{ fontSize: 8, fontWeight: 800, padding: '1px 4px', borderRadius: 3, background: 'var(--accent)', color: '#fff', textTransform: 'uppercase', letterSpacing: 0.5 }}>BETA</span>
+        </Link>
       </nav>
       {children}
     </div>
