@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/pinterest-post",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/cron/battle-cleanup",
+      "schedule": "0 */2 * * *"
     }
   ]
 }

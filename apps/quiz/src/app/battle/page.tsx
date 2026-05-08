@@ -50,7 +50,7 @@ export default function BattleHubPage(): React.ReactElement {
           </div>
 
           {/* Two CTA cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32 }}>
+          <div className="battle-cta-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32 }}>
 
             {/* Create room card */}
             <Link href="/battle/create" style={{
@@ -150,7 +150,7 @@ export default function BattleHubPage(): React.ReactElement {
             }}>
               HOW IT WORKS
             </span>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginTop: 14 }}>
+            <div className="battle-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginTop: 14 }}>
               {[
                 { n: 1, title: 'Create or join', desc: 'Host gets a 4-digit code. Players use the code to join' },
                 { n: 2, title: 'Set the rules', desc: 'Difficulty, Groups, Time per round, Korean mode' },
@@ -179,7 +179,7 @@ export default function BattleHubPage(): React.ReactElement {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
                 <span style={{ fontSize: 15, fontWeight: 700, color: C.textDark }}>Your recent rooms</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+              <div className="battle-recent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
                 {recentRooms.map(room => (
                   <Link key={room.code} href={`/battle/r/${room.code}`} style={{
                     padding: '12px 14px', borderRadius: 12,

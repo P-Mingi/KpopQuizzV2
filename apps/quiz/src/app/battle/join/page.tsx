@@ -103,7 +103,7 @@ export default function BattleJoinPage(): React.ReactElement {
           &larr; Back to Battle hub
         </Link>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: 32, maxWidth: 760, margin: '0 auto' }}>
+        <div className="battle-join-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: 32, maxWidth: 760, margin: '0 auto' }}>
 
           {/* Left: Code input card */}
           <div style={{

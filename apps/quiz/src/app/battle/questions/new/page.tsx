@@ -175,7 +175,7 @@ export default function NewQuestionPage(): React.ReactElement {
           Add text, an image, or both. The system handles format detection and fuzzy matching.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 24, alignItems: 'flex-start' }}>
+        <div className="battle-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 24, alignItems: 'flex-start' }}>
 
           {/* Left: Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>

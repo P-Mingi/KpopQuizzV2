@@ -515,7 +515,7 @@ export function GameplayView({ state }: GameplayViewProps): React.ReactElement {
       {/* Countdown overlay */}
       {isCountdown && <CountdownOverlay secondsLeft={countdownTimeLeft} />}
 
-      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+      <div className="battle-room-cols" style={{ display: 'flex', flex: 1, minHeight: 0 }}>
 
         {/* Center: Game area */}
         <main style={{

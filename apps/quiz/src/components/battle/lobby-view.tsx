@@ -466,7 +466,7 @@ export function LobbyView({ state }: LobbyViewProps): React.ReactElement {
         connectionStatus={state.connectionStatus}
       />
 
-      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+      <div className="battle-room-cols" style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {/* Center: Settings (host) or read-only (player) */}
         {state.isHost ? (
           <HostLobbyContent state={state} />
