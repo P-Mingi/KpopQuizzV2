@@ -678,6 +678,11 @@ alter publication supabase_realtime add table public.battle_chat_messages;
 -- STORAGE POLICIES (bucket must be created via Dashboard)
 -- ============================================================
 
+-- Create the storage bucket
+insert into storage.buckets (id, name, public)
+values ('battle-question-images', 'battle-question-images', true)
+on conflict (id) do nothing;
+
 -- Anyone can read approved question images
 create policy "battle_qimages_public_read"
   on storage.objects for select
