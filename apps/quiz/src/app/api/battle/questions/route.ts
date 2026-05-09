@@ -13,14 +13,19 @@ export async function GET(req: Request): Promise<NextResponse> {
   const filter = url.searchParams.get('filter') ?? 'all';
   const admin = isAdmin(user.id);
 
-  // Admins can see pending questions for moderation
-  if (admin && filter === 'pending') {
+  // Admins can see all questions (any status)
+  if (admin) {
     const svc = createServiceRoleClient();
-    const { data } = await svc
+    let query = svc
       .from('battle_questions')
       .select('*')
-      .eq('status', 'pending')
-      .order('created_at', { ascending: true });
+      .order('created_at', { ascending: false });
+
+    if (filter !== 'all') {
+      query = query.eq('status', filter);
+    }
+
+    const { data } = await query;
     return NextResponse.json(data ?? []);
   }
 

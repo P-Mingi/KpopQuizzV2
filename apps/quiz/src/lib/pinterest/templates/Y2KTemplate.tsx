@@ -23,7 +23,6 @@ const PINK = '#D4537E';
 
 export function Y2KTemplate({
   title,
-  subtitle: _subtitle,
   group,
   questions,
   difficulty,
@@ -58,23 +57,23 @@ export function Y2KTemplate({
       />
 
       {/* Sparkle decorations */}
-      <div style={{ position: 'absolute', left: '10%', top: '12%', fontSize: 48, color: '#fff', opacity: 0.85, display: 'flex' }}>*</div>
-      <div style={{ position: 'absolute', left: '85%', top: '18%', fontSize: 42, color: '#fff', opacity: 0.85, display: 'flex' }}>+</div>
-      <div style={{ position: 'absolute', left: '8%', top: '70%', fontSize: 36, color: '#fff', opacity: 0.85, display: 'flex' }}>.</div>
-      <div style={{ position: 'absolute', left: '82%', top: '75%', fontSize: 48, color: '#fff', opacity: 0.85, display: 'flex' }}>*</div>
-      <div style={{ position: 'absolute', left: '92%', top: '45%', fontSize: 36, color: '#fff', opacity: 0.85, display: 'flex' }}>.</div>
-      <div style={{ position: 'absolute', left: '5%', top: '40%', fontSize: 32, color: '#fff', opacity: 0.85, display: 'flex' }}>+</div>
+      <div style={{ position: 'absolute', left: 100, top: 180, fontSize: 48, color: '#fff', opacity: 0.85, display: 'flex' }}>*</div>
+      <div style={{ position: 'absolute', left: 850, top: 270, fontSize: 42, color: '#fff', opacity: 0.85, display: 'flex' }}>+</div>
+      <div style={{ position: 'absolute', left: 80, top: 1050, fontSize: 36, color: '#fff', opacity: 0.85, display: 'flex' }}>.</div>
+      <div style={{ position: 'absolute', left: 820, top: 1125, fontSize: 48, color: '#fff', opacity: 0.85, display: 'flex' }}>*</div>
+      <div style={{ position: 'absolute', left: 920, top: 675, fontSize: 36, color: '#fff', opacity: 0.85, display: 'flex' }}>.</div>
+      <div style={{ position: 'absolute', left: 50, top: 600, fontSize: 32, color: '#fff', opacity: 0.85, display: 'flex' }}>+</div>
 
       {/* Inner polaroid-style card */}
       <div
         style={{
           position: 'absolute',
-          top: '8%',
-          left: '10%',
-          right: '10%',
-          height: '55%',
+          top: 120,
+          left: 100,
+          right: 100,
+          height: 825,
           borderRadius: 48,
-          background: backgroundImage ? undefined : themedGradient(themeColor),
+          background: themedGradient(themeColor),
           boxShadow: '0 16px 48px rgba(0,0,0,0.18)',
           border: '8px solid #fff',
           overflow: 'hidden',
@@ -84,7 +83,7 @@ export function Y2KTemplate({
         }}
       >
         {/* Background image inside polaroid */}
-        {backgroundImage ? (
+        {backgroundImage && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={backgroundImage}
@@ -95,34 +94,34 @@ export function Y2KTemplate({
               position: 'absolute',
               top: 0,
               left: 0,
-              width: '100%',
-              height: '100%',
+              width: 800,
+              height: 825,
               objectFit: 'cover',
             }}
           />
-        ) : (
-          <>
-            {/* Inner glow gradient */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: `radial-gradient(circle at 50% 30%, ${themeColor}60, transparent 70%)`,
-                display: 'flex',
-              }}
-            />
-          </>
         )}
+
+        {/* Inner glow gradient (always shown, looks good over both image and gradient) */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: backgroundImage
+              ? 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.3) 100%)'
+              : `radial-gradient(circle at 50% 30%, ${themeColor}60, transparent 70%)`,
+            display: 'flex',
+          }}
+        />
 
         {/* Tape effect at top */}
         <div
           style={{
             position: 'absolute',
             top: -16,
-            left: '38%',
+            left: 304,
             width: 160,
             height: 48,
             background: 'rgba(255,255,255,0.6)',
@@ -176,60 +175,51 @@ export function Y2KTemplate({
         {group}
       </div>
 
-      {/* Title block - chunky style (no webkit-text-stroke in Satori, using shadow workaround) */}
+      {/* Title block - big white text with black shadow offset */}
       <div
         style={{
           position: 'absolute',
-          bottom: '18%',
+          bottom: 270,
           left: 80,
           right: 80,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textAlign: 'center' as const,
         }}
       >
-        {/* Shadow text layer (simulates stroke) */}
+        {/* Black shadow layer (offset down-right) */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 6,
+            left: 6,
+            right: -6,
+            display: 'flex',
+            fontSize: 88,
+            fontWeight: 900,
+            color: '#000',
+            lineHeight: 1,
+            letterSpacing: -2,
+            justifyContent: 'center',
+            textAlign: 'center' as const,
+          }}
+        >
+          {title}
+        </div>
+        {/* Main white text on top */}
         <div
           style={{
             display: 'flex',
-            position: 'relative',
+            fontSize: 88,
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1,
+            letterSpacing: -2,
+            justifyContent: 'center',
+            textAlign: 'center' as const,
           }}
         >
-          {/* Black outline simulation via offset copies */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 4,
-              left: 4,
-              right: 0,
-              fontSize: 88,
-              fontWeight: 900,
-              color: '#000',
-              lineHeight: 1,
-              letterSpacing: -2,
-              textAlign: 'center' as const,
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            {title}
-          </div>
-          {/* Main text on top */}
-          <div
-            style={{
-              fontSize: 88,
-              fontWeight: 900,
-              color: '#fff',
-              lineHeight: 1,
-              letterSpacing: -2,
-              textAlign: 'center' as const,
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            {title}
-          </div>
+          {title}
         </div>
       </div>
 

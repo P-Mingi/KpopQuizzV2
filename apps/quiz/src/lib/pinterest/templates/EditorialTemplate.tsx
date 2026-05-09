@@ -55,10 +55,10 @@ export function EditorialTemplate({
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
-        background: backgroundImage ? undefined : themedGradient(themeColor),
+        background: themedGradient(themeColor),
       }}
     >
-      {/* Background image if provided */}
+      {/* Background image if provided (overlays on top of gradient) */}
       {backgroundImage && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -81,11 +81,11 @@ export function EditorialTemplate({
       <div
         style={{
           position: 'absolute',
-          top: '-150px',
-          left: '-150px',
-          width: '700px',
-          height: '700px',
-          borderRadius: '50%',
+          top: -150,
+          left: -150,
+          width: 700,
+          height: 700,
+          borderRadius: 350,
           background: `radial-gradient(circle, ${themeColor}60, transparent 70%)`,
           display: 'flex',
         }}
@@ -95,11 +95,11 @@ export function EditorialTemplate({
       <div
         style={{
           position: 'absolute',
-          bottom: '-300px',
-          right: '-200px',
-          width: '800px',
-          height: '800px',
-          borderRadius: '50%',
+          bottom: -300,
+          right: -200,
+          width: 800,
+          height: 800,
+          borderRadius: 400,
           background: `radial-gradient(circle, ${accent}25, transparent 60%)`,
           display: 'flex',
         }}
@@ -131,8 +131,8 @@ export function EditorialTemplate({
           justifyContent: 'space-between',
         }}
       >
-        <div style={{ display: 'flex', fontSize: 48, fontWeight: 800, color: '#fff', letterSpacing: -1 }}>
-          kpop
+        <div style={{ display: 'flex', alignItems: 'baseline', fontSize: 48, fontWeight: 800, letterSpacing: -1 }}>
+          <span style={{ color: '#fff' }}>kpop</span>
           <span style={{ color: accent }}>quiz</span>
         </div>
         <div
@@ -160,7 +160,7 @@ export function EditorialTemplate({
           bottom: 0,
           left: 0,
           right: 0,
-          height: '55%',
+          height: 825,
           background:
             'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%)',
           display: 'flex',
@@ -191,8 +191,9 @@ export function EditorialTemplate({
             marginBottom: 32,
           }}
         >
-          <span
+          <div
             style={{
+              display: 'flex',
               fontSize: 28,
               fontWeight: 700,
               color: '#fff',
@@ -201,7 +202,7 @@ export function EditorialTemplate({
             }}
           >
             {difficulty.toUpperCase()} · {questions} Q
-          </span>
+          </div>
         </div>
 
         {/* Title */}
@@ -240,8 +241,9 @@ export function EditorialTemplate({
             marginTop: 48,
           }}
         >
-          <span
+          <div
             style={{
+              display: 'flex',
               fontSize: 32,
               color: accent,
               fontWeight: 700,
@@ -250,12 +252,12 @@ export function EditorialTemplate({
             }}
           >
             Play at kpopquiz.org
-          </span>
+          </div>
           <div
             style={{
               width: 100,
               height: 100,
-              borderRadius: '50%',
+              borderRadius: 50,
               background: accent,
               display: 'flex',
               alignItems: 'center',
@@ -263,17 +265,9 @@ export function EditorialTemplate({
               boxShadow: `0 8px 32px ${themeColor}80`,
             }}
           >
-            <svg
-              width={44}
-              height={44}
-              viewBox="0 0 14 14"
-              fill="none"
-              stroke="#1a0612"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            >
-              <path d="M5 3l4 4-4 4" />
-            </svg>
+            <div style={{ display: 'flex', fontSize: 48, color: '#1a0612', fontWeight: 700, marginLeft: 4 }}>
+              &gt;
+            </div>
           </div>
         </div>
       </div>
