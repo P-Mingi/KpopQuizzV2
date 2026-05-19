@@ -20,6 +20,7 @@ const SITE_URL = process.env.SITE_URL || 'https://kpopquiz.org';
 
 const args = process.argv.slice(2);
 const typeArg = args.find(a => a.startsWith('--type='))?.split('=')[1] || 'both';
+const groupOverride = args.find(a => a.startsWith('--group='))?.split('=')[1] || null;
 
 const PINTEREST_COLUMNS = [
   'Title',
@@ -73,6 +74,21 @@ function buildKeywords(group: string | null, originalTitle: string | null): stri
   return clean(keywords.join(', '), 200);
 }
 
+function buildHashtagDescription(group: string | null): string {
+  const groupTag = group ? group.replace(/[\s()'-]/g, '') : 'Kpop';
+  const tags = [
+    `#${groupTag}`,
+    '#kpop',
+    '#kpopaesthetic',
+    '#kpopfan',
+    `#${groupTag}fan`,
+    `#${groupTag}aesthetic`,
+    '#kpopidol',
+    '#kpopstan',
+  ];
+  return tags.join(' ');
+}
+
 function csvQuote(val: string): string {
   return '"' + val.replace(/"/g, '""') + '"';
 }
@@ -101,21 +117,35 @@ async function exportReposts(batchId: string): Promise<number> {
   console.log(`Building CSV for ${pins.length} reposts...`);
 
   const rows: Record<string, string>[] = [];
+  // Determine group name for titles (use --group flag, or most common detected_group)
+  let mainGroup = groupOverride;
+  if (!mainGroup) {
+    const groupCounts = new Map<string, number>();
+    for (const pin of pins) {
+      const g = pin.detected_group as string;
+      if (g) groupCounts.set(g, (groupCounts.get(g) || 0) + 1);
+    }
+    mainGroup = [...groupCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || 'Kpop';
+  }
+  const groupTag = mainGroup.replace(/[\s()'-]/g, '');
+
+  let counter = 1;
   for (let i = 0; i < pins.length; i++) {
     const pin = pins[i];
     const mediaUrl = clean(pin.tweaked_image_url as string, 500);
     if (!mediaUrl.startsWith('http')) continue;
 
     rows.push({
-      'Title': clean(pin.rewritten_title as string, 100),
+      'Title': `${groupTag} ${counter}`,
       'Media URL': mediaUrl,
       'Pinterest board': clean((pin.target_board as string) || 'K-pop Aesthetic', 100),
       'Thumbnail': '',
-      'Description': clean(pin.rewritten_description as string, 500),
+      'Description': buildHashtagDescription((pin.detected_group as string | null) || mainGroup),
       'Link': clean(`${SITE_URL}?utm_source=pinterest&utm_medium=repost&utm_campaign=${batchId.slice(0, 8)}&utm_content=${(pin.id as string).slice(0, 8)}`, 500),
       'Publish date': getScheduledDate(i, 15),
       'Keywords': buildKeywords(pin.detected_group as string | null, pin.original_title as string | null),
     });
+    counter++;
   }
 
   const csv = toCSV(rows);
