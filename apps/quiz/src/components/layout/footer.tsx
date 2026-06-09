@@ -37,7 +37,6 @@ export function Footer(): React.ReactElement {
             {[
               { label: 'Create a quiz', href: '/create' },
               { label: 'Reddit', href: 'https://reddit.com/r/Kpop_Verse' },
-              { label: 'Blindtest', href: 'https://kpopblindtest.com' },
             ].map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: '#888780', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>
             ))}
