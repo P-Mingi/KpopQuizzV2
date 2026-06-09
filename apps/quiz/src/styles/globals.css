@@ -1,83 +1,153 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Light mode only. The quiz app has no dark mode. */
+/*
+ * Design system — canonical tokens (see docs/B0-canonical-design-tokens.md).
+ * Spec §10a/§14b values are canonical; legacy names (--accent, --text-*, --bg-*)
+ * are kept as ALIASES so existing components keep working until they migrate.
+ * Dark mode (§12d) tokens are defined below; the manual toggle is wired in B14.
+ */
 :root {
-  --bg-primary: #FAF9F6;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #F0EDE8;
-  --bg-accent-subtle: #FAF2F5;
+  /* ===== Canonical brand / surface / text ===== */
+  --brand:        #E8457A;
+  --brand-light:  #FCE8EF;
+  --brand-dark:   #B5345F;
+  --bg:           #FAF8F5;
+  --surface:      #FFFFFF;
+  --surface-alt:  #F3F1ED;
+  --txt1:         #1A1714;
+  --txt2:         #6B6560;
+  --txt3:         #9E998F;
+  --border:       rgba(26,23,20,0.10);
+  --border-h:     rgba(26,23,20,0.20);
 
-  --text-primary: #2C2C2A;
-  --text-secondary: #888780;
-  --text-tertiary: #B4B2A9;
-  --text-ghost: #D3D1C7;
+  /* ===== Typography ===== */
+  /* DM Sans / Syne don't cover Korean glyphs -> Pretendard fallback for 별 etc. */
+  --font-display: 'Syne', var(--font-pretendard), system-ui, sans-serif;   /* hero titles, mode names, scores */
+  --font-body:    'DM Sans', var(--font-pretendard), system-ui, sans-serif; /* everything else */
+  --font-sans:    var(--font-body);
 
-  --border: #E8E6E0;
-  --border-subtle: #F0EDE8;
+  /* ===== Type badge palette (§8a / §10d) ===== */
+  --badge-classic: #DBEAFE; --badge-classic-text: #1D4ED8;
+  --badge-truefalse: #DCFCE7; --badge-truefalse-text: #166534;
+  --badge-clues: #FEF3C7; --badge-clues-text: #92400E;
+  --badge-image: #EDE9FE; --badge-image-text: #5B21B6;
+  --badge-intruder: #FFE4E6; --badge-intruder-text: #9F1239;
 
-  --accent: #D4537E;
-  --accent-hover: #993556;
-  --accent-bg: #FAF2F5;
-  --accent-light: #ED93B1;
+  /* ===== Games page tints (§13a) ===== */
+  --tot-bg: #FCE8EF; --tot-icon: #E8457A;
+  --nam-bg: #E6F1FB; --nam-icon: #1D4ED8;
 
+  /* ===== Blindtest answer states (§16d) ===== */
+  --bt-green: #166534; --bt-green-bg: #DCFCE7; --bt-green-border: #86EFAC;
+  --bt-red: #9F1239; --bt-red-bg: #FFE4E6; --bt-red-border: #FDA4AF;
+  --bt-amber: #92400E; --bt-amber-bg: #FEF3C7; --bt-amber-border: #FCD34D;
+
+  /* ===== Legacy aliases -> canonical (remove once all components migrate) ===== */
+  --bg-primary: var(--bg);
+  --bg-surface: var(--surface);
+  --bg-elevated: var(--surface-alt);
+  --bg-accent-subtle: var(--brand-light);
+  --text-primary: var(--txt1);
+  --text-secondary: var(--txt2);
+  --text-tertiary: var(--txt3);
+  --text-ghost: #C9C4BB;
+  --border-subtle: rgba(26,23,20,0.06);
+  --accent: var(--brand);
+  --accent-hover: var(--brand-dark);
+  --accent-bg: var(--brand-light);
+  --accent-light: #F2A6C0;
+  --accent-fg: #FFFFFF;
+  --border-strong: var(--txt1);
+
+  /* ===== State colors (kept) ===== */
   --correct: #0F6E56;
   --correct-bg: #EAF3DE;
   --correct-text: #27500A;
   --correct-border: #C0DD97;
-
   --wrong: #A32D2D;
   --wrong-bg: #FCEBEB;
   --wrong-text: #791F1F;
   --wrong-border: #F7C1C1;
-
   --combo: #BA7517;
   --streak: #BA7517;
 
-  /* Quiz type accents */
+  /* ===== Quiz type accents (legacy names kept; values unchanged to avoid
+     recoloring not-yet-rebuilt pages — rebuilt components use --badge-* above) ===== */
   --type-classic: #378ADD;
   --type-image: #D4537E;
   --type-intruder: #7F77DD;
   --type-tf: #639922;
   --type-clue: #EF9F27;
+  --type-classic-bg: #E6F1FB; --type-classic-text: #0C447C;
+  --type-image-bg: #FBEAF0; --type-image-text: #72243E;
+  --type-intruder-bg: #EEEDFE; --type-intruder-text: #3C3489;
+  --type-tf-bg: #EAF3DE; --type-tf-text: #27500A;
+  --type-clue-bg: #FAEEDA; --type-clue-text: #633806;
 
-  --type-classic-bg: #E6F1FB;
-  --type-classic-text: #0C447C;
-  --type-image-bg: #FBEAF0;
-  --type-image-text: #72243E;
-  --type-intruder-bg: #EEEDFE;
-  --type-intruder-text: #3C3489;
-  --type-tf-bg: #EAF3DE;
-  --type-tf-text: #27500A;
-  --type-clue-bg: #FAEEDA;
-  --type-clue-text: #633806;
+  /* ===== Difficulty badges ===== */
+  --easy-bg: #EAF3DE; --easy-text: #27500A;
+  --medium-bg: #FAEEDA; --medium-text: #633806;
+  --hard-bg: #FCEBEB; --hard-text: #791F1F;
 
-  /* Difficulty badges (kept from the legacy quiz-card system) */
-  --easy-bg: #EAF3DE;
-  --easy-text: #27500A;
-  --medium-bg: #FAEEDA;
-  --medium-text: #633806;
-  --hard-bg: #FCEBEB;
-  --hard-text: #791F1F;
-
+  /* ===== Elevation (pink-tinted lift per §8c) ===== */
   --shadow-card: 0 1px 0 rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-lift: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -8px rgba(31,30,27,0.12);
-  --halo: rgba(212, 83, 126, 0.10);
-  --accent-fg: #FFFFFF;
-  --border-strong: #1F1E1B;
+  --shadow-lift: 0 8px 24px rgba(232,69,122,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  --halo: rgba(232,69,122,0.10);
+}
+
+/* ===== Dark mode (§12d) — system preference; manual .dark toggle wired in B14 ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --brand: #F06292;
+    --brand-light: #3D1A26;
+    --brand-dark: #E8457A;
+    --bg: #141210;
+    --surface: #1E1B18;
+    --surface-alt: #2A2622;
+    --txt1: #F5F0EB;
+    --txt2: #A89F96;
+    --txt3: #6E675F;
+    --border: rgba(245,240,235,0.08);
+    --border-h: rgba(245,240,235,0.16);
+    --correct-bg: #14532D;
+    --correct-border: #166534;
+    --wrong-bg: #4C0519;
+    --wrong-border: #9F1239;
+  }
+}
+.dark {
+  --brand: #F06292;
+  --brand-light: #3D1A26;
+  --brand-dark: #E8457A;
+  --bg: #141210;
+  --surface: #1E1B18;
+  --surface-alt: #2A2622;
+  --txt1: #F5F0EB;
+  --txt2: #A89F96;
+  --txt3: #6E675F;
+  --border: rgba(245,240,235,0.08);
+  --border-h: rgba(245,240,235,0.16);
+  --correct-bg: #14532D;
+  --correct-border: #166534;
+  --wrong-bg: #4C0519;
+  --wrong-border: #9F1239;
 }
 
 * { box-sizing: border-box; }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--bg);
+  color: var(--txt1);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.font-display { font-family: var(--font-display); }
 
 @layer utilities {
   .scrollbar-hide {
