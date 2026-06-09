@@ -25,7 +25,6 @@ export function Footer(): React.ReactElement {
             {[
               { label: 'Quizzes', href: '/quizzes' },
               { label: 'Games', href: '/games' },
-              { label: 'Cards', href: '/cards' },
               { label: 'Leaderboard', href: '/ranks' },
             ].map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: '#888780', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>

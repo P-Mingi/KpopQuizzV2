@@ -50,7 +50,7 @@ export default function MyQuestionsPage(): React.ReactElement {
             </p>
             <h1 style={{ fontSize: 28, fontWeight: 800, color: C.textDark, margin: 0 }}>My Questions</h1>
             <p style={{ fontSize: 12, color: C.textMuted, margin: '4px 0 0' }}>
-              Submit K-pop trivia questions. Approved ones appear in battle rooms and earn you Byeol.
+              Submit K-pop trivia questions. Approved ones appear in battle rooms.
             </p>
           </div>
           <Link href="/battle/questions/new" style={{

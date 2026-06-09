@@ -175,7 +175,7 @@ export default function BattleGuestPage(): React.ReactElement {
             <Link href={`/login?returnTo=/battle/r/${code}`} style={{ color: C.pink, fontWeight: 700, textDecoration: 'none' }}>
               Sign in
             </Link>{' '}
-            to track wins, earn Byeol, and use your account avatar.
+            to track wins, earn XP, and use your account avatar.
           </div>
 
           {/* Join button */}

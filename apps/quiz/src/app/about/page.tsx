@@ -3,11 +3,9 @@
 import { useState } from 'react';
 
 const FAQS = [
-  { q: 'What is KpopQuiz?', a: 'A fan-made platform to play K-pop quizzes, collect fancards, and compete with other fans.' },
-  { q: 'What is Byeol?', a: "Byeol (\uBCC4, 'star' in Korean) is our virtual currency. Earn it by playing quizzes and creating content, then spend it to open card packs." },
-  { q: 'Do I need an account?', a: 'You can play quizzes without an account. Sign in to track scores, collect cards, earn XP, and create your own quizzes.' },
-  { q: 'How do I create a quiz?', a: "Tap 'Create' in the navigation bar. Choose a quiz type, add questions, and publish. You'll earn Byeol when others play your quiz." },
-  { q: 'What are fancards?', a: 'Collectible idol cards with 4 rarity tiers: R (Rare), S (Super Rare), SS (Ultra Rare), SSS (Legendary). Open packs to collect them all.' },
+  { q: 'What is KpopQuiz?', a: 'A fan-made platform to play and create K-pop quizzes and compete with other fans.' },
+  { q: 'Do I need an account?', a: 'You can play quizzes without an account. Sign in to track scores, earn XP, and create your own quizzes.' },
+  { q: 'How do I create a quiz?', a: "Tap 'Create' in the navigation bar. Choose a quiz type, add questions, and publish \u2014 then share it with other fans." },
 ];
 
 export default function AboutPage() {
@@ -63,8 +61,8 @@ export default function AboutPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {[
                 { icon: '\uD83C\uDFAE', title: '5 quiz types', desc: 'Classic, Image, Intruder, True/False, Clues' },
-                { icon: '\uD83C\uDCCF', title: 'Fancard collection', desc: '52 cards across 5 groups with gacha system' },
-                { icon: '\u2B50', title: 'Byeol economy', desc: 'Earn currency by playing and creating' },
+                { icon: '\uD83D\uDD79\uFE0F', title: 'Mini-games', desc: 'This-or-That, Name All Members, and more' },
+                { icon: '\u2B50', title: 'XP & levels', desc: 'Earn XP by playing and creating' },
                 { icon: '\uD83D\uDCCA', title: 'Leaderboards', desc: 'Compete for top spots weekly and all-time' },
               ].map(f => (
                 <div key={f.title} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0' }}>

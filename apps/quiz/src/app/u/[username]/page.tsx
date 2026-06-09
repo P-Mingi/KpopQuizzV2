@@ -11,7 +11,6 @@ import { safeFetch } from '@/lib/error-handling';
 import { formatCount, formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
-import { getByeolBalance } from '@/lib/byeol';
 import Link from 'next/link';
 
 import type { Metadata } from 'next';
@@ -100,7 +99,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   } catch { /* ignore */ }
   const isOwnProfile = authUserId === profile.id;
 
-  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, byeol, fandomResult] = await Promise.all([
+  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, fandomResult] = await Promise.all([
     safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
     safeFetch(
       Promise.resolve(supabase.from('badge_definitions').select('*').order('sort_order')),
@@ -125,7 +124,6 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           { data: null } as { data: unknown }, '[u/[username]] likes',
         )
       : Promise.resolve({ data: null }),
-    isOwnProfile ? getByeolBalance(profile.id) : Promise.resolve(0),
     safeFetch(
       Promise.resolve(
         supabase.from('plays').select(`
@@ -204,7 +202,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         </p>
       )}
 
-      {/* Byeol + XP card */}
+      {/* XP / level card */}
       {isOwnProfile && (
         <div style={{
           background: 'var(--bg-surface)', border: '1px solid var(--border)',
@@ -212,12 +210,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           padding: 16, marginBottom: 14,
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
-                <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/>
-              </svg>
-              <span style={{ fontSize: 13, fontWeight: 700 }}>{byeol.toLocaleString()} byeol</span>
-            </div>
+            <span style={{ fontSize: 13, fontWeight: 700 }}>
+              Level {levelInfo.level} {'·'} {getTitleForLevel(levelInfo.level).en}
+            </span>
             <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)' }}>
               {profile.xp} / {levelInfo.xpForNextLevel ?? '---'} XP
             </span>

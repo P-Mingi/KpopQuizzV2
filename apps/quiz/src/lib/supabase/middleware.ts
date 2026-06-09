@@ -14,8 +14,6 @@ const KNOWN_ROUTES = [
   '/sitemap.xml', '/robots.txt',
   // New Phase 4 routes
   '/hall-of-fame', '/quizzes', '/profile',
-  // Cards / Fancard system
-  '/cards',
   // Battle rooms (hidden from navbar, accessed via direct URL or admin)
   '/battle',
 ];

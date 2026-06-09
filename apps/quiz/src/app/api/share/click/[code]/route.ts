@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { createHash } from 'crypto';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
-import { awardByeol } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -63,34 +62,6 @@ export async function GET(
       unique_click_count: newUniqueCount,
     })
     .eq('id', link.id);
-
-  // Check if reward threshold reached (3 unique clicks)
-  if (newUniqueCount >= 3 && !link.reward_awarded) {
-    let rewardAmount = 30; // base share reward
-
-    const referrerDomain = referrer.toLowerCase();
-    if (referrerDomain.includes('reddit.com') || referrerDomain.includes('redd.it')) {
-      rewardAmount = 60;
-    } else if (referrerDomain.includes('t.co') || referrerDomain.includes('twitter.com') || referrerDomain.includes('x.com')) {
-      rewardAmount = 40;
-    }
-
-    await awardByeol(
-      link.user_id as string,
-      rewardAmount,
-      `share_${link.platform}`,
-      link.quiz_id as string,
-    );
-
-    await supabase
-      .from('dev_share_links')
-      .update({
-        reward_awarded: true,
-        reward_amount: rewardAmount,
-        reward_awarded_at: new Date().toISOString(),
-      })
-      .eq('id', link.id);
-  }
 
   // Find the quiz slug for redirect
   const { data: quiz } = await supabase

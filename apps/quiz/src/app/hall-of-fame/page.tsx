@@ -45,7 +45,7 @@ export default async function HallOfFamePage(): Promise<React.ReactElement> {
         <p style={{
           fontSize: 13, color: 'var(--text-secondary)', marginTop: 8, maxWidth: 420, marginLeft: 'auto', marginRight: 'auto',
         }}>
-          Earn byeol by playing quizzes, maintaining streaks, and creating content.
+          Earn XP by playing quizzes, maintaining streaks, and creating content.
         </p>
       </div>
 

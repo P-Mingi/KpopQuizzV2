@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { ByeolEligibilityHint } from '@/components/byeol/eligibility-hint';
 
 interface QuizDetailViewProps {
   quiz: {
@@ -124,9 +123,6 @@ export function QuizDetailView({ quiz, similarQuizzes = [], onStart }: QuizDetai
           fontSize: 13, fontWeight: 700, cursor: 'pointer',
           boxShadow: '0 4px 16px rgba(212,83,126,0.25)',
         }}>START QUIZ {'\u2192'}</button>
-
-        {/* Byeol reward hint */}
-        <ByeolEligibilityHint contentType="quiz" contentId={quiz.id} maxReward={50} />
       </div>
 
       {/* Similar quizzes */}

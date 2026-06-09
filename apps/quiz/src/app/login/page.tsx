@@ -43,8 +43,8 @@ export default function LoginPage(): React.ReactElement {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 14, textAlign: 'left' }}>
           {[
             { icon: '\uD83D\uDCCA', text: 'Track your scores & progress' },
-            { icon: '\uD83C\uDCCF', text: 'Collect fan cards' },
-            { icon: '\u2B50', text: 'Earn XP, Byeol & badges' },
+            { icon: '\u2B50', text: 'Earn XP & badges' },
+            { icon: '\uD83C\uDFC6', text: 'Climb the leaderboards' },
             { icon: '\u270F\uFE0F', text: 'Create your own quizzes' },
           ].map(b => (
             <div key={b.text} style={{

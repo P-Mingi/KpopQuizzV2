@@ -15,11 +15,6 @@ const TABS = [
     match: ['/games'],
   },
   {
-    label: 'Cards',
-    href: '/cards',
-    match: ['/cards'],
-  },
-  {
     label: 'Ranks',
     href: '/hall-of-fame',
     match: ['/hall-of-fame'],
@@ -102,12 +97,6 @@ function TabIcon({ name, active }: { name: string; active: boolean }) {
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0z" />
           <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
-        </svg>
-      );
-    case 'Cards':
-      return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
         </svg>
       );
     case 'Ranks':
