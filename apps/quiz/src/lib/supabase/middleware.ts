@@ -13,7 +13,7 @@ const KNOWN_ROUTES = [
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt',
   // New Phase 4 routes
-  '/hall-of-fame', '/quizzes', '/profile',
+  '/leaderboard', '/quizzes', '/profile',
   // Battle rooms (hidden from navbar, accessed via direct URL or admin)
   '/battle',
 ];

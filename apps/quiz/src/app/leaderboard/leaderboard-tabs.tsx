@@ -19,7 +19,7 @@ interface Props {
   topPlayers: TopPlayer[];
 }
 
-export function HallOfFameTabs({ weekly, allTime, topPlayers }: Props): React.ReactElement {
+export function LeaderboardTabs({ weekly, allTime, topPlayers }: Props): React.ReactElement {
   const [tab, setTab] = useState<TabKey>('weekly');
 
   const scopes: Array<{ id: TabKey; label: string }> = [

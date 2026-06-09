@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       'red-velvet', 'le-sserafim', 'txt', 'shinee', 'got7', 'mamamoo',
       'nct', 'general-kpop',
     ];
-    return groupSlugs.flatMap((slug) => [
+    const groupRedirects = groupSlugs.flatMap((slug) => [
       {
         source: `/group/${slug}`,
         destination: `/${slug}-quiz`,
@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ]);
+    // Nav unification (B3): Ranks / Hall of Fame -> Leaderboard
+    const leaderboardRedirects = [
+      { source: '/ranks', destination: '/leaderboard', permanent: true },
+      { source: '/hall-of-fame', destination: '/leaderboard', permanent: true },
+    ];
+    return [...groupRedirects, ...leaderboardRedirects];
   },
   images: {
     formats: ['image/avif', 'image/webp'],
