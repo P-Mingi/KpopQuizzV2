@@ -44,9 +44,11 @@ interface Props {
   quiz: QuizCardData;
   /** Position in the grid — drives the staggered fade-in (index * 40ms). */
   index?: number;
+  /** Show the avg-score %. Off for the home Trending carousel (§2c). */
+  showScore?: boolean;
 }
 
-export function QuizCard({ quiz, index = 0 }: Props): React.ReactElement {
+export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.ReactElement {
   const type = TYPE_BADGE[quiz.quiz_type];
   const diff = DIFF_BADGE[quiz.difficulty];
   const pct = avgScorePct(quiz);
@@ -93,7 +95,7 @@ export function QuizCard({ quiz, index = 0 }: Props): React.ReactElement {
             </svg>
             {formatCount(quiz.play_count)}
           </span>
-          {pct !== null && (
+          {showScore && pct !== null && (
             <span className={`quiz-score ${scoreClass(pct)}`}>{pct}%</span>
           )}
           <span className="quiz-author">{quiz.creator_username}</span>
