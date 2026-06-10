@@ -369,6 +369,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     ? Math.round((quiz.totalScoreSum / quiz.totalCompletions) / (quiz.questionCount * maxPerQ) * 100)
     : null;
 
+  // §14e — estimated time: ~15s/question, rounded to the nearest half minute.
+  const estHalfMin = Math.max(0.5, Math.round((quiz.questionCount * 15 / 60) * 2) / 2);
+  const estMinutesLabel = estHalfMin % 1 === 0 ? `${estHalfMin}` : estHalfMin.toFixed(1);
+
   // Refresh server components (navbar XP) and fetch related quizzes when result shows
   useEffect(() => {
     if (state.phase === 'result') {
@@ -658,7 +662,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
 
             <h1 className="text-[22px] font-semibold leading-tight text-primary">{quiz.title}</h1>
-            <p className="text-[11px] text-ghost mt-1">{quiz.questionCount} questions</p>
 
             <div className="flex items-center gap-2 mt-4">
               <UserAvatar
@@ -681,23 +684,27 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         </div>
 
-        {/* Stats row - 3 equal cells */}
-        <div className="mt-3 grid grid-cols-3 gap-px bg-default rounded-xl overflow-hidden border border-default">
-          <div className="bg-surface p-3 text-center">
-            <p className="text-[16px] font-semibold text-primary tabular-nums">{formatCount(quiz.playCount)}</p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Plays</p>
+        {/* §14e format strip — quiz format at a glance. Replaces the pre-play
+            avg-score / pass-rate stats (§4a — those live on the result screen);
+            play count kept as a trust signal (§4b). */}
+        <div className="format-strip mt-3">
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+            <span className="format-val">{formatCount(quiz.playCount)} plays</span>
           </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[16px] font-semibold tabular-nums ${avgScorePct !== null ? 'text-combo' : 'text-tertiary'}`}>
-              {avgScorePct !== null ? `${avgScorePct}%` : 'new'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Avg score</p>
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3" /><path d="M12 17h.01" /></svg>
+            </span>
+            <span className="format-val">{quiz.questionCount} questions</span>
           </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[16px] font-semibold tabular-nums ${quiz.passRate !== null ? 'text-primary' : 'text-tertiary'}`}>
-              {quiz.passRate !== null ? `${quiz.passRate}%` : '-'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Pass rate</p>
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            </span>
+            <span className="format-val">~{estMinutesLabel} min</span>
           </div>
         </div>
 
@@ -719,7 +726,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         <div className="flex items-center justify-center gap-4 mt-4">
           <RedditShareButton
             url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=reddit&utm_medium=social&utm_campaign=quiz_share`}
-            title={`${quiz.title} - free K-pop quiz on kpopquiz.org`}
+            title={quiz.title}
             compact
           />
         </div>

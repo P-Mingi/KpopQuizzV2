@@ -953,15 +953,9 @@ body {
 .browse-search .search-clear:hover { color: var(--txt1); }
 .search-count { font-size: 12px; color: var(--txt3); margin: 4px 0 2px; }
 
-/* Desktop polish — bigger cards/pills/search. Wrap the type/sort row so every
-   sort option is visible; keep the 30+ group pills on one horizontal-scroll row
-   (§3b) so the sticky bar doesn't balloon to several rows tall. */
+/* Desktop polish — bigger cards/pills/search. Both pill rows stay on a single
+   horizontal-scroll line (§3b); the type/sort row scrolls if it overflows. */
 @media (min-width: 768px) {
-  .type-sort-row {
-    flex-wrap: wrap;
-    overflow-x: visible;
-  }
-
   .cards-grid { gap: 20px; }
 
   .quiz-card { padding: 18px; gap: 16px; }
@@ -987,4 +981,41 @@ body {
   .skel { animation: none !important; }
   .quiz-card:hover { transform: none; }
   .group-pill.active { transform: none; }
+}
+
+/* §14e — quiz-detail format strip (intro), canonical tokens */
+.format-strip {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.format-item {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+}
+.format-item:last-child { border-right: none; }
+.format-icon {
+  color: var(--txt3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.format-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--txt1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }

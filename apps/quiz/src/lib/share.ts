@@ -29,7 +29,9 @@ async function getShareUrl(quizId: string, slug: string, platform: string): Prom
 
 export async function shareToReddit(quizId: string, slug: string, quizTitle: string) {
   const shareUrl = await getShareUrl(quizId, slug, 'reddit');
-  const shareText = `${quizTitle} - free K-pop quiz on kpopquiz.org`;
+  // §7 — Reddit post title = quiz name only (r/Kpop_Verse context makes the
+  // source implicit; the promo suffix reads as spam). UTM stays on shareUrl.
+  const shareText = quizTitle;
 
   window.open(
     `https://www.reddit.com/r/${REDDIT_SUBREDDIT}/submit?type=link&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareText)}`,
