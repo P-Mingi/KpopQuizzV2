@@ -65,10 +65,6 @@ async function TrendingSection(): Promise<React.ReactElement> {
           </div>
         ))}
       </div>
-
-      <div style={{ textAlign: 'center', marginTop: 14 }}>
-        <Link href="/quizzes" style={{ ...SEE_ALL, fontSize: 13 }}>See all quizzes →</Link>
-      </div>
     </section>
   );
 }

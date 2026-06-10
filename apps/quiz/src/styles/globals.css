@@ -1139,8 +1139,8 @@ body {
    B8 — home lobby (sections 2, 10e, 10g). Section rhythm 48/80,
    daily card, games teaser, trending carousel. Canonical tokens.
    ============================================================ */
-.home-section { margin-bottom: 48px; }
-@media (min-width: 768px) { .home-section { margin-bottom: 80px; } }
+.home-section { margin-bottom: 32px; }
+@media (min-width: 768px) { .home-section { margin-bottom: 52px; } }
 
 /* §10e — Quiz of the day card */
 .daily-card {
@@ -1224,6 +1224,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 /* §2c — trending carousel: horizontal scroll-snap, hidden scrollbar */
 .trending-carousel {
   display: flex;
+  align-items: stretch;
   gap: 12px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -1235,7 +1236,11 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   padding-right: 16px;
 }
 .trending-carousel::-webkit-scrollbar { display: none; }
-.trending-item { flex: 0 0 300px; max-width: 84vw; scroll-snap-align: start; }
+/* Equal-height cards: item stretches to the tallest, card fills the item. */
+.trending-item { flex: 0 0 300px; max-width: 84vw; scroll-snap-align: start; display: flex; }
+.trending-item > .quiz-card { width: 100%; height: 100%; }
+/* Reserve a 2-line title so every trending box is the same size + meta aligns. */
+.trending-item .quiz-title { min-height: 2.8em; }
 
 @media (prefers-reduced-motion: reduce) {
   .daily-cta { animation: none; }
