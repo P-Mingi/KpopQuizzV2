@@ -1036,6 +1036,11 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         </div>
 
+        {/* Like — placed high, right under the result */}
+        <div className="mt-3">
+          <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
+        </div>
+
         {/* Stats row — Score / Avg / Rank (+ Pass rate when available) */}
         <div className={`mt-5 grid ${state.passRate !== null ? 'grid-cols-4' : 'grid-cols-3'} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
           <div className="bg-surface p-3 text-center">
@@ -1132,11 +1137,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
         {/* Reactions */}
         <QuizReactions quizId={quiz.id} />
-
-        {/* Like + action buttons */}
-        <div className="mt-4">
-          <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
-        </div>
 
 
         <div className="mt-2">
