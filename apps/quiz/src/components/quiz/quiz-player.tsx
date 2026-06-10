@@ -13,7 +13,6 @@ import { FeedbackBox } from '@/components/quiz/feedback-box';
 import { QuizReactions } from '@/components/quiz/quiz-reactions';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
-import { LightstickMascot, type MascotMood } from '@/components/ui/lightstick-mascot';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -572,44 +571,11 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   }, [state, quiz.id, quiz.slug, quiz.title, showToast]);
 
   // ============================================
-  // Mascot mood derived from game state
-  // ============================================
-  let mascotMood: MascotMood = 'idle';
-  if (state.phase === 'answered') {
-    if (!state.isCorrect) {
-      mascotMood = 'wrong';
-    } else {
-      // Count trailing consecutive correct answers
-      let streak = 0;
-      for (let i = state.answers.length - 1; i >= 0; i -= 1) {
-        const ans = state.answers[i];
-        const q = state.questions[i];
-        if (ans !== null && ans !== undefined && q && isAnswerCorrect(q, ans)) {
-          streak += 1;
-        } else {
-          break;
-        }
-      }
-      mascotMood = streak >= 3 ? 'combo' : 'correct';
-    }
-  } else if (state.phase === 'result') {
-    const maxScoreForMood =
-      state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
-    const pct = maxScoreForMood > 0 ? state.score / maxScoreForMood : 0;
-    if (pct === 1) mascotMood = 'combo';
-    else if (pct >= 0.7) mascotMood = 'correct';
-    else if (pct < 0.5) mascotMood = 'wrong';
-    else mascotMood = 'idle';
-  }
-
-  // ============================================
   // INTRO STATE
   // ============================================
   if (state.phase === 'intro') {
     return (
       <div className="max-w-[440px] mx-auto px-1">
-        <LightstickMascot mood={mascotMood} />
-
         {/* Hero banner: cover image if available, otherwise group gradient */}
         <div
           className="rounded-2xl border border-default overflow-hidden bg-surface"
@@ -756,8 +722,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     return (
       <div className="max-w-[440px] mx-auto">
-        <LightstickMascot mood={mascotMood} />
-
         {/* Top bar */}
         <div className="flex items-center justify-between px-1 py-2">
           <button
@@ -1014,8 +978,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     return (
       <div className="max-w-[440px] mx-auto px-1 py-2 animate-result-in">
-        <LightstickMascot mood={mascotMood} />
-
         {/* Level up celebration overlay */}
         {showLevelUp && (() => {
           const levelTitle = getTitleForLevel(state.newLevel!);

@@ -230,38 +230,6 @@ body {
 .animate-badge-pop { animation: badgePop 0.3s ease-out; }
 .animate-fade-out-up { animation: fadeOutUp 0.8s ease-out forwards; }
 
-/* Mascot animations */
-@keyframes mascot-idle-kf {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-@keyframes mascot-bounce-kf {
-  0% { transform: translateY(0); }
-  30% { transform: translateY(-12px); }
-  50% { transform: translateY(-12px) rotate(5deg); }
-  70% { transform: translateY(0); }
-  85% { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
-}
-@keyframes mascot-droop-kf {
-  0% { transform: translateY(0) rotate(0deg); }
-  30% { transform: translateY(6px) rotate(-8deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-@keyframes mascot-vibrate-kf {
-  0%, 100% { transform: translateX(0) rotate(0deg); }
-  10% { transform: translateX(-3px) rotate(-3deg); }
-  20% { transform: translateX(3px) rotate(3deg); }
-  30% { transform: translateX(-3px) rotate(-3deg); }
-  40% { transform: translateX(3px) rotate(3deg); }
-  50% { transform: translateX(-2px) rotate(-2deg); }
-  60% { transform: translateX(2px) rotate(2deg); }
-}
-.mascot-idle { animation: mascot-idle-kf 2s ease-in-out infinite; }
-.mascot-bounce { animation: mascot-bounce-kf 0.6s ease-out; }
-.mascot-droop { animation: mascot-droop-kf 0.6s ease-out; }
-.mascot-vibrate { animation: mascot-vibrate-kf 0.8s ease-out; }
-
 /* Name All Members game animations */
 @keyframes popIn {
   0% { transform: scale(0.7) rotate(-5deg); opacity: 0; }
