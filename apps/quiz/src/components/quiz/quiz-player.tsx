@@ -978,48 +978,61 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* Stars */}
-        <div className="flex justify-center gap-1 mb-3">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg
-              key={i}
-              width="22"
-              height="22"
-              viewBox="0 0 14 14"
-              fill={i < starCount ? 'var(--combo)' : 'var(--bg-elevated)'}
-            >
-              <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-            </svg>
-          ))}
-        </div>
+        {/* §10i + §12b — single branded result hero: count-up score, bar,
+            beat-%, label, and share actions (no duplicate score block). */}
+        <div className="result-share-card">
+          <div className="result-share-header">
+            <p className="result-share-group">{quiz.groupName} quiz</p>
+            <p className="result-share-title">{quiz.title}</p>
+          </div>
+          <div className="result-share-body">
+            {/* Stars */}
+            <div className="flex justify-center gap-1 mb-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg key={i} width="20" height="20" viewBox="0 0 14 14" fill={i < starCount ? 'var(--combo)' : 'var(--bg-elevated)'}>
+                  <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
+                </svg>
+              ))}
+            </div>
 
-        {/* Big score */}
-        <p className="text-center text-5xl font-bold text-primary tabular-nums leading-none" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
-          {/* §10i — counts up 0 → final on mount; instant under reduced-motion */}
-          {reduceMotion ? state.score : <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />}
-          <span className="text-ghost text-3xl">/{maxScore}</span>
-        </p>
+            {/* Animated count-up score (instant under reduced-motion) */}
+            <p className="result-share-score" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
+              {reduceMotion ? state.score : <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />}
+              <span style={{ fontSize: '0.42em', color: 'var(--txt3)', fontWeight: 700 }}>/{maxScore}</span>
+            </p>
+            <p className="result-share-total">{isClues ? `${maxScore} points max` : `out of ${maxScore} questions`}</p>
 
-        {/* §10i — score bar + "You beat X%" */}
-        <div className="result-bar-wrap">
-          <div className="result-bar" style={{ width: `${barReady ? scorePct : 0}%` }} />
-        </div>
-        {state.percentile !== null && (
-          <p className="text-center text-[13px] text-secondary">
-            You beat <strong className="text-accent">{state.percentile}%</strong> of players
-          </p>
-        )}
+            {/* §10i bar + beat-% */}
+            <div className="result-bar-wrap">
+              <div className="result-bar" style={{ width: `${barReady ? scorePct : 0}%` }} />
+            </div>
+            {state.percentile !== null && (
+              <p className="text-[13px] text-secondary" style={{ marginBottom: 14 }}>
+                You beat <strong className="text-accent">{state.percentile}%</strong> of players
+              </p>
+            )}
 
-        {/* Label: Hangul + English side by side */}
-        <div className="text-center mt-3">
-          <p className="text-[15px] font-bold text-accent tracking-wide">
-            <span>{resultLabel.kr}</span>{' '}
-            <span className="uppercase">{resultLabel.en}</span>
-          </p>
-          <p className="text-[12px] text-secondary mt-0.5">{labelSub}</p>
-          <div className="flex items-center justify-center gap-1 mt-2">
-            <QuizTypeIcon type={state.quizType} size={16} />
-            <QuizTypeBadge type={state.quizType} size="xs" />
+            {/* Hangul + English label */}
+            <p className="text-[15px] font-bold text-accent tracking-wide">
+              <span>{resultLabel.kr}</span>{' '}
+              <span className="uppercase">{resultLabel.en}</span>
+            </p>
+            <p className="text-[12px] text-secondary mt-0.5" style={{ marginBottom: 12 }}>{labelSub}</p>
+
+            <div className="flex items-center justify-center gap-1" style={{ marginBottom: 16 }}>
+              <QuizTypeIcon type={state.quizType} size={16} />
+              <QuizTypeBadge type={state.quizType} size="xs" />
+            </div>
+
+            <p className="result-share-url">kpopquiz.org</p>
+          </div>
+          <div className="result-share-actions">
+            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
+              Share result
+            </button>
+            <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
+              Play another
+            </Link>
           </div>
         </div>
 
@@ -1125,35 +1138,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
         </div>
 
-        {/* §12b — shareable result card */}
-        <div className="result-share-card mt-4">
-          <div className="result-share-header">
-            <p className="result-share-group">{quiz.groupName} quiz</p>
-            <p className="result-share-title">{quiz.title}</p>
-          </div>
-          <div className="result-share-body">
-            <p className="result-share-score">{state.score}</p>
-            <p className="result-share-total">out of {maxScore}{isClues ? ' points' : ' questions'}</p>
-            <p className="result-share-label">
-              {scorePct >= 100
-                ? `Perfect — true ${quiz.fandomName}!`
-                : scorePct >= 75
-                ? "You're an expert!"
-                : scorePct >= 50
-                ? 'Solid effort — keep playing!'
-                : 'Room to grow — try again?'}
-            </p>
-            <p className="result-share-url">kpopquiz.org</p>
-          </div>
-          <div className="result-share-actions">
-            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
-              Share result
-            </button>
-            <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
-              Play another
-            </Link>
-          </div>
-        </div>
 
         <div className="mt-2">
           <button
