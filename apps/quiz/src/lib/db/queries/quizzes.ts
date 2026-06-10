@@ -136,6 +136,75 @@ export async function getAllQuizzes(offset: number, limit: number): Promise<Quiz
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
+export type BrowseSort = 'trending' | 'new' | 'most_played' | 'top_rated';
+
+export interface BrowseQuizzesParams {
+  groupId?: number | null;
+  quizType?: string | null;
+  sort?: BrowseSort;
+  offset: number;
+  limit: number;
+}
+
+/**
+ * Combined browse query for /quizzes — group + type + sort in one call.
+ * Single source of truth shared by the SSR page and the /api/quizzes route so
+ * server render and client load-more never diverge.
+ */
+export async function getBrowseQuizzes({
+  groupId = null,
+  quizType = null,
+  sort = 'trending',
+  offset,
+  limit,
+}: BrowseQuizzesParams): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  let query = supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published');
+
+  if (groupId != null) query = query.eq('group_id', groupId);
+  if (quizType) query = query.eq('quiz_type', quizType);
+
+  switch (sort) {
+    case 'new':
+      query = query.order('created_at', { ascending: false });
+      break;
+    case 'most_played':
+      query = query.order('play_count', { ascending: false });
+      break;
+    case 'trending': {
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      query = query.gte('created_at', thirtyDaysAgo).order('play_count', { ascending: false });
+      break;
+    }
+    case 'top_rated':
+    default:
+      // Pull a popular slice, then rank by avg score client-side below.
+      query = query.order('play_count', { ascending: false });
+      break;
+  }
+
+  const { data, error } = await query.range(offset, offset + limit - 1);
+  if (error) throw new Error(`Failed to fetch browse quizzes: ${error.message}`);
+
+  const cards = (data as unknown as RawQuizRow[]).map(toQuizCardData);
+
+  if (sort === 'top_rated') {
+    cards.sort((a, b) => {
+      const avg = (q: QuizCardData): number =>
+        q.total_completions > 0 && q.question_count > 0
+          ? (q.total_score_sum / q.total_completions / q.question_count) * 100
+          : 0;
+      return avg(b) - avg(a);
+    });
+  }
+
+  return cards;
+}
+
 export async function getTrendingQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = await createServerClient();
 

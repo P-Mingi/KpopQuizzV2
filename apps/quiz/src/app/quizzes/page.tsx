@@ -1,11 +1,10 @@
-import { getAllQuizzes } from '@/lib/db/queries/quizzes';
+import { getBrowseQuizzes, type BrowseSort } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { QuizFeed } from '@/components/home/quiz-feed';
+import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
-import type { GroupOption } from '@/components/quiz/quiz-filters';
 
 export const metadata: Metadata = {
   title: 'Browse K-pop Quizzes',
@@ -20,20 +19,75 @@ export const metadata: Metadata = {
   alternates: { canonical: '/quizzes' },
 };
 
-export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
-  const [initialQuizzes, groups] = await Promise.all([
-    safeFetch(getAllQuizzes(0, 48), [], '[browse] getAllQuizzes'),
-    safeFetch(getAllGroups(), [], '[browse] getAllGroups'),
-  ]);
+const PAGE_SIZE = 48;
 
-  const groupsForFilter: GroupOption[] = groups
+const SORT_KEYS: SortKey[] = ['trending', 'newest', 'most_played', 'top_rated'];
+const TYPE_KEYS: TypeKey[] = ['classic', 'image', 'intruder', 'tf', 'clue'];
+
+/** UI sort key → server BrowseSort. */
+function sortToBrowse(s: SortKey): BrowseSort {
+  return s === 'newest' ? 'new' : s;
+}
+
+/** UI type key → DB quiz_type. */
+function typeToDb(t: TypeKey): string {
+  switch (t) {
+    case 'classic': return 'multiple_choice';
+    case 'image': return 'image';
+    case 'intruder': return 'intruder';
+    case 'tf': return 'true_false';
+    case 'clue': return 'guess_from_clues';
+  }
+}
+
+function first(v: string | string[] | undefined): string | undefined {
+  return Array.isArray(v) ? v[0] : v;
+}
+
+interface PageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function BrowseQuizzesPage({ searchParams }: PageProps): Promise<React.ReactElement> {
+  const sp = await searchParams;
+
+  const groups = await safeFetch(getAllGroups(), [], '[browse] getAllGroups');
+
+  // Resolve & validate filters from the URL.
+  const groupSlug = first(sp.group) ?? null;
+  const groupOption = groupSlug ? groups.find((g) => g.slug === groupSlug) ?? null : null;
+  const resolvedGroup = groupOption ? groupSlug : null; // unknown slug → no filter
+
+  const typeParam = first(sp.type) as TypeKey | undefined;
+  const initialType: TypeKey | null = typeParam && TYPE_KEYS.includes(typeParam) ? typeParam : null;
+
+  const sortParam = first(sp.sort) as SortKey | undefined;
+  // Default = "Most played" (all-time) so group/type filters never land on an
+  // empty grid the way last-30-days "Trending" would.
+  const initialSort: SortKey = sortParam && SORT_KEYS.includes(sortParam) ? sortParam : 'most_played';
+
+  const initialQuizzes = await safeFetch(
+    getBrowseQuizzes({
+      groupId: groupOption?.id ?? null,
+      quizType: initialType ? typeToDb(initialType) : null,
+      sort: sortToBrowse(initialSort),
+      offset: 0,
+      limit: PAGE_SIZE,
+    }),
+    [],
+    '[browse] getBrowseQuizzes',
+  );
+
+  const groupsForFilter: BrowseGroup[] = groups
     .filter((g) => g.quiz_count > 0)
     .slice(0, 40)
     .map((g) => ({
       id: g.id,
       name: g.name,
       slug: g.slug,
-      quiz_count: g.quiz_count,
+      logo_url: g.logo_url,
+      display_color: g.display_color,
+      text_color: g.text_color,
     }));
 
   return (
@@ -45,14 +99,27 @@ export default async function BrowseQuizzesPage(): Promise<React.ReactElement> {
         ]}
       />
 
-      <div className="mb-4">
-        <h1 className="text-[22px] font-bold text-primary">Browse quizzes</h1>
-        <p className="text-xs text-ghost mt-0.5">
-          Filter by group or type, sort however you like.
+      {/* §3a — page header */}
+      <header className="mb-1">
+        <p className="sec-label">Browse</p>
+        <h1
+          className="font-display"
+          style={{ fontSize: 30, fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em', color: 'var(--txt1)' }}
+        >
+          Browse quizzes
+        </h1>
+        <p style={{ fontSize: 14, color: 'var(--txt2)', marginTop: 6 }}>
+          Filter by group, type, or sort however you like.
         </p>
-      </div>
+      </header>
 
-      <QuizFeed initialQuizzes={initialQuizzes} groups={groupsForFilter} hideBrowseAllLink showSearch />
+      <BrowseQuizzes
+        initialQuizzes={initialQuizzes}
+        groups={groupsForFilter}
+        initialGroup={resolvedGroup}
+        initialType={initialType}
+        initialSort={initialSort}
+      />
     </div>
   );
 }
