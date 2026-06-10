@@ -21,12 +21,18 @@ export const metadata: Metadata = {
 
 const PAGE_SIZE = 48;
 
-const SORT_KEYS: SortKey[] = ['trending', 'newest', 'most_played', 'top_rated'];
+const SORT_KEYS: SortKey[] = ['all', 'trending', 'newest', 'most_played', 'top_rated'];
 const TYPE_KEYS: TypeKey[] = ['classic', 'image', 'intruder', 'tf', 'clue'];
 
-/** UI sort key → server BrowseSort. */
+/** UI sort key → server BrowseSort ('all' = all-time popular default). */
 function sortToBrowse(s: SortKey): BrowseSort {
-  return s === 'newest' ? 'new' : s;
+  switch (s) {
+    case 'newest': return 'new';
+    case 'all': return 'most_played';
+    case 'trending': return 'trending';
+    case 'most_played': return 'most_played';
+    case 'top_rated': return 'top_rated';
+  }
 }
 
 /** UI type key → DB quiz_type. */
@@ -62,9 +68,9 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
   const initialType: TypeKey | null = typeParam && TYPE_KEYS.includes(typeParam) ? typeParam : null;
 
   const sortParam = first(sp.sort) as SortKey | undefined;
-  // Default = "Most played" (all-time) so group/type filters never land on an
+  // Default = "All" (all-time popular) so group/type filters never land on an
   // empty grid the way last-30-days "Trending" would.
-  const initialSort: SortKey = sortParam && SORT_KEYS.includes(sortParam) ? sortParam : 'most_played';
+  const initialSort: SortKey = sortParam && SORT_KEYS.includes(sortParam) ? sortParam : 'all';
 
   const initialQuizzes = await safeFetch(
     getBrowseQuizzes({
@@ -99,16 +105,12 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         ]}
       />
 
-      {/* §3a — page header */}
-      <header className="mb-1">
-        <p className="sec-label">Browse</p>
-        <h1
-          className="font-display"
-          style={{ fontSize: 30, fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em', color: 'var(--txt1)' }}
-        >
-          Browse quizzes
+      {/* §3a — page header (matches the home hero's type treatment) */}
+      <header style={{ margin: '4px 0' }}>
+        <h1 style={{ fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.05, margin: 0, color: 'var(--txt1)' }}>
+          Browse <span style={{ fontStyle: 'italic', fontWeight: 500, color: 'var(--brand)' }}>quizzes</span>
         </h1>
-        <p style={{ fontSize: 14, color: 'var(--txt2)', marginTop: 6 }}>
+        <p style={{ marginTop: 10, fontSize: 14, color: 'var(--txt2)' }}>
           Filter by group, type, or sort however you like.
         </p>
       </header>

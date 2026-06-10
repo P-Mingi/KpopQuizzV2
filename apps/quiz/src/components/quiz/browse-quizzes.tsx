@@ -18,18 +18,17 @@ export interface BrowseGroup {
   text_color: string;
 }
 
-export type SortKey = 'trending' | 'newest' | 'most_played' | 'top_rated';
+export type SortKey = 'all' | 'trending' | 'newest' | 'most_played' | 'top_rated';
 export type TypeKey = 'classic' | 'image' | 'intruder' | 'tf' | 'clue';
 
-// "Most played" (all-time) is the default — group/type filters stay populated.
-// "Trending" is last-30-days only, so it's offered but not the default.
 const SORTS: { key: SortKey; label: string }[] = [
-  { key: 'most_played', label: 'Most played' },
+  { key: 'all', label: 'All' },
   { key: 'trending', label: 'Trending' },
   { key: 'newest', label: 'Newest' },
+  { key: 'most_played', label: 'Most played' },
   { key: 'top_rated', label: 'Top rated' },
 ];
-const DEFAULT_SORT: SortKey = 'most_played';
+const DEFAULT_SORT: SortKey = 'all';
 
 const TYPES: { key: TypeKey; label: string }[] = [
   { key: 'classic', label: 'Classic' },
@@ -40,7 +39,8 @@ const TYPES: { key: TypeKey; label: string }[] = [
 ];
 
 const PAGE_SIZE = 48;
-const CTA_EVERY = 8;
+const CTA_EVERY = 14; // a Create banner every 14 cards (≈ every 7 desktop rows)
+const SEARCH_MIN = 2;
 
 /** Browse sort key → the existing /api/quizzes `tab` contract. */
 function sortToTab(s: SortKey): string {
@@ -48,8 +48,9 @@ function sortToTab(s: SortKey): string {
     case 'newest': return 'new';
     case 'most_played': return 'all';
     case 'top_rated': return 'top_rated';
-    case 'trending':
-    default: return 'trending';
+    case 'trending': return 'trending';
+    case 'all':
+    default: return 'all';
   }
 }
 
@@ -67,6 +68,22 @@ function comboKey(sort: SortKey, group: string | null, type: TypeKey | null): st
   return `${sort}:${group ?? ''}:${type ?? ''}`;
 }
 
+/** Interleave a Create banner after every CTA_EVERY cards. */
+function withBanners(quizzes: QuizCardData[]): React.ReactNode[] {
+  const items: React.ReactNode[] = [];
+  quizzes.forEach((quiz, i) => {
+    items.push(<QuizCard key={quiz.id} quiz={quiz} index={i} />);
+    if ((i + 1) % CTA_EVERY === 0 && i + 1 < quizzes.length) {
+      items.push(
+        <div className="grid-full" key={`cta-${i}`}>
+          <CreateCTA />
+        </div>,
+      );
+    }
+  });
+  return items;
+}
+
 interface Props {
   initialQuizzes: QuizCardData[];
   groups: BrowseGroup[];
@@ -80,6 +97,7 @@ interface Props {
  * (crawlable <a href> cards) and passed in via `initialQuizzes`; filter changes
  * fetch /api/quizzes client-side and update the URL shallowly (no server
  * round-trip) so ?group=bts is shareable/crawlable without a full reload.
+ * A native search box queries /api/quizzes/search and overrides the grid.
  */
 export function BrowseQuizzes({
   initialQuizzes,
@@ -100,12 +118,19 @@ export function BrowseQuizzes({
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
 
+  // Search
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<QuizCardData[] | null>(null);
+  const [searching, setSearching] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const groupBySlug = useRef(new Map(groups.map((g) => [g.slug, g])));
   const cacheRef = useRef(cache);
   cacheRef.current = cache;
 
   const currentCK = comboKey(sort, group, type);
-  const quizzes = cache[currentCK] ?? [];
+  const filteredQuizzes = cache[currentCK] ?? [];
+  const isSearchActive = query.trim().length >= SEARCH_MIN;
 
   const buildApiUrl = useCallback(
     (s: SortKey, g: string | null, t: TypeKey | null, offset: number): string => {
@@ -187,6 +212,36 @@ export function BrowseQuizzes({
     return () => window.removeEventListener('popstate', onPop);
   }, [ensureLoaded]);
 
+  // Debounced search.
+  const onSearchChange = useCallback((value: string) => {
+    setQuery(value);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (value.trim().length < SEARCH_MIN) {
+      setResults(null);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/quizzes/search?q=${encodeURIComponent(value.trim())}`);
+        if (!res.ok) throw new Error('Search failed');
+        const data: { quizzes: QuizCardData[] } = await res.json();
+        setResults(data.quizzes);
+      } catch {
+        setResults([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 250);
+  }, []);
+
+  const clearSearch = useCallback(() => {
+    setQuery('');
+    setResults(null);
+    setSearching(false);
+  }, []);
+
   const loadMore = useCallback(async () => {
     const current = cacheRef.current[currentCK] ?? [];
     setLoadingMore(true);
@@ -205,94 +260,116 @@ export function BrowseQuizzes({
     }
   }, [currentCK, buildApiUrl, sort, group, type]);
 
-  const canLoadMore = hasMore[currentCK] ?? false;
+  const displayed = isSearchActive ? (results ?? []) : filteredQuizzes;
+  const canLoadMore = !isSearchActive && (hasMore[currentCK] ?? false);
   const activeGroupName = group ? groupBySlug.current.get(group)?.name ?? null : null;
-  const showSkeleton = loading && quizzes.length === 0;
-
-  // Build grid children, interleaving the Create banner after every 8 cards.
-  const gridItems: React.ReactNode[] = [];
-  quizzes.forEach((quiz, i) => {
-    gridItems.push(<QuizCard key={quiz.id} quiz={quiz} index={i} />);
-    if ((i + 1) % CTA_EVERY === 0 && i + 1 < quizzes.length) {
-      gridItems.push(
-        <div className="grid-full" key={`cta-${i}`}>
-          <CreateCTA />
-        </div>,
-      );
-    }
-  });
+  const showSkeleton = (isSearchActive ? searching : loading) && displayed.length === 0;
 
   return (
     <>
-      {/* §3b — sticky dual-row filter bar */}
-      <div className="filter-bar">
-        {/* Row 1 — group pills */}
-        <div className="group-pills" role="group" aria-label="Filter by group">
-          <button
-            type="button"
-            className={`group-pill${group === null ? ' active' : ''}`}
-            aria-pressed={group === null}
-            onClick={() => apply({ group: null })}
-          >
-            All
+      {/* §3 — quiz search */}
+      <div className="browse-search">
+        <span className="search-ico" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </span>
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder="Search quizzes by title or group…"
+          aria-label="Search quizzes"
+          enterKeyHint="search"
+        />
+        {query.length > 0 && (
+          <button type="button" className="search-clear" aria-label="Clear search" onClick={clearSearch}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
           </button>
-          {groups.map((g) => (
-            <button
-              key={g.id}
-              type="button"
-              className={`group-pill${group === g.slug ? ' active' : ''}`}
-              aria-pressed={group === g.slug}
-              onClick={() => apply({ group: g.slug })}
-            >
-              <GroupLogo
-                groupName={g.name}
-                logoUrl={g.logo_url}
-                displayColor={g.display_color}
-                textColor={g.text_color}
-                size={18}
-              />
-              {g.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Row 2 — type filter + sort */}
-        <div className="type-sort-row" role="group" aria-label="Filter by type and sort order">
-          <button
-            type="button"
-            className={`btn-filter${type === null ? ' active' : ''}`}
-            aria-pressed={type === null}
-            onClick={() => apply({ type: null })}
-          >
-            All types
-          </button>
-          {TYPES.map((t) => (
-            <button
-              key={t.key}
-              type="button"
-              className={`btn-filter${type === t.key ? ' active' : ''}`}
-              aria-pressed={type === t.key}
-              onClick={() => apply({ type: type === t.key ? null : t.key })}
-            >
-              {t.label}
-            </button>
-          ))}
-
-          <span className="filter-divider" aria-hidden="true" />
-          <span className="filter-group-label">Sort</span>
-          {SORTS.map((s) => (
-            <button
-              key={s.key}
-              type="button"
-              className={`btn-filter${sort === s.key ? ' active' : ''}`}
-              aria-pressed={sort === s.key}
-              onClick={() => apply({ sort: s.key })}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
+        )}
       </div>
+
+      {/* §3b — sticky dual-row filter bar (hidden while searching) */}
+      {!isSearchActive && (
+        <div className="filter-bar">
+          {/* Row 1 — group pills */}
+          <div className="group-pills" role="group" aria-label="Filter by group">
+            <button
+              type="button"
+              className={`group-pill${group === null ? ' active' : ''}`}
+              aria-pressed={group === null}
+              onClick={() => apply({ group: null })}
+            >
+              All
+            </button>
+            {groups.map((g) => (
+              <button
+                key={g.id}
+                type="button"
+                className={`group-pill${group === g.slug ? ' active' : ''}`}
+                aria-pressed={group === g.slug}
+                onClick={() => apply({ group: g.slug })}
+              >
+                <GroupLogo
+                  groupName={g.name}
+                  logoUrl={g.logo_url}
+                  displayColor={g.display_color}
+                  textColor={g.text_color}
+                  size={18}
+                />
+                {g.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Row 2 — type filter + sort */}
+          <div className="type-sort-row" role="group" aria-label="Filter by type and sort order">
+            <button
+              type="button"
+              className={`btn-filter${type === null ? ' active' : ''}`}
+              aria-pressed={type === null}
+              onClick={() => apply({ type: null })}
+            >
+              All types
+            </button>
+            {TYPES.map((t) => (
+              <button
+                key={t.key}
+                type="button"
+                className={`btn-filter${type === t.key ? ' active' : ''}`}
+                aria-pressed={type === t.key}
+                onClick={() => apply({ type: type === t.key ? null : t.key })}
+              >
+                {t.label}
+              </button>
+            ))}
+
+            <span className="filter-divider" aria-hidden="true" />
+            <span className="filter-group-label">Sort</span>
+            {SORTS.map((s) => (
+              <button
+                key={s.key}
+                type="button"
+                className={`btn-filter${sort === s.key ? ' active' : ''}`}
+                aria-pressed={sort === s.key}
+                onClick={() => apply({ sort: s.key })}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Search result count */}
+      {isSearchActive && !searching && results !== null && (
+        <p className="search-count">
+          {results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”
+        </p>
+      )}
 
       {/* Grid / skeleton / empty */}
       {showSkeleton ? (
@@ -308,7 +385,7 @@ export function BrowseQuizzes({
             </div>
           ))}
         </div>
-      ) : quizzes.length === 0 ? (
+      ) : displayed.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">
             <svg
@@ -330,18 +407,20 @@ export function BrowseQuizzes({
           </div>
           <p className="empty-title">No quizzes found</p>
           <p className="empty-desc">
-            No {activeGroupName ?? 'matching'} quizzes yet — be the first to create one.
+            {isSearchActive
+              ? `Nothing matches “${query.trim()}” — try another search.`
+              : `No ${activeGroupName ?? 'matching'} quizzes yet — be the first to create one.`}
           </p>
           <Link href="/create" className="btn-primary">
             Create a quiz
           </Link>
         </div>
       ) : (
-        <div className="cards-grid">{gridItems}</div>
+        <div className="cards-grid">{withBanners(displayed)}</div>
       )}
 
-      {/* §3e — load more */}
-      {canLoadMore && quizzes.length > 0 && (
+      {/* §3e — load more (filtered grid only) */}
+      {canLoadMore && displayed.length > 0 && (
         <div style={{ textAlign: 'center', paddingTop: 20 }}>
           <button type="button" className="btn-outline" onClick={loadMore} disabled={loadingMore}>
             {loadingMore ? 'Loading…' : 'Load more quizzes'}
