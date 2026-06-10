@@ -73,7 +73,7 @@ export function QuizCard({ quiz, index = 0 }: Props): React.ReactElement {
             logoUrl={quiz.logo_url}
             displayColor={quiz.display_color}
             textColor={quiz.text_color}
-            size={72}
+            size={88}
           />
         )}
       </div>

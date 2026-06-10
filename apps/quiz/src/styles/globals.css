@@ -661,6 +661,16 @@ body {
   white-space: nowrap;
 }
 
+/* Default group-logo fallback (no cover image) fills the whole cover box,
+   instead of a small fixed-size logo floating in a larger box. Scoped to the
+   logo <div>; real cover images render as <img> and are unaffected. */
+.quiz-cover > div {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: inherit !important;
+}
+
 /* §10c — grid: 2 col desktop / 1 col mobile; 16px gap (B0) */
 .cards-grid {
   display: grid;
