@@ -6,10 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
-import { AnswerButton } from '@/components/quiz/answer-button';
-import { TimerCircle } from '@/components/quiz/timer-circle';
-import { ProgressDots } from '@/components/quiz/progress-dots';
-import { FeedbackBox } from '@/components/quiz/feedback-box';
 import { QuizReactions } from '@/components/quiz/quiz-reactions';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
@@ -24,9 +20,7 @@ import {
   playPerfect,
   playShare,
 } from '@/lib/sounds';
-import { ImageQuestionView } from '@/components/quiz/image-question';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
-import { RunningTimer } from '@/components/quiz/running-timer';
 import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
@@ -720,10 +714,50 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       return isAnswerCorrect(q, ans);
     });
 
+    const total = state.questions.length;
+    const qNum = state.questionIndex + 1;
+    const progressPct = Math.round((qNum / total) * 100);
+    const hasTimer = 'settings' in state && state.settings.timer;
+    const timerTotal = hasTimer ? state.settings.timer_seconds : 0;
+    const timeLeft = state.phase === 'playing' ? Math.max(0, state.timeRemaining) : 0;
+    const frac = hasTimer && timerTotal > 0 ? timeLeft / timerTotal : 1;
+    const warn = hasTimer && timeLeft <= 8 && timeLeft > 5;
+    const danger = hasTimer && timeLeft <= 5;
+    const RING_CIRC = 172.8; // 2π × 27.5 (§10k)
+    const selectedIdx = isAnswered ? state.selectedAnswer : null;
+
+    // Current trailing correct streak (for the fire indicator).
+    let streak = 0;
+    for (let i = progressResults.length - 1; i >= 0; i -= 1) {
+      const r = progressResults[i];
+      if (r === null) continue;
+      if (r === true) streak += 1;
+      else break;
+    }
+
+    const opts = getEffectiveOptions(question);
+    const correctIdx = getCorrectIndex(question);
+    const correctText = opts[correctIdx] ?? '';
+    const factText =
+      question.fun_fact && question.fun_fact.trim()
+        ? question.fun_fact
+        : `The answer is ${correctText}.`;
+
+    function answerClass(i: number): string {
+      let c = 'ans-btn';
+      if (isAnswered) {
+        c += ' disabled';
+        if (i === correctIdx) c += ' correct';
+        else if (i === selectedIdx) c += ' wrong';
+        else c += ' dimmed';
+      }
+      return c;
+    }
+
     return (
-      <div className="max-w-[440px] mx-auto">
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-1 py-2">
+      <div className="quiz-screen">
+        {/* Quit */}
+        <div className="flex justify-end mb-1">
           <button
             onClick={() => dispatch({ type: 'RESET' })}
             className="text-[11px] text-ghost hover:text-secondary transition-colors cursor-pointer"
@@ -731,226 +765,163 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           >
             Quit
           </button>
-          <span className="text-xs text-ghost tabular-nums">
-            {state.questionIndex + 1}/{state.questions.length}
-          </span>
-          <div className="flex items-center gap-2 min-w-[44px] justify-end">
-            {state.phase === 'playing' && 'settings' in state && state.settings.timer ? (
-              <TimerCircle
-                seconds={state.timeRemaining}
-                total={state.settings.timer_seconds}
-                isUrgent={state.timeRemaining <= 5}
-              />
-            ) : (
-              <RunningTimer isRunning={state.phase === 'playing' || state.phase === 'answered'} />
-            )}
+        </div>
+
+        {/* §10k top bar */}
+        <div className="top-bar">
+          <span className="group-tag">{quiz.groupName}</span>
+          <div className="progress-wrap">
+            <div className="progress-bar" style={{ width: `${progressPct}%` }} />
+          </div>
+          <span className="q-counter">{qNum} / {total}</span>
+          <div className="score-pill">
+            <span className="score-pip" />
+            <span aria-live="polite">{state.score}</span> {isClues ? 'pts' : 'correct'}
           </div>
         </div>
 
-        {/* Progress dots */}
-        <div className="pt-1 pb-4">
-          <ProgressDots results={progressResults} current={state.questionIndex} />
+        {/* §10k streak bar */}
+        <div className="streak-bar">
+          {progressResults.map((r, i) => (
+            <span key={i} className={`streak-dot${r === true ? ' correct' : r === false ? ' wrong' : ''}`} />
+          ))}
+          <span className="streak-label">streak</span>
+          <span className={`streak-fire${streak >= 2 ? ' show' : ''}`}>
+            {streak >= 2 ? (
+              <>
+                {streak}{' '}
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                  <path d="M12 2c1.5 3-1 5-1.5 6.5C12 8 13 6.5 13.5 5.5c1.5 1.8 2.5 3.8 2.5 6a4 4 0 0 1-8 0c0-1.2.5-2.4 1.3-3.3C9.2 9.7 9.6 11 11 11c-.3-2.5-1-6 1-9z" />
+                </svg>
+              </>
+            ) : null}
+          </span>
         </div>
 
-        {/* "Aigo~" flash on wrong answer - absolute so it doesn't shift layout */}
-        {isAnswered && !state.isCorrect && (
-          <div className="relative">
-            <p
-              key={`aigo-${state.questionIndex}`}
-              className="absolute inset-x-0 -top-1 text-center text-sm font-semibold text-wrong animate-fade-out-up pointer-events-none"
-            >
-              {KOREAN.wrong}
-            </p>
+        {/* §10k timer ring (counts during the playing phase) */}
+        {hasTimer && state.phase === 'playing' && (
+          <div className="timer-ring-wrap">
+            <div className="timer-ring">
+              <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+                <circle className="ring-bg" cx="32" cy="32" r="27.5" />
+                <circle
+                  className={`ring-fg${danger ? ' danger' : warn ? ' warn' : ''}`}
+                  cx="32"
+                  cy="32"
+                  r="27.5"
+                  strokeDasharray={RING_CIRC}
+                  strokeDashoffset={RING_CIRC * (1 - frac)}
+                />
+              </svg>
+              <div
+                className={`timer-num${danger ? ' danger' : warn ? ' warn' : ''}`}
+                aria-live="polite"
+                aria-label="seconds remaining"
+              >
+                {Math.ceil(timeLeft)}
+              </div>
+            </div>
           </div>
         )}
 
         <div key={state.questionIndex} className="animate-question-in">
-          {/* Type badge above question */}
-          <div className="flex justify-center mb-3">
-            <QuizTypeBadge type={state.quizType} size="sm" />
-          </div>
 
-          {/* ======================== */}
-          {/* GUESS FROM CLUES */}
-          {/* ======================== */}
+          {/* Clue list (guess_from_clues) */}
           {isClues && (
-            <>
-              {/* Clues */}
-              <div className="space-y-1.5 mb-4 bg-surface border border-default rounded-xl p-4">
-                {question.clues!.slice(0, state.cluesRevealed).map((clue, i) => (
-                  <p key={i} className="text-sm animate-question-in">
-                    <span className="text-ghost font-semibold text-[11px] uppercase tracking-wider">Clue {i + 1}</span>{' '}
-                    <span className="text-primary">{clue}</span>
-                  </p>
-                ))}
-              </div>
-
-              {/* Prompt */}
-              <p className="text-[17px] font-semibold leading-snug text-primary text-center mb-5 px-2">
-                {question.question}
-              </p>
-
-              <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-                {getEffectiveOptions(question).map((option, i) => {
-                  let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
-                  if (isAnswered) {
-                    if (i === getCorrectIndex(question)) {
-                      buttonState = 'correct';
-                    } else if (i === state.selectedAnswer) {
-                      buttonState = 'wrong';
-                    } else {
-                      buttonState = 'dimmed';
-                    }
-                  }
-                  return (
-                    <AnswerButton
-                      key={i}
-                      label={LABELS[i] ?? ''}
-                      text={option}
-                      state={buttonState}
-                      disabled={isAnswered}
-                      onClick={() => handleClueAnswer(i, state.cluesRevealed)}
-                    />
-                  );
-                })}
-              </div>
-
-              {/* Points indicator + clue button */}
-              {!isAnswered && (
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
-                      <svg key={`filled-${i}`} width="13" height="13" viewBox="0 0 14 14" fill="var(--combo)">
-                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-                      </svg>
-                    ))}
-                    {Array.from({ length: 3 - Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
-                      <svg key={`empty-${i}`} width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="var(--text-ghost)" strokeWidth="1">
-                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-                      </svg>
-                    ))}
-                    <span className="text-[11px] text-ghost ml-1">
-                      {Math.max(1, 4 - state.cluesRevealed)} pt{Math.max(1, 4 - state.cluesRevealed) === 1 ? '' : 's'}
-                    </span>
-                  </div>
-
-                  {state.cluesRevealed < 3 ? (
-                    <button
-                      onClick={handleRevealClue}
-                      className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
-                    >
-                      {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
-                    </button>
-                  ) : (
-                    <span className="text-[11px] text-ghost">No more clues</span>
-                  )}
-                </div>
-              )}
-            </>
+            <div className="space-y-1.5 mb-4 bg-surface border border-default rounded-xl p-4">
+              {question.clues!.slice(0, state.cluesRevealed).map((clue, i) => (
+                <p key={i} className="text-sm animate-question-in">
+                  <span className="text-ghost font-semibold text-[11px] uppercase tracking-wider">Clue {i + 1}</span>{' '}
+                  <span className="text-primary">{clue}</span>
+                </p>
+              ))}
+            </div>
           )}
 
-          {/* ======================== */}
-          {/* IMAGE QUIZ */}
-          {/* ======================== */}
-          {isImageQuiz && (
-            <ImageQuestionView
-              question={question as { question: string; image_url: string; options: string[] }}
-              correctIndex={getCorrectIndex(question)}
-              selectedAnswer={isAnswered ? state.selectedAnswer : null}
-              isAnswered={isAnswered}
-              onAnswer={handleAnswer}
-            />
+          {/* Image (image type) — shown above the question */}
+          {isImageQuiz && 'image_url' in question && (
+            <div className="w-full max-h-[280px] rounded-[14px] overflow-hidden mb-4 bg-surface-alt flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={(question as { image_url: string }).image_url}
+                alt={question.question}
+                className="w-full h-full object-contain max-h-[280px]"
+                loading="eager"
+              />
+            </div>
           )}
 
-          {/* ======================== */}
-          {/* INTRUDER */}
-          {/* ======================== */}
-          {isIntruderQuiz && (
+          {/* §10k question text (intruder view renders its own header) */}
+          {!isIntruderQuiz && <p className="q-text">{question.question}</p>}
+
+          {/* Answers — §10k A/B/C/D chips for text options; image grid for intruder */}
+          {isIntruderQuiz ? (
             <IntruderQuestionView
               question={question as unknown as { question: string; options: Array<{ label: string; image_url: string }> }}
-              correctIndex={getCorrectIndex(question)}
-              selectedAnswer={isAnswered ? state.selectedAnswer : null}
+              correctIndex={correctIdx}
+              selectedAnswer={selectedIdx}
               isAnswered={isAnswered}
               onAnswer={handleAnswer}
             />
-          )}
-
-          {/* ======================== */}
-          {/* STANDARD (MC / TF) */}
-          {/* ======================== */}
-          {!isClues && !isImageQuiz && !isIntruderQuiz && (
-            <>
-              <p className="text-[17px] font-semibold leading-snug text-primary text-center mb-5 px-2">
-                {question.question}
-              </p>
-
-              <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-                {getEffectiveOptions(question).map((option, i) => {
-                  let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
-                  if (isAnswered) {
-                    if (i === getCorrectIndex(question)) {
-                      buttonState = 'correct';
-                    } else if (i === state.selectedAnswer) {
-                      buttonState = 'wrong';
-                    } else {
-                      buttonState = 'dimmed';
-                    }
-                  }
-                  return (
-                    <AnswerButton
-                      key={i}
-                      label={LABELS[i] ?? ''}
-                      text={option}
-                      state={buttonState}
-                      disabled={isAnswered}
-                      onClick={() => handleAnswer(i)}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          )}
-
-          {/* ======================== */}
-          {/* FEEDBACK (all quiz types) */}
-          {/* ======================== */}
-          {isAnswered && (
-            <>
-              <div className="mt-4 animate-fade-in">
-                {state.selectedAnswer === null ? (
-                  <FeedbackBox
-                    type="timeout"
-                    title="Time's up!"
-                    text={typeof question.correct === 'boolean'
-                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.`
-                      : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.`}
-                  />
-                ) : state.isCorrect ? (
-                  <FeedbackBox
-                    type="correct"
-                    title="Correct!"
-                    text={question.fun_fact ?? ''}
-                  />
-                ) : (
-                  <FeedbackBox
-                    type="wrong"
-                    title="Wrong!"
-                    text={typeof question.correct === 'boolean'
-                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`
-                      : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`}
-                  />
-                )}
-              </div>
-
-              <div className="mt-4">
+          ) : (
+            <div className="answers">
+              {opts.map((option, i) => (
                 <button
-                  onClick={handleNext}
-                  className="w-full py-3.5 rounded-xl bg-accent text-white text-[15px] font-bold active:scale-[0.98] transition-transform cursor-pointer"
+                  key={i}
+                  type="button"
+                  className={answerClass(i)}
+                  disabled={isAnswered}
+                  aria-pressed={selectedIdx === i}
+                  onClick={() => (isClues ? handleClueAnswer(i, state.cluesRevealed) : handleAnswer(i))}
                 >
-                  {isLast ? 'See results' : 'Next question'}
+                  <span className="ans-letter">{LABELS[i] ?? ''}</span>
+                  {option}
                 </button>
+              ))}
+            </div>
+          )}
+
+          {/* Clue controls (pre-answer) */}
+          {isClues && !isAnswered && (
+            <div className="flex items-center justify-between mt-3 mb-1">
+              <span className="text-[11px] text-ghost">
+                {Math.max(1, 4 - state.cluesRevealed)} pt{Math.max(1, 4 - state.cluesRevealed) === 1 ? '' : 's'} if you answer now
+              </span>
+              {state.cluesRevealed < 3 ? (
+                <button
+                  onClick={handleRevealClue}
+                  className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
+                >
+                  {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
+                </button>
+              ) : (
+                <span className="text-[11px] text-ghost">No more clues</span>
+              )}
+            </div>
+          )}
+
+          {/* §10k fun-fact reveal — after every answer (correct, wrong, or timeout) */}
+          {isAnswered && (
+            <div className="fact-reveal show">
+              <div className="fact-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#92400E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M9 18h6" />
+                  <path d="M10 22h4" />
+                  <path d="M12 2a7 7 0 0 0-4 12.6c.6.5 1 1.2 1 2.4h6c0-1.2.4-1.9 1-2.4A7 7 0 0 0 12 2z" />
+                </svg>
               </div>
-            </>
+              <div className="fact-body">
+                <p className="fact-label">Fun fact</p>
+                <p className="fact-text">{factText}</p>
+              </div>
+            </div>
+          )}
+
+          {/* §10k next */}
+          {isAnswered && (
+            <button type="button" className="next-btn show" onClick={handleNext}>
+              {isLast ? 'See results' : 'Next question →'}
+            </button>
           )}
         </div>
       </div>
@@ -1008,7 +979,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
         {/* Big score */}
         <p className="text-center text-5xl font-bold text-primary tabular-nums leading-none">
-          {state.score}
+          {/* §10i — score counts up 0 → final on result mount */}
+          <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />
           <span className="text-ghost text-3xl">/{maxScore}</span>
         </p>
 

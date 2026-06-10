@@ -987,3 +987,92 @@ body {
   text-overflow: ellipsis;
   max-width: 100%;
 }
+
+/* ============================================================
+   B6 — §10k live quiz screen. Class names + timings verbatim;
+   keyframes namespaced (qz-prefixed) so they don't clobber the
+   existing global shake/slideUp. Reuses existing correct/wrong tokens.
+   ============================================================ */
+.quiz-screen { background: var(--bg); padding: 20px; max-width: 600px; margin: 0 auto; }
+
+.top-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.top-bar .group-tag { font-size: 12px; font-weight: 600; color: var(--brand); background: var(--brand-light); padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+.progress-wrap { flex: 1; background: var(--surface-alt); border-radius: 100px; height: 6px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--brand); border-radius: 100px; transition: width 600ms cubic-bezier(.4,0,.2,1); }
+.q-counter { font-size: 13px; font-weight: 500; color: var(--txt3); white-space: nowrap; }
+.score-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px 4px 8px; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--txt1); white-space: nowrap; }
+.score-pip { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+
+.streak-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; min-height: 28px; flex-wrap: wrap; }
+.streak-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-alt); border: 1.5px solid var(--border); transition: all 200ms ease; flex-shrink: 0; }
+.streak-dot.correct { background: var(--brand); border-color: var(--brand); transform: scale(1.2); }
+.streak-dot.wrong { background: var(--wrong-bg); border-color: var(--wrong-border); }
+.streak-label { font-size: 12px; color: var(--txt3); margin-left: auto; }
+.streak-fire { font-size: 13px; color: #f97316; font-weight: 600; opacity: 0; transition: opacity 200ms; display: inline-flex; align-items: center; gap: 2px; }
+.streak-fire.show { opacity: 1; }
+
+.timer-ring-wrap { display: flex; justify-content: center; margin-bottom: 18px; }
+.timer-ring { position: relative; width: 64px; height: 64px; }
+.timer-ring svg { transform: rotate(-90deg); }
+.timer-ring circle { fill: none; stroke-width: 5; }
+.ring-bg { stroke: var(--surface-alt); }
+.ring-fg { stroke: var(--brand); stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke 400ms ease; }
+.ring-fg.warn   { stroke: #f97316; }
+.ring-fg.danger { stroke: var(--brand); }
+.timer-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--txt1); }
+.timer-num.warn   { color: #f97316; }
+.timer-num.danger { color: var(--brand); }
+
+.q-text { font-size: 17px; font-weight: 700; color: var(--txt1); line-height: 1.45; text-align: center; margin-bottom: 20px; min-height: 52px; }
+
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+@media (max-width: 480px) { .answers { grid-template-columns: 1fr; } }
+
+.ans-btn { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 14px 16px; font-size: 14px; font-weight: 500; color: var(--txt1); cursor: pointer; text-align: left; line-height: 1.4; transition: all 150ms ease; min-height: 44px; width: 100%; }
+.ans-btn:hover:not(.disabled) { background: var(--brand-light); border-color: var(--brand); color: var(--brand); }
+.ans-btn.selected { background: var(--brand-light); border-color: var(--brand); color: var(--brand); }
+.ans-btn.correct  { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct); animation: qzPop 200ms ease; }
+.ans-btn.wrong    { background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong); animation: qzShake 300ms ease; }
+.ans-btn.dimmed   { opacity: 0.4; }
+.ans-btn.disabled { cursor: default; }
+.ans-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.ans-letter { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface-alt); font-size: 11px; font-weight: 700; color: var(--txt3); margin-right: 8px; flex-shrink: 0; vertical-align: middle; transition: background 150ms, color 150ms; }
+.ans-btn.correct .ans-letter  { background: var(--correct); color: #fff; }
+.ans-btn.wrong .ans-letter    { background: var(--wrong);   color: #fff; }
+.ans-btn.selected .ans-letter { background: var(--brand);   color: #fff; }
+
+/* Keyframes — §10k timings preserved, names qz-prefixed to avoid clobbering */
+@keyframes qzPop   { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+@keyframes qzShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@keyframes qzSlideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.fact-reveal { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; display: flex; gap: 10px; align-items: flex-start; animation: qzSlideUp 250ms ease both; }
+.fact-icon { width: 32px; height: 32px; border-radius: 10px; background: #FEF3C7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fact-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #92400E; margin-bottom: 3px; }
+.fact-text { font-size: 13px; color: var(--txt2); line-height: 1.5; }
+
+.next-btn { width: 100%; background: var(--brand); color: #fff; border: none; border-radius: 100px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 120ms, transform 120ms; min-height: 44px; }
+.next-btn:hover  { background: var(--brand-dark); }
+.next-btn:active { transform: scale(0.98); }
+.next-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* §10k mobile overrides (mandatory) */
+@media (max-width: 480px) {
+  .quiz-screen     { padding: 16px; }
+  .q-text          { font-size: 15px; min-height: auto; }
+  .answers         { grid-template-columns: 1fr; }
+  .ans-btn         { padding: 16px; font-size: 15px; }
+  .top-bar         { flex-wrap: wrap; gap: 8px; }
+  .score-pill      { order: -1; }
+  .timer-ring-wrap { margin-bottom: 14px; }
+}
+
+/* Reduced motion — gate the quiz-screen feedback motion */
+@media (prefers-reduced-motion: reduce) {
+  .ans-btn.correct,
+  .ans-btn.wrong,
+  .fact-reveal { animation: none !important; }
+  .streak-dot { transition: none; }
+  .streak-dot.correct { transform: none; }
+}
