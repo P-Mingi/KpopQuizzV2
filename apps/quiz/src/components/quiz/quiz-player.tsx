@@ -12,7 +12,7 @@ import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
 import { getTitleForLevel } from '@/lib/level-titles';
-import { KOREAN, getResultLabel } from '@/lib/korean-moments';
+import { getResultLabel } from '@/lib/korean-moments';
 import {
   playTap,
   playCorrect,
@@ -349,6 +349,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [loading, setLoading] = useState(false);
   const [relatedQuizzes, setRelatedQuizzes] = useState<RelatedQuiz[]>([]);
   const [levelUpDismissed, setLevelUpDismissed] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [barReady, setBarReady] = useState(false);
   const { showToast } = useToast();
   const router = useRouter();
   const timeRef = useRef(0);
@@ -365,6 +367,20 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   // §14e — estimated time: ~15s/question, rounded to the nearest half minute.
   const estHalfMin = Math.max(0.5, Math.round((quiz.questionCount * 15 / 60) * 2) / 2);
   const estMinutesLabel = estHalfMin % 1 === 0 ? `${estHalfMin}` : estHalfMin.toFixed(1);
+
+  // Honour reduced-motion: show the score instantly + skip the bar fill anim.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  // §10i — fill the score bar shortly after the result mounts (CSS transitions it).
+  useEffect(() => {
+    if (state.phase !== 'result') { setBarReady(false); return; }
+    if (reduceMotion) { setBarReady(true); return; }
+    const t = setTimeout(() => setBarReady(true), 100);
+    return () => clearTimeout(t);
+  }, [state.phase, reduceMotion]);
 
   // Refresh server components (navbar XP) and fetch related quizzes when result shows
   useEffect(() => {
@@ -978,11 +994,21 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         </div>
 
         {/* Big score */}
-        <p className="text-center text-5xl font-bold text-primary tabular-nums leading-none">
-          {/* §10i — score counts up 0 → final on result mount */}
-          <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />
+        <p className="text-center text-5xl font-bold text-primary tabular-nums leading-none" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
+          {/* §10i — counts up 0 → final on mount; instant under reduced-motion */}
+          {reduceMotion ? state.score : <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />}
           <span className="text-ghost text-3xl">/{maxScore}</span>
         </p>
+
+        {/* §10i — score bar + "You beat X%" */}
+        <div className="result-bar-wrap">
+          <div className="result-bar" style={{ width: `${barReady ? scorePct : 0}%` }} />
+        </div>
+        {state.percentile !== null && (
+          <p className="text-center text-[13px] text-secondary">
+            You beat <strong className="text-accent">{state.percentile}%</strong> of players
+          </p>
+        )}
 
         {/* Label: Hangul + English side by side */}
         <div className="text-center mt-3">
@@ -997,8 +1023,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         </div>
 
-        {/* Stats row - 3 cells */}
-        <div className="mt-5 grid grid-cols-3 gap-px bg-default rounded-xl overflow-hidden border border-default">
+        {/* Stats row — Score / Avg / Rank (+ Pass rate when available) */}
+        <div className={`mt-5 grid ${state.passRate !== null ? 'grid-cols-4' : 'grid-cols-3'} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
           <div className="bg-surface p-3 text-center">
             <p className="text-[17px] font-semibold text-primary tabular-nums">{scorePct}%</p>
             <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Score</p>
@@ -1015,6 +1041,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </p>
             <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Rank</p>
           </div>
+          {state.passRate !== null && (
+            <div className="bg-surface p-3 text-center">
+              <p className="text-[17px] font-semibold text-primary tabular-nums">{state.passRate}%</p>
+              <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Pass rate</p>
+            </div>
+          )}
         </div>
 
         {/* XP card */}
@@ -1093,22 +1125,34 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
         </div>
 
-        <div className="flex gap-2 mt-3">
-          <button
-            onClick={() => {
-              playTap();
-              dispatch({ type: 'RESET' });
-            }}
-            className="flex-1 py-3 rounded-xl bg-surface border border-default text-secondary text-[13px] font-semibold hover:border-accent hover:text-accent transition-colors cursor-pointer"
-          >
-            {KOREAN.playAgain}
-          </button>
-          <button
-            onClick={handleShare}
-            className="flex-1 py-3.5 rounded-xl bg-accent text-white text-[14px] font-bold active:scale-[0.98] transition-transform cursor-pointer"
-          >
-            Share
-          </button>
+        {/* §12b — shareable result card */}
+        <div className="result-share-card mt-4">
+          <div className="result-share-header">
+            <p className="result-share-group">{quiz.groupName} quiz</p>
+            <p className="result-share-title">{quiz.title}</p>
+          </div>
+          <div className="result-share-body">
+            <p className="result-share-score">{state.score}</p>
+            <p className="result-share-total">out of {maxScore}{isClues ? ' points' : ' questions'}</p>
+            <p className="result-share-label">
+              {scorePct >= 100
+                ? `Perfect — true ${quiz.fandomName}!`
+                : scorePct >= 75
+                ? "You're an expert!"
+                : scorePct >= 50
+                ? 'Solid effort — keep playing!'
+                : 'Room to grow — try again?'}
+            </p>
+            <p className="result-share-url">kpopquiz.org</p>
+          </div>
+          <div className="result-share-actions">
+            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
+              Share result
+            </button>
+            <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
+              Play another
+            </Link>
+          </div>
         </div>
 
         <div className="mt-2">
