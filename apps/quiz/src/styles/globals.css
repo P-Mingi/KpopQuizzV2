@@ -1245,3 +1245,106 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 @media (prefers-reduced-motion: reduce) {
   .daily-cta { animation: none; }
 }
+
+/* ============================================================
+   B9 — games page (§13a). Verbatim classes; .game-card scoped
+   under .games-page so it doesn't clash with the B8 home teaser.
+   Reuses the tot / nam tint tokens + the existing fadeUp keyframe.
+   ============================================================ */
+.games-page { background: var(--bg); padding: 28px 0; max-width: 800px; margin: 0 auto; }
+
+.games-hero { margin-bottom: 32px; }
+.games-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--txt3); margin-bottom: 10px; display: flex; align-items: center; gap: 5px;
+}
+.games-title { font-size: 28px; font-weight: 800; color: var(--txt1); line-height: 1.2; margin-bottom: 8px; }
+.games-title span { color: var(--brand); }
+.games-sub { font-size: 14px; color: var(--txt2); line-height: 1.6; max-width: 480px; }
+
+/* Mode hero cards */
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+@media (max-width: 560px) { .mode-grid { grid-template-columns: 1fr; } }
+.mode-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px;
+  cursor: pointer; position: relative; overflow: hidden; color: inherit;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  animation: fadeUp 350ms ease both;
+}
+.mode-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(232,69,122,.10), 0 2px 8px rgba(0,0,0,.05); border-color: var(--border-h); }
+.mode-card:active { transform: translateY(0); box-shadow: none; }
+.mode-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.mode-deco { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.mode-card.tot .mode-deco { background: var(--tot-bg); color: var(--tot-icon); }
+.mode-card.nam .mode-deco { background: var(--nam-bg); color: var(--nam-icon); }
+.mode-badge { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+.badge-hot { background: #FFF3EC; color: #C2410C; }
+.badge-new { background: #DCFCE7; color: #166534; }
+.mode-name { font-size: 17px; font-weight: 800; color: var(--txt1); margin-bottom: 5px; }
+.mode-desc { font-size: 13px; color: var(--txt2); line-height: 1.5; margin-bottom: 16px; }
+.mode-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.mode-stat { font-size: 12px; color: var(--txt3); display: flex; align-items: center; gap: 4px; }
+.mode-play {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--brand); color: #fff; border: none;
+  border-radius: 100px; padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: background 120ms, transform 120ms; min-height: 44px;
+}
+.mode-play:hover  { background: var(--brand-dark); }
+.mode-play:active { transform: scale(0.97); }
+.mode-card.nam .mode-play       { background: #1D4ED8; }
+.mode-card.nam .mode-play:hover { background: #1e40af; }
+
+/* Filter bar */
+.games-filter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 4px; }
+.games-filter-row::-webkit-scrollbar { display: none; }
+.filter-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--txt3); white-space: nowrap; margin-right: 4px; flex-shrink: 0; }
+.fpill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--txt1); cursor: pointer; white-space: nowrap; transition: all 120ms ease; flex-shrink: 0; }
+.fpill:hover  { border-color: var(--brand); color: var(--brand); }
+.fpill.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+.fpill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* Section header */
+.games-sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+.games-sec-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--txt3); display: flex; align-items: center; gap: 5px; }
+.games-sec-see { font-size: 13px; font-weight: 500; color: var(--brand); text-decoration: none; cursor: pointer; white-space: nowrap; }
+.games-sec-see:hover { text-decoration: underline; }
+
+/* Game cards grid */
+.game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+@media (max-width: 480px) { .game-grid { grid-template-columns: 1fr; } }
+
+.games-page .game-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 14px 16px; cursor: pointer; display: flex; gap: 12px; align-items: flex-start;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+  animation: fadeUp 300ms ease both; min-height: 44px; text-decoration: none; color: inherit;
+}
+.games-page .game-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,69,122,.08), 0 1px 6px rgba(0,0,0,.05); border-color: var(--border-h); }
+.games-page .game-card:active { transform: translateY(0); box-shadow: none; }
+.games-page .game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.gc-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.gc-tot { background: var(--tot-bg); color: var(--tot-icon); }
+.gc-nam { background: var(--nam-bg); color: var(--nam-icon); }
+.gc-body { flex: 1; min-width: 0; }
+.gc-name { font-size: 13px; font-weight: 700; color: var(--txt1); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gc-sub { font-size: 11px; color: var(--txt3); margin-bottom: 7px; line-height: 1.4; }
+.gc-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.gc-plays { font-size: 11px; color: var(--txt3); display: flex; align-items: center; gap: 3px; }
+
+/* Name-all initial hint chips */
+.nam-hints { display: flex; gap: 5px; margin-bottom: 7px; flex-wrap: wrap; }
+.hint-dot { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-alt); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--txt3); }
+
+.diff-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px; }
+.d-easy { background: #DCFCE7; color: #166534; }
+.d-med  { background: #FEF3C7; color: #92400E; }
+.d-hard { background: #FFE4E6; color: #9F1239; }
+.timer-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px; background: var(--surface-alt); color: var(--txt2); display: flex; align-items: center; gap: 3px; }
+
+.games-divider { height: 1px; background: var(--border); margin: 8px 0 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .games-page .game-card,
+  .mode-card { animation: none; }
+}

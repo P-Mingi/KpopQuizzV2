@@ -1,303 +1,211 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
-import { TotCategoryCard } from '@/components/games/tot-category-card';
-import { NameAllGrid } from '@/components/games/name-all-grid';
 import { toNameAllGame } from '@/components/games/adapters';
 
 import type { GameCardData } from '@/lib/db/types';
 
-// ---------------------------------------------------------------------------
-// Props
-// ---------------------------------------------------------------------------
+interface TotCategory {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  type: 'idol' | 'group' | 'song';
+  pool_size: number;
+  play_count: number;
+}
 
 interface GamesHubProps {
   nameAllGames: GameCardData[];
-  totCategories: any[];
+  totCategories: TotCategory[];
 }
 
-// ---------------------------------------------------------------------------
-// Constants
-// ---------------------------------------------------------------------------
-
-const GROUP_PILLS = [
-  { label: 'BTS', slug: 'bts' },
-  { label: 'BLACKPINK', slug: 'blackpink' },
-  { label: 'SEVENTEEN', slug: 'seventeen' },
-  { label: 'Stray Kids', slug: 'stray-kids' },
-  { label: 'aespa', slug: 'aespa' },
-  { label: 'TWICE', slug: 'twice' },
-  { label: 'NewJeans', slug: 'newjeans' },
-  { label: 'IVE', slug: 'ive' },
-  { label: 'EXO', slug: 'exo' },
-  { label: 'ENHYPEN', slug: 'enhypen' },
-  { label: 'TXT', slug: 'txt' },
-  { label: 'LE SSERAFIM', slug: 'le-sserafim' },
+// §2e canonical group order for the filter pills.
+const GROUP_ORDER = [
+  'bts', 'blackpink', 'stray-kids', 'twice', 'aespa', 'seventeen',
+  'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
 ];
 
-// ---------------------------------------------------------------------------
-// Featured hero cards
-// ---------------------------------------------------------------------------
+function initial(name: string): string {
+  if (!name) return '?';
+  return name.replace(/[()]/g, '').trim().charAt(0).toUpperCase();
+}
 
-function FeaturedCards() {
-  const featured = [
-    {
-      id: 'tot',
-      href: '/games/this-or-that',
-      kind: 'Tournament',
-      title: 'This or That',
-      tagline: 'Pick your bias in head-to-head idol matchups',
-      sub: 'Multiple categories available',
-      color: '#D4537E',
-      reward: 50,
-      dark: true,
-    },
-    {
-      id: 'naa',
-      href: '/games/name-all',
-      kind: 'Memory',
-      title: 'Name all members',
-      tagline: 'Name every member before the timer runs out',
-      sub: '20+ groups to challenge',
-      color: '#7F77DD',
-      reward: 80,
-      dark: false,
-    },
+function formatTimer(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function totNoun(type: TotCategory['type']): string {
+  return type === 'song' ? 'songs' : type === 'group' ? 'groups' : 'idols';
+}
+
+const PLAY_ICON = (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+);
+const USER_ICON = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+);
+const CLOCK_ICON = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+);
+
+export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.ReactElement {
+  const [group, setGroup] = useState<string>('all');
+
+  // Derive filter pills from the groups actually present in the name-all games.
+  const present = new Map<string, string>();
+  for (const g of nameAllGames) {
+    if (g.group_slug && g.group_name) present.set(g.group_slug, g.group_name);
+  }
+  const orderedSlugs = [
+    ...GROUP_ORDER.filter((s) => present.has(s)),
+    ...[...present.keys()].filter((s) => !GROUP_ORDER.includes(s)),
   ];
+  const pills = [{ slug: 'all', label: 'All' }, ...orderedSlugs.map((s) => ({ slug: s, label: present.get(s)! }))];
+
+  // This-or-That categories are cross-group, so they only show under "All".
+  const totVisible = group === 'all' ? totCategories : [];
+  const namVisible = group === 'all' ? nameAllGames : nameAllGames.filter((g) => g.group_slug === group);
+
+  const showDivider = totVisible.length > 0 && namVisible.length > 0;
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 12, marginBottom: 14 }}>
-      {featured.map((d) => {
-        const bg = d.dark
-          ? `radial-gradient(120% 90% at 0% 0%, ${d.color}55 0%, transparent 50%), linear-gradient(160deg, #1F1F1F 0%, #0F0F0F 100%)`
-          : `radial-gradient(120% 90% at 100% 0%, ${d.color}33 0%, transparent 55%), linear-gradient(160deg, color-mix(in srgb, ${d.color} 18%, #fff) 0%, color-mix(in srgb, ${d.color} 8%, #fff) 100%)`;
-        const fg = d.dark ? '#fff' : '#1F1F1F';
-        const tagBg = d.dark ? `${d.color}33` : `${d.color}22`;
-        const tagFg = d.color;
-
-        return (
-          <Link
-            key={d.id}
-            href={d.href}
-            style={{
-              position: 'relative', overflow: 'hidden',
-              borderRadius: 18, padding: 18,
-              border: `1px solid ${d.dark ? 'rgba(255,255,255,0.08)' : 'var(--border)'}`,
-              background: bg, color: fg,
-              display: 'flex', flexDirection: 'column', gap: 12,
-              minHeight: 180, textDecoration: 'none',
-              transition: 'transform 200ms ease, box-shadow 200ms ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 14px 32px -10px ${d.color}55`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-          >
-            {/* Sparkle ornament */}
-            <div aria-hidden="true" style={{
-              position: 'absolute', right: -20, top: -20, width: 140, height: 140,
-              background: `radial-gradient(circle, ${d.color}55 0%, transparent 65%)`,
-              filter: 'blur(8px)', pointerEvents: 'none',
-            }} />
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
-              <span style={{
-                padding: '4px 10px', borderRadius: 9999,
-                background: tagBg, color: tagFg,
-                fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase',
-              }}>{d.kind}</span>
-            </div>
-
-            <div style={{ flex: 1, minWidth: 0, position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 6 }}>{d.title}</div>
-              <div style={{ fontSize: 12, opacity: 0.75, lineHeight: 1.5, marginBottom: 8 }}>{d.tagline}</div>
-              <div style={{ fontSize: 11, opacity: 0.55 }}>{d.sub}</div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, position: 'relative', zIndex: 1 }}>
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '8px 16px', borderRadius: 9999,
-                background: d.color, color: '#fff',
-                fontSize: 13, fontWeight: 700,
-              }}>
-                <svg width="11" height="11" viewBox="0 0 10 10" fill="#fff"><path d="M2 1l7 4-7 4z" /></svg>
-                Play
-              </span>
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: 4,
-                fontSize: 11, fontWeight: 700, color: '#F2C037',
-              }}>
-                <span style={{ fontSize: 12 }}>{'\u2B50'}</span> +{d.reward}
-              </span>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Section header
-// ---------------------------------------------------------------------------
-
-function SectionHeader({ title, count, href }: { title: string; count: number; href: string }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12 }}>
-      <h2 style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', margin: 0 }}>{title}</h2>
-      <Link href={href} style={{
-        background: 'transparent', border: 0, padding: 0, cursor: 'pointer',
-        color: 'var(--accent)', fontSize: 12, fontWeight: 700, textDecoration: 'none',
-      }}>See all {count}+</Link>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Main component
-// ---------------------------------------------------------------------------
-
-export function GamesHub({ nameAllGames, totCategories }: GamesHubProps) {
-  const [search, setSearch] = useState('');
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-
-  const filteredTot = useMemo(() => {
-    if (!search.trim()) return totCategories;
-    const q = search.toLowerCase().trim();
-    return totCategories.filter((cat: any) => cat.title.toLowerCase().includes(q));
-  }, [totCategories, search]);
-
-  const filteredNameAll = useMemo(() => {
-    let list = [...nameAllGames];
-    if (selectedGroup) list = list.filter((g) => g.group_slug === selectedGroup);
-    if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      list = list.filter((g) =>
-        g.title.toLowerCase().includes(q) || (g.group_name?.toLowerCase().includes(q) ?? false),
-      );
-    }
-    return list;
-  }, [nameAllGames, selectedGroup, search]);
-
-  return (
-    <div style={{ paddingTop: 12 }}>
-      {/* 1. Featured hero cards */}
-      <FeaturedCards />
-
-      {/* 2. Search bar */}
-      <div style={{ position: 'relative', marginBottom: 14 }}>
-        <svg
-          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          style={{ position: 'absolute', top: '50%', left: 14, transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }}
-        >
-          <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
-        </svg>
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search games..."
-          style={{
-            width: '100%', padding: '12px 12px 12px 38px',
-            background: 'var(--bg-surface)',
-            border: '1px solid var(--border)',
-            borderRadius: 12, fontSize: 13,
-            color: 'var(--text-primary)',
-            fontFamily: 'inherit',
-            outline: 'none',
-          }}
-        />
+    <main className="games-page">
+      {/* §13b — hero */}
+      <div className="games-hero">
+        <p className="games-eyebrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="6" y1="11" x2="10" y2="11" /><line x1="8" y1="9" x2="8" y2="13" /><line x1="15" y1="12" x2="15.01" y2="12" /><line x1="18" y1="10" x2="18.01" y2="10" /><rect x="2" y="6" width="20" height="12" rx="2" />
+          </svg>
+          Games
+        </p>
+        <h1 className="games-title">Pick. Type. <span>Win.</span></h1>
+        <p className="games-sub">Two game modes, hundreds of challenges. How fast can you name all members? Who is your ultimate bias?</p>
       </div>
 
-      {/* 3. Group filter pills */}
-      <div style={{ position: 'relative', marginBottom: 18 }}>
-        <div className="scrollbar-hide" style={{
-          display: 'flex', gap: 8, overflowX: 'auto',
-          paddingBottom: 4, paddingRight: 32,
-        }}>
-          <button
-            type="button"
-            onClick={() => setSelectedGroup(null)}
-            style={{
-              flexShrink: 0,
-              padding: '7px 14px', borderRadius: 9999,
-              fontSize: 12, fontWeight: 700,
-              cursor: 'pointer', whiteSpace: 'nowrap',
-              transition: 'all 160ms ease',
-              background: selectedGroup === null ? 'var(--accent)' : 'transparent',
-              color: selectedGroup === null ? '#fff' : 'var(--text-secondary)',
-              border: `1px solid ${selectedGroup === null ? 'var(--accent)' : 'var(--border)'}`,
-            }}
-          >
-            All
-          </button>
-          {GROUP_PILLS.map((g) => (
-            <button
-              key={g.slug}
-              type="button"
-              onClick={() => setSelectedGroup(selectedGroup === g.slug ? null : g.slug)}
-              style={{
-                flexShrink: 0,
-                padding: '7px 14px', borderRadius: 9999,
-                fontSize: 12, fontWeight: 700,
-                cursor: 'pointer', whiteSpace: 'nowrap',
-                transition: 'all 160ms ease',
-                background: selectedGroup === g.slug ? 'var(--text-primary)' : 'transparent',
-                color: selectedGroup === g.slug ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                border: `1px solid ${selectedGroup === g.slug ? 'var(--text-primary)' : 'var(--border)'}`,
-              }}
-            >
-              {g.label}
-            </button>
-          ))}
-        </div>
-        <div style={{
-          position: 'absolute', top: 0, right: 0, bottom: 4, width: 40,
-          background: 'linear-gradient(90deg, transparent, var(--bg-primary))',
-          pointerEvents: 'none',
-        }} />
-      </div>
-
-      {/* 4. This or That section */}
-      {filteredTot.length > 0 && (
-        <section style={{ marginBottom: 22 }}>
-          <SectionHeader title="This or that" count={totCategories.length} href="/games/this-or-that" />
-          <div style={{ position: 'relative' }}>
-            <div className="scrollbar-hide" style={{
-              display: 'flex', gap: 10, overflowX: 'auto',
-              paddingBottom: 4, paddingRight: 24,
-              scrollSnapType: 'x mandatory',
-            }}>
-              {filteredTot.map((cat: any) => (
-                <TotCategoryCard key={cat.id} category={cat} />
-              ))}
-            </div>
+      {/* §13b — mode hero cards */}
+      <div className="mode-grid">
+        <Link href="/games/this-or-that" className="mode-card tot" style={{ animationDelay: '0ms', textDecoration: 'none' }}>
+          <span className="mode-badge badge-hot">Most played</span>
+          <div className="mode-deco" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
           </div>
-        </section>
+          <p className="mode-name">This or That</p>
+          <p className="mode-desc">Two options. One winner. Pick your bias in infinite head-to-head matchups across idols, songs, and groups.</p>
+          <div className="mode-meta">
+            <span className="mode-stat">{USER_ICON} {totCategories.length || '20'}+ categories</span>
+            <span className="mode-stat">{CLOCK_ICON} ~3 min</span>
+          </div>
+          <span className="mode-play">{PLAY_ICON} Play now</span>
+        </Link>
+
+        <Link href="/games/name-all" className="mode-card nam" style={{ animationDelay: '60ms', textDecoration: 'none' }}>
+          <span className="mode-badge badge-new">{pills.length - 1 || '24'}+ groups</span>
+          <div className="mode-deco" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
+          </div>
+          <p className="mode-name">Name all members</p>
+          <p className="mode-desc">Type every member&apos;s name before the timer runs out. Sounds easy. It never is.</p>
+          <div className="mode-meta">
+            <span className="mode-stat">{USER_ICON} {nameAllGames.length || '24'}+ challenges</span>
+            <span className="mode-stat">{CLOCK_ICON} 0:30 – 5:00</span>
+          </div>
+          <span className="mode-play">{PLAY_ICON} Play now</span>
+        </Link>
+      </div>
+
+      {/* §13b — filter bar (filters both sections) */}
+      <div className="games-filter-row" role="group" aria-label="Filter games by group">
+        <span className="filter-label">Filter</span>
+        {pills.map((p) => (
+          <button
+            key={p.slug}
+            type="button"
+            className={`fpill${group === p.slug ? ' active' : ''}`}
+            aria-pressed={group === p.slug}
+            onClick={() => setGroup(p.slug)}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+
+      {/* This or That section */}
+      {totVisible.length > 0 && (
+        <>
+          <div className="games-sec-head">
+            <span className="games-sec-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
+              This or That
+            </span>
+            <Link href="/games/this-or-that" className="games-sec-see">See all {totCategories.length}+ →</Link>
+          </div>
+          <div className="game-grid">
+            {totVisible.map((c, i) => (
+              <Link key={c.id} href={`/games/this-or-that/${c.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
+                <div className="gc-icon gc-tot" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
+                </div>
+                <div className="gc-body">
+                  <p className="gc-name">{c.title}</p>
+                  <p className="gc-sub">{c.pool_size} {totNoun(c.type)}{c.subtitle ? ` · ${c.subtitle}` : ''}</p>
+                  <div className="gc-footer">
+                    <span className="gc-plays">{USER_ICON} {(c.play_count || 0).toLocaleString()} plays</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </>
       )}
 
-      {/* 5. Name All Members section */}
-      <section style={{ marginBottom: 22 }}>
-        <SectionHeader title="Name all members" count={nameAllGames.length} href="/games/name-all" />
-        {filteredNameAll.length > 0 ? (
-          <NameAllGrid games={filteredNameAll.map(toNameAllGame)} />
-        ) : (
-          <div style={{ textAlign: 'center', padding: '32px 0' }}>
-            <p style={{ fontSize: 14, color: 'var(--text-tertiary)' }}>No games match your filters.</p>
-            <button
-              type="button"
-              onClick={() => { setSearch(''); setSelectedGroup(null); }}
-              style={{
-                background: 'transparent', border: 0, padding: 0, cursor: 'pointer',
-                color: 'var(--accent)', fontSize: 12, fontWeight: 700, marginTop: 8,
-                fontFamily: 'inherit',
-              }}
-            >
-              Clear all filters
-            </button>
+      {showDivider && <div className="games-divider" />}
+
+      {/* Name all members section */}
+      {namVisible.length > 0 && (
+        <>
+          <div className="games-sec-head">
+            <span className="games-sec-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
+              Name all members
+            </span>
+            <Link href="/games/name-all" className="games-sec-see">See all {nameAllGames.length}+ →</Link>
           </div>
-        )}
-      </section>
-    </div>
+          <div className="game-grid">
+            {namVisible.map((g, i) => {
+              const na = toNameAllGame(g);
+              const inits = na.data.items.slice(0, 8).map((it) => initial(it.name));
+              const extra = na.data.items.length - inits.length;
+              const diffCls = na.difficulty === 'easy' ? 'd-easy' : na.difficulty === 'hard' ? 'd-hard' : 'd-med';
+              return (
+                <Link key={g.id} href={`/games/name-all/${g.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
+                  <div className="gc-icon gc-nam" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
+                  </div>
+                  <div className="gc-body">
+                    <div className="nam-hints">
+                      {inits.map((c, j) => (
+                        <div className="hint-dot" key={j}>{c}</div>
+                      ))}
+                      {extra > 0 && <div className="hint-dot">+{extra}</div>}
+                    </div>
+                    <p className="gc-name">{na.title}</p>
+                    <div className="gc-footer">
+                      <span className={`diff-pill ${diffCls}`}>{na.difficulty.charAt(0).toUpperCase() + na.difficulty.slice(1)}</span>
+                      <span className="timer-pill">{CLOCK_ICON} {formatTimer(na.timer_seconds)}</span>
+                      <span className="gc-plays">{USER_ICON} {(na.play_count || 0).toLocaleString()}</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </main>
   );
 }
