@@ -370,6 +370,30 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
   itzy: [
     { match: 'in the morning is an acclaimed bside from crazy in love belo', action: 'suppress', reason: 'Mischaracterized: "In the Morning" was the title track of GUESS WHO (April 2021), not a Crazy in Love B-side.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - LOONA. 16 corpus facts, ALL junk: every entry is a
+  // contextless "This was said by X during Y video" quote-location fragment or a
+  // contextless "Her birthday is..." line that names no subject. All 16
+  // suppressed, which drops LOONA below the 12-fact gate (its trivia page is lost
+  // by design - the source quiz held no real trivia).
+  loona: [
+    { match: 'this was said by hyunjin during the march 2020 airing of loo', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was during loonas december 2020 episode on idolhouse wh', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said by hyeju during the 46th episode of loonas vli', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was during a hello82 video released october 2019 titled', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said by yves after chuu interrupts her during a com', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said by vivi after succeeding in catching a snack t', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said in a chat message sent by jinsoul during chuus', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said by go won during loonatheworlds video series l', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was during a vlive from july 2019 titled orbit happy 1 ', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was said by yeojin during loonatheworlds video series l', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was during the ending card segment of a chuu can do it ', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'this was from a chuu can do it episode from november 2023 ti', action: 'suppress', reason: 'Contextless quote-location fragment.', verifiedAt: '2026-06-11' },
+    { match: 'her instagram username 0ct0ber19 references her full birthda', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
+    { match: 'her birthday is two days before the release of her solo debu', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
+    { match: 'her birthday is two days before the release of loonas debut ', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
+    { match: 'her birthday is one day before kim lips solo debut digital r', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
