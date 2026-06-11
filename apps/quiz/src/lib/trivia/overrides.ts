@@ -364,6 +364,12 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'regularirregular sold over 200000 copies in its first week a', action: 'suppress', reason: 'Wrong: Regular-Irregular first-week sales were about 142,000 on Hanteo, not over 200,000.', verifiedAt: '2026-06-11' },
     { match: 'sticker debuted at 3 on the billboard 200 in september 2021 ', action: 'recategorize', category: 'music', reason: 'Chart fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - ITZY. 16 corpus facts. 15 kept, 1 suppressed.
+  // (Red Velvet was reviewed: all 17 facts kept, no overrides needed.)
+  itzy: [
+    { match: 'in the morning is an acclaimed bside from crazy in love belo', action: 'suppress', reason: 'Mischaracterized: "In the Morning" was the title track of GUESS WHO (April 2021), not a Crazy in Love B-side.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
