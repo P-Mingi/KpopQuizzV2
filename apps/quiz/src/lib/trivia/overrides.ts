@@ -478,6 +478,16 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: '0x1lovesong features british metalcore band bring me the hor', action: 'suppress', reason: 'Wrong: 0X1=LOVESONG features Seori, not Bring Me the Horizon.', verifiedAt: '2026-06-11' },
     { match: 'blackpink collaborated with the chainsmokers on siren in 202', action: 'suppress', reason: 'No such collaboration: "Sirens" is by The Chainsmokers and Aazar, not BLACKPINK.', verifiedAt: '2026-06-11' },
     { match: 'stray kids signed with geffen records a universal music grou', action: 'suppress', reason: 'Wrong: Stray Kids signed with Republic Records (UMG) for US releases, not Geffen. billboard.com JYP Republic Stray Kids', verifiedAt: '2026-06-11' },
+
+    // --- chunk 4/4 (facts 330-440): 8 suppressed ---
+    { match: 'blackpink headlined coachella in 2019 and 2023 becoming the ', action: 'suppress', reason: 'Wrong: BLACKPINK performed at Coachella 2019 but headlined only in 2023; they did not headline in 2019.', verifiedAt: '2026-06-11' },
+    { match: 'while super junior has won mtv ema awards the first korean a', action: 'suppress', reason: 'Internally contradictory and muddled "first MTV EMA" claim.', verifiedAt: '2026-06-11' },
+    { match: 'twice became the first kpop girl group to sell over 1 millio', action: 'suppress', reason: 'Unverified: Formula of Love was not confirmed as the first 1M-selling K-pop girl group album (Between 1&2 is cited as their first million-seller; Formula of Love first week was ~318k).', verifiedAt: '2026-06-11' },
+    { match: 'crash landing on you   became a massive international hit on', action: 'suppress', reason: 'Garbled: "IU\'s Sondia" conflates two different artists (Sondia is not IU).', verifiedAt: '2026-06-11' },
+    { match: 'sky castles iconic piece was segno  by lee seoyeon a hauntin', action: 'suppress', reason: 'Unverified: the iconic Sky Castle song is widely cited as "We All Lie", and the "Segno by Lee Seo-yeon" attribution is not confirmable.', verifiedAt: '2026-06-11' },
+    { match: 'wings was bts first album to enter the billboard 200', action: 'suppress', reason: "Wrong: BTS's first Billboard 200 entry was The Most Beautiful Moment in Life Pt.2 (#171, Nov 2015), not Wings.", verifiedAt: '2026-06-11' },
+    { match: '2017 is considered a breakthrough year for kpop on us charts', action: 'suppress', reason: 'Inaccurate detail: BTS won a 2017 Billboard Music Award (Top Social Artist) but EXO did not win a BBMA that year.', verifiedAt: '2026-06-11' },
+    { match: 'aespa performed at lollapalooza in chicago on july 31 2022 b', action: 'suppress', reason: 'Wrong: TXT (also 4th gen) performed at Lollapalooza 2022; aespa first Lollapalooza is 2026.', verifiedAt: '2026-06-11' },
   ],
 };
 
