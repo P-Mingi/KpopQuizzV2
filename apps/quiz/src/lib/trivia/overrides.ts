@@ -174,6 +174,35 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'shut down from born pink samples paganinis la campanella', action: 'recategorize', category: 'music', reason: 'Song sampling fact, not a members fact.', verifiedAt: '2026-06-11' },
     { match: 'shut down samples paganinis la campanella and debuted at 1 i', action: 'recategorize', category: 'music', reason: 'Song chart/sampling fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 2 - Stray Kids. 63 corpus facts. 46 kept, 17 suppressed (15 of
+  // them contextless "It is the Nth song listed on..." fragments that name no
+  // song), 0 replaced, 1 recategorized.
+  'stray-kids': [
+    // --- suppress: contextless orphaned quiz answers (no song named) ---
+    { match: 'it is the 6th song listed on their march 2019 mini album cl ', action: 'suppress', reason: 'Contextless: names no song ("It is the Nth song on...").', verifiedAt: '2026-06-11' },
+    { match: 'this is the 8th song listed on their 3rd full album 5star wh', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 9th song listed on their 2nd full album noeasy w', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 6th song listed on their 1st full album go live ', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'it is the 3rd song listed on their 4th japan album release t', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 6th song listed on the mini album cl  levanter w', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'it is the 2nd song listed on their special mini album hop re', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 7th and final song listed on their debut mini al', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 6th song listed on their mini album i am you rel', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the second title track from their at the time of thi', action: 'suppress', reason: 'Contextless and stale ("at the time of this quiz" latest EP).', verifiedAt: '2026-06-11' },
+    { match: 'it is the 3rd song listed on their 4th full album karma rele', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the 3rd song listed on their special mini album cl 2', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the title track of their mini album rockstar release', action: 'suppress', reason: 'Contextless: names no song ("This is the title track of...").', verifiedAt: '2026-06-11' },
+    { match: 'this is their late 2017 predebut single later released as th', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+    { match: 'this is the title track of their mini album ate released jul', action: 'suppress', reason: 'Contextless: names no song.', verifiedAt: '2026-06-11' },
+
+    // --- suppress: wrong / unverifiable ---
+    { match: 'bang chans room now called stay is a regular vlivebubble ser', action: 'suppress', reason: "Wrong: Chan's Room was not renamed STAY (STAY is the fandom name).", verifiedAt: '2026-06-11' },
+    { match: 'stray kids became one of the few kpop groups to sell out us ', action: 'suppress', reason: 'Vague and unverifiable US-stadium-sellout claim.', verifiedAt: '2026-06-11' },
+
+    // --- recategorize (song musical-elements fact mis-bucketed as members) ---
+    { match: 'ssoriggoon thunderous incorporates traditional korean musica', action: 'recategorize', category: 'music', reason: 'Song musical-elements fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
