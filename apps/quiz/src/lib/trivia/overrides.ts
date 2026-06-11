@@ -463,6 +463,13 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'super junior has had 13 official members over their history ', action: 'suppress', reason: 'Misleading: Zhou Mi and Henry were Super Junior-M only and are not among the 13 official Super Junior members.', verifiedAt: '2026-06-11' },
     { match: 'enhypen set the record for the moststreamed kpop boy group d', action: 'suppress', reason: 'Garbled record: ENHYPEN hold the FASTEST K-pop debut album to 100M Spotify streams (201 days), not "most-streamed debut in 2020".', verifiedAt: '2026-06-11' },
     { match: 'all blackpink members appeared on sbss kpop star audition sh', action: 'suppress', reason: 'False: BLACKPINK members were YG trainees and did not appear as contestants on SBS K-pop Star.', verifiedAt: '2026-06-11' },
+
+    // --- chunk 2/4 (facts 110-219): 5 suppressed ---
+    { match: 'miyeon was originally a yg trainee before moving to cube', action: 'suppress', reason: 'Unverified YG-trainee claim for Miyeon.', verifiedAt: '2026-06-11' },
+    { match: 'gdragon shaved his head during a bigbang concert as a bold a', action: 'suppress', reason: 'Unverified specific claim (G-Dragon shaving his head onstage).', verifiedAt: '2026-06-11' },
+    { match: 'v kim taehyung became a louis vuitton house ambassador in ju', action: 'suppress', reason: 'Muddled/likely wrong dates: BTS were named LV ambassadors collectively in April 2021; no individual July 2021 V ambassadorship.', verifiedAt: '2026-06-11' },
+    { match: 'lisa became a celine house ambassador in july 2021 making he', action: 'suppress', reason: 'Wrong date: Lisa became a Celine global ambassador in September 2020, not July 2021.', verifiedAt: '2026-06-11' },
+    { match: 'bts became the global brand ambassadors for mcm in 2018 appe', action: 'suppress', reason: 'Unverified BTS x MCM ambassadorship.', verifiedAt: '2026-06-11' },
   ],
 };
 
