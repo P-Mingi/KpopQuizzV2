@@ -350,6 +350,12 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     },
     { match: 'got7s leader jay b im jaebum is also known as defb for his s', action: 'suppress', reason: 'Muddled: conflates the Def.B alias with his real name Im Jae-beom; acting claim is vague/unverified.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - MAMAMOO. 20 corpus facts. 18 kept, 2 suppressed.
+  mamamoo: [
+    { match: 'mamamoos fandom is called moomoo  the name comes from combin', action: 'suppress', reason: 'Garbled derivation ("MO from MOO and MO from MAMO" does not parse); the fandom name MOOMOO itself is fine but the explanation is nonsense.', verifiedAt: '2026-06-11' },
+    { match: 'mamamoo won artist of the year daesang at the 2019 mnet asia', action: 'suppress', reason: 'Wrong: BTS swept all four Daesangs at the 2019 MAMA, including Artist of the Year; MAMAMOO won Favorite Vocal Performance, not AOTY. newsweek.com MAMA 2019 BTS Daesang sweep', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
