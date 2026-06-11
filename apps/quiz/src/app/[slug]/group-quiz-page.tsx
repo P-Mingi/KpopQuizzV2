@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { getQuizzesByGroup, getGroupQuizLinks } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
@@ -46,10 +46,11 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id), false, '[group-quiz] hasTriviaPage'),
+    safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
   ]);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
@@ -95,6 +96,22 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       )}
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
+
+      {/* SEO Fix 3 — crawlable links to EVERY quiz in this group (bots / no-JS).
+          GroupFeed only SSRs the first 10; this exposes the rest. */}
+      {allQuizLinks.length > 0 && (
+        <noscript>
+          <nav aria-label={`All ${group.name} quizzes`}>
+            <ul>
+              {allQuizLinks.map((q) => (
+                <li key={q.slug}>
+                  <a href={`/q/${q.slug}`}>{q.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </noscript>
+      )}
 
       <div className="mt-6 text-center">
         <Link

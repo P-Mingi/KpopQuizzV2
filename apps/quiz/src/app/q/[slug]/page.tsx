@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getQuizBySlug } from '@/lib/db/queries/quizzes';
+import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { getPassRate } from '@/lib/db/queries/plays';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -98,6 +98,30 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       : 'Be one of the first to take it on and set the score to beat.'
   }`;
 
+  // SEO Fix 3: related quizzes — same group first (by plays), topped up with
+  // popular quizzes so every quiz page exposes 4-6 crawlable <a href> links.
+  const sameGroup = await safeFetch(
+    getQuizzesByGroup(quiz.group_id, 'popular', 0, 8),
+    [],
+    '[q/[slug]] related sameGroup',
+  );
+  const related = sameGroup.filter((q) => q.id !== quiz.id).slice(0, 6);
+  if (related.length < 4) {
+    const popular = await safeFetch(
+      getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 12 }),
+      [],
+      '[q/[slug]] related popular',
+    );
+    const have = new Set<string>([quiz.id, ...related.map((q) => q.id)]);
+    for (const q of popular) {
+      if (related.length >= 6) break;
+      if (!have.has(q.id)) {
+        related.push(q);
+        have.add(q.id);
+      }
+    }
+  }
+
   const quizIntro = {
     id: quiz.id,
     title: quiz.title,
@@ -186,6 +210,25 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
             </ol>
           </div>
         </details>
+      )}
+
+      {/* SEO Fix 3 — related quizzes: real crawlable <a href> links. */}
+      {related.length > 0 && (
+        <section className="related-quizzes" aria-label="Related quizzes">
+          <h2 className="related-quizzes-title">More quizzes to play</h2>
+          <ul className="related-quizzes-list">
+            {related.map((rq) => (
+              <li key={rq.id}>
+                <a href={`/q/${rq.slug}`} className="related-quiz-link">
+                  <span className="related-quiz-name">{rq.title}</span>
+                  <span className="related-quiz-meta">
+                    {rq.group_name} · {rq.play_count.toLocaleString('en-US')} plays
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       <script

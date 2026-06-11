@@ -1438,3 +1438,36 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   line-height: 1.45;
 }
 .quiz-review-fact span { font-weight: 600; color: var(--text-secondary); }
+
+/* ---------------------------------------------------------------------------
+   SEO Fix 3 — related quizzes (compact crawlable link list on /q/[slug]).
+   --------------------------------------------------------------------------- */
+.related-quizzes { margin-top: 2.5rem; }
+.related-quizzes-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.9rem;
+}
+.related-quizzes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.6rem;
+}
+.related-quiz-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-surface);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.related-quiz-link:hover { border-color: var(--accent); background: var(--surface-alt); }
+.related-quiz-name { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
+.related-quiz-meta { font-size: 0.72rem; color: var(--text-tertiary); }

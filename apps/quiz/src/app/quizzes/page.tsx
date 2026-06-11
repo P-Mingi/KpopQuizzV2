@@ -89,6 +89,35 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
     '[browse] getBrowseQuizzes',
   );
 
+  // SEO Fix 3 — crawlable pagination. `?page=N` server-renders that page's quiz
+  // links in a <noscript> block (humans keep the JS "load more" above); crawlers
+  // walk page 1 → 2 → … via real <a href> anchors + rel=next/prev.
+  const page = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
+  const pageQuizzes = page === 1
+    ? initialQuizzes
+    : await safeFetch(
+        getBrowseQuizzes({
+          groupId: groupOption?.id ?? null,
+          quizType: initialType ? typeToDb(initialType) : null,
+          sort: sortToBrowse(initialSort),
+          offset: (page - 1) * PAGE_SIZE,
+          limit: PAGE_SIZE,
+        }),
+        [],
+        '[browse] page slice',
+      );
+  const hasPrevPage = page > 1;
+  const hasNextPage = pageQuizzes.length >= PAGE_SIZE;
+  const pageHref = (n: number): string => {
+    const p = new URLSearchParams();
+    if (resolvedGroup) p.set('group', resolvedGroup);
+    if (initialType) p.set('type', initialType);
+    if (initialSort !== 'all') p.set('sort', initialSort);
+    if (n > 1) p.set('page', String(n));
+    const qs = p.toString();
+    return qs ? `/quizzes?${qs}` : '/quizzes';
+  };
+
   const groupsForFilter: BrowseGroup[] = groups
     .filter((g) => g.quiz_count > 0)
     .slice(0, 40)
@@ -127,6 +156,28 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         initialType={initialType}
         initialSort={initialSort}
       />
+
+      {/* SEO Fix 3 — crawlable page anchors for bots / no-JS (humans use "load more"). */}
+      <noscript>
+        <nav className="crawl-pagination" aria-label="Quiz pages">
+          <ul>
+            {pageQuizzes.map((q) => (
+              <li key={q.id}>
+                <a href={`/q/${q.slug}`}>{q.title}</a>
+              </li>
+            ))}
+          </ul>
+          <p>
+            {hasPrevPage && (
+              <a rel="prev" href={pageHref(page - 1)}>← Previous</a>
+            )}
+            {' '}Page {page}{' '}
+            {hasNextPage && (
+              <a rel="next" href={pageHref(page + 1)}>Next →</a>
+            )}
+          </p>
+        </nav>
+      </noscript>
     </div>
   );
 }

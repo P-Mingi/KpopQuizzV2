@@ -342,6 +342,27 @@ export async function getQuizzesByGroup(
   return cards;
 }
 
+/**
+ * Lightweight {slug, title} list of EVERY published quiz in a group, ordered by
+ * popularity. Used to expose crawlable <a href="/q/{slug}"> links for all of a
+ * group's quizzes (SEO Fix 3 — internal linking) without loading full card data.
+ */
+export async function getGroupQuizLinks(
+  groupId: number,
+): Promise<Array<{ slug: string; title: string }>> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select('slug, title')
+    .eq('status', 'published')
+    .eq('group_id', groupId)
+    .order('play_count', { ascending: false });
+
+  if (error) return [];
+  return (data ?? []) as Array<{ slug: string; title: string }>;
+}
+
 export async function getQuizzesByCreator(
   creatorId: string,
   offset: number,
