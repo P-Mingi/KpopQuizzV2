@@ -327,6 +327,26 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         />
       </div>
 
+      {/* SEO Fix 2 — BreadcrumbList structured data (always rendered). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: displayName,
+                item: `https://kpopquiz.org/u/${profile.username}`,
+              },
+            ],
+          }),
+        }}
+      />
+
       {profile.total_quizzes_created >= 3 && (
         <script
           type="application/ld+json"

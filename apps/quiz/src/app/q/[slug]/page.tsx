@@ -33,17 +33,22 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionLen * 100)
     : null;
 
-  const description = avgScore !== null
-    ? `Play this ${quiz.group_name} quiz by ${quiz.creator_username}. ${quiz.play_count.toLocaleString('en-US')} fans have played - average score is ${avgScore}%. Can you do better?`
-    : `Play this ${quiz.group_name} quiz by ${quiz.creator_username}. Test how well you really know ${quiz.group_name}!`;
+  const description = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionLen}-question quiz by ${quiz.creator_username}.${
+    avgScore !== null
+      ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played — average score ${avgScore}%.`
+      : ` Played by ${quiz.play_count.toLocaleString('en-US')} fans.`
+  } Can you beat them?`;
 
+  // Unique, descriptive <title>: "<Quiz Title> — <N> questions" (layout template
+  // appends " | KpopQuiz"). Distinct per quiz so Google stops sampling templates.
+  const title = `${quiz.title} — ${questionLen} questions`;
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
-    title: quiz.title,
+    title,
     description,
     openGraph: {
-      title: `${quiz.title} | KpopQuiz`,
+      title: `${title} | KpopQuiz`,
       description,
       url: `/q/${slug}`,
       type: 'article',
@@ -51,7 +56,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${quiz.title} | KpopQuiz`,
+      title: `${title} | KpopQuiz`,
       description,
       images: [ogImageUrl],
     },
@@ -81,6 +86,17 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     clues?: string[];
     correct?: number | boolean;
   }>) ?? [];
+
+  // SEO Fix 2: unique, server-rendered intro paragraph generated from this
+  // quiz's metadata (group, difficulty, question count, author + social proof).
+  const introAvg = quiz.total_completions > 0 && questionCount > 0
+    ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
+    : null;
+  const intro = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}. ${
+    introAvg !== null
+      ? `${quiz.play_count.toLocaleString('en-US')} fans have already taken it, scoring ${introAvg}% on average — think you can beat that?`
+      : 'Be one of the first to take it on and set the score to beat.'
+  }`;
 
   const quizIntro = {
     id: quiz.id,
@@ -118,6 +134,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       />
 
       <QuizPlayer quiz={quizIntro} />
+
+      {/* SEO Fix 2 — unique server-rendered intro paragraph (crawlable lead text). */}
+      <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
 
       {/* SEO Fix 1 — server-rendered, crawlable review of every question.
           Spoiler-safe: options are listed plainly with NO correct answer marked. */}
@@ -199,9 +218,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
               name: quiz.group_name,
             },
             numberOfQuestions: questionCount,
+            inLanguage: 'en',
+            url: `https://kpopquiz.org/q/${quiz.slug}`,
           }),
         }}
       />
+      {/* BreadcrumbList JSON-LD is emitted by <Breadcrumbs> above (Home › Group › Quiz). */}
     </div>
   );
 }

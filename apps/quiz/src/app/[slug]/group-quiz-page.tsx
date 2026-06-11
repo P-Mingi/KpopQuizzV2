@@ -170,6 +170,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           }),
         }}
       />
+      {/* BreadcrumbList JSON-LD is emitted by <Breadcrumbs> above (Home › Group Quiz). */}
     </div>
   );
 }
