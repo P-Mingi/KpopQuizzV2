@@ -1,104 +1,18 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { createServerClient } from '@/lib/supabase/server';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
+import { getOverriddenFacts } from '@/lib/trivia/facts';
 
 import type { Metadata } from 'next';
-import type { Group, Question } from '@/lib/db/types';
+import type { Group } from '@/lib/db/types';
+import type { TriviaCategory, TriviaFact } from '@/lib/trivia/types';
 
-// ------------------------------------------------------------------
-// Types
-// ------------------------------------------------------------------
-
-type TriviaCategory = 'members' | 'music' | 'achievements' | 'history' | 'fun';
-
-interface TriviaFact {
-  fact: string;
-  category: TriviaCategory;
-  sourceQuizTitle: string;
-  sourceQuizSlug: string;
-}
-
-// ------------------------------------------------------------------
-// Categorization
-// ------------------------------------------------------------------
-
-function categorizeFact(fact: string, question: string): TriviaCategory {
-  const text = (fact + ' ' + question).toLowerCase();
-
-  if (/born|birthday|age|height|position|leader|maknae|vocalist|rapper|dancer|real name|stage name|mbti|blood type|hometown|family/.test(text)) {
-    return 'members';
-  }
-  if (/album|song|track|single|release|chart|billboard|spotify|mv|music video|debut song|comeback|title track|b-side/.test(text)) {
-    return 'music';
-  }
-  if (/record|award|first|million|billion|sold|guinness|mama|grammy|nominated|won|achievement|highest|most/.test(text)) {
-    return 'achievements';
-  }
-  if (/debut|formed|agency|entertainment|trainee|pre-debut|military|hiatus|contract|disbanded|reunion/.test(text)) {
-    return 'history';
-  }
-  return 'fun';
-}
-
-// ------------------------------------------------------------------
-// Deduplication
-// ------------------------------------------------------------------
-
-function deduplicateFacts(facts: TriviaFact[]): TriviaFact[] {
-  const seen = new Set<string>();
-  return facts.filter(f => {
-    const normalized = f.fact.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-    const key = normalized.slice(0, 60);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
-// ------------------------------------------------------------------
-// Data fetching
-// ------------------------------------------------------------------
-
-async function getTriviaFacts(groupId: number): Promise<TriviaFact[]> {
-  const supabase = await createServerClient();
-
-  const { data: quizzes, error } = await supabase
-    .from('quizzes')
-    .select('title, slug, questions')
-    .eq('group_id', groupId)
-    .eq('status', 'published')
-    .order('play_count', { ascending: false })
-    .limit(200);
-
-  if (error) {
-    console.error('[getTriviaFacts] query failed:', error);
-    return [];
-  }
-  if (!quizzes) return [];
-
-  const allFacts: TriviaFact[] = [];
-
-  for (const quiz of quizzes) {
-    const questions = quiz.questions as Question[];
-    for (const q of questions) {
-      if (q.fun_fact && q.fun_fact.trim().length > 20) {
-        allFacts.push({
-          fact: q.fun_fact.trim(),
-          category: categorizeFact(q.fun_fact, q.question || ''),
-          sourceQuizTitle: quiz.title,
-          sourceQuizSlug: quiz.slug,
-        });
-      }
-    }
-  }
-
-  return deduplicateFacts(allFacts);
-}
+// Fact types, categorization, dedup, fetching + the override layer now live in
+// src/lib/trivia/* (shared with hasTriviaPage and the corpus extraction script).
 
 // ------------------------------------------------------------------
 // Category config
@@ -201,9 +115,9 @@ export function generateGroupTriviaMetadata(group: Group): Metadata {
 
 export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const uniqueFacts = await safeFetch(
-    getTriviaFacts(group.id),
+    getOverriddenFacts(group.id, group.slug),
     [] as TriviaFact[],
-    '[group-trivia] getTriviaFacts',
+    '[group-trivia] getOverriddenFacts',
   );
 
   if (uniqueFacts.length < 12) {

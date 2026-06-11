@@ -49,7 +49,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
   const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
-    safeFetch(hasTriviaPage(group.id), false, '[group-quiz] hasTriviaPage'),
+    safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
     safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
   ]);
 
