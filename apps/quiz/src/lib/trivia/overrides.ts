@@ -317,6 +317,21 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'sherlock was created by mashing together two bsides from the', action: 'recategorize', category: 'music', reason: 'Song-composition fact, not a members fact.', verifiedAt: '2026-06-11' },
     { match: 'move features one of kpops most celebrated choreographies kn', action: 'recategorize', category: 'music', reason: 'Song/choreography fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 4 - TXT. 26 corpus facts. 21 kept, 4 suppressed, 1 replaced.
+  txt: [
+    { match: '0x1lovesong features alternative rock elements and was a col', action: 'suppress', reason: 'Wrong: 0X1=LOVESONG features Seori, not Bring Me the Horizon. txt.fandom.com 0X1=LOVESONG feat. Seori', verifiedAt: '2026-06-11' },
+    { match: '0x1lovesong i know i love you features british metalcore ban', action: 'suppress', reason: 'Wrong: 0X1=LOVESONG features Seori, not Bring Me the Horizon.', verifiedAt: '2026-06-11' },
+    { match: '0x1lovesong i know i love you features nehearts seori and be', action: 'suppress', reason: 'Garbled feature credit ("Oneheart\'s Seori"); the kept fact correctly credits Seori.', verifiedAt: '2026-06-11' },
+    { match: 'the chaos chapter freeze debuted at 2 on the billboard 200 t', action: 'suppress', reason: 'Wrong: FREEZE debuted at #5 on the Billboard 200, not #2. soompi.com TXT FREEZE top 5', verifiedAt: '2026-06-11' },
+    {
+      match: 'the chaos chapter freeze 2021 was txts first album to chart ',
+      action: 'replace',
+      replacement: 'The Chaos Chapter: FREEZE (2021) debuted at #5 on the Billboard 200, TXT first top-5 album.',
+      reason: 'Correction: FREEZE was their first top-5 (not first chart entry) and peaked at #5. kpopstarz.com TXT FREEZE No. 5',
+      verifiedAt: '2026-06-11',
+    },
+  ],
 };
 
 /**
