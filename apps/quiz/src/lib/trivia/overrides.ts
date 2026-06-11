@@ -235,6 +235,20 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'the feels was released in october 2021 as twices first fully', action: 'recategorize', category: 'music', reason: 'Single/discography fact, not a members fact.', verifiedAt: '2026-06-11' },
     { match: 'more and more 2020 and alcoholfree 2021 began twices transit', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 3 - SEVENTEEN. 39 corpus facts (cleaner set). 36 kept,
+  // 2 suppressed, 1 replaced, 0 recategorized.
+  seventeen: [
+    { match: 'carat stands for carat arat seventeen and references the dia', action: 'suppress', reason: 'Dubious: CARAT is not an acronym ("Carat Arat Seventeen"); the diamond meaning is covered by another kept fact.', verifiedAt: '2026-06-11' },
+    { match: 'super was from their fml album which sold over 6 million cop', action: 'suppress', reason: 'Wrong: FML sold 4.55 million in its first week, not 6 million. allkpop.com/article/2023/04 seventeen FML', verifiedAt: '2026-06-11' },
+    {
+      match: 'fml april 2023 sold over 46 million copies in its first week',
+      action: 'replace',
+      replacement: "FML (April 2023) sold over 4.5 million copies in its first week, a Hanteo record at the time, surpassing BTS's Map of the Soul: 7.",
+      reason: 'Correction: first-week sales were 4.55 million, not over 4.6 million. mb.com.ph/2023/5/1 seventeen FML 4.55 million',
+      verifiedAt: '2026-06-11',
+    },
+  ],
 };
 
 /**
