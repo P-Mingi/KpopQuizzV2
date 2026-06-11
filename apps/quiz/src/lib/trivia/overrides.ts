@@ -470,6 +470,14 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'v kim taehyung became a louis vuitton house ambassador in ju', action: 'suppress', reason: 'Muddled/likely wrong dates: BTS were named LV ambassadors collectively in April 2021; no individual July 2021 V ambassadorship.', verifiedAt: '2026-06-11' },
     { match: 'lisa became a celine house ambassador in july 2021 making he', action: 'suppress', reason: 'Wrong date: Lisa became a Celine global ambassador in September 2020, not July 2021.', verifiedAt: '2026-06-11' },
     { match: 'bts became the global brand ambassadors for mcm in 2018 appe', action: 'suppress', reason: 'Unverified BTS x MCM ambassadorship.', verifiedAt: '2026-06-11' },
+
+    // --- chunk 3/4 (facts 220-329): 6 suppressed ---
+    { match: 'blackpink performed at the 2022 fifa world cup opening cerem', action: 'suppress', reason: 'Wrong: Jungkook (BTS) performed "Dreamers" at the 2022 Qatar World Cup, not BLACKPINK. koreatimes.co.kr K-pop World Cup', verifiedAt: '2026-06-11' },
+    { match: 'halsey featured on btss boy with luv  but the halsey idol re', action: 'suppress', reason: 'Wrong: the IDOL remix featured Nicki Minaj, not Halsey.', verifiedAt: '2026-06-11' },
+    { match: 'bts and marshmello released a collaboration called bts x mar', action: 'suppress', reason: 'No released BTS x Marshmello collaboration (Marshmello only teased interest in 2018).', verifiedAt: '2026-06-11' },
+    { match: '0x1lovesong features british metalcore band bring me the hor', action: 'suppress', reason: 'Wrong: 0X1=LOVESONG features Seori, not Bring Me the Horizon.', verifiedAt: '2026-06-11' },
+    { match: 'blackpink collaborated with the chainsmokers on siren in 202', action: 'suppress', reason: 'No such collaboration: "Sirens" is by The Chainsmokers and Aazar, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'stray kids signed with geffen records a universal music grou', action: 'suppress', reason: 'Wrong: Stray Kids signed with Republic Records (UMG) for US releases, not Geffen. billboard.com JYP Republic Stray Kids', verifiedAt: '2026-06-11' },
   ],
 };
 
