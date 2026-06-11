@@ -215,6 +215,26 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'girls 2022 is aespas second mini album following savage', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
     { match: 'savage was released in october 2021 and debuted at 20 on the', action: 'recategorize', category: 'music', reason: 'Chart fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 3 - TWICE. 49 corpus facts. 40 kept, 6 suppressed, 1 replaced,
+  // 2 recategorized.
+  twice: [
+    { match: 'momo appeared on a japanese dance survival show before joini', action: 'suppress', reason: 'Unverified: Momo was scouted by JYP, not via a Japanese dance survival show.', verifiedAt: '2026-06-11' },
+    { match: 'members dressed as tinker bell the little mermaid pinocchio ', action: 'suppress', reason: 'Contextless: names no song (which MV?).', verifiedAt: '2026-06-11' },
+    { match: 'the mv recreates scenes from movies like la la land romeo an', action: 'suppress', reason: 'Contextless: "the MV" names no song.', verifiedAt: '2026-06-11' },
+    { match: 'the summerthemed mv was filmed at a beach location fitting t', action: 'suppress', reason: 'Contextless: "the summer-themed MV" names no song.', verifiedAt: '2026-06-11' },
+    { match: 'signal has a timetravel concept with members communicating a', action: 'suppress', reason: 'Wrong: Signal has a superpowers/telepathy concept, not time-travel.', verifiedAt: '2026-06-11' },
+    { match: 'formula of love became the first kpop girl group album to se', action: 'suppress', reason: 'Unverified as the first 1M-selling K-pop girl group album in Korea (Between 1&2 is cited as their first million-seller).', verifiedAt: '2026-06-11' },
+    {
+      match: 'formula of love is twices most expansive album at 13 tracks ',
+      action: 'replace',
+      replacement: "Formula of Love is one of TWICE's most expansive albums, with 16 tracks across a wide musical range.",
+      reason: 'Correction: the album has 16 tracks, not 13. en.wikipedia.org/wiki/Formula_of_Love:_O+T (Wikipedia)',
+      verifiedAt: '2026-06-11',
+    },
+    { match: 'the feels was released in october 2021 as twices first fully', action: 'recategorize', category: 'music', reason: 'Single/discography fact, not a members fact.', verifiedAt: '2026-06-11' },
+    { match: 'more and more 2020 and alcoholfree 2021 began twices transit', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
