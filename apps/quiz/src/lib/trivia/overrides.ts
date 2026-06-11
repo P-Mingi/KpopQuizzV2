@@ -288,6 +288,25 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'love shot is the repackage of dont mess up my tempo released', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
     { match: 'love me right  was the lead single from the exodus repackage', action: 'recategorize', category: 'music', reason: 'Single/discography fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 4 - IVE. 30 corpus facts. 21 kept, 8 suppressed, 1 replaced.
+  ive: [
+    { match: 'leeseo has looked very similar to almost all the other membe', action: 'suppress', reason: 'Subjective meme, unverifiable.', verifiedAt: '2026-06-11' },
+    { match: 'ives top 5 songs are love dive after like i am eleven and ki', action: 'suppress', reason: 'Subjective ranking with a stale "as of March 2026" qualifier.', verifiedAt: '2026-06-11' },
+    { match: 'gaeul is also made fun of for being the shortest despite bei', action: 'suppress', reason: 'Subjective/meme, low value.', verifiedAt: '2026-06-11' },
+    { match: 'reis channel is called follow rei and gaeuls channel is call', action: 'suppress', reason: 'Obscure, niche YouTube-channel trivia.', verifiedAt: '2026-06-11' },
+    { match: '8 5 6 7 i ate accendio 5 6 7 8 watch me dont touch me eleven', action: 'suppress', reason: 'Contextless lyric fragments (orphaned quiz answer).', verifiedAt: '2026-06-11' },
+    { match: 'yujin wonyoung and leeseo have all been brand ambassadors fo', action: 'suppress', reason: 'Unverified brand-ambassador claim.', verifiedAt: '2026-06-11' },
+    { match: 'after like samples i will survive more technically it  direc', action: 'suppress', reason: 'Run-on with uncertain sampling chains; the After Like / I Will Survive fact is kept elsewhere.', verifiedAt: '2026-06-11' },
+    { match: 'eleven debuted at 1 on korean charts an incredible feat for ', action: 'suppress', reason: 'Wrong: ELEVEN climbed and peaked at #2 on the Gaon Digital Chart, it did not debut at #1. en.wikipedia.org/wiki/Eleven_(Ive_song)', verifiedAt: '2026-06-11' },
+    {
+      match: 'ive ive contains 10 tracks a substantial debut full album sh',
+      action: 'replace',
+      replacement: "I've IVE contains 11 tracks, including the pre-release single Kitsch and lead single I AM.",
+      reason: 'Correction: the album has 11 tracks, not 10. en.wikipedia.org/wiki/I%27ve_Ive',
+      verifiedAt: '2026-06-11',
+    },
+  ],
 };
 
 /**
