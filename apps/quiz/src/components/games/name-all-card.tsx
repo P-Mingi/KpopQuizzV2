@@ -82,12 +82,6 @@ function getMetaLine(game: NameAllGame): string {
   return plays;
 }
 
-const STAR_ICON = (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 2.6l2.83 5.74 6.34.92-4.59 4.47 1.08 6.31L12 17.02l-5.67 2.98 1.08-6.31-4.59-4.47 6.34-.92z" />
-  </svg>
-);
-
 /**
  * Name-all list card. A clean light card with an overlapping member-avatar
  * "roster" preview - instantly reads as "name these N people" without the noisy
@@ -177,15 +171,7 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
         <p className="text-sm font-bold tracking-[-0.01em] text-[var(--text-primary)] leading-snug truncate">
           {game.title}
         </p>
-        <div className="flex items-center justify-between gap-2 mt-1.5">
-          <span className="text-[11px] text-[var(--text-tertiary)] truncate">{getMetaLine(game)}</span>
-          <span
-            className="inline-flex items-center gap-1 px-2 py-[2px] rounded-full text-[10px] font-bold shrink-0"
-            style={{ background: '#FEF3C7', color: '#B45309' }}
-          >
-            {STAR_ICON} +{itemCount * 10}
-          </span>
-        </div>
+        <p className="text-[11px] text-[var(--text-tertiary)] truncate mt-1.5">{getMetaLine(game)}</p>
       </div>
     </Link>
   );

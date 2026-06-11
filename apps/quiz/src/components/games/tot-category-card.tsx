@@ -28,12 +28,6 @@ function getInitials(name: string) {
   return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
 }
 
-const STAR_ICON = (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 2.6l2.83 5.74 6.34.92-4.59 4.47 1.08 6.31L12 17.02l-5.67 2.98 1.08-6.31-4.59-4.47 6.34-.92z" />
-  </svg>
-);
-
 /**
  * This-or-That list card. Keeps its signature bold identity: a full-bleed VS
  * head-to-head cover with a dark footer (distinct from the light name-all card).
@@ -152,17 +146,9 @@ export function TotCategoryCard({ category }: { category: TotCategory }) {
         <p className="text-sm font-bold tracking-[-0.01em] text-white leading-snug truncate">
           {category.title}
         </p>
-        <div className="flex items-center justify-between gap-2 mt-1.5">
-          <span className="text-[11px] text-white/55 truncate">
-            {category.pool_size} {noun} {'·'} {(category.play_count || 0).toLocaleString()} plays
-          </span>
-          <span
-            className="inline-flex items-center gap-1 px-2 py-[2px] rounded-full text-[10px] font-bold shrink-0"
-            style={{ background: 'rgba(242,192,55,0.18)', color: '#F2C037' }}
-          >
-            {STAR_ICON} +30
-          </span>
-        </div>
+        <p className="text-[11px] text-white/55 truncate mt-1.5">
+          {category.pool_size} {noun} {'·'} {(category.play_count || 0).toLocaleString()} plays
+        </p>
       </div>
     </Link>
   );
