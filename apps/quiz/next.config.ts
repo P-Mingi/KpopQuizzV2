@@ -12,24 +12,27 @@ const nextConfig: NextConfig = {
       'red-velvet', 'le-sserafim', 'txt', 'shinee', 'got7', 'mamamoo',
       'nct', 'general-kpop',
     ];
-    const groupRedirects = groupSlugs.flatMap((slug) => [
-      {
-        source: `/group/${slug}`,
-        destination: `/${slug}-quiz`,
-        permanent: true,
-      },
-      {
-        source: `/how-well-do-you-know-${slug}`,
-        destination: `/${slug}-quiz`,
-        permanent: true,
-      },
-    ]);
+    // SEO Fix 4: EVERY /group/{slug} permanently (308) redirects to the real
+    // 200 hub /{slug}-quiz. Wildcard so it covers all current AND future groups
+    // (no hardcoded list to fall out of sync). Runs at the edge before routing,
+    // so the legacy src/app/group/[slug] route is no longer needed/reachable.
+    const groupRedirect = {
+      source: '/group/:slug',
+      destination: '/:slug-quiz',
+      permanent: true,
+    };
+    // Legacy "how-well-do-you-know-{group}" URLs -> the same hub.
+    const howWellRedirects = groupSlugs.map((slug) => ({
+      source: `/how-well-do-you-know-${slug}`,
+      destination: `/${slug}-quiz`,
+      permanent: true,
+    }));
     // Nav unification (B3): Ranks / Hall of Fame -> Leaderboard
     const leaderboardRedirects = [
       { source: '/ranks', destination: '/leaderboard', permanent: true },
       { source: '/hall-of-fame', destination: '/leaderboard', permanent: true },
     ];
-    return [...groupRedirects, ...leaderboardRedirects];
+    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects];
   },
   images: {
     formats: ['image/avif', 'image/webp'],
