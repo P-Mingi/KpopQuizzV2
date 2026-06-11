@@ -338,6 +338,18 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'the g stands for girl and idle is a korean word meaning uswe', action: 'suppress', reason: 'Wrong: the name comes from (여자)아이들 where 아이들 means "children/kids", not "us/we".', verifiedAt: '2026-06-11' },
     { match: 'tomboy swept major awards at 2022 korean yearend ceremonies ', action: 'suppress', reason: 'Wrong: TOMBOY won Best MV at the 2022 MMA but Song of the Year went to IVE Love Dive; it did not sweep SOTY. soompi.com 2022 Melon Music Awards winners', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - GOT7. 20 corpus facts. 18 kept, 1 suppressed, 1 replaced.
+  got7: [
+    {
+      match: 'got7 debuted on january 16 2014 under jyp entertainment with',
+      action: 'replace',
+      replacement: 'GOT7 debuted on January 16, 2014 under JYP Entertainment with the EP Got it?, whose title track was Girls Girls Girls.',
+      reason: 'Correction: the title track of Got it? was Girls Girls Girls, not Got It?. en.wikipedia.org/wiki/Girls_Girls_Girls_(Got7_song)',
+      verifiedAt: '2026-06-11',
+    },
+    { match: 'got7s leader jay b im jaebum is also known as defb for his s', action: 'suppress', reason: 'Muddled: conflates the Def.B alias with his real name Im Jae-beom; acting claim is vague/unverified.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
