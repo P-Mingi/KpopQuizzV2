@@ -58,12 +58,7 @@ export function Footer(): React.ReactElement {
 
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid #e8e6e0', paddingTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 9, color: '#888780' }}>{'\u00A9'} 2025 kpopquiz.org</span>
-          <div style={{ display: 'flex', gap: 12 }}>
-            {['Twitter', 'Instagram', 'TikTok'].map(s => (
-              <span key={s} style={{ fontSize: 9, color: '#b4b2a9', cursor: 'pointer' }}>{s}</span>
-            ))}
-          </div>
+          <span style={{ fontSize: 9, color: '#888780' }}>{'\u00A9'} {new Date().getFullYear()} kpopquiz.org</span>
         </div>
       </div>
     </footer>

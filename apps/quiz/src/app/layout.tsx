@@ -86,6 +86,19 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
   return (
     <html lang="en" className={pretendard.variable} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'KpopQuiz',
+              url: 'https://kpopquiz.org',
+              logo: 'https://kpopquiz.org/logo-512.png',
+              sameAs: ['https://reddit.com/r/Kpop_Verse'],
+            }),
+          }}
+        />
         <ToastProvider>
           <div className="flex flex-col min-h-screen">
             <Suspense fallback={<TopNavSkeleton />}>

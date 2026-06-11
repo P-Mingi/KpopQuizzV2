@@ -32,12 +32,13 @@ export function HomeHero() {
         Are you a{' '}
         <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>real fan?</span>
       </h1>
-      <p style={{
-        marginTop: 12, fontSize: 15, color: 'var(--text-secondary)',
+      {/* Keyword subline promoted to H2 for SEO; visible styling unchanged. */}
+      <h2 style={{
+        marginTop: 12, marginBottom: 0, fontSize: 15, fontWeight: 400, color: 'var(--text-secondary)',
         maxWidth: 460, marginLeft: 'auto', marginRight: 'auto',
       }}>
-        Prove it. Take a K-pop quiz and see where you rank.
-      </p>
+        Prove it. Play K-pop quizzes and see where you rank.
+      </h2>
 
       {/* §2a - two CTAs */}
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginTop: 20 }}>
