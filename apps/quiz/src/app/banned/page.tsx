@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Account Suspended | KpopQuiz',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default function BannedPage(): React.ReactElement {

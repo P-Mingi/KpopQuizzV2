@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'My profile',
   description: 'Your KpopQuiz profile, stats, and quizzes.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default async function MyProfilePage(): Promise<React.ReactElement> {

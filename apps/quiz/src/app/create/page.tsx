@@ -7,6 +7,8 @@ import { Spinner } from '@/components/ui/spinner';
 export const metadata = {
   title: 'Create | KpopQuiz',
   description: 'Create a K-pop quiz in under 3 minutes and challenge your fandom.',
+  // SEO Fix 5: the editor is not indexable content.
+  robots: { index: false, follow: true },
 };
 
 export default async function CreatePage(): Promise<React.ReactElement> {

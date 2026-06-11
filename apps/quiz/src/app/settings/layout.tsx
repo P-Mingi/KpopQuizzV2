@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Settings | KpopQuiz',
-  robots: { index: false },
+  robots: { index: false, follow: true },
 };
 
 interface SettingsLayoutProps {

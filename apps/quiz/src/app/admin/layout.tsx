@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Admin | KpopQuiz',
-  robots: { index: false },
+  robots: { index: false, follow: true },
 };
 
 interface AdminLayoutProps {
