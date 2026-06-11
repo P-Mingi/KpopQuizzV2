@@ -1756,6 +1756,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-bottom: 10px;
   transition: background 140ms ease, border-color 140ms ease, filter 140ms ease;
   border: 1.5px solid var(--border);
 }
