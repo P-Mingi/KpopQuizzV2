@@ -280,6 +280,14 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'during the iland broadcast sunoo was seen doing hair for mul', action: 'suppress', reason: 'Trivial, unverifiable anecdote.', verifiedAt: '2026-06-11' },
     { match: 'dark blood debuted at 1 on the billboard 200 making enhypen ', action: 'suppress', reason: 'Wrong: DARK BLOOD debuted at #4 on the Billboard 200, not #1. en.wikipedia.org/wiki/Dark_Blood_(EP)', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 4 - EXO. 35 corpus facts (clean set). 32 kept, 1 suppressed,
+  // 2 recategorized.
+  exo: [
+    { match: 'exodus was the albums title track  a dramatic powerful song ', action: 'suppress', reason: 'Wrong: the EXODUS album title track (lead single) was "Call Me Baby", not "Exodus". en.wikipedia.org/wiki/Call_Me_Baby', verifiedAt: '2026-06-11' },
+    { match: 'love shot is the repackage of dont mess up my tempo released', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
+    { match: 'love me right  was the lead single from the exodus repackage', action: 'recategorize', category: 'music', reason: 'Single/discography fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
