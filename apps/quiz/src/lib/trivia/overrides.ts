@@ -307,6 +307,16 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
       verifiedAt: '2026-06-11',
     },
   ],
+
+  // J1b batch 4 - SHINee. 27 corpus facts. 21 kept, 4 suppressed, 2 recategorized.
+  shinee: [
+    { match: 'shinee were called syndrome shinee syndrome by fans during t', action: 'suppress', reason: 'Unverified nickname; the documented phenomenon is the "SHINee trend", not "Syndrome".', verifiedAt: '2026-06-11' },
+    { match: 'exos early sm experimental sonic identity was directly influ', action: 'suppress', reason: 'Subjective, unverifiable influence claim.', verifiedAt: '2026-06-11' },
+    { match: 'tony testa known for his work with michael jacksons estate a', action: 'suppress', reason: 'Unverified that Tony Testa choreographed Sherlock specifically.', verifiedAt: '2026-06-11' },
+    { match: 'shinee debuted on may 22 2008 under sm entertainment on the ', action: 'suppress', reason: 'Date conflict: SHINee debuted on the Inkigayo stage on May 25, 2008 (kept facts use May 25), not May 22.', verifiedAt: '2026-06-11' },
+    { match: 'sherlock was created by mashing together two bsides from the', action: 'recategorize', category: 'music', reason: 'Song-composition fact, not a members fact.', verifiedAt: '2026-06-11' },
+    { match: 'move features one of kpops most celebrated choreographies kn', action: 'recategorize', category: 'music', reason: 'Song/choreography fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
