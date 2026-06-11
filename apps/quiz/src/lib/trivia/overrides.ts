@@ -452,6 +452,18 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'juwang was born on may 2nd 2006', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
     { match: 'stream my first kick', action: 'suppress', reason: 'Promotional fragment, not a fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 6 (FINAL) - general-kpop, the cross-group catch-all (441 facts,
+  // processed in 4 chunks). Group-specific facts are fine here as long as they
+  // are accurate.
+  'general-kpop': [
+    // --- chunk 1/4 (facts 0-109): 5 suppressed ---
+    { match: 'ive switch marked ive first fulllength album', action: 'suppress', reason: "Wrong: IVE's first full-length album was I've IVE (2023); SWITCH (2024) is an EP.", verifiedAt: '2026-06-11' },
+    { match: 'formula of love sold over 700000 copies on its first day', action: 'suppress', reason: 'Wrong: Formula of Love sold ~238,631 on its first day (700k was the pre-order figure). allkpop.com TWICE Formula of Love first day', verifiedAt: '2026-06-11' },
+    { match: 'super junior has had 13 official members over their history ', action: 'suppress', reason: 'Misleading: Zhou Mi and Henry were Super Junior-M only and are not among the 13 official Super Junior members.', verifiedAt: '2026-06-11' },
+    { match: 'enhypen set the record for the moststreamed kpop boy group d', action: 'suppress', reason: 'Garbled record: ENHYPEN hold the FASTEST K-pop debut album to 100M Spotify streams (201 days), not "most-streamed debut in 2020".', verifiedAt: '2026-06-11' },
+    { match: 'all blackpink members appeared on sbss kpop star audition sh', action: 'suppress', reason: 'False: BLACKPINK members were YG trainees and did not appear as contestants on SBS K-pop Star.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
