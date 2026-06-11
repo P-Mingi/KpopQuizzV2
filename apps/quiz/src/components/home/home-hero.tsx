@@ -24,7 +24,7 @@ export function HomeHero() {
           {online ? `${online.toLocaleString()} fans playing now` : 'fans playing now'}
         </span>
       </div>
-      {/* §14c — challenge-hook headline */}
+      {/* §14c - challenge-hook headline */}
       <h1 style={{
         fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800,
         letterSpacing: '-0.025em', lineHeight: 1.04, margin: 0,
@@ -39,7 +39,7 @@ export function HomeHero() {
         Prove it. Take a K-pop quiz and see where you rank.
       </p>
 
-      {/* §2a — two CTAs */}
+      {/* §2a - two CTAs */}
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginTop: 20 }}>
         <Link href="/quizzes" className="btn-primary" aria-label="Browse quizzes">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ marginRight: 6 }}><path d="M8 5v14l11-7z" /></svg>

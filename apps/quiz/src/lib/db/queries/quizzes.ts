@@ -147,7 +147,7 @@ export interface BrowseQuizzesParams {
 }
 
 /**
- * Combined browse query for /quizzes — group + type + sort in one call.
+ * Combined browse query for /quizzes - group + type + sort in one call.
  * Single source of truth shared by the SSR page and the /api/quizzes route so
  * server render and client load-more never diverge.
  */
@@ -345,7 +345,7 @@ export async function getQuizzesByGroup(
 /**
  * Lightweight {slug, title} list of EVERY published quiz in a group, ordered by
  * popularity. Used to expose crawlable <a href="/q/{slug}"> links for all of a
- * group's quizzes (SEO Fix 3 — internal linking) without loading full card data.
+ * group's quizzes (SEO Fix 3 - internal linking) without loading full card data.
  */
 export async function getGroupQuizLinks(
   groupId: number,

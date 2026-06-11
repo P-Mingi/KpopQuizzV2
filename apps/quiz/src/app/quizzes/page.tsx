@@ -89,7 +89,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
     '[browse] getBrowseQuizzes',
   );
 
-  // SEO Fix 3 — crawlable pagination. `?page=N` server-renders that page's quiz
+  // SEO Fix 3 - crawlable pagination. `?page=N` server-renders that page's quiz
   // links in a <noscript> block (humans keep the JS "load more" above); crawlers
   // walk page 1 → 2 → … via real <a href> anchors + rel=next/prev.
   const page = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
@@ -139,7 +139,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         ]}
       />
 
-      {/* §3a — page header (matches the home hero's type treatment) */}
+      {/* §3a - page header (matches the home hero's type treatment) */}
       <header style={{ margin: '4px 0' }}>
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.05, margin: 0, color: 'var(--txt1)' }}>
           Browse <span style={{ fontStyle: 'italic', fontWeight: 500, color: 'var(--brand)' }}>quizzes</span>
@@ -157,7 +157,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         initialSort={initialSort}
       />
 
-      {/* SEO Fix 3 — crawlable page anchors for bots / no-JS (humans use "load more"). */}
+      {/* SEO Fix 3 - crawlable page anchors for bots / no-JS (humans use "load more"). */}
       <noscript>
         <nav className="crawl-pagination" aria-label="Quiz pages">
           <ul>

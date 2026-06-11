@@ -18,7 +18,7 @@ const RESERVED_SLUGS = [
 
 // ISR: revalidate the cached HTML hourly (SEO Fix 1). The child pages
 // (group-quiz-page / group-trivia-page) instantiate the Supabase server client,
-// which reads cookies — and so does the shared <TopNav> — so these routes render
+// which reads cookies - and so does the shared <TopNav> - so these routes render
 // dynamically (SSR) today and this window stays dormant until those reads are
 // made cookie-free. `generateStaticParams` is intentionally omitted: combined
 // with the cookie-reading children it triggers DYNAMIC_SERVER_USAGE at build.

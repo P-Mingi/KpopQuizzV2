@@ -7,9 +7,9 @@ import { formatCount } from '@/lib/utils';
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
 /**
- * Canonical quiz card — spec §10c markup + §10d badges, exact classes.
+ * Canonical quiz card - spec §10c markup + §10d badges, exact classes.
  * Shared component: used on /quizzes browse now, reused on home/games later.
- * Stays a real crawlable <a href="/q/{slug}"> for SEO — never a JS-only onClick.
+ * Stays a real crawlable <a href="/q/{slug}"> for SEO - never a JS-only onClick.
  */
 
 const TYPE_BADGE: Record<QuizType, { cls: string; label: string }> = {
@@ -42,7 +42,7 @@ function scoreClass(pct: number): string {
 
 interface Props {
   quiz: QuizCardData;
-  /** Position in the grid — drives the staggered fade-in (index * 40ms). */
+  /** Position in the grid - drives the staggered fade-in (index * 40ms). */
   index?: number;
   /** Show the avg-score %. Off for the home Trending carousel (§2c). */
   showScore?: boolean;
@@ -58,7 +58,7 @@ export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.Re
       href={`/q/${quiz.slug}`}
       className="quiz-card"
       style={{ animationDelay: `${index * 40}ms` }}
-      aria-label={`${quiz.title} — ${quiz.group_name} ${type.label} quiz`}
+      aria-label={`${quiz.title}, ${quiz.group_name} ${type.label} quiz`}
     >
       <div className="quiz-cover">
         {quiz.cover_image_url ? (

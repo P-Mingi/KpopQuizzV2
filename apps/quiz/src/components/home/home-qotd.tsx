@@ -12,7 +12,7 @@ interface Props {
   quiz: QuizCardData;
 }
 
-/** §2b + §10e — Quiz of the day, above the fold. No play count; reset countdown
+/** §2b + §10e - Quiz of the day, above the fold. No play count; reset countdown
  *  pill in the banner; pulsing "Play today's quiz" CTA. */
 export function HomeQotd({ quiz }: Props) {
   const [timeLeft, setTimeLeft] = useState('');

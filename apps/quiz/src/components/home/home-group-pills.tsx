@@ -10,13 +10,13 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
-// §2e — spec display order.
+// §2e - spec display order.
 const ORDER = [
   'general-kpop', 'bts', 'blackpink', 'stray-kids', 'twice', 'aespa',
   'seventeen', 'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
 ];
 
-/** §2e + §10f — labeled group pills (logo + name) → /quizzes?group=<slug>. */
+/** §2e + §10f - labeled group pills (logo + name) → /quizzes?group=<slug>. */
 export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElement | null {
   const bySlug = new Map(groups.map((g) => [g.slug, g]));
   const ordered = ORDER.map((s) => bySlug.get(s)).filter((g): g is Group => Boolean(g));

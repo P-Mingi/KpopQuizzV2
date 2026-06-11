@@ -35,13 +35,13 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
 
   const description = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionLen}-question quiz by ${quiz.creator_username}.${
     avgScore !== null
-      ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played — average score ${avgScore}%.`
+      ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played it, scoring ${avgScore}% on average.`
       : ` Played by ${quiz.play_count.toLocaleString('en-US')} fans.`
   } Can you beat them?`;
 
-  // Unique, descriptive <title>: "<Quiz Title> — <N> questions" (layout template
+  // Unique, descriptive <title>: "<Quiz Title> - <N> questions" (layout template
   // appends " | KpopQuiz"). Distinct per quiz so Google stops sampling templates.
-  const title = `${quiz.title} — ${questionLen} questions`;
+  const title = `${quiz.title} · ${questionLen} questions`;
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
@@ -77,7 +77,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   // SEO Fix 1: spoiler-safe question list rendered into the server HTML so the
   // unique quiz content (questions, options, fun facts) is crawlable. The
-  // `correct` index is deliberately NOT read or rendered here — options are
+  // `correct` index is deliberately NOT read or rendered here - options are
   // listed plainly so the answer is never given away in the markup.
   const seoQuestions = (quiz.questions as Array<{
     question?: string;
@@ -94,11 +94,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     : null;
   const intro = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}. ${
     introAvg !== null
-      ? `${quiz.play_count.toLocaleString('en-US')} fans have already taken it, scoring ${introAvg}% on average — think you can beat that?`
+      ? `${quiz.play_count.toLocaleString('en-US')} fans have already taken it, scoring ${introAvg}% on average. Think you can beat that?`
       : 'Be one of the first to take it on and set the score to beat.'
   }`;
 
-  // SEO Fix 3: related quizzes — same group first (by plays), topped up with
+  // SEO Fix 3: related quizzes - same group first (by plays), topped up with
   // popular quizzes so every quiz page exposes 4-6 crawlable <a href> links.
   const sameGroup = await safeFetch(
     getQuizzesByGroup(quiz.group_id, 'popular', 0, 8),
@@ -159,10 +159,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       <QuizPlayer quiz={quizIntro} />
 
-      {/* SEO Fix 2 — unique server-rendered intro paragraph (crawlable lead text). */}
+      {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
 
-      {/* SEO Fix 1 — server-rendered, crawlable review of every question.
+      {/* SEO Fix 1 - server-rendered, crawlable review of every question.
           Spoiler-safe: options are listed plainly with NO correct answer marked. */}
       {seoQuestions.length > 0 && (
         <details className="quiz-review">
@@ -212,7 +212,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         </details>
       )}
 
-      {/* SEO Fix 3 — related quizzes: real crawlable <a href> links. */}
+      {/* SEO Fix 3 - related quizzes: real crawlable <a href> links. */}
       {related.length > 0 && (
         <section className="related-quizzes" aria-label="Related quizzes">
           <h2 className="related-quizzes-title">More quizzes to play</h2>

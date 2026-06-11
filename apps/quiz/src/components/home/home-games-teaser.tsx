@@ -7,7 +7,7 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
-/** §2d + §10g — games teaser. Current modes + a "coming soon" placeholder.
+/** §2d + §10g - games teaser. Current modes + a "coming soon" placeholder.
  *  No Blindtest card (that arrives in B12). */
 export function HomeGamesTeaser(): React.ReactElement {
   return (

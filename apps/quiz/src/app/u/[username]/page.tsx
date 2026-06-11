@@ -327,7 +327,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         />
       </div>
 
-      {/* SEO Fix 2 — BreadcrumbList structured data (always rendered). */}
+      {/* SEO Fix 2 - BreadcrumbList structured data (always rendered). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

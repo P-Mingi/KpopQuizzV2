@@ -147,7 +147,7 @@ export function BrowseQuizzes({
     [],
   );
 
-  /** Shallow URL update — keeps ?group/?type/?sort in sync, no server reload. */
+  /** Shallow URL update - keeps ?group/?type/?sort in sync, no server reload. */
   const syncUrl = useCallback((s: SortKey, g: string | null, t: TypeKey | null) => {
     const params = new URLSearchParams();
     if (g) params.set('group', g);
@@ -267,7 +267,7 @@ export function BrowseQuizzes({
 
   return (
     <>
-      {/* §3 — quiz search */}
+      {/* §3 - quiz search */}
       <div className="browse-search">
         <span className="search-ico" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -292,10 +292,10 @@ export function BrowseQuizzes({
         )}
       </div>
 
-      {/* §3b — sticky dual-row filter bar (hidden while searching) */}
+      {/* §3b - sticky dual-row filter bar (hidden while searching) */}
       {!isSearchActive && (
         <div className="filter-bar">
-          {/* Row 1 — group pills */}
+          {/* Row 1 - group pills */}
           <div className="group-pills" role="group" aria-label="Filter by group">
             <button
               type="button"
@@ -325,7 +325,7 @@ export function BrowseQuizzes({
             ))}
           </div>
 
-          {/* Row 2 — type filter + sort */}
+          {/* Row 2 - type filter + sort */}
           <div className="type-sort-row" role="group" aria-label="Filter by type and sort order">
             <button
               type="button"
@@ -408,8 +408,8 @@ export function BrowseQuizzes({
           <p className="empty-title">No quizzes found</p>
           <p className="empty-desc">
             {isSearchActive
-              ? `Nothing matches “${query.trim()}” — try another search.`
-              : `No ${activeGroupName ?? 'matching'} quizzes yet — be the first to create one.`}
+              ? `Nothing matches “${query.trim()}”. Try another search.`
+              : `No ${activeGroupName ?? 'matching'} quizzes yet. Be the first to create one.`}
           </p>
           <Link href="/create" className="btn-primary">
             Create a quiz
@@ -419,7 +419,7 @@ export function BrowseQuizzes({
         <div className="cards-grid">{withBanners(displayed)}</div>
       )}
 
-      {/* §3e — load more (filtered grid only) */}
+      {/* §3e - load more (filtered grid only) */}
       {canLoadMore && displayed.length > 0 && (
         <div style={{ textAlign: 'center', paddingTop: 20 }}>
           <button type="button" className="btn-outline" onClick={loadMore} disabled={loadingMore}>

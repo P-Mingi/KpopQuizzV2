@@ -97,7 +97,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
 
-      {/* SEO Fix 3 — crawlable links to EVERY quiz in this group (bots / no-JS).
+      {/* SEO Fix 3 - crawlable links to EVERY quiz in this group (bots / no-JS).
           GroupFeed only SSRs the first 10; this exposes the rest. */}
       {allQuizLinks.length > 0 && (
         <noscript>

@@ -84,7 +84,7 @@ function GameResultCard({ game }: { game: GameResult }): React.ReactElement {
     ? { bg: 'var(--tot-bg)', fg: 'var(--tot-icon)' }
     : { bg: 'var(--nam-bg)', fg: 'var(--nam-icon)' };
   return (
-    <Link href={game.href} className="quiz-card" aria-label={`${game.title} — ${game.label} game`}>
+    <Link href={game.href} className="quiz-card" aria-label={`${game.title}, ${game.label} game`}>
       <div className="quiz-cover" style={{ background: tint.bg }}>
         {game.preview ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -120,7 +120,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
       <div className="py-6">
         <h1 className="text-xl font-bold text-primary mb-4">Search</h1>
         <SearchForm initial="" />
-        <p className="text-sm text-secondary text-center py-8">Search quizzes, games, groups and creators — try “BTS”.</p>
+        <p className="text-sm text-secondary text-center py-8">Search quizzes, games, groups and creators. Try “BTS”.</p>
       </div>
     );
   }
@@ -249,7 +249,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
       ) : (
         <div className="mt-6 flex flex-col gap-8">
           <p className="text-sm text-secondary text-center py-2">
-            No exact match for <strong className="text-primary">“{query}”</strong> — here&apos;s what fans are playing right now.
+            No exact match for <strong className="text-primary">“{query}”</strong>. Here&apos;s what fans are playing right now.
           </p>
           {fbQuizzes.length > 0 && (
             <section>

@@ -81,7 +81,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
 
   return (
     <main className="games-page">
-      {/* §13b — hero */}
+      {/* §13b - hero */}
       <div className="games-hero">
         <p className="games-eyebrow">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -93,7 +93,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
         <p className="games-sub">Two game modes, hundreds of challenges. How fast can you name all members? Who is your ultimate bias?</p>
       </div>
 
-      {/* §13b — mode hero cards */}
+      {/* §13b - mode hero cards */}
       <div className="mode-grid">
         <Link href="/games/this-or-that" className="mode-card tot" style={{ animationDelay: '0ms', textDecoration: 'none' }}>
           <span className="mode-badge badge-hot">Most played</span>
@@ -124,7 +124,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
         </Link>
       </div>
 
-      {/* §13b — filter bar (filters both sections) */}
+      {/* §13b - filter bar (filters both sections) */}
       <div className="games-filter-row" role="group" aria-label="Filter games by group">
         <span className="filter-label">Filter</span>
         {pills.map((p) => (

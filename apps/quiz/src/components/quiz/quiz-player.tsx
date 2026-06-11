@@ -364,7 +364,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     ? Math.round((quiz.totalScoreSum / quiz.totalCompletions) / (quiz.questionCount * maxPerQ) * 100)
     : null;
 
-  // §14e — estimated time: ~15s/question, rounded to the nearest half minute.
+  // §14e - estimated time: ~15s/question, rounded to the nearest half minute.
   const estHalfMin = Math.max(0.5, Math.round((quiz.questionCount * 15 / 60) * 2) / 2);
   const estMinutesLabel = estHalfMin % 1 === 0 ? `${estHalfMin}` : estHalfMin.toFixed(1);
 
@@ -374,7 +374,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
-  // §10i — fill the score bar shortly after the result mounts (CSS transitions it).
+  // §10i - fill the score bar shortly after the result mounts (CSS transitions it).
   useEffect(() => {
     if (state.phase !== 'result') { setBarReady(false); return; }
     if (reduceMotion) { setBarReady(true); return; }
@@ -660,8 +660,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         </div>
 
-        {/* §14e format strip — quiz format at a glance. Replaces the pre-play
-            avg-score / pass-rate stats (§4a — those live on the result screen);
+        {/* §14e format strip - quiz format at a glance. Replaces the pre-play
+            avg-score / pass-rate stats (§4a - those live on the result screen);
             play count kept as a trust signal (§4b). */}
         <div className="format-strip mt-3">
           <div className="format-item">
@@ -854,7 +854,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
           )}
 
-          {/* Image (image type) — shown above the question */}
+          {/* Image (image type) - shown above the question */}
           {isImageQuiz && 'image_url' in question && (
             <div className="w-full max-h-[280px] rounded-[14px] overflow-hidden mb-4 bg-surface-alt flex items-center justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -870,7 +870,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           {/* §10k question text (intruder view renders its own header) */}
           {!isIntruderQuiz && <p className="q-text">{question.question}</p>}
 
-          {/* Answers — §10k A/B/C/D chips for text options; image grid for intruder */}
+          {/* Answers - §10k A/B/C/D chips for text options; image grid for intruder */}
           {isIntruderQuiz ? (
             <IntruderQuestionView
               question={question as unknown as { question: string; options: Array<{ label: string; image_url: string }> }}
@@ -916,7 +916,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
           )}
 
-          {/* §10k fun-fact reveal — after every answer (correct, wrong, or timeout) */}
+          {/* §10k fun-fact reveal - after every answer (correct, wrong, or timeout) */}
           {isAnswered && (
             <div className="fact-reveal show">
               <div className="fact-icon">
@@ -978,7 +978,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* §10i + §12b — single branded result hero: count-up score, bar,
+        {/* §10i + §12b - single branded result hero: count-up score, bar,
             beat-%, label, and share actions (no duplicate score block). */}
         <div className="result-share-card">
           <div className="result-share-header">
@@ -1036,12 +1036,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         </div>
 
-        {/* Like — placed high, right under the result */}
+        {/* Like - placed high, right under the result */}
         <div className="mt-3">
           <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
         </div>
 
-        {/* Stats row — Score / Avg / Rank (+ Pass rate when available) */}
+        {/* Stats row - Score / Avg / Rank (+ Pass rate when available) */}
         <div className={`mt-5 grid ${state.passRate !== null ? 'grid-cols-4' : 'grid-cols-3'} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
           <div className="bg-surface p-3 text-center">
             <p className="text-[17px] font-semibold text-primary tabular-nums">{scorePct}%</p>

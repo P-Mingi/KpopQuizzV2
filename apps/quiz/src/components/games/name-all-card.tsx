@@ -151,7 +151,7 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
         layout.fullWidth ? 'col-span-2' : ''
       } rounded-2xl border-[1.5px] border-[#E8E6E0] bg-white overflow-hidden cursor-pointer hover:border-[#D4537E] hover:-translate-y-[2px] transition-all block`}
     >
-      {/* Banner — 140px tall with grid of cells */}
+      {/* Banner - 140px tall with grid of cells */}
       <div className="h-[140px] relative overflow-hidden">
         {/* Grid of cells */}
         <div
@@ -212,7 +212,7 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
           }}
         />
 
-        {/* Difficulty pill — top left */}
+        {/* Difficulty pill - top left */}
         <span
           className={`absolute top-2 left-2 px-[7px] py-[3px] rounded-[5px] text-[9px] font-medium z-[3] ${getDifficultyClasses(
             game.difficulty
@@ -221,7 +221,7 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
           {getDifficultyLabel(game.difficulty)}
         </span>
 
-        {/* Timer pill — top right */}
+        {/* Timer pill - top right */}
         <span className="absolute top-2 right-2 px-[7px] py-[3px] rounded-[5px] text-[9px] font-medium bg-white/95 text-[#2C2C2A] z-[3] flex items-center gap-[3px]">
           <svg
             width="9"
@@ -237,12 +237,12 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
           {formatTimer(game.timer_seconds)}
         </span>
 
-        {/* Type badge — bottom left */}
+        {/* Type badge - bottom left */}
         <span className="absolute bottom-2 left-2 px-2 py-[3px] rounded-[5px] text-[9px] font-medium bg-white/95 text-[#2C2C2A] z-[3]">
           {typeLabel}
         </span>
 
-        {/* Count badge — bottom right (only for idol/song games) */}
+        {/* Count badge - bottom right (only for idol/song games) */}
         {showCount && (
           <span className="absolute bottom-2 right-2 px-2 py-[3px] rounded-[5px] text-[9px] font-medium bg-black/50 text-white z-[3]">
             {itemCount} {game.game_type === 'name_all_idols' ? 'idols' : game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs' ? 'songs' : 'groups'}
