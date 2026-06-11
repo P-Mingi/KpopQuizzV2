@@ -131,4 +131,6 @@ Blindtest uses `bt-` prefix (§16d); games use `games-`/`mode-`/`tot-`/`nam-`; q
 
 ## 9. DO NOT CHANGE (spec §17) — respect in every step
 
-Supabase schema for quizzes/users/plays (only remove card/byeol/xp columns) · Reddit UTM params · `r/Kpop_Verse` link · `/about`,`/contact`,`/terms`,`/privacy` · the `/create` editor flow · auth provider config.
+Supabase schema for quizzes/users/plays (only remove card/byeol/xp columns) · Reddit UTM params · `r/Kpop_Verse` link · `/about`,`/contact`,`/terms`,`/privacy` · auth provider config.
+
+> **SUPERSEDED:** The redesign §17 "do not change the `/create` editor" rule is **overridden** by the Creation Funnel spec (Workstream H). The `/create` flow is being **rebuilt** as the 4-screen funnel (H2–H10), not preserved. B19 (onboarding strip) is absorbed into H.
