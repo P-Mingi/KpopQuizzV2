@@ -429,6 +429,29 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
       verifiedAt: '2026-06-11',
     },
   ],
+
+  // J1b batch 5 (tail) - KickFlip (Jan 2025 debut, post-cutoff and thin). 15
+  // corpus facts: a mix of unverifiable member birthdays/anecdotes and outright
+  // quiz-maker junk ("Please correct me if this is wrong", "Stream My First
+  // Kick"). All 15 suppressed per the suppress-when-unconfirmable rule; KickFlip
+  // drops below the 12-fact gate and loses its trivia page (by design).
+  kickflip: [
+    { match: 'kickflip were actually meant to be a 5member group but becam', action: 'suppress', reason: 'Garbled member-count claim, unverifiable.', verifiedAt: '2026-06-11' },
+    { match: 'kickflip were actually supposed to debut on january 1st 2025', action: 'suppress', reason: 'Unverifiable debut-date-change claim (post-cutoff).', verifiedAt: '2026-06-11' },
+    { match: 'kyehoon had trained for a very long time and recently celebr', action: 'suppress', reason: 'Unverifiable trainee anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'kyehoon was born on september 16th 2004', action: 'suppress', reason: 'Member birthday not confidently verifiable (post-cutoff group).', verifiedAt: '2026-06-11' },
+    { match: 'my first flip is kickflips third mini album', action: 'suppress', reason: 'Unverifiable discography claim (post-cutoff).', verifiedAt: '2026-06-11' },
+    { match: 'donghyeon was born on march 13th 2007', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'this question is so hard yet so easy please correct me if th', action: 'suppress', reason: 'Quiz-maker meta note, not a fact.', verifiedAt: '2026-06-11' },
+    { match: 'amaru was born on october 21st 2005', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'keiju was born on october 4th 2006', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'donghwa was born on march 11th 2006', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'donghyeon has always stated that he disliked being called by', action: 'suppress', reason: 'Trivial, unverifiable anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'minje is born on may 12th 2006', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'donghyeons representative animal used to be a sloth but chan', action: 'suppress', reason: 'Niche, unverifiable.', verifiedAt: '2026-06-11' },
+    { match: 'juwang was born on may 2nd 2006', action: 'suppress', reason: 'Member birthday not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'stream my first kick', action: 'suppress', reason: 'Promotional fragment, not a fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
