@@ -258,6 +258,28 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'newjeans performed at the paris 2024 olympic games opening c', action: 'suppress', reason: 'Wrong: NewJeans did not perform at the Paris 2024 opening ceremony; they performed at a private Olympic celebration event in Seoul (Aug 22, 2024). koreaboo.com NewJeans 2024 Paris Olympics event', verifiedAt: '2026-06-11' },
     { match: 'danielle danielle marsh is of korean and irish descent she w', action: 'suppress', reason: 'Muddled and conflicting heritage claim; the kept facts state Danielle is Korean-Australian.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 4 - ENHYPEN. 43 corpus facts. 26 kept, 17 suppressed (16 junk
+  // fan-anecdote/kaomoji fragments that name no clear subject, + 1 wrong chart).
+  enhypen: [
+    { match: 'heeseung and jay met as trainees under big hit entertainment', action: 'suppress', reason: 'Kaomoji-laden, obscure trainee anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'they met up again backstage in 2021 sbs and wished each othe', action: 'suppress', reason: 'Contextless and trivial.', verifiedAt: '2026-06-11' },
+    { match: 'he had a friend in a lower grade who didnt know his name and', action: 'suppress', reason: 'Contextless obscure anecdote, no subject named.', verifiedAt: '2026-06-11' },
+    { match: 'when jungwon joined sm ent the first person he saw was train', action: 'suppress', reason: 'Obscure, unverifiable anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'they are specifically the water horse  1942 2002 amicable an', action: 'suppress', reason: 'Contextless zodiac fan-trivia.', verifiedAt: '2026-06-11' },
+    { match: 'he visited during his 3rd year of middle school', action: 'suppress', reason: 'Contextless fragment ("He visited...").', verifiedAt: '2026-06-11' },
+    { match: 'after jake won he moved to australia by himself to begin tra', action: 'suppress', reason: 'Garbled: Jake grew up in Australia from childhood, not after iland.', verifiedAt: '2026-06-11' },
+    { match: 'it was based on the logo of iland a big egg', action: 'suppress', reason: 'Contextless fragment ("It was based on...").', verifiedAt: '2026-06-11' },
+    { match: 'when he first started training in bighit he was still a figu', action: 'suppress', reason: 'Contextless fragment, names no subject.', verifiedAt: '2026-06-11' },
+    { match: 'he stopped liking it in 2021 and joined the rest of the grou', action: 'suppress', reason: 'Contextless and trivial.', verifiedAt: '2026-06-11' },
+    { match: 'jake and sunghoon lived in the same neighborhood during thei', action: 'suppress', reason: 'Obscure, unverifiable childhood anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'jungwon graduated as a honor student with an achievement awa', action: 'suppress', reason: 'Obscure, unverifiable school anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'given to them in mama 2022', action: 'suppress', reason: 'Contextless fragment ("Given to them in MAMA 2022").', verifiedAt: '2026-06-11' },
+    { match: 'chulsoo represents a strong intelligent and reliable individ', action: 'suppress', reason: 'Contextless ("Chulsoo" is unexplained).', verifiedAt: '2026-06-11' },
+    { match: 'heeseung makes egg clouds in his ramen by pushing the noodle', action: 'suppress', reason: 'Trivial, unverifiable cooking anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'during the iland broadcast sunoo was seen doing hair for mul', action: 'suppress', reason: 'Trivial, unverifiable anecdote.', verifiedAt: '2026-06-11' },
+    { match: 'dark blood debuted at 1 on the billboard 200 making enhypen ', action: 'suppress', reason: 'Wrong: DARK BLOOD debuted at #4 on the Billboard 200, not #1. en.wikipedia.org/wiki/Dark_Blood_(EP)', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
