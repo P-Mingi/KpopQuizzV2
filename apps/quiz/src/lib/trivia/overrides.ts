@@ -249,6 +249,15 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
       verifiedAt: '2026-06-11',
     },
   ],
+
+  // J1b batch 3 - NewJeans. 30 corpus facts. 25 kept, 5 suppressed.
+  newjeans: [
+    { match: 'cool with you is a bside from the get up ep eta hype boy and', action: 'suppress', reason: 'Wrong: Cool With You was a promoted/title track of Get Up (not a B-side); the track grouping mixes different eras.', verifiedAt: '2026-06-11' },
+    { match: 'minji hanni danielle haerin and hyein', action: 'suppress', reason: 'Contextless fragment: just a member list with no statement (covered by the kept "5 members" fact).', verifiedAt: '2026-06-11' },
+    { match: 'newjeans is under ador a dreamers only real label a hybe sub', action: 'suppress', reason: 'Wrong: ADOR stands for "All Doors One Room", not "A Dreamer\'s Only Real Label". kpop.fandom.com/wiki/ADOR', verifiedAt: '2026-06-11' },
+    { match: 'newjeans performed at the paris 2024 olympic games opening c', action: 'suppress', reason: 'Wrong: NewJeans did not perform at the Paris 2024 opening ceremony; they performed at a private Olympic celebration event in Seoul (Aug 22, 2024). koreaboo.com NewJeans 2024 Paris Olympics event', verifiedAt: '2026-06-11' },
+    { match: 'danielle danielle marsh is of korean and irish descent she w', action: 'suppress', reason: 'Muddled and conflicting heritage claim; the kept facts state Danielle is Korean-Australian.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
