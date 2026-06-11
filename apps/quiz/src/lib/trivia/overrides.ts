@@ -203,6 +203,18 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     // --- recategorize (song musical-elements fact mis-bucketed as members) ---
     { match: 'ssoriggoon thunderous incorporates traditional korean musica', action: 'recategorize', category: 'music', reason: 'Song musical-elements fact, not a members fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 3 - aespa. 58 corpus facts. 51 kept, 5 suppressed, 0 replaced,
+  // 2 recategorized.
+  aespa: [
+    { match: 'live my life offers a contrast to the albums harderhitting t', action: 'suppress', reason: '"Live My Life" is not a recognized aespa track, plus subjective.', verifiedAt: '2026-06-11' },
+    { match: 'aespa performed at both coachella and lollapalooza cementing', action: 'suppress', reason: 'Lollapalooza claim is wrong: aespa first perform at Lollapalooza in 2026, not earlier. allkpop.com/article/2026/03/aespa-confirmed-for-lollapalooza-chicago-2026', verifiedAt: '2026-06-11' },
+    { match: 'savage released on october 5 2021 was aespas first minialbum', action: 'suppress', reason: 'Misattributes the #20 peak (it was Billboard 200, per the kept fact) to US iTunes; otherwise redundant.', verifiedAt: '2026-06-11' },
+    { match: 'aespa performed at lollapalooza in chicago on july 31 2022 b', action: 'suppress', reason: 'Wrong: TXT (also 4th gen) performed at Lollapalooza 2022; aespa first Lollapalooza is 2026.', verifiedAt: '2026-06-11' },
+    { match: 'aespa performed at the 2023 billboard music awards one of th', action: 'suppress', reason: 'Unverified: no record of aespa at the 2023 Billboard Music Awards (likely conflated with Billboard Women in Music).', verifiedAt: '2026-06-11' },
+    { match: 'girls 2022 is aespas second mini album following savage', action: 'recategorize', category: 'music', reason: 'Discography fact, not a members fact.', verifiedAt: '2026-06-11' },
+    { match: 'savage was released in october 2021 and debuted at 20 on the', action: 'recategorize', category: 'music', reason: 'Chart fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
