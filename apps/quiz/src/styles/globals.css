@@ -1326,6 +1326,8 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .gc-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .gc-tot { background: var(--tot-bg); color: var(--tot-icon); }
 .gc-nam { background: var(--nam-bg); color: var(--nam-icon); }
+.gc-icon.has-img { background: var(--surface-alt); overflow: hidden; padding: 0; }
+.gc-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
 .gc-body { flex: 1; min-width: 0; }
 .gc-name { font-size: 13px; font-weight: 700; color: var(--txt1); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .gc-sub { font-size: 11px; color: var(--txt3); margin-bottom: 7px; line-height: 1.4; }

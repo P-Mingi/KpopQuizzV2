@@ -15,6 +15,12 @@ interface TotCategory {
   type: 'idol' | 'group' | 'song';
   pool_size: number;
   play_count: number;
+  tot_items?: { name: string; image_url: string | null }[];
+}
+
+/** First item image from a list, for the card preview thumbnail. */
+function previewImage(items?: { image_url?: string | null }[]): string | null {
+  return items?.find((it) => it.image_url)?.image_url ?? null;
 }
 
 interface GamesHubProps {
@@ -145,20 +151,28 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
             <Link href="/games/this-or-that" className="games-sec-see">See all {totCategories.length}+ →</Link>
           </div>
           <div className="game-grid">
-            {totVisible.map((c, i) => (
-              <Link key={c.id} href={`/games/this-or-that/${c.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
-                <div className="gc-icon gc-tot" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
-                </div>
-                <div className="gc-body">
-                  <p className="gc-name">{c.title}</p>
-                  <p className="gc-sub">{c.pool_size} {totNoun(c.type)}{c.subtitle ? ` · ${c.subtitle}` : ''}</p>
-                  <div className="gc-footer">
-                    <span className="gc-plays">{USER_ICON} {(c.play_count || 0).toLocaleString()} plays</span>
+            {totVisible.map((c, i) => {
+              const prev = previewImage(c.tot_items);
+              return (
+                <Link key={c.id} href={`/games/this-or-that/${c.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
+                  <div className={`gc-icon gc-tot${prev ? ' has-img' : ''}`} aria-hidden="true">
+                    {prev ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={prev} alt="" loading="lazy" />
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
+                    )}
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="gc-body">
+                    <p className="gc-name">{c.title}</p>
+                    <p className="gc-sub">{c.pool_size} {totNoun(c.type)}{c.subtitle ? ` · ${c.subtitle}` : ''}</p>
+                    <div className="gc-footer">
+                      <span className="gc-plays">{USER_ICON} {(c.play_count || 0).toLocaleString()} plays</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </>
       )}
@@ -181,10 +195,16 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
               const inits = na.data.items.slice(0, 8).map((it) => initial(it.name));
               const extra = na.data.items.length - inits.length;
               const diffCls = na.difficulty === 'easy' ? 'd-easy' : na.difficulty === 'hard' ? 'd-hard' : 'd-med';
+              const prev = previewImage(na.data.items);
               return (
                 <Link key={g.id} href={`/games/name-all/${g.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
-                  <div className="gc-icon gc-nam" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
+                  <div className={`gc-icon gc-nam${prev ? ' has-img' : ''}`} aria-hidden="true">
+                    {prev ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={prev} alt="" loading="lazy" />
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
+                    )}
                   </div>
                   <div className="gc-body">
                     <div className="nam-hints">

@@ -153,7 +153,7 @@ export function TotCategoryPicker({ categories }: TotCategoryPickerProps) {
 
       {/* Category grid */}
       {filteredCategories.length > 0 ? (
-        <div className="mt-4 flex flex-wrap gap-2.5 justify-center sm:justify-start">
+        <div className="mt-4 flex flex-wrap gap-2.5 justify-center">
           {filteredCategories.map((category) => (
             <TotCategoryCard key={category.id} category={category} />
           ))}
