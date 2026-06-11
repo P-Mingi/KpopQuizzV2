@@ -394,6 +394,28 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'her birthday is two days before the release of loonas debut ', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
     { match: 'her birthday is one day before kim lips solo debut digital r', action: 'suppress', reason: 'Contextless ("Her..."), names no subject.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - ARTMS (post-cutoff LOONA offshoot, thin/niche coverage).
+  // 16 corpus facts, mostly contextless quiz-answer fragments and lists. 1 kept
+  // (the MODHAUS label fact); 15 suppressed, dropping ARTMS below the 12-fact
+  // gate so its trivia page is lost (by design).
+  artms: [
+    { match: 'just 3 months away from having been 6 years since max  match', action: 'suppress', reason: 'Contextless fragment.', verifiedAt: '2026-06-11' },
+    { match: 'haseul on october 26 2023 with her single plastic candy', action: 'suppress', reason: 'Sentence fragment, names no claim.', verifiedAt: '2026-06-11' },
+    { match: 'heejin and haseul along with fellow loona member hyunjin san', action: 'suppress', reason: 'Contextless: "the original" of what is unstated.', verifiedAt: '2026-06-11' },
+    { match: 'flower rhythm candy crush air unfair and birth', action: 'suppress', reason: 'Bare track list, no statement.', verifiedAt: '2026-06-11' },
+    { match: 'heejin haseul kim lip and choerry did jinsoul had red hair', action: 'suppress', reason: 'Contextless answer fragment.', verifiedAt: '2026-06-11' },
+    { match: 'butterfly lyric been been there never been been there  air l', action: 'suppress', reason: 'Lyric fragments, no fact.', verifiedAt: '2026-06-11' },
+    { match: 'sweet crazy love the carol 30 and algorithmalgorithm rock ve', action: 'suppress', reason: 'Bare track list, no statement.', verifiedAt: '2026-06-11' },
+    { match: 'artronic waves ghigh and el capitxn', action: 'suppress', reason: 'Bare list, no statement.', verifiedAt: '2026-06-11' },
+    { match: 'she got into a minor traffic accident a few days before and ', action: 'suppress', reason: 'Contextless ("She..."), unverifiable.', verifiedAt: '2026-06-11' },
+    { match: 'as it should be i voted for blue blood and hyper crush', action: 'suppress', reason: 'Nonsensical/contextless.', verifiedAt: '2026-06-11' },
+    { match: 'she had an old lingering injury she had to get fixed', action: 'suppress', reason: 'Contextless ("She..."), unverifiable.', verifiedAt: '2026-06-11' },
+    { match: 'dall was their debut studio album club icarus their first co', action: 'suppress', reason: 'Niche post-cutoff ARTMS discography claim, not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'kim lip jinsoul and choerry debuted in odd eye circle artms ', action: 'suppress', reason: 'Niche post-cutoff member-debut details, not confidently verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'the last member was haseul', action: 'suppress', reason: 'Contextless fragment ("The last member" of what).', verifiedAt: '2026-06-11' },
+    { match: 'icarus cinematic version isnt 20 but it is nearly 15 and an ', action: 'suppress', reason: 'Subjective promo ("go watch right now"), not a fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
