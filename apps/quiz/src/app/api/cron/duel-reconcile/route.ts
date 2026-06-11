@@ -4,13 +4,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * Nightly duel Elo reconciliation (Pipeline 1, Section 2b).
+ * Nightly duel Elo reconciliation (Pipeline 1, Section 2b + 4c gate).
  *
- * For every duel_question: reset its entities to Elo 1500 / 0-0, then REPLAY all
- * of its duel_votes in created_at order applying the same plain Elo math as the
- * cast_duel_vote RPC (K=24), and overwrite duel_ratings via the service role.
- * This is the source-of-truth recompute that corrects real-time drift and lets
- * us re-tune K. Idempotent: running it twice yields identical ratings.
+ * For every duel_question WHOSE real duel_votes count has reached its min_votes:
+ * reset its entities to Elo 1500 / 0-0, then REPLAY all of its duel_votes in
+ * created_at order applying the same plain Elo math as the cast_duel_vote RPC
+ * (K=24), and overwrite duel_ratings via the service role. Questions still below
+ * their min_votes are SKIPPED so their C2 seed ratings stay intact until real
+ * votes validate them. Idempotent: running it twice yields identical ratings.
  *
  * Triggered by Vercel Cron or manually with CRON_SECRET.
  */
@@ -53,18 +54,37 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const { data: questions, error: qErr } = await supabase
     .from('duel_questions')
-    .select('id');
+    .select('id, min_votes');
   if (qErr) {
     return NextResponse.json({ error: qErr.message }, { status: 500 });
   }
 
+  let reconciled = 0;
+  let skipped = 0;
   let entitiesUpdated = 0;
   let votesReplayed = 0;
 
   for (const question of questions ?? []) {
     const questionId = question.id as string;
+    const minVotes = (question.min_votes as number | null) ?? 0;
 
-    // Existing entities for this question, reset to the 1500 baseline.
+    // Replay set, oldest-first.
+    const { data: votes, error: vErr } = await supabase
+      .from('duel_votes')
+      .select('option_a_id, option_b_id, winner_id, created_at')
+      .eq('question_id', questionId)
+      .order('created_at', { ascending: true });
+    if (vErr) {
+      return NextResponse.json({ error: vErr.message }, { status: 500 });
+    }
+
+    // 4c gate: below min_votes, leave the seeded ratings untouched.
+    if ((votes?.length ?? 0) < minVotes) {
+      skipped += 1;
+      continue;
+    }
+
+    // Existing entities, reset to the 1500 baseline.
     const { data: ratings, error: rErr } = await supabase
       .from('duel_ratings')
       .select('entity_id, entity_name, entity_image')
@@ -85,16 +105,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       });
     }
 
-    // Replay votes oldest-first.
-    const { data: votes, error: vErr } = await supabase
-      .from('duel_votes')
-      .select('option_a_id, option_b_id, winner_id, created_at')
-      .eq('question_id', questionId)
-      .order('created_at', { ascending: true });
-    if (vErr) {
-      return NextResponse.json({ error: vErr.message }, { status: 500 });
-    }
-
     for (const v of votes ?? []) {
       const winnerId = v.winner_id as string;
       const loserId =
@@ -106,7 +116,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       votesReplayed += 1;
     }
 
-    // Overwrite duel_ratings with the recomputed standings.
     const rows = [...state.entries()].map(([entityId, s]) => ({
       question_id: questionId,
       entity_id: entityId,
@@ -128,11 +137,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       }
       entitiesUpdated += rows.length;
     }
+    reconciled += 1;
   }
 
   return NextResponse.json({
     ok: true,
     questions: questions?.length ?? 0,
+    reconciled,
+    skipped,
     entities_updated: entitiesUpdated,
     votes_replayed: votesReplayed,
   });
