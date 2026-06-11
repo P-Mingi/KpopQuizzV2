@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { RankingList } from './ranking-list';
 import { VsBadge } from './vs-badge';
 
 export interface QuestionItem {
@@ -270,36 +271,17 @@ export function DuelGame({
       </div>
       <p className="duel-tally">Your votes this session: {sessionVotes}</p>
 
-      {/* Live ranking (5e) */}
-      <div className="rank-card">
-        <div className="rank-head">
-          <h2 className="rank-title">{prompt}</h2>
-          <span className="rank-live"><span className="rank-live-dot" />Live</span>
-        </div>
-        <ul className="rank-list">
-          {ranking.map((e, i) => {
-            const isWin = lastWin?.id === e.entity_id;
-            return (
-              <li key={e.entity_id} className={`rank-row${bumped.has(e.entity_id) ? ' bump' : ''}`}>
-                <span className={`rank-pos${i < 3 ? ' top' : ''}`}>{i + 1}</span>
-                {e.image ? (
-                  <img className="rank-avatar" src={e.image} alt="" loading="lazy" />
-                ) : (
-                  <span className="rank-avatar" />
-                )}
-                <span className="rank-name">{e.name}</span>
-                <span className="rank-delta">
-                  {isWin && lastWin ? <span className="up">+{lastWin.delta}</span> : <span style={{ color: 'var(--txt3)' }}>-</span>}
-                </span>
-                <span className="rank-elo">{Math.round(e.elo)}</span>
-              </li>
-            );
-          })}
-        </ul>
-        <div className="rank-foot">
-          <a href={`/rankings/${group}/${type}`}>See full ranking page &rarr;</a>
-        </div>
-      </div>
+      {/* Live ranking (5e) - shared with the /rankings pages */}
+      <RankingList
+        title={prompt}
+        badge={<span className="rank-live"><span className="rank-live-dot" />Live</span>}
+        entities={ranking}
+        variant="delta"
+        bumped={bumped}
+        winnerId={lastWin?.id ?? null}
+        winnerDelta={lastWin?.delta ?? 0}
+        footer={{ href: `/rankings/${group}/${type}`, label: 'See full ranking page →' }}
+      />
     </div>
   );
 }

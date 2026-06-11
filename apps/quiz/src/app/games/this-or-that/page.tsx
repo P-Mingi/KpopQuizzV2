@@ -29,7 +29,12 @@ function pickerOrder(a: QuestionItem, b: QuestionItem): number {
   return a.question_type.localeCompare(b.question_type);
 }
 
-export default async function ThisOrThatPage(): Promise<React.ReactElement> {
+export default async function ThisOrThatPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ group?: string; type?: string }>;
+}): Promise<React.ReactElement> {
+  const sp = await searchParams;
   const supabase = createServiceRoleClient();
 
   const [{ data: questionRows }, { data: voteRows }, { data: ratingRows }] = await Promise.all([
@@ -72,8 +77,15 @@ export default async function ThisOrThatPage(): Promise<React.ReactElement> {
   for (const q of questionRows ?? []) {
     idByKey.set(`${q.group_slug}:${q.question_type}`, q.id as string);
   }
+  // Loop-back from a ranking page (?group=&type=) preselects that matchup.
+  const requested =
+    sp.group && sp.type
+      ? questions.find((q) => q.group_slug === sp.group && q.question_type === sp.type)
+      : undefined;
   const def =
-    questions.find((q) => q.group_slug === 'bts' && q.question_type === 'members') ?? questions[0]!;
+    requested ??
+    questions.find((q) => q.group_slug === 'bts' && q.question_type === 'members') ??
+    questions[0]!;
   const defKey = `${def.group_slug}:${def.question_type}`;
   const defId = idByKey.get(defKey)!;
 

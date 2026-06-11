@@ -9,6 +9,7 @@ const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
 const KNOWN_ROUTES = [
   '/', '/q/', '/g/', '/games', '/blind-test', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia', // /trivia hub (group -trivia pages are matched by the -trivia suffix rule below)
+  '/rankings', // /rankings index + /rankings/{group}/{type} fan-vote pages
   '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',

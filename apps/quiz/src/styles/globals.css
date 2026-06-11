@@ -1918,3 +1918,44 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   .opt.pop { animation: none; }
   .rank-live-dot { animation: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   C7 - /rankings pages. SSR fan-vote rankings; reuses the .rank-* card from C5.
+   --------------------------------------------------------------------------- */
+.ranking-page { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; }
+.ranking-h1 { font-family: var(--font-display); font-size: clamp(1.5rem, 4.5vw, 2rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.01em; color: var(--txt1); margin: 0 0 8px; }
+.ranking-intro { font-size: 0.95rem; line-height: 1.55; color: var(--txt2); margin: 0 0 18px; max-width: 36rem; }
+.ranking-cta { margin-bottom: 18px; }
+a.ranking-cta { text-decoration: none; }
+
+/* Win-rate column (4d) + vote-count badge */
+.rank-winrate { font-size: 11px; font-weight: 600; color: var(--txt3); width: 38px; text-align: right; font-variant-numeric: tabular-nums; }
+.rank-pill-votes { font-size: 10px; font-weight: 700; color: var(--txt2); background: var(--surface-alt); padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
+
+/* Locked state (4b) + empty index */
+.rank-locked { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 20px; text-align: center; margin-top: 8px; }
+.rank-locked-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--txt1); margin: 0 0 6px; }
+.rank-locked-sub { font-size: 0.9rem; line-height: 1.5; color: var(--txt2); margin: 0 auto 16px; max-width: 24rem; }
+.rank-locked-bar { width: 100%; max-width: 280px; height: 8px; background: var(--surface-alt); border-radius: 100px; overflow: hidden; margin: 0 auto 6px; }
+.rank-locked-fill { display: block; height: 100%; background: var(--brand); border-radius: 100px; transition: width 600ms ease; }
+.rank-locked-count { font-size: 12px; font-weight: 600; color: var(--txt3); font-variant-numeric: tabular-nums; margin: 0 0 18px; }
+
+/* Rankings index grid */
+.ranking-index-grid { display: grid; grid-template-columns: 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
+@media (min-width: 560px) { .ranking-index-grid { grid-template-columns: 1fr 1fr; } }
+.ranking-index-card { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; text-decoration: none; transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease; }
+.ranking-index-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,69,122,0.10), 0 2px 8px rgba(0,0,0,0.06); border-color: var(--border-h); }
+.ranking-index-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.ranking-index-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--surface-alt); flex-shrink: 0; }
+.ranking-index-body { min-width: 0; display: flex; flex-direction: column; }
+.ranking-index-name { font-size: 0.9rem; font-weight: 600; color: var(--txt1); line-height: 1.2; }
+.ranking-index-meta { font-size: 0.78rem; color: var(--txt3); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ranking-index-arrow { margin-left: auto; color: var(--txt3); flex-shrink: 0; transition: transform 120ms ease, color 120ms ease; }
+.ranking-index-card:hover .ranking-index-arrow { color: var(--brand); transform: translateX(2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rank-locked-fill { transition: none; }
+  .ranking-index-card { transition: none; }
+  .ranking-index-card:hover { transform: none; box-shadow: none; }
+  .ranking-index-arrow, .ranking-index-card:hover .ranking-index-arrow { transition: none; transform: none; }
+}
