@@ -88,6 +88,7 @@ export interface RankingIndexItem {
   prompt: string;
   entity_kind: string;
   total_votes: number;
+  min_votes: number;
   public: boolean;
   top_entity: { name: string; image: string | null; elo: number } | null;
 }
@@ -132,6 +133,7 @@ export const getRankingsIndex = cache(async (): Promise<RankingIndexItem[]> => {
       prompt: q.prompt as string,
       entity_kind: q.entity_kind as string,
       total_votes: total,
+      min_votes: q.min_votes as number,
       public: total >= (q.min_votes as number),
       top_entity: topEntity.get(q.id as string) ?? null,
     };

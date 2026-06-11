@@ -1,5 +1,6 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { getNameAllGames } from '@/lib/db/queries/games';
+import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
 import type { Metadata } from 'next';
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default async function GamesPage() {
   const supabase = createServiceRoleClient();
 
-  const [nameAllGames, totResult] = await Promise.all([
+  const [nameAllGames, totResult, rankings] = await Promise.all([
     safeFetch(getNameAllGames(0, 24), [], '[games] getNameAllGames'),
     supabase
       .from('tot_categories')
@@ -26,13 +27,14 @@ export default async function GamesPage() {
       .eq('is_published', true)
       .order('play_count', { ascending: false })
       .limit(20),
+    safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
   ]);
 
   const totCategories = totResult.data ?? [];
 
   return (
     <div className="pb-24">
-      <GamesHub nameAllGames={nameAllGames} totCategories={totCategories} />
+      <GamesHub nameAllGames={nameAllGames} totCategories={totCategories} rankings={rankings} />
     </div>
   );
 }

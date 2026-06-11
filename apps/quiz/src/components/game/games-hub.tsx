@@ -4,8 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { toNameAllGame } from '@/components/games/adapters';
+import { GameModeCard } from './game-mode-card';
+import { TrendingRankingsStrip } from './trending-rankings-strip';
 
 import type { GameCardData } from '@/lib/db/types';
+import type { RankingIndexItem } from '@/lib/db/queries/duels';
 
 interface TotCategory {
   id: string;
@@ -26,6 +29,7 @@ function previewImage(items?: { image_url?: string | null }[]): string | null {
 interface GamesHubProps {
   nameAllGames: GameCardData[];
   totCategories: TotCategory[];
+  rankings: RankingIndexItem[];
 }
 
 // §2e canonical group order for the filter pills.
@@ -58,9 +62,6 @@ function totDuelHref(slug: string): string {
   return `/games/this-or-that?group=${encodeURIComponent(group)}&type=${encodeURIComponent(type)}`;
 }
 
-const PLAY_ICON = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-);
 const USER_ICON = (
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
 );
@@ -68,8 +69,14 @@ const CLOCK_ICON = (
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
 );
 
-export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.ReactElement {
+export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProps): React.ReactElement {
   const [group, setGroup] = useState<string>('all');
+
+  // Trending strip: most-voted first (pre-launch all 0, so order is stable),
+  // capped to keep the row curated. Group-specific matchups read best.
+  const trending = [...rankings]
+    .sort((a, b) => b.total_votes - a.total_votes)
+    .slice(0, 10);
 
   // Derive filter pills from the groups actually present in the name-all games.
   const present = new Map<string, string>();
@@ -102,41 +109,41 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
         <p className="games-sub">Two game modes, hundreds of challenges. How fast can you name all members? Who is your ultimate bias?</p>
       </div>
 
-      {/* §13b - mode hero cards */}
-      <div className="mode-grid">
-        <Link href="/games/this-or-that" className="mode-card tot" style={{ animationDelay: '0ms', textDecoration: 'none' }}>
-          <span className="mode-badge badge-hot">Most played</span>
-          <div className="mode-deco" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
-          </div>
-          <p className="mode-name">This or That</p>
-          <p className="mode-desc">Two options. One winner. Pick your bias in infinite head-to-head matchups across idols, songs, and groups.</p>
-          <div className="mode-meta">
-            <span className="mode-stat">{USER_ICON} {totCategories.length || '20'}+ categories</span>
-            <span className="mode-stat">{CLOCK_ICON} ~3 min</span>
-          </div>
-          <span className="mode-play">{PLAY_ICON} Play now</span>
-        </Link>
-
-        <Link href="/games/name-all" className="mode-card nam" style={{ animationDelay: '60ms', textDecoration: 'none' }}>
-          <span className="mode-badge badge-new">{pills.length - 1 || '24'}+ groups</span>
-          <div className="mode-deco" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
-          </div>
-          <p className="mode-name">Name all members</p>
-          <p className="mode-desc">Type every member&apos;s name before the timer runs out. Sounds easy. It never is.</p>
-          <div className="mode-meta">
-            <span className="mode-stat">{USER_ICON} {nameAllGames.length || '24'}+ challenges</span>
-            <span className="mode-stat">{CLOCK_ICON} 0:30 to 5:00</span>
-          </div>
-          <span className="mode-play">{PLAY_ICON} Play now</span>
-        </Link>
+      {/* D0 - uniform, scalable mode grid (one reusable GameModeCard each). */}
+      <div className="gm-grid">
+        <GameModeCard
+          name="This or That"
+          desc="Two options. One winner. Pick your bias in infinite head-to-head matchups."
+          href="/games/this-or-that"
+          tint="--tot"
+          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>}
+          stat={`${totCategories.length || 20}+ categories`}
+          badge="Most played"
+          index={0}
+        />
+        <GameModeCard
+          name="Name all members"
+          desc="Type every member's name before the timer runs out. Sounds easy. It never is."
+          href="/games/name-all"
+          tint="--nam"
+          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>}
+          stat={`${nameAllGames.length || 24}+ challenges`}
+          index={1}
+        />
+        <GameModeCard
+          name="Blindtest"
+          desc="Name the song from a few seconds of audio. How fast is your ear?"
+          href="/blind-test"
+          tint="--blind"
+          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>}
+          stat="Guess the song"
+          comingSoon
+          index={2}
+        />
       </div>
 
-      {/* Discovery into the fan-vote rankings (Pipeline 1, C9). */}
-      <div className="games-rankings-cta">
-        <Link href="/rankings">See the live fan rankings &rarr;</Link>
-      </div>
+      {/* D0 - trending fan-rankings strip (replaces the thin text link). */}
+      <TrendingRankingsStrip items={trending} />
 
       {/* §13b - filter bar (filters both sections) */}
       <div className="games-filter-row" role="group" aria-label="Filter games by group">
