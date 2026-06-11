@@ -28,6 +28,17 @@ function getInitials(name: string) {
   return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
 }
 
+const STAR_ICON = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2.6l2.83 5.74 6.34.92-4.59 4.47 1.08 6.31L12 17.02l-5.67 2.98 1.08-6.31-4.59-4.47 6.34-.92z" />
+  </svg>
+);
+
+/**
+ * This-or-That list card. Keeps its signature bold identity: a full-bleed VS
+ * head-to-head cover with a dark footer (distinct from the light name-all card).
+ * Refined: image zoom on hover, a readability scrim, token-aware accents.
+ */
 export function TotCategoryCard({ category }: { category: TotCategory }) {
   const items = category.tot_items || [];
   const left = items[0];
@@ -35,127 +46,122 @@ export function TotCategoryCard({ category }: { category: TotCategory }) {
 
   const typeLabel =
     category.type === 'idol' ? 'Idols' : category.type === 'group' ? 'Groups' : 'Songs';
+  const noun = category.type === 'song' ? 'songs' : category.type === 'group' ? 'groups' : 'idols';
 
-  const typeBg = 'rgba(212,83,126,0.95)';
-
-  const leftFallback = '#1a3f7a';
-  const rightFallback = '#0a4a36';
+  const leftColor = left?.color || '#1a3f7a';
+  const rightColor = right?.color || '#0a4a36';
 
   return (
     <Link
       href={`/games/this-or-that/${category.slug}`}
-      style={{
-        flexShrink: 0, scrollSnapAlign: 'start',
-        width: 280, borderRadius: 18, overflow: 'hidden',
-        textDecoration: 'none', display: 'block',
-        filter: `drop-shadow(0 8px 24px rgba(0,0,0,0.15))`,
-        transition: 'transform 200ms ease',
-      }}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+      aria-label={`${category.title}, this or that game`}
+      className="group block w-full rounded-2xl overflow-hidden transition-transform duration-200 hover:-translate-y-[3px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
+      style={{ filter: 'drop-shadow(0 8px 22px rgba(0,0,0,0.16))' }}
     >
-      {/* Artwork - two halves with diagonal split */}
-      <div style={{
-        position: 'relative', height: 220, overflow: 'hidden',
-        background: `linear-gradient(110deg, ${left?.color || leftFallback}, ${right?.color || rightFallback})`,
-      }}>
-        <div style={{
-          position: 'absolute', inset: 0, display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-        }}>
+      {/* VS artwork: two halves with a slight diagonal seam */}
+      <div
+        className="relative h-[200px] overflow-hidden"
+        style={{ background: `linear-gradient(110deg, ${leftColor}, ${rightColor})` }}
+      >
+        <div className="grid grid-cols-2 h-full">
           {/* Left half */}
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <div className="relative overflow-hidden">
             {left?.image_url ? (
-              <img src={left.image_url} alt={left.name} style={{
-                position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-                clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)',
-              }} />
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={left.image_url}
+                alt={left.name}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.06]"
+                style={{ clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)' }}
+              />
             ) : (
-              <div style={{
-                position: 'absolute', inset: 0,
-                clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)',
-                background: `linear-gradient(135deg, ${left?.color || leftFallback}, ${left?.color || leftFallback}cc)`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'rgba(255,255,255,0.95)', fontSize: 36, fontWeight: 500,
-              }}>
+              <div
+                className="absolute inset-0 flex items-center justify-center text-white/95 text-4xl font-medium"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)',
+                  background: `linear-gradient(135deg, ${leftColor}, ${leftColor}cc)`,
+                }}
+              >
                 {getInitials(left?.name || '?')}
               </div>
             )}
           </div>
           {/* Right half */}
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <div className="relative overflow-hidden">
             {right?.image_url ? (
-              <img src={right.image_url} alt={right.name} style={{
-                position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-                clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
-              }} />
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={right.image_url}
+                alt={right.name}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.06]"
+                style={{ clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)' }}
+              />
             ) : (
-              <div style={{
-                position: 'absolute', inset: 0,
-                clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
-                background: `linear-gradient(135deg, ${right?.color || rightFallback}, ${right?.color || rightFallback}cc)`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'rgba(255,255,255,0.95)', fontSize: 36, fontWeight: 500,
-              }}>
+              <div
+                className="absolute inset-0 flex items-center justify-center text-white/95 text-4xl font-medium"
+                style={{
+                  clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
+                  background: `linear-gradient(135deg, ${rightColor}, ${rightColor}cc)`,
+                }}
+              >
                 {getInitials(right?.name || '?')}
               </div>
             )}
           </div>
         </div>
 
-        {/* Type badge - top right */}
-        <span style={{
-          position: 'absolute', top: 10, right: 10, zIndex: 7,
-          padding: '4px 9px', borderRadius: 9999,
-          background: typeBg, color: '#fff',
-          fontSize: 10, fontWeight: 800, letterSpacing: '0.04em',
-        }}>{typeLabel}</span>
+        {/* Bottom scrim for name legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-[3]" />
+
+        {/* Type pill - top right */}
+        <span
+          className="absolute top-2.5 right-2.5 z-[7] px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide text-white"
+          style={{ background: 'var(--accent)' }}
+        >
+          {typeLabel}
+        </span>
 
         {/* VS medallion - center */}
-        <div style={{
-          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 8,
-          width: 56, height: 56, borderRadius: '50%',
-          background: 'radial-gradient(circle at 35% 30%, #2A2A2A, #0A0A0A)',
-          boxShadow: '0 0 0 3px rgba(255,255,255,0.95), 0 8px 28px rgba(0,0,0,0.6)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontSize: 18, fontWeight: 900, letterSpacing: '0.04em',
-        }}>VS</div>
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] w-14 h-14 rounded-full flex items-center justify-center text-white text-[17px] font-black tracking-wide transition-transform duration-200 group-hover:scale-105"
+          style={{
+            background: 'radial-gradient(circle at 35% 30%, #2A2A2A, #0A0A0A)',
+            boxShadow: '0 0 0 3px rgba(255,255,255,0.95), 0 8px 24px rgba(0,0,0,0.55)',
+          }}
+        >
+          VS
+        </div>
 
-        {/* Left name - bottom left */}
+        {/* Contestant names */}
         {left?.name && (
-          <span style={{
-            position: 'absolute', bottom: 12, left: 12, zIndex: 5,
-            color: '#fff', fontSize: 13, fontWeight: 700,
-            textShadow: '0 1px 4px rgba(0,0,0,0.6)',
-          }}>{left.name}</span>
+          <span className="absolute bottom-3 left-3 z-[5] max-w-[42%] truncate text-white text-[13px] font-bold drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
+            {left.name}
+          </span>
         )}
-        {/* Right name - bottom right */}
         {right?.name && (
-          <span style={{
-            position: 'absolute', bottom: 12, right: 12, zIndex: 5,
-            color: '#fff', fontSize: 13, fontWeight: 700,
-            textShadow: '0 1px 4px rgba(0,0,0,0.6)',
-          }}>{right.name}</span>
+          <span className="absolute bottom-3 right-3 z-[5] max-w-[42%] truncate text-right text-white text-[13px] font-bold drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
+            {right.name}
+          </span>
         )}
       </div>
 
-      {/* Dark footer */}
-      <div style={{
-        background: '#1A1A1A', padding: '12px 14px 14px',
-      }}>
-        <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-0.01em', color: '#fff', marginBottom: 4 }}>
+      {/* Dark footer (signature ToT look) */}
+      <div className="bg-[#1A1A1A] px-3.5 pt-2.5 pb-3">
+        <p className="text-sm font-bold tracking-[-0.01em] text-white leading-snug truncate">
           {category.title}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.55)' }}>
-            {category.pool_size} {category.type === 'song' ? 'songs' : category.type === 'group' ? 'groups' : 'idols'} {'\u00B7'} {(category.play_count || 0).toLocaleString()} plays
-          </div>
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: 3,
-            padding: '2px 7px', borderRadius: 9999,
-            background: 'rgba(242,192,55,0.18)', color: '#F2C037',
-            fontSize: 10, fontWeight: 800,
-          }}>{'\u2B50'} +30</span>
+        </p>
+        <div className="flex items-center justify-between gap-2 mt-1.5">
+          <span className="text-[11px] text-white/55 truncate">
+            {category.pool_size} {noun} {'·'} {(category.play_count || 0).toLocaleString()} plays
+          </span>
+          <span
+            className="inline-flex items-center gap-1 px-2 py-[2px] rounded-full text-[10px] font-bold shrink-0"
+            style={{ background: 'rgba(242,192,55,0.18)', color: '#F2C037' }}
+          >
+            {STAR_ICON} +30
+          </span>
         </div>
       </div>
     </Link>
