@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 
 import { getGroupBySlug } from '@/lib/db/queries/groups';
+import { getOverriddenFacts } from '@/lib/trivia/facts';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
 import { GroupTriviaPage, generateGroupTriviaMetadata } from './group-trivia-page';
 
@@ -40,6 +42,15 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   if (!group) return {};
 
   if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
+
+  // Trivia eligibility gate at the route level. generateMetadata resolves
+  // BEFORE the page body streams (the root loading.tsx shell would otherwise
+  // commit a 200), so calling notFound() here for an ineligible / suppressed
+  // group yields a TRUE 404 instead of a soft-404. getOverriddenFacts is
+  // cache()'d, so the page render below reuses this result with no extra query.
+  const facts = await getOverriddenFacts(group.id, group.slug);
+  if (facts.length < TRIVIA_MIN_FACTS) notFound();
+
   return generateGroupTriviaMetadata(group);
 }
 

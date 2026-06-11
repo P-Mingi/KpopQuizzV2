@@ -87,11 +87,20 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       </div>
 
       {triviaAvailable && (
-        <Link
-          href={`/${group.slug}-trivia`}
-          className="inline-block mt-4 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-        >
-          Want to learn before you play? Read {group.name} trivia &rarr;
+        <Link href={`/${group.slug}-trivia`} className="trivia-entry mt-4">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 4A1.5 1.5 0 014.5 2.5H9V14H4.5A1.5 1.5 0 003 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+              <path d="M15 4A1.5 1.5 0 0013.5 2.5H9V14h4.5A1.5 1.5 0 0115 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Learn before you play: {group.name} trivia</span>
+            <span className="trivia-entry-sub">Fun facts even hardcore {group.fandom_name}s might not know</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </Link>
       )}
 

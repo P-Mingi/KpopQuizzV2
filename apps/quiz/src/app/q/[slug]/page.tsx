@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { getPassRate } from '@/lib/db/queries/plays';
+import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -122,6 +124,14 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     }
   }
 
+  // Conditional trivia entry point: only shown when this group actually has a
+  // trivia page (>=12 facts post-override), so ineligible groups link nowhere.
+  const triviaAvailable = await safeFetch(
+    hasTriviaPage(quiz.group_id, quiz.group_slug),
+    false,
+    '[q/[slug]] hasTriviaPage',
+  );
+
   const quizIntro = {
     id: quiz.id,
     title: quiz.title,
@@ -161,6 +171,25 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
+
+      {/* J3 - entry point: learn the group's trivia before playing (conditional). */}
+      {triviaAvailable && (
+        <Link href={`/${quiz.group_slug}-trivia`} className="trivia-entry mt-6 max-w-2xl">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 4A1.5 1.5 0 014.5 2.5H9V14H4.5A1.5 1.5 0 003 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+              <path d="M15 4A1.5 1.5 0 0013.5 2.5H9V14h4.5A1.5 1.5 0 0115 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Learn before you play: {quiz.group_name} trivia</span>
+            <span className="trivia-entry-sub">Fun facts even hardcore {quiz.fandom_name}s might not know</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
 
       {/* SEO Fix 1 - server-rendered, crawlable review of every question.
           Spoiler-safe: options are listed plainly with NO correct answer marked. */}

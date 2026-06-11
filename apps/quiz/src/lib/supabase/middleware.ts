@@ -8,6 +8,7 @@ const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
 // Known route prefixes - anything else from the old site gets 301 to homepage
 const KNOWN_ROUTES = [
   '/', '/q/', '/g/', '/games', '/blind-test', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/trivia', // /trivia hub (group -trivia pages are matched by the -trivia suffix rule below)
   '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',

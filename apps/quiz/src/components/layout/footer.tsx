@@ -24,6 +24,7 @@ export function Footer(): React.ReactElement {
             <p style={{ fontSize: 8, fontWeight: 700, color: '#b4b2a9', margin: 0, marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>Discover</p>
             {[
               { label: 'Quizzes', href: '/quizzes' },
+              { label: 'Trivia', href: '/trivia' },
               { label: 'Games', href: '/games' },
               { label: 'Leaderboard', href: '/leaderboard' },
             ].map(l => (
