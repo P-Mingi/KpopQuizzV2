@@ -332,6 +332,12 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
       verifiedAt: '2026-06-11',
     },
   ],
+
+  // J1b batch 4 - (G)I-DLE. 25 corpus facts. 23 kept, 2 suppressed.
+  'g-i-dle': [
+    { match: 'the g stands for girl and idle is a korean word meaning uswe', action: 'suppress', reason: 'Wrong: the name comes from (여자)아이들 where 아이들 means "children/kids", not "us/we".', verifiedAt: '2026-06-11' },
+    { match: 'tomboy swept major awards at 2022 korean yearend ceremonies ', action: 'suppress', reason: 'Wrong: TOMBOY won Best MV at the 2022 MMA but Song of the Year went to IVE Love Dive; it did not sweep SOTY. soompi.com 2022 Melon Music Awards winners', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
