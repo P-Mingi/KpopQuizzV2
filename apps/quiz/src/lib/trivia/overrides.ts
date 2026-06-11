@@ -130,6 +130,50 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
       verifiedAt: '2026-06-11',
     },
   ],
+
+  // J1b batch 2 - BLACKPINK. 75 corpus facts. 56 kept, 15 suppressed (10 of them
+  // off-topic facts about OTHER groups that were mis-tagged into a blackpink
+  // quiz), 2 replaced, 2 recategorized.
+  blackpink: [
+    // --- suppress: off-topic (wrong group, mis-tagged quiz) ---
+    { match: 'irene is the leader of red velvet', action: 'suppress', reason: 'Off-topic: about Red Velvet, not BLACKPINK (mis-tagged quiz).', verifiedAt: '2026-06-11' },
+    { match: 'nayeon was the first twice member to debut solo', action: 'suppress', reason: 'Off-topic: about TWICE, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'karina is the leader of aespa', action: 'suppress', reason: 'Off-topic: about aespa, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'ryujin was scouted at a got7 concert by jyp himself', action: 'suppress', reason: 'Off-topic: about ITZY, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'miyeon was actually a yg trainee alongside blackpink before ', action: 'suppress', reason: 'Off-topic ((G)I-DLE) and the YG-trainee claim is unverified.', verifiedAt: '2026-06-11' },
+    { match: 'winter is the main vocalist of aespa', action: 'suppress', reason: 'Off-topic: about aespa, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'momo was eliminated and then brought back on the show sixtee', action: 'suppress', reason: 'Off-topic: about TWICE, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'yuna is the youngest member of itzy', action: 'suppress', reason: 'Off-topic: about ITZY, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'wonyoung won first place on produce 48', action: 'suppress', reason: 'Off-topic: about IVE/Wonyoung, not BLACKPINK.', verifiedAt: '2026-06-11' },
+    { match: 'kazuha was a professional ballet dancer before joining le ss', action: 'suppress', reason: 'Off-topic: about LE SSERAFIM, not BLACKPINK.', verifiedAt: '2026-06-11' },
+
+    // --- suppress: wrong / unverifiable / vague ---
+    { match: 'the bbyongbong a korean onomatopoeia for a hammer hitting re', action: 'suppress', reason: 'Mascot name and description not reliably verifiable.', verifiedAt: '2026-06-11' },
+    { match: 'training periods varied jisoo trained 5 years jennie 6 years', action: 'suppress', reason: 'Specific training-year figures are soft and vary by source.', verifiedAt: '2026-06-11' },
+    { match: 'the reveal order was jennie june 1 lisa june 8 jisoo june 15', action: 'suppress', reason: 'Specific 2016 member-reveal dates not verifiable with confidence.', verifiedAt: '2026-06-11' },
+    { match: 'jennie launched her clothing brand odd atelier odd and has b', action: 'suppress', reason: 'Wrong: ODD ATELIER is Jennie label/agency, not a clothing brand.', verifiedAt: '2026-06-11' },
+    { match: 'jisoo opens the kill this love mv with a powerful visual ent', action: 'suppress', reason: 'Unverifiable specific MV-visual claim.', verifiedAt: '2026-06-11' },
+
+    // --- replace (true core, one detail corrected) ---
+    {
+      match: 'on the ground debuted at 70 on the billboard hot 100 the hig',
+      action: 'replace',
+      replacement: "On The Ground debuted at #70 on the Billboard Hot 100, the second-highest peak for a K-pop soloist at the time, behind Psy's Gangnam Style.",
+      reason: 'Correction: it was the second-highest (behind Psy), not the highest. billboard.com/pro/rose-on-the-ground-debuts-number-one-global-charts',
+      verifiedAt: '2026-06-11',
+    },
+    {
+      match: 'the kill this love ep contains 4 tracks kill this love dont ',
+      action: 'replace',
+      replacement: "The Kill This Love EP has 5 tracks: Kill This Love, Don't Know What to Do, Kick It, Hope Not, and a remix of DDU-DU DDU-DU.",
+      reason: 'Correction: the EP has 5 tracks including the DDU-DU DDU-DU remix, not 4. en.wikipedia.org/wiki/Kill_This_Love',
+      verifiedAt: '2026-06-11',
+    },
+
+    // --- recategorize (song facts mis-bucketed as members) ---
+    { match: 'shut down from born pink samples paganinis la campanella', action: 'recategorize', category: 'music', reason: 'Song sampling fact, not a members fact.', verifiedAt: '2026-06-11' },
+    { match: 'shut down samples paganinis la campanella and debuted at 1 i', action: 'recategorize', category: 'music', reason: 'Song chart/sampling fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
