@@ -356,6 +356,14 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'mamamoos fandom is called moomoo  the name comes from combin', action: 'suppress', reason: 'Garbled derivation ("MO from MOO and MO from MAMO" does not parse); the fandom name MOOMOO itself is fine but the explanation is nonsense.', verifiedAt: '2026-06-11' },
     { match: 'mamamoo won artist of the year daesang at the 2019 mnet asia', action: 'suppress', reason: 'Wrong: BTS swept all four Daesangs at the 2019 MAMA, including Artist of the Year; MAMAMOO won Favorite Vocal Performance, not AOTY. newsweek.com MAMA 2019 BTS Daesang sweep', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - NCT (NCT 127). 20 corpus facts. 18 kept, 2 suppressed,
+  // 1 recategorized.
+  nct: [
+    { match: 'nct 127 had 10 members during the regularirregular era taeil', action: 'suppress', reason: 'Wrong member list: the Regular-Irregular lineup did not include Kun or Ten (WayV) and omits Jungwoo; it lists 11 names but says 10.', verifiedAt: '2026-06-11' },
+    { match: 'regularirregular sold over 200000 copies in its first week a', action: 'suppress', reason: 'Wrong: Regular-Irregular first-week sales were about 142,000 on Hanteo, not over 200,000.', verifiedAt: '2026-06-11' },
+    { match: 'sticker debuted at 3 on the billboard 200 in september 2021 ', action: 'recategorize', category: 'music', reason: 'Chart fact, not a members fact.', verifiedAt: '2026-06-11' },
+  ],
 };
 
 /**
