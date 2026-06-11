@@ -2,37 +2,19 @@ import { notFound } from 'next/navigation';
 
 import { getQuizBySlug } from '@/lib/db/queries/quizzes';
 import { getPassRate } from '@/lib/db/queries/plays';
-import { createServerClient } from '@/lib/supabase/server';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-// The page (and Supabase server client) reads cookies, which is incompatible
-// with static rendering. Force dynamic so cookies()/headers() work at request
-// time and every request always hits the server.
-export const dynamic = 'force-dynamic';
-
-/**
- * Pre-build the top 50 most-played quizzes at deploy time so the most
- * popular pages are served from the cache on first crawl. Less popular
- * quizzes are generated on-demand (ISR default).
- */
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  try {
-    const supabase = await createServerClient();
-    const { data } = await supabase
-      .from('quizzes')
-      .select('slug')
-      .eq('status', 'published')
-      .order('play_count', { ascending: false })
-      .limit(50);
-    return (data ?? []).map((q) => ({ slug: q.slug as string }));
-  } catch {
-    return [];
-  }
-}
+// ISR: revalidate the cached HTML hourly (SEO Fix 1).
+// NOTE: today the shared <TopNav> calls auth.getUser() (reads cookies), so every
+// route still renders dynamically (SSR) and this window is dormant. The SEO win
+// here is that the quiz questions are server-rendered into the HTML regardless.
+// `generateStaticParams` is intentionally omitted: it conflicts with the
+// cookie-reading layout at build time (see the group landing page note).
+export const revalidate = 3600;
 
 interface QuizPageProps {
   params: Promise<{ slug: string }>;
@@ -88,6 +70,18 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     ? await safeFetch(getPassRate(quiz.id, questionCount), null, '[q/[slug]] getPassRate')
     : null;
 
+  // SEO Fix 1: spoiler-safe question list rendered into the server HTML so the
+  // unique quiz content (questions, options, fun facts) is crawlable. The
+  // `correct` index is deliberately NOT read or rendered here — options are
+  // listed plainly so the answer is never given away in the markup.
+  const seoQuestions = (quiz.questions as Array<{
+    question?: string;
+    options?: string[];
+    fun_fact?: string;
+    clues?: string[];
+    correct?: number | boolean;
+  }>) ?? [];
+
   const quizIntro = {
     id: quiz.id,
     title: quiz.title,
@@ -124,6 +118,56 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       />
 
       <QuizPlayer quiz={quizIntro} />
+
+      {/* SEO Fix 1 — server-rendered, crawlable review of every question.
+          Spoiler-safe: options are listed plainly with NO correct answer marked. */}
+      {seoQuestions.length > 0 && (
+        <details className="quiz-review">
+          <summary className="quiz-review-summary">
+            Show the {seoQuestions.length} questions in this quiz
+          </summary>
+          <div className="quiz-review-body">
+            <p className="quiz-review-note">
+              A preview of every question in this {quiz.group_name} quiz. The correct
+              answers are revealed only when you play.
+            </p>
+            <ol className="quiz-review-list">
+              {seoQuestions.map((q, i) => {
+                const options =
+                  q.options && q.options.length > 0
+                    ? q.options
+                    : typeof q.correct === 'boolean'
+                      ? ['True', 'False']
+                      : [];
+                return (
+                  <li key={i} className="quiz-review-item">
+                    <p className="quiz-review-q">{q.question}</p>
+                    {q.clues && q.clues.length > 0 && (
+                      <ul className="quiz-review-clues">
+                        {q.clues.map((c, j) => (
+                          <li key={j}>{c}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {options.length > 0 && (
+                      <ul className="quiz-review-options">
+                        {options.map((opt, j) => (
+                          <li key={j}>{opt}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {q.fun_fact && (
+                      <p className="quiz-review-fact">
+                        <span>Fun fact:</span> {q.fun_fact}
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </details>
+      )}
 
       <script
         type="application/ld+json"

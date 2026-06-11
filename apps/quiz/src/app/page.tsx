@@ -12,6 +12,11 @@ import { QuizCard } from '@/components/ui/quiz-card';
 
 import type { Metadata } from 'next';
 
+// ISR: revalidate hourly (SEO Fix 1). The home page already server-renders its
+// quiz/game content as crawlable HTML; the shared cookie-reading <TopNav> keeps
+// it dynamic (SSR) today, so this window stays dormant until the nav goes cookie-free.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'KpopQuiz - K-pop Quizzes Made by Fans',
   description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',

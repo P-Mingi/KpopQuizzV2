@@ -4,7 +4,10 @@ import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
+// ISR: revalidate hourly (SEO Fix 1). This page already server-renders all game
+// cards as crawlable HTML; the shared cookie-reading <TopNav> keeps it dynamic
+// (SSR) today, so the window stays dormant until the nav is made cookie-free.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'K-pop Games - This or That, Name All Members & More | KpopQuiz',

@@ -1350,3 +1350,91 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   .games-page .game-card,
   .mode-card { animation: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   SEO Fix 1 — server-rendered, crawlable quiz question review (spoiler-safe).
+   Lives below the interactive player. Collapsed <details>, but the question
+   text + options + fun facts are always present in the server HTML.
+   --------------------------------------------------------------------------- */
+.quiz-review {
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+.quiz-review-summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.quiz-review-summary::-webkit-details-marker { display: none; }
+.quiz-review-summary::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-right: 2px solid var(--text-tertiary);
+  border-bottom: 2px solid var(--text-tertiary);
+  transform: rotate(-45deg);
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.quiz-review[open] .quiz-review-summary::before { transform: rotate(45deg); }
+.quiz-review-body { padding: 0 1.1rem 1.1rem; }
+.quiz-review-note {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  margin: 0 0 1rem;
+}
+.quiz-review-list {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin: 0;
+}
+.quiz-review-item { font-size: 0.85rem; }
+.quiz-review-q {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+.quiz-review-clues {
+  list-style: disc;
+  padding-left: 1rem;
+  margin: 0.4rem 0 0;
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.quiz-review-options {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.quiz-review-options li {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.25rem 0.6rem;
+}
+.quiz-review-fact {
+  margin: 0.55rem 0 0;
+  font-size: 0.74rem;
+  color: var(--text-tertiary);
+  line-height: 1.45;
+}
+.quiz-review-fact span { font-weight: 600; color: var(--text-secondary); }

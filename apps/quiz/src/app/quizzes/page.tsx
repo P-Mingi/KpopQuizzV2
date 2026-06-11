@@ -6,6 +6,11 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
+// ISR: revalidate hourly (SEO Fix 1). This page already server-renders the quiz
+// grid as crawlable HTML; the shared cookie-reading <TopNav> keeps it dynamic
+// (SSR) today, so this window stays dormant until the nav goes cookie-free.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Browse K-pop Quizzes',
   description:

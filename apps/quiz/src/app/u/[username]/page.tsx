@@ -16,6 +16,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge, QuizCardData } from '@/lib/db/types';
 
+// ISR: revalidate hourly (SEO Fix 1). This page already server-renders the
+// profile + creator's quizzes as crawlable HTML; the shared cookie-reading
+// <TopNav> (and this page's own createServerClient) keeps it dynamic (SSR)
+// today, so this window stays dormant until those reads are made cookie-free.
+export const revalidate = 3600;
+
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
 }
