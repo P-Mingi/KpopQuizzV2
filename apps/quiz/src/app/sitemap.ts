@@ -2,6 +2,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { getRankingsIndex } from '@/lib/db/queries/duels';
 
 import type { MetadataRoute } from 'next';
 
@@ -89,6 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let profilePages: MetadataRoute.Sitemap = [];
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
   let gamePages: MetadataRoute.Sitemap = [];
+  let rankingPages: MetadataRoute.Sitemap = [];
 
   try {
     const supabase = createServiceRoleClient();
@@ -213,6 +215,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
   }
 
+  // Ranking pages: ONLY questions whose real votes have crossed min_votes are
+  // public/indexable (the rest are noindex locked states). The /rankings hub is
+  // listed only when at least one ranking is public (otherwise it's a noindex
+  // empty hub). Guarded separately so a failure here can't drop the rest.
+  try {
+    const publicRankings = (await getRankingsIndex()).filter((r) => r.public);
+    rankingPages = publicRankings.map((r) => ({
+      url: `${SITE_URL}/rankings/${r.group_slug}/${r.question_type}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.6,
+    }));
+    if (publicRankings.length > 0) {
+      rankingPages.unshift({
+        url: `${SITE_URL}/rankings`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.6,
+      });
+    }
+  } catch (err) {
+    console.error('[sitemap] rankings query failed, skipping ranking pages:', err);
+  }
+
   return [
     ...staticPages,
     ...blindTestModePages,
@@ -221,5 +247,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...quizPages,
     ...profilePages,
     ...gamePages,
+    ...rankingPages,
   ];
 }

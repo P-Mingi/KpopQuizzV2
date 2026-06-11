@@ -49,6 +49,15 @@ function totNoun(type: TotCategory['type']): string {
   return type === 'song' ? 'songs' : type === 'group' ? 'groups' : 'idols';
 }
 
+// Category slug -> the new duel matchup (group + question_type).
+const DUEL_GROUP_PREFIXES = ['stray-kids', 'blackpink', 'seventeen', 'aespa', 'bts'];
+function totDuelHref(slug: string): string {
+  const g = DUEL_GROUP_PREFIXES.find((p) => slug.startsWith(`${p}-`));
+  const group = g ?? 'general';
+  const type = g ? slug.slice(g.length + 1) : slug;
+  return `/games/this-or-that?group=${encodeURIComponent(group)}&type=${encodeURIComponent(type)}`;
+}
+
 const PLAY_ICON = (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
 );
@@ -118,10 +127,15 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
           <p className="mode-desc">Type every member&apos;s name before the timer runs out. Sounds easy. It never is.</p>
           <div className="mode-meta">
             <span className="mode-stat">{USER_ICON} {nameAllGames.length || '24'}+ challenges</span>
-            <span className="mode-stat">{CLOCK_ICON} 0:30 – 5:00</span>
+            <span className="mode-stat">{CLOCK_ICON} 0:30 to 5:00</span>
           </div>
           <span className="mode-play">{PLAY_ICON} Play now</span>
         </Link>
+      </div>
+
+      {/* Discovery into the fan-vote rankings (Pipeline 1, C9). */}
+      <div className="games-rankings-cta">
+        <Link href="/rankings">See the live fan rankings &rarr;</Link>
       </div>
 
       {/* §13b - filter bar (filters both sections) */}
@@ -154,7 +168,7 @@ export function GamesHub({ nameAllGames, totCategories }: GamesHubProps): React.
             {totVisible.map((c, i) => {
               const prev = previewImage(c.tot_items);
               return (
-                <Link key={c.id} href={`/games/this-or-that/${c.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
+                <Link key={c.id} href={totDuelHref(c.slug)} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
                   <div className={`gc-icon gc-tot${prev ? ' has-img' : ''}`} aria-hidden="true">
                     {prev ? (
                       // eslint-disable-next-line @next/next/no-img-element

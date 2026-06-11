@@ -1804,13 +1804,29 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
    tokens; Section 5 CSS verbatim where given (.opt / .vs / .opt-result /
    .rank-*). VS badge is the site-signature motif (reused by B21).
    --------------------------------------------------------------------------- */
-.duel-wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px 64px; }
+.duel-wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
 
 /* Category picker (5f) */
 .duel-pickers { margin-bottom: 22px; }
 .duel-pick-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--txt3); margin: 0 0 8px; }
-.duel-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+/* One-line horizontal scroll strip (was a wrapping wall); keeps the picker
+   compact so the duel cards stay the focus. Edge fade hints at more. */
+.duel-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%);
+}
+.duel-pills::-webkit-scrollbar { display: none; }
 .duel-pill {
+  flex-shrink: 0;
+  scroll-snap-align: start;
   font-size: 13px; font-weight: 600; color: var(--txt2);
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 100px; padding: 7px 14px; cursor: pointer;
@@ -1846,7 +1862,8 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .opt.picked { border-color: var(--brand); border-width: 2.5px; }
 .opt.notpicked { opacity: .55; }
 .opt.locked { cursor: default; }
-.opt-img { width: 100%; height: 150px; object-fit: cover; display: block; background: var(--surface-alt); }
+/* The cards ARE the game - large, and object-position favors the upper face. */
+.opt-img { width: 100%; height: clamp(210px, 30vw, 320px); object-fit: cover; object-position: center 25%; display: block; background: var(--surface-alt); }
 .opt-body { display: block; padding: 12px 14px; text-align: center; }
 .opt-name { display: block; font-size: 15px; font-weight: 700; color: var(--txt1); }
 .opt-sub { display: block; font-size: 11px; color: var(--txt3); margin-top: 1px; }
@@ -1901,13 +1918,27 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .rank-elo   { font-size: 12px; font-weight: 700; color: var(--txt2); font-variant-numeric: tabular-nums; }
 .rank-delta { font-size: 11px; font-weight: 700; width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
 .rank-delta.up { color: #166534; }
-.rank-foot  { margin-top: 12px; text-align: center; }
-.rank-foot a { font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none; }
-.rank-foot a:hover { text-decoration: underline; }
+.rank-foot  { margin-top: 14px; text-align: center; }
+.rank-foot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  border: 1.5px solid var(--brand);
+  border-radius: 100px;
+  padding: 8px 16px;
+  min-height: 40px;
+  transition: background 120ms ease;
+}
+.rank-foot a:hover { background: var(--brand-light); }
+.rank-foot a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 /* Mobile (5g) */
 @media (max-width: 480px) {
-  .opt-img { height: 120px; }
+  .opt-img { height: 190px; }
   .vs { width: 36px; height: 36px; font-size: 12px; }
   .duel-prompt { font-size: 1.3rem; }
 }
@@ -1959,3 +1990,8 @@ a.ranking-cta { text-decoration: none; }
   .ranking-index-card:hover { transform: none; box-shadow: none; }
   .ranking-index-arrow, .ranking-index-card:hover .ranking-index-arrow { transition: none; transform: none; }
 }
+
+/* Games hub -> rankings discovery link (C9) */
+.games-rankings-cta { text-align: center; margin: 4px 0 18px; }
+.games-rankings-cta a { font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none; }
+.games-rankings-cta a:hover { text-decoration: underline; }

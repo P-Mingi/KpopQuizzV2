@@ -1,32 +1,30 @@
-import { notFound } from 'next/navigation';
-import { getTotCategoryBySlug } from '@/lib/db/queries/this-or-that';
-import { safeFetch } from '@/lib/error-handling';
-import { ThisOrThatGame } from '@/components/game/this-or-that-game';
-import type { Metadata } from 'next';
+import { redirect, permanentRedirect } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
+/**
+ * The old bracket "tournament" gameplay was replaced by the continuous duel
+ * model (Pipeline 1). This route now permanently redirects each old category
+ * URL to the new duel with that matchup preselected, so existing links + SEO
+ * land on the live game. The category slug is the duel question key: a known
+ * group prefix splits into (group, type), everything else is a 'general' bucket.
+ */
+const GROUP_PREFIXES = ['stray-kids', 'blackpink', 'seventeen', 'aespa', 'bts'];
 
-interface PageProps {
+function slugToDuel(slug: string): { group: string; type: string } {
+  for (const g of GROUP_PREFIXES) {
+    if (slug.startsWith(`${g}-`)) return { group: g, type: slug.slice(g.length + 1) };
+  }
+  return { group: 'general', type: slug };
+}
+
+export default async function LegacyTotRedirect({
+  params,
+}: {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+}): Promise<never> {
   const { slug } = await params;
-  const category = await safeFetch(getTotCategoryBySlug(slug), null, '[tot] getCategory');
-  if (!category) return { title: 'Game Not Found' };
-  return {
-    title: `${category.title} - This or That | KpopQuiz`,
-    description: `${category.subtitle || category.title}. ${category.play_count} fans have played. 16 go in, 1 comes out.`,
-    alternates: { canonical: `/games/this-or-that/${slug}` },
-  };
-}
-
-export default async function ThisOrThatGamePage({ params }: PageProps) {
-  const { slug } = await params;
-  const category = await safeFetch(getTotCategoryBySlug(slug), null, '[tot] getCategory');
-  if (!category) notFound();
-
-  return (
-    <ThisOrThatGame category={category} />
+  if (!slug) redirect('/games/this-or-that');
+  const { group, type } = slugToDuel(slug);
+  permanentRedirect(
+    `/games/this-or-that?group=${encodeURIComponent(group)}&type=${encodeURIComponent(type)}`,
   );
 }
