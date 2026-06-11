@@ -23,8 +23,17 @@ const pretendard = localFont({
   preload: true,
 });
 
+// Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only
+// when it is an absolute https origin - never let a dev value
+// (http://localhost:3021) leak into canonical tags. Falls back to the live
+// production domain otherwise. All page canonicals are relative and resolve
+// against this base.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.startsWith('https://')
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : 'https://kpopquiz.org';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kpopquiz.org'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'KpopQuiz - Play K-pop Quizzes Made by Fans for Fans',
     template: '%s | KpopQuiz',

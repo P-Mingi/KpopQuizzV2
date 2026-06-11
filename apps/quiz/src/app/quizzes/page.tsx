@@ -11,18 +11,46 @@ import type { Metadata } from 'next';
 // (SSR) today, so this window stays dormant until the nav goes cookie-free.
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: 'Browse K-pop Quizzes',
-  description:
-    'Browse every K-pop quiz on kpopquiz.org. Filter by group or quiz type, sort by trending, newest, or most played.',
-  openGraph: {
-    title: 'Browse K-pop Quizzes | KpopQuiz',
-    description: 'Every K-pop quiz, filtered and sorted your way.',
-    url: '/quizzes',
-  },
-  twitter: { card: 'summary_large_image' },
-  alternates: { canonical: '/quizzes' },
-};
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> },
+): Promise<Metadata> {
+  const sp = await searchParams;
+
+  // SEO Fix 7 - consolidating canonical. Keep the meaningful content filters
+  // (group, type, page) but DROP the volatile `sort` param so sort variants are
+  // not treated as duplicate pages. Pagination self-references: ?page=2 is its
+  // own canonical, never collapsed to page 1. Unknown group/type are dropped so
+  // they consolidate to plain /quizzes (which renders the same unfiltered grid).
+  const params = new URLSearchParams();
+
+  const groupSlug = first(sp.group);
+  if (groupSlug) {
+    const groups = await safeFetch(getAllGroups(), [], '[browse meta] getAllGroups');
+    if (groups.some((g) => g.slug === groupSlug)) params.set('group', groupSlug);
+  }
+
+  const typeParam = first(sp.type) as TypeKey | undefined;
+  if (typeParam && TYPE_KEYS.includes(typeParam)) params.set('type', typeParam);
+
+  const pageNum = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
+  if (pageNum > 1) params.set('page', String(pageNum));
+
+  const qs = params.toString();
+  const canonical = qs ? `/quizzes?${qs}` : '/quizzes';
+
+  return {
+    title: 'Browse K-pop Quizzes',
+    description:
+      'Browse every K-pop quiz on kpopquiz.org. Filter by group or quiz type, sort by trending, newest, or most played.',
+    openGraph: {
+      title: 'Browse K-pop Quizzes | KpopQuiz',
+      description: 'Every K-pop quiz, filtered and sorted your way.',
+      url: canonical,
+    },
+    twitter: { card: 'summary_large_image' },
+    alternates: { canonical },
+  };
+}
 
 const PAGE_SIZE = 48;
 
