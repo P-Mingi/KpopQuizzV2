@@ -416,6 +416,19 @@ export const TRIVIA_OVERRIDES: Record<string, TriviaOverride[]> = {
     { match: 'the last member was haseul', action: 'suppress', reason: 'Contextless fragment ("The last member" of what).', verifiedAt: '2026-06-11' },
     { match: 'icarus cinematic version isnt 20 but it is nearly 15 and an ', action: 'suppress', reason: 'Subjective promo ("go watch right now"), not a fact.', verifiedAt: '2026-06-11' },
   ],
+
+  // J1b batch 5 (tail) - ATEEZ. 15 corpus facts. 12 kept, 2 suppressed, 1 replaced.
+  ateez: [
+    { match: 'ateez combines a teenager with z suggesting a to z or teens ', action: 'suppress', reason: 'Wrong: ATINY = ATEEZ + DESTINY (per the kept fact), not "tiny"; the name explanation is also muddled.', verifiedAt: '2026-06-11' },
+    { match: 'ateez performed at rock am ring in germany in june 2019 beco', action: 'suppress', reason: 'Unconfirmed: no reliable evidence ATEEZ performed at Rock am Ring 2019.', verifiedAt: '2026-06-11' },
+    {
+      match: 'the world epfin will debuted at 1 on the billboard 200 in ja',
+      action: 'replace',
+      replacement: 'THE WORLD EP.FIN: WILL debuted at #1 on the Billboard 200 (chart dated December 2023), ATEEZ first chart-topper and one of the few K-pop groups to top the chart.',
+      reason: 'Correction: it topped the Billboard 200 in December 2023 (chart dated Dec 16), not January 2024. billboard.com ATEEZ WILL first No. 1',
+      verifiedAt: '2026-06-11',
+    },
+  ],
 };
 
 /**
