@@ -1,0 +1,29 @@
+{
+  "name": "kpopquiz-discord-setup",
+  "version": "1.0.0",
+  "description": "Idempotent discord.js setup script for the kpopquiz.org community server (Workstream J).",
+  "type": "module",
+  "main": "src/setup.js",
+  "scripts": {
+    "setup": "node src/setup.js",
+    "setup:dry": "DRY_RUN=true node src/setup.js",
+    "menu": "node src/roleMenu.js",
+    "reveal": "node src/reveal.js",
+    "personalize": "node src/personalize.js",
+    "seed": "node src/seed.js",
+    "guides": "node src/guides.js",
+    "automod": "node src/automod.js",
+    "events": "node src/events.js",
+    "daily-quiz": "node src/dailyQuiz.js",
+    "onboarding": "node src/onboarding.js",
+    "welcome-screen": "node src/welcomeScreen.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5"
+  },
+  "license": "MIT"
+}
