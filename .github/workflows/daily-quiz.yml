@@ -1,0 +1,28 @@
+name: Daily Quiz Post
+
+# Posts the daily K-pop quiz announcement to #daily-quiz.
+# NOTE: scheduled runs only fire on the repo's DEFAULT branch (main), so this
+# file must be merged to main to activate the cron. workflow_dispatch lets you
+# test it manually from the Actions tab on any branch that has this file.
+on:
+  schedule:
+    - cron: '0 9 * * *' # 09:00 UTC every day (adjust to taste)
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'Kpop Quiz'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Post daily quiz
+        run: npm run daily-quiz
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
