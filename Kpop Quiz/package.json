@@ -16,7 +16,9 @@
     "events": "node src/events.js",
     "daily-quiz": "node src/dailyQuiz.js",
     "onboarding": "node src/onboarding.js",
-    "welcome-screen": "node src/welcomeScreen.js"
+    "welcome-screen": "node src/welcomeScreen.js",
+    "branding": "node src/branding.js",
+    "bot-guides": "node src/botGuides.js"
   },
   "engines": {
     "node": ">=18.0.0"

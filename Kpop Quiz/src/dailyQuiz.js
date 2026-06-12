@@ -18,6 +18,19 @@ import { load } from './store.js';
 
 const SITE = 'https://kpopquiz.org';
 
+// Deep-link straight to today's Quiz-of-the-Day page instead of the homepage.
+// The QOTD is rendered first on the homepage as the first /q/<slug> link, so we
+// pull that out. Falls back to the homepage if the site is unreachable.
+async function todaysQuizUrl() {
+  try {
+    const res = await fetch(SITE + '/', { headers: { 'User-Agent': 'kpopquiz-bot' } });
+    const html = await res.text();
+    const m = html.match(/href="(\/q\/[^"]+)"/);
+    if (m) return SITE + m[1];
+  } catch { /* fall through */ }
+  return SITE;
+}
+
 async function main() {
   const ids = load();
   const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -48,8 +61,9 @@ async function main() {
       'Who can get a perfect run today?')
     .setFooter({ text: 'kpopquiz.org · new quiz every day' });
 
+  const quizUrl = await todaysQuizUrl();
   const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("Play today's quiz").setEmoji('🎧').setURL(SITE),
+    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("Play today's quiz").setEmoji('🎧').setURL(quizUrl),
   );
 
   await channel.send({ embeds: [embed], components: [row] });
