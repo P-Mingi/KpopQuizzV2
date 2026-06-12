@@ -51,12 +51,12 @@ async function main() {
     privacyLevel: Privacy.GuildOnly,
     entityType: EntityType.Voice,
     channel,
-    description: 'Weekly K-pop blindtest with KMQ — hop in, /play, and guess the song. ' +
+    description: 'Weekly K-pop blindtest with KMQ. Hop in, /play, and guess the song. ' +
                  'Bring your bias knowledge. Opt into Event Pings in #roles to get reminded!',
     recurrenceRule: { startAt: start, frequency: Frequency.Weekly, interval: 1, byWeekday: [Weekday.Friday] },
   });
 
-  console.log(`+ ${NAME} — first session ${start.toISOString()}, repeats weekly`);
+  console.log(`+ ${NAME}: first session ${start.toISOString()}, repeats weekly`);
   await client.destroy();
 }
 

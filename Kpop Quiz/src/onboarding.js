@@ -70,7 +70,7 @@ async function main() {
     reason: 'kpopquiz onboarding',
   });
 
-  console.log(`✓ Onboarding enabled — ${defaultChannels.length} default channels, ` +
+  console.log(`✓ Onboarding enabled: ${defaultChannels.length} default channels, ` +
     `${intentOptions.length} intent options, ${groupOptions.length} group options.`);
   await client.destroy();
 }

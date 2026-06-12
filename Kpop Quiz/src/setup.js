@@ -59,7 +59,7 @@ async function main() {
   if (!client.isReady()) await once(client, Events.ClientReady);
   const guild = await client.guilds.fetch(process.env.GUILD_ID);
   await Promise.all([guild.roles.fetch(), guild.channels.fetch()]);
-  log(`\n✦ kpopquiz setup — guild "${guild.name}"${DRY ? '  (DRY RUN — no changes)' : ''}\n`);
+  log(`\n✦ kpopquiz setup: guild "${guild.name}"${DRY ? '  (DRY RUN, no changes)' : ''}\n`);
 
   await client.application?.fetch();
 
@@ -233,7 +233,7 @@ async function createChannelWithFallback(guild, ch, payload) {
     return await guild.channels.create(payload);
   } catch (err) {
     if (ch.type === 'announcement') {
-      log(`  (announcement #${ch.name} failed — Community not enabled? Falling back to a text channel.)`);
+      log(`  (announcement #${ch.name} failed, Community not enabled? Falling back to a text channel.)`);
       return await guild.channels.create({ ...payload, type: ChannelType.GuildText });
     }
     throw err;

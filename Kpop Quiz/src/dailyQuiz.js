@@ -41,7 +41,7 @@ async function main() {
 
   const embed = new EmbedBuilder()
     .setColor(BRAND_COLOR)
-    .setTitle(`🧠  Daily Quiz — ${today}`)
+    .setTitle(`🧠  Daily Quiz · ${today}`)
     .setDescription(
       "Today's K-pop quiz is live! 🎶\n\n" +
       'Guess the songs, idols and MVs, keep your **streak** alive, and drop your score below. 👇\n' +

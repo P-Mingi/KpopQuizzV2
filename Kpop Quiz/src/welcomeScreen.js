@@ -30,7 +30,7 @@ async function main() {
     welcomeChannels,
   });
 
-  console.log(`✓ Welcome screen set — ${welcomeChannels.length} featured channels.`);
+  console.log(`✓ Welcome screen set: ${welcomeChannels.length} featured channels.`);
   await client.destroy();
 }
 

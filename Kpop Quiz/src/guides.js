@@ -19,7 +19,7 @@ function cardFor(ch) {
     const e = GROUP_EMOJI[ch.groupRole] ? GROUP_EMOJI[ch.groupRole] + '  ' : '';
     return {
       title: `${e}${ch.groupRole}`,
-      body: `Welcome to the ${ch.groupRole} channel! Talk all things ${ch.groupRole} — comebacks, ` +
+      body: `Welcome to the ${ch.groupRole} channel! Talk all things ${ch.groupRole}: comebacks, ` +
             `performances, photos, theories. Don't have access elsewhere? Opt into the ${ch.groupRole} role in #roles.`,
     };
   }

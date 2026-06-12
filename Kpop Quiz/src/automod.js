@@ -35,7 +35,7 @@ async function main() {
       eventType: EventType.MessageSend,
       triggerType: Trigger.KeywordPreset,
       triggerMetadata: { presets: [Preset.Profanity, Preset.SexualContent, Preset.Slurs] },
-      actions: [block("That message was blocked. Keep it kind and SFW — see #rules."), ...alert],
+      actions: [block("That message was blocked. Keep it kind and SFW. See #rules."), ...alert],
     },
     {
       name: 'kq: mention raid',
@@ -56,7 +56,7 @@ async function main() {
       eventType: EventType.MessageSend,
       triggerType: Trigger.Keyword,
       triggerMetadata: { regexPatterns: ['discord(?:app)?\\.com/invite/\\w+', 'discord\\.gg/\\w+', '\\.gg/[A-Za-z0-9]{2,}'] },
-      actions: [block('No advertising other servers — ask a mod if you think this is a mistake.'), ...alert],
+      actions: [block('No advertising other servers. Ask a mod if you think this is a mistake.'), ...alert],
     },
   ];
 

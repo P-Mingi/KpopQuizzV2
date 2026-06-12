@@ -48,7 +48,7 @@ async function main() {
         } else {
           const ow = channel.permissionOverwrites.cache.get(everyoneId);
           const deniedView = ow?.deny?.has(PermissionFlagsBits.ViewChannel);
-          if (ch.groupRole) state = deniedView ? `✓  gated (${ch.groupRole})` : '✓  OPEN to everyone — gate removed!';
+          if (ch.groupRole) state = deniedView ? `✓  gated (${ch.groupRole})` : '✓  OPEN to everyone, gate removed!';
           else state = deniedView ? '✓  hidden' : '✓  live';
         }
         console.log(`    #${ch.name.padEnd(20)} ${state}`);
