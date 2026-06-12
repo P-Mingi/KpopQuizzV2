@@ -25,14 +25,16 @@ const SITE = 'https://kpopquiz.org';
 async function todaysQuizUrl() {
   try {
     const q = await getTodaysQuiz();
-    if (q?.slug) return `${SITE}/q/${q.slug}`;
-  } catch { /* fall through */ }
+    if (q?.slug) { console.log('link: QOTD from DB ->', q.slug); return `${SITE}/q/${q.slug}`; }
+    console.log('link: DB returned no QOTD');
+  } catch (e) { console.log('link: DB read failed:', e.message); }
   try {
     const res = await fetch(SITE + '/', { headers: { 'User-Agent': 'kpopquiz-bot' } });
     const html = await res.text();
     const m = html.match(/href="(\/q\/[^"]+)"/);
-    if (m) return SITE + m[1];
-  } catch { /* fall through */ }
+    if (m) { console.log('link: scraped homepage ->', m[1]); return SITE + m[1]; }
+  } catch (e) { console.log('link: scrape failed:', e.message); }
+  console.log('link: homepage fallback');
   return SITE;
 }
 
