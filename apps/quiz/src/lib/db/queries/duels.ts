@@ -50,7 +50,10 @@ export const getRanking = cache(async (group: string, type: string): Promise<Ran
     .from('duel_ratings')
     .select('entity_id, entity_name, entity_image, elo, wins, losses')
     .eq('question_id', question.id)
-    .order('elo', { ascending: false });
+    // entity_id is a deterministic tiebreak so tied Elo never reorders the list
+    // (keeps the ranking + the date-seeded Game-of-the-day pick stable).
+    .order('elo', { ascending: false })
+    .order('entity_id', { ascending: true });
 
   const { count } = await supabase
     .from('duel_votes')
@@ -104,7 +107,8 @@ export const getRankingsIndex = cache(async (): Promise<RankingIndexItem[]> => {
     supabase
       .from('duel_ratings')
       .select('question_id, entity_name, entity_image, elo')
-      .order('elo', { ascending: false }),
+      .order('elo', { ascending: false })
+      .order('entity_id', { ascending: true }),
   ]);
 
   const voteCounts = new Map<string, number>();

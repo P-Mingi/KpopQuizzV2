@@ -2055,3 +2055,40 @@ a.ranking-cta { text-decoration: none; }
   .gm-card, .trend-item { animation: none; }
   .gm-card:hover, .trend-card:hover { transform: none; box-shadow: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   D1 - Two-up daily row (Quiz of the day | Game of the day), equal weight.
+   --------------------------------------------------------------------------- */
+.daily-twoup { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .daily-twoup { grid-template-columns: 1fr 1fr; align-items: stretch; } }
+.daily-col { min-width: 0; display: flex; flex-direction: column; }
+.daily-col > .daily-card { flex: 1; }
+
+/* Game of the day card */
+.gotd-card { position: relative; display: flex; flex-direction: column; padding: 16px; }
+.gotd-reset { position: absolute; top: 12px; right: 12px; z-index: 2; border: 1px solid var(--border); }
+
+.gotd-duel { display: flex; flex-direction: column; align-items: center; gap: 12px; text-decoration: none; }
+.gotd-faces { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; width: 100%; margin-top: 10px; }
+.gotd-face-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.gotd-face { width: 100%; aspect-ratio: 1 / 1; max-height: 132px; object-fit: cover; object-position: center 22%; border-radius: 14px; background: var(--surface-alt); transition: transform 120ms ease; }
+.gotd-face-name { font-size: 13px; font-weight: 700; color: var(--txt1); text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gotd-prompt { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.2; color: var(--txt1); text-align: center; }
+.gotd-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; background: var(--brand); color: #fff; border-radius: 100px; padding: 12px; font-size: 14px; font-weight: 700; margin-top: 2px; transition: background 120ms ease; }
+.gotd-duel:hover .gotd-cta, .gotd-nam:hover .gotd-cta { background: var(--brand-dark); }
+.gotd-duel:hover .gotd-face { transform: translateY(-2px); }
+.gotd-duel:focus-visible, .gotd-nam:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 12px; }
+.gotd-rank-link { display: block; text-align: center; margin-top: 12px; font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none; }
+.gotd-rank-link:hover { text-decoration: underline; }
+.gotd-rank-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
+
+/* Name-all variant */
+.gotd-nam { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; padding-top: 10px; }
+.gotd-nam-logo { margin-bottom: 4px; }
+.gotd-nam-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.25; color: var(--txt1); text-align: center; }
+.gotd-nam-sub { font-size: 13px; color: var(--txt2); margin-bottom: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gotd-face, .gotd-cta { transition: none; }
+  .gotd-duel:hover .gotd-face { transform: none; }
+}

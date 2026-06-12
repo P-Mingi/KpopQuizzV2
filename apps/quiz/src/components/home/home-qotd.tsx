@@ -33,7 +33,7 @@ export function HomeQotd({ quiz }: Props) {
   }, []);
 
   return (
-    <section className="home-section">
+    <div className="daily-col">
       <p className="sec-label" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--brand)" aria-hidden="true">
           <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
@@ -67,6 +67,6 @@ export function HomeQotd({ quiz }: Props) {
           </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

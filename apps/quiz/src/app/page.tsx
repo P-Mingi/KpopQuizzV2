@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 import { getBrowseQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
+import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
 import { HomeHero } from '@/components/home/home-hero';
 import { HomeQotd } from '@/components/home/home-qotd';
+import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
@@ -43,9 +45,19 @@ const HEAD: React.CSSProperties = {
 /* ---------- Async streaming sections ---------- */
 
 async function QotdSection(): Promise<React.ReactElement> {
-  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
-  if (!qotd) return <></>;
-  return <HomeQotd quiz={qotd} />;
+  const [qotd, gotd] = await Promise.all([
+    safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay'),
+    safeFetch(getGameOfTheDay(), null, '[home] getGameOfTheDay'),
+  ]);
+  if (!qotd && !gotd) return <></>;
+  return (
+    <section className="home-section">
+      <div className="daily-twoup">
+        {qotd && <HomeQotd quiz={qotd} />}
+        <GameOfTheDay data={gotd} />
+      </div>
+    </section>
+  );
 }
 
 async function TrendingSection(): Promise<React.ReactElement> {
