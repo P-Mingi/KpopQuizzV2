@@ -7,7 +7,7 @@ const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
 
 // Known route prefixes - anything else from the old site gets 301 to homepage
 const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/create-preview', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia', // /trivia hub (group -trivia pages are matched by the -trivia suffix rule below)
   '/rankings', // /rankings index + /rankings/{group}/{type} fan-vote pages
   '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
@@ -73,7 +73,11 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
   }
 
   const pathname = request.nextUrl.pathname;
-  const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
+  // /create-preview is the un-wired funnel prototype (Step H) - openable without auth,
+  // even though it starts with the protected /create prefix.
+  const isProtected = pathname.startsWith('/create-preview')
+    ? false
+    : PROTECTED_PATHS.some((p) => pathname.startsWith(p));
 
   // Redirect unauthenticated users from protected paths to login
   if (isProtected && !user) {

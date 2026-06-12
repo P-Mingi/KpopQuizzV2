@@ -2366,3 +2366,104 @@ a.ranking-cta { text-decoration: none; }
   .bt-progress-fill { transition: none; }
   .bt-spinner { animation: none; }
 }
+
+/* ============================================================
+   Step H PROTOTYPE - creation funnel (/create-preview). Mock UI.
+   ============================================================ */
+.cf-screen { max-width: 480px; margin: 0 auto; padding: 16px 18px 48px; min-height: 100dvh; }
+.cf-proto-flag { font-size: 11px; font-weight: 600; color: var(--txt3); text-align: center; background: var(--surface-alt); border: 1px dashed var(--border); border-radius: 8px; padding: 6px 10px; margin: 0 0 18px; }
+
+.cf-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+.cf-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); }
+.cf-progress { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.cf-dot { width: 7px; height: 7px; border-radius: 100px; background: var(--border); transition: width 200ms ease, background 200ms ease; }
+.cf-dot.done { background: var(--brand); opacity: 0.45; }
+.cf-dot.active { width: 22px; background: var(--brand); }
+
+.cf-body { display: flex; flex-direction: column; }
+.cf-head { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 6vw, 2rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--txt1); margin: 0; }
+.cf-center { text-align: center; }
+.cf-sub { font-size: 14px; color: var(--txt2); line-height: 1.5; margin: 8px 0 22px; }
+
+.cf-field { margin-bottom: 20px; }
+.cf-label { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--txt2); margin-bottom: 9px; }
+.cf-rec { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand); background: var(--brand-light); padding: 2px 8px; border-radius: 100px; }
+.cf-input { width: 100%; min-height: 50px; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt1); font-family: var(--font-body); font-size: 15px; transition: border-color 120ms ease; }
+.cf-input::placeholder { color: var(--txt3); }
+.cf-input:focus-visible { border-color: var(--brand); }
+
+.cf-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cf-chip { min-height: 44px; padding: 9px 15px; border-radius: 100px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt2); font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color 120ms ease, background 120ms ease, color 120ms ease; }
+.cf-chip:hover { border-color: var(--brand); color: var(--brand); }
+.cf-chip.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+.cf-cover { width: 100%; min-height: 96px; border-radius: 14px; border: 1.5px dashed var(--border); background: var(--surface-alt); color: var(--txt3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 120ms ease; }
+.cf-cover:hover { border-color: var(--brand); }
+.cf-cover.filled { border-style: solid; border-color: var(--border); background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 70%, #fff), color-mix(in srgb, var(--brand) 35%, var(--bg))); min-height: 120px; position: relative; }
+.cf-cover-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+.cf-cover-change { position: absolute; right: 10px; bottom: 10px; font-size: 12px; font-weight: 700; color: #fff; background: rgba(0, 0, 0, 0.45); padding: 5px 12px; border-radius: 100px; }
+.cf-cover-help { font-size: 12px; color: var(--txt3); line-height: 1.45; margin: 9px 0 0; }
+.cf-skip { align-self: flex-start; background: none; border: none; color: var(--txt3); font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer; margin-top: 8px; padding: 4px 0; }
+
+.cf-cta { margin-top: 8px; min-height: 54px; border: none; border-radius: 14px; background: var(--brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 16px; cursor: pointer; transition: background 120ms ease, transform 120ms ease; }
+.cf-cta:hover { background: var(--brand-dark); }
+.cf-cta:active { transform: scale(0.99); }
+.cf-ghost { background: none; border: none; color: var(--txt3); font-size: 13px; font-weight: 600; cursor: pointer; padding: 12px; margin-top: 6px; align-self: center; }
+.cf-ghost:hover { color: var(--txt1); }
+.cf-center-btn { align-self: center; }
+
+/* Screen 2 - one question at a time */
+.cf-q-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.cf-q-count { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--txt1); }
+.cf-minidots { display: flex; flex-wrap: wrap; gap: 6px; }
+.cf-minidot { width: 9px; height: 9px; border-radius: 100px; background: var(--border); border: none; cursor: pointer; padding: 0; transition: width 150ms ease, background 150ms ease; }
+.cf-minidot.done { background: var(--correct); }
+.cf-minidot.active { width: 20px; background: var(--brand); }
+
+.cf-qcard { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: var(--shadow-card); animation: cfSlideIn 250ms cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes cfSlideIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+.cf-qinput { width: 100%; padding: 10px 0; border: none; background: none; color: var(--txt1); font-family: var(--font-display); font-weight: 700; font-size: 18px; }
+.cf-qinput::placeholder { color: var(--txt3); }
+.cf-hint { font-size: 11.5px; color: var(--txt3); margin: 2px 0 12px; }
+.cf-answers { display: flex; flex-direction: column; gap: 9px; }
+.cf-answer { display: flex; align-items: center; gap: 10px; padding: 4px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--bg); transition: border-color 150ms ease, background 150ms ease; }
+.cf-answer.correct { border-color: var(--correct-border); background: var(--correct-bg); }
+.cf-radio { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border); background: var(--surface); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: #fff; padding: 0; transition: border-color 150ms ease, background 150ms ease; }
+.cf-answer.correct .cf-radio { background: var(--correct); border-color: var(--correct); }
+.cf-answer-input { flex: 1; min-width: 0; border: none; background: none; color: var(--txt1); font-size: 14px; padding: 8px 6px; }
+.cf-addq { display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin-top: 14px; min-height: 46px; border-radius: 12px; border: 1.5px dashed var(--border); background: none; color: var(--brand); font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color 120ms ease, background 120ms ease; }
+.cf-addq:hover { border-color: var(--brand); background: var(--brand-light); }
+
+/* Screen 3 - publish preview */
+.cf-preview-wrap { position: relative; margin-bottom: 18px; }
+.cf-preview-tag { position: absolute; top: -8px; left: 12px; z-index: 1; font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--txt3); background: var(--bg); padding: 0 6px; }
+.cf-preview-card { pointer-events: none; }
+.cf-cover-mock { display: block; width: 100%; height: 100%; background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 70%, #fff), color-mix(in srgb, var(--brand) 35%, var(--bg))); }
+.cf-logo-mock { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-family: var(--font-display); font-weight: 800; font-size: 26px; color: #fff; background: linear-gradient(135deg, var(--brand), var(--brand-dark)); }
+.cf-reassure { font-size: 13px; color: var(--txt2); line-height: 1.5; background: var(--surface-alt); border-radius: 12px; padding: 12px 14px; margin: 0 0 18px; }
+
+/* Screen 4 - share */
+.cf-celebrate { align-items: center; text-align: center; }
+.cf-burst { display: flex; align-items: center; justify-content: center; width: 132px; height: 132px; margin: 12px auto 18px; border-radius: 50%; background: radial-gradient(circle, var(--brand-light), transparent 70%); }
+.cf-logo-pop { animation: cfPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes cfPop { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+.cf-share-btns { display: flex; gap: 10px; width: 100%; margin: 22px 0 14px; }
+.cf-share-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 48px; border-radius: 12px; border: none; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: filter 120ms ease, transform 120ms ease; }
+.cf-share-btn:hover { filter: brightness(1.08); }
+.cf-share-btn:active { transform: scale(0.98); }
+.cf-reddit { background: #FF4500; }
+.cf-discord { background: #5865F2; }
+.cf-x { background: #0F0F0F; }
+.cf-copylink { display: flex; align-items: center; gap: 10px; width: 100%; padding: 7px 7px 7px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; }
+.cf-copylink-url { flex: 1; min-width: 0; text-align: left; font-size: 13px; color: var(--txt2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-copylink-btn { flex-shrink: 0; font-size: 13px; font-weight: 700; color: #fff; background: var(--brand); padding: 9px 16px; border-radius: 8px; }
+
+.cf-input:focus-visible, .cf-chip:focus-visible, .cf-cover:focus-visible, .cf-cta:focus-visible,
+.cf-ghost:focus-visible, .cf-skip:focus-visible, .cf-radio:focus-visible, .cf-minidot:focus-visible,
+.cf-addq:focus-visible, .cf-share-btn:focus-visible, .cf-copylink:focus-visible, .cf-qinput:focus-visible,
+.cf-answer-input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-qcard, .cf-logo-pop { animation: none; }
+  .cf-dot, .cf-minidot, .cf-cta, .cf-share-btn { transition: none; }
+}
