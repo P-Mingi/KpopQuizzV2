@@ -168,6 +168,13 @@ export const STRUCTURE = [
     ],
   },
   {
+    category: 'News',
+    channels: [
+      { name: 'news', type: 'text', overwrites: readOnly, launchAtStart: true, isNews: true,
+        topic: 'Auto-posted K-pop news from around the web. Read-only.' },
+    ],
+  },
+  {
     category: 'Community',
     channels: [
       { name: 'general', type: 'text', launchAtStart: true,
@@ -345,7 +352,7 @@ export const BRAND_COLOR = 0xe8457a;
 
 // Channel display = `${emoji}・${slug}`. Group channels fall back to GROUP_EMOJI.
 export const CHANNEL_EMOJI = {
-  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢',
+  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰',
   general: '💬', 'introduce-yourself': '🌟', 'kpop-chat': '🎵', 'off-topic': '🌙',
   hangout: '🔊', 'blindtest-vc': '🎧',
   'daily-quiz': '🧠', 'share-your-quiz': '🎲', 'score-flex': '🏆',
@@ -358,7 +365,7 @@ export const CHANNEL_EMOJI = {
 // Category display = `『${emoji}』 ${NAME}` — the corner brackets give a clean
 // K-pop / East-Asian aesthetic touch.
 export const CATEGORY_EMOJI = {
-  Welcome: '🌸', Community: '💬', Play: '🎮', Build: '🛠️',
+  Welcome: '🌸', News: '📰', Community: '💬', Play: '🎮', Build: '🛠️',
   Events: '🎉', 'Founding Creators': '⭐', Groups: '🩷', Staff: '🔒',
 };
 
