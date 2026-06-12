@@ -47,8 +47,10 @@ export function HomeQotd({ quiz }: Props) {
           style={{ background: `linear-gradient(135deg, ${quiz.display_color}, color-mix(in srgb, ${quiz.display_color} 55%, var(--brand)))` }}
         >
           {timeLeft && <span className="daily-reset">Resets in {timeLeft}</span>}
-          <div style={{ position: 'absolute', bottom: -20, right: 14, borderRadius: 18, overflow: 'hidden', border: '3px solid var(--surface)', boxShadow: '0 3px 10px rgba(0,0,0,0.10)', lineHeight: 0 }}>
-            <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={66} />
+          <div style={{ position: 'absolute', bottom: -20, right: 14, width: 64, height: 64, borderRadius: '50%', overflow: 'hidden', border: '3px solid var(--surface)', boxShadow: '0 3px 10px rgba(0,0,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0 }}>
+            <div style={{ transform: 'scale(1.42)' }}>
+              <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={64} />
+            </div>
           </div>
         </div>
 
@@ -65,6 +67,7 @@ export function HomeQotd({ quiz }: Props) {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
             Play today&apos;s quiz
           </Link>
+          <span className="gotd-rank-spacer" aria-hidden="true" />
         </div>
       </div>
     </div>

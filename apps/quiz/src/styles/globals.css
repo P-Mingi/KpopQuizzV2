@@ -2081,7 +2081,10 @@ a.ranking-cta { text-decoration: none; }
 .gotd-duel:hover .gotd-cta, .gotd-nam:hover .gotd-cta { background: var(--brand-dark); }
 .gotd-duel:hover .gotd-face { transform: translateY(-2px); }
 .gotd-duel:focus-visible, .gotd-nam:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 12px; }
-.gotd-rank-link { display: block; text-align: center; margin: 2px 0 10px; font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none; }
+.gotd-rank-link { display: block; text-align: center; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none; line-height: 16px; }
+/* Reserves the rank-link's height below the QOTD + name-all CTAs so every
+   daily-row primary button lands on the same line. */
+.gotd-rank-spacer { display: block; height: 26px; }
 .gotd-rank-link:hover { text-decoration: underline; }
 .gotd-rank-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
 

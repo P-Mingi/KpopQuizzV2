@@ -67,14 +67,14 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
               </span>
               <span className="gotd-prompt">{data.prompt}</span>
             </Link>
-            <Link href={`/rankings/${data.group}/${data.type}`} className="gotd-rank-link">
-              See where fans rank them &rarr;
-            </Link>
             <Link
               href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}`}
               className="gotd-cta"
             >
               Vote in today&apos;s matchup
+            </Link>
+            <Link href={`/rankings/${data.group}/${data.type}`} className="gotd-rank-link">
+              See where fans rank them &rarr;
             </Link>
           </>
         ) : (
@@ -97,6 +97,7 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
             <Link href={`/games/name-all/${data.slug}`} className="gotd-cta">
               Play today&apos;s challenge
             </Link>
+            <span className="gotd-rank-spacer" aria-hidden="true" />
           </>
         )}
       </div>
