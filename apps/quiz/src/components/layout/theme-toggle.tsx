@@ -42,13 +42,14 @@ const MOON = (
 );
 
 export function ThemeToggle({ className }: { className?: string }): React.ReactElement {
-  const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
+  // Initialize from the <html> class the blocking script already set, so the
+  // icon is correct on first client render regardless of effect timing. SSR
+  // returns 'light'; suppressHydrationWarning covers the SSR-vs-client diff.
+  const [theme, setTheme] = useState<Theme>(getEffective);
 
   useEffect(() => {
     const sync = () => setTheme(getEffective());
     sync();
-    setMounted(true);
     // Observe the <html> class so every toggle (nav + footer) stays in sync,
     // whoever flipped it - more robust than a cross-component event with the
     // Suspense-streamed nav.
@@ -62,11 +63,12 @@ export function ThemeToggle({ className }: { className?: string }): React.ReactE
     };
   }, []);
 
-  const isDark = mounted && theme === 'dark';
+  const isDark = theme === 'dark';
 
   return (
     <button
       type="button"
+      suppressHydrationWarning
       onClick={() => {
         const next: Theme = theme === 'dark' ? 'light' : 'dark';
         applyTheme(next);
@@ -77,7 +79,7 @@ export function ThemeToggle({ className }: { className?: string }): React.ReactE
       aria-pressed={isDark}
       title="Toggle theme"
     >
-      <span className="theme-toggle-icon" aria-hidden="true">{isDark ? MOON : SUN}</span>
+      <span className="theme-toggle-icon" aria-hidden="true" suppressHydrationWarning>{isDark ? MOON : SUN}</span>
     </button>
   );
 }

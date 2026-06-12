@@ -4,12 +4,21 @@ import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/react';
 import { TopNav } from '@/components/layout/top-nav';
+import { ThemeInit } from '@/components/layout/theme-init';
 import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
 
 import type { Metadata, Viewport } from 'next';
+
+// Blocking, runs before first paint: applies the stored theme class so there is
+// no flash of the wrong theme. "system" (no stored value) sets no class, leaving
+// the prefers-color-scheme media query to follow the OS. React 19 then does a
+// recovery client-render of the root (an inline <script> in the tree triggers
+// it) that resets <html className> and strips this class - <ThemeInit> re-applies
+// it in a pre-paint layout effect, so it survives a reload with no visible flash.
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme'),d=document.documentElement;d.classList.remove('light','dark');if(t==='dark')d.classList.add('dark');else if(t==='light')d.classList.add('light');}catch(e){}})();`;
 
 // Reflects the active background for mobile browser chrome (system mode follows
 // the OS; the toggle updates the live tag on explicit switch). color-scheme lets
@@ -22,10 +31,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// Blocking, runs before paint: applies the stored theme class so there is no
-// flash of the wrong theme. "system" (no stored value) sets no class, letting
-// the prefers-color-scheme media query follow the OS live.
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme'),d=document.documentElement;d.classList.remove('light','dark');if(t==='dark')d.classList.add('dark');else if(t==='light')d.classList.add('light');}catch(e){}})();`;
 
 const pretendard = localFont({
   src: [
@@ -116,6 +121,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
             }),
           }}
         />
+        <ThemeInit />
         <ToastProvider>
           <div className="flex flex-col min-h-screen">
             <Suspense fallback={<TopNavSkeleton />}>

@@ -2165,6 +2165,9 @@ a.ranking-cta { text-decoration: none; }
 .theme-toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 .theme-toggle-icon { display: inline-flex; transition: transform 250ms ease; }
 .theme-toggle:hover .theme-toggle-icon { transform: rotate(18deg); }
+/* Desktop: the nav toggle is shown; the footer toggle is the mobile-only one
+   (the whole top nav - and its toggle - is hidden < 768px). One per breakpoint. */
+@media (min-width: 768px) { .footer-theme { display: none !important; } }
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }

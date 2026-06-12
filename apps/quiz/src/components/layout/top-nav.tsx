@@ -3,6 +3,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
 import { Logo } from './logo';
 import { TopNavLinks } from './top-nav-links';
+import { ThemeToggle } from './theme-toggle';
 
 interface NavProfile {
   username: string;
@@ -72,6 +73,9 @@ export async function TopNav(): Promise<React.ReactElement> {
 
         {/* Spacer */}
         <div style={{ flex: 1 }} />
+
+        {/* Theme toggle (desktop) - client island next to the right-side controls */}
+        <ThemeToggle className="nav-theme-toggle" />
 
         {/* Search */}
         <Link href="/search" style={{
