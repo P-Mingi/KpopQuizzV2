@@ -295,6 +295,20 @@ export const GROUP_EMOJI = {
 // `${GROUP_MENU_PREFIX}${genKey}` so the handler knows which roles it manages.
 export const GROUP_MENU_PREFIX = 'kq_group::';
 
+// Cosmetic name-color roles (no permissions). Self-assigned, single choice, via
+// the color menu in #roles. Created/positioned by `npm run color-roles`.
+export const COLOR_MENU = 'kq_color_select';
+export const COLOR_ROLES = [
+  { name: 'Pink', color: 0xf48fb1, emoji: '🌸' },
+  { name: 'Purple', color: 0xb388ff, emoji: '💜' },
+  { name: 'Sky', color: 0x4fc3f7, emoji: '🩵' },
+  { name: 'Mint', color: 0x4db6ac, emoji: '💚' },
+  { name: 'Peach', color: 0xffab91, emoji: '🧡' },
+  { name: 'Rose', color: 0xef5350, emoji: '❤️' },
+  { name: 'Pearl', color: 0xeceff1, emoji: '🤍' },
+  { name: 'Onyx', color: 0x546e7a, emoji: '🖤' },
+];
+
 export const ROLE_MENU = {
   channel: 'roles',
   eventSelect: {
