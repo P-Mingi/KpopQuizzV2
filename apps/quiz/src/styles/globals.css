@@ -2212,14 +2212,14 @@ a.ranking-cta { text-decoration: none; }
 .bt-spinner { width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,0.35); border-top-color: #fff; animation: btSpin 700ms linear infinite; }
 @keyframes btSpin { to { transform: rotate(360deg); } }
 
-.bt-back { margin-top: 16px; align-self: center; font-size: 13px; color: var(--txt3); text-decoration: none; }
+.bt-back { margin-top: 12px; align-self: center; min-height: 44px; display: inline-flex; align-items: center; padding: 0 12px; font-size: 13px; color: var(--txt3); text-decoration: none; }
 .bt-back:hover { color: var(--txt2); }
 .bt-back-btn { background: none; border: none; cursor: pointer; }
 
 /* ---- PLAYING / REVEAL ---- */
 .bt-play { display: flex; flex-direction: column; }
 .bt-top { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
-.bt-quit { background: none; border: none; font-size: 12px; color: var(--txt3); cursor: pointer; padding: 4px 2px; }
+.bt-quit { background: none; border: none; font-size: 12px; color: var(--txt3); cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; padding: 0 10px; margin-left: -10px; }
 .bt-quit:hover { color: var(--txt2); }
 .bt-progress { flex: 1; height: 5px; border-radius: 100px; background: var(--surface-alt); overflow: hidden; }
 .bt-progress-fill { height: 100%; border-radius: 100px; background: var(--brand); transition: width 300ms cubic-bezier(0.22,1,0.36,1); }
@@ -2255,6 +2255,11 @@ a.ranking-cta { text-decoration: none; }
 .bt-reveal-artist { font-size: 14px; color: var(--txt2); margin: 2px 0 0; }
 .bt-reveal-album { font-size: 12px; color: var(--txt3); margin: 2px 0 0; }
 
+.bt-q-kind { display: inline-flex; align-items: center; gap: 6px; align-self: center; margin: 0 auto 8px; padding: 5px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.bt-q-kind.artist { background: var(--brand-light); color: var(--brand); }
+.bt-q-kind.title { background: color-mix(in srgb, #5B8DEF 16%, transparent); color: #2E5FC0; }
+.dark .bt-q-kind.title { color: #9DB8FF; }
+@media (prefers-color-scheme: dark) { :root:not(.light) .bt-q-kind.title { color: #9DB8FF; } }
 .bt-q { font-family: var(--font-display); font-weight: 700; font-size: 18px; text-align: center; color: var(--txt1); margin: 0 0 16px; }
 
 /* Reveal marks on the choices: a non-color indicator of correct/wrong so the

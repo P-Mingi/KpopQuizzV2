@@ -27,6 +27,12 @@ const MIX = {
 const FILL_ORDER: Tier[] = ['popular', 'medium', 'iconic', 'hard', 'unknown'];
 const SONGS_COUNT = 10;
 
+// Per-game question-type split (tunable): ~60% "guess the group/artist", ~40%
+// "guess the song title", allocated for the whole game (not an independent coin
+// flip per song, which can drift to all-one-type) then shuffled so the two
+// types interleave unpredictably. groupBase of 10, with +/- jitter.
+const QUESTION_MIX = { groupBase: 6, jitter: 1 } as const;
+
 interface SongRow {
   id: string;
   deezer_track_id: number;
@@ -229,14 +235,25 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }),
   );
 
-  const questions: Question[] = selected.map((song) => {
-    const isArtistQuestion = Math.random() < 0.6;
-    if (isArtistQuestion) {
+  // Allocate the whole game's question-type split, then shuffle so 'artist' and
+  // 'title' questions interleave unpredictably (not all-one-type, not a fixed
+  // group-then-title order).
+  const SOLO_GENDERS = new Set(['solo_female', 'solo_male']);
+  const jit = Math.floor(Math.random() * (QUESTION_MIX.jitter * 2 + 1)) - QUESTION_MIX.jitter;
+  const groupCount = Math.max(0, Math.min(SONGS_COUNT, QUESTION_MIX.groupBase + jit));
+  const types = shuffle<'artist' | 'title'>([
+    ...Array.from({ length: groupCount }, () => 'artist' as const),
+    ...Array.from({ length: SONGS_COUNT - groupCount }, () => 'title' as const),
+  ]);
+
+  const questions: Question[] = selected.map((song, i) => {
+    if (types[i] === 'artist') {
       const wrongs = song.wrong_answers_artist?.length >= 3 ? song.wrong_answers_artist : fallbackWrongArtists(song, pool);
       return {
         song_id: song.id,
         question_type: 'artist',
-        question_text: 'Who is this artist?',
+        // artist_name can be a soloist, so frame solo acts as "artist", groups as "group".
+        question_text: SOLO_GENDERS.has(song.gender ?? '') ? 'Which artist?' : 'Which group is this?',
         preview_url: song.preview_url,
         album_cover_medium: song.album_cover_medium,
         album_cover_big: song.album_cover_big,
@@ -249,7 +266,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return {
       song_id: song.id,
       question_type: 'title',
-      question_text: 'Name this song:',
+      question_text: 'Name the song',
       preview_url: song.preview_url,
       album_cover_medium: song.album_cover_medium,
       album_cover_big: song.album_cover_big,

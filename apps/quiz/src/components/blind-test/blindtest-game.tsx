@@ -127,6 +127,7 @@ export function BlindtestGame(): React.ReactElement {
     answeredRef.current = false;
     setSelected(null);
     setTimeLeft(TIMER);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
     loadAndPlay(q.preview_url);
     startRef.current = Date.now();
     stopTimer();
@@ -329,7 +330,7 @@ export function BlindtestGame(): React.ReactElement {
                 </div>
               </div>
             ) : (
-              <div className={`bt-reveal-head ${isCorrect ? 'ok' : 'no'}`}>
+              <div className={`bt-reveal-head ${isCorrect ? 'ok' : 'no'}`} role="status">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {q.reveal.cover && <img src={q.reveal.cover} alt="" className="bt-cover" />}
                 <p className="bt-verdict">{isCorrect ? 'Correct' : selected === null ? 'Time up' : 'Not quite'}</p>
@@ -348,11 +349,20 @@ export function BlindtestGame(): React.ReactElement {
             </p>
           )}
 
-          {/* Question */}
+          {/* Question type badge + the ask */}
+          <div className={`bt-q-kind ${q.question_type}`}>
+            {q.question_type === 'artist' ? (
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" /></svg>
+            ) : (
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>
+            )}
+            {q.question_type === 'artist' ? 'Artist round' : 'Song round'}
+          </div>
           <p className="bt-q">{q.question_text}</p>
 
-          {/* Choices */}
-          <div className="answers">
+          {/* Choices (keyed by question so a new round mounts fresh buttons -
+              no answered-state color carrying over via the 150ms transition) */}
+          <div className="answers" key={index}>
             {q.choices.map((choice, i) => (
               <button
                 key={i}
