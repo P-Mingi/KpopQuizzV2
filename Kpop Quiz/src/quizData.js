@@ -4,6 +4,14 @@
 
 import { createClient } from '@supabase/supabase-js';
 
+// supabase-js expects a global WebSocket (for realtime). Node < 22 has none,
+// which throws even for plain REST reads. Polyfill from `ws` so this runs on
+// any Node version (GitHub Actions uses Node 20, hosts vary).
+if (typeof globalThis.WebSocket === 'undefined') {
+  const ws = await import('ws');
+  globalThis.WebSocket = ws.WebSocket ?? ws.default;
+}
+
 let _client;
 function db() {
   if (!_client) {
