@@ -18,6 +18,7 @@ import {
 } from 'discord.js';
 import {
   GROUPS_BY_GEN, ROLE_MENU, GROUP_EMOJI, GROUP_MENU_PREFIX, STRUCTURE,
+  COLOR_ROLES, COLOR_MENU,
 } from './config.js';
 import { handleQuizInteraction, handleQuizCommand } from './quizBot.js';
 import { load } from './store.js';
@@ -54,9 +55,24 @@ function eventRow() {
   return new ActionRowBuilder().addComponents(menu);
 }
 
+function colorRow() {
+  const menu = new StringSelectMenuBuilder()
+    .setCustomId(COLOR_MENU)
+    .setPlaceholder('Pick a name color…')
+    .setMinValues(0)
+    .setMaxValues(1)
+    .addOptions(COLOR_ROLES.map((c) => {
+      const opt = new StringSelectMenuOptionBuilder().setLabel(c.name).setValue(c.name);
+      if (c.emoji) opt.setEmoji(c.emoji);
+      return opt;
+    }));
+  return new ActionRowBuilder().addComponents(menu);
+}
+
 // Which role names does a given customId manage? null if not one of ours.
 function managedRoles(customId) {
   if (customId === ROLE_MENU.eventSelect.customId) return ROLE_MENU.eventSelect.options.map((o) => o.value);
+  if (customId === COLOR_MENU) return COLOR_ROLES.map((c) => c.name);
   if (customId.startsWith(GROUP_MENU_PREFIX)) return GROUPS_BY_GEN[customId.slice(GROUP_MENU_PREFIX.length)] || null;
   return null;
 }
@@ -101,6 +117,14 @@ export async function postRoleMenu(guild, rolesChannelId, roleMap, ids, emojiMap
   if (eventMsg) await eventMsg.edit({ content: eventContent, components: [eventRow()] });
   else eventMsg = await channel.send({ content: eventContent, components: [eventRow()] });
   ids.roleMenu.eventMessageId = eventMsg.id;
+
+  const colorContent = '**Name color** 🎨\nPick a color for your name (optional). Choose again to change it, or clear to remove.';
+  let colorMsg = ids.roleMenu.colorMessageId
+    ? await channel.messages.fetch(ids.roleMenu.colorMessageId).catch(() => null)
+    : null;
+  if (colorMsg) await colorMsg.edit({ content: colorContent, components: [colorRow()] });
+  else colorMsg = await channel.send({ content: colorContent, components: [colorRow()] });
+  ids.roleMenu.colorMessageId = colorMsg.id;
 
   return ids;
 }
