@@ -7,8 +7,7 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
-/** §2d + §10g - games teaser. Current modes + a "coming soon" placeholder.
- *  No Blindtest card (that arrives in B12). */
+/** §2d + §10g - games teaser. This or That, Name all members, and Blindtest. */
 export function HomeGamesTeaser(): React.ReactElement {
   return (
     <section className="home-section">
@@ -40,16 +39,16 @@ export function HomeGamesTeaser(): React.ReactElement {
           <span className="game-play">Play →</span>
         </Link>
 
-        <div className="game-card" style={{ opacity: 0.6, cursor: 'default' }} aria-disabled="true">
-          <div className="game-icon gi-soon" aria-hidden="true">
+        <Link href="/blindtest" className="game-card">
+          <div className="game-icon gi-blind" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
             </svg>
           </div>
-          <p className="game-name">Coming soon</p>
-          <p className="game-desc">More game modes are on the way. Stay tuned.</p>
-          <span className="game-play" style={{ color: 'var(--txt3)' }}>Soon</span>
-        </div>
+          <p className="game-name">Blindtest</p>
+          <p className="game-desc">Name the song or group from a 10-second audio clip.</p>
+          <span className="game-play">Play →</span>
+        </Link>
       </div>
     </section>
   );

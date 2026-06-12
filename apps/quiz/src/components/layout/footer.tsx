@@ -28,6 +28,7 @@ export function Footer(): React.ReactElement {
               { label: 'Quizzes', href: '/quizzes' },
               { label: 'Trivia', href: '/trivia' },
               { label: 'Games', href: '/games' },
+              { label: 'Blindtest', href: '/blindtest' },
               { label: 'Rankings', href: '/rankings' },
               { label: 'Leaderboard', href: '/leaderboard' },
             ].map(l => (
