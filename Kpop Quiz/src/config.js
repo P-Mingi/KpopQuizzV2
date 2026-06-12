@@ -259,9 +259,36 @@ export const STRUCTURE = [
 // ---------------------------------------------------------------------------
 
 export const GROUP_EMOJI = {
+  // Headliners
   'BTS': '💜', 'BLACKPINK': '🖤', 'Stray Kids': '🐺', 'TWICE': '🍭',
   'aespa': '🦋', 'SEVENTEEN': '💎', 'NewJeans': '🐰', 'IVE': '💙',
   'ENHYPEN': '🌙', 'TXT': '✨', 'LE SSERAFIM': '🔵', 'EXO': '⭐',
+  // 1st gen
+  'H.O.T.': '⚪', 'Sechskies': '💛', 'S.E.S.': '🧚', 'Fin.K.L': '🌸',
+  'Shinhwa': '🔶', 'g.o.d': '🍼', 'Baby V.O.X': '💋',
+  // 2nd gen
+  'TVXQ': '🔴', 'Super Junior': '🌊', 'BIGBANG': '👑', 'Wonder Girls': '🎀',
+  "Girls' Generation": '💗', 'KARA': '🐞', 'SHINee': '💚', '2NE1': '⚫',
+  '2PM': '🐾', '2AM': '😴', 'BEAST': '⬛', '4Minute': '🟣', 'f(x)': '🔻',
+  'SISTAR': '💖', 'Apink': '🌷', 'INFINITE': '💛', 'B1A4': '🍀',
+  'Block B': '🐝', 'EXID': '🌟', "Girl's Day": '🌼', 'AOA': '🤍',
+  'B.A.P': '🐇', 'VIXX': '🌹', 'Teen Top': '⚡',
+  // 3rd gen
+  'Red Velvet': '🍰', 'GOT7': '🟢', 'MAMAMOO': '🌈', 'GFRIEND': '💠',
+  'MONSTA X': '🌑', 'NCT': '🟩', 'iKON': '🎈', 'WINNER': '🌀',
+  'Oh My Girl': '🍃', 'WJSN': '🌌', 'ASTRO': '💫', 'PENTAGON': '🔷',
+  'The Boyz': '🎯', 'Dreamcatcher': '🐉', "NU'EST": '🔆', 'DAY6': '🎸',
+  'Lovelyz': '🌺', 'MOMOLAND': '🍬',
+  // 4th gen
+  '(G)I-DLE': '🔥', 'ITZY': '🪩', 'ATEEZ': '⚓', 'NMIXX': '🧩',
+  'STAYC': '🫧', 'Kep1er': '🌠', 'TREASURE': '🔱', 'CRAVITY': '🌙',
+  'P1Harmony': '🎭', 'Billlie': '🐦', 'Weeekly': '🌻', 'Purple Kiss': '🔮',
+  'FIFTY FIFTY': '🎰',
+  // 5th gen
+  'ZEROBASEONE': '🟦', 'RIIZE': '🌅', 'BABYMONSTER': '👾', 'KISS OF LIFE': '💄',
+  'BOYNEXTDOOR': '🚪', 'ILLIT': '🍒', 'NCT WISH': '🌟', 'tripleS': '🔹',
+  'MEOVV': '🐱', 'Hearts2Hearts': '💞', '&TEAM': '🌋', 'TWS': '🩵',
+  'izna': '🌩', 'ARTMS': '🪐',
 };
 
 // Group menus are built per-generation in roleMenu.js; each menu's customId is
