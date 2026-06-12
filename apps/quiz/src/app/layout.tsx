@@ -9,7 +9,23 @@ import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+
+// Reflects the active background for mobile browser chrome (system mode follows
+// the OS; the toggle updates the live tag on explicit switch). color-scheme lets
+// native controls/scrollbars match the theme.
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FAF8F5' },
+    { media: '(prefers-color-scheme: dark)', color: '#141210' },
+  ],
+};
+
+// Blocking, runs before paint: applies the stored theme class so there is no
+// flash of the wrong theme. "system" (no stored value) sets no class, letting
+// the prefers-color-scheme media query follow the OS live.
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme'),d=document.documentElement;d.classList.remove('light','dark');if(t==='dark')d.classList.add('dark');else if(t==='light')d.classList.add('light');}catch(e){}})();`;
 
 const pretendard = localFont({
   src: [
@@ -86,6 +102,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
   return (
     <html lang="en" className={pretendard.variable} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -11,6 +11,7 @@
  * Dark mode (§12d) tokens are defined below; the manual toggle is wired in B14.
  */
 :root {
+  color-scheme: light;
   /* ===== Canonical brand / surface / text ===== */
   --brand:        #E8457A;
   --brand-light:  #FCE8EF;
@@ -99,42 +100,85 @@
   --halo: rgba(232,69,122,0.10);
 }
 
-/* ===== Dark mode (§12d) - system preference; manual .dark toggle wired in B14 ===== */
+/* ===== Dark mode (§12d / B14) =====
+   The FULL dark token set lives in a single declaration list applied to BOTH
+   the system media query (no-JS / "system" mode) and the forced .dark class.
+   Every tinted token gets a dark, low-chroma background + a light readable
+   foreground so nothing glows. Keep the two lists identical. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --brand: #F06292;
-    --brand-light: #3D1A26;
-    --brand-dark: #E8457A;
-    --bg: #141210;
-    --surface: #1E1B18;
-    --surface-alt: #2A2622;
-    --txt1: #F5F0EB;
-    --txt2: #A89F96;
-    --txt3: #6E675F;
-    --border: rgba(245,240,235,0.08);
-    --border-h: rgba(245,240,235,0.16);
-    --correct-bg: #14532D;
-    --correct-border: #166534;
-    --wrong-bg: #4C0519;
-    --wrong-border: #9F1239;
+    color-scheme: dark;
+    --brand: #F06292; --brand-light: #3D1A26; --brand-dark: #E8457A;
+    --bg: #141210; --surface: #1E1B18; --surface-alt: #2A2622;
+    --txt1: #F5F0EB; --txt2: #A89F96; --txt3: #756D64;
+    --border: rgba(245,240,235,0.10); --border-h: rgba(245,240,235,0.22);
+    --text-ghost: #4A443D; --border-subtle: rgba(245,240,235,0.05); --accent-light: #B5476A;
+    --badge-classic: #1E2A44; --badge-classic-text: #93C5FD;
+    --badge-truefalse: #14321F; --badge-truefalse-text: #86EFAC;
+    --badge-clues: #3A2C12; --badge-clues-text: #FCD34D;
+    --badge-image: #2A2148; --badge-image-text: #C4B5FD;
+    --badge-intruder: #3A1622; --badge-intruder-text: #FDA4AF;
+    --tot-bg: #2E1B28; --tot-icon: #F06292; --nam-bg: #1A2740; --nam-icon: #93C5FD;
+    --nam: #6691FF; --blind: #A78BFA;
+    --bt-green: #86EFAC; --bt-green-bg: #14321F; --bt-green-border: #22643B;
+    --bt-red: #FDA4AF; --bt-red-bg: #3A1622; --bt-red-border: #7A2435;
+    --bt-amber: #FCD34D; --bt-amber-bg: #3A2C12; --bt-amber-border: #6B4E1A;
+    --correct: #34D399; --correct-bg: #14321F; --correct-text: #86EFAC; --correct-border: #22643B;
+    --wrong: #F87171; --wrong-bg: #3A1622; --wrong-text: #FDA4AF; --wrong-border: #7A2435;
+    --combo: #F0A93C; --streak: #F0A93C;
+    --type-classic-bg: #1E2A44; --type-classic-text: #93C5FD;
+    --type-image-bg: #2E1B28; --type-image-text: #F2A6C0;
+    --type-intruder-bg: #241F40; --type-intruder-text: #B6AEF0;
+    --type-tf-bg: #14321F; --type-tf-text: #86EFAC;
+    --type-clue-bg: #3A2C12; --type-clue-text: #FCD34D;
+    --easy-bg: #14321F; --easy-text: #86EFAC;
+    --medium-bg: #3A2C12; --medium-text: #FCD34D;
+    --hard-bg: #3A1622; --hard-text: #FDA4AF;
+    --shadow-card: 0 0 0 1px rgba(245,240,235,0.05);
+    --shadow-lift: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,98,146,0.20);
+    --halo: rgba(240,98,146,0.22);
   }
 }
 .dark {
-  --brand: #F06292;
-  --brand-light: #3D1A26;
-  --brand-dark: #E8457A;
-  --bg: #141210;
-  --surface: #1E1B18;
-  --surface-alt: #2A2622;
-  --txt1: #F5F0EB;
-  --txt2: #A89F96;
-  --txt3: #6E675F;
-  --border: rgba(245,240,235,0.08);
-  --border-h: rgba(245,240,235,0.16);
-  --correct-bg: #14532D;
-  --correct-border: #166534;
-  --wrong-bg: #4C0519;
-  --wrong-border: #9F1239;
+  color-scheme: dark;
+  --brand: #F06292; --brand-light: #3D1A26; --brand-dark: #E8457A;
+  --bg: #141210; --surface: #1E1B18; --surface-alt: #2A2622;
+  --txt1: #F5F0EB; --txt2: #A89F96; --txt3: #756D64;
+  --border: rgba(245,240,235,0.10); --border-h: rgba(245,240,235,0.22);
+  --text-ghost: #4A443D; --border-subtle: rgba(245,240,235,0.05); --accent-light: #B5476A;
+  --badge-classic: #1E2A44; --badge-classic-text: #93C5FD;
+  --badge-truefalse: #14321F; --badge-truefalse-text: #86EFAC;
+  --badge-clues: #3A2C12; --badge-clues-text: #FCD34D;
+  --badge-image: #2A2148; --badge-image-text: #C4B5FD;
+  --badge-intruder: #3A1622; --badge-intruder-text: #FDA4AF;
+  --tot-bg: #2E1B28; --tot-icon: #F06292; --nam-bg: #1A2740; --nam-icon: #93C5FD;
+  --nam: #6691FF; --blind: #A78BFA;
+  --bt-green: #86EFAC; --bt-green-bg: #14321F; --bt-green-border: #22643B;
+  --bt-red: #FDA4AF; --bt-red-bg: #3A1622; --bt-red-border: #7A2435;
+  --bt-amber: #FCD34D; --bt-amber-bg: #3A2C12; --bt-amber-border: #6B4E1A;
+  --correct: #34D399; --correct-bg: #14321F; --correct-text: #86EFAC; --correct-border: #22643B;
+  --wrong: #F87171; --wrong-bg: #3A1622; --wrong-text: #FDA4AF; --wrong-border: #7A2435;
+  --combo: #F0A93C; --streak: #F0A93C;
+  --type-classic-bg: #1E2A44; --type-classic-text: #93C5FD;
+  --type-image-bg: #2E1B28; --type-image-text: #F2A6C0;
+  --type-intruder-bg: #241F40; --type-intruder-text: #B6AEF0;
+  --type-tf-bg: #14321F; --type-tf-text: #86EFAC;
+  --type-clue-bg: #3A2C12; --type-clue-text: #FCD34D;
+  --easy-bg: #14321F; --easy-text: #86EFAC;
+  --medium-bg: #3A2C12; --medium-text: #FCD34D;
+  --hard-bg: #3A1622; --hard-text: #FDA4AF;
+  --shadow-card: 0 0 0 1px rgba(245,240,235,0.05);
+  --shadow-lift: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,98,146,0.20);
+  --halo: rgba(240,98,146,0.22);
+}
+
+/* Brief color fade applied ONLY during a manual theme switch (B14). */
+.theme-transition, .theme-transition *,
+.theme-transition *::before, .theme-transition *::after {
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, fill 200ms ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition, .theme-transition * { transition: none !important; }
 }
 
 * { box-sizing: border-box; }
@@ -1282,7 +1326,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .mode-card.nam .mode-deco { background: var(--nam-bg); color: var(--nam-icon); }
 .mode-badge { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
 .badge-hot { background: #FFF3EC; color: #C2410C; }
-.badge-new { background: #DCFCE7; color: #166534; }
+.badge-new { background: var(--badge-truefalse); color: var(--badge-truefalse-text); }
 .mode-name { font-size: 17px; font-weight: 800; color: var(--txt1); margin-bottom: 5px; }
 .mode-desc { font-size: 13px; color: var(--txt2); line-height: 1.5; margin-bottom: 16px; }
 .mode-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -1342,7 +1386,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .hint-dot { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-alt); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--txt3); }
 
 .diff-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px; }
-.d-easy { background: #DCFCE7; color: #166534; }
+.d-easy { background: var(--easy-bg); color: var(--easy-text); }
 .d-med  { background: #FEF3C7; color: #92400E; }
 .d-hard { background: #FFE4E6; color: #9F1239; }
 .timer-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px; background: var(--surface-alt); color: var(--txt2); display: flex; align-items: center; gap: 3px; }
@@ -1880,7 +1924,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .opt.notpicked .opt-bar-fill { background: var(--txt3); }
 .opt-pct { font-size: 12px; font-weight: 700; color: var(--txt2); font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; }
 .opt-delta { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.opt-delta.up { color: #166534; }
+.opt-delta.up { color: var(--badge-truefalse-text); }
 .opt-delta.down { color: var(--txt3); }
 
 /* VS badge (5c) */
@@ -1907,7 +1951,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .rank-card  { background: var(--surface); border: .5px solid var(--border); border-radius: 16px; padding: 16px; margin-top: 8px; }
 .rank-head  { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .rank-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--txt1); margin: 0; }
-.rank-live  { font-size: 10px; font-weight: 700; color: #166534; background: #DCFCE7; padding: 2px 8px; border-radius: 100px; display: inline-flex; align-items: center; gap: 4px; }
+.rank-live  { font-size: 10px; font-weight: 700; color: var(--badge-truefalse-text); background: var(--badge-truefalse); padding: 2px 8px; border-radius: 100px; display: inline-flex; align-items: center; gap: 4px; }
 .rank-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; animation: rankPulse 1.6s ease-in-out infinite; }
 @keyframes rankPulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 .rank-list  { list-style: none; margin: 0; padding: 0; }
@@ -1920,7 +1964,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .rank-name  { flex: 1; font-size: 13px; font-weight: 600; color: var(--txt1); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rank-elo   { font-size: 12px; font-weight: 700; color: var(--txt2); font-variant-numeric: tabular-nums; }
 .rank-delta { font-size: 11px; font-weight: 700; width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
-.rank-delta.up { color: #166534; }
+.rank-delta.up { color: var(--badge-truefalse-text); }
 .rank-foot  { margin-top: 14px; text-align: center; }
 .rank-foot a {
   display: inline-flex;
@@ -2048,7 +2092,7 @@ a.ranking-cta { text-decoration: none; }
 .trend-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 .trend-avatar { width: 100%; height: 96px; border-radius: 10px; object-fit: cover; object-position: center 25%; background: var(--surface-alt); margin-bottom: 10px; }
 .trend-prompt { font-size: 0.82rem; font-weight: 600; line-height: 1.3; color: var(--txt1); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.1em; }
-.trend-live { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 10px; font-weight: 700; color: #166534; background: #DCFCE7; padding: 2px 8px; border-radius: 100px; align-self: flex-start; }
+.trend-live { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 10px; font-weight: 700; color: var(--badge-truefalse-text); background: var(--badge-truefalse); padding: 2px 8px; border-radius: 100px; align-self: flex-start; }
 .trend-locked { margin-top: 8px; }
 .trend-bar { display: block; height: 5px; background: var(--surface-alt); border-radius: 100px; overflow: hidden; }
 .trend-bar-fill { display: block; height: 100%; background: var(--brand); border-radius: 100px; }
@@ -2097,4 +2141,31 @@ a.ranking-cta { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .gotd-face, .gotd-cta { transition: none; }
   .gotd-duel:hover .gotd-face { transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   B14 - theme toggle button (top nav + footer).
+   --------------------------------------------------------------------------- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--txt2);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.theme-toggle:hover { background: var(--surface-alt); color: var(--txt1); border-color: var(--border-h); }
+.theme-toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.theme-toggle-icon { display: inline-flex; transition: transform 250ms ease; }
+.theme-toggle:hover .theme-toggle-icon { transform: rotate(18deg); }
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-icon { transition: none; }
+  .theme-toggle:hover .theme-toggle-icon { transform: none; }
 }
