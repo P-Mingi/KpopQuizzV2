@@ -8,6 +8,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { HomeHero } from '@/components/home/home-hero';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
+import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
@@ -124,6 +125,9 @@ export default function HomePage(): React.ReactElement {
       <Suspense>
         <QotdSection />
       </Suspense>
+
+      {/* 2b. Blindtest CTA - main mobile discovery path (not in the bottom bar) */}
+      <HomeBlindtestCta />
 
       {/* 3. Trending this week */}
       <Suspense>
