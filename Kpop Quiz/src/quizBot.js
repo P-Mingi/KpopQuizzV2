@@ -11,6 +11,7 @@
 import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } from 'discord.js';
 import { BRAND_COLOR } from './config.js';
 import { getTodaysQuiz } from './quizData.js';
+import { recordResult, getTodayLeaderboard } from './quizStore.js';
 
 const sessions = new Map(); // userId -> { quiz, qIndex, score }
 let cache = { date: null, quiz: null };
@@ -112,12 +113,17 @@ async function next(interaction) {
     : pct >= 50 ? 'Solid stan 🎧'
     : 'Rookie 🐣';
 
+  const username = interaction.user.globalName || interaction.user.username;
+  const { streak } = recordResult(interaction.user.id, username, session.score, total);
+  session.streak = streak;
+  const streakLine = streak > 1 ? `\n🔥 **${streak}-day streak!**` : '';
+
   const embed = new EmbedBuilder()
     .setColor(BRAND_COLOR)
     .setAuthor({ name: session.quiz.title })
     .setTitle(`🧠  ${session.score} / ${total}`)
-    .setDescription(`${rank}\n\nNice run! Share your score with the server below.`)
-    .setFooter({ text: 'kpopquiz.org' });
+    .setDescription(`${rank}${streakLine}\n\nNice run! Share your score with the server below.`)
+    .setFooter({ text: 'kpopquiz.org · /quizleaderboard to see today\'s top scores' });
   const row = new ActionRowBuilder().addComponents(
     new ButtonBuilder().setCustomId('kq_quiz_share').setLabel('Share my score').setEmoji('📣').setStyle(ButtonStyle.Success),
   );
@@ -128,15 +134,28 @@ async function share(interaction) {
   const session = sessions.get(interaction.user.id);
   if (!session) return interaction.update({ content: 'Already shared!', embeds: [], components: [] });
   const total = session.quiz.questions.length;
+  const streakLine = session.streak > 1 ? `  ·  🔥 ${session.streak}-day streak` : '';
   const embed = new EmbedBuilder()
     .setColor(BRAND_COLOR)
-    .setDescription(`🧠 <@${interaction.user.id}> scored **${session.score}/${total}** on today's quiz: *${session.quiz.title}*`);
+    .setDescription(`🧠 <@${interaction.user.id}> scored **${session.score}/${total}** on today's quiz: *${session.quiz.title}*${streakLine}`);
   await interaction.channel?.send({ embeds: [embed] }).catch(() => {});
   sessions.delete(interaction.user.id);
   return interaction.update({ content: 'Shared to the channel! 🎉', embeds: [], components: [] });
 }
 
-// Wired by the menu worker for button interactions. Returns true if handled.
+async function leaderboard(interaction) {
+  const rows = getTodayLeaderboard(10);
+  const embed = new EmbedBuilder().setColor(BRAND_COLOR).setTitle("🏆  Today's Quiz Leaderboard");
+  if (!rows.length) {
+    embed.setDescription('No scores yet today. Be the first! Tap **Play in Discord** in #daily-quiz, or use `/dailyquiz`.');
+  } else {
+    const medals = ['🥇', '🥈', '🥉'];
+    embed.setDescription(rows.map((r, i) => `${medals[i] || `\`${i + 1}.\``}  **${r.username}**  ·  ${r.score}/${r.total}`).join('\n'));
+  }
+  return interaction.reply({ embeds: [embed] });
+}
+
+// Wired by the menu worker for BUTTON interactions. Returns true if handled.
 export async function handleQuizInteraction(interaction) {
   if (!interaction.isButton()) return false;
   const id = interaction.customId;
@@ -147,4 +166,12 @@ export async function handleQuizInteraction(interaction) {
   else if (id === 'kq_quiz_next') await next(interaction);
   else if (id === 'kq_quiz_share') await share(interaction);
   return true;
+}
+
+// Wired by the menu worker for SLASH commands. Returns true if handled.
+export async function handleQuizCommand(interaction) {
+  if (!interaction.isChatInputCommand()) return false;
+  if (interaction.commandName === 'dailyquiz') { await start(interaction); return true; }
+  if (interaction.commandName === 'quizleaderboard') { await leaderboard(interaction); return true; }
+  return false;
 }

@@ -19,7 +19,7 @@ import {
 import {
   GROUPS_BY_GEN, ROLE_MENU, GROUP_EMOJI, GROUP_MENU_PREFIX, STRUCTURE,
 } from './config.js';
-import { handleQuizInteraction } from './quizBot.js';
+import { handleQuizInteraction, handleQuizCommand } from './quizBot.js';
 import { load } from './store.js';
 
 // --- build the select-menu rows ---------------------------------------------
@@ -175,6 +175,7 @@ async function runListener() {
     try {
       if (interaction.isStringSelectMenu()) await handleSelect(interaction, ids);
       else if (interaction.isButton()) await handleQuizInteraction(interaction);
+      else if (interaction.isChatInputCommand()) await handleQuizCommand(interaction);
     } catch (e) { console.error('interaction error:', e.message); }
   });
 

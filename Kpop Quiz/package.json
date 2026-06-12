@@ -19,7 +19,8 @@
     "welcome-screen": "node src/welcomeScreen.js",
     "branding": "node src/branding.js",
     "bot-guides": "node src/botGuides.js",
-    "post-menu": "node src/postMenu.js"
+    "post-menu": "node src/postMenu.js",
+    "register-commands": "node src/registerCommands.js"
   },
   "engines": {
     "node": ">=18.0.0"
