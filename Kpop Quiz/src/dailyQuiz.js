@@ -1,11 +1,11 @@
-// dailyQuiz.js — posts the daily quiz announcement to #daily-quiz. Run once a
+// dailyQuiz.js: posts the daily quiz announcement to #daily-quiz. Run once a
 // day from a scheduler (system cron, pm2 cron, or a GitHub Actions cron):
 //
 //   npm run daily-quiz
 //   # crontab example (09:00 every day): 0 9 * * * cd /path/to/Kpop\ Quiz && npm run daily-quiz
 //
 // Each run posts a new message (a daily ping in the channel). It does NOT
-// @-everyone, to avoid noise — members keep the channel unmuted if they care.
+// @-everyone, to avoid noise; members keep the channel unmuted if they care.
 
 import 'dotenv/config';
 import { once } from 'node:events';
@@ -58,6 +58,20 @@ async function main() {
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC',
   });
+
+  // Idempotent: skip if today's quiz was already posted (guards against extra
+  // cron triggers / manual runs within the same UTC day).
+  const recent = await channel.messages.fetch({ limit: 20 }).catch(() => null);
+  if (recent && recent.some((m) => m.author.id === client.user?.id && m.embeds[0]?.title?.includes(today))) {
+    console.log(`daily quiz for ${today} already posted, skipping`);
+    await client.destroy();
+    return;
+  }
+
+  // At 00:00 UTC the new QOTD may not be published yet (the site publishes it
+  // lazily on first homepage load). Hit the homepage to trigger that publish so
+  // the link + in-Discord quiz read today's quiz, not yesterday's.
+  await fetch(`${SITE}/`, { headers: { 'User-Agent': 'kpopquiz-bot' } }).catch(() => {});
 
   const embed = new EmbedBuilder()
     .setColor(BRAND_COLOR)

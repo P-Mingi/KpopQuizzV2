@@ -6,7 +6,7 @@ name: Daily Quiz Post
 # test it manually from the Actions tab on any branch that has this file.
 on:
   schedule:
-    - cron: '0 9 * * *' # 09:00 UTC every day (adjust to taste)
+    - cron: '0 0 * * *' # 00:00 UTC daily, matches the site's daily-quiz rollover
   workflow_dispatch: {}
 
 jobs:
