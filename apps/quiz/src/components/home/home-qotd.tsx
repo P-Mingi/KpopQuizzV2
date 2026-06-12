@@ -47,8 +47,8 @@ export function HomeQotd({ quiz }: Props) {
           style={{ background: `linear-gradient(135deg, ${quiz.display_color}, color-mix(in srgb, ${quiz.display_color} 55%, var(--brand)))` }}
         >
           {timeLeft && <span className="daily-reset">Resets in {timeLeft}</span>}
-          <div style={{ position: 'absolute', bottom: -22, right: 14, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--surface)' }}>
-            <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={64} />
+          <div style={{ position: 'absolute', bottom: -20, right: 14, borderRadius: 18, overflow: 'hidden', border: '3px solid var(--surface)', boxShadow: '0 3px 10px rgba(0,0,0,0.10)', lineHeight: 0 }}>
+            <GroupLogo groupName={quiz.group_name} logoUrl={quiz.logo_url} displayColor={quiz.display_color} textColor={quiz.text_color} size={66} />
           </div>
         </div>
 

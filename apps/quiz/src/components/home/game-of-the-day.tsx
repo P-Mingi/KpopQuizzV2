@@ -66,29 +66,38 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
                 </span>
               </span>
               <span className="gotd-prompt">{data.prompt}</span>
-              <span className="gotd-cta">Vote in today&apos;s matchup</span>
             </Link>
             <Link href={`/rankings/${data.group}/${data.type}`} className="gotd-rank-link">
               See where fans rank them &rarr;
             </Link>
+            <Link
+              href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}`}
+              className="gotd-cta"
+            >
+              Vote in today&apos;s matchup
+            </Link>
           </>
         ) : (
-          <Link href={`/games/name-all/${data.slug}`} className="gotd-nam">
-            <span className="gotd-nam-logo">
-              <GroupLogo
-                groupName={data.groupName ?? 'Group'}
-                logoUrl={data.logoUrl}
-                displayColor={data.displayColor ?? '#E8457A'}
-                textColor={data.textColor ?? '#ffffff'}
-                size={72}
-              />
-            </span>
-            <span className="gotd-nam-title">
-              Name all {data.memberCount} {data.groupName} members
-            </span>
-            <span className="gotd-nam-sub">Beat the clock: {data.timeLabel}</span>
-            <span className="gotd-cta">Play today&apos;s challenge</span>
-          </Link>
+          <>
+            <Link href={`/games/name-all/${data.slug}`} className="gotd-nam">
+              <span className="gotd-nam-logo">
+                <GroupLogo
+                  groupName={data.groupName ?? 'Group'}
+                  logoUrl={data.logoUrl}
+                  displayColor={data.displayColor ?? '#E8457A'}
+                  textColor={data.textColor ?? '#ffffff'}
+                  size={72}
+                />
+              </span>
+              <span className="gotd-nam-title">
+                Name all {data.memberCount} {data.groupName} members
+              </span>
+              <span className="gotd-nam-sub">Beat the clock: {data.timeLabel}</span>
+            </Link>
+            <Link href={`/games/name-all/${data.slug}`} className="gotd-cta">
+              Play today&apos;s challenge
+            </Link>
+          </>
         )}
       </div>
     </div>
