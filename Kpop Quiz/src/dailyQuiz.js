@@ -63,7 +63,10 @@ async function main() {
 
   const quizUrl = await todaysQuizUrl();
   const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("Play today's quiz").setEmoji('🎧').setURL(quizUrl),
+    // Interactive: handled by the worker (quizBot) for an in-Discord run.
+    new ButtonBuilder().setStyle(ButtonStyle.Primary).setLabel('Play in Discord').setEmoji('▶️').setCustomId('kq_quiz_start'),
+    // Link out to the full web quiz.
+    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Play on the web').setEmoji('🎧').setURL(quizUrl),
   );
 
   await channel.send({ embeds: [embed], components: [row] });

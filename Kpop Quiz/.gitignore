@@ -1,5 +1,7 @@
 node_modules/
 .env
+.env.bak*
+.env.local
 # Generated at runtime: maps role/channel names to their created IDs.
 src/generated-ids.json
 *.log

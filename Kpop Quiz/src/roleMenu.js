@@ -19,6 +19,7 @@ import {
 import {
   GROUPS_BY_GEN, ROLE_MENU, GROUP_EMOJI, GROUP_MENU_PREFIX, STRUCTURE,
 } from './config.js';
+import { handleQuizInteraction } from './quizBot.js';
 import { load } from './store.js';
 
 // --- build the select-menu rows ---------------------------------------------
@@ -169,11 +170,12 @@ async function runListener() {
     ],
   });
 
-  client.once('clientReady', (c) => console.log(`Role-menu listener online as ${c.user.tag}. Ctrl-C to stop.`));
+  client.once('clientReady', (c) => console.log(`Worker online as ${c.user.tag} (role menu + quiz + autoVote). Ctrl-C to stop.`));
   client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isStringSelectMenu()) return;
-    try { await handleSelect(interaction, ids); }
-    catch (e) { console.error('interaction error:', e.message); }
+    try {
+      if (interaction.isStringSelectMenu()) await handleSelect(interaction, ids);
+      else if (interaction.isButton()) await handleQuizInteraction(interaction);
+    } catch (e) { console.error('interaction error:', e.message); }
   });
 
   // autoVote: react to new suggestions so members can up/down them.
