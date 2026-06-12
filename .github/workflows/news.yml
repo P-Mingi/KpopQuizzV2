@@ -1,0 +1,27 @@
+name: K-pop News Auto-post
+
+# Polls Soompi + Koreaboo RSS and posts new articles to #news.
+# Scheduled runs only fire on the default branch (main). Dedup is by checking
+# recent messages in the channel, so no state is stored between runs.
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'Kpop Quiz'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Post news
+        run: npm run news
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
