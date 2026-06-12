@@ -14,14 +14,19 @@ import {
   ButtonBuilder, ButtonStyle,
 } from 'discord.js';
 import { BRAND_COLOR } from './config.js';
+import { getTodaysQuiz } from './quizData.js';
 import { load } from './store.js';
 
 const SITE = 'https://kpopquiz.org';
 
-// Deep-link straight to today's Quiz-of-the-Day page instead of the homepage.
-// The QOTD is rendered first on the homepage as the first /q/<slug> link, so we
-// pull that out. Falls back to the homepage if the site is unreachable.
+// Deep-link straight to today's Quiz-of-the-Day page. Prefer the real slug from
+// the DB (the same source the in-Discord quiz uses, so both buttons match); fall
+// back to scraping the homepage, then the homepage itself.
 async function todaysQuizUrl() {
+  try {
+    const q = await getTodaysQuiz();
+    if (q?.slug) return `${SITE}/q/${q.slug}`;
+  } catch { /* fall through */ }
   try {
     const res = await fetch(SITE + '/', { headers: { 'User-Agent': 'kpopquiz-bot' } });
     const html = await res.text();

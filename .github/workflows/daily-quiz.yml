@@ -26,3 +26,6 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           GUILD_ID: ${{ secrets.GUILD_ID }}
+          # Public anon key (read-only) so the web button links to the real QOTD slug.
+          QUIZ_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
+          QUIZ_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}
