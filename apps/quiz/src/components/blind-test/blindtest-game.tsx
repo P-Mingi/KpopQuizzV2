@@ -203,9 +203,22 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
 
   const score = answers.filter((a) => a.correct).length;
 
+  // ============================================ LOADING (generate wait)
+  // F4: the deliberate "we're preparing your game" wait while
+  // /api/blind-test/generate picks 10 songs + re-fetches Deezer previews.
+  if (phase === 'loading') {
+    return (
+      <div className="bt-screen">
+        <div className="bt-loading" role="status" aria-live="polite">
+          <Mascot variant="think" animate="tilt" size={104} alt="" />
+          <p className="bt-loading-msg">Picking your songs...</p>
+        </div>
+      </div>
+    );
+  }
+
   // ============================================ SETUP
-  if (phase === 'setup' || phase === 'loading') {
-    const loading = phase === 'loading';
+  if (phase === 'setup') {
     return (
       <div className="bt-screen">
         <div className="bt-setup">
@@ -257,10 +270,8 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
 
           {error && <p className="bt-error" role="alert">{error}</p>}
 
-          <button type="button" className="bt-start" onClick={start} disabled={loading}>
-            {loading
-              ? <span className="bt-spinner" aria-label="Loading" />
-              : <>Start <span className="bt-start-pl">{playlistLabel}</span></>}
+          <button type="button" className="bt-start" onClick={start}>
+            Start <span className="bt-start-pl">{playlistLabel}</span>
           </button>
           <Link href="/games" className="bt-back">Back to games</Link>
         </div>

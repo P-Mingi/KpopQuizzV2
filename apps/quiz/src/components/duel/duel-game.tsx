@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { Mascot } from '@/components/ui/mascot';
 import { RankingList } from './ranking-list';
 import { VsBadge } from './vs-badge';
 
@@ -256,12 +257,21 @@ export function DuelGame({
       <h1 className="duel-prompt">{prompt}</h1>
       <p className="duel-meta">{totalVotes.toLocaleString('en-US')} fans have voted on this matchup</p>
 
-      {/* Duel (5b + 5c) */}
-      <div className="duel-grid">
-        {duel ? renderCard(duel.a, 'a') : <span className="opt" aria-hidden="true" style={{ height: 196 }} />}
-        <VsBadge />
-        {duel ? renderCard(duel.b, 'b') : <span className="opt" aria-hidden="true" style={{ height: 196 }} />}
-      </div>
+      {/* Duel (5b + 5c). F4: on FIRST load only (no matchup yet) show the think
+          mascot. Next-pair fetches keep the previous pair on screen, so the
+          mascot never appears mid-play. */}
+      {duel ? (
+        <div className="duel-grid">
+          {renderCard(duel.a, 'a')}
+          <VsBadge />
+          {renderCard(duel.b, 'b')}
+        </div>
+      ) : (
+        <div className="duel-loading" role="status" aria-live="polite">
+          <Mascot variant="think" animate="tilt" size={104} alt="" />
+          <p className="duel-loading-msg">Finding a matchup...</p>
+        </div>
+      )}
 
       {/* Controls + tally */}
       <div className="duel-controls">

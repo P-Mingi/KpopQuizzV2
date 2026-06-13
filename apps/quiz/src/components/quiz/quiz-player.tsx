@@ -586,6 +586,17 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   // INTRO STATE
   // ============================================
   if (state.phase === 'intro') {
+    // F4: pre-play wait while questions are fetched after START. think mascot.
+    if (loading) {
+      return (
+        <div className="max-w-[440px] mx-auto px-1">
+          <div className="quiz-loading" role="status" aria-live="polite">
+            <Mascot variant="think" animate="tilt" size={104} alt="" />
+            <p className="quiz-loading-msg">Loading your quiz...</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="max-w-[440px] mx-auto px-1">
         {/* Hero banner: cover image if available, otherwise group gradient */}
