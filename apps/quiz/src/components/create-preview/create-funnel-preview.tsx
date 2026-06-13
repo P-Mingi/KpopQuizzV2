@@ -9,6 +9,7 @@ import { ShareCardModal, type SharePlatform } from '@/components/share/share-car
 import {
   type Draft, type DraftQuestion, blankQuestion, isQuestionComplete, completeCount,
   loadDraft, saveDraft, clearDraft, loadStep, saveStep, compressImageToDataUrl, dataUrlToFile,
+  validateImageFile, ACCEPTED_IMAGE_TYPES,
 } from '@/lib/create-draft';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -45,11 +46,12 @@ interface FunnelState {
   title: string;
   group_slug: string | null;
   cover: string | null;
+  coverRights: boolean; // H9: "I have the right to use this image"
   questions: DraftQuestion[];
 }
 
 function emptyState(): FunnelState {
-  return { title: '', group_slug: null, cover: null, questions: [blankQuestion()] };
+  return { title: '', group_slug: null, cover: null, coverRights: false, questions: [blankQuestion()] };
 }
 
 export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): React.ReactElement {
@@ -59,6 +61,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   const [hydrated, setHydrated] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [coverBusy, setCoverBusy] = useState(false);
+  const [coverError, setCoverError] = useState<string | null>(null); // H9: size/format feedback
   const [publishing, setPublishing] = useState(false);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [emailSent, setEmailSent] = useState(false);
@@ -88,6 +91,12 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
     const complete = d.questions.filter(isQuestionComplete);
     if (!g || d.title.trim().length < MIN_TITLE || complete.length < MIN_QUESTIONS) {
       setPublishError(`Add a title (${MIN_TITLE}+ chars), pick a group, and complete at least ${MIN_QUESTIONS} questions.`);
+      return;
+    }
+    // H9: a cover can only be published once the user confirms they may use it.
+    if (d.cover && !d.coverRights) {
+      setStep(1);
+      setPublishError('Please confirm you have the right to use your cover image (on the first step).');
       return;
     }
     setPublishing(true);
@@ -145,7 +154,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   useEffect(() => {
     const d = loadDraft();
     if (d) {
-      setData({ title: d.title, group_slug: d.group_slug, cover: d.cover, questions: d.questions.length ? d.questions : [blankQuestion()] });
+      setData({ title: d.title, group_slug: d.group_slug, cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
     }
     const params = new URLSearchParams(window.location.search);
     const wantResume = params.get('resume') === 'publish';
@@ -215,7 +224,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   useEffect(() => {
     if (!hydrated) return;
     const t = window.setTimeout(() => {
-      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, cover: data.cover, questions: data.questions };
+      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
       saveDraft(d);
     }, 500);
     return () => window.clearTimeout(t);
@@ -246,16 +255,22 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   const pickCover = () => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/jpeg,image/png,image/webp,image/gif';
+    input.accept = ACCEPTED_IMAGE_TYPES.join(',');
     input.onchange = async (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
+      // H9: validate type + raw size on the client (instant feedback) BEFORE we
+      // compress. The upload route re-validates authoritatively at publish.
+      const err = validateImageFile(file);
+      if (err) { setCoverError(err); return; }
+      setCoverError(null);
       setCoverBusy(true);
       try {
         const url = await compressImageToDataUrl(file);
-        setData((s) => ({ ...s, cover: url }));
+        // A new image resets the rights acknowledgement - it must be re-confirmed.
+        setData((s) => ({ ...s, cover: url, coverRights: false }));
       } catch {
-        // ignore - keep no cover
+        setCoverError('That image could not be processed. Please try a different one.');
       } finally {
         setCoverBusy(false);
       }
@@ -329,11 +344,25 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
                 : (<span className="cf-cover-empty"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8.5" cy="8.5" r="1.6" /><path d="m21 15-5-5L5 21" /></svg><span>Tap to add a cover</span></span>)}
             </button>
             <p className="cf-cover-help">Shows on your quiz card and becomes your share card background. Quizzes with a cover get way more plays.</p>
-            {data.cover && <button type="button" className="cf-skip" onClick={() => setData((s) => ({ ...s, cover: null }))}>Remove cover</button>}
+            <p className="cf-cover-help">JPG, PNG, or WebP, up to 5MB.</p>
+            {coverError && <p className="cf-cover-err" role="alert">{coverError}</p>}
+            {data.cover && (
+              <label className={`cf-rights${data.coverRights ? ' on' : ''}`}>
+                <input
+                  type="checkbox"
+                  checked={data.coverRights}
+                  onChange={(e) => setData((s) => ({ ...s, coverRights: e.target.checked }))}
+                />
+                <span>I have the right to use this image (it&apos;s mine, royalty-free, or properly licensed).</span>
+              </label>
+            )}
+            {data.cover && <button type="button" className="cf-skip" onClick={() => { setData((s) => ({ ...s, cover: null, coverRights: false })); setCoverError(null); }}>Remove cover</button>}
           </div>
 
-          <button type="button" className="cf-cta" disabled={!data.group_slug} onClick={() => setStep(2)}>Start adding questions &rarr;</button>
-          {!data.group_slug && <p className="cf-mini-hint">Pick a group to continue.</p>}
+          <button type="button" className="cf-cta" disabled={!data.group_slug || (!!data.cover && !data.coverRights)} onClick={() => setStep(2)}>Start adding questions &rarr;</button>
+          {!data.group_slug
+            ? <p className="cf-mini-hint">Pick a group to continue.</p>
+            : (!!data.cover && !data.coverRights) && <p className="cf-mini-hint">Confirm you have the right to use your cover image to continue.</p>}
         </div>
       )}
 

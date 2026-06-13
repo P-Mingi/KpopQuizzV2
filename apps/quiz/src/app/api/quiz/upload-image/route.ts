@@ -2,15 +2,16 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+// H9: cover guardrail - accept only JPEG/PNG/WebP (GIF dropped). Validated here
+// on the server (authoritative) and mirrored client-side for instant feedback.
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 function isValidImageBuffer(buffer: Buffer): boolean {
   if (buffer.length < 4) return false;
-  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return true;
-  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return true;
-  if (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46) return true;
+  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return true; // JPEG
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return true; // PNG
   if (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 &&
-      buffer.length > 11 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) return true;
+      buffer.length > 11 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) return true; // WebP
   return false;
 }
 
@@ -32,7 +33,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   if (file) {
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return NextResponse.json({ error: `Invalid type. Use JPG, PNG, WebP, or GIF.` }, { status: 400 });
+      return NextResponse.json({ error: `Invalid type. Use JPG, PNG, or WebP.` }, { status: 400 });
     }
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
@@ -84,7 +85,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       if (buffer.length > MAX_FILE_SIZE) return NextResponse.json({ error: 'Image too large (max 5MB)' }, { status: 400 });
       if (!isValidImageBuffer(buffer)) return NextResponse.json({ error: 'Not a valid image' }, { status: 400 });
 
-      const ext = contentType.includes('png') ? 'png' : contentType.includes('webp') ? 'webp' : contentType.includes('gif') ? 'gif' : 'jpg';
+      const ext = contentType.includes('png') ? 'png' : contentType.includes('webp') ? 'webp' : 'jpg';
       const filename = `${crypto.randomUUID()}.${ext}`;
       const storagePath = `quiz-images/${year}/${month}/${filename}`;
 

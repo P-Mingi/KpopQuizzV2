@@ -14,8 +14,26 @@ export interface Draft {
   title: string;
   group_slug: string | null;
   cover: string | null; // data URL (anonymous) or an https URL (already uploaded)
+  coverRights?: boolean; // H9: the user confirmed they have the right to use the cover
   questions: DraftQuestion[];
   updatedAt: number;
+}
+
+// H9 - cover guardrail (client mirror of the server upload-route rules). Accept
+// only JPEG/PNG/WebP and cap the RAW file at 5MB *before* client compression.
+export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const MAX_COVER_BYTES = 5 * 1024 * 1024;
+
+/** Returns a human-readable error if the picked file is the wrong type or too
+ *  large, or null when it is acceptable. Mirrored authoritatively on the server. */
+export function validateImageFile(file: File): string | null {
+  if (!ACCEPTED_IMAGE_TYPES.includes(file.type as (typeof ACCEPTED_IMAGE_TYPES)[number])) {
+    return 'That file type is not supported. Use a JPG, PNG, or WebP image.';
+  }
+  if (file.size > MAX_COVER_BYTES) {
+    return `That image is too large (${(file.size / (1024 * 1024)).toFixed(1)}MB). Please use one under 5MB.`;
+  }
+  return null;
 }
 
 const KEY = 'kq_create_draft_v1';

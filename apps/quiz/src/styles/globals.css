@@ -2403,6 +2403,14 @@ a.ranking-cta { text-decoration: none; }
 .cf-cover-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
 .cf-cover-change { position: absolute; right: 10px; bottom: 10px; font-size: 12px; font-weight: 700; color: #fff; background: rgba(0, 0, 0, 0.45); padding: 5px 12px; border-radius: 100px; }
 .cf-cover-help { font-size: 12px; color: var(--txt3); line-height: 1.45; margin: 9px 0 0; }
+.cf-cover-help + .cf-cover-help { margin-top: 3px; }
+/* H9 - cover guardrail: size/format error + rights acknowledgement. */
+.cf-cover-err { font-size: 12.5px; color: var(--wrong); font-weight: 600; line-height: 1.45; margin: 9px 0 0; }
+.cf-rights { display: flex; align-items: flex-start; gap: 9px; margin-top: 11px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: border-color 120ms ease, background 120ms ease; }
+.cf-rights:hover { border-color: var(--txt3); }
+.cf-rights.on { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 6%, transparent); }
+.cf-rights input { width: 18px; height: 18px; margin: 1px 0 0; flex-shrink: 0; accent-color: var(--brand); cursor: pointer; }
+.cf-rights span { font-size: 12.5px; color: var(--txt2); line-height: 1.45; }
 .cf-skip { align-self: flex-start; background: none; border: none; color: var(--txt3); font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer; margin-top: 8px; padding: 4px 0; }
 
 .cf-cta { margin-top: 8px; min-height: 54px; border: none; border-radius: 14px; background: var(--brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 16px; cursor: pointer; transition: background 120ms ease, transform 120ms ease; }

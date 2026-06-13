@@ -298,6 +298,23 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const quiz = quizResult as { id: string; slug: string };
 
+  // H9 - basic NSFW / cover moderation. Every *user-uploaded* cover (one living
+  // in the public upload bucket) is queued into the EXISTING report/admin-removal
+  // pipeline so a human reviews it - "moderated, not unmoderated". Group default
+  // covers are trusted and skipped. We deliberately avoid a client-side ML model
+  // (nsfwjs/tensorflow) here so the perf-sensitive creation funnel stays lean:
+  // no multi-MB model in the bundle or fetched on upload. The admin dashboard
+  // already surfaces pending reports, and the auto-flag trigger (>=5) still applies.
+  if (manualCoverUrl && manualCoverUrl.includes('/quiz-images/')) {
+    const { error: modError } = await supabase.from('reports').insert({
+      quiz_id: quiz.id,
+      reporter_id: null,
+      reason: 'other',
+      details: '[Auto] User-uploaded cover image queued for moderation review.',
+    });
+    if (modError) console.error('Cover moderation queue insert failed:', modError.message);
+  }
+
   // Award XP for creating a quiz
   try {
     const { data: profile } = await supabase
