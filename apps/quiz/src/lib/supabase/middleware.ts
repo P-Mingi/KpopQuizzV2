@@ -3,11 +3,14 @@ import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
 
-const PROTECTED_PATHS = ['/create', '/onboarding', '/settings', '/admin'];
+// H10: /create is intentionally NOT protected. The creation funnel is open to
+// anonymous users (build screens 1-2 with no account); auth is required only at
+// publish, handled in-page so the draft is never lost to a login redirect.
+const PROTECTED_PATHS = ['/onboarding', '/settings', '/admin'];
 
 // Known route prefixes - anything else from the old site gets 301 to homepage
 const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/create-preview', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia', // /trivia hub (group -trivia pages are matched by the -trivia suffix rule below)
   '/rankings', // /rankings index + /rankings/{group}/{type} fan-vote pages
   '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
@@ -73,11 +76,17 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
   }
 
   const pathname = request.nextUrl.pathname;
-  // /create-preview is the un-wired funnel prototype (Step H) - openable without auth,
-  // even though it starts with the protected /create prefix.
-  const isProtected = pathname.startsWith('/create-preview')
-    ? false
-    : PROTECTED_PATHS.some((p) => pathname.startsWith(p));
+
+  // H10: the temporary /create-preview funnel is retired -> redirect to /create.
+  // Preserve any query string (e.g. ?resume=publish from an in-flight OAuth
+  // round-trip that was started before the swap).
+  if (pathname === '/create-preview' || pathname.startsWith('/create-preview/')) {
+    const to = new URL('/create', request.url);
+    to.search = request.nextUrl.search;
+    return NextResponse.redirect(to);
+  }
+
+  const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
 
   // Redirect unauthenticated users from protected paths to login
   if (isProtected && !user) {

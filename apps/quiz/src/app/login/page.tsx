@@ -97,11 +97,6 @@ export default function LoginPage(): React.ReactElement {
             </p>
           </div>
 
-          <div className="bp-mascot-wrap">
-            {/* Static brand logo for now; animated mascot expressions land in Workstream F. */}
-            <img className="bp-mascot" src="/logo-512.png" alt="" width={132} height={132} />
-          </div>
-
           <div className="bp-stats">
             <div><div className="bp-stat-n">30+</div><div className="bp-stat-l">groups</div></div>
             <div><div className="bp-stat-n">100k+</div><div className="bp-stat-l">plays</div></div>

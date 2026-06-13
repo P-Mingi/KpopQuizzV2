@@ -15,9 +15,11 @@ import {
 import type { QuizCardData } from '@/lib/db/types';
 
 // ============================================================
-// H1-H4 - wired creation funnel. localStorage draft -> publish via the existing
-// /api/quiz/create, claiming the draft onto the session user after auth.
-// Lives at /create-preview. B0 tokens, Syne/DM Sans, mobile-first.
+// Wired creation funnel (H1-H4, H10). localStorage draft -> publish via the
+// existing /api/quiz/create, claiming the draft onto the session user after auth.
+// This IS /create (the H10 swap retired the old editor). Anyone can build
+// screens 1-2 with no account; auth is only required at publish, and the draft
+// survives the OAuth round-trip so nothing is lost. B0 tokens, Syne/DM Sans.
 // ============================================================
 
 export interface FunnelGroup {
@@ -33,7 +35,7 @@ export interface FunnelGroup {
 const TITLE_PLACEHOLDER = 'e.g. Only real ITZY stans can pass this';
 const MIN_QUESTIONS = 3; // I1: publish floor lowered 5 -> 3 (matches /api/quiz/create + the DB constraint)
 const MIN_TITLE = 5;
-const RESUME_RETURN = '/create-preview?resume=publish';
+const RESUME_RETURN = '/create?resume=publish';
 
 const GoogleIcon = (
   <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M15.5 8.2c0-.6-.1-1-.2-1.5H8v2.8h4.2c-.2.9-.7 1.7-1.4 2.2v1.8h2.3c1.4-1.2 2.2-3.1 2.2-5.3z" fill="#4285F4" /><path d="M8 16c2.2 0 4-.7 5.3-2l-2.3-1.8c-.7.5-1.6.8-2.9.8-2.2 0-4.1-1.5-4.8-3.5H.8v1.9C2.2 14.1 4.9 16 8 16z" fill="#34A853" /><path d="M3.2 9.5c-.2-.5-.3-1-.3-1.5s.1-1 .3-1.5V4.6H.8C.3 5.6 0 6.8 0 8s.3 2.4.8 3.4l2.4-1.9z" fill="#FBBC05" /><path d="M8 3.2c1.3 0 2.4.4 3.3 1.3l2.4-2.4C12 .8 10.2 0 8 0 4.9 0 2.2 1.9.8 4.6l2.4 1.9C4 4.6 5.8 3.2 8 3.2z" fill="#EA4335" /></svg>
@@ -54,9 +56,16 @@ function emptyState(): FunnelState {
   return { title: '', group_slug: null, cover: null, coverRights: false, questions: [blankQuestion()] };
 }
 
-export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): React.ReactElement {
+export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup[]; initialGroupSlug?: string | null }): React.ReactElement {
+  // H10: /create?group=<slug> deep-links pre-select a group on Screen 1. Ignored
+  // if the slug is unknown. A saved draft's own group always wins over this.
+  const validInitialGroup = initialGroupSlug && groups.some((g) => g.slug === initialGroupSlug) ? initialGroupSlug : null;
+
   const [step, setStep] = useState(1);
-  const [data, setData] = useState<FunnelState>(emptyState);
+  // Seed a deep-linked ?group= into the INITIAL state so the chip is selected on
+  // the very first render (SSR + client), not after a post-hydration effect. A
+  // saved draft (loaded in the mount effect below) still overrides it.
+  const [data, setData] = useState<FunnelState>(() => (validInitialGroup ? { ...emptyState(), group_slug: validInitialGroup } : emptyState()));
   const [qIndex, setQIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -154,8 +163,10 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   useEffect(() => {
     const d = loadDraft();
     if (d) {
-      setData({ title: d.title, group_slug: d.group_slug, cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
+      // A saved draft wins; if it had no group, fall back to the deep-linked one.
+      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
     }
+    // No draft: the useState initializer already seeded validInitialGroup.
     const params = new URLSearchParams(window.location.search);
     const wantResume = params.get('resume') === 'publish';
     const supabase = createBrowserClient();
@@ -177,7 +188,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
       }
       setHydrated(true);
     }).catch(() => setHydrated(true));
-  }, [publish]);
+  }, [publish, validInitialGroup]);
 
   // --- inline username availability check (debounced) ---
   const needsUsername = signedIn && hasProfile === false;
@@ -305,8 +316,6 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
 
   return (
     <div className="cf-screen">
-      <p className="cf-proto-flag">Funnel preview - publishing here creates a real quiz on your account</p>
-
       {step <= 3 && (
         <div className="cf-top">
           <span className="cf-eyebrow">{step === 1 ? 'Create a quiz · details' : step === 2 ? 'Create a quiz · questions' : 'Create a quiz · publish'}</span>

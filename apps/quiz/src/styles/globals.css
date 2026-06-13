@@ -1778,10 +1778,6 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .bp-head { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; max-width: 330px; }
 @media (max-width: 680px) { .bp-head { font-size: 24px; } }
 .bp-sub { font-size: 14px; line-height: 1.55; opacity: .92; max-width: 330px; }
-.bp-mascot-wrap { position: relative; z-index: 2; display: flex; justify-content: center; margin: 8px 0; }
-.bp-mascot { width: 132px; height: 132px; object-fit: contain; border-radius: 22px; filter: drop-shadow(0 12px 30px rgba(0,0,0,.25)); animation: bpFloat 3.4s ease-in-out infinite; }
-@media (max-width: 680px) { .bp-mascot { width: 96px; height: 96px; } }
-@keyframes bpFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .bp-stats { position: relative; z-index: 2; display: flex; gap: 22px; }
 .bp-stat-n { font-size: 20px; font-weight: 800; line-height: 1; }
 .bp-stat-l { font-size: 11px; opacity: .8; margin-top: 3px; }
@@ -1843,7 +1839,6 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .auth-tos a { color: var(--txt2); text-decoration: underline; }
 
 @media (prefers-reduced-motion: reduce) {
-  .bp-mascot { animation: none; }
   .auth-spinner { animation-duration: 1.2s; }
 }
 
@@ -2368,10 +2363,9 @@ a.ranking-cta { text-decoration: none; }
 }
 
 /* ============================================================
-   Step H PROTOTYPE - creation funnel (/create-preview). Mock UI.
+   Creation funnel (/create) - Workstream H. Mobile-first, B0 tokens.
    ============================================================ */
 .cf-screen { max-width: 480px; margin: 0 auto; padding: 16px 18px 48px; min-height: 100dvh; }
-.cf-proto-flag { font-size: 11px; font-weight: 600; color: var(--txt3); text-align: center; background: var(--surface-alt); border: 1px dashed var(--border); border-radius: 8px; padding: 6px 10px; margin: 0 0 18px; }
 
 .cf-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
 .cf-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); }
