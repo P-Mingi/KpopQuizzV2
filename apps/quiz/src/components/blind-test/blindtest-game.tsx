@@ -44,19 +44,10 @@ const GENERATIONS: Array<{ id: string; label: string }> = [
   { id: '5th-gen', label: '5th gen' },
 ];
 
-// Verified against the live catalog: each has 10+ songs and a real group slug.
-const GROUPS: Array<{ slug: string; name: string }> = [
-  { slug: 'bts', name: 'BTS' }, { slug: 'blackpink', name: 'BLACKPINK' }, { slug: 'twice', name: 'TWICE' },
-  { slug: 'stray-kids', name: 'Stray Kids' }, { slug: 'aespa', name: 'aespa' }, { slug: 'newjeans', name: 'NewJeans' },
-  { slug: 'seventeen', name: 'SEVENTEEN' }, { slug: 'exo', name: 'EXO' }, { slug: 'red-velvet', name: 'Red Velvet' },
-  { slug: 'g-i-dle', name: '(G)I-DLE' }, { slug: 'ive', name: 'IVE' }, { slug: 'le-sserafim', name: 'LE SSERAFIM' },
-  { slug: 'itzy', name: 'ITZY' }, { slug: 'txt', name: 'TXT' }, { slug: 'enhypen', name: 'ENHYPEN' },
-  { slug: 'ateez', name: 'ATEEZ' }, { slug: 'nct-127', name: 'NCT 127' }, { slug: 'nct-dream', name: 'NCT DREAM' },
-  { slug: 'stayc', name: 'STAYC' }, { slug: 'nmixx', name: 'NMIXX' }, { slug: 'kep1er', name: 'Kep1er' },
-  { slug: 'treasure', name: 'TREASURE' }, { slug: 'mamamoo', name: 'MAMAMOO' }, { slug: 'got7', name: 'GOT7' },
-  { slug: 'monsta-x', name: 'MONSTA X' }, { slug: 'bigbang', name: 'BIGBANG' }, { slug: 'shinee', name: 'SHINee' },
-  { slug: '2ne1', name: '2NE1' },
-];
+// The offerable group list comes from the server (real catalog counts by
+// group_id, only groups with >= 15 songs) so it can never drift from what the
+// generate route can actually serve. See lib/db/queries/blindtest.ts.
+interface PickerGroup { slug: string; name: string; count?: number }
 
 function scoreLabel(score: number): string {
   if (score >= 10) return 'Perfect ear';
@@ -66,7 +57,7 @@ function scoreLabel(score: number): string {
   return 'Keep listening';
 }
 
-export function BlindtestGame(): React.ReactElement {
+export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): React.ReactElement {
   const [phase, setPhase] = useState<Phase>('setup');
   const [pickKind, setPickKind] = useState<PickKind>('all');
   const [playlist, setPlaylist] = useState('all');
@@ -247,9 +238,9 @@ export function BlindtestGame(): React.ReactElement {
               ))}
             </div>
 
-            <p className="bt-pick-heading">By group</p>
+            {groups.length > 0 && <p className="bt-pick-heading">By group</p>}
             <div className="bt-group-grid">
-              {GROUPS.map((g) => (
+              {groups.map((g) => (
                 <button
                   key={g.slug}
                   type="button"

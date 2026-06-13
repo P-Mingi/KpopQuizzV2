@@ -184,8 +184,20 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   if (isGroupPlaylist) {
     const { data: group } = await supabase
       .from('groups').select('id, name').eq('slug', playlist).maybeSingle();
-    if (group?.name) {
-      query = query.ilike('artist_name', group.name as string);
+    if (group?.id) {
+      // Primary: match by group_id. This is robust and consistent with the
+      // setup picker - it avoids punctuation/romanization mismatches and the
+      // PostgREST filter-parsing issues an artist_name ilike hits on names like
+      // "(G)I-DLE" or "f(x)" (parentheses), which caused "not enough songs".
+      const { count } = await supabase
+        .from('songs').select('id', { count: 'exact', head: true })
+        .eq('status', 'active').eq('group_id', group.id);
+      if ((count ?? 0) > 0) {
+        query = query.eq('group_id', group.id);
+      } else if (group.name) {
+        // Fallback only when a group has no group_id rows yet.
+        query = query.ilike('artist_name', group.name as string);
+      }
     } else {
       query = query.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
     }

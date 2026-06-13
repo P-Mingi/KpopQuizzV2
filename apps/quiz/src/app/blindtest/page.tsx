@@ -1,4 +1,6 @@
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
+import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -14,6 +16,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlindtestPage(): React.ReactElement {
-  return <BlindtestGame />;
+// Re-derive the offerable group list from the live catalog hourly.
+export const revalidate = 3600;
+
+export default async function BlindtestPage(): Promise<React.ReactElement> {
+  const groups = await safeFetch(getBlindtestGroups(), [], '[blindtest] getBlindtestGroups');
+  return <BlindtestGame groups={groups} />;
 }
