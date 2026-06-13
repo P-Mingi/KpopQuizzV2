@@ -2525,6 +2525,19 @@ a.ranking-cta { text-decoration: none; }
 .scm-status.ok { color: var(--correct); }
 .scm-status.err { color: var(--wrong); }
 
+/* H8 - quiz share row (quiz-detail + result trigger) */
+.qsr-row { display: flex; gap: 8px; }
+.qsr-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--txt2); font-size: 13px; font-weight: 700; cursor: pointer; transition: background 120ms ease, color 120ms ease, border-color 120ms ease; }
+.qsr-btn:hover { color: #fff; border-color: transparent; }
+.qsr-reddit:hover { background: #FF4500; }
+.qsr-discord:hover { background: #5865F2; }
+.qsr-twitter:hover { background: #0F0F0F; }
+.qsr-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.scm-platforms { display: flex; gap: 8px; margin-top: 4px; }
+.scm-plat-btn { flex: 1; min-height: 50px; border: none; border-radius: 13px; color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 15px; cursor: pointer; transition: filter 120ms ease; }
+.scm-plat-btn:hover { filter: brightness(1.08); }
+.scm-plat-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 .scm-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
 .scm-share-btn { min-height: 50px; border: none; border-radius: 13px; color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: filter 120ms ease; }
 .scm-share-btn:hover { filter: brightness(1.08); }

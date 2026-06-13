@@ -476,7 +476,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
           <button type="button" className="cf-ghost cf-center-btn" onClick={() => { setData(emptyState()); setQIndex(0); setPublished(null); setEmailSent(false); setEmail(''); setPublishError(null); setUsername(''); setUnameStatus('idle'); autoPubFired.current = false; setStep(1); }}>Create another quiz</button>
 
           {shareModal && (
-            <ShareCardModal quizId={published.id} slug={published.slug} quizTitle={displayTitle} platform={shareModal} onClose={() => setShareModal(null)} />
+            <ShareCardModal quizId={published.id} slug={published.slug} quizTitle={displayTitle} platform={shareModal} canEdit onClose={() => setShareModal(null)} />
           )}
         </div>
       )}
