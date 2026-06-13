@@ -274,6 +274,18 @@ body {
 .animate-badge-pop { animation: badgePop 0.3s ease-out; }
 .animate-fade-out-up { animation: fadeOutUp 0.8s ease-out forwards; }
 
+/* Mascot (F1). Bob = celebrate, tilt = think. Sad + sleep stay static (the
+   component never applies an animation class to them). Both gated under
+   prefers-reduced-motion. Sizes match mascot_placement_prototype.html. */
+.mascot { object-fit: contain; display: inline-block; }
+.mascot-bob { animation: mascotBob 2.2s ease-in-out infinite; will-change: transform; }
+.mascot-tilt { animation: mascotTilt 3s ease-in-out infinite; will-change: transform; }
+@keyframes mascotBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes mascotTilt { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .mascot-bob, .mascot-tilt { animation: none; }
+}
+
 /* Name All Members game animations */
 @keyframes popIn {
   0% { transform: scale(0.7) rotate(-5deg); opacity: 0; }
