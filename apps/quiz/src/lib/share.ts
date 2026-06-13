@@ -61,3 +61,15 @@ export async function copyShareLink(quizId: string, slug: string): Promise<boole
     return false;
   }
 }
+
+// K3 - Discord has no web share intent, so we copy the tracked link
+// (utm_source=discord) for the user to paste into a channel.
+export async function shareToDiscord(quizId: string, slug: string): Promise<boolean> {
+  const shareUrl = await getShareUrl(quizId, slug, 'discord');
+  try {
+    await navigator.clipboard.writeText(shareUrl);
+    return true;
+  } catch {
+    return false;
+  }
+}

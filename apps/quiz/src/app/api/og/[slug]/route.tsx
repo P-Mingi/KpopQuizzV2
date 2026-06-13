@@ -62,18 +62,29 @@ export async function GET(
     profiles: { username: string };
   };
 
-  // --- params (customizer overrides; defaults read from the quiz) ---
-  const overlay = (['dark-bottom', 'full-dark', 'brand', 'purple'].includes(searchParams.get('overlay') ?? '')
-    ? searchParams.get('overlay')
-    : 'dark-bottom') as Overlay;
-  const opacityParam = Number(searchParams.get('opacity'));
-  const o = (Number.isFinite(opacityParam) ? Math.min(100, Math.max(0, opacityParam)) : 40) / 100;
+  // The creator's saved customizer config (H6). Read separately + tolerantly so
+  // the card still renders if the share_card column does not exist yet (pre-071).
+  let sc: { overlay?: string; opacity?: number; hook?: string; title?: string } = {};
+  {
+    const { data: scRow, error: scErr } = await supabase
+      .from('quizzes').select('share_card').eq('slug', slug).maybeSingle();
+    if (!scErr && scRow && typeof scRow.share_card === 'object' && scRow.share_card) {
+      sc = scRow.share_card as typeof sc;
+    }
+  }
+
+  // --- resolve params: URL override > saved share_card > computed default ---
+  const overlayRaw = searchParams.get('overlay') ?? sc.overlay ?? 'dark-bottom';
+  const overlay = (['dark-bottom', 'full-dark', 'brand', 'purple'].includes(overlayRaw) ? overlayRaw : 'dark-bottom') as Overlay;
+  const opacityStr = searchParams.get('opacity') ?? (typeof sc.opacity === 'number' ? String(sc.opacity) : null);
+  const opacityNum = Number(opacityStr);
+  const o = (opacityStr !== null && Number.isFinite(opacityNum) ? Math.min(100, Math.max(0, opacityNum)) : 40) / 100;
   const score = searchParams.get('s');
   const total = searchParams.get('t');
   const hasScore = score !== null && total !== null;
 
-  const title = (searchParams.get('title')?.trim() || row.title).slice(0, 120);
-  const hook = (searchParams.get('hook')?.trim()
+  const title = (searchParams.get('title')?.trim() || sc.title?.trim() || row.title).slice(0, 120);
+  const hook = (searchParams.get('hook')?.trim() || sc.hook?.trim()
     || (hasScore ? `I scored ${score}/${total}` : "Bet you can't get 100%")).slice(0, 60).toUpperCase();
 
   const cover = row.cover_image_url;
