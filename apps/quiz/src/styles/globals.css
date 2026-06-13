@@ -2475,9 +2475,17 @@ a.ranking-cta { text-decoration: none; }
 .cf-cta .bt-spinner { width: 18px; height: 18px; }
 .cf-ghost { text-decoration: none; }
 .cf-mini-hint { font-size: 12px; color: var(--txt3); text-align: center; margin: 8px 0 0; }
+.cf-publish-now { font-size: 12.5px; font-weight: 600; color: var(--correct); text-align: center; margin: 8px 0 0; }
 .cf-reqs { font-size: 13px; color: var(--txt2); line-height: 1.5; background: var(--surface-alt); border-radius: 12px; padding: 12px 14px; margin: 0 0 14px; }
 .cf-error { font-size: 13px; color: var(--wrong); line-height: 1.5; margin: 0 0 12px; }
 .cf-inline-link { background: none; border: none; color: var(--brand); font-weight: 600; font-size: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
 .cf-remove { display: block; margin-top: 12px; background: none; border: none; color: var(--txt3); font-size: 12px; text-decoration: underline; cursor: pointer; padding: 4px 0; }
 .cf-body .auth-btn:disabled, .cf-body .email-btn:disabled { opacity: 0.55; cursor: default; }
+/* I1 inline username */
+.cf-uname-row { position: relative; display: flex; align-items: center; }
+.cf-uname-at { position: absolute; left: 14px; font-size: 15px; font-weight: 600; color: var(--txt3); pointer-events: none; }
+.cf-uname-input { padding-left: 30px; }
+.cf-uname-status { font-size: 12px; margin: 6px 0 12px; min-height: 16px; color: var(--txt3); }
+.cf-uname-status.is-available { color: var(--correct); }
+.cf-uname-status.is-taken, .cf-uname-status.is-invalid { color: var(--wrong); }
 .cf-inline-link:focus-visible, .cf-remove:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }

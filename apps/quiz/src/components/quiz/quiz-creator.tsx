@@ -450,7 +450,7 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   const canContinueStep1 = selectedGroupId !== null || customGroupName.trim().length >= 2;
   const effectiveGroupId = selectedGroupId === -1 ? null : selectedGroupId;
   const canContinueStep2 = title.trim().length >= 5;
-  const canContinueStep3 = savedQuestions.length >= 5;
+  const canContinueStep3 = savedQuestions.length >= 3;
 
   function resetEditor() {
     setCurrentQuestion('');
@@ -856,12 +856,12 @@ export function QuizCreator({ groups }: QuizCreatorProps): React.ReactElement {
   // ============================================
 
   if (step === 3) {
-    const remaining = 5 - savedQuestions.length;
+    const remaining = 3 - savedQuestions.length;
 
     return (
       <div>
         <ProgressDots step={3} />
-        <StepHeader step={3} title="Add your questions" description="Minimum 5, maximum 20. Click the circle to mark the correct answer." />
+        <StepHeader step={3} title="Add your questions" description="Minimum 3, maximum 20. Click the circle to mark the correct answer." />
 
         {/* Saved questions list */}
         <div ref={listRef}>

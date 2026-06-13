@@ -29,7 +29,7 @@ export interface FunnelGroup {
 }
 
 const TITLE_PLACEHOLDER = 'e.g. Only real ITZY stans can pass this';
-const MIN_QUESTIONS = 5; // existing /api/quiz/create rule (the 3-floor + hint is I1)
+const MIN_QUESTIONS = 3; // I1: publish floor lowered 5 -> 3 (matches /api/quiz/create + the DB constraint)
 const MIN_TITLE = 5;
 const RESUME_RETURN = '/create-preview?resume=publish';
 
@@ -64,6 +64,11 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
   const [email, setEmail] = useState('');
   const [published, setPublished] = useState<{ id: string; slug: string } | null>(null);
   const [copied, setCopied] = useState(false);
+  // I1 inline username: a signed-in user with no profile picks one here (no /onboarding redirect).
+  const [hasProfile, setHasProfile] = useState<boolean | null>(null);
+  const [username, setUsername] = useState('');
+  const [unameStatus, setUnameStatus] = useState<'idle' | 'checking' | 'available' | 'taken' | 'invalid'>('idle');
+  const [claiming, setClaiming] = useState(false);
 
   const dataRef = useRef(data);
   dataRef.current = data;
@@ -143,17 +148,66 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
     const params = new URLSearchParams(window.location.search);
     const wantResume = params.get('resume') === 'publish';
     const supabase = createBrowserClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
       setSignedIn(!!user);
+      let prof: { username: string } | null = null;
+      if (user) {
+        const { data: p } = await supabase.from('profiles').select('username').eq('id', user.id).maybeSingle();
+        prof = p;
+        setHasProfile(!!p);
+      }
       if (wantResume && user && d && completeCount(d.questions) >= MIN_QUESTIONS) {
         setStep(3);
-        if (!autoPubFired.current) { autoPubFired.current = true; void publish(); }
+        // Only auto-publish if they already have a profile; a brand-new account
+        // picks a username inline first (no /onboarding redirect).
+        if (prof && !autoPubFired.current) { autoPubFired.current = true; void publish(); }
       } else if (d) {
         setStep(loadStep() ?? 1);
       }
       setHydrated(true);
     }).catch(() => setHydrated(true));
   }, [publish]);
+
+  // --- inline username availability check (debounced) ---
+  const needsUsername = signedIn && hasProfile === false;
+  useEffect(() => {
+    if (!needsUsername) return;
+    const u = username.trim().toLowerCase();
+    if (!u) { setUnameStatus('idle'); return; }
+    if (!/^[a-z0-9_]{3,20}$/.test(u)) { setUnameStatus('invalid'); return; }
+    setUnameStatus('checking');
+    const t = window.setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/auth/check-username?username=${encodeURIComponent(u)}`);
+        const j = (await res.json()) as { available?: boolean };
+        setUnameStatus(j.available ? 'available' : 'taken');
+      } catch {
+        setUnameStatus('idle');
+      }
+    }, 400);
+    return () => window.clearTimeout(t);
+  }, [username, needsUsername]);
+
+  const claimAndPublish = useCallback(async () => {
+    const u = username.trim().toLowerCase();
+    if (!/^[a-z0-9_]{3,20}$/.test(u)) { setUnameStatus('invalid'); return; }
+    setClaiming(true);
+    setPublishError(null);
+    try {
+      const res = await fetch('/api/auth/create-profile', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u }),
+      });
+      const j = (await res.json()) as { error?: string };
+      if (!res.ok) { setPublishError(j.error ?? 'Could not claim that username.'); setClaiming(false); return; }
+      setHasProfile(true);
+    } catch {
+      setPublishError('Could not claim username. Try again.');
+      setClaiming(false);
+      return;
+    }
+    setClaiming(false);
+    await publish();
+  }, [username, publish]);
 
   // --- debounced autosave (screens 1-2) ---
   useEffect(() => {
@@ -313,7 +367,11 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
           </button>
 
           <button type="button" className="cf-cta" onClick={() => setStep(3)}>Done &rarr;</button>
-          <p className="cf-mini-hint">{nComplete} of {MIN_QUESTIONS}+ questions ready to publish</p>
+          {nComplete >= MIN_QUESTIONS ? (
+            <p className="cf-publish-now" role="status">You can publish now ({nComplete} question{nComplete === 1 ? '' : 's'}) - or keep adding.</p>
+          ) : (
+            <p className="cf-mini-hint">{nComplete} of {MIN_QUESTIONS}+ questions ready to publish</p>
+          )}
           <button type="button" className="cf-ghost" onClick={() => setStep(1)}>&larr; Back to details</button>
         </div>
       )}
@@ -337,6 +395,25 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
 
           {publishing ? (
             <button type="button" className="cf-cta" disabled><span className="bt-spinner" /> Publishing...</button>
+          ) : signedIn && needsUsername ? (
+            <>
+              <p className="cf-reassure">One quick thing - pick a username so fans know who made this quiz.</p>
+              <label className="cf-label" htmlFor="cf-uname">Username</label>
+              <div className="cf-uname-row">
+                <span className="cf-uname-at" aria-hidden="true">@</span>
+                <input id="cf-uname" className="auth-inp cf-uname-input" value={username} onChange={(e) => setUsername(e.target.value.toLowerCase())} placeholder="yourname" maxLength={20} autoComplete="off" spellCheck={false} aria-describedby="cf-uname-status" />
+              </div>
+              <p id="cf-uname-status" className={`cf-uname-status is-${unameStatus}`} role="status">
+                {unameStatus === 'checking' ? 'Checking...'
+                  : unameStatus === 'available' ? 'Available'
+                  : unameStatus === 'taken' ? 'Taken - try another'
+                  : unameStatus === 'invalid' ? '3 to 20 chars: lowercase letters, numbers, underscores'
+                  : 'Pick a handle (3 to 20 characters)'}
+              </p>
+              <button type="button" className="cf-cta" disabled={!ready || unameStatus !== 'available' || claiming} onClick={() => void claimAndPublish()}>
+                {claiming ? <><span className="bt-spinner" /> Publishing...</> : <>Claim username &amp; publish &rarr;</>}
+              </button>
+            </>
           ) : signedIn ? (
             <>
               <p className="cf-reassure">You&apos;re signed in. Publishing links this quiz to your account.</p>
@@ -394,7 +471,7 @@ export function CreateFunnelPreview({ groups }: { groups: FunnelGroup[] }): Reac
           </button>
 
           <a className="cf-ghost cf-center-btn" href={`/q/${published.slug}`} target="_blank" rel="noopener noreferrer">Open your quiz &rarr;</a>
-          <button type="button" className="cf-ghost cf-center-btn" onClick={() => { setData(emptyState()); setQIndex(0); setPublished(null); setEmailSent(false); setEmail(''); setPublishError(null); autoPubFired.current = false; setStep(1); }}>Create another quiz</button>
+          <button type="button" className="cf-ghost cf-center-btn" onClick={() => { setData(emptyState()); setQIndex(0); setPublished(null); setEmailSent(false); setEmail(''); setPublishError(null); setUsername(''); setUnameStatus('idle'); autoPubFired.current = false; setStep(1); }}>Create another quiz</button>
         </div>
       )}
     </div>
