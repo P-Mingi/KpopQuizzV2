@@ -2467,3 +2467,17 @@ a.ranking-cta { text-decoration: none; }
   .cf-qcard, .cf-logo-pop { animation: none; }
   .cf-dot, .cf-minidot, .cf-cta, .cf-share-btn { transition: none; }
 }
+
+/* H1-H4 wired additions */
+.cf-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.cf-cta:disabled { opacity: 0.5; cursor: default; }
+.cf-cta:disabled:hover { background: var(--brand); }
+.cf-cta .bt-spinner { width: 18px; height: 18px; }
+.cf-ghost { text-decoration: none; }
+.cf-mini-hint { font-size: 12px; color: var(--txt3); text-align: center; margin: 8px 0 0; }
+.cf-reqs { font-size: 13px; color: var(--txt2); line-height: 1.5; background: var(--surface-alt); border-radius: 12px; padding: 12px 14px; margin: 0 0 14px; }
+.cf-error { font-size: 13px; color: var(--wrong); line-height: 1.5; margin: 0 0 12px; }
+.cf-inline-link { background: none; border: none; color: var(--brand); font-weight: 600; font-size: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+.cf-remove { display: block; margin-top: 12px; background: none; border: none; color: var(--txt3); font-size: 12px; text-decoration: underline; cursor: pointer; padding: 4px 0; }
+.cf-body .auth-btn:disabled, .cf-body .email-btn:disabled { opacity: 0.55; cursor: default; }
+.cf-inline-link:focus-visible, .cf-remove:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
