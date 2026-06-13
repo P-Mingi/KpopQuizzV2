@@ -1,0 +1,28 @@
+name: Daily Quiz Leaderboard
+
+# Posts the day's final quiz leaderboard to #daily-quiz, ~5 min before the new
+# quiz drops at 00:00 UTC, so the previous day's top scores are always visible.
+on:
+  schedule:
+    - cron: '55 23 * * *' # 23:55 UTC, 5 minutes before the new daily quiz
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'Kpop Quiz'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Post leaderboard
+        run: npm run leaderboard
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
+          QUIZ_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
+          QUIZ_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}

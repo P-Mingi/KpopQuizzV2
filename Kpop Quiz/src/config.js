@@ -369,13 +369,10 @@ export const CATEGORY_EMOJI = {
   Events: '🎉', 'Founding Creators': '⭐', Groups: '🩷', Staff: '🔒',
 };
 
-// Signature-ish colors so each group role shows up colored in the member list.
-// Approximate fandom palettes — adjust to taste.
-export const GROUP_COLOR = {
-  'BTS': 0x9b59b6, 'BLACKPINK': 0xf15a9c, 'Stray Kids': 0xe4002b, 'TWICE': 0xf98fb3,
-  'aespa': 0x6ec1e4, 'SEVENTEEN': 0xf4a7c0, 'NewJeans': 0x6e8bff, 'IVE': 0xc0397e,
-  'ENHYPEN': 0xb22234, 'TXT': 0x4fc3d2, 'LE SSERAFIM': 0x2e5eaa, 'EXO': 0xc9a227,
-};
+// Group roles are intentionally left uncolored so the cosmetic COLOR_ROLES
+// picker always wins the member's name color (a colored group role would
+// override it on a flat hierarchy). Re-add entries here to color groups again.
+export const GROUP_COLOR = {};
 
 // Per-channel info cards, posted + pinned by `npm run guides`. welcome/rules/
 // roles are skipped (they carry their own embeds/menu). Group channels get a
@@ -386,7 +383,7 @@ export const CHANNEL_INFO = {
   'introduce-yourself': "Tell us who you stan, where you're from, and how you found kpopquiz. We read every intro. 💗",
   'kpop-chat': 'All things K-pop: comebacks, MVs, charts, concerts, hot takes. Keep fanwars out (see #rules).',
   'off-topic': "Everything that isn't K-pop: games, food, memes, life. The cozy corner.",
-  'daily-quiz': 'A fresh K-pop quiz drops here every day. Play it on kpopquiz.org, post your score, and keep your streak alive. See who survives the hardest questions.',
+  'daily-quiz': 'A fresh K-pop quiz drops here every day. Tap **▶ Play in Discord** below (or type the **/dailyquiz** command anywhere) to play right here and keep your **streak**. See the top scores with the **/quizleaderboard** command. Prefer the full version? Play on kpopquiz.org.',
   'share-your-quiz': 'Made your own quiz on kpopquiz.org? Drop the link here for the community to play. Tell us the theme and difficulty!',
   'score-flex': 'Brag zone. Perfect runs, insane streaks, stumped-% screenshots. Show off your best.',
   '1v1-battles': 'Challenge someone head-to-head. Drop your battle link, find an opponent, and settle who really knows K-pop.',

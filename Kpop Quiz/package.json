@@ -22,7 +22,8 @@
     "post-menu": "node src/postMenu.js",
     "register-commands": "node src/registerCommands.js",
     "color-roles": "node src/colorRoles.js",
-    "news": "node src/news.js"
+    "news": "node src/news.js",
+    "leaderboard": "node src/leaderboardPost.js"
   },
   "engines": {
     "node": ">=18.0.0"
