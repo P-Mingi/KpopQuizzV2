@@ -6,6 +6,7 @@ import { createBrowserClient } from '@/lib/supabase/client';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { copyShareLink } from '@/lib/share';
 import { ShareCardModal, type SharePlatform } from '@/components/share/share-card-modal';
+import { Mascot } from '@/components/ui/mascot';
 import {
   type Draft, type DraftQuestion, blankQuestion, isQuestionComplete, completeCount,
   loadDraft, saveDraft, clearDraft, loadStep, saveStep, compressImageToDataUrl, dataUrlToFile,
@@ -484,8 +485,8 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
       {step === 4 && published && (
         <div className="cf-body cf-celebrate">
           <div className="cf-burst" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="cf-logo-pop" src="/logo-512.png" alt="" width={108} height={108} />
+            {/* F3 - real celebrate mascot (placeholder logo retired). */}
+            <Mascot variant="celebrate" animate="bob" size={108} alt="" />
           </div>
           <h1 className="cf-head cf-center">Your quiz is live!</h1>
           <p className="cf-sub cf-center">Now the fun part. See who can actually beat it.</p>

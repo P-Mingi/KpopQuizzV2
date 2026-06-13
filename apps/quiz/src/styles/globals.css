@@ -2459,8 +2459,6 @@ a.ranking-cta { text-decoration: none; }
 /* Screen 4 - share */
 .cf-celebrate { align-items: center; text-align: center; }
 .cf-burst { display: flex; align-items: center; justify-content: center; width: 132px; height: 132px; margin: 12px auto 18px; border-radius: 50%; background: radial-gradient(circle, var(--brand-light), transparent 70%); }
-.cf-logo-pop { animation: cfPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-@keyframes cfPop { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
 .cf-share-btns { display: flex; gap: 10px; width: 100%; margin: 22px 0 14px; }
 .cf-share-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 48px; border-radius: 12px; border: none; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: filter 120ms ease, transform 120ms ease; }
 .cf-share-btn:hover { filter: brightness(1.08); }
@@ -2478,7 +2476,7 @@ a.ranking-cta { text-decoration: none; }
 .cf-answer-input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .cf-qcard, .cf-logo-pop { animation: none; }
+  .cf-qcard { animation: none; }
   .cf-dot, .cf-minidot, .cf-cta, .cf-share-btn { transition: none; }
 }
 

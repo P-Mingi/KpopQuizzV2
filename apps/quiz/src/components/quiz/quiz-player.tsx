@@ -27,6 +27,7 @@ import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
+import { Mascot } from '@/components/ui/mascot';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
 import { QuizShareRow } from '@/components/share/quiz-share-row';
@@ -953,6 +954,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     const starCount =
       scorePct >= 100 ? 5 : scorePct >= 90 ? 4 : scorePct >= 70 ? 3 : scorePct >= 50 ? 2 : 1;
 
+    // F3: celebrate mascot only on a good result (pass threshold = 50%, i.e. 2+
+    // stars). A poor/failed result stays mascot-less here; the sad variant is F5.
+    const isGoodResult = scorePct >= 50;
+
     // Hangul + English label pulled from the shared korean-moments helper
     const resultLabel = getResultLabel(state.score, maxScore);
     const labelSub =
@@ -974,6 +979,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             />
           );
         })()}
+
+        {/* F3 - celebrate mascot above the (clean) result card on a good result. */}
+        {isGoodResult && (
+          <div className="flex justify-center" style={{ marginBottom: 4 }}>
+            <Mascot variant="celebrate" animate="bob" size={104} />
+          </div>
+        )}
 
         {/* §10i + §12b - single branded result hero: count-up score, bar,
             beat-%, label, and share actions (no duplicate score block). */}

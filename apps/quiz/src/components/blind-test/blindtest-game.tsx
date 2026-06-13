@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
+import { Mascot } from '@/components/ui/mascot';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -401,6 +402,13 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
   return (
     <div className="bt-screen">
       <div className="bt-results">
+        {/* F3 - celebrate mascot above the result card on a good score (>= 6/10).
+            Weaker scores stay mascot-less for now (sad variant is F5). */}
+        {score >= 6 && (
+          <div className="flex justify-center" style={{ marginBottom: 8 }}>
+            <Mascot variant="celebrate" animate="bob" size={104} />
+          </div>
+        )}
         <div className="bt-result-card">
           <p className="bt-result-kicker">{playlistLabel} blind test</p>
           <p className="bt-result-score" aria-label={`You scored ${score} out of 10`}>
