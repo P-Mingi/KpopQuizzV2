@@ -1,11 +1,18 @@
 /**
- * K-pop fan culture level titles. Maps the existing 1-10 XP level system
- * (see `lib/constants.ts`) onto the fandom-tier vocabulary used at display
- * sites: profile header, level badge, hall-of-fame rows, level-up overlay.
+ * Fan Level title ladder (Workstream L1). The title is the reward worn
+ * everywhere (next to the username on quizzes, battles, comments, leaderboard,
+ * profile). `getTitleForLevel` is the single source of truth for the title at a
+ * given Fan Level; `lib/constants.ts` derives `getLevelInfo().name` from it so
+ * there is exactly one ladder.
  *
- * Thresholds up to level 50 are defined so the catalogue is ready when the
- * XP system expands; `getTitleForLevel` returns the title for the highest
- * threshold <= the input level.
+ * Ladder (fan-flavored, breakpoints per the L1 spec):
+ *   1-2   New Fan
+ *   3-5   Casual Fan
+ *   6-9   Stan
+ *   10-14 Bias
+ *   15-20 Ride-or-Die
+ *   21-29 Superfan
+ *   30+   Legend
  */
 
 export interface LevelTitle {
@@ -14,17 +21,13 @@ export interface LevelTitle {
 }
 
 export const LEVEL_TITLES: Record<number, LevelTitle> = {
-  1: { en: 'Casual listener', kr: '캐주얼' },
-  5: { en: 'Baby fan', kr: '아기팬' },
-  10: { en: 'Stan', kr: '덕' },
-  15: { en: 'Hard stan', kr: '덕덕' },
-  20: { en: 'Ult stan', kr: '최애' },
-  25: { en: 'Fandom leader', kr: '리더' },
-  30: { en: 'Idol trainee', kr: '연습생' },
-  35: { en: 'Debut ready', kr: '데뷔' },
-  40: { en: 'Main vocal', kr: '메인보컬' },
-  45: { en: 'Center', kr: '센터' },
-  50: { en: 'All-kill', kr: '올킬' },
+  1: { en: 'New Fan', kr: '뉴비' },
+  3: { en: 'Casual Fan', kr: '캐주얼' },
+  6: { en: 'Stan', kr: '덕후' },
+  10: { en: 'Bias', kr: '최애' },
+  15: { en: 'Ride-or-Die', kr: '찐팬' },
+  21: { en: 'Superfan', kr: '슈퍼팬' },
+  30: { en: 'Legend', kr: '레전드' },
 };
 
 const SORTED_THRESHOLDS: number[] = Object.keys(LEVEL_TITLES)
@@ -32,9 +35,9 @@ const SORTED_THRESHOLDS: number[] = Object.keys(LEVEL_TITLES)
   .sort((a, b) => a - b);
 
 /**
- * Returns the fan-culture title for a given level. Picks the highest
- * threshold that is <= `level`. Guaranteed to return a value for any
- * positive integer level (defaults to the level-1 title).
+ * Returns the fan title for a given Fan Level: the highest threshold that is
+ * <= `level`. Guaranteed to return a value for any positive integer level
+ * (defaults to the level-1 title).
  */
 export function getTitleForLevel(level: number): LevelTitle {
   let result = LEVEL_TITLES[1]!;

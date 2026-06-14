@@ -43,6 +43,21 @@ export async function POST(
   const { data: { user } } = await supabase.auth.getUser();
   const playerId = user?.id ?? null;
 
+  // L1 anti-farm: play XP is earned only on a user's FIRST completion of a given
+  // quiz. Check for any prior plays row for this user+quiz BEFORE record_play
+  // inserts this one. Replays still record (stats/percentile/badges) but earn 0
+  // play XP, so quizzes cannot be farmed by replaying.
+  let isFirstCompletion = true;
+  if (playerId) {
+    const { data: prior } = await supabase
+      .from('plays')
+      .select('id')
+      .eq('quiz_id', id)
+      .eq('player_id', playerId)
+      .limit(1);
+    isFirstCompletion = !prior || prior.length === 0;
+  }
+
   try {
     const { data, error } = await supabase.rpc('record_play', {
       p_quiz_id: id,
@@ -85,27 +100,30 @@ export async function POST(
     let newLevel: number | null = null;
     let newLevelName: string | null = null;
     if (playerId) {
-      let xpAmount = 10; // base: completed quiz
-      const scorePct = score / effectiveMaxScore;
-      if (scorePct >= 0.7) xpAmount += 5; // pass bonus
-      if (scorePct === 1.0) xpAmount += 15; // perfect bonus
-      xpEarned = xpAmount;
+      // Play XP only on the first completion (anti-farm). Replays earn 0.
+      if (isFirstCompletion) {
+        let xpAmount = 10; // base: completed quiz
+        const scorePct = score / effectiveMaxScore;
+        if (scorePct >= 0.7) xpAmount += 5; // pass bonus
+        if (scorePct === 1.0) xpAmount += 15; // perfect bonus
+        xpEarned = xpAmount;
 
-      const { data: newXpValue } = await supabase.rpc('award_xp', {
-        p_user_id: playerId,
-        p_amount: xpAmount,
-        p_reason: 'play',
-      });
+        const { data: newXpValue } = await supabase.rpc('award_xp', {
+          p_user_id: playerId,
+          p_amount: xpAmount,
+          p_reason: 'play',
+        });
 
-      if (typeof newXpValue === 'number') {
-        newXp = newXpValue;
-        const oldXp = Math.max(0, newXpValue - xpAmount);
-        const oldLevel = getLevelInfo(oldXp).level;
-        const newLevelInfo = getLevelInfo(newXpValue);
-        if (newLevelInfo.level > oldLevel) {
-          leveledUp = true;
-          newLevel = newLevelInfo.level;
-          newLevelName = newLevelInfo.name;
+        if (typeof newXpValue === 'number') {
+          newXp = newXpValue;
+          const oldXp = Math.max(0, newXpValue - xpAmount);
+          const oldLevel = getLevelInfo(oldXp).level;
+          const newLevelInfo = getLevelInfo(newXpValue);
+          if (newLevelInfo.level > oldLevel) {
+            leveledUp = true;
+            newLevel = newLevelInfo.level;
+            newLevelName = newLevelInfo.name;
+          }
         }
       }
 

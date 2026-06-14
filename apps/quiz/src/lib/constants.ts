@@ -1,3 +1,5 @@
+import { getTitleForLevel } from './level-titles';
+
 export const RESERVED_USERNAMES = [
   'admin',
   'api',
@@ -20,18 +22,24 @@ export const RESERVED_USERNAMES = [
   'search',
 ] as const;
 
-export const LEVELS = [
-  { level: 1,  name: 'Trainee',     xpRequired: 0 },
-  { level: 2,  name: 'Rookie',      xpRequired: 100 },
-  { level: 3,  name: 'Debut',       xpRequired: 300 },
-  { level: 4,  name: 'Rising star', xpRequired: 700 },
-  { level: 5,  name: 'Main vocal',  xpRequired: 1500 },
-  { level: 6,  name: 'Center',      xpRequired: 3000 },
-  { level: 7,  name: 'Leader',      xpRequired: 6000 },
-  { level: 8,  name: 'All-rounder', xpRequired: 10000 },
-  { level: 9,  name: 'Legend',       xpRequired: 18000 },
-  { level: 10, name: 'Hall of fame', xpRequired: 30000 },
-] as const;
+// Fan Level XP curve (L1). `xpRequired` = cumulative XP to REACH that level.
+// Early levels come fast (frequent reward); later levels are a long-tail status
+// flex. Curve: cum(L) = round(12.5 * (L-1)^2.5) to the nearest 10, giving
+// L1=0, L5=400, L10=3040, L20=19670, L30=56590. `name` is pulled from the single
+// title ladder (getTitleForLevel) so the curve and the worn title never drift.
+export interface LevelDef { level: number; name: string; xpRequired: number }
+
+const MAX_LEVEL = 50; // headroom; the ladder caps the worn title at "Legend" (30+)
+
+function cumulativeXpForLevel(level: number): number {
+  if (level <= 1) return 0;
+  return Math.round((12.5 * Math.pow(level - 1, 2.5)) / 10) * 10;
+}
+
+export const LEVELS: readonly LevelDef[] = Array.from({ length: MAX_LEVEL }, (_, i) => {
+  const level = i + 1;
+  return { level, name: getTitleForLevel(level).en, xpRequired: cumulativeXpForLevel(level) };
+});
 
 export function getLevelInfo(xp: number): {
   level: number;
@@ -41,7 +49,7 @@ export function getLevelInfo(xp: number): {
   xpForNextLevel: number | null;
   progress: number;
 } {
-  let currentLevel: (typeof LEVELS)[number] = LEVELS[0];
+  let currentLevel: LevelDef = LEVELS[0]!;
   for (const lvl of LEVELS) {
     if (xp >= lvl.xpRequired) currentLevel = lvl;
     else break;
