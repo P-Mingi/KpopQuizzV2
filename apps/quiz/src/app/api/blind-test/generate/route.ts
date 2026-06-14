@@ -252,7 +252,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // group-then-title order).
   const SOLO_GENDERS = new Set(['solo_female', 'solo_male']);
   const jit = Math.floor(Math.random() * (QUESTION_MIX.jitter * 2 + 1)) - QUESTION_MIX.jitter;
-  const groupCount = Math.max(0, Math.min(SONGS_COUNT, QUESTION_MIX.groupBase + jit));
+  // For a single-group / single-artist playlist, "which group/artist is this?"
+  // is trivially the chosen act, so ask only "name the song" (groupCount = 0).
+  const groupCount = isGroupPlaylist
+    ? 0
+    : Math.max(0, Math.min(SONGS_COUNT, QUESTION_MIX.groupBase + jit));
   const types = shuffle<'artist' | 'title'>([
     ...Array.from({ length: groupCount }, () => 'artist' as const),
     ...Array.from({ length: SONGS_COUNT - groupCount }, () => 'title' as const),
