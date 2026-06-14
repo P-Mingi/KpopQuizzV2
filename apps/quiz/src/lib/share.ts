@@ -27,6 +27,29 @@ async function getShareUrl(quizId: string, slug: string, platform: string): Prom
   return `${origin}/q/${slug}?utm_source=${platform}&utm_medium=social&utm_campaign=quiz_share`;
 }
 
+// L2 - share a Fan Level level-up. Uses the Web Share API when available, else
+// copies the line + link. The home link carries level-up UTM, and the level-up
+// OG card (/api/og/level-up) renders the shareable image.
+export async function shareLevelUp(title: string, level: number): Promise<'shared' | 'copied' | 'failed'> {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const url = `${origin}/?utm_source=levelup&utm_medium=social&utm_campaign=level_up`;
+  const text = `I reached ${title} (Level ${level}) on kpopquiz.org`;
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({ title: 'Level up!', text, url });
+      return 'shared';
+    } catch {
+      return 'failed'; // user cancelled
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(`${text} ${url}`);
+    return 'copied';
+  } catch {
+    return 'failed';
+  }
+}
+
 export async function shareToReddit(quizId: string, slug: string, quizTitle: string) {
   const shareUrl = await getShareUrl(quizId, slug, 'reddit');
   // §7 - Reddit post title = quiz name only (r/Kpop_Verse context makes the
