@@ -23,6 +23,8 @@ const KNOWN_ROUTES = [
   // purpose so it passes through to a real 404 (route files deleted) instead of
   // being 301'd to home. The new async-ghost battle (E4) will add the route here.
   '/battle',
+  // Step E prototype (non-wired async battle UI for sign-off).
+  '/battle-preview',
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
