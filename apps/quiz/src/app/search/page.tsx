@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { createServerClient } from '@/lib/supabase/server';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { QuizCard } from '@/components/ui/quiz-card';
+import { Mascot } from '@/components/ui/mascot';
 import { formatCount } from '@/lib/utils';
 import { SearchForm } from './search-form';
 
@@ -248,9 +249,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
         </div>
       ) : (
         <div className="mt-6 flex flex-col gap-8">
-          <p className="text-sm text-secondary text-center py-2">
-            No exact match for <strong className="text-primary">“{query}”</strong>. Here&apos;s what fans are playing right now.
-          </p>
+          <div className="text-center py-2">
+            {/* F5 - sad mascot above the no-exact-match message. */}
+            <div className="flex justify-center mb-2"><Mascot variant="sad" size={88} /></div>
+            <p className="text-sm text-secondary">
+              No exact match for <strong className="text-primary">“{query}”</strong>. Here&apos;s what fans are playing right now.
+            </p>
+          </div>
           {fbQuizzes.length > 0 && (
             <section>
               <p className="sec-label">Popular quizzes</p>

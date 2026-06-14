@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { CreateCTA } from '@/components/home/create-cta';
+import { Mascot } from '@/components/ui/mascot';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -388,22 +389,7 @@ export function BrowseQuizzes({
       ) : displayed.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-              <path d="m8 8 6 6" />
-              <path d="m14 8-6 6" />
-            </svg>
+            <Mascot variant="sad" size={88} />
           </div>
           <p className="empty-title">No quizzes found</p>
           <p className="empty-desc">

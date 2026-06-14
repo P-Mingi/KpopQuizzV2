@@ -413,13 +413,13 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
   return (
     <div className="bt-screen">
       <div className="bt-results">
-        {/* F3 - celebrate mascot above the result card on a good score (>= 6/10).
-            Weaker scores stay mascot-less for now (sad variant is F5). */}
-        {score >= 6 && (
-          <div className="flex justify-center" style={{ marginBottom: 8 }}>
-            <Mascot variant="celebrate" animate="bob" size={104} />
-          </div>
-        )}
+        {/* F3 + F5 - mascot above the result card: celebrate on a good score
+            (>= 6/10), sad below that. sad is static (never animates). */}
+        <div className="flex justify-center" style={{ marginBottom: 8 }}>
+          {score >= 6
+            ? <Mascot variant="celebrate" animate="bob" size={104} />
+            : <Mascot variant="sad" size={104} />}
+        </div>
         <div className="bt-result-card">
           <p className="bt-result-kicker">{playlistLabel} blind test</p>
           <p className="bt-result-score" aria-label={`You scored ${score} out of 10`}>

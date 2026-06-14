@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { Mascot } from '@/components/ui/mascot';
 import { ThemeToggle } from './theme-toggle';
 
 export function Footer(): React.ReactElement {
@@ -19,6 +20,10 @@ export function Footer(): React.ReactElement {
             <p style={{ fontSize: 10, color: 'var(--txt3)', margin: 0, marginTop: 6, lineHeight: 1.5 }}>
               Made with {'\u2661'} by fans, for fans.
             </p>
+            {/* F7 - very faint decorative mascot watermark (aria-hidden). */}
+            <span aria-hidden="true" style={{ display: 'inline-flex', opacity: 0.12, marginTop: 10 }}>
+              <Mascot variant="default" size={44} alt="" />
+            </span>
           </div>
 
           {/* Discover */}

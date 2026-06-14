@@ -991,12 +991,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* F3 - celebrate mascot above the (clean) result card on a good result. */}
-        {isGoodResult && (
-          <div className="flex justify-center" style={{ marginBottom: 4 }}>
-            <Mascot variant="celebrate" animate="bob" size={104} />
-          </div>
-        )}
+        {/* F3 + F5 - mascot above the (clean) result card: celebrate on a good
+            result (>=50%), sad on a failing one. sad is static (never animates). */}
+        <div className="flex justify-center" style={{ marginBottom: 4 }}>
+          {isGoodResult
+            ? <Mascot variant="celebrate" animate="bob" size={104} />
+            : <Mascot variant="sad" size={104} />}
+        </div>
 
         {/* §10i + §12b - single branded result hero: count-up score, bar,
             beat-%, label, and share actions (no duplicate score block). */}
