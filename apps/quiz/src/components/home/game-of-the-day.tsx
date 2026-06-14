@@ -5,8 +5,19 @@ import Link from 'next/link';
 
 import { GroupLogo } from '@/components/ui/group-logo';
 import { VsBadge } from '@/components/duel/vs-badge';
+import { Mascot } from '@/components/ui/mascot';
+import { hasPlayedDaily } from '@/lib/daily-played';
 
 import type { GameOfTheDayData } from '@/lib/db/queries/game-of-the-day';
+
+function DailyDone(): React.ReactElement {
+  return (
+    <div className="daily-done">
+      <Mascot variant="sleep" size={48} alt="" />
+      <span className="daily-done-text">Played today &middot; come back tomorrow</span>
+    </div>
+  );
+}
 
 /** Same midnight-UTC countdown as the Quiz of the day, so both pills agree. */
 function useResetCountdown(): string {
@@ -36,6 +47,9 @@ const LABEL_ICON = (
 
 export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React.ReactElement | null {
   const timeLeft = useResetCountdown();
+  // F6: post-hydration check so SSR + first client render match.
+  const [played, setPlayed] = useState(false);
+  useEffect(() => { setPlayed(hasPlayedDaily('game')); }, []);
   if (!data) return null;
 
   return (
@@ -51,7 +65,7 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
         {data.kind === 'duel' ? (
           <>
             <Link
-              href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}`}
+              href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}&daily=game`}
               className="gotd-duel"
             >
               <span className="gotd-faces">
@@ -67,19 +81,21 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
               </span>
               <span className="gotd-prompt">{data.prompt}</span>
             </Link>
-            <Link
-              href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}`}
-              className="gotd-cta"
-            >
-              Vote in today&apos;s matchup
-            </Link>
+            {played ? <DailyDone /> : (
+              <Link
+                href={`/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}&daily=game`}
+                className="gotd-cta"
+              >
+                Vote in today&apos;s matchup
+              </Link>
+            )}
             <Link href={`/rankings/${data.group}/${data.type}`} className="gotd-rank-link">
               See where fans rank them &rarr;
             </Link>
           </>
         ) : (
           <>
-            <Link href={`/games/name-all/${data.slug}`} className="gotd-nam">
+            <Link href={`/games/name-all/${data.slug}?daily=game`} className="gotd-nam">
               <span className="gotd-nam-logo">
                 <GroupLogo
                   groupName={data.groupName ?? 'Group'}
@@ -94,9 +110,11 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
               </span>
               <span className="gotd-nam-sub">Beat the clock: {data.timeLabel}</span>
             </Link>
-            <Link href={`/games/name-all/${data.slug}`} className="gotd-cta">
-              Play today&apos;s challenge
-            </Link>
+            {played ? <DailyDone /> : (
+              <Link href={`/games/name-all/${data.slug}?daily=game`} className="gotd-cta">
+                Play today&apos;s challenge
+              </Link>
+            )}
             <span className="gotd-rank-spacer" aria-hidden="true" />
           </>
         )}

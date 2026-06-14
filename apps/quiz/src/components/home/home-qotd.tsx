@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
+import { Mascot } from '@/components/ui/mascot';
+import { hasPlayedDaily } from '@/lib/daily-played';
 import type { QuizCardData } from '@/lib/db/types';
 
 interface Props {
@@ -16,6 +18,9 @@ interface Props {
  *  pill in the banner; pulsing "Play today's quiz" CTA. */
 export function HomeQotd({ quiz }: Props) {
   const [timeLeft, setTimeLeft] = useState('');
+  // F6: post-hydration so SSR + first client render match (no hydration mismatch).
+  const [played, setPlayed] = useState(false);
+  useEffect(() => { setPlayed(hasPlayedDaily('quiz')); }, []);
 
   useEffect(() => {
     function calc() {
@@ -59,14 +64,21 @@ export function HomeQotd({ quiz }: Props) {
             <QuizTypeBadge type={quiz.quiz_type} size="sm" />
             <DifficultyBadge difficulty={quiz.difficulty} />
           </div>
-          <Link href={`/q/${quiz.slug}`} className="daily-title" style={{ display: 'block', textDecoration: 'none' }}>
+          <Link href={`/q/${quiz.slug}?daily=quiz`} className="daily-title" style={{ display: 'block', textDecoration: 'none' }}>
             {quiz.title}
           </Link>
           <p className="daily-author">by {quiz.creator_username}</p>
-          <Link href={`/q/${quiz.slug}`} className="daily-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-            Play today&apos;s quiz
-          </Link>
+          {played ? (
+            <div className="daily-done">
+              <Mascot variant="sleep" size={48} alt="" />
+              <span className="daily-done-text">Played today &middot; come back tomorrow</span>
+            </div>
+          ) : (
+            <Link href={`/q/${quiz.slug}?daily=quiz`} className="daily-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              Play today&apos;s quiz
+            </Link>
+          )}
           <span className="gotd-rank-spacer" aria-hidden="true" />
         </div>
       </div>

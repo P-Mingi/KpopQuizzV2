@@ -1255,6 +1255,9 @@ body {
 .daily-cta:hover  { background: var(--brand-dark); transform: scale(1.01); }
 .daily-cta:active { transform: scale(0.98); }
 .daily-cta:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* F6: daily "played today" sleep state (sits where the CTA was). */
+.daily-done { width: 100%; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 8px 12px; }
+.daily-done-text { font-size: 12px; font-weight: 600; color: var(--txt3); }
 
 /* §10g - games teaser cards */
 .games-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
