@@ -19,7 +19,9 @@ const KNOWN_ROUTES = [
   '/sitemap.xml', '/robots.txt',
   // New Phase 4 routes
   '/leaderboard', '/quizzes', '/profile',
-  // Battle rooms (hidden from navbar, accessed via direct URL or admin)
+  // Old live-room battle retired (E-cleanup). '/battle' stays a KNOWN prefix on
+  // purpose so it passes through to a real 404 (route files deleted) instead of
+  // being 301'd to home. The new async-ghost battle (E4) will add the route here.
   '/battle',
 ];
 
