@@ -44,6 +44,8 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
   // E5 - challenge mode: a friend opened /battle?b=<id> and plays the SAME 7.
   const [isChallenge, setIsChallenge] = useState(false);
   const [challenger, setChallenger] = useState<{ score: number; per_question: boolean[]; handle: string } | null>(null);
+  // E7 - /battle?quiz=<id> prefills a quick match anchored to a specific quiz.
+  const [prefillQuizId, setPrefillQuizId] = useState<string | null>(null);
 
   const startedAt = useRef(0);
   const advanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -78,12 +80,19 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     setPhase('loading');
     setIsChallenge(false);
     setChallenger(null);
-    // "Any group" -> a random real group so the start API always has a target.
-    let groupSlug = topic;
-    if (!groupSlug && groups.length > 0) groupSlug = groups[Math.floor(Math.random() * groups.length)]!.slug;
+    // E7: a quiz-anchored battle (from quiz detail / battle of the day) sends
+    // quizId; otherwise quick-match by topic ("Any group" -> a random group).
+    let body: { quizId?: string; groupSlug?: string };
+    if (prefillQuizId) {
+      body = { quizId: prefillQuizId };
+    } else {
+      let groupSlug = topic;
+      if (!groupSlug && groups.length > 0) groupSlug = groups[Math.floor(Math.random() * groups.length)]!.slug;
+      body = { groupSlug };
+    }
     try {
       const res = await fetch('/api/battle/start', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ groupSlug }),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
       });
       const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; error?: string };
       if (!res.ok || !data.battleId || !data.questions?.length) {
@@ -98,7 +107,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       showToast('Could not start a battle. Check your connection.');
       setPhase('entry');
     }
-  }, [topic, groups, showToast, beginPlay]);
+  }, [topic, groups, showToast, beginPlay, prefillQuizId]);
 
   // E5 - load an incoming challenge (?b=<id>): same 7 questions + the challenger.
   const loadChallenge = useCallback(async (b: string) => {
@@ -121,10 +130,13 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     }
   }, [showToast]);
 
-  // On mount, an incoming challenge link drives the flow.
+  // On mount: an incoming challenge link (?b) or a quiz-anchored entry (?quiz).
   useEffect(() => {
-    const b = new URLSearchParams(window.location.search).get('b');
+    const sp = new URLSearchParams(window.location.search);
+    const b = sp.get('b');
+    const quiz = sp.get('quiz');
     if (b) void loadChallenge(b);
+    else if (quiz) setPrefillQuizId(quiz);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -220,8 +232,26 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
         </div>
       )}
 
+      {/* ===================== ENTRY (quiz-anchored, from quiz detail / battle of the day) ===================== */}
+      {phase === 'entry' && !isChallenge && prefillQuizId && (
+        <div className="bp-body">
+          <span className="bp-eyebrow">1v1 Battle</span>
+          <h1 className="bp-head">Battle on this quiz</h1>
+          <p className="bp-sub">
+            7 questions from this quiz, head to head. We match your run against a real fan who already
+            played it, so you start instantly.
+          </p>
+          <button type="button" className="bp-start" onClick={() => void startBattle()}>Start battle</button>
+          <button type="button" className="bp-ghost-btn" style={{ marginTop: 10 }} onClick={() => setPrefillQuizId(null)}>Pick a different topic</button>
+          <p className="bp-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            You will be matched with someone&apos;s saved run, never a fake live player.
+          </p>
+        </div>
+      )}
+
       {/* ===================== ENTRY (quick match) ===================== */}
-      {phase === 'entry' && !isChallenge && (
+      {phase === 'entry' && !isChallenge && !prefillQuizId && (
         <div className="bp-body">
           <span className="bp-eyebrow">1v1 Battle</span>
           <h1 className="bp-head">Quick match</h1>

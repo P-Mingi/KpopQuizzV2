@@ -140,6 +140,16 @@ export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProp
           badge="New"
           index={2}
         />
+        <GameModeCard
+          name="1v1 Battle"
+          desc="7 questions, head to head. Beat a real fan's run, then challenge your friends."
+          href="/battle"
+          tint="--tot"
+          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3l14 14M14 5l5-2-2 5M5 19l5 2-2-5" /><path d="M16 16l3 3M8 8 5 5" /></svg>}
+          stat="Anyone, anytime"
+          badge="New"
+          index={3}
+        />
       </div>
 
       {/* D0 - trending fan-rankings strip (replaces the thin text link). */}

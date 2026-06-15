@@ -9,6 +9,7 @@ import { HomeHero } from '@/components/home/home-hero';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
+import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
@@ -59,6 +60,19 @@ async function QotdSection(): Promise<React.ReactElement> {
       </div>
     </section>
   );
+}
+
+async function BattleOfDay(): Promise<React.ReactElement> {
+  // Date-seeded featured quiz so the "Battle of the day" is stable per day.
+  const quizzes = await safeFetch(
+    getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 12 }),
+    [],
+    '[home] battle of the day',
+  );
+  if (quizzes.length === 0) return <HomeBattleCta />;
+  const dayIdx = Math.floor(Date.now() / 86_400_000);
+  const q = quizzes[dayIdx % quizzes.length]!;
+  return <HomeBattleCta quizId={q.id} groupName={q.group_name} />;
 }
 
 async function TrendingSection(): Promise<React.ReactElement> {
@@ -128,6 +142,11 @@ export default function HomePage(): React.ReactElement {
 
       {/* 2b. Blindtest CTA - main mobile discovery path (not in the bottom bar) */}
       <HomeBlindtestCta />
+
+      {/* 2c. Battle of the day - date-seeded quiz-anchored 1v1 battle */}
+      <Suspense>
+        <BattleOfDay />
+      </Suspense>
 
       {/* 3. Trending this week */}
       <Suspense>

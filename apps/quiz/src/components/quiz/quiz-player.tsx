@@ -718,6 +718,15 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           )}
         </button>
 
+        {/* E7 - battle entry point: play this quiz head-to-head vs a real fan. */}
+        <Link
+          href={`/battle?quiz=${quiz.id}`}
+          className="w-full mt-2.5 py-3 rounded-2xl border border-default text-primary text-[15px] font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 3l14 14M14 5l5-2-2 5M5 19l5 2-2-5" /><path d="M16 16l3 3M8 8L5 5" /></svg>
+          Battle a fan
+        </Link>
+
         <div className="mt-4">
           <QuizShareRow quizId={quiz.id} slug={quiz.slug} quizTitle={quiz.title} creatorId={quiz.creatorId} />
         </div>
