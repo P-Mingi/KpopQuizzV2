@@ -1,5 +1,8 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
+import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { getRankingsIndex } from '@/lib/db/queries/duels';
 
 import type { MetadataRoute } from 'next';
 
@@ -12,50 +15,33 @@ const QUIZZES_LIMIT = 10000;
 const PROFILES_LIMIT = 500;
 const BT_SONG_LIMIT = 5000;
 
-// Must match the threshold used in group-trivia-page.tsx (`notFound()` when
-// `uniqueFacts.length < 12`). If that number changes, change it here too or
-// the sitemap will start advertising 404 pages again.
-const TRIVIA_MIN_FACTS = 12;
-const TRIVIA_MIN_FACT_LENGTH = 20;
-
 /**
- * Mirror of the dedup/filter logic in group-trivia-page.tsx so the sitemap
- * only lists `-trivia` URLs that will actually render with content. Keeping
- * these in sync is intentional: if the page's threshold changes, update both.
+ * `-trivia` URLs that will actually render (>=12 facts AFTER the J1 override
+ * layer). Runs the SAME buildOverriddenFacts the page/gate uses - not a raw
+ * mirror - so the sitemap never advertises a -trivia URL that now 404s.
  */
 function buildTriviaEligibleGroupSet(
-  quizzes: Array<{ group_id: number | null; questions: unknown }>,
+  quizzes: Array<{ group_id: number | null; slug: string; questions: unknown }>,
+  slugByGroupId: Map<number, string>,
 ): Set<number> {
-  const factsByGroup = new Map<number, Set<string>>();
-
+  const quizzesByGroup = new Map<number, FactSourceQuiz[]>();
   for (const quiz of quizzes) {
     if (quiz.group_id == null) continue;
-    const questions = Array.isArray(quiz.questions)
-      ? (quiz.questions as Array<{ fun_fact?: string }>)
-      : [];
-
-    for (const q of questions) {
-      const rawFact = q.fun_fact?.trim();
-      if (!rawFact || rawFact.length <= TRIVIA_MIN_FACT_LENGTH) continue;
-
-      const key = rawFact
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .trim()
-        .slice(0, 60);
-
-      let set = factsByGroup.get(quiz.group_id);
-      if (!set) {
-        set = new Set<string>();
-        factsByGroup.set(quiz.group_id, set);
-      }
-      set.add(key);
+    let arr = quizzesByGroup.get(quiz.group_id);
+    if (!arr) {
+      arr = [];
+      quizzesByGroup.set(quiz.group_id, arr);
     }
+    arr.push({ slug: quiz.slug, questions: quiz.questions });
   }
 
   const eligible = new Set<number>();
-  for (const [groupId, facts] of factsByGroup) {
-    if (facts.size >= TRIVIA_MIN_FACTS) eligible.add(groupId);
+  for (const [groupId, groupQuizzes] of quizzesByGroup) {
+    const slug = slugByGroupId.get(groupId);
+    if (!slug) continue;
+    if (buildOverriddenFacts(slug, groupQuizzes).length >= TRIVIA_MIN_FACTS) {
+      eligible.add(groupId);
+    }
   }
   return eligible;
 }
@@ -73,7 +59,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/trending`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/new`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/most-liked`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/hall-of-fame`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/trivia`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/leaderboard`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/kpop-quiz-2026`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
@@ -83,6 +70,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/games/this-or-that`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/games/name-all`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${SITE_URL}/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
   ];
@@ -100,6 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let profilePages: MetadataRoute.Sitemap = [];
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
   let gamePages: MetadataRoute.Sitemap = [];
+  let rankingPages: MetadataRoute.Sitemap = [];
 
   try {
     const supabase = createServiceRoleClient();
@@ -155,10 +146,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Only list `-trivia` URLs for groups that have enough unique fun facts
-    // to actually render the page (matches `notFound()` guard in
-    // group-trivia-page.tsx). Prevents Google from indexing 404s.
+    // to actually render the page (matches the `notFound()` gate in
+    // [slug]/page.tsx). Prevents Google from indexing 404s.
+    const slugByGroupId = new Map<number, string>(
+      (groupsResult.data ?? []).map((g) => [g.id as number, g.slug as string]),
+    );
     const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(
-      (quizzesResult.data ?? []) as Array<{ group_id: number | null; questions: unknown }>,
+      (quizzesResult.data ?? []) as Array<{ group_id: number | null; slug: string; questions: unknown }>,
+      slugByGroupId,
     );
 
     groupPages = (groupsResult.data ?? []).flatMap((g) => {
@@ -220,6 +215,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
   }
 
+  // Ranking pages: ONLY questions whose real votes have crossed min_votes are
+  // public/indexable (the rest are noindex locked states). The /rankings hub is
+  // listed only when at least one ranking is public (otherwise it's a noindex
+  // empty hub). Guarded separately so a failure here can't drop the rest.
+  try {
+    const publicRankings = (await getRankingsIndex()).filter((r) => r.public);
+    rankingPages = publicRankings.map((r) => ({
+      url: `${SITE_URL}/rankings/${r.group_slug}/${r.question_type}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.6,
+    }));
+    if (publicRankings.length > 0) {
+      rankingPages.unshift({
+        url: `${SITE_URL}/rankings`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.6,
+      });
+    }
+  } catch (err) {
+    console.error('[sitemap] rankings query failed, skipping ranking pages:', err);
+  }
+
   return [
     ...staticPages,
     ...blindTestModePages,
@@ -228,5 +247,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...quizPages,
     ...profilePages,
     ...gamePages,
+    ...rankingPages,
   ];
 }

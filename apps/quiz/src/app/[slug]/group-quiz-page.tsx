@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { getQuizzesByGroup, getGroupQuizLinks } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
@@ -46,10 +46,11 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
-    safeFetch(hasTriviaPage(group.id), false, '[group-quiz] hasTriviaPage'),
+    safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
+    safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
   ]);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
@@ -86,15 +87,40 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       </div>
 
       {triviaAvailable && (
-        <Link
-          href={`/${group.slug}-trivia`}
-          className="inline-block mt-4 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-        >
-          Want to learn before you play? Read {group.name} trivia &rarr;
+        <Link href={`/${group.slug}-trivia`} className="trivia-entry mt-4">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 4A1.5 1.5 0 014.5 2.5H9V14H4.5A1.5 1.5 0 003 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+              <path d="M15 4A1.5 1.5 0 0013.5 2.5H9V14h4.5A1.5 1.5 0 0115 15.5V4z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Learn before you play: {group.name} trivia</span>
+            <span className="trivia-entry-sub">Fun facts even hardcore {group.fandom_name}s might not know</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </Link>
       )}
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
+
+      {/* SEO Fix 3 - crawlable links to EVERY quiz in this group (bots / no-JS).
+          GroupFeed only SSRs the first 10; this exposes the rest. */}
+      {allQuizLinks.length > 0 && (
+        <noscript>
+          <nav aria-label={`All ${group.name} quizzes`}>
+            <ul>
+              {allQuizLinks.map((q) => (
+                <li key={q.slug}>
+                  <a href={`/q/${q.slug}`}>{q.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </noscript>
+      )}
 
       <div className="mt-6 text-center">
         <Link
@@ -170,6 +196,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           }),
         }}
       />
+      {/* BreadcrumbList JSON-LD is emitted by <Breadcrumbs> above (Home › Group Quiz). */}
     </div>
   );
 }

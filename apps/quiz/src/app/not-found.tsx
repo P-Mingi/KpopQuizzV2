@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+import { Mascot } from '@/components/ui/mascot';
+import { DiscordContextLine } from '@/components/discord/discord-context-line';
+
 const POPULAR_GROUPS = [
   { name: 'BTS', slug: 'bts' },
   { name: 'BLACKPINK', slug: 'blackpink' },
@@ -14,7 +17,9 @@ const POPULAR_GROUPS = [
 export default function NotFound(): React.ReactElement {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-5 py-16">
-      <p className="text-6xl font-bold text-primary mb-2">404</p>
+      {/* F7 - confused (think) rabbit, static. Conveys "page not found". */}
+      <Mascot variant="think" animate="none" size={104} alt="" />
+      <p className="text-6xl font-bold text-primary mb-2 mt-3">404</p>
       <p className="text-lg text-secondary mb-1">This page doesn&apos;t exist</p>
       <p className="text-sm text-tertiary mb-8 text-center max-w-sm">
         Maybe the quiz you&apos;re looking for moved, or the link was wrong.
@@ -60,6 +65,11 @@ export default function NotFound(): React.ReactElement {
         <Link href="/create" className="text-accent font-medium hover:underline">
           Create a quiz
         </Link>
+      </div>
+
+      {/* K8 - soft cross-promo on a dead route. */}
+      <div className="mt-6">
+        <DiscordContextLine campaign="404" text="Meanwhile, hang out in the Discord" quiet />
       </div>
     </div>
   );

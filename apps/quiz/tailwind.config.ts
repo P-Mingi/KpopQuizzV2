@@ -5,7 +5,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-pretendard)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        // Body: DM Sans (§14b), with Pretendard as the Korean-glyph fallback.
+        sans: ['var(--font-body)', 'var(--font-pretendard)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        // Display: Syne (§14b) for hero titles, mode names, score numbers.
+        display: ['var(--font-display)', 'var(--font-pretendard)', '-apple-system', 'sans-serif'],
       },
       colors: {
         // Shared semantic tokens available to all utilities (bg-, text-, border-, stroke-, fill-).

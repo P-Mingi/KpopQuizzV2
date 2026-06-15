@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 
 function validateQuestions(questions: unknown[], quizType: string): string[] {
   const errors: string[] = [];
-  if (questions.length < 5) errors.push('Minimum 5 questions required');
+  if (questions.length < 3) errors.push('Minimum 3 questions required');
   if (questions.length > 20) errors.push('Maximum 20 questions allowed');
 
   for (let i = 0; i < questions.length; i++) {

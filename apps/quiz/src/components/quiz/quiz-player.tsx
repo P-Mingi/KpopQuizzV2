@@ -6,18 +6,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
-import { AnswerButton } from '@/components/quiz/answer-button';
-import { TimerCircle } from '@/components/quiz/timer-circle';
-import { ProgressDots } from '@/components/quiz/progress-dots';
-import { FeedbackBox } from '@/components/quiz/feedback-box';
 import { QuizReactions } from '@/components/quiz/quiz-reactions';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
-import { LightstickMascot, type MascotMood } from '@/components/ui/lightstick-mascot';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
 import { getTitleForLevel } from '@/lib/level-titles';
-import { KOREAN, getResultLabel } from '@/lib/korean-moments';
+import { getLevelInfo } from '@/lib/constants';
+import { getResultLabel } from '@/lib/korean-moments';
 import {
   playTap,
   playCorrect,
@@ -25,21 +21,22 @@ import {
   playPerfect,
   playShare,
 } from '@/lib/sounds';
-import { ImageQuestionView } from '@/components/quiz/image-question';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
-import { RunningTimer } from '@/components/quiz/running-timer';
 import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
+import { Mascot } from '@/components/ui/mascot';
+import { FanTitle } from '@/components/ui/fan-title';
+import { DiscordResultsLine } from '@/components/discord/discord-results-line';
+import { BragButton } from '@/components/discord/brag-button';
+import { completeDaily } from '@/lib/daily-played';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
-import { RedditShareButton } from '@/components/share/reddit-share-button';
-import { shareToReddit, copyShareLink } from '@/lib/share';
-import { ByeolGain } from '@/components/cards/byeol-gain';
-import { ByeolResultBlock } from '@/components/byeol/result-block';
+import { QuizShareRow } from '@/components/share/quiz-share-row';
+import { copyShareLink } from '@/lib/share';
 import { formatCount } from '@/lib/utils';
 
 import type { Difficulty, QuizSettings, QuizType } from '@/lib/db/types';
@@ -88,7 +85,9 @@ interface QuizIntroData {
   logoUrl: string | null;
   coverImageUrl: string | null;
   fandomName: string;
+  creatorId: string | null;
   creatorUsername: string;
+  creatorXp?: number | null;
   creatorAvatarUrl: string | null;
   creatorAvatarBg: string;
   creatorAvatarText: string;
@@ -176,9 +175,6 @@ type QuizState =
       passRate: number | null;
       timeTaken: number;
       xpEarned: number;
-      byeolEarned: number;
-      wasFirstTime: boolean;
-      newByeolBalance: number;
       leveledUp: boolean;
       newLevel: number | null;
       newLevelName: string | null;
@@ -198,9 +194,6 @@ type QuizAction =
       passRate: number | null;
       timeTaken: number;
       xpEarned: number;
-      byeolEarned: number;
-      wasFirstTime: boolean;
-      newByeolBalance: number;
       leveledUp: boolean;
       newLevel: number | null;
       newLevelName: string | null;
@@ -333,9 +326,6 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         passRate: action.passRate,
         timeTaken: action.timeTaken,
         xpEarned: action.xpEarned,
-        byeolEarned: action.byeolEarned,
-        wasFirstTime: action.wasFirstTime,
-        newByeolBalance: action.newByeolBalance,
         leveledUp: action.leveledUp,
         newLevel: action.newLevel,
         newLevelName: action.newLevelName,
@@ -367,6 +357,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [loading, setLoading] = useState(false);
   const [relatedQuizzes, setRelatedQuizzes] = useState<RelatedQuiz[]>([]);
   const [levelUpDismissed, setLevelUpDismissed] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [barReady, setBarReady] = useState(false);
   const { showToast } = useToast();
   const router = useRouter();
   const timeRef = useRef(0);
@@ -380,9 +372,32 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     ? Math.round((quiz.totalScoreSum / quiz.totalCompletions) / (quiz.questionCount * maxPerQ) * 100)
     : null;
 
+  // §14e - estimated time: ~15s/question, rounded to the nearest half minute.
+  const estHalfMin = Math.max(0.5, Math.round((quiz.questionCount * 15 / 60) * 2) / 2);
+  const estMinutesLabel = estHalfMin % 1 === 0 ? `${estHalfMin}` : estHalfMin.toFixed(1);
+
+  // Honour reduced-motion: show the score instantly + skip the bar fill anim.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  // §10i - fill the score bar shortly after the result mounts (CSS transitions it).
+  useEffect(() => {
+    if (state.phase !== 'result') { setBarReady(false); return; }
+    if (reduceMotion) { setBarReady(true); return; }
+    const t = setTimeout(() => setBarReady(true), 100);
+    return () => clearTimeout(t);
+  }, [state.phase, reduceMotion]);
+
   // Refresh server components (navbar XP) and fetch related quizzes when result shows
   useEffect(() => {
     if (state.phase === 'result') {
+      // F6 + L4: if this was today's daily quiz (linked with ?daily=quiz),
+      // record it locally (sleep card) AND, if signed in, award the streak XP.
+      if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'quiz') {
+        void completeDaily('quiz');
+      }
       router.refresh();
       fetch(`/api/quiz/${quiz.id}/related`)
         .then(res => res.json())
@@ -503,9 +518,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     let percentile: number | null = null;
     let passRate: number | null = null;
     let xpEarned = 0;
-    let byeolEarned = 0;
-    let wasFirstTime = true;
-    let newByeolBalance = 0;
     let leveledUp = false;
     let newLevel: number | null = null;
     let newLevelName: string | null = null;
@@ -529,9 +541,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         const data: {
           percentile: number;
           xp_earned?: number;
-          byeol_earned?: number;
-          was_first_time?: boolean;
-          new_byeol_balance?: number;
           pass_rate?: number | null;
           leveled_up?: boolean;
           new_level?: number | null;
@@ -539,9 +548,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         } = await res.json();
         percentile = data.percentile;
         xpEarned = data.xp_earned ?? 0;
-        byeolEarned = data.byeol_earned ?? 0;
-        wasFirstTime = data.was_first_time ?? true;
-        newByeolBalance = data.new_byeol_balance ?? 0;
         passRate = data.pass_rate ?? null;
         leveledUp = data.leveled_up ?? false;
         newLevel = data.new_level ?? null;
@@ -557,9 +563,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       passRate,
       timeTaken,
       xpEarned,
-      byeolEarned,
-      wasFirstTime,
-      newByeolBalance,
       leveledUp,
       newLevel,
       newLevelName,
@@ -591,44 +594,22 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   }, [state, quiz.id, quiz.slug, quiz.title, showToast]);
 
   // ============================================
-  // Mascot mood derived from game state
-  // ============================================
-  let mascotMood: MascotMood = 'idle';
-  if (state.phase === 'answered') {
-    if (!state.isCorrect) {
-      mascotMood = 'wrong';
-    } else {
-      // Count trailing consecutive correct answers
-      let streak = 0;
-      for (let i = state.answers.length - 1; i >= 0; i -= 1) {
-        const ans = state.answers[i];
-        const q = state.questions[i];
-        if (ans !== null && ans !== undefined && q && isAnswerCorrect(q, ans)) {
-          streak += 1;
-        } else {
-          break;
-        }
-      }
-      mascotMood = streak >= 3 ? 'combo' : 'correct';
-    }
-  } else if (state.phase === 'result') {
-    const maxScoreForMood =
-      state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
-    const pct = maxScoreForMood > 0 ? state.score / maxScoreForMood : 0;
-    if (pct === 1) mascotMood = 'combo';
-    else if (pct >= 0.7) mascotMood = 'correct';
-    else if (pct < 0.5) mascotMood = 'wrong';
-    else mascotMood = 'idle';
-  }
-
-  // ============================================
   // INTRO STATE
   // ============================================
   if (state.phase === 'intro') {
+    // F4: pre-play wait while questions are fetched after START. think mascot.
+    if (loading) {
+      return (
+        <div className="max-w-[440px] mx-auto px-1">
+          <div className="quiz-loading" role="status" aria-live="polite">
+            <Mascot variant="think" animate="tilt" size={104} alt="" />
+            <p className="quiz-loading-msg">Loading your quiz...</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="max-w-[440px] mx-auto px-1">
-        <LightstickMascot mood={mascotMood} />
-
         {/* Hero banner: cover image if available, otherwise group gradient */}
         <div
           className="rounded-2xl border border-default overflow-hidden bg-surface"
@@ -681,7 +662,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
 
             <h1 className="text-[22px] font-semibold leading-tight text-primary">{quiz.title}</h1>
-            <p className="text-[11px] text-ghost mt-1">{quiz.questionCount} questions</p>
 
             <div className="flex items-center gap-2 mt-4">
               <UserAvatar
@@ -691,7 +671,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                 textColor={quiz.creatorAvatarText}
                 size={24}
               />
-              <p className="text-xs text-secondary">
+              <p className="text-xs text-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 by{' '}
                 <Link
                   href={`/u/${quiz.creatorUsername}`}
@@ -699,28 +679,35 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                 >
                   {quiz.creatorUsername}
                 </Link>
+                {quiz.creatorXp != null && quiz.creatorXp > 0 && (
+                  <FanTitle level={getLevelInfo(quiz.creatorXp).level} />
+                )}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Stats row - 3 equal cells */}
-        <div className="mt-3 grid grid-cols-3 gap-px bg-default rounded-xl overflow-hidden border border-default">
-          <div className="bg-surface p-3 text-center">
-            <p className="text-[16px] font-semibold text-primary tabular-nums">{formatCount(quiz.playCount)}</p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Plays</p>
+        {/* §14e format strip - quiz format at a glance. Replaces the pre-play
+            avg-score / pass-rate stats (§4a - those live on the result screen);
+            play count kept as a trust signal (§4b). */}
+        <div className="format-strip mt-3">
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+            <span className="format-val">{formatCount(quiz.playCount)} plays</span>
           </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[16px] font-semibold tabular-nums ${avgScorePct !== null ? 'text-combo' : 'text-tertiary'}`}>
-              {avgScorePct !== null ? `${avgScorePct}%` : 'new'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Avg score</p>
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3" /><path d="M12 17h.01" /></svg>
+            </span>
+            <span className="format-val">{quiz.questionCount} questions</span>
           </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[16px] font-semibold tabular-nums ${quiz.passRate !== null ? 'text-primary' : 'text-tertiary'}`}>
-              {quiz.passRate !== null ? `${quiz.passRate}%` : '-'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Pass rate</p>
+          <div className="format-item">
+            <span className="format-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            </span>
+            <span className="format-val">~{estMinutesLabel} min</span>
           </div>
         </div>
 
@@ -739,12 +726,17 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           )}
         </button>
 
-        <div className="flex items-center justify-center gap-4 mt-4">
-          <RedditShareButton
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/q/${quiz.slug}?utm_source=reddit&utm_medium=social&utm_campaign=quiz_share`}
-            title={`${quiz.title} - free K-pop quiz on kpopquiz.org`}
-            compact
-          />
+        {/* E7 - battle entry point: play this quiz head-to-head vs a real fan. */}
+        <Link
+          href={`/battle?quiz=${quiz.id}`}
+          className="w-full mt-2.5 py-3 rounded-2xl border border-default text-primary text-[15px] font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 3l14 14M14 5l5-2-2 5M5 19l5 2-2-5" /><path d="M16 16l3 3M8 8L5 5" /></svg>
+          Battle a fan
+        </Link>
+
+        <div className="mt-4">
+          <QuizShareRow quizId={quiz.id} slug={quiz.slug} quizTitle={quiz.title} creatorId={quiz.creatorId} />
         </div>
       </div>
     );
@@ -770,12 +762,50 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       return isAnswerCorrect(q, ans);
     });
 
-    return (
-      <div className="max-w-[440px] mx-auto">
-        <LightstickMascot mood={mascotMood} />
+    const total = state.questions.length;
+    const qNum = state.questionIndex + 1;
+    const progressPct = Math.round((qNum / total) * 100);
+    const hasTimer = 'settings' in state && state.settings.timer;
+    const timerTotal = hasTimer ? state.settings.timer_seconds : 0;
+    const timeLeft = state.phase === 'playing' ? Math.max(0, state.timeRemaining) : 0;
+    const frac = hasTimer && timerTotal > 0 ? timeLeft / timerTotal : 1;
+    const warn = hasTimer && timeLeft <= 8 && timeLeft > 5;
+    const danger = hasTimer && timeLeft <= 5;
+    const RING_CIRC = 172.8; // 2π × 27.5 (§10k)
+    const selectedIdx = isAnswered ? state.selectedAnswer : null;
 
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-1 py-2">
+    // Current trailing correct streak (for the fire indicator).
+    let streak = 0;
+    for (let i = progressResults.length - 1; i >= 0; i -= 1) {
+      const r = progressResults[i];
+      if (r === null) continue;
+      if (r === true) streak += 1;
+      else break;
+    }
+
+    const opts = getEffectiveOptions(question);
+    const correctIdx = getCorrectIndex(question);
+    const correctText = opts[correctIdx] ?? '';
+    const factText =
+      question.fun_fact && question.fun_fact.trim()
+        ? question.fun_fact
+        : `The answer is ${correctText}.`;
+
+    function answerClass(i: number): string {
+      let c = 'ans-btn';
+      if (isAnswered) {
+        c += ' disabled';
+        if (i === correctIdx) c += ' correct';
+        else if (i === selectedIdx) c += ' wrong';
+        else c += ' dimmed';
+      }
+      return c;
+    }
+
+    return (
+      <div className="quiz-screen">
+        {/* Quit */}
+        <div className="flex justify-end mb-1">
           <button
             onClick={() => dispatch({ type: 'RESET' })}
             className="text-[11px] text-ghost hover:text-secondary transition-colors cursor-pointer"
@@ -783,226 +813,163 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           >
             Quit
           </button>
-          <span className="text-xs text-ghost tabular-nums">
-            {state.questionIndex + 1}/{state.questions.length}
-          </span>
-          <div className="flex items-center gap-2 min-w-[44px] justify-end">
-            {state.phase === 'playing' && 'settings' in state && state.settings.timer ? (
-              <TimerCircle
-                seconds={state.timeRemaining}
-                total={state.settings.timer_seconds}
-                isUrgent={state.timeRemaining <= 5}
-              />
-            ) : (
-              <RunningTimer isRunning={state.phase === 'playing' || state.phase === 'answered'} />
-            )}
+        </div>
+
+        {/* §10k top bar */}
+        <div className="top-bar">
+          <span className="group-tag">{quiz.groupName}</span>
+          <div className="progress-wrap">
+            <div className="progress-bar" style={{ width: `${progressPct}%` }} />
+          </div>
+          <span className="q-counter">{qNum} / {total}</span>
+          <div className="score-pill">
+            <span className="score-pip" />
+            <span aria-live="polite">{state.score}</span> {isClues ? 'pts' : 'correct'}
           </div>
         </div>
 
-        {/* Progress dots */}
-        <div className="pt-1 pb-4">
-          <ProgressDots results={progressResults} current={state.questionIndex} />
+        {/* §10k streak bar */}
+        <div className="streak-bar">
+          {progressResults.map((r, i) => (
+            <span key={i} className={`streak-dot${r === true ? ' correct' : r === false ? ' wrong' : ''}`} />
+          ))}
+          <span className="streak-label">streak</span>
+          <span className={`streak-fire${streak >= 2 ? ' show' : ''}`}>
+            {streak >= 2 ? (
+              <>
+                {streak}{' '}
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                  <path d="M12 2c1.5 3-1 5-1.5 6.5C12 8 13 6.5 13.5 5.5c1.5 1.8 2.5 3.8 2.5 6a4 4 0 0 1-8 0c0-1.2.5-2.4 1.3-3.3C9.2 9.7 9.6 11 11 11c-.3-2.5-1-6 1-9z" />
+                </svg>
+              </>
+            ) : null}
+          </span>
         </div>
 
-        {/* "Aigo~" flash on wrong answer - absolute so it doesn't shift layout */}
-        {isAnswered && !state.isCorrect && (
-          <div className="relative">
-            <p
-              key={`aigo-${state.questionIndex}`}
-              className="absolute inset-x-0 -top-1 text-center text-sm font-semibold text-wrong animate-fade-out-up pointer-events-none"
-            >
-              {KOREAN.wrong}
-            </p>
+        {/* §10k timer ring (counts during the playing phase) */}
+        {hasTimer && state.phase === 'playing' && (
+          <div className="timer-ring-wrap">
+            <div className="timer-ring">
+              <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+                <circle className="ring-bg" cx="32" cy="32" r="27.5" />
+                <circle
+                  className={`ring-fg${danger ? ' danger' : warn ? ' warn' : ''}`}
+                  cx="32"
+                  cy="32"
+                  r="27.5"
+                  strokeDasharray={RING_CIRC}
+                  strokeDashoffset={RING_CIRC * (1 - frac)}
+                />
+              </svg>
+              <div
+                className={`timer-num${danger ? ' danger' : warn ? ' warn' : ''}`}
+                aria-live="polite"
+                aria-label="seconds remaining"
+              >
+                {Math.ceil(timeLeft)}
+              </div>
+            </div>
           </div>
         )}
 
         <div key={state.questionIndex} className="animate-question-in">
-          {/* Type badge above question */}
-          <div className="flex justify-center mb-3">
-            <QuizTypeBadge type={state.quizType} size="sm" />
-          </div>
 
-          {/* ======================== */}
-          {/* GUESS FROM CLUES */}
-          {/* ======================== */}
+          {/* Clue list (guess_from_clues) */}
           {isClues && (
-            <>
-              {/* Clues */}
-              <div className="space-y-1.5 mb-4 bg-surface border border-default rounded-xl p-4">
-                {question.clues!.slice(0, state.cluesRevealed).map((clue, i) => (
-                  <p key={i} className="text-sm animate-question-in">
-                    <span className="text-ghost font-semibold text-[11px] uppercase tracking-wider">Clue {i + 1}</span>{' '}
-                    <span className="text-primary">{clue}</span>
-                  </p>
-                ))}
-              </div>
-
-              {/* Prompt */}
-              <p className="text-[17px] font-semibold leading-snug text-primary text-center mb-5 px-2">
-                {question.question}
-              </p>
-
-              <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-                {getEffectiveOptions(question).map((option, i) => {
-                  let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
-                  if (isAnswered) {
-                    if (i === getCorrectIndex(question)) {
-                      buttonState = 'correct';
-                    } else if (i === state.selectedAnswer) {
-                      buttonState = 'wrong';
-                    } else {
-                      buttonState = 'dimmed';
-                    }
-                  }
-                  return (
-                    <AnswerButton
-                      key={i}
-                      label={LABELS[i] ?? ''}
-                      text={option}
-                      state={buttonState}
-                      disabled={isAnswered}
-                      onClick={() => handleClueAnswer(i, state.cluesRevealed)}
-                    />
-                  );
-                })}
-              </div>
-
-              {/* Points indicator + clue button */}
-              {!isAnswered && (
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
-                      <svg key={`filled-${i}`} width="13" height="13" viewBox="0 0 14 14" fill="var(--combo)">
-                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-                      </svg>
-                    ))}
-                    {Array.from({ length: 3 - Math.max(1, 4 - state.cluesRevealed) }).map((_, i) => (
-                      <svg key={`empty-${i}`} width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="var(--text-ghost)" strokeWidth="1">
-                        <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-                      </svg>
-                    ))}
-                    <span className="text-[11px] text-ghost ml-1">
-                      {Math.max(1, 4 - state.cluesRevealed)} pt{Math.max(1, 4 - state.cluesRevealed) === 1 ? '' : 's'}
-                    </span>
-                  </div>
-
-                  {state.cluesRevealed < 3 ? (
-                    <button
-                      onClick={handleRevealClue}
-                      className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
-                    >
-                      {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
-                    </button>
-                  ) : (
-                    <span className="text-[11px] text-ghost">No more clues</span>
-                  )}
-                </div>
-              )}
-            </>
+            <div className="space-y-1.5 mb-4 bg-surface border border-default rounded-xl p-4">
+              {question.clues!.slice(0, state.cluesRevealed).map((clue, i) => (
+                <p key={i} className="text-sm animate-question-in">
+                  <span className="text-ghost font-semibold text-[11px] uppercase tracking-wider">Clue {i + 1}</span>{' '}
+                  <span className="text-primary">{clue}</span>
+                </p>
+              ))}
+            </div>
           )}
 
-          {/* ======================== */}
-          {/* IMAGE QUIZ */}
-          {/* ======================== */}
-          {isImageQuiz && (
-            <ImageQuestionView
-              question={question as { question: string; image_url: string; options: string[] }}
-              correctIndex={getCorrectIndex(question)}
-              selectedAnswer={isAnswered ? state.selectedAnswer : null}
-              isAnswered={isAnswered}
-              onAnswer={handleAnswer}
-            />
+          {/* Image (image type) - shown above the question */}
+          {isImageQuiz && 'image_url' in question && (
+            <div className="w-full max-h-[280px] rounded-[14px] overflow-hidden mb-4 bg-surface-alt flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={(question as { image_url: string }).image_url}
+                alt={question.question}
+                className="w-full h-full object-contain max-h-[280px]"
+                loading="eager"
+              />
+            </div>
           )}
 
-          {/* ======================== */}
-          {/* INTRUDER */}
-          {/* ======================== */}
-          {isIntruderQuiz && (
+          {/* §10k question text (intruder view renders its own header) */}
+          {!isIntruderQuiz && <p className="q-text">{question.question}</p>}
+
+          {/* Answers - §10k A/B/C/D chips for text options; image grid for intruder */}
+          {isIntruderQuiz ? (
             <IntruderQuestionView
               question={question as unknown as { question: string; options: Array<{ label: string; image_url: string }> }}
-              correctIndex={getCorrectIndex(question)}
-              selectedAnswer={isAnswered ? state.selectedAnswer : null}
+              correctIndex={correctIdx}
+              selectedAnswer={selectedIdx}
               isAnswered={isAnswered}
               onAnswer={handleAnswer}
             />
-          )}
-
-          {/* ======================== */}
-          {/* STANDARD (MC / TF) */}
-          {/* ======================== */}
-          {!isClues && !isImageQuiz && !isIntruderQuiz && (
-            <>
-              <p className="text-[17px] font-semibold leading-snug text-primary text-center mb-5 px-2">
-                {question.question}
-              </p>
-
-              <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-                {getEffectiveOptions(question).map((option, i) => {
-                  let buttonState: 'default' | 'correct' | 'wrong' | 'dimmed' = 'default';
-                  if (isAnswered) {
-                    if (i === getCorrectIndex(question)) {
-                      buttonState = 'correct';
-                    } else if (i === state.selectedAnswer) {
-                      buttonState = 'wrong';
-                    } else {
-                      buttonState = 'dimmed';
-                    }
-                  }
-                  return (
-                    <AnswerButton
-                      key={i}
-                      label={LABELS[i] ?? ''}
-                      text={option}
-                      state={buttonState}
-                      disabled={isAnswered}
-                      onClick={() => handleAnswer(i)}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          )}
-
-          {/* ======================== */}
-          {/* FEEDBACK (all quiz types) */}
-          {/* ======================== */}
-          {isAnswered && (
-            <>
-              <div className="mt-4 animate-fade-in">
-                {state.selectedAnswer === null ? (
-                  <FeedbackBox
-                    type="timeout"
-                    title="Time's up!"
-                    text={typeof question.correct === 'boolean'
-                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.`
-                      : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.`}
-                  />
-                ) : state.isCorrect ? (
-                  <FeedbackBox
-                    type="correct"
-                    title="Correct!"
-                    text={question.fun_fact ?? ''}
-                  />
-                ) : (
-                  <FeedbackBox
-                    type="wrong"
-                    title="Wrong!"
-                    text={typeof question.correct === 'boolean'
-                      ? `The answer is ${getEffectiveOptions(question)[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`
-                      : `The correct answer was ${LABELS[getCorrectIndex(question)] ?? ''}.${question.fun_fact ? ` ${question.fun_fact}` : ''}`}
-                  />
-                )}
-              </div>
-
-              <div className="mt-4">
+          ) : (
+            <div className="answers">
+              {opts.map((option, i) => (
                 <button
-                  onClick={handleNext}
-                  className="w-full py-3.5 rounded-xl bg-accent text-white text-[15px] font-bold active:scale-[0.98] transition-transform cursor-pointer"
+                  key={i}
+                  type="button"
+                  className={answerClass(i)}
+                  disabled={isAnswered}
+                  aria-pressed={selectedIdx === i}
+                  onClick={() => (isClues ? handleClueAnswer(i, state.cluesRevealed) : handleAnswer(i))}
                 >
-                  {isLast ? 'See results' : 'Next question'}
+                  <span className="ans-letter">{LABELS[i] ?? ''}</span>
+                  {option}
                 </button>
+              ))}
+            </div>
+          )}
+
+          {/* Clue controls (pre-answer) */}
+          {isClues && !isAnswered && (
+            <div className="flex items-center justify-between mt-3 mb-1">
+              <span className="text-[11px] text-ghost">
+                {Math.max(1, 4 - state.cluesRevealed)} pt{Math.max(1, 4 - state.cluesRevealed) === 1 ? '' : 's'} if you answer now
+              </span>
+              {state.cluesRevealed < 3 ? (
+                <button
+                  onClick={handleRevealClue}
+                  className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
+                >
+                  {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
+                </button>
+              ) : (
+                <span className="text-[11px] text-ghost">No more clues</span>
+              )}
+            </div>
+          )}
+
+          {/* §10k fun-fact reveal - after every answer (correct, wrong, or timeout) */}
+          {isAnswered && (
+            <div className="fact-reveal show">
+              <div className="fact-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#92400E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M9 18h6" />
+                  <path d="M10 22h4" />
+                  <path d="M12 2a7 7 0 0 0-4 12.6c.6.5 1 1.2 1 2.4h6c0-1.2.4-1.9 1-2.4A7 7 0 0 0 12 2z" />
+                </svg>
               </div>
-            </>
+              <div className="fact-body">
+                <p className="fact-label">Fun fact</p>
+                <p className="fact-text">{factText}</p>
+              </div>
+            </div>
+          )}
+
+          {/* §10k next */}
+          {isAnswered && (
+            <button type="button" className="next-btn show" onClick={handleNext}>
+              {isLast ? 'See results' : 'Next question →'}
+            </button>
           )}
         </div>
       </div>
@@ -1021,6 +988,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     const starCount =
       scorePct >= 100 ? 5 : scorePct >= 90 ? 4 : scorePct >= 70 ? 3 : scorePct >= 50 ? 2 : 1;
 
+    // F3: celebrate mascot only on a good result (pass threshold = 50%, i.e. 2+
+    // stars). A poor/failed result stays mascot-less here; the sad variant is F5.
+    const isGoodResult = scorePct >= 50;
+
     // Hangul + English label pulled from the shared korean-moments helper
     const resultLabel = getResultLabel(state.score, maxScore);
     const labelSub =
@@ -1030,8 +1001,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     return (
       <div className="max-w-[440px] mx-auto px-1 py-2 animate-result-in">
-        <LightstickMascot mood={mascotMood} />
-
         {/* Level up celebration overlay */}
         {showLevelUp && (() => {
           const levelTitle = getTitleForLevel(state.newLevel!);
@@ -1045,42 +1014,89 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* Stars */}
-        <div className="flex justify-center gap-1 mb-3">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg
-              key={i}
-              width="22"
-              height="22"
-              viewBox="0 0 14 14"
-              fill={i < starCount ? 'var(--combo)' : 'var(--bg-elevated)'}
-            >
-              <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-            </svg>
-          ))}
+        {/* F3 + F5 - mascot above the (clean) result card: celebrate on a good
+            result (>=50%), sad on a failing one. sad is static (never animates). */}
+        <div className="flex justify-center" style={{ marginBottom: 4 }}>
+          {isGoodResult
+            ? <Mascot variant="celebrate" animate="bob" size={104} />
+            : <Mascot variant="sad" size={104} />}
         </div>
 
-        {/* Big score */}
-        <p className="text-center text-5xl font-bold text-primary tabular-nums leading-none">
-          {state.score}
-          <span className="text-ghost text-3xl">/{maxScore}</span>
-        </p>
-
-        {/* Label: Hangul + English side by side */}
-        <div className="text-center mt-3">
-          <p className="text-[15px] font-bold text-accent tracking-wide">
-            <span>{resultLabel.kr}</span>{' '}
-            <span className="uppercase">{resultLabel.en}</span>
-          </p>
-          <p className="text-[12px] text-secondary mt-0.5">{labelSub}</p>
-          <div className="flex items-center justify-center gap-1 mt-2">
-            <QuizTypeIcon type={state.quizType} size={16} />
-            <QuizTypeBadge type={state.quizType} size="xs" />
+        {/* §10i + §12b - single branded result hero: count-up score, bar,
+            beat-%, label, and share actions (no duplicate score block). */}
+        <div className="result-share-card">
+          <div className="result-share-header">
+            <p className="result-share-group">{quiz.groupName} quiz</p>
+            <p className="result-share-title">{quiz.title}</p>
           </div>
+          <div className="result-share-body">
+            {/* Stars */}
+            <div className="flex justify-center gap-1 mb-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg key={i} width="20" height="20" viewBox="0 0 14 14" fill={i < starCount ? 'var(--combo)' : 'var(--bg-elevated)'}>
+                  <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
+                </svg>
+              ))}
+            </div>
+
+            {/* Animated count-up score (instant under reduced-motion) */}
+            <p className="result-share-score" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
+              {reduceMotion ? state.score : <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />}
+              <span style={{ fontSize: '0.42em', color: 'var(--txt3)', fontWeight: 700 }}>/{maxScore}</span>
+            </p>
+            <p className="result-share-total">{isClues ? `${maxScore} points max` : `out of ${maxScore} questions`}</p>
+
+            {/* §10i bar + beat-% */}
+            <div className="result-bar-wrap">
+              <div className="result-bar" style={{ width: `${barReady ? scorePct : 0}%` }} />
+            </div>
+            {state.percentile !== null && (
+              <p className="text-[13px] text-secondary" style={{ marginBottom: 14 }}>
+                You beat <strong className="text-accent">{state.percentile}%</strong> of players
+              </p>
+            )}
+
+            {/* Hangul + English label */}
+            <p className="text-[15px] font-bold text-accent tracking-wide">
+              <span>{resultLabel.kr}</span>{' '}
+              <span className="uppercase">{resultLabel.en}</span>
+            </p>
+            <p className="text-[12px] text-secondary mt-0.5" style={{ marginBottom: 12 }}>{labelSub}</p>
+
+            <div className="flex items-center justify-center gap-1" style={{ marginBottom: 16 }}>
+              <QuizTypeIcon type={state.quizType} size={16} />
+              <QuizTypeBadge type={state.quizType} size="xs" />
+            </div>
+
+            <p className="result-share-url">kpopquiz.org</p>
+          </div>
+          <div className="result-share-actions">
+            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
+              Share result
+            </button>
+            <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
+              Play another
+            </Link>
+          </div>
+          {/* K2 - one-line Discord link near the share row. */}
+          <div className="text-center" style={{ marginTop: 6 }}>
+            <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
+          </div>
+          {/* K7 - Brag in the Discord on a GOOD result (>=70%). */}
+          {scorePct >= 70 && (
+            <div className="text-center">
+              <BragButton payload={{ kind: 'quiz', title: quiz.title, score: state.score, total: maxScore, quizSlug: quiz.slug }} />
+            </div>
+          )}
         </div>
 
-        {/* Stats row - 3 cells */}
-        <div className="mt-5 grid grid-cols-3 gap-px bg-default rounded-xl overflow-hidden border border-default">
+        {/* Like - placed high, right under the result */}
+        <div className="mt-3">
+          <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
+        </div>
+
+        {/* Stats row - Score / Avg / Rank (+ Pass rate when available) */}
+        <div className={`mt-5 grid ${state.passRate !== null ? 'grid-cols-4' : 'grid-cols-3'} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
           <div className="bg-surface p-3 text-center">
             <p className="text-[17px] font-semibold text-primary tabular-nums">{scorePct}%</p>
             <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Score</p>
@@ -1097,6 +1113,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </p>
             <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Rank</p>
           </div>
+          {state.passRate !== null && (
+            <div className="bg-surface p-3 text-center">
+              <p className="text-[17px] font-semibold text-primary tabular-nums">{state.passRate}%</p>
+              <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Pass rate</p>
+            </div>
+          )}
         </div>
 
         {/* XP card */}
@@ -1118,20 +1140,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
               />
             </div>
           </div>
-        )}
-
-        {/* Byeol earned */}
-        {state.wasFirstTime && state.byeolEarned > 0 ? (
-          <ByeolGain
-            amount={state.byeolEarned}
-            newBalance={state.newByeolBalance}
-            canOpenPack={state.newByeolBalance >= 100}
-          />
-        ) : (
-          <ByeolResultBlock
-            byeolEarned={state.byeolEarned}
-            wasFirstTime={state.wasFirstTime}
-          />
         )}
 
         {/* Time comparison (keeps its own layout) */}
@@ -1184,39 +1192,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         {/* Reactions */}
         <QuizReactions quizId={quiz.id} />
 
-        {/* Like + action buttons */}
-        <div className="mt-4">
-          <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
-        </div>
-
-        <div className="flex gap-2 mt-3">
-          <button
-            onClick={() => {
-              playTap();
-              dispatch({ type: 'RESET' });
-            }}
-            className="flex-1 py-3 rounded-xl bg-surface border border-default text-secondary text-[13px] font-semibold hover:border-accent hover:text-accent transition-colors cursor-pointer"
-          >
-            {KOREAN.playAgain}
-          </button>
-          <button
-            onClick={handleShare}
-            className="flex-1 py-3.5 rounded-xl bg-accent text-white text-[14px] font-bold active:scale-[0.98] transition-transform cursor-pointer"
-          >
-            Share
-          </button>
-        </div>
 
         <div className="mt-2">
-          <button
-            onClick={() => shareToReddit(quiz.id, quiz.slug, quiz.title)}
-            className="w-full py-2.5 rounded-xl border border-default text-[13px] font-medium bg-surface cursor-pointer hover:border-[#FF4500] hover:text-[#FF4500] transition-colors flex items-center justify-center gap-2 text-secondary"
-          >
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path d="M10 0C4.478 0 0 4.478 0 10s4.478 10 10 10 10-4.478 10-10S15.522 0 10 0zm5.49 10.354a1.55 1.55 0 0 1 .01.175c0 2.677-3.117 4.847-6.962 4.847-3.845 0-6.962-2.17-6.962-4.847 0-.06.003-.12.01-.175a1.178 1.178 0 0 1-.315-.806 1.19 1.19 0 0 1 2.024-.843c.98-.629 2.315-1.032 3.797-1.078l.748-3.295a.24.24 0 0 1 .285-.18l2.321.487a.83.83 0 1 1-.083.475l-2.07-.435-.664 2.923c1.457.06 2.768.462 3.736 1.082a1.19 1.19 0 1 1 1.709 1.648 4.626 4.626 0 0 1 .01.175c0 .002 0 .005-.001.007a1.19 1.19 0 0 1-.594-.978zm-9.028 0a.595.595 0 1 0 1.19 0 .595.595 0 0 0-1.19 0zm5.283 1.658c-.493.493-1.55.668-1.757.668-.208 0-1.27-.178-1.758-.668a.196.196 0 0 0-.277.277c.62.62 1.799.84 2.035.84.237 0 1.41-.22 2.034-.84a.196.196 0 0 0-.277-.277zm-.11-1.063a.595.595 0 1 0 1.19 0 .595.595 0 0 0-1.19 0z" />
-            </svg>
-            Share on Reddit
-          </button>
+          <QuizShareRow quizId={quiz.id} slug={quiz.slug} quizTitle={quiz.title} creatorId={quiz.creatorId} />
         </div>
 
         {/* Comments */}

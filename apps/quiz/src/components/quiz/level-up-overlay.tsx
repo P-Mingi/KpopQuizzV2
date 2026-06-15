@@ -3,100 +3,91 @@
 import { useEffect, useState } from 'react';
 
 import { playLevelUp } from '@/lib/sounds';
+import { Mascot } from '@/components/ui/mascot';
+import { shareLevelUp } from '@/lib/share';
+import { BragButton } from '@/components/discord/brag-button';
 
 interface Props {
   newLevel: number;
-  /** English fan-culture title, e.g. "Stan". */
+  /** English fan title, e.g. "Bias". */
   title: string;
-  /** Korean fan-culture title, e.g. "덕". */
+  /** Korean fan title, e.g. "최애". */
   titleKr: string;
   onDismiss: () => void;
 }
 
 /**
- * Full-screen celebration overlay shown when the player crosses a level
- * threshold. Ring spins in, level number + title fade up, level-up chime
- * plays, device vibrates (if supported), auto-dismisses after 3s.
- *
- * Tap anywhere to dismiss early.
+ * L2 - the marquee Fan Level reward. Full-screen celebration shown when an XP
+ * award crosses a level boundary: celebrate mascot + burst + "You're now a
+ * {Title}!" + a shareable level-up card. No auto-dismiss (the Share button needs
+ * to be reachable); tap the backdrop or Continue to close. Reduced-motion safe
+ * (the entrance is instant; the mascot bob is gated by the F1 CSS rule).
  */
-export function LevelUpOverlay({
-  newLevel,
-  title,
-  titleKr,
-  onDismiss,
-}: Props): React.ReactElement {
+export function LevelUpOverlay({ newLevel, title, titleKr, onDismiss }: Props): React.ReactElement {
   const [show, setShow] = useState(false);
-  const [showRing, setShowRing] = useState(false);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    // Mount animations
-    const t1 = setTimeout(() => setShow(true), 100);
-    const t2 = setTimeout(() => setShowRing(true), 300);
-
-    // Sound + haptic feedback
+    const reduce = typeof window !== 'undefined' && window.matchMedia
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+    const t = setTimeout(() => setShow(true), reduce ? 0 : 80);
     playLevelUp();
     if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
-      try {
-        navigator.vibrate([100, 50, 100]);
-      } catch {
-        // Non-critical
-      }
+      try { navigator.vibrate([100, 50, 100]); } catch { /* non-critical */ }
     }
+    return () => clearTimeout(t);
+  }, []);
 
-    // Auto-dismiss
-    const dismissTimer = setTimeout(onDismiss, 3000);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(dismissTimer);
-    };
-  }, [onDismiss]);
+  const onShare = async (): Promise<void> => {
+    const r = await shareLevelUp(title, newLevel);
+    if (r === 'copied') { setShareMsg('Link copied!'); setTimeout(() => setShareMsg(null), 1800); }
+    else if (r === 'failed') { setShareMsg('Could not share'); setTimeout(() => setShareMsg(null), 1800); }
+  };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-primary/95 backdrop-blur-sm cursor-pointer"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-primary/95 backdrop-blur-sm cursor-pointer px-6"
       onClick={onDismiss}
       role="dialog"
-      aria-label={`Level up to level ${newLevel}`}
+      aria-modal="true"
+      aria-label={`Level up: you are now a ${title}`}
     >
-      {/* Ring */}
       <div
-        className="transition-all duration-[600ms]"
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-          opacity: showRing ? 1 : 0,
-          transform: showRing ? 'scale(1) rotate(0deg)' : 'scale(0.5) rotate(-180deg)',
-        }}
+        className="flex flex-col items-center text-center cursor-default transition-all duration-300"
+        style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)', opacity: show ? 1 : 0, transform: show ? 'scale(1)' : 'scale(0.9)' }}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-[96px] h-[96px] rounded-full border-[3px] border-accent flex items-center justify-center mb-5">
-          <span className="text-4xl font-bold text-accent tabular-nums">{newLevel}</span>
+        {/* celebrate mascot + burst */}
+        <div className="relative flex items-center justify-center" style={{ width: 168, height: 168, marginBottom: 6 }}>
+          <span aria-hidden="true" className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, var(--bg-accent-subtle), transparent 70%)' }} />
+          <Mascot variant="celebrate" animate="bob" size={132} alt="" />
         </div>
-      </div>
 
-      {/* Text */}
-      <div
-        className="text-center transition-all duration-500"
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-          opacity: show ? 1 : 0,
-          transform: show ? 'scale(1)' : 'scale(0.8)',
-        }}
-      >
-        <p className="text-[10px] text-accent uppercase tracking-[0.12em] mb-1 font-semibold">
-          Level up!
-        </p>
-        <p className="text-4xl font-bold text-primary tabular-nums">{newLevel}</p>
-        <p className="text-sm font-semibold text-accent mt-2">
-          {title} <span className="font-normal">({titleKr})</span>
-        </p>
-        <p className="text-sm text-accent mt-2">축하해!</p>
-      </div>
+        <p className="text-[11px] text-accent uppercase tracking-[0.16em] font-bold mb-1">Level up!</p>
+        <p className="text-base text-primary">You&apos;re now a</p>
+        <p className="text-[34px] leading-tight font-bold text-accent" style={{ fontFamily: 'var(--font-display)' }}>{title}</p>
+        <p className="text-sm text-secondary mt-0.5">{titleKr} {'·'} Level {newLevel}</p>
 
-      <p className="absolute bottom-8 text-[10px] text-ghost uppercase tracking-wider">
-        Tap to continue
-      </p>
+        <button
+          type="button"
+          onClick={() => void onShare()}
+          className="btn-primary mt-6"
+          aria-label="Share your level-up"
+        >
+          Share your level-up
+        </button>
+        {shareMsg && <p className="text-xs text-secondary mt-2" role="status">{shareMsg}</p>}
+
+        {/* K8 - Post the level-up in the Discord (calls K7). */}
+        <div className="mt-3">
+          <BragButton payload={{ kind: 'levelup', title, level: newLevel }} compact />
+        </div>
+
+        <button type="button" onClick={onDismiss} className="text-xs text-ghost uppercase tracking-wider mt-4 py-2">
+          Continue
+        </button>
+      </div>
     </div>
   );
 }

@@ -65,207 +65,113 @@ function getDifficultyLabel(difficulty: string) {
   return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
 }
 
-function getTypeLabel(game: NameAllGame): string {
-  if (game.game_type === 'name_all_members') {
-    return `${game.data.items.length} members`;
-  }
-  if (game.sub_type === 'girl_idols') return 'Girl idols';
-  if (game.sub_type === 'boy_idols') return 'Boy idols';
-  if (game.sub_type === 'gen_groups') {
-    if (game.title.toLowerCase().includes('4th')) return '4th gen';
-    if (game.title.toLowerCase().includes('3rd')) return '3rd gen';
-    if (game.title.toLowerCase().includes('2nd')) return '2nd gen';
-    return 'Groups';
-  }
-  if (game.sub_type === 'album_songs') return 'Album';
-  if (game.sub_type === 'top_hits') return 'Top hits';
-  return 'Members';
+function getItemNoun(game: NameAllGame): string {
+  if (game.game_type === 'name_all_members') return 'members';
+  if (game.game_type === 'name_all_idols') return 'idols';
+  if (game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs') return 'songs';
+  if (game.game_type === 'name_all_groups') return 'groups';
+  return 'items';
 }
 
 function getMetaLine(game: NameAllGame): string {
-  if (game.game_type === 'name_all_members' && game.group) {
-    return `${game.group.name} / ${(game.play_count || 0).toLocaleString()} plays`;
+  const plays = `${(game.play_count || 0).toLocaleString()} plays`;
+  if (game.game_type === 'name_all_members' && game.group) return `${game.group.name} · ${plays}`;
+  if ((game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs') && game.data.artist) {
+    return `${game.data.artist} · ${plays}`;
   }
-  if (game.game_type === 'name_all_songs' && game.data.artist) {
-    return `${game.data.artist} / ${(game.play_count || 0).toLocaleString()} plays`;
-  }
-  if (game.game_type === 'name_top_songs' && game.data.artist) {
-    return `${game.data.artist} / ${(game.play_count || 0).toLocaleString()} plays`;
-  }
-  return `${(game.play_count || 0).toLocaleString()} plays`;
+  return plays;
 }
 
-function getGridLayout(itemCount: number): {
-  gridCols: number;
-  gridRows: number;
-  totalCells: number;
-  fullWidth: boolean;
-} {
-  // Member games (4-13 members): show all cells
-  if (itemCount <= 5) {
-    return { gridCols: 7, gridRows: 1, totalCells: 7, fullWidth: true };
-  }
-  if (itemCount <= 8) {
-    return { gridCols: 7, gridRows: 1, totalCells: 7, fullWidth: true };
-  }
-  if (itemCount <= 13) {
-    return { gridCols: 7, gridRows: 2, totalCells: 14, fullWidth: true };
-  }
-  // Idol/song games with many items: compact preview
-  return { gridCols: 3, gridRows: 2, totalCells: 6, fullWidth: false };
-}
-
+/**
+ * Name-all list card. A clean light card with an overlapping member-avatar
+ * "roster" preview - instantly reads as "name these N people" without the noisy
+ * reveal/hide tile grid. Distinct from the bold VS This-or-That card.
+ */
 export function NameAllCard({ game }: { game: NameAllGame }) {
   const items = game.data.items || [];
   const itemCount = items.length;
-  const layout = getGridLayout(itemCount);
+  const noun = getItemNoun(game);
 
-  // Decide which cells are "known" (show initial) vs "hidden" (show ?)
-  // For visual variety, show roughly half known, half hidden
-  const visibleCount = Math.min(
-    Math.ceil(layout.totalCells / 2),
-    itemCount
-  );
+  // Roster preview: up to 6 avatars, then a "+N" chip.
+  const roster = items.slice(0, 6);
+  const extra = itemCount - roster.length;
 
-  const cells: Array<{ known: boolean; item?: NameAllItem; index: number }> = [];
-  let visibleFilled = 0;
-
-  for (let i = 0; i < layout.totalCells; i++) {
-    // Alternate known/hidden for visual rhythm
-    const shouldBeVisible = visibleFilled < visibleCount && i % 2 === 0;
-    if (shouldBeVisible && items[visibleFilled]) {
-      cells.push({ known: true, item: items[visibleFilled]!, index: visibleFilled });
-      visibleFilled++;
-    } else {
-      cells.push({ known: false, index: i });
-    }
-  }
-
-  const typeLabel = getTypeLabel(game);
-  const showCount = game.game_type !== 'name_all_members' && itemCount > 5;
+  const groupColor = game.group?.display_color;
+  const coverBg = groupColor
+    ? `radial-gradient(125% 130% at 50% 118%, ${groupColor}26, ${groupColor}0d 52%, var(--bg-surface))`
+    : 'var(--surface-alt)';
 
   return (
     <Link
       href={`/games/name-all/${game.slug}`}
-      className={`${
-        layout.fullWidth ? 'col-span-2' : ''
-      } rounded-2xl border-[1.5px] border-[#E8E6E0] bg-white overflow-hidden cursor-pointer hover:border-[#D4537E] hover:-translate-y-[2px] transition-all block`}
+      aria-label={`${game.title}, name all game`}
+      className="group block rounded-2xl border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden transition-all duration-200 hover:border-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
-      {/* Banner — 140px tall with grid of cells */}
-      <div className="h-[140px] relative overflow-hidden">
-        {/* Grid of cells */}
-        <div
-          className="absolute inset-0 grid gap-[2px]"
-          style={{
-            gridTemplateColumns: `repeat(${layout.gridCols}, 1fr)`,
-            gridTemplateRows: `repeat(${layout.gridRows}, 1fr)`,
-          }}
-        >
-          {cells.map((cell, i) => {
-            if (cell.known && cell.item) {
-              return cell.item.image_url ? (
-                <div key={i} className="overflow-hidden relative">
-                  <img
-                    src={cell.item.image_url}
-                    alt={cell.item.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+      {/* Cover: overlapping member avatars on a soft group-tinted field */}
+      <div
+        className="relative h-[128px] flex items-center justify-center overflow-hidden"
+        style={{ background: coverBg }}
+      >
+        <div className="flex items-center">
+          {roster.map((item, i) => (
+            <div
+              key={i}
+              className="w-[54px] h-[54px] rounded-full overflow-hidden ring-2 ring-white shadow-[0_2px_8px_rgba(0,0,0,0.18)] flex items-center justify-center text-white font-semibold transition-transform duration-200 group-hover:scale-[1.04]"
+              style={{
+                marginLeft: i === 0 ? 0 : -16,
+                zIndex: roster.length - i,
+                fontSize: 15,
+                background: item.color
+                  ? `linear-gradient(135deg, ${item.color}, ${item.color}cc)`
+                  : getGradientForIndex(i),
+              }}
+            >
+              {item.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={item.image_url} alt={item.name} loading="lazy" className="w-full h-full object-cover" />
               ) : (
-                <div
-                  key={i}
-                  className="flex items-center justify-center text-white font-medium overflow-hidden relative"
-                  style={{
-                    background: cell.item.color
-                      ? `linear-gradient(135deg, ${cell.item.color}, ${cell.item.color}cc)`
-                      : getGradientForIndex(cell.index),
-                    fontSize: layout.gridRows > 1 ? '16px' : '20px',
-                    letterSpacing: '-0.5px',
-                  }}
-                >
-                  {getInitial(cell.item.name)}
-                </div>
-              );
-            }
-            return (
-              <div
-                key={i}
-                className="bg-[#2C2C2A] flex items-center justify-center relative"
-              >
-                <span
-                  className="text-white/40 font-medium"
-                  style={{ fontSize: layout.gridRows > 1 ? '22px' : '28px' }}
-                >
-                  ?
-                </span>
-              </div>
-            );
-          })}
+                getInitial(item.name)
+              )}
+            </div>
+          ))}
+          {extra > 0 && (
+            <div
+              className="w-[54px] h-[54px] rounded-full ring-2 ring-white bg-[var(--accent)] text-white flex items-center justify-center text-[13px] font-bold shadow-[0_2px_8px_rgba(0,0,0,0.18)]"
+              style={{ marginLeft: -16, zIndex: 0 }}
+            >
+              +{extra}
+            </div>
+          )}
         </div>
 
-        {/* Dark gradient overlay for text readability */}
-        <div
-          className="absolute inset-0 z-[2] pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)',
-          }}
-        />
-
-        {/* Difficulty pill — top left */}
+        {/* Difficulty - top left */}
         <span
-          className={`absolute top-2 left-2 px-[7px] py-[3px] rounded-[5px] text-[9px] font-medium z-[3] ${getDifficultyClasses(
-            game.difficulty
-          )}`}
+          className={`absolute top-2.5 left-2.5 px-2 py-[3px] rounded-md text-[10px] font-semibold ${getDifficultyClasses(game.difficulty)}`}
         >
           {getDifficultyLabel(game.difficulty)}
         </span>
 
-        {/* Timer pill — top right */}
-        <span className="absolute top-2 right-2 px-[7px] py-[3px] rounded-[5px] text-[9px] font-medium bg-white/95 text-[#2C2C2A] z-[3] flex items-center gap-[3px]">
-          <svg
-            width="9"
-            height="9"
-            viewBox="0 0 9 9"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          >
-            <circle cx="4.5" cy="4.5" r="3.5" />
-            <path d="M4.5 2.5v2l1.5 1" strokeLinecap="round" />
+        {/* Timer - top right */}
+        <span className="absolute top-2.5 right-2.5 px-2 py-[3px] rounded-md text-[10px] font-semibold bg-white/85 text-[var(--text-secondary)] backdrop-blur-sm shadow-sm flex items-center gap-1">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" strokeLinecap="round" />
           </svg>
           {formatTimer(game.timer_seconds)}
         </span>
 
-        {/* Type badge — bottom left */}
-        <span className="absolute bottom-2 left-2 px-2 py-[3px] rounded-[5px] text-[9px] font-medium bg-white/95 text-[#2C2C2A] z-[3]">
-          {typeLabel}
+        {/* Item count - bottom left */}
+        <span className="absolute bottom-2.5 left-2.5 px-2 py-[3px] rounded-md text-[10px] font-semibold bg-white/85 text-[var(--text-secondary)] backdrop-blur-sm shadow-sm">
+          {itemCount} {noun}
         </span>
-
-        {/* Count badge — bottom right (only for idol/song games) */}
-        {showCount && (
-          <span className="absolute bottom-2 right-2 px-2 py-[3px] rounded-[5px] text-[9px] font-medium bg-black/50 text-white z-[3]">
-            {itemCount} {game.game_type === 'name_all_idols' ? 'idols' : game.game_type === 'name_all_songs' || game.game_type === 'name_top_songs' ? 'songs' : 'groups'}
-          </span>
-        )}
       </div>
 
       {/* Body */}
-      <div style={{ padding: '12px 14px 14px' }}>
-        <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-0.01em', color: 'var(--text-primary)', marginBottom: 4, lineHeight: 1.3 }}>
+      <div className="px-3.5 pt-2.5 pb-3">
+        <p className="text-sm font-bold tracking-[-0.01em] text-[var(--text-primary)] leading-snug truncate">
           {game.title}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-          <div style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>
-            {getMetaLine(game)}
-          </div>
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: 3,
-            padding: '2px 7px', borderRadius: 9999,
-            background: '#FFF7E0', color: '#B98800',
-            fontSize: 10, fontWeight: 800,
-          }}>{'\u2B50'} +{itemCount * 10}</span>
-        </div>
+        </p>
+        <p className="text-[11px] text-[var(--text-tertiary)] truncate mt-1.5">{getMetaLine(game)}</p>
       </div>
     </Link>
   );

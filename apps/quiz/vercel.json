@@ -5,8 +5,8 @@
       "schedule": "0 12 * * *"
     },
     {
-      "path": "/api/cron/battle-cleanup",
-      "schedule": "0 */2 * * *"
+      "path": "/api/cron/duel-reconcile",
+      "schedule": "0 3 * * *"
     }
   ]
 }

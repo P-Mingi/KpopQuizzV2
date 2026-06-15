@@ -2,13 +2,12 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
-import { awardByeol, BYEOL_REWARDS } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
 function validateQuestions(questions: unknown[], quizType: string): string[] {
   const errors: string[] = [];
-  if (questions.length < 5) errors.push('Minimum 5 questions required');
+  if (questions.length < 3) errors.push('Minimum 3 questions required');
   if (questions.length > 20) errors.push('Maximum 20 questions allowed');
 
   for (let i = 0; i < questions.length; i++) {
@@ -299,6 +298,23 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const quiz = quizResult as { id: string; slug: string };
 
+  // H9 - basic NSFW / cover moderation. Every *user-uploaded* cover (one living
+  // in the public upload bucket) is queued into the EXISTING report/admin-removal
+  // pipeline so a human reviews it - "moderated, not unmoderated". Group default
+  // covers are trusted and skipped. We deliberately avoid a client-side ML model
+  // (nsfwjs/tensorflow) here so the perf-sensitive creation funnel stays lean:
+  // no multi-MB model in the bundle or fetched on upload. The admin dashboard
+  // already surfaces pending reports, and the auto-flag trigger (>=5) still applies.
+  if (manualCoverUrl && manualCoverUrl.includes('/quiz-images/')) {
+    const { error: modError } = await supabase.from('reports').insert({
+      quiz_id: quiz.id,
+      reporter_id: null,
+      reason: 'other',
+      details: '[Auto] User-uploaded cover image queued for moderation review.',
+    });
+    if (modError) console.error('Cover moderation queue insert failed:', modError.message);
+  }
+
   // Award XP for creating a quiz
   try {
     const { data: profile } = await supabase
@@ -314,15 +330,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       p_amount: xpAmount,
       p_reason: 'create',
     });
-
-    // Award Byeol based on question count
-    const questionCount = (input.questions as unknown[]).length;
-    const byeolAmount = questionCount >= 20
-      ? BYEOL_REWARDS.quiz_creation_20q
-      : questionCount >= 10
-        ? BYEOL_REWARDS.quiz_creation_10q
-        : BYEOL_REWARDS.quiz_creation;
-    await awardByeol(user.id, byeolAmount, 'quiz_creation', quiz.id);
   } catch (err) {
     // XP award is non-critical, don't fail the request
     console.error('Failed to award XP:', err);

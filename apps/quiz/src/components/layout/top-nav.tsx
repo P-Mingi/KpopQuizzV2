@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
-import { getByeolBalance } from '@/lib/byeol';
 import { Logo } from './logo';
 import { TopNavLinks } from './top-nav-links';
+import { ThemeToggle } from './theme-toggle';
 
 interface NavProfile {
   username: string;
@@ -15,7 +15,6 @@ interface NavProfile {
   current_streak: number;
   level: number;
   progress: number;
-  byeol: number;
 }
 
 async function fetchNavProfile(): Promise<NavProfile | null> {
@@ -30,7 +29,6 @@ async function fetchNavProfile(): Promise<NavProfile | null> {
       .maybeSingle();
     if (!data) return null;
     const info = getLevelInfo((data.xp as number) ?? 0);
-    const byeol = await getByeolBalance(user.id);
     return {
       username: data.username as string,
       display_name: (data.display_name as string | null) ?? null,
@@ -41,7 +39,6 @@ async function fetchNavProfile(): Promise<NavProfile | null> {
       current_streak: 0,
       level: info.level,
       progress: info.progress,
-      byeol,
     };
   } catch {
     return null;
@@ -77,6 +74,9 @@ export async function TopNav(): Promise<React.ReactElement> {
         {/* Spacer */}
         <div style={{ flex: 1 }} />
 
+        {/* Theme toggle (desktop) - client island next to the right-side controls */}
+        <ThemeToggle className="nav-theme-toggle" />
+
         {/* Search */}
         <Link href="/search" style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -107,11 +107,11 @@ export async function TopNav(): Promise<React.ReactElement> {
           <span className="top-nav-create-label">Create</span>
         </Link>
 
-        {/* Profile chip with byeol */}
+        {/* Profile chip */}
         {profile ? (
           <Link href="/profile" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '4px 10px 4px 4px', borderRadius: 9999,
+            padding: '4px 12px 4px 4px', borderRadius: 9999,
             background: 'var(--bg-surface)', border: '1px solid var(--border)',
             textDecoration: 'none',
           }}>
@@ -122,13 +122,9 @@ export async function TopNav(): Promise<React.ReactElement> {
               fontWeight: 800, fontSize: 12, flexShrink: 0,
             }}>{initial}</span>
             <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 4,
               fontSize: 12, fontWeight: 700, color: 'var(--text-primary)',
-            }}>
-              <svg viewBox="0 0 24 24" width={11} height={11} fill="#F2C037" stroke="#F2C037" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2" />
-              </svg>
-              <span className="tabular-nums">{profile.byeol.toLocaleString()}</span>
+            }} className="top-nav-profile-name">
+              {profile.display_name || profile.username}
             </span>
           </Link>
         ) : (

@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
-import { BYEOL_REWARDS, checkXpConversion, getByeolBalance } from '@/lib/byeol';
 
 import type { NextRequest } from 'next/server';
 
@@ -43,6 +42,21 @@ export async function POST(
   // Get player ID if authenticated (optional)
   const { data: { user } } = await supabase.auth.getUser();
   const playerId = user?.id ?? null;
+
+  // L1 anti-farm: play XP is earned only on a user's FIRST completion of a given
+  // quiz. Check for any prior plays row for this user+quiz BEFORE record_play
+  // inserts this one. Replays still record (stats/percentile/badges) but earn 0
+  // play XP, so quizzes cannot be farmed by replaying.
+  let isFirstCompletion = true;
+  if (playerId) {
+    const { data: prior } = await supabase
+      .from('plays')
+      .select('id')
+      .eq('quiz_id', id)
+      .eq('player_id', playerId)
+      .limit(1);
+    isFirstCompletion = !prior || prior.length === 0;
+  }
 
   try {
     const { data, error } = await supabase.rpc('record_play', {
@@ -86,29 +100,31 @@ export async function POST(
     let newLevel: number | null = null;
     let newLevelName: string | null = null;
     if (playerId) {
-      let xpAmount = 10; // base: completed quiz
-      const scorePct = score / effectiveMaxScore;
-      if (scorePct >= 0.7) xpAmount += 5; // pass bonus
-      if (scorePct === 1.0) xpAmount += 15; // perfect bonus
-      xpEarned = xpAmount;
+      // Play XP only on the first completion (anti-farm). Replays earn 0.
+      if (isFirstCompletion) {
+        let xpAmount = 10; // base: completed quiz
+        const scorePct = score / effectiveMaxScore;
+        if (scorePct >= 0.7) xpAmount += 5; // pass bonus
+        if (scorePct === 1.0) xpAmount += 15; // perfect bonus
+        xpEarned = xpAmount;
 
-      const { data: newXpValue } = await supabase.rpc('award_xp', {
-        p_user_id: playerId,
-        p_amount: xpAmount,
-        p_reason: 'play',
-      });
+        const { data: newXpValue } = await supabase.rpc('award_xp', {
+          p_user_id: playerId,
+          p_amount: xpAmount,
+          p_reason: 'play',
+        });
 
-      if (typeof newXpValue === 'number') {
-        newXp = newXpValue;
-        const oldXp = Math.max(0, newXpValue - xpAmount);
-        const oldLevel = getLevelInfo(oldXp).level;
-        const newLevelInfo = getLevelInfo(newXpValue);
-        if (newLevelInfo.level > oldLevel) {
-          leveledUp = true;
-          newLevel = newLevelInfo.level;
-          newLevelName = newLevelInfo.name;
+        if (typeof newXpValue === 'number') {
+          newXp = newXpValue;
+          const oldXp = Math.max(0, newXpValue - xpAmount);
+          const oldLevel = getLevelInfo(oldXp).level;
+          const newLevelInfo = getLevelInfo(newXpValue);
+          if (newLevelInfo.level > oldLevel) {
+            leveledUp = true;
+            newLevel = newLevelInfo.level;
+            newLevelName = newLevelInfo.name;
+          }
         }
-        await checkXpConversion(playerId, oldXp, newXpValue);
       }
 
       // Check for perfect_score badge
@@ -136,15 +152,6 @@ export async function POST(
           });
         }
 
-        // Award Byeol passive income to creator
-        if (quizData.creator_id && quizData.creator_id !== playerId) {
-          await supabase.rpc('dev_award_creator_play', {
-            p_quiz_id: id,
-            p_creator_id: quizData.creator_id,
-            p_player_id: playerId,
-          });
-        }
-
         // Check viral_hit badge for creator
         if (quizData.creator_id && quizData.play_count + 1 >= 1000) {
           await supabase.from('user_badges').upsert(
@@ -153,15 +160,6 @@ export async function POST(
           );
         }
       }
-
-      // Award Byeol (one-time per quiz via anti-farming RPC)
-      await supabase.rpc('award_first_time_byeol', {
-        p_user_id: playerId,
-        p_content_type: 'quiz',
-        p_content_id: id,
-        p_score: score as number,
-        p_total_questions: total_questions as number,
-      });
     }
 
     // Save per-question times if provided
@@ -231,30 +229,6 @@ export async function POST(
       }
     }
 
-    // Fetch reward info from anti-farming RPC result
-    let byeolEarned = 0;
-    let wasFirstTime = false;
-    let newByeolBalance = 0;
-    if (playerId) {
-      const { data: rewardCheck } = await supabase.rpc('check_byeol_eligibility', {
-        p_user_id: playerId,
-        p_content_type: 'quiz',
-        p_content_id: id,
-      });
-      const elig = Array.isArray(rewardCheck) ? rewardCheck[0] : rewardCheck;
-      wasFirstTime = !elig?.is_eligible && elig?.reason === 'Already earned' ? false : true;
-      // If not eligible, they already earned before this play (the RPC above handled it)
-      // Look up what was actually awarded from history
-      if (elig && !elig.is_eligible) {
-        wasFirstTime = false;
-        byeolEarned = 0;
-      } else {
-        wasFirstTime = true;
-        byeolEarned = BYEOL_REWARDS.quiz_complete(score as number, total_questions as number);
-      }
-      newByeolBalance = await getByeolBalance(playerId);
-    }
-
     return NextResponse.json({
       play_id: result?.play_id ?? null,
       percentile: result?.percentile ?? 50,
@@ -264,9 +238,6 @@ export async function POST(
       leveled_up: leveledUp,
       new_level: newLevel,
       new_level_name: newLevelName,
-      byeol_earned: byeolEarned,
-      new_byeol_balance: newByeolBalance,
-      was_first_time: wasFirstTime,
     });
   } catch (err) {
     console.error('Failed to record play:', err);

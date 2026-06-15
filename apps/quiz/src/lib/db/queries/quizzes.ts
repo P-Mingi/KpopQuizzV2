@@ -5,13 +5,13 @@ import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 const QUIZ_CARD_SELECT = `
   id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+  profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
 
 const QUIZ_FULL_SELECT = `
   *,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+  profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
 
 interface RawQuizRow {
@@ -29,7 +29,7 @@ interface RawQuizRow {
   cover_image_url: string | null;
   questions?: unknown[];
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
-  profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string };
+  profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp?: number | null };
   [key: string]: unknown;
 }
 
@@ -55,6 +55,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
     creator_avatar_url: row.profiles.avatar_url,
     creator_avatar_bg: row.profiles.avatar_bg,
     creator_avatar_text: row.profiles.avatar_text,
+    creator_xp: row.profiles.xp ?? null,
     question_count: row.question_count ?? 0,
     cover_image_url: row.cover_image_url ?? null,
   };
@@ -88,6 +89,7 @@ export async function getQuizBySlug(slug: string): Promise<QuizWithGroup | null>
     creator_avatar_url: row.profiles.avatar_url,
     creator_avatar_bg: row.profiles.avatar_bg,
     creator_avatar_text: row.profiles.avatar_text,
+    creator_xp: row.profiles.xp ?? null,
   } as QuizWithGroup;
 }
 
@@ -119,6 +121,7 @@ export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
     creator_avatar_url: row.profiles.avatar_url,
     creator_avatar_bg: row.profiles.avatar_bg,
     creator_avatar_text: row.profiles.avatar_text,
+    creator_xp: row.profiles.xp ?? null,
   } as QuizWithGroup;
 }
 
@@ -134,6 +137,75 @@ export async function getAllQuizzes(offset: number, limit: number): Promise<Quiz
 
   if (error) throw new Error(`Failed to fetch all quizzes: ${error.message}`);
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
+export type BrowseSort = 'trending' | 'new' | 'most_played' | 'top_rated';
+
+export interface BrowseQuizzesParams {
+  groupId?: number | null;
+  quizType?: string | null;
+  sort?: BrowseSort;
+  offset: number;
+  limit: number;
+}
+
+/**
+ * Combined browse query for /quizzes - group + type + sort in one call.
+ * Single source of truth shared by the SSR page and the /api/quizzes route so
+ * server render and client load-more never diverge.
+ */
+export async function getBrowseQuizzes({
+  groupId = null,
+  quizType = null,
+  sort = 'trending',
+  offset,
+  limit,
+}: BrowseQuizzesParams): Promise<QuizCardData[]> {
+  const supabase = await createServerClient();
+
+  let query = supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .eq('status', 'published');
+
+  if (groupId != null) query = query.eq('group_id', groupId);
+  if (quizType) query = query.eq('quiz_type', quizType);
+
+  switch (sort) {
+    case 'new':
+      query = query.order('created_at', { ascending: false });
+      break;
+    case 'most_played':
+      query = query.order('play_count', { ascending: false });
+      break;
+    case 'trending': {
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      query = query.gte('created_at', thirtyDaysAgo).order('play_count', { ascending: false });
+      break;
+    }
+    case 'top_rated':
+    default:
+      // Pull a popular slice, then rank by avg score client-side below.
+      query = query.order('play_count', { ascending: false });
+      break;
+  }
+
+  const { data, error } = await query.range(offset, offset + limit - 1);
+  if (error) throw new Error(`Failed to fetch browse quizzes: ${error.message}`);
+
+  const cards = (data as unknown as RawQuizRow[]).map(toQuizCardData);
+
+  if (sort === 'top_rated') {
+    cards.sort((a, b) => {
+      const avg = (q: QuizCardData): number =>
+        q.total_completions > 0 && q.question_count > 0
+          ? (q.total_score_sum / q.total_completions / q.question_count) * 100
+          : 0;
+      return avg(b) - avg(a);
+    });
+  }
+
+  return cards;
 }
 
 export async function getTrendingQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
@@ -271,6 +343,27 @@ export async function getQuizzesByGroup(
   }
 
   return cards;
+}
+
+/**
+ * Lightweight {slug, title} list of EVERY published quiz in a group, ordered by
+ * popularity. Used to expose crawlable <a href="/q/{slug}"> links for all of a
+ * group's quizzes (SEO Fix 3 - internal linking) without loading full card data.
+ */
+export async function getGroupQuizLinks(
+  groupId: number,
+): Promise<Array<{ slug: string; title: string }>> {
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select('slug, title')
+    .eq('status', 'published')
+    .eq('group_id', groupId)
+    .order('play_count', { ascending: false });
+
+  if (error) return [];
+  return (data ?? []) as Array<{ slug: string; title: string }>;
 }
 
 export async function getQuizzesByCreator(

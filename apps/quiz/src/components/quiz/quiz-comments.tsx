@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import { formatRelativeDate } from '@/lib/utils';
 import { playComment } from '@/lib/sounds';
+import { FanTitle } from '@/components/ui/fan-title';
+import { getLevelInfo } from '@/lib/constants';
 
 interface Comment {
   id: string;
@@ -13,6 +15,7 @@ interface Comment {
   username: string;
   content: string;
   created_at: string;
+  author_xp?: number | null;
 }
 
 interface Props {
@@ -124,7 +127,10 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
                     className="font-semibold hover:text-accent transition-colors"
                   >
                     {c.username}
-                  </Link>{' '}
+                  </Link>
+                  {c.author_xp != null && c.author_xp > 0 && (
+                    <>{' '}<FanTitle level={getLevelInfo(c.author_xp).level} /></>
+                  )}{' '}
                   <span className="text-secondary">{c.content}</span>
                 </p>
                 <p className="text-[9px] text-ghost mt-0.5">{formatRelativeDate(c.created_at)}</p>

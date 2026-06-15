@@ -5,9 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { playFound, playPerfect } from '@/lib/sounds';
+import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
-import { ByeolResultBlock } from '@/components/byeol/result-block';
-import { ByeolEligibilityHint } from '@/components/byeol/eligibility-hint';
 
 import type { GameWithGroup, NameAllMember } from '@/lib/db/types';
 
@@ -131,7 +130,7 @@ function PhotoMemberCard({
     if (v.length < 2) return;
     const clean = v.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ');
     const allNames = [member.name, ...member.aliases].map(n => n.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' '));
-    // Exact match only — never validate on a prefix. Players must type the
+    // Exact match only - never validate on a prefix. Players must type the
     // full name (or a full alias). Auto-validating on prefixes like "mom"
     // for "Momo" feels broken.
     const matched = allNames.some(name => name === clean);
@@ -227,12 +226,6 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
   const [inputValue, setInputValue] = useState('');
   const [lastFound, setLastFound] = useState<string | null>(null);
   const [koreanText, setKoreanText] = useState<string | null>(null);
-  const [byeolResult, setByeolResult] = useState<{
-    byeol_earned: number;
-    cap_reached: boolean;
-    earned_today: number;
-    daily_cap: number;
-  } | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -276,6 +269,10 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
   function endGame() {
     if (timerRef.current) clearInterval(timerRef.current);
     submitPlay();
+    // F6 + L4: mark + (if signed in) award the daily streak XP.
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
+      void completeDaily('game');
+    }
     setPhase('result');
   }
 
@@ -298,17 +295,7 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
           },
         }),
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (!data.already_played) {
-          setByeolResult({
-            byeol_earned: data.byeol_earned ?? 0,
-            cap_reached: data.cap_reached ?? false,
-            earned_today: data.earned_today ?? 0,
-            daily_cap: data.daily_cap ?? 60,
-          });
-        }
-      }
+      await res.json().catch(() => null);
     } catch (err) {
       console.error('Failed to submit play:', err);
     }
@@ -455,8 +442,7 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
           }}>Start game</button>
 
           <div style={{ marginTop: 18, fontSize: 11, color: 'var(--text-tertiary)' }}>
-            <ByeolEligibilityHint contentType="game_name_all" maxReward={8} />
-            <span style={{ marginTop: 4, display: 'block' }}>3 hints available</span>
+            <span style={{ display: 'block' }}>3 hints available</span>
           </div>
         </div>
       )}
@@ -735,16 +721,6 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
                   {missed.map(m => m.name).join(', ')}
                 </p>
               </div>
-            )}
-
-            {/* Byeol reward */}
-            {byeolResult && (
-              <ByeolResultBlock
-                byeolEarned={byeolResult.byeol_earned}
-                capReached={byeolResult.cap_reached}
-                earnedToday={byeolResult.earned_today}
-                dailyCap={byeolResult.daily_cap}
-              />
             )}
 
             {/* Stats */}

@@ -135,18 +135,6 @@ export function QuizOfTheDay({ quizSlug, quizTitle, playedToday = false, score, 
             }}>Play</div>
           )}
         </div>
-
-        {/* Byeol reward hint bar */}
-        {!playedToday && (
-          <div style={{
-            padding: '5px 18px', background: 'rgba(232,160,96,0.04)',
-            borderTop: '1px solid rgba(232,160,96,0.06)',
-            display: 'flex', alignItems: 'center', gap: 4,
-          }}>
-            <span style={{ fontSize: 8, color: '#e8a060' }}>{'\u2B50'}</span>
-            <span style={{ fontSize: 8, color: '#b4b2a9' }}>Earn up to <span style={{ fontWeight: 600, color: '#e8a060' }}>80 {'\uBCC4'}</span> with a perfect score</span>
-          </div>
-        )}
       </div>
     </Link>
   );

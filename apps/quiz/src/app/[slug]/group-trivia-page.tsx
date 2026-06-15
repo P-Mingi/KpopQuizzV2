@@ -1,104 +1,19 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { createServerClient } from '@/lib/supabase/server';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { TriviaShareButton } from '@/components/trivia/trivia-share-button';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
+import { getOverriddenFacts } from '@/lib/trivia/facts';
 
 import type { Metadata } from 'next';
-import type { Group, Question } from '@/lib/db/types';
+import type { Group } from '@/lib/db/types';
+import type { TriviaCategory, TriviaFact } from '@/lib/trivia/types';
 
-// ------------------------------------------------------------------
-// Types
-// ------------------------------------------------------------------
-
-type TriviaCategory = 'members' | 'music' | 'achievements' | 'history' | 'fun';
-
-interface TriviaFact {
-  fact: string;
-  category: TriviaCategory;
-  sourceQuizTitle: string;
-  sourceQuizSlug: string;
-}
-
-// ------------------------------------------------------------------
-// Categorization
-// ------------------------------------------------------------------
-
-function categorizeFact(fact: string, question: string): TriviaCategory {
-  const text = (fact + ' ' + question).toLowerCase();
-
-  if (/born|birthday|age|height|position|leader|maknae|vocalist|rapper|dancer|real name|stage name|mbti|blood type|hometown|family/.test(text)) {
-    return 'members';
-  }
-  if (/album|song|track|single|release|chart|billboard|spotify|mv|music video|debut song|comeback|title track|b-side/.test(text)) {
-    return 'music';
-  }
-  if (/record|award|first|million|billion|sold|guinness|mama|grammy|nominated|won|achievement|highest|most/.test(text)) {
-    return 'achievements';
-  }
-  if (/debut|formed|agency|entertainment|trainee|pre-debut|military|hiatus|contract|disbanded|reunion/.test(text)) {
-    return 'history';
-  }
-  return 'fun';
-}
-
-// ------------------------------------------------------------------
-// Deduplication
-// ------------------------------------------------------------------
-
-function deduplicateFacts(facts: TriviaFact[]): TriviaFact[] {
-  const seen = new Set<string>();
-  return facts.filter(f => {
-    const normalized = f.fact.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-    const key = normalized.slice(0, 60);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
-// ------------------------------------------------------------------
-// Data fetching
-// ------------------------------------------------------------------
-
-async function getTriviaFacts(groupId: number): Promise<TriviaFact[]> {
-  const supabase = await createServerClient();
-
-  const { data: quizzes, error } = await supabase
-    .from('quizzes')
-    .select('title, slug, questions')
-    .eq('group_id', groupId)
-    .eq('status', 'published')
-    .order('play_count', { ascending: false })
-    .limit(200);
-
-  if (error) {
-    console.error('[getTriviaFacts] query failed:', error);
-    return [];
-  }
-  if (!quizzes) return [];
-
-  const allFacts: TriviaFact[] = [];
-
-  for (const quiz of quizzes) {
-    const questions = quiz.questions as Question[];
-    for (const q of questions) {
-      if (q.fun_fact && q.fun_fact.trim().length > 20) {
-        allFacts.push({
-          fact: q.fun_fact.trim(),
-          category: categorizeFact(q.fun_fact, q.question || ''),
-          sourceQuizTitle: quiz.title,
-          sourceQuizSlug: quiz.slug,
-        });
-      }
-    }
-  }
-
-  return deduplicateFacts(allFacts);
-}
+// Fact types, categorization, dedup, fetching + the override layer now live in
+// src/lib/trivia/* (shared with hasTriviaPage and the corpus extraction script).
 
 // ------------------------------------------------------------------
 // Category config
@@ -112,34 +27,44 @@ const CATEGORY_CONFIG: { key: TriviaCategory; title: string }[] = [
   { key: 'fun', title: 'Fun facts' },
 ];
 
+// Each category gets one badge-token color (shared B0 badge palette) so the
+// section chips read as a consistent, recognizable set.
+const CATEGORY_CHIP: Record<TriviaCategory, string> = {
+  history: 'b-classic',
+  members: 'b-image',
+  music: 'b-intruder',
+  achievements: 'b-clues',
+  fun: 'b-tf',
+};
+
 const CATEGORY_ICONS: Record<TriviaCategory, React.ReactElement> = {
   history: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--text-secondary)]">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M2 3h9v11H2V3z" stroke="currentColor" strokeWidth="1.2" />
       <path d="M5 1v3M11 3h3v11h-3" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   ),
   members: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--text-secondary)]">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <circle cx="6" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2" />
       <path d="M1 14c0-3 2.5-5 5-5s5 2 5 5" stroke="currentColor" strokeWidth="1.2" />
       <circle cx="11" cy="5" r="2" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   ),
   music: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--text-secondary)]">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M6 12V3l8-2v9" stroke="currentColor" strokeWidth="1.2" />
       <circle cx="4" cy="12" r="2" stroke="currentColor" strokeWidth="1.2" />
       <circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   ),
   achievements: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--text-secondary)]">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   ),
   fun: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--text-secondary)]">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M8 1v2M3 3l1.5 1.5M13 3l-1.5 1.5M1 8h2M13 8h2M3 13l1.5-1.5M13 13l-1.5-1.5M8 13v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
       <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.2" />
     </svg>
@@ -152,17 +77,12 @@ const CATEGORY_ICONS: Record<TriviaCategory, React.ReactElement> = {
 
 function TriviaFactCard({ item }: { item: TriviaFact }) {
   return (
-    <div className="group relative pl-5 border-l-2 border-[var(--border)] hover:border-[var(--accent-light)] transition-colors py-1">
-      <p className="text-sm text-[var(--text-primary)] leading-relaxed">
-        {item.fact}
-      </p>
-      <Link
-        href={`/q/${item.sourceQuizSlug}`}
-        className="inline-flex items-center gap-1 mt-2 text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] transition-colors"
-      >
+    <div className="trivia-fact-card">
+      <p className="trivia-fact-text">{item.fact}</p>
+      <Link href={`/q/${item.sourceQuizSlug}`} className="trivia-fact-link">
         <span>Test yourself on this</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="translate-y-px">
-          <path d="M4 3l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M4 3l3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </Link>
     </div>
@@ -201,9 +121,9 @@ export function generateGroupTriviaMetadata(group: Group): Metadata {
 
 export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const uniqueFacts = await safeFetch(
-    getTriviaFacts(group.id),
+    getOverriddenFacts(group.id, group.slug),
     [] as TriviaFact[],
-    '[group-trivia] getTriviaFacts',
+    '[group-trivia] getOverriddenFacts',
   );
 
   if (uniqueFacts.length < 12) {
@@ -219,9 +139,11 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
     .filter(section => section.facts.length >= 2);
 
   const singleCategory = categorySections.length === 1;
+  const canonicalUrl = `https://kpopquiz.org/${group.slug}-trivia`;
+  const heroTitle = `${group.name} trivia and fun facts`;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10">
+    <div className="trivia-page">
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
@@ -231,74 +153,73 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
       />
 
       {/* Hero */}
-      <div className="text-center mb-10">
+      <header className="trivia-hero">
         {group.logo_url && (
-          <div className="flex justify-center mb-4">
+          <div className="trivia-hero-logo">
             <GroupLogo
               groupName={group.name}
               logoUrl={group.logo_url}
               displayColor={group.display_color}
               textColor={group.text_color}
-              size={48}
+              size={56}
             />
           </div>
         )}
-        <h1 className="text-2xl font-medium text-[var(--text-primary)] mb-2">
-          {group.name} trivia and fun facts
-        </h1>
-        <p className="text-sm text-[var(--text-secondary)] max-w-md mx-auto">
+        <h1 className="trivia-title">{heroTitle}</h1>
+        <p className="trivia-subline">
           {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
           might not know - pulled from fan-made quizzes.
         </p>
-      </div>
+        <div className="trivia-share">
+          <TriviaShareButton url={canonicalUrl} title={heroTitle} />
+        </div>
+      </header>
 
       {/* Quick stats */}
-      <div className="flex justify-center gap-6 mb-10 pb-8 border-b border-[var(--border)]">
-        <div className="text-center">
-          <p className="text-lg font-medium text-[var(--text-primary)]">{formatCount(group.quiz_count)}</p>
-          <p className="text-xs text-[var(--text-tertiary)]">quizzes</p>
+      <div className="trivia-stats">
+        <div className="trivia-stat">
+          <div className="trivia-stat-num">{formatCount(group.quiz_count)}</div>
+          <div className="trivia-stat-label">quizzes</div>
         </div>
-        <div className="text-center">
-          <p className="text-lg font-medium text-[var(--text-primary)]">{formatCount(group.total_plays)}</p>
-          <p className="text-xs text-[var(--text-tertiary)]">plays</p>
+        <div className="trivia-stat">
+          <div className="trivia-stat-num">{formatCount(group.total_plays)}</div>
+          <div className="trivia-stat-label">plays</div>
         </div>
-        <div className="text-center">
-          <p className="text-lg font-medium text-[var(--text-primary)]">{uniqueFacts.length}</p>
-          <p className="text-xs text-[var(--text-tertiary)]">facts</p>
+        <div className="trivia-stat">
+          <div className="trivia-stat-num">{uniqueFacts.length}</div>
+          <div className="trivia-stat-label">facts</div>
         </div>
       </div>
 
       {/* Fact sections */}
       {categorySections.map(section => (
-        <section key={section.key} className="mb-10">
+        <section key={section.key} className="trivia-section">
           {!singleCategory && (
-            <div className="flex items-center gap-2 mb-5">
-              {section.icon}
-              <h2 className="text-lg font-medium text-[var(--text-primary)]">
-                {section.title}
-              </h2>
+            <div className="trivia-section-head">
+              <span className="trivia-section-icon">{section.icon}</span>
+              <h2 className="trivia-section-title">{section.title}</h2>
+              <span className={`trivia-chip ${CATEGORY_CHIP[section.key]}`}>
+                {section.facts.length} {section.facts.length === 1 ? 'fact' : 'facts'}
+              </span>
             </div>
           )}
-          <div className="space-y-4">
+          <ul className="trivia-grid">
             {section.facts.map((item, i) => (
-              <TriviaFactCard key={i} item={item} />
+              <li key={i} className="trivia-item" style={{ animationDelay: `${i * 40}ms` }}>
+                <TriviaFactCard item={item} />
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       ))}
 
       {/* CTA */}
-      <div className="mt-12 pt-8 border-t border-[var(--border)] text-center">
-        <p className="text-lg font-medium text-[var(--text-primary)] mb-2">
-          Think you knew all of these?
-        </p>
-        <p className="text-sm text-[var(--text-secondary)] mb-5">
+      <div className="trivia-cta">
+        <p className="trivia-cta-title">Think you knew all of these?</p>
+        <p className="trivia-cta-sub">
           Put your {group.name} knowledge to the test with fan-made quizzes.
         </p>
-        <Link
-          href={`/${group.slug}-quiz`}
-          className="inline-block w-full sm:w-auto px-8 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
-        >
+        <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">
           Play {group.name} quizzes
         </Link>
       </div>

@@ -11,11 +11,16 @@ import { safeFetch } from '@/lib/error-handling';
 import { formatCount, formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
-import { getByeolBalance } from '@/lib/byeol';
 import Link from 'next/link';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge, QuizCardData } from '@/lib/db/types';
+
+// ISR: revalidate hourly (SEO Fix 1). This page already server-renders the
+// profile + creator's quizzes as crawlable HTML; the shared cookie-reading
+// <TopNav> (and this page's own createServerClient) keeps it dynamic (SSR)
+// today, so this window stays dormant until those reads are made cookie-free.
+export const revalidate = 3600;
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
@@ -100,7 +105,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   } catch { /* ignore */ }
   const isOwnProfile = authUserId === profile.id;
 
-  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, byeol, fandomResult] = await Promise.all([
+  const [initialQuizzes, badgeDefsResult, userBadgesResult, likedQuizzesResult, fandomResult] = await Promise.all([
     safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
     safeFetch(
       Promise.resolve(supabase.from('badge_definitions').select('*').order('sort_order')),
@@ -125,7 +130,6 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           { data: null } as { data: unknown }, '[u/[username]] likes',
         )
       : Promise.resolve({ data: null }),
-    isOwnProfile ? getByeolBalance(profile.id) : Promise.resolve(0),
     safeFetch(
       Promise.resolve(
         supabase.from('plays').select(`
@@ -204,30 +208,25 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         </p>
       )}
 
-      {/* Byeol + XP card */}
+      {/* L5 - Fan Level card (replaces the plain XP card). Rabbit-free per spec. */}
       {isOwnProfile && (
-        <div style={{
-          background: 'var(--bg-surface)', border: '1px solid var(--border)',
-          borderRadius: 14, boxShadow: 'var(--shadow-card)',
-          padding: 16, marginBottom: 14,
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
-                <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/>
-              </svg>
-              <span style={{ fontSize: 13, fontWeight: 700 }}>{byeol.toLocaleString()} byeol</span>
-            </div>
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)' }}>
-              {profile.xp} / {levelInfo.xpForNextLevel ?? '---'} XP
-            </span>
+        <div className="fan-level-card" style={{ marginBottom: 14 }}>
+          <div className="fan-level-card-top">
+            <span className="fan-level-card-level">Level {levelInfo.level}</span>
+            <span className="fan-level-card-level">{profile.xp} / {levelInfo.xpForNextLevel ?? '---'} XP</span>
           </div>
-          <div style={{ height: 8, borderRadius: 9999, background: 'var(--bg-elevated)', overflow: 'hidden' }}>
-            <div style={{ width: `${xpPct}%`, height: '100%', borderRadius: 9999, background: 'var(--accent)', transition: 'width 400ms ease' }} />
+          <p className="fan-level-card-title">{levelTitle.en}<span className="fan-level-card-kr">{levelTitle.kr}</span></p>
+          <div className="fan-level-card-bar" aria-hidden="true">
+            <div className="fan-level-card-fill" style={{ width: `${xpPct}%` }} />
           </div>
-          <div style={{ fontSize: 11, color: 'var(--text-tertiary)', marginTop: 8 }}>
-            Next: <strong style={{ color: 'var(--text-primary)' }}>Lv {levelInfo.level + 1} {'\u00B7'} {getTitleForLevel(levelInfo.level + 1).en}</strong>
-          </div>
+          {levelInfo.xpForNextLevel !== null && (
+            <p className="fan-level-card-next">
+              Next: <strong>{getTitleForLevel(levelInfo.level + 1).en}</strong> at Level {levelInfo.level + 1}
+            </p>
+          )}
+          <p className="fan-level-card-hint">
+            Earn it by playing quizzes, winning battles, keeping a daily streak, and creating questions other fans confirm.
+          </p>
         </div>
       )}
 
@@ -325,6 +324,26 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           creatorId={profile.id}
         />
       </div>
+
+      {/* SEO Fix 2 - BreadcrumbList structured data (always rendered). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: displayName,
+                item: `https://kpopquiz.org/u/${profile.username}`,
+              },
+            ],
+          }),
+        }}
+      />
 
       {profile.total_quizzes_created >= 3 && (
         <script

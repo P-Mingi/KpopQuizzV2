@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '/', match: ['/q/', '/quizzes', '/trending', '/new', '/most-liked'] },
+  { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
+  { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Games', href: '/games', match: ['/games'] },
-  { label: 'Cards', href: '/cards', match: ['/cards'] },
-  { label: 'Ranks', href: '/hall-of-fame', match: ['/hall-of-fame'] },
+  { label: 'Blindtest', href: '/blindtest', match: ['/blindtest'] },
+  { label: 'Leaderboard', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
 function NavIcon({ name, active }: { name: string; active: boolean }) {
@@ -22,6 +23,12 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />
         </svg>
       );
+    case 'Quizzes':
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 4h16v14H8l-4 3z" />
+        </svg>
+      );
     case 'Games':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -29,13 +36,13 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
         </svg>
       );
-    case 'Cards':
+    case 'Blindtest':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
+          <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
         </svg>
       );
-    case 'Ranks':
+    case 'Leaderboard':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2" />
@@ -46,12 +53,14 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
   }
 }
 
-/** Desktop pill-button nav between the logo and the right-side controls. */
+/** Desktop nav between the logo and the right-side controls. Active = bold + underline (§1). */
 export function TopNavLinks() {
   const pathname = usePathname();
 
   function isActive(item: typeof NAV_ITEMS[number]) {
     if (item.href === '/' && pathname === '/') return true;
+    if (item.href === '/') return false;
+    if (pathname === item.href || pathname.startsWith(item.href + '/')) return true;
     return item.match.some(m => pathname.startsWith(m));
   }
 
@@ -65,14 +74,16 @@ export function TopNavLinks() {
           <Link
             key={item.href}
             href={item.href}
+            aria-current={active ? 'page' : undefined}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '8px 12px', borderRadius: 9999,
-              background: active ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
-              color: active ? 'var(--accent)' : 'var(--text-secondary)',
+              padding: '8px 12px', borderRadius: 6,
+              background: 'transparent',
+              color: active ? 'var(--txt1)' : 'var(--txt2)',
               border: 'none', textDecoration: 'none',
-              fontSize: 14, fontWeight: 600,
-              transition: 'all 160ms ease',
+              fontSize: 14, fontWeight: active ? 700 : 600,
+              borderBottom: active ? '2px solid var(--brand)' : '2px solid transparent',
+              transition: 'color 120ms ease, border-color 120ms ease',
             }}
           >
             <NavIcon name={item.label} active={active} />

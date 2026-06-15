@@ -42,20 +42,9 @@ export async function POST(
         );
 
         await supabase.rpc('increment_like_count', { quiz_uuid: id });
-
-        const { data: quiz } = await supabase
-          .from('quizzes')
-          .select('creator_id')
-          .eq('id', id)
-          .single();
-
-        if (quiz && quiz.creator_id !== user.id) {
-          await supabase.rpc('award_xp', {
-            p_user_id: quiz.creator_id,
-            p_amount: 2,
-            p_reason: 'like_received',
-          });
-        }
+        // L6: pruned. The +2-per-like creator XP was off-model (the spec lists
+        // only 5 earning sources, and likes are trivially farmable by a single
+        // user mass-liking). Like count still increments; no XP.
       } else {
         // Anonymous: just bump the count
         await supabase.rpc('increment_like_count', { quiz_uuid: id });

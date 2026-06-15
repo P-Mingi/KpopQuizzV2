@@ -6,10 +6,12 @@ import { getProfileById } from '@/lib/db/queries/profiles';
 
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+
 export const metadata: Metadata = {
   title: 'My profile',
   description: 'Your KpopQuiz profile, stats, and quizzes.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default async function MyProfilePage(): Promise<React.ReactElement> {
