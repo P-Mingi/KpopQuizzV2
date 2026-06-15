@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 60;
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
 
 interface ModeWithAvail extends BlindTestMode {
   song_count_available: number;

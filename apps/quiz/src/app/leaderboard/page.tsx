@@ -9,6 +9,8 @@ import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+
 export const metadata: Metadata = {
   title: 'Leaderboard',
   description:

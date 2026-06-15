@@ -6,6 +6,8 @@ import { getProfileById } from '@/lib/db/queries/profiles';
 
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+
 export const metadata: Metadata = {
   title: 'My profile',
   description: 'Your KpopQuiz profile, stats, and quizzes.',

@@ -6,6 +6,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
 
 const GROUP_NAMES: Record<string, string> = {
   bts: 'BTS',

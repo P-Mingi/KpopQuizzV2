@@ -21,6 +21,7 @@ import type { Metadata } from 'next';
 // quiz/game content as crawlable HTML; the shared cookie-reading <TopNav> keeps
 // it dynamic (SSR) today, so this window stays dormant until the nav goes cookie-free.
 export const revalidate = 3600;
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
 
 export const metadata: Metadata = {
   title: 'KpopQuiz - K-pop Quizzes Made by Fans',

@@ -11,6 +11,7 @@ import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
 // ISR: matches the group trivia pages (cookie-reading children force SSR today;
 // this window stays dormant until those reads are made cookie-free).
 export const revalidate = 3600;
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
 
 export const metadata: Metadata = {
   title: 'K-pop Trivia and Fun Facts | KpopQuiz',

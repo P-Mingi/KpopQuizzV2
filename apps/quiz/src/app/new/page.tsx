@@ -4,6 +4,8 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+
 export const metadata: Metadata = {
   title: 'New K-pop Quizzes',
   description: 'The newest K-pop quizzes just published by fans. Fresh trivia about your favorite groups - be the first to play.',
