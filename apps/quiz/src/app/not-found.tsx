@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
+import { DiscordContextLine } from '@/components/discord/discord-context-line';
 
 const POPULAR_GROUPS = [
   { name: 'BTS', slug: 'bts' },
@@ -64,6 +65,11 @@ export default function NotFound(): React.ReactElement {
         <Link href="/create" className="text-accent font-medium hover:underline">
           Create a quiz
         </Link>
+      </div>
+
+      {/* K8 - soft cross-promo on a dead route. */}
+      <div className="mt-6">
+        <DiscordContextLine campaign="404" text="Meanwhile, hang out in the Discord" quiet />
       </div>
     </div>
   );

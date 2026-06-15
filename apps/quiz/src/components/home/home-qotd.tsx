@@ -8,6 +8,7 @@ import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
 import { hasPlayedDaily } from '@/lib/daily-played';
+import { DiscordContextLine } from '@/components/discord/discord-context-line';
 import type { QuizCardData } from '@/lib/db/types';
 
 interface Props {
@@ -90,6 +91,10 @@ export function HomeQotd({ quiz }: Props) {
               Play today&apos;s quiz
             </Link>
           )}
+          {/* K8 - light cross-promo on the daily card. */}
+          <div style={{ marginTop: 8 }}>
+            <DiscordContextLine campaign="daily" text="Today’s quiz is in the Discord too" quiet />
+          </div>
           <span className="gotd-rank-spacer" aria-hidden="true" />
         </div>
       </div>
