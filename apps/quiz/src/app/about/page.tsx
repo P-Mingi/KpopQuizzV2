@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { DiscordCommunity } from '@/components/discord/discord-community';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -114,6 +116,11 @@ export default function AboutPage(): React.ReactElement {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* K4 - community block (the one rich element). */}
+      <div className="mt-8 max-w-md mx-auto">
+        <DiscordCommunity />
       </div>
 
       {/* CTA */}

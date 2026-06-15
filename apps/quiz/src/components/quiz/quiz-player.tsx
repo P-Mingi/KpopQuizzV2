@@ -30,6 +30,7 @@ import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
 import { FanTitle } from '@/components/ui/fan-title';
+import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { completeDaily } from '@/lib/daily-played';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
@@ -1075,6 +1076,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
               Play another
             </Link>
+          </div>
+          {/* K2 - one-line Discord link near the share row. */}
+          <div className="text-center" style={{ marginTop: 6 }}>
+            <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
           </div>
         </div>
 

@@ -117,7 +117,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
               name: 'KpopQuiz',
               url: 'https://kpopquiz.org',
               logo: 'https://kpopquiz.org/logo-512.png',
-              sameAs: ['https://reddit.com/r/Kpop_Verse'],
+              sameAs: ['https://reddit.com/r/Kpop_Verse', 'https://discord.gg/X7AW95WFT'],
             }),
           }}
         />

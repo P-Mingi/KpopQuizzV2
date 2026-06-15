@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { VsBadge } from '@/components/duel/vs-badge';
 import { Mascot } from '@/components/ui/mascot';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
+import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { getTitleForLevel } from '@/lib/level-titles';
 
 // E4 - the real async 1v1 quick-match battle (Type 1), wired to the E2/E3 APIs.
@@ -358,6 +359,11 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
               }}>Challenge a friend</button>
             )}
             <button type="button" className="bp-ghost-btn bp-cta-half" onClick={() => void startBattle()}>New battle</button>
+          </div>
+
+          {/* K2 - Discord one-line on the battle reveal. */}
+          <div style={{ textAlign: 'center', marginTop: -4, marginBottom: 8 }}>
+            <DiscordResultsLine surface="battle-reveal" text="Argue about it on Discord" />
           </div>
 
           <AddQuestionHook groupSlug={topic || null} />

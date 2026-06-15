@@ -9,6 +9,7 @@ import { HomeHero } from '@/components/home/home-hero';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
+import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
@@ -160,6 +161,11 @@ export default function HomePage(): React.ReactElement {
       <Suspense>
         <GroupSection />
       </Suspense>
+
+      {/* 6. Discord community strip (K4 - subtle, below the fold) */}
+      <div className="home-section" style={{ marginTop: 8 }}>
+        <DiscordCommunityStrip />
+      </div>
     </div>
   );
 }

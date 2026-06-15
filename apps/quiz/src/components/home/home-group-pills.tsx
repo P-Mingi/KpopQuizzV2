@@ -38,7 +38,7 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
               logoUrl={g.logo_url}
               displayColor={g.display_color}
               textColor={g.text_color}
-              size={24}
+              size={32}
             />
             {g.name}
           </Link>

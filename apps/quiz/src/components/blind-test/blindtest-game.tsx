@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
+import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -464,6 +465,10 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
         <div className="bt-result-actions">
           <button type="button" className="btn-primary" onClick={start}>Play again</button>
           <button type="button" className="btn-outline" onClick={share}>Share result</button>
+        </div>
+        {/* K2 - Discord one-line on the blindtest result. */}
+        <div style={{ textAlign: 'center' }}>
+          <DiscordResultsLine surface="blindtest-result" text="Argue about it on Discord" />
         </div>
         <button type="button" className="bt-back bt-back-btn" onClick={() => { setPhase('setup'); setError(null); }}>Change playlist</button>
       </div>
