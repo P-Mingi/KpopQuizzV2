@@ -12,6 +12,7 @@ import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { getLevelInfo } from '@/lib/constants';
 import { getResultLabel } from '@/lib/korean-moments';
 import {
   playTap,
@@ -28,6 +29,7 @@ import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
+import { FanTitle } from '@/components/ui/fan-title';
 import { completeDaily } from '@/lib/daily-played';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
@@ -83,6 +85,7 @@ interface QuizIntroData {
   fandomName: string;
   creatorId: string | null;
   creatorUsername: string;
+  creatorXp?: number | null;
   creatorAvatarUrl: string | null;
   creatorAvatarBg: string;
   creatorAvatarText: string;
@@ -666,7 +669,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                 textColor={quiz.creatorAvatarText}
                 size={24}
               />
-              <p className="text-xs text-secondary">
+              <p className="text-xs text-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 by{' '}
                 <Link
                   href={`/u/${quiz.creatorUsername}`}
@@ -674,6 +677,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                 >
                   {quiz.creatorUsername}
                 </Link>
+                {quiz.creatorXp != null && quiz.creatorXp > 0 && (
+                  <FanTitle level={getLevelInfo(quiz.creatorXp).level} />
+                )}
               </p>
             </div>
           </div>

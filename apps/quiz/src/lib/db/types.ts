@@ -166,6 +166,7 @@ export interface QuizWithGroup {
   creator_avatar_url: string | null;
   creator_avatar_bg: string;
   creator_avatar_text: string;
+  creator_xp?: number | null;
   cover_image_url: string | null;
 }
 
@@ -190,6 +191,7 @@ export interface QuizCardData {
   creator_avatar_url: string | null;
   creator_avatar_bg: string;
   creator_avatar_text: string;
+  creator_xp?: number | null;
   question_count: number;
   cover_image_url: string | null;
 }
@@ -324,6 +326,7 @@ export interface GameCardData {
   creator_avatar_url: string | null;
   creator_avatar_bg: string;
   creator_avatar_text: string;
+  creator_xp?: number | null;
 }
 
 export interface GameWithGroup extends Game {
@@ -337,6 +340,7 @@ export interface GameWithGroup extends Game {
   creator_avatar_url: string | null;
   creator_avatar_bg: string;
   creator_avatar_text: string;
+  creator_xp?: number | null;
 }
 
 // ============================================================

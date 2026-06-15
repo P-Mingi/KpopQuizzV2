@@ -151,6 +151,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     fandomName: quiz.fandom_name,
     creatorId: (quiz as { creator_id?: string }).creator_id ?? null,
     creatorUsername: quiz.creator_username,
+    creatorXp: (quiz as { creator_xp?: number | null }).creator_xp ?? null,
     creatorAvatarUrl: quiz.creator_avatar_url,
     creatorAvatarBg: quiz.creator_avatar_bg,
     creatorAvatarText: quiz.creator_avatar_text,

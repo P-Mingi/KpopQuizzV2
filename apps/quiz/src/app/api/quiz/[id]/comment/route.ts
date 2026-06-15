@@ -40,7 +40,7 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('quiz_comments')
-    .select('id, quiz_id, user_id, username, content, created_at')
+    .select('id, quiz_id, user_id, username, content, created_at, profiles!inner(xp)')
     .eq('quiz_id', id)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -50,7 +50,15 @@ export async function GET(
     return NextResponse.json({ comments: [] });
   }
 
-  return NextResponse.json({ comments: (data ?? []) as CommentRow[] });
+  // L5 - flatten profiles.xp into author_xp so the UI can show the Fan title.
+  const comments = (data ?? []).map((c) => {
+    const row = c as Record<string, unknown> & { profiles?: { xp?: number | null } | { xp?: number | null }[] };
+    const prof = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
+    const author_xp = (prof?.xp as number | null | undefined) ?? null;
+    const { profiles: _, ...rest } = row;
+    return { ...rest, author_xp };
+  });
+  return NextResponse.json({ comments });
 }
 
 /**

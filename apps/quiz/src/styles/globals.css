@@ -689,7 +689,11 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
+.quiz-author-title { flex-shrink: 0; }
 
 /* Default group-logo fallback (no cover image) fills the whole cover box,
    instead of a small fixed-size logo floating in a larger box. Scoped to the
@@ -1239,6 +1243,22 @@ body {
 /* L4 - small "Day N streak" chip on the daily card. Token-styled, brand accent. */
 .streak-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; background: color-mix(in srgb, var(--brand) 12%, transparent); color: var(--brand); }
 .streak-chip svg { color: var(--brand); flex-shrink: 0; }
+
+/* L5 - Fan title chip worn next to a username sitewide. Small, NOT a loud badge. */
+.fan-title-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 700; line-height: 1; padding: 3px 8px; border-radius: 100px; background: color-mix(in srgb, var(--brand) 10%, transparent); color: var(--brand); letter-spacing: 0.01em; white-space: nowrap; vertical-align: middle; }
+.fan-title-chip .fan-title-kr { color: var(--txt3); font-weight: 600; margin-left: 3px; }
+
+/* L5 - profile Fan Level card. Replaces the plain XP card; rabbit-free. */
+.fan-level-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+.fan-level-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.fan-level-card-level { font-size: 12px; font-weight: 700; color: var(--txt3); letter-spacing: 0.04em; text-transform: uppercase; }
+.fan-level-card-title { font-size: 28px; font-weight: 800; color: var(--txt1); line-height: 1.1; letter-spacing: -0.01em; }
+.fan-level-card-kr { font-size: 14px; font-weight: 600; color: var(--txt3); margin-left: 6px; }
+.fan-level-card-xp { font-size: 12px; color: var(--txt2); margin: 6px 0 10px; }
+.fan-level-card-bar { height: 6px; background: var(--surface-alt); border-radius: 100px; overflow: hidden; margin-bottom: 6px; }
+.fan-level-card-fill { height: 100%; background: var(--brand); border-radius: 100px; transition: width 400ms ease; }
+.fan-level-card-next { font-size: 11.5px; color: var(--txt3); }
+.fan-level-card-hint { font-size: 11.5px; color: var(--txt3); line-height: 1.5; margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--border); }
 
 @keyframes pulse-shadow {
   0%,100% { box-shadow: 0 0 0 0 rgba(232,69,122,0.00); }

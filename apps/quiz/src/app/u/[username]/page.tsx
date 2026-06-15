@@ -208,27 +208,25 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         </p>
       )}
 
-      {/* XP / level card */}
+      {/* L5 - Fan Level card (replaces the plain XP card). Rabbit-free per spec. */}
       {isOwnProfile && (
-        <div style={{
-          background: 'var(--bg-surface)', border: '1px solid var(--border)',
-          borderRadius: 14, boxShadow: 'var(--shadow-card)',
-          padding: 16, marginBottom: 14,
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 700 }}>
-              Level {levelInfo.level} {'·'} {getTitleForLevel(levelInfo.level).en}
-            </span>
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)' }}>
-              {profile.xp} / {levelInfo.xpForNextLevel ?? '---'} XP
-            </span>
+        <div className="fan-level-card" style={{ marginBottom: 14 }}>
+          <div className="fan-level-card-top">
+            <span className="fan-level-card-level">Level {levelInfo.level}</span>
+            <span className="fan-level-card-level">{profile.xp} / {levelInfo.xpForNextLevel ?? '---'} XP</span>
           </div>
-          <div style={{ height: 8, borderRadius: 9999, background: 'var(--bg-elevated)', overflow: 'hidden' }}>
-            <div style={{ width: `${xpPct}%`, height: '100%', borderRadius: 9999, background: 'var(--accent)', transition: 'width 400ms ease' }} />
+          <p className="fan-level-card-title">{levelTitle.en}<span className="fan-level-card-kr">{levelTitle.kr}</span></p>
+          <div className="fan-level-card-bar" aria-hidden="true">
+            <div className="fan-level-card-fill" style={{ width: `${xpPct}%` }} />
           </div>
-          <div style={{ fontSize: 11, color: 'var(--text-tertiary)', marginTop: 8 }}>
-            Next: <strong style={{ color: 'var(--text-primary)' }}>Lv {levelInfo.level + 1} {'\u00B7'} {getTitleForLevel(levelInfo.level + 1).en}</strong>
-          </div>
+          {levelInfo.xpForNextLevel !== null && (
+            <p className="fan-level-card-next">
+              Next: <strong>{getTitleForLevel(levelInfo.level + 1).en}</strong> at Level {levelInfo.level + 1}
+            </p>
+          )}
+          <p className="fan-level-card-hint">
+            Earn it by playing quizzes, winning battles, keeping a daily streak, and creating questions other fans confirm.
+          </p>
         </div>
       )}
 

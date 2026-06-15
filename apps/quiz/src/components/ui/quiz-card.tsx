@@ -2,7 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { GroupLogo } from '@/components/ui/group-logo';
+import { FanTitle } from '@/components/ui/fan-title';
 import { formatCount } from '@/lib/utils';
+import { getLevelInfo } from '@/lib/constants';
 
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
@@ -26,14 +28,14 @@ const DIFF_BADGE: Record<Difficulty, { cls: string; label: string }> = {
   hard:   { cls: 'b-hard',   label: 'Hard' },
 };
 
-/** Average score as a 0–100 percentage, or null when there's no data yet. */
+/** Average score as a 0-100 percentage, or null when there's no data yet. */
 function avgScorePct(q: QuizCardData): number | null {
   return q.total_completions > 0 && q.question_count > 0
     ? Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100)
     : null;
 }
 
-/** §3c colour bands: green ≥65%, amber 50–64%, red <50%. */
+/** §3c colour bands: green ≥65%, amber 50-64%, red <50%. */
 function scoreClass(pct: number): string {
   if (pct >= 65) return 'score-green';
   if (pct >= 50) return 'score-amber';
@@ -98,7 +100,12 @@ export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.Re
           {showScore && pct !== null && (
             <span className={`quiz-score ${scoreClass(pct)}`}>{pct}%</span>
           )}
-          <span className="quiz-author">{quiz.creator_username}</span>
+          <span className="quiz-author">
+            {quiz.creator_username}
+            {quiz.creator_xp != null && quiz.creator_xp > 0 && (
+              <FanTitle level={getLevelInfo(quiz.creator_xp).level} className="quiz-author-title" />
+            )}
+          </span>
         </div>
       </div>
     </Link>
