@@ -15,13 +15,18 @@ export function HomeHero() {
 
   return (
     <section style={{ padding: '28px 0 20px', textAlign: 'center' }}>
+      {/* CLS guard: fixed line-height + fixed-width text slot so the count
+          swap (empty -> "1,234 fans playing now") cannot reflow the hero. */}
       <div style={{
         fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
         letterSpacing: '0.12em', color: 'var(--text-tertiary)', marginBottom: 10,
+        minHeight: 17, lineHeight: '17px',
       }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-          {online ? `${online.toLocaleString()} fans playing now` : 'fans playing now'}
+          <span style={{ display: 'inline-block', minWidth: 160, textAlign: 'left' }}>
+            {online ? `${online.toLocaleString()} fans playing now` : 'fans playing now'}
+          </span>
         </span>
       </div>
       {/* §14c - challenge-hook headline */}

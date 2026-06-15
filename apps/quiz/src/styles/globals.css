@@ -1253,8 +1253,9 @@ body {
 @media (min-width: 768px) { .home-section { margin-bottom: 42px; } }
 
 /* CLS guards: reserved-space skeletons for streamed home sections. Heights
-   match the loaded content within ~1 row so the layout below the hero does
-   not shift when async data resolves. */
+   measured from the resolved content so the layout does not shift up OR down
+   when the async data resolves. Mobile heights from PerformanceObserver
+   measurement at 398x425; desktop heights derived from CSS grid/flex rules. */
 .home-skel {
   width: 100%;
   border: 1px solid var(--border);
@@ -1263,8 +1264,17 @@ body {
   background-size: 200% 100%;
   animation: home-skel-shimmer 1.4s ease-in-out infinite;
 }
-.home-skel-card { min-height: 300px; }
+/* Quiz of the day / Game of the day - each card. Mobile stacks (2x306 + 16 gap = 628). */
+.home-skel-card { min-height: 306px; }
 @media (min-width: 720px) { .home-skel-card { min-height: 320px; } }
+/* Trending section (sec-label + carousel row). Mobile carousel item ~121px; desktop taller. */
+.home-skel-trending { min-height: 157px; }
+@media (min-width: 720px) { .home-skel-trending { min-height: 340px; } }
+/* Browse-by-group pills (sec-label + pill row). */
+.home-skel-groups { min-height: 86px; }
+@media (min-width: 720px) { .home-skel-groups { min-height: 90px; } }
+/* Battle CTA - rendered WITHOUT a .home-section wrapper to match the resolved markup. */
+.home-skel-battle { min-height: 72px; }
 @keyframes home-skel-shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }

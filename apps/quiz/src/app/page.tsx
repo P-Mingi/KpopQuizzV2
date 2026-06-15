@@ -46,16 +46,9 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
-// Reserved-space skeletons for each streamed section. These keep the layout
-// below the hero stable while the async data resolves, so nothing "pops" in
-// and CLS stays near zero (was 0.682 per PageSpeed).
-function SkelBlock({ minH }: { minH: string }): React.ReactElement {
-  return (
-    <section className="home-section" aria-hidden="true">
-      <div className="home-skel" style={{ minHeight: minH }} />
-    </section>
-  );
-}
+// Reserved-space skeletons for each streamed section. Heights are measured
+// from the resolved content (mobile via PerformanceObserver, desktop via CSS
+// grid rules) so the layout shifts neither up nor down when async data lands.
 function SkelDaily(): React.ReactElement {
   return (
     <section className="home-section" aria-hidden="true">
@@ -64,6 +57,28 @@ function SkelDaily(): React.ReactElement {
         <div className="home-skel home-skel-card" />
       </div>
     </section>
+  );
+}
+function SkelTrending(): React.ReactElement {
+  return (
+    <section className="home-section" aria-hidden="true">
+      <div className="home-skel home-skel-trending" />
+    </section>
+  );
+}
+function SkelGroups(): React.ReactElement {
+  return (
+    <section className="home-section" aria-hidden="true">
+      <div className="home-skel home-skel-groups" />
+    </section>
+  );
+}
+// Battle has no .home-section wrapper in resolved output (it's a .home-cta-row).
+function SkelBattle(): React.ReactElement {
+  return (
+    <div className="home-cta-row" aria-hidden="true">
+      <div className="home-skel home-skel-battle" />
+    </div>
   );
 }
 
@@ -167,12 +182,12 @@ export default function HomePage(): React.ReactElement {
       <HomeBlindtestCta />
 
       {/* 2c. Battle of the day - date-seeded quiz-anchored 1v1 battle */}
-      <Suspense fallback={<SkelBlock minH="84px" />}>
+      <Suspense fallback={<SkelBattle />}>
         <BattleOfDay />
       </Suspense>
 
       {/* 3. Trending this week */}
-      <Suspense fallback={<SkelBlock minH="380px" />}>
+      <Suspense fallback={<SkelTrending />}>
         <TrendingSection />
       </Suspense>
 
@@ -180,7 +195,7 @@ export default function HomePage(): React.ReactElement {
       <HomeGamesTeaser />
 
       {/* 5. Browse by group */}
-      <Suspense fallback={<SkelBlock minH="120px" />}>
+      <Suspense fallback={<SkelGroups />}>
         <GroupSection />
       </Suspense>
 
