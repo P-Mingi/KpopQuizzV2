@@ -63,13 +63,23 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
     }
   );
 
-  // Middleware runs on every request and MUST NOT throw. On any Supabase
-  // hiccup (rate limit, transient network, schema cache) we treat the user
-  // as anonymous and let the request proceed to the page handler.
+  // Middleware runs on every request and MUST NOT throw or hang. Defense in
+  // depth: an inner 1500ms race sits BELOW the top-level 2500ms cap in
+  // middleware.ts so a hung auth call degrades to "anonymous" while still
+  // letting the redirect logic below run (protected paths, /login bounce).
   let user: { id: string } | null = null;
   try {
-    const { data } = await supabase.auth.getUser();
-    user = data?.user ?? null;
+    const AUTH_TIMEOUT_MS = 1500;
+    const result = await Promise.race([
+      supabase.auth.getUser(),
+      new Promise<{ data: { user: null } }>((resolve) =>
+        setTimeout(() => {
+          console.warn('[middleware] auth.getUser timed out after', AUTH_TIMEOUT_MS, 'ms - anonymous');
+          resolve({ data: { user: null } });
+        }, AUTH_TIMEOUT_MS),
+      ),
+    ]);
+    user = result?.data?.user ?? null;
   } catch (err) {
     console.error('[middleware] auth.getUser failed, treating as anonymous:', err);
     user = null;
