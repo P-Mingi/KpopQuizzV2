@@ -2213,6 +2213,10 @@ a.ranking-cta { text-decoration: none; }
 /* Reserves the rank-link's height below the QOTD + name-all CTAs so every
    daily-row primary button lands on the same line. */
 .gotd-rank-spacer { display: block; height: 26px; }
+/* The QOTD's K8 Discord line sits where the GOTD's spacer/rank-link sits, so
+   both daily cards keep their CTAs at the same y-position (the row aligns). */
+.daily-discord-line { display: flex; justify-content: center; height: 26px; align-items: center; margin-top: 10px; }
+.daily-discord-line .discord-context-line { padding: 0; }
 .gotd-rank-link:hover { text-decoration: underline; }
 .gotd-rank-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
 

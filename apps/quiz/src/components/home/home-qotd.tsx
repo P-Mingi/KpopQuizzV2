@@ -91,11 +91,10 @@ export function HomeQotd({ quiz }: Props) {
               Play today&apos;s quiz
             </Link>
           )}
-          {/* K8 - light cross-promo on the daily card. */}
-          <div style={{ marginTop: 8 }}>
+          {/* K8 - light cross-promo BELOW the CTA, balanced by the spacer in GOTD. */}
+          <div className="daily-discord-line">
             <DiscordContextLine campaign="daily" text="Today’s quiz is in the Discord too" quiet />
           </div>
-          <span className="gotd-rank-spacer" aria-hidden="true" />
         </div>
       </div>
     </div>
