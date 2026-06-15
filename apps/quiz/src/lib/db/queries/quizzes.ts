@@ -1,4 +1,4 @@
-import { createServerClient, createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
+import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
@@ -62,7 +62,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
 }
 
 export async function getQuizBySlug(slug: string): Promise<QuizWithGroup | null> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -94,7 +94,7 @@ export async function getQuizBySlug(slug: string): Promise<QuizWithGroup | null>
 }
 
 export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -126,7 +126,7 @@ export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
 }
 
 export async function getAllQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -210,7 +210,7 @@ export async function getBrowseQuizzes({
 }
 
 export async function getTrendingQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   // Try last 7 days first
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -243,7 +243,7 @@ export async function getTrendingQuizzes(offset: number, limit: number): Promise
 }
 
 export async function getNewQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -257,7 +257,7 @@ export async function getNewQuizzes(offset: number, limit: number): Promise<Quiz
 }
 
 export async function getHardestQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -286,7 +286,7 @@ export async function getHardestQuizzes(offset: number, limit: number): Promise<
 }
 
 export async function getMostLikedQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -307,7 +307,7 @@ export async function getQuizzesByGroup(
   offset: number,
   limit: number,
 ): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   let query = supabase
     .from('quizzes')
@@ -354,7 +354,7 @@ export async function getQuizzesByGroup(
 export async function getGroupQuizLinks(
   groupId: number,
 ): Promise<Array<{ slug: string; title: string }>> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -372,7 +372,7 @@ export async function getQuizzesByCreator(
   offset: number,
   limit: number,
 ): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -391,7 +391,7 @@ export async function getQuizzesByDifficulty(
   offset: number,
   limit: number,
 ): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -410,7 +410,7 @@ export async function getQuizzesByYear(
   offset: number,
   limit: number,
 ): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -430,7 +430,7 @@ export async function getQuizzesByType(
   offset: number,
   limit: number,
 ): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')
@@ -469,7 +469,7 @@ export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
 }
 
 export async function checkSlugExists(slug: string): Promise<boolean> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('quizzes')

@@ -1,6 +1,6 @@
 import { cache } from 'react';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { categorizeFact } from './categorize';
 import { normalizeFactKey } from './fact-key';
@@ -63,7 +63,8 @@ export const getOverriddenFacts = cache(async (
   groupId: number,
   groupSlug: string,
 ): Promise<TriviaFact[]> => {
-  const supabase = await createServerClient();
+  // Public trivia source - cookie-free so /trivia + /[group]-trivia stay ISR-cacheable.
+  const supabase = createPublicReadClient();
 
   const { data: quizzes, error } = await supabase
     .from('quizzes')

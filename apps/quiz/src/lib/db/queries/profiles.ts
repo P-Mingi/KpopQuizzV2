@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { Profile, TopCreator } from '@/lib/db/types';
 
@@ -20,7 +20,8 @@ export async function getProfileById(id: string): Promise<Profile | null> {
 }
 
 export async function getProfileByUsername(username: string): Promise<Profile | null> {
-  const supabase = await createServerClient();
+  // Public profile read - cookie-free so /u/[username] stays ISR-cacheable.
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('profiles')
@@ -50,7 +51,8 @@ export async function checkUsernameAvailable(username: string): Promise<boolean>
 }
 
 export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[]> {
-  const supabase = await createServerClient();
+  // Public leaderboard read.
+  const supabase = createPublicReadClient();
 
   // Use RPC or raw query for complex aggregation
   // Since Supabase JS client doesn't support FILTER (WHERE ...) in aggregates,
@@ -105,7 +107,8 @@ export interface TopCreatorAllTime {
 }
 
 export async function getTopCreatorsAllTime(limit: number): Promise<TopCreatorAllTime[]> {
-  const supabase = await createServerClient();
+  // Public leaderboard read.
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('profiles')
@@ -128,7 +131,8 @@ export interface TopPlayer {
 }
 
 export async function getTopPlayersByXp(limit: number): Promise<TopPlayer[]> {
-  const supabase = await createServerClient();
+  // Public leaderboard read.
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('profiles')

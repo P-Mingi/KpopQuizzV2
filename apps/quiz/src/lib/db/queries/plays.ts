@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { RecordPlayResult } from '@/lib/db/types';
 
@@ -31,7 +31,8 @@ export async function recordPlay(
 }
 
 export async function getPassRate(quizId: string, totalQuestions: number): Promise<number> {
-  const supabase = await createServerClient();
+  // Public quiz stats - cookie-free so /q/[slug] stays ISR-cacheable.
+  const supabase = createPublicReadClient();
 
   const { count: totalPlays, error: totalError } = await supabase
     .from('plays')

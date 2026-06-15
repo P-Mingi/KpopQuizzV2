@@ -10,13 +10,16 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-// ISR: revalidate the cached HTML hourly (SEO Fix 1).
-// NOTE: today the shared <TopNav> calls auth.getUser() (reads cookies), so every
-// route still renders dynamically (SSR) and this window is dormant. The SEO win
-// here is that the quiz questions are server-rendered into the HTML regardless.
-// `generateStaticParams` is intentionally omitted: it conflicts with the
-// cookie-reading layout at build time (see the group landing page note).
+// ISR: cached HTML revalidates hourly. TopNav is now cookie-free (TopNavProfile
+// client island handles auth) and every server query on this page uses
+// createPublicReadClient, so the document can be cached at the edge.
+// generateStaticParams returns [] = no pre-render at build, but enables
+// on-demand ISR: each unique slug is rendered once on first hit and cached
+// for the revalidate window. Drains the GSC "discovered, not indexed" pile.
 export const revalidate = 3600;
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  return [];
+}
 
 interface QuizPageProps {
   params: Promise<{ slug: string }>;
