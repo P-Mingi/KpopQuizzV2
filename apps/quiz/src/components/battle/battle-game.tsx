@@ -6,6 +6,8 @@ import { VsBadge } from '@/components/duel/vs-badge';
 import { Mascot } from '@/components/ui/mascot';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { DiscordResultsLine } from '@/components/discord/discord-results-line';
+import { DiscordContextLine } from '@/components/discord/discord-context-line';
+import { BragButton } from '@/components/discord/brag-button';
 import { getTitleForLevel } from '@/lib/level-titles';
 
 // E4 - the real async 1v1 quick-match battle (Type 1), wired to the E2/E3 APIs.
@@ -273,6 +275,10 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
             You will be matched with someone&apos;s saved run, never a fake live player.
           </p>
+          {/* K8 - cold-start cross-promo: find live opponents in the Discord. */}
+          <div style={{ textAlign: 'center', marginTop: 4 }}>
+            <DiscordContextLine campaign="battle-findopponent" text="No one to battle? Find opponents in our Discord" quiet />
+          </div>
         </div>
       )}
 
@@ -362,9 +368,16 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
           </div>
 
           {/* K2 - Discord one-line on the battle reveal. */}
-          <div style={{ textAlign: 'center', marginTop: -4, marginBottom: 8 }}>
+          <div style={{ textAlign: 'center', marginTop: -4, marginBottom: 4 }}>
             <DiscordResultsLine surface="battle-reveal" text="Argue about it on Discord" />
           </div>
+
+          {/* K7 - Brag in the Discord (only on a WIN; kill-switch + dedup managed inside the button). */}
+          {verdictKind === 'win' && battleId && (
+            <div style={{ textAlign: 'center' }}>
+              <BragButton payload={{ kind: 'battle', title: ghost.cold ? 'Par' : ghost.handle, battleId, score: youScore, total: questions.length }} />
+            </div>
+          )}
 
           <AddQuestionHook groupSlug={topic || null} />
           <ConfirmHook />

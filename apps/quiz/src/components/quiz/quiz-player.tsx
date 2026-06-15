@@ -31,6 +31,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
 import { FanTitle } from '@/components/ui/fan-title';
 import { DiscordResultsLine } from '@/components/discord/discord-results-line';
+import { BragButton } from '@/components/discord/brag-button';
 import { completeDaily } from '@/lib/daily-played';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
@@ -1081,6 +1082,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <div className="text-center" style={{ marginTop: 6 }}>
             <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
           </div>
+          {/* K7 - Brag in the Discord on a GOOD result (>=70%). */}
+          {scorePct >= 70 && (
+            <div className="text-center">
+              <BragButton payload={{ kind: 'quiz', title: quiz.title, score: state.score, total: maxScore, quizSlug: quiz.slug }} />
+            </div>
+          )}
         </div>
 
         {/* Like - placed high, right under the result */}

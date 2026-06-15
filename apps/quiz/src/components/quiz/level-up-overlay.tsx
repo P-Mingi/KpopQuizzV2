@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { playLevelUp } from '@/lib/sounds';
 import { Mascot } from '@/components/ui/mascot';
 import { shareLevelUp } from '@/lib/share';
+import { BragButton } from '@/components/discord/brag-button';
 
 interface Props {
   newLevel: number;
@@ -77,6 +78,11 @@ export function LevelUpOverlay({ newLevel, title, titleKr, onDismiss }: Props): 
           Share your level-up
         </button>
         {shareMsg && <p className="text-xs text-secondary mt-2" role="status">{shareMsg}</p>}
+
+        {/* K8 - Post the level-up in the Discord (calls K7). */}
+        <div className="mt-3">
+          <BragButton payload={{ kind: 'levelup', title, level: newLevel }} compact />
+        </div>
 
         <button type="button" onClick={onDismiss} className="text-xs text-ghost uppercase tracking-wider mt-4 py-2">
           Continue
