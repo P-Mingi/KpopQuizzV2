@@ -3,25 +3,10 @@ import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
 
-// H10: /create is intentionally NOT protected. The creation funnel is open to
-// anonymous users (build screens 1-2 with no account); auth is required only at
-// publish, handled in-page so the draft is never lost to a login redirect.
+// Called only for paths that actually need a session: /login + PROTECTED_PATHS
+// (/onboarding, /settings, /admin). Public traffic is gated in middleware.ts
+// and never reaches this function, so it never pays the Supabase round trip.
 const PROTECTED_PATHS = ['/onboarding', '/settings', '/admin'];
-
-// Known route prefixes - anything else from the old site gets 301 to homepage
-const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
-  '/trivia', // /trivia hub (group -trivia pages are matched by the -trivia suffix rule below)
-  '/rankings', // /rankings index + /rankings/{group}/{type} fan-vote pages
-  '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
-  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
-  '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
-  '/sitemap.xml', '/robots.txt',
-  // New Phase 4 routes
-  '/leaderboard', '/quizzes', '/profile',
-  // E4: the wired async 1v1 quick-match battle.
-  '/battle',
-];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
   try {
@@ -86,21 +71,6 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
   }
 
   const pathname = request.nextUrl.pathname;
-
-  // H10: the temporary /create-preview funnel is retired -> redirect to /create.
-  // Preserve any query string (e.g. ?resume=publish from an in-flight OAuth
-  // round-trip that was started before the swap).
-  if (pathname === '/create-preview' || pathname.startsWith('/create-preview/')) {
-    const to = new URL('/create', request.url);
-    to.search = request.nextUrl.search;
-    return NextResponse.redirect(to);
-  }
-
-  // E4: the /battle-preview prototype is retired -> redirect to the real /battle.
-  if (pathname === '/battle-preview' || pathname.startsWith('/battle-preview/')) {
-    return NextResponse.redirect(new URL('/battle', request.url));
-  }
-
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
 
   // Redirect unauthenticated users from protected paths to login
@@ -129,15 +99,6 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
       return NextResponse.redirect(new URL('/onboarding', request.url));
     }
     return NextResponse.redirect(new URL('/', request.url));
-  }
-
-  // Redirect old/unknown paths to homepage (preserves link equity)
-  const isKnownRoute = pathname === '/'
-    || KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r))
-    || pathname.endsWith('-quiz') // /bts-quiz, /blackpink-quiz, etc.
-    || pathname.endsWith('-trivia'); // /bts-trivia, /blackpink-trivia, etc.
-  if (!isKnownRoute) {
-    return NextResponse.redirect(new URL('/', request.url), 301);
   }
 
   return response;
