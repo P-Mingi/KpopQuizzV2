@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { anonHash } from '@/lib/anon-hash';
 
 import type { NextRequest } from 'next/server';
@@ -30,6 +30,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'A question, 4 answers, and a correct answer are required' }, { status: 400 });
   }
 
+  // Capture the signed-in author (if any) so we can award +20 XP on promotion.
+  const authClient = await createServerClient();
+  const { data: { user } } = await authClient.auth.getUser();
+
   const supabase = createServiceRoleClient();
   const { error } = await supabase.from('pending_questions').insert({
     quiz_id: typeof body.quizId === 'string' ? body.quizId : null,
@@ -38,6 +42,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     options,
     correct_index: correctIndex,
     author_hash: anonHash(req),
+    author_user_id: user?.id ?? null,
   });
 
   if (error) {

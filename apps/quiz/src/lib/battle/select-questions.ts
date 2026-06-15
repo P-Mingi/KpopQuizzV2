@@ -137,5 +137,31 @@ export async function selectBattleQuestions(
     }
   }
 
-  return { questions: shuffle(pool).slice(0, BATTLE_QUESTION_COUNT), quizId, groupSlug, groupId };
+  const picked = shuffle(pool).slice(0, BATTLE_QUESTION_COUNT);
+
+  // E6: fan-submitted questions promoted to 'live' are eligible. They are rare,
+  // so we splice up to 2 into the set (rewarding the creation loop) rather than
+  // letting them flood it.
+  if (picked.length === BATTLE_QUESTION_COUNT && (quizId || groupSlug)) {
+    let live = supabase
+      .from('pending_questions')
+      .select('question, options, correct_index')
+      .eq('status', 'live')
+      .limit(20);
+    live = quizId ? live.eq('quiz_id', quizId) : live.eq('group_slug', groupSlug as string);
+    const { data: liveRows } = await live;
+    const liveQs: BattleQuestion[] = [];
+    const seen = new Set(picked.map((q) => q.question.trim().toLowerCase()));
+    for (const r of shuffle((liveRows ?? []) as Array<{ question: string; options: string[]; correct_index: number }>)) {
+      const key = r.question.trim().toLowerCase();
+      if (Array.isArray(r.options) && r.options.length === 4 && !seen.has(key)) {
+        seen.add(key);
+        liveQs.push({ question: r.question, options: r.options, correct: r.correct_index, fun_fact: null });
+      }
+      if (liveQs.length >= 2) break;
+    }
+    for (let i = 0; i < liveQs.length; i++) picked[BATTLE_QUESTION_COUNT - 1 - i] = liveQs[i]!;
+  }
+
+  return { questions: shuffle(picked).slice(0, BATTLE_QUESTION_COUNT), quizId, groupSlug, groupId };
 }

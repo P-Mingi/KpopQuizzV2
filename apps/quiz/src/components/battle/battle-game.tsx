@@ -330,6 +330,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
           </div>
 
           <AddQuestionHook groupSlug={topic || null} />
+          <ConfirmHook />
         </div>
       )}
 
@@ -390,6 +391,61 @@ function AddQuestionHook({ groupSlug }: { groupSlug: string | null }): React.Rea
         ))}
       </div>
       <button type="button" className="bp-start" disabled={!ready || busy} onClick={() => void submit()}>Add it to battles</button>
+    </div>
+  );
+}
+
+// --- E6: help-confirm surface. Fans confirm other fans' submitted questions
+// (or flag them). Hidden when there is nothing pending. Framing stays fan-to-fan
+// vouching (no chore/robot framing). ---
+interface PendingQ { id: string; question: string; options: string[]; correct_index: number }
+function ConfirmHook(): React.ReactElement | null {
+  const [queue, setQueue] = useState<PendingQ[]>([]);
+  const [i, setI] = useState(0);
+  const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/battle/pending').then((r) => r.json()).then((d: { questions?: PendingQ[] }) => setQueue(d.questions ?? [])).catch(() => {});
+  }, []);
+
+  const cur = queue[i];
+  if (done) {
+    return (
+      <div className="bp-confirm" role="status">
+        <p className="bp-confirm-thanks">Thanks for helping fellow fans!</p>
+      </div>
+    );
+  }
+  if (!cur) return null; // nothing to confirm -> keep the reveal clean
+
+  const act = async (action: 'confirm' | 'flag'): Promise<void> => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      await fetch('/api/battle/confirm', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ questionId: cur.id, action }),
+      });
+    } finally {
+      setBusy(false);
+    }
+    if (i + 1 < queue.length) setI(i + 1); else setDone(true);
+  };
+
+  return (
+    <div className="bp-confirm">
+      <p className="bp-confirm-head">Help confirm fan questions</p>
+      <p className="bp-confirm-sub">Another fan wrote this. Does it look like a real fan question?</p>
+      <p className="bp-confirm-q">{cur.question}</p>
+      <div className="bp-confirm-opts">
+        {cur.options.map((o, j) => (
+          <span key={j} className={`bp-confirm-opt${j === cur.correct_index ? ' correct' : ''}`}>{LETTERS[j]}. {o}</span>
+        ))}
+      </div>
+      <div className="bp-confirm-actions">
+        <button type="button" className="bp-start bp-cta-half" disabled={busy} onClick={() => void act('confirm')}>Looks legit</button>
+        <button type="button" className="bp-ghost-btn bp-cta-half" disabled={busy} onClick={() => void act('flag')}>Flag</button>
+      </div>
     </div>
   );
 }
