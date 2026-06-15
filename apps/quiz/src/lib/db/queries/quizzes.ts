@@ -1,4 +1,4 @@
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
@@ -161,7 +161,8 @@ export async function getBrowseQuizzes({
   offset,
   limit,
 }: BrowseQuizzesParams): Promise<QuizCardData[]> {
-  const supabase = await createServerClient();
+  // Public catalog browse - cookie-free so home/quizzes pages stay ISR-cacheable.
+  const supabase = createPublicReadClient();
 
   let query = supabase
     .from('quizzes')

@@ -1,69 +1,20 @@
 import Link from 'next/link';
-import { createServerClient } from '@/lib/supabase/server';
-import { getLevelInfo } from '@/lib/constants';
+
 import { Logo } from './logo';
 import { TopNavLinks } from './top-nav-links';
 import { ThemeToggle } from './theme-toggle';
-
-interface NavProfile {
-  username: string;
-  display_name: string | null;
-  avatar_url: string | null;
-  avatar_bg: string;
-  avatar_text: string;
-  xp: number;
-  current_streak: number;
-  level: number;
-  progress: number;
-}
-
-async function fetchNavProfile(): Promise<NavProfile | null> {
-  try {
-    const supabase = await createServerClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
-    const { data } = await supabase
-      .from('profiles')
-      .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp')
-      .eq('id', user.id)
-      .maybeSingle();
-    if (!data) return null;
-    const info = getLevelInfo((data.xp as number) ?? 0);
-    // OAuth avatar fallback: profiles.avatar_url is only set if the user
-    // uploaded one or the signup callback copied it. If null, fall back to
-    // the session metadata Google (.picture / .avatar_url) and Discord
-    // (.avatar_url) populate at sign-in so we never miss a real photo.
-    const meta = (user.user_metadata ?? {}) as { avatar_url?: string; picture?: string };
-    const avatarUrl =
-      (data.avatar_url as string | null) ??
-      meta.avatar_url ??
-      meta.picture ??
-      null;
-    return {
-      username: data.username as string,
-      display_name: (data.display_name as string | null) ?? null,
-      avatar_url: avatarUrl,
-      avatar_bg: (data.avatar_bg as string) ?? '#ED93B1',
-      avatar_text: (data.avatar_text as string) ?? '#FFFFFF',
-      xp: (data.xp as number) ?? 0,
-      current_streak: 0,
-      level: info.level,
-      progress: info.progress,
-    };
-  } catch {
-    return null;
-  }
-}
+import { TopNavProfile } from './top-nav-profile';
 
 /**
- * Top nav. Server component: fetches the user's profile + level.
- * Desktop: Logo + pill tabs (Home/Games/Cards/Ranks) + Search + Create + Profile chip.
+ * Top nav SHELL. Pure server-rendered with no cookie/auth reads, so every page
+ * that uses this layout stays static/ISR-cacheable. The signed-in profile chip
+ * lives in <TopNavProfile> (client island) which fetches /api/auth/me on
+ * hydrate - that's the only place Supabase gets touched.
+ *
+ * Desktop: Logo + pill tabs + Search + Create + Profile chip.
  * Hidden on mobile via CSS (.top-nav).
  */
-export async function TopNav(): Promise<React.ReactElement> {
-  const profile = await fetchNavProfile();
-  const initial = (profile?.display_name || profile?.username || 'K').charAt(0).toUpperCase();
-
+export function TopNav(): React.ReactElement {
   return (
     <header className="top-nav" style={{
       position: 'sticky', top: 0, zIndex: 30,
@@ -75,16 +26,12 @@ export async function TopNav(): Promise<React.ReactElement> {
         display: 'flex', alignItems: 'center', gap: 16,
         padding: '12px 20px', maxWidth: 1240, margin: '0 auto',
       }}>
-        {/* Logo */}
         <Logo size="md" />
 
-        {/* Tabs (desktop) */}
         <TopNavLinks />
 
-        {/* Spacer */}
         <div style={{ flex: 1 }} />
 
-        {/* Theme toggle (desktop) - client island next to the right-side controls */}
         <ThemeToggle className="nav-theme-toggle" />
 
         {/* Search */}
@@ -117,54 +64,8 @@ export async function TopNav(): Promise<React.ReactElement> {
           <span className="top-nav-create-label">Create</span>
         </Link>
 
-        {/* Profile chip */}
-        {profile ? (
-          <Link href="/profile" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '4px 12px 4px 4px', borderRadius: 9999,
-            background: 'var(--bg-surface)', border: '1px solid var(--border)',
-            textDecoration: 'none',
-          }}>
-            {/* Render the OAuth/uploaded photo when present, fall back to
-                initials on a colored swatch when absent. Plain <img> so this
-                stays a pure server component (no client island needed for a
-                28px avatar). */}
-            {profile.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                alt=""
-                width={28}
-                height={28}
-                referrerPolicy="no-referrer"
-                style={{
-                  width: 28, height: 28, borderRadius: '50%',
-                  objectFit: 'cover', flexShrink: 0, display: 'block',
-                  background: profile.avatar_bg,
-                }}
-              />
-            ) : (
-              <span style={{
-                width: 28, height: 28, borderRadius: '50%',
-                background: profile.avatar_bg, color: profile.avatar_text,
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 800, fontSize: 12, flexShrink: 0,
-              }}>{initial}</span>
-            )}
-            <span style={{
-              fontSize: 12, fontWeight: 700, color: 'var(--text-primary)',
-            }} className="top-nav-profile-name">
-              {profile.display_name || profile.username}
-            </span>
-          </Link>
-        ) : (
-          <Link href="/login" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '8px 14px', borderRadius: 10,
-            background: 'transparent', border: '1px solid var(--border)',
-            color: 'var(--text-primary)', textDecoration: 'none',
-            fontSize: 13, fontWeight: 600,
-          }}>Sign in</Link>
-        )}
+        {/* Profile chip (client island - SSR-safe placeholder, hydrates auth on mount) */}
+        <TopNavProfile />
       </div>
     </header>
   );

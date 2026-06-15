@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { GameCardData, GameWithGroup } from '@/lib/db/types';
 
@@ -168,7 +168,8 @@ export async function getAdminBlindTests(): Promise<GameCardData[]> {
 const NAME_ALL_TYPES = ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols'];
 
 export async function getNameAllGames(offset: number, limit: number): Promise<GameCardData[]> {
-  const supabase = await createServerClient();
+  // Public catalog read - cookie-free so the home page game-of-the-day stays ISR-cacheable.
+  const supabase = createPublicReadClient();
   const { data, error } = await supabase
     .from('games')
     .select(GAME_SELECT)

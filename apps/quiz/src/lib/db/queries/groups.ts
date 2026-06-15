@@ -1,9 +1,11 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 
 import type { Group } from '@/lib/db/types';
 
+// Public catalog read - uses the cookie-free client so callers (home page,
+// trivia hub, etc.) can stay static/ISR-cacheable.
 export async function getAllGroups(): Promise<Group[]> {
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
     .from('groups')

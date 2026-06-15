@@ -35,3 +35,19 @@ export function createServiceRoleClient() {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 }
+
+/**
+ * Cookie-free anon-key client for PUBLIC reads in server components. Use this
+ * whenever the data is the same for everyone (catalog browse, public Q of the
+ * day, groups list, leaderboard rows). Because it never calls cookies(), the
+ * caller stays static/ISR-cacheable. RLS still applies (anon role).
+ *
+ * Do NOT use for user-specific reads or anything that depends on the signed-in
+ * session - use createServerClient for those.
+ */
+export function createPublicReadClient() {
+  return createServiceClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+}
