@@ -343,6 +343,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
               <span className="bp-h2h-name">{ghost.cold ? 'Par' : ghost.handle}</span>
               {ghost.per_question.map((ok, i) => <span key={i} className={`bp-h2h-cell ${ok ? 'hit' : 'miss'}`} aria-label={`Q${i + 1}: opponent ${ok ? 'correct' : 'missed'}`}>{ok ? CHECK : CROSS}</span>)}
             </div>
+            {battleId && <ReportQuestionRow battleId={battleId} questions={questions} onToast={showToast} />}
           </div>
 
           <div className="bp-cta-row">
@@ -479,3 +480,52 @@ function ConfirmHook(): React.ReactElement | null {
     </div>
   );
 }
+
+// E8 - per-question report affordance on the reveal. A small row under the
+// head-to-head: "Bad question?" + 7 small numbered buttons (one per Q). Tap
+// sends a report; the button locks once tapped.
+function ReportQuestionRow({ battleId, questions, onToast }: { battleId: string; questions: BattleQ[]; onToast: (m: string) => void }): React.ReactElement {
+  const [reported, setReported] = useState<Set<number>>(new Set());
+  const [busy, setBusy] = useState<number | null>(null);
+
+  const report = async (idx: number): Promise<void> => {
+    if (reported.has(idx) || busy !== null) return;
+    setBusy(idx);
+    try {
+      const res = await fetch("/api/battle/question/report", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ battleId, questionIndex: idx, reason: "inappropriate" }),
+      });
+      const data = (await res.json()) as { ok?: boolean; already_reported?: boolean; pulled_for_review?: boolean };
+      if (res.ok && data.ok) {
+        setReported((s) => new Set(s).add(idx));
+        onToast(data.already_reported ? "Already reported. Thanks!" : data.pulled_for_review ? "Reported. Pulled for review." : "Reported. Thanks for the flag!");
+      } else {
+        onToast("Could not send report. Try again.");
+      }
+    } catch {
+      onToast("Could not send report. Try again.");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  return (
+    <div className="bp-report-row" role="group" aria-label="Report a question">
+      <span className="bp-report-label">Bad question?</span>
+      {questions.map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          className={`bp-report-btn${reported.has(i) ? " done" : ""}`}
+          aria-label={`Report question ${i + 1}`}
+          disabled={reported.has(i) || busy !== null}
+          onClick={() => void report(i)}
+        >
+          {i + 1}
+        </button>
+      ))}
+    </div>
+  );
+}
+

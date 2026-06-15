@@ -2510,6 +2510,15 @@ a.ranking-cta { text-decoration: none; }
 .bp-confirm-actions { display: flex; gap: 10px; }
 .bp-confirm-thanks { font-size: 13px; font-weight: 600; color: var(--txt2); text-align: center; margin: 0; }
 
+/* E8 - per-question report row under the head-to-head on the battle reveal. */
+.bp-report-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.bp-report-label { font-size: 11px; color: var(--txt3); font-weight: 600; margin-right: 4px; }
+.bp-report-btn { min-width: 26px; height: 24px; padding: 0 6px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--txt2); font-size: 11px; font-weight: 700; cursor: pointer; transition: border-color 150ms ease, background 150ms ease, color 150ms ease; }
+.bp-report-btn:hover:not(:disabled) { border-color: var(--wrong); color: var(--wrong); }
+.bp-report-btn:focus-visible { outline: 2px solid var(--wrong); outline-offset: 2px; }
+.bp-report-btn:disabled { opacity: 0.4; cursor: default; }
+.bp-report-btn.done { background: var(--wrong-bg); color: var(--wrong); border-color: var(--wrong-border); }
+
 /* toast */
 .bp-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: var(--txt1); color: var(--surface); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 100px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); z-index: 50; }
 
