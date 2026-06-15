@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
-import { markDailyPlayed } from '@/lib/daily-played';
+import { completeDaily } from '@/lib/daily-played';
 import { RankingList } from './ranking-list';
 import { VsBadge } from './vs-badge';
 
@@ -173,7 +173,7 @@ export function DuelGame({
     // F6: a duel has no end screen, so casting a vote on today's daily matchup
     // (linked with daily=game) counts as having played the daily game.
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
-      markDailyPlayed('game');
+      void completeDaily('game');
     }
 
     // Apply new Elo to the moved entities, reorder, bump.

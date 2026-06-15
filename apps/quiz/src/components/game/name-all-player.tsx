@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { playFound, playPerfect } from '@/lib/sounds';
-import { markDailyPlayed } from '@/lib/daily-played';
+import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
 
 import type { GameWithGroup, NameAllMember } from '@/lib/db/types';
@@ -269,9 +269,9 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
   function endGame() {
     if (timerRef.current) clearInterval(timerRef.current);
     submitPlay();
-    // F6: mark today's daily game as played when reached via the daily card.
+    // F6 + L4: mark + (if signed in) award the daily streak XP.
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
-      markDailyPlayed('game');
+      void completeDaily('game');
     }
     setPhase('result');
   }

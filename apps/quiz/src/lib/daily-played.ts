@@ -32,3 +32,33 @@ export function hasPlayedDaily(kind: DailyKind): boolean {
     return false;
   }
 }
+
+// L4 result the client can use to surface streak XP / day-N feedback.
+export interface DailyCompleteResult {
+  signed_in: boolean;
+  awarded: number;
+  base: number;
+  milestone: number;
+  streak: number;
+  already_today: boolean;
+  leveled_up?: boolean;
+  new_level?: number | null;
+  new_level_name?: string | null;
+}
+
+/**
+ * Mark the daily as played AND (if signed in) award the server-side streak XP.
+ * Safe to call when not signed in: the server returns awarded:0.
+ */
+export async function completeDaily(kind: DailyKind): Promise<DailyCompleteResult | null> {
+  markDailyPlayed(kind);
+  try {
+    const res = await fetch('/api/daily/complete', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind }),
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as DailyCompleteResult;
+  } catch {
+    return null;
+  }
+}

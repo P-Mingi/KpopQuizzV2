@@ -20,7 +20,12 @@ export function HomeQotd({ quiz }: Props) {
   const [timeLeft, setTimeLeft] = useState('');
   // F6: post-hydration so SSR + first client render match (no hydration mismatch).
   const [played, setPlayed] = useState(false);
-  useEffect(() => { setPlayed(hasPlayedDaily('quiz')); }, []);
+  // L4: signed-in user's per-account daily streak (small, optional surface).
+  const [streak, setStreak] = useState(0);
+  useEffect(() => {
+    setPlayed(hasPlayedDaily('quiz'));
+    fetch('/api/daily/streak').then((r) => r.json()).then((d: { streak?: number }) => setStreak(d.streak ?? 0)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     function calc() {
@@ -63,6 +68,12 @@ export function HomeQotd({ quiz }: Props) {
           <div className="badge-row" style={{ marginBottom: 8 }}>
             <QuizTypeBadge type={quiz.quiz_type} size="sm" />
             <DifficultyBadge difficulty={quiz.difficulty} />
+            {streak > 1 && (
+              <span className="streak-chip" aria-label={`${streak} day streak`}>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c0 4-4 5-4 9a4 4 0 0 0 8 0c0-1.5-.7-2.5-1.5-3.5C14.8 9 16 7 16 5c0-1.5-1-3-4-3zm-2 11a2 2 0 1 0 4 0c0-.8-.4-1.4-1-2-1.2 1.3-3 1.5-3 2z"/></svg>
+                Day {streak} streak
+              </span>
+            )}
           </div>
           <Link href={`/q/${quiz.slug}?daily=quiz`} className="daily-title" style={{ display: 'block', textDecoration: 'none' }}>
             {quiz.title}

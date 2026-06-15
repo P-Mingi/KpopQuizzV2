@@ -28,7 +28,7 @@ import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
-import { markDailyPlayed } from '@/lib/daily-played';
+import { completeDaily } from '@/lib/daily-played';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
 import { QuizShareRow } from '@/components/share/quiz-share-row';
@@ -388,10 +388,10 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   // Refresh server components (navbar XP) and fetch related quizzes when result shows
   useEffect(() => {
     if (state.phase === 'result') {
-      // F6: if this was today's daily quiz (linked with ?daily=quiz), record it
-      // so the home daily card can show its "come back tomorrow" sleep state.
+      // F6 + L4: if this was today's daily quiz (linked with ?daily=quiz),
+      // record it locally (sleep card) AND, if signed in, award the streak XP.
       if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'quiz') {
-        markDailyPlayed('quiz');
+        void completeDaily('quiz');
       }
       router.refresh();
       fetch(`/api/quiz/${quiz.id}/related`)
