@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
 
 import type { NextRequest } from 'next/server';
@@ -274,8 +274,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     manualCoverUrl = input.cover_image_url.trim();
   }
 
-  // 6. Insert quiz via RPC to bypass PostgREST schema cache constraint validation
-  const { data: quizResult, error: quizError } = await supabase
+  // 6. Insert quiz via RPC to bypass PostgREST schema cache constraint validation.
+  //    The RPC is SECURITY DEFINER + "bypass" semantics, so it runs through the
+  //    service-role client and EXECUTE is revoked from anon/authenticated. All
+  //    auth + validation above (steps 1-5) gates who can reach this call.
+  //    creator_id is taken from the verified session, not from client input.
+  const admin = createServiceRoleClient();
+  const { data: quizResult, error: quizError } = await admin
     .rpc('create_quiz_bypass', {
       p_data: {
         creator_id: user.id,
@@ -325,7 +330,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const isFirst = profile && profile.total_quizzes_created <= 1;
     const xpAmount = isFirst ? 75 : 25; // 25 base + 50 first-time bonus
-    await supabase.rpc('award_xp', {
+    // award_xp is server-only post-revoke - service role bypasses the grant
+    // check. xpAmount is computed here from validated DB state, never trusted
+    // from the client.
+    await admin.rpc('award_xp', {
       p_user_id: user.id,
       p_amount: xpAmount,
       p_reason: 'create',

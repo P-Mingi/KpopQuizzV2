@@ -60,7 +60,11 @@ export async function POST(
     .eq('id', user.id);
 
   const amount = won ? 25 : 5;
-  const { data: newXpValue } = await supabase.rpc('award_xp', {
+  // award_xp is server-only post-revoke. amount is server-derived from `won`
+  // (which itself comes from the request body) - the route trusts the daily
+  // cap above + the binary win/loss split to bound how much XP a user can
+  // farm. user.id is from the verified session, never client input.
+  const { data: newXpValue } = await svc.rpc('award_xp', {
     p_user_id: user.id,
     p_amount: amount,
     p_reason: won ? 'battle_win' : 'battle_loss',

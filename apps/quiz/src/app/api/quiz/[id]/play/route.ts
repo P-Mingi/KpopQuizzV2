@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
 
@@ -38,6 +38,11 @@ export async function POST(
   }
 
   const supabase = await createServerClient();
+  // award_xp is server-only post-revoke. Held in a single service-role client
+  // reused for every privileged call below. All XP amounts are computed here
+  // from validated input (score, effectiveMaxScore, isFirstCompletion) -
+  // client cannot specify amount.
+  const admin = createServiceRoleClient();
 
   // Get player ID if authenticated (optional)
   const { data: { user } } = await supabase.auth.getUser();
@@ -108,7 +113,7 @@ export async function POST(
         if (scorePct === 1.0) xpAmount += 15; // perfect bonus
         xpEarned = xpAmount;
 
-        const { data: newXpValue } = await supabase.rpc('award_xp', {
+        const { data: newXpValue } = await admin.rpc('award_xp', {
           p_user_id: playerId,
           p_amount: xpAmount,
           p_reason: 'play',
@@ -145,7 +150,7 @@ export async function POST(
 
         // Award XP to quiz creator (+1 per play, cap at 500)
         if (quizData.creator_id && quizData.creator_id !== playerId && quizData.play_count < 500) {
-          await supabase.rpc('award_xp', {
+          await admin.rpc('award_xp', {
             p_user_id: quizData.creator_id,
             p_amount: 1,
             p_reason: 'play_received',

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
 
@@ -66,7 +66,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     xpEarned = Math.min(body.score * 5, 50);
     if (xpEarned > 0) {
       try {
-        await supabase.rpc('award_xp', {
+        // award_xp is server-only post-revoke. xpEarned is server-derived and capped.
+        const admin = createServiceRoleClient();
+        await admin.rpc('award_xp', {
           p_user_id: playerId,
           p_amount: xpEarned,
           p_reason: 'blind_test',

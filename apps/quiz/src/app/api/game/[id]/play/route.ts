@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -128,11 +128,15 @@ async function recordBlindTestPlay(
     choices,
   });
 
+  // award_xp is server-only post-revoke. xpAmount is computed here from the
+  // server-validated `score`, capped at 50 - client cannot specify amount.
+  const admin = createServiceRoleClient();
+
   // Award XP to player
   if (playerId) {
     const xpAmount = Math.min(score * 5, 50);
     if (xpAmount > 0) {
-      await supabase.rpc('award_xp', {
+      await admin.rpc('award_xp', {
         p_user_id: playerId,
         p_amount: xpAmount,
         p_reason: 'game_play',
@@ -142,7 +146,7 @@ async function recordBlindTestPlay(
 
   // Award creator XP
   if (game.creator_id && game.creator_id !== playerId && game.play_count < 500) {
-    await supabase.rpc('award_xp', {
+    await admin.rpc('award_xp', {
       p_user_id: game.creator_id,
       p_amount: 1,
       p_reason: 'play_received',
@@ -196,11 +200,14 @@ async function recordNameAllPlay(
     choices,
   });
 
+  // award_xp is server-only post-revoke. Server computes amount from validated score.
+  const admin = createServiceRoleClient();
+
   // Award XP: 15 per correct answer
   if (playerId) {
     const xpAmount = Math.min(choices.score * 15, 200);
     if (xpAmount > 0) {
-      await supabase.rpc('award_xp', {
+      await admin.rpc('award_xp', {
         p_user_id: playerId,
         p_amount: xpAmount,
         p_reason: 'game_play',
@@ -210,7 +217,7 @@ async function recordNameAllPlay(
 
   // Award creator XP
   if (game.creator_id && game.creator_id !== playerId && game.play_count < 500) {
-    await supabase.rpc('award_xp', {
+    await admin.rpc('award_xp', {
       p_user_id: game.creator_id,
       p_amount: 1,
       p_reason: 'play_received',
