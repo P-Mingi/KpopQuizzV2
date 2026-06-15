@@ -9,7 +9,8 @@ import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+// ISR: refresh leaderboard every 5 minutes so it serves cached HTML between hits.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Leaderboard',

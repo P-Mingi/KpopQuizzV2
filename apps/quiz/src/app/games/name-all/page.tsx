@@ -4,8 +4,7 @@ import { NameAllLanding } from '@/components/game/name-all-landing';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'Name All Members - K-pop Typing Game | KpopQuiz',
   description: 'Can you name every member of BTS, BLACKPINK, SEVENTEEN, Stray Kids before time runs out? 24 groups available. Blind mode and photo clue mode.',

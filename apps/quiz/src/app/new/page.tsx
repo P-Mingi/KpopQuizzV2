@@ -4,7 +4,8 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
+// ISR: refresh newest quiz list every 5 minutes.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'New K-pop Quizzes',

@@ -4,8 +4,7 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
-
+export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'Trending K-pop Quizzes',
   description: 'The most popular K-pop quizzes right now. Play trending quizzes about BTS, BLACKPINK, Stray Kids, and more - created by real fans.',

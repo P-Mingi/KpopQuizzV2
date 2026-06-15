@@ -13,7 +13,6 @@ export const revalidate = 3600;
 // createServiceRoleClient() at request time, and Vercel's build environment
 // doesn't expose NEXT_PUBLIC_SUPABASE_URL during static prerender. SSR keeps
 // it crawlable + the revalidate window above still applies at runtime.
-export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'K-pop Games - This or That, Name All Members & More | KpopQuiz',

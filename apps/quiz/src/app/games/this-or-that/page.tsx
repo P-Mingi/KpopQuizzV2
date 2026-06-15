@@ -3,8 +3,7 @@ import { DuelGame, type QuestionItem } from '@/components/duel/duel-game';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'This or That - K-pop Fan Rankings | KpopQuiz',
   description:

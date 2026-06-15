@@ -17,11 +17,12 @@ import { QuizCard } from '@/components/ui/quiz-card';
 
 import type { Metadata } from 'next';
 
-// ISR: revalidate hourly (SEO Fix 1). The home page already server-renders its
-// quiz/game content as crawlable HTML; the shared cookie-reading <TopNav> keeps
-// it dynamic (SSR) today, so this window stays dormant until the nav goes cookie-free.
+// ISR: revalidate hourly. The home page already server-renders its quiz/game
+// content as crawlable HTML. force-dynamic was added when NEXT_PUBLIC_SUPABASE_URL
+// wasn't available at build prerender; that env is now wired in Production so
+// we let Next.js decide: if any descendant reads cookies/headers it auto-dynamic
+// (SSR), otherwise this revalidate window kicks in and Supabase load drops.
 export const revalidate = 3600;
-export const dynamic = 'force-dynamic'; // build-time prerender skipped; runtime SSR keeps it crawlable
 
 export const metadata: Metadata = {
   title: 'KpopQuiz - K-pop Quizzes Made by Fans',

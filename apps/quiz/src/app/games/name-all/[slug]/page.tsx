@@ -6,8 +6,7 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
