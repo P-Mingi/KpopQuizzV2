@@ -29,10 +29,20 @@ async function fetchNavProfile(): Promise<NavProfile | null> {
       .maybeSingle();
     if (!data) return null;
     const info = getLevelInfo((data.xp as number) ?? 0);
+    // OAuth avatar fallback: profiles.avatar_url is only set if the user
+    // uploaded one or the signup callback copied it. If null, fall back to
+    // the session metadata Google (.picture / .avatar_url) and Discord
+    // (.avatar_url) populate at sign-in so we never miss a real photo.
+    const meta = (user.user_metadata ?? {}) as { avatar_url?: string; picture?: string };
+    const avatarUrl =
+      (data.avatar_url as string | null) ??
+      meta.avatar_url ??
+      meta.picture ??
+      null;
     return {
       username: data.username as string,
       display_name: (data.display_name as string | null) ?? null,
-      avatar_url: (data.avatar_url as string | null) ?? null,
+      avatar_url: avatarUrl,
       avatar_bg: (data.avatar_bg as string) ?? '#ED93B1',
       avatar_text: (data.avatar_text as string) ?? '#FFFFFF',
       xp: (data.xp as number) ?? 0,
@@ -115,12 +125,31 @@ export async function TopNav(): Promise<React.ReactElement> {
             background: 'var(--bg-surface)', border: '1px solid var(--border)',
             textDecoration: 'none',
           }}>
-            <span style={{
-              width: 28, height: 28, borderRadius: '50%',
-              background: profile.avatar_bg, color: profile.avatar_text,
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: 12, flexShrink: 0,
-            }}>{initial}</span>
+            {/* Render the OAuth/uploaded photo when present, fall back to
+                initials on a colored swatch when absent. Plain <img> so this
+                stays a pure server component (no client island needed for a
+                28px avatar). */}
+            {profile.avatar_url ? (
+              <img
+                src={profile.avatar_url}
+                alt=""
+                width={28}
+                height={28}
+                referrerPolicy="no-referrer"
+                style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  objectFit: 'cover', flexShrink: 0, display: 'block',
+                  background: profile.avatar_bg,
+                }}
+              />
+            ) : (
+              <span style={{
+                width: 28, height: 28, borderRadius: '50%',
+                background: profile.avatar_bg, color: profile.avatar_text,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 800, fontSize: 12, flexShrink: 0,
+              }}>{initial}</span>
+            )}
             <span style={{
               fontSize: 12, fontWeight: 700, color: 'var(--text-primary)',
             }} className="top-nav-profile-name">
