@@ -30,9 +30,9 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
         <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes →</Link>
       </div>
 
-      <div className="group-pills" role="list">
+      <div className="home-group-pills" role="list">
         {pills.map((g) => (
-          <Link key={g.slug} href={`/quizzes?group=${g.slug}`} className="group-pill" role="listitem">
+          <Link key={g.slug} href={`/quizzes?group=${g.slug}`} className="home-group-pill" role="listitem">
             <GroupLogo
               groupName={g.name}
               logoUrl={g.logo_url}
