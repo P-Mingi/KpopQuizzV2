@@ -9,6 +9,11 @@ import type { Metadata } from 'next';
 // cards as crawlable HTML; the shared cookie-reading <TopNav> keeps it dynamic
 // (SSR) today, so the window stays dormant until the nav is made cookie-free.
 export const revalidate = 3600;
+// Force dynamic to skip build-time prerender: this page calls
+// createServiceRoleClient() at request time, and Vercel's build environment
+// doesn't expose NEXT_PUBLIC_SUPABASE_URL during static prerender. SSR keeps
+// it crawlable + the revalidate window above still applies at runtime.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'K-pop Games - This or That, Name All Members & More | KpopQuiz',
