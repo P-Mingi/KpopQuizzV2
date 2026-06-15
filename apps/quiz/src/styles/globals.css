@@ -1342,7 +1342,10 @@ body {
 .daily-cta {
   width: 100%;
   margin-top: auto;
-  background: var(--brand);
+  /* AA contrast: 14px white text needs >=4.5:1. Pure --brand (#E8457A) gives
+     3.77:1 in light mode. 40/60 mix with --brand-dark = #C93B6A → 4.86:1.
+     In dark mode this also lifts contrast (3.06 → 3.48). Still rose-pink. */
+  background: color-mix(in srgb, var(--brand) 40%, var(--brand-dark));
   color: #fff;
   border: none;
   border-radius: 100px;
@@ -1877,9 +1880,14 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 }
 @media (max-width: 680px) { .login { grid-template-columns: 1fr; } }
 
-/* Left brand panel */
+/* Left brand panel.
+   Gradient start darkened from #E8457A to #CE3D6D (50/50 mix of brand and
+   brand-dark) so 14px regular white text (.bp-sub, .bp-stat-l) hits WCAG AA
+   (4.62:1 from 3.41:1 / 2.91:1 before). Still rose-pink, just one notch
+   deeper. End stops unchanged. Same hex in dark mode (brand panel is
+   intentionally pink in both themes). */
 .brand-panel {
-  background: linear-gradient(150deg, #E8457A 0%, #B5345F 60%, #7C1D3F 100%);
+  background: linear-gradient(150deg, #CE3D6D 0%, #B5345F 60%, #7C1D3F 100%);
   padding: 40px 36px;
   position: relative;
   overflow: hidden;
@@ -1889,17 +1897,24 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   color: #fff;
 }
 @media (max-width: 680px) { .brand-panel { padding: 30px 26px 26px; } }
-.bp-stars { position: absolute; inset: 0; pointer-events: none; }
-.bp-star { position: absolute; color: rgba(255,255,255,.18); }
-.bp-top { position: relative; z-index: 2; }
-.bp-logo { display: flex; align-items: center; gap: 9px; font-size: 17px; font-weight: 800; margin-bottom: 40px; }
-.bp-logo-mark { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,.92); color: var(--brand); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.bp-head { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; max-width: 330px; }
-@media (max-width: 680px) { .bp-head { font-size: 24px; } }
-.bp-sub { font-size: 14px; line-height: 1.55; opacity: .92; max-width: 330px; }
-.bp-stats { position: relative; z-index: 2; display: flex; gap: 22px; }
-.bp-stat-n { font-size: 20px; font-weight: 800; line-height: 1; }
-.bp-stat-l { font-size: 11px; opacity: .8; margin-top: 3px; }
+/* All .bp-* selectors below are scoped under .brand-panel because the
+   /battle-preview prototype reuses the same class names (declared later in
+   this file) with different colors. The descendant selector raises
+   specificity to (0,2,0) so the login styles win over (0,1,0). */
+.brand-panel .bp-stars { position: absolute; inset: 0; pointer-events: none; }
+.brand-panel .bp-star { position: absolute; color: rgba(255,255,255,.18); }
+.brand-panel .bp-top { position: relative; z-index: 2; }
+.brand-panel .bp-logo { display: flex; align-items: center; gap: 9px; font-size: 17px; font-weight: 800; margin-bottom: 40px; color: #fff; }
+.brand-panel .bp-logo-mark { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,.92); color: var(--brand); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.brand-panel .bp-head { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; max-width: 330px; color: #fff; }
+@media (max-width: 680px) { .brand-panel .bp-head { font-size: 24px; } }
+/* Opacity removed: at 0.92 the effective white-on-pink dropped to 3.41:1 (AA fail).
+   Full white on the new gradient start = 4.62:1 (AA pass). */
+.brand-panel .bp-sub { font-size: 14px; line-height: 1.55; font-weight: 500; max-width: 330px; color: #fff; }
+.brand-panel .bp-stats { position: relative; z-index: 2; display: flex; gap: 22px; }
+.brand-panel .bp-stat-n { font-size: 20px; font-weight: 800; line-height: 1; color: #fff; }
+/* Opacity removed + weight bumped: was 2.91:1 at 0.8 opacity, now 4.62:1. */
+.brand-panel .bp-stat-l { font-size: 11.5px; font-weight: 600; margin-top: 3px; color: #fff; }
 
 /* Right auth panel */
 .auth-panel { background: var(--surface); padding: 44px 40px; display: flex; flex-direction: column; justify-content: center; }
@@ -2236,7 +2251,8 @@ a.ranking-cta { text-decoration: none; }
 .gotd-face { width: 100%; aspect-ratio: 1 / 1; max-height: 132px; object-fit: cover; object-position: center 22%; border-radius: 14px; background: var(--surface-alt); transition: transform 120ms ease; }
 .gotd-face-name { font-size: 13px; font-weight: 700; color: var(--txt1); text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .gotd-prompt { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.2; color: var(--txt1); text-align: center; }
-.gotd-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; background: var(--brand); color: #fff; border-radius: 100px; padding: 12px; font-size: 14px; font-weight: 700; margin-top: 2px; transition: background 120ms ease; }
+/* AA contrast: white 14px on pure --brand = 3.77:1. Same 40/60 mix as .daily-cta → 4.86:1. */
+.gotd-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; background: color-mix(in srgb, var(--brand) 40%, var(--brand-dark)); color: #fff; border-radius: 100px; padding: 12px; font-size: 14px; font-weight: 700; margin-top: 2px; transition: background 120ms ease; }
 .gotd-duel:hover .gotd-cta, .gotd-nam:hover .gotd-cta { background: var(--brand-dark); }
 .gotd-duel:hover .gotd-face { transform: translateY(-2px); }
 .gotd-duel:focus-visible, .gotd-nam:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 12px; }
@@ -2327,6 +2343,10 @@ a.ranking-cta { text-decoration: none; }
 .bt-cta.battle-cta:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--border)); box-shadow: 0 6px 20px color-mix(in srgb, var(--brand) 16%, transparent); }
 .bt-cta.battle-cta:focus-visible { outline-color: var(--brand); }
 .bt-cta.battle-cta .bt-cta-icon { background: color-mix(in srgb, var(--brand) 16%, transparent); color: var(--brand); }
+/* AA contrast: --txt3 on the pink-tinted gradient measured 2.61:1 (FAIL).
+   --txt2 on the same bg = 5.46:1 (PASS). Only scoped to .battle-cta so the
+   plain .bt-cta blindtest variant is unaffected. */
+.bt-cta.battle-cta .bt-cta-sub { color: var(--txt2); }
 
 .bt-cta-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .bt-cta-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--txt1); line-height: 1.15; }
