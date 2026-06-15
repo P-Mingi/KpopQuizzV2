@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
+
+// L6 - battle XP daily cap. Only the first N battles per UTC day earn XP for a
+// given signed-in user. Beyond the cap, the battle still runs and reports a
+// result, but xp_earned = 0 (capped:true) so it cannot be farmed.
+const BATTLE_XP_DAILY_CAP = 10;
 
 import type { NextRequest } from 'next/server';
 
@@ -32,6 +37,27 @@ export async function POST(
   if (!user) {
     return NextResponse.json({ xp_earned: 0, signed_in: false, leveled_up: false });
   }
+
+  const svc = createServiceRoleClient();
+
+  // L6 daily cap: read + bump the per-user battle XP counter (resets per UTC day).
+  const today = new Date().toISOString().slice(0, 10);
+  const { data: prof } = await svc
+    .from('profiles')
+    .select('battle_xp_date, battle_xp_count')
+    .eq('id', user.id)
+    .maybeSingle();
+  const sameDay = (prof?.battle_xp_date as string | null) === today;
+  const usedToday = sameDay ? ((prof?.battle_xp_count as number | null) ?? 0) : 0;
+  if (usedToday >= BATTLE_XP_DAILY_CAP) {
+    return NextResponse.json({
+      xp_earned: 0, signed_in: true, leveled_up: false, capped: true, cap: BATTLE_XP_DAILY_CAP,
+    });
+  }
+  await svc
+    .from('profiles')
+    .update({ battle_xp_date: today, battle_xp_count: usedToday + 1 })
+    .eq('id', user.id);
 
   const amount = won ? 25 : 5;
   const { data: newXpValue } = await supabase.rpc('award_xp', {

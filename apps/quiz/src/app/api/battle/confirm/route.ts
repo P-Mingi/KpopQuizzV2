@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { anonHash } from '@/lib/anon-hash';
 
 import type { NextRequest } from 'next/server';
 
@@ -10,7 +11,10 @@ import type { NextRequest } from 'next/server';
 //    confirm:flag ratio. On promotion, award the signed-in author +20 XP (once).
 //  - flag -> flags++; kill at KILL_FLAGS.
 // Service-role only (clients never write pending_questions counters directly).
-// NOTE (L6): confirms/flags are not yet per-user deduped; flagged for hardening.
+// L6 - per-user dedup: each voter (signed-in user OR anon ip+day hash) can
+// confirm at most once and flag at most once per pending_question. Enforced by
+// inserting into pending_question_votes with a unique (question, voter, action)
+// primary key; a duplicate is treated as a no-op.
 export const dynamic = 'force-dynamic';
 
 const CONFIRM_THRESHOLD = 15;
@@ -41,6 +45,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Already decided -> no-op (cannot confirm/flag a live/killed question).
   if (row.status !== 'pending') {
     return NextResponse.json({ status: row.status, confirms: row.confirms, flags: row.flags, promoted: false });
+  }
+
+  // L6 dedup: identify the voter (authed: 'user:<id>'; anon: sha256(ip+day))
+  // and try to record the (question, voter, action) tuple. The PK rejects a 2nd
+  // confirm or 2nd flag from the same voter on the same question -> no-op.
+  const auth = await createServerClient();
+  const { data: { user } } = await auth.auth.getUser();
+  const voterHash = user ? 'user:' + user.id : anonHash(req);
+  const { error: voteError } = await supabase
+    .from('pending_question_votes')
+    .insert({ question_id: questionId, voter_hash: voterHash, action });
+  if (voteError) {
+    // Unique-violation = already voted that action on this question.
+    return NextResponse.json({
+      status: row.status, confirms: row.confirms, flags: row.flags,
+      promoted: false, already_voted: true,
+    });
   }
 
   let confirms = row.confirms as number;
