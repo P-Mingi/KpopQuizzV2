@@ -2438,6 +2438,7 @@ a.ranking-cta { text-decoration: none; }
 .bp-verdict.is-tie { color: var(--txt2); }
 .bp-async-note { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--txt3); margin: 0 0 18px; }
 .bp-async-note svg { flex-shrink: 0; }
+.bp-xp-pill { align-self: center; background: var(--brand); color: #fff; font-size: 13px; font-weight: 800; padding: 5px 16px; border-radius: 100px; margin: 0 0 16px; }
 .bp-h2h { display: flex; flex-direction: column; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; margin-bottom: 18px; }
 .bp-h2h-row { display: flex; align-items: center; gap: 6px; }
 .bp-h2h-name { width: 84px; flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--txt2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

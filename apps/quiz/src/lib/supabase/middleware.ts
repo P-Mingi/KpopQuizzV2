@@ -19,12 +19,8 @@ const KNOWN_ROUTES = [
   '/sitemap.xml', '/robots.txt',
   // New Phase 4 routes
   '/leaderboard', '/quizzes', '/profile',
-  // Old live-room battle retired (E-cleanup). '/battle' stays a KNOWN prefix on
-  // purpose so it passes through to a real 404 (route files deleted) instead of
-  // being 301'd to home. The new async-ghost battle (E4) will add the route here.
+  // E4: the wired async 1v1 quick-match battle.
   '/battle',
-  // Step E prototype (non-wired async battle UI for sign-off).
-  '/battle-preview',
 ];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
@@ -88,6 +84,11 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
     const to = new URL('/create', request.url);
     to.search = request.nextUrl.search;
     return NextResponse.redirect(to);
+  }
+
+  // E4: the /battle-preview prototype is retired -> redirect to the real /battle.
+  if (pathname === '/battle-preview' || pathname.startsWith('/battle-preview/')) {
+    return NextResponse.redirect(new URL('/battle', request.url));
   }
 
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));

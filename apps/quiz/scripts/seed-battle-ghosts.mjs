@@ -42,17 +42,23 @@ async function main() {
     { headers: H },
   )).json();
 
+  // groups for group-level battles (the /battle topic picker uses group_slug)
+  const groups = await (await fetch(
+    `${URL}/rest/v1/groups?select=slug,quiz_count&order=quiz_count.desc&limit=15`,
+    { headers: H },
+  )).json();
+
   let battlesMade = 0;
   let resultsMade = 0;
-  for (const q of quizzes) {
-    const dist = DIST[q.difficulty] ?? DIST.medium;
+
+  async function seedOne(target /* {quiz_id, group_slug, difficulty} */) {
+    const dist = DIST[target.difficulty] ?? DIST.medium;
     for (let n = 0; n < PER_QUIZ; n++) {
       const score = pick(dist);
-      // one seed battle (complete) per ghost result
       const b = await (await fetch(`${URL}/rest/v1/battles`, {
         method: 'POST', headers: { ...H, Prefer: 'return=representation' },
         body: JSON.stringify({
-          quiz_id: q.id, group_slug: null,
+          quiz_id: target.quiz_id ?? null, group_slug: target.group_slug ?? null,
           question_ids: Array.from({ length: COUNT }, uuid),
           questions: null,
           challenger_hash: seedHash(), challenger_score: score,
@@ -72,6 +78,12 @@ async function main() {
       if (r.ok) resultsMade++;
     }
   }
-  console.log(`Seeded ${resultsMade} ghost results across ${quizzes.length} quizzes (${battlesMade} seed battles).`);
+
+  // quiz-anchored ghosts (direct quiz battles / challenge links)
+  for (const q of quizzes) await seedOne({ quiz_id: q.id, difficulty: q.difficulty });
+  // group-level ghosts (the /battle topic picker creates group battles)
+  for (const g of groups) await seedOne({ group_slug: g.slug, difficulty: 'medium' });
+
+  console.log(`Seeded ${resultsMade} ghost results (${battlesMade} seed battles) across ${quizzes.length} quizzes + ${groups.length} groups.`);
 }
 main();
