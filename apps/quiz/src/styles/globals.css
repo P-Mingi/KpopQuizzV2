@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -25,10 +25,13 @@
   --border:       rgba(26,23,20,0.10);
   --border-h:     rgba(26,23,20,0.20);
 
-  /* ===== Typography ===== */
-  /* DM Sans / Syne don't cover Korean glyphs -> Pretendard fallback for 별 etc. */
-  --font-display: 'Syne', var(--font-pretendard), system-ui, sans-serif;   /* hero titles, mode names, scores */
-  --font-body:    'DM Sans', var(--font-pretendard), system-ui, sans-serif; /* everything else */
+  /* ===== Typography =====
+   * Site-wide: DM Sans (with Pretendard fallback for Korean glyphs).
+   * --font-display is kept as an alias of the body stack so every existing
+   * `var(--font-display)` rule renders in DM Sans without a sweeping rewrite.
+   */
+  --font-body:    'DM Sans', var(--font-pretendard), system-ui, sans-serif;
+  --font-display: var(--font-body);
   --font-sans:    var(--font-body);
 
   /* ===== Type badge palette (§8a / §10d) ===== */
@@ -1548,7 +1551,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .faq-item[open] .faq-chevron { transform: rotate(180deg); }
 
 /* ---------------------------------------------------------------------------
-   J2 - Group trivia page (/[slug]-trivia). Canonical B0 system: Syne hero +
+   J2 - Group trivia page (/[slug]-trivia). Canonical B0 system: DM Sans hero +
    section heads, fact cards with the pink hover lift that matches .quiz-card,
    a badge-token chip per category, staggered fade-in gated by reduced-motion.
    --------------------------------------------------------------------------- */

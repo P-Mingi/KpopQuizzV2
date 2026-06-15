@@ -20,7 +20,7 @@ import type { QuizCardData } from '@/lib/db/types';
 // existing /api/quiz/create, claiming the draft onto the session user after auth.
 // This IS /create (the H10 swap retired the old editor). Anyone can build
 // screens 1-2 with no account; auth is only required at publish, and the draft
-// survives the OAuth round-trip so nothing is lost. B0 tokens, Syne/DM Sans.
+// survives the OAuth round-trip so nothing is lost. B0 tokens, DM Sans.
 // ============================================================
 
 export interface FunnelGroup {
