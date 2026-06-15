@@ -41,6 +41,9 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
   const [levelUpDismissed, setLevelUpDismissed] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [reduceMotion, setReduceMotion] = useState(false);
+  // E5 - challenge mode: a friend opened /battle?b=<id> and plays the SAME 7.
+  const [isChallenge, setIsChallenge] = useState(false);
+  const [challenger, setChallenger] = useState<{ score: number; per_question: boolean[]; handle: string } | null>(null);
 
   const startedAt = useRef(0);
   const advanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -55,8 +58,26 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
 
   const showToast = useCallback((m: string) => { setToast(m); window.setTimeout(() => setToast(null), 2200); }, []);
 
+  // reset per-run play state, then start playing (questions + battleId already set)
+  const beginPlay = useCallback(() => {
+    setAnswers([]);
+    setQIndex(0);
+    setLocked(false);
+    setPicked(null);
+    setTimeLeft(QUESTION_TIME);
+    setGhost(null);
+    setXpEarned(0);
+    setLevelUp(null);
+    setLevelUpDismissed(false);
+    finishingRef.current = false;
+    startedAt.current = Date.now();
+    setPhase('playing');
+  }, []);
+
   const startBattle = useCallback(async () => {
     setPhase('loading');
+    setIsChallenge(false);
+    setChallenger(null);
     // "Any group" -> a random real group so the start API always has a target.
     let groupSlug = topic;
     if (!groupSlug && groups.length > 0) groupSlug = groups[Math.floor(Math.random() * groups.length)]!.slug;
@@ -72,23 +93,40 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       }
       setBattleId(data.battleId);
       setQuestions(data.questions);
-      setAnswers([]);
-      setQIndex(0);
-      setLocked(false);
-      setPicked(null);
-      setTimeLeft(QUESTION_TIME);
-      setGhost(null);
-      setXpEarned(0);
-      setLevelUp(null);
-      setLevelUpDismissed(false);
-      finishingRef.current = false;
-      startedAt.current = Date.now();
-      setPhase('playing');
+      beginPlay();
     } catch {
       showToast('Could not start a battle. Check your connection.');
       setPhase('entry');
     }
-  }, [topic, groups, showToast]);
+  }, [topic, groups, showToast, beginPlay]);
+
+  // E5 - load an incoming challenge (?b=<id>): same 7 questions + the challenger.
+  const loadChallenge = useCallback(async (b: string) => {
+    setPhase('loading');
+    try {
+      const res = await fetch(`/api/battle/${b}`);
+      const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; challenger?: typeof challenger };
+      if (!res.ok || !data.battleId || !data.questions?.length) {
+        showToast('That challenge link is no longer available.');
+        setPhase('entry');
+        return;
+      }
+      setBattleId(data.battleId);
+      setQuestions(data.questions);
+      setChallenger(data.challenger ?? null);
+      setIsChallenge(true);
+      setPhase('entry'); // a challenge-accept intro, then Start -> beginPlay
+    } catch {
+      setPhase('entry');
+    }
+  }, [showToast]);
+
+  // On mount, an incoming challenge link drives the flow.
+  useEffect(() => {
+    const b = new URLSearchParams(window.location.search).get('b');
+    if (b) void loadChallenge(b);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const finishBattle = useCallback(async (finalAnswers: Array<number | null>) => {
     if (finishingRef.current || !battleId) return;
@@ -101,11 +139,18 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ score, per_question: perQuestion, time_ms: timeMs }),
       });
-      const gRes = await fetch(`/api/battle/${battleId}/ghost?score=${score}`);
-      const gData = (await gRes.json()) as { ghost: Ghost };
-      setGhost(gData.ghost);
+      // Challenge mode: the opponent IS the challenger (real head-to-head), not a
+      // random ghost. Otherwise pull an honest ghost.
+      let opponent: Ghost;
+      if (isChallenge && challenger) {
+        opponent = { score: challenger.score, per_question: challenger.per_question, handle: challenger.handle, played_ago: null, cold: false };
+      } else {
+        const gRes = await fetch(`/api/battle/${battleId}/ghost?score=${score}`);
+        opponent = ((await gRes.json()) as { ghost: Ghost }).ghost;
+      }
+      setGhost(opponent);
       if (signedIn) {
-        const won = score > gData.ghost.score;
+        const won = score > opponent.score;
         const xRes = await fetch(`/api/battle/${battleId}/xp`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ won }),
         });
@@ -117,7 +162,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       // Even if scoring services hiccup, show the reveal with what we have.
     }
     setPhase('reveal');
-  }, [battleId, questions, signedIn]);
+  }, [battleId, questions, signedIn, isChallenge, challenger]);
 
   // per-question countdown
   useEffect(() => {
@@ -158,8 +203,25 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
 
   return (
     <div className="bp-screen">
-      {/* ===================== ENTRY ===================== */}
-      {phase === 'entry' && (
+      {/* ===================== ENTRY (challenge accept) ===================== */}
+      {phase === 'entry' && isChallenge && (
+        <div className="bp-body">
+          <span className="bp-eyebrow">1v1 Battle</span>
+          <h1 className="bp-head">You&apos;ve been challenged</h1>
+          <p className="bp-sub">
+            {challenger ? `${challenger.handle} dares you to beat their run.` : 'A fan dares you to beat their run.'} Same
+            7 questions, head to head. Their score stays hidden until you finish.
+          </p>
+          <button type="button" className="bp-start" onClick={beginPlay}>Accept the challenge</button>
+          <p className="bp-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            You play the exact same 7 questions they did.
+          </p>
+        </div>
+      )}
+
+      {/* ===================== ENTRY (quick match) ===================== */}
+      {phase === 'entry' && !isChallenge && (
         <div className="bp-body">
           <span className="bp-eyebrow">1v1 Battle</span>
           <h1 className="bp-head">Quick match</h1>
@@ -237,7 +299,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
           <p className={`bp-verdict is-${verdictKind}`}>{verdict}</p>
           <p className="bp-async-note">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-            {ghost.cold ? 'No one has battled this yet. You set the score to beat!' : `${ghost.handle} played ${ghost.played_ago}`}
+            {isChallenge ? `${ghost.handle} challenged you` : ghost.cold ? 'No one has battled this yet. You set the score to beat!' : `${ghost.handle} played ${ghost.played_ago}`}
           </p>
 
           {xpEarned > 0 && <p className="bp-xp-pill" role="status">+{xpEarned} XP</p>}
@@ -254,10 +316,16 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
           </div>
 
           <div className="bp-cta-row">
-            <button type="button" className="bp-start bp-cta-half" onClick={() => {
-              const url = `${window.location.origin}/battle?b=${battleId}`;
-              void navigator.clipboard?.writeText(url).then(() => showToast('Battle link copied. Send it to a friend!')).catch(() => showToast('Could not copy link'));
-            }}>Challenge a friend</button>
+            {isChallenge ? (
+              <button type="button" className="bp-start bp-cta-half" onClick={() => void startBattle()}>
+                {verdictKind === 'win' ? 'Challenge them back' : 'Start your own battle'}
+              </button>
+            ) : (
+              <button type="button" className="bp-start bp-cta-half" onClick={() => {
+                const url = `${window.location.origin}/battle?b=${battleId}&utm_source=share&utm_medium=social&utm_campaign=battle_challenge`;
+                void navigator.clipboard?.writeText(url).then(() => showToast('Battle link copied. Send it to a friend!')).catch(() => showToast('Could not copy link'));
+              }}>Challenge a friend</button>
+            )}
             <button type="button" className="bp-ghost-btn bp-cta-half" onClick={() => void startBattle()}>New battle</button>
           </div>
 
