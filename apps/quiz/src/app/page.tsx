@@ -46,6 +46,27 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
+// Reserved-space skeletons for each streamed section. These keep the layout
+// below the hero stable while the async data resolves, so nothing "pops" in
+// and CLS stays near zero (was 0.682 per PageSpeed).
+function SkelBlock({ minH }: { minH: string }): React.ReactElement {
+  return (
+    <section className="home-section" aria-hidden="true">
+      <div className="home-skel" style={{ minHeight: minH }} />
+    </section>
+  );
+}
+function SkelDaily(): React.ReactElement {
+  return (
+    <section className="home-section" aria-hidden="true">
+      <div className="daily-twoup">
+        <div className="home-skel home-skel-card" />
+        <div className="home-skel home-skel-card" />
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Async streaming sections ---------- */
 
 async function QotdSection(): Promise<React.ReactElement> {
@@ -138,7 +159,7 @@ export default function HomePage(): React.ReactElement {
       <HomeHero />
 
       {/* 2. Quiz of the day */}
-      <Suspense>
+      <Suspense fallback={<SkelDaily />}>
         <QotdSection />
       </Suspense>
 
@@ -146,12 +167,12 @@ export default function HomePage(): React.ReactElement {
       <HomeBlindtestCta />
 
       {/* 2c. Battle of the day - date-seeded quiz-anchored 1v1 battle */}
-      <Suspense>
+      <Suspense fallback={<SkelBlock minH="84px" />}>
         <BattleOfDay />
       </Suspense>
 
       {/* 3. Trending this week */}
-      <Suspense>
+      <Suspense fallback={<SkelBlock minH="380px" />}>
         <TrendingSection />
       </Suspense>
 
@@ -159,7 +180,7 @@ export default function HomePage(): React.ReactElement {
       <HomeGamesTeaser />
 
       {/* 5. Browse by group */}
-      <Suspense>
+      <Suspense fallback={<SkelBlock minH="120px" />}>
         <GroupSection />
       </Suspense>
 

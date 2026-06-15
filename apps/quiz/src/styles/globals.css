@@ -1252,6 +1252,27 @@ body {
 .home-section { margin-bottom: 32px; }
 @media (min-width: 768px) { .home-section { margin-bottom: 42px; } }
 
+/* CLS guards: reserved-space skeletons for streamed home sections. Heights
+   match the loaded content within ~1 row so the layout below the hero does
+   not shift when async data resolves. */
+.home-skel {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface-alt) 50%, var(--surface) 100%);
+  background-size: 200% 100%;
+  animation: home-skel-shimmer 1.4s ease-in-out infinite;
+}
+.home-skel-card { min-height: 300px; }
+@media (min-width: 720px) { .home-skel-card { min-height: 320px; } }
+@keyframes home-skel-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-skel { animation: none; }
+}
+
 /* §10e - Quiz of the day card */
 .daily-card {
   background: var(--surface);
