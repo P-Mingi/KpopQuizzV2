@@ -25,16 +25,22 @@ export default async function GamesPage() {
 
   const [nameAllGames, totResult, rankings] = await Promise.all([
     safeFetch(getNameAllGames(0, 24), [], '[games] getNameAllGames'),
-    supabase
-      .from('tot_categories')
-      .select('*, tot_items(id, name, color, image_url)')
-      .eq('is_published', true)
-      .order('play_count', { ascending: false })
-      .limit(20),
+    safeFetch(
+      Promise.resolve(
+        supabase
+          .from('tot_categories')
+          .select('*, tot_items(id, name, color, image_url)')
+          .eq('is_published', true)
+          .order('play_count', { ascending: false })
+          .limit(20),
+      ),
+      { data: null } as { data: unknown },
+      '[games] tot_categories',
+    ),
     safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
   ]);
 
-  const totCategories = totResult.data ?? [];
+  const totCategories = (totResult as { data: unknown[] | null }).data ?? [];
 
   return (
     <div className="pb-24">
