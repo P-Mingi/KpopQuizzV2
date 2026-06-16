@@ -40,7 +40,7 @@ export default async function GamesPage() {
     safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
   ]);
 
-  const totCategories = (totResult as { data: unknown[] | null }).data ?? [];
+  const totCategories = ((totResult as { data: unknown[] | null }).data ?? []) as Parameters<typeof GamesHub>[0]['totCategories'];
 
   return (
     <div className="pb-24">
