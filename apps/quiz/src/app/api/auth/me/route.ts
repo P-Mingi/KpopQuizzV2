@@ -8,17 +8,43 @@ import { getLevelInfo } from '@/lib/constants';
 // the layout shell stays static/ISR-cacheable on every public page.
 export const dynamic = 'force-dynamic';
 
+// Hard cap so a slow/saturated Supabase auth never holds the route open long
+// enough to 504 Vercel (and therefore break client hydration upstream). On
+// timeout we return null - the chip falls back to the signed-out state and the
+// page stays fully interactive while auth is degraded.
+const AUTH_TIMEOUT_MS = 2500;
+
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
+}
+
 export async function GET(): Promise<NextResponse> {
   try {
     const supabase = await createServerClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    type UserResult = { data: { user: { id: string; user_metadata?: Record<string, unknown> } | null } };
+    const userRes = await withTimeout<UserResult>(
+      supabase.auth.getUser() as unknown as Promise<UserResult>,
+      AUTH_TIMEOUT_MS,
+      { data: { user: null } },
+    );
+    const user = userRes.data?.user ?? null;
     if (!user) return NextResponse.json({ profile: null });
 
-    const { data } = await supabase
-      .from('profiles')
-      .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp')
-      .eq('id', user.id)
-      .maybeSingle();
+    const profileRes = await withTimeout(
+      Promise.resolve(
+        supabase
+          .from('profiles')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp')
+          .eq('id', user.id)
+          .maybeSingle(),
+      ),
+      AUTH_TIMEOUT_MS,
+      { data: null } as { data: unknown },
+    );
+    const data = (profileRes as { data: Record<string, unknown> | null }).data;
     if (!data) return NextResponse.json({ profile: null });
 
     const info = getLevelInfo((data.xp as number) ?? 0);
@@ -41,7 +67,11 @@ export async function GET(): Promise<NextResponse> {
         progress: info.progress,
       },
     });
-  } catch {
+  } catch (err) {
+    // Fail-soft: any error (AuthUnknownError, network timeout, schema cache
+    // hiccup) returns null with 200 so the client island never throws on
+    // hydrate. Logged so the cause is debuggable in Vercel.
+    console.warn('[api/auth/me] degraded - returning null:', (err as Error)?.message ?? err);
     return NextResponse.json({ profile: null });
   }
 }
