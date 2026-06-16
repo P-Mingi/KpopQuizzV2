@@ -23,7 +23,8 @@
     "register-commands": "node src/registerCommands.js",
     "color-roles": "node src/colorRoles.js",
     "news": "node src/news.js",
-    "leaderboard": "node src/leaderboardPost.js"
+    "leaderboard": "node src/leaderboardPost.js",
+    "youtube": "node src/youtube.js"
   },
   "engines": {
     "node": ">=18.0.0"
