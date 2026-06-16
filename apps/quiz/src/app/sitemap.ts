@@ -99,7 +99,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // build would otherwise hang for 60s per attempt and fail the deploy.
     // 15s is generous (sitemap usually finishes <5s) and well under Vercel's
     // 60s per-page build cap. On timeout we emit just the static URLs below.
-    type Row = { data: unknown[] | null };
+    type Row = { data: Array<Record<string, unknown>> | null };
     const SITEMAP_BATCH_TIMEOUT_MS = 15000;
     const timeoutSentinel = Symbol('sitemap-batch-timeout');
     const raced = await Promise.race([
@@ -145,7 +145,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       slugByGroupId,
     );
 
-    groupPages = (groupsResult.data ?? []).flatMap((g) => {
+    groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string; quiz_count: number | null }>).flatMap((g) => {
       const entries: MetadataRoute.Sitemap = [];
 
       // `-quiz` page renders an empty "be the first" state when quiz_count
@@ -159,7 +159,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
 
-      if (triviaEligibleGroupIds.has(g.id as number)) {
+      if (triviaEligibleGroupIds.has(g.id)) {
         entries.push({
           url: `${SITE_URL}/${g.slug}-trivia`,
           lastModified: new Date(),
@@ -171,14 +171,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return entries;
     });
 
-    quizPages = (quizzesResult.data ?? []).map((q) => ({
+    quizPages = ((quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string }>).map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
       lastModified: new Date(q.updated_at),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
 
-    profilePages = (profilesResult.data ?? []).map((p) => ({
+    profilePages = ((profilesResult.data ?? []) as Array<{ username: string; updated_at: string }>).map((p) => ({
       url: `${SITE_URL}/u/${p.username}`,
       lastModified: new Date(p.updated_at),
       changeFrequency: 'weekly' as const,
@@ -186,13 +186,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     gamePages = [
-      ...(gamesResult.data ?? []).map((g) => ({
+      ...((gamesResult.data ?? []) as Array<{ slug: string; updated_at: string }>).map((g) => ({
         url: `${SITE_URL}/games/name-all/${g.slug}`,
         lastModified: new Date(g.updated_at),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       })),
-      ...(totCategoriesResult.data ?? []).map((c) => ({
+      ...((totCategoriesResult.data ?? []) as Array<{ slug: string; created_at: string }>).map((c) => ({
         url: `${SITE_URL}/games/this-or-that/${c.slug}`,
         lastModified: new Date(c.created_at),
         changeFrequency: 'weekly' as const,
