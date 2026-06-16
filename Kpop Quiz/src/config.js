@@ -233,6 +233,8 @@ export const STRUCTURE = [
         topic: 'Auto-posted K-pop news from around the web. Read-only.' },
       { name: 'youtube', type: 'text', overwrites: readOnly, launchAtStart: true,
         topic: 'New videos from official K-pop YouTube channels. Auto-posted hourly. Read-only.' },
+      { name: 'birthdays', type: 'text', overwrites: readOnly, launchAtStart: true,
+        topic: "Today's idol birthdays, posted automatically every morning. React to wish them happy birthday!" },
     ],
   },
   {
@@ -242,6 +244,10 @@ export const STRUCTURE = [
         topic: 'The main hangout.' },
       { name: 'introduce-yourself', type: 'text', launchAtStart: true, slowmode: 10,
         topic: "Who you stan, where you're from." },
+      { name: 'fan-art', type: 'text', launchAtStart: true,
+        topic: 'Share your kpop fan art, edits, and drawings. OC only — credit artists.' },
+      { name: 'memes', type: 'text', launchAtStart: true,
+        topic: 'Kpop memes, cursed images, stan Twitter energy. Keep it fun.' },
       { name: 'kpop-chat', type: 'text', overwrites: hidden, launchAtStart: false,
         topic: 'General fandom talk.' },
       { name: 'off-topic', type: 'text', overwrites: hidden, launchAtStart: false,
@@ -413,8 +419,8 @@ export const BRAND_COLOR = 0xe8457a;
 
 // Channel display = `${emoji}・${slug}`. Group channels fall back to GROUP_EMOJI.
 export const CHANNEL_EMOJI = {
-  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰', youtube: '▶️',
-  general: '💬', 'introduce-yourself': '🌟', 'kpop-chat': '🎵', 'off-topic': '🌙',
+  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰', youtube: '▶️', birthdays: '🎂',
+  general: '💬', 'introduce-yourself': '🌟', 'fan-art': '🎨', memes: '😭', 'kpop-chat': '🎵', 'off-topic': '🌙',
   hangout: '🔊', 'blindtest-vc': '🎧',
   'daily-quiz': '🧠', 'share-your-quiz': '🎲', 'score-flex': '🏆',
   '1v1-battles': '⚔️', blindtest: '🎧', 'quiz-requests': '📝',
@@ -441,8 +447,11 @@ export const GROUP_COLOR = {};
 export const CHANNEL_INFO = {
   announcements: 'Official kpopquiz news: new features on the site, the daily quiz drop, idol comebacks, and server events. Keep notifications on so you never miss a thing.',
   youtube: 'New videos from official K-pop YouTube channels, posted automatically every hour. React, share the link, then head to the group channel to chat about it.',
+  birthdays: "Every morning we celebrate the idols who share today's date. Drop a birthday reaction and spread the love! 🎂",
   general: 'The main hangout. Talk K-pop, your day, your biases. Anything goes within #rules. New here? Drop a hello! 👋',
   'introduce-yourself': "Tell us who you stan, where you're from, and how you found kpopquiz. We read every intro. 💗",
+  'fan-art': 'Share your kpop fan art, edits, photo manipulations, and drawings. Original content only — if you share someone else\'s art, credit the artist. All groups welcome. 🎨',
+  memes: 'Kpop memes, cursed fancam moments, unhinged stan Twitter energy. If it made you wheeze, drop it here. All groups welcome. 😭',
   'kpop-chat': 'All things K-pop: comebacks, MVs, charts, concerts, hot takes. Keep fanwars out (see #rules).',
   'off-topic': "Everything that isn't K-pop: games, food, memes, life. The cozy corner.",
   'daily-quiz': 'A fresh K-pop quiz drops here every day. Tap **▶ Play in Discord** below (or type the **/dailyquiz** command anywhere) to play right here and keep your **streak**. See the top scores with the **/quizleaderboard** command. Prefer the full version? Play on kpopquiz.org.',

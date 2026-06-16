@@ -24,7 +24,8 @@
     "color-roles": "node src/colorRoles.js",
     "news": "node src/news.js",
     "leaderboard": "node src/leaderboardPost.js",
-    "youtube": "node src/youtube.js"
+    "youtube": "node src/youtube.js",
+    "birthdays": "node src/birthdays.js"
   },
   "engines": {
     "node": ">=18.0.0"
