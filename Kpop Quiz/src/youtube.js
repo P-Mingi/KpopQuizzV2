@@ -1,8 +1,9 @@
 // youtube.js: posts new videos from each group's OFFICIAL YouTube channel into
-// that group's Discord channel. Posts the watch link so Discord renders the
-// native YouTube preview (thumbnail + title) without copying/hosting anything.
-// Reads the free, official per-channel RSS feed. Deduped by scanning the
-// channel's recent messages for the video id, so no state is stored.
+// that group's Discord channel AND the central #youtube feed. Posts the watch
+// link so Discord renders the native YouTube preview (thumbnail + title)
+// without copying/hosting anything. Reads the free, official per-channel RSS
+// feed. Deduped by scanning each channel's recent messages for the video id,
+// so no state is stored.
 //
 //   npm run youtube
 
@@ -38,30 +39,47 @@ async function main() {
   await client.login(process.env.DISCORD_TOKEN);
   if (!client.isReady()) await once(client, Events.ClientReady);
   const guild = await client.guilds.fetch(process.env.GUILD_ID);
-  await guild.channels.fetch(); // populate cache for the by-name fallback (CI has no generated-ids.json)
+  await guild.channels.fetch(); // populate cache for by-name fallback (CI has no generated-ids.json)
   const parser = new Parser({ timeout: 15000, headers: { 'User-Agent': 'Mozilla/5.0 (kpopquiz-bot)' } });
+
+  // Resolve the central #youtube feed channel.
+  let centralChannel = null;
+  if (ids.channels?.youtube) centralChannel = await guild.channels.fetch(ids.channels.youtube).catch(() => null);
+  if (!centralChannel) centralChannel = guild.channels.cache.find((c) => c.type === 0 && c.name.endsWith('youtube'));
+  const seenCentral = centralChannel ? await recentVideoIds(centralChannel) : new Set();
+
   let posted = 0;
 
   for (const [group, ytId] of Object.entries(GROUP_YOUTUBE)) {
     // Resolve the group's Discord channel: stored ID, else by decorated name.
     const s = slug(group);
     let channel = null;
-    if (ids.channels[s]) channel = await guild.channels.fetch(ids.channels[s]).catch(() => null);
+    if (ids.channels?.[s]) channel = await guild.channels.fetch(ids.channels[s]).catch(() => null);
     if (!channel) channel = guild.channels.cache.find((c) => c.type === 0 && c.name.endsWith(s));
-    if (!channel) continue;
 
     let feed;
     try { feed = await parser.parseURL(feedUrl(ytId)); }
     catch (e) { console.error(`${group} feed error:`, e.message); continue; }
 
-    const seen = await recentVideoIds(channel);
+    const seen = channel ? await recentVideoIds(channel) : new Set();
     const fresh = (feed.items || []).slice(0, MAX_PER_GROUP)
       .filter((it) => { const v = videoId(it); return v && !seen.has(v); });
 
     for (const item of fresh.reverse()) {
-      await channel.send({ content: `🎬 **${group}** just posted a new video!\n${item.link}` });
-      posted += 1;
-      await new Promise((s) => setTimeout(s, 800));
+      const vid = videoId(item);
+      // Post to the group channel if it exists.
+      if (channel) {
+        await channel.send({ content: `🎬 **${group}** just posted a new video!\n${item.link}` });
+        posted += 1;
+        await new Promise((s) => setTimeout(s, 800));
+      }
+      // Also post to the central #youtube feed (dedup independently).
+      if (centralChannel && !seenCentral.has(vid)) {
+        await centralChannel.send({ content: `🎬 **${group}** just posted a new video!\n${item.link}` });
+        seenCentral.add(vid);
+        posted += 1;
+        await new Promise((s) => setTimeout(s, 800));
+      }
     }
   }
 
