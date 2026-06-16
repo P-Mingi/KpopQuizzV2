@@ -200,7 +200,7 @@ function buildOverwrites(ch, roleMap) {
 
 async function ensureChannel(guild, ch, cat, overwrites, ids) {
   let channel = (ids.channels[ch.name] && guild.channels.cache.get(ids.channels[ch.name]))
-    || guild.channels.cache.find((c) => c.name === ch.name && c.parentId === cat.id);
+    || guild.channels.cache.find((c) => (c.name === ch.name || c.name.endsWith('・' + ch.name)) && c.parentId === cat.id);
   const type = CHANNEL_TYPE[ch.type] ?? ChannelType.GuildText;
 
   if (channel) {
