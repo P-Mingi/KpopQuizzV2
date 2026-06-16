@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
@@ -27,7 +28,7 @@ function heading(group: string, type: string): string {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const rankings = await getRankingsIndex();
+  const rankings = await safeFetch(getRankingsIndex(), [], '[rankings/meta] getRankingsIndex');
   const anyPublic = rankings.some((r) => r.public);
   const base: Metadata = {
     title: 'K-pop Fan Rankings | KpopQuiz',
@@ -41,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RankingsIndexPage(): Promise<React.ReactElement> {
-  const rankings = await getRankingsIndex();
+  const rankings = await safeFetch(getRankingsIndex(), [], '[rankings] getRankingsIndex');
   const publicRankings = rankings
     .filter((r) => r.public)
     .sort((a, b) => b.total_votes - a.total_votes);
