@@ -174,7 +174,8 @@ async function reorderRoles(guild, roleDefs) {
 
 async function ensureCategory(guild, name, roleMap, ids) {
   let cat = (ids.categories[name] && guild.channels.cache.get(ids.categories[name]))
-    || guild.channels.cache.find((c) => c.type === ChannelType.GuildCategory && c.name === name);
+    || guild.channels.cache.find((c) => c.type === ChannelType.GuildCategory
+        && (c.name === name || c.name.replace(/^『[^』]+』\s*/u, '').toLowerCase() === name.toLowerCase()));
   if (cat) { ids.categories[name] = cat.id; return cat; }
   if (DRY) { ids.categories[name] = ids.categories[name] || `dry:cat:${name}`; return { id: ids.categories[name] }; }
   cat = await guild.channels.create({ name, type: ChannelType.GuildCategory, reason: 'kpopquiz setup' });
