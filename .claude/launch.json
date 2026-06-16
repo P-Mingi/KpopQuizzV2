@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "quiz",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "quiz", "dev"],
+      "port": 3021
+    }
+  ]
+}
