@@ -143,22 +143,63 @@ export const GROUP_CHANNELS = [
   'NewJeans', 'IVE', 'ENHYPEN', 'TXT', 'LE SSERAFIM', 'EXO',
 ];
 
-// Official YouTube channel ID per group (only groups that have a Discord
-// channel). Each was verified against its RSS feed (correct name + live
-// uploads). New videos auto-post to the group's channel via `npm run youtube`.
+// Official YouTube channel IDs — verified against each channel's RSS feed
+// (correct name + live entries). New videos auto-post to group channels and
+// the central #youtube feed via `npm run youtube`. "Official only" policy:
+// fan channels and label-only channels are excluded.
 export const GROUP_YOUTUBE = {
-  'BTS': 'UCLkAepWjdylmXSltofFvsYQ',          // BANGTANTV
-  'BLACKPINK': 'UCOmHUn--16B90oW2L6FRR3A',
-  'Stray Kids': 'UC9rMiEjNaCSsebs31MRDCRA',
-  'TWICE': 'UCzgxx_DM2Dcb9Y1spb9mUJA',
-  'aespa': 'UC9GtSLeksfK4yuJ_g1lgQbg',
-  'SEVENTEEN': 'UCfkXDY7vwkcJ8ddFGz8KusA',
-  'NewJeans': 'UCMki_UkHb4qSc0qyEcOHHJw',
-  'IVE': 'UC-Fnix71vRP64WXeo0ikd0Q',
-  'ENHYPEN': 'UCArLZtok93cO5R9RI4_Y5Jw',
-  'TXT': 'UCtiObj3CsEAdNU6ZPWDsddQ',          // TOMORROW X TOGETHER OFFICIAL
-  'LE SSERAFIM': 'UCs-QBT4qkj_YiQw1ZntDO3g',
-  'EXO': 'UCI11qSMqkCabthSqJtQwfPA',
+  // --- 2nd Gen ---
+  'SHINee':              'UCyPwRgc3gQGqhk6RoGS50Ug',  // SHINee
+  'BIGBANG':             'UCzw-C7fNfs018R1FzIKnlaA',  // BIGBANG
+  'Super Junior':        'UCFipx49muiJ8-d2YsnLlNVw',  // SUPER JUNIOR
+  "Girls' Generation":   'UCPENYtHg4Xhmm6oX8zaQA7Q',  // GIRLS' GENERATION
+  'Apink':               'UCmW1Pq56lA-k-GWpX1z8WPg',  // Apink (에이핑크)
+  // --- 3rd Gen ---
+  'EXO':                 'UCI11qSMqkCabthSqJtQwfPA',  // exo
+  'BTS':                 'UCLkAepWjdylmXSltofFvsYQ',  // BANGTANTV
+  'Red Velvet':          'UCk9GmdlDTBfgGRb7vXeRMoQ',  // Red Velvet
+  'SEVENTEEN':           'UCfkXDY7vwkcJ8ddFGz8KusA',  // SEVENTEEN
+  'TWICE':               'UCzgxx_DM2Dcb9Y1spb9mUJA',  // TWICE
+  'BLACKPINK':           'UCOmHUn--16B90oW2L6FRR3A',  // BLACKPINK
+  'MAMAMOO':             'UCuhAUMLzJxlP1W7mEk0_6lA',  // MAMAMOO
+  'MONSTA X':            'UC3_V7iN57XplhOV3Gd94SGQ',  // Monsta X Official (archive)
+  'NCT':                 'UC2G3s1ooMBdmY6ICBHtEesQ',  // NCT
+  'iKON':                'UC4mu91NEK86LV_a-b27N0qQ',  // IKON YG
+  'Oh My Girl':          'UC-qYkzKFdekoEniRu_FS3zg',  // OH MY GIRL
+  'WJSN':                'UCVaIiqzfKQsi7Qw4-X8TmmA',  // 우주소녀 WJSN
+  'ASTRO':               'UCZqY2yIsAM9wh3vvMwKd27g',  // ASTRO
+  'The Boyz':            'UCkJ1rbOrsyPfBuHNfnLPm-Q',  // THE BOYZ
+  'Dreamcatcher':        'UCijULR2sXLutCRBtW3_WEfA',  // Dreamcatcher official
+  'DAY6':                'UCp-pqXsizklX3ZHvLxXyhxw',  // DAY6
+  // --- 4th Gen ---
+  'Stray Kids':          'UC9rMiEjNaCSsebs31MRDCRA',  // Stray Kids
+  '(G)I-DLE':            'UCcAZEZvmy3C3cCBWaHrfJvA',  // (G)I-DLE Official YouTube Channel
+  'ITZY':                'UCDhM2k2Cua-JdobAh5moMFg',  // ITZY
+  'ATEEZ':               'UC2e4Ukj5Pfr7cb3KpJAFBdQ',  // ATEEZ
+  'TXT':                 'UCtiObj3CsEAdNU6ZPWDsddQ',  // TOMORROW X TOGETHER OFFICIAL
+  'aespa':               'UC9GtSLeksfK4yuJ_g1lgQbg',  // aespa
+  'ENHYPEN':             'UCArLZtok93cO5R9RI4_Y5Jw',  // ENHYPEN
+  'IVE':                 'UC-Fnix71vRP64WXeo0ikd0Q',  // IVE
+  'LE SSERAFIM':         'UCs-QBT4qkj_YiQw1ZntDO3g',  // LE SSERAFIM
+  'NewJeans':            'UCMki_UkHb4qSc0qyEcOHHJw',  // NewJeans
+  'NMIXX':               'UCnUAyD4t2LkvW68YrDh7fDg',  // NMIXX
+  'STAYC':               'UCod5V2dpnpJLklGvVOv5FcQ',  // STAYC
+  'TREASURE':            'UCWdPwo5wZs4h8i5ctGbuzrg',  // TREASURE (트레저)
+  'Purple Kiss':         'UCor8nQnEdMs4eBcU-uVBQ8g',  // PURPLE KISS
+  'Billlie':             'UCyc9sUCxELTDK9vELO5Fzeg',  // Billlie
+  // --- 5th Gen ---
+  'ZEROBASEONE':         'UCSAp0Yl9S0Zq5uDqE6im_XQ',  // ZEROBASEONE
+  'RIIZE':               'UCdVD0MsYecQaIE5Ru-pOIQQ',  // RIIZE
+  'KISS OF LIFE':        'UCvEEeBssb4XxIfWWIB8IjMw',  // KISS OF LIFE
+  'BOYNEXTDOOR':         'UChhKBlh_wvspTh5n4mL0b5g',  // BOYNEXTDOOR
+  'ILLIT':               'UCEpFoWeCMCo5z3EvWaz6hQQ',  // ILLIT
+  'NCT WISH':            'UCiZqWVAeChfqlom5ZPR3ZJA',  // NCT WISH
+  'tripleS':             'UCJnL-TBcsYrF2SLs7tmiC8Q',  // tripleS official
+  'MEOVV':               'UCowiwt93gqGlNG4k5VDxO-w',  // MEOVV
+  '&TEAM':               'UCHD1jo5RhijLfx5-0Ehe_cg',  // &TEAM
+  'TWS':                 'UCZDQ1OJSqH0WYI0QtZzsC6w',  // TWSofficial
+  'izna':                'UCfbYNlxgLuKJXQZEhkMmaCQ',  // izna (이즈나)
+  'ARTMS':               'UChXC6ok0LaZIpf-50SIFf0Q',  // Official ARTMS
 };
 
 // Utility roles. Section 2 / 4.
@@ -190,6 +231,8 @@ export const STRUCTURE = [
     channels: [
       { name: 'news', type: 'text', overwrites: readOnly, launchAtStart: true, isNews: true,
         topic: 'Auto-posted K-pop news from around the web. Read-only.' },
+      { name: 'youtube', type: 'text', overwrites: readOnly, launchAtStart: true,
+        topic: 'New videos from official K-pop YouTube channels. Auto-posted hourly. Read-only.' },
     ],
   },
   {
@@ -370,7 +413,7 @@ export const BRAND_COLOR = 0xe8457a;
 
 // Channel display = `${emoji}・${slug}`. Group channels fall back to GROUP_EMOJI.
 export const CHANNEL_EMOJI = {
-  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰',
+  welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰', youtube: '▶️',
   general: '💬', 'introduce-yourself': '🌟', 'kpop-chat': '🎵', 'off-topic': '🌙',
   hangout: '🔊', 'blindtest-vc': '🎧',
   'daily-quiz': '🧠', 'share-your-quiz': '🎲', 'score-flex': '🏆',
@@ -397,6 +440,7 @@ export const GROUP_COLOR = {};
 // generated card. Idempotent: edits the pinned card on re-run.
 export const CHANNEL_INFO = {
   announcements: 'Official kpopquiz news: new features on the site, the daily quiz drop, idol comebacks, and server events. Keep notifications on so you never miss a thing.',
+  youtube: 'New videos from official K-pop YouTube channels, posted automatically every hour. React, share the link, then head to the group channel to chat about it.',
   general: 'The main hangout. Talk K-pop, your day, your biases. Anything goes within #rules. New here? Drop a hello! 👋',
   'introduce-yourself': "Tell us who you stan, where you're from, and how you found kpopquiz. We read every intro. 💗",
   'kpop-chat': 'All things K-pop: comebacks, MVs, charts, concerts, hot takes. Keep fanwars out (see #rules).',
