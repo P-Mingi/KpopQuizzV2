@@ -1,0 +1,26 @@
+name: Group YouTube Auto-post
+
+# Posts new videos from each group's official YouTube channel into that group's
+# Discord channel (as links, so Discord renders the native preview).
+on:
+  schedule:
+    - cron: '0 * * * *' # hourly
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'Kpop Quiz'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Post YouTube videos
+        run: npm run youtube
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}

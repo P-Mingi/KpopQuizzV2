@@ -143,6 +143,24 @@ export const GROUP_CHANNELS = [
   'NewJeans', 'IVE', 'ENHYPEN', 'TXT', 'LE SSERAFIM', 'EXO',
 ];
 
+// Official YouTube channel ID per group (only groups that have a Discord
+// channel). Each was verified against its RSS feed (correct name + live
+// uploads). New videos auto-post to the group's channel via `npm run youtube`.
+export const GROUP_YOUTUBE = {
+  'BTS': 'UCLkAepWjdylmXSltofFvsYQ',          // BANGTANTV
+  'BLACKPINK': 'UCOmHUn--16B90oW2L6FRR3A',
+  'Stray Kids': 'UC9rMiEjNaCSsebs31MRDCRA',
+  'TWICE': 'UCzgxx_DM2Dcb9Y1spb9mUJA',
+  'aespa': 'UC9GtSLeksfK4yuJ_g1lgQbg',
+  'SEVENTEEN': 'UCfkXDY7vwkcJ8ddFGz8KusA',
+  'NewJeans': 'UCMki_UkHb4qSc0qyEcOHHJw',
+  'IVE': 'UC-Fnix71vRP64WXeo0ikd0Q',
+  'ENHYPEN': 'UCArLZtok93cO5R9RI4_Y5Jw',
+  'TXT': 'UCtiObj3CsEAdNU6ZPWDsddQ',          // TOMORROW X TOGETHER OFFICIAL
+  'LE SSERAFIM': 'UCs-QBT4qkj_YiQw1ZntDO3g',
+  'EXO': 'UCI11qSMqkCabthSqJtQwfPA',
+};
+
 // Utility roles. Section 2 / 4.
 export const UTILITY_ROLES = ['Event Pings'];
 
