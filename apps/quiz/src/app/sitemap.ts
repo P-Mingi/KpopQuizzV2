@@ -95,40 +95,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const supabase = createServiceRoleClient();
 
-    const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult, gamesResult, totCategoriesResult] = await Promise.all([
-      supabase
-        .from('quizzes')
-        .select('slug, updated_at, group_id, questions')
-        .eq('status', 'published')
-        .order('updated_at', { ascending: false })
-        .limit(QUIZZES_LIMIT),
-      supabase
-        .from('groups')
-        .select('id, slug, quiz_count'),
-      supabase
-        .from('profiles')
-        .select('username, updated_at')
-        .gte('total_quizzes_created', 3)
-        .order('total_quizzes_created', { ascending: false })
-        .limit(PROFILES_LIMIT),
-      supabase
-        .from('blind_test_songs')
-        .select('groups!inner(slug)')
-        .eq('status', 'active')
-        .not('clip_chorus', 'is', null)
-        .limit(BT_SONG_LIMIT),
-      supabase
-        .from('games')
-        .select('slug, game_type, updated_at')
-        .eq('status', 'published')
-        .eq('game_type', 'name_all_members')
-        .limit(500),
-      supabase
-        .from('tot_categories')
-        .select('slug, created_at')
-        .eq('is_published', true)
-        .limit(500),
+    // Hard 15s ceiling for the entire sitemap batch. Under a DB outage the
+    // build would otherwise hang for 60s per attempt and fail the deploy.
+    // 15s is generous (sitemap usually finishes <5s) and well under Vercel's
+    // 60s per-page build cap. On timeout we emit just the static URLs below.
+    type Row = { data: unknown[] | null };
+    const SITEMAP_BATCH_TIMEOUT_MS = 15000;
+    const timeoutSentinel = Symbol('sitemap-batch-timeout');
+    const raced = await Promise.race([
+      Promise.all([
+        supabase.from('quizzes').select('slug, updated_at, group_id, questions').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
+        supabase.from('groups').select('id, slug, quiz_count'),
+        supabase.from('profiles').select('username, updated_at').gte('total_quizzes_created', 3).order('total_quizzes_created', { ascending: false }).limit(PROFILES_LIMIT),
+        supabase.from('blind_test_songs').select('groups!inner(slug)').eq('status', 'active').not('clip_chorus', 'is', null).limit(BT_SONG_LIMIT),
+        supabase.from('games').select('slug, game_type, updated_at').eq('status', 'published').eq('game_type', 'name_all_members').limit(500),
+        supabase.from('tot_categories').select('slug, created_at').eq('is_published', true).limit(500),
+      ]),
+      new Promise<typeof timeoutSentinel>((resolve) => setTimeout(() => resolve(timeoutSentinel), SITEMAP_BATCH_TIMEOUT_MS)),
     ]);
+    if (raced === timeoutSentinel) {
+      console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
+      throw new Error('sitemap batch timeout');
+    }
+    const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult, gamesResult, totCategoriesResult] = raced as [Row, Row, Row, Row, Row, Row];
 
     // Dynamic group blind test pages (deduplicated)
     const btGroupSlugs = [
@@ -220,7 +209,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // listed only when at least one ranking is public (otherwise it's a noindex
   // empty hub). Guarded separately so a failure here can't drop the rest.
   try {
-    const publicRankings = (await getRankingsIndex()).filter((r) => r.public);
+    const RANKINGS_TIMEOUT_MS = 5000;
+    const rankingsSentinel = Symbol('rankings-timeout');
+    const rankingsResult = await Promise.race([
+      getRankingsIndex(),
+      new Promise<typeof rankingsSentinel>((resolve) => setTimeout(() => resolve(rankingsSentinel), RANKINGS_TIMEOUT_MS)),
+    ]);
+    if (rankingsResult === rankingsSentinel) {
+      console.warn('[sitemap] rankings index timed out - skipping ranking URLs');
+      throw new Error('rankings index timeout');
+    }
+    const publicRankings = (rankingsResult as Awaited<ReturnType<typeof getRankingsIndex>>).filter((r) => r.public);
     rankingPages = publicRankings.map((r) => ({
       url: `${SITE_URL}/rankings/${r.group_slug}/${r.question_type}`,
       lastModified: new Date(),
