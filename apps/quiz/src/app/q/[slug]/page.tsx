@@ -10,15 +10,43 @@ import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 
-// ISR: cached HTML revalidates hourly. TopNav is now cookie-free (TopNavProfile
-// client island handles auth) and every server query on this page uses
-// createPublicReadClient, so the document can be cached at the edge.
-// generateStaticParams returns [] = no pre-render at build, but enables
-// on-demand ISR: each unique slug is rendered once on first hit and cached
-// for the revalidate window. Drains the GSC "discovered, not indexed" pile.
+// ISR: cached HTML revalidates hourly. The TOP_PRERENDER most-played slugs
+// pre-render at build time so Googlebot hits cold-cache static HTML with
+// zero DB queries - direct relief for the crawl wave that saturates the
+// NANO instance. Anything outside the top N still works via on-demand ISR
+// (Next caches on first request, served from cache thereafter).
 export const revalidate = 3600;
+const TOP_PRERENDER = 1000;
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  return [];
+  // Fail-soft: if the DB is saturated at build time, fall back to [] (every
+  // slug becomes on-demand ISR like before). A degraded build is better
+  // than a failed build.
+  try {
+    const { createPublicReadClient } = await import('@/lib/supabase/server');
+    const supabase = createPublicReadClient();
+    const BUILD_QUERY_TIMEOUT_MS = 10000;
+    const sentinel = Symbol('top-slugs-timeout');
+    const raced = await Promise.race([
+      supabase
+        .from('quizzes')
+        .select('slug')
+        .eq('status', 'published')
+        .order('play_count', { ascending: false })
+        .limit(TOP_PRERENDER),
+      new Promise<typeof sentinel>((resolve) =>
+        setTimeout(() => resolve(sentinel), BUILD_QUERY_TIMEOUT_MS),
+      ),
+    ]);
+    if (raced === sentinel) {
+      console.warn('[q/[slug]] generateStaticParams timed out - on-demand ISR only for this build');
+      return [];
+    }
+    const data = (raced as { data: Array<{ slug: string }> | null }).data;
+    return (data ?? []).map((row) => ({ slug: row.slug }));
+  } catch (err) {
+    console.warn('[q/[slug]] generateStaticParams failed:', (err as Error)?.message ?? err);
+    return [];
+  }
 }
 
 interface QuizPageProps {
