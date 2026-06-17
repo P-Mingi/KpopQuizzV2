@@ -256,9 +256,16 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
                     )}
                     {options.length > 0 && (
                       <ul className="quiz-review-options">
-                        {options.map((opt, j) => (
-                          <li key={j}>{opt}</li>
-                        ))}
+                        {options.map((opt, j) => {
+                          // Image-option quiz types store { label, image_url }
+                          // instead of plain strings. Render the label so React
+                          // doesn't crash trying to render the object directly.
+                          const text =
+                            typeof opt === 'string'
+                              ? opt
+                              : (opt as { label?: string })?.label ?? '';
+                          return <li key={j}>{text}</li>;
+                        })}
                       </ul>
                     )}
                     {q.fun_fact && (
