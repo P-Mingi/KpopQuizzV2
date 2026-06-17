@@ -50,10 +50,18 @@ export async function shareLevelUp(title: string, level: number): Promise<'share
   }
 }
 
-export async function shareToReddit(quizId: string, slug: string, quizTitle: string) {
-  const shareUrl = await getShareUrl(quizId, slug, 'reddit');
+export async function shareToReddit(_quizId: string, slug: string, quizTitle: string) {
   // §7 - Reddit post title = quiz name only (r/Kpop_Verse context makes the
-  // source implicit; the promo suffix reads as spam). UTM stays on shareUrl.
+  // source implicit; the promo suffix reads as spam).
+  //
+  // Reddit-specific: skip UTM + the /s/<code> tracking redirect. Reddit's
+  // automod/anti-spam flags UTM-tagged URLs and tracking redirects and
+  // collapses them into text posts (no rich OG preview card). Submit the
+  // clean canonical /q/<slug> URL so Reddit fetches the OG image directly
+  // and renders the link post with the big card. We lose Reddit-attributed
+  // share tracking - acceptable trade-off for the rich preview.
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const shareUrl = `${origin}/q/${slug}`;
   const shareText = quizTitle;
 
   window.open(
