@@ -465,21 +465,29 @@ export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
   }
   if (data) return toQuizCardData(data as unknown as RawQuizRow);
 
-  // Fallback: bank empty (or ensure_daily_quiz failed). Pick a deterministic
-  // quiz from the top-played catalog so the home QOTD slot is never empty.
-  // Date-seeded so the same quiz shows for everyone for the whole day, then
-  // rotates at the UTC-midnight boundary like the real QOTD would.
+  // Fallback: bank empty (or ensure_daily_quiz failed). Re-cycle through the
+  // quizzes that were ALREADY published from the original bank (any row with
+  // quiz_of_the_day_date IS NOT NULL is one that was a QOTD at some point).
+  // No new rows are inserted - we read existing catalog quizzes only, so this
+  // never pollutes the /quizzes browse list.
+  //
+  // Ordering: by the original quiz_of_the_day_date ASC so today's pick is the
+  // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
+  // restart date so the rotation stays stable across redeploys.
   try {
-    const FALLBACK_POOL = 50;
     const { data: pool, error: poolErr } = await admin
       .from('quizzes')
       .select(QUIZ_CARD_SELECT)
       .eq('status', 'published')
-      .order('play_count', { ascending: false })
-      .limit(FALLBACK_POOL);
+      .not('quiz_of_the_day_date', 'is', null)
+      .order('quiz_of_the_day_date', { ascending: true });
     if (poolErr || !pool || pool.length === 0) return null;
-    const dayIdx = Math.floor(Date.now() / 86_400_000);
-    const pick = pool[dayIdx % pool.length];
+
+    // Day 0 of the restart = 2026-06-18 (the day the original bank ran out).
+    const RESTART_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
+    const daysSinceAnchor = Math.max(0, Math.floor((Date.now() - RESTART_ANCHOR_MS) / 86_400_000));
+    const pickIdx = daysSinceAnchor % pool.length;
+    const pick = pool[pickIdx];
     if (!pick) return null;
     return toQuizCardData(pick as unknown as RawQuizRow);
   } catch (err) {
