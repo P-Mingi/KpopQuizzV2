@@ -461,11 +461,31 @@ export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
 
   if (error) {
     console.error('[getQuizOfTheDay]', error.message);
-    return null;
+    // fall through to the fallback so a transient DB error doesn't blank out the slot
   }
   if (data) return toQuizCardData(data as unknown as RawQuizRow);
 
-  return null;
+  // Fallback: bank empty (or ensure_daily_quiz failed). Pick a deterministic
+  // quiz from the top-played catalog so the home QOTD slot is never empty.
+  // Date-seeded so the same quiz shows for everyone for the whole day, then
+  // rotates at the UTC-midnight boundary like the real QOTD would.
+  try {
+    const FALLBACK_POOL = 50;
+    const { data: pool, error: poolErr } = await admin
+      .from('quizzes')
+      .select(QUIZ_CARD_SELECT)
+      .eq('status', 'published')
+      .order('play_count', { ascending: false })
+      .limit(FALLBACK_POOL);
+    if (poolErr || !pool || pool.length === 0) return null;
+    const dayIdx = Math.floor(Date.now() / 86_400_000);
+    const pick = pool[dayIdx % pool.length];
+    if (!pick) return null;
+    return toQuizCardData(pick as unknown as RawQuizRow);
+  } catch (err) {
+    console.error('[getQuizOfTheDay] fallback failed:', err);
+    return null;
+  }
 }
 
 export async function checkSlugExists(slug: string): Promise<boolean> {
