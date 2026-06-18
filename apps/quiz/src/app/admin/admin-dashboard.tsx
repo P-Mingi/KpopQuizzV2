@@ -808,6 +808,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         </div>
         <div className="flex items-center gap-3">
           {loading && <span className="text-xs text-tertiary">Loading...</span>}
+          <a
+            href="/admin/dm"
+            className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary hover:bg-elevated transition-colors"
+          >
+            Send DM
+          </a>
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}

@@ -5,7 +5,7 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 
 import type { NextRequest } from 'next/server';
 
-export type NotificationType = 'milestone' | 'rating' | 'comment' | 'trending';
+export type NotificationType = 'milestone' | 'rating' | 'comment' | 'trending' | 'admin_dm';
 
 export interface NotificationRow {
   id: string;
@@ -16,6 +16,8 @@ export interface NotificationRow {
   quiz_id: string | null;
   /** Slug of the linked quiz (joined via quiz_id). Used for building /q/{slug} URLs. */
   quiz_slug: string | null;
+  /** Optional click-through URL set by admin DMs (e.g. Discord invite). */
+  link_url: string | null;
   is_read: boolean;
   created_at: string;
 }
@@ -27,6 +29,7 @@ interface NotificationDbRow {
   title: string;
   body: string | null;
   quiz_id: string | null;
+  link_url: string | null;
   is_read: boolean;
   created_at: string;
   quizzes: { slug: string } | null;
@@ -61,7 +64,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     supabase
       .from('creator_notifications')
       .select(
-        'id, user_id, type, title, body, quiz_id, is_read, created_at, quizzes:quiz_id (slug)',
+        'id, user_id, type, title, body, quiz_id, link_url, is_read, created_at, quizzes:quiz_id (slug)',
       )
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
@@ -87,6 +90,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       body: row.body,
       quiz_id: row.quiz_id,
       quiz_slug: row.quizzes?.slug ?? null,
+      link_url: row.link_url,
       is_read: row.is_read,
       created_at: row.created_at,
     }),

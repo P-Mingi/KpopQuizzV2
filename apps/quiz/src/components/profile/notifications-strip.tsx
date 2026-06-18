@@ -132,6 +132,24 @@ function NotificationCard({ notification }: { notification: NotificationRow }): 
     </div>
   );
 
+  // Admin DMs win: if the admin set a click-through URL, use it. External URLs
+  // open in a new tab; internal routes use Next routing.
+  if (notification.type === 'admin_dm' && notification.link_url) {
+    const url = notification.link_url;
+    const external = /^https?:\/\//.test(url);
+    if (external) {
+      return (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="block">
+          {inner}
+        </a>
+      );
+    }
+    return (
+      <Link href={url} className="block">
+        {inner}
+      </Link>
+    );
+  }
   // Link to the quiz if the notification is attached to one.
   if (notification.quiz_slug) {
     return (
@@ -153,6 +171,8 @@ function iconFor(type: NotificationRow['type']): string {
       return 'c';
     case 'trending':
       return '^';
+    case 'admin_dm':
+      return '@';
     default:
       return '.';
   }
