@@ -5,6 +5,7 @@ import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/que
 import { getPassRate } from '@/lib/db/queries/plays';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
+import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -201,6 +202,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       />
 
       <QuizPlayer quiz={quizIntro} />
+
+      {/* Owner / admin actions (Edit, Delete, Remove). Renders nothing for
+          everyone else - client island so the page shell stays cacheable. */}
+      <QuizOwnerActions quizId={quiz.id} creatorId={quizIntro.creatorId} />
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>

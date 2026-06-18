@@ -8,6 +8,8 @@ export interface DraftQuestion {
   question: string;
   answers: [string, string, string, string];
   correctIndex: number | null;
+  /** Optional reveal-time blurb shown after each question (server: fun_fact). */
+  funFact?: string;
 }
 
 export interface Draft {
@@ -41,7 +43,7 @@ const STEP_KEY = 'kq_create_step_v1';
 const MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export function blankQuestion(): DraftQuestion {
-  return { question: '', answers: ['', '', '', ''], correctIndex: null };
+  return { question: '', answers: ['', '', '', ''], correctIndex: null, funFact: '' };
 }
 
 export function isQuestionComplete(q: DraftQuestion): boolean {

@@ -137,6 +137,9 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           question: q.question.trim(),
           options: q.answers.map((a) => a.trim()),
           correct: q.correctIndex,
+          ...(q.funFact && q.funFact.trim()
+            ? { fun_fact: q.funFact.trim() }
+            : {}),
         })),
         settings: { timer: true, timer_seconds: 15, shuffle: false, show_answers: true },
       };
@@ -398,6 +401,24 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
                   <input className="cf-answer-input" value={a} onChange={(e) => setAnswer(ai, e.target.value)} placeholder={`Answer ${ai + 1}`} aria-label={`Answer ${ai + 1}`} maxLength={200} />
                 </div>
               ))}
+            </div>
+            {/* Optional reveal-time blurb shown after the answer (matches the
+                in-play "FUN FACT" card). Same visual rhythm as the rest of the
+                funnel: subtle helper label, full-width input. */}
+            <div className="cf-funfact">
+              <label className="cf-funfact-label" htmlFor={`cf-funfact-${qIndex}`}>
+                Fun fact <span className="cf-funfact-optional">(optional, shown after the answer)</span>
+              </label>
+              <textarea
+                id={`cf-funfact-${qIndex}`}
+                className="cf-funfact-input"
+                value={cur.funFact ?? ''}
+                onChange={(e) => patchQuestion({ funFact: e.target.value.slice(0, 280) })}
+                placeholder="e.g. Jin's Epiphany is the intro track to Love Yourself: Answer."
+                maxLength={280}
+                rows={2}
+              />
+              <span className="cf-funfact-counter">{(cur.funFact ?? '').length}/280</span>
             </div>
             {data.questions.length > 1 && <button type="button" className="cf-remove" onClick={removeQuestion}>Remove this question</button>}
           </div>

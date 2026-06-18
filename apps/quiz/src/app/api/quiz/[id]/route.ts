@@ -204,3 +204,50 @@ export async function PUT(
 
   return NextResponse.json({ success: true, slug: existing.slug });
 }
+
+/**
+ * DELETE /api/quiz/[id]
+ * Owner-only soft delete (status='removed'), same shape the admin remove uses.
+ * Anyone else gets 403; missing auth gets 401. Removed quizzes drop out of
+ * browse/sitemap/queries and 404 their slug pages.
+ */
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse> {
+  const { id } = await params;
+  const supabase = await createServerClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { data: existing } = await supabase
+    .from('quizzes')
+    .select('id, creator_id, status')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (!existing) {
+    return NextResponse.json({ error: 'Quiz not found' }, { status: 404 });
+  }
+  if (existing.creator_id !== user.id) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+  if (existing.status === 'removed') {
+    return NextResponse.json({ success: true, alreadyRemoved: true });
+  }
+
+  const { error: removeError } = await supabase
+    .from('quizzes')
+    .update({ status: 'removed', updated_at: new Date().toISOString() })
+    .eq('id', id);
+
+  if (removeError) {
+    console.error('Failed to delete own quiz:', removeError);
+    return NextResponse.json({ error: 'Failed to delete quiz' }, { status: 500 });
+  }
+
+  return NextResponse.json({ success: true });
+}
