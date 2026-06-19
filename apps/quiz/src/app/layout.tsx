@@ -7,6 +7,7 @@ import { TopNav } from '@/components/layout/top-nav';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
+import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
 
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
             <Suspense fallback={<TopNavSkeleton />}>
               <TopNav />
             </Suspense>
+            <MobileTopBar />
             <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
               {children}
             </main>

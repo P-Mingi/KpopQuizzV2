@@ -567,11 +567,24 @@ body {
 
 /* Responsive navigation */
 .mobile-tab-bar { display: none; }
+.mobile-top-bar { display: none; }
 .top-nav { display: block; }
 
 @media (max-width: 767px) {
   .top-nav { display: none; }
   .mobile-tab-bar { display: block; }
+  .mobile-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: 10px 16px;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
   body { padding-bottom: 72px; }
 }
 
