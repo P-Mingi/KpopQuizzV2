@@ -2894,6 +2894,24 @@ a.ranking-cta { text-decoration: none; }
 .scm-cancel:hover { color: var(--txt1); }
 .scm-btn-spin { width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; animation: btSpin 700ms linear infinite; }
 
+/* Reddit image-post section inside the share modal */
+.scm-reddit-img { margin-bottom: 14px; }
+.scm-reddit-img-label { font-size: 12px; font-weight: 700; color: var(--txt2); margin: 0 0 10px; }
+.scm-reddit-img-tip { font-weight: 500; color: var(--txt3); }
+.scm-reddit-img-subs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.scm-sub-chip { padding: 4px 10px; border-radius: 100px; border: 1.5px solid var(--border); background: var(--surface-alt); color: var(--txt2); font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color 120ms, color 120ms; white-space: nowrap; }
+.scm-sub-chip:hover { border-color: #FF4500; color: #FF4500; }
+.scm-sub-chip.on { border-color: #FF4500; color: #FF4500; background: rgba(255,69,0,0.08); }
+.scm-reddit-img-row { display: flex; align-items: center; gap: 6px; }
+.scm-reddit-img-prefix { font-size: 14px; font-weight: 700; color: var(--txt3); flex-shrink: 0; }
+.scm-sub-input { flex: 1; min-height: 44px; width: auto; }
+.scm-reddit-img-btn { flex-shrink: 0; min-height: 44px; padding: 0 18px; font-size: 14px; white-space: nowrap; }
+.scm-reddit-img-success { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--correct); margin-bottom: 10px; }
+.scm-reddit-img-success a { color: var(--correct); text-decoration: underline; }
+.scm-reddit-img-success a:hover { opacity: 0.8; }
+.scm-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0 8px; }
+.scm-reddit-img-or { font-size: 11.5px; color: var(--txt3); margin: 0 0 12px; text-align: center; }
+
 .scm-close:focus-visible, .scm-swatch:focus-visible, .scm-range:focus-visible, .scm-share-btn:focus-visible, .scm-cancel:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .scm-backdrop, .scm-card { animation: none; }

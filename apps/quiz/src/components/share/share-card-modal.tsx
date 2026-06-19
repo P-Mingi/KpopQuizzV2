@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { shareToReddit, shareToTwitter, shareToDiscord } from '@/lib/share';
 
+const POPULAR_KPOP_SUBS = ['kpop', 'Kpop_Verse', 'kpopthoughts', 'kpophelp', 'bangtan', 'BLACKPINK', 'Stray_Kids', 'GOT7', 'TWICE', 'aespa'];
+
 // H6/H8 share-card customizer. Creator (canEdit) gets the live editor + Save &
 // share (persists via the creator-only route, drives the H5 /api/og params).
 // Non-creator gets a read-only preview of the saved card + plain share buttons.
@@ -44,6 +46,9 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
   const [previewLoading, setPreviewLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [discordCopied, setDiscordCopied] = useState<null | 'ok' | 'fail'>(null);
+  const [subreddit, setSubreddit] = useState('kpop');
+  const [imagePosting, setImagePosting] = useState(false);
+  const [imagePostResult, setImagePostResult] = useState<{ url: string } | { error: string } | null>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const cfg = PLATFORM[platform];
@@ -89,6 +94,29 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
     else { const ok = await shareToDiscord(quizId, slug); setDiscordCopied(ok ? 'ok' : 'fail'); }
   };
 
+  const handleImagePost = async () => {
+    if (!subreddit.trim() || imagePosting) return;
+    setImagePosting(true);
+    setImagePostResult(null);
+    try {
+      const res = await fetch('/api/share/reddit-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, subreddit: subreddit.trim(), title: title.trim() || quizTitle }),
+      });
+      const data = await res.json() as { postUrl?: string; error?: string };
+      if (!res.ok || data.error) {
+        setImagePostResult({ error: data.error ?? `Error ${res.status}` });
+      } else {
+        setImagePostResult({ url: data.postUrl ?? '' });
+      }
+    } catch (err) {
+      setImagePostResult({ error: (err as Error).message ?? 'Network error' });
+    } finally {
+      setImagePosting(false);
+    }
+  };
+
   // Creator: persist the config, then open the platform this modal was opened for.
   const saveAndShare = async () => {
     setSaving(true);
@@ -123,6 +151,63 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
           )}
           {previewLoading && <span className="scm-preview-spin" aria-hidden="true" />}
         </div>
+
+        {/* Reddit image post - shows in feed (any subreddit) */}
+        {platform === 'reddit' && (
+          <div className="scm-reddit-img">
+            <p className="scm-reddit-img-label">
+              Post the card as an image
+              <span className="scm-reddit-img-tip"> (shows full image in feed)</span>
+            </p>
+            {imagePostResult && 'url' in imagePostResult ? (
+              <div className="scm-reddit-img-success">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                Posted!{' '}
+                <a href={imagePostResult.url} target="_blank" rel="noopener noreferrer">View on Reddit</a>
+              </div>
+            ) : (
+              <>
+                <div className="scm-reddit-img-subs" role="group" aria-label="Popular subreddits">
+                  {POPULAR_KPOP_SUBS.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      className={`scm-sub-chip${subreddit === s ? ' on' : ''}`}
+                      onClick={() => setSubreddit(s)}
+                    >
+                      r/{s}
+                    </button>
+                  ))}
+                </div>
+                <div className="scm-reddit-img-row">
+                  <span className="scm-reddit-img-prefix">r/</span>
+                  <input
+                    className="scm-input scm-sub-input"
+                    value={subreddit}
+                    onChange={(e) => setSubreddit(e.target.value.replace(/^r\//, '').replace(/[^a-zA-Z0-9_]/g, ''))}
+                    placeholder="subreddit"
+                    maxLength={21}
+                    aria-label="Subreddit name"
+                  />
+                  <button
+                    type="button"
+                    className="scm-share-btn scm-reddit-img-btn"
+                    style={{ backgroundColor: '#FF4500' }}
+                    disabled={imagePosting || !subreddit.trim()}
+                    onClick={() => void handleImagePost()}
+                  >
+                    {imagePosting ? <span className="scm-btn-spin" aria-hidden="true" /> : 'Post image'}
+                  </button>
+                </div>
+                {imagePostResult && 'error' in imagePostResult && (
+                  <p className="scm-status err" role="alert">{imagePostResult.error}</p>
+                )}
+              </>
+            )}
+            <hr className="scm-divider" />
+            <p className="scm-reddit-img-or">or share as a link post</p>
+          </div>
+        )}
 
         {/* Edit controls - creator only */}
         {canEdit && (
