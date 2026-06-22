@@ -7,6 +7,9 @@ import { join } from 'path';
 import { execSync } from 'child_process';
 
 // ---- BRAND CONSTANTS ----
+const PINTEREST_BOARD = 'K-pop Quiz';
+const SITE_URL = 'https://kpopquiz.org';
+const STORAGE_BUCKET = 'pinterest-brand-pins';
 const W = 1000;
 const H = 1500;
 const PINK = '#E8457A';
@@ -312,13 +315,31 @@ const COMPARISONS: Array<{ headline: string; isVs: boolean; left?: string; right
   { headline: 'K-pop Fan Rankings: Where Do You Stand?', isVs: false, slug: 'fan-rankings', path: '/leaderboard' },
 ];
 
-const SITE = 'kpopquiz.org';
-const makeUrl = (path: string, type: string) => `${SITE}${path}?utm_source=pinterest&utm_medium=pin&utm_campaign=${type}`;
-const descA = (g: string) => `Think you know everything about ${g}? Test your fan knowledge with free quiz games on kpopquiz.org. No signup needed! #kpop #kpopquiz`;
-const descB = (fact: string) => `${fact} Discover more K-pop facts and test your knowledge with free fan-made quizzes on kpopquiz.org. #kpop #kpopfact`;
-const descC = (headline: string, path: string) => `${headline} - take the ${path.includes('blindtest') ? 'blind test' : 'quiz'} on kpopquiz.org! Free K-pop games. #kpop #kpopquiz`;
+const makeUrl = (path: string, type: string) =>
+  `${SITE_URL}${path}?utm_source=pinterest&utm_medium=pin&utm_campaign=${type}`;
 
-interface ManifestEntry { filename: string; pin_type: 'A' | 'B' | 'C'; pin_title: string; description: string; destination_url: string }
+const descA = (g: string) =>
+  `Think you know everything about ${g}? Test your fan knowledge with free quiz games on kpopquiz.org. Play hundreds of quizzes, earn XP, and climb the K-pop leaderboard. No signup needed!`.slice(0, 500);
+const descB = (fact: string) =>
+  `${fact} Discover more K-pop facts and test your knowledge with free fan-made quizzes on kpopquiz.org. No signup needed!`.slice(0, 500);
+const descC = (headline: string, path: string) =>
+  `${headline} - take the ${path.includes('blindtest') ? 'blind test' : 'quiz'} on kpopquiz.org! Free K-pop games made by fans. No signup, 100% free.`.slice(0, 500);
+
+const kwA = (g: string) => `kpop, ${g.toLowerCase()}, kpop quiz, kpop fan, ${g.toLowerCase()} quiz, kpop game`;
+const kwB = (g: string) => `kpop, kpop fact, kpop trivia, kpop quiz, ${g ? g.toLowerCase() + ', ' : ''}kpop knowledge`;
+const kwC = () => 'kpop, kpop quiz, kpop vs, kpop game, kpop fan, best kpop quiz';
+
+interface ManifestEntry {
+  filename: string;
+  pin_type: 'A' | 'B' | 'C';
+  // Pinterest bulk upload columns
+  title: string;
+  media_url: string;
+  board: string;
+  description: string;
+  link: string;
+  keywords: string;
+}
 
 // ---- HANDLER ----
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -358,35 +379,84 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     mkdirSync(tmpDir, { recursive: true });
     const manifest: ManifestEntry[] = [];
 
+    // Ensure storage bucket exists (ignore error if already present)
+    await db.storage.createBucket(STORAGE_BUCKET, { public: true }).catch(() => null);
+
+    async function savePng(fn: string, buf: Buffer): Promise<string> {
+      writeFileSync(join(tmpDir, fn), buf);
+      const storagePath = `brand-pins/${fn}`;
+      await db.storage.from(STORAGE_BUCKET).upload(storagePath, buf, { contentType: 'image/png', upsert: true });
+      const { data } = db.storage.from(STORAGE_BUCKET).getPublicUrl(storagePath);
+      return data.publicUrl;
+    }
+
     for (const g of groups.slice(0, 120)) {
       const fn = `A-${g.slug}.png`;
-      writeFileSync(join(tmpDir, fn), await elementToPng(<TemplateA groupName={g.name} mascotUri={mascotDefault} />, fonts));
-      manifest.push({ filename: fn, pin_type: 'A', pin_title: `Are you a real ${g.name} fan? Take the quiz`, description: descA(g.name), destination_url: makeUrl(`/${g.slug}-quiz`, 'group-quiz') });
+      const buf = await elementToPng(<TemplateA groupName={g.name} mascotUri={mascotDefault} />, fonts);
+      const mediaUrl = await savePng(fn, buf);
+      manifest.push({
+        filename: fn, pin_type: 'A',
+        title: `Are you a real ${g.name} fan? Take the quiz`.slice(0, 100),
+        media_url: mediaUrl,
+        board: PINTEREST_BOARD,
+        description: descA(g.name),
+        link: makeUrl(`/${g.slug}-quiz`, 'group-quiz'),
+        keywords: kwA(g.name),
+      });
     }
 
     for (let i = 0; i < Math.min(facts.length, 40); i++) {
       const f = facts[i]!;
       const fn = `B-${f.groupSlug}-${i}.png`;
-      writeFileSync(join(tmpDir, fn), await elementToPng(<TemplateB fact={f.fact} groupName={f.groupName} mascotUri={mascotCelebrate} />, fonts));
-      manifest.push({ filename: fn, pin_type: 'B', pin_title: `K-pop fact: ${f.fact.slice(0, 80)}`, description: descB(f.fact), destination_url: makeUrl(`/${f.groupSlug}-quiz`, 'trivia-fact') });
+      const buf = await elementToPng(<TemplateB fact={f.fact} groupName={f.groupName} mascotUri={mascotCelebrate} />, fonts);
+      const mediaUrl = await savePng(fn, buf);
+      manifest.push({
+        filename: fn, pin_type: 'B',
+        title: `K-pop fact: ${f.fact.slice(0, 75)}`.slice(0, 100),
+        media_url: mediaUrl,
+        board: PINTEREST_BOARD,
+        description: descB(f.fact),
+        link: makeUrl(`/${f.groupSlug}-quiz`, 'trivia-fact'),
+        keywords: kwB(f.groupName),
+      });
     }
 
     for (const c of COMPARISONS.slice(0, 40)) {
       const fn = `C-${c.slug}.png`;
-      writeFileSync(join(tmpDir, fn), await elementToPng(<TemplateC headline={c.headline} isVs={c.isVs} leftName={c.left} rightName={c.right} mascotUri={mascotDefault} />, fonts));
-      manifest.push({ filename: fn, pin_type: 'C', pin_title: c.headline.slice(0, 100), description: descC(c.headline, c.path), destination_url: makeUrl(c.path, 'comparison') });
+      const buf = await elementToPng(<TemplateC headline={c.headline} isVs={c.isVs} leftName={c.left} rightName={c.right} mascotUri={mascotDefault} />, fonts);
+      const mediaUrl = await savePng(fn, buf);
+      manifest.push({
+        filename: fn, pin_type: 'C',
+        title: c.headline.slice(0, 100),
+        media_url: mediaUrl,
+        board: PINTEREST_BOARD,
+        description: descC(c.headline, c.path),
+        link: makeUrl(c.path, 'comparison'),
+        keywords: kwC(),
+      });
     }
 
-    const csvLines = ['filename,pin_type,pin_title,description,destination_url',
-      ...manifest.map((m) => `"${m.filename}","${m.pin_type}","${m.pin_title.replace(/"/g, '""')}","${m.description.replace(/"/g, '""')}","${m.destination_url}"`)];
-    writeFileSync(join(tmpDir, 'manifest.csv'), csvLines.join('\n'), 'utf-8');
-    writeFileSync(join(tmpDir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf-8');
+    // Pinterest bulk upload CSV format
+    const q = (s: string) => `"${s.replace(/"/g, '""')}"`;
+    const csvLines = [
+      'Title,Media URL,Pinterest board,Thumbnail,Description,Link,Publish date,Keywords',
+      ...manifest.map((m) =>
+        [q(m.title), q(m.media_url), q(m.board), '', q(m.description), q(m.link), '', q(m.keywords)].join(',')
+      ),
+    ];
+    writeFileSync(join(tmpDir, 'pinterest-pins.csv'), csvLines.join('\n'), 'utf-8');
 
     const zipPath = `${tmpDir}.zip`;
     try {
-      execSync(`zip -j "${zipPath}" "${tmpDir}"/*.png "${tmpDir}"/manifest.csv "${tmpDir}"/manifest.json`, { timeout: 120000 });
+      execSync(`zip -j "${zipPath}" "${tmpDir}"/*.png "${tmpDir}"/pinterest-pins.csv`, { timeout: 120000 });
       const zipBuf = readFileSync(zipPath);
-      return new NextResponse(zipBuf, { headers: { 'Content-Type': 'application/zip', 'Content-Disposition': 'attachment; filename="kpopquiz-brand-pins.zip"', 'Content-Length': String(zipBuf.length) } });
+      return new NextResponse(zipBuf, {
+        headers: {
+          'Content-Type': 'application/zip',
+          'Content-Disposition': 'attachment; filename="kpopquiz-brand-pins.zip"',
+          'Content-Length': String(zipBuf.length),
+        },
+      });
     } catch {
       return NextResponse.json({ count: manifest.length, error: 'zip unavailable; files at ' + tmpDir });
     }
