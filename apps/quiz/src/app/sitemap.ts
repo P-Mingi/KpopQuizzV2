@@ -3,6 +3,7 @@ import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
+import { ARTICLES } from '@/lib/articles/registry';
 
 import type { MetadataRoute } from 'next';
 
@@ -66,20 +67,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/kpop-quiz-2026`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/blind-test`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/blindtest`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/games/this-or-that`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/games/name-all`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
     { url: `${SITE_URL}/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/articles`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+
+    // Portuguese (pt-BR) - live, reviewed, indexable
+    { url: `${SITE_URL}/pt`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/pt/quizzes`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${SITE_URL}/pt/blindtest`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/pt/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/pt/leaderboard`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE_URL}/pt/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${SITE_URL}/pt/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/articles`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/easy-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/pt/hard-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/pt/kpop-quiz-2026`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/pt/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
   ];
+
+  const articlePages: MetadataRoute.Sitemap = ARTICLES.map((a) => ({
+    url: `${SITE_URL}/articles/${a.slug}`,
+    lastModified: new Date(a.updatedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
 
   // Static blind test mode pages (from the in-code catalogue).
   const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map((mode) => ({
-    url: `${SITE_URL}/blind-test/${mode.id}`,
+    url: `${SITE_URL}/blindtest/${mode.id}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.6,
@@ -128,7 +154,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ];
     blindTestGroupPages = btGroupSlugs.map((slug) => ({
-      url: `${SITE_URL}/blind-test/group-${slug}`,
+      url: `${SITE_URL}/blindtest/group-${slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.5,
@@ -240,6 +266,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages,
+    ...articlePages,
     ...blindTestModePages,
     ...blindTestGroupPages,
     ...groupPages,

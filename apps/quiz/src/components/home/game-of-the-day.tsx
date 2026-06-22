@@ -70,12 +70,12 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
             >
               <span className="gotd-faces">
                 <span className="gotd-face-wrap">
-                  {data.a.image ? <img className="gotd-face" src={data.a.image} alt="" loading="lazy" /> : <span className="gotd-face" />}
+                  {data.a.image ? <img className="gotd-face" src={data.a.image} alt={data.a.name} loading="lazy" /> : <span className="gotd-face" />}
                   <span className="gotd-face-name">{data.a.name}</span>
                 </span>
                 <VsBadge />
                 <span className="gotd-face-wrap">
-                  {data.b.image ? <img className="gotd-face" src={data.b.image} alt="" loading="lazy" /> : <span className="gotd-face" />}
+                  {data.b.image ? <img className="gotd-face" src={data.b.image} alt={data.b.name} loading="lazy" /> : <span className="gotd-face" />}
                   <span className="gotd-face-name">{data.b.name}</span>
                 </span>
               </span>

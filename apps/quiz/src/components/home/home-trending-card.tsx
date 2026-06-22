@@ -31,7 +31,7 @@ export function HomeTrendingCard({ quiz, rank, priority = false }: Props) {
         {quiz.cover_image_url && (
           <Image
             src={quiz.cover_image_url}
-            alt=""
+            alt={`${quiz.title} quiz cover`}
             fill
             style={{ objectFit: 'cover' }}
             sizes="200px"

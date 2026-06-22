@@ -9,7 +9,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Hardest K-pop Quizzes -- Only True Stans Can Pass',
   description: 'Think you know everything about K-pop? These are the hardest fan-made quizzes on the internet. Average score under 40%. BTS, BLACKPINK, Stray Kids, and more.',
-  alternates: { canonical: '/hard-kpop-quizzes' },
+  alternates: {
+    canonical: '/hard-kpop-quizzes',
+    languages: {
+      en: '/hard-kpop-quizzes',
+      'pt-BR': '/pt/hard-kpop-quizzes',
+      'x-default': '/hard-kpop-quizzes',
+    },
+  },
   openGraph: {
     title: 'Hardest K-pop Quizzes | KpopQuiz',
     description: 'Only true stans survive these quizzes. Average pass rate under 30%.',

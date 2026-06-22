@@ -28,7 +28,7 @@ export function TrendingRankingsStrip({ items }: { items: RankingIndexItem[] }):
             <li key={`${r.group_slug}:${r.question_type}`} className="trend-item" style={{ animationDelay: `${i * 40}ms` }}>
               <Link href={href} className="trend-card">
                 {r.top_entity?.image ? (
-                  <img className="trend-avatar" src={r.top_entity.image} alt="" loading="lazy" />
+                  <img className="trend-avatar" src={r.top_entity.image} alt={r.top_entity.name} loading="lazy" />
                 ) : (
                   <span className="trend-avatar" />
                 )}

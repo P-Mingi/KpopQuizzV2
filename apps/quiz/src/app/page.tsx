@@ -37,7 +37,14 @@ export const metadata: Metadata = {
     title: 'KpopQuiz - K-pop Quizzes Made by Fans',
     description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups.',
   },
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: '/',
+      'pt-BR': '/pt',
+      'x-default': '/',
+    },
+  },
 };
 
 const SEE_ALL: React.CSSProperties = {

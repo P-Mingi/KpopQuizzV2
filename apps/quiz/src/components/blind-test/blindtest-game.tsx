@@ -59,7 +59,7 @@ function scoreLabel(score: number): string {
   return 'Keep listening';
 }
 
-export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): React.ReactElement {
+export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; hero?: React.ReactNode }): React.ReactElement {
   const [phase, setPhase] = useState<Phase>('setup');
   const [pickKind, setPickKind] = useState<PickKind>('all');
   const [playlist, setPlaylist] = useState('all');
@@ -224,7 +224,7 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
       <div className="bt-screen">
         <div className="bt-setup">
           <span className="bt-kicker">Blind test</span>
-          <h1 className="bt-title">Name that<br /><span className="bt-title-accent">K-pop song</span></h1>
+          {hero ?? <h1 className="bt-title">Name that<br /><span className="bt-title-accent">K-pop song</span></h1>}
           <p className="bt-sub">10 songs. 10 seconds each. Guess the song or the artist from a clip.</p>
 
           <div className="bt-pick-group">
@@ -336,7 +336,7 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
             ) : (
               <div className={`bt-reveal-head ${isCorrect ? 'ok' : 'no'}`} role="status">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {q.reveal.cover && <img src={q.reveal.cover} alt="" className="bt-cover" />}
+                {q.reveal.cover && <img src={q.reveal.cover} alt={`${q.reveal.title} by ${q.reveal.artist} cover art`} className="bt-cover" />}
                 <p className="bt-verdict">{isCorrect ? 'Correct' : selected === null ? 'Time up' : 'Not quite'}</p>
                 <p className="bt-reveal-title">{q.reveal.title}</p>
                 <p className="bt-reveal-artist">{q.reveal.artist}</p>
@@ -438,7 +438,7 @@ export function BlindtestGame({ groups = [] }: { groups?: PickerGroup[] }): Reac
               <div key={q.song_id} className="bt-row">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {q.reveal.cover
-                  ? <img src={q.reveal.cover} alt="" className="bt-row-cover" />
+                  ? <img src={q.reveal.cover} alt={`${q.reveal.title} cover`} className="bt-row-cover" />
                   : <span className="bt-row-cover bt-row-cover-empty" aria-hidden="true" />}
                 <div className="bt-row-info">
                   <p className="bt-row-title">{q.reveal.title}</p>

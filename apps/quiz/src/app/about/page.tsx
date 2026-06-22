@@ -8,7 +8,14 @@ export const metadata: Metadata = {
   title: 'About KpopQuiz',
   description:
     'KpopQuiz is a free, fan-made platform to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and 30+ groups, with mini-games and leaderboards.',
-  alternates: { canonical: '/about' },
+  alternates: {
+    canonical: '/about',
+    languages: {
+      en: '/about',
+      'pt-BR': '/pt/about',
+      'x-default': '/about',
+    },
+  },
   openGraph: {
     title: 'About KpopQuiz',
     description: 'A free, fan-made home for K-pop quizzes, mini-games, and leaderboards.',

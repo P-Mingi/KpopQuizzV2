@@ -12,7 +12,14 @@ export const metadata: Metadata = {
   title: 'K-pop True or False Quizzes',
   description:
     "How well do you really know K-pop facts? Play true or false quizzes about BTS, BLACKPINK, SEVENTEEN, Stray Kids, and 30+ groups. They look easy - they're not.",
-  alternates: { canonical: '/kpop-true-or-false' },
+  alternates: {
+    canonical: '/kpop-true-or-false',
+    languages: {
+      en: '/kpop-true-or-false',
+      'pt-BR': '/pt/kpop-true-or-false',
+      'x-default': '/kpop-true-or-false',
+    },
+  },
   openGraph: {
     title: 'K-pop True or False | KpopQuiz',
     description: "They look easy. They're not. Test your K-pop knowledge.",

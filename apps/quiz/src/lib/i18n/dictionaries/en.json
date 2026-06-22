@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Home",
+    "quizzes": "Quizzes",
+    "games": "Games",
+    "blindtest": "Blindtest",
+    "leaderboard": "Leaderboard",
+    "search": "Search",
+    "create": "Create",
+    "createQuiz": "Create a quiz"
+  },
+  "footer": {
+    "tagline": "Made with ♡ by fans, for fans.",
+    "discover": "Discover",
+    "community": "Community",
+    "support": "Support",
+    "theme": "Theme",
+    "quizzes": "Quizzes",
+    "trivia": "Trivia",
+    "games": "Games",
+    "blindtest": "Blindtest",
+    "rankings": "Rankings",
+    "leaderboard": "Leaderboard",
+    "stats": "Stats",
+    "articles": "Articles",
+    "news": "News",
+    "createQuiz": "Create a quiz",
+    "reddit": "Reddit",
+    "discord": "Discord",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "locale": {
+    "switchTo": "Switch language",
+    "current": "EN"
+  },
+  "home": {
+    "heroTitle": "K-pop quizzes made by fans",
+    "heroSubtitle": "Play and create quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups.",
+    "trendingTitle": "Trending this week",
+    "seeAll": "See all",
+    "browseQuizzes": "Browse quizzes",
+    "createQuiz": "Create a quiz"
+  },
+  "about": {
+    "badge": "Made by fans, for fans",
+    "title": "About",
+    "description": "KpopQuiz is a free community platform where K-pop fans play and create quizzes about their favorite groups, settle debates with mini-games, and compete on the leaderboards.",
+    "statsPlayed": "Quizzes played",
+    "statsCreated": "Quizzes created",
+    "statsFans": "Fans every week",
+    "whatYouCanDo": "What you can do",
+    "fiveQuizTypes": "Five quiz types",
+    "fiveQuizTypesDesc": "Classic multiple choice, Image, Odd-one-out, True or False, and Guess from Clues.",
+    "miniGames": "Mini-games",
+    "miniGamesDesc": "This or That head-to-head matchups, and Name all members against the clock.",
+    "leaderboards": "Leaderboards",
+    "leaderboardsDesc": "Score well to climb the weekly and all-time rankings against other fans.",
+    "madeByFans": "Made by fans",
+    "madeByFansDesc": "Every quiz is created by the community. Make your own in a couple of minutes.",
+    "browseQuizzes": "Browse quizzes",
+    "createQuiz": "Create a quiz",
+    "gotQuestion": "Got a question?",
+    "readFaq": "Read the FAQ"
+  },
+  "faq": {
+    "badge": "Help center",
+    "title": "Frequently asked questions",
+    "subtitle": "Everything you need to know about playing and creating K-pop quizzes on KpopQuiz.",
+    "stillHaveQuestion": "Still have a question?",
+    "getInTouch": "Get in touch",
+    "items": [
+      {
+        "q": "What is KpopQuiz?",
+        "a": "KpopQuiz is a free, fan-made platform where you can play and create K-pop quizzes about your favorite groups, play mini-games, and compete with other fans on the leaderboards."
+      },
+      {
+        "q": "Is KpopQuiz free?",
+        "a": "Yes. Every quiz and mini-game is completely free to play and to create. There is nothing to pay for."
+      },
+      {
+        "q": "Do I need an account to play?",
+        "a": "No. You can play any quiz or game without signing in. Creating a free account lets you save your scores, climb the leaderboard, and build your own quizzes."
+      },
+      {
+        "q": "How do I create my own K-pop quiz?",
+        "a": "Tap \"Create\" in the top bar, choose a quiz type, add your questions and answers, then publish. You can share your quiz with other fans in a couple of minutes."
+      },
+      {
+        "q": "What types of quizzes are there?",
+        "a": "There are five quiz types: Classic multiple choice, Image, Odd-one-out (Intruder), True or False, and Guess from Clues."
+      },
+      {
+        "q": "Which K-pop groups are covered?",
+        "a": "BTS, BLACKPINK, Stray Kids, aespa, NewJeans, TWICE, SEVENTEEN, ENHYPEN, IVE, LE SSERAFIM and 30+ more, with new groups added by the community."
+      },
+      {
+        "q": "What are the mini-games?",
+        "a": "There are two main modes. This or That lets you pick your bias in head-to-head matchups, and Name all members challenges you to type every member of a group before the timer runs out."
+      },
+      {
+        "q": "How does the leaderboard work?",
+        "a": "You earn points by playing quizzes and scoring well. The leaderboard ranks fans both weekly and all-time, so there is always a fresh chance to reach the top."
+      },
+      {
+        "q": "Can I play on my phone?",
+        "a": "Yes. KpopQuiz works in any mobile browser, with no app to install and no download needed."
+      },
+      {
+        "q": "Are the quizzes accurate?",
+        "a": "Quizzes are made by fans who know their groups. The community reports mistakes, and the most-played quizzes rise to the top, so the best content is easy to find."
+      }
+    ]
+  },
+  "landing": {
+    "easy": {
+      "title": "Easy K-pop quizzes",
+      "description": "Perfect for new fans or a quick warm-up. These quizzes have an average pass rate above 70%.",
+      "empty": "No easy quizzes yet.",
+      "createFirst": "Create the first one"
+    },
+    "hard": {
+      "title": "Hard K-pop quizzes",
+      "description": "Think you know everything? These quizzes have an average pass rate below 40%.",
+      "empty": "No hard quizzes yet.",
+      "createFirst": "Create the first one"
+    },
+    "guess": {
+      "title": "Guess the K-pop idol",
+      "description": "Look at the clues and guess which K-pop idol it is. Tests your knowledge of idol facts, debuts, and careers."
+    },
+    "trueOrFalse": {
+      "title": "K-pop True or False",
+      "description": "Test your knowledge with true-or-false statements about K-pop groups, debuts, records, and more."
+    },
+    "quiz2026": {
+      "title": "K-pop Quiz 2026",
+      "description": "The freshest K-pop quizzes of 2026. Test your knowledge of comebacks, debuts, and everything happening this year."
+    }
+  }
+}

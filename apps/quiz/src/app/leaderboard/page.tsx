@@ -22,7 +22,14 @@ export const metadata: Metadata = {
     url: '/leaderboard',
   },
   twitter: { card: 'summary_large_image' },
-  alternates: { canonical: '/leaderboard' },
+  alternates: {
+    canonical: '/leaderboard',
+    languages: {
+      en: '/leaderboard',
+      'pt-BR': '/pt/leaderboard',
+      'x-default': '/leaderboard',
+    },
+  },
 };
 
 export default async function LeaderboardPage(): Promise<React.ReactElement> {

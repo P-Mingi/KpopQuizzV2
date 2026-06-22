@@ -64,7 +64,7 @@ export default async function RankingsIndexPage(): Promise<React.ReactElement> {
             <li key={`${r.group_slug}:${r.question_type}`}>
               <Link href={`/rankings/${r.group_slug}/${r.question_type}`} className="ranking-index-card">
                 {r.top_entity?.image ? (
-                  <img className="ranking-index-avatar" src={r.top_entity.image} alt="" loading="lazy" />
+                  <img className="ranking-index-avatar" src={r.top_entity.image} alt={`${r.top_entity.name} ranked #1`} loading="lazy" />
                 ) : (
                   <span className="ranking-index-avatar" />
                 )}

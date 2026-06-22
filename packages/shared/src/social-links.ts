@@ -20,6 +20,26 @@ export const SOCIAL_LINKS = {
     /** Server (guild) id for the widget.json endpoint. */
     guildId: '1514908800505872465',
   },
+  pinterest: {
+    url: 'https://www.pinterest.com/kpopquizorg/',
+    label: 'KpopQuiz on Pinterest',
+    name: 'Pinterest',
+  },
+  tiktok: {
+    url: 'https://www.tiktok.com/@kpopquiz.org',
+    label: 'KpopQuiz on TikTok',
+    name: 'TikTok',
+  },
+  youtube: {
+    url: 'https://www.youtube.com/@kpopquizorg',
+    label: 'KpopQuiz on YouTube',
+    name: 'YouTube',
+  },
+  instagram: {
+    url: 'https://www.instagram.com/kpopquiz.org/',
+    label: 'KpopQuiz on Instagram',
+    name: 'Instagram',
+  },
 } as const;
 
 export const REDDIT_URL = SOCIAL_LINKS.reddit.url;

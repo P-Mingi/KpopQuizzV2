@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
     '[u/[username] metadata] getProfileByUsername',
   );
 
-  if (!profile) return { title: 'User Not Found' };
+  if (!profile) notFound();
 
   const displayName = profile.display_name ?? profile.username;
   const description = `${displayName}'s K-pop quizzes on KpopQuiz. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;

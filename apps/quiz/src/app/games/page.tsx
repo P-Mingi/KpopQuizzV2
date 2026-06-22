@@ -17,7 +17,21 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'K-pop Games - This or That, Name All Members & More | KpopQuiz',
   description: 'Play free K-pop games: pick your bias in idol tournaments, name all group members before time runs out. BTS, BLACKPINK, SEVENTEEN + 20 groups.',
-  alternates: { canonical: '/games' },
+  alternates: {
+    canonical: '/games',
+    languages: {
+      en: '/games',
+      'pt-BR': '/pt/games',
+      'x-default': '/games',
+    },
+  },
+  openGraph: {
+    title: 'K-pop Games | KpopQuiz',
+    description: 'This or That, Name All Members, blind tests and more. Free K-pop games for every fan.',
+    url: '/games',
+    images: [{ url: '/api/og/page?title=K-pop+Games&subtitle=This+or+That%2C+Name+All+Members%2C+blind+tests+and+more.&accent=%23f59e0b', width: 1200, height: 630, alt: 'K-pop Games on KpopQuiz' }],
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default async function GamesPage() {
@@ -44,6 +58,26 @@ export default async function GamesPage() {
 
   return (
     <div className="pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'K-pop Games',
+            description: 'Free K-pop games: This or That matchups, Name All Members challenges, blind tests, and more.',
+            url: 'https://kpopquiz.org/games',
+            mainEntity: {
+              '@type': 'ItemList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'K-pop Blind Test', url: 'https://kpopquiz.org/blindtest' },
+                { '@type': 'ListItem', position: 2, name: 'This or That', url: 'https://kpopquiz.org/games/this-or-that' },
+                { '@type': 'ListItem', position: 3, name: 'Name All Members', url: 'https://kpopquiz.org/games/name-all' },
+              ],
+            },
+          }),
+        }}
+      />
       <GamesHub nameAllGames={nameAllGames} totCategories={totCategories} rankings={rankings} />
     </div>
   );

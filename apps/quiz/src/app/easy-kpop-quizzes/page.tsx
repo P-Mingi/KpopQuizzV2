@@ -9,7 +9,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Easy K-pop Quizzes for Beginners',
   description: 'New to K-pop? Start with these easy fan-made quizzes. Perfect for beginners and casual fans who want to test their basic knowledge of BTS, BLACKPINK, Stray Kids, and more.',
-  alternates: { canonical: '/easy-kpop-quizzes' },
+  alternates: {
+    canonical: '/easy-kpop-quizzes',
+    languages: {
+      en: '/easy-kpop-quizzes',
+      'pt-BR': '/pt/easy-kpop-quizzes',
+      'x-default': '/easy-kpop-quizzes',
+    },
+  },
   openGraph: {
     title: 'Easy K-pop Quizzes for Beginners | KpopQuiz',
     description: 'Start here -- easy K-pop quizzes perfect for new fans.',

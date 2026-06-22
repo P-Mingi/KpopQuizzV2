@@ -6,7 +6,14 @@ export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions',
   description:
     'Answers to common questions about KpopQuiz: is it free, do you need an account, how to create a K-pop quiz, which groups are covered, the mini-games, and more.',
-  alternates: { canonical: '/faq' },
+  alternates: {
+    canonical: '/faq',
+    languages: {
+      en: '/faq',
+      'pt-BR': '/pt/faq',
+      'x-default': '/faq',
+    },
+  },
   openGraph: {
     title: 'KpopQuiz FAQ',
     description: 'Everything you need to know about playing and creating K-pop quizzes on KpopQuiz.',

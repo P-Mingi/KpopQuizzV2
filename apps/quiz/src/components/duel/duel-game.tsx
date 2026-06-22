@@ -209,7 +209,7 @@ export function DuelGame({
         aria-label={`Vote for ${opt.name}`}
       >
         {opt.image ? (
-          <img className="opt-img" src={opt.image} alt="" loading="lazy" />
+          <img className="opt-img" src={opt.image} alt={opt.name} loading="lazy" />
         ) : (
           <span className="opt-img" />
         )}

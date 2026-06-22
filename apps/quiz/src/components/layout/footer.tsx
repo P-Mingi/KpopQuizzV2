@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Mascot } from '@/components/ui/mascot';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { ThemeToggle } from './theme-toggle';
+import { LocaleSwitcher } from './locale-switcher';
 
 export function Footer(): React.ReactElement {
   return (
@@ -37,6 +38,9 @@ export function Footer(): React.ReactElement {
               { label: 'Blindtest', href: '/blindtest' },
               { label: 'Rankings', href: '/rankings' },
               { label: 'Leaderboard', href: '/leaderboard' },
+              { label: 'Stats', href: '/stats' },
+              { label: 'Articles', href: '/articles' },
+              { label: 'News', href: '/news' },
             ].map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: 'var(--txt2)', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>
             ))}
@@ -77,7 +81,8 @@ export function Footer(): React.ReactElement {
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 9, color: 'var(--txt2)' }}>{'\u00A9'} {new Date().getFullYear()} kpopquiz.org</span>
-          <span className="footer-theme" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <span className="footer-theme" style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+            <LocaleSwitcher />
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--txt3)' }}>Theme</span>
             <ThemeToggle />
           </span>

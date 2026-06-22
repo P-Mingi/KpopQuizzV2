@@ -189,7 +189,7 @@ export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProp
                   <div className={`gc-icon gc-tot${prev ? ' has-img' : ''}`} aria-hidden="true">
                     {prev ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={prev} alt="" loading="lazy" />
+                      <img src={prev} alt={`${c.title} preview`} loading="lazy" />
                     ) : (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
                     )}
@@ -232,7 +232,7 @@ export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProp
                   <div className={`gc-icon gc-nam${prev ? ' has-img' : ''}`} aria-hidden="true">
                     {prev ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={prev} alt="" loading="lazy" />
+                      <img src={prev} alt={`${g.title} preview`} loading="lazy" />
                     ) : (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
                     )}

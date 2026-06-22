@@ -12,7 +12,14 @@ export const metadata: Metadata = {
   title: 'Guess the K-pop Idol - Clue-Based Quizzes',
   description:
     'Can you identify K-pop idols and songs from 3 clues? Play fan-made guess-from-clues quizzes for BTS, BLACKPINK, Stray Kids, SEVENTEEN, and more. Fewer clues = more points.',
-  alternates: { canonical: '/guess-the-kpop-idol' },
+  alternates: {
+    canonical: '/guess-the-kpop-idol',
+    languages: {
+      en: '/guess-the-kpop-idol',
+      'pt-BR': '/pt/guess-the-kpop-idol',
+      'x-default': '/guess-the-kpop-idol',
+    },
+  },
   openGraph: {
     title: 'Guess the K-pop Idol | KpopQuiz',
     description: 'How many clues do you need? Play guess-from-clues K-pop quizzes.',

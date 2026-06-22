@@ -15,15 +15,17 @@ const PROTECTED_PATH_PREFIXES = ['/onboarding', '/settings', '/admin'];
 // public-fast-path because preserving link equity from old URLs doesn't need
 // a Supabase call.
 const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/games', '/blind-test', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/', '/q/', '/g/', '/games', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/rankings',
   '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
-  '/sitemap.xml', '/robots.txt',
-  '/leaderboard', '/quizzes', '/profile',
+  '/sitemap.xml', '/robots.txt', '/llms.txt',
+  '/leaderboard', '/quizzes', '/profile', '/news', '/stats',
+  '/articles',
   '/battle',
+  '/pt',
 ];
 
 function needsAuth(pathname: string): boolean {
@@ -50,6 +52,13 @@ export async function middleware(request: NextRequest) {
 
   // PUBLIC FAST PATH - no Supabase call. Handles the vast majority of traffic.
   if (!needsAuth(pathname)) {
+    // SEO consolidation: /blind-test/* -> /blindtest/* (301 permanent).
+    if (pathname === '/blind-test' || pathname.startsWith('/blind-test/')) {
+      const newPath = pathname.replace('/blind-test', '/blindtest');
+      const to = new URL(newPath, request.url);
+      to.search = request.nextUrl.search;
+      return NextResponse.redirect(to, 301);
+    }
     // H10: retired /create-preview funnel -> /create (preserve any query string).
     if (pathname === '/create-preview' || pathname.startsWith('/create-preview/')) {
       const to = new URL('/create', request.url);

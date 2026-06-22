@@ -58,9 +58,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const { slug } = await params;
   const quiz = await safeFetch(getQuizBySlug(slug), null, '[q/[slug] metadata] getQuizBySlug');
 
-  if (!quiz) {
-    return { title: 'Quiz Not Found' };
-  }
+  if (!quiz) notFound();
 
   const questionLen = (quiz.questions as unknown[]).length;
   const avgScore = quiz.total_completions > 0 && questionLen > 0

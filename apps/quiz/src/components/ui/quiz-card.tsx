@@ -66,7 +66,7 @@ export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.Re
         {quiz.cover_image_url ? (
           <Image
             src={quiz.cover_image_url}
-            alt=""
+            alt={`${quiz.title} quiz cover`}
             fill
             sizes="72px"
             style={{ objectFit: 'cover' }}

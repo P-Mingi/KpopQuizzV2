@@ -16,26 +16,28 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const sp = await searchParams;
 
-  // SEO Fix 7 - consolidating canonical. Keep the meaningful content filters
-  // (group, type, page) but DROP the volatile `sort` param so sort variants are
-  // not treated as duplicate pages. Pagination self-references: ?page=2 is its
-  // own canonical, never collapsed to page 1. Unknown group/type are dropped so
-  // they consolidate to plain /quizzes (which renders the same unfiltered grid).
-  const params = new URLSearchParams();
-
+  // Faceted URL strategy: only single-group is the indexable facet.
+  // /quizzes and /quizzes?group=<valid> self-canonical and stay indexable.
+  // Everything else (sort, type, multi-param combos, search) canonicals to
+  // base /quizzes and gets noindex,follow.
   const groupSlug = first(sp.group);
-  if (groupSlug) {
+  const hasType = first(sp.type) != null;
+  const hasSort = first(sp.sort) != null;
+  const hasSearch = first(sp.search) != null;
+  const pageNum = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
+
+  let validGroup = false;
+  if (groupSlug && !hasType && !hasSort && !hasSearch) {
     const groups = await safeFetch(getAllGroups(), [], '[browse meta] getAllGroups');
-    if (groups.some((g) => g.slug === groupSlug)) params.set('group', groupSlug);
+    validGroup = groups.some((g) => g.slug === groupSlug);
   }
 
-  const typeParam = first(sp.type) as TypeKey | undefined;
-  if (typeParam && TYPE_KEYS.includes(typeParam)) params.set('type', typeParam);
+  const isIndexable = !hasType && !hasSort && !hasSearch && (!groupSlug || validGroup);
 
-  const pageNum = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
-  if (pageNum > 1) params.set('page', String(pageNum));
-
-  const qs = params.toString();
+  const canonicalParams = new URLSearchParams();
+  if (validGroup) canonicalParams.set('group', groupSlug!);
+  if (isIndexable && pageNum > 1) canonicalParams.set('page', String(pageNum));
+  const qs = canonicalParams.toString();
   const canonical = qs ? `/quizzes?${qs}` : '/quizzes';
 
   return {
@@ -48,7 +50,17 @@ export async function generateMetadata(
       url: canonical,
     },
     twitter: { card: 'summary_large_image' },
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      ...(canonical === '/quizzes' ? {
+        languages: {
+          en: '/quizzes',
+          'pt-BR': '/pt/quizzes',
+          'x-default': '/quizzes',
+        },
+      } : {}),
+    },
+    ...(isIndexable ? {} : { robots: { index: false, follow: true } }),
   };
 }
 

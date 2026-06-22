@@ -86,6 +86,23 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         </div>
       </div>
 
+      <Link href={`/blindtest/group-${group.slug}`} className="trivia-entry mt-4">
+        <span className="trivia-entry-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 18V5l12-2v13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="6" cy="18" r="3" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="18" cy="16" r="3" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </span>
+        <span className="trivia-entry-text">
+          <span className="trivia-entry-title">Play the {group.name} blind test</span>
+          <span className="trivia-entry-sub">Guess {group.name} songs from short audio clips</span>
+        </span>
+        <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </Link>
+
       {triviaAvailable && (
         <Link href={`/${group.slug}-trivia`} className="trivia-entry mt-4">
           <span className="trivia-entry-icon">
@@ -145,7 +162,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
               >
                 <div className="flex items-center gap-2 mb-2">
                   {quiz.group_logo_url && (
-                    <img src={quiz.group_logo_url} alt="" className="w-5 h-5 rounded object-contain" />
+                    <img src={quiz.group_logo_url} alt={`${quiz.group_name} logo`} className="w-5 h-5 rounded object-contain" />
                   )}
                   <span className="text-xs font-medium" style={{ color: quiz.group_text_color }}>
                     {quiz.group_name}

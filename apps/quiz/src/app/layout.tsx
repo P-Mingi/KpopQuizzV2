@@ -10,6 +10,7 @@ import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
+import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -118,7 +119,32 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
               name: 'KpopQuiz',
               url: 'https://kpopquiz.org',
               logo: 'https://kpopquiz.org/logo-512.png',
-              sameAs: ['https://reddit.com/r/Kpop_Verse', 'https://discord.gg/X7AW95WFT'],
+              sameAs: [
+                SOCIAL_LINKS.reddit.url,
+                SOCIAL_LINKS.discord.invite,
+                SOCIAL_LINKS.pinterest.url,
+                SOCIAL_LINKS.tiktok.url,
+                SOCIAL_LINKS.youtube.url,
+                SOCIAL_LINKS.instagram.url,
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SiteNavigationElement',
+              name: 'Main Navigation',
+              hasPart: [
+                { '@type': 'WebPage', name: 'Quizzes', url: 'https://kpopquiz.org/quizzes' },
+                { '@type': 'WebPage', name: 'Games', url: 'https://kpopquiz.org/games' },
+                { '@type': 'WebPage', name: 'Blind Test', url: 'https://kpopquiz.org/blindtest' },
+                { '@type': 'WebPage', name: 'Leaderboard', url: 'https://kpopquiz.org/leaderboard' },
+                { '@type': 'WebPage', name: 'Trivia', url: 'https://kpopquiz.org/trivia' },
+                { '@type': 'WebPage', name: 'Rankings', url: 'https://kpopquiz.org/rankings' },
+              ],
             }),
           }}
         />

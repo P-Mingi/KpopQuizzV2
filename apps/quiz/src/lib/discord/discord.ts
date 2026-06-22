@@ -11,7 +11,7 @@ export const EVENT_MENU = 'kq_event_select';
 export const EVENT_ROLES = ['Event Pings'];
 export const COLOR_ROLES = ['Pink', 'Purple', 'Sky', 'Mint', 'Peach', 'Rose', 'Pearl', 'Onyx'];
 
-// Group roles per generation — must match Kpop Quiz/src/config.js GROUPS_BY_GEN.
+// Group roles per generation - must match Kpop Quiz/src/config.js GROUPS_BY_GEN.
 export const GROUPS_BY_GEN: Record<string, string[]> = {
   '1st Gen': ['H.O.T.', 'Sechskies', 'S.E.S.', 'Fin.K.L', 'Shinhwa', 'g.o.d', 'Baby V.O.X'],
   '2nd Gen': ['TVXQ', 'Super Junior', 'BIGBANG', 'Wonder Girls', "Girls' Generation", 'KARA',

@@ -90,7 +90,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={quiz.cover_image_url}
-                alt=""
+                alt={`${quiz.title} quiz cover`}
                 className="w-full h-full object-cover"
               />
             </div>

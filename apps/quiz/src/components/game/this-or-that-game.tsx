@@ -451,7 +451,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
               }}
             >
               {item.image_url ? (
-                <img src={item.image_url} alt="" style={{
+                <img src={item.image_url} alt={item.name} style={{
                   position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
                   objectPosition: 'center 30%',
                 }} />

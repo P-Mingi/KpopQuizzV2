@@ -14,7 +14,14 @@ export const metadata: Metadata = {
   title: 'K-pop Quizzes 2026 - Latest Comebacks & Events',
   description:
     'The freshest K-pop quizzes of 2026. BTS ARIRANG, new debuts, comebacks, and everything happening in K-pop right now. Updated daily by fans.',
-  alternates: { canonical: '/kpop-quiz-2026' },
+  alternates: {
+    canonical: '/kpop-quiz-2026',
+    languages: {
+      en: '/kpop-quiz-2026',
+      'pt-BR': '/pt/kpop-quiz-2026',
+      'x-default': '/kpop-quiz-2026',
+    },
+  },
   openGraph: {
     title: 'K-pop Quizzes 2026 | KpopQuiz',
     description: 'The freshest K-pop quizzes of 2026. Updated daily by fans.',

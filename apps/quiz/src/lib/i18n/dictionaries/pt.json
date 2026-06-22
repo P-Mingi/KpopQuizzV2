@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "quizzes": "Quizzes",
+    "games": "Jogos",
+    "blindtest": "Blind Test",
+    "leaderboard": "Ranking",
+    "search": "Buscar",
+    "create": "Criar",
+    "createQuiz": "Criar um quiz"
+  },
+  "footer": {
+    "tagline": "Feito com ♡ por fas, para fas.",
+    "discover": "Explorar",
+    "community": "Comunidade",
+    "support": "Suporte",
+    "theme": "Tema",
+    "quizzes": "Quizzes",
+    "trivia": "Trivia",
+    "games": "Jogos",
+    "blindtest": "Blind Test",
+    "rankings": "Rankings",
+    "leaderboard": "Ranking",
+    "stats": "Estatisticas",
+    "articles": "Artigos",
+    "news": "Noticias",
+    "createQuiz": "Criar um quiz",
+    "reddit": "Reddit",
+    "discord": "Discord",
+    "about": "Sobre",
+    "faq": "FAQ",
+    "contact": "Contato",
+    "terms": "Termos",
+    "privacy": "Privacidade"
+  },
+  "locale": {
+    "switchTo": "Trocar idioma",
+    "current": "PT"
+  },
+  "home": {
+    "heroTitle": "Quiz de K-pop feito por fas",
+    "heroSubtitle": "Jogue e crie quizzes sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.",
+    "trendingTitle": "Em alta esta semana",
+    "seeAll": "Ver todos",
+    "browseQuizzes": "Explorar quizzes",
+    "createQuiz": "Criar um quiz"
+  },
+  "about": {
+    "badge": "Feito por fas, para fas",
+    "title": "Sobre",
+    "description": "O KpopQuiz e uma plataforma gratuita onde fas de K-pop jogam e criam quizzes sobre seus grupos favoritos, resolvem debates com mini-jogos e competem nos rankings.",
+    "statsPlayed": "Quizzes jogados",
+    "statsCreated": "Quizzes criados",
+    "statsFans": "Fas por semana",
+    "whatYouCanDo": "O que voce pode fazer",
+    "fiveQuizTypes": "Cinco tipos de quiz",
+    "fiveQuizTypesDesc": "Multipla escolha classica, Imagem, Intruso, Verdadeiro ou Falso, e Adivinhe pelas Dicas.",
+    "miniGames": "Mini-jogos",
+    "miniGamesDesc": "Duelos This or That e Nomeie todos os membros contra o relogio.",
+    "leaderboards": "Rankings",
+    "leaderboardsDesc": "Pontue bem para subir nos rankings semanal e geral contra outros fas.",
+    "madeByFans": "Feito por fas",
+    "madeByFansDesc": "Cada quiz e criado pela comunidade. Crie o seu em poucos minutos.",
+    "browseQuizzes": "Explorar quizzes",
+    "createQuiz": "Criar um quiz",
+    "gotQuestion": "Tem alguma duvida?",
+    "readFaq": "Leia o FAQ"
+  },
+  "faq": {
+    "badge": "Central de ajuda",
+    "title": "Perguntas frequentes",
+    "subtitle": "Tudo o que voce precisa saber sobre jogar e criar quizzes de K-pop no KpopQuiz.",
+    "stillHaveQuestion": "Ainda tem alguma duvida?",
+    "getInTouch": "Fale conosco",
+    "items": [
+      {
+        "q": "O que e o KpopQuiz?",
+        "a": "O KpopQuiz e uma plataforma gratuita feita por fas onde voce pode jogar e criar quizzes de K-pop sobre seus grupos favoritos, jogar mini-jogos e competir com outros fas nos rankings."
+      },
+      {
+        "q": "O KpopQuiz e gratuito?",
+        "a": "Sim. Todos os quizzes e mini-jogos sao completamente gratuitos para jogar e criar. Nao ha nada para pagar."
+      },
+      {
+        "q": "Preciso de conta para jogar?",
+        "a": "Nao. Voce pode jogar qualquer quiz ou jogo sem fazer login. Criar uma conta gratuita permite salvar suas pontuacoes, subir no ranking e criar seus proprios quizzes."
+      },
+      {
+        "q": "Como criar meu proprio quiz de K-pop?",
+        "a": "Toque em \"Criar\" na barra superior, escolha um tipo de quiz, adicione suas perguntas e respostas, e publique. Voce pode compartilhar seu quiz com outros fas em poucos minutos."
+      },
+      {
+        "q": "Quais tipos de quiz existem?",
+        "a": "Existem cinco tipos: Multipla escolha classica, Imagem, Intruso, Verdadeiro ou Falso, e Adivinhe pelas Dicas."
+      },
+      {
+        "q": "Quais grupos de K-pop estao disponiveis?",
+        "a": "BTS, BLACKPINK, Stray Kids, aespa, NewJeans, TWICE, SEVENTEEN, ENHYPEN, IVE, LE SSERAFIM e mais de 30 outros, com novos grupos adicionados pela comunidade."
+      },
+      {
+        "q": "O que sao os mini-jogos?",
+        "a": "Existem dois modos principais. This or That permite escolher seu bias em duelos, e Nomeie todos os membros desafia voce a digitar cada membro de um grupo antes do tempo acabar."
+      },
+      {
+        "q": "Como funciona o ranking?",
+        "a": "Voce ganha pontos jogando quizzes e pontuando bem. O ranking classifica fas semanal e geral, entao sempre ha uma nova chance de chegar ao topo."
+      },
+      {
+        "q": "Posso jogar no celular?",
+        "a": "Sim. O KpopQuiz funciona em qualquer navegador mobile, sem precisar instalar app ou fazer download."
+      },
+      {
+        "q": "Os quizzes sao precisos?",
+        "a": "Os quizzes sao feitos por fas que conhecem seus grupos. A comunidade reporta erros, e os quizzes mais jogados sobem para o topo, facilitando encontrar o melhor conteudo."
+      }
+    ]
+  },
+  "landing": {
+    "easy": {
+      "title": "Quizzes faceis de K-pop",
+      "description": "Perfeito para novos fas ou um aquecimento rapido. Estes quizzes tem taxa de acerto acima de 70%.",
+      "empty": "Nenhum quiz facil ainda.",
+      "createFirst": "Crie o primeiro"
+    },
+    "hard": {
+      "title": "Quizzes dificeis de K-pop",
+      "description": "Acha que sabe tudo? Estes quizzes tem taxa de acerto abaixo de 40%.",
+      "empty": "Nenhum quiz dificil ainda.",
+      "createFirst": "Crie o primeiro"
+    },
+    "guess": {
+      "title": "Adivinhe o idol de K-pop",
+      "description": "Veja as dicas e adivinhe qual idol de K-pop e. Teste seu conhecimento sobre fatos, debuts e carreiras dos idols."
+    },
+    "trueOrFalse": {
+      "title": "K-pop Verdadeiro ou Falso",
+      "description": "Teste seu conhecimento com afirmacoes verdadeiras ou falsas sobre grupos de K-pop, debuts, recordes e mais."
+    },
+    "quiz2026": {
+      "title": "Quiz de K-pop 2026",
+      "description": "Os quizzes de K-pop mais recentes de 2026. Teste seu conhecimento sobre comebacks, debuts e tudo que esta acontecendo este ano."
+    }
+  }
+}

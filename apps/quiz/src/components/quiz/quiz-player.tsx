@@ -1232,6 +1232,17 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
           </div>
         )}
+
+        {/* Cross-link: blindtest discovery */}
+        <Link
+          href="/blindtest"
+          className="mt-4 flex items-center gap-2.5 p-3 bg-surface border border-default rounded-xl text-[13px] text-secondary hover:text-primary transition-colors animate-fade-in"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
+            <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
+          </svg>
+          <span>Try the K-pop blind test: guess songs from audio clips</span>
+        </Link>
       </div>
     );
   }
