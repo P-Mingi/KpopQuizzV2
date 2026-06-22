@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { ImageResponse } from '@vercel/og';
-import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { execSync } from 'child_process';
 
 // ---- BRAND CONSTANTS ----
 const PINTEREST_BOARD = 'K-pop Quiz';
@@ -375,15 +374,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   if (mode === 'full') {
     const [groups, facts] = await Promise.all([fetchGroups(db, 120), fetchFacts(db, 50)]);
-    const tmpDir = `/tmp/kpopquiz-brand-pins-${Date.now()}`;
-    mkdirSync(tmpDir, { recursive: true });
     const manifest: ManifestEntry[] = [];
 
-    // Ensure storage bucket exists (ignore error if already present)
     await db.storage.createBucket(STORAGE_BUCKET, { public: true }).catch(() => null);
 
     async function savePng(fn: string, buf: Buffer): Promise<string> {
-      writeFileSync(join(tmpDir, fn), buf);
       const storagePath = `brand-pins/${fn}`;
       await db.storage.from(STORAGE_BUCKET).upload(storagePath, buf, { contentType: 'image/png', upsert: true });
       const { data } = db.storage.from(STORAGE_BUCKET).getPublicUrl(storagePath);
@@ -436,7 +431,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       });
     }
 
-    // Pinterest bulk upload CSV format
     const q = (s: string) => `"${s.replace(/"/g, '""')}"`;
     const csvLines = [
       'Title,Media URL,Pinterest board,Thumbnail,Description,Link,Publish date,Keywords',
@@ -444,22 +438,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         [q(m.title), q(m.media_url), q(m.board), '', q(m.description), q(m.link), '', q(m.keywords)].join(',')
       ),
     ];
-    writeFileSync(join(tmpDir, 'pinterest-pins.csv'), csvLines.join('\n'), 'utf-8');
-
-    const zipPath = `${tmpDir}.zip`;
-    try {
-      execSync(`zip -j "${zipPath}" "${tmpDir}"/*.png "${tmpDir}"/pinterest-pins.csv`, { timeout: 120000 });
-      const zipBuf = readFileSync(zipPath);
-      return new NextResponse(zipBuf, {
-        headers: {
-          'Content-Type': 'application/zip',
-          'Content-Disposition': 'attachment; filename="kpopquiz-brand-pins.zip"',
-          'Content-Length': String(zipBuf.length),
-        },
-      });
-    } catch {
-      return NextResponse.json({ count: manifest.length, error: 'zip unavailable; files at ' + tmpDir });
-    }
+    const csvBuf = Buffer.from(csvLines.join('\n'), 'utf-8');
+    return new NextResponse(csvBuf, {
+      headers: {
+        'Content-Type': 'text/csv',
+        'Content-Disposition': 'attachment; filename="pinterest-pins.csv"',
+        'Content-Length': String(csvBuf.length),
+      },
+    });
   }
 
   return NextResponse.json({ error: 'invalid mode' }, { status: 400 });

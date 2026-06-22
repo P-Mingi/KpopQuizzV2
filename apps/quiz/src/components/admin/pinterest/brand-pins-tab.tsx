@@ -46,22 +46,18 @@ export function BrandPinsTab() {
       });
       if (!res.ok) { setError(`Error ${res.status}`); return; }
 
-      const contentType = res.headers.get('content-type') ?? '';
-      if (contentType.includes('application/zip')) {
-        // Trigger download
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'kpopquiz-brand-pins.zip';
-        a.click();
-        URL.revokeObjectURL(url);
-        setFullResult({ count: 200 });
-      } else {
-        const data = await res.json();
-        setFullResult({ count: data.count ?? 0 });
-        if (data.error) setError(data.error);
-      }
+      const text = await res.text();
+      const count = Math.max(0, text.split('\n').length - 1);
+
+      const blob = new Blob([text], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'pinterest-pins.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+
+      setFullResult({ count });
     } catch (e) {
       setError(String(e));
     } finally {
@@ -84,7 +80,7 @@ export function BrandPinsTab() {
         marginBottom: 16,
       }}>
         <p style={{ fontSize: 10, color: "#555550", margin: 0, lineHeight: 1.5 }}>
-          Generate standalone brand pins (1000x1500px) using templates A (group promo), B (trivia fact), C (comparison). These are separate from per-quiz OG pins.
+          Generate brand pins (1000x1500px): A (group promo), B (trivia fact), C (comparison). PNGs are uploaded to Supabase Storage. You get a ready-to-upload Pinterest CSV with public image URLs.
         </p>
       </div>
 
@@ -156,11 +152,11 @@ export function BrandPinsTab() {
               fontFamily: "inherit",
             }}
           >
-            {fullLoading ? 'Generating (up to 60s)...' : 'Generate All Pins + Download ZIP'}
+            {fullLoading ? 'Generating... (this takes ~60s)' : 'Generate All Pins + Download CSV'}
           </button>
         </div>
         <p style={{ fontSize: 9, color: "#888780", margin: 0 }}>
-          Generates all A/B/C pins from live DB data. Returns a ZIP with all PNGs and manifest.csv.
+          Generates all pins, uploads PNGs to Supabase Storage, and returns a Pinterest bulk-upload CSV. Just upload that CSV to Pinterest.
         </p>
 
         {fullResult && (
@@ -169,7 +165,7 @@ export function BrandPinsTab() {
             background: "rgba(39,174,96,0.06)", border: "1px solid rgba(39,174,96,0.15)",
           }}>
             <p style={{ fontSize: 10, color: "#27ae60", margin: 0 }}>
-              Done - {fullResult.count} pins generated. ZIP download started.
+              Done - {fullResult.count} pins generated. CSV downloaded. Upload it to Pinterest bulk publisher.
             </p>
           </div>
         )}
