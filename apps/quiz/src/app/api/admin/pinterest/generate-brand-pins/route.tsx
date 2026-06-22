@@ -314,8 +314,7 @@ const COMPARISONS: Array<{ headline: string; isVs: boolean; left?: string; right
   { headline: 'K-pop Fan Rankings: Where Do You Stand?', isVs: false, slug: 'fan-rankings', path: '/leaderboard' },
 ];
 
-const makeUrl = (path: string, type: string) =>
-  `${SITE_URL}${path}?utm_source=pinterest&utm_medium=pin&utm_campaign=${type}`;
+const makeUrl = () => SITE_URL;
 
 const descA = (g: string) =>
   `Think you know everything about ${g}? Test your fan knowledge with free quiz games on kpopquiz.org. Play hundreds of quizzes, earn XP, and climb the K-pop leaderboard. No signup needed!`.slice(0, 500);
@@ -395,7 +394,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         media_url: mediaUrl,
         board: PINTEREST_BOARD,
         description: descA(g.name),
-        link: makeUrl(`/${g.slug}-quiz`, 'group-quiz'),
+        link: makeUrl(),
         keywords: kwA(g.name),
       });
     }
@@ -411,7 +410,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         media_url: mediaUrl,
         board: PINTEREST_BOARD,
         description: descB(f.fact),
-        link: makeUrl(`/${f.groupSlug}-quiz`, 'trivia-fact'),
+        link: makeUrl(),
         keywords: kwB(f.groupName),
       });
     }
@@ -426,7 +425,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         media_url: mediaUrl,
         board: PINTEREST_BOARD,
         description: descC(c.headline, c.path),
-        link: makeUrl(c.path, 'comparison'),
+        link: makeUrl(),
         keywords: kwC(),
       });
     }
@@ -438,7 +437,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         [q(m.title), q(m.media_url), q(m.board), '', q(m.description), q(m.link), '', q(m.keywords)].join(',')
       ),
     ];
-    const csvBuf = Buffer.from(csvLines.join('\n'), 'utf-8');
+    // UTF-8 BOM required for Pinterest bulk upload to recognise the file
+    const bom = Buffer.from([0xef, 0xbb, 0xbf]);
+    const csvBuf = Buffer.concat([bom, Buffer.from(csvLines.join('\n'), 'utf-8')]);
     return new NextResponse(csvBuf, {
       headers: {
         'Content-Type': 'text/csv',
