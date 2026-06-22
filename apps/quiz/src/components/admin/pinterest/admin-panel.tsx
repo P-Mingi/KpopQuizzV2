@@ -5,11 +5,13 @@ import { JobsTab } from './jobs-tab';
 import { ReviewTab } from './review-tab';
 import { OriginalsTab } from './originals-tab';
 import { ExportTab } from './export-tab';
+import { BrandPinsTab } from './brand-pins-tab';
 
 const TABS = [
   { id: 'jobs', label: 'Scrape Jobs' },
   { id: 'review', label: 'Review Pins' },
   { id: 'originals', label: 'Originals' },
+  { id: 'brand-pins', label: 'Brand Pins' },
   { id: 'export', label: 'Export CSV' },
 ] as const;
 
@@ -70,6 +72,7 @@ export function PinterestAdminPanel() {
       {tab === 'jobs' && <JobsTab />}
       {tab === 'review' && <ReviewTab />}
       {tab === 'originals' && <OriginalsTab />}
+      {tab === 'brand-pins' && <BrandPinsTab />}
       {tab === 'export' && <ExportTab />}
     </div>
   );
