@@ -47,6 +47,28 @@ to running the script.
       can post the daily quiz in `#daily-quiz` and greet newcomers every day for
       ~4 weeks. A dead server is worse than no server.
 
+## Reddit feed
+
+The `#reddit-feed` channel is created by `npm run setup` but the feed itself
+must be wired up manually via MonitoRSS (free, no host required):
+
+1. Go to https://monitorss.xyz, click **Add to Discord**, and authorize it on
+   the kpopquiz server.
+2. In your Discord server, type `/dashboard` in any channel and click the link
+   it returns.
+3. In the MonitoRSS web panel: **Feeds → Add Feed**, paste this URL exactly:
+   ```
+   https://www.reddit.com/r/Kpop_Verse/new/.rss
+   ```
+   Fallback if Reddit rate-limits it:
+   ```
+   https://old.reddit.com/r/Kpop_Verse/new/.rss
+   ```
+4. Set the destination channel to `#🔴・reddit-feed`.
+5. Save. New posts from r/Kpop_Verse will auto-appear in the channel.
+
+MonitoRSS free tier: up to 5 feeds, checks every 10 minutes. No bot to host.
+
 ## Revealing channels as you grow
 Hidden channels (`#1v1-battles`, `#blindtest`, `#score-flex`, `#quiz-requests`,
 `#kpop-chat`, `#off-topic`, `#suggestions`, `#sneak-peeks`, `#events`, and most

@@ -248,6 +248,8 @@ export const STRUCTURE = [
         topic: 'Share your kpop fan art, edits, and drawings. OC only — credit artists.' },
       { name: 'memes', type: 'text', launchAtStart: true,
         topic: 'Kpop memes, cursed images, stan Twitter energy. Keep it fun.' },
+      { name: 'reddit-feed', type: 'text', overwrites: readOnly, launchAtStart: true,
+        topic: 'New posts from r/Kpop_Verse on Reddit — auto-fed via MonitoRSS.' },
       { name: 'kpop-chat', type: 'text', overwrites: hidden, launchAtStart: false,
         topic: 'General fandom talk.' },
       { name: 'off-topic', type: 'text', overwrites: hidden, launchAtStart: false,
@@ -420,7 +422,7 @@ export const BRAND_COLOR = 0xe8457a;
 // Channel display = `${emoji}・${slug}`. Group channels fall back to GROUP_EMOJI.
 export const CHANNEL_EMOJI = {
   welcome: '👋', rules: '📜', roles: '🎀', announcements: '📢', news: '📰', youtube: '▶️', birthdays: '🎂',
-  general: '💬', 'introduce-yourself': '🌟', 'fan-art': '🎨', memes: '😭', 'kpop-chat': '🎵', 'off-topic': '🌙',
+  general: '💬', 'introduce-yourself': '🌟', 'fan-art': '🎨', memes: '😭', 'reddit-feed': '🔴', 'kpop-chat': '🎵', 'off-topic': '🌙',
   hangout: '🔊', 'blindtest-vc': '🎧',
   'daily-quiz': '🧠', 'share-your-quiz': '🎲', 'score-flex': '🏆',
   '1v1-battles': '⚔️', blindtest: '🎧', 'quiz-requests': '📝',
@@ -452,6 +454,7 @@ export const CHANNEL_INFO = {
   'introduce-yourself': "Tell us who you stan, where you're from, and how you found kpopquiz. We read every intro. 💗",
   'fan-art': 'Share your kpop fan art, edits, photo manipulations, and drawings. Original content only — if you share someone else\'s art, credit the artist. All groups welcome. 🎨',
   memes: 'Kpop memes, cursed fancam moments, unhinged stan Twitter energy. If it made you wheeze, drop it here. All groups welcome. 😭',
+  'reddit-feed': 'New posts from r/Kpop_Verse on Reddit, delivered here automatically. Read-only — react and then head to #general to chat about anything you see.',
   'kpop-chat': 'All things K-pop: comebacks, MVs, charts, concerts, hot takes. Keep fanwars out (see #rules).',
   'off-topic': "Everything that isn't K-pop: games, food, memes, life. The cozy corner.",
   'daily-quiz': 'A fresh K-pop quiz drops here every day. Tap **▶ Play in Discord** below (or type the **/dailyquiz** command anywhere) to play right here and keep your **streak**. See the top scores with the **/quizleaderboard** command. Prefer the full version? Play on kpopquiz.org.',
