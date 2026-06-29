@@ -57,6 +57,40 @@ export type PassportCounter =
   | 'battles_played'
   | 'battles_won';
 
+// ---- mastery (M0.4) ----
+//
+// TUNING DECISION (flagged for owner confirmation): a group is "mastered" when
+// the user has enough KNOWLEDGE plays at high enough accuracy. plays = songs_played
+// on player_group_mastery, a GRANULAR count: quiz questions (M0.2 deposit) plus
+// blindtest songs for that group, combined. It is NOT a count of games, so
+// minPlays = 10 is roughly one full quiz. Raise it (e.g. 30) for a stricter bar.
+// Duels are deliberately excluded (M0.2 decision: per-group substrate is KNOWLEDGE
+// only). mastered is derived read-time here; the player_group_mastery.mastered
+// column stays reserved (no per-action writes).
+export const MASTERY = { minPlays: 10, minAccuracy: 0.8 } as const;
+
+export function isMastered(stat: { songs_played: number; songs_correct: number }): boolean {
+  if (stat.songs_played < MASTERY.minPlays) return false;
+  return stat.songs_correct / stat.songs_played >= MASTERY.minAccuracy;
+}
+
+// Display order for generations; unknown/extra eras are appended after these.
+const ERA_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'] as const;
+
+export interface EraProgress {
+  era: string;
+  mastered: number; // groups the user has mastered in this era
+  total: number;    // platform groups in this era
+}
+
+// Shape the Phase 1 collection bars (M1.2) will consume. Company progress is
+// omitted: groups has no company/agency field (flagged for owner decision).
+export interface CollectionProgress {
+  groups_mastered: number;
+  groups_total: number;
+  eras: EraProgress[];
+}
+
 const SPINE_COLUMNS =
   'xp, total_quizzes_created, total_plays_received, total_likes_received, ' +
   'quizzes_played, blindtests_played, duels_voted, battles_played, battles_won, ' +
@@ -115,7 +149,7 @@ export async function readPassportGroupStats(
 ): Promise<PassportGroupStat[]> {
   const { data } = await supabase
     .from('player_group_mastery')
-    .select('group_id, songs_played, songs_correct, best_score, mastery_level, mastered')
+    .select('group_id, songs_played, songs_correct, best_score, mastery_level')
     .eq('player_id', userId);
   if (!data) return [];
   return (data as Array<Record<string, unknown>>).map((r) => {
@@ -127,10 +161,58 @@ export async function readPassportGroupStats(
       songs_correct: correct,
       best_score: (r.best_score as number) ?? 0,
       mastery_level: (r.mastery_level as number) ?? 1,
-      mastered: (r.mastered as boolean) ?? false,
+      mastered: isMastered({ songs_played: played, songs_correct: correct }), // read-time
       accuracy: played > 0 ? correct / played : 0,
     };
   });
+}
+
+/**
+ * Derive the collection/mastery progress for a user (M0.4). Pure computation over
+ * two small queries (all groups + this user's mastery rows), bucketed in memory.
+ * No scans, no N+1. Company progress is omitted (no company field on groups).
+ */
+export async function readCollectionProgress(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<CollectionProgress> {
+  const [groupsRes, masteryRes] = await Promise.all([
+    supabase.from('groups').select('id, generation'),
+    supabase.from('player_group_mastery').select('group_id, songs_played, songs_correct').eq('player_id', userId),
+  ]);
+
+  const groups = (groupsRes.data ?? []) as Array<{ id: number; generation: string | null }>;
+  const mastery = (masteryRes.data ?? []) as Array<{ group_id: number; songs_played: number; songs_correct: number }>;
+
+  const masteredIds = new Set<number>();
+  for (const m of mastery) {
+    if (isMastered({ songs_played: m.songs_played ?? 0, songs_correct: m.songs_correct ?? 0 })) {
+      masteredIds.add(m.group_id);
+    }
+  }
+
+  const totalByEra = new Map<string, number>();
+  const masteredByEra = new Map<string, number>();
+  for (const g of groups) {
+    if (!g.generation) continue; // unknown era: counted in groups_total, not bucketed
+    totalByEra.set(g.generation, (totalByEra.get(g.generation) ?? 0) + 1);
+    if (masteredIds.has(g.id)) {
+      masteredByEra.set(g.generation, (masteredByEra.get(g.generation) ?? 0) + 1);
+    }
+  }
+
+  const orderedEras = [...ERA_ORDER.filter((e) => totalByEra.has(e)), ...[...totalByEra.keys()].filter((e) => !ERA_ORDER.includes(e as typeof ERA_ORDER[number]))];
+  const eras: EraProgress[] = orderedEras.map((era) => ({
+    era,
+    mastered: masteredByEra.get(era) ?? 0,
+    total: totalByEra.get(era) ?? 0,
+  }));
+
+  return {
+    groups_mastered: masteredIds.size,
+    groups_total: groups.length,
+    eras,
+  };
 }
 
 // ---- updates (no triggers, no RPC hooks; callers pass a write capable client) ----
