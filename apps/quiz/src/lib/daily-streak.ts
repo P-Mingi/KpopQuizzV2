@@ -63,5 +63,12 @@ export async function awardDailyStreak(
   await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today }).eq('id', userId);
   await supabase.rpc('award_xp', { p_user_id: userId, p_amount: total, p_reason: 'daily_streak' });
 
+  // M1.7: streak milestone is a deposit point too. One emit, folded into the
+  // existing streak write (caller passes the service-role client; emit_activity
+  // resolves the public username or 'someone').
+  if (milestone > 0) {
+    await supabase.rpc('emit_activity', { p_event_type: 'streak_milestone', p_user_id: userId, p_group_slug: null, p_payload: { streak } });
+  }
+
   return { awarded: total, base: DAILY_BASE_XP, milestone, streak, longest, alreadyToday: false };
 }
