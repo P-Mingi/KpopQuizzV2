@@ -5,8 +5,8 @@ import { getProfileById } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
-import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
-import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
+import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery } from '@/lib/passport';
+import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched } from '@/components/profile/passport-view';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
 
 import type { Metadata } from 'next';
@@ -32,13 +32,35 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     readPassportSpine(supabase, user.id),
     readPassportGroupStats(supabase, user.id),
     readCollectionProgress(supabase, user.id),
-    supabase.from('groups').select('id, name, logo_url, display_color'),
+    supabase.from('groups').select('id, name, slug, logo_url, display_color, quiz_count'),
   ]);
 
-  const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
-  for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; logo_url: string | null; display_color: string }>) {
-    groupMeta.set(g.id, { name: g.name, logo: g.logo_url, color: g.display_color });
+  interface GMeta { name: string; slug: string; logo: string | null; color: string; quizCount: number }
+  const allGroups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string; quiz_count: number }>;
+  const groupMeta = new Map<number, GMeta>();
+  for (const g of allGroups) {
+    groupMeta.set(g.id, { name: g.name, slug: g.slug, logo: g.logo_url, color: g.display_color, quizCount: g.quiz_count ?? 0 });
   }
+
+  // Near-mastery nudges (personal): the next win, one step away. In-memory.
+  const nearMastery: PassportNearGap[] = computeNearMastery(groupStats)
+    .map((gap) => {
+      const meta = groupMeta.get(gap.group_id);
+      return meta ? { name: meta.name, color: meta.color, kind: gap.kind, playsNeeded: gap.playsNeeded, accuracyNow: gap.accuracyNow } : null;
+    })
+    .filter((x): x is PassportNearGap => x !== null)
+    .slice(0, 3);
+
+  // Untouched groups (personal): inviting start. Suggest popular ones first.
+  const touched = new Set(groupStats.filter((s) => s.songs_played > 0).map((s) => s.group_id));
+  const untouchedGroups = allGroups.filter((g) => !touched.has(g.id));
+  const untouched: PassportUntouched = {
+    count: untouchedGroups.length,
+    suggestions: untouchedGroups
+      .sort((a, b) => (b.quiz_count ?? 0) - (a.quiz_count ?? 0))
+      .slice(0, 3)
+      .map((g) => ({ name: g.name, slug: g.slug, color: g.display_color })),
+  };
 
   const topGroups: PassportTopGroup[] = groupStats
     .filter((s) => s.songs_played > 0)
@@ -64,6 +86,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       <NotificationsStrip />
       <PassportView
       mode="personal"
+      bio={profile.bio}
+      nearMastery={nearMastery}
+      untouched={untouched}
       username={profile.username}
       displayName={profile.display_name ?? profile.username}
       avatarUrl={profile.avatar_url}

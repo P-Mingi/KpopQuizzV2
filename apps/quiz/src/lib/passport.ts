@@ -74,6 +74,42 @@ export function isMastered(stat: { songs_played: number; songs_correct: number }
   return stat.songs_correct / stat.songs_played >= MASTERY.minAccuracy;
 }
 
+// Near-mastery (M1.2). A group not yet mastered but ONE clear step away:
+//  - kind 'plays':    accuracy already at the bar, just needs more reps.
+//  - kind 'accuracy': enough reps, accuracy a little short.
+// Pure in-memory computation over readPassportGroupStats (NANO-cheap). Personal
+// view only; never surfaced publicly. Groups far from the bar are "in progress"
+// (not a near-gap); groups with no plays are "untouched" (handled by the caller).
+const NEAR_PLAYS_FLOOR = 10;     // enough reps to trust the accuracy signal
+const NEAR_ACCURACY_FLOOR = 0.65; // close enough that 80% is a believable next step
+
+export interface MasteryGap {
+  group_id: number;
+  kind: 'plays' | 'accuracy';
+  playsNeeded: number; // 0 for the accuracy kind
+  accuracyNow: number; // 0..1
+  songsPlayed: number;
+}
+
+export function computeNearMastery(stats: PassportGroupStat[]): MasteryGap[] {
+  const gaps: MasteryGap[] = [];
+  for (const s of stats) {
+    if (s.songs_played === 0 || isMastered(s)) continue;
+    if (s.accuracy >= MASTERY.minAccuracy && s.songs_played >= NEAR_PLAYS_FLOOR && s.songs_played < MASTERY.minPlays) {
+      gaps.push({ group_id: s.group_id, kind: 'plays', playsNeeded: MASTERY.minPlays - s.songs_played, accuracyNow: s.accuracy, songsPlayed: s.songs_played });
+    } else if (s.songs_played >= MASTERY.minPlays && s.accuracy >= NEAR_ACCURACY_FLOOR && s.accuracy < MASTERY.minAccuracy) {
+      gaps.push({ group_id: s.group_id, kind: 'accuracy', playsNeeded: 0, accuracyNow: s.accuracy, songsPlayed: s.songs_played });
+    }
+  }
+  // Closest win first: fewest plays needed, else smallest accuracy gap.
+  gaps.sort((a, b) => {
+    const aScore = a.kind === 'plays' ? a.playsNeeded : (MASTERY.minAccuracy - a.accuracyNow) * 100;
+    const bScore = b.kind === 'plays' ? b.playsNeeded : (MASTERY.minAccuracy - b.accuracyNow) * 100;
+    return aScore - bScore;
+  });
+  return gaps;
+}
+
 // Display order for generations; unknown/extra eras are appended after these.
 const ERA_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'] as const;
 

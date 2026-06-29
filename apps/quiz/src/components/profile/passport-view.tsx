@@ -19,10 +19,26 @@ export interface PassportTopGroup {
 
 export type PassportMode = 'personal' | 'public';
 
+export interface PassportNearGap {
+  name: string;
+  color: string;
+  kind: 'plays' | 'accuracy';
+  playsNeeded: number;
+  accuracyNow: number; // 0..1
+}
+
+export interface PassportUntouched {
+  count: number;
+  suggestions: Array<{ name: string; slug: string; color: string }>;
+}
+
 export interface PassportViewProps {
   mode: PassportMode;
   username: string;
   displayName: string;
+  bio?: string | null;
+  nearMastery?: PassportNearGap[];   // personal only
+  untouched?: PassportUntouched;     // personal only
   avatarUrl: string | null;
   avatarBg: string;
   avatarText: string;
@@ -85,12 +101,15 @@ function fmt(n: number): string {
 
 export function PassportView(props: PassportViewProps): React.ReactElement {
   const {
-    mode, username, displayName, avatarUrl, avatarBg, avatarText, joinedLabel,
+    mode, username, displayName, bio, nearMastery, untouched, avatarUrl, avatarBg, avatarText, joinedLabel,
     level, levelTitleEn, levelTitleKr, xp, xpForNext, xpPct, nextTitleEn,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
     streakCurrent, streakLongest, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
   } = props;
   const isPersonal = mode === 'personal';
+  const near = isPersonal ? (nearMastery ?? []).slice(0, 3) : [];
+  const showUntouched = isPersonal && untouched && untouched.count > 0;
+  const accPct = Math.round(MASTERY.minAccuracy * 100);
 
   const counters: Array<{ label: string; value: string; sub?: string }> = [
     { label: 'Quizzes played', value: fmt(quizzesPlayed) },
@@ -121,6 +140,11 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
         </div>
         {headerSlot}
       </div>
+
+      {/* Bio (user-authored identity, public) */}
+      {bio && bio.trim() && (
+        <p style={{ fontSize: 13, color: 'var(--txt2)', margin: 0, maxWidth: 520, lineHeight: 1.5 }}>{bio.trim()}</p>
+      )}
 
       {/* Fan Level card (canonical fan-level-card styling, kept) */}
       <div className="fan-level-card passport-card">
@@ -168,6 +192,60 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             );
           })}
         </div>
+
+        {/* Near-mastery nudges (personal only): the next win, one step away */}
+        {near.length > 0 && (
+          <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
+            <p style={{ ...eyebrow, marginBottom: 10 }}>Closest to mastery</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {near.map((g) => {
+                const accNow = Math.round(g.accuracyNow * 100);
+                return (
+                  <div key={g.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, background: g.color || 'var(--brand)' }} aria-hidden="true" />
+                    <span style={{ fontSize: 12.5, color: 'var(--txt1)', lineHeight: 1.4 }}>
+                      {g.kind === 'plays' ? (
+                        <>
+                          <strong style={{ fontWeight: 700 }}>{g.playsNeeded} more {g.playsNeeded === 1 ? 'play' : 'plays'}</strong> to master {g.name}
+                        </>
+                      ) : (
+                        <>
+                          Raise <strong style={{ fontWeight: 700 }}>{g.name}</strong> accuracy to {accPct}% <span style={{ color: 'var(--txt3)' }}>(now {accNow}%)</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Untouched groups (personal only): inviting start, not guilt */}
+        {showUntouched && (
+          <div style={{ marginTop: 14, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
+            <p style={{ fontSize: 12, color: 'var(--txt2)', margin: '0 0 10px', lineHeight: 1.5 }}>
+              <strong style={{ color: 'var(--txt1)', fontWeight: 700 }}>{untouched!.count}</strong> {untouched!.count === 1 ? 'group' : 'groups'} still to discover. Pick one to start.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {untouched!.suggestions.map((s) => (
+                <a
+                  key={s.slug}
+                  href={`/${s.slug}-quiz`}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 7,
+                    padding: '7px 12px', borderRadius: 9999,
+                    background: 'var(--surface-alt)', border: '1px solid var(--border)',
+                    fontSize: 12, fontWeight: 600, color: 'var(--txt1)', textDecoration: 'none',
+                  }}
+                >
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.color || 'var(--brand)' }} aria-hidden="true" />
+                  {s.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Streak (focal): canonical daily streak */}

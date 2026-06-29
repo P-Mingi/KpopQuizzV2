@@ -139,6 +139,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
     <div style={{ paddingBottom: 32 }}>
       <PassportView
         mode="public"
+        bio={profile.bio}
         username={profile.username}
         displayName={displayName}
         avatarUrl={profile.avatar_url}
