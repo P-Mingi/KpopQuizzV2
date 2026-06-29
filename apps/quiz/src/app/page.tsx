@@ -6,6 +6,7 @@ import { getAllGroups } from '@/lib/db/queries/groups';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
 import { HomeHero } from '@/components/home/home-hero';
+import { ActivityTicker } from '@/components/home/activity-ticker';
 import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
@@ -178,6 +179,10 @@ export default function HomePage(): React.ReactElement {
           }),
         }}
       />
+
+      {/* 0. Activity ticker (Option A; client island; home stays static/ISR;
+          renders nothing when the feed is quiet) */}
+      <ActivityTicker />
 
       {/* 1. Hero */}
       <HomeHero />
