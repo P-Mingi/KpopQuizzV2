@@ -66,6 +66,8 @@ export function padWeeklyLeaderboard(real: TopCreator[], minEntries: number): To
       avatar_text: colors.text,
       total_quizzes_created: quizzes,
       weekly_plays: plays,
+      xp: 0,
+      follower_count: 0,
     });
   }
 

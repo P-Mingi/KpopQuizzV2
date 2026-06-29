@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -68,6 +68,8 @@ interface LeaderEntry {
   avatar_text: string;
   stat: number;
   sub: string;
+  xp: number;
+  follower_count: number;
 }
 
 function toEntry(c: TopCreator): LeaderEntry {
@@ -78,6 +80,8 @@ function toEntry(c: TopCreator): LeaderEntry {
     avatar_text: c.avatar_text,
     stat: c.weekly_plays ?? 0,
     sub: `${c.total_quizzes_created} quizzes`,
+    xp: c.xp ?? 0,
+    follower_count: c.follower_count ?? 0,
   };
 }
 
@@ -89,7 +93,13 @@ function toEntryAllTime(c: TopCreatorAllTime): LeaderEntry {
     avatar_text: c.avatar_text,
     stat: c.total_plays_received,
     sub: `${c.total_quizzes_created} quizzes`,
+    xp: c.xp ?? 0,
+    follower_count: c.follower_count ?? 0,
   };
+}
+
+function entryToPerson(e: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }): PersonCardData {
+  return { username: e.username, avatarUrl: e.avatar_url, avatarBg: e.avatar_bg, avatarText: e.avatar_text, xp: e.xp, followerCount: e.follower_count };
 }
 
 // ---- Podium + List ----
@@ -154,36 +164,27 @@ function LeaderboardView({ entries, statLabel }: { entries: LeaderEntry[]; statL
           borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 8,
         }}>
           {restEntries.map((entry, i) => (
-            <Link
+            <div
               key={entry.username}
-              href={`/u/${entry.username}`}
               style={{
                 display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
-                borderTop: i > 0 ? '1px solid var(--border-subtle)' : 'none',
-                borderRadius: 10, textDecoration: 'none', color: 'inherit',
+                borderTop: i > 0 ? '1px solid var(--border-subtle)' : 'none', borderRadius: 10,
               }}
             >
               <span style={{
                 width: 28, color: 'var(--text-tertiary)', fontSize: 13, fontWeight: 700,
-                fontVariantNumeric: 'tabular-nums', textAlign: 'center',
+                fontVariantNumeric: 'tabular-nums', textAlign: 'center', flexShrink: 0,
               }}>#{i + 4}</span>
-              <UserAvatar
-                username={entry.username}
-                avatarUrl={entry.avatar_url}
-                bgColor={entry.avatar_bg}
-                textColor={entry.avatar_text}
-                size={32}
-              />
-              <div style={{ flex: 1, fontSize: 13, fontWeight: 600 }}>
-                @{entry.username}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <PersonCard person={entryToPerson(entry)} compact showFollow={false} />
               </div>
               <div style={{
                 fontSize: 13, fontWeight: 700, color: 'var(--accent)',
-                fontVariantNumeric: 'tabular-nums',
+                fontVariantNumeric: 'tabular-nums', flexShrink: 0,
               }}>
                 {entry.stat.toLocaleString()}
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
@@ -251,49 +252,33 @@ function PlayerView({ players }: { players: TopPlayer[] }) {
           background: 'var(--bg-surface)', border: '1px solid var(--border)',
           borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 8,
         }}>
-          {restPlayers.map((player, i) => {
-            const lvl = getLevelInfo(player.xp);
-            const title = getTitleForLevel(lvl.level);
-            return (
-              <Link
-                key={player.username}
-                href={`/u/${player.username}`}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
-                  borderTop: i > 0 ? '1px solid var(--border-subtle)' : 'none',
-                  borderRadius: 10, textDecoration: 'none', color: 'inherit',
-                }}
-              >
-                <span style={{
-                  width: 28, color: 'var(--text-tertiary)', fontSize: 13, fontWeight: 700,
-                  fontVariantNumeric: 'tabular-nums', textAlign: 'center',
-                }}>#{i + 4}</span>
-                <UserAvatar
-                  username={player.username}
-                  avatarUrl={player.avatar_url}
-                  bgColor={player.avatar_bg}
-                  textColor={player.avatar_text}
-                  size={32}
-                />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600 }}>@{player.username}</div>
-                  <div style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 600 }}>
-                    Lv.{lvl.level} {title.en}
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{
-                    fontSize: 13, fontWeight: 700, color: 'var(--text-primary)',
-                    fontVariantNumeric: 'tabular-nums',
-                  }}>{formatCount(player.xp)}</div>
-                  <div style={{
-                    fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.08em',
-                    color: 'var(--text-tertiary)',
-                  }}>XP</div>
-                </div>
-              </Link>
-            );
-          })}
+          {restPlayers.map((player, i) => (
+            <div
+              key={player.username}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
+                borderTop: i > 0 ? '1px solid var(--border-subtle)' : 'none', borderRadius: 10,
+              }}
+            >
+              <span style={{
+                width: 28, color: 'var(--text-tertiary)', fontSize: 13, fontWeight: 700,
+                fontVariantNumeric: 'tabular-nums', textAlign: 'center', flexShrink: 0,
+              }}>#{i + 4}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <PersonCard person={entryToPerson(player)} compact showFollow={false} />
+              </div>
+              <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                <div style={{
+                  fontSize: 13, fontWeight: 700, color: 'var(--text-primary)',
+                  fontVariantNumeric: 'tabular-nums',
+                }}>{formatCount(player.xp)}</div>
+                <div style={{
+                  fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.08em',
+                  color: 'var(--text-tertiary)',
+                }}>XP</div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </>

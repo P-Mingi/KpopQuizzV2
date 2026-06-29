@@ -222,6 +222,8 @@ export interface TopCreator {
   avatar_text: string;
   total_quizzes_created: number;
   weekly_plays: number;
+  xp: number;
+  follower_count: number;
 }
 
 export interface RecordPlayResult {

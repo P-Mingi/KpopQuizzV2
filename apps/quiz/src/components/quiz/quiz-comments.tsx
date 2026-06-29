@@ -3,10 +3,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { formatRelativeDate } from '@/lib/utils';
+import { formatRelativeDate, getAvatarColors } from '@/lib/utils';
 import { playComment } from '@/lib/sounds';
-import { FanTitle } from '@/components/ui/fan-title';
-import { getLevelInfo } from '@/lib/constants';
+import { PersonCard } from '@/components/profile/person-card';
 
 interface Comment {
   id: string;
@@ -113,28 +112,24 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
           {visible.map((c) => (
             <li
               key={c.id}
-              className={`flex gap-2 py-2 border-b border-subtle last:border-0 ${
+              className={`py-2.5 border-b border-subtle last:border-0 ${
                 newlyPostedIds.has(c.id) ? 'animate-slide-in-up' : ''
               }`}
             >
-              <div className="w-6 h-6 rounded-full bg-accent-bg flex items-center justify-center text-[9px] font-bold text-accent-hover flex-shrink-0">
-                {c.username.slice(0, 2).toUpperCase()}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[12px] text-primary leading-snug">
-                  <Link
-                    href={`/u/${c.username}`}
-                    className="font-semibold hover:text-accent transition-colors"
-                  >
-                    {c.username}
-                  </Link>
-                  {c.author_xp != null && c.author_xp > 0 && (
-                    <>{' '}<FanTitle level={getLevelInfo(c.author_xp).level} /></>
-                  )}{' '}
-                  <span className="text-secondary">{c.content}</span>
-                </p>
-                <p className="text-[9px] text-ghost mt-0.5">{formatRelativeDate(c.created_at)}</p>
-              </div>
+              {/* Author identity = single-source PersonCard (M1.12) */}
+              <PersonCard
+                person={{
+                  username: c.username,
+                  avatarUrl: null,
+                  avatarBg: getAvatarColors(c.username).bg,
+                  avatarText: getAvatarColors(c.username).text,
+                  xp: c.author_xp ?? 0,
+                  followerCount: 0,
+                }}
+                compact
+              />
+              <p className="text-[12px] text-secondary leading-snug mt-1.5">{c.content}</p>
+              <p className="text-[9px] text-ghost mt-0.5">{formatRelativeDate(c.created_at)}</p>
             </li>
           ))}
         </ul>
