@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { anonHash } from '@/lib/anon-hash';
 import { BATTLE_QUESTION_COUNT } from '@/lib/battle/select-questions';
 
@@ -9,6 +9,12 @@ import type { NextRequest } from 'next/server';
 // E2 - POST /api/battle/[id]/result { score, per_question: bool[], time_ms }
 // Records the player's run (service role). If the player is the challenger and the
 // battle's challenger_score is still null, finalize it. Anon-first.
+//
+// Passport (M0.2): when the runner is signed in we stamp user_id on the result
+// row. The trg_passport_on_battle_result trigger deposits battles_played /
+// battles_won in the SAME insert transaction (no extra round trip here). A unique
+// (battle_id, user_id) index makes a replayed run a no-op, so counters cannot
+// inflate; we surface that as already_recorded, mirroring the battle/confirm dedup.
 export const dynamic = 'force-dynamic';
 
 export async function POST(
@@ -50,11 +56,18 @@ export async function POST(
 
   const playerHash = anonHash(req);
 
+  // Validated user_id (server-side JWT, never client input). Stamped on the row so
+  // the passport trigger can attribute battles_played / battles_won.
+  const auth = await createServerClient();
+  const { data: { user } } = await auth.auth.getUser();
+  const userId = user?.id ?? null;
+
   const { data: result, error } = await supabase
     .from('battle_results')
     .insert({
       battle_id: id,
       player_hash: playerHash,
+      user_id: userId,
       score,
       per_question: perQuestion,
       time_ms: Math.round(timeMs),
@@ -63,6 +76,11 @@ export async function POST(
     .single();
 
   if (error || !result) {
+    // Unique (battle_id, user_id) violation = this signed-in player already has a
+    // recorded run for this battle. No-op for the passport counters.
+    if (userId && error?.code === '23505') {
+      return NextResponse.json({ already_recorded: true });
+    }
     console.error('Failed to record battle result:', error?.message);
     return NextResponse.json({ error: 'Could not record result' }, { status: 500 });
   }
