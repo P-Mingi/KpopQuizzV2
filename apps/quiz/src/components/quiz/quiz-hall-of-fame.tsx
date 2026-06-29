@@ -11,6 +11,13 @@ import type { HallOfFameEntry } from '@/lib/db/queries/community';
 // client island. Thin quiz -> Mascot invite, never an empty board.
 const MIN_ENTRIES = 3;
 
+function fmtTime(s: number | null): string | null {
+  if (s === null || s < 0) return null;
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+}
+
 const card: React.CSSProperties = {
   background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16,
   boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 24, maxWidth: 672,
@@ -22,7 +29,7 @@ export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: H
   return (
     <div style={card}>
       <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--txt3)', margin: '0 0 4px' }}>Hall of Fame</p>
-      <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '0 0 12px' }}>Top scorers on this quiz.</p>
+      <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '0 0 12px' }}>Top scorers on this quiz. Fastest time wins ties.</p>
 
       {thin ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '4px 0' }}>
@@ -44,7 +51,12 @@ export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: H
                   </div>
                 )}
               </div>
-              <span style={{ flexShrink: 0, fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>{e.score}/{e.total}</span>
+              <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 56 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>{e.score}/{e.total}</div>
+                {fmtTime(e.timeSeconds) && (
+                  <div style={{ fontSize: 11, color: 'var(--txt3)', fontVariantNumeric: 'tabular-nums', marginTop: 1 }}>{fmtTime(e.timeSeconds)}</div>
+                )}
+              </div>
             </div>
           ))}
         </div>

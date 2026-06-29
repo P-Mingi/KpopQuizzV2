@@ -73,7 +73,7 @@ export async function getActiveFansByGroup(groupSlug: string, limit = 8): Promis
 // Per-quiz hall of fame (M1.19): top scorers for ONE quiz, best per player,
 // highest score then fastest time. Index-backed by idx_plays_quiz_score (mig 098).
 // Anonymous scorers (no player_id) surface as person=null ("someone", no link).
-export interface HallOfFameEntry { person: PersonCardData | null; score: number; total: number }
+export interface HallOfFameEntry { person: PersonCardData | null; score: number; total: number; timeSeconds: number | null }
 
 interface PlayRow {
   score: number; total_questions: number; time_taken_seconds: number | null; player_id: string | null;
@@ -103,6 +103,7 @@ export async function getQuizHallOfFame(quizId: string, limit = 10): Promise<Hal
       person: p ? { username: p.username, displayName: p.display_name, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text, xp: p.xp ?? 0, followerCount: p.follower_count ?? 0 } : null,
       score: r.score,
       total: r.total_questions,
+      timeSeconds: r.time_taken_seconds,
     });
     if (out.length >= limit) break;
   }
