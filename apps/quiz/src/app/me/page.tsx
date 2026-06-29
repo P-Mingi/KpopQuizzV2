@@ -5,8 +5,8 @@ import { getProfileById } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
-import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery } from '@/lib/passport';
-import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched } from '@/components/profile/passport-view';
+import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery, computeClimbs, computeMilestones, snapshotIfStale } from '@/lib/passport';
+import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
 
 import type { Metadata } from 'next';
@@ -77,6 +77,31 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       };
     });
 
+  // Progression (M1.4, personal only). Forward snapshot first (cheap, weekly-gated),
+  // then read this user's snapshots to compute honest accuracy climbs. Milestones
+  // come from current counters and show immediately.
+  await snapshotIfStale(supabase, user.id, spine?.snapshot_at ?? null, groupStats);
+
+  const { data: snapRows } = await supabase
+    .from('passport_group_snapshots')
+    .select('group_id, taken_on, accuracy')
+    .eq('user_id', user.id);
+
+  const climbs: PassportClimb[] = computeClimbs((snapRows ?? []) as Array<{ group_id: number; taken_on: string; accuracy: number }>, groupStats)
+    .map((c) => {
+      const meta = groupMeta.get(c.group_id);
+      return { name: meta?.name ?? `Group ${c.group_id}`, color: meta?.color ?? '#E8457A', fromPct: c.fromPct, toPct: c.toPct };
+    })
+    .slice(0, 2);
+
+  const milestones = computeMilestones({
+    groupsMastered: collection.groups_mastered,
+    quizzesPlayed: spine?.quizzes_played ?? 0,
+    blindtestsPlayed: spine?.blindtests_played ?? 0,
+    battlesWon: spine?.battles_won ?? 0,
+    streakLongest: spine?.streak_longest ?? 0,
+  });
+
   const levelInfo = getLevelInfo(profile.xp);
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
@@ -89,6 +114,8 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       bio={profile.bio}
       nearMastery={nearMastery}
       untouched={untouched}
+      climbs={climbs}
+      milestones={milestones}
       username={profile.username}
       displayName={profile.display_name ?? profile.username}
       avatarUrl={profile.avatar_url}

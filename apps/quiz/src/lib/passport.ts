@@ -36,6 +36,7 @@ export interface PassportSpine {
   streak_current: number;       // effective: 0 if the last active day is stale
   streak_longest: number;       // all-time best (mig 088)
   streak_last_active: string | null; // last_daily_date (UTC yyyy-mm-dd)
+  snapshot_at: string | null;   // last passport snapshot date (M1.4 cadence gate)
 }
 
 export interface PassportGroupStat {
@@ -110,6 +111,97 @@ export function computeNearMastery(stats: PassportGroupStat[]): MasteryGap[] {
   return gaps;
 }
 
+// ---- progression (M1.4): self vs past only ----
+
+const SNAPSHOT_EVERY_DAYS = 7;       // weekly cadence
+const SNAPSHOT_PRUNE_DAYS = 56;      // keep ~8 weeks
+const SNAPSHOT_MIN_PLAYS = 5;        // only snapshot groups with a real signal
+const CLIMB_MIN_DELTA = 0.05;        // 5 points minimum to call it a climb
+
+// Accuracy climb for a group: baseline = earliest snapshot, target = current live
+// accuracy. Requires >= 2 snapshots so we never invent a past baseline.
+export interface AccuracyClimb {
+  group_id: number;
+  fromPct: number;
+  toPct: number;
+}
+
+export function computeClimbs(
+  snapshots: Array<{ group_id: number; taken_on: string; accuracy: number }>,
+  current: PassportGroupStat[],
+): AccuracyClimb[] {
+  const byGroup = new Map<number, Array<{ taken_on: string; accuracy: number }>>();
+  for (const s of snapshots) {
+    const arr = byGroup.get(s.group_id);
+    if (arr) arr.push(s);
+    else byGroup.set(s.group_id, [{ taken_on: s.taken_on, accuracy: s.accuracy }]);
+  }
+  const curAcc = new Map(current.map((c) => [c.group_id, c.accuracy]));
+  const climbs: AccuracyClimb[] = [];
+  for (const [gid, rows] of byGroup) {
+    if (rows.length < 2) continue; // need a real time series
+    rows.sort((a, b) => (a.taken_on < b.taken_on ? -1 : 1));
+    const baseline = rows[0]!.accuracy;
+    const cur = curAcc.get(gid);
+    if (cur === undefined || cur - baseline < CLIMB_MIN_DELTA) continue;
+    climbs.push({ group_id: gid, fromPct: Math.round(baseline * 100), toPct: Math.round(cur * 100) });
+  }
+  climbs.sort((a, b) => (b.toPct - b.fromPct) - (a.toPct - a.fromPct));
+  return climbs;
+}
+
+// Achievement milestones from CURRENT counters (no history needed; show now).
+export function computeMilestones(args: {
+  groupsMastered: number;
+  quizzesPlayed: number;
+  blindtestsPlayed: number;
+  battlesWon: number;
+  streakLongest: number;
+}): string[] {
+  const out: string[] = [];
+  if (args.groupsMastered === 1) out.push('First group mastered');
+  else if (args.groupsMastered > 1) out.push(`${args.groupsMastered} groups mastered`);
+  if (args.quizzesPlayed >= 10) out.push(`${args.quizzesPlayed} quizzes played`);
+  if (args.streakLongest >= 3) out.push(`Longest streak ${args.streakLongest} days`);
+  if (args.blindtestsPlayed >= 10) out.push(`${args.blindtestsPlayed} blindtests played`);
+  if (args.battlesWon >= 1) out.push(`${args.battlesWon} ${args.battlesWon === 1 ? 'battle' : 'battles'} won`);
+  return out;
+}
+
+function daysSince(date: string | null): number {
+  if (!date) return Infinity;
+  const then = new Date(date + 'T00:00:00Z').getTime();
+  return (Date.now() - then) / 86_400_000;
+}
+
+// Lazy, cadence-gated forward snapshot. Writes at most once per SNAPSHOT_EVERY_DAYS
+// per user (a few upserts for the top groups), updates the gate, and prunes old
+// rows. Cheap + forward-only. Caller passes the owner's authed client (RLS owns it).
+export async function snapshotIfStale(
+  supabase: SupabaseClient,
+  userId: string,
+  lastSnapshotAt: string | null,
+  stats: PassportGroupStat[],
+): Promise<void> {
+  if (daysSince(lastSnapshotAt) < SNAPSHOT_EVERY_DAYS) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const rows = stats
+    .filter((s) => s.songs_played >= SNAPSHOT_MIN_PLAYS)
+    .sort((a, b) => b.songs_played - a.songs_played)
+    .slice(0, 10)
+    .map((s) => ({ user_id: userId, group_id: s.group_id, taken_on: today, accuracy: s.accuracy, songs_played: s.songs_played }));
+
+  // Always advance the gate, even with no qualifying groups, so we do not retry
+  // the (empty) write on every render this week.
+  await supabase.from('profiles').update({ passport_snapshot_at: today }).eq('id', userId);
+  if (rows.length === 0) return;
+
+  await supabase.from('passport_group_snapshots').upsert(rows, { onConflict: 'user_id,group_id,taken_on', ignoreDuplicates: true });
+
+  const cutoff = new Date(Date.now() - SNAPSHOT_PRUNE_DAYS * 86_400_000).toISOString().slice(0, 10);
+  await supabase.from('passport_group_snapshots').delete().eq('user_id', userId).lt('taken_on', cutoff);
+}
+
 // Display order for generations; unknown/extra eras are appended after these.
 const ERA_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'] as const;
 
@@ -131,7 +223,7 @@ const SPINE_COLUMNS =
   'xp, total_quizzes_created, total_plays_received, total_likes_received, ' +
   'quizzes_played, blindtests_played, duels_voted, battles_played, battles_won, ' +
   'ult_groups, bias, profile_theme, ' +
-  'daily_streak, daily_streak_longest, last_daily_date';
+  'daily_streak, daily_streak_longest, last_daily_date, passport_snapshot_at';
 
 // A daily streak is "live" only while the last active day is today or yesterday
 // (UTC). The engine resets lazily on the next play, so a stored streak can be
@@ -175,6 +267,7 @@ export async function readPassportSpine(
     streak_current: effectiveStreak((r.daily_streak as number) ?? 0, (r.last_daily_date as string | null) ?? null),
     streak_longest: (r.daily_streak_longest as number) ?? 0,
     streak_last_active: (r.last_daily_date as string | null) ?? null,
+    snapshot_at: (r.passport_snapshot_at as string | null) ?? null,
   };
 }
 

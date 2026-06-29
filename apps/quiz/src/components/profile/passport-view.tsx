@@ -33,6 +33,13 @@ export interface PassportUntouched {
   suggestions: Array<{ name: string; slug: string; color: string }>;
 }
 
+export interface PassportClimb {
+  name: string;
+  color: string;
+  fromPct: number;
+  toPct: number;
+}
+
 export interface PassportViewProps {
   mode: PassportMode;
   username: string;
@@ -40,6 +47,8 @@ export interface PassportViewProps {
   bio?: string | null;
   nearMastery?: PassportNearGap[];   // personal only
   untouched?: PassportUntouched;     // personal only
+  climbs?: PassportClimb[];          // personal only (needs >= 2 snapshots)
+  milestones?: string[];             // personal only (achievement progression)
   avatarUrl: string | null;
   avatarBg: string;
   avatarText: string;
@@ -103,7 +112,7 @@ function fmt(n: number): string {
 
 export function PassportView(props: PassportViewProps): React.ReactElement {
   const {
-    mode, username, displayName, bio, nearMastery, untouched, avatarUrl, avatarBg, avatarText, joinedLabel,
+    mode, username, displayName, bio, nearMastery, untouched, climbs, milestones, avatarUrl, avatarBg, avatarText, joinedLabel,
     level, levelTitleEn, levelTitleKr, xp, xpForNext, xpPct, nextTitleEn,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
     streakCurrent, streakLongest, streakLastActive, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
@@ -111,6 +120,9 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
   const isPersonal = mode === 'personal';
   const near = isPersonal ? (nearMastery ?? []).slice(0, 3) : [];
   const showUntouched = isPersonal && untouched && untouched.count > 0;
+  const climbList = isPersonal ? (climbs ?? []).slice(0, 2) : [];
+  const milestoneList = isPersonal ? (milestones ?? []).slice(0, 4) : [];
+  const showProgress = isPersonal && (climbList.length > 0 || milestoneList.length > 0);
   const accPct = Math.round(MASTERY.minAccuracy * 100);
   const sState = streakState(streakCurrent, streakLastActive);
   const streakNudge = sState === 'played_today' ? 'Played today. See you tomorrow.'
@@ -276,6 +288,45 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           </div>
         )}
       </div>
+
+      {/* Your progress (personal only): self vs past. Achievement milestones show
+          now; accuracy climbs appear only once real snapshots exist. */}
+      {showProgress && (
+        <div className="passport-card" style={card}>
+          <p style={{ ...eyebrow, marginBottom: 12 }}>Your progress</p>
+
+          {climbList.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: milestoneList.length > 0 ? 14 : 0 }}>
+              {climbList.map((c) => (
+                <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ width: 26, height: 26, borderRadius: 8, flexShrink: 0, background: 'var(--brand-light)', color: 'var(--brand)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7" /><path d="M9 7h8v8" /></svg>
+                  </span>
+                  <span style={{ fontSize: 12.5, color: 'var(--txt1)', lineHeight: 1.4 }}>
+                    <strong style={{ fontWeight: 700 }}>{c.name}</strong> accuracy climbed {c.fromPct} to {c.toPct}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {milestoneList.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {milestoneList.map((m) => (
+                <span key={m} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  padding: '6px 11px', borderRadius: 9999,
+                  background: 'var(--surface-alt)', border: '1px solid var(--border)',
+                  fontSize: 11.5, fontWeight: 600, color: 'var(--txt1)',
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--brand)' }} aria-hidden="true" />
+                  {m}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Per-group accuracy */}
       <div className="passport-card" style={card}>
