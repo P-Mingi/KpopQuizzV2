@@ -7,6 +7,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
+import { NotificationsStrip } from '@/components/profile/notifications-strip';
 
 import type { Metadata } from 'next';
 
@@ -59,7 +60,10 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
 
   return (
-    <PassportView
+    <>
+      <NotificationsStrip />
+      <PassportView
+      mode="personal"
       username={profile.username}
       displayName={profile.display_name ?? profile.username}
       avatarUrl={profile.avatar_url}
@@ -85,6 +89,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       groupsTotal={collection.groups_total}
       eras={collection.eras}
       topGroups={topGroups}
-    />
+      />
+    </>
   );
 }
