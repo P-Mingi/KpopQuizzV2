@@ -37,7 +37,7 @@ export async function GET(): Promise<NextResponse> {
       Promise.resolve(
         supabase
           .from('profiles')
-          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, daily_streak, last_daily_date')
           .eq('id', user.id)
           .maybeSingle(),
       ),
@@ -65,6 +65,8 @@ export async function GET(): Promise<NextResponse> {
         xp: (data.xp as number) ?? 0,
         level: info.level,
         progress: info.progress,
+        daily_streak: (data.daily_streak as number | null) ?? 0,
+        last_daily_date: (data.last_daily_date as string | null) ?? null,
       },
     });
   } catch (err) {

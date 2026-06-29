@@ -6,6 +6,7 @@ import { getAllGroups } from '@/lib/db/queries/groups';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
 import { HomeHero } from '@/components/home/home-hero';
+import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
@@ -180,6 +181,9 @@ export default function HomePage(): React.ReactElement {
 
       {/* 1. Hero */}
       <HomeHero />
+
+      {/* 1b. Streak surface (client island; home stays static/ISR) */}
+      <HomeStreakNudge />
 
       {/* 2. Quiz of the day */}
       <Suspense fallback={<SkelDaily />}>

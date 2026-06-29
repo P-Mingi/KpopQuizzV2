@@ -1,6 +1,7 @@
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { Mascot } from '@/components/ui/mascot';
 import { MASTERY } from '@/lib/passport';
+import { streakState } from '@/lib/streak';
 
 // K-pop Passport view (Workstream M, M1.1 finalize). Presentational only. ONE
 // profile, two modes: 'personal' (/me, /profile, the owner) shows everything and
@@ -58,6 +59,7 @@ export interface PassportViewProps {
   quizzesCreated: number;
   streakCurrent: number;
   streakLongest: number;
+  streakLastActive: string | null;
   groupsMastered: number;
   groupsTotal: number;
   eras: Array<{ era: string; mastered: number; total: number }>;
@@ -104,12 +106,16 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
     mode, username, displayName, bio, nearMastery, untouched, avatarUrl, avatarBg, avatarText, joinedLabel,
     level, levelTitleEn, levelTitleKr, xp, xpForNext, xpPct, nextTitleEn,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
-    streakCurrent, streakLongest, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
+    streakCurrent, streakLongest, streakLastActive, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
   } = props;
   const isPersonal = mode === 'personal';
   const near = isPersonal ? (nearMastery ?? []).slice(0, 3) : [];
   const showUntouched = isPersonal && untouched && untouched.count > 0;
   const accPct = Math.round(MASTERY.minAccuracy * 100);
+  const sState = streakState(streakCurrent, streakLastActive);
+  const streakNudge = sState === 'played_today' ? 'Played today. See you tomorrow.'
+    : sState === 'at_risk' ? 'Play today to keep it alive.'
+    : 'Play the daily to start one.';
 
   const counters: Array<{ label: string; value: string; sub?: string }> = [
     { label: 'Quizzes played', value: fmt(quizzesPlayed) },
@@ -265,8 +271,8 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           </div>
         </div>
         {isPersonal && (
-          <div style={{ fontSize: 11.5, color: 'var(--txt2)', maxWidth: 132, textAlign: 'right', lineHeight: 1.4 }}>
-            {streakCurrent > 0 ? 'Keep it alive: play the daily.' : 'Play the daily to start one.'}
+          <div style={{ fontSize: 11.5, color: sState === 'at_risk' ? 'var(--brand)' : 'var(--txt2)', fontWeight: sState === 'at_risk' ? 700 : 400, maxWidth: 132, textAlign: 'right', lineHeight: 1.4 }}>
+            {streakNudge}
           </div>
         )}
       </div>
