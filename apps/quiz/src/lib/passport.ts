@@ -67,7 +67,7 @@ export type PassportCounter =
 // Duels are deliberately excluded (M0.2 decision: per-group substrate is KNOWLEDGE
 // only). mastered is derived read-time here; the player_group_mastery.mastered
 // column stays reserved (no per-action writes).
-export const MASTERY = { minPlays: 10, minAccuracy: 0.8 } as const;
+export const MASTERY = { minPlays: 30, minAccuracy: 0.8 } as const;
 
 export function isMastered(stat: { songs_played: number; songs_correct: number }): boolean {
   if (stat.songs_played < MASTERY.minPlays) return false;
