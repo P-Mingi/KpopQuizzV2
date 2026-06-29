@@ -17,12 +17,18 @@ export function isMilestonePlayCount(playCount: number): boolean {
   return MILESTONE_PLAY_COUNTS.includes(playCount);
 }
 
+type NotifyType =
+  | 'milestone' | 'rating' | 'comment' | 'trending'
+  | 'new_follower' | 'like' | 'achievement_unlocked' | 'streak_milestone'
+  | 'group_mastered' | 'followed_new_quiz';
+
 async function insertNotification(payload: {
   user_id: string;
-  type: 'milestone' | 'rating' | 'comment' | 'trending';
+  type: NotifyType;
   title: string;
   body?: string | null;
   quiz_id?: string | null;
+  link_url?: string | null;
 }): Promise<void> {
   if (!COMMUNITY_FEATURES_ENABLED) return;
   try {
@@ -32,6 +38,35 @@ async function insertNotification(payload: {
     // Never throw from a notification side-effect.
     console.error('Failed to insert notification:', err);
   }
+}
+
+// M1.10 - someone followed you. Folded into the M1.8 follow path (one insert per
+// genuine new follow). Links to the follower's profile.
+export async function notifyNewFollower(params: { followedId: string; followerUsername: string }): Promise<void> {
+  await insertNotification({
+    user_id: params.followedId,
+    type: 'new_follower',
+    title: `${params.followerUsername} started following you`,
+    link_url: `/u/${params.followerUsername}`,
+  });
+}
+
+// M1.10 - a passport milestone for the user themselves (streak / group mastered /
+// achievement). Generic so callers pass a ready title.
+export async function notifyPassportMilestone(params: {
+  userId: string;
+  type: 'achievement_unlocked' | 'streak_milestone' | 'group_mastered';
+  title: string;
+  body?: string | null;
+  linkUrl?: string | null;
+}): Promise<void> {
+  await insertNotification({
+    user_id: params.userId,
+    type: params.type,
+    title: params.title,
+    body: params.body ?? null,
+    link_url: params.linkUrl ?? null,
+  });
 }
 
 export async function notifyMilestone(params: {

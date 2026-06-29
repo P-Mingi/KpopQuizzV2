@@ -5,7 +5,10 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 
 import type { NextRequest } from 'next/server';
 
-export type NotificationType = 'milestone' | 'rating' | 'comment' | 'trending' | 'admin_dm';
+export type NotificationType =
+  | 'milestone' | 'rating' | 'comment' | 'trending' | 'admin_dm'
+  | 'new_follower' | 'like' | 'achievement_unlocked' | 'streak_milestone'
+  | 'group_mastered' | 'followed_new_quiz';
 
 export interface NotificationRow {
   id: string;

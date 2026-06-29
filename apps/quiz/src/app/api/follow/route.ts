@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { notifyNewFollower } from '@/lib/notifications';
 
 import type { NextRequest } from 'next/server';
 
@@ -54,6 +55,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (error && error.code !== '23505') {
       console.error('[api/follow] insert failed:', error.message);
       return NextResponse.json({ error: 'Could not follow' }, { status: 500 });
+    }
+    // Notify only on a genuinely new follow (a 23505 re-follow is a no-op), so a
+    // refollow does not spam. One lookup + one insert on this low-frequency path.
+    if (!error) {
+      const { data: me } = await supabase.from('profiles').select('username').eq('id', user.id).maybeSingle();
+      if (me?.username) await notifyNewFollower({ followedId: targetId, followerUsername: me.username as string });
     }
     return NextResponse.json({ following: true });
   }

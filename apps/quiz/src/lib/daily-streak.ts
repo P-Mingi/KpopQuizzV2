@@ -1,5 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { notifyPassportMilestone } from '@/lib/notifications';
+
 // L4 - per-account daily streak. Signed-in users who complete the daily quiz/
 // game (?daily=quiz|game, the F6 entry path) increment a server-side streak and
 // earn +5 base XP per day, plus milestone bonuses at 3/7/14/30. UTC-midnight
@@ -68,6 +70,8 @@ export async function awardDailyStreak(
   // resolves the public username or 'someone').
   if (milestone > 0) {
     await supabase.rpc('emit_activity', { p_event_type: 'streak_milestone', p_user_id: userId, p_group_slug: null, p_payload: { streak } });
+    // M1.10: notify the user of their own streak milestone (rare; once per day).
+    await notifyPassportMilestone({ userId, type: 'streak_milestone', title: `${streak}-day streak!`, body: 'Keep it going to climb the Fan Level ladder.' });
   }
 
   return { awarded: total, base: DAILY_BASE_XP, milestone, streak, longest, alreadyToday: false };

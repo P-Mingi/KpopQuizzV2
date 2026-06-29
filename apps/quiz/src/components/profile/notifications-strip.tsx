@@ -96,7 +96,7 @@ export function NotificationsStrip(): React.ReactElement | null {
   );
 }
 
-function NotificationCard({ notification }: { notification: NotificationRow }): React.ReactElement {
+export function NotificationCard({ notification }: { notification: NotificationRow }): React.ReactElement {
   const icon = iconFor(notification.type);
 
   const inner = (
@@ -132,9 +132,9 @@ function NotificationCard({ notification }: { notification: NotificationRow }): 
     </div>
   );
 
-  // Admin DMs win: if the admin set a click-through URL, use it. External URLs
-  // open in a new tab; internal routes use Next routing.
-  if (notification.type === 'admin_dm' && notification.link_url) {
+  // Any notification with a click-through URL (admin DM, new follower -> profile,
+  // etc.) routes there. External URLs open in a new tab; internal use Next routing.
+  if (notification.link_url) {
     const url = notification.link_url;
     const external = /^https?:\/\//.test(url);
     if (external) {
@@ -173,6 +173,18 @@ function iconFor(type: NotificationRow['type']): string {
       return '^';
     case 'admin_dm':
       return '@';
+    case 'new_follower':
+      return '+';
+    case 'like':
+      return 'L';
+    case 'achievement_unlocked':
+      return 'A';
+    case 'streak_milestone':
+      return 'S';
+    case 'group_mastered':
+      return 'M';
+    case 'followed_new_quiz':
+      return 'Q';
     default:
       return '.';
   }
