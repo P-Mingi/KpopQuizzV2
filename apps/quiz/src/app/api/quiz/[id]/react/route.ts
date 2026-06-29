@@ -39,24 +39,30 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('quiz_reactions')
-    .select('reaction, user_id')
+    .select('reaction, user_id, score, total')
     .eq('quiz_id', id);
 
   if (error) {
     console.error('Failed to fetch reactions:', error);
-    return NextResponse.json({ counts: EMPTY_COUNTS, userReaction: null });
+    return NextResponse.json({ counts: EMPTY_COUNTS, userReaction: null, acedCount: 0 });
   }
 
   const counts: ReactionCounts = { ...EMPTY_COUNTS };
   let userReaction: Reaction | null = null;
+  let userScore: number | null = null;
+  let userTotal: number | null = null;
+  let acedCount = 0;
 
   for (const row of data ?? []) {
     const r = row.reaction as Reaction;
     if (r in counts) counts[r] += 1;
-    if (user && row.user_id === user.id) userReaction = r;
+    const s = row.score as number | null;
+    const t = row.total as number | null;
+    if (s !== null && t !== null && t > 0 && s >= t) acedCount += 1;
+    if (user && row.user_id === user.id) { userReaction = r; userScore = s; userTotal = t; }
   }
 
-  return NextResponse.json({ counts, userReaction });
+  return NextResponse.json({ counts, userReaction, userScore, userTotal, acedCount });
 }
 
 /**
@@ -118,10 +124,24 @@ export async function POST(
     wasAlreadyBanger = existing?.reaction === 'banger';
   }
 
+  // Score-anchor (M1.20): carry the reactor's best score on this quiz at react
+  // time, so the reaction reads as "reacted with 9/10". One cheap lookup
+  // (idx_plays_quiz_score). Null when they somehow reacted without a recorded play.
+  const { data: best } = await supabase
+    .from('plays')
+    .select('score, total_questions')
+    .eq('quiz_id', id)
+    .eq('player_id', user.id)
+    .order('score', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const myScore = (best?.score as number | undefined) ?? null;
+  const myTotal = (best?.total_questions as number | undefined) ?? null;
+
   const { error: upsertError } = await supabase
     .from('quiz_reactions')
     .upsert(
-      { quiz_id: id, user_id: user.id, reaction },
+      { quiz_id: id, user_id: user.id, reaction, score: myScore, total: myTotal },
       { onConflict: 'quiz_id,user_id' },
     );
 
@@ -158,19 +178,23 @@ export async function POST(
   // Return updated counts
   const { data, error } = await supabase
     .from('quiz_reactions')
-    .select('reaction')
+    .select('reaction, score, total')
     .eq('quiz_id', id);
 
   if (error) {
     console.error('Failed to recount reactions:', error);
-    return NextResponse.json({ counts: EMPTY_COUNTS, userReaction: reaction });
+    return NextResponse.json({ counts: EMPTY_COUNTS, userReaction: reaction, userScore: myScore, userTotal: myTotal, acedCount: 0 });
   }
 
   const counts: ReactionCounts = { ...EMPTY_COUNTS };
+  let acedCount = 0;
   for (const row of data ?? []) {
     const r = row.reaction as Reaction;
     if (r in counts) counts[r] += 1;
+    const s = row.score as number | null;
+    const t = row.total as number | null;
+    if (s !== null && t !== null && t > 0 && s >= t) acedCount += 1;
   }
 
-  return NextResponse.json({ counts, userReaction: reaction });
+  return NextResponse.json({ counts, userReaction: reaction, userScore: myScore, userTotal: myTotal, acedCount });
 }

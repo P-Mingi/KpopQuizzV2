@@ -16,6 +16,8 @@ interface CommentRow {
   username: string;
   content: string;
   created_at: string;
+  score: number | null;
+  total: number | null;
 }
 
 /**
@@ -40,7 +42,7 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('quiz_comments')
-    .select('id, quiz_id, user_id, username, content, created_at, profiles!inner(xp)')
+    .select('id, quiz_id, user_id, username, content, created_at, score, total, profiles!inner(xp)')
     .eq('quiz_id', id)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -117,6 +119,17 @@ export async function POST(
 
   const username = (profile?.username as string | undefined) ?? 'anonymous';
 
+  // Score-anchor (M1.20): attach the commenter's best score on this quiz so the
+  // comment shows their handle + result. One cheap lookup; null if not played.
+  const { data: best } = await supabase
+    .from('plays')
+    .select('score, total_questions')
+    .eq('quiz_id', id)
+    .eq('player_id', user.id)
+    .order('score', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   const { data: comment, error: insertError } = await supabase
     .from('quiz_comments')
     .insert({
@@ -124,8 +137,10 @@ export async function POST(
       user_id: user.id,
       username,
       content: trimmed,
+      score: (best?.score as number | undefined) ?? null,
+      total: (best?.total_questions as number | undefined) ?? null,
     })
-    .select('id, quiz_id, user_id, username, content, created_at')
+    .select('id, quiz_id, user_id, username, content, created_at, score, total')
     .single();
 
   if (insertError || !comment) {

@@ -15,6 +15,8 @@ interface Comment {
   content: string;
   created_at: string;
   author_xp?: number | null;
+  score?: number | null;
+  total?: number | null;
 }
 
 interface Props {
@@ -116,18 +118,27 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
                 newlyPostedIds.has(c.id) ? 'animate-slide-in-up' : ''
               }`}
             >
-              {/* Author identity = single-source PersonCard (M1.12) */}
-              <PersonCard
-                person={{
-                  username: c.username,
-                  avatarUrl: null,
-                  avatarBg: getAvatarColors(c.username).bg,
-                  avatarText: getAvatarColors(c.username).text,
-                  xp: c.author_xp ?? 0,
-                  followerCount: 0,
-                }}
-                compact
-              />
+              {/* Author identity = single-source PersonCard (M1.12) + score anchor (M1.20) */}
+              <div className="flex items-center gap-2">
+                <div className="flex-1 min-w-0">
+                  <PersonCard
+                    person={{
+                      username: c.username,
+                      avatarUrl: null,
+                      avatarBg: getAvatarColors(c.username).bg,
+                      avatarText: getAvatarColors(c.username).text,
+                      xp: c.author_xp ?? 0,
+                      followerCount: 0,
+                    }}
+                    compact
+                  />
+                </div>
+                {c.score != null && c.total != null && c.total > 0 && (
+                  <span className="flex-shrink-0 text-[11px] font-bold text-primary tabular-nums px-2 py-0.5 rounded-full bg-accent-bg" style={{ color: 'var(--accent)' }}>
+                    {c.score}/{c.total}
+                  </span>
+                )}
+              </div>
               <p className="text-[12px] text-secondary leading-snug mt-1.5">{c.content}</p>
               <p className="text-[9px] text-ghost mt-0.5">{formatRelativeDate(c.created_at)}</p>
             </li>
