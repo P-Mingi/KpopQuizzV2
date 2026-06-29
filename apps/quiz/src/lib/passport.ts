@@ -30,6 +30,12 @@ export interface PassportSpine {
   ult_groups: string[];
   bias: string | null;
   profile_theme: string;
+  // canonical streak = the daily-ritual streak (profiles.daily_streak, mig 076).
+  // The blindtest streak (players.current_streak/longest_streak, mig 020) is a
+  // blindtest-internal stat and is deliberately NOT surfaced here.
+  streak_current: number;       // effective: 0 if the last active day is stale
+  streak_longest: number;       // all-time best (mig 088)
+  streak_last_active: string | null; // last_daily_date (UTC yyyy-mm-dd)
 }
 
 export interface PassportGroupStat {
@@ -54,7 +60,20 @@ export type PassportCounter =
 const SPINE_COLUMNS =
   'xp, total_quizzes_created, total_plays_received, total_likes_received, ' +
   'quizzes_played, blindtests_played, duels_voted, battles_played, battles_won, ' +
-  'ult_groups, bias, profile_theme';
+  'ult_groups, bias, profile_theme, ' +
+  'daily_streak, daily_streak_longest, last_daily_date';
+
+// A daily streak is "live" only while the last active day is today or yesterday
+// (UTC). The engine resets lazily on the next play, so a stored streak can be
+// stale; the passport surfaces the honest current value.
+function effectiveStreak(stored: number, lastActive: string | null): number {
+  if (!lastActive) return 0;
+  const today = new Date().toISOString().slice(0, 10);
+  const y = new Date(today + 'T00:00:00Z');
+  y.setUTCDate(y.getUTCDate() - 1);
+  const yesterday = y.toISOString().slice(0, 10);
+  return lastActive === today || lastActive === yesterday ? stored : 0;
+}
 
 // ---- reads ----
 
@@ -83,6 +102,9 @@ export async function readPassportSpine(
     ult_groups: (r.ult_groups as string[]) ?? [],
     bias: (r.bias as string | null) ?? null,
     profile_theme: (r.profile_theme as string) ?? 'default',
+    streak_current: effectiveStreak((r.daily_streak as number) ?? 0, (r.last_daily_date as string | null) ?? null),
+    streak_longest: (r.daily_streak_longest as number) ?? 0,
+    streak_last_active: (r.last_daily_date as string | null) ?? null,
   };
 }
 
