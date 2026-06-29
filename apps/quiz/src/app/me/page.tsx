@@ -8,6 +8,7 @@ import { formatJoinDate } from '@/lib/utils';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery, computeClimbs, computeMilestones, snapshotIfStale } from '@/lib/passport';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
+import { PassportShare } from '@/components/profile/passport-share';
 
 import type { Metadata } from 'next';
 
@@ -143,6 +144,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       eras={collection.eras}
       topGroups={topGroups}
       />
+      <div style={{ marginTop: 14 }}>
+        <PassportShare username={profile.username} />
+      </div>
     </>
   );
 }

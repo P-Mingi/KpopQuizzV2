@@ -81,6 +81,13 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
       description,
       url: `/u/${username}`,
       type: 'profile',
+      images: [{ url: `/api/og/passport/${username}`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${displayName}'s K-pop passport | KpopQuiz`,
+      description,
+      images: [`/api/og/passport/${username}`],
     },
     alternates: { canonical: `/u/${username}` },
   };
