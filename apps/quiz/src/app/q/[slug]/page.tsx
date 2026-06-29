@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { getPassRate } from '@/lib/db/queries/plays';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
+import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -162,6 +164,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     '[q/[slug]] hasTriviaPage',
   );
 
+  // M1.19 - per-quiz hall of fame (top scorers), ISR-baked + crawlable.
+  const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
+
   const quizIntro = {
     id: quiz.id,
     title: quiz.title,
@@ -207,6 +212,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
+
+      {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
+      <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} />
 
       {/* J3 - entry point: learn the group's trivia before playing (conditional). */}
       {triviaAvailable && (

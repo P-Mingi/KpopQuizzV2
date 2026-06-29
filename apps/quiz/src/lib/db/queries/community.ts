@@ -70,6 +70,45 @@ export async function getActiveFansByGroup(groupSlug: string, limit = 8): Promis
     .filter((x): x is { person: PersonCardData; accuracy: number } => x !== null);
 }
 
+// Per-quiz hall of fame (M1.19): top scorers for ONE quiz, best per player,
+// highest score then fastest time. Index-backed by idx_plays_quiz_score (mig 098).
+// Anonymous scorers (no player_id) surface as person=null ("someone", no link).
+export interface HallOfFameEntry { person: PersonCardData | null; score: number; total: number }
+
+interface PlayRow {
+  score: number; total_questions: number; time_taken_seconds: number | null; player_id: string | null;
+  profiles: { username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number } | null;
+}
+
+export async function getQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFameEntry[]> {
+  const db = createPublicReadClient();
+  const { data } = await db
+    .from('plays')
+    .select('score, total_questions, time_taken_seconds, player_id, profiles(username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count)')
+    .eq('quiz_id', quizId)
+    .order('score', { ascending: false })
+    .order('time_taken_seconds', { ascending: true, nullsFirst: false })
+    .limit(40);
+
+  const rows = (data ?? []) as unknown as PlayRow[];
+  const seenPlayers = new Set<string>();
+  const out: HallOfFameEntry[] = [];
+  for (const r of rows) {
+    if (r.player_id) {
+      if (seenPlayers.has(r.player_id)) continue; // best per player (rows are score-desc)
+      seenPlayers.add(r.player_id);
+    }
+    const p = r.profiles;
+    out.push({
+      person: p ? { username: p.username, displayName: p.display_name, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text, xp: p.xp ?? 0, followerCount: p.follower_count ?? 0 } : null,
+      score: r.score,
+      total: r.total_questions,
+    });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // Collective stats from the small groups table (one read, ~tens of rows). Cheap.
 export async function getCommunityStats(): Promise<{ totalPlays: number; totalQuizzes: number; groups: number }> {
   const db = createPublicReadClient();
