@@ -5,6 +5,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
 import { Mascot } from '@/components/ui/mascot';
+import { CountUp } from '@/components/ui/count-up';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { YourStanding } from '@/components/community/your-standing';
 import { ByFandomFans } from '@/components/community/by-fandom-fans';
@@ -128,19 +129,21 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
         <p style={{ ...seclab, marginBottom: 10 }}>Community pulse</p>
         <ActivityTicker />
         <div style={{ display: 'flex', gap: 10 }}>
-          <PulseStat value={formatCount(stats.totalPlays)} label="total plays" />
-          <PulseStat value={formatCount(stats.totalQuizzes)} label="quizzes" />
-          <PulseStat value={formatCount(stats.groups)} label="groups" />
+          <PulseStat value={stats.totalPlays} label="total plays" />
+          <PulseStat value={stats.totalQuizzes} label="quizzes" />
+          <PulseStat value={stats.groups} label="groups" />
         </div>
       </div>
     </div>
   );
 }
 
-function PulseStat({ value, label }: { value: string; label: string }): React.ReactElement {
+function PulseStat({ value, label }: { value: number; label: string }): React.ReactElement {
   return (
     <div style={{ flex: 1, background: 'var(--surface-alt)', borderRadius: 10, padding: 10 }}>
-      <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>{value}</div>
+      <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>
+        <CountUp value={value} compact />
+      </div>
       <div style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--txt3)', marginTop: 2 }}>{label}</div>
     </div>
   );

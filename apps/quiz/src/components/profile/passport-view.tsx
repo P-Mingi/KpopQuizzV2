@@ -305,7 +305,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
       {/* Streak (focal): canonical daily streak */}
       <div className="passport-card" style={{ ...card, display: 'flex', alignItems: 'center', gap: 18 }}>
         <div style={{ width: 60, height: 60, borderRadius: 16, flexShrink: 0, background: 'var(--brand-light)', color: 'var(--streak)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+          <svg className={sState !== 'none' ? 'kq-flame' : undefined} width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2c1 3-1 4-2 6s0 4 0 4-2-1-2-3c-2 2-3 4-3 6a7 7 0 0014 0c0-4-3-6-4-9-1-2-1-3 0-4-2 0-4 2-3 5 0 0-1-2 0-4-1 1-2 2-2 3 0-2 1-3 2-4z" />
           </svg>
         </div>

@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { haptic } from '@/lib/haptics';
+
 // Follow / Following button (Workstream M, M1.8). CLIENT island so the public
 // /u/[username] page stays static/ISR: the per-viewer follow state is resolved
 // client-side via /api/follow (reuses the ProfileOwnerControls / TopNavProfile
@@ -31,6 +33,7 @@ export function FollowButton({ profileUsername }: { profileUsername: string }): 
     if (!state) return;
     if (!state.signedIn) { router.push('/login'); return; }
     const next = !state.following;
+    if (next) haptic('follow');
     setState({ ...state, following: next }); // optimistic
     setPending(true);
     try {

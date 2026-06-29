@@ -20,6 +20,8 @@ import {
   playPerfect,
   playShare,
 } from '@/lib/sounds';
+import { haptic } from '@/lib/haptics';
+import { celebrate } from '@/lib/celebrate';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
 import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
@@ -415,16 +417,19 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     if (state.phase === 'answered') {
       if (state.isCorrect) {
         playCorrect();
+        haptic('correct');
       } else {
         playWrong();
+        haptic('wrong');
       }
     } else if (state.phase === 'result') {
       const maxScore =
         state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
       const isPerfect = state.score === maxScore && maxScore > 0;
       if (isPerfect && !state.leveledUp) {
-        // Slight delay so the result screen has time to start animating in
-        const t = setTimeout(() => playPerfect(), 300);
+        // Slight delay so the result screen has time to start animating in.
+        // celebrate() = dynamic-imported confetti + haptic, both reduced-motion gated.
+        const t = setTimeout(() => { playPerfect(); celebrate('perfect'); }, 300);
         return () => clearTimeout(t);
       }
     }

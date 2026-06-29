@@ -7,6 +7,7 @@ import { createBrowserClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/toast-provider';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { SoundToggle } from '@/components/settings/sound-toggle';
+import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 import { PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 
@@ -404,6 +405,7 @@ export default function SettingsPage(): React.ReactElement {
       <div className="bg-primary border border-default rounded-lg p-5 mt-4">
         <p className="text-sm font-medium text-primary mb-2">Preferences</p>
         <SoundToggle />
+        <HapticsToggle />
       </div>
 
       {/* Disconnect */}
