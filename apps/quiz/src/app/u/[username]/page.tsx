@@ -7,6 +7,7 @@ import { BadgeGrid } from '@/components/ui/badge-grid';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
+import { FollowButton } from '@/components/profile/follow-button';
 import { safeFetch } from '@/lib/error-handling';
 import { formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
@@ -178,6 +179,10 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         battlesPlayed={spine?.battles_played ?? 0}
         battlesWon={spine?.battles_won ?? 0}
         quizzesCreated={spine?.total_quizzes_created ?? profile.total_quizzes_created}
+        playsReceived={profile.total_plays_received}
+        followerCount={profile.follower_count}
+        followingCount={profile.following_count}
+        followSlot={<FollowButton profileUsername={profile.username} />}
         streakCurrent={spine?.streak_current ?? 0}
         streakLongest={spine?.streak_longest ?? 0}
         streakLastActive={spine?.streak_last_active ?? null}

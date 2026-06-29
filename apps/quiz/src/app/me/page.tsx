@@ -147,6 +147,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       battlesPlayed={spine?.battles_played ?? 0}
       battlesWon={spine?.battles_won ?? 0}
       quizzesCreated={spine?.total_quizzes_created ?? profile.total_quizzes_created}
+      playsReceived={profile.total_plays_received}
+      followerCount={profile.follower_count}
+      followingCount={profile.following_count}
       streakCurrent={spine?.streak_current ?? 0}
       streakLongest={spine?.streak_longest ?? 0}
       streakLastActive={spine?.streak_last_active ?? null}

@@ -69,6 +69,10 @@ export interface PassportViewProps {
   battlesPlayed: number;
   battlesWon: number;
   quizzesCreated: number;
+  playsReceived: number;            // creator reputation
+  followerCount: number;
+  followingCount: number;
+  followSlot?: React.ReactNode;     // follow button island (client), public-safe
   streakCurrent: number;
   streakLongest: number;
   streakLastActive: string | null;
@@ -118,6 +122,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
     mode, username, displayName, bio, accent: accentProp, bias, ultGroups, nearMastery, untouched, climbs, milestones, avatarUrl, avatarBg, avatarText, joinedLabel,
     level, levelTitleEn, levelTitleKr, xp, xpForNext, xpPct, nextTitleEn,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
+    playsReceived, followerCount, followingCount, followSlot,
     streakCurrent, streakLongest, streakLastActive, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
   } = props;
   const accent = accentProp ?? 'var(--brand)';
@@ -140,7 +145,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
     { label: 'Duels voted', value: fmt(duelsVoted) },
     { label: 'Battles', value: fmt(battlesPlayed), sub: `${fmt(battlesWon)} won` },
     { label: 'Quizzes made', value: fmt(quizzesCreated) },
-    { label: 'XP earned', value: fmt(xp) },
+    { label: 'Plays received', value: fmt(playsReceived) },
   ];
 
   return (
@@ -160,8 +165,16 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           <div style={{ fontSize: 12, color: 'var(--txt2)', marginTop: 3 }}>
             @{username} {'·'} Joined {joinedLabel}{bias && bias.trim() ? ` · bias ${bias.trim()}` : ''}
           </div>
+          <div style={{ fontSize: 12, color: 'var(--txt2)', marginTop: 4 }}>
+            <strong style={{ color: 'var(--txt1)', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{fmt(followerCount)}</strong> {followerCount === 1 ? 'follower' : 'followers'}
+            {' · '}
+            <strong style={{ color: 'var(--txt1)', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{fmt(followingCount)}</strong> following
+          </div>
         </div>
-        {headerSlot}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          {followSlot}
+          {headerSlot}
+        </div>
       </div>
 
       {/* Ult groups (pinned identity) */}
