@@ -10,15 +10,31 @@ import { readPassportSpine, readCollectionProgress, readPassportGroupStats } fro
 
 import type { NextRequest } from 'next/server';
 
-// Shareable passport OG card (Workstream M, M1.5). Reuses the Workstream H OG
-// renderer (next/og ImageResponse, like the other /api/og/* routes). PUBLIC data
-// only (it is shared publicly): top groups + accuracy, groups mastered X/Y,
-// streak, Fan Level title, the real mascot, brand pink, a loud kpopquiz.org so it
-// pulls new players. No personal nudges. Cached by username + a stats hash.
+// Shareable passport OG card (Workstream M, M1.5 polish). Reuses the Workstream H
+// OG renderer (next/og ImageResponse). The acquisition engine: built to stop a
+// scroll in Twitter / Reddit / Discord and make a stranger think "what is my
+// score". PUBLIC data only. Brand DM Sans is embedded (Pretendard fallback for
+// Korean glyphs) so it renders in real brand type, not a system fallback.
 const BRAND = '#E8457A';
+const BRAND_DK = '#B5345F';
+const PINK_LT = '#FCE8EF';
 const CREAM = '#FAF8F5';
 const DARK = '#1A1714';
 const MUTED = '#6B6560';
+const TRACK = '#EDE8E4';
+
+const FONTS_DIR = join(process.cwd(), 'public', 'fonts');
+function ab(file: string): ArrayBuffer {
+  const b = readFileSync(join(FONTS_DIR, file));
+  return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength) as ArrayBuffer;
+}
+// Loaded once per warm lambda. DM Sans = brand; Pretendard covers Korean glyphs.
+const FONTS = [
+  { name: 'DM Sans', data: ab('dm-sans-400.ttf'), weight: 400 as const, style: 'normal' as const },
+  { name: 'DM Sans', data: ab('dm-sans-700.ttf'), weight: 700 as const, style: 'normal' as const },
+  { name: 'DM Sans', data: ab('dm-sans-800.ttf'), weight: 800 as const, style: 'normal' as const },
+  { name: 'Pretendard', data: ab('Pretendard-Regular.ttf'), weight: 400 as const, style: 'normal' as const },
+];
 
 function djb2(s: string): string {
   let h = 5381;
@@ -35,6 +51,8 @@ function mascotDataUri(): string {
   }
 }
 
+const FAMILY = 'DM Sans, Pretendard';
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ username: string }> },
@@ -42,18 +60,17 @@ export async function GET(
   const { username } = await params;
   const db = createPublicReadClient();
   const profile = await getProfileByUsername(username).catch(() => null);
-
   const mascot = mascotDataUri();
 
   if (!profile) {
     return new ImageResponse(
       (
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: CREAM }}>
-          <div style={{ display: 'flex', fontSize: 64, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz</span></div>
-          <div style={{ display: 'flex', fontSize: 28, color: MUTED, marginTop: 12 }}>Make your own K-pop passport at kpopquiz.org</div>
+        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: CREAM, fontFamily: FAMILY }}>
+          <div style={{ display: 'flex', fontSize: 72, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz</span></div>
+          <div style={{ display: 'flex', fontSize: 30, color: MUTED, marginTop: 14 }}>Make your own K-pop passport</div>
         </div>
       ),
-      { width: 1200, height: 630 },
+      { width: 1200, height: 630, fonts: FONTS },
     );
   }
 
@@ -76,75 +93,78 @@ export async function GET(
     .map((s) => ({ name: meta.get(s.group_id)?.name ?? 'K-pop', color: meta.get(s.group_id)?.color ?? BRAND, pct: Math.round(s.accuracy * 100) }));
 
   const levelInfo = getLevelInfo(profile.xp);
-  const title = getTitleForLevel(levelInfo.level).en;
-  const displayName = profile.display_name ?? profile.username;
+  const titleEn = getTitleForLevel(levelInfo.level).en;
+  const titleKr = getTitleForLevel(levelInfo.level).kr;
   const streak = spine?.streak_current ?? 0;
   const longest = spine?.streak_longest ?? 0;
 
   const hash = djb2(`${collection.groups_mastered}|${collection.groups_total}|${streak}|${longest}|${levelInfo.level}|${topGroups.map((g) => g.name + g.pct).join(',')}`);
 
-  const stat = (value: string, label: string) => (
+  const heroStat = (value: string, label: string, accent?: boolean) => (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', fontSize: 52, fontWeight: 800, color: DARK, lineHeight: 1 }}>{value}</div>
-      <div style={{ display: 'flex', fontSize: 20, color: MUTED, marginTop: 6, textTransform: 'uppercase', letterSpacing: 2 }}>{label}</div>
+      <div style={{ display: 'flex', fontSize: 64, fontWeight: 800, color: accent ? BRAND : DARK, lineHeight: 1, letterSpacing: -2 }}>{value}</div>
+      <div style={{ display: 'flex', fontSize: 19, fontWeight: 700, color: MUTED, marginTop: 8, textTransform: 'uppercase', letterSpacing: 2 }}>{label}</div>
     </div>
   );
 
   return new ImageResponse(
     (
-      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: CREAM, position: 'relative' }}>
-        <div style={{ display: 'flex', width: '100%', height: 14, background: BRAND }} />
+      <div style={{ width: '100%', height: '100%', display: 'flex', background: CREAM, fontFamily: FAMILY, position: 'relative' }}>
+        <div style={{ display: 'flex', position: 'absolute', top: 0, left: 0, width: '100%', height: 12, background: BRAND }} />
 
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '48px 60px' }}>
-          {/* header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <div style={{ display: 'flex', width: 96, height: 96, borderRadius: 48, background: profile.avatar_bg || '#FCE8EF', color: profile.avatar_text || BRAND, alignItems: 'center', justifyContent: 'center', fontSize: 44, fontWeight: 800 }}>
-              {(displayName[0] ?? 'K').toUpperCase()}
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', fontSize: 24, fontWeight: 700, color: BRAND, textTransform: 'uppercase', letterSpacing: 3 }}>Lv {levelInfo.level} {title}</div>
-              <div style={{ display: 'flex', fontSize: 56, fontWeight: 800, color: DARK, lineHeight: 1.1 }}>{displayName}</div>
-            </div>
+        {/* Left: the hook + stats */}
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '64px 0 56px 64px' }}>
+          <div style={{ display: 'flex', fontSize: 22, fontWeight: 800, color: BRAND, textTransform: 'uppercase', letterSpacing: 5 }}>K-pop Passport</div>
+
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 18, marginTop: 18 }}>
+            <div style={{ display: 'flex', fontSize: 76, fontWeight: 800, color: DARK, lineHeight: 0.95, letterSpacing: -2 }}>{titleEn}</div>
+            <div style={{ display: 'flex', fontSize: 34, fontWeight: 700, color: BRAND_DK, paddingBottom: 8 }}>{titleKr}</div>
+          </div>
+          <div style={{ display: 'flex', fontSize: 30, fontWeight: 700, color: MUTED, marginTop: 8 }}>@{profile.username} {'·'} Lv {levelInfo.level}</div>
+
+          <div style={{ display: 'flex', gap: 64, marginTop: 'auto' }}>
+            {heroStat(`${collection.groups_mastered}/${collection.groups_total}`, 'Groups mastered', true)}
+            {heroStat(String(streak), 'Day streak')}
+            {heroStat(String(longest), 'Best ever')}
           </div>
 
-          {/* stat row */}
-          <div style={{ display: 'flex', gap: 72, marginTop: 48 }}>
-            {stat(`${collection.groups_mastered}/${collection.groups_total}`, 'Groups mastered')}
-            {stat(String(streak), 'Day streak')}
-            {stat(String(longest), 'Best streak')}
-          </div>
-
-          {/* top groups accuracy */}
           {topGroups.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 44, width: 720 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 13, marginTop: 36, width: 560 }}>
               {topGroups.map((g) => (
                 <div key={g.name} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <div style={{ display: 'flex', width: 180, fontSize: 24, fontWeight: 700, color: DARK }}>{g.name}</div>
-                  <div style={{ display: 'flex', flex: 1, height: 16, background: '#EDE8E4', borderRadius: 8 }}>
+                  <div style={{ display: 'flex', width: 150, fontSize: 24, fontWeight: 700, color: DARK }}>{g.name}</div>
+                  <div style={{ display: 'flex', flex: 1, height: 16, background: TRACK, borderRadius: 8 }}>
                     <div style={{ display: 'flex', width: `${g.pct}%`, height: 16, background: g.color || BRAND, borderRadius: 8 }} />
                   </div>
-                  <div style={{ display: 'flex', width: 70, fontSize: 24, fontWeight: 700, color: MUTED, justifyContent: 'flex-end' }}>{g.pct}%</div>
+                  <div style={{ display: 'flex', width: 66, fontSize: 24, fontWeight: 800, color: DARK, justifyContent: 'flex-end' }}>{g.pct}%</div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* footer brand */}
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: 'auto' }}>
-            <div style={{ display: 'flex', fontSize: 40, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz.org</span></div>
-            <div style={{ display: 'flex', fontSize: 24, color: MUTED, marginLeft: 20 }}>Make your own K-pop passport</div>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 36 }}>
+            <div style={{ display: 'flex', fontSize: 38, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz.org</span></div>
+            <div style={{ display: 'flex', fontSize: 24, fontWeight: 700, color: MUTED, marginLeft: 18 }}>Can you beat it?</div>
           </div>
         </div>
 
-        {mascot && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={mascot} alt="" width={300} height={300} style={{ position: 'absolute', right: 40, bottom: 30 }} />
-        )}
+        {/* Right: mascot hero on a pink field */}
+        <div style={{ display: 'flex', width: 420, position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', position: 'absolute', top: 95, width: 420, height: 420, borderRadius: 210, background: PINK_LT }} />
+          {mascot && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={mascot} alt="" width={380} height={380} style={{ position: 'absolute', top: 150 }} />
+          )}
+          <div style={{ display: 'flex', position: 'absolute', top: 70, right: 56, background: BRAND, color: '#fff', fontSize: 22, fontWeight: 800, padding: '10px 20px', borderRadius: 30, textTransform: 'uppercase', letterSpacing: 1 }}>
+            What is your score?
+          </div>
+        </div>
       </div>
     ),
     {
       width: 1200,
       height: 630,
+      fonts: FONTS,
       headers: {
         'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
         ETag: `"${username}-${hash}"`,
