@@ -6,6 +6,7 @@ import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery, computeClimbs, computeMilestones, snapshotIfStale } from '@/lib/passport';
+import { passportAccent } from '@/lib/passport-themes';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
 import { PassportShare } from '@/components/profile/passport-share';
@@ -103,6 +104,13 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     streakLongest: spine?.streak_longest ?? 0,
   });
 
+  // Identity (M1.6): theme accent + pinned ult chips (slugs -> meta).
+  const accent = passportAccent(spine?.profile_theme);
+  const bySlug = new Map(allGroups.map((g) => [g.slug, g]));
+  const ultGroups = (spine?.ult_groups ?? [])
+    .map((slug) => { const g = bySlug.get(slug); return g ? { name: g.name, slug: g.slug, color: g.display_color } : null; })
+    .filter((x): x is { name: string; slug: string; color: string } => x !== null);
+
   const levelInfo = getLevelInfo(profile.xp);
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
@@ -113,6 +121,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       <PassportView
       mode="personal"
       bio={profile.bio}
+      accent={accent}
+      bias={spine?.bias ?? null}
+      ultGroups={ultGroups}
       nearMastery={nearMastery}
       untouched={untouched}
       climbs={climbs}

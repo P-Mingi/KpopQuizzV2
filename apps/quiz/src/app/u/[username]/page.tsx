@@ -12,6 +12,7 @@ import { formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
+import { passportAccent } from '@/lib/passport-themes';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge } from '@/lib/db/types';
@@ -109,16 +110,24 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
     readPassportSpine(db, profile.id),
     readPassportGroupStats(db, profile.id),
     readCollectionProgress(db, profile.id),
-    Promise.resolve(db.from('groups').select('id, name, logo_url, display_color')),
+    Promise.resolve(db.from('groups').select('id, name, slug, logo_url, display_color')),
     safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
     safeFetch(Promise.resolve(db.from('badge_definitions').select('*').order('sort_order')), { data: null } as { data: unknown }, '[u/[username]] badge_definitions'),
     safeFetch(Promise.resolve(db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), { data: null } as { data: unknown }, '[u/[username]] user_badges'),
   ]);
 
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
-  for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; logo_url: string | null; display_color: string }>) {
+  const bySlug = new Map<string, { name: string; color: string }>();
+  for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>) {
     groupMeta.set(g.id, { name: g.name, logo: g.logo_url, color: g.display_color });
+    bySlug.set(g.slug, { name: g.name, color: g.display_color });
   }
+
+  // Identity (M1.6): theme accent + pinned ults (public).
+  const accent = passportAccent(spine?.profile_theme);
+  const ultGroups = (spine?.ult_groups ?? [])
+    .map((slug) => { const g = bySlug.get(slug); return g ? { name: g.name, slug, color: g.color } : null; })
+    .filter((x): x is { name: string; slug: string; color: string } => x !== null);
 
   const topGroups: PassportTopGroup[] = groupStats
     .filter((s) => s.songs_played > 0)
@@ -147,6 +156,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <PassportView
         mode="public"
         bio={profile.bio}
+        accent={accent}
+        bias={spine?.bias ?? null}
+        ultGroups={ultGroups}
         username={profile.username}
         displayName={displayName}
         avatarUrl={profile.avatar_url}

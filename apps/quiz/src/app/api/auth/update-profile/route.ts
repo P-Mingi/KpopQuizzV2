@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { getAvatarColors } from '@/lib/utils';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { isValidTheme, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 
 import type { NextRequest } from 'next/server';
 
@@ -108,6 +110,45 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // Validate ult_groups (M1.6): up to ULT_MAX existing group slugs.
+  if (input.ult_groups !== undefined) {
+    if (!Array.isArray(input.ult_groups) || !input.ult_groups.every((s) => typeof s === 'string')) {
+      return NextResponse.json({ error: 'Invalid ult groups' }, { status: 400 });
+    }
+    const slugs = [...new Set((input.ult_groups as string[]).map((s) => s.trim()).filter(Boolean))];
+    if (slugs.length > ULT_MAX) {
+      return NextResponse.json({ error: `Pick at most ${ULT_MAX} ult groups` }, { status: 400 });
+    }
+    if (slugs.length > 0) {
+      const { data: found } = await supabase.from('groups').select('slug').in('slug', slugs);
+      const valid = new Set(((found ?? []) as Array<{ slug: string }>).map((g) => g.slug));
+      if (slugs.some((s) => !valid.has(s))) {
+        return NextResponse.json({ error: 'One or more groups do not exist' }, { status: 400 });
+      }
+    }
+    updates.ult_groups = slugs;
+  }
+
+  // Validate bias (M1.6): short free text (no structured member roster exists).
+  if (input.bias !== undefined) {
+    if (input.bias === null || input.bias === '') {
+      updates.bias = null;
+    } else if (typeof input.bias === 'string') {
+      if (input.bias.length > BIAS_MAX) {
+        return NextResponse.json({ error: `Bias must be ${BIAS_MAX} characters or less` }, { status: 400 });
+      }
+      updates.bias = input.bias.trim();
+    }
+  }
+
+  // Validate profile_theme (M1.6): preset enum only.
+  if (input.profile_theme !== undefined) {
+    if (typeof input.profile_theme !== 'string' || !isValidTheme(input.profile_theme)) {
+      return NextResponse.json({ error: 'Invalid theme' }, { status: 400 });
+    }
+    updates.profile_theme = input.profile_theme;
+  }
+
   if (Object.keys(updates).length === 0) {
     return NextResponse.json({ success: true, profile: currentProfile });
   }
@@ -118,12 +159,17 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
-    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio')
+    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme')
     .single();
 
   if (updateError) {
     console.error('Failed to update profile:', updateError);
     return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
+  }
+
+  // Bake the identity edit into the static /u/[username] ISR render.
+  if (updatedProfile?.username) {
+    revalidatePath(`/u/${updatedProfile.username}`);
   }
 
   return NextResponse.json({ success: true, profile: updatedProfile });

@@ -45,6 +45,9 @@ export interface PassportViewProps {
   username: string;
   displayName: string;
   bio?: string | null;
+  accent?: string;                 // themed accent (passportAccent); defaults to brand
+  bias?: string | null;            // identity: free-text bias
+  ultGroups?: Array<{ name: string; slug: string; color: string }>; // pinned ults
   nearMastery?: PassportNearGap[];   // personal only
   untouched?: PassportUntouched;     // personal only
   climbs?: PassportClimb[];          // personal only (needs >= 2 snapshots)
@@ -112,11 +115,13 @@ function fmt(n: number): string {
 
 export function PassportView(props: PassportViewProps): React.ReactElement {
   const {
-    mode, username, displayName, bio, nearMastery, untouched, climbs, milestones, avatarUrl, avatarBg, avatarText, joinedLabel,
+    mode, username, displayName, bio, accent: accentProp, bias, ultGroups, nearMastery, untouched, climbs, milestones, avatarUrl, avatarBg, avatarText, joinedLabel,
     level, levelTitleEn, levelTitleKr, xp, xpForNext, xpPct, nextTitleEn,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
     streakCurrent, streakLongest, streakLastActive, groupsMastered, groupsTotal, eras, topGroups, headerSlot,
   } = props;
+  const accent = accentProp ?? 'var(--brand)';
+  const ults = (ultGroups ?? []).slice(0, 3);
   const isPersonal = mode === 'personal';
   const near = isPersonal ? (nearMastery ?? []).slice(0, 3) : [];
   const showUntouched = isPersonal && untouched && untouched.count > 0;
@@ -146,18 +151,36 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <UserAvatar username={username} avatarUrl={avatarUrl} bgColor={avatarBg} textColor={avatarText} size={72} />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--brand)', marginBottom: 2 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: accent, marginBottom: 2 }}>
             Lv {level} {'·'} {levelTitleEn}
           </div>
           <h1 style={{ fontSize: 25, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.08, margin: 0, color: 'var(--txt1)' }}>
             {displayName}
           </h1>
           <div style={{ fontSize: 12, color: 'var(--txt2)', marginTop: 3 }}>
-            @{username} {'·'} Joined {joinedLabel}
+            @{username} {'·'} Joined {joinedLabel}{bias && bias.trim() ? ` · bias ${bias.trim()}` : ''}
           </div>
         </div>
         {headerSlot}
       </div>
+
+      {/* Ult groups (pinned identity) */}
+      {ults.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--txt3)' }}>Ults</span>
+          {ults.map((g) => (
+            <a key={g.slug} href={`/${g.slug}-quiz`} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '6px 12px', borderRadius: 9999,
+              background: 'var(--surface)', border: `1px solid ${accent}`,
+              fontSize: 12, fontWeight: 700, color: 'var(--txt1)', textDecoration: 'none',
+            }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: g.color || accent }} aria-hidden="true" />
+              {g.name}
+            </a>
+          ))}
+        </div>
+      )}
 
       {/* Bio (user-authored identity, public) */}
       {bio && bio.trim() && (
@@ -185,7 +208,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           <div style={{ flex: 1, minWidth: 0 }}>
             <p style={eyebrow}>Collection</p>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 8 }}>
-              <span style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--brand)', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{groupsMastered}</span>
+              <span style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.03em', color: accent, lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{groupsMastered}</span>
               <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--txt3)' }}>/ {groupsTotal} groups mastered</span>
             </div>
             <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '8px 0 0', lineHeight: 1.5 }}>
@@ -201,7 +224,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
               <div key={e.era} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={{ width: 56, flexShrink: 0, fontSize: 12, fontWeight: 700, color: 'var(--txt2)' }}>{e.era}</span>
                 <div style={{ flex: 1, height: 9, background: 'var(--surface-alt)', borderRadius: 9999, overflow: 'hidden' }}>
-                  <div className="passport-fill" style={{ height: '100%', width: `${pct}%`, background: 'var(--brand)', borderRadius: 9999 }} />
+                  <div className="passport-fill" style={{ height: '100%', width: `${pct}%`, background: accent, borderRadius: 9999 }} />
                 </div>
                 <span style={{ width: 42, flexShrink: 0, textAlign: 'right', fontSize: 11, fontWeight: 700, color: pct > 0 ? 'var(--txt2)' : 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>
                   {e.mastered}/{e.total}
@@ -220,7 +243,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
                 const accNow = Math.round(g.accuracyNow * 100);
                 return (
                   <div key={g.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, background: g.color || 'var(--brand)' }} aria-hidden="true" />
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, background: g.color || accent }} aria-hidden="true" />
                     <span style={{ fontSize: 12.5, color: 'var(--txt1)', lineHeight: 1.4 }}>
                       {g.kind === 'plays' ? (
                         <>
@@ -257,7 +280,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
                     fontSize: 12, fontWeight: 600, color: 'var(--txt1)', textDecoration: 'none',
                   }}
                 >
-                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.color || 'var(--brand)' }} aria-hidden="true" />
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.color || accent }} aria-hidden="true" />
                   {s.name}
                 </a>
               ))}
@@ -283,7 +306,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           </div>
         </div>
         {isPersonal && (
-          <div style={{ fontSize: 11.5, color: sState === 'at_risk' ? 'var(--brand)' : 'var(--txt2)', fontWeight: sState === 'at_risk' ? 700 : 400, maxWidth: 132, textAlign: 'right', lineHeight: 1.4 }}>
+          <div style={{ fontSize: 11.5, color: sState === 'at_risk' ? accent : 'var(--txt2)', fontWeight: sState === 'at_risk' ? 700 : 400, maxWidth: 132, textAlign: 'right', lineHeight: 1.4 }}>
             {streakNudge}
           </div>
         )}
@@ -299,7 +322,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: milestoneList.length > 0 ? 14 : 0 }}>
               {climbList.map((c) => (
                 <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ width: 26, height: 26, borderRadius: 8, flexShrink: 0, background: 'var(--brand-light)', color: 'var(--brand)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-hidden="true">
+                  <span style={{ width: 26, height: 26, borderRadius: 8, flexShrink: 0, background: 'var(--brand-light)', color: accent, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-hidden="true">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7" /><path d="M9 7h8v8" /></svg>
                   </span>
                   <span style={{ fontSize: 12.5, color: 'var(--txt1)', lineHeight: 1.4 }}>
@@ -319,7 +342,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
                   background: 'var(--surface-alt)', border: '1px solid var(--border)',
                   fontSize: 11.5, fontWeight: 600, color: 'var(--txt1)',
                 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--brand)' }} aria-hidden="true" />
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: accent }} aria-hidden="true" />
                   {m}
                 </span>
               ))}
@@ -358,7 +381,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
                       <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--txt2)', fontVariantNumeric: 'tabular-nums' }}>{pct}%</span>
                     </div>
                     <div style={{ height: 7, background: 'var(--surface-alt)', borderRadius: 9999, overflow: 'hidden' }}>
-                      <div className="passport-fill" style={{ height: '100%', width: `${pct}%`, background: g.color || 'var(--brand)', borderRadius: 9999 }} />
+                      <div className="passport-fill" style={{ height: '100%', width: `${pct}%`, background: g.color || accent, borderRadius: 9999 }} />
                     </div>
                   </div>
                 </div>
@@ -377,7 +400,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
               <div style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.1 }}>
                 {c.value}
               </div>
-              {c.sub && <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--brand)', marginTop: 1 }}>{c.sub}</div>}
+              {c.sub && <div style={{ fontSize: 10, fontWeight: 700, color: accent, marginTop: 1 }}>{c.sub}</div>}
               <div style={{ fontSize: 9.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--txt3)', marginTop: 3 }}>
                 {c.label}
               </div>
