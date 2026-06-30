@@ -5,6 +5,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getAvatarColors } from '@/lib/utils';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 import { isValidTheme, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
+import { isValidNameAccent, isValidNameFont, isValidAvatarKind, isValidAvatarPreset } from '@/lib/passport-flair';
 
 import type { NextRequest } from 'next/server';
 
@@ -149,6 +150,55 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     updates.profile_theme = input.profile_theme;
   }
 
+  // Identity flair (M1.26): curated enums only, validated server-side.
+  if (input.name_accent !== undefined) {
+    if (typeof input.name_accent !== 'string' || !isValidNameAccent(input.name_accent)) {
+      return NextResponse.json({ error: 'Invalid name accent' }, { status: 400 });
+    }
+    updates.name_accent = input.name_accent;
+  }
+  if (input.name_font !== undefined) {
+    if (typeof input.name_font !== 'string' || !isValidNameFont(input.name_font)) {
+      return NextResponse.json({ error: 'Invalid name font' }, { status: 400 });
+    }
+    updates.name_font = input.name_font;
+  }
+  if (input.avatar_kind !== undefined) {
+    if (typeof input.avatar_kind !== 'string' || !isValidAvatarKind(input.avatar_kind)) {
+      return NextResponse.json({ error: 'Invalid avatar kind' }, { status: 400 });
+    }
+    updates.avatar_kind = input.avatar_kind;
+  }
+  if (input.avatar_ref !== undefined) {
+    if (input.avatar_ref === null || input.avatar_ref === '') {
+      updates.avatar_ref = null;
+    } else if (typeof input.avatar_ref === 'string' && input.avatar_ref.length <= 600) {
+      // A preset ref must be a curated key; photo/custom refs are length-capped strings.
+      const kind = (updates.avatar_kind ?? (currentProfile as { avatar_kind?: string }).avatar_kind ?? 'photo') as string;
+      if (kind === 'preset' && !isValidAvatarPreset(input.avatar_ref)) {
+        return NextResponse.json({ error: 'Invalid avatar preset' }, { status: 400 });
+      }
+      updates.avatar_ref = input.avatar_ref;
+    } else {
+      return NextResponse.json({ error: 'Invalid avatar reference' }, { status: 400 });
+    }
+  }
+  if (input.pinned_badge_id !== undefined) {
+    if (input.pinned_badge_id === null || input.pinned_badge_id === '') {
+      updates.pinned_badge_id = null;
+    } else if (typeof input.pinned_badge_id === 'string') {
+      // Can only pin a badge you have earned.
+      const { data: earned } = await supabase
+        .from('user_badges').select('badge_id').eq('user_id', user.id).eq('badge_id', input.pinned_badge_id).maybeSingle();
+      if (!earned) {
+        return NextResponse.json({ error: 'You have not earned that badge' }, { status: 400 });
+      }
+      updates.pinned_badge_id = input.pinned_badge_id;
+    } else {
+      return NextResponse.json({ error: 'Invalid badge' }, { status: 400 });
+    }
+  }
+
   if (Object.keys(updates).length === 0) {
     return NextResponse.json({ success: true, profile: currentProfile });
   }
@@ -159,7 +209,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
-    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme')
+    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref')
     .single();
 
   if (updateError) {

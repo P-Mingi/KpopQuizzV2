@@ -17,6 +17,15 @@ interface Comment {
   author_xp?: number | null;
   score?: number | null;
   total?: number | null;
+  avatar_url?: string | null;
+  avatar_bg?: string | null;
+  avatar_text?: string | null;
+  name_accent?: string | null;
+  name_font?: string | null;
+  bias?: string | null;
+  pinned_badge_id?: string | null;
+  avatar_kind?: string | null;
+  avatar_ref?: string | null;
 }
 
 interface Props {
@@ -124,11 +133,17 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
                   <PersonCard
                     person={{
                       username: c.username,
-                      avatarUrl: null,
-                      avatarBg: getAvatarColors(c.username).bg,
-                      avatarText: getAvatarColors(c.username).text,
+                      avatarUrl: c.avatar_url ?? null,
+                      avatarBg: c.avatar_bg ?? getAvatarColors(c.username).bg,
+                      avatarText: c.avatar_text ?? getAvatarColors(c.username).text,
                       xp: c.author_xp ?? 0,
                       followerCount: 0,
+                      nameAccent: c.name_accent ?? null,
+                      nameFont: c.name_font ?? null,
+                      bias: c.bias ?? null,
+                      pinnedBadgeId: c.pinned_badge_id ?? null,
+                      avatarKind: (c.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo',
+                      avatarRef: c.avatar_ref ?? null,
                     }}
                     compact
                   />

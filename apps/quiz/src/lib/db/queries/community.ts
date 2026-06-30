@@ -6,12 +6,14 @@ import type { PersonCardData } from '@/components/profile/person-card';
 // client so /leaderboard stays static/ISR. NANO-cheap: the rising signal is one
 // index-backed aggregate + one profiles IN read; the rest are small reads.
 
-const PROFILE_COLS = 'id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count';
+const PROFILE_COLS = 'id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count, name_accent, name_font, bias, pinned_badge_id, avatar_kind, avatar_ref';
 
 interface ProfileRow {
   id: string; username: string; display_name: string | null;
   avatar_url: string | null; avatar_bg: string; avatar_text: string;
   xp: number; follower_count: number;
+  name_accent: string | null; name_font: string | null; bias: string | null;
+  pinned_badge_id: string | null; avatar_kind: string | null; avatar_ref: string | null;
 }
 
 function toPerson(p: ProfileRow): PersonCardData {
@@ -19,6 +21,9 @@ function toPerson(p: ProfileRow): PersonCardData {
     username: p.username, displayName: p.display_name,
     avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text,
     xp: p.xp ?? 0, followerCount: p.follower_count ?? 0,
+    nameAccent: p.name_accent, nameFont: p.name_font, bias: p.bias,
+    pinnedBadgeId: p.pinned_badge_id,
+    avatarKind: (p.avatar_kind as PersonCardData['avatarKind']) ?? 'photo', avatarRef: p.avatar_ref,
   };
 }
 
@@ -77,14 +82,14 @@ export interface HallOfFameEntry { person: PersonCardData | null; score: number;
 
 interface PlayRow {
   score: number; total_questions: number; time_taken_seconds: number | null; player_id: string | null;
-  profiles: { username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number } | null;
+  profiles: ProfileRow | null;
 }
 
 export async function getQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFameEntry[]> {
   const db = createPublicReadClient();
   const { data } = await db
     .from('plays')
-    .select('score, total_questions, time_taken_seconds, player_id, profiles(username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count)')
+    .select(`score, total_questions, time_taken_seconds, player_id, profiles(${PROFILE_COLS})`)
     .eq('quiz_id', quizId)
     .order('score', { ascending: false })
     .order('time_taken_seconds', { ascending: true, nullsFirst: false })
@@ -100,7 +105,7 @@ export async function getQuizHallOfFame(quizId: string, limit = 10): Promise<Hal
     }
     const p = r.profiles;
     out.push({
-      person: p ? { username: p.username, displayName: p.display_name, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text, xp: p.xp ?? 0, followerCount: p.follower_count ?? 0 } : null,
+      person: p ? toPerson(p) : null,
       score: r.score,
       total: r.total_questions,
       timeSeconds: r.time_taken_seconds,
