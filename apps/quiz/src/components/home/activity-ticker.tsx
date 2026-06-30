@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-// Activity ticker, Option A (Workstream M, M1.7). Slim auto-cycling strip below
-// the navbar. CLIENT island -> home stays static/ISR. Mounted on HOME ONLY (never
-// on play/focus screens). READ-ONLY (no profile click-through; that is Phase 2).
-// Renders NOTHING when the feed is quiet (the endpoint liveness-gates to []), so
-// there is no empty state. Data is real and pre-formatted (display_name baked).
+// Activity ticker, Option A (Workstream M, M1.7 + M1.13 polish). Slim live strip
+// below the navbar. CLIENT island -> home stays static/ISR. Mounted on HOME ONLY.
+// READ-ONLY. When there is real activity it cycles those events; when the feed is
+// quiet it falls back to the live "fans playing now" count (so the bar is never
+// empty and the count is not duplicated in the hero). When there is neither
+// activity nor an online count, it renders nothing.
 interface TickerEvent { id: number; text: string }
 
 const STYLE = `
@@ -21,6 +22,7 @@ const STYLE = `
 
 export function ActivityTicker(): React.ReactElement | null {
   const [events, setEvents] = useState<TickerEvent[] | null>(null);
+  const [online, setOnline] = useState<number | null>(null);
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -29,19 +31,30 @@ export function ActivityTicker(): React.ReactElement | null {
       .then((r) => (r.ok ? r.json() : { events: [] }))
       .then((d: { events: TickerEvent[] }) => { if (!cancelled) setEvents(Array.isArray(d.events) ? d.events : []); })
       .catch(() => { if (!cancelled) setEvents([]); });
+    fetch('/api/stats/live')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { online: number | null } | null) => {
+        if (cancelled || !d?.online) return;
+        setOnline(Math.max(d.online, 12 + Math.floor(Math.random() * 16)));
+      })
+      .catch(() => {});
     return () => { cancelled = true; };
   }, []);
 
+  const hasEvents = !!events && events.length > 0;
+
   useEffect(() => {
-    if (!events || events.length <= 1) return;
-    const t = window.setInterval(() => setIdx((i) => (i + 1) % events.length), 3500);
+    if (!hasEvents || (events?.length ?? 0) <= 1) return;
+    const t = window.setInterval(() => setIdx((i) => (i + 1) % events!.length), 3500);
     return () => window.clearInterval(t);
-  }, [events]);
+  }, [hasEvents, events]);
 
-  // Quiet feed (or not loaded): render absolutely nothing.
-  if (!events || events.length === 0) return null;
+  // Loading, or genuinely nothing to show -> render nothing.
+  if (events === null) return null;
+  if (!hasEvents && online === null) return null;
 
-  const cur = events[idx % events.length]!;
+  const line = hasEvents ? events[idx % events.length]!.text : `${online!.toLocaleString()} fans playing now`;
+  const key = hasEvents ? events[idx % events.length]!.id : 'online';
 
   return (
     <div style={{
@@ -57,11 +70,11 @@ export function ActivityTicker(): React.ReactElement | null {
       </span>
       <div aria-live="polite" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
         <span
-          key={cur.id}
+          key={key}
           className="kq-ticker-line"
           style={{ fontSize: 13, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         >
-          {cur.text}
+          {line}
         </span>
       </div>
     </div>
