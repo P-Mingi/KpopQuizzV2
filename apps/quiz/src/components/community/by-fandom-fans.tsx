@@ -63,7 +63,7 @@ export function ByFandomFans({ groups, initialGroup, initialFans }: { groups: Fa
           {fans.map((f, i) => (
             <div key={f.person.username} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '8px 0', borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>
               <div style={{ flex: 1, minWidth: 0 }}><PersonCard person={f.person} compact /></div>
-              <span style={{ flexShrink: 0, fontSize: 11, fontWeight: 700, color: 'var(--txt2)', fontVariantNumeric: 'tabular-nums' }}>{Math.round(f.accuracy * 100)}%</span>
+              <span style={{ flexShrink: 0, width: 44, textAlign: 'right', fontSize: 11, fontWeight: 700, color: 'var(--txt2)', fontVariantNumeric: 'tabular-nums' }}>{Math.round(f.accuracy * 100)}%</span>
             </div>
           ))}
         </div>

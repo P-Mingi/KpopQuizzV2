@@ -46,7 +46,7 @@ function PersonRow({ person, stat, showFollow }: { person: PersonCardData; stat?
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '8px 0' }}>
       <div style={{ flex: 1, minWidth: 0 }}><PersonCard person={person} compact showFollow={showFollow ?? false} /></div>
-      {stat && <span style={{ flexShrink: 0, fontSize: 12, fontWeight: 700, color: 'var(--brand)', fontVariantNumeric: 'tabular-nums' }}>{stat}</span>}
+      {stat && <span style={{ flexShrink: 0, width: 52, textAlign: 'right', fontSize: 12, fontWeight: 700, color: 'var(--brand)', fontVariantNumeric: 'tabular-nums' }}>{stat}</span>}
     </div>
   );
 }
