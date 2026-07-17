@@ -96,7 +96,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip Next internals, API routes, static assets, sitemap/robots, OG images.
-    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    // Skip Next internals, API routes, static assets, sitemap/robots, OG images,
+    // and any root .txt file (robots.txt, llms.txt, the IndexNow key file).
+    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$).*)',
   ],
 };

@@ -5,6 +5,7 @@ import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/que
 import { getPassRate } from '@/lib/db/queries/plays';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
+import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
@@ -167,6 +168,14 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // M1.19 - per-quiz hall of fame (top scorers), ISR-baked + crawlable.
   const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
 
+  // SEO (audit v2): crawlable reactions + comments counts (the live widgets are
+  // a client island shown post-play, so the COUNTS render into the server HTML).
+  const social = await safeFetch(
+    getQuizSocialCounts(quiz.id),
+    { comments: 0, reactions: 0 },
+    '[q/[slug]] social',
+  );
+
   const quizIntro = {
     id: quiz.id,
     title: quiz.title,
@@ -212,6 +221,18 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
+
+      {/* SEO (audit v2) - crawlable engagement counts. The live reaction/comment
+          widgets are a post-play client island; these counts render server-side. */}
+      {(social.reactions > 0 || social.comments > 0 || quizIntro.likeCount > 0) && (
+        <p className="text-xs text-tertiary mt-2 max-w-2xl">
+          {[
+            quizIntro.likeCount > 0 && `${quizIntro.likeCount.toLocaleString('en-US')} like${quizIntro.likeCount === 1 ? '' : 's'}`,
+            social.reactions > 0 && `${social.reactions.toLocaleString('en-US')} reaction${social.reactions === 1 ? '' : 's'}`,
+            social.comments > 0 && `${social.comments.toLocaleString('en-US')} comment${social.comments === 1 ? '' : 's'}`,
+          ].filter(Boolean).join(' · ')}
+        </p>
+      )}
 
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
       <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} />

@@ -16,6 +16,27 @@ const QUIZZES_LIMIT = 10000;
 const PROFILES_LIMIT = 500;
 const BT_SONG_LIMIT = 5000;
 
+// LASTMOD honesty (SEO audit v2): evergreen pages (legal/info) carry a STABLE
+// date so we stop emitting `new Date()` every deploy - false "changed today"
+// signals poison Google's recrawl prioritization. Catalog-driven pages instead
+// carry `contentDate` = the newest quiz updated_at (computed at request time),
+// and each group page carries its own group's newest quiz date. Terms/Privacy
+// keep their own real edit dates.
+const STATIC_DATE = new Date('2026-06-15');
+const TERMS_DATE = new Date('2026-03-27');
+
+// URLs whose content is derived from the live quiz catalogue: their lastmod is
+// the newest quiz updated_at, not the deploy time.
+const CATALOG_PATHS = new Set<string>([
+  '', '/quizzes', '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
+  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+  '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/games',
+  '/games/this-or-that', '/games/name-all', '/stats',
+  '/pt', '/pt/quizzes', '/pt/blindtest', '/pt/games', '/pt/leaderboard', '/pt/stats',
+  '/pt/easy-kpop-quizzes', '/pt/hard-kpop-quizzes', '/pt/kpop-quiz-2026',
+  '/pt/guess-the-kpop-idol', '/pt/kpop-true-or-false',
+].map((p) => `${SITE_URL}${p}`));
+
 /**
  * `-trivia` URLs that will actually render (>=12 facts AFTER the J1 override
  * layer). Runs the SAME buildOverriddenFacts the page/gate uses - not a raw
@@ -53,47 +74,53 @@ function buildTriviaEligibleGroupSet(
  * can and tries again later.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages - always returned, even if every dynamic query fails.
+  // Catalog freshness. Defaults to STATIC_DATE so a DB outage still emits stable
+  // (never future/now) lastmods; overwritten with the newest quiz date below.
+  let contentDate = STATIC_DATE;
+  const groupLatest = new Map<number, Date>();
+
+  // Static pages - always returned, even if every dynamic query fails. Catalog
+  // pages start at STATIC_DATE and get bumped to contentDate after the fetch.
   const staticPages: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-    { url: `${SITE_URL}/quizzes`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${SITE_URL}/trending`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/new`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/most-liked`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/trivia`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/leaderboard`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/kpop-quiz-2026`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/blindtest`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${SITE_URL}/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/games/this-or-that`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/games/name-all`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${SITE_URL}/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${SITE_URL}/terms`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${SITE_URL}/privacy`, lastModified: new Date('2026-03-27'), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${SITE_URL}/articles`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: SITE_URL, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 1.0 },
+    { url: `${SITE_URL}/quizzes`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/trending`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${SITE_URL}/new`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${SITE_URL}/most-liked`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/trivia`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/kpop-quiz-2026`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/games`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${SITE_URL}/games/this-or-that`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/games/name-all`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${SITE_URL}/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE_URL}/contact`, lastModified: STATIC_DATE, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/privacy`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
 
     // Portuguese (pt-BR) - live, reviewed, indexable
-    { url: `${SITE_URL}/pt`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${SITE_URL}/pt/quizzes`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/pt/blindtest`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${SITE_URL}/pt/games`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/pt/leaderboard`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${SITE_URL}/pt/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${SITE_URL}/pt/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/articles`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/easy-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/pt/hard-kpop-quizzes`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/pt/kpop-quiz-2026`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/pt/guess-the-kpop-idol`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/kpop-true-or-false`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/pt/quizzes`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${SITE_URL}/pt/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/pt/games`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/pt/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE_URL}/pt/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${SITE_URL}/pt/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/pt/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}/pt/kpop-quiz-2026`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/pt/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${SITE_URL}/pt/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
   ];
 
   const articlePages: MetadataRoute.Sitemap = ARTICLES.map((a) => ({
@@ -103,10 +130,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Static blind test mode pages (from the in-code catalogue).
+  // Static blind test mode pages (from the in-code catalogue) - evergreen.
   const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map((mode) => ({
     url: `${SITE_URL}/blindtest/${mode.id}`,
-    lastModified: new Date(),
+    lastModified: STATIC_DATE,
     changeFrequency: 'weekly' as const,
     priority: 0.6,
   }));
@@ -145,6 +172,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult, gamesResult, totCategoriesResult] = raced as [Row, Row, Row, Row, Row, Row];
 
+    // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
+    // change on the site. Also fold the per-group newest date for group pages.
+    const quizRows = (quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string; group_id: number | null }>;
+    if (quizRows[0]?.updated_at) contentDate = new Date(quizRows[0].updated_at);
+    for (const q of quizRows) {
+      if (q.group_id == null || !q.updated_at) continue;
+      const d = new Date(q.updated_at);
+      const prev = groupLatest.get(q.group_id);
+      if (!prev || d > prev) groupLatest.set(q.group_id, d);
+    }
+
     // Dynamic group blind test pages (deduplicated)
     const btGroupSlugs = [
       ...new Set(
@@ -155,7 +193,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
     blindTestGroupPages = btGroupSlugs.map((slug) => ({
       url: `${SITE_URL}/blindtest/group-${slug}`,
-      lastModified: new Date(),
+      lastModified: contentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.5,
     }));
@@ -173,13 +211,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string; quiz_count: number | null }>).flatMap((g) => {
       const entries: MetadataRoute.Sitemap = [];
+      // Honest lastmod: the group page changes when one of its quizzes changes.
+      const groupDate = groupLatest.get(g.id) ?? contentDate;
 
       // `-quiz` page renders an empty "be the first" state when quiz_count
       // is 0 - thin content that Google soft-404s. Skip those.
       if ((g.quiz_count ?? 0) > 0) {
         entries.push({
           url: `${SITE_URL}/${g.slug}-quiz`,
-          lastModified: new Date(),
+          lastModified: groupDate,
           changeFrequency: 'weekly' as const,
           priority: 0.9,
         });
@@ -188,7 +228,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (triviaEligibleGroupIds.has(g.id)) {
         entries.push({
           url: `${SITE_URL}/${g.slug}-trivia`,
-          lastModified: new Date(),
+          lastModified: groupDate,
           changeFrequency: 'weekly' as const,
           priority: 0.5,
         });
@@ -197,7 +237,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return entries;
     });
 
-    quizPages = ((quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string }>).map((q) => ({
+    quizPages = quizRows.map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
       lastModified: new Date(q.updated_at),
       changeFrequency: 'monthly' as const,
@@ -230,6 +270,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
   }
 
+  // Bump catalog-driven static pages to the real newest-content date (honest
+  // lastmod). Evergreen + legal pages keep their stable dates.
+  for (const page of staticPages) {
+    if (CATALOG_PATHS.has(page.url)) page.lastModified = contentDate;
+  }
+
   // Ranking pages: ONLY questions whose real votes have crossed min_votes are
   // public/indexable (the rest are noindex locked states). The /rankings hub is
   // listed only when at least one ranking is public (otherwise it's a noindex
@@ -248,14 +294,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const publicRankings = (rankingsResult as Awaited<ReturnType<typeof getRankingsIndex>>).filter((r) => r.public);
     rankingPages = publicRankings.map((r) => ({
       url: `${SITE_URL}/rankings/${r.group_slug}/${r.question_type}`,
-      lastModified: new Date(),
+      lastModified: contentDate,
       changeFrequency: 'daily' as const,
       priority: 0.6,
     }));
     if (publicRankings.length > 0) {
       rankingPages.unshift({
         url: `${SITE_URL}/rankings`,
-        lastModified: new Date(),
+        lastModified: contentDate,
         changeFrequency: 'daily' as const,
         priority: 0.6,
       });
