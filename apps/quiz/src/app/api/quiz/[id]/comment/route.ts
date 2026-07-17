@@ -16,6 +16,8 @@ interface CommentRow {
   username: string;
   content: string;
   created_at: string;
+  score: number | null;
+  total: number | null;
 }
 
 /**
@@ -40,7 +42,7 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('quiz_comments')
-    .select('id, quiz_id, user_id, username, content, created_at, profiles!inner(xp)')
+    .select('id, quiz_id, user_id, username, content, created_at, score, total, profiles!inner(xp, avatar_url, avatar_bg, avatar_text, name_accent, name_font, bias, pinned_badge_id, avatar_kind, avatar_ref)')
     .eq('quiz_id', id)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -50,13 +52,29 @@ export async function GET(
     return NextResponse.json({ comments: [] });
   }
 
-  // L5 - flatten profiles.xp into author_xp so the UI can show the Fan title.
+  // Flatten the joined author profile: Fan title (xp) + avatar + M1.26 flair.
+  type Prof = {
+    xp?: number | null; avatar_url?: string | null; avatar_bg?: string; avatar_text?: string;
+    name_accent?: string | null; name_font?: string | null; bias?: string | null;
+    pinned_badge_id?: string | null; avatar_kind?: string | null; avatar_ref?: string | null;
+  };
   const comments = (data ?? []).map((c) => {
-    const row = c as Record<string, unknown> & { profiles?: { xp?: number | null } | { xp?: number | null }[] };
-    const prof = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
-    const author_xp = (prof?.xp as number | null | undefined) ?? null;
+    const row = c as Record<string, unknown> & { profiles?: Prof | Prof[] };
+    const prof = (Array.isArray(row.profiles) ? row.profiles[0] : row.profiles) ?? {};
     const { profiles: _, ...rest } = row;
-    return { ...rest, author_xp };
+    return {
+      ...rest,
+      author_xp: prof.xp ?? null,
+      avatar_url: prof.avatar_url ?? null,
+      avatar_bg: prof.avatar_bg ?? '#ED93B1',
+      avatar_text: prof.avatar_text ?? '#FFFFFF',
+      name_accent: prof.name_accent ?? null,
+      name_font: prof.name_font ?? null,
+      bias: prof.bias ?? null,
+      pinned_badge_id: prof.pinned_badge_id ?? null,
+      avatar_kind: prof.avatar_kind ?? 'photo',
+      avatar_ref: prof.avatar_ref ?? null,
+    };
   });
   return NextResponse.json({ comments });
 }
@@ -117,6 +135,17 @@ export async function POST(
 
   const username = (profile?.username as string | undefined) ?? 'anonymous';
 
+  // Score-anchor (M1.20): attach the commenter's best score on this quiz so the
+  // comment shows their handle + result. One cheap lookup; null if not played.
+  const { data: best } = await supabase
+    .from('plays')
+    .select('score, total_questions')
+    .eq('quiz_id', id)
+    .eq('player_id', user.id)
+    .order('score', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   const { data: comment, error: insertError } = await supabase
     .from('quiz_comments')
     .insert({
@@ -124,8 +153,10 @@ export async function POST(
       user_id: user.id,
       username,
       content: trimmed,
+      score: (best?.score as number | undefined) ?? null,
+      total: (best?.total_questions as number | undefined) ?? null,
     })
-    .select('id, quiz_id, user_id, username, content, created_at')
+    .select('id, quiz_id, user_id, username, content, created_at, score, total')
     .single();
 
   if (insertError || !comment) {

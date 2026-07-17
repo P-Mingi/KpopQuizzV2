@@ -4,6 +4,7 @@ import { Logo } from './logo';
 import { TopNavLinks } from './top-nav-links';
 import { ThemeToggle } from './theme-toggle';
 import { TopNavProfile } from './top-nav-profile';
+import { NotificationBell } from './notification-bell';
 
 /**
  * Top nav SHELL. Pure server-rendered with no cookie/auth reads, so every page
@@ -64,7 +65,8 @@ export function TopNav(): React.ReactElement {
           <span className="top-nav-create-label">Create</span>
         </Link>
 
-        {/* Profile chip (client island - SSR-safe placeholder, hydrates auth on mount) */}
+        {/* Notification bell + profile chip (client islands; layout stays static) */}
+        <NotificationBell />
         <TopNavProfile />
       </div>
     </header>

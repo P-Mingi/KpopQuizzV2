@@ -7,7 +7,10 @@ import { createBrowserClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/toast-provider';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { SoundToggle } from '@/components/settings/sound-toggle';
+import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
+import { NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS, AVATAR_PRESETS, AVATAR_PRESET_KEYS } from '@/lib/passport-flair';
 
 interface ProfileData {
   username: string;
@@ -16,7 +19,19 @@ interface ProfileData {
   avatar_bg: string;
   avatar_text: string;
   bio: string | null;
+  ult_groups: string[];
+  bias: string | null;
+  profile_theme: string;
+  name_accent: string;
+  name_font: string;
+  pinned_badge_id: string | null;
+  avatar_kind: string;
+  avatar_ref: string | null;
 }
+
+interface EarnedBadge { id: string; name: string; color_bg: string; color_stroke: string }
+
+interface GroupOption { slug: string; name: string; color: string }
 
 type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid' | 'same';
 
@@ -32,6 +47,17 @@ export default function SettingsPage(): React.ReactElement {
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
+  const [ultGroups, setUltGroups] = useState<string[]>([]);
+  const [bias, setBias] = useState('');
+  const [profileTheme, setProfileTheme] = useState('default');
+  const [nameAccent, setNameAccent] = useState('default');
+  const [nameFont, setNameFont] = useState('default');
+  const [pinnedBadge, setPinnedBadge] = useState<string | null>(null);
+  const [avatarKind, setAvatarKind] = useState('photo');
+  const [avatarRef, setAvatarRef] = useState<string | null>(null);
+  const [earnedBadges, setEarnedBadges] = useState<EarnedBadge[]>([]);
+  const [allGroups, setAllGroups] = useState<GroupOption[]>([]);
+  const [groupQuery, setGroupQuery] = useState('');
   const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>('same');
   const [usernameError, setUsernameError] = useState('');
   const [avatarPreviewError, setAvatarPreviewError] = useState(false);
@@ -44,11 +70,15 @@ export default function SettingsPage(): React.ReactElement {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const { data } = await supabase
-        .from('profiles')
-        .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio')
-        .eq('id', user.id)
-        .single();
+      const [{ data }, { data: groups }, { data: badges }] = await Promise.all([
+        supabase
+          .from('profiles')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref')
+          .eq('id', user.id)
+          .single(),
+        supabase.from('groups').select('slug, name, display_color').order('name'),
+        supabase.from('user_badges').select('badge_definitions!inner(id, name, color_bg, color_stroke)').eq('user_id', user.id),
+      ]);
 
       if (data) {
         const p = data as ProfileData;
@@ -57,7 +87,17 @@ export default function SettingsPage(): React.ReactElement {
         setDisplayName(p.display_name ?? '');
         setAvatarUrl(p.avatar_url ?? '');
         setBio(p.bio ?? '');
+        setUltGroups(Array.isArray(p.ult_groups) ? p.ult_groups : []);
+        setBias(p.bias ?? '');
+        setProfileTheme(p.profile_theme ?? 'default');
+        setNameAccent(p.name_accent ?? 'default');
+        setNameFont(p.name_font ?? 'default');
+        setPinnedBadge(p.pinned_badge_id ?? null);
+        setAvatarKind(p.avatar_kind ?? 'photo');
+        setAvatarRef(p.avatar_ref ?? null);
       }
+      setAllGroups(((groups ?? []) as Array<{ slug: string; name: string; display_color: string }>).map((g) => ({ slug: g.slug, name: g.name, color: g.display_color })));
+      setEarnedBadges(((badges ?? []) as Array<{ badge_definitions: EarnedBadge | EarnedBadge[] }>).map((b) => (Array.isArray(b.badge_definitions) ? b.badge_definitions[0]! : b.badge_definitions)).filter(Boolean));
       setLoading(false);
     }
     load();
@@ -112,11 +152,20 @@ export default function SettingsPage(): React.ReactElement {
     setAvatarPreviewError(false);
   }, [avatarUrl]);
 
+  const ultsChanged = profile && JSON.stringify(ultGroups) !== JSON.stringify(profile.ult_groups ?? []);
   const hasChanges = profile && (
     username !== profile.username ||
     displayName !== (profile.display_name ?? '') ||
     avatarUrl !== (profile.avatar_url ?? '') ||
-    bio !== (profile.bio ?? '')
+    bio !== (profile.bio ?? '') ||
+    ultsChanged ||
+    bias !== (profile.bias ?? '') ||
+    profileTheme !== (profile.profile_theme ?? 'default') ||
+    nameAccent !== (profile.name_accent ?? 'default') ||
+    nameFont !== (profile.name_font ?? 'default') ||
+    pinnedBadge !== (profile.pinned_badge_id ?? null) ||
+    avatarKind !== (profile.avatar_kind ?? 'photo') ||
+    avatarRef !== (profile.avatar_ref ?? null)
   );
 
   const canSave = hasChanges && !saving &&
@@ -131,6 +180,14 @@ export default function SettingsPage(): React.ReactElement {
     if (displayName !== (profile.display_name ?? '')) payload.display_name = displayName || null;
     if (avatarUrl !== (profile.avatar_url ?? '')) payload.avatar_url = avatarUrl || null;
     if (bio !== (profile.bio ?? '')) payload.bio = bio || null;
+    if (ultsChanged) payload.ult_groups = ultGroups;
+    if (bias !== (profile.bias ?? '')) payload.bias = bias || null;
+    if (profileTheme !== (profile.profile_theme ?? 'default')) payload.profile_theme = profileTheme;
+    if (nameAccent !== (profile.name_accent ?? 'default')) payload.name_accent = nameAccent;
+    if (nameFont !== (profile.name_font ?? 'default')) payload.name_font = nameFont;
+    if (pinnedBadge !== (profile.pinned_badge_id ?? null)) payload.pinned_badge_id = pinnedBadge;
+    if (avatarKind !== (profile.avatar_kind ?? 'photo')) payload.avatar_kind = avatarKind;
+    if (avatarRef !== (profile.avatar_ref ?? null)) payload.avatar_ref = avatarRef;
 
     try {
       const res = await fetch('/api/auth/update-profile', {
@@ -152,6 +209,14 @@ export default function SettingsPage(): React.ReactElement {
       setDisplayName(data.profile.display_name ?? '');
       setAvatarUrl(data.profile.avatar_url ?? '');
       setBio(data.profile.bio ?? '');
+      setUltGroups(Array.isArray(data.profile.ult_groups) ? data.profile.ult_groups : []);
+      setBias(data.profile.bias ?? '');
+      setProfileTheme(data.profile.profile_theme ?? 'default');
+      setNameAccent(data.profile.name_accent ?? 'default');
+      setNameFont(data.profile.name_font ?? 'default');
+      setPinnedBadge(data.profile.pinned_badge_id ?? null);
+      setAvatarKind(data.profile.avatar_kind ?? 'photo');
+      setAvatarRef(data.profile.avatar_ref ?? null);
       setUsernameStatus('same');
       showToast('Settings saved!', 'success');
       router.refresh();
@@ -160,7 +225,11 @@ export default function SettingsPage(): React.ReactElement {
     } finally {
       setSaving(false);
     }
-  }, [canSave, profile, username, displayName, avatarUrl, bio, showToast, router]);
+  }, [canSave, profile, username, displayName, avatarUrl, bio, ultsChanged, ultGroups, bias, profileTheme, nameAccent, nameFont, pinnedBadge, avatarKind, avatarRef, showToast, router]);
+
+  const toggleUlt = useCallback((slug: string) => {
+    setUltGroups((cur) => cur.includes(slug) ? cur.filter((s) => s !== slug) : (cur.length >= ULT_MAX ? cur : [...cur, slug]));
+  }, []);
 
   if (loading) {
     return (
@@ -280,6 +349,157 @@ export default function SettingsPage(): React.ReactElement {
           <p className="text-xs text-tertiary text-right mt-1">{bio.length}/160</p>
         </div>
 
+        {/* Passport identity (M1.6) */}
+        <div className="mb-6 pt-5 border-t border-default">
+          <p className="text-sm font-medium text-primary mb-1">Ult groups</p>
+          <p className="text-xs text-tertiary mb-2">Pick up to {ULT_MAX}. Pinned on your passport.</p>
+          {ultGroups.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-2">
+              {ultGroups.map((slug) => {
+                const g = allGroups.find((x) => x.slug === slug);
+                return (
+                  <button key={slug} onClick={() => toggleUlt(slug)} type="button"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
+                    style={{ background: 'var(--accent-bg)', border: '1px solid var(--accent)', color: 'var(--accent)' }}>
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: g?.color ?? 'var(--accent)' }} />
+                    {g?.name ?? slug}
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          <input type="text" placeholder="Search groups..." value={groupQuery}
+            onChange={(e) => setGroupQuery(e.target.value)} className={INPUT} />
+          {groupQuery && (
+            <div className="mt-2 max-h-52 overflow-y-auto border border-default rounded-md">
+              {allGroups
+                .filter((g) => g.name.toLowerCase().includes(groupQuery.toLowerCase()))
+                .slice(0, 40)
+                .map((g) => {
+                  const selected = ultGroups.includes(g.slug);
+                  const full = ultGroups.length >= ULT_MAX && !selected;
+                  return (
+                    <button key={g.slug} type="button" disabled={full}
+                      onClick={() => { toggleUlt(g.slug); setGroupQuery(''); }}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-elevated disabled:opacity-40"
+                      style={{ color: 'var(--text-primary)' }}>
+                      <span style={{ width: 10, height: 10, borderRadius: '50%', background: g.color, flexShrink: 0 }} />
+                      <span className="flex-1">{g.name}</span>
+                      {selected && <span style={{ color: 'var(--accent)' }}>&#10003;</span>}
+                    </button>
+                  );
+                })}
+            </div>
+          )}
+        </div>
+
+        {/* Bias */}
+        <div className="mb-6">
+          <p className="text-sm font-medium text-primary mb-1">Bias</p>
+          <input type="text" placeholder="Your bias (e.g. Felix)" value={bias}
+            onChange={(e) => setBias(e.target.value)} maxLength={BIAS_MAX} className={INPUT} />
+          <p className="text-xs text-tertiary text-right mt-1">{bias.length}/{BIAS_MAX}</p>
+        </div>
+
+        {/* Passport theme */}
+        <div className="mb-6">
+          <p className="text-sm font-medium text-primary mb-2">Passport theme</p>
+          <div className="flex flex-wrap gap-2">
+            {PASSPORT_THEME_KEYS.map((key) => {
+              const t = PASSPORT_THEMES[key]!;
+              const on = profileTheme === key;
+              return (
+                <button key={key} type="button" onClick={() => setProfileTheme(key)}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium"
+                  style={{ background: 'var(--bg-primary)', border: on ? `2px solid ${t.swatch}` : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+                  <span style={{ width: 14, height: 14, borderRadius: '50%', background: t.swatch }} />
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Identity flair (M1.26): curated name accent + font, avatar choice, pinned badge */}
+        <div className="mb-6 pt-5 border-t border-default">
+          <p className="text-sm font-medium text-primary mb-2">Name color</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {NAME_ACCENT_KEYS.map((key) => {
+              const a = NAME_ACCENTS[key]!;
+              const on = nameAccent === key;
+              const swatch = key === 'default' ? 'var(--text-primary)' : a.color;
+              return (
+                <button key={key} type="button" onClick={() => setNameAccent(key)}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium"
+                  style={{ background: 'var(--bg-primary)', border: on ? `2px solid ${swatch}` : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+                  <span style={{ width: 14, height: 14, borderRadius: '50%', background: swatch }} />
+                  {a.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="text-sm font-medium text-primary mb-2">Name font</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {NAME_FONT_KEYS.map((key) => {
+              const f = NAME_FONTS[key]!;
+              const on = nameFont === key;
+              return (
+                <button key={key} type="button" onClick={() => setNameFont(key)}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium"
+                  style={{ background: 'var(--bg-primary)', border: on ? '2px solid var(--accent)' : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+                  <span style={{ fontFamily: f.family, fontWeight: 700 }}>Aa</span>
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="text-sm font-medium text-primary mb-1">Avatar</p>
+          <p className="text-xs text-tertiary mb-2">Your photo (paste a URL above), or pick a preset color.</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            <button type="button" onClick={() => { setAvatarKind('photo'); setAvatarRef(null); }}
+              className="inline-flex items-center px-3 py-2 rounded-lg text-xs font-medium"
+              style={{ background: 'var(--bg-primary)', border: avatarKind === 'photo' ? '2px solid var(--accent)' : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+              Photo
+            </button>
+            {AVATAR_PRESET_KEYS.map((key) => {
+              const p = AVATAR_PRESETS[key]!;
+              const on = avatarKind === 'preset' && avatarRef === key;
+              return (
+                <button key={key} type="button" aria-label={`Preset avatar ${p.label}`} onClick={() => { setAvatarKind('preset'); setAvatarRef(key); }}
+                  className="inline-flex items-center justify-center rounded-full"
+                  style={{ width: 36, height: 36, background: p.bg, border: on ? '2px solid var(--text-primary)' : '2px solid transparent' }} />
+              );
+            })}
+          </div>
+
+          {earnedBadges.length > 0 && (
+            <>
+              <p className="text-sm font-medium text-primary mb-2">Pinned badge</p>
+              <div className="flex flex-wrap gap-2">
+                <button type="button" onClick={() => setPinnedBadge(null)}
+                  className="inline-flex items-center px-3 py-2 rounded-lg text-xs font-medium"
+                  style={{ background: 'var(--bg-primary)', border: !pinnedBadge ? '2px solid var(--accent)' : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+                  None
+                </button>
+                {earnedBadges.map((b) => {
+                  const on = pinnedBadge === b.id;
+                  return (
+                    <button key={b.id} type="button" onClick={() => setPinnedBadge(b.id)}
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium"
+                      style={{ background: 'var(--bg-primary)', border: on ? '2px solid var(--accent)' : '1px solid var(--border)', color: 'var(--text-primary)' }}>
+                      <span style={{ width: 12, height: 12, borderRadius: '50%', background: b.color_bg, border: `2px solid ${b.color_stroke}` }} />
+                      {b.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+
         {/* Save */}
         <button
           onClick={handleSave}
@@ -300,6 +520,7 @@ export default function SettingsPage(): React.ReactElement {
       <div className="bg-primary border border-default rounded-lg p-5 mt-4">
         <p className="text-sm font-medium text-primary mb-2">Preferences</p>
         <SoundToggle />
+        <HapticsToggle />
       </div>
 
       {/* Disconnect */}

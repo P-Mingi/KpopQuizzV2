@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
+import { getLevelInfo } from '@/lib/constants';
+import { getTitleForLevel } from '@/lib/level-titles';
 
 import type { NextRequest } from 'next/server';
 
@@ -9,14 +11,16 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const query = searchParams.get('q')?.trim() ?? '';
 
   if (query.length < 2 || query.length > 100) {
-    return NextResponse.json({ quizzes: [], groups: [], creators: [] });
+    return NextResponse.json({ quizzes: [], groups: [], creators: [], people: [] });
   }
 
   const supabase = await createServerClient();
+  const publicDb = createPublicReadClient();
   const pattern = `%${query}%`;
+  const orTerm = query.replace(/[^a-zA-Z0-9 _-]/g, '').trim();
 
   try {
-    const [quizzesResult, groupsResult, creatorsResult] = await Promise.all([
+    const [quizzesResult, groupsResult, creatorsResult, peopleResult] = await Promise.all([
       // Quizzes by title
       supabase
         .from('quizzes')
@@ -37,7 +41,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         .order('quiz_count', { ascending: false })
         .limit(3),
 
-      // Creators by username
+      // Creators by username (kept for the existing autocomplete consumers)
       supabase
         .from('profiles')
         .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created')
@@ -45,6 +49,18 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         .gt('total_quizzes_created', 0)
         .order('total_plays_received', { ascending: false })
         .limit(3),
+
+      // People (M1.9): username OR display_name, banned excluded, NANO-cheap
+      // trigram-indexed public read.
+      orTerm.length >= 2
+        ? publicDb
+            .from('profiles')
+            .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
+            .or(`username.ilike.*${orTerm}*,display_name.ilike.*${orTerm}*`)
+            .is('banned_at', null)
+            .order('follower_count', { ascending: false })
+            .limit(8)
+        : Promise.resolve({ data: [] as unknown[] }),
     ]);
 
     // Transform quiz results
@@ -66,10 +82,23 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       group_logo_url: q.groups.logo_url,
     }));
 
+    const people = ((peopleResult.data ?? []) as Array<{
+      username: string; display_name: string | null; avatar_url: string | null;
+      avatar_bg: string; avatar_text: string; xp: number; follower_count: number;
+    }>).map((p) => {
+      const level = getLevelInfo(p.xp).level;
+      return {
+        username: p.username, display_name: p.display_name,
+        avatar_url: p.avatar_url, avatar_bg: p.avatar_bg, avatar_text: p.avatar_text,
+        level, title: getTitleForLevel(level).en, follower_count: p.follower_count,
+      };
+    });
+
     return NextResponse.json({
       quizzes,
       groups: groupsResult.data ?? [],
       creators: creatorsResult.data ?? [],
+      people,
     });
   } catch (err) {
     console.error('Search failed:', err);

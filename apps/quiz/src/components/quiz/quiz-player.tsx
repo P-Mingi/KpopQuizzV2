@@ -12,7 +12,6 @@ import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
 import { getTitleForLevel } from '@/lib/level-titles';
-import { getLevelInfo } from '@/lib/constants';
 import { getResultLabel } from '@/lib/korean-moments';
 import {
   playTap,
@@ -21,6 +20,8 @@ import {
   playPerfect,
   playShare,
 } from '@/lib/sounds';
+import { haptic } from '@/lib/haptics';
+import { celebrate } from '@/lib/celebrate';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
 import { TimeComparison } from '@/components/quiz/time-comparison';
 import { GroupPill } from '@/components/ui/group-pill';
@@ -29,11 +30,10 @@ import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
-import { FanTitle } from '@/components/ui/fan-title';
 import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { BragButton } from '@/components/discord/brag-button';
 import { completeDaily } from '@/lib/daily-played';
-import { UserAvatar } from '@/components/ui/user-avatar';
+import { PersonCard } from '@/components/profile/person-card';
 import { LikeQuizButton } from '@/components/ui/like-quiz-button';
 import { QuizShareRow } from '@/components/share/quiz-share-row';
 import { copyShareLink } from '@/lib/share';
@@ -417,16 +417,19 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     if (state.phase === 'answered') {
       if (state.isCorrect) {
         playCorrect();
+        haptic('correct');
       } else {
         playWrong();
+        haptic('wrong');
       }
     } else if (state.phase === 'result') {
       const maxScore =
         state.quizType === 'guess_from_clues' ? state.totalQuestions * 3 : state.totalQuestions;
       const isPerfect = state.score === maxScore && maxScore > 0;
       if (isPerfect && !state.leveledUp) {
-        // Slight delay so the result screen has time to start animating in
-        const t = setTimeout(() => playPerfect(), 300);
+        // Slight delay so the result screen has time to start animating in.
+        // celebrate() = dynamic-imported confetti + haptic, both reduced-motion gated.
+        const t = setTimeout(() => { playPerfect(); celebrate('perfect'); }, 300);
         return () => clearTimeout(t);
       }
     }
@@ -663,26 +666,19 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
             <h1 className="text-[22px] font-semibold leading-tight text-primary">{quiz.title}</h1>
 
-            <div className="flex items-center gap-2 mt-4">
-              <UserAvatar
-                username={quiz.creatorUsername}
-                avatarUrl={quiz.creatorAvatarUrl}
-                bgColor={quiz.creatorAvatarBg}
-                textColor={quiz.creatorAvatarText}
-                size={24}
+            {/* Creator card (M1.12 single-source PersonCard) */}
+            <div className="mt-4">
+              <PersonCard
+                person={{
+                  username: quiz.creatorUsername,
+                  avatarUrl: quiz.creatorAvatarUrl,
+                  avatarBg: quiz.creatorAvatarBg,
+                  avatarText: quiz.creatorAvatarText,
+                  xp: quiz.creatorXp ?? 0,
+                  followerCount: 0,
+                }}
+                compact
               />
-              <p className="text-xs text-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                by{' '}
-                <Link
-                  href={`/u/${quiz.creatorUsername}`}
-                  className="font-medium text-primary hover:text-accent transition-colors"
-                >
-                  {quiz.creatorUsername}
-                </Link>
-                {quiz.creatorXp != null && quiz.creatorXp > 0 && (
-                  <FanTitle level={getLevelInfo(quiz.creatorXp).level} />
-                )}
-              </p>
             </div>
           </div>
         </div>

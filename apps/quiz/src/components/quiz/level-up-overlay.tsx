@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { playLevelUp } from '@/lib/sounds';
+import { celebrate } from '@/lib/celebrate';
 import { Mascot } from '@/components/ui/mascot';
 import { shareLevelUp } from '@/lib/share';
 import { BragButton } from '@/components/discord/brag-button';
@@ -33,9 +34,9 @@ export function LevelUpOverlay({ newLevel, title, titleKr, onDismiss }: Props): 
       : false;
     const t = setTimeout(() => setShow(true), reduce ? 0 : 80);
     playLevelUp();
-    if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
-      try { navigator.vibrate([100, 50, 100]); } catch { /* non-critical */ }
-    }
+    // Shared celebration primitive: dynamic-imported confetti + level-up haptic,
+    // both gated under prefers-reduced-motion inside celebrate().
+    celebrate('levelUp');
     return () => clearTimeout(t);
   }, []);
 

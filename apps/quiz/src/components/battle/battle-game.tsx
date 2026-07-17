@@ -9,6 +9,7 @@ import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { DiscordContextLine } from '@/components/discord/discord-context-line';
 import { BragButton } from '@/components/discord/brag-button';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { celebrate } from '@/lib/celebrate';
 
 // E4 - the real async 1v1 quick-match battle (Type 1), wired to the E2/E3 APIs.
 // Reuses the validated /battle-preview UI (.bp-* styles). Honest async ghost,
@@ -213,6 +214,11 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     ? (diff >= 0 ? 'You beat par!' : 'Below par')
     : (diff > 0 ? `You won by ${diff}` : diff < 0 ? `Lost by ${-diff}` : 'Dead tie');
   const verdictKind = diff > 0 ? 'win' : diff < 0 ? 'loss' : 'tie';
+
+  // Celebrate a battle win on reveal (confetti + haptic, reduced-motion gated).
+  useEffect(() => {
+    if (phase === 'reveal' && verdictKind === 'win') celebrate('perfect');
+  }, [phase, verdictKind]);
 
   const R = 28, C = 2 * Math.PI * R;
 

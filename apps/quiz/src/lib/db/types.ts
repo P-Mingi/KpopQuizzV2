@@ -16,6 +16,8 @@ export interface Profile {
   total_plays_received: number;
   total_likes_received: number;
   xp: number;
+  follower_count: number;
+  following_count: number;
 }
 
 export interface Group {
@@ -220,6 +222,8 @@ export interface TopCreator {
   avatar_text: string;
   total_quizzes_created: number;
   weekly_plays: number;
+  xp: number;
+  follower_count: number;
 }
 
 export interface RecordPlayResult {

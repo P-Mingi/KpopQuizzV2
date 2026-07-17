@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
+import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
+import { pingIndexNow } from '@/lib/indexnow';
 
 import type { NextRequest } from 'next/server';
 
@@ -302,6 +304,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const quiz = quizResult as { id: string; slug: string };
+
+  // SEO (audit v2): push the freshly published quiz URL to IndexNow so Bing
+  // (our #1 referrer) recrawls it immediately. Fire-and-forget, never blocks.
+  void pingIndexNow([`/q/${quiz.slug}`]);
+
+  // M1.11 - fan out a followed_new_quiz notification to the creator's followers.
+  // Flag-gated here (the env kill-switch lives in TS); the actual fan-out is one
+  // set-based, capped, de-duped SQL statement (no per-follower round trips). Never
+  // blocks creation.
+  if (COMMUNITY_FEATURES_ENABLED) {
+    try {
+      await admin.rpc('fanout_followed_new_quiz', {
+        p_creator_id: user.id, p_quiz_id: quiz.id, p_quiz_title: title, p_quiz_slug: quiz.slug,
+      });
+    } catch (err) {
+      console.error('followed_new_quiz fan-out failed:', err);
+    }
+  }
 
   // H9 - basic NSFW / cover moderation. Every *user-uploaded* cover (one living
   // in the public upload bucket) is queued into the EXISTING report/admin-removal

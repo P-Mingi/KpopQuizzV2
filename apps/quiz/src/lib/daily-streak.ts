@@ -1,5 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { notifyPassportMilestone } from '@/lib/notifications';
+
 // L4 - per-account daily streak. Signed-in users who complete the daily quiz/
 // game (?daily=quiz|game, the F6 entry path) increment a server-side streak and
 // earn +5 base XP per day, plus milestone bonuses at 3/7/14/30. UTC-midnight
@@ -18,6 +20,7 @@ export interface StreakAwardResult {
   base: number;           // base XP component
   milestone: number;      // milestone bonus this call (0 if none)
   streak: number;         // streak after this call
+  longest: number;        // all-time best streak after this call
   alreadyToday: boolean;  // true if no-op
 }
 
@@ -31,16 +34,17 @@ export async function awardDailyStreak(
 ): Promise<StreakAwardResult> {
   const { data: profile } = await supabase
     .from('profiles')
-    .select('daily_streak, last_daily_date')
+    .select('daily_streak, daily_streak_longest, last_daily_date')
     .eq('id', userId)
     .maybeSingle();
 
   const today = todayUtc();
   const prevDate = (profile?.last_daily_date as string | null) ?? null;
   const prevStreak = (profile?.daily_streak as number | null) ?? 0;
+  const prevLongest = (profile?.daily_streak_longest as number | null) ?? 0;
 
   if (prevDate === today) {
-    return { awarded: 0, base: 0, milestone: 0, streak: prevStreak, alreadyToday: true };
+    return { awarded: 0, base: 0, milestone: 0, streak: prevStreak, longest: Math.max(prevLongest, prevStreak), alreadyToday: true };
   }
 
   // yesterday? continue : reset
@@ -56,9 +60,19 @@ export async function awardDailyStreak(
 
   const milestone = DAILY_MILESTONES[streak] ?? 0;
   const total = DAILY_BASE_XP + milestone;
+  const longest = Math.max(prevLongest, streak);
 
-  await supabase.from('profiles').update({ daily_streak: streak, last_daily_date: today }).eq('id', userId);
+  await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today }).eq('id', userId);
   await supabase.rpc('award_xp', { p_user_id: userId, p_amount: total, p_reason: 'daily_streak' });
 
-  return { awarded: total, base: DAILY_BASE_XP, milestone, streak, alreadyToday: false };
+  // M1.7: streak milestone is a deposit point too. One emit, folded into the
+  // existing streak write (caller passes the service-role client; emit_activity
+  // resolves the public username or 'someone').
+  if (milestone > 0) {
+    await supabase.rpc('emit_activity', { p_event_type: 'streak_milestone', p_user_id: userId, p_group_slug: null, p_payload: { streak } });
+    // M1.10: notify the user of their own streak milestone (rare; once per day).
+    await notifyPassportMilestone({ userId, type: 'streak_milestone', title: `${streak}-day streak!`, body: 'Keep it going to climb the Fan Level ladder.' });
+  }
+
+  return { awarded: total, base: DAILY_BASE_XP, milestone, streak, longest, alreadyToday: false };
 }

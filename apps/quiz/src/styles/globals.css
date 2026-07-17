@@ -321,6 +321,19 @@ body {
 .animate-shake-input { animation: shakeInput 300ms ease-out; }
 .animate-korean-float { animation: koreanFloat 700ms ease-out forwards; }
 
+/* M1.13 micro-interaction layer (shared). All gated under prefers-reduced-motion
+   below; none of these change box size so they cannot regress CLS. */
+@keyframes kqFlame { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+@keyframes kqPressPop { 0% { transform: scale(1); } 45% { transform: scale(0.94); } 100% { transform: scale(1); } }
+.kq-flame { animation: kqFlame 1.5s ease-in-out infinite; transform-origin: center bottom; will-change: transform; }
+.kq-press:active { transform: scale(0.96); }
+.kq-hof-more > summary { list-style: none; }
+.kq-hof-more > summary::-webkit-details-marker { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .kq-flame, .animate-pop-in, .animate-check-pop, .animate-shake-input, .animate-korean-float, .animate-slide-in-up { animation: none !important; }
+  .kq-press:active { transform: none; }
+}
+
 /* Card pack animations */
 @keyframes cardFloat {
   0%, 100% { transform: translateY(0) rotate(-0.5deg); }

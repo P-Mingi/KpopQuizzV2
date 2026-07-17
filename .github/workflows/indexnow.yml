@@ -1,0 +1,30 @@
+name: IndexNow submit
+
+# After a production deploy, ask Bing/Yandex (via IndexNow) to recrawl the site.
+# Bing is our #1 search referrer. Per-quiz publishes already ping automatically
+# from the app; this covers the full-sitemap resubmit on deploy.
+#
+# SETUP (one time):
+#   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy).
+#   2. GitHub: repo Settings > Secrets and variables > Actions > New secret
+#      INDEXNOW_TOKEN with the SAME value.
+# workflow_dispatch lets you run it manually from the Actions tab to test.
+on:
+  push:
+    branches: [main, seo-indexation]
+  workflow_dispatch: {}
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Vercel deploy to go live
+        run: sleep 120
+      - name: Resubmit sitemap to IndexNow
+        env:
+          INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
+        run: |
+          if [ -z "$INDEXNOW_TOKEN" ]; then
+            echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
+          fi
+          curl -fsS -X POST "https://kpopquiz.org/api/indexnow?token=${INDEXNOW_TOKEN}"

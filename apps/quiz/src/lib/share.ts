@@ -30,6 +30,58 @@ async function getShareUrl(quizId: string, slug: string, platform: string): Prom
 // L2 - share a Fan Level level-up. Uses the Web Share API when available, else
 // copies the line + link. The home link carries level-up UTM, and the level-up
 // OG card (/api/og/level-up) renders the shareable image.
+// M1.5 - share the public passport (acquisition). The link points to the public
+// /u/<username> profile (which renders the /api/og/passport card), tagged with a
+// per-platform utm_source and utm_medium=passport-card. Public data only.
+export type SharePlatform = 'native' | 'copy' | 'twitter' | 'reddit' | 'discord';
+
+export async function sharePassport(username: string, platform: SharePlatform): Promise<'shared' | 'copied' | 'opened' | 'failed'> {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const link = (src: string) => `${origin}/u/${username}?utm_source=${src}&utm_medium=passport-card`;
+  const text = 'My K-pop passport on kpopquiz.org';
+
+  if (platform === 'twitter') {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link('twitter'))}`, '_blank', 'noopener');
+    return 'opened';
+  }
+  if (platform === 'reddit') {
+    window.open(`https://www.reddit.com/submit?url=${encodeURIComponent(link('reddit'))}&title=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    return 'opened';
+  }
+  if (platform === 'native' && typeof navigator !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({ title: 'My K-pop passport', text, url: link('share') });
+      return 'shared';
+    } catch {
+      return 'failed';
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(link(platform === 'discord' ? 'discord' : 'copy'));
+    return 'copied';
+  } catch {
+    return 'failed';
+  }
+}
+
+// Download the rendered passport card PNG.
+export async function downloadPassportCard(username: string): Promise<boolean> {
+  try {
+    const res = await fetch(`/api/og/passport/${username}`);
+    if (!res.ok) return false;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${username}-kpop-passport.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function shareLevelUp(title: string, level: number): Promise<'shared' | 'copied' | 'failed'> {
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
   const url = `${origin}/?utm_source=levelup&utm_medium=social&utm_campaign=level_up`;

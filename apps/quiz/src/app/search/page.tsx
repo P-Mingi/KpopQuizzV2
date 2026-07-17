@@ -1,10 +1,13 @@
 import Link from 'next/link';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { Mascot } from '@/components/ui/mascot';
+import { FollowButton } from '@/components/profile/follow-button';
 import { formatCount } from '@/lib/utils';
+import { getLevelInfo } from '@/lib/constants';
+import { getTitleForLevel } from '@/lib/level-titles';
 import { SearchForm } from './search-form';
 
 import type { Metadata } from 'next';
@@ -127,9 +130,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   }
 
   const supabase = await createServerClient();
+  const publicDb = createPublicReadClient();
   // Sanitize for ilike/.in (strip chars that break PostgREST filters).
   const safe = query.replace(/[%,()]/g, ' ').trim();
   const pattern = `%${safe}%`;
+  // Stricter term for the PostgREST .or() string filter (M1.9 people search).
+  const orTerm = safe.replace(/[^a-zA-Z0-9 _-]/g, '').trim();
 
   // Groups first so we can also match quizzes/games by group (e.g. "bts" → BTS content).
   const groupsRes = await supabase
@@ -142,7 +148,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   const groupIds = groups.map((g) => g.id);
   const hasGroups = groupIds.length > 0;
 
-  const [qTitle, qGroup, totRes, gTitle, gGroup, creatorsRes] = await Promise.all([
+  const [qTitle, qGroup, totRes, gTitle, gGroup, peopleRes] = await Promise.all([
     supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').ilike('title', pattern).order('play_count', { ascending: false }).limit(12),
     hasGroups
       ? supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(12)
@@ -152,7 +158,16 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
     hasGroups
       ? supabase.from('games').select('id, title, slug, play_count, content').eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(6)
       : Promise.resolve({ data: [] as unknown[] }),
-    supabase.from('profiles').select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created').ilike('username', pattern).gt('total_quizzes_created', 0).order('total_plays_received', { ascending: false }).limit(5),
+    // M1.9 people search: username OR display_name, banned excluded, index-backed
+    // (mig 094 trigram GIN). Cookie-free public read, NANO-cheap, limit 20.
+    orTerm.length >= 2
+      ? publicDb.from('profiles')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
+          .or(`username.ilike.*${orTerm}*,display_name.ilike.*${orTerm}*`)
+          .is('banned_at', null)
+          .order('follower_count', { ascending: false })
+          .limit(20)
+      : Promise.resolve({ data: [] as unknown[] }),
   ]);
 
   // Merge + dedupe quizzes (title-match ∪ group-match).
@@ -170,9 +185,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   }
   const games = [...gameMap.values()].sort((a, b) => b.plays - a.plays).slice(0, 8);
 
-  const creators = (creatorsRes.data ?? []) as Array<{ username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; total_quizzes_created: number }>;
+  interface PersonRow { username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }
+  const people = (peopleRes.data ?? []) as PersonRow[];
 
-  const hasResults = quizzes.length > 0 || games.length > 0 || groups.length > 0 || creators.length > 0;
+  const hasResults = quizzes.length > 0 || games.length > 0 || groups.length > 0 || people.length > 0;
 
   // Fuzzy "always-propose" fallback: nothing matched → show popular picks.
   let fbQuizzes: QuizCardData[] = [];
@@ -229,20 +245,27 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
             </section>
           )}
 
-          {creators.length > 0 && (
+          {people.length > 0 && (
             <section>
-              <p className="sec-label">Creators</p>
+              <p className="sec-label">People</p>
               <div className="flex flex-col gap-2">
-                {creators.map((c) => (
-                  <Link key={c.username} href={`/u/${c.username}`}
-                    className="flex items-center gap-3 p-3 rounded-xl border border-default hover:border-accent transition-colors">
-                    <UserAvatar username={c.username} avatarUrl={c.avatar_url} bgColor={c.avatar_bg} textColor={c.avatar_text} size={36} />
-                    <div>
-                      <p className="text-sm font-semibold text-primary">{c.username}</p>
-                      <p className="text-xs text-secondary">{formatCount(c.total_quizzes_created)} quizzes created</p>
+                {people.map((p) => {
+                  const level = getLevelInfo(p.xp).level;
+                  const title = getTitleForLevel(level).en;
+                  return (
+                    <div key={p.username}
+                      className="flex items-center gap-3 p-3 rounded-xl border border-default">
+                      <Link href={`/u/${p.username}`} className="flex items-center gap-3 flex-1 min-w-0 hover:opacity-90 transition-opacity">
+                        <UserAvatar username={p.username} avatarUrl={p.avatar_url} bgColor={p.avatar_bg} textColor={p.avatar_text} size={40} />
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-primary truncate">{p.display_name ?? p.username}</p>
+                          <p className="text-xs text-secondary truncate">Lv {level} {'·'} {title} {'·'} {formatCount(p.follower_count)} {p.follower_count === 1 ? 'follower' : 'followers'}</p>
+                        </div>
+                      </Link>
+                      <FollowButton profileUsername={p.username} />
                     </div>
-                  </Link>
-                ))}
+                  );
+                })}
               </div>
             </section>
           )}

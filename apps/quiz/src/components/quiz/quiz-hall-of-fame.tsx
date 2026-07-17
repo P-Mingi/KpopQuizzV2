@@ -1,0 +1,92 @@
+import { PersonCard } from '@/components/profile/person-card';
+import { Mascot } from '@/components/ui/mascot';
+import { QuizMyRank } from '@/components/quiz/quiz-my-rank';
+
+import type { HallOfFameEntry } from '@/lib/db/queries/community';
+
+// Per-quiz Hall of Fame (Workstream M, M1.19, M1.13 polish). Server-rendered
+// (ISR-baked, public, crawlable) so /q/[slug] stays static/ISR. Top scorers as
+// M1.12 PersonCards + score + completion time (fastest time wins ties);
+// anonymous scorers show as "someone". The top 5 show by default; the rest sit in
+// a native <details> (no client island, still crawlable) so the card stays short.
+const MIN_ENTRIES = 3;
+const TOP_VISIBLE = 5;
+
+function fmtTime(s: number | null): string | null {
+  if (s === null || s < 0) return null;
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+}
+
+const card: React.CSSProperties = {
+  background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16,
+  boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 24, maxWidth: 672,
+};
+
+function Row({ entry, rank, divider }: { entry: HallOfFameEntry; rank: number; divider: boolean }): React.ReactElement {
+  const time = fmtTime(entry.timeSeconds);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 0', borderTop: divider ? '1px solid var(--border)' : 'none' }}>
+      <span style={{ width: 22, flexShrink: 0, textAlign: 'center', fontSize: 13, fontWeight: 800, color: rank <= 3 ? 'var(--brand)' : 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{rank}</span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {entry.person ? (
+          <PersonCard person={entry.person} compact showFollow={false} />
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0, background: 'var(--surface-alt)', border: '1px solid var(--border)' }} aria-hidden="true" />
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--txt2)' }}>someone</span>
+          </div>
+        )}
+      </div>
+      <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 48 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.15 }}>{entry.score}/{entry.total}</div>
+        {time && <div style={{ fontSize: 11, color: 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{time}</div>}
+      </div>
+    </div>
+  );
+}
+
+export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: HallOfFameEntry[] }): React.ReactElement {
+  const thin = entries.length < MIN_ENTRIES;
+  const top = entries.slice(0, TOP_VISIBLE);
+  const rest = entries.slice(TOP_VISIBLE);
+
+  return (
+    <div style={card}>
+      <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--txt3)', margin: '0 0 4px' }}>Hall of Fame</p>
+      <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '0 0 10px' }}>Top scorers on this quiz. Fastest time wins ties.</p>
+
+      {thin ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '4px 0' }}>
+          <Mascot variant="celebrate" size={56} />
+          <p style={{ fontSize: 13, color: 'var(--txt2)', margin: 0, lineHeight: 1.5 }}>Be the first to ace this quiz and claim the top spot.</p>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {top.map((e, i) => <Row key={i} entry={e} rank={i + 1} divider={i > 0} />)}
+          </div>
+
+          {rest.length > 0 && (
+            <details className="kq-hof-more">
+              <summary style={{
+                listStyle: 'none', cursor: 'pointer', marginTop: 10, padding: '7px 0',
+                fontSize: 12, fontWeight: 700, color: 'var(--brand)', textAlign: 'center',
+                borderTop: '1px solid var(--border)',
+              }}>
+                Show all {entries.length}
+              </summary>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {rest.map((e, i) => <Row key={i} entry={e} rank={i + 1 + TOP_VISIBLE} divider={i > 0} />)}
+              </div>
+            </details>
+          )}
+        </>
+      )}
+
+      {/* Your standing on this quiz (personal client island) */}
+      <QuizMyRank quizId={quizId} />
+    </div>
+  );
+}
