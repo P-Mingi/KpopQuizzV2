@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
 import { completeDaily } from '@/lib/daily-played';
+import { ResultLoop } from '@/components/result/result-loop';
+import { useSignedIn } from '@/lib/use-signed-in';
 import { RankingList } from './ranking-list';
 import { VsBadge } from './vs-badge';
 
@@ -60,6 +62,7 @@ export function DuelGame({
   initialTotalVotes,
   initialRanking,
 }: Props): React.ReactElement {
+  const signedIn = useSignedIn();
   const [selected, setSelected] = useState(initialKey);
   const [prompt, setPrompt] = useState(initialPrompt);
   const [totalVotes, setTotalVotes] = useState(initialTotalVotes);
@@ -298,6 +301,26 @@ export function DuelGame({
         winnerDelta={lastWin?.delta ?? 0}
         footer={{ href: `/rankings/${group}/${type}`, label: 'See full ranking page →' }}
       />
+
+      {/* Workstream LOOP - this game has no result phase, it is an endless
+          vote loop, so a player who stops voting hits the bottom of the ranking
+          and has nowhere to go. The shared footer appears once they have
+          actually voted, which turns that dead end into the same loop every
+          other game ends in.
+
+          No group is passed on purpose: `group` is the matchup's category, not
+          the player's bias, so the cross-promo goes to /quizzes rather than
+          claiming a group they never chose. */}
+      {sessionVotes > 0 && (
+        <ResultLoop
+          game="duel"
+          shareText={`I voted on "${prompt}" on kpopquiz.org. What would you pick?`}
+          shareUrl="/games/this-or-that"
+          onPlayAgain={() => { void loadDuel(group, type); }}
+          playAgainLabel="Next matchup"
+          isSignedIn={signedIn !== false}
+        />
+      )}
     </div>
   );
 }

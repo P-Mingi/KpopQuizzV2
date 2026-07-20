@@ -36,6 +36,8 @@ interface ResultLoopProps {
   playAgainHref?: string | undefined;
   /** Replay as state reset. Takes precedence over playAgainHref. */
   onPlayAgain?: (() => void) | undefined;
+  /** Override the replay wording when "Play again" does not fit the game. */
+  playAgainLabel?: string | undefined;
   /** The anon nudge is the one thing signed-in players must never see. */
   isSignedIn: boolean;
   /** When known, the cross-promo prefers the group quiz (keeps the fan on their bias). */
@@ -112,6 +114,7 @@ export function ResultLoop({
   shareUrl,
   playAgainHref,
   onPlayAgain,
+  playAgainLabel,
   isSignedIn,
   groupSlug,
   groupName,
@@ -158,12 +161,12 @@ export function ResultLoop({
       {/* 1. Primary actions: replay, then the smart cross-promo. */}
       <div className="flex gap-2.5">
         {onPlayAgain ? (
-          <button type="button" className="btn-primary flex-1" onClick={onPlayAgain} aria-label="Play again">
-            Play again
+          <button type="button" className="btn-primary flex-1" onClick={onPlayAgain} aria-label={playAgainLabel ?? 'Play again'}>
+            {playAgainLabel ?? 'Play again'}
           </button>
         ) : (
-          <Link href={playAgainHref ?? '/games'} className="btn-primary flex-1 text-center no-underline" aria-label="Play again">
-            Play again
+          <Link href={playAgainHref ?? '/games'} className="btn-primary flex-1 text-center no-underline" aria-label={playAgainLabel ?? 'Play again'}>
+            {playAgainLabel ?? 'Play again'}
           </Link>
         )}
         <Link
