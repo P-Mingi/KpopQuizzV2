@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
-import { QuizReactions } from '@/components/quiz/quiz-reactions';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
@@ -23,10 +22,11 @@ import {
 import { haptic } from '@/lib/haptics';
 import { celebrate } from '@/lib/celebrate';
 import { IntruderQuestionView } from '@/components/quiz/intruder-question';
-import { TimeComparison } from '@/components/quiz/time-comparison';
+import { QuizMyRank } from '@/components/quiz/quiz-my-rank';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
+import { getLevelInfo } from '@/lib/constants';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
@@ -352,6 +352,13 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
 
 const LABELS = ['A', 'B', 'C', 'D'] as const;
 
+/** m:ss for the Time stat cell. */
+function formatDuration(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+}
+
 export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [state, dispatch] = useReducer(quizReducer, { phase: 'intro' });
   const [loading, setLoading] = useState(false);
@@ -359,6 +366,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [levelUpDismissed, setLevelUpDismissed] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [barReady, setBarReady] = useState(false);
+  // Total XP after this round, read once when the result shows so the XP bar
+  // can draw the slice this round added. null = signed out / not loaded.
+  const [profileXp, setProfileXp] = useState<number | null>(null);
   const { showToast } = useToast();
   const router = useRouter();
   const timeRef = useRef(0);
@@ -399,6 +409,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         void completeDaily('quiz');
       }
       router.refresh();
+      fetch('/api/auth/me', { credentials: 'include' })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d: { profile: { xp?: number } | null } | null) => {
+          setProfileXp(typeof d?.profile?.xp === 'number' ? d.profile.xp : null);
+        })
+        .catch(() => {});
       fetch(`/api/quiz/${quiz.id}/related`)
         .then(res => res.json())
         .then((data: { quizzes: RelatedQuiz[] }) => setRelatedQuizzes(data.quizzes))
@@ -988,12 +1004,30 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     // stars). A poor/failed result stays mascot-less here; the sad variant is F5.
     const isGoodResult = scorePct >= 50;
 
-    // Hangul + English label pulled from the shared korean-moments helper
     const resultLabel = getResultLabel(state.score, maxScore);
-    const labelSub =
-      scorePct >= 100 ? `True ${quiz.fandomName}` : resultLabel.sub;
 
     const showLevelUp = state.leveledUp && state.newLevel !== null && !levelUpDismissed;
+
+    // Level progress for the XP bar. xpAfter is what the profile holds now, so
+    // the bar can show the slice this round just added instead of a static fill.
+    const xpAfter = profileXp;
+    const xpBefore = xpAfter !== null ? Math.max(0, xpAfter - state.xpEarned) : null;
+    const xpBeforePct = xpBefore !== null ? getLevelInfo(xpBefore).progress : null;
+    const xpAfterPct = xpAfter !== null ? getLevelInfo(xpAfter).progress : null;
+    // A level-up wraps the bar back to ~0, which would render as a shrink. Fall
+    // back to a simple full sweep in that case.
+    const xpWrapped = xpBeforePct !== null && xpAfterPct !== null && xpAfterPct < xpBeforePct;
+
+    // Stat cells, including the time so it sits in the same row as the rest.
+    const statCells: Array<{ value: string; label: string; tone?: string }> = [
+      { value: `${scorePct}%`, label: 'Score' },
+      { value: avgScorePct !== null ? `${avgScorePct}%` : '-', label: 'Avg', tone: avgScorePct !== null ? 'text-primary' : 'text-tertiary' },
+      { value: state.percentile !== null ? `Top ${Math.max(100 - state.percentile, 1)}%` : '-', label: 'Rank', tone: state.percentile !== null ? 'text-combo' : 'text-tertiary' },
+    ];
+    if (state.passRate !== null) statCells.push({ value: `${state.passRate}%`, label: 'Pass rate' });
+    if (state.timeTaken > 0) statCells.push({ value: formatDuration(state.timeTaken), label: 'Time' });
+    const statColsClass =
+      statCells.length >= 5 ? 'grid-cols-5' : statCells.length === 4 ? 'grid-cols-4' : 'grid-cols-3';
 
     return (
       <div className="max-w-[440px] mx-auto px-1 py-2 animate-result-in">
@@ -1052,19 +1086,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
               </p>
             )}
 
-            {/* Hangul + English label */}
-            <p className="text-[15px] font-bold text-accent tracking-wide">
+            {/* Verdict line. The sub-line under it was dropped on purpose: it
+                repeated the same idea in weaker words. */}
+            <p className="text-[15px] font-bold text-accent tracking-wide" style={{ marginBottom: 14 }}>
               <span>{resultLabel.kr}</span>{' '}
               <span className="uppercase">{resultLabel.en}</span>
             </p>
-            <p className="text-[12px] text-secondary mt-0.5" style={{ marginBottom: 12 }}>{labelSub}</p>
-
-            <div className="flex items-center justify-center gap-1" style={{ marginBottom: 16 }}>
-              <QuizTypeIcon type={state.quizType} size={16} />
-              <QuizTypeBadge type={state.quizType} size="xs" />
-            </div>
-
-            <p className="result-share-url">kpopquiz.org</p>
           </div>
           <div className="result-share-actions">
             <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
@@ -1091,31 +1118,18 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
         </div>
 
-        {/* Stats row - Score / Avg / Rank (+ Pass rate when available) */}
-        <div className={`mt-5 grid ${state.passRate !== null ? 'grid-cols-4' : 'grid-cols-3'} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
-          <div className="bg-surface p-3 text-center">
-            <p className="text-[17px] font-semibold text-primary tabular-nums">{scorePct}%</p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Score</p>
-          </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[17px] font-semibold tabular-nums ${avgScorePct !== null ? 'text-primary' : 'text-tertiary'}`}>
-              {avgScorePct !== null ? `${avgScorePct}%` : '-'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Avg</p>
-          </div>
-          <div className="bg-surface p-3 text-center">
-            <p className={`text-[17px] font-semibold tabular-nums ${state.percentile !== null ? 'text-combo' : 'text-tertiary'}`}>
-              {state.percentile !== null ? `Top ${Math.max(100 - state.percentile, 1)}%` : '-'}
-            </p>
-            <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Rank</p>
-          </div>
-          {state.passRate !== null && (
-            <div className="bg-surface p-3 text-center">
-              <p className="text-[17px] font-semibold text-primary tabular-nums">{state.passRate}%</p>
-              <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">Pass rate</p>
+        {/* Stats row - Score / Avg / Rank / Pass rate / Time, all one row */}
+        <div className={`mt-5 grid ${statColsClass} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
+          {statCells.map((cell) => (
+            <div key={cell.label} className="bg-surface px-2 py-3 text-center">
+              <p className={`text-[15px] font-semibold tabular-nums ${cell.tone ?? 'text-primary'}`}>{cell.value}</p>
+              <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">{cell.label}</p>
             </div>
-          )}
+          ))}
         </div>
+
+        {/* Where you landed on this quiz's board, right after finishing. */}
+        <QuizMyRank quizId={quiz.id} />
 
         {/* XP card */}
         {state.xpEarned > 0 && (
@@ -1126,27 +1140,39 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
               </span>
               <span className="text-[10px] text-ghost">earned this round</span>
             </div>
-            <div className="mt-2 h-1 rounded-full bg-elevated overflow-hidden">
+            {/* Level bar: the solid part is where you already were, the lighter
+                part animates in to show the XP this round actually added. */}
+            <div className="mt-2 h-1.5 rounded-full bg-elevated overflow-hidden flex">
               <div
-                className="h-1 rounded-full bg-accent"
+                className="h-full bg-accent"
                 style={{
-                  width: `${Math.min(100, scorePct)}%`,
-                  transition: 'width 1500ms cubic-bezier(0.22, 1, 0.36, 1)',
+                  width: `${xpBeforePct !== null && !xpWrapped ? xpBeforePct : 0}%`,
+                  transition: 'width 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+                }}
+              />
+              <div
+                className="h-full bg-accent"
+                style={{
+                  width: `${
+                    xpAfterPct === null
+                      ? 0
+                      : xpWrapped
+                        ? (barReady ? xpAfterPct : 0)
+                        : (barReady ? Math.max(0, xpAfterPct - (xpBeforePct ?? 0)) : 0)
+                  }%`,
+                  opacity: 0.55,
+                  transition: 'width 1200ms cubic-bezier(0.22, 1, 0.36, 1) 300ms',
                 }}
               />
             </div>
-          </div>
-        )}
-
-        {/* Time comparison (keeps its own layout) */}
-        {state.timeTaken > 0 && (
-          <div className="mt-3">
-            <TimeComparison
-              quizId={quiz.id}
-              userTime={state.timeTaken}
-              score={state.score}
-              totalQuestions={state.totalQuestions}
-            />
+            {xpAfter !== null && (
+              <p className="text-[10px] text-ghost mt-1.5 text-right tabular-nums">
+                Lv {getLevelInfo(xpAfter).level}
+                {getLevelInfo(xpAfter).xpForNextLevel !== null
+                  ? ` - ${Math.max(0, getLevelInfo(xpAfter).xpForNextLevel! - xpAfter)} XP to next`
+                  : ' - max level'}
+              </p>
+            )}
           </div>
         )}
 
@@ -1186,7 +1212,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         )}
 
         {/* Reactions */}
-        <QuizReactions quizId={quiz.id} />
 
 
         <div className="mt-2">
