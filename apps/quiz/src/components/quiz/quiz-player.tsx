@@ -731,7 +731,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         <button
           onClick={handleStart}
           disabled={loading}
-          className="w-full mt-4 py-4 rounded-2xl bg-accent text-white text-[17px] font-bold tracking-wide active:scale-[0.98] transition-transform disabled:opacity-60 disabled:active:scale-100 cursor-pointer"
+          className="w-full mt-4 py-4 rounded-2xl bg-btn text-white text-[17px] font-bold tracking-wide active:scale-[0.98] transition-transform disabled:opacity-60 disabled:active:scale-100 cursor-pointer"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -954,7 +954,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
               {state.cluesRevealed < 3 ? (
                 <button
                   onClick={handleRevealClue}
-                  className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-full bg-accent-bg border border-accent text-accent text-[12px] font-semibold hover:bg-btn hover:text-white transition-colors cursor-pointer"
                 >
                   {state.cluesRevealed === 1 ? 'Get a clue (-1pt)' : 'Last clue (-1pt)'}
                 </button>

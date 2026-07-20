@@ -55,7 +55,7 @@ export function MobileTabBar() {
                 style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   width: 44, height: 44, borderRadius: 9999, marginTop: -4,
-                  background: 'var(--brand)', color: '#fff',
+                  background: 'var(--brand-btn)', color: '#fff',
                   textDecoration: 'none', boxShadow: '0 4px 14px rgba(232,69,122,0.35)',
                 }}
               >

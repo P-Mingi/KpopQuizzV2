@@ -265,7 +265,7 @@ export function ProfileEditor({
         <button
           onClick={() => void handleSave()}
           disabled={saving || uploading || username.trim().length < 3}
-          className="px-5 py-2 rounded-full bg-accent text-white text-xs font-medium disabled:opacity-50 cursor-pointer"
+          className="px-5 py-2 rounded-full bg-btn text-white text-xs font-medium disabled:opacity-50 cursor-pointer"
         >
           {saving ? 'Saving...' : 'Save changes'}
         </button>

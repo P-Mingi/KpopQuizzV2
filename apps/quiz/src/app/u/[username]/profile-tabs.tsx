@@ -60,7 +60,7 @@ export function ProfileTabs({ profileUsername, initialQuizzes, creatorId }: Prof
             <div className="text-center py-12">
               <p className="text-sm text-secondary">No quizzes yet.</p>
               {isOwnProfile && (
-                <Link href="/create" className="inline-block mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium">
+                <Link href="/create" className="inline-block mt-4 px-6 py-3 rounded-full bg-btn text-white text-sm font-medium">
                   Create your first quiz
                 </Link>
               )}

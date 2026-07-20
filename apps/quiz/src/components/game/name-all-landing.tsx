@@ -74,7 +74,7 @@ export function NameAllLanding({ games }: NameAllLandingProps) {
         <button
           onClick={() => setSelectedGroup(null)}
           className={`flex-shrink-0 px-3.5 py-[6px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-all ${
-            selectedGroup === null ? 'bg-accent text-white border-accent' : 'bg-accent-bg text-[#993556] border-transparent'
+            selectedGroup === null ? 'bg-btn text-white border-accent' : 'bg-accent-bg text-[#993556] border-transparent'
           }`}
         >
           All
@@ -86,7 +86,7 @@ export function NameAllLanding({ games }: NameAllLandingProps) {
               key={group}
               onClick={() => setSelectedGroup(selectedGroup === slug ? null : slug)}
               className={`flex-shrink-0 px-3.5 py-[6px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-all whitespace-nowrap ${
-                selectedGroup === slug ? 'bg-accent text-white border-accent' : 'bg-accent-bg text-[#993556] border-transparent hover:border-accent'
+                selectedGroup === slug ? 'bg-btn text-white border-accent' : 'bg-accent-bg text-[#993556] border-transparent hover:border-accent'
               }`}
             >
               {group}

@@ -66,7 +66,7 @@ function GroupPillButton({
   neutral?: boolean;
 }) {
   const className = active
-    ? 'bg-accent text-white border-accent'
+    ? 'bg-btn text-white border-accent'
     : neutral
     ? 'bg-surface text-secondary border-default hover:border-accent'
     : 'bg-accent-bg text-accent-hover border-transparent hover:border-accent';

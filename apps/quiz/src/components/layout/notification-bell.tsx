@@ -51,7 +51,7 @@ export function NotificationBell(): React.ReactElement | null {
       {unread > 0 && (
         <span style={{
           position: 'absolute', top: -2, right: -2, minWidth: 16, height: 16, padding: '0 4px',
-          borderRadius: 9999, background: 'var(--brand)', color: '#fff',
+          borderRadius: 9999, background: 'var(--brand-btn)', color: '#fff',
           fontSize: 9, fontWeight: 800, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
           fontVariantNumeric: 'tabular-nums',
         }}>{unread > 99 ? '99+' : unread}</span>

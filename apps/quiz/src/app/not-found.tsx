@@ -46,7 +46,7 @@ export default function NotFound(): React.ReactElement {
             <Link
               key={g.slug}
               href={`/${g.slug}-quiz`}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-accent-bg text-accent hover:bg-accent hover:text-white transition-colors"
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-accent-bg text-accent hover:bg-btn hover:text-white transition-colors"
             >
               {g.name}
             </Link>

@@ -54,7 +54,7 @@ export function TopNav(): React.ReactElement {
         <Link href="/create" style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           padding: '8px 14px', borderRadius: 10,
-          background: 'var(--accent)', border: 'none',
+          background: 'var(--brand-btn)', border: 'none',
           color: 'var(--accent-fg)', textDecoration: 'none',
           fontSize: 13, fontWeight: 600,
           transition: 'background 120ms ease',

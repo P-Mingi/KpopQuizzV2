@@ -49,7 +49,7 @@ export function PassportShare({ username }: { username: string }): React.ReactEl
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {canNativeShare() && (
-          <button type="button" style={{ ...btn, background: 'var(--brand)', color: '#fff', border: '1px solid var(--brand)' }} onClick={() => void onShare('native')}>Share</button>
+          <button type="button" style={{ ...btn, background: 'var(--brand-btn)', color: '#fff', border: '1px solid var(--brand)' }} onClick={() => void onShare('native')}>Share</button>
         )}
         <button type="button" style={btn} onClick={() => void onShare('copy')}>Copy link</button>
         <button type="button" style={btn} onClick={() => void onShare('twitter')}>X</button>

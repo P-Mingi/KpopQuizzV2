@@ -44,7 +44,7 @@ export default async function PtHardQuizzesPage(): Promise<React.ReactElement> {
       ) : (
         <div className="text-center py-12">
           <p className="text-sm text-secondary mb-3">Nenhum quiz dificil ainda.</p>
-          <Link href="/create" className="inline-block px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium">
+          <Link href="/create" className="inline-block px-5 py-2.5 rounded-full bg-btn text-white text-sm font-medium">
             Crie o primeiro
           </Link>
         </div>

@@ -192,7 +192,7 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
             type="button"
             onClick={() => void handlePost()}
             disabled={posting || input.trim().length === 0}
-            className="py-2 px-4 rounded-xl bg-accent text-white text-[12px] font-bold active:scale-[0.97] transition-transform disabled:opacity-40 disabled:active:scale-100 cursor-pointer disabled:cursor-default"
+            className="py-2 px-4 rounded-xl bg-btn text-white text-[12px] font-bold active:scale-[0.97] transition-transform disabled:opacity-40 disabled:active:scale-100 cursor-pointer disabled:cursor-default"
           >
             Post
           </button>

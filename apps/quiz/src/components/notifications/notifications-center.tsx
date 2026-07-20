@@ -55,7 +55,7 @@ export function NotificationsCenter(): React.ReactElement {
     <div className="py-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-xl font-bold text-primary">
-          Notifications{unread > 0 && <span className="ml-2 inline-block px-2 py-0.5 rounded-full bg-accent text-white text-xs font-bold align-middle">{unread}</span>}
+          Notifications{unread > 0 && <span className="ml-2 inline-block px-2 py-0.5 rounded-full bg-btn text-white text-xs font-bold align-middle">{unread}</span>}
         </h1>
         {unread > 0 && (
           <button type="button" onClick={() => void markAllRead()} disabled={marking}

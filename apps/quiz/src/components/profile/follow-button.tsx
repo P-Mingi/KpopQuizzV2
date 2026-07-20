@@ -64,7 +64,7 @@ export function FollowButton({ profileUsername }: { profileUsername: string }): 
         fontWeight: 700,
         cursor: pending ? 'default' : 'pointer',
         fontFamily: 'inherit',
-        background: following ? 'transparent' : 'var(--brand)',
+        background: following ? 'transparent' : 'var(--brand-btn)',
         color: following ? 'var(--txt2)' : '#fff',
         border: following ? '1px solid var(--border)' : '1px solid var(--brand)',
       }}

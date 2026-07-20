@@ -16,7 +16,7 @@ export function CreateCTA(): React.ReactElement {
       </p>
       <Link
         href="/create"
-        className="inline-block mt-4 px-6 py-2.5 rounded-full bg-accent text-white text-[13px] font-bold hover:bg-accent-hover active:scale-[0.97] transition-all"
+        className="inline-block mt-4 px-6 py-2.5 rounded-full bg-btn text-white text-[13px] font-bold hover:bg-btn-hover active:scale-[0.97] transition-all"
       >
         Create a quiz
       </Link>

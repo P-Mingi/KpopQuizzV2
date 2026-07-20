@@ -12,6 +12,13 @@ export default {
       },
       colors: {
         // Shared semantic tokens available to all utilities (bg-, text-, border-, stroke-, fill-).
+        // Accessible fill for buttons that put WHITE text on brand pink.
+        // Separate from `accent` because accent is also a text colour, and in
+        // dark mode text-accent must stay LIGHT pink on a dark background.
+        btn: {
+          DEFAULT: 'var(--brand-btn)',
+          hover: 'var(--brand-btn-hover)',
+        },
         accent: {
           DEFAULT: 'var(--accent)',
           hover: 'var(--accent-hover)',

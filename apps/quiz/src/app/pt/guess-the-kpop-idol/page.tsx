@@ -52,7 +52,7 @@ export default async function PtGuessPage(): Promise<React.ReactElement> {
       ) : (
         <div className="text-center py-12">
           <p className="text-sm text-secondary">Nenhum quiz ainda. Seja o primeiro a criar um!</p>
-          <Link href="/create" className="inline-block mt-4 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium">
+          <Link href="/create" className="inline-block mt-4 px-6 py-3 rounded-full bg-btn text-white text-sm font-medium">
             Criar um quiz
           </Link>
         </div>

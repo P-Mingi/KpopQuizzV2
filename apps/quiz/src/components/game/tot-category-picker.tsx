@@ -91,7 +91,7 @@ function TypeFilterPills({
             onClick={() => onChange(t.key)}
             className={`px-3.5 py-[7px] rounded-[10px] text-[11px] font-medium border-[1.5px] transition-colors active:scale-[0.97] ${
               active
-                ? 'bg-accent text-white border-accent'
+                ? 'bg-btn text-white border-accent'
                 : 'bg-accent-bg text-accent-hover border-transparent hover:border-accent'
             }`}
           >

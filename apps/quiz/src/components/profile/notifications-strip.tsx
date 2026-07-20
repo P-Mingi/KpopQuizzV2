@@ -68,7 +68,7 @@ export function NotificationsStrip(): React.ReactElement | null {
         <p className="text-[10px] uppercase tracking-wider text-ghost">
           Notifications{' '}
           {unread > 0 && (
-            <span className="ml-1 inline-block px-1.5 py-px rounded-full bg-accent text-white text-[9px] font-bold">
+            <span className="ml-1 inline-block px-1.5 py-px rounded-full bg-btn text-white text-[9px] font-bold">
               {unread}
             </span>
           )}
@@ -109,7 +109,7 @@ export function NotificationCard({ notification }: { notification: NotificationR
     >
       <div
         className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
-          notification.is_read ? 'bg-elevated text-tertiary' : 'bg-accent text-white'
+          notification.is_read ? 'bg-elevated text-tertiary' : 'bg-btn text-white'
         }`}
       >
         <span className="text-[12px] font-bold">{icon}</span>

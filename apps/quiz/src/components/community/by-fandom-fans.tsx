@@ -46,7 +46,7 @@ export function ByFandomFans({ groups, initialGroup, initialFans }: { groups: Fa
             <button key={g.slug} type="button" onClick={() => void pick(g.slug)} style={{
               display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 9999,
               fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-              background: on ? 'var(--brand)' : 'var(--surface-alt)', color: on ? '#fff' : 'var(--txt1)',
+              background: on ? 'var(--brand-btn)' : 'var(--surface-alt)', color: on ? '#fff' : 'var(--txt1)',
               border: `1px solid ${on ? 'var(--brand)' : 'var(--border)'}`,
             }}>{g.name}</button>
           );
