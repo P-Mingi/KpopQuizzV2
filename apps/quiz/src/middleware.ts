@@ -22,7 +22,13 @@ const KNOWN_ROUTES = [
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
-  '/leaderboard', '/quizzes', '/profile', '/news', '/stats',
+  // '/me' (the passport, where /profile redirects) and '/notifications' (the
+  // bell) are real signed-in pages that were never allowlisted, so the
+  // unknown-route rule below 301'd them to / and made both unreachable. They
+  // guard themselves server-side (redirect('/login') when signed out), so they
+  // belong here and NOT in PROTECTED_PATH_PREFIXES, which would add a Supabase
+  // round trip to the middleware for every hit.
+  '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
   '/articles',
   '/battle',
   '/pt',
