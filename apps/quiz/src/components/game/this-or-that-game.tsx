@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { playPick, playEliminate, playNextMatchup, playVictory } from '@/lib/sounds';
+import { ResultLoop } from '@/components/result/result-loop';
+import { completeDaily } from '@/lib/daily-played';
+import { useSignedIn } from '@/lib/use-signed-in';
 import type { TotCategoryWithItems, TotItem, TotBracketEntry } from '@/lib/db/types';
 
 // ============================================
@@ -101,6 +104,7 @@ interface ThisOrThatGameProps {
 // ============================================
 
 export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
+  const signedIn = useSignedIn();
   const [phase, setPhase] = useState<Phase>('start');
   const [queue, setQueue] = useState<TotItem[]>([]);
   const [champ, setChamp] = useState<TotItem | null>(null);
@@ -197,6 +201,12 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           if (queue.length === 0) {
             setWinner(pickedItem);
             setPhase('result');
+            // Workstream LOOP - this screen never credited the daily. Finishing
+            // the bracket after arriving from a daily=game link is the play, so
+            // it counts, the same way duel-game.tsx counts a vote.
+            if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
+              void completeDaily('game');
+            }
             if (soundEnabled) playVictory();
             if (!savedRef.current) {
               savedRef.current = true;
@@ -344,20 +354,16 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           })}
         </div>
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 32 }}>
-          <button onClick={startGame} style={{
-            padding: '12px 32px', borderRadius: 10,
-            background: 'var(--accent)', color: '#fff', border: 'none',
-            fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-          }}>Play again</button>
-          <a href="/games/this-or-that" style={{
-            padding: '12px 32px', borderRadius: 10,
-            background: 'transparent', color: 'var(--text-primary)',
-            border: '1px solid var(--border)',
-            fontSize: 14, fontWeight: 600, textDecoration: 'none',
-            display: 'flex', alignItems: 'center',
-          }}>Back</a>
-        </div>
+        {/* Workstream LOOP - the ad-hoc Play again / Back pair is replaced by the
+            shared footer, so this screen gets a share (it had none) and stops
+            dead-ending into the hub. */}
+        <ResultLoop
+          game="this-or-that"
+          shareText={`My #1 is ${winner.name}. Who's yours?`}
+          shareUrl="/games/this-or-that"
+          onPlayAgain={startGame}
+          isSignedIn={signedIn !== false}
+        />
       </div>
     );
   }
