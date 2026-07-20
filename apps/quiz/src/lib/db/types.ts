@@ -224,6 +224,12 @@ export interface TopCreator {
   weekly_plays: number;
   xp: number;
   follower_count: number;
+  name_accent: string | null;
+  name_font: string | null;
+  pinned_badge_id: string | null;
+  avatar_kind: string | null;
+  avatar_ref: string | null;
+  bias: string | null;
 }
 
 export interface RecordPlayResult {

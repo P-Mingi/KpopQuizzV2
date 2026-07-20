@@ -68,6 +68,12 @@ export function padWeeklyLeaderboard(real: TopCreator[], minEntries: number): To
       weekly_plays: plays,
       xp: 0,
       follower_count: 0,
+      name_accent: null,
+      name_font: null,
+      pinned_badge_id: null,
+      avatar_kind: null,
+      avatar_ref: null,
+      bias: null,
     });
   }
 

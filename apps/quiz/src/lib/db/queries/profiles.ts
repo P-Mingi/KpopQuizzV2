@@ -61,7 +61,7 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
 
   const { data, error } = await supabase
     .from('quizzes')
-    .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count)')
+    .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)')
     .eq('status', 'published')
     .gte('created_at', sevenDaysAgo)
     .order('play_count', { ascending: false })
@@ -75,7 +75,12 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
   for (const row of data as unknown as Array<{
     creator_id: string;
     play_count: number;
-    profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; total_quizzes_created: number; xp: number; follower_count: number };
+    profiles: {
+      username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string;
+      total_quizzes_created: number; xp: number; follower_count: number;
+      name_accent: string | null; name_font: string | null; pinned_badge_id: string | null;
+      avatar_kind: string | null; avatar_ref: string | null; bias: string | null;
+    };
   }>) {
     const existing = creatorMap.get(row.creator_id);
     if (existing) {
@@ -90,6 +95,12 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
         weekly_plays: row.play_count,
         xp: row.profiles.xp,
         follower_count: row.profiles.follower_count,
+        name_accent: row.profiles.name_accent,
+        name_font: row.profiles.name_font,
+        pinned_badge_id: row.profiles.pinned_badge_id,
+        avatar_kind: row.profiles.avatar_kind,
+        avatar_ref: row.profiles.avatar_ref,
+        bias: row.profiles.bias,
       });
     }
   }
@@ -108,6 +119,12 @@ export interface TopCreatorAllTime {
   total_plays_received: number;
   xp: number;
   follower_count: number;
+  name_accent: string | null;
+  name_font: string | null;
+  pinned_badge_id: string | null;
+  avatar_kind: string | null;
+  avatar_ref: string | null;
+  bias: string | null;
 }
 
 export async function getTopCreatorsAllTime(limit: number): Promise<TopCreatorAllTime[]> {
@@ -116,7 +133,7 @@ export async function getTopCreatorsAllTime(limit: number): Promise<TopCreatorAl
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, total_plays_received, xp, follower_count')
+    .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, total_plays_received, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias')
     .gt('total_quizzes_created', 0)
     .order('total_plays_received', { ascending: false })
     .limit(limit);
@@ -133,6 +150,12 @@ export interface TopPlayer {
   avatar_text: string;
   xp: number;
   follower_count: number;
+  name_accent: string | null;
+  name_font: string | null;
+  pinned_badge_id: string | null;
+  avatar_kind: string | null;
+  avatar_ref: string | null;
+  bias: string | null;
 }
 
 export async function getTopPlayersByXp(limit: number): Promise<TopPlayer[]> {
@@ -141,7 +164,7 @@ export async function getTopPlayersByXp(limit: number): Promise<TopPlayer[]> {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('username, avatar_url, avatar_bg, avatar_text, xp, follower_count')
+    .select('username, avatar_url, avatar_bg, avatar_text, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias')
     .gt('xp', 0)
     .order('xp', { ascending: false })
     .limit(limit);

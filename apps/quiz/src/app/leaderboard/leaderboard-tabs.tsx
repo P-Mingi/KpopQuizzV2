@@ -70,6 +70,12 @@ interface LeaderEntry {
   sub: string;
   xp: number;
   follower_count: number;
+  name_accent: string | null;
+  name_font: string | null;
+  pinned_badge_id: string | null;
+  avatar_kind: string | null;
+  avatar_ref: string | null;
+  bias: string | null;
 }
 
 function toEntry(c: TopCreator): LeaderEntry {
@@ -82,6 +88,12 @@ function toEntry(c: TopCreator): LeaderEntry {
     sub: `${c.total_quizzes_created} quizzes`,
     xp: c.xp ?? 0,
     follower_count: c.follower_count ?? 0,
+    name_accent: c.name_accent,
+    name_font: c.name_font,
+    pinned_badge_id: c.pinned_badge_id,
+    avatar_kind: c.avatar_kind,
+    avatar_ref: c.avatar_ref,
+    bias: c.bias,
   };
 }
 
@@ -95,11 +107,30 @@ function toEntryAllTime(c: TopCreatorAllTime): LeaderEntry {
     sub: `${c.total_quizzes_created} quizzes`,
     xp: c.xp ?? 0,
     follower_count: c.follower_count ?? 0,
+    name_accent: c.name_accent,
+    name_font: c.name_font,
+    pinned_badge_id: c.pinned_badge_id,
+    avatar_kind: c.avatar_kind,
+    avatar_ref: c.avatar_ref,
+    bias: c.bias,
   };
 }
 
-function entryToPerson(e: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }): PersonCardData {
-  return { username: e.username, avatarUrl: e.avatar_url, avatarBg: e.avatar_bg, avatarText: e.avatar_text, xp: e.xp, followerCount: e.follower_count };
+// Single-source PersonCard hydration: carry the M1.26 flair fields so
+// top-creators + legends rows match rising / by-fandom / Hall of Fame.
+function entryToPerson(e: {
+  username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string;
+  xp: number; follower_count: number;
+  name_accent: string | null; name_font: string | null; pinned_badge_id: string | null;
+  avatar_kind: string | null; avatar_ref: string | null; bias: string | null;
+}): PersonCardData {
+  return {
+    username: e.username, avatarUrl: e.avatar_url, avatarBg: e.avatar_bg, avatarText: e.avatar_text,
+    xp: e.xp, followerCount: e.follower_count,
+    nameAccent: e.name_accent, nameFont: e.name_font, bias: e.bias,
+    pinnedBadgeId: e.pinned_badge_id,
+    avatarKind: (e.avatar_kind as PersonCardData['avatarKind']) ?? 'photo', avatarRef: e.avatar_ref,
+  };
 }
 
 // ---- Podium + List ----

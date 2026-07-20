@@ -49,7 +49,23 @@ function AvatarSlot({ person, size }: { person: PersonCardData; size: number }):
       </div>
     );
   }
-  // 'photo' and 'custom' (custom falls back until the M1.27 builder lands).
+  // 'custom' (M1.27): a single flattened avatar PNG. One cached image request per
+  // card, no live layer stacking. Transparent art sits on a soft tint coin.
+  if (kind === 'custom' && person.avatarRef) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={person.avatarRef}
+        alt=""
+        width={size}
+        height={size}
+        loading="lazy"
+        decoding="async"
+        style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, background: 'var(--surface-alt)' }}
+      />
+    );
+  }
+  // 'photo' fallback (and 'custom' before a flatten exists).
   return <UserAvatar username={person.username} avatarUrl={person.avatarUrl} bgColor={person.avatarBg} textColor={person.avatarText} size={size} />;
 }
 

@@ -38,8 +38,21 @@ const seclab: React.CSSProperties = {
   fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--txt3)', margin: 0,
 };
 
-function profToPerson(p: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }): PersonCardData {
-  return { username: p.username, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text, xp: p.xp ?? 0, followerCount: p.follower_count ?? 0 };
+// Single-source PersonCard hydration: carry the M1.26 flair so top-creators +
+// legends rows match rising / by-fandom / Hall of Fame (which already render it).
+function profToPerson(p: {
+  username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string;
+  xp: number; follower_count: number;
+  name_accent: string | null; name_font: string | null; pinned_badge_id: string | null;
+  avatar_kind: string | null; avatar_ref: string | null; bias: string | null;
+}): PersonCardData {
+  return {
+    username: p.username, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text,
+    xp: p.xp ?? 0, followerCount: p.follower_count ?? 0,
+    nameAccent: p.name_accent, nameFont: p.name_font, bias: p.bias,
+    pinnedBadgeId: p.pinned_badge_id,
+    avatarKind: (p.avatar_kind as PersonCardData['avatarKind']) ?? 'photo', avatarRef: p.avatar_ref,
+  };
 }
 
 function PersonRow({ person, stat, showFollow }: { person: PersonCardData; stat?: string; showFollow?: boolean }): React.ReactElement {
