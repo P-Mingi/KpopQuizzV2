@@ -208,6 +208,7 @@ export interface BadgeDefinition {
   color_stroke: string;
   color_text: string;
   sort_order: number;
+  icon: string | null; // M1.15 art path, e.g. /badges/perfect_score.png (mig 101/102/104)
 }
 
 export interface UserBadge {

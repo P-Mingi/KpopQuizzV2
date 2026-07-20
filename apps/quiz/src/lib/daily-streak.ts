@@ -11,6 +11,11 @@ import { notifyPassportMilestone } from '@/lib/notifications';
 export const DAILY_BASE_XP = 5;
 export const DAILY_MILESTONES: Record<number, number> = { 3: 10, 7: 25, 14: 50, 30: 100 };
 
+// M1.15: streak badge thresholds. Only these three days trigger the grant RPC, so
+// a user pays for it at most 3 times ever; grant_streak_badges (mig 104) is
+// idempotent and cumulative, so a missed day can never leave a gap.
+const STREAK_BADGE_DAYS = [7, 30, 100];
+
 function todayUtc(): string {
   return new Date().toISOString().slice(0, 10);
 }
@@ -64,6 +69,12 @@ export async function awardDailyStreak(
 
   await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today }).eq('id', userId);
   await supabase.rpc('award_xp', { p_user_id: userId, p_amount: total, p_reason: 'daily_streak' });
+
+  // M1.15: streak badges (streak_7/30/100), folded into this existing write so
+  // there is no extra hot-path query on ordinary days.
+  if (STREAK_BADGE_DAYS.includes(streak)) {
+    await supabase.rpc('grant_streak_badges', { p_user_id: userId, p_streak: streak });
+  }
 
   // M1.7: streak milestone is a deposit point too. One emit, folded into the
   // existing streak write (caller passes the service-role client; emit_activity

@@ -6,6 +6,7 @@ import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatCount } from '@/lib/utils';
 import { AVATAR_PRESETS, nameAccentColor, nameFontFamily, type AvatarKind } from '@/lib/passport-flair';
+import { badgeIconFor } from '@/lib/badges';
 
 // ONE reusable person / passport card (Workstream M, M1.12 + M1.26 flair). Single
 // source of truth + the ONE carrier of identity flair, shown wherever a person
@@ -92,14 +93,38 @@ export function PersonCard({
         <div style={{ position: 'relative', flexShrink: 0, lineHeight: 0 }}>
           <AvatarSlot person={person} size={avatarSize} />
           {person.pinnedBadgeId && (
-            // Pinned-badge slot (M1.26). Real per-badge art lands with M1.15; for
-            // now a small marker in the chosen accent marks that a badge is pinned.
-            <span aria-hidden="true" style={{
-              position: 'absolute', right: -1, bottom: -1,
-              width: compact ? 13 : 15, height: compact ? 13 : 15, borderRadius: '50%',
-              background: accentColor === 'var(--txt1)' ? 'var(--brand)' : accentColor,
-              boxShadow: '0 0 0 2px var(--surface)',
-            }} />
+            // Pinned-badge slot (M1.15 final): the real badge art when we have it,
+            // otherwise the original accent dot so badges without art still read
+            // as "something is pinned here".
+            (() => {
+              const pinIcon = badgeIconFor(person.pinnedBadgeId);
+              const pinSize = compact ? 17 : 20;
+              return pinIcon ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={pinIcon}
+                  alt=""
+                  aria-hidden="true"
+                  width={pinSize}
+                  height={pinSize}
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    position: 'absolute', right: -3, bottom: -3,
+                    width: pinSize, height: pinSize, objectFit: 'contain',
+                    borderRadius: '50%', background: 'var(--surface)',
+                    boxShadow: '0 0 0 2px var(--surface)',
+                  }}
+                />
+              ) : (
+                <span aria-hidden="true" style={{
+                  position: 'absolute', right: -1, bottom: -1,
+                  width: compact ? 13 : 15, height: compact ? 13 : 15, borderRadius: '50%',
+                  background: accentColor === 'var(--txt1)' ? 'var(--brand)' : accentColor,
+                  boxShadow: '0 0 0 2px var(--surface)',
+                }} />
+              );
+            })()
           )}
         </div>
         <div style={{ minWidth: 0 }}>

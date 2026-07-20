@@ -61,7 +61,8 @@ export const CATEGORY_TRANSFORM: Record<AvatarCategory, AvatarTransform> = {
   frame: IDENTITY_TRANSFORM,
 };
 
-// The base body is fixed (single black rabbit; rabbit1-5 / old fullBody ignored).
+// The base body is fixed: a single black rabbit. The old un-keyed fullBody/
+// duplicates were pruned in M1.15 final; base/rabbit.png is the only base.
 export const AVATAR_BASE = '/avatar/base/rabbit.png';
 
 // Hair geometry varies by style (not color), so the transform lives on the style.
