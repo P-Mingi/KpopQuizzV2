@@ -1000,12 +1000,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     const maxScore = isClues ? state.totalQuestions * 3 : state.totalQuestions;
     const scorePct = Math.round((state.score / maxScore) * 100);
 
-    // Stars derived from score percentage: 5 at 100%, 4 at 90+, 3 at 70+, 2 at 50+, else 1
-    const starCount =
-      scorePct >= 100 ? 5 : scorePct >= 90 ? 4 : scorePct >= 70 ? 3 : scorePct >= 50 ? 2 : 1;
-
-    // F3: celebrate mascot only on a good result (pass threshold = 50%, i.e. 2+
-    // stars). A poor/failed result stays mascot-less here; the sad variant is F5.
+    // F3: celebrate mascot only on a good result (pass threshold = 50%).
+    // A poor/failed result stays mascot-less here; the sad variant is F5.
     const isGoodResult = scorePct >= 50;
 
     const resultLabel = getResultLabel(state.score, maxScore);
@@ -1064,14 +1060,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             <p className="result-share-title">{quiz.title}</p>
           </div>
           <div className="result-share-body">
-            {/* Stars */}
-            <div className="flex justify-center gap-1 mb-3">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <svg key={i} width="20" height="20" viewBox="0 0 14 14" fill={i < starCount ? 'var(--combo)' : 'var(--bg-elevated)'}>
-                  <polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,11 3.2,13 4,8.5 1,5.5 5,5" />
-                </svg>
-              ))}
-            </div>
+            {/* The star rank was removed: it restated the score that is already
+                right below it in numbers, plus the bar and the beat-%. */}
 
             {/* Animated count-up score (instant under reduced-motion) */}
             <p className="result-share-score" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
