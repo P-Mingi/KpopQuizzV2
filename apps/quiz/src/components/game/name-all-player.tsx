@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { playFound, playPerfect } from '@/lib/sounds';
 import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
+import { ResultLoop } from '@/components/result/result-loop';
+import { useSignedIn } from '@/lib/use-signed-in';
 
 import type { GameWithGroup, NameAllMember } from '@/lib/db/types';
 
@@ -198,6 +200,7 @@ function PhotoMemberCard({
 // ---- Main Component ----
 
 export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement {
+  const signedIn = useSignedIn();
   const rawContent = game.content as unknown as Record<string, unknown>;
 
   // Normalize: old format uses 'members', new format uses 'items'
@@ -729,24 +732,21 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
               <span>Time: {formatTimer(timeTaken)}</span>
             </div>
 
-            {/* Actions */}
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setPhase('start');
-                  setTimeLeft(totalTime);
-                }}
-                className="flex-1 py-3 rounded-full border border-[var(--border)] text-sm font-medium"
-              >
-                Try again
-              </button>
-              <Link
-                href="/games"
-                className="flex-1 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium text-center"
-              >
-                Back to games
-              </Link>
-            </div>
+            {/* Workstream LOOP - "Try again / Back to games" replaced by the
+                shared footer, so this ends in the same loop as every other game
+                and points at the player's own group quiz when we know it. */}
+            <ResultLoop
+              game="name-all"
+              score={found.size}
+              max={members.length}
+              scoreLabel={getScoreLabel(found.size, members.length).label}
+              shareText={`I named ${found.size}/${members.length} ${game.group_name ?? 'K-pop'} members. Can you?`}
+              shareUrl={`/games/name-all/${game.slug}`}
+              onPlayAgain={() => { setPhase('start'); setTimeLeft(totalTime); }}
+              isSignedIn={signedIn !== false}
+              groupSlug={game.group_slug}
+              groupName={game.group_name}
+            />
           </div>
         );
       })()}
