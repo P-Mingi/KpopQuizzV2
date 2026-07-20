@@ -7,7 +7,14 @@ export function DiscordResultsLine({
   surface,
   text = 'Compare with the community on Discord',
 }: {
-  surface: 'quiz-result' | 'blindtest-result' | 'battle-reveal';
+  surface:
+    | 'quiz-result'
+    | 'blindtest-result'
+    | 'battle-reveal'
+    // Workstream LOOP - the game results that now end in a shared ResultLoop.
+    | 'this-or-that-result'
+    | 'name-all-result'
+    | 'duel-result';
   text?: string;
 }): React.ReactElement {
   return (
