@@ -28,6 +28,10 @@ const KNOWN_ROUTES = [
   // guard themselves server-side (redirect('/login') when signed out), so they
   // belong here and NOT in PROTECTED_PATH_PREFIXES, which would add a Supabase
   // round trip to the middleware for every hit.
+  // '/daily' was the same oversight: app/daily/page.tsx has existed and been
+  // linked from the home streak nudge, but was never allowlisted, so every hit
+  // 301'd to / and the daily ritual page was unreachable in production.
+  '/daily',
   '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
   '/articles',
   '/battle',

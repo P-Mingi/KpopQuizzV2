@@ -60,7 +60,7 @@ type IconName = 'music' | 'versus' | 'people' | 'cards' | 'grid';
 const LOOP_CARDS: Record<LoopGame, LoopCard[]> = {
   blindtest: [
     { href: '/games/this-or-that', target: 'this-or-that', icon: 'versus', text: 'Play This or That: pick your bias in head-to-head matchups' },
-    { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
+    { href: '/daily', target: 'daily', icon: 'cards', text: 'Quiz of the day: keep your daily streak alive' },
   ],
   'this-or-that': [
     { href: '/blindtest', target: 'blindtest', icon: 'music', text: 'Try the K-pop blind test: guess songs from audio clips' },
@@ -145,7 +145,10 @@ export function ResultLoop({
   // Fall back to the hub when the game does not know a group.
   const quizHref = groupSlug ? `/${groupSlug}-quiz` : '/quizzes';
   const quizTarget: CrossPromoTarget = groupSlug ? 'group-quiz' : 'quizzes';
-  const quizLabel = groupName ? `Play a ${groupName} quiz` : 'Play a K-pop quiz';
+  // Visible label stays short so the button does not wrap to three lines next to
+  // "Play again" at 375px. The full phrase lives in aria-label.
+  const quizLabel = groupName ? `${groupName} quiz` : 'K-pop quiz';
+  const quizAria = groupName ? `Play a ${groupName} quiz` : 'Play a K-pop quiz';
 
   const cards = LOOP_CARDS[game];
   const hasScore = typeof score === 'number' && typeof max === 'number';
@@ -167,7 +170,7 @@ export function ResultLoop({
           href={quizHref}
           className="btn-outline flex-1 text-center no-underline"
           onClick={() => analytics.crossPromo(game, quizTarget)}
-          aria-label={quizLabel}
+          aria-label={quizAria}
         >
           {quizLabel}
         </Link>
@@ -178,9 +181,13 @@ export function ResultLoop({
         type="button"
         className="btn-outline w-full mt-2.5"
         onClick={handleShare}
-        aria-label={hasScore ? `Share your score of ${score} out of ${max}` : 'Share your result'}
+        aria-label={
+          hasScore
+            ? `Share your score of ${score} out of ${max}${scoreLabel ? `, ${scoreLabel}` : ''}`
+            : 'Share your result'
+        }
       >
-        {hasScore ? `Share ${score}/${max}${scoreLabel ? ` ${scoreLabel}` : ''}` : 'Share result'}
+        {hasScore ? `Share ${score}/${max}` : 'Share result'}
       </button>
 
       {/* 2. Discord line, same placement as the quiz result. */}

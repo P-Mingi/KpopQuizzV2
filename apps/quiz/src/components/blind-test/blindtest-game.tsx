@@ -4,7 +4,8 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
-import { DiscordResultsLine } from '@/components/discord/discord-results-line';
+import { ResultLoop } from '@/components/result/result-loop';
+import { useSignedIn } from '@/lib/use-signed-in';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -60,10 +61,14 @@ function scoreLabel(score: number): string {
 }
 
 export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; hero?: React.ReactNode }): React.ReactElement {
+  const signedIn = useSignedIn();
   const [phase, setPhase] = useState<Phase>('setup');
   const [pickKind, setPickKind] = useState<PickKind>('all');
   const [playlist, setPlaylist] = useState('all');
   const [playlistLabel, setPlaylistLabel] = useState('All K-pop');
+  // Only a by-group pick carries a real group; 'all' and the generation buckets
+  // do not, and those fall back to /quizzes in the cross-promo.
+  const playlistGroup = groups.find((g) => g.slug === playlist) ?? null;
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -71,7 +76,6 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   const [timeLeft, setTimeLeft] = useState(TIMER);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [eq, setEq] = useState<number[]>([14, 22, 30, 20, 12]);
-  const [nudge, setNudge] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Destructure the hook's stable useCallback fns: the hook returns a NEW object
@@ -140,13 +144,11 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     stopTimer();
     stop();
     setPhase('results');
-    try {
-      const n = parseInt(localStorage.getItem('bt_anon_plays') ?? '0', 10) + 1;
-      localStorage.setItem('bt_anon_plays', String(n));
-      if (n >= 3 && n % 3 === 0) setNudge(true);
-    } catch {
-      // storage blocked - skip the nudge
-    }
+    // TODO (Workstream N): credit the daily streak when this was launched in
+    // daily mode. Deliberately not wired yet: nothing here reads ?daily, and
+    // completeDaily only accepts 'quiz' | 'game', so calling it with 'game'
+    // would hand a blindtest player credit for the daily GAME they never
+    // played. Needs N to land the blindtest daily kind first.
   }, [stop, stopTimer]);
 
   const goNext = useCallback(() => {
@@ -181,7 +183,6 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setQuestions(data.questions);
       setIndex(0);
       setAnswers([]);
-      setNudge(false);
       setPhase('playing');
       playQuestion(data.questions[0]!);
     } catch {
@@ -397,20 +398,6 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   }
 
   // ============================================ RESULTS
-  const share = async () => {
-    const text = `I scored ${score}/10 on the kpopquiz.org K-pop Blind Test. Can you beat me?`;
-    const url = typeof window !== 'undefined' ? `${window.location.origin}/blindtest` : 'https://kpopquiz.org/blindtest';
-    try {
-      if (typeof navigator !== 'undefined' && navigator.share) {
-        await navigator.share({ title: 'K-pop Blind Test', text, url });
-      } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
-        await navigator.clipboard.writeText(`${text} ${url}`);
-      }
-    } catch {
-      // user cancelled / clipboard blocked
-    }
-  };
-
   return (
     <div className="bt-screen">
       <div className="bt-results">
@@ -456,21 +443,23 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
           })}
         </div>
 
-        {nudge && (
-          <div className="bt-nudge">
-            <p>Enjoying the blind test? <Link href="/login">Sign in</Link> to save your scores.</p>
-          </div>
-        )}
-
-        <div className="bt-result-actions">
-          <button type="button" className="btn-primary" onClick={start}>Play again</button>
-          <button type="button" className="btn-outline" onClick={share}>Share result</button>
-        </div>
-        {/* K2 - Discord one-line on the blindtest result. */}
-        <div style={{ textAlign: 'center' }}>
-          <DiscordResultsLine surface="blindtest-result" text="Argue about it on Discord" />
-        </div>
-        <button type="button" className="bt-back bt-back-btn" onClick={() => { setPhase('setup'); setError(null); }}>Change playlist</button>
+        {/* Workstream LOOP - the ad-hoc actions, the standalone Discord line and
+            the "Change playlist" dead end are all folded into ResultLoop now, so
+            this result ends the same way every other game does. The anon nudge
+            moved there too (ResultLoop shows it on signed-out state rather than
+            on an every-third-play counter). */}
+        <ResultLoop
+          game="blindtest"
+          score={score}
+          max={10}
+          scoreLabel={scoreLabel(score)}
+          shareText={`I scored ${score}/10 on the kpopquiz.org K-pop Blind Test. Can you beat me?`}
+          shareUrl="/blindtest"
+          onPlayAgain={start}
+          isSignedIn={signedIn !== false}
+          groupSlug={playlistGroup?.slug ?? null}
+          groupName={playlistGroup?.name ?? null}
+        />
       </div>
     </div>
   );
