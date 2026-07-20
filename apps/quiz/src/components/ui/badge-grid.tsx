@@ -98,12 +98,14 @@ const BADGE_CSS = `
 .badge-tile.is-earned { border-color: color-mix(in srgb, var(--brand) 32%, var(--border)); background: var(--surface); }
 .badge-art { position: relative; width: 100%; aspect-ratio: 1; display: grid; place-items: center; }
 .badge-img { width: 100%; height: 100%; object-fit: contain; }
-.badge-tile.is-locked .badge-img { filter: grayscale(1) contrast(0.85); opacity: 0.38; }
+/* Locked art is deliberately hard to read: a frosted silhouette shows there is
+   something to earn without spoiling the artwork before it is unlocked. */
+.badge-tile.is-locked .badge-img { filter: grayscale(1) blur(5px) contrast(0.5); opacity: 0.3; }
 .badge-fallback {
   width: 62%; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid;
   display: grid; place-items: center; font-weight: 800; font-size: 15px;
 }
-.badge-tile.is-locked .badge-fallback { filter: grayscale(1); opacity: 0.4; }
+.badge-tile.is-locked .badge-fallback { filter: grayscale(1) blur(4px); opacity: 0.32; }
 .badge-lock {
   position: absolute; right: 2px; bottom: 2px; width: 19px; height: 19px; border-radius: 50%;
   display: grid; place-items: center;

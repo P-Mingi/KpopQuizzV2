@@ -19,24 +19,39 @@ export function InfiniteQuizList({ initialQuizzes, fetchUrl, isOwner }: Infinite
   const [hasMore, setHasMore] = useState(initialQuizzes.length >= 10);
   const [loading, setLoading] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  // The `loading` state alone cannot gate this: the IntersectionObserver can fire
+  // again before React has committed setLoading(true), so two fetches would go out
+  // for the SAME offset and append the same page twice. A ref flips synchronously.
+  const loadingRef = useRef(false);
 
   const loadMore = useCallback(async () => {
-    if (loading || !hasMore) return;
+    if (loadingRef.current || !hasMore) return;
+    loadingRef.current = true;
     setLoading(true);
     try {
       const sep = fetchUrl.includes('?') ? '&' : '?';
       const res = await fetch(`${fetchUrl}${sep}offset=${offset}`);
       if (!res.ok) throw new Error('Failed to load');
       const data: { quizzes: QuizCardData[] } = await res.json();
-      setQuizzes((prev) => [...prev, ...data.quizzes]);
+      // Dedupe by id. Even with the guard above, a page can overlap what we
+      // already hold when rows shift between requests (ties in the sort order as
+      // play counts change). Appending blind produced duplicate React keys.
+      setQuizzes((prev) => {
+        const seen = new Set(prev.map((q) => q.id));
+        const fresh = data.quizzes.filter((q) => !seen.has(q.id));
+        return fresh.length > 0 ? [...prev, ...fresh] : prev;
+      });
+      // Offset tracks rows CONSUMED from the server, not rows kept, so paging
+      // stays aligned even when a page was entirely duplicate.
       setOffset((prev) => prev + data.quizzes.length);
       setHasMore(data.quizzes.length >= 10);
     } catch (err) {
       console.error('Failed to load more quizzes:', err);
     } finally {
+      loadingRef.current = false;
       setLoading(false);
     }
-  }, [fetchUrl, offset, loading, hasMore]);
+  }, [fetchUrl, offset, hasMore]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;

@@ -54,6 +54,12 @@ const nextConfig: NextConfig = {
         hostname: 'lh3.googleusercontent.com',
       },
       {
+        // Group logos stored on Google Drive (drive.google.com/thumbnail?id=...).
+        // Drive sometimes 302s to lh3.googleusercontent.com, which is listed above.
+        protocol: 'https',
+        hostname: 'drive.google.com',
+      },
+      {
         protocol: 'https',
         hostname: 'cdn.discordapp.com',
       },

@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { isConfiguredImageHost } from '@/lib/image-hosts';
+
 interface GroupLogoProps {
   groupName: string;
   logoUrl: string | null;
@@ -94,8 +96,11 @@ export function GroupLogo({ groupName, logoUrl, displayColor, textColor, size = 
     );
   }
 
-  // 2. Try database logo_url
-  if (logoUrl && !imgError) {
+  // 2. Try database logo_url. The host check is load-bearing: next/image throws
+  // at render time for a hostname missing from remotePatterns, which onError
+  // below cannot catch, so one bad logo row would blow up the whole page. An
+  // unknown host degrades to the initials tile instead.
+  if (logoUrl && !imgError && isConfiguredImageHost(logoUrl)) {
     return (
       <div
         className="overflow-hidden flex-shrink-0 border border-default"
