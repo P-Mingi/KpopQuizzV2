@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { BadgeGrid } from '@/components/ui/badge-grid';
+import { BadgeDetailModal } from '@/components/profile/badge-detail-modal';
 import { badgeIconFor } from '@/lib/badges';
 
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -10,14 +11,17 @@ import type { BadgeDefinition } from '@/lib/db/types';
 interface Props {
   allBadges: BadgeDefinition[];
   earnedBadgeIds: string[];
+  /** badge_id -> earned_at, so the lightbox can say when it was earned. */
+  earnedAt?: Record<string, string>;
 }
 
 // Badge shelf (M1.29). Earned-first: the coins you actually own sit out in full
 // colour, and everything still locked collapses into one chip that expands the
 // full frosted grid inline. Keeps a fresh profile from opening on a wall of
 // greyed-out tiles while still showing there is something to chase.
-export function BadgeShelf({ allBadges, earnedBadgeIds }: Props): React.ReactElement | null {
+export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt }: Props): React.ReactElement | null {
   const [expanded, setExpanded] = useState(false);
+  const [selected, setSelected] = useState<BadgeDefinition | null>(null);
   if (allBadges.length === 0) return null;
 
   const earnedSet = new Set(earnedBadgeIds);
@@ -36,13 +40,24 @@ export function BadgeShelf({ allBadges, earnedBadgeIds }: Props): React.ReactEle
       <div className="badge-shelf-row">
         {earned.map((b) => {
           const icon = b.icon ?? badgeIconFor(b.id);
-          return icon ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={b.id} src={icon} alt={b.name} title={b.description} className="badge-shelf-coin" loading="lazy" />
-          ) : (
-            <span key={b.id} className="badge-shelf-chip-art" title={b.description} style={{ background: b.color_bg, borderColor: b.color_stroke, color: b.color_text }}>
-              {b.name.slice(0, 1).toUpperCase()}
-            </span>
+          return (
+            <button
+              key={b.id}
+              type="button"
+              className="badge-shelf-coin-btn"
+              title={b.description}
+              aria-label={`${b.name}, view badge`}
+              onClick={() => setSelected(b)}
+            >
+              {icon ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={icon} alt="" className="badge-shelf-coin" loading="lazy" />
+              ) : (
+                <span className="badge-shelf-chip-art" style={{ background: b.color_bg, borderColor: b.color_stroke, color: b.color_text }}>
+                  {b.name.slice(0, 1).toUpperCase()}
+                </span>
+              )}
+            </button>
           );
         })}
 
@@ -64,8 +79,17 @@ export function BadgeShelf({ allBadges, earnedBadgeIds }: Props): React.ReactEle
 
       {expanded && (
         <div className="badge-shelf-grid">
-          <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />
+          <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} onSelect={setSelected} />
         </div>
+      )}
+
+      {selected && (
+        <BadgeDetailModal
+          badge={selected}
+          earned={earnedSet.has(selected.id)}
+          earnedAt={earnedAt?.[selected.id] ?? null}
+          onClose={() => setSelected(null)}
+        />
       )}
     </section>
   );
@@ -83,7 +107,15 @@ const SHELF_CSS = `
 }
 .badge-shelf-count{font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums}
 .badge-shelf-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
-.badge-shelf-coin{width:44px;height:44px;object-fit:contain;flex-shrink:0}
+.badge-shelf-coin-btn{
+  width:44px;height:44px;padding:0;border:none;background:transparent;cursor:pointer;
+  flex-shrink:0;border-radius:50%;display:grid;place-items:center;
+  transition:transform .16s ease;
+}
+@media (hover:hover) and (prefers-reduced-motion: no-preference){
+  .badge-shelf-coin-btn:hover{transform:translateY(-2px)}
+}
+.badge-shelf-coin{width:44px;height:44px;object-fit:contain}
 .badge-shelf-chip-art{
   width:44px;height:44px;border-radius:50%;border:1.5px solid;display:grid;place-items:center;
   font-weight:800;font-size:15px;flex-shrink:0;

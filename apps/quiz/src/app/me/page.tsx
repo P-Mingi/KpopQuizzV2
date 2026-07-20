@@ -39,10 +39,12 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     supabase.from('groups').select('id, name, slug, logo_url, display_color, quiz_count'),
     // M1.29: /me runs the same layout as /u, badge shelf included.
     supabase.from('badge_definitions').select('*').order('sort_order'),
-    supabase.from('user_badges').select('badge_id').eq('user_id', user.id),
+    supabase.from('user_badges').select('badge_id, earned_at').eq('user_id', user.id),
   ]);
   const allBadges = (badgeDefsRes.data ?? []) as BadgeDefinition[];
-  const earnedBadgeIds = ((userBadgesRes.data ?? []) as Array<{ badge_id: string }>).map((b) => b.badge_id);
+  const userBadgeRows = (userBadgesRes.data ?? []) as Array<{ badge_id: string; earned_at: string }>;
+  const earnedBadgeIds = userBadgeRows.map((b) => b.badge_id);
+  const badgeEarnedAt = Object.fromEntries(userBadgeRows.map((b) => [b.badge_id, b.earned_at]));
 
   interface GMeta { name: string; slug: string; logo: string | null; color: string; quizCount: number }
   const allGroups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string; quiz_count: number }>;
@@ -131,7 +133,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       pinnedBadgeId={profile.pinned_badge_id}
       avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
       avatarRef={profile.avatar_ref}
-      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />}
+      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
       bio={profile.bio}
       accent={accent}
       bias={spine?.bias ?? null}

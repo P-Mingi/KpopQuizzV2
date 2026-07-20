@@ -8,7 +8,7 @@ import type { NextRequest } from 'next/server';
 export type NotificationType =
   | 'milestone' | 'rating' | 'comment' | 'trending' | 'admin_dm'
   | 'new_follower' | 'like' | 'achievement_unlocked' | 'streak_milestone'
-  | 'group_mastered' | 'followed_new_quiz';
+  | 'group_mastered' | 'followed_new_quiz' | 'badge_earned';
 
 export interface NotificationRow {
   id: string;

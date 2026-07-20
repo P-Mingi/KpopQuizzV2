@@ -1,3 +1,5 @@
+'use client';
+
 import { BADGE_TIER_GROUPS, badgeIconFor, isTieredBadge } from '@/lib/badges';
 
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -5,6 +7,8 @@ import type { BadgeDefinition } from '@/lib/db/types';
 interface BadgeGridProps {
   allBadges: BadgeDefinition[];
   earnedBadgeIds: string[];
+  /** When provided, every tile becomes a button that opens the badge lightbox. */
+  onSelect?: (badge: BadgeDefinition) => void;
 }
 
 /**
@@ -13,7 +17,7 @@ interface BadgeGridProps {
  * still reads as "here is what there is to earn". Tiered families (streak,
  * creator) get their own labelled row so the ladder is legible.
  */
-export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.ReactElement {
+export function BadgeGrid({ allBadges, earnedBadgeIds, onSelect }: BadgeGridProps): React.ReactElement {
   const earned = new Set(earnedBadgeIds);
   const byId = new Map(allBadges.map((b) => [b.id, b]));
 
@@ -30,7 +34,7 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
       {singles.length > 0 && (
         <div className="badge-grid">
           {singles.map((b) => (
-            <BadgeTile key={b.id} badge={b} earned={earned.has(b.id)} />
+            <BadgeTile key={b.id} badge={b} earned={earned.has(b.id)} onSelect={onSelect} />
           ))}
         </div>
       )}
@@ -40,7 +44,7 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
           <p className="badge-group-label">{g.label}</p>
           <div className="badge-grid">
             {g.badges.map((b) => (
-              <BadgeTile key={b.id} badge={b} earned={earned.has(b.id)} />
+              <BadgeTile key={b.id} badge={b} earned={earned.has(b.id)} onSelect={onSelect} />
             ))}
           </div>
         </section>
@@ -49,11 +53,16 @@ export function BadgeGrid({ allBadges, earnedBadgeIds }: BadgeGridProps): React.
   );
 }
 
-function BadgeTile({ badge, earned }: { badge: BadgeDefinition; earned: boolean }): React.ReactElement {
+function BadgeTile({ badge, earned, onSelect }: { badge: BadgeDefinition; earned: boolean; onSelect?: ((b: BadgeDefinition) => void) | undefined }): React.ReactElement {
   const icon = badge.icon ?? badgeIconFor(badge.id);
 
+  const Tag = onSelect ? 'button' : 'div';
   return (
-    <div className={`badge-tile ${earned ? 'is-earned' : 'is-locked'}`} title={badge.description}>
+    <Tag
+      className={`badge-tile ${earned ? 'is-earned' : 'is-locked'}`}
+      title={badge.description}
+      {...(onSelect ? { type: 'button' as const, onClick: () => onSelect(badge) } : {})}
+    >
       <div className="badge-art">
         {icon ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -79,7 +88,7 @@ function BadgeTile({ badge, earned }: { badge: BadgeDefinition; earned: boolean 
       </div>
       <span className="badge-name">{badge.name}</span>
       <span className="sr-only">{earned ? 'Earned' : 'Locked'}</span>
-    </div>
+    </Tag>
   );
 }
 
@@ -91,10 +100,12 @@ const BADGE_CSS = `
   color: var(--txt3); margin: 0 0 8px;
 }
 .badge-tile {
+  font-family: inherit;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
   padding: 10px 6px 9px; border-radius: 14px;
   border: 1px solid var(--border); background: var(--surface-alt);
 }
+button.badge-tile { cursor: pointer; }
 .badge-tile.is-earned { border-color: color-mix(in srgb, var(--brand) 32%, var(--border)); background: var(--surface); }
 .badge-art { position: relative; width: 100%; aspect-ratio: 1; display: grid; place-items: center; }
 .badge-img { width: 100%; height: 100%; object-fit: contain; }

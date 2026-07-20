@@ -20,7 +20,7 @@ export function isMilestonePlayCount(playCount: number): boolean {
 type NotifyType =
   | 'milestone' | 'rating' | 'comment' | 'trending'
   | 'new_follower' | 'like' | 'achievement_unlocked' | 'streak_milestone'
-  | 'group_mastered' | 'followed_new_quiz';
+  | 'group_mastered' | 'followed_new_quiz' | 'badge_earned';
 
 async function insertNotification(payload: {
   user_id: string;

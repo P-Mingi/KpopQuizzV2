@@ -150,6 +150,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
   const allBadges = (badgeDefsResult.data ?? []) as BadgeDefinition[];
   const earnedBadgeIds = ((userBadgesResult.data ?? []) as UserBadge[]).map((b) => b.badge_id);
+  const badgeEarnedAt = Object.fromEntries(
+    ((userBadgesResult.data ?? []) as UserBadge[]).map((b) => [b.badge_id, b.earned_at]),
+  );
   const levelInfo = getLevelInfo(profile.xp);
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
@@ -198,7 +201,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         pinnedBadgeId={profile.pinned_badge_id}
         avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
         avatarRef={profile.avatar_ref}
-        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />}
+        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
       />
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}

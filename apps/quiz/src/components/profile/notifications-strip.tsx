@@ -185,6 +185,8 @@ function iconFor(type: NotificationRow['type']): string {
       return 'M';
     case 'followed_new_quiz':
       return 'Q';
+    case 'badge_earned':
+      return 'B';
     default:
       return '.';
   }
