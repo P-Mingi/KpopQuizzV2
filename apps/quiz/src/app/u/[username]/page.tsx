@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
-import { BadgeGrid } from '@/components/ui/badge-grid';
+import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
@@ -95,9 +95,12 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   };
 }
 
+// Same column as the passport (M1.29): the tabs card must not out-span the
+// profile stack on desktop.
 const cardWrap: React.CSSProperties = {
   background: 'var(--bg-surface)', border: '1px solid var(--border)',
   borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 14,
+  maxWidth: 520, marginLeft: 'auto', marginRight: 'auto',
 };
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
@@ -191,20 +194,12 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         eras={collection.eras}
         topGroups={topGroups}
         headerSlot={<ProfileOwnerControls profileUsername={profile.username} />}
+        nameAccent={profile.name_accent}
+        pinnedBadgeId={profile.pinned_badge_id}
+        avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
+        avatarRef={profile.avatar_ref}
+        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />}
       />
-
-      {/* Badges (kept) */}
-      {allBadges.length > 0 && (
-        <div style={cardWrap}>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12 }}>
-            <h2 style={{ fontSize: 13, fontWeight: 700, margin: 0 }}>Badges</h2>
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-tertiary)' }}>
-              {earnedBadgeIds.length} of {allBadges.length}
-            </span>
-          </div>
-          <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />
-        </div>
-      )}
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>

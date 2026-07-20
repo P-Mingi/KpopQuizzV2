@@ -18,6 +18,12 @@ export interface Profile {
   xp: number;
   follower_count: number;
   following_count: number;
+  // M1.26 identity flair (migration 100). Selected via profiles.* everywhere.
+  name_accent: string | null;
+  name_font: string | null;
+  pinned_badge_id: string | null;
+  avatar_kind: string | null;
+  avatar_ref: string | null;
 }
 
 export interface Group {

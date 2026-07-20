@@ -9,9 +9,11 @@ import { readPassportSpine, readPassportGroupStats, readCollectionProgress, comp
 import { passportAccent } from '@/lib/passport-themes';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { NotificationsStrip } from '@/components/profile/notifications-strip';
+import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { PassportShare } from '@/components/profile/passport-share';
 
 import type { Metadata } from 'next';
+import type { BadgeDefinition } from '@/lib/db/types';
 
 // M1.1 prototype: the personal K-pop Passport (/me). Reads real spine data via
 // passport.ts. This is THE harmonized profile basis; /u/[username] adopts it
@@ -30,12 +32,17 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   const profile = await getProfileById(user.id);
   if (!profile) redirect('/onboarding');
 
-  const [spine, groupStats, collection, groupsRes] = await Promise.all([
+  const [spine, groupStats, collection, groupsRes, badgeDefsRes, userBadgesRes] = await Promise.all([
     readPassportSpine(supabase, user.id),
     readPassportGroupStats(supabase, user.id),
     readCollectionProgress(supabase, user.id),
     supabase.from('groups').select('id, name, slug, logo_url, display_color, quiz_count'),
+    // M1.29: /me runs the same layout as /u, badge shelf included.
+    supabase.from('badge_definitions').select('*').order('sort_order'),
+    supabase.from('user_badges').select('badge_id').eq('user_id', user.id),
   ]);
+  const allBadges = (badgeDefsRes.data ?? []) as BadgeDefinition[];
+  const earnedBadgeIds = ((userBadgesRes.data ?? []) as Array<{ badge_id: string }>).map((b) => b.badge_id);
 
   interface GMeta { name: string; slug: string; logo: string | null; color: string; quizCount: number }
   const allGroups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string; quiz_count: number }>;
@@ -120,6 +127,11 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       <NotificationsStrip />
       <PassportView
       mode="personal"
+      nameAccent={profile.name_accent}
+      pinnedBadgeId={profile.pinned_badge_id}
+      avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
+      avatarRef={profile.avatar_ref}
+      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} />}
       bio={profile.bio}
       accent={accent}
       bias={spine?.bias ?? null}
