@@ -63,7 +63,7 @@ export async function completeDaily(kind: DailyKind): Promise<DailyCompleteResul
     // Workstream LOOP B2 - the daily retention signal, fired from the one place
     // every daily funnels through. already_today is excluded so a replay on the
     // same day does not double count the streak day.
-    if (!result.already_today) analytics.dailyComplete(kind, result.streak);
+    if (!result.already_today) analytics.dailyComplete(kind, result.streak ?? 0);
     return result;
   } catch {
     return null;

@@ -9,6 +9,7 @@ import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
+import { analytics, isDailyLaunch } from '@/lib/analytics';
 
 import type { GameWithGroup, NameAllMember } from '@/lib/db/types';
 
@@ -258,6 +259,7 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
   }, [phase]);
 
   function startGame() {
+    analytics.gameStart('name-all', isDailyLaunch());
     setPhase('playing');
     setFound(new Set());
     setTimeLeft(totalTime);
@@ -268,6 +270,14 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
     setKoreanText(null);
     setTimeout(() => inputRef.current?.focus(), 100);
   }
+
+  // Fired from the phase change, not from endGame(): endGame is reached from a
+  // timer callback holding an older render's `found`, which reported 0 for a
+  // perfect round.
+  useEffect(() => {
+    if (phase === 'result') analytics.gameComplete('name-all', found.size, members.length, isDailyLaunch());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
 
   function endGame() {
     if (timerRef.current) clearInterval(timerRef.current);

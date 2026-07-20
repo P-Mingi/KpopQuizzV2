@@ -6,6 +6,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { completeDaily } from '@/lib/daily-played';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
+import { analytics, isDailyLaunch } from '@/lib/analytics';
 import { RankingList } from './ranking-list';
 import { VsBadge } from './vs-badge';
 
@@ -110,6 +111,7 @@ export function DuelGame({
 
   // Initial duel for the SSR-selected question (ranking is already SSR'd).
   useEffect(() => {
+    analytics.gameStart('duel', isDailyLaunch());
     void loadDuel(group, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -171,6 +173,9 @@ export function DuelGame({
     }
 
     setReveal({ winnerId, delta, pct });
+    // This game has no end, so the first vote of the session is what "complete"
+    // means here, matching what completeDaily already counts as having played.
+    if (sessionVotes === 0) analytics.gameComplete('duel', 1, 1, isDailyLaunch());
     setSessionVotes((n) => n + 1);
     setTotalVotes((n) => n + 1);
     // F6: a duel has no end screen, so casting a vote on today's daily matchup

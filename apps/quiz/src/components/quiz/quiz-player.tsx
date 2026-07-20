@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
+import { analytics } from '@/lib/analytics';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
@@ -586,6 +587,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       newLevel,
       newLevelName,
     });
+    // Workstream LOOP B2 - the only analytics addition in this file. The quiz
+    // result screen is the reference model and is otherwise untouched.
+    analytics.gameComplete('quiz', state.score, maxScore);
   }, [state, quiz.id, showToast]);
 
   const handleShare = useCallback(async () => {

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Mascot } from '@/components/ui/mascot';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
+import { analytics, isDailyLaunch } from '@/lib/analytics';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -151,6 +152,13 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     // played. Needs N to land the blindtest daily kind first.
   }, [stop, stopTimer]);
 
+  // Fire once the results phase is actually on screen: at finish() time the last
+  // setAnswers has not flushed, so reading the score there would undercount.
+  useEffect(() => {
+    if (phase === 'results') analytics.gameComplete('blindtest', score, 10, isDailyLaunch());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
   const goNext = useCallback(() => {
     const next = index + 1;
     if (next >= questions.length) { finish(); return; }
@@ -183,6 +191,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setQuestions(data.questions);
       setIndex(0);
       setAnswers([]);
+      analytics.gameStart('blindtest', isDailyLaunch());
       setPhase('playing');
       playQuestion(data.questions[0]!);
     } catch {

@@ -27,6 +27,16 @@ export type CrossPromoTarget =
   | 'games'
   | 'daily';
 
+/** True when this play was launched from a ?daily= link (home daily row, /daily). */
+export function isDailyLaunch(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return new URLSearchParams(window.location.search).has('daily');
+  } catch {
+    return false;
+  }
+}
+
 function ev(name: string, props?: Record<string, string | number | boolean>): void {
   if (typeof window === 'undefined') return;
   try {

@@ -5,6 +5,7 @@ import { playPick, playEliminate, playNextMatchup, playVictory } from '@/lib/sou
 import { ResultLoop } from '@/components/result/result-loop';
 import { completeDaily } from '@/lib/daily-played';
 import { useSignedIn } from '@/lib/use-signed-in';
+import { analytics, isDailyLaunch } from '@/lib/analytics';
 import type { TotCategoryWithItems, TotItem, TotBracketEntry } from '@/lib/db/types';
 
 // ============================================
@@ -141,6 +142,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
   const rightItem = champSide === 1 ? champ : opponent;
 
   const startGame = useCallback(() => {
+    analytics.gameStart('this-or-that', isDailyLaunch());
     const seenIds = new Set<string>();
     const seenNames = new Set<string>();
     const unique = category.items.filter((item) => {
@@ -201,6 +203,7 @@ export function ThisOrThatGame({ category }: ThisOrThatGameProps) {
           if (queue.length === 0) {
             setWinner(pickedItem);
             setPhase('result');
+            analytics.gameComplete('this-or-that', 1, 1, isDailyLaunch());
             // Workstream LOOP - this screen never credited the daily. Finishing
             // the bracket after arriving from a daily=game link is the play, so
             // it counts, the same way duel-game.tsx counts a vote.
