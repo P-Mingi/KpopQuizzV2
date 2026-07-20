@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
+import { isKnownRoute } from '@/lib/route-allowlist';
 
 import type { NextRequest } from 'next/server';
 
@@ -11,44 +12,11 @@ import type { NextRequest } from 'next/server';
 // Supabase in eu-west-1). Public requests pay zero Supabase cost.
 const PROTECTED_PATH_PREFIXES = ['/onboarding', '/settings', '/admin'];
 
-// Known route prefixes. Anything outside this set 301s to /. Kept in the
-// public-fast-path because preserving link equity from old URLs doesn't need
-// a Supabase call.
-const KNOWN_ROUTES = [
-  '/', '/q/', '/g/', '/games', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
-  '/trivia',
-  '/rankings',
-  '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
-  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
-  '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
-  '/sitemap.xml', '/robots.txt', '/llms.txt',
-  // '/me' (the passport, where /profile redirects) and '/notifications' (the
-  // bell) are real signed-in pages that were never allowlisted, so the
-  // unknown-route rule below 301'd them to / and made both unreachable. They
-  // guard themselves server-side (redirect('/login') when signed out), so they
-  // belong here and NOT in PROTECTED_PATH_PREFIXES, which would add a Supabase
-  // round trip to the middleware for every hit.
-  // '/daily' was the same oversight: app/daily/page.tsx has existed and been
-  // linked from the home streak nudge, but was never allowlisted, so every hit
-  // 301'd to / and the daily ritual page was unreachable in production.
-  '/daily',
-  '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
-  '/articles',
-  '/battle',
-  '/pt',
-];
-
 function needsAuth(pathname: string): boolean {
   if (pathname === '/login') return true;
   return PROTECTED_PATH_PREFIXES.some((p) => pathname.startsWith(p));
 }
 
-function isKnownRoute(pathname: string): boolean {
-  if (pathname === '/') return true;
-  if (pathname.endsWith('-quiz')) return true;
-  if (pathname.endsWith('-trivia')) return true;
-  return KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r));
-}
 
 // Hard wall-clock cap on the middleware. Supabase auth + any redirect logic
 // must complete inside this window or we fail OPEN (anonymous) so a slow DB
