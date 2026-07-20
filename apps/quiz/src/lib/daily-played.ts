@@ -4,6 +4,8 @@
 // when the daily quiz/game rotates. Tolerant when localStorage is unavailable.
 // This also seeds D2 (the streak will reuse hasPlayedDaily later).
 
+import { analytics } from '@/lib/analytics';
+
 export type DailyKind = 'quiz' | 'game';
 
 function todayKey(): string {
@@ -57,7 +59,12 @@ export async function completeDaily(kind: DailyKind): Promise<DailyCompleteResul
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind }),
     });
     if (!res.ok) return null;
-    return (await res.json()) as DailyCompleteResult;
+    const result = (await res.json()) as DailyCompleteResult;
+    // Workstream LOOP B2 - the daily retention signal, fired from the one place
+    // every daily funnels through. already_today is excluded so a replay on the
+    // same day does not double count the streak day.
+    if (!result.already_today) analytics.dailyComplete(kind, result.streak);
+    return result;
   } catch {
     return null;
   }
