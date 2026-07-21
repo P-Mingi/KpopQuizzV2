@@ -1,6 +1,6 @@
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { getRisingCreators, getActiveFansByGroup, getCommunityStats } from '@/lib/db/queries/community';
+import { getRisingCreators, getActiveFansByGroup, getCommunityStats, getTodayStats, getHappeningNow } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
@@ -10,6 +10,8 @@ import { ActivityTicker } from '@/components/home/activity-ticker';
 import { YourStanding } from '@/components/community/your-standing';
 import { ByFandomFans } from '@/components/community/by-fandom-fans';
 import { TopCreatorsTabs, type RankedPerson } from '@/components/community/top-creators-tabs';
+import { TodayStrip } from '@/components/community/today-strip';
+import { HappeningNow } from '@/components/community/happening-now';
 
 import type { Metadata } from 'next';
 
@@ -65,13 +67,15 @@ function PersonRow({ person, stat, showFollow }: { person: PersonCardData; stat?
 }
 
 export default async function CommunityPage(): Promise<React.ReactElement> {
-  const [rising, weekRaw, allTimeRaw, legendsRaw, groups, stats] = await Promise.all([
+  const [rising, weekRaw, allTimeRaw, legendsRaw, groups, stats, today, feed] = await Promise.all([
     safeFetch(getRisingCreators(8), [], '[community] rising'),
     safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
     safeFetch(getTopCreatorsAllTime(8), [], '[community] allTime'),
     safeFetch(getTopPlayersByXp(8), [], '[community] legends'),
     safeFetch(getAllGroups(), [], '[community] groups'),
     safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
+    safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
+    safeFetch(getHappeningNow(12), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
   const week: RankedPerson[] = weekRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.weekly_plays)} plays` }));
@@ -98,8 +102,14 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
         <Mascot variant="celebrate" size={56} />
       </div>
 
+      {/* F1.2 - Today in numbers, directly under the H1 (hides when all zero) */}
+      <TodayStrip stats={today} />
+
       {/* Your standing (personal client island) */}
       <YourStanding />
+
+      {/* F1.1 - Happening now feed (liveness-gated) */}
+      <HappeningNow events={feed.events} recentCount={feed.recentCount} />
 
       {/* Rising creators (discovery) */}
       {showRising && (

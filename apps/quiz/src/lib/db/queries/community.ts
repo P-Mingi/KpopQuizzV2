@@ -166,6 +166,8 @@ export interface WarMapEntry {
   color: string;
   plays: number;
   fans: number;
+  /** Generation label ("3rd Gen") or null for groups mig 089 left unbucketed. */
+  generation: string | null;
   /** Percent change vs the previous 7 days. null when there is no prior week to compare. */
   delta: number | null;
 }
@@ -173,10 +175,26 @@ export interface WarMapEntry {
 export async function getFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
   const { data } = await db.rpc('get_fandom_war_map', { p_limit: limit });
-  return ((data ?? []) as Array<{
+  const rows = (data ?? []) as Array<{
     name: string; slug: string; logo_url: string | null; display_color: string;
     plays_week: number; fans_week: number; plays_prev: number;
-  }>).map((r) => {
+  }>;
+
+  // generation lives on groups (mig 089) and is not returned by the 107 RPC, so
+  // one small IN read (<= 30 slugs, indexed) merges it in rather than forcing a
+  // migration 108 to re-declare the function. Cheap: tens of rows.
+  const genBySlug = new Map<string, string | null>();
+  if (rows.length > 0) {
+    const { data: gens } = await db
+      .from('groups')
+      .select('slug, generation')
+      .in('slug', rows.map((r) => r.slug));
+    for (const g of (gens ?? []) as Array<{ slug: string; generation: string | null }>) {
+      genBySlug.set(g.slug, g.generation);
+    }
+  }
+
+  return rows.map((r) => {
     const week = Number(r.plays_week ?? 0);
     const prev = Number(r.plays_prev ?? 0);
     return {
@@ -186,6 +204,7 @@ export async function getFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
       color: r.display_color,
       plays: week,
       fans: Number(r.fans_week ?? 0),
+      generation: genBySlug.get(r.slug) ?? null,
       // A group with no plays last week has no honest percentage to show: going
       // from 0 to anything is not "+infinity%", so the UI shows "new" instead.
       delta: prev > 0 ? Math.round(((week - prev) / prev) * 100) : null,
