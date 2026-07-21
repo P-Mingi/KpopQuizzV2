@@ -10,8 +10,9 @@
 --
 -- NOTE: this also extends the core public.reports table so a debate comment can
 -- be reported through the SAME reports infra rather than a parallel table (spec
--- B3). quiz_id becomes nullable and a debate_vote_id target is added, guarded so
--- exactly one target is set. Existing rows all have quiz_id, so they still pass.
+-- B3). reports is already a loose multi-target table (mig 078 made quiz_id
+-- nullable for question reports), so we only add an optional debate_vote_id
+-- column and add NO cross-target check.
 
 -- 1. Question bank (owner-seeded in 109) ------------------------------------
 create table if not exists public.debate_questions (
@@ -51,17 +52,6 @@ create table if not exists public.activity_cheers (
 );
 -- No separate event_id index: the (event_id, user_id) PK already leads with
 -- event_id, so the per-event cheer-count read rides it.
-
--- 5. Reuse the reports table for debate-comment reports ---------------------
--- The table was quiz-only (quiz_id NOT NULL). Relax it and add a debate target
--- so ReportForm infra can point at a debate_votes.id, no parallel table.
-alter table public.reports alter column quiz_id drop not null;
-alter table public.reports add column if not exists debate_vote_id uuid
-  references public.debate_votes(id) on delete cascade;
--- Exactly one target. Existing rows: quiz_id set, debate_vote_id null -> passes.
-alter table public.reports drop constraint if exists reports_one_target;
-alter table public.reports add constraint reports_one_target
-  check (num_nonnulls(quiz_id, debate_vote_id) = 1);
 
 -- RLS -----------------------------------------------------------------------
 alter table public.debate_questions enable row level security;
@@ -122,3 +112,12 @@ begin
   return jsonb_build_object('a', v_a, 'b', v_b);
 end $$;
 grant execute on function public.cast_debate_vote(char, text) to authenticated;
+
+-- Reuse the reports table for debate-comment reports (spec B3, no new table) --
+-- The table is ALREADY a loose multi-target table: mig 078 made quiz_id
+-- nullable and added question-level reports (quiz_id null, question_text set).
+-- So we only add another optional target column. We deliberately do NOT add a
+-- cross-target check: existing question reports legitimately have quiz_id null,
+-- and such a check rejects them (that is exactly what failed on the first run).
+alter table public.reports add column if not exists debate_vote_id uuid
+  references public.debate_votes(id) on delete cascade;
