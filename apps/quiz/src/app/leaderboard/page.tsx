@@ -12,6 +12,9 @@ import { ByFandomFans } from '@/components/community/by-fandom-fans';
 import { TopCreatorsTabs, type RankedPerson } from '@/components/community/top-creators-tabs';
 import { TodayStrip } from '@/components/community/today-strip';
 import { HappeningNow } from '@/components/community/happening-now';
+import { DailyRitual } from '@/components/community/daily-ritual';
+import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
+import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 
 import type { Metadata } from 'next';
 
@@ -78,6 +81,12 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getHappeningNow(12), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
+  // Daily ritual (F1.3): both dailies baked at ISR, played-state resolves client-side.
+  const [qotd, gotd] = await Promise.all([
+    safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
+    safeFetch(getGameOfTheDay(), null, '[community] gotd'),
+  ]);
+
   const week: RankedPerson[] = weekRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.weekly_plays)} plays` }));
   const allTime: RankedPerson[] = allTimeRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.total_plays_received)} plays` }));
   const legends: PersonCardData[] = legendsRaw.map(profToPerson);
@@ -110,6 +119,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
       {/* F1.1 - Happening now feed (liveness-gated) */}
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />
+
+      {/* F1.3 - Daily ritual: quiz + game of the day (client island) */}
+      <DailyRitual quiz={qotd} game={gotd} />
 
       {/* Rising creators (discovery) */}
       {showRising && (

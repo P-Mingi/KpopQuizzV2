@@ -56,7 +56,9 @@ export const analytics = {
 
   shareClick: (type: GameType): void => ev('share_click', { type }),
 
-  crossPromo: (from: GameType, to: CrossPromoTarget): void => ev('cross_promo_click', { from, to }),
+  // `from` also accepts 'community' so the community page can attribute its
+  // war-map CTA and daily cards without a new event name.
+  crossPromo: (from: GameType | 'community', to: CrossPromoTarget): void => ev('cross_promo_click', { from, to }),
 
   signinClick: (type: GameType): void => ev('result_signin_click', { type }),
 
