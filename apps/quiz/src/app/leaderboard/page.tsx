@@ -1,6 +1,5 @@
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
-import { getAllGroups } from '@/lib/db/queries/groups';
-import { getRisingCreators, getActiveFansByGroup, getCommunityStats, getTodayStats, getHappeningNow } from '@/lib/db/queries/community';
+import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
@@ -8,11 +7,11 @@ import { Mascot } from '@/components/ui/mascot';
 import { CountUp } from '@/components/ui/count-up';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { YourStanding } from '@/components/community/your-standing';
-import { ByFandomFans } from '@/components/community/by-fandom-fans';
 import { TopCreatorsTabs, type RankedPerson } from '@/components/community/top-creators-tabs';
 import { TodayStrip } from '@/components/community/today-strip';
 import { HappeningNow } from '@/components/community/happening-now';
 import { DailyRitual } from '@/components/community/daily-ritual';
+import { FandomWarMap } from '@/components/community/fandom-war-map';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 
@@ -70,32 +69,26 @@ function PersonRow({ person, stat, showFollow }: { person: PersonCardData; stat?
 }
 
 export default async function CommunityPage(): Promise<React.ReactElement> {
-  const [rising, weekRaw, allTimeRaw, legendsRaw, groups, stats, today, feed] = await Promise.all([
+  const [rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed] = await Promise.all([
     safeFetch(getRisingCreators(8), [], '[community] rising'),
     safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
     safeFetch(getTopCreatorsAllTime(8), [], '[community] allTime'),
     safeFetch(getTopPlayersByXp(8), [], '[community] legends'),
-    safeFetch(getAllGroups(), [], '[community] groups'),
     safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
     safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
     safeFetch(getHappeningNow(12), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
-  // Daily ritual (F1.3): both dailies baked at ISR, played-state resolves client-side.
-  const [qotd, gotd] = await Promise.all([
+  // Daily ritual (F1.3) + war map (F1.7), baked at ISR in parallel.
+  const [qotd, gotd, warMap] = await Promise.all([
     safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
     safeFetch(getGameOfTheDay(), null, '[community] gotd'),
+    safeFetch(getFandomWarMap(30), [], '[community] warMap'),
   ]);
 
   const week: RankedPerson[] = weekRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.weekly_plays)} plays` }));
   const allTime: RankedPerson[] = allTimeRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.total_plays_received)} plays` }));
   const legends: PersonCardData[] = legendsRaw.map(profToPerson);
-
-  // By-fandom: a few popular groups for the chips, default = the most active one,
-  // its fans baked at ISR time so the section is crawlable + the page stays static.
-  const chipGroups = [...groups].sort((a, b) => b.quiz_count - a.quiz_count).slice(0, 6).map((g) => ({ slug: g.slug, name: g.name, color: g.display_color }));
-  const defaultGroup = chipGroups[0]?.slug ?? '';
-  const initialFans = defaultGroup ? await safeFetch(getActiveFansByGroup(defaultGroup, 8), [], '[community] fans') : [];
 
   const showRising = rising.length >= MIN_BOARD;
   const showTop = week.length >= MIN_BOARD || allTime.length >= MIN_BOARD;
@@ -123,6 +116,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
       {/* F1.3 - Daily ritual: quiz + game of the day (client island) */}
       <DailyRitual quiz={qotd} game={gotd} />
 
+      {/* F1.7 - Fandom war map (replaces ByFandomFans as the belonging surface) */}
+      <FandomWarMap entries={warMap} />
+
       {/* Rising creators (discovery) */}
       {showRising && (
         <div style={card}>
@@ -140,9 +136,6 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
       {/* Top creators (week / all-time tabs, client toggle over baked data) */}
       {showTop && <TopCreatorsTabs week={week} allTime={allTime} />}
-
-      {/* By fandom (default baked; chips switch client-side) */}
-      {chipGroups.length > 0 && <ByFandomFans groups={chipGroups} initialGroup={defaultGroup} initialFans={initialFans} />}
 
       {/* Legends (showcase) */}
       {showLegends && (
