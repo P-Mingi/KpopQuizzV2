@@ -25,8 +25,8 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Community',
-  description: 'Discover K-pop quiz creators, rising stars, and active fans on kpopquiz.org. Follow fans, find your fandom, and see who is climbing.',
-  openGraph: { title: 'Community | KpopQuiz', description: 'Discover creators, rising stars, and active fans on kpopquiz.org.', url: '/leaderboard' },
+  description: 'See which K-pop fandom is winning the week on the fandom war map, watch the live feed of what fans are playing right now, and follow the top creators on kpopquiz.org.',
+  openGraph: { title: 'Community | KpopQuiz', description: 'The fandom war map, a live feed of what fans are playing, and the top creators on kpopquiz.org.', url: '/leaderboard' },
   twitter: { card: 'summary_large_image' },
   alternates: {
     canonical: '/leaderboard',
