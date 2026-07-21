@@ -7,6 +7,7 @@ import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
+import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FollowButton } from '@/components/profile/follow-button';
 import { safeFetch } from '@/lib/error-handling';
 import { formatJoinDate } from '@/lib/utils';
@@ -159,7 +160,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const displayName = profile.display_name ?? profile.username;
 
   return (
-    <div style={{ paddingBottom: 32 }}>
+    <div style={{ paddingTop: 16, paddingBottom: 32 }}>
       <PassportView
         mode="public"
         bio={profile.bio}
@@ -203,6 +204,10 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         avatarRef={profile.avatar_ref}
         badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
       />
+
+      {/* Moderator: send this user a personalized notification. Renders only for
+          admins, and never on their own profile (self-check inside). */}
+      <ModNotifyButton recipientUsername={profile.username} />
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
+import { isAdmin } from '@/lib/admin';
 
 // Returns the signed-in user's nav profile or null. Hit by the client-side
 // <TopNavProfile> chip so the TopNav server tree never touches cookies() and
@@ -56,6 +57,10 @@ export async function GET(): Promise<NextResponse> {
       null;
 
     return NextResponse.json({
+      // is_admin only tells the signed-in user about THEMSELVES; the actual
+      // authorization stays server-side in /api/admin/*. The mod notify button
+      // uses this to decide whether to render.
+      is_admin: isAdmin(user.id),
       profile: {
         username: data.username as string,
         display_name: (data.display_name as string | null) ?? null,

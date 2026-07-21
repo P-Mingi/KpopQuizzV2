@@ -8,7 +8,6 @@ import { formatJoinDate } from '@/lib/utils';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery, computeClimbs, computeMilestones, snapshotIfStale } from '@/lib/passport';
 import { passportAccent } from '@/lib/passport-themes';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
-import { NotificationsStrip } from '@/components/profile/notifications-strip';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { PassportShare } from '@/components/profile/passport-share';
 
@@ -125,8 +124,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
 
   return (
-    <>
-      <NotificationsStrip />
+    <div style={{ paddingTop: 16 }}>
       <PassportView
       mode="personal"
       nameAccent={profile.name_accent}
@@ -175,6 +173,6 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       <div style={{ marginTop: 14 }}>
         <PassportShare username={profile.username} />
       </div>
-    </>
+    </div>
   );
 }
