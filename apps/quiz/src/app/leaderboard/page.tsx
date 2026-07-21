@@ -1,5 +1,5 @@
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
-import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap } from '@/lib/db/queries/community';
+import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import type { PersonCardData } from '@/components/profile/person-card';
@@ -12,6 +12,7 @@ import { TodayStrip } from '@/components/community/today-strip';
 import { HappeningNow } from '@/components/community/happening-now';
 import { DailyRitual } from '@/components/community/daily-ritual';
 import { FandomWarMap } from '@/components/community/fandom-war-map';
+import { BadgeShowcase } from '@/components/community/badge-showcase';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 
@@ -68,11 +69,12 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getHappeningNow(12), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
-  // Daily ritual (F1.3) + war map (F1.7), baked at ISR in parallel.
-  const [qotd, gotd, warMap] = await Promise.all([
+  // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8), baked at ISR in parallel.
+  const [qotd, gotd, warMap, badgeEarns] = await Promise.all([
     safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
     safeFetch(getGameOfTheDay(), null, '[community] gotd'),
     safeFetch(getFandomWarMap(30), [], '[community] warMap'),
+    safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
   ]);
 
   // F1.9 - Hall of Fame: four tabs over ISR-baked data. Each tab hides itself
@@ -111,6 +113,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
       {/* F1.9 - Hall of Fame: rising / week / all-time / legends in one tabbed card */}
       <HallOfFame tabs={hofTabs} />
+
+      {/* F1.8 - Badge watch: latest earns shelf (hides below 3) */}
+      <BadgeShowcase earns={badgeEarns} />
 
       {/* Community pulse: live ticker (liveness-gated) + collective stats */}
       <div style={card}>
