@@ -38,7 +38,7 @@ export async function GET(): Promise<NextResponse> {
       Promise.resolve(
         supabase
           .from('profiles')
-          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, daily_streak, last_daily_date')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, daily_streak, last_daily_date, ult_groups')
           .eq('id', user.id)
           .maybeSingle(),
       ),
@@ -72,6 +72,9 @@ export async function GET(): Promise<NextResponse> {
         progress: info.progress,
         daily_streak: (data.daily_streak as number | null) ?? 0,
         last_daily_date: (data.last_daily_date as string | null) ?? null,
+        // Ultimate group slugs, so the community "your fandom this week" line can
+        // match the viewer against the war map. Already on profiles, no extra read.
+        ult_groups: (data.ult_groups as string[] | null) ?? [],
       },
     });
   } catch (err) {

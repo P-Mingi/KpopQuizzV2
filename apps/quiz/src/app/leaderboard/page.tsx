@@ -6,7 +6,7 @@ import type { PersonCardData } from '@/components/profile/person-card';
 import { Mascot } from '@/components/ui/mascot';
 import { CountUp } from '@/components/ui/count-up';
 import { ActivityTicker } from '@/components/home/activity-ticker';
-import { YourStanding } from '@/components/community/your-standing';
+import { YourStanding, type FandomRank, type WeeklyStanding } from '@/components/community/your-standing';
 import { HallOfFame, type HofRow, type HofTab } from '@/components/community/hall-of-fame';
 import { TodayStrip } from '@/components/community/today-strip';
 import { HappeningNow } from '@/components/community/happening-now';
@@ -77,6 +77,12 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
   ]);
 
+  // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
+  // island. fandomRanks lets it show "{GROUP} is #N this week"; weeklyBoard is
+  // the REAL creator board (not padded) for the "N more plays to pass" nudge.
+  const fandomRanks: FandomRank[] = warMap.map((g, i) => ({ slug: g.slug, name: g.name, rank: i + 1, delta: g.delta }));
+  const weeklyBoard: WeeklyStanding[] = weekRaw.map((c) => ({ username: c.username, plays: c.weekly_plays }));
+
   // F1.9 - Hall of Fame: four tabs over ISR-baked data. Each tab hides itself
   // below MIN_BOARD inside the component; the card hides when none qualify.
   const hofTabs: HofTab[] = [
@@ -99,8 +105,8 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
       {/* F1.2 - Today in numbers, directly under the H1 (hides when all zero) */}
       <TodayStrip stats={today} />
 
-      {/* Your standing (personal client island) */}
-      <YourStanding />
+      {/* F1.10 - Your standing v2 (personal client island; extras baked as props) */}
+      <YourStanding fandomRanks={fandomRanks} weeklyBoard={weeklyBoard} />
 
       {/* F1.1 - Happening now feed (liveness-gated) */}
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />

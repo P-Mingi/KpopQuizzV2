@@ -22,7 +22,7 @@ export function FandomWarMap({ entries }: { entries: WarMapEntry[] }): React.Rea
   const rest = entries.slice(3);
 
   return (
-    <section style={card}>
+    <section id="fandom-war" style={{ ...card, scrollMarginTop: 12 }}>
       <style>{CSS}</style>
       <p style={seclab}>Fandom war</p>
       <p style={sub}>Which fandom is strongest this week?</p>
