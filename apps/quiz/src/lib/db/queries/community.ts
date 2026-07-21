@@ -172,13 +172,21 @@ export interface WarMapEntry {
   delta: number | null;
 }
 
+// The cross-group catch-all bucket, not a real fandom, so it is excluded from
+// the war map (a fandom cannot "win" the week over the misc pile).
+const NON_FANDOM_SLUGS = new Set(['general-kpop']);
+
 export async function getFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
-  const { data } = await db.rpc('get_fandom_war_map', { p_limit: limit });
-  const rows = (data ?? []) as Array<{
+  // Over-fetch so excluding the general bucket still leaves a full board of real
+  // groups rather than 29.
+  const { data } = await db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size });
+  const rows = ((data ?? []) as Array<{
     name: string; slug: string; logo_url: string | null; display_color: string;
     plays_week: number; fans_week: number; plays_prev: number;
-  }>;
+  }>)
+    .filter((r) => !NON_FANDOM_SLUGS.has(r.slug))
+    .slice(0, limit);
 
   // generation lives on groups (mig 089) and is not returned by the 107 RPC, so
   // one small IN read (<= 30 slugs, indexed) merges it in rather than forcing a

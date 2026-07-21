@@ -2,12 +2,12 @@ import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from
 import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
-import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
+import type { PersonCardData } from '@/components/profile/person-card';
 import { Mascot } from '@/components/ui/mascot';
 import { CountUp } from '@/components/ui/count-up';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { YourStanding } from '@/components/community/your-standing';
-import { TopCreatorsTabs, type RankedPerson } from '@/components/community/top-creators-tabs';
+import { HallOfFame, type HofRow, type HofTab } from '@/components/community/hall-of-fame';
 import { TodayStrip } from '@/components/community/today-strip';
 import { HappeningNow } from '@/components/community/happening-now';
 import { DailyRitual } from '@/components/community/daily-ritual';
@@ -33,8 +33,6 @@ export const metadata: Metadata = {
   },
 };
 
-const MIN_BOARD = 4; // a board with fewer entries hides itself (no sad rankings)
-
 const card: React.CSSProperties = {
   background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16, padding: 14, marginBottom: 12,
 };
@@ -59,15 +57,6 @@ function profToPerson(p: {
   };
 }
 
-function PersonRow({ person, stat, showFollow }: { person: PersonCardData; stat?: string; showFollow?: boolean }): React.ReactElement {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '8px 0' }}>
-      <div style={{ flex: 1, minWidth: 0 }}><PersonCard person={person} compact showFollow={showFollow ?? false} /></div>
-      {stat && <span style={{ flexShrink: 0, width: 52, textAlign: 'right', fontSize: 12, fontWeight: 700, color: 'var(--brand)', fontVariantNumeric: 'tabular-nums' }}>{stat}</span>}
-    </div>
-  );
-}
-
 export default async function CommunityPage(): Promise<React.ReactElement> {
   const [rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed] = await Promise.all([
     safeFetch(getRisingCreators(8), [], '[community] rising'),
@@ -86,13 +75,14 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getFandomWarMap(30), [], '[community] warMap'),
   ]);
 
-  const week: RankedPerson[] = weekRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.weekly_plays)} plays` }));
-  const allTime: RankedPerson[] = allTimeRaw.map((c) => ({ person: profToPerson(c), stat: `${formatCount(c.total_plays_received)} plays` }));
-  const legends: PersonCardData[] = legendsRaw.map(profToPerson);
-
-  const showRising = rising.length >= MIN_BOARD;
-  const showTop = week.length >= MIN_BOARD || allTime.length >= MIN_BOARD;
-  const showLegends = legends.length >= MIN_BOARD;
+  // F1.9 - Hall of Fame: four tabs over ISR-baked data. Each tab hides itself
+  // below MIN_BOARD inside the component; the card hides when none qualify.
+  const hofTabs: HofTab[] = [
+    { key: 'rising', label: 'Rising', showFollow: true, rows: rising.map((r): HofRow => ({ person: r.person, stat: `+${formatCount(r.newFollowers)}` })) },
+    { key: 'week', label: 'This week', rows: weekRaw.map((c): HofRow => ({ person: profToPerson(c), stat: `${formatCount(c.weekly_plays)} plays` })) },
+    { key: 'all', label: 'All time', rows: allTimeRaw.map((c): HofRow => ({ person: profToPerson(c), stat: `${formatCount(c.total_plays_received)} plays` })) },
+    { key: 'legends', label: 'Legends', rows: legendsRaw.map((c): HofRow => ({ person: profToPerson(c), stat: `${formatCount(c.xp)} XP` })) },
+  ];
 
   return (
     <div style={{ paddingTop: 16, paddingBottom: 32 }}>
@@ -119,38 +109,8 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
       {/* F1.7 - Fandom war map (replaces ByFandomFans as the belonging surface) */}
       <FandomWarMap entries={warMap} />
 
-      {/* Rising creators (discovery) */}
-      {showRising && (
-        <div style={card}>
-          <p style={seclab}>Rising creators</p>
-          <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '4px 0 8px' }}>Gaining the most new followers this week.</p>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {rising.map((r) => (
-              <div key={r.person.username} style={{ borderTop: '1px solid var(--border)' }}>
-                <PersonRow person={r.person} stat={`+${formatCount(r.newFollowers)}`} showFollow />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Top creators (week / all-time tabs, client toggle over baked data) */}
-      {showTop && <TopCreatorsTabs week={week} allTime={allTime} />}
-
-      {/* Legends (showcase) */}
-      {showLegends && (
-        <div style={card}>
-          <p style={seclab}>Legends</p>
-          <p style={{ fontSize: 11.5, color: 'var(--txt2)', margin: '4px 0 8px' }}>The highest Fan Levels in the community.</p>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {legends.map((p) => (
-              <div key={p.username} style={{ borderTop: '1px solid var(--border)' }}>
-                <PersonRow person={p} stat={`${formatCount(p.xp)} XP`} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* F1.9 - Hall of Fame: rising / week / all-time / legends in one tabbed card */}
+      <HallOfFame tabs={hofTabs} />
 
       {/* Community pulse: live ticker (liveness-gated) + collective stats */}
       <div style={card}>
