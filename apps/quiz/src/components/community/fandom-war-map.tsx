@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { GroupLogo } from '@/components/ui/group-logo';
 import { CommunityCtaLink } from '@/components/community/community-cta-link';
+import { WarMapExpand } from '@/components/community/war-map-expand';
 import { formatCount } from '@/lib/utils';
 
 import type { WarMapEntry } from '@/lib/db/queries/community';
@@ -14,6 +15,8 @@ import type { WarMapEntry } from '@/lib/db/queries/community';
 // section hides (no thin, sad leaderboard). Every tile is a crawlable Link to
 // the group page, so this is also an internal-link win.
 const MIN_BOARD = 4;
+// Grid tiles shown before "See all": 6 tiles + the 3-group podium = 9 visible.
+const COLLAPSED_GRID = 6;
 
 export function FandomWarMap({ entries }: { entries: WarMapEntry[] }): React.ReactElement | null {
   if (entries.length < MIN_BOARD) return null;
@@ -45,7 +48,10 @@ export function FandomWarMap({ entries }: { entries: WarMapEntry[] }): React.Rea
       </div>
 
       {rest.length > 0 && (
-        <div className="wm-grid">
+        // Collapsed by default to the first 6 grid tiles (9 total with the
+        // podium), with a "See all" toggle. All tiles stay in the HTML so every
+        // group link is still crawlable; the toggle only hides overflow via CSS.
+        <WarMapExpand total={entries.length} collapsible={rest.length > COLLAPSED_GRID}>
           {rest.map((g, i) => (
             <Link key={g.slug} href={`/${g.slug}-quiz`} className="wm-tile">
               <span className="wm-rank">{i + 4}</span>
@@ -59,7 +65,7 @@ export function FandomWarMap({ entries }: { entries: WarMapEntry[] }): React.Rea
               <Delta delta={g.delta} />
             </Link>
           ))}
-        </div>
+        </WarMapExpand>
       )}
 
       <CommunityCtaLink href="/quizzes" to="quizzes" className="wm-cta">
@@ -121,6 +127,9 @@ const CSS = `
 
 .wm-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px; margin-bottom:12px; }
 @media (min-width:560px){ .wm-grid{ grid-template-columns:repeat(3,1fr); } }
+/* Collapsed: show the first 6 grid tiles (ranks 4-9); the rest stay in the HTML
+   for crawlers but are hidden until "See all". */
+.wm-grid.wm-collapsed .wm-tile:nth-child(n+7){ display:none; }
 .wm-tile{
   display:flex; align-items:center; gap:8px; padding:8px 9px; border-radius:11px; text-decoration:none;
   border:1px solid var(--border); background:var(--surface-alt); min-width:0;
@@ -138,6 +147,15 @@ const CSS = `
 .wm-down{ color:#c0392b; }
 .wm-flat, .wm-new{ color:var(--txt3); }
 .wm-new{ font-size:9px; text-transform:uppercase; letter-spacing:0.04em; }
+
+.wm-more{
+  display:flex; align-items:center; justify-content:center; gap:5px; width:100%;
+  min-height:40px; margin:-2px 0 12px; padding:0 14px; cursor:pointer;
+  background:transparent; border:1px solid var(--border); border-radius:10px;
+  color:var(--txt2); font-family:inherit; font-size:12.5px; font-weight:600;
+  transition:border-color .16s ease, color .16s ease;
+}
+.wm-more:hover{ border-color:var(--brand); color:var(--brand); }
 
 .wm-cta{
   display:block; text-align:center; text-decoration:none;

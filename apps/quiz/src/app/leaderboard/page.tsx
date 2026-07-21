@@ -66,7 +66,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getTopPlayersByXp(8), [], '[community] legends'),
     safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
     safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
-    safeFetch(getHappeningNow(12), { events: [], recentCount: 0 }, '[community] feed'),
+    safeFetch(getHappeningNow(5), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
   // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8), baked at ISR in parallel.
