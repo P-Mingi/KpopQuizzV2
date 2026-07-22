@@ -142,6 +142,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // Validate stan_since (F2c): optional year, 1992..current, mirrors the DB
+  // CHECK. null / "" / "-" clears it.
+  if (input.stan_since !== undefined) {
+    if (input.stan_since === null || input.stan_since === '' || input.stan_since === '-') {
+      updates.stan_since = null;
+    } else {
+      const year = typeof input.stan_since === 'number' ? input.stan_since : parseInt(String(input.stan_since), 10);
+      const currentYear = new Date().getFullYear();
+      if (!Number.isInteger(year) || year < 1992 || year > currentYear) {
+        return NextResponse.json({ error: `Stan since must be a year between 1992 and ${currentYear}` }, { status: 400 });
+      }
+      updates.stan_since = year;
+    }
+  }
+
   // Validate profile_theme (M1.6): preset enum only.
   if (input.profile_theme !== undefined) {
     if (typeof input.profile_theme !== 'string' || !isValidTheme(input.profile_theme)) {
@@ -209,7 +224,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
-    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref')
+    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, stan_since')
     .single();
 
   if (updateError) {
