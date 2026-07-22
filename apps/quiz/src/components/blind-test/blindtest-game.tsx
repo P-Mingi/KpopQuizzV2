@@ -512,7 +512,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
             ) : (
               <div className={`bt-reveal-head ${isCorrect ? 'ok' : 'no'}`} role="status">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {q.reveal.cover && <img src={q.reveal.cover} alt={`${q.reveal.title} by ${q.reveal.artist} cover art`} className="bt-cover" />}
+                {q.reveal.cover && <img src={q.reveal.cover} alt={`${q.reveal.title} by ${q.reveal.artist} cover art`} className="bt-cover" width={124} height={124} decoding="async" />}
                 <p className="bt-verdict">{isCorrect ? 'Correct' : selected === null ? 'Time up' : 'Not quite'}</p>
                 <p className="bt-reveal-title">{q.reveal.title}</p>
                 <p className="bt-reveal-artist">{q.reveal.artist}</p>
@@ -690,7 +690,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               <div key={q.song_id} className="bt-row">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {q.reveal.cover
-                  ? <img src={q.reveal.cover} alt={`${q.reveal.title} cover`} className="bt-row-cover" />
+                  ? <img src={q.reveal.cover} alt={`${q.reveal.title} cover`} className="bt-row-cover" width={40} height={40} loading="lazy" decoding="async" />
                   : <span className="bt-row-cover bt-row-cover-empty" aria-hidden="true" />}
                 <div className="bt-row-info">
                   <p className="bt-row-title">{q.reveal.title}</p>
