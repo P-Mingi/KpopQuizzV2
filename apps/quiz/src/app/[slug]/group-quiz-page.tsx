@@ -21,8 +21,12 @@ function generateDefaultIntro(group: Group): string {
 }
 
 export function generateGroupQuizMetadata(group: Group): Metadata {
-  const description = group.seo_intro
-    || `Play ${group.quiz_count}+ free ${group.name} quizzes. Prove you're a real ${group.fandom_name}.`;
+  // Bing flagged ~119 pages with meta descriptions under the ~120 char floor.
+  // Use the curated seo_intro only when it is long enough; otherwise a richer,
+  // keyword-dense fallback (members, songs, eras, history) that clears 120-160.
+  const description = group.seo_intro && group.seo_intro.length >= 110
+    ? group.seo_intro
+    : `Play ${group.quiz_count}+ free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
 
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 

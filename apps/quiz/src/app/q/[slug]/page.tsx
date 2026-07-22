@@ -76,7 +76,15 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
 
   // Unique, descriptive <title>: "<Quiz Title> - <N> questions" (layout template
   // appends " | KpopQuiz"). Distinct per quiz so Google stops sampling templates.
-  const title = `${quiz.title} · ${questionLen} questions`;
+  // Bing flagged long titles: keep the rendered <title> (core + " | KpopQuiz")
+  // under ~60 chars. Add the question count only when it fits; truncate a very
+  // long user title rather than overflow.
+  const withCount = `${quiz.title} · ${questionLen} questions`;
+  const title = withCount.length <= 49
+    ? withCount
+    : quiz.title.length <= 49
+      ? quiz.title
+      : `${quiz.title.slice(0, 48).trimEnd()}...`;
   const ogImageUrl = `/api/og/${slug}`;
 
   return {

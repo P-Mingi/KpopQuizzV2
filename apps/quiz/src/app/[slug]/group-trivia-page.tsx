@@ -97,7 +97,7 @@ export function generateGroupTriviaMetadata(group: Group): Metadata {
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
   return {
-    title: `${group.name} Trivia - Fun Facts for ${group.fandom_name}s`,
+    title: `${group.name} Trivia - Facts Only Fans Know`,
     description: `How well do you really know ${group.name}? Discover surprising facts about the members, music, and achievements - then test yourself with fan-made quizzes.`,
     alternates: { canonical: `/${group.slug}-trivia` },
     openGraph: {
