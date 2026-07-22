@@ -7,7 +7,6 @@ import { hasPlayedDaily } from '@/lib/daily-played';
 import { analytics } from '@/lib/analytics';
 
 import type { QuizCardData } from '@/lib/db/types';
-import type { GameOfTheDayData } from '@/lib/db/queries/game-of-the-day';
 
 // F1.3 - Daily ritual cards, community edition. Two SLIM strips (2-up, stacking
 // on narrow) rather than the home's full banner cards: HomeQotd has no cheap
@@ -15,8 +14,9 @@ import type { GameOfTheDayData } from '@/lib/db/queries/game-of-the-day';
 // of the reset countdown and the localStorage "played today" state, exactly the
 // home pattern. The data itself is baked at ISR and passed in as props.
 //
-// TODO (Workstream N): when Blindtest of the Day ships, swap the game strip for
-// it here. Built against GameOfTheDay for now.
+// Workstream N: the second strip is now the Blindtest of the Day (mirroring the
+// home's premium pair). The blindtest strip needs no server data - the 10
+// questions load when the user taps through - so it is purely client-side.
 
 function useResetCountdown(): string {
   const [t, setT] = useState('');
@@ -39,33 +39,16 @@ function useResetCountdown(): string {
 
 interface Props {
   quiz: QuizCardData | null;
-  game: GameOfTheDayData | null;
 }
 
-export function DailyRitual({ quiz, game }: Props): React.ReactElement | null {
+export function DailyRitual({ quiz }: Props): React.ReactElement | null {
   const countdown = useResetCountdown();
   const [quizPlayed, setQuizPlayed] = useState(false);
-  const [gamePlayed, setGamePlayed] = useState(false);
+  const [blindtestPlayed, setBlindtestPlayed] = useState(false);
   useEffect(() => {
     setQuizPlayed(hasPlayedDaily('quiz'));
-    setGamePlayed(hasPlayedDaily('game'));
+    setBlindtestPlayed(hasPlayedDaily('blindtest'));
   }, []);
-
-  // Nothing to show: the whole row hides (M1.29 empty-data pattern).
-  if (!quiz && !game) return null;
-
-  const gameHref =
-    game?.kind === 'duel'
-      ? `/games/this-or-that?group=${encodeURIComponent(game.group)}&type=${encodeURIComponent(game.type)}&daily=game`
-      : game?.kind === 'name-all'
-        ? `/games/name-all/${game.slug}?daily=game`
-        : null;
-  const gameLabel =
-    game?.kind === 'duel'
-      ? game.prompt
-      : game?.kind === 'name-all'
-        ? `Name all ${game.groupName ?? 'the'} members`
-        : '';
 
   return (
     <div className="dr-grid">
@@ -84,18 +67,16 @@ export function DailyRitual({ quiz, game }: Props): React.ReactElement | null {
         />
       )}
 
-      {game && gameHref && (
-        <Strip
-          icon="game"
-          eyebrow="Game of the day"
-          title={gameLabel}
-          countdown={countdown}
-          href={gameHref}
-          played={gamePlayed}
-          cta={game.kind === 'duel' ? 'Vote' : 'Play'}
-          onPlay={() => analytics.crossPromo('community', game.kind)}
-        />
-      )}
+      <Strip
+        icon="music"
+        eyebrow="Blindtest of the day"
+        title="Name that K-pop song"
+        countdown={countdown}
+        href="/blindtest?daily=true"
+        played={blindtestPlayed}
+        cta="Play"
+        onPlay={() => analytics.crossPromo('community', 'blindtest')}
+      />
     </div>
   );
 }
@@ -103,7 +84,7 @@ export function DailyRitual({ quiz, game }: Props): React.ReactElement | null {
 function Strip({
   icon, eyebrow, title, countdown, href, played, cta, onPlay,
 }: {
-  icon: 'bolt' | 'game';
+  icon: 'bolt' | 'music';
   eyebrow: string;
   title: string;
   countdown: string;
@@ -119,7 +100,7 @@ function Strip({
           {icon === 'bolt' ? (
             <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--brand)" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" /></svg>
           ) : (
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4" /><circle cx="15" cy="10" r="1" /><circle cx="17" cy="13" r="1" /><rect x="2" y="6" width="20" height="12" rx="4" /></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>
           )}
           {eyebrow}
         </span>

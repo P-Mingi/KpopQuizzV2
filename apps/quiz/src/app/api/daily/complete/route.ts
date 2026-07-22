@@ -7,17 +7,18 @@ import { getTitleForLevel } from '@/lib/level-titles';
 
 import type { NextRequest } from 'next/server';
 
-// L4 - POST /api/daily/complete { kind: 'quiz' | 'game' }
+// L4 - POST /api/daily/complete { kind: 'quiz' | 'game' | 'blindtest' }
 // Called by the client right after marking the daily as played (F6). For signed-in
 // users only: increments the server-side streak and awards +5 + milestone XP. Anon
-// callers get awarded:0. Idempotent: 2nd daily same UTC day is a no-op.
+// callers get awarded:0. Idempotent: 2nd daily same UTC day is a no-op, so playing
+// QOTD and BToTD on the same day awards XP once (the first), the second is a no-op.
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   let body: { kind?: unknown };
   try { body = (await req.json()) as typeof body; } catch { body = {}; }
-  const kind = body.kind === 'quiz' || body.kind === 'game' ? body.kind : null;
-  if (!kind) return NextResponse.json({ error: "kind ('quiz'|'game') required" }, { status: 400 });
+  const kind = body.kind === 'quiz' || body.kind === 'game' || body.kind === 'blindtest' ? body.kind : null;
+  if (!kind) return NextResponse.json({ error: "kind ('quiz'|'game'|'blindtest') required" }, { status: 400 });
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();

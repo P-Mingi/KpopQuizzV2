@@ -6,7 +6,7 @@
 
 import { analytics } from '@/lib/analytics';
 
-export type DailyKind = 'quiz' | 'game';
+export type DailyKind = 'quiz' | 'game' | 'blindtest';
 
 function todayKey(): string {
   // UTC YYYY-MM-DD - matches the UTC-midnight daily rotation.

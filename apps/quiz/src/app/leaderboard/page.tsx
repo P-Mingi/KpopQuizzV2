@@ -20,7 +20,6 @@ import { BadgeShowcase } from '@/components/community/badge-showcase';
 import { DailyDebate } from '@/components/community/daily-debate';
 import { getDailyDebate } from '@/lib/db/queries/debate';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
-import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 
 import type { Metadata } from 'next';
 
@@ -77,9 +76,8 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
   // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
   // (F2b B3), baked at ISR in parallel.
-  const [qotd, gotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
+  const [qotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
     safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
-    safeFetch(getGameOfTheDay(), null, '[community] gotd'),
     safeFetch(getFandomWarMap(30), [], '[community] warMap'),
     safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
     safeFetch(getDailyDebate(), null, '[community] debate'),
@@ -125,8 +123,8 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
       {/* F1.1 - Happening now feed (liveness-gated) */}
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />
 
-      {/* F1.3 - Daily ritual: quiz + game of the day (client island) */}
-      <DailyRitual quiz={qotd} game={gotd} />
+      {/* F1.3 - Daily ritual: quiz + blindtest of the day (client island) */}
+      <DailyRitual quiz={qotd} />
 
       {/* F1.7 - Fandom war map (replaces ByFandomFans as the belonging surface) */}
       <FandomWarMap entries={warMap} />

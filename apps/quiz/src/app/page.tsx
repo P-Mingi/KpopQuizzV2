@@ -9,8 +9,8 @@ import { HomeHero } from '@/components/home/home-hero';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
+import { HomeBtotd } from '@/components/home/home-btotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
-import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
 import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
@@ -83,6 +83,13 @@ function SkelGroups(): React.ReactElement {
     </section>
   );
 }
+function SkelGotd(): React.ReactElement {
+  return (
+    <section className="home-section" aria-hidden="true">
+      <div className="home-skel home-skel-card" />
+    </section>
+  );
+}
 // Battle has no .home-section wrapper in resolved output (it's a .home-cta-row).
 function SkelBattle(): React.ReactElement {
   return (
@@ -95,17 +102,28 @@ function SkelBattle(): React.ReactElement {
 /* ---------- Async streaming sections ---------- */
 
 async function QotdSection(): Promise<React.ReactElement> {
-  const [qotd, gotd] = await Promise.all([
-    safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay'),
-    safeFetch(getGameOfTheDay(), null, '[home] getGameOfTheDay'),
-  ]);
-  if (!qotd && !gotd) return <></>;
+  // Premium daily pair: Quiz of the day + Blindtest of the day. BToTD is a
+  // client island (always present), so this section always renders.
+  const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
   return (
     <section className="home-section">
       <div className="daily-twoup">
         {qotd && <HomeQotd quiz={qotd} />}
-        <GameOfTheDay data={gotd} />
+        <HomeBtotd />
       </div>
+    </section>
+  );
+}
+
+async function GotdSection(): Promise<React.ReactElement> {
+  // This-or-That / Name-all "of the day", relocated out of the premium slot
+  // (now held by the blindtest). Still full home exposure. Renders nothing
+  // when there is no game of the day.
+  const gotd = await safeFetch(getGameOfTheDay(), null, '[home] getGameOfTheDay');
+  if (!gotd) return <></>;
+  return (
+    <section className="home-section">
+      <GameOfTheDay data={gotd} />
     </section>
   );
 }
@@ -195,8 +213,11 @@ export default function HomePage(): React.ReactElement {
         <QotdSection />
       </Suspense>
 
-      {/* 2b. Blindtest CTA - main mobile discovery path (not in the bottom bar) */}
-      <HomeBlindtestCta />
+      {/* 2b. Game of the day (this-or-that / name-all), relocated below the
+          premium daily pair now that the blindtest holds the twoup slot. */}
+      <Suspense fallback={<SkelGotd />}>
+        <GotdSection />
+      </Suspense>
 
       {/* 2c. Battle of the day - date-seeded quiz-anchored 1v1 battle */}
       <Suspense fallback={<SkelBattle />}>
