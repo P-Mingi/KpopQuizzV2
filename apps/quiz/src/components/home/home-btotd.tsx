@@ -7,15 +7,9 @@ import { Mascot } from '@/components/ui/mascot';
 import { hasPlayedDaily } from '@/lib/daily-played';
 
 // N3 - Blindtest of the Day home card. Mirrors HomeQotd/GameOfTheDay's
-// daily-col + daily-card structure but with the purple --blind accent and a
-// waveform motif. Pure client island: it only reads localStorage for the
+// daily-col + daily-card structure. The banner is a photo header tinted with the
+// --blind/--brand accent. Pure client island: it only reads localStorage for the
 // "played today" state; the actual 10 questions load when the user taps Play.
-
-// Static "audio waveform" silhouette for the banner (varied bar heights).
-const WAVE = [
-  8, 13, 10, 17, 22, 15, 19, 26, 17, 21, 12, 17, 24, 28, 19, 14, 21, 26, 16, 11,
-  19, 24, 14, 21, 28, 19, 12, 17, 22, 14, 10, 17, 22, 12, 19, 10, 15, 9, 13, 7,
-];
 
 export function HomeBtotd(): React.ReactElement {
   const [timeLeft, setTimeLeft] = useState('');
@@ -54,19 +48,13 @@ export function HomeBtotd(): React.ReactElement {
       <div className="daily-card">
         <div
           className="daily-banner"
-          style={{ background: 'linear-gradient(135deg, var(--blind), color-mix(in srgb, var(--blind) 55%, var(--brand)))' }}
+          style={{
+            backgroundImage: 'linear-gradient(120deg, color-mix(in srgb, var(--blind) 48%, transparent), color-mix(in srgb, var(--brand) 32%, transparent)), url(/blindtest-header.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 40%',
+          }}
         >
           {timeLeft && <span className="daily-reset">Resets in {timeLeft}</span>}
-          <span
-            aria-hidden="true"
-            style={{ position: 'absolute', left: 16, bottom: 12, right: 16, display: 'flex', alignItems: 'flex-end', gap: 2, opacity: 0.45, color: '#fff', pointerEvents: 'none' }}
-          >
-            <svg height="30" width={WAVE.length * 5} viewBox={`0 0 ${WAVE.length * 5} 30`} fill="currentColor" preserveAspectRatio="none" style={{ width: '100%', height: 30 }}>
-              {WAVE.map((h, i) => (
-                <rect key={i} x={i * 5} y={(30 - h) / 2} width={2.5} height={h} rx={1.25} />
-              ))}
-            </svg>
-          </span>
         </div>
 
         <div className="daily-body">

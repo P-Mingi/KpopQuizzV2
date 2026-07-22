@@ -45,6 +45,24 @@ export function MobileTopBar(): React.ReactElement | null {
         </span>
       </Link>
 
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      {/* Create moved here from the bottom bar (which now ends on Community), so
+          it stays one tap away on every mobile screen. */}
+      <Link
+        href="/create"
+        aria-label="Create a quiz"
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 34, height: 34, borderRadius: 9999, flexShrink: 0,
+          background: 'var(--brand-btn)', color: '#fff', textDecoration: 'none',
+          boxShadow: '0 3px 10px rgba(232,69,122,0.3)',
+        }}
+      >
+        <svg viewBox="0 0 24 24" width={19} height={19} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </Link>
+
       {state === null ? (
         <span
           aria-hidden="true"
@@ -98,6 +116,7 @@ export function MobileTopBar(): React.ReactElement | null {
           Sign in
         </Link>
       )}
+      </div>
     </header>
   );
 }
