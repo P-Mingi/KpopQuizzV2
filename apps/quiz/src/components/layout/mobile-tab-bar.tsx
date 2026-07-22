@@ -7,14 +7,16 @@ const TABS = [
   { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Create', href: '/create', match: ['/create'], cta: true },
+  { label: 'Blindtest', href: '/blindtest', match: ['/blindtest', '/blind-test'] },
   { label: 'Games', href: '/games', match: ['/games'] },
-  { label: 'Leaderboard', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
 /**
  * Fixed bottom tab bar. Mobile only (hidden on desktop via CSS).
- * 5 items max (§1): Home · Quizzes · + Create · Games · Leaderboard.
- * Hidden on fullscreen game/quiz pages for immersion.
+ * 5 items max (§1): Home · Quizzes · + Create · Blindtest · Games.
+ * Leaderboard moved out (still reachable from the Games hub, profile /
+ * community pages, and result screens). Hidden on fullscreen game/quiz
+ * pages for immersion.
  */
 export function MobileTabBar() {
   const pathname = usePathname();
@@ -113,10 +115,10 @@ function TabIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
         </svg>
       );
-    case 'Leaderboard':
+    case 'Blindtest':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2" />
+          <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
         </svg>
       );
     default:
