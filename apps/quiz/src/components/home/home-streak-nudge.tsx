@@ -49,7 +49,7 @@ export function HomeStreakNudge(): React.ReactElement | null {
           Day {view.days} {atRisk ? '' : 'streak'}
         </div>
         <div style={{ fontSize: 12, color: 'var(--txt2)', marginTop: 2 }}>
-          {atRisk ? 'Play today to keep it alive' : 'See you tomorrow'}
+          {atRisk ? 'Play the quiz or blindtest today' : 'See you tomorrow'}
         </div>
       </div>
       {atRisk && (
@@ -60,6 +60,6 @@ export function HomeStreakNudge(): React.ReactElement | null {
 
   // At risk: actionable link to the daily ritual. Played today: quiet, static.
   return atRisk
-    ? <Link href="/daily" style={base} aria-label={`Day ${view.days} streak. Play today to keep it alive.`}>{inner}</Link>
+    ? <Link href="/daily" style={base} aria-label={`Day ${view.days} streak. Play the daily quiz or blindtest to keep it alive.`}>{inner}</Link>
     : <div style={base}>{inner}</div>;
 }
