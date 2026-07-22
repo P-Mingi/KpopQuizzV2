@@ -432,3 +432,66 @@ export async function getLatestBadgeEarns(limit = 6): Promise<BadgeEarn[]> {
       ago: coarseAgo(r.earned_at),
     }));
 }
+
+// ============================================================
+// F2b B4 - Community picks (the comments wall). Latest quiz comments site-wide,
+// baked at ISR. Author flair via an IN read (user_id references auth.users, not
+// embeddable); the quiz title/slug embed directly.
+// ============================================================
+
+export interface CommunityComment {
+  id: string;
+  quizId: string;
+  quizTitle: string;
+  quizSlug: string;
+  content: string;
+  score: number | null;
+  total: number | null;
+  person: PersonCardData;
+  ago: string;
+}
+
+interface CommentRow {
+  id: string; quiz_id: string; user_id: string; content: string;
+  score: number | null; total: number | null; created_at: string;
+  quizzes: { title: string; slug: string } | null;
+}
+
+export async function getCommunityComments(limit = 8): Promise<CommunityComment[]> {
+  const db = createPublicReadClient();
+  // Over-fetch so the < 3 char filter still leaves a full wall.
+  const { data } = await db
+    .from('quiz_comments')
+    .select('id, quiz_id, user_id, content, score, total, created_at, quizzes(title, slug)')
+    .order('created_at', { ascending: false })
+    .limit(limit * 3);
+
+  const rows = ((data ?? []) as unknown as CommentRow[])
+    .filter((r) => r.quizzes && r.content && r.content.trim().length >= 3)
+    .slice(0, limit);
+
+  const userIds = [...new Set(rows.map((r) => r.user_id))];
+  const profById = new Map<string, ProfileRow>();
+  if (userIds.length > 0) {
+    const { data: profs } = await db.from('profiles').select(PROFILE_COLS).in('id', userIds);
+    for (const p of (profs ?? []) as ProfileRow[]) profById.set(p.id, p);
+  }
+
+  return rows
+    .map((r): CommunityComment | null => {
+      const p = profById.get(r.user_id);
+      if (!p) return null;
+      return {
+        id: r.id,
+        quizId: r.quiz_id,
+        quizTitle: r.quizzes!.title,
+        quizSlug: r.quizzes!.slug,
+        content: r.content.trim(),
+        score: r.score,
+        total: r.total,
+        person: toPerson(p),
+        ago: coarseAgo(r.created_at),
+      };
+    })
+    .filter((c): c is CommunityComment => c !== null);
+}
