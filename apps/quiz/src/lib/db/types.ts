@@ -24,6 +24,8 @@ export interface Profile {
   pinned_badge_id: string | null;
   avatar_kind: string | null;
   avatar_ref: string | null;
+  // F2c: the year a fan got into K-pop (migration 112), optional.
+  stan_since: number | null;
 }
 
 export interface Group {

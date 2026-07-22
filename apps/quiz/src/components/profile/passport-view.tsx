@@ -48,6 +48,7 @@ export interface PassportViewProps {
   bio?: string | null;
   accent?: string;
   bias?: string | null;
+  stanSince?: number | null;
   ultGroups?: Array<{ name: string; slug: string; color: string }>;
   nearMastery?: PassportNearGap[];
   untouched?: PassportUntouched;
@@ -181,7 +182,7 @@ function PassportAvatar(props: {
 
 export function PassportView(props: PassportViewProps): React.ReactElement {
   const {
-    mode, username, displayName, bio, bias, ultGroups, nearMastery, avatarUrl, avatarBg, avatarText,
+    mode, username, displayName, bio, bias, stanSince, ultGroups, nearMastery, avatarUrl, avatarBg, avatarText,
     nameAccent, pinnedBadgeId, avatarKind, avatarRef, joinedLabel,
     level, levelTitleEn, xp, xpForNext, xpPct,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
@@ -207,6 +208,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
   const metaBits = [
     `@${username}`,
     bias && bias.trim() ? `bias ${bias.trim()}` : null,
+    stanSince ? `stan since ${stanSince}` : null,
     `${fmt(followerCount)} ${followerCount === 1 ? 'follower' : 'followers'}`,
     `since ${joinedLabel}`,
   ].filter((x): x is string => Boolean(x));

@@ -135,6 +135,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       bio={profile.bio}
       accent={accent}
       bias={spine?.bias ?? null}
+      stanSince={profile.stan_since ?? null}
       ultGroups={ultGroups}
       nearMastery={nearMastery}
       untouched={untouched}
