@@ -634,6 +634,12 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
             </div>
           )}
 
+          <div className="text-center mt-3">
+            <Link href="/blindtest/leaderboard" className="text-[13px] font-medium text-[var(--brand)] no-underline">
+              See the full leaderboard {'→'}
+            </Link>
+          </div>
+
           <p className="text-center text-[13px] text-secondary mt-4">
             Come back tomorrow{resetIn ? ` · resets in ${resetIn}` : ''}
           </p>
