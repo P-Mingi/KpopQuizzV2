@@ -37,6 +37,16 @@
     "switchTo": "Switch language",
     "current": "EN"
   },
+  "dailyBlindtest": {
+    "label": "Blindtest of the day",
+    "sub": "10 songs, same for everyone",
+    "play": "Play today's blindtest",
+    "played": "Played today, come back tomorrow",
+    "leaderboard": "Today's leaderboard",
+    "signInNudge": "Sign in to join the leaderboard",
+    "playFree": "Play free mode",
+    "comeBack": "Come back tomorrow"
+  },
   "home": {
     "heroTitle": "K-pop quizzes made by fans",
     "heroSubtitle": "Play and create quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups.",

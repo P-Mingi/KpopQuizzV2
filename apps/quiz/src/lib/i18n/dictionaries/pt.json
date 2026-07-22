@@ -37,6 +37,16 @@
     "switchTo": "Trocar idioma",
     "current": "PT"
   },
+  "dailyBlindtest": {
+    "label": "Blindtest do dia",
+    "sub": "10 musicas, iguais para todos",
+    "play": "Jogar o blindtest de hoje",
+    "played": "Ja jogou hoje, volte amanha",
+    "leaderboard": "Ranking de hoje",
+    "signInNudge": "Entre para aparecer no ranking",
+    "playFree": "Jogar modo livre",
+    "comeBack": "Volte amanha"
+  },
   "home": {
     "heroTitle": "Quiz de K-pop feito por fas",
     "heroSubtitle": "Jogue e crie quizzes sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.",
