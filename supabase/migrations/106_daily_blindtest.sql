@@ -150,9 +150,11 @@ BEGIN
   v_types := ARRAY[]::text[];
   FOR v_i IN 1..10 LOOP
     IF v_i <= v_group_count THEN
-      v_types := v_types || 'artist';
+      -- array_append (not ||): `text[] || 'artist'` resolves to array||array and
+      -- tries to cast the untyped literal to text[], which fails at runtime.
+      v_types := array_append(v_types, 'artist');
     ELSE
-      v_types := v_types || 'title';
+      v_types := array_append(v_types, 'title');
     END IF;
   END LOOP;
 
