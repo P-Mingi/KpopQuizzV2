@@ -80,7 +80,7 @@ export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactEleme
         {role === 'owner' && (
           <>
             <a
-              href={`/admin/quiz/${quizId}/edit`}
+              href={`/quiz/${quizId}/edit`}
               className="quiz-owner-btn"
               aria-busy={busy === 'edit' ? 'true' : 'false'}
               onClick={() => setBusy('edit')}

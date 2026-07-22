@@ -12,6 +12,10 @@
 // in plain node via tsx.
 
 export const KNOWN_ROUTES = [
+  // '/quiz/' is the owner quiz editor (/quiz/[id]/edit); distinct from '/q/'
+  // (the public quiz view) and '/quizzes' (browse). It self-gates to the
+  // creator/admin server-side.
+  '/quiz/',
   '/', '/q/', '/g/', '/games', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/rankings',

@@ -1,7 +1,7 @@
 import { redirect, notFound } from 'next/navigation';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
-import { QuizEditor } from './quiz-editor';
+import { QuizEditor } from '@/components/quiz/quiz-editor';
 
 export const metadata = { title: 'Edit Quiz | Admin' };
 

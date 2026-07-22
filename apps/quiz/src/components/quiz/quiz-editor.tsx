@@ -21,12 +21,17 @@ interface QuestionData {
 
 interface Props {
   quiz: Record<string, unknown>;
+  // 'admin' (default): PATCHes the admin API, can set status. 'owner': the quiz
+  // creator editing their own quiz via the owner-scoped PUT, no status control.
+  mode?: 'admin' | 'owner';
 }
 
 const INPUT = 'w-full px-3 py-2 rounded-md border border-default bg-primary text-sm text-primary focus:outline-none focus:border-accent transition-colors';
 
-export function QuizEditor({ quiz }: Props): React.ReactElement {
+export function QuizEditor({ quiz, mode = 'admin' }: Props): React.ReactElement {
+  const isOwner = mode === 'owner';
   const quizType = quiz.quiz_type as string;
+  const slug = quiz.slug as string;
   const [title, setTitle] = useState(quiz.title as string);
   const [difficulty, setDifficulty] = useState(quiz.difficulty as string);
   const [status, setStatus] = useState(quiz.status as string);
@@ -50,37 +55,49 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
     setSaving(true);
     setSaved(false);
     try {
-      const res = await fetch(`/api/admin/quiz/${quiz.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title,
-          difficulty,
-          status,
-          questions,
-          cover_image_url: coverImageUrl,
-        }),
-      });
+      const res = isOwner
+        ? await fetch(`/api/quiz/${quiz.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title,
+              quiz_type: quizType,
+              group_id: (quiz.group_id as number | null) ?? group?.id ?? null,
+              difficulty,
+              questions,
+              settings: quiz.settings,
+              cover_image_url: coverImageUrl,
+            }),
+          })
+        : await fetch(`/api/admin/quiz/${quiz.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, difficulty, status, questions, cover_image_url: coverImageUrl }),
+          });
       if (res.ok) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       } else {
-        const data = await res.json();
-        alert(`Save failed: ${data.error ?? 'Unknown error'}`);
+        const data = (await res.json().catch(() => ({}))) as { error?: string; details?: string[] };
+        alert(`Save failed: ${data.error ?? data.details?.join(', ') ?? 'Unknown error'}`);
       }
     } catch {
       alert('Save failed');
     } finally {
       setSaving(false);
     }
-  }, [quiz.id, title, difficulty, status, questions, coverImageUrl]);
+  }, [isOwner, quiz.id, quiz.group_id, quiz.settings, group, quizType, title, difficulty, status, questions, coverImageUrl]);
 
   return (
     <div className="py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Link href="/admin" className="text-secondary hover:text-primary text-sm">Admin</Link>
+          {isOwner ? (
+            <Link href={`/q/${slug}`} className="text-secondary hover:text-primary text-sm">Your quiz</Link>
+          ) : (
+            <Link href="/admin" className="text-secondary hover:text-primary text-sm">Admin</Link>
+          )}
           <span className="text-tertiary">/</span>
           <h1 className="text-lg font-semibold text-primary truncate max-w-md">Edit: {quiz.title as string}</h1>
         </div>
@@ -118,15 +135,18 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
               <option value="hard">Hard</option>
             </select>
           </div>
-          <div>
-            <label className="text-xs text-tertiary block mb-1">Status</label>
-            <select value={status} onChange={(e) => { setStatus(e.target.value); setSaved(false); }} className={`${INPUT} w-32`}>
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-              <option value="flagged">Flagged</option>
-              <option value="removed">Removed</option>
-            </select>
-          </div>
+          {/* Status is admin-only: owners never set flagged/removed on their own quiz. */}
+          {!isOwner && (
+            <div>
+              <label className="text-xs text-tertiary block mb-1">Status</label>
+              <select value={status} onChange={(e) => { setStatus(e.target.value); setSaved(false); }} className={`${INPUT} w-32`}>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+                <option value="flagged">Flagged</option>
+                <option value="removed">Removed</option>
+              </select>
+            </div>
+          )}
         </div>
 
         <div>
@@ -322,8 +342,11 @@ export function QuizEditor({ quiz }: Props): React.ReactElement {
           {saving ? 'Saving...' : 'Save changes'}
         </button>
         {saved && <span className="text-sm text-correct-text">Changes saved!</span>}
-        <Link href="/admin" className="text-sm text-secondary hover:text-primary ml-auto">
-          Back to admin
+        <Link
+          href={isOwner ? `/q/${slug}` : '/admin'}
+          className="text-sm text-secondary hover:text-primary ml-auto"
+        >
+          {isOwner ? 'Back to quiz' : 'Back to admin'}
         </Link>
       </div>
     </div>
