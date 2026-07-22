@@ -23,26 +23,33 @@ export function TodayStrip({ stats }: { stats: TodayStats }): React.ReactElement
   if (allZero) return null;
 
   return (
-    <div className="today-strip">
-      <style>{CSS}</style>
-      <Cell value={stats.playsToday} label="plays today" />
-      <Cell value={stats.quizzesToday} label="quizzes made" />
-      <Cell value={stats.mastersToday} label="groups mastered" />
-      {stats.hotGroup ? (
-        <Link href={`/${stats.hotGroup.slug}-quiz`} className="today-cell today-hot">
-          <div className="today-hot-row">
-            {stats.hotGroup.logoUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={stats.hotGroup.logoUrl} alt="" width={18} height={18} className="today-hot-logo" />
-            ) : null}
-            <span className="today-hot-name">{stats.hotGroup.name}</span>
-          </div>
-          <div className="today-label">hottest group</div>
+    <>
+      <div className="today-strip">
+        <style>{CSS}</style>
+        <Cell value={stats.playsToday} label="plays today" />
+        <Cell value={stats.quizzesToday} label="quizzes made" />
+        <Cell value={stats.mastersToday} label="groups mastered" />
+        {stats.hotGroup ? (
+          <Link href={`/${stats.hotGroup.slug}-quiz`} className="today-cell today-hot">
+            <div className="today-hot-row">
+              {stats.hotGroup.logoUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={stats.hotGroup.logoUrl} alt="" width={18} height={18} className="today-hot-logo" />
+              ) : null}
+              <span className="today-hot-name">{stats.hotGroup.name}</span>
+            </div>
+            <div className="today-label">hottest group</div>
+          </Link>
+        ) : (
+          <Cell value={0} label="hottest group" />
+        )}
+      </div>
+      <p style={{ margin: '-6px 0 16px', fontSize: 12, textAlign: 'right' }}>
+        <Link href="/stats" style={{ color: 'var(--brand)', fontWeight: 600, textDecoration: 'none' }}>
+          See the full K-pop fan data {'->'}
         </Link>
-      ) : (
-        <Cell value={0} label="hottest group" />
-      )}
-    </div>
+      </p>
+    </>
   );
 }
 

@@ -1,18 +1,24 @@
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
-import { getSiteStats } from '@/lib/db/queries/stats';
+import { getSiteStats, getQuizScoreExtremes } from '@/lib/db/queries/stats';
+import { getFandomWarMap, getHotMatchups } from '@/lib/db/queries/community';
+import { getRanking } from '@/lib/db/queries/duels';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
-import type { SiteStats } from '@/lib/db/queries/stats';
+import type { SiteStats, QuizExtremes } from '@/lib/db/queries/stats';
 
-export const revalidate = 604800;
+// S1.1 - hourly ISR so the citable first-party data stays fresh without hitting
+// the DB per request.
+export const revalidate = 3600;
+
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: 'KpopQuiz Stats: Live Data on K-pop Quizzes, Songs, and Groups',
+  title: `K-pop Quiz Statistics ${YEAR} - Fan Data from kpopquiz.org`,
   description:
-    'Real-time statistics from kpopquiz.org: total quizzes, songs, plays, and group coverage across 5 K-pop generations. Updated weekly with live data.',
+    'Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts. Free to cite with a link.',
   openGraph: {
     title: 'KpopQuiz Stats',
     description: 'Live data on K-pop quizzes, blind test songs, and fan engagement across 87+ groups.',
@@ -146,8 +152,40 @@ function IconArrow(): React.ReactElement {
   );
 }
 
+const EXTREMES_FALLBACK: QuizExtremes = { hardest: [], easiest: [], minPlays: 30, candidates: 0, updatedAt: new Date().toISOString() };
+
+interface DuelVerdict { prompt: string; groupSlug: string; winner: string; runner: string | null; votes: number; }
+
 export default async function StatsPage(): Promise<React.ReactElement> {
-  const stats = await safeFetch(getSiteStats(), FALLBACK, '[stats] getSiteStats');
+  const [stats, warMap, extremes, matchups] = await Promise.all([
+    safeFetch(getSiteStats(), FALLBACK, '[stats] getSiteStats'),
+    safeFetch(getFandomWarMap(5), [], '[stats] getFandomWarMap'),
+    safeFetch(getQuizScoreExtremes(), EXTREMES_FALLBACK, '[stats] getQuizScoreExtremes'),
+    safeFetch(getHotMatchups(3), [], '[stats] getHotMatchups'),
+  ]);
+
+  // Duel verdicts: for each top-voted matchup this week, resolve the fan-ranked
+  // #1 (and runner-up) by all-time Elo. Real names only; drop any that cannot
+  // resolve a winner.
+  const verdicts: DuelVerdict[] = (
+    await Promise.all(
+      matchups.map(async (m) => {
+        const ranking = await safeFetch(getRanking(m.groupSlug, m.questionType), null, '[stats] getRanking');
+        const top = ranking?.entities?.[0];
+        if (!top) return null;
+        return {
+          prompt: m.prompt,
+          groupSlug: m.groupSlug,
+          winner: top.name,
+          runner: ranking?.entities?.[1]?.name ?? null,
+          votes: m.votes,
+        } satisfies DuelVerdict;
+      }),
+    )
+  ).filter((v): v is DuelVerdict => v !== null);
+
+  const asOf = formatDate(stats.updatedAt);
+  const topFandom = warMap[0] ?? null;
 
   const heroCards: Array<{ label: string; value: number; icon: React.ReactElement; accent: string }> = [
     { label: 'Quizzes', value: stats.totalQuizzes, icon: <IconQuiz />, accent: 'var(--brand)' },
@@ -178,6 +216,17 @@ export default async function StatsPage(): Promise<React.ReactElement> {
     ],
   };
 
+  const webPageLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `K-pop Quiz Statistics ${YEAR}`,
+    url: 'https://kpopquiz.org/stats',
+    description: 'Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.',
+    isPartOf: { '@type': 'WebSite', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
+    dateModified: stats.updatedAt,
+    license: 'https://kpopquiz.org/stats',
+  };
+
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -195,6 +244,10 @@ export default async function StatsPage(): Promise<React.ReactElement> {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
@@ -207,8 +260,8 @@ export default async function StatsPage(): Promise<React.ReactElement> {
         </nav>
         <div className="stats-title-row">
           <div>
-            <h1 className="stats-title font-display">KpopQuiz Stats</h1>
-            <p className="stats-subtitle">Live platform data, updated weekly</p>
+            <h1 className="stats-title font-display">K-pop Quiz Statistics</h1>
+            <p className="stats-subtitle">Original fan data from kpopquiz.org, updated hourly</p>
           </div>
           <div className="stats-mascot" aria-hidden="true">
             <Mascot variant="celebrate" size={56} alt="" />
@@ -296,6 +349,113 @@ export default async function StatsPage(): Promise<React.ReactElement> {
         </section>
       )}
 
+      {/* State of the fandoms - the citable centerpiece */}
+      {warMap.length > 0 && (
+        <section className="stats-table-section">
+          <h2 className="stats-section-title">State of the fandoms this week</h2>
+          <p className="stats-section-desc">
+            {topFandom
+              ? `According to kpopquiz.org, ${topFandom.name} is the most-played K-pop fandom of the week, with ${topFandom.plays.toLocaleString('en-US')} quiz plays as of ${asOf}.`
+              : `The most-played K-pop fandoms this week, by quiz plays, as of ${asOf}.`}
+          </p>
+          <div className="stats-table-wrap">
+            <table className="stats-table">
+              <thead>
+                <tr>
+                  <th className="stats-th stats-th-rank">#</th>
+                  <th className="stats-th">Fandom</th>
+                  <th className="stats-th stats-th-num">Plays (7d)</th>
+                  <th className="stats-th stats-th-num">Fans (7d)</th>
+                  <th className="stats-th stats-th-num">Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                {warMap.map((w, i) => (
+                  <tr key={w.slug} className="stats-tr">
+                    <td className="stats-td stats-td-rank">
+                      <span className={`stats-rank ${i < 3 ? `stats-rank-top stats-rank-${i + 1}` : ''}`}>{i + 1}</span>
+                    </td>
+                    <td className="stats-td">
+                      <Link href={`/${w.slug}-quiz`} className="stats-group-link">{w.name}</Link>
+                    </td>
+                    <td className="stats-td stats-td-num">{w.plays.toLocaleString('en-US')}</td>
+                    <td className="stats-td stats-td-num">{w.fans.toLocaleString('en-US')}</td>
+                    <td className="stats-td stats-td-num">
+                      {w.delta === null
+                        ? <span className="stats-trend stats-trend-new">new</span>
+                        : <span className={`stats-trend ${w.delta >= 0 ? 'stats-trend-up' : 'stats-trend-down'}`}>{w.delta >= 0 ? '+' : ''}{w.delta}%</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* Hardest + easiest quizzes by real average score */}
+      {(extremes.hardest.length >= 3 || extremes.easiest.length >= 3) && (
+        <section className="stats-table-section">
+          <h2 className="stats-section-title">Hardest and easiest K-pop quizzes</h2>
+          <p className="stats-section-desc">
+            {extremes.hardest[0]
+              ? `The hardest quiz on kpopquiz.org is "${extremes.hardest[0].title}", where fans average just ${extremes.hardest[0].avgPct}%. Ranked from ${extremes.candidates} quizzes with at least ${extremes.minPlays} plays, as of ${asOf}.`
+              : `Quizzes ranked by real average score, from ${extremes.candidates} quizzes with at least ${extremes.minPlays} plays, as of ${asOf}.`}
+          </p>
+          <div className="stats-extremes">
+            {extremes.hardest.length >= 3 && (
+              <div className="stats-extreme-col">
+                <h3 className="stats-extreme-head stats-extreme-hard">Hardest</h3>
+                <ol className="stats-extreme-list">
+                  {extremes.hardest.map((q) => (
+                    <li key={q.slug} className="stats-extreme-item">
+                      <Link href={`/q/${q.slug}`} className="stats-extreme-title">{q.title}</Link>
+                      <span className="stats-extreme-meta">{q.groupName} · {q.plays.toLocaleString('en-US')} plays</span>
+                      <span className="stats-extreme-pct stats-extreme-pct-hard">{q.avgPct}%</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            {extremes.easiest.length >= 3 && (
+              <div className="stats-extreme-col">
+                <h3 className="stats-extreme-head stats-extreme-easy">Easiest</h3>
+                <ol className="stats-extreme-list">
+                  {extremes.easiest.map((q) => (
+                    <li key={q.slug} className="stats-extreme-item">
+                      <Link href={`/q/${q.slug}`} className="stats-extreme-title">{q.title}</Link>
+                      <span className="stats-extreme-meta">{q.groupName} · {q.plays.toLocaleString('en-US')} plays</span>
+                      <span className="stats-extreme-pct stats-extreme-pct-easy">{q.avgPct}%</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Fan duel verdicts */}
+      {verdicts.length > 0 && (
+        <section className="stats-table-section">
+          <h2 className="stats-section-title">Fan duel verdicts</h2>
+          <p className="stats-section-desc">
+            {`In head-to-head fan voting on kpopquiz.org, fans crowned ${verdicts[0]!.winner} the pick for "${verdicts[0]!.prompt}" with ${verdicts[0]!.votes.toLocaleString('en-US')} votes this week, as of ${asOf}.`}
+          </p>
+          <ul className="stats-verdicts">
+            {verdicts.map((v) => (
+              <li key={v.prompt} className="stats-verdict">
+                <span className="stats-verdict-q">{v.prompt}</span>
+                <span className="stats-verdict-result">
+                  Fans rank <strong>{v.winner}</strong>{v.runner ? <> over {v.runner}</> : null}
+                </span>
+                <span className="stats-verdict-votes">{v.votes.toLocaleString('en-US')} votes this week</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Internal links */}
       <section className="stats-links">
         <h2 className="stats-section-title">Explore the platform</h2>
@@ -334,6 +494,13 @@ export default async function StatsPage(): Promise<React.ReactElement> {
           </Link>
         </div>
       </section>
+
+      {/* The polite backlink ask */}
+      <p className="stats-cite">
+        This data is free to cite with a link to{' '}
+        <Link href="/stats" className="stats-cite-link">kpopquiz.org/stats</Link>. Figures are first-party
+        and refresh hourly; each section is stamped with the date it was measured.
+      </p>
     </div>
   );
 }

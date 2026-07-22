@@ -136,12 +136,17 @@ export default function AboutPage(): React.ReactElement {
         <Link href="/create" className="btn-outline">Create a quiz</Link>
       </div>
 
-      {/* Cross-link to FAQ */}
+      {/* Cross-link to FAQ + Stats */}
       <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)]">
         Got a question?{' '}
         <Link href="/faq" className="font-medium text-[var(--accent)] hover:underline">
           Read the FAQ
         </Link>
+        {' '}or explore our{' '}
+        <Link href="/stats" className="font-medium text-[var(--accent)] hover:underline">
+          K-pop fan data
+        </Link>
+        .
       </p>
     </div>
   );

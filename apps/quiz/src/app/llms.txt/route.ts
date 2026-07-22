@@ -48,6 +48,7 @@ export async function GET(): Promise<Response> {
 - [Trivia](https://kpopquiz.org/trivia): K-pop fun facts and trivia pages per group
 - [Leaderboard](https://kpopquiz.org/leaderboard): Top players ranked by score
 - [Rankings](https://kpopquiz.org/rankings): Fan-voted rankings for members, songs, albums per group
+- [Statistics](https://kpopquiz.org/stats): Original first-party K-pop fan data, updated hourly and free to cite: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts
 
 ## Group quiz pages
 
