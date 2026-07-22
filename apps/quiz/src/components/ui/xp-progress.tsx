@@ -1,4 +1,5 @@
-import { getLevelInfo, LEVELS } from '@/lib/constants';
+import { getLevelInfo } from '@/lib/constants';
+import { getTitleForLevel } from '@/lib/level-titles';
 import { formatCount } from '@/lib/utils';
 
 interface XpProgressProps {
@@ -7,14 +8,15 @@ interface XpProgressProps {
 
 export function XpProgress({ xp }: XpProgressProps): React.ReactElement {
   const info = getLevelInfo(xp);
-  const isMaxLevel = info.level === LEVELS[LEVELS.length - 1]!.level;
+  // Levels are uncapped, so there is always a next level to climb toward.
+  const nextName = getTitleForLevel(info.level + 1).en;
 
   return (
     <div>
       <div className="flex justify-between text-xs font-medium mb-1">
         <span className="text-primary">Level {info.level} - {info.name}</span>
         <span className="text-secondary">
-          {formatCount(info.currentXp)} / {info.xpForNextLevel !== null ? formatCount(info.xpForNextLevel) : formatCount(info.xpForCurrentLevel)} XP
+          {formatCount(info.currentXp)} / {formatCount(info.xpForNextLevel ?? info.xpForCurrentLevel)} XP
         </span>
       </div>
       <div className="h-1.5 rounded-full bg-surface">
@@ -24,10 +26,7 @@ export function XpProgress({ xp }: XpProgressProps): React.ReactElement {
         />
       </div>
       <p className="text-xs text-secondary mt-1">
-        {isMaxLevel
-          ? 'Max level reached!'
-          : `${formatCount(info.xpForNextLevel! - info.currentXp)} XP to Level ${info.level + 1} (${LEVELS.find(l => l.level === info.level + 1)?.name})`
-        }
+        {`${formatCount((info.xpForNextLevel ?? info.currentXp) - info.currentXp)} XP to Level ${info.level + 1} (${nextName})`}
       </p>
     </div>
   );
