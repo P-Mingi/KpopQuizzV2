@@ -7,6 +7,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
+import { hasPlayedDaily, markDailyPlayed, completeDaily } from '@/lib/daily-played';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -35,6 +36,20 @@ interface Question {
 interface Answer {
   picked: number | null;
   correct: boolean;
+  // N4: ms from the clip appearing to the answer (or timeout). Summed across all
+  // 10 songs into the daily leaderboard tiebreak.
+  time_ms: number;
+}
+
+// N5: one row of today's Blindtest of the Day leaderboard.
+interface LbEntry {
+  rank: number;
+  user_id: string;
+  username: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  score: number;
+  time_ms: number;
 }
 
 type Phase = 'setup' | 'loading' | 'playing' | 'reveal' | 'results';
@@ -61,6 +76,15 @@ function scoreLabel(score: number): string {
   return 'Keep listening';
 }
 
+// N5: total answer time, e.g. 42100 -> "42.1s".
+function formatSecs(ms: number): string {
+  return `${(ms / 1000).toFixed(1)}s`;
+}
+
+function lbName(e: LbEntry): string {
+  return e.display_name || e.username || 'Anonymous';
+}
+
 export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; hero?: React.ReactNode }): React.ReactElement {
   const signedIn = useSignedIn();
   const [phase, setPhase] = useState<Phase>('setup');
@@ -78,6 +102,15 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   const [reduceMotion, setReduceMotion] = useState(false);
   const [eq, setEq] = useState<number[]>([14, 22, 30, 20, 12]);
   const [error, setError] = useState<string | null>(null);
+
+  // N4/N5 - Blindtest of the Day mode (?daily=true). Free play ignores all of this.
+  const [daily, setDaily] = useState(false);
+  const [dailyError, setDailyError] = useState(false);
+  const [alreadyPlayed, setAlreadyPlayed] = useState(false);
+  const [dailyRank, setDailyRank] = useState<{ rank: number; total: number } | null>(null);
+  const [board, setBoard] = useState<{ entries: LbEntry[]; userEntry: LbEntry | null } | null>(null);
+  const [resetIn, setResetIn] = useState('');
+  const dailySubmittedRef = useRef(false);
 
   // Destructure the hook's stable useCallback fns: the hook returns a NEW object
   // each render, so depending on `audio` directly would re-run effects every
@@ -116,8 +149,10 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     answeredRef.current = true;
     stopTimer();
     fadeOut(350);
+    // Time from clip start to answer (or the full timer on a timeout), clamped.
+    const timeMs = Math.min(TIMER * 1000, Math.max(0, Date.now() - startRef.current));
     setSelected(picked);
-    setAnswers((prev) => [...prev, { picked, correct }]);
+    setAnswers((prev) => [...prev, { picked, correct, time_ms: timeMs }]);
     setPhase('reveal');
   }, [fadeOut, stopTimer]);
 
@@ -145,17 +180,52 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     stopTimer();
     stop();
     setPhase('results');
-    // TODO (Workstream N): credit the daily streak when this was launched in
-    // daily mode. Deliberately not wired yet: nothing here reads ?daily, and
-    // completeDaily only accepts 'quiz' | 'game', so calling it with 'game'
-    // would hand a blindtest player credit for the daily GAME they never
-    // played. Needs N to land the blindtest daily kind first.
+    // Daily submit + streak run from the results effect below, where the final
+    // setAnswers has flushed (reading score/time here would undercount the last).
   }, [stop, stopTimer]);
 
+  const loadBoard = useCallback(async () => {
+    try {
+      const res = await fetch('/api/daily/blindtest/leaderboard');
+      if (!res.ok) return;
+      const d = (await res.json()) as { entries?: LbEntry[]; user_entry?: LbEntry | null };
+      setBoard({ entries: d.entries ?? [], userEntry: d.user_entry ?? null });
+    } catch {
+      // leaderboard is a nice-to-have; the result card stands without it
+    }
+  }, []);
+
   // Fire once the results phase is actually on screen: at finish() time the last
-  // setAnswers has not flushed, so reading the score there would undercount.
+  // setAnswers has not flushed, so reading the score there would undercount. In
+  // daily mode this is also where we mark played, submit the score + rank, credit
+  // the streak (N6: completeDaily is idempotent, so QOTD + BToTD award XP once),
+  // and pull the leaderboard.
   useEffect(() => {
-    if (phase === 'results') analytics.gameComplete('blindtest', score, 10, isDailyLaunch());
+    if (phase !== 'results') return;
+    if (alreadyPlayed) { void loadBoard(); return; }
+    analytics.gameComplete('blindtest', score, 10, isDailyLaunch());
+    if (daily && !dailySubmittedRef.current) {
+      dailySubmittedRef.current = true;
+      markDailyPlayed('blindtest');
+      const totalTimeMs = answers.reduce((s, a) => s + a.time_ms, 0);
+      void (async () => {
+        try {
+          const res = await fetch('/api/daily/blindtest/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ score, time_ms: totalTimeMs }),
+          });
+          if (res.ok) {
+            const d = (await res.json()) as { rank?: number; total?: number };
+            if (typeof d.rank === 'number' && typeof d.total === 'number') setDailyRank({ rank: d.rank, total: d.total });
+          }
+        } catch {
+          // anon or network: the score still shows, just unranked
+        }
+        void completeDaily('blindtest');
+        await loadBoard();
+      })();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
@@ -200,6 +270,78 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     }
   }, [unlock, playlist, playQuestion]);
 
+  // N4 - start the Blindtest of the Day. Runs from a Start tap (not on mount) so
+  // the audio unlock happens inside a user gesture (iOS Safari). Fetches the
+  // shared 10 questions instead of generating a fresh set.
+  const startDaily = useCallback(async () => {
+    unlock();
+    setDailyError(false);
+    setPhase('loading');
+    try {
+      const res = await fetch('/api/daily/blindtest');
+      if (!res.ok) { setDailyError(true); setPhase('setup'); return; }
+      const data = (await res.json()) as { questions?: Question[] };
+      if (!data.questions?.length) { setDailyError(true); setPhase('setup'); return; }
+      setQuestions(data.questions);
+      setIndex(0);
+      setAnswers([]);
+      dailySubmittedRef.current = false;
+      analytics.gameStart('blindtest', true);
+      setPhase('playing');
+      playQuestion(data.questions[0]!);
+    } catch {
+      setDailyError(true);
+      setPhase('setup');
+    }
+  }, [unlock, playQuestion]);
+
+  // N4 - leave daily mode for free play (the "Play free mode" action). Resets
+  // state and drops ?daily from the URL so a refresh does not re-enter daily.
+  const playFree = useCallback(() => {
+    setDaily(false);
+    setAlreadyPlayed(false);
+    setDailyError(false);
+    setDailyRank(null);
+    setBoard(null);
+    dailySubmittedRef.current = false;
+    setAnswers([]);
+    setIndex(0);
+    setQuestions([]);
+    setError(null);
+    setPhase('setup');
+    if (typeof window !== 'undefined') window.history.replaceState(null, '', '/blindtest');
+  }, []);
+
+  // N4 - detect daily mode on mount (client-only so /blindtest stays static and
+  // keeps its SEO setup content). If already played today, jump straight to the
+  // results/leaderboard state; otherwise wait on the daily intro for a Start tap.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('daily') !== 'true') return;
+    setDaily(true);
+    if (hasPlayedDaily('blindtest')) {
+      setAlreadyPlayed(true);
+      setPhase('results');
+    }
+  }, []);
+
+  // N4/N5 - "Resets in Xh Ym" for the daily come-back-tomorrow line.
+  useEffect(() => {
+    if (!daily) return;
+    function calc(): void {
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setUTCHours(24, 0, 0, 0);
+      const diff = tomorrow.getTime() - now.getTime();
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      setResetIn(`${h}h ${m}m`);
+    }
+    calc();
+    const iv = setInterval(calc, 60000);
+    return () => clearInterval(iv);
+  }, [daily]);
+
   const pick = useCallback((i: number) => {
     if (answeredRef.current || phase !== 'playing') return;
     const q = questions[index]!;
@@ -223,6 +365,30 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         <div className="bt-loading" role="status" aria-live="polite">
           <Mascot variant="think" animate="tilt" size={104} alt="" />
           <p className="bt-loading-msg">Picking your songs...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================ DAILY INTRO
+  // N4: daily mode skips the playlist picker. One Start tap unlocks audio (iOS
+  // Safari needs the gesture) and loads today's shared 10 songs.
+  if (phase === 'setup' && daily) {
+    return (
+      <div className="bt-screen">
+        <div className="bt-setup">
+          <span className="bt-kicker">Blindtest of the day</span>
+          <h1 className="bt-title">Name that<br /><span className="bt-title-accent">K-pop song</span></h1>
+          <p className="bt-sub">10 songs, same for everyone. Guess fast, then see where you rank against every other fan today.</p>
+
+          {dailyError && <p className="bt-error" role="alert">Could not load today&apos;s blindtest. Try free mode below.</p>}
+
+          <button type="button" className="bt-start" onClick={startDaily}>
+            Play today&apos;s blindtest
+          </button>
+          <button type="button" className="bt-back" onClick={playFree} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+            Play free mode
+          </button>
         </div>
       </div>
     );
@@ -406,7 +572,91 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     );
   }
 
-  // ============================================ RESULTS
+  // ============================================ RESULTS (daily)
+  // Addendum 2: keep ResultLoop, but the replay slot becomes "Play free mode"
+  // and the screen leads with the leaderboard + a come-back-tomorrow line.
+  if (daily) {
+    const totalTimeMs = answers.reduce((s, a) => s + a.time_ms, 0);
+    const myRank = dailyRank?.rank ?? null;
+    const shareText = alreadyPlayed
+      ? 'Play the K-pop Blindtest of the Day: 10 songs, same for everyone.'
+      : `I scored ${score}/10 on today's K-pop Blindtest of the Day in ${formatSecs(totalTimeMs)}.`;
+
+    const renderRow = (e: LbEntry, me: boolean): React.ReactElement => (
+      <div key={me ? `me-${e.user_id}` : e.user_id} className={`flex items-center gap-2.5 px-3 py-2 rounded-lg border ${me ? 'border-[var(--brand)] bg-[color-mix(in_srgb,var(--brand)_12%,transparent)]' : 'border-[var(--border)] bg-surface'}`}>
+        <span className="w-6 text-center text-[13px] font-bold text-secondary tabular-nums">{e.rank}</span>
+        {e.avatar_url
+          // eslint-disable-next-line @next/next/no-img-element
+          ? <img src={e.avatar_url} alt="" className="w-7 h-7 rounded-full object-cover flex-shrink-0" />
+          : <span className="w-7 h-7 rounded-full bg-[var(--surface-alt)] flex-shrink-0" aria-hidden="true" />}
+        <span className="flex-1 text-[13px] font-medium text-primary truncate">{lbName(e)}</span>
+        <span className="text-[13px] font-bold text-primary tabular-nums">{e.score}/10</span>
+        <span className="w-14 text-right text-[12px] text-[var(--txt3)] tabular-nums">{formatSecs(e.time_ms)}</span>
+      </div>
+    );
+
+    return (
+      <div className="bt-screen">
+        <div className="bt-results">
+          <div className="flex justify-center" style={{ marginBottom: 8 }}>
+            {alreadyPlayed
+              ? <Mascot variant="sleep" size={104} />
+              : score >= 6 ? <Mascot variant="celebrate" animate="bob" size={104} /> : <Mascot variant="sad" size={104} />}
+          </div>
+
+          <div className="bt-result-card">
+            <p className="bt-result-kicker">Blindtest of the day</p>
+            {alreadyPlayed ? (
+              <p className="bt-result-label" style={{ marginTop: 10 }}>You already played today</p>
+            ) : (
+              <>
+                <p className="bt-result-score" aria-label={`You scored ${score} out of 10`}>
+                  {score}<span className="bt-result-of">/10</span>
+                </p>
+                <p className="bt-result-label">{scoreLabel(score)} · {formatSecs(totalTimeMs)}</p>
+                {myRank && <p className="bt-result-url">Rank #{myRank} of {dailyRank!.total} today</p>}
+              </>
+            )}
+          </div>
+
+          {board && board.entries.length > 0 && (
+            <div className="max-w-[440px] mx-auto mt-5 w-full">
+              <p className="text-xs font-bold uppercase tracking-wide text-secondary mb-2">Today&apos;s leaderboard</p>
+              <div className="flex flex-col gap-1.5">
+                {board.entries.map((e) => renderRow(e, myRank !== null && e.rank === myRank))}
+                {board.userEntry && (
+                  <>
+                    <p className="text-center text-[var(--txt3)] text-sm leading-none py-0.5" aria-hidden="true">···</p>
+                    {renderRow(board.userEntry, true)}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          <p className="text-center text-[13px] text-secondary mt-4">
+            Come back tomorrow{resetIn ? ` · resets in ${resetIn}` : ''}
+          </p>
+
+          <ResultLoop
+            game="blindtest"
+            score={alreadyPlayed ? undefined : score}
+            max={alreadyPlayed ? undefined : 10}
+            scoreLabel={alreadyPlayed ? undefined : scoreLabel(score)}
+            shareText={shareText}
+            shareUrl="/blindtest"
+            onPlayAgain={playFree}
+            playAgainLabel="Play free mode"
+            isSignedIn={signedIn !== false}
+            groupSlug={null}
+            groupName={null}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================ RESULTS (free play)
   return (
     <div className="bt-screen">
       <div className="bt-results">
