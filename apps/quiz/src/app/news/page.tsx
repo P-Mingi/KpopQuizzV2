@@ -170,6 +170,8 @@ function timeAgo(dateStr: string): string {
 interface GroupMatch {
   name: string;
   slug: string;
+  logoUrl: string | null;
+  color: string;
 }
 
 function findGroupMentions(title: string, groups: GroupMatch[]): GroupMatch[] {
@@ -211,10 +213,12 @@ function ArticleImage({
   src,
   alt,
   priority,
+  fallbackGroup,
 }: {
   src: string | null;
   alt: string;
   priority?: boolean;
+  fallbackGroup?: GroupMatch | null;
 }): React.ReactElement {
   if (src) {
     return (
@@ -225,11 +229,13 @@ function ArticleImage({
           alt={alt}
           className="nw-img"
           loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
           referrerPolicy="no-referrer"
         />
       </div>
     );
   }
+  if (fallbackGroup) return <BrandedFallback group={fallbackGroup} />;
   return (
     <div className="nw-img-wrap nw-img-fallback">
       <Mascot variant="think" size={48} alt="" />
@@ -237,19 +243,45 @@ function ArticleImage({
   );
 }
 
+// Branded fallback when the article has no photo but mentions a group: the real
+// group logo on a colored band. No fabricated imagery, no stock photos.
+function BrandedFallback({ group }: { group: GroupMatch }): React.ReactElement {
+  return (
+    <div
+      className="nw-img-wrap nw-img-branded"
+      style={{ background: `linear-gradient(135deg, ${group.color}, color-mix(in srgb, ${group.color} 55%, #17121d))` }}
+    >
+      {group.logoUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={group.logoUrl} alt={`${group.name} logo`} className="nw-img-branded-logo" width={60} height={60} loading="lazy" decoding="async" referrerPolicy="no-referrer" />
+      ) : (
+        <span className="nw-img-branded-name">{group.name}</span>
+      )}
+    </div>
+  );
+}
+
 function GroupPills({
   mentions,
+  linked,
 }: {
   mentions: GroupMatch[];
+  linked?: boolean;
 }): React.ReactElement | null {
   if (mentions.length === 0) return null;
   return (
     <div className="nw-pills">
-      {mentions.slice(0, 3).map((m) => (
-        <span key={m.slug} className="nw-pill">
-          {m.name}
-        </span>
-      ))}
+      {mentions.slice(0, 3).map((m) =>
+        linked ? (
+          <Link key={m.slug} href={`/${m.slug}-quiz`} className="nw-pill nw-pill-link">
+            {m.name}
+          </Link>
+        ) : (
+          <span key={m.slug} className="nw-pill">
+            {m.name}
+          </span>
+        ),
+      )}
     </div>
   );
 }
@@ -335,14 +367,38 @@ export default async function NewsPage(): Promise<React.ReactElement> {
   const groupMatches: GroupMatch[] = allGroups.map((g) => ({
     name: g.name,
     slug: g.slug,
+    logoUrl: g.logo_url ?? null,
+    color: g.display_color ?? '#E8457A',
   }));
 
   const hero = allItems[0] ?? null;
+  const heroMentions = hero ? findGroupMentions(hero.title, groupMatches) : [];
   const gridItems = allItems.slice(1);
   const seenFunnels = new Set<string>();
 
+  // NewsArticle JSON-LD per item. Publisher is the REAL source (allkpop /
+  // Soompi / Koreaboo), never kpopquiz - we aggregate and link out, we do not
+  // publish these, so claiming otherwise would be dishonest provenance.
+  const newsLd = {
+    '@context': 'https://schema.org',
+    '@graph': allItems.slice(0, 20).map((it) => ({
+      '@type': 'NewsArticle',
+      headline: it.title,
+      url: it.link,
+      datePublished: new Date(it.date).toISOString(),
+      ...(it.image ? { image: it.image } : {}),
+      publisher: { '@type': 'Organization', name: it.source },
+    })),
+  };
+
   return (
     <div className="nw-page">
+      {allItems.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(newsLd) }}
+        />
+      )}
       {/* Header */}
       <header className="nw-header">
         <nav className="nw-breadcrumbs">
@@ -377,16 +433,14 @@ export default async function NewsPage(): Promise<React.ReactElement> {
               rel="noopener noreferrer nofollow"
               className="nw-hero"
             >
-              <ArticleImage src={hero.image} alt="" priority />
+              <ArticleImage src={hero.image} alt={hero.title} priority fallbackGroup={heroMentions[0] ?? null} />
               <div className="nw-hero-overlay">
                 <div className="nw-hero-meta">
                   <SourceBadge source={hero.source} />
                   <span className="nw-time">{timeAgo(hero.date)}</span>
                 </div>
                 <h2 className="nw-hero-title">{hero.title}</h2>
-                <GroupPills
-                  mentions={findGroupMentions(hero.title, groupMatches)}
-                />
+                <GroupPills mentions={heroMentions} />
                 <span className="nw-hero-read">
                   Read article <IconArrowUpRight />
                 </span>
@@ -417,16 +471,23 @@ export default async function NewsPage(): Promise<React.ReactElement> {
                     rel="noopener noreferrer nofollow"
                     className="nw-card"
                   >
-                    <ArticleImage src={item.image} alt="" />
+                    <ArticleImage src={item.image} alt={item.title} fallbackGroup={mentions[0] ?? null} />
                     <div className="nw-card-body">
                       <div className="nw-card-meta">
                         <SourceBadge source={item.source} />
                         <span className="nw-time">{timeAgo(item.date)}</span>
                       </div>
                       <p className="nw-card-title">{item.title}</p>
-                      <GroupPills mentions={mentions} />
                     </div>
                   </a>
+                  {/* Group chips sit OUTSIDE the external card anchor so they can
+                      be real internal links to the group quiz pages (no nested
+                      <a>), passing crawl equity from /news to the group hubs. */}
+                  {mentions.length > 0 && (
+                    <div className="nw-card-tags">
+                      <GroupPills mentions={mentions} linked />
+                    </div>
+                  )}
                   {showFunnel && (
                     <FunnelCta
                       groupName={funnelGroup.name}

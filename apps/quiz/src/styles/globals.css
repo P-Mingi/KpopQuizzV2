@@ -3115,6 +3115,14 @@ a.ranking-cta { text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(145deg, var(--surface) 0%, var(--bg-primary) 100%);
 }
+/* S1.4 - branded fallback: real group logo on the group's colored band. */
+.nw-img-branded { display: flex; align-items: center; justify-content: center; }
+.nw-img-branded-logo { width: 60px; height: 60px; border-radius: 14px; object-fit: contain; background: rgba(255,255,255,0.92); padding: 6px; }
+.nw-img-branded-name { color: #fff; font-weight: 800; font-size: 18px; letter-spacing: -0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+/* Group chips as internal links, moved below the external card anchor. */
+.nw-card-tags { padding: 8px 12px 2px; }
+.nw-pill-link { text-decoration: none; transition: background 120ms ease, color 120ms ease; }
+.nw-pill-link:hover { background: color-mix(in srgb, var(--brand) 16%, transparent); color: var(--brand); border-color: color-mix(in srgb, var(--brand) 40%, var(--border)); }
 
 /* Grid */
 .nw-grid {
