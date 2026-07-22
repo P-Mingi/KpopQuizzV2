@@ -25,7 +25,9 @@ export type CrossPromoTarget =
   | 'name-all'
   | 'duel'
   | 'games'
-  | 'daily';
+  | 'daily'
+  | 'create'
+  | 'login-debate';
 
 /** True when this play was launched from a ?daily= link (home daily row, /daily). */
 export function isDailyLaunch(): boolean {

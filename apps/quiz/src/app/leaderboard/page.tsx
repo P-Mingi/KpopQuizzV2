@@ -13,6 +13,8 @@ import { HappeningNow } from '@/components/community/happening-now';
 import { DailyRitual } from '@/components/community/daily-ritual';
 import { FandomWarMap } from '@/components/community/fandom-war-map';
 import { BadgeShowcase } from '@/components/community/badge-showcase';
+import { DailyDebate } from '@/components/community/daily-debate';
+import { getDailyDebate } from '@/lib/db/queries/debate';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 
@@ -69,12 +71,14 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getHappeningNow(5), { events: [], recentCount: 0 }, '[community] feed'),
   ]);
 
-  // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8), baked at ISR in parallel.
-  const [qotd, gotd, warMap, badgeEarns] = await Promise.all([
+  // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
+  // (F2b B3), baked at ISR in parallel.
+  const [qotd, gotd, warMap, badgeEarns, debate] = await Promise.all([
     safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
     safeFetch(getGameOfTheDay(), null, '[community] gotd'),
     safeFetch(getFandomWarMap(30), [], '[community] warMap'),
     safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
+    safeFetch(getDailyDebate(), null, '[community] debate'),
   ]);
 
   // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
@@ -107,6 +111,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
       {/* F1.10 - Your standing v2 (personal client island; extras baked as props) */}
       <YourStanding fandomRanks={fandomRanks} weeklyBoard={weeklyBoard} />
+
+      {/* F2b B3 - Daily Debate, the conversation centerpiece (hides when no debate) */}
+      {debate && <DailyDebate debate={debate} />}
 
       {/* F1.1 - Happening now feed (liveness-gated) */}
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />
