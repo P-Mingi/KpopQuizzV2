@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Games', href: '/games', match: ['/games'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest'] },
-  { label: 'Leaderboard', href: '/leaderboard', match: ['/leaderboard'] },
+  { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
 function NavIcon({ name, active }: { name: string; active: boolean }) {
@@ -42,10 +42,11 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
         </svg>
       );
-    case 'Leaderboard':
+    case 'Community':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2" />
+          <circle cx="9" cy="7" r="3.4" /><path d="M3.5 20v-1a5.5 5.5 0 0 1 11 0v1z" />
+          <circle cx="17.5" cy="8.5" r="2.4" /><path d="M16.5 13.6A4.6 4.6 0 0 1 21.5 18v1H18" />
         </svg>
       );
     default:

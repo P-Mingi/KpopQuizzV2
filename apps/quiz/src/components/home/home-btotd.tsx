@@ -81,6 +81,13 @@ export function HomeBtotd(): React.ReactElement {
               Play today&apos;s blindtest
             </Link>
           )}
+          {/* Same slot as the QOTD Discord line so the two daily CTAs line up on
+              desktop, and it surfaces the new leaderboard page. */}
+          <div className="daily-discord-line">
+            <Link href="/blindtest/leaderboard" style={{ fontSize: 12, fontWeight: 600, color: 'var(--brand)', textDecoration: 'none' }}>
+              See today&apos;s leaderboard {'→'}
+            </Link>
+          </div>
         </div>
       </div>
     </div>
