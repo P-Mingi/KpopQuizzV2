@@ -1,5 +1,5 @@
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
-import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns, getCommunityComments } from '@/lib/db/queries/community';
+import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns, getCommunityComments, getHotMatchups } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import type { PersonCardData } from '@/components/profile/person-card';
@@ -14,6 +14,7 @@ import { DailyRitual } from '@/components/community/daily-ritual';
 import { FandomWarMap } from '@/components/community/fandom-war-map';
 import { CommunityPicks } from '@/components/community/community-picks';
 import { FreshQuizzes } from '@/components/community/fresh-quizzes';
+import { HotMatchups } from '@/components/community/hot-matchups';
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
 import { BadgeShowcase } from '@/components/community/badge-showcase';
 import { DailyDebate } from '@/components/community/daily-debate';
@@ -76,7 +77,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
   // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
   // (F2b B3), baked at ISR in parallel.
-  const [qotd, gotd, warMap, badgeEarns, debate, comments, fresh] = await Promise.all([
+  const [qotd, gotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
     safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
     safeFetch(getGameOfTheDay(), null, '[community] gotd'),
     safeFetch(getFandomWarMap(30), [], '[community] warMap'),
@@ -84,6 +85,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getDailyDebate(), null, '[community] debate'),
     safeFetch(getCommunityComments(8), [], '[community] comments'),
     safeFetch(getNewQuizzes(0, 6), [], '[community] fresh'),
+    safeFetch(getHotMatchups(5), [], '[community] matchups'),
   ]);
 
   // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
@@ -134,6 +136,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
 
       {/* F2b B5 - Fresh quizzes shelf (hides under 3 in the last 30 days) */}
       <FreshQuizzes quizzes={fresh} nowMs={Date.now()} />
+
+      {/* F2b B6 - This week's matchups (duel fallback; battles are anonymous) */}
+      <HotMatchups matchups={matchups} />
 
       {/* F1.9 - Hall of Fame: rising / week / all-time / legends in one tabbed card */}
       <HallOfFame tabs={hofTabs} />
