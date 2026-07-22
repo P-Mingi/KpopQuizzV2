@@ -9,6 +9,7 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { SoundToggle } from '@/components/settings/sound-toggle';
 import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
 import { PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 import { NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS, AVATAR_PRESETS, AVATAR_PRESET_KEYS } from '@/lib/passport-flair';
 
@@ -27,6 +28,8 @@ interface ProfileData {
   pinned_badge_id: string | null;
   avatar_kind: string;
   avatar_ref: string | null;
+  xp: number;
+  stan_since: number | null;
 }
 
 interface EarnedBadge { id: string; name: string; color_bg: string; color_stroke: string }
@@ -55,6 +58,7 @@ export default function SettingsPage(): React.ReactElement {
   const [pinnedBadge, setPinnedBadge] = useState<string | null>(null);
   const [avatarKind, setAvatarKind] = useState('photo');
   const [avatarRef, setAvatarRef] = useState<string | null>(null);
+  const [stanSince, setStanSince] = useState<string>('');
   const [earnedBadges, setEarnedBadges] = useState<EarnedBadge[]>([]);
   const [allGroups, setAllGroups] = useState<GroupOption[]>([]);
   const [groupQuery, setGroupQuery] = useState('');
@@ -73,7 +77,7 @@ export default function SettingsPage(): React.ReactElement {
       const [{ data }, { data: groups }, { data: badges }] = await Promise.all([
         supabase
           .from('profiles')
-          .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, xp, stan_since')
           .eq('id', user.id)
           .single(),
         supabase.from('groups').select('slug, name, display_color').order('name'),
@@ -94,6 +98,7 @@ export default function SettingsPage(): React.ReactElement {
         setNameFont(p.name_font ?? 'default');
         setPinnedBadge(p.pinned_badge_id ?? null);
         setAvatarKind(p.avatar_kind ?? 'photo');
+        setStanSince(p.stan_since != null ? String(p.stan_since) : '');
         setAvatarRef(p.avatar_ref ?? null);
       }
       setAllGroups(((groups ?? []) as Array<{ slug: string; name: string; display_color: string }>).map((g) => ({ slug: g.slug, name: g.name, color: g.display_color })));
@@ -165,8 +170,30 @@ export default function SettingsPage(): React.ReactElement {
     nameFont !== (profile.name_font ?? 'default') ||
     pinnedBadge !== (profile.pinned_badge_id ?? null) ||
     avatarKind !== (profile.avatar_kind ?? 'photo') ||
-    avatarRef !== (profile.avatar_ref ?? null)
+    avatarRef !== (profile.avatar_ref ?? null) ||
+    stanSince !== (profile.stan_since != null ? String(profile.stan_since) : '')
   );
+
+  // C2 live preview: the user's own PersonCard fed from the CURRENT unsaved form
+  // state, so flair changes show before save. Reuses PersonCard itself, no
+  // lookalike (drift risk).
+  const previewPerson: PersonCardData = {
+    username: profile?.username ?? username ?? 'you',
+    displayName: displayName || null,
+    avatarUrl: avatarUrl || null,
+    avatarBg: profile?.avatar_bg ?? '#E8457A',
+    avatarText: profile?.avatar_text ?? '#FFFFFF',
+    xp: profile?.xp ?? 0,
+    followerCount: 0,
+    nameAccent, nameFont,
+    bias: bias || null,
+    pinnedBadgeId: pinnedBadge,
+    avatarKind: (avatarKind as PersonCardData['avatarKind']) ?? 'photo',
+    avatarRef,
+  };
+  const currentYear = new Date().getFullYear();
+  const stanYears: number[] = [];
+  for (let y = currentYear; y >= 1992; y--) stanYears.push(y);
 
   const canSave = hasChanges && !saving &&
     (username === profile?.username || usernameStatus === 'available');
@@ -188,6 +215,7 @@ export default function SettingsPage(): React.ReactElement {
     if (pinnedBadge !== (profile.pinned_badge_id ?? null)) payload.pinned_badge_id = pinnedBadge;
     if (avatarKind !== (profile.avatar_kind ?? 'photo')) payload.avatar_kind = avatarKind;
     if (avatarRef !== (profile.avatar_ref ?? null)) payload.avatar_ref = avatarRef;
+    if (stanSince !== (profile.stan_since != null ? String(profile.stan_since) : '')) payload.stan_since = stanSince ? parseInt(stanSince, 10) : null;
 
     try {
       const res = await fetch('/api/auth/update-profile', {
@@ -217,6 +245,7 @@ export default function SettingsPage(): React.ReactElement {
       setPinnedBadge(data.profile.pinned_badge_id ?? null);
       setAvatarKind(data.profile.avatar_kind ?? 'photo');
       setAvatarRef(data.profile.avatar_ref ?? null);
+      setStanSince(data.profile.stan_since != null ? String(data.profile.stan_since) : '');
       setUsernameStatus('same');
       showToast('Settings saved!', 'success');
       router.refresh();
@@ -351,6 +380,14 @@ export default function SettingsPage(): React.ReactElement {
 
         {/* Passport identity (M1.6) */}
         <div className="mb-6 pt-5 border-t border-default">
+          {/* C2 live preview: how you appear to others, in a comment-row-styled box */}
+          <div className="mb-5">
+            <p className="text-sm font-medium text-primary mb-2">How you appear to others</p>
+            <div className="border border-default rounded-xl p-3" style={{ background: 'var(--surface)' }}>
+              <PersonCard person={previewPerson} compact showFollow={false} />
+            </div>
+          </div>
+
           <p className="text-sm font-medium text-primary mb-1">Ult groups</p>
           <p className="text-xs text-tertiary mb-2">Pick up to {ULT_MAX}. Pinned on your passport.</p>
           {ultGroups.length > 0 && (
@@ -400,6 +437,16 @@ export default function SettingsPage(): React.ReactElement {
           <input type="text" placeholder="Your bias (e.g. Felix)" value={bias}
             onChange={(e) => setBias(e.target.value)} maxLength={BIAS_MAX} className={INPUT} />
           <p className="text-xs text-tertiary text-right mt-1">{bias.length}/{BIAS_MAX}</p>
+        </div>
+
+        {/* Stan since (F2c C2) */}
+        <div className="mb-6">
+          <p className="text-sm font-medium text-primary mb-1">Stan since</p>
+          <p className="text-xs text-tertiary mb-2">The year you got into K-pop. Optional.</p>
+          <select value={stanSince} onChange={(e) => setStanSince(e.target.value)} className={INPUT}>
+            <option value="">- (unset)</option>
+            {stanYears.map((y) => <option key={y} value={String(y)}>{y}</option>)}
+          </select>
         </div>
 
         {/* Passport theme */}
