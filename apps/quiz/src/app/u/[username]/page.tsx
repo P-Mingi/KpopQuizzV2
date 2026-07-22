@@ -8,6 +8,7 @@ import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
+import { FanCardShare } from '@/components/profile/fan-card-share';
 import { FollowButton } from '@/components/profile/follow-button';
 import { safeFetch } from '@/lib/error-handling';
 import { formatJoinDate } from '@/lib/utils';
@@ -205,6 +206,12 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         avatarRef={profile.avatar_ref}
         badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
       />
+
+      {/* F2c: Share my Fan Card. Renders only for the owner viewing their own
+          profile (self-check via /api/auth/me). */}
+      <div style={{ marginTop: 14, display: 'flex', justifyContent: 'center' }}>
+        <FanCardShare username={profile.username} />
+      </div>
 
       {/* Moderator: send this user a personalized notification. Renders only for
           admins, and never on their own profile (self-check inside). */}

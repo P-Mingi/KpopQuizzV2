@@ -56,7 +56,8 @@ export const analytics = {
   gameComplete: (type: GameType, score: number, max: number, daily = false): void =>
     ev('game_complete', { type, score, max, daily }),
 
-  shareClick: (type: GameType): void => ev('share_click', { type }),
+  // `type` also accepts 'fancard' for the F2c Fan Card share, without a new event.
+  shareClick: (type: GameType | 'fancard'): void => ev('share_click', { type }),
 
   // `from` also accepts 'community' so the community page can attribute its
   // war-map CTA and daily cards without a new event name.

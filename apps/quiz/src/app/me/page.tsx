@@ -10,6 +10,7 @@ import { passportAccent } from '@/lib/passport-themes';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { PassportShare } from '@/components/profile/passport-share';
+import { FanCardShare } from '@/components/profile/fan-card-share';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -171,6 +172,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       eras={collection.eras}
       topGroups={topGroups}
       />
+      <div style={{ marginTop: 14, display: 'flex', justifyContent: 'center' }}>
+        <FanCardShare username={profile.username} />
+      </div>
       <div style={{ marginTop: 14 }}>
         <PassportShare username={profile.username} />
       </div>
