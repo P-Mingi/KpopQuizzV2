@@ -154,7 +154,7 @@ function PassportAvatar(props: {
   const size = 46;
   const ring: React.CSSProperties = {
     width: size, height: size, borderRadius: '50%', flexShrink: 0,
-    border: '1.5px solid var(--brand)', overflow: 'hidden',
+    border: '1.5px solid var(--pp-accent, var(--brand))', overflow: 'hidden',
   };
   const kind = props.avatarKind ?? 'photo';
 
@@ -191,6 +191,10 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
 
   const isPersonal = mode === 'personal';
   const accentName = nameAccentColor(nameAccent);
+  // C3: the passport theme accent (avatar ring, XP bar, ult-chip border). Was a
+  // dead prop before this. Default theme resolves to var(--brand) = no change.
+  const themeAccent = props.accent ?? 'var(--brand)';
+  const themed = themeAccent !== 'var(--brand)';
   const ults = (ultGroups ?? []).slice(0, 3);
   const pinnedIcon = badgeIconFor(pinnedBadgeId);
   const tracked = topGroups.filter((g) => g.plays > 0);
@@ -210,7 +214,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
   const nextGap = (nearMastery ?? [])[0];
 
   return (
-    <div className="pp-wrap pp-anim">
+    <div className="pp-wrap pp-anim" style={{ ['--pp-accent' as string]: themeAccent } as React.CSSProperties}>
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
 
       {/* HEADER CARD: identity, ults, and the XP bar as the card's bottom edge. */}
@@ -251,7 +255,8 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           {ults.map((g) => (
             <a key={g.slug} href={`/${g.slug}-quiz`} style={{
               display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 500,
-              padding: '3px 9px', borderRadius: 999, border: '1px solid var(--border)',
+              padding: '3px 9px', borderRadius: 999,
+              border: themed ? `1px solid color-mix(in srgb, ${themeAccent} 50%, var(--border))` : '1px solid var(--border)',
               color: 'var(--txt2)', textDecoration: 'none',
             }}>
               <HeartIcon color={g.color || 'var(--brand)'} />
@@ -269,7 +274,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             className="pp-fill"
             style={{
               height: '100%',
-              background: 'var(--brand)',
+              background: 'var(--pp-accent, var(--brand))',
               width: xpPct > 0 ? `max(6px, ${Math.min(100, xpPct)}%)` : 0,
             }}
           />

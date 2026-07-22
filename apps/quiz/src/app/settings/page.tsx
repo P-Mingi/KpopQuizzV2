@@ -10,7 +10,7 @@ import { SoundToggle } from '@/components/settings/sound-toggle';
 import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
-import { PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
+import { passportAccent, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 import { NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS, AVATAR_PRESETS, AVATAR_PRESET_KEYS } from '@/lib/passport-flair';
 
 interface ProfileData {
@@ -191,6 +191,8 @@ export default function SettingsPage(): React.ReactElement {
     avatarKind: (avatarKind as PersonCardData['avatarKind']) ?? 'photo',
     avatarRef,
   };
+  const previewThemeAccent = passportAccent(profileTheme);
+  const previewThemed = profileTheme !== 'default';
   const currentYear = new Date().getFullYear();
   const stanYears: number[] = [];
   for (let y = currentYear; y >= 1992; y--) stanYears.push(y);
@@ -383,7 +385,7 @@ export default function SettingsPage(): React.ReactElement {
           {/* C2 live preview: how you appear to others, in a comment-row-styled box */}
           <div className="mb-5">
             <p className="text-sm font-medium text-primary mb-2">How you appear to others</p>
-            <div className="border border-default rounded-xl p-3" style={{ background: 'var(--surface)' }}>
+            <div className="rounded-xl p-3" style={{ background: 'var(--surface)', border: previewThemed ? `1px solid ${previewThemeAccent}` : '1px solid var(--border)' }}>
               <PersonCard person={previewPerson} compact showFollow={false} />
             </div>
           </div>
