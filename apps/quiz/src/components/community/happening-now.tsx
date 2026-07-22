@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { PersonCard } from '@/components/profile/person-card';
 import { Mascot } from '@/components/ui/mascot';
+import { CheerButton } from '@/components/community/cheer-button';
 
 import type { FeedEvent } from '@/lib/db/queries/community';
 
@@ -78,6 +79,9 @@ function FeedRow({ event }: { event: FeedEvent }): React.ReactElement {
           <span style={{ flex: 1, minWidth: 0, fontSize: 13, fontWeight: 700, color: 'var(--txt2)' }}>Someone</span>
         )}
         <span style={{ fontSize: 11, color: 'var(--txt3)', flexShrink: 0, fontVariantNumeric: 'tabular-nums' }}>{event.ago}</span>
+        {/* Cheer only on rows with a real person (anon rows have no owner to
+            cheer or notify). */}
+        {event.person && <CheerButton eventId={event.id} initialCount={event.cheerCount} />}
       </div>
       {phrase}
     </div>

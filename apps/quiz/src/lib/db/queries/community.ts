@@ -228,6 +228,8 @@ export interface FeedEvent {
   phrase: string;
   href: string | null;
   ago: string;
+  /** F2b B7 - baked cheer count for this event (the viewer's own tap goes live). */
+  cheerCount: number;
 }
 
 /** Coarse, server-rendered age. Honest at revalidate 300 and keeps the section static. */
@@ -373,7 +375,20 @@ export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]
       phrase,
       href,
       ago: coarseAgo(r.created_at),
+      cheerCount: 0,
     });
+  }
+
+  // Bake cheer counts for the shown events. activity_cheers has public SELECT
+  // (mig 108), so the cookie-free client can read it. One IN read, counted here.
+  if (events.length > 0) {
+    const ids = events.map((e) => e.id);
+    const { data: cheers } = await db.from('activity_cheers').select('event_id').in('event_id', ids);
+    const byEvent = new Map<number, number>();
+    for (const c of (cheers ?? []) as Array<{ event_id: number }>) {
+      byEvent.set(c.event_id, (byEvent.get(c.event_id) ?? 0) + 1);
+    }
+    for (const e of events) e.cheerCount = byEvent.get(e.id) ?? 0;
   }
 
   return { events, recentCount: count ?? 0 };

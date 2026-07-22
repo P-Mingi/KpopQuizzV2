@@ -187,6 +187,8 @@ function iconFor(type: NotificationRow['type']): string {
       return 'Q';
     case 'badge_earned':
       return 'B';
+    case 'cheer':
+      return '!';
     default:
       return '.';
   }
