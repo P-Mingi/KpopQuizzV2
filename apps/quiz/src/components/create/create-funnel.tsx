@@ -8,10 +8,11 @@ import { copyShareLink } from '@/lib/share';
 import { ShareCardModal, type SharePlatform } from '@/components/share/share-card-modal';
 import { Mascot } from '@/components/ui/mascot';
 import {
-  type Draft, type DraftQuestion, blankQuestion, isQuestionComplete, completeCount,
+  type Draft, type DraftQuestion, type DraftDifficulty, blankQuestion, isQuestionComplete, completeCount,
   loadDraft, saveDraft, clearDraft, loadStep, saveStep, compressImageToDataUrl, dataUrlToFile,
   validateImageFile, ACCEPTED_IMAGE_TYPES,
 } from '@/lib/create-draft';
+import { GroupPicker } from './group-picker';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -45,16 +46,24 @@ const DiscordIcon = (
   <svg width="18" height="18" viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M13.554 2.893A12.634 12.634 0 0 0 10.436 1.8a8.268 8.268 0 0 0-.404.817 11.828 11.828 0 0 0-3.502 0A8.923 8.923 0 0 0 6.149 1.8a12.67 12.67 0 0 0-3.12 1.095C.767 5.685.214 8.487.49 11.25A12.697 12.697 0 0 0 4.35 13.2a9.437 9.437 0 0 0 .834-1.35 8.202 8.202 0 0 1-1.313-.629c.11-.08.218-.163.322-.25a9.07 9.07 0 0 0 7.698 0c.105.09.213.173.323.25a8.23 8.23 0 0 1-1.316.63 9.394 9.394 0 0 0 .834 1.348 12.65 12.65 0 0 0 3.863-1.95c.334-3.212-.57-5.986-2.04-8.456ZM5.53 9.665c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.348.67 1.336 1.49 0 .82-.588 1.487-1.336 1.487Zm4.94 0c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.344.67 1.336 1.49-.003.82-.588 1.487-1.336 1.487Z" /></svg>
 );
 
+const DIFFICULTIES: { value: DraftDifficulty; label: string }[] = [
+  { value: 'easy', label: 'Easy' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'hard', label: 'Hard' },
+];
+
 interface FunnelState {
   title: string;
   group_slug: string | null;
+  newGroup: string | null; // Q-B1: a brand-new custom group name (sent as group_name at publish)
+  difficulty: DraftDifficulty; // Q-B1: creator-selectable (was hardcoded 'medium')
   cover: string | null;
   coverRights: boolean; // H9: "I have the right to use this image"
   questions: DraftQuestion[];
 }
 
 function emptyState(): FunnelState {
-  return { title: '', group_slug: null, cover: null, coverRights: false, questions: [blankQuestion()] };
+  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', cover: null, coverRights: false, questions: [blankQuestion()] };
 }
 
 export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup[]; initialGroupSlug?: string | null }): React.ReactElement {
@@ -90,16 +99,18 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   const autoPubFired = useRef(false);
 
   const group = groups.find((g) => g.slug === data.group_slug) ?? null;
+  const hasGroup = !!group || !!data.newGroup;
   const displayTitle = data.title.trim() || TITLE_PLACEHOLDER.replace('e.g. ', '');
   const nComplete = completeCount(data.questions);
-  const ready = data.title.trim().length >= MIN_TITLE && !!group && nComplete >= MIN_QUESTIONS;
+  const ready = data.title.trim().length >= MIN_TITLE && hasGroup && nComplete >= MIN_QUESTIONS;
 
   // --- publish (claim draft onto the session user) ---
   const publish = useCallback(async () => {
     const d = dataRef.current;
     const g = groups.find((x) => x.slug === d.group_slug);
     const complete = d.questions.filter(isQuestionComplete);
-    if (!g || d.title.trim().length < MIN_TITLE || complete.length < MIN_QUESTIONS) {
+    const hasG = !!g || !!(d.newGroup && d.newGroup.trim().length >= 2);
+    if (!hasG || d.title.trim().length < MIN_TITLE || complete.length < MIN_QUESTIONS) {
       setPublishError(`Add a title (${MIN_TITLE}+ chars), pick a group, and complete at least ${MIN_QUESTIONS} questions.`);
       return;
     }
@@ -126,12 +137,14 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           coverUrl = d.cover;
         }
       }
-      // 2. create the quiz via the existing route
+      // 2. create the quiz via the existing route. An existing group sends
+      //    group_id; a brand-new custom group sends group_name, which the route
+      //    resolves/creates via the existing is_custom path (create/route.ts).
       const payload = {
-        group_id: g.id,
+        ...(g ? { group_id: g.id } : { group_name: (d.newGroup ?? '').trim() }),
         title: d.title.trim(),
         quiz_type: 'multiple_choice' as const,
-        difficulty: 'medium' as const,
+        difficulty: d.difficulty,
         cover_image_url: coverUrl,
         questions: complete.map((q) => ({
           question: q.question.trim(),
@@ -168,7 +181,8 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     const d = loadDraft();
     if (d) {
       // A saved draft wins; if it had no group, fall back to the deep-linked one.
-      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
+      // Old-format drafts predate newGroup/difficulty, so both default safely.
+      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
     }
     // No draft: the useState initializer already seeded validInitialGroup.
     const params = new URLSearchParams(window.location.search);
@@ -239,7 +253,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => {
     if (!hydrated) return;
     const t = window.setTimeout(() => {
-      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
+      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
       saveDraft(d);
     }, 500);
     return () => window.clearTimeout(t);
@@ -307,9 +321,9 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   };
 
   const previewQuiz: QuizCardData = {
-    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: 'multiple_choice', difficulty: 'medium',
+    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: 'multiple_choice', difficulty: data.difficulty,
     play_count: 0, total_score_sum: 0, total_completions: 0, like_count: 0, created_at: new Date().toISOString(),
-    group_name: group?.name ?? 'K-pop', group_slug: group?.slug ?? '', display_color: group?.display_color ?? '#E8457A',
+    group_name: group?.name ?? data.newGroup ?? 'K-pop', group_slug: group?.slug ?? '', display_color: group?.display_color ?? '#E8457A',
     text_color: group?.text_color ?? '#FFFFFF', logo_url: group?.logo_url ?? null, fandom_name: group?.fandom_name ?? 'fan',
     creator_username: 'you', creator_avatar_url: null, creator_avatar_bg: '#ED93B1', creator_avatar_text: '#FFFFFF',
     question_count: data.questions.length, cover_image_url: data.cover,
@@ -341,10 +355,30 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           </div>
 
           <div className="cf-field">
-            <span className="cf-label">Group</span>
-            <div className="cf-chips">
-              {groups.map((g) => (
-                <button key={g.slug} type="button" className={`cf-chip${data.group_slug === g.slug ? ' on' : ''}`} aria-pressed={data.group_slug === g.slug} onClick={() => setData((s) => ({ ...s, group_slug: g.slug }))}>{g.name}</button>
+            <span className="cf-label" id="cf-group-label">Group</span>
+            <GroupPicker
+              groups={groups}
+              selectedSlug={data.group_slug}
+              customGroup={data.newGroup}
+              onSelect={(slug) => setData((s) => ({ ...s, group_slug: slug, newGroup: null }))}
+              onCreateCustom={(name) => setData((s) => ({ ...s, newGroup: name, group_slug: null }))}
+              onClear={() => setData((s) => ({ ...s, group_slug: null, newGroup: null }))}
+            />
+          </div>
+
+          <div className="cf-field">
+            <span className="cf-label">Difficulty</span>
+            <div className="cf-segmented" role="group" aria-label="Difficulty">
+              {DIFFICULTIES.map((d) => (
+                <button
+                  key={d.value}
+                  type="button"
+                  className={`cf-seg${data.difficulty === d.value ? ' on' : ''}`}
+                  aria-pressed={data.difficulty === d.value}
+                  onClick={() => setData((s) => ({ ...s, difficulty: d.value }))}
+                >
+                  {d.label}
+                </button>
               ))}
             </div>
           </div>
@@ -356,7 +390,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
                 : data.cover ? (<span className="cf-cover-change">Change</span>)
                 : (<span className="cf-cover-empty"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8.5" cy="8.5" r="1.6" /><path d="m21 15-5-5L5 21" /></svg><span>Tap to add a cover</span></span>)}
             </button>
-            <p className="cf-cover-help">Shows on your quiz card and becomes your share card background. Quizzes with a cover get way more plays.</p>
+            <p className="cf-cover-help">A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background.</p>
             <p className="cf-cover-help">JPG, PNG, or WebP, up to 5MB.</p>
             {coverError && <p className="cf-cover-err" role="alert">{coverError}</p>}
             {data.cover && (
@@ -372,8 +406,10 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
             {data.cover && <button type="button" className="cf-skip" onClick={() => { setData((s) => ({ ...s, cover: null, coverRights: false })); setCoverError(null); }}>Remove cover</button>}
           </div>
 
-          <button type="button" className="cf-cta" disabled={!data.group_slug || (!!data.cover && !data.coverRights)} onClick={() => setStep(2)}>Start adding questions &rarr;</button>
-          {!data.group_slug
+          <button type="button" className="cf-cta" disabled={data.title.trim().length < MIN_TITLE || !hasGroup || (!!data.cover && !data.coverRights)} onClick={() => setStep(2)}>Start adding questions &rarr;</button>
+          {data.title.trim().length < MIN_TITLE
+            ? <p className="cf-mini-hint">Add a title ({MIN_TITLE}+ characters) to continue.</p>
+            : !hasGroup
             ? <p className="cf-mini-hint">Pick a group to continue.</p>
             : (!!data.cover && !data.coverRights) && <p className="cf-mini-hint">Confirm you have the right to use your cover image to continue.</p>}
         </div>

@@ -2938,6 +2938,27 @@ a.ranking-cta { text-decoration: none; }
 .cf-uname-status.is-available { color: var(--correct); }
 .cf-uname-status.is-taken, .cf-uname-status.is-invalid { color: var(--wrong); }
 
+/* Q-B1 - creator-selectable difficulty (segmented) + searchable group picker */
+.cf-segmented { display: flex; gap: 8px; }
+.cf-seg { flex: 1; min-height: 44px; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt2); font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color 120ms ease, background 120ms ease, color 120ms ease; }
+.cf-seg:hover { border-color: var(--brand); color: var(--brand); }
+.cf-seg.on { background: var(--brand-btn); border-color: var(--brand); color: #fff; }
+.cf-seg:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.gp-wrap { position: relative; }
+.gp-list { list-style: none; margin: 8px 0 0; padding: 6px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-card); max-height: 300px; overflow-y: auto; }
+.gp-opt { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 10px 12px; border: none; border-radius: 9px; background: none; color: var(--txt1); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.gp-opt.active { background: var(--brand-light); color: var(--brand); }
+.gp-opt-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0, 0, 0, 0.08); }
+.gp-opt-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gp-opt-create { color: var(--brand); }
+.gp-opt-create svg { flex-shrink: 0; }
+.gp-selected { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 50px; padding: 10px 12px 10px 16px; border-radius: 12px; border: 1.5px solid var(--brand); background: color-mix(in srgb, var(--brand) 6%, transparent); }
+.gp-selected-name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--txt1); min-width: 0; }
+.gp-selected-new { flex-shrink: 0; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand); background: var(--brand-light); padding: 2px 8px; border-radius: 100px; }
+.gp-change { flex-shrink: 0; background: none; border: none; color: var(--brand); font-size: 13px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 6px 4px; }
+.gp-opt:focus-visible, .gp-change:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
 /* ============================================================
    H6 - share-card customizer modal (.scm-*)
    ============================================================ */

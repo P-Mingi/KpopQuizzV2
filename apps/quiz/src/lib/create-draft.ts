@@ -12,9 +12,18 @@ export interface DraftQuestion {
   funFact?: string;
 }
 
+/** Difficulty is creator-selectable (Q-B1). Older drafts predate this field, so
+ *  it is optional here and defaults to 'medium' on load. */
+export type DraftDifficulty = 'easy' | 'medium' | 'hard';
+
 export interface Draft {
   title: string;
   group_slug: string | null;
+  /** Q-B1: name of a brand-new custom group the creator typed (sent as
+   *  group_name at publish). Mutually exclusive with group_slug. */
+  newGroup?: string | null;
+  /** Q-B1: creator-selected difficulty (was hardcoded 'medium'). */
+  difficulty?: DraftDifficulty;
   cover: string | null; // data URL (anonymous) or an https URL (already uploaded)
   coverRights?: boolean; // H9: the user confirmed they have the right to use the cover
   questions: DraftQuestion[];
