@@ -1,16 +1,11 @@
 // H1 - anonymous creation draft. localStorage-primary (decision a: no new DB
 // table). Survives reloads + the OAuth redirect (localStorage persists). The
-// cover is held as a compressed data URL until publish, when it is uploaded to
-// the existing quiz-images bucket (the upload route requires auth, which the
-// funnel only has at publish).
+// cover (and, Q-B6, any per-question images) are held as compressed data URLs
+// until publish, when they are uploaded to the quiz-images bucket (the upload
+// route requires auth, which the funnel only has at publish).
 
-export interface DraftQuestion {
-  question: string;
-  answers: [string, string, string, string];
-  correctIndex: number | null;
-  /** Optional reveal-time blurb shown after each question (server: fun_fact). */
-  funFact?: string;
-}
+import { type QuestionData, blankQuestionFor, migrateQuestion } from '@/lib/quiz-question';
+import { isQuestionValid } from '@/lib/quiz-validation';
 
 /** Difficulty is creator-selectable (Q-B1). Older drafts predate this field, so
  *  it is optional here and defaults to 'medium' on load. */
@@ -24,11 +19,13 @@ export interface Draft {
   newGroup?: string | null;
   /** Q-B1: creator-selected difficulty (was hardcoded 'medium'). */
   difficulty?: DraftDifficulty;
-  /** Q-B2: language the quiz is written in (defaults from browser locale). */
+  /** Q-B2: language the quiz is written in (defaults to English). */
   language?: string;
+  /** Q-B6: quiz type chosen on step 1. Old drafts predate this -> multiple_choice. */
+  quiz_type?: string;
   cover: string | null; // data URL (anonymous) or an https URL (already uploaded)
   coverRights?: boolean; // H9: the user confirmed they have the right to use the cover
-  questions: DraftQuestion[];
+  questions: QuestionData[];
   updatedAt: number;
 }
 
@@ -53,16 +50,9 @@ const KEY = 'kq_create_draft_v1';
 const STEP_KEY = 'kq_create_step_v1';
 const MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-export function blankQuestion(): DraftQuestion {
-  return { question: '', answers: ['', '', '', ''], correctIndex: null, funFact: '' };
-}
-
-export function isQuestionComplete(q: DraftQuestion): boolean {
-  return q.question.trim().length > 0 && q.answers.every((a) => a.trim().length > 0) && q.correctIndex !== null;
-}
-
-export function completeCount(questions: DraftQuestion[]): number {
-  return questions.filter(isQuestionComplete).length;
+/** Count questions that pass the shared validity rules for their quiz type. */
+export function completeCount(questions: QuestionData[], quizType: string): number {
+  return questions.filter((q) => isQuestionValid(q, quizType)).length;
 }
 
 export function loadDraft(): Draft | null {
@@ -75,7 +65,13 @@ export function loadDraft(): Draft | null {
       clearDraft(); // expired or malformed - drop it
       return null;
     }
-    if (!Array.isArray(d.questions)) d.questions = [blankQuestion()];
+    const type = d.quiz_type ?? 'multiple_choice';
+    // Q-B6: convert every question to the current QuestionData shape. Old drafts
+    // (all multiple_choice, stored as { answers, correctIndex, funFact }) migrate
+    // without loss; already-QuestionData rows pass through.
+    d.questions = Array.isArray(d.questions) && d.questions.length
+      ? d.questions.map(migrateQuestion)
+      : [blankQuestionFor(type)];
     return d;
   } catch {
     return null;

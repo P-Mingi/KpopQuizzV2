@@ -75,7 +75,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
                 compact
               />
               <Link
-                href={`/create?edit=${quiz.id}`}
+                href={`/quiz/${quiz.id}/edit`}
                 className="w-7 h-7 rounded-full flex items-center justify-center text-secondary hover:bg-surface transition-colors"
                 aria-label="Edit quiz"
               >

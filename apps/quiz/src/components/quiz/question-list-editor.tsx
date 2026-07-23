@@ -4,59 +4,30 @@ import { useState } from 'react';
 
 import { ImageUploader } from '@/components/admin/image-uploader';
 import { questionIssues } from '@/lib/quiz-validation';
+import { blankQuestionFor } from '@/lib/quiz-question';
+import { compressImageToDataUrl, validateImageFile, ACCEPTED_IMAGE_TYPES } from '@/lib/create-draft';
 
-// Q-B3: the shared question LIST editor. One component, two modes:
-//   - CREATE (funnel step 2): seeded empty, quizType 'multiple_choice'.
+import type { QuestionData, IntruderOption } from '@/lib/quiz-question';
+
+// Q-B3/Q-B6: the shared question LIST editor. One component, two modes:
+//   - CREATE (funnel step 2): seeded empty, quizType from the step-1 picker.
 //   - EDIT (owner/admin): seeded from the quiz, any of the 5 types.
-// It replaces the funnel's one-at-a-time dot navigation and the quiz-editor's
-// inline question map. All questions are visible; each row can be reordered
-// (drag on desktop, up/down buttons everywhere), duplicated, deleted, and
-// expanded to an inline editor. Inline validity badges come from the shared
-// questionIssues() so what the creator sees matches what the API enforces.
+// All questions are visible; each row can be reordered (drag on desktop, up/down
+// buttons everywhere), duplicated, deleted, and expanded to an inline editor.
+// Inline validity badges come from the shared questionIssues() so what the
+// creator sees matches what the API enforces. Per-type field shapes live in
+// lib/quiz-question.ts.
 //
-// The per-type field shapes (options string[] vs intruder {label,image_url}[],
-// correct index vs boolean, clues, image_url) are all handled here so unlocking
-// the non-MC types later is a UI toggle, not a rewrite.
+// imageMode: 'upload' uploads immediately via the secure /api/quiz/upload-image
+// (edit mode, already authed). 'defer' holds a compressed data URL so anonymous
+// creators can add images before signing in; the funnel uploads them through the
+// exact same endpoint at publish. Same magic-byte + size + type checks.
 
-export interface IntruderOption {
-  label: string;
-  image_url: string | null;
-}
+// Re-export the shared model so existing importers keep working.
+export type { QuestionData, IntruderOption } from '@/lib/quiz-question';
+export { blankQuestionFor } from '@/lib/quiz-question';
 
-export interface QuestionData {
-  question: string;
-  options: string[] | IntruderOption[];
-  // number = option index (MC/image/clues/intruder), boolean = true/false,
-  // null = not yet chosen (a fresh question in the create funnel).
-  correct: number | boolean | null;
-  fun_fact?: string;
-  image_url?: string | null;
-  clues?: string[];
-}
-
-export function blankQuestionFor(quizType: string): QuestionData {
-  switch (quizType) {
-    case 'true_false':
-      return { question: '', options: [], correct: null, fun_fact: '' };
-    case 'guess_from_clues':
-      return { question: '', options: ['', '', '', ''], correct: null, clues: ['', '', ''], fun_fact: '' };
-    case 'image':
-      return { question: '', options: ['', '', '', ''], correct: null, image_url: null, fun_fact: '' };
-    case 'intruder':
-      return {
-        question: '',
-        options: [
-          { label: '', image_url: null }, { label: '', image_url: null },
-          { label: '', image_url: null }, { label: '', image_url: null },
-        ],
-        correct: null,
-        fun_fact: '',
-      };
-    case 'multiple_choice':
-    default:
-      return { question: '', options: ['', '', '', ''], correct: null, fun_fact: '' };
-  }
-}
+export type ImageMode = 'upload' | 'defer';
 
 interface Props {
   questions: QuestionData[];
@@ -64,9 +35,11 @@ interface Props {
   onChange: (questions: QuestionData[]) => void;
   /** Auto-expand the row that was just appended (create flow). */
   autoExpandNew?: boolean;
+  /** How per-question images are captured. Defaults to immediate upload (edit). */
+  imageMode?: ImageMode;
 }
 
-export function QuestionListEditor({ questions, quizType, onChange, autoExpandNew = true }: Props): React.ReactElement {
+export function QuestionListEditor({ questions, quizType, onChange, autoExpandNew = true, imageMode = 'upload' }: Props): React.ReactElement {
   const [expanded, setExpanded] = useState<number | null>(questions.length === 1 ? 0 : null);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
 
@@ -158,7 +131,7 @@ export function QuestionListEditor({ questions, quizType, onChange, autoExpandNe
 
               {isOpen && (
                 <div className="qle-panel">
-                  <QuestionEditor quizType={quizType} q={q} onPatch={(u) => patch(i, u)} index={i} />
+                  <QuestionEditor quizType={quizType} q={q} onPatch={(u) => patch(i, u)} index={i} imageMode={imageMode} />
                 </div>
               )}
             </li>
@@ -176,11 +149,14 @@ export function QuestionListEditor({ questions, quizType, onChange, autoExpandNe
 
 // --- per-type inline editor (reuses the funnel's cf-* answer styling for the
 //     text types so create and edit look identical) ---
-function QuestionEditor({ quizType, q, onPatch, index }: {
-  quizType: string; q: QuestionData; onPatch: (u: QuestionData) => void; index: number;
+function QuestionEditor({ quizType, q, onPatch, index, imageMode }: {
+  quizType: string; q: QuestionData; onPatch: (u: QuestionData) => void; index: number; imageMode: ImageMode;
 }): React.ReactElement {
   const setOptions = (options: string[]): void => onPatch({ ...q, options });
   const stringOpts = Array.isArray(q.options) ? (q.options as unknown[]).every((o) => typeof o === 'string') : false;
+  // In the anonymous create flow, images are held as data URLs and uploaded at
+  // publish; in edit mode they upload immediately. Same endpoint + validations.
+  const Img = imageMode === 'defer' ? DeferredImageInput : ImageUploader;
 
   return (
     <>
@@ -195,7 +171,7 @@ function QuestionEditor({ quizType, q, onPatch, index }: {
 
       {quizType === 'image' && (
         <div className="qle-image-slot">
-          <ImageUploader value={(q.image_url as string) || null} onChange={(url) => onPatch({ ...q, image_url: url })} label="Question image" />
+          <Img value={(q.image_url as string) || null} onChange={(url) => onPatch({ ...q, image_url: url })} label="Question image" />
         </div>
       )}
 
@@ -227,7 +203,7 @@ function QuestionEditor({ quizType, q, onPatch, index }: {
         <div className="qle-intruder">
           {(q.options as IntruderOption[]).map((opt, j) => (
             <div key={j} className={`qle-intruder-cell${q.correct === j ? ' on' : ''}`}>
-              <ImageUploader
+              <Img
                 value={opt.image_url || null}
                 onChange={(url) => {
                   const opts = [...(q.options as IntruderOption[])];
@@ -295,5 +271,61 @@ function QuestionEditor({ quizType, q, onPatch, index }: {
         <span className="cf-funfact-counter">{(q.fun_fact ?? '').length}/280</span>
       </div>
     </>
+  );
+}
+
+// Anonymous-safe image input for the create flow. Mirrors the cover picker:
+// client-side type + 5MB validation, then compress to a data URL held in the
+// draft (survives the OAuth round-trip). The funnel uploads it via the same
+// secure /api/quiz/upload-image at publish, so the server-side magic-byte,
+// size and type checks + the moderation queue are unchanged.
+function DeferredImageInput({ value, onChange, label }: {
+  value: string | null; onChange: (url: string | null) => void; label?: string;
+}): React.ReactElement {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  const pick = (): void => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = ACCEPTED_IMAGE_TYPES.join(',');
+    input.onchange = async (e): Promise<void> => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      const verr = validateImageFile(file);
+      if (verr) { setErr(verr); return; }
+      setErr(null);
+      setBusy(true);
+      try {
+        onChange(await compressImageToDataUrl(file));
+      } catch {
+        setErr('That image could not be processed. Try a different one.');
+      } finally {
+        setBusy(false);
+      }
+    };
+    input.click();
+  };
+
+  return (
+    <div className="qle-imgpick">
+      {label && <span className="qle-imgpick-label">{label}</span>}
+      <button
+        type="button"
+        className={`qle-imgpick-btn${value ? ' filled' : ''}`}
+        onClick={pick}
+        style={value ? { backgroundImage: `url(${value})` } : undefined}
+        aria-label={value ? 'Change image' : 'Add an image'}
+      >
+        {busy ? <span className="bt-spinner" style={{ borderTopColor: 'var(--brand)', borderColor: 'var(--border)' }} />
+          : value ? <span className="qle-imgpick-change">Change</span>
+          : <span className="qle-imgpick-empty">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8.5" cy="8.5" r="1.6" /><path d="m21 15-5-5L5 21" /></svg>
+              <span>Add an image</span>
+            </span>}
+      </button>
+      {value && <button type="button" className="qle-imgpick-remove" onClick={() => onChange(null)}>Remove</button>}
+      {err && <p className="qle-imgpick-err" role="alert">{err}</p>}
+    </div>
   );
 }

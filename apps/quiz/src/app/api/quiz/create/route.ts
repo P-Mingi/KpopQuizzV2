@@ -256,14 +256,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // (nsfwjs/tensorflow) here so the perf-sensitive creation funnel stays lean:
   // no multi-MB model in the bundle or fetched on upload. The admin dashboard
   // already surfaces pending reports, and the auto-flag trigger (>=5) still applies.
-  if (manualCoverUrl && manualCoverUrl.includes('/quiz-images/')) {
+  // Q-B6: also covers user-uploaded PER-QUESTION images (image + intruder types),
+  // which land in the same quiz-images bucket via /api/quiz/upload-image. One
+  // report per quiz is enough for a human to review all of its uploaded images.
+  const coverIsUserUpload = !!manualCoverUrl && manualCoverUrl.includes('/quiz-images/');
+  const questionsHaveUserImage =
+    (input.quiz_type === 'image' || input.quiz_type === 'intruder') &&
+    JSON.stringify(input.questions ?? []).includes('/quiz-images/');
+  if (coverIsUserUpload || questionsHaveUserImage) {
     const { error: modError } = await supabase.from('reports').insert({
       quiz_id: quiz.id,
       reporter_id: null,
       reason: 'other',
-      details: '[Auto] User-uploaded cover image queued for moderation review.',
+      details: '[Auto] User-uploaded image(s) queued for moderation review.',
     });
-    if (modError) console.error('Cover moderation queue insert failed:', modError.message);
+    if (modError) console.error('Image moderation queue insert failed:', modError.message);
   }
 
   // Award XP for creating a quiz. The same profile read powers the post-publish

@@ -8,15 +8,16 @@ import { copyShareLink } from '@/lib/share';
 import { ShareCardModal, type SharePlatform } from '@/components/share/share-card-modal';
 import { Mascot } from '@/components/ui/mascot';
 import {
-  type Draft, type DraftQuestion, type DraftDifficulty, blankQuestion, isQuestionComplete, completeCount,
+  type Draft, type DraftDifficulty, completeCount,
   loadDraft, saveDraft, clearDraft, loadStep, saveStep, compressImageToDataUrl, dataUrlToFile,
   validateImageFile, ACCEPTED_IMAGE_TYPES,
 } from '@/lib/create-draft';
 import { GroupPicker } from './group-picker';
-import { LANGUAGES } from '@/lib/languages';
-import { QuestionListEditor, type QuestionData } from '@/components/quiz/question-list-editor';
+import { LANGUAGES, languageChip } from '@/lib/languages';
+import { QuestionListEditor } from '@/components/quiz/question-list-editor';
+import { type QuestionData, type IntruderOption, blankQuestionFor } from '@/lib/quiz-question';
+import { isQuestionValid } from '@/lib/quiz-validation';
 import { creatorNudge, type CreatorStats } from '@/lib/creator-progress';
-import { languageChip } from '@/lib/languages';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -56,21 +57,98 @@ const DIFFICULTIES: { value: DraftDifficulty; label: string }[] = [
   { value: 'hard', label: 'Hard' },
 ];
 
+// Q-B6: the five quiz types a creator can pick on step 1.
+const QUIZ_TYPE_CARDS: { value: string; label: string; desc: string; example: string }[] = [
+  { value: 'multiple_choice', label: 'Classic', desc: 'A question with 4 answers, one correct.', example: 'e.g. Who is the leader of BTS?' },
+  { value: 'true_false', label: 'True / False', desc: 'A statement fans mark true or false.', example: 'e.g. BLACKPINK debuted in 2016.' },
+  { value: 'guess_from_clues', label: 'Guess from Clues', desc: '3 clues per question, score more the fewer you reveal.', example: 'e.g. 3 clues that point to one idol.' },
+  { value: 'image', label: 'Image quiz', desc: 'A picture question with 4 answers.', example: 'e.g. Which idol is in this photo?' },
+  { value: 'intruder', label: 'Find the Intruder', desc: '4 images, one does not belong.', example: 'e.g. Which member is not in TWICE?' },
+];
+
+// Build the API question payload for the chosen type (trims text; images are
+// already uploaded to https URLs by uploadDeferredImages before this runs).
+function toApiQuestion(q: QuestionData, quizType: string): Record<string, unknown> {
+  const out: Record<string, unknown> = { question: q.question.trim() };
+  if (q.fun_fact && q.fun_fact.trim()) out.fun_fact = q.fun_fact.trim();
+  if (quizType === 'true_false') {
+    out.correct = q.correct;
+    return out;
+  }
+  if (quizType === 'intruder') {
+    out.correct = q.correct;
+    out.options = (q.options as IntruderOption[]).map((o) => ({ label: o.label.trim(), image_url: o.image_url }));
+    return out;
+  }
+  // multiple_choice / image / guess_from_clues share the 4-option index model.
+  out.correct = q.correct;
+  out.options = (q.options as string[]).map((o) => o.trim());
+  if (quizType === 'guess_from_clues') out.clues = (q.clues ?? []).map((c) => c.trim());
+  if (quizType === 'image') out.image_url = q.image_url;
+  return out;
+}
+
+// Upload a single held-as-data-URL image through the SAME secure endpoint the
+// cover uses (auth + magic-byte + size + type checks server-side).
+async function uploadDataUrl(dataUrl: string): Promise<string> {
+  const file = await dataUrlToFile(dataUrl, 'question.jpg');
+  const fd = new FormData();
+  fd.append('file', file);
+  const res = await fetch('/api/quiz/upload-image', { method: 'POST', body: fd });
+  const data = (await res.json()) as { url?: string; error?: string };
+  if (!res.ok || !data.url) throw new Error(data.error ?? 'Image upload failed');
+  return data.url;
+}
+
+// Q-B6: at publish, replace any per-question data-URL images (image + intruder
+// types) with uploaded https URLs. Non-image types pass through untouched.
+async function uploadDeferredImages(questions: QuestionData[], quizType: string): Promise<QuestionData[]> {
+  if (quizType !== 'image' && quizType !== 'intruder') return questions;
+  return Promise.all(questions.map(async (q) => {
+    if (quizType === 'image' && typeof q.image_url === 'string' && q.image_url.startsWith('data:')) {
+      return { ...q, image_url: await uploadDataUrl(q.image_url) };
+    }
+    if (quizType === 'intruder') {
+      const opts = await Promise.all((q.options as IntruderOption[]).map(async (o) =>
+        (typeof o.image_url === 'string' && o.image_url.startsWith('data:'))
+          ? { ...o, image_url: await uploadDataUrl(o.image_url) }
+          : o));
+      return { ...q, options: opts };
+    }
+    return q;
+  }));
+}
+
 interface FunnelState {
   title: string;
   group_slug: string | null;
   newGroup: string | null; // Q-B1: a brand-new custom group name (sent as group_name at publish)
   difficulty: DraftDifficulty; // Q-B1: creator-selectable (was hardcoded 'medium')
   language: string; // Q-B2: language the quiz is written in
+  quiz_type: string; // Q-B6: chosen on step 1, locked once questions exist
   cover: string | null;
   coverRights: boolean; // H9: "I have the right to use this image"
-  questions: DraftQuestion[];
+  questions: QuestionData[];
 }
 
-// 'en' is the SSR-safe seed; the real browser-locale default is applied in the
-// mount effect (navigator is client-only), and a saved draft always wins.
 function emptyState(): FunnelState {
-  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', language: 'en', cover: null, coverRights: false, questions: [blankQuestion()] };
+  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice', cover: null, coverRights: false, questions: [blankQuestionFor('multiple_choice')] };
+}
+
+/** A question the creator has actually started filling in (used to lock the type
+ *  picker so switching types mid-draft can't silently drop data). */
+function questionHasContent(q: QuestionData): boolean {
+  if (q.question.trim()) return true;
+  if (q.correct !== null) return true;
+  if (Array.isArray(q.options)) {
+    for (const o of q.options) {
+      if (typeof o === 'string' ? o.trim() : (o.label?.trim() || o.image_url)) return true;
+    }
+  }
+  if (q.clues?.some((c) => c.trim())) return true;
+  if (q.image_url) return true;
+  if (q.fun_fact?.trim()) return true;
+  return false;
 }
 
 export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup[]; initialGroupSlug?: string | null }): React.ReactElement {
@@ -108,14 +186,16 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   const group = groups.find((g) => g.slug === data.group_slug) ?? null;
   const hasGroup = !!group || !!data.newGroup;
   const displayTitle = data.title.trim() || TITLE_PLACEHOLDER.replace('e.g. ', '');
-  const nComplete = completeCount(data.questions);
+  const nComplete = completeCount(data.questions, data.quiz_type);
   const ready = data.title.trim().length >= MIN_TITLE && hasGroup && nComplete >= MIN_QUESTIONS;
+  // Q-B6: type is locked once any question has content (switching would drop it).
+  const typeLocked = data.questions.some(questionHasContent);
 
   // --- publish (claim draft onto the session user) ---
   const publish = useCallback(async () => {
     const d = dataRef.current;
     const g = groups.find((x) => x.slug === d.group_slug);
-    const complete = d.questions.filter(isQuestionComplete);
+    const complete = d.questions.filter((q) => isQuestionValid(q, d.quiz_type));
     const hasG = !!g || !!(d.newGroup && d.newGroup.trim().length >= 2);
     if (!hasG || d.title.trim().length < MIN_TITLE || complete.length < MIN_QUESTIONS) {
       setPublishError(`Add a title (${MIN_TITLE}+ chars), pick a group, and complete at least ${MIN_QUESTIONS} questions.`);
@@ -144,24 +224,21 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           coverUrl = d.cover;
         }
       }
-      // 2. create the quiz via the existing route. An existing group sends
+      // 2. upload any per-question images held as data URLs (image + intruder
+      //    types) through the same secure endpoint, now that we are authed.
+      const withImages = await uploadDeferredImages(complete, d.quiz_type);
+
+      // 3. create the quiz via the existing route. An existing group sends
       //    group_id; a brand-new custom group sends group_name, which the route
       //    resolves/creates via the existing is_custom path (create/route.ts).
       const payload = {
         ...(g ? { group_id: g.id } : { group_name: (d.newGroup ?? '').trim() }),
         title: d.title.trim(),
-        quiz_type: 'multiple_choice' as const,
+        quiz_type: d.quiz_type,
         difficulty: d.difficulty,
         language: d.language,
         cover_image_url: coverUrl,
-        questions: complete.map((q) => ({
-          question: q.question.trim(),
-          options: q.answers.map((a) => a.trim()),
-          correct: q.correctIndex,
-          ...(q.funFact && q.funFact.trim()
-            ? { fun_fact: q.funFact.trim() }
-            : {}),
-        })),
+        questions: withImages.map((q) => toApiQuestion(q, d.quiz_type)),
         settings: { timer: true, timer_seconds: 15, shuffle: false, show_answers: true },
       };
       const res = await fetch('/api/quiz/create', {
@@ -190,7 +267,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     if (d) {
       // A saved draft wins; if it had no group, fall back to the deep-linked one.
       // Old-format drafts predate newGroup/difficulty/language, so all default safely.
-      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
+      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', quiz_type: d.quiz_type ?? 'multiple_choice', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions });
     }
     // Language defaults to English for everyone (owner decision): English quizzes
     // reach the biggest audience. A saved draft's own language still wins above.
@@ -206,7 +283,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
         prof = p;
         setHasProfile(!!p);
       }
-      if (wantResume && user && d && completeCount(d.questions) >= MIN_QUESTIONS) {
+      if (wantResume && user && d && completeCount(d.questions, d.quiz_type ?? 'multiple_choice') >= MIN_QUESTIONS) {
         setStep(3);
         // Only auto-publish if they already have a profile; a brand-new account
         // picks a username inline first (no /onboarding redirect).
@@ -263,7 +340,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => {
     if (!hydrated) return;
     const t = window.setTimeout(() => {
-      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, language: data.language, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
+      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, language: data.language, quiz_type: data.quiz_type, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
       saveDraft(d);
     }, 500);
     return () => window.clearTimeout(t);
@@ -272,26 +349,11 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => { if (hydrated && step <= 3) saveStep(step); }, [step, hydrated]);
 
   // --- helpers ---
-  // Q-B3: the funnel persists the compact DraftQuestion shape (localStorage +
-  // OAuth survival unchanged), and bridges to the shared QuestionData model the
-  // list editor speaks. Create is multiple_choice only, so options are strings.
-  const draftToEditor = (dq: DraftQuestion): QuestionData => ({
-    question: dq.question,
-    options: [...dq.answers],
-    correct: dq.correctIndex,
-    fun_fact: dq.funFact ?? '',
-  });
-  const editorToDraft = (qd: QuestionData): DraftQuestion => {
-    const opts = (Array.isArray(qd.options) ? qd.options : []) as string[];
-    return {
-      question: qd.question,
-      answers: [opts[0] ?? '', opts[1] ?? '', opts[2] ?? '', opts[3] ?? ''],
-      correctIndex: typeof qd.correct === 'number' ? qd.correct : null,
-      funFact: qd.fun_fact ?? '',
-    };
-  };
+  // Q-B6: the funnel now persists the full QuestionData model directly, so the
+  // list editor reads/writes it with no conversion. An empty list falls back to
+  // one blank question of the current type.
   const handleQuestionsChange = (qs: QuestionData[]): void =>
-    setData((s) => ({ ...s, questions: qs.length ? qs.map(editorToDraft) : [blankQuestion()] }));
+    setData((s) => ({ ...s, questions: qs.length ? qs : [blankQuestionFor(s.quiz_type)] }));
 
   const pickCover = () => {
     const input = document.createElement('input');
@@ -333,7 +395,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   };
 
   const previewQuiz: QuizCardData = {
-    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: 'multiple_choice', difficulty: data.difficulty, language: data.language as QuizCardData['language'],
+    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: data.quiz_type as QuizCardData['quiz_type'], difficulty: data.difficulty, language: data.language as QuizCardData['language'],
     play_count: 0, total_score_sum: 0, total_completions: 0, like_count: 0, created_at: new Date().toISOString(),
     group_name: group?.name ?? data.newGroup ?? 'K-pop', group_slug: group?.slug ?? '', display_color: group?.display_color ?? '#E8457A',
     text_color: group?.text_color ?? '#FFFFFF', logo_url: group?.logo_url ?? null, fandom_name: group?.fandom_name ?? 'fan',
@@ -341,7 +403,6 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     question_count: data.questions.length, cover_image_url: data.cover,
   };
 
-  const editorQuestions = data.questions.map(draftToEditor);
   const quizUrl = published ? `${typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org'}/q/${published.slug}` : '';
 
   return (
@@ -364,6 +425,31 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           <div className="cf-field">
             <label className="cf-label" htmlFor="cf-title">Quiz title</label>
             <input id="cf-title" className="cf-input" value={data.title} onChange={(e) => setData((s) => ({ ...s, title: e.target.value }))} placeholder={TITLE_PLACEHOLDER} maxLength={100} />
+          </div>
+
+          <div className="cf-field">
+            <span className="cf-label">Quiz type</span>
+            <div className="cf-typegrid" role="radiogroup" aria-label="Quiz type">
+              {QUIZ_TYPE_CARDS.map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  role="radio"
+                  aria-checked={data.quiz_type === t.value}
+                  className={`cf-typecard${data.quiz_type === t.value ? ' on' : ''}`}
+                  disabled={typeLocked && data.quiz_type !== t.value}
+                  onClick={() => {
+                    if (t.value === data.quiz_type) return;
+                    setData((s) => ({ ...s, quiz_type: t.value, questions: [blankQuestionFor(t.value)] }));
+                  }}
+                >
+                  <span className="cf-typecard-label">{t.label}</span>
+                  <span className="cf-typecard-desc">{t.desc}</span>
+                  <span className="cf-typecard-ex">{t.example}</span>
+                </button>
+              ))}
+            </div>
+            {typeLocked && <p className="cf-mini-hint" style={{ textAlign: 'left' }}>Type is set for this quiz. To change it, start a new quiz.</p>}
           </div>
 
           <div className="cf-field">
@@ -461,9 +547,10 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           <p className="cf-sub">Add at least {MIN_QUESTIONS}. Drag to reorder, tap a row to edit, duplicate or delete.</p>
 
           <QuestionListEditor
-            questions={editorQuestions}
-            quizType="multiple_choice"
+            questions={data.questions}
+            quizType={data.quiz_type}
             onChange={handleQuestionsChange}
+            imageMode="defer"
           />
 
           <button type="button" className="cf-cta" onClick={() => setStep(3)}>Done &rarr;</button>
