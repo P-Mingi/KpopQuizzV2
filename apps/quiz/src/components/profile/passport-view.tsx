@@ -90,6 +90,9 @@ export interface PassportViewProps {
   topGroups: PassportTopGroup[];
   headerSlot?: React.ReactNode;
   badgesSlot?: React.ReactNode; // badge shelf, sits between collection and best groups
+  // Custom profile header/banner image. Null falls back to the holographic
+  // gradient default. Sits behind the identity, avatar overlaps it.
+  headerUrl?: string | null;
 }
 
 const card: React.CSSProperties = {
@@ -125,6 +128,17 @@ const STYLE = `
 .pp-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pp-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .pp-gens{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin-top:10px}
+.pp-band{position:relative;height:104px;margin:-16px -20px 0;overflow:hidden;background-size:cover;background-position:center}
+.pp-holo{background:
+  radial-gradient(120% 150% at 12% -20%, #8A2BE2 0%, transparent 46%),
+  radial-gradient(130% 150% at 102% 0%, #FF5C8A 0%, transparent 55%),
+  linear-gradient(120deg, var(--pp-band-1,#2A0C22) 0%, #7A1E52 48%, var(--pp-accent,#C8386F) 108%)}
+.pp-holo::after{content:"";position:absolute;inset:0;mix-blend-mode:screen;opacity:.42;pointer-events:none;
+  background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.6) 47%,rgba(120,200,255,.35) 50%,rgba(255,120,220,.45) 53%,transparent 68%);
+  background-size:280% 280%;animation:ppHolo 8s ease-in-out infinite}
+.pp-band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.22) 100%)}
+@keyframes ppHolo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@media (prefers-reduced-motion: reduce){.pp-holo::after{animation:none}}
 `;
 
 function fmt(n: number): string {
@@ -187,7 +201,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
     level, levelTitleEn, xp, xpForNext, xpPct,
     quizzesPlayed, blindtestsPlayed, duelsVoted, battlesPlayed, battlesWon, quizzesCreated,
     playsReceived, followerCount, followSlot,
-    streakCurrent, groupsMastered, groupsTotal, eras, topGroups, headerSlot, badgesSlot,
+    streakCurrent, groupsMastered, groupsTotal, eras, topGroups, headerSlot, badgesSlot, headerUrl,
   } = props;
 
   const isPersonal = mode === 'personal';
@@ -219,15 +233,26 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
     <div className="pp-wrap pp-anim" style={{ ['--pp-accent' as string]: themeAccent } as React.CSSProperties}>
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
 
-      {/* HEADER CARD: identity, ults, and the XP bar as the card's bottom edge. */}
+      {/* HEADER CARD: banner + identity, with the XP bar as the card's bottom edge. */}
       <section style={{ ...card, padding: '16px 20px 0', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', gap: 11, alignItems: 'center', marginTop: 6 }}>
-          <PassportAvatar
-            username={username} avatarUrl={avatarUrl} avatarBg={avatarBg} avatarText={avatarText}
-            avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null}
-          />
+        {/* Banner: the user's custom header image, or the holographic default. */}
+        <div
+          className={`pp-band ${headerUrl ? '' : 'pp-holo'}`}
+          style={headerUrl ? { backgroundImage: `url("${headerUrl}")` } : undefined}
+          aria-hidden="true"
+        >
+          {headerUrl && <div className="pp-band-scrim" />}
+        </div>
 
-          <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', gap: 11, alignItems: 'flex-end', marginTop: 8 }}>
+          <div style={{ marginTop: -44, flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
+            <PassportAvatar
+              username={username} avatarUrl={avatarUrl} avatarBg={avatarBg} avatarText={avatarText}
+              avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null}
+            />
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0, paddingBottom: 1 }}>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
               <h1 style={{ fontSize: 16.5, fontWeight: 500, color: accentName, lineHeight: 1.15, margin: 0 }}>{displayName}</h1>
               {pinnedIcon && (
