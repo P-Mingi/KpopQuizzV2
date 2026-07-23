@@ -247,7 +247,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
         {/* Pull the whole row up so the avatar straddles the band; the text
             columns are padded back down to sit below it. */}
         <div style={{ display: 'flex', gap: 13, alignItems: 'flex-start', marginTop: -36 }}>
-          <div style={{ flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
+          <div style={{ position: 'relative', zIndex: 2, flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
             <PassportAvatar
               username={username} avatarUrl={avatarUrl} avatarBg={avatarBg} avatarText={avatarText}
               avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null} size={64}
