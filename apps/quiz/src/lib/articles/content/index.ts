@@ -13,6 +13,9 @@ const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ComponentType }>>
   'stray-kids-vs-ateez': () => import('./stray-kids-vs-ateez'),
   'aespa-vs-newjeans-quiz': () => import('./aespa-vs-newjeans-quiz'),
   'kpop-blind-test-by-group-ranked': () => import('./kpop-blind-test-by-group-ranked'),
+  'guess-the-kpop-idol-guide': () => import('./guess-the-kpop-idol-guide'),
+  'best-kpop-quizzes-for-beginners': () => import('./best-kpop-quizzes-for-beginners'),
+  'kpop-eras-timeline': () => import('./kpop-eras-timeline'),
 };
 
 export async function loadArticleContent(

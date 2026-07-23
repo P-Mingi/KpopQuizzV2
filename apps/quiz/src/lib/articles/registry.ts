@@ -426,6 +426,105 @@ export const ARTICLES: ArticleMeta[] = [
       },
     ],
   },
+  {
+    slug: 'guess-the-kpop-idol-guide',
+    title: 'Guess the K-pop Idol: The Visual Quiz Guide',
+    description:
+      'How the guess-the-K-pop-idol image quiz works and how to get better at it. Recognize idols, groups and eras from a single photo, and train your eye past the styling.',
+    category: 'guide',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'A guess-the-K-pop-idol photo quiz with multiple choice answers',
+    tags: ['guess the idol', 'image quiz', 'guide'],
+    relatedLinks: [
+      { label: 'Play guess the idol', href: '/guess-the-kpop-idol' },
+      { label: 'Browse image quizzes', href: '/quizzes' },
+      { label: 'Try the blind test', href: '/blindtest' },
+    ],
+    faq: [
+      {
+        question: 'How does a guess-the-K-pop-idol quiz work?',
+        answer:
+          'Each question shows a photo and four possible answers, and you pick who it is. Some quizzes test individual idols, others test which group a member belongs to, and the hardest use pre-debut or throwback photos.',
+      },
+      {
+        question: 'Why is guessing K-pop idols so hard?',
+        answer:
+          'K-pop idols change their hair, styling and makeup dramatically between eras, so the same person can look very different from one comeback to the next. Group members also share styling during a concept.',
+      },
+      {
+        question: 'How can I get better at visual K-pop quizzes?',
+        answer:
+          'Start with groups you already follow, learn each member alongside their most distinctive era, and anchor on facial features rather than hair color. Repetition turns lucky guesses into instant recognition.',
+      },
+    ],
+  },
+  {
+    slug: 'best-kpop-quizzes-for-beginners',
+    title: 'The Best K-pop Quizzes for Beginners',
+    description:
+      'The best K-pop quizzes for beginners: start with one group you like on easy difficulty, learn members and title tracks first, then work up. A simple, encouraging path into K-pop quizzes.',
+    category: 'listicle',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'Beginner-friendly K-pop quizzes for new fans',
+    tags: ['beginner', 'easy quizzes', 'guide'],
+    relatedLinks: [
+      { label: 'Browse easy quizzes', href: '/easy-kpop-quizzes' },
+      { label: 'Try the blind test', href: '/blindtest' },
+      { label: 'Browse all quizzes', href: '/quizzes' },
+    ],
+    faq: [
+      {
+        question: 'What is the best K-pop quiz for a total beginner?',
+        answer:
+          'Start with a single group you already enjoy rather than a general K-pop quiz. Single-group quizzes keep the answer pool small and familiar. The easy quizzes section collects the most approachable options in one place.',
+      },
+      {
+        question: 'How should a beginner get better at K-pop quizzes?',
+        answer:
+          'Move in three steps: learn a group\'s members with a member or image quiz, take a title-tracks quiz, then try the group blind test. Only after that attempt hard, B-side-heavy quizzes or the all-groups mix.',
+      },
+      {
+        question: 'Which K-pop quizzes should beginners avoid at first?',
+        answer:
+          'Skip the hardest quizzes early. B-side deep dives, timeline challenges and the all-groups blind test are built for fans with years of knowledge. There is no penalty for starting easy and working up.',
+      },
+    ],
+  },
+  {
+    slug: 'kpop-eras-timeline',
+    title: 'K-pop Eras Timeline: How Long Have You Really Been a Fan?',
+    description:
+      'The five K-pop generations on one timeline, with approximate years and era markers from 1st gen to 5th gen. Find where you started and test your era knowledge with a blind test.',
+    category: 'guide',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'Timeline of the five K-pop generations from 1996 to today',
+    tags: ['generations', 'eras', 'timeline'],
+    relatedLinks: [
+      { label: 'Play by generation', href: '/blindtest' },
+      { label: 'Generations explained', href: '/articles/kpop-generations-explained' },
+      { label: 'Browse all quizzes', href: '/quizzes' },
+    ],
+    faq: [
+      {
+        question: 'How many K-pop generations are there?',
+        answer:
+          'K-pop is usually split into five generations. The approximate ranges are 1st gen 1996 to 2003, 2nd gen 2004 to 2011, 3rd gen 2012 to 2017, 4th gen 2018 to 2022, and 5th gen 2023 to present. The edges are debated.',
+      },
+      {
+        question: 'How do I know which K-pop generation I started in?',
+        answer:
+          'Think about the first group whose comeback you followed in real time, not one you discovered later. That group\'s generation is your entry point, and it is often a generation older or newer than fans assume.',
+      },
+      {
+        question: 'How can I test my K-pop era knowledge?',
+        answer:
+          'The blind test lets you filter by generation, so you can play only your era or challenge yourself on the others. The generations guide covers how each era is defined in more depth.',
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): ArticleMeta | undefined {
