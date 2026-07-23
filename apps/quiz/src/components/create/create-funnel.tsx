@@ -13,7 +13,7 @@ import {
   validateImageFile, ACCEPTED_IMAGE_TYPES,
 } from '@/lib/create-draft';
 import { GroupPicker } from './group-picker';
-import { LANGUAGES, detectBrowserLanguage } from '@/lib/languages';
+import { LANGUAGES } from '@/lib/languages';
 import { QuestionListEditor, type QuestionData } from '@/components/quiz/question-list-editor';
 import { creatorNudge, type CreatorStats } from '@/lib/creator-progress';
 import { languageChip } from '@/lib/languages';
@@ -191,10 +191,9 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
       // A saved draft wins; if it had no group, fall back to the deep-linked one.
       // Old-format drafts predate newGroup/difficulty/language, so all default safely.
       setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
-    } else {
-      // No saved draft: default the language from the browser locale (client-only).
-      setData((s) => ({ ...s, language: detectBrowserLanguage() }));
     }
+    // Language defaults to English for everyone (owner decision): English quizzes
+    // reach the biggest audience. A saved draft's own language still wins above.
     // No draft: the useState initializer already seeded validInitialGroup.
     const params = new URLSearchParams(window.location.search);
     const wantResume = params.get('resume') === 'publish';
@@ -413,7 +412,14 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
               </select>
               <svg className="cf-select-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
             </div>
-            <p className="cf-cover-help">The language your questions are written in.</p>
+            <div className={`cf-lang-note${data.language === 'en' ? ' good' : ' warn'}`} role="note">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+              <span>
+                {data.language === 'en'
+                  ? 'English reaches the most fans, so your quiz can be played by the biggest audience.'
+                  : 'Quizzes written in English reach a much bigger audience. Choose English to be seen by the most fans.'}
+              </span>
+            </div>
           </div>
 
           <div className="cf-field">

@@ -4,14 +4,11 @@ import { useMemo, useRef, useState } from 'react';
 
 import type { FunnelGroup } from './create-funnel';
 
-// Q-B1: searchable group picker. Replaces the full chip wall of every group
-// (87 on prod) with a search-first combobox: type to filter, arrow keys +
-// Enter to pick, and an explicit "add a new group" row that routes to the
-// EXISTING custom-group API path (create/route.ts resolves group_name -> a new
-// is_custom group). The list is rendered lazily (capped), so we never paint all
-// 87 rows at once even though the full set is already in memory.
-
-const MAX_VISIBLE = 8; // lazy render cap - never more than this at once
+// Q-B1: searchable group picker over EVERY group in the database (getAllGroups
+// passes the full set in). Type to filter, arrow keys + Enter to pick. The full
+// list is browsable in the scrollable panel below - no group is hidden - and an
+// explicit "add a new group" row routes to the EXISTING custom-group API path
+// (create/route.ts resolves group_name -> a new is_custom group in the DB).
 
 interface GroupPickerProps {
   groups: FunnelGroup[];
@@ -32,10 +29,12 @@ export function GroupPicker({
   const selectedGroup = selectedSlug ? groups.find((g) => g.slug === selectedSlug) ?? null : null;
   const q = query.trim().toLowerCase();
 
-  const matches = useMemo(() => {
-    const list = q ? groups.filter((g) => g.name.toLowerCase().includes(q)) : groups;
-    return list.slice(0, MAX_VISIBLE);
-  }, [groups, q]);
+  // Every matching group is shown (the panel scrolls); nothing is capped, so any
+  // group in the DB is reachable by scrolling or searching.
+  const matches = useMemo(
+    () => (q ? groups.filter((g) => g.name.toLowerCase().includes(q)) : groups),
+    [groups, q],
+  );
 
   // Offer "create" only when the query does not exactly match an existing group.
   const exactExists = q.length > 0 && groups.some((g) => g.name.toLowerCase() === q);
@@ -88,7 +87,7 @@ export function GroupPicker({
         aria-expanded={rowCount > 0}
         aria-controls="gp-list"
         aria-autocomplete="list"
-        placeholder="Search groups (BTS, aespa, Stray Kids...)"
+        placeholder={`Search all ${groups.length} groups...`}
         value={query}
         onChange={(e) => { setQuery(e.target.value); setActive(0); }}
         onKeyDown={onKeyDown}
@@ -97,6 +96,9 @@ export function GroupPicker({
       />
       {rowCount > 0 && (
         <ul className="gp-list" id="gp-list" role="listbox" aria-label="Groups">
+          <li className="gp-count" aria-hidden="true">
+            {q ? `${matches.length} match${matches.length === 1 ? '' : 'es'}` : `All ${groups.length} groups`}
+          </li>
           {matches.map((g, i) => (
             <li key={g.slug} role="option" aria-selected={i === active}>
               <button

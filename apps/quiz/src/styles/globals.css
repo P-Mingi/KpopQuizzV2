@@ -2953,9 +2953,18 @@ a.ranking-cta { text-decoration: none; }
 .cf-select { width: 100%; min-height: 50px; padding: 13px 40px 13px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt1); font-family: var(--font-body); font-size: 15px; cursor: pointer; -webkit-appearance: none; appearance: none; transition: border-color 120ms ease; }
 .cf-select:focus-visible { border-color: var(--brand); outline: none; }
 .cf-select-caret { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--txt3); pointer-events: none; }
+/* Q: prominent English-reach recommendation. Always visible, tone shifts with the pick. */
+.cf-lang-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 10px; padding: 11px 13px; border-radius: 12px; font-size: 13px; font-weight: 600; line-height: 1.45; }
+.cf-lang-note svg { flex-shrink: 0; margin-top: 1px; }
+.cf-lang-note.good { color: #0f7a4d; background: color-mix(in srgb, #12b76a 12%, transparent); border: 1px solid color-mix(in srgb, #12b76a 30%, transparent); }
+.cf-lang-note.warn { color: #9a5b00; background: color-mix(in srgb, #f59e0b 15%, transparent); border: 1px solid color-mix(in srgb, #f59e0b 40%, transparent); }
+:root[data-theme="dark"] .cf-lang-note.good { color: #5ee0a0; }
+:root[data-theme="dark"] .cf-lang-note.warn { color: #f5c14e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cf-lang-note.good { color: #5ee0a0; } :root:not([data-theme="light"]) .cf-lang-note.warn { color: #f5c14e; } }
 
 .gp-wrap { position: relative; }
 .gp-list { list-style: none; margin: 8px 0 0; padding: 6px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-card); max-height: 300px; overflow-y: auto; }
+.gp-count { padding: 4px 12px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--txt3); position: sticky; top: -6px; background: var(--surface); }
 .gp-opt { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 10px 12px; border: none; border-radius: 9px; background: none; color: var(--txt1); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
 .gp-opt.active { background: var(--brand-light); color: var(--brand); }
 .gp-opt-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0, 0, 0, 0.08); }
