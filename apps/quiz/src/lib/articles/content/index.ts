@@ -19,6 +19,7 @@ const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ComponentType }>>
   'newjeans-fan-guide': () => import('./newjeans-fan-guide'),
   'bts-discography-guide': () => import('./bts-discography-guide'),
   'rookie-kpop-groups-2026': () => import('./rookie-kpop-groups-2026'),
+  'kpop-facts-every-fan-should-know': () => import('./kpop-facts-every-fan-should-know'),
 };
 
 export async function loadArticleContent(

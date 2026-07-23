@@ -624,6 +624,44 @@ export const ARTICLES: ArticleMeta[] = [
       },
     ],
   },
+  {
+    slug: 'kpop-facts-every-fan-should-know',
+    title: '40 K-pop Facts Every Fan Should Know (Verified)',
+    description:
+      '40 verified K-pop facts: debut years, member counts, fandom names, company affiliations and chart firsts. Each one checked against public record or the group data on kpopquiz.org.',
+    category: 'listicle',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'A collection of verified K-pop facts about groups, members and records',
+    tags: ['kpop facts', 'trivia', 'reference'],
+    relatedLinks: [
+      { label: 'Browse all quizzes', href: '/quizzes' },
+      { label: 'Generations explained', href: '/articles/kpop-generations-explained' },
+      { label: 'Try the blind test', href: '/blindtest' },
+    ],
+    faq: [
+      {
+        question: 'How many members does SEVENTEEN have?',
+        answer:
+          'SEVENTEEN has 13 members, the largest lineup among major active K-pop groups. The group is organized into three official units: hip-hop, vocal and performance.',
+      },
+      {
+        question: 'When did BTS and BLACKPINK debut?',
+        answer:
+          'BTS debuted in 2013 and BLACKPINK debuted in 2016. Both are among the most-tested debut years in K-pop quizzes because they anchor their groups in the 3rd generation.',
+      },
+      {
+        question: 'What are the four biggest K-pop companies?',
+        answer:
+          'The four largest K-pop companies are SM, JYP, YG and HYBE. For example, aespa and Red Velvet are SM groups, TWICE and Stray Kids are JYP groups, BLACKPINK is YG, and BTS releases under HYBE labels.',
+      },
+      {
+        question: 'What was the first Billboard Hot 100 number one by a K-pop act?',
+        answer:
+          'BTS reached number one on the Billboard Hot 100 for the first time with Dynamite in 2020. Earlier, PSY\'s Gangnam Style was the first YouTube video to pass one billion views, in 2012.',
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): ArticleMeta | undefined {
