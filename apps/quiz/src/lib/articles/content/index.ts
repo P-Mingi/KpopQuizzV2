@@ -10,6 +10,9 @@ const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ComponentType }>>
   'most-played-kpop-quizzes': () => import('./most-played-kpop-quizzes'),
   'girl-groups-vs-boy-groups-kpop-quiz': () => import('./girl-groups-vs-boy-groups-kpop-quiz'),
   'hardest-kpop-groups-to-memorize': () => import('./hardest-kpop-groups-to-memorize'),
+  'stray-kids-vs-ateez': () => import('./stray-kids-vs-ateez'),
+  'aespa-vs-newjeans-quiz': () => import('./aespa-vs-newjeans-quiz'),
+  'kpop-blind-test-by-group-ranked': () => import('./kpop-blind-test-by-group-ranked'),
 };
 
 export async function loadArticleContent(

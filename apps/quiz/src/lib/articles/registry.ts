@@ -327,6 +327,105 @@ export const ARTICLES: ArticleMeta[] = [
       },
     ],
   },
+  {
+    slug: 'stray-kids-vs-ateez',
+    title: 'Stray Kids vs ATEEZ: The 4th-Gen Boy Group Showdown',
+    description:
+      'Stray Kids vs ATEEZ compared: both 4th-generation, both eight members, both self-producing. A member, sound, and blind-test comparison to decide which K-pop quiz to take.',
+    category: 'comparison',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'Stray Kids and ATEEZ compared side by side',
+    tags: ['stray kids', 'ateez', 'comparison'],
+    relatedLinks: [
+      { label: 'Stray Kids quizzes', href: '/stray-kids-quiz' },
+      { label: 'ATEEZ quizzes', href: '/ateez-quiz' },
+      { label: 'Try the blind test', href: '/blindtest' },
+    ],
+    faq: [
+      {
+        question: 'Are Stray Kids and ATEEZ the same generation?',
+        answer:
+          'Yes. Both Stray Kids and ATEEZ are 4th-generation K-pop boy groups, and both have eight members. They are frequently compared because they debuted close together and both self-produce much of their music.',
+      },
+      {
+        question: 'Which group is harder to quiz on, Stray Kids or ATEEZ?',
+        answer:
+          'It depends on the skill. Stray Kids quizzes stress music recognition and catalog breadth thanks to their genre-shifting production. ATEEZ quizzes lean on concept and timeline knowledge because of their long-running story eras.',
+      },
+      {
+        question: 'How many blind test songs do Stray Kids and ATEEZ have?',
+        answer:
+          'On kpopquiz.org each group has 18 curated songs in the blind test, so they are evenly matched on catalog size. The difficulty difference comes from texture, not volume.',
+      },
+    ],
+  },
+  {
+    slug: 'aespa-vs-newjeans-quiz',
+    title: 'aespa vs NewJeans: The 4th-Gen Girl Group Quiz Face-Off',
+    description:
+      'aespa vs NewJeans compared: two defining 4th-generation girl groups with opposite sounds. Members, style, and blind-test difficulty to help you pick your K-pop quiz.',
+    category: 'comparison',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'aespa and NewJeans compared side by side',
+    tags: ['aespa', 'newjeans', 'comparison'],
+    relatedLinks: [
+      { label: 'aespa quizzes', href: '/aespa-quiz' },
+      { label: 'NewJeans quizzes', href: '/newjeans-quiz' },
+      { label: 'Try the blind test', href: '/blindtest' },
+    ],
+    faq: [
+      {
+        question: 'Are aespa and NewJeans the same generation?',
+        answer:
+          'Yes. Both aespa and NewJeans are 4th-generation K-pop girl groups. aespa has four members and NewJeans has five, and the two are often compared as leaders of the current girl-group wave.',
+      },
+      {
+        question: 'Which group is easier to quiz on, aespa or NewJeans?',
+        answer:
+          'NewJeans is usually the easier entry point. Their cohesive, instantly recognizable sound makes songs easy to place. aespa cover more sonic ground across eras, which raises their blind-test difficulty.',
+      },
+      {
+        question: 'How many members do aespa and NewJeans have?',
+        answer:
+          'aespa has four members and NewJeans has five. Both are compact lineups compared with larger groups, which makes their member quizzes quicker to clear.',
+      },
+    ],
+  },
+  {
+    slug: 'kpop-blind-test-by-group-ranked',
+    title: 'K-pop Blind Test by Group: Every Playlist Ranked by Difficulty',
+    description:
+      'A practical difficulty ranking of the K-pop blind test group playlists on kpopquiz.org. Each group has 18 songs, so difficulty comes down to how recognizable the catalog is.',
+    category: 'listicle',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'K-pop blind test group playlists ranked from easiest to hardest',
+    tags: ['blind test', 'by group', 'difficulty'],
+    relatedLinks: [
+      { label: 'Play the blind test', href: '/blindtest' },
+      { label: 'BLACKPINK quizzes', href: '/blackpink-quiz' },
+      { label: 'Browse all quizzes', href: '/quizzes' },
+    ],
+    faq: [
+      {
+        question: 'Which K-pop group is easiest to guess in a blind test?',
+        answer:
+          'Groups with the most recognizable, hook-driven title tracks are easiest: BLACKPINK, NewJeans, TWICE and BTS. Their biggest songs are identifiable within the first few seconds of a clip.',
+      },
+      {
+        question: 'Which K-pop group is hardest to guess in a blind test?',
+        answer:
+          'Groups with dense catalogs or a cinematic, similar-sounding house style are hardest, including ATEEZ, SEVENTEEN and Red Velvet. Their B-sides blur together without deep fandom knowledge.',
+      },
+      {
+        question: 'How many songs are in each group blind test?',
+        answer:
+          'Each group playlist draws from 18 curated songs, so difficulty is about how recognizable the catalog is, not how big it is. You can also play the all-groups mix or filter by generation.',
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): ArticleMeta | undefined {
