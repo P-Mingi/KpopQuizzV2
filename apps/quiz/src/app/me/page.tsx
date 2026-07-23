@@ -3,6 +3,9 @@ import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/db/queries/profiles';
+import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
+import { safeFetch } from '@/lib/error-handling';
+import { ProfileTabs } from '@/app/u/[username]/profile-tabs';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
@@ -125,6 +128,11 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
 
+  // U-3: the owner's created-quizzes list (with per-quiz plays + likes on each
+  // card). It lived on the public /u/[username] passport but not on /me, so the
+  // owner could not see "how their quizzes are doing" from their own profile.
+  const createdQuizzes = await safeFetch(getQuizzesByCreator(user.id, 0, 10), [], '[me] getQuizzesByCreator');
+
   return (
     <div style={{ paddingTop: 16 }}>
       <PassportView
@@ -192,6 +200,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       eras={collection.eras}
       topGroups={topGroups}
       />
+      <div style={{ marginTop: 18 }}>
+        <ProfileTabs profileUsername={profile.username} initialQuizzes={createdQuizzes} creatorId={user.id} />
+      </div>
       <div style={{ marginTop: 14, display: 'flex', justifyContent: 'center' }}>
         <FanCardShare username={profile.username} />
       </div>
