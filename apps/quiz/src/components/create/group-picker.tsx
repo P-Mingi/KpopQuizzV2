@@ -6,9 +6,10 @@ import type { FunnelGroup } from './create-funnel';
 
 // Q-B1: searchable group picker over EVERY group in the database (getAllGroups
 // passes the full set in). Type to filter, arrow keys + Enter to pick. The full
-// list is browsable in the scrollable panel below - no group is hidden - and an
-// explicit "add a new group" row routes to the EXISTING custom-group API path
-// (create/route.ts resolves group_name -> a new is_custom group in the DB).
+// list is browsable in the scrollable panel below - no group is hidden. A
+// "New group or artist" row is pinned FIRST; clicking it opens a name-entry
+// field that routes to the EXISTING custom-group API path (create/route.ts
+// resolves group_name -> a new is_custom group in the DB).
 
 interface GroupPickerProps {
   groups: FunnelGroup[];
@@ -24,7 +25,10 @@ export function GroupPicker({
 }: GroupPickerProps): React.ReactElement {
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
+  const [creating, setCreating] = useState(false);
+  const [newName, setNewName] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const newInputRef = useRef<HTMLInputElement>(null);
 
   const selectedGroup = selectedSlug ? groups.find((g) => g.slug === selectedSlug) ?? null : null;
   const q = query.trim().toLowerCase();
@@ -35,11 +39,6 @@ export function GroupPicker({
     () => (q ? groups.filter((g) => g.name.toLowerCase().includes(q)) : groups),
     [groups, q],
   );
-
-  // Offer "create" only when the query does not exactly match an existing group.
-  const exactExists = q.length > 0 && groups.some((g) => g.name.toLowerCase() === q);
-  const canCreate = query.trim().length >= 2 && !exactExists;
-  const rowCount = matches.length + (canCreate ? 1 : 0);
 
   // A group (existing or custom) is already chosen: show it as a filled row.
   if (selectedGroup || customGroup) {
@@ -61,20 +60,60 @@ export function GroupPicker({
     );
   }
 
-  const commit = (index: number): void => {
-    if (index < matches.length) {
-      onSelect(matches[index]!.slug);
-    } else if (canCreate) {
-      onCreateCustom(query.trim());
-    }
-    setQuery('');
-    setActive(0);
+  const enterCreate = (): void => {
+    setNewName(query.trim());
+    setCreating(true);
+    requestAnimationFrame(() => newInputRef.current?.focus());
   };
 
+  const submitCreate = (): void => {
+    const name = newName.trim();
+    if (name.length < 2) return;
+    onCreateCustom(name);
+    setCreating(false);
+    setNewName('');
+    setQuery('');
+  };
+
+  // Create mode: a dedicated name-entry field for a brand-new group or artist.
+  if (creating) {
+    return (
+      <div className="gp-wrap">
+        <div className="gp-create">
+          <label className="gp-create-label" htmlFor="gp-new">New group or artist</label>
+          <input
+            id="gp-new"
+            ref={newInputRef}
+            className="cf-input"
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') { e.preventDefault(); submitCreate(); }
+              else if (e.key === 'Escape') { setCreating(false); }
+            }}
+            placeholder="e.g. Cortis"
+            maxLength={60}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <div className="gp-create-actions">
+            <button type="button" className="gp-create-cancel" onClick={() => setCreating(false)}>Cancel</button>
+            <button type="button" className="gp-create-go" disabled={newName.trim().length < 2} onClick={submitCreate}>Create group</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'ArrowDown') { e.preventDefault(); setActive((i) => Math.min(i + 1, rowCount - 1)); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive((i) => Math.min(i + 1, matches.length - 1)); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((i) => Math.max(i - 1, 0)); }
-    else if (e.key === 'Enter') { e.preventDefault(); if (rowCount > 0) commit(active); }
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (matches.length > 0) { onSelect(matches[active]!.slug); setQuery(''); setActive(0); }
+      else if (query.trim().length >= 2) { enterCreate(); }
+    }
   };
 
   return (
@@ -84,7 +123,7 @@ export function GroupPicker({
         className="cf-input gp-input"
         type="text"
         role="combobox"
-        aria-expanded={rowCount > 0}
+        aria-expanded
         aria-controls="gp-list"
         aria-autocomplete="list"
         placeholder={`Search all ${groups.length} groups...`}
@@ -94,42 +133,34 @@ export function GroupPicker({
         autoComplete="off"
         spellCheck={false}
       />
-      {rowCount > 0 && (
-        <ul className="gp-list" id="gp-list" role="listbox" aria-label="Groups">
-          <li className="gp-count" aria-hidden="true">
-            {q ? `${matches.length} match${matches.length === 1 ? '' : 'es'}` : `All ${groups.length} groups`}
+      <ul className="gp-list" id="gp-list" role="listbox" aria-label="Groups">
+        {/* Pinned first: create a new group or artist. */}
+        <li role="option" aria-selected={false}>
+          <button type="button" className="gp-opt gp-opt-create gp-opt-newfirst" onClick={enterCreate}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            <span className="gp-opt-name">New group or artist{q ? <>: <strong>{query.trim()}</strong></> : ''}</span>
+          </button>
+        </li>
+        <li className="gp-count" aria-hidden="true">
+          {q ? `${matches.length} match${matches.length === 1 ? '' : 'es'}` : `All ${groups.length} groups`}
+        </li>
+        {matches.map((g, i) => (
+          <li key={g.slug} role="option" aria-selected={i === active}>
+            <button
+              type="button"
+              className={`gp-opt${i === active ? ' active' : ''}`}
+              onMouseEnter={() => setActive(i)}
+              onClick={() => { onSelect(g.slug); setQuery(''); setActive(0); }}
+            >
+              <span className="gp-opt-dot" style={{ background: g.display_color }} aria-hidden="true" />
+              <span className="gp-opt-name">{g.name}</span>
+            </button>
           </li>
-          {matches.map((g, i) => (
-            <li key={g.slug} role="option" aria-selected={i === active}>
-              <button
-                type="button"
-                className={`gp-opt${i === active ? ' active' : ''}`}
-                onMouseEnter={() => setActive(i)}
-                onClick={() => commit(i)}
-              >
-                <span className="gp-opt-dot" style={{ background: g.display_color }} aria-hidden="true" />
-                <span className="gp-opt-name">{g.name}</span>
-              </button>
-            </li>
-          ))}
-          {canCreate && (
-            <li role="option" aria-selected={active === matches.length}>
-              <button
-                type="button"
-                className={`gp-opt gp-opt-create${active === matches.length ? ' active' : ''}`}
-                onMouseEnter={() => setActive(matches.length)}
-                onClick={() => commit(matches.length)}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-                <span className="gp-opt-name">Add <strong>{query.trim()}</strong> as a new group</span>
-              </button>
-            </li>
-          )}
-        </ul>
-      )}
-      {q.length > 0 && rowCount === 0 && (
-        <p className="cf-mini-hint" style={{ textAlign: 'left', marginTop: 8 }}>No groups match. Type at least 2 characters to add a new one.</p>
-      )}
+        ))}
+        {q.length > 0 && matches.length === 0 && (
+          <li className="gp-empty" aria-hidden="true">No existing group matches. Use New group or artist above.</li>
+        )}
+      </ul>
     </div>
   );
 }
