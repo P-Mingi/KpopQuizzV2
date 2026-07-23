@@ -53,7 +53,14 @@ interface LbEntry {
 }
 
 type Phase = 'setup' | 'loading' | 'playing' | 'reveal' | 'results';
-type PickKind = 'all' | 'gen' | 'group';
+type PickKind = 'all' | 'gen' | 'group' | 'type';
+
+// U-2a: girl/boy group picks. The generate API already supports the 'gg'/'bg'
+// playlists (GENERAL_PLAYLISTS); this just surfaces them in the setup picker.
+const GENDER_PICKS: Array<{ id: string; label: string }> = [
+  { id: 'gg', label: 'Girl groups' },
+  { id: 'bg', label: 'Boy groups' },
+];
 
 const GENERATIONS: Array<{ id: string; label: string }> = [
   { id: '1st-gen', label: '1st gen' },
@@ -115,7 +122,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   // Destructure the hook's stable useCallback fns: the hook returns a NEW object
   // each render, so depending on `audio` directly would re-run effects every
   // render (clearing the timer + tearing down audio). The fns themselves are stable.
-  const { unlock, loadAndPlay, stop, fadeOut, cleanup, isPlaying } = useAudioPlayer();
+  const { unlock, loadAndPlay, preload, stop, fadeOut, cleanup, isPlaying } = useAudioPlayer();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef(0);
   const answeredRef = useRef(false);
@@ -156,12 +163,14 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     setPhase('reveal');
   }, [fadeOut, stopTimer]);
 
-  const playQuestion = useCallback((q: Question) => {
+  const playQuestion = useCallback((q: Question, nextUrl?: string) => {
     answeredRef.current = false;
     setSelected(null);
     setTimeLeft(TIMER);
     if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
     loadAndPlay(q.preview_url);
+    // U-2d: warm the next clip while this one plays so it starts instantly.
+    if (nextUrl) preload(nextUrl);
     startRef.current = Date.now();
     stopTimer();
     timerRef.current = setInterval(() => {
@@ -174,7 +183,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         setTimeLeft(remaining);
       }
     }, 50);
-  }, [loadAndPlay, reveal, stopTimer]);
+  }, [loadAndPlay, preload, reveal, stopTimer]);
 
   const finish = useCallback(() => {
     stopTimer();
@@ -234,7 +243,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     if (next >= questions.length) { finish(); return; }
     setIndex(next);
     setPhase('playing');
-    playQuestion(questions[next]!);
+    playQuestion(questions[next]!, questions[next + 1]?.preview_url);
   }, [index, questions, finish, playQuestion]);
 
   // Auto-advance from reveal.
@@ -263,7 +272,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setAnswers([]);
       analytics.gameStart('blindtest', isDailyLaunch());
       setPhase('playing');
-      playQuestion(data.questions[0]!);
+      playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
     } catch {
       setError('Could not start the game. Check your connection.');
       setPhase('setup');
@@ -288,7 +297,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       dailySubmittedRef.current = false;
       analytics.gameStart('blindtest', true);
       setPhase('playing');
-      playQuestion(data.questions[0]!);
+      playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
     } catch {
       setDailyError(true);
       setPhase('setup');
@@ -413,6 +422,21 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               <span className="bt-pick-all-title">All K-pop</span>
               <span className="bt-pick-all-sub">Every group, every generation</span>
             </button>
+
+            <p className="bt-pick-heading">By type</p>
+            <div className="bt-chip-row">
+              {GENDER_PICKS.map((g) => (
+                <button
+                  key={g.id}
+                  type="button"
+                  className={`bt-chip${playlist === g.id ? ' on' : ''}`}
+                  onClick={() => choosePlaylist('type', g.id, g.label)}
+                  aria-pressed={playlist === g.id}
+                >
+                  {g.label}
+                </button>
+              ))}
+            </div>
 
             <p className="bt-pick-heading">By generation</p>
             <div className="bt-chip-row">

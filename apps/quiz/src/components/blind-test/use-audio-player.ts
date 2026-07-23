@@ -4,6 +4,9 @@ import { useRef, useCallback, useState } from 'react';
 
 export function useAudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // U-2d: the next question's audio, buffered during the current one so it plays
+  // instantly instead of fetching the Deezer clip on demand at each question.
+  const preloadRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const unlockedRef = useRef(false);
@@ -32,6 +35,18 @@ export function useAudioPlayer() {
     unlockedRef.current = true;
   }, []);
 
+  /** Buffer a clip ahead of time (next question) without playing it. */
+  const preload = useCallback((previewUrl: string) => {
+    if (!previewUrl) return;
+    if (preloadRef.current && preloadRef.current.src === previewUrl) return;
+    const a = new Audio();
+    a.preload = 'auto';
+    a.volume = 0.5;
+    a.src = previewUrl;
+    a.load(); // kick the browser to start buffering the clip now
+    preloadRef.current = a;
+  }, []);
+
   const load = useCallback((previewUrl: string) => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -39,10 +54,19 @@ export function useAudioPlayer() {
       audioRef.current.load();
     }
 
-    const audio = new Audio();
-    audio.preload = 'auto';
-    // Song preview sits below 1.0 to leave headroom for SFX (correct/wrong/tick/reveal).
-    audio.volume = 0.5;
+    // Reuse the already-buffered element when it matches (instant playback),
+    // otherwise create a fresh one.
+    let audio: HTMLAudioElement;
+    if (preloadRef.current && preloadRef.current.src === previewUrl) {
+      audio = preloadRef.current;
+      preloadRef.current = null;
+    } else {
+      audio = new Audio();
+      audio.preload = 'auto';
+      // Song preview sits below 1.0 to leave headroom for SFX (correct/wrong/tick/reveal).
+      audio.volume = 0.5;
+      audio.src = previewUrl;
+    }
 
     audio.oncanplaythrough = () => setIsLoaded(true);
     audio.onplay = () => setIsPlaying(true);
@@ -53,9 +77,9 @@ export function useAudioPlayer() {
       setIsPlaying(false);
     };
 
-    audio.src = previewUrl;
     audioRef.current = audio;
-    setIsLoaded(false);
+    // If the preloaded clip is already buffered we can mark it loaded now.
+    setIsLoaded(audio.readyState >= 3);
 
     return audio;
   }, []);
@@ -114,7 +138,11 @@ export function useAudioPlayer() {
       audioRef.current.removeAttribute('src');
       audioRef.current = null;
     }
+    if (preloadRef.current) {
+      preloadRef.current.removeAttribute('src');
+      preloadRef.current = null;
+    }
   }, []);
 
-  return { load, loadAndPlay, play, pause, stop, fadeOut, cleanup, unlock, isPlaying, isLoaded, audioRef };
+  return { load, loadAndPlay, preload, play, pause, stop, fadeOut, cleanup, unlock, isPlaying, isLoaded, audioRef };
 }
