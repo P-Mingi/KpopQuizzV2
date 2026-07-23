@@ -790,6 +790,44 @@ body {
 @media (min-width: 768px) {
   .filter-bar { top: 64px; } /* sits flush below the 64px sticky top-nav */
 }
+
+/* U-5 - desktop filters: searchable group dropdown + native selects, replacing
+   the mobile chip scrollers on pointer devices / wide viewports. */
+.filter-bar-desktop { display: none; }
+@media (min-width: 768px) {
+  .filter-bar-mobile { display: none; }
+  .filter-bar-desktop {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px;
+    position: sticky; top: 64px; z-index: 20;
+    padding: 12px 0; margin-bottom: 4px;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+}
+.fbd-field { display: flex; flex-direction: column; gap: 5px; }
+.fbd-label { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--txt3); }
+.fbd-select-wrap { position: relative; }
+.fbd-select { min-width: 150px; min-height: 40px; padding: 8px 34px 8px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt1); font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.fbd-select:hover { border-color: var(--brand); }
+.fbd-select:focus-visible { outline: none; border-color: var(--brand); }
+.fbd-caret { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--txt3); pointer-events: none; }
+
+.bgs { position: relative; }
+.bgs-trigger { display: inline-flex; align-items: center; gap: 8px; min-width: 190px; min-height: 40px; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt1); font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color 120ms ease; }
+.bgs-trigger:hover, .bgs-trigger.open { border-color: var(--brand); }
+.bgs-trigger-label { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bgs-caret { color: var(--txt3); flex-shrink: 0; }
+.bgs-panel { position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; width: 260px; max-width: 80vw; padding: 8px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); box-shadow: var(--shadow-card); }
+.bgs-search { width: 100%; min-height: 40px; padding: 9px 12px; border-radius: 9px; border: 1.5px solid var(--border); background: var(--bg); color: var(--txt1); font-size: 14px; margin-bottom: 6px; }
+.bgs-search:focus-visible { outline: none; border-color: var(--brand); }
+.bgs-list { list-style: none; margin: 0; padding: 0; max-height: 280px; overflow-y: auto; }
+.bgs-opt { display: flex; align-items: center; gap: 9px; width: 100%; min-height: 40px; padding: 8px 10px; border: none; border-radius: 8px; background: none; color: var(--txt1); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.bgs-opt:hover { background: var(--surface-alt); }
+.bgs-opt.on { background: var(--brand-light); color: var(--brand); }
+.bgs-opt-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bgs-empty { padding: 8px 10px; font-size: 13px; color: var(--txt3); }
+.bgs-trigger:focus-visible, .bgs-opt:focus-visible, .bgs-search:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .filter-row {
   display: flex;
   align-items: center;

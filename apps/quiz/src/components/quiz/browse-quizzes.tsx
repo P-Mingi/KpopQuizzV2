@@ -8,6 +8,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { CreateCTA } from '@/components/home/create-cta';
 import { Mascot } from '@/components/ui/mascot';
 import { languageLabel } from '@/lib/languages';
+import { BrowseGroupSelect } from './browse-group-select';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -310,9 +311,62 @@ export function BrowseQuizzes({
         )}
       </div>
 
-      {/* §3b - sticky dual-row filter bar (hidden while searching) */}
+      {/* §3b - sticky filter bar (hidden while searching). Mobile: chip
+          scrollers. Desktop (U-5): searchable group dropdown + native selects. */}
       {!isSearchActive && (
-        <div className="filter-bar">
+        <div className="filter-bar-desktop" role="group" aria-label="Filter quizzes">
+          <label className="fbd-field">
+            <span className="fbd-label">Group</span>
+            <BrowseGroupSelect groups={groups} value={group} onChange={(slug) => apply({ group: slug })} />
+          </label>
+          <label className="fbd-field">
+            <span className="fbd-label">Type</span>
+            <div className="fbd-select-wrap">
+              <select
+                className="fbd-select"
+                value={type ?? ''}
+                onChange={(e) => apply({ type: (e.target.value || null) as TypeKey | null })}
+              >
+                <option value="">All types</option>
+                {TYPES.map((t) => (<option key={t.key} value={t.key}>{t.label}</option>))}
+              </select>
+              <svg className="fbd-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+          </label>
+          <label className="fbd-field">
+            <span className="fbd-label">Sort</span>
+            <div className="fbd-select-wrap">
+              <select
+                className="fbd-select"
+                value={sort}
+                onChange={(e) => apply({ sort: e.target.value as SortKey })}
+              >
+                {SORTS.map((s) => (<option key={s.key} value={s.key}>{s.label}</option>))}
+              </select>
+              <svg className="fbd-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+          </label>
+          {showLanguageFilter && (
+            <label className="fbd-field">
+              <span className="fbd-label">Language</span>
+              <div className="fbd-select-wrap">
+                <select
+                  className="fbd-select"
+                  value={language ?? ''}
+                  onChange={(e) => apply({ language: e.target.value || null })}
+                >
+                  <option value="">All languages</option>
+                  {languageCounts.map((lc) => (<option key={lc.language} value={lc.language}>{languageLabel(lc.language)} ({lc.count})</option>))}
+                </select>
+                <svg className="fbd-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+              </div>
+            </label>
+          )}
+        </div>
+      )}
+
+      {!isSearchActive && (
+        <div className="filter-bar filter-bar-mobile">
           {/* Row 1 - group pills */}
           <div className="group-pills" role="group" aria-label="Filter by group">
             <button
