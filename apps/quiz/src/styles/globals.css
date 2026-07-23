@@ -2968,6 +2968,43 @@ a.ranking-cta { text-decoration: none; }
 .gp-change { flex-shrink: 0; background: none; border: none; color: var(--brand); font-size: 13px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 6px 4px; }
 .gp-opt:focus-visible, .gp-change:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
+/* Q-B3 - shared question list editor (create step 2 + owner/admin edit) */
+.qle { display: flex; flex-direction: column; }
+.qle-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.qle-item { border: 1.5px solid var(--border); border-radius: 14px; background: var(--surface); }
+.qle-item.dragging { opacity: 0.45; }
+.qle-head { display: flex; align-items: center; gap: 2px; padding: 5px 6px 5px 2px; }
+.qle-handle { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 40px; color: var(--txt3); cursor: grab; flex-shrink: 0; }
+.qle-handle:active { cursor: grabbing; }
+.qle-toggle { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 8px 4px; cursor: pointer; text-align: left; }
+.qle-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 7px; background: var(--surface-alt); color: var(--txt2); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.qle-preview { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; color: var(--txt1); }
+.qle-badge { flex-shrink: 0; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 100px; white-space: nowrap; }
+.qle-badge.ok { background: var(--correct-bg); color: var(--correct); display: inline-flex; align-items: center; }
+.qle-badge.invalid { background: color-mix(in srgb, var(--wrong) 12%, transparent); color: var(--wrong); }
+.qle-actions { display: flex; align-items: center; gap: 1px; flex-shrink: 0; }
+.qle-act { width: 30px; height: 32px; border-radius: 8px; border: none; background: none; color: var(--txt3); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background 120ms ease, color 120ms ease; }
+.qle-act:hover { background: var(--surface-alt); color: var(--txt1); }
+.qle-act.danger:hover { background: #fff1f0; color: #b91c1c; }
+.qle-act:disabled { opacity: 0.3; cursor: default; }
+.qle-act:disabled:hover { background: none; color: var(--txt3); }
+.qle-panel { padding: 4px 14px 16px; border-top: 1px dashed var(--border); }
+.qle-add { width: 100%; margin-top: 12px; }
+.qle-clues { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+.qle-clue { border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); padding: 8px 10px; }
+.qle-image-slot { margin: 10px 0; }
+.qle-tf { display: flex; gap: 10px; margin-top: 12px; }
+.qle-tf-btn { flex: 1; min-height: 46px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt2); font-weight: 700; font-size: 14px; cursor: pointer; transition: border-color 120ms ease, background 120ms ease, color 120ms ease; }
+.qle-tf-btn.on.true { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+.qle-tf-btn.on.false { border-color: var(--wrong); background: color-mix(in srgb, var(--wrong) 12%, transparent); color: var(--wrong); }
+.qle-intruder { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.qle-intruder-cell { border: 1.5px solid var(--border); border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+.qle-intruder-cell.on { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 6%, transparent); }
+.qle-intruder-mark { min-height: 34px; border-radius: 8px; border: none; background: var(--surface-alt); color: var(--txt3); font-size: 12px; font-weight: 700; cursor: pointer; }
+.qle-intruder-mark.on { background: var(--brand-light); color: var(--brand); }
+.qle-act:focus-visible, .qle-toggle:focus-visible, .qle-tf-btn:focus-visible, .qle-intruder-mark:focus-visible, .qle-handle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .qle-act, .qle-tf-btn { transition: none; } }
+
 /* ============================================================
    H6 - share-card customizer modal (.scm-*)
    ============================================================ */

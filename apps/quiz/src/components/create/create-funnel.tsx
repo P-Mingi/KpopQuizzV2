@@ -14,6 +14,7 @@ import {
 } from '@/lib/create-draft';
 import { GroupPicker } from './group-picker';
 import { LANGUAGES, detectBrowserLanguage } from '@/lib/languages';
+import { QuestionListEditor, type QuestionData } from '@/components/quiz/question-list-editor';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -76,11 +77,11 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   const validInitialGroup = initialGroupSlug && groups.some((g) => g.slug === initialGroupSlug) ? initialGroupSlug : null;
 
   const [step, setStep] = useState(1);
+  // Q-B3: step 2 is a full list editor (no more one-at-a-time index).
   // Seed a deep-linked ?group= into the INITIAL state so the chip is selected on
   // the very first render (SSR + client), not after a post-hydration effect. A
   // saved draft (loaded in the mount effect below) still overrides it.
   const [data, setData] = useState<FunnelState>(() => (validInitialGroup ? { ...emptyState(), group_slug: validInitialGroup } : emptyState()));
-  const [qIndex, setQIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [coverBusy, setCoverBusy] = useState(false);
@@ -270,24 +271,26 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => { if (hydrated && step <= 3) saveStep(step); }, [step, hydrated]);
 
   // --- helpers ---
-  const patchQuestion = (patch: Partial<DraftQuestion>) =>
-    setData((s) => ({ ...s, questions: s.questions.map((q, i) => (i === qIndex ? { ...q, ...patch } : q)) }));
-  const setAnswer = (ai: number, val: string) =>
-    setData((s) => ({
-      ...s,
-      questions: s.questions.map((q, i) => {
-        if (i !== qIndex) return q;
-        const answers = [...q.answers] as [string, string, string, string];
-        answers[ai] = val;
-        return { ...q, answers };
-      }),
-    }));
-  const addQuestion = () => { setData((s) => ({ ...s, questions: [...s.questions, blankQuestion()] })); setQIndex(data.questions.length); };
-  const removeQuestion = () => {
-    if (data.questions.length <= 1) return;
-    setData((s) => ({ ...s, questions: s.questions.filter((_, i) => i !== qIndex) }));
-    setQIndex((i) => Math.max(0, i - 1));
+  // Q-B3: the funnel persists the compact DraftQuestion shape (localStorage +
+  // OAuth survival unchanged), and bridges to the shared QuestionData model the
+  // list editor speaks. Create is multiple_choice only, so options are strings.
+  const draftToEditor = (dq: DraftQuestion): QuestionData => ({
+    question: dq.question,
+    options: [...dq.answers],
+    correct: dq.correctIndex,
+    fun_fact: dq.funFact ?? '',
+  });
+  const editorToDraft = (qd: QuestionData): DraftQuestion => {
+    const opts = (Array.isArray(qd.options) ? qd.options : []) as string[];
+    return {
+      question: qd.question,
+      answers: [opts[0] ?? '', opts[1] ?? '', opts[2] ?? '', opts[3] ?? ''],
+      correctIndex: typeof qd.correct === 'number' ? qd.correct : null,
+      funFact: qd.fun_fact ?? '',
+    };
   };
+  const handleQuestionsChange = (qs: QuestionData[]): void =>
+    setData((s) => ({ ...s, questions: qs.length ? qs.map(editorToDraft) : [blankQuestion()] }));
 
   const pickCover = () => {
     const input = document.createElement('input');
@@ -337,7 +340,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     question_count: data.questions.length, cover_image_url: data.cover,
   };
 
-  const cur = data.questions[qIndex];
+  const editorQuestions = data.questions.map(draftToEditor);
   const quizUrl = published ? `${typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org'}/q/${published.slug}` : '';
 
   return (
@@ -444,57 +447,20 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
       )}
 
       {/* ===================== SCREEN 2 - QUESTIONS ===================== */}
-      {step === 2 && cur && (
+      {step === 2 && (
         <div className="cf-body">
-          <div className="cf-q-head">
-            <span className="cf-q-count">Question {qIndex + 1} of {data.questions.length}</span>
-            <div className="cf-minidots">
-              {data.questions.map((q, i) => (<button key={i} type="button" className={`cf-minidot${i === qIndex ? ' active' : isQuestionComplete(q) ? ' done' : ''}`} aria-label={`Go to question ${i + 1}`} onClick={() => setQIndex(i)} />))}
-            </div>
-          </div>
+          <h1 className="cf-head">Your questions</h1>
+          <p className="cf-sub">Add at least {MIN_QUESTIONS}. Drag to reorder, tap a row to edit, duplicate or delete.</p>
 
-          <div className="cf-qcard" key={qIndex}>
-            <input className="cf-qinput" value={cur.question} onChange={(e) => patchQuestion({ question: e.target.value })} placeholder="Type your question..." aria-label="Question text" maxLength={500} />
-            <p className="cf-hint">Tap the circle to mark the correct answer</p>
-            <div className="cf-answers">
-              {cur.answers.map((a, ai) => (
-                <div key={ai} className={`cf-answer${cur.correctIndex === ai ? ' correct' : ''}`}>
-                  <button type="button" className="cf-radio" aria-label={`Mark answer ${ai + 1} correct`} aria-pressed={cur.correctIndex === ai} onClick={() => patchQuestion({ correctIndex: ai })}>
-                    {cur.correctIndex === ai && (<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>)}
-                  </button>
-                  <input className="cf-answer-input" value={a} onChange={(e) => setAnswer(ai, e.target.value)} placeholder={`Answer ${ai + 1}`} aria-label={`Answer ${ai + 1}`} maxLength={200} />
-                </div>
-              ))}
-            </div>
-            {/* Optional reveal-time blurb shown after the answer (matches the
-                in-play "FUN FACT" card). Same visual rhythm as the rest of the
-                funnel: subtle helper label, full-width input. */}
-            <div className="cf-funfact">
-              <label className="cf-funfact-label" htmlFor={`cf-funfact-${qIndex}`}>
-                Fun fact <span className="cf-funfact-optional">(optional, shown after the answer)</span>
-              </label>
-              <textarea
-                id={`cf-funfact-${qIndex}`}
-                className="cf-funfact-input"
-                value={cur.funFact ?? ''}
-                onChange={(e) => patchQuestion({ funFact: e.target.value.slice(0, 280) })}
-                placeholder="e.g. Jin's Epiphany is the intro track to Love Yourself: Answer."
-                maxLength={280}
-                rows={2}
-              />
-              <span className="cf-funfact-counter">{(cur.funFact ?? '').length}/280</span>
-            </div>
-            {data.questions.length > 1 && <button type="button" className="cf-remove" onClick={removeQuestion}>Remove this question</button>}
-          </div>
-
-          <button type="button" className="cf-addq" onClick={addQuestion}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-            Add another question
-          </button>
+          <QuestionListEditor
+            questions={editorQuestions}
+            quizType="multiple_choice"
+            onChange={handleQuestionsChange}
+          />
 
           <button type="button" className="cf-cta" onClick={() => setStep(3)}>Done &rarr;</button>
           {nComplete >= MIN_QUESTIONS ? (
-            <p className="cf-publish-now" role="status">You can publish now ({nComplete} question{nComplete === 1 ? '' : 's'}) - or keep adding.</p>
+            <p className="cf-publish-now" role="status">You can publish now ({nComplete} question{nComplete === 1 ? '' : 's'}), or keep adding.</p>
           ) : (
             <p className="cf-mini-hint">{nComplete} of {MIN_QUESTIONS}+ questions ready to publish</p>
           )}
@@ -597,7 +563,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           </button>
 
           <a className="cf-ghost cf-center-btn" href={`/q/${published.slug}`} target="_blank" rel="noopener noreferrer">Open your quiz &rarr;</a>
-          <button type="button" className="cf-ghost cf-center-btn" onClick={() => { setData(emptyState()); setQIndex(0); setPublished(null); setEmailSent(false); setEmail(''); setPublishError(null); setUsername(''); setUnameStatus('idle'); autoPubFired.current = false; setStep(1); }}>Create another quiz</button>
+          <button type="button" className="cf-ghost cf-center-btn" onClick={() => { setData(emptyState()); setPublished(null); setEmailSent(false); setEmail(''); setPublishError(null); setUsername(''); setUnameStatus('idle'); autoPubFired.current = false; setStep(1); }}>Create another quiz</button>
 
           {shareModal && (
             <ShareCardModal quizId={published.id} slug={published.slug} quizTitle={displayTitle} platform={shareModal} canEdit onClose={() => setShareModal(null)} />

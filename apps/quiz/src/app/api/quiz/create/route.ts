@@ -4,90 +4,9 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 import { generateSlug } from '@/lib/utils';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { pingIndexNow } from '@/lib/indexnow';
+import { validateQuestions } from '@/lib/quiz-validation';
 
 import type { NextRequest } from 'next/server';
-
-function validateQuestions(questions: unknown[], quizType: string): string[] {
-  const errors: string[] = [];
-  if (questions.length < 3) errors.push('Minimum 3 questions required');
-  if (questions.length > 20) errors.push('Maximum 20 questions allowed');
-
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i] as Record<string, unknown>;
-    if (!q || typeof q.question !== 'string' || q.question.trim().length === 0) {
-      errors.push(`Question ${i + 1}: question text is required`);
-      continue;
-    }
-    if (q.question.length > 500) {
-      errors.push(`Question ${i + 1}: question text must be 500 characters or less`);
-    }
-
-    if (quizType === 'multiple_choice' || quizType === 'guess_from_clues' || quizType === 'image') {
-      if (!Array.isArray(q.options) || q.options.length !== 4) {
-        errors.push(`Question ${i + 1}: must have 4 options`);
-      } else {
-        for (let j = 0; j < q.options.length; j++) {
-          const opt = q.options[j];
-          if (typeof opt !== 'string' || opt.trim().length === 0) {
-            errors.push(`Question ${i + 1}: option ${j + 1} is required`);
-          } else if (opt.length > 200) {
-            errors.push(`Question ${i + 1}: option ${j + 1} must be 200 characters or less`);
-          }
-        }
-      }
-      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
-        errors.push(`Question ${i + 1}: correct answer index must be 0-3`);
-      }
-      if (quizType === 'image' && (typeof q.image_url !== 'string' || q.image_url.trim().length === 0)) {
-        errors.push(`Question ${i + 1}: image_url is required`);
-      }
-    }
-
-    if (quizType === 'intruder') {
-      if (!Array.isArray(q.options) || q.options.length !== 4) {
-        errors.push(`Question ${i + 1}: must have 4 options`);
-      } else {
-        for (let j = 0; j < q.options.length; j++) {
-          const opt = q.options[j] as Record<string, unknown>;
-          if (!opt || typeof opt.label !== 'string' || opt.label.trim().length === 0) {
-            errors.push(`Question ${i + 1}: option ${j + 1} label is required`);
-          }
-          if (!opt || typeof opt.image_url !== 'string' || opt.image_url.trim().length === 0) {
-            errors.push(`Question ${i + 1}: option ${j + 1} image_url is required`);
-          }
-        }
-      }
-      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
-        errors.push(`Question ${i + 1}: correct answer index must be 0-3`);
-      }
-    }
-
-    if (quizType === 'true_false') {
-      if (typeof q.correct !== 'boolean') {
-        errors.push(`Question ${i + 1}: correct must be true or false`);
-      }
-    }
-
-    if (quizType === 'guess_from_clues') {
-      if (!Array.isArray(q.clues) || q.clues.length !== 3) {
-        errors.push(`Question ${i + 1}: must have 3 clues`);
-      } else {
-        for (let j = 0; j < q.clues.length; j++) {
-          const clue = q.clues[j];
-          if (typeof clue !== 'string' || clue.trim().length === 0) {
-            errors.push(`Question ${i + 1}: clue ${j + 1} is required`);
-          }
-        }
-      }
-    }
-
-    if (q.fun_fact !== undefined && typeof q.fun_fact === 'string' && q.fun_fact.length > 280) {
-      errors.push(`Question ${i + 1}: fun fact must be 280 characters or less`);
-    }
-  }
-
-  return errors;
-}
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const supabase = await createServerClient();
