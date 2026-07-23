@@ -43,10 +43,11 @@ export function PassportShare({ username }: { username: string }): React.ReactEl
       background: 'var(--surface)', border: '1px solid var(--border)',
       borderRadius: 16, boxShadow: 'var(--shadow-card)', padding: 18,
     }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-        <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--txt3)', margin: 0 }}>Share your passport</p>
-        {toast && <span style={{ fontSize: 11.5, fontWeight: 600, color: 'var(--brand)' }}>{toast}</span>}
-      </div>
+      {toast && (
+        <div style={{ textAlign: 'right', marginBottom: 8 }}>
+          <span style={{ fontSize: 11.5, fontWeight: 600, color: 'var(--brand)' }}>{toast}</span>
+        </div>
+      )}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {canNativeShare() && (
           <button type="button" style={{ ...btn, background: 'var(--brand-btn)', color: '#fff', border: '1px solid var(--brand)' }} onClick={() => void onShare('native')}>Share</button>

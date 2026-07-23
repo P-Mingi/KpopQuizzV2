@@ -25,18 +25,19 @@ export function ProfileOwnerControls({ profileUsername }: { profileUsername: str
   return (
     <Link
       href="/settings"
-      aria-label="Settings"
+      aria-label="Edit profile and settings"
       style={{
-        width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
-        background: 'transparent', border: '1px solid var(--border)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--txt1)',
+        display: 'inline-flex', alignItems: 'center', gap: 6, flexShrink: 0,
+        padding: '7px 13px', borderRadius: 999, whiteSpace: 'nowrap',
+        background: 'var(--brand-light)', color: 'var(--brand-dark)',
+        border: '1px solid color-mix(in srgb, var(--brand) 28%, var(--border))',
+        fontSize: 13, fontWeight: 700, textDecoration: 'none',
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
       </svg>
+      Edit profile
     </Link>
   );
 }

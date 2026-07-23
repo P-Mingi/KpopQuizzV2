@@ -141,7 +141,7 @@ function HeartIcon({ color }: { color: string }): React.ReactElement {
 
 function FlameIcon(): React.ReactElement {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ verticalAlign: '-1px' }}>
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M12 2c1.5 3.5-1 5-1 7a3 3 0 0 0 6 0c0-.7-.2-1.4-.5-2 2.2 1.6 3.5 4 3.5 6.5a8 8 0 1 1-16 0C4 9 8.5 6.5 12 2z" />
     </svg>
   );
@@ -286,25 +286,25 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
       {/* STAT STRIP: the 4 public cells. */}
       <div className="pp-strip">
         <div style={statCell}>
-          <p style={{ fontSize: 18, fontWeight: 500, margin: 0, color: 'var(--combo)', fontVariantNumeric: 'tabular-nums' }}>
+          <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--combo)', fontVariantNumeric: 'tabular-nums', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
             <FlameIcon /> {streakCurrent}
           </p>
           <p style={{ fontSize: 10.5, color: 'var(--txt3)', margin: '2px 0 0' }}>Day streak</p>
         </div>
         <div style={statCell}>
-          <p style={{ fontSize: 18, fontWeight: 500, margin: 0, color: 'var(--brand-dark)', fontVariantNumeric: 'tabular-nums' }}>
+          <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--brand-dark)', fontVariantNumeric: 'tabular-nums' }}>
             {groupsMastered}/{groupsTotal}
           </p>
           <p style={{ fontSize: 10.5, color: 'var(--txt3)', margin: '2px 0 0' }}>Mastered</p>
         </div>
         <div style={statCell}>
-          <p style={{ fontSize: 18, fontWeight: 500, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>
+          <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>
             <CountUp value={quizzesCreated} compact />
           </p>
           <p style={{ fontSize: 10.5, color: 'var(--txt3)', margin: '2px 0 0' }}>Quizzes made</p>
         </div>
         <div style={statCell}>
-          <p style={{ fontSize: 18, fontWeight: 500, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>
+          <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>
             <CountUp value={playsReceived} compact />
           </p>
           <p style={{ fontSize: 10.5, color: 'var(--txt3)', margin: '2px 0 0' }}>Plays received</p>
@@ -321,7 +321,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             { value: fmt(battlesPlayed), label: `Battles (${fmt(battlesWon)} won)` },
           ].map((s) => (
             <div key={s.label} style={statCell}>
-              <p style={{ fontSize: 18, fontWeight: 500, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>{s.value}</p>
+              <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums' }}>{s.value}</p>
               <p style={{ fontSize: 10.5, color: 'var(--txt3)', margin: '2px 0 0' }}>{s.label}</p>
             </div>
           ))}

@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/db/queries/profiles';
@@ -128,6 +129,24 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     <div style={{ paddingTop: 16 }}>
       <PassportView
       mode="personal"
+      headerSlot={
+        <Link
+          href="/settings"
+          aria-label="Edit profile and settings"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6, flexShrink: 0,
+            padding: '7px 13px', borderRadius: 999, whiteSpace: 'nowrap',
+            background: 'var(--brand-light)', color: 'var(--brand-dark)',
+            border: '1px solid color-mix(in srgb, var(--brand) 28%, var(--border))',
+            fontSize: 13, fontWeight: 700, textDecoration: 'none',
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+          </svg>
+          Edit profile
+        </Link>
+      }
       nameAccent={profile.name_accent}
       pinnedBadgeId={profile.pinned_badge_id}
       avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
