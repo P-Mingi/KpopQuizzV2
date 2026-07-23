@@ -3391,6 +3391,21 @@ a.ranking-cta { text-decoration: none; }
 .stats-cite-link { color: var(--brand); font-weight: 600; text-decoration: none; }
 .stats-cite-link:hover { text-decoration: underline; }
 
+/* Floating "+X XP" reward on a like. Rises + fades above the like button. */
+@keyframes xpFloat {
+  0%   { opacity: 0; transform: translate(-50%, 3px) scale(.8); }
+  22%  { opacity: 1; transform: translate(-50%, -7px) scale(1.05); }
+  100% { opacity: 0; transform: translate(-50%, -26px) scale(1); }
+}
+.xp-float {
+  position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%);
+  pointer-events: none; white-space: nowrap; z-index: 20;
+  font-size: 11px; font-weight: 800; letter-spacing: .01em; color: #1D9E75;
+  text-shadow: 0 1px 3px color-mix(in srgb, var(--bg) 70%, transparent);
+  animation: xpFloat 1s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) { .xp-float { animation-duration: 1ms; } }
+
 .stats-plays-bar {
   display: flex; align-items: center; gap: 8px;
   justify-content: flex-end;

@@ -33,6 +33,7 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
   const [liked, setLiked] = useState(initialLiked);
   const [count, setCount] = useState(initialCount || 0);
   const [pending, setPending] = useState(false);
+  const [xpFloat, setXpFloat] = useState<{ amt: number; key: number } | null>(null);
 
   useEffect(() => {
     if (!initialLiked && getAnonLikes().includes(quizId)) {
@@ -64,10 +65,14 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
         return;
       }
 
-      const data: { liked: boolean; like_count: number } = await res.json();
+      const data: { liked: boolean; like_count: number; xp_gained?: number } = await res.json();
       setLiked(data.liked);
       setCount(data.like_count);
       setAnonLiked(quizId, data.liked);
+      if (data.liked && (data.xp_gained ?? 0) > 0) {
+        setXpFloat({ amt: data.xp_gained as number, key: Date.now() });
+        setTimeout(() => setXpFloat(null), 1050);
+      }
     } catch {
       setLiked(!newLiked);
       setCount((c) => c + (newLiked ? -1 : 1));
@@ -79,9 +84,10 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
   return (
     <button
       onClick={handleClick}
-      className="inline-flex items-center gap-1 cursor-pointer transition-transform duration-100 hover:scale-110"
+      className="relative inline-flex items-center gap-1 cursor-pointer transition-transform duration-100 hover:scale-110"
       aria-label={liked ? 'Unlike' : 'Like'}
     >
+      {xpFloat && <span key={xpFloat.key} className="xp-float">+{xpFloat.amt} XP</span>}
       <svg
         width="14"
         height="14"

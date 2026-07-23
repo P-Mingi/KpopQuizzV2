@@ -33,6 +33,7 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
   const [liked, setLiked] = useState(initialLiked);
   const [count, setCount] = useState(initialCount || 0);
   const [pending, setPending] = useState(false);
+  const [xpFloat, setXpFloat] = useState<{ amt: number; key: number } | null>(null);
 
   useEffect(() => {
     if (!initialLiked && getAnonLikes().includes(quizId)) {
@@ -61,10 +62,14 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
         return;
       }
 
-      const data: { liked: boolean; like_count: number } = await res.json();
+      const data: { liked: boolean; like_count: number; xp_gained?: number } = await res.json();
       setLiked(data.liked);
       setCount(data.like_count);
       setAnonLiked(quizId, data.liked);
+      if (data.liked && (data.xp_gained ?? 0) > 0) {
+        setXpFloat({ amt: data.xp_gained as number, key: Date.now() });
+        setTimeout(() => setXpFloat(null), 1050);
+      }
     } catch {
       setLiked(!newLiked);
       setCount((c) => c + (newLiked ? -1 : 1));
@@ -76,13 +81,14 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center justify-center gap-2 w-full py-3 rounded-full border text-sm font-medium transition-colors cursor-pointer ${
+      className={`relative flex items-center justify-center gap-2 w-full py-3 rounded-full border text-sm font-medium transition-colors cursor-pointer ${
         liked
           ? 'bg-[#FCEBEB] border-[#F7C1C1] text-[#791F1F]'
           : 'bg-primary border-default text-secondary hover:border-default'
       }`}
       aria-label={liked ? 'Unlike this quiz' : 'Like this quiz'}
     >
+      {xpFloat && <span key={xpFloat.key} className="xp-float">+{xpFloat.amt} XP</span>}
       <svg
         width="16"
         height="16"

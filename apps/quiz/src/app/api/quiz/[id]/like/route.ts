@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
 
@@ -32,19 +32,32 @@ export async function POST(
 
   const { data: { user } } = await supabase.auth.getUser();
 
+  // XP handed to the liker on this click (0 when unliking, anon, a repeat, a
+  // self-like, or before migration 115 lands). The client uses it to float "+X".
+  let xpGained = 0;
+
   try {
     if (action === 'like') {
       if (user) {
-        // Authenticated: record in likes table and award XP to creator
+        // Authenticated: record in likes table and bump the count.
         await supabase.from('likes').upsert(
           { user_id: user.id, quiz_id: id },
           { onConflict: 'user_id,quiz_id', ignoreDuplicates: true },
         );
 
         await supabase.rpc('increment_like_count', { quiz_uuid: id });
-        // L6: pruned. The +2-per-like creator XP was off-model (the spec lists
-        // only 5 earning sources, and likes are trivially farmable by a single
-        // user mass-liking). Like count still increments; no XP.
+
+        // Award like XP once per (liker, quiz) ever, self-likes excluded (the
+        // guard lives in award_like_xp). award_xp is revoked from authenticated,
+        // so this runs through the service role. Non-critical + best-effort: if
+        // migration 115 is not applied yet, we swallow the error and award 0.
+        try {
+          const admin = createServiceRoleClient();
+          const { data: xpRes } = await admin.rpc('award_like_xp', { p_quiz_id: id, p_liker_id: user.id });
+          xpGained = (xpRes as { liker?: number } | null)?.liker ?? 0;
+        } catch (xpErr) {
+          console.warn('[like] award_like_xp skipped:', (xpErr as Error)?.message ?? xpErr);
+        }
       } else {
         // Anonymous: just bump the count
         await supabase.rpc('increment_like_count', { quiz_uuid: id });
@@ -69,6 +82,7 @@ export async function POST(
     return NextResponse.json({
       liked: action === 'like',
       like_count: updated?.like_count ?? 0,
+      xp_gained: xpGained,
     });
   } catch (err) {
     console.error('Failed to toggle like:', err);
