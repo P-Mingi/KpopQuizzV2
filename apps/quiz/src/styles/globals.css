@@ -768,6 +768,10 @@ body {
 .b-easy   { background: var(--badge-truefalse); color: var(--badge-truefalse-text); }
 .b-medium { background: var(--badge-clues);     color: var(--badge-clues-text); }
 .b-hard   { background: var(--badge-intruder);  color: var(--badge-intruder-text); }
+/* Q-B2 - language chip (only rendered when a quiz is not in English). Outlined
+   brand style so it reads as a language tag, distinct from the filled category
+   badges, with guaranteed contrast in both themes. */
+.b-lang { background: var(--surface); color: var(--brand); border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--border)); font-weight: 600; }
 
 /* §3b - Sticky dual-row filter bar */
 .filter-bar {
@@ -2944,6 +2948,11 @@ a.ranking-cta { text-decoration: none; }
 .cf-seg:hover { border-color: var(--brand); color: var(--brand); }
 .cf-seg.on { background: var(--brand-btn); border-color: var(--brand); color: #fff; }
 .cf-seg:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.cf-select-wrap { position: relative; }
+.cf-select { width: 100%; min-height: 50px; padding: 13px 40px 13px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--txt1); font-family: var(--font-body); font-size: 15px; cursor: pointer; -webkit-appearance: none; appearance: none; transition: border-color 120ms ease; }
+.cf-select:focus-visible { border-color: var(--brand); outline: none; }
+.cf-select-caret { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--txt3); pointer-events: none; }
 
 .gp-wrap { position: relative; }
 .gp-list { list-style: none; margin: 8px 0 0; padding: 6px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-card); max-height: 300px; overflow-y: auto; }

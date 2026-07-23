@@ -5,6 +5,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { FanTitle } from '@/components/ui/fan-title';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
+import { languageChip } from '@/lib/languages';
 
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
@@ -86,6 +87,9 @@ export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.Re
         <div className="badge-row">
           <span className={`badge ${type.cls}`}>{type.label}</span>
           <span className={`badge ${diff.cls}`}>{diff.label}</span>
+          {quiz.language !== 'en' && (
+            <span className="badge b-lang">{languageChip(quiz.language)}</span>
+          )}
         </div>
 
         <p className="quiz-title">{quiz.title}</p>

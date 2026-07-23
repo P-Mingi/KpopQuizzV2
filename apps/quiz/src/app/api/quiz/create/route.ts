@@ -135,6 +135,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     errors.push('Invalid difficulty');
   }
 
+  // Language (Q-B2) - optional, must be in the allowed set (mirrors migration 116)
+  const validLanguages = ['en', 'ko', 'tr', 'pt', 'es', 'id', 'ja', 'fr', 'de', 'other'];
+  if (input.language !== undefined && (typeof input.language !== 'string' || !validLanguages.includes(input.language))) {
+    errors.push('Invalid language');
+  }
+
   // Group
   if (input.group_id === undefined && (typeof input.group_name !== 'string' || input.group_name.trim().length < 2)) {
     errors.push('A group must be selected or typed');
@@ -291,6 +297,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         slug,
         quiz_type: input.quiz_type as string,
         difficulty: (input.difficulty as string) || 'medium',
+        language: (input.language as string) || 'en',
         questions: input.questions,
         settings: input.settings,
         question_count: (input.questions as unknown[]).length,

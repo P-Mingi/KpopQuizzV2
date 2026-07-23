@@ -1,4 +1,4 @@
-import { getBrowseQuizzes } from '@/lib/db/queries/quizzes';
+import { getBrowseQuizzes, getLanguageCounts } from '@/lib/db/queries/quizzes';
 import { BrowseQuizzes } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getAllGroups } from '@/lib/db/queries/groups';
@@ -30,9 +30,10 @@ export const metadata: Metadata = {
 };
 
 export default async function PtQuizzesPage(): Promise<React.ReactElement> {
-  const [initialQuizzes, groups] = await Promise.all([
+  const [initialQuizzes, groups, languageCounts] = await Promise.all([
     safeFetch(getBrowseQuizzes({ groupId: null, quizType: null, sort: 'most_played', offset: 0, limit: 48 }), [], '[pt/quizzes] getBrowseQuizzes'),
     safeFetch(getAllGroups(), [], '[pt/quizzes] getAllGroups'),
+    safeFetch(getLanguageCounts(), [], '[pt/quizzes] getLanguageCounts'),
   ]);
 
   const groupsForFilter: BrowseGroup[] = groups
@@ -63,8 +64,10 @@ export default async function PtQuizzesPage(): Promise<React.ReactElement> {
       <BrowseQuizzes
         initialQuizzes={initialQuizzes}
         groups={groupsForFilter}
+        languageCounts={languageCounts}
         initialGroup={null}
         initialType={null}
+        initialLanguage={null}
         initialSort="all"
       />
     </div>

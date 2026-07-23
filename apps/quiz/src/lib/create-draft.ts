@@ -24,6 +24,8 @@ export interface Draft {
   newGroup?: string | null;
   /** Q-B1: creator-selected difficulty (was hardcoded 'medium'). */
   difficulty?: DraftDifficulty;
+  /** Q-B2: language the quiz is written in (defaults from browser locale). */
+  language?: string;
   cover: string | null; // data URL (anonymous) or an https URL (already uploaded)
   coverRights?: boolean; // H9: the user confirmed they have the right to use the cover
   questions: DraftQuestion[];

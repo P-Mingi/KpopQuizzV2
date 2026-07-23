@@ -3,7 +3,7 @@ import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
 const QUIZ_CARD_SELECT = `
-  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
+  id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
@@ -20,6 +20,7 @@ interface RawQuizRow {
   slug: string;
   quiz_type: string;
   difficulty: string;
+  language?: string;
   play_count: number;
   total_score_sum: number;
   total_completions: number;
@@ -40,6 +41,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
     slug: row.slug,
     quiz_type: row.quiz_type as QuizCardData['quiz_type'],
     difficulty: row.difficulty as QuizCardData['difficulty'],
+    language: (row.language as QuizCardData['language']) ?? 'en',
     play_count: row.play_count,
     total_score_sum: row.total_score_sum,
     total_completions: row.total_completions,
@@ -144,6 +146,7 @@ export type BrowseSort = 'trending' | 'new' | 'most_played' | 'top_rated';
 export interface BrowseQuizzesParams {
   groupId?: number | null;
   quizType?: string | null;
+  language?: string | null;
   sort?: BrowseSort;
   offset: number;
   limit: number;
@@ -157,6 +160,7 @@ export interface BrowseQuizzesParams {
 export async function getBrowseQuizzes({
   groupId = null,
   quizType = null,
+  language = null,
   sort = 'trending',
   offset,
   limit,
@@ -171,6 +175,7 @@ export async function getBrowseQuizzes({
 
   if (groupId != null) query = query.eq('group_id', groupId);
   if (quizType) query = query.eq('quiz_type', quizType);
+  if (language) query = query.eq('language', language);
 
   switch (sort) {
     case 'new':
@@ -207,6 +212,32 @@ export async function getBrowseQuizzes({
   }
 
   return cards;
+}
+
+/**
+ * Q-B2: real published-quiz counts per language, for the browse filter. Only
+ * languages that actually exist are returned (so the filter never offers an
+ * empty option), ordered most-common first. English is always the majority and
+ * is handled as the "All / default" case by the caller.
+ */
+export async function getLanguageCounts(): Promise<{ language: string; count: number }[]> {
+  const supabase = createPublicReadClient();
+  // Pull just the language column for published quizzes and tally in JS. The set
+  // is small (hundreds of rows) and this avoids an RPC for a group-by count.
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select('language')
+    .eq('status', 'published');
+  if (error) throw new Error(`Failed to fetch language counts: ${error.message}`);
+
+  const tally = new Map<string, number>();
+  for (const row of (data ?? []) as { language: string | null }[]) {
+    const lang = row.language ?? 'en';
+    tally.set(lang, (tally.get(lang) ?? 0) + 1);
+  }
+  return [...tally.entries()]
+    .map(([language, count]) => ({ language, count }))
+    .sort((a, b) => b.count - a.count);
 }
 
 export async function getTrendingQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {

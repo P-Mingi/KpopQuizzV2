@@ -50,6 +50,8 @@ export interface Group {
 export type QuizType = 'multiple_choice' | 'true_false' | 'guess_from_clues' | 'image' | 'intruder';
 export type QuizStatus = 'draft' | 'published' | 'flagged' | 'removed';
 export type Difficulty = 'easy' | 'medium' | 'hard';
+// Q-B2: the language a quiz is written in (quizzes.language, default 'en').
+export type Language = 'en' | 'ko' | 'tr' | 'pt' | 'es' | 'id' | 'ja' | 'fr' | 'de' | 'other';
 
 export interface QuizSettings {
   timer: boolean;
@@ -188,6 +190,7 @@ export interface QuizCardData {
   slug: string;
   quiz_type: QuizType;
   difficulty: Difficulty;
+  language: Language;
   play_count: number;
   total_score_sum: number;
   total_completions: number;

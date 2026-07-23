@@ -5,7 +5,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import type { NextRequest } from 'next/server';
 
 const QUIZ_CARD_SELECT = `
-  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
+  id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Transform to QuizCardData format
     const quizzes = merged.map((row: unknown) => {
       const r = row as {
-        id: string; title: string; slug: string; quiz_type: string; difficulty: string;
+        id: string; title: string; slug: string; quiz_type: string; difficulty: string; language?: string;
         play_count: number; total_score_sum: number; total_completions: number;
         like_count: number; question_count: number; created_at: string; cover_image_url: string | null;
         groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
@@ -79,6 +79,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         slug: r.slug,
         quiz_type: r.quiz_type,
         difficulty: r.difficulty,
+        language: r.language ?? 'en',
         play_count: r.play_count,
         total_score_sum: r.total_score_sum,
         total_completions: r.total_completions,

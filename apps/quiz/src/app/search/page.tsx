@@ -26,13 +26,13 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
 }
 
 const QUIZ_SELECT = `
-  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url, group_id,
+  id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url, group_id,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
 
 interface RawQuizRow {
-  id: string; title: string; slug: string; quiz_type: string; difficulty: string;
+  id: string; title: string; slug: string; quiz_type: string; difficulty: string; language?: string;
   play_count: number; total_score_sum: number; total_completions: number; like_count: number;
   created_at: string; questions: unknown[]; cover_image_url: string | null;
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
@@ -44,6 +44,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
     id: row.id, title: row.title, slug: row.slug,
     quiz_type: row.quiz_type as QuizCardData['quiz_type'],
     difficulty: row.difficulty as QuizCardData['difficulty'],
+    language: (row.language as QuizCardData['language']) ?? 'en',
     play_count: row.play_count, total_score_sum: row.total_score_sum,
     total_completions: row.total_completions, like_count: row.like_count ?? 0,
     created_at: row.created_at,

@@ -6,13 +6,13 @@ import type { NextRequest } from 'next/server';
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
 const QUIZ_CARD_SELECT = `
-  id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
+  id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
 
 interface RawRow {
-  id: string; title: string; slug: string; quiz_type: string; difficulty: string;
+  id: string; title: string; slug: string; quiz_type: string; difficulty: string; language?: string;
   play_count: number; total_score_sum: number; total_completions: number;
   like_count: number; question_count: number; created_at: string; cover_image_url: string | null;
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
@@ -22,6 +22,7 @@ interface RawRow {
 function toCard(r: RawRow): QuizCardData {
   return {
     id: r.id, title: r.title, slug: r.slug, quiz_type: r.quiz_type as QuizType, difficulty: r.difficulty as Difficulty,
+    language: (r.language as QuizCardData['language']) ?? 'en',
     play_count: r.play_count, total_score_sum: r.total_score_sum, total_completions: r.total_completions,
     like_count: r.like_count, question_count: r.question_count, created_at: r.created_at,
     cover_image_url: r.cover_image_url, group_name: r.groups.name, group_slug: r.groups.slug,
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const limit = Math.min(Math.max(limitParam, 1), 100);
   const groupId = searchParams.get('group_id');
   const quizType = searchParams.get('quiz_type');
+  const language = searchParams.get('language');
 
   const supabase = await createServerClient();
 
@@ -57,6 +59,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Server-side type filter
     if (quizType) {
       query = query.eq('quiz_type', quizType);
+    }
+
+    // Server-side language filter (Q-B2)
+    if (language) {
+      query = query.eq('language', language);
     }
 
     // Sort based on tab

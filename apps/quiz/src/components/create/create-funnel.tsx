@@ -13,6 +13,7 @@ import {
   validateImageFile, ACCEPTED_IMAGE_TYPES,
 } from '@/lib/create-draft';
 import { GroupPicker } from './group-picker';
+import { LANGUAGES, detectBrowserLanguage } from '@/lib/languages';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -57,13 +58,16 @@ interface FunnelState {
   group_slug: string | null;
   newGroup: string | null; // Q-B1: a brand-new custom group name (sent as group_name at publish)
   difficulty: DraftDifficulty; // Q-B1: creator-selectable (was hardcoded 'medium')
+  language: string; // Q-B2: language the quiz is written in
   cover: string | null;
   coverRights: boolean; // H9: "I have the right to use this image"
   questions: DraftQuestion[];
 }
 
+// 'en' is the SSR-safe seed; the real browser-locale default is applied in the
+// mount effect (navigator is client-only), and a saved draft always wins.
 function emptyState(): FunnelState {
-  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', cover: null, coverRights: false, questions: [blankQuestion()] };
+  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', language: 'en', cover: null, coverRights: false, questions: [blankQuestion()] };
 }
 
 export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup[]; initialGroupSlug?: string | null }): React.ReactElement {
@@ -145,6 +149,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
         title: d.title.trim(),
         quiz_type: 'multiple_choice' as const,
         difficulty: d.difficulty,
+        language: d.language,
         cover_image_url: coverUrl,
         questions: complete.map((q) => ({
           question: q.question.trim(),
@@ -181,8 +186,11 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     const d = loadDraft();
     if (d) {
       // A saved draft wins; if it had no group, fall back to the deep-linked one.
-      // Old-format drafts predate newGroup/difficulty, so both default safely.
-      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
+      // Old-format drafts predate newGroup/difficulty/language, so all default safely.
+      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions.length ? d.questions : [blankQuestion()] });
+    } else {
+      // No saved draft: default the language from the browser locale (client-only).
+      setData((s) => ({ ...s, language: detectBrowserLanguage() }));
     }
     // No draft: the useState initializer already seeded validInitialGroup.
     const params = new URLSearchParams(window.location.search);
@@ -253,7 +261,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => {
     if (!hydrated) return;
     const t = window.setTimeout(() => {
-      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
+      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, language: data.language, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
       saveDraft(d);
     }, 500);
     return () => window.clearTimeout(t);
@@ -321,7 +329,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   };
 
   const previewQuiz: QuizCardData = {
-    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: 'multiple_choice', difficulty: data.difficulty,
+    id: 'preview', title: displayTitle, slug: 'preview', quiz_type: 'multiple_choice', difficulty: data.difficulty, language: data.language as QuizCardData['language'],
     play_count: 0, total_score_sum: 0, total_completions: 0, like_count: 0, created_at: new Date().toISOString(),
     group_name: group?.name ?? data.newGroup ?? 'K-pop', group_slug: group?.slug ?? '', display_color: group?.display_color ?? '#E8457A',
     text_color: group?.text_color ?? '#FFFFFF', logo_url: group?.logo_url ?? null, fandom_name: group?.fandom_name ?? 'fan',
@@ -381,6 +389,26 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="cf-field">
+            <label className="cf-label" htmlFor="cf-language">Language</label>
+            <div className="cf-select-wrap">
+              <select
+                id="cf-language"
+                className="cf-select"
+                value={data.language}
+                onChange={(e) => setData((s) => ({ ...s, language: e.target.value }))}
+              >
+                {LANGUAGES.map((l) => (
+                  <option key={l.code} value={l.code}>
+                    {l.label === l.native ? l.label : `${l.label} (${l.native})`}
+                  </option>
+                ))}
+              </select>
+              <svg className="cf-select-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+            <p className="cf-cover-help">The language your questions are written in.</p>
           </div>
 
           <div className="cf-field">

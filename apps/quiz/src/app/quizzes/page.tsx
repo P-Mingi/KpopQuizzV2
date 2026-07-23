@@ -1,4 +1,5 @@
-import { getBrowseQuizzes, type BrowseSort } from '@/lib/db/queries/quizzes';
+import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/queries/quizzes';
+import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -117,10 +118,19 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
   // empty grid the way last-30-days "Trending" would.
   const initialSort: SortKey = sortParam && SORT_KEYS.includes(sortParam) ? sortParam : 'all';
 
+  // Q-B2: language filter. Only real languages are offered; an unknown ?lang is ignored.
+  const langParam = first(sp.lang);
+  const languageCounts = await safeFetch(getLanguageCounts(), [], '[browse] getLanguageCounts');
+  const initialLanguage =
+    langParam && isLanguage(langParam) && languageCounts.some((lc) => lc.language === langParam)
+      ? langParam
+      : null;
+
   const initialQuizzes = await safeFetch(
     getBrowseQuizzes({
       groupId: groupOption?.id ?? null,
       quizType: initialType ? typeToDb(initialType) : null,
+      language: initialLanguage,
       sort: sortToBrowse(initialSort),
       offset: 0,
       limit: PAGE_SIZE,
@@ -139,6 +149,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         getBrowseQuizzes({
           groupId: groupOption?.id ?? null,
           quizType: initialType ? typeToDb(initialType) : null,
+          language: initialLanguage,
           sort: sortToBrowse(initialSort),
           offset: (page - 1) * PAGE_SIZE,
           limit: PAGE_SIZE,
@@ -152,6 +163,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
     const p = new URLSearchParams();
     if (resolvedGroup) p.set('group', resolvedGroup);
     if (initialType) p.set('type', initialType);
+    if (initialLanguage) p.set('lang', initialLanguage);
     if (initialSort !== 'all') p.set('sort', initialSort);
     if (n > 1) p.set('page', String(n));
     const qs = p.toString();
@@ -192,8 +204,10 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
       <BrowseQuizzes
         initialQuizzes={initialQuizzes}
         groups={groupsForFilter}
+        languageCounts={languageCounts}
         initialGroup={resolvedGroup}
         initialType={initialType}
+        initialLanguage={initialLanguage}
         initialSort={initialSort}
       />
 

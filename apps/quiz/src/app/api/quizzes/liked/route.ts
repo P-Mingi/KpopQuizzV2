@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 interface LikedQuizRow {
   created_at: string;
   quizzes: {
-    id: string; title: string; slug: string; quiz_type: string; difficulty: string;
+    id: string; title: string; slug: string; quiz_type: string; difficulty: string; language?: string;
     play_count: number; total_score_sum: number; total_completions: number; like_count: number;
     created_at: string; questions?: unknown[]; cover_image_url?: string | null;
     groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
@@ -28,6 +28,7 @@ function toCard(row: LikedQuizRow): QuizCardData {
     id: q.id, title: q.title, slug: q.slug,
     quiz_type: q.quiz_type as QuizCardData['quiz_type'],
     difficulty: q.difficulty as QuizCardData['difficulty'],
+    language: (q.language as QuizCardData['language']) ?? 'en',
     play_count: q.play_count, total_score_sum: q.total_score_sum,
     total_completions: q.total_completions, like_count: q.like_count ?? 0,
     created_at: q.created_at, group_name: g.name, group_slug: g.slug,
@@ -50,7 +51,7 @@ export async function GET(): Promise<NextResponse> {
     .select(`
       created_at,
       quizzes!inner (
-        id, title, slug, quiz_type, difficulty, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url,
+        id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url,
         groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
         profiles!inner (username, avatar_url, avatar_bg, avatar_text)
       )

@@ -7,6 +7,7 @@ import { QuizCard } from '@/components/ui/quiz-card';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { CreateCTA } from '@/components/home/create-cta';
 import { Mascot } from '@/components/ui/mascot';
+import { languageLabel } from '@/lib/languages';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -65,8 +66,8 @@ function typeToDb(t: TypeKey): string {
   }
 }
 
-function comboKey(sort: SortKey, group: string | null, type: TypeKey | null): string {
-  return `${sort}:${group ?? ''}:${type ?? ''}`;
+function comboKey(sort: SortKey, group: string | null, type: TypeKey | null, language: string | null): string {
+  return `${sort}:${group ?? ''}:${type ?? ''}:${language ?? ''}`;
 }
 
 /** Interleave a Create banner after every CTA_EVERY cards. */
@@ -88,8 +89,11 @@ function withBanners(quizzes: QuizCardData[]): React.ReactNode[] {
 interface Props {
   initialQuizzes: QuizCardData[];
   groups: BrowseGroup[];
+  /** Q-B2: published-quiz counts per language (only languages that exist). */
+  languageCounts: { language: string; count: number }[];
   initialGroup: string | null;
   initialType: TypeKey | null;
+  initialLanguage: string | null;
   initialSort: SortKey;
 }
 
@@ -103,15 +107,21 @@ interface Props {
 export function BrowseQuizzes({
   initialQuizzes,
   groups,
+  languageCounts,
   initialGroup,
   initialType,
+  initialLanguage,
   initialSort,
 }: Props): React.ReactElement {
   const [sort, setSort] = useState<SortKey>(initialSort);
   const [group, setGroup] = useState<string | null>(initialGroup);
   const [type, setType] = useState<TypeKey | null>(initialType);
+  const [language, setLanguage] = useState<string | null>(initialLanguage);
 
-  const initCK = comboKey(initialSort, initialGroup, initialType);
+  // Only offer the language filter when more than one language actually exists.
+  const showLanguageFilter = languageCounts.length > 1;
+
+  const initCK = comboKey(initialSort, initialGroup, initialType, initialLanguage);
   const [cache, setCache] = useState<Record<string, QuizCardData[]>>({ [initCK]: initialQuizzes });
   const [hasMore, setHasMore] = useState<Record<string, boolean>>({
     [initCK]: initialQuizzes.length >= PAGE_SIZE,
@@ -129,12 +139,12 @@ export function BrowseQuizzes({
   const cacheRef = useRef(cache);
   cacheRef.current = cache;
 
-  const currentCK = comboKey(sort, group, type);
+  const currentCK = comboKey(sort, group, type, language);
   const filteredQuizzes = cache[currentCK] ?? [];
   const isSearchActive = query.trim().length >= SEARCH_MIN;
 
   const buildApiUrl = useCallback(
-    (s: SortKey, g: string | null, t: TypeKey | null, offset: number): string => {
+    (s: SortKey, g: string | null, t: TypeKey | null, l: string | null, offset: number): string => {
       const params = new URLSearchParams({
         tab: sortToTab(s),
         offset: String(offset),
@@ -143,16 +153,18 @@ export function BrowseQuizzes({
       const gid = g ? groupBySlug.current.get(g)?.id : undefined;
       if (gid != null) params.set('group_id', String(gid));
       if (t) params.set('quiz_type', typeToDb(t));
+      if (l) params.set('language', l);
       return `/api/quizzes?${params.toString()}`;
     },
     [],
   );
 
-  /** Shallow URL update - keeps ?group/?type/?sort in sync, no server reload. */
-  const syncUrl = useCallback((s: SortKey, g: string | null, t: TypeKey | null) => {
+  /** Shallow URL update - keeps ?group/?type/?lang/?sort in sync, no server reload. */
+  const syncUrl = useCallback((s: SortKey, g: string | null, t: TypeKey | null, l: string | null) => {
     const params = new URLSearchParams();
     if (g) params.set('group', g);
     if (t) params.set('type', t);
+    if (l) params.set('lang', l);
     if (s !== DEFAULT_SORT) params.set('sort', s);
     const qs = params.toString();
     window.history.pushState(null, '', qs ? `/quizzes?${qs}` : '/quizzes');
@@ -160,13 +172,13 @@ export function BrowseQuizzes({
 
   /** Fetch a filter combo's first page if we don't already have it cached. */
   const ensureLoaded = useCallback(
-    (s: SortKey, g: string | null, t: TypeKey | null) => {
-      const key = comboKey(s, g, t);
+    (s: SortKey, g: string | null, t: TypeKey | null, l: string | null) => {
+      const key = comboKey(s, g, t, l);
       if (cacheRef.current[key] !== undefined) return;
       setLoading(true);
       (async () => {
         try {
-          const res = await fetch(buildApiUrl(s, g, t, 0));
+          const res = await fetch(buildApiUrl(s, g, t, l, 0));
           if (!res.ok) throw new Error('Failed to load quizzes');
           const data: { quizzes: QuizCardData[] } = await res.json();
           setCache((prev) => ({ ...prev, [key]: data.quizzes }));
@@ -182,17 +194,19 @@ export function BrowseQuizzes({
   );
 
   const apply = useCallback(
-    (next: { sort?: SortKey; group?: string | null; type?: TypeKey | null }) => {
+    (next: { sort?: SortKey; group?: string | null; type?: TypeKey | null; language?: string | null }) => {
       const s = next.sort ?? sort;
       const g = next.group !== undefined ? next.group : group;
       const t = next.type !== undefined ? next.type : type;
+      const l = next.language !== undefined ? next.language : language;
       setSort(s);
       setGroup(g);
       setType(t);
-      syncUrl(s, g, t);
-      ensureLoaded(s, g, t);
+      setLanguage(l);
+      syncUrl(s, g, t, l);
+      ensureLoaded(s, g, t, l);
     },
-    [sort, group, type, syncUrl, ensureLoaded],
+    [sort, group, type, language, syncUrl, ensureLoaded],
   );
 
   // Back/forward navigation: re-derive filters from the URL.
@@ -201,17 +215,20 @@ export function BrowseQuizzes({
       const sp = new URLSearchParams(window.location.search);
       const g = sp.get('group');
       const tRaw = sp.get('type');
+      const lRaw = sp.get('lang');
       const sRaw = sp.get('sort');
       const t = TYPES.some((x) => x.key === tRaw) ? (tRaw as TypeKey) : null;
+      const l = lRaw && languageCounts.some((x) => x.language === lRaw) ? lRaw : null;
       const s = SORTS.some((x) => x.key === sRaw) ? (sRaw as SortKey) : DEFAULT_SORT;
       setSort(s);
       setGroup(g);
       setType(t);
-      ensureLoaded(s, g, t);
+      setLanguage(l);
+      ensureLoaded(s, g, t, l);
     }
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
-  }, [ensureLoaded]);
+  }, [ensureLoaded, languageCounts]);
 
   // Debounced search.
   const onSearchChange = useCallback((value: string) => {
@@ -247,7 +264,7 @@ export function BrowseQuizzes({
     const current = cacheRef.current[currentCK] ?? [];
     setLoadingMore(true);
     try {
-      const res = await fetch(buildApiUrl(sort, group, type, current.length));
+      const res = await fetch(buildApiUrl(sort, group, type, language, current.length));
       if (!res.ok) throw new Error('Failed to load more');
       const data: { quizzes: QuizCardData[] } = await res.json();
       const seen = new Set(current.map((q) => q.id));
@@ -259,7 +276,7 @@ export function BrowseQuizzes({
     } finally {
       setLoadingMore(false);
     }
-  }, [currentCK, buildApiUrl, sort, group, type]);
+  }, [currentCK, buildApiUrl, sort, group, type, language]);
 
   const displayed = isSearchActive ? (results ?? []) : filteredQuizzes;
   const canLoadMore = !isSearchActive && (hasMore[currentCK] ?? false);
@@ -362,6 +379,32 @@ export function BrowseQuizzes({
               </button>
             ))}
           </div>
+
+          {/* Row 3 - language filter (only when more than one language exists) */}
+          {showLanguageFilter && (
+            <div className="type-sort-row" role="group" aria-label="Filter by language">
+              <span className="filter-group-label">Language</span>
+              <button
+                type="button"
+                className={`btn-filter${language === null ? ' active' : ''}`}
+                aria-pressed={language === null}
+                onClick={() => apply({ language: null })}
+              >
+                All
+              </button>
+              {languageCounts.map((lc) => (
+                <button
+                  key={lc.language}
+                  type="button"
+                  className={`btn-filter${language === lc.language ? ' active' : ''}`}
+                  aria-pressed={language === lc.language}
+                  onClick={() => apply({ language: language === lc.language ? null : lc.language })}
+                >
+                  {languageLabel(lc.language)} ({lc.count})
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
