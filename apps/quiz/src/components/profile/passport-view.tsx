@@ -244,15 +244,17 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           {headerUrl && <div className="pp-band-scrim" />}
         </div>
 
-        <div style={{ display: 'flex', gap: 13, alignItems: 'flex-end', marginTop: 12 }}>
-          <div style={{ marginTop: -34, flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
+        {/* Pull the whole row up so the avatar straddles the band; the text
+            columns are padded back down to sit below it. */}
+        <div style={{ display: 'flex', gap: 13, alignItems: 'flex-start', marginTop: -36 }}>
+          <div style={{ flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
             <PassportAvatar
               username={username} avatarUrl={avatarUrl} avatarBg={avatarBg} avatarText={avatarText}
               avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null} size={64}
             />
           </div>
 
-          <div style={{ flex: 1, minWidth: 0, paddingBottom: 2 }}>
+          <div style={{ flex: 1, minWidth: 0, paddingTop: 42 }}>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
               <h1 style={{ fontSize: 16.5, fontWeight: 500, color: accentName, lineHeight: 1.15, margin: 0 }}>{displayName}</h1>
               {pinnedIcon && (
@@ -271,7 +273,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             </p>
           </div>
 
-          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, paddingTop: 42 }}>
             {!isPersonal && followSlot}
             {headerSlot}
           </div>
