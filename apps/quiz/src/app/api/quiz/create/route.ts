@@ -266,13 +266,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (modError) console.error('Cover moderation queue insert failed:', modError.message);
   }
 
-  // Award XP for creating a quiz
+  // Award XP for creating a quiz. The same profile read powers the post-publish
+  // creator-progress nudge (Q-B4): total_quizzes_created is post-increment here
+  // (the insert trigger already ran), and total_plays_received drives the
+  // plays-based Creator tier countdown once a creator is past 10 quizzes.
+  let creatorStats: { quizzes_created: number; plays_received: number } | null = null;
   try {
     const { data: profile } = await supabase
       .from('profiles')
-      .select('total_quizzes_created')
+      .select('total_quizzes_created, total_plays_received')
       .eq('id', user.id)
       .single();
+
+    if (profile) {
+      creatorStats = {
+        quizzes_created: profile.total_quizzes_created ?? 0,
+        plays_received: profile.total_plays_received ?? 0,
+      };
+    }
 
     const isFirst = profile && profile.total_quizzes_created <= 1;
     const xpAmount = isFirst ? 75 : 25; // 25 base + 50 first-time bonus
@@ -289,5 +300,5 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     console.error('Failed to award XP:', err);
   }
 
-  return NextResponse.json({ id: quiz.id, slug: quiz.slug });
+  return NextResponse.json({ id: quiz.id, slug: quiz.slug, creator_stats: creatorStats });
 }

@@ -15,6 +15,8 @@ import {
 import { GroupPicker } from './group-picker';
 import { LANGUAGES, detectBrowserLanguage } from '@/lib/languages';
 import { QuestionListEditor, type QuestionData } from '@/components/quiz/question-list-editor';
+import { creatorNudge, type CreatorStats } from '@/lib/creator-progress';
+import { languageChip } from '@/lib/languages';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -90,7 +92,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   const [publishError, setPublishError] = useState<string | null>(null);
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState('');
-  const [published, setPublished] = useState<{ id: string; slug: string } | null>(null);
+  const [published, setPublished] = useState<{ id: string; slug: string; creator_stats?: CreatorStats | null } | null>(null);
   const [copied, setCopied] = useState(false);
   const [shareModal, setShareModal] = useState<SharePlatform | null>(null);
   // I1 inline username: a signed-in user with no profile picks one here (no /onboarding redirect).
@@ -171,7 +173,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
         setPublishing(false);
         return;
       }
-      const out = (await res.json()) as { id: string; slug: string };
+      const out = (await res.json()) as { id: string; slug: string; creator_stats?: CreatorStats | null };
       clearDraft();
       setPublished(out);
       setStep(4);
@@ -479,6 +481,14 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
             <div className="cf-preview-card"><QuizCard quiz={previewQuiz} showScore={false} /></div>
           </div>
 
+          <dl className="cf-summary" aria-label="Quiz summary">
+            <div className="cf-summary-row"><dt>Title</dt><dd>{data.title.trim() || displayTitle}</dd></div>
+            <div className="cf-summary-row"><dt>Group</dt><dd>{group?.name ?? data.newGroup ?? '-'}</dd></div>
+            <div className="cf-summary-row"><dt>Questions</dt><dd>{nComplete}</dd></div>
+            <div className="cf-summary-row"><dt>Difficulty</dt><dd className="cf-summary-cap">{data.difficulty}</dd></div>
+            <div className="cf-summary-row"><dt>Language</dt><dd><span className="cf-summary-lang">{languageChip(data.language)}</span></dd></div>
+          </dl>
+
           {!ready && (
             <p className="cf-reqs" role="status">To publish: a title (5+ chars), a group, and at least {MIN_QUESTIONS} complete questions (you have {nComplete}). <button type="button" className="cf-inline-link" onClick={() => setStep(2)}>Add questions</button></p>
           )}
@@ -540,7 +550,21 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
             <Mascot variant="celebrate" animate="bob" size={108} alt="" />
           </div>
           <h1 className="cf-head cf-center">Your quiz is live!</h1>
-          <p className="cf-sub cf-center">Now the fun part. See who can actually beat it.</p>
+          <p className="cf-sub cf-center">Quizzes that get shared get played. Send it to your fandom and see who can beat it.</p>
+
+          {(() => {
+            const nudge = creatorNudge(published.creator_stats);
+            if (!nudge) return null;
+            const pct = nudge.target > 0 ? Math.min(100, Math.round((nudge.current / nudge.target) * 100)) : 100;
+            return (
+              <div className="cf-nudge" role="status">
+                <span className="cf-nudge-text">{nudge.text}</span>
+                {!nudge.maxed && (
+                  <span className="cf-nudge-bar" aria-hidden="true"><span className="cf-nudge-fill" style={{ width: `${pct}%` }} /></span>
+                )}
+              </div>
+            );
+          })()}
 
           <div className="cf-share-btns">
             <button type="button" className="cf-share-btn cf-reddit" onClick={() => setShareModal('reddit')}>
