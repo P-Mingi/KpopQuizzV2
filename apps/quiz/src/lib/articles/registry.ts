@@ -525,6 +525,105 @@ export const ARTICLES: ArticleMeta[] = [
       },
     ],
   },
+  {
+    slug: 'newjeans-fan-guide',
+    title: 'How Well Do You Know NewJeans? The Complete Fan Guide',
+    description:
+      'A NewJeans fan guide: the five members (Minji, Hanni, Danielle, Haerin, Hyein), why their sound is easy to recognize, and how to get quiz-ready. Includes the NewJeans quiz.',
+    category: 'guide',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'NewJeans fan guide with the five members',
+    tags: ['newjeans', 'fan guide', 'girl group'],
+    relatedLinks: [
+      { label: 'NewJeans quizzes', href: '/newjeans-quiz' },
+      { label: 'Try the blind test', href: '/blindtest' },
+      { label: 'aespa vs NewJeans', href: '/articles/aespa-vs-newjeans-quiz' },
+    ],
+    faq: [
+      {
+        question: 'Who are the members of NewJeans?',
+        answer:
+          'NewJeans have five members: Minji, Hanni, Danielle, Haerin and Hyein. They are a 4th-generation K-pop girl group who debuted in 2022 and became one of the most recognizable acts of their generation.',
+      },
+      {
+        question: 'What makes NewJeans easy to recognize in a quiz?',
+        answer:
+          'NewJeans built their name on a consistent, retro-leaning pop sound, so once you know their palette their songs are among the fastest to place in a blind test. The trickier questions tend to be about members and eras.',
+      },
+      {
+        question: 'How do I get quiz-ready as a NewJeans fan?',
+        answer:
+          'Work in order: a member quiz to lock in the five names, then a title-tracks quiz, then the NewJeans blind test to check your ear. For a challenge, compare yourself against another 4th-gen girl group.',
+      },
+    ],
+  },
+  {
+    slug: 'bts-discography-guide',
+    title: 'The Ultimate BTS Discography Guide (Test Every Era)',
+    description:
+      'A guide to the BTS discography for quiz fans: seven members, nine Korean studio albums, 200+ songs, and how to study the catalog era by era. Includes the BTS quiz and blind test.',
+    category: 'guide',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'BTS discography guide organized by era',
+    tags: ['bts', 'discography', 'fan guide'],
+    relatedLinks: [
+      { label: 'BTS quizzes', href: '/bts-quiz' },
+      { label: 'Try the blind test', href: '/blindtest' },
+      { label: 'BTS vs BLACKPINK', href: '/articles/bts-vs-blackpink-quiz' },
+    ],
+    faq: [
+      {
+        question: 'How many members does BTS have?',
+        answer:
+          'BTS have seven members: RM, Jin, Suga, J-Hope, Jimin, V and Jungkook. Knowing each member and their solo work is the foundation for the harder BTS quizzes.',
+      },
+      {
+        question: 'Why is the BTS discography so hard to quiz on?',
+        answer:
+          'Volume and depth. BTS have more than 200 songs across nine Korean studio albums plus Japanese releases and mixtapes, and the BTS Universe storyline and every member\'s solo catalog multiply the trivia surface area.',
+      },
+      {
+        question: 'How should I study the BTS discography?',
+        answer:
+          'Learn it era by era rather than as one flat list. Each BTS era has a distinct production style, so anchoring songs to their era is the fastest way to narrow an answer on a quiz.',
+      },
+    ],
+  },
+  {
+    slug: 'rookie-kpop-groups-2026',
+    title: 'The Rookie K-pop Groups Taking Over 2026 (With Quizzes)',
+    description:
+      'How to spot rising rookie K-pop groups through real quiz activity on kpopquiz.org. As of July 2026, rookie fandoms like Cortis climb the most-played chart before the group is a household name.',
+    category: 'guide',
+    publishedAt: '2026-07-23',
+    updatedAt: '2026-07-23',
+    coverAlt: 'Rising rookie K-pop groups of 2026 with their quizzes',
+    tags: ['rookies', '2026', 'new groups'],
+    relatedLinks: [
+      { label: 'Browse the newest quizzes', href: '/quizzes' },
+      { label: 'Most-played this month', href: '/articles/most-played-kpop-quizzes' },
+      { label: 'Live stats', href: '/stats' },
+    ],
+    faq: [
+      {
+        question: 'Which rookie K-pop groups are rising in 2026?',
+        answer:
+          'The most honest signal is real activity. On kpopquiz.org as of July 2026, quizzes for the rookie group Cortis have climbed into the monthly top ten, drawing more plays than many established groups.',
+      },
+      {
+        question: 'How do I follow a new K-pop group through quizzes?',
+        answer:
+          'Start with a member quiz to learn names and positions, then take an easy overview quiz, and watch the group\'s quiz hub as fans add more. Rookie groups have smaller catalogs, so you can get quiz-ready in one session.',
+      },
+      {
+        question: 'Why do rookie fandoms build quiz momentum so fast?',
+        answer:
+          'Early fandoms are highly engaged and want to prove they were there first, so they play and create quizzes as soon as a group debuts. That is why the monthly most-played list often features a climbing rookie act.',
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): ArticleMeta | undefined {

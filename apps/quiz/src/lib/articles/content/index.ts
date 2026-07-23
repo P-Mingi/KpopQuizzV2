@@ -16,6 +16,9 @@ const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ComponentType }>>
   'guess-the-kpop-idol-guide': () => import('./guess-the-kpop-idol-guide'),
   'best-kpop-quizzes-for-beginners': () => import('./best-kpop-quizzes-for-beginners'),
   'kpop-eras-timeline': () => import('./kpop-eras-timeline'),
+  'newjeans-fan-guide': () => import('./newjeans-fan-guide'),
+  'bts-discography-guide': () => import('./bts-discography-guide'),
+  'rookie-kpop-groups-2026': () => import('./rookie-kpop-groups-2026'),
 };
 
 export async function loadArticleContent(
