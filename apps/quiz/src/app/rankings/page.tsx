@@ -43,9 +43,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RankingsIndexPage(): Promise<React.ReactElement> {
   const rankings = await safeFetch(getRankingsIndex(), [], '[rankings] getRankingsIndex');
-  const publicRankings = rankings
-    .filter((r) => r.public)
-    .sort((a, b) => b.total_votes - a.total_votes);
+  // U-1a: show ALL rankings, not just the ones past their vote threshold. Public
+  // ones are live-ranking cards (view results); locked ones are "vote to unlock"
+  // cards that drop into the duel preselected, so "See all" really lists every
+  // ranking the trending strip teases.
+  const publicRankings = rankings.filter((r) => r.public).sort((a, b) => b.total_votes - a.total_votes);
+  const lockedRankings = rankings
+    .filter((r) => !r.public)
+    .sort((a, b) => b.total_votes / b.min_votes - a.total_votes / a.min_votes);
 
   return (
     <div className="ranking-page">
@@ -58,7 +63,7 @@ export default async function RankingsIndexPage(): Promise<React.ReactElement> {
         as fans play. They reflect fan opinion, not an official list.
       </p>
 
-      {publicRankings.length > 0 ? (
+      {publicRankings.length > 0 && (
         <ul className="ranking-index-grid">
           {publicRankings.map((r) => (
             <li key={`${r.group_slug}:${r.question_type}`}>
@@ -80,7 +85,39 @@ export default async function RankingsIndexPage(): Promise<React.ReactElement> {
             </li>
           ))}
         </ul>
-      ) : (
+      )}
+
+      {lockedRankings.length > 0 && (
+        <>
+          <h2 className="ranking-locked-h2">Vote to unlock these rankings</h2>
+          <p className="ranking-locked-intro">
+            These rankings go live once enough fans vote. Play the matchup and help unlock them.
+          </p>
+          <ul className="ranking-index-grid">
+            {lockedRankings.map((r) => {
+              const pct = Math.min(100, Math.round((r.total_votes / r.min_votes) * 100));
+              return (
+                <li key={`${r.group_slug}:${r.question_type}`}>
+                  <Link
+                    href={`/games/this-or-that?group=${encodeURIComponent(r.group_slug)}&type=${encodeURIComponent(r.question_type)}`}
+                    className="ranking-index-card is-locked"
+                  >
+                    <span className="ranking-index-avatar" />
+                    <span className="ranking-index-body">
+                      <span className="ranking-index-name">{heading(r.group_slug, r.question_type)}</span>
+                      <span className="ranking-lock-bar"><span className="ranking-lock-fill" style={{ width: `${pct}%` }} /></span>
+                      <span className="ranking-index-meta">Vote to unlock · {r.total_votes.toLocaleString('en-US')}/{r.min_votes.toLocaleString('en-US')} votes</span>
+                    </span>
+                    <span className="ranking-index-arrow" aria-hidden="true">→</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
+
+      {publicRankings.length === 0 && lockedRankings.length === 0 && (
         <div className="rank-locked">
           <p className="rank-locked-title">Rankings unlock as fans vote</p>
           <p className="rank-locked-sub">

@@ -179,7 +179,7 @@ export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProp
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
               This or That
             </span>
-            <Link href="/games/this-or-that" className="games-sec-see">See all {totCategories.length}+ →</Link>
+            <Link href="/games/this-or-that/all" className="games-sec-see">See all {totCategories.length}+ →</Link>
           </div>
           <div className="game-grid">
             {totVisible.map((c, i) => {
