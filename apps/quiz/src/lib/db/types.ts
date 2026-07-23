@@ -26,6 +26,8 @@ export interface Profile {
   avatar_ref: string | null;
   // F2c: the year a fan got into K-pop (migration 112), optional.
   stan_since: number | null;
+  // Custom profile header/banner image (migration 114); null = holographic default.
+  header_url: string | null;
 }
 
 export interface Group {

@@ -99,6 +99,22 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // Validate header_url (migration 114): custom profile banner. null/"" clears
+  // it back to the holographic default. Same URL guard as the avatar.
+  if (input.header_url !== undefined) {
+    if (input.header_url === null || input.header_url === '') {
+      updates.header_url = null;
+    } else if (typeof input.header_url === 'string') {
+      if (!/^https?:\/\//.test(input.header_url)) {
+        return NextResponse.json({ error: 'Header URL must start with http:// or https://' }, { status: 400 });
+      }
+      if (input.header_url.length > 500) {
+        return NextResponse.json({ error: 'Header URL must be 500 characters or less' }, { status: 400 });
+      }
+      updates.header_url = input.header_url;
+    }
+  }
+
   // Validate bio
   if (input.bio !== undefined) {
     if (input.bio === null || input.bio === '') {
@@ -224,7 +240,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
-    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, stan_since')
+    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, stan_since, header_url')
     .single();
 
   if (updateError) {

@@ -30,6 +30,7 @@ interface ProfileData {
   avatar_ref: string | null;
   xp: number;
   stan_since: number | null;
+  header_url: string | null;
 }
 
 interface EarnedBadge { id: string; name: string; color_bg: string; color_stroke: string }
@@ -49,6 +50,7 @@ export default function SettingsPage(): React.ReactElement {
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [headerUrl, setHeaderUrl] = useState('');
   const [bio, setBio] = useState('');
   const [ultGroups, setUltGroups] = useState<string[]>([]);
   const [bias, setBias] = useState('');
@@ -77,7 +79,7 @@ export default function SettingsPage(): React.ReactElement {
       const [{ data }, { data: groups }, { data: badges }] = await Promise.all([
         supabase
           .from('profiles')
-          .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, xp, stan_since')
+          .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, xp, stan_since, header_url')
           .eq('id', user.id)
           .single(),
         supabase.from('groups').select('slug, name, display_color').order('name'),
@@ -90,6 +92,7 @@ export default function SettingsPage(): React.ReactElement {
         setUsername(p.username);
         setDisplayName(p.display_name ?? '');
         setAvatarUrl(p.avatar_url ?? '');
+        setHeaderUrl(p.header_url ?? '');
         setBio(p.bio ?? '');
         setUltGroups(Array.isArray(p.ult_groups) ? p.ult_groups : []);
         setBias(p.bias ?? '');
@@ -162,6 +165,7 @@ export default function SettingsPage(): React.ReactElement {
     username !== profile.username ||
     displayName !== (profile.display_name ?? '') ||
     avatarUrl !== (profile.avatar_url ?? '') ||
+    headerUrl !== (profile.header_url ?? '') ||
     bio !== (profile.bio ?? '') ||
     ultsChanged ||
     bias !== (profile.bias ?? '') ||
@@ -208,6 +212,7 @@ export default function SettingsPage(): React.ReactElement {
     if (username !== profile.username) payload.username = username;
     if (displayName !== (profile.display_name ?? '')) payload.display_name = displayName || null;
     if (avatarUrl !== (profile.avatar_url ?? '')) payload.avatar_url = avatarUrl || null;
+    if (headerUrl !== (profile.header_url ?? '')) payload.header_url = headerUrl || null;
     if (bio !== (profile.bio ?? '')) payload.bio = bio || null;
     if (ultsChanged) payload.ult_groups = ultGroups;
     if (bias !== (profile.bias ?? '')) payload.bias = bias || null;
@@ -238,6 +243,7 @@ export default function SettingsPage(): React.ReactElement {
       setUsername(data.profile.username);
       setDisplayName(data.profile.display_name ?? '');
       setAvatarUrl(data.profile.avatar_url ?? '');
+      setHeaderUrl(data.profile.header_url ?? '');
       setBio(data.profile.bio ?? '');
       setUltGroups(Array.isArray(data.profile.ult_groups) ? data.profile.ult_groups : []);
       setBias(data.profile.bias ?? '');
@@ -256,7 +262,7 @@ export default function SettingsPage(): React.ReactElement {
     } finally {
       setSaving(false);
     }
-  }, [canSave, profile, username, displayName, avatarUrl, bio, ultsChanged, ultGroups, bias, profileTheme, nameAccent, nameFont, pinnedBadge, avatarKind, avatarRef, showToast, router]);
+  }, [canSave, profile, username, displayName, avatarUrl, headerUrl, bio, ultsChanged, ultGroups, bias, profileTheme, nameAccent, nameFont, pinnedBadge, avatarKind, avatarRef, stanSince, showToast, router]);
 
   const toggleUlt = useCallback((slug: string) => {
     setUltGroups((cur) => cur.includes(slug) ? cur.filter((s) => s !== slug) : (cur.length >= ULT_MAX ? cur : [...cur, slug]));
@@ -328,6 +334,36 @@ export default function SettingsPage(): React.ReactElement {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Profile header / banner */}
+        <div className="mb-6">
+          <p className="text-sm font-medium text-primary mb-3">Profile header</p>
+          <div
+            style={{
+              height: 76, borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border)', marginBottom: 10,
+              ...(headerUrl
+                ? { backgroundImage: `url("${headerUrl}")`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                : { background: 'radial-gradient(120% 150% at 12% -20%, #8A2BE2 0%, transparent 46%), radial-gradient(130% 150% at 102% 0%, #FF5C8A 0%, transparent 55%), linear-gradient(120deg, #2A0C22 0%, #7A1E52 48%, #E8457A 108%)' }),
+            }}
+            aria-hidden="true"
+          />
+          <input
+            type="text"
+            placeholder="Paste an image URL (https://...)"
+            value={headerUrl}
+            onChange={(e) => setHeaderUrl(e.target.value)}
+            className={INPUT}
+          />
+          <p className="text-xs text-tertiary mt-1">A wide image works best. Leave empty for the holographic default.</p>
+          {headerUrl && (
+            <button
+              onClick={() => setHeaderUrl('')}
+              className="text-xs text-wrong-text mt-2 underline cursor-pointer"
+            >
+              Remove header
+            </button>
+          )}
         </div>
 
         {/* Username */}

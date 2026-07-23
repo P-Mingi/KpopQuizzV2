@@ -128,7 +128,7 @@ const STYLE = `
 .pp-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pp-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .pp-gens{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin-top:10px}
-.pp-band{position:relative;height:104px;margin:-16px -20px 0;overflow:hidden;background-size:cover;background-position:center}
+.pp-band{position:relative;height:150px;margin:-16px -20px 0;overflow:hidden;background-size:cover;background-position:center}
 .pp-holo{background:
   radial-gradient(120% 150% at 12% -20%, #8A2BE2 0%, transparent 46%),
   radial-gradient(130% 150% at 102% 0%, #FF5C8A 0%, transparent 55%),
@@ -164,9 +164,9 @@ function FlameIcon(): React.ReactElement {
 /** Avatar slot: custom flatten, preset tile, or photo/initials fallback. */
 function PassportAvatar(props: {
   username: string; avatarUrl: string | null; avatarBg: string; avatarText: string;
-  avatarKind?: AvatarKind | null; avatarRef?: string | null;
+  avatarKind?: AvatarKind | null; avatarRef?: string | null; size?: number;
 }): React.ReactElement {
-  const size = 46;
+  const size = props.size ?? 46;
   const ring: React.CSSProperties = {
     width: size, height: size, borderRadius: '50%', flexShrink: 0,
     border: '1.5px solid var(--pp-accent, var(--brand))', overflow: 'hidden',
@@ -182,7 +182,7 @@ function PassportAvatar(props: {
   if (kind === 'preset' && props.avatarRef && AVATAR_PRESETS[props.avatarRef]) {
     const p = AVATAR_PRESETS[props.avatarRef]!;
     return (
-      <div style={{ ...ring, background: p.bg, color: p.fg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 17 }}>
+      <div style={{ ...ring, background: p.bg, color: p.fg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: Math.round(size * 0.37) }}>
         {props.username.slice(0, 2).toUpperCase()}
       </div>
     );
@@ -244,15 +244,15 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
           {headerUrl && <div className="pp-band-scrim" />}
         </div>
 
-        <div style={{ display: 'flex', gap: 11, alignItems: 'flex-end', marginTop: 8 }}>
-          <div style={{ marginTop: -44, flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
+        <div style={{ display: 'flex', gap: 13, alignItems: 'flex-end', marginTop: 12 }}>
+          <div style={{ marginTop: -34, flexShrink: 0, padding: 3, background: 'var(--surface)', borderRadius: '50%', boxShadow: '0 5px 14px -7px rgba(0,0,0,0.45)' }}>
             <PassportAvatar
               username={username} avatarUrl={avatarUrl} avatarBg={avatarBg} avatarText={avatarText}
-              avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null}
+              avatarKind={avatarKind ?? null} avatarRef={avatarRef ?? null} size={64}
             />
           </div>
 
-          <div style={{ flex: 1, minWidth: 0, paddingBottom: 1 }}>
+          <div style={{ flex: 1, minWidth: 0, paddingBottom: 2 }}>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
               <h1 style={{ fontSize: 16.5, fontWeight: 500, color: accentName, lineHeight: 1.15, margin: 0 }}>{displayName}</h1>
               {pinnedIcon && (

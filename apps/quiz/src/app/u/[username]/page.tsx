@@ -168,6 +168,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         accent={accent}
         bias={spine?.bias ?? null}
         stanSince={profile.stan_since ?? null}
+        headerUrl={profile.header_url}
         ultGroups={ultGroups}
         username={profile.username}
         displayName={displayName}
