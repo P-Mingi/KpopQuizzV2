@@ -205,10 +205,21 @@ export async function snapshotIfStale(
 // Display order for generations; unknown/extra eras are appended after these.
 const ERA_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'] as const;
 
+// U-4: per-group progress within a generation, for the /me collection drill-down.
+export interface EraGroupProgress {
+  id: number;
+  name: string;
+  color: string;
+  plays: number;    // songs_played toward the MASTERY.minPlays threshold
+  accuracy: number; // 0-1 (songs_correct / songs_played), 0 when unplayed
+  mastered: boolean;
+}
+
 export interface EraProgress {
   era: string;
   mastered: number; // groups the user has mastered in this era
   total: number;    // platform groups in this era
+  groups: EraGroupProgress[]; // per-group detail (drill-down; empty when no groups)
 }
 
 // Shape the Phase 1 collection bars (M1.2) will consume. Company progress is
@@ -305,29 +316,50 @@ export async function readCollectionProgress(
   supabase: SupabaseClient,
   userId: string,
 ): Promise<CollectionProgress> {
+  // Same two queries as before; groups now also selects name + colour so the
+  // drill-down needs no extra round trip (U-4: "one new cheap query max" - zero).
   const [groupsRes, masteryRes] = await Promise.all([
-    supabase.from('groups').select('id, generation'),
+    supabase.from('groups').select('id, name, generation, display_color'),
     supabase.from('player_group_mastery').select('group_id, songs_played, songs_correct').eq('player_id', userId),
   ]);
 
-  const groups = (groupsRes.data ?? []) as Array<{ id: number; generation: string | null }>;
+  const groups = (groupsRes.data ?? []) as Array<{ id: number; name: string; generation: string | null; display_color: string | null }>;
   const mastery = (masteryRes.data ?? []) as Array<{ group_id: number; songs_played: number; songs_correct: number }>;
 
+  const statByGroup = new Map<number, { played: number; correct: number }>();
+  for (const m of mastery) statByGroup.set(m.group_id, { played: m.songs_played ?? 0, correct: m.songs_correct ?? 0 });
+
   const masteredIds = new Set<number>();
-  for (const m of mastery) {
-    if (isMastered({ songs_played: m.songs_played ?? 0, songs_correct: m.songs_correct ?? 0 })) {
-      masteredIds.add(m.group_id);
-    }
+  for (const [gid, s] of statByGroup) {
+    if (isMastered({ songs_played: s.played, songs_correct: s.correct })) masteredIds.add(gid);
   }
 
   const totalByEra = new Map<string, number>();
   const masteredByEra = new Map<string, number>();
+  const groupsByEra = new Map<string, EraGroupProgress[]>();
   for (const g of groups) {
     if (!g.generation) continue; // unknown era: counted in groups_total, not bucketed
     totalByEra.set(g.generation, (totalByEra.get(g.generation) ?? 0) + 1);
     if (masteredIds.has(g.id)) {
       masteredByEra.set(g.generation, (masteredByEra.get(g.generation) ?? 0) + 1);
     }
+    const s = statByGroup.get(g.id);
+    const played = s?.played ?? 0;
+    const detail: EraGroupProgress = {
+      id: g.id,
+      name: g.name,
+      color: g.display_color ?? '#E8457A',
+      plays: played,
+      accuracy: played > 0 ? (s!.correct / played) : 0,
+      mastered: masteredIds.has(g.id),
+    };
+    const arr = groupsByEra.get(g.generation) ?? [];
+    arr.push(detail);
+    groupsByEra.set(g.generation, arr);
+  }
+  // Mastered first, then most-played, then alphabetical.
+  for (const arr of groupsByEra.values()) {
+    arr.sort((a, b) => Number(b.mastered) - Number(a.mastered) || b.plays - a.plays || a.name.localeCompare(b.name));
   }
 
   const orderedEras = [...ERA_ORDER.filter((e) => totalByEra.has(e)), ...[...totalByEra.keys()].filter((e) => !ERA_ORDER.includes(e as typeof ERA_ORDER[number]))];
@@ -335,6 +367,7 @@ export async function readCollectionProgress(
     era,
     mastered: masteredByEra.get(era) ?? 0,
     total: totalByEra.get(era) ?? 0,
+    groups: groupsByEra.get(era) ?? [],
   }));
 
   return {

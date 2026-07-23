@@ -1,5 +1,8 @@
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { Mascot } from '@/components/ui/mascot';
+import { CollectionGens } from '@/components/profile/collection-gens';
+
+import type { EraProgress } from '@/lib/passport';
 import { CountUp } from '@/components/ui/count-up';
 import { MASTERY } from '@/lib/passport';
 import { badgeIconFor } from '@/lib/badges';
@@ -86,7 +89,7 @@ export interface PassportViewProps {
   streakLastActive: string | null;
   groupsMastered: number;
   groupsTotal: number;
-  eras: Array<{ era: string; mastered: number; total: number }>;
+  eras: EraProgress[];
   topGroups: PassportTopGroup[];
   headerSlot?: React.ReactNode;
   badgesSlot?: React.ReactNode; // badge shelf, sits between collection and best groups
@@ -380,22 +383,7 @@ export function PassportView(props: PassportViewProps): React.ReactElement {
             />
           </div>
 
-          <div className="pp-gens">
-            {eras.map((e) => {
-              const pct = e.total > 0 ? (e.mastered / e.total) * 100 : 0;
-              return (
-                <div key={e.era}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 6, marginBottom: 4 }}>
-                    <span style={{ fontSize: 11.5, color: 'var(--txt2)' }}>{e.era}</span>
-                    <span style={{ fontSize: 11.5, color: 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{e.mastered}/{e.total}</span>
-                  </div>
-                  <div style={{ height: 4, borderRadius: 999, background: 'var(--surface-alt)', overflow: 'hidden' }}>
-                    <div className="pp-fill" style={{ height: '100%', borderRadius: 999, background: 'var(--brand)', width: `${pct}%` }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <CollectionGens eras={eras} personal={isPersonal} />
 
           {isPersonal && nextGap && (
             <p style={{ fontSize: 12, color: 'var(--brand-dark)', margin: '12px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>

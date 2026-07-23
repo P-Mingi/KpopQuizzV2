@@ -2244,6 +2244,22 @@ a.ranking-cta { text-decoration: none; }
 .ranking-index-card.is-locked { background: var(--surface-alt); }
 .ranking-lock-bar { display: block; width: 100%; height: 5px; border-radius: 100px; background: color-mix(in srgb, var(--brand) 14%, transparent); overflow: hidden; margin: 5px 0 3px; }
 .ranking-lock-fill { display: block; height: 100%; border-radius: 100px; background: var(--brand-btn); }
+/* U-4 - collection generation drill-down (personal /me profile) */
+.pp-gen-row { display: block; width: 100%; text-align: left; background: none; border: none; padding: 4px; margin: 0 -4px; border-radius: 8px; cursor: pointer; }
+.pp-gen-row:hover { background: var(--surface-alt); }
+.pp-gen-row:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.pp-gen-chev { color: var(--txt3); transition: transform 150ms ease; }
+.pp-gen-chev.open { transform: rotate(180deg); }
+.pp-gen-groups { list-style: none; margin: 8px 0 4px; padding: 9px 11px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-alt); border-radius: 10px; }
+.pp-gen-group { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 6px 10px; }
+.pp-gen-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.pp-gen-name { font-size: 12.5px; font-weight: 600; color: var(--txt1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pp-gen-stat { font-size: 11px; color: var(--txt3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pp-gen-stat.done { color: var(--correct); font-weight: 700; }
+.pp-gen-gbar { grid-column: 1 / -1; height: 4px; border-radius: 999px; background: color-mix(in srgb, var(--txt3) 18%, transparent); overflow: hidden; }
+.pp-gen-gfill { display: block; height: 100%; border-radius: 999px; background: var(--brand); }
+.pp-gen-gfill.done { background: var(--correct); }
+@media (prefers-reduced-motion: reduce) { .pp-gen-chev { transition: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .rank-locked-fill { transition: none; }
