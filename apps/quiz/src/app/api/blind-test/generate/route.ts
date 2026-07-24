@@ -25,7 +25,12 @@ const MIX = {
   unknownChance: 0.5,
 } as const;
 const FILL_ORDER: Tier[] = ['popular', 'medium', 'iconic', 'hard', 'unknown'];
-const SONGS_COUNT = 10;
+const SONGS_COUNT = 10; // default round length
+// U-2c: creator-chosen round count. Daily stays fixed at 10 via its own route.
+const MIN_SONGS = 5;
+const MAX_SONGS = 15;
+// U-2b: a multi-group pick unions up to this many groups' catalogs.
+const MAX_GROUPS = 3;
 
 // Per-game question-type split (tunable): ~60% "guess the group/artist", ~40%
 // "guess the song title", allocated for the whole game (not an independent coin
@@ -70,8 +75,8 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-// Build the per-game per-tier target counts, trimmed/topped toward 10.
-function buildTarget(): Record<Tier, number> {
+// Build the per-game per-tier target counts, trimmed/topped toward `count`.
+function buildTarget(count: number): Record<Tier, number> {
   const hard = Math.random() < 0.5 ? MIX.hardMax : MIX.hardMin;
   const unknown = Math.random() < MIX.unknownChance ? 1 : 0;
   const target: Record<Tier, number> = {
@@ -81,21 +86,23 @@ function buildTarget(): Record<Tier, number> {
     hard,
     unknown,
   };
-  // Trim any overflow above 10: drop hard before unknown so unknown stays ~50%.
+  // Trim overflow above `count` in round-robin from least-iconic first, so a
+  // short (5) game stays balanced and a long (15) game is topped up in select.
+  const trimOrder: Tier[] = ['hard', 'unknown', 'medium', 'popular', 'iconic'];
   let total = TIER_ORDER.reduce((sum, t) => sum + target[t], 0);
-  while (total > SONGS_COUNT) {
-    if (target.hard > MIX.hardMin) target.hard -= 1;
-    else if (target.unknown > 0) target.unknown -= 1;
-    else target.medium -= 1;
-    total -= 1;
+  let i = 0;
+  while (total > count && i < 200) {
+    const t = trimOrder[i % trimOrder.length]!;
+    if (target[t] > 0) { target[t] -= 1; total -= 1; }
+    i++;
   }
   return target;
 }
 
-// Pick exactly SONGS_COUNT songs honoring the tier target, filling shortfalls
-// from the nearest tiers (FILL_ORDER) so a full game is always returned when
-// the candidate pool has at least SONGS_COUNT songs.
-function selectGame(byTier: Record<Tier, SongRow[]>, target: Record<Tier, number>): SongRow[] {
+// Pick exactly `count` songs honoring the tier target, filling shortfalls from
+// the nearest tiers (FILL_ORDER) so a full game is always returned when the
+// candidate pool has at least `count` songs.
+function selectGame(byTier: Record<Tier, SongRow[]>, target: Record<Tier, number>, count: number): SongRow[] {
   const used = new Set<string>();
   const picked: SongRow[] = [];
   const pull = (tier: Tier, k: number): void => {
@@ -108,12 +115,12 @@ function selectGame(byTier: Record<Tier, SongRow[]>, target: Record<Tier, number
   };
   // 1. targeted pick per tier
   for (const tier of TIER_ORDER) pull(tier, target[tier]);
-  // 2. top up to 10 from nearest tiers (favor known tiers first)
+  // 2. top up to `count` from nearest tiers (favor known tiers first)
   for (const tier of FILL_ORDER) {
-    if (picked.length >= SONGS_COUNT) break;
-    pull(tier, SONGS_COUNT - picked.length);
+    if (picked.length >= count) break;
+    pull(tier, count - picked.length);
   }
-  return shuffle(picked).slice(0, SONGS_COUNT);
+  return shuffle(picked).slice(0, count);
 }
 
 function buildChoices(correct: string, wrongs: string[]): string[] {
@@ -146,7 +153,7 @@ const GEN_MAP: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  let body: { playlist?: string; mode?: string; difficulty?: string };
+  let body: { playlist?: string; groups?: unknown; count?: unknown; mode?: string; difficulty?: string };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -157,6 +164,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const mode = body.mode ?? 'quick';
   const difficulty = body.difficulty ?? 'all';
   const timerDuration = mode === 'challenge' ? 10 : 15;
+
+  // U-2c: round count (5-15, default 10). Daily uses its own fixed-10 route.
+  const rawCount = typeof body.count === 'number' ? Math.round(body.count) : SONGS_COUNT;
+  const count = Math.max(MIN_SONGS, Math.min(MAX_SONGS, rawCount));
+
+  // U-2b: multi-group pick (up to 3 slugs). When present, the pool is the union
+  // of those groups' catalogs. A single-slug playlist still uses the path below,
+  // so existing deep links are unchanged.
+  const groupSlugs = Array.isArray(body.groups)
+    ? [...new Set(body.groups.filter((s): s is string => typeof s === 'string' && s.length > 0))].slice(0, MAX_GROUPS)
+    : [];
+  const isMultiGroup = groupSlugs.length > 0;
 
   const supabase = await createServerClient();
 
@@ -169,7 +188,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   // Curation: general (non-group) playlists pull from the curated subset when
   // enabled. Group playlists use the full group catalog.
-  if (process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && playlist !== 'deep') {
+  if (process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && !isMultiGroup && playlist !== 'deep') {
     query = query.eq('is_curated', true);
   }
 
@@ -181,7 +200,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .not('title', 'ilike', '%inst.%')
     .not('title', 'ilike', '%karaoke%');
 
-  if (isGroupPlaylist) {
+  if (isMultiGroup) {
+    // Union of the picked groups' catalogs (matched by group_id, same as the
+    // single-group path). Unknown slugs are dropped; an empty result falls
+    // through to the not-enough-songs guard.
+    const { data: grps } = await supabase.from('groups').select('id').in('slug', groupSlugs);
+    const ids = (grps ?? []).map((g) => g.id as number);
+    if (ids.length > 0) query = query.in('group_id', ids);
+    else query = query.eq('group_id', -1); // no valid groups -> empty pool
+  } else if (isGroupPlaylist) {
     const { data: group } = await supabase
       .from('groups').select('id, name').eq('slug', playlist).maybeSingle();
     if (group?.id) {
@@ -217,9 +244,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const { data } = await query.limit(5000);
   const pool = (data ?? []) as SongRow[];
 
-  if (pool.length < SONGS_COUNT) {
+  if (pool.length < count) {
     return NextResponse.json(
-      { error: 'Not enough songs for this playlist', available: pool.length, needed: SONGS_COUNT },
+      { error: 'Not enough songs for this playlist', available: pool.length, needed: count },
       { status: 400 },
     );
   }
@@ -230,7 +257,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const t: Tier = s.tier && TIER_ORDER.includes(s.tier) ? s.tier : 'medium';
     byTier[t].push(s);
   }
-  const selected = selectGame(byTier, buildTarget());
+  const selected = selectGame(byTier, buildTarget(count), count);
 
   // Re-fetch fresh preview URLs + covers from Deezer (stored links expire).
   await Promise.all(

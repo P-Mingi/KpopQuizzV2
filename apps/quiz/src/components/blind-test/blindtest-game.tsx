@@ -75,11 +75,13 @@ const GENERATIONS: Array<{ id: string; label: string }> = [
 // generate route can actually serve. See lib/db/queries/blindtest.ts.
 interface PickerGroup { slug: string; name: string; count?: number }
 
-function scoreLabel(score: number): string {
-  if (score >= 10) return 'Perfect ear';
-  if (score >= 8) return 'Sharp listener';
-  if (score >= 6) return 'Solid fan';
-  if (score >= 4) return 'Getting there';
+// U-2c: labels scale to the round count (5/10/15) instead of a hardcoded 10.
+function scoreLabel(score: number, total: number): string {
+  if (total > 0 && score >= total) return 'Perfect ear';
+  const pct = total > 0 ? score / total : 0;
+  if (pct >= 0.8) return 'Sharp listener';
+  if (pct >= 0.6) return 'Solid fan';
+  if (pct >= 0.4) return 'Getting there';
   return 'Keep listening';
 }
 
@@ -98,9 +100,15 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   const [pickKind, setPickKind] = useState<PickKind>('all');
   const [playlist, setPlaylist] = useState('all');
   const [playlistLabel, setPlaylistLabel] = useState('All K-pop');
-  // Only a by-group pick carries a real group; 'all' and the generation buckets
-  // do not, and those fall back to /quizzes in the cross-promo.
-  const playlistGroup = groups.find((g) => g.slug === playlist) ?? null;
+  // U-2b: multi-group pick (up to 3). Empty = a general/single playlist pick.
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  // U-2c: round count (5/10/15). Daily mode ignores this (its own fixed-10 route).
+  const [roundCount, setRoundCount] = useState(10);
+  // Only a by-group pick carries a real group for the cross-promo. A single
+  // selected group qualifies; a multi-group mix or a general pick does not.
+  const playlistGroup = selectedGroups.length === 1
+    ? (groups.find((g) => g.slug === selectedGroups[0]) ?? null)
+    : selectedGroups.length === 0 ? (groups.find((g) => g.slug === playlist) ?? null) : null;
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -212,7 +220,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   useEffect(() => {
     if (phase !== 'results') return;
     if (alreadyPlayed) { void loadBoard(); return; }
-    analytics.gameComplete('blindtest', score, 10, isDailyLaunch());
+    analytics.gameComplete('blindtest', score, questions.length, isDailyLaunch());
     if (daily && !dailySubmittedRef.current) {
       dailySubmittedRef.current = true;
       markDailyPlayed('blindtest');
@@ -258,11 +266,21 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     unlock();
     setError(null);
     setPhase('loading');
+    // U-2b/c: a multi-group pick sends the union; a single group keeps the
+    // single-playlist shape (deep-link compatible). Round count rides along.
+    const body = selectedGroups.length >= 2
+      ? { groups: selectedGroups, count: roundCount, mode: 'challenge' }
+      : selectedGroups.length === 1
+        ? { playlist: selectedGroups[0], count: roundCount, mode: 'challenge' }
+        : { playlist, count: roundCount, mode: 'challenge' };
+    if (selectedGroups.length > 0) {
+      setPlaylistLabel(selectedGroups.map((s) => groups.find((g) => g.slug === s)?.name ?? s).join(' + '));
+    }
     try {
       const res = await fetch('/api/blind-test/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ playlist, mode: 'challenge' }),
+        body: JSON.stringify(body),
       });
       if (!res.ok) { setError('Not enough songs for this pick. Try another.'); setPhase('setup'); return; }
       const data = (await res.json()) as { questions: Question[] };
@@ -277,7 +295,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setError('Could not start the game. Check your connection.');
       setPhase('setup');
     }
-  }, [unlock, playlist, playQuestion]);
+  }, [unlock, playlist, playQuestion, roundCount, selectedGroups, groups]);
 
   // N4 - start the Blindtest of the Day. Runs from a Start tap (not on mount) so
   // the audio unlock happens inside a user gesture (iOS Safari). Fetches the
@@ -361,6 +379,19 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     setPickKind(kind);
     setPlaylist(id);
     setPlaylistLabel(label);
+    setSelectedGroups([]); // general/type/gen pick clears any group selection
+  };
+
+  // U-2b: toggle a group in the multi-select (cap 3). Picking any group switches
+  // the pick away from All/type/generation.
+  const toggleGroup = (slug: string): void => {
+    setPickKind('group');
+    setPlaylist('all');
+    setSelectedGroups((prev) => {
+      if (prev.includes(slug)) return prev.filter((s) => s !== slug);
+      if (prev.length >= 3) return prev;
+      return [...prev, slug];
+    });
   };
 
   const score = answers.filter((a) => a.correct).length;
@@ -453,17 +484,41 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               ))}
             </div>
 
-            {groups.length > 0 && <p className="bt-pick-heading">By group</p>}
+            {groups.length > 0 && (
+              <p className="bt-pick-heading">
+                By group <span className="bt-pick-hint">pick up to 3</span>
+              </p>
+            )}
             <div className="bt-group-grid">
-              {groups.map((g) => (
+              {groups.map((g) => {
+                const on = selectedGroups.includes(g.slug);
+                const capped = !on && selectedGroups.length >= 3;
+                return (
+                  <button
+                    key={g.slug}
+                    type="button"
+                    className={`bt-chip${on ? ' on' : ''}`}
+                    onClick={() => toggleGroup(g.slug)}
+                    aria-pressed={on}
+                    disabled={capped}
+                  >
+                    {g.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            <p className="bt-pick-heading">Rounds</p>
+            <div className="bt-chip-row">
+              {[5, 10, 15].map((n) => (
                 <button
-                  key={g.slug}
+                  key={n}
                   type="button"
-                  className={`bt-chip${playlist === g.slug ? ' on' : ''}`}
-                  onClick={() => choosePlaylist('group', g.slug, g.name)}
-                  aria-pressed={playlist === g.slug}
+                  className={`bt-chip${roundCount === n ? ' on' : ''}`}
+                  onClick={() => setRoundCount(n)}
+                  aria-pressed={roundCount === n}
                 >
-                  {g.name}
+                  {n} songs
                 </button>
               ))}
             </div>
@@ -472,7 +527,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
           {error && <p className="bt-error" role="alert">{error}</p>}
 
           <button type="button" className="bt-start" onClick={start}>
-            Start <span className="bt-start-pl">{playlistLabel}</span>
+            Start <span className="bt-start-pl">{selectedGroups.length > 0 ? `${selectedGroups.map((s) => groups.find((g) => g.slug === s)?.name ?? s).join(' + ')} · ${roundCount}` : `${playlistLabel} · ${roundCount}`}</span>
           </button>
           <Link href="/games" className="bt-back">Back to games</Link>
         </div>
@@ -634,10 +689,10 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               <p className="bt-result-label" style={{ marginTop: 10 }}>You already played today</p>
             ) : (
               <>
-                <p className="bt-result-score" aria-label={`You scored ${score} out of 10`}>
-                  {score}<span className="bt-result-of">/10</span>
+                <p className="bt-result-score" aria-label={`You scored ${score} out of ${questions.length}`}>
+                  {score}<span className="bt-result-of">/{questions.length}</span>
                 </p>
-                <p className="bt-result-label">{scoreLabel(score)} · {formatSecs(totalTimeMs)}</p>
+                <p className="bt-result-label">{scoreLabel(score, questions.length)} · {formatSecs(totalTimeMs)}</p>
                 {myRank && <p className="bt-result-url">Rank #{myRank} of {dailyRank!.total} today</p>}
               </>
             )}
@@ -671,8 +726,8 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
           <ResultLoop
             game="blindtest"
             score={alreadyPlayed ? undefined : score}
-            max={alreadyPlayed ? undefined : 10}
-            scoreLabel={alreadyPlayed ? undefined : scoreLabel(score)}
+            max={alreadyPlayed ? undefined : questions.length}
+            scoreLabel={alreadyPlayed ? undefined : scoreLabel(score, questions.length)}
             shareText={shareText}
             shareUrl="/blindtest"
             onPlayAgain={playFree}
@@ -693,16 +748,16 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         {/* F3 + F5 - mascot above the result card: celebrate on a good score
             (>= 6/10), sad below that. sad is static (never animates). */}
         <div className="flex justify-center" style={{ marginBottom: 8 }}>
-          {score >= 6
+          {score / Math.max(1, questions.length) >= 0.6
             ? <Mascot variant="celebrate" animate="bob" size={104} />
             : <Mascot variant="sad" size={104} />}
         </div>
         <div className="bt-result-card">
           <p className="bt-result-kicker">{playlistLabel} blind test</p>
-          <p className="bt-result-score" aria-label={`You scored ${score} out of 10`}>
-            {score}<span className="bt-result-of">/10</span>
+          <p className="bt-result-score" aria-label={`You scored ${score} out of ${questions.length}`}>
+            {score}<span className="bt-result-of">/{questions.length}</span>
           </p>
-          <p className="bt-result-label">{scoreLabel(score)}</p>
+          <p className="bt-result-label">{scoreLabel(score, questions.length)}</p>
           <p className="bt-result-url">kpopquiz.org</p>
         </div>
 
@@ -740,9 +795,9 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         <ResultLoop
           game="blindtest"
           score={score}
-          max={10}
-          scoreLabel={scoreLabel(score)}
-          shareText={`I scored ${score}/10 on the kpopquiz.org K-pop Blind Test. Can you beat me?`}
+          max={questions.length}
+          scoreLabel={scoreLabel(score, questions.length)}
+          shareText={`I scored ${score}/${questions.length} on the kpopquiz.org K-pop Blind Test. Can you beat me?`}
           shareUrl="/blindtest"
           onPlayAgain={start}
           isSignedIn={signedIn !== false}
