@@ -1,12 +1,16 @@
 'use client';
 
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { analytics } from '@/lib/analytics';
 import { runQuiz, type PersonalityQuestion, type PersonalityProfile, type QuizResult } from '@/lib/personality/engine';
 
 import type { PersonalityGroup } from '@/lib/personality/data';
+
+function utcDay(): string {
+  return new Date().toISOString().slice(0, 10);
+}
 
 interface Props {
   group: PersonalityGroup;
@@ -27,6 +31,8 @@ export function PersonalityQuiz({ group, questions, profiles, monthlyCounts }: P
   const [qi, setQi] = useState(0);
   const [picks, setPicks] = useState<number[]>([]);
   const [showAll, setShowAll] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const loggedRef = useRef(false);
 
   const accent = group.display_color || '#E8457A';
   const onAccent = group.text_color || '#FFFFFF';
@@ -35,6 +41,21 @@ export function PersonalityQuiz({ group, questions, profiles, monthlyCounts }: P
     () => (picks.length === questions.length ? runQuiz(questions, picks, profiles) : null),
     [picks, questions, profiles],
   );
+
+  // Log the completed run once (real counts). Anon runs are deduped per device
+  // per UTC day via localStorage; signed-in dedup is the DB daily unique index.
+  useEffect(() => {
+    if (phase !== 'result' || !result || loggedRef.current) return;
+    loggedRef.current = true;
+    const member = result.top.profile.member_name;
+    const key = `pq_logged_${group.id}_${utcDay()}`;
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch { /* ignore */ }
+    void fetch('/api/personality/result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ group_id: group.id, member_name: member }),
+    }).catch(() => {});
+  }, [phase, result, group.id]);
 
   const start = useCallback(() => {
     analytics.gameStart('personality', false);
@@ -58,6 +79,16 @@ export function PersonalityQuiz({ group, questions, profiles, monthlyCounts }: P
   }, [qi, questions.length]);
 
   const retake = useCallback(() => { setPicks([]); setQi(0); setShowAll(false); setPhase('intro'); }, []);
+
+  const share = useCallback(async (permalink: string, memberName: string) => {
+    analytics.shareClick('personality');
+    const url = `${typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org'}${permalink}`;
+    const text = `I got ${memberName} on the Which ${group.name} member are you quiz. Find out yours:`;
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try { await navigator.share({ title: `I got ${memberName}`, text, url }); return; } catch { /* fall through to copy */ }
+    }
+    try { await navigator.clipboard.writeText(`${text} ${url}`); setCopied(true); window.setTimeout(() => setCopied(false), 1600); } catch { /* ignore */ }
+  }, [group.name]);
 
   // ---------- INTRO ----------
   if (phase === 'intro') {
@@ -158,8 +189,15 @@ export function PersonalityQuiz({ group, questions, profiles, monthlyCounts }: P
         </div>
 
         <div className="pq-cta">
-          <button type="button" className="pq-start" onClick={retake}>Retake</button>
-          <Link href={`/${group.slug}`} className="pq-ghost">Try a {group.name} knowledge quiz</Link>
+          <button
+            type="button"
+            className="pq-start"
+            onClick={() => void share(`/which-${group.slug}-member-are-you/r/${m.member_slug}?p=${top.matchPct}`, m.member_name)}
+          >
+            {copied ? 'Link copied!' : `Share your result`}
+          </button>
+          <button type="button" className="pq-secondary" onClick={retake}>Retake the quiz</button>
+          <Link href={`/${group.slug}`} className="pq-ghost">Or try a {group.name} knowledge quiz</Link>
         </div>
       </div>
     </div>
