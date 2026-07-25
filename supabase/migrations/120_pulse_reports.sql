@@ -43,10 +43,11 @@ CREATE POLICY pc_public_read ON public.pulse_citations FOR SELECT USING (active 
 -- Seed 3 soridata citations (OWNER VERIFIES THE EXACT WORDING/FIGURES before the
 -- report is public). Each carries an as_of date and links to soridata; no
 -- scraping is performed, these are hand-curated citations.
+-- Figures confirmed against the owner's soridata screenshots (Jul 2026).
 INSERT INTO public.pulse_citations (source, claim, url, as_of_date, ord) VALUES
   ('soridata', 'According to soridata, K-pop music videos have together passed 321 billion total YouTube views.', 'https://soridata.com', '2026-07-01', 0),
-  ('soridata', 'According to soridata, K-pop music videos have together passed 21 billion total YouTube likes.', 'https://soridata.com', '2026-07-01', 1),
-  ('soridata', 'According to soridata, girl groups hold the majority of 2026''s most-viewed K-pop music videos.', 'https://soridata.com', '2026-07-01', 2)
+  ('soridata', 'According to soridata, K-pop music videos have together received about 5.2 billion total YouTube likes (5,225,203,649 as of July 2026).', 'https://soridata.com', '2026-07-01', 1),
+  ('soridata', 'According to soridata, male K-pop groups hold the largest share of total YouTube likes at 42.7% (versus 28.8% for female groups; absolute totals, not weighted per artist).', 'https://soridata.com', '2026-07-01', 2)
 ON CONFLICT DO NOTHING;
 
 NOTIFY pgrst, 'reload schema';
