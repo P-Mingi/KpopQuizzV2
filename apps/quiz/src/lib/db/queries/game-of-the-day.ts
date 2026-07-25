@@ -1,5 +1,6 @@
 import { getRanking, getRankingsIndex } from '@/lib/db/queries/duels';
 import { getNameAllGames } from '@/lib/db/queries/games';
+import { getPersonalityGroupTiles } from '@/lib/personality/data';
 
 /**
  * Game of the day (D1). Date-seeded + deterministic + read-only (no DB writes,
@@ -10,7 +11,7 @@ import { getNameAllGames } from '@/lib/db/queries/games';
  * ROTATION is the one and only extension point: add 'blindtest' (B12) or
  * 'battle' here and that mode joins the daily rotation. One-line change.
  */
-export const ROTATION = ['duel', 'name-all'] as const;
+export const ROTATION = ['personality', 'duel', 'name-all'] as const;
 export type GameOfTheDayKind = (typeof ROTATION)[number];
 
 export interface DuelGotd {
@@ -33,7 +34,17 @@ export interface NameAllGotd {
   timeLabel: string;
 }
 
-export type GameOfTheDayData = DuelGotd | NameAllGotd;
+export interface PersonalityGotd {
+  kind: 'personality';
+  slug: string;
+  groupName: string;
+  logoUrl: string | null;
+  displayColor: string | null;
+  textColor: string | null;
+  faces: string[];
+}
+
+export type GameOfTheDayData = DuelGotd | NameAllGotd | PersonalityGotd;
 
 /** Days since the UTC epoch - the stable per-day seed (matches the QOTD reset). */
 export function dayIndex(now: Date = new Date()): number {
@@ -92,17 +103,39 @@ async function pickNameAll(seed: number): Promise<GameOfTheDayData | null> {
   };
 }
 
+async function pickPersonality(seed: number): Promise<GameOfTheDayData | null> {
+  const tiles = (await getPersonalityGroupTiles()).slice().sort((x, y) => x.slug.localeCompare(y.slug));
+  if (tiles.length === 0) return null;
+  const t = tiles[seed % tiles.length]!;
+  return {
+    kind: 'personality',
+    slug: t.slug,
+    groupName: t.name,
+    logoUrl: t.logo_url,
+    displayColor: t.display_color,
+    textColor: t.text_color,
+    faces: t.faces,
+  };
+}
+
+const PICKERS: Record<GameOfTheDayKind, (seed: number) => Promise<GameOfTheDayData | null>> = {
+  personality: pickPersonality,
+  duel: pickDuel,
+  'name-all': pickNameAll,
+};
+
 /**
  * Resolve today's game. `offsetDays` shifts the seed (used only to verify
- * tomorrow's rotation in dev). Falls back to the other mode if the chosen one
+ * tomorrow's rotation in dev). Falls back to the other modes if the chosen one
  * has no eligible content, so the slot is never empty.
  */
 export async function getGameOfTheDay(offsetDays = 0): Promise<GameOfTheDayData | null> {
   const seed = dayIndex() + offsetDays;
-  const kind = ROTATION[seed % ROTATION.length];
-
-  const primary = kind === 'duel' ? pickDuel : pickNameAll;
-  const fallback = kind === 'duel' ? pickNameAll : pickDuel;
-
-  return (await primary(seed)) ?? (await fallback(seed));
+  const kind = ROTATION[seed % ROTATION.length]!;
+  const order: GameOfTheDayKind[] = [kind, ...ROTATION.filter((k) => k !== kind)];
+  for (const k of order) {
+    const r = await PICKERS[k](seed);
+    if (r) return r;
+  }
+  return null;
 }

@@ -61,6 +61,8 @@ export default function SettingsPage(): React.ReactElement {
   const [avatarKind, setAvatarKind] = useState('photo');
   const [avatarRef, setAvatarRef] = useState<string | null>(null);
   const [stanSince, setStanSince] = useState<string>('');
+  const [showFlair, setShowFlair] = useState(false);
+  const [flairSaving, setFlairSaving] = useState(false);
   const [earnedBadges, setEarnedBadges] = useState<EarnedBadge[]>([]);
   const [allGroups, setAllGroups] = useState<GroupOption[]>([]);
   const [groupQuery, setGroupQuery] = useState('');
@@ -102,6 +104,7 @@ export default function SettingsPage(): React.ReactElement {
         setPinnedBadge(p.pinned_badge_id ?? null);
         setAvatarKind(p.avatar_kind ?? 'photo');
         setStanSince(p.stan_since != null ? String(p.stan_since) : '');
+        setShowFlair(!!(p as { show_personality_flair?: boolean }).show_personality_flair);
         setAvatarRef(p.avatar_ref ?? null);
       }
       setAllGroups(((groups ?? []) as Array<{ slug: string; name: string; display_color: string }>).map((g) => ({ slug: g.slug, name: g.name, color: g.display_color })));
@@ -267,6 +270,19 @@ export default function SettingsPage(): React.ReactElement {
   const toggleUlt = useCallback((slug: string) => {
     setUltGroups((cur) => cur.includes(slug) ? cur.filter((s) => s !== slug) : (cur.length >= ULT_MAX ? cur : [...cur, slug]));
   }, []);
+
+  // P step 6: opt-in "{member}-coded" passport flair. Saves immediately.
+  const toggleFlair = useCallback(async () => {
+    const next = !showFlair;
+    setShowFlair(next);
+    setFlairSaving(true);
+    try {
+      await fetch('/api/auth/update-profile', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ show_personality_flair: next }),
+      });
+    } catch { setShowFlair(!next); } finally { setFlairSaving(false); }
+  }, [showFlair]);
 
   if (loading) {
     return (
@@ -606,6 +622,26 @@ export default function SettingsPage(): React.ReactElement {
         <p className="text-sm font-medium text-primary mb-2">Preferences</p>
         <SoundToggle />
         <HapticsToggle />
+        <div className="flex items-center justify-between py-2">
+          <div>
+            <p className="text-sm font-medium text-primary">Show member match on passport</p>
+            <p className="text-xs text-ghost">Adds a &quot;{'{member}'}-coded&quot; line from your latest personality result</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={showFlair}
+            aria-label="Toggle member-match passport flair"
+            onClick={() => void toggleFlair()}
+            disabled={flairSaving}
+            className={`relative w-10 h-6 rounded-full transition-colors cursor-pointer ${showFlair ? 'bg-accent' : 'bg-elevated'}`}
+          >
+            <span
+              className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform"
+              style={{ transform: showFlair ? 'translateX(16px)' : 'translateX(0)' }}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Disconnect */}

@@ -30,6 +30,12 @@ function resolve(data: GameOfTheDayData): { title: string; href: string } {
       href: `/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}&daily=game`,
     };
   }
+  if (data.kind === 'personality') {
+    return {
+      title: `Which ${data.groupName} member are you?`,
+      href: `/which-${data.slug}-member-are-you?daily=game`,
+    };
+  }
   return {
     title: `Name all ${data.groupName ?? ''} members`.replace(/\s+/g, ' ').trim(),
     href: `/games/name-all/${data.slug}?daily=game`,

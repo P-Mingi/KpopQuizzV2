@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { createServerClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
+import { getLatestPersonalityMatch } from '@/lib/personality/data';
 import { safeFetch } from '@/lib/error-handling';
 import { ProfileTabs } from '@/app/u/[username]/profile-tabs';
 import { getLevelInfo } from '@/lib/constants';
@@ -132,6 +133,10 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   // card). It lived on the public /u/[username] passport but not on /me, so the
   // owner could not see "how their quizzes are doing" from their own profile.
   const createdQuizzes = await safeFetch(getQuizzesByCreator(user.id, 0, 10), [], '[me] getQuizzesByCreator');
+  // P step 6: opt-in "{member}-coded" passport flair (off by default).
+  const personalityFlair = (profile as { show_personality_flair?: boolean }).show_personality_flair
+    ? await safeFetch(getLatestPersonalityMatch(user.id), null, '[me] getLatestPersonalityMatch')
+    : null;
 
   return (
     <div style={{ paddingTop: 16 }}>
@@ -156,6 +161,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
         </Link>
       }
       nameAccent={profile.name_accent}
+      personalityFlair={personalityFlair}
       pinnedBadgeId={profile.pinned_badge_id}
       avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
       avatarRef={profile.avatar_ref}

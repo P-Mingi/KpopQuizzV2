@@ -4,6 +4,7 @@ import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { analytics } from '@/lib/analytics';
+import { markDailyPlayed, completeDaily } from '@/lib/daily-played';
 import { runQuiz, type PersonalityQuestion, type PersonalityProfile, type QuizResult } from '@/lib/personality/engine';
 
 import type { PersonalityGroup } from '@/lib/personality/data';
@@ -55,6 +56,12 @@ export function PersonalityQuiz({ group, questions, profiles, monthlyCounts }: P
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ group_id: group.id, member_name: member }),
     }).catch(() => {});
+    // GOTD: a run launched as the daily discovery game credits the streak via
+    // the normal completeDaily('game') path (no leaderboard attached).
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
+      markDailyPlayed('game');
+      void completeDaily('game');
+    }
   }, [phase, result, group.id]);
 
   const start = useCallback(() => {

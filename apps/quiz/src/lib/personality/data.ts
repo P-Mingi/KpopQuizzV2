@@ -1,4 +1,4 @@
-import { createPublicReadClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { PersonalityQuestion, PersonalityProfile } from './engine';
 
@@ -68,6 +68,23 @@ export async function getPersonalityGroupBySlug(
   const profiles = await getGroupProfiles(group.id);
   if (profiles.length === 0) return null; // group has no personality set = not active
   return { group: group as PersonalityGroup, profiles };
+}
+
+/**
+ * The user's latest personality member match, for the opt-in passport flair
+ * ("{member}-coded"). Read with the service-role client so the public /u page
+ * can show it too; callers must gate on profiles.show_personality_flair.
+ */
+export async function getLatestPersonalityMatch(userId: string): Promise<string | null> {
+  const db = createServiceRoleClient();
+  const { data } = await db
+    .from('personality_results')
+    .select('member_name')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  return data?.member_name ?? null;
 }
 
 export interface PersonalityGroupTile extends PersonalityGroup {

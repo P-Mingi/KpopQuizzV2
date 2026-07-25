@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
+import { getLatestPersonalityMatch } from '@/lib/personality/data';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
@@ -110,6 +111,11 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const profile = await safeFetch(getProfileByUsername(username), null, '[u/[username]] getProfileByUsername');
   if (!profile) notFound();
 
+  // P step 6: show the "{member}-coded" flair only when the owner opted in.
+  const personalityFlair = (profile as { show_personality_flair?: boolean }).show_personality_flair
+    ? await safeFetch(getLatestPersonalityMatch(profile.id), null, '[u/[username]] getLatestPersonalityMatch')
+    : null;
+
   const db = createPublicReadClient();
 
   const [spine, groupStats, collection, groupsRes, initialQuizzes, badgeDefsResult, userBadgesResult] = await Promise.all([
@@ -167,6 +173,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         bio={profile.bio}
         accent={accent}
         bias={spine?.bias ?? null}
+        personalityFlair={personalityFlair}
         stanSince={profile.stan_since ?? null}
         headerUrl={profile.header_url}
         ultGroups={ultGroups}

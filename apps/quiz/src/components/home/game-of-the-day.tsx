@@ -93,6 +93,30 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
               See where fans rank them &rarr;
             </Link>
           </>
+        ) : data.kind === 'personality' ? (
+          <>
+            <Link href={`/which-${data.slug}-member-are-you?daily=game`} className="gotd-nam">
+              <span className="gotd-nam-logo">
+                <GroupLogo
+                  groupName={data.groupName}
+                  logoUrl={data.logoUrl}
+                  displayColor={data.displayColor ?? '#E8457A'}
+                  textColor={data.textColor ?? '#ffffff'}
+                  size={72}
+                />
+              </span>
+              <span className="gotd-nam-title">
+                Which {data.groupName} member are you?
+              </span>
+              <span className="gotd-nam-sub">10 questions, 1 result</span>
+            </Link>
+            {played ? <DailyDone /> : (
+              <Link href={`/which-${data.slug}-member-are-you?daily=game`} className="gotd-cta">
+                Find your match
+              </Link>
+            )}
+            <span className="gotd-rank-spacer" aria-hidden="true" />
+          </>
         ) : (
           <>
             <Link href={`/games/name-all/${data.slug}?daily=game`} className="gotd-nam">

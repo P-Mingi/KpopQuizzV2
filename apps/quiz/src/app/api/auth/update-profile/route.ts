@@ -230,6 +230,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // P step 6: opt-in personality passport flair toggle.
+  if (input.show_personality_flair !== undefined) {
+    if (typeof input.show_personality_flair !== 'boolean') {
+      return NextResponse.json({ error: 'Invalid flair toggle' }, { status: 400 });
+    }
+    updates.show_personality_flair = input.show_personality_flair;
+  }
+
   if (Object.keys(updates).length === 0) {
     return NextResponse.json({ success: true, profile: currentProfile });
   }
@@ -240,7 +248,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
-    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, stan_since, header_url')
+    .select('username, display_name, avatar_url, avatar_bg, avatar_text, bio, ult_groups, bias, profile_theme, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, stan_since, header_url, show_personality_flair')
     .single();
 
   if (updateError) {
