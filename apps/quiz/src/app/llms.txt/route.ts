@@ -49,6 +49,7 @@ export async function GET(): Promise<Response> {
 - [Leaderboard](https://kpopquiz.org/leaderboard): Top players ranked by score
 - [Rankings](https://kpopquiz.org/rankings): Fan-voted rankings for members, songs, albums per group
 - [Statistics](https://kpopquiz.org/stats): Original first-party K-pop fan data, updated hourly and free to cite: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts
+- [Monthly Pulse](https://kpopquiz.org/data/pulse): A monthly first-party K-pop data report, one per month, free to cite: the fandom of the month by real quiz plays, the most-played quizzes, the fan duel verdict, and honest community growth
 
 ## Group quiz pages
 

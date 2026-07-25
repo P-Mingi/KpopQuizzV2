@@ -46,6 +46,9 @@ export const KNOWN_ROUTES = [
   '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
   '/articles',
   '/battle',
+  // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
+  // One '/data' prefix covers both via startsWith.
+  '/data',
   '/pt',
 ];
 

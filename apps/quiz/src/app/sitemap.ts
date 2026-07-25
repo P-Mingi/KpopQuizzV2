@@ -106,6 +106,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    // Workstream T0 monthly Pulse index. Per-month reports are appended below.
+    { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },
 
     // Portuguese (pt-BR) - live, reviewed, indexable
     { url: `${SITE_URL}/pt`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
@@ -159,6 +161,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
   let gamePages: MetadataRoute.Sitemap = [];
   let rankingPages: MetadataRoute.Sitemap = [];
+  let pulsePages: MetadataRoute.Sitemap = [];
 
   try {
     const supabase = createServiceRoleClient();
@@ -325,6 +328,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] rankings query failed, skipping ranking pages:', err);
   }
 
+  // Workstream T0: one URL per generated monthly Pulse report. Guarded on its
+  // own so a failure here cannot drop the rest of the sitemap. lastmod is each
+  // report's real updated_at (honest - it only changes when the cron reruns).
+  try {
+    const supabase = createServiceRoleClient();
+    const { data } = await supabase
+      .from('pulse_reports')
+      .select('month, updated_at')
+      .order('month', { ascending: false });
+    pulsePages = ((data ?? []) as Array<{ month: string; updated_at: string }>).map((r) => ({
+      url: `${SITE_URL}/data/pulse/${r.month}`,
+      lastModified: new Date(r.updated_at),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  } catch (err) {
+    console.error('[sitemap] pulse query failed, skipping pulse month pages:', err);
+  }
+
   return [
     ...staticPages,
     ...articlePages,
@@ -336,5 +358,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...profilePages,
     ...gamePages,
     ...rankingPages,
+    ...pulsePages,
   ];
 }
