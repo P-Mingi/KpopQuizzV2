@@ -28,6 +28,7 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         <Link href="/admin/quiz/search" className="text-secondary hover:text-primary whitespace-nowrap">Edit Quizzes</Link>
         <Link href="/admin/this-or-that" className="text-secondary hover:text-primary whitespace-nowrap">This or That</Link>
         <Link href="/admin/ai-visibility" className="text-secondary hover:text-primary whitespace-nowrap">AI Visibility</Link>
+        <Link href="/admin/pulse" className="text-secondary hover:text-primary whitespace-nowrap">Pulse</Link>
       </nav>
       {children}
     </div>
