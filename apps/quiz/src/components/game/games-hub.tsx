@@ -21,7 +21,10 @@ export interface GamesHubCounts {
 
 interface GamesHubProps {
   gotd: GameOfTheDayData | null;
-  counts: GamesHubCounts;
+  // Tolerate a missing/partial counts object: this renders server-side from
+  // live DB fetches, and a failed/absent count must degrade gracefully, never
+  // crash the whole hub (each card falls back to a call-to-action stat).
+  counts?: Partial<GamesHubCounts> | null;
   liveRanking: RankingIndexItem | null;
 }
 
@@ -39,6 +42,19 @@ const ICON_NAME = (
 );
 
 export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.ReactElement {
+  // Normalize once so a missing object or field can never throw. Each stat
+  // shows the real count when present and a call-to-action otherwise.
+  const c = {
+    personality: counts?.personality ?? 0,
+    songs: counts?.songs ?? 0,
+    categories: counts?.categories ?? 0,
+    nameAll: counts?.nameAll ?? 0,
+  };
+  const personalityStat = c.personality > 0 ? `${c.personality} groups` : 'Find your match';
+  const songsStat = c.songs > 0 ? `${formatCount(c.songs)} songs · daily challenge` : 'Daily challenge';
+  const categoriesStat = c.categories > 0 ? `${c.categories} categories` : 'Vote now';
+  const nameAllStat = c.nameAll > 0 ? `${c.nameAll} rosters` : 'Beat the timer';
+
   return (
     <main className="games-page">
       <div className="games-hero">
@@ -61,7 +77,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           href="/personality"
           tint="--brand"
           icon={ICON_MATCH}
-          stat={`${counts.personality} groups`}
+          stat={personalityStat}
           badge="New"
           highlight
           index={0}
@@ -72,7 +88,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           href="/blindtest"
           tint="--blind"
           icon={ICON_BLIND}
-          stat={`${formatCount(counts.songs)} songs · daily challenge`}
+          stat={songsStat}
           index={1}
         />
         <GameModeCard
@@ -81,7 +97,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           href="/games/this-or-that/all"
           tint="--tot"
           icon={ICON_TOT}
-          stat={`${counts.categories} categories`}
+          stat={categoriesStat}
           index={2}
         />
         <GameModeCard
@@ -90,7 +106,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           href="/games/name-all"
           tint="--nam"
           icon={ICON_NAME}
-          stat={`${counts.nameAll} rosters`}
+          stat={nameAllStat}
           index={3}
         />
       </div>
