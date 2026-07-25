@@ -205,6 +205,14 @@ export default function HomePage(): React.ReactElement {
       {/* 1. Hero */}
       <HomeHero />
 
+      {/* Workstream P launch-week banner (one only; ongoing home presence comes
+          from the GOTD rotation). */}
+      <Link href="/games" className="pq-banner">
+        <span className="pq-banner-emoji" aria-hidden="true">✨</span>
+        <span className="pq-banner-text"><strong>New: personality quizzes.</strong> Which member of your bias group are you? 10 questions, 1 result.</span>
+        <span className="pq-banner-arrow" aria-hidden="true">&rarr;</span>
+      </Link>
+
       {/* 1b. Streak surface (client island; home stays static/ISR) */}
       <HomeStreakNudge />
 

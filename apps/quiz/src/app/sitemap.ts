@@ -3,6 +3,7 @@ import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
+import { getPersonalityGroups } from '@/lib/personality/data';
 import { ARTICLES } from '@/lib/articles/registry';
 
 import type { MetadataRoute } from 'next';
@@ -129,6 +130,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
+
+  // Workstream P: the "which {group} member are you" personality quizzes.
+  let personalityPages: MetadataRoute.Sitemap = [];
+  try {
+    const pGroups = await getPersonalityGroups();
+    personalityPages = pGroups.map((g) => ({
+      url: `${SITE_URL}/which-${g.slug}-member-are-you`,
+      lastModified: STATIC_DATE,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+  } catch {
+    personalityPages = [];
+  }
 
   // Static blind test mode pages (from the in-code catalogue) - evergreen.
   const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map((mode) => ({
@@ -313,6 +328,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticPages,
     ...articlePages,
+    ...personalityPages,
     ...blindTestModePages,
     ...blindTestGroupPages,
     ...groupPages,

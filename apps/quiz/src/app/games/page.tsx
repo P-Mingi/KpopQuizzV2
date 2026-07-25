@@ -3,6 +3,8 @@ import { getNameAllGames } from '@/lib/db/queries/games';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
+import { PersonalityHubSection } from '@/components/personality/personality-entry';
+import { getPersonalityGroupTiles } from '@/lib/personality/data';
 import type { Metadata } from 'next';
 
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders all game
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
 export default async function GamesPage() {
   const supabase = createServiceRoleClient();
 
-  const [nameAllGames, totResult, rankings] = await Promise.all([
+  const [nameAllGames, totResult, rankings, personalityTiles] = await Promise.all([
     safeFetch(getNameAllGames(0, 24), [], '[games] getNameAllGames'),
     safeFetch(
       Promise.resolve(
@@ -52,6 +54,7 @@ export default async function GamesPage() {
       '[games] tot_categories',
     ),
     safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
+    safeFetch(getPersonalityGroupTiles(), [], '[games] getPersonalityGroupTiles'),
   ]);
 
   const totCategories = ((totResult as { data: unknown[] | null }).data ?? []) as Parameters<typeof GamesHub>[0]['totCategories'];
@@ -79,6 +82,7 @@ export default async function GamesPage() {
         }}
       />
       <GamesHub nameAllGames={nameAllGames} totCategories={totCategories} rankings={rankings} />
+      <div className="games-hub"><PersonalityHubSection tiles={personalityTiles} /></div>
     </div>
   );
 }

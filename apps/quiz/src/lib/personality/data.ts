@@ -70,6 +70,29 @@ export async function getPersonalityGroupBySlug(
   return { group: group as PersonalityGroup, profiles };
 }
 
+export interface PersonalityGroupTile extends PersonalityGroup {
+  faces: string[]; // up to 5 member photo URLs, for the hub member-face strip
+}
+
+/** Active personality groups with a few member faces each (games hub tiles). */
+export async function getPersonalityGroupTiles(): Promise<PersonalityGroupTile[]> {
+  const db = createPublicReadClient();
+  const { data } = await db
+    .from('personality_profiles')
+    .select('group_id, photo_url, ord, groups!inner(id, name, slug, display_color, text_color, logo_url)')
+    .eq('active', true)
+    .order('ord');
+  const map = new Map<number, PersonalityGroupTile>();
+  for (const r of (data ?? []) as unknown as (RawPGroupRow & { photo_url: string | null })[]) {
+    const g = Array.isArray(r.groups) ? r.groups[0] : r.groups;
+    if (!g) continue;
+    let tile = map.get(g.id);
+    if (!tile) { tile = { ...g, faces: [] }; map.set(g.id, tile); }
+    if (r.photo_url && tile.faces.length < 5) tile.faces.push(r.photo_url);
+  }
+  return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
 /** Real per-member run counts. `sinceDays` gates the monthly window. */
 export async function getMemberCounts(
   groupId: number,

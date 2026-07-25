@@ -5,6 +5,8 @@ import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
+import { PersonalityGroupCard } from '@/components/personality/personality-entry';
+import { getGroupProfiles } from '@/lib/personality/data';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
@@ -50,12 +52,14 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
     safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
+    safeFetch(getGroupProfiles(group.id), [], '[group-quiz] getGroupProfiles'),
   ]);
+  const personalityFaces = personalityProfiles.map((p) => p.photo_url).filter((u): u is string => !!u).slice(0, 5);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
 
@@ -89,6 +93,15 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           </p>
         </div>
       </div>
+
+      {personalityProfiles.length > 0 && (
+        <div className="mt-4">
+          <PersonalityGroupCard
+            group={{ id: group.id, name: group.name, slug: group.slug, display_color: group.display_color, text_color: group.text_color, logo_url: group.logo_url }}
+            faces={personalityFaces}
+          />
+        </div>
+      )}
 
       <Link href={`/blindtest/group-${group.slug}`} className="trivia-entry mt-4">
         <span className="trivia-entry-icon">
