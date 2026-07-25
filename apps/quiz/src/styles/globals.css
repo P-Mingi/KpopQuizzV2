@@ -1499,7 +1499,18 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
    under .games-page so it doesn't clash with the B8 home teaser.
    Reuses the tot / nam tint tokens + the existing fadeUp keyframe.
    ============================================================ */
-.games-page { background: var(--bg); padding: 28px 0; max-width: 800px; margin: 0 auto; }
+.games-page { background: var(--bg); padding: 28px 16px; max-width: 800px; margin: 0 auto; }
+/* Redesign: the lean picker breaks out of the app's 720px container to a 1100px
+   picker on desktop (only .games-page uses this class). Mobile stays a padded
+   single column. The full-bleed margin reaches the viewport edges, then the
+   padding re-centers the content at 1100px. */
+@media (min-width: 768px) {
+  .games-page {
+    max-width: none;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: max(24px, calc(50vw - 550px));
+  }
+}
 
 .games-hero { margin-bottom: 32px; }
 .games-eyebrow {
