@@ -47,6 +47,15 @@ export async function middleware(request: NextRequest) {
     if (pathname === '/battle-preview' || pathname.startsWith('/battle-preview/')) {
       return NextResponse.redirect(new URL('/battle', request.url));
     }
+    // Workstream P: the SEO-friendly personality URLs
+    // (/which-{group}-member-are-you [+ /r/{member}]) rewrite to the real
+    // /personality/{group} route while the address bar keeps the pretty URL.
+    const pm = pathname.match(/^\/which-(.+?)-member-are-you(?:\/r\/([^/]+))?\/?$/);
+    if (pm) {
+      const url = request.nextUrl.clone();
+      url.pathname = pm[2] ? `/personality/${pm[1]}/r/${pm[2]}` : `/personality/${pm[1]}`;
+      return NextResponse.rewrite(url);
+    }
     // SEO: unknown legacy URLs 301 to home so the link equity carries over.
     if (!isKnownRoute(pathname)) {
       return NextResponse.redirect(new URL('/', request.url), 301);
