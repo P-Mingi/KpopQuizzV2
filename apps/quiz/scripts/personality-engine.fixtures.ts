@@ -10,7 +10,7 @@ import {
 // The 10 questions (same weights the seed writes).
 const Q: PersonalityQuestion[] = [
   { ord: 1, question: '', options: [
-    { text: '', weights: { care: 5, energy: 3 } }, { text: '', weights: { chaos: 5, energy: 5 } },
+    { text: '', weights: { care: 0, energy: 3 } }, { text: '', weights: { chaos: 5, energy: 5 } },
     { text: '', weights: { heart: 5, energy: 0, spotlight: 5 } }, { text: '', weights: { care: 5, chaos: 3 } } ] },
   { ord: 2, question: '', options: [
     { text: '', weights: { chaos: 0, care: 3 } }, { text: '', weights: { craft: 5, spotlight: 5 } },
@@ -68,7 +68,7 @@ console.log('MAXIMA (normalization ceilings):', fmt(axisMaxima(Q)), '\n');
 
 const fixtures: { name: string; picks: number[]; wantRaw: Axes }[] = [
   { name: 'A - all option b (index 1): loud + feral, low care', picks: Array(10).fill(1), wantRaw: ax(23, 26, 0, 11, 3, 10) },
-  { name: 'B - all option a (index 0): quiet + calm, tough-love', picks: Array(10).fill(0), wantRaw: ax(5, 2, 8, 5, 12, 5) },
+  { name: 'B - all option a (index 0): quiet + calm, tough-love', picks: Array(10).fill(0), wantRaw: ax(5, 2, 3, 5, 12, 5) },
   { name: 'C - all option d (index 3): high craft (studio/creator)', picks: Array(10).fill(3), wantRaw: ax(5, 10, 5, 15, 2, 9) },
 ];
 

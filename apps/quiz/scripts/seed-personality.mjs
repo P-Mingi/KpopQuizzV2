@@ -22,7 +22,7 @@ const db = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_
 //      parenthetical is the resolved value; Q1a care:5 kept as-written [FLAG]) ----
 const QUESTIONS = [
   { ord: 1, question: 'Your role in the friend group?', options: [
-    { text: 'The one who plans everything', weights: { care: 5, energy: 3 } },
+    { text: 'The one who plans everything', weights: { care: 0, energy: 3 } },
     { text: 'The chaos that makes it fun', weights: { chaos: 5, energy: 5 } },
     { text: 'The quiet one who roasts everyone once an hour', weights: { heart: 5, energy: 0, spotlight: 5 } },
     { text: 'The baby everyone protects (and underestimates)', weights: { care: 5, chaos: 3 } },
