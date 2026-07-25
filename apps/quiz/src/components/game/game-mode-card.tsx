@@ -15,6 +15,8 @@ interface Props {
   stat: string;
   badge?: string;
   comingSoon?: boolean;
+  /** Accent border + tinted wash (used for the newest/featured mode). */
+  highlight?: boolean;
   index?: number;
 }
 
@@ -27,6 +29,7 @@ export function GameModeCard({
   stat,
   badge,
   comingSoon = false,
+  highlight = false,
   index = 0,
 }: Props): React.ReactElement {
   const style = { '--gm-tint': `var(${tint})`, animationDelay: `${index * 40}ms` } as React.CSSProperties;
@@ -57,7 +60,7 @@ export function GameModeCard({
   }
 
   return (
-    <Link href={href} className="gm-card" style={style}>
+    <Link href={href} className={`gm-card${highlight ? ' gm-highlight' : ''}`} style={style}>
       {inner}
     </Link>
   );

@@ -1,6 +1,7 @@
 import { safeFetch } from '@/lib/error-handling';
-import { getNameAllGames } from '@/lib/db/queries/games';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
+import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
+import { getPersonalityGroups } from '@/lib/personality/data';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { GamesHub } from '@/components/game/games-hub';
 
@@ -31,24 +32,16 @@ export const metadata: Metadata = {
 export default async function PtGamesPage() {
   const supabase = createServiceRoleClient();
 
-  const [nameAllGames, totResult, rankings] = await Promise.all([
-    safeFetch(getNameAllGames(0, 24), [], '[pt/games] getNameAllGames'),
-    safeFetch(
-      Promise.resolve(
-        supabase
-          .from('tot_categories')
-          .select('*, tot_items(id, name, color, image_url)')
-          .eq('is_published', true)
-          .order('play_count', { ascending: false })
-          .limit(20),
-      ),
-      { data: null } as { data: unknown },
-      '[pt/games] tot_categories',
-    ),
+  const [gotd, rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
+    safeFetch(getGameOfTheDay(), null, '[pt/games] getGameOfTheDay'),
     safeFetch(getRankingsIndex(), [], '[pt/games] getRankingsIndex'),
+    safeFetch(getPersonalityGroups(), [], '[pt/games] getPersonalityGroups'),
+    safeFetch(Promise.resolve(supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active')).then((r) => r.count ?? 0), 0, '[pt/games] songCount'),
+    safeFetch(Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).eq('game_type', 'name_all_members')).then((r) => r.count ?? 0), 0, '[pt/games] nameAllCount'),
   ]);
 
-  const totCategories = ((totResult as { data: unknown[] | null }).data ?? []) as Parameters<typeof GamesHub>[0]['totCategories'];
+  const counts = { personality: personalityGroups.length, songs: songCount, categories: rankings.length, nameAll: nameAllCount };
+  const liveRanking = rankings.filter((r) => r.public).sort((a, b) => b.total_votes - a.total_votes)[0] ?? null;
 
   return (
     <div className="pb-24">
@@ -59,12 +52,12 @@ export default async function PtGamesPage() {
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
             name: 'Jogos de K-pop',
-            description: 'Jogos gratis de K-pop: duelos This or That, Nomeie os Membros, blind test e mais.',
+            description: 'Jogos gratis de K-pop: quiz de personalidade, blind test, duelos This or That e Nomeie os Membros.',
             url: 'https://kpopquiz.org/pt/games',
           }),
         }}
       />
-      <GamesHub nameAllGames={nameAllGames} totCategories={totCategories} rankings={rankings} />
+      <GamesHub gotd={gotd} counts={counts} liveRanking={liveRanking} />
     </div>
   );
 }

@@ -1,103 +1,46 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
 
-import { toNameAllGame } from '@/components/games/adapters';
 import { GameModeCard } from './game-mode-card';
-import { TrendingRankingsStrip } from './trending-rankings-strip';
+import { GamesDailyStrip } from './games-daily-strip';
+import { formatCount } from '@/lib/utils';
 
-import type { GameCardData } from '@/lib/db/types';
+import type { GameOfTheDayData } from '@/lib/db/queries/game-of-the-day';
 import type { RankingIndexItem } from '@/lib/db/queries/duels';
 
-interface TotCategory {
-  id: string;
-  slug: string;
-  title: string;
-  subtitle: string | null;
-  type: 'idol' | 'group' | 'song';
-  pool_size: number;
-  play_count: number;
-  tot_items?: { name: string; image_url: string | null }[];
-}
+// Lean games PICKER (redesign per docs/games-ux-audit.md). This is a mode
+// picker, not a catalog: a hero, the game-of-the-day strip, a 4-mode grid, and
+// one live-ranking teaser. The full catalogs live on their own index pages
+// (/personality, /blindtest, /games/this-or-that/all, /games/name-all, /rankings).
 
-/** First item image from a list, for the card preview thumbnail. */
-function previewImage(items?: { image_url?: string | null }[]): string | null {
-  return items?.find((it) => it.image_url)?.image_url ?? null;
+export interface GamesHubCounts {
+  personality: number;
+  songs: number;
+  categories: number;
+  nameAll: number;
 }
 
 interface GamesHubProps {
-  nameAllGames: GameCardData[];
-  totCategories: TotCategory[];
-  rankings: RankingIndexItem[];
+  gotd: GameOfTheDayData | null;
+  counts: GamesHubCounts;
+  liveRanking: RankingIndexItem | null;
 }
 
-// §2e canonical group order for the filter pills.
-const GROUP_ORDER = [
-  'bts', 'blackpink', 'stray-kids', 'twice', 'aespa', 'seventeen',
-  'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
-];
-
-function initial(name: string): string {
-  if (!name) return '?';
-  return name.replace(/[()]/g, '').trim().charAt(0).toUpperCase();
-}
-
-function formatTimer(seconds: number): string {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${m}:${s.toString().padStart(2, '0')}`;
-}
-
-function totNoun(type: TotCategory['type']): string {
-  return type === 'song' ? 'songs' : type === 'group' ? 'groups' : 'idols';
-}
-
-// Category slug -> the new duel matchup (group + question_type).
-const DUEL_GROUP_PREFIXES = ['stray-kids', 'blackpink', 'seventeen', 'aespa', 'bts'];
-function totDuelHref(slug: string): string {
-  const g = DUEL_GROUP_PREFIXES.find((p) => slug.startsWith(`${p}-`));
-  const group = g ?? 'general';
-  const type = g ? slug.slice(g.length + 1) : slug;
-  return `/games/this-or-that?group=${encodeURIComponent(group)}&type=${encodeURIComponent(type)}`;
-}
-
-const USER_ICON = (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+const ICON_MATCH = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="m17 11 1.5 1.5L21 10" /></svg>
 );
-const CLOCK_ICON = (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+const ICON_BLIND = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>
+);
+const ICON_TOT = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
+);
+const ICON_NAME = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
 );
 
-export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProps): React.ReactElement {
-  const [group, setGroup] = useState<string>('all');
-
-  // Trending strip: most-voted first (pre-launch all 0, so order is stable),
-  // capped to keep the row curated. Group-specific matchups read best.
-  const trending = [...rankings]
-    .sort((a, b) => b.total_votes - a.total_votes)
-    .slice(0, 10);
-
-  // Derive filter pills from the groups actually present in the name-all games.
-  const present = new Map<string, string>();
-  for (const g of nameAllGames) {
-    if (g.group_slug && g.group_name) present.set(g.group_slug, g.group_name);
-  }
-  const orderedSlugs = [
-    ...GROUP_ORDER.filter((s) => present.has(s)),
-    ...[...present.keys()].filter((s) => !GROUP_ORDER.includes(s)),
-  ];
-  const pills = [{ slug: 'all', label: 'All' }, ...orderedSlugs.map((s) => ({ slug: s, label: present.get(s)! }))];
-
-  // This-or-That categories are cross-group, so they only show under "All".
-  const totVisible = group === 'all' ? totCategories : [];
-  const namVisible = group === 'all' ? nameAllGames : nameAllGames.filter((g) => g.group_slug === group);
-
-  const showDivider = totVisible.length > 0 && namVisible.length > 0;
-
+export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.ReactElement {
   return (
     <main className="games-page">
-      {/* §13b - hero */}
       <div className="games-hero">
         <p className="games-eyebrow">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -105,157 +48,73 @@ export function GamesHub({ nameAllGames, totCategories, rankings }: GamesHubProp
           </svg>
           Games
         </p>
-        <h1 className="games-title">Pick. Type. <span>Win.</span></h1>
-        <p className="games-sub">Two game modes, hundreds of challenges. How fast can you name all members? Who is your ultimate bias?</p>
+        <h1 className="games-title">Pick your <span>game.</span></h1>
+        <p className="games-sub">Guess songs, pick sides, name members, find your match.</p>
       </div>
 
-      {/* D0 - uniform, scalable mode grid (one reusable GameModeCard each). */}
+      <GamesDailyStrip data={gotd} />
+
       <div className="gm-grid">
         <GameModeCard
-          name="This or That"
-          desc="Two options. One winner. Pick your bias in infinite head-to-head matchups."
-          href="/games/this-or-that"
-          tint="--tot"
-          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>}
-          stat={`${totCategories.length || 20}+ categories`}
-          badge="Most played"
+          name="Which member are you?"
+          desc="A 10-question personality quiz that matches you to a member of your group."
+          href="/personality"
+          tint="--brand"
+          icon={ICON_MATCH}
+          stat={`${counts.personality} groups`}
+          badge="New"
+          highlight
           index={0}
         />
         <GameModeCard
-          name="Name all members"
-          desc="Type every member's name before the timer runs out. Sounds easy. It never is."
-          href="/games/name-all"
-          tint="--nam"
-          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>}
-          stat={`${nameAllGames.length || 24}+ challenges`}
+          name="Blind test"
+          desc="Name the song or the group from a 10-second clip. A fresh set every day."
+          href="/blindtest"
+          tint="--blind"
+          icon={ICON_BLIND}
+          stat={`${formatCount(counts.songs)} songs · daily challenge`}
           index={1}
         />
         <GameModeCard
-          name="Blindtest"
-          desc="Name the song or the group from a 10-second clip."
-          href="/blindtest"
-          tint="--blind"
-          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>}
-          stat="3.9k songs · Gen 1-5"
-          badge="New"
+          name="This or that"
+          desc="Two options, one winner. Vote in head-to-head matchups and move the ranking."
+          href="/games/this-or-that/all"
+          tint="--tot"
+          icon={ICON_TOT}
+          stat={`${counts.categories} categories`}
           index={2}
         />
         <GameModeCard
-          name="1v1 Battle"
-          desc="7 questions, head to head. Beat a real fan's run, then challenge your friends."
-          href="/battle"
-          tint="--tot"
-          icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3l14 14M14 5l5-2-2 5M5 19l5 2-2-5" /><path d="M16 16l3 3M8 8 5 5" /></svg>}
-          stat="Anyone, anytime"
-          badge="New"
+          name="Name all members"
+          desc="Type every member before the timer runs out. Sounds easy. It never is."
+          href="/games/name-all"
+          tint="--nam"
+          icon={ICON_NAME}
+          stat={`${counts.nameAll} rosters`}
           index={3}
         />
       </div>
 
-      {/* D0 - trending fan-rankings strip (replaces the thin text link). */}
-      <TrendingRankingsStrip items={trending} />
-
-      {/* §13b - filter bar (filters both sections) */}
-      <div className="games-filter-row" role="group" aria-label="Filter games by group">
-        <span className="filter-label">Filter</span>
-        {pills.map((p) => (
-          <button
-            key={p.slug}
-            type="button"
-            className={`fpill${group === p.slug ? ' active' : ''}`}
-            aria-pressed={group === p.slug}
-            onClick={() => setGroup(p.slug)}
-          >
-            {p.label}
-          </button>
-        ))}
-      </div>
-
-      {/* This or That section */}
-      {totVisible.length > 0 && (
-        <>
+      {liveRanking && (
+        <section className="games-rank-teaser">
           <div className="games-sec-head">
-            <span className="games-sec-label">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
-              This or That
+            <span className="games-sec-label">Live fan ranking</span>
+            <Link href="/rankings" className="games-sec-see">All rankings &rarr;</Link>
+          </div>
+          <Link href={`/rankings/${liveRanking.group_slug}/${liveRanking.question_type}`} className="grt-card">
+            {liveRanking.top_entity?.image
+              ? <img className="grt-avatar" src={liveRanking.top_entity.image} alt="" loading="lazy" />
+              : <span className="grt-avatar" />}
+            <span className="grt-body">
+              <span className="grt-prompt">{liveRanking.prompt}</span>
+              <span className="grt-meta">
+                {liveRanking.top_entity ? `#1 ${liveRanking.top_entity.name} · ` : ''}
+                {liveRanking.total_votes.toLocaleString('en-US')} votes
+              </span>
             </span>
-            <Link href="/games/this-or-that/all" className="games-sec-see">See all {totCategories.length}+ →</Link>
-          </div>
-          <div className="game-grid">
-            {totVisible.map((c, i) => {
-              const prev = previewImage(c.tot_items);
-              return (
-                <Link key={c.id} href={totDuelHref(c.slug)} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
-                  <div className={`gc-icon gc-tot${prev ? ' has-img' : ''}`} aria-hidden="true">
-                    {prev ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={prev} alt={`${c.title} preview`} loading="lazy" />
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4" /><path d="M20 7H4" /><path d="m8 21-4-4 4-4" /><path d="M4 17h16" /></svg>
-                    )}
-                  </div>
-                  <div className="gc-body">
-                    <p className="gc-name">{c.title}</p>
-                    <p className="gc-sub">{c.pool_size} {totNoun(c.type)}{c.subtitle ? ` · ${c.subtitle}` : ''}</p>
-                    <div className="gc-footer">
-                      <span className="gc-plays">{USER_ICON} {(c.play_count || 0).toLocaleString()} plays</span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </>
-      )}
-
-      {showDivider && <div className="games-divider" />}
-
-      {/* Name all members section */}
-      {namVisible.length > 0 && (
-        <>
-          <div className="games-sec-head">
-            <span className="games-sec-label">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
-              Name all members
-            </span>
-            <Link href="/games/name-all" className="games-sec-see">See all {nameAllGames.length}+ →</Link>
-          </div>
-          <div className="game-grid">
-            {namVisible.map((g, i) => {
-              const na = toNameAllGame(g);
-              const inits = na.data.items.slice(0, 8).map((it) => initial(it.name));
-              const extra = na.data.items.length - inits.length;
-              const diffCls = na.difficulty === 'easy' ? 'd-easy' : na.difficulty === 'hard' ? 'd-hard' : 'd-med';
-              const prev = previewImage(na.data.items);
-              return (
-                <Link key={g.id} href={`/games/name-all/${g.slug}`} className="game-card" style={{ animationDelay: `${i * 40}ms`, textDecoration: 'none' }}>
-                  <div className={`gc-icon gc-nam${prev ? ' has-img' : ''}`} aria-hidden="true">
-                    {prev ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={prev} alt={`${g.title} preview`} loading="lazy" />
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
-                    )}
-                  </div>
-                  <div className="gc-body">
-                    <div className="nam-hints">
-                      {inits.map((c, j) => (
-                        <div className="hint-dot" key={j}>{c}</div>
-                      ))}
-                      {extra > 0 && <div className="hint-dot">+{extra}</div>}
-                    </div>
-                    <p className="gc-name">{na.title}</p>
-                    <div className="gc-footer">
-                      <span className={`diff-pill ${diffCls}`}>{na.difficulty.charAt(0).toUpperCase() + na.difficulty.slice(1)}</span>
-                      <span className="timer-pill">{CLOCK_ICON} {formatTimer(na.timer_seconds)}</span>
-                      <span className="gc-plays">{USER_ICON} {(na.play_count || 0).toLocaleString()}</span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </>
+            <span className="grt-live"><span className="rank-live-dot" />Live</span>
+          </Link>
+        </section>
       )}
     </main>
   );
