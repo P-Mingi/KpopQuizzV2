@@ -1,10 +1,21 @@
 import Link from 'next/link';
 
 import { GroupLogo } from '@/components/ui/group-logo';
+import { PersonCard } from '@/components/profile/person-card';
 import { formatCount } from '@/lib/utils';
 import { getInitials } from '@/lib/name-all-utils';
 import type { Group } from '@/lib/db/types';
-import type { GroupNameAllGame } from '@/lib/db/queries/group-hub';
+import type { GroupNameAllGame, GroupFanKnowledge, GroupMvPulse, GroupComeback } from '@/lib/db/queries/group-hub';
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function monthLabel(ymd: string): string {
+  const [y, m] = ymd.split('-');
+  return `${MONTHS[Number(m) - 1] ?? ''} ${y}`.trim();
+}
+function realFandom(group: Group): string | null {
+  const f = (group.fandom_name ?? '').trim();
+  return f && !PLACEHOLDER_FANDOMS.has(f.toLowerCase()) ? f : null;
+}
 
 // Workstream G2 - visible hub sections (hero, play row, members strip). All are
 // server components (no client hooks) so the group route's render mode is
@@ -101,7 +112,7 @@ export function GroupPlayRow({
   }
 
   return (
-    <div className="ghub-playrow mt-5" role="list" aria-label={`Ways to play ${group.name}`}>
+    <div id="ghub-play" className="ghub-playrow mt-5" role="list" aria-label={`Ways to play ${group.name}`}>
       {tiles.map((t) => (
         <Link key={t.href} href={t.href} className="ghub-tile" role="listitem" style={{ ['--ghub-tint' as string]: `var(${t.tint})` }}>
           <span className="ghub-tile-icon" aria-hidden="true">{t.icon}</span>
@@ -138,5 +149,94 @@ export function GroupMembersStrip({
         ))}
       </div>
     </section>
+  );
+}
+
+export function GroupFanKnowledgeSection({
+  group,
+  data,
+}: {
+  group: Group;
+  data: GroupFanKnowledge;
+}): React.ReactElement | null {
+  const showMastered = data.masteredCount >= 3;
+  const showAccuracy = data.avgAccuracy != null;
+  const showFans = data.topFans.length >= 3;
+  if (!showMastered && !showAccuracy && !showFans) return null;
+
+  const fandom = realFandom(group);
+  const masteredNoun = fandom ? `${fandom}s` : 'fans';
+
+  return (
+    <section className="mt-8" aria-label={`${group.name} fan knowledge`}>
+      <p className="sec-label" style={{ marginBottom: 12 }}>Fan knowledge</p>
+      {(showMastered || showAccuracy) && (
+        <div className="ghub-fk-stats">
+          {showMastered && (
+            <div className="ghub-fk-stat">
+              <strong>{data.masteredCount}</strong>
+              <span>{masteredNoun} mastered {group.name}</span>
+            </div>
+          )}
+          {showAccuracy && (
+            <div className="ghub-fk-stat">
+              <strong>{Math.round((data.avgAccuracy as number) * 100)}%</strong>
+              <span>average accuracy</span>
+            </div>
+          )}
+        </div>
+      )}
+      {showFans && (
+        <div className="ghub-fk-fans">
+          <p className="ghub-fk-fans-label">Top {group.name} fans</p>
+          {data.topFans.map((f) => (
+            <div key={f.person.username} className="ghub-fk-fan">
+              <PersonCard person={f.person} compact showFollow={false} />
+              <span className="ghub-fk-acc">{Math.round(f.accuracy * 100)}%</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+export function GroupMvPulseSection({
+  group,
+  data,
+}: {
+  group: Group;
+  data: GroupMvPulse;
+}): React.ReactElement {
+  return (
+    <section className="mt-8" aria-label={`${group.name} MV pulse`}>
+      <p className="sec-label" style={{ marginBottom: 12 }}>MV pulse</p>
+      <div className="ghub-mv">
+        <span className="ghub-mv-num">+{data.viewsGained.toLocaleString('en-US')}</span>
+        <span className="ghub-mv-lbl">
+          views this week across {data.mvCount} tracked MV{data.mvCount > 1 ? 's' : ''}
+        </span>
+        <span className="ghub-mv-since">Tracked since {monthLabel(data.trackedSince)}</span>
+      </div>
+    </section>
+  );
+}
+
+export function GroupComebackBanner({
+  group,
+  comeback,
+}: {
+  group: Group;
+  comeback: GroupComeback;
+}): React.ReactElement {
+  return (
+    <Link href="#ghub-play" className="ghub-comeback mt-2" aria-label={`${group.name} comeback: ${comeback.title}`}>
+      <span className="ghub-comeback-tag">Comeback</span>
+      <span className="ghub-comeback-body">
+        <span className="ghub-comeback-title">{comeback.title}</span>
+        <span className="ghub-comeback-sub">{comeback.artist} · new {comeback.kind}. Play {group.name} now</span>
+      </span>
+      <span className="ghub-comeback-arrow" aria-hidden="true">&rarr;</span>
+    </Link>
   );
 }

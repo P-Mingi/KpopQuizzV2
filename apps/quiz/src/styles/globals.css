@@ -2432,6 +2432,30 @@ a.ranking-cta { text-decoration: none; }
 .ghub-member-name { font-size: 11.5px; font-weight: 600; color: var(--text-secondary); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 66px; }
 .ghub-member:hover .ghub-member-name { color: var(--text-primary); }
 
+/* Fan knowledge */
+.ghub-fk-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+.ghub-fk-stat { flex: 1; min-width: 130px; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); }
+.ghub-fk-stat strong { display: block; font-size: 22px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ghub-fk-stat span { font-size: 12px; color: var(--text-secondary); }
+.ghub-fk-fans { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.ghub-fk-fans-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin: 0 0 2px; }
+.ghub-fk-fan { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); }
+.ghub-fk-acc { flex-shrink: 0; font-size: 12.5px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+/* MV pulse */
+.ghub-mv { display: flex; flex-direction: column; padding: 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); }
+.ghub-mv-num { font-size: 26px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.ghub-mv-lbl { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+.ghub-mv-since { margin-top: 6px; font-size: 11.5px; color: var(--text-tertiary); }
+
+/* Comeback banner (above hero) */
+.ghub-comeback { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; text-decoration: none; background: color-mix(in srgb, var(--brand) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--border)); }
+.ghub-comeback-tag { flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--brand); padding: 3px 8px; border-radius: 100px; }
+.ghub-comeback-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ghub-comeback-title { font-size: 14px; font-weight: 800; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ghub-comeback-sub { font-size: 12px; color: var(--text-secondary); }
+.ghub-comeback-arrow { flex-shrink: 0; color: var(--brand); font-weight: 700; }
+
 @media (prefers-reduced-motion: reduce) {
   .ghub-tile { transition: none; }
   .ghub-tile:hover { transform: none; }

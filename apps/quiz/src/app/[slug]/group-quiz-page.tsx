@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { getQuizzesByGroup, getGroupQuizLinks } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
-import { getGroupNameAllGame, getGroupBlindtestInfo, getGroupWarRank } from '@/lib/db/queries/group-hub';
+import { getGroupNameAllGame, getGroupBlindtestInfo, getGroupWarRank, getGroupFanKnowledge, getGroupActiveComeback, getGroupMvPulse } from '@/lib/db/queries/group-hub';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
-import { GroupHubHero, GroupPlayRow, GroupMembersStrip } from '@/components/group/group-hub-sections';
+import { GroupHubHero, GroupPlayRow, GroupMembersStrip, GroupFanKnowledgeSection, GroupMvPulseSection, GroupComebackBanner } from '@/components/group/group-hub-sections';
 import { getGroupProfiles } from '@/lib/personality/data';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
@@ -73,7 +73,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
@@ -82,6 +82,9 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     safeFetch(getGroupNameAllGame(group.id), null, '[group-quiz] getGroupNameAllGame'),
     safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-quiz] getGroupBlindtestInfo'),
     safeFetch(getGroupWarRank(group.slug), null, '[group-quiz] getGroupWarRank'),
+    safeFetch(getGroupFanKnowledge(group.id, group.slug), { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] }, '[group-quiz] getGroupFanKnowledge'),
+    safeFetch(getGroupActiveComeback(group.id), null, '[group-quiz] getGroupActiveComeback'),
+    safeFetch(getGroupMvPulse(group.id), null, '[group-quiz] getGroupMvPulse'),
   ]);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
@@ -94,6 +97,10 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           { label: `${group.name} Quiz` },
         ]}
       />
+
+      {/* G2 comeback banner (above hero, gated on an active comeback in its
+          first 14 days). Nothing renders when there is no active comeback. */}
+      {comeback && <GroupComebackBanner group={group} comeback={comeback} />}
 
       <h1 className="text-xl font-medium text-primary">
         {group.name} Quiz - Test How Well You Know {group.name}
@@ -145,6 +152,11 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
       {/* G2 members strip: roster faces from the name-all roster (real photos). */}
       {nameAllGame && <GroupMembersStrip group={group} nameAll={nameAllGame} />}
+
+      {/* G2 fan knowledge (sub-stats individually gated; whole section hides when
+          all below threshold) + MV pulse (tracked groups with a 7-day delta). */}
+      <GroupFanKnowledgeSection group={group} data={fanKnowledge} />
+      {mvPulse && <GroupMvPulseSection group={group} data={mvPulse} />}
 
       {/* SEO Fix 3 - crawlable links to EVERY quiz in this group (bots / no-JS).
           GroupFeed only SSRs the first 10; this exposes the rest. */}
