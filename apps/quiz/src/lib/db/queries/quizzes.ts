@@ -2,11 +2,23 @@ import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
+// M1.14: first_question is a JSON projection of the first question's PROMPT
+// text (questions->0->>question) for the desktop hover preview. Same query, no
+// extra round trip; adds ~50 bytes/card (avg 47 chars, p95 82). Spoiler-safe:
+// answers/options/clues/fun_fact are sibling keys and are never projected.
 const QUIZ_CARD_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
+  first_question:questions->0->>question,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
+
+/** M1.14: trim + truncate a first-question prompt for the hover teaser. */
+export const TEASER_MAX = 120;
+export function teaserText(raw: string | null | undefined): string | undefined {
+  const t = (raw ?? '').trim();
+  return t ? t.slice(0, TEASER_MAX) : undefined;
+}
 
 const QUIZ_FULL_SELECT = `
   *,
@@ -29,6 +41,7 @@ interface RawQuizRow {
   created_at: string;
   cover_image_url: string | null;
   questions?: unknown[];
+  first_question?: string | null;
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
   profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp?: number | null };
   [key: string]: unknown;
@@ -60,6 +73,7 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
     creator_xp: row.profiles.xp ?? null,
     question_count: row.question_count ?? 0,
     cover_image_url: row.cover_image_url ?? null,
+    first_question: teaserText(row.first_question),
   };
 }
 

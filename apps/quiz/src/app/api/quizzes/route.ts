@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { teaserText } from '@/lib/db/queries/quizzes';
 
 import type { NextRequest } from 'next/server';
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
 const QUIZ_CARD_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
+  first_question:questions->0->>question,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
   profiles!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
@@ -15,6 +17,7 @@ interface RawRow {
   id: string; title: string; slug: string; quiz_type: string; difficulty: string; language?: string;
   play_count: number; total_score_sum: number; total_completions: number;
   like_count: number; question_count: number; created_at: string; cover_image_url: string | null;
+  first_question?: string | null;
   groups: { name: string; slug: string; display_color: string; text_color: string; fandom_name: string; logo_url: string | null };
   profiles: { username: string; avatar_url: string | null; avatar_bg: string; avatar_text: string };
 }
@@ -30,6 +33,7 @@ function toCard(r: RawRow): QuizCardData {
     fandom_name: r.groups.fandom_name, logo_url: r.groups.logo_url,
     creator_username: r.profiles.username, creator_avatar_url: r.profiles.avatar_url,
     creator_avatar_bg: r.profiles.avatar_bg, creator_avatar_text: r.profiles.avatar_text,
+    first_question: teaserText(r.first_question),
   };
 }
 

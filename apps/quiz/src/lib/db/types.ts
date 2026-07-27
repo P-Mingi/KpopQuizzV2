@@ -209,6 +209,13 @@ export interface QuizCardData {
   creator_xp?: number | null;
   question_count: number;
   cover_image_url: string | null;
+  /**
+   * M1.14: the first question's text (truncated ~120 chars) for the desktop
+   * hover preview. Projected via questions->0->>question in the card selects.
+   * Spoiler-safe: only the prompt, never answers/options/clues/fun_fact.
+   * Optional so surfaces that do not project it stay byte-identical.
+   */
+  first_question?: string | undefined;
 }
 
 
