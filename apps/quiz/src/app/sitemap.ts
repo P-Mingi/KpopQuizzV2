@@ -29,7 +29,8 @@ const TERMS_DATE = new Date('2026-03-27');
 // URLs whose content is derived from the live quiz catalogue: their lastmod is
 // the newest quiz updated_at, not the deploy time.
 const CATALOG_PATHS = new Set<string>([
-  '', '/quizzes', '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
+  '', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+  '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/games',
   '/games/this-or-that', '/games/name-all', '/stats',
@@ -85,6 +86,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 1.0 },
     { url: `${SITE_URL}/quizzes`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
+    // S2 #3 time-sliced popular index pages (lastmod bumped to contentDate below).
+    { url: `${SITE_URL}/quizzes/popular-today`, lastModified: STATIC_DATE, changeFrequency: 'hourly', priority: 0.7 },
+    { url: `${SITE_URL}/quizzes/popular-this-week`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/quizzes/popular-this-month`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/trending`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/new`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/most-liked`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
