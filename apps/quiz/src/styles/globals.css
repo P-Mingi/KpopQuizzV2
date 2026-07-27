@@ -2462,6 +2462,84 @@ a.ranking-cta { text-decoration: none; }
 }
 
 /* ---------------------------------------------------------------------------
+   Workstream V1 - "Sort It" binary-classification game. Mobile-first (430px
+   reference), dark/light via tokens, reduced-motion respected below.
+   --------------------------------------------------------------------------- */
+.si-wrap { max-width: 480px; margin: 0 auto; padding: 16px 16px 32px; }
+.si-back { display: inline-block; font-size: 13px; color: var(--text-tertiary); text-decoration: none; }
+.si-back:hover { color: var(--text-secondary); }
+
+.si-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.si-intro { text-align: center; padding-top: 28px; }
+.si-title { font-size: 30px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 0; color: var(--text-primary); text-wrap: balance; }
+.si-blurb { margin: 10px auto 0; max-width: 34ch; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.si-meta { margin-top: 12px; font-size: 12.5px; color: var(--text-tertiary); }
+.si-bucket-preview { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 18px 0 4px; }
+.si-chip { padding: 7px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.si-vs { font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; }
+.si-start { margin-top: 22px; min-width: 180px; }
+
+/* HUD + progress */
+.si-hud { display: flex; align-items: baseline; justify-content: space-between; font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.si-hud-count { font-weight: 700; color: var(--text-primary); }
+.si-hud-count span, .si-hud-score { font-weight: 500; color: var(--text-tertiary); }
+.si-hud-time { font-weight: 700; color: var(--text-primary); }
+.si-progress { height: 5px; margin: 8px 0 0; background: var(--surface-alt); border-radius: 100px; overflow: hidden; }
+.si-progress > span { display: block; height: 100%; background: var(--accent); border-radius: 100px; transition: width 200ms ease; }
+
+.si-question { text-align: center; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin: 18px 0 12px; color: var(--text-primary); }
+
+/* The card */
+.si-stage { display: flex; justify-content: center; min-height: 190px; align-items: center; }
+.si-card {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; max-width: 300px; min-height: 176px; padding: 22px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+  box-shadow: var(--shadow-card); cursor: grab; user-select: none;
+  transition: transform 180ms ease, border-color 160ms ease, background 160ms ease;
+}
+.si-card:active { cursor: grabbing; }
+.si-card-img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.si-card-mono { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--surface-alt); color: var(--text-secondary); font-size: 30px; font-weight: 800; }
+.si-card-label { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; text-align: center; color: var(--text-primary); text-wrap: balance; }
+.si-flash-right { border-color: #0F6E56; background: color-mix(in srgb, #0F6E56 12%, var(--surface)); }
+.si-flash-wrong { border-color: #A32D2D; background: color-mix(in srgb, #A32D2D 12%, var(--surface)); }
+
+/* Buckets */
+.si-buckets { display: flex; gap: 12px; margin-top: 18px; }
+.si-bucket {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 56px; padding: 12px; border-radius: 16px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  font-size: 15px; font-weight: 700; color: var(--text-primary); cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, transform 120ms ease;
+}
+.si-bucket:hover { border-color: var(--accent); background: var(--surface-alt); }
+.si-bucket:active { transform: scale(0.97); }
+.si-bucket:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.si-bucket-arrow { font-size: 17px; color: var(--text-tertiary); }
+
+/* Result */
+.si-result { text-align: center; padding-top: 20px; }
+.si-score { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1; margin-top: 8px; }
+.si-score-sub { font-size: 26px; color: var(--text-tertiary); font-weight: 700; }
+.si-result-stats { display: flex; justify-content: center; gap: 26px; margin-top: 16px; }
+.si-result-stats > div { display: flex; flex-direction: column; }
+.si-result-stats strong { font-size: 20px; font-weight: 800; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.si-result-stats span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin-top: 2px; }
+.si-review { text-align: left; margin: 22px auto 0; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; }
+.si-review-h { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin: 0 0 8px; }
+.si-review-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
+.si-review-list li { display: flex; justify-content: space-between; gap: 12px; font-size: 13.5px; }
+.si-review-name { font-weight: 600; color: var(--text-primary); }
+.si-review-fix { color: var(--text-secondary); text-align: right; }
+
+@media (prefers-reduced-motion: reduce) {
+  .si-card, .si-progress > span, .si-bucket { transition: none; }
+  .si-bucket:active { transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
    D1 - Two-up daily row (Quiz of the day | Game of the day), equal weight.
    --------------------------------------------------------------------------- */
 .daily-twoup { display: grid; grid-template-columns: 1fr; gap: 16px; }

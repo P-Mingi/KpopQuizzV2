@@ -14,7 +14,8 @@ export function DiscordResultsLine({
     // Workstream LOOP - the game results that now end in a shared ResultLoop.
     | 'this-or-that-result'
     | 'name-all-result'
-    | 'duel-result';
+    | 'duel-result'
+    | 'sort-it-result';
   text?: string;
 }): React.ReactElement {
   return (
