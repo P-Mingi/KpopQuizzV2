@@ -48,7 +48,7 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     buckets: ['Boy group', 'Girl group'],
     title: 'Boy Group or Girl Group?',
     blurb: 'Sort real K-pop acts into boy group or girl group before the clock adds up. Tap a side or swipe.',
-    seoTitle: 'Boy Group or Girl Group? K-pop Sorting Quiz',
+    seoTitle: 'Boy Group or Girl Group? Sort {n} K-pop Groups',
     seoDescription:
       'Can you sort real K-pop acts into boy group or girl group? A fast tap-or-swipe sorting quiz over dozens of groups. Free, no sign-up, instant score.',
   },
@@ -58,7 +58,7 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     buckets: ['3rd gen', '4th gen'],
     title: '3rd Gen or 4th Gen?',
     blurb: 'Sort K-pop groups into third generation or fourth generation. How sharp is your timeline?',
-    seoTitle: '3rd Gen or 4th Gen? K-pop Generation Sorting Quiz',
+    seoTitle: '3rd Gen or 4th Gen? Sort {n} K-pop Groups',
     seoDescription:
       'Can you tell 3rd gen from 4th gen K-pop groups? Sort real groups into their generation in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
   },
@@ -68,7 +68,7 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     buckets: ['Solo act', 'Group'],
     title: 'Solo Act or Group?',
     blurb: 'Soloist or group? Sort real K-pop artists against the clock. Tap a side or swipe.',
-    seoTitle: 'Solo Act or Group? K-pop Sorting Quiz',
+    seoTitle: 'Solo Act or Group? Sort {n} K-pop Acts',
     seoDescription:
       'Can you tell K-pop soloists from groups? Sort real artists into solo act or group in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
   },

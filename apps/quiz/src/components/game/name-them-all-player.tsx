@@ -129,7 +129,7 @@ export function NameThemAllPlayer({
         <Link href="/games" className="nta-back">{'←'} Back to Games</Link>
         <div className="nta-intro">
           <span className="nta-eyebrow">Name Them All</span>
-          <h1 className="nta-title">{playlist.title}</h1>
+          <h2 className="nta-title">{playlist.title}</h2>
           <p className="nta-blurb">{playlist.blurb}</p>
           <div className="nta-meta">{total} {playlist.itemNoun} {'·'} {formatTimer(playlist.timerSeconds)} on the clock</div>
           <button type="button" className="btn-primary nta-start" onClick={start}>Start naming</button>

@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { getNameThemAllPlaylist, NAME_THEM_ALL_MIN, type NameThemAllItem } from '@/lib/games/name-them-all';
 
@@ -18,7 +20,7 @@ interface GroupRow {
 
 const EXCLUDED_GROUP_SLUGS = new Set(['general-kpop']);
 
-export async function getNameThemAllItems(slug: string): Promise<NameThemAllItem[]> {
+export const getNameThemAllItems = cache(async (slug: string): Promise<NameThemAllItem[]> => {
   const playlist = getNameThemAllPlaylist(slug);
   if (!playlist) return [];
 
@@ -40,4 +42,4 @@ export async function getNameThemAllItems(slug: string): Promise<NameThemAllItem
   const items: NameThemAllItem[] = rows.map((g) => ({ name: g.name, aliases: [] }));
   if (items.length < NAME_THEM_ALL_MIN) return [];
   return items;
-}
+});

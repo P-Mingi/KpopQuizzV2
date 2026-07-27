@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getNameThemAllItems } from '@/lib/db/queries/name-them-all';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { safeFetch } from '@/lib/error-handling';
+import { gameOgImages } from '@/lib/games/game-seo';
 
 import type { Metadata } from 'next';
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     title: 'Name Them All | KpopQuiz',
     description: 'Type-them-all grid challenges over real K-pop groups. Beat the clock.',
     url: '/games/name-them-all',
+    images: gameOgImages('name-them-all'),
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/games/name-them-all' },

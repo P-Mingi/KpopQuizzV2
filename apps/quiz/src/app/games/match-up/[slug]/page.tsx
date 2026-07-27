@@ -4,6 +4,7 @@ import { MatchUpPlayer } from '@/components/game/match-up-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getMatchUpPairs } from '@/lib/db/queries/match-up';
 import { MATCH_UP_PLAYLISTS, getMatchUpPlaylist } from '@/lib/games/match-up';
+import { gameOgImages } from '@/lib/games/game-seo';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
@@ -30,6 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${playlist.title} | KpopQuiz`,
       description: playlist.seoDescription,
       url: `/games/match-up/${slug}`,
+      images: gameOgImages('match-up'),
     },
     twitter: { card: 'summary_large_image' },
     alternates: { canonical: `/games/match-up/${slug}` },
@@ -46,6 +48,8 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
   const pool = await safeFetch(getMatchUpPairs(slug), [], '[match-up] getPairs');
   if (pool.length === 0) notFound();
 
+  const intro = `${playlist.blurb} Each round samples ${playlist.round} pairs from a pool of ${pool.length} real matches, so the board is different every time. It is free, needs no sign-up, and plays on mobile or desktop.`;
+
   const webPageLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -57,7 +61,7 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
 
   return (
     <div className="py-4 md:py-6">
-      <div className="mu-wrap" style={{ paddingBottom: 0 }}>
+      <section className="mu-wrap game-intro" style={{ paddingBottom: 0 }}>
         <Breadcrumbs
           items={[
             { label: 'Games', href: '/games' },
@@ -65,7 +69,9 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
             { label: playlist.title },
           ]}
         />
-      </div>
+        <h1 className="game-intro-h1">{playlist.title}</h1>
+        <p className="game-intro-p">{intro}</p>
+      </section>
       <MatchUpPlayer playlist={playlist} pool={pool} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />

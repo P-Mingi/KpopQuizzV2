@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { getMatchUpPlaylist, MATCH_UP_MIN_PAIRS, type MatchUpPair } from '@/lib/games/match-up';
 
@@ -171,7 +173,7 @@ async function titleHalvesPairs(db: DbClient): Promise<MatchUpPair[]> {
  * Build the baked pair pool for a Match-Up playlist. Returns [] if the playlist
  * is unknown or the gate is not met (caller treats [] as notFound).
  */
-export async function getMatchUpPairs(slug: string): Promise<MatchUpPair[]> {
+export const getMatchUpPairs = cache(async (slug: string): Promise<MatchUpPair[]> => {
   const playlist = getMatchUpPlaylist(slug);
   if (!playlist) return [];
 
@@ -193,4 +195,4 @@ export async function getMatchUpPairs(slug: string): Promise<MatchUpPair[]> {
 
   if (pairs.length < MATCH_UP_MIN_PAIRS) return [];
   return pairs;
-}
+});

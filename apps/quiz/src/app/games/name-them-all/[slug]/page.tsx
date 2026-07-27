@@ -4,6 +4,7 @@ import { NameThemAllPlayer } from '@/components/game/name-them-all-player';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getNameThemAllItems } from '@/lib/db/queries/name-them-all';
 import { NAME_THEM_ALL_PLAYLISTS, getNameThemAllPlaylist } from '@/lib/games/name-them-all';
+import { gameOgImages } from '@/lib/games/game-seo';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
@@ -23,13 +24,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const playlist = getNameThemAllPlaylist(slug);
   if (!playlist) return { title: 'Game Not Found' };
 
+  const count = (await getNameThemAllItems(slug)).length;
+  const title = count > 0 ? playlist.seoTitle.replace('{n}', String(count)) : playlist.title;
+
   return {
-    title: playlist.seoTitle,
+    title,
     description: playlist.seoDescription,
     openGraph: {
       title: `${playlist.title} | KpopQuiz`,
       description: playlist.seoDescription,
       url: `/games/name-them-all/${slug}`,
+      images: gameOgImages('name-them-all'),
     },
     twitter: { card: 'summary_large_image' },
     alternates: { canonical: `/games/name-them-all/${slug}` },
@@ -44,6 +49,8 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
   const items = await safeFetch(getNameThemAllItems(slug), [], '[name-them-all] getItems');
   if (items.length === 0) notFound();
 
+  const intro = `${playlist.blurb} There are ${items.length} real K-pop ${playlist.itemNoun} to name before the timer runs out. Spelling is matched loosely, so punctuation-heavy names like (G)I-DLE and f(x) still count. Free and no sign-up.`;
+
   const webPageLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -55,7 +62,7 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
 
   return (
     <div className="py-4 md:py-6">
-      <div className="nta-wrap" style={{ paddingBottom: 0 }}>
+      <section className="nta-wrap game-intro" style={{ paddingBottom: 0 }}>
         <Breadcrumbs
           items={[
             { label: 'Games', href: '/games' },
@@ -63,7 +70,9 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
             { label: playlist.title },
           ]}
         />
-      </div>
+        <h1 className="game-intro-h1">{playlist.title}</h1>
+        <p className="game-intro-p">{intro}</p>
+      </section>
       <NameThemAllPlayer playlist={playlist} items={items} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />

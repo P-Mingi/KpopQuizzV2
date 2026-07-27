@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { getSortItPlaylist, SORT_IT_MIN_ITEMS, type SortItItem } from '@/lib/games/sort-it';
 
@@ -80,7 +82,7 @@ async function deriveGroupGenders(db: DbClient): Promise<Map<string, string>> {
  * Build the baked item set for a Sort It playlist from live data. Returns [] if
  * the playlist is unknown or the gate is not met (caller treats [] as notFound).
  */
-export async function getSortItItems(slug: string): Promise<SortItItem[]> {
+export const getSortItItems = cache(async (slug: string): Promise<SortItItem[]> => {
   const playlist = getSortItPlaylist(slug);
   if (!playlist) return [];
 
@@ -112,4 +114,4 @@ export async function getSortItItems(slug: string): Promise<SortItItem[]> {
   // Real-data min-volume gate. Never pad below the floor.
   if (items.length < SORT_IT_MIN_ITEMS) return [];
   return items;
-}
+});

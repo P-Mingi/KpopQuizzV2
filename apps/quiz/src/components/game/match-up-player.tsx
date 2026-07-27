@@ -186,7 +186,7 @@ export function MatchUpPlayer({
         <Link href="/games" className="mu-back">{'←'} Back to Games</Link>
         <div className="mu-intro">
           <span className="mu-eyebrow">Match-Up</span>
-          <h1 className="mu-title">{playlist.title}</h1>
+          <h2 className="mu-title">{playlist.title}</h2>
           <p className="mu-blurb">{playlist.blurb}</p>
           <div className="mu-meta">{roundSize} pairs {'·'} tap one from each side {'·'} beat the clock</div>
           <button type="button" className="btn-primary mu-start" onClick={begin}>Start matching</button>

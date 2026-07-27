@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getMatchUpPairs } from '@/lib/db/queries/match-up';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { safeFetch } from '@/lib/error-handling';
+import { gameOgImages } from '@/lib/games/game-seo';
 
 import type { Metadata } from 'next';
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     title: 'K-pop Match-Up | KpopQuiz',
     description: 'Fast pair-matching games over real K-pop songs, groups, and idols.',
     url: '/games/match-up',
+    images: gameOgImages('match-up'),
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/games/match-up' },

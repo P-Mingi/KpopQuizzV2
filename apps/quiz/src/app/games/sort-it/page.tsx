@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSortItItems } from '@/lib/db/queries/sort-it';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { safeFetch } from '@/lib/error-handling';
+import { gameOgImages } from '@/lib/games/game-seo';
 
 import type { Metadata } from 'next';
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     title: 'K-pop Sort It | KpopQuiz',
     description: 'Fast binary sorting quizzes over real K-pop groups. Tap or swipe, beat your time.',
     url: '/games/sort-it',
+    images: gameOgImages('sort-it'),
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/games/sort-it' },

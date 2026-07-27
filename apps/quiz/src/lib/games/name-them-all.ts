@@ -44,7 +44,7 @@ export const NAME_THEM_ALL_PLAYLISTS: NameThemAllPlaylist[] = [
     categoryHint: 'K-pop group',
     timerSeconds: 150,
     blurb: 'Every K-pop group on the site, one blank grid, one timer. How many can you name?',
-    seoTitle: 'Name All K-pop Groups: How Many Can You List?',
+    seoTitle: 'Name All {n} K-pop Groups: How Many Can You Get?',
     seoDescription:
       'Can you name every K-pop group before the timer runs out? Type as many as you can in this free grid challenge over dozens of real groups. No sign-up.',
   },
@@ -55,7 +55,7 @@ export const NAME_THEM_ALL_PLAYLISTS: NameThemAllPlaylist[] = [
     categoryHint: '3rd gen group',
     timerSeconds: 90,
     blurb: 'Third generation only. Name every 3rd gen K-pop group before the timer runs out.',
-    seoTitle: 'Name All 3rd Gen K-pop Groups: How Many Can You List?',
+    seoTitle: 'Name All {n} 3rd Gen K-pop Groups: Can You?',
     seoDescription:
       'Can you name every 3rd generation K-pop group before the clock runs out? A free type-them-all grid challenge over real third-gen groups. No sign-up.',
   },
@@ -66,7 +66,7 @@ export const NAME_THEM_ALL_PLAYLISTS: NameThemAllPlaylist[] = [
     categoryHint: '4th gen group',
     timerSeconds: 90,
     blurb: 'Fourth generation only. Name every 4th gen K-pop group before the timer runs out.',
-    seoTitle: 'Name All 4th Gen K-pop Groups: How Many Can You List?',
+    seoTitle: 'Name All {n} 4th Gen K-pop Groups: Can You?',
     seoDescription:
       'Can you name every 4th generation K-pop group before the clock runs out? A free type-them-all grid challenge over real fourth-gen groups. No sign-up.',
   },
