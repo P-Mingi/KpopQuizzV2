@@ -13,31 +13,9 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
  * the SQL-inserted types), so there is no per-caller preference check here.
  */
 
-// The live types. The 3 dead ones (trending, like, achievement_unlocked) were
-// removed from the DB CHECK in mig 122 and are gone here too; they can return
-// when actually wired. This union is imported by the API route and the UI.
-export const NOTIFICATION_TYPES = [
-  'milestone', 'rating', 'comment', 'admin_dm', 'new_follower',
-  'streak_milestone', 'group_mastered', 'followed_new_quiz',
-  'badge_earned', 'cheer',
-] as const;
-export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
-
-// Settings categories. Mirrors the type -> category map ENFORCED by the mig-122
-// gate trigger (the trigger enforces; this drives the settings UI grouping).
-export interface NotificationCategory {
-  key: string;
-  label: string;
-  description: string;
-  types: NotificationType[];
-}
-export const NOTIFICATION_CATEGORIES: NotificationCategory[] = [
-  { key: 'your_quizzes', label: 'Activity on your quizzes', description: 'Play milestones, reactions, and comments on quizzes you made.', types: ['milestone', 'rating', 'comment'] },
-  { key: 'social', label: 'Social', description: 'New followers and cheers.', types: ['new_follower', 'cheer'] },
-  { key: 'achievements', label: 'Achievements and streaks', description: 'Badges, mastered groups, and streak milestones.', types: ['badge_earned', 'group_mastered', 'streak_milestone'] },
-  { key: 'following', label: 'From creators you follow', description: 'New quizzes from people you follow.', types: ['followed_new_quiz'] },
-  { key: 'announcements', label: 'Announcements', description: 'Messages from the KpopQuiz team.', types: ['admin_dm'] },
-];
+// Types + settings categories live in the client-safe module (this file imports
+// the server-only supabase client, so client components import them from there).
+import type { NotificationType } from './notification-types';
 
 const MILESTONE_PLAY_COUNTS = [10, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
 export function isMilestonePlayCount(playCount: number): boolean {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
-import { NOTIFICATION_CATEGORIES } from '@/lib/notifications';
+import { NOTIFICATION_CATEGORIES } from '@/lib/notification-types';
 
 import type { NextRequest } from 'next/server';
 

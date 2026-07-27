@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { NOTIFICATION_CATEGORIES } from '@/lib/notifications';
+import { NOTIFICATION_CATEGORIES } from '@/lib/notification-types';
 
 // O0 item 4: the Notifications settings section. Five category toggles (the 10
 // live types grouped), default everything on (absent category = on). Writes

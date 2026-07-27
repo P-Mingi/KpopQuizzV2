@@ -5,9 +5,9 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 
 import type { NextRequest } from 'next/server';
 
-// Notification type union: single source of truth in lib/notifications.ts (O0
-// item 8). Re-exported here so existing UI imports keep working.
-import type { NotificationType } from '@/lib/notifications';
+// Notification type union: single source of truth in lib/notification-types.ts
+// (O0 item 8). Re-exported here so existing UI imports keep working.
+import type { NotificationType } from '@/lib/notification-types';
 export type { NotificationType };
 
 export interface NotificationRow {
