@@ -4,17 +4,20 @@ import { useEffect, useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
 import { NotificationCard } from '@/components/profile/notifications-strip';
+import { useUnreadCount, setUnread as setStoreUnread, decrementUnread } from '@/lib/notifications-store';
 
 import type { NotificationRow } from '@/app/api/notifications/route';
 
-// Notification center (Workstream M, M1.10). Full list, newest first, mark-read.
-// Reuses /api/notifications + /api/notifications/mark-read + the shared
-// NotificationCard rendering. No parallel system.
+// Notification center (Workstream M / O1). Full list, newest first, per-item
+// mark-read + dismiss + mute, all synced to the shared unread store so the bell
+// updates instantly. Reuses /api/notifications + mark-read + the shared card.
+const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
+
 export function NotificationsCenter(): React.ReactElement {
   const [items, setItems] = useState<NotificationRow[]>([]);
-  const [unread, setUnread] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [marking, setMarking] = useState(false);
+  const unread = useUnreadCount();
 
   useEffect(() => {
     let cancelled = false;
@@ -22,10 +25,10 @@ export function NotificationsCenter(): React.ReactElement {
       try {
         const res = await fetch('/api/notifications?limit=50', { credentials: 'include' });
         if (!res.ok) return;
-        const data: { notifications: NotificationRow[]; unreadCount: number } = await res.json();
+        const data = (await res.json()) as { notifications: NotificationRow[]; unreadCount: number };
         if (cancelled) return;
         setItems(data.notifications ?? []);
-        setUnread(data.unreadCount ?? 0);
+        setStoreUnread(data.unreadCount ?? 0);
       } catch {
         // non-critical
       } finally {
@@ -39,25 +42,37 @@ export function NotificationsCenter(): React.ReactElement {
     if (marking || unread === 0) return;
     setMarking(true);
     setItems((prev) => prev.map((n) => ({ ...n, is_read: true })));
-    setUnread(0);
+    setStoreUnread(0);
     try {
-      await fetch('/api/notifications/mark-read', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({}),
-      });
-    } catch {
-      // UI already updated
-    } finally {
-      setMarking(false);
-    }
+      await fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({}) });
+    } catch { /* UI already updated */ } finally { setMarking(false); }
+  }
+
+  // O1 item 6: mark one read when its content is opened.
+  function markOneRead(id: string): void {
+    const item = items.find((n) => n.id === id);
+    if (!item || item.is_read) return;
+    setItems((prev) => prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)));
+    decrementUnread(1);
+    void fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ ids: [id] }) }).catch(() => {});
+  }
+
+  // O1 item 6: dismiss (delete).
+  async function dismiss(id: string): Promise<void> {
+    const item = items.find((n) => n.id === id);
+    setItems((prev) => prev.filter((n) => n.id !== id));
+    if (item && !item.is_read) decrementUnread(1);
+    try {
+      await fetch('/api/notifications', { method: 'DELETE', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ id }) });
+    } catch { /* UI already updated */ }
   }
 
   async function muteQuiz(quizId: string): Promise<void> {
-    // Optimistic: drop this quiz's notifications from the list, then persist.
+    const removedUnread = items.filter((n) => n.quiz_id === quizId && !n.is_read).length;
     setItems((prev) => prev.filter((n) => n.quiz_id !== quizId));
+    if (removedUnread > 0) decrementUnread(removedUnread);
     try {
-      await fetch('/api/notifications/prefs', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }),
-      });
+      await fetch('/api/notifications/prefs', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }) });
     } catch { /* UI already updated */ }
   }
 
@@ -81,9 +96,16 @@ export function NotificationsCenter(): React.ReactElement {
           <p className="text-sm text-secondary mt-3">No notifications yet. Play, create, and follow fans to fill this up.</p>
         </div>
       ) : (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2" role="list" aria-label="Notifications">
           {items.map((n) => (
-            <li key={n.id}><NotificationCard notification={n} onMute={(q) => void muteQuiz(q)} /></li>
+            <li key={n.id}>
+              <NotificationCard
+                notification={n}
+                onMute={(q) => void muteQuiz(q)}
+                onDismiss={(id) => void dismiss(id)}
+                onOpen={() => markOneRead(n.id)}
+              />
+            </li>
           ))}
         </ul>
       )}

@@ -3,15 +3,18 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-// Unread notification badge (Workstream M, M1.10). CLIENT island (reuses the
-// TopNavProfile pattern) so the layout shell stays static/ISR. Renders nothing
-// until it confirms the viewer is signed in; then polls the unread count on a
-// sane interval. Links to the /notifications center.
-const POLL_MS = 60_000;
+import { useUnreadCount, refetchUnread } from '@/lib/notifications-store';
+
+// Unread notification badge (Workstream M / O1). CLIENT island so the layout
+// shell stays static/ISR. Renders nothing until it confirms the viewer is
+// signed in. Reads the shared unread store (O1 item 5) so "mark all read",
+// dismiss, and per-item read from the center update the bell instantly; refetches
+// on mount, on tab focus, and on a slow backstop poll (no realtime channel).
+const POLL_MS = 90_000;
 
 export function NotificationBell(): React.ReactElement | null {
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
-  const [unread, setUnread] = useState(0);
+  const unread = useUnreadCount();
 
   useEffect(() => {
     let cancelled = false;
@@ -24,16 +27,16 @@ export function NotificationBell(): React.ReactElement | null {
 
   useEffect(() => {
     if (!signedIn) return;
-    let cancelled = false;
-    const load = (): void => {
-      fetch('/api/notifications?limit=1', { credentials: 'include' })
-        .then((r) => (r.ok ? r.json() : null))
-        .then((d: { unreadCount?: number } | null) => { if (!cancelled && d) setUnread(d.unreadCount ?? 0); })
-        .catch(() => {});
+    void refetchUnread();
+    const onVisible = (): void => { if (document.visibilityState === 'visible') void refetchUnread(); };
+    window.addEventListener('focus', onVisible);
+    document.addEventListener('visibilitychange', onVisible);
+    const t = window.setInterval(() => { void refetchUnread(); }, POLL_MS);
+    return () => {
+      window.removeEventListener('focus', onVisible);
+      document.removeEventListener('visibilitychange', onVisible);
+      window.clearInterval(t);
     };
-    load();
-    const t = window.setInterval(load, POLL_MS);
-    return () => { cancelled = true; window.clearInterval(t); };
   }, [signedIn]);
 
   if (!signedIn) return null;

@@ -107,10 +107,11 @@ const X_ICON = (
   </svg>
 );
 
-export function NotificationCard({ notification, onMute, onDismiss }: {
+export function NotificationCard({ notification, onMute, onDismiss, onOpen }: {
   notification: NotificationRow;
   onMute?: (quizId: string) => void;
   onDismiss?: (id: string) => void;
+  onOpen?: () => void;
 }): React.ReactElement {
   const icon = iconFor(notification.type);
 
@@ -151,10 +152,11 @@ export function NotificationCard({ notification, onMute, onDismiss }: {
   // else the linked quiz. External URLs open in a new tab.
   const href = notification.link_url ?? (notification.quiz_slug ? `/q/${notification.quiz_slug}` : null);
   const external = href ? /^https?:\/\//.test(href) : false;
+  const openProps = onOpen ? { onClick: onOpen } : {};
   const linked = href
     ? external
-      ? <a href={href} target="_blank" rel="noopener noreferrer" className="block flex-1 min-w-0">{inner}</a>
-      : <Link href={href} className="block flex-1 min-w-0">{inner}</Link>
+      ? <a href={href} target="_blank" rel="noopener noreferrer" {...openProps} className="block flex-1 min-w-0">{inner}</a>
+      : <Link href={href} {...openProps} className="block flex-1 min-w-0">{inner}</Link>
     : <div className="flex-1 min-w-0">{inner}</div>;
 
   const showMute = onMute && notification.quiz_id;

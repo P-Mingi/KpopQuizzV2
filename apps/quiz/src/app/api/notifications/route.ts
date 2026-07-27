@@ -104,3 +104,25 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     unreadCount: unreadRes.count ?? 0,
   });
 }
+
+/**
+ * DELETE /api/notifications  body { id } or { ids: [...] }
+ * O1 item 6: dismiss the caller's own notifications. The mig-122 DELETE RLS
+ * policy scopes deletion to the owner, so foreign ids simply delete nothing.
+ */
+export async function DELETE(request: NextRequest): Promise<NextResponse> {
+  const supabase = await createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+
+  let body: { id?: unknown; ids?: unknown };
+  try { body = (await request.json()) as { id?: unknown; ids?: unknown }; } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }); }
+  const ids: string[] = Array.isArray(body.ids)
+    ? body.ids.filter((x): x is string => typeof x === 'string')
+    : typeof body.id === 'string' ? [body.id] : [];
+  if (ids.length === 0) return NextResponse.json({ error: 'id or ids required' }, { status: 400 });
+
+  const { error } = await supabase.from('creator_notifications').delete().in('id', ids);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ ok: true, deleted: ids.length });
+}
