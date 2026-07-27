@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { getQuizzesByGroup, getGroupQuizLinks } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { getGroupNameAllGame, getGroupBlindtestInfo, getGroupWarRank } from '@/lib/db/queries/group-hub';
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
-import { PersonalityGroupCard } from '@/components/personality/personality-entry';
+import { GroupHubHero, GroupPlayRow, GroupMembersStrip } from '@/components/group/group-hub-sections';
 import { getGroupProfiles } from '@/lib/personality/data';
-import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
@@ -73,14 +73,16 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles] = await Promise.all([
+  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
     safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
     safeFetch(getGroupProfiles(group.id), [], '[group-quiz] getGroupProfiles'),
+    safeFetch(getGroupNameAllGame(group.id), null, '[group-quiz] getGroupNameAllGame'),
+    safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-quiz] getGroupBlindtestInfo'),
+    safeFetch(getGroupWarRank(group.slug), null, '[group-quiz] getGroupWarRank'),
   ]);
-  const personalityFaces = personalityProfiles.map((p) => p.photo_url).filter((u): u is string => !!u).slice(0, 5);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
 
@@ -99,47 +101,19 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
       <p className="text-sm text-secondary mt-2 leading-relaxed">{intro}</p>
 
-      <div className="flex items-center gap-3 mt-4">
-        <GroupLogo
-          groupName={group.name}
-          logoUrl={group.logo_url}
-          displayColor={group.display_color}
-          textColor={group.text_color}
-          size={64}
-        />
-        <div>
-          <p className="text-sm font-medium text-primary">{group.name}</p>
-          <p className="text-xs text-secondary">
-            {formatCount(group.quiz_count)} quizzes · {formatCount(group.total_plays)} total plays
-          </p>
-        </div>
-      </div>
+      {/* G2 hero (upgrade in place): logo, name, generation, member count,
+          quiz/plays, fandom line (real fandoms only), war-map rank when charted. */}
+      <GroupHubHero group={group} memberCount={nameAllGame?.count ?? null} warRank={warRank} />
 
-      {personalityProfiles.length > 0 && (
-        <div className="mt-4">
-          <PersonalityGroupCard
-            group={{ id: group.id, name: group.name, slug: group.slug, display_color: group.display_color, text_color: group.text_color, logo_url: group.logo_url }}
-            faces={personalityFaces}
-          />
-        </div>
-      )}
-
-      <Link href={`/blindtest/group-${group.slug}`} className="trivia-entry mt-4">
-        <span className="trivia-entry-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 18V5l12-2v13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="6" cy="18" r="3" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="18" cy="16" r="3" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </span>
-        <span className="trivia-entry-text">
-          <span className="trivia-entry-title">Play the {group.name} blind test</span>
-          <span className="trivia-entry-sub">Guess {group.name} songs from short audio clips</span>
-        </span>
-        <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </Link>
+      {/* G2 play row: every real play surface this group has, gated per surface.
+          Absorbs the old personality card + blindtest entry. */}
+      <GroupPlayRow
+        group={group}
+        topQuizSlug={initialQuizzes[0]?.slug ?? null}
+        blindtest={blindtest}
+        nameAll={nameAllGame}
+        hasPersonality={personalityProfiles.length > 0}
+      />
 
       {triviaAvailable && (
         <Link href={`/${group.slug}-trivia`} className="trivia-entry mt-4">
@@ -168,6 +142,9 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       </nav>
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
+
+      {/* G2 members strip: roster faces from the name-all roster (real photos). */}
+      {nameAllGame && <GroupMembersStrip group={group} nameAll={nameAllGame} />}
 
       {/* SEO Fix 3 - crawlable links to EVERY quiz in this group (bots / no-JS).
           GroupFeed only SSRs the first 10; this exposes the rest. */}

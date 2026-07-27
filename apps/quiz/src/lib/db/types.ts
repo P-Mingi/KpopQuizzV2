@@ -45,6 +45,9 @@ export interface Group {
   needs_review: boolean;
   created_by_user: boolean;
   created_at: string;
+  /** Generation label ("3rd Gen" etc). Present on the row (getGroupBySlug uses
+   *  select('*')); optional so custom-group literals that omit it still type. */
+  generation?: string | null;
 }
 
 export type QuizType = 'multiple_choice' | 'true_false' | 'guess_from_clues' | 'image' | 'intruder';
