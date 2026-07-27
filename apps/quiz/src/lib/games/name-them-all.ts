@@ -48,6 +48,28 @@ export const NAME_THEM_ALL_PLAYLISTS: NameThemAllPlaylist[] = [
     seoDescription:
       'Can you name every K-pop group before the timer runs out? Type as many as you can in this free grid challenge over dozens of real groups. No sign-up.',
   },
+  {
+    slug: 'name-all-3rd-gen-groups',
+    title: 'Name All 3rd Gen K-pop Groups',
+    itemNoun: '3rd gen groups',
+    categoryHint: '3rd gen group',
+    timerSeconds: 90,
+    blurb: 'Third generation only. Name every 3rd gen K-pop group before the timer runs out.',
+    seoTitle: 'Name All 3rd Gen K-pop Groups: How Many Can You List?',
+    seoDescription:
+      'Can you name every 3rd generation K-pop group before the clock runs out? A free type-them-all grid challenge over real third-gen groups. No sign-up.',
+  },
+  {
+    slug: 'name-all-4th-gen-groups',
+    title: 'Name All 4th Gen K-pop Groups',
+    itemNoun: '4th gen groups',
+    categoryHint: '4th gen group',
+    timerSeconds: 90,
+    blurb: 'Fourth generation only. Name every 4th gen K-pop group before the timer runs out.',
+    seoTitle: 'Name All 4th Gen K-pop Groups: How Many Can You List?',
+    seoDescription:
+      'Can you name every 4th generation K-pop group before the clock runs out? A free type-them-all grid challenge over real fourth-gen groups. No sign-up.',
+  },
 ];
 
 export function getNameThemAllPlaylist(slug: string): NameThemAllPlaylist | undefined {

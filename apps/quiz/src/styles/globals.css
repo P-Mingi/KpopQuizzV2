@@ -2698,6 +2698,29 @@ a.ranking-cta { text-decoration: none; }
   .nta-progress > span, .nta-cell-pop { transition: none; animation: none; }
 }
 
+/* Name Them All index */
+.nta-idx-head { text-align: center; padding-top: 8px; }
+.nta-idx-head a { color: var(--accent); }
+.nta-idx-grid { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 560px) { .nta-idx-grid { grid-template-columns: 1fr 1fr; } }
+.nta-idx-card {
+  display: flex; flex-direction: column; gap: 16px; height: 100%; padding: 20px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  box-shadow: var(--shadow-card); text-decoration: none;
+  transition: transform 140ms ease, border-color 140ms ease;
+}
+.nta-idx-card:hover { transform: translateY(-2px); border-color: var(--border-h); }
+.nta-idx-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nta-idx-q { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; color: var(--text-primary); text-wrap: balance; }
+.nta-idx-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.nta-idx-stat { font-size: 12.5px; font-weight: 600; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.nta-idx-play { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nta-idx-card { transition: none; }
+  .nta-idx-card:hover { transform: none; }
+}
+
 /* ---------------------------------------------------------------------------
    D1 - Two-up daily row (Quiz of the day | Game of the day), equal weight.
    --------------------------------------------------------------------------- */
