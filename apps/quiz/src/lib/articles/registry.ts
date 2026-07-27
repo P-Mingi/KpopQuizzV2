@@ -3,9 +3,9 @@ import type { ArticleMeta } from './types';
 export const ARTICLES: ArticleMeta[] = [
   {
     slug: 'best-kpop-quiz-sites-2026',
-    title: 'The Best Free K-pop Quiz Sites in 2026 (Honest Comparison)',
+    title: 'Best Free K-pop Quiz Sites in 2026: 5 Ranked and Reviewed',
     description:
-      'An honest comparison of the best free K-pop quiz websites in 2026, from fan-made platforms to mobile apps. Find where to test your K-pop knowledge.',
+      'We ranked 5 free K-pop quiz sites for 2026, from fan-made platforms to mobile apps. See which one fits how you like to test your K-pop knowledge.',
     category: 'listicle',
     publishedAt: '2026-06-21',
     updatedAt: '2026-06-21',

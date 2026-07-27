@@ -16,8 +16,8 @@ export const revalidate = 3600;
 // it crawlable + the revalidate window above still applies at runtime.
 
 export const metadata: Metadata = {
-  title: 'K-pop Games - Personality Quizzes, Blind Test & More | KpopQuiz',
-  description: 'Play free K-pop games: find out which member you are, guess songs from a clip, pick sides in fan matchups, and name every member before the timer runs out.',
+  title: 'K-pop Games: Blind Test, This or That, Which Member',
+  description: 'Play free K-pop games: guess the song in a blind test, pick sides in This or That, find out which idol you are, and name every member before the timer. No sign-up.',
   alternates: {
     canonical: '/games',
     languages: {

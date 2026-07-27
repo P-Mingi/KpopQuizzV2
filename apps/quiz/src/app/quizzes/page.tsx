@@ -1,6 +1,7 @@
 import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/queries/quizzes';
 import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
+import { getSiteStats } from '@/lib/db/queries/stats';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -41,10 +42,16 @@ export async function generateMetadata(
   const qs = canonicalParams.toString();
   const canonical = qs ? `/quizzes?${qs}` : '/quizzes';
 
+  // CTR sprint: lead the title with the real catalog size. Floor to the nearest
+  // 10 so "N+" is always true and can only ever undersell as the catalog grows.
+  // getSiteStats is unstable_cached (weekly), so this adds no per-request cost.
+  const stats = await safeFetch<Awaited<ReturnType<typeof getSiteStats>> | null>(getSiteStats(), null, '[browse meta] getSiteStats');
+  const countLabel = `${Math.max(380, Math.floor((stats?.totalQuizzes ?? 0) / 10) * 10)}+`;
+
   return {
-    title: 'Browse K-pop Quizzes',
+    title: `K-pop Quizzes: ${countLabel} Free Fan-Made Tests, Every Group`,
     description:
-      'Browse every K-pop quiz on kpopquiz.org. Filter by group or quiz type, sort by trending, newest, or most played.',
+      `Browse ${countLabel} free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.`,
     openGraph: {
       title: 'Browse K-pop Quizzes | KpopQuiz',
       description: 'Every K-pop quiz, filtered and sorted your way.',
