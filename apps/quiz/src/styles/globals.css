@@ -1443,7 +1443,12 @@ body {
 
 /* §10g - games teaser cards */
 .games-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-@media (max-width: 640px) { .games-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Phone: show 2 cards in a clean row (no orphaned 3rd). Desktop keeps 3. The
+   hidden card stays in the DOM, so its link is still crawlable. */
+@media (max-width: 640px) {
+  .games-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .games-row .game-card:nth-child(n+3) { display: none; }
+}
 .game-card {
   background: var(--surface);
   border: 1px solid var(--border);
