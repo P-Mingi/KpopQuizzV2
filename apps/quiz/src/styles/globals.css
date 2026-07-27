@@ -2387,6 +2387,12 @@ a.ranking-cta { text-decoration: none; }
    --------------------------------------------------------------------------- */
 :root { --tot: var(--brand); --nam: #3B6FF6; --blind: #8B5CF6; --sit: #0EA5A9; --mup: #E8843C; }
 
+/* V closeout - internal-link mesh from group pages into the game modes. */
+.group-games-mesh { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+.group-games-mesh-label { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-tertiary); }
+.group-games-mesh a { font-size: 13.5px; font-weight: 600; color: var(--text-secondary); text-decoration: none; }
+.group-games-mesh a:hover { color: var(--accent); }
+
 /* V closeout - server-rendered crawlable intro above each game-mode player. */
 .game-intro { padding-top: 4px; }
 .game-intro-h1 { font-size: 26px; line-height: 1.14; font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 0; color: var(--text-primary); text-wrap: balance; }

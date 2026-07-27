@@ -51,6 +51,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['generations', 'history', 'guide'],
     relatedLinks: [
       { label: 'K-pop blind test', href: '/blindtest' },
+      { label: 'Sort 3rd gen vs 4th gen groups', href: '/games/sort-it/3rd-gen-or-4th-gen' },
       { label: 'Browse quizzes by group', href: '/quizzes' },
     ],
     faq: [
@@ -156,6 +157,7 @@ export const ARTICLES: ArticleMeta[] = [
       { label: 'Hard quizzes', href: '/hard-kpop-quizzes' },
       { label: 'K-pop blind test', href: '/blindtest' },
       { label: 'Name All Members', href: '/games/name-all' },
+      { label: 'Match songs to their groups', href: '/games/match-up/song-to-group' },
     ],
     faq: [
       {
@@ -262,6 +264,7 @@ export const ARTICLES: ArticleMeta[] = [
     coverAlt: 'Comparison chart of girl-group versus boy-group K-pop quiz scores',
     tags: ['girl groups', 'boy groups', 'comparison'],
     relatedLinks: [
+      { label: 'Boy group or girl group? Sort them', href: '/games/sort-it/boy-group-or-girl-group' },
       { label: 'Browse all quizzes', href: '/quizzes' },
       { label: 'Community leaderboard', href: '/leaderboard' },
       { label: 'Live stats', href: '/stats' },
@@ -301,6 +304,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['member count', 'name all members', 'data'],
     relatedLinks: [
       { label: 'Play Name All Members', href: '/games/name-all' },
+      { label: 'Name all K-pop groups', href: '/games/name-them-all/name-all-kpop-groups' },
       { label: 'SEVENTEEN quizzes', href: '/seventeen-quiz' },
       { label: 'Browse all quizzes', href: '/quizzes' },
     ],
@@ -504,6 +508,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['generations', 'eras', 'timeline'],
     relatedLinks: [
       { label: 'Play by generation', href: '/blindtest' },
+      { label: 'Sort 3rd gen vs 4th gen groups', href: '/games/sort-it/3rd-gen-or-4th-gen' },
       { label: 'Generations explained', href: '/articles/kpop-generations-explained' },
       { label: 'Browse all quizzes', href: '/quizzes' },
     ],

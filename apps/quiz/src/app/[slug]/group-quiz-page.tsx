@@ -159,6 +159,14 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         </Link>
       )}
 
+      {/* V closeout: internal-link mesh into the new game modes (crawlable). */}
+      <nav className="group-games-mesh mt-4" aria-label="More K-pop games">
+        <span className="group-games-mesh-label">More K-pop games</span>
+        <Link href="/games/sort-it">Sort K-pop groups: boy or girl, 3rd gen or 4th gen</Link>
+        <Link href="/games/match-up/song-to-group">Match K-pop songs to their groups</Link>
+        <Link href="/games/name-them-all/name-all-kpop-groups">Name all K-pop groups before the timer</Link>
+      </nav>
+
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
 
       {/* SEO Fix 3 - crawlable links to EVERY quiz in this group (bots / no-JS).

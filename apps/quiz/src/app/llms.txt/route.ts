@@ -44,7 +44,7 @@ export async function GET(): Promise<Response> {
 - [Home](https://kpopquiz.org/): Daily quiz, trending quizzes, group navigation
 - [Quizzes](https://kpopquiz.org/quizzes): Browse all fan-made K-pop quizzes by group, difficulty, or popularity
 - [Blind Test](https://kpopquiz.org/blindtest): Audio blind test with ${songCount}+ songs, filter by generation or group
-- [Games Hub](https://kpopquiz.org/games): This or That matchups, Name All Members challenges
+- [Games Hub](https://kpopquiz.org/games): This or That matchups, Name All Members, Sort It (boy vs girl group, generation), Match-Up (song/idol to group), and Name Them All grids
 - [Trivia](https://kpopquiz.org/trivia): K-pop fun facts and trivia pages per group
 - [Leaderboard](https://kpopquiz.org/leaderboard): Top players ranked by score
 - [Rankings](https://kpopquiz.org/rankings): Fan-voted rankings for members, songs, albums per group
@@ -60,8 +60,10 @@ Every major K-pop group has a dedicated quiz hub at /{group-slug}-quiz (e.g., /b
 1. **K-pop Quizzes**: Multiple-choice fan-made quizzes (easy/medium/hard)
 2. **Blind Test**: Listen to a 10-second audio clip, guess the song or artist from 4 choices
 3. **This or That**: Head-to-head matchups (favorite member, best song, etc.) with live Elo rankings
-4. **Name All Members**: Timer-based challenge to name every member of a group
-5. **True or False**: Statement-based K-pop knowledge test
+4. **Name Them All**: Timer-based grids to name every member of a group, or every K-pop group / generation (at /games/name-them-all)
+5. **Sort It**: Fast binary sorting of real groups (boy vs girl group, 3rd vs 4th gen, solo vs group) at /games/sort-it
+6. **Match-Up**: Pair-matching over real data (song to group, idol to group, song title halves) at /games/match-up
+7. **True or False**: Statement-based K-pop knowledge test
 
 ## Data and coverage
 
