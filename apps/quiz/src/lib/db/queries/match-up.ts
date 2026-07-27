@@ -20,11 +20,17 @@ interface GroupRow {
   needs_review: boolean | null;
 }
 
+// Catch-all "groups" that are not a real group, so pairing an idol/song to them
+// is meaningless. Excluded from every Match-Up pool.
+const EXCLUDED_GROUP_SLUGS = new Set(['general-kpop']);
+
 async function loadCleanGroups(db: DbClient): Promise<Map<string, GroupRow>> {
   const { data } = await db
     .from('groups')
     .select('id, name, slug, generation, is_custom, needs_review');
-  const clean = ((data ?? []) as GroupRow[]).filter((g) => !g.is_custom && !g.needs_review);
+  const clean = ((data ?? []) as GroupRow[]).filter(
+    (g) => !g.is_custom && !g.needs_review && !EXCLUDED_GROUP_SLUGS.has(g.slug),
+  );
   return new Map(clean.map((g) => [g.id, g]));
 }
 
@@ -90,6 +96,78 @@ async function songToGroupPairs(
 }
 
 /**
+ * One pair per roster member: idol -> their group. The whole roster is baked;
+ * the player's distinct-target sampling guarantees one idol per group in any
+ * round (and different idols across runs, for replay).
+ */
+async function idolToGroupPairs(db: DbClient, groups: Map<string, GroupRow>): Promise<MatchUpPair[]> {
+  const { data } = await db
+    .from('games')
+    .select('group_id, content')
+    .eq('game_type', 'name_all_members')
+    .eq('status', 'published');
+
+  const pairs: MatchUpPair[] = [];
+  for (const row of (data ?? []) as Array<{ group_id: string; content: { members?: Array<{ name?: string }> } | null }>) {
+    const g = groups.get(row.group_id);
+    if (!g) continue;
+    for (const m of row.content?.members ?? []) {
+      const name = typeof m?.name === 'string' ? m.name.trim() : '';
+      if (!name) continue;
+      pairs.push({ id: `${g.slug}:${name}`, left: name, right: g.name });
+    }
+  }
+  return pairs;
+}
+
+/**
+ * Split naturally multi-word titles into two halves; match first half to second.
+ * Fragments are globally de-duplicated (case-insensitive) so any sampled round
+ * is unambiguous. Titles that do not split into two words are skipped, never
+ * invented.
+ */
+async function titleHalvesPairs(db: DbClient): Promise<MatchUpPair[]> {
+  const songs = await loadActiveSongs(db);
+  const usedFragment = new Set<string>();
+  const seenTitle = new Set<string>();
+  const pairs: MatchUpPair[] = [];
+
+  for (const s of songs) {
+    const clean = (s.title ?? '')
+      .replace(/\(.*?\)/g, '')
+      .replace(/\bfeat\.?.*$/i, '')
+      .replace(/_/g, ' ')
+      .replace(/[^A-Za-z0-9\s'-]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const words = clean.split(' ').filter(Boolean);
+    if (words.length < 2 || clean.length < 5) continue;
+
+    const titleKey = clean.toLowerCase();
+    if (seenTitle.has(titleKey)) continue;
+
+    // Every word must be substantial so a half is never a lone letter ("T-T"),
+    // and both halves must be >= 3 chars and different, so the fragments read as
+    // real, distinguishable title pieces.
+    if (words.some((w) => w.replace(/[^A-Za-z0-9]/g, '').length < 2)) continue;
+
+    const mid = Math.ceil(words.length / 2);
+    const first = words.slice(0, mid).join(' ');
+    const second = words.slice(mid).join(' ');
+    const fl = first.toLowerCase();
+    const fr = second.toLowerCase();
+    if (first.length < 3 || second.length < 3 || fl === fr) continue;
+    if (usedFragment.has(fl) || usedFragment.has(fr)) continue;
+
+    seenTitle.add(titleKey);
+    usedFragment.add(fl);
+    usedFragment.add(fr);
+    pairs.push({ id: titleKey.replace(/\s+/g, '-'), left: first, right: second });
+  }
+  return pairs;
+}
+
+/**
  * Build the baked pair pool for a Match-Up playlist. Returns [] if the playlist
  * is unknown or the gate is not met (caller treats [] as notFound).
  */
@@ -103,6 +181,14 @@ export async function getMatchUpPairs(slug: string): Promise<MatchUpPair[]> {
 
   if (slug === 'song-to-group') {
     pairs = await songToGroupPairs(db, groups, null);
+  } else if (slug === 'song-to-group-3rd-gen') {
+    pairs = await songToGroupPairs(db, groups, '3rd Gen');
+  } else if (slug === 'song-to-group-4th-gen') {
+    pairs = await songToGroupPairs(db, groups, '4th Gen');
+  } else if (slug === 'idol-to-group') {
+    pairs = await idolToGroupPairs(db, groups);
+  } else if (slug === 'song-title-halves') {
+    pairs = await titleHalvesPairs(db);
   }
 
   if (pairs.length < MATCH_UP_MIN_PAIRS) return [];

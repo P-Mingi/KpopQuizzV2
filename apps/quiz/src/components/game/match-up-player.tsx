@@ -78,8 +78,8 @@ export function MatchUpPlayer({
 
   useEffect(() => {
     if (phase === 'result') {
-      // Score = final time in seconds (lower is better); max passed for share wording.
-      analytics.gameComplete('match-up', matched.size, roundSize, isDailyLaunch());
+      // Score = pairs matched (all of them); finish time is the real measure.
+      analytics.gameComplete('match-up', matched.size, round.length, isDailyLaunch());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
@@ -87,9 +87,22 @@ export function MatchUpPlayer({
   useEffect(() => () => { if (wrongTimer.current) clearTimeout(wrongTimer.current); }, []);
 
   const finishTime = elapsed + penalty;
+  const total = round.length; // actual pairs this round (after distinct sampling)
 
   const begin = useCallback(() => {
-    const picked = shuffle(pool).slice(0, roundSize);
+    // Sample distinct pairs: no repeated tile label on either side within a
+    // round. Keeps matching unambiguous when a pool can share fragments (title
+    // halves) or map many entries to one target (idols -> group).
+    const picked: MatchUpPair[] = [];
+    const usedL = new Set<string>();
+    const usedR = new Set<string>();
+    for (const p of shuffle(pool)) {
+      if (usedL.has(p.left) || usedR.has(p.right)) continue;
+      picked.push(p);
+      usedL.add(p.left);
+      usedR.add(p.right);
+      if (picked.length === roundSize) break;
+    }
     setRound(picked);
     setLeftTiles(shuffle(picked.map((p) => ({ id: p.id, label: p.left }))));
     setRightTiles(shuffle(picked.map((p) => ({ id: p.id, label: p.right }))));
@@ -186,7 +199,7 @@ export function MatchUpPlayer({
           <span className="mu-eyebrow">{playlist.title}</span>
           <div className="mu-score">{fmtTime(finishTime)}</div>
           <div className="mu-result-stats">
-            <div><strong>{roundSize}</strong><span>matched</span></div>
+            <div><strong>{total}</strong><span>matched</span></div>
             <div><strong>{mistakes}</strong><span>mistakes</span></div>
             <div><strong>{penalty}s</strong><span>penalty</span></div>
           </div>
@@ -207,7 +220,7 @@ export function MatchUpPlayer({
           <ResultLoop
             game="match-up"
             scoreLabel={`${fmtTime(finishTime)} with ${mistakes} mistakes`}
-            shareText={`I matched ${roundSize} K-pop pairs in ${fmtTime(finishTime)} (${mistakes} mistakes) on "${playlist.title}". Beat me?`}
+            shareText={`I matched ${total} K-pop pairs in ${fmtTime(finishTime)} (${mistakes} mistakes) on "${playlist.title}". Beat me?`}
             shareUrl={`/games/match-up/${playlist.slug}`}
             onPlayAgain={begin}
             playAgainLabel="Match again"
@@ -222,12 +235,12 @@ export function MatchUpPlayer({
   return (
     <div className="mu-wrap">
       <div className="mu-hud">
-        <span className="mu-hud-count">{matched.size}<span>/{roundSize}</span></span>
+        <span className="mu-hud-count">{matched.size}<span>/{total}</span></span>
         <span className="mu-hud-time">{fmtTime(finishTime)}</span>
         <span className="mu-hud-miss">{mistakes} miss</span>
       </div>
       <div className="sr-only" aria-live="polite" role="status">
-        {`${matched.size} of ${roundSize} matched, ${mistakes} mistakes.`}
+        {`${matched.size} of ${total} matched, ${mistakes} mistakes.`}
       </div>
 
       <div className="mu-board">

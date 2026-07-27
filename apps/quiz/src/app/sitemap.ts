@@ -6,6 +6,7 @@ import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { getPersonalityGroups } from '@/lib/personality/data';
 import { ARTICLES } from '@/lib/articles/registry';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
+import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 
 import type { MetadataRoute } from 'next';
 
@@ -110,6 +111,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/games/sort-it`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     ...SORT_IT_PLAYLISTS.map((p) => ({
       url: `${SITE_URL}/games/sort-it/${p.slug}`,
+      lastModified: STATIC_DATE,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    })),
+    // Workstream V2 - Match-Up index + one page per programmatic playlist.
+    { url: `${SITE_URL}/games/match-up`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    ...MATCH_UP_PLAYLISTS.map((p) => ({
+      url: `${SITE_URL}/games/match-up/${p.slug}`,
       lastModified: STATIC_DATE,
       changeFrequency: 'weekly' as const,
       priority: 0.6,
