@@ -117,6 +117,20 @@ export function GameOfTheDay({ data }: { data: GameOfTheDayData | null }): React
             )}
             <span className="gotd-rank-spacer" aria-hidden="true" />
           </>
+        ) : data.kind === 'sort-it' || data.kind === 'match-up' || data.kind === 'name-them-all' ? (
+          <>
+            {/* V3.3: programmatic-playlist dailies. data.kind is the route segment. */}
+            <Link href={`/games/${data.kind}/${data.slug}?daily=game`} className="gotd-nam">
+              <span className="gotd-nam-title">{data.title}</span>
+              <span className="gotd-nam-sub">Beat the clock</span>
+            </Link>
+            {played ? <DailyDone /> : (
+              <Link href={`/games/${data.kind}/${data.slug}?daily=game`} className="gotd-cta">
+                Play today&apos;s challenge
+              </Link>
+            )}
+            <span className="gotd-rank-spacer" aria-hidden="true" />
+          </>
         ) : (
           <>
             <Link href={`/games/name-all/${data.slug}?daily=game`} className="gotd-nam">

@@ -17,6 +17,7 @@ export interface GamesHubCounts {
   songs: number;
   categories: number;
   nameAll: number;
+  nameThemAll: number;
   sortIt: number;
   matchUp: number;
 }
@@ -57,13 +58,14 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
     songs: counts?.songs ?? 0,
     categories: counts?.categories ?? 0,
     nameAll: counts?.nameAll ?? 0,
+    nameThemAll: counts?.nameThemAll ?? 0,
     sortIt: counts?.sortIt ?? 0,
     matchUp: counts?.matchUp ?? 0,
   };
   const personalityStat = c.personality > 0 ? `${c.personality} groups` : 'Find your match';
   const songsStat = c.songs > 0 ? `${formatCount(c.songs)} songs · daily challenge` : 'Daily challenge';
   const categoriesStat = c.categories > 0 ? `${c.categories} categories` : 'Vote now';
-  const nameAllStat = c.nameAll > 0 ? `${c.nameAll} rosters` : 'Beat the timer';
+  const nameAllStat = c.nameAll > 0 || c.nameThemAll > 0 ? `${c.nameAll} rosters · ${c.nameThemAll} lists` : 'Beat the timer';
   const sortItStat = c.sortIt > 0 ? `${c.sortIt} sorting quizzes` : 'Beat the clock';
   const matchUpStat = c.matchUp > 0 ? `${c.matchUp} matching games` : 'Beat the clock';
 
@@ -112,9 +114,9 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           index={2}
         />
         <GameModeCard
-          name="Name all members"
-          desc="Type every member before the timer runs out. Sounds easy. It never is."
-          href="/games/name-all"
+          name="Name Them All"
+          desc="Type every member, every group, every generation before the timer runs out."
+          href="/games/name-them-all"
           tint="--nam"
           icon={ICON_NAME}
           stat={nameAllStat}

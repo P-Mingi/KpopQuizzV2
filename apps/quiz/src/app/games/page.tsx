@@ -6,6 +6,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
+import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import type { Metadata } from 'next';
 
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders all game
@@ -61,6 +62,7 @@ export default async function GamesPage() {
     songs: songCount,
     categories: rankings.length,
     nameAll: nameAllCount,
+    nameThemAll: NAME_THEM_ALL_PLAYLISTS.length,
     // Real count of shipped Sort It playlists (each is gated to real data).
     sortIt: SORT_IT_PLAYLISTS.length,
     matchUp: MATCH_UP_PLAYLISTS.length,
@@ -85,7 +87,7 @@ export default async function GamesPage() {
                 { '@type': 'ListItem', position: 1, name: 'Which K-pop Member Are You?', url: 'https://kpopquiz.org/personality' },
                 { '@type': 'ListItem', position: 2, name: 'K-pop Blind Test', url: 'https://kpopquiz.org/blindtest' },
                 { '@type': 'ListItem', position: 3, name: 'This or That', url: 'https://kpopquiz.org/games/this-or-that/all' },
-                { '@type': 'ListItem', position: 4, name: 'Name All Members', url: 'https://kpopquiz.org/games/name-all' },
+                { '@type': 'ListItem', position: 4, name: 'Name Them All', url: 'https://kpopquiz.org/games/name-them-all' },
                 { '@type': 'ListItem', position: 5, name: 'Sort It', url: 'https://kpopquiz.org/games/sort-it' },
                 { '@type': 'ListItem', position: 6, name: 'Match-Up', url: 'https://kpopquiz.org/games/match-up' },
                 ...(liveRanking ? [{ '@type': 'ListItem', position: 7, name: 'K-pop Fan Rankings', url: 'https://kpopquiz.org/rankings' }] : []),

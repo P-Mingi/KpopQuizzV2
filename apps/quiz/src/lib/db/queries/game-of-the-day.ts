@@ -1,6 +1,9 @@
 import { getRanking, getRankingsIndex } from '@/lib/db/queries/duels';
 import { getNameAllGames } from '@/lib/db/queries/games';
 import { getPersonalityGroupTiles } from '@/lib/personality/data';
+import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
+import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
+import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 
 /**
  * Game of the day (D1). Date-seeded + deterministic + read-only (no DB writes,
@@ -11,7 +14,9 @@ import { getPersonalityGroupTiles } from '@/lib/personality/data';
  * ROTATION is the one and only extension point: add 'blindtest' (B12) or
  * 'battle' here and that mode joins the daily rotation. One-line change.
  */
-export const ROTATION = ['personality', 'duel', 'name-all'] as const;
+// V3.3: the daily slot now rotates across these mode families. Adding a family
+// is still a one-line change here plus a variant + picker + strip case.
+export const ROTATION = ['personality', 'duel', 'name-all', 'sort-it', 'match-up', 'name-them-all'] as const;
 export type GameOfTheDayKind = (typeof ROTATION)[number];
 
 export interface DuelGotd {
@@ -44,7 +49,19 @@ export interface PersonalityGotd {
   faces: string[];
 }
 
-export type GameOfTheDayData = DuelGotd | NameAllGotd | PersonalityGotd;
+// V3.3 programmatic-playlist families. Each just needs a slug + a display title;
+// the strip builds the ?daily=game link from the kind.
+export interface SortItGotd { kind: 'sort-it'; slug: string; title: string; }
+export interface MatchUpGotd { kind: 'match-up'; slug: string; title: string; }
+export interface NameThemAllGotd { kind: 'name-them-all'; slug: string; title: string; }
+
+export type GameOfTheDayData =
+  | DuelGotd
+  | NameAllGotd
+  | PersonalityGotd
+  | SortItGotd
+  | MatchUpGotd
+  | NameThemAllGotd;
 
 /** Days since the UTC epoch - the stable per-day seed (matches the QOTD reset). */
 export function dayIndex(now: Date = new Date()): number {
@@ -118,10 +135,33 @@ async function pickPersonality(seed: number): Promise<GameOfTheDayData | null> {
   };
 }
 
+// The programmatic-playlist families pick a deterministic playlist for the day
+// from their static, gated registries (sorted for a stable seed->pick mapping).
+async function pickSortIt(seed: number): Promise<GameOfTheDayData | null> {
+  const list = SORT_IT_PLAYLISTS.slice().sort((a, b) => a.slug.localeCompare(b.slug));
+  const p = list[seed % list.length];
+  return p ? { kind: 'sort-it', slug: p.slug, title: p.question } : null;
+}
+
+async function pickMatchUp(seed: number): Promise<GameOfTheDayData | null> {
+  const list = MATCH_UP_PLAYLISTS.slice().sort((a, b) => a.slug.localeCompare(b.slug));
+  const p = list[seed % list.length];
+  return p ? { kind: 'match-up', slug: p.slug, title: p.title } : null;
+}
+
+async function pickNameThemAll(seed: number): Promise<GameOfTheDayData | null> {
+  const list = NAME_THEM_ALL_PLAYLISTS.slice().sort((a, b) => a.slug.localeCompare(b.slug));
+  const p = list[seed % list.length];
+  return p ? { kind: 'name-them-all', slug: p.slug, title: p.title } : null;
+}
+
 const PICKERS: Record<GameOfTheDayKind, (seed: number) => Promise<GameOfTheDayData | null>> = {
   personality: pickPersonality,
   duel: pickDuel,
   'name-all': pickNameAll,
+  'sort-it': pickSortIt,
+  'match-up': pickMatchUp,
+  'name-them-all': pickNameThemAll,
 };
 
 /**

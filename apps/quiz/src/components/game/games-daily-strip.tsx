@@ -24,22 +24,30 @@ function fmtCountdown(s: number): string {
 }
 
 function resolve(data: GameOfTheDayData): { title: string; href: string } {
-  if (data.kind === 'duel') {
-    return {
-      title: data.prompt,
-      href: `/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}&daily=game`,
-    };
+  switch (data.kind) {
+    case 'duel':
+      return {
+        title: data.prompt,
+        href: `/games/this-or-that?group=${encodeURIComponent(data.group)}&type=${encodeURIComponent(data.type)}&daily=game`,
+      };
+    case 'personality':
+      return {
+        title: `Which ${data.groupName} member are you?`,
+        href: `/which-${data.slug}-member-are-you?daily=game`,
+      };
+    case 'sort-it':
+      return { title: data.title, href: `/games/sort-it/${data.slug}?daily=game` };
+    case 'match-up':
+      return { title: data.title, href: `/games/match-up/${data.slug}?daily=game` };
+    case 'name-them-all':
+      return { title: data.title, href: `/games/name-them-all/${data.slug}?daily=game` };
+    case 'name-all':
+    default:
+      return {
+        title: `Name all ${data.groupName ?? ''} members`.replace(/\s+/g, ' ').trim(),
+        href: `/games/name-all/${data.slug}?daily=game`,
+      };
   }
-  if (data.kind === 'personality') {
-    return {
-      title: `Which ${data.groupName} member are you?`,
-      href: `/which-${data.slug}-member-are-you?daily=game`,
-    };
-  }
-  return {
-    title: `Name all ${data.groupName ?? ''} members`.replace(/\s+/g, ' ').trim(),
-    href: `/games/name-all/${data.slug}?daily=game`,
-  };
 }
 
 export function GamesDailyStrip({ data }: { data: GameOfTheDayData | null }): React.ReactElement | null {
