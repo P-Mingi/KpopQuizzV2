@@ -36,11 +36,22 @@ export async function generateMetadata(
 
   const isIndexable = !hasType && !hasSort && !hasSearch && (!groupSlug || validGroup);
 
-  const canonicalParams = new URLSearchParams();
-  if (validGroup) canonicalParams.set('group', groupSlug!);
-  if (isIndexable && pageNum > 1) canonicalParams.set('page', String(pageNum));
-  const qs = canonicalParams.toString();
-  const canonical = qs ? `/quizzes?${qs}` : '/quizzes';
+  // Part B (cannibalization fix): a valid single-group facet like
+  // /quizzes?group=exo used to self-canonical and compete with /exo-quiz for the
+  // "<group> quiz" query. The dedicated group page should own that query, so the
+  // facet (and its pagination) now canonicals to /<slug>-quiz, consolidating the
+  // ranking signal there. Canonical alone does the dedup - no noindex, since a
+  // noindex + cross-URL canonical would be a conflicting signal. All other
+  // non-indexable variants still collapse to base /quizzes with noindex,follow.
+  let canonical: string;
+  if (validGroup) {
+    canonical = `/${groupSlug}-quiz`;
+  } else {
+    const canonicalParams = new URLSearchParams();
+    if (isIndexable && pageNum > 1) canonicalParams.set('page', String(pageNum));
+    const qs = canonicalParams.toString();
+    canonical = qs ? `/quizzes?${qs}` : '/quizzes';
+  }
 
   // CTR sprint: lead the title with the real catalog size. Floor to the nearest
   // 10 so "N+" is always true and can only ever undersell as the catalog grows.
