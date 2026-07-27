@@ -2560,6 +2560,70 @@ a.ranking-cta { text-decoration: none; }
 }
 
 /* ---------------------------------------------------------------------------
+   Workstream V2 - "Match-Up" pair-matching game. Mobile-first, token-themed,
+   reduced-motion respected.
+   --------------------------------------------------------------------------- */
+.mu-wrap { max-width: 520px; margin: 0 auto; padding: 16px 16px 32px; }
+.mu-back { display: inline-block; font-size: 13px; color: var(--text-tertiary); text-decoration: none; }
+.mu-back:hover { color: var(--text-secondary); }
+.mu-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.mu-intro { text-align: center; padding-top: 28px; }
+.mu-title { font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 0; color: var(--text-primary); text-wrap: balance; }
+.mu-blurb { margin: 10px auto 0; max-width: 36ch; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.mu-meta { margin-top: 12px; font-size: 12.5px; color: var(--text-tertiary); }
+.mu-start { margin-top: 22px; min-width: 180px; }
+
+.mu-hud { display: flex; align-items: baseline; justify-content: space-between; font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.mu-hud-count { font-weight: 700; color: var(--text-primary); }
+.mu-hud-count span, .mu-hud-miss { font-weight: 500; color: var(--text-tertiary); }
+.mu-hud-time { font-weight: 700; color: var(--text-primary); }
+
+.mu-board { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; align-items: start; }
+.mu-col { display: flex; flex-direction: column; gap: 8px; }
+.mu-col-h { position: sticky; top: 0; margin: 0 0 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); text-align: center; }
+.mu-tile {
+  min-height: 48px; padding: 8px 10px; border-radius: 12px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  font-size: 13.5px; font-weight: 600; line-height: 1.25; color: var(--text-primary);
+  cursor: pointer; text-align: center; word-break: break-word;
+  transition: border-color 130ms ease, background 130ms ease, transform 100ms ease, opacity 200ms ease;
+}
+.mu-tile:hover { border-color: var(--accent); }
+.mu-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mu-sel { border-color: var(--accent); background: var(--surface-alt); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.mu-matched { border-color: #0F6E56; background: color-mix(in srgb, #0F6E56 12%, var(--surface)); color: var(--text-secondary); cursor: default; opacity: 0.7; }
+.mu-wrong { border-color: #A32D2D; background: color-mix(in srgb, #A32D2D 12%, var(--surface)); animation: mu-shake 0.4s ease; }
+.mu-rm.mu-wrong { animation: none; }
+
+@keyframes mu-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Result */
+.mu-result { text-align: center; padding-top: 20px; }
+.mu-score { font-size: 52px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1; margin-top: 8px; }
+.mu-result-stats { display: flex; justify-content: center; gap: 26px; margin-top: 16px; }
+.mu-result-stats > div { display: flex; flex-direction: column; }
+.mu-result-stats strong { font-size: 20px; font-weight: 800; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.mu-result-stats span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin-top: 2px; }
+.mu-review { text-align: left; margin: 22px auto 0; max-width: 380px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; }
+.mu-review-h { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin: 0 0 8px; }
+.mu-review-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto; }
+.mu-review-list li { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.mu-review-l { font-weight: 600; color: var(--text-primary); flex: 1; }
+.mu-review-arrow { color: var(--text-tertiary); }
+.mu-review-r { color: var(--text-secondary); text-align: right; flex-shrink: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-tile { transition: none; }
+  .mu-wrong { animation: none; }
+}
+
+/* ---------------------------------------------------------------------------
    D1 - Two-up daily row (Quiz of the day | Game of the day), equal weight.
    --------------------------------------------------------------------------- */
 .daily-twoup { display: grid; grid-template-columns: 1fr; gap: 16px; }

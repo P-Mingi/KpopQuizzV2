@@ -15,7 +15,8 @@ export function DiscordResultsLine({
     | 'this-or-that-result'
     | 'name-all-result'
     | 'duel-result'
-    | 'sort-it-result';
+    | 'sort-it-result'
+    | 'match-up-result';
   text?: string;
 }): React.ReactElement {
   return (
