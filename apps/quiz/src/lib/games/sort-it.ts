@@ -52,6 +52,16 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     seoDescription:
       'Can you sort real K-pop acts into boy group or girl group? A fast tap-or-swipe sorting quiz over dozens of groups. Free, no sign-up, instant score.',
   },
+  {
+    slug: '3rd-gen-or-4th-gen',
+    question: '3rd gen or 4th gen?',
+    buckets: ['3rd gen', '4th gen'],
+    title: '3rd Gen or 4th Gen?',
+    blurb: 'Sort K-pop groups into third generation or fourth generation. How sharp is your timeline?',
+    seoTitle: '3rd Gen or 4th Gen? K-pop Generation Sorting Quiz',
+    seoDescription:
+      'Can you tell 3rd gen from 4th gen K-pop groups? Sort real groups into their generation in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
+  },
 ];
 
 export function getSortItPlaylist(slug: string): SortItPlaylist | undefined {

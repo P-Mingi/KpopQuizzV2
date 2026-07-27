@@ -5,6 +5,7 @@ import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { getPersonalityGroups } from '@/lib/personality/data';
 import { ARTICLES } from '@/lib/articles/registry';
+import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 
 import type { MetadataRoute } from 'next';
 
@@ -104,6 +105,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/games`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/games/this-or-that`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/games/name-all`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    // Workstream V1 - Sort It index + one page per programmatic playlist. The
+    // playlists are a static code registry, so they enumerate without a DB query.
+    { url: `${SITE_URL}/games/sort-it`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    ...SORT_IT_PLAYLISTS.map((p) => ({
+      url: `${SITE_URL}/games/sort-it/${p.slug}`,
+      lastModified: STATIC_DATE,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    })),
     { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${SITE_URL}/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
