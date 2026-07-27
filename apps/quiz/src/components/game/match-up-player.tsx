@@ -119,6 +119,10 @@ export function MatchUpPlayer({
   }, [pool, roundSize]);
 
   const endGame = useCallback(() => {
+    // Snap the final time to the wall clock so the score is exact, not up to a
+    // second stale from the last display tick. Wall-clock timing also makes the
+    // result device-independent (no reliance on interval/frame cadence).
+    setElapsed(Math.floor((Date.now() - startedAt.current) / 1000));
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'game') {
       void completeDaily('game');
     }
