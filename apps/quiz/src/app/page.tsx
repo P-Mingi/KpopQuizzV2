@@ -11,6 +11,8 @@ import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { HomeBtotd } from '@/components/home/home-btotd';
 import { GameOfTheDay } from '@/components/home/game-of-the-day';
+import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
+import { buildTeaser } from '@/lib/quiz/teaser';
 import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
@@ -157,11 +159,16 @@ async function TrendingSection(): Promise<React.ReactElement> {
       </div>
 
       <div className="trending-carousel">
-        {quizzes.map((q, i) => (
-          <div className="trending-item" key={q.id}>
-            <QuizCard quiz={q} index={i} showScore={false} />
-          </div>
-        ))}
+        {quizzes.map((q, i) => {
+          const teaser = buildTeaser(q);
+          return (
+            <div className="trending-item" key={q.id}>
+              {teaser
+                ? <QuizCardHover teaser={teaser}><QuizCard quiz={q} index={i} showScore={false} /></QuizCardHover>
+                : <QuizCard quiz={q} index={i} showScore={false} />}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

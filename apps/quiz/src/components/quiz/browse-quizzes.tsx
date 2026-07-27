@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { QuizCard } from '@/components/ui/quiz-card';
+import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
+import { buildTeaser } from '@/lib/quiz/teaser';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { CreateCTA } from '@/components/home/create-cta';
 import { Mascot } from '@/components/ui/mascot';
@@ -75,7 +77,12 @@ function comboKey(sort: SortKey, group: string | null, type: TypeKey | null, lan
 function withBanners(quizzes: QuizCardData[]): React.ReactNode[] {
   const items: React.ReactNode[] = [];
   quizzes.forEach((quiz, i) => {
-    items.push(<QuizCard key={quiz.id} quiz={quiz} index={i} />);
+    const teaser = buildTeaser(quiz);
+    items.push(
+      teaser
+        ? <QuizCardHover key={quiz.id} teaser={teaser}><QuizCard quiz={quiz} index={i} /></QuizCardHover>
+        : <QuizCard key={quiz.id} quiz={quiz} index={i} />,
+    );
     if ((i + 1) % CTA_EVERY === 0 && i + 1 < quizzes.length) {
       items.push(
         <div className="grid-full" key={`cta-${i}`}>

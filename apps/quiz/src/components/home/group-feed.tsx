@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 import { TabBar } from '@/components/ui/tab-bar';
 import { QuizCard } from '@/components/quiz/quiz-card';
+import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
+import { buildTeaser } from '@/lib/quiz/teaser';
 import { Spinner } from '@/components/ui/spinner';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -94,9 +96,12 @@ export function GroupFeed({ groupId, initialQuizzes }: GroupFeedProps): React.Re
       </div>
 
       <div className="space-y-3">
-        {quizzes.map((q) => (
-          <QuizCard key={q.id} quiz={q} />
-        ))}
+        {quizzes.map((q) => {
+          const teaser = buildTeaser(q);
+          return teaser
+            ? <QuizCardHover key={q.id} teaser={teaser}><QuizCard quiz={q} /></QuizCardHover>
+            : <QuizCard key={q.id} quiz={q} />;
+        })}
       </div>
 
       {loading && (

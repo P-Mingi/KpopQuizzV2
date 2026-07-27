@@ -4239,3 +4239,31 @@ a.ranking-cta { text-decoration: none; }
   .pulse-hero-num { flex-direction: row; align-items: baseline; gap: 8px; }
   .pulse-mascot { width: 44px; height: 44px; }
 }
+
+/* ================================================================
+   QUIZ CARD HOVER PREVIEW (.qch-*) - M1.14, desktop only
+   Portaled to <body>, position:fixed, pointer-events:none decoration.
+   Token-driven so dark mode works for free.
+   ================================================================ */
+.qch-panel {
+  position: fixed; z-index: 40; pointer-events: none;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 12px 14px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  animation: qch-in 140ms ease both;
+}
+@keyframes qch-in { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .qch-panel { animation-duration: 1ms; } }
+.qch-eyebrow { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--txt3); }
+.qch-q { margin: 0; font-size: 13.5px; line-height: 1.4; font-weight: 600; color: var(--txt1); }
+.qch-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.qch-chip {
+  font-size: 10.5px; font-weight: 600; color: var(--txt2);
+  background: var(--surface-alt); border: 1px solid var(--border); border-radius: 100px;
+  padding: 2px 8px; font-variant-numeric: tabular-nums;
+}
+.qch-diff-easy { color: #1d9e75; }
+.qch-diff-medium { color: #cc8500; }
+.qch-diff-hard { color: #d13a6e; }
+.qch-play { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--brand); }
