@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
@@ -66,7 +67,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   for (const question of questions ?? []) {
     const questionId = question.id as string;
-    const minVotes = (question.min_votes as number | null) ?? 0;
+    // V closeout: gate on the shared unlock threshold, not the per-question
+    // min_votes column, so display + reconcile agree on when a ranking is real.
+    const minVotes = RANKING_UNLOCK_VOTES;
 
     // Replay set, oldest-first.
     const { data: votes, error: vErr } = await supabase

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { getRanking } from '@/lib/db/queries/duels';
+import { getRanking, RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { RankingList } from '@/components/duel/ranking-list';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
@@ -42,6 +42,8 @@ export async function generateMetadata({
   const title = `${heading(group, type)} | KpopQuiz`;
   const description = r.public
     ? `${r.entities[0]?.name ? `${r.entities[0].name} leads. ` : ''}A live fan ranking built from ${r.total_votes.toLocaleString('en-US')} head-to-head votes. Fan opinion, not an official list.`
+    : r.provisional
+    ? `Early results from ${r.total_votes.toLocaleString('en-US')} fan votes so far. The ranking is still moving. Vote to help shape it.`
     : `Fans are still voting on this matchup. Play the head-to-head game to help unlock the ranking.`;
 
   const base: Metadata = {
@@ -117,24 +119,44 @@ export default async function RankingPage({
             }}
           />
         </>
+      ) : r.provisional ? (
+        <>
+          <p className="ranking-intro">
+            <strong>Early results</strong> from {r.total_votes.toLocaleString('en-US')} fan{' '}
+            {r.total_votes === 1 ? 'vote' : 'votes'} so far. The standings are still moving as more
+            fans play. This is fan opinion in progress, not a settled list.
+          </p>
+
+          <Link href={duelHref} className="btn-primary ranking-cta">
+            Vote to shape this ranking →
+          </Link>
+
+          <RankingList
+            title={r.question.prompt}
+            badge={<span className="rank-pill-early">Early results · {r.total_votes.toLocaleString('en-US')} votes · still moving</span>}
+            entities={r.entities.slice(0, 3)}
+            variant="winrate"
+            footer={{ href: duelHref, label: 'Vote to shape this ranking →' }}
+          />
+        </>
       ) : (
         <div className="rank-locked">
-          <p className="rank-locked-title">Not enough votes yet</p>
+          <p className="rank-locked-title">Be the first to vote</p>
           <p className="rank-locked-sub">
-            This ranking unlocks once fans cast {r.question.min_votes.toLocaleString('en-US')} votes.
-            Play the head-to-head game to help unlock it.
+            No fan has voted on this matchup yet. Early results appear as soon as the first votes come
+            in, and the ranking goes live at {RANKING_UNLOCK_VOTES} votes.
           </p>
           <div className="rank-locked-bar">
             <span
               className="rank-locked-fill"
-              style={{ width: `${Math.min(100, Math.round((r.total_votes / r.question.min_votes) * 100))}%` }}
+              style={{ width: `${Math.min(100, Math.round((r.total_votes / RANKING_UNLOCK_VOTES) * 100))}%` }}
             />
           </div>
           <p className="rank-locked-count">
-            {r.total_votes.toLocaleString('en-US')} / {r.question.min_votes.toLocaleString('en-US')} votes
+            {r.total_votes.toLocaleString('en-US')} / {RANKING_UNLOCK_VOTES} votes
           </p>
           <Link href={duelHref} className="btn-primary ranking-cta">
-            Play to unlock →
+            Play to start it →
           </Link>
         </div>
       )}

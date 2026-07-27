@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { DuelGame, type QuestionItem } from '@/components/duel/duel-game';
 
 import type { Metadata } from 'next';
@@ -36,22 +37,28 @@ export default async function ThisOrThatPage({
   const sp = await searchParams;
   const supabase = createServiceRoleClient();
 
-  const [{ data: questionRows }, { data: voteRows }, { data: ratingRows }] = await Promise.all([
+  const [{ data: questionRows }, { data: ratingRows }] = await Promise.all([
     supabase
       .from('duel_questions')
       .select('id, group_slug, question_type, prompt, entity_kind, min_votes'),
-    supabase.from('duel_votes').select('question_id'),
     supabase
       .from('duel_ratings')
       .select('question_id, entity_id, entity_name, entity_image, elo')
       .order('elo', { ascending: false }),
   ]);
 
-  const voteCounts = new Map<string, number>();
-  for (const v of voteRows ?? []) {
-    const id = v.question_id as string;
-    voteCounts.set(id, (voteCounts.get(id) ?? 0) + 1);
-  }
+  // Exact per-question vote counts (a single duel_votes select is capped at 1000
+  // rows and undercounts once total votes exceed that; see getRankingsIndex).
+  const voteEntries = await Promise.all(
+    (questionRows ?? []).map(async (q) => {
+      const { count } = await supabase
+        .from('duel_votes')
+        .select('id', { count: 'exact', head: true })
+        .eq('question_id', q.id as string);
+      return [q.id as string, count ?? 0] as const;
+    }),
+  );
+  const voteCounts = new Map<string, number>(voteEntries);
 
   const questions: QuestionItem[] = (questionRows ?? [])
     .map((q) => {
@@ -62,7 +69,7 @@ export default async function ThisOrThatPage({
         prompt: q.prompt as string,
         entity_kind: q.entity_kind as string,
         total_votes: total,
-        public: total >= (q.min_votes as number),
+        public: total >= RANKING_UNLOCK_VOTES,
       };
     })
     .sort(pickerOrder);

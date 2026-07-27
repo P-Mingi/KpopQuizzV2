@@ -9,6 +9,16 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
  * from duel_votes (no public SELECT) and seeded wins/losses are not a substitute.
  */
 
+/**
+ * V closeout - the ONE source of truth for when a fan ranking unlocks. Lowered
+ * from the old per-question default of 500 so real votes become visible sooner.
+ * Bands: 0 votes = locked; 1..UNLOCK-1 = provisional "early results"; >= UNLOCK =
+ * live. This supersedes the duel_questions.min_votes column for every gate
+ * (display + the Elo reconcile), so there is no second threshold to keep in sync.
+ * Owner rule: never simulate votes - provisional shows REAL current standings.
+ */
+export const RANKING_UNLOCK_VOTES = 30;
+
 export interface RankingEntity {
   rank: number;
   entity_id: string;
@@ -30,6 +40,8 @@ export interface RankingResult {
   };
   total_votes: number;
   public: boolean;
+  /** 1..UNLOCK-1 votes: real early standings, not yet a settled ranking. */
+  provisional: boolean;
   entities: RankingEntity[];
 }
 
@@ -72,7 +84,8 @@ export const getRanking = cache(async (group: string, type: string): Promise<Ran
       min_votes: question.min_votes as number,
     },
     total_votes: total,
-    public: total >= (question.min_votes as number),
+    public: total >= RANKING_UNLOCK_VOTES,
+    provisional: total > 0 && total < RANKING_UNLOCK_VOTES,
     entities: (ratings ?? []).map((r, i) => ({
       rank: i + 1,
       entity_id: r.entity_id as string,
@@ -93,17 +106,17 @@ export interface RankingIndexItem {
   total_votes: number;
   min_votes: number;
   public: boolean;
+  provisional: boolean;
   top_entity: { name: string; image: string | null; elo: number } | null;
 }
 
 export const getRankingsIndex = cache(async (): Promise<RankingIndexItem[]> => {
   const supabase = createServiceRoleClient();
 
-  const [{ data: questions }, { data: votes }, { data: ratings }] = await Promise.all([
+  const [{ data: questions }, { data: ratings }] = await Promise.all([
     supabase
       .from('duel_questions')
       .select('id, group_slug, question_type, prompt, entity_kind, min_votes'),
-    supabase.from('duel_votes').select('question_id'),
     supabase
       .from('duel_ratings')
       .select('question_id, entity_name, entity_image, elo')
@@ -111,11 +124,20 @@ export const getRankingsIndex = cache(async (): Promise<RankingIndexItem[]> => {
       .order('entity_id', { ascending: true }),
   ]);
 
-  const voteCounts = new Map<string, number>();
-  for (const v of votes ?? []) {
-    const id = v.question_id as string;
-    voteCounts.set(id, (voteCounts.get(id) ?? 0) + 1);
-  }
+  // Accurate per-question vote counts. The old single `.select('question_id')`
+  // was capped at 1000 rows by PostgREST, so once total votes exceeded 1000 most
+  // questions were undercounted to ~0 and wrongly showed as locked. Use an exact
+  // head count per question (matches getRanking); cache() + ISR make it cheap.
+  const voteEntries = await Promise.all(
+    (questions ?? []).map(async (q) => {
+      const { count } = await supabase
+        .from('duel_votes')
+        .select('id', { count: 'exact', head: true })
+        .eq('question_id', q.id as string);
+      return [q.id as string, count ?? 0] as const;
+    }),
+  );
+  const voteCounts = new Map<string, number>(voteEntries);
 
   const topEntity = new Map<string, { name: string; image: string | null; elo: number }>();
   for (const r of ratings ?? []) {
@@ -138,7 +160,8 @@ export const getRankingsIndex = cache(async (): Promise<RankingIndexItem[]> => {
       entity_kind: q.entity_kind as string,
       total_votes: total,
       min_votes: q.min_votes as number,
-      public: total >= (q.min_votes as number),
+      public: total >= RANKING_UNLOCK_VOTES,
+      provisional: total > 0 && total < RANKING_UNLOCK_VOTES,
       top_entity: topEntity.get(q.id as string) ?? null,
     };
   });

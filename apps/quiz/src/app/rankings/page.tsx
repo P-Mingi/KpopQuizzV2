@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getRankingsIndex } from '@/lib/db/queries/duels';
+import { getRankingsIndex, RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -48,9 +48,10 @@ export default async function RankingsIndexPage(): Promise<React.ReactElement> {
   // cards that drop into the duel preselected, so "See all" really lists every
   // ranking the trending strip teases.
   const publicRankings = rankings.filter((r) => r.public).sort((a, b) => b.total_votes - a.total_votes);
-  const lockedRankings = rankings
-    .filter((r) => !r.public)
-    .sort((a, b) => b.total_votes / b.min_votes - a.total_votes / a.min_votes);
+  // Provisional: real votes, not yet live. Shown as "early results" (real counts).
+  const provisionalRankings = rankings.filter((r) => r.provisional).sort((a, b) => b.total_votes - a.total_votes);
+  // Locked = zero votes only (nothing real to show is nothing to show).
+  const lockedRankings = rankings.filter((r) => !r.public && !r.provisional).sort((a, b) => a.group_slug.localeCompare(b.group_slug));
 
   return (
     <div className="ranking-page">
@@ -87,37 +88,64 @@ export default async function RankingsIndexPage(): Promise<React.ReactElement> {
         </ul>
       )}
 
-      {lockedRankings.length > 0 && (
+      {provisionalRankings.length > 0 && (
         <>
-          <h2 className="ranking-locked-h2">Vote to unlock these rankings</h2>
+          <h2 className="ranking-locked-h2">Early results</h2>
           <p className="ranking-locked-intro">
-            These rankings go live once enough fans vote. Play the matchup and help unlock them.
+            These rankings have real votes but are still moving. See the current standings and vote to shape them.
           </p>
           <ul className="ranking-index-grid">
-            {lockedRankings.map((r) => {
-              const pct = Math.min(100, Math.round((r.total_votes / r.min_votes) * 100));
-              return (
-                <li key={`${r.group_slug}:${r.question_type}`}>
-                  <Link
-                    href={`/games/this-or-that?group=${encodeURIComponent(r.group_slug)}&type=${encodeURIComponent(r.question_type)}`}
-                    className="ranking-index-card is-locked"
-                  >
+            {provisionalRankings.map((r) => (
+              <li key={`${r.group_slug}:${r.question_type}`}>
+                <Link href={`/rankings/${r.group_slug}/${r.question_type}`} className="ranking-index-card is-early">
+                  {r.top_entity?.image ? (
+                    <img className="ranking-index-avatar" src={r.top_entity.image} alt={`${r.top_entity.name} leading so far`} loading="lazy" />
+                  ) : (
                     <span className="ranking-index-avatar" />
-                    <span className="ranking-index-body">
-                      <span className="ranking-index-name">{heading(r.group_slug, r.question_type)}</span>
-                      <span className="ranking-lock-bar"><span className="ranking-lock-fill" style={{ width: `${pct}%` }} /></span>
-                      <span className="ranking-index-meta">Vote to unlock · {r.total_votes.toLocaleString('en-US')}/{r.min_votes.toLocaleString('en-US')} votes</span>
+                  )}
+                  <span className="ranking-index-body">
+                    <span className="ranking-index-name">{heading(r.group_slug, r.question_type)}</span>
+                    <span className="ranking-index-meta">
+                      <span className="ranking-early-tag">Early</span>
+                      {r.top_entity ? ` #1 ${r.top_entity.name} · ` : ' '}
+                      {r.total_votes.toLocaleString('en-US')} votes · still moving
                     </span>
-                    <span className="ranking-index-arrow" aria-hidden="true">→</span>
-                  </Link>
-                </li>
-              );
-            })}
+                  </span>
+                  <span className="ranking-index-arrow" aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </>
       )}
 
-      {publicRankings.length === 0 && lockedRankings.length === 0 && (
+      {lockedRankings.length > 0 && (
+        <>
+          <h2 className="ranking-locked-h2">Be the first to vote</h2>
+          <p className="ranking-locked-intro">
+            No fan has voted on these matchups yet. Play the matchup and start the ranking.
+          </p>
+          <ul className="ranking-index-grid">
+            {lockedRankings.map((r) => (
+              <li key={`${r.group_slug}:${r.question_type}`}>
+                <Link
+                  href={`/games/this-or-that?group=${encodeURIComponent(r.group_slug)}&type=${encodeURIComponent(r.question_type)}`}
+                  className="ranking-index-card is-locked"
+                >
+                  <span className="ranking-index-avatar" />
+                  <span className="ranking-index-body">
+                    <span className="ranking-index-name">{heading(r.group_slug, r.question_type)}</span>
+                    <span className="ranking-index-meta">Be the first · 0 / {RANKING_UNLOCK_VOTES} votes</span>
+                  </span>
+                  <span className="ranking-index-arrow" aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {publicRankings.length === 0 && provisionalRankings.length === 0 && lockedRankings.length === 0 && (
         <div className="rank-locked">
           <p className="rank-locked-title">Rankings unlock as fans vote</p>
           <p className="rank-locked-sub">

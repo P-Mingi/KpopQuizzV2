@@ -2255,6 +2255,10 @@ a.ranking-cta { text-decoration: none; }
 .ranking-index-card.is-locked { background: var(--surface-alt); }
 .ranking-lock-bar { display: block; width: 100%; height: 5px; border-radius: 100px; background: color-mix(in srgb, var(--brand) 14%, transparent); overflow: hidden; margin: 5px 0 3px; }
 .ranking-lock-fill { display: block; height: 100%; border-radius: 100px; background: var(--brand-btn); }
+/* V closeout - provisional "early results" tier (real votes, still moving). */
+.ranking-index-card.is-early { border-color: color-mix(in srgb, #BA7517 40%, var(--border)); }
+.ranking-early-tag { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #8A5A12; background: color-mix(in srgb, #BA7517 16%, var(--surface)); padding: 1px 6px; border-radius: 100px; margin-right: 5px; vertical-align: middle; }
+.rank-pill-early { font-size: 10px; font-weight: 700; color: #8A5A12; background: color-mix(in srgb, #BA7517 16%, var(--surface)); padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
 /* U-4 - collection generation drill-down (personal /me profile) */
 .pp-gen-row { display: block; width: 100%; text-align: left; background: none; border: none; padding: 4px; margin: 0 -4px; border-radius: 8px; cursor: pointer; }
 .pp-gen-row:hover { background: var(--surface-alt); }
