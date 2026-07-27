@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ResultLoop } from '@/components/result/result-loop';
+import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { completeDaily } from '@/lib/daily-played';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
@@ -173,9 +174,9 @@ export function SortItPlayer({
   };
 
   const card = deck[idx];
-  // Defense in depth: only feed next/image a real URL. The loader already
-  // sanitizes, but a bad value must never crash the game screen.
-  const cardImg = card?.imageUrl && /^(https?:\/\/|\/)/.test(card.imageUrl) ? card.imageUrl : null;
+  // next/image throws at render for an unconfigured host, which no onError can
+  // catch, so guard with the shared host allowlist and fall back to the monogram.
+  const cardImg = card && isConfiguredImageHost(card.imageUrl) ? card.imageUrl : null;
   const done = correct + wrong.length;
   const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
   const progressPct = total > 0 ? (done / total) * 100 : 0;

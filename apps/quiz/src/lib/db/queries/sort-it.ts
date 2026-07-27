@@ -15,14 +15,9 @@ import { getSortItPlaylist, SORT_IT_MIN_ITEMS, type SortItItem } from '@/lib/gam
 
 type DbClient = ReturnType<typeof createPublicReadClient>;
 
-// Some rows carry placeholder / malformed logo_url values (e.g. the literal
-// "YOUR_NEW_URL_HERE"). next/image throws on those, so only pass through values
-// that are a real absolute URL or a root-relative path; everything else becomes
-// null and the player renders the monogram fallback.
-function safeLogoUrl(url: string | null): string | null {
-  if (!url) return null;
-  return /^(https?:\/\/|\/)/.test(url) ? url : null;
-}
+// logo_url is passed through raw; the player guards it with isConfiguredImageHost
+// at render (the same pattern GroupLogo uses), so a placeholder or off-allowlist
+// value degrades to the monogram instead of crashing next/image.
 
 interface GroupRow {
   id: string;
@@ -97,13 +92,13 @@ export async function getSortItItems(slug: string): Promise<SortItItem[]> {
     const genders = await deriveGroupGenders(db);
     for (const g of groups) {
       const label = genders.get(g.id);
-      if (label === 'bg') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: safeLogoUrl(g.logo_url) });
-      else if (label === 'gg') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: safeLogoUrl(g.logo_url) });
+      if (label === 'bg') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
+      else if (label === 'gg') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
     }
   } else if (slug === '3rd-gen-or-4th-gen') {
     for (const g of groups) {
-      if (g.generation === '3rd Gen') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: safeLogoUrl(g.logo_url) });
-      else if (g.generation === '4th Gen') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: safeLogoUrl(g.logo_url) });
+      if (g.generation === '3rd Gen') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
+      else if (g.generation === '4th Gen') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
     }
   }
 

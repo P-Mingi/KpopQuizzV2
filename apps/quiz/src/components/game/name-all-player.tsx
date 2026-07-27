@@ -8,6 +8,7 @@ import { playFound, playPerfect } from '@/lib/sounds';
 import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
 import { ResultLoop } from '@/components/result/result-loop';
+import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
 
@@ -388,7 +389,7 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
 
           {/* Logo medallion */}
           <div style={{ marginTop: 18, marginBottom: 18, display: 'flex', justifyContent: 'center' }}>
-            {game.logo_url ? (
+            {game.logo_url && isConfiguredImageHost(game.logo_url) ? (
               <div style={{
                 width: 96, height: 96, borderRadius: '50%', overflow: 'hidden',
                 border: `3px solid ${game.display_color || 'var(--border)'}`,
