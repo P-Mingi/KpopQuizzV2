@@ -52,7 +52,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   const url = new URL(request.url);
   const limitParam = url.searchParams.get('limit');
-  const limit = limitParam ? Math.min(Number(limitParam), 50) : DEFAULT_LIMIT;
+  const limit = limitParam ? Math.min(Math.max(Number(limitParam), 1), 50) : DEFAULT_LIMIT;
+  const offset = Math.max(Number(url.searchParams.get('offset') ?? '0') || 0, 0);
 
   const supabase = await createServerClient();
   const {
@@ -71,7 +72,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       )
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
-      .limit(limit),
+      .range(offset, offset + limit - 1),
     supabase
       .from('creator_notifications')
       .select('*', { count: 'exact', head: true })
@@ -102,6 +103,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   return NextResponse.json({
     notifications,
     unreadCount: unreadRes.count ?? 0,
+    hasMore: notifications.length === limit,
   });
 }
 

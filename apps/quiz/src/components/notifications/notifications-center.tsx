@@ -17,6 +17,8 @@ export function NotificationsCenter(): React.ReactElement {
   const [items, setItems] = useState<NotificationRow[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [marking, setMarking] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const unread = useUnreadCount();
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export function NotificationsCenter(): React.ReactElement {
         if (cancelled) return;
         setItems(data.notifications ?? []);
         setStoreUnread(data.unreadCount ?? 0);
+        setHasMore((data as { hasMore?: boolean }).hasMore ?? false);
       } catch {
         // non-critical
       } finally {
@@ -67,6 +70,19 @@ export function NotificationsCenter(): React.ReactElement {
     } catch { /* UI already updated */ }
   }
 
+  async function loadMore(): Promise<void> {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const res = await fetch(`/api/notifications?limit=50&offset=${items.length}`, { credentials: 'include' });
+      if (res.ok) {
+        const data = (await res.json()) as { notifications: NotificationRow[]; hasMore?: boolean };
+        setItems((prev) => [...prev, ...(data.notifications ?? [])]);
+        setHasMore(data.hasMore ?? false);
+      }
+    } catch { /* keep what we have */ } finally { setLoadingMore(false); }
+  }
+
   async function muteQuiz(quizId: string): Promise<void> {
     const removedUnread = items.filter((n) => n.quiz_id === quizId && !n.is_read).length;
     setItems((prev) => prev.filter((n) => n.quiz_id !== quizId));
@@ -96,18 +112,30 @@ export function NotificationsCenter(): React.ReactElement {
           <p className="text-sm text-secondary mt-3">No notifications yet. Play, create, and follow fans to fill this up.</p>
         </div>
       ) : (
-        <ul className="flex flex-col gap-2" role="list" aria-label="Notifications">
-          {items.map((n) => (
-            <li key={n.id}>
-              <NotificationCard
-                notification={n}
-                onMute={(q) => void muteQuiz(q)}
-                onDismiss={(id) => void dismiss(id)}
-                onOpen={() => markOneRead(n.id)}
-              />
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="flex flex-col gap-2" role="list" aria-label="Notifications">
+            {items.map((n) => (
+              <li key={n.id}>
+                <NotificationCard
+                  notification={n}
+                  onMute={(q) => void muteQuiz(q)}
+                  onDismiss={(id) => void dismiss(id)}
+                  onOpen={() => markOneRead(n.id)}
+                />
+              </li>
+            ))}
+          </ul>
+          {hasMore && (
+            <button
+              type="button"
+              onClick={() => void loadMore()}
+              disabled={loadingMore}
+              className="mt-3 w-full py-2 text-xs font-medium text-secondary hover:text-primary border border-default rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
+            >
+              {loadingMore ? 'Loading...' : 'Load more'}
+            </button>
+          )}
+        </>
       )}
     </div>
   );
