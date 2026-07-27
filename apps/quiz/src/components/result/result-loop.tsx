@@ -20,7 +20,7 @@ import { analytics, type CrossPromoTarget, type GameType } from '@/lib/analytics
 // This component owns no game state. Presentation, routing, the share handler,
 // and the analytics joints only.
 
-type LoopGame = Extract<GameType, 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'sort-it' | 'match-up'>;
+type LoopGame = Extract<GameType, 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'sort-it' | 'match-up' | 'name-them-all'>;
 
 interface ResultLoopProps {
   game: LoopGame;
@@ -83,6 +83,10 @@ const LOOP_CARDS: Record<LoopGame, LoopCard[]> = {
   'match-up': [
     { href: '/games/sort-it', target: 'games', icon: 'grid', text: 'Play Sort It: boy group or girl group, 3rd gen or 4th gen, against the clock' },
     { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
+  ],
+  'name-them-all': [
+    { href: '/games/match-up', target: 'games', icon: 'grid', text: 'Play Match-Up: pair songs, idols, and groups against the clock' },
+    { href: '/games/sort-it', target: 'games', icon: 'grid', text: 'Play Sort It: boy group or girl group, 3rd gen or 4th gen, against the clock' },
   ],
 };
 

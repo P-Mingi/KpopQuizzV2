@@ -13,7 +13,7 @@
 
 import { track } from '@vercel/analytics';
 
-export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up';
+export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up' | 'name-them-all';
 
 /** Where a cross-promo sends the player. Kept as a small enum on purpose. */
 export type CrossPromoTarget =

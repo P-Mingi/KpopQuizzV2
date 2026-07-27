@@ -2647,6 +2647,58 @@ a.ranking-cta { text-decoration: none; }
 }
 
 /* ---------------------------------------------------------------------------
+   Workstream V3 - "Name Them All" type-with-timer grid. Mobile-first, themed,
+   reduced-motion respected.
+   --------------------------------------------------------------------------- */
+.nta-wrap { max-width: 620px; margin: 0 auto; padding: 16px 16px 32px; }
+.nta-back { display: inline-block; font-size: 13px; color: var(--text-tertiary); text-decoration: none; }
+.nta-back:hover { color: var(--text-secondary); }
+.nta-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.nta-intro { text-align: center; padding-top: 28px; }
+.nta-title { font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 0; color: var(--text-primary); text-wrap: balance; }
+.nta-blurb { margin: 10px auto 0; max-width: 36ch; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.nta-meta { margin-top: 12px; font-size: 12.5px; color: var(--text-tertiary); }
+.nta-start { margin-top: 22px; min-width: 180px; }
+
+.nta-hud { display: flex; align-items: baseline; justify-content: space-between; font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.nta-hud-count { font-weight: 700; color: var(--text-primary); }
+.nta-hud-count span, .nta-hud-pct { font-weight: 500; color: var(--text-tertiary); }
+.nta-hud-time { font-weight: 700; color: var(--text-primary); }
+.nta-progress { height: 5px; margin: 8px 0 0; background: var(--surface-alt); border-radius: 100px; overflow: hidden; }
+.nta-progress > span { display: block; height: 100%; background: var(--accent); border-radius: 100px; transition: width 200ms ease; }
+
+.nta-input {
+  width: 100%; margin-top: 12px; padding: 13px 16px; border-radius: 12px;
+  background: var(--surface); border: 1.5px solid var(--border); color: var(--text-primary);
+  font-size: 16px; font-weight: 500; outline: none;
+}
+.nta-input:focus { border-color: var(--accent); }
+.nta-giveup { display: block; margin: 10px auto 0; background: none; border: none; color: var(--text-tertiary); font-size: 12.5px; cursor: pointer; text-decoration: underline; }
+.nta-giveup:hover { color: var(--text-secondary); }
+
+.nta-result-head { text-align: center; padding-top: 16px; }
+.nta-score { font-size: 52px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1; margin-top: 6px; }
+.nta-score-sub { font-size: 26px; color: var(--text-tertiary); font-weight: 700; }
+.nta-verdict { margin-top: 8px; font-size: 14px; font-weight: 700; color: var(--accent); }
+
+.nta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-top: 16px; }
+@media (min-width: 480px) { .nta-grid { grid-template-columns: repeat(3, 1fr); } }
+.nta-cell {
+  min-height: 40px; display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 6px 8px; border-radius: 9px; background: var(--surface-alt); border: 1px solid var(--border-subtle);
+  font-size: 12.5px; font-weight: 600; color: var(--text-tertiary); word-break: break-word; line-height: 1.2;
+}
+.nta-cell-hint { font-size: 10px; font-weight: 500; opacity: 0.55; text-transform: lowercase; }
+.nta-cell-found { background: color-mix(in srgb, #0F6E56 14%, var(--surface)); border-color: #0F6E56; color: var(--text-primary); }
+.nta-cell-missed { background: color-mix(in srgb, #A32D2D 10%, var(--surface)); border-color: color-mix(in srgb, #A32D2D 40%, var(--border)); color: var(--text-secondary); }
+.nta-cell-pop { animation: nta-pop 0.3s ease; }
+@keyframes nta-pop { 0% { transform: scale(0.9); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nta-progress > span, .nta-cell-pop { transition: none; animation: none; }
+}
+
+/* ---------------------------------------------------------------------------
    D1 - Two-up daily row (Quiz of the day | Game of the day), equal weight.
    --------------------------------------------------------------------------- */
 .daily-twoup { display: grid; grid-template-columns: 1fr; gap: 16px; }
