@@ -469,6 +469,18 @@ export function BrowseQuizzes({
         </div>
       )}
 
+      {/* S2 #3: popular-window link mesh, under the filters */}
+      {!isSearchActive && (
+        <div className="browse-popular-row">
+          <span className="browse-popular-label">Popular</span>
+          <Link href="/quizzes/popular-today">today</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href="/quizzes/popular-this-week">this week</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href="/quizzes/popular-this-month">this month</Link>
+        </div>
+      )}
+
       {/* Search result count */}
       {isSearchActive && !searching && results !== null && (
         <p className="search-count">

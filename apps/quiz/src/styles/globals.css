@@ -4307,3 +4307,9 @@ a.ranking-cta { text-decoration: none; }
 .pop-foot { margin: 28px 0 0; font-size: 12.5px; color: var(--txt3); line-height: 1.6; text-align: center; }
 .pop-foot-link { color: var(--brand); font-weight: 600; text-decoration: none; }
 .pop-foot-link:hover { text-decoration: underline; }
+
+/* Popular-window link row under the browse filters (S2 #3 entry mesh) */
+.browse-popular-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; font-size: 12.5px; color: var(--txt3); }
+.browse-popular-label { font-weight: 700; color: var(--txt2); text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em; }
+.browse-popular-row a { color: var(--brand); font-weight: 600; text-decoration: none; }
+.browse-popular-row a:hover { text-decoration: underline; }

@@ -304,7 +304,8 @@ export default async function StatsPage(): Promise<React.ReactElement> {
         <section className="stats-table-section">
           <h2 className="stats-section-title">Top groups by fan engagement</h2>
           <p className="stats-section-desc">
-            The most-played K-pop groups on the platform, ranked by total quiz plays.
+            The most-played K-pop groups on the platform, ranked by total quiz plays.{' '}
+            <Link href="/quizzes/popular-this-month" className="stats-cite-link">See the most-played quizzes this month.</Link>
           </p>
           <div className="stats-table-wrap">
             <table className="stats-table">

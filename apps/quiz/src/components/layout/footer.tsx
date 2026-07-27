@@ -33,6 +33,7 @@ export function Footer(): React.ReactElement {
             <p style={{ fontSize: 8, fontWeight: 700, color: 'var(--txt3)', margin: 0, marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>Discover</p>
             {[
               { label: 'Quizzes', href: '/quizzes' },
+              { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
               { label: 'Trivia', href: '/trivia' },
               { label: 'Games', href: '/games' },
               { label: 'Blindtest', href: '/blindtest' },

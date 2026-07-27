@@ -155,7 +155,7 @@ async function TrendingSection(): Promise<React.ReactElement> {
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>Trending this week</p>
-        <Link href="/quizzes?sort=trending" style={SEE_ALL}>See all →</Link>
+        <Link href="/quizzes/popular-this-week" style={SEE_ALL}>See all →</Link>
       </div>
 
       <div className="trending-carousel">
