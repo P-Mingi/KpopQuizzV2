@@ -77,6 +77,22 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
   };
 }
 
+/**
+ * Fetch published card data for a set of quiz ids (S2 popular pages). Order is
+ * not guaranteed by the DB; the caller re-sorts. Reuses QUIZ_CARD_SELECT so
+ * first_question rides along for the M1.14 hover teaser.
+ */
+export async function getQuizCardsByIds(ids: string[]): Promise<QuizCardData[]> {
+  if (ids.length === 0) return [];
+  const supabase = createPublicReadClient();
+  const { data } = await supabase
+    .from('quizzes')
+    .select(QUIZ_CARD_SELECT)
+    .in('id', ids)
+    .eq('status', 'published');
+  return ((data ?? []) as unknown as RawQuizRow[]).map(toQuizCardData);
+}
+
 export async function getQuizBySlug(slug: string): Promise<QuizWithGroup | null> {
   const supabase = createPublicReadClient();
 
