@@ -62,6 +62,16 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     seoDescription:
       'Can you tell 3rd gen from 4th gen K-pop groups? Sort real groups into their generation in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
   },
+  {
+    slug: 'solo-act-or-group',
+    question: 'Solo act or group?',
+    buckets: ['Solo act', 'Group'],
+    title: 'Solo Act or Group?',
+    blurb: 'Soloist or group? Sort real K-pop artists against the clock. Tap a side or swipe.',
+    seoTitle: 'Solo Act or Group? K-pop Sorting Quiz',
+    seoDescription:
+      'Can you tell K-pop soloists from groups? Sort real artists into solo act or group in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
+  },
 ];
 
 export function getSortItPlaylist(slug: string): SortItPlaylist | undefined {

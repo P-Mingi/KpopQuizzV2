@@ -100,6 +100,13 @@ export async function getSortItItems(slug: string): Promise<SortItItem[]> {
       if (g.generation === '3rd Gen') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
       else if (g.generation === '4th Gen') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
     }
+  } else if (slug === 'solo-act-or-group') {
+    const genders = await deriveGroupGenders(db);
+    for (const g of groups) {
+      const label = genders.get(g.id);
+      if (label === 'solo_male' || label === 'solo_female') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
+      else if (label === 'bg' || label === 'gg') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
+    }
   }
 
   // Real-data min-volume gate. Never pad below the floor.
