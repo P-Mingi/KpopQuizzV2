@@ -1465,6 +1465,7 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .gi-nam  { background: var(--nam-bg); color: var(--nam-icon); }
 .gi-soon { background: var(--surface-alt); color: var(--txt3); }
 .gi-blind { background: color-mix(in srgb, var(--blind) 14%, transparent); color: var(--blind); }
+.gi-sit { background: color-mix(in srgb, var(--sit) 16%, transparent); color: var(--sit); }
 .game-name { font-size: 13px; font-weight: 600; color: var(--txt1); margin-bottom: 3px; }
 .game-desc { font-size: 11px; color: var(--txt3); line-height: 1.5; margin-bottom: 10px; }
 .game-play { font-size: 12px; font-weight: 500; color: var(--brand); }
