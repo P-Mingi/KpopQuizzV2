@@ -16,6 +16,14 @@
     {
       "path": "/api/cron/pulse-generate",
       "schedule": "0 6 1 * *"
+    },
+    {
+      "path": "/api/cron/mv-snapshot",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/spotify-snapshot",
+      "schedule": "0 6 * * 1"
     }
   ]
 }
