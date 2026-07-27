@@ -161,13 +161,15 @@ export function SortItPlayer({
     if (dragStart.current === null) return;
     setDragX(e.clientX - dragStart.current);
   };
-  const onPointerUp = () => {
+  const onPointerUp = (e: React.PointerEvent) => {
     if (dragStart.current === null) return;
-    const dx = dragX;
+    // Read the delta from the event itself, not the dragX state: state updates
+    // batch, so dragX can still be 0 in this handler at release time.
+    const dx = e.clientX - dragStart.current;
     dragStart.current = null;
+    setDragX(0);
     if (dx <= -SWIPE_THRESHOLD) choose('left');
     else if (dx >= SWIPE_THRESHOLD) choose('right');
-    else setDragX(0);
   };
 
   const card = deck[idx];
@@ -256,6 +258,11 @@ export function SortItPlayer({
       <div className="si-progress"><span style={{ width: `${progressPct}%` }} /></div>
 
       <p className="si-question">{playlist.question}</p>
+
+      {/* Screen-reader game state: announces each new card + running score. */}
+      <div className="sr-only" aria-live="polite" role="status">
+        {card ? `Card ${done + 1} of ${total}: ${card.label}. Score ${correct}.` : ''}
+      </div>
 
       <div className="si-stage">
         {card && (
