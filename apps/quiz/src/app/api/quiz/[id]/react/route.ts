@@ -166,11 +166,21 @@ export async function POST(
         .eq('id', user.id)
         .single();
 
+      // Coalescing count: banger reactions on this quiz in the last 24h.
+      const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      const { count: recentCount } = await supabase
+        .from('quiz_reactions')
+        .select('id', { count: 'exact', head: true })
+        .eq('quiz_id', id)
+        .eq('reaction', 'banger')
+        .neq('user_id', quiz.creator_id as string)
+        .gte('created_at', since);
       await notifyRating({
         creatorId: quiz.creator_id as string,
         quizId: id,
         quizTitle: (quiz.title as string) ?? '',
         username: (profile?.username as string | undefined) ?? 'someone',
+        recentCount: recentCount ?? 1,
       });
     }
   }

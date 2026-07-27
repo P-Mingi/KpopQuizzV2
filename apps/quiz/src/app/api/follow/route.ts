@@ -60,7 +60,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // refollow does not spam. One lookup + one insert on this low-frequency path.
     if (!error) {
       const { data: me } = await supabase.from('profiles').select('username').eq('id', user.id).maybeSingle();
-      if (me?.username) await notifyNewFollower({ followedId: targetId, followerUsername: me.username as string });
+      if (me?.username) await notifyNewFollower({ followedId: targetId, followerId: user.id, followerUsername: me.username as string });
     }
     return NextResponse.json({ following: true });
   }

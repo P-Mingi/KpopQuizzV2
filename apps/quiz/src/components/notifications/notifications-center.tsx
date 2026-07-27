@@ -51,6 +51,16 @@ export function NotificationsCenter(): React.ReactElement {
     }
   }
 
+  async function muteQuiz(quizId: string): Promise<void> {
+    // Optimistic: drop this quiz's notifications from the list, then persist.
+    setItems((prev) => prev.filter((n) => n.quiz_id !== quizId));
+    try {
+      await fetch('/api/notifications/prefs', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }),
+      });
+    } catch { /* UI already updated */ }
+  }
+
   return (
     <div className="py-6">
       <div className="flex items-center justify-between mb-4">
@@ -73,7 +83,7 @@ export function NotificationsCenter(): React.ReactElement {
       ) : (
         <ul className="flex flex-col gap-2">
           {items.map((n) => (
-            <li key={n.id}><NotificationCard notification={n} /></li>
+            <li key={n.id}><NotificationCard notification={n} onMute={(q) => void muteQuiz(q)} /></li>
           ))}
         </ul>
       )}

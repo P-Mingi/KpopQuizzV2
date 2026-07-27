@@ -167,16 +167,26 @@ export async function POST(
   // Fire a notification to the creator (service role bypasses RLS).
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('creator_id')
+    .select('creator_id, title')
     .eq('id', id)
     .single();
 
   if (quiz && quiz.creator_id && quiz.creator_id !== user.id) {
+    // Coalescing count: others' comments on this quiz in the last 24h.
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { count: recentCount } = await supabase
+      .from('quiz_comments')
+      .select('id', { count: 'exact', head: true })
+      .eq('quiz_id', id)
+      .neq('user_id', quiz.creator_id as string)
+      .gte('created_at', since);
     await notifyComment({
       creatorId: quiz.creator_id as string,
       quizId: id,
+      quizTitle: (quiz.title as string | undefined) ?? 'your quiz',
       username,
       content: trimmed,
+      recentCount: recentCount ?? 1,
     });
   }
 

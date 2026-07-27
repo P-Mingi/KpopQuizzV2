@@ -8,6 +8,7 @@ import { useToast } from '@/components/ui/toast-provider';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { SoundToggle } from '@/components/settings/sound-toggle';
 import { HapticsToggle } from '@/components/settings/haptics-toggle';
+import { NotificationPrefs } from '@/components/settings/notification-prefs';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
 import { passportAccent, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
@@ -642,6 +643,12 @@ export default function SettingsPage(): React.ReactElement {
             />
           </button>
         </div>
+      </div>
+
+      {/* Notifications (O0) */}
+      <div className="bg-primary border border-default rounded-lg p-5 mt-4">
+        <p className="text-sm font-medium text-primary mb-2">Notifications</p>
+        <NotificationPrefs />
       </div>
 
       {/* Disconnect */}

@@ -5,10 +5,10 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 
 import type { NextRequest } from 'next/server';
 
-export type NotificationType =
-  | 'milestone' | 'rating' | 'comment' | 'trending' | 'admin_dm'
-  | 'new_follower' | 'like' | 'achievement_unlocked' | 'streak_milestone'
-  | 'group_mastered' | 'followed_new_quiz' | 'badge_earned' | 'cheer';
+// Notification type union: single source of truth in lib/notifications.ts (O0
+// item 8). Re-exported here so existing UI imports keep working.
+import type { NotificationType } from '@/lib/notifications';
+export type { NotificationType };
 
 export interface NotificationRow {
   id: string;
