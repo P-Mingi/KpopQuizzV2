@@ -17,6 +17,7 @@ export interface GamesHubCounts {
   songs: number;
   categories: number;
   nameAll: number;
+  sortIt: number;
 }
 
 interface GamesHubProps {
@@ -40,6 +41,9 @@ const ICON_TOT = (
 const ICON_NAME = (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>
 );
+const ICON_SORT = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="3" width="6" height="6" rx="1.5" /><path d="M12 9v3" /><path d="M12 12H6v3" /><path d="M12 12h6v3" /><path d="M4 15h4v6H4z" /><path d="M16 15h4v6h-4z" /></svg>
+);
 
 export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.ReactElement {
   // Normalize once so a missing object or field can never throw. Each stat
@@ -49,11 +53,13 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
     songs: counts?.songs ?? 0,
     categories: counts?.categories ?? 0,
     nameAll: counts?.nameAll ?? 0,
+    sortIt: counts?.sortIt ?? 0,
   };
   const personalityStat = c.personality > 0 ? `${c.personality} groups` : 'Find your match';
   const songsStat = c.songs > 0 ? `${formatCount(c.songs)} songs · daily challenge` : 'Daily challenge';
   const categoriesStat = c.categories > 0 ? `${c.categories} categories` : 'Vote now';
   const nameAllStat = c.nameAll > 0 ? `${c.nameAll} rosters` : 'Beat the timer';
+  const sortItStat = c.sortIt > 0 ? `${c.sortIt} sorting quizzes` : 'Beat the clock';
 
   return (
     <main className="games-page">
@@ -78,7 +84,6 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           tint="--brand"
           icon={ICON_MATCH}
           stat={personalityStat}
-          badge="New"
           highlight
           index={0}
         />
@@ -108,6 +113,16 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           icon={ICON_NAME}
           stat={nameAllStat}
           index={3}
+        />
+        <GameModeCard
+          name="Sort it"
+          desc="Boy group or girl group? 3rd gen or 4th gen? Sort real groups against the clock."
+          href="/games/sort-it"
+          tint="--sit"
+          icon={ICON_SORT}
+          stat={sortItStat}
+          badge="New"
+          index={4}
         />
       </div>
 

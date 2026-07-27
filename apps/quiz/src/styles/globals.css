@@ -2381,7 +2381,7 @@ a.ranking-cta { text-decoration: none; }
 /* ---------------------------------------------------------------------------
    D0 - Games page Option A: uniform mode grid + trending fan-rankings strip.
    --------------------------------------------------------------------------- */
-:root { --tot: var(--brand); --nam: #3B6FF6; --blind: #8B5CF6; }
+:root { --tot: var(--brand); --nam: #3B6FF6; --blind: #8B5CF6; --sit: #0EA5A9; }
 
 .gm-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px; }
 @media (min-width: 640px) { .gm-grid { grid-template-columns: 1fr 1fr; } }
