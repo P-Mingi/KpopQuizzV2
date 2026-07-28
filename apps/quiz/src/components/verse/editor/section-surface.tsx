@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { renderTipTapJSON, extractHeadings } from '@/lib/verse/render-content';
 
 import { SectionEditor } from './section-editor';
+import { HistoryPanel } from './history-panel';
 
 interface Props {
   entityType: string;
@@ -31,6 +32,7 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [base, setBase] = useState<number | null>(props.baseRevisionId);
   const [canEdit, setCanEdit] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [history, setHistory] = useState(false);
   const [hover, setHover] = useState<{ label: string; type: string; href: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
@@ -55,11 +57,18 @@ export function SectionSurface(props: Props): React.ReactElement {
         <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>
         <div className="flex items-center gap-2">
           {props.locked ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title={props.lockReason ?? 'Protected'}>Locked</span> : null}
+          {!editing && (hasContent || canEdit) ? (
+            <button onClick={() => setHistory((h) => !h)} className="rounded-full border px-3 py-1 text-xs font-semibold text-secondary" style={{ borderColor: 'var(--verse-line)' }}>History</button>
+          ) : null}
           {canEdit && !editing && !(props.locked) ? (
             <button onClick={() => setEditing(true)} className="rounded-full border px-3 py-1 text-xs font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Edit</button>
           ) : null}
         </div>
       </div>
+
+      {history ? (
+        <div className="mb-4"><HistoryPanel entityType={props.entityType} entityId={props.entityId} section={props.section} canEdit={canEdit} onClose={() => setHistory(false)} /></div>
+      ) : null}
 
       {editing ? (
         <SectionEditor
