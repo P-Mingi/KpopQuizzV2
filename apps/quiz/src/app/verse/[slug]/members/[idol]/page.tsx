@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getIdol } from '@/lib/verse/idol';
 import { personLd, jsonLdScript } from '@/lib/verse/jsonld';
 
+import type { IdolDetail } from '@/lib/verse/idol';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
@@ -19,6 +20,34 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${d.name} of ${d.group.name}: ${d.positions.join(', ') || 'member'}. Sourced facts, discography and fan stats.`,
     alternates: { canonical: `https://kpopquiz.org/verse/${slug}/members/${idol}` },
   };
+}
+
+/**
+ * WHAT FANS KNOW: real per-idol fan behavior, the data no competitor has. Each
+ * cell is individually min-gated (hidden below its gate, never zero-padded); the
+ * whole block hides when no cell qualifies. Nothing here is faked or estimated.
+ */
+function FanKnows({ d }: { d: IdolDetail }): React.ReactElement | null {
+  const { biasCount, personalityRank } = d.fanStats;
+  const cells: { value: string; label: string }[] = [];
+  if (biasCount != null) cells.push({ value: String(biasCount), label: `${d.group.fandom_name} bias ${d.name}` });
+  if (personalityRank != null) cells.push({ value: `#${personalityRank}`, label: 'most-gotten personality match' });
+  if (cells.length === 0) return null;
+
+  return (
+    <section className="mb-6">
+      <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>What {d.group.fandom_name} know</h2>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {cells.map((c, i) => (
+          <div key={i} className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
+            <div className="text-2xl font-extrabold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{c.value}</div>
+            <div className="mt-0.5 text-xs text-secondary">{c.label}</div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-2 text-[11px] text-tertiary">From real fan activity on KpopQuiz. Updates as more fans play.</p>
+    </section>
+  );
 }
 
 function SourceBadge({ source }: { source: 'wd' | 'cur' | null }): React.ReactElement | null {
@@ -84,6 +113,8 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
         </aside>
 
         <div className="lg:col-span-2">
+          <FanKnows d={d} />
+
           {/* Fan lore shell (W3 fills this) */}
           <section className="mb-6 rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
             <h2 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>What {d.group.fandom_name} knows about {d.name}</h2>

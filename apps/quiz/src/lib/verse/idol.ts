@@ -2,17 +2,28 @@
 // means it was ingested (badge [wd]); an entity_overrides row means a curator set
 // it and it WINS at read (badge [cur]). There is deliberately no weight field and
 // no personal-life field anywhere in the selection.
-import { createPublicReadClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { idolSlug } from './slug';
 
 export interface IdolFact { field: string; label: string; value: string; source: 'wd' | 'cur' | null; }
+export interface IdolFanStats {
+  // "What fans know" - real per-idol fan behavior. Each is null when below its
+  // gate; the block hides when all are null. Never zero-padded, never faked.
+  biasCount: number | null;            // fans who bias this idol (gate >= 3)
+  personalityRank: number | null;      // most-gotten personality match rank (gate: group >= 20 results)
+  personalityGroupTotal: number;       // group's total personality results (for the gate + honesty)
+}
 export interface IdolDetail {
   group: { id: number; name: string; slug: string; fandom_name: string; display_color: string | null; text_color: string | null; logo_url: string | null };
   id: number; name: string; name_hangul: string | null; name_romanized: string | null;
   positions: string[]; photo_url: string | null; birth_date: string | null; unitName: string | null;
   facts: IdolFact[];
   bandmates: { name: string; slug: string; photo_url: string | null }[];
+  fanStats: IdolFanStats;
 }
+
+const BIAS_GATE = 3;
+const PERSONALITY_GROUP_GATE = 20;
 
 function fmtDate(d: string): string {
   const [y, m, day] = d.slice(0, 10).split('-').map(Number);
@@ -66,10 +77,38 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
   const unitName = idol.unit_id ? ((units ?? []) as { id: number; name: string }[]).find((u) => u.id === idol.unit_id)?.name ?? null : null;
   const bandmates = rows.filter((r) => r.id !== idol.id).slice(0, 6).map((r) => ({ name: r.name, slug: idolSlug(r.name), photo_url: r.photo_url }));
 
+  // ---- WHAT FANS KNOW: real per-idol fan behavior (min-gated, never faked) ----
+  // Aggregates are computed with the service-role client: personality_results is
+  // not anon-readable under RLS, and only the resulting count/rank is rendered -
+  // never any per-row or user data. No PII leaves the server.
+  const svc = createServiceRoleClient();
+  const [{ data: biasRows }, { data: persRows }] = await Promise.all([
+    // Fans who bias this idol. Match the free-text bias (case-insensitive), then
+    // disambiguate cross-group name collisions with ult_groups: a bias counts if
+    // the fan set no ult group, or lists this idol's group.
+    svc.from('profiles').select('ult_groups').ilike('bias', idol.name),
+    svc.from('personality_results').select('member_name').eq('group_id', group.id),
+  ]);
+  const norm = (s: string): string => s.toLowerCase().trim();
+  const biasHits = ((biasRows ?? []) as { ult_groups: string[] | null }[])
+    .filter((r) => !r.ult_groups || r.ult_groups.length === 0 || r.ult_groups.includes(group.slug)).length;
+  const biasCount = biasHits >= BIAS_GATE ? biasHits : null;
+
+  const persTally = new Map<string, number>();
+  for (const r of (persRows ?? []) as { member_name: string }[]) {
+    const k = norm(r.member_name || '');
+    if (k) persTally.set(k, (persTally.get(k) ?? 0) + 1);
+  }
+  const personalityGroupTotal = (persRows ?? []).length;
+  const myCount = persTally.get(norm(idol.name)) ?? 0;
+  const rank = 1 + [...persTally.values()].filter((c) => c > myCount).length;
+  const personalityRank = (personalityGroupTotal >= PERSONALITY_GROUP_GATE && myCount > 0) ? rank : null;
+
   return {
     group,
     id: idol.id, name: idol.name, name_hangul: idol.name_hangul, name_romanized: idol.name_romanized,
     positions: idol.positions ?? [], photo_url: idol.photo_url, birth_date: idol.birth_date, unitName,
     facts, bandmates,
+    fanStats: { biasCount, personalityRank, personalityGroupTotal },
   };
 }
