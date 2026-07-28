@@ -34,6 +34,16 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [editing, setEditing] = useState(false);
   const [suggesting, setSuggesting] = useState(false);
   const [history, setHistory] = useState(false);
+  const [locked, setLocked] = useState(props.locked);
+
+  async function toggleLock() {
+    const reason = locked ? undefined : (window.prompt('Lock reason (optional):') ?? '');
+    const res = await fetch('/api/verse/lock', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ entity_type: props.entityType, entity_id: props.entityId, section: props.section, locked: !locked, reason }),
+    });
+    if (res.ok) setLocked(!locked);
+  }
   const [hover, setHover] = useState<{ label: string; type: string; href: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
@@ -57,14 +67,19 @@ export function SectionSurface(props: Props): React.ReactElement {
       <div className="mb-2 flex items-center justify-between gap-2">
         <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>
         <div className="flex items-center gap-2">
-          {props.locked ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title={props.lockReason ?? 'Protected'}>Locked</span> : null}
+          {locked ? <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title={props.lockReason ?? 'Protected by a reviewer'}>
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>Locked
+          </span> : null}
           {!editing && (hasContent || canEdit) ? (
             <button onClick={() => setHistory((h) => !h)} className="rounded-full border px-3 py-1 text-xs font-semibold text-secondary" style={{ borderColor: 'var(--verse-line)' }}>History</button>
           ) : null}
-          {canEdit && !editing && !(props.locked) ? (
+          {canEdit && !editing ? (
             <button onClick={() => setEditing(true)} className="rounded-full border px-3 py-1 text-xs font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Edit</button>
           ) : null}
-          {!canEdit && !suggesting && !history && !(props.locked) ? (
+          {canEdit ? (
+            <button onClick={toggleLock} className="rounded-full border px-3 py-1 text-xs font-semibold text-secondary" style={{ borderColor: 'var(--verse-line)' }}>{locked ? 'Unlock' : 'Lock'}</button>
+          ) : null}
+          {!canEdit && !suggesting && !history && !locked ? (
             <button onClick={() => setSuggesting(true)} className="rounded-full border px-3 py-1 text-xs font-semibold text-secondary" style={{ borderColor: 'var(--verse-line)' }}>Suggest an edit</button>
           ) : null}
         </div>

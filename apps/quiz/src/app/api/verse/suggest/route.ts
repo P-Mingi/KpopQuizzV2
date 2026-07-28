@@ -27,8 +27,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await serverClient.auth.getUser();
 
   const svc = createServiceRoleClient();
-  const { data: cur } = await svc.from('verse_content').select('current_revision_id')
+  const { data: cur } = await svc.from('verse_content').select('current_revision_id, locked')
     .eq('entity_type', entity_type).eq('entity_id', entity_id).eq('section_key', section_key).maybeSingle();
+
+  // A locked section is closed to suggestions (comeback-week fact locks, etc.).
+  if (cur?.locked) return NextResponse.json({ error: 'section_locked' }, { status: 423 });
 
   const { error } = await svc.from('verse_edit_suggestions').insert({
     entity_type, entity_id, section_key, author: user?.id ?? null,
