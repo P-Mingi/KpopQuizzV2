@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { renderTipTapJSON } from '@/lib/verse/render-content';
+import { renderTipTapJSON, extractHeadings } from '@/lib/verse/render-content';
 
 import { SectionEditor } from './section-editor';
 
@@ -70,6 +70,23 @@ export function SectionSurface(props: Props): React.ReactElement {
         />
       ) : hasContent ? (
         <>
+          {(() => {
+            // Auto-TOC on long sections (>= 3 headings), sticky on desktop.
+            const toc = extractHeadings(content);
+            if (toc.length < 3) return null;
+            return (
+              <nav aria-label="Contents" className="verse-toc mb-4 rounded-xl border border-default p-3 lg:float-right lg:ml-4 lg:mb-2 lg:w-52 lg:sticky lg:top-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
+                <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Contents</p>
+                <ul className="space-y-1 text-xs">
+                  {toc.map((h, i) => (
+                    <li key={i} style={{ paddingLeft: h.level === 3 ? 10 : 0 }}>
+                      <a href={`#${h.id}`} className="text-secondary hover:text-primary no-underline">{h.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            );
+          })()}
           <div className="verse-prose" onMouseOver={onMentionOver} onMouseOut={() => setHover(null)} dangerouslySetInnerHTML={{ __html: html }} />
           {hover ? (
             <a href={hover.href} className="verse-hover-card" style={{ position: 'absolute', left: hover.x, top: hover.y, zIndex: 40 }}>

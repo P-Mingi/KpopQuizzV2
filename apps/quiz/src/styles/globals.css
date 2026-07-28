@@ -4707,8 +4707,8 @@ a.ranking-cta { text-decoration: none; }
 /* Verse rich-text content (read view) + editor surface. */
 .verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; }
 .verse-prose > * + * { margin-top: 0.85em; }
-.verse-prose h2 { font-size: 20px; font-weight: 800; color: var(--verse-ink, var(--txt1)); margin-top: 1.2em; }
-.verse-prose h3 { font-size: 16px; font-weight: 700; color: var(--verse-ink, var(--txt1)); margin-top: 1em; }
+.verse-prose h2 { font-size: 20px; font-weight: 800; color: var(--verse-ink, var(--txt1)); margin-top: 1.2em; scroll-margin-top: 80px; }
+.verse-prose h3 { font-size: 16px; font-weight: 700; color: var(--verse-ink, var(--txt1)); margin-top: 1em; scroll-margin-top: 80px; }
 .verse-prose p { color: var(--txt1); }
 .verse-prose strong { font-weight: 700; }
 .verse-prose ul { list-style: disc; padding-left: 1.4em; }

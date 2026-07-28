@@ -48,7 +48,8 @@ function renderNode(n: Node): string {
     case 'paragraph': return `<p>${children(n)}</p>`;
     case 'heading': {
       const lvl = Number(n.attrs?.level) === 3 ? 3 : 2; // h2/h3 only (page owns h1)
-      return `<h${lvl}>${children(n)}</h${lvl}>`;
+      const id = headingSlug(plainText(n));
+      return `<h${lvl} id="${id}">${children(n)}</h${lvl}>`;
     }
     case 'bulletList': return `<ul>${children(n)}</ul>`;
     case 'orderedList': return `<ol>${children(n)}</ol>`;
@@ -93,6 +94,29 @@ function renderNode(n: Node): string {
 export function contentIsEmpty(doc: unknown): boolean {
   const html = renderTipTapJSON(doc);
   return html.replace(/<[^>]*>/g, '').trim().length === 0;
+}
+
+function plainText(n: Node): string {
+  if (n.type === 'text') return n.text ?? '';
+  return (n.content ?? []).map(plainText).join('');
+}
+const headingSlug = (s: string): string =>
+  s.toLowerCase().replace(/[^a-z0-9가-힣]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'section';
+
+export interface TocHeading { level: 2 | 3; text: string; id: string; }
+
+/** Extract h2/h3 headings (with anchor ids) for the auto-TOC. */
+export function extractHeadings(doc: unknown): TocHeading[] {
+  const out: TocHeading[] = [];
+  const walk = (n: Node): void => {
+    if (n.type === 'heading') {
+      const text = plainText(n).trim();
+      if (text) out.push({ level: Number(n.attrs?.level) === 3 ? 3 : 2, text, id: headingSlug(text) });
+    }
+    (n.content ?? []).forEach(walk);
+  };
+  if (doc && typeof doc === 'object') walk(doc as Node);
+  return out;
 }
 
 export function renderTipTapJSON(doc: unknown): string {
