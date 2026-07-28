@@ -89,6 +89,22 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
   const intro = group.seo_intro || generateDefaultIntro(group);
 
+  // G2 link mesh: a gen-level popular game page for this group's generation.
+  const genLink =
+    group.generation === '3rd Gen'
+      ? { href: '/games/name-them-all/name-all-3rd-gen-groups', label: 'Name all 3rd gen K-pop groups' }
+      : group.generation === '4th Gen'
+      ? { href: '/games/name-them-all/name-all-4th-gen-groups', label: 'Name all 4th gen K-pop groups' }
+      : null;
+
+  // G2 additive JSON-LD: an ItemList of this group's real play surfaces.
+  const playSurfaces: Array<{ name: string; url: string }> = [
+    { name: `${group.name} quizzes`, url: `https://kpopquiz.org/${group.slug}-quiz` },
+  ];
+  if (blindtest.qualifies) playSurfaces.push({ name: `${group.name} blind test`, url: `https://kpopquiz.org/blindtest/group-${group.slug}` });
+  if (nameAllGame) playSurfaces.push({ name: `Name all ${group.name} members`, url: `https://kpopquiz.org/games/name-all/${nameAllGame.slug}` });
+  if (personalityProfiles.length > 0) playSurfaces.push({ name: `Which ${group.name} member are you`, url: `https://kpopquiz.org/which-${group.slug}-member-are-you` });
+
   return (
     <div className="py-6">
       <Breadcrumbs
@@ -146,6 +162,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         <Link href="/games/sort-it">Sort K-pop groups: boy or girl, 3rd gen or 4th gen</Link>
         <Link href="/games/match-up/song-to-group">Match K-pop songs to their groups</Link>
         <Link href="/games/name-them-all/name-all-kpop-groups">Name all K-pop groups before the timer</Link>
+        {genLink && <Link href={genLink.href}>{genLink.label}</Link>}
       </nav>
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
@@ -179,7 +196,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           href={`/create?group=${group.slug}`}
           className="inline-block px-6 py-3 rounded-full bg-btn text-white text-sm font-medium"
         >
-          Create a {group.name} quiz
+          Make your own {group.name} quiz
         </Link>
       </div>
 
@@ -245,6 +262,24 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
                 name: q.title,
               })),
             },
+          }),
+        }}
+      />
+      {/* G2 additive: a SEPARATE ItemList of this group's play surfaces, so the
+          existing CollectionPage block above stays byte-identical. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: `Ways to play ${group.name} on KpopQuiz`,
+            itemListElement: playSurfaces.map((s, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: s.url,
+              name: s.name,
+            })),
           }),
         }}
       />
