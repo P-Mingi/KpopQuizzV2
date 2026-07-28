@@ -17,6 +17,7 @@ import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
+import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 
 import type { Metadata } from 'next';
@@ -250,6 +251,9 @@ export default function HomePage(): React.ReactElement {
 
       {/* 4. Play games */}
       <HomeGamesTeaser />
+
+      {/* 4b. Verse spaces (portal v1, Option A: additive body strip, no head change) */}
+      <VerseHomeStrip />
 
       {/* 5. Browse by group */}
       <Suspense fallback={<SkelGroups />}>
