@@ -28,8 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
  * whole block hides when no cell qualifies. Nothing here is faked or estimated.
  */
 function FanKnows({ d }: { d: IdolDetail }): React.ReactElement | null {
-  const { biasCount, personalityRank } = d.fanStats;
-  const cells: { value: string; label: string }[] = [];
+  const { biasCount, personalityRank, nameRecognitionPct, nameRounds } = d.fanStats;
+  const cells: { value: string; label: string; sub?: string }[] = [];
+  if (nameRecognitionPct != null) cells.push({ value: `${nameRecognitionPct}%`, label: `${d.group.fandom_name} name ${d.name} right`, sub: `from ${nameRounds} rounds` });
   if (biasCount != null) cells.push({ value: String(biasCount), label: `${d.group.fandom_name} bias ${d.name}` });
   if (personalityRank != null) cells.push({ value: `#${personalityRank}`, label: 'most-gotten personality match' });
   if (cells.length === 0) return null;
@@ -42,6 +43,7 @@ function FanKnows({ d }: { d: IdolDetail }): React.ReactElement | null {
           <div key={i} className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
             <div className="text-2xl font-extrabold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{c.value}</div>
             <div className="mt-0.5 text-xs text-secondary">{c.label}</div>
+            {c.sub ? <div className="mt-0.5 text-[10px] text-tertiary">{c.sub}</div> : null}
           </div>
         ))}
       </div>

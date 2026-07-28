@@ -25,7 +25,7 @@ export async function POST(
   // Fetch game
   const { data: game, error: gameError } = await supabase
     .from('games')
-    .select('id, game_type, content, play_count, creator_id')
+    .select('id, game_type, content, play_count, creator_id, group_id')
     .eq('id', id)
     .eq('status', 'published')
     .single();
@@ -163,7 +163,7 @@ async function recordBlindTestPlay(
 
 async function recordNameAllPlay(
   supabase: Awaited<ReturnType<typeof createServerClient>>,
-  game: { id: string; content: unknown; play_count: number; creator_id: string },
+  game: { id: string; content: unknown; play_count: number; creator_id: string; group_id: number | null },
   playerId: string | null,
   body: Record<string, unknown>,
 ): Promise<NextResponse> {
@@ -202,6 +202,25 @@ async function recordNameAllPlay(
 
   // award_xp is server-only post-revoke. Server computes amount from validated score.
   const admin = createServiceRoleClient();
+
+  // Aggregate-only name-recognition logging (migration 126). One row per member
+  // per finished round recording only whether they were named. NO user linkage /
+  // PII. Feeds the idol WHAT-FANS-KNOW "% name them right" cell (gated >= 30
+  // rounds via verse_name_recognition). Fail-soft: never blocks the play.
+  try {
+    const roster = ((game.content as { members?: { name?: string }[] }).members ?? [])
+      .map((m) => m?.name).filter((n): n is string => typeof n === 'string' && n.length > 0);
+    if (game.group_id && roster.length > 0) {
+      const foundSet = new Set(choices.found_members ?? []);
+      const roundId = crypto.randomUUID();
+      const rows = roster.map((name) => ({
+        group_id: game.group_id, member_name: name, found: foundSet.has(name), round_id: roundId,
+      }));
+      await admin.from('name_all_member_results').insert(rows);
+    }
+  } catch (e) {
+    console.error('name-recognition logging skipped:', e);
+  }
 
   // Award XP: 15 per correct answer
   if (playerId) {

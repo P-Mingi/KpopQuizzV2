@@ -12,6 +12,8 @@ export interface IdolFanStats {
   biasCount: number | null;            // fans who bias this idol (gate >= 3)
   personalityRank: number | null;      // most-gotten personality match rank (gate: group >= 20 results)
   personalityGroupTotal: number;       // group's total personality results (for the gate + honesty)
+  nameRecognitionPct: number | null;   // % of name-all rounds that named this idol (gate: group >= 30 rounds)
+  nameRounds: number;                  // group's total name-all rounds (for the "from N rounds" label)
 }
 export interface IdolDetail {
   group: { id: number; name: string; slug: string; fandom_name: string; display_color: string | null; text_color: string | null; logo_url: string | null };
@@ -24,6 +26,7 @@ export interface IdolDetail {
 
 const BIAS_GATE = 3;
 const PERSONALITY_GROUP_GATE = 20;
+const NAME_ROUNDS_GATE = 30;
 
 function fmtDate(d: string): string {
   const [y, m, day] = d.slice(0, 10).split('-').map(Number);
@@ -82,12 +85,14 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
   // not anon-readable under RLS, and only the resulting count/rank is rendered -
   // never any per-row or user data. No PII leaves the server.
   const svc = createServiceRoleClient();
-  const [{ data: biasRows }, { data: persRows }] = await Promise.all([
+  const [{ data: biasRows }, { data: persRows }, { data: nameRec }] = await Promise.all([
     // Fans who bias this idol. Match the free-text bias (case-insensitive), then
     // disambiguate cross-group name collisions with ult_groups: a bias counts if
     // the fan set no ult group, or lists this idol's group.
     svc.from('profiles').select('ult_groups').ilike('bias', idol.name),
     svc.from('personality_results').select('member_name').eq('group_id', group.id),
+    // Aggregate name-all recognition (SECURITY DEFINER RPC; no raw rows exposed).
+    svc.rpc('verse_name_recognition', { p_group_id: group.id }),
   ]);
   const norm = (s: string): string => s.toLowerCase().trim();
   const biasHits = ((biasRows ?? []) as { ult_groups: string[] | null }[])
@@ -104,11 +109,16 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
   const rank = 1 + [...persTally.values()].filter((c) => c > myCount).length;
   const personalityRank = (personalityGroupTotal >= PERSONALITY_GROUP_GATE && myCount > 0) ? rank : null;
 
+  const nameRows = (nameRec ?? []) as { member_name: string; found_pct: number; samples: number; rounds: number }[];
+  const nameRounds = Number(nameRows[0]?.rounds ?? 0);
+  const myRec = nameRows.find((r) => norm(r.member_name) === norm(idol.name));
+  const nameRecognitionPct = (nameRounds >= NAME_ROUNDS_GATE && myRec) ? Number(myRec.found_pct) : null;
+
   return {
     group,
     id: idol.id, name: idol.name, name_hangul: idol.name_hangul, name_romanized: idol.name_romanized,
     positions: idol.positions ?? [], photo_url: idol.photo_url, birth_date: idol.birth_date, unitName,
     facts, bandmates,
-    fanStats: { biasCount, personalityRank, personalityGroupTotal },
+    fanStats: { biasCount, personalityRank, personalityGroupTotal, nameRecognitionPct, nameRounds },
   };
 }
