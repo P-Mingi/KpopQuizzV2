@@ -101,11 +101,11 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
           </section>
 
           {/* Related members */}
-          {d.siblings.length ? (
+          {d.bandmates.length ? (
             <section>
               <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-tertiary">Other members</h2>
               <div className="flex flex-wrap gap-3">
-                {d.siblings.map((s) => (
+                {d.bandmates.map((s) => (
                   <Link key={s.slug} href={`/verse/${slug}/members/${s.slug}`} className="group w-16 shrink-0 no-underline">
                     <div className="aspect-square w-full overflow-hidden rounded-lg border border-default" style={{ borderColor: 'var(--verse-line)' }}>
                       {s.photo_url ? <img src={s.photo_url} alt={s.name} className="h-full w-full object-cover" loading="lazy" /> : <span className="flex h-full w-full items-center justify-center text-xs font-bold" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{s.name.slice(0, 2)}</span>}

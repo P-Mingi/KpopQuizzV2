@@ -11,7 +11,7 @@ export interface IdolDetail {
   id: number; name: string; name_hangul: string | null; name_romanized: string | null;
   positions: string[]; photo_url: string | null; birth_date: string | null; unitName: string | null;
   facts: IdolFact[];
-  siblings: { name: string; slug: string; photo_url: string | null }[];
+  bandmates: { name: string; slug: string; photo_url: string | null }[];
 }
 
 function fmtDate(d: string): string {
@@ -64,12 +64,12 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
   // NOTE: no weight, ever. No personal-life fields exist in the schema or here.
 
   const unitName = idol.unit_id ? ((units ?? []) as { id: number; name: string }[]).find((u) => u.id === idol.unit_id)?.name ?? null : null;
-  const siblings = rows.filter((r) => r.id !== idol.id).slice(0, 6).map((r) => ({ name: r.name, slug: idolSlug(r.name), photo_url: r.photo_url }));
+  const bandmates = rows.filter((r) => r.id !== idol.id).slice(0, 6).map((r) => ({ name: r.name, slug: idolSlug(r.name), photo_url: r.photo_url }));
 
   return {
     group,
     id: idol.id, name: idol.name, name_hangul: idol.name_hangul, name_romanized: idol.name_romanized,
     positions: idol.positions ?? [], photo_url: idol.photo_url, birth_date: idol.birth_date, unitName,
-    facts, siblings,
+    facts, bandmates,
   };
 }
