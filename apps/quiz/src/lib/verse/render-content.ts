@@ -5,22 +5,34 @@
 // policy-approved hosts (strict-legal images rule).
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 
+interface Mark { type: string; attrs?: Record<string, unknown> }
 interface Node {
   type?: string;
   content?: Node[];
   text?: string;
-  marks?: { type: string }[];
+  marks?: Mark[];
   attrs?: Record<string, unknown>;
 }
 
 const esc = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+// Only same-origin or http(s) hrefs; no javascript: etc.
+function safeHref(href: unknown): string | null {
+  const s = String(href ?? '');
+  if (/^https?:\/\//i.test(s) || s.startsWith('/')) return s;
+  return null;
+}
+
 function renderText(n: Node): string {
   let html = esc(n.text ?? '');
   for (const m of n.marks ?? []) {
     if (m.type === 'bold') html = `<strong>${html}</strong>`;
     else if (m.type === 'italic') html = `<em>${html}</em>`;
+    else if (m.type === 'link') {
+      const href = safeHref(m.attrs?.href);
+      if (href) html = `<a href="${esc(href)}" class="verse-cite" rel="nofollow noopener" target="_blank">${html}</a>`;
+    }
     // other marks are dropped by allowlist
   }
   return html;
@@ -53,6 +65,12 @@ function renderNode(n: Node): string {
       const alt = esc(String(n.attrs?.alt ?? ''));
       if (!src || !isConfiguredImageHost(src)) return ''; // strict-legal: only approved hosts
       return `<figure class="verse-figure"><img src="${esc(src)}" alt="${alt}" loading="lazy" /></figure>`;
+    }
+    case 'mention': {
+      const label = esc(String(n.attrs?.label ?? n.attrs?.id ?? ''));
+      const href = safeHref(n.attrs?.id); // the picker stores the Verse URL in id
+      if (!label) return '';
+      return href ? `<a href="${esc(href)}" class="verse-mention">@${label}</a>` : `<span class="verse-mention">@${label}</span>`;
     }
     case 'doc': return children(n);
     default: return n.content ? children(n) : '';

@@ -4723,6 +4723,13 @@ a.ranking-cta { text-decoration: none; }
 .verse-prose .verse-figure { margin: 0; }
 .verse-prose .verse-figure img { max-width: 100%; height: auto; border-radius: 10px; }
 
+/* Entity mention chips + citation links (read + editor). */
+.verse-mention { color: var(--verse-ink, var(--brand)); font-weight: 600; text-decoration: none; background: var(--verse-soft); border-radius: 5px; padding: 0 4px; }
+.verse-mention:hover { background: var(--verse-soft-strong); }
+.verse-cite { color: var(--verse-ink, var(--brand)); text-decoration: underline; text-underline-offset: 2px; }
+/* @-mention picker popup (positioned on document.body). */
+.verse-mention-pop { min-width: 240px; max-width: 340px; max-height: 260px; overflow-y: auto; border-radius: 10px; border: 1px solid var(--verse-line, var(--border)); background: var(--surface); box-shadow: 0 12px 32px -12px rgba(0,0,0,0.35); }
+
 .verse-editor-area { min-height: 160px; outline: none; }
 .verse-editor-area:focus { outline: none; }
 .verse-editor-area .is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--txt3); float: left; height: 0; pointer-events: none; }

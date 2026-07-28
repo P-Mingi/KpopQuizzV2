@@ -8,6 +8,9 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { Image } from '@tiptap/extension-image';
+import { Link } from '@tiptap/extension-link';
+
+import { verseMention } from './mention';
 
 import type { Extensions } from '@tiptap/react';
 
@@ -17,8 +20,8 @@ export const verseEditorExtensions: Extensions = [
     codeBlock: false,
     code: false,
     strike: false,
-    // StarterKit v3 bundles link + underline; drop them to keep the constrained
-    // set (citation links arrive as their own extension in W3.3).
+    // StarterKit v3 bundles link + underline; drop them - Link is configured
+    // explicitly below (citation helper) and underline stays out of the set.
     link: false,
     underline: false,
   }),
@@ -27,4 +30,8 @@ export const verseEditorExtensions: Extensions = [
   TableHeader,
   TableCell,
   Image.configure({ inline: false, allowBase64: false }),
+  // Citation helper: pasted/typed URLs become nofollow source links (W3.3).
+  Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { rel: 'nofollow noopener', class: 'verse-cite', target: '_blank' } }),
+  // @-mention entity picker (idols/albums/groups -> linked chips).
+  verseMention,
 ];
