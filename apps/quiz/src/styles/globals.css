@@ -4656,3 +4656,42 @@ a.ranking-cta { text-decoration: none; }
 .browse-popular-label { font-weight: 700; color: var(--txt2); text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em; }
 .browse-popular-row a { color: var(--brand); font-weight: 600; text-decoration: none; }
 .browse-popular-row a:hover { text-decoration: underline; }
+
+/* ============================================================================
+   Verse (fandom spaces) - per-fandom theming.
+   A `.verse-scope` wrapper carries `--verse-accent` (raw group color, set inline
+   from display_color). Everything below derives readable, MODE-AWARE tokens from
+   it. A single raw hue cannot hit AA on both the light cream bg and the dark bg,
+   so `--verse-ink` (accent used as text/large-heading) is darkened in light mode
+   and lightened in dark mode. Solid accent fills pair with --verse-accent-text
+   (the curated contrast partner). Tints use color-mix, the house pattern.
+   ========================================================================== */
+.verse-scope {
+  --verse-accent: var(--brand);
+  --verse-accent-text: #ffffff;
+  /* text-safe accent: darkened toward ink on the light cream background */
+  --verse-ink: color-mix(in srgb, var(--verse-accent) 74%, #1a1714);
+  --verse-soft: color-mix(in srgb, var(--verse-accent) 12%, transparent);
+  --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 22%, transparent);
+  --verse-line: color-mix(in srgb, var(--verse-accent) 34%, var(--border));
+}
+/* Dark mode: lighten the ink toward the light text so it stays legible on dark. */
+.dark .verse-scope {
+  --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
+  --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
+  --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
+  --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .verse-scope {
+    --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
+    --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
+    --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
+    --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
+  }
+}
+
+/* Directory tile hover: lift + accent ring, no layout shift (transform/opacity). */
+.verse-tile { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.verse-tile:hover { transform: translateY(-3px); border-color: var(--verse-line); box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--verse-accent) 45%, transparent); }
+@media (prefers-reduced-motion: reduce) { .verse-tile { transition: border-color 200ms ease; } .verse-tile:hover { transform: none; } }

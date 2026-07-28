@@ -44,6 +44,7 @@ export const KNOWN_ROUTES = [
   // guard below found this one; it is the sixth page this list has swallowed.
   '/s/',
   '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
+  '/verse',
   '/articles',
   '/battle',
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].

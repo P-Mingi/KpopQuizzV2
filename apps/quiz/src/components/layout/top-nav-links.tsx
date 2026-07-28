@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Games', href: '/games', match: ['/games'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest'] },
+  { label: 'Verse', href: '/verse', match: ['/verse'] },
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
@@ -40,6 +41,12 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
+        </svg>
+      );
+    case 'Verse':
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
         </svg>
       );
     case 'Community':
