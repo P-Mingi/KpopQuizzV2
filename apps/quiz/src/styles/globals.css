@@ -4704,6 +4704,32 @@ a.ranking-cta { text-decoration: none; }
   }
 }
 
+/* Verse rich-text content (read view) + editor surface. */
+.verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; }
+.verse-prose > * + * { margin-top: 0.85em; }
+.verse-prose h2 { font-size: 20px; font-weight: 800; color: var(--verse-ink, var(--txt1)); margin-top: 1.2em; }
+.verse-prose h3 { font-size: 16px; font-weight: 700; color: var(--verse-ink, var(--txt1)); margin-top: 1em; }
+.verse-prose p { color: var(--txt1); }
+.verse-prose strong { font-weight: 700; }
+.verse-prose ul { list-style: disc; padding-left: 1.4em; }
+.verse-prose ol { list-style: decimal; padding-left: 1.4em; }
+.verse-prose li { margin-top: 0.25em; }
+.verse-prose blockquote { border-left: 3px solid var(--verse-line, var(--border)); padding-left: 1em; color: var(--txt2); font-style: italic; }
+.verse-prose hr { border: none; border-top: 1px solid var(--border); margin: 1.2em 0; }
+.verse-prose .verse-table-wrap { overflow-x: auto; }
+.verse-prose table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.verse-prose th, .verse-prose td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+.verse-prose th { background: var(--verse-soft, var(--surface-alt)); font-weight: 700; }
+.verse-prose .verse-figure { margin: 0; }
+.verse-prose .verse-figure img { max-width: 100%; height: auto; border-radius: 10px; }
+
+.verse-editor-area { min-height: 160px; outline: none; }
+.verse-editor-area:focus { outline: none; }
+.verse-editor-area .is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--txt3); float: left; height: 0; pointer-events: none; }
+.verse-editor-area table { border-collapse: collapse; width: 100%; }
+.verse-editor-area th, .verse-editor-area td { border: 1px solid var(--border); padding: 6px 10px; min-width: 3em; }
+.verse-editor-area .selectedCell { background: var(--verse-soft); }
+
 /* Directory tile hover: lift + accent ring, no layout shift (transform/opacity). */
 .verse-tile { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
 .verse-tile:hover { transform: translateY(-3px); border-color: var(--verse-line); box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--verse-accent) 45%, transparent); }

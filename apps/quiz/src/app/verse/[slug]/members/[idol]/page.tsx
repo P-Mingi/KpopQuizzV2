@@ -2,7 +2,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SectionSurface } from '@/components/verse/editor/section-surface';
 import { getIdol } from '@/lib/verse/idol';
+import { getSection } from '@/lib/verse/content';
+import { renderTipTapJSON } from '@/lib/verse/render-content';
 import { personLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { IdolDetail } from '@/lib/verse/idol';
@@ -66,6 +69,9 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
   const d = await getIdol(slug, idol);
   if (!d) notFound();
 
+  const lore = await getSection('idol', String(d.id), 'lore');
+  const loreHtml = lore.content ? renderTipTapJSON(lore.content) : '';
+
   return (
     <article className="mt-2">
       {jsonLdScript(personLd({
@@ -117,11 +123,14 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
         <div className="lg:col-span-2">
           <FanKnows d={d} />
 
-          {/* Fan lore shell (W3 fills this) */}
-          <section className="mb-6 rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-            <h2 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>What {d.group.fandom_name} knows about {d.name}</h2>
-            <p className="mt-1 text-sm text-secondary">Fan-written lore, starter facts and fanchants live here, credited to their authors. This section opens for contributions soon.</p>
-          </section>
+          {/* Fan lore section (W3 editor). Renders SSR for crawlers; editable inline by editors. */}
+          <SectionSurface
+            entityType="idol" entityId={String(d.id)} section="lore"
+            label={`What ${d.group.fandom_name} knows about ${d.name}`}
+            initialHtml={loreHtml} initialContent={lore.content} baseRevisionId={lore.currentRevisionId}
+            locked={lore.locked} lockReason={lore.lockReason}
+            emptyInvite={`Fan-written lore and starter facts about ${d.name} live here, credited to their authors.`}
+          />
 
           {/* Games row */}
           <section className="mb-6">
