@@ -17,6 +17,7 @@ interface Props {
   locked: boolean;
   lockReason: string | null;
   emptyInvite: string;
+  groupSlug?: string;
 }
 
 /**
@@ -30,10 +31,21 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [base, setBase] = useState<number | null>(props.baseRevisionId);
   const [canEdit, setCanEdit] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [hover, setHover] = useState<{ label: string; type: string; href: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
     fetch('/api/verse/can-edit').then((r) => r.ok ? r.json() : null).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
   }, []);
+
+  // Hover preview cards for @-mention chips (identify the entity + jump to it).
+  const onMentionOver = (e: React.MouseEvent) => {
+    const a = (e.target as HTMLElement).closest('a.verse-mention') as HTMLAnchorElement | null;
+    if (!a) return;
+    const href = a.getAttribute('href') ?? '';
+    const type = href.includes('/members/') ? 'Member' : href.includes('/albums/') ? 'Album' : 'Group';
+    const r = a.getBoundingClientRect();
+    setHover({ label: a.textContent?.replace(/^@/, '') ?? '', type, href, x: r.left + window.scrollX, y: r.bottom + window.scrollY + 4 });
+  };
 
   const hasContent = html.replace(/<[^>]*>/g, '').trim().length > 0;
 
@@ -52,12 +64,21 @@ export function SectionSurface(props: Props): React.ReactElement {
       {editing ? (
         <SectionEditor
           entityType={props.entityType} entityId={props.entityId} section={props.section}
-          initialContent={content} baseRevisionId={base}
+          initialContent={content} baseRevisionId={base} groupSlug={props.groupSlug}
           onClose={() => setEditing(false)}
           onSaved={(revId, newContent) => { setContent(newContent); setHtml(renderTipTapJSON(newContent)); setBase(revId); setEditing(false); }}
         />
       ) : hasContent ? (
-        <div className="verse-prose" dangerouslySetInnerHTML={{ __html: html }} />
+        <>
+          <div className="verse-prose" onMouseOver={onMentionOver} onMouseOut={() => setHover(null)} dangerouslySetInnerHTML={{ __html: html }} />
+          {hover ? (
+            <a href={hover.href} className="verse-hover-card" style={{ position: 'absolute', left: hover.x, top: hover.y, zIndex: 40 }}>
+              <span className="rounded px-1 text-[9px] font-bold uppercase" style={{ background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' }}>{hover.type}</span>
+              <span className="font-bold" style={{ color: 'var(--verse-ink)' }}>{hover.label}</span>
+              <span className="text-[11px] text-tertiary">Open page</span>
+            </a>
+          ) : null}
+        </>
       ) : (
         <div className="rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
           <p className="text-sm text-secondary">{props.emptyInvite}</p>

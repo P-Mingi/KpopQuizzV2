@@ -11,6 +11,7 @@ import { Image } from '@tiptap/extension-image';
 import { Link } from '@tiptap/extension-link';
 
 import { verseMention } from './mention';
+import { VerseEmbed } from './embed';
 
 import type { Extensions } from '@tiptap/react';
 
@@ -34,4 +35,6 @@ export const verseEditorExtensions: Extensions = [
   Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { rel: 'nofollow noopener', class: 'verse-cite', target: '_blank' } }),
   // @-mention entity picker (idols/albums/groups -> linked chips).
   verseMention,
+  // Widget blocks: discography / quiz / stats cards linking to the live surface.
+  VerseEmbed,
 ];

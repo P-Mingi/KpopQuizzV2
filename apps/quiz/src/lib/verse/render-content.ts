@@ -66,6 +66,18 @@ function renderNode(n: Node): string {
       if (!src || !isConfiguredImageHost(src)) return ''; // strict-legal: only approved hosts
       return `<figure class="verse-figure"><img src="${esc(src)}" alt="${alt}" loading="lazy" /></figure>`;
     }
+    case 'verseEmbed': {
+      const kind = String(n.attrs?.kind ?? '');
+      const group = String(n.attrs?.group ?? '').replace(/[^a-z0-9-]/g, '');
+      if (!group) return '';
+      const map: Record<string, { href: string; title: string; sub: string }> = {
+        discography: { href: `/verse/${group}/discography`, title: 'Discography', sub: 'Albums, EPs and singles' },
+        quiz: { href: `/${group}-quiz`, title: 'Play the quiz', sub: 'Test your knowledge' },
+        stats: { href: `/verse/${group}`, title: 'Space stats', sub: 'Members, releases and fan activity' },
+      };
+      const w = map[kind]; if (!w) return '';
+      return `<a href="${esc(w.href)}" class="verse-embed-card"><span class="verse-embed-title">${esc(w.title)}</span><span class="verse-embed-sub">${esc(w.sub)}</span></a>`;
+    }
     case 'mention': {
       const label = esc(String(n.attrs?.label ?? n.attrs?.id ?? ''));
       const href = safeHref(n.attrs?.id); // the picker stores the Verse URL in id

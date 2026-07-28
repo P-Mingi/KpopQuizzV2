@@ -15,13 +15,14 @@ interface Props {
   section: string;
   initialContent: unknown | null;
   baseRevisionId: number | null;
+  groupSlug?: string | undefined;   // for widget embeds (discography/quiz/stats)
   onClose: () => void;
   onSaved: (newRevisionId: number, content: unknown) => void;
 }
 
 const EMPTY_DOC = { type: 'doc', content: [{ type: 'paragraph' }] };
 
-export function SectionEditor({ entityType, entityId, section, initialContent, baseRevisionId, onClose, onSaved }: Props): React.ReactElement {
+export function SectionEditor({ entityType, entityId, section, initialContent, baseRevisionId, groupSlug, onClose, onSaved }: Props): React.ReactElement {
   const lsKey = `verse-draft:${entityType}:${entityId}:${section}`;
   const [base, setBase] = useState<number | null>(baseRevisionId);
   const [draftState, setDraftState] = useState<SaveState>('idle');
@@ -132,6 +133,14 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         <Btn label="Table" on={() => editor.chain().focus().insertTable({ rows: 2, cols: 2, withHeaderRow: true }).run()} />
         <Btn label="Image" on={insertImage} />
         <Btn label="Divider" on={() => editor.chain().focus().setHorizontalRule().run()} />
+        {groupSlug ? (
+          <>
+            <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
+            <Btn label="+Disco" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'discography', group: groupSlug } }).run()} />
+            <Btn label="+Quiz" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'quiz', group: groupSlug } }).run()} />
+            <Btn label="+Stats" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'stats', group: groupSlug } }).run()} />
+          </>
+        ) : null}
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
         <Btn label="Undo" on={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} />
         <Btn label="Redo" on={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} />
