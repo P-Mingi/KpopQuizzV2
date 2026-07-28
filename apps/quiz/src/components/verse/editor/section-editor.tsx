@@ -16,13 +16,14 @@ interface Props {
   initialContent: unknown | null;
   baseRevisionId: number | null;
   groupSlug?: string | undefined;   // for widget embeds (discography/quiz/stats)
+  suggestMode?: boolean;            // visitor suggestion (queued, not applied)
   onClose: () => void;
   onSaved: (newRevisionId: number, content: unknown) => void;
 }
 
 const EMPTY_DOC = { type: 'doc', content: [{ type: 'paragraph' }] };
 
-export function SectionEditor({ entityType, entityId, section, initialContent, baseRevisionId, groupSlug, onClose, onSaved }: Props): React.ReactElement {
+export function SectionEditor({ entityType, entityId, section, initialContent, baseRevisionId, groupSlug, suggestMode, onClose, onSaved }: Props): React.ReactElement {
   const lsKey = `verse-draft:${entityType}:${entityId}:${section}`;
   const [base, setBase] = useState<number | null>(baseRevisionId);
   const [draftState, setDraftState] = useState<SaveState>('idle');
@@ -42,10 +43,14 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     onUpdate: () => scheduleDraft(),
   });
 
-  // On mount: offer a newer local/server draft if one exists.
+  const [submitted, setSubmitted] = useState(false);
+
+  // On mount: offer a newer local/server draft if one exists. Suggest mode uses
+  // localStorage only (the server draft endpoint is editor-gated).
   useEffect(() => {
     let local: unknown = null;
     try { const s = localStorage.getItem(lsKey); if (s) local = JSON.parse(s); } catch { /* ignore */ }
+    if (suggestMode) { if (local) setRestore(local); return; }
     fetch(`/api/verse/draft?entity_type=${entityType}&entity_id=${entityId}&section=${section}`)
       .then((r) => r.ok ? r.json() : null)
       .then((d) => { const server = d?.draft?.content ?? null; const candidate = server ?? local; if (candidate) setRestore(candidate); })
@@ -60,6 +65,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     draftTimer.current = setTimeout(async () => {
       const content = editor.getJSON();
       try { localStorage.setItem(lsKey, JSON.stringify(content)); } catch { /* quota */ }
+      if (suggestMode) { setDraftState('saved'); return; }
       try {
         await fetch('/api/verse/draft', {
           method: 'PUT', headers: { 'Content-Type': 'application/json' },
@@ -75,6 +81,17 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     if (!editor) return;
     setPublishing(true); setError(null);
     const content = editor.getJSON();
+    if (suggestMode) {
+      const res = await fetch('/api/verse/suggest', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ entity_type: entityType, entity_id: entityId, section, content, summary, minor }),
+      });
+      setPublishing(false);
+      if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Could not submit'); return; }
+      try { localStorage.removeItem(lsKey); } catch { /* ignore */ }
+      setSubmitted(true);
+      return;
+    }
     const res = await fetch('/api/verse/section', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ entity_type: entityType, entity_id: entityId, section, content, summary, minor, base_revision_id: force ? conflict?.revId ?? base : base }),
@@ -99,6 +116,14 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
   };
 
   if (!editor) return <div className="p-4 text-sm text-secondary">Loading editor...</div>;
+
+  if (submitted) return (
+    <div className="rounded-xl border border-default bg-surface p-5 text-center" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
+      <p className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Suggestion submitted for review</p>
+      <p className="mt-1 text-sm text-secondary">A reviewer will check it. Thanks for improving this page.</p>
+      <button onClick={onClose} className="mt-2 text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Close</button>
+    </div>
+  );
 
   const Btn = ({ on, active, label, disabled }: { on: () => void; active?: boolean; label: string; disabled?: boolean }) => (
     <button type="button" onMouseDown={(e) => { e.preventDefault(); on(); }} disabled={disabled}
@@ -172,7 +197,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         <label className="flex items-center gap-1 text-xs text-secondary"><input type="checkbox" checked={minor} onChange={(e) => setMinor(e.target.checked)} /> minor</label>
         <button type="button" onClick={() => publish(false)} disabled={publishing}
           className="rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>
-          {publishing ? 'Saving...' : 'Publish'}
+          {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}
         </button>
         <button type="button" onClick={onClose} className="rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary">Cancel</button>
         {error ? <span className="w-full text-xs text-[var(--wrong,#A32D2D)]">{error}</span> : null}

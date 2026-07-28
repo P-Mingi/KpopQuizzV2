@@ -32,6 +32,7 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [base, setBase] = useState<number | null>(props.baseRevisionId);
   const [canEdit, setCanEdit] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [suggesting, setSuggesting] = useState(false);
   const [history, setHistory] = useState(false);
   const [hover, setHover] = useState<{ label: string; type: string; href: string; x: number; y: number } | null>(null);
 
@@ -63,6 +64,9 @@ export function SectionSurface(props: Props): React.ReactElement {
           {canEdit && !editing && !(props.locked) ? (
             <button onClick={() => setEditing(true)} className="rounded-full border px-3 py-1 text-xs font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Edit</button>
           ) : null}
+          {!canEdit && !suggesting && !history && !(props.locked) ? (
+            <button onClick={() => setSuggesting(true)} className="rounded-full border px-3 py-1 text-xs font-semibold text-secondary" style={{ borderColor: 'var(--verse-line)' }}>Suggest an edit</button>
+          ) : null}
         </div>
       </div>
 
@@ -76,6 +80,12 @@ export function SectionSurface(props: Props): React.ReactElement {
           initialContent={content} baseRevisionId={base} groupSlug={props.groupSlug}
           onClose={() => setEditing(false)}
           onSaved={(revId, newContent) => { setContent(newContent); setHtml(renderTipTapJSON(newContent)); setBase(revId); setEditing(false); }}
+        />
+      ) : suggesting ? (
+        <SectionEditor
+          entityType={props.entityType} entityId={props.entityId} section={props.section}
+          initialContent={content} baseRevisionId={base} groupSlug={props.groupSlug} suggestMode
+          onClose={() => setSuggesting(false)} onSaved={() => setSuggesting(false)}
         />
       ) : hasContent ? (
         <>
