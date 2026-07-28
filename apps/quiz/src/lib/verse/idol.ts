@@ -4,8 +4,10 @@
 // no personal-life field anywhere in the selection.
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { idolSlug } from './slug';
+import { INFOBOX_FIELDS } from './fields';
 
-export interface IdolFact { field: string; label: string; value: string; source: 'wd' | 'cur' | null; }
+export interface IdolFact { field: string; label: string; value: string; source: 'wd' | 'cur' | null; sourceUrl?: string | null; }
+export interface EditableField { key: string; value: string; sourceUrl: string; isOverride: boolean; }
 export interface IdolFanStats {
   // "What fans know" - real per-idol fan behavior. Each is null when below its
   // gate; the block hides when all are null. Never zero-padded, never faked.
@@ -20,6 +22,7 @@ export interface IdolDetail {
   id: number; name: string; name_hangul: string | null; name_romanized: string | null;
   positions: string[]; photo_url: string | null; birth_date: string | null; unitName: string | null;
   facts: IdolFact[];
+  editableFields: EditableField[];
   bandmates: { name: string; slug: string; photo_url: string | null }[];
   fanStats: IdolFanStats;
 }
@@ -53,29 +56,41 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
 
   const [{ data: sources }, { data: overrides }, { data: units }] = await Promise.all([
     db.from('entity_sources').select('field, source').eq('entity_type', 'idol').eq('entity_id', String(idol.id)),
-    db.from('entity_overrides').select('field, value').eq('entity_type', 'idol').eq('entity_id', String(idol.id)),
+    db.from('entity_overrides').select('field, value, source_url').eq('entity_type', 'idol').eq('entity_id', String(idol.id)),
     idol.unit_id ? db.from('group_units').select('id, name').eq('id', idol.unit_id) : Promise.resolve({ data: [] as { id: number; name: string }[] }),
   ]);
   const srcFields = new Set(((sources ?? []) as { field: string }[]).map((s) => s.field));
-  const ovMap = new Map(((overrides ?? []) as { field: string; value: string | null }[]).map((o) => [o.field, o.value]));
+  const ovMap = new Map(((overrides ?? []) as { field: string; value: string | null; source_url: string | null }[]).map((o) => [o.field, o]));
 
   // Badge: override present -> [cur]; else ingested -> [wd]; else curator-typed field with a value -> [cur].
   const badge = (field: string, curatorField: boolean): 'wd' | 'cur' | null =>
     ovMap.has(field) ? 'cur' : (srcFields.has(field) ? 'wd' : (curatorField ? 'cur' : null));
-  const val = (field: string, ingested: string | null): string | null => (ovMap.has(field) ? (ovMap.get(field) ?? null) : ingested);
+  const val = (field: string, ingested: string | null): string | null => (ovMap.has(field) ? (ovMap.get(field)?.value ?? null) : ingested);
+  const src = (field: string): string | null => ovMap.get(field)?.source_url ?? null;
 
   const facts: IdolFact[] = [];
   const born = val('birth_date', idol.birth_date);
-  if (born) facts.push({ field: 'birth_date', label: 'Born', value: fmtDate(born), source: badge('birth_date', false) });
+  if (born) facts.push({ field: 'birth_date', label: 'Born', value: fmtDate(born), source: badge('birth_date', false), sourceUrl: src('birth_date') });
   const nat = val('nationality', idol.nationality);
-  if (nat) facts.push({ field: 'nationality', label: 'Nationality', value: nat, source: badge('nationality', false) });
+  if (nat) facts.push({ field: 'nationality', label: 'Nationality', value: nat, source: badge('nationality', false), sourceUrl: src('nationality') });
   const height = val('height_cm', idol.height_cm != null ? String(idol.height_cm) : null);
-  if (height) facts.push({ field: 'height_cm', label: 'Height', value: `${height} cm`, source: badge('height_cm', true) });
+  if (height) facts.push({ field: 'height_cm', label: 'Height', value: `${height} cm`, source: badge('height_cm', true), sourceUrl: src('height_cm') });
   const blood = val('blood_type', idol.blood_type);
-  if (blood) facts.push({ field: 'blood_type', label: 'Blood type', value: blood, source: badge('blood_type', true) });
+  if (blood) facts.push({ field: 'blood_type', label: 'Blood type', value: blood, source: badge('blood_type', true), sourceUrl: src('blood_type') });
   const mbti = val('mbti', idol.mbti);
-  if (mbti) facts.push({ field: 'mbti', label: 'MBTI', value: mbti, source: badge('mbti', true) });
+  if (mbti) facts.push({ field: 'mbti', label: 'MBTI', value: mbti, source: badge('mbti', true), sourceUrl: src('mbti') });
   // NOTE: no weight, ever. No personal-life fields exist in the schema or here.
+
+  // Editable field rows for the infobox editor (whitelist only, current values).
+  const ingestedByKey: Record<string, string | null> = {
+    birth_date: idol.birth_date, nationality: idol.nationality,
+    height_cm: idol.height_cm != null ? String(idol.height_cm) : null,
+    blood_type: idol.blood_type, mbti: idol.mbti,
+  };
+  const editableFields: EditableField[] = (INFOBOX_FIELDS.idol ?? []).map((f) => {
+    const ov = ovMap.get(f.key);
+    return { key: f.key, value: (ov ? ov.value : ingestedByKey[f.key]) ?? '', sourceUrl: ov?.source_url ?? '', isOverride: !!ov };
+  });
 
   const unitName = idol.unit_id ? ((units ?? []) as { id: number; name: string }[]).find((u) => u.id === idol.unit_id)?.name ?? null : null;
   const bandmates = rows.filter((r) => r.id !== idol.id).slice(0, 6).map((r) => ({ name: r.name, slug: idolSlug(r.name), photo_url: r.photo_url }));
@@ -118,7 +133,7 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
     group,
     id: idol.id, name: idol.name, name_hangul: idol.name_hangul, name_romanized: idol.name_romanized,
     positions: idol.positions ?? [], photo_url: idol.photo_url, birth_date: idol.birth_date, unitName,
-    facts, bandmates,
+    facts, editableFields, bandmates,
     fanStats: { biasCount, personalityRank, personalityGroupTotal, nameRecognitionPct, nameRounds },
   };
 }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SectionSurface } from '@/components/verse/editor/section-surface';
+import { InfoboxCard } from '@/components/verse/editor/infobox-card';
 import { getIdol } from '@/lib/verse/idol';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
@@ -55,15 +56,6 @@ function FanKnows({ d }: { d: IdolDetail }): React.ReactElement | null {
   );
 }
 
-function SourceBadge({ source }: { source: 'wd' | 'cur' | null }): React.ReactElement | null {
-  if (!source) return null;
-  const label = source === 'wd' ? 'wd' : 'cur';
-  const title = source === 'wd' ? 'Ingested from Wikidata (CC0)' : 'Entered by a curator';
-  return (
-    <abbr title={title} className="ml-1 rounded px-1 text-[9px] font-bold uppercase no-underline" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{label}</abbr>
-  );
-}
-
 export default async function IdolPage({ params }: { params: Promise<{ slug: string; idol: string }> }): Promise<React.ReactElement> {
   const { slug, idol } = await params;
   const d = await getIdol(slug, idol);
@@ -102,22 +94,11 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
       {/* Desktop: sticky infobox left, content right. Mobile: stacked. */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <aside className="lg:col-span-1">
-          <div className="rounded-xl border border-default bg-surface p-4 lg:sticky lg:top-4" style={{ borderColor: 'var(--verse-line)' }}>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Facts</h2>
-            {d.facts.length ? (
-              <dl className="space-y-2 text-sm">
-                {d.facts.map((f) => (
-                  <div key={f.field} className="flex justify-between gap-3">
-                    <dt className="text-tertiary">{f.label}</dt>
-                    <dd className="text-right font-medium text-primary">{f.value}<SourceBadge source={f.source} /></dd>
-                  </div>
-                ))}
-              </dl>
-            ) : <p className="text-sm text-tertiary">Facts are being sourced.</p>}
-            <p className="mt-4 border-t border-default pt-3 text-[11px] text-tertiary">
-              Sources: Wikidata (CC0). <a href={`mailto:kaspermaiden@gmail.com?subject=${encodeURIComponent(`Verse edit: ${d.name} (${d.group.name})`)}`} className="font-semibold underline" style={{ color: 'var(--verse-ink)' }}>Suggest an edit</a>
-            </p>
-          </div>
+          <InfoboxCard
+            entityType="idol" entityId={String(d.id)}
+            facts={d.facts} editableFields={d.editableFields}
+            suggestSubject={`Verse edit: ${d.name} (${d.group.name})`}
+          />
         </aside>
 
         <div className="lg:col-span-2">
