@@ -27,7 +27,8 @@ export type CrossPromoTarget =
   | 'games'
   | 'daily'
   | 'create'
-  | 'login-debate';
+  | 'login-debate'
+  | 'verse';
 
 /** True when this play was launched from a ?daily= link (home daily row, /daily). */
 export function isDailyLaunch(): boolean {
@@ -61,7 +62,7 @@ export const analytics = {
 
   // `from` also accepts 'community' so the community page can attribute its
   // war-map CTA and daily cards without a new event name.
-  crossPromo: (from: GameType | 'community', to: CrossPromoTarget): void => ev('cross_promo_click', { from, to }),
+  crossPromo: (from: GameType | 'community' | 'verse', to: CrossPromoTarget): void => ev('cross_promo_click', { from, to }),
 
   signinClick: (type: GameType): void => ev('result_signin_click', { type }),
 

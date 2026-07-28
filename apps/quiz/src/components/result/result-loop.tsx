@@ -224,8 +224,19 @@ export function ResultLoop({
         </div>
       )}
 
-      {/* 4. The loop spine: two crawlable cross-links, quiz-result styling. */}
+      {/* 4. The loop spine: two crawlable cross-links, quiz-result styling.
+          When we know the group, a link into its Verse space leads the row. */}
       <div className="flex flex-col gap-2 mt-3">
+        {groupSlug ? (
+          <Link
+            href={`/verse/${groupSlug}`}
+            onClick={() => analytics.crossPromo(game, 'verse')}
+            className="flex items-center gap-2.5 p-3 bg-surface border border-default rounded-xl text-[13px] text-secondary hover:text-primary transition-colors no-underline"
+          >
+            <Icon name="people" />
+            <span>Visit the {groupName ?? 'group'} space: members, discography and community</span>
+          </Link>
+        ) : null}
         {cards.map((card) => (
           <Link
             key={card.href}

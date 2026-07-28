@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { getSpace } from '@/lib/verse/space';
 import { onThisDay } from '@/lib/verse/date-engines';
 
+import type { CrossPromoTarget } from '@/lib/analytics';
 import type { Space } from '@/lib/verse/space';
 
 export const revalidate = 3600;
@@ -20,20 +22,20 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function PlayRow({ space }: { space: Space }): React.ReactElement | null {
   const { group, surfaces } = space;
   const tiles = [
-    surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', sub: 'Test your knowledge' },
-    surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', sub: 'Name the song' },
-    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', sub: 'The full roster' },
-    surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', sub: 'Personality match' },
-  ].filter(Boolean) as { href: string; label: string; sub: string }[];
+    surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', sub: 'Test your knowledge', target: 'group-quiz' as CrossPromoTarget },
+    surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', sub: 'Name the song', target: 'blindtest' as CrossPromoTarget },
+    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', sub: 'The full roster', target: 'name-all' as CrossPromoTarget },
+    surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', sub: 'Personality match', target: 'games' as CrossPromoTarget },
+  ].filter(Boolean) as { href: string; label: string; sub: string; target: CrossPromoTarget }[];
   if (!tiles.length) return null;
   return (
     <Section title="Play">
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {tiles.map((t) => (
-          <Link key={t.href} href={t.href} className="verse-tile rounded-xl border border-default bg-surface p-4 no-underline" style={{ borderColor: 'var(--border)' }}>
+          <VerseGameLink key={t.href} href={t.href} target={t.target} className="verse-tile rounded-xl border border-default bg-surface p-4 no-underline" style={{ borderColor: 'var(--border)' }}>
             <span className="block text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{t.label}</span>
             <span className="mt-0.5 block text-xs text-tertiary">{t.sub}</span>
-          </Link>
+          </VerseGameLink>
         ))}
       </div>
     </Section>
