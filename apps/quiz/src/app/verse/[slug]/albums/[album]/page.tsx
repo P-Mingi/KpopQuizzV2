@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getAlbum } from '@/lib/verse/album';
+import { musicAlbumLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
 
@@ -25,7 +27,12 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
 
   return (
     <article className="mt-2 max-w-3xl">
-      <Link href={`/verse/${slug}/discography`} className="mb-4 inline-block text-xs font-semibold text-secondary no-underline hover:text-primary">‹ {a.group.name} discography</Link>
+      {jsonLdScript(musicAlbumLd({
+        title: a.title, groupSlug: slug, albumSlug: album, groupName: a.group.name,
+        release_date: a.release_date, type: a.type, numTracks: a.tracks.length,
+      }))}
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: a.group.fandom_name, href: `/verse/${slug}` }, { label: 'Discography', href: `/verse/${slug}/discography` }, { label: a.title }]} />
+      <Link href={`/verse/${slug}/discography`} className="mb-4 mt-2 inline-block text-xs font-semibold text-secondary no-underline hover:text-primary">‹ {a.group.name} discography</Link>
 
       <header className="mb-6">
         <h1 className="text-3xl font-extrabold leading-tight" style={{ color: 'var(--verse-ink)' }}>{a.title}</h1>

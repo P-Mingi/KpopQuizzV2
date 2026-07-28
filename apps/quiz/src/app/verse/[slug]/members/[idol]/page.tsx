@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getIdol } from '@/lib/verse/idol';
+import { personLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
 
@@ -35,7 +37,12 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <article className="mt-2">
-      <Link href={`/verse/${slug}/members`} className="mb-4 inline-block text-xs font-semibold text-secondary no-underline hover:text-primary">‹ {d.group.fandom_name} members</Link>
+      {jsonLdScript(personLd({
+        name: d.name, groupSlug: slug, idolSlug: idol, groupName: d.group.name,
+        birth_date: d.birth_date, nationality: d.facts.find((f) => f.field === 'nationality')?.value ?? null,
+      }))}
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: d.group.fandom_name, href: `/verse/${slug}` }, { label: 'Members', href: `/verse/${slug}/members` }, { label: d.name }]} />
+      <Link href={`/verse/${slug}/members`} className="mb-4 mt-2 inline-block text-xs font-semibold text-secondary no-underline hover:text-primary">‹ {d.group.fandom_name} members</Link>
 
       {/* Header */}
       <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end">

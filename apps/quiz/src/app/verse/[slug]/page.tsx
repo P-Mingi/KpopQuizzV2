@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { getSpace } from '@/lib/verse/space';
 import { onThisDay } from '@/lib/verse/date-engines';
+import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { CrossPromoTarget } from '@/lib/analytics';
 import type { Space } from '@/lib/verse/space';
@@ -145,6 +147,14 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
 
   return (
     <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3">
+      {jsonLdScript(musicGroupLd({
+        name: space.group.name, slug: space.group.slug, fandom_name: space.group.fandom_name,
+        inception_date: space.group.inception_date, official_website: space.group.official_website,
+        record_label: space.group.record_label, memberNames: space.idols.map((i) => i.name),
+      }))}
+      <div className="lg:col-span-3 mb-4">
+        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+      </div>
       <div className="lg:col-span-2">
         <PlayRow space={space} />
         <MembersStrip space={space} />

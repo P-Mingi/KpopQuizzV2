@@ -45,6 +45,7 @@ export async function GET(): Promise<Response> {
 - [Quizzes](https://kpopquiz.org/quizzes): Browse all fan-made K-pop quizzes by group, difficulty, or popularity
 - [Blind Test](https://kpopquiz.org/blindtest): Audio blind test with ${songCount}+ songs, filter by generation or group
 - [Games Hub](https://kpopquiz.org/games): This or That matchups, Name All Members, Sort It (boy vs girl group, generation), Match-Up (song/idol to group), and Name Them All grids
+- [Verse](https://kpopquiz.org/verse): Fandom spaces, one per group. Each space has members (idol profiles with sourced facts), discography with tracklists, a timeline, and community. Data is sourced from Wikidata and MusicBrainz (both CC0), with curator corrections that take precedence. No dating, scandal, or personal-life content by policy.
 - [Trivia](https://kpopquiz.org/trivia): K-pop fun facts and trivia pages per group
 - [Leaderboard](https://kpopquiz.org/leaderboard): Top players ranked by score
 - [Rankings](https://kpopquiz.org/rankings): Fan-voted rankings for members, songs, albums per group

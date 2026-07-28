@@ -156,6 +156,24 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         </Link>
       )}
 
+      {/* W2.10: crawlable cross-link into the group's Verse space. */}
+      {nameAllGame && (
+        <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Explore the {group.fandom_name} space on Verse</span>
+            <span className="trivia-entry-sub">Members, discography, timeline and community for {group.name}</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
+
       {/* V closeout: internal-link mesh into the new game modes (crawlable). */}
       <nav className="group-games-mesh mt-4" aria-label="More K-pop games">
         <span className="group-games-mesh-label">More K-pop games</span>

@@ -8,6 +8,7 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
+import { slugify as verseSlugify } from '@/lib/verse/slug';
 
 import type { MetadataRoute } from 'next';
 
@@ -380,6 +381,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] pulse query failed, skipping pulse month pages:', err);
   }
 
+  // Verse: directory + each seeded space (+ its 5 tabs) + idol + album pages.
+  let versePages: MetadataRoute.Sitemap = [];
+  try {
+    const svc = createServiceRoleClient();
+    const [{ data: seeds }, { data: idols }, { data: albums }] = await Promise.all([
+      svc.from('verse_seed_ids').select('groups(slug)').not('checked_at', 'is', null),
+      svc.from('idols').select('name, groups(slug)').eq('active', true),
+      svc.from('albums').select('title, groups(slug)'),
+    ]);
+    const gslug = (g: unknown): string | null => {
+      const v = Array.isArray(g) ? g[0] : g;
+      return v && typeof v === 'object' && 'slug' in v ? (v as { slug: string }).slug : null;
+    };
+    const seen = new Set<string>();
+    const push = (path: string, priority: number, freq: 'daily' | 'weekly' | 'monthly') => {
+      const url = `${SITE_URL}${path}`;
+      if (seen.has(url)) return;
+      seen.add(url);
+      versePages.push({ url, lastModified: STATIC_DATE, changeFrequency: freq, priority });
+    };
+    push('/verse', 0.8, 'daily');
+    const spaceSlugs = [...new Set(((seeds ?? []) as { groups: unknown }[]).map((s) => gslug(s.groups)).filter((x): x is string => !!x))];
+    for (const slug of spaceSlugs) {
+      push(`/verse/${slug}`, 0.7, 'weekly');
+      for (const tab of ['members', 'discography', 'timeline', 'community', 'about']) push(`/verse/${slug}/${tab}`, 0.5, 'weekly');
+    }
+    for (const i of (idols ?? []) as { name: string; groups: unknown }[]) {
+      const s = gslug(i.groups);
+      if (s) push(`/verse/${s}/members/${verseSlugify(i.name)}`, 0.6, 'monthly');
+    }
+    for (const a of (albums ?? []) as { title: string; groups: unknown }[]) {
+      const s = gslug(a.groups);
+      if (s) push(`/verse/${s}/albums/${verseSlugify(a.title)}`, 0.5, 'monthly');
+    }
+  } catch (err) {
+    console.error('[sitemap] verse query failed, skipping verse pages:', err);
+    versePages = [];
+  }
+
   return [
     ...staticPages,
     ...articlePages,
@@ -392,5 +432,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...gamePages,
     ...rankingPages,
     ...pulsePages,
+    ...versePages,
   ];
 }
