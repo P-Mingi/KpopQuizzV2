@@ -16,6 +16,18 @@ const MB_UA = 'KpopQuizVerse-Refresh/1.0 ( kaspermaiden@gmail.com )';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const NOISE_SECONDARY = new Set(['Compilation', 'Live', 'Remix', 'DJ-mix', 'Mixtape/Street', 'Demo']);
 
+// Same title-cleanup normalizer the backfill uses, so the refresh dedupes
+// same-title reissues consistently instead of re-adding them.
+function normTitle(t: string): string {
+  return (t || '')
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\[[^\]]*\]/g, ' ')
+    .replace(/\b(feat|ft|featuring)\.?.*$/i, ' ')
+    .replace(/\s-\s.*$/, ' ')
+    .replace(/[^a-z0-9가-힣]/gi, '')
+    .toLowerCase();
+}
+
 export interface RefreshStats {
   groups: number;
   fieldsUpdated: number;
@@ -96,14 +108,18 @@ async function insertNewAlbums(
   const resp = await mb(`release-group?artist=${mbid}&type=album|ep&limit=100`);
   const rgs = ((resp['release-groups'] as Record<string, unknown>[]) ?? [])
     .filter((rg) => !((rg['secondary-types'] as string[]) ?? []).some((t) => NOISE_SECONDARY.has(t)));
-  const { data: existing } = await svc.from('albums').select('musicbrainz_mbid').eq('group_id', groupId);
+  const { data: existing } = await svc.from('albums').select('musicbrainz_mbid,title').eq('group_id', groupId);
   const known = new Set((existing ?? []).map((a: { musicbrainz_mbid: string | null }) => a.musicbrainz_mbid));
+  const knownTitles = new Set((existing ?? []).map((a: { title: string }) => normTitle(a.title)));
   let inserted = 0, tracklistBudget = maxTracklists;
   for (const rg of rgs) {
     const rgId = rg.id as string;
     if (known.has(rgId)) continue;
+    // dedupe same-title reissues (consistent with the one-time backfill)
+    if (knownTitles.has(normTitle(rg.title as string))) continue;
+    knownTitles.add(normTitle(rg.title as string));
     const frd = rg['first-release-date'] as string | undefined;
-    const { data: alb } = await svc.from('albums').insert({
+    const { data: alb, error: insErr } = await svc.from('albums').insert({
       group_id: groupId,
       title: rg.title as string,
       release_date: frd && frd.length >= 10 ? frd : null,
@@ -114,6 +130,10 @@ async function insertNewAlbums(
       review_flag: true,
       review_reason: 'New release detected by weekly refresh; confirm region/canonical.',
     }).select('id').single();
+    // The mbid unique index is global: if this release-group already belongs to
+    // another group's album (collab/shared RG), the insert is a no-op we skip -
+    // never counted, so the run stays idempotent.
+    if (insErr || !alb?.id) continue;
     inserted++;
     if (alb?.id) {
       await svc.from('entity_sources').upsert(
