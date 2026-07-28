@@ -27,6 +27,7 @@ const SEED_JSON = join(HERE, 'seed-candidates.json'); // committed source of tru
 
 const ARGS = process.argv.slice(2);
 const APPLY = ARGS.includes('--apply');
+const CONFIRM = ARGS.includes('--confirm'); // mark seeds checked (owner-approved)
 
 // ---- MusicBrainz fallback MBIDs (W0 finding: 2/30 fail the naive query but
 // exist; these are the human-verified correct artist MBIDs). ----
@@ -34,11 +35,16 @@ const MB_FALLBACK = {
   'g-i-dle': { mbid: '0068ae6c-7156-40f9-a81f-39294af6a549', name: 'i-dle', note: 'MB fallback: parentheses broke the naive query' },
   'kep1er':  { mbid: '187da628-d21a-4e0f-a93c-456c97a2c032', name: 'Kep1er', note: 'MB fallback: transient 503 during spike' },
 };
+// MusicBrainz overrides: force-replace an auto-resolved MBID with a human-verified
+// one. NCT auto-resolved to the 127 UNIT; owner confirmed the umbrella MBID (the
+// units 127/Dream/etc are modeled as group_units by the backfill).
+const MB_OVERRIDE = {
+  'nct': { mbid: '9c15986d-ff1f-4d91-9708-f50f7445884f', name: 'NCT', note: 'umbrella NCT (owner-confirmed); 127/Dream/U/Wish are units' },
+};
 // Trap / caveat flags the owner must eyeball.
 const TRAP = {
   'txt': 'WIKIDATA LABEL VANDALIZED at audit time ("Tacos de asada y cebollin"). QID is correct; our name stays canonical.',
   'fifty-fifty': 'Wikidata auto-picked wrong item ("1:1"); QID corrected by hand.',
-  'nct': 'MusicBrainz resolved the NCT 127 UNIT, not the umbrella. Needs a unit-aware MBID; confirm before ingest.',
   'hwasa': 'Solo artist (Wikidata person entity), not a group.',
   'jennie': 'Solo artist (Wikidata person entity), not a group.',
   'taeyeon': 'Solo artist (Wikidata person entity), not a group.',
@@ -67,6 +73,11 @@ function buildCandidates() {
       const f = MB_FALLBACK[g.slug];
       m = { mbid: f.mbid, mbName: f.name, type: 'Group' };
       mbNote = f.note;
+    }
+    if (MB_OVERRIDE[g.slug]) {
+      const o = MB_OVERRIDE[g.slug];
+      m = { mbid: o.mbid, mbName: o.name, type: 'Group' };
+      mbNote = o.note;
     }
     // Overall confidence: downgrade if either side is weak or a trap applies.
     const wConf = w.confidence || 'FAILED';
@@ -102,12 +113,22 @@ function renderTable(rows, tier) {
   return out;
 }
 
+// ---- shared service-role client (hand-parses repo-root .env.local) ----
+let _db;
+async function dbClient() {
+  if (_db) return _db;
+  const { createClient } = await import('@supabase/supabase-js');
+  // apps/quiz/.env.local = the prod project (rdkgouofyt) with our data + migration
+  // 124. Overridable via QUIZ_ENV.
+  const envPath = process.env.QUIZ_ENV || '/Users/louis/IT/Dev/projects/KpopQuizzV2/apps/quiz/.env.local';
+  const env = Object.fromEntries(readFileSync(envPath, 'utf8').split('\n').filter(l => l.includes('=')).map(l => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim().replace(/^["']|["']$/g, '')]; }));
+  _db = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { autoRefreshToken: false, persistSession: false } });
+  return _db;
+}
+
 // ---- APPLY mode: upsert into verse_seed_ids as UNCHECKED ----
 async function apply() {
-  const { createClient } = await import('@supabase/supabase-js');
-  const envPath = '/Users/louis/IT/Dev/projects/KpopQuizzV2/.env.local';
-  const env = Object.fromEntries(readFileSync(envPath, 'utf8').split('\n').filter(l => l.includes('=')).map(l => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim().replace(/^["']|["']$/g, '')]; }));
-  const db = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { autoRefreshToken: false, persistSession: false } });
+  const db = await dbClient();
   const rows = JSON.parse(readFileSync(SEED_JSON, 'utf8'));
   let ok = 0;
   for (const r of rows) {
@@ -129,7 +150,19 @@ async function apply() {
   console.log(`Upserted ${ok}/${rows.length} seed rows as UNCHECKED. Owner must review + confirm before ingestion.`);
 }
 
-if (APPLY) {
+async function confirmChecked() {
+  const db = await dbClient();
+  const { data, error } = await db.from('verse_seed_ids')
+    .update({ checked_by: 'owner', checked_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+    .is('checked_at', null)
+    .select('group_id');
+  if (error) { console.error('confirm err', error.message); return; }
+  console.log(`Marked ${data.length} seed rows CHECKED (checked_by=owner). Ingestion is now unblocked for them.`);
+}
+
+if (CONFIRM) {
+  await confirmChecked();
+} else if (APPLY) {
   await apply();
 } else {
   const rows = buildCandidates();

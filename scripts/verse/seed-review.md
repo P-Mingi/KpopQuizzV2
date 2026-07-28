@@ -19,7 +19,7 @@ read open-data facts from. Confirm the flagship 20 before any backfill runs.
 | ITZY | Q60732823 | Itzy | bce172fc... | ITZY | HIGH |  |
 | IVE | Q109375061 | Ive | b2f2216a... | IVE | HIGH |  |
 | LE SSERAFIM | Q111381707 | Le Sserafim | 1ee37742... | LE SSERAFIM | HIGH |  |
-| NCT | Q23725822 | NCT | 9d17d14a... | NCT 127 | REVIEW | MusicBrainz resolved the NCT 127 UNIT, not the umbrella. Needs a unit-aware MBID; confirm before ingest. |
+| NCT | Q23725822 | NCT | 9c15986d... | NCT | HIGH | umbrella NCT (owner-confirmed); 127/Dream/U/Wish are units |
 | NewJeans | Q113189277 | New Jeans | 49204a7a... | NewJeans | HIGH |  |
 | NMIXX | Q109307762 | Nmixx | 2d623e82... | NMIXX | HIGH |  |
 | Red Velvet | Q17466114 | Red Velvet | 4f0cb3b7... | Red Velvet | HIGH |  |

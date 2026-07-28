@@ -150,10 +150,10 @@
     "wikidata_qid": "Q23725822",
     "wikidata_label": "NCT",
     "wikidata_confidence": "HIGH",
-    "musicbrainz_mbid": "9d17d14a-e81c-410e-a90b-b02b0a9de6f8",
-    "musicbrainz_name": "NCT 127",
-    "confidence": "REVIEW",
-    "flags": "MusicBrainz resolved the NCT 127 UNIT, not the umbrella. Needs a unit-aware MBID; confirm before ingest."
+    "musicbrainz_mbid": "9c15986d-ff1f-4d91-9708-f50f7445884f",
+    "musicbrainz_name": "NCT",
+    "confidence": "HIGH",
+    "flags": "umbrella NCT (owner-confirmed); 127/Dream/U/Wish are units"
   },
   {
     "group_id": 6,
