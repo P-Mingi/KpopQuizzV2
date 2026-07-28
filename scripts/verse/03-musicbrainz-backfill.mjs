@@ -134,20 +134,32 @@ async function main() {
       for (const rg of kept) {
         const relResp = await mb(`release?release-group=${rg.id}&inc=recordings&limit=25`);
         const { rel, region, versionCount } = pickCanonicalRelease(relResp.releases || []);
+        const release_date = rg['first-release-date'] && rg['first-release-date'].length >= 10 ? rg['first-release-date'] : null;
+        // Flag only genuinely AMBIGUOUS cases for a curator. Multiple pressings
+        // (versionCount > 1) are NORMAL for K-pop and are NOT flagged - we
+        // already picked the canonical release. Ambiguous = a same-title reissue
+        // (which release group is canonical?), an undetermined region, or a
+        // missing date. versionCount is still recorded for context.
         const reissue = (rg._dupes || 0) > 0;
-        const multiVersion = versionCount > 1;
-        const review = reissue || multiVersion;
+        const unknownRegion = region === 'other';
+        const noDate = !release_date;
+        const review = reissue || unknownRegion || noDate;
         if (review) flagged++;
         const albumRow = {
           group_id: gid,
           title: rg.title,
-          release_date: rg['first-release-date'] ? (rg['first-release-date'].length >= 10 ? rg['first-release-date'] : null) : null,
+          release_date,
           type: (rg['primary-type'] || 'album').toLowerCase() === 'ep' ? 'ep' : 'album',
           region,
           cover_source: 'MusicBrainz release-group ' + rg.id,
           musicbrainz_mbid: rg.id,
           review_flag: review,
-          review_reason: review ? [reissue ? `${rg._dupes} same-title reissue(s)` : null, multiVersion ? `${versionCount} release versions` : null].filter(Boolean).join('; ') : null,
+          review_reason: review ? [
+            reissue ? `${rg._dupes} same-title reissue(s)` : null,
+            unknownRegion ? 'region undetermined' : null,
+            noDate ? 'no release date' : null,
+            versionCount > 1 ? `(${versionCount} pressings)` : null,
+          ].filter(Boolean).join('; ') : null,
         };
         const albumId = await getOrInsertAlbum(db, albumRow);
         albumsInserted++;
