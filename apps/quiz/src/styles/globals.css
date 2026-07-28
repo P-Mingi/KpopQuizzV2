@@ -713,6 +713,19 @@ body {
   flex-shrink: 0;
 }
 
+/* Shown instead of a low play count on freshly created quizzes (display only). */
+.quiz-new-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
 .quiz-score { font-weight: 600; flex-shrink: 0; }
 .score-green { color: var(--badge-truefalse-text); }
 .score-amber { color: var(--badge-clues-text); }

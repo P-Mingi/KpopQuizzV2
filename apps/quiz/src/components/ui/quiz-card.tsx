@@ -15,6 +15,10 @@ import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
  * Stays a real crawlable <a href="/q/{slug}"> for SEO - never a JS-only onClick.
  */
 
+// Below this many plays a quiz shows a "New" badge instead of a low, dead-looking
+// count. DISPLAY ONLY: the real play_count is never changed (no fabricated stats).
+const NEW_QUIZ_PLAY_THRESHOLD = 7;
+
 const TYPE_BADGE: Record<QuizType, { cls: string; label: string }> = {
   multiple_choice:  { cls: 'b-classic',  label: 'Classic' },
   true_false:       { cls: 'b-tf',       label: 'True/False' },
@@ -95,12 +99,16 @@ export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.Re
         <p className="quiz-title">{quiz.title}</p>
 
         <div className="quiz-meta">
-          <span className="quiz-plays">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            {formatCount(quiz.play_count)}
-          </span>
+          {quiz.play_count < NEW_QUIZ_PLAY_THRESHOLD ? (
+            <span className="quiz-new-badge">New</span>
+          ) : (
+            <span className="quiz-plays">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              {formatCount(quiz.play_count)}
+            </span>
+          )}
           {showScore && pct !== null && (
             <span className={`quiz-score ${scoreClass(pct)}`}>{pct}%</span>
           )}
