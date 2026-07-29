@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
 import { sectionDef } from '@/lib/verse/content';
+import { canCurateEntity } from '@/lib/verse/curate';
 
 import type { NextRequest } from 'next/server';
 
-// W3.8 - lock / unlock a section (reviewer-tier; v1 = admins). A locked section
-// blocks suggestions and shows a reader indicator; reviewers can still edit and
-// unlock. The lock carries who / when / why (locked_by, locked_at, lock_reason).
+// W3.8 / W4.3 - lock / unlock a section (reviewer-tier = global admins + per-space
+// curators). A locked section blocks suggestions and shows a reader indicator;
+// reviewers can still edit and unlock. The lock carries who / when / why.
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
-  if (!user || !isAdmin(user.id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const locked = body.locked === true;
   const reason = body.reason ? String(body.reason).slice(0, 200) : null;
   if (!sectionDef(entity_type, section_key)) return NextResponse.json({ error: 'unknown_section' }, { status: 400 });
+  if (!await canCurateEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   const svc = createServiceRoleClient();
   const patch = locked

@@ -31,3 +31,8 @@ export async function currentSpaceRole(groupId: number): Promise<{ userId: strin
   const role = await getSpaceRole(user?.id ?? null, groupId);
   return { userId: user?.id ?? null, role };
 }
+
+/** True when the user may curate (edit/review/protect) a given space. */
+export async function canCurateSpace(userId: string | null, groupId: number): Promise<boolean> {
+  return roleAtLeast(await getSpaceRole(userId, groupId), 'curator');
+}

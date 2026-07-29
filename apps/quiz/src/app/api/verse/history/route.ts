@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { canCurateEntity } from '@/lib/verse/curate';
 import { sectionDef } from '@/lib/verse/content';
 
 import type { NextRequest } from 'next/server';
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
-  if (!user || !isAdmin(user.id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const section_key = String(body.section ?? '');
   const revisionId = Number(body.revision_id);
   if (!sectionDef(entity_type, section_key) || !revisionId) return NextResponse.json({ error: 'bad_request' }, { status: 400 });
+  if (!await canCurateEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   const svc = createServiceRoleClient();
   const { data: target } = await svc.from('verse_revisions').select('id, content')

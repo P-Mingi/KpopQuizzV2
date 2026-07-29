@@ -36,8 +36,8 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
   const [stories, setStories] = useState<Record<number, { html: string; content: unknown; rev: number | null }>>({});
 
   useEffect(() => {
-    fetch('/api/verse/can-edit').then((r) => (r.ok ? r.json() : null)).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
-  }, []);
+    fetch(`/api/verse/can-edit?group=${encodeURIComponent(groupSlug)}`).then((r) => (r.ok ? r.json() : null)).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
+  }, [groupSlug]);
 
   const toggle = (id: number): void => setExpanded((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
 

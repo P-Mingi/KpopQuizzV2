@@ -1,5 +1,6 @@
 import { GroupLogo } from '@/components/ui/group-logo';
 import { JoinButton } from '@/components/verse/join-button';
+import { CurateLink } from '@/components/verse/curate-link';
 import { upcomingBirthday, comebackCountdown } from '@/lib/verse/date-engines';
 
 import type { Space } from '@/lib/verse/space';
@@ -41,6 +42,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
 
         <div className="flex flex-wrap items-center gap-3">
           <JoinButton groupId={group.id} groupSlug={group.slug} fandomName={group.fandom_name} />
+          <CurateLink groupSlug={group.slug} />
           <span className="text-xs text-tertiary">{counts.members} members{counts.albums > 0 ? `  ·  ${counts.albums} releases` : ''}</span>
           {config.sns_links.length > 0 ? (
             <span className="ml-auto flex flex-wrap gap-2">

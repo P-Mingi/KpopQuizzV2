@@ -1,28 +1,29 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
 import { sectionDef } from '@/lib/verse/content';
+import { canCurateEntity } from '@/lib/verse/curate';
 
 import type { NextRequest } from 'next/server';
 
-// W3.2 - save an editable rich-text section. Admin-gated (v1 editors = owner +
-// admins; curator roles arrive in W4). Append-only revision + current-content
+// W3.2 / W4.3 - save an editable rich-text section. Editors = global admins + the
+// per-space curators of the entity's space. Append-only revision + current-content
 // update, with base-revision conflict detection. All writes service-role.
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
-  }
+  if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const entity_type = String(body.entity_type ?? '');
   const entity_id = String(body.entity_id ?? '');
   const section_key = String(body.section ?? '');
+  if (!await canCurateEntity(user.id, entity_type, entity_id)) {
+    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  }
   const content = body.content;
   const summary = body.summary ? String(body.summary).slice(0, 300) : null;
   const minor = body.minor === true;

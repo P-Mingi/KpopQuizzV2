@@ -47,8 +47,9 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [hover, setHover] = useState<{ label: string; type: string; href: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
-    fetch('/api/verse/can-edit').then((r) => r.ok ? r.json() : null).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
-  }, []);
+    const q = props.groupSlug ? `?group=${encodeURIComponent(props.groupSlug)}` : '';
+    fetch(`/api/verse/can-edit${q}`).then((r) => r.ok ? r.json() : null).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
+  }, [props.groupSlug]);
 
   // Hover preview cards for @-mention chips (identify the entity + jump to it).
   const onMentionOver = (e: React.MouseEvent) => {

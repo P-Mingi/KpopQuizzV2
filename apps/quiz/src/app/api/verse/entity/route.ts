@@ -1,21 +1,22 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
 import { SCENES } from '@/lib/verse/entity-types';
+import { canCurateSpace } from '@/lib/verse/roles';
+import { canCurateEntity } from '@/lib/verse/curate';
 
 import type { SceneKind } from '@/lib/verse/entity-types';
 import type { NextRequest } from 'next/server';
 
-// W3K.4 - admin authoring for the new entity types (tours / shows / ost / awards).
-// Create + edit as drafts; publish requires a title and a source, which is what turns
-// a curator-only entity into a public page (the doorway-page gate). Service-role writes.
+// W3K.4 / W4.3 - authoring for the new entity types (tours / shows / ost / awards).
+// Editors = global admins + per-space curators of the entity's space. Create + edit as
+// drafts; publish requires a title and a source (the doorway-page gate). Service-role writes.
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin(): Promise<boolean> {
+async function callerId(): Promise<string | null> {
   const c = await createServerClient();
   const { data: { user } } = await c.auth.getUser();
-  return !!user && isAdmin(user.id);
+  return user?.id ?? null;
 }
 
 function coerce(scene: (typeof SCENES)[SceneKind], input: Record<string, unknown>): Record<string, unknown> {
@@ -37,23 +38,25 @@ function coerce(scene: (typeof SCENES)[SceneKind], input: Record<string, unknown
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  if (!await requireAdmin()) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  const uid = await callerId();
   const kind = new URL(req.url).searchParams.get('kind') as SceneKind | null;
   const groupId = Number(new URL(req.url).searchParams.get('group_id'));
   const scene = kind ? SCENES[kind] : null;
   if (!scene || !groupId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  if (!await canCurateSpace(uid, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const svc = createServiceRoleClient();
   const { data } = await svc.from(scene.table).select('*').eq('group_id', groupId).order('created_at', { ascending: false });
   return NextResponse.json({ rows: data ?? [] });
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  if (!await requireAdmin()) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  const uid = await callerId();
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const scene = SCENES[body.kind as SceneKind];
   const groupId = Number(body.group_id);
   if (!scene || !groupId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  if (!await canCurateSpace(uid, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const patch = coerce(scene, body);
   if (!patch[scene.titleField]) return NextResponse.json({ error: 'title_required' }, { status: 400 });
   const svc = createServiceRoleClient();
@@ -63,12 +66,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
-  if (!await requireAdmin()) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  const uid = await callerId();
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const scene = SCENES[body.kind as SceneKind];
   const id = Number(body.id);
   if (!scene || !id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  if (!await canCurateEntity(uid, scene.entityType, String(id))) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const svc = createServiceRoleClient();
 
   const patch = coerce(scene, body);

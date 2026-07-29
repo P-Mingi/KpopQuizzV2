@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
 import { sectionDef } from '@/lib/verse/content';
+import { canCurateEntity } from '@/lib/verse/curate';
 
 import type { NextRequest } from 'next/server';
 
-// W3.2 - per-author autosave draft. Private (service-role). GET the caller's
-// draft, PUT to upsert it, DELETE to discard. Editing is admin-gated in v1.
+// W3.2 / W4.3 - per-author autosave draft. Private (service-role, keyed by author).
+// GET the caller's draft, PUT to upsert it, DELETE to discard. PUT is gated to editors
+// (global admins + per-space curators) of the entity's space.
 export const dynamic = 'force-dynamic';
 
 async function requireEditor() {
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
-  if (!user || !isAdmin(user.id)) return null;
-  return user;
+  return user ?? null;
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
@@ -42,6 +42,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
   const section_key = String(body.section ?? '');
   if (!sectionDef(entity_type, section_key)) return NextResponse.json({ error: 'unknown_section' }, { status: 400 });
   if (!body.content || typeof body.content !== 'object') return NextResponse.json({ error: 'content_required' }, { status: 400 });
+  if (!await canCurateEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const svc = createServiceRoleClient();
   const { error } = await svc.from('verse_drafts').upsert({
     author: user.id, entity_type, entity_id, section_key,
