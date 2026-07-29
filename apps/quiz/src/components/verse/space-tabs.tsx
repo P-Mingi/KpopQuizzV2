@@ -10,6 +10,7 @@ const CORE: Tab[] = [
   { label: 'Discography', seg: 'discography' },
   { label: 'Timeline', seg: 'timeline' },
   { label: 'Quests', seg: 'quests' },
+  { label: 'Essays', seg: 'essays' },
 ];
 const TAIL: Tab[] = [
   { label: 'Community', seg: 'community' },
