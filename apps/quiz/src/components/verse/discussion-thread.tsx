@@ -47,6 +47,12 @@ export function DiscussionThread({ entityType, entityId }: { entityType: string;
     if (r.ok) load();
   }
 
+  async function report(id: number) {
+    if (!confirm('Report this comment to the curators?')) return;
+    const r = await fetch('/api/verse/flags', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ target_type: 'comment', target_id: id }) });
+    if (r.ok) alert('Reported. Curators will review it.'); else if (r.status === 401) window.location.href = `/login?returnTo=${encodeURIComponent(window.location.pathname)}`;
+  }
+
   const Row = ({ c, isReply }: { c: Comment; isReply?: boolean }): React.ReactElement => {
     const name = c.author?.displayName || c.author?.username || 'Fan';
     return (
@@ -58,7 +64,7 @@ export function DiscussionThread({ entityType, entityId }: { entityType: string;
             <p className="mt-0.5 whitespace-pre-wrap text-sm text-secondary">{c.body}</p>
             <div className="mt-1 flex gap-3 text-xs">
               {!isReply && signedIn ? <button onClick={() => { setReplyTo(replyTo === c.id ? null : c.id); setReplyDraft(''); }} className="font-semibold text-tertiary hover:text-secondary">Reply</button> : null}
-              {c.mine ? <button onClick={() => del(c.id)} className="text-tertiary hover:text-secondary">Delete</button> : null}
+              {c.mine ? <button onClick={() => del(c.id)} className="text-tertiary hover:text-secondary">Delete</button> : signedIn ? <button onClick={() => report(c.id)} className="text-tertiary hover:text-secondary">Report</button> : null}
             </div>
             {replyTo === c.id ? (
               <div className="mt-2 flex gap-2">

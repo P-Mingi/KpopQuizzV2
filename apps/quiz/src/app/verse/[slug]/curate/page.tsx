@@ -42,6 +42,7 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Tools</h2>
         <div className="flex flex-wrap gap-3 text-sm">
           <Link href={`/verse/${slug}/insights`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Space insights</Link>
+          <Link href={`/verse/${slug}/patrol`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Patrol queue</Link>
           <Link href="/admin/verse/suggestions" className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Review suggestions</Link>
           <Link href="/admin/verse/entities" className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Tours / shows / OST / awards</Link>
           <Link href={`/verse/${slug}/changes`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Recent changes</Link>

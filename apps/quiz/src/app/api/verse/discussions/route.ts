@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getDiscussions } from '@/lib/verse/discussions';
-import { canCurateEntity } from '@/lib/verse/curate';
+import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
+import { checkText, fileFlag, underRateCap, isTrusted } from '@/lib/verse/moderation';
 
 import type { NextRequest } from 'next/server';
 
@@ -37,6 +38,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
 
+  // Rate limit: at most 5 comments / minute per user (spam guard).
+  if (!await underRateCap('verse_discussions', 'author', user.id, 60, 5)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  // Trust tier: brand-new accounts (< 1 day) can't post links (link-spam guard).
+  if (/https?:\/\//i.test(text) && !isTrusted((user as { created_at?: string }).created_at ?? null)) return NextResponse.json({ error: 'new_account_no_links' }, { status: 422 });
+  // Banned-term check: block outright, or allow-but-flag for patrol.
+  const hit = await checkText(text);
+  if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
+
   const svc = createServiceRoleClient();
   // A reply must attach to a real top-level comment on the same page (one level only).
   let parent: number | null = null;
@@ -48,6 +57,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
   const { data, error } = await svc.from('verse_discussions').insert({ entity_type, entity_id, author: user.id, body: text, parent_id: parent, status: 'visible' }).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  // Auto-flag for patrol when a soft-banned term was used (comment still posts).
+  if (hit?.action === 'flag') {
+    const gid = await resolveEntityGroupId(entity_type, entity_id);
+    await fileFlag({ target_type: 'comment', target_id: data.id, group_id: gid, reporter: null, reason: `Auto-flag: term "${hit.term}"` });
+  }
   return NextResponse.json({ ok: true, id: data.id });
 }
 

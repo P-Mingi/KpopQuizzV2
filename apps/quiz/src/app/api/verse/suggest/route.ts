@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { sectionDef } from '@/lib/verse/content';
+import { renderTipTapJSON } from '@/lib/verse/render-content';
+import { resolveEntityGroupId } from '@/lib/verse/curate';
+import { checkText, fileFlag, underRateCap } from '@/lib/verse/moderation';
 
 import type { NextRequest } from 'next/server';
 
@@ -33,10 +36,20 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // A locked section is closed to suggestions (comeback-week fact locks, etc.).
   if (cur?.locked) return NextResponse.json({ error: 'section_locked' }, { status: 423 });
 
-  const { error } = await svc.from('verse_edit_suggestions').insert({
+  // Rate limit signed-in suggesters (20 / hour); banned-term check on the proposed text.
+  if (user && !await underRateCap('verse_edit_suggestions', 'author', user.id, 3600, 20)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  const plain = `${summary ?? ''} ${renderTipTapJSON(content).replace(/<[^>]*>/g, ' ')}`;
+  const hit = await checkText(plain);
+  if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
+
+  const { data: inserted, error } = await svc.from('verse_edit_suggestions').insert({
     entity_type, entity_id, section_key, author: user?.id ?? null,
     content, summary, minor, base_revision_id: cur?.current_revision_id ?? null, status: 'pending',
-  });
+  }).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (hit?.action === 'flag') {
+    const gid = await resolveEntityGroupId(entity_type, entity_id);
+    await fileFlag({ target_type: 'suggestion', target_id: inserted.id, group_id: gid, reporter: null, reason: `Auto-flag: term "${hit.term}"` });
+  }
   return NextResponse.json({ ok: true });
 }
