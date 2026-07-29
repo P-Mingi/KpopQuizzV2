@@ -19,6 +19,16 @@ const VALUES = groups.map((g) => `wd:${g.wikidata_qid}`).join(' ');
 
 const slugify = (s) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120);
 
+// Reject descriptor-style altLabels (Wikidata mixes in descriptions) and garbled slugs.
+const STOP = /\b(singer|rapper|band|group|boy|girl|south|korean|korea|kpop|idol|musician|duo|artist|star|member|actor|actress)\b/;
+function isJunkAlias(alias) {
+  const segs = alias.split('-');
+  if (segs.length > 3) return true;                 // phrases / descriptions
+  if (segs.some((s) => s.length <= 1)) return true; // garbled romanizations (bl-kpi-k)
+  if (STOP.test(alias.replace(/-/g, ' '))) return true;
+  return false;
+}
+
 const res = await fetch(`https://query.wikidata.org/sparql?query=${encodeURIComponent(`
   SELECT ?g ?alt WHERE { VALUES ?g { ${VALUES} } ?g skos:altLabel ?alt . FILTER(lang(?alt) IN ("en","ko-latn","en-ca","en-gb")) }`)}`, {
   headers: { Accept: 'application/sparql-results+json', 'User-Agent': 'KpopQuizVerse-alias-seed/1.0 (kaspermaiden@gmail.com)' },
@@ -32,6 +42,7 @@ for (const b of bindings) {
   if (!groupId) continue;
   const alias = slugify(b.alt.value);
   if (alias.length < 2 || !/^[a-z0-9-]{1,120}$/.test(alias)) continue;
+  if (isJunkAlias(alias)) continue;                            // drop descriptions / garbled variants
   if (realSlugs.has(alias) || claimed.has(alias)) continue;   // never shadow a real space or double-claim
   claimed.add(alias);
   rows.push({ alias, group_id: groupId, kind: 'group', source: 'wikidata_altlabel' });
