@@ -100,6 +100,16 @@ function plainText(n: Node): string {
   if (n.type === 'text') return n.text ?? '';
   return (n.content ?? []).map(plainText).join('');
 }
+
+/** First ~`max` chars of a document's visible text, for a story teaser/excerpt. */
+export function plainTextExcerpt(doc: unknown, max = 160): string {
+  if (!doc || typeof doc !== 'object') return '';
+  const text = plainText(doc as Node).replace(/\s+/g, ' ').trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${(lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).trimEnd()}…`;
+}
 const headingSlug = (s: string): string =>
   s.toLowerCase().replace(/[^a-z0-9가-힣]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'section';
 

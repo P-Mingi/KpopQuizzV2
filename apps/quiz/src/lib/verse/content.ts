@@ -20,6 +20,9 @@ export const SECTION_REGISTRY: Partial<Record<VerseEntityType | 'era', SectionDe
     { key: 'glossary', label: 'Glossary', help: 'Fandom terms and their meanings.' },
     { key: 'fanchants', label: 'Fanchants', help: 'Official and fan fanchant guides (original fan content).' },
   ],
+  era: [
+    { key: 'era_story', label: 'Era story', help: 'The story of this comeback era: concept, sound and reception (original fan writing).' },
+  ],
 };
 
 export function sectionDef(entityType: string, key: string): SectionDef | null {
