@@ -1,4 +1,5 @@
 import { GroupLogo } from '@/components/ui/group-logo';
+import { JoinButton } from '@/components/verse/join-button';
 import { upcomingBirthday, comebackCountdown } from '@/lib/verse/date-engines';
 
 import type { Space } from '@/lib/verse/space';
@@ -39,13 +40,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
         ) : null}
 
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            href={`/login?returnTo=${encodeURIComponent(`/verse/${group.slug}`)}`}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold no-underline transition-transform hover:-translate-y-0.5"
-            style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}
-          >
-            Join {group.fandom_name}
-          </a>
+          <JoinButton groupId={group.id} groupSlug={group.slug} fandomName={group.fandom_name} />
           <span className="text-xs text-tertiary">{counts.members} members{counts.albums > 0 ? `  ·  ${counts.albums} releases` : ''}</span>
           {config.sns_links.length > 0 ? (
             <span className="ml-auto flex flex-wrap gap-2">

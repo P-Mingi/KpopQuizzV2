@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
+import { MemberDirectory } from '@/components/verse/member-directory';
 
 import type { Metadata } from 'next';
 
@@ -27,7 +28,8 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
   const { group } = space;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      <MemberDirectory groupId={group.id} fandomName={group.fandom_name} />
       <section className="rounded-xl border border-dashed p-6" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
         <h2 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{group.fandom_name} activity</h2>
         <p className="mt-1 text-sm text-secondary">

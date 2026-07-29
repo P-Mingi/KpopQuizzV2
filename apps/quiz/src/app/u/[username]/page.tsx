@@ -7,6 +7,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
+import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -224,6 +225,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       {/* Moderator: send this user a personalized notification. Renders only for
           admins, and never on their own profile (self-check inside). */}
       <ModNotifyButton recipientUsername={profile.username} />
+
+      {/* W4.2: Verse space memberships (min-gated; hidden until they join a space). */}
+      <SpaceMembershipsCard userId={profile.id} />
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>
