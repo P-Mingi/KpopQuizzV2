@@ -11,14 +11,15 @@ import { rememberWorld } from '@/lib/world-preference';
 // quiet door. Same component in both worlds, themed by the active world's accent
 // (pink in Play, violet in Verse). Client component so usePathname bakes the right
 // highlight into the static HTML for each URL (no flash, crawler-correct).
-function Segment({ world, current }: { world: World; current: World }): React.ReactElement {
+function Segment({ world, current, compact }: { world: World; current: World; compact: boolean }): React.ReactElement {
   const active = world === current;
   const label = world === 'play' ? 'Play' : 'Verse';
   const accent = WORLD_ACCENT[world];
 
   const base: React.CSSProperties = {
-    display: 'inline-flex', alignItems: 'center', gap: 5,
-    padding: '5px 12px', borderRadius: 7, fontSize: 13, fontWeight: 700,
+    display: 'inline-flex', alignItems: 'center', gap: compact ? 0 : 5,
+    padding: compact ? '4px 9px' : '5px 12px', borderRadius: compact ? 6 : 7,
+    fontSize: compact ? 12 : 13, fontWeight: 700,
     textDecoration: 'none', lineHeight: 1, transition: 'color 120ms ease, background 120ms ease',
   };
 
@@ -26,7 +27,7 @@ function Segment({ world, current }: { world: World; current: World }): React.Re
     // The current world: solid accent chip, not a link (you are already here).
     return (
       <span aria-current="true" style={{ ...base, background: accent, color: '#fff' }}>
-        <WorldGlyph world={world} />
+        {!compact && <WorldGlyph world={world} />}
         {label}
       </span>
     );
@@ -40,7 +41,7 @@ function Segment({ world, current }: { world: World; current: World }): React.Re
       style={{ ...base, background: 'transparent', color: 'var(--text-secondary)' }}
       data-world-door={world}
     >
-      <WorldGlyph world={world} />
+      {!compact && <WorldGlyph world={world} />}
       {label}
     </Link>
   );
@@ -63,7 +64,7 @@ function WorldGlyph({ world }: { world: World }): React.ReactElement {
   );
 }
 
-export function WorldToggle(): React.ReactElement {
+export function WorldToggle({ compact = false }: { compact?: boolean } = {}): React.ReactElement {
   const world = worldForPath(usePathname());
   return (
     <div
@@ -71,13 +72,13 @@ export function WorldToggle(): React.ReactElement {
       role="group"
       aria-label="Switch between Play and Verse"
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: 2, padding: 3,
-        borderRadius: 10, background: 'var(--surface-alt, var(--bg-surface))',
-        border: '1px solid var(--border)',
+        display: 'inline-flex', alignItems: 'center', gap: 2, padding: compact ? 2 : 3,
+        borderRadius: compact ? 8 : 10, background: 'var(--surface-alt, var(--bg-surface))',
+        border: '1px solid var(--border)', flexShrink: 0,
       }}
     >
-      <Segment world="play" current={world} />
-      <Segment world="verse" current={world} />
+      <Segment world="play" current={world} compact={compact} />
+      <Segment world="verse" current={world} compact={compact} />
     </div>
   );
 }

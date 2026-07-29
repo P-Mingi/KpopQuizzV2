@@ -3,7 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const TABS = [
+import { worldForPath, WORLD_ACCENT } from '@/lib/world';
+
+interface Tab { label: string; href: string; match: readonly string[] }
+
+// PLAY bottom bar = the exact current 5 tabs.
+const PLAY_TABS: readonly Tab[] = [
   { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest', '/blind-test'] },
@@ -11,11 +16,19 @@ const TABS = [
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
+// VERSE bottom bar = Fandoms + Community (shared) + Profile.
+const VERSE_TABS: readonly Tab[] = [
+  { label: 'Fandoms', href: '/verse', match: ['/verse'] },
+  { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
+  { label: 'Profile', href: '/profile', match: ['/profile', '/u/'] },
+] as const;
+
 /**
- * Fixed bottom tab bar. Mobile only (hidden on desktop via CSS).
- * 5 items: Home · Quizzes · Blindtest · Games · Community. Create left the bar
- * (still reachable from the top nav and the home hero) so all five destinations
- * are first-class tabs. Hidden on fullscreen game/quiz pages for immersion.
+ * Fixed bottom tab bar. Mobile only (hidden on desktop via CSS). Swaps its tab
+ * set by world: Play keeps its 5 (Home/Quizzes/Blindtest/Games/Community); Verse
+ * shows Fandoms/Community/Profile. Community appears in both. Active tab is tinted
+ * by the world accent (pink in Play, violet in Verse). Hidden on fullscreen
+ * game/quiz pages for immersion (all Play routes).
  */
 export function MobileTabBar() {
   const pathname = usePathname();
@@ -25,7 +38,11 @@ export function MobileTabBar() {
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
 
-  function isActive(tab: typeof TABS[number]) {
+  const world = worldForPath(pathname);
+  const tabs = world === 'verse' ? VERSE_TABS : PLAY_TABS;
+  const accent = WORLD_ACCENT[world];
+
+  function isActive(tab: Tab) {
     if (tab.href === '/' && pathname === '/') return true;
     if (tab.href === '/') return false;
     if (pathname === tab.href || pathname.startsWith(tab.href + '/')) return true;
@@ -35,6 +52,7 @@ export function MobileTabBar() {
   return (
     <nav
       className="mobile-tab-bar"
+      data-world={world}
       style={{
         position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
         background: 'color-mix(in srgb, var(--bg) 95%, transparent)',
@@ -45,7 +63,7 @@ export function MobileTabBar() {
       aria-label="Main navigation"
     >
       <div style={{ maxWidth: 720, margin: '0 auto', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: 0 }}>
-        {TABS.map((tab) => {
+        {tabs.map((tab) => {
           const active = isActive(tab);
           return (
             <Link
@@ -55,12 +73,12 @@ export function MobileTabBar() {
               style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
                 background: 'transparent', border: 'none',
-                color: active ? 'var(--brand)' : 'var(--txt3)',
+                color: active ? accent : 'var(--txt3)',
                 fontSize: 10, fontWeight: active ? 700 : 600, padding: '4px 8px',
                 textDecoration: 'none',
               }}
             >
-              <TabIcon name={tab.label} active={active} />
+              <TabIcon name={tab.label} active={active} accent={accent} />
               {tab.label}
             </Link>
           );
@@ -70,12 +88,24 @@ export function MobileTabBar() {
   );
 }
 
-function TabIcon({ name, active }: { name: string; active: boolean }) {
-  const stroke = active ? 'var(--brand)' : 'var(--txt3)';
+function TabIcon({ name, active, accent }: { name: string; active: boolean; accent: string }) {
+  const stroke = active ? accent : 'var(--txt3)';
   const fill = active ? 'currentColor' : 'none';
   const size = 20;
 
   switch (name) {
+    case 'Fandoms':
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+        </svg>
+      );
+    case 'Profile':
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.6" /><path d="M5 20v-1a7 7 0 0 1 14 0v1z" />
+        </svg>
+      );
     case 'Home':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

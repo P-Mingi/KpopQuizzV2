@@ -615,6 +615,13 @@ body {
   .top-nav-create-label { display: none; }
 }
 
+/* W-NAV: the mobile header now carries the Play|Verse toggle beside the logo.
+   On the narrowest phones, drop the wordmark so the compact toggle always fits
+   (the mascot alone stays the home link). */
+@media (max-width: 400px) {
+  .mobile-top-bar-wordmark { display: none; }
+}
+
 /* ============================================================
    B4 - /quizzes browse redesign
    Canonical shared components (spec §3, §10b/10c/10d/10f/10h, §10j, §14h).

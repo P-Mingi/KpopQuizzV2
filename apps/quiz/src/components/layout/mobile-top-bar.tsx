@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
+import { WorldToggle } from '@/components/layout/world-toggle';
+import { worldForPath } from '@/lib/world';
 
 interface NavProfile {
   username: string;
@@ -31,23 +33,31 @@ export function MobileTopBar(): React.ReactElement | null {
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
 
+  const verse = worldForPath(pathname) === 'verse';
   const profile = state?.profile ?? null;
   const initial = profile
     ? (profile.display_name || profile.username || 'K').charAt(0).toUpperCase()
     : null;
 
   return (
-    <header className="mobile-top-bar">
-      <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
-        <Mascot variant="default" size={22} />
-        <span style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-          KpopQuiz
-        </span>
-      </Link>
+    <header className="mobile-top-bar" data-world={verse ? 'verse' : 'play'}>
+      {/* Logo + the Play|Verse toggle share the left; the toggle lives in the
+          header on both worlds (W-NAV). Wordmark hides on the narrowest screens
+          via CSS so the compact toggle always fits. */}
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
+          <Mascot variant="default" size={22} />
+          <span className="mobile-top-bar-wordmark" style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+            KpopQuiz
+          </span>
+        </Link>
+        <WorldToggle compact />
+      </div>
 
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-      {/* Create moved here from the bottom bar (which now ends on Community), so
-          it stays one tap away on every mobile screen. */}
+      {/* Create is a Play (quiz) action - one tap away on Play, hidden in Verse
+          (Verse mobile = Fandoms/Community + profile). */}
+      {!verse && (
       <Link
         href="/create"
         aria-label="Create a quiz"
@@ -62,6 +72,7 @@ export function MobileTopBar(): React.ReactElement | null {
           <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
         </svg>
       </Link>
+      )}
 
       {state === null ? (
         <span
