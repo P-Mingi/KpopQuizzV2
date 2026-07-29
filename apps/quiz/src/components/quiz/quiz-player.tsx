@@ -1123,7 +1123,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         </div>
 
         {/* Where you landed on this quiz's board, right after finishing. */}
-        <QuizMyRank quizId={quiz.id} />
+        <QuizMyRank quizId={quiz.id} isClues={quiz.quizType === 'guess_from_clues'} />
 
         {/* XP card */}
         {state.xpEarned > 0 && (
@@ -1213,7 +1213,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         </div>
 
         {/* Comments */}
-        <QuizComments quizId={quiz.id} />
+        <QuizComments quizId={quiz.id} isClues={quiz.quizType === 'guess_from_clues'} />
 
         <ReportForm quizId={quiz.id} />
 

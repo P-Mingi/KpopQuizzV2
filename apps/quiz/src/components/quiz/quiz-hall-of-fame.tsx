@@ -24,8 +24,10 @@ const card: React.CSSProperties = {
   boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 24, maxWidth: 672,
 };
 
-function Row({ entry, rank, divider }: { entry: HallOfFameEntry; rank: number; divider: boolean }): React.ReactElement {
+function Row({ entry, rank, divider, isClues }: { entry: HallOfFameEntry; rank: number; divider: boolean; isClues: boolean }): React.ReactElement {
   const time = fmtTime(entry.timeSeconds);
+  // guess_from_clues scores up to 3 points/question, so the denominator is total * 3.
+  const displayTotal = entry.total * (isClues ? 3 : 1);
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 0', borderTop: divider ? '1px solid var(--border)' : 'none' }}>
       <span style={{ width: 22, flexShrink: 0, textAlign: 'center', fontSize: 13, fontWeight: 800, color: rank <= 3 ? 'var(--brand)' : 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{rank}</span>
@@ -40,14 +42,14 @@ function Row({ entry, rank, divider }: { entry: HallOfFameEntry; rank: number; d
         )}
       </div>
       <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 48 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.15 }}>{entry.score}/{entry.total}</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.15 }}>{entry.score}/{displayTotal}</div>
         {time && <div style={{ fontSize: 11, color: 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{time}</div>}
       </div>
     </div>
   );
 }
 
-export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: HallOfFameEntry[] }): React.ReactElement {
+export function QuizHallOfFame({ quizId, entries, isClues = false }: { quizId: string; entries: HallOfFameEntry[]; isClues?: boolean }): React.ReactElement {
   const thin = entries.length < MIN_ENTRIES;
   const top = entries.slice(0, TOP_VISIBLE);
   const rest = entries.slice(TOP_VISIBLE);
@@ -65,7 +67,7 @@ export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: H
       ) : (
         <>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {top.map((e, i) => <Row key={i} entry={e} rank={i + 1} divider={i > 0} />)}
+            {top.map((e, i) => <Row key={i} entry={e} rank={i + 1} divider={i > 0} isClues={isClues} />)}
           </div>
 
           {rest.length > 0 && (
@@ -78,7 +80,7 @@ export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: H
                 Show all {entries.length}
               </summary>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {rest.map((e, i) => <Row key={i} entry={e} rank={i + 1 + TOP_VISIBLE} divider={i > 0} />)}
+                {rest.map((e, i) => <Row key={i} entry={e} rank={i + 1 + TOP_VISIBLE} divider={i > 0} isClues={isClues} />)}
               </div>
             </details>
           )}
@@ -86,7 +88,7 @@ export function QuizHallOfFame({ quizId, entries }: { quizId: string; entries: H
       )}
 
       {/* Your standing on this quiz (personal client island) */}
-      <QuizMyRank quizId={quizId} />
+      <QuizMyRank quizId={quizId} isClues={isClues} />
     </div>
   );
 }

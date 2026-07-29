@@ -30,6 +30,7 @@ interface Comment {
 
 interface Props {
   quizId: string;
+  isClues?: boolean;
 }
 
 const MAX_LENGTH = 200;
@@ -40,7 +41,7 @@ const PREVIEW_COUNT = 3;
  * comments; shows the first 3 with a "Show all" expansion. Posting requires
  * auth - a 401 flips the input into a sign-in hint.
  */
-export function QuizComments({ quizId }: Props): React.ReactElement {
+export function QuizComments({ quizId, isClues = false }: Props): React.ReactElement {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newlyPostedIds, setNewlyPostedIds] = useState<Set<string>>(new Set());
   const [input, setInput] = useState('');
@@ -150,7 +151,7 @@ export function QuizComments({ quizId }: Props): React.ReactElement {
                 </div>
                 {c.score != null && c.total != null && c.total > 0 && (
                   <span className="flex-shrink-0 text-[11px] font-bold text-primary tabular-nums px-2 py-0.5 rounded-full bg-accent-bg" style={{ color: 'var(--accent)' }}>
-                    {c.score}/{c.total}
+                    {c.score}/{(c.total ?? 0) * (isClues ? 3 : 1)}
                   </span>
                 )}
               </div>

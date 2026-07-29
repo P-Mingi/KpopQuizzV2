@@ -243,7 +243,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       )}
 
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
-      <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} />
+      <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} />
 
       {/* J3 - entry point: learn the group's trivia before playing (conditional). */}
       {triviaAvailable && (

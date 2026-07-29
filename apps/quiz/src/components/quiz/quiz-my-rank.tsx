@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // percentile / "top X%". Renders nothing when signed out.
 interface RankData { signedIn: boolean; played: boolean; bestScore?: number; total?: number; rank?: number; totalPlayers?: number }
 
-export function QuizMyRank({ quizId }: { quizId: string }): React.ReactElement | null {
+export function QuizMyRank({ quizId, isClues = false }: { quizId: string; isClues?: boolean }): React.ReactElement | null {
   const [data, setData] = useState<RankData | null>(null);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export function QuizMyRank({ quizId }: { quizId: string }): React.ReactElement |
 
   return (
     <div style={{ ...base, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
-      <span>Your best: <strong style={{ color: 'var(--brand)' }}>{data.bestScore}/{data.total}</strong></span>
+      <span>Your best: <strong style={{ color: 'var(--brand)' }}>{data.bestScore}/{(data.total ?? 0) * (isClues ? 3 : 1)}</strong></span>
       <span style={{ color: 'var(--txt2)' }}>Rank <strong style={{ color: 'var(--txt1)' }}>#{data.rank}</strong> of {data.totalPlayers}</span>
     </div>
   );
