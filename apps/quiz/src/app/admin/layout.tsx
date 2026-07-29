@@ -32,6 +32,7 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         <Link href="/admin/industry" className="text-secondary hover:text-primary whitespace-nowrap">Industry</Link>
         <Link href="/admin/verse" className="text-secondary hover:text-primary whitespace-nowrap">Verse</Link>
         <Link href="/admin/verse/entities" className="text-secondary hover:text-primary whitespace-nowrap">Entities</Link>
+        <Link href="/admin/verse/quality" className="text-secondary hover:text-primary whitespace-nowrap">Quality</Link>
         <Link href="/admin/verse/suggestions" className="text-secondary hover:text-primary whitespace-nowrap">Suggestions</Link>
       </nav>
       {children}
