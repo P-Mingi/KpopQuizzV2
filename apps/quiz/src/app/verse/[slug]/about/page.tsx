@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
+import { hubsForGroup } from '@/lib/verse/tags';
 
 import type { Metadata } from 'next';
 
@@ -19,6 +21,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
   if (!space) notFound();
   const { group, config, counts } = space;
   const est = config.est_year ?? (group.inception_date ? Number(group.inception_date.slice(0, 4)) : null);
+  const hubs = await hubsForGroup(group);
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -43,6 +46,19 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
         </div>
         {est ? <p className="mt-2 text-xs text-tertiary">Est. {est}{group.record_label ? `  ·  ${group.record_label}` : ''}{group.origin_country ? `  ·  ${group.origin_country}` : ''}</p> : null}
       </section>
+
+      {hubs.length ? (
+        <section>
+          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Categories</h2>
+          <div className="flex flex-wrap gap-2">
+            {hubs.map((h) => (
+              <Link key={h.slug} href={`/verse/tag/${h.slug}`} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold no-underline" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>
+                {h.label}<span className="text-tertiary tabular-nums">{h.count}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
         <h2 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Charter</h2>
