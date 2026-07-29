@@ -26,8 +26,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (!me) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   const svc = createServiceRoleClient();
-  const { data: rows } = await svc.from('space_members').select('user_id, role, status, joined_at').eq('group_id', groupId);
-  const list = (rows ?? []) as Array<{ user_id: string; role: string; status: string; joined_at: string }>;
+  const { data: rows } = await svc.from('space_members').select('user_id, role, status, joined_at, last_contrib_date').eq('group_id', groupId);
+  const list = (rows ?? []) as Array<{ user_id: string; role: string; status: string; joined_at: string; last_contrib_date: string | null }>;
   const { data: profs } = await svc.from('profiles').select('id, username, display_name, avatar_url, avatar_bg, avatar_text').in('id', list.map((r) => r.user_id));
   const byId = new Map((profs ?? []).map((p: { id: string }) => [p.id, p]));
   return NextResponse.json({ members: list.map((r) => ({ ...r, profile: byId.get(r.user_id) ?? null })) });

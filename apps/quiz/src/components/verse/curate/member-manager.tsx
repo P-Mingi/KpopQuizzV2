@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { isStaleCurator, inactiveDays } from '@/lib/verse/decay-policy';
 
 interface Prof { id: string; username: string | null; display_name: string | null; avatar_url: string | null; avatar_bg: string | null; avatar_text: string | null }
-interface Row { user_id: string; role: string; status: string; joined_at: string; profile: Prof | null }
+interface Row { user_id: string; role: string; status: string; joined_at: string; last_contrib_date: string | null; profile: Prof | null }
 
 const ROLES = ['member', 'contributor', 'curator', 'space_admin'];
 
@@ -42,6 +43,7 @@ export function MemberManager({ groupId, isSpaceAdmin }: { groupId: number; isSp
             <UserAvatar username={r.profile?.username ?? name} avatarUrl={r.profile?.avatar_url ?? null} bgColor={r.profile?.avatar_bg ?? '#6b7280'} textColor={r.profile?.avatar_text ?? '#ffffff'} size={26} />
             <span className="font-semibold">{name}</span>
             {r.status === 'blocked' ? <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--bg-danger)', color: 'var(--text-danger)' }}>blocked</span> : null}
+            {r.status === 'active' && isStaleCurator(r) ? <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase text-tertiary" style={{ border: '1px solid var(--border)' }} title="Inactive curator; decays to contributor if inactivity continues">inactive {inactiveDays(r)}d</span> : null}
             <div className="ml-auto flex items-center gap-2">
               {r.status === 'active' && canRoleEdit ? (
                 <select value={r.role} disabled={busy} onChange={(e) => post(r.user_id, 'set_role', { role: e.target.value })} className="rounded-lg border border-default bg-transparent px-2 py-1 text-xs">
