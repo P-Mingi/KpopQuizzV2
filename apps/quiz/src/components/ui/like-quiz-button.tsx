@@ -41,6 +41,24 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
     }
   }, [quizId, initialLiked]);
 
+  // The quiz page is ISR-cached, so initialCount is the build-time number and
+  // goes stale as soon as anyone likes. Reconcile with the live count (and the
+  // signed-in user's true liked state) on mount so the tally reflects reality
+  // after a refresh instead of the frozen baked value.
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/quiz/${quizId}/like`, { credentials: 'include' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { liked: boolean; like_count: number } | null) => {
+        if (cancelled || !d) return;
+        setCount(d.like_count);
+        if (d.liked) setLiked(true);
+        else if (!getAnonLikes().includes(quizId)) setLiked(false);
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [quizId]);
+
   const handleClick = useCallback(async () => {
     if (pending) return;
 

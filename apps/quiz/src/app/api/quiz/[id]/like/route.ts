@@ -4,6 +4,41 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 
 import type { NextRequest } from 'next/server';
 
+/**
+ * GET /api/quiz/[id]/like
+ * Returns the caller's true like state + the live count. The quiz page is ISR
+ * (revalidate 3600), so the count baked into the static HTML goes stale the
+ * moment anyone likes; the button calls this on mount to reconcile with the DB
+ * instead of showing the frozen build-time number. `liked` reflects the signed
+ * in user's row in `likes` (anonymous callers reconcile from localStorage).
+ */
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse> {
+  const { id } = await params;
+  const supabase = await createServerClient();
+
+  const { data: quiz } = await supabase
+    .from('quizzes')
+    .select('like_count')
+    .eq('id', id)
+    .maybeSingle();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  let liked = false;
+  if (user) {
+    const { data: row } = await supabase
+      .from('likes')
+      .select('quiz_id')
+      .match({ user_id: user.id, quiz_id: id })
+      .maybeSingle();
+    liked = !!row;
+  }
+
+  return NextResponse.json({ liked, like_count: quiz?.like_count ?? 0 });
+}
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

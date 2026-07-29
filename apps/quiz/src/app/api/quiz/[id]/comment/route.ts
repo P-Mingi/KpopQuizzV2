@@ -40,9 +40,15 @@ export async function GET(
 
   const supabase = await createServerClient();
 
-  const { data, error } = await supabase
+  // Fetch comments plain, then hydrate authors with a separate profiles lookup.
+  // quiz_comments.user_id points at auth.users, not profiles, so there is no
+  // PostgREST relationship to embed: `profiles!inner(...)` errors with "Could not
+  // find a relationship" and drops every comment. The IN-query join is the same
+  // pattern the activity feed uses, and it left-joins (a comment shows even if its
+  // author profile is missing).
+  const { data: rows, error } = await supabase
     .from('quiz_comments')
-    .select('id, quiz_id, user_id, username, content, created_at, score, total, profiles!inner(xp, avatar_url, avatar_bg, avatar_text, name_accent, name_font, bias, pinned_badge_id, avatar_kind, avatar_ref)')
+    .select('id, quiz_id, user_id, username, content, created_at, score, total')
     .eq('quiz_id', id)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -52,18 +58,26 @@ export async function GET(
     return NextResponse.json({ comments: [] });
   }
 
-  // Flatten the joined author profile: Fan title (xp) + avatar + M1.26 flair.
   type Prof = {
-    xp?: number | null; avatar_url?: string | null; avatar_bg?: string; avatar_text?: string;
+    id?: string; xp?: number | null; avatar_url?: string | null; avatar_bg?: string; avatar_text?: string;
     name_accent?: string | null; name_font?: string | null; bias?: string | null;
     pinned_badge_id?: string | null; avatar_kind?: string | null; avatar_ref?: string | null;
   };
-  const comments = (data ?? []).map((c) => {
-    const row = c as Record<string, unknown> & { profiles?: Prof | Prof[] };
-    const prof = (Array.isArray(row.profiles) ? row.profiles[0] : row.profiles) ?? {};
-    const { profiles: _, ...rest } = row;
+  const userIds = [...new Set((rows ?? []).map((r) => (r as { user_id: string }).user_id).filter(Boolean))];
+  const profById = new Map<string, Prof>();
+  if (userIds.length > 0) {
+    const { data: profs } = await supabase
+      .from('profiles')
+      .select('id, xp, avatar_url, avatar_bg, avatar_text, name_accent, name_font, bias, pinned_badge_id, avatar_kind, avatar_ref')
+      .in('id', userIds);
+    for (const p of (profs ?? []) as Prof[]) if (p.id) profById.set(p.id, p);
+  }
+
+  const comments = (rows ?? []).map((c) => {
+    const row = c as Record<string, unknown> & { user_id: string };
+    const prof = profById.get(row.user_id) ?? {};
     return {
-      ...rest,
+      ...row,
       author_xp: prof.xp ?? null,
       avatar_url: prof.avatar_url ?? null,
       avatar_bg: prof.avatar_bg ?? '#ED93B1',
