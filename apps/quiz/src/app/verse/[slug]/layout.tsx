@@ -4,6 +4,7 @@ import { SpaceHero } from '@/components/verse/space-hero';
 import { SpaceTabs } from '@/components/verse/space-tabs';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
+import { photocardCount } from '@/lib/verse/photocards';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { resolveName } from '@/lib/verse/disambig';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
@@ -47,8 +48,10 @@ export default async function SpaceLayout({
   }
 
   // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
-  const counts = await sceneCounts(space.group.id);
+  const [counts, pcCount] = await Promise.all([sceneCounts(space.group.id), photocardCount(space.group.id)]);
   const extraTabs = SCENE_LIST.filter((s) => counts[s.kind] > 0).map((s) => ({ label: s.label, seg: s.seg }));
+  // Photocards is likewise conditional - it only appears once a space has a catalogued card.
+  if (pcCount > 0) extraTabs.push({ label: 'Photocards', seg: 'photocards' });
 
   return (
     <div className="verse-scope mx-auto w-full max-w-6xl px-4 py-6 sm:py-8" style={verseScopeStyle(space.group)}>

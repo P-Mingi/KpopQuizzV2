@@ -9,6 +9,7 @@ import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ContributionGraph } from '@/components/verse/contribution-graph';
+import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -230,6 +231,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       {/* W4.2/W4.5: Verse memberships + edit-contribution graph (both min-gated). */}
       <SpaceMembershipsCard userId={profile.id} />
       <ContributionGraph userId={profile.id} />
+
+      {/* W5.2: photocard collection progress (min-gated: hides until the user owns a card). */}
+      <PhotocardCollectionCard userId={profile.id} />
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>
