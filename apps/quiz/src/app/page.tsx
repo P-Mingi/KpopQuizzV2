@@ -19,6 +19,7 @@ import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
+import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
 
 import type { Metadata } from 'next';
 
@@ -185,6 +186,10 @@ async function GroupSection(): Promise<React.ReactElement> {
 export default function HomePage(): React.ReactElement {
   return (
     <div className="pt-1 pb-8">
+      {/* W-NAV: returning Verse-preferrers may be opened at /verse (client-side,
+          cookie-gated, crawler-safe - see WorldHomeRedirect). No-op for everyone
+          else, so the games home stays the games home for crawlers + new visitors. */}
+      <WorldHomeRedirect />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
