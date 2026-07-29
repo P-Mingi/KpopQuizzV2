@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { worldForPath, WORLD_ACCENT, type World } from '@/lib/world';
+import { worldForPath, type World } from '@/lib/world';
 
 interface NavItem { label: string; href: string; match: readonly string[] }
 
@@ -84,7 +84,9 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
 export function TopNavLinks({ world: forced }: { world?: World } = {}) {
   const pathname = usePathname();
   const world = forced ?? worldForPath(pathname);
-  const accent = WORLD_ACCENT[world];
+  // The active underline uses the world accent token set on the nav header, so
+  // per-space theming (W-CUSTOM) can later retint it without touching this file.
+  const accent = 'var(--world-accent, var(--brand))';
   const items = itemsForWorld(world);
 
   function isActive(item: NavItem) {

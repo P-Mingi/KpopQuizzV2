@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { TopNavLinks } from './top-nav-links';
 import { WorldToggle } from './world-toggle';
-import { worldForPath } from '@/lib/world';
+import { worldForPath, WORLD_ACCENT } from '@/lib/world';
 
 /**
  * Desktop top-nav shell. Client component so the world (derived from usePathname)
@@ -25,15 +25,19 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
       className="top-nav"
       data-world={world}
       style={{
+        // --world-accent is the Verse base identity as a token: violet by default in
+        // Verse, the pink brand in Play. Per-space theming (W-CUSTOM) can later
+        // override --world-accent on this header to tint the chrome to a group color.
+        ['--world-accent' as string]: WORLD_ACCENT[world],
         position: 'sticky', top: 0, zIndex: 30,
         // Verse world wears a faint violet tint + border so it reads as a different
         // place; Play keeps its exact current chrome.
         background: verse
-          ? 'color-mix(in srgb, #7c5cfc 7%, color-mix(in srgb, var(--bg-primary) 92%, transparent))'
+          ? 'color-mix(in srgb, var(--world-accent) 7%, color-mix(in srgb, var(--bg-primary) 92%, transparent))'
           : 'color-mix(in srgb, var(--bg-primary) 92%, transparent)',
         backdropFilter: 'blur(12px)',
         borderBottom: verse
-          ? '1px solid color-mix(in srgb, #7c5cfc 32%, var(--border))'
+          ? '1px solid color-mix(in srgb, var(--world-accent) 32%, var(--border))'
           : '1px solid var(--border)',
       }}
     >
@@ -62,19 +66,22 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
           <span className="top-nav-search-label">Search</span>
         </Link>
 
-        {/* Create */}
-        <Link href="/create" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-          padding: '8px 14px', borderRadius: 10,
-          background: 'var(--brand-btn)', border: 'none',
-          color: 'var(--accent-fg)', textDecoration: 'none',
-          fontSize: 13, fontWeight: 600, transition: 'background 120ms ease',
-        }}>
-          <svg viewBox="0 0 24 24" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-          <span className="top-nav-create-label">Create</span>
-        </Link>
+        {/* Create is a Play (quiz) action - the Verse launch nav is Fandoms +
+            Community + the profile/notification/search cluster, no Create. */}
+        {!verse && (
+          <Link href="/create" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            padding: '8px 14px', borderRadius: 10,
+            background: 'var(--brand-btn)', border: 'none',
+            color: 'var(--accent-fg)', textDecoration: 'none',
+            fontSize: 13, fontWeight: 600, transition: 'background 120ms ease',
+          }}>
+            <svg viewBox="0 0 24 24" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span className="top-nav-create-label">Create</span>
+          </Link>
+        )}
 
         {bell}
         {profile}
