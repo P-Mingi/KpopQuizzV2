@@ -3,14 +3,29 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const NAV_ITEMS = [
+import { worldForPath, WORLD_ACCENT, type World } from '@/lib/world';
+
+interface NavItem { label: string; href: string; match: readonly string[] }
+
+// PLAY world tabs = the exact current games product (Verse moved to the toggle).
+const PLAY_ITEMS: readonly NavItem[] = [
   { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Games', href: '/games', match: ['/games'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest'] },
-  { label: 'Verse', href: '/verse', match: ['/verse'] },
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
+
+// VERSE world tabs (launch set): Fandoms (the /verse directory) + Community (shared).
+// Discover / Idols are FUTURE - add them here when the Verse discovery home ships.
+const VERSE_ITEMS: readonly NavItem[] = [
+  { label: 'Fandoms', href: '/verse', match: ['/verse'] },
+  { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
+] as const;
+
+function itemsForWorld(world: World): readonly NavItem[] {
+  return world === 'verse' ? VERSE_ITEMS : PLAY_ITEMS;
+}
 
 function NavIcon({ name, active }: { name: string; active: boolean }) {
   const size = 14;
@@ -43,7 +58,7 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
         </svg>
       );
-    case 'Verse':
+    case 'Fandoms':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
@@ -61,22 +76,29 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
   }
 }
 
-/** Desktop nav between the logo and the right-side controls. Active = bold + underline (§1). */
-export function TopNavLinks() {
+/**
+ * Desktop nav between the toggle and the right-side controls. Renders the tab set
+ * for the world the current URL belongs to; active tab is bold + accent underline,
+ * themed by the world (pink in Play, violet in Verse).
+ */
+export function TopNavLinks({ world: forced }: { world?: World } = {}) {
   const pathname = usePathname();
+  const world = forced ?? worldForPath(pathname);
+  const accent = WORLD_ACCENT[world];
+  const items = itemsForWorld(world);
 
-  function isActive(item: typeof NAV_ITEMS[number]) {
+  function isActive(item: NavItem) {
     if (item.href === '/' && pathname === '/') return true;
     if (item.href === '/') return false;
     if (pathname === item.href || pathname.startsWith(item.href + '/')) return true;
-    return item.match.some(m => pathname.startsWith(m));
+    return item.match.some((m) => pathname.startsWith(m));
   }
 
   return (
     <nav className="top-nav-tabs" style={{
       display: 'flex', alignItems: 'center', gap: 4, marginLeft: 12,
     }} aria-label="Main navigation">
-      {NAV_ITEMS.map((item) => {
+      {items.map((item) => {
         const active = isActive(item);
         return (
           <Link
@@ -90,7 +112,7 @@ export function TopNavLinks() {
               color: active ? 'var(--txt1)' : 'var(--txt2)',
               border: 'none', textDecoration: 'none',
               fontSize: 14, fontWeight: active ? 700 : 600,
-              borderBottom: active ? '2px solid var(--brand)' : '2px solid transparent',
+              borderBottom: active ? `2px solid ${accent}` : '2px solid transparent',
               transition: 'color 120ms ease, border-color 120ms ease',
             }}
           >
