@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { SpaceHero } from '@/components/verse/space-hero';
 import { SpaceTabs } from '@/components/verse/space-tabs';
 import { getSpace } from '@/lib/verse/space';
+import { sceneCounts } from '@/lib/verse/entities';
+import { SCENE_LIST } from '@/lib/verse/entity-types';
 import { verseScopeStyle } from '@/lib/verse/theme';
 
 import type { Metadata } from 'next';
@@ -32,11 +34,15 @@ export default async function SpaceLayout({
   const space = await getSpace(slug);
   if (!space) notFound();
 
+  // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
+  const counts = await sceneCounts(space.group.id);
+  const extraTabs = SCENE_LIST.filter((s) => counts[s.kind] > 0).map((s) => ({ label: s.label, seg: s.seg }));
+
   return (
     <div className="verse-scope mx-auto w-full max-w-6xl px-4 py-6 sm:py-8" style={verseScopeStyle(space.group)}>
       <SpaceHero space={space} />
       <div className="mt-6">
-        <SpaceTabs slug={slug} />
+        <SpaceTabs slug={slug} extra={extraTabs} />
         {children}
       </div>
     </div>
