@@ -42,6 +42,7 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
         <div className="flex flex-wrap gap-3 text-sm">
           <Link href="/admin/verse/suggestions" className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Review suggestions</Link>
           <Link href="/admin/verse/entities" className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Tours / shows / OST / awards</Link>
+          <Link href={`/verse/${slug}/changes`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Recent changes</Link>
           <Link href={`/verse/${slug}`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Edit pages (lock, protect)</Link>
         </div>
         <p className="mt-2 text-xs text-tertiary">Page protection (lock/unlock) lives on each section's controls while editing.</p>

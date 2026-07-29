@@ -5,6 +5,7 @@ import { sectionDef } from '@/lib/verse/content';
 import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
 import { contentIsEmpty } from '@/lib/verse/render-content';
 import { awardSpaceXp, questXpForSection } from '@/lib/verse/reputation';
+import { notifyWatchers } from '@/lib/verse/watchlist';
 
 import type { NextRequest } from 'next/server';
 
@@ -88,6 +89,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const gid = xp > 0 ? await resolveEntityGroupId(entity_type, entity_id) : null;
     if (gid) await awardSpaceXp(user.id, gid, xp);
   }
+
+  // W4.6: notify anyone watching this page (except the editor) that it changed.
+  await notifyWatchers(entity_type, entity_id, user.id, summary ?? 'The page was edited.');
 
   return NextResponse.json({ ok: true, revision_id: rev.id, current_revision_id: rev.id });
 }

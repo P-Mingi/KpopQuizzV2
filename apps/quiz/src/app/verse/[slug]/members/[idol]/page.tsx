@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SectionSurface } from '@/components/verse/editor/section-surface';
 import { InfoboxCard } from '@/components/verse/editor/infobox-card';
+import { DiscussionThread } from '@/components/verse/discussion-thread';
+import { WatchButton } from '@/components/verse/watch-button';
 import { getIdol } from '@/lib/verse/idol';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
@@ -102,6 +104,7 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
         </aside>
 
         <div className="lg:col-span-2">
+          <div className="mb-3 flex justify-end"><WatchButton entityType="idol" entityId={String(d.id)} /></div>
           <FanKnows d={d} />
 
           {/* Fan lore section (W3 editor). Renders SSR for crawlers; editable inline by editors. */}
@@ -139,6 +142,10 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
               </div>
             </section>
           ) : null}
+
+          <div className="mt-6 border-t pt-4" style={{ borderColor: 'var(--verse-line)' }}>
+            <DiscussionThread entityType="idol" entityId={String(d.id)} />
+          </div>
         </div>
       </div>
     </article>

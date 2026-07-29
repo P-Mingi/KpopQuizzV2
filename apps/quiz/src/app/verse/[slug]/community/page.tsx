@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
 import { MemberDirectory } from '@/components/verse/member-directory';
+import { DiscussionThread } from '@/components/verse/discussion-thread';
+import { WatchButton } from '@/components/verse/watch-button';
 
 import type { Metadata } from 'next';
 
@@ -41,6 +43,12 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
         </div>
       </section>
       <p className="text-xs text-tertiary">Top fans, debate archive, polls and fan projects open as the space grows.</p>
+
+      <div className="flex items-center justify-between gap-2 border-t pt-4" style={{ borderColor: 'var(--verse-line)' }}>
+        <Link href={`/verse/${slug}/changes`} className="text-xs font-semibold text-secondary no-underline hover:text-primary">Recent changes</Link>
+        <WatchButton entityType="group" entityId={String(group.id)} />
+      </div>
+      <DiscussionThread entityType="group" entityId={String(group.id)} />
     </div>
   );
 }
