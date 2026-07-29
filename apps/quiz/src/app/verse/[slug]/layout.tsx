@@ -1,9 +1,10 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 import { SpaceHero } from '@/components/verse/space-hero';
 import { SpaceTabs } from '@/components/verse/space-tabs';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
+import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
 import { verseScopeStyle } from '@/lib/verse/theme';
 
@@ -32,7 +33,12 @@ export default async function SpaceLayout({
 }: { params: Promise<{ slug: string }>; children: React.ReactNode }): Promise<React.ReactElement> {
   const { slug } = await params;
   const space = await getSpace(slug);
-  if (!space) notFound();
+  if (!space) {
+    // A name variant (bangtan -> bts, girls-generation -> snsd) redirects to canonical.
+    const canonical = await resolveGroupAlias(slug);
+    if (canonical) permanentRedirect(`/verse/${canonical}`);
+    notFound();
+  }
 
   // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
   const counts = await sceneCounts(space.group.id);
