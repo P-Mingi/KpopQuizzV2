@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { VerseGameLink } from '@/components/verse/verse-game-link';
+import { RelatedNavbox } from '@/components/verse/related-navbox';
 import { getSpace } from '@/lib/verse/space';
 import { onThisDay } from '@/lib/verse/date-engines';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
@@ -165,6 +166,9 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
         <StatsFlex space={space} />
         <MastheadInvite space={space} />
       </aside>
+      <div className="lg:col-span-3">
+        <RelatedNavbox group={space.group} />
+      </div>
     </div>
   );
 }
