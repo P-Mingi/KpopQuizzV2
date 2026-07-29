@@ -5,6 +5,7 @@ import { SpaceTabs } from '@/components/verse/space-tabs';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
+import { resolveName } from '@/lib/verse/disambig';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
 import { verseScopeStyle } from '@/lib/verse/theme';
 
@@ -37,6 +38,11 @@ export default async function SpaceLayout({
     // A name variant (bangtan -> bts, girls-generation -> snsd) redirects to canonical.
     const canonical = await resolveGroupAlias(slug);
     if (canonical) permanentRedirect(`/verse/${canonical}`);
+    // Otherwise try to resolve the slug as an entity name: one match redirects to its
+    // page, several go to a disambiguation chooser.
+    const named = await resolveName(slug);
+    if (named.length === 1) permanentRedirect(named[0]!.href);
+    if (named.length > 1) permanentRedirect(`/verse/name/${slug}`);
     notFound();
   }
 
