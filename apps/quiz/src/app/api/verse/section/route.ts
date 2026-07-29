@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { sectionDef } from '@/lib/verse/content';
-import { canCurateEntity } from '@/lib/verse/curate';
+import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
+import { contentIsEmpty } from '@/lib/verse/render-content';
+import { awardSpaceXp, questXpForSection } from '@/lib/verse/reputation';
 
 import type { NextRequest } from 'next/server';
 
@@ -38,12 +40,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const svc = createServiceRoleClient();
 
-  // Current row (for conflict detection + lock state).
+  // Current row (for conflict detection + lock state + gap-close XP).
   const { data: existing } = await svc
     .from('verse_content')
-    .select('id, current_revision_id, locked')
+    .select('id, current_revision_id, locked, content')
     .eq('entity_type', entity_type).eq('entity_id', entity_id).eq('section_key', section_key)
     .maybeSingle();
+  const wasEmpty = !existing || contentIsEmpty((existing as { content: unknown }).content);
 
   // Conflict: the edit was based on a revision that is no longer current.
   const currentRev = existing?.current_revision_id ?? null;
@@ -77,6 +80,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Clear this author's draft for the section.
   await svc.from('verse_drafts').delete()
     .eq('author', user.id).eq('entity_type', entity_type).eq('entity_id', entity_id).eq('section_key', section_key);
+
+  // Quest / reputation: award the author per-space XP when this edit CLOSES a gap
+  // (the section was empty and now has content). Re-edits of a filled section earn nothing.
+  if (wasEmpty && !contentIsEmpty(content)) {
+    const xp = questXpForSection(entity_type, section_key);
+    const gid = xp > 0 ? await resolveEntityGroupId(entity_type, entity_id) : null;
+    if (gid) await awardSpaceXp(user.id, gid, xp);
+  }
 
   return NextResponse.json({ ok: true, revision_id: rev.id, current_revision_id: rev.id });
 }

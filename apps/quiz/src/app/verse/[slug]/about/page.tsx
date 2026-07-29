@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
 import { hubsForGroup } from '@/lib/verse/tags';
+import { getSection } from '@/lib/verse/content';
+import { renderTipTapJSON } from '@/lib/verse/render-content';
+import { SectionSurface } from '@/components/verse/editor/section-surface';
 
 import type { Metadata } from 'next';
 
@@ -22,9 +25,17 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
   const { group, config, counts } = space;
   const est = config.est_year ?? (group.inception_date ? Number(group.inception_date.slice(0, 4)) : null);
   const hubs = await hubsForGroup(group);
+  const overview = await getSection('group', String(group.id), 'overview');
 
   return (
     <div className="max-w-2xl space-y-6">
+      <SectionSurface
+        entityType="group" entityId={String(group.id)} section="overview" label="Overview"
+        initialHtml={renderTipTapJSON(overview.content)} initialContent={overview.content}
+        baseRevisionId={overview.currentRevisionId} locked={overview.locked} lockReason={overview.lockReason}
+        groupSlug={group.slug}
+        emptyInvite={`Introduce ${group.name}: who they are, their sound, and why fans love them. Fan-written and credited.`}
+      />
       <section>
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>About this space</h2>
         <p className="text-sm leading-relaxed text-secondary">

@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { canCurateEntity } from '@/lib/verse/curate';
+import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
+import { contentIsEmpty } from '@/lib/verse/render-content';
+import { awardSpaceXp, questXpForSection } from '@/lib/verse/reputation';
 
 import type { NextRequest } from 'next/server';
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -71,10 +73,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const id = Number(body.id);
     const { data: s } = await svc.from('verse_edit_suggestions').select('*').eq('id', id).eq('status', 'pending').maybeSingle();
     if (!s) return NextResponse.json({ error: 'not_found' }, { status: 404 });
-    if (!await canCurateEntity(user.id, (s as Suggestion).entity_type, (s as Suggestion).entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+    const sug = s as Suggestion;
+    if (!await canCurateEntity(user.id, sug.entity_type, sug.entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
     if (action === 'approve') {
-      await applySuggestion(svc, s as Suggestion);
+      // Was the target section empty before? If so and this fills it, the SUGGESTER earns XP.
+      const { data: pre } = await svc.from('verse_content').select('content').eq('entity_type', sug.entity_type).eq('entity_id', sug.entity_id).eq('section_key', sug.section_key).maybeSingle();
+      const wasEmpty = !pre || contentIsEmpty((pre as { content: unknown }).content);
+      await applySuggestion(svc, sug);
       await svc.from('verse_edit_suggestions').update({ status: 'approved', reviewer: user.id, reviewed_at: now }).eq('id', id);
+      if (wasEmpty && sug.author && !contentIsEmpty(sug.content)) {
+        const xp = questXpForSection(sug.entity_type, sug.section_key);
+        const gid = xp > 0 ? await resolveEntityGroupId(sug.entity_type, sug.entity_id) : null;
+        if (gid) await awardSpaceXp(sug.author, gid, xp);
+      }
     } else {
       await svc.from('verse_edit_suggestions').update({ status: 'rejected', reviewer: user.id, review_reason: body.reason ? String(body.reason).slice(0, 300) : null, reviewed_at: now }).eq('id', id);
     }
