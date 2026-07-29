@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { fieldDef, isEditableField, validateFieldValue } from '@/lib/verse/fields';
-import { canCurateEntity } from '@/lib/verse/curate';
+import { canEditEntity } from '@/lib/verse/curate';
 
 import type { NextRequest } from 'next/server';
 
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const entity_type = String(body.entity_type ?? '');
   const entity_id = String(body.entity_id ?? '');
-  if (!await canCurateEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!await canEditEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const field = String(body.field ?? '');
   const rawValue = String(body.value ?? '');
   const source_url = body.source_url ? String(body.source_url).trim() : '';

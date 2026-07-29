@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { sectionDef } from '@/lib/verse/content';
-import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
+import { canEditEntity, resolveEntityGroupId } from '@/lib/verse/curate';
 import { contentIsEmpty } from '@/lib/verse/render-content';
 import { awardSpaceXp, questXpForSection } from '@/lib/verse/reputation';
 import { notifyWatchers } from '@/lib/verse/watchlist';
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const entity_type = String(body.entity_type ?? '');
   const entity_id = String(body.entity_id ?? '');
   const section_key = String(body.section ?? '');
-  if (!await canCurateEntity(user.id, entity_type, entity_id)) {
+  if (!await canEditEntity(user.id, entity_type, entity_id)) {
     return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   }
   const content = body.content;

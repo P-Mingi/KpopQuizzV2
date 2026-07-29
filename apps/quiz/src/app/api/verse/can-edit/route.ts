@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
-import { canCurateSpace } from '@/lib/verse/roles';
+import { canEditDirect } from '@/lib/verse/stage';
 
 import type { NextRequest } from 'next/server';
 
@@ -21,6 +21,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (!slug) return NextResponse.json({ canEdit: false });
   const { data: g } = await createPublicReadClient().from('groups').select('id').eq('slug', slug).maybeSingle();
   const groupId = (g as { id: number } | null)?.id;
-  const canEdit = groupId ? await canCurateSpace(user.id, groupId) : false;
+  const canEdit = groupId ? await canEditDirect(user.id, groupId) : false;
   return NextResponse.json({ canEdit });
 }

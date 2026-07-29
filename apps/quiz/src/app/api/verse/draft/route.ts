@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { sectionDef } from '@/lib/verse/content';
-import { canCurateEntity } from '@/lib/verse/curate';
+import { canEditEntity } from '@/lib/verse/curate';
 
 import type { NextRequest } from 'next/server';
 
@@ -42,7 +42,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
   const section_key = String(body.section ?? '');
   if (!sectionDef(entity_type, section_key)) return NextResponse.json({ error: 'unknown_section' }, { status: 400 });
   if (!body.content || typeof body.content !== 'object') return NextResponse.json({ error: 'content_required' }, { status: 400 });
-  if (!await canCurateEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!await canEditEntity(user.id, entity_type, entity_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const svc = createServiceRoleClient();
   const { error } = await svc.from('verse_drafts').upsert({
     author: user.id, entity_type, entity_id, section_key,

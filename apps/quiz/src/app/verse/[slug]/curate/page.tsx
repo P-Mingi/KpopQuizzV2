@@ -3,8 +3,12 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
+import { createServerClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
+import { stageOf } from '@/lib/verse/stage';
 import { MemberManager } from '@/components/verse/curate/member-manager';
 import { SpaceSettings } from '@/components/verse/curate/space-settings';
+import { StageControl } from '@/components/verse/curate/stage-control';
 
 import type { Metadata } from 'next';
 
@@ -19,6 +23,9 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
   const { role } = await currentSpaceRole(space.group.id);
   if (!roleAtLeast(role, 'curator')) redirect(`/verse/${slug}`);
   const isSpaceAdmin = role === 'space_admin';
+  const { data: { user } } = await (await createServerClient()).auth.getUser();
+  const globalAdmin = !!user && isAdmin(user.id);
+  const stage = globalAdmin ? await stageOf(space.group.id) : 'A';
 
   return (
     <div className="space-y-8">
@@ -50,6 +57,14 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
         </div>
         <p className="mt-2 text-xs text-tertiary">Page protection (lock/unlock) lives on each section's controls while editing.</p>
       </section>
+
+      {globalAdmin ? (
+        <section>
+          <h2 className="mb-1 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Collaboration stage</h2>
+          <p className="mb-3 text-xs text-tertiary">Owner control. Flipping to B/C opens member editing. Defaults to A (off).</p>
+          <StageControl groupId={space.group.id} initial={stage} />
+        </section>
+      ) : null}
     </div>
   );
 }

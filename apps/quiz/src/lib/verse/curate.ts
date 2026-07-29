@@ -3,6 +3,7 @@
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { canCurateSpace } from '@/lib/verse/roles';
+import { canEditDirect } from '@/lib/verse/stage';
 
 const ENTITY_TABLE: Record<string, string> = { idol: 'idols', era: 'eras', album: 'albums', tour: 'tours', show: 'shows', ost: 'osts', award: 'awards' };
 
@@ -28,6 +29,15 @@ export async function canCurateEntity(userId: string | null, entityType: string,
   if (isAdmin(userId)) return true;
   const gid = await resolveEntityGroupId(entityType, entityId);
   return gid == null ? false : canCurateSpace(userId, gid);
+}
+
+/** W4.11 - direct-EDIT rights for an entity (curator, or a Stage-C trusted contributor).
+ * Equals canCurateEntity while spaces are Stage A/B; used for content-edit gates. */
+export async function canEditEntity(userId: string | null, entityType: string, entityId: string): Promise<boolean> {
+  if (!userId) return false;
+  if (isAdmin(userId)) return true;
+  const gid = await resolveEntityGroupId(entityType, entityId);
+  return gid == null ? false : canEditDirect(userId, gid);
 }
 
 /** Route helper: the signed-in user if they may curate this entity, else null (-> 403). */
