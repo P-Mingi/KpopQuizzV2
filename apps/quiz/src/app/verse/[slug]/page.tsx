@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { RelatedNavbox } from '@/components/verse/related-navbox';
+import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
 import { onThisDay } from '@/lib/verse/date-engines';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
@@ -145,6 +146,7 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
   const { slug } = await params;
   const space = await getSpace(slug);
   if (!space) notFound();
+  const backlinks = await getGroupBacklinks(space.group.slug);
 
   return (
     <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3">
@@ -168,6 +170,17 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       </aside>
       <div className="lg:col-span-3">
         <RelatedNavbox group={space.group} />
+        {backlinks.length > 0 ? (
+          <nav aria-label="Mentioned by" className="mt-3 text-sm text-secondary">
+            <span className="text-tertiary">Mentioned by: </span>
+            {backlinks.map((b, i) => (
+              <span key={b.slug}>
+                <Link href={`/verse/${b.slug}`} className="no-underline hover:text-primary">{b.name}</Link>
+                {i < backlinks.length - 1 ? <span className="text-tertiary">, </span> : null}
+              </span>
+            ))}
+          </nav>
+        ) : null}
       </div>
     </div>
   );

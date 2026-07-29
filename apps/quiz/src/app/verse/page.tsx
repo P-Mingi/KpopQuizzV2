@@ -1,7 +1,9 @@
 import Link from 'next/link';
 
 import { GroupLogo } from '@/components/ui/group-logo';
+import { VerseSearch } from '@/components/verse/verse-search';
 import { getVerseDirectory } from '@/lib/verse/space-data';
+import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -63,13 +65,16 @@ function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
 }
 
 export default async function VerseDirectoryPage(): Promise<React.ReactElement> {
-  const tiles = await safeFetch(getVerseDirectory(), [], 'verse-directory');
+  const [tiles, trending] = await Promise.all([
+    safeFetch(getVerseDirectory(), [], 'verse-directory'),
+    safeFetch(getTrending(), [], 'verse-trending'),
+  ]);
   const launch = tiles.filter((t) => t.is_launch);
   const rest = tiles.filter((t) => !t.is_launch);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:py-12">
-      <header className="mb-8 max-w-2xl">
+      <header className="mb-6 max-w-2xl">
         <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-accent">Verse</p>
         <h1 className="text-3xl font-extrabold leading-tight text-primary sm:text-4xl">Your fandom&apos;s home on the open web</h1>
         <p className="mt-3 text-base leading-relaxed text-secondary">
@@ -77,6 +82,20 @@ export default async function VerseDirectoryPage(): Promise<React.ReactElement> 
           built on open sourced data and run by fans. Clean, fast, and credited to the people who build it.
         </p>
       </header>
+
+      <div className="mb-8 max-w-2xl">
+        <VerseSearch />
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+          <Link href="/verse/random" className="font-semibold text-accent no-underline hover:underline">Surprise me</Link>
+          <Link href="/verse/tags" className="text-secondary no-underline hover:text-primary">Browse by category</Link>
+          {trending.length > 0 ? (
+            <span className="flex flex-wrap items-center gap-x-2 text-secondary">
+              <span className="text-tertiary">Trending:</span>
+              {trending.map((g) => <Link key={g.slug} href={`/verse/${g.slug}`} className="no-underline hover:text-primary">{g.name}</Link>)}
+            </span>
+          ) : null}
+        </div>
+      </div>
 
       {tiles.length === 0 ? (
         <p className="rounded-xl border border-default bg-surface px-5 py-8 text-center text-secondary">
