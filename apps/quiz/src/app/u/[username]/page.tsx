@@ -8,6 +8,7 @@ import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
+import { ContributionGraph } from '@/components/verse/contribution-graph';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -226,8 +227,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           admins, and never on their own profile (self-check inside). */}
       <ModNotifyButton recipientUsername={profile.username} />
 
-      {/* W4.2: Verse space memberships (min-gated; hidden until they join a space). */}
+      {/* W4.2/W4.5: Verse memberships + edit-contribution graph (both min-gated). */}
       <SpaceMembershipsCard userId={profile.id} />
+      <ContributionGraph userId={profile.id} />
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>

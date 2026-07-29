@@ -19,6 +19,7 @@ export async function SpaceMembershipsCard({ userId }: { userId: string }): Prom
             <Link href={`/verse/${s.slug}`} className="inline-flex items-center gap-2 rounded-full border border-default px-3 py-1.5 text-sm no-underline transition-colors hover:bg-surface-1">
               <span className="font-semibold text-primary">{s.fandomName ?? s.name}</span>
               {s.role !== 'member' ? <span className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase text-accent" style={{ background: 'var(--bg-accent)' }}>{ROLE_LABEL[s.role]}</span> : null}
+              {s.xp > 0 ? <span className="text-[10px] font-semibold text-tertiary" title={`${s.xp} contribution XP`}>{s.tier} · {s.xp} XP</span> : null}
             </Link>
           </li>
         ))}

@@ -27,6 +27,7 @@ export async function MemberDirectory({ groupId, fandomName }: { groupId: number
               <UserAvatar username={m.username ?? name} avatarUrl={m.avatarUrl} bgColor={m.avatarBg ?? '#6b7280'} textColor={m.avatarText ?? '#ffffff'} size={26} />
               <span className="text-xs font-semibold text-primary">{name}</span>
               {pill ? <span className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase" style={{ background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' }}>{pill}</span> : null}
+              {m.xp > 0 ? <span className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase text-tertiary" style={{ border: '1px solid var(--verse-line)' }} title={`${m.xp} contribution XP`}>{m.tier}</span> : null}
             </span>
           );
           return <li key={m.userId}>{m.username ? <Link href={`/u/${m.username}`} className="no-underline">{inner}</Link> : inner}</li>;
