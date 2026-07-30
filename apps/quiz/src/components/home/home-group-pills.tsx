@@ -16,7 +16,11 @@ const ORDER = [
   'seventeen', 'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
 ];
 
-/** §2e + §10f - labeled group pills (logo + name) → /quizzes?group=<slug>. */
+/** §2e + §10f - labeled group pills (logo + name) → /<slug>-quiz.
+ * SEO: link straight to the group quiz HUB (/<slug>-quiz), not /quizzes?group=<slug>
+ * which only canonicals there. This flows the home page's authority directly to the
+ * pages that rank for "<group> quiz", tightens the internal-link graph, and lands the
+ * user on the dedicated group hub instead of a filtered browse view. */
 export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElement | null {
   const bySlug = new Map(groups.map((g) => [g.slug, g]));
   const ordered = ORDER.map((s) => bySlug.get(s)).filter((g): g is Group => Boolean(g));
@@ -32,7 +36,7 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
 
       <div className="home-group-pills" role="list">
         {pills.map((g) => (
-          <Link key={g.slug} href={`/quizzes?group=${g.slug}`} className="home-group-pill" role="listitem">
+          <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-pill" role="listitem" aria-label={`${g.name} quiz`}>
             <GroupLogo
               groupName={g.name}
               logoUrl={g.logo_url}

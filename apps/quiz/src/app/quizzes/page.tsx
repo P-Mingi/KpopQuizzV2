@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/queries/quizzes';
 import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
@@ -200,6 +202,23 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
       text_color: g.text_color,
     }));
 
+  // SEO: a concise FAQ for the "K-pop quizzes" query - real content depth, long-tail
+  // coverage, and internal links into the group hubs + /create. Shown only on the
+  // canonical /quizzes view (no group facet, page 1) so it never duplicates onto the
+  // group-canonicalized facet URLs.
+  const showFaq = !resolvedGroup && page === 1;
+  const faqLink: React.CSSProperties = { color: 'var(--brand)', fontWeight: 600 };
+  const quizFaqs: { q: string; text: string; a: React.ReactNode }[] = [
+    { q: 'Are the K-pop quizzes free?', text: 'Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or create your own.',
+      a: <>Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or <Link href="/create" style={faqLink}>create your own</Link>.</> },
+    { q: 'How many K-pop quizzes are there?', text: 'There are 380+ free K-pop quizzes across 30+ groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly.',
+      a: <>There are 380+ free K-pop quizzes across 30+ groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly.</> },
+    { q: 'Which K-pop groups can I take a quiz on?', text: 'Popular hubs include the BTS quiz, BLACKPINK quiz and Stray Kids quiz, plus 30+ more groups. Browse by group above or open a group hub.',
+      a: <>Popular hubs include the <Link href="/bts-quiz" style={faqLink}>BTS quiz</Link>, <Link href="/blackpink-quiz" style={faqLink}>BLACKPINK quiz</Link> and <Link href="/stray-kids-quiz" style={faqLink}>Stray Kids quiz</Link>, plus 30+ more groups. Browse by group above.</> },
+    { q: 'Can I make my own K-pop quiz?', text: 'Yes. Anyone can create a K-pop quiz for free in a few minutes and share it with other fans.',
+      a: <>Yes. Anyone can <Link href="/create" style={faqLink}>create a K-pop quiz</Link> for free in a few minutes and share it with other fans.</> },
+  ];
+
   return (
     <div className="pt-4 md:pt-6 pb-8">
       <Breadcrumbs
@@ -250,6 +269,36 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
           </p>
         </nav>
       </noscript>
+
+      {showFaq && (
+        <>
+          <section aria-labelledby="quizzes-faq" style={{ marginTop: 36, maxWidth: 720 }}>
+            <h2 id="quizzes-faq" style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--txt1)', marginBottom: 14 }}>K-pop quizzes: FAQ</h2>
+            <dl style={{ display: 'flex', flexDirection: 'column', gap: 16, margin: 0 }}>
+              {quizFaqs.map((f) => (
+                <div key={f.q}>
+                  <dt style={{ fontSize: 15, fontWeight: 700, color: 'var(--txt1)' }}>{f.q}</dt>
+                  <dd style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--txt2)', lineHeight: 1.55 }}>{f.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: quizFaqs.map((f) => ({
+                  '@type': 'Question',
+                  name: f.q,
+                  acceptedAnswer: { '@type': 'Answer', text: f.text },
+                })),
+              }),
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
