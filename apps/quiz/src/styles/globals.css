@@ -623,6 +623,37 @@ body {
 }
 
 /* ============================================================
+   W-CUSTOM - per-module frames + themed dividers (pure CSS, driven by config).
+   'none' renders no wrapper at all (empty config stays byte-identical), so these
+   only ever apply when a curator/preset opts in. Frames wrap a module; the accent
+   comes from --verse-accent so per-space theming carries through.
+   ============================================================ */
+.verse-frame { margin-bottom: 24px; }
+.verse-frame-rounded { border-radius: 20px; overflow: hidden; }
+.verse-frame-sharp { border-radius: 0; overflow: hidden; outline: 1px solid var(--verse-line); }
+.verse-frame-soft-shadow { border-radius: 16px; box-shadow: 0 10px 30px color-mix(in srgb, var(--verse-accent) 16%, transparent); }
+.verse-frame-sticker-border {
+  border: 2.5px dashed var(--verse-accent);
+  border-radius: 16px;
+  padding: 10px;
+}
+.verse-frame > section { margin-bottom: 0; }
+
+.verse-divider { height: 18px; margin: 2px 0; }
+.verse-divider-dots {
+  background-image: radial-gradient(circle, var(--verse-line) 1.5px, transparent 1.6px);
+  background-size: 12px 12px;
+  background-position: center;
+  opacity: 0.9;
+}
+.verse-divider-wave {
+  background-image: repeating-linear-gradient(-45deg, var(--verse-line) 0 6px, transparent 6px 12px);
+  height: 6px;
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+/* ============================================================
    B4 - /quizzes browse redesign
    Canonical shared components (spec §3, §10b/10c/10d/10f/10h, §10j, §14h).
    Reused later on home/games. Keyframes namespaced (qz*) so they don't
