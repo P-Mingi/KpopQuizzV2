@@ -60,7 +60,7 @@ export function MembersStrip({ space }: { space: Space }): React.ReactElement | 
             <Link href={`/verse/${group.slug}/members/${m.slug}`} className="group block no-underline">
               <div className="aspect-[3/4] w-full overflow-hidden rounded-[var(--v-radius-media)]" style={{ background: 'var(--verse-soft)' }}>
                 {m.photo_url
-                  ? <img src={m.photo_url} alt={m.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
+                  ? <img src={m.photo_url} alt={m.name} className="v-zoom h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
                   : <span className="flex h-full w-full items-center justify-center text-xl font-bold" style={{ color: 'var(--verse-ink)' }}>{m.name.slice(0, 2)}</span>}
               </div>
               <span className="mt-2 block truncate text-[13.5px] font-semibold text-primary">{m.name}</span>
@@ -141,10 +141,10 @@ export function MastheadInvite({ space }: { space: Space }): React.ReactElement 
   return (
     <div className="v-module">
       <h3 className="v-eyebrow">Curators</h3>
-      <p className="text-sm leading-relaxed text-secondary" style={{ maxWidth: 'var(--v-measure)' }}>
+      <p className="leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>
         This space is looking for its founding {space.group.fandom_name} curators. Run it, and get credited for it.
       </p>
-      <a href={`/login?returnTo=${encodeURIComponent(`/verse/${space.group.slug}`)}`} className="mt-2 inline-flex items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
+      <a href={`/login?returnTo=${encodeURIComponent(`/verse/${space.group.slug}`)}`} className="mt-1 inline-flex min-h-[44px] items-center gap-1 py-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
         Become a curator
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>

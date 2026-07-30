@@ -646,6 +646,11 @@ body {
 .v-grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--v-grid-card-min), 1fr)); gap: var(--v-gutter); }
 /* mobile: media tiles a touch smaller so the row still shows several */
 @media (max-width: 640px) { .verse-scope { --v-grid-media-min: 6.5rem; --v-grid-card-min: 10.5rem; } }
+/* V-DESIGN debt: honour reduced-motion on the member-photo hover zoom. */
+@media (prefers-reduced-motion: reduce) {
+  .v-zoom { transition: none !important; }
+  .group:hover .v-zoom, .group:focus-within .v-zoom { transform: none !important; }
+}
 
 /* Frames - OPT-IN. 'none' (default) renders no wrapper. Each style is intentional:
    a filled soft panel, an editorial accent rule, an elevated card, or playful tape. */
@@ -4875,7 +4880,7 @@ a.ranking-cta { text-decoration: none; }
   --v-type-title:   clamp(1.6rem, 4.5vw, 2.4rem);  /* entity page title */
   --v-type-h2:      1.0625rem;                      /* section header */
   --v-type-label:   0.6875rem;                      /* small-caps section eyebrow */
-  --v-type-body:    0.9375rem;                       /* reading body */
+  --v-type-body:    1rem;                            /* reading body - 16px, mobile-legible */
   --v-type-num:     clamp(1.9rem, 5.5vw, 2.75rem);  /* big quiet rail numbers */
   --v-leading-body: 1.72;
   --v-tracking-label: 0.15em;

@@ -12,9 +12,9 @@ export async function RelatedNavbox({ group }: { group: { slug: string; name: st
   // small-caps eyebrow + a breathing category grid.
   return (
     <nav aria-label="Related groups" style={{ marginTop: 'var(--v-space-section)', background: 'var(--verse-soft)', borderRadius: 'var(--v-radius)', padding: 'var(--v-frame-pad)' }}>
-      <div className="mb-4 flex items-baseline justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="v-eyebrow" style={{ margin: 0 }}>Related groups</h2>
-        <Link href="/verse/tags" className="text-[11px] font-semibold uppercase tracking-[0.12em] text-tertiary no-underline hover:text-secondary">All categories</Link>
+        <Link href="/verse/tags" className="inline-flex min-h-[44px] items-center text-[11px] font-semibold uppercase tracking-[0.12em] text-tertiary no-underline hover:text-secondary">All categories</Link>
       </div>
       <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
         {sections.map((s) => (

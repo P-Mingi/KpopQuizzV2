@@ -60,7 +60,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
         </div>
 
         {config.welcome_line ? (
-          <p className="text-sm leading-relaxed text-secondary" style={{ maxWidth: 'var(--v-measure)' }}>{config.welcome_line}</p>
+          <p className="leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>{config.welcome_line}</p>
         ) : null}
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
@@ -70,7 +70,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
             <span className="ml-auto flex flex-wrap items-center gap-x-4 gap-y-1">
               {config.sns_links.map((s) => (
                 <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer nofollow"
-                  className="text-xs font-semibold text-tertiary no-underline transition-colors hover:text-primary">{s.label}</a>
+                  className="inline-flex min-h-[44px] items-center text-xs font-semibold text-tertiary no-underline transition-colors hover:text-primary">{s.label}</a>
               ))}
             </span>
           ) : null}
