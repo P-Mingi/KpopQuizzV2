@@ -37,12 +37,12 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   eras:         { type: 'eras', label: 'Eras', seoCritical: true, zones: ['main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
   collections:  { type: 'collections', label: 'Collections', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
 
-  // --- Feature blocks (decorative/interactive, freely toggleable) - later steps ---
+  // --- Feature blocks (decorative/interactive, freely toggleable) ---
   music:        { type: 'music', label: 'Music', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
-  countdown:    { type: 'countdown', label: 'Countdown', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
-  poll:         { type: 'poll', label: 'Poll', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
-  quote:        { type: 'quote', label: 'Quote highlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
-  spotlight:    { type: 'spotlight', label: 'Spotlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
+  countdown:    { type: 'countdown', label: 'Countdown', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
+  poll:         { type: 'poll', label: 'Poll', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
+  quote:        { type: 'quote', label: 'Quote highlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
+  spotlight:    { type: 'spotlight', label: 'Spotlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   social_embed: { type: 'social_embed', label: 'Social post', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
   discord:      { type: 'discord', label: 'Discord', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
   live_now:     { type: 'live_now', label: 'Live now', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },

@@ -20,8 +20,32 @@ export interface ValidationResult {
 const MAX_MODULES = 24;
 const MAX_STICKERS = 12;      // page cap (clutter + perf guard)
 const MAX_WELCOME = 400;
+const MAX_QUOTE = 280;        // pull-quote cap (also a lyric-reproduction guard)
 const MIN_TABS = 3;
 const MAX_TABS = 7;
+
+// Per-block props validation. Returns {props, errors}. Unknown props are dropped.
+function validateProps(type: string, raw: unknown): { props?: Record<string, unknown>; errors: string[] } {
+  const errors: string[] = [];
+  if (raw == null || typeof raw !== 'object') return { errors };
+  const p = raw as Record<string, unknown>;
+  const out: Record<string, unknown> = {};
+  if (type === 'quote') {
+    const text = typeof p.text === 'string' ? p.text.trim() : '';
+    if (text.length > MAX_QUOTE) errors.push(`Quote is too long (max ${MAX_QUOTE} characters). Song lyrics cannot be reproduced - link out instead.`);
+    if (text) out.text = text.slice(0, MAX_QUOTE);
+    if (typeof p.attribution === 'string' && p.attribution.trim()) out.attribution = p.attribution.trim().slice(0, 80);
+  } else if (type === 'spotlight') {
+    if (p.photocardId != null) { const n = Number(p.photocardId); if (Number.isFinite(n) && n > 0) out.photocardId = n; }
+    if (typeof p.kind === 'string' && ['photocard', 'collectible'].includes(p.kind)) out.kind = p.kind;
+  } else if (type === 'social_embed') {
+    if (typeof p.url === 'string') out.url = p.url.slice(0, 500);
+  } else if (type === 'discord') {
+    if (typeof p.invite === 'string') out.invite = p.invite.slice(0, 200);
+    if (typeof p.serverId === 'string') out.serverId = p.serverId.slice(0, 40);
+  }
+  return Object.keys(out).length ? { props: out, errors } : { errors };
+}
 
 // The base page backgrounds an accent must stay readable against (light cream +
 // dark). If no shade of the accent can hit AA on BOTH, the config is unreadable.
@@ -101,6 +125,9 @@ export function validatePresentation(raw: unknown): ValidationResult {
       const placement: ModulePlacement = { type, zone, hidden, order: Number(mm.order ?? norm.length) };
       if (mm.frame != null) placement.frame = mm.frame as FrameStyle;
       if (mm.mode != null) placement.mode = String(mm.mode);
+      const pv = validateProps(type, mm.props);
+      pv.errors.forEach((e) => errors.push(e));
+      if (pv.props) placement.props = pv.props;
       norm.push(placement);
     }
     // THE LAW: no seoCritical default block may be dropped from an explicit stack.

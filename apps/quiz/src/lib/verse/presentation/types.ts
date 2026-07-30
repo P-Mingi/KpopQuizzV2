@@ -21,6 +21,7 @@ export interface ModulePlacement {
   hidden?: boolean;          // feature blocks only; ignored (forced false) for seoCritical
   frame?: FrameStyle;
   mode?: string;             // per-module option (e.g. music mode); validated per block
+  props?: Record<string, unknown>; // per-instance data (quote text, pinned spotlight...); validated per block
   order: number;             // sort within zone
 }
 

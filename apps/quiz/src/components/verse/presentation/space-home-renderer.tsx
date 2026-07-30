@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { RelatedNavbox } from '@/components/verse/related-navbox';
 import { resolvePlacements, placementsForZone } from '@/lib/verse/presentation/resolve';
-import { MODULE_RENDERERS } from './space-home-modules';
+import { ALL_MODULES } from './module-registry';
 
 import type { Presentation, ModulePlacement } from '@/lib/verse/presentation/types';
 import type { FrameStyle } from '@/lib/verse/presentation/registry';
@@ -29,17 +29,17 @@ function Stack({ placements, space, frameDefault, divider }: {
   return (
     <>
       {placements.map((m, i) => {
-        const R = MODULE_RENDERERS[m.type];
+        const R = ALL_MODULES[m.type];
         if (!R) return null;
         const frame = (m.frame ?? frameDefault) as FrameStyle;
         const showDivider = i > 0 && divider !== 'none' && divider !== 'line';
         // Bare render when there is no frame and no visual divider - byte-identical
         // to the pre-W-CUSTOM page (the empty-config invariant).
-        if (frame === 'none' && !showDivider) return <R key={`${m.type}-${i}`} space={space} />;
+        if (frame === 'none' && !showDivider) return <R key={`${m.type}-${i}`} space={space} placement={m} />;
         return (
           <div key={`${m.type}-${i}`}>
             {showDivider ? <Divider kind={divider} /> : null}
-            <ModuleFrame frame={frame}><R space={space} /></ModuleFrame>
+            <ModuleFrame frame={frame}><R space={space} placement={m} /></ModuleFrame>
           </div>
         );
       })}
