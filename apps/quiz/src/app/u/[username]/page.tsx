@@ -101,12 +101,13 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   };
 }
 
-// Same column as the passport (M1.29): the tabs card must not out-span the
-// profile stack on desktop.
+// Same 520 column as the passport stack. The tabs are NOT wrapped in their own
+// padded card - that nested a padded card around the already-bordered quiz cards,
+// insetting them 16px so they read as narrower/misaligned against the passport
+// sections above. This is a plain column wrapper, so the quiz cards are siblings of
+// the passport cards: identical width, edge-aligned.
 const cardWrap: React.CSSProperties = {
-  background: 'var(--bg-surface)', border: '1px solid var(--border)',
-  borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 14,
-  maxWidth: 520, marginLeft: 'auto', marginRight: 'auto',
+  marginTop: 14, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto',
 };
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
