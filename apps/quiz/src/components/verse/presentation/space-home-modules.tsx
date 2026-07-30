@@ -13,11 +13,19 @@ import type { Space } from '@/lib/verse/space';
 // wide canvas. Opt-in frames (curator choice) wrap these unchanged.
 
 // A section is an h2 eyebrow (kept as a real heading for SEO) + content, spaced by
-// the section rhythm. No box.
-function Section({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
+// the section rhythm. An optional quiet action sits on the header line (right),
+// giving a boxed module a structured header instead of a floating label.
+function Section({ title, action, children }: { title: string; action?: { label: string; href: string }; children: React.ReactNode }): React.ReactElement {
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">{title}</h2>
+      {action ? (
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="v-eyebrow">{title}</h2>
+          <Link href={action.href} className="v-eyebrow no-underline transition-colors hover:text-primary" style={{ letterSpacing: '0.08em' }}>{action.label}</Link>
+        </div>
+      ) : (
+        <h2 className="v-eyebrow">{title}</h2>
+      )}
       {children}
     </section>
   );
@@ -102,16 +110,18 @@ export function MembersStrip({ space }: { space: Space }): React.ReactElement | 
 
 export function Discography({ space }: { space: Space }): React.ReactElement | null {
   const { group, albums } = space;
-  const recent = albums.filter((a) => a.release_date).slice(0, 8);
+  const recent = albums.filter((a) => a.release_date).slice(0, 6);
   if (!recent.length) return null;
+  // No hairline rows inside a filled box (chrome must not compete with the card
+  // edge): the grid + type hierarchy carry the rhythm.
   return (
-    <Section title="Latest releases">
+    <Section title="Latest releases" action={{ label: `All ${albums.length}`, href: `/verse/${group.slug}/discography` }}>
       <ul className="v-grid-cards">
         {recent.map((a) => (
-          <li key={a.id} className="border-t pt-2.5" style={{ borderColor: 'var(--v-hairline)' }}>
+          <li key={a.id}>
             <Link href={`/verse/${group.slug}/albums/${a.slug}`} className="group block no-underline">
-              <span className="block text-[14.5px] font-semibold leading-snug transition-colors group-hover:text-[var(--verse-ink)]" style={{ color: 'var(--verse-ink)' }}>{a.title}</span>
-              <span className="mt-1 block text-[12px] uppercase tracking-wide text-tertiary">
+              <span className="block text-[14.5px] font-semibold leading-snug" style={{ color: 'var(--verse-ink)' }}>{a.title}</span>
+              <span className="mt-0.5 block text-[11.5px] uppercase tracking-wide text-tertiary">
                 {a.release_date?.slice(0, 4)} · {a.type}{a.region !== 'kr' ? ` · ${a.region}` : ''}
               </span>
             </Link>

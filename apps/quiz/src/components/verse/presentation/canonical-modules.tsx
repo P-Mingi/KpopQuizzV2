@@ -138,7 +138,7 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
       <h2 className="v-eyebrow">Go deeper</h2>
       <div className="v-grid-cards">
         {targets.map((t) => (
-          <Link key={t.href} href={t.href} className="group -mx-2 rounded-xl px-2 py-2.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
+          <Link key={t.href} href={t.href} className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
             <span className="flex items-baseline gap-1.5">
               <span className="text-[15px] font-bold" style={{ color: 'var(--verse-ink)' }}>{t.label}</span>
               <svg className="opacity-0 transition-opacity group-hover:opacity-100" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--verse-ink)" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -146,7 +146,7 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
             <span className="mt-0.5 block text-[13px] text-tertiary">{t.sub}</span>
           </Link>
         ))}
-        <Link href={`/verse/${group.slug}/random`} className="group -mx-2 rounded-xl px-2 py-2.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
+        <Link href={`/verse/${group.slug}/random`} className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
           <span className="text-[15px] font-bold" style={{ color: 'var(--verse-brand-text)' }}>Surprise me</span>
           <span className="mt-0.5 block text-[13px] text-tertiary">A random page in this space</span>
         </Link>

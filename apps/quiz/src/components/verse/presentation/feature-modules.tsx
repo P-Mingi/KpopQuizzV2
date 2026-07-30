@@ -34,8 +34,10 @@ function nextAnniversary(inception: string | null, today: Date): { label: string
 }
 
 /** NOW (canonical position 7) - the current era plus the next date we hold
- * (comeback / birthday / anniversary). Contextual: hides entirely when idle. */
-export async function CountdownModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
+ * (comeback / birthday / anniversary). Contextual: hides entirely when idle.
+ * Zone-aware density: compact label/value rows in the main column (a display
+ * number there overwhelms the flow); the big quiet number stays a rail thing. */
+export async function CountdownModule({ space, placement }: ModuleProps): Promise<React.ReactElement | null> {
   const today = new Date();
   const cands: { label: string; days: number }[] = [];
   const anni = nextAnniversary(space.group.inception_date, today);
@@ -49,6 +51,27 @@ export async function CountdownModule({ space }: ModuleProps): Promise<React.Rea
   const current = eras.find((e) => e.periodStart && e.periodStart <= iso && (!e.periodEnd || e.periodEnd >= iso)) ?? null;
   if (!cands.length && !current) return null;
   const next = cands.sort((a, b) => a.days - b.days)[0] ?? null;
+  const inMain = placement.zone === 'main';
+  if (inMain) {
+    return (
+      <Card title="Now">
+        <div className="flex flex-col gap-1.5">
+          {current ? (
+            <div className="flex flex-wrap items-baseline gap-x-2 text-sm">
+              <span className="text-tertiary">Current era</span>
+              <Link href={`/verse/${space.group.slug}/timeline`} className="font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>{current.name}</Link>
+            </div>
+          ) : null}
+          {next ? (
+            <div className="flex flex-wrap items-baseline gap-x-2 text-sm">
+              <span className="text-tertiary">{next.label}</span>
+              <span className="font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{next.days === 0 ? 'today' : `in ${next.days} day${next.days === 1 ? '' : 's'}`}</span>
+            </div>
+          ) : null}
+        </div>
+      </Card>
+    );
+  }
   return (
     <Card title="Now">
       {current ? (

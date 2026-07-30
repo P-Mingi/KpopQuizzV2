@@ -682,7 +682,12 @@ body {
 .verse-frame:empty { display: none; }
 /* Filled box: a slightly stronger, theme-adaptive fill + a faint hairline so the
    card reads as defined (esp. in light mode) without a hard border. */
-.verse-frame-rounded { border-radius: var(--v-radius); background: color-mix(in srgb, var(--verse-soft-strong), var(--verse-soft)); border: 1px solid var(--v-hairline); padding: var(--v-frame-pad); }
+.verse-frame-rounded { border-radius: var(--v-radius); background: var(--v-frame-fill, color-mix(in srgb, var(--verse-soft-strong), var(--verse-soft))); border: 1px solid var(--v-hairline); padding: var(--v-frame-pad); }
+/* Structure INSIDE a box: the eyebrow is the card header (more air below it),
+   grids pack denser (a box provides the enclosure, so items need less spread),
+   and no extra hairlines compete with the card edge. */
+.verse-frame .v-eyebrow { margin-bottom: 1.05rem; }
+.verse-frame .v-grid-cards { --v-grid-card-min: 10.5rem; gap: 0.9rem 1.5rem; }
 /* Box with the background OFF: same container, hairline only, no fill. */
 .verse-frame-outline { border-radius: var(--v-radius); border: 1px solid var(--verse-line); padding: var(--v-frame-pad); }
 .verse-frame-sharp { border-radius: 0; border-left: 3px solid var(--verse-accent); padding: 0.1rem 0 0.1rem var(--v-frame-pad); }
@@ -4922,7 +4927,11 @@ a.ranking-cta { text-decoration: none; }
   --v-radius-media:  12px;
   --v-hairline:      color-mix(in srgb, var(--verse-line) 60%, transparent);
   --v-shadow-soft:   0 14px 44px color-mix(in srgb, var(--verse-accent) 14%, transparent);
-  --v-frame-pad:     1.15rem;   /* padding inside an opted-in frame */
+  --v-frame-pad:     1.35rem;   /* padding inside an opted-in frame */
+  /* Filled-box surface: an opaque, quietly tinted card on light (calmer than a
+     translucent wash); the dark override below drops the mix so cards read as
+     subtle elevation, never grey slabs. */
+  --v-frame-fill:    color-mix(in srgb, var(--verse-accent) 8%, var(--bg-surface));
 
   /* THE WIDE CANVAS (principle 7) - Verse USES the screen, mixed widths per module.
      The page fills; prose still caps at --v-measure so text never stretches. */
@@ -4944,6 +4953,7 @@ main:has(.verse-scope) { max-width: 1360px; }
   --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
   --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
   --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
+  --v-frame-fill: color-mix(in srgb, var(--verse-accent) 10%, transparent);
 }
 @media (prefers-color-scheme: dark) {
   :root:not(.light) .verse-scope {
@@ -4951,6 +4961,7 @@ main:has(.verse-scope) { max-width: 1360px; }
     --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
     --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
     --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
+    --v-frame-fill: color-mix(in srgb, var(--verse-accent) 10%, transparent);
   }
 }
 
