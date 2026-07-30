@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 
-import { badgeIconFor } from '@/lib/badges';
+import { BadgeCoin } from '@/components/profile/badge-coin';
+import { badgeRarity, RARITY_LABEL, RARITY_COLOR } from '@/lib/badges';
 
 import type { BadgeDefinition } from '@/lib/db/types';
 
@@ -28,7 +29,7 @@ export function BadgeDetailModal({ badge, earned, earnedAt, onClose }: Props): R
     };
   }, [onClose]);
 
-  const icon = badge.icon ?? badgeIconFor(badge.id);
+  const rarity = badgeRarity(badge.id);
   const earnedLabel = earnedAt
     ? new Date(earnedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
     : null;
@@ -49,20 +50,13 @@ export function BadgeDetailModal({ badge, earned, earnedAt, onClose }: Props): R
           </svg>
         </button>
 
-        <div className={`bdm-art ${earned ? '' : 'is-locked'}`}>
-          {icon ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={icon} alt={badge.name} className="bdm-img" />
-          ) : (
-            <span
-              className="bdm-fallback"
-              style={{ background: badge.color_bg, borderColor: badge.color_stroke, color: badge.color_text }}
-            >
-              {badge.name.slice(0, 1).toUpperCase()}
-            </span>
-          )}
+        <div className="bdm-art">
+          <BadgeCoin id={badge.id} earned={earned} size={112} />
         </div>
 
+        <span className="bdm-rarity" style={{ color: RARITY_COLOR[rarity], background: `color-mix(in srgb, ${RARITY_COLOR[rarity]} 14%, transparent)` }}>
+          {RARITY_LABEL[rarity]}
+        </span>
         <p className="bdm-name">{badge.name}</p>
         <p className="bdm-desc">{badge.description}</p>
 
@@ -97,7 +91,11 @@ const MODAL_CSS = `
   font-weight:800;font-size:36px;
 }
 .bdm-art.is-locked .bdm-fallback{filter:grayscale(1) blur(6px);opacity:.34}
-.bdm-name{font-size:17px;font-weight:700;color:var(--txt1);margin:14px 0 0}
+.bdm-rarity{
+  display:inline-block;margin:14px 0 0;padding:3px 10px;border-radius:999px;
+  font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+}
+.bdm-name{font-size:17px;font-weight:700;color:var(--txt1);margin:8px 0 0}
 .bdm-desc{font-size:13px;color:var(--txt2);margin:6px 0 0;line-height:1.5}
 .bdm-state{
   display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;

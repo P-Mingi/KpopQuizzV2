@@ -4656,3 +4656,46 @@ a.ranking-cta { text-decoration: none; }
 .browse-popular-label { font-weight: 700; color: var(--txt2); text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em; }
 .browse-popular-row a { color: var(--brand); font-weight: 600; text-decoration: none; }
 .browse-popular-row a:hover { text-decoration: underline; }
+/* ============================================================
+   Badge coins (redesign). One rarity system: ring colour + glow encode the tier.
+   --r is the rarity colour, set inline per coin; data-rarity picks the effect.
+   ============================================================ */
+.bcoin {
+  position: relative; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+  color: color-mix(in srgb, var(--r) 82%, var(--txt1));
+  background: radial-gradient(120% 120% at 50% 22%, color-mix(in srgb, var(--r) 18%, var(--surface)), var(--surface) 78%);
+  border: 2px solid color-mix(in srgb, var(--r) 60%, var(--border));
+  overflow: hidden;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.bcoin svg { position: relative; z-index: 1; }
+.bcoin[data-rarity="uncommon"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--r) 13%, transparent); }
+.bcoin[data-rarity="rare"] { box-shadow: 0 0 10px -1px color-mix(in srgb, var(--r) 45%, transparent), 0 0 0 3px color-mix(in srgb, var(--r) 15%, transparent); }
+.bcoin[data-rarity="epic"] {
+  border-color: transparent;
+  background:
+    radial-gradient(120% 120% at 50% 22%, color-mix(in srgb, var(--r) 24%, var(--surface)), var(--surface) 76%) padding-box,
+    conic-gradient(from 210deg, color-mix(in srgb, var(--r) 92%, #fff), var(--r), color-mix(in srgb, var(--r) 52%, #000), var(--r)) border-box;
+  box-shadow: 0 0 16px -2px color-mix(in srgb, var(--r) 52%, transparent);
+}
+.bcoin[data-rarity="legendary"] {
+  border: 2.5px solid transparent;
+  color: color-mix(in srgb, var(--r) 74%, var(--txt1));
+  background:
+    radial-gradient(120% 120% at 50% 20%, color-mix(in srgb, var(--r) 28%, var(--surface)), var(--surface) 74%) padding-box,
+    conic-gradient(from 210deg, #fff6d8, var(--r), #b5770a, var(--r), #fff6d8) border-box;
+  box-shadow: 0 0 22px -2px color-mix(in srgb, var(--r) 62%, transparent), 0 0 0 4px color-mix(in srgb, var(--r) 12%, transparent);
+}
+.bcoin-shim {
+  position: absolute; inset: -40%; z-index: 0;
+  background: conic-gradient(from 0deg, transparent 0 78%, color-mix(in srgb, #fff 85%, var(--r)) 88%, transparent 96%);
+  animation: bcoinSpin 3.6s linear infinite; opacity: .5;
+}
+@keyframes bcoinSpin { to { transform: rotate(1turn); } }
+.bcoin-locked { filter: grayscale(1); opacity: .42; box-shadow: none; }
+.bcoin-lock {
+  position: absolute; right: -1px; bottom: -1px; z-index: 2; display: grid; place-items: center;
+  padding: 2px; border-radius: 50%; background: var(--surface); color: var(--txt3); box-shadow: 0 0 0 1px var(--border);
+}
+@media (prefers-reduced-motion: reduce) { .bcoin-shim { animation: none; opacity: .26; } }
+
