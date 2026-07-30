@@ -63,16 +63,22 @@ export function SpaceHomeRenderer({ space, presentation, backlinks }: {
   const placements = resolvePlacements(presentation);
   const main = placementsForZone(placements, 'main');
   const side = placementsForZone(placements, 'side');
-  const frameDefault = (presentation?.frames?.default ?? 'none') as FrameStyle;
+  // V-DESIGN v2 box model: the side rail is boxed by default (a clean soft-surface
+  // card), the main column stays open so the media grids breathe. A curator's
+  // explicit frames.default overrides both zones; a per-module frame still wins
+  // over that, so any box is fully customizable and can be toggled off.
+  const configuredDefault = presentation?.frames?.default;
+  const mainFrameDefault = (configuredDefault ?? 'none') as FrameStyle;
+  const sideFrameDefault = (configuredDefault ?? 'rounded') as FrameStyle;
   const divider = presentation?.frames?.divider ?? 'line';
 
   return (
     <>
       <div className="lg:col-span-2">
-        <Stack placements={main} space={space} frameDefault={frameDefault} divider={divider} />
+        <Stack placements={main} space={space} frameDefault={mainFrameDefault} divider={divider} />
       </div>
       <aside className="lg:col-span-1">
-        <Stack placements={side} space={space} frameDefault={frameDefault} divider={divider} />
+        <Stack placements={side} space={space} frameDefault={sideFrameDefault} divider={divider} />
       </aside>
       <div className="lg:col-span-3">
         <RelatedNavbox group={space.group} />

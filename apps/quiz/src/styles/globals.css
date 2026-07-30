@@ -649,7 +649,11 @@ body {
 
 /* Frames - OPT-IN. 'none' (default) renders no wrapper. Each style is intentional:
    a filled soft panel, an editorial accent rule, an elevated card, or playful tape. */
-.verse-frame { margin-bottom: var(--v-space-section); }
+.verse-frame { margin-bottom: 1.25rem; }
+.verse-frame:last-child { margin-bottom: 0; }
+/* A conditional module (on-this-day, countdown ...) can render nothing; its frame
+   must not leave an empty box behind. */
+.verse-frame:empty { display: none; }
 .verse-frame-rounded { border-radius: var(--v-radius); background: var(--verse-soft); padding: var(--v-frame-pad); }
 .verse-frame-sharp { border-radius: 0; border-left: 3px solid var(--verse-accent); padding: 0.1rem 0 0.1rem var(--v-frame-pad); }
 .verse-frame-soft-shadow { border-radius: var(--v-radius); background: var(--bg-surface); box-shadow: var(--v-shadow-soft); padding: var(--v-frame-pad); }
