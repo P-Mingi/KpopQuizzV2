@@ -38,6 +38,14 @@ function validateProps(type: string, raw: unknown): { props?: Record<string, unk
   } else if (type === 'spotlight') {
     if (p.photocardId != null) { const n = Number(p.photocardId); if (Number.isFinite(n) && n > 0) out.photocardId = n; }
     if (typeof p.kind === 'string' && ['photocard', 'collectible'].includes(p.kind)) out.kind = p.kind;
+  } else if (type === 'music') {
+    if (typeof p.mode === 'string' && ['youtube', 'audio', 'playlist', 'signature'].includes(p.mode)) out.mode = p.mode;
+    for (const k of ['videoId', 'url', 'audioUrl', 'title']) if (typeof p[k] === 'string') out[k] = (p[k] as string).slice(0, 500);
+    if (Array.isArray(p.tracks)) {
+      out.tracks = p.tracks.slice(0, 12).map((t) => (t && typeof t === 'object'
+        ? { title: String((t as Record<string, unknown>).title ?? '').slice(0, 120), url: String((t as Record<string, unknown>).url ?? '').slice(0, 500) }
+        : null)).filter(Boolean);
+    }
   } else if (type === 'social_embed') {
     if (typeof p.url === 'string') out.url = p.url.slice(0, 500);
   } else if (type === 'discord') {

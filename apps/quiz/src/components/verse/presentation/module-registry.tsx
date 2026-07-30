@@ -5,6 +5,7 @@
 
 import { MODULE_RENDERERS as CORE } from './space-home-modules';
 import { CountdownModule, QuoteModule, SpotlightModule, PollModule } from './feature-modules';
+import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -18,4 +19,7 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   quote: QuoteModule,
   spotlight: SpotlightModule,
   poll: PollModule,
+  music: MusicModule,
+  social_embed: SocialEmbedModule,
+  discord: DiscordModule,
 };
