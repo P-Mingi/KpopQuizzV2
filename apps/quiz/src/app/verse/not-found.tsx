@@ -12,7 +12,7 @@ export default function VerseNotFound(): React.ReactElement {
   return (
     <div className="verse-scope" style={{ maxWidth: 600, margin: '0 auto', padding: '72px 4px 120px', textAlign: 'center' }}>
       <span style={{ display: 'inline-flex', marginBottom: 20 }}><OrbitMark size={56} /></span>
-      <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: VIOLET, margin: 0 }}>KpopVerse</p>
+      <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--verse-brand-text)', margin: 0 }}>KpopVerse</p>
       <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.6rem)', fontWeight: 800, letterSpacing: '-0.03em', margin: '10px 0 14px', color: 'var(--text-primary)' }}>
         This corner of the Verse isn&rsquo;t mapped yet
       </h1>

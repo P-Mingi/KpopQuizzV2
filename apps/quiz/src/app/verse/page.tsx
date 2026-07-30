@@ -109,7 +109,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
         <div className="mt-7 max-w-2xl">
           <VerseSearch />
           <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
-            <Link href="/verse/random" className="font-semibold no-underline hover:underline" style={{ color: VIOLET }}>Surprise me</Link>
+            <Link href="/verse/random" className="font-semibold no-underline hover:underline" style={{ color: 'var(--verse-brand-text)' }}>Surprise me</Link>
             <Link href="/verse/tags" className="text-secondary no-underline hover:text-primary">Browse by category</Link>
             {trending.length > 0 ? (
               <span className="flex flex-wrap items-center gap-x-3 text-secondary">
@@ -170,7 +170,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
 
       {/* 7. CLAIM YOUR FANDOM - the standing recruitment invitation */}
       <section className="mb-14 rounded-2xl px-6 py-10 sm:px-10" style={{ background: 'color-mix(in srgb, #7c5cfc 12%, var(--bg-surface))', border: '1px solid color-mix(in srgb, #7c5cfc 22%, transparent)' }}>
-        <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: VIOLET }}>Claim your fandom</p>
+        <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-brand-text)' }}>Claim your fandom</p>
         <h2 className="mt-2 max-w-2xl text-2xl font-extrabold leading-tight text-primary sm:text-3xl">Run your fandom&rsquo;s home. Get credited for it.</h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-secondary">
           Curators shape a space: what it says, how it looks, what the community builds. You own your work and your name is on it. No gatekeepers, no scraping, just the fandom done right.
@@ -184,7 +184,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
           <p className="v-eyebrow" style={{ margin: 0 }}>New to K-pop?</p>
           <p className="mt-2 text-base leading-relaxed text-secondary">Start with the fandoms, or browse by category. Guided starter paths are coming.</p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
-            <Link href="/verse/tags" className="no-underline hover:underline" style={{ color: VIOLET }}>Browse by category</Link>
+            <Link href="/verse/tags" className="no-underline hover:underline" style={{ color: 'var(--verse-brand-text)' }}>Browse by category</Link>
             <Link href="/verse/random" className="text-secondary no-underline hover:text-primary">Surprise me</Link>
           </div>
         </div>

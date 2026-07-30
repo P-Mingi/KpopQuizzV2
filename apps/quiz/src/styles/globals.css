@@ -25,6 +25,11 @@
      needs the same darkness in both, and this way one edit covers everywhere. */
   --brand-btn:      #D13A6E;
   --brand-btn-hover:#B5345F;
+  /* V-IDENTITY: the Verse brand violet (#7c5cfc) is reserved for the wordmark,
+     hero and large display (logotypes are contrast-exempt). SMALL violet text
+     reads this token instead: a deeper same-hue violet on light (5.8:1 on white),
+     a lighter one on dark (6.7:1 on the dark ground). */
+  --verse-brand-text: #6547e8;
   --bg:           #FAF8F5;
   --surface:      #FFFFFF;
   --surface-alt:  #F3F1ED;
@@ -125,6 +130,7 @@
     --txt1: #F5F0EB; --txt2: #A89F96; --txt3: #756D64;
     --border: rgba(245,240,235,0.10); --border-h: rgba(245,240,235,0.22);
     --text-ghost: #4A443D; --border-subtle: rgba(245,240,235,0.05); --accent-light: #B5476A;
+    --verse-brand-text: #9f8bff;
     --badge-classic: #1E2A44; --badge-classic-text: #93C5FD;
     --badge-truefalse: #14321F; --badge-truefalse-text: #86EFAC;
     --badge-clues: #3A2C12; --badge-clues-text: #FCD34D;
@@ -158,6 +164,7 @@
   --txt1: #F5F0EB; --txt2: #A89F96; --txt3: #756D64;
   --border: rgba(245,240,235,0.10); --border-h: rgba(245,240,235,0.22);
   --text-ghost: #4A443D; --border-subtle: rgba(245,240,235,0.05); --accent-light: #B5476A;
+  --verse-brand-text: #9f8bff;
   --badge-classic: #1E2A44; --badge-classic-text: #93C5FD;
   --badge-truefalse: #14321F; --badge-truefalse-text: #86EFAC;
   --badge-clues: #3A2C12; --badge-clues-text: #FCD34D;

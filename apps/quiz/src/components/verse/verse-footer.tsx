@@ -10,7 +10,6 @@ import { LocaleSwitcher } from '@/components/layout/locale-switcher';
 // V-IDENTITY step 2 (surface: footer) - the Verse world's own footer. Verse voice,
 // Verse links, the covenant, the soft network line + the world toggle. No Play
 // link farm. Rendered only on Verse routes (SiteFooter picks by world).
-const VIOLET = '#7c5cfc';
 const eyebrow: React.CSSProperties = { fontSize: 10.5, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.14em', margin: '0 0 12px' };
 const linkStyle: React.CSSProperties = { display: 'block', fontSize: 13.5, color: 'var(--text-secondary)', textDecoration: 'none', marginBottom: 9 };
 
@@ -25,7 +24,7 @@ export function VerseFooter(): React.ReactElement {
             <p style={{ margin: '14px 0 0', fontSize: 14, lineHeight: 1.65, color: 'var(--text-secondary)' }}>
               Fans build their fandom&rsquo;s home here. Sourced, fan-run, and yours to shape.
             </p>
-            <Link href="/verse" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 14, fontSize: 13, fontWeight: 700, color: VIOLET, textDecoration: 'none' }}>
+            <Link href="/verse" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 14, fontSize: 13, fontWeight: 700, color: 'var(--verse-brand-text)', textDecoration: 'none' }}>
               Run your fandom&rsquo;s home
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
