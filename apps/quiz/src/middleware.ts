@@ -12,8 +12,14 @@ import type { NextRequest } from 'next/server';
 // Supabase in eu-west-1). Public requests pay zero Supabase cost.
 const PROTECTED_PATH_PREFIXES = ['/onboarding', '/settings', '/admin'];
 
+// The W-CUSTOM studio (and its curator-only draft preview) require a fresh session
+// so the server-side curator gate is reliable. Everything else under /verse stays
+// on the public fast path.
+const STUDIO_RE = /^\/verse\/[^/]+\/studio(\/|$)/;
+
 function needsAuth(pathname: string): boolean {
   if (pathname === '/login') return true;
+  if (STUDIO_RE.test(pathname)) return true;
   return PROTECTED_PATH_PREFIXES.some((p) => pathname.startsWith(p));
 }
 

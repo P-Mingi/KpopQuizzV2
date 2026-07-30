@@ -1,0 +1,40 @@
+import { NextResponse } from 'next/server';
+
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { canCurateSpace } from '@/lib/verse/roles';
+import { validatePresentation } from '@/lib/verse/presentation/validate';
+
+import type { NextRequest } from 'next/server';
+
+// W-CUSTOM step 10 - PUBLISH: copy presentation_draft -> live, and write a
+// verse_revisions row (entity_type space_presentation) so the customization has
+// history + rollback like every other edit. Validated again at the gate. Curator+.
+export const dynamic = 'force-dynamic';
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  let body: Record<string, unknown>;
+  try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
+  const groupId = Number(body.group_id);
+  if (!groupId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+
+  const supa = await createServerClient();
+  const { data: { user } } = await supa.auth.getUser();
+  if (!user || !await canCurateSpace(user.id, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+
+  const svc = createServiceRoleClient();
+  const { data: row } = await svc.from('verse_spaces').select('presentation_draft').eq('group_id', groupId).maybeSingle();
+  const draft = (row as { presentation_draft?: unknown } | null)?.presentation_draft ?? { version: 1 };
+  const result = validatePresentation(draft && typeof draft === 'object' && Object.keys(draft as object).length ? draft : { version: 1 });
+  if (!result.ok) return NextResponse.json({ ok: false, errors: result.errors }, { status: 422 });
+
+  // History first (snapshot of what is going live), then flip live = draft.
+  await svc.from('verse_revisions').insert({
+    entity_type: 'space_presentation', entity_id: String(groupId), section_key: 'presentation',
+    author: user.id, summary: 'Published presentation', content: result.value ?? { version: 1 },
+  });
+  const { error } = await svc.from('verse_spaces')
+    .upsert({ group_id: groupId, presentation: result.value, updated_at: new Date().toISOString() }, { onConflict: 'group_id' });
+  if (error) return NextResponse.json({ ok: false, errors: [error.message] }, { status: 500 });
+
+  return NextResponse.json({ ok: true });
+}
