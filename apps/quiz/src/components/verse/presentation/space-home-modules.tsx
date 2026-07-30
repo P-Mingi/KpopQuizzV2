@@ -22,26 +22,26 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+// V-SPACE-FLOW: games are DE-EMPHASIZED - one compact module at canonical
+// position 11 (last content block), inline links, no tile grid up top.
 export function GameWidgets({ space }: { space: Space }): React.ReactElement | null {
   const { group, surfaces } = space;
-  const tiles = [
-    surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', sub: 'Test your knowledge', target: 'group-quiz' as CrossPromoTarget },
-    surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', sub: 'Name the song', target: 'blindtest' as CrossPromoTarget },
-    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', sub: 'The full roster', target: 'name-all' as CrossPromoTarget },
-    surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', sub: 'Personality match', target: 'games' as CrossPromoTarget },
-  ].filter(Boolean) as { href: string; label: string; sub: string; target: CrossPromoTarget }[];
-  if (!tiles.length) return null;
+  const links = [
+    surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', target: 'group-quiz' as CrossPromoTarget },
+    surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', target: 'blindtest' as CrossPromoTarget },
+    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', target: 'name-all' as CrossPromoTarget },
+    surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', target: 'games' as CrossPromoTarget },
+  ].filter(Boolean) as { href: string; label: string; target: CrossPromoTarget }[];
+  if (!links.length) return null;
   return (
     <Section title="Play">
-      <div className="v-grid-cards">
-        {tiles.map((t) => (
+      <p className="text-sm text-secondary">Test your {group.name} knowledge:</p>
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1">
+        {links.map((t) => (
           <VerseGameLink key={t.href} target={t.target} href={t.href}
-            className="group -mx-2 rounded-xl px-2 py-2.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
-            <span className="flex items-baseline gap-1.5">
-              <span className="text-[15px] font-bold" style={{ color: 'var(--verse-ink)' }}>{t.label}</span>
-              <svg className="opacity-0 transition-opacity group-hover:opacity-100" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--verse-ink)" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </span>
-            <span className="mt-0.5 block text-[13px] text-tertiary">{t.sub}</span>
+            className="inline-flex min-h-[44px] items-center text-sm font-bold no-underline transition-opacity hover:opacity-75"
+            style={{ color: 'var(--verse-ink)' }}>
+            {t.label}
           </VerseGameLink>
         ))}
       </div>

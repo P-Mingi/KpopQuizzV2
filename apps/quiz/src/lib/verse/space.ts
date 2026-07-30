@@ -61,10 +61,7 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
   if (!group) return null;
   const g = group as SpaceGroup;
 
-  const [
-    { data: cfg }, { data: idols }, { data: units }, { data: albums },
-    { data: comeback }, { data: nameAll }, { data: personality }, { count: btCount },
-  ] = await Promise.all([
+  const results = await Promise.all([
     db.from('verse_spaces').select('welcome_line, est_year, sns_links, presentation, former_members_shown, charter_text, is_launch').eq('group_id', g.id).maybeSingle(),
     db.from('idols').select('id, name, name_hangul, positions, photo_url, birth_date, nationality, unit_id, ord').eq('group_id', g.id).eq('active', true).order('ord'),
     db.from('group_units').select('id, name, slug').eq('parent_group_id', g.id),
@@ -72,8 +69,26 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     db.from('comebacks').select('title, release_date, kind').eq('group_id', g.id).eq('active', true).gte('release_date', new Date(Date.now() - 14 * 86400000).toISOString().slice(0, 10)).order('release_date', { ascending: false }).limit(1).maybeSingle(),
     db.from('games').select('id').eq('group_id', g.id).eq('game_type', 'name_all_members').eq('status', 'published').limit(1),
     db.from('personality_profiles').select('group_id').eq('group_id', g.id).eq('active', true).limit(1),
-    db.from('blind_test_songs').select('id', { count: 'exact', head: true }).eq('group_slug', g.slug).not('clip_chorus', 'is', null),
+    // blind_test_songs keys by group_id (the old group_slug column is gone; the
+    // stale filter errored under anon and silently hid the Blind test surface).
+    db.from('blind_test_songs').select('id', { count: 'exact', head: true }).eq('group_id', g.id).eq('status', 'active').not('clip_chorus', 'is', null),
   ]);
+  // RESILIENCE: a failed CORE query (config, idols, units, albums) must FAIL the
+  // render, not silently degrade it: a degraded page (empty presentation, zero
+  // members) would be ISR-cached for an hour and served as the truth. Throwing
+  // keeps the previous good ISR version alive. The auxiliary game-surface counts
+  // (comeback, games, personality, blindtest) degrade gracefully: their absence
+  // only hides a min-gated link, which is honest; log so drift is visible.
+  results.forEach((r, i) => {
+    const err = (r as { error?: unknown }).error;
+    if (!err) return;
+    if (i <= 3) throw new Error(`getSpace(${slug}): core query[${i}] failed: ${JSON.stringify(err)}`);
+    console.warn(`getSpace(${slug}): aux query[${i}] failed (surface hidden): ${JSON.stringify(err)}`);
+  });
+  const [
+    { data: cfg }, { data: idols }, { data: units }, { data: albums },
+    { data: comeback }, { data: nameAll }, { data: personality }, { count: btCount },
+  ] = results;
 
   // W-CUSTOM: active curator sticker uploads for asset:N sticker refs (public read).
   const { data: assetRows } = await db.from('verse_space_assets').select('id, storage_path').eq('space_id', g.id).eq('kind', 'sticker').eq('status', 'active');

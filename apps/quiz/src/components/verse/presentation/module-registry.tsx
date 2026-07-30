@@ -6,6 +6,7 @@
 import { MODULE_RENDERERS as CORE } from './space-home-modules';
 import { CountdownModule, QuoteModule, SpotlightModule, PollModule } from './feature-modules';
 import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
+import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule } from './canonical-modules';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -15,6 +16,13 @@ export type ModuleComponent = (props: ModuleProps) => React.ReactNode | Promise<
 
 export const ALL_MODULES: Record<string, ModuleComponent> = {
   ...CORE,
+  // V-SPACE-FLOW - the canonical-order modules (universe doc 3a)
+  intro: IntroModule,
+  vitals: VitalsStrip,
+  story: StoryModule,
+  go_deeper: GoDeeperModule,
+  collections: CollectionsModule,
+  community: CommunityModule,
   countdown: CountdownModule,
   quote: QuoteModule,
   spotlight: SpotlightModule,

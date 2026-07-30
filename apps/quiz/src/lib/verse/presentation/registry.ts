@@ -26,10 +26,18 @@ export interface BlockDef {
 // v1 registry. `core` (seoCritical) blocks are the entity content that every space
 // must emit; `feature` blocks are decorative/interactive and toggle freely.
 export const BLOCK_REGISTRY: Record<string, BlockDef> = {
-  // --- Core, SEO-critical (never removable) - these ARE today's home content ---
-  game_widgets: { type: 'game_widgets', label: 'Play (games)', seoCritical: false, zones: ['main'], defaultZone: 'main', defaultOrder: 0, implemented: true, category: 'feature' },
-  members:      { type: 'members', label: 'Members', seoCritical: true, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 1, implemented: true, category: 'core' },
-  discography:  { type: 'discography', label: 'Latest releases', seoCritical: true, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 2, implemented: true, category: 'core' },
+  // --- The canonical space-home order (V-SPACE-FLOW, universe doc 3a, LOCKED):
+  // hero(layout) -> intro -> vitals -> members -> story -> releases -> now ->
+  // go deeper -> collections -> community -> play(LAST) -> related footer(fixed).
+  // Curators still reorder freely on top (W-CUSTOM); this is the default.
+  intro:        { type: 'intro', label: 'Intro', seoCritical: true, zones: ['main'], defaultZone: 'main', defaultOrder: 0, implemented: true, category: 'core' },
+  vitals:       { type: 'vitals', label: 'Vitals', seoCritical: true, zones: ['main'], defaultZone: 'main', defaultOrder: 1, implemented: true, category: 'core' },
+  members:      { type: 'members', label: 'Members', seoCritical: true, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 2, implemented: true, category: 'core' },
+  story:        { type: 'story', label: 'The story so far', seoCritical: false, zones: ['main'], defaultZone: 'main', defaultOrder: 3, implemented: true, category: 'core' },
+  discography:  { type: 'discography', label: 'Latest releases', seoCritical: true, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 4, implemented: true, category: 'core' },
+  go_deeper:    { type: 'go_deeper', label: 'Go deeper', seoCritical: false, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 6, implemented: true, category: 'feature' },
+  community:    { type: 'community', label: 'Community', seoCritical: false, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 8, implemented: true, category: 'feature' },
+  game_widgets: { type: 'game_widgets', label: 'Play (games)', seoCritical: false, zones: ['main'], defaultZone: 'main', defaultOrder: 9, implemented: true, category: 'feature' },
   on_this_day:  { type: 'on_this_day', label: 'On this day', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 0, implemented: true, category: 'feature' },
   stats:        { type: 'stats', label: 'In numbers', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 1, implemented: true, category: 'feature' },
   masthead:     { type: 'masthead', label: 'Curator invite', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 2, implemented: true, category: 'feature' },
@@ -38,11 +46,12 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   facts:        { type: 'facts', label: 'Facts', seoCritical: true, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
   timeline:     { type: 'timeline', label: 'Timeline', seoCritical: true, zones: ['main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
   eras:         { type: 'eras', label: 'Eras', seoCritical: true, zones: ['main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
-  collections:  { type: 'collections', label: 'Collections', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
+  collections:  { type: 'collections', label: 'Collections', seoCritical: false, zones: ['main', 'side'], defaultZone: 'main', defaultOrder: 7, implemented: true, category: 'feature' },
 
   // --- Feature blocks (decorative/interactive, freely toggleable) ---
   music:        { type: 'music', label: 'Music', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
-  countdown:    { type: 'countdown', label: 'Countdown', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
+  // The NOW slot (canonical position 7): current era + next date. Hides when idle.
+  countdown:    { type: 'countdown', label: 'Now (era / countdown)', seoCritical: false, zones: ['side', 'main'], defaultZone: 'main', defaultOrder: 5, implemented: true, category: 'feature' },
   poll:         { type: 'poll', label: 'Poll', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   quote:        { type: 'quote', label: 'Quote highlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   spotlight:    { type: 'spotlight', label: 'Spotlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },

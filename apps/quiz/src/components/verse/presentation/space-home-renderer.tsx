@@ -24,10 +24,11 @@ function Divider({ kind }: { kind: string }): React.ReactElement | null {
   return <div className={`verse-divider verse-divider-${kind}`} aria-hidden />;
 }
 
-// Photo-grid modules read as open galleries by default (no box) so the images
-// breathe; a curator can still box them per module. (Owner: photo grids open by
-// default, box optional.)
-const OPEN_BY_DEFAULT = new Set<string>(['members']);
+// Modules that read as open editorial content by default (no box): photo grids
+// so the images breathe (owner: open by default, box optional), the intro lede,
+// the vitals line ("one quiet line, not boxes" - locked 3a), and the story prose.
+// A curator can still box any of them per module.
+const OPEN_BY_DEFAULT = new Set<string>(['members', 'intro', 'vitals', 'story']);
 
 function Stack({ placements, space, frameDefault, divider }: {
   placements: ModulePlacement[]; space: Space; frameDefault: FrameStyle; divider: string;

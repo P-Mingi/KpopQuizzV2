@@ -138,9 +138,17 @@ export function validatePresentation(raw: unknown): ValidationResult {
       if (pv.props) placement.props = pv.props;
       norm.push(placement);
     }
-    // THE LAW: no seoCritical default block may be dropped from an explicit stack.
+    // THE LAW: no seoCritical default block may be missing from an explicit stack.
+    // AUTO-INJECT rather than reject: a config saved before a new core block
+    // existed is not a removal attempt, and rejecting it would nuke the curator's
+    // whole presentation (the opposite of the law's intent). Injection means the
+    // stored config heals and the core content always renders; resolve.ts keeps
+    // the same injection as belt-and-suspenders for unvalidated paths.
     for (const req of defaultSeoCriticalTypes()) {
-      if (!seen.has(req)) errors.push(`"${BLOCK_REGISTRY[req]!.label}" is core content and cannot be removed.`);
+      if (!seen.has(req)) {
+        const def = BLOCK_REGISTRY[req]!;
+        norm.push({ type: req, zone: def.defaultZone as ModulePlacement['zone'], order: def.defaultOrder, hidden: false });
+      }
     }
     if (!errors.length) modules = norm;
   }

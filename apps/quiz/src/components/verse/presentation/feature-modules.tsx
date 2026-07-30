@@ -1,5 +1,8 @@
+import Link from 'next/link';
+
 import { getPhotocards } from '@/lib/verse/photocards';
 import { getActiveSpacePoll } from '@/lib/verse/presentation/poll';
+import { getEras } from '@/lib/verse/eras';
 import { upcomingBirthday } from '@/lib/verse/date-engines';
 import { PollVote } from './poll-vote';
 
@@ -30,8 +33,9 @@ function nextAnniversary(inception: string | null, today: Date): { label: string
   return { label: `${yrs}th anniversary`, days: Math.max(0, daysUntil(next.toISOString().slice(0, 10), today)) };
 }
 
-/** COUNTDOWN - next comeback / birthday / anniversary from dates we already hold. */
-export function CountdownModule({ space }: ModuleProps): React.ReactElement | null {
+/** NOW (canonical position 7) - the current era plus the next date we hold
+ * (comeback / birthday / anniversary). Contextual: hides entirely when idle. */
+export async function CountdownModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
   const today = new Date();
   const cands: { label: string; days: number }[] = [];
   const anni = nextAnniversary(space.group.inception_date, today);
@@ -39,15 +43,28 @@ export function CountdownModule({ space }: ModuleProps): React.ReactElement | nu
   const bday = upcomingBirthday(space.idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })), today, 365);
   if (bday) cands.push({ label: `${bday.name}'s birthday`, days: bday.inDays });
   if (space.comeback) { const d = daysUntil(space.comeback.release_date, today); if (d >= 0) cands.push({ label: space.comeback.title, days: d }); }
-  if (!cands.length) return null;
-  const next = cands.sort((a, b) => a.days - b.days)[0]!;
+  // Current era: an era whose period covers today (or is open-ended).
+  const eras = await getEras(space.group.id);
+  const iso = today.toISOString().slice(0, 10);
+  const current = eras.find((e) => e.periodStart && e.periodStart <= iso && (!e.periodEnd || e.periodEnd >= iso)) ?? null;
+  if (!cands.length && !current) return null;
+  const next = cands.sort((a, b) => a.days - b.days)[0] ?? null;
   return (
-    <Card title="Countdown">
-      <div className="text-[14px] font-semibold text-primary">{next.label}</div>
-      <div className="mt-1 flex items-baseline gap-2">
-        <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{next.days === 0 ? 'Today' : next.days}</span>
-        {next.days > 0 ? <span className="text-[12px] uppercase tracking-wide text-tertiary">day{next.days === 1 ? '' : 's'}</span> : null}
-      </div>
+    <Card title="Now">
+      {current ? (
+        <p className="mb-2 text-sm text-secondary">
+          Current era: <Link href={`/verse/${space.group.slug}/timeline`} className="font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>{current.name}</Link>
+        </p>
+      ) : null}
+      {next ? (
+        <>
+          <div className="text-[14px] font-semibold text-primary">{next.label}</div>
+          <div className="mt-1 flex items-baseline gap-2">
+            <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{next.days === 0 ? 'Today' : next.days}</span>
+            {next.days > 0 ? <span className="text-[12px] uppercase tracking-wide text-tertiary">day{next.days === 1 ? '' : 's'}</span> : null}
+          </div>
+        </>
+      ) : null}
     </Card>
   );
 }
