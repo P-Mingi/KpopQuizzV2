@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
 import { WorldToggle } from '@/components/layout/world-toggle';
+import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { worldForPath } from '@/lib/world';
 
 interface NavProfile {
@@ -45,12 +46,21 @@ export function MobileTopBar(): React.ReactElement | null {
           header on both worlds (W-NAV). Wordmark hides on the narrowest screens
           via CSS so the compact toggle always fits. */}
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
-          <Mascot variant="default" size={22} />
-          <span className="mobile-top-bar-wordmark" style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-            KpopQuiz
-          </span>
-        </Link>
+        {verse ? (
+          <Link href="/verse" aria-label="KpopVerse home" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, textDecoration: 'none' }}>
+            <OrbitMark size={24} />
+            <span className="mobile-top-bar-wordmark" style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+              Kpop<span style={{ color: '#7c5cfc' }}>Verse</span>
+            </span>
+          </Link>
+        ) : (
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
+            <Mascot variant="default" size={22} />
+            <span className="mobile-top-bar-wordmark" style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+              KpopQuiz
+            </span>
+          </Link>
+        )}
         <WorldToggle compact />
       </div>
 

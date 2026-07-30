@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { TopNavLinks } from './top-nav-links';
 import { WorldToggle } from './world-toggle';
+import { VerseLogo } from '@/components/verse/brand/verse-logo';
 import { worldForPath, WORLD_ACCENT } from '@/lib/world';
 
 /**
@@ -42,7 +43,8 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '12px 20px', maxWidth: 1240, margin: '0 auto' }}>
-        {logo}
+        {/* Verse world wears the KpopVerse mark; Play keeps its logo untouched. */}
+        {verse ? <VerseLogo /> : logo}
 
         <WorldToggle />
 
