@@ -74,7 +74,7 @@ export default async function SpaceLayout({
   const tabs = composeTabs(available, space.presentation.tabs);
 
   return (
-    <div className="verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-6 sm:py-8" style={presentationScopeStyle(space)}>
+    <div className="verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-6 sm:py-8" data-preset={space.presentation.preset ?? undefined} style={presentationScopeStyle(space)}>
       <SpaceHero space={space} />
       <div className="mt-6">
         <SpaceTabs slug={slug} tabs={tabs} />

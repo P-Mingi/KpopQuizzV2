@@ -673,6 +673,66 @@ body {
 .verse-divider-dots::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--verse-accent); box-shadow: 11px 0 var(--verse-accent), -11px 0 var(--verse-accent); }
 .verse-divider-wave { height: 1px; max-width: 5rem; background: var(--verse-line); }
 
+/* ============ V-DESIGN PRESETS - one distinct mood each =====================
+   Rules honoured: type overrides hit DISPLAY only (--v-display-*), body stays
+   normal; texture rides on SURFACES, never on text; density tunes the spacing
+   tokens. Box style, accent, divider and sticker pack come from the saved config;
+   these add the type + texture + density that config has no field for. */
+
+/* MINIMAL - roomy whitespace, light display, the group's own colour leads. */
+.verse-scope[data-preset="minimal"] {
+  --v-display-weight: 300; --v-display-tracking: 0.01em;
+  --v-space-section: 3.4rem; --v-gutter: 1.5rem;
+}
+
+/* NEON - compact, heavy uppercase display, a CRISP accent edge (no glow). */
+.verse-scope[data-preset="neon"] {
+  --v-display-weight: 900; --v-display-tracking: -0.03em; --v-display-transform: uppercase;
+  --v-space-section: 2.3rem;
+}
+.verse-scope[data-preset="neon"] .verse-hero { border-bottom: 2px solid var(--verse-accent); }
+
+/* SOFT - cozy, gentle display, a soft accent wash on the fill, rounder corners. */
+.verse-scope[data-preset="soft"] {
+  --v-display-weight: 600; --v-display-tracking: 0em;
+  --v-radius: 22px; --v-radius-media: 16px;
+}
+.verse-scope[data-preset="soft"] .verse-frame-rounded {
+  background: linear-gradient(158deg, color-mix(in srgb, var(--verse-accent) 18%, transparent), color-mix(in srgb, var(--verse-accent) 6%, transparent));
+}
+
+/* RETRO - cozy, bold CONDENSED display (tracking + weight only, never scaleX),
+   warm paper tint on the scope. */
+.verse-scope[data-preset="retro"] {
+  --v-display-weight: 800; --v-display-tracking: -0.05em; --v-display-transform: uppercase;
+  background: radial-gradient(130% 55% at 50% 0%, color-mix(in srgb, var(--verse-accent) 9%, transparent), transparent 62%);
+}
+
+/* Y2K - roomy, bubbly extra-bold display, a CHROME sheen on surfaces (never text). */
+.verse-scope[data-preset="y2k"] {
+  --v-display-weight: 900; --v-display-tracking: -0.015em;
+  --v-radius: 20px; --v-space-section: 3rem;
+}
+.verse-scope[data-preset="y2k"] .verse-frame-rounded,
+.verse-scope[data-preset="y2k"] .verse-frame-soft-shadow {
+  background-image: linear-gradient(177deg, color-mix(in srgb, #ffffff 20%, transparent), transparent 44%);
+}
+
+/* DARK - deep-space SURFACES in BOTH global modes. The app's global light/dark
+   toggle still governs chrome OUTSIDE .verse-scope; inside, we force deep tokens
+   + light ink so the space reads as deep space either way. */
+.verse-scope[data-preset="dark"] {
+  --bg: #0f1119; --surface: #171a24; --surface-alt: #1f2331;
+  --txt1: #f2f4f8; --txt2: #b2b7c6; --txt3: #808698;
+  --border: rgba(255,255,255,0.10); --border-h: rgba(255,255,255,0.20);
+  --verse-ink: color-mix(in srgb, var(--verse-accent) 58%, #f2f4f8);
+  --verse-soft: color-mix(in srgb, var(--verse-accent) 18%, #171a24);
+  --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 28%, #171a24);
+  --v-hairline: color-mix(in srgb, var(--verse-accent) 34%, transparent);
+  background: var(--bg);
+}
+.verse-scope[data-preset="dark"] .verse-hero { background: #0c0e15; }
+
 /* W-CUSTOM stickers - decorative, responsive by construction. Banner-corner
    stickers shrink on small screens; seam stickers hide on the narrowest widths so
    they never collide with content. */
