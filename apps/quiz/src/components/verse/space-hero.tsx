@@ -22,7 +22,18 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
   const { group, config, idols, comeback, counts } = space;
   const today = new Date();
   const estYear = config.est_year ?? (group.inception_date ? Number(group.inception_date.slice(0, 4)) : null);
-  const bday = upcomingBirthday(idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })), today);
+  // V-SPACE-FLOW step 5 - anniversary auto-moments, curator-disableable via
+  // presentation.celebrations (absent/true = on). Static accent lines only (no
+  // motion, so reduced-motion needs nothing to respect).
+  const celebrate = space.presentation.celebrations !== false;
+  const bday = celebrate ? upcomingBirthday(idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })), today) : null;
+  const anniYears = (() => {
+    if (!celebrate || !group.inception_date) return 0;
+    const m = group.inception_date.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return 0;
+    const mmdd = `${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    return `${m[2]}-${m[3]}` === mmdd ? today.getFullYear() - Number(m[1]) : 0;
+  })();
   const cbDays = comeback ? comebackCountdown(comeback.release_date, today) : -1;
   const vitals = [estYear ? `Est. ${estYear}` : null, group.generation, `${counts.members} members`, counts.albums > 0 ? `${counts.albums} releases` : null].filter(Boolean).join('  ·  ');
 
@@ -90,7 +101,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
             and comeback keep a small accent tag (a real status, not decoration);
             no filled cards, no borders. LIVE NOW (W-CUSTOM step 7) is a curator
             manual toggle that auto-expires at render even if they forget. */}
-        {cbActive || (space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now()) || (comeback && cbDays >= 0) || bday ? (
+        {cbActive || (space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now()) || (comeback && cbDays >= 0) || bday || anniYears > 0 ? (
           <div className="flex flex-col gap-2.5 border-t pt-4" style={{ borderColor: 'var(--v-hairline)' }}>
             {cbActive && cbMode ? (
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
@@ -119,6 +130,12 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
                 <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-accent)' }}>Comeback</span>
                 <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{comeback.title}</span>
                 <span className="ml-auto font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{cbDays === 0 ? 'Out now' : `in ${cbDays} day${cbDays === 1 ? '' : 's'}`}</span>
+              </div>
+            ) : null}
+            {anniYears > 0 ? (
+              <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--verse-ink)' }}>
+                <span aria-hidden className="inline-block h-2 w-2 rounded-full" style={{ background: 'var(--verse-accent)' }} />
+                <span className="font-semibold">{anniYears} year{anniYears === 1 ? '' : 's'} of {group.name} today</span>
               </div>
             ) : null}
             {bday ? (
