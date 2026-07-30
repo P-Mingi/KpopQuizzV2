@@ -4776,7 +4776,52 @@ a.ranking-cta { text-decoration: none; }
   --verse-soft: color-mix(in srgb, var(--verse-accent) 12%, transparent);
   --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 22%, transparent);
   --verse-line: color-mix(in srgb, var(--verse-accent) 34%, var(--border));
+
+  /* ============================================================
+     V-DESIGN v2 - the editorial visual system (Swiss-modern, invisible
+     chrome). Niche-agnostic tokens (a "verse" looks like a fan-made magazine,
+     not an admin dashboard). Consumed by the module chrome, hero, and rail.
+     The default separation is WHITESPACE + TYPE, never borders.
+     ============================================================ */
+  /* Type scale - fluid, magazine hierarchy on the existing Pretendard face */
+  --v-type-display: clamp(2.15rem, 7vw, 3.5rem);   /* full-bleed hero name */
+  --v-type-title:   clamp(1.6rem, 4.5vw, 2.4rem);  /* entity page title */
+  --v-type-h2:      1.0625rem;                      /* section header */
+  --v-type-label:   0.6875rem;                      /* small-caps section eyebrow */
+  --v-type-body:    0.9375rem;                       /* reading body */
+  --v-type-num:     clamp(1.9rem, 5.5vw, 2.75rem);  /* big quiet rail numbers */
+  --v-leading-body: 1.72;
+  --v-tracking-label: 0.15em;
+  --v-tracking-tight: -0.02em;                       /* display headings */
+  --v-measure: 66ch;                                 /* reading-length cap */
+
+  /* Spacing rhythm - density breathes (roughly 1.5-2x the old chrome) */
+  --v-space-section: 2.75rem;   /* air between sections (replaces bordered gaps) */
+  --v-space-block:   1.15rem;   /* within a module */
+  --v-space-eyebrow: 0.85rem;   /* label -> content */
+  --v-gutter:        1.25rem;   /* grid gutters that read as air */
+
+  /* Chrome - default is NONE. These only apply where a curator opts into a frame. */
+  --v-radius:        16px;
+  --v-radius-media:  12px;
+  --v-hairline:      color-mix(in srgb, var(--verse-line) 60%, transparent);
+  --v-shadow-soft:   0 14px 44px color-mix(in srgb, var(--verse-accent) 14%, transparent);
+  --v-frame-pad:     1.15rem;   /* padding inside an opted-in frame */
+
+  /* THE WIDE CANVAS (principle 7) - Verse USES the screen, mixed widths per module.
+     The page fills; prose still caps at --v-measure so text never stretches. */
+  --v-canvas:          1360px;   /* magazine container on desktop */
+  --v-rail:            21rem;    /* side rail carries real weight */
+  --v-grid-media-min:  9rem;     /* member/photocard tiles: auto-fit min (wide grids) */
+  --v-grid-card-min:   14.5rem;  /* release/collectible cards: auto-fit min */
 }
+
+/* Verse breaks the shared 720px reading column into the wide magazine canvas, but
+   ONLY on Verse pages (a main that contains a .verse-scope). Play pages have no
+   verse-scope so this never matches them: their 720px column is byte-untouched.
+   Literal width (the --v-canvas token lives on .verse-scope, a child main cannot
+   inherit up). Specificity (0,1,1) beats the Tailwind max-w-[720px] utility. */
+main:has(.verse-scope) { max-width: 1360px; }
 /* Dark mode: lighten the ink toward the light text so it stays legible on dark. */
 .dark .verse-scope {
   --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
