@@ -171,7 +171,10 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const displayName = profile.display_name ?? profile.username;
 
   return (
-    <div style={{ paddingTop: 16, paddingBottom: 32 }}>
+    // One 520 column for the WHOLE profile (matches the passport). Every child -
+    // passport, share card, verse cards, and the Quizzes/Liked tabs - is edge-aligned
+    // to it, so nothing reads wider or inset than the rest.
+    <div style={{ paddingTop: 16, paddingBottom: 32, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
       <PassportView
         mode="public"
         bio={profile.bio}
