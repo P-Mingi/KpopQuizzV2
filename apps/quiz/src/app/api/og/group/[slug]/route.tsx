@@ -125,9 +125,11 @@ export async function GET(
           </div>
         )}
 
-        {/* Group name + "Quiz" */}
+        {/* Group name + "Quiz" (display:flex required by Satori/next-og) */}
         <div
           style={{
+            display: 'flex',
+            justifyContent: 'center',
             fontSize: 56,
             fontWeight: 700,
             color: '#2C2C2A',
@@ -140,32 +142,32 @@ export async function GET(
         </div>
 
         {/* Subtitle */}
-        <div style={{ fontSize: 24, color: '#888780', marginBottom: 36, textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', fontSize: 24, color: '#888780', marginBottom: 36, textAlign: 'center' }}>
           {`Test How Well You Know ${row.name}`}
         </div>
 
         {/* Stats row */}
         <div style={{ display: 'flex', gap: 56 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ fontSize: 40, fontWeight: 700, color: '#D4537E', fontVariantNumeric: 'tabular-nums' }}>
+            <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: '#D4537E', fontVariantNumeric: 'tabular-nums' }}>
               {row.quiz_count}
             </div>
-            <div style={{ fontSize: 16, color: '#B4B2A9', textTransform: 'uppercase', letterSpacing: 1 }}>
+            <div style={{ display: 'flex', fontSize: 16, color: '#B4B2A9', textTransform: 'uppercase', letterSpacing: 1 }}>
               quizzes
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ fontSize: 40, fontWeight: 700, color: '#D4537E', fontVariantNumeric: 'tabular-nums' }}>
+            <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: '#D4537E', fontVariantNumeric: 'tabular-nums' }}>
               {row.total_plays.toLocaleString('en-US')}
             </div>
-            <div style={{ fontSize: 16, color: '#B4B2A9', textTransform: 'uppercase', letterSpacing: 1 }}>
+            <div style={{ display: 'flex', fontSize: 16, color: '#B4B2A9', textTransform: 'uppercase', letterSpacing: 1 }}>
               plays
             </div>
           </div>
         </div>
 
         {/* Watermark */}
-        <div style={{ position: 'absolute', bottom: 32, fontSize: 18, color: '#B4B2A9' }}>
+        <div style={{ display: 'flex', position: 'absolute', bottom: 32, fontSize: 18, color: '#B4B2A9' }}>
           kpopquiz.org
         </div>
       </div>
