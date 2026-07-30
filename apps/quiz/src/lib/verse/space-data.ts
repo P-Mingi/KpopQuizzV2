@@ -18,6 +18,20 @@ export interface SpaceTile {
 }
 
 /**
+ * Whole-catalog totals for the V-HOME numbers. Head counts (count:'exact',
+ * head:true) so they are ROBUST past the 1000-row select cap and cheap (no rows
+ * fetched). releases = every catalogued album (the catalog claim, not tile scope).
+ */
+export async function getCatalogTotals(): Promise<{ idols: number; releases: number }> {
+  const db = createPublicReadClient();
+  const [{ count: idols }, { count: releases }] = await Promise.all([
+    db.from('idols').select('*', { count: 'exact', head: true }).eq('active', true),
+    db.from('albums').select('*', { count: 'exact', head: true }),
+  ]);
+  return { idols: idols ?? 0, releases: releases ?? 0 };
+}
+
+/**
  * The spaces directory: every group that has seeded Verse data (>=1 published
  * idol). Launch spaces first, then by member richness. Real data only.
  */

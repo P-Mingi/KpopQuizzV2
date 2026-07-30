@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { VerseSearch } from '@/components/verse/verse-search';
 import { OrbitLockup } from '@/components/verse/brand/verse-wordmarks';
-import { getVerseDirectory } from '@/lib/verse/space-data';
+import { getVerseDirectory, getCatalogTotals } from '@/lib/verse/space-data';
 import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';
 import { safeFetch } from '@/lib/error-handling';
@@ -65,20 +65,21 @@ function SectionEyebrow({ children }: { children: React.ReactNode }): React.Reac
 }
 
 export default async function VerseHomePage(): Promise<React.ReactElement> {
-  const [tiles, trending] = await Promise.all([
+  const [tiles, trending, catalog] = await Promise.all([
     safeFetch(getVerseDirectory(), [], 'verse-directory'),
     safeFetch(getTrending(8), [], 'verse-trending'),
+    safeFetch(getCatalogTotals(), { idols: 0, releases: 0 }, 'verse-catalog-totals'),
   ]);
   const launch = tiles.filter((t) => t.is_launch);
   const rest = tiles.filter((t) => !t.is_launch);
   const bySlug = new Map(tiles.map((t) => [t.slug, t] as const));
   const trendingTiles = trending.map((g) => bySlug.get(g.slug)).filter((t): t is SpaceTile => !!t);
 
-  // THE NUMBERS - ingestion-backed and real. idols = active idols across the
-  // documented fandoms; releases = their catalogued albums. The spaces figure is
-  // the count of real launch-grade curated spaces, shown only above the floor.
-  const totalIdols = tiles.reduce((n, t) => n + t.memberCount, 0);
-  const totalReleases = tiles.reduce((n, t) => n + t.albumCount, 0);
+  // THE NUMBERS - whole-catalog counts (the catalog claim beats tile scope):
+  // every active idol and every catalogued album. The spaces figure is real
+  // launch-grade curated spaces, shown only above the floor.
+  const totalIdols = catalog.idols;
+  const totalReleases = catalog.releases;
   const curatedSpaces = tiles.filter((t) => t.is_launch).length;
   const showNumbers = totalReleases >= CATALOG_FLOOR;
 

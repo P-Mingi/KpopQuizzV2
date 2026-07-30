@@ -47,12 +47,13 @@ export function VerseSearch(): React.ReactElement {
         type="search" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKey} onFocus={() => hits.length && setOpen(true)}
         placeholder="Search groups, members, albums" aria-label="Search Verse"
         className="w-full rounded-full border border-default bg-surface px-4 py-2.5 text-sm outline-none focus:border-strong"
-        role="combobox" aria-expanded={open} aria-controls="verse-search-list"
+        role="combobox" aria-autocomplete="list" aria-expanded={open} aria-controls="verse-search-list"
+        aria-activedescendant={open && active >= 0 ? `verse-search-opt-${active}` : undefined}
       />
       {open && hits.length > 0 ? (
         <ul id="verse-search-list" role="listbox" className="absolute z-30 mt-1 w-full overflow-hidden rounded-xl border border-default bg-surface shadow-lg">
           {hits.map((h, i) => (
-            <li key={h.href} role="option" aria-selected={i === active}>
+            <li key={h.href} id={`verse-search-opt-${i}`} role="option" aria-selected={i === active}>
               <Link href={h.href} onMouseEnter={() => setActive(i)} className={`flex items-center justify-between gap-3 px-4 py-2 text-sm no-underline ${i === active ? 'bg-surface-1' : ''}`}>
                 <span className="font-semibold text-primary">{h.label}</span>
                 <span className="text-xs text-tertiary">{h.sub}</span>
