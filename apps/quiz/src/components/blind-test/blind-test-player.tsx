@@ -325,7 +325,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
           </button>
 
           <div className="mt-4">
-            <Link href="/blind-test" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]">
+            <Link href="/blindtest" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]">
               Back to modes
             </Link>
           </div>
@@ -467,8 +467,8 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
               </button>
               <button
                 onClick={() => {
-                  const text = `I scored ${score}/${total} on ${mode.title} blind test - ${label}! kpopquiz.org/blind-test/${mode.id}`;
-                  if (navigator.share) navigator.share({ text, url: `https://kpopquiz.org/blind-test/${mode.id}` });
+                  const text = `I scored ${score}/${total} on ${mode.title} blind test - ${label}! kpopquiz.org/blindtest/${mode.id}`;
+                  if (navigator.share) navigator.share({ text, url: `https://kpopquiz.org/blindtest/${mode.id}` });
                   else navigator.clipboard.writeText(text);
                 }}
                 className="flex-1 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium">
@@ -476,7 +476,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
               </button>
             </div>
 
-            <Link href="/blind-test" className="block text-sm text-[var(--text-secondary)] mt-4 hover:text-[var(--text-primary)]">
+            <Link href="/blindtest" className="block text-sm text-[var(--text-secondary)] mt-4 hover:text-[var(--text-primary)]">
               Try another mode
             </Link>
           </div>

@@ -4,8 +4,11 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
+        // OG image endpoints (/api/og/*) stay crawlable so Google + social can
+        // fetch link-preview images; the rest of /api is blocked. Longest-match
+        // wins, so the /api/og/ allow overrides the /api/ disallow.
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/api/og/'],
         disallow: ['/api/', '/auth/'],
       },
       {
