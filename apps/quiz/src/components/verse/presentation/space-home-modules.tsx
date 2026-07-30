@@ -1,0 +1,152 @@
+import Link from 'next/link';
+
+import { VerseGameLink } from '@/components/verse/verse-game-link';
+import { onThisDay } from '@/lib/verse/date-engines';
+
+import type { CrossPromoTarget } from '@/lib/analytics';
+import type { Space } from '@/lib/verse/space';
+
+// W-CUSTOM step 1 - today's home sections, extracted VERBATIM from the space home
+// page so the renderer can compose them. Empty config renders these in their
+// default registry order, which is byte-identical to the pre-W-CUSTOM page (proven
+// by screenshot). Later steps add frames/reorder/toggle on top; the JSX here does
+// not change, so the SEO-critical content is provably the same set.
+
+function Section({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
+  return (
+    <section className="mb-6">
+      <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-tertiary">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+export function GameWidgets({ space }: { space: Space }): React.ReactElement | null {
+  const { group, surfaces } = space;
+  const tiles = [
+    surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', sub: 'Test your knowledge', target: 'group-quiz' as CrossPromoTarget },
+    surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', sub: 'Name the song', target: 'blindtest' as CrossPromoTarget },
+    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', sub: 'The full roster', target: 'name-all' as CrossPromoTarget },
+    surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', sub: 'Personality match', target: 'games' as CrossPromoTarget },
+  ].filter(Boolean) as { href: string; label: string; sub: string; target: CrossPromoTarget }[];
+  if (!tiles.length) return null;
+  return (
+    <Section title="Play">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {tiles.map((t) => (
+          <VerseGameLink key={t.href} href={t.href} target={t.target} className="verse-tile rounded-xl border border-default bg-surface p-4 no-underline" style={{ borderColor: 'var(--border)' }}>
+            <span className="block text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{t.label}</span>
+            <span className="mt-0.5 block text-xs text-tertiary">{t.sub}</span>
+          </VerseGameLink>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function MembersStrip({ space }: { space: Space }): React.ReactElement | null {
+  const { group, idols } = space;
+  if (!idols.length) return null;
+  return (
+    <Section title="Members">
+      <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
+        {idols.map((m) => (
+          <Link key={m.id} href={`/verse/${group.slug}/members/${m.slug}`} className="group w-24 shrink-0 no-underline">
+            <div className="aspect-[3/4] w-full overflow-hidden rounded-xl border border-default bg-surface" style={{ borderColor: 'var(--verse-line)' }}>
+              {m.photo_url
+                ? <img src={m.photo_url} alt={m.name} className="h-full w-full object-cover" loading="lazy" />
+                : <span className="flex h-full w-full items-center justify-center text-lg font-bold" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{m.name.slice(0, 2)}</span>}
+            </div>
+            <span className="mt-1.5 block truncate text-center text-xs font-semibold text-primary">{m.name}</span>
+            {m.name_hangul ? <span className="block truncate text-center text-[11px] text-tertiary">{m.name_hangul}</span> : null}
+          </Link>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function Discography({ space }: { space: Space }): React.ReactElement | null {
+  const { group, albums } = space;
+  const recent = albums.filter((a) => a.release_date).slice(0, 6);
+  if (!recent.length) return null;
+  return (
+    <Section title="Latest releases">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {recent.map((a) => (
+          <Link key={a.id} href={`/verse/${group.slug}/albums/${a.slug}`} className="verse-tile rounded-xl border border-default bg-surface p-3 no-underline">
+            <span className="block truncate text-sm font-semibold" style={{ color: 'var(--verse-ink)' }}>{a.title}</span>
+            <span className="mt-0.5 block text-xs text-tertiary">
+              {a.release_date?.slice(0, 4)} · {a.type.toUpperCase()}{a.region !== 'kr' ? ` · ${a.region.toUpperCase()}` : ''}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function OnThisDay({ space }: { space: Space }): React.ReactElement | null {
+  const entries = onThisDay(
+    space.idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })),
+    space.albums.map((a) => ({ title: a.title, slug: a.slug, release_date: a.release_date, type: a.type })),
+    space.group.inception_date,
+    new Date(),
+  );
+  if (!entries.length) return null;
+  return (
+    <div className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
+      <h3 className="mb-2 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>On this day</h3>
+      <ul className="space-y-1.5 text-sm text-secondary">
+        {entries.map((e, i) => (
+          <li key={i}>{e.label}{e.yearsAgo ? <span className="text-tertiary"> · {e.yearsAgo}y ago</span> : null}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function StatsFlex({ space }: { space: Space }): React.ReactElement {
+  const { counts } = space;
+  const stats = [
+    { n: counts.members, l: 'members' },
+    { n: counts.albums, l: 'releases' },
+    { n: counts.tracks, l: 'tracks' },
+  ];
+  return (
+    <div className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
+      <h3 className="mb-2 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>In numbers</h3>
+      <div className="grid grid-cols-3 gap-2 text-center">
+        {stats.map((s) => (
+          <div key={s.l}>
+            <div className="text-xl font-extrabold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{s.n}</div>
+            <div className="text-[11px] text-tertiary">{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function MastheadInvite({ space }: { space: Space }): React.ReactElement {
+  return (
+    <div className="rounded-xl border border-dashed p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
+      <h3 className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Curators</h3>
+      <p className="mt-1 text-sm text-secondary">
+        This space is looking for its founding {space.group.fandom_name} curators. Run it, and get credited for it.
+      </p>
+      <a href={`/login?returnTo=${encodeURIComponent(`/verse/${space.group.slug}`)}`} className="mt-2 inline-block text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Become a curator</a>
+    </div>
+  );
+}
+
+// Registry key -> renderer. Step 1 implements today's default set; later steps add
+// the rest. A key with no renderer here is simply skipped (safe for forward config).
+export const MODULE_RENDERERS: Record<string, (props: { space: Space }) => React.ReactElement | null> = {
+  game_widgets: GameWidgets,
+  members: MembersStrip,
+  discography: Discography,
+  on_this_day: OnThisDay,
+  stats: StatsFlex,
+  masthead: MastheadInvite,
+};
