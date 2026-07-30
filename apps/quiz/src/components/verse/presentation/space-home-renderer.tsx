@@ -24,6 +24,11 @@ function Divider({ kind }: { kind: string }): React.ReactElement | null {
   return <div className={`verse-divider verse-divider-${kind}`} aria-hidden />;
 }
 
+// Photo-grid modules read as open galleries by default (no box) so the images
+// breathe; a curator can still box them per module. (Owner: photo grids open by
+// default, box optional.)
+const OPEN_BY_DEFAULT = new Set<string>(['members']);
+
 function Stack({ placements, space, frameDefault, divider }: {
   placements: ModulePlacement[]; space: Space; frameDefault: FrameStyle; divider: string;
 }): React.ReactElement {
@@ -32,7 +37,7 @@ function Stack({ placements, space, frameDefault, divider }: {
       {placements.map((m, i) => {
         const R = ALL_MODULES[m.type];
         if (!R) return null;
-        const frame = (m.frame ?? frameDefault) as FrameStyle;
+        const frame = (m.frame ?? (OPEN_BY_DEFAULT.has(m.type) ? 'none' : frameDefault)) as FrameStyle;
         const showDivider = i > 0 && divider !== 'none' && divider !== 'line';
         const hasSeam = i > 0 && (space.presentation.stickers ?? []).some((s) => s.slot === 'seam' && (s.anchorIndex ?? 0) === i);
         // Bare render when there is no frame, divider, or seam sticker - byte-identical

@@ -656,7 +656,9 @@ body {
 /* A conditional module (on-this-day, countdown ...) can render nothing; its frame
    must not leave an empty box behind. */
 .verse-frame:empty { display: none; }
-.verse-frame-rounded { border-radius: var(--v-radius); background: var(--verse-soft); padding: var(--v-frame-pad); }
+/* Filled box: a slightly stronger, theme-adaptive fill + a faint hairline so the
+   card reads as defined (esp. in light mode) without a hard border. */
+.verse-frame-rounded { border-radius: var(--v-radius); background: color-mix(in srgb, var(--verse-soft-strong), var(--verse-soft)); border: 1px solid var(--v-hairline); padding: var(--v-frame-pad); }
 /* Box with the background OFF: same container, hairline only, no fill. */
 .verse-frame-outline { border-radius: var(--v-radius); border: 1px solid var(--verse-line); padding: var(--v-frame-pad); }
 .verse-frame-sharp { border-radius: 0; border-left: 3px solid var(--verse-accent); padding: 0.1rem 0 0.1rem var(--v-frame-pad); }
