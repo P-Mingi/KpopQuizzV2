@@ -2,6 +2,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { JoinButton } from '@/components/verse/join-button';
 import { CurateLink } from '@/components/verse/curate-link';
 import { upcomingBirthday, comebackCountdown } from '@/lib/verse/date-engines';
+import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
 
 import type { Space } from '@/lib/verse/space';
 
@@ -17,13 +18,26 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
   const bday = upcomingBirthday(idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })), today);
   const cbDays = comeback ? comebackCountdown(comeback.release_date, today) : -1;
 
+  // W-CUSTOM banner: treatment drives the hero backdrop. 'photo' needs an uploaded
+  // banner (our public bucket, aspect reserved so zero CLS); 'gradient' is the
+  // default sheen; 'solid' is a flat wash. Absent config -> the original gradient.
+  const banner = space.presentation.banner;
+  const bannerUrl = banner?.treatment === 'photo' ? spaceAssetUrl(banner.assetPath) : null;
+  const backdrop = banner?.treatment === 'solid'
+    ? 'var(--verse-soft)'
+    : 'linear-gradient(135deg, var(--verse-soft-strong), transparent 60%)';
+
   return (
     <header className="verse-hero relative overflow-hidden rounded-2xl border border-default">
-      <div
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(135deg, var(--verse-soft-strong), transparent 60%)' }}
-        aria-hidden
-      />
+      {bannerUrl ? (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={bannerUrl} alt="" width={1600} height={400} className="absolute inset-0 h-full w-full object-cover" aria-hidden />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg-primary) 82%, transparent))' }} aria-hidden />
+        </>
+      ) : (
+        <div className="absolute inset-0" style={{ background: backdrop }} aria-hidden />
+      )}
       <div className="relative flex flex-col gap-4 p-5 sm:p-7">
         <div className="flex items-start gap-4">
           <GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} />

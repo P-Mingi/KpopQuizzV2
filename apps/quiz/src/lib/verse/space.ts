@@ -5,6 +5,10 @@ import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { idolSlug, albumSlug } from './slug';
+import { validatePresentation } from './presentation/validate';
+import { EMPTY_PRESENTATION } from './presentation/types';
+
+import type { Presentation } from './presentation/types';
 
 export interface SpaceGroup {
   id: number; name: string; slug: string; fandom_name: string;
@@ -14,7 +18,7 @@ export interface SpaceGroup {
 }
 export interface SpaceConfig {
   welcome_line: string | null; est_year: number | null; sns_links: { label: string; url: string }[];
-  module_config: Record<string, unknown>; former_members_shown: boolean; charter_text: string | null; is_launch: boolean;
+  former_members_shown: boolean; charter_text: string | null; is_launch: boolean;
 }
 export interface SpaceIdol {
   id: number; name: string; slug: string; name_hangul: string | null; positions: string[];
@@ -29,6 +33,7 @@ export interface SpaceComeback { title: string; release_date: string; kind: stri
 export interface Space {
   group: SpaceGroup;
   config: SpaceConfig;
+  presentation: Presentation;   // W-CUSTOM: validated LIVE presentation (empty = default look)
   idols: SpaceIdol[];
   units: SpaceUnit[];
   albums: SpaceAlbum[];
@@ -38,7 +43,7 @@ export interface Space {
 }
 
 const DEFAULT_CONFIG: SpaceConfig = {
-  welcome_line: null, est_year: null, sns_links: [], module_config: {},
+  welcome_line: null, est_year: null, sns_links: [],
   former_members_shown: false, charter_text: null, is_launch: false,
 };
 
@@ -58,7 +63,7 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     { data: cfg }, { data: idols }, { data: units }, { data: albums },
     { data: comeback }, { data: nameAll }, { data: personality }, { count: btCount },
   ] = await Promise.all([
-    db.from('verse_spaces').select('welcome_line, est_year, sns_links, module_config, former_members_shown, charter_text, is_launch').eq('group_id', g.id).maybeSingle(),
+    db.from('verse_spaces').select('welcome_line, est_year, sns_links, presentation, former_members_shown, charter_text, is_launch').eq('group_id', g.id).maybeSingle(),
     db.from('idols').select('id, name, name_hangul, positions, photo_url, birth_date, nationality, unit_id, ord').eq('group_id', g.id).eq('active', true).order('ord'),
     db.from('group_units').select('id, name, slug').eq('parent_group_id', g.id),
     db.from('albums').select('id, title, release_date, type, region').eq('group_id', g.id).order('release_date', { ascending: false, nullsFirst: false }),
@@ -88,15 +93,24 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     welcome_line: (cfg as SpaceConfig).welcome_line ?? null,
     est_year: (cfg as SpaceConfig).est_year ?? null,
     sns_links: Array.isArray((cfg as SpaceConfig).sns_links) ? (cfg as SpaceConfig).sns_links : [],
-    module_config: (cfg as SpaceConfig).module_config ?? {},
     former_members_shown: (cfg as SpaceConfig).former_members_shown ?? false,
     charter_text: (cfg as SpaceConfig).charter_text ?? null,
     is_launch: (cfg as SpaceConfig).is_launch ?? false,
   } : DEFAULT_CONFIG;
 
+  // W-CUSTOM: validate the stored LIVE presentation. An empty {} (unconfigured) or
+  // anything invalid falls back to the default look, so a bad row can never break a
+  // public page.
+  const rawPres = (cfg as { presentation?: unknown } | null)?.presentation;
+  const isEmptyPres = !rawPres || (typeof rawPres === 'object' && Object.keys(rawPres as object).length === 0);
+  const presentation: Presentation = isEmptyPres
+    ? EMPTY_PRESENTATION
+    : (validatePresentation(rawPres).value ?? EMPTY_PRESENTATION);
+
   return {
     group: g,
     config,
+    presentation,
     idols: idolRows,
     units: ((units ?? []) as SpaceUnit[]),
     albums: albumRows,

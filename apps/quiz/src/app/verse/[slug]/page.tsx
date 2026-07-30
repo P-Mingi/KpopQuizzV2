@@ -29,7 +29,7 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       <div className="lg:col-span-3 mb-4">
         <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
       </div>
-      <SpaceHomeRenderer space={space} presentation={null} backlinks={backlinks} />
+      <SpaceHomeRenderer space={space} presentation={space.presentation} backlinks={backlinks} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { collectibleCount } from '@/lib/verse/collectibles';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { resolveName } from '@/lib/verse/disambig';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
-import { verseScopeStyle } from '@/lib/verse/theme';
+import { presentationScopeStyle } from '@/lib/verse/presentation/scope';
 
 import type { Metadata } from 'next';
 
@@ -58,7 +58,7 @@ export default async function SpaceLayout({
   if (colCount > 0) extraTabs.push({ label: 'Collectibles', seg: 'collectibles' });
 
   return (
-    <div className="verse-scope mx-auto w-full max-w-6xl px-4 py-6 sm:py-8" style={verseScopeStyle(space.group)}>
+    <div className="verse-scope mx-auto w-full max-w-6xl px-4 py-6 sm:py-8" style={presentationScopeStyle(space)}>
       <SpaceHero space={space} />
       <div className="mt-6">
         <SpaceTabs slug={slug} extra={extraTabs} />
