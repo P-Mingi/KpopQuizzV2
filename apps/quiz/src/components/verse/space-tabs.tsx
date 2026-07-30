@@ -61,10 +61,20 @@ export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): R
           </li>
         ))}
         {overflow.length > 0 ? (
-          <li>
+          <li className="flex items-center">
+            {/* Flat disclosure, not a chip: accent-ink label + a chevron that rotates
+                when the sheet opens. The chevron is the affordance and the accent
+                color sets it apart from the muted tabs, so no pill/badge/shadow is
+                needed. Tap area stays full height; visual weight stays light. */}
             <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" aria-expanded={sheet}
-              className="rounded-t-lg px-3 py-2 text-[13px] font-semibold text-secondary" style={{ borderBottom: '2px solid transparent' }}>
+              aria-label={`Show ${overflow.length} more sections`}
+              className="inline-flex items-center gap-0.5 px-3 py-2 text-[13px] font-semibold transition-opacity active:opacity-60"
+              style={{ color: 'var(--verse-ink)' }}>
               More
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+                style={{ transform: sheet ? 'rotate(180deg)' : 'none', transition: 'transform 160ms ease' }} aria-hidden>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
             </button>
           </li>
         ) : null}
