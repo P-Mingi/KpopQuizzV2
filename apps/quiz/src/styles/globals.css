@@ -653,6 +653,14 @@ body {
   opacity: 0.5;
 }
 
+/* W-CUSTOM stickers - decorative, responsive by construction. Banner-corner
+   stickers shrink on small screens; seam stickers hide on the narrowest widths so
+   they never collide with content. */
+.verse-sticker-corner { line-height: 0; }
+@media (max-width: 640px) {
+  .verse-sticker-corner { transform: scale(0.68); transform-origin: inherit; }
+}
+
 /* ============================================================
    B4 - /quizzes browse redesign
    Canonical shared components (spec §3, §10b/10c/10d/10f/10h, §10j, §14h).

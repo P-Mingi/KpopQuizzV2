@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { RelatedNavbox } from '@/components/verse/related-navbox';
 import { resolvePlacements, placementsForZone } from '@/lib/verse/presentation/resolve';
 import { ALL_MODULES } from './module-registry';
+import { StickerLayer } from './sticker-layer';
 
 import type { Presentation, ModulePlacement } from '@/lib/verse/presentation/types';
 import type { FrameStyle } from '@/lib/verse/presentation/registry';
@@ -33,12 +34,14 @@ function Stack({ placements, space, frameDefault, divider }: {
         if (!R) return null;
         const frame = (m.frame ?? frameDefault) as FrameStyle;
         const showDivider = i > 0 && divider !== 'none' && divider !== 'line';
-        // Bare render when there is no frame and no visual divider - byte-identical
+        const hasSeam = i > 0 && (space.presentation.stickers ?? []).some((s) => s.slot === 'seam' && (s.anchorIndex ?? 0) === i);
+        // Bare render when there is no frame, divider, or seam sticker - byte-identical
         // to the pre-W-CUSTOM page (the empty-config invariant).
-        if (frame === 'none' && !showDivider) return <R key={`${m.type}-${i}`} space={space} placement={m} />;
+        if (frame === 'none' && !showDivider && !hasSeam) return <R key={`${m.type}-${i}`} space={space} placement={m} />;
         return (
           <div key={`${m.type}-${i}`}>
             {showDivider ? <Divider kind={divider} /> : null}
+            {hasSeam ? <div className="my-1 flex flex-wrap justify-center gap-1" aria-hidden><StickerLayer space={space} slot="seam" anchorIndex={i} /></div> : null}
             <ModuleFrame frame={frame}><R space={space} placement={m} /></ModuleFrame>
           </div>
         );

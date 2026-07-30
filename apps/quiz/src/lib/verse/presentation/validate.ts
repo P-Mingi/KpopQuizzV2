@@ -156,11 +156,14 @@ export function validatePresentation(raw: unknown): ValidationResult {
       const ss = s as Record<string, unknown>;
       const slot = String(ss.slot ?? '');
       if (!STICKER_SLOTS.includes(slot as never)) { errors.push(`Unknown sticker slot "${slot}".`); continue; }
+      const id = String(ss.id ?? '');
+      // id must be a house pack ref or an uploaded asset ref (never a raw URL/svg).
+      if (!/^house:[a-z]+:\d+$/.test(id) && !/^asset:\d+$/.test(id)) { errors.push(`Unknown sticker "${id}".`); continue; }
       const scale = ss.scale != null ? Number(ss.scale) : 1;
       const rotate = ss.rotate != null ? Number(ss.rotate) : 0;
       if (scale < 0.5 || scale > 2) errors.push('Sticker scale must be between 0.5x and 2x.');
       if (rotate < -30 || rotate > 30) errors.push('Sticker rotation must be between -30 and 30 degrees.');
-      const sticker: StickerPlacement = { id: String(ss.id ?? ''), slot: slot as StickerSlot, scale, rotate, flip: ss.flip === true };
+      const sticker: StickerPlacement = { id, slot: slot as StickerSlot, scale, rotate, flip: ss.flip === true };
       if (ss.anchorIndex != null) sticker.anchorIndex = Number(ss.anchorIndex);
       norm.push(sticker);
     }

@@ -30,10 +30,12 @@ export interface SpaceAlbum {
 }
 export interface SpaceComeback { title: string; release_date: string; kind: string; }
 
+export interface SpaceStickerAsset { id: number; path: string }
 export interface Space {
   group: SpaceGroup;
   config: SpaceConfig;
   presentation: Presentation;   // W-CUSTOM: validated LIVE presentation (empty = default look)
+  stickerAssets: SpaceStickerAsset[]; // W-CUSTOM: active curator sticker uploads (asset:N refs)
   idols: SpaceIdol[];
   units: SpaceUnit[];
   albums: SpaceAlbum[];
@@ -73,6 +75,10 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     db.from('blind_test_songs').select('id', { count: 'exact', head: true }).eq('group_slug', g.slug).not('clip_chorus', 'is', null),
   ]);
 
+  // W-CUSTOM: active curator sticker uploads for asset:N sticker refs (public read).
+  const { data: assetRows } = await db.from('verse_space_assets').select('id, storage_path').eq('space_id', g.id).eq('kind', 'sticker').eq('status', 'active');
+  const stickerAssets: SpaceStickerAsset[] = ((assetRows ?? []) as { id: number; storage_path: string }[]).map((a) => ({ id: a.id, path: a.storage_path }));
+
   const idolRows: SpaceIdol[] = ((idols ?? []) as never[]).map((r) => {
     const x = r as { id: number; name: string; name_hangul: string | null; positions: string[] | null; photo_url: string | null; birth_date: string | null; nationality: string | null; unit_id: number | null; ord: number };
     return { id: x.id, name: x.name, slug: idolSlug(x.name), name_hangul: x.name_hangul, positions: x.positions ?? [], photo_url: x.photo_url, birth_date: x.birth_date, nationality: x.nationality, unit_id: x.unit_id, ord: x.ord };
@@ -111,6 +117,7 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     group: g,
     config,
     presentation,
+    stickerAssets,
     idols: idolRows,
     units: ((units ?? []) as SpaceUnit[]),
     albums: albumRows,

@@ -3,6 +3,7 @@ import { JoinButton } from '@/components/verse/join-button';
 import { CurateLink } from '@/components/verse/curate-link';
 import { upcomingBirthday, comebackCountdown } from '@/lib/verse/date-engines';
 import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
+import { BannerStickers } from '@/components/verse/presentation/sticker-layer';
 
 import type { Space } from '@/lib/verse/space';
 
@@ -38,6 +39,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
       ) : (
         <div className="absolute inset-0" style={{ background: backdrop }} aria-hidden />
       )}
+      <BannerStickers space={space} />
       <div className="relative flex flex-col gap-4 p-5 sm:p-7">
         <div className="flex items-start gap-4">
           <GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} />
