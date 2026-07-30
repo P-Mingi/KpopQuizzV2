@@ -9,6 +9,7 @@ import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
+import { SiteFooter } from '@/components/layout/site-footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
@@ -158,7 +159,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
             <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
               {children}
             </main>
-            <Footer />
+            <SiteFooter play={<Footer />} />
           </div>
           <MobileTabBar />
         </ToastProvider>
