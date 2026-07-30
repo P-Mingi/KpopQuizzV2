@@ -1,8 +1,28 @@
 import { ImageResponse } from 'next/og';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { isConfiguredImageHost } from '@/lib/image-hosts';
 
 import type { NextRequest } from 'next/server';
+
+// Prefetch a logo to a data URI so ImageResponse never does its own remote fetch.
+// A remote <img> inside next/og that fails or is slow in the serverless runtime
+// takes the whole response down with a 500 (even when a browser can load it) - the
+// cause of the group OG image failing. Approved hosts only; any failure or timeout
+// falls back to the abbreviation pill so the card always renders.
+async function logoDataUri(url: string | null): Promise<string | null> {
+  if (!url || !isConfiguredImageHost(url)) return null;
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(2500) });
+    const type = res.headers.get('content-type') ?? '';
+    if (!res.ok || !type.startsWith('image/')) return null;
+    const buf = Buffer.from(await res.arrayBuffer());
+    if (buf.byteLength > 3_000_000) return null; // guard oversized art
+    return `data:${type};base64,${buf.toString('base64')}`;
+  } catch {
+    return null;
+  }
+}
 
 const ABBREVIATIONS: Record<string, string> = {
   'BTS': 'BTS', 'BLACKPINK': 'BP', 'Stray Kids': 'SKZ', 'TWICE': 'TW', 'aespa': 'ae',
@@ -55,6 +75,7 @@ export async function GET(
 
   const logoSize = 140;
   const logoRadius = Math.round(logoSize * 0.19);
+  const logo = await logoDataUri(row.logo_url);
 
   return new ImageResponse(
     (
@@ -73,11 +94,11 @@ export async function GET(
         {/* Top accent strip */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#D4537E' }} />
 
-        {/* Group logo */}
-        {row.logo_url ? (
+        {/* Group logo (prefetched data URI; pill fallback if unavailable) */}
+        {logo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={row.logo_url}
+            src={logo}
             alt=""
             width={logoSize}
             height={logoSize}
@@ -89,7 +110,7 @@ export async function GET(
               width: logoSize,
               height: logoSize,
               borderRadius: logoRadius,
-              backgroundColor: row.display_color,
+              backgroundColor: row.display_color ?? '#D4537E',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -97,7 +118,7 @@ export async function GET(
               border: '1px solid #E8E6E1',
               fontSize: Math.round(logoSize * 0.28),
               fontWeight: 500,
-              color: row.text_color,
+              color: row.text_color ?? '#FFFFFF',
             }}
           >
             {getAbbreviation(row.name)}
