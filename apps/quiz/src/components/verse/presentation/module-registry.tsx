@@ -6,7 +6,7 @@
 import { MODULE_RENDERERS as CORE } from './space-home-modules';
 import { CountdownModule, QuoteModule, SpotlightModule, PollModule } from './feature-modules';
 import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
-import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule } from './canonical-modules';
+import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule, CompletenessModule } from './canonical-modules';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -23,6 +23,7 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   go_deeper: GoDeeperModule,
   collections: CollectionsModule,
   community: CommunityModule,
+  completeness: CompletenessModule,
   countdown: CountdownModule,
   quote: QuoteModule,
   spotlight: SpotlightModule,

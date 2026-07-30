@@ -1,7 +1,10 @@
 import Link from 'next/link';
 
+import { cache } from 'react';
+
 import { getSection } from '@/lib/verse/content';
 import { splitTipTapForFold } from '@/lib/verse/render-content';
+import { computeQuality } from '@/lib/verse/quality';
 import { getEras } from '@/lib/verse/eras';
 import { getPhotocards } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
@@ -175,6 +178,36 @@ export async function CollectionsModule({ space }: ModuleProps): Promise<React.R
         {colCount > 0 ? <Link href={`/verse/${space.group.slug}/collectibles`} className="no-underline" style={{ color: 'var(--verse-ink)' }}>{colCount} collectibles</Link> : null}
       </div>
     </section>
+  );
+}
+
+// COMPLETENESS METER (blueprint idea 3) - a public coverage score from the
+// quality engine (W3K.10). MIN-GATED past a floor so new spaces are never
+// shamed: below the floor the module simply does not exist. Real numbers only.
+const COMPLETENESS_FLOOR = 0.35; // owner tunes at review
+const qualityCached = cache(computeQuality);
+
+export async function CompletenessModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
+  const report = await qualityCached();
+  const g = report.groups.find((x) => x.slug === space.group.slug);
+  if (!g || g.score < COMPLETENESS_FLOOR) return null;
+  const pct = Math.round(g.score * 100);
+  const lines: string[] = [];
+  if (g.erasTotal > 0) lines.push(`Eras ${g.erasNarrated}/${g.erasTotal} written`);
+  if (g.idolsTotal > 0) lines.push(`Lore ${g.idolsWithLore}/${g.idolsTotal} members`);
+  lines.push(g.signals.overview ? 'Overview written' : 'Overview missing');
+  return (
+    <div className="v-module">
+      <h3 className="v-eyebrow">Coverage</h3>
+      <div className="flex items-baseline gap-2">
+        <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{pct}%</span>
+        <span className="text-[11px] uppercase tracking-wide text-tertiary">documented</span>
+      </div>
+      <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--verse-soft)' }} role="img" aria-label={`${pct} percent documented`}>
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--verse-accent)' }} />
+      </div>
+      <p className="mt-2 text-[12px] leading-relaxed text-tertiary">{lines.join(' · ')}</p>
+    </div>
   );
 }
 

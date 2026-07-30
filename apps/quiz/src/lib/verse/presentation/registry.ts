@@ -41,6 +41,8 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   on_this_day:  { type: 'on_this_day', label: 'On this day', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 0, implemented: true, category: 'feature' },
   stats:        { type: 'stats', label: 'In numbers', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 1, implemented: true, category: 'feature' },
   masthead:     { type: 'masthead', label: 'Curator invite', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 2, implemented: true, category: 'feature' },
+  // V-SPACE-FLOW step 5 - the public coverage score (min-gated past a floor).
+  completeness: { type: 'completeness', label: 'Coverage meter', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 3, implemented: true, category: 'feature' },
 
   // --- Core, SEO-critical - registered now, rendered in later steps ---
   facts:        { type: 'facts', label: 'Facts', seoCritical: true, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
