@@ -21,14 +21,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const space = await getSpace(slug);
   if (!space) return { title: 'Verse' };
   const { group, counts } = space;
-  const title = `${group.fandom_name} - Home of ${group.name} fans`;
-  const description = `${group.name} on Verse: ${counts.members} members, ${counts.albums} releases, discography, timeline and community. Sourced, fan-run.`;
+  // V-IDENTITY step 2 - the Verse title pattern (absolute, so Play's "| KpopQuiz"
+  // template does not apply) + the violet per-space OG card.
+  const title = `${group.name} Verse · the ${group.fandom_name} home`;
+  const description = `The ${group.fandom_name} home on KpopVerse: ${counts.members} members, ${counts.albums} releases, discography, timeline and community. Fan-built and sourced.`;
+  const ogImage = `/api/og/verse/${group.slug}`;
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: `https://kpopquiz.org/verse/${group.slug}` },
-    openGraph: { title, description, url: `https://kpopquiz.org/verse/${group.slug}`, type: 'website' },
-    twitter: { card: 'summary_large_image', title, description },
+    openGraph: { title, description, url: `https://kpopquiz.org/verse/${group.slug}`, type: 'website', siteName: 'KpopVerse', images: [{ url: ogImage, width: 1200, height: 630, alt: `${group.name} on KpopVerse` }] },
+    twitter: { card: 'summary_large_image', title, description, images: [ogImage] },
   };
 }
 
