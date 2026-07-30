@@ -27,6 +27,29 @@ export function badgeIconFor(badgeId: string | null | undefined): string | null 
   return BADGE_ICONS[badgeId] ?? null;
 }
 
+// Badge RARITY (redesign): a code-level map (no migration). Rarity drives the coin
+// ring colour + glow, so the shelf reads as a ladder even before anything is earned.
+export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+
+export const RARITY_ORDER: Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+export const RARITY_COLOR: Record<Rarity, string> = {
+  common: '#8b93a7', uncommon: '#22c55e', rare: '#3b82f6', epic: '#a855f7', legendary: '#f5b301',
+};
+export const RARITY_LABEL: Record<Rarity, string> = {
+  common: 'Common', uncommon: 'Uncommon', rare: 'Rare', epic: 'Epic', legendary: 'Legendary',
+};
+
+const BADGE_RARITY: Record<string, Rarity> = {
+  first_steps: 'common', quiz_maker: 'common', pc_first: 'common',
+  hard_mode: 'uncommon', multi_stan: 'uncommon', streak_7: 'uncommon',
+  perfect_score: 'rare', prolific_creator: 'rare', dedicated_fan: 'rare', creator_bronze: 'rare', pc_collector: 'rare',
+  community_star: 'epic', viral_hit: 'epic', streak_30: 'epic', creator_silver: 'epic', pc_set: 'epic',
+  group_master: 'legendary', founding_fan: 'legendary', streak_100: 'legendary', creator_gold: 'legendary',
+};
+export function badgeRarity(id: string): Rarity {
+  return BADGE_RARITY[id] ?? 'common';
+}
+
 // Tiered families render as their own labelled row so the progression reads as a
 // ladder instead of three unrelated tiles.
 export interface BadgeTierGroup {

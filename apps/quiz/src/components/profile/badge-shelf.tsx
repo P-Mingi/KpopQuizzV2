@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { BadgeGrid } from '@/components/ui/badge-grid';
 import { BadgeDetailModal } from '@/components/profile/badge-detail-modal';
-import { badgeIconFor } from '@/lib/badges';
+import { BadgeCoin } from '@/components/profile/badge-coin';
 
 import type { BadgeDefinition } from '@/lib/db/types';
 
@@ -38,28 +38,18 @@ export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt }: Props): Reac
       </div>
 
       <div className="badge-shelf-row">
-        {earned.map((b) => {
-          const icon = b.icon ?? badgeIconFor(b.id);
-          return (
-            <button
-              key={b.id}
-              type="button"
-              className="badge-shelf-coin-btn"
-              title={b.description}
-              aria-label={`${b.name}, view badge`}
-              onClick={() => setSelected(b)}
-            >
-              {icon ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={icon} alt="" className="badge-shelf-coin" loading="lazy" />
-              ) : (
-                <span className="badge-shelf-chip-art" style={{ background: b.color_bg, borderColor: b.color_stroke, color: b.color_text }}>
-                  {b.name.slice(0, 1).toUpperCase()}
-                </span>
-              )}
-            </button>
-          );
-        })}
+        {earned.map((b) => (
+          <button
+            key={b.id}
+            type="button"
+            className="badge-shelf-coin-btn"
+            title={b.description}
+            aria-label={`${b.name}, view badge`}
+            onClick={() => setSelected(b)}
+          >
+            <BadgeCoin id={b.id} earned size={44} />
+          </button>
+        ))}
 
         {lockedCount > 0 && (
           <button

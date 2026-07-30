@@ -1,6 +1,7 @@
 'use client';
 
-import { BADGE_TIER_GROUPS, badgeIconFor, isTieredBadge } from '@/lib/badges';
+import { BADGE_TIER_GROUPS, isTieredBadge } from '@/lib/badges';
+import { BadgeCoin } from '@/components/profile/badge-coin';
 
 import type { BadgeDefinition } from '@/lib/db/types';
 
@@ -54,8 +55,6 @@ export function BadgeGrid({ allBadges, earnedBadgeIds, onSelect }: BadgeGridProp
 }
 
 function BadgeTile({ badge, earned, onSelect }: { badge: BadgeDefinition; earned: boolean; onSelect?: ((b: BadgeDefinition) => void) | undefined }): React.ReactElement {
-  const icon = badge.icon ?? badgeIconFor(badge.id);
-
   const Tag = onSelect ? 'button' : 'div';
   return (
     <Tag
@@ -64,27 +63,7 @@ function BadgeTile({ badge, earned, onSelect }: { badge: BadgeDefinition; earned
       {...(onSelect ? { type: 'button' as const, onClick: () => onSelect(badge) } : {})}
     >
       <div className="badge-art">
-        {icon ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={icon} alt="" className="badge-img" loading="lazy" draggable={false} />
-        ) : (
-          // No art for this badge yet: keep the coloured chip as a placeholder.
-          <span
-            className="badge-fallback"
-            style={{ background: badge.color_bg, borderColor: badge.color_stroke, color: badge.color_text }}
-            aria-hidden="true"
-          >
-            {badge.name.slice(0, 1).toUpperCase()}
-          </span>
-        )}
-        {!earned && (
-          <span className="badge-lock" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="11" height="11" fill="none">
-              <rect x="5" y="10.5" width="14" height="9.5" rx="2.2" fill="currentColor" />
-              <path d="M8.2 10.5V7.8a3.8 3.8 0 017.6 0v2.7" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
-            </svg>
-          </span>
-        )}
+        <BadgeCoin id={badge.id} earned={earned} size={50} />
       </div>
       <span className="badge-name">{badge.name}</span>
       <span className="sr-only">{earned ? 'Earned' : 'Locked'}</span>
@@ -108,21 +87,6 @@ const BADGE_CSS = `
 button.badge-tile { cursor: pointer; }
 .badge-tile.is-earned { border-color: color-mix(in srgb, var(--brand) 32%, var(--border)); background: var(--surface); }
 .badge-art { position: relative; width: 100%; aspect-ratio: 1; display: grid; place-items: center; }
-.badge-img { width: 100%; height: 100%; object-fit: contain; }
-/* Locked art is deliberately hard to read: a frosted silhouette shows there is
-   something to earn without spoiling the artwork before it is unlocked. */
-.badge-tile.is-locked .badge-img { filter: grayscale(1) blur(5px) contrast(0.5); opacity: 0.3; }
-.badge-fallback {
-  width: 62%; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid;
-  display: grid; place-items: center; font-weight: 800; font-size: 15px;
-}
-.badge-tile.is-locked .badge-fallback { filter: grayscale(1) blur(4px); opacity: 0.32; }
-.badge-lock {
-  position: absolute; right: 2px; bottom: 2px; width: 19px; height: 19px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--surface); color: var(--txt3);
-  box-shadow: 0 0 0 1px var(--border);
-}
 .badge-name {
   font-size: 10.5px; font-weight: 600; line-height: 1.15; text-align: center;
   color: var(--txt2);
