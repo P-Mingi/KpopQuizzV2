@@ -29,6 +29,16 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
   // W-CUSTOM banner: treatment drives the hero backdrop. 'photo' needs an uploaded
   // banner (our public bucket, aspect reserved so zero CLS); 'gradient' is the
   // default sheen; 'solid' is a flat wash. Absent config -> the original gradient.
+  // V-SPACE-FLOW step 5 - COMEBACK MODE event skin. Active inside the armed
+  // window; auto-expires at render 36h after the release moment even if the
+  // curator forgets to disarm. Day-level countdown (ISR-friendly).
+  const cbMode = space.presentation.comebackMode ?? null;
+  const nowMs = Date.now();
+  const cbActive = !!cbMode && Date.parse(cbMode.startsAt) <= nowMs && nowMs <= Date.parse(cbMode.endsAt) + 36 * 3600_000;
+  const cbDaysToRelease = cbMode ? Math.ceil((Date.parse(cbMode.endsAt) - nowMs) / 86400_000) : 0;
+  const cbReleaseDay = cbActive && cbDaysToRelease <= 0;
+  const cbPinHref = cbMode?.pinKind === 'timeline' ? `/verse/${group.slug}/timeline` : `/verse/${group.slug}/community`;
+
   const banner = space.presentation.banner;
   const bannerUrl = banner?.treatment === 'photo' ? spaceAssetUrl(banner.assetPath) : null;
   const backdrop = banner?.treatment === 'solid'
@@ -80,8 +90,19 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
             and comeback keep a small accent tag (a real status, not decoration);
             no filled cards, no borders. LIVE NOW (W-CUSTOM step 7) is a curator
             manual toggle that auto-expires at render even if they forget. */}
-        {(space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now()) || (comeback && cbDays >= 0) || bday ? (
+        {cbActive || (space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now()) || (comeback && cbDays >= 0) || bday ? (
           <div className="flex flex-col gap-2.5 border-t pt-4" style={{ borderColor: 'var(--v-hairline)' }}>
+            {cbActive && cbMode ? (
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
+                <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Comeback mode</span>
+                <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{cbMode.title}</span>
+                <span className="font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{cbReleaseDay ? 'Out now' : `D-${cbDaysToRelease}`}</span>
+                <a href={cbReleaseDay ? `/verse/${group.slug}/community` : cbPinHref} className="ml-auto inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
+                  {cbReleaseDay ? 'Join the release-day thread' : cbMode.pinKind === 'timeline' ? 'The era so far' : 'Comeback talk'}
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </a>
+              </div>
+            ) : null}
             {space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now() ? (
               <a href={space.presentation.liveNow.url} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center gap-2.5 text-sm no-underline">
                 <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide" style={{ color: '#e0245e' }}>

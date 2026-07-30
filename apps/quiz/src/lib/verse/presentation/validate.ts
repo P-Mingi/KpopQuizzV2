@@ -214,6 +214,32 @@ export function validatePresentation(raw: unknown): ValidationResult {
     }
   }
 
+  // V-SPACE-FLOW: comeback mode - a curator-armed event window, max 45 days.
+  let comebackMode: Presentation['comebackMode'] | undefined;
+  if (c.comebackMode != null && typeof c.comebackMode === 'object') {
+    const cm = c.comebackMode as Record<string, unknown>;
+    const title = String(cm.title ?? '').trim();
+    const start = Date.parse(String(cm.startsAt ?? ''));
+    const end = Date.parse(String(cm.endsAt ?? ''));
+    if (!title) errors.push('Comeback mode needs a title.');
+    else if (title.length > 80) errors.push('Comeback title is too long (max 80 characters).');
+    if (!Number.isFinite(start) || !Number.isFinite(end)) errors.push('Comeback mode needs valid start and end times.');
+    else if (end <= start) errors.push('The comeback release must be after the window start.');
+    else if (end - start > 45 * 86400_000) errors.push('A comeback window can last at most 45 days.');
+    else if (title && title.length <= 80) {
+      comebackMode = { title, startsAt: new Date(start).toISOString(), endsAt: new Date(end).toISOString() };
+      const pk = String(cm.pinKind ?? '');
+      if (pk === 'timeline' || pk === 'community') comebackMode.pinKind = pk;
+    }
+  }
+
+  // celebrations toggle (anniversary auto-moments): boolean only.
+  let celebrations: boolean | undefined;
+  if (c.celebrations != null) {
+    if (typeof c.celebrations !== 'boolean') errors.push('Celebrations must be on or off.');
+    else celebrations = c.celebrations;
+  }
+
   // V-TEXT: per-section fold preference. Keys are section keys, values a small
   // enum. The sub-page option is NOT accepted until V-PAGES ships it for real.
   let textFolds: Presentation['textFolds'] | undefined;
@@ -246,6 +272,8 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (stickers) value.stickers = stickers;
   if (frames) value.frames = frames;
   if (liveNow) value.liveNow = liveNow;
+  if (comebackMode) value.comebackMode = comebackMode;
+  if (celebrations !== undefined) value.celebrations = celebrations;
   if (textFolds) value.textFolds = textFolds;
   return { ok: true, value, errors: [] };
 }

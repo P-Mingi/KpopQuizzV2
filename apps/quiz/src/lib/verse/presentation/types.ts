@@ -59,6 +59,17 @@ export interface BannerConfig {
 // banner at 12h and auto-hides it at render even if the curator forgets.
 export interface LiveNow { url: string; label?: string; expiresAt: string }
 
+// V-SPACE-FLOW step 5 - COMEBACK MODE: a curator-armed event window (max 45
+// days) that puts the hero into event skin: a countdown to the release, a pinned
+// doorway (timeline or community until V-PAGES ships comeback hubs), and a
+// release-day live-thread link. Auto-expires at render after endsAt.
+export interface ComebackMode {
+  title: string;
+  startsAt: string;              // ISO date-time
+  endsAt: string;                // ISO date-time; the release moment
+  pinKind?: 'timeline' | 'community';
+}
+
 export interface Presentation {
   version: 1;
   preset?: PresetId | null;
@@ -71,6 +82,10 @@ export interface Presentation {
   stickers?: StickerPlacement[];
   frames?: { default?: FrameStyle; divider?: 'none' | 'line' | 'dots' | 'wave' };
   liveNow?: LiveNow | null;  // curator "we are live" state, auto-expiring
+  comebackMode?: ComebackMode | null; // curator-armed event window, auto-expiring
+  // V-SPACE-FLOW step 5 - anniversary auto-moments (debut years, birthdays) show
+  // by default; a curator can switch them off. false = off, absent/true = on.
+  celebrations?: boolean;
   // V-TEXT: per-section fold preference, keyed by section key (e.g. 'overview').
   // 'inline' never folds, 'folded' always folds; absent -> auto (fold past ~300
   // words). The split-to-sub-page option arrives with V-PAGES and is deliberately
