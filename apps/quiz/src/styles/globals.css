@@ -722,12 +722,19 @@ body {
    toggle still governs chrome OUTSIDE .verse-scope; inside, we force deep tokens
    + light ink so the space reads as deep space either way. */
 .verse-scope[data-preset="dark"] {
+  /* Base AND semantic tokens: the semantic aliases (--bg-surface: var(--surface))
+     were resolved once at :root, so they need explicit deep values here or the
+     soft-shadow cards would stay white in global-light mode. */
   --bg: #0f1119; --surface: #171a24; --surface-alt: #1f2331;
+  --bg-primary: #0f1119; --bg-surface: #171a24; --bg-elevated: #1f2331;
   --txt1: #f2f4f8; --txt2: #b2b7c6; --txt3: #808698;
+  --text-primary: #f2f4f8; --text-secondary: #b2b7c6; --text-tertiary: #808698; --text-ghost: #4b5163;
   --border: rgba(255,255,255,0.10); --border-h: rgba(255,255,255,0.20);
+  --border-subtle: rgba(255,255,255,0.06);
   --verse-ink: color-mix(in srgb, var(--verse-accent) 58%, #f2f4f8);
   --verse-soft: color-mix(in srgb, var(--verse-accent) 18%, #171a24);
   --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 28%, #171a24);
+  --verse-line: color-mix(in srgb, var(--verse-accent) 40%, rgba(255,255,255,0.14));
   --v-hairline: color-mix(in srgb, var(--verse-accent) 34%, transparent);
   background: var(--bg);
 }
