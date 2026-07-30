@@ -182,6 +182,24 @@ export function validatePresentation(raw: unknown): ValidationResult {
     }
   }
 
+  // liveNow (curator toggle): url must be https; expiresAt <= 12h out. The API sets
+  // these; validation keeps a hand-edited config honest.
+  let liveNow: Presentation['liveNow'] | undefined;
+  if (c.liveNow != null && typeof c.liveNow === 'object') {
+    const ln = c.liveNow as Record<string, unknown>;
+    const url = String(ln.url ?? '');
+    let okUrl = false;
+    try { okUrl = new URL(url).protocol === 'https:'; } catch { okUrl = false; }
+    const exp = Date.parse(String(ln.expiresAt ?? ''));
+    if (!okUrl) errors.push('Live URL must be a valid https link.');
+    else if (!Number.isFinite(exp)) errors.push('Live status is missing an expiry.');
+    else if (exp - Date.now() > 12 * 3600_000 + 60_000) errors.push('Live status can last at most 12 hours.');
+    else {
+      liveNow = { url, expiresAt: new Date(exp).toISOString() };
+      if (typeof ln.label === 'string' && ln.label.trim()) liveNow.label = ln.label.trim().slice(0, 80);
+    }
+  }
+
   if (errors.length) return { ok: false, errors };
 
   const value: Presentation = { version: PRESENTATION_VERSION };
@@ -193,5 +211,6 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (modules) value.modules = modules;
   if (stickers) value.stickers = stickers;
   if (frames) value.frames = frames;
+  if (liveNow) value.liveNow = liveNow;
   return { ok: true, value, errors: [] };
 }

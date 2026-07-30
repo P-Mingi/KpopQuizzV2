@@ -44,6 +44,11 @@ export interface BannerConfig {
   treatment?: 'photo' | 'gradient' | 'solid';
 }
 
+// W-CUSTOM step 7 - LIVE NOW is a curator manual toggle (a quota-cheap YouTube live
+// check is not feasible: search.list costs 100 units/call). expiresAt caps the
+// banner at 12h and auto-hides it at render even if the curator forgets.
+export interface LiveNow { url: string; label?: string; expiresAt: string }
+
 export interface Presentation {
   version: 1;
   preset?: PresetId | null;
@@ -54,6 +59,7 @@ export interface Presentation {
   modules?: ModulePlacement[];
   stickers?: StickerPlacement[];
   frames?: { default?: FrameStyle; divider?: 'none' | 'line' | 'dots' | 'wave' };
+  liveNow?: LiveNow | null;  // curator "we are live" state, auto-expiring
 }
 
 /** The empty presentation: absent config resolves to this, which the renderer maps

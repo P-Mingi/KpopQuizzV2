@@ -69,6 +69,20 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
           ) : null}
         </div>
 
+        {/* LIVE NOW strip (W-CUSTOM step 7): curator manual toggle, auto-expires at
+            render even if the curator forgets. A quota-cheap YouTube live check was
+            not feasible (search.list = 100 units/call), so this is a manual toggle. */}
+        {space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now() ? (
+          <a href={space.presentation.liveNow.url} target="_blank" rel="noopener noreferrer nofollow"
+            className="flex items-center gap-3 rounded-xl px-4 py-3 no-underline" style={{ background: 'var(--verse-soft-strong)', border: '1px solid var(--verse-line)' }}>
+            <span className="flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: '#e0245e', color: '#fff' }}>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-white" aria-hidden /> Live now
+            </span>
+            <span className="text-sm font-semibold" style={{ color: 'var(--verse-ink)' }}>{space.presentation.liveNow.label ?? `${group.name} is live`}</span>
+            <span className="ml-auto text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Watch</span>
+          </a>
+        ) : null}
+
         {/* Comeback mode strip (from the comebacks table) */}
         {comeback && cbDays >= 0 ? (
           <div className="flex items-center gap-3 rounded-xl px-4 py-3" style={{ background: 'var(--verse-soft)', border: '1px solid var(--verse-line)' }}>
