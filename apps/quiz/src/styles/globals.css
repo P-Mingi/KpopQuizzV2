@@ -623,35 +623,45 @@ body {
 }
 
 /* ============================================================
-   W-CUSTOM - per-module frames + themed dividers (pure CSS, driven by config).
-   'none' renders no wrapper at all (empty config stays byte-identical), so these
-   only ever apply when a curator/preset opts in. Frames wrap a module; the accent
-   comes from --verse-accent so per-space theming carries through.
+   V-DESIGN - module chrome. THE DEFAULT IS INVISIBLE: sections separate by
+   whitespace + a small-caps eyebrow + type hierarchy, never borders/cards/
+   dotted dividers. Frames + dividers are OPT-IN only, redesigned to look like a
+   deliberate magazine treatment when a curator chooses one.
    ============================================================ */
-.verse-frame { margin-bottom: 24px; }
-.verse-frame-rounded { border-radius: 20px; overflow: hidden; }
-.verse-frame-sharp { border-radius: 0; overflow: hidden; outline: 1px solid var(--verse-line); }
-.verse-frame-soft-shadow { border-radius: 16px; box-shadow: 0 10px 30px color-mix(in srgb, var(--verse-accent) 16%, transparent); }
-.verse-frame-sticker-border {
-  border: 2.5px dashed var(--verse-accent);
-  border-radius: 16px;
-  padding: 10px;
-}
-.verse-frame > section { margin-bottom: 0; }
 
-.verse-divider { height: 18px; margin: 2px 0; }
-.verse-divider-dots {
-  background-image: radial-gradient(circle, var(--verse-line) 1.5px, transparent 1.6px);
-  background-size: 12px 12px;
-  background-position: center;
-  opacity: 0.9;
+/* Section rhythm + the small-caps eyebrow that replaces bordered headers. */
+.v-module { margin-bottom: var(--v-space-section); }
+.v-module:last-child { margin-bottom: 0; }
+.v-eyebrow {
+  font-size: var(--v-type-label); font-weight: 700; text-transform: uppercase;
+  letter-spacing: var(--v-tracking-label); color: var(--txt3);
+  margin: 0 0 var(--v-space-eyebrow);
 }
-.verse-divider-wave {
-  background-image: repeating-linear-gradient(-45deg, var(--verse-line) 0 6px, transparent 6px 12px);
-  height: 6px;
-  border-radius: 3px;
-  opacity: 0.5;
-}
+/* Reading measure - long text never stretches across the wide canvas. */
+.v-measure { max-width: var(--v-measure); }
+
+/* Wide magazine grids that fill the canvas (auto-fill: more columns on wider
+   screens, graceful on mobile). Gutters read as air, not table cells. */
+.v-grid-media { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--v-grid-media-min), 1fr)); gap: var(--v-gutter) calc(var(--v-gutter) * 0.9); }
+.v-grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--v-grid-card-min), 1fr)); gap: var(--v-gutter); }
+/* mobile: media tiles a touch smaller so the row still shows several */
+@media (max-width: 640px) { .verse-scope { --v-grid-media-min: 6.5rem; --v-grid-card-min: 10.5rem; } }
+
+/* Frames - OPT-IN. 'none' (default) renders no wrapper. Each style is intentional:
+   a filled soft panel, an editorial accent rule, an elevated card, or playful tape. */
+.verse-frame { margin-bottom: var(--v-space-section); }
+.verse-frame-rounded { border-radius: var(--v-radius); background: var(--verse-soft); padding: var(--v-frame-pad); }
+.verse-frame-sharp { border-radius: 0; border-left: 3px solid var(--verse-accent); padding: 0.1rem 0 0.1rem var(--v-frame-pad); }
+.verse-frame-soft-shadow { border-radius: var(--v-radius); background: var(--bg-surface); box-shadow: var(--v-shadow-soft); padding: var(--v-frame-pad); }
+.verse-frame-sticker-border { border: 2px dashed color-mix(in srgb, var(--verse-accent) 55%, transparent); border-radius: var(--v-radius); padding: var(--v-frame-pad); }
+.verse-frame > .v-module { margin-bottom: 0; }
+
+/* Dividers - OPT-IN. Default ('none'/'line') renders nothing. Redesigned as a quiet
+   hairline or a single centered accent dot, never dotted noise. */
+.verse-divider { margin: calc(var(--v-space-section) * 0.55) auto; }
+.verse-divider-dots { height: 5px; text-align: center; }
+.verse-divider-dots::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--verse-accent); box-shadow: 11px 0 var(--verse-accent), -11px 0 var(--verse-accent); }
+.verse-divider-wave { height: 1px; max-width: 5rem; background: var(--verse-line); }
 
 /* W-CUSTOM stickers - decorative, responsive by construction. Banner-corner
    stickers shrink on small screens; seam stickers hide on the narrowest widths so

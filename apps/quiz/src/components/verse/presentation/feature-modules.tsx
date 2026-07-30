@@ -5,10 +5,12 @@ import { PollVote } from './poll-vote';
 
 import type { ModuleProps } from './module-registry';
 
+// V-DESIGN v2 - borderless editorial block: a small-caps eyebrow + content, spaced
+// by the section rhythm. No card, no border (frames are opt-in and wrap this).
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="rounded-xl border p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-      <h3 className="mb-2 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{title}</h3>
+    <div className="v-module">
+      <h3 className="v-eyebrow">{title}</h3>
       {children}
     </div>
   );
@@ -41,25 +43,26 @@ export function CountdownModule({ space }: ModuleProps): React.ReactElement | nu
   const next = cands.sort((a, b) => a.days - b.days)[0]!;
   return (
     <Card title="Countdown">
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="text-sm font-semibold text-primary">{next.label}</span>
-        <span className="text-2xl font-extrabold tabular-nums" style={{ color: 'var(--verse-ink)' }}>
-          {next.days === 0 ? 'Today' : `${next.days}d`}
-        </span>
+      <div className="text-[14px] font-semibold text-primary">{next.label}</div>
+      <div className="mt-1 flex items-baseline gap-2">
+        <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{next.days === 0 ? 'Today' : next.days}</span>
+        {next.days > 0 ? <span className="text-[12px] uppercase tracking-wide text-tertiary">day{next.days === 1 ? '' : 's'}</span> : null}
       </div>
     </Card>
   );
 }
 
-/** QUOTE HIGHLIGHT - fan-written pull-quote (no lyrics; capped in validation). */
+/** QUOTE HIGHLIGHT - fan-written pull-quote (no lyrics; capped in validation).
+ * Editorial: large type, an accent quote mark, no box. */
 export function QuoteModule({ placement }: ModuleProps): React.ReactElement | null {
   const text = typeof placement.props?.text === 'string' ? placement.props.text : '';
   if (!text.trim()) return null;
   const attribution = typeof placement.props?.attribution === 'string' ? placement.props.attribution : '';
   return (
-    <blockquote className="my-2 rounded-xl border-l-4 py-3 pl-4 pr-3" style={{ borderColor: 'var(--verse-accent)', background: 'var(--verse-soft)' }}>
-      <p className="text-lg font-semibold leading-snug" style={{ color: 'var(--verse-ink)' }}>{text}</p>
-      {attribution ? <cite className="mt-1 block text-xs not-italic text-tertiary">- {attribution}</cite> : null}
+    <blockquote className="v-module" style={{ maxWidth: 'var(--v-measure)' }}>
+      <span aria-hidden className="block text-4xl font-black leading-none" style={{ color: 'var(--verse-accent)' }}>&ldquo;</span>
+      <p className="mt-1 font-semibold leading-tight" style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.7rem)', color: 'var(--verse-ink)', letterSpacing: 'var(--v-tracking-tight)' }}>{text}</p>
+      {attribution ? <cite className="mt-3 block text-[11px] not-italic uppercase tracking-[0.12em] text-tertiary">{attribution}</cite> : null}
     </blockquote>
   );
 }

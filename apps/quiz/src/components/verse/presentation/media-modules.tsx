@@ -5,10 +5,11 @@ import { isConfiguredImageHost } from '@/lib/image-hosts';
 
 import type { ModuleProps } from './module-registry';
 
+// V-DESIGN v2 - borderless editorial block (matches the rest of the module system).
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="rounded-xl border p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-      <h3 className="mb-3 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{title}</h3>
+    <div className="v-module">
+      <h3 className="v-eyebrow">{title}</h3>
       {children}
     </div>
   );

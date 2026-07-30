@@ -20,13 +20,13 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
   const backlinks = await getGroupBacklinks(space.group.slug);
 
   return (
-    <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
       {jsonLdScript(musicGroupLd({
         name: space.group.name, slug: space.group.slug, fandom_name: space.group.fandom_name,
         inception_date: space.group.inception_date, official_website: space.group.official_website,
         record_label: space.group.record_label, memberNames: space.idols.map((i) => i.name),
       }))}
-      <div className="lg:col-span-3 mb-4">
+      <div className="lg:col-span-3 mb-6">
         <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
       </div>
       <SpaceHomeRenderer space={space} presentation={space.presentation} backlinks={backlinks} />

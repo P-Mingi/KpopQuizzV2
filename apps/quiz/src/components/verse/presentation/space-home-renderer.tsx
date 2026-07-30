@@ -71,7 +71,7 @@ export function SpaceHomeRenderer({ space, presentation, backlinks }: {
       <div className="lg:col-span-2">
         <Stack placements={main} space={space} frameDefault={frameDefault} divider={divider} />
       </div>
-      <aside className="space-y-4 lg:col-span-1">
+      <aside className="lg:col-span-1">
         <Stack placements={side} space={space} frameDefault={frameDefault} divider={divider} />
       </aside>
       <div className="lg:col-span-3">
