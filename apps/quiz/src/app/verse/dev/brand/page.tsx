@@ -19,7 +19,7 @@ function Panel({ ground, dir }: { ground: 'light' | 'dark'; dir: Direction }): R
   const sub = isDark ? '#9b95a9' : '#6b6577';
   const og = isDark ? '#0d0a12' : '#f5f3f8';
   const line = isDark ? 'rgba(255,255,255,0.09)' : 'rgba(0,0,0,0.09)';
-  const { Mark, Lockup } = dir;
+  const { FaviconMark, Lockup } = dir;
   return (
     <div style={{ background: bg, color: ink, borderRadius: 16, padding: '20px 22px', border: `1px solid ${line}` }}>
       <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: sub, marginBottom: 18 }}>{ground} · header + toggle neighbour</div>
@@ -30,7 +30,7 @@ function Panel({ ground, dir }: { ground: 'light' | 'dark'; dir: Direction }): R
       </div>
       <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: sub, marginBottom: 12 }}>favicon 32 · 20 · 16</div>
       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16, marginBottom: 24 }}>
-        <Mark size={32} /><Mark size={20} /><Mark size={16} />
+        <FaviconMark size={32} /><FaviconMark size={20} /><FaviconMark size={16} />
       </div>
       <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: sub, marginBottom: 10 }}>og-card scale</div>
       <div style={{ borderRadius: 12, padding: '30px 24px', background: og, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

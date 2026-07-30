@@ -76,6 +76,19 @@ export function OrbitMark({ size = 40 }: MarkProps): React.ReactElement {
     </svg>
   );
 }
+// Favicon-scale variant. Verified: the orbiting dot muddies into the ring below
+// ~24px, so favicons drop it and keep ring + core, with a thicker ring + slightly
+// rounder ellipse so the mark still reads at 16px. Use this for favicons; use the
+// full OrbitMark (with the space on the path) at header/OG scale.
+export function OrbitMarkSmall({ size = 32 }: MarkProps): React.ReactElement {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" role="img" aria-label="KpopVerse mark">
+      <circle cx="24" cy="24" r="6.6" fill={VIOLET} />
+      <ellipse cx="24" cy="24" rx="20" ry="10" fill="none" stroke={VIOLET} strokeWidth="4.2" transform="rotate(-20 24 24)" />
+    </svg>
+  );
+}
+
 export function OrbitLockup({ height = 30, color = 'currentColor' }: LockupProps): React.ReactElement {
   // CHOSEN direction. Wordmark is "KpopVerse" (parallel to the KpopQuiz Play
   // brand); "Kpop" inherits the ink, "Verse" carries the violet world accent.
@@ -90,7 +103,8 @@ export function OrbitLockup({ height = 30, color = 'currentColor' }: LockupProps
 }
 
 export const VERSE_DIRECTIONS = [
-  { id: 'portal', name: 'Portal V', concept: 'Verse is the doorway into your fandom’s home. A filled violet tile, a white V-gateway, a spark entering. The most product-confident, works hardest as an app icon.', Mark: PortalMark, Lockup: PortalLockup },
-  { id: 'editorial', name: 'Editorial cut', concept: 'Verse as a masthead. Wordmark-only, lowercase, a violet full-stop under a hairline rule. The quietest and most magazine; sits softly beside the Play brand.', Mark: EditorialMark, Lockup: EditorialLockup },
-  { id: 'orbit', name: 'Orbit', concept: 'Uni-verse: fandom spaces orbit one core. A violet ring, a filled centre, a space on the path. The most "network of worlds".', Mark: OrbitMark, Lockup: OrbitLockup },
+  { id: 'portal', name: 'Portal V', concept: 'Verse is the doorway into your fandom’s home. A filled violet tile, a white V-gateway, a spark entering. The most product-confident, works hardest as an app icon.', Mark: PortalMark, FaviconMark: PortalMark, Lockup: PortalLockup },
+  { id: 'editorial', name: 'Editorial cut', concept: 'Verse as a masthead. Wordmark-only, lowercase, a violet full-stop under a hairline rule. The quietest and most magazine; sits softly beside the Play brand.', Mark: EditorialMark, FaviconMark: EditorialMark, Lockup: EditorialLockup },
+  // Chosen. Favicons use the ring+core variant (the orbiting dot muddies below ~24px).
+  { id: 'orbit', name: 'Orbit', concept: 'Uni-verse: fandom spaces orbit one core. A violet ring, a filled centre, a space on the path. The most "network of worlds". Wordmark: KpopVerse.', Mark: OrbitMark, FaviconMark: OrbitMarkSmall, Lockup: OrbitLockup },
 ] as const;
