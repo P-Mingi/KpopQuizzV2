@@ -63,12 +63,13 @@ export function SpaceHomeRenderer({ space, presentation, backlinks }: {
   const placements = resolvePlacements(presentation);
   const main = placementsForZone(placements, 'main');
   const side = placementsForZone(placements, 'side');
-  // V-DESIGN v2 box model: the side rail is boxed by default (a clean soft-surface
-  // card), the main column stays open so the media grids breathe. A curator's
-  // explicit frames.default overrides both zones; a per-module frame still wins
-  // over that, so any box is fully customizable and can be toggled off.
+  // V-DESIGN v2 box model: every module sits in a clean soft-surface box by
+  // default (both columns). A curator's explicit frames.default overrides both
+  // zones; a per-module frame still wins over that, so any box is fully
+  // customizable - change its radius/colour, drop its background ('outline'), or
+  // remove it entirely ('none').
   const configuredDefault = presentation?.frames?.default;
-  const mainFrameDefault = (configuredDefault ?? 'none') as FrameStyle;
+  const mainFrameDefault = (configuredDefault ?? 'rounded') as FrameStyle;
   const sideFrameDefault = (configuredDefault ?? 'rounded') as FrameStyle;
   const divider = presentation?.frames?.divider ?? 'line';
 

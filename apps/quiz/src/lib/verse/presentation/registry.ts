@@ -6,8 +6,11 @@
 // verify, enforced in validate.ts.
 
 export type Zone = 'main' | 'side';
-export type FrameStyle = 'none' | 'rounded' | 'sharp' | 'sticker-border' | 'soft-shadow';
-export const FRAME_STYLES: FrameStyle[] = ['none', 'rounded', 'sharp', 'sticker-border', 'soft-shadow'];
+// A module's box. 'rounded' = filled soft-surface card (box WITH background);
+// 'outline' = the same box with NO fill, just a hairline (box background off);
+// 'none' = no box. sharp / soft-shadow / sticker-border are richer curator skins.
+export type FrameStyle = 'none' | 'rounded' | 'outline' | 'sharp' | 'sticker-border' | 'soft-shadow';
+export const FRAME_STYLES: FrameStyle[] = ['none', 'rounded', 'outline', 'sharp', 'sticker-border', 'soft-shadow'];
 
 export interface BlockDef {
   type: string;              // stable config id

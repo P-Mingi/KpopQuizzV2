@@ -7,11 +7,11 @@ export async function RelatedNavbox({ group }: { group: { slug: string; name: st
   const sections = await relatedForGroup(group);
   if (sections.length === 0) return null;
 
-  // V-DESIGN v2 - the related-graph footer is editorial, not a card: a quiet
-  // hairline sets it apart from the content above, then a small-caps eyebrow + a
-  // breathing category grid. No border box, no filled background.
+  // V-DESIGN v2 - the related-graph footer is a clean soft-surface box (matches
+  // the module box language): subtle fill, gentle radius, no hard border, a
+  // small-caps eyebrow + a breathing category grid.
   return (
-    <nav aria-label="Related groups" className="border-t" style={{ marginTop: 'var(--v-space-section)', paddingTop: '1.5rem', borderColor: 'var(--v-hairline)' }}>
+    <nav aria-label="Related groups" style={{ marginTop: 'var(--v-space-section)', background: 'var(--verse-soft)', borderRadius: 'var(--v-radius)', padding: 'var(--v-frame-pad)' }}>
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="v-eyebrow" style={{ margin: 0 }}>Related groups</h2>
         <Link href="/verse/tags" className="text-[11px] font-semibold uppercase tracking-[0.12em] text-tertiary no-underline hover:text-secondary">All categories</Link>
