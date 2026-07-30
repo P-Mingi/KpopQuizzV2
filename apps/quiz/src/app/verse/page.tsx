@@ -13,11 +13,15 @@ import type { SpaceTile } from '@/lib/verse/space-data';
 
 export const revalidate = 3600;
 
-// V-HOME min-gate floors. Modules stay hidden until the real numbers clear the
-// floor, so the front door never shows a thin or fake shelf. (Owner tunes these
-// at review; NUMBERS_FLOOR especially.)
-const NUMBERS_FLOOR = 8; // spaces before "the numbers" is worth stating
-const TRENDING_FLOOR = 3; // ranked spaces before "trending" is worth showing
+// V-HOME min-gate floors. "The numbers" gates on the CATALOG's impressiveness
+// (ingestion-backed idols + releases), never on space existence. The configured-
+// spaces figure is intentionally OMITTED until real curated spaces clear a floor
+// of 10 (today ~5 verse_spaces rows, none with a confirmed human curator); the
+// "18 groups with seeded data" is an ingestion fact, not a configured-spaces claim,
+// so it is not stated as one.
+const CATALOG_FLOOR = 100; // releases catalogued before "the numbers" is worth stating
+const CURATED_SPACES_FLOOR = 10; // real curated spaces before a spaces figure earns a spot
+const TRENDING_FLOOR = 3; // ranked fandoms (real quiz plays) before "trending" shows
 
 export function generateMetadata(): Metadata {
   const description = 'Every K-pop fandom gets a home: members, discography, eras, collections and community, fan-built on open sourced data. Find your fandom and start building.';
@@ -25,8 +29,8 @@ export function generateMetadata(): Metadata {
     title: { absolute: 'KpopVerse · where fans build their fandom’s home' },
     description,
     alternates: { canonical: 'https://kpopquiz.org/verse' },
-    openGraph: { title: 'KpopVerse', description, url: 'https://kpopquiz.org/verse', type: 'website', siteName: 'KpopVerse' },
-    twitter: { card: 'summary_large_image', title: 'KpopVerse', description },
+    openGraph: { title: 'KpopVerse', description, url: 'https://kpopquiz.org/verse', type: 'website', siteName: 'KpopVerse', images: [{ url: '/api/og/verse', width: 1200, height: 630, alt: 'KpopVerse' }] },
+    twitter: { card: 'summary_large_image', title: 'KpopVerse', description, images: ['/api/og/verse'] },
   };
 }
 
@@ -70,10 +74,13 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
   const bySlug = new Map(tiles.map((t) => [t.slug, t] as const));
   const trendingTiles = trending.map((g) => bySlug.get(g.slug)).filter((t): t is SpaceTile => !!t);
 
-  // THE NUMBERS - real, from the catalog we hold. Min-gated below the floor.
-  const totalMembers = tiles.reduce((n, t) => n + t.memberCount, 0);
+  // THE NUMBERS - ingestion-backed and real. idols = active idols across the
+  // documented fandoms; releases = their catalogued albums. The spaces figure is
+  // the count of real launch-grade curated spaces, shown only above the floor.
+  const totalIdols = tiles.reduce((n, t) => n + t.memberCount, 0);
   const totalReleases = tiles.reduce((n, t) => n + t.albumCount, 0);
-  const showNumbers = tiles.length >= NUMBERS_FLOOR;
+  const curatedSpaces = tiles.filter((t) => t.is_launch).length;
+  const showNumbers = totalReleases >= CATALOG_FLOOR;
 
   // CollectionPage + SearchAction JSON-LD (the /verse SEO surface).
   const jsonLd = {
@@ -116,7 +123,11 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       {/* 2. THE NUMBERS - real counts, min-gated */}
       {showNumbers ? (
         <section className="mb-14 flex flex-wrap gap-x-12 gap-y-4 border-y py-6" style={{ borderColor: 'var(--v-hairline)' }}>
-          {[{ n: tiles.length, l: 'fandom spaces' }, { n: totalMembers, l: 'members catalogued' }, { n: totalReleases, l: 'releases catalogued' }].map((s) => (
+          {[
+            { n: totalIdols, l: 'idols documented' },
+            { n: totalReleases, l: 'releases catalogued' },
+            ...(curatedSpaces >= CURATED_SPACES_FLOOR ? [{ n: curatedSpaces, l: 'curated spaces' }] : []),
+          ].map((s) => (
             <div key={s.l}>
               <div className="text-3xl font-extrabold leading-none tabular-nums text-primary sm:text-4xl">{s.n.toLocaleString('en-US')}</div>
               <div className="mt-1 text-[11px] uppercase tracking-wide text-tertiary">{s.l}</div>
