@@ -23,7 +23,7 @@ function loadFonts(): Array<{ name: string; data: ArrayBuffer; weight: 400 | 700
   const dm700 = join(publicFonts, 'dm-sans-700.ttf');
   const dm800 = join(publicFonts, 'dm-sans-800.ttf');
 
-  if (!existsSync(dm400)) throw new Error('DM Sans TTF not found — expected at public/fonts/dm-sans-400.ttf');
+  if (!existsSync(dm400)) throw new Error('DM Sans TTF not found - expected at public/fonts/dm-sans-400.ttf');
 
   return [
     { name: 'DM', data: readFileSync(dm400).buffer as ArrayBuffer, weight: 400, style: 'normal' },

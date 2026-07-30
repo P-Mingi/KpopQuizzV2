@@ -139,7 +139,10 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     : null;
 
   return (
-    <div style={{ paddingTop: 16 }}>
+    // One 520 column for the whole passport (matches PassportView's own width), so
+    // the Quizzes/Liked tabs and the share row align with the passport instead of
+    // spanning full width.
+    <div style={{ paddingTop: 16, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
       <PassportView
       mode="personal"
       headerSlot={
