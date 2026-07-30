@@ -9,6 +9,11 @@ export const PRESENTATION_VERSION = 1 as const;
 export type PresetId = 'minimal' | 'neon' | 'soft' | 'retro' | 'y2k' | 'dark';
 export const PRESETS: PresetId[] = ['minimal', 'neon', 'soft', 'retro', 'y2k', 'dark'];
 
+// V-TEMPLATES: the structure template applied (3b). Orthogonal to the visual
+// preset: templates decide STRUCTURE (tabs + modules), presets decide LOOK.
+export type StructureTemplateId = 'starter' | 'complete' | 'encyclopedia' | 'empty';
+export const STRUCTURE_TEMPLATES: StructureTemplateId[] = ['starter', 'complete', 'encyclopedia', 'empty'];
+
 // Tab ids ARE the real route segments (home = the space root). The composer picks a
 // subset to SHOW; hidden tabs never hide their pages (still live, in the sitemap,
 // reachable via the footer graph). The layout intersects the picked set with the
@@ -57,6 +62,7 @@ export interface LiveNow { url: string; label?: string; expiresAt: string }
 export interface Presentation {
   version: 1;
   preset?: PresetId | null;
+  template?: StructureTemplateId | null;
   accent?: string | null;    // hex; contrast-validated, auto-shaded at render
   banner?: BannerConfig;
   welcome?: string | null;   // short curator intro (TipTap-constrained inline)

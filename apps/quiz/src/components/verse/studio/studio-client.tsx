@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { PRESET_LIST, applyPreset } from '@/lib/verse/presentation/presets';
+import { TEMPLATE_LIST, applyTemplate } from '@/lib/verse/presentation/templates';
 import { resolvePlacements } from '@/lib/verse/presentation/resolve';
 import { BLOCK_REGISTRY, FRAME_STYLES } from '@/lib/verse/presentation/registry';
 import { ALLOWED_TABS } from '@/lib/verse/presentation/types';
@@ -92,6 +93,20 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
             {errors.map((e, i) => <p key={i}>{e}</p>)}
           </div>
         ) : null}
+
+        <div>
+          <p className={label}>Structure template</p>
+          <p className="mt-0.5 text-[11px] text-tertiary">Sets tabs + modules only. Your look and all written content stay untouched.</p>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {TEMPLATE_LIST.map((t) => (
+              <button key={t.id} onClick={() => update(applyTemplate(draft, t.id))} title={t.blurb}
+                className="rounded-lg border border-default px-2 py-2 text-left text-xs font-semibold"
+                style={draft.template === t.id ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : undefined}>
+                {t.label}{t.recommended ? <span className="ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase" style={{ background: 'var(--brand-light)', color: 'var(--brand)' }}>recommended</span> : null}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div>
           <p className={label}>Preset</p>

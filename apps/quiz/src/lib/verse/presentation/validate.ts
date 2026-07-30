@@ -5,7 +5,7 @@
 // failure is a plain human sentence a curator can act on.
 
 import { BLOCK_REGISTRY, isKnownBlock, blockDef, defaultSeoCriticalTypes, FRAME_STYLES } from './registry';
-import { PRESETS, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION_VERSION } from './types';
+import { PRESETS, STRUCTURE_TEMPLATES, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION_VERSION } from './types';
 import { isHex, accentReadableOn } from './contrast';
 
 import type { FrameStyle } from './registry';
@@ -77,6 +77,9 @@ export function validatePresentation(raw: unknown): ValidationResult {
 
   // preset
   if (c.preset != null && !PRESETS.includes(c.preset as never)) errors.push(`Unknown preset "${String(c.preset)}".`);
+
+  // structure template (V-TEMPLATES)
+  if (c.template != null && !STRUCTURE_TEMPLATES.includes(c.template as never)) errors.push(`Unknown structure template "${String(c.template)}".`);
 
   // accent + READABILITY GUARDRAIL
   let accent: string | null = null;
@@ -234,6 +237,7 @@ export function validatePresentation(raw: unknown): ValidationResult {
 
   const value: Presentation = { version: PRESENTATION_VERSION };
   if (c.preset != null) value.preset = c.preset as PresetId;
+  if (c.template != null) value.template = c.template as NonNullable<Presentation['template']>;
   if (accent) value.accent = accent;
   if (c.banner != null && typeof c.banner === 'object') value.banner = c.banner as BannerConfig;
   if (welcome) value.welcome = welcome;
