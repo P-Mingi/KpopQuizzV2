@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { onThisDay } from '@/lib/verse/date-engines';
+import { getSpaceQuizzes } from '@/lib/verse/space-quizzes';
 
 import type { CrossPromoTarget } from '@/lib/analytics';
 import type { Space } from '@/lib/verse/space';
@@ -23,8 +24,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 // V-SPACE-FLOW: games are DE-EMPHASIZED - one compact module at canonical
-// position 11 (last content block), inline links, no tile grid up top.
-export function GameWidgets({ space }: { space: Space }): React.ReactElement | null {
+// position 11 (last content block). The space's OWN quizzes come first (real
+// shelf, credited "by {curator} of {space}" when the creator is a member), then
+// the game links, then the in-space create entry.
+export async function GameWidgets({ space }: { space: Space }): Promise<React.ReactElement | null> {
   const { group, surfaces } = space;
   const links = [
     surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', target: 'group-quiz' as CrossPromoTarget },
@@ -32,19 +35,43 @@ export function GameWidgets({ space }: { space: Space }): React.ReactElement | n
     surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', target: 'name-all' as CrossPromoTarget },
     surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', target: 'games' as CrossPromoTarget },
   ].filter(Boolean) as { href: string; label: string; target: CrossPromoTarget }[];
-  if (!links.length) return null;
+  const shelf = await getSpaceQuizzes(group.id, 3);
+  if (!links.length && !shelf.length) return null;
   return (
     <Section title="Play">
-      <p className="text-sm text-secondary">Test your {group.name} knowledge:</p>
-      <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1">
-        {links.map((t) => (
-          <VerseGameLink key={t.href} target={t.target} href={t.href}
-            className="inline-flex min-h-[44px] items-center text-sm font-bold no-underline transition-opacity hover:opacity-75"
-            style={{ color: 'var(--verse-ink)' }}>
-            {t.label}
-          </VerseGameLink>
-        ))}
-      </div>
+      {shelf.length > 0 ? (
+        <ul className="mb-3 space-y-1.5">
+          {shelf.map((q) => (
+            <li key={q.id}>
+              <VerseGameLink target={'group-quiz' as CrossPromoTarget} href={`/q/${q.slug}`} className="group inline-flex flex-wrap items-baseline gap-x-2 no-underline">
+                <span className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{q.title}</span>
+                <span className="text-[11.5px] text-tertiary">
+                  {q.username ? (q.spaceRole ? `by ${q.username} of ${group.fandom_name}` : `by ${q.username}`) : null}
+                  {q.playCount > 0 ? `${q.username ? ' · ' : ''}${q.playCount.toLocaleString('en-US')} plays` : null}
+                </span>
+              </VerseGameLink>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {links.length > 0 ? (
+        <>
+          <p className="text-sm text-secondary">Test your {group.name} knowledge:</p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1">
+            {links.map((t) => (
+              <VerseGameLink key={t.href} target={t.target} href={t.href}
+                className="inline-flex min-h-[44px] items-center text-sm font-bold no-underline transition-opacity hover:opacity-75"
+                style={{ color: 'var(--verse-ink)' }}>
+                {t.label}
+              </VerseGameLink>
+            ))}
+          </div>
+        </>
+      ) : null}
+      <Link href={`/verse/${group.slug}/create`} className="mt-1 inline-flex min-h-[44px] items-center gap-1 text-[13px] font-semibold no-underline text-tertiary transition-colors hover:text-primary">
+        Make a {group.name} quiz for the space
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </Link>
     </Section>
   );
 }
@@ -152,7 +179,7 @@ export function MastheadInvite({ space }: { space: Space }): React.ReactElement 
   );
 }
 
-export const MODULE_RENDERERS: Record<string, (props: { space: Space }) => React.ReactElement | null> = {
+export const MODULE_RENDERERS: Record<string, (props: { space: Space }) => React.ReactElement | null | Promise<React.ReactElement | null>> = {
   game_widgets: GameWidgets,
   members: MembersStrip,
   discography: Discography,
