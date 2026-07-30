@@ -133,3 +133,22 @@ export function renderTipTapJSON(doc: unknown): string {
   if (!doc || typeof doc !== 'object') return '';
   return renderNode(doc as Node);
 }
+
+export interface FoldSplit { previewHtml: string; restHtml: string; totalWords: number }
+
+/** V-TEXT - split a doc into a preview (first `previewBlocks` top-level blocks)
+ * and the rest, both crawlable HTML. THE FOLD LAW: callers must keep restHtml in
+ * the served HTML (a native <details>), never fetch-on-expand, so the fold is
+ * presentation only and SEO + JS-off readers are unharmed. */
+export function splitTipTapForFold(doc: unknown, previewBlocks = 2): FoldSplit {
+  if (!doc || typeof doc !== 'object') return { previewHtml: '', restHtml: '', totalWords: 0 };
+  const d = doc as Node;
+  const blocks = d.content ?? [];
+  const totalWords = plainText(d).split(/\s+/).filter(Boolean).length;
+  if (blocks.length <= previewBlocks) return { previewHtml: renderNode(d), restHtml: '', totalWords };
+  return {
+    previewHtml: renderNode({ ...d, content: blocks.slice(0, previewBlocks) }),
+    restHtml: renderNode({ ...d, content: blocks.slice(previewBlocks) }),
+    totalWords,
+  };
+}

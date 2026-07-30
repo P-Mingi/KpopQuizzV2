@@ -211,6 +211,25 @@ export function validatePresentation(raw: unknown): ValidationResult {
     }
   }
 
+  // V-TEXT: per-section fold preference. Keys are section keys, values a small
+  // enum. The sub-page option is NOT accepted until V-PAGES ships it for real.
+  let textFolds: Presentation['textFolds'] | undefined;
+  if (c.textFolds != null && typeof c.textFolds === 'object' && !Array.isArray(c.textFolds)) {
+    const tf = c.textFolds as Record<string, unknown>;
+    const keys = Object.keys(tf);
+    if (keys.length > 20) errors.push('Too many text fold preferences (max 20).');
+    else {
+      const norm: Record<string, 'inline' | 'folded'> = {};
+      for (const k of keys) {
+        const v = String(tf[k] ?? '');
+        if (k.length === 0 || k.length > 40) { errors.push('Text fold section keys must be 1-40 characters.'); continue; }
+        if (v !== 'inline' && v !== 'folded') { errors.push(`Unknown text fold mode "${v}" (inline or folded).`); continue; }
+        norm[k] = v;
+      }
+      if (!errors.length) textFolds = norm;
+    }
+  }
+
   if (errors.length) return { ok: false, errors };
 
   const value: Presentation = { version: PRESENTATION_VERSION };
@@ -223,5 +242,6 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (stickers) value.stickers = stickers;
   if (frames) value.frames = frames;
   if (liveNow) value.liveNow = liveNow;
+  if (textFolds) value.textFolds = textFolds;
   return { ok: true, value, errors: [] };
 }

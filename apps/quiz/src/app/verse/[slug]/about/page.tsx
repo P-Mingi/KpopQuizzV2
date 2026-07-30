@@ -35,6 +35,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
         baseRevisionId={overview.currentRevisionId} locked={overview.locked} lockReason={overview.lockReason}
         groupSlug={group.slug}
         emptyInvite={`Introduce ${group.name}: who they are, their sound, and why fans love them. Fan-written and credited.`}
+        foldPref={space.presentation.textFolds?.['overview'] ?? 'auto'}
       />
       <section>
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>About this space</h2>

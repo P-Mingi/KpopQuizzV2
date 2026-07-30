@@ -647,6 +647,18 @@ body {
 /* Reading measure - long text never stretches across the wide canvas. */
 .v-measure { max-width: var(--v-measure); }
 
+/* V-TEXT fold - a native <details> so it works with JS off and keeps the full
+   text in the served HTML (the fold is presentation only). The summary is the
+   Read-more affordance; its label swaps open/closed in pure CSS. */
+.v-fold > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; gap: 4px; font-size: 0.8125rem; font-weight: 700; color: var(--verse-ink); }
+.v-fold > summary::-webkit-details-marker { display: none; }
+.v-fold > summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 160ms ease; }
+.v-fold[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
+.v-fold > summary .v-fold-less { display: none; }
+.v-fold[open] > summary .v-fold-more { display: none; }
+.v-fold[open] > summary .v-fold-less { display: inline; }
+@media (prefers-reduced-motion: reduce) { .v-fold > summary::after { transition: none; } }
+
 /* Wide magazine grids that fill the canvas (auto-fill: more columns on wider
    screens, graceful on mobile). Gutters read as air, not table cells. */
 .v-grid-media { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--v-grid-media-min), 1fr)); gap: var(--v-gutter) calc(var(--v-gutter) * 0.9); }
@@ -1696,6 +1708,11 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .trending-item > .quiz-card { width: 100%; height: 100%; }
 /* Reserve a 2-line title so every trending box is the same size + meta aligns. */
 .trending-item .quiz-title { min-height: 2.8em; }
+/* The body (badges + 2-line title + meta) runs taller than the fixed 72px cover,
+   which left a ~34px blank block below the cover. Stretch the cover to the card
+   height so it fills that space (the fill <Image> crops to cover). */
+.trending-item .quiz-card { align-items: stretch; }
+.trending-item .quiz-cover { height: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   .daily-cta { animation: none; }

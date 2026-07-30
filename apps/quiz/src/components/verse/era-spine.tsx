@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-import { renderTipTapJSON } from '@/lib/verse/render-content';
+import { renderTipTapJSON, splitTipTapForFold } from '@/lib/verse/render-content';
 
 import type { EraTimelineItem } from '@/lib/verse/eras';
 
@@ -31,15 +31,12 @@ function period(e: EraTimelineItem): string {
  */
 export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement {
   const [canEdit, setCanEdit] = useState(false);
-  const [expanded, setExpanded] = useState<Set<number>>(new Set());
   const [editing, setEditing] = useState<number | null>(null);
   const [stories, setStories] = useState<Record<number, { html: string; content: unknown; rev: number | null }>>({});
 
   useEffect(() => {
     fetch(`/api/verse/can-edit?group=${encodeURIComponent(groupSlug)}`).then((r) => (r.ok ? r.json() : null)).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
   }, [groupSlug]);
-
-  const toggle = (id: number): void => setExpanded((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
 
   const total = eras.length;
 
@@ -55,7 +52,6 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
           const content = live ? live.content : e.storyContent;
           const rev = live ? live.rev : e.currentRevisionId;
           const hasStory = html.replace(/<[^>]*>/g, '').trim().length > 0;
-          const isOpen = expanded.has(e.id);
 
           return (
             <li key={e.id} className="relative mb-6">
@@ -89,21 +85,28 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
                       onClose={() => setEditing(null)}
                       onSaved={(newRev, newContent) => {
                         setStories((s) => ({ ...s, [e.id]: { html: renderTipTapJSON(newContent), content: newContent, rev: newRev } }));
-                        setEditing(null); setExpanded((p) => new Set(p).add(e.id));
+                        setEditing(null);
                       }}
                     />
                   </div>
                 ) : hasStory ? (
                   <>
-                    <div
-                      className="verse-prose mt-2 text-sm"
-                      style={isOpen ? undefined : { maxHeight: '3.2em', overflow: 'hidden', maskImage: 'linear-gradient(to bottom, #000 55%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, #000 55%, transparent)' }}
-                      dangerouslySetInnerHTML={{ __html: html }}
-                    />
-                    <div className="mt-1 flex items-center gap-3">
-                      <button onClick={() => toggle(e.id)} className="text-xs font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>{isOpen ? 'Show less' : 'Read the era story'}</button>
-                      {canEdit ? <button onClick={() => setEditing(e.id)} className="text-xs text-tertiary hover:text-secondary">Edit</button> : null}
-                    </div>
+                    {/* V-TEXT fold: first block visible, the rest inside a native
+                        <details> - full story in the served HTML, expands with JS off. */}
+                    {(() => {
+                      const split = splitTipTapForFold(content, 1);
+                      if (!split.restHtml) return <div className="verse-prose mt-2 text-sm" dangerouslySetInnerHTML={{ __html: html }} />;
+                      return (
+                        <div className="mt-2">
+                          <div className="verse-prose text-sm" dangerouslySetInnerHTML={{ __html: split.previewHtml }} />
+                          <details className="v-fold">
+                            <summary><span className="v-fold-more">Read the era story</span><span className="v-fold-less">Show less</span></summary>
+                            <div className="verse-prose text-sm" dangerouslySetInnerHTML={{ __html: split.restHtml }} />
+                          </details>
+                        </div>
+                      );
+                    })()}
+                    {canEdit ? <button onClick={() => setEditing(e.id)} className="mt-1 text-xs text-tertiary hover:text-secondary">Edit</button> : null}
                   </>
                 ) : (
                   <p className="mt-2 text-sm text-tertiary">

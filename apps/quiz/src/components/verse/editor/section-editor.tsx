@@ -177,6 +177,17 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         <EditorContent editor={editor} />
       </div>
 
+      {/* V-TEXT length guidance - informative only, never blocks publishing. */}
+      {(() => {
+        const words = editor.getText().split(/\s+/).filter(Boolean).length;
+        if (words <= 300) return null;
+        return (
+          <p className="px-4 pb-2 text-[11px] text-tertiary">
+            About {words} words. Readers drop off around 300; consider a tighter cut or splitting into sections. (Guidance only, publish freely.)
+          </p>
+        );
+      })()}
+
       {/* Conflict panel */}
       {conflict ? (
         <div className="border-t border-default px-4 py-3 text-sm" style={{ background: 'var(--verse-soft)' }}>

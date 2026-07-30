@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { renderTipTapJSON, extractHeadings } from '@/lib/verse/render-content';
+import { renderTipTapJSON, extractHeadings, splitTipTapForFold } from '@/lib/verse/render-content';
 
 import { SectionEditor } from './section-editor';
 import { HistoryPanel } from './history-panel';
@@ -19,6 +19,10 @@ interface Props {
   lockReason: string | null;
   emptyInvite: string;
   groupSlug?: string;
+  /** V-TEXT: 'auto' folds long prose (past ~300 words), 'folded' always folds,
+   * 'inline' never folds. The fold is a native details: full text stays in the
+   * served HTML and expands without JS. */
+  foldPref?: 'auto' | 'inline' | 'folded';
 }
 
 /**
@@ -122,7 +126,25 @@ export function SectionSurface(props: Props): React.ReactElement {
               </nav>
             );
           })()}
-          <div className="verse-prose" onMouseOver={onMentionOver} onMouseOut={() => setHover(null)} dangerouslySetInnerHTML={{ __html: html }} />
+          {(() => {
+            // V-TEXT fold: preview (first 2 blocks) + the rest inside a native
+            // <details>. Full text always in the DOM; JS-off readers expand fine.
+            const pref = props.foldPref ?? 'auto';
+            const split = splitTipTapForFold(content, 2);
+            const folds = pref !== 'inline' && split.restHtml !== '' && (pref === 'folded' || split.totalWords > 300);
+            if (!folds) {
+              return <div className="verse-prose" onMouseOver={onMentionOver} onMouseOut={() => setHover(null)} dangerouslySetInnerHTML={{ __html: html }} />;
+            }
+            return (
+              <div onMouseOver={onMentionOver} onMouseOut={() => setHover(null)}>
+                <div className="verse-prose" dangerouslySetInnerHTML={{ __html: split.previewHtml }} />
+                <details className="v-fold">
+                  <summary><span className="v-fold-more">Read more</span><span className="v-fold-less">Show less</span></summary>
+                  <div className="verse-prose" dangerouslySetInnerHTML={{ __html: split.restHtml }} />
+                </details>
+              </div>
+            );
+          })()}
           {hover ? (
             <a href={hover.href} className="verse-hover-card" style={{ position: 'absolute', left: hover.x, top: hover.y, zIndex: 40 }}>
               <span className="rounded px-1 text-[9px] font-bold uppercase" style={{ background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' }}>{hover.type}</span>

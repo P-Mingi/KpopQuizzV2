@@ -152,6 +152,29 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
           </div>
         </div>
 
+        <div>
+          <p className={label}>Text sections</p>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="flex-1 text-sm">Overview fold</span>
+            <select
+              value={draft.textFolds?.overview ?? 'auto'}
+              onChange={(e) => {
+                const v = e.target.value;
+                const tf = { ...(draft.textFolds ?? {}) };
+                if (v === 'auto') delete tf.overview; else tf.overview = v as 'inline' | 'folded';
+                const next: Presentation = { ...draft, version: 1 };
+                if (Object.keys(tf).length) next.textFolds = tf; else delete next.textFolds;
+                update(next);
+              }}
+              className={field} aria-label="Overview text fold"
+            >
+              <option value="auto">Auto (fold when long)</option>
+              <option value="folded">Always folded</option>
+              <option value="inline">Always inline</option>
+            </select>
+          </div>
+        </div>
+
         <div className="flex gap-2 border-t border-default pt-4">
           <button onClick={() => setConfirming(true)} className="flex-1 rounded-lg py-2 text-sm font-bold text-white" style={{ background: 'var(--brand-btn)' }}>Publish</button>
           <button onClick={() => void rollback()} className="rounded-lg border border-default px-3 py-2 text-sm font-semibold">Roll back</button>

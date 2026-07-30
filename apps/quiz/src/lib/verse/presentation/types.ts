@@ -65,6 +65,11 @@ export interface Presentation {
   stickers?: StickerPlacement[];
   frames?: { default?: FrameStyle; divider?: 'none' | 'line' | 'dots' | 'wave' };
   liveNow?: LiveNow | null;  // curator "we are live" state, auto-expiring
+  // V-TEXT: per-section fold preference, keyed by section key (e.g. 'overview').
+  // 'inline' never folds, 'folded' always folds; absent -> auto (fold past ~300
+  // words). The split-to-sub-page option arrives with V-PAGES and is deliberately
+  // NOT represented here until it is real.
+  textFolds?: Record<string, 'inline' | 'folded'>;
 }
 
 /** The empty presentation: absent config resolves to this, which the renderer maps

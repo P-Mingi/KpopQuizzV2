@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { getSection } from '@/lib/verse/content';
-import { renderTipTapJSON } from '@/lib/verse/render-content';
+import { splitTipTapForFold } from '@/lib/verse/render-content';
 import { getEras } from '@/lib/verse/eras';
 import { getPhotocards } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
@@ -25,15 +25,24 @@ export async function IntroModule({ space }: ModuleProps): Promise<React.ReactEl
   if (!overview.content) {
     return <IntroNudge groupId={space.group.id} groupSlug={space.group.slug} groupName={space.group.name} />;
   }
-  const html = renderTipTapJSON(overview.content);
-  if (!html) return <IntroNudge groupId={space.group.id} groupSlug={space.group.slug} groupName={space.group.name} />;
+  // V-TEXT: the home intro is a 2-4 sentence lede. A long overview renders its
+  // first blocks here with a link to the full text on the About page (which is
+  // that content's canonical, fully-served home).
+  const split = splitTipTapForFold(overview.content, 2);
+  if (!split.previewHtml.replace(/<[^>]*>/g, '').trim()) return <IntroNudge groupId={space.group.id} groupSlug={space.group.slug} groupName={space.group.name} />;
   return (
     <section className="v-module">
       <div
         className="verse-prose text-[1.0625rem] leading-relaxed text-secondary"
         style={{ maxWidth: 'var(--v-measure)' }}
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: split.previewHtml }}
       />
+      {split.restHtml ? (
+        <Link href={`/verse/${space.group.slug}/about`} className="mt-2 inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
+          Read the full introduction
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </Link>
+      ) : null}
     </section>
   );
 }
