@@ -18,7 +18,6 @@ const SITE_URL = 'https://kpopquiz.org';
 // 50,000 URLs per file, so anything above these values should eventually be
 // split into sub-sitemaps. For now a safe ceiling.
 const QUIZZES_LIMIT = 10000;
-const PROFILES_LIMIT = 500;
 const BT_SONG_LIMIT = 5000;
 
 // LASTMOD honesty (SEO audit v2): evergreen pages (legal/info) carry a STABLE
@@ -191,7 +190,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let quizPages: MetadataRoute.Sitemap = [];
   let groupPages: MetadataRoute.Sitemap = [];
-  let profilePages: MetadataRoute.Sitemap = [];
+  // SEO crawl-budget concentration: /u/ profile pages are intentionally NOT in the
+  // sitemap. They are thin, rarely rank, and diluted crawl budget away from the
+  // quiz/group/trivia pages that actually earn traffic. Profiles stay indexable
+  // (self-canonical, no noindex above the 3-quiz gate) and reachable via internal
+  // links - we just stop advertising them so Google spends its budget on winners.
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
   let gamePages: MetadataRoute.Sitemap = [];
   let rankingPages: MetadataRoute.Sitemap = [];
@@ -211,7 +214,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       Promise.all([
         supabase.from('quizzes').select('slug, updated_at, group_id, questions').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
         supabase.from('groups').select('id, slug, quiz_count'),
-        supabase.from('profiles').select('username, updated_at').gte('total_quizzes_created', 3).order('total_quizzes_created', { ascending: false }).limit(PROFILES_LIMIT),
         supabase.from('blind_test_songs').select('groups!inner(slug)').eq('status', 'active').not('clip_chorus', 'is', null).limit(BT_SONG_LIMIT),
         supabase.from('games').select('slug, game_type, updated_at').eq('status', 'published').eq('game_type', 'name_all_members').limit(500),
         supabase.from('tot_categories').select('slug, created_at').eq('is_published', true).limit(500),
@@ -222,7 +224,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
       throw new Error('sitemap batch timeout');
     }
-    const [quizzesResult, groupsResult, profilesResult, btSongGroupsResult, gamesResult, totCategoriesResult] = raced as [Row, Row, Row, Row, Row, Row];
+    const [quizzesResult, groupsResult, btSongGroupsResult, gamesResult, totCategoriesResult] = raced as [Row, Row, Row, Row, Row];
 
     // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
     // change on the site. Also fold the per-group newest date for group pages.
@@ -294,13 +296,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(q.updated_at),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
-    }));
-
-    profilePages = ((profilesResult.data ?? []) as Array<{ username: string; updated_at: string }>).map((p) => ({
-      url: `${SITE_URL}/u/${p.username}`,
-      lastModified: new Date(p.updated_at),
-      changeFrequency: 'weekly' as const,
-      priority: 0.4,
     }));
 
     gamePages = [
@@ -428,7 +423,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,
-    ...profilePages,
     ...gamePages,
     ...rankingPages,
     ...pulsePages,

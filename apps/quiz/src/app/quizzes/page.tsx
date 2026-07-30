@@ -212,10 +212,10 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
       {/* §3a - page header (matches the home hero's type treatment) */}
       <header style={{ margin: '4px 0' }}>
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.05, margin: 0, color: 'var(--txt1)' }}>
-          Browse <span style={{ fontStyle: 'italic', fontWeight: 500, color: 'var(--brand)' }}>quizzes</span>
+          K-pop <span style={{ fontStyle: 'italic', fontWeight: 500, color: 'var(--brand)' }}>quizzes</span>
         </h1>
         <p style={{ marginTop: 10, fontSize: 14, color: 'var(--txt2)' }}>
-          Filter by group, type, or sort however you like.
+          Browse every K-pop quiz on the site, filter by group or type, and sort by trending, newest, or most played.
         </p>
       </header>
 
