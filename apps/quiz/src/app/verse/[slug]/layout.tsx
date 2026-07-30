@@ -6,6 +6,7 @@ import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
 import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
+import { composeTabs } from '@/lib/verse/presentation/tabs';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { resolveName } from '@/lib/verse/disambig';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
@@ -57,11 +58,26 @@ export default async function SpaceLayout({
   if (pcCount > 0) extraTabs.push({ label: 'Photocards', seg: 'photocards' });
   if (colCount > 0) extraTabs.push({ label: 'Collectibles', seg: 'collectibles' });
 
+  // The tabs that HAVE content for this space. The curator's presentation.tabs picks
+  // a subset to show; hidden tabs stay live pages (sitemap + footer), just off the nav.
+  const available = [
+    { label: 'Home', seg: '' },
+    { label: 'Members', seg: 'members' },
+    { label: 'Discography', seg: 'discography' },
+    { label: 'Timeline', seg: 'timeline' },
+    { label: 'Quests', seg: 'quests' },
+    { label: 'Essays', seg: 'essays' },
+    ...extraTabs,
+    { label: 'Community', seg: 'community' },
+    { label: 'About', seg: 'about' },
+  ];
+  const tabs = composeTabs(available, space.presentation.tabs);
+
   return (
     <div className="verse-scope mx-auto w-full max-w-6xl px-4 py-6 sm:py-8" style={presentationScopeStyle(space)}>
       <SpaceHero space={space} />
       <div className="mt-6">
-        <SpaceTabs slug={slug} extra={extraTabs} />
+        <SpaceTabs slug={slug} tabs={tabs} />
         {children}
       </div>
     </div>

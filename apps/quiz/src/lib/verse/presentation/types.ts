@@ -9,10 +9,15 @@ export const PRESENTATION_VERSION = 1 as const;
 export type PresetId = 'minimal' | 'neon' | 'soft' | 'retro' | 'y2k' | 'dark';
 export const PRESETS: PresetId[] = ['minimal', 'neon', 'soft', 'retro', 'y2k', 'dark'];
 
+// Tab ids ARE the real route segments (home = the space root). The composer picks a
+// subset to SHOW; hidden tabs never hide their pages (still live, in the sitemap,
+// reachable via the footer graph). The layout intersects the picked set with the
+// tabs that actually have content for the space.
 export type TabId =
-  | 'home' | 'members' | 'music' | 'story' | 'timeline'
-  | 'collections' | 'community' | 'awards' | 'tours';
-export const ALLOWED_TABS: TabId[] = ['home', 'members', 'music', 'story', 'timeline', 'collections', 'community', 'awards', 'tours'];
+  | 'home' | 'members' | 'discography' | 'timeline' | 'quests' | 'essays'
+  | 'community' | 'about' | 'tours' | 'shows' | 'ost' | 'awards'
+  | 'photocards' | 'collectibles';
+export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'quests', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles'];
 
 /** One placed module in the stack. `type` is a registry key; `zone` is validated. */
 export interface ModulePlacement {
