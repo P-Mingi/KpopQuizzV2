@@ -19,7 +19,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (!entity_type || !entity_id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
-  const comments = await getDiscussions(entity_type, entity_id);
+  const groupId = Number(u.searchParams.get('group_id')) || undefined;
+  const comments = await getDiscussions(entity_type, entity_id, groupId);
   const mark = (c: (typeof comments)[number]): unknown => ({ ...c, mine: !!user && c.authorId === user.id, replies: c.replies.map(mark) });
   return NextResponse.json({ signedIn: !!user, comments: comments.map(mark) });
 }

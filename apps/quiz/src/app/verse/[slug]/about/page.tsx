@@ -6,6 +6,7 @@ import { hubsForGroup } from '@/lib/verse/tags';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
 import { SectionSurface } from '@/components/verse/editor/section-surface';
+import { ProgressionPath } from '@/components/verse/roles/progression-path';
 
 import type { Metadata } from 'next';
 
@@ -45,6 +46,9 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
           by curators always win.
         </p>
       </section>
+
+      {/* V-ROLES step 3: the ladder, on the space's join surface. */}
+      <ProgressionPath groupSlug={group.slug} fandomName={group.fandom_name} />
 
       <section>
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Space stats</h2>

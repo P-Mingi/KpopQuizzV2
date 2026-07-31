@@ -144,7 +144,7 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
           ) : null}
 
           <div className="mt-6 border-t pt-4" style={{ borderColor: 'var(--verse-line)' }}>
-            <DiscussionThread entityType="idol" entityId={String(d.id)} />
+            <DiscussionThread entityType="idol" entityId={String(d.id)} groupId={d.group.id} />
           </div>
         </div>
       </div>

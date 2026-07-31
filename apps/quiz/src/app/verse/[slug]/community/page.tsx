@@ -48,7 +48,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
         <Link href={`/verse/${slug}/changes`} className="text-xs font-semibold text-secondary no-underline hover:text-primary">Recent changes</Link>
         <WatchButton entityType="group" entityId={String(group.id)} />
       </div>
-      <DiscussionThread entityType="group" entityId={String(group.id)} />
+      <DiscussionThread entityType="group" entityId={String(group.id)} groupId={group.id} />
     </div>
   );
 }

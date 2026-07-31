@@ -221,7 +221,7 @@ export async function CompletenessModule({ space }: ModuleProps): Promise<React.
 export async function CommunityModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
   const [members, discussions] = await Promise.all([
     countMembers(space.group.id),
-    getDiscussions('group', String(space.group.id)),
+    getDiscussions('group', String(space.group.id), space.group.id),
   ]);
   if (members === 0 && discussions.length === 0) return null;
   const latest = [...discussions].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 2);

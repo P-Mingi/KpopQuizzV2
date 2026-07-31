@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+import { RoleBadge } from '@/components/verse/roles/role-badge';
+
 import { UserAvatar } from '@/components/ui/user-avatar';
 
-interface Author { username: string | null; displayName: string | null; avatarUrl: string | null; avatarBg: string | null; avatarText: string | null }
+interface Author { username: string | null; displayName: string | null; avatarUrl: string | null; avatarBg: string | null; avatarText: string | null; role?: string | null }
 interface Comment { id: number; author: Author | null; authorId: string; body: string; createdAt: string; mine?: boolean; replies: Comment[] }
 
 function ago(iso: string): string {
@@ -17,7 +19,7 @@ function ago(iso: string): string {
 
 /** W4.6 - per-page discussion (talk page) with one-level replies. Any signed-in user can
  * comment; authors can delete their own; curators moderate via the API. */
-export function DiscussionThread({ entityType, entityId }: { entityType: string; entityId: string }): React.ReactElement {
+export function DiscussionThread({ entityType, entityId, groupId }: { entityType: string; entityId: string; groupId?: number }): React.ReactElement {
   const [comments, setComments] = useState<Comment[]>([]);
   const [signedIn, setSignedIn] = useState(false);
   const [draft, setDraft] = useState('');
@@ -26,7 +28,7 @@ export function DiscussionThread({ entityType, entityId }: { entityType: string;
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
-    const r = await fetch(`/api/verse/discussions?entity_type=${entityType}&entity_id=${entityId}`);
+    const r = await fetch(`/api/verse/discussions?entity_type=${entityType}&entity_id=${entityId}${groupId ? `&group_id=${groupId}` : ''}`);
     if (r.ok) { const d = await r.json(); setComments(d.comments ?? []); setSignedIn(!!d.signedIn); }
   }, [entityType, entityId]);
 
@@ -60,7 +62,7 @@ export function DiscussionThread({ entityType, entityId }: { entityType: string;
         <div className="flex items-start gap-2.5">
           <UserAvatar username={c.author?.username ?? name} avatarUrl={c.author?.avatarUrl ?? null} bgColor={c.author?.avatarBg ?? '#6b7280'} textColor={c.author?.avatarText ?? '#ffffff'} size={28} />
           <div className="min-w-0 flex-1">
-            <p className="text-xs"><span className="font-bold text-primary">{name}</span> <span className="text-tertiary">{ago(c.createdAt)}</span></p>
+            <p className="text-xs"><span className="font-bold text-primary">{name}</span> <RoleBadge role={c.author?.role} /> <span className="text-tertiary">{ago(c.createdAt)}</span></p>
             <p className="mt-0.5 whitespace-pre-wrap text-sm text-secondary">{c.body}</p>
             <div className="mt-1 flex gap-3 text-xs">
               {!isReply && signedIn ? <button onClick={() => { setReplyTo(replyTo === c.id ? null : c.id); setReplyDraft(''); }} className="font-semibold text-tertiary hover:text-secondary">Reply</button> : null}
