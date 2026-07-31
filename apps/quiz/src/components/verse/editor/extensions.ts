@@ -32,7 +32,22 @@ export const verseEditorExtensions: Extensions = [
   TableCell,
   Image.configure({ inline: false, allowBase64: false }),
   // Citation helper: pasted/typed URLs become nofollow source links (W3.3).
-  Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { rel: 'nofollow noopener', class: 'verse-cite', target: '_blank' } }),
+  Link.extend({
+    // V-POLISH-2 B3: the editor preview matches the anchor law. Internal hrefs
+    // (site-relative or our own origin) render as verse-link chips; externals
+    // keep the cite treatment. Published rendering was already correct; now
+    // what the writer sees is what the reader gets.
+    renderHTML({ HTMLAttributes }) {
+      const href = String(HTMLAttributes.href ?? '');
+      const internal = href.startsWith('/') || /^https?:\/\/(www\.)?kpopquiz\.org(?=[/?#]|$)/i.test(href);
+      return ['a', {
+        ...HTMLAttributes,
+        class: internal ? 'verse-link' : 'verse-cite',
+        rel: internal ? null : 'nofollow noopener',
+        target: internal ? null : '_blank',
+      }, 0];
+    },
+  }).configure({ openOnClick: false, autolink: true }),
   // @-mention entity picker (idols/albums/groups -> linked chips).
   verseMention,
   // Widget blocks: discography / quiz / stats cards linking to the live surface.

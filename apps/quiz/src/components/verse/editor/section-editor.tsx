@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 
 import { verseEditorExtensions } from './extensions';
+import { useToolbarNav } from './toolbar-nav';
 import { setMentionGroup } from './mention';
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
@@ -40,9 +41,13 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
   const [restore, setRestore] = useState<unknown | null>(null);
   const draftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const tpl = templateFor(entityType, section);
+  const toolbar = useToolbarNav();
   const editor = useEditor({
     extensions: verseEditorExtensions,
-    content: (initialContent as object) ?? EMPTY_DOC,
+    // B1: right structure pre-filled per kind; a blank canvas is the fallback,
+    // not the default. The skeleton is headings only; the words stay the fan's.
+    content: (initialContent as object) ?? (tpl ? (tpl.doc as object) : EMPTY_DOC),
     immediatelyRender: false,
     editorProps: { attributes: { class: 'verse-prose verse-editor-area', 'aria-label': 'Section editor' } },
     onUpdate: () => scheduleDraft(),
@@ -180,7 +185,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
       })()}
 
       {/* Toolbar */}
-      <div className="v-toolbar flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="group" aria-label="Formatting">
+      <div ref={toolbar.ref} onKeyDown={toolbar.onKeyDown} onFocusCapture={toolbar.onFocusCapture} className="v-toolbar flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
         <Btn label="Bold" on={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} />
         <Btn label="Italic" on={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive('italic')} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
@@ -243,6 +248,20 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         <input value={summary} onChange={(e) => setSummary(e.target.value)} placeholder="Edit summary (what changed)"
           className="min-w-0 flex-1 rounded border border-default bg-transparent px-2 py-1 text-sm" style={{ borderColor: 'var(--verse-line)' }} aria-label="Edit summary" />
         <label className="flex items-center gap-1 text-xs text-secondary"><input type="checkbox" checked={minor} onChange={(e) => setMinor(e.target.checked)} /> minor</label>
+        {!suggestMode && groupSlug ? (
+          <label className="flex items-center gap-1.5 text-xs text-secondary">
+            Reading fold
+            <select defaultValue="auto" aria-label="Reading fold for this section"
+              className="rounded border border-default bg-transparent px-1.5 py-1 text-xs" style={{ borderColor: 'var(--verse-line)' }}
+              onChange={(e) => {
+                void fetch('/api/verse/presentation/fold', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_slug: groupSlug, section, pref: e.target.value }) })
+                  .then(async (r) => { if (!r.ok) setError('Could not save the fold preference.'); });
+              }}>
+              <option value="auto">Auto</option>
+              <option value="inline">Inline (never folds)</option>
+            </select>
+          </label>
+        ) : null}
         <button type="button" onClick={() => publish(false)} disabled={publishing}
           className="inline-flex min-h-[40px] items-center rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50 sm:min-h-0" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>
           {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}

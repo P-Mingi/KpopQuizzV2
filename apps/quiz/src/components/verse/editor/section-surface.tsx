@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { renderTipTapJSON, extractHeadings, splitTipTapForFold } from '@/lib/verse/render-content';
 
 import { SectionEditor } from './section-editor';
+import { useReaderLens } from '@/components/verse/reader-lens';
 import { HistoryPanel } from './history-panel';
 
 interface Props {
@@ -34,7 +35,9 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [html, setHtml] = useState(props.initialHtml);
   const [content, setContent] = useState<unknown | null>(props.initialContent);
   const [base, setBase] = useState<number | null>(props.baseRevisionId);
-  const [canEdit, setCanEdit] = useState(false);
+  const { lensRef, lensed } = useReaderLens();
+  const [canEditRaw, setCanEdit] = useState(false);
+  const canEdit = lensed ? false : canEditRaw;
   // V-ROLES step 2: the viewer's true state, so the suggest affordance explains
   // the path at contact (member: real XP distance; visitor: what suggesting is).
   const [viewer, setViewer] = useState<{ role: string; xpToContributor?: number } | null>(null);
@@ -57,7 +60,7 @@ export function SectionSurface(props: Props): React.ReactElement {
     const q = props.groupSlug ? `?group=${encodeURIComponent(props.groupSlug)}` : '';
     fetch(`/api/verse/can-edit${q}`).then((r) => r.ok ? r.json() : null).then((d) => {
       setCanEdit(!!d?.canEdit);
-      if (d?.role) setViewer({ role: d.role, xpToContributor: d.xpToContributor });
+      if (d?.role) setViewer(lensed ? { role: 'visitor' } : { role: d.role, xpToContributor: d.xpToContributor });
     }).catch(() => {});
   }, [props.groupSlug]);
 
@@ -74,7 +77,7 @@ export function SectionSurface(props: Props): React.ReactElement {
   const hasContent = html.replace(/<[^>]*>/g, '').trim().length > 0;
 
   return (
-    <section className="mb-6" id={`section-${props.section}`}>
+    <section ref={lensRef as React.RefObject<HTMLElement>} className="mb-6" id={`section-${props.section}`}>
       <div className="mb-2 flex items-center justify-between gap-2">
         <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>
         <div className="flex items-center gap-2">

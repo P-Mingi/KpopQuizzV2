@@ -7,6 +7,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import { verseEditorExtensions } from '@/components/verse/editor/extensions';
 import { FirstEditTour } from '@/components/verse/editor/first-edit-tour';
 import { setMentionGroup } from '@/components/verse/editor/mention';
+import { useToolbarNav } from '@/components/verse/editor/toolbar-nav';
 
 import type { PageKindDef, InfoboxFieldDef } from '@/lib/verse/pages/kinds';
 
@@ -78,6 +79,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
 }): React.ReactElement {
   setMentionGroup(groupSlug);
   const router = useRouter();
+  const toolbar = useToolbarNav();
   const [title, setTitle] = useState(page.title);
   const [infobox, setInfobox] = useState<Record<string, unknown>>(page.infobox ?? {});
   const [status, setStatus] = useState(page.status);
@@ -138,7 +140,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
               a first-time fan had no visible way to structure text or cite a
               source. The essential six, matching the section editor's idiom. */}
           {editor ? (
-            <div className="v-toolbar flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="group" aria-label="Formatting">
+            <div ref={toolbar.ref} onKeyDown={toolbar.onKeyDown} onFocusCapture={toolbar.onFocusCapture} className="v-toolbar flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
               {([
                 { label: 'Bold', name: 'Bold', on: () => editor.chain().focus().toggleBold().run(), active: editor.isActive('bold') },
                 { label: 'Italic', name: 'Italic', on: () => editor.chain().focus().toggleItalic().run(), active: editor.isActive('italic') },

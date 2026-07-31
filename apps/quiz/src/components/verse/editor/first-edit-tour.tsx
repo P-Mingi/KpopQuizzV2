@@ -24,7 +24,13 @@ export function FirstEditTour(): React.ReactElement | null {
 
   useEffect(() => {
     if (step === null) return;
-    const onKey = (e: KeyboardEvent): void => { if (e.key === 'Escape') done(); };
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.key !== 'Escape') return;
+      // An open mention popup owns this Escape (B3 ruling); the tour only
+      // takes it when nothing closer is listening.
+      if (document.querySelector('.verse-mention-pop')) return;
+      done();
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps

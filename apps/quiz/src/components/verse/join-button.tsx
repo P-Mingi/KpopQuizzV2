@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { useReaderLens } from '@/components/verse/reader-lens';
+
 interface Props { groupId: number; groupSlug: string; fandomName: string; }
 
 interface Status { signedIn: boolean; member: boolean; role: string; blocked?: boolean; memberCount?: number }
@@ -11,6 +13,7 @@ const ROLE_LABEL: Record<string, string> = { member: 'Member', contributor: 'Con
 /** W4.2 - join / leave a space. Client island so space pages stay ISR. Reflects the
  * caller's membership + role; role holders (curator/space_admin) cannot leave here. */
 export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.ReactElement {
+  const { lensRef, lensed } = useReaderLens();
   const [st, setSt] = useState<Status | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -28,9 +31,10 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
   const primary = 'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold no-underline transition-transform hover:-translate-y-0.5';
   const primaryStyle = { background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' } as React.CSSProperties;
 
-  // Loading or signed-out: keep the original login CTA (no layout shift / no flash of wrong state).
-  if (!st || (!st.signedIn)) {
-    return <a href={`/login?returnTo=${encodeURIComponent(`/verse/${groupSlug}`)}`} className={primary} style={primaryStyle}>Join {fandomName}</a>;
+  // Loading, signed-out, or under the studio's reader lens (which must show
+  // the logged-out truth): the login CTA.
+  if (!st || !st.signedIn || lensed) {
+    return <a ref={lensRef as React.RefObject<HTMLAnchorElement>} href={`/login?returnTo=${encodeURIComponent(`/verse/${groupSlug}`)}`} className={primary} style={primaryStyle}>Join {fandomName}</a>;
   }
 
   if (st.blocked) {

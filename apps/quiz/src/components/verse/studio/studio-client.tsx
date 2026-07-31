@@ -31,6 +31,7 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
   const [errors, setErrors] = useState<string[]>([]);
   const [bp, setBp] = useState<BP>('desktop');
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
+  const [readerLens, setReaderLens] = useState(false);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [confirming, setConfirming] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -253,9 +254,18 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
               <button key={t} onClick={() => setPreviewTheme(t)} aria-pressed={previewTheme === t} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={previewTheme === t ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{t}</button>
             ))}
           </div>
+          <button onClick={() => setReaderLens((v) => !v)} aria-pressed={readerLens}
+            className="ml-1 rounded-md border px-2 py-1 text-[11px] font-semibold"
+            style={readerLens ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
+            title="See the page as a first-time reader: logged-out affordances, folds applied, min-gates applied">
+            reader view
+          </button>
         </div>
-        <div className={`overflow-x-auto rounded-xl border border-default p-3 ${previewTheme === 'dark' ? 'v-preview-dark' : 'v-preview-light'}`}>
-          <div className="mx-auto transition-all" style={{ maxWidth: BP_WIDTH[bp] }}>
+        <div className={`overflow-x-auto rounded-xl border border-default p-3 ${previewTheme === 'dark' ? 'v-preview-dark' : 'v-preview-light'}`}
+          {...(readerLens ? { 'data-reader-lens': '1' } : {})}>
+          {/* key remounts the subtree when the lens flips, so client affordances
+              re-evaluate their [data-reader-lens] ancestry */}
+          <div key={readerLens ? 'reader' : 'owner'} className="mx-auto transition-all" style={{ maxWidth: BP_WIDTH[bp] }}>
             {preview}
           </div>
         </div>
