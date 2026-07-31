@@ -14,6 +14,7 @@ import { SCENE_LIST } from '@/lib/verse/entity-types';
 import { getDiscussions } from '@/lib/verse/discussions';
 import { countMembers } from '@/lib/verse/membership';
 import { IntroNudge } from './intro-nudge';
+import { listPublishedPages } from '@/lib/verse/pages/data';
 
 import type { ModuleProps } from './module-registry';
 
@@ -119,19 +120,23 @@ export async function StoryModule({ space }: ModuleProps): Promise<React.ReactEl
  * plus "Surprise me" (a random real page within the space). */
 export async function GoDeeperModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
   const { group, idols, albums } = space;
-  const [scenes, pcCount, colCount, eras] = await Promise.all([
+  const [scenes, pcCount, colCount, eras, wikiPages] = await Promise.all([
     sceneCounts(group.id), photocardCount(group.id), collectibleCount(group.id), getEras(group.id),
+    listPublishedPages(group.id),
   ]);
   const targets: { label: string; sub: string; href: string }[] = [];
   if (idols.length > 0) targets.push({ label: 'Members', sub: `${idols.length} profiles`, href: `/verse/${group.slug}/members` });
   if (albums.length > 0) targets.push({ label: 'Discography', sub: `${albums.length} releases`, href: `/verse/${group.slug}/discography` });
+  if (albums.some((a) => a.release_date)) targets.push({ label: 'Songs', sub: 'The song deck', href: `/verse/${group.slug}/songs` });
   if (eras.length > 0) targets.push({ label: 'Timeline', sub: `${eras.length} eras`, href: `/verse/${group.slug}/timeline` });
+  if (wikiPages.length > 0) targets.push({ label: 'Wiki', sub: `${wikiPages.length} page${wikiPages.length === 1 ? '' : 's'}`, href: `/verse/${group.slug}/wiki` });
   for (const s of SCENE_LIST) {
     const n = scenes[s.kind] ?? 0;
     if (n > 0) targets.push({ label: s.label, sub: `${n} entries`, href: `/verse/${group.slug}/${s.seg}` });
   }
   if (pcCount > 0) targets.push({ label: 'Photocards', sub: `${pcCount} catalogued`, href: `/verse/${group.slug}/photocards` });
   if (colCount > 0) targets.push({ label: 'Collectibles', sub: `${colCount} items`, href: `/verse/${group.slug}/collectibles` });
+  if (targets.length >= 5) targets.push({ label: 'Browse everything', sub: 'The index of indexes', href: `/verse/${group.slug}/content` });
   if (targets.length === 0) return null;
   return (
     <section className="v-module">

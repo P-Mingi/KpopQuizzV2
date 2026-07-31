@@ -7,6 +7,7 @@ import { sceneCounts } from '@/lib/verse/entities';
 import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { composeTabs } from '@/lib/verse/presentation/tabs';
+import { listPublishedPages } from '@/lib/verse/pages/data';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { resolveName } from '@/lib/verse/disambig';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
@@ -53,13 +54,18 @@ export default async function SpaceLayout({
   }
 
   // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
-  const [counts, pcCount, colCount] = await Promise.all([
+  const [counts, pcCount, colCount, wikiPages] = await Promise.all([
     sceneCounts(space.group.id), photocardCount(space.group.id), collectibleCount(space.group.id),
+    listPublishedPages(space.group.id),
   ]);
   const extraTabs = SCENE_LIST.filter((s) => counts[s.kind] > 0).map((s) => ({ label: s.label, seg: s.seg }));
   // Collection tabs are likewise conditional - each appears once a space has a catalogued item.
   if (pcCount > 0) extraTabs.push({ label: 'Photocards', seg: 'photocards' });
   if (colCount > 0) extraTabs.push({ label: 'Collectibles', seg: 'collectibles' });
+  // V-PAGES tabs: the wiki once a page is published; the song deck once tracks
+  // exist (albums with dates imply catalogued tracks; the deck itself min-gates).
+  if (wikiPages.length > 0) extraTabs.push({ label: 'Wiki', seg: 'wiki' });
+  if (space.albums.some((a) => a.release_date)) extraTabs.push({ label: 'Songs', seg: 'songs' });
 
   // The tabs that HAVE content for this space. The curator's presentation.tabs picks
   // a subset to show; hidden tabs stay live pages (sitemap + footer), just off the nav.

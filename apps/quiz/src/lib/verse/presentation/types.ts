@@ -21,8 +21,8 @@ export const STRUCTURE_TEMPLATES: StructureTemplateId[] = ['starter', 'complete'
 export type TabId =
   | 'home' | 'members' | 'discography' | 'timeline' | 'quests' | 'essays'
   | 'community' | 'about' | 'tours' | 'shows' | 'ost' | 'awards'
-  | 'photocards' | 'collectibles';
-export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'quests', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles'];
+  | 'photocards' | 'collectibles' | 'wiki' | 'songs';
+export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'quests', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles', 'wiki', 'songs'];
 
 /** One placed module in the stack. `type` is a registry key; `zone` is validated. */
 export interface ModulePlacement {

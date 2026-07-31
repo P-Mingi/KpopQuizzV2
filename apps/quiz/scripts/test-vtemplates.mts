@@ -47,6 +47,9 @@ for (const id of TEMPLATE_IDS) {
   check(`${id}: every non-structural choice survives`, survived);
   check(`${id}: tabs replaced by the template's`, JSON.stringify(next.tabs) === JSON.stringify(TEMPLATE_DEFS[id].tabs));
   check(`${id}: modules replaced by the template's`, JSON.stringify(next.modules) === JSON.stringify(TEMPLATE_DEFS[id].modules));
+  // V-PAGES: enabledKinds is STRUCTURE and follows the template (absent = the
+  // registry default set; a template without kinds clears any previous set).
+  check(`${id}: enabledKinds follows the template`, JSON.stringify(next.enabledKinds) === JSON.stringify(TEMPLATE_DEFS[id].enabledKinds));
   const v = validatePresentation(next);
   check(`${id}: validates clean`, v.ok);
   const types = new Set((v.value?.modules ?? []).map((mm) => mm.type));
