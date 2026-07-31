@@ -23,8 +23,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return new NextResponse('Not found', { status: 404 });
   }
 
-  const email = process.env.DEV_LOGIN_EMAIL;
-  if (!email) return new NextResponse('DEV_LOGIN_EMAIL is not set', { status: 500 });
+  // V-ROLES step 1 - ?as=contributor signs in the SECOND local test account
+  // (contributor role, own XP) for two-account journey testing. Same double
+  // gate as above; both emails are RFC-2606 non-deliverable and env-driven.
+  const who = req.nextUrl.searchParams.get('as');
+  const email = who === 'contributor' ? process.env.DEV_LOGIN_CONTRIBUTOR_EMAIL : process.env.DEV_LOGIN_EMAIL;
+  if (!email) return new NextResponse(who === 'contributor' ? 'DEV_LOGIN_CONTRIBUTOR_EMAIL is not set' : 'DEV_LOGIN_EMAIL is not set', { status: 500 });
 
   // Mint a one-time email OTP for the dev user with the service role (no email sent),
   // then verify it server-side to establish the session cookies via the SSR client.

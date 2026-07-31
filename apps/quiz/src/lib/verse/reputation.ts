@@ -5,6 +5,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 
 export const XP_BY_KIND: Record<string, number> = {
   overview: 50, era_story: 30, idol_lore: 20, tour: 30, show: 30, ost: 30, source: 10,
+  wiki_page: 30, // V-PAGES: a published wiki page (awarded on FIRST publish only)
 };
 
 /** XP earned for filling a section gap (a quest), by entity + section. 0 = not a quest. */

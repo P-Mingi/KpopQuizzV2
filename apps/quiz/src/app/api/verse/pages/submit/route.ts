@@ -35,5 +35,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!checked.ok) return NextResponse.json({ ok: false, errors: checked.errors }, { status: 422 });
 
   await svc.from('verse_pages').update({ status: 'review', updated_at: new Date().toISOString() }).eq('id', page.id);
-  return NextResponse.json({ ok: true });
+  // status in the response so the editor's pill updates instantly (found by the
+  // step-1 journey: submit succeeded silently and the UI still said draft).
+  return NextResponse.json({ ok: true, status: 'review' });
 }

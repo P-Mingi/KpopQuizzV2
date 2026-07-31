@@ -6,6 +6,7 @@ import { isAdmin } from '@/lib/admin';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { extractPageRefs, syncPageLinks, resolveWantedTo } from '@/lib/verse/pages/links';
+import { awardSpaceXp, XP_BY_KIND } from '@/lib/verse/reputation';
 import { plainTextExcerpt } from '@/lib/verse/render-content';
 
 import type { NextRequest } from 'next/server';
@@ -80,14 +81,34 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }).eq('id', contentId);
 
   const words = plainTextExcerpt(doc, 10000).split(/\s+/).filter(Boolean).length;
+  const firstPublish = !page.published_at;
   await svc.from('verse_pages').update({
     status: 'published', is_stub: words < STUB_WORDS,
     published_at: page.published_at ?? new Date().toISOString(), updated_at: new Date().toISOString(),
   }).eq('id', page.id);
 
   // The rabbit-hole bookkeeping: this page's outgoing refs + any red links to it.
-  await syncPageLinks(svc, { groupId: page.group_id, sourceType: 'page', sourceId: String(page.id), refs: extractPageRefs(doc, await groupSlug(svc, page.group_id)) });
+  const gslug = await groupSlug(svc, page.group_id);
+  await syncPageLinks(svc, { groupId: page.group_id, sourceType: 'page', sourceId: String(page.id), refs: extractPageRefs(doc, gslug) });
   await resolveWantedTo(svc, page.group_id, page.slug, page.id);
+
+  // V-ROLES step 1 - the author's win is REAL on first publish: space XP on the
+  // existing reputation rail + a bell notification on the existing rail. Never
+  // re-awarded on republish.
+  if (firstPublish) {
+    await awardSpaceXp(page.created_by, page.group_id, XP_BY_KIND.wiki_page!);
+    // Type 'milestone' (an existing mig-122 CHECK type: a published page IS a
+    // creator milestone). A dedicated wiki type can ride the step-4 migration
+    // IF one happens; never worth a migration of its own.
+    const { error: bellErr } = await svc.from('creator_notifications').insert({
+      user_id: page.created_by,
+      type: 'milestone',
+      title: `Your page "${page.title}" is live`,
+      link_url: `/verse/${gslug}/wiki/${page.slug}`,
+      sender_id: user.id,
+    });
+    if (bellErr) console.error('[pages/publish] bell insert failed:', bellErr.message); // best-effort, but never silent
+  }
 
   return NextResponse.json({ ok: true, status: 'published', stub: words < STUB_WORDS });
 }
