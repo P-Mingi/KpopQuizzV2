@@ -6,15 +6,16 @@ import { getSpace } from '@/lib/verse/space';
 import { listPublishedPages } from '@/lib/verse/pages/data';
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
+import { DeckFilter } from '@/components/verse/pages/deck-filter';
 
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
 
-// V-PAGES step 3 - the space wiki index, minimal honest v1 (published pages,
-// grouped by kind, real counts). Step 6 upgrades this surface to the full
-// faceted index (filters + search-within + jump chips); every link here is
-// already real, so nothing dishonest ships in the meantime.
+// V-PAGES step 6 - the faceted space wiki index (the Palworld pattern): the
+// complete published list server-rendered (truth in the HTML), kind facet
+// chips with live counts + search-within + "N matching · N total" via the
+// DeckFilter enhancer. JS-off = the full grouped list.
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -63,22 +64,29 @@ export default async function WikiIndexPage({ params }: { params: Promise<{ slug
           No pages yet. The first fan to write one starts this space&rsquo;s wiki.
         </p>
       ) : (
-        [...byKind.entries()].map(([kind, list]) => {
-          const def = getKind(KPOP_PAGE_REGISTRY, kind);
-          return (
-            <section key={kind} className="v-module">
-              <h2 className="v-eyebrow">{def?.label ?? kind} · {list.length}</h2>
-              <div className="v-grid-cards">
-                {list.map((p) => (
-                  <Link key={p.id} href={`/verse/${space.group.slug}/wiki/${p.slug}`} className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
-                    <span className="block text-[14.5px] font-bold" style={{ color: 'var(--verse-ink)' }}>{p.title}</span>
-                    {p.published_at ? <span className="mt-0.5 block text-[12px] text-tertiary">{p.published_at.slice(0, 10)}</span> : null}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          );
-        })
+        <>
+          <DeckFilter scopeId="wiki-index" facets={[{ key: 'kind', label: 'Kind' }]} searchLabel="Search pages" />
+          <div id="wiki-index">
+            {[...byKind.entries()].map(([kind, list]) => {
+              const def = getKind(KPOP_PAGE_REGISTRY, kind);
+              return (
+                <section key={kind} className="v-module">
+                  <h2 className="v-eyebrow">{def?.label ?? kind} · {list.length}</h2>
+                  <div className="v-grid-cards">
+                    {list.map((p) => (
+                      <Link key={p.id} href={`/verse/${space.group.slug}/wiki/${p.slug}`}
+                        data-deck-item data-f-kind={def?.label ?? kind} data-search={p.title}
+                        className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
+                        <span className="block text-[14.5px] font-bold" style={{ color: 'var(--verse-ink)' }}>{p.title}</span>
+                        {p.published_at ? <span className="mt-0.5 block text-[12px] text-tertiary">{p.published_at.slice(0, 10)}</span> : null}
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );
