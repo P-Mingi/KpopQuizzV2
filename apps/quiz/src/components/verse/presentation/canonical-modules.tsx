@@ -6,6 +6,7 @@ import { getSection } from '@/lib/verse/content';
 import { splitTipTapForFold } from '@/lib/verse/render-content';
 import { computeQuality } from '@/lib/verse/quality';
 import { getEras } from '@/lib/verse/eras';
+import { CoverArt } from '@/components/verse/cover-art';
 import { getPhotocards } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { photocardCount } from '@/lib/verse/photocards';
@@ -86,27 +87,42 @@ export function VitalsStrip({ space }: ModuleProps): React.ReactElement | null {
 export async function StoryModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
   const eras = await getEras(space.group.id);
   if (eras.length === 0) return null;
-  const shown = eras.slice(0, 3);
-  const years = (e: (typeof eras)[number]): string => {
+  // The trailer shows the CURRENT chapter plus the newest chapters that have
+  // stories (excerpts are the pull); pure newest-first only when nothing is
+  // written yet.
+  const currentIdx = eras.findIndex((x) => !x.periodEnd);
+  const current = currentIdx >= 0 ? eras[currentIdx]! : null;
+  const withStories = eras.filter((e, i) => i !== currentIdx && e.storyExcerpt);
+  const rest = eras.filter((e, i) => i !== currentIdx && !e.storyExcerpt);
+  const shown = [...(current ? [current] : []), ...withStories, ...rest].slice(0, 3);
+  // "to now" belongs to the ONE current era; older open-ended rows show their start.
+  const years = (e: (typeof eras)[number], isCurrent: boolean): string => {
     const a = e.periodStart?.slice(0, 4);
     const b = e.periodEnd?.slice(0, 4);
     if (a && b) return a === b ? a : `${a} to ${b}`;
-    if (a) return `${a} to now`;
+    if (a) return isCurrent ? `since ${a}` : a;
     return '';
   };
   return (
     <section className="v-module">
       <h2 className="v-eyebrow">The story so far</h2>
       <ol className="space-y-4" style={{ maxWidth: 'var(--v-measure)' }}>
-        {shown.map((e) => (
-          <li key={e.id}>
-            <div className="flex items-baseline gap-2.5">
-              <span className="text-[15px] font-bold" style={{ color: 'var(--verse-ink)' }}>{e.name}</span>
-              {years(e) ? <span className="text-[11.5px] uppercase tracking-wide text-tertiary">{years(e)}</span> : null}
+        {shown.map((e, i) => {
+          const isCurrent = i === currentIdx;
+          return (
+          <li key={e.id} className="flex items-start gap-3 border-l-[3px] pl-3" style={{ borderColor: e.color ?? 'var(--verse-accent)' }}>
+            {e.albums[0]?.mbid ? <CoverArt mbid={e.albums[0].mbid} title={e.albums[0].title} className="mt-0.5 w-10 flex-shrink-0 rounded-md" /> : null}
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                <span className="text-[15px] font-bold" style={{ color: 'var(--verse-ink)' }}>{e.name}</span>
+                {years(e, isCurrent) ? <span className="text-[11.5px] uppercase tracking-wide text-tertiary tabular-nums">{years(e, isCurrent)}</span> : null}
+                {isCurrent ? <span className="rounded-full px-1.5 py-px text-[9.5px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Now</span> : null}
+              </div>
+              {e.storyExcerpt ? <p className="mt-1 text-sm leading-relaxed text-secondary">{e.storyExcerpt}</p> : null}
             </div>
-            {e.storyExcerpt ? <p className="mt-1 text-sm leading-relaxed text-secondary">{e.storyExcerpt}</p> : null}
           </li>
-        ))}
+          );
+        })}
       </ol>
       <Link href={`/verse/${space.group.slug}/timeline`} className="mt-4 inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
         Full timeline

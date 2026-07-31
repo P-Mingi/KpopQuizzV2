@@ -152,24 +152,33 @@ export function OnThisDay({ space }: { space: Space }): React.ReactElement | nul
   );
 }
 
+/* V-POLISH-2 C1 - THE OVERSIZED VITALS BAND (owner-approved signature).
+   Display-scale tabular numerals, uppercase micro-labels, exactly ONE accent
+   rule, and the sourcing line saying the quiet part loud. Boldness from scale
+   and rhythm; no glow, no gradient. Works in the rail (wraps to a column) and
+   at main width (one band). */
 export function StatsFlex({ space }: { space: Space }): React.ReactElement {
-  const { counts } = space;
+  const { counts, group } = space;
+  const est = group.inception_date ? group.inception_date.slice(0, 4) : null;
   const stats = [
-    { n: counts.members, l: 'members' },
-    { n: counts.albums, l: 'releases' },
-    { n: counts.tracks, l: 'tracks' },
+    ...(est ? [{ n: est, l: 'est.' }] : []),
+    { n: String(counts.members), l: 'members' },
+    { n: String(counts.albums), l: 'releases' },
+    { n: String(counts.tracks), l: 'tracks' },
   ];
   return (
     <div className="v-module">
       <h3 className="v-eyebrow">In numbers</h3>
-      <div className="flex flex-wrap gap-x-8 gap-y-3">
+      <div className="h-[3px] w-12" style={{ background: 'var(--verse-cta, var(--verse-accent))' }} aria-hidden />
+      <div className="mt-4 flex flex-wrap gap-x-10 gap-y-5">
         {stats.map((s) => (
           <div key={s.l}>
-            <div className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{s.n}</div>
-            <div className="mt-1 text-[11px] uppercase tracking-wide text-tertiary">{s.l}</div>
+            <div className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'clamp(2.5rem, 4.2vw, 3.6rem)', letterSpacing: '-0.03em', color: 'var(--verse-ink)' }}>{s.n}</div>
+            <div className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-tertiary">{s.l}</div>
           </div>
         ))}
       </div>
+      <p className="mt-4 text-[11.5px] text-tertiary">Every number sourced · Wikidata + MusicBrainz, both CC0</p>
     </div>
   );
 }

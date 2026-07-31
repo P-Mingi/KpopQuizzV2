@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { getSpace } from '@/lib/verse/space';
+import { getEras } from '@/lib/verse/eras';
 import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { validatePresentation } from '@/lib/verse/presentation/validate';
 import { EMPTY_PRESENTATION } from '@/lib/verse/presentation/types';
@@ -45,6 +46,7 @@ export default async function StudioPage({ params }: { params: Promise<{ slug: s
       groupId={space.group.id}
       groupSlug={space.group.slug}
       groupName={space.group.fandom_name}
+      eras={(await getEras(space.group.id)).map((e) => ({ id: e.id, name: e.name, color: e.color }))}
       initialDraft={draft}
       preview={<DraftPreview space={draftSpace} backlinks={backlinks} />}
     />

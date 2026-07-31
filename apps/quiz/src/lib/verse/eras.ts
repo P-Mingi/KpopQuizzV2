@@ -8,7 +8,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { albumSlug } from '@/lib/verse/slug';
 import { renderTipTapJSON, plainTextExcerpt } from '@/lib/verse/render-content';
 
-export interface EraAlbum { id: number; title: string; slug: string; type: string; release_date: string | null; }
+export interface EraAlbum { id: number; title: string; slug: string; type: string; release_date: string | null; mbid: string | null; }
 
 export interface EraTimelineItem {
   id: number;
@@ -44,14 +44,14 @@ export const getEras = cache(async (groupId: number): Promise<EraTimelineItem[]>
 
   // Albums for these eras, and any authored era_story content (both bounded, ids known).
   const [{ data: albumRows }, { data: storyRows }] = await Promise.all([
-    db.from('albums').select('id, title, type, release_date, era_id').in('era_id', eraIds).order('release_date', { ascending: true, nullsFirst: false }),
+    db.from('albums').select('id, title, type, release_date, era_id, musicbrainz_mbid').in('era_id', eraIds).order('release_date', { ascending: true, nullsFirst: false }),
     db.from('verse_content').select('entity_id, content, current_revision_id, locked').eq('entity_type', 'era').eq('section_key', 'era_story').in('entity_id', eraIds.map(String)),
   ]);
 
   const albumsByEra = new Map<number, EraAlbum[]>();
-  for (const r of (albumRows ?? []) as Array<{ id: number; title: string; type: string; release_date: string | null; era_id: number }>) {
+  for (const r of (albumRows ?? []) as Array<{ id: number; title: string; type: string; release_date: string | null; era_id: number; musicbrainz_mbid: string | null }>) {
     const list = albumsByEra.get(r.era_id) ?? [];
-    list.push({ id: r.id, title: r.title, slug: albumSlug(r.title), type: r.type, release_date: r.release_date });
+    list.push({ id: r.id, title: r.title, slug: albumSlug(r.title), type: r.type, release_date: r.release_date, mbid: r.musicbrainz_mbid });
     albumsByEra.set(r.era_id, list);
   }
 

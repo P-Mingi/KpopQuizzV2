@@ -23,8 +23,8 @@ const TAB_LABELS: Record<string, string> = { home: 'Home', members: 'Members', d
 // switcher. Every change validates + autosaves the DRAFT (never live); errors show as
 // plain sentences. Publish (confirm + before/after summary) copies draft -> live and
 // writes a revision; Rollback restores the previous look.
-export function StudioClient({ groupId, groupSlug, groupName, initialDraft, preview }: {
-  groupId: number; groupSlug: string; groupName: string; initialDraft: Presentation; preview: React.ReactNode;
+export function StudioClient({ groupId, groupSlug, groupName, eras = [], initialDraft, preview }: {
+  groupId: number; groupSlug: string; groupName: string; eras?: { id: number; name: string; color: string | null }[]; initialDraft: Presentation; preview: React.ReactNode;
 }): React.ReactElement {
   const router = useRouter();
   const [draft, setDraft] = useState<Presentation>(initialDraft);
@@ -136,6 +136,26 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
             </select>
           </div>
         </div>
+
+        {eras.length > 0 ? (
+          <div>
+            <p className={label}>Era colors (the timeline spine)</p>
+            <ul className="mt-2 flex flex-col gap-1.5">
+              {eras.map((e) => (
+                <li key={e.id} className="flex items-center gap-2">
+                  <input type="color" defaultValue={e.color ?? '#7c5cfc'} aria-label={`Color for the ${e.name} era`}
+                    className="h-7 w-10 flex-shrink-0 rounded border border-default bg-transparent"
+                    onChange={(ev) => {
+                      void fetch('/api/verse/eras/color', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, era_id: e.id, color: ev.target.value }) })
+                        .then(async (r) => { const d = await r.json().catch(() => ({})); if (!r.ok) setErrors(d.errors ?? ['Could not save the era color.']); else { setErrors([]); router.refresh(); } });
+                    }} />
+                  <span className="min-w-0 truncate text-xs text-secondary">{e.name}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-1.5 text-[11px] text-tertiary">Rail colors save live (no publish step); invisible picks are refused.</p>
+          </div>
+        ) : null}
 
         {(() => {
           const accent = draft.accent ?? '#7c5cfc';

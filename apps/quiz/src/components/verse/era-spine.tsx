@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import { renderTipTapJSON, splitTipTapForFold } from '@/lib/verse/render-content';
+import { CoverArt } from '@/components/verse/cover-art';
 
 import type { EraTimelineItem } from '@/lib/verse/eras';
 
@@ -16,10 +17,12 @@ interface Props {
 }
 
 const YEAR = (d: string | null): string => (d ? d.slice(0, 4) : '');
-function period(e: EraTimelineItem): string {
+function period(e: EraTimelineItem, isCurrent = false): string {
   const s = YEAR(e.periodStart);
   const end = YEAR(e.periodEnd);
-  return end && end !== s ? `${s}–${end}` : s; // en dash for a true range; never an em dash
+  if (end && end !== s) return `${s}–${end}`; // en dash for a true range; never an em dash
+  if (!end && isCurrent) return `since ${s}`;
+  return s;
 }
 
 /**
@@ -46,6 +49,7 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
 
       <ol className="relative ml-2 border-l-2 pl-6" style={{ borderColor: 'var(--verse-line)' }}>
         {eras.map((e, i) => {
+          const isCurrent = i === eras.findIndex((x) => !x.periodEnd);
           const chapter = `E${String(total - i).padStart(2, '0')}`;
           const live = stories[e.id];
           const html = live?.html ?? e.storyHtml;
@@ -56,11 +60,15 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
           return (
             <li key={e.id} className="relative mb-6">
               <span className="absolute -left-[31px] top-1 h-3.5 w-3.5 rounded-full" style={{ background: e.color ?? 'var(--verse-accent)', border: '2px solid var(--verse-soft)' }} aria-hidden />
-              <div className="rounded-r-xl border-l-[3px] pl-4" style={{ borderColor: e.color ?? 'var(--verse-accent)' }}>
+              <div className={isCurrent ? 'rounded-r-xl border-l-[6px] pl-4' : 'rounded-r-xl border-l-[3px] pl-4'} style={{ borderColor: e.color ?? 'var(--verse-accent)' }}>
+                <div className="flex items-start gap-3">
+                  {e.albums[0]?.mbid ? <CoverArt mbid={e.albums[0].mbid} title={e.albums[0].title} className={isCurrent ? 'mt-0.5 w-16 flex-shrink-0 rounded-lg' : 'mt-0.5 w-11 flex-shrink-0 rounded-md'} /> : null}
+                  <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-tertiary tabular-nums">{chapter}</span>
-                  <span className="text-xs font-semibold tabular-nums text-secondary">{period(e)}</span>
-                  <h2 className="text-base font-bold" style={{ color: 'var(--verse-ink)' }}>{e.name}</h2>
+                  <span className="text-xs font-semibold tabular-nums text-secondary">{period(e, isCurrent)}</span>
+                  <h2 className={isCurrent ? 'text-xl font-extrabold' : 'text-base font-bold'} style={{ color: 'var(--verse-ink)' }}>{e.name}</h2>
+                  {isCurrent ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Current chapter</span> : null}
                   {e.albums.length > 1 ? <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-secondary" style={{ background: 'var(--verse-soft)' }}>{e.albums.length} releases</span> : null}
                   {canEdit && e.scaffolded && !hasStory ? <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title="Auto-grouped from release dates; no story written yet">auto</span> : null}
                 </div>
@@ -115,6 +123,8 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
                     </p>
                   ) : null
                 )}
+                  </div>
+                </div>
               </div>
             </li>
           );
