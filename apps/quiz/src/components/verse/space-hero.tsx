@@ -68,27 +68,27 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
       ) : (
         <div className="absolute inset-0" style={{ background: backdrop }} aria-hidden />
       )}
-      <BannerStickers space={space} />
+      <span className="verse-hero-stickers contents"><BannerStickers space={space} /></span>
 
-      <div className="relative flex flex-col gap-5 px-4 pb-7 pt-10 sm:px-6 sm:pb-8 sm:pt-12 lg:px-10">
-        <div className="flex items-end gap-4 sm:gap-5">
-          <GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} />
+      <div className="verse-hero-body relative flex flex-col gap-5 px-4 pb-7 pt-10 sm:px-6 sm:pb-8 sm:pt-12 lg:px-10">
+        <div className="verse-hero-name flex items-end gap-4 sm:gap-5">
+          <span className="verse-hero-logo flex-shrink-0"><GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} /></span>
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">Home of {group.name} fans</p>
+            <p className="verse-hero-kicker text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">Home of {group.name} fans</p>
             <h1 className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{group.fandom_name}</h1>
             <p className="mt-2 text-xs text-tertiary">{vitals}</p>
           </div>
         </div>
 
         {config.welcome_line ? (
-          <p className="leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>{config.welcome_line}</p>
+          <p className="verse-hero-welcome leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>{config.welcome_line}</p>
         ) : null}
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <div className="verse-hero-actions flex flex-wrap items-center gap-x-4 gap-y-3">
           <JoinButton groupId={group.id} groupSlug={group.slug} fandomName={group.fandom_name} />
           <CurateLink groupSlug={group.slug} />
           {config.sns_links.length > 0 ? (
-            <span className="ml-auto flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span className="verse-hero-sns ml-auto flex flex-wrap items-center gap-x-4 gap-y-1">
               {config.sns_links.map((s) => (
                 <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer nofollow"
                   className="inline-flex min-h-[44px] items-center text-xs font-semibold text-tertiary no-underline transition-colors hover:text-primary">{s.label}</a>
@@ -102,7 +102,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
             no filled cards, no borders. LIVE NOW (W-CUSTOM step 7) is a curator
             manual toggle that auto-expires at render even if they forget. */}
         {cbActive || (space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now()) || (comeback && cbDays >= 0) || bday || anniYears > 0 ? (
-          <div className="flex flex-col gap-2.5 border-t pt-4" style={{ borderColor: 'var(--v-hairline)' }}>
+          <div className="verse-hero-now flex flex-col gap-2.5 border-t pt-4" style={{ borderColor: 'var(--v-hairline)' }}>
             {cbActive && cbMode ? (
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
                 <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Comeback mode</span>

@@ -5011,6 +5011,25 @@ main:has(.verse-page) { max-width: 1360px; }
   --v-frame-fill: color-mix(in srgb, var(--verse-accent) 10%, transparent);
 }
 
+/* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
+   full masthead belongs to the space home alone. Driven by .v-hero-compact
+   from HeroShell (segment-aware, server-rendered). */
+.v-hero-compact { --v-type-display: clamp(24px, 2.6vw, 32px); }
+.v-hero-compact .verse-hero-body {
+  flex-direction: row; align-items: center; flex-wrap: wrap;
+  gap: 0.5rem 1.25rem; padding-top: 1.1rem; padding-bottom: 1rem;
+}
+.v-hero-compact .verse-hero-name { align-items: center; gap: 0.8rem; flex: 1 1 auto; min-width: 0; }
+.v-hero-compact .verse-hero-name h1 { margin-top: 0; }
+.v-hero-compact .verse-hero-logo > * { width: 40px !important; height: 40px !important; }
+.v-hero-compact .verse-hero-logo img { width: 40px !important; height: 40px !important; }
+.v-hero-compact .verse-hero-kicker,
+.v-hero-compact .verse-hero-welcome,
+.v-hero-compact .verse-hero-now,
+.v-hero-compact .verse-hero-sns,
+.v-hero-compact .verse-hero-stickers { display: none; }
+.v-hero-compact .verse-hero-actions { flex: 0 0 auto; gap: 0.75rem; }
+
 /* Verse rich-text content (read view) + editor surface. */
 .verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; }
 .verse-prose > * + * { margin-top: 0.85em; }
