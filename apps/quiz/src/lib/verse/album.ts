@@ -8,6 +8,7 @@ export interface AlbumDetail {
   group: { id: number; name: string; slug: string; fandom_name: string };
   id: number; title: string; release_date: string | null; type: string; region: string;
   reviewFlag: boolean; sourced: boolean;
+  mbid: string | null; eraId: number | null;
   tracks: AlbumTrack[];
 }
 
@@ -18,9 +19,9 @@ export async function getAlbum(groupSlug: string, albumSlugParam: string): Promi
 
   const { data: albums } = await db
     .from('albums')
-    .select('id, title, release_date, type, region, review_flag')
+    .select('id, title, release_date, type, region, review_flag, musicbrainz_mbid, era_id')
     .eq('group_id', group.id).order('release_date', { ascending: true, nullsFirst: false });
-  const rows = (albums ?? []) as Array<{ id: number; title: string; release_date: string | null; type: string; region: string; review_flag: boolean }>;
+  const rows = (albums ?? []) as Array<{ id: number; title: string; release_date: string | null; type: string; region: string; review_flag: boolean; musicbrainz_mbid: string | null; era_id: number | null }>;
   const album = rows.find((a) => albumSlug(a.title) === albumSlugParam);
   if (!album) return null;
 
@@ -33,6 +34,7 @@ export async function getAlbum(groupSlug: string, albumSlugParam: string): Promi
     group,
     id: album.id, title: album.title, release_date: album.release_date, type: album.type, region: album.region,
     reviewFlag: album.review_flag, sourced: ((sources ?? []) as unknown[]).length > 0,
+    mbid: album.musicbrainz_mbid, eraId: album.era_id,
     tracks: ((tracks ?? []) as { position: number; title: string; song_id: string | null }[]).map((t) => ({ position: t.position, title: t.title, linked: t.song_id != null })),
   };
 }
