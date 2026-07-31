@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 
 import { verseEditorExtensions } from './extensions';
+import { setMentionGroup } from './mention';
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
@@ -27,6 +28,7 @@ interface Props {
 const EMPTY_DOC = { type: 'doc', content: [{ type: 'paragraph' }] };
 
 export function SectionEditor({ entityType, entityId, section, initialContent, baseRevisionId, groupSlug, suggestMode, onClose, onSaved }: Props): React.ReactElement {
+  setMentionGroup(groupSlug);
   const lsKey = `verse-draft:${entityType}:${entityId}:${section}`;
   const [base, setBase] = useState<number | null>(baseRevisionId);
   const [draftState, setDraftState] = useState<SaveState>('idle');
@@ -118,6 +120,17 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     editor?.chain().focus().setImage({ src: url }).run();
   };
 
+  // V-EDITOR-MAX (cold-task 2 friction): sources need a BUTTON, not just paste.
+  // Select text -> Link -> paste the https source; on a link, the button unsets.
+  const setLink = () => {
+    if (!editor) return;
+    if (editor.isActive('link')) { editor.chain().focus().unsetLink().run(); return; }
+    const url = window.prompt('Source URL (https):');
+    if (!url) return;
+    if (!/^https:\/\/\S+$/i.test(url)) { setError('Sources must be https links.'); return; }
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  };
+
   if (!editor) return <div className="p-4 text-sm text-secondary">Loading editor...</div>;
 
   if (submitted) return (
@@ -175,6 +188,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         <Btn label="List" on={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive('bulletList')} />
         <Btn label="1. List" on={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive('orderedList')} />
         <Btn label="Quote" on={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')} />
+        <Btn label="Link" on={setLink} active={editor.isActive('link')} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
         <Btn label="Table" on={() => editor.chain().focus().insertTable({ rows: 2, cols: 2, withHeaderRow: true }).run()} />
         <Btn label="Image" on={insertImage} />
@@ -228,10 +242,10 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
           className="min-w-0 flex-1 rounded border border-default bg-transparent px-2 py-1 text-sm" style={{ borderColor: 'var(--verse-line)' }} aria-label="Edit summary" />
         <label className="flex items-center gap-1 text-xs text-secondary"><input type="checkbox" checked={minor} onChange={(e) => setMinor(e.target.checked)} /> minor</label>
         <button type="button" onClick={() => publish(false)} disabled={publishing}
-          className="rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>
+          className="inline-flex min-h-[40px] items-center rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50 sm:min-h-0" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>
           {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}
         </button>
-        <button type="button" onClick={onClose} className="rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary">Cancel</button>
+        <button type="button" onClick={onClose} className="inline-flex min-h-[40px] items-center rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary sm:min-h-0">Cancel</button>
         {error ? <span className="w-full text-xs text-[var(--wrong,#A32D2D)]">{error}</span> : null}
       </div>
     </div>

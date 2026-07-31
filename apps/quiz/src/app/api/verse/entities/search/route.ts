@@ -46,5 +46,15 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const g = gslug(a.groups); if (!g) continue;
     results.push({ type: 'album', label: a.title, sub: `${g.name} album`, href: `/verse/${g.slug}/albums/${albumSlug(a.title)}`, photo: null });
   }
+
+  // V-EDITOR-MAX (cold-task 3 friction): when the caller says which space it is
+  // editing (&group=slug), that space's entities rank FIRST. Editing the BTS
+  // wiki and typing @BE should offer BTS's album before another group's.
+  const home = (new URL(req.url).searchParams.get('group') ?? '').trim();
+  if (home) {
+    const local = (href: string): number => (href.startsWith(`/verse/${home}/`) || href === `/verse/${home}` ? 0 : 1);
+    results.sort((a, b) => local(a.href) - local(b.href));
+  }
+
   return NextResponse.json({ results: results.slice(0, 10) });
 }

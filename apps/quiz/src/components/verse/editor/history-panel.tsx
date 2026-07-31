@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { diffLines } from '@/lib/verse/diff';
 
-interface Rev { id: number; author: string; summary: string | null; minor: boolean; content: unknown; created_at: string; }
+interface Rev { id: number; author: string; author_name?: string; summary: string | null; minor: boolean; content: unknown; created_at: string; }
 
 interface Props {
   entityType: string;
@@ -55,7 +55,7 @@ export function HistoryPanel({ entityType, entityId, section, canEdit, onClose }
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-semibold text-primary">{r.summary || '(no summary)'}</span>
                   {r.minor ? <span className="rounded px-1 text-[9px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>minor</span> : null}
-                  <span className="text-[11px] text-tertiary">{fmt(r.created_at)} · {r.author.slice(0, 8)}</span>
+                  <span className="text-[11px] text-tertiary">{fmt(r.created_at)} · {r.author_name ?? r.author.slice(0, 8)}</span>
                   <span className="ml-auto flex gap-2">
                     <button onClick={() => setOpen(open === r.id ? null : r.id)} className="text-[11px] font-bold" style={{ color: 'var(--verse-ink)' }}>{open === r.id ? 'Hide diff' : 'Diff'}</button>
                     {canEdit && !isLatest ? <button disabled={busy} onClick={() => restore(r.id)} className="text-[11px] font-bold text-secondary hover:text-primary">Restore</button> : null}

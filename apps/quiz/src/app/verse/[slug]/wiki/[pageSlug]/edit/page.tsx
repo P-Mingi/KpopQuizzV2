@@ -63,7 +63,7 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
       </header>
       <PageEditor
         page={{ id: page.id, group_id: page.group_id, kind: page.kind, slug: page.slug, title: page.title, status: page.status, infobox: page.infobox }}
-        def={def} initialBody={body} canPublish={curator || isAdmin(userId)} />
+        def={def} initialBody={body} canPublish={curator || isAdmin(userId)} groupSlug={space.group.slug} />
     </div>
   );
 }

@@ -58,8 +58,8 @@ export function SuggestionsQueue(): React.ReactElement {
                 ))}
               </pre>
               <div className="flex gap-2">
-                <button disabled={busy} onClick={() => act({ action: 'approve', id: s.id })} className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-white disabled:opacity-50">Approve</button>
-                <button disabled={busy} onClick={() => { const reason = window.prompt('Reject reason (optional):') ?? ''; act({ action: 'reject', id: s.id, reason }); }} className="rounded-full border border-default px-3 py-1 text-xs font-semibold text-secondary">Reject</button>
+                <button disabled={busy} onClick={() => act({ action: 'approve', id: s.id })} className="inline-flex min-h-[40px] items-center rounded-full bg-accent px-4 py-1 text-xs font-bold text-white disabled:opacity-50 sm:min-h-0 sm:px-3">Approve</button>
+                <button disabled={busy} onClick={() => { const reason = window.prompt('Reject reason (optional):') ?? ''; act({ action: 'reject', id: s.id, reason }); }} className="inline-flex min-h-[40px] items-center rounded-full border border-default px-4 py-1 text-xs font-semibold text-secondary sm:min-h-0 sm:px-3">Reject</button>
               </div>
             </div>
           );

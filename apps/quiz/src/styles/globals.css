@@ -665,6 +665,11 @@ body {
 .v-grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--v-grid-card-min), 1fr)); gap: var(--v-gutter); }
 /* mobile: media tiles a touch smaller so the row still shows several */
 @media (max-width: 640px) { .verse-scope { --v-grid-media-min: 6.5rem; --v-grid-card-min: 10.5rem; } }
+/* V-EDITOR-MAX mobile pass: editor toolbar buttons were 24px on phones; thumbs
+   need real targets. Desktop keeps the compact toolbar. */
+@media (max-width: 640px) {
+  .verse-page [role="toolbar"] button { min-height: 40px; min-width: 40px; }
+}
 /* V-DESIGN debt: honour reduced-motion on the member-photo hover zoom. */
 @media (prefers-reduced-motion: reduce) {
   .v-zoom { transition: none !important; }

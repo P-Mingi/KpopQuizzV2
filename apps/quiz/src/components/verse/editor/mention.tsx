@@ -43,6 +43,12 @@ const MentionList = forwardRef<ListHandle, { items: EntityHit[]; command: (i: { 
   },
 );
 
+// V-EDITOR-MAX: the editing surface tells the picker which space it lives in so
+// the search ranks THAT space's entities first (module-level: the extension
+// config is static, the editors set this on mount).
+let mentionGroupSlug = '';
+export function setMentionGroup(slug: string | undefined | null): void { mentionGroupSlug = slug ?? ''; }
+
 export const verseMention = Mention.configure({
   HTMLAttributes: { class: 'verse-mention' },
   renderText: ({ node }) => `@${node.attrs.label ?? node.attrs.id}`,
@@ -51,7 +57,8 @@ export const verseMention = Mention.configure({
     items: async ({ query }: { query: string }): Promise<EntityHit[]> => {
       if (!query) return [];
       try {
-        const res = await fetch(`/api/verse/entities/search?q=${encodeURIComponent(query)}`);
+        const g = mentionGroupSlug ? `&group=${encodeURIComponent(mentionGroupSlug)}` : '';
+        const res = await fetch(`/api/verse/entities/search?q=${encodeURIComponent(query)}${g}`);
         const data = await res.json();
         return (data.results ?? []) as EntityHit[];
       } catch { return []; }

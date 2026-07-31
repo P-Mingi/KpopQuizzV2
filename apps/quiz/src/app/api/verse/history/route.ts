@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { SYSTEM_AUTHOR_DISPLAY } from '@/lib/verse/pages/data';
 import { canCurateEntity } from '@/lib/verse/curate';
 import { sectionDef } from '@/lib/verse/content';
 
@@ -21,7 +22,18 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     .select('id, author, summary, minor, content, base_revision_id, created_at')
     .eq('entity_type', entity_type).eq('entity_id', entity_id).eq('section_key', section_key)
     .order('created_at', { ascending: false }).limit(100);
-  return NextResponse.json({ revisions: data ?? [] });
+  // V-ROLES (cold-task 8 friction): bylines were raw UUID prefixes. Resolve
+  // display names (system accounts show the platform identity) so history reads
+  // like history, not like a database dump.
+  const rows = (data ?? []) as Array<{ id: number; author: string }>;
+  const ids = [...new Set(rows.map((r) => r.author))].filter((a) => /^[0-9a-f-]{36}$/i.test(a));
+  const { data: profs } = ids.length ? await db.from('profiles').select('id, username, display_name').in('id', ids) : { data: [] };
+  const nameById = new Map(((profs ?? []) as { id: string; username: string | null; display_name: string | null }[]).map((p) => [p.id, p.display_name ?? p.username]));
+  const revisions = rows.map((r) => ({
+    ...r,
+    author_name: SYSTEM_AUTHOR_DISPLAY[r.author] ?? nameById.get(r.author) ?? 'a fan',
+  }));
+  return NextResponse.json({ revisions });
 }
 
 // POST { entity_type, entity_id, section, revision_id } -> restore that snapshot

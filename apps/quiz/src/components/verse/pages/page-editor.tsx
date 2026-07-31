@@ -6,6 +6,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 
 import { verseEditorExtensions } from '@/components/verse/editor/extensions';
 import { FirstEditTour } from '@/components/verse/editor/first-edit-tour';
+import { setMentionGroup } from '@/components/verse/editor/mention';
 
 import type { PageKindDef, InfoboxFieldDef } from '@/lib/verse/pages/kinds';
 
@@ -72,9 +73,10 @@ function InfoboxField({ f, raw, onChange }: { f: InfoboxFieldDef; raw: unknown; 
   );
 }
 
-export function PageEditor({ page, def, initialBody, canPublish }: {
-  page: PageShape; def: PageKindDef; initialBody: unknown | null; canPublish: boolean;
+export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
+  page: PageShape; def: PageKindDef; initialBody: unknown | null; canPublish: boolean; groupSlug?: string | undefined;
 }): React.ReactElement {
+  setMentionGroup(groupSlug);
   const router = useRouter();
   const [title, setTitle] = useState(page.title);
   const [infobox, setInfobox] = useState<Record<string, unknown>>(page.infobox ?? {});
@@ -132,6 +134,32 @@ export function PageEditor({ page, def, initialBody, canPublish }: {
 
         <div className="rounded-xl border" style={{ borderColor: 'var(--verse-line)' }}>
           <FirstEditTour />
+          {/* V-EDITOR-MAX (cold-task 2 friction): the wiki editor had NO toolbar;
+              a first-time fan had no visible way to structure text or cite a
+              source. The essential six, matching the section editor's idiom. */}
+          {editor ? (
+            <div className="flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
+              {([
+                { label: 'Bold', on: () => editor.chain().focus().toggleBold().run(), active: editor.isActive('bold') },
+                { label: 'Italic', on: () => editor.chain().focus().toggleItalic().run(), active: editor.isActive('italic') },
+                { label: 'H2', on: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), active: editor.isActive('heading', { level: 2 }) },
+                { label: 'H3', on: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), active: editor.isActive('heading', { level: 3 }) },
+                { label: 'List', on: () => editor.chain().focus().toggleBulletList().run(), active: editor.isActive('bulletList') },
+                { label: 'Link', on: () => {
+                  if (editor.isActive('link')) { editor.chain().focus().unsetLink().run(); return; }
+                  const url = window.prompt('Source URL (https):');
+                  if (!url) return;
+                  if (!/^https:\/\/\S+$/i.test(url)) { setErrors(['Sources must be https links.']); return; }
+                  editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+                }, active: editor.isActive('link') },
+              ] as const).map((b) => (
+                <button key={b.label} type="button" onMouseDown={(e) => { e.preventDefault(); b.on(); }}
+                  className="rounded px-2 py-1 text-xs font-semibold transition-colors"
+                  style={{ color: b.active ? 'var(--verse-accent-text)' : 'var(--text-secondary)', background: b.active ? 'var(--verse-accent)' : 'transparent' }}
+                  aria-pressed={b.active} aria-label={b.label}>{b.label}</button>
+              ))}
+            </div>
+          ) : null}
           <div className="p-3"><EditorContent editor={editor} /></div>
         </div>
 
