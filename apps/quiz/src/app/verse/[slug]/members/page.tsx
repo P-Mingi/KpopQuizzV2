@@ -32,7 +32,7 @@ function MemberCard({ idol, slug }: { idol: SpaceIdol; slug: string }): React.Re
     <Link href={`/verse/${slug}/members/${idol.slug}`} className="verse-tile group flex flex-col overflow-hidden rounded-xl border border-default bg-surface no-underline" style={{ borderColor: 'var(--verse-line)' }}>
       <div className="aspect-[3/4] w-full overflow-hidden bg-surface">
         {idol.photo_url
-          ? <img src={idol.photo_url} alt={idol.name} className="h-full w-full object-cover" loading="lazy" />
+          ? <img src={idol.photo_url} alt={idol.name} className="v-portrait h-full w-full" loading="lazy" />
           : <span className="flex h-full w-full items-center justify-center text-2xl font-bold" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{idol.name.slice(0, 2)}</span>}
       </div>
       <div className="flex flex-1 flex-col gap-1 p-3">

@@ -122,7 +122,7 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
             }}
           >
             <NavIcon name={item.label} active={active} />
-            {item.label}
+            <span className="top-nav-link-label">{item.label}</span>
           </Link>
         );
       })}

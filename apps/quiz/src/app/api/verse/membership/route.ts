@@ -16,9 +16,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ signedIn: false, member: false, role: 'visitor' });
   const svc = createServiceRoleClient();
-  const { data } = await svc.from('space_members').select('role, status').eq('group_id', groupId).eq('user_id', user.id).maybeSingle();
+  const [{ data }, { count }] = await Promise.all([
+    svc.from('space_members').select('role, status').eq('group_id', groupId).eq('user_id', user.id).maybeSingle(),
+    svc.from('space_members').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'active'),
+  ]);
   const row = data as { role: string; status: string } | null;
-  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role: row?.status === 'active' ? row.role : 'visitor', blocked: row?.status === 'blocked' });
+  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role: row?.status === 'active' ? row.role : 'visitor', blocked: row?.status === 'blocked', memberCount: count ?? undefined });
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -38,10 +41,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   if (action === 'join') {
     if (cur?.status === 'blocked') return NextResponse.json({ error: 'blocked' }, { status: 403 });
-    if (cur) { return NextResponse.json({ ok: true, member: true, role: cur.role }); }
+    if (cur) {
+      const { count } = await svc.from('space_members').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'active');
+      return NextResponse.json({ ok: true, member: true, role: cur.role, memberCount: count ?? undefined });
+    }
     const { error } = await svc.from('space_members').insert({ group_id: groupId, user_id: user.id, role: 'member', status: 'active' });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ ok: true, member: true, role: 'member' });
+    {
+      const { count } = await svc.from('space_members').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'active');
+      return NextResponse.json({ ok: true, member: true, role: 'member', memberCount: count ?? undefined });
+    }
   }
 
   // leave: members leave freely; a curator/space_admin must be demoted by another admin first.

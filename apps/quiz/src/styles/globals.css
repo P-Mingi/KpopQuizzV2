@@ -5092,3 +5092,14 @@ main:has(.verse-page) { max-width: 1360px; }
 .verse-tile { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
 .verse-tile:hover { transform: translateY(-3px); border-color: var(--verse-line); box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--verse-accent) 45%, transparent); }
 @media (prefers-reduced-motion: reduce) { .verse-tile { transition: border-color 200ms ease; } .verse-tile:hover { transform: none; } }
+
+/* V-POLISH-2 step 4 additions */
+/* C6c: the squeeze band (sm..900px) shows icon-only nav instead of clipping
+   "Community" to "Comm" mid-word. */
+@media (min-width: 640px) and (max-width: 900px) {
+  .top-nav-link-label { display: none; }
+}
+/* C5: THE MEMBER WALL crop - one portrait language everywhere a face appears
+   (members grid, quest rows, the V-HOME collage). Faces sit at the upper
+   third; cover-fit, no stretching. */
+.v-portrait { object-fit: cover; object-position: center 25%; }

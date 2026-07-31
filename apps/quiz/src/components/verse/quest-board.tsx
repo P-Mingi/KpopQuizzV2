@@ -79,7 +79,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
                     <CoverArt mbid={q.art.mbid} title={q.title} className="w-11 flex-shrink-0 rounded-lg" />
                   ) : q.art?.kind === 'photo' ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={q.art.url} alt="" loading="lazy" className="h-11 w-11 flex-shrink-0 rounded-lg object-cover object-[center_25%]" />
+                    <img src={q.art.url} alt="" loading="lazy" className="h-11 w-11 flex-shrink-0 rounded-lg v-portrait" />
                   ) : (
                     <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--verse-soft-strong)', color: big ? 'var(--verse-ink)' : 'var(--text-secondary)' }}><QuestIcon name={q.icon} /></span>
                   )}

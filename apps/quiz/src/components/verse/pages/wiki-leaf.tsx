@@ -5,6 +5,8 @@ import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 
 import type { WikiPage } from '@/lib/verse/pages/data';
+import { SourceChip } from '@/components/verse/source-chip';
+
 import type { InfoboxFieldDef } from '@/lib/verse/pages/kinds';
 
 // V-PAGES step 3 - the wiki leaf building blocks (server components, V-DESIGN
@@ -56,11 +58,7 @@ export function WikiInfobox({ page }: { page: WikiPage }): React.ReactElement | 
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </a>
               ) : d.text}
-              {d.source ? (
-                <a href={d.source} target="_blank" rel="noopener noreferrer nofollow" className="ml-1.5 align-middle text-[10.5px] font-bold uppercase tracking-wide text-tertiary no-underline hover:text-secondary" aria-label={`Source for ${f.label}`}>
-                  [source]
-                </a>
-              ) : null}
+              {d.source ? <span className="ml-1.5"><SourceChip href={d.source} /></span> : null}
             </dd>
           </div>
         ))}

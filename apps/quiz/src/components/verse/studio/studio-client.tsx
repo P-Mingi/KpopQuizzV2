@@ -105,8 +105,8 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
             {TEMPLATE_LIST.map((t) => (
               <button key={t.id} onClick={() => update(applyTemplate(draft, t.id))} title={t.blurb}
                 className="rounded-lg border border-default px-2 py-2 text-left text-xs font-semibold"
-                style={draft.template === t.id ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : undefined}>
-                {t.label}{t.recommended ? <span className="ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase" style={{ background: 'var(--brand-light)', color: 'var(--brand)' }}>recommended</span> : null}
+                style={draft.template === t.id ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : undefined}>
+                {t.label}{t.recommended ? <span className="ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase" style={{ background: 'rgba(124,92,252,0.14)', color: '#7c5cfc' }}>recommended</span> : null}
               </button>
             ))}
           </div>
@@ -203,7 +203,7 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
                   const cur = draft.tabs ?? ['home', 'members', 'discography', 'timeline', 'community', 'about'] as TabId[];
                   const next = cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t];
                   update({ ...draft, version: 1, tabs: next });
-                }} className="rounded-full border px-2.5 py-1 text-[11px] font-semibold" style={on ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{TAB_LABELS[t]}</button>
+                }} className="rounded-full border px-2.5 py-1 text-[11px] font-semibold" style={on ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{TAB_LABELS[t]}</button>
               );
             })}
           </div>
@@ -233,7 +233,7 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
         </div>
 
         <div className="flex gap-2 border-t border-default pt-4">
-          <button onClick={() => setConfirming(true)} className="flex-1 rounded-lg py-2 text-sm font-bold text-white" style={{ background: 'var(--brand-btn)' }}>Publish</button>
+          <button onClick={() => setConfirming(true)} className="flex-1 rounded-lg py-2 text-sm font-bold text-white" style={{ background: '#7c5cfc' }}>Publish</button>
           <button onClick={() => void rollback()} className="rounded-lg border border-default px-3 py-2 text-sm font-semibold">Roll back</button>
           <a href={`/verse/${groupSlug}`} className="rounded-lg border border-default px-3 py-2 text-sm font-semibold no-underline">View live</a>
         </div>
@@ -245,12 +245,12 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
           <span className={label}>Preview</span>
           <div className="flex gap-1">
             {(['mobile', 'tablet', 'desktop'] as BP[]).map((b) => (
-              <button key={b} onClick={() => setBp(b)} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={bp === b ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{b}</button>
+              <button key={b} onClick={() => setBp(b)} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={bp === b ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{b}</button>
             ))}
           </div>
           <div className="ml-2 flex gap-1" role="group" aria-label="Preview theme">
             {(['light', 'dark'] as const).map((t) => (
-              <button key={t} onClick={() => setPreviewTheme(t)} aria-pressed={previewTheme === t} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={previewTheme === t ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{t}</button>
+              <button key={t} onClick={() => setPreviewTheme(t)} aria-pressed={previewTheme === t} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={previewTheme === t ? { borderColor: '#7c5cfc', color: '#7c5cfc' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{t}</button>
             ))}
           </div>
         </div>
@@ -269,11 +269,11 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
             <p className="mt-1 text-sm text-secondary">Your draft replaces the live space for everyone. You can roll back afterwards.</p>
             <div className="mt-3 grid grid-cols-2 gap-3 text-[12px]">
               <div className="rounded-lg border border-default p-2"><p className="font-bold text-tertiary">Now (live)</p><p>{initialDraft.preset ?? 'default'} - {resolvePlacements(initialDraft).filter((m) => !m.hidden).length} modules</p></div>
-              <div className="rounded-lg border p-2" style={{ borderColor: 'var(--brand)' }}><p className="font-bold" style={{ color: 'var(--brand)' }}>After (draft)</p><p>{draft.preset ?? 'default'} - {placements.filter((m) => !m.hidden).length} modules</p></div>
+              <div className="rounded-lg border p-2" style={{ borderColor: '#7c5cfc' }}><p className="font-bold" style={{ color: '#7c5cfc' }}>After (draft)</p><p>{draft.preset ?? 'default'} - {placements.filter((m) => !m.hidden).length} modules</p></div>
             </div>
             <div className="mt-4 flex justify-end gap-2">
               <button onClick={() => setConfirming(false)} className="rounded-lg border border-default px-3 py-1.5 text-sm font-semibold">Cancel</button>
-              <button onClick={() => void publish()} className="rounded-lg px-4 py-1.5 text-sm font-bold text-white" style={{ background: 'var(--brand-btn)' }}>Publish</button>
+              <button onClick={() => void publish()} className="rounded-lg px-4 py-1.5 text-sm font-bold text-white" style={{ background: '#7c5cfc' }}>Publish</button>
             </div>
           </div>
         </div>

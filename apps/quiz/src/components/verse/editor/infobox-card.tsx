@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { SourceChip } from '@/components/verse/source-chip';
+
 import { INFOBOX_FIELDS } from '@/lib/verse/fields';
 
 import { InfoboxEditor, type FieldRow } from './infobox-editor';
@@ -19,11 +21,10 @@ interface Props {
 
 function SourceBadge({ f }: { f: IdolFact }): React.ReactElement | null {
   if (!f.source) return null;
-  const title = f.source === 'wd' ? 'Ingested from Wikidata (CC0)' : 'Entered by a curator';
-  const badge = <abbr title={title} className="ml-1 rounded px-1 text-[9px] font-bold uppercase no-underline" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{f.source}</abbr>;
-  return f.source === 'cur' && f.sourceUrl
-    ? <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer nofollow" title="View the source">{badge}</a>
-    : badge;
+  // V-POLISH-2 C3: readers get the jewelry (outlet name, ring glyph); the
+  // wd/cur shorthand stays for editors inside the editor surfaces only.
+  if (f.source === 'wd') return <span className="ml-1"><SourceChip label="Wikidata" detail="Ingested from Wikidata (CC0)" /></span>;
+  return <span className="ml-1"><SourceChip href={f.sourceUrl} label={f.sourceUrl ? undefined : 'Curated'} detail="Entered by a curator, with source" /></span>;
 }
 
 export function InfoboxCard({ entityType, entityId, facts, editableFields, suggestSubject }: Props): React.ReactElement {

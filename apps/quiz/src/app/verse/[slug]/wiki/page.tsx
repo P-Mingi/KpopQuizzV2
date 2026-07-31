@@ -51,7 +51,7 @@ export default async function WikiIndexPage({ params }: { params: Promise<{ slug
         <p className="v-eyebrow" style={{ marginBottom: '0.5rem' }}>Wiki</p>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-extrabold leading-tight" style={{ fontSize: 'var(--v-type-title)', letterSpacing: 'var(--v-tracking-tight)', color: 'var(--verse-ink)' }}>
-            {pages.length > 0 ? `${pages.length} page${pages.length === 1 ? '' : 's'} in the ${space.group.fandom_name} home` : `The ${space.group.fandom_name} pages`}
+            The {space.group.fandom_name} wiki
           </h1>
           <Link href={`/verse/${space.group.slug}/wiki/new`} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold no-underline" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
             New page

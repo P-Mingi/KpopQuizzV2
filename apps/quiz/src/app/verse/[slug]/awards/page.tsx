@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { SourceChip } from '@/components/verse/source-chip';
 import { getSpace } from '@/lib/verse/space';
 import { getScene } from '@/lib/verse/entities';
 
@@ -47,7 +48,7 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
                   <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: r.result === 'won' ? 'var(--verse-accent)' : 'var(--verse-soft-strong)', color: r.result === 'won' ? 'var(--verse-accent-text)' : 'var(--verse-ink)' }}>{r.result ?? 'listed'}</span>
                   <span className="text-sm font-semibold" style={{ color: 'var(--verse-ink)' }}>{r.award_name}</span>
                   {r.category ? <span className="text-sm text-secondary">{r.category}</span> : null}
-                  {r.source_url ? <a href={r.source_url} rel="nofollow noopener" target="_blank" className="ml-auto text-xs text-tertiary underline">source</a> : null}
+                  {r.source_url ? <span className="ml-1"><SourceChip href={r.source_url} /></span> : null}
                 </li>
               ))}
             </ul>

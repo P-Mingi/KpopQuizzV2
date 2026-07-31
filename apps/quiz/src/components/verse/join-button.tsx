@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 interface Props { groupId: number; groupSlug: string; fandomName: string; }
 
-interface Status { signedIn: boolean; member: boolean; role: string; blocked?: boolean }
+interface Status { signedIn: boolean; member: boolean; role: string; blocked?: boolean; memberCount?: number }
 
 const ROLE_LABEL: Record<string, string> = { member: 'Member', contributor: 'Contributor', curator: 'Curator', space_admin: 'Space admin' };
 
@@ -22,7 +22,7 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
     setBusy(true);
     const res = await fetch('/api/verse/membership', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, action }) });
     setBusy(false);
-    if (res.ok) { const d = await res.json(); setSt((s) => ({ signedIn: true, member: d.member, role: d.role, blocked: s?.blocked ?? false })); }
+    if (res.ok) { const d = await res.json(); setSt((s) => ({ signedIn: true, member: d.member, role: d.role, blocked: s?.blocked ?? false, memberCount: d.memberCount ?? s?.memberCount })); }
   }
 
   const primary = 'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold no-underline transition-transform hover:-translate-y-0.5';
@@ -43,10 +43,14 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
 
   const roleLabel = ROLE_LABEL[st.role] ?? 'Member';
   const canLeave = st.role === 'member' || st.role === 'contributor';
+  // V-POLISH-2 C4 - the LIGHT-UP: membership wears the fandom's accent (the
+  // contrast-clamped CTA pair), lightstick culture as UI. Count tick when the
+  // API reports it.
   return (
     <span className="inline-flex items-center gap-2">
-      <span className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold" style={{ background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' }}>
+      <span className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold" style={primaryStyle}>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden><path d="M20 6 9 17l-5-5" /></svg>{roleLabel}
+        {typeof st.memberCount === 'number' ? <span className="text-[11px] font-semibold tabular-nums" style={{ opacity: 0.85 }}>· {st.memberCount.toLocaleString('en-US')}</span> : null}
       </span>
       {canLeave ? <button onClick={() => act('leave')} disabled={busy} className="text-xs text-tertiary hover:text-secondary">Leave</button> : null}
     </span>

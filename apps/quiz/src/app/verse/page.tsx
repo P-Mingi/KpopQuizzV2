@@ -49,7 +49,7 @@ function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
         {tile.photo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={tile.photo_url} alt="" loading="lazy" aria-hidden
-            className="absolute inset-0 h-full w-full object-cover object-[center_28%] opacity-90 transition-opacity group-hover:opacity-100" />
+            className="absolute inset-0 h-full w-full v-portrait opacity-90 transition-opacity group-hover:opacity-100" />
         ) : null}
         {tile.photo_url ? <div className="absolute inset-0" aria-hidden style={{ background: 'linear-gradient(180deg, transparent 30%, color-mix(in srgb, var(--bg-surface) 88%, transparent) 96%)' }} /> : null}
         {tile.is_launch ? (
@@ -145,7 +145,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
               <Link key={t.group_id} href={`/verse/${t.slug}`} tabIndex={-1} className={`verse-scope block overflow-hidden rounded-2xl border no-underline ${i % 3 === 1 ? 'translate-y-4' : ''}`}
                 style={{ ...verseScopeStyle(t), borderColor: 'var(--verse-line)', aspectRatio: '3 / 4' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={t.photo_url!} alt="" loading="eager" className="h-full w-full object-cover object-[center_25%]" />
+                <img src={t.photo_url!} alt="" loading="eager" className="h-full w-full v-portrait" />
               </Link>
             ))}
           </div>
