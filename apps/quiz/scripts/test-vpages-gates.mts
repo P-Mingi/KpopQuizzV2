@@ -126,6 +126,33 @@ console.log('gate 9: wiki slug resolution order (REQUIREMENT 1: live page wins)'
   ok(neither.kind === 'missing', 'no live, no alias -> 404');
 }
 
+console.log('gate 10: the rabbit-hole ledger (extraction, diff, wanted semantics)');
+{
+  const { extractPageRefs, diffLinkSets, isWantedTarget, targetSlugFor } = await import('../src/lib/verse/pages/links');
+  const doc = {
+    type: 'doc',
+    content: [
+      { type: 'paragraph', content: [
+        { type: 'mention', attrs: { id: '/verse/bts/wiki/army-bomb', label: 'ARMY Bomb' } },
+        { type: 'text', text: 'see', marks: [{ type: 'link', attrs: { href: '/verse/bts/albums/map-of-the-soul-7' } }] },
+        { type: 'text', text: 'dupe', marks: [{ type: 'link', attrs: { href: '/verse/bts/wiki/army-bomb' } }] },
+        { type: 'text', text: 'other space', marks: [{ type: 'link', attrs: { href: '/verse/ateez/wiki/lightstick' } }] },
+        { type: 'text', text: 'external', marks: [{ type: 'link', attrs: { href: 'https://example.com/x' } }] },
+      ] },
+    ],
+  };
+  const refs = extractPageRefs(doc, 'bts');
+  ok(refs.length === 2, 'mention + link extracted, duplicate + foreign-space + external ignored', JSON.stringify(refs));
+  ok(refs.some((r) => r.kind === 'wiki' && r.slug === 'army-bomb'), 'wiki ref extracted from a mention chip');
+  ok(refs.some((r) => r.kind === 'entity' && (r as { ref: string }).ref === 'album:map-of-the-soul-7'), 'entity ref extracted from a link mark');
+  ok(targetSlugFor({ kind: 'entity', ref: 'album:x' }) === 'entity:album:x', 'entity targets carry the entity: prefix');
+  ok(isWantedTarget({ target_slug: 'army-bomb', target_page_id: null }), 'unresolved wiki target IS wanted');
+  ok(!isWantedTarget({ target_slug: 'entity:album:x', target_page_id: null }), 'entity target is NEVER wanted');
+  ok(!isWantedTarget({ target_slug: 'army-bomb', target_page_id: 7 }), 'resolved wiki target is not wanted');
+  const d = diffLinkSets(['a', 'b'], ['b', 'c']);
+  ok(d.insert.join(',') === 'c' && d.remove.join(',') === 'a', 'link diff inserts and removes exactly the delta');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);
 console.log('V-PAGES gates hold.');

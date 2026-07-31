@@ -6,6 +6,7 @@ import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { contentIsEmpty } from '@/lib/verse/render-content';
+import { wantedPages } from '@/lib/verse/pages/links';
 import { idolSlug } from '@/lib/verse/slug';
 import { XP_BY_KIND } from '@/lib/verse/reputation';
 
@@ -73,6 +74,15 @@ export const computeQuests = cache(async (groupId: number, slug: string, groupNa
   if ((toursPub ?? 0) === 0) {
     quests.push({ id: 'tours', kind: 'tour', size: 'Medium', xp: XP_BY_KIND.tour!, icon: 'microphone-2',
       title: `Map out ${groupName}'s tours`, why: 'No tours documented yet. Needs a source to publish.', href: `/verse/${slug}/curate`, curatorOnly: true });
+  }
+
+  // V-PAGES step 4 - WANTED PAGES: red links across published pages become
+  // quests (the ledger counts published sources only, so a slug wanted purely
+  // by drafts never surfaces). Top 5, mention-weighted.
+  const wanted = await wantedPages(groupId);
+  for (const w of wanted.slice(0, 5)) {
+    quests.push({ id: `wanted-${w.slug}`, kind: 'wiki_wanted', size: 'Medium', xp: XP_BY_KIND.era_story!, icon: 'file-plus',
+      title: `"${w.slug.replace(/-/g, ' ')}" is wanted`, why: `Linked from ${w.mentions} page${w.mentions === 1 ? '' : 's'} but does not exist yet.`, href: `/verse/${slug}/wiki` });
   }
 
   // Coverage: the same four signals the quality engine scores (kept in sync = 25% for a

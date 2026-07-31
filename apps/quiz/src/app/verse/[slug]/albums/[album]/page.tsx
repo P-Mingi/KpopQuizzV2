@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getAlbum } from '@/lib/verse/album';
+import { MoreAboutThis } from '@/components/verse/pages/more-about-this';
 import { musicAlbumLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
@@ -64,6 +65,10 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
       ) : (
         <p className="mb-6 text-sm text-tertiary">Tracklist is being sourced.</p>
       )}
+
+      {/* V-PAGES: custom pages that reference this album (versions, MV, choreo...).
+          Published sources only; renders nothing until one exists. */}
+      <MoreAboutThis groupId={a.group.id} groupSlug={slug} entityRef={`album:${album}`} entityLabel="this release" />
 
       {/* Authored notes shell (W3) */}
       <section className="rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>

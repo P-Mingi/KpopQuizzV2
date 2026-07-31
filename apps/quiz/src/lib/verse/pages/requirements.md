@@ -33,3 +33,14 @@ whose page status = 'published':
   what-links-here, not via wanted-page source lists, not via counts that only a
   draft could explain (when in doubt, count published sources only).
 - Curator/review surfaces (service role) show the unfiltered ledger.
+
+## 3. Ledger target encoding (documented at step 4)
+
+verse_page_links.target_slug carries TWO target families:
+- plain wiki slugs ('army-bomb'): resolvable pages; NULL target_page_id = WANTED
+- 'entity:{type}:{slug}' ('entity:album:map-of-the-soul-7'): entity references
+  powering the "More about this" zones; target_page_id ALWAYS NULL and they are
+  NEVER wanted pages (isWantedTarget excludes the prefix; every wanted query
+  must go through it, not raw `target_page_id IS NULL`).
+This stays within the 140 schema (TEXT column); the migration header's
+"wiki slug" description is extended here rather than by a second migration.
