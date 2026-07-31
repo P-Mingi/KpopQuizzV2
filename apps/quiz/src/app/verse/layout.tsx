@@ -7,9 +7,13 @@ import type { Metadata } from 'next';
 // shared PNG for now. Renders children with no wrapper (no visual change).
 export const metadata: Metadata = {
   icons: {
-    icon: [{ url: '/verse-favicon.svg', type: 'image/svg+xml' }],
-    shortcut: '/verse-favicon.svg',
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    // The bunny-in-orbit mark (owner-supplied): PNG derivatives, crisp at tab size.
+    icon: [
+      { url: '/verse/brand/logo-64.png', type: 'image/png', sizes: '64x64' },
+      { url: '/verse/brand/logo-192.png', type: 'image/png', sizes: '192x192' },
+    ],
+    shortcut: '/verse/brand/logo-64.png',
+    apple: [{ url: '/verse/brand/logo-192.png', sizes: '192x192', type: 'image/png' }],
   },
 };
 

@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 
+import { VERSE_LOGO_DATA_URI } from '../logo-data';
+
 import { createServerClient } from '@/lib/supabase/server';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 
@@ -58,8 +60,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
         {/* eyebrow: KpopVerse */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <div style={{ display: 'flex', position: 'relative', width: 46, height: 46, alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ position: 'absolute', width: 44, height: 22, borderRadius: '50%', border: `5px solid ${VIOLET}`, transform: 'rotate(-20deg)', display: 'flex' }} />
-            <div style={{ width: 13, height: 13, borderRadius: '50%', backgroundColor: VIOLET, display: 'flex' }} />
+            <img src={VERSE_LOGO_DATA_URI} width={46} height={46} style={{ objectFit: 'contain' }} />
           </div>
           <div style={{ display: 'flex', fontSize: 26, fontWeight: 800, letterSpacing: -0.5 }}>
             <span style={{ color: INK }}>Kpop</span><span style={{ color: VIOLET }}>Verse</span>

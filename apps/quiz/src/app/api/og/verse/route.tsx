@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 
+import { VERSE_LOGO_DATA_URI } from './logo-data';
+
 // V-IDENTITY step 3 - the generic KpopVerse OG card (for /verse and verse-level
 // routes). Violet system, orbit + wordmark, the front-door line. No data fetch.
 const VIOLET = '#7c5cfc';
@@ -15,10 +17,7 @@ export function GET(): Response {
         <div style={{ position: 'absolute', top: -160, right: -120, width: 540, height: 540, borderRadius: '50%', backgroundColor: 'rgba(124,92,252,0.18)', display: 'flex' }} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ display: 'flex', position: 'relative', width: 52, height: 52, alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ position: 'absolute', width: 50, height: 25, borderRadius: '50%', border: `6px solid ${VIOLET}`, transform: 'rotate(-20deg)', display: 'flex' }} />
-            <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: VIOLET, display: 'flex' }} />
-          </div>
+          <img src={VERSE_LOGO_DATA_URI} width={56} height={56} style={{ objectFit: 'contain' }} />
           <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, letterSpacing: -0.5 }}>
             <span style={{ color: INK }}>Kpop</span><span style={{ color: VIOLET }}>Verse</span>
           </div>
