@@ -19,6 +19,13 @@ async function attachAuthors<T extends { authorId: string }>(rows: T[]): Promise
 }
 
 /** Featured essays for a space (public / ISR). */
+/** Featured-essay head count: the reader-nav min-gate (V-MODES). */
+export async function featuredEssayCount(groupId: number): Promise<number> {
+  const db = createPublicReadClient();
+  const { count } = await db.from('verse_essays').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'featured');
+  return count ?? 0;
+}
+
 export async function getFeaturedEssays(groupId: number): Promise<EssaySummary[]> {
   const db = createPublicReadClient();
   const { data } = await db.from('verse_essays').select('id, title, slug, status, author, featured_at, created_at').eq('group_id', groupId).eq('status', 'featured').order('featured_at', { ascending: false });

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { isAdmin } from '@/lib/admin';
 
 import type { NextRequest } from 'next/server';
 
@@ -21,7 +22,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     svc.from('space_members').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'active'),
   ]);
   const row = data as { role: string; status: string } | null;
-  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role: row?.status === 'active' ? row.role : 'visitor', blocked: row?.status === 'blocked', memberCount: count ?? undefined });
+  // V-MODES: `role` is the EFFECTIVE role (global admins act as space_admin
+  // everywhere, mirroring lib/verse/roles); `member` keeps its literal
+  // has-an-active-row meaning for the join button.
+  const rowRole = row?.status === 'active' ? row.role : 'visitor';
+  const role = isAdmin(user.id) ? 'space_admin' : rowRole;
+  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role, blocked: row?.status === 'blocked', memberCount: count ?? undefined });
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {

@@ -9,6 +9,7 @@ import { sceneCounts } from '@/lib/verse/entities';
 import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { composeTabs } from '@/lib/verse/presentation/tabs';
+import { featuredEssayCount } from '@/lib/verse/essays';
 import { listPublishedPages } from '@/lib/verse/pages/data';
 import { resolveGroupAlias } from '@/lib/verse/aliases';
 import { resolveName } from '@/lib/verse/disambig';
@@ -56,9 +57,9 @@ export default async function SpaceLayout({
   }
 
   // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
-  const [counts, pcCount, colCount, wikiPages] = await Promise.all([
+  const [counts, pcCount, colCount, wikiPages, essayCount] = await Promise.all([
     sceneCounts(space.group.id), photocardCount(space.group.id), collectibleCount(space.group.id),
-    listPublishedPages(space.group.id),
+    listPublishedPages(space.group.id), featuredEssayCount(space.group.id),
   ]);
   const extraTabs = SCENE_LIST.filter((s) => counts[s.kind] > 0).map((s) => ({ label: s.label, seg: s.seg }));
   // Collection tabs are likewise conditional - each appears once a space has a catalogued item.
@@ -69,27 +70,40 @@ export default async function SpaceLayout({
   if (wikiPages.length > 0) extraTabs.push({ label: 'Wiki', seg: 'wiki' });
   if (space.albums.some((a) => a.release_date)) extraTabs.push({ label: 'Songs', seg: 'songs' });
 
-  // The tabs that HAVE content for this space. The curator's presentation.tabs picks
-  // a subset to show; hidden tabs stay live pages (sitemap + footer), just off the nav.
+  // V-MODES: Essays joins the READER nav only once the space has featured
+  // essays (min-gate); Quests left the reader nav for good (locked Q1).
+  if (essayCount > 0) extraTabs.push({ label: 'Essays', seg: 'essays' });
+
+  // The READER tabs that HAVE content for this space. The curator's presentation.tabs
+  // picks a subset to show; hidden tabs stay live pages (sitemap + footer), off the nav.
   const available = [
     { label: 'Home', seg: '' },
     { label: 'Members', seg: 'members' },
     { label: 'Discography', seg: 'discography' },
     { label: 'Timeline', seg: 'timeline' },
-    { label: 'Quests', seg: 'quests' },
-    { label: 'Essays', seg: 'essays' },
     ...extraTabs,
     { label: 'Community', seg: 'community' },
     { label: 'About', seg: 'about' },
   ];
   const tabs = composeTabs(available, space.presentation.tabs);
 
+  // The BUILD layer (V-MODES): each entry min-gated by role, revealed only in
+  // Build mode. Essays appears here while it has no reader tab yet, so writers
+  // can reach the writing surface before the first feature. Curate hosts the
+  // review queue and the roles panel; Studio is the look editor.
+  const buildTabs = [
+    { label: 'Quests', seg: 'quests', minRole: 'member' as const },
+    ...(essayCount === 0 ? [{ label: 'Essays', seg: 'essays', minRole: 'member' as const }] : []),
+    { label: 'Curate', seg: 'curate', minRole: 'curator' as const },
+    { label: 'Studio', seg: 'studio', minRole: 'curator' as const },
+  ];
+
   return (
     <div className="verse-page verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-6 sm:py-8" data-preset={space.presentation.preset ?? undefined} style={presentationScopeStyle(space)}>
       <BuildModeProvider groupId={space.group.id} slug={slug}>
         <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
         <div className="mt-6">
-          <SpaceTabs slug={slug} tabs={tabs} />
+          <SpaceTabs slug={slug} tabs={tabs} buildTabs={buildTabs} />
           {children}
         </div>
       </BuildModeProvider>
