@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+
 import { getSpace } from '@/lib/verse/space';
 import { hubsForGroup } from '@/lib/verse/tags';
 import { getSection } from '@/lib/verse/content';
@@ -30,6 +32,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: group.fandom_name, href: `/verse/${group.slug}` }, { label: 'About' }]} />
       <SectionSurface
         entityType="group" entityId={String(group.id)} section="overview" label="Overview"
         initialHtml={renderTipTapJSON(overview.content)} initialContent={overview.content}

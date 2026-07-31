@@ -21,6 +21,10 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
 
   return (
     <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
+      {/* V-POLISH-2 A1: the page's ONE h1. The hero wordmark is a styled <p>
+          (chrome, repeated on every sub-page); the home carries the real
+          heading for crawlers and screen readers. */}
+      <h1 className="sr-only">{space.group.fandom_name}, home of {space.group.name} fans</h1>
       {jsonLdScript(musicGroupLd({
         name: space.group.name, slug: space.group.slug, fandom_name: space.group.fandom_name,
         inception_date: space.group.inception_date, official_website: space.group.official_website,

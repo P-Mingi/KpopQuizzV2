@@ -12,6 +12,18 @@ import type { SpaceTab } from '@/lib/verse/presentation/tabs';
 // button opening a bottom sheet with the full list. Hidden tabs never hide pages.
 const MOBILE_INLINE = 3;
 
+// V-POLISH-2 A1/A6 - ORPHAN SEGMENTS: pages that live under the space but are
+// not in the curator's tab set (Browse, the studio, curate, any hidden tab)
+// still deserve an active marker, or the reader loses "where am I". The chip
+// renders as the active tab would, without becoming a navigable duplicate.
+const SEGMENT_LABELS: Record<string, string> = {
+  content: 'Browse', curate: 'Curate', studio: 'Studio', about: 'About',
+  wiki: 'Wiki', songs: 'Songs', photocards: 'Photocards', collectibles: 'Collectibles',
+  members: 'Members', discography: 'Discography', timeline: 'Timeline', quests: 'Quests',
+  essays: 'Essays', community: 'Community', awards: 'Awards', tours: 'Tours', shows: 'Shows', ost: 'OST',
+};
+const orphanLabel = (seg: string): string => SEGMENT_LABELS[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1);
+
 export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): React.ReactElement {
   const pathname = usePathname();
   const base = `/verse/${slug}`;
@@ -35,6 +47,7 @@ export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): R
 
   const inline = tabs.slice(0, MOBILE_INLINE);
   const overflow = tabs.slice(MOBILE_INLINE);
+  const orphan = activeSeg && !tabs.some((t) => t.seg === activeSeg) ? orphanLabel(activeSeg) : null;
 
   return (
     <nav aria-label="Space sections" className="verse-tabs mb-6">
@@ -48,6 +61,11 @@ export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): R
             </Link>
           </li>
         ))}
+        {orphan ? (
+          <li aria-current="page">
+            <span className="inline-block whitespace-nowrap rounded-t-lg px-3.5 py-2 text-sm font-semibold" style={linkStyle(true)}>{orphan}</span>
+          </li>
+        ) : null}
       </ul>
 
       {/* Mobile: first 3 inline + More (no horizontal scroll) */}
@@ -60,6 +78,11 @@ export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): R
             </Link>
           </li>
         ))}
+        {orphan ? (
+          <li className="flex flex-1 items-center justify-center" aria-current="page">
+            <span className="block rounded-t-lg px-2 py-2 text-center text-[13px] font-semibold" style={linkStyle(true)}>{orphan}</span>
+          </li>
+        ) : null}
         {overflow.length > 0 ? (
           <li className="flex items-center">
             {/* Flat disclosure, not a chip: accent-ink label + a chevron that rotates

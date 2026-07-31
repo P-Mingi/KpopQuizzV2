@@ -5030,8 +5030,12 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-hero-compact .verse-hero-stickers { display: none; }
 .v-hero-compact .verse-hero-actions { flex: 0 0 auto; gap: 0.75rem; }
 
-/* Verse rich-text content (read view) + editor surface. */
-.verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; }
+/* Verse rich-text content (read view) + editor surface.
+   V-POLISH-2 A2 - THE MEASURE LAW: prose never stretches past --v-measure
+   (66ch). The wide canvas stays wide; the TEXT column does not (wiki leafs
+   were running 95-100ch). Wide media inside prose (tables, embeds) may still
+   fill their container; only the reading line is capped. */
+.verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; max-width: var(--v-measure, 66ch); }
 .verse-prose > * + * { margin-top: 0.85em; }
 .verse-prose h2 { font-size: 20px; font-weight: 800; color: var(--verse-ink, var(--txt1)); margin-top: 1.2em; scroll-margin-top: 80px; }
 .verse-prose h3 { font-size: 16px; font-weight: 700; color: var(--verse-ink, var(--txt1)); margin-top: 1em; scroll-margin-top: 80px; }

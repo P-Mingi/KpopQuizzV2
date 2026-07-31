@@ -75,7 +75,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
           <span className="verse-hero-logo flex-shrink-0"><GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} /></span>
           <div className="min-w-0 flex-1">
             <p className="verse-hero-kicker text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">Home of {group.name} fans</p>
-            <h1 className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{group.fandom_name}</h1>
+            <p className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{group.fandom_name}</p>
             <p className="mt-2 text-xs text-tertiary">{vitals}</p>
           </div>
         </div>

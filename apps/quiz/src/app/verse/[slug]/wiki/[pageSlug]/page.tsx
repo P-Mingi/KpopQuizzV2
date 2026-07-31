@@ -108,7 +108,7 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
       <div className="mb-6"><Breadcrumbs items={crumbs} /></div>
 
       <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
-        <div className="lg:col-span-2">
+        <div className="order-2 lg:order-none lg:col-span-2">
           <header className="v-module">
             <p className="v-eyebrow" style={{ marginBottom: '0.5rem' }}>{def?.label ?? page.kind}</p>
             <div className="flex flex-wrap items-center gap-3">
@@ -148,7 +148,9 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
           <TrustFooter page={page} groupSlug={space.group.slug} maintainers={attribution.maintainers} starterName={starterName} />
         </div>
 
-        <aside className="lg:col-span-1">
+        {/* V-POLISH-2 A3: facts render BEFORE the article on phones (a scanner
+            wants the album/name facts first); desktop keeps prose-left. */}
+        <aside className="order-1 lg:order-none lg:col-span-1">
           <WikiInfobox page={page} />
         </aside>
       </div>

@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { PageGrammar } from '@/components/verse/page-grammar';
+
 import { getSpace } from '@/lib/verse/space';
 import { upcomingBirthday } from '@/lib/verse/date-engines';
 
@@ -80,6 +83,11 @@ export default async function MembersPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div>
+      <div className="mb-6">
+        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: group.fandom_name, href: `/verse/${slug}` }, { label: 'Members' }]} />
+      </div>
+      <PageGrammar kicker="Members" title={`The ${idols.length} members of ${group.name}`}
+        dek="Portraits, positions and profiles. Facts on each profile carry their source." />
       <Grid idols={unassigned} slug={slug} />
       {[...byUnit.entries()].map(([uid, members]) => (
         <section key={uid} className="mt-8">
