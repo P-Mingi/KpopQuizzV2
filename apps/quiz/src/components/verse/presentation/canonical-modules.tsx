@@ -209,7 +209,7 @@ export async function CompletenessModule({ space }: ModuleProps): Promise<React.
         <span className="text-[11px] uppercase tracking-wide text-tertiary">documented</span>
       </div>
       <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--verse-soft)' }} role="img" aria-label={`${pct} percent documented`}>
-        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--verse-accent)' }} />
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--verse-cta, var(--verse-accent))' }} />
       </div>
       <p className="mt-2 text-[12px] leading-relaxed text-tertiary">{lines.join(' · ')}</p>
     </div>

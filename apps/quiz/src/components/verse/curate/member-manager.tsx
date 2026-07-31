@@ -86,7 +86,7 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
                       </select>
                       {staged[r.user_id] && staged[r.user_id] !== r.role ? (
                         <button type="button" onClick={() => applyRole(r.user_id, name, staged[r.user_id]!)} disabled={busy}
-                          className="v-tap rounded-lg px-2.5 py-1 text-xs font-bold" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text, #fff)' }}>
+                          className="v-tap rounded-lg px-2.5 py-1 text-xs font-bold" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, #fff)' }}>
                           Apply
                         </button>
                       ) : null}

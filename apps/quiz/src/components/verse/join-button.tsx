@@ -26,7 +26,7 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
   }
 
   const primary = 'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold no-underline transition-transform hover:-translate-y-0.5';
-  const primaryStyle = { background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' } as React.CSSProperties;
+  const primaryStyle = { background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' } as React.CSSProperties;
 
   // Loading or signed-out: keep the original login CTA (no layout shift / no flash of wrong state).
   if (!st || (!st.signedIn)) {

@@ -4,7 +4,7 @@
 // keeps working in CSS). Frame + divider choices ride along as tokens the modules
 // read. Empty presentation -> identical to the group's default scope.
 
-import { verseScopeStyle, accentPrefersDarkInk } from '@/lib/verse/theme';
+import { verseScopeStyle, accentPrefersDarkInk, derivedAccentVars } from '@/lib/verse/theme';
 
 import type { Space } from '@/lib/verse/space';
 import type { CSSProperties } from 'react';
@@ -16,8 +16,9 @@ export function presentationScopeStyle(space: Space): CSSProperties {
   if (pres.accent) {
     style['--verse-accent'] = pres.accent;
     // Re-derive the solid-fill text pair for the new accent (black on light accents,
-    // white on dark). The mode-aware --verse-ink derivation stays in globals.css.
+    // white on dark), plus the contrast-floored ink/CTA tokens (V-POLISH item 1).
     style['--verse-accent-text'] = accentPrefersDarkInk(pres.accent) ? '#141210' : '#ffffff';
+    Object.assign(style, derivedAccentVars(pres.accent, style['--verse-accent-text']));
   }
   // Frame + divider tokens (pure CSS, read by module frames / dividers).
   style['--verse-frame'] = pres.frames?.default ?? 'none';

@@ -176,7 +176,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
             {saving === 'saving' ? 'Saving...' : saving === 'saved' ? 'Saved' : 'Save draft'}
           </button>
           {status === 'draft' ? (
-            <button type="button" onClick={() => void act('/api/verse/pages/submit', { page_id: page.id })} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+            <button type="button" onClick={() => void act('/api/verse/pages/submit', { page_id: page.id })} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
               Submit for review
             </button>
           ) : null}

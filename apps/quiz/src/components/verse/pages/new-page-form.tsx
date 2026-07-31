@@ -75,7 +75,7 @@ export function NewPageForm({ groupId, groupSlug, kinds }: {
 
       <button type="button" disabled={busy || !title.trim()} onClick={() => void create()}
         className="inline-flex min-h-[44px] items-center rounded-xl px-6 text-sm font-bold text-white disabled:opacity-50"
-        style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+        style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
         {busy ? 'Creating...' : 'Create the draft'}
       </button>
       <p className="mt-3 text-[12px] text-tertiary">Pages start as drafts. A curator reviews before anything goes live.</p>

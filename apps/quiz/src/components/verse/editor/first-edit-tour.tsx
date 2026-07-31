@@ -52,11 +52,11 @@ export function FirstEditTour(): React.ReactElement | null {
       <span className="min-w-0 flex-1 text-xs text-secondary">{s.body}</span>
       <span className="flex items-center gap-1.5">
         {!last ? (
-          <button type="button" onClick={() => setStep(step + 1)} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+          <button type="button" onClick={() => setStep(step + 1)} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
             Next
           </button>
         ) : (
-          <button type="button" onClick={done} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+          <button type="button" onClick={done} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
             Got it
           </button>
         )}

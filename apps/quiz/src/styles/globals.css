@@ -4900,8 +4900,15 @@ a.ranking-cta { text-decoration: none; }
 .verse-scope {
   --verse-accent: var(--brand);
   --verse-accent-text: #ffffff;
-  /* text-safe accent: darkened toward ink on the light cream background */
-  --verse-ink: color-mix(in srgb, var(--verse-accent) 74%, #1a1714);
+  /* text-safe accent: darkened toward ink on the light cream background.
+     V-POLISH: the theme layer precomputes a contrast-floored ink (--v-ink-l)
+     because a fixed mix ratio cannot rescue near-white accents; the mix stays
+     as the fallback for scopes without computed vars (default violet). Same
+     for solid CTA fills: --verse-cta separates from the page even when the
+     raw accent cannot. */
+  --verse-ink: var(--v-ink-l, color-mix(in srgb, var(--verse-accent) 74%, #1a1714));
+  --verse-cta: var(--v-cta-l, var(--verse-accent));
+  --verse-cta-text: var(--v-cta-text-l, var(--verse-accent-text));
   --verse-soft: color-mix(in srgb, var(--verse-accent) 12%, transparent);
   --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 22%, transparent);
   --verse-line: color-mix(in srgb, var(--verse-accent) 34%, var(--border));
@@ -4960,7 +4967,9 @@ a.ranking-cta { text-decoration: none; }
 main:has(.verse-page) { max-width: 1360px; }
 /* Dark mode: lighten the ink toward the light text so it stays legible on dark. */
 .dark .verse-scope {
-  --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
+  --verse-ink: var(--v-ink-d, color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef));
+  --verse-cta: var(--v-cta-d, var(--verse-accent));
+  --verse-cta-text: var(--v-cta-text-d, var(--verse-accent-text));
   --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
   --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
   --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
@@ -4968,7 +4977,9 @@ main:has(.verse-page) { max-width: 1360px; }
 }
 @media (prefers-color-scheme: dark) {
   :root:not(.light) .verse-scope {
-    --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
+    --verse-ink: var(--v-ink-d, color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef));
+  --verse-cta: var(--v-cta-d, var(--verse-accent));
+  --verse-cta-text: var(--v-cta-text-d, var(--verse-accent-text));
     --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
     --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
     --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));

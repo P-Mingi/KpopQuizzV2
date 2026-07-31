@@ -105,7 +105,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
           <div className="flex flex-col gap-2.5 border-t pt-4" style={{ borderColor: 'var(--v-hairline)' }}>
             {cbActive && cbMode ? (
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
-                <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Comeback mode</span>
+                <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Comeback mode</span>
                 <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{cbMode.title}</span>
                 <span className="font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{cbReleaseDay ? 'Out now' : `D-${cbDaysToRelease}`}</span>
                 <a href={cbReleaseDay ? `/verse/${group.slug}/community` : cbPinHref} className="ml-auto inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>

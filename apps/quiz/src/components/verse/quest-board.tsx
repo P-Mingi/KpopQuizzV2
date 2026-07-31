@@ -105,7 +105,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
             </div>
             {xp.nextTier ? (
               <div className="mt-1.5 h-2 overflow-hidden rounded-full" style={{ background: 'var(--verse-line)' }}>
-                <div className="h-full" style={{ width: `${Math.min(100, Math.round((xp.xp / (xp.xp + (xp.xpToNext ?? 1))) * 100))}%`, background: 'var(--verse-accent)' }} />
+                <div className="h-full" style={{ width: `${Math.min(100, Math.round((xp.xp / (xp.xp + (xp.xpToNext ?? 1))) * 100))}%`, background: 'var(--verse-cta, var(--verse-accent))' }} />
               </div>
             ) : null}
             {xp.role === 'member' ? <p className="mt-1.5 text-xs text-tertiary">Your XP ladders toward Contributor (edit rights under Stage B). It stays with {groupName}.</p> : null}

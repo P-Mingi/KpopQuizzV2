@@ -49,7 +49,7 @@ export default async function NewWikiPage({ params }: { params: Promise<{ slug: 
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {!userId ? (
-              <Link href={`/login?returnTo=${encodeURIComponent(`/verse/${space.group.slug}/wiki/new`)}`} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold text-white no-underline" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>Sign in</Link>
+              <Link href={`/login?returnTo=${encodeURIComponent(`/verse/${space.group.slug}/wiki/new`)}`} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold no-underline" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>Sign in</Link>
             ) : null}
             <Link href={`/verse/${space.group.slug}`} className="inline-flex min-h-[44px] items-center rounded-xl border px-5 text-sm font-bold no-underline" style={{ borderColor: 'var(--verse-line)', color: 'var(--text-primary)' }}>Back to the space</Link>
           </div>

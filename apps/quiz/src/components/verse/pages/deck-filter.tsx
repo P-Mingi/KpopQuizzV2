@@ -94,7 +94,7 @@ export function DeckFilter({ scopeId, facets, searchLabel = 'Search within this 
                   onClick={() => setActive((a) => ({ ...a, [f.key]: on ? null : c.value }))}
                   className="inline-flex min-h-[36px] items-center gap-1 rounded-full border px-3 text-[12.5px] font-semibold transition-colors"
                   style={on
-                    ? { background: 'var(--verse-accent, #7c5cfc)', borderColor: 'var(--verse-accent, #7c5cfc)', color: '#fff' }
+                    ? { background: 'var(--verse-cta, #7c5cfc)', borderColor: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }
                     : { borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>
                   {c.value}
                   <span className="tabular-nums" style={{ opacity: 0.75 }}>{c.n}</span>

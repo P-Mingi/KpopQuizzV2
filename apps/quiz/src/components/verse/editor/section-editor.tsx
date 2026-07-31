@@ -146,7 +146,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
   const Btn = ({ on, active, label, name, disabled }: { on: () => void; active?: boolean; label: string; name?: string; disabled?: boolean }) => (
     <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={on} disabled={disabled}
       className="rounded px-2 py-1 text-xs font-semibold transition-colors"
-      style={{ color: active ? 'var(--verse-accent-text)' : 'var(--text-secondary)', background: active ? 'var(--verse-accent)' : 'transparent' }}
+      style={{ color: active ? 'var(--verse-cta-text, var(--verse-accent-text))' : 'var(--text-secondary)', background: active ? 'var(--verse-cta, var(--verse-accent))' : 'transparent' }}
       aria-pressed={active} aria-label={name ?? label}>{label}</button>
   );
 
@@ -244,7 +244,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
           className="min-w-0 flex-1 rounded border border-default bg-transparent px-2 py-1 text-sm" style={{ borderColor: 'var(--verse-line)' }} aria-label="Edit summary" />
         <label className="flex items-center gap-1 text-xs text-secondary"><input type="checkbox" checked={minor} onChange={(e) => setMinor(e.target.checked)} /> minor</label>
         <button type="button" onClick={() => publish(false)} disabled={publishing}
-          className="inline-flex min-h-[40px] items-center rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50 sm:min-h-0" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>
+          className="inline-flex min-h-[40px] items-center rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50 sm:min-h-0" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>
           {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}
         </button>
         <button type="button" onClick={onClose} className="inline-flex min-h-[40px] items-center rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary sm:min-h-0">Cancel</button>

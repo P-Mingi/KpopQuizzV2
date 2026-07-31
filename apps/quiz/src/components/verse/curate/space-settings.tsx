@@ -48,7 +48,7 @@ export function SpaceSettings({ groupId, initial }: Props): React.ReactElement {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <button onClick={save} disabled={busy} className="rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-inverse disabled:opacity-50">{busy ? 'Saving…' : 'Save settings'}</button>
+        <button onClick={save} disabled={busy} className="rounded-lg px-4 py-1.5 text-sm font-semibold disabled:opacity-50" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, #fff)' }}>{busy ? 'Saving…' : 'Save settings'}</button>
         {saved ? <span className="text-xs text-success">Saved. Changes appear after the page revalidates.</span> : null}
       </div>
     </div>

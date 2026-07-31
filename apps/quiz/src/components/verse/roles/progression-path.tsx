@@ -44,7 +44,7 @@ export function ProgressionPath({ groupSlug, fandomName }: { groupSlug: string; 
               {i < RUNGS.length - 1 ? <span aria-hidden className="absolute left-[9px] top-6 h-full w-px" style={{ background: 'var(--v-hairline)' }} /> : null}
               <span aria-hidden className="mt-1 inline-block h-[19px] w-[19px] flex-shrink-0 rounded-full border-2"
                 style={reached
-                  ? { background: 'var(--verse-accent)', borderColor: 'var(--verse-accent)' }
+                  ? { background: 'var(--verse-cta, var(--verse-accent))', borderColor: 'var(--verse-cta, var(--verse-accent))' }
                   : { background: 'transparent', borderColor: 'var(--verse-line)' }} />
               <div className="min-w-0">
                 <p className="flex flex-wrap items-baseline gap-x-2 text-[15px] font-bold" style={{ color: 'var(--verse-ink)' }}>
