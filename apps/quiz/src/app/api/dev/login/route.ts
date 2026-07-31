@@ -33,8 +33,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     await supa.auth.signOut();
     return NextResponse.redirect(new URL('/', req.url));
   }
-  const email = who === 'contributor' ? process.env.DEV_LOGIN_CONTRIBUTOR_EMAIL : process.env.DEV_LOGIN_EMAIL;
-  if (!email) return new NextResponse(who === 'contributor' ? 'DEV_LOGIN_CONTRIBUTOR_EMAIL is not set' : 'DEV_LOGIN_EMAIL is not set', { status: 500 });
+  // V-MODES step 5 - role personas for the matrix: ?as=member|contributor|curator
+  // all use the SECOND test account; member/curator additionally set that
+  // account's space_members role for ?group=<slug> before signing in (dev-only
+  // route, double-gated above; restore with ?as=contributor&group=<slug>).
+  const secondAccount = who === 'contributor' || who === 'member' || who === 'curator';
+  const email = secondAccount ? process.env.DEV_LOGIN_CONTRIBUTOR_EMAIL : process.env.DEV_LOGIN_EMAIL;
+  if (!email) return new NextResponse(secondAccount ? 'DEV_LOGIN_CONTRIBUTOR_EMAIL is not set' : 'DEV_LOGIN_EMAIL is not set', { status: 500 });
 
   // Mint a one-time email OTP for the dev user with the service role (no email sent),
   // then verify it server-side to establish the session cookies via the SSR client.
@@ -42,6 +47,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { data, error } = await svc.auth.admin.generateLink({ type: 'magiclink', email });
   const tokenHash = data?.properties?.hashed_token;
   if (error || !tokenHash) return new NextResponse('Could not generate a dev session', { status: 500 });
+
+  const groupSlug = req.nextUrl.searchParams.get('group');
+  const userId = data?.user?.id;
+  if (secondAccount && groupSlug && userId) {
+    const { data: g } = await svc.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
+    const gid = (g as { id: number } | null)?.id;
+    if (gid) await svc.from('space_members').update({ role: who }).eq('group_id', gid).eq('user_id', userId);
+  }
 
   const supabase = await createServerClient();
   const { error: verifyError } = await supabase.auth.verifyOtp({ type: 'email', token_hash: tokenHash });

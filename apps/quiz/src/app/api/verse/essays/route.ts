@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { canCurateSpace } from '@/lib/verse/roles';
+import { canCurateSpace, getSpaceRole, roleAtLeast } from '@/lib/verse/roles';
 import { getFeaturedEssays, getUserEssays, getSubmittedEssays } from '@/lib/verse/essays';
 import { slugify } from '@/lib/verse/slug';
 import { checkText, underRateCap } from '@/lib/verse/moderation';
@@ -44,6 +44,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+
+  // V-MODES: writing needs membership (member+), not just a session; the nav
+  // gate is honest only if the API enforces it too.
+  if (!roleAtLeast(await getSpaceRole(user.id, groupId), 'member')) {
+    return NextResponse.json({ error: 'membership_required' }, { status: 403 });
+  }
 
   const svc = createServiceRoleClient();
   if (id) {

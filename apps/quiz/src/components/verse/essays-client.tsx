@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import { fetchAffordance } from '@/components/verse/roles/role-affordance';
+
 interface Essay { id: number; title: string; slug: string | null; status: string; author: { username: string | null; displayName: string | null } | null }
 
 const STATUS_LABEL: Record<string, string> = { draft: 'Draft', submitted: 'In review', featured: 'Featured', rejected: 'Returned' };
@@ -12,16 +14,23 @@ const STATUS_LABEL: Record<string, string> = { draft: 'Draft', submitted: 'In re
 export function EssaysClient({ groupId, groupSlug }: { groupId: number; groupSlug: string }): React.ReactElement | null {
   const [mine, setMine] = useState<Essay[] | null>(null);
   const [queue, setQueue] = useState<Essay[] | null>(null);
-  const [signedIn, setSignedIn] = useState(false);
+  // V-MODES step 3 - essay writing is a MEMBER affordance (build layer,
+  // minRole member), not a signed-in one. Role comes from the shared
+  // affordance truth; visitors and the logged-out see no write CTA at all
+  // (their invitation stays the join path).
+  const [isMember, setIsMember] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     const mr = await fetch(`/api/verse/essays?group_id=${groupId}&scope=mine`);
-    if (mr.status === 401) { setSignedIn(false); setMine([]); } else if (mr.ok) { setSignedIn(true); setMine((await mr.json()).essays ?? []); }
+    if (mr.ok) setMine((await mr.json()).essays ?? []); else setMine([]);
     const qr = await fetch(`/api/verse/essays?group_id=${groupId}&scope=queue`);
     if (qr.ok) setQueue((await qr.json()).essays ?? []); else setQueue(null);
   }, [groupId]);
   useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    fetchAffordance(groupSlug).then((a) => setIsMember(a.role !== 'visitor')).catch(() => {});
+  }, [groupSlug]);
 
   async function review(id: number, action: 'feature' | 'reject') {
     if (action === 'reject' && !confirm('Return this essay to its author?')) return;
@@ -33,11 +42,11 @@ export function EssaysClient({ groupId, groupSlug }: { groupId: number; groupSlu
 
   return (
     <div className="space-y-6">
-      <div>
-        {signedIn
-          ? <Link href={`/verse/${groupSlug}/essays/write`} className="inline-block rounded-full px-4 py-2 text-sm font-bold no-underline" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Write an essay</Link>
-          : <Link href={`/login?returnTo=/verse/${groupSlug}/essays/write`} className="inline-block rounded-full px-4 py-2 text-sm font-bold no-underline" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Sign in to write an essay</Link>}
-      </div>
+      {isMember ? (
+        <div>
+          <Link href={`/verse/${groupSlug}/essays/write`} className="inline-block rounded-full px-4 py-2 text-sm font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Write an essay</Link>
+        </div>
+      ) : null}
 
       {mine && mine.length > 0 ? (
         <section>

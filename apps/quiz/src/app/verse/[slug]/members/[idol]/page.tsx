@@ -105,7 +105,6 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
             <InfoboxCard
               entityType="idol" entityId={String(d.id)}
               facts={d.facts} editableFields={d.editableFields}
-              suggestSubject={`Verse edit: ${d.name} (${d.group.name})`}
             />
             <div className="verse-frame verse-frame-rounded">
               <h2 className="v-eyebrow">In {d.group.name}</h2>

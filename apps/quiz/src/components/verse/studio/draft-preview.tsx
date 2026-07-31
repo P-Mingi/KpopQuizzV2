@@ -18,7 +18,7 @@ export function DraftPreview({ space, backlinks }: { space: Space; backlinks: Ba
     { label: 'Members', seg: 'members' },
     { label: 'Discography', seg: 'discography' },
     { label: 'Timeline', seg: 'timeline' },
-    { label: 'Quests', seg: 'quests' },
+    // V-MODES: Quests left the reader nav (locked Q1); the preview mirrors that.
     { label: 'Essays', seg: 'essays' },
     { label: 'Community', seg: 'community' },
     { label: 'About', seg: 'about' },

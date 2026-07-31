@@ -26,9 +26,16 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
   const [xp, setXp] = useState<Xp | null>(null);
   const [filter, setFilter] = useState<QuestSize | 'All'>('All');
   const [shown, setShown] = useState(8);
+  // V-MODES: curator-badged quests hide their Start for non-curators (the
+  // badge explains who does them; no dead-end button).
+  const [isCurator, setIsCurator] = useState(false);
 
   useEffect(() => {
     fetch(`/api/verse/space-xp?group_id=${groupId}`).then((r) => (r.ok ? r.json() : null)).then(setXp).catch(() => {});
+    fetch(`/api/verse/membership?group_id=${groupId}`, { credentials: 'include' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setIsCurator(d?.role === 'curator' || d?.role === 'space_admin'))
+      .catch(() => {});
   }, [groupId]);
 
   const list = quests.filter((q) => filter === 'All' || q.size === filter).slice(0, shown);
@@ -92,7 +99,9 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
                     <p className="mt-0.5 text-xs text-secondary">{q.why}</p>
                   </div>
                   <span className="text-xs font-bold tabular-nums" style={{ color: big ? 'var(--verse-accent)' : 'var(--text-secondary)' }}>+{q.xp}&nbsp;xp</span>
-                  <button onClick={() => start(q)} className="v-tap whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Start</button>
+                  {!q.curatorOnly || isCurator
+                    ? <button onClick={() => start(q)} className="v-tap whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Start</button>
+                    : null}
                 </li>
               );
             })}

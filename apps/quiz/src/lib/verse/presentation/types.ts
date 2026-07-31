@@ -22,7 +22,9 @@ export type TabId =
   | 'home' | 'members' | 'discography' | 'timeline' | 'quests' | 'essays'
   | 'community' | 'about' | 'tours' | 'shows' | 'ost' | 'awards'
   | 'photocards' | 'collectibles' | 'wiki' | 'songs';
-export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'quests', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles', 'wiki', 'songs'];
+// V-MODES: 'quests' stays in TabId for stored-config compat but is no longer
+// pickable (it left the reader nav, locked Q1); validate drops legacy picks.
+export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles', 'wiki', 'songs'];
 
 /** One placed module in the stack. `type` is a registry key; `zone` is validated. */
 export interface ModulePlacement {

@@ -30,7 +30,7 @@ export default async function EssaysPage({ params }: { params: Promise<{ slug: s
       </div>
 
       {featured.length === 0 ? (
-        <p className="rounded-xl border border-dashed px-5 py-8 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No featured essays yet. Write the first one.</p>
+        <p className="rounded-xl border border-dashed px-5 py-8 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No featured essays yet. Members write them; curators feature the best.</p>
       ) : (
         <ul className="space-y-2">
           {featured.map((e) => (

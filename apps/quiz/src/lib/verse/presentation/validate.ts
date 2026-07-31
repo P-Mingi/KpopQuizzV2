@@ -104,7 +104,9 @@ export function validatePresentation(raw: unknown): ValidationResult {
   // tabs (3-7, subset, must include home, no dupes). Hidden tabs never hide pages.
   let tabs: Presentation['tabs'] | undefined;
   if (c.tabs != null) {
-    const t = asArray(c.tabs).map(String);
+    // Legacy 'quests' picks (pre V-MODES) drop silently, never error: the tab
+    // left the reader nav for good and old saved configs must keep re-saving.
+    const t = asArray(c.tabs).map(String).filter((x) => x !== 'quests');
     const bad = t.filter((x) => !ALLOWED_TABS.includes(x as never));
     if (bad.length) errors.push(`Unknown tab(s): ${bad.join(', ')}.`);
     if (new Set(t).size !== t.length) errors.push('Duplicate tabs are not allowed.');

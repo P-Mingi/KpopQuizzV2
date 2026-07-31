@@ -100,7 +100,7 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose' }: {
     if (slugs.length) {
       void Promise.all([
         fetch(`/api/verse/preview?group=${groupSlug}&exists=${slugs.slice(0, 40).join(',')}`).then((r) => (r.ok ? r.json() : { missing: [] })),
-        fetch(`/api/verse/can-edit?slug=${groupSlug}`).then((r) => (r.ok ? r.json() : { canEdit: false })).catch(() => ({ canEdit: false })),
+        fetch(`/api/verse/can-edit?group=${groupSlug}`).then((r) => (r.ok ? r.json() : { canEdit: false })).catch(() => ({ canEdit: false })),
       ])
         .then(([{ missing }, { canEdit }]: [{ missing: string[] }, { canEdit: boolean }]) => {
           if (cancelled) return;

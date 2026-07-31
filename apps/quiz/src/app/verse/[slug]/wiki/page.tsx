@@ -7,6 +7,7 @@ import { listPublishedPages } from '@/lib/verse/pages/data';
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { DeckFilter } from '@/components/verse/pages/deck-filter';
+import { WikiNewLink } from '@/components/verse/wiki-new-link';
 
 import type { Metadata } from 'next';
 
@@ -53,9 +54,7 @@ export default async function WikiIndexPage({ params }: { params: Promise<{ slug
           <h1 className="font-extrabold leading-tight" style={{ fontSize: 'var(--v-type-title)', letterSpacing: 'var(--v-tracking-tight)', color: 'var(--verse-ink)' }}>
             The {space.group.fandom_name} wiki
           </h1>
-          <Link href={`/verse/${space.group.slug}/wiki/new`} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold no-underline" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
-            New page
-          </Link>
+          <WikiNewLink groupSlug={space.group.slug} />
         </div>
       </header>
 

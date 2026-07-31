@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getSpace } from '@/lib/verse/space';
 import { computeQuests } from '@/lib/verse/quests';
 import { QuestBoard } from '@/components/verse/quest-board';
+import { QuestGate } from '@/components/verse/quest-gate';
 
 import type { Metadata } from 'next';
 
@@ -27,5 +28,10 @@ export default async function QuestsPage({ params }: { params: Promise<{ slug: s
   if (!space) notFound();
   const board = await computeQuests(space.group.id, slug, space.group.name);
 
-  return <QuestBoard quests={board.quests} coveragePct={board.coveragePct} groupId={space.group.id} groupName={space.group.name} />;
+  // Members-only board (locked Q1): the join pitch bakes; the board is the
+  // client-side member upgrade inside QuestGate.
+  return (
+    <QuestGate groupId={space.group.id} groupSlug={slug} groupName={space.group.name} fandomName={space.group.fandom_name}
+      board={<QuestBoard quests={board.quests} coveragePct={board.coveragePct} groupId={space.group.id} groupName={space.group.name} />} />
+  );
 }

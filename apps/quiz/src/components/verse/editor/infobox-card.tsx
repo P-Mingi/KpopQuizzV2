@@ -16,7 +16,6 @@ interface Props {
   entityId: string;
   facts: IdolFact[];
   editableFields: EditableField[];
-  suggestSubject: string;
 }
 
 function SourceBadge({ f }: { f: IdolFact }): React.ReactElement | null {
@@ -27,7 +26,7 @@ function SourceBadge({ f }: { f: IdolFact }): React.ReactElement | null {
   return <span className="ml-1"><SourceChip href={f.sourceUrl} label={f.sourceUrl ? undefined : 'Curated'} detail="Entered by a curator, with source" /></span>;
 }
 
-export function InfoboxCard({ entityType, entityId, facts, editableFields, suggestSubject }: Props): React.ReactElement {
+export function InfoboxCard({ entityType, entityId, facts, editableFields }: Props): React.ReactElement {
   const router = useRouter();
   const [canEdit, setCanEdit] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -61,9 +60,9 @@ export function InfoboxCard({ entityType, entityId, facts, editableFields, sugge
         </dl>
       ) : <p className="text-sm text-tertiary">Facts are being sourced.</p>}
 
-      <p className="mt-4 border-t border-default pt-3 text-[11px] text-tertiary">
-        Sources: Wikidata (CC0). <a href={`mailto:kaspermaiden@gmail.com?subject=${encodeURIComponent(suggestSubject)}`} className="font-semibold underline" style={{ color: 'var(--verse-ink)' }}>Suggest an edit</a>
-      </p>
+      {/* V-MODES: no personal-email mailto in reader HTML; corrections ride the
+          in-page suggest flow (SectionSurface), the blessed progression path. */}
+      <p className="mt-4 border-t border-default pt-3 text-[11px] text-tertiary">Sources: Wikidata (CC0).</p>
     </div>
   );
 }
