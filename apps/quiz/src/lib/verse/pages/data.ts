@@ -105,6 +105,33 @@ export const whatLinksHere = cache(async (groupId: number, targetPageId: number)
     .filter((r): r is NonNullable<typeof r> => r !== null);
 });
 
+// ---------------------------------------------------------------------------
+// REQUIREMENT 1 planners (unit-proven): the exact alias operations a create or
+// rename performs, in order. The API routes execute these verbatim, so the
+// collision rules are code, not convention.
+//   - create at slug S: the new live page claims the URL; any alias at S dies.
+//   - rename A -> B: alias (A -> page id) is written so old URLs 301 in one hop
+//     (id-anchored: existing aliases of the page keep pointing at the id, so
+//     chains never form); any alias at B dies (nothing may shadow the new live
+//     slug). Renaming ONTO a live slug is rejected before any op runs (the
+//     unique constraint backstops).
+// ---------------------------------------------------------------------------
+
+export type AliasOp =
+  | { op: 'delete-alias-at'; slug: string }
+  | { op: 'write-alias'; oldSlug: string };
+
+export function aliasOpsOnCreate(slug: string): AliasOp[] {
+  return [{ op: 'delete-alias-at', slug }];
+}
+
+export function aliasOpsOnRename(oldSlug: string, newSlug: string): AliasOp[] {
+  return [
+    { op: 'write-alias', oldSlug },
+    { op: 'delete-alias-at', slug: newSlug },
+  ];
+}
+
 /** Parent chain for breadcrumbs (published ancestors only, cycle-guarded). */
 export const pageAncestors = cache(async (page: WikiPage): Promise<WikiPage[]> => {
   const db = createPublicReadClient();

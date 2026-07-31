@@ -3,10 +3,11 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { stageOf } from '@/lib/verse/stage';
 import { MemberManager } from '@/components/verse/curate/member-manager';
+import { PagesReviewQueue } from '@/components/verse/curate/pages-review-queue';
 import { SpaceSettings } from '@/components/verse/curate/space-settings';
 import { StageControl } from '@/components/verse/curate/stage-control';
 
@@ -27,12 +28,28 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
   const globalAdmin = !!user && isAdmin(user.id);
   const stage = globalAdmin ? await stageOf(space.group.id) : 'A';
 
+  // V-PAGES step 5 - pages awaiting review (service read: review status is
+  // invisible to the public client by RLS).
+  const svc = createServiceRoleClient();
+  const { data: reviewRows } = await svc.from('verse_pages')
+    .select('id, slug, title, kind, created_by').eq('group_id', space.group.id).eq('status', 'review').order('updated_at');
+  const review = (reviewRows ?? []) as { id: number; slug: string; title: string; kind: string; created_by: string }[];
+  const authorIds = [...new Set(review.map((r) => r.created_by))];
+  const { data: profs } = authorIds.length
+    ? await svc.from('profiles').select('id, username, display_name').in('id', authorIds)
+    : { data: [] };
+  const nameById = new Map(((profs ?? []) as { id: string; username: string; display_name: string | null }[])
+    .map((p) => [p.id, p.display_name ?? p.username]));
+  const reviewItems = review.map((r) => ({ ...r, created_by_name: nameById.get(r.created_by) ?? 'a fan' }));
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="text-lg font-bold" style={{ color: 'var(--verse-ink)' }}>Curate {space.group.fandom_name}</h1>
         <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' }}>{role.replace('_', ' ')}</span>
       </div>
+
+      <PagesReviewQueue groupSlug={slug} items={reviewItems} />
 
       <section>
         <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Masthead</h2>

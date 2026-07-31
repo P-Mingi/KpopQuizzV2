@@ -153,6 +153,19 @@ console.log('gate 10: the rabbit-hole ledger (extraction, diff, wanted semantics
   ok(d.insert.join(',') === 'c' && d.remove.join(',') === 'a', 'link diff inserts and removes exactly the delta');
 }
 
+console.log('gate 11: REQUIREMENT 1 planners (create claims the URL, rename never chains)');
+{
+  const { aliasOpsOnCreate, aliasOpsOnRename } = await import('../src/lib/verse/pages/data');
+  const create = aliasOpsOnCreate('army-bomb');
+  ok(create.length === 1 && create[0]!.op === 'delete-alias-at' && (create[0] as { slug: string }).slug === 'army-bomb',
+    'create at S deletes any alias at S (the live page claims the URL)');
+  const rename = aliasOpsOnRename('old-name', 'new-name');
+  ok(rename.length === 2 && rename[0]!.op === 'write-alias' && (rename[0] as { oldSlug: string }).oldSlug === 'old-name',
+    'rename writes the old-slug alias (id-anchored: no chains possible)');
+  ok(rename[1]!.op === 'delete-alias-at' && (rename[1] as { slug: string }).slug === 'new-name',
+    'rename deletes any alias at the NEW slug (nothing shadows the live URL)');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);
 console.log('V-PAGES gates hold.');

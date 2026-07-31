@@ -10,19 +10,16 @@ import { useEffect, useRef } from 'react';
 //      absence). Keyboard: focus shows, blur/Escape hides. No animation, so
 //      reduced-motion needs no special-casing.
 //   2. RED LINKS: wiki links whose target does not exist. Visitors get plain
-//      text (the anchor is neutralized: no dead affordance). When createHref is
-//      provided (contributor+, wired at step 5), the link stays and the card
-//      offers "Create this page". JS-off fallback: the anchor leads to the
-//      on-brand wiki 404 with a search box, which is helpful, not dead.
+//      text (the anchor is neutralized: no dead affordance). Contributors (the
+//      can-edit check, fetched once) keep the link, dashed, pointing at
+//      /wiki/new?slug=..., and the card offers "Create this page". JS-off
+//      fallback: the anchor leads to the on-brand wiki 404, helpful, not dead.
 
 interface Preview { title?: string; kind?: string; excerpt?: string; fanWritten?: boolean; missing?: boolean }
 
-export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', createHref = null }: {
+export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose' }: {
   groupSlug: string;
   scopeSelector?: string;
-  /** e.g. `/verse/{slug}/wiki/new` once the creator route exists; null = the
-   * red-link create affordance is off and missing links neutralize for all. */
-  createHref?: string | null;
 }): null {
   const cacheRef = useRef(new Map<string, Preview>());
 
@@ -30,6 +27,7 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', create
     const cache = cacheRef.current;
     const scopes = [...document.querySelectorAll(scopeSelector)];
     if (!scopes.length) return;
+    let cancelled = false;
 
     const card = document.createElement('div');
     card.setAttribute('role', 'status');
@@ -44,7 +42,8 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', create
       [...root.querySelectorAll<HTMLAnchorElement>('a[href^="/verse/"]')];
 
     const show = (a: HTMLAnchorElement, p: Preview): void => {
-      if (p.missing && !createHref) return;
+      // A missing preview is only ever cached for can-edit viewers (visitor
+      // anchors were replaced with plain text), so the create card is safe here.
       const title = p.missing ? 'This page does not exist yet' : (p.title ?? '');
       if (!title) return;
       const sub = p.missing ? 'Create this page from here' : [p.kind, p.fanWritten ? 'fan-written' : null].filter(Boolean).join(' · ');
@@ -93,24 +92,28 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', create
     }
     document.addEventListener('keydown', onKey);
 
-    // RED LINKS: batch-check every wiki link in scope once.
+    // RED LINKS: batch-check every wiki link in scope once. Contributors (the
+    // can-edit check) get the red-link create affordance pointing at /wiki/new;
+    // visitors get plain text, never a dead affordance.
     const wikiAnchors = scopes.flatMap(anchorsIn).filter((a) => wikiRe.test(a.getAttribute('href') ?? ''));
     const slugs = [...new Set(wikiAnchors.map((a) => a.getAttribute('href')!.match(wikiRe)![1]!))];
     if (slugs.length) {
-      void fetch(`/api/verse/preview?group=${groupSlug}&exists=${slugs.slice(0, 40).join(',')}`)
-        .then((r) => (r.ok ? r.json() : { missing: [] }))
-        .then(({ missing }: { missing: string[] }) => {
+      void Promise.all([
+        fetch(`/api/verse/preview?group=${groupSlug}&exists=${slugs.slice(0, 40).join(',')}`).then((r) => (r.ok ? r.json() : { missing: [] })),
+        fetch(`/api/verse/can-edit?slug=${groupSlug}`).then((r) => (r.ok ? r.json() : { canEdit: false })).catch(() => ({ canEdit: false })),
+      ])
+        .then(([{ missing }, { canEdit }]: [{ missing: string[] }, { canEdit: boolean }]) => {
+          if (cancelled) return;
           const gone = new Set(missing);
           for (const a of wikiAnchors) {
             const slug = a.getAttribute('href')!.match(wikiRe)![1]!;
             if (!gone.has(slug)) continue;
-            if (createHref) {
+            if (canEdit) {
               a.setAttribute('data-wiki-missing', 'true');
               a.style.textDecorationStyle = 'dashed';
-              a.href = `${createHref}?slug=${encodeURIComponent(slug)}`;
+              a.href = `/verse/${groupSlug}/wiki/new?slug=${encodeURIComponent(slug)}`;
               cache.set(`/verse/${groupSlug}/wiki/${slug}`, { missing: true });
             } else {
-              // Visitors: plain text, never a dead affordance.
               const span = document.createElement('span');
               span.textContent = a.textContent;
               a.replaceWith(span);
@@ -121,6 +124,7 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', create
     }
 
     return () => {
+      cancelled = true;
       for (const scope of scopes) {
         scope.removeEventListener('mouseover', onEnter);
         scope.removeEventListener('focusin', onEnter);
@@ -130,7 +134,7 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose', create
       document.removeEventListener('keydown', onKey);
       card.remove();
     };
-  }, [groupSlug, scopeSelector, createHref]);
+  }, [groupSlug, scopeSelector]);
 
   return null;
 }

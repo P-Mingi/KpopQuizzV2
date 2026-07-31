@@ -94,9 +94,8 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
         publishedAt: page.published_at, updatedAt: page.updated_at, maintainers: attribution.maintainers, fanWritten: !!def?.fanWritten,
       }))}
       {jsonLdScript(breadcrumbLd(crumbs.filter((c) => c.href).map((c) => ({ name: c.label, url: `https://kpopquiz.org${c.href}` }))))}
-      {/* Rabbit-hole enhancement: hover previews + red-link handling. createHref
-          arrives with the step-5 creator route; until then missing links
-          neutralize to plain text for everyone (no dead affordance). */}
+      {/* Rabbit-hole enhancement: hover previews + red-link handling (create
+          affordance for contributors, plain text for visitors). */}
       <LinkPreviews groupSlug={space.group.slug} />
 
       <div className="mb-6"><Breadcrumbs items={crumbs} /></div>

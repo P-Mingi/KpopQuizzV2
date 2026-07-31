@@ -410,6 +410,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const s = gslug(a.groups);
       if (s) push(`/verse/${s}/albums/${verseSlugify(a.title)}`, 0.5, 'monthly');
     }
+    // V-PAGES: wiki pages enter the sitemap ONLY at published + non-stub (the
+    // thin-page protection; stubs are also robots-noindexed at the leaf).
+    const { data: wikiPages } = await svc.from('verse_pages')
+      .select('slug, published_at, updated_at, groups(slug)')
+      .eq('status', 'published').eq('is_stub', false);
+    for (const w of (wikiPages ?? []) as { slug: string; updated_at: string; groups: unknown }[]) {
+      const s = gslug(w.groups);
+      if (!s) continue;
+      push(`/verse/${s}/wiki/${w.slug}`, 0.5, 'weekly');
+      push(`/verse/${s}/wiki`, 0.5, 'weekly');
+    }
   } catch (err) {
     console.error('[sitemap] verse query failed, skipping verse pages:', err);
     versePages = [];
