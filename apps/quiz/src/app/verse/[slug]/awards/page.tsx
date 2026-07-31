@@ -41,7 +41,7 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
         {years.map((y) => (
           <section key={y}>
             <h2 className="mb-2 text-sm font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{y === 0 ? 'Year unconfirmed' : y}</h2>
-            <ul className="space-y-1.5">
+            <ul className="max-w-[66ch] space-y-1.5">
               {byYear.get(y)!.map((r) => (
                 <li key={r.id} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-lg px-3 py-2" style={{ background: 'var(--verse-soft)' }}>
                   <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: r.result === 'won' ? 'var(--verse-accent)' : 'var(--verse-soft-strong)', color: r.result === 'won' ? 'var(--verse-accent-text)' : 'var(--verse-ink)' }}>{r.result ?? 'listed'}</span>

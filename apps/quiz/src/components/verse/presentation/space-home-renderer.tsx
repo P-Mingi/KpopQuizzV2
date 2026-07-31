@@ -84,8 +84,12 @@ export function SpaceHomeRenderer({ space, presentation, backlinks }: {
       <div className="lg:col-span-2">
         <Stack placements={main} space={space} frameDefault={mainFrameDefault} divider={divider} />
       </div>
+      {/* V-POLISH-2 A4: the rail follows the scroll (sticky under the app bar);
+          the audit's blank right third from ~1000px down dies here. */}
       <aside className="lg:col-span-1">
-        <Stack placements={side} space={space} frameDefault={sideFrameDefault} divider={divider} />
+        <div className="lg:sticky lg:top-[84px]">
+          <Stack placements={side} space={space} frameDefault={sideFrameDefault} divider={divider} />
+        </div>
       </aside>
       <div className="lg:col-span-3">
         <RelatedNavbox group={space.group} />

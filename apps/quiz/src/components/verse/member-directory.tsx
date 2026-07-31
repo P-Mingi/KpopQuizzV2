@@ -16,7 +16,7 @@ export async function MemberDirectory({ groupId, fandomName }: { groupId: number
     <section>
       <div className="mb-2 flex items-baseline justify-between">
         <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{fandomName}</h2>
-        <span className="text-xs text-tertiary tabular-nums">{members.length} member{members.length === 1 ? '' : 's'}{staff.length ? ` · ${staff.length} on the team` : ''}</span>
+        <span className="text-xs text-tertiary tabular-nums">{members.length} fan{members.length === 1 ? '' : 's'}{staff.length ? ` · ${staff.length} on the team` : ''}</span>
       </div>
       <ul className="flex flex-wrap gap-2">
         {members.slice(0, 60).map((m) => {

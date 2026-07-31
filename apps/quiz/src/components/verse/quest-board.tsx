@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { CoverArt } from '@/components/verse/cover-art';
+
 import type { Quest, QuestSize } from '@/lib/verse/quests';
 
 interface Xp { signedIn: boolean; xp: number; role: string; tier: string; nextTier: string | null; xpToNext: number | null }
@@ -72,8 +74,15 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
               const ss = sizeStyle(q.size);
               const big = q.size === 'Big';
               return (
-                <li key={q.id} className="flex items-center gap-3 rounded-xl p-3.5" style={{ border: big ? '2px solid var(--verse-accent)' : '0.5px solid var(--verse-line)', background: 'var(--verse-soft)' }}>
-                  <span style={{ color: big ? 'var(--verse-accent)' : 'var(--text-secondary)' }}><QuestIcon name={q.icon} /></span>
+                <li key={q.id} className="flex items-center gap-3 rounded-xl p-3" style={{ border: big ? '2px solid var(--verse-cta, var(--verse-accent))' : '0.5px solid var(--verse-line)', background: 'var(--verse-soft)' }}>
+                  {q.art?.kind === 'cover' ? (
+                    <CoverArt mbid={q.art.mbid} title={q.title} className="w-11 flex-shrink-0 rounded-lg" />
+                  ) : q.art?.kind === 'photo' ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={q.art.url} alt="" loading="lazy" className="h-11 w-11 flex-shrink-0 rounded-lg object-cover object-[center_25%]" />
+                  ) : (
+                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--verse-soft-strong)', color: big ? 'var(--verse-ink)' : 'var(--text-secondary)' }}><QuestIcon name={q.icon} /></span>
+                  )}
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{q.title}</p>
@@ -83,12 +92,12 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
                     <p className="mt-0.5 text-xs text-secondary">{q.why}</p>
                   </div>
                   <span className="text-xs font-bold tabular-nums" style={{ color: big ? 'var(--verse-accent)' : 'var(--text-secondary)' }}>+{q.xp}&nbsp;xp</span>
-                  <button onClick={() => start(q)} className="whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Start</button>
+                  <button onClick={() => start(q)} className="v-tap whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Start</button>
                 </li>
               );
             })}
           </ul>
-          {shown < total ? <button onClick={() => setShown((n) => n + 12)} className="mt-3 block w-full text-center text-sm font-semibold text-secondary hover:text-primary">Show more quests</button> : null}
+          {shown < total ? <button onClick={() => setShown((n) => n + 12)} className="v-tap mx-auto mt-3 flex min-h-[40px] items-center justify-center rounded-full border px-5 text-sm font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Show {total - shown} more quests</button> : null}
         </>
       )}
 

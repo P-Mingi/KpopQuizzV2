@@ -62,12 +62,12 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
                   <span className="text-xs font-semibold tabular-nums text-secondary">{period(e)}</span>
                   <h2 className="text-base font-bold" style={{ color: 'var(--verse-ink)' }}>{e.name}</h2>
                   {e.albums.length > 1 ? <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-secondary" style={{ background: 'var(--verse-soft)' }}>{e.albums.length} releases</span> : null}
-                  {e.scaffolded && !hasStory ? <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title="Auto-grouped from release dates; no story written yet">auto</span> : null}
+                  {canEdit && e.scaffolded && !hasStory ? <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title="Auto-grouped from release dates; no story written yet">auto</span> : null}
                 </div>
 
                 {e.concept ? <p className="mt-1 text-sm italic text-secondary">{e.concept}</p> : null}
 
-                {e.albums.length ? (
+                {e.albums.length && !(e.albums.length === 1 && e.albums[0]!.title === e.name) ? (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {e.albums.map((a) => (
                       <a key={a.id} href={`/verse/${groupSlug}/albums/${a.slug}`} className="rounded-md px-2 py-1 text-xs text-secondary no-underline hover:text-primary" style={{ background: 'var(--verse-soft)' }}>
@@ -109,10 +109,11 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
                     {canEdit ? <button onClick={() => setEditing(e.id)} className="mt-1 text-xs text-tertiary hover:text-secondary">Edit</button> : null}
                   </>
                 ) : (
-                  <p className="mt-2 text-sm text-tertiary">
-                    No story yet.{' '}
-                    {canEdit ? <button onClick={() => setEditing(e.id)} className="font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Add this era&rsquo;s story</button> : <span>Fans can add one.</span>}
-                  </p>
+                  canEdit ? (
+                    <p className="mt-1.5 text-sm text-tertiary">
+                      <button onClick={() => setEditing(e.id)} className="font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Add this era&rsquo;s story</button>
+                    </p>
+                  ) : null
                 )}
               </div>
             </li>
@@ -130,6 +131,22 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
           </li>
         ) : null}
       </ol>
+      {/* V-POLISH-2 A5: ONE invitation for all story-less eras (the audit found
+          the per-row apology repeated fifteen times and becoming the page's
+          dominant copy). Storyless detection mirrors the row check. */}
+      {(() => {
+        const unwritten = eras.filter((e) => {
+          const live = stories[e.id];
+          const html = live?.html ?? e.storyHtml;
+          return html.replace(/<[^>]*>/g, '').trim().length === 0;
+        }).length;
+        if (unwritten === 0 || canEdit) return null;
+        return (
+          <p className="mt-2 text-sm text-tertiary">
+            {unwritten} era{unwritten === 1 ? ' is' : 's are'} still waiting for {unwritten === 1 ? 'its' : 'their'} story. Fans write them, curators review them.
+          </p>
+        );
+      })()}
     </div>
   );
 }

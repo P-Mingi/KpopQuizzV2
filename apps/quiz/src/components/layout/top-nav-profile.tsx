@@ -27,22 +27,22 @@ export function TopNavProfile(): React.ReactElement {
     return () => { cancelled = true; };
   }, []);
 
-  // Pre-hydration / loading: render a fixed-size placeholder so the layout
-  // doesn't jump when auth state arrives. Width matches the signed-in chip
-  // roughly so logged-in users see no shift; for anonymous users we render
-  // exactly the Sign-in button at the same width so likewise no shift.
+  // Pre-hydration / loading: the audit caught the old empty pill reading as
+  // broken UI on every first paint. The placeholder now IS the Sign in visual
+  // (non-interactive, aria-hidden): identical paint for the anonymous
+  // majority, a brief label swap for members; never a blank ghost. Full
+  // server-rendering stays off the table (the client island keeps the layout
+  // shell ISR-cacheable).
   if (state === null) {
     return (
-      <span
-        aria-hidden="true"
-        style={{
-          display: 'inline-block',
-          width: 96, height: 36, borderRadius: 9999,
-          background: 'var(--surface-alt)',
-          border: '1px solid var(--border)',
-          flexShrink: 0,
-        }}
-      />
+      <span aria-hidden="true" style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6,
+        padding: '7px 18px', borderRadius: 10,
+        background: 'transparent', border: '1px solid var(--border)',
+        color: 'var(--text-primary)',
+        fontSize: 13, fontWeight: 600,
+        whiteSpace: 'nowrap', flexShrink: 0,
+      }}>Sign in</span>
     );
   }
 

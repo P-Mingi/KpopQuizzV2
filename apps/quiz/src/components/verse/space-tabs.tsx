@@ -24,6 +24,13 @@ const SEGMENT_LABELS: Record<string, string> = {
 };
 const orphanLabel = (seg: string): string => SEGMENT_LABELS[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1);
 
+// V-POLISH-2 A6 - the More sheet groups by intent instead of one flat list.
+const SHEET_GROUPS: { label: string; segs: string[] }[] = [
+  { label: 'The space', segs: ['', 'members', 'discography', 'timeline', 'about'] },
+  { label: 'The catalog', segs: ['songs', 'wiki', 'awards', 'tours', 'shows', 'ost', 'photocards', 'collectibles'] },
+  { label: 'The community', segs: ['quests', 'essays', 'community'] },
+];
+
 export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): React.ReactElement {
   const pathname = usePathname();
   const base = `/verse/${slug}`;
@@ -109,16 +116,26 @@ export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): R
           <div ref={sheetRef} tabIndex={-1} className="verse-scope absolute inset-x-0 bottom-0 rounded-t-2xl p-4 pb-[calc(16px+env(safe-area-inset-bottom))] outline-none"
             style={{ background: 'var(--bg-surface)', maxHeight: '70vh', overflowY: 'auto' }}>
             <div className="mx-auto mb-3 h-1 w-10 rounded-full" style={{ background: 'var(--border)' }} />
-            <ul className="flex flex-col gap-1">
-              {tabs.map((t) => (
-                <li key={t.seg || 'home'}>
-                  <Link href={href(t)} onClick={() => setSheet(false)} aria-current={activeSeg === t.seg ? 'page' : undefined}
-                    className="block rounded-lg px-4 py-2.5 text-sm font-semibold" style={{ color: activeSeg === t.seg ? 'var(--verse-ink)' : 'var(--text-primary)', background: activeSeg === t.seg ? 'var(--verse-soft)' : 'transparent' }}>
-                    {t.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {(() => {
+              const grouped = SHEET_GROUPS.map((g) => ({ ...g, items: tabs.filter((t) => g.segs.includes(t.seg)) })).filter((g) => g.items.length);
+              const leftovers = tabs.filter((t) => !SHEET_GROUPS.some((g) => g.segs.includes(t.seg)));
+              const sections = leftovers.length ? [...grouped, { label: 'More', segs: [], items: leftovers }] : grouped;
+              return sections.map((g) => (
+                <div key={g.label} className="mb-2 last:mb-0">
+                  <p className="px-4 pb-1 pt-2 text-[10.5px] font-bold uppercase tracking-[0.12em] text-tertiary">{g.label}</p>
+                  <ul className="flex flex-col gap-0.5">
+                    {g.items.map((t) => (
+                      <li key={t.seg || 'home'}>
+                        <Link href={href(t)} onClick={() => setSheet(false)} aria-current={activeSeg === t.seg ? 'page' : undefined}
+                          className="block rounded-lg px-4 py-2.5 text-sm font-semibold" style={{ color: activeSeg === t.seg ? 'var(--verse-ink)' : 'var(--text-primary)', background: activeSeg === t.seg ? 'var(--verse-soft)' : 'transparent' }}>
+                          {t.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ));
+            })()}
           </div>
         </div>
       ) : null}
