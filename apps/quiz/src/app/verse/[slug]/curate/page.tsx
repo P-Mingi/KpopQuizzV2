@@ -8,6 +8,7 @@ import { isAdmin } from '@/lib/admin';
 import { stageOf } from '@/lib/verse/stage';
 import { MemberManager } from '@/components/verse/curate/member-manager';
 import { PagesReviewQueue } from '@/components/verse/curate/pages-review-queue';
+import { SYSTEM_AUTHOR_DISPLAY } from '@/lib/verse/pages/data';
 import { SpaceSettings } from '@/components/verse/curate/space-settings';
 import { StageControl } from '@/components/verse/curate/stage-control';
 
@@ -40,7 +41,10 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
     : { data: [] };
   const nameById = new Map(((profs ?? []) as { id: string; username: string; display_name: string | null }[])
     .map((p) => [p.id, p.display_name ?? p.username]));
-  const reviewItems = review.map((r) => ({ ...r, created_by_name: nameById.get(r.created_by) ?? 'a fan' }));
+  const reviewItems = review.map((r) => ({
+    ...r,
+    created_by_name: SYSTEM_AUTHOR_DISPLAY[r.created_by] ?? nameById.get(r.created_by) ?? 'a fan',
+  }));
 
   return (
     <div className="space-y-8">

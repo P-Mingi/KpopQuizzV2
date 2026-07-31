@@ -6,6 +6,15 @@ import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 
+// ATTRIBUTION (owner directive at step 8 review): content authored by the
+// platform/system account is publicly credited as "KpopVerse", never as the
+// owner's private dev identity. Display-path mapping only: created_by rows are
+// untouched (the audit trail stays real). Add ids here if more system accounts
+// ever exist; change the label in ONE place if the owner picks another name.
+export const SYSTEM_AUTHOR_DISPLAY: Record<string, string> = {
+  '67358f12-5068-4cd9-ba02-ad19fdadad73': 'KpopVerse',
+};
+
 export interface WikiPage {
   id: number;
   group_id: number;

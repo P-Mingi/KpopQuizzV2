@@ -2,7 +2,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
-import { getPublishedPage, resolvePageAlias, resolveWikiSlug, getPageBody, pageAttribution, listPublishedPages, whatLinksHere, pageAncestors } from '@/lib/verse/pages/data';
+import { getPublishedPage, resolvePageAlias, resolveWikiSlug, getPageBody, pageAttribution, listPublishedPages, whatLinksHere, pageAncestors, SYSTEM_AUTHOR_DISPLAY } from '@/lib/verse/pages/data';
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { WikiInfobox, WikiBody, TrustFooter, RelatedExits, FanWrittenBadge } from '@/components/verse/pages/wiki-leaf';
@@ -65,11 +65,16 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
     pageAncestors(page),
   ]);
 
-  // Starter display name (profiles; falls back to "a fan" honestly).
-  const db = createPublicReadClient();
-  const { data: prof } = await db.from('profiles').select('username, display_name').eq('id', page.created_by).maybeSingle();
-  const starterName = (prof as { username?: string; display_name?: string | null } | null)?.display_name
-    ?? (prof as { username?: string } | null)?.username ?? 'a fan';
+  // Starter display name: system-account content is credited as the platform
+  // (owner directive: never the private dev identity); everyone else resolves
+  // through profiles, falling back to "a fan" honestly.
+  let starterName = SYSTEM_AUTHOR_DISPLAY[page.created_by];
+  if (!starterName) {
+    const db = createPublicReadClient();
+    const { data: prof } = await db.from('profiles').select('username, display_name').eq('id', page.created_by).maybeSingle();
+    starterName = (prof as { username?: string; display_name?: string | null } | null)?.display_name
+      ?? (prof as { username?: string } | null)?.username ?? 'a fan';
+  }
 
   // Related exits: same-kind siblings first, then what-links-here pages; 6-8 max.
   const related = [
