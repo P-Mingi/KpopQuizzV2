@@ -40,12 +40,21 @@ export async function getCatalogTotals(): Promise<{ idols: number; releases: num
 export async function getVerseDirectory(): Promise<SpaceTile[]> {
   const db = createPublicReadClient();
 
-  const [{ data: idols }, { data: albums }, { data: groups }, { data: spaces }] = await Promise.all([
+  const results = await Promise.all([
     db.from('idols').select('group_id, photo_url, ord').eq('active', true).order('ord'),
     db.from('albums').select('group_id'),
     db.from('groups').select('id, name, slug, fandom_name, display_color, text_color, logo_url'),
     db.from('verse_spaces').select('group_id, is_launch, est_year'),
   ]);
+  // The directory IS the V-HOME page. Supabase clients report DB errors as
+  // payloads, not throws, so without this check an errored query reads as an
+  // empty catalog and ISR bakes the dead-site shell for an hour (the audit's
+  // 4-in-12-loads blocker). Throwing keeps the last good render alive.
+  results.forEach((r, i) => {
+    const err = (r as { error?: unknown }).error;
+    if (err) throw new Error(`getVerseDirectory: query[${i}] failed: ${JSON.stringify(err)}`);
+  });
+  const [{ data: idols }, { data: albums }, { data: groups }, { data: spaces }] = results;
 
   const memberBy = new Map<number, number>();
   const photoBy = new Map<number, string>();

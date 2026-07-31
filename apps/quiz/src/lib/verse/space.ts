@@ -54,11 +54,14 @@ const DEFAULT_CONFIG: SpaceConfig = {
 // fetch. ISR (revalidate) caches across requests on top of this.
 export const getSpace = cache(async (slug: string): Promise<Space | null> => {
   const db = createPublicReadClient();
-  const { data: group } = await db
+  const { data: group, error: groupErr } = await db
     .from('groups')
     .select('id, name, slug, fandom_name, display_color, text_color, logo_url, generation, inception_date, record_label, origin_country, official_website, quiz_count')
     .eq('slug', slug)
     .maybeSingle();
+  // A query ERROR is not an absent row: returning null here would bake a 404
+  // into the ISR cache for a real space (the V-POLISH phase-1 bake law).
+  if (groupErr) throw new Error(`getSpace(${slug}): group lookup failed: ${JSON.stringify(groupErr)}`);
   if (!group) return null;
   const g = group as SpaceGroup;
 
