@@ -8,6 +8,9 @@ import { TEMPLATE_LIST, applyTemplate } from '@/lib/verse/presentation/templates
 import { resolvePlacements } from '@/lib/verse/presentation/resolve';
 import { BLOCK_REGISTRY, FRAME_STYLES } from '@/lib/verse/presentation/registry';
 import { ALLOWED_TABS } from '@/lib/verse/presentation/types';
+// V-POLISH step 2 - the accent advisory shares the exact math the theme layer
+// renders with, so what the strip predicts is what the space will show.
+import { derivedAccentVars, contrastRatio, accentPrefersDarkInk } from '@/lib/verse/theme';
 
 import type { Presentation, ModulePlacement, TabId } from '@/lib/verse/presentation/types';
 
@@ -27,6 +30,7 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
   const [draft, setDraft] = useState<Presentation>(initialDraft);
   const [errors, setErrors] = useState<string[]>([]);
   const [bp, setBp] = useState<BP>('desktop');
+  const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [confirming, setConfirming] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -133,6 +137,24 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
           </div>
         </div>
 
+        {(() => {
+          const accent = draft.accent ?? '#7c5cfc';
+          if (contrastRatio(accent, '#FAF8F5') >= 4.5) return null;
+          const curated = accentPrefersDarkInk(accent) ? '#141210' : '#ffffff';
+          const v = derivedAccentVars(accent, curated);
+          return (
+            <div role="status" className="rounded-lg border border-default px-3 py-2 text-[12px] leading-relaxed text-secondary">
+              This accent is too light to carry headings on the light page, so the
+              space will render ink and buttons in a deepened pair derived from it:
+              <span className="ml-1 inline-flex items-center gap-1 align-middle">
+                <span className="inline-block h-3.5 w-3.5 rounded border border-default" style={{ background: v['--v-ink-l'] }} title={`Light-mode ink ${v['--v-ink-l']}`} />
+                <span className="inline-block h-3.5 w-3.5 rounded border border-default" style={{ background: v['--v-cta-l'] }} title={`Light-mode button fill ${v['--v-cta-l']}`} />
+              </span>
+              {' '}Check both preview themes before publishing.
+            </div>
+          );
+        })()}
+
         <div>
           <p className={label}>Modules (reorder + hide)</p>
           <ul className="mt-2 flex flex-col gap-1.5">
@@ -206,8 +228,13 @@ export function StudioClient({ groupId, groupSlug, groupName, initialDraft, prev
               <button key={b} onClick={() => setBp(b)} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={bp === b ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{b}</button>
             ))}
           </div>
+          <div className="ml-2 flex gap-1" role="group" aria-label="Preview theme">
+            {(['light', 'dark'] as const).map((t) => (
+              <button key={t} onClick={() => setPreviewTheme(t)} aria-pressed={previewTheme === t} className="rounded-md border px-2 py-1 text-[11px] font-semibold" style={previewTheme === t ? { borderColor: 'var(--brand)', color: 'var(--brand)' } : { borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>{t}</button>
+            ))}
+          </div>
         </div>
-        <div className="overflow-x-auto rounded-xl border border-default bg-surface p-3">
+        <div className={`overflow-x-auto rounded-xl border border-default p-3 ${previewTheme === 'dark' ? 'v-preview-dark' : 'v-preview-light'}`}>
           <div className="mx-auto transition-all" style={{ maxWidth: BP_WIDTH[bp] }}>
             {preview}
           </div>

@@ -4987,6 +4987,30 @@ main:has(.verse-page) { max-width: 1360px; }
   }
 }
 
+/* V-POLISH step 2 - the studio's forced-theme preview panes. The wrapper class
+   re-asserts one mode's verse tokens on the preview subtree regardless of the
+   page theme, so a curator checks BOTH faces before publishing. Source order:
+   after the media-query dark block, so these win inside the pane. */
+.v-preview-light { background: #FAF8F5; }
+.v-preview-light .verse-scope {
+  --verse-ink: var(--v-ink-l, color-mix(in srgb, var(--verse-accent) 74%, #1a1714));
+  --verse-cta: var(--v-cta-l, var(--verse-accent));
+  --verse-cta-text: var(--v-cta-text-l, var(--verse-accent-text));
+  --verse-soft: color-mix(in srgb, var(--verse-accent) 12%, transparent);
+  --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 22%, transparent);
+  --verse-line: color-mix(in srgb, var(--verse-accent) 34%, var(--border));
+}
+.v-preview-dark { background: #0f1119; }
+.v-preview-dark .verse-scope {
+  --verse-ink: var(--v-ink-d, color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef));
+  --verse-cta: var(--v-cta-d, var(--verse-accent));
+  --verse-cta-text: var(--v-cta-text-d, var(--verse-accent-text));
+  --verse-soft: color-mix(in srgb, var(--verse-accent) 20%, transparent);
+  --verse-soft-strong: color-mix(in srgb, var(--verse-accent) 32%, transparent);
+  --verse-line: color-mix(in srgb, var(--verse-accent) 40%, var(--border));
+  --v-frame-fill: color-mix(in srgb, var(--verse-accent) 10%, transparent);
+}
+
 /* Verse rich-text content (read view) + editor surface. */
 .verse-prose { color: var(--txt1); font-size: 15px; line-height: 1.7; }
 .verse-prose > * + * { margin-top: 0.85em; }
