@@ -54,6 +54,33 @@ export function musicAlbumLd(a: {
   };
 }
 
+// V-PAGES: the wiki leaf as an Article (fan-authored content over the entity
+// graph) + its breadcrumb trail.
+export function wikiArticleLd(p: {
+  title: string; groupSlug: string; pageSlug: string; groupName: string;
+  publishedAt: string | null; updatedAt: string; maintainers: number; fanWritten: boolean;
+}): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: p.title,
+    url: `${SITE}/verse/${p.groupSlug}/wiki/${p.pageSlug}`,
+    about: { '@type': 'MusicGroup', name: p.groupName, url: `${SITE}/verse/${p.groupSlug}` },
+    author: { '@type': 'Organization', name: `${p.groupName} fans on KpopVerse` },
+    ...(p.publishedAt ? { datePublished: p.publishedAt.slice(0, 10) } : {}),
+    dateModified: p.updatedAt.slice(0, 10),
+    isPartOf: { '@type': 'WebSite', name: 'KpopVerse', url: `${SITE}/verse` },
+  };
+}
+
+export function breadcrumbLd(items: { name: string; url: string }[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: it.url })),
+  };
+}
+
 export function jsonLdScript(obj: Record<string, unknown>): React.ReactElement {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }} />;
 }

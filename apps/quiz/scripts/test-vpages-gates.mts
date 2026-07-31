@@ -114,6 +114,18 @@ console.log('gate 8: presentation.enabledKinds config shape');
   ok(!validatePresentation({ version: 1, enabledKinds: 'lightstick' }).ok, 'non-array rejected');
 }
 
+console.log('gate 9: wiki slug resolution order (REQUIREMENT 1: live page wins)');
+{
+  const { resolveWikiSlug } = await import('../src/lib/verse/pages/data');
+  const live = { id: 1 };
+  const both = resolveWikiSlug(live, 'new-slug');
+  ok(both.kind === 'page', 'live page beats an alias at the same slug (alias can never shadow)');
+  const aliasOnly = resolveWikiSlug(null, 'new-slug');
+  ok(aliasOnly.kind === 'redirect' && (aliasOnly as { to: string }).to === 'new-slug', 'alias alone 301s to the live slug');
+  const neither = resolveWikiSlug(null, null);
+  ok(neither.kind === 'missing', 'no live, no alias -> 404');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);
 console.log('V-PAGES gates hold.');
