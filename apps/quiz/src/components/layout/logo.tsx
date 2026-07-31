@@ -17,6 +17,7 @@ export function Logo({ size = 'md', bare }: Props) {
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 8,
       fontWeight: 800, fontSize, letterSpacing: '-0.02em',
+      whiteSpace: 'nowrap',
     }}>
       <Mascot variant="default" size={iconSize} priority />
       <span>KpopQuiz</span>
@@ -25,7 +26,9 @@ export function Logo({ size = 'md', bare }: Props) {
 
   if (bare) return inner;
   return (
-    <Link href="/" className="inline-flex items-center">
+    // flexShrink 0: the brand never gets crushed by a tight nav row (a shrunk
+    // logo overflows its box and the world toggle renders over the text).
+    <Link href="/" className="inline-flex items-center" style={{ flexShrink: 0 }}>
       {inner}
     </Link>
   );

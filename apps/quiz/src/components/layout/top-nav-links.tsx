@@ -99,6 +99,9 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
   return (
     <nav className="top-nav-tabs" style={{
       display: 'flex', alignItems: 'center', gap: 4, marginLeft: 12,
+      // In a tight row the LINKS clip cleanly; the brand and the world toggle
+      // are shrink-proof (an overflowing logo once slid under the toggle).
+      minWidth: 0, overflow: 'hidden',
     }} aria-label="Main navigation">
       {items.map((item) => {
         const active = isActive(item);

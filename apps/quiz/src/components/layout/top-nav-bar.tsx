@@ -42,7 +42,7 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
           : '1px solid var(--border)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '12px 20px', maxWidth: 1240, margin: '0 auto' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', maxWidth: 1240, margin: '0 auto' }}>
         {/* Verse world wears the KpopVerse mark; Play keeps its logo untouched. */}
         {verse ? <VerseLogo /> : logo}
 
