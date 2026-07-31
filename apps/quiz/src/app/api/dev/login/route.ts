@@ -26,7 +26,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // V-ROLES step 1 - ?as=contributor signs in the SECOND local test account
   // (contributor role, own XP) for two-account journey testing. Same double
   // gate as above; both emails are RFC-2606 non-deliverable and env-driven.
+  // ?as=logout ends the session (for logged-out state testing).
   const who = req.nextUrl.searchParams.get('as');
+  if (who === 'logout') {
+    const supa = await createServerClient();
+    await supa.auth.signOut();
+    return NextResponse.redirect(new URL('/', req.url));
+  }
   const email = who === 'contributor' ? process.env.DEV_LOGIN_CONTRIBUTOR_EMAIL : process.env.DEV_LOGIN_EMAIL;
   if (!email) return new NextResponse(who === 'contributor' ? 'DEV_LOGIN_CONTRIBUTOR_EMAIL is not set' : 'DEV_LOGIN_EMAIL is not set', { status: 500 });
 

@@ -24,7 +24,7 @@ export const TIERS = [
   { name: 'Veteran', min: 300 },
 ] as const;
 
-const CONTRIBUTOR_XP = 100;
+export const CONTRIBUTOR_XP = 100;
 
 export interface SpaceXp { xp: number; role: string; tier: string; nextTier: string | null; xpToNext: number | null; streak: number; }
 

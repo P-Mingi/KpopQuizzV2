@@ -7,6 +7,8 @@ import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { WikiInfobox, WikiBody, TrustFooter, RelatedExits, FanWrittenBadge } from '@/components/verse/pages/wiki-leaf';
 import { LinkPreviews } from '@/components/verse/pages/link-previews';
+import { RoleAffordance } from '@/components/verse/roles/role-affordance';
+import Link from 'next/link';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { wikiArticleLd, breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -112,6 +114,25 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
             <div className="flex flex-wrap items-center gap-3">
               <h1 className="font-extrabold leading-tight" style={{ fontSize: 'var(--v-type-title)', letterSpacing: 'var(--v-tracking-tight)', color: 'var(--verse-ink)' }}>{page.title}</h1>
               {def?.fanWritten ? <FanWrittenBadge /> : null}
+            </div>
+            {/* V-ROLES step 2: the shared affordance truth. Contributors get Edit;
+                everyone else gets the working path (discussion) + the explanation. */}
+            <div className="mt-3">
+              <RoleAffordance
+                groupSlug={space.group.slug}
+                owner={page.created_by}
+                compact
+                edit={
+                  <Link href={`/verse/${space.group.slug}/wiki/${page.slug}/edit`} className="inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-bold no-underline" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>
+                    Edit this page
+                  </Link>
+                }
+                suggest={
+                  <Link href={`/verse/${space.group.slug}/community`} className="inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-semibold text-secondary no-underline" style={{ borderColor: 'var(--verse-line)' }}>
+                    Suggest changes in the discussion
+                  </Link>
+                }
+              />
             </div>
           </header>
 

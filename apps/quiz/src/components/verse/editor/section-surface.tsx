@@ -35,6 +35,9 @@ export function SectionSurface(props: Props): React.ReactElement {
   const [content, setContent] = useState<unknown | null>(props.initialContent);
   const [base, setBase] = useState<number | null>(props.baseRevisionId);
   const [canEdit, setCanEdit] = useState(false);
+  // V-ROLES step 2: the viewer's true state, so the suggest affordance explains
+  // the path at contact (member: real XP distance; visitor: what suggesting is).
+  const [viewer, setViewer] = useState<{ role: string; xpToContributor?: number } | null>(null);
   const [editing, setEditing] = useState(false);
   const [suggesting, setSuggesting] = useState(false);
   const [history, setHistory] = useState(false);
@@ -52,7 +55,10 @@ export function SectionSurface(props: Props): React.ReactElement {
 
   useEffect(() => {
     const q = props.groupSlug ? `?group=${encodeURIComponent(props.groupSlug)}` : '';
-    fetch(`/api/verse/can-edit${q}`).then((r) => r.ok ? r.json() : null).then((d) => setCanEdit(!!d?.canEdit)).catch(() => {});
+    fetch(`/api/verse/can-edit${q}`).then((r) => r.ok ? r.json() : null).then((d) => {
+      setCanEdit(!!d?.canEdit);
+      if (d?.role) setViewer({ role: d.role, xpToContributor: d.xpToContributor });
+    }).catch(() => {});
   }, [props.groupSlug]);
 
   // Hover preview cards for @-mention chips (identify the entity + jump to it).
@@ -89,6 +95,26 @@ export function SectionSurface(props: Props): React.ReactElement {
           ) : null}
         </div>
       </div>
+
+      {/* THE PATH, explained at contact (V-ROLES step 2): a member sees the real
+          XP distance to direct editing; a signed-out visitor learns what
+          suggesting is. Contributors see none of this (they have Edit). */}
+      {!canEdit && !editing && !suggesting && !locked && viewer?.role === 'member' ? (
+        <p className="mb-2 text-[12px] leading-snug text-tertiary">
+          You are <strong className="font-bold text-secondary">{viewer.xpToContributor ?? 100} XP</strong> from the contributor role (create wiki pages):{' '}
+          <a href={`/verse/${props.groupSlug}/quests`} className="font-semibold underline decoration-dotted underline-offset-2 hover:text-secondary">earn XP on the quest board</a>.
+        </p>
+      ) : null}
+      {!canEdit && !editing && !suggesting && !locked && viewer?.role === 'visitor' ? (
+        <p className="mb-2 text-[12px] leading-snug text-tertiary">
+          Suggestions go to the space&rsquo;s curators for review.
+        </p>
+      ) : null}
+      {locked && !canEdit ? (
+        <p className="mb-2 text-[12px] leading-snug text-tertiary">
+          This section is protected{props.lockReason ? <>: <em>{props.lockReason}</em></> : ' by a reviewer'}. Curators can still edit it.
+        </p>
+      ) : null}
 
       {history ? (
         <div className="mb-4"><HistoryPanel entityType={props.entityType} entityId={props.entityId} section={props.section} canEdit={canEdit} onClose={() => setHistory(false)} /></div>
