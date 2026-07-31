@@ -158,10 +158,19 @@ export function splitTipTapForFold(doc: unknown, previewBlocks = 2): FoldSplit {
   const d = doc as Node;
   const blocks = d.content ?? [];
   const totalWords = plainText(d).split(/\s+/).filter(Boolean).length;
-  if (blocks.length <= previewBlocks) return { previewHtml: renderNode(d), restHtml: '', totalWords };
+  const unfolded: FoldSplit = { previewHtml: renderNode(d), restHtml: '', totalWords };
+  if (blocks.length <= previewBlocks) return unfolded;
+  // V-POLISH step 3 (audit item 7): the fold never orphans a heading from its
+  // body; when the boundary lands right after a heading, the cut retreats
+  // before it. And a fold that hides only a block or two is pure friction
+  // (short articles read as emptier than they are): render those whole. The
+  // fold stays for genuinely long pages.
+  let cut = previewBlocks;
+  while (cut > 0 && blocks[cut - 1]?.type === 'heading') cut -= 1;
+  if (cut === 0 || blocks.length - cut <= 2) return unfolded;
   return {
-    previewHtml: renderNode({ ...d, content: blocks.slice(0, previewBlocks) }),
-    restHtml: renderNode({ ...d, content: blocks.slice(previewBlocks) }),
+    previewHtml: renderNode({ ...d, content: blocks.slice(0, cut) }),
+    restHtml: renderNode({ ...d, content: blocks.slice(cut) }),
     totalWords,
   };
 }
