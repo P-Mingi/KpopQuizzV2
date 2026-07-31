@@ -1,6 +1,9 @@
 'use client';
 
 import { useEditor, EditorContent } from '@tiptap/react';
+
+import { templateFor } from '@/lib/verse/section-templates';
+import { FirstEditTour } from './first-edit-tour';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { isConfiguredImageHost } from '@/lib/image-hosts';
@@ -134,6 +137,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
 
   return (
     <div className="rounded-xl border border-default bg-surface" style={{ borderColor: 'var(--verse-line)' }}>
+      <FirstEditTour />
       {/* Restore banner */}
       {restore ? (
         <div className="flex items-center gap-2 border-b border-default px-3 py-2 text-xs" style={{ background: 'var(--verse-soft)' }}>
@@ -142,6 +146,23 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
           <button className="text-tertiary" onClick={() => setRestore(null)}>Discard</button>
         </div>
       ) : null}
+
+      {/* V-EDITOR-MAX: a starter skeleton for the sections fans stall on.
+          Structure only (headings, no prose); offered only while the doc is
+          empty, gone the moment there is content. */}
+      {(() => {
+        const tpl = templateFor(entityType, section);
+        return tpl && editor.isEmpty ? (
+          <div className="flex items-center gap-2 border-b border-default px-3 py-2 text-xs" style={{ borderColor: 'var(--verse-line)' }}>
+            <span className="text-tertiary">Blank page?</span>
+            <button type="button" className="font-bold" style={{ color: 'var(--verse-ink)' }}
+              onClick={() => editor.chain().focus().setContent(tpl.doc as object).run()}>
+              Start from the {tpl.label} skeleton
+            </button>
+            <span className="text-tertiary">(headings only, the words are yours)</span>
+          </div>
+        ) : null;
+      })()}
 
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">

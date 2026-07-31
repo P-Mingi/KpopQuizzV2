@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEditor, EditorContent } from '@tiptap/react';
 
 import { verseEditorExtensions } from '@/components/verse/editor/extensions';
+import { FirstEditTour } from '@/components/verse/editor/first-edit-tour';
 
 import type { PageKindDef, InfoboxFieldDef } from '@/lib/verse/pages/kinds';
 
@@ -129,8 +130,9 @@ export function PageEditor({ page, def, initialBody, canPublish }: {
         <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.08em] text-tertiary" htmlFor="page-title">Title</label>
         <input id="page-title" className={`${inputCls} mb-4 text-lg font-bold`} style={inputStyle} value={title} onChange={(e) => { setTitle(e.target.value); setSaving('idle'); }} />
 
-        <div className="rounded-xl border p-3" style={{ borderColor: 'var(--verse-line)' }}>
-          <EditorContent editor={editor} />
+        <div className="rounded-xl border" style={{ borderColor: 'var(--verse-line)' }}>
+          <FirstEditTour />
+          <div className="p-3"><EditorContent editor={editor} /></div>
         </div>
 
         {errors.length > 0 ? (
