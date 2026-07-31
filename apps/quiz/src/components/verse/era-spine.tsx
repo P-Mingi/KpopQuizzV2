@@ -60,12 +60,13 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
           return (
             <li key={e.id} className="relative mb-6">
               <span className="absolute -left-[31px] top-1 h-3.5 w-3.5 rounded-full" style={{ background: e.color ?? 'var(--verse-accent)', border: '2px solid var(--verse-soft)' }} aria-hidden />
-              <div className={isCurrent ? 'rounded-r-xl border-l-[6px] pl-4' : 'rounded-r-xl border-l-[3px] pl-4'} style={{ borderColor: e.color ?? 'var(--verse-accent)' }}>
-                <div className="flex items-start gap-3">
-                  {e.albums[0]?.mbid ? <CoverArt mbid={e.albums[0].mbid} title={e.albums[0].title} className={isCurrent ? 'mt-0.5 w-16 flex-shrink-0 rounded-lg' : 'mt-0.5 w-11 flex-shrink-0 rounded-md'} /> : null}
+              <div className={isCurrent ? 'rounded-r-xl border-l-[6px] pl-0' : 'rounded-r-xl border-l-[3px] pl-0'} style={{ borderColor: e.color ?? 'var(--verse-accent)' }}>
+                {/* the chapter head on its era's color field: flat, low alpha, no gradient */}
+                <div className="flex items-start gap-3 rounded-r-xl p-3" style={{ background: `color-mix(in srgb, ${e.color ?? 'var(--verse-accent)'} ${isCurrent ? '14%' : '8%'}, transparent)` }}>
+                  {e.albums[0]?.mbid ? <CoverArt mbid={e.albums[0].mbid} title={e.albums[0].title} className={isCurrent ? 'mt-0.5 w-20 flex-shrink-0 rounded-lg' : 'mt-0.5 w-14 flex-shrink-0 rounded-md'} /> : null}
                   <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-tertiary tabular-nums">{chapter}</span>
+                  <span className={isCurrent ? 'text-[13px] font-extrabold uppercase tracking-wider tabular-nums' : 'text-[11px] font-bold uppercase tracking-wider tabular-nums'} style={{ color: e.color ?? 'var(--verse-ink)' }}>{chapter}</span>
                   <span className="text-xs font-semibold tabular-nums text-secondary">{period(e, isCurrent)}</span>
                   <h2 className={isCurrent ? 'text-xl font-extrabold' : 'text-base font-bold'} style={{ color: 'var(--verse-ink)' }}>{e.name}</h2>
                   {isCurrent ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Current chapter</span> : null}
