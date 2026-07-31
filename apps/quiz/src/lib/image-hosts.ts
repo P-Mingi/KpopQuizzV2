@@ -15,6 +15,17 @@ const ALLOWED_HOSTS = [
   'drive.google.com',
   'cdn.discordapp.com',
   'i.ytimg.com',
+  // Cover Art Archive (Internet Archive + MetaBrainz): album covers by
+  // release-group MBID, e.g. coverartarchive.org/release-group/<mbid>/front-500.
+  // Registered through the new-host gate (V-POLISH, owner order 2) after the
+  // CoverArt component initially skipped it. Decision: HOTLINK, not proxy: the
+  // archive exists to serve these URLs, they are stable and unauthenticated,
+  // and proxying would put our origin in the image path for every cover with
+  // no legal or reliability gain. Privacy trade handled at the component with
+  // referrerPolicy="no-referrer". Every img/next-image use of a NEW external
+  // host must register here + next.config.ts BEFORE shipping; plain <img> does
+  // not exempt a host from the gate.
+  'coverartarchive.org',
 ];
 
 const ALLOWED_SUFFIXES = ['.supabase.co'];

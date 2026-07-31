@@ -18,7 +18,7 @@ export function CoverArt({ mbid, title, className }: {
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={`https://coverartarchive.org/release-group/${mbid}/front-500`}
-          alt={`${title} cover art`} loading="lazy"
+          alt={`${title} cover art`} loading="lazy" referrerPolicy="no-referrer"
           className="absolute inset-0 h-full w-full object-cover"
           onError={() => setFailed(true)}
         />

@@ -50,6 +50,12 @@ const nextConfig: NextConfig = {
         hostname: 'i.pinimg.com',
       },
       {
+        // Cover Art Archive covers by MBID (see src/lib/image-hosts.ts for the
+        // gate rationale; keep the two lists in sync).
+        protocol: 'https',
+        hostname: 'coverartarchive.org',
+      },
+      {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
