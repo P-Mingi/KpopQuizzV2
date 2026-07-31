@@ -43,7 +43,8 @@ function FanKnows({ d }: { d: IdolDetail }): React.ReactElement | null {
 
   return (
     <section className="mb-6">
-      <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>What {d.group.fandom_name} know</h2>
+      <h2 className="v-section-title">What {d.group.fandom_name} know</h2>
+      <div className="v-section-rule" aria-hidden />
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {cells.map((c, i) => (
           <div key={i} className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
@@ -93,21 +94,33 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
         </div>
       </header>
 
-      {/* Desktop: sticky infobox left, content right. Mobile: stacked. */}
+      {/* V4 Part 1 item 2 - the reorganization. The rail is STICKY and stays
+          useful the whole scroll: typed facts, the in-group card (positions,
+          unit, debut), the watch action. The content column reads in the
+          ordered arc: identity (header) -> lore -> stats -> games -> siblings
+          -> discussion. No void under the facts, no floating modules. */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <aside className="lg:col-span-1">
-          <InfoboxCard
-            entityType="idol" entityId={String(d.id)}
-            facts={d.facts} editableFields={d.editableFields}
-            suggestSubject={`Verse edit: ${d.name} (${d.group.name})`}
-          />
+          <div className="flex flex-col gap-4 lg:sticky lg:top-[84px]">
+            <InfoboxCard
+              entityType="idol" entityId={String(d.id)}
+              facts={d.facts} editableFields={d.editableFields}
+              suggestSubject={`Verse edit: ${d.name} (${d.group.name})`}
+            />
+            <div className="verse-frame verse-frame-rounded">
+              <h2 className="v-eyebrow">In {d.group.name}</h2>
+              <dl className="flex flex-col gap-2 text-sm">
+                {d.positions.length ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Position</dt><dd className="text-right font-semibold text-primary">{d.positions.join(', ')}</dd></div> : null}
+                {d.unitName ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Unit</dt><dd className="font-semibold text-primary">{d.unitName}</dd></div> : null}
+                {d.group.inception_date ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Debut</dt><dd className="font-semibold tabular-nums text-primary">{d.group.inception_date.slice(0, 4)}</dd></div> : null}
+              </dl>
+              <div className="mt-3"><WatchButton entityType="idol" entityId={String(d.id)} /></div>
+            </div>
+          </div>
         </aside>
 
         <div className="lg:col-span-2">
-          <div className="mb-3 flex justify-end"><WatchButton entityType="idol" entityId={String(d.id)} /></div>
-          <FanKnows d={d} />
-
-          {/* Fan lore section (W3 editor). Renders SSR for crawlers; editable inline by editors. */}
+          {/* 1. LORE: the fan-written identity leads. */}
           <SectionSurface
             entityType="idol" entityId={String(d.id)} section="lore"
             label={`What ${d.group.fandom_name} knows about ${d.name}`}
@@ -116,9 +129,13 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
             emptyInvite={`Fan-written lore and starter facts about ${d.name} live here, credited to their authors.`}
           />
 
+          {/* 2. STATS: what the fandom's play behavior says. */}
+          <FanKnows d={d} />
+
           {/* Games row */}
           <section className="mb-6">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-tertiary">Play {d.group.name}</h2>
+            <h2 className="v-section-title">Play {d.group.name}</h2>
+            <div className="v-section-rule" aria-hidden />
             <div className="flex flex-wrap gap-3">
               <Link href={`/${d.group.slug}-quiz`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Quizzes</Link>
               <Link href={`/games/name-all/${d.group.slug}`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Name them all</Link>
@@ -129,7 +146,8 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
           {/* Related members */}
           {d.bandmates.length ? (
             <section>
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-tertiary">Other members</h2>
+              <h2 className="v-section-title">Other members</h2>
+              <div className="v-section-rule" aria-hidden />
               <div className="flex flex-wrap gap-3">
                 {d.bandmates.map((s) => (
                   <Link key={s.slug} href={`/verse/${slug}/members/${s.slug}`} className="group w-16 shrink-0 no-underline">

@@ -18,7 +18,7 @@ export interface IdolFanStats {
   nameRounds: number;                  // group's total name-all rounds (for the "from N rounds" label)
 }
 export interface IdolDetail {
-  group: { id: number; name: string; slug: string; fandom_name: string; display_color: string | null; text_color: string | null; logo_url: string | null };
+  group: { id: number; name: string; slug: string; fandom_name: string; display_color: string | null; text_color: string | null; logo_url: string | null; inception_date: string | null };
   id: number; name: string; name_hangul: string | null; name_romanized: string | null;
   positions: string[]; photo_url: string | null; birth_date: string | null; unitName: string | null;
   facts: IdolFact[];
@@ -42,7 +42,7 @@ export async function getIdol(groupSlug: string, idolSlugParam: string): Promise
   const db = createPublicReadClient();
   const { data: group } = await db
     .from('groups')
-    .select('id, name, slug, fandom_name, display_color, text_color, logo_url')
+    .select('id, name, slug, fandom_name, display_color, text_color, logo_url, inception_date')
     .eq('slug', groupSlug).maybeSingle();
   if (!group) return null;
 
