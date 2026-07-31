@@ -91,6 +91,11 @@ export interface Presentation {
   // words). The split-to-sub-page option arrives with V-PAGES and is deliberately
   // NOT represented here until it is real.
   textFolds?: Record<string, 'inline' | 'folded'>;
+  // V-PAGES: which page kinds this space's creator UI offers. Absent -> the
+  // registry's default set. Ids are validated as shape here and resolved against
+  // the kind registry at read (config can never invent a kind). Template bundles
+  // write this (Encyclopedia enables all kinds).
+  enabledKinds?: string[];
 }
 
 /** The empty presentation: absent config resolves to this, which the renderer maps

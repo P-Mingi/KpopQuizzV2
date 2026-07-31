@@ -259,6 +259,21 @@ export function validatePresentation(raw: unknown): ValidationResult {
     }
   }
 
+  // V-PAGES: enabled kind ids. Shape-validated here (slug-like, deduped, capped);
+  // resolved against the kind registry at READ (kindsForSpace ignores unknown
+  // ids), keeping this validator decoupled from the kinds config.
+  let enabledKinds: string[] | undefined;
+  if (c.enabledKinds != null) {
+    if (!Array.isArray(c.enabledKinds)) errors.push('enabledKinds must be a list of kind ids.');
+    else if (c.enabledKinds.length > 30) errors.push('Too many enabled kinds (max 30).');
+    else {
+      const ids = [...new Set(c.enabledKinds.map((k) => String(k ?? '').trim()))].filter((k) => k.length > 0);
+      const bad = ids.find((k) => !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(k) || k.length > 40);
+      if (bad !== undefined) errors.push(`Invalid kind id "${bad}".`);
+      else enabledKinds = ids;
+    }
+  }
+
   if (errors.length) return { ok: false, errors };
 
   const value: Presentation = { version: PRESENTATION_VERSION };
@@ -275,5 +290,6 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (comebackMode) value.comebackMode = comebackMode;
   if (celebrations !== undefined) value.celebrations = celebrations;
   if (textFolds) value.textFolds = textFolds;
+  if (enabledKinds) value.enabledKinds = enabledKinds;
   return { ok: true, value, errors: [] };
 }
