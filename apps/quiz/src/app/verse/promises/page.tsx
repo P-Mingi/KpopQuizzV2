@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function VersePromisesPage(): React.ReactElement {
   return (
-    <div className="verse-scope" style={{ maxWidth: 640, margin: '0 auto', padding: '48px 4px 120px' }}>
+    <div className="verse-page verse-scope" style={{ maxWidth: 640, margin: '0 auto', padding: '48px 4px 120px' }}>
       <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--verse-brand-text)' }}>KpopVerse · the covenant</p>
       <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em', margin: '8px 0 16px', color: 'var(--text-primary)' }}>Our promises</h1>
       <p style={{ maxWidth: '60ch', fontSize: '1.0625rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>

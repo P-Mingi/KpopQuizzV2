@@ -94,7 +94,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
   };
 
   return (
-    <div className="verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-8 sm:py-12">
+    <div className="verse-page verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-8 sm:py-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* 1. HERO - identity moment + search-first */}

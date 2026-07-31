@@ -4942,11 +4942,14 @@ a.ranking-cta { text-decoration: none; }
 }
 
 /* Verse breaks the shared 720px reading column into the wide magazine canvas, but
-   ONLY on Verse pages (a main that contains a .verse-scope). Play pages have no
-   verse-scope so this never matches them: their 720px column is byte-untouched.
+   ONLY on Verse PAGES: the marker is .verse-page, set exclusively on Verse page
+   roots (the [slug] layout container, V-HOME, promises, the Verse 404). A Verse
+   WIDGET embedded on a Play page carries .verse-scope for its tokens but never
+   .verse-page, so Play's 720px column stays byte-identical (the owner law:
+   the wide canvas is Verse-only, never the quiz side).
    Literal width (the --v-canvas token lives on .verse-scope, a child main cannot
    inherit up). Specificity (0,1,1) beats the Tailwind max-w-[720px] utility. */
-main:has(.verse-scope) { max-width: 1360px; }
+main:has(.verse-page) { max-width: 1360px; }
 /* Dark mode: lighten the ink toward the light text so it stays legible on dark. */
 .dark .verse-scope {
   --verse-ink: color-mix(in srgb, var(--verse-accent) 68%, #f5f3ef);
