@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
 import { SpaceTabs } from '@/components/verse/space-tabs';
+import { BuildModeProvider, BuildModeToggle } from '@/components/verse/build-mode';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
 import { photocardCount } from '@/lib/verse/photocards';
@@ -85,11 +86,13 @@ export default async function SpaceLayout({
 
   return (
     <div className="verse-page verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-6 sm:py-8" data-preset={space.presentation.preset ?? undefined} style={presentationScopeStyle(space)}>
-      <HeroShell><SpaceHero space={space} /></HeroShell>
-      <div className="mt-6">
-        <SpaceTabs slug={slug} tabs={tabs} />
-        {children}
-      </div>
+      <BuildModeProvider groupId={space.group.id} slug={slug}>
+        <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
+        <div className="mt-6">
+          <SpaceTabs slug={slug} tabs={tabs} />
+          {children}
+        </div>
+      </BuildModeProvider>
     </div>
   );
 }

@@ -18,7 +18,7 @@ import type { Space } from '@/lib/verse/space';
  * Fandom name owns the H1; group slug owns the URL. Est. year falls back to debut
  * year. War-rank chip stays gated OFF until the war map is wired (hides unranked).
  */
-export function SpaceHero({ space }: { space: Space }): React.ReactElement {
+export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: React.ReactNode }): React.ReactElement {
   const { group, config, idols, comeback, counts } = space;
   const today = new Date();
   const estYear = config.est_year ?? (group.inception_date ? Number(group.inception_date.slice(0, 4)) : null);
@@ -86,6 +86,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
 
         <div className="verse-hero-actions flex flex-wrap items-center gap-x-4 gap-y-3">
           <JoinButton groupId={group.id} groupSlug={group.slug} fandomName={group.fandom_name} />
+          {buildToggle}
           <CurateLink groupSlug={group.slug} />
           {config.sns_links.length > 0 ? (
             <span className="verse-hero-sns ml-auto flex flex-wrap items-center gap-x-4 gap-y-1">
