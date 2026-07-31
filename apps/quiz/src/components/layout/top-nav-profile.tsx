@@ -51,10 +51,11 @@ export function TopNavProfile(): React.ReactElement {
     return (
       <Link href="/login" style={{
         display: 'inline-flex', alignItems: 'center', gap: 6,
-        padding: '8px 14px', borderRadius: 10,
+        padding: '7px 18px', borderRadius: 10,
         background: 'transparent', border: '1px solid var(--border)',
         color: 'var(--text-primary)', textDecoration: 'none',
         fontSize: 13, fontWeight: 600,
+        whiteSpace: 'nowrap', flexShrink: 0,
       }}>Sign in</Link>
     );
   }
