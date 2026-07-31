@@ -166,6 +166,24 @@ console.log('gate 11: REQUIREMENT 1 planners (create claims the URL, rename neve
     'rename deletes any alias at the NEW slug (nothing shadows the live URL)');
 }
 
+console.log('gate 12: ONE anchor rule (internal same-tab no-nofollow, external cite)');
+{
+  const { renderTipTapJSON } = await import('../src/lib/verse/render-content');
+  const doc = {
+    type: 'doc',
+    content: [{ type: 'paragraph', content: [
+      { type: 'text', text: 'in', marks: [{ type: 'link', attrs: { href: '/verse/bts/wiki/army-bomb' } }] },
+      { type: 'text', text: 'own', marks: [{ type: 'link', attrs: { href: 'https://kpopquiz.org/verse/bts' } }] },
+      { type: 'text', text: 'out', marks: [{ type: 'link', attrs: { href: 'https://www.soompi.com/article/x' } }] },
+    ] }],
+  };
+  const html = renderTipTapJSON(doc);
+  ok(/class="verse-link"[^>]*>in|href="\/verse\/bts\/wiki\/army-bomb" class="verse-link"/.test(html), 'site-relative link renders verse-link, same tab', html);
+  ok(!/army-bomb"[^>]*(target|nofollow)/.test(html), 'internal link carries no target and no nofollow');
+  ok(/href="\/verse\/bts" class="verse-link"/.test(html), 'own-origin absolute URL is internalized to a relative same-tab link');
+  ok(/soompi[^>]*class="verse-cite" rel="nofollow noopener" target="_blank"/.test(html), 'external link stays a new-tab nofollow citation');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);
 console.log('V-PAGES gates hold.');

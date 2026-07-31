@@ -24,6 +24,12 @@ function safeHref(href: unknown): string | null {
   return null;
 }
 
+// V-ROLES-CLEAR step 0 (the V-PAGES debt): ONE anchor rule for all rendered
+// prose. INTERNAL links (site-relative, or our own origin) stay in the tab and
+// carry no nofollow (the rabbit hole must flow, and so must internal SEO);
+// EXTERNAL links are citations: new tab, nofollow noopener, verse-cite styling.
+const OWN_ORIGIN = /^https?:\/\/(www\.)?kpopquiz\.org/i;
+
 function renderText(n: Node): string {
   let html = esc(n.text ?? '');
   for (const m of n.marks ?? []) {
@@ -31,7 +37,12 @@ function renderText(n: Node): string {
     else if (m.type === 'italic') html = `<em>${html}</em>`;
     else if (m.type === 'link') {
       const href = safeHref(m.attrs?.href);
-      if (href) html = `<a href="${esc(href)}" class="verse-cite" rel="nofollow noopener" target="_blank">${html}</a>`;
+      if (href) {
+        const internalPath = href.startsWith('/') ? href : (OWN_ORIGIN.test(href) ? href.replace(OWN_ORIGIN, '') || '/' : null);
+        html = internalPath !== null
+          ? `<a href="${esc(internalPath)}" class="verse-link">${html}</a>`
+          : `<a href="${esc(href)}" class="verse-cite" rel="nofollow noopener" target="_blank">${html}</a>`;
+      }
     }
     // other marks are dropped by allowlist
   }

@@ -4988,6 +4988,10 @@ main:has(.verse-scope) { max-width: 1360px; }
 .verse-mention { color: var(--verse-ink, var(--brand)); font-weight: 600; text-decoration: none; background: var(--verse-soft); border-radius: 5px; padding: 0 4px; }
 .verse-mention:hover { background: var(--verse-soft-strong); }
 .verse-cite { color: var(--verse-ink, var(--brand)); text-decoration: underline; text-underline-offset: 2px; }
+/* Internal prose links (same tab, no nofollow): quieter than a citation, louder
+   than body text; distinct from the chip treatment of mentions. */
+.verse-link { color: var(--verse-ink, var(--brand)); font-weight: 600; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--verse-ink, var(--brand)) 40%, transparent); text-underline-offset: 2px; }
+.verse-link:hover { text-decoration-color: currentColor; }
 /* @-mention picker popup (positioned on document.body). */
 .verse-mention-pop { min-width: 240px; max-width: 340px; max-height: 260px; overflow-y: auto; border-radius: 10px; border: 1px solid var(--verse-line, var(--border)); background: var(--surface); box-shadow: 0 12px 32px -12px rgba(0,0,0,0.35); }
 
