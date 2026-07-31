@@ -31,8 +31,19 @@ const SHEET_GROUPS: { label: string; segs: string[] }[] = [
   { label: 'The community', segs: ['quests', 'essays', 'community'] },
 ];
 
-export function SpaceTabs({ slug, tabs }: { slug: string; tabs: SpaceTab[] }): React.ReactElement {
+export function SpaceTabs({ slug, tabs: tabsProp }: { slug: string; tabs: SpaceTab[] }): React.ReactElement {
   const pathname = usePathname();
+  // V4 locked decision (Q1): Quests is builder surface, not reader nav. The
+  // default render EXCLUDES it (readers, crawlers, first paint); a signed-in
+  // check re-adds it until V-MODES moves it behind the Build toggle.
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    fetch('/api/auth/me', { credentials: 'include' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setSignedIn(!!d?.profile))
+      .catch(() => {});
+  }, []);
+  const tabs = signedIn ? tabsProp : tabsProp.filter((t) => t.seg !== 'quests');
   const base = `/verse/${slug}`;
   const rest = pathname.startsWith(base) ? pathname.slice(base.length).replace(/^\//, '') : '';
   const activeSeg = rest.split('/')[0] ?? '';

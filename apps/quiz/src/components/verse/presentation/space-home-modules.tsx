@@ -15,17 +15,18 @@ import type { Space } from '@/lib/verse/space';
 // A section is an h2 eyebrow (kept as a real heading for SEO) + content, spaced by
 // the section rhythm. An optional quiet action sits on the header line (right),
 // giving a boxed module a structured header instead of a floating label.
+/* V-POLISH-2 iteration (V4 Part 1 item 1): main sections carry DISPLAY titles
+   with the accent-rule motif (the vitals band's signature echoed); rail
+   modules keep small eyebrows. The size CONTRAST is the hierarchy the
+   walkthrough said was missing. */
 function Section({ title, action, children }: { title: string; action?: { label: string; href: string }; children: React.ReactNode }): React.ReactElement {
   return (
     <section className="v-module">
-      {action ? (
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 className="v-eyebrow">{title}</h2>
-          <Link href={action.href} className="v-eyebrow no-underline transition-colors hover:text-primary" style={{ letterSpacing: '0.08em' }}>{action.label}</Link>
-        </div>
-      ) : (
-        <h2 className="v-eyebrow">{title}</h2>
-      )}
+      <div className="flex items-end justify-between gap-3">
+        <h2 className="v-section-title">{title}</h2>
+        {action ? <Link href={action.href} className="v-eyebrow whitespace-nowrap pb-1 no-underline transition-colors hover:text-primary" style={{ letterSpacing: '0.08em' }}>{action.label}</Link> : null}
+      </div>
+      <div className="v-section-rule" aria-hidden />
       {children}
     </section>
   );

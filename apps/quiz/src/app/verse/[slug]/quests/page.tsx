@@ -11,7 +11,8 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const space = await getSpace(slug);
-  if (!space) return { title: 'Quests' };
+  if (!space) return {
+    robots: { index: false, follow: true }, title: 'Quests' };
   return {
     title: `Help build the ${space.group.name} space`,
     description: `Open ways to help write ${space.group.name}'s story on Verse: era stories, member lore and more, with contributor XP.`,

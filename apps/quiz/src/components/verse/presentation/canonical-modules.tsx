@@ -105,7 +105,8 @@ export async function StoryModule({ space }: ModuleProps): Promise<React.ReactEl
   };
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">The story so far</h2>
+      <h2 className="v-section-title">The story so far</h2>
+      <div className="v-section-rule" aria-hidden />
       <ol className="space-y-4" style={{ maxWidth: 'var(--v-measure)' }}>
         {shown.map((e, i) => {
           const isCurrent = i === currentIdx;
@@ -156,7 +157,8 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
   if (targets.length === 0) return null;
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">Go deeper</h2>
+      <h2 className="v-section-title">Go deeper</h2>
+      <div className="v-section-rule" aria-hidden />
       <div className="v-grid-cards">
         {targets.map((t) => (
           <Link key={t.href} href={t.href} className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
@@ -184,7 +186,8 @@ export async function CollectionsModule({ space }: ModuleProps): Promise<React.R
   const thumbs = cards.filter((c) => c.image_url).slice(0, 5);
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">Collections</h2>
+      <h2 className="v-section-title">Collections</h2>
+      <div className="v-section-rule" aria-hidden />
       {thumbs.length > 0 ? (
         <div className="flex gap-2.5">
           {thumbs.map((c) => (
@@ -243,7 +246,8 @@ export async function CommunityModule({ space }: ModuleProps): Promise<React.Rea
   const latest = [...discussions].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 2);
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">Community</h2>
+      <h2 className="v-section-title">Community</h2>
+      <div className="v-section-rule" aria-hidden />
       {members > 0 ? (
         <p className="text-sm text-secondary">{members} {space.group.fandom_name} member{members === 1 ? '' : 's'} on this space.</p>
       ) : null}

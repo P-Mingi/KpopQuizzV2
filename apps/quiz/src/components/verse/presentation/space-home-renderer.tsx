@@ -38,7 +38,9 @@ function Stack({ placements, space, frameDefault, divider }: {
       {placements.map((m, i) => {
         const R = ALL_MODULES[m.type];
         if (!R) return null;
-        const frame = (m.frame ?? (OPEN_BY_DEFAULT.has(m.type) ? 'none' : frameDefault)) as FrameStyle;
+        let frame = (m.frame ?? (OPEN_BY_DEFAULT.has(m.type) ? 'none' : frameDefault)) as FrameStyle;
+        // the rhythm: even visible modules boxed, odd open (per-module picks win)
+        if (frame === 'alternate') frame = (m.frame ? 'rounded' : (i % 2 === 0 ? 'rounded' : 'none'));
         const showDivider = i > 0 && divider !== 'none' && divider !== 'line';
         const hasSeam = i > 0 && (space.presentation.stickers ?? []).some((s) => s.slot === 'seam' && (s.anchorIndex ?? 0) === i);
         // Bare render when there is no frame, divider, or seam sticker - byte-identical
@@ -75,8 +77,12 @@ export function SpaceHomeRenderer({ space, presentation, backlinks }: {
   // customizable - change its radius/colour, drop its background ('outline'), or
   // remove it entirely ('none').
   const configuredDefault = presentation?.frames?.default;
-  const mainFrameDefault = (configuredDefault ?? 'rounded') as FrameStyle;
-  const sideFrameDefault = (configuredDefault ?? 'rounded') as FrameStyle;
+  // V4 Part 1 item 1: the DEFAULT main-column rhythm alternates (boxed, open,
+  // boxed...) so the home stops reading as a stack of same-weight cards. The
+  // rail stays uniformly boxed (its quietness IS the contrast). Curators
+  // override via the same Frame select as ever.
+  const mainFrameDefault = (configuredDefault ?? 'alternate') as FrameStyle;
+  const sideFrameDefault = ((configuredDefault === 'alternate' ? 'rounded' : configuredDefault) ?? 'rounded') as FrameStyle;
   const divider = presentation?.frames?.divider ?? 'line';
 
   return (

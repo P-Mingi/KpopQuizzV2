@@ -9,8 +9,10 @@ export type Zone = 'main' | 'side';
 // A module's box. 'rounded' = filled soft-surface card (box WITH background);
 // 'outline' = the same box with NO fill, just a hairline (box background off);
 // 'none' = no box. sharp / soft-shadow / sticker-border are richer curator skins.
-export type FrameStyle = 'none' | 'rounded' | 'outline' | 'sharp' | 'sticker-border' | 'soft-shadow';
-export const FRAME_STYLES: FrameStyle[] = ['none', 'rounded', 'outline', 'sharp', 'sticker-border', 'soft-shadow'];
+export type FrameStyle = 'none' | 'rounded' | 'outline' | 'sharp' | 'sticker-border' | 'soft-shadow' | 'alternate';
+// 'alternate' is a DEFAULT-level rhythm (even modules boxed, odd open); per
+// module it degrades to 'rounded'.
+export const FRAME_STYLES: FrameStyle[] = ['none', 'rounded', 'outline', 'sharp', 'sticker-border', 'soft-shadow', 'alternate'];
 
 export interface BlockDef {
   type: string;              // stable config id

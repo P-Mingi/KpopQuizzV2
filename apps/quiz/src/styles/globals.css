@@ -5093,6 +5093,10 @@ main:has(.verse-page) { max-width: 1360px; }
 .verse-tile:hover { transform: translateY(-3px); border-color: var(--verse-line); box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--verse-accent) 45%, transparent); }
 @media (prefers-reduced-motion: reduce) { .verse-tile { transition: border-color 200ms ease; } .verse-tile:hover { transform: none; } }
 
+/* V-POLISH-2 iteration - the section hierarchy (V4 Part 1 item 1) */
+.v-section-title { font-size: clamp(1.3rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: var(--v-tracking-tight); color: var(--verse-ink); line-height: 1.15; }
+.v-section-rule { height: 2px; width: 40px; background: var(--verse-cta, var(--verse-accent)); margin: 0.55rem 0 1.05rem; }
+
 /* V-POLISH-2 step 4 additions */
 /* C6c: the squeeze band (sm..900px) shows icon-only nav instead of clipping
    "Community" to "Comm" mid-word. */
