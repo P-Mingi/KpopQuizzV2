@@ -20,6 +20,8 @@ interface Props {
   lockReason: string | null;
   emptyInvite: string;
   groupSlug?: string;
+  /** 'title' renders the main-module hierarchy (v-section-title + rule); default 'eyebrow'. */
+  titleStyle?: 'eyebrow' | 'title';
   /** V-TEXT: 'auto' folds long prose (past ~300 words), 'folded' always folds,
    * 'inline' never folds. The fold is a native details: full text stays in the
    * served HTML and expands without JS. */
@@ -79,7 +81,9 @@ export function SectionSurface(props: Props): React.ReactElement {
   return (
     <section ref={lensRef as React.RefObject<HTMLElement>} className="mb-6" id={`section-${props.section}`}>
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>
+        {props.titleStyle === 'title'
+          ? <div className="min-w-0"><h2 className="v-section-title">{props.label}</h2><div className="v-section-rule" aria-hidden /></div>
+          : <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>}
         <div className="flex items-center gap-2">
           {locked ? <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title={props.lockReason ?? 'Protected by a reviewer'}>
             <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>Locked

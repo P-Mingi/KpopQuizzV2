@@ -28,9 +28,12 @@ interface SongRow {
 
 async function loadSong(groupId: number, id: string): Promise<SongRow | null> {
   const db = createPublicReadClient();
-  const { data } = await db.from('songs')
+  const { data, error } = await db.from('songs')
     .select('id, title, artist_name, album_name, album_cover_medium, album_cover_big, duration, year, language, group_id')
     .eq('id', id).eq('group_id', groupId).maybeSingle();
+  // ISR bake law: this row IS the page. On a query error, throw (500, retried);
+  // returning null here would bake a 404 for a real song URL for an hour.
+  if (error) throw new Error(`loadSong(${id}): ${error.message}`);
   return (data as SongRow | null) ?? null;
 }
 

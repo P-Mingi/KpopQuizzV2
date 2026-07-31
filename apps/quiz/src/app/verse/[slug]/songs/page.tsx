@@ -28,11 +28,13 @@ async function loadTracks(albumIds: number[]): Promise<{ album_id: number; posit
   const out: { album_id: number; position: number; title: string; song_id: string | null }[] = [];
   // The .select() 1000-row cap is real (recorded law): page with .range until short.
   for (let page = 0; page < 5; page++) {
-    const { data } = await db.from('album_tracks')
+    const { data, error } = await db.from('album_tracks')
       .select('album_id, position, title, song_id')
       .in('album_id', albumIds)
       .order('album_id').order('position')
       .range(page * 1000, page * 1000 + 999);
+    // ISR bake law: the tracklist IS the deck page; throw instead of baking empty.
+    if (error) throw new Error(`loadTracks page ${page}: ${error.message}`);
     const rows = (data ?? []) as { album_id: number; position: number; title: string; song_id: string | null }[];
     out.push(...rows);
     if (rows.length < 1000) break;

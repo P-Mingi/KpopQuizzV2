@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { SourceChip } from '@/components/verse/source-chip';
+import { PageGrammar } from '@/components/verse/page-grammar';
 import { getSpace } from '@/lib/verse/space';
 import { getScene } from '@/lib/verse/entities';
 
@@ -36,7 +37,7 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
   const years = [...byYear.keys()].sort((a, b) => b - a);
 
   const wins = rows.filter((r) => r.result === 'won').length;
-  const noms = rows.filter((r) => r.result !== 'won').length;
+  const noms = rows.filter((r) => r.result === 'nominated').length;
   const datedYears = years.filter((y) => y !== 0);
   const since = datedYears.length ? Math.min(...datedYears) : null;
 
@@ -52,6 +53,8 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
 
   return (
     <div>
+      <PageGrammar kicker="Awards" title="The record"
+        dek={`Awards and nominations for ${space.group.name}, every line sourced. Fans and curators keep it current.`} />
       {/* The record, in one band: oversized counts in the vitals-band spirit. */}
       <div className="mb-7 flex flex-wrap items-end gap-x-8 gap-y-3 rounded-xl px-5 py-4" style={{ background: 'var(--verse-soft)' }}>
         <div>
@@ -62,13 +65,18 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
           <p className="text-[2.1rem] font-extrabold leading-none tabular-nums text-secondary">{noms}</p>
           <p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-tertiary">Nominations</p>
         </div>
-        <p className="mb-1 ml-auto max-w-[26ch] text-xs leading-relaxed text-tertiary">{since ? `The record since ${since}, ` : 'The record, '}every line sourced. Fans and curators keep it current.</p>
+        {since ? (
+          <div>
+            <p className="text-[2.1rem] font-extrabold leading-none tabular-nums text-secondary">{since}</p>
+            <p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-tertiary">Since</p>
+          </div>
+        ) : null}
       </div>
 
       <div className="space-y-9">
         {years.map((y) => (
           <section key={y}>
-            <h2 className="text-[1.7rem] font-extrabold leading-none tabular-nums" style={{ color: 'var(--verse-ink)' }}>{y === 0 ? 'Year unconfirmed' : y}</h2>
+            <h2 className="v-section-title tabular-nums">{y === 0 ? 'Year unconfirmed' : y}</h2>
             <div className="v-section-rule" aria-hidden />
             <ul className="max-w-[66ch] space-y-2">
               {byYear.get(y)!.map((r) => (

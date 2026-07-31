@@ -410,6 +410,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const s = gslug(a.groups);
       if (s) push(`/verse/${s}/albums/${verseSlugify(a.title)}`, 0.5, 'monthly');
     }
+    // V4: the song deck ships per space with albums (same gate as the tab), and
+    // every track is a page. Awards enters only where rows exist (no empty pages).
+    for (const a of (albums ?? []) as { groups: unknown }[]) {
+      const s = gslug(a.groups);
+      if (s) push(`/verse/${s}/songs`, 0.5, 'weekly');
+    }
+    const { data: awardGroups } = await svc.from('awards').select('groups(slug)');
+    for (const a of (awardGroups ?? []) as { groups: unknown }[]) {
+      const s = gslug(a.groups);
+      if (s) push(`/verse/${s}/awards`, 0.5, 'monthly');
+    }
+    // Song pages: paginate past the 1000-row cap (recorded law).
+    for (let pg = 0; pg < 20; pg++) {
+      const { data: songRows } = await svc.from('songs').select('id, groups(slug)').order('id').range(pg * 1000, pg * 1000 + 999);
+      const rows = (songRows ?? []) as { id: string; groups: unknown }[];
+      for (const r of rows) {
+        const s = gslug(r.groups);
+        if (s) push(`/verse/${s}/songs/${r.id}`, 0.4, 'monthly');
+      }
+      if (rows.length < 1000) break;
+    }
     // V-PAGES: wiki pages enter the sitemap ONLY at published + non-stub (the
     // thin-page protection; stubs are also robots-noindexed at the leaf).
     const { data: wikiPages } = await svc.from('verse_pages')

@@ -125,7 +125,7 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
             entityType="idol" entityId={String(d.id)} section="lore"
             label={`What ${d.group.fandom_name} knows about ${d.name}`}
             initialHtml={loreHtml} initialContent={lore.content} baseRevisionId={lore.currentRevisionId}
-            locked={lore.locked} lockReason={lore.lockReason} groupSlug={slug}
+            locked={lore.locked} lockReason={lore.lockReason} groupSlug={slug} titleStyle="title"
             emptyInvite={`Fan-written lore and starter facts about ${d.name} live here, credited to their authors.`}
           />
 

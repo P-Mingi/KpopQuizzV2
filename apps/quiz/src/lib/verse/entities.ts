@@ -25,7 +25,10 @@ export const sceneCounts = cache(async (groupId: number): Promise<Record<SceneKi
 export async function getScene(kind: SceneKind, groupId: number): Promise<SceneRow[]> {
   const s = SCENES[kind];
   const db = createPublicReadClient();
-  const { data } = await db.from(s.table).select('*').eq('group_id', groupId).order('created_at', { ascending: false });
+  const { data, error } = await db.from(s.table).select('*').eq('group_id', groupId).order('created_at', { ascending: false });
+  // ISR bake law: this list IS the scene page. A swallowed error would bake the
+  // empty state for an hour; throw so the request 500s and retries instead.
+  if (error) throw new Error(`getScene(${kind}, ${groupId}): ${error.message}`);
   return (data ?? []) as SceneRow[];
 }
 

@@ -66,7 +66,7 @@ export function EraSpine({ eras, groupSlug, debut }: Props): React.ReactElement 
                   {e.albums[0]?.mbid ? <CoverArt mbid={e.albums[0].mbid} title={e.albums[0].title} className={isCurrent ? 'mt-0.5 w-20 flex-shrink-0 rounded-lg' : 'mt-0.5 w-14 flex-shrink-0 rounded-md'} /> : null}
                   <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className={isCurrent ? 'text-[13px] font-extrabold uppercase tracking-wider tabular-nums' : 'text-[11px] font-bold uppercase tracking-wider tabular-nums'} style={{ color: e.color ?? 'var(--verse-ink)' }}>{chapter}</span>
+                  <span className={isCurrent ? 'text-[13px] font-extrabold uppercase tracking-wider tabular-nums' : 'text-[11px] font-bold uppercase tracking-wider tabular-nums'} style={{ color: e.color ? `color-mix(in srgb, ${e.color} 55%, var(--verse-ink))` : 'var(--verse-ink)' }}>{chapter}</span>
                   <span className="text-xs font-semibold tabular-nums text-secondary">{period(e, isCurrent)}</span>
                   <h2 className={isCurrent ? 'text-xl font-extrabold' : 'text-base font-bold'} style={{ color: 'var(--verse-ink)' }}>{e.name}</h2>
                   {isCurrent ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Current chapter</span> : null}

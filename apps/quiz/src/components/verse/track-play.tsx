@@ -68,7 +68,7 @@ export function TrackPlay({ youtubeId, start = 0, curatedUrl, title, size = 'row
           className="absolute inset-0 h-full w-full border-0"
         />
       </span>
-      <button type="button" onClick={close} className="mt-1 text-[11px] font-semibold text-tertiary hover:text-secondary">Close player</button>
+      <button type="button" onClick={close} className="v-tap mt-1 inline-flex items-center text-[11px] font-semibold text-tertiary hover:text-secondary">Close player</button>
     </span>
   );
 }
