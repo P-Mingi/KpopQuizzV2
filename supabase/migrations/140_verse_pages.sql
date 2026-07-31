@@ -32,6 +32,24 @@
 --   - is_stub is computed by the quality engine at save/publish and stored so
 --     the sitemap query (published AND NOT stub) stays one cheap index scan.
 --   - No updated_at trigger: the app sets it, matching the 127 rails.
+--
+-- CONSTRAINT-SUPERSET PROOF (2026-07-31): the section-4 lists were verified as
+-- strict supersets of everything prod holds or the app writes:
+--   * prod verse_content rows: 0 (dumped via service role; nothing to violate)
+--   * repo history: only 127 (create) + 130 (widen) ever touched these checks;
+--     the lists below are exactly 130's entity_type set + 'page' and 127's
+--     section_key set + 'body'
+--   * app writers: every saveSection/getSection key is within the 127/130 sets;
+--     entity_type 'space_presentation' writes go to verse_revisions (free text,
+--     unconstrained), never verse_content
+-- PREFLIGHT (optional eyeball against out-of-band drift): run this first and
+-- confirm the two CHECKs match the 127/130 lists referenced above:
+--   SELECT conname, pg_get_constraintdef(oid) FROM pg_constraint
+--   WHERE conrelid = 'public.verse_content'::regclass AND contype = 'c';
+-- The whole migration is one transaction: if any ADD CONSTRAINT failed, the
+-- matching DROP rolls back with it and prod is never left constraint-less.
+
+BEGIN;
 
 -- ---------------------------------------------------------------------------
 -- 1. verse_pages - metadata + infobox (body on the verse_content rails)
@@ -119,3 +137,5 @@ ALTER TABLE public.verse_content ADD CONSTRAINT verse_content_entity_type_check
 ALTER TABLE public.verse_content DROP CONSTRAINT IF EXISTS verse_content_section_key_check;
 ALTER TABLE public.verse_content ADD CONSTRAINT verse_content_section_key_check
   CHECK (section_key IN ('overview', 'lore', 'starter_pack', 'fanchants', 'glossary', 'trivia', 'era_story', 'about', 'body'));
+
+COMMIT;
