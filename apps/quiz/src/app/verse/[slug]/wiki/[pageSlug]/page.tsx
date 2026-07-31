@@ -123,12 +123,12 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
                 owner={page.created_by}
                 compact
                 edit={
-                  <Link href={`/verse/${space.group.slug}/wiki/${page.slug}/edit`} className="inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-bold no-underline" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>
+                  <Link href={`/verse/${space.group.slug}/wiki/${page.slug}/edit`} className="v-tap inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-bold no-underline" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>
                     Edit this page
                   </Link>
                 }
                 suggest={
-                  <Link href={`/verse/${space.group.slug}/community`} className="inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-semibold text-secondary no-underline" style={{ borderColor: 'var(--verse-line)' }}>
+                  <Link href={`/verse/${space.group.slug}/community`} className="v-tap inline-flex min-h-[36px] items-center rounded-full border px-4 text-xs font-semibold text-secondary no-underline" style={{ borderColor: 'var(--verse-line)' }}>
                     Suggest changes in the discussion
                   </Link>
                 }

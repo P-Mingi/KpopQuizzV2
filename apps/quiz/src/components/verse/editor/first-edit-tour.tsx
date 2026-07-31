@@ -33,6 +33,11 @@ export function FirstEditTour(): React.ReactElement | null {
   function done(): void {
     try { localStorage.setItem(KEY, '1'); } catch { /* ignore */ }
     setStep(null);
+    // The strip unmounts with focus possibly on its buttons; hand focus to the
+    // editor so keyboard users are not dropped to <body>.
+    requestAnimationFrame(() => {
+      (document.querySelector('.ProseMirror') as HTMLElement | null)?.focus();
+    });
   }
 
   if (step === null) return null;
@@ -40,22 +45,22 @@ export function FirstEditTour(): React.ReactElement | null {
   const last = step === STEPS.length - 1;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b px-3 py-2" role="region" aria-label={`Editor tip ${step + 1} of ${STEPS.length}`}
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b px-3 py-2" role="region" aria-live="polite" aria-label={`Editor tip ${step + 1} of ${STEPS.length}`}
       style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
       <span className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-tertiary">Tip {step + 1}/{STEPS.length}</span>
       <span className="text-xs font-bold" style={{ color: 'var(--verse-ink)' }}>{s.title}</span>
       <span className="min-w-0 flex-1 text-xs text-secondary">{s.body}</span>
       <span className="flex items-center gap-1.5">
         {!last ? (
-          <button type="button" onClick={() => setStep(step + 1)} className="rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+          <button type="button" onClick={() => setStep(step + 1)} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
             Next
           </button>
         ) : (
-          <button type="button" onClick={done} className="rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
+          <button type="button" onClick={done} className="v-tap rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: 'var(--verse-accent, #7c5cfc)' }}>
             Got it
           </button>
         )}
-        <button type="button" onClick={done} className="rounded-full px-2 py-1 text-[11px] font-semibold text-tertiary" aria-label="Dismiss the tour">
+        <button type="button" onClick={done} className="v-tap rounded-full px-2 py-1 text-[11px] font-semibold text-tertiary" aria-label="Dismiss the tour">
           Skip
         </button>
       </span>

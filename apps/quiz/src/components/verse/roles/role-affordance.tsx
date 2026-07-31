@@ -15,6 +15,7 @@ import Link from 'next/link';
 export interface AffordanceState {
   canEdit: boolean;
   role: string;
+  signedIn?: boolean;
   stage?: string;
   xp?: number;
   threshold: number;
@@ -23,12 +24,16 @@ export interface AffordanceState {
 
 const cache = new Map<string, Promise<AffordanceState>>();
 
+// Network-failure fallback only. 100 mirrors CONTRIBUTOR_XP in
+// lib/verse/reputation.ts (server-only module, not importable here).
+const FALLBACK: AffordanceState = { canEdit: false, role: 'visitor', signedIn: false, threshold: 100 };
+
 export function fetchAffordance(groupSlug: string, owner?: string): Promise<AffordanceState> {
   const key = `${groupSlug}:${owner ?? ''}`;
   if (!cache.has(key)) {
     cache.set(key, fetch(`/api/verse/can-edit?group=${groupSlug}${owner ? `&owner=${encodeURIComponent(owner)}` : ''}`)
-      .then((r) => (r.ok ? r.json() : { canEdit: false, role: 'visitor', threshold: 100 }))
-      .catch(() => ({ canEdit: false, role: 'visitor', threshold: 100 })));
+      .then((r) => (r.ok ? r.json() : FALLBACK))
+      .catch(() => FALLBACK));
   }
   return cache.get(key)!;
 }
@@ -75,6 +80,11 @@ export function RoleAffordance({ groupSlug, owner, edit, suggest, lockNote, comp
       ) : state.role === 'contributor' ? (
         <p className="text-[12px] leading-snug text-tertiary">
           A curator reviews changes in this space before they go live.
+        </p>
+      ) : state.role === 'visitor' && state.signedIn ? (
+        <p className="text-[12px] leading-snug text-tertiary">
+          Suggestions are reviewed by the space&rsquo;s curators.{' '}
+          <Link href={`/verse/${groupSlug}`} className="font-semibold underline decoration-dotted underline-offset-2 hover:text-secondary">Join the space</Link> to build a contributor record.
         </p>
       ) : state.role === 'visitor' ? (
         <p className="text-[12px] leading-snug text-tertiary">

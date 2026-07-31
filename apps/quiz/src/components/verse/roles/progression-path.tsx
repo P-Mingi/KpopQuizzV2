@@ -13,11 +13,16 @@ import type { AffordanceState } from './role-affordance';
 // invented numbers anywhere). Signed-in viewers see their own rung + true
 // distance; visitors see the ladder plus a join door.
 
+// Every claim here is verified against code: XP accrues on space_members rows
+// (joining starts the record), contributor unlocks wiki-page creation at every
+// stage (canCreatePages), stage-C DIRECT edits additionally need 300 XP so they
+// are NOT listed as a contributor unlock, and staff appointments require
+// space_admin (members route touchesStaff check), so curators cannot appoint.
 const RUNGS = [
-  { id: 'member', label: 'Member', how: 'Join the space', unlocks: 'Discussions, suggestions, your watchlist' },
-  { id: 'contributor', label: 'Contributor', how: '100 XP, automatic', unlocks: 'Create wiki pages; direct edits when the space reaches stage C' },
-  { id: 'curator', label: 'Curator', how: 'Appointed by the space’s curators', unlocks: 'Review and publish, the studio, the roles panel' },
-  { id: 'space_admin', label: 'Space admin', how: 'The founding curator', unlocks: 'Appoint curators, space settings' },
+  { id: 'member', label: 'Member', how: 'Join the space', unlocks: 'Your watchlist, your name on the member list, XP that counts here' },
+  { id: 'contributor', label: 'Contributor', how: '100 XP, automatic', unlocks: 'Create wiki pages in this space, at any stage' },
+  { id: 'curator', label: 'Curator', how: 'Appointed by the space admin', unlocks: 'Review and publish, the studio, the roles panel' },
+  { id: 'space_admin', label: 'Space admin', how: 'Appointed by KpopVerse', unlocks: 'Appoint curators, space settings' },
 ] as const;
 
 const ORDER: Record<string, number> = { visitor: -1, member: 0, contributor: 1, curator: 2, space_admin: 3, admin: 3 };
@@ -28,7 +33,7 @@ export function ProgressionPath({ groupSlug, fandomName }: { groupSlug: string; 
   const mine = ORDER[state?.role ?? 'visitor'] ?? -1;
 
   return (
-    <section className="v-module" id="ladder" aria-label="How roles work in this space">
+    <section className="v-module verse-frame verse-frame-rounded" id="ladder" aria-label="How roles work in this space">
       <h2 className="v-eyebrow">The path in this space</h2>
       <ol className="flex flex-col gap-0">
         {RUNGS.map((r, i) => {
@@ -62,7 +67,11 @@ export function ProgressionPath({ groupSlug, fandomName }: { groupSlug: string; 
       {mine < 0 ? (
         <p className="mt-3 text-[13px] text-secondary">
           The path starts with joining.{' '}
-          <Link href={`/login?returnTo=/verse/${groupSlug}`} className="font-bold underline decoration-dotted underline-offset-2" style={{ color: 'var(--verse-ink)' }}>Sign in and join the {fandomName} space</Link>.
+          {state?.signedIn ? (
+            <Link href={`/verse/${groupSlug}`} className="font-bold underline decoration-dotted underline-offset-2" style={{ color: 'var(--verse-ink)' }}>Join the {fandomName} space</Link>
+          ) : (
+            <Link href={`/login?returnTo=/verse/${groupSlug}`} className="font-bold underline decoration-dotted underline-offset-2" style={{ color: 'var(--verse-ink)' }}>Sign in and join the {fandomName} space</Link>
+          )}.
         </p>
       ) : null}
     </section>

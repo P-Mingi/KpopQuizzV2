@@ -20,13 +20,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supabase.auth.getUser();
   const slug = new URL(req.url).searchParams.get('group');
 
-  if (!user) return NextResponse.json({ canEdit: false, role: 'visitor', threshold: CONTRIBUTOR_XP });
-  if (isAdmin(user.id)) return NextResponse.json({ canEdit: true, role: 'admin', threshold: CONTRIBUTOR_XP });
+  if (!user) return NextResponse.json({ canEdit: false, role: 'visitor', signedIn: false, threshold: CONTRIBUTOR_XP });
+  if (isAdmin(user.id)) return NextResponse.json({ canEdit: true, role: 'admin', signedIn: true, threshold: CONTRIBUTOR_XP });
 
-  if (!slug) return NextResponse.json({ canEdit: false, role: 'visitor', threshold: CONTRIBUTOR_XP });
+  if (!slug) return NextResponse.json({ canEdit: false, role: 'visitor', signedIn: true, threshold: CONTRIBUTOR_XP });
   const { data: g } = await createPublicReadClient().from('groups').select('id').eq('slug', slug).maybeSingle();
   const groupId = (g as { id: number } | null)?.id ?? null;
-  if (!groupId) return NextResponse.json({ canEdit: false, role: 'visitor', threshold: CONTRIBUTOR_XP });
+  if (!groupId) return NextResponse.json({ canEdit: false, role: 'visitor', signedIn: true, threshold: CONTRIBUTOR_XP });
 
   // owner (optional): a resource's author id. Authors edit their OWN resource
   // (the wiki edit route allows author or curator), so the affordance truth
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   ]);
   return NextResponse.json({
     canEdit: direct || (owner !== null && owner === user.id),
-    role, xp: spaceXp.xp, stage,
+    role, signedIn: true, xp: spaceXp.xp, stage,
     threshold: CONTRIBUTOR_XP,
     xpToContributor: Math.max(0, CONTRIBUTOR_XP - spaceXp.xp),
   });

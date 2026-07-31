@@ -22,6 +22,9 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
   const [log, setLog] = useState<LogRow[] | null>(null);
   const [showLog, setShowLog] = useState(false);
   const [busy, setBusy] = useState(false);
+  // Staged role picks: the select never acts on change (keyboard users arrow
+  // through options); the change happens on the explicit Apply press.
+  const [staged, setStaged] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
     const res = await fetch(`/api/verse/members?group_id=${groupId}`);
@@ -46,10 +49,11 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
     }
   }
 
-  function changeRole(target: string, name: string, role: string): void {
+  function applyRole(target: string, name: string, role: string): void {
     // Mandatory reason: the role log is only as honest as its entries.
     const reason = window.prompt(`Why is ${name} becoming ${role.replace('_', ' ')}? (required, logged)`);
-    if (reason === null) { void load(); return; }
+    if (reason === null) return;
+    setStaged((s) => { const n = { ...s }; delete n[target]; return n; });
     void post(target, 'set_role', { role, reason });
   }
 
@@ -73,16 +77,27 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
                 <span className="text-[11px] text-tertiary" title="Joined">since {r.joined_at?.slice(0, 10)}</span>
                 {(r.pending_suggestions ?? 0) > 0 ? <span className="rounded-full px-2 py-px text-[10px] font-bold" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{r.pending_suggestions} pending</span> : null}
                 {r.status === 'blocked' ? <span className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--bg-danger)', color: 'var(--text-danger)' }}>blocked</span> : null}
-                {r.status === 'active' && isStaleCurator(r) ? <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase text-tertiary" style={{ border: '1px solid var(--border)' }} title="Inactive curator; decays to contributor if inactivity continues">inactive {inactiveDays(r)}d</span> : null}
+                {r.status === 'active' && isStaleCurator(r) ? <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase text-tertiary" style={{ border: '1px solid var(--border)' }}>inactive {inactiveDays(r)}d<span className="sr-only">, decays to contributor if inactivity continues</span></span> : null}
                 <div className="ml-auto flex items-center gap-2">
                   {r.status === 'active' && canRoleEdit ? (
-                    <select value={r.role} disabled={busy} onChange={(e) => changeRole(r.user_id, name, e.target.value)} className="rounded-lg border border-default bg-transparent px-2 py-1 text-xs" aria-label={`Role for ${name}`}>
-                      {roleOptions.map((o) => <option key={o} value={o}>{o.replace('_', ' ')}</option>)}
-                    </select>
+                    <>
+                      <select value={staged[r.user_id] ?? r.role} disabled={busy} onChange={(e) => setStaged((s) => ({ ...s, [r.user_id]: e.target.value }))} className="v-tap rounded-lg border border-default bg-transparent px-2 py-1 text-xs" aria-label={`Role for ${name}`}>
+                        {roleOptions.map((o) => <option key={o} value={o}>{o.replace('_', ' ')}</option>)}
+                      </select>
+                      {staged[r.user_id] && staged[r.user_id] !== r.role ? (
+                        <button type="button" onClick={() => applyRole(r.user_id, name, staged[r.user_id]!)} disabled={busy}
+                          className="v-tap rounded-lg px-2.5 py-1 text-xs font-bold" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text, #fff)' }}>
+                          Apply
+                        </button>
+                      ) : null}
+                    </>
                   ) : <span className="text-xs text-tertiary">{r.role.replace('_', ' ')}</span>}
+                  {/* Blocking staff is a space-admin power (the API 403s otherwise); no dead buttons. */}
                   {r.status === 'active'
-                    ? <button onClick={() => { if (confirm(`Block ${name} from this space?`)) void post(r.user_id, 'block'); }} disabled={busy} className="rounded border border-default px-2 py-0.5 text-xs text-secondary">Block</button>
-                    : <button onClick={() => void post(r.user_id, 'unblock')} disabled={busy} className="rounded border border-default px-2 py-0.5 text-xs">Unblock</button>}
+                    ? (isSpaceAdmin || (r.role !== 'curator' && r.role !== 'space_admin')
+                      ? <button type="button" onClick={() => { if (confirm(`Block ${name} from this space?`)) void post(r.user_id, 'block'); }} disabled={busy} className="v-tap rounded border border-default px-2 py-0.5 text-xs text-secondary">Block</button>
+                      : null)
+                    : <button type="button" onClick={() => void post(r.user_id, 'unblock')} disabled={busy} className="v-tap rounded border border-default px-2 py-0.5 text-xs">Unblock</button>}
                 </div>
               </li>
             );
@@ -91,11 +106,11 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
       )}
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <button type="button" onClick={() => setShowLog((s) => !s)} className="inline-flex min-h-[36px] items-center rounded-lg border border-default px-3 text-xs font-semibold text-secondary">
+        <button type="button" onClick={() => setShowLog((s) => !s)} aria-expanded={showLog} className="v-tap inline-flex min-h-[36px] items-center rounded-lg border border-default px-3 text-xs font-semibold text-secondary">
           {showLog ? 'Hide the role log' : 'Role log'}
         </button>
         {groupSlug ? (
-          <Link href={`/verse/${groupSlug}/about`} className="inline-flex min-h-[36px] items-center rounded-lg border border-default px-3 text-xs font-semibold text-secondary no-underline">Space charter</Link>
+          <Link href={`/verse/${groupSlug}/about`} className="v-tap inline-flex min-h-[36px] items-center rounded-lg border border-default px-3 text-xs font-semibold text-secondary no-underline">Space charter</Link>
         ) : null}
       </div>
 

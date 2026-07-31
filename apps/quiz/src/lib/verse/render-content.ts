@@ -28,7 +28,9 @@ function safeHref(href: unknown): string | null {
 // prose. INTERNAL links (site-relative, or our own origin) stay in the tab and
 // carry no nofollow (the rabbit hole must flow, and so must internal SEO);
 // EXTERNAL links are citations: new tab, nofollow noopener, verse-cite styling.
-const OWN_ORIGIN = /^https?:\/\/(www\.)?kpopquiz\.org/i;
+// The lookahead is the host boundary: kpopquiz.org.evil.com and
+// kpopquiz.organic.tld must stay external (verse-cite, nofollow).
+const OWN_ORIGIN = /^https?:\/\/(www\.)?kpopquiz\.org(?=[/?#]|$)/i;
 
 function renderText(n: Node): string {
   let html = esc(n.text ?? '');

@@ -141,11 +141,13 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     </div>
   );
 
-  const Btn = ({ on, active, label, disabled }: { on: () => void; active?: boolean; label: string; disabled?: boolean }) => (
-    <button type="button" onMouseDown={(e) => { e.preventDefault(); on(); }} disabled={disabled}
+  // mousedown only PREVENTS focus-steal (the selection must survive); the
+  // action runs on click so Enter/Space work for keyboard users too.
+  const Btn = ({ on, active, label, name, disabled }: { on: () => void; active?: boolean; label: string; name?: string; disabled?: boolean }) => (
+    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={on} disabled={disabled}
       className="rounded px-2 py-1 text-xs font-semibold transition-colors"
       style={{ color: active ? 'var(--verse-accent-text)' : 'var(--text-secondary)', background: active ? 'var(--verse-accent)' : 'transparent' }}
-      aria-pressed={active} aria-label={label}>{label}</button>
+      aria-pressed={active} aria-label={name ?? label}>{label}</button>
   );
 
   return (
@@ -168,7 +170,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         return tpl && editor.isEmpty ? (
           <div className="flex items-center gap-2 border-b border-default px-3 py-2 text-xs" style={{ borderColor: 'var(--verse-line)' }}>
             <span className="text-tertiary">Blank page?</span>
-            <button type="button" className="font-bold" style={{ color: 'var(--verse-ink)' }}
+            <button type="button" className="v-tap font-bold" style={{ color: 'var(--verse-ink)' }}
               onClick={() => editor.chain().focus().setContent(tpl.doc as object).run()}>
               Start from the {tpl.label} skeleton
             </button>
@@ -178,16 +180,16 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
       })()}
 
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
+      <div className="v-toolbar flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="group" aria-label="Formatting">
         <Btn label="Bold" on={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} />
         <Btn label="Italic" on={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive('italic')} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
-        <Btn label="H2" on={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} active={editor.isActive('heading', { level: 2 })} />
-        <Btn label="H3" on={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} active={editor.isActive('heading', { level: 3 })} />
+        <Btn label="H2" name="Heading level 2" on={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} active={editor.isActive('heading', { level: 2 })} />
+        <Btn label="H3" name="Heading level 3" on={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} active={editor.isActive('heading', { level: 3 })} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
-        <Btn label="List" on={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive('bulletList')} />
-        <Btn label="1. List" on={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive('orderedList')} />
-        <Btn label="Quote" on={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')} />
+        <Btn label="List" name="Bulleted list" on={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive('bulletList')} />
+        <Btn label="1. List" name="Numbered list" on={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive('orderedList')} />
+        <Btn label="Quote" name="Block quote" on={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')} />
         <Btn label="Link" on={setLink} active={editor.isActive('link')} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
         <Btn label="Table" on={() => editor.chain().focus().insertTable({ rows: 2, cols: 2, withHeaderRow: true }).run()} />
@@ -196,15 +198,15 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         {groupSlug ? (
           <>
             <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
-            <Btn label="+Disco" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'discography', group: groupSlug } }).run()} />
-            <Btn label="+Quiz" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'quiz', group: groupSlug } }).run()} />
-            <Btn label="+Stats" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'stats', group: groupSlug } }).run()} />
+            <Btn label="+Disco" name="Insert discography embed" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'discography', group: groupSlug } }).run()} />
+            <Btn label="+Quiz" name="Insert quiz embed" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'quiz', group: groupSlug } }).run()} />
+            <Btn label="+Stats" name="Insert stats embed" on={() => editor.chain().focus().insertContent({ type: 'verseEmbed', attrs: { kind: 'stats', group: groupSlug } }).run()} />
           </>
         ) : null}
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
         <Btn label="Undo" on={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} />
         <Btn label="Redo" on={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} />
-        <span className="ml-auto text-[11px] text-tertiary">{draftState === 'saving' ? 'Saving...' : draftState === 'saved' ? 'Draft saved' : draftState === 'error' ? 'Draft save failed' : ''}</span>
+        <span role="status" className="ml-auto text-[11px] text-tertiary">{draftState === 'saving' ? 'Saving...' : draftState === 'saved' ? 'Draft saved' : draftState === 'error' ? 'Draft save failed' : ''}</span>
       </div>
 
       {/* Editing surface */}
@@ -246,7 +248,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
           {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}
         </button>
         <button type="button" onClick={onClose} className="inline-flex min-h-[40px] items-center rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary sm:min-h-0">Cancel</button>
-        {error ? <span className="w-full text-xs text-[var(--wrong,#A32D2D)]">{error}</span> : null}
+        {error ? <span role="alert" className="w-full text-xs text-[var(--wrong,#A32D2D)]">{error}</span> : null}
       </div>
     </div>
   );

@@ -138,14 +138,14 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
               a first-time fan had no visible way to structure text or cite a
               source. The essential six, matching the section editor's idiom. */}
           {editor ? (
-            <div className="flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
+            <div className="v-toolbar flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="group" aria-label="Formatting">
               {([
-                { label: 'Bold', on: () => editor.chain().focus().toggleBold().run(), active: editor.isActive('bold') },
-                { label: 'Italic', on: () => editor.chain().focus().toggleItalic().run(), active: editor.isActive('italic') },
-                { label: 'H2', on: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), active: editor.isActive('heading', { level: 2 }) },
-                { label: 'H3', on: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), active: editor.isActive('heading', { level: 3 }) },
-                { label: 'List', on: () => editor.chain().focus().toggleBulletList().run(), active: editor.isActive('bulletList') },
-                { label: 'Link', on: () => {
+                { label: 'Bold', name: 'Bold', on: () => editor.chain().focus().toggleBold().run(), active: editor.isActive('bold') },
+                { label: 'Italic', name: 'Italic', on: () => editor.chain().focus().toggleItalic().run(), active: editor.isActive('italic') },
+                { label: 'H2', name: 'Heading level 2', on: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), active: editor.isActive('heading', { level: 2 }) },
+                { label: 'H3', name: 'Heading level 3', on: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), active: editor.isActive('heading', { level: 3 }) },
+                { label: 'List', name: 'Bulleted list', on: () => editor.chain().focus().toggleBulletList().run(), active: editor.isActive('bulletList') },
+                { label: 'Link', name: 'Link', on: () => {
                   if (editor.isActive('link')) { editor.chain().focus().unsetLink().run(); return; }
                   const url = window.prompt('Source URL (https):');
                   if (!url) return;
@@ -153,10 +153,12 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
                   editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
                 }, active: editor.isActive('link') },
               ] as const).map((b) => (
-                <button key={b.label} type="button" onMouseDown={(e) => { e.preventDefault(); b.on(); }}
+                // mousedown only guards the selection; the action rides click so
+                // Enter/Space work for keyboard users too.
+                <button key={b.label} type="button" onMouseDown={(e) => e.preventDefault()} onClick={b.on}
                   className="rounded px-2 py-1 text-xs font-semibold transition-colors"
                   style={{ color: b.active ? 'var(--verse-accent-text)' : 'var(--text-secondary)', background: b.active ? 'var(--verse-accent)' : 'transparent' }}
-                  aria-pressed={b.active} aria-label={b.label}>{b.label}</button>
+                  aria-pressed={b.active} aria-label={b.name}>{b.label}</button>
               ))}
             </div>
           ) : null}

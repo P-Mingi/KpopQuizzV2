@@ -54,10 +54,31 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const { data: rows } = await svc.from('space_members').select('user_id, role, status, joined_at, last_contrib_date, contrib_xp').eq('group_id', groupId);
   const list = (rows ?? []) as Array<{ user_id: string; role: string; status: string; joined_at: string; last_contrib_date: string | null; contrib_xp: number }>;
-  const [{ data: profs }, { data: pending }] = await Promise.all([
+  const [{ data: profs }, { data: pendingRaw }] = await Promise.all([
     svc.from('profiles').select('id, username, display_name, avatar_url, avatar_bg, avatar_text').in('id', list.map((r) => r.user_id)),
-    svc.from('verse_edit_suggestions').select('author').eq('status', 'pending').limit(500),
+    svc.from('verse_edit_suggestions').select('author, entity_type, entity_id').eq('status', 'pending').limit(500),
   ]);
+  // The panel's "N pending" chip is THIS space's truth: keep only suggestions
+  // whose entity belongs to this group (group itself, its pages, idols, albums,
+  // eras). Anything unresolvable stays out of the count.
+  const sugg = (pendingRaw ?? []) as Array<{ author: string | null; entity_type: string; entity_id: string }>;
+  const idsOf = (t: string) => [...new Set(sugg.filter((s) => s.entity_type === t).map((s) => Number(s.entity_id)).filter(Number.isFinite))];
+  const inGroup = async (table: string, ids: number[]) => {
+    if (!ids.length) return new Set<string>();
+    const { data } = await svc.from(table).select('id').eq('group_id', groupId).in('id', ids);
+    return new Set(((data ?? []) as { id: number }[]).map((r) => String(r.id)));
+  };
+  const [pageIds, idolIds, albumIds, eraIds] = await Promise.all([
+    inGroup('verse_pages', idsOf('page')), inGroup('idols', idsOf('idol')),
+    inGroup('albums', idsOf('album')), inGroup('eras', idsOf('era')),
+  ]);
+  const inSpace = (s: { entity_type: string; entity_id: string }) =>
+    (s.entity_type === 'group' && s.entity_id === String(groupId))
+    || (s.entity_type === 'page' && pageIds.has(s.entity_id))
+    || (s.entity_type === 'idol' && idolIds.has(s.entity_id))
+    || (s.entity_type === 'album' && albumIds.has(s.entity_id))
+    || (s.entity_type === 'era' && eraIds.has(s.entity_id));
+  const pending = sugg.filter(inSpace);
   const byId = new Map((profs ?? []).map((p: { id: string }) => [p.id, p]));
   const pendingBy = new Map<string, number>();
   for (const s of (pending ?? []) as { author: string }[]) pendingBy.set(s.author, (pendingBy.get(s.author) ?? 0) + 1);
