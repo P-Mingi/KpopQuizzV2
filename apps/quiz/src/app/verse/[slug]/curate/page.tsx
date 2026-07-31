@@ -63,7 +63,7 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
       <section>
         <h2 className="mb-1 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Members</h2>
         <p className="mb-3 text-xs text-tertiary">Curators inactive for a long time decay to contributor so the role frees up. The space owner can always re-appoint.</p>
-        <MemberManager groupId={space.group.id} isSpaceAdmin={isSpaceAdmin} />
+        <MemberManager groupId={space.group.id} groupSlug={space.group.slug} isSpaceAdmin={isSpaceAdmin} />
       </section>
 
       <section>
