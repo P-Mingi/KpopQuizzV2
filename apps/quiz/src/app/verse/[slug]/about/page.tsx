@@ -29,7 +29,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
   const overview = await getSection('group', String(group.id), 'overview');
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6">
       <SectionSurface
         entityType="group" entityId={String(group.id)} section="overview" label="Overview"
         initialHtml={renderTipTapJSON(overview.content)} initialContent={overview.content}
