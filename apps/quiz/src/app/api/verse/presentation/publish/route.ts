@@ -22,10 +22,27 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!user || !await canCurateSpace(user.id, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
 
   const svc = createServiceRoleClient();
-  const { data: row } = await svc.from('verse_spaces').select('presentation_draft').eq('group_id', groupId).maybeSingle();
+  const { data: row } = await svc.from('verse_spaces').select('presentation, presentation_draft').eq('group_id', groupId).maybeSingle();
   const draft = (row as { presentation_draft?: unknown } | null)?.presentation_draft ?? { version: 1 };
   const result = validatePresentation(draft && typeof draft === 'object' && Object.keys(draft as object).length ? draft : { version: 1 });
   if (!result.ok) return NextResponse.json({ ok: false, errors: result.errors }, { status: 422 });
+
+  // V-POLISH rollback root-cause fix: rollback restores list[1] (the previous
+  // look), which only exists from the SECOND publish onward. A space whose look
+  // predates the studio has no revision trail, so the FIRST publish must snapshot
+  // the OUTGOING live presentation as the baseline; without it, rollback 404s on
+  // exactly the publish a curator most wants to undo (their first).
+  const { count: revCount } = await svc.from('verse_revisions')
+    .select('*', { count: 'exact', head: true })
+    .eq('entity_type', 'space_presentation').eq('entity_id', String(groupId)).eq('section_key', 'presentation');
+  if (!revCount) {
+    const outgoing = (row as { presentation?: unknown } | null)?.presentation;
+    const base = validatePresentation(outgoing && typeof outgoing === 'object' && Object.keys(outgoing as object).length ? outgoing : { version: 1 });
+    await svc.from('verse_revisions').insert({
+      entity_type: 'space_presentation', entity_id: String(groupId), section_key: 'presentation',
+      author: user.id, summary: 'Pre-studio look (baseline)', content: base.ok ? base.value : { version: 1 },
+    });
+  }
 
   // History first (snapshot of what is going live), then flip live = draft.
   await svc.from('verse_revisions').insert({
