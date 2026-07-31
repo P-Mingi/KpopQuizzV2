@@ -36,7 +36,7 @@ export function VerseFooter(): React.ReactElement {
               <p style={eyebrow}>Explore</p>
               <Link href="/verse" style={linkStyle}>Fandoms</Link>
               <Link href="/leaderboard" style={linkStyle}>Community</Link>
-              <Link href="/search" style={linkStyle}>Search</Link>
+              <Link href="/verse?search=1" style={linkStyle}>Search</Link>
             </div>
             <div>
               <p style={eyebrow}>The covenant</p>

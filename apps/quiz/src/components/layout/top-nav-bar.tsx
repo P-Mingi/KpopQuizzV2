@@ -54,8 +54,9 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
 
         {themeToggle}
 
-        {/* Search */}
-        <Link href="/search" style={{
+        {/* Search - stays in-world: the Verse's search lives on the directory
+            (autofocused via ?search=1), Play keeps /search. */}
+        <Link href={world === 'verse' ? '/verse?search=1' : '/search'} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           padding: '8px 12px', borderRadius: 10,
           background: 'transparent', border: '1px solid var(--border)',

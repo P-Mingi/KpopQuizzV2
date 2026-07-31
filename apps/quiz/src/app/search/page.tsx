@@ -141,11 +141,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   // Groups first so we can also match quizzes/games by group (e.g. "bts" → BTS content).
   const groupsRes = await supabase
     .from('groups')
-    .select('id, name, slug, display_color, text_color, quiz_count')
+    .select('id, name, slug, fandom_name, display_color, text_color, quiz_count')
     .ilike('name', pattern)
     .order('quiz_count', { ascending: false })
     .limit(10);
-  const groups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; display_color: string; text_color: string; quiz_count: number }>;
+  const groups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; fandom_name: string | null; display_color: string; text_color: string; quiz_count: number }>;
   const groupIds = groups.map((g) => g.id);
   const hasGroups = groupIds.length > 0;
 
@@ -228,6 +228,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
               <p className="sec-label">Games</p>
               <div className="cards-grid">
                 {games.map((g) => <GameResultCard key={`${g.kind}-${g.id}`} game={g} />)}
+              </div>
+            </section>
+          )}
+
+          {groups.length > 0 && (
+            <section>
+              <p className="sec-label">Fandom spaces</p>
+              <div className="flex flex-wrap gap-2">
+                {groups.map((g) => (
+                  <Link key={`space-${g.id}`} href={`/verse/${g.slug}`} className="px-4 py-2 rounded-full text-sm font-semibold border transition-opacity hover:opacity-85"
+                    style={{ borderColor: '#7c5cfc', color: '#7c5cfc' }}>
+                    {g.fandom_name ?? g.name} · the {g.name} home
+                  </Link>
+                ))}
               </div>
             </section>
           )}

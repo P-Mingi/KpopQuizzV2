@@ -13,6 +13,13 @@ export function VerseSearch(): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const boxRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // In-world search entries (nav, footer, 404) land here with ?search=1; the
+  // box takes focus so the visitor types immediately.
+  useEffect(() => {
+    try { if (new URLSearchParams(window.location.search).get('search') === '1') inputRef.current?.focus(); } catch { /* ignore */ }
+  }, []);
 
   useEffect(() => {
     const term = q.trim();
@@ -44,6 +51,7 @@ export function VerseSearch(): React.ReactElement {
   return (
     <div ref={boxRef} className="relative">
       <input
+        ref={inputRef}
         type="search" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKey} onFocus={() => hits.length && setOpen(true)}
         placeholder="Search groups, members, albums" aria-label="Search Verse"
         className="w-full rounded-full border border-default bg-surface px-4 py-2.5 text-sm outline-none focus:border-strong"

@@ -23,7 +23,7 @@ export default function VerseNotFound(): React.ReactElement {
         <Link href="/verse" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 20px', borderRadius: 12, background: VIOLET, color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
           Browse all fandoms
         </Link>
-        <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 20px', borderRadius: 12, border: '1px solid var(--border)', color: 'var(--text-primary)', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+        <Link href="/verse?search=1" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 20px', borderRadius: 12, border: '1px solid var(--border)', color: 'var(--text-primary)', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
           Search
         </Link>
       </div>
