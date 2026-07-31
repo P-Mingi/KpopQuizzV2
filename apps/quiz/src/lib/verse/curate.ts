@@ -5,7 +5,7 @@ import { isAdmin } from '@/lib/admin';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { canEditDirect } from '@/lib/verse/stage';
 
-const ENTITY_TABLE: Record<string, string> = { idol: 'idols', era: 'eras', album: 'albums', tour: 'tours', show: 'shows', ost: 'osts', award: 'awards' };
+const ENTITY_TABLE: Record<string, string> = { idol: 'idols', era: 'eras', album: 'albums', tour: 'tours', show: 'shows', ost: 'osts', award: 'awards', song: 'songs' };
 
 /** The group id that owns an entity, for role gating. null if it can't be resolved. */
 export async function resolveEntityGroupId(entityType: string, entityId: string): Promise<number | null> {
@@ -13,7 +13,9 @@ export async function resolveEntityGroupId(entityType: string, entityId: string)
   const table = ENTITY_TABLE[entityType];
   if (!table) return null;
   const db = createServiceRoleClient();
-  const { data } = await db.from(table).select('group_id, idol_id').eq('id', Number(entityId)).maybeSingle();
+  // songs key by UUID; numeric coercion would NaN them out of curation.
+  const idFilter = entityType === 'song' ? entityId : Number(entityId);
+  const { data } = await db.from(table).select('group_id, idol_id').eq('id', idFilter).maybeSingle();
   const row = data as { group_id: number | null; idol_id: number | null } | null;
   if (!row) return null;
   if (row.group_id) return row.group_id;

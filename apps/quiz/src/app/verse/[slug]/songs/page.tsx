@@ -6,6 +6,7 @@ import { getSpace } from '@/lib/verse/space';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { DeckFilter } from '@/components/verse/pages/deck-filter';
 import { CoverArt } from '@/components/verse/cover-art';
+import { TrackPlay } from '@/components/verse/track-play';
 
 import type { Metadata } from 'next';
 
@@ -19,12 +20,12 @@ export const revalidate = 3600;
 // ("N tracks catalogued"), and the title carries NO number (the honesty rule:
 // we cannot prove catalog completeness, so we do not claim it).
 
-interface DeckTrack { position: number; title: string; linked: boolean }
+interface DeckTrack { position: number; title: string; linked: boolean; songId: string | null; youtubeId: string | null; clipStart: number; curatedUrl: string | null }
 interface DeckGroup { id: number; album: string; albumSlug: string; year: string; mbid: string | null; tracks: DeckTrack[] }
 
-async function loadTracks(albumIds: number[]): Promise<{ album_id: number; position: number; title: string; song_id: number | null }[]> {
+async function loadTracks(albumIds: number[]): Promise<{ album_id: number; position: number; title: string; song_id: string | null }[]> {
   const db = createPublicReadClient();
-  const out: { album_id: number; position: number; title: string; song_id: number | null }[] = [];
+  const out: { album_id: number; position: number; title: string; song_id: string | null }[] = [];
   // The .select() 1000-row cap is real (recorded law): page with .range until short.
   for (let page = 0; page < 5; page++) {
     const { data } = await db.from('album_tracks')
@@ -32,7 +33,7 @@ async function loadTracks(albumIds: number[]): Promise<{ album_id: number; posit
       .in('album_id', albumIds)
       .order('album_id').order('position')
       .range(page * 1000, page * 1000 + 999);
-    const rows = (data ?? []) as { album_id: number; position: number; title: string; song_id: number | null }[];
+    const rows = (data ?? []) as { album_id: number; position: number; title: string; song_id: string | null }[];
     out.push(...rows);
     if (rows.length < 1000) break;
   }
@@ -61,10 +62,27 @@ export default async function SongDeckPage({ params }: { params: Promise<{ slug:
   // V-POLISH step 6 (audit item 8): the deck groups by album, newest first,
   // instead of stamping the album name onto all 197 rows. Presentation only;
   // the data was already album-ordered.
+  // V4 item 4 - the play sources: the blindtest's YouTube clips by normalized
+  // title (the existing legal source), curated official videos by override.
+  const db2 = createPublicReadClient();
+  const norm = (t: string): string => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+  const songIds = [...new Set(rows.map((r) => r.song_id).filter((x): x is string => !!x))];
+  const [{ data: btRows }, { data: ovRows }] = await Promise.all([
+    db2.from('blind_test_songs').select('title, youtube_id, clip_chorus').eq('group_id', space.group.id).eq('status', 'active'),
+    songIds.length ? db2.from('entity_overrides').select('entity_id, value').eq('entity_type', 'song').eq('field', 'youtube_url').in('entity_id', songIds) : Promise.resolve({ data: [] }),
+  ]);
+  const btBy = new Map(((btRows ?? []) as { title: string; youtube_id: string | null; clip_chorus: number | null }[]).map((b) => [norm(b.title), b]));
+  const curatedBy = new Map(((ovRows ?? []) as { entity_id: string; value: string | null }[]).map((o) => [o.entity_id, o.value]));
+
   const byAlbum = new Map<number, DeckTrack[]>();
   for (const r of rows) {
     if (!byAlbum.has(r.album_id)) byAlbum.set(r.album_id, []);
-    byAlbum.get(r.album_id)!.push({ position: r.position, title: r.title, linked: r.song_id != null });
+    const bt = btBy.get(norm(r.title));
+    byAlbum.get(r.album_id)!.push({
+      position: r.position, title: r.title, linked: r.song_id != null,
+      songId: r.song_id, youtubeId: bt?.youtube_id ?? null, clipStart: bt?.clip_chorus ?? 0,
+      curatedUrl: r.song_id ? (curatedBy.get(r.song_id) ?? null) : null,
+    });
   }
   const groups: DeckGroup[] = albums
     .filter((a) => byAlbum.has(a.id))
@@ -105,10 +123,12 @@ export default async function SongDeckPage({ params }: { params: Promise<{ slug:
                     <li key={`${g.id}-${t.position}-${t.title}`} data-deck-item data-f-year={g.year} data-f-album={g.album} data-search={`${t.title} ${g.album}`}
                       className="flex items-baseline gap-x-3 border-t py-2 pl-14" style={{ borderColor: 'var(--v-hairline)' }}>
                       <span className="w-5 shrink-0 text-right text-[12px] tabular-nums text-tertiary">{t.position}</span>
-                      <span className="min-w-0 flex-1 truncate text-[14.5px] font-semibold" style={{ color: 'var(--verse-ink)' }}>{t.title}</span>
-                      {t.linked ? (
-                        <Link href={`/blindtest/group-${space.group.slug}`} className="text-[12px] font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Blind test</Link>
-                      ) : null}
+                      {t.songId ? (
+                        <Link href={`/verse/${space.group.slug}/songs/${t.songId}`} className="min-w-0 flex-1 truncate text-[14.5px] font-semibold no-underline hover:underline" style={{ color: 'var(--verse-ink)' }}>{t.title}</Link>
+                      ) : (
+                        <span className="min-w-0 flex-1 truncate text-[14.5px] font-semibold" style={{ color: 'var(--verse-ink)' }}>{t.title}</span>
+                      )}
+                      <TrackPlay youtubeId={t.youtubeId} start={t.clipStart} curatedUrl={t.curatedUrl} title={t.title} />
                     </li>
                   ))}
                 </ul>

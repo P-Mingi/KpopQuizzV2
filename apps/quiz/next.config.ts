@@ -56,6 +56,11 @@ const nextConfig: NextConfig = {
         hostname: 'coverartarchive.org',
       },
       {
+        // Deezer public image CDN (see src/lib/image-hosts.ts).
+        protocol: 'https',
+        hostname: 'cdn-images.dzcdn.net',
+      },
+      {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },

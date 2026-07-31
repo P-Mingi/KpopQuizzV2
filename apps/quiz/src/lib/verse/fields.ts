@@ -28,6 +28,12 @@ export const INFOBOX_FIELDS: Record<string, FieldDef[]> = {
     { key: 'origin_country', label: 'Origin country', type: 'text' },
     { key: 'official_website', label: 'Official website', type: 'text', placeholder: 'https://...' },
   ],
+  // V4 Part 1 item 4 (parity law): the deck's play affordance ships with its
+  // curator control. A curated official YouTube link overrides the default
+  // 30-second preview per track; no audio uploads exist or ever will.
+  song: [
+    { key: 'youtube_url', label: 'Official video (YouTube)', type: 'text', placeholder: 'https://www.youtube.com/watch?v=...' },
+  ],
 };
 
 export function fieldDef(entityType: string, key: string): FieldDef | null {

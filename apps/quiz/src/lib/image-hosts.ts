@@ -26,6 +26,10 @@ const ALLOWED_HOSTS = [
   // host must register here + next.config.ts BEFORE shipping; plain <img> does
   // not exempt a host from the gate.
   'coverartarchive.org',
+  // Deezer's public image CDN (song/album covers already stored on songs rows
+  // by the blindtest ingest). HOTLINK: public CDN, stable unauthenticated
+  // URLs; referrerPolicy="no-referrer" at the component.
+  'cdn-images.dzcdn.net',
 ];
 
 const ALLOWED_SUFFIXES = ['.supabase.co'];
