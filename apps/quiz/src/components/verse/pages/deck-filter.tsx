@@ -14,7 +14,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 export function DeckFilter({ scopeId, facets, searchLabel = 'Search within this list' }: {
   scopeId: string;
-  facets: { key: string; label: string }[];
+  // sort 'value-desc' renders chips in reverse value order (a year facet walks
+  // the timeline newest-first); default stays count-descending.
+  facets: { key: string; label: string; sort?: 'count' | 'value-desc' }[];
   searchLabel?: string;
 }): React.ReactElement | null {
   const [active, setActive] = useState<Record<string, string | null>>({});
@@ -38,7 +40,9 @@ export function DeckFilter({ scopeId, facets, searchLabel = 'Search within this 
     }
     setChipData(Object.fromEntries(facets.map((f) => [
       f.key,
-      [...byFacet[f.key]!.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([value, n]) => ({ value, n })),
+      [...byFacet[f.key]!.entries()]
+        .sort((a, b) => f.sort === 'value-desc' ? b[0].localeCompare(a[0]) : b[1] - a[1])
+        .slice(0, 12).map(([value, n]) => ({ value, n })),
     ])));
     setCounts({ total: items.length, matching: items.length });
   }, [scopeId, facets]);
@@ -59,8 +63,16 @@ export function DeckFilter({ scopeId, facets, searchLabel = 'Search within this 
       it.style.display = show ? '' : 'none';
       if (show) matching++;
     }
+    // Album-group containers hide when every row inside them is filtered out.
+    const scope = document.getElementById(scopeId);
+    if (scope) {
+      for (const g of scope.querySelectorAll<HTMLElement>('[data-deck-group]')) {
+        const anyVisible = [...g.querySelectorAll<HTMLElement>('[data-deck-item]')].some((el) => el.style.display !== 'none');
+        g.style.display = anyVisible ? '' : 'none';
+      }
+    }
     setCounts((c) => ({ ...c, matching }));
-  }, [active, q]);
+  }, [active, q, scopeId]);
 
   const anyActive = useMemo(() => q.trim() !== '' || Object.values(active).some(Boolean), [q, active]);
   if (counts.total === 0) return null;

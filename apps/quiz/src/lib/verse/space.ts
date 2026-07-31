@@ -27,6 +27,7 @@ export interface SpaceIdol {
 export interface SpaceUnit { id: number; name: string; slug: string | null; }
 export interface SpaceAlbum {
   id: number; title: string; slug: string; release_date: string | null; type: string; region: string;
+  mbid: string | null;
 }
 export interface SpaceComeback { title: string; release_date: string; kind: string; }
 
@@ -65,7 +66,7 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     db.from('verse_spaces').select('welcome_line, est_year, sns_links, presentation, former_members_shown, charter_text, is_launch').eq('group_id', g.id).maybeSingle(),
     db.from('idols').select('id, name, name_hangul, positions, photo_url, birth_date, nationality, unit_id, ord').eq('group_id', g.id).eq('active', true).order('ord'),
     db.from('group_units').select('id, name, slug').eq('parent_group_id', g.id),
-    db.from('albums').select('id, title, release_date, type, region').eq('group_id', g.id).order('release_date', { ascending: false, nullsFirst: false }),
+    db.from('albums').select('id, title, release_date, type, region, musicbrainz_mbid').eq('group_id', g.id).order('release_date', { ascending: false, nullsFirst: false }),
     db.from('comebacks').select('title, release_date, kind').eq('group_id', g.id).eq('active', true).gte('release_date', new Date(Date.now() - 14 * 86400000).toISOString().slice(0, 10)).order('release_date', { ascending: false }).limit(1).maybeSingle(),
     db.from('games').select('id').eq('group_id', g.id).eq('game_type', 'name_all_members').eq('status', 'published').limit(1),
     db.from('personality_profiles').select('group_id').eq('group_id', g.id).eq('active', true).limit(1),
@@ -99,8 +100,8 @@ export const getSpace = cache(async (slug: string): Promise<Space | null> => {
     return { id: x.id, name: x.name, slug: idolSlug(x.name), name_hangul: x.name_hangul, positions: x.positions ?? [], photo_url: x.photo_url, birth_date: x.birth_date, nationality: x.nationality, unit_id: x.unit_id, ord: x.ord };
   });
   const albumRows: SpaceAlbum[] = ((albums ?? []) as never[]).map((r) => {
-    const x = r as { id: number; title: string; release_date: string | null; type: string; region: string };
-    return { id: x.id, title: x.title, slug: albumSlug(x.title), release_date: x.release_date, type: x.type, region: x.region };
+    const x = r as { id: number; title: string; release_date: string | null; type: string; region: string; musicbrainz_mbid: string | null };
+    return { id: x.id, title: x.title, slug: albumSlug(x.title), release_date: x.release_date, type: x.type, region: x.region, mbid: x.musicbrainz_mbid ?? null };
   });
 
   // real track count for this group's albums (bounded second query, ids known)

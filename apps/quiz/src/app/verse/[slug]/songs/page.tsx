@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { DeckFilter } from '@/components/verse/pages/deck-filter';
+import { CoverArt } from '@/components/verse/cover-art';
 
 import type { Metadata } from 'next';
 
@@ -18,19 +19,20 @@ export const revalidate = 3600;
 // ("N tracks catalogued"), and the title carries NO number (the honesty rule:
 // we cannot prove catalog completeness, so we do not claim it).
 
-interface DeckTrack { title: string; album: string; albumSlug: string; year: string; linked: boolean }
+interface DeckTrack { position: number; title: string; linked: boolean }
+interface DeckGroup { id: number; album: string; albumSlug: string; year: string; mbid: string | null; tracks: DeckTrack[] }
 
-async function loadTracks(albumIds: number[]): Promise<{ album_id: number; title: string; song_id: number | null }[]> {
+async function loadTracks(albumIds: number[]): Promise<{ album_id: number; position: number; title: string; song_id: number | null }[]> {
   const db = createPublicReadClient();
-  const out: { album_id: number; title: string; song_id: number | null }[] = [];
+  const out: { album_id: number; position: number; title: string; song_id: number | null }[] = [];
   // The .select() 1000-row cap is real (recorded law): page with .range until short.
   for (let page = 0; page < 5; page++) {
     const { data } = await db.from('album_tracks')
-      .select('album_id, title, song_id')
+      .select('album_id, position, title, song_id')
       .in('album_id', albumIds)
       .order('album_id').order('position')
       .range(page * 1000, page * 1000 + 999);
-    const rows = (data ?? []) as { album_id: number; title: string; song_id: number | null }[];
+    const rows = (data ?? []) as { album_id: number; position: number; title: string; song_id: number | null }[];
     out.push(...rows);
     if (rows.length < 1000) break;
   }
@@ -54,16 +56,20 @@ export default async function SongDeckPage({ params }: { params: Promise<{ slug:
   const space = await getSpace(slug);
   if (!space) notFound();
   const albums = space.albums.filter((a) => a.release_date);
-  const albumById = new Map(albums.map((a) => [a.id, a]));
   const rows = albums.length ? await loadTracks(albums.map((a) => a.id)) : [];
 
-  const tracks: DeckTrack[] = rows.map((r) => {
-    const a = albumById.get(r.album_id);
-    return {
-      title: r.title, album: a?.title ?? 'Unknown', albumSlug: a?.slug ?? '',
-      year: a?.release_date?.slice(0, 4) ?? '', linked: r.song_id != null,
-    };
-  });
+  // V-POLISH step 6 (audit item 8): the deck groups by album, newest first,
+  // instead of stamping the album name onto all 197 rows. Presentation only;
+  // the data was already album-ordered.
+  const byAlbum = new Map<number, DeckTrack[]>();
+  for (const r of rows) {
+    if (!byAlbum.has(r.album_id)) byAlbum.set(r.album_id, []);
+    byAlbum.get(r.album_id)!.push({ position: r.position, title: r.title, linked: r.song_id != null });
+  }
+  const groups: DeckGroup[] = albums
+    .filter((a) => byAlbum.has(a.id))
+    .map((a) => ({ id: a.id, album: a.title, albumSlug: a.slug, year: a.release_date?.slice(0, 4) ?? '', mbid: a.mbid, tracks: byAlbum.get(a.id)! }));
+  const total = groups.reduce((n, g) => n + g.tracks.length, 0);
 
   return (
     <div>
@@ -76,29 +82,39 @@ export default async function SongDeckPage({ params }: { params: Promise<{ slug:
         <h1 className="font-extrabold leading-tight" style={{ fontSize: 'var(--v-type-title)', letterSpacing: 'var(--v-tracking-tight)', color: 'var(--verse-ink)' }}>
           {space.group.name} songs
         </h1>
-        {tracks.length > 0 ? <p className="mt-2 text-sm text-tertiary">{tracks.length.toLocaleString('en-US')} tracks catalogued · from open, sourced release data</p> : null}
+        {total > 0 ? <p className="mt-2 text-sm text-tertiary">{total.toLocaleString('en-US')} tracks · sourced from open release data</p> : null}
       </header>
 
-      {tracks.length === 0 ? (
+      {groups.length === 0 ? (
         <p className="v-module text-sm text-tertiary">No tracks catalogued yet.</p>
       ) : (
         <>
-          <DeckFilter scopeId="song-deck" facets={[{ key: 'year', label: 'Year' }, { key: 'album', label: 'Album' }]} />
-          <ul id="song-deck" className="v-module" style={{ maxWidth: '52rem' }}>
-            {tracks.map((t, i) => (
-              <li key={`${t.album}-${t.title}-${i}`} data-deck-item data-f-year={t.year} data-f-album={t.album} data-search={`${t.title} ${t.album}`}
-                className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 border-t py-2" style={{ borderColor: 'var(--v-hairline)' }}>
-                <span className="min-w-0 flex-1 text-[14.5px] font-semibold" style={{ color: 'var(--verse-ink)' }}>{t.title}</span>
-                {t.albumSlug ? (
-                  <Link href={`/verse/${space.group.slug}/albums/${t.albumSlug}`} className="text-[12px] text-tertiary no-underline hover:text-secondary">{t.album}</Link>
-                ) : <span className="text-[12px] text-tertiary">{t.album}</span>}
-                <span className="text-[12px] tabular-nums text-tertiary">{t.year}</span>
-                {t.linked ? (
-                  <Link href={`/blindtest/group-${space.group.slug}`} className="text-[12px] font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Play</Link>
-                ) : null}
-              </li>
+          <DeckFilter scopeId="song-deck" facets={[{ key: 'year', label: 'Year', sort: 'value-desc' }, { key: 'album', label: 'Album' }]} />
+          <div id="song-deck" className="v-module" style={{ maxWidth: '58rem' }}>
+            {groups.map((g) => (
+              <section key={g.id} data-deck-group className="mb-7 last:mb-0">
+                <header className="sticky top-[72px] z-10 -mx-2 flex items-center gap-3 rounded-lg px-2 py-2" style={{ background: 'var(--bg, var(--bg-primary))' }}>
+                  <CoverArt mbid={g.mbid} title={g.album} className="w-11 flex-shrink-0 rounded-md" />
+                  <div className="min-w-0">
+                    <Link href={`/verse/${space.group.slug}/albums/${g.albumSlug}`} className="verse-link block truncate text-[15px] font-extrabold no-underline" style={{ color: 'var(--verse-ink)' }}>{g.album}</Link>
+                    <p className="text-[11.5px] tabular-nums text-tertiary">{g.year} · {g.tracks.length} track{g.tracks.length === 1 ? '' : 's'}</p>
+                  </div>
+                </header>
+                <ul className="mt-1">
+                  {g.tracks.map((t) => (
+                    <li key={`${g.id}-${t.position}-${t.title}`} data-deck-item data-f-year={g.year} data-f-album={g.album} data-search={`${t.title} ${g.album}`}
+                      className="flex items-baseline gap-x-3 border-t py-2 pl-14" style={{ borderColor: 'var(--v-hairline)' }}>
+                      <span className="w-5 shrink-0 text-right text-[12px] tabular-nums text-tertiary">{t.position}</span>
+                      <span className="min-w-0 flex-1 truncate text-[14.5px] font-semibold" style={{ color: 'var(--verse-ink)' }}>{t.title}</span>
+                      {t.linked ? (
+                        <Link href={`/blindtest/group-${space.group.slug}`} className="text-[12px] font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Blind test</Link>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
-          </ul>
+          </div>
         </>
       )}
     </div>
