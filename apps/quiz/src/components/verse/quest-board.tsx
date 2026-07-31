@@ -47,7 +47,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
             <div className="flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold tabular-nums" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>{coveragePct}%</div>
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-accent)' }}>Help write {groupName}&rsquo;s story</p>
+            <p className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Help write {groupName}&rsquo;s story</p>
             <h1 className="text-xl font-black tracking-tight" style={{ color: 'var(--verse-ink)' }}>{groupName} is {coveragePct}% complete</h1>
             <p className="mt-0.5 text-sm text-secondary">{quests.length} way{quests.length === 1 ? '' : 's'} to leave your mark. Pick one and go.</p>
           </div>

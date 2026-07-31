@@ -127,7 +127,7 @@ export function SpaceHero({ space }: { space: Space }): React.ReactElement {
             ) : null}
             {comeback && cbDays >= 0 ? (
               <div className="flex items-center gap-2.5 text-sm">
-                <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-accent)' }}>Comeback</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Comeback</span>
                 <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{comeback.title}</span>
                 <span className="ml-auto font-bold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{cbDays === 0 ? 'Out now' : `in ${cbDays} day${cbDays === 1 ? '' : 's'}`}</span>
               </div>
