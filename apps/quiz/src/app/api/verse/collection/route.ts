@@ -10,10 +10,23 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const groupId = Number(new URL(req.url).searchParams.get('group_id'));
-  if (!groupId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  const url = new URL(req.url);
+  const cardId = Number(url.searchParams.get('photocard_id'));
+  const groupId = Number(url.searchParams.get('group_id'));
+  if (!cardId && !groupId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
+
+  // Single-card state (the card detail page's own/want control).
+  if (cardId) {
+    if (!user) return NextResponse.json({ signedIn: false, state: null });
+    const svc = createServiceRoleClient();
+    const { data } = await svc.from('photocard_collection').select('state').eq('user_id', user.id).eq('photocard_id', cardId).maybeSingle();
+    return NextResponse.json({ signedIn: true, state: (data as { state: string } | null)?.state ?? null });
+  }
+
+  // Whole-space state map (the binder).
   if (!user) return NextResponse.json({ signedIn: false, states: {} });
   return NextResponse.json({ signedIn: true, states: await getUserCollection(user.id, groupId) });
 }

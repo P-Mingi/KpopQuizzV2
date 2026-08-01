@@ -61,6 +61,36 @@ export async function getPhotocardSets(groupId: number): Promise<BinderSet[]> {
   });
 }
 
+// V-CARDS-MAX step 3 - the per-card community signal is COUNTS ONLY, and only
+// once a card clears this floor (never a small number that could deanonymize a
+// tiny collector pool). Single source of truth, like RANKING_UNLOCK_VOTES.
+export const COMMUNITY_FLOOR = 5;
+
+export interface PhotocardRow extends Photocard { source_note: string | null; group_id: number }
+
+/** One published card by id for its detail page. Throws on query error so a
+ *  transient failure does not bake a 404 into ISR; returns null for missing/draft. */
+export async function getPhotocardById(cardId: number, groupId: number): Promise<PhotocardRow | null> {
+  const db = createPublicReadClient();
+  const { data, error } = await db.from('photocards')
+    .select('id, name, card_type, era, version, rarity, image_url, idol_id, album_id, source_url, source_note, group_id, status')
+    .eq('id', cardId).eq('group_id', groupId).maybeSingle();
+  if (error) throw new Error(`getPhotocardById(${cardId}): ${error.message}`);
+  const row = data as (PhotocardRow & { status: string }) | null;
+  if (!row || row.status !== 'published') return null;
+  return row;
+}
+
+/** Community own/want counts for a card (aggregate, no identities). */
+export async function getCardCommunityCounts(cardId: number): Promise<{ owned: number; wanted: number }> {
+  const db = createServiceRoleClient();
+  const [{ count: owned }, { count: wanted }] = await Promise.all([
+    db.from('photocard_collection').select('id', { count: 'exact', head: true }).eq('photocard_id', cardId).eq('state', 'owned'),
+    db.from('photocard_collection').select('id', { count: 'exact', head: true }).eq('photocard_id', cardId).eq('state', 'wanted'),
+  ]);
+  return { owned: owned ?? 0, wanted: wanted ?? 0 };
+}
+
 /** A user's card_id -> state map for a space (private). */
 export async function getUserCollection(userId: string, groupId: number): Promise<Record<number, CardState>> {
   const db = createServiceRoleClient();
