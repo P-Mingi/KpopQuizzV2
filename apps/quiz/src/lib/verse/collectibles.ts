@@ -27,6 +27,21 @@ export async function getCollectibles(groupId: number): Promise<Collectible[]> {
   return (data ?? []) as Collectible[];
 }
 
+// V-CARDS-MAX step 5 - the SHELF groups collectibles into rows by kind (the
+// lightsticks first: the signature object). Its own metaphor, not a binder.
+export interface ShelfRow { key: string; label: string; items: Collectible[] }
+
+export async function getCollectibleShelf(groupId: number): Promise<ShelfRow[]> {
+  const items = await getCollectibles(groupId);
+  if (!items.length) return [];
+  const rows = new Map<string, ShelfRow>();
+  for (const it of items) {
+    if (!rows.has(it.kind)) rows.set(it.kind, { key: it.kind, label: it.kind === 'lightstick' ? 'Lightsticks' : 'Merch', items: [] });
+    rows.get(it.kind)!.items.push(it);
+  }
+  return [...rows.values()].sort((a) => (a.key === 'lightstick' ? -1 : 1));
+}
+
 /** A user's collectible_id -> state map for a space (private). */
 export async function getUserCollectibles(userId: string, groupId: number): Promise<Record<number, CollectibleState>> {
   const db = createServiceRoleClient();
