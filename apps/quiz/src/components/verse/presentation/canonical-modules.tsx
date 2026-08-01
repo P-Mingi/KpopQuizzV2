@@ -146,7 +146,7 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
   if (albums.length > 0) targets.push({ label: 'Discography', sub: `${albums.length} releases`, href: `/verse/${group.slug}/discography` });
   if (albums.some((a) => a.release_date)) targets.push({ label: 'Songs', sub: 'The song deck', href: `/verse/${group.slug}/songs` });
   if (eras.length > 0) targets.push({ label: 'Timeline', sub: `${eras.length} eras`, href: `/verse/${group.slug}/timeline` });
-  if (wikiPages.length > 0) targets.push({ label: 'Wiki', sub: `${wikiPages.length} page${wikiPages.length === 1 ? '' : 's'}`, href: `/verse/${group.slug}/wiki` });
+  if (wikiPages.length > 0) targets.push({ label: 'Atlas', sub: `${wikiPages.length} page${wikiPages.length === 1 ? '' : 's'}`, href: `/verse/${group.slug}/wiki` });
   for (const s of SCENE_LIST) {
     const n = scenes[s.kind] ?? 0;
     if (n > 0) targets.push({ label: s.label, sub: `${n} entries`, href: `/verse/${group.slug}/${s.seg}` });

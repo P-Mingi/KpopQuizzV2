@@ -27,7 +27,7 @@ const MOBILE_INLINE = 3;
 // renders as the active tab would, without becoming a navigable duplicate.
 const SEGMENT_LABELS: Record<string, string> = {
   content: 'Browse', curate: 'Curate', studio: 'Studio', about: 'About',
-  wiki: 'Wiki', songs: 'Songs', photocards: 'Photocards', collectibles: 'Collectibles',
+  wiki: 'Atlas', songs: 'Songs', photocards: 'Photocards', collectibles: 'Collectibles',
   members: 'Members', discography: 'Discography', timeline: 'Timeline', quests: 'Quests',
   essays: 'Essays', community: 'Community', awards: 'Awards', tours: 'Tours', shows: 'Shows', ost: 'OST',
 };

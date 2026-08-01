@@ -55,7 +55,7 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
   return (
     <div>
       <div className="mb-6">
-        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${space.group.slug}` }, { label: 'Wiki', href: `/verse/${space.group.slug}/wiki` }, { label: page.title, href: `/verse/${space.group.slug}/wiki/${page.slug}` }, { label: 'Edit' }]} />
+        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${space.group.slug}` }, { label: 'Atlas', href: `/verse/${space.group.slug}/wiki` }, { label: page.title, href: `/verse/${space.group.slug}/wiki/${page.slug}` }, { label: 'Edit' }]} />
       </div>
       <header className="v-module">
         <p className="v-eyebrow" style={{ marginBottom: '0.5rem' }}>Editing · {def.label}</p>

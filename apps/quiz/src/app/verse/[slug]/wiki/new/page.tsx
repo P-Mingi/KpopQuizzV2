@@ -29,7 +29,7 @@ export default async function NewWikiPage({ params }: { params: Promise<{ slug: 
   return (
     <div>
       <div className="mb-6">
-        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${space.group.slug}` }, { label: 'Wiki', href: `/verse/${space.group.slug}/wiki` }, { label: 'New page' }]} />
+        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${space.group.slug}` }, { label: 'Atlas', href: `/verse/${space.group.slug}/wiki` }, { label: 'New page' }]} />
       </div>
       <header className="v-module">
         <p className="v-eyebrow" style={{ marginBottom: '0.5rem' }}>New page</p>

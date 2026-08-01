@@ -89,7 +89,7 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
   const crumbs = [
     { label: 'Verse', href: '/verse' },
     { label: space.group.fandom_name, href: `/verse/${space.group.slug}` },
-    { label: 'Wiki', href: `/verse/${space.group.slug}/wiki` },
+    { label: 'Atlas', href: `/verse/${space.group.slug}/wiki` },
     ...ancestors.map((a) => ({ label: a.title, href: `/verse/${space.group.slug}/wiki/${a.slug}` })),
     { label: page.title },
   ];
