@@ -179,23 +179,25 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName,
         </div>
       ) : null}
 
-      {/* Page rail: every set is a page you can flip to. */}
+      {/* Page rail: every set is a page you can flip to. Plain toggle buttons
+          (aria-pressed for the active page) rather than a half-built tab pattern:
+          each button is its own tab stop and there is no tabpanel relationship. */}
       <div className="mb-4 flex items-center gap-2">
-        <div role="tablist" aria-label="Binder pages" className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+        <div role="group" aria-label="Binder pages" className="flex min-w-0 flex-1 flex-wrap gap-1.5">
           {sets.map((s, i) => {
             const on = i === Math.min(page, sets.length - 1);
             const owned = s.cards.filter((c) => states[c.id] === 'owned').length;
             return (
               <div key={s.key} className="inline-flex items-center">
-                <button type="button" role="tab" aria-selected={on} onClick={() => setPage(i)}
+                <button type="button" aria-pressed={on} aria-label={`Show the ${s.label} page`} onClick={() => setPage(i)}
                   className="v-tap max-w-[42vw] truncate rounded-full border px-3 py-1 text-xs font-semibold"
                   style={on ? { borderColor: 'var(--verse-cta, var(--verse-accent))', background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>
                   {s.label} <span className="tabular-nums text-tertiary">{owned}/{s.cards.length}</span>
                 </button>
                 {arrange ? (
                   <span className="ml-0.5 inline-flex">
-                    <button type="button" aria-label={`Move ${s.label} page earlier`} disabled={i === 0} onClick={() => movePage(i, i - 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">‹</button>
-                    <button type="button" aria-label={`Move ${s.label} page later`} disabled={i === sets.length - 1} onClick={() => movePage(i, i + 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">›</button>
+                    <button type="button" aria-label={`Move ${s.label} page earlier`} aria-disabled={i === 0} onClick={() => movePage(i, i - 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">‹</button>
+                    <button type="button" aria-label={`Move ${s.label} page later`} aria-disabled={i === sets.length - 1} onClick={() => movePage(i, i + 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">›</button>
                   </span>
                 ) : null}
               </div>
@@ -226,10 +228,11 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName,
                 <span className="text-[10px] font-bold uppercase tracking-wider text-tertiary">Stickers</span>
                 {stickerAssets.length === 0 ? (
                   <span className="text-[11px] text-tertiary">Curators add stickers in the studio; they decorate your scrapbook here.</span>
-                ) : stickerAssets.map((a) => {
+                ) : stickerAssets.map((a, si) => {
                   const on = (layout.stickers?.[s.key] ?? []).includes(a.id);
                   return (
                     <button key={a.id} type="button" onClick={() => signedIn && toggleSticker(s.key, a.id)} aria-pressed={on} disabled={!signedIn}
+                      aria-label={on ? `Remove sticker ${si + 1} from this page` : `Place sticker ${si + 1} on this page`}
                       className="v-tap inline-flex h-9 w-9 items-center justify-center rounded-md border disabled:opacity-50" style={{ borderColor: on ? 'var(--verse-cta, var(--verse-accent))' : 'var(--verse-line)', background: on ? 'var(--verse-soft-strong)' : 'transparent' }} title={on ? 'Placed - tap to remove' : 'Tap to place'}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={a.url} alt="" className="h-6 w-6 object-contain" />
@@ -264,19 +267,22 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName,
 
                     {arrange ? (
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <button type="button" aria-label={`Move ${c.name} left`} disabled={idx === 0} onClick={() => movePocket(idx, idx - 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">‹</button>
+                        <button type="button" aria-label={`Move ${c.name} left`} aria-disabled={idx === 0} onClick={() => movePocket(idx, idx - 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">‹</button>
                         <span onPointerDown={(e) => onHandleDown(e, idx)} onPointerMove={onHandleMove} onPointerUp={onHandleUp} role="button" tabIndex={-1} aria-hidden
                           className="cursor-grab touch-none px-1.5 text-tertiary active:cursor-grabbing" title="Drag to reorder">
                           <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden><circle cx="9" cy="6" r="1.6" /><circle cx="15" cy="6" r="1.6" /><circle cx="9" cy="12" r="1.6" /><circle cx="15" cy="12" r="1.6" /><circle cx="9" cy="18" r="1.6" /><circle cx="15" cy="18" r="1.6" /></svg>
                         </span>
-                        <button type="button" aria-label={`Move ${c.name} right`} disabled={idx === s.cards.length - 1} onClick={() => movePocket(idx, idx + 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">›</button>
+                        <button type="button" aria-label={`Move ${c.name} right`} aria-disabled={idx === s.cards.length - 1} onClick={() => movePocket(idx, idx + 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">›</button>
                       </div>
-                    ) : (
+                    ) : signedIn ? (
                       <div className="mt-1 flex gap-1">
                         <button type="button" onClick={() => setState(c.id, ownedC ? 'none' : 'owned')} aria-pressed={ownedC} className="v-tap flex-1 rounded-md py-1 text-[10.5px] font-bold" style={ownedC ? { background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' } : { border: '1px solid var(--verse-line)', color: 'var(--text-secondary)' }}>Own</button>
                         <button type="button" onClick={() => setState(c.id, wantedC ? 'none' : 'wanted')} aria-pressed={wantedC} className="v-tap flex-1 rounded-md py-1 text-[10.5px] font-bold" style={wantedC ? { background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { border: '1px solid var(--verse-line)', color: 'var(--text-secondary)' }}>Want</button>
                       </div>
-                    )}
+                    ) : null}
+                    {/* Logged-out sees the catalog shell only: no own/want controls,
+                        no personal state - the binder is an invitation to start, not
+                        a working binder (V-CARDS owner ruling). */}
                   </li>
                 );
               })}

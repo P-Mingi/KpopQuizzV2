@@ -50,8 +50,15 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { count } = await svc.from('verse_profile_shelf').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
   if ((count ?? 0) >= SHELF_CAP) return NextResponse.json({ error: 'shelf_full', cap: SHELF_CAP }, { status: 409 });
 
-  const { error } = await svc.from('verse_profile_shelf').insert({ user_id: user.id, item_type: itemType, item_id: itemId, position: count ?? 0 });
+  const { data: inserted, error } = await svc.from('verse_profile_shelf').insert({ user_id: user.id, item_type: itemType, item_id: itemId, position: count ?? 0 }).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  // Post-insert re-check closes the count-then-insert race (no DB constraint,
+  // migration budget spent): if a concurrent pin pushed us over, undo this one.
+  const { count: after } = await svc.from('verse_profile_shelf').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
+  if ((after ?? 0) > SHELF_CAP) {
+    await svc.from('verse_profile_shelf').delete().eq('id', (inserted as { id: number }).id);
+    return NextResponse.json({ error: 'shelf_full', cap: SHELF_CAP }, { status: 409 });
+  }
   return NextResponse.json({ ok: true, pinned: true });
 }
 

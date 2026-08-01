@@ -431,6 +431,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
       if (rows.length < 1000) break;
     }
+    // V-CARDS-MAX: the binder + shelf SHELLS are indexable catalog pages (the
+    // personal state is client-only/private); their tabs gate on published rows,
+    // so enter the shell only where a space has that catalog. Card pages enter
+    // only when sourced (the leaf's own robots gate matches).
+    const [{ data: pcGroups }, { data: colGroups }] = await Promise.all([
+      svc.from('photocards').select('groups(slug)').eq('status', 'published'),
+      svc.from('collectibles').select('groups(slug)').eq('status', 'published'),
+    ]);
+    for (const r of (pcGroups ?? []) as { groups: unknown }[]) { const s = gslug(r.groups); if (s) push(`/verse/${s}/photocards`, 0.5, 'weekly'); }
+    for (const r of (colGroups ?? []) as { groups: unknown }[]) { const s = gslug(r.groups); if (s) push(`/verse/${s}/collectibles`, 0.5, 'weekly'); }
+    for (let pg = 0; pg < 20; pg++) {
+      const { data: cardRows } = await svc.from('photocards').select('id, groups(slug)').eq('status', 'published').not('source_url', 'is', null).order('id').range(pg * 1000, pg * 1000 + 999);
+      const rows = (cardRows ?? []) as { id: number; groups: unknown }[];
+      for (const r of rows) { const s = gslug(r.groups); if (s) push(`/verse/${s}/photocards/${r.id}`, 0.4, 'monthly'); }
+      if (rows.length < 1000) break;
+    }
     // V-PAGES: wiki pages enter the sitemap ONLY at published + non-stub (the
     // thin-page protection; stubs are also robots-noindexed at the leaf).
     const { data: wikiPages } = await svc.from('verse_pages')

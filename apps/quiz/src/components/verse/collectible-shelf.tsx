@@ -134,18 +134,18 @@ export function CollectibleShelf({ rows: rawRows, groupId, groupSlug, fandomName
                       <span className="mt-1 line-clamp-2 text-center text-[10px] font-bold leading-tight" style={{ color: 'var(--verse-ink)' }}>{it.version ?? it.name}</span>
                       {arrange ? (
                         <span className="mt-1 inline-flex items-center gap-0.5">
-                          <button type="button" aria-label={`Move ${it.name} left`} disabled={idx === 0} onClick={() => moveObject(r.key, idx, idx - 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">‹</button>
+                          <button type="button" aria-label={`Move ${it.name} left`} aria-disabled={idx === 0} onClick={() => moveObject(r.key, idx, idx - 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">‹</button>
                           <span onPointerDown={(e) => onDown(e, r.key, idx)} onPointerMove={onMove} onPointerUp={onUp} aria-hidden className="cursor-grab touch-none px-0.5 text-tertiary active:cursor-grabbing" title="Drag to reorder">
                             <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden><circle cx="9" cy="8" r="1.5" /><circle cx="15" cy="8" r="1.5" /><circle cx="9" cy="16" r="1.5" /><circle cx="15" cy="16" r="1.5" /></svg>
                           </span>
-                          <button type="button" aria-label={`Move ${it.name} right`} disabled={idx === r.items.length - 1} onClick={() => moveObject(r.key, idx, idx + 1)} className="v-tap px-1 text-tertiary disabled:opacity-30">›</button>
+                          <button type="button" aria-label={`Move ${it.name} right`} aria-disabled={idx === r.items.length - 1} onClick={() => moveObject(r.key, idx, idx + 1)} className="v-tap px-1 text-tertiary aria-disabled:opacity-30">›</button>
                         </span>
-                      ) : (
+                      ) : signedIn ? (
                         <span className="mt-1 flex gap-1">
                           <button type="button" onClick={() => setState(it.id, st === 'owned' ? 'none' : 'owned')} aria-pressed={st === 'owned'} className="v-tap rounded-md px-2 py-0.5 text-[10px] font-bold" style={st === 'owned' ? { background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' } : { border: '1px solid var(--verse-line)', color: 'var(--text-secondary)' }}>Own</button>
                           <button type="button" onClick={() => setState(it.id, st === 'wanted' ? 'none' : 'wanted')} aria-pressed={st === 'wanted'} className="v-tap rounded-md px-2 py-0.5 text-[10px] font-bold" style={st === 'wanted' ? { background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { border: '1px solid var(--verse-line)', color: 'var(--text-secondary)' }}>Want</button>
                         </span>
-                      )}
+                      ) : null}
                     </li>
                   );
                 })}

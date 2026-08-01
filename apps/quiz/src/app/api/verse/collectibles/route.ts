@@ -76,15 +76,15 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const id = Number(body.id);
   if (!id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   const svc = createServiceRoleClient();
-  const { data: cur } = await svc.from('collectibles').select('group_id, source_url').eq('id', id).maybeSingle();
-  const row = cur as { group_id: number; source_url: string | null } | null;
+  const { data: cur } = await svc.from('collectibles').select('group_id, status, source_url').eq('id', id).maybeSingle();
+  const row = cur as { group_id: number; status: string; source_url: string | null } | null;
   if (!row || !await canCurateSpace((await roleOf(row.group_id)).uid ?? '', row.group_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const patch = fields(body);
   if (body.status === 'published' || body.status === 'draft') patch.status = body.status;
-  if (patch.status === 'published') {
-    const src = ('source_url' in patch ? patch.source_url : row.source_url) as string | null;
-    if (!src) return NextResponse.json({ error: 'source_required' }, { status: 400 });
-  }
+  // Source-gate the invariant, not just the transition (see photocards route).
+  const resultStatus = (patch.status ?? row.status) as string;
+  const resultSource = ('source_url' in patch ? patch.source_url : row.source_url) as string | null;
+  if (resultStatus === 'published' && !resultSource) return NextResponse.json({ error: 'source_required' }, { status: 400 });
   patch.updated_at = new Date().toISOString();
   const { error } = await svc.from('collectibles').update(patch).eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

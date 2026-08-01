@@ -5102,7 +5102,9 @@ main:has(.verse-page) { max-width: 1360px; }
    Bold from color / rhythm / material, never glow. Defaults = Classic. */
 .v-binder { --binder-surface: var(--verse-soft); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-owned-text: var(--verse-cta-text, var(--verse-accent-text)); --binder-radius: 0.5rem; --binder-page-border: var(--verse-line); }
 .v-binder[data-binder-theme="neon"] { --binder-surface: color-mix(in srgb, var(--verse-ink) 8%, var(--verse-soft)); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-radius: 0.35rem; --binder-page-border: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 45%, var(--verse-line)); }
-.v-binder[data-binder-theme="soft"] { --binder-surface: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 6%, var(--bg-surface)); --binder-owned: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 78%, white); --binder-radius: 0.9rem; --binder-page-border: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 16%, var(--verse-line)); }
+/* Soft = pastel: the owned pocket is a light accent tint with INK text, so it
+   reads on any fandom accent (light or dark), never white-on-near-white. */
+.v-binder[data-binder-theme="soft"] { --binder-surface: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 6%, var(--bg-surface)); --binder-owned: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 30%, var(--bg-surface)); --binder-owned-text: var(--verse-ink); --binder-radius: 0.9rem; --binder-page-border: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 16%, var(--verse-line)); }
 .v-binder[data-binder-theme="scrapbook"] { --binder-surface: color-mix(in srgb, #c8a97a 12%, var(--bg-surface)); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-radius: 0.35rem; --binder-page-border: color-mix(in srgb, #a9835a 40%, var(--verse-line)); }
 /* Scrapbook material: tape corners on each set-page (pure CSS, no glow). */
 .v-binder[data-binder-theme="scrapbook"] .v-binder-page { position: relative; }

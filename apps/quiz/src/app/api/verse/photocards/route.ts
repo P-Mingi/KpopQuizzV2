@@ -82,16 +82,17 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const id = Number(body.id);
   if (!id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   const svc = createServiceRoleClient();
-  const { data: cur } = await svc.from('photocards').select('group_id, source_url').eq('id', id).maybeSingle();
-  const row = cur as { group_id: number; source_url: string | null } | null;
+  const { data: cur } = await svc.from('photocards').select('group_id, status, source_url').eq('id', id).maybeSingle();
+  const row = cur as { group_id: number; status: string; source_url: string | null } | null;
   if (!row || !await canCurateSpace((await roleOf(row.group_id)).uid ?? '', row.group_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const patch = fields(body);
   if (body.status === 'published' || body.status === 'draft') patch.status = body.status;
-  // Publishing is source-gated: the resulting record must carry a source.
-  if (patch.status === 'published') {
-    const src = ('source_url' in patch ? patch.source_url : row.source_url) as string | null;
-    if (!src) return NextResponse.json({ error: 'source_required' }, { status: 400 });
-  }
+  // Source-gate the INVARIANT, not just the transition: any resulting published
+  // record must carry a source (so a curator cannot strip provenance from an
+  // already-published card by clearing its source without touching status).
+  const resultStatus = (patch.status ?? row.status) as string;
+  const resultSource = ('source_url' in patch ? patch.source_url : row.source_url) as string | null;
+  if (resultStatus === 'published' && !resultSource) return NextResponse.json({ error: 'source_required' }, { status: 400 });
   patch.updated_at = new Date().toISOString();
   const { error } = await svc.from('photocards').update(patch).eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

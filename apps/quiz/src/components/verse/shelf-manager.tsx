@@ -54,7 +54,10 @@ export function ShelfManager({ profileUsername }: { profileUsername: string }): 
           {cards.map((c) => (
             <li key={`${c.item_type}:${c.item_id}`} className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs" style={{ borderColor: 'var(--border)' }}>
               <Link href={c.href} className="font-semibold no-underline" style={{ color: 'var(--text-primary)' }}>{c.name}</Link>
-              <button type="button" onClick={() => void remove(c)} aria-label={`Remove ${c.name} from your showcase`} className="v-tap text-tertiary hover:text-secondary">×</button>
+              {/* Explicit 40px hit area: this button lives on the profile route,
+                  which has no .verse-page ancestor, so the scoped .v-tap rule
+                  would not apply here. */}
+              <button type="button" onClick={() => void remove(c)} aria-label={`Remove ${c.name} from your showcase`} className="inline-flex min-h-[40px] min-w-[40px] items-center justify-center text-tertiary hover:text-secondary">×</button>
             </li>
           ))}
         </ul>

@@ -8,7 +8,11 @@ import { useBuildMode } from '@/components/verse/build-mode';
 // Lives in Build mode. Contributors SUBMIT cards as drafts; curators publish
 // (source-gated: no source, no publish) and work the review queue. The API
 // enforces the same gates, so this UI only mirrors them.
-const TYPES = ['album', 'pob', 'fansign', 'fanmeeting', 'event', 'trading', 'season_greetings', 'md', 'other'];
+const TYPES: { value: string; label: string }[] = [
+  { value: 'album', label: 'Album card' }, { value: 'pob', label: 'Pre-order benefit' }, { value: 'fansign', label: 'Fansign' },
+  { value: 'fanmeeting', label: 'Fanmeeting' }, { value: 'event', label: 'Event' }, { value: 'trading', label: 'Trading card' },
+  { value: 'season_greetings', label: 'Season’s Greetings' }, { value: 'md', label: 'Merch' }, { value: 'other', label: 'Other' },
+];
 
 interface Draft { id: number; name: string; era: string | null; version: string | null; card_type: string | null; source_url: string | null; source_note: string | null }
 interface Opt { id: number; label: string }
@@ -69,7 +73,7 @@ export function PhotocardCatalogManager({ groupId, albums, idols }: {
 
       <div className="grid gap-2 sm:grid-cols-2">
         <input placeholder="Card name (required)" value={form.name ?? ''} onChange={(e) => setForm({ ...form, name: e.target.value })} className={field} style={border} aria-label="Card name" />
-        <select value={form.card_type ?? ''} onChange={(e) => setForm({ ...form, card_type: e.target.value })} className={field} style={border} aria-label="Type"><option value="">Type</option>{TYPES.map((t) => <option key={t} value={t}>{t}</option>)}</select>
+        <select value={form.card_type ?? ''} onChange={(e) => setForm({ ...form, card_type: e.target.value })} className={field} style={border} aria-label="Type"><option value="">Type</option>{TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}</select>
         <select value={form.album_id ?? ''} onChange={(e) => setForm({ ...form, album_id: e.target.value })} className={field} style={border} aria-label="Set (album)"><option value="">Set (album)</option>{albums.map((a) => <option key={a.id} value={a.id}>{a.label}</option>)}</select>
         <select value={form.idol_id ?? ''} onChange={(e) => setForm({ ...form, idol_id: e.target.value })} className={field} style={border} aria-label="Member"><option value="">Member</option>{idols.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}</select>
         <input placeholder="Era" value={form.era ?? ''} onChange={(e) => setForm({ ...form, era: e.target.value })} className={field} style={border} aria-label="Era" />
