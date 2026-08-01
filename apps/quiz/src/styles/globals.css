@@ -5097,6 +5097,20 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-section-title { font-size: clamp(1.3rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: var(--v-tracking-tight); color: var(--verse-ink); line-height: 1.15; }
 .v-section-rule { height: 2px; width: 40px; background: var(--verse-cta, var(--verse-accent)); margin: 0.55rem 0 1.05rem; }
 
+/* V-CARDS-MAX step 4 - BINDER THEMES. The binder reads a small set of scoped
+   vars; each theme overrides them (the preset machinery, applied to the binder).
+   Bold from color / rhythm / material, never glow. Defaults = Classic. */
+.v-binder { --binder-surface: var(--verse-soft); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-owned-text: var(--verse-cta-text, var(--verse-accent-text)); --binder-radius: 0.5rem; --binder-page-border: var(--verse-line); }
+.v-binder[data-binder-theme="neon"] { --binder-surface: color-mix(in srgb, var(--verse-ink) 8%, var(--verse-soft)); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-radius: 0.35rem; --binder-page-border: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 45%, var(--verse-line)); }
+.v-binder[data-binder-theme="soft"] { --binder-surface: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 6%, var(--bg-surface)); --binder-owned: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 78%, white); --binder-radius: 0.9rem; --binder-page-border: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 16%, var(--verse-line)); }
+.v-binder[data-binder-theme="scrapbook"] { --binder-surface: color-mix(in srgb, #c8a97a 12%, var(--bg-surface)); --binder-owned: var(--verse-cta, var(--verse-accent)); --binder-radius: 0.35rem; --binder-page-border: color-mix(in srgb, #a9835a 40%, var(--verse-line)); }
+/* Scrapbook material: tape corners on each set-page (pure CSS, no glow). */
+.v-binder[data-binder-theme="scrapbook"] .v-binder-page { position: relative; }
+.v-binder[data-binder-theme="scrapbook"] .v-binder-page::before,
+.v-binder[data-binder-theme="scrapbook"] .v-binder-page::after { content: ""; position: absolute; top: -7px; width: 66px; height: 20px; background: color-mix(in srgb, #d9c9a8 70%, transparent); transform: rotate(-4deg); opacity: 0.9; pointer-events: none; }
+.v-binder[data-binder-theme="scrapbook"] .v-binder-page::before { left: 22px; }
+.v-binder[data-binder-theme="scrapbook"] .v-binder-page::after { right: 22px; transform: rotate(4deg); }
+
 /* V-POLISH-2 step 4 additions */
 /* C6c: the squeeze band (sm..900px) shows icon-only nav instead of clipping
    "Community" to "Comm" mid-word. */

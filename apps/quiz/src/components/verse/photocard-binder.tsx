@@ -17,7 +17,7 @@ import type { BinderSet, CardState } from '@/lib/verse/photocards';
 
 const RATIO = '55 / 85';
 
-interface Layout { pageOrder?: string[]; pockets?: Record<string, number[]> }
+interface Layout { pageOrder?: string[]; pockets?: Record<string, number[]>; stickers?: Record<string, number[]> }
 
 function applyLayout(sets: BinderSet[], layout: Layout): BinderSet[] {
   let ordered = sets;
@@ -49,12 +49,17 @@ function Ring({ owned, total }: { owned: number; total: number }): React.ReactEl
   );
 }
 
-export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName }: {
-  sets: BinderSet[]; groupId: number; groupSlug: string; fandomName: string;
+const THEMES: { key: string; label: string }[] = [
+  { key: 'classic', label: 'Classic' }, { key: 'neon', label: 'Neon' }, { key: 'soft', label: 'Soft' }, { key: 'scrapbook', label: 'Scrapbook' },
+];
+
+export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName, stickerAssets = [] }: {
+  sets: BinderSet[]; groupId: number; groupSlug: string; fandomName: string; stickerAssets?: { id: number; url: string }[];
 }): React.ReactElement {
   const [states, setStates] = useState<Record<number, CardState>>({});
   const [signedIn, setSignedIn] = useState(false);
   const [layout, setLayout] = useState<Layout>({});
+  const [theme, setTheme] = useState('classic');
   const [page, setPage] = useState(0);
   const [arrange, setArrange] = useState(false);
   const [announce, setAnnounce] = useState('');
@@ -62,8 +67,21 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
 
   useEffect(() => {
     fetch(`/api/verse/collection?group_id=${groupId}`).then((r) => (r.ok ? r.json() : null)).then((d) => { if (d) { setSignedIn(!!d.signedIn); setStates(d.states ?? {}); } }).catch(() => {});
-    fetch(`/api/verse/binder?group_id=${groupId}&surface=binder`).then((r) => (r.ok ? r.json() : null)).then((d) => { if (d?.layout) setLayout(d.layout); }).catch(() => {});
+    fetch(`/api/verse/binder?group_id=${groupId}&surface=binder`).then((r) => (r.ok ? r.json() : null)).then((d) => { if (d) { if (d.layout) setLayout(d.layout); if (d.theme) setTheme(d.theme); } }).catch(() => {});
   }, [groupId]);
+
+  function saveTheme(t: string): void {
+    setTheme(t);
+    void fetch('/api/verse/binder', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, surface: 'binder', theme: t }) });
+  }
+  // Scrapbook sticker slots reuse the space's existing sticker assets; placements
+  // live in layout.stickers[setKey]. Toggling a sticker adds/removes it from the page.
+  function toggleSticker(setKey: string, assetId: number): void {
+    const cur = layout.stickers?.[setKey] ?? [];
+    const nextIds = cur.includes(assetId) ? cur.filter((x) => x !== assetId) : [...cur, assetId];
+    const next: Layout = { ...layout, stickers: { ...layout.stickers, [setKey]: nextIds } };
+    setLayout(next); persist(next);
+  }
 
   const sets = useMemo(() => applyLayout(rawSets, layout), [rawSets, layout]);
   const active = sets[Math.min(page, sets.length - 1)];
@@ -126,9 +144,9 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
   }
 
   return (
-    <div>
+    <div className="v-binder" data-binder-theme={theme}>
       {/* Summary band: the whole binder in numbers. */}
-      <div className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl px-5 py-4" style={{ background: 'var(--verse-soft)' }}>
+      <div className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl px-5 py-4" style={{ background: 'var(--binder-surface)' }}>
         <div><p className="text-[2rem] font-extrabold leading-none tabular-nums" style={{ color: 'var(--verse-ink)' }}>{ownedTotal}</p><p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-tertiary">Owned</p></div>
         <div><p className="text-[2rem] font-extrabold leading-none tabular-nums text-secondary">{total}</p><p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-tertiary">In the catalog</p></div>
         <div><p className="text-[2rem] font-extrabold leading-none tabular-nums text-secondary">{setsComplete}<span className="text-lg text-tertiary">/{sets.length}</span></p><p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-tertiary">Sets complete</p></div>
@@ -145,6 +163,21 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
           )}
         </div>
       </div>
+
+      {/* Theme picker (owner): the binder wears the fandom's mood. Editor parity -
+          the reader owns their binder's look just as curators own the space's. */}
+      {signedIn ? (
+        <div className="mb-4 flex flex-wrap items-center gap-2" role="group" aria-label="Binder theme">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-tertiary">Theme</span>
+          {THEMES.map((t) => (
+            <button key={t.key} type="button" onClick={() => saveTheme(t.key)} aria-pressed={theme === t.key}
+              className="v-tap rounded-full border px-3 py-1 text-xs font-semibold"
+              style={theme === t.key ? { borderColor: 'var(--verse-cta, var(--verse-accent))', background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {/* Page rail: every set is a page you can flip to. */}
       <div className="mb-4 flex items-center gap-2">
@@ -177,7 +210,7 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
         const isActive = i === Math.min(page, sets.length - 1);
         return (
           <section key={s.key} hidden={!isActive} aria-label={`${s.label} page`}
-            className="rounded-2xl border p-4 sm:p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
+            className="v-binder-page rounded-2xl border p-4 sm:p-5" style={{ borderColor: 'var(--binder-page-border)', background: 'var(--binder-surface)' }}>
             <header className="mb-4 flex items-center gap-3">
               {s.mbid ? <CoverArt mbid={s.mbid} title={s.label} className="w-12 flex-shrink-0 rounded-md" /> : null}
               <div className="min-w-0 flex-1">
@@ -186,6 +219,25 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
               </div>
               <Ring owned={owned} total={s.cards.length} />
             </header>
+
+            {/* Scrapbook: sticker slots from the space's existing sticker set. */}
+            {theme === 'scrapbook' ? (
+              <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-dashed p-2" style={{ borderColor: 'var(--binder-page-border)' }}>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-tertiary">Stickers</span>
+                {stickerAssets.length === 0 ? (
+                  <span className="text-[11px] text-tertiary">Curators add stickers in the studio; they decorate your scrapbook here.</span>
+                ) : stickerAssets.map((a) => {
+                  const on = (layout.stickers?.[s.key] ?? []).includes(a.id);
+                  return (
+                    <button key={a.id} type="button" onClick={() => signedIn && toggleSticker(s.key, a.id)} aria-pressed={on} disabled={!signedIn}
+                      className="v-tap inline-flex h-9 w-9 items-center justify-center rounded-md border disabled:opacity-50" style={{ borderColor: on ? 'var(--verse-cta, var(--verse-accent))' : 'var(--verse-line)', background: on ? 'var(--verse-soft-strong)' : 'transparent' }} title={on ? 'Placed - tap to remove' : 'Tap to place'}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={a.url} alt="" className="h-6 w-6 object-contain" />
+                    </button>
+                  );
+                })}
+              </div>
+            ) : null}
 
             {/* Fixed card-sized pockets: 2-up on mobile (2x3 mental model), more
                 on desktop, capped so a photocard-ratio pocket never balloons. */}
@@ -199,9 +251,10 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName 
                       className="group relative flex items-end overflow-hidden rounded-lg p-2 no-underline transition-colors"
                       style={{
                         aspectRatio: RATIO,
-                        background: ownedC ? 'var(--verse-cta, var(--verse-accent))' : 'transparent',
+                        borderRadius: 'var(--binder-radius)',
+                        background: ownedC ? 'var(--binder-owned)' : 'transparent',
                         border: ownedC ? '1px solid transparent' : wantedC ? '2px dashed var(--verse-ink)' : '1.5px dashed var(--v-hairline, var(--verse-line))',
-                        color: ownedC ? 'var(--verse-cta-text, var(--verse-accent-text))' : 'var(--verse-ink)',
+                        color: ownedC ? 'var(--binder-owned-text)' : 'var(--verse-ink)',
                         opacity: !st ? 0.62 : 1,
                         boxShadow: st ? 'inset 0 1px 3px rgba(0,0,0,0.10)' : 'none',
                       }}>

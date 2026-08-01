@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
@@ -10,6 +11,8 @@ import { PassportView, type PassportTopGroup } from '@/components/profile/passpo
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ContributionGraph } from '@/components/verse/contribution-graph';
 import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
+import { ShelfManager } from '@/components/verse/shelf-manager';
+import { getPublicShelfCards } from '@/lib/verse/shelf';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -132,6 +135,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
     safeFetch(Promise.resolve(db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), { data: null } as { data: unknown }, '[u/[username]] user_badges'),
   ]);
 
+  // V-CARDS-MAX step 4: the public showcase (only if the owner opted in).
+  const shelfCards = await safeFetch(getPublicShelfCards(profile.id), [], '[u/[username]] getPublicShelfCards');
+
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
   for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>) {
@@ -238,6 +244,28 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
       {/* W5.2: photocard collection progress (min-gated: hides until the user owns a card). */}
       <PhotocardCollectionCard userId={profile.id} />
+
+      {/* V-CARDS-MAX step 4: the public card showcase (SSR when opted in) + the
+          owner's controls (client island: opt-in toggle + manage, self-gated). */}
+      {shelfCards.length ? (
+        <section aria-label="Card showcase" style={cardWrap}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
+            <h2 className="mb-3 text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Card showcase</h2>
+            <ul className="flex flex-wrap gap-3">
+              {shelfCards.map((c) => (
+                <li key={`${c.item_type}:${c.item_id}`} className="w-[104px]">
+                  <Link href={c.href} className="flex flex-col justify-end rounded-lg p-2 no-underline shadow-sm" style={{ aspectRatio: '55 / 85', background: 'var(--brand)', color: 'var(--brand-contrast, #fff)' }}>
+                    {c.version ? <span className="self-start rounded px-1 py-0.5 text-[8px] font-bold uppercase tracking-wide" style={{ background: 'rgba(255,255,255,0.22)' }}>{c.version}</span> : null}
+                    <span className="mt-auto line-clamp-2 text-[10px] font-bold leading-tight">{c.name}</span>
+                    <span className="mt-0.5 text-[9px] font-semibold opacity-80">{c.groupName}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+      <div style={cardWrap}><ShelfManager profileUsername={profile.username} /></div>
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>

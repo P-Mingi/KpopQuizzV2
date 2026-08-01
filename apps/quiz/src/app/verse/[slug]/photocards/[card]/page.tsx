@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SourceChip } from '@/components/verse/source-chip';
 import { PhotocardCollectControl } from '@/components/verse/photocard-collect-control';
+import { ShelfPinButton } from '@/components/verse/shelf-pin-button';
 import { getSpace } from '@/lib/verse/space';
 import { getPhotocardById, getCardCommunityCounts, COMMUNITY_FLOOR } from '@/lib/verse/photocards';
 
@@ -67,7 +68,10 @@ export default async function PhotocardDetailPage({ params }: { params: Promise<
               </p>
             ) : null}
             {member ? <p className="mt-2 text-sm text-secondary"><Link href={`/verse/${slug}/members/${member.slug}`} className="verse-link font-semibold">{member.name}</Link></p> : null}
-            <div className="mt-4"><PhotocardCollectControl cardId={row.id} groupSlug={slug} /></div>
+            <div className="mt-4 flex flex-col gap-3">
+              <PhotocardCollectControl cardId={row.id} groupSlug={slug} />
+              <ShelfPinButton itemType="photocard" itemId={row.id} groupSlug={slug} />
+            </div>
           </div>
         </div>
       </header>
