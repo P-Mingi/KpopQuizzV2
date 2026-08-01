@@ -5097,6 +5097,13 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-section-title { font-size: clamp(1.3rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: var(--v-tracking-tight); color: var(--verse-ink); line-height: 1.15; }
 .v-section-rule { height: 2px; width: 40px; background: var(--verse-cta, var(--verse-accent)); margin: 0.55rem 0 1.05rem; }
 
+/* V-ESSAYS-MAX - the editorial (magazine) serif voice as ONE token (retune here,
+   not across 8 inline stacks); the sites read fontFamily: var(--v-editorial-font). */
+:root { --v-editorial-font: Georgia, "Times New Roman", serif; }
+/* An accent kicker as TEXT: pulled toward ink so it clears the contrast floor on
+   any group accent (--verse-cta is a fill token, not floored for text). */
+.v-kicker-accent { color: color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 62%, var(--verse-ink)); }
+
 /* V-CARDS-MAX step 4 - BINDER THEMES. The binder reads a small set of scoped
    vars; each theme overrides them (the preset machinery, applied to the binder).
    Bold from color / rhythm / material, never glow. Defaults = Classic. */

@@ -79,10 +79,20 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const svc = createServiceRoleClient();
   // curators' proposals are born approved; members' await review.
   const approved = roleAtLeast(await getSpaceRole(user.id, groupId), 'curator');
-  let slug = slugify(title);
+  // Distinct sort_order so reorder actually swaps (else every row sits at 0).
+  const { data: maxRow } = await svc.from('verse_essay_series').select('sort_order').eq('group_id', groupId).order('sort_order', { ascending: false }).limit(1).maybeSingle();
+  const sortOrder = ((maxRow as { sort_order: number } | null)?.sort_order ?? 0) + 1;
+  const base = slugify(title);
+  let slug = base;
   const { data: clash } = await svc.from('verse_essay_series').select('id').eq('group_id', groupId).eq('slug', slug).maybeSingle();
-  if (clash) slug = `${slug}-${Date.now().toString(36).slice(-4)}`;
-  const { data, error } = await svc.from('verse_essay_series').insert({ group_id: groupId, title, slug, created_by: user.id, status: approved ? 'approved' : 'proposed' }).select('id, title, slug, status').single();
+  if (clash) slug = `${base}-${Date.now().toString(36).slice(-4)}`;
+  let ins = await svc.from('verse_essay_series').insert({ group_id: groupId, title, slug, created_by: user.id, sort_order: sortOrder, status: approved ? 'approved' : 'proposed' }).select('id, title, slug, status').single();
+  // Retry once on a concurrent slug clash (the check-then-insert race).
+  if (ins.error && /duplicate|unique/i.test(ins.error.message)) {
+    slug = `${base}-${Date.now().toString(36).slice(-4)}`;
+    ins = await svc.from('verse_essay_series').insert({ group_id: groupId, title, slug, created_by: user.id, sort_order: sortOrder, status: approved ? 'approved' : 'proposed' }).select('id, title, slug, status').single();
+  }
+  const { data, error } = ins;
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true, series: data });
 }

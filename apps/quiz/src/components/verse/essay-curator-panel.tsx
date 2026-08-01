@@ -38,20 +38,22 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
 
   async function essayAction(id: number, action: string, note?: string): Promise<void> {
     const r = await fetch('/api/verse/essays', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action, note }) });
-    if (r.ok) { setMsg(''); void load(); } else setMsg((await r.json().catch(() => ({}))).error ?? 'Could not update.');
+    if (r.ok) { setMsg('Done.'); void load(); } else setMsg((await r.json().catch(() => ({}))).error ?? 'Could not update.');
   }
   async function seriesAction(id: number, action: string, extra?: Record<string, unknown>): Promise<void> {
     const r = await fetch('/api/verse/essays/series', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action, ...extra }) });
-    if (r.ok) void load(); else setMsg((await r.json().catch(() => ({}))).error ?? 'Could not update.');
+    if (r.ok) { setMsg('Done.'); void load(); } else setMsg((await r.json().catch(() => ({}))).error ?? 'Could not update.');
   }
 
   if (!on || !isCurator) return null;
   const proposed = series.filter((s) => s.status === 'proposed');
   const approved = series.filter((s) => s.status === 'approved');
   const B = 'v-tap rounded-full border px-3 py-1 text-xs font-semibold';
+  // Floored identity border: a pale group accent stays visible against the page.
+  const panelBorder = 'color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 55%, var(--verse-line))';
 
   return (
-    <section aria-label="Manage essays" className="mt-10 rounded-2xl border p-4 sm:p-5" style={{ borderColor: 'var(--verse-cta, var(--verse-accent))', background: 'var(--verse-soft)' }}>
+    <section aria-label="Manage essays" className="mt-10 rounded-2xl border p-4 sm:p-5" style={{ borderColor: panelBorder, background: 'var(--verse-soft)' }}>
       <h2 className="v-section-title">Manage essays</h2>
       <div className="v-section-rule" aria-hidden />
       {msg ? <p role="status" className="mb-2 text-xs" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>{msg}</p> : null}
@@ -66,7 +68,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
               <span className="text-xs text-tertiary">by {e.author?.displayName || e.author?.username || 'a fan'}</span>
               <span className="ml-auto flex gap-1.5">
                 <button type="button" onClick={() => void essayAction(e.id, 'feature')} className="v-tap rounded-full px-3 py-1 text-xs font-bold" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Publish</button>
-                <button type="button" onClick={() => { const n = window.prompt('Reason to return (optional):') ?? undefined; void essayAction(e.id, 'reject', n); }} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>Return</button>
+                <button type="button" onClick={() => { const n = window.prompt('Reason to return (optional):'); if (n === null) return; void essayAction(e.id, 'reject', n || undefined); }} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>Return</button>
               </span>
             </li>
           ))}
@@ -82,7 +84,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
               <Link href={`/verse/${groupSlug}/essays/${e.id}`} className="font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>{e.title}</Link>
               {e.is_hero ? <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Hero</span> : null}
               <span className="ml-auto flex gap-1.5">
-                <button type="button" onClick={() => void essayAction(e.id, e.is_hero ? 'unhero' : 'hero')} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>{e.is_hero ? 'Remove hero' : 'Make hero'}</button>
+                <button type="button" aria-pressed={e.is_hero} onClick={() => void essayAction(e.id, e.is_hero ? 'unhero' : 'hero')} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>{e.is_hero ? 'Remove hero' : 'Make hero'}</button>
                 <button type="button" onClick={() => { const n = window.prompt('Reason to unpublish (logged):') ?? undefined; if (n !== undefined) void essayAction(e.id, 'unpublish', n); }} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>Unpublish</button>
               </span>
             </li>
@@ -114,8 +116,8 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
             <li key={s.id} className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm" style={{ background: 'var(--bg-surface)' }}>
               <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{s.title}</span>
               <span className="ml-auto flex gap-1">
-                <button type="button" aria-label={`Move ${s.title} up`} aria-disabled={i === 0} onClick={() => void seriesAction(s.id, 'move', { dir: 'up' })} className="v-tap px-1.5 text-tertiary aria-disabled:opacity-30">‹</button>
-                <button type="button" aria-label={`Move ${s.title} down`} aria-disabled={i === approved.length - 1} onClick={() => void seriesAction(s.id, 'move', { dir: 'down' })} className="v-tap px-1.5 text-tertiary aria-disabled:opacity-30">›</button>
+                <button type="button" aria-label={`Move ${s.title} up`} aria-disabled={i === 0} onClick={() => { if (i === 0) return; void seriesAction(s.id, 'move', { dir: 'up' }); }} className="v-tap px-1.5 text-tertiary aria-disabled:opacity-30">‹</button>
+                <button type="button" aria-label={`Move ${s.title} down`} aria-disabled={i === approved.length - 1} onClick={() => { if (i === approved.length - 1) return; void seriesAction(s.id, 'move', { dir: 'down' }); }} className="v-tap px-1.5 text-tertiary aria-disabled:opacity-30">›</button>
                 <button type="button" onClick={() => { const t = window.prompt('Rename series:', s.title); if (t?.trim()) void seriesAction(s.id, 'rename', { title: t.trim() }); }} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>Rename</button>
               </span>
             </li>

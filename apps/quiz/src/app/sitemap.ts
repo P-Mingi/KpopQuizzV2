@@ -447,6 +447,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const r of rows) { const s = gslug(r.groups); if (s) push(`/verse/${s}/photocards/${r.id}`, 0.4, 'monthly'); }
       if (rows.length < 1000) break;
     }
+    // V-ESSAYS-MAX: the magazine index (per space with a public essay) + each
+    // featured essay page (indexable, Article LD). Series need no own URL (they
+    // are shelves on the index). Drafts stay out (status='featured' filter).
+    const { data: essayRows } = await svc.from('verse_essays').select('id, groups(slug)').eq('status', 'featured').order('id');
+    const magSlugs = new Set<string>();
+    for (const r of (essayRows ?? []) as { id: number; groups: unknown }[]) {
+      const s = gslug(r.groups);
+      if (!s) continue;
+      if (!magSlugs.has(s)) { magSlugs.add(s); push(`/verse/${s}/essays`, 0.5, 'weekly'); }
+      push(`/verse/${s}/essays/${r.id}`, 0.5, 'monthly');
+    }
     // V-PAGES: wiki pages enter the sitemap ONLY at published + non-stub (the
     // thin-page protection; stubs are also robots-noindexed at the leaf).
     const { data: wikiPages } = await svc.from('verse_pages')

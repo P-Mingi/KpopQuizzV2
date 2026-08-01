@@ -72,9 +72,12 @@ async function attachRoles<T extends { authorId: string }>(rows: T[], groupId: n
 /** The whole magazine for a space: hero + series shelves + latest, all min-gated. */
 export async function getMagazine(groupId: number): Promise<MagazineData> {
   const db = createServiceRoleClient();
-  const { data } = await db.from('verse_essays')
+  const { data, error } = await db.from('verse_essays')
     .select('id, title, slug, status, author, content, featured_at, created_at, is_hero, series_id, series_order')
     .eq('group_id', groupId).eq('status', 'featured').order('featured_at', { ascending: false });
+  // ISR bake law: this list DEFINES the magazine page. Throw on error so a
+  // transient failure 500s (retried) instead of baking an empty magazine for 1h.
+  if (error) throw new Error(`getMagazine(${groupId}): ${error.message}`);
   const raw = (data ?? []) as Array<{ id: number; title: string; slug: string | null; status: string; author: string; content: unknown; featured_at: string | null; created_at: string; is_hero: boolean; series_id: number | null; series_order: number }>;
   if (!raw.length) return { hero: null, series: [], latest: [], publicCount: 0 };
 
@@ -100,7 +103,10 @@ export async function getMagazine(groupId: number): Promise<MagazineData> {
     essays: raw.filter((r) => r.series_id === s.id).sort((a, b) => a.series_order - b.series_order).map((r) => byId.get(r.id)!).filter(Boolean),
   })).filter((s) => s.essays.length > 0);
 
-  const latest = cards.filter((c) => !c.isHero).slice(0, 12);
+  // Latest excludes the hero AND anything already shown in a series shelf, so no
+  // essay reads twice on the index (editorial hierarchy stays clean).
+  const shelved = new Set(series.flatMap((s) => s.essays.map((e) => e.id)));
+  const latest = cards.filter((c) => !c.isHero && !shelved.has(c.id)).slice(0, 12);
   return { hero, series, latest, publicCount: cards.length };
 }
 
@@ -111,7 +117,10 @@ export interface EssayPage extends EssayFull { cover: unknown; seriesId: number 
  *  enforces access for non-public statuses). */
 export async function getEssayPage(id: number): Promise<EssayPage | null> {
   const db = createServiceRoleClient();
-  const { data } = await db.from('verse_essays').select('id, group_id, title, slug, status, author, content, cover, featured_at, created_at, series_id').eq('id', id).maybeSingle();
+  const { data, error } = await db.from('verse_essays').select('id, group_id, title, slug, status, author, content, cover, featured_at, created_at, series_id').eq('id', id).maybeSingle();
+  // ISR bake law: throw on a real query error so a transient failure does not
+  // 404 a published essay (and flip its metadata to noindex); null = truly missing.
+  if (error) throw new Error(`getEssayPage(${id}): ${error.message}`);
   if (!data) return null;
   const r = data as { id: number; group_id: number; title: string; slug: string | null; status: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; series_id: number | null };
   const [withAuthor] = await attachAuthors([{ id: r.id, title: r.title, slug: r.slug, status: r.status, authorId: r.author, featuredAt: r.featured_at, createdAt: r.created_at }]);

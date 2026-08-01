@@ -38,7 +38,7 @@ function EssayRow({ e, slug }: { e: EssayCard; slug: string }): React.ReactEleme
   return (
     <li>
       <Link href={`/verse/${slug}/essays/${e.id}`} className="group block rounded-xl border p-4 no-underline transition-colors hover:bg-[var(--verse-soft)]" style={{ borderColor: 'var(--verse-line)' }}>
-        <p className="text-base font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{e.title}</p>
+        <p className="text-base font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{e.title}</p>
         {e.dek ? <p className="mt-1 line-clamp-2 text-sm text-secondary">{e.dek}</p> : null}
         <div className="mt-2"><ByLine e={e} /></div>
       </Link>
@@ -61,7 +61,7 @@ export default async function EssaysPage({ params }: { params: Promise<{ slug: s
     <div>
       <div className="mb-5"><Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: 'Essays' }]} /></div>
       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">The magazine</p>
-      <h1 className="mt-1 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{space.group.fandom_name} essays</h1>
+      <h1 className="mt-1 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{space.group.fandom_name} essays</h1>
       <p className="mt-2 max-w-[66ch] text-sm text-secondary">Long-form fan writing about {space.group.name}, reviewed and featured by curators.</p>
 
       {mag.publicCount === 0 ? (
@@ -73,8 +73,8 @@ export default async function EssaysPage({ params }: { params: Promise<{ slug: s
             <section aria-label="Featured essay">
               <Link href={`/verse/${slug}/essays/${mag.hero.id}`} className="group block overflow-hidden rounded-2xl border no-underline" style={{ borderColor: 'var(--verse-line)', background: 'linear-gradient(160deg, var(--verse-soft-strong), var(--verse-soft) 60%, transparent)' }}>
                 <div className="p-6 sm:p-8">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>Featured</p>
-                  <h2 className="mt-2 text-2xl font-extrabold leading-tight sm:text-3xl" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif', textWrap: 'balance' } as React.CSSProperties}>{mag.hero.title}</h2>
+                  <p className="v-kicker-accent text-[11px] font-bold uppercase tracking-[0.16em]">Featured</p>
+                  <h2 className="mt-2 text-2xl font-extrabold leading-tight sm:text-3xl" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)', textWrap: 'balance' } as React.CSSProperties}>{mag.hero.title}</h2>
                   {mag.hero.dek ? <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-secondary">{mag.hero.dek}</p> : null}
                   <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
                     <ByLine e={mag.hero} />

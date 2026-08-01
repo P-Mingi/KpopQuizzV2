@@ -278,7 +278,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
             <ul className="space-y-1.5">
               {authorEssays.slice(0, 5).map((e) => (
                 <li key={e.id} className="text-sm">
-                  <Link href={`/verse/${e.groupSlug}/essays/${e.id}`} className="font-semibold no-underline" style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{e.title}</Link>
+                  <Link href={`/verse/${e.groupSlug}/essays/${e.id}`} className="font-semibold no-underline" style={{ color: 'var(--text-primary)', fontFamily: 'var(--v-editorial-font)' }}>{e.title}</Link>
                   <span className="ml-1.5 text-xs text-tertiary">{e.groupName}</span>
                 </li>
               ))}

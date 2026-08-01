@@ -13,9 +13,9 @@ export async function FeaturedEssayModule({ space }: ModuleProps): Promise<React
   if (!hero) return null;
   return (
     <div>
-      <p className="v-eyebrow" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>Featured essay</p>
+      <p className="v-eyebrow v-kicker-accent">Featured essay</p>
       <Link href={`/verse/${space.group.slug}/essays/${hero.id}`} className="mt-2 block no-underline">
-        <p className="text-lg font-extrabold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{hero.title}</p>
+        <p className="text-lg font-extrabold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{hero.title}</p>
         {hero.dek ? <p className="mt-1 line-clamp-2 text-sm text-secondary">{hero.dek}</p> : null}
         <p className="mt-2 text-xs text-tertiary">by {hero.authorName} · <span className="tabular-nums">{hero.readingMin} min read</span></p>
       </Link>

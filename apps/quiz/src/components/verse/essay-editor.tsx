@@ -33,15 +33,21 @@ export function EssayEditor({ groupId, groupSlug, albums, initialId, initialTitl
   const [msg, setMsg] = useState('');
   const dirty = useRef(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const saving = useRef(false);
 
   const doSave = useCallback(async (silent: boolean): Promise<number | null> => {
     if (!title.trim()) { if (!silent) setMsg('Give it a title.'); return null; }
+    // In-flight guard: a save (especially the first, id=null) must not run twice
+    // concurrently, or a brand-new essay would be created twice.
+    if (saving.current) return null;
+    saving.current = true;
     if (!silent) setBusy(true);
-    const res = await fetch('/api/verse/essays', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, id, title, content: editorRef.current?.getJSON(), cover: coverMbid ? { mbid: coverMbid } : {}, series_id: seriesId }) });
-    if (!silent) setBusy(false);
-    if (res.status === 401) { window.location.href = `/login?returnTo=${encodeURIComponent(window.location.pathname)}`; return null; }
-    if (!res.ok) { setMsg((await res.json().catch(() => ({}))).error === 'membership_required' ? 'Join the space to write.' : 'Could not save.'); return null; }
-    const d = await res.json(); setId(d.id); dirty.current = false; setMsg(silent ? 'Autosaved.' : 'Draft saved.'); return d.id;
+    try {
+      const res = await fetch('/api/verse/essays', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, id, title, content: editorRef.current?.getJSON(), cover: coverMbid ? { mbid: coverMbid } : {}, series_id: seriesId }) });
+      if (res.status === 401) { window.location.href = `/login?returnTo=${encodeURIComponent(window.location.pathname)}`; return null; }
+      if (!res.ok) { setMsg((await res.json().catch(() => ({}))).error === 'membership_required' ? 'Join the space to write.' : 'Could not save.'); return null; }
+      const d = await res.json(); setId(d.id); dirty.current = false; setMsg(silent ? 'Autosaved.' : 'Draft saved.'); return d.id;
+    } finally { saving.current = false; if (!silent) setBusy(false); }
   }, [groupId, id, title, coverMbid, seriesId]);
 
   const scheduleSave = useCallback((): void => {
@@ -98,7 +104,7 @@ export function EssayEditor({ groupId, groupSlug, albums, initialId, initialTitl
 
   return (
     <div className="verse-scope">
-      <input value={title} onChange={(e) => { setTitle(e.target.value); dirty.current = true; scheduleSave(); }} placeholder="Essay title" maxLength={160} className="mb-3 w-full rounded-lg border border-default bg-transparent px-3 py-2 text-lg font-bold" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }} />
+      <input value={title} onChange={(e) => { setTitle(e.target.value); dirty.current = true; scheduleSave(); }} placeholder="Essay title" maxLength={160} className="mb-3 w-full rounded-lg border border-default bg-transparent px-3 py-2 text-lg font-bold" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }} />
 
       {/* Cover picker: policy assets only (album art). */}
       {coverAlbums.length ? (

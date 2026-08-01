@@ -150,8 +150,11 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   if (action === 'hero' || action === 'unhero') {
     if (action === 'unhero') { await svc.from('verse_essays').update({ is_hero: false, updated_at: now }).eq('id', id); return NextResponse.json({ ok: true, isHero: false }); }
     if (essay.status !== 'featured') return NextResponse.json({ error: 'not_public' }, { status: 409 });
+    // Clear the current hero first (the partial unique index allows one), then
+    // set this one. Check the set error so a lost race surfaces, not a silent lie.
     await svc.from('verse_essays').update({ is_hero: false }).eq('group_id', essay.group_id).eq('is_hero', true);
-    await svc.from('verse_essays').update({ is_hero: true, updated_at: now }).eq('id', id);
+    const { error: heroErr } = await svc.from('verse_essays').update({ is_hero: true, updated_at: now }).eq('id', id);
+    if (heroErr) return NextResponse.json({ error: 'hero_conflict' }, { status: 409 });
     return NextResponse.json({ ok: true, isHero: true });
   }
 
@@ -165,8 +168,13 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   // feature / reject: work the review queue (submitted essays only).
   if (essay.status !== 'submitted') return NextResponse.json({ error: 'bad_state' }, { status: 409 });
   if (action === 'feature') {
-    const slug = essay.slug ?? `${slugify(essay.title).slice(0, 100)}-${id}`;
-    await svc.from('verse_essays').update({ status: 'featured', slug, featured_at: now, reviewed_by: user.id, reviewed_at: now, updated_at: now }).eq('id', id);
+    // ASCII-safe slug: slugify keeps Hangul, but the slug column is
+    // ^[a-z0-9-]$, so a Korean title would fail the CHECK and silently not
+    // publish. Strip to ASCII and fall back to essay-{id}. Check the error too.
+    const ascii = slugify(essay.title).replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 100);
+    const slug = essay.slug ?? (ascii ? `${ascii}-${id}` : `essay-${id}`);
+    const { error: featErr } = await svc.from('verse_essays').update({ status: 'featured', slug, featured_at: now, reviewed_by: user.id, reviewed_at: now, updated_at: now }).eq('id', id);
+    if (featErr) return NextResponse.json({ error: featErr.message }, { status: 500 });
     return NextResponse.json({ ok: true, status: 'featured' });
   }
   await svc.from('verse_essays').update({ status: 'rejected', review_note: body.note ? String(body.note).slice(0, 300) : null, reviewed_by: user.id, reviewed_at: now, updated_at: now }).eq('id', id);

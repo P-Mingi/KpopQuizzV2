@@ -58,7 +58,9 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
     <article className="mx-auto max-w-3xl">
       {e.status === 'featured' ? jsonLdScript({
         '@context': 'https://schema.org', '@type': 'Article', headline: e.title,
-        author: { '@type': 'Person', name }, datePublished: e.featuredAt ?? e.createdAt,
+        author: { '@type': 'Person', name }, datePublished: e.featuredAt ?? e.createdAt, dateModified: e.featuredAt ?? e.createdAt,
+        publisher: { '@type': 'Organization', name: 'KpopVerse' },
+        ...(coverUrl ? { image: coverUrl } : cover?.mbid ? { image: `https://coverartarchive.org/release-group/${cover.mbid}/front-500` } : {}),
         about: space.group.name, isAccessibleForFree: true,
         mainEntityOfPage: `https://kpopquiz.org/verse/${slug}/essays/${e.id}`,
       }) : null}
@@ -75,8 +77,8 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
         <div className="mb-5 overflow-hidden rounded-2xl" style={{ maxWidth: 280 }}><CoverArt mbid={cover.mbid} title={e.title} className="w-full" /></div>
       ) : null}
 
-      {e.seriesTitle ? <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>{e.seriesTitle}</p> : null}
-      <h1 className="mt-1 text-3xl font-extrabold leading-tight sm:text-[2.6rem]" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif', textWrap: 'balance' } as React.CSSProperties}>{e.title}</h1>
+      {e.seriesTitle ? <p className="v-kicker-accent text-[11px] font-bold uppercase tracking-[0.16em]">{e.seriesTitle}</p> : null}
+      <h1 className="mt-1 text-3xl font-extrabold leading-tight sm:text-[2.6rem]" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)', textWrap: 'balance' } as React.CSSProperties}>{e.title}</h1>
 
       {/* Author card. */}
       <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b pb-5" style={{ borderColor: 'var(--verse-line)' }}>
@@ -120,7 +122,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
             {related.map((r) => (
               <li key={r.id}>
                 <Link href={`/verse/${slug}/essays/${r.id}`} className="block rounded-xl border p-3 no-underline hover:bg-[var(--verse-soft)]" style={{ borderColor: 'var(--verse-line)' }}>
-                  <p className="font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{r.title}</p>
+                  <p className="font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{r.title}</p>
                   <p className="mt-0.5 text-xs text-tertiary">by {r.author?.displayName || r.author?.username || 'a fan'}</p>
                 </Link>
               </li>
