@@ -5,6 +5,7 @@ import { PageGrammar } from '@/components/verse/page-grammar';
 import { getSpace } from '@/lib/verse/space';
 import { getCollectibleShelf } from '@/lib/verse/collectibles';
 import { CollectibleShelf } from '@/components/verse/collectible-shelf';
+import { CollectibleCatalogManager } from '@/components/verse/collectible-catalog-manager';
 
 import type { Metadata } from 'next';
 
@@ -36,6 +37,7 @@ export default async function CollectiblesPage({ params }: { params: Promise<{ s
       <PageGrammar kicker="The shelf" title={`${space.group.name} collectibles`}
         dek={`${count} official item${count === 1 ? '' : 's'}, sourced. Track what you own and want; your shelf is private to you.`} />
       <CollectibleShelf rows={rows} groupId={space.group.id} groupSlug={slug} fandomName={space.group.fandom_name} />
+      <CollectibleCatalogManager groupId={space.group.id} />
     </div>
   );
 }
