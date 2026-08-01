@@ -45,20 +45,25 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
 
-  // V-MODES: writing needs membership (member+), not just a session; the nav
-  // gate is honest only if the API enforces it too.
-  if (!roleAtLeast(await getSpaceRole(user.id, groupId), 'member')) {
-    return NextResponse.json({ error: 'membership_required' }, { status: 403 });
-  }
-
   const svc = createServiceRoleClient();
   if (id) {
-    const { data: cur } = await svc.from('verse_essays').select('author, status').eq('id', id).maybeSingle();
-    const c = cur as { author: string; status: string } | null;
+    const { data: cur } = await svc.from('verse_essays').select('group_id, author, status').eq('id', id).maybeSingle();
+    const c = cur as { group_id: number; author: string; status: string } | null;
     if (!c || c.author !== user.id) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+    // V-MODES: membership is checked against the essay's OWN group, never the
+    // attacker-supplied body.group_id, so leaving/being blocked from a space
+    // ends write access to its essays even by their author.
+    if (!roleAtLeast(await getSpaceRole(user.id, c.group_id), 'member')) {
+      return NextResponse.json({ error: 'membership_required' }, { status: 403 });
+    }
     if (c.status === 'featured' || c.status === 'submitted') return NextResponse.json({ error: 'locked_status' }, { status: 409 });
     await svc.from('verse_essays').update({ title, content, status: 'draft', updated_at: new Date().toISOString() }).eq('id', id);
     return NextResponse.json({ ok: true, id });
+  }
+  // Create: writing needs membership (member+), not just a session; the nav
+  // gate is honest only if the API enforces it too.
+  if (!roleAtLeast(await getSpaceRole(user.id, groupId), 'member')) {
+    return NextResponse.json({ error: 'membership_required' }, { status: 403 });
   }
   if (!await underRateCap('verse_essays', 'author', user.id, 3600, 10)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   const { data, error } = await svc.from('verse_essays').insert({ group_id: groupId, author: user.id, title, content, status: 'draft' }).select('id').single();
@@ -85,6 +90,11 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
 
   if (action === 'submit' || action === 'withdraw') {
     if (essay.author !== user.id) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+    // V-MODES: submitting for review is a write action; it needs live
+    // membership in the essay's own space, same as create/edit.
+    if (!roleAtLeast(await getSpaceRole(user.id, essay.group_id), 'member')) {
+      return NextResponse.json({ error: 'membership_required' }, { status: 403 });
+    }
     if (action === 'submit') {
       if (essay.status !== 'draft' && essay.status !== 'rejected') return NextResponse.json({ error: 'bad_state' }, { status: 409 });
       if (contentIsEmpty(essay.content)) return NextResponse.json({ error: 'empty' }, { status: 400 });

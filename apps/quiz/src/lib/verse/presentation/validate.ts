@@ -106,11 +106,14 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (c.tabs != null) {
     // Legacy 'quests' picks (pre V-MODES) drop silently, never error: the tab
     // left the reader nav for good and old saved configs must keep re-saving.
-    const t = asArray(c.tabs).map(String).filter((x) => x !== 'quests');
+    // The MIN check judges the curator's ORIGINAL pick, so our migration can
+    // never push a valid old config under the floor and block its saves.
+    const raw = asArray(c.tabs).map(String);
+    const t = raw.filter((x) => x !== 'quests');
     const bad = t.filter((x) => !ALLOWED_TABS.includes(x as never));
     if (bad.length) errors.push(`Unknown tab(s): ${bad.join(', ')}.`);
     if (new Set(t).size !== t.length) errors.push('Duplicate tabs are not allowed.');
-    if (t.length < MIN_TABS || t.length > MAX_TABS) errors.push(`Pick between ${MIN_TABS} and ${MAX_TABS} tabs.`);
+    if (raw.length < MIN_TABS || t.length > MAX_TABS) errors.push(`Pick between ${MIN_TABS} and ${MAX_TABS} tabs.`);
     if (!t.includes('home')) errors.push('The Home tab is required.');
     if (!bad.length) tabs = t as Presentation['tabs'];
   }

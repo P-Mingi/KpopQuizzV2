@@ -6,7 +6,7 @@ import { useReaderLens } from '@/components/verse/reader-lens';
 
 interface Props { groupId: number; groupSlug: string; fandomName: string; }
 
-interface Status { signedIn: boolean; member: boolean; role: string; blocked?: boolean; memberCount?: number }
+interface Status { signedIn: boolean; member: boolean; role: string; memberRole?: string; blocked?: boolean; memberCount?: number }
 
 const ROLE_LABEL: Record<string, string> = { member: 'Member', contributor: 'Contributor', curator: 'Curator', space_admin: 'Space admin' };
 
@@ -25,7 +25,7 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
     setBusy(true);
     const res = await fetch('/api/verse/membership', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, action }) });
     setBusy(false);
-    if (res.ok) { const d = await res.json(); setSt((s) => ({ signedIn: true, member: d.member, role: d.role, blocked: s?.blocked ?? false, memberCount: d.memberCount ?? s?.memberCount })); }
+    if (res.ok) { const d = await res.json(); setSt((s) => ({ signedIn: true, member: d.member, role: d.role, memberRole: d.role, blocked: s?.blocked ?? false, memberCount: d.memberCount ?? s?.memberCount })); }
   }
 
   const primary = 'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold no-underline transition-transform hover:-translate-y-0.5';
@@ -45,8 +45,12 @@ export function JoinButton({ groupId, groupSlug, fandomName }: Props): React.Rea
     return <button onClick={() => act('join')} disabled={busy} className={primary} style={primaryStyle}>{busy ? 'Joining…' : `Join ${fandomName}`}</button>;
   }
 
-  const roleLabel = ROLE_LABEL[st.role] ?? 'Member';
-  const canLeave = st.role === 'member' || st.role === 'contributor';
+  // The literal membership role drives the label and Leave, so a global admin
+  // who is a plain member of this space still sees Member/Contributor and can
+  // leave (the effective `role` would read space_admin and hide both).
+  const shownRole = st.memberRole ?? st.role;
+  const roleLabel = ROLE_LABEL[shownRole] ?? 'Member';
+  const canLeave = shownRole === 'member' || shownRole === 'contributor';
   // V-POLISH-2 C4 - the LIGHT-UP: membership wears the fandom's accent (the
   // contrast-clamped CTA pair), lightstick culture as UI. Count tick when the
   // API reports it.

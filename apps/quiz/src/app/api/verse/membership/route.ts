@@ -22,12 +22,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     svc.from('space_members').select('*', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'active'),
   ]);
   const row = data as { role: string; status: string } | null;
-  // V-MODES: `role` is the EFFECTIVE role (global admins act as space_admin
-  // everywhere, mirroring lib/verse/roles); `member` keeps its literal
-  // has-an-active-row meaning for the join button.
-  const rowRole = row?.status === 'active' ? row.role : 'visitor';
-  const role = isAdmin(user.id) ? 'space_admin' : rowRole;
-  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role, blocked: row?.status === 'blocked', memberCount: count ?? undefined });
+  // V-MODES: two roles, deliberately distinct. `role` is EFFECTIVE (global
+  // admins act as space_admin everywhere, mirroring lib/verse/roles) - build
+  // mode, curator affordances and quest filters key off this. `memberRole` is
+  // the LITERAL membership row role - the join button's Leave/label key off
+  // this so a global admin who is a plain member still sees the right control.
+  const memberRole = row?.status === 'active' ? row.role : 'visitor';
+  const role = isAdmin(user.id) ? 'space_admin' : memberRole;
+  return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role, memberRole, blocked: row?.status === 'blocked', memberCount: count ?? undefined });
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -62,6 +64,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // leave: members leave freely; a curator/space_admin must be demoted by another admin first.
   if (cur && (cur.role === 'curator' || cur.role === 'space_admin')) {
     return NextResponse.json({ error: 'role_holder_cannot_leave' }, { status: 409 });
+  }
+  // A blocked row is a moderation record, not a membership: leaving must NOT
+  // delete it, or a blocked user could leave-then-join to self-unblock.
+  if (cur && cur.status === 'blocked') {
+    return NextResponse.json({ error: 'blocked' }, { status: 403 });
   }
   if (cur) await svc.from('space_members').delete().eq('id', cur.id);
   return NextResponse.json({ ok: true, member: false, role: 'visitor' });

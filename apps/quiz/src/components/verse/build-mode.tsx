@@ -77,16 +77,20 @@ export function BuildModeToggle(): React.ReactElement | null {
       type="button"
       onClick={toggle}
       aria-pressed={on}
+      aria-label="Build mode"
       className="v-tap inline-flex min-h-[36px] items-center gap-2 rounded-full border px-3.5 text-xs font-bold transition-colors"
       style={on
         ? { background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))', borderColor: 'transparent' }
         : { borderColor: 'var(--verse-line)', color: 'var(--verse-ink)', background: 'transparent' }}
     >
+      {/* Stable accessible name comes from aria-label; the visual text and the
+          On/Off pip are decorative, so aria-pressed alone carries state (no
+          mutating name, no double announcement with the status region). */}
       <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
       </svg>
-      Build
-      <span className="text-[10px] font-extrabold uppercase tracking-wide opacity-80">{on ? 'On' : 'Off'}</span>
+      <span aria-hidden>Build</span>
+      <span aria-hidden className="text-[10px] font-extrabold uppercase tracking-wide opacity-80">{on ? 'On' : 'Off'}</span>
     </button>
   );
 }

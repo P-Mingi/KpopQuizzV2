@@ -88,20 +88,28 @@ export function SpaceTabs({ slug, tabs, buildTabs = [] }: { slug: string; tabs: 
           </li>
         ) : null}
         {buildItems.length > 0 ? (
-          <>
-            <li aria-hidden className="self-center px-1"><span className="block h-5 w-px" style={{ background: 'var(--verse-line)' }} /></li>
-            {buildItems.map((t) => (
-              <li key={`build-${t.seg}`}>
-                <Link href={`${base}/${t.seg}`} aria-current={activeSeg === t.seg ? 'page' : undefined}
-                  className="inline-block whitespace-nowrap rounded-t-lg px-3.5 py-2 text-sm font-bold transition-colors"
-                  style={activeSeg === t.seg
-                    ? { color: 'var(--verse-cta, var(--verse-accent))', borderBottom: '2px solid var(--verse-cta, var(--verse-accent))', background: 'var(--verse-soft)' }
-                    : { color: 'var(--verse-cta, var(--verse-accent))', borderBottom: '2px solid transparent' }}>
-                  {t.label}
-                </Link>
-              </li>
-            ))}
-          </>
+          // A labeled group so screen readers announce these as the build set,
+          // not more reader tabs (the accent hue alone is a color-only cue). The
+          // divider stays decorative. Text is pulled toward verse-ink so a pale
+          // curator accent never drops the label under the contrast floor.
+          <li className="contents">
+            <ul role="group" aria-label="Build tools" className="flex flex-wrap items-stretch gap-1.5">
+              <li aria-hidden className="self-center px-1"><span className="block h-5 w-px" style={{ background: 'var(--verse-line)' }} /></li>
+              {buildItems.map((t) => (
+                <li key={`build-${t.seg}`}>
+                  <Link href={`${base}/${t.seg}`} aria-current={activeSeg === t.seg ? 'page' : undefined}
+                    className="inline-block whitespace-nowrap rounded-t-lg px-3.5 py-2 text-sm font-bold transition-colors"
+                    style={{
+                      color: 'color-mix(in srgb, var(--verse-cta, var(--verse-accent)) 62%, var(--verse-ink))',
+                      borderBottom: activeSeg === t.seg ? '2px solid var(--verse-cta, var(--verse-accent))' : '2px solid transparent',
+                      background: activeSeg === t.seg ? 'var(--verse-soft)' : 'transparent',
+                    }}>
+                    {t.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
         ) : null}
       </ul>
 

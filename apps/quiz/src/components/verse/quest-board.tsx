@@ -46,7 +46,9 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
     window.location.href = q.href;
   }
 
-  const sizeStyle = (s: QuestSize) => s === 'Big' ? { bg: 'var(--bg-accent)', fg: 'var(--text-accent)' } : { bg: 'var(--verse-soft)', fg: 'var(--text-secondary)' };
+  // Big quests wear the contrast-clamped CTA pair (the old --bg-accent /
+  // --text-accent tokens never existed, so the badge rendered with no fill).
+  const sizeStyle = (s: QuestSize) => s === 'Big' ? { bg: 'var(--verse-cta, var(--verse-accent))', fg: 'var(--verse-cta-text, var(--verse-accent-text))' } : { bg: 'var(--verse-soft)', fg: 'var(--text-secondary)' };
 
   return (
     <div>
@@ -67,14 +69,15 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
         <p className="mt-4 rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>This space is fully built. Nothing open right now.</p>
       ) : (
         <>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div role="group" aria-label="Filter quests by size" className="mt-4 flex flex-wrap gap-2">
             {(['All', ...SIZES] as const).map((s) => {
               const count = s === 'All' ? quests.length : quests.filter((q) => q.size === s).length;
               if (s !== 'All' && count === 0) return null;
               const active = filter === s;
-              return <button key={s} onClick={() => { setFilter(s); setShown(8); }} className="rounded-full border px-3 py-1 text-xs font-semibold" style={active ? { borderColor: 'var(--verse-accent)', background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>{s} <span className="tabular-nums text-tertiary">{count}</span></button>;
+              return <button key={s} type="button" aria-pressed={active} onClick={() => { setFilter(s); setShown(8); }} className="v-tap rounded-full border px-3 py-1 text-xs font-semibold" style={active ? { borderColor: 'var(--verse-accent)', background: 'var(--verse-soft-strong)', color: 'var(--verse-ink)' } : { borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>{s} <span className="tabular-nums text-tertiary">{count}</span></button>;
             })}
           </div>
+          <p role="status" className="sr-only">Showing {total} {filter === 'All' ? '' : `${filter.toLowerCase()} `}quest{total === 1 ? '' : 's'}.</p>
 
           <ul className="mt-3 space-y-2">
             {list.map((q) => {
@@ -100,7 +103,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
                   </div>
                   <span className="text-xs font-bold tabular-nums" style={{ color: big ? 'var(--verse-accent)' : 'var(--text-secondary)' }}>+{q.xp}&nbsp;xp</span>
                   {!q.curatorOnly || isCurator
-                    ? <button onClick={() => start(q)} className="v-tap whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Start</button>
+                    ? <button onClick={() => start(q)} aria-label={`Start quest: ${q.title}`} className="v-tap whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold no-underline" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Start</button>
                     : null}
                 </li>
               );
