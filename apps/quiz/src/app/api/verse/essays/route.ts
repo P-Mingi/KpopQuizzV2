@@ -29,6 +29,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     if (!await canCurateSpace(user.id, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
     return NextResponse.json({ essays: await getSubmittedEssays(groupId) });
   }
+  if (scope === 'published') {
+    // Curator panel: public essays with hero state, for feature/unpublish.
+    if (!await canCurateSpace(user.id, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+    const { data } = await createServiceRoleClient().from('verse_essays').select('id, title, is_hero, featured_at').eq('group_id', groupId).eq('status', 'featured').order('featured_at', { ascending: false });
+    return NextResponse.json({ essays: data ?? [] });
+  }
   return NextResponse.json({ error: 'bad_scope' }, { status: 400 });
 }
 
@@ -104,7 +110,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const id = Number(body.id);
   const action = String(body.action ?? '');
-  if (!id || !['submit', 'withdraw', 'feature', 'reject'].includes(action)) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  if (!id || !['submit', 'withdraw', 'feature', 'reject', 'hero', 'unhero', 'unpublish'].includes(action)) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
 
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
@@ -136,8 +142,27 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ ok: true, status: 'draft' });
   }
 
-  // feature / reject: curators of the essay's space (or global admins).
+  // Everything below is curator-only (curators of the essay's space or admins).
   if (!await canCurateSpace(user.id, essay.group_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+
+  // hero / unhero: the ONE magazine hero per space. Setting a new hero clears the
+  // old one first (the partial unique index allows only one is_hero per group).
+  if (action === 'hero' || action === 'unhero') {
+    if (action === 'unhero') { await svc.from('verse_essays').update({ is_hero: false, updated_at: now }).eq('id', id); return NextResponse.json({ ok: true, isHero: false }); }
+    if (essay.status !== 'featured') return NextResponse.json({ error: 'not_public' }, { status: 409 });
+    await svc.from('verse_essays').update({ is_hero: false }).eq('group_id', essay.group_id).eq('is_hero', true);
+    await svc.from('verse_essays').update({ is_hero: true, updated_at: now }).eq('id', id);
+    return NextResponse.json({ ok: true, isHero: true });
+  }
+
+  // unpublish: pull a featured essay back to draft with a LOGGED reason.
+  if (action === 'unpublish') {
+    if (essay.status !== 'featured') return NextResponse.json({ error: 'bad_state' }, { status: 409 });
+    await svc.from('verse_essays').update({ status: 'draft', is_hero: false, review_note: body.note ? String(body.note).slice(0, 300) : 'Unpublished by a curator', reviewed_by: user.id, reviewed_at: now, updated_at: now }).eq('id', id);
+    return NextResponse.json({ ok: true, status: 'draft' });
+  }
+
+  // feature / reject: work the review queue (submitted essays only).
   if (essay.status !== 'submitted') return NextResponse.json({ error: 'bad_state' }, { status: 409 });
   if (action === 'feature') {
     const slug = essay.slug ?? `${slugify(essay.title).slice(0, 100)}-${id}`;

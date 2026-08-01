@@ -6,6 +6,7 @@ import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { getSpace } from '@/lib/verse/space';
 import { getMagazine } from '@/lib/verse/essays';
 import { EssaysClient } from '@/components/verse/essays-client';
+import { EssayCuratorPanel } from '@/components/verse/essay-curator-panel';
 
 import type { Metadata } from 'next';
 import type { EssayCard } from '@/lib/verse/essays';
@@ -111,6 +112,7 @@ export default async function EssaysPage({ params }: { params: Promise<{ slug: s
       <div className="mt-10 border-t pt-6" style={{ borderColor: 'var(--verse-line)' }}>
         <EssaysClient groupId={space.group.id} groupSlug={slug} />
       </div>
+      <EssayCuratorPanel groupId={space.group.id} groupSlug={slug} />
     </div>
   );
 }

@@ -31,3 +31,16 @@ export async function purgeUserCardsData(userId: string): Promise<Array<{ table:
   }
   return out;
 }
+
+// V-ESSAYS-MAX - account-deletion policy for essay SERIES (owner ruling): the
+// series is shared content, so it PERSISTS; only the author reference is nulled.
+// verse_essay_series.created_by is a nullable bare UUID for exactly this. (Essay
+// bodies keep their author, which is NOT NULL - a different, anonymize-later
+// concern.) Reactions are per-user and are purged. Proven live by
+// scripts/verify-essays-cleanup.mts.
+export async function cleanupUserEssaysData(userId: string): Promise<{ seriesNulled: number; reactionsPurged: boolean }> {
+  const svc = createServiceRoleClient();
+  const { data } = await svc.from('verse_essay_series').update({ created_by: null }).eq('created_by', userId).select('id');
+  const { error } = await svc.from('verse_essay_reactions').delete().eq('user_id', userId);
+  return { seriesNulled: (data ?? []).length, reactionsPurged: !error };
+}
