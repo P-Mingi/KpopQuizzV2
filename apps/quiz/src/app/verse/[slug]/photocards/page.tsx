@@ -6,6 +6,7 @@ import { getSpace } from '@/lib/verse/space';
 import { getPhotocardSets } from '@/lib/verse/photocards';
 import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
 import { PhotocardBinder } from '@/components/verse/photocard-binder';
+import { PhotocardCatalogManager } from '@/components/verse/photocard-catalog-manager';
 
 import type { Metadata } from 'next';
 
@@ -39,6 +40,9 @@ export default async function PhotocardsPage({ params }: { params: Promise<{ slu
       <PageGrammar kicker="The binder" title={`${space.group.name} photocards`}
         dek={`${cardCount} card${cardCount === 1 ? '' : 's'} across ${sets.length} set${sets.length === 1 ? '' : 's'}, catalogued and sourced. Track what you own and want; your binder is private to you.`} />
       <PhotocardBinder sets={sets} groupId={space.group.id} groupSlug={slug} fandomName={space.group.fandom_name} stickerAssets={stickerAssets} />
+      <PhotocardCatalogManager groupId={space.group.id}
+        albums={space.albums.map((a) => ({ id: a.id, label: a.title }))}
+        idols={space.idols.map((i) => ({ id: i.id, label: i.name }))} />
     </div>
   );
 }
