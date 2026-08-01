@@ -9,6 +9,7 @@ import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
 import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule, CompletenessModule } from './canonical-modules';
 import { BinderWidgetModule, ShelfWidgetModule } from './cards-widgets';
 import { FeaturedEssayModule } from './essays-widget';
+import { AtlasMiniMapModule } from './atlas-widget';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -36,4 +37,5 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   binder_widget: BinderWidgetModule,
   shelf_widget: ShelfWidgetModule,
   featured_essay: FeaturedEssayModule,
+  atlas_mini: AtlasMiniMapModule,
 };
