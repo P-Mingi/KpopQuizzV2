@@ -13,6 +13,7 @@ import { ContributionGraph } from '@/components/verse/contribution-graph';
 import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
 import { ShelfManager } from '@/components/verse/shelf-manager';
 import { getPublicShelfCards } from '@/lib/verse/shelf';
+import { getAuthorEssays } from '@/lib/verse/essays';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -137,6 +138,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
   // V-CARDS-MAX step 4: the public showcase (only if the owner opted in).
   const shelfCards = await safeFetch(getPublicShelfCards(profile.id), [], '[u/[username]] getPublicShelfCards');
+  // V-ESSAYS-MAX step 6: the author's published essays (feeds V-PROFILE-ONE).
+  const authorEssays = await safeFetch(getAuthorEssays(profile.id), [], '[u/[username]] getAuthorEssays');
 
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
@@ -266,6 +269,23 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         </section>
       ) : null}
       <div style={cardWrap}><ShelfManager profileUsername={profile.username} /></div>
+
+      {/* V-ESSAYS-MAX step 6: published essays (count + latest titles). */}
+      {authorEssays.length ? (
+        <section aria-label="Essays" style={cardWrap}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
+            <h2 className="mb-2 text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Essays <span className="tabular-nums text-tertiary">{authorEssays.length}</span></h2>
+            <ul className="space-y-1.5">
+              {authorEssays.slice(0, 5).map((e) => (
+                <li key={e.id} className="text-sm">
+                  <Link href={`/verse/${e.groupSlug}/essays/${e.id}`} className="font-semibold no-underline" style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{e.title}</Link>
+                  <span className="ml-1.5 text-xs text-tertiary">{e.groupName}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
 
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>

@@ -49,6 +49,9 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   // modules in the rail; each self-min-gates (renders null at 0 catalog).
   binder_widget: { type: 'binder_widget', label: 'Binder widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 4, implemented: true, category: 'feature' },
   shelf_widget: { type: 'shelf_widget', label: 'Shelf widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 5, implemented: true, category: 'feature' },
+  // V-ESSAYS-MAX step 6 - the featured-essay home widget (duality); min-gates
+  // to null when a space has no featured hero pick.
+  featured_essay: { type: 'featured_essay', label: 'Featured essay', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 6, implemented: true, category: 'feature' },
 
   // --- Core, SEO-critical - registered now, rendered in later steps ---
   facts:        { type: 'facts', label: 'Facts', seoCritical: true, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },

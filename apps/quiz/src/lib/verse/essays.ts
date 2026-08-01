@@ -146,6 +146,29 @@ export async function getReactionSummary(essayId: number, userId: string | null)
   return { count: count ?? 0, mine };
 }
 
+// --- V-ESSAYS-MAX step 6: profile + featured-essay widget ---
+export interface AuthorEssay { id: number; title: string; groupSlug: string; groupName: string }
+
+/** An author's published essays across spaces (for their profile; feeds V-PROFILE-ONE). */
+export async function getAuthorEssays(userId: string): Promise<AuthorEssay[]> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('verse_essays').select('id, title, featured_at, groups(slug, name)').eq('author', userId).eq('status', 'featured').order('featured_at', { ascending: false }).limit(20);
+  const rows = (data ?? []) as Array<{ id: number; title: string; groups: { slug: string; name: string } | { slug: string; name: string }[] }>;
+  return rows.map((r) => { const g = Array.isArray(r.groups) ? r.groups[0] : r.groups; return g ? { id: r.id, title: r.title, groupSlug: g.slug, groupName: g.name } : null; }).filter((x): x is AuthorEssay => !!x);
+}
+
+export interface HeroEssayCard { id: number; title: string; dek: string; authorName: string; readingMin: number }
+
+/** The one featured hero essay for a space (for the home widget); null when none. */
+export async function getHeroEssay(groupId: number): Promise<HeroEssayCard | null> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('verse_essays').select('id, title, author, content').eq('group_id', groupId).eq('status', 'featured').eq('is_hero', true).maybeSingle();
+  if (!data) return null;
+  const r = data as { id: number; title: string; author: string; content: unknown };
+  const [withAuthor] = await attachAuthors([{ id: r.id, title: r.title, slug: null, status: 'featured', authorId: r.author, featuredAt: null, createdAt: '' }]);
+  return { id: r.id, title: r.title, dek: plainTextExcerpt(r.content, 130), authorName: withAuthor?.author?.displayName || withAuthor?.author?.username || 'a fan', readingMin: readingMin(splitTipTapForFold(r.content).totalWords) };
+}
+
 /** Submitted essays awaiting review (curator queue). */
 export async function getSubmittedEssays(groupId: number): Promise<EssaySummary[]> {
   const db = createServiceRoleClient();
