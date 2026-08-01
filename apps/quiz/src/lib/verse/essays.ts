@@ -1,6 +1,9 @@
-// W4.12 - curated member essays. Members draft + submit; curators feature or reject.
-// Only featured essays are public (RLS). Author profiles merged separately (no FK).
+// W4.12 / V-ESSAYS-MAX - curated member essays as a magazine. Members draft +
+// submit; curators publish (status='featured' = PUBLIC) and pick ONE hero
+// (is_hero) per space. Only public essays are readable (RLS). Author profiles +
+// roles merged separately (no FK).
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { plainTextExcerpt, splitTipTapForFold } from '@/lib/verse/render-content';
 
 export interface EssayAuthor { username: string | null; displayName: string | null; avatarUrl: string | null; avatarBg: string | null; avatarText: string | null }
 export interface EssaySummary { id: number; title: string; slug: string | null; status: string; author: EssayAuthor | null; authorId: string; featuredAt: string | null; createdAt: string }
@@ -48,6 +51,57 @@ export async function getUserEssays(userId: string, groupId: number): Promise<Es
   const db = createServiceRoleClient();
   const { data } = await db.from('verse_essays').select('id, title, slug, status, author, featured_at, created_at').eq('author', userId).eq('group_id', groupId).order('updated_at', { ascending: false });
   return attachAuthors((data ?? []).map((r: { id: number; title: string; slug: string | null; status: string; author: string; featured_at: string | null; created_at: string }) => ({ id: r.id, title: r.title, slug: r.slug, status: r.status, authorId: r.author, featuredAt: r.featured_at, createdAt: r.created_at })));
+}
+
+// --- V-ESSAYS-MAX step 2: the magazine index ---
+export interface EssayCard extends EssaySummary { dek: string; readingMin: number; authorRole: string | null; seriesId: number | null; isHero: boolean }
+export interface EssaySeriesShelf { id: number; title: string; slug: string | null; essays: EssayCard[] }
+export interface MagazineData { hero: (EssayCard & { commentCount: number }) | null; series: EssaySeriesShelf[]; latest: EssayCard[]; publicCount: number }
+
+const readingMin = (words: number): number => Math.max(1, Math.round(words / 200));
+
+/** Attach each author's space role (batch), for the role badge. */
+async function attachRoles<T extends { authorId: string }>(rows: T[], groupId: number): Promise<Array<T & { authorRole: string | null }>> {
+  if (!rows.length) return rows.map((r) => ({ ...r, authorRole: null }));
+  const db = createServiceRoleClient();
+  const { data } = await db.from('space_members').select('user_id, role, status').eq('group_id', groupId).in('user_id', [...new Set(rows.map((r) => r.authorId))]);
+  const byId = new Map((data ?? []).filter((m: { status: string }) => m.status === 'active').map((m: { user_id: string; role: string }) => [m.user_id, m.role]));
+  return rows.map((r) => ({ ...r, authorRole: byId.get(r.authorId) ?? null }));
+}
+
+/** The whole magazine for a space: hero + series shelves + latest, all min-gated. */
+export async function getMagazine(groupId: number): Promise<MagazineData> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('verse_essays')
+    .select('id, title, slug, status, author, content, featured_at, created_at, is_hero, series_id, series_order')
+    .eq('group_id', groupId).eq('status', 'featured').order('featured_at', { ascending: false });
+  const raw = (data ?? []) as Array<{ id: number; title: string; slug: string | null; status: string; author: string; content: unknown; featured_at: string | null; created_at: string; is_hero: boolean; series_id: number | null; series_order: number }>;
+  if (!raw.length) return { hero: null, series: [], latest: [], publicCount: 0 };
+
+  const base = raw.map((r) => ({
+    id: r.id, title: r.title, slug: r.slug, status: r.status, authorId: r.author, featuredAt: r.featured_at, createdAt: r.created_at,
+    dek: plainTextExcerpt(r.content, 180), readingMin: readingMin(splitTipTapForFold(r.content).totalWords), seriesId: r.series_id, isHero: r.is_hero,
+  }));
+  const withAuthors = await attachAuthors(base);
+  const cards = (await attachRoles(withAuthors, groupId)) as EssayCard[];
+  const byId = new Map(cards.map((c) => [c.id, c] as const));
+
+  const heroCard = cards.find((c) => c.isHero) ?? null;
+  let hero: MagazineData['hero'] = null;
+  if (heroCard) {
+    const { count } = await db.from('verse_discussions').select('*', { count: 'exact', head: true }).eq('entity_type', 'essay').eq('entity_id', String(heroCard.id)).eq('status', 'visible');
+    hero = { ...heroCard, commentCount: count ?? 0 };
+  }
+
+  // Series shelves: approved series with at least one public essay.
+  const { data: seriesRows } = await db.from('verse_essay_series').select('id, title, slug, sort_order').eq('group_id', groupId).eq('status', 'approved').order('sort_order', { ascending: true });
+  const series: EssaySeriesShelf[] = ((seriesRows ?? []) as Array<{ id: number; title: string; slug: string | null }>).map((s) => ({
+    id: s.id, title: s.title, slug: s.slug,
+    essays: raw.filter((r) => r.series_id === s.id).sort((a, b) => a.series_order - b.series_order).map((r) => byId.get(r.id)!).filter(Boolean),
+  })).filter((s) => s.essays.length > 0);
+
+  const latest = cards.filter((c) => !c.isHero).slice(0, 12);
+  return { hero, series, latest, publicCount: cards.length };
 }
 
 /** Submitted essays awaiting review (curator queue). */

@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { getSpace } from '@/lib/verse/space';
-import { getFeaturedEssays } from '@/lib/verse/essays';
+import { getMagazine } from '@/lib/verse/essays';
 import { EssaysClient } from '@/components/verse/essays-client';
 
 import type { Metadata } from 'next';
+import type { EssayCard } from '@/lib/verse/essays';
 
 export const revalidate = 3600;
 
@@ -13,38 +16,101 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const space = await getSpace(slug);
   if (!space) return { title: 'Essays' };
-  return { title: `${space.group.name} fan essays`, description: `Featured member essays about ${space.group.name}, curated by the space.`, alternates: { canonical: `https://kpopquiz.org/verse/${slug}/essays` } };
+  return { title: `${space.group.name} essays`, description: `The ${space.group.name} essay magazine: long-form fan writing, reviewed and featured by curators.`, alternates: { canonical: `https://kpopquiz.org/verse/${slug}/essays` } };
 }
 
+const authorName = (e: EssayCard): string => e.author?.displayName || e.author?.username || 'a fan';
+
+function ByLine({ e }: { e: EssayCard }): React.ReactElement {
+  const name = authorName(e);
+  return (
+    <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-secondary">
+      <span>by {e.author?.username ? <Link href={`/u/${e.author.username}`} className="verse-link font-semibold">{name}</Link> : <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}</span>
+      <RoleBadge role={e.authorRole} />
+      <span aria-hidden className="text-tertiary">·</span>
+      <span className="text-tertiary tabular-nums">{e.readingMin} min read</span>
+    </span>
+  );
+}
+
+function EssayRow({ e, slug }: { e: EssayCard; slug: string }): React.ReactElement {
+  return (
+    <li>
+      <Link href={`/verse/${slug}/essays/${e.id}`} className="group block rounded-xl border p-4 no-underline transition-colors hover:bg-[var(--verse-soft)]" style={{ borderColor: 'var(--verse-line)' }}>
+        <p className="text-base font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{e.title}</p>
+        {e.dek ? <p className="mt-1 line-clamp-2 text-sm text-secondary">{e.dek}</p> : null}
+        <div className="mt-2"><ByLine e={e} /></div>
+      </Link>
+    </li>
+  );
+}
+
+// V-ESSAYS-MAX step 2 - THE MAGAZINE INDEX. Featured hero (editorial serif
+// voice), series shelves with counts, latest rows, member-gated write CTA. Every
+// tier min-gates: the hero hides without a curator pick, a shelf hides below one
+// series, latest hides when empty. The catalog is public/crawlable; the write
+// affordance (EssaysClient) is member-gated per V-MODES.
 export default async function EssaysPage({ params }: { params: Promise<{ slug: string }> }): Promise<React.ReactElement> {
   const { slug } = await params;
   const space = await getSpace(slug);
   if (!space) notFound();
-  const featured = await getFeaturedEssays(space.group.id);
+  const mag = await getMagazine(space.group.id);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-lg font-bold" style={{ color: 'var(--verse-ink)' }}>{space.group.fandom_name} essays</h1>
-        <p className="text-xs text-tertiary">Long-form fan writing, reviewed and featured by curators.</p>
-      </div>
+    <div>
+      <div className="mb-5"><Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: 'Essays' }]} /></div>
+      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">The magazine</p>
+      <h1 className="mt-1 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif' }}>{space.group.fandom_name} essays</h1>
+      <p className="mt-2 max-w-[66ch] text-sm text-secondary">Long-form fan writing about {space.group.name}, reviewed and featured by curators.</p>
 
-      {featured.length === 0 ? (
-        <p className="rounded-xl border border-dashed px-5 py-8 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No featured essays yet. Members write them; curators feature the best.</p>
+      {mag.publicCount === 0 ? (
+        <p className="mt-6 rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No essays published yet. Members write them; curators feature the best.</p>
       ) : (
-        <ul className="space-y-2">
-          {featured.map((e) => (
-            <li key={e.id}>
-              <Link href={`/verse/${slug}/essays/${e.id}`} className="block rounded-xl border p-4 no-underline" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-                <p className="text-base font-bold" style={{ color: 'var(--verse-ink)' }}>{e.title}</p>
-                <p className="mt-0.5 text-xs text-tertiary">by {e.author?.displayName || e.author?.username || 'a fan'}</p>
+        <div className="mt-7 space-y-10">
+          {/* Featured hero: hides without a curator pick. */}
+          {mag.hero ? (
+            <section aria-label="Featured essay">
+              <Link href={`/verse/${slug}/essays/${mag.hero.id}`} className="group block overflow-hidden rounded-2xl border no-underline" style={{ borderColor: 'var(--verse-line)', background: 'linear-gradient(160deg, var(--verse-soft-strong), var(--verse-soft) 60%, transparent)' }}>
+                <div className="p-6 sm:p-8">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>Featured</p>
+                  <h2 className="mt-2 text-2xl font-extrabold leading-tight sm:text-3xl" style={{ color: 'var(--verse-ink)', fontFamily: 'Georgia, "Times New Roman", serif', textWrap: 'balance' } as React.CSSProperties}>{mag.hero.title}</h2>
+                  {mag.hero.dek ? <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-secondary">{mag.hero.dek}</p> : null}
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <ByLine e={mag.hero} />
+                    {mag.hero.commentCount > 0 ? <><span aria-hidden className="text-tertiary">·</span><span className="text-sm text-tertiary tabular-nums">{mag.hero.commentCount} comment{mag.hero.commentCount === 1 ? '' : 's'}</span></> : null}
+                  </div>
+                </div>
               </Link>
-            </li>
+            </section>
+          ) : null}
+
+          {/* Series shelves: hide below one series. */}
+          {mag.series.map((s) => (
+            <section key={s.id} aria-label={`${s.title} series`}>
+              <h2 className="v-section-title">{s.title} <span className="text-lg font-semibold text-tertiary tabular-nums">{s.essays.length}</span></h2>
+              <div className="v-section-rule" aria-hidden />
+              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {s.essays.map((e) => <EssayRow key={e.id} e={e} slug={slug} />)}
+              </ul>
+            </section>
           ))}
-        </ul>
+
+          {/* Latest. */}
+          {mag.latest.length ? (
+            <section aria-label="Latest essays">
+              <h2 className="v-section-title">Latest</h2>
+              <div className="v-section-rule" aria-hidden />
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {mag.latest.map((e) => <EssayRow key={e.id} e={e} slug={slug} />)}
+              </ul>
+            </section>
+          ) : null}
+        </div>
       )}
 
-      <EssaysClient groupId={space.group.id} groupSlug={slug} />
+      <div className="mt-10 border-t pt-6" style={{ borderColor: 'var(--verse-line)' }}>
+        <EssaysClient groupId={space.group.id} groupSlug={slug} />
+      </div>
     </div>
   );
 }
