@@ -11,6 +11,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { renderTipTapJSON, extractHeadings, plainTextExcerpt } from '@/lib/verse/render-content';
 import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
+import { CoverArt } from '@/components/verse/cover-art';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
@@ -49,7 +50,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
   const html = renderTipTapJSON(e.content);
   const headings = extractHeadings(e.content);
   const name = e.author?.displayName || e.author?.username || 'a fan';
-  const cover = e.cover as { assetPath?: string } | null;
+  const cover = e.cover as { assetPath?: string; mbid?: string } | null;
   const coverUrl = cover?.assetPath ? spaceAssetUrl(cover.assetPath) : null;
   const related = e.status === 'featured' ? await getRelatedEssays(space.group.id, e.id, e.seriesId) : [];
 
@@ -66,10 +67,12 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
 
       {e.status !== 'featured' ? <p className="mb-3 inline-block rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>Preview: {e.status} (not public yet)</p> : null}
 
-      {/* Cover block (policy assets only; typographic when none). */}
+      {/* Cover block (policy assets only: album art or a space asset; none = typographic). */}
       {coverUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={coverUrl} alt="" className="mb-5 max-h-72 w-full rounded-2xl object-cover" referrerPolicy="no-referrer" />
+      ) : cover?.mbid ? (
+        <div className="mb-5 overflow-hidden rounded-2xl" style={{ maxWidth: 280 }}><CoverArt mbid={cover.mbid} title={e.title} className="w-full" /></div>
       ) : null}
 
       {e.seriesTitle ? <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-cta, var(--verse-accent))' }}>{e.seriesTitle}</p> : null}

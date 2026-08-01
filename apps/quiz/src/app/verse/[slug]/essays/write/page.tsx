@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
-import { getEssay } from '@/lib/verse/essays';
+import { getEssayPage } from '@/lib/verse/essays';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
 import { createServerClient } from '@/lib/supabase/server';
 import { EssayEditor } from '@/components/verse/essay-editor';
@@ -35,18 +35,22 @@ export default async function WriteEssayPage({ params, searchParams }: { params:
     );
   }
 
-  let init: { id: number; title: string; content: unknown; status: string } | null = null;
+  let init: { id: number; title: string; content: unknown; status: string; cover: { mbid?: string } | null; seriesId: number | null } | null = null;
   if (idParam) {
-    const e = await getEssay(Number(idParam));
+    const e = await getEssayPage(Number(idParam));
     if (!e || e.authorId !== user.id || e.groupId !== space.group.id) notFound();
     if (e.status === 'featured' || e.status === 'submitted') redirect(`/verse/${slug}/essays`);
-    init = { id: e.id, title: e.title, content: e.content, status: e.status };
+    init = { id: e.id, title: e.title, content: e.content, status: e.status, cover: e.cover as { mbid?: string } | null, seriesId: e.seriesId };
   }
+
+  const albums = space.albums.map((a) => ({ id: a.id, title: a.title, mbid: a.mbid }));
 
   return (
     <div className="space-y-4">
       <h1 className="text-lg font-bold" style={{ color: 'var(--verse-ink)' }}>Write an essay</h1>
-      <EssayEditor groupId={space.group.id} initialId={init?.id} initialTitle={init?.title} initialContent={init?.content} initialStatus={init?.status} />
+      <EssayEditor groupId={space.group.id} groupSlug={slug} albums={albums}
+        initialId={init?.id} initialTitle={init?.title} initialContent={init?.content} initialStatus={init?.status}
+        initialCover={init?.cover ?? null} initialSeriesId={init?.seriesId ?? null} />
     </div>
   );
 }

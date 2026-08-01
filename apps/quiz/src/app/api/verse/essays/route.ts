@@ -57,7 +57,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'membership_required' }, { status: 403 });
     }
     if (c.status === 'featured' || c.status === 'submitted') return NextResponse.json({ error: 'locked_status' }, { status: 409 });
-    await svc.from('verse_essays').update({ title, content, status: 'draft', updated_at: new Date().toISOString() }).eq('id', id);
+    const meta = await essayMeta(body, c.group_id, user.id, svc);
+    await svc.from('verse_essays').update({ title, content, status: 'draft', updated_at: new Date().toISOString(), ...meta }).eq('id', id);
     return NextResponse.json({ ok: true, id });
   }
   // Create: writing needs membership (member+), not just a session; the nav
@@ -66,9 +67,36 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'membership_required' }, { status: 403 });
   }
   if (!await underRateCap('verse_essays', 'author', user.id, 3600, 10)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
-  const { data, error } = await svc.from('verse_essays').insert({ group_id: groupId, author: user.id, title, content, status: 'draft' }).select('id').single();
+  const meta = await essayMeta(body, groupId, user.id, svc);
+  const { data, error } = await svc.from('verse_essays').insert({ group_id: groupId, author: user.id, title, content, status: 'draft', ...meta }).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true, id: data.id });
+}
+
+// V-ESSAYS-MAX step 4 - cover + series metadata an author may set on their own
+// essay. Cover is policy-legal only: an album MBID (Cover Art Archive) or a space
+// asset path (existing uploads), never a raw URL / upload. Series must be one this
+// group has approved, or one this author proposed (else dropped).
+type Svc = ReturnType<typeof createServiceRoleClient>;
+async function essayMeta(body: Record<string, unknown>, groupId: number, userId: string, svc: Svc): Promise<Record<string, unknown>> {
+  const out: Record<string, unknown> = {};
+  if ('cover' in body) {
+    const c = body.cover;
+    if (c && typeof c === 'object') {
+      const src = c as { mbid?: unknown; assetPath?: unknown };
+      out.cover = typeof src.mbid === 'string' ? { mbid: src.mbid.slice(0, 60) } : typeof src.assetPath === 'string' ? { assetPath: src.assetPath.slice(0, 300) } : {};
+    } else out.cover = {};
+  }
+  if ('series_id' in body) {
+    const sid = body.series_id == null ? null : Number(body.series_id);
+    if (!sid) out.series_id = null;
+    else {
+      const { data } = await svc.from('verse_essay_series').select('id, status, created_by').eq('id', sid).eq('group_id', groupId).maybeSingle();
+      const s = data as { id: number; status: string; created_by: string | null } | null;
+      out.series_id = s && (s.status === 'approved' || s.created_by === userId) ? sid : null;
+    }
+  }
+  return out;
 }
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
