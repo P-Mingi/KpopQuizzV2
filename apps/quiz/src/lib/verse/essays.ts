@@ -104,6 +104,48 @@ export async function getMagazine(groupId: number): Promise<MagazineData> {
   return { hero, series, latest, publicCount: cards.length };
 }
 
+// --- V-ESSAYS-MAX step 3: the essay page ---
+export interface EssayPage extends EssayFull { cover: unknown; seriesId: number | null; authorRole: string | null; readingMin: number; seriesTitle: string | null }
+
+/** One essay with everything the editorial page needs (service-role; the page
+ *  enforces access for non-public statuses). */
+export async function getEssayPage(id: number): Promise<EssayPage | null> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('verse_essays').select('id, group_id, title, slug, status, author, content, cover, featured_at, created_at, series_id').eq('id', id).maybeSingle();
+  if (!data) return null;
+  const r = data as { id: number; group_id: number; title: string; slug: string | null; status: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; series_id: number | null };
+  const [withAuthor] = await attachAuthors([{ id: r.id, title: r.title, slug: r.slug, status: r.status, authorId: r.author, featuredAt: r.featured_at, createdAt: r.created_at }]);
+  const [withRole] = await attachRoles([withAuthor!], r.group_id);
+  let seriesTitle: string | null = null;
+  if (r.series_id) {
+    const { data: s } = await db.from('verse_essay_series').select('title').eq('id', r.series_id).maybeSingle();
+    seriesTitle = (s as { title: string } | null)?.title ?? null;
+  }
+  return { ...withRole!, content: r.content, groupId: r.group_id, cover: r.cover, seriesId: r.series_id, authorRole: withRole!.authorRole, readingMin: readingMin(splitTipTapForFold(r.content).totalWords), seriesTitle };
+}
+
+/** Related public essays: same series first, then other recent, excluding self. */
+export async function getRelatedEssays(groupId: number, essayId: number, seriesId: number | null): Promise<EssaySummary[]> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('verse_essays').select('id, title, slug, status, author, featured_at, created_at, series_id').eq('group_id', groupId).eq('status', 'featured').neq('id', essayId).order('featured_at', { ascending: false }).limit(20);
+  const rows = (data ?? []) as Array<{ id: number; title: string; slug: string | null; status: string; author: string; featured_at: string | null; created_at: string; series_id: number | null }>;
+  rows.sort((a, b) => Number((b.series_id === seriesId) && seriesId != null) - Number((a.series_id === seriesId) && seriesId != null));
+  const top = rows.slice(0, 4).map((r) => ({ id: r.id, title: r.title, slug: r.slug, status: r.status, authorId: r.author, featuredAt: r.featured_at, createdAt: r.created_at }));
+  return attachAuthors(top);
+}
+
+/** Reaction summary for an essay: real-user count + whether the caller reacted. */
+export async function getReactionSummary(essayId: number, userId: string | null): Promise<{ count: number; mine: boolean }> {
+  const db = createServiceRoleClient();
+  const { count } = await db.from('verse_essay_reactions').select('*', { count: 'exact', head: true }).eq('essay_id', essayId);
+  let mine = false;
+  if (userId) {
+    const { data } = await db.from('verse_essay_reactions').select('id').eq('essay_id', essayId).eq('user_id', userId).maybeSingle();
+    mine = !!data;
+  }
+  return { count: count ?? 0, mine };
+}
+
 /** Submitted essays awaiting review (curator queue). */
 export async function getSubmittedEssays(groupId: number): Promise<EssaySummary[]> {
   const db = createServiceRoleClient();
