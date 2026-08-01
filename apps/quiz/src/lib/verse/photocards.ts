@@ -24,6 +24,43 @@ export async function getPhotocards(groupId: number): Promise<Photocard[]> {
   return (data ?? []) as Photocard[];
 }
 
+// V-CARDS-MAX - the binder groups the catalog into SETS (the real-binder mental
+// model: one page per set). A set is the album a card shipped with; cards with no
+// album fall back to their era, then a single "Other cards" page. Auto-by-set is
+// the zero-effort default; manual arrangement (verse_binders.layout) reorders on top.
+export interface BinderSet {
+  key: string; label: string; albumId: number | null; mbid: string | null;
+  releaseYear: string | null; cards: Photocard[];
+}
+
+export async function getPhotocardSets(groupId: number): Promise<BinderSet[]> {
+  const cards = await getPhotocards(groupId);
+  if (!cards.length) return [];
+  const albumIds = [...new Set(cards.map((c) => c.album_id).filter((x): x is number => !!x))];
+  const albumMap = new Map<number, { title: string; mbid: string | null; release_date: string | null }>();
+  if (albumIds.length) {
+    const db = createPublicReadClient();
+    const { data } = await db.from('albums').select('id, title, mbid, release_date').in('id', albumIds);
+    for (const a of (data ?? []) as Array<{ id: number; title: string; mbid: string | null; release_date: string | null }>) albumMap.set(a.id, a);
+  }
+  const sets = new Map<string, BinderSet>();
+  for (const c of cards) {
+    const a = c.album_id ? albumMap.get(c.album_id) : undefined;
+    const key = a ? `album:${c.album_id}` : c.era ? `era:${c.era}` : 'other';
+    const label = a ? a.title : c.era ?? 'Other cards';
+    if (!sets.has(key)) sets.set(key, { key, label, albumId: a ? c.album_id : null, mbid: a?.mbid ?? null, releaseYear: a?.release_date?.slice(0, 4) ?? null, cards: [] });
+    sets.get(key)!.cards.push(c);
+  }
+  // Album sets newest-year first, then era sets, then the Other page last.
+  return [...sets.values()].sort((x, y) => {
+    if (x.key === 'other') return 1;
+    if (y.key === 'other') return -1;
+    const xy = x.releaseYear ? Number(x.releaseYear) : -1;
+    const yy = y.releaseYear ? Number(y.releaseYear) : -1;
+    return yy - xy || x.label.localeCompare(y.label);
+  });
+}
+
 /** A user's card_id -> state map for a space (private). */
 export async function getUserCollection(userId: string, groupId: number): Promise<Record<number, CardState>> {
   const db = createServiceRoleClient();
