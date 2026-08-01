@@ -7,6 +7,7 @@ import { MODULE_RENDERERS as CORE } from './space-home-modules';
 import { CountdownModule, QuoteModule, SpotlightModule, PollModule } from './feature-modules';
 import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
 import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule, CompletenessModule } from './canonical-modules';
+import { BinderWidgetModule, ShelfWidgetModule } from './cards-widgets';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -31,4 +32,6 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   music: MusicModule,
   social_embed: SocialEmbedModule,
   discord: DiscordModule,
+  binder_widget: BinderWidgetModule,
+  shelf_widget: ShelfWidgetModule,
 };

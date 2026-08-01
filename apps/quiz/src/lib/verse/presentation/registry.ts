@@ -45,6 +45,10 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   masthead:     { type: 'masthead', label: 'Curator invite', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 2, implemented: true, category: 'feature' },
   // V-SPACE-FLOW step 5 - the public coverage score (min-gated past a floor).
   completeness: { type: 'completeness', label: 'Coverage meter', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 3, implemented: true, category: 'feature' },
+  // V-CARDS-MAX step 7 - the binder + shelf home widgets (duality). Feature
+  // modules in the rail; each self-min-gates (renders null at 0 catalog).
+  binder_widget: { type: 'binder_widget', label: 'Binder widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 4, implemented: true, category: 'feature' },
+  shelf_widget: { type: 'shelf_widget', label: 'Shelf widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 5, implemented: true, category: 'feature' },
 
   // --- Core, SEO-critical - registered now, rendered in later steps ---
   facts:        { type: 'facts', label: 'Facts', seoCritical: true, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },
