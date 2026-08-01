@@ -86,13 +86,13 @@ async function btsTests(): Promise<void> {
     db.from('albums').select('title, era_id').eq('group_id', groupId),
     db.from('eras').select('id, name, slug').eq('group_id', groupId),
     db.from('verse_pages').select('id, slug, title, parent_page_id, is_stub').eq('group_id', groupId).eq('status', 'published'),
-    db.from('verse_page_links').select('source_page_id, target_slug, target_page_id').eq('group_id', groupId).limit(4000),
+    db.from('verse_page_links').select('source_type, source_id, target_slug, target_page_id').eq('group_id', groupId).eq('source_type', 'page').limit(4000),
   ]);
   const idols = (idolsR.data ?? []) as Array<{ name: string }>;
   const albumsRaw = (albumsR.data ?? []) as Array<{ title: string; era_id: number | null }>;
   const eras = (erasR.data ?? []) as Array<{ id: number; name: string; slug: string | null }>;
   const wiki = (wikiR.data ?? []) as Array<{ id: number; slug: string; title: string; parent_page_id: number | null; is_stub: boolean }>;
-  const linkRows = (linksR.data ?? []) as Array<{ source_page_id: number; target_slug: string; target_page_id: number | null }>;
+  const linkRows = (linksR.data ?? []) as Array<{ source_type: string; source_id: string; target_slug: string; target_page_id: number | null }>;
 
   const albumSlugByEra = new Map<number, string[]>();
   for (const a of albumsRaw) if (a.era_id != null) { const l = albumSlugByEra.get(a.era_id) ?? []; l.push(albumSlug(a.title)); albumSlugByEra.set(a.era_id, l); }
@@ -100,7 +100,7 @@ async function btsTests(): Promise<void> {
   const links: GraphInput['links'] = [];
   const wantedWiki = new Map<string, { slug: string; title: string }>();
   for (const r of linkRows) {
-    const src = pageSlugById.get(r.source_page_id); if (!src) continue;
+    const src = pageSlugById.get(Number(r.source_id)); if (!src) continue;
     const tk = targetKey(r.target_slug); if (!tk) continue;
     links.push({ a: `wiki:${src}`, b: tk });
     if (tk.startsWith('wiki:') && r.target_page_id == null) { const ws = tk.slice(5); if (!wantedWiki.has(ws)) wantedWiki.set(ws, { slug: ws, title: ws.replace(/-/g, ' ') }); }

@@ -3,25 +3,35 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useBuildMode } from '@/components/verse/build-mode';
+
 import type { AtlasEdge, PositionedNode } from '@/lib/verse/atlas/graph';
 
-// V-ATLAS step 2 - THE MAP. The constellation, drawn in SVG on the V-DESIGN
+// V-ATLAS step 2/4 - THE MAP. The constellation, drawn in SVG on the V-DESIGN
 // system: a three-tier hierarchy in the space's strong ink colour - solid center,
-// ink-outlined travelable hubs, soft-outlined leaves, dashed wanted nodes in
-// Build mode. Motion is HYBRID and hand-rolled (no deps): resting positions are
-// server-computed and never change; the client only springs current positions
-// toward rest - a soft settle on load, grab-and-nudge with spring-back on drag.
-// prefers-reduced-motion gets the instant static map (zero animation).
-// A node click NAVIGATES (opens the page); a hub click TRAVELS (re-centers,
-// pushing a breadcrumb). Every node is a real, focusable link in a sane order,
-// and travel is announced to assistive tech.
+// ink-outlined travelable hubs, soft-outlined leaves, dashed WANTED nodes that
+// appear only in Build mode. Motion is HYBRID and hand-rolled (no deps): resting
+// positions are server-computed and never change; the client only springs current
+// positions toward rest - a soft settle on load, grab-and-nudge with spring-back
+// on drag. prefers-reduced-motion gets the instant static map (zero animation).
+// A leaf/center click NAVIGATES (opens the page), a hub click TRAVELS (re-centers,
+// pushing a breadcrumb), a wanted node opens create-page with the slug prefilled.
+// Every node is a real, focusable link in a sane order; travel is announced.
+//
+// Build mode swaps to a server-computed neighbourhood that INCLUDES wanted nodes
+// (only shipped to contributor+, so no dead red-link affordance for anyone else);
+// toggling re-settles. Readers only ever receive the published set.
 
-export interface AtlasMapProps {
+export interface NeighborhoodPayload {
   center: PositionedNode;
   nodes: PositionedNode[];
   edges: AtlasEdge[];
+}
+export interface AtlasMapProps {
+  groupSlug: string;
+  reader: NeighborhoodPayload;
+  build?: NeighborhoodPayload | null;
   trail: Array<{ key: string; label: string }>;
-  buildMode?: boolean | undefined;
 }
 
 interface Phys { x: number; y: number; vx: number; vy: number }
@@ -45,9 +55,15 @@ function kindStyle(n: PositionedNode, isCenter: boolean): { r: number; fill: str
 
 function trim(label: string, max = 14): string { return label.length > max ? label.slice(0, max - 1).trimEnd() + '…' : label; }
 
-export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapProps): React.ReactElement {
+export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): React.ReactElement {
   const router = useRouter();
   const pathname = usePathname();
+  const { on: buildOn } = useBuildMode();
+  // Build mode shows the wanted-augmented neighbourhood, but only when the server
+  // actually shipped one (contributor+). Otherwise, and for everyone else, the
+  // published reader set. This is the ONLY switch; positions come from the server.
+  const buildActive = buildOn && !!build && build.nodes.length > 0;
+  const { center, nodes, edges } = buildActive ? build : reader;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const phys = useRef<Phys[]>([]);
   const targets = useRef<Array<{ x: number; y: number }>>([]);
@@ -66,7 +82,7 @@ export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapPro
     return () => mq.removeEventListener('change', on);
   }, []);
 
-  const nodesKey = center.key + '|' + nodes.length;
+  const nodesKey = center.key + '|' + nodes.length + '|' + (buildActive ? 'b' : 'r');
 
   // One spring runner, shared by load-settle and drag-nudge (no duplicated loop
   // that could drift). Integrates current positions toward their targets and
@@ -116,7 +132,11 @@ export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapPro
     return `${pathname}?hub=${encodeURIComponent(key)}&trail=${encodeURIComponent(keys.join('~'))}`;
   };
 
+  // A wanted node is a red link: it opens create-page with the slug prefilled.
+  const createHref = (n: PositionedNode): string => `/verse/${groupSlug}/wiki/new?slug=${encodeURIComponent(n.key.slice(n.key.indexOf(':') + 1))}`;
+
   const hrefFor = (n: PositionedNode, isCenter: boolean): string => {
+    if (n.wanted) return createHref(n);
     if (isCenter || n.kind === 'more' || !n.hub) return n.href; // open the page / exit
     return travelHref(n.key); // hubs travel (re-center)
   };
@@ -125,7 +145,8 @@ export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapPro
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // let the browser open a new tab
     e.preventDefault();
     if (drag.current?.moved) return; // a nudge, not a click
-    if (isCenter || n.kind === 'more' || !n.hub) router.push(n.href);
+    if (n.wanted) router.push(createHref(n));
+    else if (isCenter || n.kind === 'more' || !n.hub) router.push(n.href);
     else router.push(travelHref(n.key));
   };
 
@@ -213,7 +234,7 @@ export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapPro
                 onPointerUp={endDrag(i)}
                 onPointerCancel={endDrag(i)}
                 style={{ cursor: 'pointer', touchAction: 'none' }}
-                aria-label={`${n.label}${n.wanted ? ' (wanted page, not written yet)' : ''}${isCenter ? ' (current, open page)' : n.hub && n.kind !== 'more' ? ' (travel here)' : ''}`}
+                aria-label={`${n.label}${n.wanted ? ' (wanted page, create it)' : isCenter ? ' (current, open page)' : n.hub && n.kind !== 'more' ? ' (travel here)' : ''}`}
               >
                 <g transform={`translate(${p.x} ${p.y})`}>
                   {isCenter ? <circle r={s.r + 6} fill="none" stroke="var(--verse-ink)" strokeWidth={1} opacity={0.28} /> : null}
@@ -233,7 +254,7 @@ export function AtlasMap({ center, nodes, edges, trail, buildMode }: AtlasMapPro
 
       <p className="mt-2 text-[12px] text-tertiary">
         {reduced ? 'Tap a hub to travel, a page to open it.' : 'Drag to nudge, tap a hub to travel, a page to open it.'}
-        {buildMode ? ' Dashed nodes are wanted pages.' : ''}
+        {buildActive ? ' Dashed nodes are wanted pages: tap one to write it.' : ''}
       </p>
     </div>
   );

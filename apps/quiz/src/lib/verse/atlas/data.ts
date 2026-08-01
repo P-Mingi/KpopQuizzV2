@@ -32,12 +32,14 @@ export async function getSpaceGraph(space: Space): Promise<AtlasGraph> {
   const pageSlugById = new Map<number, string>(wiki.map((w) => [w.id, w.slug]));
 
   // The links ledger -> resolved edges + wanted (not-yet-created) wiki nodes.
+  // The ledger keys a source by (source_type, source_id): a wiki page source is
+  // source_type='page', source_id=the page id as a string.
   const db = createPublicReadClient();
-  const { data: linkRows } = await db.from('verse_page_links').select('source_page_id, target_slug, target_page_id').eq('group_id', groupId).limit(4000);
+  const { data: linkRows } = await db.from('verse_page_links').select('source_type, source_id, target_slug, target_page_id').eq('group_id', groupId).eq('source_type', 'page').limit(4000);
   const links: GraphInput['links'] = [];
   const wantedWiki = new Map<string, { slug: string; title: string }>();
-  for (const r of (linkRows ?? []) as Array<{ source_page_id: number; target_slug: string; target_page_id: number | null }>) {
-    const srcSlug = pageSlugById.get(r.source_page_id);
+  for (const r of (linkRows ?? []) as Array<{ source_type: string; source_id: string; target_slug: string; target_page_id: number | null }>) {
+    const srcSlug = pageSlugById.get(Number(r.source_id));
     if (!srcSlug) continue;
     const tk = targetKey(r.target_slug);
     if (!tk) continue;

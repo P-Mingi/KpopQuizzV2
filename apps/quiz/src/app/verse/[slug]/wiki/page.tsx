@@ -10,6 +10,8 @@ import { DeckFilter } from '@/components/verse/pages/deck-filter';
 import { WikiNewLink } from '@/components/verse/wiki-new-link';
 import { AtlasView } from '@/components/verse/atlas/atlas-view';
 import { AtlasSurface } from '@/components/verse/atlas/atlas-surface';
+import { AtlasCounts } from '@/components/verse/atlas/atlas-counts';
+import { wantedPages } from '@/lib/verse/pages/links';
 
 import type { Metadata } from 'next';
 
@@ -36,7 +38,7 @@ export default async function AtlasPage({ params, searchParams }: { params: Prom
   const { hub, trail } = await searchParams;
   const space = await getSpace(slug);
   if (!space) notFound();
-  const pages = await listPublishedPages(space.group.id);
+  const [pages, wanted] = await Promise.all([listPublishedPages(space.group.id), wantedPages(space.group.id)]);
 
   const byKind = new Map<string, typeof pages>();
   for (const p of pages) {
@@ -89,7 +91,7 @@ export default async function AtlasPage({ params, searchParams }: { params: Prom
             <h1 className="font-extrabold leading-tight" style={{ fontSize: 'var(--v-type-title)', letterSpacing: 'var(--v-tracking-tight)', color: 'var(--verse-ink)' }}>
               The {space.group.fandom_name} atlas
             </h1>
-            <p className="mt-1 text-sm text-tertiary tabular-nums">{pageCount} {pageCount === 1 ? 'page' : 'pages'}</p>
+            <AtlasCounts pages={pageCount} wanted={wanted.length} groupSlug={space.group.slug} />
           </div>
           <WikiNewLink groupSlug={space.group.slug} />
         </div>
