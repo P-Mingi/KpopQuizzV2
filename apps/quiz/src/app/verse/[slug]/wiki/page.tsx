@@ -8,6 +8,7 @@ import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { DeckFilter } from '@/components/verse/pages/deck-filter';
 import { WikiNewLink } from '@/components/verse/wiki-new-link';
+import { AtlasView } from '@/components/verse/atlas/atlas-view';
 
 import type { Metadata } from 'next';
 
@@ -30,8 +31,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function WikiIndexPage({ params }: { params: Promise<{ slug: string }> }): Promise<React.ReactElement> {
+export default async function WikiIndexPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ hub?: string; trail?: string }> }): Promise<React.ReactElement> {
   const { slug } = await params;
+  const { hub, trail } = await searchParams;
   const space = await getSpace(slug);
   if (!space) notFound();
   const pages = await listPublishedPages(space.group.id);
@@ -57,6 +59,11 @@ export default async function WikiIndexPage({ params }: { params: Promise<{ slug
           <WikiNewLink groupSlug={space.group.slug} />
         </div>
       </header>
+
+      {/* V-ATLAS: the constellation map (enhancement; the crawlable index below is the content). */}
+      <section className="v-module" aria-label="Atlas map">
+        <AtlasView space={space} hubParam={hub} trailParam={trail} />
+      </section>
 
       {pages.length === 0 ? (
         <p className="v-module text-sm text-tertiary" style={{ maxWidth: 'var(--v-measure)' }}>

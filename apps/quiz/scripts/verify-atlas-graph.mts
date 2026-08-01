@@ -60,9 +60,9 @@ function fixtureTests(): void {
   const n = neighborhood(g, 'space:fixture');
 
   const more = n.nodes.find((x) => x.kind === 'more');
-  more && more.label === '+8 more' ? ok(`20 idols -> 12 sampled + "${more.label}" exit (never 20 nodes)`) : fail(`expected a "+8 more" exit, got ${more?.label ?? 'none'}`);
+  more && more.label === '+12 more' ? ok(`20 idols -> 8 sampled + "${more.label}" exit (never 20 nodes)`) : fail(`expected a "+12 more" exit, got ${more?.label ?? 'none'}`);
   const idolCount = n.nodes.filter((x) => x.kind === 'idol').length;
-  idolCount === 12 ? ok('ring-1 idols capped at 12') : fail(`expected 12 idols, got ${idolCount}`);
+  idolCount === 8 ? ok('ring-1 idols capped at 8') : fail(`expected 8 idols, got ${idolCount}`);
   n.nodes.length <= 44 ? ok(`neighbourhood bounded (${n.nodes.length} <= 44 nodes)`) : fail(`neighbourhood too large: ${n.nodes.length}`);
   n.nodes.some((x) => x.key === 'era:e1') ? ok('era present in ring 1') : fail('era missing');
   n.nodes.some((x) => x.key === 'album:orphan') ? ok('era-less album still reachable (hung off the space)') : fail('orphan album lost');

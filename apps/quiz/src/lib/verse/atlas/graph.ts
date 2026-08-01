@@ -30,7 +30,7 @@ export interface GraphInput {
 }
 
 const NEIGHBOURHOOD_CAP = 44;   // hub + up to ~43 around it
-const PER_KIND_RING1_CAP = 12;  // sample beyond this, add a "+N more" exit
+const PER_KIND_RING1_CAP = 8;   // sample beyond this, add a "+N more" exit
 
 export function nodeHref(slug: string, kind: AtlasNodeKind, key: string): string {
   const id = key.slice(key.indexOf(':') + 1);
@@ -99,8 +99,12 @@ export function neighborhood(graph: AtlasGraph, hubKey: string, opts?: { include
   const budget = Math.max(0, NEIGHBOURHOOD_CAP - 1 - ring1.length - moreNodes.length);
   const ring2 = [...ring2set].sort().slice(0, budget);
 
-  // Deterministic radial layout. Center at origin; rings on fixed radii; angles
-  // evenly spaced by sorted order so the map is learnable and stable.
+  // Deterministic radial layout. Center at origin; rings on radii that grow with
+  // crowding; angles evenly spaced by (kind-clustered) order so same-kind nodes
+  // form legible arcs and the map is learnable and stable across visits.
+  const ring1Count = ring1.length + moreNodes.length;
+  const r1 = Math.min(150, 94 + ring1Count * 2.4);
+  const r2 = r1 + 86;
   const positioned: PositionedNode[] = [{ ...center, x: 0, y: 0, ring: 0 }];
   const place = (keys: string[], radius: number, ring: number, phase: number): void => {
     const extras = ring === 1 ? moreNodes : [];
@@ -110,8 +114,8 @@ export function neighborhood(graph: AtlasGraph, hubKey: string, opts?: { include
       positioned.push({ ...n, x: Math.round(Math.cos(ang) * radius), y: Math.round(Math.sin(ang) * radius), ring });
     });
   };
-  place(ring1, 100, 1, -Math.PI / 2);
-  place(ring2, 190, 2, -Math.PI / 2 + Math.PI / Math.max(1, ring2.length));
+  place(ring1, r1, 1, -Math.PI / 2);
+  place(ring2, r2, 2, -Math.PI / 2 + Math.PI / Math.max(1, ring2.length));
 
   // Edges among the positioned set only.
   const present = new Set(positioned.map((n) => n.key));
