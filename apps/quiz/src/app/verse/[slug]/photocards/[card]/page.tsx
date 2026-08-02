@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
@@ -89,7 +90,7 @@ export default async function PhotocardDetailPage({ params }: { params: Promise<
                 {counts.wanted >= COMMUNITY_FLOOR ? <span><span className="text-xl font-extrabold tabular-nums" style={{ color: 'var(--verse-ink)' }}>{counts.wanted}</span> want it</span> : null}
               </p>
             ) : (
-              <p className="max-w-[66ch] text-sm text-tertiary">Not enough collectors have added this card yet to show counts. Add it to your binder to help the count grow.</p>
+              <EmptyState variant="growing" headline="Counts are still gathering." body="Add it to your binder to help the count grow." />
             )}
           </section>
         </div>

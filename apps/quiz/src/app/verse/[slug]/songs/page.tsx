@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -106,7 +107,7 @@ export default async function SongDeckPage({ params }: { params: Promise<{ slug:
       </header>
 
       {groups.length === 0 ? (
-        <p className="v-module text-sm text-tertiary">No tracks catalogued yet.</p>
+        <EmptyState className="v-module" headline="No tracks yet." body="Tracks appear here as the catalogue is sourced." />
       ) : (
         <>
           <DeckFilter scopeId="song-deck" facets={[{ key: 'year', label: 'Year', sort: 'value-desc' }, { key: 'album', label: 'Album' }]} />

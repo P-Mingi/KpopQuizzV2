@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -65,7 +66,7 @@ export default async function EssaysPage({ params }: { params: Promise<{ slug: s
       <p className="mt-2 max-w-[66ch] text-sm text-secondary">Long-form fan writing about {space.group.name}, reviewed and featured by curators.</p>
 
       {mag.publicCount === 0 ? (
-        <p className="mt-6 rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No essays published yet. Members write them; curators feature the best.</p>
+        <EmptyState headline="No essays yet." body="Members write them; curators feature the best." />
       ) : (
         <div className="mt-7 space-y-10">
           {/* Featured hero: hides without a curator pick. */}

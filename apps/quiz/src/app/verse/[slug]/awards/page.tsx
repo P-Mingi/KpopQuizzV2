@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { SourceChip } from '@/components/verse/source-chip';
 import { PageGrammar } from '@/components/verse/page-grammar';
@@ -28,7 +29,7 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
   const rows = await getScene('awards', space.group.id) as Array<{ id: number; award_name: string; category: string | null; ceremony: string | null; year: number | null; result: string | null; source_url: string | null }>;
 
   if (rows.length === 0) {
-    return <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No awards published yet.</p>;
+    return <EmptyState headline="No awards yet." body="Wins and nominations appear here as they are sourced." />;
   }
 
   // Group by year (undated last), then render newest first.

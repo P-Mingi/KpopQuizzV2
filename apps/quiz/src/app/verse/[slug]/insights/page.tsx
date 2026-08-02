@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
@@ -49,7 +50,7 @@ export default async function InsightsPage({ params }: { params: Promise<{ slug:
       <section>
         <SectionHeader kicker="Top contributors" as="h2" />
         {ins.topContributors.length === 0 ? (
-          <p className="text-sm text-tertiary">No contributions yet. As fans write, they appear here.</p>
+          <EmptyState headline="No contributions yet." body="As fans write, they appear here." />
         ) : (
           <ol className="space-y-1.5">
             {ins.topContributors.map((c, i) => (

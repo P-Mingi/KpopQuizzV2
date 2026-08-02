@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { GroupLogo } from '@/components/ui/group-logo';
 import { VerseSearch } from '@/components/verse/verse-search';
@@ -238,7 +239,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
 
       {/* 7. THE DIRECTORY - the one complete grid, deduped from everything above */}
       {tiles.length === 0 ? (
-        <p className="rounded-xl border border-default bg-surface px-5 py-8 text-center text-secondary">Spaces are being prepared. Check back soon.</p>
+        <EmptyState headline="No spaces yet." body="Fandom spaces appear here as they open." />
       ) : directory.length > 0 ? (
         <section className="mb-12">
           <SectionHeader kicker="All fandoms" as="h2" />

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -60,7 +61,7 @@ export default async function DiscographyPage({ params }: { params: Promise<{ sl
   if (!space) notFound();
   const { albums, group } = space;
   if (!albums.length) {
-    return <p className="rounded-xl border border-dashed border-default px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>Discography for {group.name} is being prepared.</p>;
+    return <EmptyState headline="No discography yet." body={`Release data for ${group.name} appears here as it is sourced.`} />;
   }
   const groups: { key: string; label: string; items: SpaceAlbum[] }[] = [
     { key: 'album', label: 'Albums', items: albums.filter((a) => a.type === 'album') },

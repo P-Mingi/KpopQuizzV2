@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { getSpace } from '@/lib/verse/space';
 import { getEras } from '@/lib/verse/eras';
@@ -30,7 +31,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ slug:
   const debut = group.inception_date ? { date: group.inception_date.slice(0, 10), label: `${group.name} debuts` } : null;
 
   if (eras.length === 0 && !debut) {
-    return <p className="rounded-xl border border-dashed border-default px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>Timeline for {group.name} is being prepared.</p>;
+    return <EmptyState headline="No timeline yet." body={`Key ${group.name} dates appear here as they are added.`} />;
   }
 
   // ItemList JSON-LD: the era sequence as an ordered list (crawlable structure).

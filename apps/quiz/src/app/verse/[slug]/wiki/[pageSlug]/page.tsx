@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from 'next/navigation';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
@@ -141,7 +142,7 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
               <WikiBody doc={body} />
             </div>
           ) : (
-            <p className="v-module text-sm text-tertiary">This page has no published text yet.</p>
+            <EmptyState className="v-module" headline="No published text yet." body="The first fan to write it fills this in." />
           )}
 
           <RelatedExits groupSlug={space.group.slug} items={related} />

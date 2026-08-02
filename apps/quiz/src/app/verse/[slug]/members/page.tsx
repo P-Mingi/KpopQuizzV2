@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
@@ -71,7 +72,7 @@ export default async function MembersPage({ params }: { params: Promise<{ slug: 
   const { idols, units, group } = space;
 
   if (!idols.length) {
-    return <p className="rounded-xl border border-dashed border-default px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>Member profiles for {group.name} are being prepared.</p>;
+    return <EmptyState headline="No member profiles yet." body={`Profiles for ${group.name} appear here as they are sourced.`} />;
   }
 
   const unitById = new Map(units.map((u) => [u.id, u]));

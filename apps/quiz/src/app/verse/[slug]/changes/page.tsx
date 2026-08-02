@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
@@ -33,7 +34,7 @@ export default async function ChangesPage({ params }: { params: Promise<{ slug: 
       <h1 className="mb-1 text-lg font-bold" style={{ color: 'var(--verse-ink)' }}>Recent changes</h1>
       <p className="mb-4 text-xs text-tertiary">Every edit to the {space.group.fandom_name} space, newest first.</p>
       {changes.length === 0 ? (
-        <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No edits yet. Be the first to write something.</p>
+        <EmptyState headline="No edits yet." body="Be the first to write something." />
       ) : (
         <ol className="space-y-1.5">
           {changes.map((c) => (
