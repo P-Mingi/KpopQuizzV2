@@ -20,7 +20,7 @@ function ago(iso: string): string {
 
 /** W4.6 - per-page discussion (talk page) with one-level replies. Any signed-in user can
  * comment; authors can delete their own; curators moderate via the API. */
-export function DiscussionThread({ entityType, entityId, groupId }: { entityType: string; entityId: string; groupId?: number }): React.ReactElement {
+export function DiscussionThread({ entityType, entityId, groupId, threadId }: { entityType: string; entityId: string; groupId?: number; threadId?: number }): React.ReactElement {
   const [comments, setComments] = useState<Comment[]>([]);
   const [signedIn, setSignedIn] = useState(false);
   const [draft, setDraft] = useState('');
@@ -29,16 +29,18 @@ export function DiscussionThread({ entityType, entityId, groupId }: { entityType
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
-    const r = await fetch(`/api/verse/discussions?entity_type=${entityType}&entity_id=${entityId}${groupId ? `&group_id=${groupId}` : ''}`);
+    const q = threadId ? `thread_id=${threadId}` : `entity_type=${entityType}&entity_id=${entityId}`;
+    const r = await fetch(`/api/verse/discussions?${q}${groupId ? `&group_id=${groupId}` : ''}`);
     if (r.ok) { const d = await r.json(); setComments(d.comments ?? []); setSignedIn(!!d.signedIn); }
-  }, [entityType, entityId]);
+  }, [entityType, entityId, groupId, threadId]);
 
   useEffect(() => { load(); }, [load]);
 
   async function post(bodyText: string, parentId: number | null) {
     if (!bodyText.trim()) return;
     setBusy(true);
-    const r = await fetch('/api/verse/discussions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ entity_type: entityType, entity_id: entityId, body: bodyText, parent_id: parentId }) });
+    const payload = threadId ? { thread_id: threadId, body: bodyText, parent_id: parentId } : { entity_type: entityType, entity_id: entityId, body: bodyText, parent_id: parentId };
+    const r = await fetch('/api/verse/discussions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     setBusy(false);
     if (r.status === 401) { window.location.href = `/login?returnTo=${encodeURIComponent(window.location.pathname)}`; return; }
     if (r.ok) { setDraft(''); setReplyDraft(''); setReplyTo(null); load(); } else alert((await r.json()).error ?? 'error');
