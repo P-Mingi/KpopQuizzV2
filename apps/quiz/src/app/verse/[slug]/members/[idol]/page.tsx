@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -107,7 +108,7 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
               facts={d.facts} editableFields={d.editableFields}
             />
             <div className="verse-frame verse-frame-rounded">
-              <h2 className="v-eyebrow">In {d.group.name}</h2>
+              <SectionHeader kicker={<>In {d.group.name}</>} as="h2" />
               <dl className="flex flex-col gap-2 text-sm">
                 {d.positions.length ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Position</dt><dd className="text-right font-semibold text-primary">{d.positions.join(', ')}</dd></div> : null}
                 {d.unitName ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Unit</dt><dd className="font-semibold text-primary">{d.unitName}</dd></div> : null}

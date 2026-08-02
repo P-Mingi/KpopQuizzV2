@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -95,7 +96,7 @@ export default async function PhotocardDetailPage({ params }: { params: Promise<
 
         <aside className="mt-2 lg:mt-0">
           <div className="verse-frame verse-frame-rounded">
-            <h2 className="v-eyebrow">Card facts</h2>
+            <SectionHeader kicker="Card facts" as="h2" />
             <dl className="flex flex-col gap-2 text-sm">
               {album ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Set</dt><dd className="text-right font-semibold text-primary">{album.title}</dd></div> : null}
               {row.era ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Era</dt><dd className="text-right font-semibold text-primary">{row.era}</dd></div> : null}

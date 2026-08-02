@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
@@ -31,13 +32,13 @@ export default async function PatrolPage({ params }: { params: Promise<{ slug: s
       </div>
 
       <section>
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Queue</h2>
+        <SectionHeader kicker="Queue" as="h2" />
         <PatrolQueue groupId={space.group.id} />
       </section>
 
       {globalAdmin ? (
         <section>
-          <h2 className="mb-1 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Banned terms</h2>
+          <SectionHeader kicker="Banned terms" as="h2" />
           <p className="mb-3 text-xs text-tertiary">Site-wide. block rejects content; flag lets it post but queues it here.</p>
           <BannedTerms />
         </section>

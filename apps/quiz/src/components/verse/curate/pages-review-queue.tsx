@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -29,7 +30,7 @@ export function PagesReviewQueue({ groupSlug, items }: {
 
   return (
     <section className="verse-frame verse-frame-rounded" style={{ marginTop: '1.6rem' }}>
-      <h2 className="v-eyebrow">Pages awaiting review · {items.length}</h2>
+      <SectionHeader kicker={<>Pages awaiting review · {items.length}</>} as="h2" />
       <ul className="flex flex-col gap-3">
         {items.map((p) => (
           <li key={p.id} className="flex flex-wrap items-center gap-x-4 gap-y-2">

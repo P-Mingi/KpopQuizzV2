@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getPhotocards } from '@/lib/verse/photocards';
 import { getActiveSpacePoll } from '@/lib/verse/presentation/poll';
@@ -13,7 +14,7 @@ import type { ModuleProps } from './module-registry';
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">{title}</h3>
+      <SectionHeader kicker={title} as="h3" />
       {children}
     </div>
   );

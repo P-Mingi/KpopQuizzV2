@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import type { PollTally } from '@/lib/verse/presentation/poll';
 
@@ -30,7 +31,7 @@ export function PollVote({ initial, groupSlug }: { initial: PollTally; groupSlug
   const showResults = voted != null;
   return (
     <div className="rounded-xl border p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-      <h3 className="mb-3 text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Space poll</h3>
+      <SectionHeader kicker="Space poll" as="h3" />
       <p className="mb-3 text-sm font-semibold text-primary">{initial.poll.question}</p>
       <ul className="flex flex-col gap-2">
         {initial.poll.options.map((opt, i) => {

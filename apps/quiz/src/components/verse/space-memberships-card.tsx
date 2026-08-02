@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getUserSpaces } from '@/lib/verse/membership';
 
@@ -12,7 +13,7 @@ export async function SpaceMembershipsCard({ userId }: { userId: string }): Prom
 
   return (
     <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 14, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
-      <h2 className="mb-2 text-[11px] font-bold uppercase tracking-wide text-tertiary">Verse spaces</h2>
+      <SectionHeader kicker="Verse spaces" as="h2" />
       <ul className="flex flex-wrap gap-2">
         {spaces.map((s) => (
           <li key={s.groupId}>

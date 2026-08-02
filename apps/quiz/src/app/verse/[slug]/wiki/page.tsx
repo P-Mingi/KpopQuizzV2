@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -60,7 +61,7 @@ export default async function AtlasPage({ params, searchParams }: { params: Prom
           const def = getKind(KPOP_PAGE_REGISTRY, kind);
           return (
             <section key={kind} className="v-module">
-              <h2 className="v-eyebrow">{def?.label ?? kind} · {list.length}</h2>
+              <SectionHeader kicker={<>{def?.label ?? kind} · {list.length}</>} as="h2" />
               <div className="v-grid-cards">
                 {list.map((p) => (
                   <Link key={p.id} href={`/verse/${space.group.slug}/wiki/${p.slug}`}

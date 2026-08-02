@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -91,7 +92,7 @@ export default async function MembersPage({ params }: { params: Promise<{ slug: 
       <Grid idols={unassigned} slug={slug} />
       {[...byUnit.entries()].map(([uid, members]) => (
         <section key={uid} className="mt-8">
-          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{unitById.get(uid)?.name}</h2>
+          <SectionHeader kicker={unitById.get(uid)?.name} as="h2" />
           <Grid idols={members} slug={slug} />
         </section>
       ))}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { useRouter } from 'next/navigation';
 import { useEditor, EditorContent } from '@tiptap/react';
 
@@ -194,7 +195,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
       <aside className="mt-8 lg:col-span-1 lg:mt-0">
         {def.infobox.length > 0 ? (
           <div className="verse-frame verse-frame-rounded">
-            <h2 className="v-eyebrow">{def.label} facts</h2>
+            <SectionHeader kicker={<>{def.label} facts</>} as="h2" />
             <div className="flex flex-col gap-3">
               {def.infobox.map((f) => (
                 <InfoboxField key={f.key} f={f} raw={infobox[f.key]}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -133,7 +134,7 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
 
         <aside className="mt-2 lg:mt-0">
           <div className="verse-frame verse-frame-rounded">
-            <h2 className="v-eyebrow">Track facts</h2>
+            <SectionHeader kicker="Track facts" as="h2" />
             <dl className="flex flex-col gap-2 text-sm">
               {song.artist_name ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Artist</dt><dd className="text-right font-semibold text-primary">{song.artist_name}</dd></div> : null}
               {song.year ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Year</dt><dd className="font-semibold tabular-nums text-primary">{song.year}</dd></div> : null}

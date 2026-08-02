@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 
 import { fetchAffordance } from '@/components/verse/roles/role-affordance';
@@ -39,7 +40,7 @@ export function EssaysClient({ groupId, groupSlug }: { groupId: number; groupSlu
 
       {mine && mine.length > 0 ? (
         <section>
-          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Your essays</h2>
+          <SectionHeader kicker="Your essays" as="h2" />
           <ul className="space-y-1.5">
             {mine.map((e) => (
               <li key={e.id} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm" style={{ background: 'var(--verse-soft)' }}>

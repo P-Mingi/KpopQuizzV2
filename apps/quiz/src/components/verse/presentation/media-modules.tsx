@@ -1,4 +1,5 @@
 import { ClickToLoad } from './click-to-load';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { AudioStrip } from './audio-strip';
 import { youtubeId, youtubeEmbed, parseSocial, validDiscordInvite, discordWidget } from '@/lib/verse/presentation/media';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
@@ -9,7 +10,7 @@ import type { ModuleProps } from './module-registry';
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">{title}</h3>
+      <SectionHeader kicker={title} as="h3" />
       {children}
     </div>
   );

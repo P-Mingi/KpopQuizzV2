@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getCollectionProgress } from '@/lib/verse/photocards';
 
@@ -14,7 +15,7 @@ export async function PhotocardCollectionCard({ userId }: { userId: string }): P
   return (
     <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 14, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
       <div className="mb-3 flex items-baseline justify-between">
-        <h2 className="text-[11px] font-bold uppercase tracking-wide text-tertiary">Photocard collection</h2>
+        <SectionHeader kicker="Photocard collection" as="h2" />
         <span className="text-xs text-tertiary tabular-nums">
           {prog.owned} owned{prog.wanted > 0 ? ` · ${prog.wanted} wanted` : ''}
         </span>

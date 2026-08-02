@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
@@ -56,18 +57,18 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
       <PagesReviewQueue groupSlug={slug} items={reviewItems} />
 
       <section>
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Masthead</h2>
+        <SectionHeader kicker="Masthead" as="h2" />
         <SpaceSettings groupId={space.group.id} initial={{ welcomeLine: space.config.welcome_line, charterText: space.config.charter_text, snsLinks: space.config.sns_links }} />
       </section>
 
       <section>
-        <h2 className="mb-1 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Members</h2>
+        <SectionHeader kicker="Members" as="h2" />
         <p className="mb-3 text-xs text-tertiary">Curators inactive for a long time decay to contributor so the role frees up. The space owner can always re-appoint.</p>
         <MemberManager groupId={space.group.id} groupSlug={space.group.slug} isSpaceAdmin={isSpaceAdmin} />
       </section>
 
       <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Tools</h2>
+        <SectionHeader kicker="Tools" as="h2" />
         <div className="flex flex-wrap gap-3 text-sm">
           <Link href={`/verse/${slug}/studio`} className="rounded-lg px-3 py-2 font-bold no-underline" style={{ background: 'var(--verse-accent)', color: 'var(--verse-accent-text)' }}>Customize (Studio)</Link>
           <Link href={`/verse/${slug}/insights`} className="rounded-lg border border-default px-3 py-2 no-underline hover:bg-surface-1">Space insights</Link>
@@ -82,7 +83,7 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
 
       {globalAdmin ? (
         <section>
-          <h2 className="mb-1 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Collaboration stage</h2>
+          <SectionHeader kicker="Collaboration stage" as="h2" />
           <p className="mb-3 text-xs text-tertiary">Owner control. Flipping to B/C opens member editing. Defaults to A (off).</p>
           <StageControl groupId={space.group.id} initial={stage} />
         </section>

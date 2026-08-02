@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -88,7 +89,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
           {/* Tracklist */}
           {a.tracks.length ? (
             <section className="mb-6">
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-tertiary">Tracklist</h2>
+              <SectionHeader kicker="Tracklist" as="h2" />
               <ol className="overflow-hidden rounded-xl border border-default" style={{ borderColor: 'var(--verse-line)' }}>
                 {a.tracks.map((t) => {
                   const story = storyBySong.get(normalize(t.title));
@@ -130,7 +131,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
         {/* The facts rail */}
         <aside className="mt-8 lg:mt-0">
           <div className="verse-frame verse-frame-rounded">
-            <h2 className="v-eyebrow">Release facts</h2>
+            <SectionHeader kicker="Release facts" as="h2" />
             <dl className="flex flex-col gap-2 text-sm">
               <div className="flex justify-between gap-3"><dt className="text-tertiary">Type</dt><dd className="font-semibold text-primary">{a.type.toUpperCase()}</dd></div>
               {date ? <div className="flex justify-between gap-3"><dt className="text-tertiary">Released</dt><dd className="font-semibold tabular-nums text-primary">{date}</dd></div> : null}
