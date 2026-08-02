@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { RoleBadge } from '@/components/verse/roles/role-badge';
 
 import type { ProfileStats, ProfileSpace } from '@/lib/verse/profile-stats';
-import type { ProfileSection, Visibility } from '@/lib/verse/profile-visibility';
+import type { ProfileSection, Visibility } from '@/lib/verse/profile-sections';
 import type { ActivityItem } from '@/lib/verse/activity';
 
 // V-PROFILE-ONE step 3 - the fan-resume BAND. Pure presentational (no data fetch,
@@ -20,7 +20,8 @@ export interface FanResumeData {
   activity: ActivityItem[];
 }
 
-const STAT_LABELS: Record<Exclude<ProfileSection, 'roles' | 'activity' | 'cards'>, string> = {
+type TileKey = 'contrib_xp' | 'pages' | 'essays' | 'quiz';
+const STAT_LABELS: Record<TileKey, string> = {
   contrib_xp: 'Contribution XP', pages: 'Pages', essays: 'Essays', quiz: 'Quiz accuracy',
 };
 
@@ -44,7 +45,6 @@ export function FanResumeBand({ data, mode, nowMs, renderToggle }: {
   const shown = (s: ProfileSection): boolean => owner || visibility[s];
 
   // Numeric stat tiles: value + min-gate at zero (a zero section never shows).
-  type TileKey = Exclude<ProfileSection, 'roles' | 'activity' | 'cards'>;
   const allTiles: Array<{ key: TileKey; value: number; suffix?: string }> = [
     { key: 'contrib_xp', value: stats.contribXp },
     { key: 'pages', value: stats.pages },
@@ -100,12 +100,11 @@ export function FanResumeBand({ data, mode, nowMs, renderToggle }: {
         {tiles.length ? (
           <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {tiles.map((t) => (
-              <div key={t.key} className={`rounded-xl border p-2.5 ${owner && !visibility[t.key] ? 'opacity-60' : ''}`} style={{ borderColor: 'var(--border)' }}>
-                <div className="flex items-center justify-between gap-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{STAT_LABELS[t.key]}</span>
-                  {privacyTag(t.key)}
-                </div>
-                <div className="mt-1 text-xl font-extrabold tabular-nums" style={{ color: 'var(--text-primary)' }}>{t.value.toLocaleString('en-US')}{t.suffix ?? ''}</div>
+              // Toggle on its own row below the value, so a long label never collides with it.
+              <div key={t.key} className={`flex flex-col rounded-xl border p-2.5 ${owner && !visibility[t.key] ? 'opacity-60' : ''}`} style={{ borderColor: 'var(--border)' }}>
+                <span className="text-[10px] font-bold uppercase leading-tight tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{STAT_LABELS[t.key]}</span>
+                <span className="mt-1 text-xl font-extrabold tabular-nums" style={{ color: 'var(--text-primary)' }}>{t.value.toLocaleString('en-US')}{t.suffix ?? ''}</span>
+                {owner ? <div className="mt-2">{privacyTag(t.key)}</div> : null}
               </div>
             ))}
           </div>
@@ -127,7 +126,7 @@ export function FanResumeBand({ data, mode, nowMs, renderToggle }: {
               {activity.slice(0, 8).map((a, i) => (
                 <li key={i} className="flex items-baseline justify-between gap-3 text-sm">
                   <span style={{ color: 'var(--text-primary)' }}>
-                    {a.href ? <Link href={a.href} className="no-underline hover:underline" style={{ color: 'var(--text-primary)' }}>{a.title}</Link> : a.title}
+                    {a.href ? <Link href={a.href} className="underline decoration-1 underline-offset-2 hover:opacity-80" style={{ color: 'var(--text-primary)', textDecorationColor: 'var(--border)' }}>{a.title}</Link> : <span style={{ color: 'var(--text-secondary)' }}>{a.title}</span>}
                     {a.groupName ? <span className="ml-1.5 text-xs" style={{ color: 'var(--text-tertiary)' }}>{a.groupName}</span> : null}
                   </span>
                   <time className="shrink-0 text-xs tabular-nums" style={{ color: 'var(--text-tertiary)' }} dateTime={a.at}>{relTime(a.at, nowMs)}</time>

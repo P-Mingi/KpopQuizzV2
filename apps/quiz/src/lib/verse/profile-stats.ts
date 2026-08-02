@@ -27,7 +27,9 @@ export async function deriveProfileStats(userId: string): Promise<ProfileStats> 
 
   const [membersR, revsR, essaysR, cardsR, masteryR] = await Promise.all([
     svc.from('space_members').select('group_id, role, contrib_xp').eq('user_id', userId).eq('status', 'active'),
-    svc.from('verse_revisions').select('entity_id').eq('author', userId).eq('entity_type', 'page').limit(1000),
+    // .order for a deterministic slice under the 1000-row read cap (a prolific
+    // author's Pages count stays stable across ISR bakes rather than sampling).
+    svc.from('verse_revisions').select('entity_id').eq('author', userId).eq('entity_type', 'page').order('id', { ascending: false }).limit(1000),
     svc.from('verse_essays').select('id', { count: 'exact', head: true }).eq('author', userId).eq('status', 'featured'),
     svc.from('verse_profile_shelf').select('id', { count: 'exact', head: true }).eq('user_id', userId),
     svc.from('player_group_mastery').select('songs_correct, songs_played').eq('player_id', userId),

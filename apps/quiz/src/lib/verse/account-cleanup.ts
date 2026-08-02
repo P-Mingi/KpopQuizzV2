@@ -44,3 +44,13 @@ export async function cleanupUserEssaysData(userId: string): Promise<{ seriesNul
   const { error } = await svc.from('verse_essay_reactions').delete().eq('user_id', userId);
   return { seriesNulled: (data ?? []).length, reactionsPurged: !error };
 }
+
+// V-PROFILE-ONE - profile_section_visibility (migration 143) keys on a bare
+// user_id UUID with NO FK cascade, exactly like the shelf tables above, so account
+// deletion MUST purge it (the showcase opt-in lives in verse_profile_shelf_settings,
+// already covered by CARDS_USER_TABLES). Proven by scripts/verify-profile-cleanup.mts.
+export async function purgeUserProfileData(userId: string): Promise<{ ok: boolean; error?: string }> {
+  const svc = createServiceRoleClient();
+  const { error } = await svc.from('profile_section_visibility').delete().eq('user_id', userId);
+  return error ? { ok: false, error: error.message } : { ok: true };
+}

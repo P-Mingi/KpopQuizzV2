@@ -33,7 +33,7 @@ export async function getUserActivity(userId: string, opts?: { limit?: number; k
   const [revs, essays, joins, plays, cards] = await Promise.all([
     on('page_edit') ? svc.from('verse_revisions').select('entity_id, created_at').eq('author', userId).eq('entity_type', 'page').order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
     on('essay') ? svc.from('verse_essays').select('id, title, group_id, featured_at, created_at').eq('author', userId).eq('status', 'featured').order('featured_at', { ascending: false, nullsFirst: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
-    on('space_join') ? svc.from('space_members').select('group_id, joined_at, status').eq('user_id', userId).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
+    on('space_join') ? svc.from('space_members').select('group_id, joined_at, status').eq('user_id', userId).order('joined_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
     on('quiz_play') ? svc.from('game_plays').select('game_id, created_at').eq('player_id', userId).order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
     on('card_add') ? svc.from('verse_profile_shelf').select('item_type, item_id, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
   ]);

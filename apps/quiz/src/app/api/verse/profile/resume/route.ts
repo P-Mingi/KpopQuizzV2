@@ -16,10 +16,11 @@ export const dynamic = 'force-dynamic';
 // visibility. Strangers get the server-rendered public band only; this route
 // never exposes another user's private sections.
 
-async function ownUsername(userId: string): Promise<string | null> {
+async function ownProfile(userId: string): Promise<{ username: string | null; createdAt: string | null }> {
   const svc = createServiceRoleClient();
-  const { data } = await svc.from('profiles').select('username').eq('id', userId).maybeSingle();
-  return (data as { username: string | null } | null)?.username ?? null;
+  const { data } = await svc.from('profiles').select('username, created_at').eq('id', userId).maybeSingle();
+  const p = data as { username: string | null; created_at: string | null } | null;
+  return { username: p?.username ?? null, createdAt: p?.created_at ?? null };
 }
 
 export async function GET(): Promise<NextResponse> {
@@ -27,9 +28,9 @@ export async function GET(): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ signedIn: false });
 
-  const [username, visibility, stats, activity] = await Promise.all([
-    ownUsername(user.id),
-    getProfileVisibility(user.id),
+  const { username, createdAt } = await ownProfile(user.id);
+  const [visibility, stats, activity] = await Promise.all([
+    getProfileVisibility(user.id, createdAt),
     deriveProfileStats(user.id),
     getUserActivity(user.id, { limit: 12 }),
   ]);
@@ -46,6 +47,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   }
   await setSectionVisibility(user.id, body.section as ProfileSection, body.is_public);
-  const visibility = await getProfileVisibility(user.id);
+  const { createdAt } = await ownProfile(user.id);
+  const visibility = await getProfileVisibility(user.id, createdAt);
   return NextResponse.json({ ok: true, visibility });
 }

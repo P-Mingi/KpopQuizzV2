@@ -15,6 +15,7 @@ import { ShelfManager } from '@/components/verse/shelf-manager';
 import { getPublicShelfCards } from '@/lib/verse/shelf';
 import { getAuthorEssays } from '@/lib/verse/essays';
 import { getProfileVisibility } from '@/lib/verse/profile-visibility';
+import { defaultsFor } from '@/lib/verse/profile-sections';
 import { deriveProfileStats } from '@/lib/verse/profile-stats';
 import { getUserActivity } from '@/lib/verse/activity';
 import { FanResumeBand } from '@/components/verse/profile/fan-resume-band';
@@ -151,10 +152,18 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   // so private stats never reach the HTML (hiding in CSS would leak them in source).
   // The owner island (below) fetches the full band for the signed-in owner alone.
   const [visibility, fullStats, fullActivity] = await Promise.all([
-    safeFetch(getProfileVisibility(profile.id), null, '[u/[username]] getProfileVisibility'),
+    safeFetch(getProfileVisibility(profile.id, profile.created_at), null, '[u/[username]] getProfileVisibility'),
     safeFetch(deriveProfileStats(profile.id), null, '[u/[username]] deriveProfileStats'),
     safeFetch(getUserActivity(profile.id, { limit: 12 }), [], '[u/[username]] getUserActivity'),
   ]);
+  // Legacy sections fold under the same model, defaulting from their shipped
+  // (public) state for pre-launch profiles. A private legacy section is ABSENT
+  // from the server HTML (SEO: private == not crawlable), not CSS-hidden. On a
+  // failed visibility read (safeFetch -> null) fall CLOSED to the cohort default,
+  // never to visible: resume sections stay private, legacy sections revert only
+  // to their shipped state, not to an all-public leak.
+  const vis = visibility ?? defaultsFor(profile.created_at);
+  const vShow = (section: 'spaces' | 'contributions' | 'collection' | 'essays_list'): boolean => vis[section];
   const publicResume = visibility && fullStats ? {
     username: profile.username,
     visibility,
@@ -167,7 +176,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       quizPlays: fullStats.quizPlays,
       spaces: visibility.roles ? fullStats.spaces : [],
     },
-    activity: visibility.activity ? fullActivity : [],
+    // card_add items name real pinned cards; they must obey the SHOWCASE opt-in,
+    // not just the activity one, or a private showcase leaks its card names here.
+    activity: visibility.activity ? (visibility.cards ? fullActivity : fullActivity.filter((a) => a.kind !== 'card_add')) : [],
   } : null;
   const resumeNow = Date.now();
 
@@ -278,11 +289,11 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <FanResumeOwner profileUsername={profile.username} />
 
       {/* W4.2/W4.5: Verse memberships + edit-contribution graph (both min-gated). */}
-      <SpaceMembershipsCard userId={profile.id} />
-      <ContributionGraph userId={profile.id} />
+      {vShow('spaces') ? <SpaceMembershipsCard userId={profile.id} /> : null}
+      {vShow('contributions') ? <ContributionGraph userId={profile.id} /> : null}
 
       {/* W5.2: photocard collection progress (min-gated: hides until the user owns a card). */}
-      <PhotocardCollectionCard userId={profile.id} />
+      {vShow('collection') ? <PhotocardCollectionCard userId={profile.id} /> : null}
 
       {/* V-CARDS-MAX step 4: the public card showcase (SSR when opted in) + the
           owner's controls (client island: opt-in toggle + manage, self-gated). */}
@@ -307,7 +318,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <div style={cardWrap}><ShelfManager profileUsername={profile.username} /></div>
 
       {/* V-ESSAYS-MAX step 6: published essays (count + latest titles). */}
-      {authorEssays.length ? (
+      {vShow('essays_list') && authorEssays.length ? (
         <section aria-label="Essays" style={cardWrap}>
           <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
             <h2 className="mb-2 text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Essays <span className="tabular-nums text-tertiary">{authorEssays.length}</span></h2>

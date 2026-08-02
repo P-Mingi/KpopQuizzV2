@@ -4,7 +4,19 @@ import { useEffect, useState } from 'react';
 
 import { FanResumeBand, type FanResumeData } from './fan-resume-band';
 
-import type { ProfileSection } from '@/lib/verse/profile-visibility';
+import { LEGACY_SECTIONS } from '@/lib/verse/profile-sections';
+
+import type { ProfileSection } from '@/lib/verse/profile-sections';
+
+const LEGACY_LABELS: Record<(typeof LEGACY_SECTIONS)[number], string> = {
+  spaces: 'Verse spaces', contributions: 'Contribution graph', collection: 'Photocard collection', essays_list: 'Essays',
+};
+// Human names for every section, so the toggle's accessible name never announces
+// a raw key ('essays_list').
+const SECTION_LABELS: Record<ProfileSection, string> = {
+  roles: 'Spaces', contrib_xp: 'Contribution XP', pages: 'Pages', essays: 'Essays', cards: 'Showcase', quiz: 'Quiz accuracy', activity: 'Recent activity',
+  ...LEGACY_LABELS,
+};
 
 // V-PROFILE-ONE step 3/3b - the owner reveal + the per-section privacy controls.
 // Strangers get the server-rendered PUBLIC band (redacted). This island asks the
@@ -50,11 +62,11 @@ export function FanResumeOwner({ profileUsername }: { profileUsername: string })
     return (
       <button
         type="button" onClick={() => toggle(section)} disabled={busy === section}
-        aria-pressed={isPublic} aria-label={`${section} visibility: ${isPublic ? 'public' : 'only you'}. Tap to ${isPublic ? 'make private' : 'make public'}.`}
+        aria-pressed={isPublic} aria-label={`${SECTION_LABELS[section]} visibility: ${isPublic ? 'public' : 'only you'}. Tap to ${isPublic ? 'make private' : 'make public'}.`}
         className="inline-flex min-h-[24px] items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide transition-colors disabled:opacity-50"
         style={isPublic
           ? { background: 'var(--verse-soft, #e9e6fb)', color: 'var(--verse-ink, #3c3489)' }
-          : { background: 'var(--bg-surface-1, #f1f1f4)', color: 'var(--text-tertiary, #8a8a94)' }}
+          : { background: 'var(--bg-surface-1, #f1f1f4)', color: 'var(--text-secondary, #555)' }}
       >
         <span aria-hidden style={{ width: 6, height: 6, borderRadius: 999, background: isPublic ? 'currentColor' : 'transparent', border: isPublic ? 'none' : '1px solid currentColor' }} />
         {isPublic ? 'Public' : 'Only you'}
@@ -62,5 +74,26 @@ export function FanResumeOwner({ profileUsername }: { profileUsername: string })
     );
   };
 
-  return <FanResumeBand data={data} mode="owner" nowMs={Date.now()} renderToggle={renderToggle} />;
+  return (
+    <>
+      <FanResumeBand data={data} mode="owner" nowMs={Date.now()} renderToggle={renderToggle} />
+      {/* The legacy profile cards fold under the same control. A private section is
+          absent from the crawlable page; the owner flips it here (the card itself
+          renders on the profile when public). */}
+      <section aria-label="Profile visibility" style={{ marginTop: 14, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
+        <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
+          <h2 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Who can see the rest</h2>
+          <p className="mt-0.5 mb-3 text-xs" style={{ color: 'var(--text-tertiary)' }}>These sections show on your public profile only when set to Public.</p>
+          <ul className="space-y-2">
+            {LEGACY_SECTIONS.map((s) => (
+              <li key={s} className="flex items-center justify-between gap-3">
+                <span className="text-sm" style={{ color: 'var(--text-primary)' }}>{LEGACY_LABELS[s]}</span>
+                {renderToggle(s)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  );
 }

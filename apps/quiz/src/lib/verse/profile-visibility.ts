@@ -1,34 +1,38 @@
-// V-PROFILE-ONE step 3/3b - per-section profile visibility. The profile is PRIVATE
-// by default: a section is public ONLY after an explicit opt-in. Storage:
+// V-PROFILE-ONE step 3/3b/6 - per-section profile visibility (the SERVER reads/
+// writes). The profile is PRIVATE by default: a section is public ONLY after an
+// explicit opt-in. Storage:
 //   - the card SHOWCASE keeps its shipped opt-in (verse_profile_shelf_settings.is_public)
 //   - every other section lives in profile_section_visibility (migration 143)
-// One helper abstracts both, so callers never care which store backs a section.
-// General on purpose: `section` is an open string, so V-COMM-3 can add sections.
+// LEGACY sections default from their shipped (public) state for pre-launch
+// profiles (see profile-sections.ts) so already-indexed profiles do not go dark.
+// The pure section constants/types live in profile-sections.ts (client-safe).
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { PROFILE_SECTIONS, defaultsFor } from '@/lib/verse/profile-sections';
 
-// The sections the profile fan-resume governs. `cards` reads the shelf flag; the
-// rest read profile_section_visibility. Adding a section here does not need a
-// migration (the table is section-agnostic).
-export const PROFILE_SECTIONS = ['roles', 'contrib_xp', 'pages', 'essays', 'cards', 'quiz', 'activity'] as const;
-export type ProfileSection = (typeof PROFILE_SECTIONS)[number];
+import type { ProfileSection, Visibility } from '@/lib/verse/profile-sections';
 
-export type Visibility = Record<ProfileSection, boolean>;
+export * from '@/lib/verse/profile-sections';
 
-const allPrivate = (): Visibility => Object.fromEntries(PROFILE_SECTIONS.map((s) => [s, false])) as Visibility;
-
-/** Every section's public/private state for a user (default all private). */
-export async function getProfileVisibility(userId: string): Promise<Visibility> {
+/** Every section's public/private state for a user. `createdAt` selects the
+ * cohort default for legacy sections; omit it (or pass null) to treat the profile
+ * as new (all private), the safe default. */
+export async function getProfileVisibility(userId: string, createdAt: string | null = null): Promise<Visibility> {
   const svc = createServiceRoleClient();
   const [rows, shelf] = await Promise.all([
     svc.from('profile_section_visibility').select('section, is_public').eq('user_id', userId),
     svc.from('verse_profile_shelf_settings').select('is_public').eq('user_id', userId).maybeSingle(),
   ]);
-  const vis = allPrivate();
+  // THROW on a read error: overlaying cohort defaults on a FAILED read would
+  // silently discard explicit-private rows and republish them (fail-open leak).
+  // The caller's safeFetch turns a throw into a fail-CLOSED redaction instead.
+  if (rows.error) throw new Error(`getProfileVisibility: sections read failed: ${JSON.stringify(rows.error)}`);
+  if (shelf.error) throw new Error(`getProfileVisibility: shelf read failed: ${JSON.stringify(shelf.error)}`);
+  const vis = defaultsFor(createdAt);
   for (const r of (rows.data ?? []) as Array<{ section: string; is_public: boolean }>) {
-    if ((PROFILE_SECTIONS as readonly string[]).includes(r.section)) vis[r.section as ProfileSection] = r.is_public;
+    if ((PROFILE_SECTIONS as readonly string[]).includes(r.section)) vis[r.section as ProfileSection] = r.is_public; // explicit row wins
   }
-  // The showcase is governed by the shipped shelf flag, the single source of truth.
+  // The showcase is governed by the shipped shelf flag (default OFF), the single source of truth.
   vis.cards = !!(shelf.data as { is_public: boolean } | null)?.is_public;
   return vis;
 }
