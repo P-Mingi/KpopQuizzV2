@@ -14,10 +14,10 @@ const CANONICAL = 'https://kpopquiz.org/verse/promises';
 
 // V-TRUST step 3 - integrity link-backs. Where a promise maps to a REAL shipped
 // feature, the covenant proves itself by linking to the product that keeps it.
-// Keyed by promise index (0-based). Promise 3 ("your contributions are
-// exportable") has NO self-service export shipped yet, so it carries no link
-// rather than a fabricated one: an honest gap, flagged for the owner, beats a
-// promise that points at nothing. These target real, live, indexable pages.
+// Keyed by promise index (0-based). Promise 3 ("you are never locked in") was
+// reworded by the owner away from an export-mechanism claim to a true-today
+// ownership statement, so it needs no link-back (see the doc's Reword note).
+// These target real, live, indexable pages.
 const LINKBACKS: Record<number, { href: string; label: string }> = {
   1: { href: '/verse/bts/wiki/borahae', label: 'See a page that credits the fan who wrote it' }, // promise 2 - the named byline
   4: { href: '/verse/bts/wiki/army-bomb', label: 'See the sources behind the facts' }, // promise 5 - the source chips

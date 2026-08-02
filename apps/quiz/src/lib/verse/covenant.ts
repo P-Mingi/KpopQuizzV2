@@ -19,7 +19,7 @@ export const COVENANT: Covenant = {
   promises: [
     'Your work is yours. When you write a page, an essay, a story about your group, it stays credited to you. You keep the rights to what you make. We are borrowing your words to show them well, not taking them.',
     'Your name stays on it. Every page remembers who built it. Curators and writers are named, not erased into an anonymous crowd. The fandom sees who did the work.',
-    'You can take it with you. Your contributions are exportable. If you ever want your writing somewhere else, you can get it out. We are not holding your work hostage.',
+    'You are never locked in. What you write stays yours to keep and reuse, wherever you go. We will not hold your work hostage to keep you here.',
     'If you leave, we will not turn on you. If a community decides to build its home elsewhere, we will not fight it, copy it, or bury it in search to punish it. We want you here because it is the best place to be, not because you are stuck.',
     'The facts stay honest. Every fact carries its source. We do not invent numbers, we do not fake activity, and we do not write about idols\' private lives. Real fans, real data, real credit.',
     'What we will never do. We will never sell your personal data. We will never turn your collections into a marketplace. We will never quietly rewrite these promises and hope you do not notice. If this list changes, we will say so, out loud.',
