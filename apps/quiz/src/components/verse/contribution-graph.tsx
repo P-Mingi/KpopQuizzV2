@@ -1,4 +1,5 @@
 import { getVerseContributions } from '@/lib/verse/contributions';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 const LEVEL = (n: number): string => {
   if (n === 0) return 'var(--border)';
@@ -19,10 +20,7 @@ export async function ContributionGraph({ userId }: { userId: string }): Promise
 
   return (
     <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 14, boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 14, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
-      <div className="mb-2 flex items-baseline justify-between">
-        <h2 className="text-[11px] font-bold uppercase tracking-wide text-tertiary">Verse contributions</h2>
-        <span className="text-xs text-tertiary tabular-nums">{total} edit{total === 1 ? '' : 's'} · 13 weeks</span>
-      </div>
+      <SectionHeader kicker="Verse contributions" as="h2" action={<span className="text-tertiary tabular-nums">{total} edit{total === 1 ? '' : 's'} · 13 weeks</span>} />
       <div className="flex gap-[3px] overflow-x-auto">
         {weeks.map((week, wi) => (
           <div key={wi} className="flex flex-col gap-[3px]">

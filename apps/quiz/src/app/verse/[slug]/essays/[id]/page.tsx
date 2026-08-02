@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -99,7 +100,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
       {/* Auto-TOC past 3 sections. */}
       {headings.length > 3 ? (
         <nav aria-label="Contents" className="my-6 rounded-xl border p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-tertiary">Contents</p>
+          <SectionHeader kicker="Contents" />
           <ol className="space-y-1 text-sm">
             {headings.map((h, i) => (
               <li key={`${h.id}-${i}`} className={h.level === 3 ? 'pl-4' : ''}><a href={`#${h.id}`} className="verse-link no-underline hover:underline">{h.text}</a></li>

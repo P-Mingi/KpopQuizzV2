@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { useRouter } from 'next/navigation';
 
 import { SourceChip } from '@/components/verse/source-chip';
@@ -42,10 +43,7 @@ export function InfoboxCard({ entityType, entityId, facts, editableFields }: Pro
 
   return (
     <div className="rounded-xl border border-default bg-surface p-4 lg:sticky lg:top-4" style={{ borderColor: 'var(--verse-line)' }}>
-      <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Facts</h2>
-        {canEdit && !editing ? <button onClick={() => setEditing(true)} className="rounded-full border px-2.5 py-0.5 text-[11px] font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Edit</button> : null}
-      </div>
+      <SectionHeader kicker="Facts" as="h2" action={canEdit && !editing ? <button onClick={() => setEditing(true)} className="rounded-full border px-2.5 py-0.5 text-[11px] font-bold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Edit</button> : null} />
 
       {editing ? (
         <InfoboxEditor entityType={entityType} entityId={entityId} rows={rows} onClose={() => setEditing(false)} onSaved={() => router.refresh()} />

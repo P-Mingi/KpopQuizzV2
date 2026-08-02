@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { CoverArt } from '@/components/verse/cover-art';
 
@@ -115,7 +116,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
 
       {/* Your progress here: quests ladder toward earning edit rights. */}
       <div className="mt-5 rounded-xl border p-4" style={{ borderColor: 'var(--verse-line)' }}>
-        <p className="mb-1 text-xs font-bold uppercase tracking-wide text-tertiary">Your progress here</p>
+        <SectionHeader kicker="Your progress here" />
         {!xp || !xp.signedIn ? (
           <p className="text-sm text-secondary">Sign in and join to start earning XP. Reach <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>Regular (100 XP)</span> and you earn edit rights in this space.</p>
         ) : (

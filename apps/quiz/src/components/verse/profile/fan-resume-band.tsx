@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { RoleBadge } from '@/components/verse/roles/role-badge';
 
@@ -69,7 +70,7 @@ export function FanResumeBand({ data, mode, nowMs, renderToggle }: {
 
   const sectionHeader = (label: string, s: ProfileSection): React.ReactElement => (
     <div className="mb-2 flex items-center justify-between gap-2">
-      <h3 className="text-[11px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>{label}</h3>
+      <SectionHeader kicker={label} as="h3" />
       {privacyTag(s)}
     </div>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { useEffect, useState } from 'react';
 
 interface MySpace { slug: string; name: string; fandom: string | null; role: string; xp: number }
@@ -26,7 +27,7 @@ export function CommunityCrossPromo(): React.ReactElement | null {
   if (spaces.length > 0) {
     return (
       <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 14, padding: 16, marginBottom: 16 }}>
-        <p style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--txt3)', margin: '0 0 10px' }}>Your spaces</p>
+        <SectionHeader kicker="Your spaces" />
         <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {spaces.map((s) => (
             <li key={s.slug}>

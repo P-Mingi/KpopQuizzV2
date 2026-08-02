@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { onThisDay } from '@/lib/verse/date-engines';
@@ -143,7 +144,7 @@ export function OnThisDay({ space }: { space: Space }): React.ReactElement | nul
   if (!entries.length) return null;
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">On this day</h3>
+      <SectionHeader kicker="On this day" as="h3" />
       <ul className="space-y-2 text-sm text-secondary">
         {entries.map((e, i) => (
           <li key={i} className="leading-snug">{e.label}{e.yearsAgo ? <span className="text-tertiary"> · {e.yearsAgo}y ago</span> : null}</li>
@@ -169,7 +170,7 @@ export function StatsFlex({ space }: { space: Space }): React.ReactElement {
   ];
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">In numbers</h3>
+      <SectionHeader kicker="In numbers" as="h3" />
       <div className="h-[3px] w-12" style={{ background: 'var(--verse-cta, var(--verse-accent))' }} aria-hidden />
       <div className="mt-4 flex flex-wrap gap-x-10 gap-y-5">
         {stats.map((s) => (
@@ -187,7 +188,7 @@ export function StatsFlex({ space }: { space: Space }): React.ReactElement {
 export function MastheadInvite({ space }: { space: Space }): React.ReactElement {
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">Curators</h3>
+      <SectionHeader kicker="Curators" as="h3" />
       <p className="leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>
         This space is looking for its founding {space.group.fandom_name} curators. Run it, and get credited for it.
       </p>

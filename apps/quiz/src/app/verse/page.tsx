@@ -276,7 +276,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       {/* 9. START HERE + one games funnel, last before the footer */}
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border p-6" style={{ borderColor: 'var(--v-hairline)' }}>
-          <p className="v-eyebrow" style={{ margin: 0 }}>New to K-pop?</p>
+          <SectionHeader kicker="New to K-pop?" />
           <p className="mt-2 text-base leading-relaxed text-secondary">Start with the fandoms, or browse by category. Guided starter paths are coming.</p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
             <Link href="/verse/tags" className="no-underline hover:underline" style={{ color: 'var(--verse-brand-text)' }}>Browse by category</Link>
@@ -284,7 +284,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
           </div>
         </div>
         <div className="rounded-2xl border p-6" style={{ borderColor: 'var(--v-hairline)' }}>
-          <p className="v-eyebrow" style={{ margin: 0 }}>Know your bias?</p>
+          <SectionHeader kicker="Know your bias?" />
           <p className="mt-2 text-base leading-relaxed text-secondary">Test it. Thousands of fan-made K-pop quizzes and games on the Play side.</p>
           <Link href="/quizzes" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold no-underline text-primary hover:underline">
             Play K-pop quizzes

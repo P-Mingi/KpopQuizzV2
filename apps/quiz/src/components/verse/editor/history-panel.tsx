@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { useRouter } from 'next/navigation';
 
 import { diffLines } from '@/lib/verse/diff';
@@ -40,10 +41,7 @@ export function HistoryPanel({ entityType, entityId, section, canEdit, onClose }
 
   return (
     <div className="rounded-xl border border-default bg-surface" style={{ borderColor: 'var(--verse-line)' }}>
-      <div className="flex items-center justify-between border-b border-default px-3 py-2" style={{ borderColor: 'var(--verse-line)' }}>
-        <h3 className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>History</h3>
-        <button onClick={onClose} className="text-xs font-semibold text-secondary hover:text-primary">Close</button>
-      </div>
+      <SectionHeader kicker="History" as="h3" action={<button onClick={onClose} className="text-xs font-semibold text-secondary hover:text-primary">Close</button>} className="border-b px-3 py-2" />
       {revs.length === 0 ? <p className="px-3 py-4 text-sm text-tertiary">No revisions yet.</p> : (
         <ul className="divide-y divide-[var(--verse-line)]">
           {revs.map((r, i) => {

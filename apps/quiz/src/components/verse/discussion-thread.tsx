@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 
 import { RoleBadge } from '@/components/verse/roles/role-badge';
@@ -89,7 +90,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId, init
 
   return (
     <section className="mt-2">
-      <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Discussion{comments.length ? ` (${comments.length})` : ''}</h2>
+      <SectionHeader kicker={<>Discussion{comments.length ? ` (${comments.length})` : ''}</>} as="h2" />
       <div className="mb-4 flex gap-2">
         <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) post(draft, null); }} placeholder={signedIn ? 'Add to the discussion…' : 'Sign in to comment…'} aria-label="Add to the discussion" className="flex-1 rounded-lg border border-default bg-transparent px-3 py-2 text-sm" />
         <button onClick={() => post(draft, null)} disabled={busy} className="rounded-lg bg-primary px-4 text-sm font-semibold text-inverse disabled:opacity-50">Post</button>

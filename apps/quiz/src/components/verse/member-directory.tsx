@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { getSpaceMembers } from '@/lib/verse/membership';
@@ -14,10 +15,7 @@ export async function MemberDirectory({ groupId, fandomName }: { groupId: number
   const staff = members.filter((m) => m.role !== 'member');
   return (
     <section>
-      <div className="mb-2 flex items-baseline justify-between">
-        <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{fandomName}</h2>
-        <span className="text-xs text-tertiary tabular-nums">{members.length} fan{members.length === 1 ? '' : 's'}{staff.length ? ` · ${staff.length} on the team` : ''}</span>
-      </div>
+      <SectionHeader kicker={fandomName} as="h2" action={<span className="text-tertiary tabular-nums">{members.length} fan{members.length === 1 ? '' : 's'}{staff.length ? ` · ${staff.length} on the team` : ''}</span>} />
       <ul className="flex flex-wrap gap-2">
         {members.slice(0, 60).map((m) => {
           const name = m.displayName || m.username || 'Fan';

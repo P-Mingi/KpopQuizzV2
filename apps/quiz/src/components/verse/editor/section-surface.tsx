@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { renderTipTapJSON, extractHeadings, splitTipTapForFold } from '@/lib/verse/render-content';
 
@@ -83,7 +84,7 @@ export function SectionSurface(props: Props): React.ReactElement {
       <div className="mb-2 flex items-center justify-between gap-2">
         {props.titleStyle === 'title'
           ? <div className="min-w-0"><h2 className="v-section-title">{props.label}</h2><div className="v-section-rule" aria-hidden /></div>
-          : <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>{props.label}</h2>}
+          : <SectionHeader kicker={props.label} as="h2" />}
         <div className="flex items-center gap-2">
           {locked ? <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }} title={props.lockReason ?? 'Protected by a reviewer'}>
             <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>Locked
@@ -148,7 +149,7 @@ export function SectionSurface(props: Props): React.ReactElement {
             if (toc.length < 3) return null;
             return (
               <nav aria-label="Contents" className="verse-toc mb-4 rounded-xl border border-default p-3 lg:float-right lg:ml-4 lg:mb-2 lg:w-52 lg:sticky lg:top-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-                <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Contents</p>
+                <SectionHeader kicker="Contents" />
                 <ul className="space-y-1 text-xs">
                   {toc.map((h, i) => (
                     <li key={i} style={{ paddingLeft: h.level === 3 ? 10 : 0 }}>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import type { FieldDef } from '@/lib/verse/fields';
 
@@ -47,10 +48,7 @@ export function InfoboxEditor({ entityType, entityId, rows: initialRows, onClose
 
   return (
     <div className="rounded-xl border border-default bg-surface p-4" style={{ borderColor: 'var(--verse-line)' }}>
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Edit facts</h3>
-        <button onClick={onClose} className="text-xs font-semibold text-secondary hover:text-primary">Done</button>
-      </div>
+      <SectionHeader kicker="Edit facts" as="h3" action={<button onClick={onClose} className="text-xs font-semibold text-secondary hover:text-primary">Done</button>} />
       <p className="mb-3 text-[11px] text-tertiary">Every change needs a source. Only these typed fields exist, by policy.</p>
       <div className="space-y-3">
         {rows.map((row, i) => (

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getCrossSpaceFeed } from '@/lib/verse/feed';
 
@@ -27,10 +28,7 @@ export async function CrossSpaceFeed(): Promise<React.ReactElement | null> {
 
   return (
     <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 14, padding: 16, marginBottom: 16 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 10 }}>
-        <p style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--txt3)', margin: 0 }}>Across the Verse</p>
-        <Link href="/verse" style={{ fontSize: 12, fontWeight: 700, color: 'var(--txt2)', textDecoration: 'none' }}>All spaces</Link>
-      </div>
+      <SectionHeader kicker="Across the Verse" action={<Link href="/verse" style={{ fontSize: 12, fontWeight: 700, color: 'var(--txt2)', textDecoration: 'none' }}>All spaces</Link>} />
       <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((it, i) => (
           <li key={i}>

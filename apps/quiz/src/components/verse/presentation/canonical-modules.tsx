@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { cache } from 'react';
 
@@ -222,7 +223,7 @@ export async function CompletenessModule({ space }: ModuleProps): Promise<React.
   lines.push(g.signals.overview ? 'Overview written' : 'Overview missing');
   return (
     <div className="v-module">
-      <h3 className="v-eyebrow">Coverage</h3>
+      <SectionHeader kicker="Coverage" as="h3" />
       <div className="flex items-baseline gap-2">
         <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{pct}%</span>
         <span className="text-[11px] uppercase tracking-wide text-tertiary">documented</span>
