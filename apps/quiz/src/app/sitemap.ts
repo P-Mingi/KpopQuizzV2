@@ -397,6 +397,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       versePages.push({ url, lastModified: STATIC_DATE, changeFrequency: freq, priority });
     };
     push('/verse', 0.8, 'daily');
+    push('/verse/promises', 0.6, 'monthly'); // V-TRUST: the covenant is a real indexed trust page
     const spaceSlugs = [...new Set(((seeds ?? []) as { groups: unknown }[]).map((s) => gslug(s.groups)).filter((x): x is string => !!x))];
     for (const slug of spaceSlugs) {
       push(`/verse/${slug}`, 0.7, 'weekly');
