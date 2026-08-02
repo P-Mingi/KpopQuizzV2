@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { VerseSearch } from '@/components/verse/verse-search';
 import { MySpacesStrip } from '@/components/verse/my-spaces-strip';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { OrbitLockup, OrbitMarkSmall } from '@/components/verse/brand/verse-wordmarks';
 import { getVerseDirectory, getCatalogTotals, getTodayInKpop, getNewestWikiPages, getLatestVerseActivity } from '@/lib/verse/space-data';
 import { getTrending } from '@/lib/verse/discovery';
@@ -69,10 +70,6 @@ function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
       </div>
     </Link>
   );
-}
-
-function SectionEyebrow({ children }: { children: React.ReactNode }): React.ReactElement {
-  return <h2 className="v-eyebrow" style={{ marginBottom: '1rem' }}>{children}</h2>;
 }
 
 export default async function VerseHomePage(): Promise<React.ReactElement> {
@@ -157,7 +154,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       {/* 2. TODAY IN K-POP - dates we hold, alive at zero content cost */}
       {today.length > 0 ? (
         <section className="mb-12" aria-label="Today in K-pop">
-          <SectionEyebrow>Today in K-pop</SectionEyebrow>
+          <SectionHeader kicker="Today in K-pop" as="h2" />
           <div className="flex flex-wrap gap-2.5">
             {today.map((t) => (
               <Link key={`${t.kind}-${t.label}`} href={t.href} className="inline-flex min-h-[40px] items-center gap-2 rounded-full border px-4 text-sm no-underline" style={{ borderColor: 'var(--v-hairline)' }}>
@@ -188,7 +185,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       {/* 4. FLAGSHIP SPACES - the launch row (never repeated below) */}
       {launch.length > 0 ? (
         <section className="mb-12">
-          <SectionEyebrow>Flagship spaces</SectionEyebrow>
+          <SectionHeader kicker="Flagship spaces" as="h2" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{launch.map((t) => <SpaceCard key={t.group_id} tile={t} />)}</div>
         </section>
       ) : null}
@@ -196,7 +193,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       {/* 5. TRENDING - real quiz plays, min-gated, deduped from the directory */}
       {showTrending ? (
         <section className="mb-12">
-          <SectionEyebrow>Trending fandoms</SectionEyebrow>
+          <SectionHeader kicker="Trending fandoms" as="h2" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {trendingTiles.slice(0, 6).filter((t) => !t.is_launch).map((t) => <SpaceCard key={t.group_id} tile={t} />)}
           </div>
@@ -208,7 +205,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
         <section className="mb-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {newest.length > 0 ? (
             <div className="rounded-2xl border p-6" style={{ borderColor: 'var(--v-hairline)' }}>
-              <SectionEyebrow>Newest from the wiki</SectionEyebrow>
+              <SectionHeader kicker="Newest from the wiki" as="h2" />
               <ul className="flex flex-col gap-2.5">
                 {newest.map((p) => (
                   <li key={`${p.groupSlug}-${p.slug}`}>
@@ -223,7 +220,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
           ) : null}
           {activity.length > 0 ? (
             <div className="rounded-2xl border p-6" style={{ borderColor: 'var(--v-hairline)' }}>
-              <SectionEyebrow>Live from the community</SectionEyebrow>
+              <SectionHeader kicker="Live from the community" as="h2" />
               <ul className="flex flex-col gap-2.5">
                 {activity.map((a, i) => (
                   <li key={i}>
@@ -244,7 +241,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
         <p className="rounded-xl border border-default bg-surface px-5 py-8 text-center text-secondary">Spaces are being prepared. Check back soon.</p>
       ) : directory.length > 0 ? (
         <section className="mb-12">
-          <SectionEyebrow>All fandoms</SectionEyebrow>
+          <SectionHeader kicker="All fandoms" as="h2" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{directory.map((t) => <SpaceCard key={t.group_id} tile={t} />)}</div>
         </section>
       ) : null}
