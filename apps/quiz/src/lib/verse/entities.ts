@@ -36,7 +36,10 @@ export async function getScene(kind: SceneKind, groupId: number): Promise<SceneR
 export async function getSceneEntity(kind: SceneKind, id: number): Promise<SceneRow | null> {
   const s = SCENES[kind];
   const db = createPublicReadClient();
-  const { data } = await db.from(s.table).select('*').eq('id', id).maybeSingle();
+  const { data, error } = await db.from(s.table).select('*').eq('id', id).maybeSingle();
+  // ISR bake law (matches getScene above): a swallowed error would bake a
+  // notFound() over a real published entity for an hour. Throw so it 500s + retries.
+  if (error) throw new Error(`getSceneEntity(${kind}, ${id}): ${error.message}`);
   return (data as SceneRow) ?? null;
 }
 
