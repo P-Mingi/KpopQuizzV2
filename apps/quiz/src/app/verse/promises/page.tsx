@@ -12,6 +12,17 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 // what we will never do. It is now REAL (draft/noindex removed) and indexed.
 const CANONICAL = 'https://kpopquiz.org/verse/promises';
 
+// V-TRUST step 3 - integrity link-backs. Where a promise maps to a REAL shipped
+// feature, the covenant proves itself by linking to the product that keeps it.
+// Keyed by promise index (0-based). Promise 3 ("your contributions are
+// exportable") has NO self-service export shipped yet, so it carries no link
+// rather than a fabricated one: an honest gap, flagged for the owner, beats a
+// promise that points at nothing. These target real, live, indexable pages.
+const LINKBACKS: Record<number, { href: string; label: string }> = {
+  1: { href: '/verse/bts/wiki/borahae', label: 'See a page that credits the fan who wrote it' }, // promise 2 - the named byline
+  4: { href: '/verse/bts/wiki/army-bomb', label: 'See the sources behind the facts' }, // promise 5 - the source chips
+};
+
 export const metadata: Metadata = {
   title: COVENANT.title,
   description: COVENANT.standfirst,
@@ -67,6 +78,12 @@ export default function VersePromisesPage(): React.ReactElement {
                   <p style={{ maxWidth: '60ch', fontSize: '1rem', lineHeight: 1.72, margin: '7px 0 0', color: 'var(--text-secondary)' }}>
                     {rest}
                   </p>
+                ) : null}
+                {LINKBACKS[i] ? (
+                  <Link href={LINKBACKS[i].href} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 11, fontSize: '0.8125rem', fontWeight: 700, color: 'var(--verse-brand-text)', textDecoration: 'none' }}>
+                    {LINKBACKS[i].label}
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </Link>
                 ) : null}
               </div>
             </li>
