@@ -112,7 +112,7 @@ async function btsTests(): Promise<void> {
     albums: albumsRaw.map((a) => ({ slug: albumSlug(a.title), title: a.title })),
     eras: eras.map((e) => ({ slug: e.slug ?? String(e.id), name: e.name, albumSlugs: albumSlugByEra.get(e.id) ?? [] })),
     wiki: [
-      ...wiki.map((w) => ({ slug: w.slug, title: w.title, parentSlug: w.parent_page_id != null ? pageSlugById.get(w.parent_page_id) ?? null : null, wanted: w.is_stub })),
+      ...wiki.map((w) => ({ slug: w.slug, title: w.title, parentSlug: w.parent_page_id != null ? pageSlugById.get(w.parent_page_id) ?? null : null, wanted: false })), // published pages are never wanted (loader parity)
       ...[...wantedWiki.values()].map((w) => ({ slug: w.slug, title: w.title, parentSlug: null, wanted: true })),
     ],
     links,

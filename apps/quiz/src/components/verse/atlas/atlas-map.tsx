@@ -64,6 +64,9 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
   // published reader set. This is the ONLY switch; positions come from the server.
   const buildActive = buildOn && !!build && build.nodes.length > 0;
   const { center, nodes, edges } = buildActive ? build : reader;
+  // A thin hub (few direct connections) reads as "broken/empty" without a word;
+  // name it as a frontier so a sparse landing feels intentional, not a dead end.
+  const sparse = nodes.filter((n) => n.ring === 1).length <= 3;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const phys = useRef<Phys[]>([]);
   const targets = useRef<Array<{ x: number; y: number }>>([]);
@@ -173,7 +176,10 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
   };
 
   const P = phys.current.length === nodes.length ? phys.current : nodes.map((n) => ({ x: n.x, y: n.y, vx: 0, vy: 0 }));
-  const posOf = (key: string): Phys => { const idx = nodes.findIndex((n) => n.key === key); return P[idx] ?? { x: 0, y: 0, vx: 0, vy: 0 }; };
+  // Key -> live position, built ONCE per frame (edges looked up in O(1), not an
+  // O(nodes) findIndex per endpoint every animation frame).
+  const posByKey = new Map<string, { x: number; y: number }>(nodes.map((n, i) => [n.key, P[i] ?? { x: n.x, y: n.y }]));
+  const posOf = (key: string): { x: number; y: number } => posByKey.get(key) ?? { x: 0, y: 0 };
 
   return (
     <div className="relative">
@@ -187,7 +193,7 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
               {i > 0 ? <span aria-hidden className="text-tertiary">/</span> : null}
               {i === trail.length - 1
                 ? <span className="font-bold" style={{ color: 'var(--verse-ink)' }}>{t.label}</span>
-                : <a href={travelHref(t.key)} onClick={(e) => { e.preventDefault(); router.push(travelHref(t.key)); }} className="verse-link no-underline hover:underline">{t.label}</a>}
+                : <a href={travelHref(t.key)} rel="nofollow" onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; e.preventDefault(); router.push(travelHref(t.key)); }} className="verse-link no-underline hover:underline">{t.label}</a>}
             </span>
           ))}
         </nav>
@@ -224,10 +230,15 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
             const lx = isCenter ? 0 : Math.round(cos * (s.r + 8));
             const ly = isCenter ? s.r + 14 : Math.round(sin * (s.r + 8) + 4);
             const anchor: 'start' | 'middle' | 'end' = isCenter || Math.abs(cos) < 0.34 ? 'middle' : cos > 0 ? 'start' : 'end';
+            // A hub node travels via a ?hub=&trail= URL; nofollow keeps crawlers out
+            // of that combinatorial trail space (all real pages are reachable via
+            // leaf links + the crawlable Index).
+            const isTravel = !isCenter && !n.wanted && n.hub && n.kind !== 'more';
             return (
               <a
                 key={n.key}
                 href={hrefFor(n, isCenter)}
+                rel={isTravel ? 'nofollow' : undefined}
                 onClick={(e) => activate(n, isCenter, e)}
                 onPointerDown={onPointerDown(i)}
                 onPointerMove={onPointerMove(i)}
@@ -237,6 +248,9 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
                 aria-label={`${n.label}${n.wanted ? ' (wanted page, create it)' : isCenter ? ' (current, open page)' : n.hub && n.kind !== 'more' ? ' (travel here)' : ''}`}
               >
                 <g transform={`translate(${p.x} ${p.y})`}>
+                  {/* Transparent hit circle: clears the ~24px minimum tap target on
+                      a phone even when the visible node scales below it. */}
+                  <circle r={Math.max(s.r, 22)} fill="transparent" stroke="none" />
                   {isCenter ? <circle r={s.r + 6} fill="none" stroke="var(--verse-ink)" strokeWidth={1} opacity={0.28} /> : null}
                   <circle r={s.r} fill={s.fill} stroke={s.stroke} strokeWidth={isCenter ? 2 : 1.5} strokeDasharray={s.dash} />
                   <text
@@ -251,6 +265,13 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
           })}
         </svg>
       </div>
+
+      {sparse ? (
+        <p className="mt-2 text-[12px] font-semibold" style={{ color: 'var(--verse-ink)' }}>
+          This corner of the map is still growing.{' '}
+          <span className="font-normal text-tertiary">{buildActive ? 'Add a page or link to connect it.' : 'Few pages link here yet.'}</span>
+        </p>
+      ) : null}
 
       <p className="mt-2 text-[12px] text-tertiary">
         {reduced ? 'Tap a hub to travel, a page to open it.' : 'Drag to nudge, tap a hub to travel, a page to open it.'}

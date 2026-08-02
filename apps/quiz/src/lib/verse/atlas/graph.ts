@@ -83,12 +83,17 @@ export function neighborhood(graph: AtlasGraph, hubKey: string, opts?: { include
   for (const k of ring1Raw) { const kind = graph.nodes.get(k)!.kind; (byKind.get(kind) ?? byKind.set(kind, []).get(kind)!).push(k); }
   const ring1: string[] = [];
   const moreNodes: AtlasNode[] = [];
-  const slug = center.key.startsWith('space:') ? center.key.slice(6) : '';
+  // The "+N more" exit points at a space section (/verse/{slug}/members ...), so
+  // the slug must come from the SPACE node (always present), not the current
+  // centre: after travelling to a non-space hub the centre carries no slug and
+  // the link would 404 (/verse/x/...).
+  const spaceNode = [...graph.nodes.values()].find((n) => n.kind === 'space');
+  const slug = spaceNode ? spaceNode.key.slice(6) : center.key.slice(center.key.indexOf(':') + 1);
   for (const [kind, keys] of [...byKind.entries()].sort()) {
     if (keys.length > PER_KIND_RING1_CAP) {
       ring1.push(...keys.slice(0, PER_KIND_RING1_CAP));
       const cat = kind === 'idol' ? 'members' : kind === 'album' ? 'discography' : kind === 'era' ? 'timeline' : 'wiki';
-      moreNodes.push({ key: `more:${cat}:${kind}`, kind: 'more', label: `+${keys.length - PER_KIND_RING1_CAP} more`, href: `/verse/${slug || 'x'}/${cat}`, hub: false, wanted: false });
+      moreNodes.push({ key: `more:${cat}:${kind}`, kind: 'more', label: `+${keys.length - PER_KIND_RING1_CAP} more`, href: `/verse/${slug}/${cat}`, hub: false, wanted: false });
     } else ring1.push(...keys);
   }
 

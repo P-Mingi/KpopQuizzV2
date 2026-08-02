@@ -35,7 +35,11 @@ export async function getSpaceGraph(space: Space): Promise<AtlasGraph> {
   // The ledger keys a source by (source_type, source_id): a wiki page source is
   // source_type='page', source_id=the page id as a string.
   const db = createPublicReadClient();
-  const { data: linkRows } = await db.from('verse_page_links').select('source_type, source_id, target_slug, target_page_id').eq('group_id', groupId).eq('source_type', 'page').limit(4000);
+  // THROW on error (ISR-bake law): getSpaceGraph feeds the mini-map widget on the
+  // ISR space home; a swallowed failure would cache an edge-less graph. .order for
+  // a deterministic subset if the ledger ever exceeds the 1000-row read cap.
+  const { data: linkRows, error: linkErr } = await db.from('verse_page_links').select('source_type, source_id, target_slug, target_page_id').eq('group_id', groupId).eq('source_type', 'page').order('id').limit(4000);
+  if (linkErr) throw new Error(`getSpaceGraph(${slug}): links ledger read failed: ${JSON.stringify(linkErr)}`);
   const links: GraphInput['links'] = [];
   const wantedWiki = new Map<string, { slug: string; title: string }>();
   for (const r of (linkRows ?? []) as Array<{ source_type: string; source_id: string; target_slug: string; target_page_id: number | null }>) {
@@ -57,7 +61,10 @@ export async function getSpaceGraph(space: Space): Promise<AtlasGraph> {
     albums: space.albums.map((a) => ({ slug: a.slug, title: a.title })),
     eras: eras.map((e) => ({ slug: e.slug ?? String(e.id), name: e.name, albumSlugs: e.albums.map((al) => al.slug) })),
     wiki: [
-      ...wiki.map((w) => ({ slug: w.slug, title: w.title, parentSlug: w.parent_page_id != null ? pageSlugById.get(w.parent_page_id) ?? null : null, wanted: w.is_stub })),
+      // A PUBLISHED page is a live, crawlable URL, never a red link - even a short
+      // (is_stub) one. Only unresolved link targets below are wanted; flagging a
+      // published stub wanted would hide it from readers and 409 the create flow.
+      ...wiki.map((w) => ({ slug: w.slug, title: w.title, parentSlug: w.parent_page_id != null ? pageSlugById.get(w.parent_page_id) ?? null : null, wanted: false })),
       ...[...wantedWiki.values()].map((w) => ({ slug: w.slug, title: w.title, parentSlug: null, wanted: true })),
     ],
     links,
