@@ -55,6 +55,9 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   // V-ATLAS step 5 - the mini-map home widget (duality); a static constellation
   // glyph linking into the Atlas. Min-gates to null under 10 published nodes.
   atlas_mini: { type: 'atlas_mini', label: 'Atlas map', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 7, implemented: true, category: 'feature' },
+  // V-COMM-3 step 4 - the featured-discussion home widget (duality); min-gates to
+  // null when a space has no thread yet.
+  featured_thread: { type: 'featured_thread', label: 'Featured discussion', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 8, implemented: true, category: 'feature' },
 
   // --- Core, SEO-critical - registered now, rendered in later steps ---
   facts:        { type: 'facts', label: 'Facts', seoCritical: true, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'core' },

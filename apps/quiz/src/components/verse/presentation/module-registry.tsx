@@ -10,6 +10,7 @@ import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModul
 import { BinderWidgetModule, ShelfWidgetModule } from './cards-widgets';
 import { FeaturedEssayModule } from './essays-widget';
 import { AtlasMiniMapModule } from './atlas-widget';
+import { FeaturedThreadModule } from './thread-widget';
 
 import type { Space } from '@/lib/verse/space';
 import type { ModulePlacement } from '@/lib/verse/presentation/types';
@@ -38,4 +39,5 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   shelf_widget: ShelfWidgetModule,
   featured_essay: FeaturedEssayModule,
   atlas_mini: AtlasMiniMapModule,
+  featured_thread: FeaturedThreadModule,
 };

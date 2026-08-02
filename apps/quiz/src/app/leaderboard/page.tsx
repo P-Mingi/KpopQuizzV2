@@ -21,6 +21,7 @@ import { DailyDebate } from '@/components/community/daily-debate';
 import { getDailyDebate } from '@/lib/db/queries/debate';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { CrossSpaceFeed } from '@/components/verse/presentation/cross-space-feed';
+import { CommunityCrossPromo } from '@/components/verse/community-cross-promo';
 
 import type { Metadata } from 'next';
 
@@ -124,8 +125,10 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
       {/* F1.1 - Happening now feed (liveness-gated) */}
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />
 
-      {/* V-COMM-3 - the cross-space Verse feed (opted-in spaces only, min-gated),
-          alongside the Play-world events: one community, two products. */}
+      {/* V-COMM-3 - the cross-promo strip (your spaces / claim a space) + the
+          cross-space Verse feed (opted-in spaces only, min-gated), alongside the
+          Play-world events: one community, two products. */}
+      <CommunityCrossPromo />
       <CrossSpaceFeed />
 
       {/* F1.3 - Daily ritual: quiz + blindtest of the day (client island) */}
