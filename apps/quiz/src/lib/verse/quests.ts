@@ -42,22 +42,63 @@ const authoredSet = (rows: Array<{ entity_id: string; content: unknown }>): Set<
 export const computeQuests = cache(async (groupId: number, slug: string, groupName: string): Promise<QuestBoard> => {
   const db = createPublicReadClient();
 
-  const [{ data: eras }, { data: eraAlbums }, { data: idols }, { data: content }, { count: toursPub }, { count: awardsPub }] = await Promise.all([
+  // Phase 1 - the group-scoped facts that decide which quests exist. eras/idols
+  // also yield the entity id-sets phase 2 scopes verse_content by: that table is
+  // polymorphic on (entity_type, entity_id) with no group_id column, so bounding a
+  // read to one space means naming its entity ids (the getEras pattern).
+  const [
+    { data: eras, error: erasErr },
+    { data: idols, error: idolsErr },
+    { count: toursPub, error: toursErr },
+    { count: awardsPub, error: awardsErr },
+    { data: eraAlbums, error: eraAlbumsErr },
+  ] = await Promise.all([
     db.from('eras').select('id, name').eq('group_id', groupId).order('period_start', { ascending: false, nullsFirst: false }),
-    db.from('albums').select('era_id, musicbrainz_mbid').eq('group_id', groupId).not('era_id', 'is', null),
     db.from('idols').select('id, name, ord, photo_url').eq('group_id', groupId).eq('active', true).order('ord'),
-    db.from('verse_content').select('entity_type, entity_id, section_key, content').in('entity_type', ['group', 'era', 'idol']),
     db.from('tours').select('id', { count: 'exact', head: true }).eq('group_id', groupId),
     db.from('awards').select('id', { count: 'exact', head: true }).eq('group_id', groupId).eq('status', 'published'),
+    db.from('albums').select('era_id, musicbrainz_mbid').eq('group_id', groupId).not('era_id', 'is', null),
   ]);
-
-  const rows = (content ?? []) as Array<{ entity_type: string; entity_id: string; section_key: string; content: unknown }>;
-  const overviewDone = rows.some((r) => r.entity_type === 'group' && r.entity_id === String(groupId) && r.section_key === 'overview' && !contentIsEmpty(r.content));
-  const eraNarrated = authoredSet(rows.filter((r) => r.entity_type === 'era' && r.section_key === 'era_story'));
-  const idolLore = authoredSet(rows.filter((r) => r.entity_type === 'idol' && r.section_key === 'lore'));
+  // Bake law (getSpace): on this hour-long ISR route a transient read failure must
+  // FAIL the render, not bake a degraded board (missing quests, a wrong coverage %)
+  // that then serves as truth until the next revalidate. eraAlbums is cosmetic (era
+  // cover art) - its loss only drops thumbnails, so it warns instead of throwing.
+  for (const [label, err] of [['eras', erasErr], ['idols', idolsErr], ['tours', toursErr], ['awards', awardsErr]] as const) {
+    if (err) throw new Error(`computeQuests(${slug}): ${label} query failed: ${JSON.stringify(err)}`);
+  }
+  if (eraAlbumsErr) console.warn(`computeQuests(${slug}): eraAlbums query failed (covers hidden): ${JSON.stringify(eraAlbumsErr)}`);
 
   const eraList = (eras ?? []) as Array<{ id: number; name: string }>;
   const idolList = (idols ?? []) as Array<{ id: number; name: string; photo_url?: string | null }>;
+
+  // Phase 2 - authored content for THIS space's entities only. An unscoped
+  // .in('entity_type', ...) select hits PostgREST's 1000-row default cap: once
+  // verse_content across all groups passed 1000 rows, arbitrary groups' rows fell
+  // outside the window, so coverage under-counted and quests appeared/vanished at
+  // random. Scoping to the known id-sets keeps every read small. All three are
+  // page-defining (they decide overview/era/idol quests and coverage), so all throw.
+  const eraIds = eraList.map((e) => String(e.id));
+  const idolIds = idolList.map((i) => String(i.id));
+  const [
+    { data: overviewRow, error: overviewErr },
+    { data: eraStoryRows, error: eraStoryErr },
+    { data: idolLoreRows, error: idolLoreErr },
+  ] = await Promise.all([
+    db.from('verse_content').select('content').eq('entity_type', 'group').eq('entity_id', String(groupId)).eq('section_key', 'overview').maybeSingle(),
+    eraIds.length
+      ? db.from('verse_content').select('entity_id, content').eq('entity_type', 'era').eq('section_key', 'era_story').in('entity_id', eraIds)
+      : Promise.resolve({ data: [] as Array<{ entity_id: string; content: unknown }>, error: null }),
+    idolIds.length
+      ? db.from('verse_content').select('entity_id, content').eq('entity_type', 'idol').eq('section_key', 'lore').in('entity_id', idolIds)
+      : Promise.resolve({ data: [] as Array<{ entity_id: string; content: unknown }>, error: null }),
+  ]);
+  for (const [label, err] of [['overview', overviewErr], ['era_story', eraStoryErr], ['idol_lore', idolLoreErr]] as const) {
+    if (err) throw new Error(`computeQuests(${slug}): ${label} content query failed: ${JSON.stringify(err)}`);
+  }
+
+  const overviewDone = !!overviewRow && !contentIsEmpty((overviewRow as { content: unknown }).content);
+  const eraNarrated = authoredSet((eraStoryRows ?? []) as Array<{ entity_id: string; content: unknown }>);
+  const idolLore = authoredSet((idolLoreRows ?? []) as Array<{ entity_id: string; content: unknown }>);
   const coverByEra = new Map<number, string>();
   for (const a of (eraAlbums ?? []) as { era_id: number; musicbrainz_mbid: string | null }[]) {
     if (a.musicbrainz_mbid && !coverByEra.has(a.era_id)) coverByEra.set(a.era_id, a.musicbrainz_mbid);
