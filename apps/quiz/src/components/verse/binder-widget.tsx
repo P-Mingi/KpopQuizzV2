@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 
 // V-CARDS-MAX step 7 - the BINDER home widget (duality: the binder tool as a
@@ -24,7 +25,7 @@ export function BinderWidget({ groupId, groupSlug, cards }: {
 
   return (
     <div>
-      <p className="v-eyebrow">My binder</p>
+      <SectionHeader kicker="My binder" />
       <Link href={`/verse/${groupSlug}/photocards`} className="mt-2 flex items-center gap-3 no-underline">
         {/* Mini pocket row: the binder motif in miniature. */}
         <span className="flex gap-1" aria-hidden>

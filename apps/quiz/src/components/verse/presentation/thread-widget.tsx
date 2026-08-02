@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { listThreads } from '@/lib/verse/threads';
 
@@ -15,7 +16,7 @@ export async function FeaturedThreadModule({ space }: ModuleProps): Promise<Reac
 
   return (
     <div>
-      <p className="v-eyebrow">Talk of the space</p>
+      <SectionHeader kicker="Talk of the space" />
       <Link href={`/verse/${space.group.slug}/community/${top.slug}`} className="mt-2 block no-underline">
         <p className="text-[15px] font-extrabold leading-snug" style={{ color: 'var(--verse-ink)' }}>{top.title}</p>
         <p className="mt-1 text-xs text-tertiary">

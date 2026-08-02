@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { listHubs } from '@/lib/verse/tags';
 
@@ -23,7 +24,7 @@ export default async function TagsDirectoryPage(): Promise<React.ReactElement> {
       <div className="mt-6 space-y-6">
         {dims.map(([dim, dimLabel]) => (
           <section key={dim}>
-            <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-secondary">{dimLabel}</h2>
+            <SectionHeader kicker={dimLabel} as="h2" />
             <div className="flex flex-wrap gap-2">
               {hubs.filter((h) => h.dim === dim).map((h) => (
                 <Link key={h.slug} href={`/verse/tag/${h.slug}`} className="inline-flex items-center gap-1.5 rounded-full border border-default px-3 py-1.5 text-sm no-underline transition-colors hover:bg-surface-1">

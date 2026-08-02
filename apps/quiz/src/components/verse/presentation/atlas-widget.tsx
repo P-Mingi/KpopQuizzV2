@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getSpaceGraph } from '@/lib/verse/atlas/data';
 import { neighborhood } from '@/lib/verse/atlas/graph';
@@ -28,7 +29,7 @@ export async function AtlasMiniMapModule({ space }: ModuleProps): Promise<React.
 
   return (
     <Link href={`/verse/${space.group.slug}/wiki`} className="group block no-underline">
-      <p className="v-eyebrow">Atlas</p>
+      <SectionHeader kicker="Atlas" />
 
       <div className="my-2 flex justify-center rounded-xl py-3" style={{ background: 'radial-gradient(120% 90% at 50% 30%, color-mix(in srgb, var(--verse-ink) 6%, transparent), transparent 70%)' }}>
         <svg viewBox="-100 -100 200 200" width="150" height="150" role="img" aria-label={`Constellation map of ${space.group.name}`} className="block">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { attachedPages } from '@/lib/verse/pages/links';
 import { getKind } from '@/lib/verse/pages/kinds';
@@ -15,7 +16,7 @@ export async function MoreAboutThis({ groupId, groupSlug, entityRef, entityLabel
   if (pages.length === 0) return null;
   return (
     <section className="v-module">
-      <h2 className="v-eyebrow">More about {entityLabel}</h2>
+      <SectionHeader kicker={<>More about {entityLabel}</>} as="h2" />
       <div className="v-grid-cards">
         {pages.map((p) => {
           const def = getKind(KPOP_PAGE_REGISTRY, p.kind);

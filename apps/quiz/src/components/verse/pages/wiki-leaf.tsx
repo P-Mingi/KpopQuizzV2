@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { splitTipTapForFold } from '@/lib/verse/render-content';
 import { getKind } from '@/lib/verse/pages/kinds';
@@ -46,7 +47,7 @@ export function WikiInfobox({ page }: { page: WikiPage }): React.ReactElement | 
   if (rows.length === 0) return null;
   return (
     <div className="verse-frame verse-frame-rounded">
-      <h2 className="v-eyebrow">{def.label}</h2>
+      <SectionHeader kicker={def.label} as="h2" />
       <dl className="flex flex-col gap-2.5">
         {rows.map(({ f, d }) => (
           <div key={f.key}>
@@ -116,7 +117,7 @@ export function RelatedExits({ groupSlug, items }: {
   const shown = items.slice(0, 8);
   return (
     <section className="v-module" style={{ marginTop: 'var(--v-space-section)' }}>
-      <h2 className="v-eyebrow">Go deeper</h2>
+      <SectionHeader kicker="Go deeper" as="h2" />
       {shown.length > 0 ? (
         <div className="v-grid-cards">
           {shown.map((it) => (

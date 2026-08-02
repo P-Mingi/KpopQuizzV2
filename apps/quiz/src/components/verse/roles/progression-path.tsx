@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 
 import { fetchAffordance } from './role-affordance';
@@ -34,7 +35,7 @@ export function ProgressionPath({ groupSlug, fandomName }: { groupSlug: string; 
 
   return (
     <section className="v-module verse-frame verse-frame-rounded" id="ladder" aria-label="How roles work in this space">
-      <h2 className="v-eyebrow">The path in this space</h2>
+      <SectionHeader kicker="The path in this space" as="h2" />
       <ol className="flex flex-col gap-0">
         {RUNGS.map((r, i) => {
           const reached = mine >= i;

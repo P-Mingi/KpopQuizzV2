@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
@@ -46,7 +47,7 @@ export default async function InsightsPage({ params }: { params: Promise<{ slug:
       </div>
 
       <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Top contributors</h2>
+        <SectionHeader kicker="Top contributors" as="h2" />
         {ins.topContributors.length === 0 ? (
           <p className="text-sm text-tertiary">No contributions yet. As fans write, they appear here.</p>
         ) : (

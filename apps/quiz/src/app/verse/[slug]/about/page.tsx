@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -42,7 +43,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
         foldPref={space.presentation.textFolds?.['overview'] ?? 'auto'}
       />
       <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>About this space</h2>
+        <SectionHeader kicker="About this space" as="h2" />
         <p className="text-sm leading-relaxed text-secondary">
           {group.fandom_name} is the home of {group.name} fans on Verse. Its knowledge is built on open, sourced data
           (Wikidata and MusicBrainz, both CC0) and kept accurate by curators. Facts show where they come from; corrections
@@ -54,7 +55,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
       <ProgressionPath groupSlug={group.slug} fandomName={group.fandom_name} />
 
       <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Space stats</h2>
+        <SectionHeader kicker="Space stats" as="h2" />
         <div className="grid grid-cols-3 gap-3 text-center">
           {[{ n: counts.members, l: 'members' }, { n: counts.albums, l: 'releases' }, { n: counts.tracks, l: 'tracks' }].map((s) => (
             <div key={s.l} className="rounded-xl border border-default bg-surface p-3" style={{ borderColor: 'var(--verse-line)' }}>
@@ -68,7 +69,7 @@ export default async function AboutPage({ params }: { params: Promise<{ slug: st
 
       {hubs.length ? (
         <section>
-          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Categories</h2>
+          <SectionHeader kicker="Categories" as="h2" />
           <div className="flex flex-wrap gap-2">
             {hubs.map((h) => (
               <Link key={h.slug} href={`/verse/tag/${h.slug}`} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold no-underline" style={{ background: 'var(--verse-soft)', color: 'var(--verse-ink)' }}>

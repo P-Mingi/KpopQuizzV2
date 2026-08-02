@@ -9,11 +9,13 @@
 
 type HeaderTag = 'p' | 'h2' | 'h3';
 
-export function SectionHeader({ kicker, action, as = 'p', className }: {
+export function SectionHeader({ kicker, action, as = 'p', accent = false, className }: {
   kicker: React.ReactNode;
   /** Optional right-aligned affordance: a count ("ALL 17") or a link. */
   action?: React.ReactNode;
   as?: HeaderTag;
+  /** The accent-tinted kicker (v-kicker-accent), e.g. "Featured essay". */
+  accent?: boolean;
   className?: string;
 }): React.ReactElement {
   const Tag = as;
@@ -22,7 +24,7 @@ export function SectionHeader({ kicker, action, as = 'p', className }: {
       className={`flex items-baseline justify-between gap-3${className ? ` ${className}` : ''}`}
       style={{ marginBottom: 'var(--v-space-eyebrow)' }}
     >
-      <Tag className="v-eyebrow" style={{ margin: 0 }}>{kicker}</Tag>
+      <Tag className={accent ? 'v-eyebrow v-kicker-accent' : 'v-eyebrow'} style={{ margin: 0 }}>{kicker}</Tag>
       {action ? (
         <span className="shrink-0 text-[12px] font-semibold leading-none" style={{ color: 'var(--verse-ink)' }}>
           {action}

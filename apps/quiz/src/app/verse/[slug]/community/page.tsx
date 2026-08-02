@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
@@ -67,7 +68,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
       {/* V-COMM-3: threads. Each is an addressable, shareable discussion. */}
       <section aria-label="Threads">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Threads{threads.length ? ` (${threads.length})` : ''}</h2>
+          <SectionHeader kicker={<>Threads{threads.length ? ` (${threads.length})` : ''}</>} as="h2" />
           <NewThreadForm groupId={group.id} groupSlug={slug} />
         </div>
         {threads.length === 0 ? (
