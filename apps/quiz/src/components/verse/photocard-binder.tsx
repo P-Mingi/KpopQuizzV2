@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
 import { CoverArt } from '@/components/verse/cover-art';
@@ -140,7 +141,7 @@ export function PhotocardBinder({ sets: rawSets, groupId, groupSlug, fandomName,
   function onHandleUp(): void { dragFrom.current = null; }
 
   if (!rawSets.length) {
-    return <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No photocards catalogued yet. The {fandomName} binder starts the moment a curator adds the first set.</p>;
+    return <EmptyState headline="No photocards yet." body={`The ${fandomName} binder starts the moment a curator adds the first set.`} />;
   }
 
   return (

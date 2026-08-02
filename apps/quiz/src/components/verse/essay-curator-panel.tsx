@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
 import { useBuildMode } from '@/components/verse/build-mode';
@@ -60,7 +61,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
 
       {/* Review queue. */}
       <h3 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Review queue <span className="tabular-nums text-tertiary">{queue.length}</span></h3>
-      {queue.length === 0 ? <p className="mt-1 text-xs text-tertiary">No submissions waiting.</p> : (
+      {queue.length === 0 ? <EmptyState className="mt-1" headline="No submissions waiting." /> : (
         <ul className="mt-2 space-y-2">
           {queue.map((e) => (
             <li key={e.id} className="flex flex-wrap items-center gap-2 rounded-lg px-3 py-2 text-sm" style={{ background: 'var(--bg-surface)' }}>
@@ -77,7 +78,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
 
       {/* Published: hero pick + unpublish. */}
       <h3 className="mt-5 text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Published <span className="tabular-nums text-tertiary">{pub.length}</span></h3>
-      {pub.length === 0 ? <p className="mt-1 text-xs text-tertiary">Nothing published yet.</p> : (
+      {pub.length === 0 ? <EmptyState className="mt-1" headline="Nothing published yet." /> : (
         <ul className="mt-2 space-y-2">
           {pub.map((e) => (
             <li key={e.id} className="flex flex-wrap items-center gap-2 rounded-lg px-3 py-2 text-sm" style={{ background: 'var(--bg-surface)' }}>
@@ -123,7 +124,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
             </li>
           ))}
         </ul>
-      ) : proposed.length ? null : <p className="mt-1 text-xs text-tertiary">No series yet.</p>}
+      ) : proposed.length ? null : <EmptyState className="mt-1" headline="No series yet." />}
     </section>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useBuildMode } from '@/components/verse/build-mode';
@@ -267,10 +268,7 @@ export function AtlasMap({ groupSlug, reader, build, trail }: AtlasMapProps): Re
       </div>
 
       {sparse ? (
-        <p className="mt-2 text-[12px] font-semibold" style={{ color: 'var(--verse-ink)' }}>
-          This corner of the map is still growing.{' '}
-          <span className="font-normal text-tertiary">{buildActive ? 'Add a page or link to connect it.' : 'Few pages link here yet.'}</span>
-        </p>
+        <EmptyState variant="growing" className="mt-2" headline="This corner of the map is still growing." body={buildActive ? 'Add a page or link to connect it.' : 'Few pages link here yet.'} />
       ) : null}
 
       <p className="mt-2 text-[12px] text-tertiary">

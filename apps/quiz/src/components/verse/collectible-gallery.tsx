@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import type { Collectible, CollectibleState, CollectibleKind } from '@/lib/verse/collectibles';
 
@@ -69,7 +70,7 @@ export function CollectibleGallery({ items: initial, groupId, groupSlug }: { ite
       ) : null}
 
       {items.length === 0 ? (
-        <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No merch or lightsticks catalogued yet.</p>
+        <EmptyState headline="No collectibles yet." body="Merch and lightsticks appear here as they are catalogued." />
       ) : (
         KINDS.map((k) => {
           const group = items.filter((it) => it.kind === k.key);

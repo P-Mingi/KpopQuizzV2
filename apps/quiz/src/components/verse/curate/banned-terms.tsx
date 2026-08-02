@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 interface Term { id: number; term: string; action: string; note: string | null }
 
@@ -33,7 +34,7 @@ export function BannedTerms(): React.ReactElement {
         <select value={action} onChange={(e) => setAction(e.target.value as 'flag' | 'block')} className="rounded-lg border border-default bg-transparent px-2 py-1.5 text-sm"><option value="flag">flag</option><option value="block">block</option></select>
         <button onClick={add} disabled={busy} className="rounded-lg bg-primary px-4 text-sm font-semibold text-inverse disabled:opacity-50">Add</button>
       </div>
-      {terms.length === 0 ? <p className="text-sm text-tertiary">No banned terms yet.</p> : (
+      {terms.length === 0 ? <EmptyState headline="No banned terms yet." /> : (
         <ul className="flex flex-wrap gap-2">
           {terms.map((t) => (
             <li key={t.id} className="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1 text-xs">

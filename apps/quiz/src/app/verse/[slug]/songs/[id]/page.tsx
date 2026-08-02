@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
@@ -125,9 +126,7 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
             <section className="mb-6">
               <h2 className="v-section-title">The story</h2>
               <div className="v-section-rule" aria-hidden />
-              <p className="max-w-[66ch] text-sm leading-relaxed text-tertiary">
-                No fan has written this song&rsquo;s story yet. Song stories start from the wiki, credited to their authors.
-              </p>
+              <EmptyState headline="No story yet." body="Song stories start from the wiki, credited to their authors." />
             </section>
           )}
         </div>

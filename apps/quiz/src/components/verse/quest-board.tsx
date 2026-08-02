@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { CoverArt } from '@/components/verse/cover-art';
@@ -67,7 +68,7 @@ export function QuestBoard({ quests, coveragePct, groupId, groupName }: Props): 
       </div>
 
       {quests.length === 0 ? (
-        <p className="mt-4 rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>This space is fully built. Nothing open right now.</p>
+        <EmptyState className="mt-4" headline="Nothing open right now." body="This space is fully built." />
       ) : (
         <>
           <div role="group" aria-label="Filter quests by size" className="mt-4 flex flex-wrap gap-2">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 
@@ -95,7 +96,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId, init
         <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) post(draft, null); }} placeholder={signedIn ? 'Add to the discussion…' : 'Sign in to comment…'} aria-label="Add to the discussion" className="flex-1 rounded-lg border border-default bg-transparent px-3 py-2 text-sm" />
         <button onClick={() => post(draft, null)} disabled={busy} className="rounded-lg bg-primary px-4 text-sm font-semibold text-inverse disabled:opacity-50">Post</button>
       </div>
-      {comments.length === 0 ? <p className="text-sm text-tertiary">No comments yet. Start the conversation.</p> : <div className="space-y-4">{comments.map((c) => <Row key={c.id} c={c} />)}</div>}
+      {comments.length === 0 ? <EmptyState headline="No comments yet." body="Start the conversation." /> : <div className="space-y-4">{comments.map((c) => <Row key={c.id} c={c} />)}</div>}
     </section>
   );
 }

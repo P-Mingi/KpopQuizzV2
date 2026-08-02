@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 interface Flag { id: number; target_type: string; target_id: number; reporter: string | null; reason: string; created_at: string; preview: string; targetStatus: string }
 
@@ -22,7 +23,7 @@ export function PatrolQueue({ groupId }: { groupId: number }): React.ReactElemen
     if (r.ok) load(); else alert((await r.json()).error ?? 'error');
   }
 
-  if (flags.length === 0) return <p className="text-sm text-tertiary">Nothing flagged. The queue is clear.</p>;
+  if (flags.length === 0) return <EmptyState headline="Nothing flagged." body="The queue is clear." />;
 
   return (
     <ul className="space-y-2">

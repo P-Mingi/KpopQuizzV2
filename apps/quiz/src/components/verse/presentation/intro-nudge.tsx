@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
 // V-SPACE-FLOW - the empty-intro nudge. The page is ISR, so member-ness is
@@ -19,14 +20,11 @@ export function IntroNudge({ groupId, groupSlug, groupName }: { groupId: number;
   }, [groupId]);
   if (!member) return null;
   return (
-    <div className="v-module">
-      <p className="text-sm leading-relaxed text-secondary" style={{ maxWidth: 'var(--v-measure)' }}>
-        This space has no introduction yet. Two to four sentences on who {groupName} are, written by a fan, would live right here.
-      </p>
-      <Link href={`/verse/${groupSlug}/about`} className="mt-1 inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
+    <EmptyState className="v-module" headline="No introduction yet." body={`Two to four sentences on who ${groupName} are, written by a fan, would live right here.`} cta={
+      <Link href={`/verse/${groupSlug}/about`} className="inline-flex min-h-[44px] items-center gap-1 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>
         Start writing
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </Link>
-    </div>
+    } />
   );
 }

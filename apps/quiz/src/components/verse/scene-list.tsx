@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import type { SceneDef } from '@/lib/verse/entity-types';
 import type { SceneRow } from '@/lib/verse/entities';
@@ -18,9 +19,7 @@ function factLine(s: SceneDef, row: SceneRow): string {
 export function SceneList({ scene, groupSlug, rows }: { scene: SceneDef; groupSlug: string; rows: SceneRow[] }): React.ReactElement {
   if (rows.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>
-        No {scene.label.toLowerCase()} published yet.
-      </p>
+      <EmptyState headline={`No ${scene.label.toLowerCase()} yet.`} />
     );
   }
   return (

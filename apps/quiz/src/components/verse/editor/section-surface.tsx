@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { renderTipTapJSON, extractHeadings, splitTipTapForFold } from '@/lib/verse/render-content';
@@ -188,10 +189,7 @@ export function SectionSurface(props: Props): React.ReactElement {
           ) : null}
         </>
       ) : (
-        <div className="rounded-xl border border-dashed p-5" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
-          <p className="text-sm text-secondary">{props.emptyInvite}</p>
-          {canEdit ? <button onClick={() => setEditing(true)} className="mt-2 text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Start writing</button> : null}
-        </div>
+        <EmptyState headline="Nothing written yet." body={props.emptyInvite} cta={canEdit ? <button onClick={() => setEditing(true)} className="text-sm font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>Start writing</button> : undefined} />
       )}
     </section>
   );

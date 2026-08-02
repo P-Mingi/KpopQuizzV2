@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import type { Photocard, CardState } from '@/lib/verse/photocards';
 
@@ -65,7 +66,7 @@ export function PhotocardCatalog({ cards: initial, groupId, groupSlug }: { cards
       ) : null}
 
       {cards.length === 0 ? (
-        <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No photocards catalogued yet.</p>
+        <EmptyState headline="No photocards yet." />
       ) : (
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {cards.map((c) => {

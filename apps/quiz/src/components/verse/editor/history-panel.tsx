@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { useRouter } from 'next/navigation';
 
@@ -42,7 +43,7 @@ export function HistoryPanel({ entityType, entityId, section, canEdit, onClose }
   return (
     <div className="rounded-xl border border-default bg-surface" style={{ borderColor: 'var(--verse-line)' }}>
       <SectionHeader kicker="History" as="h3" action={<button onClick={onClose} className="text-xs font-semibold text-secondary hover:text-primary">Close</button>} className="border-b px-3 py-2" />
-      {revs.length === 0 ? <p className="px-3 py-4 text-sm text-tertiary">No revisions yet.</p> : (
+      {revs.length === 0 ? <EmptyState headline="No revisions yet." /> : (
         <ul className="divide-y divide-[var(--verse-line)]">
           {revs.map((r, i) => {
             const prev = revs[i + 1]; // the version this edit was made from

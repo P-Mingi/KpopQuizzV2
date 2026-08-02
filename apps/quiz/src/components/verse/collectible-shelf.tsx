@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
 import type { Collectible, CollectibleState, ShelfRow } from '@/lib/verse/collectibles';
@@ -100,7 +101,7 @@ export function CollectibleShelf({ rows: rawRows, groupId, groupSlug, fandomName
   function onUp(): void { dragFrom.current = null; }
 
   if (!rawRows.length) {
-    return <p className="rounded-xl border border-dashed px-5 py-10 text-center text-secondary" style={{ borderColor: 'var(--verse-line)' }}>No collectibles catalogued yet. The {fandomName} shelf fills as curators add lightsticks and merch.</p>;
+    return <EmptyState headline="No collectibles yet." body={`The ${fandomName} shelf fills as curators add lightsticks and merch.`} />;
   }
 
   return (

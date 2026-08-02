@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { useBuildMode } from '@/components/verse/build-mode';
 
@@ -80,7 +81,7 @@ export function CollectibleCatalogManager({ groupId }: { groupId: number }): Rea
       {isCurator ? (
         <div className="mt-6">
           <h3 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>Review queue <span className="tabular-nums text-tertiary">{drafts.length}</span></h3>
-          {drafts.length === 0 ? <p className="mt-1 text-xs text-tertiary">No submissions waiting.</p> : (
+          {drafts.length === 0 ? <EmptyState className="mt-1" headline="No submissions waiting." /> : (
             <ul className="mt-2 space-y-2">
               {drafts.map((d) => (
                 <li key={d.id} className="flex flex-wrap items-center gap-2 rounded-lg px-3 py-2 text-sm" style={{ background: 'var(--bg-surface)' }}>

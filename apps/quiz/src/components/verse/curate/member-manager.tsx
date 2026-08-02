@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
@@ -62,7 +63,7 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
   return (
     <div>
       {rows.length === 0 ? (
-        <p className="text-sm text-tertiary">No members yet. Fans appear here once they join.</p>
+        <EmptyState headline="No members yet." body="Fans appear here once they join." />
       ) : (
         <ul className="space-y-1.5">
           {rows.map((r) => {
@@ -115,8 +116,8 @@ export function MemberManager({ groupId, groupSlug, isSpaceAdmin }: { groupId: n
       </div>
 
       {showLog ? (
-        log === null ? <p className="mt-2 text-xs text-tertiary">Loading the log...</p>
-        : log.length === 0 ? <p className="mt-2 text-xs text-tertiary">No role changes logged yet.</p>
+        log === null ? <EmptyState variant="loading" className="mt-2" />
+        : log.length === 0 ? <EmptyState className="mt-2" headline="No role changes logged yet." />
         : (
           <ul className="mt-2 space-y-1.5">
             {log.map((l) => (
