@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { VerseSearch } from '@/components/verse/verse-search';
 import { MySpacesStrip } from '@/components/verse/my-spaces-strip';
-import { OrbitLockup } from '@/components/verse/brand/verse-wordmarks';
+import { OrbitLockup, OrbitMarkSmall } from '@/components/verse/brand/verse-wordmarks';
 import { getVerseDirectory, getCatalogTotals, getTodayInKpop, getNewestWikiPages, getLatestVerseActivity } from '@/lib/verse/space-data';
 import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';
@@ -263,8 +263,17 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-4">
           <Link href="/login?returnTo=%2Fverse" className="inline-flex min-h-[44px] items-center rounded-xl px-6 text-sm font-bold no-underline" style={{ background: VIOLET, color: '#fff' }}>Become a curator</Link>
-          <Link href="/verse/promises" className="text-sm font-semibold text-secondary no-underline hover:text-primary">Read our promises</Link>
         </div>
+        {/* V-TRUST step 2: the covenant at the moment of deciding. Prominent, always
+            shown (no gate), so a recruit reads what we owe them before they build. */}
+        <Link href="/verse/promises" className="mt-5 flex items-center gap-3 rounded-xl border px-4 py-3 no-underline transition-colors" style={{ borderColor: 'color-mix(in srgb, #7c5cfc 30%, transparent)', background: 'color-mix(in srgb, #7c5cfc 6%, var(--bg-surface))' }}>
+          <OrbitMarkSmall size={26} />
+          <span className="min-w-0">
+            <span className="block text-sm font-bold text-primary">Before you build: here is what we promise you</span>
+            <span className="block text-xs text-secondary">Our covenant to every fan and curator, in plain words.</span>
+          </span>
+          <svg className="ml-auto flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--verse-brand-text)" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </Link>
       </section>
 
       {/* 9. START HERE + one games funnel, last before the footer */}

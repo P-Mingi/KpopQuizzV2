@@ -195,6 +195,11 @@ export function MastheadInvite({ space }: { space: Space }): React.ReactElement 
         Become a curator
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>
+      {/* V-TRUST step 2: the covenant at the in-space decision moment. Always shown. */}
+      <a href="/verse/promises" className="mt-1 inline-flex min-h-[36px] items-center gap-1 py-1 text-xs font-semibold no-underline" style={{ color: 'var(--verse-brand-text)' }}>
+        Before you build: what we promise you
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </a>
     </div>
   );
 }
