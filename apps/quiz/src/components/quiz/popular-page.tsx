@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { jsonLdScript } from '@/lib/verse/jsonld';
+
 import { QuizCard } from '@/components/ui/quiz-card';
 import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
 import { buildTeaser } from '@/lib/quiz/teaser';
@@ -92,8 +94,9 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
 
   return (
     <div className="pop-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      {/* QA class 4: c.title (user-authored quiz titles) escaped at the sink. */}
+      {jsonLdScript(itemListLd)}
+      {jsonLdScript(breadcrumbLd)}
 
       <nav className="pop-crumbs" aria-label="Breadcrumb">
         <Link href="/">Home</Link><span className="pop-crumb-sep">/</span>

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { jsonLdScript } from '@/lib/verse/jsonld';
+
 import { getQuizzesByGroup, getGroupQuizLinks } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
@@ -261,28 +263,24 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         </section>
       )}
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'CollectionPage',
-            name: `${group.name} Quizzes`,
-            description: intro,
-            url: `https://kpopquiz.org/${group.slug}-quiz`,
-            mainEntity: {
-              '@type': 'ItemList',
-              numberOfItems: group.quiz_count,
-              itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
-                '@type': 'ListItem',
-                position: i + 1,
-                url: `https://kpopquiz.org/q/${q.slug}`,
-                name: q.title,
-              })),
-            },
-          }),
-        }}
-      />
+      {/* QA class 4: q.title (user-authored quiz titles) escaped at the sink. */}
+      {jsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: `${group.name} Quizzes`,
+        description: intro,
+        url: `https://kpopquiz.org/${group.slug}-quiz`,
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: group.quiz_count,
+          itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `https://kpopquiz.org/q/${q.slug}`,
+            name: q.title,
+          })),
+        },
+      })}
       {/* G2 additive: a SEPARATE ItemList of this group's play surfaces, so the
           existing CollectionPage block above stays byte-identical. */}
       <script

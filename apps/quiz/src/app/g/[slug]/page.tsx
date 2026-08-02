@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
+import { jsonLdScript } from '@/lib/verse/jsonld';
+
 import { getGameBySlug } from '@/lib/db/queries/games';
 import { BlindTestPlayer } from '@/components/game/blind-test-player';
 
@@ -47,20 +49,16 @@ export default async function GamePage({ params }: GamePageProps): Promise<React
     return (
       <div className="py-6">
         <BlindTestPlayer game={game} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Game',
-              name: game.title,
-              description: `K-pop blind test with ${(game.content as BlindTestContent).settings.song_count} songs`,
-              url: `https://kpopquiz.org/g/${game.slug}`,
-              numberOfPlayers: { '@type': 'QuantitativeValue', value: 1 },
-              publisher: { '@type': 'Organization', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
-            }),
-          }}
-        />
+        {/* QA class 4: game.title (user-authored) escaped at the sink. */}
+        {jsonLdScript({
+          '@context': 'https://schema.org',
+          '@type': 'Game',
+          name: game.title,
+          description: `K-pop blind test with ${(game.content as BlindTestContent).settings.song_count} songs`,
+          url: `https://kpopquiz.org/g/${game.slug}`,
+          numberOfPlayers: { '@type': 'QuantitativeValue', value: 1 },
+          publisher: { '@type': 'Organization', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
+        })}
       </div>
     );
   }

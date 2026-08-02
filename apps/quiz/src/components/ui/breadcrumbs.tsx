@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { jsonLdScript } from '@/lib/verse/jsonld';
+
 export interface BreadcrumbItem {
   label: string;
   /** Omit `href` for the last (current) item. */
@@ -32,10 +34,9 @@ export function Breadcrumbs({ items }: Props): React.ReactElement | null {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* QA class 4: user-authored labels (essay/thread/wiki/quiz titles) reach this
+          JSON-LD sink; jsonLdScript escapes < > & so a title cannot break out. */}
+      {jsonLdScript(jsonLd)}
       <nav aria-label="Breadcrumb" className="mb-4">
         <ol className="flex flex-wrap items-center gap-1 text-xs text-tertiary">
           {items.map((item, i) => (

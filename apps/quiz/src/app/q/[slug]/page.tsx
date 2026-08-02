@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+
+import { jsonLdScript } from '@/lib/verse/jsonld';
 import Link from 'next/link';
 
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
@@ -340,41 +342,37 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         </section>
       )}
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Quiz',
-            name: quiz.title,
-            description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
-            educationalAlignment: {
-              '@type': 'AlignmentObject',
-              alignmentType: 'educationalSubject',
-              targetName: 'K-pop',
-            },
-            author: {
-              '@type': 'Person',
-              name: quiz.creator_username,
-              url: `https://kpopquiz.org/u/${quiz.creator_username}`,
-            },
-            dateCreated: quiz.created_at,
-            dateModified: quiz.updated_at,
-            interactionStatistic: {
-              '@type': 'InteractionCounter',
-              interactionType: 'https://schema.org/PlayAction',
-              userInteractionCount: quiz.play_count,
-            },
-            about: {
-              '@type': 'Thing',
-              name: quiz.group_name,
-            },
-            numberOfQuestions: questionCount,
-            inLanguage: 'en',
-            url: `https://kpopquiz.org/q/${quiz.slug}`,
-          }),
-        }}
-      />
+      {/* QA class 4: quiz.title (user-authored) escaped at the sink. */}
+      {jsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'Quiz',
+        name: quiz.title,
+        description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
+        educationalAlignment: {
+          '@type': 'AlignmentObject',
+          alignmentType: 'educationalSubject',
+          targetName: 'K-pop',
+        },
+        author: {
+          '@type': 'Person',
+          name: quiz.creator_username,
+          url: `https://kpopquiz.org/u/${quiz.creator_username}`,
+        },
+        dateCreated: quiz.created_at,
+        dateModified: quiz.updated_at,
+        interactionStatistic: {
+          '@type': 'InteractionCounter',
+          interactionType: 'https://schema.org/PlayAction',
+          userInteractionCount: quiz.play_count,
+        },
+        about: {
+          '@type': 'Thing',
+          name: quiz.group_name,
+        },
+        numberOfQuestions: questionCount,
+        inLanguage: 'en',
+        url: `https://kpopquiz.org/q/${quiz.slug}`,
+      })}
       {/* BreadcrumbList JSON-LD is emitted by <Breadcrumbs> above (Home › Group › Quiz). */}
     </div>
   );

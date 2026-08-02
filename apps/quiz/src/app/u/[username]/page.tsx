@@ -16,6 +16,7 @@ import { getPublicShelfCards } from '@/lib/verse/shelf';
 import { getAuthorEssays } from '@/lib/verse/essays';
 import { getProfileVisibility } from '@/lib/verse/profile-visibility';
 import { defaultsFor } from '@/lib/verse/profile-sections';
+import { jsonLdScript } from '@/lib/verse/jsonld';
 import { deriveProfileStats } from '@/lib/verse/profile-stats';
 import { getUserActivity } from '@/lib/verse/activity';
 import { FanResumeBand } from '@/components/verse/profile/fan-resume-band';
@@ -339,42 +340,30 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         <ProfileTabs profileUsername={profile.username} initialQuizzes={initialQuizzes} creatorId={profile.id} />
       </div>
 
-      {/* BreadcrumbList structured data (kept) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
-              { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
-            ],
-          }),
-        }}
-      />
+      {/* BreadcrumbList structured data (QA class 4: displayName escaped at the sink) */}
+      {jsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+          { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
+        ],
+      })}
 
-      {profile.total_quizzes_created >= 3 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'ProfilePage',
-              mainEntity: {
-                '@type': 'Person',
-                name: displayName,
-                url: `https://kpopquiz.org/u/${profile.username}`,
-                interactionStatistic: [{
-                  '@type': 'InteractionCounter',
-                  interactionType: 'https://schema.org/CreateAction',
-                  userInteractionCount: profile.total_quizzes_created,
-                }],
-              },
-            }),
-          }}
-        />
-      )}
+      {profile.total_quizzes_created >= 3 && jsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        mainEntity: {
+          '@type': 'Person',
+          name: displayName,
+          url: `https://kpopquiz.org/u/${profile.username}`,
+          interactionStatistic: [{
+            '@type': 'InteractionCounter',
+            interactionType: 'https://schema.org/CreateAction',
+            userInteractionCount: profile.total_quizzes_created,
+          }],
+        },
+      })}
     </div>
   );
 }
