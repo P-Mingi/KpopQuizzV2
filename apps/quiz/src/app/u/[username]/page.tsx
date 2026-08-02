@@ -14,6 +14,11 @@ import { PhotocardCollectionCard } from '@/components/verse/photocard-collection
 import { ShelfManager } from '@/components/verse/shelf-manager';
 import { getPublicShelfCards } from '@/lib/verse/shelf';
 import { getAuthorEssays } from '@/lib/verse/essays';
+import { getProfileVisibility } from '@/lib/verse/profile-visibility';
+import { deriveProfileStats } from '@/lib/verse/profile-stats';
+import { getUserActivity } from '@/lib/verse/activity';
+import { FanResumeBand } from '@/components/verse/profile/fan-resume-band';
+import { FanResumeOwner } from '@/components/verse/profile/fan-resume-owner';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -141,6 +146,31 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   // V-ESSAYS-MAX step 6: the author's published essays (feeds V-PROFILE-ONE).
   const authorEssays = await safeFetch(getAuthorEssays(profile.id), [], '[u/[username]] getAuthorEssays');
 
+  // V-PROFILE-ONE step 3: the fan resume (private by default, per-section opt-in).
+  // The SERVER renders the STRANGER view only, and REDACTS every private section
+  // so private stats never reach the HTML (hiding in CSS would leak them in source).
+  // The owner island (below) fetches the full band for the signed-in owner alone.
+  const [visibility, fullStats, fullActivity] = await Promise.all([
+    safeFetch(getProfileVisibility(profile.id), null, '[u/[username]] getProfileVisibility'),
+    safeFetch(deriveProfileStats(profile.id), null, '[u/[username]] deriveProfileStats'),
+    safeFetch(getUserActivity(profile.id, { limit: 12 }), [], '[u/[username]] getUserActivity'),
+  ]);
+  const publicResume = visibility && fullStats ? {
+    username: profile.username,
+    visibility,
+    stats: {
+      contribXp: visibility.contrib_xp ? fullStats.contribXp : 0,
+      pages: visibility.pages ? fullStats.pages : 0,
+      essays: visibility.essays ? fullStats.essays : 0,
+      cards: visibility.cards ? fullStats.cards : 0,
+      quizAccuracy: visibility.quiz ? fullStats.quizAccuracy : null,
+      quizPlays: fullStats.quizPlays,
+      spaces: visibility.roles ? fullStats.spaces : [],
+    },
+    activity: visibility.activity ? fullActivity : [],
+  } : null;
+  const resumeNow = Date.now();
+
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
   for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>) {
@@ -240,6 +270,12 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       {/* Moderator: send this user a personalized notification. Renders only for
           admins, and never on their own profile (self-check inside). */}
       <ModNotifyButton recipientUsername={profile.username} />
+
+      {/* V-PROFILE-ONE step 3: the fan resume. The server renders only the
+          opted-in-public sections (redacted, so private data never ships); the
+          owner island swaps in the full band for the signed-in owner. */}
+      {publicResume ? <div id="resume-public"><FanResumeBand data={publicResume} mode="public" nowMs={resumeNow} /></div> : null}
+      <FanResumeOwner profileUsername={profile.username} />
 
       {/* W4.2/W4.5: Verse memberships + edit-contribution graph (both min-gated). */}
       <SpaceMembershipsCard userId={profile.id} />
