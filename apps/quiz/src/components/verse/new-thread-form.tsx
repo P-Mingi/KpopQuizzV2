@@ -44,10 +44,10 @@ export function NewThreadForm({ groupId, groupSlug }: { groupId: number; groupSl
   return (
     <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
       <label className="mb-1 block text-[11px] font-bold uppercase tracking-wide text-tertiary" htmlFor="nt-title">Thread title</label>
-      <input id="nt-title" value={title} maxLength={140} onChange={(e) => setTitle(e.target.value)} placeholder="What do you want to talk about?" className="mb-3 w-full rounded-lg border px-3 py-2 text-sm font-semibold" style={{ borderColor: 'var(--verse-line)', background: 'var(--bg-surface)', color: 'var(--verse-ink)' }} />
+      <input id="nt-title" autoFocus value={title} maxLength={140} onChange={(e) => setTitle(e.target.value)} placeholder="What do you want to talk about?" className="mb-3 w-full rounded-lg border px-3 py-2 text-sm font-semibold" style={{ borderColor: 'var(--verse-line)', background: 'var(--bg-surface)', color: 'var(--verse-ink)' }} />
       <label className="mb-1 block text-[11px] font-bold uppercase tracking-wide text-tertiary" htmlFor="nt-body">Opening post <span className="font-normal normal-case">(optional)</span></label>
       <textarea id="nt-body" value={body} maxLength={2000} onChange={(e) => setBody(e.target.value)} rows={3} placeholder="Say more…" className="mb-3 w-full rounded-lg border px-3 py-2 text-sm" style={{ borderColor: 'var(--verse-line)', background: 'var(--bg-surface)', color: 'var(--verse-ink)' }} />
-      {err ? <p className="mb-2 text-xs font-semibold" style={{ color: 'var(--verse-danger, #c0392b)' }}>{err}</p> : null}
+      {err ? <p role="alert" className="mb-2 text-xs font-semibold" style={{ color: 'var(--verse-danger, #c0392b)' }}>{err}</p> : null}
       <div className="flex gap-2">
         <button type="button" onClick={submit} disabled={busy || !title.trim()} className="rounded-full px-4 py-1.5 text-sm font-bold disabled:opacity-50" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, #fff)' }}>{busy ? 'Posting…' : 'Post thread'}</button>
         <button type="button" onClick={() => { setOpen(false); setErr(null); }} className="rounded-full border px-4 py-1.5 text-sm font-semibold" style={{ borderColor: 'var(--verse-line)', color: 'var(--verse-ink)' }}>Cancel</button>

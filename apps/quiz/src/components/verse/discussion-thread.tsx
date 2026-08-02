@@ -20,8 +20,11 @@ function ago(iso: string): string {
 
 /** W4.6 - per-page discussion (talk page) with one-level replies. Any signed-in user can
  * comment; authors can delete their own; curators moderate via the API. */
-export function DiscussionThread({ entityType, entityId, groupId, threadId }: { entityType: string; entityId: string; groupId?: number; threadId?: number }): React.ReactElement {
-  const [comments, setComments] = useState<Comment[]>([]);
+export function DiscussionThread({ entityType, entityId, groupId, threadId, initialComments }: { entityType: string; entityId: string; groupId?: number; threadId?: number; initialComments?: Comment[] }): React.ReactElement {
+  // Seed from a server render (thread pages pass initialComments) so the replies
+  // are in the crawlable HTML, not JS-only; the mount effect still refetches for
+  // the live view (mine flags, freshest ordering).
+  const [comments, setComments] = useState<Comment[]>(initialComments ?? []);
   const [signedIn, setSignedIn] = useState(false);
   const [draft, setDraft] = useState('');
   const [replyTo, setReplyTo] = useState<number | null>(null);
@@ -65,7 +68,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId }: { 
         <div className="flex items-start gap-2.5">
           <UserAvatar username={c.author?.username ?? name} avatarUrl={c.author?.avatarUrl ?? null} bgColor={c.author?.avatarBg ?? '#6b7280'} textColor={c.author?.avatarText ?? '#ffffff'} size={28} />
           <div className="min-w-0 flex-1">
-            <p className="text-xs">{c.author?.href ? <Link href={c.author.href} className="font-bold text-primary no-underline hover:underline">{name}</Link> : <span className="font-bold text-primary">{name}</span>} <RoleBadge role={c.author?.role} /> <span className="text-tertiary">{ago(c.createdAt)}</span></p>
+            <p className="text-xs">{c.author?.href ? <Link href={c.author.href} className="font-bold text-primary no-underline hover:underline">{name}</Link> : <span className="font-bold text-primary">{name}</span>} <RoleBadge role={c.author?.role} /> <span className="text-tertiary" suppressHydrationWarning>{ago(c.createdAt)}</span></p>
             <p className="mt-0.5 whitespace-pre-wrap text-sm text-secondary">{c.body}</p>
             <div className="mt-1 flex gap-3 text-xs">
               {!isReply && signedIn ? <button onClick={() => { setReplyTo(replyTo === c.id ? null : c.id); setReplyDraft(''); }} className="font-semibold text-tertiary hover:text-secondary">Reply</button> : null}
@@ -73,7 +76,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId }: { 
             </div>
             {replyTo === c.id ? (
               <div className="mt-2 flex gap-2">
-                <input value={replyDraft} onChange={(e) => setReplyDraft(e.target.value)} placeholder="Reply…" className="flex-1 rounded-lg border border-default bg-transparent px-3 py-1.5 text-sm" />
+                <input value={replyDraft} onChange={(e) => setReplyDraft(e.target.value)} placeholder="Reply…" aria-label="Write a reply" className="flex-1 rounded-lg border border-default bg-transparent px-3 py-1.5 text-sm" />
                 <button onClick={() => post(replyDraft, c.id)} disabled={busy} className="rounded-lg bg-primary px-3 text-sm font-semibold text-inverse disabled:opacity-50">Send</button>
               </div>
             ) : null}
@@ -88,7 +91,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId }: { 
     <section className="mt-2">
       <h2 className="mb-3 text-sm font-bold uppercase tracking-wide" style={{ color: 'var(--verse-ink)' }}>Discussion{comments.length ? ` (${comments.length})` : ''}</h2>
       <div className="mb-4 flex gap-2">
-        <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) post(draft, null); }} placeholder={signedIn ? 'Add to the discussion…' : 'Sign in to comment…'} className="flex-1 rounded-lg border border-default bg-transparent px-3 py-2 text-sm" />
+        <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) post(draft, null); }} placeholder={signedIn ? 'Add to the discussion…' : 'Sign in to comment…'} aria-label="Add to the discussion" className="flex-1 rounded-lg border border-default bg-transparent px-3 py-2 text-sm" />
         <button onClick={() => post(draft, null)} disabled={busy} className="rounded-lg bg-primary px-4 text-sm font-semibold text-inverse disabled:opacity-50">Post</button>
       </div>
       {comments.length === 0 ? <p className="text-sm text-tertiary">No comments yet. Start the conversation.</p> : <div className="space-y-4">{comments.map((c) => <Row key={c.id} c={c} />)}</div>}

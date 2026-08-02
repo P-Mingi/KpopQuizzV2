@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getDiscussions, getThreadComments } from '@/lib/verse/discussions';
 import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
-import { checkText, fileFlag, underRateCap, isTrusted } from '@/lib/verse/moderation';
+import { checkText, fileFlag, underRateCap, isTrusted, isBlockedInSpace } from '@/lib/verse/moderation';
 
 import type { NextRequest } from 'next/server';
 
@@ -59,13 +59,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     entity_type = tr.entity_type ?? 'group';
     entity_id = tr.entity_id ?? String(tr.group_id);
   }
+  // Block state: a member blocked in this space may not post a comment OR a reply.
+  const blockGid = await resolveEntityGroupId(entity_type, entity_id);
+  if (blockGid && await isBlockedInSpace(user.id, blockGid)) return NextResponse.json({ error: 'blocked' }, { status: 403 });
   // A reply must attach to a real top-level comment in the SAME scope (thread or
   // page), one level only.
   let parent: number | null = null;
   if (parentId) {
     const { data: p } = await svc.from('verse_discussions').select('id, parent_id, entity_type, entity_id, thread_id').eq('id', parentId).maybeSingle();
     const pr = p as { id: number; parent_id: number | null; entity_type: string; entity_id: string; thread_id: number | null } | null;
-    const sameScope = threadId ? pr?.thread_id === threadId : (pr?.entity_type === entity_type && pr?.entity_id === entity_id);
+    const sameScope = threadId ? pr?.thread_id === threadId : (pr?.thread_id == null && pr?.entity_type === entity_type && pr?.entity_id === entity_id);
     if (!pr || pr.parent_id != null || !sameScope) return NextResponse.json({ error: 'bad_parent' }, { status: 400 });
     parent = pr.id;
   }

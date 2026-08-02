@@ -82,5 +82,12 @@ export function breadcrumbLd(items: { name: string; url: string }[]): Record<str
 }
 
 export function jsonLdScript(obj: Record<string, unknown>): React.ReactElement {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }} />;
+  // Escape the HTML-significant characters as JSON unicode escapes (still valid
+  // JSON) so a user-controlled string value (e.g. a thread title containing
+  // </script>) can never break out of the inline ld+json script. Protects every
+  // caller of this shared sink.
+  const json = JSON.stringify(obj)
+    .replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />;
 }

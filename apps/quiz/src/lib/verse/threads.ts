@@ -32,9 +32,12 @@ export async function listThreads(groupId: number): Promise<ThreadSummary[]> {
   const rows = (threads ?? []).map(toRow);
   if (rows.length === 0) return [];
 
-  // Comment counts + last activity per thread, in one read.
+  // Comment counts + last activity per thread. .order gives a deterministic,
+  // most-recent slice under the 1000-row read cap so last-activity stays accurate;
+  // an RPC aggregate is the fix once a space exceeds ~1000 thread comments.
   const { data: comments } = await db.from('verse_discussions')
-    .select('thread_id, created_at').in('thread_id', rows.map((r) => r.id)).eq('status', 'visible').limit(4000);
+    .select('thread_id, created_at').in('thread_id', rows.map((r) => r.id)).eq('status', 'visible')
+    .order('created_at', { ascending: false }).limit(1000);
   const count = new Map<number, number>();
   const last = new Map<number, string>();
   for (const c of (comments ?? []) as Array<{ thread_id: number; created_at: string }>) {
@@ -46,7 +49,7 @@ export async function listThreads(groupId: number): Promise<ThreadSummary[]> {
   return rows.map((r) => ({
     ...r,
     author: r.createdBy ? authors.get(r.createdBy) ?? null : null,
-    replyCount: count.get(r.id) ?? 0,
+    replyCount: Math.max(0, (count.get(r.id) ?? 0) - 1), // exclude the opening post
     lastActivityAt: last.get(r.id) ?? r.createdAt,
   }));
 }
@@ -61,5 +64,5 @@ export async function getThreadBySlug(groupId: number, slug: string): Promise<Th
   const row = toRow(data as Record<string, unknown>);
   const authors = await resolveSpaceIdentities([row.createdBy], groupId);
   const { count } = await db.from('verse_discussions').select('id', { count: 'exact', head: true }).eq('thread_id', row.id).eq('status', 'visible');
-  return { ...row, author: row.createdBy ? authors.get(row.createdBy) ?? null : null, replyCount: count ?? 0, lastActivityAt: row.updatedAt };
+  return { ...row, author: row.createdBy ? authors.get(row.createdBy) ?? null : null, replyCount: Math.max(0, (count ?? 0) - 1), lastActivityAt: row.updatedAt };
 }

@@ -6,6 +6,7 @@ import { DiscussionThread } from '@/components/verse/discussion-thread';
 import { WatchButton } from '@/components/verse/watch-button';
 import { getSpace } from '@/lib/verse/space';
 import { getThreadBySlug } from '@/lib/verse/threads';
+import { getThreadComments } from '@/lib/verse/discussions';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
@@ -36,6 +37,9 @@ export default async function ThreadPage({ params }: { params: Promise<{ slug: s
   const t = await getThreadBySlug(space.group.id, thread);
   if (!t) notFound();
 
+  // Server-render the replies so the discussion is in the crawlable HTML (not a
+  // JS-only doorway); the client island still refetches for the live view.
+  const initialComments = await getThreadComments(t.id, space.group.id);
   const authorName = t.author?.displayName ?? 'a fan';
 
   return (
@@ -45,6 +49,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ slug: s
         headline: t.title, datePublished: t.createdAt, dateModified: t.lastActivityAt,
         author: { '@type': 'Person', name: authorName },
         about: space.group.name, isAccessibleForFree: true,
+        commentCount: t.replyCount,
         interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/CommentAction', userInteractionCount: t.replyCount },
         mainEntityOfPage: `https://kpopquiz.org/verse/${slug}/community/${t.slug}`,
       })}
@@ -61,7 +66,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ slug: s
       </div>
 
       <div className="mt-4">
-        <DiscussionThread entityType="group" entityId={String(space.group.id)} groupId={space.group.id} threadId={t.id} />
+        <DiscussionThread entityType="group" entityId={String(space.group.id)} groupId={space.group.id} threadId={t.id} initialComments={initialComments} />
       </div>
     </article>
   );

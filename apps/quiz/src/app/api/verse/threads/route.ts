@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { checkText, fileFlag, underRateCap, isTrusted } from '@/lib/verse/moderation';
+import { checkText, fileFlag, underRateCap, isTrusted, isBlockedInSpace } from '@/lib/verse/moderation';
 import { slugify } from '@/lib/verse/slug';
 
 import type { NextRequest } from 'next/server';
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
 
+  if (await isBlockedInSpace(user.id, groupId)) return NextResponse.json({ error: 'blocked' }, { status: 403 });
   if (!await underRateCap('verse_threads', 'created_by', user.id, 300, 5)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   const linky = `${title}\n${text}`;
   if (/https?:\/\//i.test(linky) && !isTrusted((user as { created_at?: string }).created_at ?? null)) return NextResponse.json({ error: 'new_account_no_links' }, { status: 422 });
@@ -33,7 +34,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
 
   const svc = createServiceRoleClient();
-  const base = slugify(title).slice(0, 50) || 'thread';
+  // slugify keeps Hangul (fine for entity URLs elsewhere); a thread slug must be
+  // ASCII-clean for a shareable permalink, so strip to [a-z0-9-] and fall back.
+  const base = (slugify(title).replace(/[^a-z0-9-]+/g, '').replace(/^-+|-+$/g, '').slice(0, 50)) || 'thread';
   let threadId: number | null = null; let slug = base;
   for (let attempt = 0; attempt < 5 && threadId === null; attempt++) {
     slug = attempt === 0 ? base : `${base}-${attempt + 1}`;

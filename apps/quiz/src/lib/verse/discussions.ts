@@ -12,6 +12,7 @@ export async function getDiscussions(entityType: string, entityId: string, group
   const { data } = await db.from('verse_discussions')
     .select('id, author, body, parent_id, created_at')
     .eq('entity_type', entityType).eq('entity_id', entityId).eq('status', 'visible')
+    .is('thread_id', null) // entity talk-page reads exclude thread-scoped comments (which share the group anchor)
     .order('created_at', { ascending: true }).limit(300);
   return buildTree((data ?? []) as CommentRow[], groupId);
 }

@@ -43,6 +43,16 @@ export async function underRateCap(table: string, userCol: string, userId: strin
   return (count ?? 0) < max;
 }
 
+/** True if the user is BLOCKED in this space (space_members.status = 'blocked').
+ * A blocked member may not post threads, comments or replies; a non-member (no
+ * row) still may. Called on every write surface so block state is enforced, not
+ * just reflected in the role badge. */
+export async function isBlockedInSpace(userId: string, groupId: number): Promise<boolean> {
+  const db = createServiceRoleClient();
+  const { data } = await db.from('space_members').select('status').eq('group_id', groupId).eq('user_id', userId).maybeSingle();
+  return (data as { status: string } | null)?.status === 'blocked';
+}
+
 /** Trust tier from account age + XP-ish signals (code-only). New accounts are limited. */
 export function isTrusted(accountCreatedAt: string | null): boolean {
   if (!accountCreatedAt) return false;
