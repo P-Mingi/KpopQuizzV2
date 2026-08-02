@@ -54,3 +54,15 @@ export async function purgeUserProfileData(userId: string): Promise<{ ok: boolea
   const { error } = await svc.from('profile_section_visibility').delete().eq('user_id', userId);
   return error ? { ok: false, error: error.message } : { ok: true };
 }
+
+// V-COMM-3 - account-deletion policy for THREADS (mirrors essay series): a thread
+// is shared community content, so it PERSISTS; only the author reference is nulled.
+// verse_threads.created_by is a nullable bare UUID for exactly this (migration 144
+// comment: "nulled on account deletion; thread persists"). Thread comments
+// (verse_discussions.author, NOT NULL) are the same anonymize-later concern as essay
+// bodies. Proven live by scripts/verify-threads-cleanup.mts.
+export async function cleanupUserThreadsData(userId: string): Promise<{ threadsNulled: number }> {
+  const svc = createServiceRoleClient();
+  const { data } = await svc.from('verse_threads').update({ created_by: null }).eq('created_by', userId).select('id');
+  return { threadsNulled: (data ?? []).length };
+}
