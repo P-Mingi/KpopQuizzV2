@@ -26,7 +26,7 @@ function ByLine({ e }: { e: EssayCard }): React.ReactElement {
   const name = authorName(e);
   return (
     <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-secondary">
-      <span>by {e.author?.username ? <Link href={`/u/${e.author.username}`} className="verse-link font-semibold">{name}</Link> : <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}</span>
+      <span>by {e.author?.href ? <Link href={e.author.href} className="verse-link font-semibold">{name}</Link> : <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}</span>
       <RoleBadge role={e.authorRole} />
       <span aria-hidden className="text-tertiary">·</span>
       <span className="text-tertiary tabular-nums">{e.readingMin} min read</span>

@@ -89,7 +89,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
           <span className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold" style={{ background: e.author?.avatarBg ?? 'var(--verse-soft-strong)', color: e.author?.avatarText ?? 'var(--verse-ink)' }}>{name.slice(0, 1).toUpperCase()}</span>
         )}
         <span className="text-sm">
-          {e.author?.username ? <Link href={`/u/${e.author.username}`} className="verse-link font-bold">{name}</Link> : <span className="font-bold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}
+          {e.author?.href ? <Link href={e.author.href} className="verse-link font-bold">{name}</Link> : <span className="font-bold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}
         </span>
         <RoleBadge role={e.authorRole} />
         <span aria-hidden className="text-tertiary">·</span>

@@ -4,21 +4,21 @@
 // roles merged separately (no FK).
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { plainTextExcerpt, splitTipTapForFold } from '@/lib/verse/render-content';
+import { resolveIdentities, resolveSpaceIdentities } from '@/lib/verse/identity';
 
-export interface EssayAuthor { username: string | null; displayName: string | null; avatarUrl: string | null; avatarBg: string | null; avatarText: string | null }
+// Byline identity is resolved through the shared V-PROFILE-ONE resolver (the single
+// source: system display + normalized fallback + the profile href for cross-links).
+export interface EssayAuthor { username: string | null; displayName: string; avatarUrl: string | null; avatarBg: string | null; avatarText: string | null; href: string | null; isSystem: boolean }
 export interface EssaySummary { id: number; title: string; slug: string | null; status: string; author: EssayAuthor | null; authorId: string; featuredAt: string | null; createdAt: string }
 export interface EssayFull extends EssaySummary { content: unknown; groupId: number }
 
-const PROF_COLS = 'id, username, display_name, avatar_url, avatar_bg, avatar_text';
-type Prof = { id: string; username: string | null; display_name: string | null; avatar_url: string | null; avatar_bg: string | null; avatar_text: string | null };
-const toAuthor = (p: Prof | undefined): EssayAuthor | null => p ? { username: p.username, displayName: p.display_name, avatarUrl: p.avatar_url, avatarBg: p.avatar_bg, avatarText: p.avatar_text } : null;
-
 async function attachAuthors<T extends { authorId: string }>(rows: T[]): Promise<Array<T & { author: EssayAuthor | null }>> {
   if (rows.length === 0) return [];
-  const db = createServiceRoleClient();
-  const { data } = await db.from('profiles').select(PROF_COLS).in('id', [...new Set(rows.map((r) => r.authorId))]);
-  const byId = new Map((data ?? []).map((p: Prof) => [p.id, p]));
-  return rows.map((r) => ({ ...r, author: toAuthor(byId.get(r.authorId)) }));
+  const idents = await resolveIdentities(rows.map((r) => r.authorId));
+  return rows.map((r) => {
+    const id = idents.get(r.authorId);
+    return { ...r, author: id ? { username: id.username, displayName: id.displayName, avatarUrl: id.avatarUrl, avatarBg: id.avatarBg, avatarText: id.avatarText, href: id.href, isSystem: id.isSystem } : null };
+  });
 }
 
 /** Featured essays for a space (public / ISR). */
@@ -60,13 +60,12 @@ export interface MagazineData { hero: (EssayCard & { commentCount: number }) | n
 
 const readingMin = (words: number): number => Math.max(1, Math.round(words / 200));
 
-/** Attach each author's space role (batch), for the role badge. */
+/** Attach each author's space role (batch), for the role badge. Via the shared
+ * resolver, so block state is honored (a blocked author shows no role badge). */
 async function attachRoles<T extends { authorId: string }>(rows: T[], groupId: number): Promise<Array<T & { authorRole: string | null }>> {
   if (!rows.length) return rows.map((r) => ({ ...r, authorRole: null }));
-  const db = createServiceRoleClient();
-  const { data } = await db.from('space_members').select('user_id, role, status').eq('group_id', groupId).in('user_id', [...new Set(rows.map((r) => r.authorId))]);
-  const byId = new Map((data ?? []).filter((m: { status: string }) => m.status === 'active').map((m: { user_id: string; role: string }) => [m.user_id, m.role]));
-  return rows.map((r) => ({ ...r, authorRole: byId.get(r.authorId) ?? null }));
+  const idents = await resolveSpaceIdentities(rows.map((r) => r.authorId), groupId);
+  return rows.map((r) => { const role = idents.get(r.authorId)?.role; return { ...r, authorRole: role && role !== 'visitor' ? role : null }; });
 }
 
 /** The whole magazine for a space: hero + series shelves + latest, all min-gated. */
