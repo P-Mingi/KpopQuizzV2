@@ -5,6 +5,7 @@ import { getSpace } from '@/lib/verse/space';
 import { MemberDirectory } from '@/components/verse/member-directory';
 import { WatchButton } from '@/components/verse/watch-button';
 import { NewThreadForm } from '@/components/verse/new-thread-form';
+import { FeedOptInToggle } from '@/components/verse/feed-opt-in-toggle';
 import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { listThreads } from '@/lib/verse/threads';
 
@@ -59,6 +60,9 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
         <Link href={`/verse/${slug}/changes`} className="text-xs font-semibold text-secondary no-underline hover:text-primary">Recent changes</Link>
         <WatchButton entityType="group" entityId={String(group.id)} />
       </div>
+
+      {/* V-COMM-3: the curator opt-in for the global cross-space feed (curator only). */}
+      <FeedOptInToggle groupId={group.id} />
 
       {/* V-COMM-3: threads. Each is an addressable, shareable discussion. */}
       <section aria-label="Threads">
