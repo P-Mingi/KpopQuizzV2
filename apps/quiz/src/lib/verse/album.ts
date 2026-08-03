@@ -14,13 +14,17 @@ export interface AlbumDetail {
 
 export async function getAlbum(groupSlug: string, albumSlugParam: string): Promise<AlbumDetail | null> {
   const db = createPublicReadClient();
-  const { data: group } = await db.from('groups').select('id, name, slug, fandom_name').eq('slug', groupSlug).maybeSingle();
+  const { data: group, error: gErr } = await db.from('groups').select('id, name, slug, fandom_name').eq('slug', groupSlug).maybeSingle();
+  // ISR bake law: page-defining reads. Throw so a transient failure never bakes
+  // a notFound() over a real album.
+  if (gErr) throw new Error(`getAlbum(${groupSlug}): group read: ${gErr.message}`);
   if (!group) return null;
 
-  const { data: albums } = await db
+  const { data: albums, error: aErr } = await db
     .from('albums')
     .select('id, title, release_date, type, region, review_flag, musicbrainz_mbid, era_id')
     .eq('group_id', group.id).order('release_date', { ascending: true, nullsFirst: false });
+  if (aErr) throw new Error(`getAlbum(${groupSlug}): albums read: ${aErr.message}`);
   const rows = (albums ?? []) as Array<{ id: number; title: string; release_date: string | null; type: string; region: string; review_flag: boolean; musicbrainz_mbid: string | null; era_id: number | null }>;
   const album = rows.find((a) => albumSlug(a.title) === albumSlugParam);
   if (!album) return null;

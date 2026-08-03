@@ -255,11 +255,15 @@ export async function readPassportSpine(
   supabase: SupabaseClient,
   userId: string,
 ): Promise<PassportSpine | null> {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('profiles')
     .select(SPINE_COLUMNS)
     .eq('id', userId)
     .maybeSingle();
+  // ISR bake law: the passport spine is the profile body; throw so a transient
+  // error never bakes an all-zero passport (on /u/[username] ISR; on dynamic
+  // /me + the API routes it just 500s and retries).
+  if (error) throw new Error(`readPassportSpine(${userId}): ${error.message}`);
   if (!data) return null;
   const r = data as unknown as Record<string, unknown>;
   return {
@@ -287,10 +291,12 @@ export async function readPassportGroupStats(
   supabase: SupabaseClient,
   userId: string,
 ): Promise<PassportGroupStat[]> {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('player_group_mastery')
     .select('group_id, songs_played, songs_correct, best_score, mastery_level')
     .eq('player_id', userId);
+  // ISR bake law: the passport's mastery/spaces section; throw on error.
+  if (error) throw new Error(`readGroupStats(${userId}): ${error.message}`);
   if (!data) return [];
   return (data as Array<Record<string, unknown>>).map((r) => {
     const played = (r.songs_played as number) ?? 0;

@@ -39,11 +39,15 @@ export interface SectionState {
 /** Public read of one section's live content (for rendering + seeding the editor). */
 export async function getSection(entityType: string, entityId: string, section: string): Promise<SectionState> {
   const db = createPublicReadClient();
-  const { data } = await db
+  const { data, error } = await db
     .from('verse_content')
     .select('content, current_revision_id, locked, lock_reason')
     .eq('entity_type', entityType).eq('entity_id', entityId).eq('section_key', section)
     .maybeSingle();
+  // ISR bake law: this is the page-defining prose read (overview/lore/about/story).
+  // A swallowed error would bake the empty state as truth for the ISR window;
+  // throw so the request 500s and retries.
+  if (error) throw new Error(`getSection(${entityType}/${entityId}/${section}): ${error.message}`);
   if (!data) return { content: null, currentRevisionId: null, locked: false, lockReason: null };
   const row = data as { content: unknown; current_revision_id: number | null; locked: boolean; lock_reason: string | null };
   return { content: row.content ?? null, currentRevisionId: row.current_revision_id, locked: row.locked, lockReason: row.lock_reason };

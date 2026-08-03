@@ -33,9 +33,12 @@ export interface WikiPage {
 /** The published page at a live slug, or null. */
 export const getPublishedPage = cache(async (groupId: number, slug: string): Promise<WikiPage | null> => {
   const db = createPublicReadClient();
-  const { data } = await db.from('verse_pages')
+  const { data, error } = await db.from('verse_pages')
     .select('id, group_id, kind, slug, title, parent_page_id, infobox, status, is_stub, created_by, published_at, updated_at')
     .eq('group_id', groupId).eq('slug', slug).eq('status', 'published').maybeSingle();
+  // ISR bake law: this read decides whether the wiki page 404s; throw on error
+  // so a transient failure never bakes a notFound() over a real published page.
+  if (error) throw new Error(`getPublishedPage(${groupId}/${slug}): ${error.message}`);
   return (data as WikiPage | null) ?? null;
 });
 
@@ -61,9 +64,11 @@ export function resolveWikiSlug<P, A>(live: P | null, alias: A | null): { kind: 
 /** Body doc for a published page (the verse_content rails). */
 export const getPageBody = cache(async (pageId: number): Promise<unknown | null> => {
   const db = createPublicReadClient();
-  const { data } = await db.from('verse_content')
+  const { data, error } = await db.from('verse_content')
     .select('content, updated_at')
     .eq('entity_type', 'page').eq('entity_id', String(pageId)).eq('section_key', 'body').maybeSingle();
+  // ISR bake law: the page body; throw so an error never bakes "no published text".
+  if (error) throw new Error(`getPageBody(${pageId}): ${error.message}`);
   return (data as { content: unknown } | null)?.content ?? null;
 });
 
@@ -80,10 +85,13 @@ export const pageAttribution = cache(async (pageId: number): Promise<{ maintaine
 /** Published pages of a space (the wiki index + related exits), newest first. */
 export const listPublishedPages = cache(async (groupId: number): Promise<WikiPage[]> => {
   const db = createPublicReadClient();
-  const { data } = await db.from('verse_pages')
+  const { data, error } = await db.from('verse_pages')
     .select('id, group_id, kind, slug, title, parent_page_id, infobox, status, is_stub, created_by, published_at, updated_at')
     .eq('group_id', groupId).eq('status', 'published')
     .order('published_at', { ascending: false, nullsFirst: false }).limit(500);
+  // ISR bake law: the atlas index / page lists are this read; throw so an error
+  // never bakes "no pages written yet" over a real set.
+  if (error) throw new Error(`listPublishedPages(${groupId}): ${error.message}`);
   return (data ?? []) as WikiPage[];
 });
 

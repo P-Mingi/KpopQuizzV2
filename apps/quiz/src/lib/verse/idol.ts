@@ -40,16 +40,20 @@ function fmtDate(d: string): string {
 
 export async function getIdol(groupSlug: string, idolSlugParam: string): Promise<IdolDetail | null> {
   const db = createPublicReadClient();
-  const { data: group } = await db
+  const { data: group, error: gErr } = await db
     .from('groups')
     .select('id, name, slug, fandom_name, display_color, text_color, logo_url, inception_date')
     .eq('slug', groupSlug).maybeSingle();
+  // ISR bake law: both reads define the member page. Throw on error so a
+  // transient failure does not bake a notFound() over a real idol.
+  if (gErr) throw new Error(`getIdol(${groupSlug}): group read: ${gErr.message}`);
   if (!group) return null;
 
-  const { data: idols } = await db
+  const { data: idols, error: iErr } = await db
     .from('idols')
     .select('id, name, name_hangul, name_romanized, positions, photo_url, birth_date, nationality, height_cm, blood_type, mbti, unit_id')
     .eq('group_id', group.id).eq('active', true);
+  if (iErr) throw new Error(`getIdol(${groupSlug}): idols read: ${iErr.message}`);
   const rows = (idols ?? []) as Array<{ id: number; name: string; name_hangul: string | null; name_romanized: string | null; positions: string[] | null; photo_url: string | null; birth_date: string | null; nationality: string | null; height_cm: number | null; blood_type: string | null; mbti: string | null; unit_id: number | null }>;
   const idol = rows.find((r) => idolSlug(r.name) === idolSlugParam);
   if (!idol) return null;

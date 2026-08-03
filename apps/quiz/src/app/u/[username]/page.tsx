@@ -123,7 +123,11 @@ const cardWrap: React.CSSProperties = {
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
   const { username } = await params;
-  const profile = await safeFetch(getProfileByUsername(username), null, '[u/[username]] getProfileByUsername');
+  // ISR bake law: getProfileByUsername already THROWS on a real read error and
+  // returns null only for a genuinely missing user. safeFetch here would catch
+  // that throw and bake a notFound() over a real profile - so it does NOT wrap
+  // the primary read (the secondary reads below still degrade via safeFetch).
+  const profile = await getProfileByUsername(username);
   if (!profile) notFound();
 
   // P step 6: show the "{member}-coded" flair only when the owner opted in.

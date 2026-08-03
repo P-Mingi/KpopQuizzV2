@@ -30,10 +30,13 @@ const MIN_GROUPS = 2;
 // Groups that have a public Verse presence (>=1 album), with their category columns.
 const contentGroups = cache(async (): Promise<Array<{ id: number; slug: string; name: string; fandom_name: string | null; generation: string | null; record_label: string | null; origin_country: string | null }>> => {
   const db = createPublicReadClient();
-  const { data: albums } = await db.from('albums').select('group_id');
+  const { data: albums, error: albErr } = await db.from('albums').select('group_id');
+  // ISR bake law: the category directory + tag hubs are defined by these reads.
+  if (albErr) throw new Error(`contentGroups: albums read: ${albErr.message}`);
   const ids = [...new Set(((albums ?? []) as Array<{ group_id: number }>).map((a) => a.group_id))];
   if (!ids.length) return [];
-  const { data: groups } = await db.from('groups').select('id, slug, name, fandom_name, generation, record_label, origin_country').in('id', ids);
+  const { data: groups, error: grpErr } = await db.from('groups').select('id, slug, name, fandom_name, generation, record_label, origin_country').in('id', ids);
+  if (grpErr) throw new Error(`contentGroups: groups read: ${grpErr.message}`);
   return (groups ?? []) as never[];
 });
 

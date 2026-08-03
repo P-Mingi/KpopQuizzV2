@@ -20,7 +20,9 @@ export async function photocardCount(groupId: number): Promise<number> {
 /** Published photocards for a space (public / ISR). */
 export async function getPhotocards(groupId: number): Promise<Photocard[]> {
   const db = createPublicReadClient();
-  const { data } = await db.from('photocards').select('id, name, card_type, era, version, rarity, image_url, idol_id, album_id, source_url').eq('group_id', groupId).order('era', { ascending: false, nullsFirst: false }).order('name');
+  const { data, error } = await db.from('photocards').select('id, name, card_type, era, version, rarity, image_url, idol_id, album_id, source_url').eq('group_id', groupId).order('era', { ascending: false, nullsFirst: false }).order('name');
+  // ISR bake law: the binder IS this page; throw so an error never bakes "0 cards".
+  if (error) throw new Error(`getPhotocards(${groupId}): ${error.message}`);
   return (data ?? []) as Photocard[];
 }
 

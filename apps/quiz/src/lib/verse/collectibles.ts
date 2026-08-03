@@ -20,10 +20,12 @@ export async function collectibleCount(groupId: number): Promise<number> {
 /** Published collectibles for a space (public / ISR), ordered merch-then-lightstick, newest era first. */
 export async function getCollectibles(groupId: number): Promise<Collectible[]> {
   const db = createPublicReadClient();
-  const { data } = await db.from('collectibles')
+  const { data, error } = await db.from('collectibles')
     .select('id, kind, name, category, era, version, image_url, source_url')
     .eq('group_id', groupId).eq('status', 'published')
     .order('kind').order('era', { ascending: false, nullsFirst: false }).order('name');
+  // ISR bake law: the shelf IS this page; throw so an error never bakes an empty shelf.
+  if (error) throw new Error(`getCollectibles(${groupId}): ${error.message}`);
   return (data ?? []) as Collectible[];
 }
 
