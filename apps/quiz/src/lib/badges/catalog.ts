@@ -98,3 +98,18 @@ export function expandFamilies(): (BadgeTierDef & { family: string; category: Ba
 
 /** All new badge ids (for coverage checks + the completionist category map). */
 export const NEW_BADGE_TIERS = expandFamilies();
+
+/** For a new badge id: its metric + this tier's threshold + the family noun/label
+ * (drives the "locked as target: X / Y" progress on the shelf). Null for legacy. */
+export function tierMetaFor(badgeId: string): { metric: BadgeMetric; threshold: number; noun: string; label: string } | null {
+  for (const f of BADGE_FAMILIES) {
+    if (isOneTime(f)) { if (f.key === badgeId) return { metric: f.metric, threshold: 1, noun: f.noun, label: f.label }; continue; }
+    for (const t of f.tiers) if (`${f.key}_${t}` === badgeId) return { metric: f.metric, threshold: t, noun: f.noun, label: f.label };
+  }
+  return null;
+}
+
+/** Category of each new badge id (legacy ids are mapped in lib/badges.ts). */
+export const CATALOG_CATEGORY: Record<string, BadgeCategory> = Object.fromEntries(
+  BADGE_FAMILIES.flatMap((f) => (isOneTime(f) ? [f.key] : f.tiers.map((t) => `${f.key}_${t}`)).map((id) => [id, f.category])),
+);

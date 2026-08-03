@@ -11,13 +11,15 @@ interface Props {
   badge: BadgeDefinition;
   earned: boolean;
   earnedAt?: string | null;
+  /** progress toward a locked tiered badge, so the modal explains the target. */
+  progress?: { current: number; threshold: number; noun: string } | null;
   onClose: () => void;
 }
 
 // Badge lightbox (M1.15 follow-up). Tapping a coin opens it big enough to
 // actually read the art, with what it is and how it is earned. Locked badges
 // stay frosted here too, so opening one is a teaser rather than a spoiler.
-export function BadgeDetailModal({ badge, earned, earnedAt, onClose }: Props): React.ReactElement {
+export function BadgeDetailModal({ badge, earned, earnedAt, progress, onClose }: Props): React.ReactElement {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
@@ -60,6 +62,13 @@ export function BadgeDetailModal({ badge, earned, earnedAt, onClose }: Props): R
         <p className="bdm-name">{badge.name}</p>
         <p className="bdm-desc">{badge.description}</p>
 
+        {!earned && progress ? (
+          <div className="bdm-progress" role="img" aria-label={`${progress.current} of ${progress.threshold} ${progress.noun}`}>
+            <div className="bdm-progress-bar"><div className="bdm-progress-fill" style={{ width: `${Math.round((progress.current / progress.threshold) * 100)}%` }} /></div>
+            <p className="bdm-progress-txt">You have <strong>{progress.current.toLocaleString('en-US')}</strong> of {progress.threshold.toLocaleString('en-US')} {progress.noun}.</p>
+          </div>
+        ) : null}
+
         <span className={`bdm-state ${earned ? 'is-earned' : ''}`}>
           {earned ? (earnedLabel ? `Earned ${earnedLabel}` : 'Earned') : 'Not earned yet'}
         </span>
@@ -97,6 +106,11 @@ const MODAL_CSS = `
 }
 .bdm-name{font-size:17px;font-weight:700;color:var(--txt1);margin:8px 0 0}
 .bdm-desc{font-size:13px;color:var(--txt2);margin:6px 0 0;line-height:1.5}
+.bdm-progress{margin:14px auto 0;max-width:220px}
+.bdm-progress-bar{height:6px;border-radius:999px;background:var(--surface-alt);overflow:hidden}
+.bdm-progress-fill{height:100%;border-radius:999px;background:var(--brand);min-width:4px}
+.bdm-progress-txt{font-size:12px;color:var(--txt2);margin:7px 0 0}
+.bdm-progress-txt strong{color:var(--brand);font-variant-numeric:tabular-nums}
 .bdm-state{
   display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;
   font-size:11.5px;font-weight:600;color:var(--txt3);background:var(--surface-alt);

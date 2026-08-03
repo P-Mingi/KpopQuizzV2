@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { checkTierBadges } from '@/lib/badges/award';
+import { computeMetrics, grantEarnedTiers } from '@/lib/badges/award';
 import { getProfileById } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { getLatestPersonalityMatch } from '@/lib/personality/data';
@@ -39,10 +39,11 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   const profile = await getProfileById(user.id);
   if (!profile) redirect('/onboarding');
 
-  // V-UPGRADE-1: grant any newly-earned tiered badges (esp. Verse ones, which the
-  // play route does not cover) before reading the shelf, so the owner sees fresh
-  // badges on this load. Idempotent; degrades quietly if the check fails.
-  await checkTierBadges(createServiceRoleClient(), user.id).catch(() => []);
+  // V-UPGRADE-1: compute the owner's badge metrics ONCE - used both to grant any
+  // newly-earned tiers (esp. Verse ones the play route does not cover) and to show
+  // locked badges as targets ("31 / 50") on the shelf. Idempotent; degrades quietly.
+  const badgeMetrics = await computeMetrics(createServiceRoleClient(), user.id).catch(() => null);
+  if (badgeMetrics) await grantEarnedTiers(createServiceRoleClient(), user.id, badgeMetrics).catch(() => []);
 
   const [spine, groupStats, collection, groupsRes, badgeDefsRes, userBadgesRes] = await Promise.all([
     readPassportSpine(supabase, user.id),
@@ -175,7 +176,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       pinnedBadgeId={profile.pinned_badge_id}
       avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
       avatarRef={profile.avatar_ref}
-      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
+      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} metrics={badgeMetrics ?? undefined} />}
       bio={profile.bio}
       accent={accent}
       bias={spine?.bias ?? null}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { BadgeGrid } from '@/components/ui/badge-grid';
+import { BadgeGrid, badgeProgress, type BadgeMetrics } from '@/components/ui/badge-grid';
 import { BadgeDetailModal } from '@/components/profile/badge-detail-modal';
 import { BadgeCoin } from '@/components/profile/badge-coin';
 
@@ -13,13 +13,15 @@ interface Props {
   earnedBadgeIds: string[];
   /** badge_id -> earned_at, so the lightbox can say when it was earned. */
   earnedAt?: Record<string, string>;
+  /** the profile owner's metric values (drives locked-as-target progress). */
+  metrics?: BadgeMetrics | undefined;
 }
 
 // Badge shelf (M1.29). Earned-first: the coins you actually own sit out in full
 // colour, and everything still locked collapses into one chip that expands the
 // full frosted grid inline. Keeps a fresh profile from opening on a wall of
 // greyed-out tiles while still showing there is something to chase.
-export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt }: Props): React.ReactElement | null {
+export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt, metrics }: Props): React.ReactElement | null {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState<BadgeDefinition | null>(null);
   if (allBadges.length === 0) return null;
@@ -69,7 +71,7 @@ export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt }: Props): Reac
 
       {expanded && (
         <div className="badge-shelf-grid">
-          <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} onSelect={setSelected} />
+          <BadgeGrid allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} metrics={metrics} onSelect={setSelected} />
         </div>
       )}
 
@@ -78,6 +80,7 @@ export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt }: Props): Reac
           badge={selected}
           earned={earnedSet.has(selected.id)}
           earnedAt={earnedAt?.[selected.id] ?? null}
+          progress={earnedSet.has(selected.id) ? null : badgeProgress(selected.id, metrics)}
           onClose={() => setSelected(null)}
         />
       )}

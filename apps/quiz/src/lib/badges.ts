@@ -1,4 +1,4 @@
-import { BADGE_FAMILIES, NEW_BADGE_TIERS } from './badges/catalog';
+import { BADGE_FAMILIES, NEW_BADGE_TIERS, CATALOG_CATEGORY } from './badges/catalog';
 
 // Badge art + grouping (M1.15 final).
 //
@@ -75,4 +75,23 @@ const TIERED_IDS = new Set(BADGE_TIER_GROUPS.flatMap((g) => g.ids));
 
 export function isTieredBadge(badgeId: string): boolean {
   return TIERED_IDS.has(badgeId);
+}
+
+// V-UPGRADE-1 A4: the shelf groups badges by world. New badges carry their
+// category in the catalog; the legacy set is mapped here.
+export type BadgeCat = 'play' | 'verse' | 'cross';
+export const BADGE_CATEGORY_ORDER: { key: BadgeCat; label: string }[] = [
+  { key: 'play', label: 'Play' },
+  { key: 'verse', label: 'Verse' },
+  { key: 'cross', label: 'Cross-world' },
+];
+const LEGACY_CATEGORY: Record<string, BadgeCat> = {
+  first_steps: 'play', quiz_maker: 'play', perfect_score: 'play', hard_mode: 'play',
+  dedicated_fan: 'play', multi_stan: 'play', community_star: 'play', viral_hit: 'play',
+  prolific_creator: 'play', creator_bronze: 'play', creator_silver: 'play', creator_gold: 'play',
+  streak_7: 'play', streak_30: 'play', streak_100: 'play',
+  pc_first: 'verse', pc_collector: 'verse', pc_set: 'verse', group_master: 'verse', founding_fan: 'verse',
+};
+export function badgeCategory(id: string): BadgeCat {
+  return (CATALOG_CATEGORY[id] as BadgeCat | undefined) ?? LEGACY_CATEGORY[id] ?? 'play';
 }

@@ -134,12 +134,10 @@ function familyBadgeIds(fam: (typeof BADGE_FAMILIES)[number]): string[] {
   return isOneTime(fam) ? [fam.key] : fam.tiers.map((t) => `${fam.key}_${t}`);
 }
 
-/** Grant every earned tier for a user, from real metrics. Idempotent. Returns the
- * badge ids newly granted (for logging / the closing-sweep proof). `founding_curator`
- * is never auto-granted (manual, like founding_fan). */
-export async function checkTierBadges(db: SupabaseClient, userId: string): Promise<string[]> {
-  const metrics = await computeMetrics(db, userId);
-
+/** Grant every earned tier from PRECOMPUTED metrics. Idempotent. Returns the badge
+ * ids newly granted. `founding_curator` is never auto-granted (manual). Split out
+ * so a caller with metrics in hand (the profile shelf) grants without recomputing. */
+export async function grantEarnedTiers(db: SupabaseClient, userId: string, metrics: Record<BadgeMetric, number>): Promise<string[]> {
   const earned: string[] = [];
   for (const fam of BADGE_FAMILIES) {
     if (fam.metric === 'founding_curator' || fam.metric === 'completionist') continue;
@@ -167,4 +165,11 @@ export async function checkTierBadges(db: SupabaseClient, userId: string): Promi
     );
   }
   return fresh;
+}
+
+/** Compute metrics for a user then grant every earned tier. The real-time entry
+ * point (play route); callers that also need the metrics for display should call
+ * computeMetrics + grantEarnedTiers to avoid the double compute. */
+export async function checkTierBadges(db: SupabaseClient, userId: string): Promise<string[]> {
+  return grantEarnedTiers(db, userId, await computeMetrics(db, userId));
 }
