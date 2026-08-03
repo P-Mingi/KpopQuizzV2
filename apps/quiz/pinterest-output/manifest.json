@@ -1,0 +1,3249 @@
+{
+  "generated": 360,
+  "uniqueHubs": 37,
+  "deadHubs": [],
+  "perGroupCap": 26,
+  "perDay": 12,
+  "items": [
+    {
+      "file": "q-general-kpop-0.png",
+      "group": "General K-pop",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company manages Stray Kids?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q0",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-1.png",
+      "group": "ATEEZ",
+      "template": "editorial",
+      "kind": "options",
+      "question": "When did ATEEZ debut?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q1",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-2.png",
+      "group": "Stray Kids",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which Stray Kids album includes the track \"Muddy Water\"?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q2",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-3.png",
+      "group": "BTS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was BTS's first album to reach #1 on the Billboard 200?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q3",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-4.png",
+      "group": "BLACKPINK",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is BLACKPINK's lightstick called?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q4",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-5.png",
+      "group": "aespa",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which aespa B-side from Savage features a retro synth-pop sound?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q5",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-6.png",
+      "group": "TWICE",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "TWICE has 9 members",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q6",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-7.png",
+      "group": "SEVENTEEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members are in SEVENTEEN?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q7",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-8.png",
+      "group": "NewJeans",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was NewJeans' debut EP called?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q8",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-9.png",
+      "group": "LOONA",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Stealing can be fun.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q9",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-10.png",
+      "group": "EXO",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did EXO debut?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q10",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-11.png",
+      "group": "IVE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "When did IVE debut?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q11",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-12.png",
+      "group": "(G)I-DLE",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did (G)I-DLE debut?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q12",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-13.png",
+      "group": "TXT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was TXT's debut song?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q13",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-14.png",
+      "group": "Red Velvet",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was Red Velvet's debut song?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q14",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-15.png",
+      "group": "ITZY",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was ITZY's debut song?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q15",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-16.png",
+      "group": "ILLIT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the maknae (Youngest)?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q16",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-17.png",
+      "group": "ENHYPEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How long have Jay and Heeseung been friends for? - 2026",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q17",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-18.png",
+      "group": "SHINee",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did SHINee debut?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q18",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-19.png",
+      "group": "KickFlip",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who's the leader of KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q19",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-20.png",
+      "group": "Cortis",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the Oldest?? XD",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q20",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-21.png",
+      "group": "ARTMS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the name of ARTMS' subunit?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q21",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-22.png",
+      "group": "LE SSERAFIM",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does LE SSERAFIM currently have?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q22",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-23.png",
+      "group": "NCT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What does '127' in NCT 127 represent?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q23",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-24.png",
+      "group": "GOT7",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are in GOT7?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q24",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-25.png",
+      "group": "Loossemble",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader (aka crew commander)?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q25",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-26.png",
+      "group": "MAMAMOO",
+      "template": "bold",
+      "kind": "options",
+      "question": "In what year did MAMAMOO debut?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q26",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-27.png",
+      "group": "BABYMONSTER",
+      "template": "editorial",
+      "kind": "options",
+      "question": "which members are on hiatus",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q27",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-28.png",
+      "group": "MONSTA X",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are currently in MONSTA X?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q28",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-29.png",
+      "group": "XIKERS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "xikers is the 2nd group debuted by which company?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q29",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-30.png",
+      "group": "ASTRO",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did ASTRO debut?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q30",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-31.png",
+      "group": "TREASURE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "who is the leader of treasure gen 1?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q31",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-32.png",
+      "group": "AKMU",
+      "template": "bold",
+      "kind": "options",
+      "question": "What does AKMU stand for?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q32",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-33.png",
+      "group": "TWS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which album features the song \"unplugged boy\"?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q33",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-34.png",
+      "group": "BIGBANG",
+      "template": "bold",
+      "kind": "options",
+      "question": "What year did BIGBANG debut?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q34",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-35.png",
+      "group": "NMIXX",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members are in NMIXX?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q35",
+      "isHome": false
+    },
+    {
+      "file": "q-dreamcatcher-36.png",
+      "group": "Dreamcatcher",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was the name of the group name that dreamcatcher initially debuted as?",
+      "link": "https://kpopquiz.org/dreamcatcher-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q36",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-37.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "IVE is under which entertainment company?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q37",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-38.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is ATEEZ's fandom called?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q38",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-39.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Thunderous\" is the title track from which album?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q39",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-40.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which BTS song was their first to be performed at the Grammy Awards?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q40",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-41.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which BLACKPINK member has the most Instagram followers?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q41",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-42.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Illusion\" is a B-side from which aespa release?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q42",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-43.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "TWICE was formed on the survival show 'Produce 101'",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q43",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-44.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the leader of SEVENTEEN's performance unit?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q44",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-45.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "NewJeans released a collaboration single with which beverage brand?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q45",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-46.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"[788 days was] Around 3 months ago.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q46",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-47.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What are EXO's two sub-units based on language?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q47",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-48.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which two IVE members were previously in IZ*ONE?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q48",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-49.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is (G)I-DLE's main songwriter and producer?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q49",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-50.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does TXT have?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q50",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-51.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "options",
+      "question": "When did Yeri join Red Velvet?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q51",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-52.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company manages ITZY?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q52",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-53.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the Unnie (oldest)?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q53",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-54.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "ENHYPEN was formed through which survival show?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q54",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-55.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was SHINee's debut song?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q55",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-56.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "How much members are in KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q56",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-57.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members are there?? -(+-+)-",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q57",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-58.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "How long had it been since the subunit's comeback with Loona?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q58",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-59.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which LE SSERAFIM member is the leader?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q59",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-60.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company does NCT belong to?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q60",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-61.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What year did GOT7 debut?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q61",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-62.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which bside was written by fellow Loona member, Yves?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q62",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-63.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "MAMAMOO is known for their retro, vintage concept. Which of these genres best describes their main musical style?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q63",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-64.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "who is it girl gen 5 and center in babymonster",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q64",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-65.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which survival show formed MONSTA X?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q65",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-66.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are in the group?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q66",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-67.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members does ASTRO have?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q67",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-68.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "What year was Jehyuk born?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q68",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-69.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the relationship between the two AKMU members?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q69",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-70.png",
+      "group": "TWS",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many TWS members is?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q70",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-71.png",
+      "group": "BIGBANG",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which company does BIGBANG belong to?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q71",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-72.png",
+      "group": "NMIXX",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company does NMIXX belong to?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q72",
+      "isHome": false
+    },
+    {
+      "file": "q-dreamcatcher-73.png",
+      "group": "Dreamcatcher",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members were in MINX?",
+      "link": "https://kpopquiz.org/dreamcatcher-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q73",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-74.png",
+      "group": "General K-pop",
+      "template": "bold",
+      "kind": "options",
+      "question": "(G)I-DLE is managed by which company?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q74",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-75.png",
+      "group": "ATEEZ",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of ATEEZ?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q75",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-76.png",
+      "group": "Stray Kids",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which song from MAXIDENT became a viral TikTok hit?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q76",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-77.png",
+      "group": "BTS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Map of the Soul: 7 is named after what?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q77",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-78.png",
+      "group": "BLACKPINK",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many years did the members train before debuting?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q78",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-79.png",
+      "group": "aespa",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which aespa song is known for its intense dubstep drop?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q79",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-80.png",
+      "group": "TWICE",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Three TWICE members are from Japan",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q80",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-81.png",
+      "group": "SEVENTEEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which two SEVENTEEN members are Chinese?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q81",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-82.png",
+      "group": "NewJeans",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Ditto\" was released as part of which album?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q82",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-83.png",
+      "group": "LOONA",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"I just live without seeing, a lot. There's no need to see things specifically.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q83",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-84.png",
+      "group": "EXO",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which EXO song is widely credited with making them a top-tier group in Korea?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q84",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-85.png",
+      "group": "IVE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was IVE's debut song?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q85",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-86.png",
+      "group": "(G)I-DLE",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does (G)I-DLE currently have?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q86",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-87.png",
+      "group": "TXT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of TXT?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q87",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-88.png",
+      "group": "Red Velvet",
+      "template": "bold",
+      "kind": "options",
+      "question": "What are the two \"concepts\" Red Velvet is famous for?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q88",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-89.png",
+      "group": "ITZY",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members does ITZY have?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q89",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-90.png",
+      "group": "ILLIT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is known as the IT girl?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q90",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-91.png",
+      "group": "ENHYPEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was ENHYPEN's debut song?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q91",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-92.png",
+      "group": "SHINee",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does SHINee have?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q92",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-93.png",
+      "group": "KickFlip",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who's the maknae of KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q93",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-94.png",
+      "group": "Cortis",
+      "template": "bold",
+      "kind": "options",
+      "question": "When was theirs debut date? C:",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q94",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-95.png",
+      "group": "ARTMS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the title track from their album, <Version Up>?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q95",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-96.png",
+      "group": "LE SSERAFIM",
+      "template": "bold",
+      "kind": "options",
+      "question": "Huh Yunjin was born in which country?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q96",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-97.png",
+      "group": "NCT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of NCT 127?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q97",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-98.png",
+      "group": "GOT7",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company did GOT7 originally debut under?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q98",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-99.png",
+      "group": "Loossemble",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which member dyed her hair pink for One of A Kind?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q99",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-100.png",
+      "group": "MAMAMOO",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which MAMAMOO member is the main rapper and is known for having a tomboy image?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q100",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-101.png",
+      "group": "BABYMONSTER",
+      "template": "editorial",
+      "kind": "options",
+      "question": "who plays the rapper in babymonster",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q101",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-102.png",
+      "group": "MONSTA X",
+      "template": "bold",
+      "kind": "options",
+      "question": "What year did MONSTA X debut?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q102",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-103.png",
+      "group": "XIKERS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is xikers' debut date?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q103",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-104.png",
+      "group": "ASTRO",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ASTRO member is also a popular actor known for his visuals?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q104",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-105.png",
+      "group": "TREASURE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the owner of the \"woopy\" character?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q105",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-106.png",
+      "group": "AKMU",
+      "template": "bold",
+      "kind": "options",
+      "question": "How did AKMU get their start in the music industry?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q106",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-107.png",
+      "group": "TWS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the abbreviation for \"TWS\"?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q107",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-108.png",
+      "group": "BIGBANG",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the leader of BIGBANG?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q108",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-109.png",
+      "group": "NMIXX",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What year did NMIXX debut?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q109",
+      "isHome": false
+    },
+    {
+      "file": "q-dreamcatcher-110.png",
+      "group": "Dreamcatcher",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who's nickname is Tony?",
+      "link": "https://kpopquiz.org/dreamcatcher-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q110",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-111.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "NewJeans is under which label?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q111",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-112.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Guerrilla\" is the title track from which ATEEZ album?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q112",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-113.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Hellevator\" was released before Stray Kids officially debuted. It is called a what?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q113",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-114.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which song was BTS's first fully Korean-language #1 on the Hot 100?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q114",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-115.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "BLACKPINK's \"DDU-DU DDU-DU\" MV broke a YouTube record for what?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q115",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-116.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "aespa's \"Girls\" album is considered what type of release?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q116",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-117.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "TWICE debuted under YG Entertainment",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q117",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-118.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Joshua and Vernon share what in common regarding nationality?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q118",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-119.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Super Shy is from which NewJeans release?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q119",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-120.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Feliz ani...aniver-see-saw!\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q120",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-121.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members did EXO debut with?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q121",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-122.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"LOVE DIVE\" won Song of the Year at which 2022 awards show?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q122",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-123.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Tomboy\" became a massive hit in 2022. From which album?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q123",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-124.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "TXT is under which company?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q124",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-125.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which Red Velvet song is their signature \"Red\" concept hit?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q125",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-126.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ITZY member is the leader?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q126",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-127.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who was the fourth person chosen to debut in ILLIT on R U Next?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q127",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-128.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does ENHYPEN have?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q128",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-129.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which SHINee member is widely regarded as one of K-pop's greatest dancers?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q129",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-130.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who are the main vocalists in KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q130",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-131.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Cortis is the best!!",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q131",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-132.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who was the first member to debut solo?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q132",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-133.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "LE SSERAFIM is an anagram of what phrase?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q133",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-134.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "What year did NCT 127 debut?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q134",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-135.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of GOT7?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q135",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-136.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which OOAK bside did Loossemble perform a stage for?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q136",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-137.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Hwasa's solo song 'Maria' (2020) reflects which aspect of her artistry?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q137",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-138.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "who main dancer in babymonster",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q138",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-139.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which company does MONSTA X belong to?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q139",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-140.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is xikers' fandom called?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q140",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-141.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is ASTRO's fandom name?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q141",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-142.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is Doyoung's famous nickname?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q142",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-143.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which country did AKMU's family live in before returning to South Korea?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q143",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-144.png",
+      "group": "TWS",
+      "template": "bold",
+      "kind": "options",
+      "question": "What TWS debut song?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q144",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-145.png",
+      "group": "BIGBANG",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is BIGBANG's fandom name?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q145",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-146.png",
+      "group": "NMIXX",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was NMIXX's debut song?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q146",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-147.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which company manages both BTS and SEVENTEEN?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q147",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-148.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "ATEEZ competed on which Mnet competition show?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q148",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-149.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Rock-Star features which title track?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q149",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-150.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was BTS's fan meeting tour called?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q150",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-151.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the name of BLACKPINK's Netflix documentary?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q151",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-152.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which song from the Armageddon album has a more emotional, ballad-like quality?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q152",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-153.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "Tzuyu is from Taiwan",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q153",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-154.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the main producer and songwriter of SEVENTEEN?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q154",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-155.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which NewJeans song topped the Melon daily chart for the longest consecutive period?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q155",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-156.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Am I a bug to you?\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q156",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-157.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which EXO member is known for the nickname \"D.O.\" and has a successful acting career?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q157",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-158.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members does IVE have?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q158",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-159.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which (G)I-DLE member is from Taiwan?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q159",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-160.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which TXT album features the hit \"0X1=LOVESONG (I Know I Love You)\"?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q160",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-161.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which Red Velvet song is considered their signature \"Velvet\" hit?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q161",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-162.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Wannabe\" is known for its point choreography involving what?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q162",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-163.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who was born in May 11th, 2004?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q163",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-164.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ENHYPEN member is from Japan?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q164",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-165.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "SHINee's \"Sherlock\" is notable for being a combination of which two songs?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q165",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-166.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who's the main dancer in KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q166",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-167.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is your bias?? -=-",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q167",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-168.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which version of The Carol did ARTMS release?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q168",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-169.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the youngest member (maknae) of LE SSERAFIM?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q169",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-170.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is NCT's overall fandom name?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q170",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-171.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which GOT7 member is from Hong Kong and is also a solo artist and TV personality?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q171",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-172.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which Loossemble album cover featured all the members?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q172",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-173.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which MAMAMOO single is often considered their breakthrough hit and features retro soul influences?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q173",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-174.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "who is the member the member of babymonster who sings the song pick up your feelings",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q174",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-175.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of MONSTA X?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q175",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-176.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which member went on hiatus only a couple months after their debut, only to return 2 years later?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q176",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-177.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which ASTRO member tragically passed away in 2023?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q177",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-178.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is Treasure's debut song?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q178",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-179.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was AKMU's debut album called?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q179",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-180.png",
+      "group": "TWS",
+      "template": "bold",
+      "kind": "options",
+      "question": "When does TWS debut and under what agency?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q180",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-181.png",
+      "group": "BIGBANG",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which BIGBANG song is considered one of K-pop's most iconic tracks?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q181",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-182.png",
+      "group": "NMIXX",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is NMIXX's genre-blending musical style often called?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q182",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-183.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "ATEEZ is under which company?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q183",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-184.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ATEEZ member is known for his powerful high-note vocals?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q184",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-185.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the title track of the Stray Kids album \"ATE\"?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q185",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-186.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "In what year did BTS win their first Daesang (Grand Prize)?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q186",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-187.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which brand is Jennie a global ambassador for?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q187",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-188.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "aespa's first-ever released song was what?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q188",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-189.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "TWICE's debut song was 'Cheer Up'",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q189",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-190.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which unit does Seungkwan belong to?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q190",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-191.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "NewJeans' creative director who founded ADOR is named what?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q191",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-192.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"If you once succeeded on this, don't try again. Because if you fail, it kills the vibe.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q192",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-193.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "EXO's \"Love Shot\" is from which album?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q193",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-194.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which IVE member is from Japan?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q194",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-195.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which (G)I-DLE member is from Thailand?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q195",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-196.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Hueningkai is of what mixed heritage?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q196",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-197.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of Red Velvet?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q197",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-198.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "ITZY's concept is centered around what message?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q198",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-199.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the correct set of ILLIT members full names?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q199",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-200.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ENHYPEN member is from Australia?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q200",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-201.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Ring Ding Dong\" is known for being extremely what?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q201",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-202.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did KickFlip debut?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q202",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-203.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Thank you sm for playing!! Did you have fun?",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q203",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-204.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which of the pre-release songs from <Dall> was voted for by Ourii? (Ourii is the name for ARTMS fans)",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q204",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-205.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which LE SSERAFIM song features a collaboration with Nile Rodgers?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q205",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-206.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which NCT 127 member is Canadian?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q206",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-207.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which GOT7 member is from Thailand?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q207",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-208.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many full-length videos were uploaded to Loossemble's variety YouTube channel, Loossemble Assemble?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q208",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-209.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Solar is MAMAMOO's leader. She is also known for her popular YouTube channel. What kind of content does she post?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q209",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-210.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the main rapper duo?",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q210",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-211.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which MONSTA X song was their English-language debut?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q211",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-212.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "What was xikers' debut song?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q212",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-213.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was ASTRO's debut concept centered around?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q213",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-214.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who came up with the \"first penguin\" pose on tmap episode 79?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q214",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-215.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which of these is a title track from AKMU's debut album?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q215",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-216.png",
+      "group": "TWS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the TWS members from China?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q216",
+      "isHome": false
+    },
+    {
+      "file": "q-bigbang-217.png",
+      "group": "BIGBANG",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which BIGBANG member is known for his solo hit 'Eyes, Nose, Lips'?",
+      "link": "https://kpopquiz.org/bigbang-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q217",
+      "isHome": false
+    },
+    {
+      "file": "q-nmixx-218.png",
+      "group": "NMIXX",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is NMIXX's fandom name?",
+      "link": "https://kpopquiz.org/nmixx-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q218",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-219.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which company was founded by Lee Soo-man?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q219",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-220.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are in ATEEZ?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q220",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-221.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which Stray Kids B-side from NOEASY features intense rap verses from all of 3RACHA?",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q221",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-222.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which BTS member released the solo song \"Epiphany\"?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q222",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-223.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "BLACKPINK's THE ALBUM sold over how many copies in its first week?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q223",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-224.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "The song \"Dreams Come True\" by aespa is a remake of a song by which SM group?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q224",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-225.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "Nayeon was the first TWICE member to debut solo",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q225",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-226.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "When did SEVENTEEN debut?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q226",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-227.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which of these is NOT a NewJeans title track?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q227",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-228.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"Orbits are liars.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q228",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-229.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of EXO?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q229",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-230.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"After LIKE\" samples which famous classical piece?",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q230",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-231.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Queencard\" is from which (G)I-DLE album?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q231",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-232.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which TXT member was the first to be revealed during pre-debut teasers?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q232",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-233.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Red Velvet performed for North Korean leaders in Pyongyang in which year?",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q233",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-234.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "Chaeryeong is the sister of which other K-pop idol?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q234",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-235.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Where is Iroha from?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q235",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-236.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is ENHYPEN's leader?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q236",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-237.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which SHINee member enlisted in the military first?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q237",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-238.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who trained the longest in KickFlip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q238",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-239.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members of Cortis?",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q239",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-240.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many songs on <Dall>, not including Virtual Angel, have a music video?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q240",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-241.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "LE SSERAFIM is managed by Source Music, which is under which parent company?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q241",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-242.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "NCT 127 is one unit of the larger group NCT. What does '127' refer to?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q242",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-243.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "In what year did GOT7 debut?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q243",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-244.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which food is on Loossemble's lightstick?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q244",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-245.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "MAMAMOO's HIP (2019) features lyrics about what theme?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q245",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-246.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the main visual duo?",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q246",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-247.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "In what year did MONSTA X debut?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q247",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-248.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which boy group is xikers' direct sunbae (senior), from the same company?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q248",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-249.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which ASTRO sub-unit features Moonbin and Sanha?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q249",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-250.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is in the Treasure Rapper Unit?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q250",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-251.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which entertainment company did AKMU debut under?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q251",
+      "isHome": false
+    },
+    {
+      "file": "q-tws-252.png",
+      "group": "TWS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who are TWS's Leader and Maknae?",
+      "link": "https://kpopquiz.org/tws-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q252",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-253.png",
+      "group": "General K-pop",
+      "template": "editorial",
+      "kind": "options",
+      "question": "LE SSERAFIM is managed by which HYBE sublabel?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q253",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-254.png",
+      "group": "ATEEZ",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which company does ATEEZ belong to?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q254",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-255.png",
+      "group": "Stray Kids",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "Stray Kids originally debuted as a 9-member group",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q255",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-256.png",
+      "group": "BTS",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is the name of BTS's reality show that started in 2014?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q256",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-257.png",
+      "group": "BLACKPINK",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Rose holds dual citizenship in which countries?",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q257",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-258.png",
+      "group": "aespa",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are in aespa?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q258",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-259.png",
+      "group": "TWICE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was TWICE's first original Japanese single?",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q259",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-260.png",
+      "group": "SEVENTEEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the youngest member (maknae) of SEVENTEEN?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q260",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-261.png",
+      "group": "NewJeans",
+      "template": "editorial",
+      "kind": "options",
+      "question": "NewJeans debuted under which company?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q261",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-262.png",
+      "group": "LOONA",
+      "template": "bold",
+      "kind": "options",
+      "question": "\"At that moment, my leg followed the capitalism while having a heart-warming heart.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q262",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-263.png",
+      "group": "EXO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "EXO's concert series is famously called what?",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q263",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-264.png",
+      "group": "IVE",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "IVE has 6 members",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q264",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-265.png",
+      "group": "(G)I-DLE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was (G)I-DLE's debut song?",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q265",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-266.png",
+      "group": "TXT",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is the name of TXT's first full studio album?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q266",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-267.png",
+      "group": "Red Velvet",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "Red Velvet originally debuted with 4 members before Yeri joined",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q267",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-268.png",
+      "group": "ITZY",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ITZY song has the famous lyrics 'I don't wanna be somebody, just wanna be me'?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q268",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-269.png",
+      "group": "ILLIT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is not Korean?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q269",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-270.png",
+      "group": "ENHYPEN",
+      "template": "bold",
+      "kind": "options",
+      "question": "ENHYPEN is under which company?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q270",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-271.png",
+      "group": "SHINee",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What year did SHINee debut?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q271",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-272.png",
+      "group": "KickFlip",
+      "template": "bold",
+      "kind": "options",
+      "question": "When Is Kyehoon's birthday?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q272",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-273.png",
+      "group": "Cortis",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the leader of cortis?",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q273",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-274.png",
+      "group": "ARTMS",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which ARTMS song samples Heejin's solo album intro, Kehwa?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q274",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-275.png",
+      "group": "LE SSERAFIM",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which LE SSERAFIM song is this?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q275",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-276.png",
+      "group": "NCT",
+      "template": "bold",
+      "kind": "options",
+      "question": "In what year did NCT 127 debut?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q276",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-277.png",
+      "group": "GOT7",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members does GOT7 have?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q277",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-278.png",
+      "group": "Loossemble",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which member's representative animal is shown most prominently on the TTYL album cover?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q278",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-279.png",
+      "group": "MAMAMOO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Wheein is known for her talents beyond singing. What other artistic skill is she celebrated for?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q279",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-280.png",
+      "group": "BABYMONSTER",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which duo is known as the main vocalists?",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q280",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-281.png",
+      "group": "MONSTA X",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the name of MONSTA X's official fandom?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q281",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-282.png",
+      "group": "XIKERS",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many main rappers are there in the group?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q282",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-283.png",
+      "group": "ASTRO",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which drama made Cha Eunwoo a household name in Korea?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q283",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-284.png",
+      "group": "TREASURE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which is Junghwan and Jeongwoo's hometown?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q284",
+      "isHome": false
+    },
+    {
+      "file": "q-akmu-285.png",
+      "group": "AKMU",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is AKMU's official fandom name?",
+      "link": "https://kpopquiz.org/akmu-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q285",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-286.png",
+      "group": "General K-pop",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which group debuted first?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q286",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-287.png",
+      "group": "ATEEZ",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What year did ATEEZ debut?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q287",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-288.png",
+      "group": "Stray Kids",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Bang Chan is Korean-Australian",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q288",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-289.png",
+      "group": "BTS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which BTS member's solo debut album is called \"FACE\"?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q289",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-290.png",
+      "group": "BLACKPINK",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "BLACKPINK is the highest-charting female Korean act on the Billboard Hot 100",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q290",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-291.png",
+      "group": "aespa",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which company does aespa belong to?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q291",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-292.png",
+      "group": "TWICE",
+      "template": "bold",
+      "kind": "options",
+      "question": "TWICE's Japanese album \"&TWICE\" was released in which year?",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q292",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-293.png",
+      "group": "SEVENTEEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is SEVENTEEN's fandom name?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q293",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-294.png",
+      "group": "NewJeans",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the oldest member of NewJeans?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q294",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-295.png",
+      "group": "LOONA",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Hi! My name is [name]. I'm fine. Thank you.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q295",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-296.png",
+      "group": "EXO",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "EXO originally had 12 members at debut",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q296",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-297.png",
+      "group": "IVE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "IVE debuted under JYP Entertainment",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q297",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-298.png",
+      "group": "(G)I-DLE",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "(G)I-DLE is under SM Entertainment",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q298",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-299.png",
+      "group": "TXT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which TXT song became a viral hit with its retro concept?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q299",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-300.png",
+      "group": "Red Velvet",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Red Velvet's concept alternates between 'Red' (pop) and 'Velvet' (R&B)",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q300",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-301.png",
+      "group": "ITZY",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the name of ITZY's first full studio album?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q301",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-302.png",
+      "group": "ILLIT",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is ILLIT's most viewed MV?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q302",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-303.png",
+      "group": "ENHYPEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is ENHYPEN's first full studio album?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q303",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-304.png",
+      "group": "SHINee",
+      "template": "bold",
+      "kind": "options",
+      "question": "Who is the leader of SHINee?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q304",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-305.png",
+      "group": "KickFlip",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which of these songs do NOT belong in My First Flip?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q305",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-306.png",
+      "group": "Cortis",
+      "template": "bold",
+      "kind": "options",
+      "question": "who's the oldest member of cortis?",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q306",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-307.png",
+      "group": "ARTMS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which music video was self made by the members?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q307",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-308.png",
+      "group": "LE SSERAFIM",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which LE SSERAFIM member is this?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q308",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-309.png",
+      "group": "NCT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which NCT 127 member became a fashion icon known for his striking visuals and modeling career?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q309",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-310.png",
+      "group": "GOT7",
+      "template": "bold",
+      "kind": "options",
+      "question": "Jackson Wang is from which region?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q310",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-311.png",
+      "group": "Loossemble",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which member was in both subunit songs on the TTYL album?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q311",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-312.png",
+      "group": "MAMAMOO",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is MAMAMOO's fandom name?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q312",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-313.png",
+      "group": "BABYMONSTER",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which duo is known as fake maknae and real maknae?",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q313",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-314.png",
+      "group": "MONSTA X",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which survival show did MONSTA X form through?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q314",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-315.png",
+      "group": "XIKERS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the only non-Korean member in the group?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q315",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-316.png",
+      "group": "ASTRO",
+      "template": "bold",
+      "kind": "options",
+      "question": "What label is ASTRO under?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q316",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-317.png",
+      "group": "TREASURE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who are the members of T5 unit?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q317",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-318.png",
+      "group": "General K-pop",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which 4th gen group debuted first?",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q318",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-319.png",
+      "group": "ATEEZ",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is ATEEZ's fandom name?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q319",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-320.png",
+      "group": "Stray Kids",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Stray Kids won the competition show \"Road to Kingdom\"",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q320",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-321.png",
+      "group": "BTS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is the name of J-Hope's solo studio album?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q321",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-322.png",
+      "group": "BLACKPINK",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Lisa was born in South Korea",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q322",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-323.png",
+      "group": "aespa",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What is aespa's fictional world/concept called?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q323",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-324.png",
+      "group": "TWICE",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which Japanese single has a candy-themed music video?",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q324",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-325.png",
+      "group": "SEVENTEEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was SEVENTEEN's debut title track?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q325",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-326.png",
+      "group": "NewJeans",
+      "template": "bold",
+      "kind": "options",
+      "question": "Hanni was born in which country?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q326",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-327.png",
+      "group": "LOONA",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"It's a lie when people say drinking milk helps you grow! [...] I haven't gotten any taller.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q327",
+      "isHome": false
+    },
+    {
+      "file": "q-exo-328.png",
+      "group": "EXO",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Baekhyun is the leader of EXO",
+      "link": "https://kpopquiz.org/exo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q328",
+      "isHome": false
+    },
+    {
+      "file": "q-ive-329.png",
+      "group": "IVE",
+      "template": "editorial",
+      "kind": "truefalse",
+      "question": "Wonyoung and Yujin were both in IZ*ONE before IVE",
+      "link": "https://kpopquiz.org/ive-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q329",
+      "isHome": false
+    },
+    {
+      "file": "q-g-i-dle-330.png",
+      "group": "(G)I-DLE",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Soyeon appeared on the survival show Produce 101",
+      "link": "https://kpopquiz.org/g-i-dle-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q330",
+      "isHome": false
+    },
+    {
+      "file": "q-txt-331.png",
+      "group": "TXT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was TXT's comeback single from The Chaos Chapter: FREEZE?",
+      "link": "https://kpopquiz.org/txt-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q331",
+      "isHome": false
+    },
+    {
+      "file": "q-red-velvet-332.png",
+      "group": "Red Velvet",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Wendy is the main vocalist of Red Velvet",
+      "link": "https://kpopquiz.org/red-velvet-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q332",
+      "isHome": false
+    },
+    {
+      "file": "q-itzy-333.png",
+      "group": "ITZY",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which ITZY member is also known for her rapping skills?",
+      "link": "https://kpopquiz.org/itzy-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q333",
+      "isHome": false
+    },
+    {
+      "file": "q-illit-334.png",
+      "group": "ILLIT",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which song belongs to the 'Super Real Me' album?",
+      "link": "https://kpopquiz.org/illit-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q334",
+      "isHome": false
+    },
+    {
+      "file": "q-enhypen-335.png",
+      "group": "ENHYPEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which ENHYPEN song features a vampire concept?",
+      "link": "https://kpopquiz.org/enhypen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q335",
+      "isHome": false
+    },
+    {
+      "file": "q-shinee-336.png",
+      "group": "SHINee",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which SHINee member is known for his exceptional solo dance career?",
+      "link": "https://kpopquiz.org/shinee-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q336",
+      "isHome": false
+    },
+    {
+      "file": "q-kickflip-337.png",
+      "group": "KickFlip",
+      "template": "editorial",
+      "kind": "options",
+      "question": "When is Donghyeon's birthday?",
+      "link": "https://kpopquiz.org/kickflip-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q337",
+      "isHome": false
+    },
+    {
+      "file": "q-cortis-338.png",
+      "group": "Cortis",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which agency does Cortis come from?",
+      "link": "https://kpopquiz.org/cortis-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q338",
+      "isHome": false
+    },
+    {
+      "file": "q-artms-339.png",
+      "group": "ARTMS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "How many members had blonde hair in the Air music video?",
+      "link": "https://kpopquiz.org/artms-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q339",
+      "isHome": false
+    },
+    {
+      "file": "q-le-sserafim-340.png",
+      "group": "LE SSERAFIM",
+      "template": "bold",
+      "kind": "options",
+      "question": "How many members are currently in LE SSERAFIM?",
+      "link": "https://kpopquiz.org/le-sserafim-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q340",
+      "isHome": false
+    },
+    {
+      "file": "q-nct-341.png",
+      "group": "NCT",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which NCT 127 song features a 'superhuman' concept with powerful choreography?",
+      "link": "https://kpopquiz.org/nct-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q341",
+      "isHome": false
+    },
+    {
+      "file": "q-got7-342.png",
+      "group": "GOT7",
+      "template": "bold",
+      "kind": "options",
+      "question": "BamBam is from which country?",
+      "link": "https://kpopquiz.org/got7-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q342",
+      "isHome": false
+    },
+    {
+      "file": "q-loossemble-343.png",
+      "group": "Loossemble",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which two albums have intros that start with \"Intro:\"?",
+      "link": "https://kpopquiz.org/loossemble-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q343",
+      "isHome": false
+    },
+    {
+      "file": "q-mamamoo-344.png",
+      "group": "MAMAMOO",
+      "template": "bold",
+      "kind": "options",
+      "question": "When was MAMAMOO's 'Curtain Call' album released?",
+      "link": "https://kpopquiz.org/mamamoo-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q344",
+      "isHome": false
+    },
+    {
+      "file": "q-babymonster-345.png",
+      "group": "BABYMONSTER",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Who is the main dancer?",
+      "link": "https://kpopquiz.org/babymonster-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q345",
+      "isHome": false
+    },
+    {
+      "file": "q-monsta-x-346.png",
+      "group": "MONSTA X",
+      "template": "bold",
+      "kind": "options",
+      "question": "Which MONSTA X song is known for its powerful choreography from their debut era?",
+      "link": "https://kpopquiz.org/monsta-x-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q346",
+      "isHome": false
+    },
+    {
+      "file": "q-xikers-347.png",
+      "group": "XIKERS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Following in ATEEZ's footsteps, what name was xikers known as pre-debut?",
+      "link": "https://kpopquiz.org/xikers-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q347",
+      "isHome": false
+    },
+    {
+      "file": "q-astro-348.png",
+      "group": "ASTRO",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is the meaning behind the name 'ASTRO'?",
+      "link": "https://kpopquiz.org/astro-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q348",
+      "isHome": false
+    },
+    {
+      "file": "q-treasure-349.png",
+      "group": "TREASURE",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which agency does Treasure belong to?",
+      "link": "https://kpopquiz.org/treasure-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q349",
+      "isHome": false
+    },
+    {
+      "file": "q-general-kpop-350.png",
+      "group": "General K-pop",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "ARMY is the fandom name for BTS",
+      "link": "https://kpopquiz.org?utm_source=pinterest&utm_medium=pin&utm_campaign=q350",
+      "isHome": true
+    },
+    {
+      "file": "q-ateez-351.png",
+      "group": "ATEEZ",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What was ATEEZ's debut song?",
+      "link": "https://kpopquiz.org/ateez-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q351",
+      "isHome": false
+    },
+    {
+      "file": "q-stray-kids-352.png",
+      "group": "Stray Kids",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "Felix and Bang Chan are from the same city in Australia",
+      "link": "https://kpopquiz.org/stray-kids-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q352",
+      "isHome": false
+    },
+    {
+      "file": "q-bts-353.png",
+      "group": "BTS",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Seven\" featuring Latto is a solo single by which member?",
+      "link": "https://kpopquiz.org/bts-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q353",
+      "isHome": false
+    },
+    {
+      "file": "q-blackpink-354.png",
+      "group": "BLACKPINK",
+      "template": "bold",
+      "kind": "truefalse",
+      "question": "BLACKPINK's name represents the duality of being both pretty and fierce",
+      "link": "https://kpopquiz.org/blackpink-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q354",
+      "isHome": false
+    },
+    {
+      "file": "q-aespa-355.png",
+      "group": "aespa",
+      "template": "editorial",
+      "kind": "options",
+      "question": "What year did aespa debut?",
+      "link": "https://kpopquiz.org/aespa-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q355",
+      "isHome": false
+    },
+    {
+      "file": "q-twice-356.png",
+      "group": "TWICE",
+      "template": "bold",
+      "kind": "options",
+      "question": "TWICE held their first Japanese dome tour in which year?",
+      "link": "https://kpopquiz.org/twice-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q356",
+      "isHome": false
+    },
+    {
+      "file": "q-seventeen-357.png",
+      "group": "SEVENTEEN",
+      "template": "editorial",
+      "kind": "options",
+      "question": "Which SEVENTEEN album broke the record for highest first-week sales on Hanteo?",
+      "link": "https://kpopquiz.org/seventeen-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q357",
+      "isHome": false
+    },
+    {
+      "file": "q-newjeans-358.png",
+      "group": "NewJeans",
+      "template": "bold",
+      "kind": "options",
+      "question": "What is Danielle's nationality?",
+      "link": "https://kpopquiz.org/newjeans-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q358",
+      "isHome": false
+    },
+    {
+      "file": "q-loona-359.png",
+      "group": "LOONA",
+      "template": "editorial",
+      "kind": "options",
+      "question": "\"Money isn't everything, but there's nothing better than money.\"",
+      "link": "https://kpopquiz.org/loona-quiz?utm_source=pinterest&utm_medium=pin&utm_campaign=q359",
+      "isHome": false
+    }
+  ]
+}

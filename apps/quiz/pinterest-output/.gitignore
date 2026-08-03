@@ -1,0 +1,2 @@
+# generated pin PNGs live in Supabase storage; keep the CSV + manifest, not the binaries
+*.png
