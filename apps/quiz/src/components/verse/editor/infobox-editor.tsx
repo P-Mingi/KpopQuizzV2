@@ -75,7 +75,7 @@ export function InfoboxEditor({ entityType, entityId, rows: initialRows, onClose
                 {busy === row.def.key ? '...' : 'Save'}
               </button>
             </div>
-            {msg[row.def.key] ? <p className="mt-1 text-[11px]" style={{ color: msg[row.def.key] === 'Saved' || msg[row.def.key] === 'Cleared' ? 'var(--verse-ink)' : 'var(--wrong,#A32D2D)' }}>{msg[row.def.key]}</p> : null}
+            {msg[row.def.key] ? <p className="mt-1 text-[11px]" style={{ color: msg[row.def.key] === 'Saved' || msg[row.def.key] === 'Cleared' ? 'var(--verse-ink)' : 'var(--wrong,var(--verse-danger))' }}>{msg[row.def.key]}</p> : null}
           </div>
         ))}
       </div>

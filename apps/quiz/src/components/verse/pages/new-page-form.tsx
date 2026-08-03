@@ -43,7 +43,7 @@ export function NewPageForm({ groupId, groupSlug, kinds }: {
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {kinds.map((k) => (
             <label key={k.kind} className="flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-colors"
-              style={{ borderColor: kind === k.kind ? 'var(--verse-accent, #7c5cfc)' : 'var(--verse-line)', background: kind === k.kind ? 'var(--verse-soft)' : 'transparent' }}>
+              style={{ borderColor: kind === k.kind ? 'var(--verse-accent)' : 'var(--verse-line)', background: kind === k.kind ? 'var(--verse-soft)' : 'transparent' }}>
               <input type="radio" name="kind" value={k.kind} checked={kind === k.kind} onChange={() => setKind(k.kind)} className="mt-1" />
               <span>
                 <span className="block text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{k.label}</span>
@@ -68,14 +68,14 @@ export function NewPageForm({ groupId, groupSlug, kinds }: {
       </div>
 
       {errors.length > 0 ? (
-        <ul className="mb-4 space-y-1 text-sm" style={{ color: '#c0392b' }} role="alert">
+        <ul className="mb-4 space-y-1 text-sm" style={{ color: 'var(--verse-danger)' }} role="alert">
           {errors.map((e, i) => <li key={i}>{e}</li>)}
         </ul>
       ) : null}
 
       <button type="button" disabled={busy || !title.trim()} onClick={() => void create()}
         className="inline-flex min-h-[44px] items-center rounded-xl px-6 text-sm font-bold text-white disabled:opacity-50"
-        style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
+        style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, #fff)' }}>
         {busy ? 'Creating...' : 'Create the draft'}
       </button>
       <p className="mt-3 text-[12px] text-tertiary">Pages start as drafts. A curator reviews before anything goes live.</p>

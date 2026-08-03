@@ -6,7 +6,7 @@ import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 // inside the root layout, so on a /verse/* URL the world chrome is already the
 // KpopVerse header + Verse footer; this is the on-brand, helpful body. Next sets
 // the 404 status automatically (inherently noindex).
-const VIOLET = '#7c5cfc';
+const VIOLET = 'var(--verse-accent)';
 
 export default function VerseNotFound(): React.ReactElement {
   return (

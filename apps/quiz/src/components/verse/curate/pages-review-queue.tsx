@@ -38,11 +38,11 @@ export function PagesReviewQueue({ groupSlug, items }: {
             <div className="min-w-0 flex-1">
               <Link href={`/verse/${groupSlug}/wiki/${p.slug}/edit`} className="text-sm font-bold no-underline hover:underline" style={{ color: 'var(--verse-ink)' }}>{p.title}</Link>
               <span className="ml-2 text-[11px] uppercase tracking-wide text-tertiary">{p.kind} · <Byline identity={{ displayName: p.created_by_name }} prefix="by" link={false} /></span>
-              {errors[p.id] ? <p className="mt-1 text-[12px]" style={{ color: '#c0392b' }} role="alert">{errors[p.id]!.join(' ')}</p> : null}
+              {errors[p.id] ? <p className="mt-1 text-[12px]" style={{ color: 'var(--verse-danger)' }} role="alert">{errors[p.id]!.join(' ')}</p> : null}
             </div>
             <div className="flex gap-2">
               <button type="button" disabled={busy === p.id} onClick={() => void act(p.id, 'publish')}
-                className="inline-flex min-h-[44px] items-center rounded-xl px-4 text-[13px] font-bold text-white disabled:opacity-50" style={{ background: '#1e8e5a' }}>
+                className="inline-flex min-h-[44px] items-center rounded-xl px-4 text-[13px] font-bold text-white disabled:opacity-50" style={{ background: 'var(--verse-success)' }}>
                 Publish
               </button>
               <button type="button" disabled={busy === p.id} onClick={() => void act(p.id, 'return')}

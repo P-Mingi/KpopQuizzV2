@@ -72,7 +72,7 @@ export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: 
 
       <div className="verse-hero-body relative flex flex-col gap-5 px-4 pb-7 pt-10 sm:px-6 sm:pb-8 sm:pt-12 lg:px-10">
         <div className="verse-hero-name flex items-end gap-4 sm:gap-5">
-          <span className="verse-hero-logo flex-shrink-0"><GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? '#E8457A'} textColor={group.text_color ?? '#fff'} size={64} /></span>
+          <span className="verse-hero-logo flex-shrink-0"><GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? 'var(--verse-accent)'} textColor={group.text_color ?? '#fff'} size={64} /></span>
           <div className="min-w-0 flex-1">
             <p className="verse-hero-kicker text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">Home of {group.name} fans</p>
             <p className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{group.fandom_name}</p>
@@ -117,8 +117,8 @@ export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: 
             ) : null}
             {space.presentation.liveNow && Date.parse(space.presentation.liveNow.expiresAt) > Date.now() ? (
               <a href={space.presentation.liveNow.url} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center gap-2.5 text-sm no-underline">
-                <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide" style={{ color: '#e0245e' }}>
-                  <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: '#e0245e' }} aria-hidden /> Live now
+                <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide" style={{ color: 'var(--verse-accent)' }}>
+                  <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: 'var(--verse-accent)' }} aria-hidden /> Live now
                 </span>
                 <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{space.presentation.liveNow.label ?? `${group.name} is live`}</span>
                 <span className="ml-auto inline-flex items-center gap-1 font-bold" style={{ color: 'var(--verse-ink)' }}>Watch

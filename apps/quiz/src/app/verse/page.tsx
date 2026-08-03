@@ -41,7 +41,7 @@ export function generateMetadata(): Metadata {
   };
 }
 
-const VIOLET = '#7c5cfc';
+const VIOLET = 'var(--verse-accent)';
 
 function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
   return (
@@ -58,7 +58,7 @@ function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
           <span className="absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Launch space</span>
         ) : null}
         <div className="absolute -bottom-6 left-5">
-          <GroupLogo groupName={tile.name} logoUrl={tile.logo_url} displayColor={tile.display_color ?? '#E8457A'} textColor={tile.text_color ?? '#ffffff'} size={52} />
+          <GroupLogo groupName={tile.name} logoUrl={tile.logo_url} displayColor={tile.display_color ?? 'var(--verse-accent)'} textColor={tile.text_color ?? '#ffffff'} size={52} />
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-1 px-5 pb-4 pt-8">
@@ -248,7 +248,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
       ) : null}
 
       {/* 8. CLAIM YOUR FANDOM - the recruitment band, now with the ladder in miniature */}
-      <section className="mb-12 rounded-2xl px-6 py-10 sm:px-10" style={{ background: 'color-mix(in srgb, #7c5cfc 12%, var(--bg-surface))', border: '1px solid color-mix(in srgb, #7c5cfc 22%, transparent)' }}>
+      <section className="mb-12 rounded-2xl px-6 py-10 sm:px-10" style={{ background: 'color-mix(in srgb, var(--verse-accent) 12%, var(--bg-surface))', border: '1px solid color-mix(in srgb, var(--verse-accent) 22%, transparent)' }}>
         <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--verse-brand-text)' }}>Claim your fandom</p>
         <h2 className="mt-2 max-w-2xl text-2xl font-extrabold leading-tight text-primary sm:text-3xl">Run your fandom&rsquo;s home. Get credited for it.</h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-secondary">
@@ -264,7 +264,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
         </div>
         {/* V-TRUST step 2: the covenant at the moment of deciding. Prominent, always
             shown (no gate), so a recruit reads what we owe them before they build. */}
-        <Link href="/verse/promises" className="mt-5 flex items-center gap-3 rounded-xl border px-4 py-3 no-underline transition-colors" style={{ borderColor: 'color-mix(in srgb, #7c5cfc 30%, transparent)', background: 'color-mix(in srgb, #7c5cfc 6%, var(--bg-surface))' }}>
+        <Link href="/verse/promises" className="mt-5 flex items-center gap-3 rounded-xl border px-4 py-3 no-underline transition-colors" style={{ borderColor: 'color-mix(in srgb, var(--verse-accent) 30%, transparent)', background: 'color-mix(in srgb, var(--verse-accent) 6%, var(--bg-surface))' }}>
           <OrbitMarkSmall size={26} />
           <span className="min-w-0">
             <span className="block text-sm font-bold text-primary">Before you build: here is what we promise you</span>

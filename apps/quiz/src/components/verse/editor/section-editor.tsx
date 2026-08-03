@@ -267,7 +267,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
           {publishing ? 'Saving...' : suggestMode ? 'Submit suggestion' : 'Publish'}
         </button>
         <button type="button" onClick={onClose} className="inline-flex min-h-[40px] items-center rounded-full px-3 py-1.5 text-sm font-semibold text-secondary hover:text-primary sm:min-h-0">Cancel</button>
-        {error ? <span role="alert" className="w-full text-xs text-[var(--wrong,#A32D2D)]">{error}</span> : null}
+        {error ? <span role="alert" className="w-full text-xs text-[var(--wrong,var(--verse-danger))]">{error}</span> : null}
       </div>
     </div>
   );

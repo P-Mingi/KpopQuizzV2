@@ -65,7 +65,7 @@ export function FanResumeOwner({ profileUsername }: { profileUsername: string })
         aria-pressed={isPublic} aria-label={`${SECTION_LABELS[section]} visibility: ${isPublic ? 'public' : 'only you'}. Tap to ${isPublic ? 'make private' : 'make public'}.`}
         className="inline-flex min-h-[24px] items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide transition-colors disabled:opacity-50"
         style={isPublic
-          ? { background: 'var(--verse-soft, #e9e6fb)', color: 'var(--verse-ink, #3c3489)' }
+          ? { background: 'var(--verse-soft, #e9e6fb)', color: 'var(--verse-ink)' }
           : { background: 'var(--bg-surface-1, #f1f1f4)', color: 'var(--text-secondary, #555)' }}
       >
         <span aria-hidden style={{ width: 6, height: 6, borderRadius: 999, background: isPublic ? 'currentColor' : 'transparent', border: isPublic ? 'none' : '1px solid currentColor' }} />

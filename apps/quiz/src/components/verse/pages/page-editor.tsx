@@ -53,7 +53,7 @@ function InfoboxField({ f, raw, onChange }: { f: InfoboxFieldDef; raw: unknown; 
   return (
     <div>
       <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.08em] text-tertiary" htmlFor={`ib-${f.key}`}>
-        {f.label}{f.fact ? <span className="ml-1 normal-case tracking-normal" style={{ color: 'var(--verse-brand-text, #6d4de0)' }}>fact · source required</span> : null}
+        {f.label}{f.fact ? <span className="ml-1 normal-case tracking-normal" style={{ color: 'var(--verse-brand-text, var(--verse-accent))' }}>fact · source required</span> : null}
       </label>
       {f.type === 'select' ? (
         <select id={`ib-${f.key}`} className={inputCls} style={inputStyle} value={String(raw ?? '')} onChange={(e) => onChange(e.target.value || undefined)}>
@@ -169,7 +169,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
         </div>
 
         {errors.length > 0 ? (
-          <ul className="mt-3 space-y-1 text-sm" style={{ color: '#c0392b' }} role="alert">
+          <ul className="mt-3 space-y-1 text-sm" style={{ color: 'var(--verse-danger)' }} role="alert">
             {errors.map((e, i) => <li key={i}>{e}</li>)}
           </ul>
         ) : null}
@@ -179,12 +179,12 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
             {saving === 'saving' ? 'Saving...' : saving === 'saved' ? 'Saved' : 'Save draft'}
           </button>
           {status === 'draft' ? (
-            <button type="button" onClick={() => void act('/api/verse/pages/submit', { page_id: page.id })} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold" style={{ background: 'var(--verse-cta, #7c5cfc)', color: 'var(--verse-cta-text, #fff)' }}>
+            <button type="button" onClick={() => void act('/api/verse/pages/submit', { page_id: page.id })} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, #fff)' }}>
               Submit for review
             </button>
           ) : null}
           {canPublish ? (
-            <button type="button" onClick={() => void act('/api/verse/pages/publish', { page_id: page.id, action: 'publish' }, () => router.refresh())} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold text-white" style={{ background: '#1e8e5a' }}>
+            <button type="button" onClick={() => void act('/api/verse/pages/publish', { page_id: page.id, action: 'publish' }, () => router.refresh())} className="inline-flex min-h-[44px] items-center rounded-xl px-5 text-sm font-bold text-white" style={{ background: 'var(--verse-success)' }}>
               Publish
             </button>
           ) : null}

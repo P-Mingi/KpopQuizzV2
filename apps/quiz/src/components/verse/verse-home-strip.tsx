@@ -30,7 +30,7 @@ export async function VerseHomeStrip(): Promise<React.ReactElement | null> {
             className="verse-tile verse-scope flex items-center gap-3 rounded-xl border border-default bg-surface p-3 no-underline"
             style={verseScopeStyle(t)}
           >
-            <GroupLogo groupName={t.name} logoUrl={t.logo_url} displayColor={t.display_color ?? '#E8457A'} textColor={t.text_color ?? '#fff'} size={36} />
+            <GroupLogo groupName={t.name} logoUrl={t.logo_url} displayColor={t.display_color ?? 'var(--verse-accent)'} textColor={t.text_color ?? '#fff'} size={36} />
             <span className="min-w-0">
               <span className="block truncate text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{t.fandom_name}</span>
               <span className="block truncate text-[11px] text-tertiary">{t.name}</span>

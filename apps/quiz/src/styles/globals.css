@@ -4900,6 +4900,10 @@ a.ranking-cta { text-decoration: none; }
 .verse-scope {
   --verse-accent: var(--brand);
   --verse-accent-text: #ffffff;
+  /* V-HARMONY-1: semantic colors, so Verse surfaces route errors/success through
+     a token (not a raw hex). Theme-agnostic; legible on both grounds. */
+  --verse-danger: #c0392b;
+  --verse-success: #1e8e5a;
   /* text-safe accent: darkened toward ink on the light cream background.
      V-POLISH: the theme layer precomputes a contrast-floored ink (--v-ink-l)
      because a fixed mix ratio cannot rescue near-white accents; the mix stays

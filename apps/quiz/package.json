@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_OPTIONS='--max-http-header-size=32768' next dev -p 3021",
-    "build": "npm run check:routes && next build",
+    "build": "npm run check:routes && npm run check:verse-tokens && next build",
     "start": "next start",
     "lint": "next lint",
-    "check:routes": "tsx scripts/check-route-allowlist.mts"
+    "check:routes": "tsx scripts/check-route-allowlist.mts",
+    "check:verse-tokens": "tsx scripts/check-verse-tokens.mts"
   },
   "dependencies": {
     "@kpopquiz/shared": "workspace:*",

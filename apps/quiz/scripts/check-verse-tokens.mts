@@ -17,8 +17,21 @@ import { join } from 'node:path';
 const ROOTS = ['src/app/verse', 'src/components/verse'];
 const ALLOW_FILES = new Set([
   'src/components/verse/brand/verse-wordmarks.tsx', // brand mark, renders outside verse-scope
+  'src/components/verse/studio/studio-client.tsx',  // the space-customization tool: <input type=color> values + saved-config hexes are FUNCTIONAL, not style-bleed
+  'src/app/verse/[slug]/create/page.tsx',            // space config defaults saved to the DB (functional hexes)
 ]);
-const HEX = /#[0-9a-fA-F]{3,8}\b/;
+const HEXG = /#[0-9a-fA-F]{3,8}\b/g;
+
+/** A hex is the accent-bleed class the gate guards against only if it is
+ * CHROMATIC (its RGB channels spread). Near-neutral hexes (white, black, grays,
+ * faint tints) do not interact with the ink-floor clamp, so they are allowed. */
+function isChromatic(hex: string): boolean {
+  let h = hex.slice(1);
+  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+  if (h.length < 6) return false;
+  const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+  return Math.max(r, g, b) - Math.min(r, g, b) >= 24;
+}
 
 function walk(dir: string): string[] {
   const out: string[] = [];
@@ -37,7 +50,8 @@ for (const root of ROOTS) {
     const lines = readFileSync(file, 'utf8').split('\n');
     lines.forEach((line, i) => {
       if (line.includes('token-lint-ok')) return;
-      if (HEX.test(line)) violations.push(`${file}:${i + 1}  ${line.trim().slice(0, 100)}`);
+      const chromatic = (line.match(HEXG) ?? []).filter(isChromatic);
+      if (chromatic.length) violations.push(`${file}:${i + 1}  [${chromatic.join(', ')}]  ${line.trim().slice(0, 80)}`);
     });
   }
 }

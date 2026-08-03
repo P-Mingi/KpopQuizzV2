@@ -65,7 +65,7 @@ export function HistoryPanel({ entityType, entityId, section, canEdit, onClose }
                 {open === r.id ? (
                   <pre className="mt-2 overflow-x-auto rounded-lg border border-default p-2 text-[12px] leading-relaxed" style={{ borderColor: 'var(--verse-line)' }}>
                     {diff.map((d, k) => (
-                      <div key={k} style={{ color: d.type === 'add' ? '#0F6E56' : d.type === 'del' ? '#A32D2D' : 'var(--txt2)', background: d.type === 'add' ? 'color-mix(in srgb, #0F6E56 10%, transparent)' : d.type === 'del' ? 'color-mix(in srgb, #A32D2D 10%, transparent)' : 'transparent' }}>
+                      <div key={k} style={{ color: d.type === 'add' ? 'var(--verse-success)' : d.type === 'del' ? 'var(--verse-danger)' : 'var(--txt2)', background: d.type === 'add' ? 'color-mix(in srgb, var(--verse-success) 10%, transparent)' : d.type === 'del' ? 'color-mix(in srgb, var(--verse-danger) 10%, transparent)' : 'transparent' }}>
                         <span className="select-none opacity-60">{d.type === 'add' ? '+ ' : d.type === 'del' ? '- ' : '  '}</span>{d.text || ' '}
                       </div>
                     ))}
