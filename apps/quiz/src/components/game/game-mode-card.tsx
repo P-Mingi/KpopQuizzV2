@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+import { GamePreview } from './game-preview';
+import type { PreviewKind, VersusFace } from './game-preview';
+
 /**
  * One uniform, repeatable game-mode card (D0, Option A). Adding a new mode is a
  * single <GameModeCard>. `tint` is a CSS custom-property name (e.g. '--tot')
@@ -17,6 +20,10 @@ interface Props {
   comingSoon?: boolean;
   /** Accent border + tinted wash (used for the newest/featured mode). */
   highlight?: boolean;
+  /** A tiny animated preview of the real round (animates on hover). */
+  preview?: PreviewKind;
+  /** Real idol photos for the This-or-that preview. */
+  versus?: VersusFace[] | undefined;
   index?: number;
 }
 
@@ -30,6 +37,8 @@ export function GameModeCard({
   badge,
   comingSoon = false,
   highlight = false,
+  preview,
+  versus,
   index = 0,
 }: Props): React.ReactElement {
   const style = { '--gm-tint': `var(${tint})`, animationDelay: `${index * 40}ms` } as React.CSSProperties;
@@ -44,6 +53,7 @@ export function GameModeCard({
       <span className="gm-icon" aria-hidden="true">{icon}</span>
       <span className="gm-name">{name}</span>
       <span className="gm-desc">{desc}</span>
+      {preview && !comingSoon ? <GamePreview kind={preview} versus={versus} /> : null}
       <span className="gm-foot">
         <span className="gm-stat">{stat}</span>
         <span className="gm-play">{comingSoon ? 'Soon' : 'Play →'}</span>

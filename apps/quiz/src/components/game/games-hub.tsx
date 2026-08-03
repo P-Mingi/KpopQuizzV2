@@ -1,8 +1,13 @@
 import Link from 'next/link';
 
 import { GameModeCard } from './game-mode-card';
-import { GamesDailyStrip } from './games-daily-strip';
+import { GamesSpotlight } from './games-spotlight';
+import { resolveGotdLink, gotdPreviewKind } from '@/lib/games/gotd-ui';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { formatCount } from '@/lib/utils';
+
+import type { SpotSlide } from './games-spotlight';
+import type { VersusFace } from './game-preview';
 
 import type { GameOfTheDayData } from '@/lib/db/queries/game-of-the-day';
 import type { RankingIndexItem } from '@/lib/db/queries/duels';
@@ -50,7 +55,22 @@ const ICON_MATCH_UP = (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="7" height="6" rx="1.5" /><rect x="14" y="4" width="7" height="6" rx="1.5" /><rect x="3" y="14" width="7" height="6" rx="1.5" /><rect x="14" y="14" width="7" height="6" rx="1.5" /><path d="M10 7h4" /><path d="M10 17h4" /></svg>
 );
 
-export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.ReactElement {
+// (previews: hover-hint labels removed per design)
+export async function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): Promise<React.ReactElement> {
+  // Two real idol photos from the SAME group for the This-or-that preview, so
+  // the matchup reads as a real one. Empty on any hiccup -> the preview falls
+  // back to gradient tiles (never a broken image).
+  let versus: VersusFace[] = [];
+  try {
+    const svc = createServiceRoleClient();
+    const { data } = await svc.from('idols').select('name, photo_url, group_id').not('photo_url', 'is', null).limit(60);
+    const byGroup = new Map<number, VersusFace[]>();
+    for (const r of (data ?? []) as { name: string; photo_url: string; group_id: number }[]) {
+      const arr = byGroup.get(r.group_id) ?? [];
+      if (arr.length < 2) { arr.push({ name: r.name, image: r.photo_url }); byGroup.set(r.group_id, arr); }
+    }
+    versus = [...byGroup.values()].find((a) => a.length === 2) ?? [];
+  } catch { versus = []; }
   // Normalize once so a missing object or field can never throw. Each stat
   // shows the real count when present and a call-to-action otherwise.
   const c = {
@@ -69,6 +89,30 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
   const sortItStat = c.sortIt > 0 ? `${c.sortIt} sorting quizzes` : 'Beat the clock';
   const matchUpStat = c.matchUp > 0 ? `${c.matchUp} matching games` : 'Beat the clock';
 
+  // The rotating spotlight: the game of the day (when present) leads, then a few
+  // featured modes. Each carries the tint + the matching live preview.
+  let gotdSlide: SpotSlide | null = null;
+  if (gotd) {
+    const link = resolveGotdLink(gotd);
+    gotdSlide = {
+      badge: 'Game of the day',
+      title: link.title,
+      href: link.href,
+      desc: 'Today’s handpicked round. A fresh one lands at midnight, every day.',
+      tint: '--brand',
+      preview: gotdPreviewKind(gotd),
+      meta: [],
+      countdown: true,
+    };
+  }
+  const spotSlides: SpotSlide[] = [
+    ...(gotdSlide ? [gotdSlide] : []),
+    { badge: 'Personality', title: 'Which member are you?', desc: 'A 10-question quiz that matches you to a member of your group.', href: '/personality', tint: '--brand', preview: 'member', meta: [personalityStat] },
+    { badge: 'Daily · audio', title: 'Blind test', desc: 'Name the song or the group from a 10-second clip. A fresh set every day.', href: '/blindtest', tint: '--blind', preview: 'blind', meta: ['Fresh daily'] },
+    { badge: 'Head-to-head', title: 'This or that', desc: 'Two options, one winner. Vote in matchups and move the ranking.', href: '/games/this-or-that/all', tint: '--tot', preview: 'tot', meta: [categoriesStat], versus },
+    { badge: 'Time attack', title: 'Name Them All', desc: 'Type every member, every group, every generation before the timer runs out.', href: '/games/name-them-all', tint: '--nam', preview: 'name', meta: [nameAllStat] },
+  ];
+
   return (
     <main className="games-page">
       <div className="games-hero">
@@ -82,7 +126,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
         <p className="games-sub">Guess songs, pick sides, name members, find your match.</p>
       </div>
 
-      <GamesDailyStrip data={gotd} />
+      <GamesSpotlight slides={spotSlides} />
 
       <div className="gm-grid">
         <GameModeCard
@@ -93,6 +137,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           icon={ICON_MATCH}
           stat={personalityStat}
           highlight
+          preview="member"
           index={0}
         />
         <GameModeCard
@@ -102,6 +147,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           tint="--blind"
           icon={ICON_BLIND}
           stat={songsStat}
+          preview="blind"
           index={1}
         />
         <GameModeCard
@@ -111,6 +157,8 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           tint="--tot"
           icon={ICON_TOT}
           stat={categoriesStat}
+          preview="tot"
+          versus={versus}
           index={2}
         />
         <GameModeCard
@@ -120,6 +168,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           tint="--nam"
           icon={ICON_NAME}
           stat={nameAllStat}
+          preview="name"
           index={3}
         />
         <GameModeCard
@@ -129,6 +178,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           tint="--sit"
           icon={ICON_SORT}
           stat={sortItStat}
+          preview="sort"
           index={4}
         />
         <GameModeCard
@@ -139,6 +189,7 @@ export function GamesHub({ gotd, counts, liveRanking }: GamesHubProps): React.Re
           icon={ICON_MATCH_UP}
           stat={matchUpStat}
           badge="New"
+          preview="match"
           index={5}
         />
       </div>

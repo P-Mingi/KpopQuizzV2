@@ -16,6 +16,12 @@ interface PageProps {
 }
 
 export function generateStaticParams(): Array<{ slug: string }> {
+  // Build safety: preview/CI builds can run without Supabase env vars, and the
+  // page body constructs the service-role client during prerender, which throws
+  // "supabaseUrl is required" synchronously (escaping safeFetch) and fails the
+  // build. Skip build-time params when the URL is absent; dynamicParams (default)
+  // still serves + caches each slug via ISR at runtime, so production is unchanged.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return [];
   return MATCH_UP_PLAYLISTS.map((p) => ({ slug: p.slug }));
 }
 
@@ -48,8 +54,6 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
   const pool = await safeFetch(getMatchUpPairs(slug), [], '[match-up] getPairs');
   if (pool.length === 0) notFound();
 
-  const intro = `${playlist.blurb} Each round samples ${playlist.round} pairs from a pool of ${pool.length} real matches, so the board is different every time. It is free, needs no sign-up, and plays on mobile or desktop.`;
-
   const webPageLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -61,7 +65,7 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
 
   return (
     <div className="py-4 md:py-6">
-      <section className="mu-wrap game-intro" style={{ paddingBottom: 0 }}>
+      <section className="mu-wrap" style={{ paddingBottom: 0 }}>
         <Breadcrumbs
           items={[
             { label: 'Games', href: '/games' },
@@ -69,8 +73,6 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
             { label: playlist.title },
           ]}
         />
-        <h1 className="game-intro-h1">{playlist.title}</h1>
-        <p className="game-intro-p">{intro}</p>
       </section>
       <MatchUpPlayer playlist={playlist} pool={pool} />
 

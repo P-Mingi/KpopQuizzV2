@@ -46,7 +46,7 @@ export default async function SortItIndexPage(): Promise<React.ReactElement> {
   };
 
   return (
-    <div className="si-wrap">
+    <div className="si-wrap si-idx-wrap">
       <Breadcrumbs items={[{ label: 'Games', href: '/games' }, { label: 'Sort It' }]} />
       <header className="si-idx-head">
         <span className="si-eyebrow">Sort It</span>

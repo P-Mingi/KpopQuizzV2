@@ -188,7 +188,7 @@ export function SortItPlayer({
         <Link href="/games" className="si-back">{'←'} Back to Games</Link>
         <div className="si-intro">
           <span className="si-eyebrow">Sort It</span>
-          <h2 className="si-title">{playlist.title}</h2>
+          <h1 className="si-title">{playlist.title}</h1>
           <p className="si-blurb">{playlist.blurb}</p>
           <div className="si-meta">{total} to sort {'·'} tap, swipe, or arrow keys</div>
           <div className="si-bucket-preview" aria-hidden="true">
