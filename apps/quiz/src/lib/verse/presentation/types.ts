@@ -3,6 +3,7 @@
 // presentation_draft (studio) both hold this shape. Empty/absent -> default look.
 
 import type { Zone, FrameStyle } from './registry';
+import type { DoorwayConfigMap } from './doorways';
 
 export const PRESENTATION_VERSION = 1 as const;
 
@@ -98,6 +99,11 @@ export interface Presentation {
   // the kind registry at read (config can never invent a kind). Template bundles
   // write this (Encyclopedia enables all kinds).
   enabledKinds?: string[];
+  // V-HARMONY-2A: per-door-type presentation (link/button/card/feature + a
+  // heading override), keyed by door id. Absent -> sensible defaults. The FORMAT
+  // is a skin only; the crawlable href + target title never change (the SEO
+  // invariant lives in <DoorwayList>). Rides this jsonb - no migration.
+  doorways?: DoorwayConfigMap;
 }
 
 /** The empty presentation: absent config resolves to this, which the renderer maps

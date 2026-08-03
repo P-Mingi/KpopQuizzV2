@@ -10,12 +10,13 @@
 import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { MoreAboutThis } from '@/components/verse/pages/more-about-this';
+import { DoorwayList } from '@/components/verse/pages/doorway-format';
 
-import { getChildren, pageAncestors, whatLinksHere } from '@/lib/verse/pages/data';
+import { getChildren, pageAncestors, whatLinksHere, getSpaceDoorways } from '@/lib/verse/pages/data';
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
+import { resolveDoorway, DOORWAY_DEFAULT_HEADING } from '@/lib/verse/presentation/doorways';
 
 import type { WikiPage } from '@/lib/verse/pages/data';
 
@@ -47,22 +48,15 @@ export async function PagesInside({ groupId, groupSlug, pageId }: {
 }): Promise<React.ReactElement | null> {
   const { children, total } = await getChildren(groupId, pageId);
   if (children.length === 0) return null;
+  const cfg = resolveDoorway(await getSpaceDoorways(groupId), 'pagesInside');
+  const items = children.map((c) => ({ href: wikiHref(groupSlug, c.slug), title: c.title, sub: kindLabel(c.kind) }));
   return (
-    <section className="v-module">
-      <SectionHeader
-        kicker="Pages inside this"
-        as="h2"
-        action={total > children.length ? <Link href={`/verse/${groupSlug}/wiki`} className="text-secondary no-underline hover:text-primary">See all {total}</Link> : undefined}
-      />
-      <div className="v-grid-cards">
-        {children.map((c) => (
-          <Link key={c.id} href={wikiHref(groupSlug, c.slug)} className="group -mx-2 rounded-xl px-2 py-1.5 no-underline transition-colors hover:bg-[var(--verse-soft)]">
-            <span className="block text-[14.5px] font-bold" style={{ color: 'var(--verse-ink)' }}>{c.title}</span>
-            <span className="mt-0.5 block text-[12px] text-tertiary">{kindLabel(c.kind)}</span>
-          </Link>
-        ))}
-      </div>
-    </section>
+    <DoorwayList
+      heading={cfg.label ?? DOORWAY_DEFAULT_HEADING.pagesInside}
+      items={items}
+      format={cfg.format}
+      action={total > children.length ? <Link href={`/verse/${groupSlug}/wiki`} className="text-secondary no-underline hover:text-primary">See all {total}</Link> : undefined}
+    />
   );
 }
 
@@ -78,18 +72,9 @@ export async function WhatLinksHere({ groupId, groupSlug, pageId }: {
   // Self-reference guard: a page that somehow links to itself never lists itself.
   const seen = new Set<string>();
   const unique = pages.filter((l) => l.page.slug !== undefined && !seen.has(l.page.slug) && (seen.add(l.page.slug), true));
-  return (
-    <section className="v-module">
-      <SectionHeader kicker="What links here" as="h2" />
-      <ul className="flex flex-col gap-1.5">
-        {unique.map((l) => (
-          <li key={l.page.slug}>
-            <Link href={wikiHref(groupSlug, l.page.slug)} className="text-sm font-semibold no-underline hover:underline" style={{ color: 'var(--verse-ink)' }}>{l.page.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+  const cfg = resolveDoorway(await getSpaceDoorways(groupId), 'whatLinksHere');
+  const items = unique.map((l) => ({ href: wikiHref(groupSlug, l.page.slug), title: l.page.title }));
+  return <DoorwayList heading={cfg.label ?? DOORWAY_DEFAULT_HEADING.whatLinksHere} items={items} format={cfg.format} />;
 }
 
 /** THE SHELL - composes the four doors around a page's own content, each door

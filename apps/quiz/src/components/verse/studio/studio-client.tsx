@@ -8,11 +8,13 @@ import { TEMPLATE_LIST, applyTemplate } from '@/lib/verse/presentation/templates
 import { resolvePlacements } from '@/lib/verse/presentation/resolve';
 import { BLOCK_REGISTRY, FRAME_STYLES } from '@/lib/verse/presentation/registry';
 import { ALLOWED_TABS } from '@/lib/verse/presentation/types';
+import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_DEFAULT_HEADING, DOORWAY_STUDIO_LABEL } from '@/lib/verse/presentation/doorways';
 // V-POLISH step 2 - the accent advisory shares the exact math the theme layer
 // renders with, so what the strip predicts is what the space will show.
 import { derivedAccentVars, contrastRatio, accentPrefersDarkInk } from '@/lib/verse/theme';
 
 import type { Presentation, ModulePlacement, TabId } from '@/lib/verse/presentation/types';
+import type { DoorwayId, DoorwayConfig } from '@/lib/verse/presentation/doorways';
 
 type BP = 'mobile' | 'tablet' | 'desktop';
 const BP_WIDTH: Record<BP, number> = { mobile: 390, tablet: 768, desktop: 1100 };
@@ -65,6 +67,21 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
   }
   function toggle(type: string): void {
     setModules(placements.map((m) => (m.type === type ? { ...m, hidden: !m.hidden } : m)));
+  }
+  // Doorway format/heading per door. An entry that equals the default (default
+  // format + no heading) is DROPPED, so "reset to default" is just clearing it -
+  // the stored config stays minimal and empty === default.
+  function setDoorway(id: DoorwayId, patch: Partial<DoorwayConfig>): void {
+    const cur = draft.doorways?.[id] ?? { format: DOORWAY_DEFAULTS[id].format };
+    const merged = { ...cur, ...patch };
+    const next: DoorwayConfig = { format: merged.format };
+    if (typeof merged.label === 'string' && merged.label.length > 0) next.label = merged.label;
+    const dw = { ...(draft.doorways ?? {}) };
+    const isDefault = next.format === DOORWAY_DEFAULTS[id].format && !(next.label && next.label.trim());
+    if (isDefault) delete dw[id]; else dw[id] = next;
+    const nextPres: Presentation = { ...draft, version: 1 };
+    if (Object.keys(dw).length) nextPres.doorways = dw; else delete nextPres.doorways;
+    update(nextPres);
   }
 
   async function publish(): Promise<void> {
@@ -231,6 +248,31 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
               <option value="inline">Always inline</option>
             </select>
           </div>
+        </div>
+
+        <div>
+          <p className={label}>Doorways (how connections show)</p>
+          <p className="mt-0.5 text-[11px] text-tertiary">The format is a skin: the links + titles always stay in the page for search. A heading renames the section only.</p>
+          <ul className="mt-2 flex flex-col gap-2">
+            {DOORWAY_IDS.map((id) => {
+              const cfg = draft.doorways?.[id];
+              return (
+                <li key={id} className="rounded-lg border border-default px-2.5 py-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex-1 truncate text-sm">{DOORWAY_STUDIO_LABEL[id]}</span>
+                    <select value={cfg?.format ?? DOORWAY_DEFAULTS[id].format}
+                      onChange={(e) => setDoorway(id, { format: e.target.value as DoorwayConfig['format'] })}
+                      className={field} aria-label={`${DOORWAY_STUDIO_LABEL[id]} format`}>
+                      {DOORWAY_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
+                    </select>
+                  </div>
+                  <input type="text" value={cfg?.label ?? ''} placeholder={DOORWAY_DEFAULT_HEADING[id]} maxLength={40}
+                    onChange={(e) => setDoorway(id, { label: e.target.value })}
+                    className={`${field} mt-1.5 w-full`} aria-label={`${DOORWAY_STUDIO_LABEL[id]} heading`} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         <div className="flex gap-2 border-t border-default pt-4">

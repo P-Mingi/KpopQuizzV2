@@ -6,6 +6,7 @@
 
 import { BLOCK_REGISTRY, isKnownBlock, blockDef, defaultSeoCriticalTypes, FRAME_STYLES } from './registry';
 import { PRESETS, STRUCTURE_TEMPLATES, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION_VERSION } from './types';
+import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_MAX_LABEL } from './doorways';
 import { isHex, accentReadableOn } from './contrast';
 
 import type { FrameStyle } from './registry';
@@ -279,6 +280,35 @@ export function validatePresentation(raw: unknown): ValidationResult {
     }
   }
 
+  // V-HARMONY-2A: per-door-type presentation, keyed by door id (the textFolds
+  // pattern). Only the four formats + a capped heading override are accepted;
+  // unknown door ids / formats are rejected so config can never invent a door.
+  let doorways: Presentation['doorways'] | undefined;
+  if (c.doorways != null && typeof c.doorways === 'object' && !Array.isArray(c.doorways)) {
+    const raw = c.doorways as Record<string, unknown>;
+    const norm: NonNullable<Presentation['doorways']> = {};
+    for (const [k, v] of Object.entries(raw)) {
+      if (!DOORWAY_IDS.includes(k as never)) { errors.push(`Unknown doorway "${k}".`); continue; }
+      if (v == null || typeof v !== 'object') { errors.push(`Doorway "${k}" config must be an object.`); continue; }
+      const vv = v as Record<string, unknown>;
+      const id = k as (typeof DOORWAY_IDS)[number];
+      const cfg: NonNullable<Presentation['doorways']>[typeof id] = { format: DOORWAY_DEFAULTS[id].format };
+      if (vv.format != null) {
+        if (!DOORWAY_FORMATS.includes(vv.format as never)) { errors.push(`Unknown doorway format "${String(vv.format)}" (link, button, card or feature).`); continue; }
+        cfg.format = vv.format as (typeof DOORWAY_FORMATS)[number];
+      }
+      if (vv.label != null) {
+        if (typeof vv.label !== 'string') { errors.push(`Doorway "${k}" label must be text.`); continue; }
+        const label = vv.label.trim().slice(0, DOORWAY_MAX_LABEL);
+        if (label) cfg.label = label;
+      }
+      norm[id] = cfg;
+    }
+    if (!errors.length && Object.keys(norm).length) doorways = norm;
+  } else if (c.doorways != null) {
+    errors.push('Doorways config must be an object keyed by door.');
+  }
+
   if (errors.length) return { ok: false, errors };
 
   const value: Presentation = { version: PRESENTATION_VERSION };
@@ -296,5 +326,6 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (celebrations !== undefined) value.celebrations = celebrations;
   if (textFolds) value.textFolds = textFolds;
   if (enabledKinds) value.enabledKinds = enabledKinds;
+  if (doorways) value.doorways = doorways;
   return { ok: true, value, errors: [] };
 }

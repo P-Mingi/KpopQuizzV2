@@ -6,6 +6,8 @@ import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 
+import type { DoorwayConfigMap } from '@/lib/verse/presentation/doorways';
+
 // ATTRIBUTION (owner directive at step 8 review): content authored by the
 // platform/system account is publicly credited as "KpopVerse", never as the
 // owner's private dev identity. Display-path mapping only: created_by rows are
@@ -186,6 +188,18 @@ export const getChildren = cache(async (groupId: number, parentPageId: number, l
     .order('title', { ascending: true }).limit(limit);
   if (error) throw new Error(`getChildren(${parentPageId}): ${error.message}`);
   return { children: (data ?? []) as WikiPage[], total: count ?? 0 };
+});
+
+/** The space's doorway presentation config (link/button/card/feature + heading
+ * per door). COSMETIC read: the doorway format is a skin, never page-defining,
+ * so on any read surprise this degrades to `undefined` (= every door uses its
+ * default) rather than throwing - a config glitch must never 500 a reader page.
+ * The studio validated the shape on save; readers trust it loosely. */
+export const getSpaceDoorways = cache(async (groupId: number): Promise<DoorwayConfigMap | undefined> => {
+  const db = createPublicReadClient();
+  const { data } = await db.from('verse_spaces').select('presentation').eq('group_id', groupId).maybeSingle();
+  const dw = (data as { presentation?: { doorways?: unknown } } | null)?.presentation?.doorways;
+  return dw && typeof dw === 'object' && !Array.isArray(dw) ? (dw as DoorwayConfigMap) : undefined;
 });
 
 export const pageAncestors = cache(async (page: WikiPage): Promise<WikiPage[]> => {
