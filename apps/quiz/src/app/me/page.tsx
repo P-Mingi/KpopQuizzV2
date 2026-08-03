@@ -176,7 +176,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       pinnedBadgeId={profile.pinned_badge_id}
       avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
       avatarRef={profile.avatar_ref}
-      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} metrics={badgeMetrics ?? undefined} />}
+      badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} metrics={badgeMetrics ?? undefined} self />}
       bio={profile.bio}
       accent={accent}
       bias={spine?.bias ?? null}

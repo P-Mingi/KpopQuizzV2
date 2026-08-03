@@ -13,13 +13,15 @@ interface Props {
   earnedAt?: string | null;
   /** progress toward a locked tiered badge, so the modal explains the target. */
   progress?: { current: number; threshold: number; noun: string } | null;
+  /** true when the viewer owns this profile ("You have X" vs a neutral "X of Y"). */
+  self?: boolean;
   onClose: () => void;
 }
 
 // Badge lightbox (M1.15 follow-up). Tapping a coin opens it big enough to
 // actually read the art, with what it is and how it is earned. Locked badges
 // stay frosted here too, so opening one is a teaser rather than a spoiler.
-export function BadgeDetailModal({ badge, earned, earnedAt, progress, onClose }: Props): React.ReactElement {
+export function BadgeDetailModal({ badge, earned, earnedAt, progress, self = false, onClose }: Props): React.ReactElement {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
@@ -65,7 +67,7 @@ export function BadgeDetailModal({ badge, earned, earnedAt, progress, onClose }:
         {!earned && progress ? (
           <div className="bdm-progress" role="img" aria-label={`${progress.current} of ${progress.threshold} ${progress.noun}`}>
             <div className="bdm-progress-bar"><div className="bdm-progress-fill" style={{ width: `${Math.round((progress.current / progress.threshold) * 100)}%` }} /></div>
-            <p className="bdm-progress-txt">You have <strong>{progress.current.toLocaleString('en-US')}</strong> of {progress.threshold.toLocaleString('en-US')} {progress.noun}.</p>
+            <p className="bdm-progress-txt">{self ? 'You have ' : ''}<strong>{progress.current.toLocaleString('en-US')}</strong> of {progress.threshold.toLocaleString('en-US')} {progress.noun}{self ? '.' : ' so far.'}</p>
           </div>
         ) : null}
 

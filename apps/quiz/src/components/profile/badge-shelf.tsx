@@ -15,13 +15,15 @@ interface Props {
   earnedAt?: Record<string, string>;
   /** the profile owner's metric values (drives locked-as-target progress). */
   metrics?: BadgeMetrics | undefined;
+  /** true on /me (the viewer is the owner) - the modal says "You have X". */
+  self?: boolean;
 }
 
 // Badge shelf (M1.29). Earned-first: the coins you actually own sit out in full
 // colour, and everything still locked collapses into one chip that expands the
 // full frosted grid inline. Keeps a fresh profile from opening on a wall of
 // greyed-out tiles while still showing there is something to chase.
-export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt, metrics }: Props): React.ReactElement | null {
+export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt, metrics, self }: Props): React.ReactElement | null {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState<BadgeDefinition | null>(null);
   if (allBadges.length === 0) return null;
@@ -81,6 +83,7 @@ export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt, metrics }: Pro
           earned={earnedSet.has(selected.id)}
           earnedAt={earnedAt?.[selected.id] ?? null}
           progress={earnedSet.has(selected.id) ? null : badgeProgress(selected.id, metrics)}
+          self={self ?? false}
           onClose={() => setSelected(null)}
         />
       )}

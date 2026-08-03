@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getLatestPersonalityMatch } from '@/lib/personality/data';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
-import { createPublicReadClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { computeMetrics } from '@/lib/badges/award';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
@@ -147,6 +148,12 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
     safeFetch(Promise.resolve(db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), { data: null } as { data: unknown }, '[u/[username]] user_badges'),
   ]);
 
+  // V-UPGRADE-1 A4: the profile owner's badge metrics, so locked tiered badges
+  // show their target as "X / Y" (read-only; the grant paths are /me + the play
+  // route + the backfill, not this public view). Service-role read (some source
+  // tables are not anon-readable). Degrades quietly.
+  const uBadgeMetrics = await computeMetrics(createServiceRoleClient(), profile.id).catch(() => null);
+
   // V-CARDS-MAX step 4: the public showcase (only if the owner opted in).
   const shelfCards = await safeFetch(getPublicShelfCards(profile.id), [], '[u/[username]] getPublicShelfCards');
   // V-ESSAYS-MAX step 6: the author's published essays (feeds V-PROFILE-ONE).
@@ -278,7 +285,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         pinnedBadgeId={profile.pinned_badge_id}
         avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
         avatarRef={profile.avatar_ref}
-        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
+        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} metrics={uBadgeMetrics ?? undefined} />}
       />
 
       {/* F2c: Share my Fan Card. Renders only for the owner viewing their own
