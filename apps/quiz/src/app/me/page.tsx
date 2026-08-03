@@ -17,8 +17,6 @@ import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card'
 import { ContributionGraph } from '@/components/verse/contribution-graph';
 import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
-import { PassportShare } from '@/components/profile/passport-share';
-import { FanCardShare } from '@/components/profile/fan-card-share';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -217,20 +215,14 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
           contribution graph + collection - now on the owner's own /me. Each
           returns null when the owner has none, so a Play-only fan sees no empty
           Verse boxes; no public visibility gate here (this is the owner's own
-          view of their own data). */}
-      <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <SpaceMembershipsCard userId={user.id} />
-        <ContributionGraph userId={user.id} />
-        <PhotocardCollectionCard userId={user.id} />
-      </div>
+          view of their own data). Rendered directly (not a flex column) so each
+          card keeps its own maxWidth:520 + margin-auto and fills the passport
+          column, aligned with everything else. */}
+      <SpaceMembershipsCard userId={user.id} />
+      <ContributionGraph userId={user.id} />
+      <PhotocardCollectionCard userId={user.id} />
       <div style={{ marginTop: 18 }}>
         <ProfileTabs profileUsername={profile.username} initialQuizzes={createdQuizzes} creatorId={user.id} />
-      </div>
-      <div style={{ marginTop: 14, display: 'flex', justifyContent: 'center' }}>
-        <FanCardShare username={profile.username} />
-      </div>
-      <div style={{ marginTop: 14 }}>
-        <PassportShare username={profile.username} />
       </div>
     </div>
   );
