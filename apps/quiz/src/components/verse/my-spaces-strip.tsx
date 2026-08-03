@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import Link from 'next/link';
 
 interface MySpace { slug: string; name: string; fandom: string; role: string; xp: number }
@@ -22,8 +22,7 @@ export function MySpacesStrip(): React.ReactElement | null {
   }, []);
   if (!spaces || spaces.length === 0) return null;
   return (
-    <section className="mb-10 rounded-2xl border px-5 py-4" style={{ borderColor: 'var(--v-hairline)' }} aria-label="Your spaces">
-      <SectionHeader kicker="Your spaces" />
+    <WidgetShell framed eyebrow="Your spaces" as="h2" aria="Your spaces" wrapClassName="mb-10">
       <div className="flex flex-wrap gap-2.5">
         {spaces.map((s) => (
           <Link key={s.slug} href={`/verse/${s.slug}`} className="inline-flex min-h-[40px] items-center gap-2 rounded-full border px-4 text-sm font-bold no-underline" style={{ borderColor: 'var(--v-hairline)', color: 'var(--text-primary)' }}>
@@ -32,6 +31,6 @@ export function MySpacesStrip(): React.ReactElement | null {
           </Link>
         ))}
       </div>
-    </section>
+    </WidgetShell>
   );
 }

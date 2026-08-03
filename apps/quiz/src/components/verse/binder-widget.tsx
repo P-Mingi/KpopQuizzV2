@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import Link from 'next/link';
 
 // V-CARDS-MAX step 7 - the BINDER home widget (duality: the binder tool as a
@@ -24,8 +24,7 @@ export function BinderWidget({ groupId, groupSlug, cards }: {
   const nextCard = cards.find((c) => states[c.id] === 'wanted') ?? cards.find((c) => states[c.id] !== 'owned') ?? null;
 
   return (
-    <div>
-      <SectionHeader kicker="My binder" />
+    <WidgetShell eyebrow="My binder" wrapClassName="">
       <Link href={`/verse/${groupSlug}/photocards`} className="mt-2 flex items-center gap-3 no-underline">
         {/* Mini pocket row: the binder motif in miniature. */}
         <span className="flex gap-1" aria-hidden>
@@ -43,6 +42,6 @@ export function BinderWidget({ groupId, groupSlug, cards }: {
       ) : (
         <Link href={`/verse/${groupSlug}/photocards`} className="mt-2 inline-block text-xs font-bold verse-link">{signedIn ? 'Open the binder' : 'Start your binder'} ›</Link>
       )}
-    </div>
+    </WidgetShell>
   );
 }

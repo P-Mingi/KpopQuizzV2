@@ -1,5 +1,5 @@
 import { ClickToLoad } from './click-to-load';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { AudioStrip } from './audio-strip';
 import { youtubeId, youtubeEmbed, parseSocial, validDiscordInvite, discordWidget } from '@/lib/verse/presentation/media';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
@@ -7,13 +7,9 @@ import { isConfiguredImageHost } from '@/lib/image-hosts';
 import type { ModuleProps } from './module-registry';
 
 // V-DESIGN v2 - borderless editorial block (matches the rest of the module system).
+// V-HARMONY-2B: composes on the one WidgetShell.
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
-  return (
-    <div className="v-module">
-      <SectionHeader kicker={title} as="h3" />
-      {children}
-    </div>
-  );
+  return <WidgetShell eyebrow={title}>{children}</WidgetShell>;
 }
 
 function okTracks(raw: unknown): { title: string; url: string }[] {

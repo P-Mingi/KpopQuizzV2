@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 
 import { getSpaceGraph } from '@/lib/verse/atlas/data';
 import { neighborhood } from '@/lib/verse/atlas/graph';
@@ -28,9 +28,8 @@ export async function AtlasMiniMapModule({ space }: ModuleProps): Promise<React.
   const parts = [members ? `${members} members` : null, albums ? `${albums} releases` : null].filter(Boolean);
 
   return (
-    <Link href={`/verse/${space.group.slug}/wiki`} className="group block no-underline">
-      <SectionHeader kicker="Atlas" />
-
+    <WidgetShell eyebrow="Atlas" wrapClassName="">
+      <Link href={`/verse/${space.group.slug}/wiki`} className="group block no-underline">
       <div className="my-2 flex justify-center rounded-xl py-3" style={{ background: 'radial-gradient(120% 90% at 50% 30%, color-mix(in srgb, var(--verse-ink) 6%, transparent), transparent 70%)' }}>
         <svg viewBox="-100 -100 200 200" width="150" height="150" role="img" aria-label={`Constellation map of ${space.group.name}`} className="block">
           <g stroke="color-mix(in srgb, var(--verse-ink) 22%, transparent)" strokeWidth={1.2}>
@@ -52,6 +51,7 @@ export async function AtlasMiniMapModule({ space }: ModuleProps): Promise<React.
         Open the map
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 12h14M13 6l6 6-6 6" /></svg>
       </span>
-    </Link>
+      </Link>
+    </WidgetShell>
   );
 }

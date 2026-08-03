@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Byline } from '@/components/verse/primitives/byline';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 
 import { listThreads } from '@/lib/verse/threads';
 
@@ -16,8 +16,7 @@ export async function FeaturedThreadModule({ space }: ModuleProps): Promise<Reac
   const top = threads[0]!;
 
   return (
-    <div>
-      <SectionHeader kicker="Talk of the space" />
+    <WidgetShell eyebrow="Talk of the space" wrapClassName="">
       <Link href={`/verse/${space.group.slug}/community/${top.slug}`} className="mt-2 block no-underline">
         <p className="text-[15px] font-extrabold leading-snug" style={{ color: 'var(--verse-ink)' }}>{top.title}</p>
         <p className="mt-1 text-xs text-tertiary">
@@ -29,6 +28,6 @@ export async function FeaturedThreadModule({ space }: ModuleProps): Promise<Reac
           {threads.length} threads in the community
         </Link>
       ) : null}
-    </div>
+    </WidgetShell>
   );
 }

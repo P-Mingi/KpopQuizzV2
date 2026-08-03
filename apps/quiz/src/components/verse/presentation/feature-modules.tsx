@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 
 import { getPhotocards } from '@/lib/verse/photocards';
 import { getActiveSpacePoll } from '@/lib/verse/presentation/poll';
@@ -11,13 +11,9 @@ import type { ModuleProps } from './module-registry';
 
 // V-DESIGN v2 - borderless editorial block: a small-caps eyebrow + content, spaced
 // by the section rhythm. No card, no border (frames are opt-in and wrap this).
+// V-HARMONY-2B: composes on the one WidgetShell (eyebrow + body, v-module rhythm).
 function Card({ title, children }: { title: string; children: React.ReactNode }): React.ReactElement {
-  return (
-    <div className="v-module">
-      <SectionHeader kicker={title} as="h3" />
-      {children}
-    </div>
-  );
+  return <WidgetShell eyebrow={title}>{children}</WidgetShell>;
 }
 
 function daysUntil(iso: string, today: Date): number {

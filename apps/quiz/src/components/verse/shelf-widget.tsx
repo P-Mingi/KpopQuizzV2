@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import Link from 'next/link';
 
 // V-CARDS-MAX step 7 - the SHELF home widget (duality). Its own identity: mini
@@ -21,8 +21,7 @@ export function ShelfWidget({ groupId, groupSlug, items }: {
   const owned = items.filter((i) => states[i.id] === 'owned').length;
 
   return (
-    <div>
-      <SectionHeader kicker="My shelf" />
+    <WidgetShell eyebrow="My shelf" wrapClassName="">
       <Link href={`/verse/${groupSlug}/collectibles`} className="mt-2 flex items-end gap-3 no-underline">
         {/* Mini ledge with standing silhouettes: the shelf motif in miniature. */}
         <span className="flex items-end gap-1.5 border-b-2 pb-0.5" style={{ borderColor: 'var(--verse-soft-strong)' }} aria-hidden>
@@ -42,6 +41,6 @@ export function ShelfWidget({ groupId, groupSlug, items }: {
         </span>
       </Link>
       <Link href={`/verse/${groupSlug}/collectibles`} className="mt-2 inline-block text-xs font-bold verse-link">{signedIn ? 'Open the shelf' : 'Track your shelf'} ›</Link>
-    </div>
+    </WidgetShell>
   );
 }

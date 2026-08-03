@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Byline } from '@/components/verse/primitives/byline';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 
 import { cache } from 'react';
 
@@ -223,8 +223,7 @@ export async function CompletenessModule({ space }: ModuleProps): Promise<React.
   if (g.idolsTotal > 0) lines.push(`Lore ${g.idolsWithLore}/${g.idolsTotal} members`);
   lines.push(g.signals.overview ? 'Overview written' : 'Overview missing');
   return (
-    <div className="v-module">
-      <SectionHeader kicker="Coverage" as="h3" />
+    <WidgetShell eyebrow="Coverage">
       <div className="flex items-baseline gap-2">
         <span className="font-extrabold leading-none tabular-nums" style={{ fontSize: 'var(--v-type-num)', color: 'var(--verse-ink)' }}>{pct}%</span>
         <span className="text-[11px] uppercase tracking-wide text-tertiary">documented</span>
@@ -233,7 +232,7 @@ export async function CompletenessModule({ space }: ModuleProps): Promise<React.
         <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--verse-cta, var(--verse-accent))' }} />
       </div>
       <p className="mt-2 text-[12px] leading-relaxed text-tertiary">{lines.join(' · ')}</p>
-    </div>
+    </WidgetShell>
   );
 }
 
