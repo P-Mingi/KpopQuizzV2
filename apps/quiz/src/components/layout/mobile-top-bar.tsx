@@ -46,6 +46,23 @@ export function MobileTopBar(): React.ReactElement | null {
       </Link>
 
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      {/* Search - same footprint as the + button (desktop parity), outline style
+          so it reads as secondary next to the pink Create. */}
+      <Link
+        href="/search"
+        aria-label="Search"
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 34, height: 34, borderRadius: 9999, flexShrink: 0,
+          background: 'var(--bg-surface)', color: 'var(--text-secondary)',
+          border: '1px solid var(--border)', textDecoration: 'none',
+        }}
+      >
+        <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
+        </svg>
+      </Link>
+
       {/* Create moved here from the bottom bar (which now ends on Community), so
           it stays one tap away on every mobile screen. */}
       <Link

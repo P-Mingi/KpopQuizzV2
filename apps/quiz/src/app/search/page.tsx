@@ -8,6 +8,9 @@ import { FollowButton } from '@/components/profile/follow-button';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
+import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
+import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { SearchForm } from './search-form';
 
 import type { Metadata } from 'next';
@@ -77,10 +80,40 @@ function firstImage(items: unknown): string | null {
 function totToResult(r: { id: string; slug: string; title: string; play_count: number; tot_items?: { image_url: string | null }[] }): GameResult {
   return { id: r.id, slug: r.slug, title: r.title, kind: 'tot', label: 'This or That', href: `/games/this-or-that/${r.slug}`, plays: r.play_count, preview: firstImage(r.tot_items) };
 }
-function gameToResult(r: { id: string; slug: string; title: string; play_count: number; content: unknown }): GameResult {
+// Only these live in the games table under /games/name-all; blind_test etc. route
+// elsewhere, so we never lump them in here (that would link to a 404).
+const NAME_ALL_TYPES = ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols'];
+function nameAllLabel(gameType: string | undefined): string {
+  if (gameType === 'name_all_songs' || gameType === 'name_top_songs') return 'Name all songs';
+  if (gameType === 'name_all_groups') return 'Name all groups';
+  if (gameType === 'name_all_idols') return 'Name all idols';
+  return 'Name all members';
+}
+function gameToResult(r: { id: string; slug: string; title: string; play_count: number; content: unknown; game_type?: string }): GameResult {
   const raw = (r.content ?? {}) as Record<string, unknown>;
   const items = (raw.items as unknown) ?? (raw.members as unknown) ?? [];
-  return { id: r.id, slug: r.slug, title: r.title, kind: 'nam', label: 'Name all', href: `/games/name-all/${r.slug}`, plays: r.play_count, preview: firstImage(items) };
+  return { id: r.id, slug: r.slug, title: r.title, kind: 'nam', label: nameAllLabel(r.game_type), href: `/games/name-all/${r.slug}`, plays: r.play_count, preview: firstImage(items) };
+}
+
+// ---- Game modes & challenges (static catalog: the six modes + every playlist) ----
+// Searched in-memory so "sort", "match", "blindtest", "boy group", "3rd gen" etc.
+// surface the right game, each carrying a clear per-type label.
+interface ModeResult { title: string; label: string; href: string; keywords: string }
+const GAME_MODES: ModeResult[] = [
+  { title: 'This or That', label: 'This or That', href: '/games/this-or-that/all', keywords: 'this or that vote versus pick bias head to head matchup' },
+  { title: 'Blind Test', label: 'Blindtest', href: '/blindtest', keywords: 'blindtest blind test guess the song audio music clip daily' },
+  { title: 'Sort It', label: 'Sort It', href: '/games/sort-it', keywords: 'sort it swipe bucket categorize' },
+  { title: 'Match-Up', label: 'Match-Up', href: '/games/match-up', keywords: 'match up matching pairs board' },
+  { title: 'Name Them All', label: 'Name Them All', href: '/games/name-them-all', keywords: 'name them all type roster members time attack' },
+  { title: 'Which member are you?', label: 'Personality', href: '/personality', keywords: 'personality which member are you bias result quiz' },
+  ...SORT_IT_PLAYLISTS.map((p) => ({ title: p.title, label: 'Sort It', href: `/games/sort-it/${p.slug}`, keywords: `${p.title} sort it` })),
+  ...MATCH_UP_PLAYLISTS.map((p) => ({ title: p.title, label: 'Match-Up', href: `/games/match-up/${p.slug}`, keywords: `${p.title} match up` })),
+  ...NAME_THEM_ALL_PLAYLISTS.map((p) => ({ title: p.title, label: 'Name Them All', href: `/games/name-them-all/${p.slug}`, keywords: `${p.title} name them all` })),
+];
+function matchModes(q: string): ModeResult[] {
+  const ql = q.toLowerCase();
+  if (ql.length < 2) return [];
+  return GAME_MODES.filter((m) => m.title.toLowerCase().includes(ql) || m.keywords.toLowerCase().includes(ql)).slice(0, 10);
 }
 
 /** A game rendered with the same .quiz-card shell as quizzes, for a harmonized grid. */
@@ -141,11 +174,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   // Groups first so we can also match quizzes/games by group (e.g. "bts" → BTS content).
   const groupsRes = await supabase
     .from('groups')
-    .select('id, name, slug, display_color, text_color, quiz_count')
+    .select('id, name, slug, fandom_name, display_color, text_color, quiz_count')
     .ilike('name', pattern)
     .order('quiz_count', { ascending: false })
     .limit(10);
-  const groups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; display_color: string; text_color: string; quiz_count: number }>;
+  const groups = (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; fandom_name: string | null; display_color: string; text_color: string; quiz_count: number }>;
   const groupIds = groups.map((g) => g.id);
   const hasGroups = groupIds.length > 0;
 
@@ -155,9 +188,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
       ? supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(12)
       : Promise.resolve({ data: [] as unknown[] }),
     supabase.from('tot_categories').select('id, slug, title, play_count, tot_items(image_url)').eq('is_published', true).ilike('title', pattern).order('play_count', { ascending: false }).limit(6),
-    supabase.from('games').select('id, title, slug, play_count, content').eq('status', 'published').ilike('title', pattern).order('play_count', { ascending: false }).limit(6),
+    supabase.from('games').select('id, title, slug, play_count, content, game_type').eq('status', 'published').in('game_type', NAME_ALL_TYPES).ilike('title', pattern).order('play_count', { ascending: false }).limit(6),
     hasGroups
-      ? supabase.from('games').select('id, title, slug, play_count, content').eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(6)
+      ? supabase.from('games').select('id, title, slug, play_count, content, game_type').eq('status', 'published').in('game_type', NAME_ALL_TYPES).in('group_id', groupIds).order('play_count', { ascending: false }).limit(6)
       : Promise.resolve({ data: [] as unknown[] }),
     // M1.9 people search: username OR display_name, banned excluded, index-backed
     // (mig 094 trigram GIN). Cookie-free public read, NANO-cheap, limit 20.
@@ -181,15 +214,19 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   for (const r of (totRes.data ?? []) as Array<{ id: string; slug: string; title: string; play_count: number; tot_items?: { image_url: string | null }[] }>) {
     gameMap.set(`t-${r.id}`, totToResult(r));
   }
-  for (const r of [...(gTitle.data ?? []), ...(gGroup.data ?? [])] as Array<{ id: string; slug: string; title: string; play_count: number; content: unknown }>) {
+  for (const r of [...(gTitle.data ?? []), ...(gGroup.data ?? [])] as Array<{ id: string; slug: string; title: string; play_count: number; content: unknown; game_type?: string }>) {
     gameMap.set(`g-${r.id}`, gameToResult(r));
   }
   const games = [...gameMap.values()].sort((a, b) => b.plays - a.plays).slice(0, 8);
 
+  // Game modes & challenges from the static catalog (Sort It, Match-Up, Name Them
+  // All, This or That, Blindtest, Personality), matched by name/keyword.
+  const modeResults = matchModes(safe);
+
   interface PersonRow { username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }
   const people = (peopleRes.data ?? []) as PersonRow[];
 
-  const hasResults = quizzes.length > 0 || games.length > 0 || groups.length > 0 || people.length > 0;
+  const hasResults = quizzes.length > 0 || games.length > 0 || modeResults.length > 0 || groups.length > 0 || people.length > 0;
 
   // Fuzzy "always-propose" fallback: nothing matched → show popular picks.
   let fbQuizzes: QuizCardData[] = [];
@@ -198,12 +235,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
     const [pq, pt, pg] = await Promise.all([
       supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').order('play_count', { ascending: false }).limit(6),
       supabase.from('tot_categories').select('id, slug, title, play_count, tot_items(image_url)').eq('is_published', true).order('play_count', { ascending: false }).limit(2),
-      supabase.from('games').select('id, title, slug, play_count, content').eq('status', 'published').order('play_count', { ascending: false }).limit(2),
+      supabase.from('games').select('id, title, slug, play_count, content, game_type').eq('status', 'published').in('game_type', NAME_ALL_TYPES).order('play_count', { ascending: false }).limit(2),
     ]);
     fbQuizzes = ((pq.data ?? []) as unknown as RawQuizRow[]).map(toQuizCardData);
     fbGames = [
       ...((pt.data ?? []) as Array<{ id: string; slug: string; title: string; play_count: number; tot_items?: { image_url: string | null }[] }>).map(totToResult),
-      ...((pg.data ?? []) as Array<{ id: string; slug: string; title: string; play_count: number; content: unknown }>).map(gameToResult),
+      ...((pg.data ?? []) as Array<{ id: string; slug: string; title: string; play_count: number; content: unknown; game_type?: string }>).map(gameToResult),
     ];
   }
 
@@ -228,6 +265,38 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
               <p className="sec-label">Games</p>
               <div className="cards-grid">
                 {games.map((g) => <GameResultCard key={`${g.kind}-${g.id}`} game={g} />)}
+              </div>
+            </section>
+          )}
+
+          {modeResults.length > 0 && (
+            <section>
+              <p className="sec-label">Game modes &amp; challenges</p>
+              <div className="flex flex-wrap gap-2">
+                {modeResults.map((m) => (
+                  <Link
+                    key={m.href}
+                    href={m.href}
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-default no-underline transition-opacity hover:opacity-85"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-tertiary">{m.label}</span>
+                    <span className="text-sm font-semibold text-primary">{m.title}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {groups.length > 0 && (
+            <section>
+              <p className="sec-label">Fandom spaces</p>
+              <div className="flex flex-wrap gap-2">
+                {groups.map((g) => (
+                  <Link key={`space-${g.id}`} href={`/verse/${g.slug}`} className="px-4 py-2 rounded-full text-sm font-semibold border transition-opacity hover:opacity-85"
+                    style={{ borderColor: '#7c5cfc', color: '#7c5cfc' }}>
+                    {g.fandom_name ?? g.name} · the {g.name} home
+                  </Link>
+                ))}
               </div>
             </section>
           )}

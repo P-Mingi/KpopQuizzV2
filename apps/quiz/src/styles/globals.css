@@ -878,49 +878,55 @@ body {
   outline-offset: 2px;
 }
 
-/* Home-only chunky variant: bigger logo + 44px touch target, ONE row that
-   scrolls horizontally on every viewport. Scoped via the .home-group-pills
-   wrapper so the /quizzes filter (smaller .group-pill) is unaffected. */
-.home-group-pills {
+/* Home "Browse by group": circular group coins (just the logo, clipped to a
+   circle) in ONE horizontally-scrolling rail. Deliberately distinct from the
+   Verse strip's framed, rectangular, named cards. Scoped via .home-group-rail
+   so the /quizzes filter (.group-pill) is unaffected. */
+.home-group-rail {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: nowrap;
+  align-items: center;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-bottom: 4px;
+  padding: 4px 2px;
   scroll-snap-type: x proximity;
 }
-.home-group-pills::-webkit-scrollbar { display: none; }
-.home-group-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 8px 18px 8px 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--txt1);
-  white-space: nowrap;
-  text-decoration: none;
+.home-group-rail::-webkit-scrollbar { display: none; }
+.home-group-coin {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  overflow: hidden;
   flex-shrink: 0;
   scroll-snap-align: start;
-  transition: border-color 120ms ease, color 120ms ease, background 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  text-decoration: none;
+  box-shadow: 0 0 0 1px var(--border);
+  transition: transform 140ms ease, box-shadow 140ms ease;
 }
-.home-group-pill > :first-child { flex-shrink: 0; border-radius: 999px; overflow: hidden; }
-.home-group-pill:hover {
-  border-color: var(--brand);
-  color: var(--brand);
-  background: var(--brand-light);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--brand) 14%, transparent);
-  transform: translateY(-1px);
+/* Force the GroupLogo tile to fill the circle: drop its own square/border. */
+.home-group-coin > * {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
-.home-group-pill:active { transform: translateY(0); }
-.home-group-pill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
-@media (min-width: 768px) { .home-group-pill { padding: 10px 22px 10px 12px; font-size: 15px; } }
+.home-group-coin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--brand), 0 8px 18px color-mix(in srgb, var(--brand) 22%, transparent);
+}
+.home-group-coin:active { transform: translateY(0); }
+.home-group-coin:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+@media (min-width: 768px) {
+  .home-group-rail { gap: 14px; }
+  .home-group-coin { width: 68px; height: 68px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-group-coin { transition: none; }
+  .home-group-coin:hover { transform: none; }
+}
 .group-dot {
   width: 18px;
   height: 18px;

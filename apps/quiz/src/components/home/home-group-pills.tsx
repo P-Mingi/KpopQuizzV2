@@ -34,17 +34,16 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
         <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes →</Link>
       </div>
 
-      <div className="home-group-pills" role="list">
+      <div className="home-group-rail" role="list">
         {pills.map((g) => (
-          <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-pill" role="listitem" aria-label={`${g.name} quiz`}>
+          <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-coin" role="listitem" aria-label={`${g.name} quiz`} title={g.name}>
             <GroupLogo
               groupName={g.name}
               logoUrl={g.logo_url}
               displayColor={g.display_color}
               textColor={g.text_color}
-              size={32}
+              size={64}
             />
-            {g.name}
           </Link>
         ))}
       </div>
