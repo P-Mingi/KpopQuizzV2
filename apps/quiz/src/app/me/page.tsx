@@ -1,7 +1,8 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { checkTierBadges } from '@/lib/badges/award';
 import { getProfileById } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { getLatestPersonalityMatch } from '@/lib/personality/data';
@@ -37,6 +38,11 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
 
   const profile = await getProfileById(user.id);
   if (!profile) redirect('/onboarding');
+
+  // V-UPGRADE-1: grant any newly-earned tiered badges (esp. Verse ones, which the
+  // play route does not cover) before reading the shelf, so the owner sees fresh
+  // badges on this load. Idempotent; degrades quietly if the check fails.
+  await checkTierBadges(createServiceRoleClient(), user.id).catch(() => []);
 
   const [spine, groupStats, collection, groupsRes, badgeDefsRes, userBadgesRes] = await Promise.all([
     readPassportSpine(supabase, user.id),

@@ -1,3 +1,5 @@
+import { BADGE_FAMILIES, NEW_BADGE_TIERS } from './badges/catalog';
+
 // Badge art + grouping (M1.15 final).
 //
 // badge_definitions.icon is the source of truth wherever we already hold the row
@@ -46,8 +48,10 @@ const BADGE_RARITY: Record<string, Rarity> = {
   community_star: 'epic', viral_hit: 'epic', streak_30: 'epic', creator_silver: 'epic', pc_set: 'epic',
   group_master: 'legendary', founding_fan: 'legendary', streak_100: 'legendary', creator_gold: 'legendary',
 };
+// V-UPGRADE-1: the new tiered families carry their own rarity in the catalog.
+const CATALOG_RARITY: Record<string, Rarity> = Object.fromEntries(NEW_BADGE_TIERS.map((t) => [t.id, t.rarity]));
 export function badgeRarity(id: string): Rarity {
-  return BADGE_RARITY[id] ?? 'common';
+  return CATALOG_RARITY[id] ?? BADGE_RARITY[id] ?? 'common';
 }
 
 // Tiered families render as their own labelled row so the progression reads as a
@@ -61,6 +65,10 @@ export interface BadgeTierGroup {
 export const BADGE_TIER_GROUPS: BadgeTierGroup[] = [
   { key: 'streak', label: 'Streak', ids: ['streak_7', 'streak_30', 'streak_100'] },
   { key: 'creator', label: 'Creator', ids: ['creator_bronze', 'creator_silver', 'creator_gold'] },
+  // V-UPGRADE-1: the new multi-tier families render as their own labelled ladders.
+  ...BADGE_FAMILIES.filter((f) => f.tiers.length > 1).map((f) => ({
+    key: f.key, label: f.label, ids: f.tiers.map((t) => `${f.key}_${t}`),
+  })),
 ];
 
 const TIERED_IDS = new Set(BADGE_TIER_GROUPS.flatMap((g) => g.ids));

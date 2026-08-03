@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
+import { checkTierBadges } from '@/lib/badges/award';
 
 import type { NextRequest } from 'next/server';
 
@@ -164,6 +165,15 @@ export async function POST(
             { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
           );
         }
+      }
+
+      // V-UPGRADE-1: grant any newly-earned tiered badges from real activity
+      // (marathoner / perfectionist / ... for the player, reached for the
+      // creator). Fire-and-forget so it never blocks the play response;
+      // idempotent, so a race just resolves on the next play.
+      void checkTierBadges(admin, playerId).catch(() => {});
+      if (quizData?.creator_id && quizData.creator_id !== playerId) {
+        void checkTierBadges(admin, quizData.creator_id).catch(() => {});
       }
     }
 
