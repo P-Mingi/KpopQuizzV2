@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { cache } from 'react';
@@ -257,7 +258,7 @@ export async function CommunityModule({ space }: ModuleProps): Promise<React.Rea
           {latest.map((d) => (
             <li key={d.id} className="border-l-2 pl-3" style={{ borderColor: 'var(--v-hairline)' }}>
               <p className="text-sm leading-snug text-secondary">{d.body.length > 120 ? `${d.body.slice(0, 120)}…` : d.body}</p>
-              <p className="mt-0.5 text-[11px] text-tertiary">{d.author?.displayName || d.author?.username || 'A fan'}</p>
+              <p className="mt-0.5 text-[11px] text-tertiary"><Byline identity={d.author} /></p>
             </li>
           ))}
         </ul>

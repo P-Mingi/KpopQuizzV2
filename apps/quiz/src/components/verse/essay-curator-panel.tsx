@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { Byline } from '@/components/verse/primitives/byline';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 import Link from 'next/link';
 
@@ -66,7 +67,7 @@ export function EssayCuratorPanel({ groupId, groupSlug }: { groupId: number; gro
           {queue.map((e) => (
             <li key={e.id} className="flex flex-wrap items-center gap-2 rounded-lg px-3 py-2 text-sm" style={{ background: 'var(--bg-surface)' }}>
               <Link href={`/verse/${groupSlug}/essays/${e.id}`} className="font-bold no-underline" style={{ color: 'var(--verse-ink)' }}>{e.title}</Link>
-              <span className="text-xs text-tertiary">by {e.author?.displayName || e.author?.username || 'a fan'}</span>
+              <span className="text-xs text-tertiary"><Byline identity={e.author} prefix="by" /></span>
               <span className="ml-auto flex gap-1.5">
                 <button type="button" onClick={() => void essayAction(e.id, 'feature')} className="v-tap rounded-full px-3 py-1 text-xs font-bold" style={{ background: 'var(--verse-cta, var(--verse-accent))', color: 'var(--verse-cta-text, var(--verse-accent-text))' }}>Publish</button>
                 <button type="button" onClick={() => { const n = window.prompt('Reason to return (optional):'); if (n === null) return; void essayAction(e.id, 'reject', n || undefined); }} className={B} style={{ borderColor: 'var(--verse-line)', color: 'var(--text-secondary)' }}>Return</button>

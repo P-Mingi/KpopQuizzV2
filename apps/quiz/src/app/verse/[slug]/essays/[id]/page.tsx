@@ -1,9 +1,9 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { DiscussionThread } from '@/components/verse/discussion-thread';
 import { EssayReactions } from '@/components/verse/essay-reactions';
 import { getSpace } from '@/lib/verse/space';
@@ -89,10 +89,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
         ) : (
           <span className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold" style={{ background: e.author?.avatarBg ?? 'var(--verse-soft-strong)', color: e.author?.avatarText ?? 'var(--verse-ink)' }}>{name.slice(0, 1).toUpperCase()}</span>
         )}
-        <span className="text-sm">
-          {e.author?.href ? <Link href={e.author.href} className="verse-link font-bold">{name}</Link> : <span className="font-bold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}
-        </span>
-        <RoleBadge role={e.authorRole} />
+        <Byline identity={e.author ? { ...e.author, role: e.authorRole } : null} className="text-sm" />
         <span aria-hidden className="text-tertiary">·</span>
         <span className="text-sm text-tertiary tabular-nums">{e.readingMin} min read</span>
       </div>
@@ -124,7 +121,7 @@ export default async function EssayDetailPage({ params }: { params: Promise<{ sl
               <li key={r.id}>
                 <Link href={`/verse/${slug}/essays/${r.id}`} className="block rounded-xl border p-3 no-underline hover:bg-[var(--verse-soft)]" style={{ borderColor: 'var(--verse-line)' }}>
                   <p className="font-bold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{r.title}</p>
-                  <p className="mt-0.5 text-xs text-tertiary">by {r.author?.displayName || r.author?.username || 'a fan'}</p>
+                  <p className="mt-0.5 text-xs text-tertiary"><Byline identity={r.author} prefix="by" link={false} /></p>
                 </Link>
               </li>
             ))}

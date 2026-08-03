@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
@@ -7,7 +8,6 @@ import { MemberDirectory } from '@/components/verse/member-directory';
 import { WatchButton } from '@/components/verse/watch-button';
 import { NewThreadForm } from '@/components/verse/new-thread-form';
 import { FeedOptInToggle } from '@/components/verse/feed-opt-in-toggle';
-import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { listThreads } from '@/lib/verse/threads';
 
 import type { Metadata } from 'next';
@@ -80,8 +80,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
                 <Link href={`/verse/${slug}/community/${t.slug}`} className="block rounded-xl border p-3 no-underline transition-colors hover:bg-[var(--verse-soft)]" style={{ borderColor: 'var(--verse-line)' }}>
                   <p className="font-bold leading-snug" style={{ color: 'var(--verse-ink)' }}>{t.title}</p>
                   <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-tertiary">
-                    <span>by {t.author?.displayName ?? 'a fan'}</span>
-                    {t.author ? <RoleBadge role={t.author.role} /> : null}
+                    <Byline identity={t.author} prefix="by" link={false} />
                     <span aria-hidden>·</span>
                     <span className="tabular-nums">{t.replyCount} {t.replyCount === 1 ? 'reply' : 'replies'}</span>
                     <span aria-hidden>·</span>

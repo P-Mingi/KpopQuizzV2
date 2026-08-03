@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { getHeroEssay } from '@/lib/verse/essays';
@@ -18,7 +19,7 @@ export async function FeaturedEssayModule({ space }: ModuleProps): Promise<React
       <Link href={`/verse/${space.group.slug}/essays/${hero.id}`} className="mt-2 block no-underline">
         <p className="text-lg font-extrabold leading-snug" style={{ color: 'var(--verse-ink)', fontFamily: 'var(--v-editorial-font)' }}>{hero.title}</p>
         {hero.dek ? <p className="mt-1 line-clamp-2 text-sm text-secondary">{hero.dek}</p> : null}
-        <p className="mt-2 text-xs text-tertiary">by {hero.authorName} · <span className="tabular-nums">{hero.readingMin} min read</span></p>
+        <p className="mt-2 text-xs text-tertiary"><Byline identity={{ displayName: hero.authorName }} prefix="by" link={false} /> · <span className="tabular-nums">{hero.readingMin} min read</span></p>
       </Link>
     </div>
   );

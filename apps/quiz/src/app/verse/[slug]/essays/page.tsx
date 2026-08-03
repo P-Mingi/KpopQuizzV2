@@ -1,9 +1,9 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { getSpace } from '@/lib/verse/space';
 import { getMagazine } from '@/lib/verse/essays';
 import { EssaysClient } from '@/components/verse/essays-client';
@@ -21,14 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: `${space.group.name} essays`, description: `The ${space.group.name} essay magazine: long-form fan writing, reviewed and featured by curators.`, alternates: { canonical: `https://kpopquiz.org/verse/${slug}/essays` } };
 }
 
-const authorName = (e: EssayCard): string => e.author?.displayName || e.author?.username || 'a fan';
-
 function ByLine({ e }: { e: EssayCard }): React.ReactElement {
-  const name = authorName(e);
   return (
     <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-secondary">
-      <span>by {e.author?.href ? <Link href={e.author.href} className="verse-link font-semibold">{name}</Link> : <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{name}</span>}</span>
-      <RoleBadge role={e.authorRole} />
+      <Byline identity={e.author ? { ...e.author, role: e.authorRole } : null} prefix="by" />
       <span aria-hidden className="text-tertiary">·</span>
       <span className="text-tertiary tabular-nums">{e.readingMin} min read</span>
     </span>

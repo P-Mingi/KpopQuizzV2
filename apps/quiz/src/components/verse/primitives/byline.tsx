@@ -15,7 +15,19 @@ import Link from 'next/link';
 import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { UserAvatar } from '@/components/ui/user-avatar';
 
-import type { Identity, SpaceIdentity } from '@/lib/verse/identity';
+// The fields Byline reads. The V-PROFILE-ONE resolver's Identity/SpaceIdentity
+// satisfy it, as do the resolver-derived DiscAuthor/EssayAuthor render shapes -
+// so every call site passes resolver-DERIVED data (system/block already honored
+// upstream: href is null for a system account; role is 'visitor' when blocked).
+export interface BylineIdentity {
+  username?: string | null;
+  displayName?: string | null;
+  avatarUrl?: string | null;
+  avatarBg?: string | null;
+  avatarText?: string | null;
+  href?: string | null;
+  role?: string | null;
+}
 
 const FAN_FALLBACK = 'a fan';
 // Neutral avatar fallbacks when a profile has no avatar colors. Not the
@@ -23,20 +35,22 @@ const FAN_FALLBACK = 'a fan';
 const AVATAR_BG_FALLBACK = '#6b7280'; // token-lint-ok neutral avatar bg fallback
 const AVATAR_TEXT_FALLBACK = '#ffffff'; // token-lint-ok neutral avatar text fallback
 
-export function Byline({ identity, prefix, withAvatar = false, avatarSize = 24, showRole = true, className }: {
-  identity: Identity | SpaceIdentity | null | undefined;
+export function Byline({ identity, prefix, withAvatar = false, avatarSize = 24, showRole = true, link = true, className }: {
+  identity: BylineIdentity | null | undefined;
   /** Optional lead-in, e.g. "Started by", "by". */
   prefix?: React.ReactNode;
   withAvatar?: boolean;
   avatarSize?: number;
   showRole?: boolean;
+  /** Set false when the byline sits inside a parent link (no nested anchors). */
+  link?: boolean;
   className?: string;
 }): React.ReactElement {
   const name = identity?.displayName ?? FAN_FALLBACK;
-  // Role only from a SpaceIdentity, and never for a visitor (blocked members
-  // resolve to 'visitor', so a blocked author shows a name but no role badge).
-  const role = identity && 'role' in identity && identity.role !== 'visitor' ? identity.role : null;
-  const href = identity?.href ?? null; // null for system + usernameless
+  // Never a badge for a visitor: a blocked member resolves to 'visitor', so a
+  // blocked author shows a name but no role badge.
+  const role = identity?.role && identity.role !== 'visitor' ? identity.role : null;
+  const href = link ? (identity?.href ?? null) : null; // null for system, usernameless, or nested-link
 
   const nameNode = href
     ? <Link href={href} className="font-semibold no-underline hover:underline" style={{ color: 'var(--verse-ink)' }}>{name}</Link>
@@ -47,7 +61,7 @@ export function Byline({ identity, prefix, withAvatar = false, avatarSize = 24, 
       {withAvatar && identity ? (
         <UserAvatar
           username={identity.username ?? name}
-          avatarUrl={identity.avatarUrl}
+          avatarUrl={identity.avatarUrl ?? null}
           bgColor={identity.avatarBg ?? AVATAR_BG_FALLBACK}
           textColor={identity.avatarText ?? AVATAR_TEXT_FALLBACK}
           size={avatarSize}

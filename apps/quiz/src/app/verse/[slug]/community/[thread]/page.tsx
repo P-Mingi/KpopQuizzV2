@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
+import { Byline } from '@/components/verse/primitives/byline';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { RoleBadge } from '@/components/verse/roles/role-badge';
 import { DiscussionThread } from '@/components/verse/discussion-thread';
 import { WatchButton } from '@/components/verse/watch-button';
 import { getSpace } from '@/lib/verse/space';
@@ -58,8 +58,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ slug: s
 
       <h1 className="text-2xl font-extrabold leading-tight sm:text-3xl" style={{ color: 'var(--verse-ink)', textWrap: 'balance' } as React.CSSProperties}>{t.title}</h1>
       <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 border-b pb-4 text-sm text-secondary" style={{ borderColor: 'var(--verse-line)' }}>
-        <span>Started by {t.author?.href ? <a href={t.author.href} className="verse-link font-semibold">{authorName}</a> : <span className="font-semibold" style={{ color: 'var(--verse-ink)' }}>{authorName}</span>}</span>
-        {t.author ? <RoleBadge role={t.author.role} /> : null}
+        <Byline identity={t.author} prefix="Started by" />
         <span aria-hidden className="text-tertiary">·</span>
         <span className="text-tertiary tabular-nums">{t.replyCount} {t.replyCount === 1 ? 'reply' : 'replies'}</span>
         <span className="ml-auto"><WatchButton entityType="thread" entityId={String(t.id)} /></span>

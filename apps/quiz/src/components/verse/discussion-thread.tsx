@@ -1,11 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { Byline } from '@/components/verse/primitives/byline';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
-import Link from 'next/link';
 
-import { RoleBadge } from '@/components/verse/roles/role-badge';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
 
@@ -70,7 +69,7 @@ export function DiscussionThread({ entityType, entityId, groupId, threadId, init
         <div className="flex items-start gap-2.5">
           <UserAvatar username={c.author?.username ?? name} avatarUrl={c.author?.avatarUrl ?? null} bgColor={c.author?.avatarBg ?? '#6b7280'} textColor={c.author?.avatarText ?? '#ffffff'} size={28} />
           <div className="min-w-0 flex-1">
-            <p className="text-xs">{c.author?.href ? <Link href={c.author.href} className="font-bold text-primary no-underline hover:underline">{name}</Link> : <span className="font-bold text-primary">{name}</span>} <RoleBadge role={c.author?.role} /> <span className="text-tertiary" suppressHydrationWarning>{ago(c.createdAt)}</span></p>
+            <p className="text-xs"><Byline identity={c.author} /> <span className="text-tertiary" suppressHydrationWarning>{ago(c.createdAt)}</span></p>
             <p className="mt-0.5 whitespace-pre-wrap text-sm text-secondary">{c.body}</p>
             <div className="mt-1 flex gap-3 text-xs">
               {!isReply && signedIn ? <button onClick={() => { setReplyTo(replyTo === c.id ? null : c.id); setReplyDraft(''); }} className="font-semibold text-tertiary hover:text-secondary">Reply</button> : null}

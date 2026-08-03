@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -36,7 +37,7 @@ export function PagesReviewQueue({ groupSlug, items }: {
           <li key={p.id} className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <div className="min-w-0 flex-1">
               <Link href={`/verse/${groupSlug}/wiki/${p.slug}/edit`} className="text-sm font-bold no-underline hover:underline" style={{ color: 'var(--verse-ink)' }}>{p.title}</Link>
-              <span className="ml-2 text-[11px] uppercase tracking-wide text-tertiary">{p.kind} · by {p.created_by_name}</span>
+              <span className="ml-2 text-[11px] uppercase tracking-wide text-tertiary">{p.kind} · <Byline identity={{ displayName: p.created_by_name }} prefix="by" link={false} /></span>
               {errors[p.id] ? <p className="mt-1 text-[12px]" style={{ color: '#c0392b' }} role="alert">{errors[p.id]!.join(' ')}</p> : null}
             </div>
             <div className="flex gap-2">

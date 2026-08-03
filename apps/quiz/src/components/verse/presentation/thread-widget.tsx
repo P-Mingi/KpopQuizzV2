@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { listThreads } from '@/lib/verse/threads';
@@ -20,7 +21,7 @@ export async function FeaturedThreadModule({ space }: ModuleProps): Promise<Reac
       <Link href={`/verse/${space.group.slug}/community/${top.slug}`} className="mt-2 block no-underline">
         <p className="text-[15px] font-extrabold leading-snug" style={{ color: 'var(--verse-ink)' }}>{top.title}</p>
         <p className="mt-1 text-xs text-tertiary">
-          by {top.author?.displayName ?? 'a fan'} · <span className="tabular-nums">{top.replyCount} {top.replyCount === 1 ? 'reply' : 'replies'}</span>
+          <Byline identity={top.author} prefix="by" link={false} /> · <span className="tabular-nums">{top.replyCount} {top.replyCount === 1 ? 'reply' : 'replies'}</span>
         </p>
       </Link>
       {threads.length > 1 ? (

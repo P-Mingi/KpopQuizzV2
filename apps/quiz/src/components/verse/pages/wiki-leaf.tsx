@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
 import { splitTipTapForFold } from '@/lib/verse/render-content';
@@ -101,7 +102,7 @@ export function TrustFooter({ page, groupSlug, maintainers, starterName }: {
         <Link href={`/verse/${groupSlug}/changes`} className="inline-flex min-h-[44px] items-center no-underline hover:text-secondary">History</Link>
         <Link href={`/verse/${groupSlug}/community`} className="inline-flex min-h-[44px] items-center no-underline hover:text-secondary">Discuss this page</Link>
         <span className="ml-auto">
-          Started by <span className="font-semibold text-secondary">{starterName}</span>
+          <Byline identity={{ displayName: starterName }} prefix="Started by" link={false} />
           {maintainers > 1 ? <>, maintained by <span className="font-semibold text-secondary">{maintainers} fans</span></> : null}
         </span>
       </div>
