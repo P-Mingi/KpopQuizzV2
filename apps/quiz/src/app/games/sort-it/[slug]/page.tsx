@@ -16,6 +16,12 @@ interface PageProps {
 }
 
 export function generateStaticParams(): Array<{ slug: string }> {
+  // Build safety: preview/CI builds can run without Supabase env vars, and the
+  // page body constructs the service-role client during prerender, which throws
+  // "supabaseUrl is required" synchronously (escaping safeFetch) and fails the
+  // build. Skip build-time params when the URL is absent; dynamicParams (default)
+  // still serves + caches each slug via ISR at runtime, so production is unchanged.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return [];
   return SORT_IT_PLAYLISTS.map((p) => ({ slug: p.slug }));
 }
 
