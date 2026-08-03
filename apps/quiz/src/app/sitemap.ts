@@ -377,6 +377,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Verse: directory + each seeded space (+ its 5 tabs) + idol + album pages.
+  // V-UPGRADE-1 Phase B: the shared-surface Verse MIRRORS (/verse/community,
+  // /verse/me, /verse/u/[username], /verse/notifications) are deliberately NOT
+  // listed here. They canonicalize to their Play originals (/leaderboard, /u/...)
+  // or are auth-gated noindex, so advertising them would expose duplicate content.
+  // Do not add them below - this sitemap is an allow-list, so omission is the fix.
   let versePages: MetadataRoute.Sitemap = [];
   try {
     const svc = createServiceRoleClient();
