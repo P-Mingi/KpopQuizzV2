@@ -24,6 +24,10 @@ export interface DoorwayConfig {
   format: DoorwayFormat;
   /** Section-heading override (display only; never touches a target's title). */
   label?: string;
+  /** De-emphasize the door as a native <details> disclosure. This is NOT a
+   * hide: the links + titles stay in the crawlable HTML (the browser only
+   * visually collapses them), so the SEO invariant holds. */
+  collapsed?: boolean;
 }
 
 /** Keyed-by-door map (the textFolds precedent). Absent -> every door uses its
@@ -62,5 +66,6 @@ export function resolveDoorway(doorways: DoorwayConfigMap | undefined, id: Doorw
   return {
     format: d?.format ?? base.format,
     ...(d?.label ? { label: d.label } : {}),
+    ...(d?.collapsed ? { collapsed: true } : {}),
   };
 }

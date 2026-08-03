@@ -76,8 +76,9 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
     const merged = { ...cur, ...patch };
     const next: DoorwayConfig = { format: merged.format };
     if (typeof merged.label === 'string' && merged.label.length > 0) next.label = merged.label;
+    if (merged.collapsed === true) next.collapsed = true;
     const dw = { ...(draft.doorways ?? {}) };
-    const isDefault = next.format === DOORWAY_DEFAULTS[id].format && !(next.label && next.label.trim());
+    const isDefault = next.format === DOORWAY_DEFAULTS[id].format && !(next.label && next.label.trim()) && !next.collapsed;
     if (isDefault) delete dw[id]; else dw[id] = next;
     const nextPres: Presentation = { ...draft, version: 1 };
     if (Object.keys(dw).length) nextPres.doorways = dw; else delete nextPres.doorways;
@@ -269,6 +270,12 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
                   <input type="text" value={cfg?.label ?? ''} placeholder={DOORWAY_DEFAULT_HEADING[id]} maxLength={40}
                     onChange={(e) => setDoorway(id, { label: e.target.value })}
                     className={`${field} mt-1.5 w-full`} aria-label={`${DOORWAY_STUDIO_LABEL[id]} heading`} />
+                  <label className="mt-1.5 flex items-center gap-2 text-[12px] text-secondary">
+                    <input type="checkbox" checked={cfg?.collapsed ?? false}
+                      onChange={(e) => setDoorway(id, { collapsed: e.target.checked })}
+                      aria-label={`Collapse ${DOORWAY_STUDIO_LABEL[id]} by default`} />
+                    Collapse by default (links stay on the page for search)
+                  </label>
                 </li>
               );
             })}

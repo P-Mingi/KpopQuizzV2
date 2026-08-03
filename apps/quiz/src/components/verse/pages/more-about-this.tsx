@@ -24,5 +24,5 @@ export async function MoreAboutThis({ groupId, groupSlug, entityRef, entityLabel
     title: p.title,
     sub: getKind(KPOP_PAGE_REGISTRY, p.kind)?.label ?? p.kind,
   }));
-  return <DoorwayList heading={cfg.label ?? <>More about {entityLabel}</>} items={items} format={cfg.format} />;
+  return <DoorwayList heading={cfg.label ?? <>More about {entityLabel}</>} items={items} format={cfg.format} collapsed={cfg.collapsed ?? false} />;
 }

@@ -302,6 +302,10 @@ export function validatePresentation(raw: unknown): ValidationResult {
         const label = vv.label.trim().slice(0, DOORWAY_MAX_LABEL);
         if (label) cfg.label = label;
       }
+      // collapsed = a native <details> disclosure; the links stay in the HTML
+      // (never a link-removing hide), so no SEO carve-out is needed.
+      if (vv.collapsed === true) cfg.collapsed = true;
+      else if (vv.collapsed != null && vv.collapsed !== false) { errors.push(`Doorway "${k}" collapsed must be true or false.`); continue; }
       norm[id] = cfg;
     }
     if (!errors.length && Object.keys(norm).length) doorways = norm;

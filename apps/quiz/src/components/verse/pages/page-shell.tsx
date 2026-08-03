@@ -55,6 +55,7 @@ export async function PagesInside({ groupId, groupSlug, pageId }: {
       heading={cfg.label ?? DOORWAY_DEFAULT_HEADING.pagesInside}
       items={items}
       format={cfg.format}
+      collapsed={cfg.collapsed ?? false}
       action={total > children.length ? <Link href={`/verse/${groupSlug}/wiki`} className="text-secondary no-underline hover:text-primary">See all {total}</Link> : undefined}
     />
   );
@@ -74,7 +75,7 @@ export async function WhatLinksHere({ groupId, groupSlug, pageId }: {
   const unique = pages.filter((l) => l.page.slug !== undefined && !seen.has(l.page.slug) && (seen.add(l.page.slug), true));
   const cfg = resolveDoorway(await getSpaceDoorways(groupId), 'whatLinksHere');
   const items = unique.map((l) => ({ href: wikiHref(groupSlug, l.page.slug), title: l.page.title }));
-  return <DoorwayList heading={cfg.label ?? DOORWAY_DEFAULT_HEADING.whatLinksHere} items={items} format={cfg.format} />;
+  return <DoorwayList heading={cfg.label ?? DOORWAY_DEFAULT_HEADING.whatLinksHere} items={items} format={cfg.format} collapsed={cfg.collapsed ?? false} />;
 }
 
 /** THE SHELL - composes the four doors around a page's own content, each door
