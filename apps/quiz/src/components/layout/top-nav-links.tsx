@@ -20,7 +20,8 @@ const PLAY_ITEMS: readonly NavItem[] = [
 // Discover / Idols are FUTURE - add them here when the Verse discovery home ships.
 const VERSE_ITEMS: readonly NavItem[] = [
   { label: 'Fandoms', href: '/verse', match: ['/verse'] },
-  { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
+  // Phase B: Community points at the Verse mirror so you stay in Verse chrome.
+  { label: 'Community', href: '/verse/community', match: ['/verse/community'] },
 ] as const;
 
 function itemsForWorld(world: World): readonly NavItem[] {
@@ -95,6 +96,10 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
     if (pathname === item.href || pathname.startsWith(item.href + '/')) return true;
     return item.match.some((m) => pathname.startsWith(m));
   }
+  // Only the MOST specific match highlights, so a shared mirror (/verse/community)
+  // wins over the broad Fandoms (/verse) rather than lighting both. Disjoint Play
+  // hrefs are unaffected (at most one ever matches).
+  const activeHref = items.filter(isActive).sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
   return (
     <nav className="top-nav-tabs" style={{
@@ -104,7 +109,7 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
       minWidth: 0, overflow: 'hidden',
     }} aria-label="Main navigation">
       {items.map((item) => {
-        const active = isActive(item);
+        const active = item.href === activeHref;
         return (
           <Link
             key={item.href}

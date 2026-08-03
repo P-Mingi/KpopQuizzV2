@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { useUnreadCount, refetchUnread } from '@/lib/notifications-store';
+import { worldForPath, worldHref } from '@/lib/world';
 
 // Unread notification badge (Workstream M / O1). CLIENT island so the layout
 // shell stays static/ISR. Renders nothing until it confirms the viewer is
@@ -15,6 +17,8 @@ const POLL_MS = 90_000;
 export function NotificationBell(): React.ReactElement | null {
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const unread = useUnreadCount();
+  // Stay in-world: from Verse the bell opens /verse/notifications, from Play /notifications.
+  const world = worldForPath(usePathname());
 
   useEffect(() => {
     let cancelled = false;
@@ -42,7 +46,7 @@ export function NotificationBell(): React.ReactElement | null {
   if (!signedIn) return null;
 
   return (
-    <Link href="/notifications" aria-label={unread > 0 ? `Notifications, ${unread} unread` : 'Notifications'} style={{
+    <Link href={worldHref('/notifications', world)} aria-label={unread > 0 ? `Notifications, ${unread} unread` : 'Notifications'} style={{
       position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
       width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
       border: '1px solid var(--border)', color: 'var(--text-primary)', textDecoration: 'none',

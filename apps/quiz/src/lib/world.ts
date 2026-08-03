@@ -30,6 +30,26 @@ export const WORLD_HOME: Record<World, string> = { play: '/', verse: '/verse' };
 
 export const WORLD_LABEL: Record<World, string> = { play: 'Play', verse: 'Verse' };
 
+// V-UPGRADE-1 Phase B - shared surfaces (Community / Profile / Notifications) live
+// at a Play URL and mirror under /verse. worldHref rewrites a Play shared-surface
+// href to the CURRENT world's mirror, so an internal link inside shared content
+// keeps you in-world one level deeper (from Verse you stay in Verse). The Play
+// world, and any non-shared href, pass through unchanged; query/hash is preserved.
+// The /verse mirrors canonicalize back to these Play URLs, so this only steers
+// navigation - it never changes a page's canonical identity.
+export function worldHref(href: string, world: World): string {
+  if (world !== 'verse' || href[0] !== '/') return href;
+  const sep = href.search(/[?#]/);
+  const path = sep === -1 ? href : href.slice(0, sep);
+  const suffix = sep === -1 ? '' : href.slice(sep);
+  let mapped: string | null = null;
+  if (path === '/leaderboard') mapped = '/verse/community';
+  else if (path === '/me' || path === '/profile') mapped = '/verse/me';
+  else if (path === '/notifications') mapped = '/verse/notifications';
+  else { const m = /^\/u\/([^/]+)$/.exec(path); if (m) mapped = `/verse/u/${m[1]}`; }
+  return mapped ? mapped + suffix : href;
+}
+
 // Preference cookie (W-NAV step 4): a DELIBERATE toggle click records the world the
 // user chose. It may only ever open the preferred world's home on a later visit to
 // "/", read client-side, never as a crawler-visible redirect.

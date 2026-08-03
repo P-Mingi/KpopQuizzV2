@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { WorldLink } from '@/components/layout/world-link';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { FollowButton } from '@/components/profile/follow-button';
@@ -89,7 +89,7 @@ export function PersonCard({
 
   return (
     <div data-person-card="" data-username={person.username} style={{ display: 'flex', alignItems: 'center', gap: compact ? 10 : 12, minWidth: 0 }}>
-      <Link href={`/u/${person.username}`} style={{ display: 'flex', alignItems: 'center', gap: compact ? 10 : 12, flex: 1, minWidth: 0, textDecoration: 'none', color: 'inherit' }}>
+      <WorldLink href={`/u/${person.username}`} style={{ display: 'flex', alignItems: 'center', gap: compact ? 10 : 12, flex: 1, minWidth: 0, textDecoration: 'none', color: 'inherit' }}>
         <div style={{ position: 'relative', flexShrink: 0, lineHeight: 0 }}>
           <AvatarSlot person={person} size={avatarSize} />
           {person.pinnedBadgeId && (
@@ -147,7 +147,7 @@ export function PersonCard({
             </div>
           )}
         </div>
-      </Link>
+      </WorldLink>
       {showFollow && <FollowButton profileUsername={person.username} />}
     </div>
   );

@@ -16,11 +16,12 @@ const PLAY_TABS: readonly Tab[] = [
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
-// VERSE bottom bar = Fandoms + Community (shared) + Profile.
+// VERSE bottom bar = Fandoms + Community (shared) + Profile. Phase B: Community
+// and Profile point at their /verse mirrors so you stay in Verse chrome.
 const VERSE_TABS: readonly Tab[] = [
   { label: 'Fandoms', href: '/verse', match: ['/verse'] },
-  { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
-  { label: 'Profile', href: '/profile', match: ['/profile', '/u/'] },
+  { label: 'Community', href: '/verse/community', match: ['/verse/community'] },
+  { label: 'Profile', href: '/verse/me', match: ['/verse/me', '/verse/u/'] },
 ] as const;
 
 /**
@@ -48,6 +49,9 @@ export function MobileTabBar() {
     if (pathname === tab.href || pathname.startsWith(tab.href + '/')) return true;
     return tab.match.some(m => pathname.startsWith(m));
   }
+  // Most-specific match wins, so the /verse/community mirror does not also light
+  // up Fandoms (/verse). Disjoint Play tabs are unaffected.
+  const activeHref = tabs.filter(isActive).sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
   return (
     <nav
@@ -64,7 +68,7 @@ export function MobileTabBar() {
     >
       <div style={{ maxWidth: 720, margin: '0 auto', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: 0 }}>
         {tabs.map((tab) => {
-          const active = isActive(tab);
+          const active = tab.href === activeHref;
           return (
             <Link
               key={tab.href}

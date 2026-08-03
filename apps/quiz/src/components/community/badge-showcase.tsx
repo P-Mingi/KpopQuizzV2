@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { WorldLink } from '@/components/layout/world-link';
 
 import { PersonCard } from '@/components/profile/person-card';
 
@@ -25,7 +25,7 @@ export function BadgeShowcase({ earns }: { earns: BadgeEarn[] }): React.ReactEle
           <div className="bw-card" key={`${e.badgeId}:${e.person.username}`}>
             {/* Coin + badge name links to the earner (sibling to PersonCard's own
                 link, never nested inside it). */}
-            <Link href={`/u/${e.person.username}`} className="bw-top">
+            <WorldLink href={`/u/${e.person.username}`} className="bw-top">
               {e.icon ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={e.icon} alt="" className="bw-coin" width={44} height={44} loading="lazy" />
@@ -36,7 +36,7 @@ export function BadgeShowcase({ earns }: { earns: BadgeEarn[] }): React.ReactEle
                 <span className="bw-name">{e.badgeName}</span>
                 <span className="bw-time">{e.ago}</span>
               </span>
-            </Link>
+            </WorldLink>
             <div className="bw-earner">
               <PersonCard person={e.person} compact showFollow={false} />
             </div>
