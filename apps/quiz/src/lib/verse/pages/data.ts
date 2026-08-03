@@ -149,6 +149,29 @@ export function aliasOpsOnRename(oldSlug: string, newSlug: string): AliasOp[] {
   ];
 }
 
+/** Would setting `pageId`'s parent to `proposedParentId` create a cycle? Pure +
+ * unit-testable: walks UP the current parent chain from the proposed parent
+ * (parentOf = id -> parent id | null for the whole group). Self-parenting is
+ * always a cycle; otherwise a cycle forms iff the proposed parent already
+ * descends from pageId (the walk reaches pageId). Depth- and visited-capped so
+ * a pre-existing broken chain can never spin forever. The RENDER guards one
+ * level; this keeps the DATA acyclic so ancestor/children walks always
+ * terminate. */
+export function wouldCreateCycle(pageId: number, proposedParentId: number, parentOf: Map<number, number | null>): boolean {
+  if (proposedParentId === pageId) return true;
+  let cursor: number | null = proposedParentId;
+  const seen = new Set<number>();
+  let hops = 0;
+  while (cursor != null && hops < 64) {
+    if (cursor === pageId) return true; // proposed parent is a descendant of pageId
+    if (seen.has(cursor)) return false; // pre-existing cycle elsewhere - not one we create
+    seen.add(cursor);
+    cursor = parentOf.get(cursor) ?? null;
+    hops++;
+  }
+  return false;
+}
+
 /** Parent chain for breadcrumbs (published ancestors only, cycle-guarded). */
 /** Published DIRECT children of a page (one level only - the infinite is in the
  * clicking, never the render). Self-reference is skipped (a page cannot be its

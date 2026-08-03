@@ -75,14 +75,16 @@ function InfoboxField({ f, raw, onChange }: { f: InfoboxFieldDef; raw: unknown; 
   );
 }
 
-export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
+export function PageEditor({ page, def, initialBody, canPublish, groupSlug, parentOptions = [], initialParentId = null }: {
   page: PageShape; def: PageKindDef; initialBody: unknown | null; canPublish: boolean; groupSlug?: string | undefined;
+  parentOptions?: { id: number; title: string; slug: string }[]; initialParentId?: number | null;
 }): React.ReactElement {
   setMentionGroup(groupSlug);
   const router = useRouter();
   const toolbar = useToolbarNav();
   const [title, setTitle] = useState(page.title);
   const [infobox, setInfobox] = useState<Record<string, unknown>>(page.infobox ?? {});
+  const [parentId, setParentId] = useState<number | null>(initialParentId);
   const [status, setStatus] = useState(page.status);
   const [saving, setSaving] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [errors, setErrors] = useState<string[]>([]);
@@ -94,12 +96,15 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
     immediatelyRender: false,
   });
 
-  const save = async (): Promise<boolean> => {
+  // `extra` lets a deliberate control (the parent picker) commit its new value
+  // in the SAME save without waiting for the state update to flush - avoids a
+  // stale-closure save that would drop the change.
+  const save = async (extra?: Record<string, unknown>): Promise<boolean> => {
     setSaving('saving');
     setErrors([]);
     const res = await fetch('/api/verse/pages/save', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page_id: page.id, title, infobox, body: editor?.getJSON() ?? null }),
+      body: JSON.stringify({ page_id: page.id, title, infobox, parent_page_id: parentId, body: editor?.getJSON() ?? null, ...extra }),
     });
     const out = (await res.json()) as { ok?: boolean; errors?: string[] };
     setSaving(out.ok ? 'saved' : 'idle');
@@ -193,6 +198,18 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug }: {
       </div>
 
       <aside className="mt-8 lg:col-span-1 lg:mt-0">
+        {parentOptions.length > 0 ? (
+          <div className="verse-frame verse-frame-rounded mb-4">
+            <SectionHeader kicker="Where it sits" as="h2" />
+            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.08em] text-tertiary" htmlFor="page-parent">Parent page</label>
+            <select id="page-parent" className={inputCls} style={inputStyle} value={parentId ?? ''}
+              onChange={(e) => { const v = e.target.value ? Number(e.target.value) : null; setParentId(v); setSaving('idle'); void save({ parent_page_id: v }); }}>
+              <option value="">Top level (no parent)</option>
+              {parentOptions.map((o) => <option key={o.id} value={o.id}>{o.title}</option>)}
+            </select>
+            <p className="mt-2 text-[12px] leading-relaxed text-tertiary">Nest this inside another page and it appears under that page&apos;s &quot;Pages inside this&quot;, with a breadcrumb back up. A page can never sit inside one of its own children.</p>
+          </div>
+        ) : null}
         {def.infobox.length > 0 ? (
           <div className="verse-frame verse-frame-rounded">
             <SectionHeader kicker={<>{def.label} facts</>} as="h2" />

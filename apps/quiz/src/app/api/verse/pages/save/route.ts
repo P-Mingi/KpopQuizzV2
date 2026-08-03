@@ -5,6 +5,7 @@ import { canCurateSpace } from '@/lib/verse/roles';
 import { isAdmin } from '@/lib/admin';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
+import { wouldCreateCycle } from '@/lib/verse/pages/data';
 import { checkText } from '@/lib/verse/moderation';
 import { plainTextExcerpt } from '@/lib/verse/render-content';
 
@@ -48,6 +49,27 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await svc.from('verse_pages').update({
       title: checked.value.title, infobox: checked.value.infobox, updated_at: new Date().toISOString(),
     }).eq('id', page.id);
+  }
+
+  // Nesting: set/clear this page's parent (page-inside-page). Same-group only,
+  // never self, never a descendant - the render guards one level, but the DATA
+  // must stay acyclic so ancestor walks and children lists always terminate.
+  if (body.parent_page_id !== undefined) {
+    const raw = body.parent_page_id;
+    let parentId: number | null = null;
+    if (raw !== null && raw !== '') {
+      const n = Number(raw);
+      if (!Number.isInteger(n) || n <= 0) return NextResponse.json({ ok: false, errors: ['Invalid parent page.'] }, { status: 422 });
+      const { data: parentRow } = await svc.from('verse_pages').select('id, group_id').eq('id', n).maybeSingle();
+      const pr = parentRow as { id: number; group_id: number } | null;
+      if (!pr || pr.group_id !== page.group_id) return NextResponse.json({ ok: false, errors: ['That parent page is not in this space.'] }, { status: 422 });
+      const { data: allRows } = await svc.from('verse_pages').select('id, parent_page_id').eq('group_id', page.group_id);
+      const parentOf = new Map<number, number | null>();
+      for (const r of (allRows ?? []) as { id: number; parent_page_id: number | null }[]) parentOf.set(r.id, r.parent_page_id);
+      if (wouldCreateCycle(page.id, n, parentOf)) return NextResponse.json({ ok: false, errors: ['A page cannot sit inside one of its own descendants.'] }, { status: 422 });
+      parentId = n;
+    }
+    await svc.from('verse_pages').update({ parent_page_id: parentId, updated_at: new Date().toISOString() }).eq('id', page.id);
   }
 
   // Body autosave (verse_drafts, author-keyed).

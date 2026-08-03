@@ -52,6 +52,19 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
     ?? (live as { content?: unknown } | null)?.content
     ?? null;
 
+  // Parent picker options: every page in the space EXCEPT this one and its own
+  // descendants (offering a descendant would let the UI propose a cycle; the
+  // save route guards it regardless, but the picker should never present it).
+  const { data: allPagesRaw } = await svc.from('verse_pages')
+    .select('id, title, slug, parent_page_id').eq('group_id', space.group.id).order('title', { ascending: true });
+  const allPages = (allPagesRaw ?? []) as { id: number; title: string; slug: string; parent_page_id: number | null }[];
+  const childrenOf = new Map<number, number[]>();
+  for (const p of allPages) { const key = p.parent_page_id ?? 0; const a = childrenOf.get(key) ?? []; a.push(p.id); childrenOf.set(key, a); }
+  const banned = new Set<number>([page.id]);
+  const stack = [page.id];
+  while (stack.length) { const cur = stack.pop() as number; for (const c of childrenOf.get(cur) ?? []) if (!banned.has(c)) { banned.add(c); stack.push(c); } }
+  const parentOptions = allPages.filter((p) => !banned.has(p.id)).map((p) => ({ id: p.id, title: p.title, slug: p.slug }));
+
   return (
     <div>
       <div className="mb-6">
@@ -63,7 +76,8 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
       </header>
       <PageEditor
         page={{ id: page.id, group_id: page.group_id, kind: page.kind, slug: page.slug, title: page.title, status: page.status, infobox: page.infobox }}
-        def={def} initialBody={body} canPublish={curator || isAdmin(userId)} groupSlug={space.group.slug} />
+        def={def} initialBody={body} canPublish={curator || isAdmin(userId)} groupSlug={space.group.slug}
+        parentOptions={parentOptions} initialParentId={page.parent_page_id} />
     </div>
   );
 }

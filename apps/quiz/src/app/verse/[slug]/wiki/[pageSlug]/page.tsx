@@ -7,6 +7,7 @@ import { getPublishedPage, resolvePageAlias, resolveWikiSlug, getPageBody, pageA
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { WikiInfobox, WikiBody, TrustFooter, RelatedExits, FanWrittenBadge } from '@/components/verse/pages/wiki-leaf';
+import { PagesInside } from '@/components/verse/pages/page-shell';
 import { LinkPreviews } from '@/components/verse/pages/link-previews';
 import { RoleAffordance } from '@/components/verse/roles/role-affordance';
 import Link from 'next/link';
@@ -144,6 +145,11 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
           ) : (
             <EmptyState className="v-module" headline="No published text yet." body="The first fan to write it fills this in." />
           )}
+
+          {/* DOOR 2 (V-HARMONY-2A): pages nested inside this one, one level,
+              min-gated (null when childless - never a dead door). The breadcrumb
+              above already renders the "up" direction via pageAncestors. */}
+          <PagesInside groupId={space.group.id} groupSlug={space.group.slug} pageId={page.id} />
 
           <RelatedExits groupSlug={space.group.slug} items={related} />
           <TrustFooter page={page} groupSlug={space.group.slug} maintainers={attribution.maintainers} starterName={starterName} />
