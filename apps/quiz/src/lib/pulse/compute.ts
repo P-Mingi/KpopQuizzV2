@@ -1,3 +1,5 @@
+import { fetchAllRows } from '@/lib/db/fetch-all';
+
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 // Workstream T0: compute the Monthly K-pop Pulse payload from REAL first-party
@@ -46,14 +48,14 @@ interface PlayRow { quiz_id: string; quizzes: { slug: string; title: string; gro
 export async function computePulse(db: SupabaseClient, month: string, nowIso: string): Promise<PulsePayload> {
   const { start, end, label } = monthWindow(month);
 
-  // Pull the month's plays once, with the quiz + group embedded, and aggregate
-  // in JS (a few thousand rows). Powers both the fandom winner and top quizzes.
-  const { data: playsRaw } = await db
+  // Pull the month's plays with the quiz + group embedded, and aggregate in JS.
+  // Paginated: a busy month exceeds the 1000-row PostgREST cap, which would
+  // silently truncate the fandom winner + top quizzes (V-REPAIR sweep B).
+  const plays = await fetchAllRows<PlayRow>(() => db
     .from('plays')
     .select('quiz_id, quizzes!inner(slug, title, group_id, groups(name, slug))')
     .gte('created_at', start)
-    .lt('created_at', end);
-  const plays = (playsRaw ?? []) as unknown as PlayRow[];
+    .lt('created_at', end));
 
   // 1. Fandom of the month (most-played real fandom; the catch-all bucket cannot win).
   const byGroup = new Map<string, { name: string; slug: string; plays: number }>();
@@ -80,13 +82,13 @@ export async function computePulse(db: SupabaseClient, month: string, nowIso: st
   const mostPlayed = [...byQuiz.values()].sort((a, b) => b.plays - a.plays || a.slug.localeCompare(b.slug)).slice(0, 5);
 
   // 3. Duel verdict of the month (top matchup by votes; winner = most-won entity).
-  const { data: votes } = await db
+  const votes = await fetchAllRows<{ question_id: string; winner_id: string }>(() => db
     .from('duel_votes')
     .select('question_id, winner_id')
     .gte('created_at', start)
-    .lt('created_at', end);
+    .lt('created_at', end));
   const duelByQ = new Map<string, { total: number; wins: Map<string, number> }>();
-  for (const v of (votes ?? []) as { question_id: string; winner_id: string }[]) {
+  for (const v of votes) {
     const q = duelByQ.get(v.question_id) ?? { total: 0, wins: new Map() };
     q.total += 1;
     q.wins.set(v.winner_id, (q.wins.get(v.winner_id) ?? 0) + 1);
