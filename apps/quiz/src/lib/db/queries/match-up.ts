@@ -18,9 +18,13 @@ interface GroupRow {
   name: string;
   slug: string;
   generation: string | null;
+  fandom_name: string | null;
   is_custom: boolean | null;
   needs_review: boolean | null;
 }
+
+// A predicate over a clean group, used to scope a pool (a generation, a gender).
+type GroupFilter = (g: GroupRow) => boolean;
 
 // Catch-all "groups" that are not a real group, so pairing an idol/song to them
 // is meaningless. Excluded from every Match-Up pool.
@@ -29,11 +33,45 @@ const EXCLUDED_GROUP_SLUGS = new Set(['general-kpop']);
 async function loadCleanGroups(db: DbClient): Promise<Map<string, GroupRow>> {
   const { data } = await db
     .from('groups')
-    .select('id, name, slug, generation, is_custom, needs_review');
+    .select('id, name, slug, generation, fandom_name, is_custom, needs_review');
   const clean = ((data ?? []) as GroupRow[]).filter(
     (g) => !g.is_custom && !g.needs_review && !EXCLUDED_GROUP_SLUGS.has(g.slug),
   );
   return new Map(clean.map((g) => [g.id, g]));
+}
+
+/**
+ * Map of group id -> dominant songs.gender label (bg / gg / solo_* / coed),
+ * across active songs. The groups table has no gender column, so gender is
+ * derived per group from its songs (the same real, group-consistent attribute
+ * the Sort It game uses). Paginated past the 1000-row cap.
+ */
+async function deriveGroupGenders(db: DbClient): Promise<Map<string, string>> {
+  const counts = new Map<string, Record<string, number>>();
+  for (let from = 0; ; from += 1000) {
+    const { data } = await db
+      .from('songs')
+      .select('group_id, gender')
+      .eq('status', 'active')
+      .not('group_id', 'is', null)
+      .range(from, from + 999);
+    if (!data || data.length === 0) break;
+    for (const s of data as Array<{ group_id: string; gender: string | null }>) {
+      if (!s.gender) continue;
+      const rec = counts.get(s.group_id) ?? {};
+      rec[s.gender] = (rec[s.gender] ?? 0) + 1;
+      counts.set(s.group_id, rec);
+    }
+    if (data.length < 1000) break;
+  }
+  const out = new Map<string, string>();
+  for (const [gid, rec] of counts) {
+    let best: string | null = null;
+    let bestVal = -1;
+    for (const [label, n] of Object.entries(rec)) if (n > bestVal) { best = label; bestVal = n; }
+    if (best) out.set(gid, best);
+  }
+  return out;
 }
 
 interface SongRow {
@@ -70,7 +108,7 @@ async function loadActiveSongs(db: DbClient): Promise<SongRow[]> {
 async function songToGroupPairs(
   db: DbClient,
   groups: Map<string, GroupRow>,
-  generation: string | null,
+  filter: GroupFilter,
 ): Promise<MatchUpPair[]> {
   const songs = await loadActiveSongs(db);
   const best = new Map<string, SongRow>();
@@ -87,10 +125,18 @@ async function songToGroupPairs(
   const pairs: MatchUpPair[] = [];
   for (const [gid, song] of best) {
     const g = groups.get(gid)!;
-    if (generation && g.generation !== generation) continue;
-    // Format only: some raw titles use underscores for spaces. This tidies the
-    // display of real data; it never changes which title belongs to the group.
-    const title = (song.title ?? '').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!filter(g)) continue;
+    // Format only (never changes which group the title belongs to): underscores
+    // to spaces, and drop feature-credit parentheticals / brackets that make a
+    // tile balloon (e.g. "Moon (with VIVIZ, MINHYUK, ...)" -> "Moon").
+    const title = (song.title ?? '')
+      .replace(/_/g, ' ')
+      .replace(/\([^)]*\)/g, '')   // balanced "(...)" credits
+      .replace(/\[[^\]]*\]/g, '')  // balanced "[...]"
+      .replace(/\s*[([].*$/, '')   // an UNbalanced "(" / "[" (truncated data) to end
+      .replace(/\s+feat\.?.*$/i, '')
+      .replace(/\s+/g, ' ')
+      .trim();
     if (!title) continue;
     pairs.push({ id: g.slug, left: title, right: g.name });
   }
@@ -102,7 +148,7 @@ async function songToGroupPairs(
  * the player's distinct-target sampling guarantees one idol per group in any
  * round (and different idols across runs, for replay).
  */
-async function idolToGroupPairs(db: DbClient, groups: Map<string, GroupRow>): Promise<MatchUpPair[]> {
+async function idolToGroupPairs(db: DbClient, groups: Map<string, GroupRow>, filter: GroupFilter): Promise<MatchUpPair[]> {
   const { data } = await db
     .from('games')
     .select('group_id, content')
@@ -112,12 +158,32 @@ async function idolToGroupPairs(db: DbClient, groups: Map<string, GroupRow>): Pr
   const pairs: MatchUpPair[] = [];
   for (const row of (data ?? []) as Array<{ group_id: string; content: { members?: Array<{ name?: string }> } | null }>) {
     const g = groups.get(row.group_id);
-    if (!g) continue;
+    if (!g || !filter(g)) continue;
     for (const m of row.content?.members ?? []) {
       const name = typeof m?.name === 'string' ? m.name.trim() : '';
       if (!name) continue;
       pairs.push({ id: `${g.slug}:${name}`, left: name, right: g.name });
     }
+  }
+  return pairs;
+}
+
+/**
+ * Fandom name <-> group (ARMY -> BTS). One pair per clean group that has a real,
+ * distinct fandom_name. Fandom names are unique per group, so targets are never
+ * ambiguous.
+ */
+async function fandomToGroupPairs(groups: Map<string, GroupRow>): Promise<MatchUpPair[]> {
+  const pairs: MatchUpPair[] = [];
+  const seen = new Set<string>();
+  for (const g of groups.values()) {
+    const fandom = (g.fandom_name ?? '').trim();
+    // Skip empty, or a fandom that is just the group's own name (no real fandom).
+    if (!fandom || fandom.toLowerCase() === g.name.toLowerCase()) continue;
+    const key = fandom.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    pairs.push({ id: g.slug, left: fandom, right: g.name });
   }
   return pairs;
 }
@@ -179,18 +245,33 @@ export const getMatchUpPairs = cache(async (slug: string): Promise<MatchUpPair[]
 
   const db = createPublicReadClient();
   const groups = await loadCleanGroups(db);
-  let pairs: MatchUpPair[] = [];
 
-  if (slug === 'song-to-group') {
-    pairs = await songToGroupPairs(db, groups, null);
-  } else if (slug === 'song-to-group-3rd-gen') {
-    pairs = await songToGroupPairs(db, groups, '3rd Gen');
-  } else if (slug === 'song-to-group-4th-gen') {
-    pairs = await songToGroupPairs(db, groups, '4th Gen');
-  } else if (slug === 'idol-to-group') {
-    pairs = await idolToGroupPairs(db, groups);
-  } else if (slug === 'song-title-halves') {
-    pairs = await titleHalvesPairs(db);
+  // Gender is only needed by the boy/girl-scoped playlists; derive it lazily.
+  const needsGender = slug.endsWith('-boy') || slug.endsWith('-girl');
+  const gender = needsGender ? await deriveGroupGenders(db) : new Map<string, string>();
+  const all: GroupFilter = () => true;
+  const gen = (v: string): GroupFilter => (g) => g.generation === v;
+  const isBoy: GroupFilter = (g) => gender.get(g.id) === 'bg';
+  const isGirl: GroupFilter = (g) => gender.get(g.id) === 'gg';
+  const older: GroupFilter = (g) => g.generation === '2nd Gen' || g.generation === '3rd Gen';
+  const newer: GroupFilter = (g) => g.generation === '4th Gen' || g.generation === '5th Gen';
+
+  let pairs: MatchUpPair[] = [];
+  switch (slug) {
+    case 'song-to-group': pairs = await songToGroupPairs(db, groups, all); break;
+    case 'song-to-group-3rd-gen': pairs = await songToGroupPairs(db, groups, gen('3rd Gen')); break;
+    case 'song-to-group-4th-gen': pairs = await songToGroupPairs(db, groups, gen('4th Gen')); break;
+    case 'song-to-group-boy': pairs = await songToGroupPairs(db, groups, isBoy); break;
+    case 'song-to-group-girl': pairs = await songToGroupPairs(db, groups, isGirl); break;
+    case 'song-to-group-older-gen': pairs = await songToGroupPairs(db, groups, older); break;
+    case 'song-to-group-newer-gen': pairs = await songToGroupPairs(db, groups, newer); break;
+    case 'idol-to-group': pairs = await idolToGroupPairs(db, groups, all); break;
+    case 'idol-to-group-3rd-gen': pairs = await idolToGroupPairs(db, groups, gen('3rd Gen')); break;
+    case 'idol-to-group-4th-gen': pairs = await idolToGroupPairs(db, groups, gen('4th Gen')); break;
+    case 'idol-to-group-boy': pairs = await idolToGroupPairs(db, groups, isBoy); break;
+    case 'idol-to-group-girl': pairs = await idolToGroupPairs(db, groups, isGirl); break;
+    case 'fandom-to-group': pairs = await fandomToGroupPairs(groups); break;
+    case 'song-title-halves': pairs = await titleHalvesPairs(db); break;
   }
 
   if (pairs.length < MATCH_UP_MIN_PAIRS) return [];

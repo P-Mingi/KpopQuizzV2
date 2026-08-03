@@ -53,9 +53,6 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
   const items = await safeFetch(getSortItItems(slug), [], '[sort-it] getItems');
   if (items.length === 0) notFound();
 
-  const noun = slug === 'solo-act-or-group' ? 'acts' : 'groups';
-  const intro = `${playlist.blurb} This round pulls ${items.length} real K-pop ${noun} straight from the site's data, shuffled fresh each play. It is free, needs no sign-up, and works on mobile or desktop.`;
-
   const webPageLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -67,7 +64,7 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
 
   return (
     <div className="py-4 md:py-6">
-      <section className="si-wrap game-intro" style={{ paddingBottom: 0 }}>
+      <section className="si-wrap" style={{ paddingBottom: 0 }}>
         <Breadcrumbs
           items={[
             { label: 'Games', href: '/games' },
@@ -75,8 +72,6 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
             { label: playlist.title },
           ]}
         />
-        <h1 className="game-intro-h1">{playlist.title}</h1>
-        <p className="game-intro-p">{intro}</p>
       </section>
       <SortItPlayer playlist={playlist} items={items} />
 

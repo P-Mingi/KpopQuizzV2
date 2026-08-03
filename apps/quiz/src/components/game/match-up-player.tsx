@@ -186,7 +186,7 @@ export function MatchUpPlayer({
         <Link href="/games" className="mu-back">{'←'} Back to Games</Link>
         <div className="mu-intro">
           <span className="mu-eyebrow">Match-Up</span>
-          <h2 className="mu-title">{playlist.title}</h2>
+          <h1 className="mu-title">{playlist.title}</h1>
           <p className="mu-blurb">{playlist.blurb}</p>
           <div className="mu-meta">{roundSize} pairs {'·'} tap one from each side {'·'} beat the clock</div>
           <button type="button" className="btn-primary mu-start" onClick={begin}>Start matching</button>
@@ -259,8 +259,9 @@ export function MatchUpPlayer({
               disabled={matched.has(t.id)}
               aria-pressed={selLeft === t.id}
               aria-label={`${playlist.leftLabel}: ${t.label}${matched.has(t.id) ? ', matched' : ''}`}
+              title={t.label}
             >
-              {t.label}
+              <span className="mu-tile-t">{t.label}</span>
             </button>
           ))}
         </div>
@@ -275,8 +276,9 @@ export function MatchUpPlayer({
               disabled={matched.has(t.id)}
               aria-pressed={selRight === t.id}
               aria-label={`${playlist.rightLabel}: ${t.label}${matched.has(t.id) ? ', matched' : ''}`}
+              title={t.label}
             >
-              {t.label}
+              <span className="mu-tile-t">{t.label}</span>
             </button>
           ))}
         </div>
