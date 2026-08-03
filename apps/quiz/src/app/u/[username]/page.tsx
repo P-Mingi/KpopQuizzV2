@@ -167,7 +167,11 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   // failed visibility read (safeFetch -> null) fall CLOSED to the cohort default,
   // never to visible: resume sections stay private, legacy sections revert only
   // to their shipped state, not to an all-public leak.
-  const vis = visibility ?? defaultsFor(profile.created_at);
+  // Fail CLOSED (same law as the resume band): a FAILED visibility read
+  // (safeFetch -> null) defaults every section PRIVATE, never the legacy-public
+  // cohort default - a transient error must not republish an opted-out section.
+  // A successful read returns the real Visibility (cohort defaults already applied).
+  const vis = visibility ?? defaultsFor(null);
   const vShow = (section: 'spaces' | 'contributions' | 'collection' | 'essays_list'): boolean => vis[section];
   const publicResume = visibility && fullStats ? {
     username: profile.username,
