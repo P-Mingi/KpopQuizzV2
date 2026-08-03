@@ -7,6 +7,7 @@ import { SectionSurface } from '@/components/verse/editor/section-surface';
 import { InfoboxCard } from '@/components/verse/editor/infobox-card';
 import { DiscussionThread } from '@/components/verse/discussion-thread';
 import { WatchButton } from '@/components/verse/watch-button';
+import { MoreAboutThis } from '@/components/verse/pages/more-about-this';
 import { getIdol } from '@/lib/verse/idol';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
@@ -160,6 +161,12 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
               </div>
             </section>
           ) : null}
+
+          {/* DOOR 3 (V-HARMONY-2A): pages that reference this member (fancam
+              logs, choreo notes, era pages...); min-gated to null when none. */}
+          <div className="mt-6">
+            <MoreAboutThis groupId={d.group.id} groupSlug={slug} entityRef={`idol:${idol}`} entityLabel={d.name} />
+          </div>
 
           <div className="mt-6 border-t pt-4" style={{ borderColor: 'var(--verse-line)' }}>
             <DiscussionThread entityType="idol" entityId={String(d.id)} groupId={d.group.id} />

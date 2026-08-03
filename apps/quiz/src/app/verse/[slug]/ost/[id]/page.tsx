@@ -24,5 +24,5 @@ export default async function OstDetailPage({ params }: { params: Promise<{ slug
   if (!space) notFound();
   const row = await getSceneEntity(SCENE.kind, Number(id));
   if (!row || row.group_id !== space.group.id) notFound();
-  return <SceneDetail scene={SCENE} groupSlug={slug} row={row} />;
+  return <SceneDetail scene={SCENE} groupSlug={slug} fandomName={space.group.fandom_name} row={row} />;
 }

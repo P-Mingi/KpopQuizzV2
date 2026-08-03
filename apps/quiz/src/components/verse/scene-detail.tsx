@@ -1,12 +1,17 @@
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SectionSurface } from '@/components/verse/editor/section-surface';
+import { MoreAboutThis } from '@/components/verse/pages/more-about-this';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
 
 import type { SceneDef } from '@/lib/verse/entity-types';
 import type { SceneRow } from '@/lib/verse/entities';
 
-/** Reader detail for one entity (tour / show / ost): a facts panel + editable narration. */
-export async function SceneDetail({ scene, groupSlug, row }: { scene: SceneDef; groupSlug: string; row: SceneRow }): Promise<React.ReactElement> {
+/** Reader detail for one entity (tour / show / ost): the shared shell doors
+ * (breadcrumb + "More about this") wrap a facts panel + editable narration.
+ * V-HARMONY-2A step 3: this ONE shell converges all three scene detail routes,
+ * so the doors appear consistently and min-gated across every entity page. */
+export async function SceneDetail({ scene, groupSlug, fandomName, row }: { scene: SceneDef; groupSlug: string; fandomName: string; row: SceneRow }): Promise<React.ReactElement> {
   const title = String(row[scene.titleField] ?? scene.singular);
   const facts = scene.fields
     .map((f) => ({ label: f.label, value: row[f.key] }))
@@ -33,6 +38,13 @@ export async function SceneDetail({ scene, groupSlug, row }: { scene: SceneDef; 
 
   return (
     <article>
+      {/* DOOR 1: where it sits. */}
+      <Breadcrumbs items={[
+        { label: 'Verse', href: '/verse' },
+        { label: fandomName, href: `/verse/${groupSlug}` },
+        { label: scene.label, href: `/verse/${groupSlug}/${scene.seg}` },
+        { label: title },
+      ]} />
       <h1 className="text-2xl font-black tracking-tight" style={{ color: 'var(--verse-ink)' }}>{title}</h1>
       {facts.length ? (
         <dl className="mt-3 grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
@@ -48,6 +60,10 @@ export async function SceneDetail({ scene, groupSlug, row }: { scene: SceneDef; 
         <p className="mt-2 text-xs text-tertiary">Source: <a href={sourceUrl} rel="nofollow noopener" target="_blank" className="underline">reference</a></p>
       ) : null}
       {narration}
+      {/* DOOR 3: pages that reference this entity (min-gated: null when none). */}
+      <div className="mt-6">
+        <MoreAboutThis groupId={Number(row.group_id)} groupSlug={groupSlug} entityRef={`${scene.entityType}:${row.id}`} entityLabel={`this ${scene.singular.toLowerCase()}`} />
+      </div>
     </article>
   );
 }

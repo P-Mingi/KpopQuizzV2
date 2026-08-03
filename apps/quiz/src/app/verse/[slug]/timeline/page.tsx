@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { getEras } from '@/lib/verse/eras';
 import { jsonLdScript } from '@/lib/verse/jsonld';
@@ -51,6 +52,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ slug:
 
   return (
     <div>
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: 'Timeline' }]} />
       {eras.length > 0 ? jsonLdScript(itemList) : null}
       <EraSpine eras={eras} groupSlug={slug} debut={debut} />
     </div>

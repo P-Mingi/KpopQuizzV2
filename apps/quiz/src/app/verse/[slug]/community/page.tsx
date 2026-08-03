@@ -3,6 +3,7 @@ import { Byline } from '@/components/verse/primitives/byline';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { MemberDirectory } from '@/components/verse/member-directory';
 import { WatchButton } from '@/components/verse/watch-button';
@@ -44,6 +45,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
 
   return (
     <div className="space-y-6">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: group.fandom_name, href: `/verse/${slug}` }, { label: 'Community' }]} />
       <MemberDirectory groupId={group.id} fandomName={group.fandom_name} />
       <section className="rounded-xl border border-dashed p-6" style={{ borderColor: 'var(--verse-line)', background: 'var(--verse-soft)' }}>
         <h2 className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{group.fandom_name} activity</h2>

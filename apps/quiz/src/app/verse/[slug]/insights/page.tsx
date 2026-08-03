@@ -3,6 +3,7 @@ import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
 import { getSpaceInsights } from '@/lib/verse/insights';
@@ -34,6 +35,7 @@ export default async function InsightsPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="space-y-6">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: 'Insights' }]} />
       <div>
         <h1 className="text-lg font-bold" style={{ color: 'var(--verse-ink)' }}>{space.group.fandom_name} insights</h1>
         <p className="text-xs text-tertiary">The numbers that matter for this space. Real data only.</p>

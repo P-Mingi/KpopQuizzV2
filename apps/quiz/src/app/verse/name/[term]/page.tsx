@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 import { resolveName } from '@/lib/verse/disambig';
 
@@ -28,6 +29,7 @@ export default async function DisambiguationPage({ params }: { params: Promise<{
   const pretty = term.replace(/-/g, ' ');
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: pretty }]} />
       <h1 className="text-2xl font-black capitalize tracking-tight text-primary">{pretty}</h1>
       <p className="mt-1 text-sm text-secondary">More than one thing goes by this name. Which did you mean?</p>
       <ul className="mt-5 space-y-2">

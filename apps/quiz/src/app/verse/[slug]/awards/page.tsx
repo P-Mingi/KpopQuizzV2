@@ -3,6 +3,7 @@ import { EmptyState } from '@/components/verse/primitives/empty-state';
 
 import { SourceChip } from '@/components/verse/source-chip';
 import { PageGrammar } from '@/components/verse/page-grammar';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { getScene } from '@/lib/verse/entities';
 
@@ -54,6 +55,7 @@ export default async function AwardsPage({ params }: { params: Promise<{ slug: s
 
   return (
     <div>
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: 'Awards' }]} />
       <PageGrammar kicker="Awards" title="The record"
         dek={`Awards and nominations for ${space.group.name}, every line sourced. Fans and curators keep it current.`} />
       {/* The record, in one band: oversized counts in the vitals-band spirit. */}

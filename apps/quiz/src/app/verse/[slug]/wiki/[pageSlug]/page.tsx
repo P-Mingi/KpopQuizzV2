@@ -12,7 +12,7 @@ import { LinkPreviews } from '@/components/verse/pages/link-previews';
 import { RoleAffordance } from '@/components/verse/roles/role-affordance';
 import Link from 'next/link';
 import { createPublicReadClient } from '@/lib/supabase/server';
-import { wikiArticleLd, breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
+import { wikiArticleLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
 
@@ -102,7 +102,9 @@ export default async function WikiLeafPage({ params }: { params: Promise<{ slug:
         title: page.title, groupSlug: space.group.slug, pageSlug: page.slug, groupName: space.group.name,
         publishedAt: page.published_at, updatedAt: page.updated_at, maintainers: attribution.maintainers, fanWritten: !!def?.fanWritten,
       }))}
-      {jsonLdScript(breadcrumbLd(crumbs.filter((c) => c.href).map((c) => ({ name: c.label, url: `https://kpopquiz.org${c.href}` }))))}
+      {/* BreadcrumbList JSON-LD is emitted once by <Breadcrumbs> below (it now
+          includes the leaf position); the old manual breadcrumbLd here was a
+          second, less-complete BreadcrumbList - dropped in the 2A convergence. */}
       {/* Rabbit-hole enhancement: hover previews + red-link handling (create
           affordance for contributors, plain text for visitors). */}
       <LinkPreviews groupSlug={space.group.slug} />

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { getScene } from '@/lib/verse/entities';
 import { SceneList } from '@/components/verse/scene-list';
@@ -28,6 +29,7 @@ export default async function ToursPage({ params }: { params: Promise<{ slug: st
   const rows = await getScene(SCENE.kind, space.group.id);
   return (
     <div>
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name, href: `/verse/${slug}` }, { label: SCENE.label }]} />
       <p className="mb-4 text-xs text-tertiary">Concert tours, fan-run and sourced.</p>
       <SceneList scene={SCENE} groupSlug={slug} rows={rows} />
     </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 import { listHubs } from '@/lib/verse/tags';
 
@@ -19,6 +20,7 @@ export default async function TagsDirectoryPage(): Promise<React.ReactElement> {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: 'Categories' }]} />
       <h1 className="text-2xl font-black tracking-tight text-primary">Browse by category</h1>
       <p className="mt-1 text-sm text-secondary">Every K-pop group on Verse, grouped by generation, label and country.</p>
       <div className="mt-6 space-y-6">

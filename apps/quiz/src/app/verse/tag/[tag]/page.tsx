@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 import { getHub, hubGroups } from '@/lib/verse/tags';
 
@@ -32,6 +33,7 @@ export default async function TagHubPage({ params }: { params: Promise<{ tag: st
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8">
+      <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: 'Categories', href: '/verse/tags' }, { label: hub.label }]} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <p className="text-xs uppercase tracking-wide text-tertiary">{hub.dimLabel.replace(/^By /, '')}</p>
       <h1 className="mt-0.5 text-2xl font-black tracking-tight text-primary">{hub.label}</h1>
