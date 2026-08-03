@@ -28,7 +28,7 @@ export async function MemberDirectory({ groupId, fandomName }: { groupId: number
               {m.xp > 0 ? <span className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase text-tertiary" style={{ border: '1px solid var(--verse-line)' }} title={`${m.xp} contribution XP`}>{m.tier}</span> : null}
             </span>
           );
-          return <li key={m.userId}>{m.username ? <Link href={`/u/${m.username}`} className="no-underline">{inner}</Link> : inner}</li>;
+          return <li key={m.userId}>{m.href ? <Link href={m.href} className="no-underline">{inner}</Link> : inner}</li>;
         })}
       </ul>
     </section>

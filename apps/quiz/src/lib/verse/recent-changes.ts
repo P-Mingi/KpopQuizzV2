@@ -3,8 +3,11 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { resolveEntityGroupId } from '@/lib/verse/curate';
 import { resolveEntityLink } from '@/lib/verse/watchlist';
+import { resolveIdentities } from '@/lib/verse/identity';
 
-export interface Change { id: number; entityLabel: string; entityUrl: string; section: string; summary: string; authorName: string; createdAt: string }
+import type { Identity } from '@/lib/verse/identity';
+
+export interface Change { id: number; entityLabel: string; entityUrl: string; section: string; summary: string; author: Identity | null; createdAt: string }
 
 export async function getRecentChanges(groupId: number, limit = 60): Promise<Change[]> {
   const db = createServiceRoleClient();
@@ -25,15 +28,17 @@ export async function getRecentChanges(groupId: number, limit = 60): Promise<Cha
   }
 
   const mine = revs.filter((r) => groupOf.get(entityKey(r)) === groupId).slice(0, limit);
+  // Resolve authors through the shared resolver so SYSTEM_AUTHOR_DISPLAY wins
+  // (a system edit renders "KpopVerse", never the private display_name/username)
+  // and the byline honors block/href. anonymous -> null -> "a fan" via Byline.
   const authorIds = [...new Set(mine.map((r) => r.author))].filter((a) => a && a !== 'anonymous');
-  const { data: profs } = authorIds.length ? await db.from('profiles').select('id, username, display_name').in('id', authorIds) : { data: [] };
-  const nameById = new Map((profs ?? []).map((p: { id: string; username: string | null; display_name: string | null }) => [p.id, p.display_name || p.username || 'A fan']));
+  const idById = authorIds.length ? await resolveIdentities(authorIds) : new Map<string, Identity>();
 
   return mine.map((r) => {
     const link = linkOf.get(entityKey(r));
     return {
       id: r.id, entityLabel: link?.label ?? r.entity_type, entityUrl: link?.url ?? '#', section: r.section_key,
-      summary: r.summary ?? 'edited', authorName: r.author === 'anonymous' ? 'A fan' : (nameById.get(r.author) ?? 'A fan'), createdAt: r.created_at,
+      summary: r.summary ?? 'edited', author: r.author === 'anonymous' ? null : (idById.get(r.author) ?? null), createdAt: r.created_at,
     };
   });
 }

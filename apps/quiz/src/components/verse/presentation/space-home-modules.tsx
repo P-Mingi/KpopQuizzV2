@@ -56,7 +56,7 @@ export async function GameWidgets({ space }: { space: Space }): Promise<React.Re
               <VerseGameLink target={'group-quiz' as CrossPromoTarget} href={`/q/${q.slug}`} className="group inline-flex flex-wrap items-baseline gap-x-2 no-underline">
                 <span className="text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{q.title}</span>
                 <span className="text-[11.5px] text-tertiary">
-                  {q.username ? (q.spaceRole ? `by ${q.username} of ${group.fandom_name}` : `by ${q.username}`) : null}
+                  {q.displayName ? (q.spaceRole ? `by ${q.displayName} of ${group.fandom_name}` : `by ${q.displayName}`) : null}
                   {q.playCount > 0 ? `${q.username ? ' · ' : ''}${q.playCount.toLocaleString('en-US')} plays` : null}
                 </span>
               </VerseGameLink>

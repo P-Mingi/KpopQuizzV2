@@ -3,6 +3,7 @@
 // filter; the "of {space}" credit is a render-time membership lookup. Public,
 // cookie-free, ISR-safe.
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { resolveIdentities } from '@/lib/verse/identity';
 
 import type { SpaceRole } from '@/lib/verse/roles';
 
@@ -12,6 +13,8 @@ export interface SpaceQuiz {
   slug: string;
   playCount: number;
   username: string | null;
+  /** Resolver display name (system account -> "KpopVerse"), for the credit text. */
+  displayName: string | null;
   /** The creator's role in this space, when they are a member of it. */
   spaceRole: SpaceRole | null;
 }
@@ -35,9 +38,13 @@ export async function getSpaceQuizzes(groupId: number, limit = 3): Promise<Space
     const { data: mem } = await db.from('space_members').select('user_id, role').eq('group_id', groupId).in('user_id', creatorIds);
     for (const m of (mem ?? []) as Array<{ user_id: string; role: SpaceRole }>) roleBy.set(m.user_id, m.role);
   }
+  // Resolve creator names so the credit honors SYSTEM_AUTHOR_DISPLAY (never a raw
+  // private username) instead of the bare @username the join returned.
+  const ids = creatorIds.length ? await resolveIdentities(creatorIds) : new Map();
   return rows.map((r) => ({
     id: r.id, title: r.title, slug: r.slug, playCount: r.play_count ?? 0,
     username: r.profiles?.username ?? null,
+    displayName: r.creator_id ? (ids.get(r.creator_id)?.displayName ?? null) : null,
     spaceRole: (r.creator_id && roleBy.get(r.creator_id)) || null,
   }));
 }

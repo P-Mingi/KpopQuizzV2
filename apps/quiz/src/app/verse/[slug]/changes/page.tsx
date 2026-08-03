@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Byline } from '@/components/verse/primitives/byline';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { notFound } from 'next/navigation';
 
@@ -43,7 +44,7 @@ export default async function ChangesPage({ params }: { params: Promise<{ slug: 
               <Link href={c.entityUrl} className="font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>{c.entityLabel}</Link>
               <span className="text-xs text-tertiary">{c.section.replace('_', ' ')}</span>
               <span className="text-secondary">{c.summary}</span>
-              <span className="ml-auto text-xs text-tertiary">by {c.authorName}</span>
+              <span className="ml-auto text-xs text-tertiary"><Byline identity={c.author} prefix="by" /></span>
             </li>
           ))}
         </ol>

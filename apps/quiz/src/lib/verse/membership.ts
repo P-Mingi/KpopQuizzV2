@@ -2,6 +2,7 @@
 // stay ISR-safe; a user's own space list uses the service role for the passport.
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { tierName } from '@/lib/verse/reputation';
+import { resolveSpaceIdentities } from '@/lib/verse/identity';
 
 import type { SpaceRole } from '@/lib/verse/roles';
 
@@ -12,6 +13,8 @@ export interface SpaceMember {
   avatarUrl: string | null;
   avatarBg: string | null;
   avatarText: string | null;
+  href: string | null;   // resolver href: /u/{username}, or null for a system/usernameless account
+  isSystem: boolean;
   role: SpaceRole;
   xp: number;
   tier: string;
@@ -30,13 +33,14 @@ export async function getSpaceMembers(groupId: number): Promise<SpaceMember[]> {
   const rows = (data ?? []) as Array<{ user_id: string; role: SpaceRole; contrib_xp: number; joined_at: string }>;
   if (rows.length === 0) return [];
 
-  const { data: profs } = await db.from('profiles').select('id, username, display_name, avatar_url, avatar_bg, avatar_text').in('id', rows.map((r) => r.user_id));
-  type Prof = { id: string; username: string | null; display_name: string | null; avatar_url: string | null; avatar_bg: string | null; avatar_text: string | null };
-  const byId = new Map((profs ?? []).map((p: Prof) => [p.id, p]));
+  // Identity through the shared resolver: a system account (KpopVerse) gets href
+  // null, so the directory never links it to a /u/ profile. RLS already returns
+  // active members only, so the raw space role drives the pill/staff logic.
+  const ids = await resolveSpaceIdentities(rows.map((r) => r.user_id), groupId);
 
   return rows.map((r) => {
-    const p = byId.get(r.user_id);
-    return { userId: r.user_id, username: p?.username ?? null, displayName: p?.display_name ?? null, avatarUrl: p?.avatar_url ?? null, avatarBg: p?.avatar_bg ?? null, avatarText: p?.avatar_text ?? null, role: r.role, xp: r.contrib_xp ?? 0, tier: tierName(r.contrib_xp ?? 0), joinedAt: r.joined_at };
+    const id = ids.get(r.user_id);
+    return { userId: r.user_id, username: id?.username ?? null, displayName: id?.displayName ?? null, avatarUrl: id?.avatarUrl ?? null, avatarBg: id?.avatarBg ?? null, avatarText: id?.avatarText ?? null, href: id?.href ?? null, isSystem: id?.isSystem ?? false, role: r.role, xp: r.contrib_xp ?? 0, tier: tierName(r.contrib_xp ?? 0), joinedAt: r.joined_at };
   }).sort((a, b) => (ROLE_ORDER[a.role] ?? 9) - (ROLE_ORDER[b.role] ?? 9) || b.xp - a.xp || a.joinedAt.localeCompare(b.joinedAt));
 }
 
