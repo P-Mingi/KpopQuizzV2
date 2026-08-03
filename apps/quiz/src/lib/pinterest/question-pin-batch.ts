@@ -68,9 +68,11 @@ export function hubUrlFor(groupSlug: string | null, campaign: string): { url: st
   return { url: `${base}?utm_source=pinterest&utm_medium=pin&utm_campaign=${campaign}`, isHome: home };
 }
 
-export function boardFor(groupName: string | null, isHome: boolean): string {
-  if (isHome || !groupName) return 'K-pop Quizzes';
-  return BOARDS_BY_GROUP[groupName] || 'K-pop Quizzes';
+// Single board for the whole batch (owner decision): every pin goes to one
+// "K-pop Quizzes" board rather than 18 per-group boards. Signature kept so
+// callers do not change; the group args are intentionally ignored.
+export function boardFor(_groupName?: string | null, _isHome?: boolean): string {
+  return 'K-pop Quizzes';
 }
 
 // --- media-dependent questions cannot live on a static text pin: exclude. ---
