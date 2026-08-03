@@ -159,13 +159,13 @@ function BoldCard({ pin, mascotUri }: { pin: QuestionPin; mascotUri: string }) {
         {pin.kind === 'truefalse' ? (
           <TrueFalseBlock light={false} />
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 40 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 30, marginTop: 40 }}>
             {(pin.options ?? []).slice(0, 4).map((o, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 18, height: 96, borderRadius: 22, backgroundColor: '#ffffff', border: '2px solid #ECE6E1', paddingLeft: 22, paddingRight: 22 }}>
-                <div style={{ display: 'flex', width: 52, height: 52, borderRadius: 26, backgroundColor: accent, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <div style={{ display: 'flex', fontSize: 28, fontWeight: 800, color: '#ffffff' }}>{LETTERS[i]}</div>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 20, height: 140, borderRadius: 26, backgroundColor: '#ffffff', border: '2px solid #ECE6E1', paddingLeft: 26, paddingRight: 26 }}>
+                <div style={{ display: 'flex', width: 60, height: 60, borderRadius: 30, backgroundColor: accent, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ display: 'flex', fontSize: 32, fontWeight: 800, color: '#ffffff' }}>{LETTERS[i]}</div>
                 </div>
-                <div style={{ display: 'flex', fontSize: 32, fontWeight: 700, color: DARK }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
+                <div style={{ display: 'flex', fontSize: 37, fontWeight: 700, color: DARK }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
               </div>
             ))}
           </div>
@@ -198,11 +198,11 @@ function EditorialCard({ pin }: { pin: QuestionPin }) {
         {pin.kind === 'truefalse' ? (
           <TrueFalseBlock light={true} />
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 40 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 40 }}>
             {(pin.options ?? []).slice(0, 4).map((o, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, height: 90, borderRadius: 20, border: '2px solid rgba(255,255,255,0.5)', paddingLeft: 22, paddingRight: 22 }}>
-                <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, color: 'rgba(255,255,255,0.85)', width: 40 }}>{LETTERS[i]}</div>
-                <div style={{ display: 'flex', fontSize: 32, fontWeight: 700, color: '#ffffff' }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 18, height: 138, borderRadius: 24, border: '2px solid rgba(255,255,255,0.5)', paddingLeft: 28, paddingRight: 28 }}>
+                <div style={{ display: 'flex', fontSize: 34, fontWeight: 800, color: 'rgba(255,255,255,0.85)', width: 46 }}>{LETTERS[i]}</div>
+                <div style={{ display: 'flex', fontSize: 37, fontWeight: 700, color: '#ffffff' }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
               </div>
             ))}
           </div>
@@ -233,13 +233,13 @@ function SpotlightCard({ pin, mascotUri }: { pin: QuestionPin; mascotUri: string
         {pin.kind === 'truefalse' ? (
           <TrueFalseBlock light={true} />
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 40 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 40 }}>
             {(pin.options ?? []).slice(0, 4).map((o, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 18, height: 92, borderRadius: 20, backgroundColor: '#262220', paddingLeft: 22, paddingRight: 22 }}>
-                <div style={{ display: 'flex', width: 48, height: 48, borderRadius: 12, border: `3px solid ${accent}`, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <div style={{ display: 'flex', fontSize: 26, fontWeight: 800, color: accent }}>{i + 1}</div>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 20, height: 138, borderRadius: 24, backgroundColor: '#262220', paddingLeft: 26, paddingRight: 26 }}>
+                <div style={{ display: 'flex', width: 56, height: 56, borderRadius: 14, border: `3px solid ${accent}`, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, color: accent }}>{i + 1}</div>
                 </div>
-                <div style={{ display: 'flex', fontSize: 32, fontWeight: 700, color: CREAM }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
+                <div style={{ display: 'flex', fontSize: 37, fontWeight: 700, color: CREAM }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
               </div>
             ))}
           </div>
