@@ -2,6 +2,7 @@
 // (verse_revisions.author). Powers the contribution heatmap on the passport. Min-gated
 // by the caller: nothing renders until there is at least one contribution.
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { fetchAllRows } from '@/lib/db/fetch-all';
 
 export interface ContribDay { date: string; count: number }
 
@@ -11,10 +12,12 @@ const SPAN_DAYS = 91; // 13 weeks
 export async function getVerseContributions(userId: string): Promise<{ total: number; days: ContribDay[] }> {
   const db = createServiceRoleClient();
   const since = new Date(Date.now() - SPAN_DAYS * 86400000).toISOString();
-  const { data } = await db.from('verse_revisions').select('created_at').eq('author', userId).gte('created_at', since);
+  // Paginated: a prolific editor can exceed 1000 revisions in the 13-week window,
+  // which would silently undercount the contribution heatmap (V-REPAIR sweep B).
+  const data = await fetchAllRows<{ created_at: string }>(() => db.from('verse_revisions').select('created_at').eq('author', userId).gte('created_at', since));
 
   const counts = new Map<string, number>();
-  for (const r of (data ?? []) as Array<{ created_at: string }>) {
+  for (const r of data) {
     const d = r.created_at.slice(0, 10);
     counts.set(d, (counts.get(d) ?? 0) + 1);
   }

@@ -14,11 +14,11 @@ import { join } from 'node:path';
 import { createClient } from '@supabase/supabase-js';
 
 import {
-  loadFonts, loadMascotUri, questionPinToPng, type QuestionPin, type Fonts,
+  loadFonts, loadMascotUri, questionPinToPng, type Fonts,
 } from '@/lib/pinterest/question-pin';
 import {
-  toCSV, clean, scheduledDate, hubUrlFor, boardFor, isMediaDependent, isRenderable, noDash,
-  titleFor, descriptionFor, keywordsFor,
+  toCSV, clean, scheduledDate, hubUrlFor, boardFor, gatherQuestionPins,
+  titleFor, descriptionFor, keywordsFor, type QuestionCandidate,
 } from '@/lib/pinterest/question-pin-batch';
 
 // ---- env ----
@@ -36,21 +36,7 @@ const OUT = join(process.cwd(), 'pinterest-output');
 const SITE = 'https://kpopquiz.org';
 const MASCOTS = ['mascot-default', 'mascot-celebrate', 'mascot-think'] as const;
 
-type RawQ = { question?: string; options?: unknown; clues?: string[] };
-interface Candidate { pin: QuestionPin; groupSlug: string | null; groupName: string | null; }
-
-function optionStrings(options: unknown): string[] | null {
-  if (!Array.isArray(options)) return null;
-  // Only pure-text options (intruder-style {label,image_url} = idol photos, excluded upstream by quiz_type).
-  const out: string[] = [];
-  for (const o of options) {
-    if (typeof o === 'string') out.push(o.trim());
-    else return null; // object option = image-bearing, not a legal text pin
-  }
-  return out.filter(Boolean);
-}
-
-async function gather(): Promise<Candidate[]> {
+async function fetchQuizzes(): Promise<Array<{ quiz_type: string; questions: unknown; groups: unknown }>> {
   // Text-renderable types only. image + intruder excluded (image-dependent / idol photos).
   const { data, error } = await db
     .from('quizzes')
@@ -61,57 +47,7 @@ async function gather(): Promise<Candidate[]> {
     .order('play_count', { ascending: false })
     .limit(1000);
   if (error) throw new Error(`quizzes: ${error.message}`);
-
-  const byGroup = new Map<string, Candidate[]>();
-  const seen = new Set<string>();
-  let excludedMedia = 0, excludedShape = 0, excludedGlyph = 0;
-
-  for (const quiz of data ?? []) {
-    const g = quiz.groups as unknown as { name: string; slug: string; display_color: string | null } | null;
-    const groupName = g?.name ?? null;
-    const groupSlug = g?.slug ?? null;
-    const theme = g?.display_color ?? '#E8457A';
-    const qs = (Array.isArray(quiz.questions) ? quiz.questions : []) as RawQ[];
-
-    for (const q of qs) {
-      const question = clean(q.question ?? '', 200);
-      if (!question || question.length < 8) { excludedShape++; continue; }
-      if (isMediaDependent(question)) { excludedMedia++; continue; }
-      if (!isRenderable(question)) { excludedGlyph++; continue; }
-
-      const key = question.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 60);
-      if (seen.has(key)) continue;
-
-      let pin: QuestionPin | null = null;
-      if (quiz.quiz_type === 'true_false') {
-        pin = { group: groupName ?? '', themeColor: theme, question: noDash(question), kind: 'truefalse' };
-      } else {
-        const opts = optionStrings(q.options);
-        if (!opts || opts.length < 2) { excludedShape++; continue; }
-        if (!opts.every(isRenderable)) { excludedGlyph++; continue; }
-        const clues = quiz.quiz_type === 'guess_from_clues' && Array.isArray(q.clues)
-          ? q.clues.map((c) => noDash(clean(c, 90))).filter((c) => c && isRenderable(c)).slice(0, 3) : undefined;
-        pin = { group: groupName ?? '', themeColor: theme, question: noDash(question), kind: 'options', options: opts.map((o) => noDash(o)), ...(clues && clues.length ? { clues } : {}) };
-      }
-      seen.add(key);
-      const bucket = groupSlug ?? '__home__';
-      if (!byGroup.has(bucket)) byGroup.set(bucket, []);
-      byGroup.get(bucket)!.push({ pin, groupSlug, groupName });
-    }
-  }
-  console.log(`gathered raw: excluded ${excludedMedia} media-dependent, ${excludedGlyph} non-Latin-renderable, ${excludedShape} malformed`);
-
-  // Round-robin across groups (capped) so the batch is not dominated by one group.
-  const groups = [...byGroup.entries()].sort((a, b) => b[1].length - a[1].length);
-  const picked: Candidate[] = [];
-  let round = 0;
-  while (picked.length < LIMIT && groups.some(([, arr]) => arr.length > round && round < PER_GROUP_CAP)) {
-    for (const [, arr] of groups) {
-      if (round < arr.length && round < PER_GROUP_CAP) { picked.push(arr[round]!); if (picked.length >= LIMIT) break; }
-    }
-    round++;
-  }
-  return picked;
+  return (data ?? []) as Array<{ quiz_type: string; questions: unknown; groups: unknown }>;
 }
 
 async function verifyHub(url: string): Promise<boolean> {
@@ -127,7 +63,8 @@ async function main(): Promise<void> {
   const fonts: Fonts = loadFonts();
   const mascotUris = MASCOTS.map((m) => loadMascotUri(m));
 
-  const candidates = await gather();
+  const { picked: candidates, stats } = gatherQuestionPins(await fetchQuizzes(), { limit: LIMIT, perGroupCap: PER_GROUP_CAP });
+  console.log(`gathered: excluded ${stats.media} media-dependent, ${stats.glyph} non-Latin-renderable, ${stats.malformed} malformed`);
   console.log(`selected ${candidates.length} question pins (cap ${PER_GROUP_CAP}/group, limit ${LIMIT})`);
 
   // Verify every UNIQUE hub link is 200 before anything goes in the CSV.

@@ -2,6 +2,7 @@
 // is (coverage), which entities are thin (stubs), and what work is most wanted. All
 // derived from existing data; a curator dashboard reads this. No new schema.
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { fetchAllRows } from '@/lib/db/fetch-all';
 import { contentIsEmpty } from '@/lib/verse/render-content';
 
 export interface GroupCoverage {
@@ -23,12 +24,15 @@ export interface QualityReport {
 export async function computeQuality(): Promise<QualityReport> {
   const db = createServiceRoleClient();
 
-  const [{ data: albums }, { data: groupsRaw }, { data: idols }, { data: eras }, { data: content }, { data: awards }] = await Promise.all([
+  // verse_content is read whole-table here (admin quality report); paginate it so
+  // the authored-section set does not truncate at 1000 rows (V-REPAIR sweep B).
+  // The sibling reads are smaller per-group tables (reported as lower-priority).
+  const [{ data: albums }, { data: groupsRaw }, { data: idols }, { data: eras }, content, { data: awards }] = await Promise.all([
     db.from('albums').select('group_id'),
     db.from('groups').select('id, slug, name'),
     db.from('idols').select('id, name, group_id').eq('active', true),
     db.from('eras').select('id, group_id'),
-    db.from('verse_content').select('entity_type, entity_id, section_key, content'),
+    fetchAllRows<{ entity_type: string; entity_id: string; section_key: string; content: unknown }>(() => db.from('verse_content').select('entity_type, entity_id, section_key, content')),
     db.from('awards').select('group_id').eq('status', 'published'),
   ]);
 
@@ -37,7 +41,7 @@ export async function computeQuality(): Promise<QualityReport> {
 
   // Set of authored (non-empty) sections, keyed "type:id:section".
   const authored = new Set<string>();
-  for (const r of (content ?? []) as Array<{ entity_type: string; entity_id: string; section_key: string; content: unknown }>) {
+  for (const r of content) {
     if (!contentIsEmpty(r.content)) authored.add(`${r.entity_type}:${r.entity_id}:${r.section_key}`);
   }
 

@@ -2,6 +2,8 @@
 // CSV (schema copied verbatim from api/admin/pinterest/export-csv so the bulk
 // upload format is byte-identical). NO answer in any copy. NO em dashes.
 
+import type { QuestionPin } from './question-pin';
+
 // Public marketing links ALWAYS point to the live domain, never the dev env a
 // generator happens to run in. Fixed on purpose.
 const SITE_URL = 'https://kpopquiz.org';
@@ -120,4 +122,76 @@ export function keywordsFor(groupName: string | null, isHome: boolean): string {
   const g = (groupName && !isHome ? groupName : 'kpop').toLowerCase();
   const kws = [g, 'kpop quiz', 'kpop trivia', `${g} quiz`, `${g} fan`, 'kpop game', 'kpop challenge'];
   return noDash(clean([...new Set(kws)].join(', '), 200));
+}
+
+// ---- shared question selection (used by the script and the admin route) ----
+export interface QuestionCandidate { pin: QuestionPin; groupSlug: string | null; groupName: string | null; }
+export interface GatherStats { media: number; glyph: number; malformed: number; }
+
+/** Only pure-text options. An object option (intruder {label,image_url}) means
+ * idol photos, which are excluded upstream by quiz_type but guarded here too. */
+function optionStrings(options: unknown): string[] | null {
+  if (!Array.isArray(options)) return null;
+  const out: string[] = [];
+  for (const o of options) {
+    if (typeof o === 'string') out.push(o.trim());
+    else return null;
+  }
+  return out.filter(Boolean);
+}
+
+interface QuizRow { quiz_type: string; questions: unknown; groups: unknown }
+
+/** Turn published quizzes into a filtered, deduped, per-group-capped set of pins.
+ * ANSWER-FREE: `correct` and `fun_fact` are never read. Excludes media-dependent
+ * and non-Latin-renderable text. Round-robins across groups so one group cannot
+ * dominate the batch. */
+export function gatherQuestionPins(quizzes: QuizRow[], opts: { limit: number; perGroupCap: number }): { picked: QuestionCandidate[]; stats: GatherStats } {
+  const byGroup = new Map<string, QuestionCandidate[]>();
+  const seen = new Set<string>();
+  const stats: GatherStats = { media: 0, glyph: 0, malformed: 0 };
+
+  for (const quiz of quizzes) {
+    const g = quiz.groups as { name: string; slug: string; display_color: string | null } | null;
+    const groupName = g?.name ?? null;
+    const groupSlug = g?.slug ?? null;
+    const theme = g?.display_color ?? '#E8457A';
+    const qs = (Array.isArray(quiz.questions) ? quiz.questions : []) as Array<{ question?: string; options?: unknown; clues?: string[] }>;
+
+    for (const q of qs) {
+      const question = clean(q.question ?? '', 200);
+      if (!question || question.length < 8) { stats.malformed++; continue; }
+      if (isMediaDependent(question)) { stats.media++; continue; }
+      if (!isRenderable(question)) { stats.glyph++; continue; }
+      const key = question.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 60);
+      if (seen.has(key)) continue;
+
+      let pin: QuestionPin;
+      if (quiz.quiz_type === 'true_false') {
+        pin = { group: groupName ?? '', themeColor: theme, question: noDash(question), kind: 'truefalse' };
+      } else {
+        const opall = optionStrings(q.options);
+        if (!opall || opall.length < 2) { stats.malformed++; continue; }
+        if (!opall.every(isRenderable)) { stats.glyph++; continue; }
+        const clues = quiz.quiz_type === 'guess_from_clues' && Array.isArray(q.clues)
+          ? q.clues.map((c) => noDash(clean(c, 90))).filter((c) => c && isRenderable(c)).slice(0, 3) : undefined;
+        pin = { group: groupName ?? '', themeColor: theme, question: noDash(question), kind: 'options', options: opall.map((o) => noDash(o)), ...(clues && clues.length ? { clues } : {}) };
+      }
+      seen.add(key);
+      const bucket = groupSlug ?? '__home__';
+      if (!byGroup.has(bucket)) byGroup.set(bucket, []);
+      byGroup.get(bucket)!.push({ pin, groupSlug, groupName });
+    }
+  }
+
+  const groups = [...byGroup.entries()].sort((a, b) => b[1].length - a[1].length);
+  const picked: QuestionCandidate[] = [];
+  let round = 0;
+  while (picked.length < opts.limit && groups.some(([, arr]) => round < arr.length && round < opts.perGroupCap)) {
+    for (const [, arr] of groups) {
+      if (round < arr.length && round < opts.perGroupCap) { picked.push(arr[round]!); if (picked.length >= opts.limit) break; }
+    }
+    round++;
+  }
+  return { picked, stats };
 }
