@@ -150,6 +150,21 @@ export function aliasOpsOnRename(oldSlug: string, newSlug: string): AliasOp[] {
 }
 
 /** Parent chain for breadcrumbs (published ancestors only, cycle-guarded). */
+/** Published DIRECT children of a page (one level only - the infinite is in the
+ * clicking, never the render). Self-reference is skipped (a page cannot be its
+ * own child), and the result is capped: PagesInside shows the first `limit` and
+ * a "see all" link off `total`, never 200 inline doors. ISR-throw on error. */
+export const getChildren = cache(async (groupId: number, parentPageId: number, limit = 12): Promise<{ children: WikiPage[]; total: number }> => {
+  const db = createPublicReadClient();
+  const { data, error, count } = await db.from('verse_pages')
+    .select('id, group_id, kind, slug, title, parent_page_id, infobox, status, is_stub, created_by, published_at, updated_at', { count: 'exact' })
+    .eq('group_id', groupId).eq('parent_page_id', parentPageId).eq('status', 'published')
+    .neq('id', parentPageId) // self-reference guard: a page is never its own child
+    .order('title', { ascending: true }).limit(limit);
+  if (error) throw new Error(`getChildren(${parentPageId}): ${error.message}`);
+  return { children: (data ?? []) as WikiPage[], total: count ?? 0 };
+});
+
 export const pageAncestors = cache(async (page: WikiPage): Promise<WikiPage[]> => {
   const db = createPublicReadClient();
   const chain: WikiPage[] = [];
