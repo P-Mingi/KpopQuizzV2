@@ -12,7 +12,7 @@
 // prior spacing (e.g. 'v-module', or '' for a bare wrapper).
 import { SectionHeader } from '@/components/verse/primitives/section-header';
 
-export function WidgetShell({ eyebrow, action, accent = false, as = 'h3', framed = false, wrapClassName, aria, children }: {
+export function WidgetShell({ eyebrow, action, accent = false, as = 'h3', framed = false, scoped = false, wrapClassName, aria, children }: {
   /** The eyebrow label. Omit for a header-less widget (e.g. a pull quote). */
   eyebrow?: React.ReactNode;
   /** Right-aligned header affordance (a "See all"/"All 17" link). */
@@ -22,6 +22,12 @@ export function WidgetShell({ eyebrow, action, accent = false, as = 'h3', framed
   as?: 'h2' | 'h3';
   /** Self-frame with the canonical soft box (standalone widgets only). */
   framed?: boolean;
+  /** Carry `.verse-scope` on the box so the --verse-* frame tokens resolve on a
+   * PLAY surface (quiz home / community hub), where they are otherwise unset. A
+   * bare scope defaults --verse-accent to --brand, so the box tints to Play pink
+   * and matches the surface. Never adds `.verse-page`, so the 720px reading
+   * canvas + head stay byte-identical. Only meaningful with `framed`. */
+  scoped?: boolean;
   /** Frameless wrapper class. Default 'v-module'; pass '' for a bare wrapper. */
   wrapClassName?: string;
   /** Optional aria-label for the widget region. */
@@ -32,7 +38,7 @@ export function WidgetShell({ eyebrow, action, accent = false, as = 'h3', framed
   const ariaProps = aria ? { 'aria-label': aria } : {};
   if (framed) {
     return (
-      <section className={`verse-frame verse-frame-rounded${wrapClassName ? ` ${wrapClassName}` : ''}`} {...ariaProps}>
+      <section className={`verse-frame verse-frame-rounded${scoped ? ' verse-scope' : ''}${wrapClassName ? ` ${wrapClassName}` : ''}`} {...ariaProps}>
         {header}
         {children}
       </section>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { SectionHeader } from '@/components/verse/primitives/section-header';
+import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { useEffect, useState } from 'react';
 
 interface MySpace { slug: string; name: string; fandom: string | null; role: string; xp: number }
@@ -26,8 +26,11 @@ export function CommunityCrossPromo(): React.ReactElement | null {
 
   if (spaces.length > 0) {
     return (
-      <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 14, padding: 16, marginBottom: 16 }}>
-        <SectionHeader kicker="Your spaces" />
+      // V-HARMONY-2B step 2 (owner ruling): the Verse cross-promo on the PLAY
+      // community hub wears the shared soft box. `scoped` carries .verse-scope so
+      // the frame tokens resolve here (Play pink), never adding .verse-page - the
+      // hub's head + 720px canvas stay byte-identical.
+      <WidgetShell framed scoped eyebrow="Your spaces" aria="Your spaces">
         <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {spaces.map((s) => (
             <li key={s.slug}>
@@ -38,15 +41,15 @@ export function CommunityCrossPromo(): React.ReactElement | null {
             </li>
           ))}
         </ul>
-      </div>
+      </WidgetShell>
     );
   }
 
   return (
-    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 14, padding: 16, marginBottom: 16 }}>
+    <WidgetShell framed scoped aria="Run your fandom's home">
       <p style={{ fontSize: 15, fontWeight: 800, color: 'var(--txt1)', margin: 0 }}>Run your fandom&rsquo;s home.</p>
       <p style={{ fontSize: 13, color: 'var(--txt2)', margin: '4px 0 10px' }}>Every space is fan-built and fan-run. Claim one, or join the fandoms you love.</p>
       <Link href="/verse" style={{ display: 'inline-block', background: 'var(--brand)', color: 'var(--brand-contrast, #fff)', borderRadius: 999, padding: '8px 16px', fontSize: 13, fontWeight: 800, textDecoration: 'none' }}>Explore spaces</Link>
-    </div>
+    </WidgetShell>
   );
 }
