@@ -50,7 +50,7 @@ export function PhotocardCatalogManager({ groupId, albums, idols }: {
     const res = await fetch('/api/verse/photocards', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, publish, ...form }) });
     setBusy(false);
     const d = await res.json().catch(() => ({}));
-    if (!res.ok) { setMsg(d.error === 'source_required' ? 'Publishing needs a source link.' : d.error === 'publish_needs_curator' ? 'Only curators can publish; submitted as a draft instead.' : d.error ?? 'Could not save.'); return; }
+    if (!res.ok) { setMsg(d.error === 'source_required' ? 'Publishing needs a source link.' : d.error === 'publish_needs_curator' ? 'Only curators can publish; submitted as a draft instead.' : d.error ?? 'Could not save. Try again.'); return; }
     setMsg(d.status === 'published' ? 'Card published.' : 'Submitted for review. A curator will publish it.'); setForm({}); if (isCurator) loadDrafts();
   }
   async function publishDraft(dft: Draft): Promise<void> {

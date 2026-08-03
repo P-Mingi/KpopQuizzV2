@@ -37,7 +37,7 @@ export function InfoboxEditor({ entityType, entityId, rows: initialRows, onClose
     setBusy(null);
     const d = await res.json().catch(() => ({}));
     if (!res.ok) {
-      const err = d.error === 'source_required' ? 'A source is required to change a fact.' : (d.error ?? 'Save failed');
+      const err = d.error === 'source_required' ? 'A source is required to change a fact.' : (d.error ?? 'Could not save. Try again.');
       setMsg((m) => ({ ...m, [row.def.key]: err }));
       return;
     }

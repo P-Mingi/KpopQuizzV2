@@ -97,7 +97,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
         body: JSON.stringify({ entity_type: entityType, entity_id: entityId, section, content, summary, minor }),
       });
       setPublishing(false);
-      if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Could not submit'); return; }
+      if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Could not submit. Try again.'); return; }
       try { localStorage.removeItem(lsKey); } catch { /* ignore */ }
       setSubmitted(true);
       return;
@@ -112,7 +112,7 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
       setConflict({ current: d.current, revId: d.current_revision_id });
       return;
     }
-    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Save failed'); return; }
+    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Could not save. Try again.'); return; }
     const d = await res.json();
     try { localStorage.removeItem(lsKey); } catch { /* ignore */ }
     onSaved(d.revision_id, content);

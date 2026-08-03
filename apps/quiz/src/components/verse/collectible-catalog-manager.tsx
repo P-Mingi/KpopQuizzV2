@@ -43,7 +43,7 @@ export function CollectibleCatalogManager({ groupId }: { groupId: number }): Rea
     const res = await fetch('/api/verse/collectibles', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, publish, ...form }) });
     setBusy(false);
     const d = await res.json().catch(() => ({}));
-    if (!res.ok) { setMsg(d.error === 'source_required' ? 'Publishing needs a source link.' : d.error ?? 'Could not save.'); return; }
+    if (!res.ok) { setMsg(d.error === 'source_required' ? 'Publishing needs a source link.' : d.error ?? 'Could not save. Try again.'); return; }
     setMsg(d.status === 'published' ? 'Item published.' : 'Submitted for review.'); setForm({}); if (isCurator) loadDrafts();
   }
   async function publishDraft(dft: Draft): Promise<void> {

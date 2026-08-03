@@ -42,7 +42,7 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
     setStatus('saving');
     const r = await fetch('/api/verse/presentation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ group_id: groupId, presentation: next }) });
     const d = await r.json().catch(() => ({}));
-    if (!r.ok) { setErrors(d.errors ?? ['Could not save.']); setStatus('error'); return; }
+    if (!r.ok) { setErrors(d.errors ?? ['Could not save. Try again.']); setStatus('error'); return; }
     setErrors([]); setStatus('saved'); router.refresh();
   }, [groupId, router]);
 
@@ -89,7 +89,7 @@ export function StudioClient({ groupId, groupSlug, groupName, eras = [], initial
     const r = await fetch('/api/verse/presentation/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ group_id: groupId }) });
     const d = await r.json().catch(() => ({}));
     setConfirming(false);
-    if (!r.ok) { setErrors(d.errors ?? ['Publish failed.']); return; }
+    if (!r.ok) { setErrors(d.errors ?? ['Could not publish. Try again.']); return; }
     setStatus('saved'); router.refresh();
   }
   async function rollback(): Promise<void> {

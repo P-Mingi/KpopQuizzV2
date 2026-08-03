@@ -45,7 +45,7 @@ export function EssayEditor({ groupId, groupSlug, albums, initialId, initialTitl
     try {
       const res = await fetch('/api/verse/essays', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, id, title, content: editorRef.current?.getJSON(), cover: coverMbid ? { mbid: coverMbid } : {}, series_id: seriesId }) });
       if (res.status === 401) { window.location.href = `/login?returnTo=${encodeURIComponent(window.location.pathname)}`; return null; }
-      if (!res.ok) { setMsg((await res.json().catch(() => ({}))).error === 'membership_required' ? 'Join the space to write.' : 'Could not save.'); return null; }
+      if (!res.ok) { setMsg((await res.json().catch(() => ({}))).error === 'membership_required' ? 'Join the space to write.' : 'Could not save. Try again.'); return null; }
       const d = await res.json(); setId(d.id); dirty.current = false; setMsg(silent ? 'Autosaved.' : 'Draft saved.'); return d.id;
     } finally { saving.current = false; if (!silent) setBusy(false); }
   }, [groupId, id, title, coverMbid, seriesId]);
@@ -73,7 +73,7 @@ export function EssayEditor({ groupId, groupSlug, albums, initialId, initialTitl
     const res = await fetch('/api/verse/essays', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: savedId, action: 'submit' }) });
     setBusy(false);
     if (res.ok) { setStatus('submitted'); setMsg('Submitted for review. A curator will feature or return it.'); }
-    else setMsg((await res.json().catch(() => ({}))).error ?? 'Could not submit.');
+    else setMsg((await res.json().catch(() => ({}))).error ?? 'Could not submit. Try again.');
   }
 
   async function proposeSeries(): Promise<void> {

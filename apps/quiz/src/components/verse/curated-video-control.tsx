@@ -29,7 +29,7 @@ export function CuratedVideoControl({ songId, groupSlug, current }: {
       body: JSON.stringify({ entity_type: 'song', entity_id: songId, field: 'youtube_url', value: url.trim(), source_url: url.trim() || undefined, source_note: 'Official video pick (curator)' }),
     });
     const d = await res.json().catch(() => ({}));
-    if (!res.ok) { setMsg(d.error ?? 'Could not save.'); return; }
+    if (!res.ok) { setMsg(d.error ?? 'Could not save. Try again.'); return; }
     setValue(url.trim() || null);
     setMsg(url.trim() ? 'Official video set.' : 'Pick cleared; the clip default applies.');
   }

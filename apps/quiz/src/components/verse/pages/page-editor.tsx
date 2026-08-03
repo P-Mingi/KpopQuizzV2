@@ -108,7 +108,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug, pare
     });
     const out = (await res.json()) as { ok?: boolean; errors?: string[] };
     setSaving(out.ok ? 'saved' : 'idle');
-    if (!out.ok) setErrors(out.errors ?? ['Save failed.']);
+    if (!out.ok) setErrors(out.errors ?? ['Could not save. Try again.']);
     return !!out.ok;
   };
 
@@ -129,7 +129,7 @@ export function PageEditor({ page, def, initialBody, canPublish, groupSlug, pare
     if (!(await save())) return;
     const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const out = (await res.json()) as { ok?: boolean; errors?: string[]; status?: string };
-    if (!out.ok) { setErrors(out.errors ?? ['That did not work.']); return; }
+    if (!out.ok) { setErrors(out.errors ?? ['Could not do that. Try again.']); return; }
     if (out.status) setStatus(out.status);
     after?.(out as Record<string, unknown>);
   };
