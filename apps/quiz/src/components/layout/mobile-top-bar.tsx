@@ -85,42 +85,31 @@ export function MobileTopBar(): React.ReactElement | null {
           aria-hidden="true"
           style={{
             display: 'inline-block',
-            width: 72, height: 32, borderRadius: 10,
+            width: 34, height: 34, borderRadius: 9999,
             background: 'var(--surface-alt)',
             border: '1px solid var(--border)',
           }}
         />
       ) : profile ? (
-        <Link href="/profile" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-          padding: '3px 10px 3px 3px', borderRadius: 9999,
-          background: 'var(--bg-surface)', border: '1px solid var(--border)',
-          textDecoration: 'none',
+        // Just the avatar on mobile (no name) so the bar stays uncramped.
+        <Link href="/profile" aria-label="Your profile" style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 34, height: 34, borderRadius: 9999, flexShrink: 0,
+          overflow: 'hidden', background: profile.avatar_bg,
+          border: '1px solid var(--border)', textDecoration: 'none',
         }}>
           {profile.avatar_url ? (
             <img
               src={profile.avatar_url}
               alt=""
-              width={24}
-              height={24}
+              width={34}
+              height={34}
               referrerPolicy="no-referrer"
-              style={{
-                width: 24, height: 24, borderRadius: '50%',
-                objectFit: 'cover', flexShrink: 0, display: 'block',
-                background: profile.avatar_bg,
-              }}
+              style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', display: 'block' }}
             />
           ) : (
-            <span style={{
-              width: 24, height: 24, borderRadius: '50%',
-              background: profile.avatar_bg, color: profile.avatar_text,
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: 10, flexShrink: 0,
-            }}>{initial}</span>
+            <span style={{ color: profile.avatar_text, fontWeight: 800, fontSize: 13 }}>{initial}</span>
           )}
-          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)' }}>
-            {profile.display_name || profile.username}
-          </span>
         </Link>
       ) : (
         <Link href="/login" style={{
