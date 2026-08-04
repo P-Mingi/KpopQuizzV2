@@ -1,0 +1,2 @@
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
