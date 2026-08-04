@@ -1,0 +1,14 @@
+  /games/name-them-all : h1=1  variant-link=0  covers-added=1
+  /games/sort-it : h1=1  variant-link=0  covers-added=1
+  /games/match-up : h1=1  variant-link=0  covers-added=1
+  /games/name-them-all : variant Link href count = 0
+  /games/sort-it : variant Link href count = 0
+  /games/match-up : variant Link href count = 0
+
+PARITY VERDICT (step 3, 3 registry lobbies):
+- H1 count = 1 each (one-H1 law held).
+- Variant <Link href=/games/{game}/${slug}> preserved verbatim; cover + body
+  now nest INSIDE that same link (image mode-card, one tap = variant).
+- Header (eyebrow, H1, blurb) + WebPage JSON-LD untouched.
+- Only ADDED: a decorative aria-hidden .lmc-cover per card. No text/link lost.
+- Result: identical-or-richer.

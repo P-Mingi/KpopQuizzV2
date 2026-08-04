@@ -56,18 +56,21 @@ export default async function MatchUpIndexPage(): Promise<React.ReactElement> {
       </header>
 
       <ul className="mu-idx-grid">
-        {live.map(({ playlist, count }) => (
+        {live.map(({ playlist, count }, i) => (
           <li key={playlist.slug}>
-            <Link href={`/games/match-up/${playlist.slug}`} className="mu-idx-card">
-              <span className="mu-idx-q">{playlist.title}</span>
-              <span className="mu-idx-pair">
-                <span className="si-chip">{playlist.leftLabel}</span>
-                <span className="si-vs">to</span>
-                <span className="si-chip">{playlist.rightLabel}</span>
-              </span>
-              <span className="mu-idx-foot">
-                <span className="mu-idx-stat">{count} pairs</span>
-                <span className="mu-idx-play">Play {'→'}</span>
+            <Link href={`/games/match-up/${playlist.slug}`} className="mu-idx-card lmc-card">
+              <span className={`lmc-cover lmc-g${(i % 6) + 1}`} aria-hidden="true" />
+              <span className="lmc-body">
+                <span className="mu-idx-q">{playlist.title}</span>
+                <span className="mu-idx-pair">
+                  <span className="si-chip">{playlist.leftLabel}</span>
+                  <span className="si-vs">to</span>
+                  <span className="si-chip">{playlist.rightLabel}</span>
+                </span>
+                <span className="mu-idx-foot">
+                  <span className="mu-idx-stat">{count} pairs</span>
+                  <span className="mu-idx-play">Play {'→'}</span>
+                </span>
               </span>
             </Link>
           </li>

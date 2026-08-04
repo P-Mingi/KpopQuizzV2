@@ -1961,6 +1961,20 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   .ghub-dcard:hover .ghub-play, .ghub-tile:hover .ghub-play { transform: none; }
 }
 
+/* G-HUB v2 step 3: lobby image mode-cards. A decorative CSS-art cover (aria-
+   hidden, cycling gradient) is prepended to each existing variant card, turning
+   the lobby into an image mode-card grid. One tap = the variant. The card body,
+   its text, and its link are unchanged (SEO parity: covers only add). */
+.lmc-card { padding: 0 !important; gap: 0 !important; overflow: hidden; display: flex; flex-direction: column; }
+.lmc-cover { height: 60px; flex: none; position: relative; }
+.lmc-body { display: flex; flex-direction: column; gap: 7px; padding: 14px; flex: 1; }
+.lmc-g1 { background: linear-gradient(120deg,#E0447A,#7C1240); }
+.lmc-g2 { background: linear-gradient(120deg,#4F63D8,#241A5E); }
+.lmc-g3 { background: linear-gradient(120deg,#20B2A0,#0E5D54); }
+.lmc-g4 { background: linear-gradient(120deg,#F4A62A,#B25E0B); }
+.lmc-g5 { background: linear-gradient(120deg,#8F55D8,#3E2A72); }
+.lmc-g6 { background: linear-gradient(120deg,#E86A8B,#A31D4C); }
+
 /* ---------------------------------------------------------------------------
    SEO Fix 1 - server-rendered, crawlable quiz question review (spoiler-safe).
    Lives below the interactive player. Collapsed <details>, but the question
