@@ -8,6 +8,7 @@ import { BLOCK_REGISTRY, isKnownBlock, blockDef, defaultSeoCriticalTypes, FRAME_
 import { PRESETS, STRUCTURE_TEMPLATES, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION_VERSION } from './types';
 import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_MAX_LABEL } from './doorways';
 import { isHex, accentReadableOn } from './contrast';
+import { blockId } from '../composition/convert';
 
 import type { FrameStyle } from './registry';
 import type { Presentation, ModulePlacement, StickerPlacement, StickerSlot, PresetId, BannerConfig } from './types';
@@ -126,6 +127,7 @@ export function validatePresentation(raw: unknown): ValidationResult {
     if (rawMods.length > MAX_MODULES) errors.push(`Too many modules (max ${MAX_MODULES}).`);
     const norm: ModulePlacement[] = [];
     const seen = new Set<string>();
+    const seenIds = new Set<string>();      // 3.0 duplicate-id gate
     for (const m of rawMods) {
       if (m === null || typeof m !== 'object') { errors.push('Each module must be an object.'); continue; }
       const mm = m as Record<string, unknown>;
@@ -135,11 +137,22 @@ export function validatePresentation(raw: unknown): ValidationResult {
       const zone = String(mm.zone ?? def.defaultZone ?? 'main') as ModulePlacement['zone'];
       if (!def.zones.includes(zone)) { errors.push(`"${def.label}" cannot go in the ${zone} zone.`); continue; }
       if (mm.frame != null && !FRAME_STYLES.includes(mm.frame as never)) { errors.push(`Unknown frame style "${String(mm.frame)}".`); continue; }
+      // 3.0 STABLE ID: accept a persisted id (opaque, url-safe, <=64 chars). A blank
+      // string is treated as absent (freeze mints it below); a malformed or DUPLICATE
+      // id is a hard reject so selection/undo/reconcile can never key on a bad id.
+      let id: string | undefined;
+      if (mm.id != null && mm.id !== '') {
+        if (typeof mm.id !== 'string' || !/^[A-Za-z0-9_-]{1,64}$/.test(mm.id)) { errors.push(`Invalid block id "${String(mm.id)}".`); continue; }
+        if (seenIds.has(mm.id)) { errors.push(`Duplicate block id "${mm.id}".`); continue; }
+        seenIds.add(mm.id);
+        id = mm.id;
+      }
       // THE LAW: seoCritical blocks may not be hidden.
       const hidden = def.seoCritical ? false : mm.hidden === true;
       if (def.seoCritical && mm.hidden === true) errors.push(`"${def.label}" is core content and cannot be hidden.`);
       seen.add(type);
       const placement: ModulePlacement = { type, zone, hidden, order: Number(mm.order ?? norm.length) };
+      if (id) placement.id = id;
       if (mm.frame != null) placement.frame = mm.frame as FrameStyle;
       if (mm.mode != null) placement.mode = String(mm.mode);
       const pv = validateProps(type, mm.props);
@@ -159,6 +172,21 @@ export function validatePresentation(raw: unknown): ValidationResult {
         norm.push({ type: req, zone: def.defaultZone as ModulePlacement['zone'], order: def.defaultOrder, hidden: false });
       }
     }
+    // 3.0 FREEZE: mint the deterministic id for any module still without one (legacy
+    // configs + the just-injected seoCritical defaults) so THIS save writes the id
+    // into the jsonb and it is never re-derived again. nth is counted in the SAME
+    // (zone, order) order the converter + renderer use, so a frozen fallback id
+    // exactly matches the data-block-id the canvas already stamped.
+    const sortedForIds = [...norm].sort((a, b) => (a.zone === b.zone ? a.order - b.order : a.zone < b.zone ? -1 : 1));
+    const nthById: Record<string, number> = {};
+    for (const m of sortedForIds) {
+      const nth = nthById[m.type] ?? 0;
+      nthById[m.type] = nth + 1;
+      if (!m.id) m.id = blockId(m.type, nth);
+    }
+    // Belt-and-suspenders: no two blocks (explicit or frozen) may share an id.
+    const allIds = norm.map((m) => m.id).filter(Boolean) as string[];
+    if (new Set(allIds).size !== allIds.length) errors.push('Two blocks share the same id; each block needs a unique id.');
     if (!errors.length) modules = norm;
   }
 

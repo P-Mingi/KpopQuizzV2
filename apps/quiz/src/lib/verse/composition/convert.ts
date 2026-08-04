@@ -36,7 +36,10 @@ export function presentationToComposition(pres: Presentation): Composition {
   const blocks: Block[] = modules.map((m) => {
     const nth = nthByType[m.type] ?? 0;
     nthByType[m.type] = nth + 1;
-    const block: Block = { id: blockId(m.type, nth), type: m.type, zone: m.zone };
+    // Use the PERSISTED id when the stored module carries one (3.0+); fall back to
+    // the deterministic content-derived id for legacy configs. The nth counter still
+    // advances for every block so a fallback id is stable for a given config.
+    const block: Block = { id: m.id ?? blockId(m.type, nth), type: m.type, zone: m.zone };
     if (m.hidden !== undefined) block.hidden = m.hidden;
     if (m.props !== undefined) block.props = m.props;
     const style: BlockStyle = {};
@@ -65,7 +68,9 @@ export function compositionToPresentation(comp: Composition): Presentation {
   const modules: ModulePlacement[] = blocks.map((b) => {
     const order = orderByZone[b.zone] ?? 0;
     orderByZone[b.zone] = order + 1;
-    const m: ModulePlacement = { type: b.type, zone: b.zone, order };
+    // PERSIST the stable id back onto the stored module (3.0). This is what makes a
+    // reorder keep the id: the id travels with the block through save, never re-derived.
+    const m: ModulePlacement = { id: b.id, type: b.type, zone: b.zone, order };
     if (b.hidden !== undefined) m.hidden = b.hidden;
     if (b.style?.frame !== undefined) m.frame = b.style.frame;
     if (b.style?.mode !== undefined) m.mode = b.style.mode;

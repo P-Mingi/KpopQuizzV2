@@ -29,6 +29,13 @@ export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timelin
 
 /** One placed module in the stack. `type` is a registry key; `zone` is validated. */
 export interface ModulePlacement {
+  // V-BUILDER-2 step 3.0 - the STABLE block id, persisted here in the jsonb (no
+  // migration). Minted once (deterministic blk-<type>-<n> for legacy configs, a
+  // crypto.randomUUID for blocks the builder inserts) and frozen at the first save,
+  // so a reorder can never re-derive it. Selection, undo, and reconcile key on it.
+  // Optional only for back-compat: a config saved before 3.0 has none until it is
+  // re-saved (the validator freezes it then); reads mint the deterministic fallback.
+  id?: string;
   type: string;              // BLOCK_REGISTRY key
   zone: Zone;
   hidden?: boolean;          // feature blocks only; ignored (forced false) for seoCritical

@@ -1,0 +1,54 @@
+V-BUILDER-2 step 3.0 - PERSIST THE STABLE ID (fix for the blocked receipt)
+
+Approved fix (mission): the block id is now a real, stored, minted-once value on the
+module, riding the existing presentation jsonb. No migration, no new dep.
+
+WHAT CHANGED (5 files):
+  presentation/types.ts        ModulePlacement gains `id?: string` (persisted in jsonb).
+  composition/convert.ts       presentationToComposition uses the stored m.id when
+                               present (else the deterministic blk-<type>-<nth> fallback);
+                               compositionToPresentation WRITES b.id back onto the module
+                               (was dropped before) - this is what makes the id survive.
+  presentation/validate.ts     accepts + shape-checks an id (url-safe, <=64), the
+                               duplicate-id gate fires, and the FREEZE pass mints the
+                               deterministic id for any id-less module (legacy configs +
+                               injected seoCritical defaults) counted in the converter's
+                               (zone, order) order, so the frozen id matches the canvas.
+  space-home-renderer.tsx      the builder overlay handle stamps m.id (else the fallback).
+  New blocks (step 3 insert/duplicate) will mint crypto.randomUUID (built-in, no dep).
+
+ACCEPTANCE (harness: scripts/vb2-stable-id-verify.mts, exit 0):
+
+TEST 1 - converter round-trip keeps ids across a SAME-TYPE reorder (the exact case that
+failed the receipt):
+  PASS  save now persists an id on the module
+  PASS  ALPHA keeps its id across reorder :: blk-discography-0 -> blk-discography-0
+  PASS  BETA  keeps its id across reorder :: blk-discography-1 -> blk-discography-1
+  PASS  the two ids stayed distinct :: blk-discography-0 / blk-discography-1
+  (contrast the pre-fix reproducer, scripts/vb2-stable-id-demo.mts: BETA went
+   blk-discography-1 -> blk-discography-0. Now it holds.)
+
+TEST 2 - legacy freeze (unsaved config -> save -> ids persisted -> stable):
+  PASS  validation succeeded
+  PASS  every discography module now has a frozen id :: ["blk-discography-0","blk-discography-1"]
+  PASS  re-validation succeeded
+  PASS  frozen ids are UNCHANGED after the reorder
+  PASS  the id that moved to order 0 is the ORIGINAL order-1 id (travelled, not re-derived)
+        :: order0 id = blk-discography-1, expected blk-discography-1
+
+TEST 3 - validator id gates:
+  PASS  duplicate explicit ids are rejected :: Duplicate block id "dup1".
+  PASS  malformed id is rejected :: Invalid block id "has spaces & symbols!".
+  PASS  a valid explicit id is preserved verbatim (not re-minted) :: a1b2c3d4-uuid_ok
+
+REGRESSION (I touched the shared converter/validator/renderer):
+  published /verse/bts main column: 21380 == baseline, zero handles (builder-off render
+    is byte-identical; ids are inert data the reader render ignores).
+  _vbuilder1-parity: lossless + byte-parity + stable-ids=true (bts/stray-kids/ateez).
+  _vbuilder1-validator: duplicate-id rejected, valid accepted.
+  test-play-untouched: PLAY LAYOUT LAW HOLDS. test-vtemplates: A->B->A restores exactly.
+  test-vpages-gates: 55 passed. test-vtext-fold: fold law holds.
+  tsc 0, check:routes 338, check:verse-tokens green.
+
+=> The stable-id MUST is satisfied: ids are minted once, persisted, and frozen; a reorder
+   keeps every block's id. Step 3 (reorder/duplicate/delete/undo/reconcile) can key on them.

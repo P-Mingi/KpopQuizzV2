@@ -103,7 +103,9 @@ export function SpaceHomeRenderer({ space, presentation, backlinks, builder }: {
     for (const m of [...main, ...side]) {
       const nth = nthByType[m.type] ?? 0;
       nthByType[m.type] = nth + 1;
-      idOf.set(m, blockId(m.type, nth));
+      // Stamp the PERSISTED id when the module carries one (3.0); else the
+      // deterministic fallback (unsaved/legacy configs + injected defaults).
+      idOf.set(m, m.id ?? blockId(m.type, nth));
     }
   }
   // V-DESIGN v2 box model: every module sits in a clean soft-surface box by
