@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { SortItPlayer } from '@/components/game/sort-it-player';
+import { GameModeRail } from '@/components/game/game-mode-rail';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSortItItems } from '@/lib/db/queries/sort-it';
 import { SORT_IT_PLAYLISTS, getSortItPlaylist } from '@/lib/games/sort-it';
@@ -59,6 +60,18 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
   const items = await safeFetch(getSortItItems(slug), [], '[sort-it] getItems');
   if (items.length === 0) notFound();
 
+  // In-game mode rail: live sibling variants only (min-gate, real data). The
+  // current variant reuses its already-fetched count; each is ISR-cached.
+  const rail = (await Promise.all(
+    SORT_IT_PLAYLISTS.map(async (p) => ({
+      slug: p.slug,
+      label: p.question,
+      count: p.slug === slug ? items.length : (await safeFetch(getSortItItems(p.slug), [], `[sort-it rail] ${p.slug}`)).length,
+    })),
+  ))
+    .filter((r) => r.count > 0)
+    .map((r) => ({ slug: r.slug, label: r.label, sub: `${r.count} to sort` }));
+
   const noun = slug === 'solo-act-or-group' ? 'acts' : 'groups';
   const intro = `${playlist.blurb} This round pulls ${items.length} real K-pop ${noun} straight from the site's data, shuffled fresh each play. It is free, needs no sign-up, and works on mobile or desktop.`;
 
@@ -84,6 +97,7 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
         <h1 className="game-intro-h1">{playlist.title}</h1>
         <p className="game-intro-p">{intro}</p>
       </section>
+      <GameModeRail base="/games/sort-it" current={slug} items={rail} label="Switch Sort It mode" />
       <SortItPlayer playlist={playlist} items={items} />
 
       <script
