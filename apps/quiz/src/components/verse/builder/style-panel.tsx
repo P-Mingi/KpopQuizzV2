@@ -18,8 +18,8 @@ import type { StylePatch } from './use-builder-composition';
 const ACCENT_LABEL: Record<string, string> = { world: 'World default', violet: 'Violet', blue: 'Blue', green: 'Green', amber: 'Amber', rose: 'Rose' };
 const TINT_LABEL: Record<string, string> = { none: 'None', veil: 'Veil', soft: 'Soft', bold: 'Bold' };
 
-export function StylePanel({ spec, style, canDelete, onChange, onClose, onDuplicate, onDelete }: {
-  spec: BlockSpec; style: BlockStyle; canDelete: boolean;
+export function StylePanel({ spec, style, canDelete, sheet, onChange, onClose, onDuplicate, onDelete }: {
+  spec: BlockSpec; style: BlockStyle; canDelete: boolean; sheet?: boolean;
   onChange: (patch: StylePatch) => void; onClose: () => void; onDuplicate: () => void; onDelete: () => void;
 }): React.ReactElement {
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -45,10 +45,12 @@ export function StylePanel({ spec, style, canDelete, onChange, onClose, onDuplic
   return (
     <div role="dialog" aria-modal="true" aria-label={`Style: ${spec.name}`} ref={panelRef}
       style={{
-        position: 'absolute', top: 12, right: 12, bottom: 12, width: 300, maxWidth: 'calc(100% - 24px)', zIndex: 65,
-        display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
-        background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: 14,
+        position: 'absolute', zIndex: 65, display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
+        background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)',
         boxShadow: '0 18px 60px color-mix(in srgb, black 28%, transparent)',
+        ...(sheet
+          ? { left: 0, right: 0, bottom: 0, top: 'auto', maxHeight: '76vh', borderRadius: '16px 16px 0 0' }
+          : { top: 12, right: 12, bottom: 12, width: 300, maxWidth: 'calc(100% - 24px)', borderRadius: 14 }),
       }}>
       {/* header: mirror the canvas tag name + the duplicate handle */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 12px 10px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>

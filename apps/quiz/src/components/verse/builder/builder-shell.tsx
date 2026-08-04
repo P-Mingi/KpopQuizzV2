@@ -15,6 +15,7 @@ import { useBuilderComposition } from './use-builder-composition';
 import { LibraryDrawer } from './library-drawer';
 import { StylePanel } from './style-panel';
 import { BuilderTour } from './builder-tour';
+import { ActionSheet } from './phone-sheets';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
 import type { PatternSpec } from '@/lib/verse/composition/patterns';
@@ -44,6 +45,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const [publishMsg, setPublishMsg] = useState<string | null>(null);
   const [drawer, setDrawer] = useState<{ zone: Zone; index: number } | null>(null);
   const [styleOpen, setStyleOpen] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
   const [, tick] = useState(0);
 
   const measure = useCallback(() => {
@@ -99,6 +101,23 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   useEffect(() => { if (!deleted) return; const t = setTimeout(() => setDeleted(null), 6000); return () => clearTimeout(t); }, [deleted]);
   // deselect closes the style panel (Esc clears selection -> closes; click-empty too).
   useEffect(() => { if (!selectedId) setStyleOpen(false); }, [selectedId]);
+
+  // phone layer (co-design 4): narrow screens get bottom sheets + a tap action sheet.
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    const on = () => setIsPhone(mq.matches);
+    on(); mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+
+  // keep the selected block visible above a phone sheet: scroll it up when a sheet opens.
+  useEffect(() => {
+    if (!isPhone || !selectedId) return;
+    const t = setTimeout(() => {
+      iframeRef.current?.contentDocument?.querySelector<HTMLElement>(`[data-block-id="${CSS.escape(selectedId)}"]`)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }, 60);
+    return () => clearTimeout(t);
+  }, [isPhone, selectedId, styleOpen, drawer]);
 
   // A11Y (L-036): the builder is a full-screen modal takeover, so make EVERYTHING behind
   // it unreachable - walk up from the shell and mark every sibling `inert` (+ aria-hidden
@@ -271,6 +290,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
                 rect={selected}
                 grabbing={grab?.id === selected.id}
                 canDelete={eng.canDelete(selected.id)}
+                showHandles={!isPhone}
                 onGripDragStart={() => setDragId(selected.id)}
                 onGripDragEnd={() => setDragId(null)}
                 onDuplicate={() => { const nid = eng.duplicate(selected.id); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
@@ -292,7 +312,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
         </div>
 
         {/* library drawer (left) + style panel (right) float over the canvas (co-design 1) */}
-        <LibraryDrawer open={!!drawer} onClose={() => setDrawer(null)} sourceReady={sourceReady}
+        <LibraryDrawer open={!!drawer} onClose={() => setDrawer(null)} sourceReady={sourceReady} sheet={isPhone}
           onInsertBlock={insertBlockFromLibrary} onInsertPattern={insertPatternFromLibrary} />
         {(() => {
           if (!styleOpen || !selectedId) return null;
@@ -300,7 +320,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
           const spec = t ? blockSpec(t) : null;
           const sid = selectedId;
           return spec ? (
-            <StylePanel spec={spec} style={eng.styleOf(sid)} canDelete={eng.canDelete(sid)}
+            <StylePanel spec={spec} style={eng.styleOf(sid)} canDelete={eng.canDelete(sid)} sheet={isPhone}
               onChange={(p) => eng.setStyle(sid, p)} onClose={() => setStyleOpen(false)}
               onDuplicate={() => { const nid = eng.duplicate(sid); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
               onDelete={() => doDelete(sid)} />
@@ -313,6 +333,25 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       {deleted ? <Toast tone="neutral" onClose={() => setDeleted(null)} action={{ label: 'Undo', onClick: () => { eng.undo(); setDeleted(null); } }}>{deleted.label} deleted</Toast> : null}
       {publishMsg ? <Toast tone="neutral" onClose={() => setPublishMsg(null)}>{publishMsg}</Toast> : null}
 
+      {/* phone: a tapped block raises the action sheet (co-design 4). Style opens the
+          style sheet; Edit-content arrives with inline text (see BLOCKED.md). */}
+      {isPhone && selectedId && !styleOpen && !drawer ? (() => {
+        const b = blocks.find((x) => x.id === selectedId);
+        if (!b) return null;
+        const zone = eng.zoneOf(selectedId) ?? 'main';
+        const zids = zoneIds(zone);
+        const j = zids.indexOf(selectedId);
+        const nid = selectedId;
+        const acts = [
+          { key: 'style', label: 'Style', icon: <GridIcon />, onClick: () => setStyleOpen(true) },
+          { key: 'up', label: 'Move up', icon: <MoveIcon up />, disabled: j <= 0, onClick: () => eng.reorderBefore(nid, zids[j - 1] ?? null) },
+          { key: 'down', label: 'Move down', icon: <MoveIcon up={false} />, disabled: j < 0 || j >= zids.length - 1, onClick: () => eng.reorderBefore(nid, zids[j + 2] ?? null) },
+          { key: 'dup', label: 'Duplicate', icon: <DupeIcon />, onClick: () => { const x = eng.duplicate(nid); if (x) { setSelectedId(x); setFocusId(x); } } },
+          ...(eng.canDelete(nid) ? [{ key: 'del', label: 'Delete', icon: <TrashIcon />, danger: true, onClick: () => doDelete(nid) }] : []),
+        ];
+        return <ActionSheet blockName={labelFor(b.type)} position={{ n: Math.max(1, j + 1), m: zids.length }} actions={acts} onClose={() => { setSelectedId(null); setFocusId(null); }} />;
+      })() : null}
+
       {/* first-build tour: 3 steps, shown once (local), dismissible */}
       <BuilderTour />
     </div>
@@ -321,8 +360,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
 
 // ---- overlay pieces (iframe-viewport coordinates) ----
 
-function Selection({ rect, grabbing, canDelete, onGripDragStart, onGripDragEnd, onDuplicate, onDelete, onInsertAbove, onInsertBelow }: {
-  rect: BlockRect; grabbing: boolean; canDelete: boolean;
+function Selection({ rect, grabbing, canDelete, showHandles, onGripDragStart, onGripDragEnd, onDuplicate, onDelete, onInsertAbove, onInsertBelow }: {
+  rect: BlockRect; grabbing: boolean; canDelete: boolean; showHandles: boolean;
   onGripDragStart: () => void; onGripDragEnd: () => void; onDuplicate: () => void; onDelete: () => void;
   onInsertAbove: () => void; onInsertBelow: () => void;
 }): React.ReactElement {
@@ -336,11 +375,13 @@ function Selection({ rect, grabbing, canDelete, onGripDragStart, onGripDragEnd, 
         boxShadow: grabbing ? '0 0 0 6px color-mix(in srgb, var(--vb-accent) 22%, transparent)' : '0 0 0 4px color-mix(in srgb, var(--vb-accent) 16%, transparent)',
       }} />
       <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + 4, display: 'inline-flex', alignItems: 'center', gap: 6, maxWidth: rect.width - 8, padding: '2px 8px', borderRadius: 6, background: 'var(--vb-accent)', color: 'var(--vb-accent-text)', fontSize: 11, fontWeight: 700, lineHeight: 1.6, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{labelFor(rect.type)}</div>
-      <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + rect.width - (canDelete ? 82 : 56), display: 'inline-flex', gap: 4, pointerEvents: 'auto' }}>
-        <button type="button" draggable onDragStart={onGripDragStart} onDragEnd={onGripDragEnd} title="Drag to reorder (or select + Enter to grab)" aria-label="Drag to reorder" style={handleBtn('grab')}><GripIcon /></button>
-        <button type="button" onClick={onDuplicate} title="Duplicate" aria-label="Duplicate block" style={handleBtn()}><DupeIcon /></button>
-        {canDelete ? <button type="button" onClick={onDelete} title="Delete" aria-label="Delete block" style={handleBtn()}><TrashIcon /></button> : null}
-      </div>
+      {showHandles ? (
+        <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + rect.width - (canDelete ? 82 : 56), display: 'inline-flex', gap: 4, pointerEvents: 'auto' }}>
+          <button type="button" draggable onDragStart={onGripDragStart} onDragEnd={onGripDragEnd} title="Drag to reorder (or select + Enter to grab)" aria-label="Drag to reorder" style={handleBtn('grab')}><GripIcon /></button>
+          <button type="button" onClick={onDuplicate} title="Duplicate" aria-label="Duplicate block" style={handleBtn()}><DupeIcon /></button>
+          {canDelete ? <button type="button" onClick={onDelete} title="Delete" aria-label="Delete block" style={handleBtn()}><TrashIcon /></button> : null}
+        </div>
+      ) : null}
     </>
   );
 }
@@ -420,4 +461,6 @@ function UndoIcon({ flip }: { flip: boolean }): React.ReactElement { return (<sv
 function GripIcon(): React.ReactElement { return (<svg width={14} height={14} viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6" /><circle cx="15" cy="6" r="1.6" /><circle cx="9" cy="12" r="1.6" /><circle cx="15" cy="12" r="1.6" /><circle cx="9" cy="18" r="1.6" /><circle cx="15" cy="18" r="1.6" /></svg>); }
 function DupeIcon(): React.ReactElement { return (<svg width={14} height={14} viewBox="0 0 24 24" {...S}><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>); }
 function TrashIcon(): React.ReactElement { return (<svg width={14} height={14} viewBox="0 0 24 24" {...S}><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" /></svg>); }
+function GridIcon(): React.ReactElement { return (<svg width={15} height={15} viewBox="0 0 24 24" {...S}><rect x="4" y="4" width="7" height="7" rx="1" /><rect x="13" y="4" width="7" height="7" rx="1" /><rect x="4" y="13" width="7" height="7" rx="1" /><rect x="13" y="13" width="7" height="7" rx="1" /></svg>); }
+function MoveIcon({ up }: { up: boolean }): React.ReactElement { return (<svg width={15} height={15} viewBox="0 0 24 24" {...S} style={up ? undefined : { transform: 'rotate(180deg)' }}><path d="M12 19V5M6 11l6-6 6 6" /></svg>); }
 function PlusIcon(): React.ReactElement { return (<svg width={9} height={9} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>); }

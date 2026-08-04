@@ -38,8 +38,8 @@ function ready(spec: BlockSpec, sourceReady: Record<string, boolean>): boolean {
   return sourceReady[spec.type] !== false;
 }
 
-export function LibraryDrawer({ open, onClose, sourceReady, onInsertBlock, onInsertPattern }: {
-  open: boolean; onClose: () => void; sourceReady: Record<string, boolean>;
+export function LibraryDrawer({ open, onClose, sourceReady, sheet, onInsertBlock, onInsertPattern }: {
+  open: boolean; onClose: () => void; sourceReady: Record<string, boolean>; sheet?: boolean;
   onInsertBlock: (type: string) => void; onInsertPattern: (pattern: PatternSpec) => void;
 }): React.ReactElement | null {
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -84,10 +84,12 @@ export function LibraryDrawer({ open, onClose, sourceReady, onInsertBlock, onIns
   return (
     <div role="dialog" aria-modal="true" aria-label="Add a block" ref={panelRef}
       style={{
-        position: 'absolute', top: 12, left: 12, bottom: 12, width: 340, maxWidth: 'calc(100% - 24px)', zIndex: 65,
-        display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
-        background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: 14,
+        position: 'absolute', zIndex: 65, display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
+        background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)',
         boxShadow: '0 18px 60px color-mix(in srgb, black 28%, transparent)',
+        ...(sheet
+          ? { left: 0, right: 0, bottom: 0, top: 'auto', maxHeight: '76vh', borderRadius: '16px 16px 0 0' }
+          : { top: 12, left: 12, bottom: 12, width: 340, maxWidth: 'calc(100% - 24px)', borderRadius: 14 }),
       }}>
       {/* header + tabs */}
       <div style={{ padding: '12px 12px 0', flexShrink: 0 }}>

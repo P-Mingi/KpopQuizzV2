@@ -1,0 +1,37 @@
+V-BUILDER-2 step 6 (part 2) - the phone layer (locked co-design 4, L-023)
+
+Built + proven live at a narrow viewport (399px) on /verse/bts/build. Triggered by a
+'(max-width: 640px)' media query; desktop is unchanged.
+
+ACCEPTANCE 3 - PHONE (all of co-design 4 that does not depend on inline text):
+- ACTION SHEET: tapping a block raises a bottom action sheet (phone-sheets.tsx). Proven
+  on the "The story so far" block:
+    header "The story so far   position 4 of 10"  (the position indicator)
+    actions: [Style, Move up, Move down, Duplicate, Delete]   (Delete only when deletable)
+  The desktop side handles (grip / duplicate / delete) are HIDDEN on phone
+  (desktopHandlesHidden=true); the actions live in the sheet instead. No phone drag.
+- MOVE: "Move up" moved the block from main-zone position 3 -> 2 (movedUp=true); Move
+  up/down disable at the ends. Uses the step-3 reorder op (same as the keyboard grab).
+- BOTTOM SHEETS: the library drawer and the style panel render as bottom sheets on phone
+  (full-width, bottom-anchored, a grabber that toggles a half/full detent). Proven:
+  Style from the action sheet opened the style panel as a bottom sheet
+  (styleOpensAsBottomSheet=true) with all its groups (Layout/Surface/Color/Text).
+- TAP OUTSIDE DESELECTS: the sheet's backdrop button, tapped, closed the action sheet +
+  cleared the selection (backdropDeselects=true).
+- AUTO-SCROLL: with a sheet up, the selected block scrolls to stay visible above it
+  (scrollIntoView block:'start'); shown in the screenshots (the selected block sits above
+  the sheet).
+- 44px TARGETS: the action-sheet rows are 52px; the sheet grabber was raised from 28 ->
+  44px so every builder-chrome touch target meets the floor.
+
+SCREENSHOTS (inline in the session): the phone ACTION SHEET (5 actions + position, block
+above it) and the phone STYLE SHEET (all groups, block above it).
+
+DEFERRED to inline text (BLOCKED.md): the action sheet's "Edit content" row and the
+marks bar docked above the keyboard both depend on the in-iframe text editor, whose
+pipeline-integration architecture is an owner call.
+
+GATES: published /verse/bts main column 21380 == baseline (phone layer is builder-only);
+tsc 0, check:routes 338, check:verse-tokens green; vb2-stable-id-verify + _vbuilder1-*
++ test-play-untouched ("PLAY LAYOUT LAW HOLDS") + test-vtemplates + test-vpages-gates +
+test-vtext-fold all PASS; em/en-dash grep clean over the new files.
