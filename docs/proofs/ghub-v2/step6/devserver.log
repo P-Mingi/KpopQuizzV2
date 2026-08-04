@@ -1,0 +1,91 @@
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3099
+- Network:       http://192.168.1.43:3099
+- Environments: .env.local
+✓ Ready in 957ms
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/louis/IT/Dev/projects/KpopQuizzV2/pnpm-workspace.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/louis/IT/Dev/projects/KpopQuizzV2/.worktrees/play/pnpm-workspace.yaml
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+○ Compiling /games ...
+ GET /games 200 in 4.8s (next.js: 3.7s, proxy.ts: 57ms, application-code: 1055ms)
+ GET /api/daily/streak 200 in 603ms (next.js: 339ms, application-code: 264ms)
+ GET /api/auth/me 200 in 608ms (next.js: 394ms, application-code: 213ms)
+ GET /api/auth/me 200 in 190ms (next.js: 1985µs, application-code: 188ms)
+ GET /api/auth/me 200 in 138ms (next.js: 4ms, application-code: 135ms)
+ GET /api/notifications?limit=1 200 in 308ms (next.js: 121ms, application-code: 187ms)
+ GET /games/sort-it/boy-group-or-girl-group 200 in 1279ms (next.js: 857ms, proxy.ts: 8ms, generate-params: 425ms, application-code: 414ms)
+ GET /api/auth/me 200 in 162ms (next.js: 2ms, application-code: 160ms)
+ GET /api/auth/me 200 in 192ms (next.js: 1744µs, application-code: 190ms)
+ GET /api/auth/me 200 in 358ms (next.js: 2ms, application-code: 356ms)
+ GET /api/auth/me 200 in 130ms (next.js: 3ms, application-code: 127ms)
+ GET /api/notifications?limit=1 200 in 233ms (next.js: 1902µs, application-code: 231ms)
+ GET /games 200 in 473ms (next.js: 6ms, proxy.ts: 6ms, application-code: 461ms)
+ GET /api/auth/me 200 in 184ms (next.js: 2ms, application-code: 181ms)
+ GET /api/daily/streak 200 in 200ms (next.js: 5ms, application-code: 195ms)
+ GET /games 200 in 613ms (next.js: 6ms, proxy.ts: 5ms, application-code: 601ms)
+ GET /api/daily/streak 200 in 372ms (next.js: 5ms, application-code: 367ms)
+ GET /api/auth/me 200 in 421ms (next.js: 2ms, application-code: 419ms)
+ GET /api/daily/streak 200 in 136ms (next.js: 3ms, application-code: 133ms)
+ GET /api/auth/me 200 in 136ms (next.js: 2ms, application-code: 133ms)
+ GET /api/auth/me 200 in 137ms (next.js: 4ms, application-code: 133ms)
+ GET /api/auth/me 200 in 139ms (next.js: 3ms, application-code: 135ms)
+ GET /api/auth/me 200 in 135ms (next.js: 4ms, application-code: 131ms)
+ GET /api/notifications?limit=1 200 in 182ms (next.js: 3ms, application-code: 178ms)
+ GET /api/auth/me 200 in 137ms (next.js: 3ms, application-code: 134ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
+[browser] Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RootLayout>
+      <html lang="en" className="pretendard..." suppressHydrationWarning={true}>
+        ...
+          <div className="flex flex-...">
+            <Suspense>
+            <MobileTopBar>
+            <main>
+            <SiteFooter play={<footer>}>
+              <Footer>
+                <footer style={{padding:"2...", ...}}>
+                  <div style={{maxWidth:800, ...}}>
+                    <div>
+                    <div style={{...}}>
+                      <span>
+                      <span className="footer-theme" style={{display:"i...", ...}}>
+                        <LocaleSwitcher>
+                        <span>
+                        <ThemeToggle>
+                          <button type="button" suppressHydrationWarning={true} onClick={function onClick} ...>
+                            <span className="theme-togg..." aria-hidden="true" suppressHydrationWarning={true}>
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" ...>
++                               <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z">
+-                               <circle cx="12" cy="12" r="4">
+          ...
+          ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at path (<anonymous>)
+    at RootLayout (src/app/layout.tsx:162:13)
+  160 |               {children}
+  161 |             </main>
+> 162 |             <SiteFooter play={<Footer />} />
+      |             ^
+  163 |           </div>
+  164 |           <MobileTabBar />
+  165 |         </ToastProvider>
+[?25h
