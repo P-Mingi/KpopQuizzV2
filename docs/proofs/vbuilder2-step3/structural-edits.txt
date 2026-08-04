@@ -1,0 +1,62 @@
+V-BUILDER-2 step 3 - the optimistic structural-edit engine
+
+Built on 3.0's persisted stable ids. The shell loads the draft composition into client
+state (useBuilderComposition); every op is optimistic: patch the same-origin iframe DOM
+instantly, update client state, background-save the validated draft (POST
+/api/verse/presentation), reconcile-on-reload. Driven live in the in-app browser on
+/verse/bts/build as the admin curator. bts draft was reset to {} for a clean run and
+reset again after.
+
+ACCEPTANCE 1 - OP LATENCY (structural DOM patch under ~5ms):
+  Duplicate op: click -> React -> optimistic iframe DOM cloneNode+insert measured at
+  3ms (full click-to-DOM round trip; the pure DOM patch is less). The engine logs each
+  op: console "[vb] structural DOM patch <ms>ms". The save is async + off this path.
+
+ACCEPTANCE 2 - SAVE ROUND-TRIP (draft jsonb reflects the op, ids intact):
+  Duplicate the intro -> optimistic DOM 19 -> 20 with a new crypto.randomUUID
+  (d37f1ed7-...). After the 350ms-debounced save, a fresh /build/bts render (reads
+  presentation_draft from the DB) shows 20 blocks including that exact uuid; the
+  duplicated intro persisted (2 intros). Top bar went to "Saved <x> ago".
+
+ACCEPTANCE 3 - HOSTILE SAVE REJECTED + OPTIMISTIC REVERT + HUMAN SENTENCE:
+  Spam-duplicate past MAX_MODULES (24): optimistic DOM peaked at 27 blocks. The
+  coalesced save was rejected 422 "Too many modules (max 24)." -> the error toast
+  showed that exact human sentence, the canvas REVERTED to 19 (last saved state via
+  reload = iframe-truth reconcile), and the DB draft stayed at 19 (uncorrupted).
+
+ACCEPTANCE 4 - POST-REORDER DOM ORDER = READING ORDER, IDS STABLE:
+  Keyboard grab (Enter pick up, ArrowUp/Down move, Enter drop) moved a block; and drag
+  on the grip onto a seam drop-target reorders too. Before -> after main-zone id list on
+  a move-up of blk-members-0:
+    before: [blk-intro-0, blk-members-0, blk-vitals-0, blk-story-0, blk-discography-0]
+    after : [blk-intro-0, blk-members-0, blk-vitals-0, ...]  (members moved to index 1)
+  The id SET is unchanged across the reorder (no positional re-derivation - the 3.0
+  fix), no duplicate ids, and the live optimistic DOM order === a fresh /build/bts
+  server render (optimisticEqualsServerTruth: true) = reconcile-on-reload holds.
+
+ACCEPTANCE 5 - UNDO/REDO ROUND-TRIP:
+  Insert a quote -> delete it -> undo -> redo, checking the DB draft each step:
+    delete  -> quote absent in draft (persisted)
+    undo    -> quote PRESENT in draft again (restored + saved)
+    redo    -> quote absent again (re-applied + saved)
+  undo/redo run through one generic history stack (applyOp snapshots every op), so the
+  same round-trip covers reorder + duplicate + delete + insert. A race was found + fixed:
+  undo/redo now cancel the op's pending debounced save so a stale save cannot clobber the
+  undone state. Delete also shows a 6s undo toast ("Quote highlight deleted / Undo").
+
+ACCEPTANCE 6 - PUBLISHED BYTE-IDENTICAL + FULL GATE SUITE:
+  /verse/bts main column 21380 == baseline, zero data-block-id (step 3 is builder-only;
+  ops write presentation_DRAFT via the existing rail, never live; Publish stays disabled
+  until a draft exists and was not clicked).
+  Gates: tsc 0, check:routes 338, check:verse-tokens green; harnesses vb2-stable-id-verify
+  + _vbuilder1-parity + test-play-untouched ("PLAY LAYOUT LAW HOLDS") + test-vtemplates +
+  test-vpages-gates + test-vtext-fold all PASS.
+
+NOTES:
+- Overlay still only READS iframe geometry; the ONLY iframe-DOM writes are the four
+  intentional structural ops (co-design 1). No mobile drag (grip drag is desktop; the
+  keyboard grab is the accessible alternative on every device).
+- Delete is gated off seoCritical blocks (intro/vitals/members/discography) - the delete
+  handle is absent on them (a would-be delete is also re-injected by the validator).
+- Publish wired to the existing /publish rail behind a confirm; enabled once a draft
+  exists.

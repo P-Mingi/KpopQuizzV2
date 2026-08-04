@@ -13,9 +13,14 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 import { canCurateSpace } from '@/lib/verse/roles';
 import { getSpace } from '@/lib/verse/space';
 import { presentationScopeStyle } from '@/lib/verse/presentation/scope';
+import { validatePresentation } from '@/lib/verse/presentation/validate';
+import { EMPTY_PRESENTATION } from '@/lib/verse/presentation/types';
+import { resolvePlacements } from '@/lib/verse/presentation/resolve';
+import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { BuilderShell } from '@/components/verse/builder/builder-shell';
 
 import type { Metadata } from 'next';
+import type { Presentation } from '@/lib/verse/presentation/types';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Builder', robots: { index: false, follow: false } };
@@ -37,16 +42,27 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
   const { data: row } = await svc.from('verse_spaces')
     .select('presentation_draft, updated_at').eq('group_id', space.group.id).maybeSingle();
   const rawDraft = (row as { presentation_draft?: unknown } | null)?.presentation_draft;
-  const hasDraft = !!rawDraft && typeof rawDraft === 'object' && Object.keys(rawDraft as object).length > 0;
+  const isEmpty = !rawDraft || (typeof rawDraft === 'object' && Object.keys(rawDraft as object).length === 0);
+  const hasDraft = !isEmpty;
   const updatedAt = (row as { updated_at?: string } | null)?.updated_at ?? null;
+
+  // The client composition model: the SAME resolved+id-stamped block set the iframe
+  // (/build) renders, so every op's block id maps 1:1 to a data-block-id in the canvas.
+  // Empty/invalid draft falls back to the live look (same rule the canvas uses).
+  const draft: Presentation = isEmpty
+    ? (space.presentation ?? EMPTY_PRESENTATION)
+    : (validatePresentation(rawDraft).value ?? space.presentation ?? EMPTY_PRESENTATION);
+  const composition = presentationToComposition({ ...draft, version: 1, modules: resolvePlacements(draft) });
 
   return (
     <BuilderShell
+      groupId={space.group.id}
       spaceName={space.group.name}
       draftPath={`/build/${slug}`}
       previewPath={`/verse/${slug}`}
       hasDraft={hasDraft}
       updatedAt={updatedAt}
+      composition={composition}
       scopeStyle={presentationScopeStyle(space) as Record<string, string>}
     />
   );
