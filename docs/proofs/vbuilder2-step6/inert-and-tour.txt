@@ -1,0 +1,26 @@
+V-BUILDER-2 step 6 (progress) - the inert a11y debt (L-036) + the first-build tour
+
+Two of step 6's parts, built + proven live on /verse/bts/build. The two large parts
+(inline rich-text editing in the iframe; the phone bottom-sheet + action-sheet layer)
+are not in this commit - see docs/loop/REPORT.md for status.
+
+ACCEPTANCE 4 - INERT (background chrome unreachable while the shell is up):
+  The builder is a full-screen modal takeover, so on mount the shell walks up from its
+  own element and marks every SIBLING at each level `inert` (+ aria-hidden fallback),
+  restoring them on unmount (builder-shell.tsx).
+  Proof (with the shell up):
+    nav.verse-tabs   -> inert=true, aria-hidden="true"
+    .v-hero-compact  -> inert=true, aria-hidden="true"
+    background focusables found: 21; still reachable (no inert ancestor): 0
+  So the space hero + tabs (21 focusable controls) are out of the a11y tree + focus
+  order; a screen-reader virtual cursor can no longer reach them behind the canvas.
+
+ACCEPTANCE 5 - FIRST-BUILD TOUR (shown once, dismissible, never again):
+  builder-tour.tsx - three steps (the library, the canvas is the page, publish), same
+  pattern as the existing first-edit tour. localStorage flag verse-first-build-tour-done.
+  Proof: cleared the flag -> the tour showed; walked all 3 steps via Next/Got it ->
+  dismissed; the flag was set afterward (flagSetAfterDismiss=true), so it never shows
+  again. Escape also dismisses; buttons are >=44px (phone-ready).
+
+Gates at this commit: tsc 0, check:verse-tokens green (both new files use tokens only).
+Published /verse/bts unaffected (builder-only changes).

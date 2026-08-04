@@ -14,6 +14,7 @@ import { blockSpec } from '@/lib/verse/composition/registry';
 import { useBuilderComposition } from './use-builder-composition';
 import { LibraryDrawer } from './library-drawer';
 import { StylePanel } from './style-panel';
+import { BuilderTour } from './builder-tour';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
 import type { PatternSpec } from '@/lib/verse/composition/patterns';
@@ -31,6 +32,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   sourceReady: Record<string, boolean>; scopeStyle: Record<string, string>;
 }): React.ReactElement {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const shellRef = useRef<HTMLDivElement | null>(null);
   const [device, setDevice] = useState<Device>('desktop');
   const [blocks, setBlocks] = useState<BlockRect[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -97,6 +99,25 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   useEffect(() => { if (!deleted) return; const t = setTimeout(() => setDeleted(null), 6000); return () => clearTimeout(t); }, [deleted]);
   // deselect closes the style panel (Esc clears selection -> closes; click-empty too).
   useEffect(() => { if (!selectedId) setStyleOpen(false); }, [selectedId]);
+
+  // A11Y (L-036): the builder is a full-screen modal takeover, so make EVERYTHING behind
+  // it unreachable - walk up from the shell and mark every sibling `inert` (+ aria-hidden
+  // fallback). This puts the space hero + tabs (and the rest of the page) out of the a11y
+  // tree + focus order while the builder is up; restored on unmount.
+  useEffect(() => {
+    const shell = shellRef.current; if (!shell) return;
+    const inerted: HTMLElement[] = [];
+    let node: HTMLElement | null = shell;
+    while (node && node !== document.body && node.parentElement) {
+      for (const sib of Array.from(node.parentElement.children)) {
+        if (sib !== node && sib instanceof HTMLElement && !sib.hasAttribute('inert')) {
+          sib.setAttribute('inert', ''); sib.setAttribute('aria-hidden', 'true'); inerted.push(sib);
+        }
+      }
+      node = node.parentElement;
+    }
+    return () => inerted.forEach((el) => { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); });
+  }, []);
 
   // ---- op handlers ----
   const zoneIds = useCallback((zone: Zone) => (eng.composition.sections[0]?.blocks ?? []).filter((b) => b.zone === zone).map((b) => b.id), [eng.composition]);
@@ -202,7 +223,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const mainRects = eng.mainIds.map((id) => blocks.find((b) => b.id === id)).filter(Boolean) as BlockRect[];
 
   return (
-    <div className="vb-shell" style={{
+    <div className="vb-shell" ref={shellRef} style={{
       position: 'fixed', inset: 0, zIndex: 60, display: 'flex', flexDirection: 'column',
       background: 'var(--bg-primary)', color: 'var(--text-primary)', ...scopeStyle,
       ['--vb-accent' as string]: 'var(--verse-accent, var(--brand))',
@@ -291,6 +312,9 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       {eng.error ? <Toast tone="error" onClose={eng.clearError}>{eng.error}</Toast> : null}
       {deleted ? <Toast tone="neutral" onClose={() => setDeleted(null)} action={{ label: 'Undo', onClick: () => { eng.undo(); setDeleted(null); } }}>{deleted.label} deleted</Toast> : null}
       {publishMsg ? <Toast tone="neutral" onClose={() => setPublishMsg(null)}>{publishMsg}</Toast> : null}
+
+      {/* first-build tour: 3 steps, shown once (local), dismissible */}
+      <BuilderTour />
     </div>
   );
 }
