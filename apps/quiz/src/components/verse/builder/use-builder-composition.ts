@@ -12,8 +12,19 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { compositionToPresentation } from '@/lib/verse/composition/convert';
 import { blockSpec } from '@/lib/verse/composition/registry';
+import { blockBoxStyle } from '@/lib/verse/composition/block-style';
 
-import type { Composition, Block } from '@/lib/verse/composition/types';
+import type { Composition, Block, BlockStyle } from '@/lib/verse/composition/types';
+
+export interface StylePatch {
+  frame?: string;
+  background?: string | null;
+  radius?: string;
+  density?: string;
+  accent?: string | null;
+  textScale?: string | null;
+  divider?: string;
+}
 
 type Zone = Block['zone'];
 const HISTORY_MAX = 50;
@@ -48,6 +59,21 @@ function buildPlaceholder(d: Document, id: string, type: string): HTMLElement {
   return wrap;
 }
 
+// Apply a block's per-block style to its canvas element OPTIMISTICALLY (on the outer
+// handle; the reconcile reload places it exactly on the inner frame). Clears the last
+// values first so a change back to default removes cleanly. Tokens only.
+function applyBlockStyleToEl(e: HTMLElement, style: BlockStyle): void {
+  e.style.removeProperty('--verse-accent');
+  e.style.background = ''; e.style.borderRadius = ''; e.style.padding = ''; e.style.fontSize = '';
+  const box = blockBoxStyle({ background: style.background, radius: style.radius, density: style.density, accent: style.accent, textScale: style.text?.size });
+  for (const [k, v] of Object.entries(box)) {
+    if (k.startsWith('--')) e.style.setProperty(k, v);
+    else (e.style as unknown as Record<string, string>)[k] = v;
+  }
+  const base = e.className.split(/\s+/).filter((c) => c && !/^verse-frame/.test(c)).join(' ');
+  e.className = style.frame && style.frame !== 'none' ? `${base} verse-frame verse-frame-${style.frame}` : base;
+}
+
 export interface BuilderEngine {
   composition: Composition;
   mainIds: string[];
@@ -59,6 +85,8 @@ export interface BuilderEngine {
   remove: (id: string) => void;
   insertAt: (zone: Zone, index: number, type?: string, props?: Record<string, unknown>) => string | null;
   insertBlocks: (zone: Zone, index: number, specs: { type: string; props?: Record<string, unknown> }[]) => string[];
+  setStyle: (id: string, patch: StylePatch) => void;
+  styleOf: (id: string) => BlockStyle;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -88,6 +116,10 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   const pastRef = useRef<Composition[]>([]);
   const futureRef = useRef<Composition[]>([]);
   const savedRef = useRef<Composition>(initial);
+  // The live composition, updated SYNCHRONOUSLY on every op so rapid successive edits
+  // (e.g. clicking several style controls fast) each build on the previous one instead
+  // of a stale render-time closure. Kept in sync with the `composition` state.
+  const liveRef = useRef<Composition>(initial);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingRef = useRef<Composition | null>(null);
   const bump = () => forceHist((n) => n + 1);
@@ -133,6 +165,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   // revert the optimistic change: restore the last SAVED state + reconcile the iframe.
   const hardReset = useCallback(() => {
     cancelPendingSave();
+    liveRef.current = savedRef.current;
     setComposition(savedRef.current);
     pastRef.current = []; futureRef.current = []; bump();
     reload();
@@ -153,11 +186,10 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
 
   // ---- apply one optimistic op: history -> DOM patch (timed) -> state -> save ----
   const applyOp = useCallback((next: Composition, domPatch: () => void) => {
-    setComposition((cur) => {
-      pastRef.current.push(cur);
-      if (pastRef.current.length > HISTORY_MAX) pastRef.current.shift();
-      return next;
-    });
+    pastRef.current.push(liveRef.current);
+    if (pastRef.current.length > HISTORY_MAX) pastRef.current.shift();
+    liveRef.current = next;
+    setComposition(next);
     futureRef.current = [];
     const t0 = performance.now();
     try { domPatch(); } catch { /* reconcile-on-reload heals any DOM slip */ }
@@ -176,13 +208,13 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   // is no off-by-one between the client array and the iframe DOM.
   const reorderBefore = useCallback((id: string, beforeId: string | null) => {
     if (id === beforeId) return;
-    const blocks = flat(composition);
+    const blocks = flat(liveRef.current);
     const block = blocks.find((b) => b.id === id); if (!block) return;
     const others = zoneBlocks(blocks, block.zone).filter((b) => b.id !== id);
     let at = beforeId ? others.findIndex((b) => b.id === beforeId) : others.length;
     if (at < 0) at = others.length;
     others.splice(at, 0, block);
-    const next = withBlocks(composition, rebuildZone(blocks, block.zone, others));
+    const next = withBlocks(liveRef.current, rebuildZone(blocks, block.zone, others));
     applyOp(next, () => {
       const e = el(id); if (!e || !e.parentElement) return;
       const beforeEl = beforeId ? el(beforeId) : null;
@@ -191,12 +223,12 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   }, [composition, applyOp]);
 
   const duplicate = useCallback((id: string): string | null => {
-    const blocks = flat(composition);
+    const blocks = flat(liveRef.current);
     const idx = blocks.findIndex((b) => b.id === id);
     if (idx < 0) return null;
     const newId = crypto.randomUUID();
     const clone: Block = { ...structuredClone(blocks[idx]!), id: newId };
-    const next = withBlocks(composition, [...blocks.slice(0, idx + 1), clone, ...blocks.slice(idx + 1)]);
+    const next = withBlocks(liveRef.current, [...blocks.slice(0, idx + 1), clone, ...blocks.slice(idx + 1)]);
     applyOp(next, () => {
       const e = el(id); if (!e || !e.parentElement) return;
       const c = e.cloneNode(true) as HTMLElement;
@@ -207,11 +239,30 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   }, [composition, applyOp]);
 
   const remove = useCallback((id: string) => {
-    const blocks = flat(composition);
+    const blocks = flat(liveRef.current);
     const block = blocks.find((b) => b.id === id); if (!block) return;
     if (blockSpec(block.type)?.seoCritical) return; // core content is not deletable
-    const next = withBlocks(composition, blocks.filter((b) => b.id !== id));
+    const next = withBlocks(liveRef.current, blocks.filter((b) => b.id !== id));
     applyOp(next, () => { el(id)?.remove(); });
+  }, [composition, applyOp]);
+
+  // Style op (step 5): merge a token-governed patch into the block's style, apply it to
+  // the canvas optimistically, and save through the same validated rail. A rejection
+  // reverts (hardReset) + surfaces the sentence, exactly like a structural op.
+  const setStyle = useCallback((id: string, patch: StylePatch) => {
+    const blocks = flat(liveRef.current);
+    const idx = blocks.findIndex((b) => b.id === id); if (idx < 0) return;
+    const cur: BlockStyle = blocks[idx]!.style ?? {};
+    const style: BlockStyle = { ...cur };
+    if (patch.frame !== undefined) style.frame = patch.frame as NonNullable<BlockStyle['frame']>;
+    if (patch.background !== undefined) style.background = patch.background;
+    if (patch.radius !== undefined) style.radius = patch.radius as NonNullable<BlockStyle['radius']>;
+    if (patch.density !== undefined) style.density = patch.density as NonNullable<BlockStyle['density']>;
+    if (patch.accent !== undefined) style.accent = patch.accent;
+    if (patch.textScale !== undefined) { if (patch.textScale) style.text = { ...(cur.text ?? {}), size: patch.textScale as 'S' | 'M' | 'L' }; else delete style.text; }
+    if (patch.divider !== undefined) style.divider = patch.divider as NonNullable<BlockStyle['divider']>;
+    const next = withBlocks(liveRef.current, blocks.map((b, i) => (i === idx ? { ...b, style } : b)));
+    applyOp(next, () => { const e = el(id); if (e) applyBlockStyleToEl(e, style); });
   }, [composition, applyOp]);
 
   // Insert one or more fresh blocks at a zone index. A PATTERN insert is just many
@@ -219,7 +270,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   // group DISSOLVES on arrival - every inserted block is selectable/movable/deletable.
   const insertBlocks = useCallback((zone: Zone, index: number, specs: { type: string; props?: Record<string, unknown> }[]): string[] => {
     if (!specs.length) return [];
-    const blocks = flat(composition);
+    const blocks = flat(liveRef.current);
     const made: Block[] = specs.map((s) => (s.props ? { id: crypto.randomUUID(), type: s.type, zone, props: s.props } : { id: crypto.randomUUID(), type: s.type, zone }));
     const z = zoneBlocks(blocks, zone);
     const anchor = z[index] ?? null;
@@ -227,7 +278,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
     if (anchor) { const ai = blocks.indexOf(anchor); arr = [...blocks.slice(0, ai), ...made, ...blocks.slice(ai)]; }
     else if (z.length) { const li = blocks.indexOf(z[z.length - 1]!); arr = [...blocks.slice(0, li + 1), ...made, ...blocks.slice(li + 1)]; }
     else arr = [...blocks, ...made];
-    const next = withBlocks(composition, arr);
+    const next = withBlocks(liveRef.current, arr);
     applyOp(next, () => {
       const d = doc(); if (!d) return;
       const anchorEl = anchor ? el(anchor.id) : null;
@@ -249,34 +300,37 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   const undo = useCallback(() => {
     const prev = pastRef.current.pop(); if (!prev) return;
     cancelPendingSave();
-    futureRef.current.push(composition); bump();
+    futureRef.current.push(liveRef.current); bump();
+    liveRef.current = prev;
     setComposition(prev);
     void commit(prev).then((ok) => (ok ? reload() : hardReset()));
-  }, [composition, commit, hardReset, cancelPendingSave]);
+  }, [commit, hardReset, cancelPendingSave]);
 
   const redo = useCallback(() => {
     const next = futureRef.current.pop(); if (!next) return;
     cancelPendingSave();
-    pastRef.current.push(composition); bump();
+    pastRef.current.push(liveRef.current); bump();
+    liveRef.current = next;
     setComposition(next);
     void commit(next).then((ok) => (ok ? reload() : hardReset()));
-  }, [composition, commit, hardReset, cancelPendingSave]);
+  }, [commit, hardReset, cancelPendingSave]);
 
   // ---- derived ----
-  const mainIds = useMemo(() => zoneBlocks(flat(composition), 'main').map((b) => b.id), [composition]);
-  const zoneOf = useCallback((id: string) => flat(composition).find((b) => b.id === id)?.zone ?? null, [composition]);
+  const mainIds = useMemo(() => zoneBlocks(flat(liveRef.current), 'main').map((b) => b.id), [composition]);
+  const zoneOf = useCallback((id: string) => flat(liveRef.current).find((b) => b.id === id)?.zone ?? null, [composition]);
   const indexInZone = useCallback((id: string) => {
-    const b = flat(composition).find((x) => x.id === id); if (!b) return -1;
-    return zoneBlocks(flat(composition), b.zone).findIndex((x) => x.id === id);
+    const b = flat(liveRef.current).find((x) => x.id === id); if (!b) return -1;
+    return zoneBlocks(flat(liveRef.current), b.zone).findIndex((x) => x.id === id);
   }, [composition]);
   const canDelete = useCallback((id: string) => {
-    const b = flat(composition).find((x) => x.id === id);
+    const b = flat(liveRef.current).find((x) => x.id === id);
     return !!b && !blockSpec(b.type)?.seoCritical;
   }, [composition]);
+  const styleOf = useCallback((id: string): BlockStyle => flat(liveRef.current).find((b) => b.id === id)?.style ?? {}, [composition]);
 
   return {
-    composition, mainIds, zoneOf, indexInZone, canDelete,
-    reorderBefore, duplicate, remove, insertAt, insertBlocks,
+    composition, mainIds, zoneOf, indexInZone, canDelete, styleOf,
+    reorderBefore, duplicate, remove, insertAt, insertBlocks, setStyle,
     undo, redo, canUndo: pastRef.current.length > 0, canRedo: futureRef.current.length > 0,
     saving, savedAt, error, clearError: () => setError(null), lastOpMs, reloadKey,
   };

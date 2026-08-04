@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { RelatedNavbox } from '@/components/verse/related-navbox';
 import { resolvePlacements, placementsForZone } from '@/lib/verse/presentation/resolve';
 import { blockId } from '@/lib/verse/composition/convert';
+import { blockBoxStyle, hasBoxStyle } from '@/lib/verse/composition/block-style';
 import { ALL_MODULES } from './module-registry';
 import { StickerLayer } from './sticker-layer';
 
@@ -13,9 +14,12 @@ import type { Backlink } from '@/lib/verse/backlinks';
 
 // A module wears a frame (its own, else the config default). 'none' renders no
 // wrapper, so an empty config is byte-identical to the pre-W-CUSTOM page.
-function ModuleFrame({ frame, children }: { frame: FrameStyle; children: React.ReactNode }): React.ReactElement {
-  if (frame === 'none') return <>{children}</>;
-  return <div className={`verse-frame verse-frame-${frame}`}>{children}</div>;
+function ModuleFrame({ frame, boxStyle, children }: { frame: FrameStyle; boxStyle?: Record<string, string>; children: React.ReactNode }): React.ReactElement {
+  const styled = !!boxStyle && Object.keys(boxStyle).length > 0;
+  // 'none' + no per-block style = no wrapper (the empty-config byte-identity holds).
+  if (frame === 'none' && !styled) return <>{children}</>;
+  if (frame === 'none') return <div style={boxStyle}>{children}</div>;
+  return <div className={`verse-frame verse-frame-${frame}`} style={styled ? boxStyle : undefined}>{children}</div>;
 }
 
 // Themed divider between modules in a zone. 'line' with no config resolves to the
@@ -48,8 +52,15 @@ function Stack({ placements, space, frameDefault, divider, builder, idOf }: {
         if (frame === 'alternate') frame = (m.frame ? 'rounded' : (i % 2 === 0 ? 'rounded' : 'none'));
         const showDivider = i > 0 && divider !== 'none' && divider !== 'line';
         const hasSeam = i > 0 && (space.presentation.stickers ?? []).some((s) => s.slot === 'seam' && (s.anchorIndex ?? 0) === i);
-        const divEl = showDivider ? <Divider kind={divider} /> : null;
+        // per-block divider (step 5) overrides the section divider for this block.
+        const divEl = m.divider && m.divider !== 'none'
+          ? <div className={`verse-bdiv verse-bdiv-${m.divider}`} aria-hidden />
+          : (showDivider ? <Divider kind={divider} /> : null);
         const seamEl = hasSeam ? <div className="my-1 flex flex-wrap justify-center gap-1" aria-hidden><StickerLayer space={space} slot="seam" anchorIndex={i} /></div> : null;
+        // per-block STYLE (step 5): tint / radius / density / accent / text scale, all
+        // token-governed. Opt-in, so an unstyled block stays bare + byte-identical.
+        const boxStyle = blockBoxStyle(m);
+        const styled = hasBoxStyle(m) || (!!m.divider && m.divider !== 'none');
 
         // Builder canvas: wrap EVERY block in its stable-id handle. The module HTML
         // inside is the real render (zero drift); only the wrapper + data-* is added.
@@ -58,19 +69,19 @@ function Stack({ placements, space, frameDefault, divider, builder, idOf }: {
             <div key={`${m.type}-${i}`} data-block-id={idOf?.get(m)} data-block-type={m.type} className="vb-block">
               {divEl}
               {seamEl}
-              <ModuleFrame frame={frame}><R space={space} placement={m} /></ModuleFrame>
+              <ModuleFrame frame={frame} boxStyle={boxStyle}><R space={space} placement={m} /></ModuleFrame>
             </div>
           );
         }
 
-        // Bare render when there is no frame, divider, or seam sticker - byte-identical
-        // to the pre-W-CUSTOM page (the empty-config invariant).
-        if (frame === 'none' && !showDivider && !hasSeam) return <R key={`${m.type}-${i}`} space={space} placement={m} />;
+        // Bare render when there is no frame, divider, seam sticker, OR per-block style -
+        // byte-identical to the pre-W-CUSTOM page (the empty-config invariant).
+        if (frame === 'none' && !showDivider && !hasSeam && !styled) return <R key={`${m.type}-${i}`} space={space} placement={m} />;
         return (
           <div key={`${m.type}-${i}`}>
             {divEl}
             {seamEl}
-            <ModuleFrame frame={frame}><R space={space} placement={m} /></ModuleFrame>
+            <ModuleFrame frame={frame} boxStyle={boxStyle}><R space={space} placement={m} /></ModuleFrame>
           </div>
         );
       })}

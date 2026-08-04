@@ -194,7 +194,7 @@ function chip(isReady: boolean): React.CSSProperties { return { display: 'inline
 
 // ---- category / block icons (SVG, never emoji); many registry keys share a glyph ----
 const IS = { fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
-function CatIcon({ name }: { name: string }): React.ReactElement {
+export function CatIcon({ name }: { name: string }): React.ReactElement {
   const p = (d: string) => <svg width={13} height={13} viewBox="0 0 24 24" {...IS} aria-hidden>{d.split('|').map((x, i) => <path key={i} d={x} />)}</svg>;
   switch (name) {
     case 'text': case 'book': case 'feather': return p('M4 6h16|M4 12h16|M4 18h10');

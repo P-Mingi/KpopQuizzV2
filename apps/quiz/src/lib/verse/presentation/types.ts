@@ -43,6 +43,14 @@ export interface ModulePlacement {
   mode?: string;             // per-module option (e.g. music mode); validated per block
   props?: Record<string, unknown>; // per-instance data (quote text, pinned spotlight...); validated per block
   order: number;             // sort within zone
+  // V-BUILDER-2 step 5 - per-block STYLE, all named enum/token keys (see composition/
+  // block-style.ts). Ride the presentation jsonb; validated + clamped on every save.
+  background?: string | null;   // tint swatch key ('none' | 'veil' | 'soft' | 'bold')
+  radius?: 'sharp' | 'soft' | 'round';
+  density?: 'compact' | 'normal' | 'roomy';
+  accent?: string | null;       // accent key ('world' | swatch) or a clamped hex (legacy)
+  textScale?: 'S' | 'M' | 'L';  // block-level text scale (text blocks only)
+  divider?: 'none' | 'hairline' | 'space';  // separator above this block
 }
 
 export type StickerSlot =

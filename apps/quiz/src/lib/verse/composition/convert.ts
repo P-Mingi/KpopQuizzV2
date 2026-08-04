@@ -45,6 +45,12 @@ export function presentationToComposition(pres: Presentation): Composition {
     const style: BlockStyle = {};
     if (m.frame !== undefined) style.frame = m.frame;
     if (m.mode !== undefined) style.mode = m.mode;
+    if (m.background !== undefined) style.background = m.background;
+    if (m.radius !== undefined) style.radius = m.radius;
+    if (m.density !== undefined) style.density = m.density;
+    if (m.accent !== undefined) style.accent = m.accent;
+    if (m.textScale !== undefined) style.text = { size: m.textScale };
+    if (m.divider !== undefined) style.divider = m.divider;
     if (Object.keys(style).length > 0) block.style = style;
     return block;
   });
@@ -74,6 +80,12 @@ export function compositionToPresentation(comp: Composition): Presentation {
     if (b.hidden !== undefined) m.hidden = b.hidden;
     if (b.style?.frame !== undefined) m.frame = b.style.frame;
     if (b.style?.mode !== undefined) m.mode = b.style.mode;
+    if (b.style?.background != null) m.background = b.style.background;
+    if (b.style?.radius !== undefined) m.radius = b.style.radius;
+    if (b.style?.density !== undefined) m.density = b.style.density;
+    if (b.style?.accent != null) m.accent = b.style.accent;
+    if (b.style?.text?.size !== undefined) m.textScale = b.style.text.size;
+    if (b.style?.divider !== undefined) m.divider = b.style.divider;
     if (b.props !== undefined) m.props = b.props;
     return m;
   });

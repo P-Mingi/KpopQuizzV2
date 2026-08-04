@@ -9,6 +9,7 @@ import { PRESETS, STRUCTURE_TEMPLATES, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION
 import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_MAX_LABEL } from './doorways';
 import { isHex, accentReadableOn } from './contrast';
 import { blockId } from '../composition/convert';
+import { clampTint, clampRadius, clampDensity, clampScale, clampAccentKey, clampBlockDivider } from '../composition/block-style';
 
 import type { FrameStyle } from './registry';
 import type { Presentation, ModulePlacement, StickerPlacement, StickerSlot, PresetId, BannerConfig } from './types';
@@ -155,6 +156,22 @@ export function validatePresentation(raw: unknown): ValidationResult {
       if (id) placement.id = id;
       if (mm.frame != null) placement.frame = mm.frame as FrameStyle;
       if (mm.mode != null) placement.mode = String(mm.mode);
+      // V-BUILDER-2 step 5 - per-block STYLE: every value is a named enum/token key. An
+      // unknown value is REJECTED with a human sentence (so the panel reverts), never a
+      // raw ghost. Accent additionally accepts a readable clamped hex (L-020).
+      if (mm.background != null) { const v = clampTint(mm.background); if (v && v !== 'none') placement.background = v; else if (!v) errors.push(`Unknown background tint "${String(mm.background)}".`); }
+      if (mm.radius != null) { const v = clampRadius(mm.radius); if (v) placement.radius = v; else errors.push(`Unknown block radius "${String(mm.radius)}".`); }
+      if (mm.density != null) { const v = clampDensity(mm.density); if (v) placement.density = v; else errors.push(`Unknown block density "${String(mm.density)}".`); }
+      if (mm.textScale != null) { const v = clampScale(mm.textScale); if (v) placement.textScale = v; else errors.push(`Unknown text scale "${String(mm.textScale)}".`); }
+      if (mm.divider != null) { const v = clampBlockDivider(mm.divider); if (v && v !== 'none') placement.divider = v; else if (!v) errors.push(`Unknown block divider "${String(mm.divider)}".`); }
+      if (mm.accent != null) {
+        const key = clampAccentKey(mm.accent);
+        if (key) { if (key !== 'world') placement.accent = key; }
+        else if (isHex(mm.accent)) {
+          if (accentReadableOn(mm.accent as string, BG_LIGHT) && accentReadableOn(mm.accent as string, BG_DARK)) placement.accent = mm.accent as string;
+          else errors.push('That block accent is unreadable on the page background even after shading. Pick a stronger shade.');
+        } else errors.push(`Unknown block accent "${String(mm.accent)}".`);
+      }
       const pv = validateProps(type, mm.props);
       pv.errors.forEach((e) => errors.push(e));
       if (pv.props) placement.props = pv.props;

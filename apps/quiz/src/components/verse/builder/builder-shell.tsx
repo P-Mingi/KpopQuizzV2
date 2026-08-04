@@ -13,6 +13,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { blockSpec } from '@/lib/verse/composition/registry';
 import { useBuilderComposition } from './use-builder-composition';
 import { LibraryDrawer } from './library-drawer';
+import { StylePanel } from './style-panel';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
 import type { PatternSpec } from '@/lib/verse/composition/patterns';
@@ -40,6 +41,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const [publishing, setPublishing] = useState(false);
   const [publishMsg, setPublishMsg] = useState<string | null>(null);
   const [drawer, setDrawer] = useState<{ zone: Zone; index: number } | null>(null);
+  const [styleOpen, setStyleOpen] = useState(false);
   const [, tick] = useState(0);
 
   const measure = useCallback(() => {
@@ -93,6 +95,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   useEffect(() => { const i = setInterval(() => tick((n) => n + 1), 5000); return () => clearInterval(i); }, []);
   // auto-dismiss the delete undo toast after 6s.
   useEffect(() => { if (!deleted) return; const t = setTimeout(() => setDeleted(null), 6000); return () => clearTimeout(t); }, [deleted]);
+  // deselect closes the style panel (Esc clears selection -> closes; click-empty too).
+  useEffect(() => { if (!selectedId) setStyleOpen(false); }, [selectedId]);
 
   // ---- op handlers ----
   const zoneIds = useCallback((zone: Zone) => (eng.composition.sections[0]?.blocks ?? []).filter((b) => b.zone === zone).map((b) => b.id), [eng.composition]);
@@ -217,6 +221,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
         </div>
         <Divider />
         <button type="button" onClick={() => openDrawerAt('main', eng.mainIds.length)} aria-haspopup="dialog" title="Add a block" style={textBtn('secondary')}>+ Add block</button>
+        <button type="button" onClick={() => setStyleOpen((o) => !o)} disabled={!selectedId} aria-pressed={styleOpen} title={selectedId ? 'Style the selected block' : 'Select a block first'} style={textBtn(selectedId ? 'secondary' : 'disabled')}>Style</button>
         <Divider />
         <div role="group" aria-label="History" style={{ display: 'inline-flex', gap: 2 }}>
           <button type="button" onClick={eng.undo} disabled={!eng.canUndo} aria-label="Undo" title="Undo" style={iconBtn(false, !eng.canUndo)}><UndoIcon flip={false} /></button>
@@ -265,9 +270,21 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
           </div>
         </div>
 
-        {/* library drawer floats over the canvas (co-design 1) */}
+        {/* library drawer (left) + style panel (right) float over the canvas (co-design 1) */}
         <LibraryDrawer open={!!drawer} onClose={() => setDrawer(null)} sourceReady={sourceReady}
           onInsertBlock={insertBlockFromLibrary} onInsertPattern={insertPatternFromLibrary} />
+        {(() => {
+          if (!styleOpen || !selectedId) return null;
+          const t = blocks.find((b) => b.id === selectedId)?.type;
+          const spec = t ? blockSpec(t) : null;
+          const sid = selectedId;
+          return spec ? (
+            <StylePanel spec={spec} style={eng.styleOf(sid)} canDelete={eng.canDelete(sid)}
+              onChange={(p) => eng.setStyle(sid, p)} onClose={() => setStyleOpen(false)}
+              onDuplicate={() => { const nid = eng.duplicate(sid); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
+              onDelete={() => doDelete(sid)} />
+          ) : null;
+        })()}
       </div>
 
       {/* ---- toasts ---- */}

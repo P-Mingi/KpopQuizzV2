@@ -38,6 +38,7 @@ export interface BlockStyle {
   density?: SectionDensity;
   accent?: string | null;        // per-block accent, contrast-clamped (Phase 2+)
   text?: BlockTextStyle;
+  divider?: 'none' | 'hairline' | 'space';   // separator above the block (Phase 2)
 }
 
 // --- one placed block ------------------------------------------------------

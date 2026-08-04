@@ -1,0 +1,55 @@
+V-BUILDER-2 step 5 - the style panel (locked co-design 3, L-021)
+
+A floating RIGHT drawer, contextual to the selected block: it renders ONLY the groups the
+block's BlockSpec styleOptions declare, retargets on selection change, and writes token-
+governed patches through the step-3 engine (optimistic + validated save + revert). This
+step also built the per-block STYLE PIPELINE the panel needs: ModulePlacement gains
+background/radius/density/accent/textScale/divider (rides the jsonb, NO migration); the
+converter + validator + renderer thread them; unstyled blocks stay bare (byte-identical).
+Driven live on /verse/bts/build; bts draft reset to {} before + after.
+
+ACCEPTANCE 1 - PER-BLOCK TRUTH (groups match styleOptions exactly, unsupported absent):
+  members (BOX styleOptions, no 'text')  -> panel groups = [Layout, Surface, Color]
+  intro   (TEXTBOX, adds 'text')          -> panel groups = [Layout, Surface, Color, Text]
+  The TEXT group is ABSENT on members and PRESENT on intro, matching each spec's
+  styleOptions. SURFACE renders frame + background + corners + divider (all in BOX).
+  (doorwayFormat is deferred: it is per-door config, not a single-block style - noted.)
+
+ACCEPTANCE 2 - RETARGET:
+  Panel open on Members; clicking the Intro block SWAPPED the panel to "Style: Intro" and
+  stayed open (retargetStaysOpen). Esc closes; deselecting (selection -> null) closes.
+
+ACCEPTANCE 3 - STYLE ROUND-TRIP (persist as tokens/enums, optimistic, survive reload):
+  Applied Card frame + Soft tint + Cozy density + Violet accent on the intro. Optimistic:
+  the canvas block immediately gained class "verse-frame-rounded", a background, padding,
+  and --verse-accent: var(--vb-accent-violet) (all four accumulated - a stale-closure bug
+  where rapid edits dropped all but the last was found + fixed with a synchronous live ref).
+  jsonb dump (scripts/vb2-dump-draft.mts):
+    intro (blk-intro-0): {"frame":"rounded","background":"soft","density":"roomy","accent":"violet"}
+  All token/enum values, never raw. Reconcile: a fresh /build/bts render shows the block
+  with the inner .verse-frame-rounded and inline
+    "background:color-mix(in srgb, var(--verse-accent) 13%, transparent);padding:1.5r..."
+  i.e. the tint + density survive reload, built from tokens.
+
+ACCEPTANCE 4 - HOSTILE VALUE REJECTED + REVERT:
+  POST a module with background:"neon-hack" -> 422 "Unknown background tint "neon-hack"."
+  (server rejects with a human sentence; the panel emits only valid keys). The panel's
+  revert is the shared commit -> hardReset path proven in step 3 (error toast + restore to
+  last saved + reload). Every style field errors the same way on an unknown value.
+
+ACCEPTANCE 5 - HEADER + BOTTOM OPS:
+  Header Duplicate -> +1 block, fresh uuid. Bottom "Delete block" -> the block is removed,
+  the 6s undo toast shows ("The story so far deleted / Undo"), the panel closes (deselect);
+  Undo restored it in the draft. Delete is ABSENT on seoCritical blocks. (Collapse in the
+  header collapses/closes the panel; duplicate is the step-3 engine op.)
+
+ACCEPTANCE 6 - PUBLISHED BYTE-IDENTICAL + GATES:
+  /verse/bts main column 21380 == baseline (unstyled blocks stay bare; per-block style is
+  opt-in and rides the draft, never live unless published). tsc 0, check:routes 338,
+  check:verse-tokens green; vb2-stable-id-verify + _vbuilder1-parity + _vbuilder1-validator
+  + _vbuilder1-registry + test-play-untouched ("PLAY LAYOUT LAW HOLDS") + test-vtemplates +
+  test-vpages-gates + test-vtext-fold all PASS.
+
+DEVIATIONS (Cowork-ruled): the Width 1-12 control is NOT built (Phase 3); the span field is
+untouched. Alignment is NOT in the panel (toolbar-only, L-021). Accent offers World default
++ swatches only (no free hex); the validator still accepts a clamped readable hex (L-020).

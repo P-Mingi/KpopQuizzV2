@@ -709,6 +709,20 @@ body {
    .vb-block, so this never touches the reader render. */
 [data-build-canvas] .vb-block { min-height: 2rem; }
 
+/* V-BUILDER-2 step 5 - the block-accent swatch palette. The style panel offers these as
+   named swatches (World default + these); a per-block accent resolves to one of these
+   tokens (never a raw hex from panel source). Concrete colours live here, in CSS. */
+:root {
+  --vb-accent-violet: #7c5cfc;
+  --vb-accent-blue: #2f6bff;
+  --vb-accent-green: #12a150;
+  --vb-accent-amber: #e8912a;
+  --vb-accent-rose: #e6417a;
+}
+/* per-block dividers (step 5): a hairline rule or a plain gap above the block. */
+.verse-bdiv-hairline { height: 1px; background: var(--verse-line); margin: 0.7rem auto; max-width: 92%; }
+.verse-bdiv-space { height: 1.4rem; }
+
 /* Dividers - OPT-IN. Default ('none'/'line') renders nothing. Redesigned as a quiet
    hairline or a single centered accent dot, never dotted noise. */
 .verse-divider { margin: calc(var(--v-space-section) * 0.55) auto; }
