@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { SpaceHomeRenderer } from '@/components/verse/presentation/space-home-renderer';
+import { CompositionRenderer } from '@/components/verse/presentation/composition-renderer';
+import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
@@ -33,7 +34,10 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       <div className="lg:col-span-3 mb-6">
         <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
       </div>
-      <SpaceHomeRenderer space={space} presentation={space.presentation} backlinks={backlinks} />
+      {/* V-BUILDER-1 step 3: the home now renders THROUGH the unified Composition
+          (presentation -> composition -> the one renderer). Byte-identical to before
+          (the converter is lossless; proven on bts/stray-kids/ateez). */}
+      <CompositionRenderer space={space} composition={presentationToComposition(space.presentation)} backlinks={backlinks} />
     </div>
   );
 }
