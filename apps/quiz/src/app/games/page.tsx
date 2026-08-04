@@ -6,6 +6,7 @@ import { GamesHub } from '@/components/game/games-hub';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
+import { pickDaily } from '@/lib/games/daily-rotation';
 import type { Metadata } from 'next';
 
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders all game
@@ -65,8 +66,14 @@ export default async function GamesPage() {
     sortIt: SORT_IT_PLAYLISTS.length,
     matchUp: MATCH_UP_PLAYLISTS.length,
   };
-  // One teaser: the live (public) ranking with the most votes; none if nothing is live yet.
-  const liveRanking = rankings.filter((r) => r.public).sort((a, b) => b.total_votes - a.total_votes)[0] ?? null;
+  // Featured live ranking, rotated DAILY among the live (public) rankings by UTC
+  // day (deterministic, ISR-safe: no randomness, so the cached render simply
+  // re-picks on revalidation). Drives the hub's "changes daily" badge. The sort
+  // gives a stable order (votes, then a key tiebreak) before the date pick.
+  const publicRankings = rankings
+    .filter((r) => r.public)
+    .sort((a, b) => b.total_votes - a.total_votes || `${a.group_slug}:${a.question_type}`.localeCompare(`${b.group_slug}:${b.question_type}`));
+  const liveRanking = pickDaily(publicRankings);
 
   return (
     <div className="pb-24">

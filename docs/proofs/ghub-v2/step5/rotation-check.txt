@@ -1,0 +1,3 @@
+same UTC day deterministic: true (pick=A)
+rotation over 6 days: A B C D A B
+empty -> null: true
