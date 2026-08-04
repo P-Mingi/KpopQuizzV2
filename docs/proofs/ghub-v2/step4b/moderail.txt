@@ -1,0 +1,3 @@
+  /games/sort-it/[slug]: GameModeRail=2  h1=1  rail-fetch=1
+  /games/match-up/[slug]: GameModeRail=2  h1=1  rail-fetch=1
+  /games/name-them-all/[slug]: GameModeRail=2  h1=1  rail-fetch=1

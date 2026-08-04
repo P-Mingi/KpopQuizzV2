@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { NameThemAllPlayer } from '@/components/game/name-them-all-player';
+import { GameModeRail } from '@/components/game/game-mode-rail';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getNameThemAllItems } from '@/lib/db/queries/name-them-all';
 import { NAME_THEM_ALL_PLAYLISTS, getNameThemAllPlaylist } from '@/lib/games/name-them-all';
@@ -55,6 +56,18 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
   const items = await safeFetch(getNameThemAllItems(slug), [], '[name-them-all] getItems');
   if (items.length === 0) notFound();
 
+  // In-game mode rail: live sibling variants only (min-gate, real data).
+  const rail = (await Promise.all(
+    NAME_THEM_ALL_PLAYLISTS.map(async (p) => ({
+      slug: p.slug,
+      label: p.title,
+      noun: p.itemNoun,
+      count: p.slug === slug ? items.length : (await safeFetch(getNameThemAllItems(p.slug), [], `[name-them-all rail] ${p.slug}`)).length,
+    })),
+  ))
+    .filter((r) => r.count > 0)
+    .map((r) => ({ slug: r.slug, label: r.label, sub: `${r.count} ${r.noun}` }));
+
   const intro = `${playlist.blurb} There are ${items.length} real K-pop ${playlist.itemNoun} to name before the timer runs out. Spelling is matched loosely, so punctuation-heavy names like (G)I-DLE and f(x) still count. Free and no sign-up.`;
 
   const webPageLd = {
@@ -79,6 +92,7 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
         <h1 className="game-intro-h1">{playlist.title}</h1>
         <p className="game-intro-p">{intro}</p>
       </section>
+      <GameModeRail base="/games/name-them-all" current={slug} items={rail} label="Switch Name Them All mode" />
       <NameThemAllPlayer playlist={playlist} items={items} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { MatchUpPlayer } from '@/components/game/match-up-player';
+import { GameModeRail } from '@/components/game/game-mode-rail';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getMatchUpPairs } from '@/lib/db/queries/match-up';
 import { MATCH_UP_PLAYLISTS, getMatchUpPlaylist } from '@/lib/games/match-up';
@@ -54,6 +55,17 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
   const pool = await safeFetch(getMatchUpPairs(slug), [], '[match-up] getPairs');
   if (pool.length === 0) notFound();
 
+  // In-game mode rail: live sibling variants only (min-gate, real data).
+  const rail = (await Promise.all(
+    MATCH_UP_PLAYLISTS.map(async (p) => ({
+      slug: p.slug,
+      label: p.title,
+      count: p.slug === slug ? pool.length : (await safeFetch(getMatchUpPairs(p.slug), [], `[match-up rail] ${p.slug}`)).length,
+    })),
+  ))
+    .filter((r) => r.count > 0)
+    .map((r) => ({ slug: r.slug, label: r.label, sub: `${r.count} pairs` }));
+
   const intro = `${playlist.blurb} Each round samples ${playlist.round} pairs from a pool of ${pool.length} real matches, so the board is different every time. It is free, needs no sign-up, and plays on mobile or desktop.`;
 
   const webPageLd = {
@@ -78,6 +90,7 @@ export default async function MatchUpPlaylistPage({ params }: PageProps): Promis
         <h1 className="game-intro-h1">{playlist.title}</h1>
         <p className="game-intro-p">{intro}</p>
       </section>
+      <GameModeRail base="/games/match-up" current={slug} items={rail} label="Switch Match-Up mode" />
       <MatchUpPlayer playlist={playlist} pool={pool} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
