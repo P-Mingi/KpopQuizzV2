@@ -1,75 +1,109 @@
-# /caveman report - V-BUILDER-1 step 6 + Working System V2
+# G-HUB v2 - fork worker REPORT (play-ghub)
 
-Mission docs/loop/MISSION.md executed top to bottom. Gate verdict noted: step 5
-APPROVED, accent stays a contrast-clamped hex (Phase 2 panel = swatch-only, no
-free hex field), Phase 2 note logged (builder UI never offers delete on
-seoCritical; auto-injection stays the server backstop). No code change for the
-ruling.
+Caveman mode. This is the PLAY fork report (Games hub redesign, ledger
+L-032..L-034), separate from the main worker's Verse REPORT on `main`.
 
-## PART 1 - STEP 6 closing sweep: ALL GREEN (commit f13ddb9)
+Branch `play-ghub`, off base `79577c4`. NEVER pushed, NEVER merged, main never
+touched. Owner reviews + merges (owner act, not mine).
 
-No code change needed; every gate already held. Proofs saved as files under
-`docs/proofs/vbuilder1-step6/`:
+## Commits (one per step, plus one bug fix)
 
-- check:routes -> 336 page routes reachable
-- check:verse-tokens -> token gate passed
-- test-vpages -> "V-PAGES gates hold"
-- test-vtemplates -> "structure switches, nothing else moves"
-- test-vtext-fold -> "V-TEXT fold law holds"
-- play-probe (test-play-untouched) -> "PLAY LAYOUT LAW HOLDS: 720px, verse-page-free"
-- V-BUILDER-1 harnesses: parity ALL PASS, registry complete, validator 8/8,
-  marks 3/3 (published parity)
-- em-dash grep across the Verse surface -> none
-- a11y: the six new mark buttons carry aria-pressed + aria-label inside the
-  role=toolbar roving-tabindex nav
-- full build -> exit 0, "Compiled successfully"
+- `dc5f7d0` step 1 - inventory + BEFORE indexable baseline
+- `6d10596` step 2 - new hub page per prototype
+- `d393716` step 3a - registry lobbies as image mode-card grids
+- `a616b5c` step 3b - DB lobbies CSS-art (legal wall) + tot mapping fix
+- `d175538` step 4a - variant auto-start + last-played (registry games)
+- `a55bcc5` step 4b - in-game mode rail (registry games)
+- `30cb784` step 5 - daily ranking rotation (date-deterministic, ISR-safe)
+- `5dc2227` step 6 fix - namespace collision `.ghub-` -> `.gh2-`
+- `2fae286` step 6 - sweep + render verification
 
-Phase 1 of the Verse Builder (unified block model) is COMPLETE: schema +
-lossless converter, complete BlockSpec registry, one renderer swapped
-byte-identical, full validator with clamps, six token-governed text marks. All
-five steps proven, six commits (f1bbc35 A2 ... 4b24dff step4, f13ddb9 step6).
+## What built
 
-## PART 2 - Working System V2 one-time setup (separate commit: this one)
+- Hub /games rebuilt to prototype: no hero carousel. Slim header ("Pick your
+  game. You're in, in one tap." + "1 tap = playing") -> TODAY rail (blind test of
+  the day + real streak, min-gate; K-pop Idle coming-soon teaser = non-link div)
+  -> ALL GAMES grid of CSS-art photocard tiles, each two actions (Play -> default
+  variant, "All modes . N" -> lobby, N>=2) -> live-ranking bar.
+- 5 lobbies -> image mode-card grids (CSS-art covers).
+- Variant pages AUTO-START on 3 registry games (sort-it, match-up, name-them-all):
+  interstitial dead, game plays on arrival, SEO copy (H1 + intro + JSON-LD) stays
+  server-rendered above. this-or-that already auto-starts.
+- In-game mode rail on the 3 registry games: CSS-art image cards, links to live
+  siblings, current highlighted. Cross-links siblings (SEO).
+- Last-played memory: players write {game:slug} to localStorage; hub upgrades
+  Play href client-side (server href stays crawlable default).
+- Daily ranking rotation: pickDaily() picks by UTC day, deterministic, ISR-safe.
 
-1. **Bus + proofs on disk.** `docs/loop/` (MISSION.md received, REPORT.md this
-   file, BLOCKED.md template), `docs/proofs/<step-id>/`, `docs/pending-migrations/`
-   (owner-run SQL drop). `.gitignore` changed from `docs/` to `docs/*` + negations
-   so ONLY the working-system paths track; the private docs stay ignored (verified
-   with git check-ignore).
-2. **Hooks (.claude/, active on disk).** `guard.py` PreToolUse hard-blocks:
-   `git push`, any write under `supabase/migrations/`, and edits to the gate/proof
-   scripts (`scripts/_*.mts`, `check-*.mts`, `test-*.mts` = the ratchet law).
-   Tested: 4 hostile inputs blocked, normal edits + git commit allowed, malformed
-   input fails OPEN (a hook bug can never brick the agent). `stop-gate.sh` Stop
-   hook keeps tsc green before a turn ends.
-3. **CLAUDE.md** gains the RATCHET LAW, the NO-PLACEHOLDER rule, and the LOOP
-   CONTRACT (self-correct until green, max 10 iterations, else BLOCKED.md + stop).
-4. **.claude/skills/verse-laws/SKILL.md** (~85 lines): every standing law encoded
-   for auto-load - SEO invariant + parity, reading-order, one-H1, token gate + ink
-   floor, min-gate, ISR fail-closed, privacy fail-closed, 1000-row cap, middleware
-   allowlist, XSS-at-sinks, crawlable collapse, measure-66ch, em-dash ban,
-   commit-not-push, no-new-deps, migrations-owner-run, Play triple-proof, ratchet,
-   no-placeholder, real-data, and the loop contract.
-5. **Folded docs:** verse-project.md, VERSE-LEDGER.md, COWORK-HANDOFF.md,
-   VERSE-WORKING-SYSTEM-V2.md, docs/loop/, docs/proofs/ - now tracked.
+## Findings (bugs found + fixed by the sweep)
 
-## Flags for the owner / Cowork
+1. LEGAL WALL (step 3b): /games/this-or-that/all + /games/name-all showed idol
+   photos (top_entity.image / item.image_url). Replaced with CSS-art. 0 idol
+   refs after. Proof: step3b/legal-wall.txt.
+2. TOT MAPPING INVERSION (step 3b): step 2 sent Play -> catalog, All modes ->
+   game (backwards). /games/this-or-that IS the game; /all is the catalog. Fixed.
+3. CSS NAMESPACE COLLISION (step 6): `.ghub-*` is the pre-existing GROUP-hub
+   namespace; my games-hub reused it (.ghub-hero/-play/-tile collided, group-hub
+   rules won on /games). Renamed my whole namespace to `.gh2-*`. Proven fixed:
+   .gh2-play computed bg = --brand in the browser. Proof: step6/collision.txt.
 
-- **Stop hook = tsc only (deliberate).** The mission said "tsc + build". A full
-  `next build` on EVERY turn-end is ~2 min and clobbers the dev server's .next, so
-  it would make the agent unusable and risk transient blocks from concurrent
-  sessions. I scoped the Stop hook to `tsc --noEmit` (the reliable "not red"
-  gate); the full build + route + token gates run at every step / closing sweep
-  (where they already run). If you want a heavier Stop gate, say so and I add
-  routes+tokens (fast) or the full build (slow) - one line.
-- **Hooks + verse-laws skill are NOT committed.** They live in `.claude/`, which is
-  gitignored, and the mission's fold-list is docs-only. They are active on this
-  machine. If you want them versioned/shared, I un-ignore `.claude/settings.json`
-  + `.claude/hooks/` + `.claude/skills/verse-laws/` on your word.
-- **Skill installs left untracked:** the `npx skills add` output (`.agents/`,
-  `skills-lock.json`) is untracked; not in scope for this commit.
+## BEFORE/AFTER indexable diffs (non-byte-identical, justified per SEO parity law)
+
+Per-step diffs live in docs/proofs/ghub-v2/step*/parity*.md. Summary of the
+non-identical ones (all identical-or-richer, zero links/headings lost):
+
+- HUB (step2/parity-diff.md): every BEFORE link kept (personality, blindtest,
+  this-or-that/all, name-them-all, sort-it, match-up, rankings, rankings/{g}/{t});
+  ADDED variant deep-links + /battle + /games/this-or-that. One H1. JSON-LD
+  ItemList kept + Duel added. Card microcopy reworded per prototype (names +
+  links intact); blind test moved to TODAY rail (link kept); eyebrow "Games"
+  dropped (nav tab + H1 still name the page). Justification: the locked redesign.
+- LOBBIES (step3/step3b): covers ADDED only (aria-hidden art); H1, header, variant
+  links, JSON-LD unchanged. this-or-that/all: dropped decorative idol <img alt="">
+  + arrow (legal wall) - no indexable text/link lost.
+- VARIANT PAGES (step4a): page H1 + intro + JSON-LD untouched; killing the
+  interstitial DROPS a duplicate h2, cleaner headings. Mode rail (step4b) ADDS
+  sibling links (richer). One H1 each.
+- RANKING BAR (step5): still emits /rankings/{g}/{t} + /rankings every day; only
+  the featured ranking rotates. Link set unchanged.
+
+## Verification (step 6)
+
+- Production `next build`: EXIT 0, 606/606 static pages, 0 errors. Variant pages
+  prerender as SSG. Proof: step6/build.txt.
+- Browser render (worktree dev server :3099): hub faithful in LIGHT + DARK, no
+  hydration errors; sort-it variant AUTO-STARTS (game playing, timer, mode rail,
+  no interstitial); 375px no horizontal overflow, 44px+ targets; collision fix
+  proven live. Proof: step6/verification.md. (Screenshots inline in session; the
+  in-app browser has no disk-capture path - documented with measured state.)
+- Known benign: React "script tag" dev warning x2 = the SEO JSON-LD scripts,
+  pre-existing in the base, correct (JSON-LD must be a <script> for crawlers).
+
+## Gates green
+
+tsc 0 . check:routes 335 . build green . em-dash/en-dash 0 across all authored
+files . collision resolved . no gate/test file edited (ratchet) . no push (law
+15) . no new deps (law 16, prototype Unbounded/Instrument-Sans NOT added).
+
+## Owner decisions flagged (not blockers)
+
+- FONT: prototype uses Unbounded + Instrument Sans (Google Fonts). Rendered
+  through the app's own fonts + Play tokens instead (law 16 + app pipeline). Want
+  Unbounded display face? Say so, scoped add.
+- name-all placement: kept as its own rosters lobby + the name-them-all cross-
+  link (not folded into name-them-all). Reconcilable if you prefer folding.
+- Duel 1v1 tile -> /battle (no /duel route exists).
+
+## DEFERRED (honest gap, flagged - NOT done)
+
+- name-all (Name All Members) auto-start + in-game mode rail: name-all-player is
+  structurally different (inline conditional render, plain startGame(), roster
+  variants) - higher render-blind risk, so NOT auto-started. Its "Start game"
+  interstitial is STILL LIVE. Its lobby got the legal-wall CSS-art fix (done).
+  Recommend doing its auto-start next with a live render check.
 
 ## Status
 
-Phase 1 closes on Cowork's read of this report. Nothing pushed. Phase 2 not
-started. Awaiting the next mission in docs/loop/MISSION.md.
+Steps 1-6 substantially DONE + verified (build + browser). One deferred gap
+(name-all auto-start/rail) flagged above. Nothing pushed, nothing merged, main
+untouched. Awaiting owner + Cowork review.
