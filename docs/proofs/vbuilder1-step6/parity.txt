@@ -1,0 +1,5 @@
+PASS bts         modules=0 blocks=0  render-parity=true meta-lossless=true stable-ids=true
+PASS stray-kids  modules=9 blocks=9  render-parity=true meta-lossless=true stable-ids=true
+PASS ateez       modules=8 blocks=8  render-parity=true meta-lossless=true stable-ids=true
+
+ALL PASS: converter is lossless + byte-parity on the renderer input.

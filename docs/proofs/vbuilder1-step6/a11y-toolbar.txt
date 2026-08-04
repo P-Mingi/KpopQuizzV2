@@ -1,0 +1,13 @@
+a11y - the six new mark buttons (section-editor.tsx):
+200:        <Btn label="U" name="Underline" on={() => editor.chain().focus().toggleUnderline().run()} active={editor.isActive('underline')} />
+201:        <Btn label="S" name="Strikethrough" on={() => editor.chain().focus().toggleStrike().run()} active={editor.isActive('strike')} />
+203:        <Btn label="HL" name="Highlight" on={() => editor.chain().focus().toggleMark('highlight', { tint: 'yellow' }).run()} active={editor.isActive('highlight')} />
+204:        <Btn label="A-" name="Smaller text" on={() => editor.chain().focus().toggleMark('fontSize', { size: 'S' }).run()} active={editor.isActive('fontSize', { size: 'S' })} />
+205:        <Btn label="A+" name="Larger text" on={() => editor.chain().focus().toggleMark('fontSize', { size: 'L' }).run()} active={editor.isActive('fontSize', { size: 'L' })} />
+206:        <Btn label="Left" name="Align left" on={() => setAlign('left')} active={editor.isActive({ textAlign: 'left' })} />
+207:        <Btn label="Center" name="Align center" on={() => setAlign('center')} active={editor.isActive({ textAlign: 'center' })} />
+--- Btn renders aria-pressed + aria-label; toolbar is role=toolbar with roving tabindex ---
+164:      aria-pressed={active} aria-label={name ?? label}>{label}</button>
+197:      <div ref={toolbar.ref} onKeyDown={toolbar.onKeyDown} onFocusCapture={toolbar.onFocusCapture} className="v-toolbar flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
+12:import { useToolbarNav } from './toolbar-nav';
+45:  const toolbar = useToolbarNav();

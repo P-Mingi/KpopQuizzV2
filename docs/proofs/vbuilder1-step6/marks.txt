@@ -1,0 +1,6 @@
+PASS  published parity: indexable text unchanged by marks
+PASS  marks render as presentational wrappers (u/s/strong/mark/size/align)
+PASS  sanitizer clamps hostile tint/size/align (no raw hex/px/unknown align leaks)
+
+--- rendered HTML ---
+<h2 id="stay" class="verse-align-center">STAY</h2><p class="verse-align-center"><span class="verse-size-L"><mark class="verse-hl verse-hl-yellow"><u><strong>Eight members</strong></u></mark></span>, one fire<s> forever</s></p>

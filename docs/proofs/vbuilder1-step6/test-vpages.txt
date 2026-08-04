@@ -1,0 +1,70 @@
+gate 1: kinds
+  ok  unknown kind rejected
+  ok  kind outside the default set rejected on create
+  ok  enabled kind accepted on create
+  ok  default-set kind accepted on create
+  ok  existing page of a non-enabled kind still validates (enablement gates CREATE only)
+gate 2: slug + title shape
+  ok  bad slug rejected
+  ok  overlong slug rejected
+  ok  empty title rejected
+  ok  unknown status rejected
+  ok  clean meta accepted
+gate 3: facts demand sources
+  ok  fact value without source rejected
+  ok  http (non-https) source rejected
+  ok  fact with https source accepted + kept as {value, source}
+  ok  empty fact field is simply absent (drafts may be incomplete)
+gate 4: ranked methodology
+  ok  publish without methodology rejected
+  ok  review without methodology rejected (cannot leave draft)
+  ok  draft without methodology allowed (work in progress)
+  ok  publish with a real methodology accepted
+gate 5: living-persons exclusions, structural on EVERY kind
+  ok  excluded topic in title rejected (idol-capable kind)
+  ok  excluded topic rejected on a NON-idol kind too (universal law)
+  ok  excluded topic in slug rejected
+  ok  excluded topic inside an infobox value rejected
+  ok  clean text passes the exclusion scan
+gate 6: typed infobox
+  ok  unknown infobox key rejected
+  ok  year out of range rejected
+  ok  select outside options rejected
+  ok  non-https url rejected
+  ok  non-number rejected
+  ok  typed values sanitized + trimmed
+gate 7: registry mechanics
+  ok  no config -> the default set
+  ok  explicit enablement narrows to the list
+  ok  unregistered ids in config are ignored (config cannot invent kinds)
+  ok  encyclopedia-style full enablement works
+  ok  a defaultEnabled kind missing from the registry throws at build
+gate 8: presentation.enabledKinds config shape
+  ok  enabledKinds accepted + deduped
+  ok  invalid kind id shape rejected
+  ok  non-array rejected
+gate 9: wiki slug resolution order (REQUIREMENT 1: live page wins)
+  ok  live page beats an alias at the same slug (alias can never shadow)
+  ok  alias alone 301s to the live slug
+  ok  no live, no alias -> 404
+gate 10: the rabbit-hole ledger (extraction, diff, wanted semantics)
+  ok  mention + link extracted, duplicate + foreign-space + external ignored
+  ok  wiki ref extracted from a mention chip
+  ok  entity ref extracted from a link mark
+  ok  entity targets carry the entity: prefix
+  ok  unresolved wiki target IS wanted
+  ok  entity target is NEVER wanted
+  ok  resolved wiki target is not wanted
+  ok  link diff inserts and removes exactly the delta
+gate 11: REQUIREMENT 1 planners (create claims the URL, rename never chains)
+  ok  create at S deletes any alias at S (the live page claims the URL)
+  ok  rename writes the old-slug alias (id-anchored: no chains possible)
+  ok  rename deletes any alias at the NEW slug (nothing shadows the live URL)
+gate 12: ONE anchor rule (internal same-tab no-nofollow, external cite)
+  ok  site-relative link renders verse-link, same tab
+  ok  internal link carries no target and no nofollow
+  ok  own-origin absolute URL is internalized to a relative same-tab link
+  ok  external link stays a new-tab nofollow citation
+
+55 passed, 0 failed
+V-PAGES gates hold.

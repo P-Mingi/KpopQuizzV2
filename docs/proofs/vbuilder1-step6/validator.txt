@@ -1,0 +1,10 @@
+PASS  unknown block type     -> "Unknown block type "not_a_block"."
+PASS  block cap breach       -> "Too many blocks in a section (max 24)."
+PASS  seoCritical hidden     -> ""Members" is core content and cannot be hidden."
+PASS  raw hex background     -> ""Quote highlight" background must be a theme token, not a raw color."
+PASS  un-clamped accent (not hex) -> ""Quote highlight" accent must be a hex value like #7c5cfc."
+PASS  bad span               -> "Block span must be a whole number between 1 and 12."
+PASS  duplicate block id     -> "Duplicate block id "x"."
+PASS  valid composition      -> accepted
+
+ALL PASS: validator rejects hostile config with human sentences, accepts valid.

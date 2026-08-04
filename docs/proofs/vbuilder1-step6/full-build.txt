@@ -1,0 +1,421 @@
+
+> quiz@1.0.0 build /Users/louis/IT/Dev/projects/KpopQuizzV2/apps/quiz
+> npm run check:routes && npm run check:verse-tokens && next build
+
+npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm.
+npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm.
+npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm.
+
+> quiz@1.0.0 check:routes
+> tsx scripts/check-route-allowlist.mts
+
+Route allowlist guard passed: 336 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm.
+npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm.
+npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm.
+
+> quiz@1.0.0 check:verse-tokens
+> tsx scripts/check-verse-tokens.mts
+
+Verse token gate passed: no raw hex colors in Verse surfaces.
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env.local
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 10.3s
+  Running TypeScript ...
+  Finished TypeScript in 15.3s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/617) ...
+  Generating static pages using 7 workers (154/617) 
+[q/[slug]] getPassRate failed: Error: Failed to get pass rate: TypeError: fetch failed
+    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3317)
+    at async c (.next/server/chunks/ssr/[root-of-the-server]__0~2f--e._.js:1:1279)
+    at async x (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:8399)
+  Generating static pages using 7 workers (308/617) 
+  Generating static pages using 7 workers (462/617) 
+Failed to set Next.js data cache for https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/pinterest-question-pins/feed.xml, items over 2MB can not be cached (4416109 bytes)
+✓ Generating static pages using 7 workers (617/617) in 15.7s
+  Finalizing page optimization ...
+
+Route (app)                                             Revalidate  Expire
+┌ ○ /                                                          10m      1y
+├ ○ /_not-found
+├ ƒ /[slug]
+├ ○ /about
+├ ƒ /admin
+├ ƒ /admin/ai-visibility
+├ ƒ /admin/blind-tests/create
+├ ƒ /admin/dm
+├ ƒ /admin/industry
+├ ƒ /admin/pinterest
+├ ƒ /admin/pulse
+├ ƒ /admin/quiz-bank
+├ ƒ /admin/quiz/[id]/edit
+├ ƒ /admin/quiz/search
+├ ƒ /admin/songs
+├ ƒ /admin/songs/[id]
+├ ƒ /admin/songs/add
+├ ƒ /admin/this-or-that
+├ ƒ /admin/verse
+├ ƒ /admin/verse/entities
+├ ƒ /admin/verse/quality
+├ ƒ /admin/verse/suggestions
+├ ƒ /api/activity/recent
+├ ƒ /api/admin/ai-visibility
+├ ƒ /api/admin/auto-select-qotd
+├ ƒ /api/admin/comebacks
+├ ƒ /api/admin/comebacks/[id]
+├ ƒ /api/admin/group/[id]
+├ ƒ /api/admin/group/[id]/approve
+├ ƒ /api/admin/group/[id]/merge
+├ ƒ /api/admin/mv-tracking
+├ ƒ /api/admin/mv-tracking/[id]
+├ ƒ /api/admin/notifications/send
+├ ƒ /api/admin/pending-groups
+├ ƒ /api/admin/pinterest/batches
+├ ƒ /api/admin/pinterest/export-csv
+├ ƒ /api/admin/pinterest/export-stats
+├ ƒ /api/admin/pinterest/generate-brand-pins
+├ ƒ /api/admin/pinterest/generate-bulk
+├ ƒ /api/admin/pinterest/generate-card
+├ ƒ /api/admin/pinterest/generate-pin
+├ ƒ /api/admin/pinterest/generate-question-pins
+├ ƒ /api/admin/pinterest/jobs
+├ ƒ /api/admin/pinterest/originals
+├ ƒ /api/admin/pinterest/quizzes
+├ ƒ /api/admin/pinterest/scraped
+├ ƒ /api/admin/pinterest/stats
+├ ƒ /api/admin/pinterest/upload-background
+├ ƒ /api/admin/pulse-citations
+├ ƒ /api/admin/pulse-citations/[id]
+├ ƒ /api/admin/quiz-bank/[id]
+├ ƒ /api/admin/quiz-bank/auto-schedule
+├ ƒ /api/admin/quiz/[id]
+├ ƒ /api/admin/quiz/[id]/difficulty
+├ ƒ /api/admin/quiz/[id]/remove
+├ ƒ /api/admin/quiz/[id]/restore
+├ ƒ /api/admin/quiz/upload-image
+├ ƒ /api/admin/quizzes
+├ ƒ /api/admin/report/[id]/dismiss
+├ ƒ /api/admin/search-quizzes
+├ ƒ /api/admin/set-qotd
+├ ƒ /api/admin/songs
+├ ƒ /api/admin/songs/[id]
+├ ƒ /api/admin/stats
+├ ƒ /api/admin/tot-upload
+├ ƒ /api/admin/user/[id]/ban
+├ ƒ /api/admin/user/[id]/edit
+├ ƒ /api/admin/user/[id]/unban
+├ ƒ /api/admin/users
+├ ƒ /api/admin/verse/action
+├ ƒ /api/admin/youtube-info
+├ ƒ /api/auth/check-username
+├ ƒ /api/auth/create-profile
+├ ƒ /api/auth/me
+├ ƒ /api/auth/update-profile
+├ ƒ /api/avatar/save
+├ ƒ /api/battle/[id]
+├ ƒ /api/battle/[id]/ghost
+├ ƒ /api/battle/[id]/result
+├ ƒ /api/battle/[id]/xp
+├ ƒ /api/battle/confirm
+├ ƒ /api/battle/pending
+├ ƒ /api/battle/question
+├ ƒ /api/battle/question/report
+├ ƒ /api/battle/start
+├ ƒ /api/blind-test/generate
+├ ƒ /api/blind-test/modes
+├ ƒ /api/blind-test/play
+├ ƒ /api/cheer
+├ ƒ /api/community/fans
+├ ƒ /api/cron/duel-reconcile
+├ ƒ /api/cron/mv-snapshot
+├ ƒ /api/cron/notification-prune
+├ ƒ /api/cron/prune-activity
+├ ƒ /api/cron/pulse-generate
+├ ƒ /api/cron/spotify-snapshot
+├ ƒ /api/cron/verse-refresh
+├ ƒ /api/cron/verse-role-decay
+├ ƒ /api/daily/blindtest
+├ ƒ /api/daily/blindtest/leaderboard
+├ ƒ /api/daily/blindtest/submit
+├ ƒ /api/daily/complete
+├ ƒ /api/daily/streak
+├ ƒ /api/debate/me
+├ ƒ /api/debate/report
+├ ƒ /api/debate/vote
+├ ƒ /api/debug-games
+├ ƒ /api/dev/login
+├ ƒ /api/discord
+├ ƒ /api/discord/flex
+├ ƒ /api/discord/flex/status
+├ ƒ /api/discord/widget
+├ ƒ /api/duels/next
+├ ƒ /api/duels/vote
+├ ƒ /api/fancard/[username]
+├ ƒ /api/follow
+├ ƒ /api/game/[id]/play
+├ ƒ /api/game/create
+├ ƒ /api/indexnow
+├ ƒ /api/notifications
+├ ƒ /api/notifications/mark-read
+├ ƒ /api/notifications/prefs
+├ ƒ /api/og/[slug]
+├ ƒ /api/og/group/[slug]
+├ ƒ /api/og/level-up
+├ ƒ /api/og/page
+├ ƒ /api/og/passport/[username]
+├ ƒ /api/og/personality
+├ ƒ /api/og/quiz-card
+├ ƒ /api/og/verse
+├ ƒ /api/og/verse/[slug]
+├ ƒ /api/passport/merge-anon
+├ ƒ /api/personality/result
+├ ƒ /api/qotd/publish
+├ ƒ /api/quiz/[id]
+├ ƒ /api/quiz/[id]/comment
+├ ƒ /api/quiz/[id]/edit
+├ ƒ /api/quiz/[id]/like
+├ ƒ /api/quiz/[id]/my-rank
+├ ƒ /api/quiz/[id]/play
+├ ƒ /api/quiz/[id]/questions
+├ ƒ /api/quiz/[id]/react
+├ ƒ /api/quiz/[id]/related
+├ ƒ /api/quiz/[id]/report
+├ ƒ /api/quiz/[id]/share-card
+├ ƒ /api/quiz/[id]/stats
+├ ƒ /api/quiz/[id]/time-stats
+├ ƒ /api/quiz/create
+├ ƒ /api/quiz/upload-image
+├ ƒ /api/quizzes
+├ ƒ /api/quizzes/group
+├ ƒ /api/quizzes/liked
+├ ƒ /api/quizzes/search
+├ ƒ /api/quizzes/user
+├ ƒ /api/rankings/[group]/[type]
+├ ƒ /api/rankings/index
+├ ƒ /api/search
+├ ƒ /api/share/click/[code]
+├ ƒ /api/share/generate
+├ ƒ /api/share/reddit-image
+├ ƒ /api/stats/live
+├ ƒ /api/verse/banned-terms
+├ ƒ /api/verse/binder
+├ ƒ /api/verse/can-edit
+├ ƒ /api/verse/collectible-collection
+├ ƒ /api/verse/collectibles
+├ ƒ /api/verse/collection
+├ ƒ /api/verse/comeback-mode
+├ ƒ /api/verse/discussions
+├ ƒ /api/verse/draft
+├ ƒ /api/verse/entities/search
+├ ƒ /api/verse/entity
+├ ƒ /api/verse/eras/color
+├ ƒ /api/verse/essays
+├ ƒ /api/verse/essays/reactions
+├ ƒ /api/verse/essays/series
+├ ƒ /api/verse/flags
+├ ƒ /api/verse/history
+├ ƒ /api/verse/live-now
+├ ƒ /api/verse/lock
+├ ƒ /api/verse/members
+├ ƒ /api/verse/membership
+├ ƒ /api/verse/my-spaces
+├ ƒ /api/verse/override
+├ ƒ /api/verse/pages/create
+├ ƒ /api/verse/pages/publish
+├ ƒ /api/verse/pages/rename
+├ ƒ /api/verse/pages/save
+├ ƒ /api/verse/pages/submit
+├ ƒ /api/verse/photocards
+├ ƒ /api/verse/poll
+├ ƒ /api/verse/poll/vote
+├ ƒ /api/verse/presentation
+├ ƒ /api/verse/presentation/fold
+├ ƒ /api/verse/presentation/publish
+├ ƒ /api/verse/presentation/rollback
+├ ƒ /api/verse/preview
+├ ƒ /api/verse/profile/resume
+├ ƒ /api/verse/section
+├ ƒ /api/verse/shelf
+├ ƒ /api/verse/space-config
+├ ƒ /api/verse/space-feed
+├ ƒ /api/verse/space-xp
+├ ƒ /api/verse/sticker
+├ ƒ /api/verse/suggest
+├ ƒ /api/verse/suggestions
+├ ƒ /api/verse/threads
+├ ƒ /api/verse/watch
+├ ○ /articles
+├ ● /articles/[slug]
+│ ├ /articles/best-kpop-quiz-sites-2026
+│ ├ /articles/kpop-generations-explained
+│ ├ /articles/bts-vs-blackpink-quiz
+│ └ [+16 more paths]
+├ ƒ /auth/callback
+├ ○ /avatar-studio
+├ ○ /banned
+├ ƒ /battle
+├ ○ /blind-test
+├ ƒ /blind-test/[mode]
+├ ƒ /blindtest
+├ ƒ /blindtest/[mode]
+├ ƒ /blindtest/leaderboard
+├ ○ /contact
+├ ƒ /create
+├ ƒ /daily
+├ ○ /data/pulse                                                 1h      1y
+├ ● /data/pulse/[month]                                         1h      1y
+│ └ /data/pulse/2026-07                                         1h      1y
+├ ○ /easy-kpop-quizzes
+├ ○ /faq
+├ ƒ /g/[slug]
+├ ○ /games                                                      1h      1y
+├ ○ /games/match-up                                             1h      1y
+├ ● /games/match-up/[slug]                                      1h      1y
+│ ├ /games/match-up/song-to-group                               1h      1y
+│ ├ /games/match-up/idol-to-group                               1h      1y
+│ ├ /games/match-up/song-title-halves                           1h      1y
+│ └ [+11 more paths]
+├ ○ /games/name-all                                            10m      1y
+├ ƒ /games/name-all/[slug]
+├ ○ /games/name-them-all                                        1h      1y
+├ ● /games/name-them-all/[slug]                                 1h      1y
+│ ├ /games/name-them-all/name-all-kpop-groups                   1h      1y
+│ ├ /games/name-them-all/name-all-3rd-gen-groups                1h      1y
+│ └ /games/name-them-all/name-all-4th-gen-groups                1h      1y
+├ ○ /games/sort-it                                              1h      1y
+├ ● /games/sort-it/[slug]                                       1h      1y
+│ ├ /games/sort-it/boy-group-or-girl-group                      1h      1y
+│ ├ /games/sort-it/3rd-gen-or-4th-gen                           1h      1y
+│ ├ /games/sort-it/solo-act-or-group                            1h      1y
+│ └ /games/sort-it/older-gen-or-newer-gen                       1h      1y
+├ ƒ /games/this-or-that
+├ ƒ /games/this-or-that/[slug]
+├ ○ /games/this-or-that/all                                    10m      1y
+├ ○ /guess-the-kpop-idol                                        1m      1y
+├ ○ /hard-kpop-quizzes
+├ ○ /kpop-quiz-2026                                             1m      1y
+├ ○ /kpop-true-or-false                                         1m      1y
+├ ○ /leaderboard                                                5m      1y
+├ ○ /llms.txt                                                   1d      1y
+├ ○ /login
+├ ƒ /me
+├ ○ /most-liked                                                10m      1y
+├ ○ /new                                                        5m      1y
+├ ○ /news                                                      10m      1y
+├ ƒ /notifications
+├ ○ /onboarding
+├ ○ /personality                                                1h      1y
+├ ● /personality/[group]                                        1h      1y
+│ ├ /personality/g-i-dle                                        1h      1y
+│ ├ /personality/aespa                                          1h      1y
+│ ├ /personality/ateez                                          1h      1y
+│ └ [+12 more paths]
+├ ƒ /personality/[group]/r/[member]
+├ ○ /pinterest-feed.xml                                         1h      1y
+├ ○ /privacy
+├ ○ /profile
+├ ○ /pt                                                        10m      1y
+├ ○ /pt/about
+├ ○ /pt/articles
+├ ƒ /pt/blindtest
+├ ○ /pt/easy-kpop-quizzes
+├ ○ /pt/faq
+├ ○ /pt/games                                                   1h      1y
+├ ○ /pt/guess-the-kpop-idol                                     1m      1y
+├ ○ /pt/hard-kpop-quizzes
+├ ○ /pt/kpop-quiz-2026                                          1m      1y
+├ ○ /pt/kpop-true-or-false                                      1m      1y
+├ ○ /pt/leaderboard                                             5m      1y
+├ ○ /pt/quizzes                                                10m      1y
+├ ○ /pt/stats                                                   1w      1y
+├ ● /q/[slug]                                                   1h      1y
+│ ├ /q/ultimate-bts-era-quiz-only-real-armys-survive            1h      1y
+│ ├ /q/bts-solo-era-quiz-match-the-member-to-the-music          1h      1y
+│ ├ /q/blackpink-ultimate-fan-challenge                         1h      1y
+│ └ [+394 more paths]
+├ ƒ /quiz/[id]/edit
+├ ƒ /quizzes
+├ ○ /quizzes/popular-this-month                                 6h      1y
+├ ○ /quizzes/popular-this-week                                  1h      1y
+├ ○ /quizzes/popular-today                                     30m      1y
+├ ○ /rankings                                                   1h      1y
+├ ƒ /rankings/[group]/[type]
+├ ○ /robots.txt
+├ ƒ /s/[code]
+├ ƒ /search
+├ ○ /settings
+├ ○ /sitemap.xml
+├ ○ /stats                                                      1h      1y
+├ ○ /terms
+├ ○ /trending                                                  10m      1y
+├ ○ /trivia                                                    10m      1y
+├ ● /u/[username]                                               1h      1y
+│ ├ /u/kpopquizz                                                1h      1y
+│ ├ /u/kpophistory                                              1h      1y
+│ ├ /u/light_a_matz                                             1h      1y
+│ └ [+22 more paths]
+├ ○ /verse                                                      1h      1y
+├ ƒ /verse/[slug]
+├ ƒ /verse/[slug]/about
+├ ƒ /verse/[slug]/albums/[album]
+├ ƒ /verse/[slug]/awards
+├ ƒ /verse/[slug]/changes
+├ ƒ /verse/[slug]/collectibles
+├ ƒ /verse/[slug]/community
+├ ƒ /verse/[slug]/community/[thread]
+├ ƒ /verse/[slug]/content
+├ ƒ /verse/[slug]/create
+├ ƒ /verse/[slug]/curate
+├ ƒ /verse/[slug]/discography
+├ ƒ /verse/[slug]/essays
+├ ƒ /verse/[slug]/essays/[id]
+├ ƒ /verse/[slug]/essays/write
+├ ƒ /verse/[slug]/insights
+├ ƒ /verse/[slug]/members
+├ ƒ /verse/[slug]/members/[idol]
+├ ƒ /verse/[slug]/ost
+├ ƒ /verse/[slug]/ost/[id]
+├ ƒ /verse/[slug]/patrol
+├ ƒ /verse/[slug]/photocards
+├ ƒ /verse/[slug]/photocards/[card]
+├ ƒ /verse/[slug]/quests
+├ ƒ /verse/[slug]/random
+├ ƒ /verse/[slug]/shows
+├ ƒ /verse/[slug]/shows/[id]
+├ ƒ /verse/[slug]/songs
+├ ƒ /verse/[slug]/songs/[id]
+├ ƒ /verse/[slug]/spike-build
+├ ƒ /verse/[slug]/spike-draft
+├ ƒ /verse/[slug]/studio
+├ ƒ /verse/[slug]/timeline
+├ ƒ /verse/[slug]/tours
+├ ƒ /verse/[slug]/tours/[id]
+├ ƒ /verse/[slug]/wiki
+├ ƒ /verse/[slug]/wiki/[pageSlug]
+├ ƒ /verse/[slug]/wiki/[pageSlug]/edit
+├ ƒ /verse/[slug]/wiki/new
+├ ○ /verse/community                                            5m      1y
+├ ƒ /verse/me
+├ ƒ /verse/name/[term]
+├ ƒ /verse/notifications
+├ ○ /verse/promises
+├ ƒ /verse/random
+├ ƒ /verse/tag/[tag]
+├ ○ /verse/tags                                                 1h      1y
+└ ƒ /verse/u/[username]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+BUILD EXIT: 0

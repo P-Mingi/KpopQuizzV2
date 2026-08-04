@@ -1,0 +1,27 @@
+PASS  starter: every non-structural choice survives
+PASS  starter: tabs replaced by the template's
+PASS  starter: modules replaced by the template's
+PASS  starter: enabledKinds follows the template
+PASS  starter: validates clean
+PASS  starter: all seo_critical blocks present after validation
+PASS  complete: every non-structural choice survives
+PASS  complete: tabs replaced by the template's
+PASS  complete: modules replaced by the template's
+PASS  complete: enabledKinds follows the template
+PASS  complete: validates clean
+PASS  complete: all seo_critical blocks present after validation
+PASS  encyclopedia: every non-structural choice survives
+PASS  encyclopedia: tabs replaced by the template's
+PASS  encyclopedia: modules replaced by the template's
+PASS  encyclopedia: enabledKinds follows the template
+PASS  encyclopedia: validates clean
+PASS  encyclopedia: all seo_critical blocks present after validation
+PASS  empty: every non-structural choice survives
+PASS  empty: tabs replaced by the template's
+PASS  empty: modules replaced by the template's
+PASS  empty: enabledKinds follows the template
+PASS  empty: validates clean
+PASS  empty: all seo_critical blocks present after validation
+PASS  A -> B -> A restores A exactly
+
+V-TEMPLATES: structure switches, nothing else moves.

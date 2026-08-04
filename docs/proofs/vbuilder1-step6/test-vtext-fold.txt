@@ -1,0 +1,10 @@
+PASS  split preview has the first 2 paragraphs
+PASS  split rest has the remainder
+PASS  preview + rest text equals the whole document text
+PASS  word count is real
+PASS  SSR keeps the FULL text in the served HTML
+PASS  the remainder sits inside a native <details class="v-fold">
+PASS  the preview renders before the fold
+PASS  foldPref 'inline' renders without a details fold
+
+V-TEXT fold law holds.
