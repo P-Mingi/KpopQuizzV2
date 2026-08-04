@@ -17,6 +17,9 @@ import { validatePresentation } from '@/lib/verse/presentation/validate';
 import { EMPTY_PRESENTATION } from '@/lib/verse/presentation/types';
 import { resolvePlacements } from '@/lib/verse/presentation/resolve';
 import { presentationToComposition } from '@/lib/verse/composition/convert';
+import { photocardCount } from '@/lib/verse/photocards';
+import { collectibleCount } from '@/lib/verse/collectibles';
+import { featuredEssayCount } from '@/lib/verse/essays';
 import { BuilderShell } from '@/components/verse/builder/builder-shell';
 
 import type { Metadata } from 'next';
@@ -54,6 +57,23 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
     : (validatePresentation(rawDraft).value ?? space.presentation ?? EMPTY_PRESENTATION);
   const composition = presentationToComposition({ ...draft, version: 1, modules: resolvePlacements(draft) });
 
+  // Per-space DATA-SOURCE readiness for the library's honest hints: a block whose real
+  // source is empty for this space shows its min-gate sentence instead of inserting a
+  // ghost. Only the cheaply-countable sources are asserted; anything absent defaults
+  // ready, so a hint only ever fires when the source is provably empty.
+  const gid = space.group.id;
+  const [pc, cc, ec, pollRes] = await Promise.all([
+    photocardCount(gid), collectibleCount(gid), featuredEssayCount(gid),
+    svc.from('space_polls').select('id', { count: 'exact', head: true }).eq('group_id', gid),
+  ]);
+  const polls = pollRes.count ?? 0;
+  const c = space.counts;
+  const sourceReady: Record<string, boolean> = {
+    members: c.members > 0, discography: c.albums > 0, music: c.tracks > 0,
+    spotlight: pc > 0, binder_widget: pc > 0, shelf_widget: cc > 0,
+    collections: pc + cc > 0, featured_essay: ec > 0, poll: polls > 0,
+  };
+
   return (
     <BuilderShell
       groupId={space.group.id}
@@ -63,6 +83,7 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
       hasDraft={hasDraft}
       updatedAt={updatedAt}
       composition={composition}
+      sourceReady={sourceReady}
       scopeStyle={presentationScopeStyle(space) as Record<string, string>}
     />
   );

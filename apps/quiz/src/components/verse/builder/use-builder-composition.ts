@@ -31,6 +31,23 @@ const rebuildZone = (blocks: Block[], zone: Zone, newOrder: Block[]): Block[] =>
   return blocks.map((b) => (b.zone === zone ? newOrder[i++]! : b));
 };
 
+// The OPTIMISTIC placeholder for a freshly inserted block: a labeled soft box that
+// stands in until the reconcile reload renders the real module. Empty-source blocks
+// stay a labeled strip in the builder (min-gated to nothing only at publish).
+function buildPlaceholder(d: Document, id: string, type: string): HTMLElement {
+  const wrap = d.createElement('div');
+  wrap.setAttribute('data-block-id', id);
+  wrap.setAttribute('data-block-type', type);
+  wrap.className = 'vb-block vb-inserted';
+  const name = blockSpec(type)?.name ?? type;
+  const inner = d.createElement('div');
+  inner.className = 'v-module';
+  inner.style.cssText = 'min-height:2rem;opacity:.7;font-weight:600;padding:.4rem 0';
+  inner.textContent = name;
+  wrap.appendChild(inner);
+  return wrap;
+}
+
 export interface BuilderEngine {
   composition: Composition;
   mainIds: string[];
@@ -40,7 +57,8 @@ export interface BuilderEngine {
   reorderBefore: (id: string, beforeId: string | null) => void;
   duplicate: (id: string) => string | null;
   remove: (id: string) => void;
-  insertAt: (zone: Zone, index: number) => string | null;
+  insertAt: (zone: Zone, index: number, type?: string, props?: Record<string, unknown>) => string | null;
+  insertBlocks: (zone: Zone, index: number, specs: { type: string; props?: Record<string, unknown> }[]) => string[];
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -196,30 +214,36 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
     applyOp(next, () => { el(id)?.remove(); });
   }, [composition, applyOp]);
 
-  const insertAt = useCallback((zone: Zone, index: number): string | null => {
+  // Insert one or more fresh blocks at a zone index. A PATTERN insert is just many
+  // specs: each block gets its OWN crypto.randomUUID + is placed independently, so the
+  // group DISSOLVES on arrival - every inserted block is selectable/movable/deletable.
+  const insertBlocks = useCallback((zone: Zone, index: number, specs: { type: string; props?: Record<string, unknown> }[]): string[] => {
+    if (!specs.length) return [];
     const blocks = flat(composition);
-    const newId = crypto.randomUUID();
-    const nb: Block = { id: newId, type: INSERT_TYPE, zone, props: { ...INSERT_PROPS } };
+    const made: Block[] = specs.map((s) => (s.props ? { id: crypto.randomUUID(), type: s.type, zone, props: s.props } : { id: crypto.randomUUID(), type: s.type, zone }));
     const z = zoneBlocks(blocks, zone);
     const anchor = z[index] ?? null;
     let arr: Block[];
-    if (anchor) { const ai = blocks.indexOf(anchor); arr = [...blocks.slice(0, ai), nb, ...blocks.slice(ai)]; }
-    else if (z.length) { const li = blocks.indexOf(z[z.length - 1]!); arr = [...blocks.slice(0, li + 1), nb, ...blocks.slice(li + 1)]; }
-    else arr = [...blocks, nb];
+    if (anchor) { const ai = blocks.indexOf(anchor); arr = [...blocks.slice(0, ai), ...made, ...blocks.slice(ai)]; }
+    else if (z.length) { const li = blocks.indexOf(z[z.length - 1]!); arr = [...blocks.slice(0, li + 1), ...made, ...blocks.slice(li + 1)]; }
+    else arr = [...blocks, ...made];
     const next = withBlocks(composition, arr);
     applyOp(next, () => {
       const d = doc(); if (!d) return;
-      const ph = d.createElement('div');
-      ph.setAttribute('data-block-id', newId);
-      ph.setAttribute('data-block-type', INSERT_TYPE);
-      ph.className = 'vb-block';
-      ph.innerHTML = '<blockquote class="v-module" style="opacity:.9"><p>New quote block</p></blockquote>';
       const anchorEl = anchor ? el(anchor.id) : null;
-      if (anchorEl?.parentElement) anchorEl.parentElement.insertBefore(ph, anchorEl);
-      else zoneContainer(zone)?.appendChild(ph);
+      const parent = anchorEl?.parentElement ?? zoneContainer(zone);
+      for (const b of made) {
+        const ph = buildPlaceholder(d, b.id, b.type);
+        if (anchorEl && parent && parent === anchorEl.parentElement) parent.insertBefore(ph, anchorEl);
+        else parent?.appendChild(ph);
+      }
     });
-    return newId;
+    return made.map((b) => b.id);
   }, [composition, applyOp]);
+
+  const insertAt = useCallback((zone: Zone, index: number, type: string = INSERT_TYPE, props: Record<string, unknown> = { ...INSERT_PROPS }): string | null =>
+    insertBlocks(zone, index, [{ type, props }])[0] ?? null,
+  [insertBlocks]);
 
   // ---- undo / redo (structure changes -> reconcile via reload after the save) ----
   const undo = useCallback(() => {
@@ -252,7 +276,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
 
   return {
     composition, mainIds, zoneOf, indexInZone, canDelete,
-    reorderBefore, duplicate, remove, insertAt,
+    reorderBefore, duplicate, remove, insertAt, insertBlocks,
     undo, redo, canUndo: pastRef.current.length > 0, canRedo: futureRef.current.length > 0,
     saving, savedAt, error, clearError: () => setError(null), lastOpMs, reloadKey,
   };

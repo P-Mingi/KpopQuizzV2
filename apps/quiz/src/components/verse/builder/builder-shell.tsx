@@ -12,8 +12,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { blockSpec } from '@/lib/verse/composition/registry';
 import { useBuilderComposition } from './use-builder-composition';
+import { LibraryDrawer } from './library-drawer';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
+import type { PatternSpec } from '@/lib/verse/composition/patterns';
 
 interface BlockRect { id: string; type: string; top: number; left: number; width: number; height: number }
 type Device = 'desktop' | 'tablet' | 'phone';
@@ -22,9 +24,10 @@ type Zone = Block['zone'];
 const DEVICE_W: Record<Device, number | null> = { desktop: null, tablet: 834, phone: 390 };
 const TOP_BAR_H = 52;
 
-export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, scopeStyle }: {
+export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, sourceReady, scopeStyle }: {
   groupId: number; spaceName: string; draftPath: string; previewPath: string;
-  hasDraft: boolean; updatedAt: string | null; composition: Composition; scopeStyle: Record<string, string>;
+  hasDraft: boolean; updatedAt: string | null; composition: Composition;
+  sourceReady: Record<string, boolean>; scopeStyle: Record<string, string>;
 }): React.ReactElement {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [device, setDevice] = useState<Device>('desktop');
@@ -36,6 +39,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const [deleted, setDeleted] = useState<{ id: string; label: string } | null>(null);
   const [publishing, setPublishing] = useState(false);
   const [publishMsg, setPublishMsg] = useState<string | null>(null);
+  const [drawer, setDrawer] = useState<{ zone: Zone; index: number } | null>(null);
   const [, tick] = useState(0);
 
   const measure = useCallback(() => {
@@ -99,10 +103,23 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     setDeleted({ id, label });
     if (selectedId === id) setSelectedId(null);
   }, [eng, blocks, selectedId]);
-  const doInsert = useCallback((zone: Zone, index: number) => {
-    const id = eng.insertAt(zone, index);
+  // A seam / top-bar "+" opens the library at that insert point; the drawer emits the
+  // chosen block or pattern, which the step-3 engine inserts there (fresh ids).
+  const openDrawerAt = useCallback((zone: Zone, index: number) => setDrawer({ zone, index }), []);
+  // NB: do the (side-effectful) insert directly, never inside a setState updater -
+  // React StrictMode double-invokes updaters and would insert twice.
+  const insertBlockFromLibrary = useCallback((type: string) => {
+    if (!drawer) return;
+    const id = eng.insertAt(drawer.zone, drawer.index, type, {});
     if (id) { setSelectedId(id); setFocusId(id); }
-  }, [eng]);
+    setDrawer(null);
+  }, [drawer, eng]);
+  const insertPatternFromLibrary = useCallback((p: PatternSpec) => {
+    if (!drawer) return;
+    const ids = eng.insertBlocks(drawer.zone, drawer.index, p.blocks);
+    if (ids[0]) { setSelectedId(ids[0]); setFocusId(ids[0]); }
+    setDrawer(null);
+  }, [drawer, eng]);
 
   // ---- keyboard: Tab select, Enter select->grab->drop, arrows move in grab, Esc ----
   const orderedIds = useMemo(() => blocks.map((b) => b.id), [blocks]);
@@ -199,6 +216,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
           ))}
         </div>
         <Divider />
+        <button type="button" onClick={() => openDrawerAt('main', eng.mainIds.length)} aria-haspopup="dialog" title="Add a block" style={textBtn('secondary')}>+ Add block</button>
+        <Divider />
         <div role="group" aria-label="History" style={{ display: 'inline-flex', gap: 2 }}>
           <button type="button" onClick={eng.undo} disabled={!eng.canUndo} aria-label="Undo" title="Undo" style={iconBtn(false, !eng.canUndo)}><UndoIcon flip={false} /></button>
           <button type="button" onClick={eng.redo} disabled={!eng.canRedo} aria-label="Redo" title="Redo" style={iconBtn(false, !eng.canRedo)}><UndoIcon flip /></button>
@@ -230,8 +249,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
                 onGripDragEnd={() => setDragId(null)}
                 onDuplicate={() => { const nid = eng.duplicate(selected.id); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
                 onDelete={() => doDelete(selected.id)}
-                onInsertAbove={() => doInsert(selected.type ? (eng.zoneOf(selected.id) ?? 'main') : 'main', eng.indexInZone(selected.id))}
-                onInsertBelow={() => doInsert(eng.zoneOf(selected.id) ?? 'main', eng.indexInZone(selected.id) + 1)}
+                onInsertAbove={() => openDrawerAt(eng.zoneOf(selected.id) ?? 'main', eng.indexInZone(selected.id))}
+                onInsertBelow={() => openDrawerAt(eng.zoneOf(selected.id) ?? 'main', eng.indexInZone(selected.id) + 1)}
               />
             ) : null}
             {/* drop seams shown while dragging a block */}
@@ -245,6 +264,10 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
               : blocks.length ? `${blocks.length} blocks · click one to select` : 'Loading canvas…'}
           </div>
         </div>
+
+        {/* library drawer floats over the canvas (co-design 1) */}
+        <LibraryDrawer open={!!drawer} onClose={() => setDrawer(null)} sourceReady={sourceReady}
+          onInsertBlock={insertBlockFromLibrary} onInsertPattern={insertPatternFromLibrary} />
       </div>
 
       {/* ---- toasts ---- */}

@@ -703,6 +703,12 @@ body {
 .verse-frame-sticker-border { border: 2px dashed color-mix(in srgb, var(--verse-accent) 55%, transparent); border-radius: var(--v-radius); padding: var(--v-frame-pad); }
 .verse-frame > .v-module { margin-bottom: 0; }
 
+/* V-BUILDER-2 - inside the builder canvas ONLY, give every block a minimum height so a
+   freshly inserted or min-gated block stays a visible, selectable strip (the builder-only
+   hint placeholder). It min-gates to nothing on the published page, which never carries
+   .vb-block, so this never touches the reader render. */
+[data-build-canvas] .vb-block { min-height: 2rem; }
+
 /* Dividers - OPT-IN. Default ('none'/'line') renders nothing. Redesigned as a quiet
    hairline or a single centered accent dot, never dotted noise. */
 .verse-divider { margin: calc(var(--v-space-section) * 0.55) auto; }

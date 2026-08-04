@@ -1,0 +1,56 @@
+V-BUILDER-2 step 4 - the library drawer (locked co-designs 2 + 5, L-027)
+
+A floating LEFT drawer over the canvas: Esc closes, focus-trapped, never docks, opened
+from the "+ add block" seams and a top-bar button. Blocks tab (search + frequent +
+registry categories + honest-hint cards) and Patterns tab (schematic previews + the v1
+set). Inserts run through the step-3 engine (fresh crypto.randomUUID). Driven live on
+/verse/bts/build as the admin curator; bts draft reset to {} before + after.
+
+ACCEPTANCE 1 - REGISTRY COMPLETENESS (every BlockSpec once, no hardcoded list):
+  allBlockSpecs() = 31 specs, 31 unique types. The drawer rendered 31 [data-block-card]
+  cards, 31 unique types, ZERO duplicates. Categories come from the registry: Text /
+  Media / Live / Doorways shown; layout + fan have no specs today and correctly do not
+  appear. (also _vbuilder1-registry.mts green.)
+
+ACCEPTANCE 2 - HONEST HINTS (empty source shows the reason, never a ghost):
+  bts has 0 space_polls -> the Poll card renders data-ready="0", disabled, and its title
+  is the real min-gate sentence "Hidden with no active poll." (not disabled-grey mystery).
+  members (bts has members) renders data-ready="1" and inserts. Readiness is computed
+  server-side from real counts (members/albums/tracks + photocard/collectible/essay/poll);
+  curator + none blocks are always insertable; anything uncounted defaults ready, so a
+  hint only ever fires on a provably empty source.
+
+ACCEPTANCE 3 - INSERT (block + pattern land at the seam, fresh + persisted, dissolve):
+  Block: clicking the Quote card inserted ONE block (countDelta 1) with a fresh uuid
+  (b465936b-...); the drawer closed; after the save a fresh /build/bts render contained
+  that uuid (save round-trip). [A React-StrictMode double-insert bug was caught + fixed:
+  the insert must not run inside a setState updater.]
+  Pattern: the "Meet the members" pattern inserted 2 blocks (members + discography), each
+  its OWN fresh uuid (a27ab0c6-..., 29f93203-...) - the group DISSOLVED: clicking each
+  selected it independently ("Selected: Members", "Selected: Latest releases"), and both
+  persisted in the draft.
+
+ACCEPTANCE 4 - FREQUENT ROW (local persistence):
+  After inserting Quote, reopening the drawer showed a Frequent quick-row chip for it
+  (localStorage key vb-frequent-blocks, most-recent-first, capped at 6).
+
+ACCEPTANCE 5 - DRAWER a11y:
+  role="dialog" aria-modal. On open focus moves INTO the drawer (focusIsInDrawer true);
+  Tab is trapped within (wraps first<->last); Esc closes (openedAgain -> closedByEsc);
+  focus restores to the opener on close. Every card + the tabs + search + close are
+  native buttons/inputs, so the drawer is fully keyboard-operable.
+
+ACCEPTANCE 6 - PUBLISHED BYTE-IDENTICAL + GATES:
+  /verse/bts main column 21380 == baseline, zero data-block-id (step 4 is builder-only;
+  the one CSS rule is [data-build-canvas]-scoped, so the reader render never sees it).
+  tsc 0, check:routes 338, check:verse-tokens green; vb2-stable-id-verify + _vbuilder1-
+  parity + _vbuilder1-registry + test-play-untouched ("PLAY LAYOUT LAW HOLDS") +
+  test-vtemplates + test-vpages-gates + test-vtext-fold all PASS.
+
+NOTES:
+- Patterns are pure config data (lib/verse/composition/patterns.ts), every type real in
+  the registry; the mini-previews are gray shapes only (never fabricated content).
+- Empty-source blocks inserted (lone or via a pattern) render a builder-only labeled
+  strip on the canvas (the [data-build-canvas] .vb-block min-height) and min-gate to
+  nothing on the published page.
+- The v1 quote-placeholder seam insert from step 3 is replaced: seams now open the library.
