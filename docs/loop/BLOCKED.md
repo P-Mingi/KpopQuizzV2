@@ -21,4 +21,6 @@ When resolved, the worker clears the entry and continues.
 
 ## Status: nothing blocked
 
-(No active blocker. This file is the standing template for the next one.)
+(No active blocker. The vbuilder2-step6 inline-text block was resolved by the owner:
+OPTION 2, co-design 1 amended L-044 - inline text = the existing section editor surfaced
+in place. This file is the standing template for the next one.)

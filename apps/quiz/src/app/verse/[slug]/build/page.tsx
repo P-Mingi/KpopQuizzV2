@@ -20,6 +20,7 @@ import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { featuredEssayCount } from '@/lib/verse/essays';
+import { getSection } from '@/lib/verse/content';
 import { BuilderShell } from '@/components/verse/builder/builder-shell';
 
 import type { Metadata } from 'next';
@@ -68,6 +69,14 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
   ]);
   const polls = pollRes.count ?? 0;
   const c = space.counts;
+
+  // Inline text (step 6, L-044): the editable home text sections, seeded for the existing
+  // section-editor surfaced in place. The intro block edits the group 'overview' section;
+  // add more block->section pairs here as home text blocks gain content.
+  const overview = await getSection('group', String(gid), 'overview');
+  const editableSections: Record<string, { content: unknown; base: number | null }> = {
+    overview: { content: overview.content, base: overview.currentRevisionId },
+  };
   const sourceReady: Record<string, boolean> = {
     members: c.members > 0, discography: c.albums > 0, music: c.tracks > 0,
     spotlight: pc > 0, binder_widget: pc > 0, shelf_widget: cc > 0,
@@ -84,6 +93,7 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
       updatedAt={updatedAt}
       composition={composition}
       sourceReady={sourceReady}
+      editableSections={editableSections}
       scopeStyle={presentationScopeStyle(space) as Record<string, string>}
     />
   );

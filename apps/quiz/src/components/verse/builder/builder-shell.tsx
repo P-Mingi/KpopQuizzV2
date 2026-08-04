@@ -16,6 +16,7 @@ import { LibraryDrawer } from './library-drawer';
 import { StylePanel } from './style-panel';
 import { BuilderTour } from './builder-tour';
 import { ActionSheet } from './phone-sheets';
+import { InlineTextEditor } from './inline-text-editor';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
 import type { PatternSpec } from '@/lib/verse/composition/patterns';
@@ -27,11 +28,18 @@ type Zone = Block['zone'];
 const DEVICE_W: Record<Device, number | null> = { desktop: null, tablet: 834, phone: 390 };
 const TOP_BAR_H = 52;
 
-export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, sourceReady, scopeStyle }: {
+// Text-capable blocks whose content is an editable verse_content section (L-044): the
+// inline editor surfaces the existing section-editor for these. The intro block edits the
+// group 'overview' section; extend as more home text blocks gain editable content.
+const SECTION_FOR: Record<string, string> = { intro: 'overview' };
+
+export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, sourceReady, editableSections, scopeStyle }: {
   groupId: number; spaceName: string; draftPath: string; previewPath: string;
   hasDraft: boolean; updatedAt: string | null; composition: Composition;
-  sourceReady: Record<string, boolean>; scopeStyle: Record<string, string>;
+  sourceReady: Record<string, boolean>; editableSections: Record<string, { content: unknown; base: number | null }>;
+  scopeStyle: Record<string, string>;
 }): React.ReactElement {
+  const groupSlug = previewPath.split('/').filter(Boolean).pop() ?? '';
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const shellRef = useRef<HTMLDivElement | null>(null);
   const [device, setDevice] = useState<Device>('desktop');
@@ -46,6 +54,10 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const [drawer, setDrawer] = useState<{ zone: Zone; index: number } | null>(null);
   const [styleOpen, setStyleOpen] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+  const [editing, setEditing] = useState<{ id: string; section: string; rect: BlockRect } | null>(null);
+  // The editable sections, seeded from the server. Kept in state so a save inside this
+  // session advances the base revision -> a second edit does not hit a stale-base 409.
+  const [sections, setSections] = useState(editableSections);
   const [, tick] = useState(0);
 
   const measure = useCallback(() => {
@@ -76,6 +88,17 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       setSelectedId(id); setFocusId(id);
     };
     doc.addEventListener('click', onClick, true);
+    // double-click a text-capable block -> surface the existing section editor in place.
+    const onDbl = (e: MouseEvent) => {
+      const bEl = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-block-id]');
+      const type = bEl?.getAttribute('data-block-type') ?? '';
+      const section = SECTION_FOR[type];
+      if (!bEl || !section || !editableSections[section]) return;
+      e.preventDefault(); e.stopPropagation();
+      const r = bEl.getBoundingClientRect();
+      setEditing({ id: bEl.getAttribute('data-block-id')!, section, rect: { id: bEl.getAttribute('data-block-id')!, type, top: r.top, left: r.left, width: r.width, height: r.height } });
+    };
+    doc.addEventListener('dblclick', onDbl, true);
     let raf = 0;
     const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(measure); };
     win.addEventListener('scroll', schedule, { passive: true });
@@ -86,10 +109,11 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     frame!.dataset.wired = '1';
     (frame as unknown as { _vbCleanup?: () => void })._vbCleanup = () => {
       doc.removeEventListener('click', onClick, true);
+      doc.removeEventListener('dblclick', onDbl, true);
       win.removeEventListener('scroll', schedule); win.removeEventListener('resize', schedule);
       ro.disconnect(); cancelAnimationFrame(raf);
     };
-  }, [measure]);
+  }, [measure, editableSections]);
 
   useEffect(() => () => { (iframeRef.current as unknown as { _vbCleanup?: () => void })?._vbCleanup?.(); }, []);
   useEffect(() => { const t = setTimeout(measure, 80); return () => clearTimeout(t); }, [device, measure]);
@@ -231,8 +255,23 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     finally { setPublishing(false); }
   }, [groupId]);
 
+  // ---- inline text (L-044): surface the existing section editor over a text block ----
+  const openEdit = useCallback((b: BlockRect) => {
+    const section = SECTION_FOR[b.type];
+    if (!section || !sections[section]) return;
+    setEditing({ id: b.id, section, rect: b });
+  }, [sections]);
+  // On save the existing rail returns the new revision; advance the base + content so a
+  // second edit does not 409, then reload the canvas so the block shows the saved text.
+  const onSectionSaved = useCallback((revId: number, content: unknown) => {
+    if (editing) setSections((prev) => ({ ...prev, [editing.section]: { content, base: revId } }));
+    setEditing(null);
+    iframeRef.current?.contentWindow?.location.reload();
+  }, [editing]);
+
   // ---- derived ----
   const selected = blocks.find((b) => b.id === selectedId) ?? null;
+  const selectedEditable = !!(selected && SECTION_FOR[selected.type] && sections[SECTION_FOR[selected.type]!]);
   const focused = focusId && focusId !== selectedId ? blocks.find((b) => b.id === focusId) ?? null : null;
   const width = DEVICE_W[device];
   const hasDraftNow = hasDraft || eng.savedAt !== null;
@@ -291,6 +330,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
                 grabbing={grab?.id === selected.id}
                 canDelete={eng.canDelete(selected.id)}
                 showHandles={!isPhone}
+                editable={selectedEditable}
+                onEdit={() => openEdit(selected)}
                 onGripDragStart={() => setDragId(selected.id)}
                 onGripDragEnd={() => setDragId(null)}
                 onDuplicate={() => { const nid = eng.duplicate(selected.id); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
@@ -309,6 +350,21 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
               : selected ? `Selected: ${labelFor(selected.type)}`
               : blocks.length ? `${blocks.length} blocks · click one to select` : 'Loading canvas…'}
           </div>
+
+          {/* inline text (L-044): the existing section editor, surfaced over the block. */}
+          {editing && sections[editing.section] ? (
+            <InlineTextEditor
+              rect={editing.rect}
+              phone={isPhone}
+              groupId={groupId}
+              groupSlug={groupSlug}
+              section={editing.section}
+              initialContent={sections[editing.section]!.content}
+              baseRevisionId={sections[editing.section]!.base}
+              onClose={() => setEditing(null)}
+              onSaved={onSectionSaved}
+            />
+          ) : null}
         </div>
 
         {/* library drawer (left) + style panel (right) float over the canvas (co-design 1) */}
@@ -333,9 +389,9 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       {deleted ? <Toast tone="neutral" onClose={() => setDeleted(null)} action={{ label: 'Undo', onClick: () => { eng.undo(); setDeleted(null); } }}>{deleted.label} deleted</Toast> : null}
       {publishMsg ? <Toast tone="neutral" onClose={() => setPublishMsg(null)}>{publishMsg}</Toast> : null}
 
-      {/* phone: a tapped block raises the action sheet (co-design 4). Style opens the
-          style sheet; Edit-content arrives with inline text (see BLOCKED.md). */}
-      {isPhone && selectedId && !styleOpen && !drawer ? (() => {
+      {/* phone: a tapped block raises the action sheet (co-design 4). "Edit content"
+          opens the same section editor as a bottom sheet; Style opens the style sheet. */}
+      {isPhone && selectedId && !styleOpen && !drawer && !editing ? (() => {
         const b = blocks.find((x) => x.id === selectedId);
         if (!b) return null;
         const zone = eng.zoneOf(selectedId) ?? 'main';
@@ -343,6 +399,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
         const j = zids.indexOf(selectedId);
         const nid = selectedId;
         const acts = [
+          ...(selectedEditable ? [{ key: 'edit', label: 'Edit content', icon: <EditIcon />, onClick: () => openEdit(b) }] : []),
           { key: 'style', label: 'Style', icon: <GridIcon />, onClick: () => setStyleOpen(true) },
           { key: 'up', label: 'Move up', icon: <MoveIcon up />, disabled: j <= 0, onClick: () => eng.reorderBefore(nid, zids[j - 1] ?? null) },
           { key: 'down', label: 'Move down', icon: <MoveIcon up={false} />, disabled: j < 0 || j >= zids.length - 1, onClick: () => eng.reorderBefore(nid, zids[j + 2] ?? null) },
@@ -360,8 +417,9 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
 
 // ---- overlay pieces (iframe-viewport coordinates) ----
 
-function Selection({ rect, grabbing, canDelete, showHandles, onGripDragStart, onGripDragEnd, onDuplicate, onDelete, onInsertAbove, onInsertBelow }: {
+function Selection({ rect, grabbing, canDelete, showHandles, editable, onEdit, onGripDragStart, onGripDragEnd, onDuplicate, onDelete, onInsertAbove, onInsertBelow }: {
   rect: BlockRect; grabbing: boolean; canDelete: boolean; showHandles: boolean;
+  editable: boolean; onEdit: () => void;
   onGripDragStart: () => void; onGripDragEnd: () => void; onDuplicate: () => void; onDelete: () => void;
   onInsertAbove: () => void; onInsertBelow: () => void;
 }): React.ReactElement {
@@ -376,7 +434,10 @@ function Selection({ rect, grabbing, canDelete, showHandles, onGripDragStart, on
       }} />
       <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + 4, display: 'inline-flex', alignItems: 'center', gap: 6, maxWidth: rect.width - 8, padding: '2px 8px', borderRadius: 6, background: 'var(--vb-accent)', color: 'var(--vb-accent-text)', fontSize: 11, fontWeight: 700, lineHeight: 1.6, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{labelFor(rect.type)}</div>
       {showHandles ? (
-        <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + rect.width - (canDelete ? 82 : 56), display: 'inline-flex', gap: 4, pointerEvents: 'auto' }}>
+        <div style={{ position: 'absolute', top: Math.max(rect.top + 4, 4), left: rect.left + rect.width - 4, transform: 'translateX(-100%)', maxWidth: rect.width - 8, display: 'inline-flex', gap: 4, pointerEvents: 'auto' }}>
+          {editable ? (
+            <button type="button" onClick={onEdit} title="Edit content" aria-label="Edit content" style={{ ...handleBtn(), width: 'auto', gap: 4, padding: '0 8px', background: 'var(--vb-accent)', color: 'var(--vb-accent-text)', fontSize: 11, fontWeight: 700 }}><EditIcon /><span>Edit text</span></button>
+          ) : null}
           <button type="button" draggable onDragStart={onGripDragStart} onDragEnd={onGripDragEnd} title="Drag to reorder (or select + Enter to grab)" aria-label="Drag to reorder" style={handleBtn('grab')}><GripIcon /></button>
           <button type="button" onClick={onDuplicate} title="Duplicate" aria-label="Duplicate block" style={handleBtn()}><DupeIcon /></button>
           {canDelete ? <button type="button" onClick={onDelete} title="Delete" aria-label="Delete block" style={handleBtn()}><TrashIcon /></button> : null}
@@ -464,3 +525,4 @@ function TrashIcon(): React.ReactElement { return (<svg width={14} height={14} v
 function GridIcon(): React.ReactElement { return (<svg width={15} height={15} viewBox="0 0 24 24" {...S}><rect x="4" y="4" width="7" height="7" rx="1" /><rect x="13" y="4" width="7" height="7" rx="1" /><rect x="4" y="13" width="7" height="7" rx="1" /><rect x="13" y="13" width="7" height="7" rx="1" /></svg>); }
 function MoveIcon({ up }: { up: boolean }): React.ReactElement { return (<svg width={15} height={15} viewBox="0 0 24 24" {...S} style={up ? undefined : { transform: 'rotate(180deg)' }}><path d="M12 19V5M6 11l6-6 6 6" /></svg>); }
 function PlusIcon(): React.ReactElement { return (<svg width={9} height={9} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>); }
+function EditIcon(): React.ReactElement { return (<svg width={13} height={13} viewBox="0 0 24 24" {...S}><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>); }

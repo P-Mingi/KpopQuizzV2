@@ -1,0 +1,114 @@
+V-BUILDER-2 step 6 - INLINE TEXT via the EXISTING editor SURFACED IN PLACE (owner ruling L-044)
+
+Owner amended co-design 1 (L-044): inline text = the EXISTING section editor (TipTap)
+surfaced in place over the block. No parallel pipeline, no hand-rolled serializer, no
+ProseMirror-in-iframe. This is the proof matrix. All measured as the admin curator against
+the running dev server (port 3021), space = bts (group 1), section = group/overview (the
+intro block). BLOCKED.md cleared.
+
+WHAT WAS BUILT (3 files, builder-only)
+- src/components/verse/builder/inline-text-editor.tsx (NEW): a thin positioner that mounts
+  the REAL <SectionEditor> over the block geometry (desktop: absolute at the block rect,
+  same width + .verse-prose typography; phone: full-width bottom sheet). Zero new save code.
+- src/components/verse/builder/builder-shell.tsx: SECTION_FOR map (intro -> overview), an
+  "editing" state, the desktop affordances (an "Edit text" pill on a selected text block +
+  double-click on the block), the phone action-sheet "Edit content" row (gated to
+  text-capable blocks), and the editor render. editableSections is kept in state so a save
+  advances the base revision (a second edit does not hit a stale-base 409).
+- src/app/verse/[slug]/build/page.tsx: seeds editableSections from getSection('group', gid,
+  'overview') -> { content, base: currentRevisionId }.
+
+1. IN-PLACE SURFACING (acceptance 1)  [screenshots shown inline]
+- DESKTOP: selecting the intro block shows an "Edit text" pill in the block handles;
+  clicking it (or double-clicking the block) mounts the existing section editor aligned to
+  the block rect (same width, .verse-prose). Verified inline: the editor opens over the
+  block with the full six-marks toolbar and the block's own text.
+- The block's real render swaps back in on close/save (the canvas iframe reloads to
+  reconcile). Verified: after Publish the editor closed and the intro re-rendered with the
+  saved text.
+
+2. EXISTING RAILS ONLY (acceptance 2) - zero new save paths
+- /api/verse/draft autosave: typing in the editor showed "Draft saved" in the toolbar.
+- /api/verse/section publish: the editor's Publish appended a revision + updated current
+  content (the same endpoint the About-page section editor uses).
+- renderTipTapJSON sanitizer: see #4 below.
+- The InlineTextEditor imports and renders the SAME <SectionEditor>; it adds NO fetch calls
+  of its own. grep of the new file: zero fetch/XHR; it only mounts the component.
+
+3. TOOLBAR + PRECEDENCE + ALIGNMENT (acceptance 3) - rides along as-is
+- The Phase-1 six-marks toolbar (.v-toolbar, role="toolbar") renders unchanged inside the
+  surfaced editor (Bold/Italic/U/S/HL/A-/A+, Left/Center, H2/H3, lists, Quote, Link, Table,
+  Image, Divider, +Disco/+Quiz/+Stats, Undo/Redo).
+- Precedence (mark > block Scale > world default) and alignment (toolbar-only, the Left/
+  Center buttons -> paragraph textAlign) are INHERITED from the existing marks + block-style
+  pipeline (fontSize mark -> span.verse-size-*; block Scale -> block-style textScale; world
+  default at the scope). Not re-implemented, so precedence is exactly the shipped behavior.
+
+4. INLINE EDIT ROUND-TRIP + PUBLISHED-PARITY (acceptances 1,2 + parity re-proof)
+- Round-trip: appended " QAPROBE" to the intro, selected it, clicked Bold, Publish.
+- Canvas reconciled after reload. Measured in the /build iframe intro prose:
+    hasStrong (<strong>QAPROBE</strong>) = true
+    intro textContent tail = "...with sources on every fact. QAPROBE"
+    textContent contains markup (< or >) = false
+  => the mark added <strong> MARKUP only; the INDEXABLE text (textContent) is unchanged by
+     the mark. Published parity holds: a bold/mark never alters crawlable text.
+- The publish flowed through the normal /api/verse/section rail only (no builder-specific
+  save path).
+
+5. HOSTILE MARKS CLAMPED (acceptance 5) - scratchpad/hostile-marks.mts -> renderTipTapJSON
+  Fed a hostile doc (javascript: + data: hrefs, <script> in text, raw onclick/onerror,
+  highlight tint "red;url(evil)", fontSize "999px", unknown mark "onclick", non-approved
+  image host, unknown "scriptNode" node). 11/11 PASS:
+    no <script> substring; no javascript: href; no data: href; no raw on*=; script text
+    escaped not live; unknown mark dropped (text kept); highlight tint clamped to enum class;
+    fontSize clamped to verse-size-M; align clamped/dropped (no raw payload); non-approved
+    image host dropped; unknown node flattened (no tag).
+  RESULT: ALL CLAMPED (sanitizer holds). The inline editor saves through this same sink.
+
+6. CONFLICT GUARD (409) FROM THE BUILDER PATH (acceptance 5)
+  Three POSTs to /api/verse/section (the endpoint the inline editor uses), authenticated as
+  the curator, entity group/1 section overview:
+    A base_revision_id=null (mismatched)     -> 409 conflict; body current_revision_id=40
+    B base_revision_id=40  (matches current) -> 200 OK; new revision 41
+    C base_revision_id=40  (now stale)       -> 409 conflict (current is 41)
+  => the base-revision conflict guard fires from the builder path exactly as designed.
+
+7. PHONE (acceptance 3/4)  [screenshots shown inline]  - viewport 399x865 (<= 640 => isPhone)
+- Tapping a NON-text block (Members) raised the action sheet WITHOUT an "Edit content" row
+  (the row is gated to text-capable blocks). Style / Move up / Move down / Duplicate +
+  "position 3 of 10" present.
+- Tapping the intro (text-capable) raised the action sheet WITH "Edit content" as the first
+  row; "Move up" correctly disabled at position 1 of 10.
+- "Edit content" opened the SAME section editor as a FULL-WIDTH bottom sheet (measured:
+  left=0, width=400 >= viewport 399 => full width; anchored bottom).
+- Marks bar DOCKED + 44px (fixed in the inline editor's phone scope, toolbar rides along):
+    before: .v-toolbar position=static, Bold button 42x40  (scrolls away, sub-44)
+    after : .v-toolbar position=sticky top=0 (docked, never scrolls off the sheet),
+            Bold button 44x44  (min-height/min-width:44 on .vb-inline-phone .v-toolbar button)
+  So the marks stay reachable while the soft keyboard is up, at the 44px touch-target floor.
+  The shared toolbar component itself is unchanged (presentation override is scoped to
+  .vb-inline-phone; desktop editor + the normal section editor are untouched).
+
+8. PUBLISHED /verse/bts BYTE-IDENTICAL + CLEAN RESET ("reset what you touch")
+- Authoritative: verse_content(group/1, overview) was captured before testing (rev 30) and
+  restored byte-for-byte after. Re-dump vs backup:
+    content deep-equal = true;  current_revision_id 30 == 30;  updated_at equal;
+    locked/lock_reason equal;  FULL ROW byte-identical = true.
+  Since getSection is the single source for every render, /verse, /build and /about are all
+  byte-identical to before.
+- Page-level spot check: /verse/bts main column (div.lg:col-span-2) normalized outerHTML
+  length = 21312 == pre-test baseline 21312; body contains "QAPROBE" = false; intro tail
+  = "...with sources on every fact." (The client-reconciled DOM measures 21312 vs the step-2
+  server figure 21380 - the ISR client-count reconcile, a builder-independent delta; the
+  authoritative byte-identity is the row deep-equal above.)
+- presentation_draft reset to {} (0 modules). verse_drafts section draft: none (DELETE 200,
+  idempotent). The test space is back to its pre-session state.
+
+9. GATES
+  tsc --noEmit: clean.   check:routes: 338 page routes.   check:verse-tokens: pass.
+  em-dash/en-dash grep over all touched files: clean.
+
+Helper used (committed, dev-only, parallels vb2-reset-draft.mts):
+  scripts/vb2-content-io.mts  dump <slug> <section> <file> | restore <file>
+  - read-only dump / exact-JSON restore of a verse_content section row, so a publish
+    round-trip on the test space is reverted byte-for-byte.
