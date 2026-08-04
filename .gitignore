@@ -50,7 +50,16 @@ pinterest-worker/venv/
 apps/quiz/.env.local.bak.deadproject
 *.bak.*
 .claude/
-docs/
+# docs/ stays out by default, but the Working System V2 bus + proofs + the
+# ratified working-system docs are tracked (Cowork/owner read them from git).
+docs/*
+!docs/loop/
+!docs/proofs/
+!docs/pending-migrations/
+!docs/verse-project.md
+!docs/VERSE-LEDGER.md
+!docs/COWORK-HANDOFF.md
+!docs/VERSE-WORKING-SYSTEM-V2.md
 kpopquiz_*.md
 quizz_*.md
 login_redesign.html
