@@ -104,78 +104,78 @@ export function GamesHub({ counts, liveRanking }: GamesHubProps): React.ReactEle
   ];
 
   return (
-    <main className="ghub">
-      <header className="ghub-hero">
+    <main className="gh2">
+      <header className="gh2-hero">
         <div>
-          <h1 className="ghub-h1">Pick your game.<br /><em>{"You're in, in one tap."}</em></h1>
-          <p className="ghub-sub">No lobby screens. Every button below drops you straight into play.</p>
+          <h1 className="gh2-h1">Pick your game.<br /><em>{"You're in, in one tap."}</em></h1>
+          <p className="gh2-sub">No lobby screens. Every button below drops you straight into play.</p>
         </div>
-        <span className="ghub-hint">1 tap = playing</span>
+        <span className="gh2-hint">1 tap = playing</span>
       </header>
 
-      <p className="ghub-lbl">Today</p>
-      <section className="ghub-today" aria-label="Daily games">
-        <Link href="/blindtest" className="ghub-dcard" aria-label="Play today's blind test now">
-          <span className="ghub-dcover blind" aria-hidden="true" />
-          <span className="ghub-dbody">
-            <span className="ghub-dkick">Daily · resets 00:00</span>
-            <span className="ghub-dname">Blind test of the day</span>
-            <span className="ghub-dmeta">Name the song from a 10-second clip<BlindStreak /></span>
+      <p className="gh2-lbl">Today</p>
+      <section className="gh2-today" aria-label="Daily games">
+        <Link href="/blindtest" className="gh2-dcard" aria-label="Play today's blind test now">
+          <span className="gh2-dcover blind" aria-hidden="true" />
+          <span className="gh2-dbody">
+            <span className="gh2-dkick">Daily · resets 00:00</span>
+            <span className="gh2-dname">Blind test of the day</span>
+            <span className="gh2-dmeta">Name the song from a 10-second clip<BlindStreak /></span>
           </span>
-          <span className="ghub-play" aria-hidden="true">Play</span>
+          <span className="gh2-play" aria-hidden="true">Play</span>
         </Link>
-        <div className="ghub-dcard ghub-soon" aria-label="K-pop Idle, coming soon">
-          <span className="ghub-dcover idle" aria-hidden="true" />
-          <span className="ghub-dbody">
-            <span className="ghub-dkick ghub-dkick-muted">Daily · new</span>
-            <span className="ghub-dname">K-pop Idle</span>
-            <span className="ghub-dmeta">Guess the idol in 8 tries, clue by clue</span>
+        <div className="gh2-dcard gh2-soon" aria-label="K-pop Idle, coming soon">
+          <span className="gh2-dcover idle" aria-hidden="true" />
+          <span className="gh2-dbody">
+            <span className="gh2-dkick gh2-dkick-muted">Daily · new</span>
+            <span className="gh2-dname">K-pop Idle</span>
+            <span className="gh2-dmeta">Guess the idol in 8 tries, clue by clue</span>
           </span>
-          <span className="ghub-soon-tag">Coming soon</span>
+          <span className="gh2-soon-tag">Coming soon</span>
         </div>
       </section>
 
-      <p className="ghub-lbl">All games</p>
-      <section className="ghub-grid" aria-label="All games">
+      <p className="gh2-lbl">All games</p>
+      <section className="gh2-grid" aria-label="All games">
         {games.map((g) => (
-          <article className="ghub-tile" key={g.key}>
+          <article className="gh2-tile" key={g.key}>
             <Link
               href={g.play}
-              className="ghub-tile-play"
+              className="gh2-tile-play"
               aria-label={`Play ${g.name} now`}
               {...(g.lp && g.lobby ? { 'data-lp': g.lp, 'data-lp-base': `${g.lobby}/` } : {})}
             >
-              <span className={`ghub-cover ${g.cover}`} aria-hidden="true">
-                <span className="ghub-cover-big" style={{ fontSize: g.bigSize }}>{g.big}</span>
+              <span className={`gh2-cover ${g.cover}`} aria-hidden="true">
+                <span className="gh2-cover-big" style={{ fontSize: g.bigSize }}>{g.big}</span>
               </span>
-              <span className="ghub-gbody">
-                <span className="ghub-gtext">
-                  <span className="ghub-name">{g.name}</span>
-                  <span className="ghub-line">{g.line}</span>
+              <span className="gh2-gbody">
+                <span className="gh2-gtext">
+                  <span className="gh2-name">{g.name}</span>
+                  <span className="gh2-line">{g.line}</span>
                 </span>
-                <span className="ghub-play" aria-hidden="true">Play</span>
+                <span className="gh2-play" aria-hidden="true">Play</span>
               </span>
             </Link>
             {g.lobby && g.modes >= 2 && (
-              <Link href={g.lobby} className="ghub-allmodes">All modes · {g.modes}</Link>
+              <Link href={g.lobby} className="gh2-allmodes">All modes · {g.modes}</Link>
             )}
           </article>
         ))}
       </section>
 
       {liveRanking && (
-        <section className="ghub-rank" aria-label="Today's live ranking">
-          <span className="ghub-dot" aria-hidden="true" />
-          <span className="ghub-rank-body">
-            <span className="ghub-q">{liveRanking.prompt}</span>
-            <span className="ghub-rank-meta">
+        <section className="gh2-rank" aria-label="Today's live ranking">
+          <span className="gh2-dot" aria-hidden="true" />
+          <span className="gh2-rank-body">
+            <span className="gh2-q">{liveRanking.prompt}</span>
+            <span className="gh2-rank-meta">
               {liveRanking.top_entity ? `#1 ${liveRanking.top_entity.name} · ` : ''}
               {liveRanking.total_votes.toLocaleString('en-US')} votes
             </span>
           </span>
-          <span className="ghub-rot">changes daily</span>
-          <Link href={`/rankings/${liveRanking.group_slug}/${liveRanking.question_type}`} className="ghub-play ghub-play-sm">Vote</Link>
-          <Link href="/rankings" className="ghub-rank-all">All rankings</Link>
+          <span className="gh2-rot">changes daily</span>
+          <Link href={`/rankings/${liveRanking.group_slug}/${liveRanking.question_type}`} className="gh2-play gh2-play-sm">Vote</Link>
+          <Link href="/rankings" className="gh2-rank-all">All rankings</Link>
         </section>
       )}
 
