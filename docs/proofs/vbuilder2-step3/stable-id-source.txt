@@ -1,0 +1,75 @@
+V-BUILDER-2 step-3 receipt - STABLE ID SOURCE
+
+VERDICT: POSITIONAL. The id on data-block-id is RECOMPUTED from render/stored order
+on every read; it is NOT minted-once-and-persisted on the stored document. This is the
+MUST violation the mission names. Step 3 (reorder) is BLOCKED. See docs/loop/BLOCKED.md.
+
+===========================================================================
+WHERE THE ID COMES FROM (code references)
+===========================================================================
+
+The stored document is a Presentation (verse_spaces.presentation / presentation_draft
+jsonb). Its blocks are ModulePlacement[]. That type has NO id field:
+
+  src/lib/verse/presentation/types.ts:31-39  interface ModulePlacement
+    { type, zone, hidden?, frame?, mode?, props?, order }   <- no `id`
+
+So the stored config CANNOT carry a block id. The id exists only on the in-memory
+Composition (Block.id, src/lib/verse/composition/types.ts:45), minted by the converter:
+
+  src/lib/verse/composition/convert.ts
+    blockId(type, nthOfType) => `blk-${type}-${nthOfType}`        (positional recipe)
+    presentationToComposition(): sorts modules by (zone, order), walks them with a
+      per-type counter `nthByType`, and assigns blockId(type, nth++). The id is a pure
+      function of the block's ORDER among its type - i.e. its position.
+    compositionToPresentation(): rebuilds ModulePlacement objects with
+      { type, zone, order, hidden?, frame?, mode?, props? } and NO id. The id is DROPPED
+      on the way back to storage.
+
+The renderer stamps data-block-id the same positional way, not from any stored id:
+
+  src/components/verse/presentation/space-home-renderer.tsx  (builder branch, step 2)
+    const nthByType = {}; for (const m of [...main, ...side]) idOf.set(m, blockId(m.type, nth++))
+    -> data-block-id = blk-<type>-<nth-in-render-order>
+
+Net: DB (no id) -> presentationToComposition (mint by position) -> render / edit ->
+compositionToPresentation (drop id) -> DB (no id). The id never touches storage; it is
+re-derived from position on every read. The type comment at composition/types.ts:9-13
+PROMISES persistence ("persist permanently once the Phase 2 builder saves a composition")
+- but that persistence was deferred and does not exist yet.
+
+===========================================================================
+DEMONSTRATION (reproducer: scripts/vb2-stable-id-demo.mts, real converter)
+===========================================================================
+Walk a block through the full stored round-trip: read -> reorder -> save -> re-read.
+
+SAME-TYPE reorder (two "discography" blocks, tagged ALPHA / BETA):
+  1. read stored config -> composition:    blk-discography-0<ALPHA>  blk-discography-1<BETA>
+  2. reorder (swap) in memory:             blk-discography-1<BETA>   blk-discography-0<ALPHA>
+  3. save (composition -> presentation): modules carry an id field? FALSE
+  4. re-read stored config -> composition: blk-discography-0<BETA>   blk-discography-1<ALPHA>
+
+  BETA block id BEFORE reorder: blk-discography-1
+  BETA block id AFTER  reorder: blk-discography-0
+  => stable across reorder? NO. The id followed POSITION, not the block.
+
+DIFFERENT-TYPE reorder (intro + members), for contrast:
+  before: blk-intro-0<INTRO>   blk-members-0<MEMBERS>
+  after : blk-members-0<MEMBERS> blk-intro-0<INTRO>
+  => unique types keep their id across a reorder ONLY by coincidence (each type's nth
+     stays 0). The mechanism is identically positional; the flaw is just hidden until
+     two blocks share a type.
+
+===========================================================================
+WHY THIS BREAKS STEP 3 (selection, undo, reconcile)
+===========================================================================
+- SELECTION: the overlay holds selectedId = "blk-discography-1". After a reorder+save+
+  reload, blk-discography-1 now addresses a DIFFERENT block. The selection silently
+  jumps to the wrong block.
+- UNDO/REDO: an undo entry keyed on the moved block's id restores/targets the wrong block.
+- RECONCILE-ON-RELOAD: the optimistic client state keyed by id can no longer be matched
+  to the server re-render's ids; the reconcile mismatches.
+Reorder of any two same-type blocks (which the block model explicitly supports - blockId
+takes nthOfType precisely because a type can repeat) triggers all three.
+
+Fix options are in docs/loop/BLOCKED.md. The fix must land BEFORE step 3's reorder.
