@@ -13,7 +13,13 @@ import type { Composition, Block, Section, BlockStyle } from './types';
 // stored order), NEVER the array position. Stable for a given config so re-reads
 // mint the same ids; persists permanently once the Phase 2 builder saves. New
 // blocks the builder inserts will use crypto.randomUUID (built-in, no dep).
-function blockId(type: string, nthOfType: number): string {
+//
+// Exported so the renderer (SpaceHomeRenderer in builder mode) stamps the SAME
+// stable id onto each block's DOM handle (data-block-id) that this converter mints,
+// keeping the canvas overlay and the composition in lockstep. The nth-of-type is
+// counted in the same order both places use: zone group (main before side), then
+// `order` within the zone.
+export function blockId(type: string, nthOfType: number): string {
   return `blk-${type}-${nthOfType}`;
 }
 

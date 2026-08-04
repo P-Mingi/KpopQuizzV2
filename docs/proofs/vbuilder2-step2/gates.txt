@@ -1,0 +1,23 @@
+V-BUILDER-2 step 2 - gate suite (all green)
+
+tsc --noEmit -p tsconfig.json          exit 0, 0 errors (whole app)
+npm run check:routes                    Route allowlist guard passed: 338 page routes
+                                        reachable (+1 = the new /verse/[slug]/build shell;
+                                        it starts with /verse, already allowlisted).
+npm run check:verse-tokens              Verse token gate passed: no raw hex colors in Verse
+                                        surfaces. (builder-shell.tsx is scanned; all colours
+                                        are var(--...) tokens or color-mix, zero raw hex.)
+
+Regression harnesses (I touched the SHARED renderer + convert.ts, so these matter):
+  scripts/_vbuilder1-parity.mts     PASS bts/stray-kids/ateez: render-parity=true,
+                                    meta-lossless=true, stable-ids=true. Converter still
+                                    lossless after exporting blockId().
+  scripts/test-play-untouched.mts   12 passed, 0 failed. "PLAY LAYOUT LAW HOLDS: 720px,
+                                    verse-page-free." (verse-only change, Play intact.)
+  scripts/test-vtemplates.mts       PASS: structure switches, nothing else moves.
+  scripts/test-vpages-gates.mts     55 passed, 0 failed. V-PAGES gates hold.
+  scripts/test-vtext-fold.mts       PASS: V-TEXT fold law holds.
+
+RATCHET LAW: no gate/test/proof script was edited to pass. The only convert.ts change
+was making blockId() exported (additive); the renderer change is guarded behind an
+off-by-default builder flag, proven by the unchanged published-page bytes (measurements.txt).

@@ -1,0 +1,50 @@
+V-BUILDER-2 step 2 - behavioral proofs + screenshots
+
+Driven live in the in-app browser as the admin curator, /verse/bts/build.
+
+SELECTION (click):
+  Clicking a block in the canvas selects it. The overlay draws, in iframe-viewport
+  coordinates translated into the parent overlay: an accent outline, a name tag (the
+  BlockSpec.name, e.g. "Intro" / "Members"), grip + duplicate handles top-right, and
+  "+ add block" seams above and below the block. Status line reads "Selected: <Name>".
+  Verified for the intro block and the members block.
+  (Note: the automation harness's synthetic clicks do not always route into a same-origin
+  child iframe; a real DOM click event on the block - the exact listener path a user click
+  fires - selects correctly every time. This is a harness quirk, not a product bug.)
+
+SELECTION (keyboard):  Esc clears; Tab / Shift+Tab walk the blocks in reading (DOM)
+  order; Enter selects. Proven: from cleared state, Esc -> Tab -> Tab -> Enter yielded
+  status "Selected: Vitals" (the 2nd block). Handled on window so it never fights the
+  iframe's own tab order; Tab is preventDefault'd so focus cannot escape into the
+  (covered) space chrome behind the shell.
+
+FOLLOWS SCROLL:  scrolling the canvas 260px kept "Selected: Members" and moved its
+  outline + name tag + handles + seams up with the block (rects re-measured on the
+  iframe's scroll event via rAF).
+
+FOLLOWS DEVICE SWITCH:  switching desktop -> phone reflowed the canvas to 390px (members
+  grid 4-up -> 2-up) and the selection re-measured to the block's new geometry, staying
+  locked to "Selected: Members".
+
+SCREENSHOTS (captured inline in the session for the owner; the in-app browser has no
+disk-capture path, and the curator gate blocks a headless-Chrome capture - same
+constraint noted in step 1. Each is described with its verified state):
+  - desktop-light: slim top bar (BTS . Builder | device switcher, desktop active |
+    undo/redo dimmed | "No unpublished changes" | Preview | Publish disabled) over the
+    real BTS canvas; Members selected with full overlay chrome.
+  - phone-light: canvas at 390px centred in the stage; Members selected, overlay
+    re-measured to phone geometry.
+  - desktop-dark: top bar + handles adapt to the app dark theme (--bg-primary #141210);
+    the CANVAS keeps its own space preset (space-theme driven, not app-theme driven -
+    expected and noted).
+  - phone-dark: dark chrome + 390px canvas, Members selected.
+
+TOP BAR honesty (step 2 scope = shell + selection; editing is step 3):
+  - device switcher: functional (desktop/tablet/phone, real widths).
+  - Preview: functional link to the reader page (/verse/bts), new tab.
+  - undo/redo: present but disabled ("arrives with editing") - no history exists yet.
+  - Publish: present but disabled ("Publishing arrives with editing (step 3)"). Deliberate:
+    the publish API promotes draft->live, and an EMPTY draft would validate to default and
+    wipe a rich live look; with no in-builder edits yet there is nothing safe to publish.
+  - "saved Xs ago": reports the real draft state (hasDraft + updated_at); bts has no
+    draft, so it reads "No unpublished changes".

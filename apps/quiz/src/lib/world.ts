@@ -15,12 +15,14 @@ export function worldForPath(pathname: string): World {
   return pathname === '/verse' || pathname.startsWith('/verse/') ? 'verse' : 'play';
 }
 
-// V-BUILDER-2 - the builder canvas (/build/<slug>) is the chrome-less draft render
-// loaded inside the /build shell's iframe. The global chrome (nav, footer, tab bar)
-// suppresses itself here so the canvas shows only the composition (the same
-// /q/ fullscreen-hide pattern the mobile chrome already uses).
+// V-BUILDER-2 - the builder surfaces suppress ALL global chrome (nav, footer, tab
+// bar), the same /q/ fullscreen-hide pattern the mobile chrome already uses:
+//   - /build/<slug>          the chrome-less draft render (the iframe CONTENT)
+//   - /verse/<slug>/build    the builder SHELL (its own slim top bar + canvas)
+// The shell is a full-screen fixed takeover, so the space hero/tabs from the verse
+// layout render behind it (ISR-cached) and the root chrome is hidden here too.
 export function isBuilderCanvas(pathname: string): boolean {
-  return pathname.startsWith('/build/');
+  return pathname.startsWith('/build/') || /^\/verse\/[^/]+\/build\/?$/.test(pathname);
 }
 
 // Chrome accent per world: Play keeps the pink brand, Verse gets a violet family so

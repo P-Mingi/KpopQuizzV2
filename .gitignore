@@ -12,11 +12,12 @@ out/
 
 # production
 build/
-# ...but NOT the Verse builder-canvas route group (V-BUILDER-2). Its folder is
-# literally named build/ (route group (builder)/build), so the rule above would
-# swallow the real source route. Re-include that one path only.
-!apps/quiz/src/app/(builder)/build/
-!apps/quiz/src/app/(builder)/build/**
+# ...but NOT source route folders literally named build/ under the app dir. The rule
+# above is for build OUTPUT; the Verse builder routes ((builder)/build the canvas, and
+# verse/[slug]/build the shell) are real SOURCE routes, so re-include any build/ dir
+# that lives under src/app/ (covers both and any future builder route).
+!apps/quiz/src/app/**/build/
+!apps/quiz/src/app/**/build/**
 
 # misc
 .DS_Store

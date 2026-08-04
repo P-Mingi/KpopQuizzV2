@@ -1,0 +1,44 @@
+V-BUILDER-2 step 2 - measurements (draft route vs published, + zero-layout-shift)
+
+All measured as the admin curator against the running dev server (port 3021).
+
+--- 1. PUBLISHED PAGE IS UNCHANGED (the shared renderer change is fully guarded) ---
+The builder flag threads through CompositionRenderer -> SpaceHomeRenderer -> Stack and
+defaults OFF. On the published space home it is off, so the render is byte-identical to
+the step-1 baseline.
+
+  /verse/bts main column (div.lg:col-span-2) outerHTML, normalized:
+    length = 21380  ==  step-1 baseline 21380   -> matchesStep1Baseline: true
+    data-block-id occurrences = 0                -> zeroHandlesOnPublished: true
+
+  => the published reader page gained nothing: no handles, no wrapper, same bytes.
+     The five regression harnesses agree (see gates.txt): parity lossless, Play layout
+     law holds, templates/pages/fold gates green.
+
+--- 2. BUILD CANVAS = REAL RENDER + STABLE-ID HANDLES ONLY (zero drift) ---
+  /build/bts main column innerHTML, normalized:
+    length = 22182 vs published inner 21347  ->  +835 chars
+    data-block-id occurrences (main zone) = 10  (+ 9 in the side zone = 19 total,
+      matching the 19 blocks the overlay detects)
+
+  The +835 chars is exactly the 10 wrapper handles
+  (<div data-block-id="blk-<type>-<n>" data-block-type="<type>" class="vb-block"> ... </div>,
+  ~83 chars x 10). The module HTML INSIDE each handle is the real reader render, so the
+  canvas has zero drift: it is the page, annotated for selection, never a rebuilt preview.
+
+  Stable ids are content-derived (blk-<type>-<nth>), minted by the SAME exported blockId()
+  the composition converter uses, counted across zones in (main, then side) order - never
+  an array index. Example first block: blk-intro-0.
+
+--- 3. ZERO LAYOUT SHIFT INJECTED BY THE OVERLAY ---
+The overlay lives in the PARENT document (position:fixed shell), pointer-events:none,
+and only ever READS the iframe (getBoundingClientRect) + attaches listeners. It never
+mutates the iframe document.
+
+  Before selecting a block:  iframe *-node count = 597,  body.innerHTML length = L
+  Dispatch a real click to select a block, wait 120ms
+  After  selecting a block:  iframe *-node count = 597,  body.innerHTML length = L
+    -> iframeUnchangedBySelect: true
+
+  => selecting, outlining, tagging, and handling a block changes only the parent overlay.
+     The canvas document is untouched, so nothing in it reflows.

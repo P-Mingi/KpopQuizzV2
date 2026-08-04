@@ -1,0 +1,83 @@
+V-BUILDER-2 - two receipts before step 2 (per Cowork mission 2026-08-04)
+
+===========================================================================
+RECEIPT 1 - PROVENANCE OF presentation_draft   VERDICT: CLEAN (no schema change)
+===========================================================================
+
+presentation_draft is a PRE-EXISTING COLUMN on public.verse_spaces, introduced by
+migration 139_verse_presentation.sql (the W-CUSTOM per-space customization studio,
+committed as 7d6bd71 "W-CUSTOM step 2: presentation migration (139) - STOP for owner
+run"). It is NOT a key inside the presentation jsonb; it is its own top-level column.
+The exact DDL, verbatim from supabase/migrations/139_verse_presentation.sql lines
+30-32:
+
+    ALTER TABLE public.verse_spaces
+      ADD COLUMN IF NOT EXISTS presentation       JSONB NOT NULL DEFAULT '{}'::jsonb,
+      ADD COLUMN IF NOT EXISTS presentation_draft JSONB NOT NULL DEFAULT '{}'::jsonb;
+
+So the model is: `presentation` (live) and `presentation_draft` (studio draft) are two
+sibling jsonb columns, both defaulting to '{}'. The revision/rollback trail rides the
+pre-existing verse_revisions table with entity_type='space_presentation' - free TEXT,
+no CHECK constraint - which migration 139's own header calls out explicitly (lines
+20-21): "verse_revisions.entity_type is free TEXT (no CHECK), so the draft/publish flow
+writes entity_type='space_presentation' with no schema change."
+
+Zero schema change was made for V-BUILDER-2 step 1. Evidence:
+  - git show --stat 4e9035f (the step 1 commit) touches NO .sql / migration file.
+  - working tree has NO migration or supabase/migrations change.
+  - docs/pending-migrations/ holds only README.md (no new SQL emitted).
+  - migration 139 last modified by 7d6bd71 (pre-existing W-CUSTOM), unchanged since.
+
+=> Receipt 1 is clean. Migrations stay owner-gated; none was authored or needed.
+   Step 2 may proceed.
+
+===========================================================================
+RECEIPT 2 - THE WRITE PATH   (all three server rails already exist)
+===========================================================================
+
+1. AUTOSAVE WRITES DRAFT ONLY.  EXISTS today.
+   POST /api/verse/presentation  (src/app/api/verse/presentation/route.ts)
+   - Curator+ gate (canCurateSpace, else 403).
+   - Runs the FULL validator server-side FIRST (SEO invariant: seoCritical blocks
+     cannot be removed/hidden; WCAG-AA readability; sticker/tab caps; unknown block
+     types) - rejects with 422 + human-readable errors before any write.
+   - Upserts verse_spaces.presentation_draft ONLY (+ updated_at). It never touches
+     `presentation` (live). This is exactly the background-save target for step 3.
+
+2. PUBLISH = VALIDATE + PROMOTE + REVISION.  EXISTS today.
+   POST /api/verse/presentation/publish  (.../presentation/publish/route.ts)
+   - Curator+ gate.
+   - Re-validates the draft at the gate (422 on failure).
+   - Writes a verse_revisions row (entity_type='space_presentation',
+     entity_id=<groupId>, section_key='presentation') as the append-only snapshot;
+     on the FIRST publish it also snapshots the OUTGOING live look as a baseline so
+     rollback can undo even the first publish (V-POLISH root-cause fix).
+   - Then flips live: verse_spaces.presentation = validated draft.
+
+3. ROLLBACK VIA THE EXISTING REVISION RAILS.  EXISTS today.
+   POST /api/verse/presentation/rollback  (.../presentation/rollback/route.ts)
+   - Curator+ gate.
+   - Reads the space_presentation revisions (desc, limit 20). Target = a specific
+     revision_id, or list[1] (list[0] is the current live snapshot, list[1] the
+     previous look). Re-validates, sets BOTH live + draft to the restored content,
+     and records the rollback as a new append-only revision.
+   (History is surfaced by /api/verse/history; fold by /api/verse/presentation/fold.)
+
+WHERE THE "before/after confirm" LIVES TODAY: it is a STUDIO-UI element, in
+src/components/verse/studio/studio-client.tsx (the W-CUSTOM studio at
+/verse/[slug]/studio). The publish API itself does validate + promote + revision; the
+confirm dialog is client chrome around it.
+
+WHAT IS MISSING FOR THE BUILDER (report only - do NOT build yet):
+  - No server or schema gap. All three rails (draft-save, publish, rollback) already
+    exist against presentation_draft + verse_revisions, curator-gated and validated.
+    Step 3's background save reuses POST /api/verse/presentation unchanged.
+  - The BUILDER CHROME needs its OWN client affordances, distinct from the studio's:
+      (a) a Publish confirm (before/after) in the builder top bar - the API is ready,
+          the builder-side confirm UI is not built (that is step 2+ chrome work);
+      (b) a "saved Xs ago" indicator - the draft-save endpoint sets updated_at but
+          does not echo a timestamp; the builder can use the request round-trip time
+          or read verse_spaces.updated_at. Client-side only.
+      (c) undo/redo = in-memory client draft history in the builder; not a server
+          concern, no persistence needed for step 2/3.
+   None of the above requires a migration or a new server route.

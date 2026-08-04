@@ -62,7 +62,10 @@ export default async function BuildCanvasPage({ params }: { params: Promise<{ sl
       style={presentationScopeStyle(draftSpace)}
     >
       <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
-        <CompositionRenderer space={draftSpace} composition={composition} backlinks={backlinks} />
+        {/* builder: stamp each block with its stable data-block-id handle so the
+            parent shell's overlay can select it. The module HTML is otherwise the
+            real reader render (zero drift). */}
+        <CompositionRenderer space={draftSpace} composition={composition} backlinks={backlinks} builder />
       </div>
     </div>
   );

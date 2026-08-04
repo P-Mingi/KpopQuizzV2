@@ -11,10 +11,13 @@ import type { Backlink } from '@/lib/verse/backlinks';
 // (SpaceHomeRenderer as the low-level primitive, a thin-wrapper relationship), so
 // the output is byte-identical to before (the converter is lossless; proven). This
 // is the component Phase 2's edit-in-place canvas renders.
-export function CompositionRenderer({ space, composition, backlinks }: {
+export function CompositionRenderer({ space, composition, backlinks, builder }: {
   space: Space;
   composition: Composition;
   backlinks: Backlink[];
+  // Builder canvas only (the /build route): emit stable data-block-id handles per
+  // block for the selection overlay. Off on the published page.
+  builder?: boolean;
 }): React.ReactElement {
-  return <SpaceHomeRenderer space={space} presentation={compositionToPresentation(composition)} backlinks={backlinks} />;
+  return <SpaceHomeRenderer space={space} presentation={compositionToPresentation(composition)} backlinks={backlinks} builder={builder ?? false} />;
 }
