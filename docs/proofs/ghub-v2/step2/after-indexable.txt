@@ -1,0 +1,22 @@
+/games AFTER indexable set (G-HUB v2 step 2)
+============================================
+HEAD: metadata UNCHANGED. JSON-LD ItemList (8): Which Member/personality,
+  Blind Test/blindtest, This or That/this-or-that/all, Name Them All/name-them-all,
+  Sort It/sort-it, Match-Up/match-up, Duel 1v1/battle (ADDED), Fan Rankings/rankings.
+BODY: exactly one H1 "Pick your game. You're in, in one tap."
+  sub: No lobby screens. Every button below drops you straight into play.
+  hint: 1 tap = playing
+  TODAY: Blind test of the day -> /blindtest ; K-pop Idle (teaser, NO link)
+  TILES (name / play href / all-modes href):
+    Name Them All / /games/name-them-all/{firstSlug} / /games/name-them-all
+    Sort It / /games/sort-it/{firstSlug} / /games/sort-it
+    Match-Up / /games/match-up/{firstSlug} / /games/match-up
+    This or That / /games/this-or-that/all / /games/this-or-that
+    Which member are you / /personality / (single mode, no all-modes)
+    Duel 1v1 / /battle / (single mode)
+  RANK BAR: Vote -> /rankings/{group}/{type} ; All rankings -> /rankings ; badge "changes daily"
+LINK SET: /blindtest /games/name-them-all/{slug} /games/name-them-all
+  /games/sort-it/{slug} /games/sort-it /games/match-up/{slug} /games/match-up
+  /games/this-or-that/all /games/this-or-that /personality /battle
+  /rankings /rankings/{group}/{type}
+  = BEFORE (8) all present + 5 added. Zero lost.

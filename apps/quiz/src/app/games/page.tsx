@@ -1,6 +1,5 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
-import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { getPersonalityGroups } from '@/lib/personality/data';
 import { safeFetch } from '@/lib/error-handling';
 import { GamesHub } from '@/components/game/games-hub';
@@ -43,8 +42,7 @@ export default async function GamesPage() {
 
   // Lean picker: only the counts + the daily + one live ranking. The exhaustive
   // catalogs (20+ categories, 24 rosters) now live on their own index pages.
-  const [gotd, rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
-    safeFetch(getGameOfTheDay(), null, '[games] getGameOfTheDay'),
+  const [rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
     safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
     safeFetch(getPersonalityGroups(), [], '[games] getPersonalityGroups'),
     safeFetch(
@@ -90,13 +88,14 @@ export default async function GamesPage() {
                 { '@type': 'ListItem', position: 4, name: 'Name Them All', url: 'https://kpopquiz.org/games/name-them-all' },
                 { '@type': 'ListItem', position: 5, name: 'Sort It', url: 'https://kpopquiz.org/games/sort-it' },
                 { '@type': 'ListItem', position: 6, name: 'Match-Up', url: 'https://kpopquiz.org/games/match-up' },
-                ...(liveRanking ? [{ '@type': 'ListItem', position: 7, name: 'K-pop Fan Rankings', url: 'https://kpopquiz.org/rankings' }] : []),
+                { '@type': 'ListItem', position: 7, name: 'Duel 1v1', url: 'https://kpopquiz.org/battle' },
+                ...(liveRanking ? [{ '@type': 'ListItem', position: 8, name: 'K-pop Fan Rankings', url: 'https://kpopquiz.org/rankings' }] : []),
               ],
             },
           }),
         }}
       />
-      <GamesHub gotd={gotd} counts={counts} liveRanking={liveRanking} />
+      <GamesHub counts={counts} liveRanking={liveRanking} />
     </div>
   );
 }
