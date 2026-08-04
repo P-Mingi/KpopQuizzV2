@@ -56,13 +56,16 @@ export default async function NameThemAllIndexPage(): Promise<React.ReactElement
       </header>
 
       <ul className="nta-idx-grid">
-        {live.map(({ playlist, count }) => (
+        {live.map(({ playlist, count }, i) => (
           <li key={playlist.slug}>
-            <Link href={`/games/name-them-all/${playlist.slug}`} className="nta-idx-card">
-              <span className="nta-idx-q">{playlist.title}</span>
-              <span className="nta-idx-foot">
-                <span className="nta-idx-stat">{count} {playlist.itemNoun}</span>
-                <span className="nta-idx-play">Play {'→'}</span>
+            <Link href={`/games/name-them-all/${playlist.slug}`} className="nta-idx-card lmc-card">
+              <span className={`lmc-cover lmc-g${(i % 6) + 1}`} aria-hidden="true" />
+              <span className="lmc-body">
+                <span className="nta-idx-q">{playlist.title}</span>
+                <span className="nta-idx-foot">
+                  <span className="nta-idx-stat">{count} {playlist.itemNoun}</span>
+                  <span className="nta-idx-play">Play {'→'}</span>
+                </span>
               </span>
             </Link>
           </li>

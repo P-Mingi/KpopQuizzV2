@@ -1,0 +1,3 @@
+  /games/name-them-all/ literal count = 1 (breadcrumb + variant Link)
+  /games/sort-it/ literal count = 1 (breadcrumb + variant Link)
+  /games/match-up/ literal count = 1 (breadcrumb + variant Link)

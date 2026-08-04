@@ -58,18 +58,21 @@ export default async function SortItIndexPage(): Promise<React.ReactElement> {
       </header>
 
       <ul className="si-idx-grid">
-        {live.map(({ playlist, count }) => (
+        {live.map(({ playlist, count }, i) => (
           <li key={playlist.slug}>
-            <Link href={`/games/sort-it/${playlist.slug}`} className="si-idx-card">
-              <span className="si-idx-q">{playlist.question}</span>
-              <span className="si-idx-buckets">
-                <span className="si-chip">{playlist.buckets[0]}</span>
-                <span className="si-vs">vs</span>
-                <span className="si-chip">{playlist.buckets[1]}</span>
-              </span>
-              <span className="si-idx-foot">
-                <span className="si-idx-stat">{count} to sort</span>
-                <span className="si-idx-play">Play {'→'}</span>
+            <Link href={`/games/sort-it/${playlist.slug}`} className="si-idx-card lmc-card">
+              <span className={`lmc-cover lmc-g${(i % 6) + 1}`} aria-hidden="true" />
+              <span className="lmc-body">
+                <span className="si-idx-q">{playlist.question}</span>
+                <span className="si-idx-buckets">
+                  <span className="si-chip">{playlist.buckets[0]}</span>
+                  <span className="si-vs">vs</span>
+                  <span className="si-chip">{playlist.buckets[1]}</span>
+                </span>
+                <span className="si-idx-foot">
+                  <span className="si-idx-stat">{count} to sort</span>
+                  <span className="si-idx-play">Play {'→'}</span>
+                </span>
               </span>
             </Link>
           </li>
