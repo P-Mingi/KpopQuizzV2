@@ -21,6 +21,6 @@ export function BlindStreak(): React.ReactElement | null {
 
   if (streak <= 0) return null;
   return (
-    <span className="ghub-streak"> · streak {streak}<span aria-hidden="true"> ●</span></span>
+    <span className="gh2-streak"> · streak {streak}<span aria-hidden="true"> ●</span></span>
   );
 }
