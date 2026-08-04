@@ -1976,6 +1976,12 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .lmc-g5 { background: linear-gradient(120deg,#8F55D8,#3E2A72); }
 .lmc-g6 { background: linear-gradient(120deg,#E86A8B,#A31D4C); }
 
+/* G-HUB v2 step 4: neutral loading state while a variant auto-starts (no
+   interstitial). The page's server-rendered H1 + intro sit above it. */
+.game-loading { padding: 48px 16px; text-align: center; color: var(--txt3); font-size: 14px; font-weight: 600; animation: gameLoadPulse 1.2s ease-in-out infinite; }
+@keyframes gameLoadPulse { 50% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .game-loading { animation: none; } }
+
 /* ---------------------------------------------------------------------------
    SEO Fix 1 - server-rendered, crawlable quiz question review (spoiler-safe).
    Lives below the interactive player. Collapsed <details>, but the question

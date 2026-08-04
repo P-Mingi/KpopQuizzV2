@@ -1,0 +1,6 @@
+  sort-it-player: Start-buttons=0  auto-start-mount-effect=1
+  match-up-player: Start-buttons=0  auto-start-mount-effect=1
+  name-them-all-player: Start-buttons=0  auto-start-mount-effect=1
+  /games/sort-it/[slug]: h1=1
+  /games/match-up/[slug]: h1=1
+  /games/name-them-all/[slug]: h1=1

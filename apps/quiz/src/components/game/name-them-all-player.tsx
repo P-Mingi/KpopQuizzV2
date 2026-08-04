@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { completeDaily } from '@/lib/daily-played';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
+import { writeLastPlayed } from '@/lib/games/last-played';
 import { findMatch, formatTimer, getScoreLabel } from '@/lib/name-all-utils';
 import type { NameAllMember } from '@/lib/db/types';
 import type { NameThemAllItem, NameThemAllPlaylist } from '@/lib/games/name-them-all';
@@ -90,10 +90,14 @@ export function NameThemAllPlayer({
     setTimeLeft(playlist.timerSeconds);
     setInputValue('');
     setLastFound(null);
+    writeLastPlayed('name-them-all', playlist.slug);
     analytics.gameStart('name-them-all', isDailyLaunch());
     setPhase('playing');
     setTimeout(() => inputRef.current?.focus(), 80);
-  }, [playlist.timerSeconds]);
+  }, [playlist.timerSeconds, playlist.slug]);
+
+  // Auto-start (G-HUB v2 step 4): no interstitial; start once on mount.
+  useEffect(() => { start(); }, [start]);
 
   const onChange = useCallback(
     (value: string) => {
@@ -122,18 +126,12 @@ export function NameThemAllPlayer({
 
   const pct = total > 0 ? Math.round((found.size / total) * 100) : 0;
 
-  // ---- START ----
+  // ---- START -> auto-starts via the mount effect; neutral loading state on SSR
+  //      + first paint (never an interstitial). Page H1 + intro sit above. ----
   if (phase === 'start') {
     return (
       <div className="nta-wrap">
-        <Link href="/games" className="nta-back">{'←'} Back to Games</Link>
-        <div className="nta-intro">
-          <span className="nta-eyebrow">Name Them All</span>
-          <h2 className="nta-title">{playlist.title}</h2>
-          <p className="nta-blurb">{playlist.blurb}</p>
-          <div className="nta-meta">{total} {playlist.itemNoun} {'·'} {formatTimer(playlist.timerSeconds)} on the clock</div>
-          <button type="button" className="btn-primary nta-start" onClick={start}>Start naming</button>
-        </div>
+        <div className="game-loading" role="status" aria-live="polite">Loading Name Them All</div>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -9,6 +8,7 @@ import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { completeDaily } from '@/lib/daily-played';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
+import { writeLastPlayed } from '@/lib/games/last-played';
 import type { SortItItem, SortItPlaylist } from '@/lib/games/sort-it';
 
 // Workstream V1 - the "Sort It" engine. Binary classification: a shuffled stack
@@ -101,9 +101,15 @@ export function SortItPlayer({
     setDragX(0);
     busy.current = false;
     startedAt.current = Date.now();
+    writeLastPlayed('sort-it', playlist.slug);
     analytics.gameStart('sort-it', isDailyLaunch());
     setPhase('playing');
-  }, [items]);
+  }, [items, playlist.slug]);
+
+  // Auto-start (G-HUB v2 step 4): no interstitial. Begin once on mount; the
+  // shuffled deck only renders after this client effect, so SSR hydration stays
+  // stable (SSR + first client paint both render the neutral loading state).
+  useEffect(() => { begin(); }, [begin]);
 
   const endGame = useCallback(() => {
     setElapsed(Math.floor((Date.now() - startedAt.current) / 1000));
@@ -181,23 +187,14 @@ export function SortItPlayer({
   const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
   const progressPct = total > 0 ? (done / total) * 100 : 0;
 
-  // ---- START ----
+  // ---- START -> auto-starts via the mount effect above. A neutral loading
+  //      state renders on SSR + the first client paint (never an interstitial
+  //      button), then begin() flips to playing. The page's server-rendered H1 +
+  //      intro sit above this, so the SEO copy is unaffected. ----
   if (phase === 'start') {
     return (
       <div className="si-wrap">
-        <Link href="/games" className="si-back">{'←'} Back to Games</Link>
-        <div className="si-intro">
-          <span className="si-eyebrow">Sort It</span>
-          <h2 className="si-title">{playlist.title}</h2>
-          <p className="si-blurb">{playlist.blurb}</p>
-          <div className="si-meta">{total} to sort {'·'} tap, swipe, or arrow keys</div>
-          <div className="si-bucket-preview" aria-hidden="true">
-            <span className="si-chip">{playlist.buckets[0]}</span>
-            <span className="si-vs">vs</span>
-            <span className="si-chip">{playlist.buckets[1]}</span>
-          </div>
-          <button type="button" className="btn-primary si-start" onClick={begin}>Start sorting</button>
-        </div>
+        <div className="game-loading" role="status" aria-live="polite">Loading Sort It</div>
       </div>
     );
   }

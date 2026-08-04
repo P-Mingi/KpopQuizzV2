@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { completeDaily } from '@/lib/daily-played';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
+import { writeLastPlayed } from '@/lib/games/last-played';
 import type { MatchUpPair, MatchUpPlaylist } from '@/lib/games/match-up';
 
 // Workstream V2 - the "Match-Up" engine. Two columns of tiles; tap one from each
@@ -114,9 +114,14 @@ export function MatchUpPlayer({
     setPenalty(0);
     setElapsed(0);
     startedAt.current = Date.now();
+    writeLastPlayed('match-up', playlist.slug);
     analytics.gameStart('match-up', isDailyLaunch());
     setPhase('playing');
-  }, [pool, roundSize]);
+  }, [pool, roundSize, playlist.slug]);
+
+  // Auto-start (G-HUB v2 step 4): no interstitial; begin once on mount. The board
+  // renders client-side only, so SSR hydration stays stable (loading state).
+  useEffect(() => { begin(); }, [begin]);
 
   const endGame = useCallback(() => {
     // Snap the final time to the wall clock so the score is exact, not up to a
@@ -179,18 +184,12 @@ export function MatchUpPlayer({
     ].filter(Boolean).join(' ');
   };
 
-  // ---- START ----
+  // ---- START -> auto-starts via the mount effect; neutral loading state on SSR
+  //      + first paint (never an interstitial). Page H1 + intro sit above. ----
   if (phase === 'start') {
     return (
       <div className="mu-wrap">
-        <Link href="/games" className="mu-back">{'←'} Back to Games</Link>
-        <div className="mu-intro">
-          <span className="mu-eyebrow">Match-Up</span>
-          <h2 className="mu-title">{playlist.title}</h2>
-          <p className="mu-blurb">{playlist.blurb}</p>
-          <div className="mu-meta">{roundSize} pairs {'·'} tap one from each side {'·'} beat the clock</div>
-          <button type="button" className="btn-primary mu-start" onClick={begin}>Start matching</button>
-        </div>
+        <div className="game-loading" role="status" aria-live="polite">Loading Match-Up</div>
       </div>
     );
   }

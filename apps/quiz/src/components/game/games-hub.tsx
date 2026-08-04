@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
 import { BlindStreak } from './blind-streak';
+import { HubLastPlayed } from './hub-last-played';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 
+import type { LastPlayedGame } from '@/lib/games/last-played';
 import type { RankingIndexItem } from '@/lib/db/queries/duels';
 
 // G-HUB v2 (ledger L-032..L-034, prototype prototypes/games-hub-v2.html).
@@ -44,6 +46,8 @@ interface Tile {
   play: string;
   lobby: string | null;
   modes: number;
+  // When set, the client upgrades this tile's Play href to the last-played variant.
+  lp?: LastPlayedGame;
 }
 
 const firstSlug = (list: ReadonlyArray<{ slug: string }>, fallback: string): string =>
@@ -67,19 +71,19 @@ export function GamesHub({ counts, liveRanking }: GamesHubProps): React.ReactEle
       key: 'name', name: 'Name Them All', line: 'Type every member before the timer',
       cover: 'cv-name', big: 'A B C', bigSize: 30,
       play: `/games/name-them-all/${firstSlug(NAME_THEM_ALL_PLAYLISTS, 'name-all-kpop-groups')}`,
-      lobby: '/games/name-them-all', modes: c.nameThemAll,
+      lobby: '/games/name-them-all', modes: c.nameThemAll, lp: 'name-them-all',
     },
     {
       key: 'sort', name: 'Sort It', line: 'Two sides, tap the right one',
       cover: 'cv-sort', big: '←  →', bigSize: 22,
       play: `/games/sort-it/${firstSlug(SORT_IT_PLAYLISTS, 'boy-group-or-girl-group')}`,
-      lobby: '/games/sort-it', modes: c.sortIt,
+      lobby: '/games/sort-it', modes: c.sortIt, lp: 'sort-it',
     },
     {
       key: 'match', name: 'Match-Up', line: 'Pair the tiles, clear the board',
       cover: 'cv-match', big: '▦', bigSize: 26,
       play: `/games/match-up/${firstSlug(MATCH_UP_PLAYLISTS, 'song-to-group')}`,
-      lobby: '/games/match-up', modes: c.matchUp,
+      lobby: '/games/match-up', modes: c.matchUp, lp: 'match-up',
     },
     {
       key: 'tot', name: 'This or That', line: 'Vote, move the live ranking',
@@ -135,7 +139,12 @@ export function GamesHub({ counts, liveRanking }: GamesHubProps): React.ReactEle
       <section className="ghub-grid" aria-label="All games">
         {games.map((g) => (
           <article className="ghub-tile" key={g.key}>
-            <Link href={g.play} className="ghub-tile-play" aria-label={`Play ${g.name} now`}>
+            <Link
+              href={g.play}
+              className="ghub-tile-play"
+              aria-label={`Play ${g.name} now`}
+              {...(g.lp && g.lobby ? { 'data-lp': g.lp, 'data-lp-base': `${g.lobby}/` } : {})}
+            >
               <span className={`ghub-cover ${g.cover}`} aria-hidden="true">
                 <span className="ghub-cover-big" style={{ fontSize: g.bigSize }}>{g.big}</span>
               </span>
@@ -169,6 +178,8 @@ export function GamesHub({ counts, liveRanking }: GamesHubProps): React.ReactEle
           <Link href="/rankings" className="ghub-rank-all">All rankings</Link>
         </section>
       )}
+
+      <HubLastPlayed />
     </main>
   );
 }
