@@ -1,0 +1,2 @@
+this-or-that/all idol-img: 0
+name-all-card idol-img: 0
