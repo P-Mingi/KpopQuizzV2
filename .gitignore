@@ -49,7 +49,14 @@ pinterest-worker/venv/
 # Accidentally committed, keep out
 apps/quiz/.env.local.bak.deadproject
 *.bak.*
-.claude/
+# .claude/ stays out (local config), EXCEPT the versioned Working System V2
+# guardrails: settings.json (hooks wiring), hooks/, and the verse-laws skill.
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/verse-laws/
 # docs/ stays out by default, but the Working System V2 bus + proofs + the
 # ratified working-system docs are tracked (Cowork/owner read them from git).
 docs/*
