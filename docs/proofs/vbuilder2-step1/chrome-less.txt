@@ -1,0 +1,25 @@
+V-BUILDER-2 step 1 - chrome-less proof (rendered DOM element presence)
+
+Method: parse /build/bts (canvas) and /verse/bts (published) as the admin curator;
+querySelector each root-chrome element in the actual rendered DOM.
+
+  selector                 /build/bts (canvas)   /verse/bts (published)
+  header.top-nav                 false                 true
+  .mobile-top-bar                false                 true
+  nav.mobile-tab-bar             false                 true
+  footer                         false                 true
+  space hero                     false                 false
+  [data-build-canvas]            TRUE                  false
+
+=> The builder canvas renders ZERO root chrome (desktop top nav, mobile top bar, mobile tab
+   bar, site footer) and no space hero - only the composition inside the [data-build-canvas]
+   wrapper. The published page renders all chrome, as expected.
+
+Mechanism: the 4 client chrome components (top-nav-bar, mobile-top-bar, mobile-tab-bar,
+site-footer) each call isBuilderCanvas(pathname) and return null on /build/*, the same
+self-suppression pattern already used for the /q/ fullscreen quiz view. The build route lives
+in the (builder) route group, outside verse/[slug], so it also gets no space hero or tabs.
+
+Note: an earlier raw-substring check (/class="top-nav"/.test(html)) reported a FALSE POSITIVE
+by matching the ".top-nav" class name inside the inlined <style> stylesheet. The element-level
+querySelector check above is authoritative: no chrome element is present.

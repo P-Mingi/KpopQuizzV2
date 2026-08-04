@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { TopNavLinks } from './top-nav-links';
 import { WorldToggle } from './world-toggle';
 import { VerseLogo } from '@/components/verse/brand/verse-logo';
-import { worldForPath, WORLD_ACCENT } from '@/lib/world';
+import { worldForPath, WORLD_ACCENT, isBuilderCanvas } from '@/lib/world';
 
 /**
  * Desktop top-nav shell. Client component so the world (derived from usePathname)
@@ -17,8 +17,10 @@ import { worldForPath, WORLD_ACCENT } from '@/lib/world';
  */
 export function TopNavBar({ logo, themeToggle, bell, profile }: {
   logo: React.ReactNode; themeToggle: React.ReactNode; bell: React.ReactNode; profile: React.ReactNode;
-}): React.ReactElement {
-  const world = worldForPath(usePathname());
+}): React.ReactElement | null {
+  const pathname = usePathname();
+  if (isBuilderCanvas(pathname)) return null; // chrome-less builder canvas
+  const world = worldForPath(pathname);
   const verse = world === 'verse';
 
   return (

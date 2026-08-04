@@ -1,0 +1,27 @@
+V-BUILDER-2 step 1 - byte-identical composition proof (draft route vs published, minus chrome)
+
+Method: fetch /build/<slug> and /verse/<slug> as the SAME curator (admin dev account, which
+is space_admin everywhere). Parse both. Extract the composition MAIN COLUMN (div.lg:col-span-2 -
+the CompositionRenderer main stack). That column is the right byte-comparison target because
+(a) page chrome never uses col-span-2, so it is not contaminated by JSON-LD / breadcrumbs /
+sr-only h1 that live in the published grid but are correctly omitted by the canvas, and (b) its
+modules are static (live timers live in the aside), so a byte diff is deterministic across two
+fetches. Normalize whitespace, then byte-compare.
+
+--- bts (presentation_draft EMPTY -> /build falls back to LIVE presentation) ---
+  main column IDENTICAL.
+  build length 21380 == published length 21380 chars. first divergence index = -1 (none).
+  => the draft route renders the published composition byte-for-byte, minus chrome.
+
+--- stray-kids (presentation_draft POPULATED, differs from live) ---
+  main column DIFFERS (correctly).
+  build 10841 vs published 10839 chars. first divergence at index 50:
+    build:  "><div><div class="verse-divider verse-divider-dot...
+    pub:    "><div><div class="verse-frame verse-frame-sharp">...
+  => the draft route renders the DRAFT, not live. Confirms the draft is a genuinely separate
+     surface, not a mirror of the published page.
+
+Conclusion: byte-parity holds when draft == live (bts), AND the draft is a real, separate
+surface when populated (stray-kids). Both properties are required for a trustworthy
+edit-in-place canvas: the canvas must render exactly what will publish, yet edit an isolated
+draft that never touches the live page until /publish.

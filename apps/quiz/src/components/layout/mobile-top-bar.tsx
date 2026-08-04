@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Mascot } from '@/components/ui/mascot';
 import { WorldToggle } from '@/components/layout/world-toggle';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
-import { worldForPath } from '@/lib/world';
+import { worldForPath, isBuilderCanvas } from '@/lib/world';
 
 interface NavProfile {
   username: string;
@@ -30,7 +30,7 @@ export function MobileTopBar(): React.ReactElement | null {
     return () => { cancelled = true; };
   }, []);
 
-  if (pathname.startsWith('/q/')) return null;
+  if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
 

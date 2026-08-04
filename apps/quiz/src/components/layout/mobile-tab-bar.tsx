@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { worldForPath, WORLD_ACCENT } from '@/lib/world';
+import { worldForPath, WORLD_ACCENT, isBuilderCanvas } from '@/lib/world';
 
 interface Tab { label: string; href: string; match: readonly string[] }
 
@@ -34,8 +34,8 @@ const VERSE_TABS: readonly Tab[] = [
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Hide during active quiz/game play
-  if (pathname.startsWith('/q/')) return null;
+  // Hide during active quiz/game play + on the chrome-less builder canvas
+  if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
 

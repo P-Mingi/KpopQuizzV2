@@ -45,6 +45,10 @@ export const KNOWN_ROUTES = [
   '/s/',
   '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
   '/verse',
+  // V-BUILDER-2: the chrome-less builder draft canvas (/build/<slug>). Curator-gated
+  // server-side (404 otherwise) + noindex; it self-gates, so it stays out of
+  // PROTECTED_PATH_PREFIXES (no Supabase round trip in the middleware).
+  '/build',
   '/articles',
   '/battle',
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].

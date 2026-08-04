@@ -1,0 +1,28 @@
+V-BUILDER-2 step 1 - curator gate (404) + noindex proof
+
+The route gate: `if (!user || !(await canCurateSpace(user.id, space.group.id))) notFound();`
+notFound() returns HTTP 404 with the app's not-found page - the canvas is INVISIBLE (not 403)
+to anyone who is not a curator/space_admin of the space.
+
+--- non-curator #1: UNAUTHENTICATED (!user branch) ---
+  GET /build/stray-kids, no session -> HTTP 404. rendersCanvas = false.
+
+--- non-curator #2: AUTHENTICATED member (canCurateSpace false branch) ---
+  Signed in as "testfan" (space_members role = member of bts, below curator).
+  GET /build/bts -> HTTP 404. rendersCanvas = false.
+
+=> Both non-curator paths (no session, and signed-in-but-under-ranked) get 404. Only a
+   curator / space_admin renders the canvas. (Global admins are space_admin everywhere, so the
+   owner's dev account curates every space; that is the session used for the byte-identical and
+   chrome-less proofs.)
+
+--- noindex ---
+  metadata.robots = { index: false, follow: false } on the /build route.
+  Rendered <title> is "Builder canvas" and the head carries robots noindex,nofollow.
+  => the draft canvas is never indexed even if a URL leaks.
+
+--- routing / types (see sibling files) ---
+  check:routes: green, 337 routes. '/build' is allowlisted in route-allowlist.ts, so the
+    middleware does not 301 it to /. It is NOT in PROTECTED_PATH_PREFIXES (it self-gates
+    server-side), so the middleware spends no Supabase round trip on it. (check-routes.txt)
+  tsc --noEmit (whole app): 0 errors. (tsc.txt)
