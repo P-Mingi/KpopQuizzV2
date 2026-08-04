@@ -6,6 +6,7 @@ import { GamesHub } from '@/components/game/games-hub';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
+import { pickDaily } from '@/lib/games/daily-rotation';
 
 import type { Metadata } from 'next';
 
@@ -46,7 +47,10 @@ export default async function PtGamesPage() {
     nameAll: nameAllCount, nameThemAll: NAME_THEM_ALL_PLAYLISTS.length,
     sortIt: SORT_IT_PLAYLISTS.length, matchUp: MATCH_UP_PLAYLISTS.length,
   };
-  const liveRanking = rankings.filter((r) => r.public).sort((a, b) => b.total_votes - a.total_votes)[0] ?? null;
+  const publicRankings = rankings
+    .filter((r) => r.public)
+    .sort((a, b) => b.total_votes - a.total_votes || `${a.group_slug}:${a.question_type}`.localeCompare(`${b.group_slug}:${b.question_type}`));
+  const liveRanking = pickDaily(publicRankings);
 
   return (
     <div className="pb-24">
