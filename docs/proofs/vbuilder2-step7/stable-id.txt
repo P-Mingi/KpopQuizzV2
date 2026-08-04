@@ -1,0 +1,19 @@
+=== TEST 1: converter round-trip keeps ids across a same-type reorder ===
+  PASS  save now persists an id on the module
+  PASS  ALPHA keeps its id across reorder :: blk-discography-0 -> blk-discography-0
+  PASS  BETA  keeps its id across reorder :: blk-discography-1 -> blk-discography-1
+  PASS  the two ids stayed distinct :: blk-discography-0 / blk-discography-1
+
+=== TEST 2: legacy freeze (unsaved config -> save -> ids persisted -> stable) ===
+  PASS  validation succeeded
+  PASS  every discography module now has a frozen id :: ["blk-discography-0","blk-discography-1"]
+  PASS  re-validation succeeded
+  PASS  frozen ids are UNCHANGED after the reorder
+  PASS  the id that moved to order 0 is the ORIGINAL order-1 id (travelled, not re-derived) :: order0 id = blk-discography-1, expected blk-discography-1
+
+=== TEST 3: validator id gates ===
+  PASS  duplicate explicit ids are rejected :: Duplicate block id "dup1".
+  PASS  malformed id is rejected :: Invalid block id "has spaces & symbols!".
+  PASS  a valid explicit id is preserved verbatim (not re-minted) :: a1b2c3d4-uuid_ok
+
+ALL PASS: stable-id persistence + freeze

@@ -1,0 +1,37 @@
+modules in validator: 29  |  block specs: 31  (adds doorway + prose)
+COMPLETE: every module type has a BlockSpec.
+ALL SPECS WELL-FORMED.
+
+--- registry table ---
+type             cat      seo  source     zones        style options
+intro            text     YES  curator    main         frame,background,radius,density,divider,accent,text
+vitals           text     YES  entity     main         frame,background,radius,density,divider,accent,text
+members          live     YES  entity     main+side    frame,background,radius,density,divider,accent
+story            text     -    curator    main         frame,background,radius,density,divider,accent,text
+discography      live     YES  entity     main+side    frame,background,radius,density,divider,accent
+go_deeper        doorway  -    entity     main+side    frame,background,radius,density,divider,accent
+community        live     -    community  main+side    frame,background,radius,density,divider,accent
+game_widgets     live     -    community  main         frame,background,radius,density,divider,accent
+on_this_day      live     -    entity     side+main    frame,background,radius,density,divider,accent
+stats            live     -    entity     side+main    frame,background,radius,density,divider,accent
+masthead         live     -    community  side+main    frame,background,radius,density,divider,accent
+completeness     live     -    entity     side+main    frame,background,radius,density,divider,accent
+binder_widget    live     -    community  side+main    frame,background,radius,density,divider,accent
+shelf_widget     live     -    community  side+main    frame,background,radius,density,divider,accent
+featured_essay   live     -    community  side+main    frame,background,radius,density,divider,accent
+atlas_mini       live     -    entity     side+main    frame,background,radius,density,divider,accent
+featured_thread  live     -    community  side+main    frame,background,radius,density,divider,accent
+facts            live     YES  entity     main+side    frame,background,radius,density,divider,accent
+timeline         live     YES  entity     main         frame,background,radius,density,divider,accent
+eras             live     YES  entity     main         frame,background,radius,density,divider,accent
+collections      live     -    community  main+side    frame,background,radius,density,divider,accent
+music            media    -    entity     main+side    frame,background,radius,density,divider,accent
+countdown        live     -    entity     side+main    frame,background,radius,density,divider,accent
+poll             live     -    community  main+side    frame,background,radius,density,divider,accent
+quote            text     -    curator    main+side    frame,background,radius,density,divider,accent,text
+spotlight        media    -    entity     main+side    frame,background,radius,density,divider,accent
+social_embed     media    -    curator    main+side    frame,background,radius,density,divider,accent
+discord          media    -    curator    side+main    frame,background,radius,density,divider,accent
+live_now         live     -    curator    side+main    frame,background,radius,density,divider,accent
+doorway          doorway  -    entity     main+side    doorwayFormat,frame,background,radius,density,divider,accent
+prose            text     -    curator    main+side    frame,background,radius,density,divider,accent,text

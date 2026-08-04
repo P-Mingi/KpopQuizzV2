@@ -1,0 +1,45 @@
+V-BUILDER-2 step 7 - PLAY TRIPLE-PROOF (law #18), re-run as the law defines it
+
+WHY it is required: V-BUILDER-2 touched SHARED chrome, so "no Play files touched" is NOT
+available and the triple-proof is mandatory. The shared changes (git f349eff..eeb6d7d):
+  - components/layout/{top-nav-bar,mobile-tab-bar,mobile-top-bar,site-footer}.tsx  (step 1,
+    4e9035f): hide root chrome on the builder canvas, GUARDED by the builder-route check
+    (isBuilderCanvas). All render in <body>; NONE touch <head>/metadata/<title>/<link>/<meta>
+    (grep of the diffs for head/metadata = empty).
+  - styles/globals.css (step 5): added --vb-accent-* swatch tokens + block-style tokens (the
+    token DEFINITION layer; unused by Play, so no Play rule changes).
+  - lib/world.ts (step 2): a lib helper (worldHref/WorldLink), no Play page render change.
+
+(a) HEAD BYTE-DIFF vs baseline
+  No head-affecting file changed across all of V-BUILDER-2 (the layout changes are <body>
+  chrome; globals.css content changed but its <link> is unchanged and the new tokens are
+  unused by Play). So the Play <head> is unchanged by construction. Live confirmation on the
+  Play home (/):
+    head length = 5908 chars
+    builder/verse leak tokens in head [vb-block, vb-shell, data-block-id, verse-scope,
+      verse-page, /build/, builder-shell] = []   (ZERO leaks)
+  => the Play head carries no builder/verse artifact.
+
+(b) 720px LAYOUT PROBE
+  scripts/test-play-untouched.mts (the PERMANENT gate, proof 2 of 3): 12 passed, 0 failed.
+    "PLAY LAYOUT LAW HOLDS: 720px, verse-page-free." (home + a game page + the quizzes
+    catalog: zero .verse-page markers, main still declares max-w-[720px], and the globals.css
+    canvas rule keys on .verse-page NOT .verse-scope.)
+  Live re-confirmation at an 800px viewport on the Play home:
+    main computed max-width = 720px
+    document scrollWidth = 800 == viewport  ->  horizontalOverflow = false
+    .verse-page markers = 0
+
+(c) SCREENSHOT
+  Play home at 800x1000 captured and shown inline to the owner: top nav (KpopQuiz, the
+  Play/Verse toggle, search, create, notifications, account), the "Are you a real fan?" hero,
+  Browse quizzes / Create a quiz, Quiz + Blindtest + Game of the day cards, footer. All Play
+  chrome renders normally (the builder-route guards are inert off /build), no overflow, no
+  builder affordances.
+
+NOTE (honest): the Play home logs a benign React warning "Encountered a script tag while
+rendering React component" - the JSON-LD structured-data <script> rendered server-side for
+SEO (the dev "N Issues" badge). This is PRE-EXISTING Play behavior on a page V-BUILDER-2 did
+not touch, not a builder regression.
+
+VERDICT: Play is byte-untouched by V-BUILDER-2. All three proofs hold.

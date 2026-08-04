@@ -1,0 +1,34 @@
+V-BUILDER-2 step 7 - SEO PARITY re-proof (law #1: config/composed vs default emits the
+SAME indexable set: same text, same real <a href>s, same headings)
+
+Measured live (:3021) as the admin curator. bts draft = empty ({}), so the composed canvas
+resolves to the default composition; the comparison isolates the BUILDER RENDER PATH
+(presentationToComposition -> resolvePlacements -> the shared renderer, + selection handles)
+against the default published render.
+
+Indexable set of the main column (div.lg:col-span-2), normalized:
+
+  page                     textLen   hrefs   headings   handles   sig(djb2-xor)
+  /verse/bts  (default)    1676      38      8          0         bd7b7a1d
+  /build/bts  (composed)   1676      38      8          10        bd7b7a1d
+
+  => IDENTICAL indexable set. matchesVerse = true.
+
+- text: byte-identical (1676 chars, normalized).
+- hrefs: identical 38-href set (members, discography, albums, timeline, quizzes, blindtest,
+  the one external citation https://en.wikipedia.org/wiki/BTS, etc.).
+- headings: identical 8 (H2 Members / The story so far / Latest releases / H3 Now / H2 Go
+  deeper / Collections / Community / Play).
+- one-H1 law: /verse/bts has exactly 1 <h1> ("ARMY, home of BTS fans", the hero); the main
+  column carries only h2/h3. The composed canvas is chrome-less (no duplicate H1).
+- the ONLY delta on the composed canvas is 10 data-block-id wrapper handles, which carry no
+  text, no href, and no heading -> zero indexable difference (the same +835-char wrapper
+  delta measured byte-for-byte in step 2).
+
+Converter lossless (renderer input), re-run this step (parity.txt):
+  scripts/_vbuilder1-parity.mts -> bts/stray-kids/ateez: render-parity=true,
+  meta-lossless=true, stable-ids=true. ALL PASS.
+
+Registry complete + well-formed (registry.txt):
+  29 validator module types, 31 block specs, COMPLETE (every module type has a BlockSpec),
+  ALL SPECS WELL-FORMED.

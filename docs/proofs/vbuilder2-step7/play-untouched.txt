@@ -1,0 +1,15 @@
+  ok  exactly one main:has() canvas rule exists
+  ok  the canvas rule keys on .verse-page
+  ok  the canvas rule does NOT key on .verse-scope (the leak)
+  ok  / responds 200
+  ok  /: zero .verse-page markers in the rendered DOM
+  ok  /: the main still declares the 720px column
+  ok  /quizzes responds 200
+  ok  /quizzes: zero .verse-page markers in the rendered DOM
+  ok  /quizzes: the main still declares the 720px column
+  ok  /games responds 200
+  ok  /games: zero .verse-page markers in the rendered DOM
+  ok  /games: the main still declares the 720px column
+
+12 passed, 0 failed
+PLAY LAYOUT LAW HOLDS: 720px, verse-page-free.

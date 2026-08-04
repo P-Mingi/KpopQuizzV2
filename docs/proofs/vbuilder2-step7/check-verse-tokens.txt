@@ -1,0 +1,5 @@
+
+> quiz@1.0.0 check:verse-tokens
+> tsx scripts/check-verse-tokens.mts
+
+Verse token gate passed: no raw hex colors in Verse surfaces.
