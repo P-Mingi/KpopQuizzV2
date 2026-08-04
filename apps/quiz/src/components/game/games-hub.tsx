@@ -84,7 +84,8 @@ export function GamesHub({ counts, liveRanking }: GamesHubProps): React.ReactEle
     {
       key: 'tot', name: 'This or That', line: 'Vote, move the live ranking',
       cover: 'cv-tot', big: 'VS', bigSize: 24,
-      play: '/games/this-or-that/all', lobby: '/games/this-or-that', modes: c.categories,
+      // Play -> the game (auto-starts the default matchup); All modes -> the catalog.
+      play: '/games/this-or-that', lobby: '/games/this-or-that/all', modes: c.categories,
     },
     {
       key: 'member', name: 'Which member are you', line: '10 questions, your match',

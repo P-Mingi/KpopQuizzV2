@@ -44,25 +44,20 @@ export default async function ThisOrThatIndexPage(): Promise<React.ReactElement>
 
       {sorted.length > 0 ? (
         <ul className="ranking-index-grid">
-          {sorted.map((c) => (
+          {sorted.map((c, i) => (
             <li key={`${c.group_slug}:${c.question_type}`}>
               <Link
                 href={`/games/this-or-that?group=${encodeURIComponent(c.group_slug)}&type=${encodeURIComponent(c.question_type)}`}
-                className="ranking-index-card"
+                className="ranking-index-card lmc-card"
               >
-                {c.top_entity?.image ? (
-                  <img className="ranking-index-avatar" src={c.top_entity.image} alt="" loading="lazy" />
-                ) : (
-                  <span className="ranking-index-avatar" />
-                )}
-                <span className="ranking-index-body">
+                <span className={`lmc-cover lmc-g${(i % 6) + 1}`} aria-hidden="true" />
+                <span className="ranking-index-body lmc-body">
                   <span className="ranking-index-name">{c.prompt}</span>
                   <span className="ranking-index-meta">
                     {c.public ? 'Live ranking · ' : ''}
                     {c.total_votes.toLocaleString('en-US')} vote{c.total_votes === 1 ? '' : 's'}
                   </span>
                 </span>
-                <span className="ranking-index-arrow" aria-hidden="true">→</span>
               </Link>
             </li>
           ))}

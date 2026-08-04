@@ -1965,7 +1965,8 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
    hidden, cycling gradient) is prepended to each existing variant card, turning
    the lobby into an image mode-card grid. One tap = the variant. The card body,
    its text, and its link are unchanged (SEO parity: covers only add). */
-.lmc-card { padding: 0 !important; gap: 0 !important; overflow: hidden; display: flex; flex-direction: column; }
+.lmc-card { padding: 0 !important; gap: 0 !important; overflow: hidden; display: flex !important; flex-direction: column !important; align-items: stretch !important; }
+.lmc-body .ranking-index-name { font-weight: 700; }
 .lmc-cover { height: 60px; flex: none; position: relative; }
 .lmc-body { display: flex; flex-direction: column; gap: 7px; padding: 14px; flex: 1; }
 .lmc-g1 { background: linear-gradient(120deg,#E0447A,#7C1240); }

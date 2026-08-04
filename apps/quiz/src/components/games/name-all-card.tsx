@@ -126,12 +126,10 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
                   : getGradientForIndex(i),
               }}
             >
-              {item.image_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.image_url} alt={item.name} loading="lazy" className="w-full h-full object-cover" />
-              ) : (
-                getInitial(item.name)
-              )}
+              {/* Legal wall (G-HUB v2, mission point 6): CSS-art only, no idol
+                  photos. The overlapping-circle roster preview stays, rendered as
+                  initials on a gradient instead of licensed-only photos. */}
+              {getInitial(item.name)}
             </div>
           ))}
           {extra > 0 && (
