@@ -136,6 +136,15 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 
+  // V-BUILDER-1 step 4: alignment is a node attribute on the active block
+  // (paragraph or heading). Clicking the active alignment clears it (back to left).
+  const setAlign = (align: 'left' | 'center') => {
+    if (!editor) return;
+    const type = editor.isActive('heading') ? 'heading' : 'paragraph';
+    const next = editor.isActive({ textAlign: align }) ? null : align;
+    editor.chain().focus().updateAttributes(type, { textAlign: next }).run();
+  };
+
   if (!editor) return <div className="p-4 text-sm text-secondary">Loading editor...</div>;
 
   if (submitted) return (
@@ -188,6 +197,14 @@ export function SectionEditor({ entityType, entityId, section, initialContent, b
       <div ref={toolbar.ref} onKeyDown={toolbar.onKeyDown} onFocusCapture={toolbar.onFocusCapture} className="v-toolbar flex flex-wrap items-center gap-0.5 border-b border-default px-2 py-1.5" style={{ borderColor: 'var(--verse-line)' }} role="toolbar" aria-label="Formatting">
         <Btn label="Bold" on={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} />
         <Btn label="Italic" on={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive('italic')} />
+        <Btn label="U" name="Underline" on={() => editor.chain().focus().toggleUnderline().run()} active={editor.isActive('underline')} />
+        <Btn label="S" name="Strikethrough" on={() => editor.chain().focus().toggleStrike().run()} active={editor.isActive('strike')} />
+        {/* V-BUILDER-1 step 4: token-governed marks - highlight (tint), size step, align. */}
+        <Btn label="HL" name="Highlight" on={() => editor.chain().focus().toggleMark('highlight', { tint: 'yellow' }).run()} active={editor.isActive('highlight')} />
+        <Btn label="A-" name="Smaller text" on={() => editor.chain().focus().toggleMark('fontSize', { size: 'S' }).run()} active={editor.isActive('fontSize', { size: 'S' })} />
+        <Btn label="A+" name="Larger text" on={() => editor.chain().focus().toggleMark('fontSize', { size: 'L' }).run()} active={editor.isActive('fontSize', { size: 'L' })} />
+        <Btn label="Left" name="Align left" on={() => setAlign('left')} active={editor.isActive({ textAlign: 'left' })} />
+        <Btn label="Center" name="Align center" on={() => setAlign('center')} active={editor.isActive({ textAlign: 'center' })} />
         <span className="mx-1 h-4 w-px bg-[var(--verse-line)]" />
         <Btn label="H2" name="Heading level 2" on={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} active={editor.isActive('heading', { level: 2 })} />
         <Btn label="H3" name="Heading level 3" on={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} active={editor.isActive('heading', { level: 3 })} />

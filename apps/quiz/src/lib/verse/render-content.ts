@@ -4,6 +4,7 @@
 // unknown is dropped. All text is HTML-escaped. Images render only from
 // policy-approved hosts (strict-legal images rule).
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { clampTint, clampSize, clampAlign } from './mark-tokens';
 
 interface Mark { type: string; attrs?: Record<string, unknown> }
 interface Node {
@@ -37,6 +38,12 @@ function renderText(n: Node): string {
   for (const m of n.marks ?? []) {
     if (m.type === 'bold') html = `<strong>${html}</strong>`;
     else if (m.type === 'italic') html = `<em>${html}</em>`;
+    // V-BUILDER-1 step 4: the token-governed marks. Values are clamped to their
+    // enum (the sanitizer), so a hand-edited doc can never inject a raw color/size.
+    else if (m.type === 'underline') html = `<u>${html}</u>`;
+    else if (m.type === 'strike') html = `<s>${html}</s>`;
+    else if (m.type === 'highlight') { const t = clampTint(m.attrs?.tint); html = `<mark class="verse-hl verse-hl-${t}">${html}</mark>`; }
+    else if (m.type === 'fontSize') { const s = clampSize(m.attrs?.size); html = `<span class="verse-size-${s}">${html}</span>`; }
     else if (m.type === 'link') {
       const href = safeHref(m.attrs?.href);
       if (href) {
@@ -58,11 +65,12 @@ function children(n: Node): string {
 function renderNode(n: Node): string {
   switch (n.type) {
     case 'text': return renderText(n);
-    case 'paragraph': return `<p>${children(n)}</p>`;
+    case 'paragraph': { const a = clampAlign(n.attrs?.textAlign); return `<p${a ? ` class="verse-align-${a}"` : ''}>${children(n)}</p>`; }
     case 'heading': {
       const lvl = Number(n.attrs?.level) === 3 ? 3 : 2; // h2/h3 only (page owns h1)
       const id = headingSlug(plainText(n));
-      return `<h${lvl} id="${id}">${children(n)}</h${lvl}>`;
+      const a = clampAlign(n.attrs?.textAlign);
+      return `<h${lvl} id="${id}"${a ? ` class="verse-align-${a}"` : ''}>${children(n)}</h${lvl}>`;
     }
     case 'bulletList': return `<ul>${children(n)}</ul>`;
     case 'orderedList': return `<ol>${children(n)}</ol>`;

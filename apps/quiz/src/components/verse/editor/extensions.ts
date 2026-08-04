@@ -12,6 +12,7 @@ import { Link } from '@tiptap/extension-link';
 
 import { verseMention } from './mention';
 import { VerseEmbed } from './embed';
+import { VerseHighlight, VerseFontSize, VerseTextAlign } from './marks';
 
 import type { Extensions } from '@tiptap/react';
 
@@ -20,12 +21,15 @@ export const verseEditorExtensions: Extensions = [
     heading: { levels: [2, 3] },
     codeBlock: false,
     code: false,
-    strike: false,
-    // StarterKit v3 bundles link + underline; drop them - Link is configured
-    // explicitly below (citation helper) and underline stays out of the set.
+    // V-BUILDER-1 step 4: strike + underline are ON (both bundled in StarterKit,
+    // no new dep). Link stays configured explicitly below (the citation helper).
     link: false,
-    underline: false,
   }),
+  // V-BUILDER-1 step 4: the token-governed marks - highlight (tint enum), size
+  // step (S/M/L), and alignment (left/center on paragraph + heading).
+  VerseHighlight,
+  VerseFontSize,
+  VerseTextAlign,
   Table.configure({ resizable: false }),
   TableRow,
   TableHeader,
