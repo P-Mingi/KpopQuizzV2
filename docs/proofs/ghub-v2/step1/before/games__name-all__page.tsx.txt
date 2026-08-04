@@ -1,0 +1,12 @@
+ROUTE: /games/name-all
+FILE: apps/quiz/src/app/games/name-all/page.tsx
+--- metadata (title/description/canonical/robots) ---
+8:export const metadata: Metadata = {
+9:  title: 'Name All Members - K-pop Typing Game | KpopQuiz',
+10:  description: 'Can you name every member of BTS, BLACKPINK, SEVENTEEN, Stray Kids before time runs out? 24 groups available. Blind mode and photo clue mode.',
+11:  alternates: { canonical: '/games/name-all' },
+--- H1 / headings in page file ---
+--- component(s) rendered (the body indexable set lives here) ---
+14:<React
+19:<NameAllLanding
+--- internal hrefs in page file ---

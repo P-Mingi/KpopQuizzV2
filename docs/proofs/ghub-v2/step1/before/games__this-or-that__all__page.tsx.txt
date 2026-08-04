@@ -1,0 +1,14 @@
+ROUTE: /games/this-or-that/all
+FILE: apps/quiz/src/app/games/this-or-that/all/page.tsx
+--- metadata (title/description/canonical/robots) ---
+15:export const metadata: Metadata = {
+16:  title: 'All This or That Matchups | KpopQuiz',
+17:  description:
+19:  alternates: { canonical: '/games/this-or-that/all' },
+--- H1 / headings in page file ---
+40:<h1 
+--- component(s) rendered (the body indexable set lives here) ---
+27:<React
+37:<Breadcrumbs
+49:<Link
+--- internal hrefs in page file ---

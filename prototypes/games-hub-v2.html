@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KpopQuiz · Games hub v2 prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF6EF; --card:#FFFFFF; --ink:#221A1E; --ink-2:#7A6E73; --ink-3:#A99CA2;
+  --pink:#D63A6E; --pink-deep:#A31D4C; --pink-soft:#FBE3EC;
+  --line:rgba(34,26,30,.10); --line-strong:rgba(34,26,30,.2);
+  --r-card:20px; --r-pill:999px;
+  --shadow:0 1px 2px rgba(34,26,30,.05),0 10px 30px -12px rgba(163,29,76,.18);
+  --shadow-lift:0 2px 4px rgba(34,26,30,.06),0 24px 48px -16px rgba(163,29,76,.30);
+  --dur:220ms; --ease:cubic-bezier(.2,.7,.3,1.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:"Instrument Sans",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+.disp{font-family:"Unbounded",sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:none;background:none;cursor:pointer}
+
+/* top nav mimic */
+.nav{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:12px 24px}
+.logo{font-family:"Unbounded",sans-serif;font-weight:700;font-size:15px;letter-spacing:-.02em}
+.logo b{color:var(--pink)}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:var(--r-pill);overflow:hidden;font-size:12px;font-weight:600}
+.seg span{padding:5px 12px;color:var(--ink-2)}
+.seg .on{background:var(--pink);color:#fff}
+.nav-links{display:flex;gap:16px;margin-left:auto;font-size:13px;color:var(--ink-2)}
+.nav-links .here{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pink);padding-bottom:2px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:36px 24px 72px}
+
+/* header */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px}
+.hero h1{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;line-height:1.05}
+.hero h1 em{font-style:normal;color:var(--pink)}
+.hero p{color:var(--ink-2);font-size:14px;margin-top:6px}
+.hero .hint{font-size:12px;font-weight:600;color:var(--pink-deep);background:var(--pink-soft);border-radius:var(--r-pill);padding:6px 14px;white-space:nowrap}
+
+/* section labels */
+.lbl{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
+
+/* daily rail */
+.daily{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:34px}
+.dcard{position:relative;display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:14px;box-shadow:var(--shadow);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.dcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.dcover{width:96px;height:96px;border-radius:14px;flex:none;position:relative;overflow:hidden}
+.dcover.blind{background:
+  radial-gradient(120% 120% at 20% 15%,#FF9DBB 0%,#E0447A 42%,#6C1B45 100%)}
+.dcover.blind::after{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.85) 0 3px,transparent 3px 9px);
+  -webkit-mask:linear-gradient(180deg,transparent 30%,#000 50%,transparent 72%);mask:linear-gradient(180deg,transparent 30%,#000 50%,transparent 72%)}
+.dcover.idle{background:
+  radial-gradient(130% 130% at 80% 20%,#B7A6FF 0%,#6E4FD8 45%,#241A5E 100%)}
+.dcover.idle::after{content:"?";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Unbounded",sans-serif;font-weight:900;font-size:44px;color:rgba(255,255,255,.9)}
+.dbody{min-width:0}
+.dkick{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+.dname{font-family:"Unbounded",sans-serif;font-weight:700;font-size:16px;letter-spacing:-.02em;margin:2px 0}
+.dmeta{font-size:12.5px;color:var(--ink-2)}
+.streak{color:var(--pink-deep);font-weight:600}
+.play{margin-left:auto;flex:none;background:var(--pink);color:#fff;font-weight:600;font-size:14px;border-radius:var(--r-pill);padding:12px 22px;min-height:44px;box-shadow:0 6px 16px -6px rgba(214,58,110,.55);transition:transform 150ms var(--ease),background 150ms}
+.dcard:hover .play,.gcard:hover .play{transform:scale(1.05)}
+.play:active{transform:scale(.96)}
+.soon{border-style:dashed;border-color:var(--line-strong);box-shadow:none;opacity:.92}
+.soon-tag{margin-left:auto;flex:none;font-size:11px;font-weight:600;color:var(--ink-2);border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 12px}
+
+/* game grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:34px}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);opacity:0;animation:pop .5s var(--ease) forwards}
+.gcard:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:var(--shadow-lift)}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gcard:nth-child(1){animation-delay:.03s}.gcard:nth-child(2){animation-delay:.08s}.gcard:nth-child(3){animation-delay:.13s}.gcard:nth-child(4){animation-delay:.18s}.gcard:nth-child(5){animation-delay:.23s}.gcard:nth-child(6){animation-delay:.28s}
+.cover{height:118px;position:relative;overflow:hidden}
+.cover .big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Unbounded",sans-serif;font-weight:900;color:rgba(255,255,255,.92);letter-spacing:-.02em}
+.cv-name{background:linear-gradient(135deg,#FF7BA9 0%,#D63A6E 55%,#7C1240 100%)}
+.cv-name::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0 2px,transparent 2px 14px),repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 2px,transparent 2px 34px)}
+.cv-sort{background:linear-gradient(105deg,#20B2A0 0 50%,#F4A62A 50% 100%)}
+.cv-sort::before{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 1.5px);width:3px;background:rgba(255,255,255,.85)}
+.cv-match{background:linear-gradient(135deg,#4F63D8 0%,#2B2F86 100%)}
+.cv-match::before{content:"";position:absolute;inset:12px;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.28) 0 22px,transparent 22px 30px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.28) 0 46px,transparent 46px 56px);border-radius:8px;
+  -webkit-mask:linear-gradient(#000,#000);mask:linear-gradient(#000,#000);opacity:.5}
+.cv-tot{background:linear-gradient(75deg,#E0447A 0 48%,#FAF6EF 48% 52%,#3E2A72 52% 100%)}
+.cv-member{background:radial-gradient(100% 140% at 50% 0%,#FFC2D4 0%,#E0447A 60%,#8F1B4E 100%)}
+.cv-member::before{content:"";position:absolute;left:50%;top:56%;width:54px;height:54px;transform:translate(-50%,-50%) rotate(45deg);background:rgba(255,255,255,.28);border-radius:12px}
+.cv-duel{background:linear-gradient(115deg,#221A1E 0 46%,#D63A6E 46% 54%,#F4A62A 54% 100%)}
+.gbody{display:flex;align-items:center;gap:12px;padding:13px 14px}
+.gname{font-family:"Unbounded",sans-serif;font-weight:700;font-size:13.5px;letter-spacing:-.02em}
+.gdesc{font-size:12px;color:var(--ink-2);margin-top:2px}
+.gbody .play{padding:10px 18px;font-size:13px}
+
+/* daily ranking */
+.rank{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:44px}
+.dot{width:8px;height:8px;border-radius:50%;background:#2FB56E;flex:none;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.rank .q{font-weight:600;font-size:14px}
+.rank .meta{font-size:12.5px;color:var(--ink-2)}
+.rot{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pink-deep);background:var(--pink-soft);border-radius:var(--r-pill);padding:4px 10px;flex:none}
+.rank .play{padding:10px 18px;font-size:13px}
+
+/* in-game mode switcher demo */
+.demo{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--shadow);overflow:hidden}
+.demo-bar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.demo-bar .t{font-family:"Unbounded",sans-serif;font-weight:700;font-size:13px}
+.timer{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600;color:var(--pink-deep)}
+.modes{display:flex;gap:10px;padding:14px 16px;overflow-x:auto;scrollbar-width:none}
+.modes::-webkit-scrollbar{display:none}
+.mcard{flex:0 0 148px;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);transition:transform 150ms var(--ease),border-color 150ms;cursor:pointer}
+.mcard:hover{transform:translateY(-2px)}
+.mcard.on{border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-soft)}
+.mcover{height:56px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);font-family:"Unbounded",sans-serif;font-weight:700;font-size:11px;letter-spacing:.02em}
+.m1{background:linear-gradient(120deg,#E0447A,#7C1240)}
+.m2{background:linear-gradient(120deg,#4F63D8,#241A5E)}
+.m3{background:linear-gradient(120deg,#20B2A0,#0E5D54)}
+.m4{background:linear-gradient(120deg,#F4A62A,#B25E0B)}
+.m5{background:linear-gradient(120deg,#8F55D8,#3E2A72)}
+.mname{font-size:11.5px;font-weight:600;padding:8px 10px 2px}
+.mmeta{font-size:10.5px;color:var(--ink-2);padding:0 10px 9px}
+.demo-note{padding:0 16px 16px;font-size:12px;color:var(--ink-2)}
+
+/* annotations */
+.notes{margin-top:40px;border-top:1px dashed var(--line-strong);padding-top:18px;font-size:12.5px;color:var(--ink-2);display:grid;gap:6px}
+.notes b{color:var(--ink)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .gcard{opacity:1}
+}
+@media (max-width:640px){
+  .hero{flex-direction:column;align-items:flex-start}
+  .nav-links{display:none}
+}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="nav-in">
+    <span class="logo">Kpop<b>Quiz</b></span>
+    <span class="seg" aria-hidden="true"><span class="on">Play</span><span>Verse</span></span>
+    <div class="nav-links">
+      <a href="#">Home</a><a href="#">Quizzes</a><a class="here" href="#">Games</a><a href="#">Blindtest</a><a href="#">Community</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <header class="hero">
+    <div>
+      <h1>Pick your game.<br><em>You're in, in one tap.</em></h1>
+      <p>No lobby screens. Every button below drops you straight into play.</p>
+    </div>
+    <span class="hint">1 tap = playing</span>
+  </header>
+
+  <p class="lbl">Today</p>
+  <section class="daily" aria-label="Daily games">
+    <a class="dcard" href="#" aria-label="Play today's blind test now">
+      <span class="dcover blind" aria-hidden="true"></span>
+      <span class="dbody">
+        <span class="dkick">Daily · resets 00:00</span>
+        <span class="dname" style="display:block">Blind test of the day</span>
+        <span class="dmeta">10 clips · <span class="streak">streak 4 &#9679;</span></span>
+      </span>
+      <span class="play">Play</span>
+    </a>
+    <div class="dcard soon" aria-label="K-pop Idle, coming soon">
+      <span class="dcover idle" aria-hidden="true"></span>
+      <span class="dbody">
+        <span class="dkick" style="color:var(--ink-3)">Daily · new</span>
+        <span class="dname" style="display:block">K-pop Idle</span>
+        <span class="dmeta">Guess the idol in 8 tries, clue by clue</span>
+      </span>
+      <span class="soon-tag">Coming soon</span>
+    </div>
+  </section>
+
+  <p class="lbl">All games</p>
+  <section class="grid" aria-label="All games">
+    <a class="gcard" href="#" aria-label="Play Name Them All now">
+      <span class="cover cv-name" aria-hidden="true"><span class="big" style="font-size:30px">A B C</span></span>
+      <span class="gbody"><span><span class="gname">Name Them All</span><span class="gdesc" style="display:block">Type every member before 0:00</span></span><span class="play">Play</span></span>
+    </a>
+    <a class="gcard" href="#" aria-label="Play Sort It now">
+      <span class="cover cv-sort" aria-hidden="true"><span class="big" style="font-size:22px">&#8592;&nbsp;&nbsp;&#8594;</span></span>
+      <span class="gbody"><span><span class="gname">Sort It</span><span class="gdesc" style="display:block">Two sides, tap the right one</span></span><span class="play">Play</span></span>
+    </a>
+    <a class="gcard" href="#" aria-label="Play Match-Up now">
+      <span class="cover cv-match" aria-hidden="true"><span class="big" style="font-size:26px">&#9638;</span></span>
+      <span class="gbody"><span><span class="gname">Match-Up</span><span class="gdesc" style="display:block">Pair the tiles, clear the board</span></span><span class="play">Play</span></span>
+    </a>
+    <a class="gcard" href="#" aria-label="Play This or That now">
+      <span class="cover cv-tot" aria-hidden="true"><span class="big" style="font-size:24px">VS</span></span>
+      <span class="gbody"><span><span class="gname">This or That</span><span class="gdesc" style="display:block">Vote, move the live ranking</span></span><span class="play">Play</span></span>
+    </a>
+    <a class="gcard" href="#" aria-label="Play Which member are you now">
+      <span class="cover cv-member" aria-hidden="true"><span class="big" style="font-size:22px">YOU?</span></span>
+      <span class="gbody"><span><span class="gname">Which member are you</span><span class="gdesc" style="display:block">10 questions, your match</span></span><span class="play">Play</span></span>
+    </a>
+    <a class="gcard" href="#" aria-label="Play a 1v1 duel now">
+      <span class="cover cv-duel" aria-hidden="true"><span class="big" style="font-size:24px">1v1</span></span>
+      <span class="gbody"><span><span class="gname">Duel 1v1</span><span class="gdesc" style="display:block">Challenge a fan, climb the Elo</span></span><span class="play">Play</span></span>
+    </a>
+  </section>
+
+  <section class="rank" aria-label="Today's live ranking">
+    <span class="dot" aria-hidden="true"></span>
+    <span>
+      <span class="q">Who is the ultimate K-pop girl?</span>
+      <span class="meta" style="display:block">#1 Soyeon · 9,718 votes</span>
+    </span>
+    <span class="rot">changes daily</span>
+    <a class="play" href="#">Vote</a>
+  </section>
+
+  <p class="lbl">Inside a game · switch modes without leaving</p>
+  <section class="demo" aria-label="In-game mode switcher demo">
+    <div class="demo-bar">
+      <span aria-hidden="true">&#8592;</span>
+      <span class="t">Match-Up</span>
+      <span class="timer">0/12 · 0:01</span>
+    </div>
+    <div class="modes" role="tablist" aria-label="Match-Up modes">
+      <div class="mcard on" role="tab" aria-selected="true"><div class="mcover m1">SONG &#8594; GROUP</div><div class="mname">Song to Group</div><div class="mmeta">76 pairs</div></div>
+      <div class="mcard" role="tab" aria-selected="false"><div class="mcover m2">IDOL &#8594; GROUP</div><div class="mname">Idol to Group</div><div class="mmeta">118 pairs</div></div>
+      <div class="mcard" role="tab" aria-selected="false"><div class="mcover m3">3RD GEN</div><div class="mname">Song to Group · 3rd</div><div class="mmeta">15 pairs</div></div>
+      <div class="mcard" role="tab" aria-selected="false"><div class="mcover m4">4TH GEN</div><div class="mname">Song to Group · 4th</div><div class="mmeta">17 pairs</div></div>
+      <div class="mcard" role="tab" aria-selected="false"><div class="mcover m5">FANDOM</div><div class="mname">Fandom to Group</div><div class="mmeta">65 pairs</div></div>
+    </div>
+    <p class="demo-note">The hub button launches the default mode instantly. These cards live INSIDE the game (and on its SEO landing pages), so switching modes never goes through an interstitial screen.</p>
+  </section>
+
+  <div class="notes">
+    <span><b>Annotation 1.</b> Un clic = en jeu: chaque bouton Play lance la variante par defaut, chrono pret. Les pages par variante restent en ligne pour le SEO et les arrivees Google, le hub ne passe plus par elles.</span>
+    <span><b>Annotation 2.</b> Les covers sont des placeholders 100% CSS. En prod: artwork licencie uniquement (drapeau legal de la recherche concurrents), jamais de photos sans droits.</span>
+    <span><b>Annotation 3.</b> Le bandeau classement porte le badge "changes daily": rotation quotidienne parmi les rankings live.</span>
+    <span><b>Annotation 4.</b> Accessibilite: cibles 44px, focus visibles, tabular-nums sur le chrono, reduced-motion respecte, aria-labels "Play X now".</span>
+  </div>
+
+</main>
+</body>
+</html>
