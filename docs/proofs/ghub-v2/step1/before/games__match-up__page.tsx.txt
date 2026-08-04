@@ -1,0 +1,17 @@
+ROUTE: /games/match-up
+FILE: apps/quiz/src/app/games/match-up/page.tsx
+--- metadata (title/description/canonical/robots) ---
+13:export const metadata: Metadata = {
+14:  title: 'K-pop Match-Up: Fast Pair-Matching Games',
+15:  description:
+18:    title: 'K-pop Match-Up | KpopQuiz',
+19:    description: 'Fast pair-matching games over real K-pop songs, groups, and idols.',
+24:  alternates: { canonical: '/games/match-up' },
+41:    description:
+--- H1 / headings in page file ---
+51:<h1 
+--- component(s) rendered (the body indexable set lives here) ---
+27:<React
+48:<Breadcrumbs
+61:<Link
+--- internal hrefs in page file ---

@@ -1,0 +1,6 @@
+> tsx scripts/check-route-allowlist.mts
+
+Route allowlist guard passed: 335 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)

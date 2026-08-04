@@ -1,0 +1,18 @@
+ROUTE: /games/sort-it/[slug]
+FILE: apps/quiz/src/app/games/sort-it/[slug]/page.tsx
+--- metadata (title/description/canonical/robots) ---
+28:export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+31:  if (!playlist) return { title: 'Game Not Found' };
+40:    description: playlist.seoDescription,
+42:      title: `${playlist.title} | KpopQuiz`,
+43:      description: playlist.seoDescription,
+48:    alternates: { canonical: `/games/sort-it/${slug}` },
+70:    description: playlist.seoDescription,
+--- H1 / headings in page file ---
+84:<h1 
+--- component(s) rendered (the body indexable set lives here) ---
+28:<Metadata
+52:<React
+77:<Breadcrumbs
+87:<SortItPlayer
+--- internal hrefs in page file ---

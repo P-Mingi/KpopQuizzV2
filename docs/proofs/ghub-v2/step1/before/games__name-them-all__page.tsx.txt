@@ -1,0 +1,19 @@
+ROUTE: /games/name-them-all
+FILE: apps/quiz/src/app/games/name-them-all/page.tsx
+--- metadata (title/description/canonical/robots) ---
+13:export const metadata: Metadata = {
+14:  title: 'Name Them All: K-pop Type-Them-All Challenges',
+15:  description:
+18:    title: 'Name Them All | KpopQuiz',
+19:    description: 'Type-them-all grid challenges over real K-pop groups. Beat the clock.',
+24:  alternates: { canonical: '/games/name-them-all' },
+41:    description:
+--- H1 / headings in page file ---
+51:<h1 
+--- component(s) rendered (the body indexable set lives here) ---
+27:<React
+48:<Breadcrumbs
+54:<Link
+61:<Link
+--- internal hrefs in page file ---
+54:href="/games/name-all

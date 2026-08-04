@@ -1,0 +1,6 @@
+ROUTE: /games/this-or-that/[slug]
+FILE: apps/quiz/src/app/games/this-or-that/[slug]/page.tsx
+--- metadata (title/description/canonical/robots) ---
+--- H1 / headings in page file ---
+--- component(s) rendered (the body indexable set lives here) ---
+--- internal hrefs in page file ---

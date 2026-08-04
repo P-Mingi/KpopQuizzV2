@@ -1,0 +1,33 @@
+/games BEFORE indexable set (base 79577c4) - the hub parity baseline
+====================================================================
+HEAD
+  title: K-pop Games: Blind Test, This or That, Which Member
+  description: Play free K-pop games: guess the song in a blind test, pick sides
+    in This or That, find out which idol you are, and name every member before
+    the timer. No sign-up.
+  canonical: /games   (alternates: en=/games, pt-BR=/pt/games, x-default=/games)
+  og:title: K-pop Games | KpopQuiz
+  twitter: summary_large_image
+  json-ld: CollectionPage "K-pop Games", ItemList:
+    1 Which K-pop Member Are You? -> /personality
+    2 K-pop Blind Test            -> /blindtest
+    3 This or That               -> /games/this-or-that/all
+    4 Name Them All              -> /games/name-them-all
+    5 Sort It                    -> /games/sort-it
+    6 Match-Up                   -> /games/match-up
+    7 K-pop Fan Rankings         -> /rankings   (only when a live ranking exists)
+BODY (exactly one H1)
+  eyebrow: Games
+  H1: Pick your game.
+  sub: Guess songs, pick sides, name members, find your match.
+  cards (name / description / href):
+    Which member are you? / A 10-question personality quiz that matches you to a member of your group. / /personality
+    Blind test / Name the song or the group from a 10-second clip. A fresh set every day. / /blindtest
+    This or that / Two options, one winner. Vote in head-to-head matchups and move the ranking. / /games/this-or-that/all
+    Name Them All / Type every member, every group, every generation before the timer runs out. / /games/name-them-all
+    Sort it / Boy group or girl group? 3rd gen or 4th gen? Sort real groups against the clock. / /games/sort-it
+    Match-Up / Match songs to groups, idols to groups, or split song titles. Clear the board fast. / /games/match-up
+  live ranking teaser (when present): "All rankings" -> /rankings ; card -> /rankings/{group}/{type}
+LINK SET TO PRESERVE (identical-or-richer):
+  /personality /blindtest /games/this-or-that/all /games/name-them-all
+  /games/sort-it /games/match-up /rankings /rankings/{group}/{type}

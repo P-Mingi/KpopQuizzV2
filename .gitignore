@@ -87,3 +87,6 @@ scripts/fonts/
 # Shipped runtime assets live in apps/quiz/public/avatar/; regenerate sources
 # with scripts/recolor_hair.py.
 avatar-assets/
+
+# nested git worktrees (fork workers)
+.worktrees/
