@@ -1,0 +1,76 @@
+V-BUILDER-2 step 8 - A11Y RE-PASS on everything the phase added
+
+Method: a full read-only audit across the phase's UI surface (builder-shell, library-drawer,
+style-panel, phone-sheets, builder-tour, inline-text-editor + the mounted section-editor,
+use-builder-composition), then live verification on :3021 of every fix.
+
+## CLEAN (verified, no change needed)
+
+- LABELS: every icon-only button has an accessible name (device toggles, undo/redo, the
+  selection handles Edit text / grip / duplicate / delete, seam "add block", toast dismiss,
+  drawer/panel close + swatches, phone grabber + backdrop, and the six-marks toolbar buttons).
+  Decorative SVGs are inside labeled buttons or aria-hidden.
+- ROLES: LibraryDrawer / StylePanel / BottomSheet / InlineTextEditor all carry
+  role="dialog" aria-modal="true" + aria-label; the formatting bar is role="toolbar"; live
+  regions exist (saved-status + selection/grab status aria-live="polite", toasts role="alert").
+- REDUCED MOTION: the builder surface has NO CSS animations or transitions - drawers, sheets,
+  toast and tour render with plain inline styles, no slide/fade; every transform in these
+  files is static (centering / icon flip). No vb-/builder/sheet/tour/toast @keyframes exist in
+  globals.css. There is nothing animated to guard, so prefers-reduced-motion needs no new rule.
+- INERT LAYER: present and correct - it walks up from the shell and inerts only ANCESTOR
+  SIBLINGS, so the drawers / sheets / inline editor (shell descendants) are correctly left
+  interactive.
+
+## FIXED this step (7 findings)
+
+H1 (HIGH, functional + a11y) - the shell's window keydown listener stole Tab / Enter / Esc
+   whenever blocks existed, even while an overlay owned the keyboard. In the inline editor this
+   meant Enter ran setGrab() instead of inserting a newline, and Tab/Esc were hijacked.
+   FIX: builder-shell.tsx onKey early-returns when (drawer || styleOpen || editing); those are
+   added to the effect deps.
+   LIVE: opened the inline editor over the intro, pressed Enter + typed -> status shows NO
+   "Moving" (grabbing=false) and the text lands in the editor, not a grab. Before: Enter would
+   have grabbed. (The synthetic Enter does not split the ProseMirror paragraph in the headless
+   MCP browser, but that is a test-harness limit; the point proven is the shell now YIELDS.)
+
+H2 (HIGH) - StylePanel had a Tab-trap + Esc but never moved focus IN nor restored it, so the
+   trap was inert and focus stayed on the top-bar Style button.
+   FIX: capture activeElement, focus the first control on open, restore on close (mirrors the
+   library drawer).  LIVE (phone sheet): focusMovedIntoPanel = true.
+
+H3 (HIGH) - the inline editor had no Esc handler, never focused the editable surface on open,
+   never restored focus on close.
+   FIX: inline-text-editor.tsx focuses the contenteditable on mount, restores the prior focus on
+   unmount, and Esc -> onClose (the shell now yields Esc while editing).
+   LIVE: on open activeElement = DIV[contenteditable] inside the dialog (focusInEditor=true);
+   Esc closes it (editorClosed=true, grabbing=false) and restores focus.
+
+H4 (HIGH) - the phone BottomSheet (used by the ActionSheet) had no initial focus, no Tab trap,
+   no Esc; focus could Tab into the canvas iframe behind it.
+   FIX: phone-sheets.tsx BottomSheet focuses the sheet on open, traps Tab within it, Esc ->
+   onClose, restores focus on close.
+   LIVE: action sheet opens with aria-modal=true, focusOnSheetOrInside=true, all rows >= 44px.
+
+M1 (MEDIUM, 44px law) - the LibraryDrawer PHONE sheet had sub-44px controls (close 28, tabs 30,
+   search 34).  FIX: a sheet-scoped rule bumps them to 44px.
+   LIVE (phone): close 44x44, tabs 44, search 44, zero controls under 44.
+
+M2 (MEDIUM, 44px law) - the StylePanel PHONE sheet had sub-44px controls (header icons 26,
+   segmented 30, swatches 26). The swatches carry an INLINE min-width:26, so the scoped rule
+   needed !important to win.  FIX: sheet-scoped `min-height/min-width:44px !important`.
+   LIVE (phone): 28 buttons all >= 44px, input >= 44px, zero under 44.
+
+L2 (LOW, robustness) - the inert cleanup removed aria-hidden unconditionally, which would
+   clobber a sibling that already carried its own aria-hidden.
+   FIX: track whether WE added aria-hidden per sibling and only remove what we added.
+
+Scope note: the phone 44px overrides are scoped to .vb-lib-sheet / .vb-style-sheet, so the
+desktop (mouse) panels keep their compact controls; the shared section-editor toolbar is
+untouched (its phone 44px override already lives in the inline editor's .vb-inline-phone scope).
+
+## DEFERRED (to docs/vbuilder2-deferred.md, both LOW polish)
+
+- L1: the library tabs use role=tab/aria-selected but lack aria-controls + a role="tabpanel"
+  on the content region. Add the associations at V-BUILDER-3.
+- L3: BuilderTour (a non-modal role="region" tip with its own Esc) does not move focus to its
+  Skip/Next button on open. Optional for a non-modal tip.

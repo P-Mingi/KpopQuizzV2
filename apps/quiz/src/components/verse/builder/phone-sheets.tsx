@@ -4,19 +4,39 @@
 // the builder's drawers become bottom SHEETS and a tapped block raises an ACTION SHEET.
 // A shared BottomSheet gives the backdrop (tap outside = the sheet's onClose), a grabber
 // that toggles a half/full detent, and 44px targets. NO drag on phone (co-design 4).
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function BottomSheet({ label, onClose, initialDetent = 'half', children }: {
   label: string; onClose: () => void; initialDetent?: 'half' | 'full'; children: React.ReactNode;
 }): React.ReactElement {
   const [detent, setDetent] = useState<'half' | 'full'>(initialDetent);
   const height = detent === 'full' ? '92vh' : '58vh';
+  const sheetRef = useRef<HTMLDivElement | null>(null);
+  const restoreRef = useRef<HTMLElement | null>(null);
+  // A11Y: focus the sheet on open (announces the dialog + label), trap Tab inside it so
+  // focus cannot fall into the canvas iframe behind, Esc closes, focus restored on close.
+  useEffect(() => {
+    const sheet = sheetRef.current;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    sheet?.focus();
+    const focusables = () => Array.from(sheet?.querySelectorAll<HTMLElement>('button, [href], input, [tabindex]:not([tabindex="-1"])') ?? []).filter((e) => !e.hasAttribute('disabled'));
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.preventDefault(); onClose(); return; }
+      if (e.key !== 'Tab') return;
+      const f = focusables(); if (!f.length) return;
+      const first = f[0]!, last = f[f.length - 1]!;
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === sheet)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    sheet?.addEventListener('keydown', onKey);
+    return () => { sheet?.removeEventListener('keydown', onKey); if (restoreRef.current && document.contains(restoreRef.current)) restoreRef.current.focus(); };
+  }, [onClose]);
   return (
     <>
       {/* backdrop: tap outside the sheet dismisses (co-design 4: tap outside deselects) */}
       <button type="button" aria-label="Close" onClick={onClose}
         style={{ position: 'fixed', inset: 0, zIndex: 66, border: 'none', background: 'color-mix(in srgb, black 34%, transparent)', cursor: 'default' }} />
-      <div role="dialog" aria-modal="true" aria-label={label}
+      <div ref={sheetRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label={label}
         style={{
           position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 67, height, maxHeight: '92vh',
           display: 'flex', flexDirection: 'column', background: 'var(--bg-surface)', color: 'var(--text-primary)',

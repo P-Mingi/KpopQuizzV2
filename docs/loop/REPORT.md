@@ -1,42 +1,62 @@
-# /caveman report - V-BUILDER-2 step 7: OWNER GATE PACK assembled
+# /caveman report - V-BUILDER-2 step 8: CLOSING SWEEP (phase 2 ready to close)
 
-Step 6 was accepted; all six build steps of V-BUILDER-2 are closed. Step 7 assembles the
-gate pack for the owner's one-sitting review. NO new features; the only new code is the pack
-itself (proof files). Nothing pushed.
+Owner gave GO on the gate pack. Step 8 is the closing sweep. Done + committed. Nothing pushed.
+PHASE 2 CLOSES on Cowork's read of this report.
 
-## Delivered (docs/proofs/vbuilder2-step7/)
+## 1. A11Y RE-PASS (docs/proofs/vbuilder2-step8/a11y-repass.txt)
 
-- **GATE-PACK.md**: the full matrix in one file. Per-step summaries (steps 1-6) with pointers
-  to every proof file, plus every gate RE-RUN fresh on HEAD (eeb6d7d), all green.
-- **WALKTHROUGH.md**: the owner's ~10-minute click path (exact URL + dev account), desktop
-  then phone, covering select, reorder (drag + keyboard), duplicate, delete + undo, insert
-  (block + pattern) with the honest hint, style panel + retarget, inline text + marks, publish
-  confirm, and the phone action sheet / bottom sheets / docked keyboard bar. Includes the
-  draft-reset command.
-- Fresh gate outputs: tsc.txt, check-routes.txt, check-verse-tokens.txt, parity.txt,
-  registry.txt, vpages.txt, templates.txt, fold.txt, stable-id.txt, play-untouched.txt,
-  build.txt, seo-parity.txt, play-triple-proof.txt.
+Full read-only audit of everything the phase added, then FIXED the real barriers and verified
+each live on :3021:
+- H1 (functional + a11y): the shell's window keydown stole Tab/Enter/Esc even while an overlay
+  owned the keyboard - in the inline editor, Enter ran a block-grab instead of a newline. FIX:
+  the shell yields keys while (drawer || styleOpen || editing). LIVE: Enter no longer grabs;
+  typing reaches the editor.
+- H2/H3/H4 (focus management): the style panel, the inline editor, and the phone BottomSheet
+  now move focus IN on open, trap Tab, handle Esc, and restore focus on close. LIVE: focus lands
+  in each dialog; Esc closes the editor and restores focus.
+- M1/M2 (44px law): the library + style PHONE sheets had sub-44px controls. FIX: sheet-scoped
+  44px (with !important where an inline min-width fought it). LIVE: every control on both phone
+  sheets is >= 44px, zero under.
+- L2 (robustness): the inert cleanup no longer clobbers a sibling's pre-existing aria-hidden.
+CLEAN (no change): all icon buttons labeled; dialogs + toolbar roles + live regions correct;
+the builder animates nothing (no reduced-motion rule needed); the inert layer inerts only
+ancestor siblings so the drawers/sheets/editor stay interactive.
+Deferred (LOW polish, in docs/vbuilder2-deferred.md): library tab aria-controls association; tour
+focus-to-primary on open.
 
-## Fresh re-run results (all green on HEAD)
+## 2. FULL GATE SUITE on the final HEAD (docs/proofs/vbuilder2-step8/gates.txt)
 
-- tsc exit 0; check:routes 338; check:verse-tokens pass; em-dash grep clean.
-- parity ALL PASS (bts/stray-kids/ateez render-parity + meta-lossless + stable-ids);
-  registry 29 modules / 31 specs COMPLETE + WELL-FORMED; vpages 55 passed; templates pass;
-  fold pass; stable-id ALL PASS; play-untouched 12 passed.
-- **Full build**: `npm run build` -> BUILD_EXIT=0 (route manifest emitted).
-- **SEO parity (law #1)**: /build/bts (composed) vs /verse/bts (default) emit the IDENTICAL
-  indexable set: 1676 chars, 38 hrefs, 8 headings, signature bd7b7a1d on BOTH. Only delta =
-  10 non-indexable data-block-id handles. One-H1 holds.
-- **Play triple-proof (law #18)**: required (shared chrome touched in step 1). (a) Play head
-  has zero builder/verse leak tokens + no head-affecting file changed; (b) play-untouched 12
-  passed + live (main 720px, no overflow, 0 .verse-page); (c) screenshot shown inline.
+tsc exit 0; check:routes 338; check:verse-tokens pass; parity ALL PASS; registry 29/31 COMPLETE
++ WELL-FORMED; vpages hold; templates; fold; stable-id ALL PASS; play-untouched 12 (720px,
+verse-page-free). em-dash grep over the changed source + docs: clean.
+
+## 3. SITEMAP UNCHANGED (docs/proofs/vbuilder2-step8/sitemap-unchanged.txt)
+
+/sitemap.xml = 2793 URLs, ZERO build routes; no /verse/<slug>/build. sitemap.ts + robots.ts are
+byte-unchanged across the whole phase. Both builder routes are noindex (source robots
+index:false + live meta on /build/bts) AND curator-gated (404) AND absent from the sitemap.
+
+## 4. DEFERRED ITEMS handoff (docs/vbuilder2-deferred.md)
+
+Width/column-span (Phase 3 grid); inline text on the other text blocks; doorwayFormat per-door
+editor; per-source library hint copy; native publish-confirm; the two LOW a11y notes. Each with
+its target workstream.
+
+## 5. TASK BOARD (docs/workstream-vbuilder-2.md)
+
+Every step 1-8 marked DONE with its commit hash; the Verify checklist is all checked.
+
+Tracking note: docs/vbuilder2-deferred.md + docs/workstream-vbuilder-2.md were under the
+`docs/*` default-ignore. I negated them in .gitignore (mirroring how verse-project.md /
+VERSE-LEDGER.md are tracked) so these step-8 deliverables land in git for Cowork + Phase 3. If
+you'd rather keep either local-only, `git rm --cached <file>` + drop the negation.
 
 ## Handover state
 
-- The test space bts is CLEAN: presentation_draft reset to {} (0 modules); verse_content left
-  byte-identical from step 6. Dev server on :3021, dev-login owner account.
+Test space bts CLEAN: presentation_draft {}; verse_content byte-identical; section drafts
+cleared. Dev server on :3021.
 
 ## STOP
 
-Holding for the OWNER to walk /build on desktop + phone (WALKTHROUGH.md). Step 8 (closing
-sweep) only after the owner says GO in a Cowork mission. Nothing pushed (commit-not-push).
+PHASE 2 (V-BUILDER-2) is complete pending Cowork's read of this report. STOP holds: the
+V-BUILDER-3 (block editors) spec comes from Cowork next; I start nothing until then.

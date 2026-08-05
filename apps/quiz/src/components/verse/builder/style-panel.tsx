@@ -23,13 +23,17 @@ export function StylePanel({ spec, style, canDelete, sheet, onChange, onClose, o
   onChange: (patch: StylePatch) => void; onClose: () => void; onDuplicate: () => void; onDelete: () => void;
 }): React.ReactElement {
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const restoreRef = useRef<HTMLElement | null>(null);
   const has = (opt: BlockStyleOption) => spec.styleOptions.includes(opt);
   const surface = has('frame') || has('background') || has('radius') || has('divider');
 
-  // focus trap + Esc, mirroring the library drawer.
+  // focus trap + Esc, mirroring the library drawer: focus the first control on open,
+  // keep Tab inside, restore focus on close. (Without focusing in, the trap is inert.)
   useEffect(() => {
     const panel = panelRef.current;
+    restoreRef.current = document.activeElement as HTMLElement | null;
     const focusables = () => Array.from(panel?.querySelectorAll<HTMLElement>('button, [href], input, [tabindex]:not([tabindex="-1"])') ?? []).filter((e) => !e.hasAttribute('disabled'));
+    focusables()[0]?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { e.preventDefault(); onClose(); return; }
       if (e.key !== 'Tab') return;
@@ -39,11 +43,12 @@ export function StylePanel({ spec, style, canDelete, sheet, onChange, onClose, o
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
     panel?.addEventListener('keydown', onKey);
-    return () => panel?.removeEventListener('keydown', onKey);
+    return () => { panel?.removeEventListener('keydown', onKey); if (restoreRef.current && document.contains(restoreRef.current)) restoreRef.current.focus(); };
   }, [onClose]);
 
   return (
     <div role="dialog" aria-modal="true" aria-label={`Style: ${spec.name}`} ref={panelRef}
+      className={sheet ? 'vb-style-sheet' : undefined}
       style={{
         position: 'absolute', zIndex: 65, display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
         background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)',
@@ -52,6 +57,9 @@ export function StylePanel({ spec, style, canDelete, sheet, onChange, onClose, o
           ? { left: 0, right: 0, bottom: 0, top: 'auto', maxHeight: '76vh', borderRadius: '16px 16px 0 0' }
           : { top: 12, right: 12, bottom: 12, width: 300, maxWidth: 'calc(100% - 24px)', borderRadius: 14 }),
       }}>
+      {/* A11Y: on the phone sheet, bump every control to the 44px touch-target floor (the
+          compact desktop panel keeps its mouse-sized controls). */}
+      {sheet ? <style dangerouslySetInnerHTML={{ __html: '.vb-style-sheet button{min-height:44px!important;min-width:44px!important}.vb-style-sheet input{min-height:44px!important}' }} /> : null}
       {/* header: mirror the canvas tag name + the duplicate handle */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 12px 10px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 800, fontSize: 14, minWidth: 0 }}>

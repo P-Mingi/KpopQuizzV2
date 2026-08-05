@@ -83,6 +83,7 @@ export function LibraryDrawer({ open, onClose, sourceReady, sheet, onInsertBlock
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Add a block" ref={panelRef}
+      className={sheet ? 'vb-lib-sheet' : undefined}
       style={{
         position: 'absolute', zIndex: 65, display: 'flex', flexDirection: 'column', pointerEvents: 'auto',
         background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)',
@@ -91,6 +92,9 @@ export function LibraryDrawer({ open, onClose, sourceReady, sheet, onInsertBlock
           ? { left: 0, right: 0, bottom: 0, top: 'auto', maxHeight: '76vh', borderRadius: '16px 16px 0 0' }
           : { top: 12, left: 12, bottom: 12, width: 340, maxWidth: 'calc(100% - 24px)', borderRadius: 14 }),
       }}>
+      {/* A11Y: on the phone sheet, bump the close / tabs / search to the 44px touch floor
+          (the desktop panel keeps its mouse-sized controls). */}
+      {sheet ? <style dangerouslySetInnerHTML={{ __html: '.vb-lib-sheet button{min-height:44px!important}.vb-lib-sheet [role=tab]{min-height:44px!important}.vb-lib-sheet input{min-height:44px!important}.vb-lib-sheet button[aria-label="Close library"]{min-width:44px!important}' }} /> : null}
       {/* header + tabs */}
       <div style={{ padding: '12px 12px 0', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

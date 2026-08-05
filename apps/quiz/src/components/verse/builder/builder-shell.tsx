@@ -149,17 +149,21 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   // tree + focus order while the builder is up; restored on unmount.
   useEffect(() => {
     const shell = shellRef.current; if (!shell) return;
-    const inerted: HTMLElement[] = [];
+    // track whether WE added aria-hidden, so cleanup never clobbers a sibling that already
+    // carried its own aria-hidden before the builder mounted.
+    const inerted: { el: HTMLElement; addedAriaHidden: boolean }[] = [];
     let node: HTMLElement | null = shell;
     while (node && node !== document.body && node.parentElement) {
       for (const sib of Array.from(node.parentElement.children)) {
         if (sib !== node && sib instanceof HTMLElement && !sib.hasAttribute('inert')) {
-          sib.setAttribute('inert', ''); sib.setAttribute('aria-hidden', 'true'); inerted.push(sib);
+          const addedAriaHidden = !sib.hasAttribute('aria-hidden');
+          sib.setAttribute('inert', ''); if (addedAriaHidden) sib.setAttribute('aria-hidden', 'true');
+          inerted.push({ el: sib, addedAriaHidden });
         }
       }
       node = node.parentElement;
     }
-    return () => inerted.forEach((el) => { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); });
+    return () => inerted.forEach(({ el, addedAriaHidden }) => { el.removeAttribute('inert'); if (addedAriaHidden) el.removeAttribute('aria-hidden'); });
   }, []);
 
   // ---- op handlers ----
@@ -201,6 +205,11 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // A11Y: while an overlay owns the keyboard (library, style panel, inline editor),
+      // the shell's block-nav keys (Tab cycle, Enter grab, Esc deselect) must YIELD so the
+      // overlay can trap Tab, insert newlines, and handle its own Esc. Without this the
+      // window listener steals Enter (setGrab) inside the inline editor, breaking typing.
+      if (drawer || styleOpen || editing) return;
       if (e.key === 'Escape') {
         if (grab) { eng.reorderBefore(grab.id, grab.originBeforeId); setGrab(null); }
         else { setSelectedId(null); setFocusId(null); }
@@ -233,7 +242,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [orderedIds, focusId, selectedId, grab, eng, moveInGrab, zoneIds]);
+  }, [orderedIds, focusId, selectedId, grab, eng, moveInGrab, zoneIds, drawer, styleOpen, editing]);
 
   const scrollIntoView = useCallback((id: string | null) => {
     if (!id) return;

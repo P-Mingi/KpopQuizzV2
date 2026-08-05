@@ -1,0 +1,32 @@
+V-BUILDER-2 step 8 - SITEMAP UNCHANGED + builder routes noindex
+
+Measured live (:3021) on the final HEAD.
+
+1. THE BUILDER ROUTES ARE ABSENT FROM THE SITEMAP
+   /sitemap.xml: 2793 <loc> entries.
+   grep for /build, /build/, build</loc>  ->  ZERO matches.
+   grep /verse/ entries for "build"       ->  ZERO matches (only reader pages:
+     /verse/<slug>, /verse/<slug>/{members,discography,timeline,...}).
+   => neither the draft-render route (/build/<slug>) nor the builder shell
+      (/verse/<slug>/build) appears anywhere in the sitemap.
+
+2. THE SITEMAP-GENERATING CODE IS BYTE-UNCHANGED BY THE PHASE
+   git diff --name-only f349eff..HEAD -- src/app/sitemap.ts src/app/robots.ts  ->  empty.
+   The phase added no sitemap entry and touched no sitemap/robots code, so the
+   sitemap's SHAPE is unchanged (its URL set is data-driven from the live DB, so a
+   raw byte-diff vs a pre-phase snapshot is not meaningful; the code being identical
+   + the builder routes being absent is the real invariant). sitemap.ts never
+   references the builder route (its only "build" tokens are buildOverriddenFacts /
+   build-time comments).
+
+3. BOTH BUILDER ROUTES ARE noindex
+   source:
+     src/app/(builder)/build/[slug]/page.tsx
+       export const metadata = { title: 'Builder canvas', robots: { index: false, follow: false } }
+     src/app/verse/[slug]/build/page.tsx
+       export const metadata = { title: 'Builder', robots: { index: false, follow: false } }
+   live:
+     curl /build/bts  ->  <meta name="robots" content="noindex"/>
+   Both are also curator-gated (notFound() -> 404 for the public) and middleware-
+   allowlisted, so they are triple-protected: 404 to non-curators, noindex to any
+   crawler that reaches them, and never advertised in the sitemap.
