@@ -387,7 +387,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
           const sid = selectedId;
           return spec ? (
             <StylePanel spec={spec} style={eng.styleOf(sid)} canDelete={eng.canDelete(sid)} sheet={isPhone}
-              blockId={sid} initialProps={eng.propsOf(sid)}
+              groupId={groupId} blockId={sid} initialProps={eng.propsOf(sid)}
               onChange={(p) => eng.setStyle(sid, p)} onCommitProps={(props) => eng.setProps(sid, props)}
               onClose={() => setStyleOpen(false)}
               onDuplicate={() => { const nid = eng.duplicate(sid); if (nid) { setSelectedId(nid); setFocusId(nid); } }}

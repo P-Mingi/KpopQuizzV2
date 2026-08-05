@@ -24,7 +24,7 @@ export const KNOWN_ROUTES = [
   // (real route). Both prefixes are allowlisted: the pretty one for any direct
   // hit before the rewrite, the real one for the app/ route guard.
   '/which-', '/personality',
-  '/terms', '/privacy', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
+  '/terms', '/privacy', '/dmca', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',

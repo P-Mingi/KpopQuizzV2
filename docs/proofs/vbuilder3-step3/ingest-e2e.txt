@@ -1,0 +1,34 @@
+V-BUILDER-3 step 3 - LIVE E2E (authenticated as owner/admin at :3021)
+Every image is ingest-COPIED into our storage; provenance kept; moderation post-hoc.
+
+== UPLOAD (from computer) ==
+  POST /api/verse/space-image (multipart, 60x60 png) -> { ok, id:24, path: images/1/<uuid>.png,
+    url: .../verse-space-assets/images/1/<uuid>.png }  => copy lives in OUR storage.
+  Same bytes uploaded twice -> same id (hash dedupe on (space_id, hash), one object).
+
+== URL PASTE (server fetch + copy) ==
+  Pasted https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg, Fetch -> id 25,
+    source='url', source_url=<the ytimg url> (provenance), storage_path=images/1/<uuid>.jpg.
+  DOM after fetch: previewIsOurStorage=true, anyExternalYtimgInPanel=false (render-only-our-url.txt D).
+
+== CONTENT-TAB IMAGE FIELD IS LIVE (preview + replace + remove) ==
+  Builder /verse/bts/build -> Members block -> Content -> +Add row -> Photo field renders:
+    'Upload an image' | 'or paste an image URL' + Fetch | help: 'We copy the image into our
+    storage (never a hotlink). JPG, PNG, WebP, GIF.'  After Fetch: thumbnail + Replace + Remove.
+
+== MODERATION (post-hoc, goes active immediately) ==
+  Queue at /admin/space-images (admin-gated, noindex): dense rows thumbnail|space|uploader|source|date|status|actions.
+  PATCH {id, action:'hide'} -> 200, status='hidden'  (object KEPT; render gate returns null everywhere).
+  DELETE ?id= -> 200 ok; storage object verified GONE (list search: GONE); status='removed'.
+  Hide keeps the object, Remove deletes it - verified directly against storage.
+
+== PRIVACY + SAFETY (route: src/app/api/verse/space-image/route.ts) ==
+  Role gate: unauthenticated ingest -> 403 'Not authorized' (canCurateSpace).
+  Rate cap:  underRateCap('verse_space_assets','uploaded_by',uid,86400,100) -> 429
+             'Daily image limit reached. Try again tomorrow.'
+  Uploader id recorded (uploaded_by). Fail-closed on read error (resolveSpaceImage returns null).
+  Human-sentence rejections (image-ingest.ts): 'That URL is not an image.' /
+    'That image is too large (max 10MB).' / 'SVG is not allowed. Use JPG, PNG, WebP, or GIF.' /
+    'That link redirects. Paste the direct image URL instead.'
+
+  Test artifacts (ids 21,22,24,25) cleaned up afterwards: 0 image rows remain, bts storage clean.

@@ -1,0 +1,7 @@
+  PASS  ACTIVE image resolves to our storage URL
+  PASS  HIDDEN image resolves to null (fail-closed takedown)
+  PASS  REMOVED image resolves to null
+  PASS  unknown path resolves to null
+  PASS  an external URL never resolves (no hotlink)
+
+RESULT: ALL PASS (render gate fail-closed)

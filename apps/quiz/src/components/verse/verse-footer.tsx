@@ -42,6 +42,7 @@ export function VerseFooter(): React.ReactElement {
               <p style={eyebrow}>The covenant</p>
               <Link href="/verse/promises" style={linkStyle}>Our promises</Link>
               <Link href="/verse" style={linkStyle}>Become a curator</Link>
+              <Link href="/dmca" style={linkStyle}>Image takedown</Link>
             </div>
           </nav>
         </div>

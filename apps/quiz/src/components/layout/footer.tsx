@@ -74,6 +74,7 @@ export function Footer(): React.ReactElement {
               { label: 'Contact', href: '/contact' },
               { label: 'Terms', href: '/terms' },
               { label: 'Privacy', href: '/privacy' },
+              { label: 'DMCA', href: '/dmca' },
             ].map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: 'var(--txt2)', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>
             ))}

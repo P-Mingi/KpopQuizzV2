@@ -1,0 +1,50 @@
+V-BUILDER-3 step 3 - DMCA + GATE SUITE (merged main)
+
+== /dmca (legit public page) ==
+  <h1> count = 1 ; robots index:true, follow:true ; canonical /dmca
+  Linked from BOTH footers (SiteFooter picks by world):
+    - Play footer  src/components/layout/footer.tsx  Support column: 'DMCA' -> /dmca
+    - Verse footer src/components/verse/verse-footer.tsx  covenant column: 'Image takedown' -> /dmca
+    (verified live: footer a[href="/dmca"] present on /verse/bts and on Play pages)
+  route-allowlist: '/dmca' present ; sitemap: /dmca present
+
+== PUBLISHED PARITY (non-image pages untouched) ==
+  Step-3 diff touches only: builder panels (content-tab/style-panel/builder-shell),
+  NEW api route + NEW libs (image-ingest, space-image) with 0 importers in any render,
+  NEW /dmca page, NEW /admin queue, BOTH footers (+1 link each), route-allowlist, sitemap.
+  No published module/block renderer was modified. resolveSpaceImage has 0 render importers,
+  so no published page's image output changed. The only intended render diffs are the two
+  footer DMCA links (one per world). /verse/bts verified live: 200, one H1, Members intact,
+  zero verse-space-assets and zero external image urls in the HTML. vbuilder1-parity harness
+  confirms converter render-parity byte-for-byte.
+
+== GATES (all green) ==
+tsc --noEmit
+[tsc exit=0]
+--- check:routes ---
+Route allowlist guard passed: 338 page routes reachable.
+[exit=0]
+--- check:verse-tokens ---
+Verse token gate passed: no raw hex colors in Verse surfaces.
+[exit=0]
+--- vbuilder1-parity ---
+ALL PASS: converter is lossless + byte-parity on the renderer input.
+[exit=0]
+--- vpages-gates ---
+V-PAGES gates hold.
+[exit=0]
+--- vtemplates ---
+V-TEMPLATES: structure switches, nothing else moves.
+[exit=0]
+--- vtext-fold ---
+V-TEXT fold law holds.
+[exit=0]
+--- vb2-stable-id ---
+ALL PASS: stable-id persistence + freeze
+[exit=0]
+--- vb3-content-verify ---
+RESULT: ALL PASS (content-tab plumbing logic)
+[exit=0]
+--- vb3-schema-verify ---
+RESULT: ALL PASS (editorSchema foundation)
+[exit=0]

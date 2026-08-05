@@ -1,0 +1,22 @@
+
+(a) reEncode
+  PASS  valid PNG accepted
+  PASS    ext/mime png
+  PASS    has sha256 hash
+  PASS  source jpeg carries EXIF (test fixture valid)
+  PASS  jpeg accepted
+  PASS    EXIF STRIPPED from the stored bytes
+  PASS  DEDUPE: same bytes -> identical hash
+  PASS  GIF accepted + kept as gif
+  PASS  SVG REJECTED (XSS gate)
+  PASS  non-image rejected
+
+(b) fetchExternalImage SSRF hardening
+  PASS  blocks http://example.com/x.png :: Only https image URLs are allowed.
+  PASS  blocks https://127.0.0.1/x.png :: That URL points to a private address.
+  PASS  blocks https://10.0.0.5/x.png :: That URL points to a private address.
+  PASS  blocks https://169.254.169.254/latest :: That URL points to a private address.
+  PASS  blocks https://[::1]/x.png :: That URL points to a private address.
+  PASS  blocks not a url :: That is not a valid URL.
+
+RESULT: ALL PASS (image ingest core)

@@ -20,8 +20,8 @@ const COMMIT_DEBOUNCE_MS = 450;
 let ROW_SEQ = 0;
 const nextRowKey = (): string => `r${(ROW_SEQ += 1)}`;
 
-export function ContentTab({ schema, blockId, initialProps, onCommit, sheet }: {
-  schema: EditorSchema; blockId: string; initialProps: Record<string, unknown>;
+export function ContentTab({ schema, groupId, blockId, initialProps, onCommit, sheet }: {
+  schema: EditorSchema; groupId: number; blockId: string; initialProps: Record<string, unknown>;
   onCommit: (props: Record<string, unknown>) => void; sheet?: boolean | undefined;
 }): React.ReactElement {
   const [draft, setDraft] = useState<Record<string, unknown>>(initialProps);
@@ -55,7 +55,7 @@ export function ContentTab({ schema, blockId, initialProps, onCommit, sheet }: {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
       {schema.summary ? <p style={{ margin: 0, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>{schema.summary}</p> : null}
       {schema.fields.map((f) => (
-        <FieldEditor key={f.key} field={f} value={draft[f.key]}
+        <FieldEditor key={f.key} field={f} value={draft[f.key]} groupId={groupId}
           overridden={Object.prototype.hasOwnProperty.call(draft, f.key) && draft[f.key] !== undefined}
           onChange={(v) => setField(f.key, v)} onReset={() => resetField(f.key)} onBlur={flush} sheet={sheet} />
       ))}
@@ -65,8 +65,8 @@ export function ContentTab({ schema, blockId, initialProps, onCommit, sheet }: {
 }
 
 // ---------------------------------------------------------------- one field
-function FieldEditor({ field, value, overridden, onChange, onReset, onBlur, sheet }: {
-  field: EditorField; value: unknown; overridden: boolean;
+function FieldEditor({ field, value, overridden, groupId, onChange, onReset, onBlur, sheet }: {
+  field: EditorField; value: unknown; overridden: boolean; groupId: number;
   onChange: (v: unknown) => void; onReset: () => void; onBlur: () => void; sheet?: boolean | undefined;
 }): React.ReactElement {
   const id = `vbc-${field.key}`;
@@ -84,7 +84,7 @@ function FieldEditor({ field, value, overridden, onChange, onReset, onBlur, shee
           <span style={{ fontSize: 11, color: str.length > field.maxLength ? 'var(--vb-danger)' : 'var(--text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{str.length}/{field.maxLength}</span>
         ) : null}
       </div>
-      <FieldControl id={id} field={field} value={value} str={str} onChange={onChange} onBlur={onBlur} sheet={sheet} invalid={!!error && field.kind !== 'list'} />
+      <FieldControl id={id} field={field} value={value} str={str} groupId={groupId} onChange={onChange} onBlur={onBlur} sheet={sheet} invalid={!!error && field.kind !== 'list'} />
       {field.help && !error ? <p style={{ margin: 0, fontSize: 11, color: 'var(--text-tertiary)' }}>{field.help}</p> : null}
       {/* list rows surface their OWN per-row errors inline; only leaf fields show a field error here. */}
       {error && field.kind !== 'list' ? <p role="alert" style={{ margin: 0, fontSize: 11, fontWeight: 600, color: 'var(--vb-danger)' }}>{error}</p> : null}
@@ -108,8 +108,8 @@ function BoundBadge({ overridden, onReset }: { overridden: boolean; onReset: () 
 }
 
 // ---------------------------------------------------------------- controls by kind
-function FieldControl({ id, field, value, str, onChange, onBlur, sheet, invalid }: {
-  id: string; field: EditorField; value: unknown; str: string;
+function FieldControl({ id, field, value, str, groupId, onChange, onBlur, sheet, invalid }: {
+  id: string; field: EditorField; value: unknown; str: string; groupId: number;
   onChange: (v: unknown) => void; onBlur: () => void; sheet?: boolean | undefined; invalid: boolean;
 }): React.ReactElement {
   const base: React.CSSProperties = {
@@ -139,17 +139,11 @@ function FieldControl({ id, field, value, str, onChange, onBlur, sheet, invalid 
     case 'date':
       return <input id={id} type="date" value={str.slice(0, 10)} onChange={(e) => onChange(e.target.value)} onBlur={onBlur} style={base} />;
     case 'image':
-      // step-2 scope: no image rail yet. Render the honest disabled placeholder (no dead affordance elsewhere).
-      return (
-        <div style={{ ...base, display: 'flex', alignItems: 'center', gap: 8, opacity: 0.6, cursor: 'not-allowed' }}>
-          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-5-5L5 21" /></svg>
-          <span style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>Image rail arrives at step 3</span>
-        </div>
-      );
+      return <ImageField groupId={groupId} value={str} onChange={onChange} sheet={sheet} />;
     case 'richtext':
       return <textarea id={id} value={str} onChange={(e) => onChange(e.target.value)} onBlur={onBlur} rows={4} style={{ ...base, resize: 'vertical', fontFamily: 'inherit', lineHeight: 1.5 }} />;
     case 'list':
-      return <ListEditor id={id} field={field} rows={Array.isArray(value) ? (value as Record<string, unknown>[]) : []} onChange={onChange} onBlur={onBlur} sheet={sheet} />;
+      return <ListEditor id={id} field={field} rows={Array.isArray(value) ? (value as Record<string, unknown>[]) : []} groupId={groupId} onChange={onChange} onBlur={onBlur} sheet={sheet} />;
     case 'text':
       if ((field.maxLength ?? 0) > 100) {
         return <textarea id={id} value={str} maxLength={field.clampNote ? undefined : field.maxLength} onChange={(e) => onChange(e.target.value)} onBlur={onBlur} rows={3} style={{ ...base, resize: 'vertical', fontFamily: 'inherit', lineHeight: 1.5 }} />;
@@ -161,8 +155,8 @@ function FieldControl({ id, field, value, str, onChange, onBlur, sheet, invalid 
 }
 
 // ---------------------------------------------------------------- list of rows
-function ListEditor({ id, field, rows, onChange, onBlur, sheet }: {
-  id: string; field: EditorField; rows: Record<string, unknown>[];
+function ListEditor({ id, field, rows, groupId, onChange, onBlur, sheet }: {
+  id: string; field: EditorField; rows: Record<string, unknown>[]; groupId: number;
   onChange: (rows: Record<string, unknown>[]) => void; onBlur: () => void; sheet?: boolean | undefined;
 }): React.ReactElement {
   // client-only keys ride alongside the data so reorder never remounts the wrong row.
@@ -196,7 +190,7 @@ function ListEditor({ id, field, rows, onChange, onBlur, sheet }: {
             </button>
           </div>
           {item.map((f) => (
-            <FieldEditor key={f.key} field={f} value={row[f.key]} overridden={false}
+            <FieldEditor key={f.key} field={f} value={row[f.key]} overridden={false} groupId={groupId}
               onChange={(v) => setRow(i, f.key, v)} onReset={() => {}} onBlur={onBlur} sheet={sheet} />
           ))}
         </div>
@@ -214,4 +208,64 @@ function rowBtn(sheet: boolean | undefined, disabled: boolean): React.CSSPropert
 }
 function Chev({ up }: { up: boolean }): React.ReactElement {
   return <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={up ? undefined : { transform: 'rotate(180deg)' }}><path d="M18 15l-6-6-6 6" /></svg>;
+}
+
+// ------------------------------------------------------------ the image field (L-047)
+// Upload a file OR paste any URL; the SERVER copies it into our storage (never a hotlink)
+// via /api/verse/space-image, and only OUR storage_path is stored in props. The preview
+// builds our public URL from that path; onError hides it so a taken-down image never shows
+// a broken frame in the builder.
+function publicUrlFor(path: string): string {
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}/storage/v1/object/public/verse-space-assets/${path}`;
+}
+function ImageField({ groupId, value, onChange, sheet }: {
+  groupId: number; value: string; onChange: (v: unknown) => void; sheet?: boolean | undefined;
+}): React.ReactElement {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const [url, setUrl] = useState('');
+  const fileRef = useRef<HTMLInputElement | null>(null);
+
+  const ingest = useCallback(async (form: FormData) => {
+    form.set('group_id', String(groupId));
+    setBusy(true); setErr(null);
+    try {
+      const r = await fetch('/api/verse/space-image', { method: 'POST', body: form });
+      const b = (await r.json().catch(() => ({}))) as { path?: string; error?: string };
+      if (!r.ok || !b.path) { setErr(b.error ?? `Upload failed (${r.status}).`); return; }
+      onChange(b.path); setUrl('');
+    } catch { setErr('Could not reach the server.'); }
+    finally { setBusy(false); }
+  }, [groupId, onChange]);
+
+  const onFile = (e: React.ChangeEvent<HTMLInputElement>) => { const f = e.target.files?.[0]; if (f) { const fd = new FormData(); fd.set('file', f); void ingest(fd); } e.target.value = ''; };
+  const onUrl = () => { const u = url.trim(); if (u) { const fd = new FormData(); fd.set('url', u); void ingest(fd); } };
+  const btn: React.CSSProperties = { minHeight: sheet ? 44 : 32, padding: '0 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--vb-accent)', fontSize: 12, fontWeight: 700, cursor: busy ? 'wait' : 'pointer' };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={onFile} style={{ display: 'none' }} />
+      {value ? (
+        <>
+          <img src={publicUrlFor(value)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            style={{ maxWidth: '100%', maxHeight: 160, borderRadius: 8, border: '1px solid var(--border)', objectFit: 'contain', background: 'var(--bg-primary)' }} />
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={busy} style={btn}>{busy ? 'Working…' : 'Replace'}</button>
+            <button type="button" onClick={() => onChange(undefined)} disabled={busy} style={{ ...btn, color: 'var(--vb-danger)' }}>Remove</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <button type="button" onClick={() => fileRef.current?.click()} disabled={busy} style={{ ...btn, minHeight: sheet ? 44 : 40, border: '1px dashed var(--border)' }}>{busy ? 'Working…' : 'Upload an image'}</button>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="or paste an image URL" inputMode="url"
+              style={{ flex: 1, minHeight: sheet ? 44 : undefined, boxSizing: 'border-box', padding: '7px 9px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg-primary)', color: 'var(--text-primary)', fontSize: 13 }} />
+            <button type="button" onClick={onUrl} disabled={busy || !url.trim()} style={btn}>Fetch</button>
+          </div>
+          <p style={{ margin: 0, fontSize: 11, color: 'var(--text-tertiary)' }}>We copy the image into our storage (never a hotlink). JPG, PNG, WebP, GIF.</p>
+        </>
+      )}
+      {err ? <p role="alert" style={{ margin: 0, fontSize: 11, fontWeight: 600, color: 'var(--vb-danger)' }}>{err}</p> : null}
+    </div>
+  );
 }

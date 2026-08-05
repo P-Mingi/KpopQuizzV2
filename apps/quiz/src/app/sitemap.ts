@@ -138,6 +138,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/contact`, lastModified: STATIC_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/dmca`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     // Workstream T0 monthly Pulse index. Per-month reports are appended below.
     { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },

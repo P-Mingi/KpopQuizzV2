@@ -1,0 +1,31 @@
+V-BUILDER-3 step 3 - RENDERED PAGE CARRIES ONLY OUR URL (grep proof, L-047)
+Generated on merged main. The law: an external image URL is never emitted to a rendered page.
+
+== (A) resolveSpaceImage is the ONLY sanctioned path from a stored image to a URL ==
+    It emits getPublicUrl() on OUR bucket, gated to status='active' AND kind='image':
+    8:const BUCKET = 'verse-space-assets';
+    15:    .select('storage_path').eq('storage_path', storagePath).eq('kind', 'image').eq('status', 'active').maybeSingle();
+    17:  return svc.storage.from(BUCKET).getPublicUrl(data.storage_path).data.publicUrl;
+    28:    .select('storage_path').in('storage_path', clean).eq('kind', 'image').eq('status', 'active');
+    30:    out[row.storage_path] = svc.storage.from(BUCKET).getPublicUrl(row.storage_path).data.publicUrl;
+
+== (B) the external URL (source_url) of a block image is read by NOTHING that renders ==
+    Only consumer of verse_space_assets.source_url is the NOINDEX admin queue:
+    src/app/admin/space-images/page.tsx:25:    .select('id, space_id, storage_path, status, source, source_url, uploaded_by, created_at, mime, bytes, groups(name, slug)')
+    src/app/admin/space-images/page.tsx:36:      source: (r.source as string | null) ?? null, sourceUrl: (r.source_url as string | null) ?? null,
+    src/app/api/verse/space-image/route.ts:13:// ever carries OUR storage path; the original url is kept in source_url for the moderation/DMCA
+    src/app/api/verse/space-image/route.ts:72:    source: file ? 'upload' : 'url', source_url: file ? null : url, status: 'active',
+    (every other source_url hit in the tree is a different feature: photocards,
+     collectibles, entity_overrides, awards, scene-detail - not block images.)
+
+== (C) no published render consumes a stored block image yet (image block = step 6) ==
+    importers of resolveSpaceImage outside its own module: 0
+    => 0. So zero published pages carry a block image (external OR ours) today.
+    The render GATE is built + proven fail-closed (render-gate.txt), ready for step 4/6.
+
+== (D) LIVE DOM proof: paste an EXTERNAL url in the builder image field -> only our URL ==
+    Pasted https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg into the Photo field, Fetch:
+    { previewIsOurStorage: true,
+      previewSrc: '.../storage/v1/object/public/verse-space-assets/images/1/8afba4cb-...jpg',
+      anyExternalYtimgInPanel: false }
+    => the external host never reaches the DOM; the copy in our storage is what renders.

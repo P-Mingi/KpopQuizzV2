@@ -21,9 +21,9 @@ import type { StylePatch } from './use-builder-composition';
 const ACCENT_LABEL: Record<string, string> = { world: 'World default', violet: 'Violet', blue: 'Blue', green: 'Green', amber: 'Amber', rose: 'Rose' };
 const TINT_LABEL: Record<string, string> = { none: 'None', veil: 'Veil', soft: 'Soft', bold: 'Bold' };
 
-export function StylePanel({ spec, style, canDelete, sheet, blockId, initialProps, onChange, onCommitProps, onClose, onDuplicate, onDelete }: {
+export function StylePanel({ spec, style, canDelete, sheet, groupId, blockId, initialProps, onChange, onCommitProps, onClose, onDuplicate, onDelete }: {
   spec: BlockSpec; style: BlockStyle; canDelete: boolean; sheet?: boolean;
-  blockId: string; initialProps: Record<string, unknown>;
+  groupId: number; blockId: string; initialProps: Record<string, unknown>;
   onChange: (patch: StylePatch) => void; onCommitProps: (props: Record<string, unknown>) => void;
   onClose: () => void; onDuplicate: () => void; onDelete: () => void;
 }): React.ReactElement {
@@ -94,7 +94,7 @@ export function StylePanel({ spec, style, canDelete, sheet, blockId, initialProp
 
       <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {schema && tab === 'content' ? (
-          <ContentTab schema={schema} blockId={blockId} initialProps={initialProps} onCommit={onCommitProps} sheet={sheet} />
+          <ContentTab schema={schema} groupId={groupId} blockId={blockId} initialProps={initialProps} onCommit={onCommitProps} sheet={sheet} />
         ) : (
           <>
             {has('density') ? (
