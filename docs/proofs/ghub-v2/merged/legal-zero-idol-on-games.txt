@@ -1,0 +1,17 @@
+V-BUILDER recovery merge - LEGAL WALL PROOF: zero idol image refs on /games (merged HEAD bd6fd41)
+
+Method: fetch the rendered browse/catalog surfaces + inspect every <img src>.
+  /games : <img> total=4  mascot=4  idol-photo-src=0
+  /games/this-or-that/all : <img> total=3  mascot=3  idol-photo-src=0
+  /games/name-all : <img> total=4  mascot=4  idol-photo-src=0
+
+Hub live-ranking is TEXT-only (games-hub.tsx: '#1 {name}'), no image.
+Rankings strip component (trending-rankings-strip.tsx) renders aria-hidden CSS-art INITIALS:
+    31:                  <span className="trend-avatar" aria-hidden="true" title={r.top_entity.name}>
+    32:                    {r.top_entity.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+    35:                  <span className="trend-avatar" aria-hidden="true" />
+  (component currently has no import site: grep of the app tree finds only its definition)
+
+VERDICT: the /games hub + this-or-that/all + name-all catalogs render ONLY the app mascot;
+zero idol photos on any browse surface. Idol images appear only inside GAMEPLAY components
+(this-or-that / name-all), where identifying idols IS the game - out of the browse-surface scope.
