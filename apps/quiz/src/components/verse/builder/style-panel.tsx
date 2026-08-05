@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import { TINT_KEYS, ACCENT_KEYS, tintCss, accentVarFor } from '@/lib/verse/composition/block-style';
 import { CatIcon } from './library-drawer';
 import { ContentTab } from './content-tab';
+import { MembersEditor } from './members-editor';
 
 import type { BlockSpec, BlockStyleOption } from '@/lib/verse/composition/registry';
 import type { BlockStyle } from '@/lib/verse/composition/types';
@@ -94,7 +95,14 @@ export function StylePanel({ spec, style, canDelete, sheet, groupId, blockId, in
 
       <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {schema && tab === 'content' ? (
-          <ContentTab schema={schema} groupId={groupId} blockId={blockId} initialProps={initialProps} onCommit={onCommitProps} sheet={sheet} />
+          schema.block === 'members' ? (
+            // The flagship: a bespoke roster editor (governance L-068) instead of the generic
+            // field list - live roster, entity picker, detach. Order + overrides ride the same
+            // draft rail (the `rows` prop); an empty `rows` renders byte-identically (parity).
+            <MembersEditor groupId={groupId} rows={Array.isArray(initialProps.rows) ? (initialProps.rows as Record<string, unknown>[]) : []} onChange={(rows) => onCommitProps({ rows })} sheet={sheet} />
+          ) : (
+            <ContentTab schema={schema} groupId={groupId} blockId={blockId} initialProps={initialProps} onCommit={onCommitProps} sheet={sheet} />
+          )
         ) : (
           <>
             {has('density') ? (

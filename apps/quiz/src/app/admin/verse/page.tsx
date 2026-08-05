@@ -87,7 +87,8 @@ export default async function VerseAdminPage(): Promise<React.ReactElement> {
   const { data: fIdols } = await svc
     .from('idols')
     .select('id,name,wikidata_qid,review_reason,groups(name)')
-    .eq('needs_review', true).order('group_id').limit(200);
+    // Wikidata mismatches only; curator-created members have their own queue (/admin/member-review).
+    .eq('needs_review', true).or('origin.is.null,origin.neq.curator').order('group_id').limit(200);
   const flaggedIdolRows: FlaggedIdol[] = ((fIdols ?? []) as unknown as Array<{ id: number; name: string; wikidata_qid: string | null; review_reason: string | null; groups: { name: string } | null }>)
     .map((i) => ({ id: i.id, group: i.groups?.name ?? '', name: i.name, wikidata_qid: i.wikidata_qid, review_reason: i.review_reason }));
 

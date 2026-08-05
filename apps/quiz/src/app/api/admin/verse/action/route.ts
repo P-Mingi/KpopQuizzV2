@@ -63,8 +63,24 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ ok: true });
       }
       case 'idol_activate': {
-        // promote a Wikidata-only review candidate into a published member
+        // Approve a review candidate (Wikidata mismatch OR curator-created) into a
+        // published member. GOVERNANCE GUARD (L-068 NEW CODE LAW): never re-activate a
+        // curator-DETACHED row here; a detached member returns only through the curator
+        // re-attach picker (which clears detached_at atomically). Approving a detached
+        // row would leave active=true with detached_at still set - an inconsistent state.
+        const { data: cur } = await svc.from('idols').select('detached_at').eq('id', Number(body.idol_id)).maybeSingle();
+        if (cur && (cur as { detached_at: string | null }).detached_at) {
+          return NextResponse.json({ error: 'That member was detached from its space. Re-attach it from the space builder, do not approve it here.' }, { status: 409 });
+        }
         const { error } = await svc.from('idols').update({ active: true, needs_review: false, review_reason: null }).eq('id', Number(body.idol_id));
+        if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ ok: true });
+      }
+      case 'idol_keep_hidden': {
+        // "Keep hidden" on the curator-idol queue: reviewed, decided not to publish. The
+        // row + its page data survive (real-data law); it just leaves the queue and stays
+        // inactive (active=false already 404s the page via getIdol). Not a delete.
+        const { error } = await svc.from('idols').update({ needs_review: false }).eq('id', Number(body.idol_id)).eq('active', false);
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
         return NextResponse.json({ ok: true });
       }

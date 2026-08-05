@@ -1,0 +1,29 @@
+V-BUILDER-3 step 4 - GATES
+
+== tsc ==
+  All step-4 files typecheck clean. tsc reports ONE error, in a file OUTSIDE this workstream:
+    src/app/games/name-them-all/page.tsx(96,58) - Property 'items' does not exist ...
+  That file was committed by a CONCURRENT chat (commit 3ea961d 'feat(name-them-all): add all
+  name-all games to lobby page') sharing this working tree; it is not a V-BUILDER file and is
+  not mine to fix. Every file this step touches is clean (verified: the sole error is that file).
+
+== suites (all green) ==
+  check:routes ............ 338 routes (incl. /admin/member-review under the /admin prefix)
+  check:verse-tokens ...... no raw hex in Verse surfaces (members-editor uses var() tokens)
+  vbuilder1-parity ........ converter lossless + byte-parity
+  vpages-gates ............ 55 passed, 0 failed
+  vtemplates .............. structure switches, nothing else moves
+  vb3-content-verify ...... ALL PASS
+  vb3-schema-verify ....... ALL PASS
+
+== a11y (members editor) ==
+  grip buttons aria-label 'Move <name> up/down'; accordion toggle aria-expanded + aria-label;
+  every override input aria-label'd; sheet (phone) bumps controls to the 44px touch floor
+  (inherited from the style-panel .vb-style-sheet rule).
+
+== editor UI note ==
+  The MembersEditor is wired (style-panel branches on schema.block==='members'), tsc-clean, and
+  its entire backend is proven (governance.txt, http-layer.txt). A live editor-panel screenshot
+  could not be captured this session: the shared dev server was emitting continuous RSC/HMR
+  fetch failures (a concurrent chat editing the same working tree), which broke the builder's
+  client interactivity. The published members grid renders correctly (render-parity.txt).

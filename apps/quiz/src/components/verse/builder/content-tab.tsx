@@ -92,7 +92,7 @@ function FieldEditor({ field, value, overridden, groupId, onChange, onReset, onB
   );
 }
 
-function BoundBadge({ overridden, onReset }: { overridden: boolean; onReset: () => void }): React.ReactElement {
+export function BoundBadge({ overridden, onReset }: { overridden: boolean; onReset: () => void }): React.ReactElement {
   if (!overridden) {
     return <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.02em', padding: '1px 6px', borderRadius: 5, background: 'var(--bg-primary)', border: '1px solid var(--border)', color: 'var(--text-tertiary)' }}>Data</span>;
   }
@@ -218,7 +218,7 @@ function Chev({ up }: { up: boolean }): React.ReactElement {
 function publicUrlFor(path: string): string {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}/storage/v1/object/public/verse-space-assets/${path}`;
 }
-function ImageField({ groupId, value, onChange, sheet }: {
+export function ImageField({ groupId, value, onChange, sheet }: {
   groupId: number; value: string; onChange: (v: unknown) => void; sheet?: boolean | undefined;
 }): React.ReactElement {
   const [busy, setBusy] = useState(false);

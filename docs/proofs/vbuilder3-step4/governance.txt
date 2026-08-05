@@ -1,0 +1,20 @@
+V-BUILDER-3 step 4 - MIGRATION 147 COLUMNS RECEIPT + GOVERNANCE LIFECYCLE (L-068)
+
+== FIRST RECEIPT: migration 147 columns present on idols ==
+  SELECT id, name, origin, created_by, detached_at, active, needs_review -> OK
+  distribution at build time: origin='curator'=0 · detached_at NOT NULL=0 · legacy inactive
+  (active=false, detached_at NULL)=86 (the untouched legacy set, per the contract)
+
+== GOVERNANCE LIFECYCLE (scripts/vb3-members-governance-verify.mts, service-role + getIdol) ==
+  PASS  CREATE -> active=false, needs_review=true, origin=curator, detached_at=null
+  PASS  unapproved member page 404s (getIdol returns null)
+  PASS  approve guard allows (detached_at is null)
+  PASS  approved member page renders (getIdol non-null, name matches) :: ZZ Governance Probe
+  PASS  DETACH -> active=false, detached_at set, ROW SURVIVES
+  PASS  detached member page 404s again (data intact, just hidden)
+  PASS  sync guard: approve/re-sync refuses a detached row (409)
+  PASS  RE-ATTACH -> active=true, detached_at=NULL
+  PASS  re-attached member page renders again
+  cleaned up probe idol 208
+
+RESULT: ALL PASS (members governance lifecycle)

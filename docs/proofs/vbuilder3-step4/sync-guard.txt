@@ -1,0 +1,24 @@
+V-BUILDER-3 step 4 - WIKIDATA SYNC GUARD (NEW CODE LAW, L-068)
+
+Law: any Wikidata re-sync path must never re-activate a row where detached_at IS NOT NULL.
+
+== the re-sync path writes NO idols (so it cannot resurrect a detached member) ==
+  src/lib/verse/refresh.ts runVerseRefresh -> refreshGroupFields (groups.update + entity_sources)
+  + insertNewAlbums (albums / album_tracks). grep of from('idols') across src: the ONLY idol
+  writes are in the admin action route - the sync never touches the idols table:
+    src/app/api/admin/verse/action/route.ts:75:        const { error } = await svc.from('idols').update({ active: true, needs_review: false, review_reason: null }).eq('id', Number(body.idol_id));
+    src/app/api/admin/verse/action/route.ts:83:        const { error } = await svc.from('idols').update({ needs_review: false }).eq('id', Number(body.idol_id)).eq('active', false);
+    src/app/api/admin/verse/action/route.ts:88:        const { error } = await svc.from('idols').delete().eq('id', Number(body.idol_id));
+    src/app/api/verse/space-members/route.ts:83:    const { data: ins, error } = await svc.from('idols').insert({
+    src/app/api/verse/space-members/route.ts:101:    const { error } = await svc.from('idols').update({ active: true, detached_at: null }).eq('id', idolId);
+    src/app/api/verse/space-members/route.ts:114:    const { error } = await svc.from('idols').update({ active: false, detached_at: new Date().toISOString() }).eq('id', idolId);
+
+== the sole re-activation site is guarded (file + line) ==
+  src/app/api/admin/verse/action/route.ts  case 'idol_activate':
+    69:        // re-attach picker (which clears detached_at atomically). Approving a detached
+    70:        // row would leave active=true with detached_at still set - an inconsistent state.
+    71:        const { data: cur } = await svc.from('idols').select('detached_at').eq('id', Number(body.idol_id)).maybeSingle();
+    72:        if (cur && (cur as { detached_at: string | null }).detached_at) {
+  -> approve/re-activate refuses (409) when detached_at is set; a detached member returns
+     ONLY through the curator re-attach op, which clears active + detached_at atomically.
+  Proven live in governance.txt: 'sync guard: approve/re-sync refuses a detached row (409)'.

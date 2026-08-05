@@ -1,0 +1,10 @@
+V-BUILDER-3 step 4 - PUBLISHED RENDER PARITY (MembersStrip)
+
+The members grid now honors draft order + photo/name/link overrides, but EMPTY props render
+byte-identically to the entity roster, and the link stays keyed to the ENTITY slug.
+
+== /verse/bts (no member overrides in props) ==
+  HTTP 200 · Members heading present (1) · 7 canonical member links:
+    /verse/bts/members/{rm,jin,suga,j-hope,jimin,jungkook,v}
+  zero verse-space-assets / external image urls in the members grid
+  => the render change is transparent when props are empty (parity holds for every existing page).

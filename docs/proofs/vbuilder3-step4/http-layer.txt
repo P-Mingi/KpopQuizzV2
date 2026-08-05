@@ -1,0 +1,14 @@
+V-BUILDER-3 step 4 - HTTP LAYER (roster API /api/verse/space-members)
+
+== AUTH GATE (curl, unauthenticated) ==
+  POST create (unauth)  -> HTTP 403 'Not authorized' (canCurateSpace)
+  GET  roster (unauth)  -> HTTP 403
+  POST detach (unauth)  -> HTTP 403
+
+== AUTHENTICATED HAPPY PATH (owner session, browser fetch, group 1 = BTS) ==
+  GET  roster           -> 200, 7 members [RM, Jin, Suga, J-Hope, Jimin, V, Jungkook]
+  POST create 'ZZ HTTP Probe' -> 200 { id:207, pending:true, slug:'zz-http-probe' }
+     (origin=curator, needs_review=true, active=false -> its page 404s until approved)
+  POST create 'RM' (an existing active member) -> 409 'RM is already a member of this
+     space.' (NO SILENT DUPLICATES: search runs before create, server re-checks the slug)
+  probe then appeared under 'Awaiting review'; test probe 207 cleaned up (0 curator idols on BTS).

@@ -4,9 +4,11 @@ import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { VerseGameLink } from '@/components/verse/verse-game-link';
 import { onThisDay } from '@/lib/verse/date-engines';
 import { getSpaceQuizzes } from '@/lib/verse/space-quizzes';
+import { resolveSpaceImages } from '@/lib/verse/space-image';
 
 import type { CrossPromoTarget } from '@/lib/analytics';
 import type { Space } from '@/lib/verse/space';
+import type { ModulePlacement } from '@/lib/verse/presentation/types';
 
 // V-DESIGN v2 - today's home modules, rebuilt on the editorial system: NO borders,
 // NO card backgrounds, NO dotted dividers by default. Sections separate by
@@ -86,25 +88,54 @@ export async function GameWidgets({ space }: { space: Space }): Promise<React.Re
   );
 }
 
-export function MembersStrip({ space }: { space: Space }): React.ReactElement | null {
+interface MemberRow { member?: number | string; photo?: unknown; name?: unknown; link?: unknown }
+
+// V-BUILDER-3 step 4: the member grid honors the curator's draft/published edits -
+// ORDER + per-member photo/name/link overrides (co-design 7). Empty props render
+// byte-identically to the entity roster (parity). Two invariants hold: (1) the link
+// stays keyed to the ENTITY slug (the real member page) unless the curator explicitly
+// set a link, so a display-name override never breaks the page link; (2) photo overrides
+// ride the step-3 image rail and resolve through the fail-closed gate (never a hotlink,
+// nothing on hide/removal). Only active members render (governance: inactive = 404).
+export async function MembersStrip({ space, placement }: { space: Space; placement?: ModulePlacement }): Promise<React.ReactElement | null> {
   const { group, idols } = space;
   if (!idols.length) return null;
+
+  const rows = (Array.isArray(placement?.props?.rows) ? placement!.props!.rows : []) as MemberRow[];
+  const ovById = new Map<number, MemberRow>();
+  for (const r of rows) { const mid = Number(r?.member); if (mid) ovById.set(mid, r); }
+
+  const photoPaths = rows.map((r) => (typeof r?.photo === 'string' ? r.photo : '')).filter(Boolean);
+  const railUrls = photoPaths.length ? await resolveSpaceImages(photoPaths) : {};
+
+  const byId = new Map(idols.map((m) => [m.id, m] as const));
+  const ordered: typeof idols = [];
+  const seen = new Set<number>();
+  for (const r of rows) { const m = byId.get(Number(r?.member)); if (m && !seen.has(m.id)) { ordered.push(m); seen.add(m.id); } }
+  for (const m of idols) { if (!seen.has(m.id)) ordered.push(m); }
+
   return (
     <Section title="Members">
       <ul className="v-grid-media">
-        {idols.map((m) => (
-          <li key={m.id}>
-            <Link href={`/verse/${group.slug}/members/${m.slug}`} className="group block no-underline">
-              <div className="aspect-[3/4] w-full overflow-hidden rounded-[var(--v-radius-media)]" style={{ background: 'var(--verse-soft)' }}>
-                {m.photo_url
-                  ? <img src={m.photo_url} alt={m.name} className="v-zoom h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
-                  : <span className="flex h-full w-full items-center justify-center text-xl font-bold" style={{ color: 'var(--verse-ink)' }}>{m.name.slice(0, 2)}</span>}
-              </div>
-              <span className="mt-2 block truncate text-[13.5px] font-semibold text-primary">{m.name}</span>
-              {m.name_hangul ? <span className="block truncate text-[11.5px] text-tertiary">{m.name_hangul}</span> : null}
-            </Link>
-          </li>
-        ))}
+        {ordered.map((m) => {
+          const ov = ovById.get(m.id);
+          const name = ov && typeof ov.name === 'string' && ov.name.trim() ? ov.name.trim() : m.name;
+          const photo = ov && typeof ov.photo === 'string' && railUrls[ov.photo] ? railUrls[ov.photo] : m.photo_url;
+          const href = ov && typeof ov.link === 'string' && ov.link.trim() ? ov.link.trim() : `/verse/${group.slug}/members/${m.slug}`;
+          return (
+            <li key={m.id}>
+              <Link href={href} className="group block no-underline">
+                <div className="aspect-[3/4] w-full overflow-hidden rounded-[var(--v-radius-media)]" style={{ background: 'var(--verse-soft)' }}>
+                  {photo
+                    ? <img src={photo} alt={name} className="v-zoom h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
+                    : <span className="flex h-full w-full items-center justify-center text-xl font-bold" style={{ color: 'var(--verse-ink)' }}>{name.slice(0, 2)}</span>}
+                </div>
+                <span className="mt-2 block truncate text-[13.5px] font-semibold text-primary">{name}</span>
+                {m.name_hangul ? <span className="block truncate text-[11.5px] text-tertiary">{m.name_hangul}</span> : null}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </Section>
   );
@@ -202,7 +233,7 @@ export function MastheadInvite({ space }: { space: Space }): React.ReactElement 
   );
 }
 
-export const MODULE_RENDERERS: Record<string, (props: { space: Space }) => React.ReactElement | null | Promise<React.ReactElement | null>> = {
+export const MODULE_RENDERERS: Record<string, (props: { space: Space; placement?: ModulePlacement }) => React.ReactElement | null | Promise<React.ReactElement | null>> = {
   game_widgets: GameWidgets,
   members: MembersStrip,
   discography: Discography,
