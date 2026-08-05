@@ -8,8 +8,10 @@
 
 import { BLOCK_REGISTRY } from '../presentation/registry';
 import { DOORWAY_FORMATS } from '../presentation/doorways';
+import { editorSchema as schemaFor } from './editor-schema';
 
 import type { Zone } from '../presentation/registry';
+import type { EditorSchema } from './editor-schema';
 
 // Blueprint section 3 taxonomy.
 export type BlockCategory = 'layout' | 'text' | 'media' | 'live' | 'doorway' | 'fan';
@@ -29,6 +31,11 @@ export interface BlockSpec {
   allowedZones: Zone[];         // (from BlockDef.zones)
   styleOptions: BlockStyleOption[];
   minGateRule: string;          // human description of the block's self-min-gate
+  // V-BUILDER-3 step 1 - the per-block CONTENT editor definition (fields + constraints).
+  // Present for blocks whose editor is authored (wave 1); absent = a dated deferral to a
+  // later V-BUILDER-3 wave (see docs/vbuilder3-block-inventory.md). Pure data: the Phase-2
+  // library never reads it, so attaching it changes no rendered page.
+  editorSchema?: EditorSchema;
 }
 
 // The box controls every framed module exposes. Text blocks add 'text'.
@@ -72,10 +79,12 @@ const META: Record<string, { category: BlockCategory; icon: string; dataSource: 
 function specFor(type: string): BlockSpec {
   const def = BLOCK_REGISTRY[type]!;
   const m = META[type] ?? { category: 'live' as const, icon: 'box', dataSource: 'entity' as const, desc: def.label, minGate: 'Self min-gates.' };
+  const schema = schemaFor(type);
   return {
     type, category: m.category, icon: m.icon, name: def.label, description: m.desc,
     dataSource: m.dataSource, seoCritical: def.seoCritical, allowedZones: def.zones,
     styleOptions: m.text ? TEXTBOX : BOX, minGateRule: m.minGate,
+    ...(schema ? { editorSchema: schema } : {}),
   };
 }
 
@@ -91,6 +100,7 @@ export const BLOCK_SPECS: Record<string, BlockSpec> = {
     description: `A link into another page (format: ${DOORWAY_FORMATS.join(' / ')}).`,
     dataSource: 'entity', seoCritical: false, allowedZones: ['main', 'side'],
     styleOptions: ['doorwayFormat', ...BOX], minGateRule: 'Hidden when its target has no content (no dead doors).',
+    ...(schemaFor('doorway') ? { editorSchema: schemaFor('doorway')! } : {}),
   },
   // The prose block: arbitrary curator prose (TipTap), the future home of the
   // paragraph/heading/list/callout text blocks. Today intro/story carry prose; this

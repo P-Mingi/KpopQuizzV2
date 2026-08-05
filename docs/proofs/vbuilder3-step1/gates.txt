@@ -1,0 +1,22 @@
+=== tsc ===
+tsc exit 0
+=== routes ===
+Route allowlist guard passed: 338 page routes reachable.
+=== tokens ===
+Verse token gate passed: no raw hex colors in Verse surfaces.
+=== parity ===
+ALL PASS: converter is lossless + byte-parity on the renderer input.
+=== registry ===
+modules in validator: 29  |  block specs: 31  (adds doorway + prose)
+COMPLETE: every module type has a BlockSpec.
+ALL SPECS WELL-FORMED.
+completeness     live     -    entity     side+main    frame,background,radius,density,divider,accent
+=== vpages ===
+V-PAGES gates hold.
+=== templates ===
+V-TEMPLATES: structure switches, nothing else moves.
+=== fold ===
+V-TEXT fold law holds.
+=== stable-id ===
+ALL PASS: stable-id persistence + freeze
+=== ALL GATES DONE ===

@@ -1,0 +1,25 @@
+V-BUILDER-3 step 1 - PUBLISHED BYTE-IDENTICAL (the schema foundation renders nothing)
+
+The step is invisible by construction: no render-path file changed.
+  git diff --name-only (this step) touches only:
+    src/lib/verse/composition/editor-schema.ts   (NEW - pure data + a props clamp)
+    src/lib/verse/composition/registry.ts         (BlockSpec gains an OPTIONAL editorSchema
+                                                    field; no renderer reads it)
+    src/lib/verse/presentation/validate.ts        (SAVE-time props clamp only; not a render)
+  No component, module, renderer, hero, or CSS file changed.
+
+Live measure (:3021), /verse/bts main column (div.lg:col-span-2), normalized outerHTML:
+    length = 21312 == the step-baseline 21312   -> matchesBaseline: true
+    intro tail unchanged ("...documented by fans, with sources on every fact.")
+
+The validator change is byte-safe for existing configs:
+  - only blocks WITH an editorSchema (wave 1) route through the schema clamp; of those, only
+    `quote` has existing real-world props, and the quote clamp reproduces the legacy behavior
+    exactly (proven in schema-verify.txt part c: text trimmed + preserved <=280, over-limit
+    rejected with the identical lyric sentence, attribution silently clamped to 80).
+  - spotlight / music / social_embed / discord keep their legacy hand-clamp untouched.
+  - vitals / members / stats / timeline had no props before and still store none for today's
+    configs, so the added clamp path is a no-op on real data.
+
+Regression suite (gates.txt): tsc 0; routes 338; tokens pass; parity ALL PASS; registry
+29/31 COMPLETE + WELL-FORMED; vpages; templates; fold; stable-id ALL PASS.

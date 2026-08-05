@@ -10,6 +10,7 @@ import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_MAX_LABEL } fro
 import { isHex, accentReadableOn } from './contrast';
 import { blockId } from '../composition/convert';
 import { clampTint, clampRadius, clampDensity, clampScale, clampAccentKey, clampBlockDivider } from '../composition/block-style';
+import { editorSchema, clampPropsBySchema } from '../composition/editor-schema';
 
 import type { FrameStyle } from './registry';
 import type { Presentation, ModulePlacement, StickerPlacement, StickerSlot, PresetId, BannerConfig } from './types';
@@ -23,22 +24,21 @@ export interface ValidationResult {
 const MAX_MODULES = 24;
 const MAX_STICKERS = 12;      // page cap (clutter + perf guard)
 const MAX_WELCOME = 400;
-const MAX_QUOTE = 280;        // pull-quote cap (also a lyric-reproduction guard)
 const MIN_TABS = 3;
 const MAX_TABS = 7;
 
 // Per-block props validation. Returns {props, errors}. Unknown props are dropped.
+// V-BUILDER-3 step 1: blocks with an editorSchema (wave 1) clamp through the schema
+// (the single source of field kinds + constraints). Blocks without a schema yet keep
+// their hand-clamp below until their editor lands in a later wave.
 function validateProps(type: string, raw: unknown): { props?: Record<string, unknown>; errors: string[] } {
+  const schema = editorSchema(type);
+  if (schema) return clampPropsBySchema(schema, raw);
   const errors: string[] = [];
   if (raw == null || typeof raw !== 'object') return { errors };
   const p = raw as Record<string, unknown>;
   const out: Record<string, unknown> = {};
-  if (type === 'quote') {
-    const text = typeof p.text === 'string' ? p.text.trim() : '';
-    if (text.length > MAX_QUOTE) errors.push(`Quote is too long (max ${MAX_QUOTE} characters). Song lyrics cannot be reproduced - link out instead.`);
-    if (text) out.text = text.slice(0, MAX_QUOTE);
-    if (typeof p.attribution === 'string' && p.attribution.trim()) out.attribution = p.attribution.trim().slice(0, 80);
-  } else if (type === 'spotlight') {
+  if (type === 'spotlight') {
     if (p.photocardId != null) { const n = Number(p.photocardId); if (Number.isFinite(n) && n > 0) out.photocardId = n; }
     if (typeof p.kind === 'string' && ['photocard', 'collectible'].includes(p.kind)) out.kind = p.kind;
   } else if (type === 'music') {

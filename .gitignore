@@ -75,6 +75,7 @@ docs/*
 !docs/VERSE-WORKING-SYSTEM-V2.md
 !docs/workstream-vbuilder-2.md
 !docs/vbuilder2-deferred.md
+!docs/vbuilder3-block-inventory.md
 kpopquiz_*.md
 quizz_*.md
 login_redesign.html

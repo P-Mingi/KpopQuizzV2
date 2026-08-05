@@ -1,0 +1,59 @@
+
+(a) SCHEMA COMPLETENESS + WELL-FORMEDNESS
+  PASS  wave-1 "hero" has a schema
+  PASS    "hero" schema well-formed
+  PASS    "hero" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "vitals" has a schema
+  PASS    "vitals" schema well-formed
+  PASS    "vitals" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "members" has a schema
+  PASS    "members" schema well-formed
+  PASS    "members" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "image" has a schema
+  PASS    "image" schema well-formed
+  PASS    "image" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "youtube" has a schema
+  PASS    "youtube" schema well-formed
+  PASS    "youtube" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "stats" has a schema
+  PASS    "stats" schema well-formed
+  PASS    "stats" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "timeline" has a schema
+  PASS    "timeline" schema well-formed
+  PASS    "timeline" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "quote" has a schema
+  PASS    "quote" schema well-formed
+  PASS    "quote" every field valid (kind + binding + list/enum shape)
+  PASS  wave-1 "doorway" has a schema
+  PASS    "doorway" schema well-formed
+  PASS    "doorway" every field valid (kind + binding + list/enum shape)
+
+  COVERAGE: 6/31 BLOCK_SPECS carry an editorSchema.
+  with schema: doorway, members, quote, stats, timeline, vitals
+  deferred (dated to a later V-BUILDER-3 wave, see docs/vbuilder3-block-inventory.md):
+    atlas_mini, binder_widget, collections, community, completeness, countdown, discography, discord, eras, facts, featured_essay, featured_thread, game_widgets, go_deeper, intro, live_now, masthead, music, on_this_day, poll, prose, shelf_widget, social_embed, spotlight, story
+  PASS  spec "vitals" carries its editorSchema
+  PASS  spec "members" carries its editorSchema
+  PASS  spec "stats" carries its editorSchema
+  PASS  spec "timeline" carries its editorSchema
+  PASS  spec "quote" carries its editorSchema
+  PASS  spec "doorway" carries its editorSchema
+  PASS  "hero" schema authored but NOT a placeable spec (library unaffected)
+  PASS  "image" schema authored but NOT a placeable spec (library unaffected)
+  PASS  "youtube" schema authored but NOT a placeable spec (library unaffected)
+
+(b) VALIDATOR CLAMPS (hostile content -> human sentence)
+  PASS  quote over 280 chars rejected :: Quote is too long (max 280 characters). Song lyrics cannot be reproduced - link out instead.
+  PASS  stats row with non-https source rejected :: Source must be a valid https link.
+  PASS  members row with javascript: link rejected :: Link must be a site link or an https URL.
+  PASS  timeline over 60 rows rejected :: Eras has too many rows (max 60).
+  PASS  image with an EXTERNAL src rejected (ingest-copy law) :: Image must be an uploaded image, not an external URL (we copy images into our own storage).
+  PASS  youtube with a non-https url rejected :: Video URL must be a valid https link.
+  PASS  image with an uploaded src + alt accepted
+
+(c) QUOTE BYTE-PARITY vs the legacy clamp
+  PASS  valid quote accepted
+  PASS  quote text trimmed + preserved
+  PASS  quote attribution silently clamped to 80
+
+RESULT: ALL PASS (editorSchema foundation)

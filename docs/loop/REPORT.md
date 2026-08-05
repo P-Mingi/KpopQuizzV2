@@ -1,62 +1,51 @@
-# /caveman report - V-BUILDER-2 step 8: CLOSING SWEEP (phase 2 ready to close)
+# /caveman report - V-BUILDER-3 step 1: the editorSchema foundation (invisible)
 
-Owner gave GO on the gate pack. Step 8 is the closing sweep. Done + committed. Nothing pushed.
-PHASE 2 CLOSES on Cowork's read of this report.
+Phase 2 is closed. V-BUILDER-3 (block editors) step 1 is done: the schema foundation + the
+component inventory + validator content clamps. NO UI (the content tab waits for co-design 7).
+Committed. Nothing pushed.
 
-## 1. A11Y RE-PASS (docs/proofs/vbuilder2-step8/a11y-repass.txt)
+## Built
 
-Full read-only audit of everything the phase added, then FIXED the real barriers and verified
-each live on :3021:
-- H1 (functional + a11y): the shell's window keydown stole Tab/Enter/Esc even while an overlay
-  owned the keyboard - in the inline editor, Enter ran a block-grab instead of a newline. FIX:
-  the shell yields keys while (drawer || styleOpen || editing). LIVE: Enter no longer grabs;
-  typing reaches the editor.
-- H2/H3/H4 (focus management): the style panel, the inline editor, and the phone BottomSheet
-  now move focus IN on open, trap Tab, handle Esc, and restore focus on close. LIVE: focus lands
-  in each dialog; Esc closes the editor and restores focus.
-- M1/M2 (44px law): the library + style PHONE sheets had sub-44px controls. FIX: sheet-scoped
-  44px (with !important where an inline min-width fought it). LIVE: every control on both phone
-  sheets is >= 44px, zero under.
-- L2 (robustness): the inert cleanup no longer clobbers a sibling's pre-existing aria-hidden.
-CLEAN (no change): all icon buttons labeled; dialogs + toolbar roles + live regions correct;
-the builder animates nothing (no reduced-motion rule needed); the inert layer inerts only
-ancestor siblings so the drawers/sheets/editor stay interactive.
-Deferred (LOW polish, in docs/vbuilder2-deferred.md): library tab aria-controls association; tour
-focus-to-primary on open.
+- **src/lib/verse/composition/editor-schema.ts** (NEW): the typed field-def system
+  (text, richtext, image, url, link, entityRef, enum, number, date, list-of-rows) with a
+  `binding` (curator / entity / derived) that says where each field's value lives. Plus
+  `EDITOR_SCHEMAS` - the nine wave-1 schemas the owner named (D1/D2): hero, vitals, members,
+  image, youtube, stats (the DATA block), timeline, quote, doorway. Plus `clampPropsBySchema`,
+  the schema-driven content clamp.
+- **BlockSpec gains `editorSchema?`** (composition/registry.ts): attached to the six wave-1
+  blocks that already have specs (vitals, members, stats, timeline, quote, doorway). The three
+  not-yet-placeable blocks (hero, image, youtube) have schemas but NO spec, so the Phase-2
+  library is unchanged (it reads BLOCK_SPECS).
+- **Validator extended** (presentation/validate.ts): `validateProps` clamps a block's content
+  payload through its schema when one exists (human sentences); blocks without a schema keep
+  their legacy hand-clamp. The `quote` clamp moved to the schema and reproduces the old
+  behavior exactly.
+- **docs/vbuilder3-block-inventory.md**: the complete named audit - every visible component on
+  a fandom space -> block -> data source -> editorSchema status (wave 1 / wave 2 / chrome /
+  block-pending). Resolves the owner's two flagged cases (the `vitals` module vs the separate
+  hero vitals line; "Latest releases" = the `discography` teaser).
 
-## 2. FULL GATE SUITE on the final HEAD (docs/proofs/vbuilder2-step8/gates.txt)
+## Proven (docs/proofs/vbuilder3-step1/)
 
-tsc exit 0; check:routes 338; check:verse-tokens pass; parity ALL PASS; registry 29/31 COMPLETE
-+ WELL-FORMED; vpages hold; templates; fold; stable-id ALL PASS; play-untouched 12 (720px,
-verse-page-free). em-dash grep over the changed source + docs: clean.
+- **schema-verify.txt** (`scripts/vb3-schema-verify.mts`): ALL PASS.
+  (a) all 9 wave-1 schemas present + well-formed (every field has a valid kind + binding; lists
+      + enums shaped). Coverage: 6/31 specs carry a schema + 3 schema-only pending blocks = the
+      9 editors; the other 25 specs are dated deferrals (the inventory tracks each).
+  (b) hostile payloads clamped with human sentences: quote over 280 (lyric guard), stats source
+      not https, members row javascript: link, timeline over 60 rows, image EXTERNAL src
+      (ingest-copy law), youtube non-https url. A valid uploaded image passes.
+  (c) quote byte-parity: valid quote accepted, text trimmed + preserved, attribution clamped
+      to 80 (matches the legacy clamp).
+- **byte-identical.txt**: /verse/bts main column = 21312 == baseline. No render-path file
+  changed; the validator change is a no-op on today's real configs.
+- **gates.txt**: tsc 0; routes 338; tokens pass; parity ALL PASS; registry 29/31 COMPLETE +
+  WELL-FORMED; vpages; templates; fold; stable-id ALL PASS. em-dash grep clean.
 
-## 3. SITEMAP UNCHANGED (docs/proofs/vbuilder2-step8/sitemap-unchanged.txt)
-
-/sitemap.xml = 2793 URLs, ZERO build routes; no /verse/<slug>/build. sitemap.ts + robots.ts are
-byte-unchanged across the whole phase. Both builder routes are noindex (source robots
-index:false + live meta on /build/bts) AND curator-gated (404) AND absent from the sitemap.
-
-## 4. DEFERRED ITEMS handoff (docs/vbuilder2-deferred.md)
-
-Width/column-span (Phase 3 grid); inline text on the other text blocks; doorwayFormat per-door
-editor; per-source library hint copy; native publish-confirm; the two LOW a11y notes. Each with
-its target workstream.
-
-## 5. TASK BOARD (docs/workstream-vbuilder-2.md)
-
-Every step 1-8 marked DONE with its commit hash; the Verify checklist is all checked.
-
-Tracking note: docs/vbuilder2-deferred.md + docs/workstream-vbuilder-2.md were under the
-`docs/*` default-ignore. I negated them in .gitignore (mirroring how verse-project.md /
-VERSE-LEDGER.md are tracked) so these step-8 deliverables land in git for Cowork + Phase 3. If
-you'd rather keep either local-only, `git rm --cached <file>` + drop the negation.
-
-## Handover state
-
-Test space bts CLEAN: presentation_draft {}; verse_content byte-identical; section drafts
-cleared. Dev server on :3021.
+Note: docs/vbuilder3-block-inventory.md was under the docs/* default-ignore; negated in
+.gitignore (same pattern as the vbuilder2 docs) so the deliverable tracks in git.
 
 ## STOP
 
-PHASE 2 (V-BUILDER-2) is complete pending Cowork's read of this report. STOP holds: the
-V-BUILDER-3 (block editors) spec comes from Cowork next; I start nothing until then.
+Step 1 complete. STOP before step 2 (CONTENT TAB PLUMBING), which is [CO-DESIGN 7] gated: its
+UI must NOT be built until the ledger records the co-design 7 lock. The next Cowork mission
+carries that lock (or the next step). Nothing pushed.
