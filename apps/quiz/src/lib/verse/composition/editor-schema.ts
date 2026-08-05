@@ -290,6 +290,15 @@ function clampField(field: EditorField, raw: unknown, errors: string[]): unknown
   }
 }
 
+/** Clamp ONE field's raw value: returns the normalized value (undefined if empty/dropped)
+ * and the human sentence to render under it (undefined if clean). The content tab uses this
+ * for inline per-field validation; the server validator uses the whole-props clamp below. */
+export function validateField(field: EditorField, raw: unknown): { value?: unknown; error?: string | undefined } {
+  const errors: string[] = [];
+  const value = clampField(field, raw, errors);
+  return { value, error: errors[0] };
+}
+
 export interface PropsClampResult { props?: Record<string, unknown>; errors: string[] }
 
 /** Clamp raw block props against the block's editor schema. Pure; no I/O. */

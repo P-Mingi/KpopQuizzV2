@@ -1,0 +1,17 @@
+V-BUILDER-3 step 2 - ROUTES QUESTION: check:routes 338 (44dda93) -> 335 (merged main)
+
+FINDING: the drop is NOT a G-HUB route removal. The COMMITTED route surface is byte-identical
+between 44dda93 and the merged HEAD:
+  page.tsx set:  143 == 143  (zero added, zero removed)
+  route.ts set:  180 == 180  (zero added, zero removed)
+G-HUB only MODIFIED games page.tsx files (auto-start, legal wall); it deleted/added no route.
+
+check-route-allowlist.mts walks the WORKING TREE (readdirSync), counting page.tsx + route.ts
+that survive isKnownRoute - including UNTRACKED files. At step-1 (44dda93) the working tree held
+three UNTRACKED experimental routes from the architecture spike, which the check counted (338):
+  - apps/quiz/src/app/verse/[slug]/spike-build/   (spike draft-canvas prototype)
+  - apps/quiz/src/app/verse/[slug]/spike-draft/   (spike draft prototype)
+  - apps/quiz/src/app/pinterest-feed.xml/         (untracked feed route.ts)
+The play-ghub checkout during the merge surgery cleaned these untracked files from the working
+tree, so the check now counts 335. None was ever committed; none is a G-HUB removal. The
+committed, reachable route surface is unchanged by the merge.

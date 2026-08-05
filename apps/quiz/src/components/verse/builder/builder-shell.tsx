@@ -295,6 +295,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       background: 'var(--bg-primary)', color: 'var(--text-primary)', ...scopeStyle,
       ['--vb-accent' as string]: 'var(--verse-accent, var(--brand))',
       ['--vb-accent-text' as string]: 'var(--verse-accent-text, var(--accent-fg))',
+      ['--vb-danger' as string]: 'color-mix(in srgb, red 68%, var(--text-primary))',
     }}>
       {/* ---- slim top bar ---- */}
       <div style={{ height: TOP_BAR_H, flexShrink: 0, display: 'flex', alignItems: 'center', gap: 10, padding: '0 12px', borderBottom: '1px solid var(--border)', background: 'var(--bg-surface)' }}>
@@ -386,7 +387,9 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
           const sid = selectedId;
           return spec ? (
             <StylePanel spec={spec} style={eng.styleOf(sid)} canDelete={eng.canDelete(sid)} sheet={isPhone}
-              onChange={(p) => eng.setStyle(sid, p)} onClose={() => setStyleOpen(false)}
+              blockId={sid} initialProps={eng.propsOf(sid)}
+              onChange={(p) => eng.setStyle(sid, p)} onCommitProps={(props) => eng.setProps(sid, props)}
+              onClose={() => setStyleOpen(false)}
               onDuplicate={() => { const nid = eng.duplicate(sid); if (nid) { setSelectedId(nid); setFocusId(nid); } }}
               onDelete={() => doDelete(sid)} />
           ) : null;

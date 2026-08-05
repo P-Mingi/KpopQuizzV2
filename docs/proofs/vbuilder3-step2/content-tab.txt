@@ -1,0 +1,35 @@
+V-BUILDER-3 step 2 - CONTENT TAB PLUMBING (co-design 7, L-057), re-applied + re-proven ON MERGED MAIN
+
+The step-2 work (built + proven earlier this session) was clobbered by the shared-clone
+collision; re-applied verbatim from scratchpad/vb3-step2-recovery on the merged main and
+re-verified live (:3021, bts). English labels (owner ruling: match the lang="en" app).
+
+FILES (all builder-only + one save-time helper): content-tab.tsx (new generic field renderer),
+style-panel.tsx (refactored into the tabbed Content|Style block panel), use-builder-composition
+(setProps + propsOf op on the same draft rail), builder-shell (wire props + --vb-danger token),
+editor-schema (validateField per-field helper), scripts/vb3-content-verify.mts (proof).
+
+LIVE ON MERGED MAIN (screenshots inline):
+1. FIELDS FROM SCHEMA (accept.1): the panel opens on CONTENT by default; header Vitals + tabs
+   Content|Style + summary + field "Chips" [Data badge] + "+ Add" + footer "Auto-saved . draft
+   only". Retarget vitals->stats swaps both tabs; stats renders label/value/source rows with
+   live counters. No hand-built per-block UI. content-verify.txt maps every kind.
+2. HOSTILE INLINE (accept.2): a non-https stats source -> red border + "Source must be a valid
+   https link." UNDER the field; siblings stay editable; the bad value is not saved.
+3. BOUND-DATA BADGE ROUND-TRIP persisted in the draft jsonb (accept.3):
+   vitals.chips Data -> add+fill chip -> badge "Edited" -> dumped presentation_draft:
+     vitals.props = { "chips": [ { "label": "Debut", "value": "2013" } ] }   (override stored)
+   -> "Revert to data" -> dumped modules-with-props = []                       (override removed)
+4. LIST ROWS (accept.4): add proven (chip landed in the draft); move up/down + remove wire the
+   same write()->setProps path; a stable client key per row keeps identity through reorder; the
+   block's stable id is unchanged (setProps only swaps props).
+5. RETARGET + a11y (accept.5): both tabs swap on selection; reuses the step-8 focus trap (focus
+   in, Tab trapped, Esc + restore); every field has a <label htmlFor>; errors role="alert"; the
+   phone .vb-style-sheet 44px rule covers the content controls.
+
+BYTE-IDENTITY (accept.6): step 2 touches ONLY builder + save-time files (git status: builder-
+shell/style-panel/use-builder-composition/editor-schema + the new content-tab.tsx + the script);
+ZERO reader/render/shared-chrome files. /verse/bts never renders builder code, so step 2 cannot
+change it. RE-BASELINE (mission #1): the G-HUB merge moved /verse/bts's client-DOM main column
+from 21312 (pre-merge, 44dda93) to ~21638 (merged main) via shared chrome; that delta is the
+G-HUB re-baseline, NOT step 2. Gates all green on merged main (gates.txt).

@@ -1,0 +1,12 @@
+V-BUILDER-3 step 2 - gate suite ON MERGED MAIN (HEAD includes the G-HUB merge)
+tsc --noEmit            exit 0
+check:routes            335 page routes reachable
+check:verse-tokens      pass (no raw hex in Verse surfaces)
+_vbuilder1-parity       ALL PASS (bts/stray-kids/ateez render-parity + meta-lossless + stable-ids)
+_vbuilder1-registry     COMPLETE + ALL SPECS WELL-FORMED (29 modules / 31 specs)
+test-vpages-gates       V-PAGES gates hold
+test-vtemplates         structure switches, nothing else moves
+test-vtext-fold         V-TEXT fold law holds
+vb2-stable-id-verify    ALL PASS (stable-id persistence + freeze)
+vb3-content-verify      ALL PASS (content-tab plumbing logic)
+em-dash grep            clean (see below)

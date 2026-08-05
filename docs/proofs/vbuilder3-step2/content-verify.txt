@@ -1,0 +1,23 @@
+
+(a) validateField (one field at a time)
+  PASS  valid text -> trimmed value, no error
+  PASS  over-cap quote text -> error + no value :: Quote is too long (max 280 characters). Song lyrics cannot be reproduced - link out instead.
+  PASS  non-https url field -> error + no value :: Source must be a valid https link.
+  PASS  https url field -> value, no error
+  PASS  valid enum -> value
+  PASS  bad enum -> error
+
+(b) commit keeps only valid fields (hostile value dropped, draft uncorrupted)
+  PASS  valid quote commits both fields
+  PASS  soft-cap attribution clamped, text kept
+  PASS  hostile text dropped from commit (draft uncorrupted)
+
+(c) bound-field override model (presence = override, absence = data)
+  PASS  vitals with no chips -> no override stored (Data)
+  PASS  vitals with a chip -> override stored (Edited)
+  PASS  empty chip row dropped
+
+(d) whole-props clamp still holds (server validator path)
+  PASS  server clamp rejects the non-https source
+
+RESULT: ALL PASS (content-tab plumbing logic)

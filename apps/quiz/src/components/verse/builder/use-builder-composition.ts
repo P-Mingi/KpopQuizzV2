@@ -87,6 +87,8 @@ export interface BuilderEngine {
   insertBlocks: (zone: Zone, index: number, specs: { type: string; props?: Record<string, unknown> }[]) => string[];
   setStyle: (id: string, patch: StylePatch) => void;
   styleOf: (id: string) => BlockStyle;
+  setProps: (id: string, props: Record<string, unknown>) => void;
+  propsOf: (id: string) => Record<string, unknown>;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -265,6 +267,27 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
     applyOp(next, () => { const e = el(id); if (e) applyBlockStyleToEl(e, style); });
   }, [composition, applyOp]);
 
+  // Content op (V-BUILDER-3 step 2): replace a block's props (its content payload) and
+  // save through the SAME validated draft rail. The content tab computes the full props
+  // object (curator fields + bound-field overrides) and hands it here; an empty object
+  // clears props. Content cannot be cheaply re-rendered in the iframe, so the optimistic
+  // patch is a no-op and the canvas reconciles on the next reload (panel close / reload).
+  // A rejection reverts (hardReset) + surfaces the sentence, exactly like every other op.
+  const setProps = useCallback((id: string, props: Record<string, unknown>) => {
+    const blocks = flat(liveRef.current);
+    const idx = blocks.findIndex((b) => b.id === id); if (idx < 0) return;
+    const clean = Object.keys(props).length ? props : undefined;
+    const cur = blocks[idx]!.props;
+    if (JSON.stringify(cur ?? null) === JSON.stringify(clean ?? null)) return; // no change, no history/save
+    const next = withBlocks(liveRef.current, blocks.map((b, i) => {
+      if (i !== idx) return b;
+      if (clean) return { ...b, props: clean };
+      const { props: _drop, ...rest } = b; return rest;
+    }));
+    applyOp(next, () => { /* content reconciles on reload */ });
+  }, [composition, applyOp]);
+  const propsOf = useCallback((id: string): Record<string, unknown> => flat(liveRef.current).find((b) => b.id === id)?.props ?? {}, [composition]);
+
   // Insert one or more fresh blocks at a zone index. A PATTERN insert is just many
   // specs: each block gets its OWN crypto.randomUUID + is placed independently, so the
   // group DISSOLVES on arrival - every inserted block is selectable/movable/deletable.
@@ -330,7 +353,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
 
   return {
     composition, mainIds, zoneOf, indexInZone, canDelete, styleOf,
-    reorderBefore, duplicate, remove, insertAt, insertBlocks, setStyle,
+    reorderBefore, duplicate, remove, insertAt, insertBlocks, setStyle, setProps, propsOf,
     undo, redo, canUndo: pastRef.current.length > 0, canRedo: futureRef.current.length > 0,
     saving, savedAt, error, clearError: () => setError(null), lastOpMs, reloadKey,
   };
