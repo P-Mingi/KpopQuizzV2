@@ -116,7 +116,6 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
           empty 40% now carries real member portraits, group-tinted). */}
       <header className="mb-10 grid grid-cols-1 items-center gap-10 sm:mb-14 lg:grid-cols-[minmax(0,1fr)_460px]">
         <div>
-          <div className="mb-5 max-sm:hidden"><OrbitLockup height={26} color="var(--text-primary)" /></div>
           <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-primary sm:text-5xl">
             Fans build their fandom&rsquo;s <span style={{ color: VIOLET }}>home</span> here
           </h1>

@@ -51,7 +51,7 @@ export default async function GamesPage() {
       0, '[games] songCount',
     ),
     safeFetch(
-      Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).eq('game_type', 'name_all_members')).then((r) => r.count ?? 0),
+      Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).in('game_type', ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols']).eq('status', 'published')).then((r) => r.count ?? 0),
       0, '[games] nameAllCount',
     ),
   ]);
@@ -61,7 +61,7 @@ export default async function GamesPage() {
     songs: songCount,
     categories: rankings.length,
     nameAll: nameAllCount,
-    nameThemAll: NAME_THEM_ALL_PLAYLISTS.length,
+    nameThemAll: NAME_THEM_ALL_PLAYLISTS.length + nameAllCount,
     // Real count of shipped Sort It playlists (each is gated to real data).
     sortIt: SORT_IT_PLAYLISTS.length,
     matchUp: MATCH_UP_PLAYLISTS.length,

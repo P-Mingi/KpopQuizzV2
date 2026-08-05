@@ -122,7 +122,8 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
               color: active ? 'var(--txt1)' : 'var(--txt2)',
               border: 'none', textDecoration: 'none',
               fontSize: 14, fontWeight: active ? 700 : 600,
-              borderBottom: active ? `2px solid ${accent}` : '2px solid transparent',
+              borderBottom: active ? `1.5px solid ${accent}` : '1.5px solid transparent',
+              paddingBottom: active ? 6 : 8,
               transition: 'color 120ms ease, border-color 120ms ease',
             }}
           >

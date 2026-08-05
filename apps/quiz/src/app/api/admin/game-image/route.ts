@@ -36,7 +36,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // Validate key format
   const parts = key.split(':');
   const category = parts[0];
-  if (!category || !['header', 'hub', 'idol'].includes(category)) {
+  if (!category || !['header', 'hub', 'idol', 'group'].includes(category)) {
     return NextResponse.json({ error: 'Invalid key category' }, { status: 400 });
   }
 
@@ -99,6 +99,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           }
         }
       }
+    }
+  }
+
+  // For group logos: update the group's logo_url column
+  if (category === 'group' && parts[1]) {
+    const groupSlug = parts[1];
+    const { error: updateErr } = await adminDb
+      .from('groups')
+      .update({ logo_url: publicUrl })
+      .eq('slug', groupSlug);
+
+    if (updateErr) {
+      return NextResponse.json({ url: publicUrl, warning: `Image uploaded but group update failed: ${updateErr.message}` });
     }
   }
 

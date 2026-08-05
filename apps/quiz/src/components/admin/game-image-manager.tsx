@@ -24,10 +24,20 @@ interface NameAllGame {
   members: Array<{ name: string; photo_url: string | null; position: string }>;
 }
 
+interface GroupItem {
+  id: number;
+  name: string;
+  slug: string;
+  logo_url: string | null;
+  display_color: string;
+  text_color: string;
+}
+
 interface Props {
   headerSlots: GameImageSlot[];
   hubSlots: GameImageSlot[];
   nameAllGames: NameAllGame[];
+  groups: GroupItem[];
 }
 
 // ---------------------------------------------------------------------------
@@ -206,9 +216,66 @@ function IdolImageSection({ games: initial }: { games: NameAllGame[] }): React.R
 }
 
 // ---------------------------------------------------------------------------
+// Section: Group logos
+// ---------------------------------------------------------------------------
+function GroupLogoSection({ groups: initial }: { groups: GroupItem[] }): React.ReactElement {
+  const [groups, setGroups] = useState(initial);
+  const [search, setSearch] = useState('');
+
+  const onUploaded = useCallback((slug: string, url: string) => {
+    setGroups((prev) =>
+      prev.map((g) => g.slug === slug ? { ...g, logo_url: url } : g),
+    );
+  }, []);
+
+  const filtered = search
+    ? groups.filter((g) => g.name.toLowerCase().includes(search.toLowerCase()))
+    : groups;
+
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={h2Style}>Group logos</h2>
+      <p style={descStyle}>Upload or replace logos for groups. These appear in the browse-by-group circles, quiz cards, and fandom spaces.</p>
+
+      <input
+        type="text"
+        placeholder="Search groups..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ display: 'block', width: '100%', maxWidth: 300, padding: '7px 12px', border: '1px solid var(--border)', borderRadius: 10, background: 'var(--surface)', fontSize: 12, color: 'var(--text-primary)', marginBottom: 12 }}
+      />
+
+      <span style={{ fontSize: 12, color: 'var(--text-tertiary)', marginBottom: 8, display: 'block' }}>
+        {filtered.length} group{filtered.length !== 1 ? 's' : ''}
+      </span>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 8 }}>
+        {filtered.map((g) => (
+          <div key={g.id} style={{ ...cardStyle, padding: 8 }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', overflow: 'hidden', background: g.display_color || 'var(--surface-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', border: '2px solid var(--border)' }}>
+              {g.logo_url ? (
+                <Image src={g.logo_url} alt={g.name} width={56} height={56} style={{ width: '100%', height: '100%', objectFit: 'cover' }} unoptimized />
+              ) : (
+                <span style={{ fontSize: 18, fontWeight: 800, color: g.text_color || '#fff' }}>{g.name.charAt(0)}</span>
+              )}
+            </div>
+            <p style={{ margin: '4px 0 2px', fontSize: 11, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>{g.name}</p>
+            <UploadBtn
+              label={g.logo_url ? 'Replace' : 'Add logo'}
+              imageKey={`group:${g.slug}`}
+              onUploaded={(url) => onUploaded(g.slug, url)}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Main export
 // ---------------------------------------------------------------------------
-export function GameImageManager({ headerSlots, hubSlots, nameAllGames }: Props): React.ReactElement {
+export function GameImageManager({ headerSlots, hubSlots, nameAllGames, groups }: Props): React.ReactElement {
   return (
     <div style={{ padding: '20px 16px', maxWidth: 900, margin: '0 auto' }}>
       <h1 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 4px' }}>Game images</h1>
@@ -227,6 +294,8 @@ export function GameImageManager({ headerSlots, hubSlots, nameAllGames }: Props)
         desc="Custom cover images for the tiles on the /games hub page."
         slots={hubSlots}
       />
+
+      <GroupLogoSection groups={groups} />
 
       <IdolImageSection games={nameAllGames} />
     </div>

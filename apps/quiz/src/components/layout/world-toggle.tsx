@@ -42,10 +42,10 @@ export function WorldToggle({ compact = false }: { compact?: boolean } = {}): Re
     transition: 'opacity 120ms ease, transform 120ms ease',
     flexShrink: 0,
     border: 'none',
-    // Play -> Verse: dark charcoal button
+    // Play -> Verse: fixed dark charcoal button (not theme-dependent)
     // Verse -> Play: pink brand button
-    background: isGoingToVerse ? 'var(--text-primary)' : 'var(--brand-btn, var(--brand))',
-    color: '#fff',
+    background: isGoingToVerse ? '#1e1e2e' : 'var(--brand-btn, var(--brand))',
+    color: isGoingToVerse ? '#e8e6f0' : '#fff',
   };
 
   return (

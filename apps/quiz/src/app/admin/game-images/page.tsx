@@ -5,7 +5,7 @@ import { isAdmin } from '@/lib/admin';
 import { GameImageManager } from '@/components/admin/game-image-manager';
 
 import type { Metadata } from 'next';
-import type { NameAllMembersContent } from '@/lib/db/types';
+import type { NameAllMembersContent, Group } from '@/lib/db/types';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Game images', robots: { index: false, follow: false } };
@@ -45,7 +45,7 @@ export default async function GameImagesAdminPage(): Promise<React.ReactElement>
   // List existing images in the bucket (if it exists).
   let existingFiles: string[] = [];
   try {
-    const categories = ['header', 'hub', 'idol'];
+    const categories = ['header', 'hub', 'idol', 'group'];
     const lists = await Promise.all(
       categories.map(async (cat) => {
         const { data } = await svc.storage.from(BUCKET).list(cat, { limit: 500 });
@@ -76,6 +76,23 @@ export default async function GameImagesAdminPage(): Promise<React.ReactElement>
     key: `hub:${t.slug}`,
     label: t.label,
     current: findImage(`hub/${t.slug}`),
+  }));
+
+  // All groups (for logo/image editing)
+  const { data: groupsRaw } = await svc
+    .from('groups')
+    .select('id, name, slug, logo_url, display_color, text_color')
+    .order('quiz_count', { ascending: false })
+    .order('name', { ascending: true })
+    .limit(200);
+
+  const groups = (groupsRaw ?? []).map((g) => ({
+    id: g.id as number,
+    name: g.name as string,
+    slug: g.slug as string,
+    logo_url: (g.logo_url as string | null) ?? findImage(`group/${g.slug}`) ?? null,
+    display_color: (g.display_color as string) ?? '#888',
+    text_color: (g.text_color as string) ?? '#fff',
   }));
 
   // Name-all-members games
@@ -109,6 +126,7 @@ export default async function GameImagesAdminPage(): Promise<React.ReactElement>
       headerSlots={headerSlots}
       hubSlots={hubSlots}
       nameAllGames={nameAllGames}
+      groups={groups}
     />
   );
 }

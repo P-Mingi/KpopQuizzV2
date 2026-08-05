@@ -86,7 +86,7 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
 
   return (
     <div className="py-4 md:py-6">
-      <section className="si-wrap game-intro" style={{ paddingBottom: 0 }}>
+      <section className="si-wrap game-intro" style={{ paddingBottom: 8 }}>
         <Breadcrumbs
           items={[
             { label: 'Games', href: '/games' },
@@ -95,7 +95,7 @@ export default async function SortItPlaylistPage({ params }: PageProps): Promise
           ]}
         />
         <h1 className="game-intro-h1">{playlist.title}</h1>
-        <p className="game-intro-p">{intro}</p>
+        <p className="game-intro-p" style={{ marginBottom: 4 }}>{intro}</p>
       </section>
       <GameModeRail base="/games/sort-it" current={slug} items={rail} label="Switch Sort It mode" />
       <SortItPlayer playlist={playlist} items={items} />

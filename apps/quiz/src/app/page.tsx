@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 
-import { getBrowseQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
+import { getBrowseQuizzes, getNewQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
@@ -176,6 +176,66 @@ async function TrendingSection(): Promise<React.ReactElement> {
   );
 }
 
+async function NewQuizzesSection(): Promise<React.ReactElement> {
+  const quizzes = await safeFetch(
+    getNewQuizzes(0, 6),
+    [],
+    '[home] new quizzes',
+  );
+  if (quizzes.length === 0) return <></>;
+
+  return (
+    <section className="home-section">
+      <div style={HEAD}>
+        <p className="sec-label" style={{ marginBottom: 0 }}>New quizzes</p>
+        <Link href="/quizzes/new" style={SEE_ALL}>See all &#8594;</Link>
+      </div>
+      <div className="trending-carousel">
+        {quizzes.map((q, i) => {
+          const teaser = buildTeaser(q);
+          return (
+            <div className="trending-item" key={q.id}>
+              {teaser
+                ? <QuizCardHover teaser={teaser}><QuizCard quiz={q} index={i} showScore={false} /></QuizCardHover>
+                : <QuizCard quiz={q} index={i} showScore={false} />}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+async function AllTimeBestSection(): Promise<React.ReactElement> {
+  const quizzes = await safeFetch(
+    getMostLikedQuizzes(0, 6),
+    [],
+    '[home] all-time best',
+  );
+  if (quizzes.length === 0) return <></>;
+
+  return (
+    <section className="home-section">
+      <div style={HEAD}>
+        <p className="sec-label" style={{ marginBottom: 0 }}>All-time best</p>
+        <Link href="/quizzes/most-liked" style={SEE_ALL}>See all &#8594;</Link>
+      </div>
+      <div className="trending-carousel">
+        {quizzes.map((q, i) => {
+          const teaser = buildTeaser(q);
+          return (
+            <div className="trending-item" key={q.id}>
+              {teaser
+                ? <QuizCardHover teaser={teaser}><QuizCard quiz={q} index={i} showScore={false} /></QuizCardHover>
+                : <QuizCard quiz={q} index={i} showScore={false} />}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 async function GroupSection(): Promise<React.ReactElement> {
   const groups = await safeFetch(getAllGroups(), [], '[home] getAllGroups');
   return <HomeGroupPills groups={groups} />;
@@ -252,6 +312,16 @@ export default function HomePage(): React.ReactElement {
       {/* 3. Trending this week */}
       <Suspense fallback={<SkelTrending />}>
         <TrendingSection />
+      </Suspense>
+
+      {/* 3b. New quizzes */}
+      <Suspense fallback={<SkelTrending />}>
+        <NewQuizzesSection />
+      </Suspense>
+
+      {/* 3c. All-time best */}
+      <Suspense fallback={<SkelTrending />}>
+        <AllTimeBestSection />
       </Suspense>
 
       {/* 4. Play games */}

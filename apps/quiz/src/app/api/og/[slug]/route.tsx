@@ -112,7 +112,7 @@ export async function GET(
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${origin}/logo-512.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
+              <img src={`${origin}/mascot/mascot-default.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
               <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, letterSpacing: -0.5, textShadow: SHADOW }}>kpopquiz</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
