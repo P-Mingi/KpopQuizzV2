@@ -220,7 +220,7 @@ export default function HomePage(): React.ReactElement {
 
       {/* Workstream P launch-week banner (one only; ongoing home presence comes
           from the GOTD rotation). */}
-      <Link href="/games" className="pq-banner">
+      <Link href="/personality" className="pq-banner">
         <span className="pq-banner-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="m17 11 1.5 1.5L21 10" />

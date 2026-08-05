@@ -3,82 +3,62 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { worldForPath, WORLD_ACCENT, WORLD_HOME, type World } from '@/lib/world';
+import { worldForPath, OTHER_WORLD, WORLD_HOME, type World } from '@/lib/world';
 import { rememberWorld } from '@/lib/world-preference';
 
-// W-NAV - the segmented Play|Verse switcher. CONTEXT-AWARE, never a redirect: it
-// highlights the world the current URL belongs to and offers the other world as a
-// quiet door. Same component in both worlds, themed by the active world's accent
-// (pink in Play, violet in Verse). Client component so usePathname bakes the right
-// highlight into the static HTML for each URL (no flash, crawler-correct).
-function Segment({ world, current, compact }: { world: World; current: World; compact: boolean }): React.ReactElement {
-  const active = world === current;
-  const label = world === 'play' ? 'Play' : 'Verse';
-  const accent = WORLD_ACCENT[world];
-
-  const base: React.CSSProperties = {
-    display: 'inline-flex', alignItems: 'center', gap: compact ? 0 : 5,
-    padding: compact ? '4px 9px' : '5px 12px', borderRadius: compact ? 6 : 7,
-    fontSize: compact ? 12 : 13, fontWeight: 700,
-    textDecoration: 'none', lineHeight: 1, transition: 'color 120ms ease, background 120ms ease',
-  };
-
-  if (active) {
-    // The current world: solid accent chip, not a link (you are already here).
-    return (
-      <span aria-current="true" style={{ ...base, background: accent, color: '#fff' }}>
-        {!compact && <WorldGlyph world={world} />}
-        {label}
-      </span>
-    );
-  }
-
-  // The other world: a quiet door. A deliberate click records the preference.
-  return (
-    <Link
-      href={WORLD_HOME[world]}
-      onClick={() => rememberWorld(world)}
-      style={{ ...base, background: 'transparent', color: 'var(--text-secondary)' }}
-      data-world-door={world}
-    >
-      {!compact && <WorldGlyph world={world} />}
-      {label}
-    </Link>
-  );
-}
-
-function WorldGlyph({ world }: { world: World }): React.ReactElement {
+// W-NAV - single-button world door. Shows only the OTHER world's label as a
+// single link: on Play pages a dark "Verse" button, on Verse pages a pink/light
+// "Play" button. One tap switches worlds, cleaner than the old segmented pill.
+function WorldGlyph({ world, size = 13 }: { world: World; size?: number }): React.ReactElement {
   if (world === 'play') {
-    // Controller-ish play mark.
     return (
-      <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polygon points="9 7 17 12 9 17 9 7" />
       </svg>
     );
   }
-  // Verse: the two-panel mark reused from the old Verse tab.
   return (
-    <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
     </svg>
   );
 }
 
 export function WorldToggle({ compact = false }: { compact?: boolean } = {}): React.ReactElement {
-  const world = worldForPath(usePathname());
+  const current = worldForPath(usePathname());
+  const target = OTHER_WORLD[current];
+  const label = target === 'play' ? 'Play' : 'Verse';
+
+  // On Play pages: dark button (charcoal/purple) labeled "Verse"
+  // On Verse pages: pink/light button labeled "Play"
+  const isGoingToVerse = target === 'verse';
+
+  const style: React.CSSProperties = {
+    display: 'inline-flex', alignItems: 'center', gap: compact ? 4 : 6,
+    padding: compact ? '5px 10px' : '6px 14px',
+    borderRadius: compact ? 8 : 10,
+    fontSize: compact ? 12 : 13, fontWeight: 700,
+    textDecoration: 'none', lineHeight: 1,
+    transition: 'opacity 120ms ease, transform 120ms ease',
+    flexShrink: 0,
+    border: 'none',
+    // Play -> Verse: dark charcoal button
+    // Verse -> Play: pink brand button
+    background: isGoingToVerse ? 'var(--text-primary)' : 'var(--brand-btn, var(--brand))',
+    color: '#fff',
+  };
+
   return (
-    <div
+    <Link
+      href={WORLD_HOME[target]}
+      onClick={() => rememberWorld(target)}
       className="world-toggle"
-      role="group"
-      aria-label="Switch between Play and Verse"
-      style={{
-        display: 'inline-flex', alignItems: 'center', gap: 2, padding: compact ? 2 : 3,
-        borderRadius: compact ? 8 : 10, background: 'var(--surface-alt, var(--bg-surface))',
-        border: '1px solid var(--border)', flexShrink: 0,
-      }}
+      aria-label={`Switch to ${label}`}
+      data-world-door={target}
+      style={style}
     >
-      <Segment world="play" current={world} compact={compact} />
-      <Segment world="verse" current={world} compact={compact} />
-    </div>
+      <WorldGlyph world={target} size={compact ? 12 : 13} />
+      {label}
+    </Link>
   );
 }

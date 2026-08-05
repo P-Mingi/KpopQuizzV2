@@ -16,7 +16,7 @@ const ORDER = [
   'seventeen', 'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
 ];
 
-/** §2e + §10f - labeled group pills (logo + name) → /<slug>-quiz.
+/** §2e + §10f - circle group coins (logo only, no label) in a horizontal scroll rail.
  * SEO: link straight to the group quiz HUB (/<slug>-quiz), not /quizzes?group=<slug>
  * which only canonicals there. This flows the home page's authority directly to the
  * pages that rank for "<group> quiz", tightens the internal-link graph, and lands the
@@ -31,20 +31,19 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>Browse by group</p>
-        <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes →</Link>
+        <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes &rarr;</Link>
       </div>
 
-      <div className="home-group-pills" role="list">
+      <div className="home-group-rail" role="list">
         {pills.map((g) => (
-          <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-pill" role="listitem" aria-label={`${g.name} quiz`}>
+          <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-coin" role="listitem" aria-label={`${g.name} quiz`}>
             <GroupLogo
               groupName={g.name}
               logoUrl={g.logo_url}
               displayColor={g.display_color}
               textColor={g.text_color}
-              size={32}
+              size={60}
             />
-            {g.name}
           </Link>
         ))}
       </div>
