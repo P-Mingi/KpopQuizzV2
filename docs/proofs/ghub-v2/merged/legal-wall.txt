@@ -1,0 +1,14 @@
+LEGAL WALL PROOF - rebased branch (02319cc)
+
+trending-rankings-strip.tsx:
+  BEFORE: r.top_entity?.image rendered as <img> (idol photos)
+  AFTER: r.top_entity?.name rendered as CSS-art initials <span>
+
+Zero idol image refs on /games hub:
+  games-hub.tsx: 0 matches for .image / image_url / <img
+  trending-rankings-strip.tsx: 0 matches for .image / image_url / <img
+
+Note: TrendingRankingsStrip is defined but NOT imported/rendered
+on /games. The G-HUB v2 replaced it with its own inline ranking
+display (text-only: prompt + #1 entity name + vote count).
+Fix is defense-in-depth for any future import.

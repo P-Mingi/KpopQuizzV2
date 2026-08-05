@@ -26,6 +26,10 @@ workstream. None of these is a bug; they are scope Phase 2 chose not to open.
   honest (names the consequence) but not the styled in-chrome confirm the co-design imagines;
   low priority.
 
+## To G-HUB follow-up
+
+- **name-all auto-start + in-game mode rail** -> next G-HUB pass. name-all-player is structurally different (inline conditional render, plain startGame(), roster variants); higher render-blind risk than the registry games. Its lobby got the legal-wall CSS-art fix; the interstitial is still live.
+
 ## A11y notes carried forward
 
 The step-8 a11y re-pass FIXED the real barriers (keyboard hijack while an overlay is open,

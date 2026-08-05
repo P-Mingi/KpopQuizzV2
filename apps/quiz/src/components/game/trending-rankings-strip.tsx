@@ -27,10 +27,12 @@ export function TrendingRankingsStrip({ items }: { items: RankingIndexItem[] }):
           return (
             <li key={`${r.group_slug}:${r.question_type}`} className="trend-item" style={{ animationDelay: `${i * 40}ms` }}>
               <Link href={href} className="trend-card">
-                {r.top_entity?.image ? (
-                  <img className="trend-avatar" src={r.top_entity.image} alt={r.top_entity.name} loading="lazy" />
+                {r.top_entity?.name ? (
+                  <span className="trend-avatar" aria-hidden="true" title={r.top_entity.name}>
+                    {r.top_entity.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                  </span>
                 ) : (
-                  <span className="trend-avatar" />
+                  <span className="trend-avatar" aria-hidden="true" />
                 )}
                 <span className="trend-prompt">{r.prompt}</span>
                 {r.public ? (

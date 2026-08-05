@@ -1,0 +1,3 @@
+next build EXIT 0 on rebased play-ghub (02319cc)
+606/606 static pages generated
+Branch rebased onto main HEAD (44dda93)

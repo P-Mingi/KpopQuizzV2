@@ -1,0 +1,7 @@
+PLAY CHECKS - rebased branch (02319cc)
+
+375px (mobile): no horizontal overflow (scrollW == clientW == 375)
+720px (tablet): no horizontal overflow (scrollW == clientW == 720)
+Dark mode: CSS-art covers render, ranking bar text-only
+Console: only pre-existing JSON-LD script tag warnings (known benign)
+tsc: 0 errors
