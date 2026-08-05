@@ -1,70 +1,54 @@
-# /caveman report - V-BUILDER-3 step 3 (the image rail, L-047): DONE
+# /caveman report - V-BUILDER-3 step 4 (members editor): BLOCKED at the real-data / SEO gate
 
-Owner applied migration 146; I built the full image rail on top of the existing sticker
-storage (no new table, no new bucket), proved every acceptance item, committed step 3.
-Nothing pushed. STOP before step 4 (members editor, waits for co-design 8).
+Step 4's flagship (the entity picker: attach-existing OR create-a-member-page in one act, plus
+detach) assumes an "existing entity rail" that auto-creates member pages. That rail does not
+exist for idols, and building it writes to the core, Wikidata-sourced `idols` table and changes
+member-page SEO behavior - both owner-governed. I recon'd it fully and STOP for four owner
+rulings. Nothing built on core data. See docs/loop/BLOCKED.md. This mirrors step 3, which
+correctly blocked at the owner data gate (L-063/L-066).
 
-THE LAW held: any source allowed, but every image is ingest-COPIED into our storage
-(never hotlinked), EXIF stripped, hash-deduped; post-hoc moderation with one-click
-takedown; a hidden/removed image renders nothing (never a broken img); DMCA page + process.
+## Recon (what the members roster actually is)
 
-## What shipped
+- The `members` block is registry-declared `dataSource: 'entity'` - "the member grid, straight
+  from the entity roster." The roster = `idols WHERE group_id = space AND active` ordered by
+  `ord`. It is NOT block props; props only carry order + per-row overrides (photo/name/link).
+- Idol writes exist in exactly ONE place: `api/admin/verse/action` (GLOBAL ADMIN: approve
+  `active:true` / clear `needs_review`, or hard-delete). No curator create/attach/detach path.
+- `api/verse/entity` (the "entity rails") is SCENES only: tours / shows / ost / awards. Never
+  idols. `api/verse/entities/search` is a read-only @-mention search.
+- Provenance: across 30 sampled idols, every row has `wikidata_qid` + `birth_date` +
+  `nationality` + `positions`. The table is a Wikidata-sourced dataset with a `needs_review`
+  moderation model. A curator-authored, name-only idol is a new provenance class in it.
+- `getIdol()` filters `.eq('active', true)`, so a member page 404s the instant its idol is
+  `active:false`. 86 idols are already `active:false` (and already 404). "Detach leaves the
+  page intact" therefore contradicts current behavior + the SEO indexable set.
 
-- INGEST API `POST /api/verse/space-image` (+ PATCH hide/unhide, DELETE remove).
-  Security core in `src/lib/verse/image-ingest.ts`: SSRF-hardened server fetch (https only,
-  DNS-resolved private/link-local/IPv6 block, manual-redirect reject, timeout, size cap) +
-  `reEncode` (sharp) that rejects SVG/non-image, allows JPG/PNG/WebP/GIF (animated GIF kept),
-  strips EXIF by re-encode, returns a sha256 for dedupe.
-- CONTENT-TAB image field is LIVE (`content-tab.tsx` `case 'image'` -> `ImageField`): upload
-  from computer OR paste any URL + Fetch, live preview thumb, Replace, Remove. Threaded
-  `groupId` through style-panel -> content-tab. Stores only our storage_path in block props.
-- FAIL-CLOSED render gate `src/lib/verse/space-image.ts` `resolveSpaceImage`: returns a URL
-  only for an `active` `image`; hidden/removed/unknown/external -> null. The one sanctioned
-  path from a stored image to a URL (emits getPublicUrl on our bucket only).
-- MODERATION QUEUE `/admin/space-images` (admin-gated, noindex, design-exemption): plain dense
-  rows thumbnail|space|uploader|source|date|status|actions; one-click Hide (keeps object) /
-  Unhide / Remove (deletes object). `space-image-queue.tsx`.
-- DMCA: `/dmca` (indexable, one H1, allowlisted, in sitemap). Linked from BOTH footers -
-  Play footer Support column ('DMCA'), Verse footer covenant column ('Image takedown').
+## Why blocked (four owner rulings, not worker guesses)
 
-## Acceptance receipts (proofs in docs/proofs/vbuilder3-step3/)
+1. Governance of curator-created CORE entities: needs_review queue vs auto-active; admin
+   approval before the page is indexable; the QID-less "honest emptiness" convention. (Same
+   class as the step-3 image rail, which the owner governed with a migration + a queue.)
+2. Detach vs SEO: does a detached member page stay indexable (then getIdol + sitemap + the
+   members minGate change), or is "page intact" the surviving row for re-attach while the page
+   drops from the index?
+3. "Attach existing" scope under single-FK idols (re-activate this space's own detached idol?).
+4. Draft-jsonb vs immediate real-data: which ops stage in the draft (order, overrides) vs hit
+   real data now (create/attach/detach), and is create gated behind publish?
 
-1. URL ingest -> our storage, only our URL rendered, EXIF stripped, dedupe:
-   ingest-e2e.txt (pasted an i.ytimg.com URL -> id 25 copied to our storage, source_url kept as
-   provenance only), render-only-our-url.txt (grep: source_url read only by the noindex queue;
-   resolveSpaceImage emits our bucket only; LIVE DOM: previewIsOurStorage=true,
-   anyExternalYtimgInPanel=false), ingest-core.txt (EXIF marker gone after re-encode; same bytes
-   twice = same hash/one object).
-2. Upload + GIF proven; non-image/oversize/SVG rejected with human sentences:
-   ingest-core.txt (GIF via animated:true; SVG/non-image/oversize rejected) + route + image-ingest
-   human messages ("That URL is not an image." / "That image is too large (max 10MB)." / "SVG is
-   not allowed. Use JPG, PNG, WebP, or GIF." / redirect -> "Paste the direct image URL instead.").
-3. Queue: new image appears; Hide removes it from the rendered page immediately (fail-closed);
-   Remove deletes object + usage: render-gate.txt (active->url, hidden/removed->null),
-   ingest-e2e.txt (PATCH hide 200 status=hidden object KEPT; DELETE 200 object verified GONE).
-4. /dmca live, linked, allowlisted, one-H1; check:routes green: gates.txt (h1=1, index:true,
-   both footers, allowlist + sitemap, routes 338).
-5. Role gate + rate cap + privacy fail-closed: ingest-e2e.txt (unauth ingest -> 403; rate cap
-   underRateCap 100/user/day -> 429 "Daily image limit reached."; uploaded_by recorded; reader
-   fail-closed).
-6. Published parity + gates + screenshots: gates.txt (no published module/block renderer touched;
-   resolveSpaceImage has 0 render importers; only intended render diff = the two footer links;
-   /verse/bts live 200, one H1, Members intact, zero external/storage image urls). Gates all
-   green: tsc 0, routes 338, verse-tokens clean, vbuilder1-parity lossless, vpages 55/0,
-   vtemplates, vtext-fold, vb2-stable-id, vb3-content, vb3-schema. Em-dash scan clean on the whole
-   diff. Screenshots verified live in-session: the content-tab Photo field with a fetched preview
-   (thumb + Replace/Remove) and the dense moderation queue with Hide/Remove.
+If a schema touch resolves it cleanly (e.g. a curator-origin flag, or a `detached_at` that
+divorces detach from the active/index flag), I will write the SQL to docs/pending-migrations/
+for the owner run (law 17) - never touching the schema myself.
 
-## Notes / honest scope
+## What is buildable without a ruling (offered, not assumed)
 
-- Block-image RENDERING on published pages is wired in later steps (image block = step 6, members
-  editor = step 4); step 3 delivers the RAIL (ingest, live field + preview, moderation, DMCA) and
-  the render gate, proven fail-closed and ready to consume. That is why no published page carries a
-  block image today - the grep proof is trivially green now and enforced by construction later.
-- Migration 146 applied by the owner (schema owner-run, law 17). No SQL run by the worker.
-- Test artifacts (image ids 21/22/24/25) cleaned up: 0 image rows remain, bts storage clean.
+The props-only slice touches NO core data and is ready to build on request: the in-panel
+accordion (L-062c), reorder, and photo/name/link overrides via the step-3 image rail +
+Data/Edited + "revert to data" (co-design 7), persisted in the draft jsonb, rendered through the
+fail-closed gate. It does not meet step 4's headline (the picker), so it is a checkpoint, not a
+close - hence I did not half-ship it under the step-4 name.
 
 ## STOP
 
-Step 3 committed (source + proofs + REPORT + cleared BLOCKED). Nothing pushed. Stopping before
-step 4 (members editor) which waits for co-design 8.
+Owner answers the four rulings (BLOCKED.md options + recommendation), then re-invoke: I build
+the full members editor in one pass (UI fully specced by L-062), prove it, commit, and continue
+to step 5. Nothing committed to core data. Nothing pushed.
