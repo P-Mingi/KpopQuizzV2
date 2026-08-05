@@ -1,51 +1,42 @@
-# /caveman report - V-BUILDER-3 step 2: content tab plumbing (co-design 7), re-applied on merged main
+# /caveman report - V-BUILDER-3 step 3 (image rail): BLOCKED on the owner migration 146
 
-Step 2 was BUILT + fully proven earlier this session, then its uncommitted edits were clobbered
-by the shared-clone collision. Re-applied verbatim from `scratchpad/vb3-step2-recovery/` onto the
-merged main (which now carries the G-HUB v2 merge) and re-verified. Committed. Nothing pushed.
-English labels (owner ruling: the locked French copy is anglicized to match the `lang="en"` app).
+Step 3 (the image ingest rail, owner image law L-047) needs a schema change, and schema changes
+are owner-run (law 17). I recon'd the existing infra, wrote the migration, and STOP for the owner
+to run it. Nothing pushed. See docs/loop/BLOCKED.md.
 
-## Built (co-design 7, L-057)
+## Recon (what already exists - the rail is ~80% reusable)
 
-- **content-tab.tsx** (new): a GENERIC field renderer from `editorSchema` (text with live counter,
-  url with inline validation, enum segmented, number/date native, list-of-rows with add/reorder/
-  remove). BOUND-DATA badges: an entity/derived field shows "Data" (follows source), flips to
-  "Edited" (accent) with a one-tap "Revert to data" on a curator override.
-- **style-panel.tsx**: refactored into the tabbed **Content | Style** block panel (Content default;
-  shared header + Delete; retarget + Esc/X identical to Phase 2).
-- **use-builder-composition**: `setProps`/`propsOf` op - content rides the SAME optimistic +
-  validated + reconcile draft rail as every structural/style op (422 reverts via hardReset).
-- **builder-shell**: wires blockId/initialProps/onCommitProps + the `--vb-danger` token.
-- **editor-schema**: `validateField` per-field helper (inline errors).
+- STORAGE: bucket `verse-space-assets` + table `verse_space_assets` (migration 139) already hold
+  sticker/banner uploads with the exact service-role-write, public-read-when-active pattern. The
+  mission's "extend/reuse the sticker rail" = extend THIS.
+- EXIF strip + SVG-reject + resize: `api/verse/sticker/route.ts` via `sharp` (reuse verbatim).
+- Fetch-a-URL + copy-into-bucket: `api/quiz/upload-image/route.ts` `external_url` branch (reuse,
+  but its SSRF guard is a naive substring - I will harden it, and it does not strip EXIF).
+- Role gate `canCurateSpace`, rate limiter `underRateCap` (verse/moderation.ts) - both ready.
+- `isConfiguredImageHost` allows the `.supabase.co` suffix, so OUR ingested storage URLs pass the
+  image allowlist automatically - which is exactly why ingest-COPY (not hotlink) is the right call.
+- `/dmca` has a clean template (`/terms` page + `footer.tsx` Support column + `KNOWN_ROUTES` +
+  sitemap). Content-hash dedupe is the one utility to BUILD (Node crypto).
 
-## Proven (docs/proofs/vbuilder3-step2/) - live on merged main
+## Migration written (owner-run): docs/pending-migrations/146_verse_block_images.sql
 
-- Fields render from the schema (vitals chips, stats rows with counters); retarget swaps both tabs.
-- Hostile non-https source -> "Source must be a valid https link." under the field; siblings save;
-  bad value not saved.
-- Bound-badge round-trip persisted in the draft jsonb: add+fill a vitals chip -> "Edited" +
-  `vitals.props = { chips: [{label:"Debut", value:"2013"}] }`; "Revert to data" -> override removed.
-- content-verify ALL PASS; gates green ON MERGED MAIN (tsc, routes 335, tokens, parity, registry,
-  vpages, templates, fold, stable-id); em-dash clean. Test space bts left clean.
+Extends `verse_space_assets` (NO new table, NO new bucket):
+- `kind` enum gains `'image'`; `status` enum gains `'hidden'` (a takedown that keeps the object).
+- new columns: `hash` (sha256, dedupe), `mime`, `source` ('upload'|'url'), `source_url` (the
+  ORIGINAL external URL - record only, never rendered), `reviewed_by`, `reviewed_at`.
+- a partial-unique index `(space_id, hash)` for live rows (same image twice = one object) + a
+  moderation-queue index. Idempotent (IF NOT EXISTS / DROP-then-add).
 
-## Byte-identity + RE-BASELINE (mission #1)
+## Why blocked (not thrash)
 
-Step 2 touches ONLY builder + save-time files (zero reader/render/shared-chrome), so `/verse/bts`
-cannot change (it never renders builder code). The G-HUB merge moved `/verse/bts`'s client-DOM main
-column from 21312 (pre-merge, 44dda93) to ~21638 (merged main) via shared chrome - that is the
-G-HUB re-baseline, not step 2. Noted: from now, "Play byte-untouched" for Verse work references the
-merged HEAD (test-play-untouched already pins by selector, not a commit, so no harness edit needed).
-
-## ROUTES QUESTION (mission #2): 338 (44dda93) -> 335 (merged)
-
-Not a G-HUB removal. The COMMITTED route surface is byte-identical between 44dda93 and the merged
-HEAD: page.tsx 143 == 143 and route.ts 180 == 180 (zero added/removed; G-HUB only MODIFIED games
-pages). check-route-allowlist.mts walks the WORKING TREE, so the 338 counted three UNTRACKED spike
-routes present at step-1 - `/verse/[slug]/spike-build`, `/verse/[slug]/spike-draft`, and
-`/pinterest-feed.xml` - which the play-ghub checkout cleaned from the working tree during the merge
-surgery. None was ever committed; the reachable committed route surface is unchanged.
+The ingest API, the live content-tab image field, the queue, and the fail-closed renderer all
+read/write those new columns; building against an un-applied schema would be guessing through a
+gate. The BLOCKED.md carries the full post-migration build plan so the next pass is a straight
+build with zero re-discovery.
 
 ## STOP
 
-Step 2 done + committed. STOP before step 3 (image rail; its migration, if any, goes to
-docs/pending-migrations/ for the owner). Nothing pushed.
+Owner runs migration 146, then re-invoke the loop. I then build the ingest rail (grep-proof that
+the rendered HTML carries only our storage URL, EXIF strip + dedupe + GIF proofs, the queue with
+fail-closed hide/remove, /dmca + footer, role gate + rate cap), prove it, commit step 3, and STOP
+before step 4 (members editor, waits for co-design 8). Nothing pushed.
