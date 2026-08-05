@@ -1,51 +1,49 @@
-# /caveman report - V-BUILDER-3 step 1: the editorSchema foundation (invisible)
+# /caveman report - G-HUB v2 recovery + merge into main (owner-approved, all local)
 
-Phase 2 is closed. V-BUILDER-3 (block editors) step 1 is done: the schema foundation + the
-component inventory + validator content clamps. NO UI (the content tab waits for co-design 7).
-Committed. Nothing pushed.
+The owner approved recovering from the shared-clone collision and fast-forwarding the G-HUB v2
+fork (`play-ghub`) into `main`, all LOCAL, zero push. Done + verified + committed. Never pushed.
 
-## Built
+## What happened (context)
 
-- **src/lib/verse/composition/editor-schema.ts** (NEW): the typed field-def system
-  (text, richtext, image, url, link, entityRef, enum, number, date, list-of-rows) with a
-  `binding` (curator / entity / derived) that says where each field's value lives. Plus
-  `EDITOR_SCHEMAS` - the nine wave-1 schemas the owner named (D1/D2): hero, vitals, members,
-  image, youtube, stats (the DATA block), timeline, quote, doorway. Plus `clampPropsBySchema`,
-  the schema-driven content clamp.
-- **BlockSpec gains `editorSchema?`** (composition/registry.ts): attached to the six wave-1
-  blocks that already have specs (vitals, members, stats, timeline, quote, doorway). The three
-  not-yet-placeable blocks (hero, image, youtube) have schemas but NO spec, so the Phase-2
-  library is unchanged (it reads BLOCK_SPECS).
-- **Validator extended** (presentation/validate.ts): `validateProps` clamps a block's content
-  payload through its schema when one exists (human sentences); blocks without a schema keep
-  their legacy hand-clamp. The `quote` clamp moved to the schema and reproduces the old
-  behavior exactly.
-- **docs/vbuilder3-block-inventory.md**: the complete named audit - every visible component on
-  a fandom space -> block -> data source -> editorSchema status (wave 1 / wave 2 / chrome /
-  block-pending). Resolves the owner's two flagged cases (the `vitals` module vs the separate
-  hero vitals line; "Latest releases" = the `discography` teaser).
+A concurrent G-HUB fork worker was doing git surgery on the SAME clone (it should have used a
+`.worktrees/` checkout). Twice it clobbered my working tree and, mid-verification, `git reset`
+main back to `44dda93` (undoing an earlier ff-merge) + amended `play-ghub`. I stopped and
+flagged it. The owner halted that worker and told me to finish. This pass the tree stayed
+stable (main held its position through the commit).
 
-## Proven (docs/proofs/vbuilder3-step1/)
+## Steps executed
 
-- **schema-verify.txt** (`scripts/vb3-schema-verify.mts`): ALL PASS.
-  (a) all 9 wave-1 schemas present + well-formed (every field has a valid kind + binding; lists
-      + enums shaped). Coverage: 6/31 specs carry a schema + 3 schema-only pending blocks = the
-      9 editors; the other 25 specs are dated deferrals (the inventory tracks each).
-  (b) hostile payloads clamped with human sentences: quote over 280 (lyric guard), stats source
-      not https, members row javascript: link, timeline over 60 rows, image EXTERNAL src
-      (ingest-copy law), youtube non-https url. A valid uploaded image passes.
-  (c) quote byte-parity: valid quote accepted, text trimmed + preserved, attribution clamped
-      to 80 (matches the legacy clamp).
-- **byte-identical.txt**: /verse/bts main column = 21312 == baseline. No render-path file
-  changed; the validator change is a no-op on today's real configs.
-- **gates.txt**: tsc 0; routes 338; tokens pass; parity ALL PASS; registry 29/31 COMPLETE +
-  WELL-FORMED; vpages; templates; fold; stable-id ALL PASS. em-dash grep clean.
+0. Removed a stale `.git/index.lock`.
+1. `git checkout main` (already on main) + `git merge --ff-only play-ghub` -> main
+   fast-forwarded `44dda93 -> bd6fd41`. `git log --oneline -1` = **bd6fd41 "G-HUB legal wall:
+   rankings strip idol photos to CSS-art initials"** (the expected G-HUB HEAD). My V-BUILDER
+   1..8 commits are preserved as ancestors; the owner's uncommitted VERSE-LEDGER.md update was
+   preserved (never staged).
+2. `git worktree prune` (removed a stale worktree).
+3. Re-ran every gate ON THE MERGED HEAD (bd6fd41) and saved to docs/proofs/ghub-v2/merged/;
+   committed on main (**3a6bdfd**):
+   - next build: **BUILD_EXIT=0** (full route manifest).
+   - check:routes: **335 page routes reachable**.
+   - check:verse-tokens: **pass** (no raw hex in Verse surfaces).
+   - test-play-untouched: **12 passed, 0 failed** (720px, verse-page-free).
+   - em-dash grep over the **30** merged files (44dda93..bd6fd41): **clean**.
+   - legal wall (zero idol image refs on /games): the rendered /games hub +
+     /games/this-or-that/all + /games/name-all carry **only the app mascot** (idol-photo-src=0
+     on all three); the hub live-ranking is text-only; the rankings-strip component renders
+     aria-hidden **CSS-art initials** (and has no import site). Idol images live only inside
+     GAMEPLAY (this-or-that / name-all), where identifying idols IS the game.
 
-Note: docs/vbuilder3-block-inventory.md was under the docs/* default-ignore; negated in
-.gitignore (same pattern as the vbuilder2 docs) so the deliverable tracks in git.
+## State
 
-## STOP
+- `main` = **3a6bdfd** (bd6fd41 G-HUB work + this verification commit). main == play-ghub content.
+- Nothing pushed (law 15). main is still diverged from origin/main; production is owner-only.
 
-Step 1 complete. STOP before step 2 (CONTENT TAB PLUMBING), which is [CO-DESIGN 7] gated: its
-UI must NOT be built until the ledger records the co-design 7 lock. The next Cowork mission
-carries that lock (or the next step). Nothing pushed.
+## Note on my own V-BUILDER-3 step 2
+
+My in-progress V-BUILDER-3 step 2 (content tab plumbing) was BUILT + fully proven this session
+(browser round-trips + gates + byte-identical) but its UNCOMMITTED edits were clobbered by the
+collision. They are preserved off-tree at `scratchpad/vb3-step2-recovery/` (the new content-tab.tsx
++ a RECOVERY.md with the exact 6-change list). It re-applies cleanly on `main` in one pass when
+Cowork resumes V-BUILDER-3; step 1 (44dda93) is safely on main. NOT part of this recovery commit.
+
+STOP.
