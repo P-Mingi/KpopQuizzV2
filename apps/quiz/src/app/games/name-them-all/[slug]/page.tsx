@@ -4,11 +4,14 @@ import { NameThemAllPlayer } from '@/components/game/name-them-all-player';
 import { GameModeRail } from '@/components/game/game-mode-rail';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getNameThemAllItems } from '@/lib/db/queries/name-them-all';
+import { getNameAllGames } from '@/lib/db/queries/games';
 import { NAME_THEM_ALL_PLAYLISTS, getNameThemAllPlaylist } from '@/lib/games/name-them-all';
 import { gameOgImages } from '@/lib/games/game-seo';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
+import type { ModeRailItem } from '@/components/game/game-mode-rail';
+import type { NameAllMembersContent } from '@/lib/db/types';
 
 export const revalidate = 3600;
 
@@ -56,17 +59,37 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
   const items = await safeFetch(getNameThemAllItems(slug), [], '[name-them-all] getItems');
   if (items.length === 0) notFound();
 
-  // In-game mode rail: live sibling variants only (min-gate, real data).
-  const rail = (await Promise.all(
-    NAME_THEM_ALL_PLAYLISTS.map(async (p) => ({
-      slug: p.slug,
-      label: p.title,
-      noun: p.itemNoun,
-      count: p.slug === slug ? items.length : (await safeFetch(getNameThemAllItems(p.slug), [], `[name-them-all rail] ${p.slug}`)).length,
-    })),
-  ))
-    .filter((r) => r.count > 0)
-    .map((r) => ({ slug: r.slug, label: r.label, sub: `${r.count} ${r.noun}` }));
+  // In-game mode rail: playlist siblings + individual name-all games from the DB.
+  const [playlistCounts, nameAllGames] = await Promise.all([
+    Promise.all(
+      NAME_THEM_ALL_PLAYLISTS.map(async (p) => ({
+        slug: p.slug,
+        label: p.title,
+        noun: p.itemNoun,
+        count: p.slug === slug ? items.length : (await safeFetch(getNameThemAllItems(p.slug), [], `[name-them-all rail] ${p.slug}`)).length,
+      })),
+    ),
+    safeFetch(getNameAllGames(0, 50), [], '[name-them-all rail] name-all games'),
+  ]);
+
+  // Deduplicate: DB games whose slug matches a playlist are already in the rail.
+  const playlistSlugs = new Set(NAME_THEM_ALL_PLAYLISTS.map((p) => p.slug));
+
+  const rail: ModeRailItem[] = [
+    // Static playlists first
+    ...playlistCounts
+      .filter((r) => r.count > 0)
+      .map((r) => ({ slug: r.slug, label: r.label, sub: `${r.count} ${r.noun}` })),
+    // Individual name-all games from the DB (skip duplicates of playlists)
+    ...nameAllGames
+      .filter((g) => !playlistSlugs.has(g.slug))
+      .map((g) => {
+        const content = g.content as NameAllMembersContent;
+        const arr = content?.members ?? content?.items ?? [];
+        const count = Array.isArray(arr) ? arr.length : 0;
+        return { slug: g.slug, label: g.title, sub: `${count} to name`, href: `/games/name-all/${g.slug}` };
+      }),
+  ];
 
   const intro = `${playlist.blurb} There are ${items.length} real K-pop ${playlist.itemNoun} to name before the timer runs out. Spelling is matched loosely, so punctuation-heavy names like (G)I-DLE and f(x) still count. Free and no sign-up.`;
 

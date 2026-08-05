@@ -4,6 +4,8 @@ export interface ModeRailItem {
   slug: string;
   label: string;
   sub?: string;
+  /** Override the computed href (`${base}/${slug}`) with a full path. */
+  href?: string;
 }
 
 // G-HUB v2 step 4: the in-game mode rail. A horizontally-scrollable strip of
@@ -29,7 +31,7 @@ export function GameModeRail({ base, current, items, label }: {
           return (
             <li key={it.slug}>
               <Link
-                href={`${base}/${it.slug}`}
+                href={it.href ?? `${base}/${it.slug}`}
                 className={`gmr-card${active ? ' on' : ''}`}
                 aria-current={active ? 'page' : undefined}
               >
