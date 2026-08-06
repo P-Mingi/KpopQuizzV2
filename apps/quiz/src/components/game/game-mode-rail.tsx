@@ -36,8 +36,10 @@ export function GameModeRail({ base, current, items, label }: {
                 aria-current={active ? 'page' : undefined}
               >
                 <span className={`gmr-cover lmc-g${(i % 6) + 1}`} aria-hidden="true" />
-                <span className="gmr-name">{it.label}</span>
-                {it.sub ? <span className="gmr-sub">{it.sub}</span> : null}
+                <span className="gmr-card-text">
+                  <span className="gmr-name">{it.label}</span>
+                  {it.sub ? <span className="gmr-sub">{it.sub}</span> : null}
+                </span>
               </Link>
             </li>
           );
