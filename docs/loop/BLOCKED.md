@@ -19,7 +19,8 @@ When resolved, the worker clears the entry and continues.
 
 ---
 
-(no open blockers)
+## vbuilder3-step5 - precondition not met: the concurrent chat still shares this worktree
+tsc is now clean (precondition 1 met), BUT the "dev server is quiet" precondition is NOT: the concurrent chat is still here (owns uncommitted game-images/name-them-all[x2]/verse/page.tsx + new prototypes/foundation-prototypes.html, and committed b59bd11/b19c21b/cc80b15 after my step 4). Per the mission I stop until the owner finishes moving it to its own worktree; then R-A (scriptable) + R-B (screenshots) + step 5 in one pass. Nothing started, nothing touched.
 
 vbuilder3-step4 blocker CLEARED: owner ruled all four governance questions (L-068)
 and applied migration 147 (idols.origin / created_by / detached_at). Step 4 built to
