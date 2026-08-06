@@ -1,60 +1,46 @@
-# /caveman report - PUSH-GATE-1: DONE (PG-1 + PG-2), PG-3 was a no-op (flagged)
+# /caveman report - PUSH-GATE-1b: reconcile remote - BLOCKED at merge conflicts (owner rules)
 
-Built the VERSE_PUBLIC fail-closed hide + teaser (PG-1), captured the local-prod head
-snapshots (PG-2), and ran the games merge (PG-3 = already up to date - see the flag below).
-Precondition met first: tsc clean on main, games chat moved to .worktrees/play-games, single
-writer again. Nothing pushed.
+Did 1b-1 (inventory the remote delta) and attempted 1b-2 (merge). The merge conflicts on 19
+files where the local rebuilds and Mingi's PRs both touched the same code, so per the mission I
+resolved NOTHING, aborted the merge (tree clean, still 304 ahead / 18 behind), and hand the
+resolution to the owner. 1b-3 (build + re-prove + re-capture heads) waits for the rulings.
+Nothing pushed.
 
-## PG-1 - the VERSE_PUBLIC switch (committed b77795a)
+## 1b-1 - the remote delta (docs/proofs/push-gate-1/remote-delta.txt)
 
-Fail-closed: VERSE_PUBLIC absent or not 'true' => the Verse is HIDDEN.
-- `visibility.ts` (edge-safe, no Supabase): verseHidden(), isGatedVersePath (all /verse/* +
-  /build/* + verse admin queues; allowlist = /verse teaser + /verse/promises covenant),
-  hasAuthCookie (sb-*-auth-token presence).
-- middleware: anonymous (cookieless) hit on a gated Verse route -> 302 /verse. No Supabase
-  call (the edge-timeout law holds). 302 parks the SEO equity ("coming back", not 410).
-- roles.ts isVersePrivileged() = admin OR curator/space_admin of any space. /verse serves the
-  teaser to everyone else; /verse/[slug]/layout redirects a signed-in non-curator (belt+braces).
-- verse-teaser.tsx: "The Verse is being built" + the covenant + games links, verse tokens,
-  light/dark. The one Verse page that stays indexable.
-- sitemap: hidden => only /verse + /verse/promises; every other Verse URL dropped.
-- Pure short-circuit: flag true => verseHidden() false => zero changed code runs => today's
-  behavior. .env.local sets VERSE_PUBLIC=true so local dev + gates are unaffected.
+18 commits, all P-Mingi GitHub PR merges (Jul 30 - Aug 3) that were merged on GitHub but never
+pulled locally: SEO fixes (og/group Satori 500, robots, sitemap /u trim, /quizzes FAQ), profile
+alignment (/me + /u), a 5-tier badges redesign, the Pinterest per-question pipeline (~2900 pins
++ RSS feed), the /games hub redesign + Sort It / Match-Up, home/search circular coins, and mobile
+polish. Per-commit triage in the file: much of Play (games, home, mobile, badges, pinterest) was
+REBUILT locally in another form; a few are fixes local never got (og Satori, robots, /me+/u
+alignment, games build-guard, the RSS feed).
 
-PG-1 proofs (docs/proofs/push-gate-1/):
-- probe-anon.txt / probe-prodbuild.txt: anonymous, on BOTH the dev server and the real
-  production build - /verse/bts, /verse/bts/members/jungkook, /verse/bts/community,
-  /verse/bts/discography, /build, /build/bts, /admin/space-images, /admin/member-review,
-  /admin/verse ALL 302 -> /verse; /verse + /verse/promises 200; /games untouched.
-- curator-and-sitemap.txt: owner session sees the REAL pages (spaces, members, the real
-  /verse directory - not the teaser); sitemap = 2 verse routes hidden vs 2097 flag-true.
-- flag-true-parity.txt: the switch is a short-circuit, flag true = byte-identical; empirical
-  /verse/bts 200 real, full sitemap returns.
-- teaser screenshots light + dark captured in-session (good contrast both, the ink floor holds).
-- gates: tsc 0, routes 342, verse-tokens clean, em-dash clean.
+## 1b-2 - the merge conflicts (19 files) -> BLOCKED
 
-## PG-2 - head snapshots (docs/proofs/push-gate-1/heads-local.txt)
+`git merge origin/main` auto-merged the non-overlapping files but conflicted on 19 (12 content,
+7 add/add). Grouped, with my recommendation (full detail + file list in BLOCKED.md):
+- A) Play surfaces rebuilt locally (games hub, players, home pills, mobile top bar): take LOCAL,
+  graft the small net-new remote bits. Open call: adopt Mingi's net-new game-preview /
+  games-spotlight into the local hub, or drop them?
+- B) styles/globals.css: UNION - both added distinct blocks (my carousel-arrow/quiz-row work vs
+  Mingi's games/badges/mobile styles); careful hand-merge, not a side-pick.
+- C) profile + badges (/u, badge-icon, badge-grid, badges.ts): diverged; owner picks the badges
+  system (remote is a 5-tier redesign) + likely takes remote's /u 520-col alignment.
+- D) Pinterest (question-pin*, generate route/script, manifest/csv): diverged; remote pipeline is
+  fuller (~2900 + RSS) - likely take remote, and REGENERATE the manifest/csv artifacts (never
+  hand-merge generated files).
 
-Real LOCAL PRODUCTION BUILD (next build + next start, VERSE_PUBLIC hidden - exactly what prod
-will run). The build SUCCEEDED (buildability confirmed, beyond tsc; check:routes + verse-tokens
-run inside `npm run build`). Captured title / description / canonical / robots / og:title /
-JSON-LD @type for: / , /games, /blindtest, /games/name-them-all, /games/sort-it, /quizzes,
-/rankings, /pt/leaderboard. Raw, for Cowork to diff against LIVE PROD.
-- One observation for Cowork (out of my V-BUILDER scope, a games/pt surface): several titles
-  carry a DOUBLED suffix "... | KpopQuiz | KpopQuiz" (/blindtest, /rankings, /pt/leaderboard).
-  Worth checking against prod - likely a title-template regression in the games batch.
+## What unblocks it
 
-## PG-3 - merge play-games: ALREADY UP TO DATE (flag for the owner)
-
-`git merge play-games` -> "Already up to date." play-games (f860d32) is an ANCESTOR of main
-(it is main~1); the worktree is clean; there is NO divergent games batch to merge - the games
-work is already on main. This is NOT a conflict (so not a hard block), and the post-merge gates
-all pass on the current main. BUT: if the games chat still has a batch to ship, it has not been
-committed to play-games yet - the owner should confirm the games work is complete on main before
-the push, or advance play-games and re-invoke PG-3. Detail in docs/proofs/push-gate-1/merge.txt.
+One ruling per group A-D (or per file). The simplest form - "A local, B union, C remote, D remote
++ regenerate" - is enough; I then re-run the merge, apply exactly those resolutions (nothing
+blind), and continue to 1b-3: tsc + check:routes + verse-tokens + full npm run build, re-run the
+PG-1 anonymous probe on the prod build (hidden), re-capture the PG-2 heads to heads-local-2.txt,
+em-dash clean on the merged files.
 
 ## STOP
 
-PG-1 committed (b77795a); PG-2 + PG-3 proofs written; this report filed. Nothing pushed - the
-owner sets VERSE_PUBLIC=false in Vercel Production, Cowork audits heads vs prod, the owner pushes.
-Step 5 + receipts R-A/R-B run after the push (unchanged spec).
+Merge aborted (local tip 94a3a2b intact, my ScrollRow / blindtest / VERSE_PUBLIC work preserved).
+Receipt committed (remote-delta.txt + BLOCKED.md + this report). Nothing pushed. Waiting on the
+owner's A-D rulings.

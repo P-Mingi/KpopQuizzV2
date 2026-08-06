@@ -1,0 +1,72 @@
+PUSH-GATE-1b 1b-1 - REMOTE DELTA (HEAD..origin/main): 18 commits, all P-Mingi GitHub PR merges
+never pulled locally (Jul 30 - Aug 3). Local (304 ahead) rebuilt several of these Play
+surfaces in another form. Triage per commit below.
+
+c0440f2  2026-07-30  Mingi
+    SEO: fix group OG 500, remove /blind-test redirect hops, allow /api/og in robots
+fe309f9  2026-07-30  Mingi
+    SEO: fix group OG 500 for real - Satori requires display:flex on text divs
+0cb583d  2026-07-30  Mingi
+    SEO: trim /u profiles from sitemap (crawl budget) + target 'K-pop quizzes' H1
+0179228  2026-07-30  Mingi
+    SEO: home pills link straight to group hubs + /quizzes FAQ (head-term depth)
+621279d  2026-07-30  Mingi
+    fix(profile): align the whole profile to one 520 column (/me + /u)
+0944e6f  2026-07-30  Mingi
+    feat(badges): simple vector-icon coins with a 5-tier rarity system
+bea0c68  2026-08-03  Mingi
+    feat(pinterest): per-question pins (question + options, answer hidden) + bulk CSV
+e89ce4b  2026-08-03  Mingi
+    pinterest: full coverage (~2900 incl. member quizzes) + RSS auto-publish feed
+fd5485a  2026-08-03  Mingi
+    Merge pull request #17 from P-Mingi/pinterest-per-question-pins
+c21d34a  2026-08-03  Mingi
+    feat(games): redesign /games hub + expand Sort It and Match-Up
+32e5103  2026-08-03  Mingi
+    fix(games): skip build-time prerender when Supabase env is absent
+3e879fe  2026-08-03  Mingi
+    Merge pull request #18 from P-Mingi/games-hub-and-modes
+949072c  2026-08-03  Mingi
+    feat(games): merge Name All Members rosters into the Name Them All page
+418b224  2026-08-03  Mingi
+    Merge pull request #19 from P-Mingi/merge-name-all-into-name-them-all
+ac5408c  2026-08-03  Mingi
+    feat(home/search): circular group coins, mobile search button, wider search
+da3f68e  2026-08-03  Mingi
+    Merge pull request #20 from P-Mingi/games-row-and-search
+31b2246  2026-08-03  Mingi
+    fix(mobile): uncramp top bar + tidy Trending card spacing
+e6cef57  2026-08-03  Mingi
+    Merge pull request #21 from P-Mingi/mobile-polish
+
+== TRIAGE (does local already have it, in another form?) ==
+  c0440f2 SEO og/robots/blindtest-player - FIX LOCAL LIKELY NEVER GOT (og/group Satori 500 fix,
+     robots /api/og allow); blind-test-player also edited locally (my option-leak/pagination work).
+  fe309f9 SEO og display:flex - FIX LOCAL NEVER GOT (Satori og/group route only).
+  0cb583d SEO sitemap /u trim + quizzes H1 - FIX LOCAL NEVER GOT; sitemap.ts heavily edited locally
+     (my VERSE_PUBLIC gate) -> overlaps.
+  0179228 SEO home pills -> hubs + /quizzes FAQ - PARTIAL: quizzes FAQ likely new; home-group-pills
+     REBUILT locally (my ScrollRow wrap) -> overlaps.
+  621279d profile /me + /u 520 column - FIX LOCAL LIKELY NEVER GOT.
+  0944e6f badges 5-tier coins - PRESENT LOCALLY (badge-coin.tsx exists) - likely already in / overlapping;
+     globals.css overlaps.
+  bea0c68 pinterest per-question pins - LARGELY PRESENT LOCALLY (pinterest-output/, question-pin.tsx exist).
+  e89ce4b pinterest full coverage + RSS feed - PARTIAL: RSS pinterest-feed.xml MISSING locally (new);
+     manifest/csv are generated artifacts; route-allowlist.ts overlaps (my /dmca, member-review).
+  fd5485a Merge PR#17 pinterest - merge commit for the above.
+  c21d34a games hub redesign + Sort It/Match-Up - REBUILT LOCALLY (games chat); games-spotlight.tsx +
+     game-preview.tsx are Mingi-ONLY (missing locally); globals.css overlaps heavily.
+  32e5103 games skip build-time prerender - FIX LOCAL MAY NEED (build guard on games [slug] pages).
+  3e879fe Merge PR#18 games-hub - merge commit for the above.
+  949072c merge Name-All rosters into Name Them All - REBUILT LOCALLY (games chat's name-them-all work).
+  418b224 Merge PR#19 name-all - merge commit for the above.
+  ac5408c home/search circular coins + mobile search - REBUILT LOCALLY (home rows/search/mobile);
+     home-group-pills + globals.css overlap my + games-chat edits.
+  da3f68e Merge PR#20 games-row-and-search - merge commit for the above.
+  31b2246 mobile top bar + Trending spacing - REBUILT LOCALLY (I fixed Trending spacing; mobile-top-bar
+     + globals.css overlap).
+  e6cef57 Merge PR#21 mobile-polish - merge commit for the above.
+
+Expectation: a merge will conflict on the shared Play surfaces (globals.css, home-group-pills,
+name-them-all, search, mobile-top-bar, sort-it/match-up, route-allowlist, sitemap, blind-test-player).
+Per the mission, on ANY conflict I STOP and hand the resolution decision to the owner.
