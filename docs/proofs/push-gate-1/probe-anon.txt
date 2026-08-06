@@ -1,0 +1,17 @@
+PUSH-GATE-1 PG-1 - ANONYMOUS PROBE (VERSE_PUBLIC hidden, dev server, no auth cookie)
+Expect: every gated Verse route 302 -> /verse ; teaser + covenant 200.
+
+  /verse/bts                               -> 302  /verse
+  /verse/bts/members/jungkook              -> 302  /verse
+  /verse/bts/community                     -> 302  /verse
+  /verse/bts/discography                   -> 302  /verse
+  /build                                   -> 302  /verse
+  /build/bts                               -> 302  /verse
+  /admin/space-images                      -> 302  /verse
+  /admin/member-review                     -> 302  /verse
+  /admin/verse                             -> 302  /verse
+  --- public allowlist (stay 200) ---
+  /verse                                   -> 200  
+  /verse/promises                          -> 200  
+  --- a non-verse page is untouched ---
+  /games                                   -> 200  

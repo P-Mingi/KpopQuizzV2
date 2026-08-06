@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
 import { isKnownRoute } from '@/lib/route-allowlist';
+import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
 
 import type { NextRequest } from 'next/server';
 
@@ -33,6 +34,15 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const passthrough = (): NextResponse =>
     NextResponse.next({ request: { headers: request.headers } });
+
+  // PUSH-GATE-1 (VERSE_PUBLIC): while the Verse is hidden, an ANONYMOUS request (no auth
+  // cookie) to any gated Verse route -> 302 to the /verse teaser. Pure cookie-presence check,
+  // NO Supabase call (edge-safe): crawlers + logged-out visitors are cookieless and get the
+  // 302 here; logged-in users pass through and the server-side role gate (isVersePrivileged)
+  // decides. 302 (temporary) parks the SEO equity - Google understands "coming back".
+  if (verseHidden() && isGatedVersePath(pathname) && !hasAuthCookie(request.cookies.getAll().map((c) => c.name))) {
+    return NextResponse.redirect(new URL('/verse', request.url), 302);
+  }
 
   // PUBLIC FAST PATH - no Supabase call. Handles the vast majority of traffic.
   if (!needsAuth(pathname)) {

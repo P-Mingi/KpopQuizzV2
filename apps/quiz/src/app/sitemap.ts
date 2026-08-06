@@ -9,6 +9,7 @@ import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
+import { verseHidden } from '@/lib/verse/visibility';
 
 import type { MetadataRoute } from 'next';
 
@@ -404,6 +405,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
     push('/verse', 0.8, 'daily');
     push('/verse/promises', 0.6, 'monthly'); // V-TRUST: the covenant is a real indexed trust page
+    // PUSH-GATE-1: while the Verse is hidden, ONLY the teaser + covenant stay in the sitemap;
+    // every other Verse URL is dropped (belt + braces on top of the 302) so Google stops
+    // re-discovering them. Flag true -> the full sitemap returns, byte-identical to today.
+    if (!verseHidden()) {
     const spaceSlugs = [...new Set(((seeds ?? []) as { groups: unknown }[]).map((s) => gslug(s.groups)).filter((x): x is string => !!x))];
     for (const slug of spaceSlugs) {
       push(`/verse/${slug}`, 0.7, 'weekly');
@@ -476,6 +481,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       push(`/verse/${s}/wiki/${w.slug}`, 0.5, 'weekly');
       push(`/verse/${s}/wiki`, 0.5, 'weekly');
     }
+    } // end PUSH-GATE-1: non-allowlist Verse URLs only when the flag is on
   } catch (err) {
     console.error('[sitemap] verse query failed, skipping verse pages:', err);
     versePages = [];

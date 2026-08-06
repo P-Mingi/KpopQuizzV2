@@ -1,0 +1,15 @@
+PUSH-GATE-1 PG-1 - FLAG TRUE = TODAY'S BEHAVIOR (parity)
+
+== the switch is a pure short-circuit: EVERY change is gated behind verseHidden() ==
+  page.tsx / [slug]/layout.tsx:  if (verseHidden() && !(await isVersePrivileged())) ...
+     flag true -> verseHidden() is false -> the && short-circuits BEFORE isVersePrivileged
+     is called (no cookie read, no redirect) -> the page renders exactly as before.
+  middleware.ts:  if (verseHidden() && isGatedVersePath(..) && !hasAuthCookie(..)) 302
+     flag true -> the whole condition is false -> passthrough, byte-for-byte the old flow.
+  sitemap.ts:  if (!verseHidden()) { <all space/idol/album/essay/wiki pushes> }
+     flag true -> the full Verse sitemap is emitted, unchanged.
+
+== empirical (flag true, anonymous) ==
+  /verse/bts        -> 200 (real space page, not the teaser)
+  /verse            -> 200 ; H1: Fans build their fandom’s 
+  sitemap verse <loc> count (flag TRUE): 2097  (vs 3 when hidden)

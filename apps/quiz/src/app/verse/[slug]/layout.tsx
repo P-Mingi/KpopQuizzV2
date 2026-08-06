@@ -1,4 +1,7 @@
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound, permanentRedirect, redirect } from 'next/navigation';
+
+import { verseHidden } from '@/lib/verse/visibility';
+import { isVersePrivileged } from '@/lib/verse/roles';
 
 import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
@@ -43,6 +46,9 @@ export default async function SpaceLayout({
   params, children,
 }: { params: Promise<{ slug: string }>; children: React.ReactNode }): Promise<React.ReactElement> {
   const { slug } = await params;
+  // PUSH-GATE-1 (VERSE_PUBLIC): anonymous visitors are 302'd at the edge; this catches a
+  // signed-in NON-curator - they get the teaser too while the Verse is hidden.
+  if (verseHidden() && !(await isVersePrivileged())) redirect('/verse');
   const space = await getSpace(slug);
   if (!space) {
     // A name variant (bangtan -> bts, girls-generation -> snsd) redirects to canonical.

@@ -36,3 +36,16 @@ export async function currentSpaceRole(groupId: number): Promise<{ userId: strin
 export async function canCurateSpace(userId: string | null, groupId: number): Promise<boolean> {
   return roleAtLeast(await getSpaceRole(userId, groupId), 'curator');
 }
+
+/** PUSH-GATE-1 (VERSE_PUBLIC): may this signed-in user see the Verse while it is hidden?
+ *  Global admins and anyone who curates AT LEAST ONE space keep full access (builder, spaces,
+ *  admin queues); everyone else (anonymous or a plain member) gets the teaser. Server-only. */
+export async function isVersePrivileged(): Promise<boolean> {
+  const supa = await createServerClient();
+  const { data: { user } } = await supa.auth.getUser();
+  if (!user) return false;
+  if (isAdmin(user.id)) return true;
+  const db = createServiceRoleClient(); // bypass the active-only policy to read the caller's own roles
+  const { data } = await db.from('space_members').select('role').eq('user_id', user.id).in('role', ['curator', 'space_admin']).neq('status', 'blocked').limit(1);
+  return !!(data && data.length);
+}

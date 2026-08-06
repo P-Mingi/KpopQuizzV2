@@ -1,0 +1,20 @@
+PUSH-GATE-1 PG-1 - CURATOR SESSION PASSES + SITEMAP EXCLUSION (VERSE_PUBLIC hidden)
+
+== a signed-in curator/admin sees EVERYTHING (owner dev session, browser fetch) ==
+  /verse/bts                    -> 200  real space page (H1 "ARMY", not the teaser)
+  /verse/bts/members/jungkook   -> 200  real member page (H1 "Jungkook")
+  /verse/bts/community          -> 200  real community page
+  /verse                        -> 200  the REAL directory (H1 "Fans build their fandom's home"),
+                                        not the teaser - privileged users bypass the teaser too
+  Mechanism: the auth cookie passes the edge middleware; isVersePrivileged() (isAdmin OR
+  curator/space_admin of any space) passes the server-side guard + the /verse teaser gate.
+
+== sitemap excludes hidden verse routes, keeps the teaser + covenant ==
+  hidden: verse <loc> entries = /verse and /verse/promises ONLY (space/idol/album/essay/wiki
+          pages all dropped). Real verse-route count = 2.
+  flag true: full verse sitemap returns = 2097 <loc> verse entries.
+  (belt + braces: the 302 stops crawlers reaching the pages; the sitemap drop stops re-discovery.)
+
+== teaser is indexable (the one page that stays in the index) ==
+  anonymous GET /verse -> 200, H1 "The Verse is being built", links -> /verse/promises + /games,
+  no robots noindex meta (indexable by default). Screenshots (light + dark) captured in-session.
