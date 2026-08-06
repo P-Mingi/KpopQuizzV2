@@ -1,27 +1,12 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getLatestPersonalityMatch } from '@/lib/personality/data';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
-import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { computeMetrics } from '@/lib/badges/award';
+import { createPublicReadClient } from '@/lib/supabase/server';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
 import { PassportView, type PassportTopGroup } from '@/components/profile/passport-view';
-import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
-import { ContributionGraph } from '@/components/verse/contribution-graph';
-import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
-import { ShelfManager } from '@/components/verse/shelf-manager';
-import { getPublicShelfCards } from '@/lib/verse/shelf';
-import { getAuthorEssays } from '@/lib/verse/essays';
-import { getProfileVisibility } from '@/lib/verse/profile-visibility';
-import { defaultsFor } from '@/lib/verse/profile-sections';
-import { jsonLdScript } from '@/lib/verse/jsonld';
-import { deriveProfileStats } from '@/lib/verse/profile-stats';
-import { getUserActivity } from '@/lib/verse/activity';
-import { FanResumeBand } from '@/components/verse/profile/fan-resume-band';
-import { FanResumeOwner } from '@/components/verse/profile/fan-resume-owner';
 import { ProfileOwnerControls } from '@/components/profile/profile-owner-controls';
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
@@ -124,11 +109,7 @@ const cardWrap: React.CSSProperties = {
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
   const { username } = await params;
-  // ISR bake law: getProfileByUsername already THROWS on a real read error and
-  // returns null only for a genuinely missing user. safeFetch here would catch
-  // that throw and bake a notFound() over a real profile - so it does NOT wrap
-  // the primary read (the secondary reads below still degrade via safeFetch).
-  const profile = await getProfileByUsername(username);
+  const profile = await safeFetch(getProfileByUsername(username), null, '[u/[username]] getProfileByUsername');
   if (!profile) notFound();
 
   // P step 6: show the "{member}-coded" flair only when the owner opted in.
@@ -147,56 +128,6 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
     safeFetch(Promise.resolve(db.from('badge_definitions').select('*').order('sort_order')), { data: null } as { data: unknown }, '[u/[username]] badge_definitions'),
     safeFetch(Promise.resolve(db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), { data: null } as { data: unknown }, '[u/[username]] user_badges'),
   ]);
-
-  // V-UPGRADE-1 A4: the profile owner's badge metrics, so locked tiered badges
-  // show their target as "X / Y" (read-only; the grant paths are /me + the play
-  // route + the backfill, not this public view). Service-role read (some source
-  // tables are not anon-readable). Degrades quietly.
-  const uBadgeMetrics = await computeMetrics(createServiceRoleClient(), profile.id).catch(() => null);
-
-  // V-CARDS-MAX step 4: the public showcase (only if the owner opted in).
-  const shelfCards = await safeFetch(getPublicShelfCards(profile.id), [], '[u/[username]] getPublicShelfCards');
-  // V-ESSAYS-MAX step 6: the author's published essays (feeds V-PROFILE-ONE).
-  const authorEssays = await safeFetch(getAuthorEssays(profile.id), [], '[u/[username]] getAuthorEssays');
-
-  // V-PROFILE-ONE step 3: the fan resume (private by default, per-section opt-in).
-  // The SERVER renders the STRANGER view only, and REDACTS every private section
-  // so private stats never reach the HTML (hiding in CSS would leak them in source).
-  // The owner island (below) fetches the full band for the signed-in owner alone.
-  const [visibility, fullStats, fullActivity] = await Promise.all([
-    safeFetch(getProfileVisibility(profile.id, profile.created_at), null, '[u/[username]] getProfileVisibility'),
-    safeFetch(deriveProfileStats(profile.id), null, '[u/[username]] deriveProfileStats'),
-    safeFetch(getUserActivity(profile.id, { limit: 12 }), [], '[u/[username]] getUserActivity'),
-  ]);
-  // Legacy sections fold under the same model, defaulting from their shipped
-  // (public) state for pre-launch profiles. A private legacy section is ABSENT
-  // from the server HTML (SEO: private == not crawlable), not CSS-hidden. On a
-  // failed visibility read (safeFetch -> null) fall CLOSED to the cohort default,
-  // never to visible: resume sections stay private, legacy sections revert only
-  // to their shipped state, not to an all-public leak.
-  // Fail CLOSED (same law as the resume band): a FAILED visibility read
-  // (safeFetch -> null) defaults every section PRIVATE, never the legacy-public
-  // cohort default - a transient error must not republish an opted-out section.
-  // A successful read returns the real Visibility (cohort defaults already applied).
-  const vis = visibility ?? defaultsFor(null);
-  const vShow = (section: 'spaces' | 'contributions' | 'collection' | 'essays_list'): boolean => vis[section];
-  const publicResume = visibility && fullStats ? {
-    username: profile.username,
-    visibility,
-    stats: {
-      contribXp: visibility.contrib_xp ? fullStats.contribXp : 0,
-      pages: visibility.pages ? fullStats.pages : 0,
-      essays: visibility.essays ? fullStats.essays : 0,
-      cards: visibility.cards ? fullStats.cards : 0,
-      quizAccuracy: visibility.quiz ? fullStats.quizAccuracy : null,
-      quizPlays: fullStats.quizPlays,
-      spaces: visibility.roles ? fullStats.spaces : [],
-    },
-    // card_add items name real pinned cards; they must obey the SHOWCASE opt-in,
-    // not just the activity one, or a private showcase leaks its card names here.
-    activity: visibility.activity ? (visibility.cards ? fullActivity : fullActivity.filter((a) => a.kind !== 'card_add')) : [],
-  } : null;
-  const resumeNow = Date.now();
 
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
@@ -238,8 +169,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
 
   return (
     // One 520 column for the WHOLE profile (matches the passport). Every child -
-    // passport, share card, verse cards, and the Quizzes/Liked tabs - is edge-aligned
-    // to it, so nothing reads wider or inset than the rest.
+    // passport, share card, and the Quizzes/Liked tabs - is edge-aligned to it, so
+    // nothing reads wider or inset than the rest.
     <div style={{ paddingTop: 16, paddingBottom: 32, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
       <PassportView
         mode="public"
@@ -285,7 +216,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         pinnedBadgeId={profile.pinned_badge_id}
         avatarKind={(profile.avatar_kind as 'photo' | 'preset' | 'custom' | null) ?? 'photo'}
         avatarRef={profile.avatar_ref}
-        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} metrics={uBadgeMetrics ?? undefined} />}
+        badgesSlot={<BadgeShelf allBadges={allBadges} earnedBadgeIds={earnedBadgeIds} earnedAt={badgeEarnedAt} />}
       />
 
       {/* F2c: Share my Fan Card. Renders only for the owner viewing their own
@@ -298,87 +229,47 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
           admins, and never on their own profile (self-check inside). */}
       <ModNotifyButton recipientUsername={profile.username} />
 
-      {/* V-PROFILE-ONE step 3: the fan resume. The server renders only the
-          opted-in-public sections (redacted, so private data never ships); the
-          owner island swaps in the full band for the signed-in owner. */}
-      {publicResume ? <div id="resume-public"><FanResumeBand data={publicResume} mode="public" nowMs={resumeNow} /></div> : null}
-      <FanResumeOwner profileUsername={profile.username} />
-
-      {/* W4.2/W4.5: Verse memberships + edit-contribution graph (both min-gated). */}
-      {vShow('spaces') ? <SpaceMembershipsCard userId={profile.id} /> : null}
-      {vShow('contributions') ? <ContributionGraph userId={profile.id} /> : null}
-
-      {/* W5.2: photocard collection progress (min-gated: hides until the user owns a card). */}
-      {vShow('collection') ? <PhotocardCollectionCard userId={profile.id} /> : null}
-
-      {/* V-CARDS-MAX step 4: the public card showcase (SSR when opted in) + the
-          owner's controls (client island: opt-in toggle + manage, self-gated). */}
-      {shelfCards.length ? (
-        <section aria-label="Card showcase" style={cardWrap}>
-          <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
-            <h2 className="mb-3 text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Card showcase</h2>
-            <ul className="flex flex-wrap gap-3">
-              {shelfCards.map((c) => (
-                <li key={`${c.item_type}:${c.item_id}`} className="w-[104px]">
-                  <Link href={c.href} className="flex flex-col justify-end rounded-lg p-2 no-underline shadow-sm" style={{ aspectRatio: '55 / 85', background: 'var(--brand)', color: 'var(--brand-contrast, #fff)' }}>
-                    {c.version ? <span className="self-start rounded px-1 py-0.5 text-[8px] font-bold uppercase tracking-wide" style={{ background: 'rgba(255,255,255,0.22)' }}>{c.version}</span> : null}
-                    <span className="mt-auto line-clamp-2 text-[10px] font-bold leading-tight">{c.name}</span>
-                    <span className="mt-0.5 text-[9px] font-semibold opacity-80">{c.groupName}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-      <div style={cardWrap}><ShelfManager profileUsername={profile.username} /></div>
-
-      {/* V-ESSAYS-MAX step 6: published essays (count + latest titles). */}
-      {vShow('essays_list') && authorEssays.length ? (
-        <section aria-label="Essays" style={cardWrap}>
-          <div className="rounded-2xl border p-4" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
-            <h2 className="mb-2 text-sm font-bold" style={{ color: 'var(--text-primary)' }}>Essays <span className="tabular-nums text-tertiary">{authorEssays.length}</span></h2>
-            <ul className="space-y-1.5">
-              {authorEssays.slice(0, 5).map((e) => (
-                <li key={e.id} className="text-sm">
-                  <Link href={`/verse/${e.groupSlug}/essays/${e.id}`} className="font-semibold no-underline" style={{ color: 'var(--text-primary)', fontFamily: 'var(--v-editorial-font)' }}>{e.title}</Link>
-                  <span className="ml-1.5 text-xs text-tertiary">{e.groupName}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-
       {/* Quizzes / Liked tabs (kept; owner + liked resolve client-side) */}
       <div style={cardWrap}>
         <ProfileTabs profileUsername={profile.username} initialQuizzes={initialQuizzes} creatorId={profile.id} />
       </div>
 
-      {/* BreadcrumbList structured data (QA class 4: displayName escaped at the sink) */}
-      {jsonLdScript({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
-          { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
-        ],
-      })}
+      {/* BreadcrumbList structured data (kept) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+              { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
+            ],
+          }),
+        }}
+      />
 
-      {profile.total_quizzes_created >= 3 && jsonLdScript({
-        '@context': 'https://schema.org',
-        '@type': 'ProfilePage',
-        mainEntity: {
-          '@type': 'Person',
-          name: displayName,
-          url: `https://kpopquiz.org/u/${profile.username}`,
-          interactionStatistic: [{
-            '@type': 'InteractionCounter',
-            interactionType: 'https://schema.org/CreateAction',
-            userInteractionCount: profile.total_quizzes_created,
-          }],
-        },
-      })}
+      {profile.total_quizzes_created >= 3 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ProfilePage',
+              mainEntity: {
+                '@type': 'Person',
+                name: displayName,
+                url: `https://kpopquiz.org/u/${profile.username}`,
+                interactionStatistic: [{
+                  '@type': 'InteractionCounter',
+                  interactionType: 'https://schema.org/CreateAction',
+                  userInteractionCount: profile.total_quizzes_created,
+                }],
+              },
+            }),
+          }}
+        />
+      )}
     </div>
   );
 }

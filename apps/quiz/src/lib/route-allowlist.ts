@@ -27,7 +27,7 @@ export const KNOWN_ROUTES = [
   '/terms', '/privacy', '/dmca', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
-  '/sitemap.xml', '/robots.txt', '/llms.txt',
+  '/sitemap.xml', '/robots.txt', '/llms.txt', '/pinterest-feed.xml',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
   // bell) are real signed-in pages that were never allowlisted, so the
   // unknown-route rule 301'd them to / and made both unreachable. They guard

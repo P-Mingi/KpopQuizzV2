@@ -214,55 +214,19 @@ function EditorialCard({ pin }: { pin: QuestionPin }) {
   );
 }
 
-// ---- Template 3: SPOTLIGHT (dark, numbered options, mascot) ----
-function SpotlightCard({ pin, mascotUri }: { pin: QuestionPin; mascotUri: string }) {
-  const accent = brandAccent(pin.themeColor);
-  const qLines = wrap(pin.question, 24);
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: W, height: H, backgroundColor: DARK, position: 'relative', fontFamily: FF }}>
-      <div style={{ display: 'flex', width: W, height: 16, backgroundColor: accent }} />
-      <div style={{ display: 'flex', position: 'absolute', top: -80, right: -80, width: 360, height: 360, borderRadius: 180, background: `radial-gradient(circle, ${accent}55, transparent 70%)` }} />
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '56px 64px 0', flex: 1 }}>
-        <Kicker group={pin.group} bg={accent} fg="#ffffff" />
-        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 42 }}>
-          {qLines.map((l, i) => (
-            <div key={i} style={{ display: 'flex', fontSize: questionFont(pin.question), fontWeight: 800, color: CREAM, lineHeight: 1.16 }}>{l}</div>
-          ))}
-        </div>
-        {pin.clues && pin.clues.length ? <ClueList clues={pin.clues} color="#B8AEAA" /> : null}
-        {pin.kind === 'truefalse' ? (
-          <TrueFalseBlock light={true} />
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 40 }}>
-            {(pin.options ?? []).slice(0, 4).map((o, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 20, height: 138, borderRadius: 24, backgroundColor: '#262220', paddingLeft: 26, paddingRight: 26 }}>
-                <div style={{ display: 'flex', width: 56, height: 56, borderRadius: 14, border: `3px solid ${accent}`, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, color: accent }}>{i + 1}</div>
-                </div>
-                <div style={{ display: 'flex', fontSize: 37, fontWeight: 700, color: CREAM }}>{o.length > 30 ? o.slice(0, 29) + '…' : o}</div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={mascotUri} alt="" width={210} height={210} style={{ position: 'absolute', right: 40, bottom: 150, objectFit: 'contain' }} />
-      <div style={{ display: 'flex', position: 'absolute', bottom: 0, left: 0, width: W, height: 116, backgroundColor: '#221E1C' }} />
-      <BrandFooter onDark={true} />
-    </div>
-  );
-}
-
-export const TEMPLATE_NAMES = ['bold', 'editorial', 'spotlight'] as const;
+// Two validated layouts only: BOLD (cream) and EDITORIAL (group-color gradient).
+// A dark "spotlight" variant was designed but not approved, so it was removed.
+export const TEMPLATE_NAMES = ['bold', 'editorial'] as const;
 export type TemplateName = typeof TEMPLATE_NAMES[number];
 
-/** Render one question pin. `variant` (0..2) rotates the layout for Pinterest
- * anti-duplication. Mascot rotates too so cards of the same layout differ. */
+/** Render one question pin. `variant` alternates the two approved layouts for
+ * Pinterest anti-duplication. Mascot rotates too so cards of the same layout
+ * differ. Editorial ignores the mascot; the argument is kept for a uniform call
+ * signature across variants. */
 export function renderQuestionElement(pin: QuestionPin, variant: number, mascotUri: string): React.ReactElement {
-  const v = ((variant % 3) + 3) % 3;
+  const v = ((variant % 2) + 2) % 2;
   if (v === 0) return <BoldCard pin={pin} mascotUri={mascotUri} />;
-  if (v === 1) return <EditorialCard pin={pin} />;
-  return <SpotlightCard pin={pin} mascotUri={mascotUri} />;
+  return <EditorialCard pin={pin} />;
 }
 
 export async function questionPinToPng(pin: QuestionPin, variant: number, mascotUri: string, fonts: Fonts): Promise<Buffer> {

@@ -72,6 +72,16 @@ export const SORT_IT_PLAYLISTS: SortItPlaylist[] = [
     seoDescription:
       'Can you tell K-pop soloists from groups? Sort real artists into solo act or group in this fast tap-or-swipe quiz. Free, no sign-up, instant score.',
   },
+  {
+    slug: 'older-gen-or-newer-gen',
+    question: 'Older gen or newer gen?',
+    buckets: ['Older gen', 'Newer gen'],
+    title: 'Older Gen or Newer Gen?',
+    blurb: 'Older generation (2nd/3rd) or newer (4th/5th)? Sort real K-pop groups by era against the clock.',
+    seoTitle: 'Older Gen or Newer Gen? Sort {n} K-pop Groups',
+    seoDescription:
+      'Can you sort K-pop groups into older (2nd/3rd gen) or newer (4th/5th gen)? A fast tap-or-swipe era quiz over real groups. Free, no sign-up, instant score.',
+  },
 ];
 
 export function getSortItPlaylist(slug: string): SortItPlaylist | undefined {

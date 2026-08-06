@@ -46,18 +46,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const mascots = MASCOTS.map((m) => loadMascotUri(m));
 
   if (mode === 'sample') {
-    // One preview per template layout from a real, answer-agnostic question.
+    // One preview per approved template layout from a real, answer-agnostic question.
     const { picked } = gatherQuestionPins(await fetchQuizzes(db), { limit: 1, perGroupCap: PER_GROUP_CAP });
     const pin = picked[0]?.pin ?? { group: 'BTS', themeColor: '#7C5CFC', question: 'Which company manages BTS?', kind: 'options' as const, options: ['SM', 'YG', 'HYBE', 'JYP'] };
-    const [a, b, c] = await Promise.all([
+    const [a, b] = await Promise.all([
       questionPinToPng(pin, 0, mascots[0]!, fonts),
       questionPinToPng(pin, 1, mascots[1]!, fonts),
-      questionPinToPng(pin, 2, mascots[2]!, fonts),
     ]);
     return NextResponse.json({ pins: [
       { template: 'bold', base64: a.toString('base64') },
       { template: 'editorial', base64: b.toString('base64') },
-      { template: 'spotlight', base64: c.toString('base64') },
     ] });
   }
 
@@ -70,7 +68,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let idx = 0;
   for (const cnd of picked) {
     const { url: link, isHome } = hubUrlFor(cnd.groupSlug, `q${idx}`);
-    const png = await questionPinToPng(cnd.pin, idx % 3, mascots[idx % mascots.length]!, fonts);
+    const png = await questionPinToPng(cnd.pin, idx % 2, mascots[idx % mascots.length]!, fonts);
     const fn = `q-${cnd.groupSlug ?? 'home'}-${idx}.png`;
     await db.storage.from(BUCKET).upload(fn, png, { contentType: 'image/png', upsert: true });
     const mediaUrl = db.storage.from(BUCKET).getPublicUrl(fn).data.publicUrl;

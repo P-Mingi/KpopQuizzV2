@@ -44,7 +44,7 @@ export default async function MatchUpIndexPage(): Promise<React.ReactElement> {
   };
 
   return (
-    <div className="mu-wrap">
+    <div className="mu-wrap mu-idx-wrap">
       <Breadcrumbs items={[{ label: 'Games', href: '/games' }, { label: 'Match-Up' }]} />
       <header className="mu-idx-head">
         <span className="mu-eyebrow">Match-Up</span>

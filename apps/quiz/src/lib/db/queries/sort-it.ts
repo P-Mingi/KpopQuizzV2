@@ -102,6 +102,13 @@ export const getSortItItems = cache(async (slug: string): Promise<SortItItem[]> 
       if (g.generation === '3rd Gen') items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
       else if (g.generation === '4th Gen') items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
     }
+  } else if (slug === 'older-gen-or-newer-gen') {
+    const older = new Set(['2nd Gen', '3rd Gen']);
+    const newer = new Set(['4th Gen', '5th Gen']);
+    for (const g of groups) {
+      if (older.has(g.generation ?? '')) items.push({ id: g.slug, label: g.name, bucket: 'left', imageUrl: g.logo_url });
+      else if (newer.has(g.generation ?? '')) items.push({ id: g.slug, label: g.name, bucket: 'right', imageUrl: g.logo_url });
+    }
   } else if (slug === 'solo-act-or-group') {
     const genders = await deriveGroupGenders(db);
     for (const g of groups) {
