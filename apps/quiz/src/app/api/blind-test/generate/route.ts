@@ -129,19 +129,45 @@ function buildChoices(correct: string, wrongs: string[]): string[] {
   return shuffle([correct, ...filtered]);
 }
 
-function fallbackWrongArtists(song: SongRow, pool: SongRow[]): string[] {
-  const sameGender = pool.filter((s) => s.gender === song.gender && s.artist_name !== song.artist_name);
-  return shuffle([...new Set(sameGender.map((s) => s.artist_name))]).slice(0, 3);
+// Distractors are drawn ONLY from the CURRENT game POOL, so they can never fall outside the
+// active filter (generation / gender / group). That was the bug: the stored GLOBAL
+// wrong_answers_* could offer, say, a 3rd-gen group in a 5th-gen-only game, letting a player
+// eliminate the out-of-generation options and guess the answer. Preference order keeps the
+// options plausible while staying inside the filter: same generation + gender first, then same
+// generation, then same gender, then anything else already in the pool (all still in-filter).
+function poolWrongArtists(song: SongRow, pool: SongRow[]): string[] {
+  const names = (pred: (s: SongRow) => boolean): string[] =>
+    [...new Set(pool.filter((s) => s.artist_name !== song.artist_name && pred(s)).map((s) => s.artist_name))];
+  const tiers: Array<(s: SongRow) => boolean> = [
+    (s) => s.generation === song.generation && s.gender === song.gender,
+    (s) => s.generation === song.generation,
+    (s) => s.gender === song.gender,
+    () => true,
+  ];
+  const out: string[] = [];
+  for (const pred of tiers) {
+    for (const n of shuffle(names(pred))) { if (out.length >= 3) break; if (!out.includes(n)) out.push(n); }
+    if (out.length >= 3) break;
+  }
+  return out.slice(0, 3);
 }
 
-function fallbackWrongTitles(song: SongRow, pool: SongRow[]): string[] {
-  const sameArtist = pool.filter((s) => s.artist_name === song.artist_name && s.title !== song.title).map((s) => s.title);
-  const titles = [...sameArtist];
-  if (titles.length < 3) {
-    const sameGender = pool.filter((s) => s.gender === song.gender && s.artist_name !== song.artist_name);
-    titles.push(...sameGender.map((s) => s.title));
+function poolWrongTitles(song: SongRow, pool: SongRow[]): string[] {
+  const titles = (pred: (s: SongRow) => boolean): string[] =>
+    [...new Set(pool.filter((s) => s.title !== song.title && pred(s)).map((s) => s.title))];
+  const out: string[] = [];
+  // Other songs by the SAME act first: hardest, and reveals nothing about the filter.
+  for (const t of shuffle(titles((s) => s.artist_name === song.artist_name))) { if (out.length >= 3) break; out.push(t); }
+  const tiers: Array<(s: SongRow) => boolean> = [
+    (s) => s.generation === song.generation && s.gender === song.gender,
+    (s) => s.generation === song.generation,
+    () => true,
+  ];
+  for (const pred of tiers) {
+    if (out.length >= 3) break;
+    for (const t of shuffle(titles(pred))) { if (out.length >= 3) break; if (!out.includes(t)) out.push(t); }
   }
-  return shuffle([...new Set(titles)]).slice(0, 3);
+  return out.slice(0, 3);
 }
 
 const GENERAL_PLAYLISTS = new Set([
@@ -291,7 +317,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const questions: Question[] = selected.map((song, i) => {
     if (types[i] === 'artist') {
-      const wrongs = song.wrong_answers_artist?.length >= 3 ? song.wrong_answers_artist : fallbackWrongArtists(song, pool);
+      const wrongs = poolWrongArtists(song, pool);
       return {
         song_id: song.id,
         question_type: 'artist',
@@ -305,7 +331,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         reveal: { title: song.title, artist: song.artist_name, album: song.album_name, cover: song.album_cover_big },
       };
     }
-    const wrongs = song.wrong_answers_title?.length >= 3 ? song.wrong_answers_title : fallbackWrongTitles(song, pool);
+    const wrongs = poolWrongTitles(song, pool);
     return {
       song_id: song.id,
       question_type: 'title',
