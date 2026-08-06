@@ -65,6 +65,25 @@ export function MobileTopBar(): React.ReactElement | null {
       </div>
 
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      {/* Search - restored from P-Mingi's mobile search button (reconcile push-gate-1b):
+          same footprint as the +, outline style so it reads secondary. A Play action, so
+          Play-only like Create; sits to the LEFT of the +. */}
+      {!verse && (
+      <Link
+        href="/search"
+        aria-label="Search"
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 34, height: 34, borderRadius: 9999, flexShrink: 0,
+          background: 'var(--bg-surface)', color: 'var(--text-secondary)',
+          border: '1px solid var(--border)', textDecoration: 'none',
+        }}
+      >
+        <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
+        </svg>
+      </Link>
+      )}
       {/* Create is a Play (quiz) action - one tap away on Play, hidden in Verse
           (Verse mobile = Fandoms/Community + profile). */}
       {!verse && (
