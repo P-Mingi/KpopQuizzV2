@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { GroupLogo } from '@/components/ui/group-logo';
+import { ScrollRow } from '@/components/ui/scroll-row';
 import type { Group } from '@/lib/db/types';
 
 const SEE_ALL: React.CSSProperties = {
@@ -34,7 +35,7 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
         <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes &rarr;</Link>
       </div>
 
-      <div className="home-group-rail" role="list">
+      <ScrollRow scrollerClassName="home-group-rail" scrollerRole="list" ariaLabel="Browse quizzes by group">
         {pills.map((g) => (
           <Link key={g.slug} href={`/${g.slug}-quiz`} className="home-group-coin" role="listitem" aria-label={`${g.name} quiz`}>
             <GroupLogo
@@ -46,7 +47,7 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
             />
           </Link>
         ))}
-      </div>
+      </ScrollRow>
     </section>
   );
 }

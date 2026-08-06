@@ -12,6 +12,7 @@ import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
+import { ScrollRow } from '@/components/ui/scroll-row';
 import { Mascot } from '@/components/ui/mascot';
 
 import type { Metadata } from 'next';
@@ -118,13 +119,13 @@ async function TrendingSection(): Promise<React.ReactElement> {
         <p className="sec-label" style={{ marginBottom: 0 }}>Em alta esta semana</p>
         <Link href="/quizzes?sort=trending" style={SEE_ALL}>Ver todos →</Link>
       </div>
-      <div className="trending-carousel">
+      <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => (
           <div className="trending-item" key={q.id}>
             <QuizCard quiz={q} index={i} showScore={false} />
           </div>
         ))}
-      </div>
+      </ScrollRow>
     </section>
   );
 }

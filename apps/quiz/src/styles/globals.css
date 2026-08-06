@@ -1758,6 +1758,37 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .trending-item .quiz-cover { width: 80px; height: 80px; }
 .trending-item .quiz-title { min-height: 0; margin-bottom: 4px; }
 
+/* Discreet desktop arrow controls for horizontal carousels (mouse users have no scrollbar
+   and cannot swipe). The <ScrollRow> wrapper positions a prev/next chevron over each edge.
+   Hidden entirely on touch devices (swipe works); on desktop they reveal on row-hover or
+   keyboard focus, and each one hides at its end of the track (data-show=false). Tokenized,
+   so light + dark both work. */
+.scrollrow { position: relative; }
+.scrollrow-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0; border-radius: 999px; cursor: pointer;
+  background: var(--bg-surface); color: var(--text-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+  opacity: 0; transition: opacity .18s ease, color .18s ease, box-shadow .18s ease, transform .12s ease;
+}
+.scrollrow-arrow--prev { left: -4px; }
+.scrollrow-arrow--next { right: -4px; }
+.scrollrow-arrow:hover { color: var(--brand); box-shadow: 0 4px 16px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08); }
+.scrollrow-arrow:active { transform: translateY(-50%) scale(0.92); }
+.scrollrow-arrow:focus-visible { opacity: 1; outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* Only fine-pointer (mouse) desktops get the arrows; they never appear on touch. */
+@media (hover: hover) and (pointer: fine) {
+  .scrollrow-arrow[data-show="true"] { display: inline-flex; }
+  .scrollrow:hover .scrollrow-arrow[data-show="true"],
+  .scrollrow:focus-within .scrollrow-arrow[data-show="true"] { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrollrow-arrow { transition: opacity .01s linear; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .daily-cta { animation: none; }
 }

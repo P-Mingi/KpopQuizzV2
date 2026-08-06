@@ -17,6 +17,7 @@ import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
+import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
@@ -160,7 +161,7 @@ async function TrendingSection(): Promise<React.ReactElement> {
         <Link href="/quizzes/popular-this-week" style={SEE_ALL}>See all →</Link>
       </div>
 
-      <div className="trending-carousel">
+      <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
           const teaser = buildTeaser(q);
           return (
@@ -171,7 +172,7 @@ async function TrendingSection(): Promise<React.ReactElement> {
             </div>
           );
         })}
-      </div>
+      </ScrollRow>
     </section>
   );
 }
@@ -190,7 +191,7 @@ async function NewQuizzesSection(): Promise<React.ReactElement> {
         <p className="sec-label" style={{ marginBottom: 0 }}>New quizzes</p>
         <Link href="/quizzes/new" style={SEE_ALL}>See all &#8594;</Link>
       </div>
-      <div className="trending-carousel">
+      <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
           const teaser = buildTeaser(q);
           return (
@@ -201,7 +202,7 @@ async function NewQuizzesSection(): Promise<React.ReactElement> {
             </div>
           );
         })}
-      </div>
+      </ScrollRow>
     </section>
   );
 }
@@ -220,7 +221,7 @@ async function AllTimeBestSection(): Promise<React.ReactElement> {
         <p className="sec-label" style={{ marginBottom: 0 }}>All-time best</p>
         <Link href="/quizzes/most-liked" style={SEE_ALL}>See all &#8594;</Link>
       </div>
-      <div className="trending-carousel">
+      <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
           const teaser = buildTeaser(q);
           return (
@@ -231,7 +232,7 @@ async function AllTimeBestSection(): Promise<React.ReactElement> {
             </div>
           );
         })}
-      </div>
+      </ScrollRow>
     </section>
   );
 }
