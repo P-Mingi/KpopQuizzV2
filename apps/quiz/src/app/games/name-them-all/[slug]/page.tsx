@@ -84,7 +84,7 @@ export default async function NameThemAllPlaylistPage({ params }: PageProps): Pr
     ...nameAllGames
       .filter((g) => !playlistSlugs.has(g.slug))
       .map((g) => {
-        const content = g.content as NameAllMembersContent;
+        const content = g.content as NameAllMembersContent & { items?: unknown[] };
         const arr = content?.members ?? content?.items ?? [];
         const count = Array.isArray(arr) ? arr.length : 0;
         return { slug: g.slug, label: g.title, sub: `${count} to name`, href: `/games/name-all/${g.slug}` };

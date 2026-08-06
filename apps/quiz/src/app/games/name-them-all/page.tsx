@@ -92,7 +92,7 @@ export default async function NameThemAllIndexPage(): Promise<React.ReactElement
           <p className="nta-idx-sec">All Challenges</p>
           <ul className="nta-idx-grid">
             {memberGames.map((g, i) => {
-              const content = g.content as NameAllMembersContent;
+              const content = g.content as NameAllMembersContent & { items?: unknown[] };
               const items = content?.members ?? content?.items ?? [];
               const count = Array.isArray(items) ? items.length : 0;
               return (

@@ -5,7 +5,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { VerseSearch } from '@/components/verse/verse-search';
 import { MySpacesStrip } from '@/components/verse/my-spaces-strip';
 import { SectionHeader } from '@/components/verse/primitives/section-header';
-import { OrbitLockup, OrbitMarkSmall } from '@/components/verse/brand/verse-wordmarks';
+import { OrbitMarkSmall } from '@/components/verse/brand/verse-wordmarks';
 import { getVerseDirectory, getCatalogTotals, getTodayInKpop, getNewestWikiPages, getLatestVerseActivity } from '@/lib/verse/space-data';
 import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';

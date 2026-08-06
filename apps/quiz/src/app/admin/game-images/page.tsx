@@ -5,7 +5,6 @@ import { isAdmin } from '@/lib/admin';
 import { GameImageManager } from '@/components/admin/game-image-manager';
 
 import type { Metadata } from 'next';
-import type { NameAllMembersContent, Group } from '@/lib/db/types';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Game images', robots: { index: false, follow: false } };
