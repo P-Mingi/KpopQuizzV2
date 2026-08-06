@@ -36,7 +36,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // Validate key format
   const parts = key.split(':');
   const category = parts[0];
-  if (!category || !['header', 'hub', 'idol', 'group'].includes(category)) {
+  if (!category || !['header', 'hub', 'idol', 'group', 'card'].includes(category)) {
     return NextResponse.json({ error: 'Invalid key category' }, { status: 400 });
   }
 
@@ -98,6 +98,29 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             return NextResponse.json({ url: publicUrl, warning: `Image uploaded but game update failed: ${updateErr.message}` });
           }
         }
+      }
+    }
+  }
+
+  // For card covers: update the game's content.cover_url
+  if (category === 'card' && parts[1]) {
+    const gameSlug = parts[1];
+    const { data: game, error: fetchErr } = await adminDb
+      .from('games')
+      .select('id, content')
+      .eq('slug', gameSlug)
+      .eq('status', 'published')
+      .single();
+
+    if (!fetchErr && game) {
+      const content = game.content as Record<string, unknown>;
+      const { error: updateErr } = await adminDb
+        .from('games')
+        .update({ content: { ...content, cover_url: publicUrl } })
+        .eq('id', game.id);
+
+      if (updateErr) {
+        return NextResponse.json({ url: publicUrl, warning: `Image uploaded but game update failed: ${updateErr.message}` });
       }
     }
   }

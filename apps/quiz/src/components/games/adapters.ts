@@ -44,6 +44,8 @@ export function toNameAllGame(game: GameCardData): NameAllGame {
   if (artist) data.artist = artist;
   if (album) data.album = album;
 
+  const cover_url = (raw.cover_url as string | undefined) ?? null;
+
   const result: NameAllGame = {
     id: game.id,
     slug: game.slug,
@@ -55,6 +57,8 @@ export function toNameAllGame(game: GameCardData): NameAllGame {
     play_count: game.play_count,
     data,
   };
+
+  if (cover_url) result.cover_url = cover_url;
 
   if (game.group_name && game.display_color) {
     result.group = { name: game.group_name, display_color: game.display_color };

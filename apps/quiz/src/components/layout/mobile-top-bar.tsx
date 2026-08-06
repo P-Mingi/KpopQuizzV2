@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
 import { WorldToggle } from '@/components/layout/world-toggle';
+import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { worldForPath, isBuilderCanvas } from '@/lib/world';
 
@@ -65,6 +66,10 @@ export function MobileTopBar(): React.ReactElement | null {
       </div>
 
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      {/* Theme toggle - sits to the LEFT of Search on mobile (user request).
+          Sized to 34px to match the Search/Create buttons. */}
+      <ThemeToggle className="mobile-top-theme" />
+
       {/* Search - restored from P-Mingi's mobile search button (reconcile push-gate-1b):
           same footprint as the +, outline style so it reads secondary. A Play action, so
           Play-only like Create; sits to the LEFT of the +. */}

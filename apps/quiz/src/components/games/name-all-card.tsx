@@ -18,6 +18,7 @@ export interface NameAllGame {
   difficulty: 'easy' | 'medium' | 'hard';
   timer_seconds: number;
   play_count: number;
+  cover_url?: string | null;
   data: {
     items: NameAllItem[];
     artist?: string;
@@ -97,9 +98,12 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
   const extra = itemCount - roster.length;
 
   const groupColor = game.group?.display_color;
-  const coverBg = groupColor
-    ? `radial-gradient(125% 130% at 50% 118%, ${groupColor}26, ${groupColor}0d 52%, var(--bg-surface))`
-    : 'var(--surface-alt)';
+  const hasCover = !!game.cover_url;
+  const coverBg = hasCover
+    ? undefined
+    : groupColor
+      ? `radial-gradient(125% 130% at 50% 118%, ${groupColor}26, ${groupColor}0d 52%, var(--bg-surface))`
+      : 'var(--surface-alt)';
 
   return (
     <Link
@@ -107,10 +111,15 @@ export function NameAllCard({ game }: { game: NameAllGame }) {
       aria-label={`${game.title}, name all game`}
       className="group block rounded-2xl border-[1.5px] border-[var(--border)] bg-[var(--bg-surface)] overflow-hidden transition-all duration-200 hover:border-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
-      {/* Cover: overlapping member avatars on a soft group-tinted field */}
+      {/* Cover: custom image or overlapping member avatars on a soft group-tinted field */}
       <div
         className="relative h-[128px] flex items-center justify-center overflow-hidden"
-        style={{ background: coverBg }}
+        style={{
+          background: hasCover ? undefined : coverBg,
+          backgroundImage: hasCover ? `url(${game.cover_url})` : undefined,
+          backgroundSize: hasCover ? 'cover' : undefined,
+          backgroundPosition: hasCover ? 'center' : undefined,
+        }}
       >
         <div className="flex items-center">
           {roster.map((item, i) => (

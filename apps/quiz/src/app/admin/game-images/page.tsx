@@ -44,7 +44,7 @@ export default async function GameImagesAdminPage(): Promise<React.ReactElement>
   // List existing images in the bucket (if it exists).
   let existingFiles: string[] = [];
   try {
-    const categories = ['header', 'hub', 'idol', 'group'];
+    const categories = ['header', 'hub', 'idol', 'group', 'card'];
     const lists = await Promise.all(
       categories.map(async (cat) => {
         const { data } = await svc.storage.from(BUCKET).list(cat, { limit: 500 });
@@ -116,9 +116,10 @@ export default async function GameImagesAdminPage(): Promise<React.ReactElement>
         photo_url: (m.photo_url as string | null) ?? (m.image_url as string | null) ?? null,
         position: (m.position as string) ?? '',
       }));
-      return { id: g.id as string, slug: g.slug as string, title: g.title as string, members };
+      const cover_url = (content?.cover_url as string | null) ?? findImage(`card/${g.slug}`) ?? null;
+      return { id: g.id as string, slug: g.slug as string, title: g.title as string, members, cover_url };
     })
-    .filter(Boolean) as Array<{ id: string; slug: string; title: string; members: Array<{ name: string; photo_url: string | null; position: string }> }>;
+    .filter(Boolean) as Array<{ id: string; slug: string; title: string; members: Array<{ name: string; photo_url: string | null; position: string }>; cover_url: string | null }>;
 
   return (
     <GameImageManager

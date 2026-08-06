@@ -22,6 +22,7 @@ interface NameAllGame {
   slug: string;
   title: string;
   members: Array<{ name: string; photo_url: string | null; position: string }>;
+  cover_url: string | null;
 }
 
 interface GroupItem {
@@ -118,12 +119,63 @@ function ImageSlotSection({ title, desc, slots: initial }: { title: string; desc
 }
 
 // ---------------------------------------------------------------------------
+// Section: Challenge Card Covers
+// ---------------------------------------------------------------------------
+function CardCoverSection({ games: initial }: { games: NameAllGame[] }): React.ReactElement {
+  const [games, setGames] = useState(initial);
+  const [search, setSearch] = useState('');
+
+  const onUploaded = useCallback((slug: string, url: string) => {
+    setGames((prev) =>
+      prev.map((g) => g.slug === slug ? { ...g, cover_url: url } : g),
+    );
+  }, []);
+
+  const filtered = search
+    ? games.filter((g) => g.title.toLowerCase().includes(search.toLowerCase()))
+    : games;
+
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={h2Style}>Challenge card covers</h2>
+      <p style={descStyle}>Upload custom cover images for individual game challenge cards. These replace the default gradient on the listing page.</p>
+
+      <input
+        type="text"
+        placeholder="Search games..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ display: 'block', width: '100%', maxWidth: 300, padding: '7px 12px', border: '1px solid var(--border)', borderRadius: 10, background: 'var(--surface)', fontSize: 12, color: 'var(--text-primary)', marginBottom: 12 }}
+      />
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
+        {filtered.map((g) => (
+          <div key={g.id} style={cardStyle}>
+            <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 10, overflow: 'hidden', background: 'var(--surface-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {g.cover_url ? (
+                <Image src={g.cover_url} alt={g.title} width={320} height={180} style={{ width: '100%', height: '100%', objectFit: 'cover' }} unoptimized />
+              ) : (
+                <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>Default gradient</span>
+              )}
+            </div>
+            <p style={{ margin: '6px 0 4px', fontSize: 12, fontWeight: 700, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{g.title}</p>
+            <UploadBtn label={g.cover_url ? 'Replace' : 'Upload cover'} imageKey={`card:${g.slug}`} onUploaded={(url) => onUploaded(g.slug, url)} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Section: Name All Idol Images
 // ---------------------------------------------------------------------------
 function IdolImageSection({ games: initial }: { games: NameAllGame[] }): React.ReactElement {
   const [games, setGames] = useState(initial);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'missing'>('missing');
+  const [filling, setFilling] = useState(false);
+  const [fillResult, setFillResult] = useState<{ updated: number; details: Array<{ game: string; member: string }> } | null>(null);
 
   const onUploaded = useCallback((gameSlug: string, memberIdx: number, url: string) => {
     setGames((prev) =>
@@ -136,6 +188,36 @@ function IdolImageSection({ games: initial }: { games: NameAllGame[] }): React.R
     );
   }, []);
 
+  const handleAutofill = useCallback(async () => {
+    setFilling(true);
+    setFillResult(null);
+    try {
+      const res = await fetch('/api/admin/game-image/autofill', { method: 'POST' });
+      const data = await res.json() as { updated: number; details: Array<{ game: string; member: string; photo_url: string }> };
+      setFillResult(data);
+      // Update local state with the filled photos
+      if (data.updated > 0) {
+        const photoMap = new Map<string, string>();
+        for (const d of data.details) {
+          photoMap.set(`${d.game}::${d.member}`, d.photo_url);
+        }
+        setGames((prev) =>
+          prev.map((g) => ({
+            ...g,
+            members: g.members.map((m) => {
+              const key = `${g.title}::${m.name}`;
+              const filled = photoMap.get(key);
+              return filled ? { ...m, photo_url: filled } : m;
+            }),
+          })),
+        );
+      }
+    } catch {
+      alert('Auto-fill failed. Check the console.');
+    }
+    setFilling(false);
+  }, []);
+
   const filtered = filter === 'missing'
     ? games.filter((g) => g.members.some((m) => !m.photo_url))
     : games;
@@ -145,7 +227,7 @@ function IdolImageSection({ games: initial }: { games: NameAllGame[] }): React.R
       <h2 style={h2Style}>Idol images (Name All Members)</h2>
       <p style={descStyle}>Upload photos for idols that only show a letter monogram. Uploading also updates the game data automatically.</p>
 
-      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
         <button type="button" onClick={() => setFilter('missing')} style={{ ...pillStyle, ...(filter === 'missing' ? pillActiveStyle : {}) }}>
           Missing only
         </button>
@@ -155,7 +237,34 @@ function IdolImageSection({ games: initial }: { games: NameAllGame[] }): React.R
         <span style={{ fontSize: 12, color: 'var(--text-tertiary)', alignSelf: 'center', marginLeft: 4 }}>
           {filtered.length} game{filtered.length !== 1 ? 's' : ''}
         </span>
+        <button
+          type="button"
+          disabled={filling}
+          onClick={handleAutofill}
+          style={{
+            ...pillStyle,
+            marginLeft: 'auto',
+            background: 'var(--brand-btn, #e8457a)',
+            color: '#fff',
+            borderColor: 'var(--brand-btn, #e8457a)',
+            opacity: filling ? 0.6 : 1,
+          }}
+        >
+          {filling ? 'Scanning...' : 'Auto-fill from database'}
+        </button>
       </div>
+
+      {fillResult && (
+        <div style={{
+          padding: '8px 12px', marginBottom: 12, borderRadius: 10,
+          background: fillResult.updated > 0 ? '#EAF3DE' : 'var(--surface-alt)',
+          border: '1px solid var(--border)', fontSize: 12,
+        }}>
+          {fillResult.updated > 0
+            ? `Filled ${fillResult.updated} photo${fillResult.updated !== 1 ? 's' : ''} from the idols database.`
+            : 'No matching photos found in the database. All missing idols need manual uploads.'}
+        </div>
+      )}
 
       {filtered.map((g) => {
         const missingCount = g.members.filter((m) => !m.photo_url).length;
@@ -296,6 +405,8 @@ export function GameImageManager({ headerSlots, hubSlots, nameAllGames, groups }
       />
 
       <GroupLogoSection groups={groups} />
+
+      <CardCoverSection games={nameAllGames} />
 
       <IdolImageSection games={nameAllGames} />
     </div>

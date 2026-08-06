@@ -3426,8 +3426,19 @@ a.ranking-cta { text-decoration: none; }
 .theme-toggle-icon { display: inline-flex; transition: transform 250ms ease; }
 .theme-toggle:hover .theme-toggle-icon { transform: rotate(18deg); }
 /* Desktop: the nav toggle is shown; the footer toggle is the mobile-only one
-   (the whole top nav - and its toggle - is hidden < 768px). One per breakpoint. */
-@media (min-width: 768px) { .footer-theme { display: none !important; } }
+   (the whole top nav - and its toggle - is hidden < 768px). One per breakpoint.
+   Mobile: the top-bar toggle is now the primary; hide footer theme there too. */
+.footer-theme { display: none !important; }
+
+/* Mobile top-bar theme toggle - sized to match 34px Search/Create buttons. */
+.mobile-top-theme { display: none; }
+@media (max-width: 767px) {
+  .mobile-top-theme {
+    display: inline-flex;
+    width: 34px; height: 34px; min-width: 34px;
+  }
+  .mobile-top-theme .theme-toggle-icon svg { width: 16px; height: 16px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }
