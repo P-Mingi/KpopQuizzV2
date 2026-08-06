@@ -18,58 +18,112 @@ const supabase = createClient(
   { auth: { autoRefreshToken: false, persistSession: false } },
 );
 
-type DeezerResult = { artist?: { name?: string }; album?: { cover_xl?: string; cover_big?: string } };
+// ---------------------------------------------------------------------------
+// Strategy: match blindtest's approach. The blindtest `songs` table stores a
+// deezer_track_id per song and fetches covers via the direct /track/{id} API.
+//
+// For tot_items we:
+//   1. Cross-reference against the songs table by title + artist.
+//      If matched, use the song's deezer_track_id for a direct /track/{id}
+//      lookup (same as blindtest) to get the correct cover_xl.
+//   2. If not in the songs table, search Deezer but ONLY accept results where
+//      the artist name matches. Never accept unrelated artist results.
+// ---------------------------------------------------------------------------
 
-function pickCover(results: DeezerResult[], artistLower: string): string | null {
-  // First try exact artist match
+type DeezerResult = { artist?: { name?: string }; album?: { cover_xl?: string; cover_big?: string } };
+type SongRow = { title: string; artist_name: string; deezer_track_id: number; album_cover_big: string | null };
+
+/** Load the full songs table (blindtest) for cross-referencing. */
+async function loadSongsTable(): Promise<SongRow[]> {
+  const all: SongRow[] = [];
+  let offset = 0;
+  const PAGE = 1000;
+  while (true) {
+    const { data } = await supabase
+      .from('songs')
+      .select('title, artist_name, deezer_track_id, album_cover_big')
+      .range(offset, offset + PAGE - 1);
+    if (!data || data.length === 0) break;
+    all.push(...(data as SongRow[]));
+    if (data.length < PAGE) break;
+    offset += PAGE;
+  }
+  return all;
+}
+
+/** Find a matching song in the blindtest table. */
+function findSongMatch(songs: SongRow[], title: string, artist: string): SongRow | null {
+  const titleLower = title.toLowerCase().trim();
+  const artistLower = artist.toLowerCase().trim();
+
+  // Exact title + artist contains
+  for (const s of songs) {
+    if (s.title.toLowerCase() === titleLower && s.artist_name.toLowerCase().includes(artistLower)) {
+      return s;
+    }
+  }
+  // Exact title + artist contains (reverse direction)
+  for (const s of songs) {
+    if (s.title.toLowerCase() === titleLower && artistLower.includes(s.artist_name.toLowerCase())) {
+      return s;
+    }
+  }
+  return null;
+}
+
+/** Fetch cover via direct /track/{id} API (same as blindtest). */
+async function fetchCoverByTrackId(trackId: number): Promise<string | null> {
+  try {
+    const res = await fetch(`https://api.deezer.com/track/${trackId}`);
+    const track = await res.json() as { album?: { cover_xl?: string; cover_big?: string } };
+    return track.album?.cover_xl || track.album?.cover_big || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Pick cover from search results, but ONLY if artist matches. Never accept random. */
+function pickCoverStrict(results: DeezerResult[], artistLower: string): string | null {
+  // Exact artist match
   for (const r of results) {
     if (r.artist?.name?.toLowerCase() === artistLower && (r.album?.cover_xl || r.album?.cover_big)) {
       return r.album!.cover_xl || r.album!.cover_big || null;
     }
   }
-  // Fallback: partial match
+  // Partial match (artist name contains or is contained by)
   for (const r of results) {
-    if (r.artist?.name?.toLowerCase().includes(artistLower) && (r.album?.cover_xl || r.album?.cover_big)) {
+    const rArtist = r.artist?.name?.toLowerCase() ?? '';
+    if ((rArtist.includes(artistLower) || artistLower.includes(rArtist)) && rArtist.length > 1 && (r.album?.cover_xl || r.album?.cover_big)) {
       return r.album!.cover_xl || r.album!.cover_big || null;
     }
   }
-  // Last resort: first result
-  if (results[0]?.album?.cover_xl || results[0]?.album?.cover_big) {
-    return results[0].album!.cover_xl || results[0].album!.cover_big || null;
-  }
+  // NO "first result" fallback. If the artist doesn't match, we skip.
   return null;
 }
 
-async function fetchDeezerCover(songTitle: string, artist: string): Promise<string | null> {
+/** Search Deezer for a cover. Only accepts results with matching artist. */
+async function fetchDeezerCoverBySearch(songTitle: string, artist: string): Promise<string | null> {
   const artistLower = artist.toLowerCase();
   try {
     // Try 1: structured artist + track search
     const q1 = encodeURIComponent(`artist:"${artist}" track:"${songTitle}"`);
-    const res1 = await fetch(`https://api.deezer.com/search?q=${q1}&limit=3`);
+    const res1 = await fetch(`https://api.deezer.com/search?q=${q1}&limit=5`);
     const data1 = await res1.json();
     const results1 = (data1.data ?? []) as DeezerResult[];
-    const cover1 = pickCover(results1, artistLower);
+    const cover1 = pickCoverStrict(results1, artistLower);
     if (cover1) return cover1;
 
-    // Try 2: plain search "songTitle artist" (catches solo credits, remixes, etc.)
+    // Try 2: plain search "songTitle artist"
     await new Promise(r => setTimeout(r, 200));
     const q2 = encodeURIComponent(`${songTitle} ${artist}`);
-    const res2 = await fetch(`https://api.deezer.com/search?q=${q2}&limit=3`);
+    const res2 = await fetch(`https://api.deezer.com/search?q=${q2}&limit=5`);
     const data2 = await res2.json();
     const results2 = (data2.data ?? []) as DeezerResult[];
-    const cover2 = pickCover(results2, artistLower);
+    const cover2 = pickCoverStrict(results2, artistLower);
     if (cover2) return cover2;
 
-    // Try 3: just the song title (last resort for very popular songs)
-    await new Promise(r => setTimeout(r, 200));
-    const q3 = encodeURIComponent(songTitle);
-    const res3 = await fetch(`https://api.deezer.com/search?q=${q3}&limit=3`);
-    const data3 = await res3.json();
-    const results3 = (data3.data ?? []) as DeezerResult[];
-    // For title-only search, accept any result with a cover
-    if (results3[0]?.album?.cover_xl || results3[0]?.album?.cover_big) {
-      return results3[0].album!.cover_xl || results3[0].album!.cover_big || null;
-    }
+    // NO title-only fallback. That produces wrong results (e.g. Billy Joel
+    // for aespa's "Live My Life"). Better to have no cover than a wrong one.
   } catch (err) {
     console.error(`  Deezer API error for "${songTitle}" by "${artist}":`, err);
   }
@@ -77,29 +131,25 @@ async function fetchDeezerCover(songTitle: string, artist: string): Promise<stri
 }
 
 // Extract artist name from a single-artist category title.
-// "Best aespa song?" => "aespa"
-// "Best BTS song?" => "BTS"
-// "Best Stray Kids song?" => "Stray Kids"
-// Multi-artist titles like "Iconic K-pop songs" => null (use subtitle instead)
 function extractArtistFromTitle(title: string): string | null {
-  // Pattern: "Best {ARTIST} song(s)?"  or  "{ARTIST} songs"
   const m = title.match(/^(?:Best\s+)?(.+?)\s+songs?\s*\??$/i);
   if (!m) return null;
   const candidate = m[1]!.trim();
-  // Reject generic/multi-artist titles
   const rejects = ['k-pop', 'kpop', '4th gen', '3rd gen', 'iconic', 'best', 'top', 'popular', 'boy group', 'girl group', 'hit'];
   if (rejects.some(r => candidate.toLowerCase().includes(r))) return null;
   return candidate;
 }
 
 // Usage: npx tsx scripts/fetch-deezer-covers.ts [--force]
-// --force: re-fetch covers even if they already exist (to fix wrong ones)
 const forceMode = process.argv.includes('--force');
 
 async function main() {
-  console.log(`Fetching Deezer album covers for song items...${forceMode ? ' (FORCE mode: overwriting existing)' : ''}\n`);
+  console.log(`Fetching Deezer album covers for song items...${forceMode ? ' (FORCE mode)' : ''}\n`);
 
-  // Get all song categories
+  // Load blindtest songs table for cross-referencing
+  const songsTable = await loadSongsTable();
+  console.log(`Loaded ${songsTable.length} songs from blindtest table for cross-reference.\n`);
+
   const { data: categories } = await supabase
     .from('tot_categories')
     .select('id, title, type')
@@ -115,6 +165,8 @@ async function main() {
   let updated = 0;
   let skipped = 0;
   let notFound = 0;
+  let fromBlindtest = 0;
+  let fromSearch = 0;
 
   for (const cat of categories) {
     const { data: items } = await supabase
@@ -124,22 +176,15 @@ async function main() {
 
     if (!items) continue;
 
-    // Derive the artist from the category title for single-artist categories.
-    // Falls back to item.subtitle for multi-artist categories (where subtitle IS
-    // the artist, e.g. "aespa" in an "Iconic K-pop songs" category).
     const catArtist = extractArtistFromTitle(cat.title);
-
     console.log(`[${cat.title}] ${items.length} songs (artist: ${catArtist ?? 'per-item subtitle'})`);
 
     for (const item of items) {
-      // Skip if already has an image (unless --force)
       if (item.image_url && !forceMode) {
         skipped++;
         continue;
       }
 
-      // The search artist: category-level artist for single-artist categories,
-      // or the subtitle for multi-artist categories.
       const artist = catArtist || item.subtitle || '';
       if (!artist) {
         console.log(`  ? ${item.name} - no artist info, skipping`);
@@ -147,25 +192,42 @@ async function main() {
         continue;
       }
 
-      // Rate limit: 1 request per 250ms to be nice to Deezer
       await new Promise(r => setTimeout(r, 250));
 
-      const cover = await fetchDeezerCover(item.name, artist);
+      // Step 1: Try to find in blindtest songs table
+      const songMatch = findSongMatch(songsTable, item.name, artist);
+      let cover: string | null = null;
+      let source = '';
+
+      if (songMatch) {
+        // Use direct /track/{id} API (same as blindtest)
+        cover = await fetchCoverByTrackId(songMatch.deezer_track_id);
+        source = `track/${songMatch.deezer_track_id}`;
+      }
+
+      // Step 2: Search Deezer (strict artist matching only)
+      if (!cover) {
+        cover = await fetchDeezerCoverBySearch(item.name, artist);
+        source = 'search';
+      }
+
       if (cover) {
         await supabase
           .from('tot_items')
           .update({ image_url: cover })
           .eq('id', item.id);
         updated++;
-        console.log(`  + ${item.name} by ${artist}`);
+        if (source.startsWith('track/')) fromBlindtest++;
+        else fromSearch++;
+        console.log(`  + ${item.name} by ${artist} (${source})`);
       } else {
         notFound++;
-        console.log(`  - ${item.name} by ${artist} - not found on Deezer`);
+        console.log(`  - ${item.name} by ${artist} - not found`);
       }
     }
   }
 
-  console.log(`\nDone. Updated: ${updated}, Skipped (already had image): ${skipped}, Not found: ${notFound}`);
+  console.log(`\nDone. Updated: ${updated} (${fromBlindtest} from blindtest, ${fromSearch} from search), Skipped: ${skipped}, Not found: ${notFound}`);
 }
 
 main().catch(err => {

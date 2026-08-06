@@ -154,7 +154,7 @@ async function TrendingSection(): Promise<React.ReactElement> {
   if (quizzes.length === 0) return <></>;
 
   return (
-    <section className="home-section">
+    <section className="home-section home-section-tight">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>Trending this week</p>
         <Link href="/quizzes/popular-this-week" style={SEE_ALL}>See all →</Link>
@@ -185,7 +185,7 @@ async function NewQuizzesSection(): Promise<React.ReactElement> {
   if (quizzes.length === 0) return <></>;
 
   return (
-    <section className="home-section">
+    <section className="home-section home-section-tight">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>New quizzes</p>
         <Link href="/quizzes/new" style={SEE_ALL}>See all &#8594;</Link>
