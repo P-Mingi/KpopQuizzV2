@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { fetchAllRows } from '@/lib/db/fetch-all';
 
 import type { NextRequest } from 'next/server';
 
@@ -50,8 +51,6 @@ interface SongRow {
   gender: string | null;
   generation: string | null;
   tier: Tier | null;
-  wrong_answers_artist: string[];
-  wrong_answers_title: string[];
 }
 
 interface Question {
@@ -207,68 +206,61 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const isGroupPlaylist = !GENERAL_PLAYLISTS.has(playlist);
 
-  let query = supabase
-    .from('songs')
-    .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, tier, wrong_answers_artist, wrong_answers_title')
-    .eq('status', 'active');
-
-  // Curation: general (non-group) playlists pull from the curated subset when
-  // enabled. Group playlists use the full group catalog.
-  if (process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && !isMultiGroup && playlist !== 'deep') {
-    query = query.eq('is_curated', true);
-  }
-
-  // Light title guard. Junk is already excluded at import; this is belt and
-  // braces for any future rows.
-  query = query
-    .not('title', 'ilike', '%remix%')
-    .not('title', 'ilike', '%instrumental%')
-    .not('title', 'ilike', '%inst.%')
-    .not('title', 'ilike', '%karaoke%');
+  // Resolve the playlist to a reusable filter modifier AFTER any async group lookups, so the
+  // pool query can be rebuilt fresh per page by fetchAllRows below (a built query awaits once).
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let applyPlaylist: (q: any) => any = (q) => q;
 
   if (isMultiGroup) {
-    // Union of the picked groups' catalogs (matched by group_id, same as the
-    // single-group path). Unknown slugs are dropped; an empty result falls
-    // through to the not-enough-songs guard.
+    // Union of the picked groups' catalogs (matched by group_id). Unknown slugs are dropped;
+    // an empty result falls through to the not-enough-songs guard.
     const { data: grps } = await supabase.from('groups').select('id').in('slug', groupSlugs);
     const ids = (grps ?? []).map((g) => g.id as number);
-    if (ids.length > 0) query = query.in('group_id', ids);
-    else query = query.eq('group_id', -1); // no valid groups -> empty pool
+    applyPlaylist = ids.length > 0 ? (q) => q.in('group_id', ids) : (q) => q.eq('group_id', -1);
   } else if (isGroupPlaylist) {
     const { data: group } = await supabase
       .from('groups').select('id, name').eq('slug', playlist).maybeSingle();
     if (group?.id) {
-      // Primary: match by group_id. This is robust and consistent with the
-      // setup picker - it avoids punctuation/romanization mismatches and the
-      // PostgREST filter-parsing issues an artist_name ilike hits on names like
-      // "(G)I-DLE" or "f(x)" (parentheses), which caused "not enough songs".
+      // Primary: match by group_id - robust vs punctuation/romanization and the PostgREST
+      // filter-parsing issues an artist_name ilike hits on names like "(G)I-DLE" or "f(x)".
       const { count } = await supabase
         .from('songs').select('id', { count: 'exact', head: true })
         .eq('status', 'active').eq('group_id', group.id);
-      if ((count ?? 0) > 0) {
-        query = query.eq('group_id', group.id);
-      } else if (group.name) {
-        // Fallback only when a group has no group_id rows yet.
-        query = query.ilike('artist_name', group.name as string);
-      }
+      if ((count ?? 0) > 0) applyPlaylist = (q) => q.eq('group_id', group.id as number);
+      else if (group.name) applyPlaylist = (q) => q.ilike('artist_name', group.name as string);
     } else {
-      query = query.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
+      applyPlaylist = (q) => q.ilike('artist_name', `%${playlist.replace(/-/g, ' ')}%`);
     }
   } else {
     switch (playlist) {
-      case 'gg': query = query.eq('gender', 'gg'); break;
-      case 'bg': query = query.eq('gender', 'bg'); break;
-      case 'solo': query = query.in('gender', ['solo_female', 'solo_male']); break;
+      case 'gg': applyPlaylist = (q) => q.eq('gender', 'gg'); break;
+      case 'bg': applyPlaylist = (q) => q.eq('gender', 'bg'); break;
+      case 'solo': applyPlaylist = (q) => q.in('gender', ['solo_female', 'solo_male']); break;
       case '1st-gen': case '2nd-gen': case '3rd-gen': case '4th-gen': case '5th-gen':
-        query = query.eq('generation', GEN_MAP[playlist]!); break;
-      case 'title-tracks': query = query.eq('is_title_track', true); break;
-      case 'hits': query = query.in('tier', ['iconic', 'popular']); break;
-      case 'deep': query = query.in('tier', ['medium', 'hard', 'unknown']); break;
+        applyPlaylist = (q) => q.eq('generation', GEN_MAP[playlist]!); break;
+      case 'title-tracks': applyPlaylist = (q) => q.eq('is_title_track', true); break;
+      case 'hits': applyPlaylist = (q) => q.in('tier', ['iconic', 'popular']); break;
+      case 'deep': applyPlaylist = (q) => q.in('tier', ['medium', 'hard', 'unknown']); break;
     }
   }
 
-  const { data } = await query.limit(5000);
-  const pool = (data ?? []) as SongRow[];
+  // Curation: general (non-group) playlists pull from the curated subset when enabled.
+  const applyCurated = process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && !isMultiGroup && playlist !== 'deep';
+
+  // Read the WHOLE filtered pool, paginating PAST PostgREST's 1000-row cap. Before this, any
+  // pool over 1000 songs (gg 1190, bg 1350, 4th-gen 1097, all 4120) returned only the oldest
+  // 1000 by id - so newly added songs never surfaced and most of the catalog was unreachable
+  // in those games. The title guard is belt-and-braces (junk is excluded at import).
+  const makeQuery = () => {
+    let q = supabase
+      .from('songs')
+      .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, tier')
+      .eq('status', 'active');
+    if (applyCurated) q = q.eq('is_curated', true);
+    q = q.not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
+    return applyPlaylist(q);
+  };
+  const pool = await fetchAllRows<SongRow>(makeQuery);
 
   if (pool.length < count) {
     return NextResponse.json(
