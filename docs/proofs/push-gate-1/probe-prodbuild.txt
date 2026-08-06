@@ -1,0 +1,6 @@
+  /verse/bts                     -> 302  /verse
+  /verse/bts/members/jungkook    -> 302  /verse
+  /build                         -> 302  /verse
+  /admin/space-images            -> 302  /verse
+  /verse                         -> 200  
+  /verse/promises                -> 200  

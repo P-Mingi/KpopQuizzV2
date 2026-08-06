@@ -1,0 +1,12 @@
+Already up to date.
+
+CONTEXT: play-games (f860d32 "fix: tsc repairs") is an ANCESTOR of main - it is main~1,
+already contained. `git merge-base --is-ancestor play-games main` => yes. The worktree
+.worktrees/play-games is clean (no uncommitted commits). So there was NO divergent games
+batch to merge: the games work is already on main (the games chat committed directly to
+main before/around the worktree split, then advanced nothing new on the branch). Not a
+conflict, so not a hard block - but flagged for the owner: confirm the games batch is
+actually complete on main before pushing, or advance play-games and re-run PG-3.
+
+Post-merge gates on main (unchanged state): tsc 0, check:routes 342, verse-tokens clean,
+PG-1 probe still 302s every gated route (dev + prod build). Nothing reopened.

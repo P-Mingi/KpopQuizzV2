@@ -19,8 +19,11 @@ When resolved, the worker clears the entry and continues.
 
 ---
 
-## vbuilder3-step5 - precondition not met: the concurrent chat still shares this worktree
-tsc is now clean (precondition 1 met), BUT the "dev server is quiet" precondition is NOT: the concurrent chat is still here (owns uncommitted game-images/name-them-all[x2]/verse/page.tsx + new prototypes/foundation-prototypes.html, and committed b59bd11/b19c21b/cc80b15 after my step 4). Per the mission I stop until the owner finishes moving it to its own worktree; then R-A (scriptable) + R-B (screenshots) + step 5 in one pass. Nothing started, nothing touched.
+(no hard blockers)
+
+FLAG for the owner - PUSH-GATE-1 PG-3 was a no-op: `git merge play-games` -> "Already up to date". play-games (f860d32) is main~1, its worktree is clean, no divergent games batch exists to merge (the games work is already on main). Not a conflict. Confirm the games batch is complete on main before pushing, OR advance play-games and re-run PG-3. PG-1 (VERSE_PUBLIC hide) + PG-2 (prod head snapshots) are DONE; see docs/proofs/push-gate-1/ + the REPORT.
+
+(resolved) vbuilder3-step5 precondition: the games chat was moved to .worktrees/play-games, main is single-writer again, tsc clean. Step 5 + R-A/R-B run AFTER the push (per the current mission).
 
 vbuilder3-step4 blocker CLEARED: owner ruled all four governance questions (L-068)
 and applied migration 147 (idols.origin / created_by / detached_at). Step 4 built to
