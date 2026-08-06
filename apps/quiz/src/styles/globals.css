@@ -1746,11 +1746,15 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 }
 .trending-carousel::-webkit-scrollbar { display: none; }
 /* Equal-height cards: item stretches to the tallest, card fills the item. */
-.trending-item { flex: 0 0 300px; max-width: 84vw; scroll-snap-align: start; display: flex; }
-.trending-item > .quiz-card { width: 100%; height: 100%; }
-/* A fixed square cover anchors the card height, and centering the cover + body
-   keeps a short (1-line) title from leaving a gap above the meta. */
-.trending-item .quiz-card { align-items: center; }
+.trending-item { flex: 0 0 300px; max-width: 84vw; min-width: 0; scroll-snap-align: start; display: flex; }
+/* Every card fills its item so ALL cards are the same width (300px, or 84vw on a narrow
+   phone) and the scroll-snap gaps stay even. A DESCENDANT selector (not '>') is required:
+   each card is wrapped in the hover shell's display:contents <div>, which keeps its box out
+   of layout but is still a real DOM child, so '>' would miss every card and let it size to
+   its own content (the 259-330px spread that made the row look ragged). min-width:0 on the
+   item stops a long title from forcing one card wider than the rest. A fixed square cover
+   anchors the height; centering keeps a 1-line title from gapping above the meta. */
+.trending-item .quiz-card { width: 100%; height: 100%; align-items: center; }
 .trending-item .quiz-cover { width: 80px; height: 80px; }
 .trending-item .quiz-title { min-height: 0; margin-bottom: 4px; }
 
