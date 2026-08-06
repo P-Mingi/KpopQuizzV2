@@ -1,46 +1,58 @@
-# /caveman report - PUSH-GATE-1b: reconcile remote - BLOCKED at merge conflicts (owner rules)
+# /caveman report - PUSH-GATE-1b: reconcile DONE (owner rulings A-D applied), gate re-proven
 
-Did 1b-1 (inventory the remote delta) and attempted 1b-2 (merge). The merge conflicts on 19
-files where the local rebuilds and Mingi's PRs both touched the same code, so per the mission I
-resolved NOTHING, aborted the merge (tree clean, still 304 ahead / 18 behind), and hand the
-resolution to the owner. 1b-3 (build + re-prove + re-capture heads) waits for the rulings.
-Nothing pushed.
+Applied the owner's A-D rulings (L-084) to the `origin/main` merge, re-proved the gate at the
+merged tip, and left main STRICTLY ahead of origin/main so the owner's push is a clean
+fast-forward. Nothing pushed.
 
-## 1b-1 - the remote delta (docs/proofs/push-gate-1/remote-delta.txt)
+## 1b-2 - the merge (commit ae93720, "merge: reconcile origin/main (push-gate-1b, owner rulings A-D)")
 
-18 commits, all P-Mingi GitHub PR merges (Jul 30 - Aug 3) that were merged on GitHub but never
-pulled locally: SEO fixes (og/group Satori 500, robots, sitemap /u trim, /quizzes FAQ), profile
-alignment (/me + /u), a 5-tier badges redesign, the Pinterest per-question pipeline (~2900 pins
-+ RSS feed), the /games hub redesign + Sort It / Match-Up, home/search circular coins, and mobile
-polish. Per-commit triage in the file: much of Play (games, home, mobile, badges, pinterest) was
-REBUILT locally in another form; a few are fixes local never got (og Satori, robots, /me+/u
-alignment, games build-guard, the RSS feed).
+Re-ran `git merge origin/main`; 19 conflicts, resolved EXACTLY per the rulings:
+- A) games/home/mobile (games-hub, match-up/sort-it players + [slug] pages, name-them-all,
+  home-group-pills, mobile-top-bar) -> LOCAL. Removed remote's net-new game-preview.tsx +
+  games-spotlight.tsx (backlog per A) AND the orphaned game-mode-card.tsx + gotd-ui.ts that
+  only referenced them (local's self-contained hub imports none of the cluster; nothing kept
+  references them - verified 0 imports).
+- B) styles/globals.css -> UNION. Kept local's carousel-arrow/trending/quiz-row blocks + the
+  Verse block; remote's non-conflicting games/badges/mobile CSS auto-merged in. Remote's `.bcoin`
+  block was a DUPLICATE of local's already-present `.bcoin` (globals.css:812) - dropped the dup
+  (no duplicate selectors), so the audited local badge coin styling is the single source.
+- C) SPLIT: /u + /me 520-col alignment -> REMOTE (a fix local never had). Badges system
+  (badge-icon, badge-grid, badges.ts) -> LOCAL (V-UPGRADE-1; local badges.ts already exports the
+  full rarity API that badge-coin.tsx consumes). Remote's 5-tier rarity LOOK -> BACKLOG.
+- D) Pinterest pipeline (question-pin*, generate route/script) -> REMOTE. Regenerating the
+  manifest/csv against the current DB TIMED OUT (>3 min over ~2900 quizzes in this sandbox), so
+  per the ruling's fallback I shipped remote's committed artifacts as-is - FLAGGED: manifest/csv
+  reflect P-Mingi's Aug-3 catalog, not today's; re-run `npx tsx scripts/generate-question-pins.mts`
+  in a normal env to refresh.
 
-## 1b-2 - the merge conflicts (19 files) -> BLOCKED
+## 1b-3 - re-proved the gate at the merged tip
 
-`git merge origin/main` auto-merged the non-overlapping files but conflicted on 19 (12 content,
-7 add/add). Grouped, with my recommendation (full detail + file list in BLOCKED.md):
-- A) Play surfaces rebuilt locally (games hub, players, home pills, mobile top bar): take LOCAL,
-  graft the small net-new remote bits. Open call: adopt Mingi's net-new game-preview /
-  games-spotlight into the local hub, or drop them?
-- B) styles/globals.css: UNION - both added distinct blocks (my carousel-arrow/quiz-row work vs
-  Mingi's games/badges/mobile styles); careful hand-merge, not a side-pick.
-- C) profile + badges (/u, badge-icon, badge-grid, badges.ts): diverged; owner picks the badges
-  system (remote is a 5-tier redesign) + likely takes remote's /u 520-col alignment.
-- D) Pinterest (question-pin*, generate route/script, manifest/csv): diverged; remote pipeline is
-  fuller (~2900 + RSS) - likely take remote, and REGENERATE the manifest/csv artifacts (never
-  hand-merge generated files).
+- tsc 0 · check:routes 343 · verse-tokens clean · full `npm run build` SUCCEEDED (buildability
+  confirmed at the merged tip; the build script runs routes + tokens too).
+- PG-1 anonymous probe on the MERGED prod build (hidden): /verse/bts, members, community, /build,
+  admin all 302 -> /verse; /verse + /verse/promises 200 (probe-merged.txt). The merge did not
+  reopen the gate.
+- PG-2 heads re-captured at the merged tip -> docs/proofs/push-gate-1/heads-local-2.txt (same 8
+  quiz surfaces; consistent with heads-local.txt - the pre-existing doubled "| KpopQuiz" suffix on
+  /blindtest + /rankings persists, unchanged by the merge).
+- Em-dash clean on the merged source files. Main STRICTLY AHEAD: `git rev-list --left-right --count
+  origin/main...main` = 0 (behind) / 306 (ahead). Clean fast-forward for the owner.
 
-## What unblocks it
+## Also this turn (owner-flagged, separate commit 924fe1c)
 
-One ruling per group A-D (or per file). The simplest form - "A local, B union, C remote, D remote
-+ regenerate" - is enough; I then re-run the merge, apply exactly those resolutions (nothing
-blind), and continue to 1b-3: tsc + check:routes + verse-tokens + full npm run build, re-run the
-PG-1 anonymous probe on the prod build (hidden), re-capture the PG-2 heads to heads-local-2.txt,
-em-dash clean on the merged files.
+The owner noticed the mobile top-bar search icon disappeared. Cause: ruling A took the LOCAL
+mobile top bar, which predated P-Mingi's "mobile search button" (ac5408c). Restored just that
+button onto the local top bar (a /search link, same 34px footprint as the +, outline style,
+Play-only, to its left) - verified on the mobile viewport.
+
+## Backlog (from the rulings, for the Play track)
+
+- game-preview.tsx + games-spotlight.tsx (P-Mingi's net-new games-hub components; not merged).
+- Remote's 5-tier badge RARITY look, to be re-applied OVER the local (V-UPGRADE-1) badge system.
+- Refresh the Pinterest manifest/csv from the current DB (regen timed out here).
 
 ## STOP
 
-Merge aborted (local tip 94a3a2b intact, my ScrollRow / blindtest / VERSE_PUBLIC work preserved).
-Receipt committed (remote-delta.txt + BLOCKED.md + this report). Nothing pushed. Waiting on the
-owner's A-D rulings.
+Merge + re-proof committed. Nothing pushed. Cowork re-audits the heads vs live prod, the owner
+sets VERSE_PUBLIC=false in Vercel Production, and the OWNER pushes (clean fast-forward) from a
+plain terminal. Step 5 + R-A/R-B follow the push.

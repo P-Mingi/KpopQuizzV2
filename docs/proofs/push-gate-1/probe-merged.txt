@@ -1,0 +1,9 @@
+PUSH-GATE-1b 1b-3 - PG-1 anonymous probe on the MERGED prod build (VERSE_PUBLIC hidden, :3000)
+
+  /verse/bts                       -> 302  /verse
+  /verse/bts/members/jungkook      -> 302  /verse
+  /verse/bts/community             -> 302  /verse
+  /build                           -> 302  /verse
+  /admin/space-images              -> 302  /verse
+  /verse                           -> 200  
+  /verse/promises                  -> 200  

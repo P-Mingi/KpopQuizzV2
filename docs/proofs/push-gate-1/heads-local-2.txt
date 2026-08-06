@@ -1,0 +1,66 @@
+PUSH-GATE-1b 1b-3 - HEAD SNAPSHOTS at the MERGED tip (local production build, VERSE_PUBLIC hidden, :3000)
+Same route list as PG-2 heads-local.txt. Cowork re-diffs vs live prod (the 18 merged commits could move heads).
+
+### /
+  title:     KpopQuiz - K-pop Quizzes Made by Fans
+  desc:      Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made
+  canonical: https://kpopquiz.org
+  robots:    (default: index,follow)
+  og:title:  KpopQuiz - K-pop Quizzes Made by Fans
+  json-ld @type: Organization, SiteNavigationElement, WebPage, WebSite, SearchAction, EntryPoint
+
+### /games
+  title:     K-pop Games: Blind Test, This or That, Which Member | KpopQuiz
+  desc:      Play free K-pop games: guess the song in a blind test, pick sides in This or That, find out which id
+  canonical: https://kpopquiz.org/games
+  robots:    (default: index,follow)
+  og:title:  K-pop Games | KpopQuiz
+  json-ld @type: Organization, SiteNavigationElement, WebPage, CollectionPage, ItemList, ListItem
+
+### /blindtest
+  title:     K-pop Blind Test - Guess the Song from a Clip | KpopQuiz | KpopQuiz
+  desc:      Play the free K-pop blind test: listen to a 10-second clip and guess the song or artist. 300+ songs 
+  canonical: https://kpopquiz.org/blindtest
+  robots:    (default: index,follow)
+  og:title:  K-pop Blind Test - Guess the Song from a Clip
+  json-ld @type: Organization, SiteNavigationElement, WebPage, BreadcrumbList, ListItem, FAQPage, Question, Answer, WebApplication, Offer
+
+### /games/name-them-all
+  title:     Name Them All: K-pop Type-Them-All Challenges | KpopQuiz
+  desc:      Name every K-pop group, every member of BTS, BLACKPINK, SEVENTEEN, and more before the timer runs ou
+  canonical: https://kpopquiz.org/games/name-them-all
+  robots:    (default: index,follow)
+  og:title:  Name Them All | KpopQuiz
+  json-ld @type: Organization, SiteNavigationElement, WebPage, BreadcrumbList, ListItem, WebSite
+
+### /games/sort-it
+  title:     K-pop Sort It: Fast Group Sorting Quizzes | KpopQuiz
+  desc:      Sort real K-pop groups into two buckets against the clock. Boy group or girl group, 3rd gen or 4th g
+  canonical: https://kpopquiz.org/games/sort-it
+  robots:    (default: index,follow)
+  og:title:  K-pop Sort It | KpopQuiz
+  json-ld @type: Organization, SiteNavigationElement, WebPage, BreadcrumbList, ListItem, WebSite
+
+### /quizzes
+  title:     K-pop Quizzes: 390+ Free Fan-Made Tests, Every Group | KpopQuiz
+  desc:      Browse 390+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or m
+  canonical: https://kpopquiz.org/quizzes
+  robots:    (default: index,follow)
+  og:title:  Browse K-pop Quizzes | KpopQuiz
+  json-ld @type: Organization, SiteNavigationElement, WebPage, BreadcrumbList, ListItem, FAQPage, Question, Answer
+
+### /rankings
+  title:     K-pop Fan Rankings | KpopQuiz | KpopQuiz
+  desc:      Live fan-voted rankings: who fans pick as the best idols, songs, and groups in head-to-head matchups
+  canonical: https://kpopquiz.org/rankings
+  robots:    (default: index,follow)
+  og:title:  KpopQuiz - Play K-pop Quizzes Made by Fans for Fans
+  json-ld @type: Organization, SiteNavigationElement, WebPage, BreadcrumbList, ListItem
+
+### /pt/leaderboard
+  title:     Ranking de K-pop - Top Fas e Criadores | KpopQuiz | KpopQuiz
+  desc:      Os melhores criadores e jogadores de quiz de K-pop do kpopquiz.org. Veja quem esta em alta esta sema
+  canonical: https://kpopquiz.org/pt/leaderboard
+  robots:    index, follow
+  og:title:  Ranking de K-pop | KpopQuiz
+  json-ld @type: Organization, SiteNavigationElement, WebPage
