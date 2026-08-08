@@ -6,6 +6,7 @@ import {
   createPage, savePage, renamePage, movePage, publishPage, trashPage, restorePage,
   revertToRevision, listRevisions, recentChanges,
 } from '@/lib/verse/tree/data';
+import { wantedPages, orphanPages } from '@/lib/verse/tree/links';
 
 import type { NextRequest } from 'next/server';
 import type { PageBody } from '@/lib/verse/tree/types';
@@ -41,6 +42,17 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     if (!pageId) return NextResponse.json({ error: 'page_id required' }, { status: 400 });
     return NextResponse.json({ revisions: await listRevisions(svc, pageId) });
   }
+  if (kind === 'search') {
+    // search-first typeahead for the create dialog (no silent duplicates, C6).
+    const q = (url.searchParams.get('q') ?? '').trim();
+    if (q.length < 1) return NextResponse.json({ results: [] });
+    const { data } = await svc.from('pages').select('id, slug, title, type')
+      .eq('space_id', groupId).neq('status', 'trash').neq('type', 'portal')
+      .ilike('title', `%${q}%`).order('title').limit(8);
+    return NextResponse.json({ results: (data as { id: number; slug: string; title: string; type: string }[] | null) ?? [] });
+  }
+  if (kind === 'wanted') return NextResponse.json({ wanted: await wantedPages(svc, groupId, 50) });
+  if (kind === 'orphans') return NextResponse.json({ orphans: await orphanPages(svc, groupId, 100) });
   return NextResponse.json({ changes: await recentChanges(svc, groupId, 50) });
 }
 

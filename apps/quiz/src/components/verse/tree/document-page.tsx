@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import { DocToc } from './doc-toc';
 import { extractToc, headingAnchors } from '@/lib/verse/tree/toc';
+import { templateSections } from '@/lib/verse/tree/templates';
 import type { PageRow, PageBlock } from '@/lib/verse/tree/types';
 import type { FactSection } from '@/lib/verse/tree/factrail';
 
@@ -24,6 +25,7 @@ export interface DocumentPageProps {
   backlinks?: { count: number; sample: { slug: string; title: string }[] };
   revisionCount: number;
   updatedAt: string;
+  existingSlugs?: string[];   // link targets that already exist (else the link is a ghost, C6)
 }
 
 function fmt(iso: string): string {
@@ -34,11 +36,13 @@ function fmt(iso: string): string {
 }
 
 export function DocumentPage(props: DocumentPageProps): React.ReactElement {
-  const { page, crumbs, facts, navbox, tags, backlinks, revisionCount, updatedAt, hangul } = props;
+  const { page, crumbs, facts, navbox, tags, backlinks, revisionCount, updatedAt, hangul, spaceSlug } = props;
   const blocks = page.blocks?.blocks ?? [];
   const anchors = headingAnchors(page.blocks);
   const toc = extractToc(page.blocks);
   const indexable = page.status === 'published' && !page.is_stub;
+  const existing = new Set(props.existingSlugs ?? []);
+  const sectionHints = page.is_stub ? templateSections(page.type) : [];
 
   return (
     <div className="vdoc">
@@ -60,10 +64,22 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
         <div className="vdoc-editline">
           <span>{revisionCount} revision{revisionCount === 1 ? '' : 's'}</span>
           <span>updated {fmt(updatedAt)}</span>
-          <span className={indexable ? 'vdoc-chip data' : 'vdoc-chip'}>{indexable ? 'indexable' : 'draft'}</span>
+          <span className={indexable ? 'vdoc-chip data' : 'vdoc-chip'}>{indexable ? 'indexable' : page.status === 'published' ? 'noindex' : 'draft'}</span>
+          <span className="vdoc-chip">{(backlinks?.count ?? 0)} inbound link{(backlinks?.count ?? 0) === 1 ? '' : 's'}</span>
         </div>
 
-        {blocks.map((b, i) => <BodyBlock key={b.id ?? i} block={b} anchor={anchors.get(b)} lead={i === firstTextIndex(blocks)} />)}
+        {/* Honest stub state (C5/C6, prototype note 6): the page says what it is missing
+            instead of faking substance. It stays noindex until real content or a binding. */}
+        {page.is_stub ? (
+          <div className="vdoc-stub" role="note">
+            <p><strong>This page is an honest shell</strong> - nothing invented, nothing generated. It stays invisible to search until it has real content or a data binding.</p>
+            {sectionHints.length > 0 ? (
+              <p>The {page.type} template offers its sections: {sectionHints.map((s, i) => <span key={s}>{i > 0 ? ' · ' : ''}{s}</span>)}.</p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {blocks.map((b, i) => <BodyBlock key={b.id ?? i} block={b} anchor={anchors.get(b)} lead={i === firstTextIndex(blocks)} spaceSlug={spaceSlug} existing={existing} />)}
 
         {(tags?.length || navbox?.items.length || (backlinks && backlinks.count > 0)) ? (
           <div className="vdoc-foot">
@@ -131,13 +147,22 @@ function firstTextIndex(blocks: PageBlock[]): number {
 
 // One body block -> its element. Text is escaped by React (never innerHTML). Unknown
 // block types are skipped (forward-compatible: a new block type never breaks an old page).
-function BodyBlock({ block, anchor, lead }: { block: PageBlock; anchor?: string | undefined; lead: boolean }): React.ReactElement | null {
+function BodyBlock({ block, anchor, lead, spaceSlug, existing }: { block: PageBlock; anchor?: string | undefined; lead: boolean; spaceSlug: string; existing: Set<string> }): React.ReactElement | null {
   const text = typeof block.text === 'string' ? block.text : '';
   switch (block.type) {
     case 'heading': {
       const level = block.level === 3 ? 3 : 2;
       if (level === 3) return <h3>{text}</h3>;
       return <h2 id={anchor}>{text}<a className="anchor" href={`#${anchor}`} aria-hidden="true" tabIndex={-1}>#</a></h2>;
+    }
+    case 'link': {
+      // C6 ghost link: a target that exists is a normal link; a missing one renders dashed
+      // and opens the create dialog prefilled (the honest red-link that drives creation).
+      const toSlug = typeof block.to_slug === 'string' ? block.to_slug : '';
+      const label = typeof block.label === 'string' && block.label.trim() ? block.label : toSlug;
+      if (!toSlug) return null;
+      if (existing.has(toSlug)) return <p><Link href={`/verse/${spaceSlug}/${toSlug}`}>{label}</Link></p>;
+      return <p><Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(toSlug)}&title=${encodeURIComponent(label)}`}>{label} <span aria-hidden="true">+ create</span></Link></p>;
     }
     case 'text': {
       const body = typeof block.html === 'string' ? block.html : text;

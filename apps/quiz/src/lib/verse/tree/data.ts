@@ -13,6 +13,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { pageSlug, uniqueSlug, isValidSlug } from './slug';
 import { templateBody, isPageType } from './templates';
+import { syncPageLinks, resolveGhostsTo } from './links';
 import { PAGE_BODY_EMPTY } from './types';
 import type { PageBody, PageRow, PageRevisionRow, RecentChange, PageStatus } from './types';
 
@@ -113,6 +114,8 @@ export async function createPage(svc: SupabaseClient, input: CreatePageInput): P
   if (error || !data) return { error: error?.message ?? 'Could not create the page.' };
   const page = data as PageRow;
   await writeRevision(svc, page, input.createdBy);   // C3: creation is revision 1
+  await syncPageLinks(svc, page);                     // C6: store this page's outbound links
+  await resolveGhostsTo(svc, page);                   // C6: ghost links waiting for this slug go blue
   return { page };
 }
 
@@ -146,6 +149,7 @@ export async function savePage(
   if (error || !data) return { error: error?.message ?? 'Save failed.' };
   const page = data as PageRow;
   await writeRevision(svc, page, author);
+  await syncPageLinks(svc, page);                    // C6: the body changed -> refresh its links
   return { page };
 }
 
@@ -189,6 +193,7 @@ export async function renamePage(svc: SupabaseClient, pageId: number, newTitle: 
   if (error || !data) return { error: error?.message ?? 'Rename failed.' };
   const page = data as PageRow;
   await writeRevision(svc, page, author);
+  if (redirected) await resolveGhostsTo(svc, page);  // C6: ghosts wanting the new slug resolve
   return { page, redirected };
 }
 

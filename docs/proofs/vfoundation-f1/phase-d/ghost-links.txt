@@ -1,0 +1,18 @@
+PASS  link stored on save (C6)  -> {"to_page_id":null,"to_slug":"zzz-f1-ghosttarget"}
+PASS  target missing -> it is a GHOST (to_page_id NULL, red link)  -> null
+PASS  the ghost appears in WANTED pages, by demand  -> {"toSlug":"zzz-f1-ghosttarget","demand":1}
+PASS  the created page took the wanted slug  -> zzz-f1-ghosttarget
+PASS  GHOST RESOLVED: the red link is now blue (to_page_id = new page)  -> to_page_id=10 (B=10)
+PASS  the resolved page LEFT the wanted list  -> 0 still wanted
+PASS  B now shows a BACKLINK from A (what-links-here, C6)  -> count=1 sample=["zzz-f1-linker-a"]
+PASS  A is an ORPHAN (nothing links to it)  -> 1 orphans
+PASS  B is NOT an orphan (A links to it)  -> ok
+PASS  cleanup: no zzz-f1 test pages remain  -> 0 leftover
+
+Phase D ghost-link engine: ALL PASS
+
+UI (screenshots, real bts space as owner):
+- create-dialog-light/dark.png : the create-from-anywhere dialog (screen 04) - search-first,
+  type grid, parent picker, definitive flat slug preview ("jins-studio . flat, never changes").
+- stub-state-light.png : the honest shell (screen 04 right) - "invisible to search until real
+  content or a data binding" + the era template section links + 0 inbound links (noindex).

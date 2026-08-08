@@ -6,6 +6,7 @@ import { verseHidden } from '@/lib/verse/visibility';
 import { isVersePrivileged } from '@/lib/verse/roles';
 import { getPageBySlug, getPageById, resolveRedirect } from '@/lib/verse/tree/data';
 import { buildFactRail } from '@/lib/verse/tree/factrail';
+import { extractLinks, backlinksFor } from '@/lib/verse/tree/links';
 import { DocumentPage } from '@/components/verse/tree/document-page';
 import { breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -79,12 +80,15 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
 
   const svc = createServiceRoleClient();
   const now = new Date();
-  const [facts, chain, revCount, backlinkCount] = await Promise.all([
+  const linkSlugs = extractLinks(page.blocks).map((l) => l.toSlug);
+  const [facts, chain, revCount, backlinks, existingRows] = await Promise.all([
     buildFactRail(svc, page, now),
     ancestors(svc, page),
     svc.from('page_revisions').select('id', { count: 'exact', head: true }).eq('page_id', page.id),
-    svc.from('page_links').select('id', { count: 'exact', head: true }).eq('to_page_id', page.id),
+    backlinksFor(svc, page.id),   // C6: real "what links here"
+    linkSlugs.length ? svc.from('pages').select('slug').eq('space_id', space.group.id).neq('status', 'trash').in('slug', linkSlugs) : Promise.resolve({ data: [] as { slug: string }[] }),
   ]);
+  const existingSlugs = ((existingRows.data as { slug: string }[] | null) ?? []).map((r) => r.slug);
 
   // hangul beside the title for member pages (from the bound idol).
   let hangul: string | null = null;
@@ -126,7 +130,8 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
         crumbs={crumbs}
         facts={facts}
         navbox={navbox}
-        backlinks={{ count: backlinkCount.count ?? 0, sample: [] }}
+        backlinks={backlinks}
+        existingSlugs={existingSlugs}
         revisionCount={revCount.count ?? 0}
         updatedAt={page.updated_at}
       />
