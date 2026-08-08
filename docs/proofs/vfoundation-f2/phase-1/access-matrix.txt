@@ -1,0 +1,25 @@
+V-FOUNDATION F2 Phase 1 - ADMIN LOCK + BTS allowlist. Access matrix observed on the dev
+server in the HIDDEN state (VERSE_PUBLIC=false), the state the lock governs.
+Cells: outcome + how (url_effective: a request that redirects to /verse landed on the TEASER).
+
+                 /verse        /verse/bts     stray-kids     blackpink      ateez          /build/bts
+  ANONYMOUS      teaser        teaser         teaser         teaser         teaser         teaser (mw 302)
+  CURATOR        teaser        teaser         teaser         teaser         teaser         404
+  ADMIN          directory     BTS space      space          space          space          builder
+                 (200)         (200)          (200)          (200)          (200)          (200)
+
+KEY (mission): the CURATOR row is teaser/404 EVERYWHERE - the admin lock tightened the
+pre-launch bypass from curator/admin to ADMIN ONLY (owner L-097). Anonymous unchanged
+(teaser everywhere). ADMIN keeps full access (every space + the builder) - the only one who
+sees anything while hidden.
+
+Verified: admin GET /verse/bts renders the real ARMY space (hero "Home of BTS fans"), NOT
+the teaser (url stays /verse/bts). curator GET /verse/bts redirects to /verse (teaser).
+
+BTS allowlist: stray-kids + ateez (Phase G) + blackpink (added here, owner-named) are parked;
+while hidden the admin-lock already gates everyone but admin, and at RELAUNCH (VERSE_PUBLIC
+true) the parked set keeps them 404 for non-admin while /verse/bts is public - so bts is the
+only live space. Parked spaces stay admin-reachable for editing/restore (zero data deleted).
+
+PUBLIC-state cross-check (VERSE_PUBLIC=true), proving the park survives relaunch:
+  anon/curator: /verse/bts 200, /verse/{stray-kids,blackpink,ateez} 404; admin: all 200.

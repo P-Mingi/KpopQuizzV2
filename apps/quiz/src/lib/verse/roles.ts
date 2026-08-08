@@ -49,3 +49,12 @@ export async function isVersePrivileged(): Promise<boolean> {
   const { data } = await db.from('space_members').select('role').eq('user_id', user.id).in('role', ['curator', 'space_admin']).neq('status', 'blocked').limit(1);
   return !!(data && data.length);
 }
+
+/** V-FOUNDATION F2 Phase 1 (admin lock, owner L-097): while the Verse is HIDDEN, the bypass
+ *  tightens to ADMIN ONLY - curators lose the pre-launch peek and get the teaser/404 like
+ *  everyone else, until relaunch. isVersePrivileged stays for the relaunch (curator) gates. */
+export async function isVerseAdmin(): Promise<boolean> {
+  const supa = await createServerClient();
+  const { data: { user } } = await supa.auth.getUser();
+  return !!user && isAdmin(user.id);
+}

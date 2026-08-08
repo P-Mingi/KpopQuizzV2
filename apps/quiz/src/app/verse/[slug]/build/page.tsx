@@ -10,7 +10,8 @@
 import { notFound } from 'next/navigation';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { canCurateSpace } from '@/lib/verse/roles';
+import { canCurateSpace, isVerseAdmin } from '@/lib/verse/roles';
+import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { getSpace } from '@/lib/verse/space';
 import { presentationScopeStyle } from '@/lib/verse/presentation/scope';
 import { validatePresentation } from '@/lib/verse/presentation/validate';
@@ -37,6 +38,8 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
   // Curator gate: invisible (404) to everyone else, same as the canvas + studio.
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
+  // F2 Phase 1 admin lock: while hidden (or on a parked space), only an admin reaches the builder.
+  if ((verseHidden() || spaceUnpublished(slug)) && !(await isVerseAdmin())) notFound();
   if (!user || !(await canCurateSpace(user.id, space.group.id))) notFound();
 
   // Draft state for the top bar: whether an unpublished draft already exists (from a

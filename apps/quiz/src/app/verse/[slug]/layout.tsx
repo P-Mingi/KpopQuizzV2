@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
-import { isVersePrivileged } from '@/lib/verse/roles';
+import { isVerseAdmin } from '@/lib/verse/roles';
 
 import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
@@ -51,9 +51,10 @@ export default async function SpaceLayout({
   const { slug } = await params;
   // PUSH-GATE-1 (VERSE_PUBLIC): anonymous visitors are 302'd at the edge; this catches a
   // signed-in NON-curator - they get the teaser too while the Verse is hidden.
-  if (verseHidden() && !(await isVersePrivileged())) redirect('/verse');
-  // R1 (BTS-only): a parked space is a fail-closed 404 for non-privileged; owner still edits.
-  if (spaceUnpublished(slug) && !(await isVersePrivileged())) notFound();
+  // F2 Phase 1 (admin lock): while hidden, ONLY admin bypasses (curators get the teaser now).
+  if (verseHidden() && !(await isVerseAdmin())) redirect('/verse');
+  // R1 (BTS-only): a parked space is a fail-closed 404; only an admin still reaches it to edit.
+  if (spaceUnpublished(slug) && !(await isVerseAdmin())) notFound();
   const space = await getSpace(slug);
   if (!space) {
     // A name variant (bangtan -> bts, girls-generation -> snsd) redirects to canonical.

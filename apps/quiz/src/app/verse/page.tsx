@@ -11,7 +11,7 @@ import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';
 import { safeFetch } from '@/lib/error-handling';
 import { verseHidden } from '@/lib/verse/visibility';
-import { isVersePrivileged } from '@/lib/verse/roles';
+import { isVerseAdmin } from '@/lib/verse/roles';
 import { VerseTeaser } from '@/components/verse/verse-teaser';
 
 import type { Metadata } from 'next';
@@ -79,7 +79,7 @@ function SpaceCard({ tile }: { tile: SpaceTile }): React.ReactElement {
 export default async function VerseHomePage(): Promise<React.ReactElement> {
   // PUSH-GATE-1 (VERSE_PUBLIC): while hidden, everyone but a signed-in curator/admin gets
   // the honest teaser. /verse is the ONE Verse route that stays public + indexable when hidden.
-  if (verseHidden() && !(await isVersePrivileged())) return <VerseTeaser />;
+  if (verseHidden() && !(await isVerseAdmin())) return <VerseTeaser />;
 
   // The directory is the page: it throws instead of baking an empty shell.
   const tiles = await getVerseDirectory();

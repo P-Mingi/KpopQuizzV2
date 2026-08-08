@@ -14,7 +14,9 @@ export function verseHidden(): boolean {
 // here (a code flip, no data touched). Independent of VERSE_PUBLIC: these stay parked even
 // after the verse relaunches, until an owner restores them. The owner (isVersePrivileged)
 // still sees them for editing.
-const UNPUBLISHED_SPACES = new Set(['stray-kids', 'ateez']);
+// F2 Phase 1 (owner named blackpink explicitly, L-097): BTS is the only live space; the rest
+// are parked. stray-kids + ateez (Phase G) + blackpink.
+const UNPUBLISHED_SPACES = new Set(['stray-kids', 'ateez', 'blackpink']);
 
 /** True when a space slug is parked (unpublished). A non-privileged visitor gets a 404; the
  * data is untouched, so restoring is just deleting the slug from the set above. */
