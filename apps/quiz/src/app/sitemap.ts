@@ -10,6 +10,7 @@ import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden } from '@/lib/verse/visibility';
+import { fetchAllRows } from '@/lib/db/fetch-all';
 
 import type { MetadataRoute } from 'next';
 
@@ -480,6 +481,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!s) continue;
       push(`/verse/${s}/wiki/${w.slug}`, 0.5, 'weekly');
       push(`/verse/${s}/wiki`, 0.5, 'weekly');
+    }
+
+    // V-FOUNDATION F1: the page tree enters the sitemap at published + non-stub only
+    // (C5 mechanical indexability - a stub is noindex at the leaf AND absent here).
+    // Paginated past the 1000-row PostgREST cap (law: fetchAllRows). Portal + index
+    // pages are structural, not documents, so they are excluded from the sitemap here.
+    const treePages = await fetchAllRows<{ slug: string; type: string; groups: unknown }>(
+      () => svc.from('pages').select('slug, type, groups!inner(slug)').eq('status', 'published').eq('is_stub', false).not('type', 'in', '("portal","index")'),
+    );
+    for (const p of treePages) {
+      const s = gslug(p.groups);
+      if (s) push(`/verse/${s}/${p.slug}`, 0.6, 'weekly');
     }
     } // end PUSH-GATE-1: non-allowlist Verse URLs only when the flag is on
   } catch (err) {

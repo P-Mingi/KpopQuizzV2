@@ -3439,6 +3439,80 @@ a.ranking-cta { text-decoration: none; }
   }
   .mobile-top-theme .theme-toggle-icon svg { width: 16px; height: 16px; }
 }
+
+/* ============================================================
+   V-FOUNDATION F1 - the DOCUMENT canvas (locked prototype screen 01). Reading-first:
+   auto-TOC left (200px), 66ch prose center, fact rail right (300px). Fully tokenized
+   (theme-correct light + dark); this is the token-definition layer, not scanned.
+   ============================================================ */
+:root { --v-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace; }
+.vdoc { display: grid; grid-template-columns: 200px minmax(0, 1fr) 300px; gap: 40px; padding-top: 24px; }
+.vdoc-crumb { font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.04em; }
+.vdoc-crumb a { color: var(--text-tertiary); text-decoration: none; }
+.vdoc-crumb a:hover { color: var(--verse-ink); }
+.vdoc-crumb .sep { margin: 0 6px; color: var(--verse-line); }
+
+.vdoc-toc { position: sticky; top: 64px; align-self: start; font-size: 12.5px; }
+.vdoc-toc .h { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; }
+.vdoc-toc ol { list-style: none; margin: 0; padding: 0; }
+.vdoc-toc li { padding: 3px 0; }
+.vdoc-toc a { text-decoration: none; color: var(--text-tertiary); border-left: 2px solid transparent; padding-left: 10px; display: block; }
+.vdoc-toc a.on { color: var(--verse-ink); border-left-color: var(--verse-accent); }
+.vdoc-toc a:hover { color: var(--text-primary); }
+.vdoc-toc .l2 { padding-left: 22px; font-size: 12px; }
+.vdoc-toc .prog { margin-top: 16px; height: 2px; background: var(--verse-line); border-radius: 2px; overflow: hidden; }
+.vdoc-toc .prog i { display: block; height: 100%; width: 0; background: var(--verse-accent); transition: width 0.12s linear; }
+
+.vdoc-main { max-width: var(--v-measure, 66ch); min-width: 0; }
+.vdoc-title { font-family: var(--font-display); font-weight: 640; font-size: 42px; line-height: 1.08; letter-spacing: -0.01em; color: var(--text-primary); margin: 14px 0 4px; }
+.vdoc-title .hangul { font-weight: 400; font-size: 22px; color: var(--text-tertiary); margin-left: 12px; }
+.vdoc-editline { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 10px 0 26px; font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); }
+.vdoc-editline a { color: var(--text-tertiary); }
+.vdoc-editline .btn { border: 1px solid var(--verse-line); border-radius: 6px; padding: 4px 10px; text-decoration: none; color: var(--text-primary); background: var(--bg-surface); }
+.vdoc-editline .btn:hover { border-color: var(--verse-accent); color: var(--verse-ink); }
+
+.vdoc-main p { font-size: 16.5px; line-height: 1.72; margin: 0 0 18px; color: var(--text-primary); }
+.vdoc-main p.lead { font-size: 18px; }
+.vdoc-main h2 { font-family: var(--font-display); font-weight: 560; font-size: 26px; margin: 40px 0 6px; padding-top: 18px; border-top: 1px solid var(--verse-line); scroll-margin-top: 72px; color: var(--text-primary); }
+.vdoc-main h3 { font-weight: 600; font-size: 15px; margin: 24px 0 8px; color: var(--text-primary); }
+.vdoc-main h2 .anchor { font-family: var(--v-mono); font-size: 11px; color: var(--verse-line); margin-left: 8px; text-decoration: none; }
+.vdoc-main h2:hover .anchor { color: var(--verse-accent); }
+.vdoc-main a { color: var(--verse-ink); }
+.vdoc-main blockquote { border-left: 2px solid var(--verse-accent); padding: 6px 0 6px 18px; margin: 0 0 18px; font-style: italic; color: var(--text-secondary); font-size: 16px; }
+.vdoc-main blockquote cite { display: block; font-family: var(--v-mono); font-style: normal; font-size: 11px; margin-top: 6px; color: var(--text-tertiary); }
+.vdoc-table { border-collapse: collapse; width: 100%; margin: 6px 0 22px; font-size: 13px; }
+.vdoc-table th { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--verse-line); }
+.vdoc-table td { padding: 8px 12px; border-bottom: 1px solid var(--verse-line); color: var(--text-primary); }
+.vdoc-ghost { border-bottom: 1px dashed var(--verse-accent); color: var(--verse-ink); text-decoration: none; }
+
+.vdoc-rail { position: sticky; top: 64px; align-self: start; }
+.vdoc-infobox { background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 12px; overflow: hidden; }
+.vdoc-infobox section { padding: 12px 16px; border-top: 1px solid var(--verse-line); }
+.vdoc-infobox section:first-child { border-top: 0; }
+.vdoc-infobox h4 { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin: 0 0 8px; }
+.vdoc-infobox dl { display: grid; grid-template-columns: 96px 1fr; gap: 5px 12px; font-size: 12.5px; margin: 0; }
+.vdoc-infobox dt { color: var(--text-tertiary); }
+.vdoc-infobox dd { font-weight: 500; margin: 0; color: var(--text-primary); }
+.vdoc-infobox dd .auto { font-family: var(--v-mono); font-size: 9.5px; color: var(--verse-accent); margin-left: 4px; }
+.vdoc-railnote { font-family: var(--v-mono); font-size: 10.5px; color: var(--text-tertiary); margin-top: 10px; line-height: 1.7; }
+
+.vdoc-foot { border-top: 1px solid var(--verse-line); margin-top: 44px; padding-top: 20px; }
+.vdoc-foot .h { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin: 14px 0 8px; }
+.vdoc-chip { display: inline-flex; align-items: center; gap: 5px; font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.04em; border: 1px solid var(--verse-line); border-radius: 999px; padding: 3px 10px; color: var(--text-tertiary); background: var(--bg-surface); text-decoration: none; }
+.vdoc-chip.data { color: var(--verse-ink); border-color: var(--v-hairline); }
+.vdoc-navbox { background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 10px; padding: 12px 16px; font-size: 13px; display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.vdoc-navbox b { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-right: 6px; }
+.vdoc-navbox a { color: var(--verse-ink); text-decoration: none; }
+.vdoc-navbox strong { color: var(--text-primary); }
+.vdoc-backlinks { font-size: 13px; color: var(--text-secondary); }
+.vdoc-backlinks a { color: var(--verse-ink); }
+
+@media (max-width: 900px) {
+  .vdoc { grid-template-columns: 1fr; gap: 20px; }
+  .vdoc-toc, .vdoc-rail { position: static; }
+  .vdoc-rail { order: 3; }
+  .vdoc-title { font-size: 34px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }

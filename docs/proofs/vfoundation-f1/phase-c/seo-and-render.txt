@@ -1,0 +1,24 @@
+V-FOUNDATION F1 Phase C (part 1: document canvas + flat route + SEO) - PROOF
+Proven live on the dev server (VERSE_PUBLIC=true) against a real entity-bound page
+(bts / RM, idol id 1) + a published stub. Test pages cleaned up after (prod leftover 0).
+
+FLAT ROUTE  /verse/bts/zzz-f1-docproof-rm  -> HTTP 200 (C2 flat URL)
+
+ONE H1                 : <h1> count = 1  (the page title; SpaceHero emits none)
+BreadcrumbList JSON-LD : present
+FACT RAIL (computed)   : "age 31" (from birth_date) + "13 years auto" (years active
+                         from group inception) - derived from the ONE source of truth,
+                         never hand-copied (prototype note 8)
+AUTO-TOC               : 3 H2 sections (Career, Solo releases, Gallery), scrollspy + progress
+DOCUMENT CANVAS        : breadcrumb / 200px TOC / 66ch prose (+ data table) / 300px fact rail,
+                         per locked prototype screen 01. Screenshots: document-light.png,
+                         document-dark.png (both themes, fully tokenized).
+
+C5 MECHANICAL INDEXABILITY
+  substantial member page : NO robots meta (indexable), IN sitemap.xml (1 match)
+  published STUB page      : <meta name="robots" content="noindex, follow">, NOT in sitemap (0)
+
+DEFERRED to Phase C part 2 (flagged): the PORTAL canvas + C11 builder rebind (re-point
+verse_spaces.presentation -> pages.blocks, migrate the bts portal). Ghost links / backlinks
+population land in Phase D; tags foot in Phase F; the space nav keeps the legacy flat tab
+bar until Phase E.
