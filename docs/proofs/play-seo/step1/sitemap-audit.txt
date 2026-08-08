@@ -1,0 +1,236 @@
+PLAY-SEO Step 1 -- Sitemap Audit
+Date: 2026-08-08
+Source: apps/quiz/src/app/sitemap.ts (code) + live fetch kpopquiz.org/sitemap.xml
+
+========================================================================
+1. LIVE SITEMAP SUMMARY
+========================================================================
+Fetched: https://kpopquiz.org/sitemap.xml
+Total URLs in production sitemap: 824
+
+Prohibited patterns found:
+  /u/*           : 0   (PASS - profiles excluded by design)
+  /group/*       : 0   (PASS - uses /{slug}-quiz format)
+  /blind-test/*  : 0   (PASS - uses /blindtest/ without hyphen)
+  ?param queries : 0   (PASS - no query string variants)
+  /create        : 0   (PASS - not in sitemap)
+  /battle        : 0   (PASS - not in sitemap)
+  /news          : 0   (PASS - not in sitemap)
+  /admin/*       : 0   (PASS - not in sitemap)
+  /settings      : 0   (PASS - not in sitemap)
+  /me            : 0   (PASS - not in sitemap)
+  /login         : 0   (PASS - not in sitemap)
+
+All clear -- zero prohibited URLs in the live sitemap.
+
+========================================================================
+2. URL CATEGORIES (from code analysis)
+========================================================================
+
+Category                          Source                Count (code)
+----------------------------------------------------------------------
+Static EN pages (core)            hardcoded array       31
+  + sort-it playlists             SORT_IT_PLAYLISTS     6
+  + match-up playlists            MATCH_UP_PLAYLISTS    16
+  + name-them-all playlists       NAME_THEM_ALL_PLAYLISTS 5
+Static PT pages                   hardcoded array       14
+----------------------------------------------------------------------
+Static subtotal                                         72
+
+Articles                          ARTICLES registry     20
+Personality quizzes               getPersonalityGroups  dynamic (DB)
+Blind test static modes           STATIC_MODES          18
+Blind test group pages            blind_test_songs join  dynamic (DB, deduplicated)
+Group -quiz pages                 groups table          dynamic (quiz_count > 0 gate)
+Group -trivia pages               groups table          dynamic (>= TRIVIA_MIN_FACTS gate)
+Individual quizzes (/q/*)         quizzes table         dynamic (cap: 10,000)
+Games: name-all                   games table           dynamic (name_all_members type)
+Games: this-or-that               tot_categories table  dynamic (is_published gate)
+Rankings                          getRankingsIndex()    dynamic (public-only gate)
+Pulse monthly reports             pulse_reports table   dynamic
+Verse pages                       verse tables          dynamic (verseHidden() gate)
+----------------------------------------------------------------------
+
+Live sitemap breakdown (from fetch):
+  /q/* individual quizzes:         ~546
+  /{slug}-quiz + /{slug}-trivia:   ~84
+  /blindtest/* (modes + groups):   ~64
+  /articles/*:                     ~20
+  /which-*-member-are-you:         ~14
+  /games/* (dynamic):              counted in static+dynamic
+  /pt/*:                           ~12
+  /verse/*:                        gated by verseHidden()
+  remaining (static/rankings/pulse): ~84
+
+========================================================================
+3. REDIRECT COVERAGE FOR OLD PATTERNS
+========================================================================
+
+A. /group/:slug -> /:slug-quiz
+   Location: apps/quiz/next.config.ts (lines 15-23)
+   Type: 308 permanent redirect (Next.js redirects())
+   Coverage: wildcard /group/:slug -> /:slug-quiz (all slugs)
+   Status: COMPLETE
+
+B. /blind-test/* -> /blindtest/*
+   Location 1: apps/quiz/src/middleware.ts (lines 49-55)
+     Type: 301 permanent redirect
+     Coverage: /blind-test and /blind-test/* (preserves query string)
+   Location 2: apps/quiz/src/app/blind-test/page.tsx
+     Type: permanentRedirect('/blindtest')
+     Coverage: /blind-test base route
+   Location 3: apps/quiz/src/app/blind-test/[mode]/page.tsx
+     Type: permanentRedirect(`/blindtest/${mode}`)
+     Coverage: /blind-test/:mode
+   Status: COMPLETE (belt-and-braces: middleware catches first,
+           route-level as fallback)
+
+C. /how-well-do-you-know-{slug} -> /{slug}-quiz
+   Location: apps/quiz/next.config.ts (lines 25-30)
+   Type: 308 permanent redirect
+   Coverage: 21 hardcoded group slugs
+   Status: COMPLETE
+
+D. /ranks, /hall-of-fame -> /leaderboard
+   Location: apps/quiz/next.config.ts (lines 32-35)
+   Type: 308 permanent redirect
+   Status: COMPLETE
+
+E. /create-preview -> /create
+   Location: apps/quiz/src/middleware.ts (lines 57-61)
+   Status: COMPLETE
+
+F. /battle-preview -> /battle
+   Location: apps/quiz/src/middleware.ts (lines 63-65)
+   Status: COMPLETE
+
+========================================================================
+4. INTERNAL LINK AUDIT
+========================================================================
+
+grep -rn 'href.*\/group\/' apps/quiz/src/ (excl. sitemap.ts):
+  Result: 0 matches -- NO internal links pointing to old /group/ pattern
+
+grep -rn 'href.*\/blind-test\/' apps/quiz/src/:
+  Result: 0 matches -- NO internal links pointing to old /blind-test/ pattern
+
+grep -rn '"/group/' apps/quiz/src/ (excl. sitemap.ts):
+  Result: 0 matches
+
+"blind-test" string references that are NOT href links (acceptable):
+  - Component file names: blind-test-player.tsx, blind-test-equalizer.tsx, etc.
+  - API routes: /api/blind-test/generate, /api/blind-test/play, /api/blind-test/modes
+  - Library imports: blind-test-modes.ts, blind-test-utils.ts
+  - Tab bar match array: ['/blindtest', '/blind-test'] (for active-state matching)
+  These are all internal code references, NOT user-facing hrefs. ACCEPTABLE.
+
+========================================================================
+5. ROBOTS.TXT
+========================================================================
+
+Source: apps/quiz/src/app/robots.ts (dynamic, Next.js MetadataRoute)
+No static robots.txt in public/.
+
+Rules:
+  User-Agent *:
+    Allow: /, /api/og/
+    Disallow: /api/, /auth/
+
+  AI bots (GPTBot, ChatGPT-User, Google-Extended, anthropic-ai,
+           ClaudeBot, PerplexityBot, Bytespider, cohere-ai):
+    Allow: /
+    Disallow: /api/, /auth/, /admin/, /settings/, /onboarding/
+
+Sitemap declaration: https://kpopquiz.org/sitemap.xml
+
+NOTE: /create, /battle, /me are NOT disallowed in robots.txt.
+  - /battle has index:false in its page metadata (noindex tag)
+  - /create is not disallowed but also not in sitemap
+  - /me has noindex in its page metadata
+  These are correctly handled via noindex rather than robots disallow.
+
+========================================================================
+6. NOINDEX COVERAGE
+========================================================================
+
+Routes with robots { index: false }:
+
+Always noindex (unconditional):
+  /battle                              noindex, follow
+  /settings (layout)                   noindex, follow
+  /blindtest/leaderboard               noindex, follow
+  /admin/* (layout)                    noindex, follow
+  /admin/space-images                  noindex, nofollow
+  /admin/dm                            noindex, nofollow
+  /admin/game-images                   noindex, nofollow
+  /admin/member-review                 noindex, nofollow
+  /verse/me                            noindex, nofollow
+  /verse/random                        noindex, nofollow
+  /verse/[slug]/quests                 noindex, follow
+  /verse/[slug]/essays/write           noindex, nofollow
+  /verse/[slug]/insights               noindex, nofollow
+  /verse/[slug]/studio                 noindex, nofollow
+  /verse/[slug]/changes                noindex, follow
+  /verse/[slug]/curate                 noindex, nofollow
+  /verse/[slug]/menu                   noindex, nofollow
+  /verse/[slug]/new                    noindex, nofollow
+  /verse/[slug]/build                  noindex, nofollow
+  /verse/[slug]/wiki/new               noindex, nofollow
+  /verse/[slug]/wiki/[pageSlug]/edit   noindex, nofollow
+  /verse/name/[term]                   noindex, follow
+  /me                                  noindex (prototype phase)
+  /avatar-studio                       noindex, nofollow
+
+Conditionally noindex:
+  /u/[username]                        noindex if < 3 quizzes created
+  /personality/[group]                 noindex if data not found
+  /personality/[group]/r/[member]      noindex if result not found
+  /verse/[slug]/essays/[id]            noindex if not status='featured'
+  /verse/[slug]/[pageSlug]             noindex if stub or space not found
+  /verse/[slug]/wiki/[pageSlug]        noindex if is_stub
+  /verse/[slug]/photocards/[card]      noindex if no source_url
+
+All noindex assignments are correct -- admin, auth-gated, editorial,
+thin-content, and utility routes are properly excluded from indexing.
+
+========================================================================
+7. LASTMOD HONESTY
+========================================================================
+
+The sitemap implements honest lastmod dates (SEO audit v2):
+  - Evergreen pages use STATIC_DATE (2026-06-15)
+  - Legal pages (terms/privacy/dmca) use TERMS_DATE (2026-03-27)
+  - Catalog pages use contentDate (newest quiz updated_at)
+  - Group pages use per-group newest quiz date
+  - Individual quizzes use their own updated_at
+  - Pulse reports use their own updated_at
+  - Articles use their own updatedAt
+
+No pages emit new Date() on every deploy. CLEAN.
+
+========================================================================
+8. SAFETY LIMITS
+========================================================================
+
+  QUIZZES_LIMIT:    10,000 (well under Google's 50,000 cap)
+  BT_SONG_LIMIT:    5,000
+  DB batch timeout:  15,000ms (fails gracefully to static-only)
+  Rankings timeout:  5,000ms (fails gracefully, skips rankings)
+  Verse pagination:  20 pages x 1000 rows (fetchAllRows for songs/photocards)
+
+========================================================================
+9. VERDICT
+========================================================================
+
+PASS -- The sitemap is clean.
+
+Zero prohibited URL patterns in the live sitemap (824 URLs).
+All legacy patterns (/group/*, /blind-test/*, /how-well-do-you-know-*)
+have 308/301 permanent redirects in place.
+No internal links point to deprecated URL patterns.
+robots.ts correctly blocks /api/ and /auth/ while allowing /api/og/.
+noindex is applied to all admin, auth-gated, editorial, and thin pages.
+lastmod dates are honest (no deploy-time inflation).
+Graceful degradation on DB timeouts returns static pages only.
+
+No action items from the sitemap audit.
