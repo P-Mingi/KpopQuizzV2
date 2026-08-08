@@ -3796,6 +3796,56 @@ blockquote.ped-body { border-left: 2.5px solid var(--verse-accent); padding-left
 .pfrm-hist .rev button { font-family: var(--v-mono); font-size: 9px; border: 1px solid var(--verse-line); background: transparent; color: var(--text-secondary); border-radius: 6px; padding: 3px 8px; cursor: pointer; height: fit-content; }
 .pfrm-hist .rev button:hover { border-color: var(--verse-accent); color: var(--verse-ink); }
 @media (max-width: 1080px) { .pfrm-grid { grid-template-columns: 1fr; gap: 20px; } .pfrm-toc, .pfrm-rail { position: static; } }
+
+/* V-FOUNDATION F2 Phase 5 - phone: the floating editor popups become bottom sheets with 44px
+   touch rows. Inline left/top come from JS, so the sheet geometry needs !important to win. */
+@media (max-width: 680px) {
+  /* gutter add/grip: always reachable on touch (no hover), comfortable target */
+  .ped-blk .ped-gut { opacity: 1; left: -36px; }
+  .ped-gut button { width: 30px; height: 44px; font-size: 15px; }
+
+  /* slash palette + block menu + link picker -> full-width bottom sheets */
+  .ped-slash, .ped-menu, .ped-pick {
+    position: fixed !important; left: 0 !important; right: 0 !important; top: auto !important;
+    bottom: 0 !important; width: auto !important; transform: none !important;
+    border-radius: 16px 16px 0 0; border-bottom: 0; max-height: 72vh;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)); box-shadow: 0 -14px 40px color-mix(in srgb, black 26%, transparent);
+  }
+  .ped-slash::before, .ped-menu::before, .ped-pick::before {
+    content: ""; display: block; width: 36px; height: 4px; border-radius: 3px;
+    background: var(--verse-line); margin: 8px auto 4px;
+  }
+  .ped-slash { width: auto; }
+  .ped-slash .lst { max-height: 60vh; }
+  .ped-slash .it { min-height: 44px; padding: 10px 14px; }
+  .ped-slash .it .lb b { font-size: 15px; }
+  .ped-menu { width: auto; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); }
+  .ped-menu .turn { gap: 6px; padding: 4px 8px 10px; }
+  .ped-menu .turn button { min-height: 44px; font-size: 14px; }
+  .ped-menu .mi { min-height: 44px; font-size: 15px; }
+  .ped-pick input { min-height: 44px; font-size: 15px; }
+  .ped-pick .lst { max-height: 52vh; }
+  .ped-pick .lst button { min-height: 44px; font-size: 14px; }
+
+  /* selection toolbar: keep it floating but give 44px tappable controls */
+  .ped-tb { padding: 5px; gap: 3px; }
+  .ped-tb button { min-width: 44px; height: 44px; font-size: 16px; }
+  .ped-tb .txt { min-width: auto; }
+
+  /* frame: history slides up as a sheet, not a side rail */
+  .pfrm-hist {
+    top: auto; bottom: 0; left: 0; right: 0; width: auto; max-height: 78vh;
+    border-left: 0; border-top: 1px solid var(--verse-line); border-radius: 16px 16px 0 0;
+    box-shadow: 0 -14px 40px color-mix(in srgb, black 20%, transparent);
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .pfrm-hist .rev { padding: 10px 6px; }
+  .pfrm-hist .rev button { min-height: 40px; padding: 6px 12px; }
+  .pfrm-bar .ib { width: 44px; height: 44px; }
+  .pfrm-pub { min-height: 44px; }
+  .pfrm-title, .ped-title { font-size: 30px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }
