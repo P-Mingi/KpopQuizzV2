@@ -14,6 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { pageSlug, uniqueSlug, isValidSlug } from './slug';
 import { templateBody, isPageType } from './templates';
 import { syncPageLinks, resolveGhostsTo } from './links';
+import { applyAutoTags } from './tags';
 import { PAGE_BODY_EMPTY } from './types';
 import type { PageBody, PageRow, PageRevisionRow, RecentChange, PageStatus } from './types';
 
@@ -116,6 +117,7 @@ export async function createPage(svc: SupabaseClient, input: CreatePageInput): P
   await writeRevision(svc, page, input.createdBy);   // C3: creation is revision 1
   await syncPageLinks(svc, page);                     // C6: store this page's outbound links
   await resolveGhostsTo(svc, page);                   // C6: ghost links waiting for this slug go blue
+  await applyAutoTags(svc, page).catch(() => {});     // C7: data-derived tags (birth year, release type)
   return { page };
 }
 

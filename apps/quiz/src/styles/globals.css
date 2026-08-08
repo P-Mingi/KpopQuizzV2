@@ -3610,6 +3610,22 @@ a.ranking-cta { text-decoration: none; }
 .vnave-save { padding: 10px 20px; border: 0; border-radius: 10px; background: var(--verse-cta, var(--verse-accent)); color: var(--verse-cta-text, var(--verse-accent-text)); font-size: 14px; font-weight: 700; cursor: pointer; }
 .vnave-save:disabled { opacity: 0.6; cursor: default; }
 @media (max-width: 767px) { .vnave-cols { grid-template-columns: 1fr; } .vnave-col { border-right: 0; border-bottom: 1px solid var(--verse-line); } }
+
+/* V-FOUNDATION F1 - the tag index page (locked prototype screen 05). */
+.vtag { max-width: 820px; margin: 0 auto; padding-top: 8px; }
+.vtag-title { font-family: var(--font-display); font-weight: 640; font-size: 34px; color: var(--text-primary); margin: 10px 0 0; }
+.vtag-desc { font-size: 15.5px; line-height: 1.6; color: var(--text-secondary); margin: 10px 0 4px; max-width: 60ch; }
+.vtag-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 12px 0 24px; }
+.vtag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.vtag-card { display: flex; gap: 14px; align-items: center; background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 12px; padding: 12px 16px; text-decoration: none; color: var(--text-primary); }
+.vtag-card:hover { border-color: var(--verse-accent); }
+.vtag-card i { width: 44px; height: 44px; border-radius: 10px; flex: none; background: linear-gradient(135deg, var(--verse-soft-strong), var(--verse-soft)); }
+.vtag-card b { display: block; font-size: 14.5px; }
+.vtag-card .k { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-tertiary); }
+.vtag-empty { color: var(--text-tertiary); font-size: 14px; margin: 8px 0 24px; }
+.vtag-related { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.vtag-relh { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
+@media (max-width: 560px) { .vtag-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }

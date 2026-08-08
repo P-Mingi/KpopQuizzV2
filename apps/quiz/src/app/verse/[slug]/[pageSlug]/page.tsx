@@ -7,6 +7,7 @@ import { isVersePrivileged } from '@/lib/verse/roles';
 import { getPageBySlug, getPageById, resolveRedirect } from '@/lib/verse/tree/data';
 import { buildFactRail } from '@/lib/verse/tree/factrail';
 import { extractLinks, backlinksFor } from '@/lib/verse/tree/links';
+import { tagsForPage } from '@/lib/verse/tree/tags';
 import { DocumentPage } from '@/components/verse/tree/document-page';
 import { breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -81,12 +82,13 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
   const svc = createServiceRoleClient();
   const now = new Date();
   const linkSlugs = extractLinks(page.blocks).map((l) => l.toSlug);
-  const [facts, chain, revCount, backlinks, existingRows] = await Promise.all([
+  const [facts, chain, revCount, backlinks, existingRows, tags] = await Promise.all([
     buildFactRail(svc, page, now),
     ancestors(svc, page),
     svc.from('page_revisions').select('id', { count: 'exact', head: true }).eq('page_id', page.id),
     backlinksFor(svc, page.id),   // C6: real "what links here"
     linkSlugs.length ? svc.from('pages').select('slug').eq('space_id', space.group.id).neq('status', 'trash').in('slug', linkSlugs) : Promise.resolve({ data: [] as { slug: string }[] }),
+    tagsForPage(svc, page.id),    // C7: the page's controlled tags
   ]);
   const existingSlugs = ((existingRows.data as { slug: string }[] | null) ?? []).map((r) => r.slug);
 
@@ -130,6 +132,7 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
         crumbs={crumbs}
         facts={facts}
         navbox={navbox}
+        tags={tags}
         backlinks={backlinks}
         existingSlugs={existingSlugs}
         revisionCount={revCount.count ?? 0}

@@ -1,0 +1,19 @@
+PASS  tag index lists the tagged pages (generated, not hand-kept)  -> 2 pages
+PASS  a page reports its tags (document foot)  -> ok
+PASS  creating the same tag again returns the SAME tag (no sprawl)  -> #2
+PASS  related tags surface co-occurring tags  -> ["1994","zzz-f1-rap"]
+PASS  auto-tag derived from data (RM birth year 1994)  -> ["1994","zzz f1 rap","zzz f1 vocal"]
+PASS  the auto tag is marked kind=auto  -> auto
+PASS  merged tag is gone  -> deleted
+PASS  after merge the pages still resolve under the surviving tag  -> 2 pages
+PASS  rename succeeds (pages follow, same tag id)  -> ok
+PASS  cleanup: no zzz-f1 tags or pages remain  -> tags=0 pages=0
+
+Phase F controlled tags: ALL PASS
+
+LIVE (dev server, a demo tag "Vocal Line" on 4 bts member pages, then removed):
+- GET /verse/bts/tag/<key> -> HTTP 200, ONE h1 (the tag label), indexable (4 pages, non-empty
+  index) - an EMPTY tag index is noindex (min-gate/C5). auto-index chip + N-pages + controlled.
+- The card grid lists the tagged pages (generated, never hand-kept); RELATED TAGS shows the
+  auto-derived birth-year tags (1992/1995/1997) that co-occur - auto-tags + related together
+  on real data. Screenshots: tag-page-light/dark.png. Demo removed after.
