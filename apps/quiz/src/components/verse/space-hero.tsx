@@ -35,7 +35,18 @@ export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: 
     return `${m[2]}-${m[3]}` === mmdd ? today.getFullYear() - Number(m[1]) : 0;
   })();
   const cbDays = comeback ? comebackCountdown(comeback.release_date, today) : -1;
-  const vitals = [estYear ? `Est. ${estYear}` : null, group.generation, `${counts.members} members`, counts.albums > 0 ? `${counts.albums} releases` : null].filter(Boolean).join('  ·  ');
+  // V-BUILDER-3 step 5 - masthead identity overrides (presentation.hero). Each field
+  // OVERRIDES a data-driven default; absent = the entity value (real-data law). The
+  // sr-only page H1 is unchanged (set on the home page), so hero semantics + one-H1 hold.
+  const hero = space.presentation.hero;
+  const displayName = hero?.displayName?.trim() || group.fandom_name;
+  const tagline = hero?.tagline?.trim() || config.welcome_line;
+  const derivedVitals = [estYear ? `Est. ${estYear}` : null, group.generation, `${counts.members} members`, counts.albums > 0 ? `${counts.albums} releases` : null].filter(Boolean) as string[];
+  const vitalsItems = hero?.chips?.length
+    ? hero.chips.map((c) => (c.label?.trim() ? `${c.label.trim()} ${c.value}` : c.value)).filter(Boolean)
+    : derivedVitals;
+  const vitals = vitalsItems.join('  ·  ');
+  const avatarUrl = spaceAssetUrl(hero?.avatar);
 
   // W-CUSTOM banner: treatment drives the hero backdrop. 'photo' needs an uploaded
   // banner (our public bucket, aspect reserved so zero CLS); 'gradient' is the
@@ -51,7 +62,8 @@ export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: 
   const cbPinHref = cbMode?.pinKind === 'timeline' ? `/verse/${group.slug}/timeline` : `/verse/${group.slug}/community`;
 
   const banner = space.presentation.banner;
-  const bannerUrl = banner?.treatment === 'photo' ? spaceAssetUrl(banner.assetPath) : null;
+  // A hero.banner override wins; else the existing banner config (treatment 'photo').
+  const bannerUrl = spaceAssetUrl(hero?.banner) ?? (banner?.treatment === 'photo' ? spaceAssetUrl(banner.assetPath) : null);
   const backdrop = banner?.treatment === 'solid'
     ? 'var(--verse-soft)'
     : 'linear-gradient(135deg, var(--verse-soft-strong), transparent 62%)';
@@ -72,16 +84,23 @@ export function SpaceHero({ space, buildToggle }: { space: Space; buildToggle?: 
 
       <div className="verse-hero-body relative flex flex-col gap-5 px-4 pb-7 pt-10 sm:px-6 sm:pb-8 sm:pt-12 lg:px-10">
         <div className="verse-hero-name flex items-end gap-4 sm:gap-5">
-          <span className="verse-hero-logo flex-shrink-0"><GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? 'var(--verse-accent)'} textColor={group.text_color ?? '#fff'} size={64} /></span>
+          <span className="verse-hero-logo flex-shrink-0">
+            {avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarUrl} alt="" width={64} height={64} className="block h-16 w-16 rounded-full object-cover" style={{ border: '1px solid var(--v-hairline)' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+            ) : (
+              <GroupLogo groupName={group.name} logoUrl={group.logo_url} displayColor={group.display_color ?? 'var(--verse-accent)'} textColor={group.text_color ?? '#fff'} size={64} />
+            )}
+          </span>
           <div className="min-w-0 flex-1">
             <p className="verse-hero-kicker text-[11px] font-bold uppercase tracking-[0.16em] text-tertiary">Home of {group.name} fans</p>
-            <p className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{group.fandom_name}</p>
+            <p className="mt-1.5" style={{ fontSize: 'var(--v-type-display)', lineHeight: 0.95, fontWeight: 'var(--v-display-weight, 800)', letterSpacing: 'var(--v-display-tracking, var(--v-tracking-tight))', textTransform: 'var(--v-display-transform, none)', color: 'var(--verse-ink)' }}>{displayName}</p>
             <p className="mt-2 text-xs text-tertiary">{vitals}</p>
           </div>
         </div>
 
-        {config.welcome_line ? (
-          <p className="verse-hero-welcome leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>{config.welcome_line}</p>
+        {tagline ? (
+          <p className="verse-hero-welcome leading-relaxed text-secondary" style={{ fontSize: 'var(--v-type-body)', maxWidth: 'var(--v-measure)' }}>{tagline}</p>
         ) : null}
 
         <div className="verse-hero-actions flex flex-wrap items-center gap-x-4 gap-y-3">

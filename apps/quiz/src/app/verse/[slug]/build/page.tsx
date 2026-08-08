@@ -83,6 +83,16 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
     collections: pc + cc > 0, featured_essay: ec > 0, poll: polls > 0,
   };
 
+  // V-BUILDER-3 step 5 - the DATA-DRIVEN hero defaults the identity editor shows as
+  // placeholders / revert targets (member count counts ACTIVE members only, L-068). The
+  // vitals mirror SpaceHero's derived line so "Following the data" reads identically.
+  const estYear = space.config.est_year ?? (space.group.inception_date ? Number(space.group.inception_date.slice(0, 4)) : null);
+  const heroData = {
+    fandomName: space.group.fandom_name,
+    memberCount: c.members,
+    derivedVitals: [estYear ? `Est. ${estYear}` : null, space.group.generation, `${c.members} members`, c.albums > 0 ? `${c.albums} releases` : null].filter(Boolean) as string[],
+  };
+
   return (
     <BuilderShell
       groupId={space.group.id}
@@ -95,6 +105,7 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
       sourceReady={sourceReady}
       editableSections={editableSections}
       scopeStyle={presentationScopeStyle(space) as Record<string, string>}
+      heroData={heroData}
     />
   );
 }

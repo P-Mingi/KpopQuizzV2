@@ -14,11 +14,14 @@ import { blockSpec } from '@/lib/verse/composition/registry';
 import { useBuilderComposition } from './use-builder-composition';
 import { LibraryDrawer } from './library-drawer';
 import { StylePanel } from './style-panel';
+import { HeroPanel } from './hero-editor';
 import { BuilderTour } from './builder-tour';
 import { ActionSheet } from './phone-sheets';
 import { InlineTextEditor } from './inline-text-editor';
 
 import type { Composition, Block } from '@/lib/verse/composition/types';
+import type { HeroIdentity } from '@/lib/verse/presentation/types';
+import type { HeroPlaceholders } from './hero-editor';
 import type { PatternSpec } from '@/lib/verse/composition/patterns';
 
 interface BlockRect { id: string; type: string; top: number; left: number; width: number; height: number }
@@ -33,11 +36,11 @@ const TOP_BAR_H = 52;
 // group 'overview' section; extend as more home text blocks gain editable content.
 const SECTION_FOR: Record<string, string> = { intro: 'overview' };
 
-export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, sourceReady, editableSections, scopeStyle }: {
+export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDraft, updatedAt, composition, sourceReady, editableSections, scopeStyle, heroData }: {
   groupId: number; spaceName: string; draftPath: string; previewPath: string;
   hasDraft: boolean; updatedAt: string | null; composition: Composition;
   sourceReady: Record<string, boolean>; editableSections: Record<string, { content: unknown; base: number | null }>;
-  scopeStyle: Record<string, string>;
+  scopeStyle: Record<string, string>; heroData: HeroPlaceholders;
 }): React.ReactElement {
   const groupSlug = previewPath.split('/').filter(Boolean).pop() ?? '';
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -53,6 +56,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   const [publishMsg, setPublishMsg] = useState<string | null>(null);
   const [drawer, setDrawer] = useState<{ zone: Zone; index: number } | null>(null);
   const [styleOpen, setStyleOpen] = useState(false);
+  const [heroOpen, setHeroOpen] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [editing, setEditing] = useState<{ id: string; section: string; rect: BlockRect } | null>(null);
   // The editable sections, seeded from the server. Kept in state so a save inside this
@@ -125,6 +129,11 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
   useEffect(() => { if (!deleted) return; const t = setTimeout(() => setDeleted(null), 6000); return () => clearTimeout(t); }, [deleted]);
   // deselect closes the style panel (Esc clears selection -> closes; click-empty too).
   useEffect(() => { if (!selectedId) setStyleOpen(false); }, [selectedId]);
+  // The hero renders on the canvas as a pseudo-block (data-block-id="hero"); it is
+  // not a composition block, so selecting it opens the identity editor, never the
+  // block style/handles. Opening the hero panel clears any block selection.
+  useEffect(() => { if (selectedId === 'hero') { setHeroOpen(true); setStyleOpen(false); } }, [selectedId]);
+  useEffect(() => { if (heroOpen) { setStyleOpen(false); } }, [heroOpen]);
 
   // phone layer (co-design 4): narrow screens get bottom sheets + a tap action sheet.
   useEffect(() => {
@@ -209,7 +218,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
       // the shell's block-nav keys (Tab cycle, Enter grab, Esc deselect) must YIELD so the
       // overlay can trap Tab, insert newlines, and handle its own Esc. Without this the
       // window listener steals Enter (setGrab) inside the inline editor, breaking typing.
-      if (drawer || styleOpen || editing) return;
+      if (drawer || styleOpen || editing || heroOpen) return;
       if (e.key === 'Escape') {
         if (grab) { eng.reorderBefore(grab.id, grab.originBeforeId); setGrab(null); }
         else { setSelectedId(null); setFocusId(null); }
@@ -242,7 +251,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [orderedIds, focusId, selectedId, grab, eng, moveInGrab, zoneIds, drawer, styleOpen, editing]);
+  }, [orderedIds, focusId, selectedId, grab, eng, moveInGrab, zoneIds, drawer, styleOpen, editing, heroOpen]);
 
   const scrollIntoView = useCallback((id: string | null) => {
     if (!id) return;
@@ -278,8 +287,15 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
     iframeRef.current?.contentWindow?.location.reload();
   }, [editing]);
 
+  // ---- hero / identity (V-BUILDER-3 step 5): page-level META override, saved through
+  // the same rail (eng.setMeta), reconciled by the canvas reload so the masthead
+  // re-renders from the fresh draft. Closing the panel clears the pseudo-selection.
+  const onHeroChange = useCallback((hero: HeroIdentity | undefined) => { eng.setMeta({ hero }); }, [eng]);
+  const closeHero = useCallback(() => { setHeroOpen(false); if (selectedId === 'hero') { setSelectedId(null); setFocusId(null); } }, [selectedId]);
+
   // ---- derived ----
-  const selected = blocks.find((b) => b.id === selectedId) ?? null;
+  // The hero is a pseudo-block (not in the composition): never show block handles for it.
+  const selected = selectedId === 'hero' ? null : blocks.find((b) => b.id === selectedId) ?? null;
   const selectedEditable = !!(selected && SECTION_FOR[selected.type] && sections[SECTION_FOR[selected.type]!]);
   const focused = focusId && focusId !== selectedId ? blocks.find((b) => b.id === focusId) ?? null : null;
   const width = DEVICE_W[device];
@@ -310,7 +326,8 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
         </div>
         <Divider />
         <button type="button" onClick={() => openDrawerAt('main', eng.mainIds.length)} aria-haspopup="dialog" title="Add a block" style={textBtn('secondary')}>+ Add block</button>
-        <button type="button" onClick={() => setStyleOpen((o) => !o)} disabled={!selectedId} aria-pressed={styleOpen} title={selectedId ? 'Style the selected block' : 'Select a block first'} style={textBtn(selectedId ? 'secondary' : 'disabled')}>Style</button>
+        <button type="button" onClick={() => { setSelectedId(null); setFocusId(null); setHeroOpen((o) => !o); }} aria-haspopup="dialog" aria-pressed={heroOpen} title="Edit the header & identity" style={textBtn(heroOpen ? 'primary' : 'secondary')}>Header</button>
+        <button type="button" onClick={() => setStyleOpen((o) => !o)} disabled={!selectedId || selectedId === 'hero'} aria-pressed={styleOpen} title={selectedId && selectedId !== 'hero' ? 'Style the selected block' : 'Select a block first'} style={textBtn(selectedId && selectedId !== 'hero' ? 'secondary' : 'disabled')}>Style</button>
         <Divider />
         <div role="group" aria-label="History" style={{ display: 'inline-flex', gap: 2 }}>
           <button type="button" onClick={eng.undo} disabled={!eng.canUndo} aria-label="Undo" title="Undo" style={iconBtn(false, !eng.canUndo)}><UndoIcon flip={false} /></button>
@@ -394,6 +411,15 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
               onDelete={() => doDelete(sid)} />
           ) : null;
         })()}
+
+        {/* hero / identity panel (V-BUILDER-3 step 5): a page-level editor, not a block. */}
+        {heroOpen ? (
+          <HeroPanel groupId={groupId} sheet={isPhone}
+            hero={(eng.metaOf().hero as HeroIdentity | undefined) ?? {}}
+            placeholders={heroData}
+            onChange={onHeroChange}
+            onClose={closeHero} />
+        ) : null}
       </div>
 
       {/* ---- toasts ---- */}
@@ -403,7 +429,7 @@ export function BuilderShell({ groupId, spaceName, draftPath, previewPath, hasDr
 
       {/* phone: a tapped block raises the action sheet (co-design 4). "Edit content"
           opens the same section editor as a bottom sheet; Style opens the style sheet. */}
-      {isPhone && selectedId && !styleOpen && !drawer && !editing ? (() => {
+      {isPhone && selectedId && selectedId !== 'hero' && !styleOpen && !drawer && !editing && !heroOpen ? (() => {
         const b = blocks.find((x) => x.id === selectedId);
         if (!b) return null;
         const zone = eng.zoneOf(selectedId) ?? 'main';

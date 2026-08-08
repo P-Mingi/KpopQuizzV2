@@ -89,6 +89,8 @@ export interface BuilderEngine {
   styleOf: (id: string) => BlockStyle;
   setProps: (id: string, props: Record<string, unknown>) => void;
   propsOf: (id: string) => Record<string, unknown>;
+  setMeta: (patch: Record<string, unknown>) => void;
+  metaOf: () => Record<string, unknown>;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -288,6 +290,30 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
   }, [composition, applyOp]);
   const propsOf = useCallback((id: string): Record<string, unknown> => flat(liveRef.current).find((b) => b.id === id)?.props ?? {}, [composition]);
 
+  // V-BUILDER-3 step 5 - PAGE-LEVEL META edit (the hero/identity editor). The hero
+  // overrides live in the presentation META (compositionToPresentation spreads it),
+  // not a block's props, so they save through the SAME validated rail. A key set to
+  // undefined is DROPPED (a reset -> absent === the data-driven default; parity holds).
+  // Committed IMMEDIATELY + reconciled by a canvas reload (like undo/redo) so the hero
+  // re-renders on the chrome-less canvas from the freshly-saved draft. A rejection
+  // reverts + surfaces the sentence.
+  const setMeta = useCallback((patch: Record<string, unknown>) => {
+    const cur = (liveRef.current.meta ?? {}) as Record<string, unknown>;
+    const nextMeta: Record<string, unknown> = { ...cur };
+    for (const [k, v] of Object.entries(patch)) { if (v === undefined) delete nextMeta[k]; else nextMeta[k] = v; }
+    if (JSON.stringify(cur) === JSON.stringify(nextMeta)) return; // no change, no save/reload
+    const next: Composition = { ...liveRef.current, meta: nextMeta };
+    cancelPendingSave();
+    pastRef.current.push(liveRef.current);
+    if (pastRef.current.length > HISTORY_MAX) pastRef.current.shift();
+    futureRef.current = [];
+    liveRef.current = next;
+    setComposition(next);
+    bump();
+    void commit(next).then((ok) => (ok ? reload() : hardReset()));
+  }, [commit, hardReset, cancelPendingSave]);
+  const metaOf = useCallback((): Record<string, unknown> => (liveRef.current.meta ?? {}) as Record<string, unknown>, [composition]);
+
   // Insert one or more fresh blocks at a zone index. A PATTERN insert is just many
   // specs: each block gets its OWN crypto.randomUUID + is placed independently, so the
   // group DISSOLVES on arrival - every inserted block is selectable/movable/deletable.
@@ -353,7 +379,7 @@ export function useBuilderComposition({ groupId, initial, iframeRef, onDom }: {
 
   return {
     composition, mainIds, zoneOf, indexInZone, canDelete, styleOf,
-    reorderBefore, duplicate, remove, insertAt, insertBlocks, setStyle, setProps, propsOf,
+    reorderBefore, duplicate, remove, insertAt, insertBlocks, setStyle, setProps, propsOf, setMeta, metaOf,
     undo, redo, canUndo: pastRef.current.length > 0, canRedo: futureRef.current.length > 0,
     saving, savedAt, error, clearError: () => setError(null), lastOpMs, reloadKey,
   };

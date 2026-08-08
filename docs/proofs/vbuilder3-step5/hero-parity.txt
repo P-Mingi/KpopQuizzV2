@@ -1,0 +1,11 @@
+PASS  hero emits ZERO headings when DEFAULT (one-H1 is page-level)  -> []
+PASS  hero emits ZERO headings when OVERRIDDEN (H1 untouched by the override)  -> []
+PASS  the crawlable anchor SET is IDENTICAL (override adds no links)  -> default=["/login?returnTo=%2Fverse%2Faurora","https://youtube.com/@aurora"]  overridden=["/login?returnTo=%2Fverse%2Faurora","https://youtube.com/@aurora"]
+PASS  override replaced the visible masthead name  -> displayName override present only in the overridden render
+PASS  override replaced the tagline
+PASS  override rendered the vitals chips (Since 2019 / 5 stars)
+PASS  override rendered the banner + avatar images from the ingest-copied paths
+PASS  no EXTERNAL image URL smuggled into the rendered hero (fail-closed asset gate)  -> images resolve through spaceAssetUrl (our bucket) only
+PASS  default hero shows the data-driven fandom name + derived vitals  -> data-driven masthead intact when no override
+
+Step-5 hero SEO parity: ALL PASS

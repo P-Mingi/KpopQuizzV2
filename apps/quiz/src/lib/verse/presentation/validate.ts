@@ -358,6 +358,21 @@ export function validatePresentation(raw: unknown): ValidationResult {
     errors.push('Doorways config must be an object keyed by door.');
   }
 
+  // V-BUILDER-3 step 5 - HERO / IDENTITY overrides. Clamped through the SAME hero
+  // editorSchema the editor renders from (single source of truth): images must be
+  // ingest-copied storage paths (never external URLs, L-047), text fields cap, chips
+  // clamp per row. An empty result drops the key (absent === data-driven default).
+  let hero: Presentation['hero'] | undefined;
+  if (c.hero != null) {
+    if (typeof c.hero !== 'object' || Array.isArray(c.hero)) errors.push('Header & identity config must be an object.');
+    else {
+      const schema = editorSchema('hero');
+      const clamp = schema ? clampPropsBySchema(schema, c.hero) : { props: undefined, errors: [] as string[] };
+      clamp.errors.forEach((e) => errors.push(e));
+      if (clamp.props && Object.keys(clamp.props).length) hero = clamp.props as Presentation['hero'];
+    }
+  }
+
   if (errors.length) return { ok: false, errors };
 
   const value: Presentation = { version: PRESENTATION_VERSION };
@@ -365,6 +380,7 @@ export function validatePresentation(raw: unknown): ValidationResult {
   if (c.template != null) value.template = c.template as NonNullable<Presentation['template']>;
   if (accent) value.accent = accent;
   if (c.banner != null && typeof c.banner === 'object') value.banner = c.banner as BannerConfig;
+  if (hero) value.hero = hero;
   if (welcome) value.welcome = welcome;
   if (tabs) value.tabs = tabs;
   if (modules) value.modules = modules;

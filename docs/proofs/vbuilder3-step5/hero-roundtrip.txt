@@ -1,0 +1,13 @@
+PASS  save accepted  -> ok
+PASS  validator kept presentation.hero  -> {"banner":"space/7/banner-9a8b.webp","avatar":"space/7/avatar-1c2d.webp","displayName":"STELLAR","tagline":"Twelve stars, one sky.","chips":[{"label":"Debut","value":"2018"},{"value":"12 members"}]}
+PASS  banner override intact  -> space/7/banner-9a8b.webp
+PASS  avatar override intact  -> space/7/avatar-1c2d.webp
+PASS  displayName override intact  -> STELLAR
+PASS  tagline override intact  -> Twelve stars, one sky.
+PASS  vitals chips intact  -> [{"label":"Debut","value":"2018"},{"value":"12 members"}]
+PASS  reset save accepted  -> ok
+PASS  after reset, presentation.hero is ABSENT (parity: default look)
+PASS  external banner URL rejected (dropped or save-blocked with a sentence)  -> Banner image must be an uploaded image, not an external URL (we copy images into our own storage).
+PASS  rejection carries a human sentence about uploaded-only images  -> Banner image must be an uploaded image, not an external URL (we copy images into our own storage).
+
+step-5 hero round-trip + reset: ALL PASS

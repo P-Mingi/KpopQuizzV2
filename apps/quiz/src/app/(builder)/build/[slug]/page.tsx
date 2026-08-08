@@ -19,6 +19,7 @@ import { EMPTY_PRESENTATION } from '@/lib/verse/presentation/types';
 import { presentationScopeStyle } from '@/lib/verse/presentation/scope';
 import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { CompositionRenderer } from '@/components/verse/presentation/composition-renderer';
+import { SpaceHero } from '@/components/verse/space-hero';
 
 import type { Metadata } from 'next';
 import type { Presentation } from '@/lib/verse/presentation/types';
@@ -61,7 +62,14 @@ export default async function BuildCanvasPage({ params }: { params: Promise<{ sl
       data-build-canvas=""
       style={presentationScopeStyle(draftSpace)}
     >
-      <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
+      {/* V-BUILDER-3 step 5: the masthead preview on the canvas. It is NOT a composition
+          block, so it carries a "hero" pseudo-handle the shell selects to open the
+          identity editor; the banner/avatar render from the DRAFT through the fail-closed
+          asset gate (spaceAssetUrl + onError), so an ingest-copied image shows live here. */}
+      <div data-block-id="hero" data-block-type="hero">
+        <SpaceHero space={draftSpace} />
+      </div>
+      <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16 mt-6">
         {/* builder: stamp each block with its stable data-block-id handle so the
             parent shell's overlay can select it. The module HTML is otherwise the
             real reader render (zero drift). */}

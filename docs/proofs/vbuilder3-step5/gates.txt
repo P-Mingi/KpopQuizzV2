@@ -1,0 +1,29 @@
+V-BUILDER-3 step 5 + receipts R-A/R-B - GATES (2026-08-08)
+
+== tsc --noEmit ==
+tsc: 0 errors
+
+== check:routes ==
+Route allowlist guard passed: 344 page routes reachable.
+
+== check:verse-tokens ==
+Verse token gate passed: no raw hex colors in Verse surfaces.
+
+== full build (npm run build) ==
+Route allowlist guard passed: 344 page routes reachable.
+Verse token gate passed: no raw hex colors in Verse surfaces.
+Compiled successfully in 10.3s
+Generating static pages (622/622)
+exit 0
+
+== em-dash / en-dash scan ==
+tracked diff (git diff HEAD): clean
+new files (hero-editor, space-hero, types, validate, proof scripts): clean
+
+== proofs in this dir ==
+hero-roundtrip.txt   - override round-trip + reset + hostile external-URL reject (ALL PASS)
+hero-parity.txt      - SEO parity: 0 headings both ways, identical anchor set, override applies (ALL PASS)
+hero-editor-light.png / hero-editor-dark.png - the Header & identity panel, both themes
+
+R-B members editor shots live beside R-A in docs/proofs/vbuilder3-step4/
+(members-editor-light.png / members-editor-dark.png).

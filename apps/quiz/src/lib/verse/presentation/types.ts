@@ -72,6 +72,20 @@ export interface BannerConfig {
   treatment?: 'photo' | 'gradient' | 'solid';
 }
 
+// V-BUILDER-3 step 5 - HERO / IDENTITY overrides (co-design 8 / L-062). All curator
+// overrides on the space masthead, stored in the presentation jsonb (rides the draft
+// rail; no migration). Images are ingest-copied storage PATHS, never external URLs
+// (L-047). Every field is optional and OVERRIDES a data-driven default; absent = the
+// entity value (member count, fandom name, logo, derived vitals). The page H1 and hero
+// semantics never change: displayName restyles only the VISIBLE masthead name.
+export interface HeroIdentity {
+  banner?: string | null;      // ingest-copied banner image path (overrides presentation.banner)
+  avatar?: string | null;      // ingest-copied profile image path (overrides the group logo)
+  displayName?: string | null; // overrides the visible masthead name (NOT the sr-only H1)
+  tagline?: string | null;     // overrides the welcome line under the name
+  chips?: { label?: string; value: string }[]; // overrides the derived vitals line
+}
+
 // W-CUSTOM step 7 - LIVE NOW is a curator manual toggle (a quota-cheap YouTube live
 // check is not feasible: search.list costs 100 units/call). expiresAt caps the
 // banner at 12h and auto-hides it at render even if the curator forgets.
@@ -94,6 +108,7 @@ export interface Presentation {
   template?: StructureTemplateId | null;
   accent?: string | null;    // hex; contrast-validated, auto-shaded at render
   banner?: BannerConfig;
+  hero?: HeroIdentity;       // V-BUILDER-3 step 5 - masthead identity overrides
   welcome?: string | null;   // short curator intro (TipTap-constrained inline)
   tabs?: TabId[];            // 3-7 tabs; hidden tabs never hide pages
   modules?: ModulePlacement[];
