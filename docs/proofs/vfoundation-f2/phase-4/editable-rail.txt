@@ -1,0 +1,24 @@
+PASS  base Name row = the data value (Jisoo)  -> Jisoo
+PASS  Born is a COMPUTED row (auto), NOT editable (locked, A2)  -> {"key":"born","dt":"Born","dd":"Jan 3, 1995 (age 31)","auto":true}
+PASS  Years active is computed + locked  -> {"key":"years","dt":"Years active","dd":"10 years","auto":true}
+PASS  overrides persisted on the body (no schema change)  -> {"from":"Ilsan, South Korea","name":"RM (Kim Namjoon)"}
+PASS  FAIL-CLOSED: an override on a COMPUTED key (born/years) was DROPPED by the clamp  -> {"from":"Ilsan, South Korea","name":"RM (Kim Namjoon)"}
+PASS  photo override kept (ingest-copied path)  -> space/1/rm.webp
+PASS  A2: Name shows the OVERRIDE, marked Edited  -> RM (Kim Namjoon)
+PASS  A2: From shows the override  -> Ilsan, South Korea
+PASS  A2: Born STILL computed from data (the hack never applied)  -> Jan 3, 1995 (age 31)
+PASS  revert: Name back to the data value (Jisoo), Edited cleared  -> Jisoo
+PASS  publish -> status published  -> published
+PASS  member page is indexable (fact rail exemption, is_stub false)  -> false
+PASS  cleanup: no zzz-f2-a2 pages remain  -> 0
+
+Phase 4 (A2 editable rail + substance + publish): ALL PASS
+
+FRAME (screenshot editor-frame.png, live as admin on a member page bound to an idol):
+- Top bar: crumb + "Verse locked · admin only" + DRAFT status + "saved · rev N" + word count +
+  history / focus / preview buttons + "Publish (Cmd+Enter)".
+- Living OUTLINE (left) built from the headings ("builds as you type"); editable title + the
+  immutable-slug lock hint; A1 applied (no separator over the H2 headings).
+- The A2 EDITABLE FACT RAIL (right): Name/From/Positions/Fandom = DATA (click to override ->
+  Edited + revert); Born (age) + Years active = AUTO, LOCKED to the data; photo via the rail;
+  the honest railnote. The SUBSTANCE meter (the real C5 rule) shows the live score.

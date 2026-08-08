@@ -5,7 +5,8 @@ import { canCurateSpace, isVerseAdmin } from '@/lib/verse/roles';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { getSpace } from '@/lib/verse/space';
 import { getPageBySlug } from '@/lib/verse/tree/data';
-import { PageEditor } from '@/components/verse/tree/page-editor';
+import { buildFactRail } from '@/lib/verse/tree/factrail';
+import { PageEditorFrame } from '@/components/verse/tree/page-editor-frame';
 
 import type { Metadata } from 'next';
 
@@ -44,18 +45,18 @@ export default async function EditPage({ params }: { params: Promise<{ slug: str
       ...(typeof b.label === 'string' ? { label: b.label } : {}) } as EB;
   });
 
+  // the fact rail BASE (pure entity data, no overrides) + the current overrides ride the body.
+  const factSections = await buildFactRail(svc, page, new Date());
+  const factOverrides = (page.blocks as { factOverrides?: import('@/lib/verse/tree/factrail').FactOverrides })?.factOverrides ?? {};
+  const { count } = await svc.from('page_revisions').select('id', { count: 'exact', head: true }).eq('page_id', page.id);
+
   return (
-    <div className="verse-page verse-scope ped-wrap">
-      <div className="ped-head">
-        <span className="ped-crumb">{space.group.fandom_name} / {page.title}</span>
-        <span className="ped-lockchip">{'\u{1F512}'} Verse locked · admin only</span>
-        <span className={`ped-status ${page.status}`}>{page.status}</span>
-      </div>
-      <h1 className="ped-title">{page.title}</h1>
-      <div className="ped-slugline"><span>{'\u{1F512}'}</span> /verse/{slug}/{page.slug} <span className="hint">· renaming the title never changes the URL</span></div>
-      {/* PageEditor is a client island; the frame (TOC / meter / history / editable rail /
-          publish) lands in Phase 4 and will wrap this. */}
-      <PageEditor groupId={space.group.id} pageId={page.id} initialBlocks={initialBlocks as never} />
+    <div className="verse-page verse-scope">
+      <PageEditorFrame
+        groupId={space.group.id} spaceSlug={slug} pageId={page.id} pageSlug={page.slug}
+        title={page.title} status={page.status} entityKind={page.entity_kind}
+        initialBlocks={initialBlocks as never} initialFactOverrides={factOverrides}
+        factSections={factSections} revCount={count ?? 0} />
     </div>
   );
 }

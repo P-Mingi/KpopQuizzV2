@@ -106,8 +106,9 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
   const svc = createServiceRoleClient();
   const now = new Date();
   const linkSlugs = extractLinks(page.blocks).map((l) => l.toSlug);
+  const factOverrides = (page.blocks as { factOverrides?: Parameters<typeof buildFactRail>[3] })?.factOverrides;
   const [facts, chain, revCount, backlinks, existingRows, tags] = await Promise.all([
-    buildFactRail(svc, page, now),
+    buildFactRail(svc, page, now, factOverrides),
     ancestors(svc, page),
     svc.from('page_revisions').select('id', { count: 'exact', head: true }).eq('page_id', page.id),
     backlinksFor(svc, page.id),   // C6: real "what links here"

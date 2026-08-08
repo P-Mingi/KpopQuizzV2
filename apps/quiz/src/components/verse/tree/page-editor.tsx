@@ -38,9 +38,9 @@ const PALETTE: { t: Kind | 'x'; ic: string; l: string; d: string; lock?: boolean
   { t: 'x', ic: '\u{1F4CA}', l: 'Data block', d: 'soon', lock: true },
 ];
 
-export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
-  groupId: number; pageId: number; initialBlocks: EB[];
-  onBlocksChange?: (blocks: EB[]) => void;   // Phase 4 frame subscribes (TOC / meter)
+export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
+  groupId: number; initialBlocks: EB[];
+  onBlocksChange: (blocks: EB[]) => void;   // the FRAME (Phase 4) owns the save (blocks + fact overrides)
 }): React.ReactElement {
   const [blocks, setBlocks] = useState<EB[]>(() => initialBlocks.length ? initialBlocks : [{ id: nid(), type: 'paragraph', content: [] }]);
   const els = useRef<Map<string, HTMLElement>>(new Map());
@@ -50,8 +50,6 @@ export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
   const [picker, setPicker] = useState<{ id: string; x: number; y: number; q: string; hits: { slug: string; title: string }[] } | null>(null);
   const [toolbar, setToolbar] = useState<{ x: number; y: number } | null>(null);
   const [toast, setToast] = useState<{ msg: string; undo?: () => void } | null>(null);
-  const [savedRev, setSavedRev] = useState<number | null>(null);
-  const [saving, setSaving] = useState(false);
 
   // serialize the live DOM of every text block back into the block model.
   const serialize = useCallback((): EB[] => {
@@ -63,19 +61,12 @@ export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
     });
   }, [blocks]);
 
-  const save = useCallback(async (bs: EB[]) => {
-    setSaving(true);
-    try {
-      const r = await fetch('/api/verse/tree', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ group_id: groupId, action: 'save', page_id: pageId, blocks: { version: 1, blocks: bs } }) });
-      const d = await r.json().catch(() => ({}));
-      if (r.ok && d.page) setSavedRev((prev) => (prev ?? 0) + 1);
-    } finally { setSaving(false); }
-  }, [groupId, pageId]);
-
+  // report the current blocks to the frame (which owns the debounced save of blocks + fact
+  // overrides through the F1 CRUD rail). Debounced for typing; immediate for structural ops.
   const scheduleSave = useCallback(() => {
     if (saveT.current) clearTimeout(saveT.current);
-    saveT.current = setTimeout(() => { const bs = serialize(); onBlocksChange?.(bs); void save(bs); }, 900);
-  }, [serialize, save, onBlocksChange]);
+    saveT.current = setTimeout(() => onBlocksChange(serialize()), 600);
+  }, [serialize, onBlocksChange]);
 
   // set a block's contenteditable initial HTML once per (id) mount.
   const bindEl = useCallback((id: string, kind: Kind, el: HTMLElement | null) => {
@@ -99,10 +90,9 @@ export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
   // structural op helper: serialize -> mutate -> setState -> save.
   const mutate = useCallback((fn: (bs: EB[]) => EB[], focusId?: string) => {
     const next = fn(serialize());
-    setBlocks(next); onBlocksChange?.(next);
-    if (saveT.current) clearTimeout(saveT.current); saveT.current = setTimeout(() => void save(next), 700);
+    setBlocks(next); onBlocksChange(next);   // structural ops save immediately (the frame persists)
     if (focusId) focusBlock(focusId);
-  }, [serialize, save, focusBlock, onBlocksChange]);
+  }, [serialize, focusBlock, onBlocksChange]);
 
   const insertAfter = useCallback((afterId: string | null, kind: Kind, level?: 2 | 3) => {
     const nb: EB = { id: nid(), type: kind, ...(kind === 'heading' ? { level: level ?? 2 } : {}), ...(isText(kind) ? { content: [] } : {}), ...(kind === 'list' ? { items: [[]] } : {}), ...(kind === 'callout' ? { icon: '\u{1F4A1}' } : {}), ...(kind === 'table' ? { rows: [['', ''], ['', '']] } : {}) };
@@ -125,9 +115,9 @@ export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
     const label = snapshot[idx]?.type ?? 'block';
     mutate((bs) => bs.length > 1 ? bs.filter((b) => b.id !== id) : bs);
     const prev = snapshot[idx - 1]; if (prev) focusBlock(prev.id);
-    setToast({ msg: `${label} deleted`, undo: () => { setBlocks(snapshot); onBlocksChange?.(snapshot); void save(snapshot); setToast(null); } });
+    setToast({ msg: `${label} deleted`, undo: () => { setBlocks(snapshot); onBlocksChange(snapshot); setToast(null); } });
     setTimeout(() => setToast((t) => (t && t.msg.startsWith(label)) ? null : t), 6000);
-  }, [serialize, mutate, focusBlock, save, onBlocksChange]);
+  }, [serialize, mutate, focusBlock, onBlocksChange]);
 
   const moveBlock = useCallback((id: string, dir: -1 | 1) => {
     mutate((bs) => { const i = bs.findIndex((b) => b.id === id); const j = i + dir; if (j < 0 || j >= bs.length) return bs; const n = [...bs]; [n[i], n[j]] = [n[j]!, n[i]!]; return n; });
@@ -331,7 +321,6 @@ export function PageEditor({ groupId, pageId, initialBlocks, onBlocksChange }: {
       {toast ? (
         <div className="ped-toast">{toast.msg}{toast.undo ? <button onClick={toast.undo}>Undo</button> : null}</div>
       ) : null}
-      <div className="ped-savechip" aria-live="polite">{saving ? 'saving...' : savedRev != null ? 'saved' : ''}</div>
     </div>
   );
 }

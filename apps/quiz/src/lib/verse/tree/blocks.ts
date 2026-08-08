@@ -30,7 +30,10 @@ export interface DocBlock {
   rows?: string[][];         // table cells (plain text v1)
   to_slug?: string; label?: string;  // block-level page link
 }
-export interface DocBody { version: 1; blocks: DocBlock[] }
+import { EDITABLE_FACT_KEYS } from './factrail';
+import type { FactOverrides } from './factrail';
+
+export interface DocBody { version: 1; blocks: DocBlock[]; factOverrides?: FactOverrides }
 
 const cap = (s: unknown, n: number): string => (typeof s === 'string' ? s : '').slice(0, n);
 const isSlug = (s: string): boolean => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s);
@@ -104,13 +107,31 @@ function clampBlock(raw: unknown): DocBlock | null {
   }
 }
 
+// A2: clamp the fact-rail overrides that ride the body. FAIL-CLOSED: only the EDITABLE
+// (non-computed) keys are kept, values capped; the photo must be an ingest-copied path.
+function clampFactOverrides(raw: unknown): FactOverrides | undefined {
+  if (raw == null || typeof raw !== 'object') return undefined;
+  const r = raw as { fields?: unknown; photo?: unknown };
+  const out: FactOverrides = {};
+  if (r.fields && typeof r.fields === 'object') {
+    const f: Record<string, string> = {};
+    for (const k of EDITABLE_FACT_KEYS) { const v = (r.fields as Record<string, unknown>)[k]; if (typeof v === 'string' && v.trim()) f[k] = cap(v, 200); }
+    if (Object.keys(f).length) out.fields = f;
+  }
+  if (typeof r.photo === 'string' && r.photo.trim() && !/^https?:\/\//i.test(r.photo)) out.photo = cap(r.photo, 400);
+  return out.fields || out.photo ? out : undefined;
+}
+
 /** Clamp a raw page body to the v1 block model. Fail-closed: unknown kinds are DROPPED. */
 export function clampBlocks(raw: unknown): { body: DocBody; dropped: number } {
   const arr = raw && typeof raw === 'object' && Array.isArray((raw as { blocks?: unknown }).blocks)
     ? (raw as { blocks: unknown[] }).blocks : Array.isArray(raw) ? raw : [];
   let dropped = 0;
   const blocks = arr.map((b) => { const c = clampBlock(b); if (!c) dropped += 1; return c; }).filter((b): b is DocBlock => !!b);
-  return { body: { version: 1, blocks }, dropped };
+  const body: DocBody = { version: 1, blocks };
+  const ov = clampFactOverrides((raw as { factOverrides?: unknown })?.factOverrides);
+  if (ov) body.factOverrides = ov;
+  return { body, dropped };
 }
 
 // ------------------------------------------------------------------ substance (C5)
