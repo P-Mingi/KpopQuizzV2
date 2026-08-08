@@ -13,6 +13,7 @@ import { getGroupProfiles } from '@/lib/personality/data';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
+import { getGroupArticleLinks } from '@/lib/articles/group-links';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -219,6 +220,30 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           Make your own {group.name} quiz
         </Link>
       </div>
+
+      {/* SEO: internal article links pass equity from group pages to /articles/ */}
+      {(() => {
+        const articleLinks = getGroupArticleLinks(group.slug);
+        if (articleLinks.length === 0) return null;
+        return (
+          <section className="mt-8">
+            <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
+              Read more about {group.name}
+            </h2>
+            <div className="flex flex-col gap-2">
+              {articleLinks.map(link => (
+                <Link
+                  key={link.slug}
+                  href={`/articles/${link.slug}`}
+                  className="text-sm text-[var(--text-primary)] hover:underline"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {relatedQuizzes.length > 0 && (
         <section className="mt-12 pt-8 border-t border-[var(--border)]">

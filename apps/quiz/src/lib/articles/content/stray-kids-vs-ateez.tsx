@@ -15,7 +15,8 @@ export function ArticleBody(): React.ReactElement {
       <p>
         Both groups debuted in the 4th generation, both have eight members, and
         both are known for writing and producing their own title tracks. The
-        table below uses verifiable platform data plus widely known group facts.
+        table below uses verifiable platform data from kpopquiz.org plus widely
+        known group facts.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
@@ -26,11 +27,17 @@ export function ArticleBody(): React.ReactElement {
             <tr><td>Generation</td><td>4th Gen</td><td>4th Gen</td></tr>
             <tr><td>Members</td><td>8</td><td>8</td></tr>
             <tr><td>Fandom</td><td>STAY</td><td>ATINY</td></tr>
-            <tr><td>Blind test songs</td><td>18</td><td>18</td></tr>
+            <tr><td>Albums on platform</td><td>20</td><td>25</td></tr>
+            <tr><td>Blind test songs (Deezer)</td><td>18</td><td>18</td></tr>
             <tr><td>Self-produced title tracks</td><td>Yes (3RACHA)</td><td>Yes (EDEN-led writing)</td></tr>
           </tbody>
         </table>
       </div>
+      <p>
+        ATEEZ edge ahead on sheer catalog size with 25 albums (including EPs and
+        singles) to Stray Kids&apos; 20. Both groups have 18 curated songs each
+        in the Deezer blind test, keeping the listening challenge evenly matched.
+      </p>
 
       <h2 id="which-harder">Which group is harder to quiz on?</h2>
       <p>

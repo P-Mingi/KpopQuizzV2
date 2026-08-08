@@ -13,10 +13,9 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="side-by-side">aespa vs NewJeans: the quick comparison</h2>
       <p>
-        The table pairs verifiable platform data with widely known group facts.
-        Both debuted in the 4th generation and both anchor the current girl-group
-        quiz surge that pushes girl groups past boy groups in total plays on the
-        platform.
+        The table pairs verifiable platform data from kpopquiz.org with widely
+        known group facts. Both debuted in the 4th generation and both anchor
+        the current girl-group quiz surge on the platform.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
@@ -27,11 +26,18 @@ export function ArticleBody(): React.ReactElement {
             <tr><td>Generation</td><td>4th Gen</td><td>4th Gen</td></tr>
             <tr><td>Members</td><td>4</td><td>5</td></tr>
             <tr><td>Fandom</td><td>MY</td><td>Bunnies</td></tr>
-            <tr><td>Blind test songs</td><td>18</td><td>18</td></tr>
+            <tr><td>Albums on platform</td><td>11</td><td>2</td></tr>
+            <tr><td>Blind test songs (Deezer)</td><td>18</td><td>18</td></tr>
             <tr><td>Signature sound</td><td>Bold, concept-heavy pop</td><td>Retro, easy-listening pop</td></tr>
           </tbody>
         </table>
       </div>
+      <p>
+        aespa have a much deeper catalog with 11 albums (including EPs and
+        singles) compared to NewJeans&apos; compact 2 EPs. That catalog depth is
+        what makes aespa quizzes harder: there are more eras and concept shifts
+        to learn.
+      </p>
 
       <h2 id="which-easier">Which group is easier to quiz on?</h2>
       <p>

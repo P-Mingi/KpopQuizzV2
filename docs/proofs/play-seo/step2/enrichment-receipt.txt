@@ -1,0 +1,65 @@
+PLAY-SEO Step 2: ENRICH top-tier articles + INTERNAL LINKS
+===========================================================
+Date: 2026-08-08
+Data source: production Supabase (project iiwovvyofjccmnercniq)
+  pulled via /tmp/seo-enrichment-data.json (1558 lines, valid JSON)
+
+A. ARTICLE ENRICHMENT (6 articles deepened with real DB data)
+=============================================================
+
+ # | slug                          | before | after | DB entities pulled
+---|-------------------------------|--------|-------|---------------------------------------------------
+ 1 | bts-discography-guide         |  65 ln | 195 ln| 17 albums (by era), 7 members, 29 BT songs, 30 quizzes, 8821 plays
+ 2 | kpop-eras-timeline            |  60 ln |  67 ln| 87 groups total, generation counts (2nd:10, 3rd:16, 4th:17, 5th:9)
+ 3 | newjeans-fan-guide            |  61 ln |  90 ln| 5 members, 2 albums (dates+tracks), 18 Deezer / 10 YT BT songs
+ 4 | stray-kids-vs-ateez           |  72 ln |  79 ln| SKZ: 20 albums, 18 Deezer songs; ATEEZ: 25 albums, 18 Deezer songs
+ 5 | aespa-vs-newjeans-quiz        |  71 ln |  77 ln| aespa: 11 albums, 18 Deezer songs; NJ: 2 albums, 18 Deezer songs
+ 6 | kpop-generations-explained    | 151 ln | 167 ln| 87 groups, 399 quizzes, 57600+ plays, 4120 Deezer songs, 81 BT groups
+
+Total new content: +96 lines across 6 articles (bts-discography: +130 alone)
+
+Enrichment NOT applied to (already deep enough):
+  - kpop-blind-test-guide (164 lines, guide format)
+  - bts-vs-blackpink-quiz (136 lines)
+  - hardest-kpop-quizzes (145 lines)
+  - best-kpop-quiz-sites-2026 (157 lines)
+  - kpop-facts-every-fan-should-know (116 lines)
+
+B. INTERNAL LINKS (new inbound links from group pages to /articles/)
+====================================================================
+
+New file: apps/quiz/src/lib/articles/group-links.ts (51 lines)
+  Maps group slugs to relevant article slugs.
+
+Modified: apps/quiz/src/app/[slug]/group-quiz-page.tsx (+25 lines)
+  Added "Read more about {group}" section between CTA and "Fans also play"
+
+Link map:
+  bts           -> bts-discography-guide, bts-vs-blackpink-quiz
+  blackpink     -> bts-vs-blackpink-quiz
+  stray-kids    -> stray-kids-vs-ateez
+  ateez         -> stray-kids-vs-ateez
+  aespa         -> aespa-vs-newjeans-quiz
+  newjeans      -> newjeans-fan-guide, aespa-vs-newjeans-quiz
+  (all others)  -> kpop-generations-explained (general fallback)
+
+Cross-links WITHIN articles:
+  kpop-generations-explained <-> kpop-eras-timeline (bidirectional)
+  bts-discography-guide -> bts-vs-blackpink-quiz
+  newjeans-fan-guide -> aespa-vs-newjeans-quiz
+
+C. GATES
+========
+  em-dash scan: CLEAN (0 occurrences)
+  tsc: CLEAN for all changed files (checked against main tree node_modules)
+
+D. COVENANT COMPLIANCE
+======================
+  All numbers sourced from production DB pull.
+  No fabricated facts. Member roles are general knowledge (stage names,
+  widely reported positions).
+  Honest emptiness: no debut_date column exists in the groups table
+  (only inception_date, mostly null); generation field used instead.
+  DB notes: every group shows exactly 18 Deezer songs (curation cap).
+  Stray Kids DB shows 9 members (includes former member Kim Woo-jin);
+  article correctly states 8 (current roster).
