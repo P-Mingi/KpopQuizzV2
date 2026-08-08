@@ -1,0 +1,25 @@
+PLAY-SEO Step 3: NOINDEX thin-tier articles
+============================================
+
+Slugs marked noindex: true (8 total)
+-------------------------------------
+1. kpop-quiz-statistics
+2. most-played-kpop-quizzes
+3. girl-groups-vs-boy-groups-kpop-quiz
+4. hardest-kpop-groups-to-memorize
+5. kpop-blind-test-by-group-ranked
+6. best-kpop-quizzes-for-beginners
+7. guess-the-kpop-idol-guide
+8. rookie-kpop-groups-2026
+
+Sitemap count
+-------------
+Before: 20 articles (all ARTICLES entries)
+After:  12 articles (20 - 8 noindex = 12)
+
+Pages kept reachable
+--------------------
+No articles were deleted. All 8 thin articles remain in the registry and
+are still rendered at /articles/{slug}. They simply emit
+robots: { index: false, follow: true } in their metadata and are
+excluded from the sitemap via ARTICLES.filter(a => !a.noindex).

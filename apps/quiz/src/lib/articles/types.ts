@@ -32,4 +32,6 @@ export interface ArticleMeta {
   tags: string[];
   relatedLinks: ArticleLink[];
   faq: ArticleFaq[];
+  /** When true, the article emits robots noindex and is excluded from the sitemap. */
+  noindex?: boolean;
 }

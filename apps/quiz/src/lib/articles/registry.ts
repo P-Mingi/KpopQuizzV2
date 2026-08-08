@@ -186,6 +186,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'K-pop quiz statistics dashboard showing plays across 87 groups',
+    noindex: true,
     tags: ['statistics', 'data', 'kpop quiz'],
     relatedLinks: [
       { label: 'See the live stats', href: '/stats' },
@@ -224,6 +225,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'Ranked list of the most-played K-pop quizzes this month',
+    noindex: true,
     tags: ['most played', 'popular quizzes', 'data'],
     relatedLinks: [
       { label: 'Browse all quizzes', href: '/quizzes' },
@@ -262,6 +264,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'Comparison chart of girl-group versus boy-group K-pop quiz scores',
+    noindex: true,
     tags: ['girl groups', 'boy groups', 'comparison'],
     relatedLinks: [
       { label: 'Boy group or girl group? Sort them', href: '/games/sort-it/boy-group-or-girl-group' },
@@ -301,6 +304,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'K-pop groups ranked by member count from largest to smallest',
+    noindex: true,
     tags: ['member count', 'name all members', 'data'],
     relatedLinks: [
       { label: 'Play Name All Members', href: '/games/name-all' },
@@ -406,6 +410,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'K-pop blind test group playlists ranked from easiest to hardest',
+    noindex: true,
     tags: ['blind test', 'by group', 'difficulty'],
     relatedLinks: [
       { label: 'Play the blind test', href: '/blindtest' },
@@ -439,6 +444,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'A guess-the-K-pop-idol photo quiz with multiple choice answers',
+    noindex: true,
     tags: ['guess the idol', 'image quiz', 'guide'],
     relatedLinks: [
       { label: 'Play guess the idol', href: '/guess-the-kpop-idol' },
@@ -472,6 +478,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'Beginner-friendly K-pop quizzes for new fans',
+    noindex: true,
     tags: ['beginner', 'easy quizzes', 'guide'],
     relatedLinks: [
       { label: 'Browse easy quizzes', href: '/easy-kpop-quizzes' },
@@ -605,6 +612,7 @@ export const ARTICLES: ArticleMeta[] = [
     publishedAt: '2026-07-23',
     updatedAt: '2026-07-23',
     coverAlt: 'Rising rookie K-pop groups of 2026 with their quizzes',
+    noindex: true,
     tags: ['rookies', '2026', 'new groups'],
     relatedLinks: [
       { label: 'Browse the newest quizzes', href: '/quizzes' },

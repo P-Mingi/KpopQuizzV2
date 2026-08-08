@@ -162,7 +162,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/pt/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
   ];
 
-  const articlePages: MetadataRoute.Sitemap = ARTICLES.map((a) => ({
+  const articlePages: MetadataRoute.Sitemap = ARTICLES.filter((a) => !a.noindex).map((a) => ({
     url: `${SITE_URL}/articles/${a.slug}`,
     lastModified: new Date(a.updatedAt),
     changeFrequency: 'monthly' as const,
