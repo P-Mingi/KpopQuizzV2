@@ -3473,7 +3473,9 @@ a.ranking-cta { text-decoration: none; }
 
 .vdoc-main p { font-size: 16.5px; line-height: 1.72; margin: 0 0 18px; color: var(--text-primary); }
 .vdoc-main p.lead { font-size: 18px; }
-.vdoc-main h2 { font-family: var(--font-display); font-weight: 560; font-size: 26px; margin: 40px 0 6px; padding-top: 18px; border-top: 1px solid var(--verse-line); scroll-margin-top: 72px; color: var(--text-primary); }
+/* F2 amendment A1 (L-097): NO automatic separator over headings. A separator is ONLY the
+   explicit divider block. Headings are clean text. */
+.vdoc-main h2 { font-family: var(--font-display); font-weight: 560; font-size: 26px; margin: 40px 0 6px; scroll-margin-top: 72px; color: var(--text-primary); }
 .vdoc-main h3 { font-weight: 600; font-size: 15px; margin: 24px 0 8px; color: var(--text-primary); }
 .vdoc-main h2 .anchor { font-family: var(--v-mono); font-size: 11px; color: var(--verse-line); margin-left: 8px; text-decoration: none; }
 .vdoc-main h2:hover .anchor { color: var(--verse-accent); }
@@ -3484,6 +3486,15 @@ a.ranking-cta { text-decoration: none; }
 .vdoc-table th { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--verse-line); }
 .vdoc-table td { padding: 8px 12px; border-bottom: 1px solid var(--verse-line); color: var(--text-primary); }
 .vdoc-ghost { border-bottom: 1px dashed var(--verse-accent); color: var(--verse-ink); text-decoration: none; }
+.vdoc-main mark { background: color-mix(in srgb, var(--verse-accent) 22%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }
+.vdoc-list { margin: 0 0 18px; padding-left: 22px; }
+.vdoc-list li { font-size: 16.5px; line-height: 1.72; margin: 0 0 6px; color: var(--text-primary); }
+.vdoc-callout { display: flex; gap: 12px; background: var(--verse-soft); border: 1px solid var(--verse-line); border-radius: 10px; padding: 13px 16px; margin: 0 0 18px; font-size: 15.5px; line-height: 1.6; color: var(--text-primary); }
+.vdoc-callout .ic { flex: none; font-size: 16px; line-height: 1.5; }
+.vdoc-hr { border: 0; border-top: 1px solid var(--verse-line); margin: 26px 0; }
+.vdoc-figure { margin: 0 0 20px; }
+.vdoc-figure img { max-width: 100%; border-radius: 10px; display: block; }
+.vdoc-figure figcaption { font-size: 12.5px; color: var(--text-tertiary); margin-top: 6px; }
 .vdoc-ghost span { font-family: var(--v-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; margin-left: 4px; }
 .vdoc-stub { border: 1px solid var(--v-hairline); border-radius: 12px; padding: 14px 18px; margin: 0 0 24px; background: color-mix(in srgb, var(--verse-accent) 5%, var(--bg-surface)); }
 .vdoc-stub p { font-size: 14px; line-height: 1.6; margin: 0 0 6px; color: var(--text-secondary); }

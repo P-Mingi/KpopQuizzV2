@@ -142,36 +142,75 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
 }
 
 function firstTextIndex(blocks: PageBlock[]): number {
-  return blocks.findIndex((b) => b.type === 'text');
+  return blocks.findIndex((b) => b.type === 'paragraph' || b.type === 'text');
 }
 
 // One body block -> its element. Text is escaped by React (never innerHTML). Unknown
 // block types are skipped (forward-compatible: a new block type never breaks an old page).
+interface Run { text: string; marks?: string[]; link?: { toSlug?: string; href?: string } }
+function blockRuns(block: PageBlock): Run[] {
+  if (Array.isArray(block.content)) return block.content as Run[];
+  if (typeof block.text === 'string' && block.text.trim()) return [{ text: block.text }];
+  return [];
+}
+// Render one inline run: React escapes the TEXT; marks + link wrap it in a FIXED set of tags.
+// There is no HTML string anywhere, so this is XSS-safe by construction (the sink law).
+function RunSpan({ run, spaceSlug, existing }: { run: Run; spaceSlug: string; existing: Set<string> }): React.ReactElement {
+  let node: React.ReactNode = run.text;
+  const m = run.marks ?? [];
+  if (m.includes('mark')) node = <mark>{node}</mark>;
+  if (m.includes('u')) node = <u>{node}</u>;
+  if (m.includes('i')) node = <em>{node}</em>;
+  if (m.includes('b')) node = <strong>{node}</strong>;
+  if (run.link?.toSlug) {
+    node = existing.has(run.link.toSlug)
+      ? <Link href={`/verse/${spaceSlug}/${run.link.toSlug}`}>{node}</Link>
+      : <Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(run.link.toSlug)}`}>{node}</Link>;
+  } else if (run.link?.href) {
+    const ext = !run.link.href.startsWith('/');
+    node = <a href={run.link.href} {...(ext ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>{node}</a>;
+  }
+  return <>{node}</>;
+}
+function Runs({ runs, spaceSlug, existing }: { runs: Run[]; spaceSlug: string; existing: Set<string> }): React.ReactElement {
+  return <>{runs.map((r, i) => <RunSpan key={i} run={r} spaceSlug={spaceSlug} existing={existing} />)}</>;
+}
+
 function BodyBlock({ block, anchor, lead, spaceSlug, existing }: { block: PageBlock; anchor?: string | undefined; lead: boolean; spaceSlug: string; existing: Set<string> }): React.ReactElement | null {
-  const text = typeof block.text === 'string' ? block.text : '';
+  const runs = blockRuns(block);
+  const R = <Runs runs={runs} spaceSlug={spaceSlug} existing={existing} />;
   switch (block.type) {
     case 'heading': {
       const level = block.level === 3 ? 3 : 2;
-      if (level === 3) return <h3>{text}</h3>;
-      return <h2 id={anchor}>{text}<a className="anchor" href={`#${anchor}`} aria-hidden="true" tabIndex={-1}>#</a></h2>;
+      if (!runs.length) return null;
+      if (level === 3) return <h3>{R}</h3>;
+      return <h2 id={anchor}>{R}<a className="anchor" href={`#${anchor}`} aria-hidden="true" tabIndex={-1}>#</a></h2>;
     }
-    case 'link': {
-      // C6 ghost link: a target that exists is a normal link; a missing one renders dashed
-      // and opens the create dialog prefilled (the honest red-link that drives creation).
-      const toSlug = typeof block.to_slug === 'string' ? block.to_slug : '';
-      const label = typeof block.label === 'string' && block.label.trim() ? block.label : toSlug;
-      if (!toSlug) return null;
-      if (existing.has(toSlug)) return <p><Link href={`/verse/${spaceSlug}/${toSlug}`}>{label}</Link></p>;
-      return <p><Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(toSlug)}&title=${encodeURIComponent(label)}`}>{label} <span aria-hidden="true">+ create</span></Link></p>;
-    }
-    case 'text': {
-      const body = typeof block.html === 'string' ? block.html : text;
-      if (!body.trim()) return null;
-      return <p className={lead ? 'lead' : undefined}>{body}</p>;
-    }
+    case 'paragraph':
+    case 'text':
+      return runs.length ? <p className={lead ? 'lead' : undefined}>{R}</p> : null;
     case 'quote':
-      if (!text.trim()) return null;
-      return <blockquote>{text}{typeof block.cite === 'string' && block.cite ? <cite>{block.cite}</cite> : null}</blockquote>;
+      return runs.length ? <blockquote>{R}{typeof block.cite === 'string' && block.cite ? <cite>{block.cite}</cite> : null}</blockquote> : null;
+    case 'callout':
+      return runs.length ? <div className="vdoc-callout"><span className="ic" aria-hidden="true">{typeof block.icon === 'string' ? block.icon : '\u{1F4A1}'}</span><div>{R}</div></div> : null;
+    case 'list': {
+      const items = Array.isArray(block.items) ? (block.items as Run[][]) : [];
+      return items.length ? <ul className="vdoc-list">{items.map((it, i) => <li key={i}><Runs runs={it} spaceSlug={spaceSlug} existing={existing} /></li>)}</ul> : null;
+    }
+    case 'divider':
+      return <hr className="vdoc-hr" />;
+    case 'image': {
+      const path = typeof block.path === 'string' ? block.path : '';
+      if (!path) return null;
+      const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}/storage/v1/object/public/verse-space-assets/${path.replace(/^\/+/, '')}`;
+      return (
+        <figure className="vdoc-figure">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={url} alt={typeof block.alt === 'string' ? block.alt : ''} onError={undefined} />
+          {typeof block.caption === 'string' && block.caption ? <figcaption>{block.caption}</figcaption> : null}
+        </figure>
+      );
+    }
     case 'table': {
       const rows = Array.isArray(block.rows) ? (block.rows as string[][]) : [];
       if (rows.length === 0) return null;
@@ -183,7 +222,15 @@ function BodyBlock({ block, anchor, lead, spaceSlug, existing }: { block: PageBl
         </table>
       );
     }
+    case 'link': {
+      // C6 block-level page link: solid if the target exists, dashed ghost -> create if not.
+      const toSlug = typeof block.to_slug === 'string' ? block.to_slug : '';
+      const label = typeof block.label === 'string' && block.label.trim() ? block.label : toSlug;
+      if (!toSlug) return null;
+      if (existing.has(toSlug)) return <p><Link href={`/verse/${spaceSlug}/${toSlug}`}>{label}</Link></p>;
+      return <p><Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(toSlug)}&title=${encodeURIComponent(label)}`}>{label} <span aria-hidden="true">+ create</span></Link></p>;
+    }
     default:
-      return null;   // image/gallery/embed land with their renderers in a later wave (min-gate)
+      return null;   // locked widgets never reach here (clamp drops them); min-gate
   }
 }

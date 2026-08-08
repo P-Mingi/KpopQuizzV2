@@ -8,6 +8,8 @@ import type { PageBody, PageBlock } from './types';
 export interface TocItem { id: string; text: string; level: 2 | 3 }
 
 function headingText(b: PageBlock): string {
+  // F2: headings store inline RUNS (content); legacy F1 headings stored a plain `text`.
+  if (Array.isArray(b.content)) return (b.content as { text?: unknown }[]).map((r) => (typeof r.text === 'string' ? r.text : '')).join('');
   return typeof b.text === 'string' ? b.text : '';
 }
 

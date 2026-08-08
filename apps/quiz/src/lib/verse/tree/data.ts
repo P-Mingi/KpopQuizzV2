@@ -15,6 +15,7 @@ import { pageSlug, uniqueSlug, isValidSlug } from './slug';
 import { templateBody, isPageType } from './templates';
 import { syncPageLinks, resolveGhostsTo } from './links';
 import { applyAutoTags } from './tags';
+import { clampBlocks, bodyIsSubstantial } from './blocks';
 import { PAGE_BODY_EMPTY } from './types';
 import type { PageBody, PageRow, PageRevisionRow, RecentChange, PageStatus } from './types';
 
@@ -38,21 +39,19 @@ export interface CreatePageResult {
 }
 
 // ------------------------------------------------------------------ stub rule (C5)
-// A page is a STUB (noindex, out of sitemap) until it has substance: an entity binding
-// (seeded pages carry sourced data) OR at least one non-heading block with real content.
-// Headings alone (the template skeleton) are NOT substance - that is the honest-emptiness
-// rule extended to the tree.
-export function computeIsStub(body: PageBody, entityBound: boolean): boolean {
-  if (entityBound) return false;
-  const blocks = body?.blocks ?? [];
-  const hasContent = blocks.some((b) => {
-    if (b.type === 'heading') return false;
-    const text = typeof b.text === 'string' ? b.text : typeof b.html === 'string' ? b.html : '';
-    if (text.trim().length > 0) return true;
-    // a media/embed/query block counts as substance even without text
-    return ['image', 'gallery', 'embed', 'youtube', 'infobox', 'table'].includes(b.type);
-  });
-  return !hasContent;
+// A page is a STUB (noindex, out of sitemap) until it is substantial. Two ways to qualify:
+//   1. it carries a FACT RAIL (an entity kind the reader renders sourced facts for - idol
+//      today); those are indexable day 1 (members).
+//   2. its BODY meets the real substance bar (F2): a real intro + a section + enough words -
+//      the SAME rule the editor's substance meter shows (lib/verse/tree/blocks.substanceOf).
+// A kind can carry a fact rail only if a reader builder exists for it; extend as they land.
+const FACT_RAIL_KINDS = new Set(['idol']);
+export function entityHasFactRail(entityKind: string | null | undefined): boolean {
+  return !!entityKind && FACT_RAIL_KINDS.has(entityKind);
+}
+export function computeIsStub(body: PageBody, hasFactRail: boolean): boolean {
+  if (hasFactRail) return false;
+  return !bodyIsSubstantial(body as never);
 }
 
 // ------------------------------------------------------------------ reads
@@ -96,7 +95,6 @@ export async function createPage(svc: SupabaseClient, input: CreatePageInput): P
   }
   const slug = await uniqueSlug(svc, input.spaceId, base);
 
-  const entityBound = !!(input.entityKind && input.entityId != null);
   const body = templateBody(type);
   const row = {
     space_id: input.spaceId,
@@ -108,7 +106,7 @@ export async function createPage(svc: SupabaseClient, input: CreatePageInput): P
     blocks: body,
     entity_kind: input.entityKind ?? null,
     entity_id: input.entityId ?? null,
-    is_stub: computeIsStub(body, entityBound),
+    is_stub: computeIsStub(body, entityHasFactRail(input.entityKind)),
     created_by: input.createdBy,
   };
   const { data, error } = await svc.from('pages').insert(row).select(PAGE_COLS).single();
@@ -143,10 +141,13 @@ export async function savePage(
   if (!cur) return { error: 'Page not found.' };
   const title = (patch.title ?? cur.title).trim();
   if (!title || title.length > 200) return { error: 'Title must be 1 to 200 characters.' };
-  const blocks = patch.blocks ?? cur.blocks ?? PAGE_BODY_EMPTY;
-  const entityBound = !!(cur.entity_kind && cur.entity_id != null);
+  // F2: clamp the body to the v1 block model FAIL-CLOSED (unknown/locked-widget kinds dropped,
+  // inline runs mark-whitelisted, image paths must be ingest-copied). A raw API call can never
+  // smuggle an unknown block or an unsafe href into a page.
+  const raw = patch.blocks ?? cur.blocks ?? PAGE_BODY_EMPTY;
+  const blocks = clampBlocks(raw).body as unknown as PageBody;
   const { data, error } = await svc.from('pages')
-    .update({ title, blocks, is_stub: computeIsStub(blocks, entityBound), updated_at: new Date().toISOString() })
+    .update({ title, blocks, is_stub: computeIsStub(blocks, entityHasFactRail(cur.entity_kind)), updated_at: new Date().toISOString() })
     .eq('id', pageId).select(PAGE_COLS).single();
   if (error || !data) return { error: error?.message ?? 'Save failed.' };
   const page = data as PageRow;

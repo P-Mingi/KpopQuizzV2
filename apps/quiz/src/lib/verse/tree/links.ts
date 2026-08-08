@@ -19,12 +19,25 @@ export interface PageLinkRef { toSlug: string; label: string }
 export function extractLinks(body: PageBody | null | undefined): PageLinkRef[] {
   const seen = new Set<string>();
   const out: PageLinkRef[] = [];
+  const add = (toSlug: string, label: string): void => {
+    const s = toSlug.trim();
+    if (!s || !isValidSlug(s) || seen.has(s)) return;
+    seen.add(s); out.push({ toSlug: s, label: label.trim() || s });
+  };
+  // inline [[ page links live inside a block's runs (content / list items); block-level
+  // `link` blocks carry to_slug directly. Both feed page_links (backlinks + wanted).
+  const scanRuns = (runs: unknown): void => {
+    if (!Array.isArray(runs)) return;
+    for (const r of runs as { text?: unknown; link?: { toSlug?: unknown } }[]) {
+      const to = r?.link?.toSlug;
+      if (typeof to === 'string') add(to, typeof r.text === 'string' ? r.text : to);
+    }
+  };
   for (const b of body?.blocks ?? []) {
-    if (b.type !== 'link') continue;
-    const toSlug = typeof b.to_slug === 'string' ? b.to_slug.trim() : '';
-    if (!toSlug || !isValidSlug(toSlug) || seen.has(toSlug)) continue;
-    seen.add(toSlug);
-    out.push({ toSlug, label: typeof b.label === 'string' && b.label.trim() ? b.label.trim() : toSlug });
+    const rec = b as Record<string, unknown>;
+    if (b.type === 'link' && typeof b.to_slug === 'string') { add(b.to_slug, typeof b.label === 'string' ? b.label : b.to_slug); continue; }
+    if (Array.isArray(rec.content)) scanRuns(rec.content);
+    if (Array.isArray(rec.items)) for (const it of rec.items as unknown[]) scanRuns(it);
   }
   return out;
 }

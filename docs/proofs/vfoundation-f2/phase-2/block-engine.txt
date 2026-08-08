@@ -1,0 +1,14 @@
+PASS  a fresh article is a stub (template only, no substance)  -> true
+PASS  save accepted
+PASS  FAIL-CLOSED: locked widget (timeline) + unknown kind dropped  -> ["paragraph","heading","paragraph","list","quote","callout","divider","image","table","paragraph"]
+PASS  all 10 v1 blocks kept  -> 10 blocks
+PASS  STABLE ids preserved (k1..k10)  -> k1,k2,k3,k4,k5,k6,k7,k8,k9,k10
+PASS  XSS: javascript: href stripped (no link stored)
+PASS  XSS: unknown mark stripped, safe mark kept  -> ["b"]
+PASS  substance met -> is_stub FALSE (indexable)  -> false
+PASS  inline run link stored a ghost page_link  -> {"to_page_id":null,"to_slug":"zzz-f2-golden"}
+PASS  thin body -> is_stub TRUE (noindex, C5 both directions)  -> true
+PASS  reorder keeps every block id (skeleton law)  -> k2,k1
+PASS  cleanup: no zzz-f2 pages remain  -> 0
+
+Phase 2 block engine: ALL PASS
