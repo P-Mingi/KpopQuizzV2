@@ -1,0 +1,29 @@
+bts space_id = 1
+
+PASS  create returned a page  -> zzz-f1-test-member
+PASS  slug derived + shown before use  -> zzz-f1-test-member
+PASS  status starts draft (C3)  -> draft
+PASS  member template seeded (8 H2 headings)  -> 8 blocks vs 8 sections
+PASS  new empty page is a STUB (C5: noindex until substance)  -> true
+PASS  duplicate create is REFUSED (search-first, no silent dupe)  -> -> existing #1
+PASS  save succeeded
+PASS  save cleared the stub (has real content, C5)  -> false
+PASS  two revisions after create + one save (C3 append-only)  -> 2 revisions (rev 2,1)
+PASS  rename kept the SAME page id (C2)  -> #1
+PASS  rename changed the slug  -> zzz-f1-test-idol
+PASS  rename wrote a redirect  -> true
+PASS  old slug now RESOLVES to the new slug (eternal redirect, C2)  -> zzz-f1-test-idol
+PASS  move set the new parent  -> parent=2
+PASS  move DID NOT change the slug/URL (C2)  -> zzz-f1-test-idol
+PASS  cycle move is refused  -> That move would put the page inside its own subtree.
+PASS  entity-bound page is NOT a stub day 1 (C5)  -> false
+PASS  publish set status + published_at  -> published @ 2026-08-08T16:43:37.887+00:00
+PASS  trash sets status=trash (never hard delete, C3)  -> trash
+PASS  restore brings it back  -> draft
+PASS  the row still exists after trash+restore (data survived)  -> exists
+PASS  revert produced a NEW revision (append-only, C3)  -> ok
+PASS  revision count grew (revert is not destructive)  -> top rev now 4
+PASS  recent-changes feed returns our edits  -> 6 changes in feed
+PASS  cleanup: no zzz-f1-test pages remain  -> 0 leftover
+
+Phase B page-core CRUD: ALL PASS
