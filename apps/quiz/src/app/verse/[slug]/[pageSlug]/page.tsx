@@ -74,6 +74,8 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
     if (to && to !== pageSlug) permanentRedirect(`/verse/${slug}/${to}`);
     notFound();
   }
+  // C11: the portal page IS the space home; it renders at /verse/<space>, not a sub-URL.
+  if (page.type === 'portal') permanentRedirect(`/verse/${slug}`);
 
   const svc = createServiceRoleClient();
   const now = new Date();

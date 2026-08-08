@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { validatePresentation } from '@/lib/verse/presentation/validate';
+import { upsertPortalPage } from '@/lib/verse/tree/portal';
 
 import type { NextRequest } from 'next/server';
 
@@ -52,6 +53,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { error } = await svc.from('verse_spaces')
     .upsert({ group_id: groupId, presentation: result.value, updated_at: new Date().toISOString() }, { onConflict: 'group_id' });
   if (error) return NextResponse.json({ ok: false, errors: [error.message] }, { status: 500 });
+
+  // V-FOUNDATION F1 C11: the re-pointed write target. Mirror the published presentation
+  // into the space's PORTAL page (pages.blocks) - the canonical store the space home now
+  // renders from. verse_spaces.presentation is kept above for rollback history + the
+  // chrome/meta source; the portal page is the pages-system home of record.
+  try { await upsertPortalPage(svc, groupId, result.value ?? { version: 1 }, user.id); }
+  catch (e) { console.error('[publish] portal mirror failed (non-fatal):', e); }
 
   return NextResponse.json({ ok: true });
 }

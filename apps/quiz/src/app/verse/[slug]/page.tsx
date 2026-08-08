@@ -5,6 +5,8 @@ import { CompositionRenderer } from '@/components/verse/presentation/composition
 import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
+import { getPortalComposition } from '@/lib/verse/tree/portal';
+import { createPublicReadClient } from '@/lib/supabase/server';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 export const revalidate = 3600;
@@ -19,6 +21,12 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
   const space = await getSpace(slug);
   if (!space) notFound();
   const backlinks = await getGroupBacklinks(space.group.slug);
+
+  // V-FOUNDATION F1 C11: render the home from the PORTAL page (pages.blocks) when the
+  // space has one; else fall back to the legacy verse_spaces.presentation with byte
+  // parity (the strangler seam - a space is migrated by its first publish).
+  const portalComposition = await getPortalComposition(createPublicReadClient(), space.group.id);
+  const composition = portalComposition ?? presentationToComposition(space.presentation);
 
   return (
     <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
@@ -37,7 +45,7 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       {/* V-BUILDER-1 step 3: the home now renders THROUGH the unified Composition
           (presentation -> composition -> the one renderer). Byte-identical to before
           (the converter is lossless; proven on bts/stray-kids/ateez). */}
-      <CompositionRenderer space={space} composition={presentationToComposition(space.presentation)} backlinks={backlinks} />
+      <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
     </div>
   );
 }

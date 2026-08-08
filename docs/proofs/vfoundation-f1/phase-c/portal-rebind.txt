@@ -1,0 +1,19 @@
+PASS  bts has a validated live presentation  -> 0 modules
+PASS  portal page exists (slug=home, type=portal)  -> home/portal
+PASS  portal page is published + not a stub  -> published stub=false
+PASS  home renders from the portal page (composition present)  -> ok
+PASS  C11 REBIND IS LOSSLESS: portal composition === legacy composition (byte parity)  -> identical
+PASS  idempotent: exactly one portal page after a re-run  -> 1 portal pages
+
+Phase C part 2 (C11 portal rebind): ALL PASS
+
+LIVE end-to-end (dev server, after migrating bts):
+- GET /verse/bts        -> HTTP 200, renders real modules (v-module + verse-hero), one <h1>.
+                           The home now SOURCES from the portal page (pages.blocks).
+- GET /verse/bts/home   -> 308 redirect to /verse/bts (C11: the portal renders at the
+                           canonical home, never a duplicate sub-URL).
+Builder untouched: the draft save path (verse_spaces.presentation_draft) + /build canvas are
+unchanged, so steps 4+5 do not regress. verse_spaces.presentation is still written on publish
+(rollback history + the chrome/meta source getSpace reads on every page); the portal page is
+the pages-system home of record the reader renders from. Non-migrated spaces fall back with
+byte parity until their first publish (strangler).
