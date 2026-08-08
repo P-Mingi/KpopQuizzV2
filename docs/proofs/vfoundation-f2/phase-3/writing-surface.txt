@@ -1,0 +1,13 @@
+V-FOUNDATION F2 Phase 3 - the writing surface.
+- The editor renders the page in a writing-first canvas: admin-lock chip, DRAFT status,
+  immutable slug hint, contenteditable blocks with gutter (+ / grip), placeholders per type.
+- AUTOSAVE ROUND-TRIP CONFIRMED (live, real typed input via CDP): typing a marker into a block
+  serialized DOM -> runs -> the F1 save rail (a revision), and the marker appeared on the
+  READER page /verse/bts/<page>. type -> autosave -> reader = byte-honest.
+- Behaviors wired: type-in-place, Enter split at caret, Backspace merge up, markdown shortcuts
+  (## / ### / - / > / ---), slash palette (skeleton kinds, widgets locked "soon"), selection
+  toolbar (bold/italic/underline/highlight/link/[[), [[ page picker (existing -> solid, unknown
+  -> ghost, both feed page_links), gutter block menu (turn/duplicate/move/delete + 6 s undo).
+Screenshot: writing-surface.png (+ selection-toolbar / slash-palette captures).
+NOTE: the popup screenshots (palette/menu/picker open) are re-captured cleanly in Phase 5 with
+the frame; the substantive proof here is the live autosave round-trip.

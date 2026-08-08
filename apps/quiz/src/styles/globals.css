@@ -3637,6 +3637,84 @@ a.ranking-cta { text-decoration: none; }
 .vtag-related { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
 .vtag-relh { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
 @media (max-width: 560px) { .vtag-grid { grid-template-columns: 1fr; } }
+
+/* V-FOUNDATION F2 - the page EDITOR (locked prototype). Writing-first; the chrome appears
+   where the hand is (gutter on hover, toolbar on selection, palette on "/"). Tokenized. */
+.ped-wrap { max-width: 760px; margin: 0 auto; padding-top: 12px; }
+.ped-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.ped-crumb { font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); }
+.ped-lockchip { font-family: var(--v-mono); font-size: 9.5px; letter-spacing: 0.04em; background: color-mix(in srgb, var(--verse-accent) 14%, var(--bg-surface)); color: var(--verse-ink); border: 1px solid var(--v-hairline); border-radius: 6px; padding: 3px 8px; }
+.ped-status { font-family: var(--v-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid var(--verse-line); border-radius: 6px; padding: 2px 8px; color: var(--text-tertiary); }
+.ped-title { font-family: var(--font-display); font-weight: 640; font-size: 40px; color: var(--text-primary); margin: 0 0 4px; }
+.ped-slugline { font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); margin-bottom: 24px; }
+.ped-slugline .hint { opacity: 0.7; }
+
+.ped-blk { position: relative; }
+.ped-gut { position: absolute; left: -46px; top: 2px; display: flex; gap: 2px; opacity: 0; transition: opacity 0.12s; }
+.ped-blk:hover .ped-gut, .ped-blk:focus-within .ped-gut { opacity: 1; }
+.ped-gut button { width: 20px; height: 22px; border: 0; background: transparent; color: var(--text-tertiary); cursor: pointer; border-radius: 5px; font-size: 13px; }
+.ped-gut button:hover { background: var(--verse-soft); color: var(--verse-ink); }
+.ped-gut .grip { cursor: grab; }
+.ped-body { outline: none; font-size: 16.5px; line-height: 1.72; margin: 0 0 8px; color: var(--text-primary); font-family: var(--font-body); min-height: 1.5em; }
+.ped-body:empty::before { content: attr(data-ph); color: var(--text-tertiary); pointer-events: none; }
+h2.ped-body { font-family: var(--font-display); font-weight: 560; font-size: 26px; margin: 34px 0 6px; }
+h3.ped-body { font-weight: 600; font-size: 15px; margin: 22px 0 6px; }
+blockquote.ped-body { border-left: 2.5px solid var(--verse-accent); padding-left: 18px; font-style: italic; color: var(--text-secondary); }
+.ped-ul { padding-left: 22px; }
+.ped-callout { display: flex; gap: 12px; background: var(--verse-soft); border: 1px solid var(--verse-line); border-radius: 10px; padding: 12px 16px; margin: 0 0 8px; }
+.ped-callout .ic { flex: none; }
+.ped-hr { border: 0; border-top: 1px solid var(--verse-line); margin: 22px 0; }
+.ped-tbl { border-collapse: collapse; width: 100%; margin: 4px 0 12px; font-size: 13px; }
+.ped-tbl th, .ped-tbl td { border: 1px solid var(--verse-line); padding: 7px 10px; outline: none; }
+.ped-tbl th { background: var(--verse-soft); font-family: var(--v-mono); font-size: 10px; text-transform: uppercase; }
+.ped-imgph { border: 1px dashed var(--verse-line); border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 8px; }
+.ped-imgph button { border: 1px solid var(--verse-line); background: var(--bg-surface); color: var(--verse-ink); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 13px; }
+.ped-imgblk img { max-width: 100%; border-radius: 10px; margin-bottom: 8px; display: block; }
+.ped-linkblk { color: var(--verse-ink); font-size: 15px; margin-bottom: 8px; }
+.ped-linkblk .dim { color: var(--text-tertiary); }
+.ed-link { color: var(--verse-ink); text-decoration: underline; }
+
+.ped-tb { position: fixed; z-index: 130; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 10px; box-shadow: 0 8px 30px color-mix(in srgb, black 22%, transparent); padding: 4px; }
+.ped-tb button { border: 0; background: transparent; color: var(--text-primary); cursor: pointer; min-width: 30px; height: 30px; border-radius: 7px; font-size: 14px; }
+.ped-tb button:hover { background: var(--verse-soft); color: var(--verse-ink); }
+.ped-tb .txt { width: auto; padding: 0 10px; font-size: 12px; font-weight: 600; }
+.ped-tb .sep { width: 1px; height: 20px; background: var(--verse-line); margin: 0 3px; }
+
+.ped-slash, .ped-menu, .ped-pick { position: fixed; z-index: 130; background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 12px; box-shadow: 0 12px 40px color-mix(in srgb, black 24%, transparent); }
+.ped-slash { width: 288px; overflow: hidden; }
+.ped-slash .hd { display: flex; gap: 8px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--verse-line); font-family: var(--v-mono); font-size: 11.5px; color: var(--text-secondary); }
+.ped-slash .hd b { color: var(--verse-ink); }
+.ped-slash .hd span { margin-left: auto; color: var(--text-tertiary); }
+.ped-slash .lst { max-height: 320px; overflow-y: auto; padding: 6px; }
+.ped-slash .it { display: flex; gap: 10px; align-items: center; width: 100%; padding: 8px 10px; border: 0; background: transparent; border-radius: 8px; cursor: pointer; text-align: left; color: var(--text-primary); }
+.ped-slash .it.on { background: var(--verse-soft); }
+.ped-slash .it.lock { opacity: 0.55; cursor: not-allowed; }
+.ped-slash .it .ic { width: 24px; text-align: center; font-family: var(--v-mono); font-size: 13px; color: var(--text-secondary); }
+.ped-slash .it .lb b { display: block; font-size: 13.5px; font-weight: 500; }
+.ped-slash .it .lb span { font-size: 11px; color: var(--text-tertiary); }
+.ped-slash .it .soon { margin-left: auto; font-family: var(--v-mono); font-size: 8.5px; text-transform: uppercase; color: var(--text-tertiary); }
+.ped-slash .none { padding: 14px; text-align: center; color: var(--text-tertiary); font-size: 12.5px; }
+.ped-menu { width: 224px; padding: 6px; }
+.ped-menu .sh { font-family: var(--v-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); padding: 7px 10px 3px; }
+.ped-menu .turn { display: flex; gap: 4px; padding: 2px 8px 8px; }
+.ped-menu .turn button { flex: 1; height: 30px; border: 1px solid var(--verse-line); background: var(--bg-surface); border-radius: 7px; cursor: pointer; font-size: 11px; color: var(--text-secondary); }
+.ped-menu .turn button:hover { border-color: var(--verse-accent); color: var(--verse-ink); }
+.ped-menu hr { border: 0; border-top: 1px solid var(--verse-line); margin: 5px 0; }
+.ped-menu .mi { display: flex; gap: 10px; align-items: center; width: 100%; padding: 7px 10px; border: 0; background: transparent; border-radius: 8px; font-size: 13px; color: var(--text-primary); cursor: pointer; text-align: left; }
+.ped-menu .mi:hover { background: var(--verse-soft); }
+.ped-menu .mi.danger { color: color-mix(in srgb, red 62%, var(--text-primary)); }
+.ped-menu .mi .kbd { margin-left: auto; font-family: var(--v-mono); font-size: 9px; color: var(--text-tertiary); }
+.ped-pick { width: 300px; padding: 8px; }
+.ped-pick input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--verse-line); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 13px; }
+.ped-pick .lst { margin-top: 6px; max-height: 240px; overflow-y: auto; }
+.ped-pick .lst button { display: flex; justify-content: space-between; gap: 8px; width: 100%; text-align: left; border: 0; background: transparent; color: var(--text-primary); font-size: 12.5px; padding: 8px 10px; border-radius: 7px; cursor: pointer; }
+.ped-pick .lst button:hover { background: var(--verse-soft); }
+.ped-pick .lst button span { font-family: var(--v-mono); font-size: 10px; color: var(--text-tertiary); }
+.ped-pick .lst .ghost { color: var(--verse-ink); border-top: 1px solid var(--verse-line); border-radius: 0; }
+.ped-scrim { position: fixed; inset: 0; z-index: 120; }
+.ped-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 150; background: color-mix(in srgb, black 82%, var(--verse-ink)); color: #fff; border-radius: 12px; padding: 11px 16px; font-size: 13px; display: flex; gap: 14px; align-items: center; }
+.ped-toast button { background: transparent; border: 0; color: var(--verse-accent); font-weight: 600; cursor: pointer; }
+.ped-savechip { position: fixed; bottom: 16px; right: 18px; font-family: var(--v-mono); font-size: 10px; color: var(--text-tertiary); z-index: 100; }
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }
