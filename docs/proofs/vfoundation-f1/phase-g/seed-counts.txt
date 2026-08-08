@@ -1,0 +1,17 @@
+=== V-FOUNDATION F1 Phase G - BTS seed (exact counts) ===
+data present: members 7, releases 17, tracks 197, eras 15, awards 21, tours 0
+CREATED: {"member":7,"release":17,"track":197,"era":15,"award":21} = 257
+SKIPPED (already seeded): {} = 0
+parent index pages: members-index, discography-index, songs-index, eras-index, awards-index
+
+IDEMPOTENT re-run: CREATED 0, SKIPPED 257 (never duplicates).
+
+DB verification (pages where space_id=bts, status=published), by type:
+  member   7    indexable 7    entity-bound 7    (fact rail -> indexable day 1, C5)
+  release  17   indexable 0    entity-bound 17   (honest shell, noindex until content)
+  track    197  indexable 0    entity-bound 197  (honest shell)
+  era      15   indexable 0    entity-bound 15   (honest shell)
+  award    21   indexable 0    entity-bound 21   (honest shell)
+  index    5    indexable 0    (structural parents: Members/Discography/Songs/Eras/Awards)
+  portal   1    indexable 1    (the space home, from Phase C11)
+No fabricated content anywhere - every page binds a real, sourced DB entity (the covenant).

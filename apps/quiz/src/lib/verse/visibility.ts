@@ -9,6 +9,19 @@ export function verseHidden(): boolean {
   return process.env.VERSE_PUBLIC !== 'true';
 }
 
+// V-FOUNDATION F1 Phase G / R1 (L-071): BTS-ONLY. stray-kids + ateez are UNPUBLISHED for the
+// F-series - fail-closed 404 for non-privileged, ZERO data deleted, restore = remove a slug
+// here (a code flip, no data touched). Independent of VERSE_PUBLIC: these stay parked even
+// after the verse relaunches, until an owner restores them. The owner (isVersePrivileged)
+// still sees them for editing.
+const UNPUBLISHED_SPACES = new Set(['stray-kids', 'ateez']);
+
+/** True when a space slug is parked (unpublished). A non-privileged visitor gets a 404; the
+ * data is untouched, so restoring is just deleting the slug from the set above. */
+export function spaceUnpublished(slug: string): boolean {
+  return UNPUBLISHED_SPACES.has(slug);
+}
+
 // The two routes that stay public even while hidden: the teaser and the covenant.
 // "We hide the product, never the promises." Everything else under the Verse surface
 // (spaces, members, community, the builder, the verse admin queues) is gated.

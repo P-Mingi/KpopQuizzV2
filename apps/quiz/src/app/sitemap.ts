@@ -9,7 +9,7 @@ import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
-import { verseHidden } from '@/lib/verse/visibility';
+import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 
 import type { MetadataRoute } from 'next';
@@ -492,7 +492,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
     for (const p of treePages) {
       const s = gslug(p.groups);
-      if (s) push(`/verse/${s}/${p.slug}`, 0.6, 'weekly');
+      if (s && !spaceUnpublished(s)) push(`/verse/${s}/${p.slug}`, 0.6, 'weekly');  // R1: parked spaces stay out
     }
     } // end PUSH-GATE-1: non-allowlist Verse URLs only when the flag is on
   } catch (err) {

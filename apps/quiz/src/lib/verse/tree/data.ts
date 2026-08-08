@@ -236,6 +236,45 @@ export const publishPage = (svc: SupabaseClient, pageId: number) => setStatus(sv
 export const trashPage   = (svc: SupabaseClient, pageId: number) => setStatus(svc, pageId, 'trash');
 export const restorePage = (svc: SupabaseClient, pageId: number) => setStatus(svc, pageId, 'draft');
 
+// ------------------------------------------------------------------ seeding (C13, Phase G)
+// Seed an entity-bound page from the database (members, releases, tracks, eras, awards...).
+// Idempotent by (space, entity_kind, entity_id): re-running never duplicates. Published +
+// sourced; is_stub reflects honest emptiness (indexable only when it carries real facts -
+// a fact rail today = idol pages; the rest are honest shells, noindex until content). No
+// fabricated content, ever (the covenant).
+const SEED_AUTHOR = '00000000-0000-4000-8000-000000005eed';
+
+export async function seedIndexPage(svc: SupabaseClient, spaceId: number, title: string, slug: string): Promise<PageRow> {
+  const existing = await getPageBySlug(svc, spaceId, slug);
+  if (existing) return existing;
+  const { data } = await svc.from('pages').insert({
+    space_id: spaceId, parent_id: null, slug, type: 'index', title,
+    status: 'published', blocks: PAGE_BODY_EMPTY, is_stub: true, created_by: SEED_AUTHOR, published_at: new Date().toISOString(),
+  }).select(PAGE_COLS).single();
+  return data as PageRow;
+}
+
+export async function seedEntityPage(svc: SupabaseClient, input: {
+  spaceId: number; type: string; entityKind: string; entityId: number; title: string; parentId: number | null; indexable: boolean;
+}): Promise<'created' | 'skipped'> {
+  const { data: existing } = await svc.from('pages').select('id')
+    .eq('space_id', input.spaceId).eq('entity_kind', input.entityKind).eq('entity_id', input.entityId).maybeSingle();
+  if (existing) return 'skipped';
+  const title = input.title.trim().slice(0, 200) || 'Untitled';
+  const slug = await uniqueSlug(svc, input.spaceId, pageSlug(title));
+  const body = templateBody(input.type);
+  const { data } = await svc.from('pages').insert({
+    space_id: input.spaceId, parent_id: input.parentId, slug, type: input.type, title,
+    status: 'published', blocks: body, entity_kind: input.entityKind, entity_id: input.entityId,
+    is_stub: !input.indexable, created_by: SEED_AUTHOR, published_at: new Date().toISOString(),
+  }).select(PAGE_COLS).single();
+  if (!data) return 'skipped';
+  const page = data as PageRow;
+  await writeRevision(svc, page, SEED_AUTHOR);
+  await applyAutoTags(svc, page).catch(() => {});
+  return 'created';
+}
+
 // ------------------------------------------------------------------ recent changes (C3)
 export async function recentChanges(svc: SupabaseClient, spaceId: number, limit = 50): Promise<RecentChange[]> {
   const { data: revs } = await svc.from('page_revisions')

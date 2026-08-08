@@ -1,0 +1,17 @@
+V-FOUNDATION F1 Phase G - the reversible UNPUBLISH (R1/L-071) + seeded-tree live checks.
+
+R1 BTS-ONLY (stray-kids + ateez parked): fail-closed 404 for non-privileged, ZERO data
+deleted (a code-level slug set in visibility.ts; restore = delete a slug, no data touched).
+  anonymous  GET /verse/stray-kids -> 404
+  anonymous  GET /verse/ateez      -> 404
+  anonymous  GET /verse/bts        -> 200   (bts unaffected)
+The owner (isVersePrivileged) still reaches the parked spaces to edit; the sitemap drops
+their pages (spaceUnpublished filter). Independent of VERSE_PUBLIC, so they stay parked
+even after the verse relaunches, until an owner restores them.
+
+SEEDED TREE live (a real BTS member vs a shell track):
+  /verse/bts/jin (member)          -> 200, INDEXABLE (no robots meta), one h1, breadcrumb
+                                      "ARMY / Members / Jin", fact rail age 33 + 13 years
+                                      (computed), auto-tag 1992, auto-navbox to 6 siblings.
+  /verse/bts/intro-persona (track) -> 200, NOINDEX (robots meta), honest-shell banner.
+Screenshot: seeded-member-jin.png (the whole foundation on real data).

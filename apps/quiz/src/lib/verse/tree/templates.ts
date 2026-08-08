@@ -11,7 +11,7 @@ import type { PageBlock, PageBody } from './types';
 // The page types the F1 tree understands. `type` has NO db CHECK (per-space config, the
 // V3 law), so this list is the APP-level source of truth + validation.
 export const PAGE_TYPES = [
-  'member', 'release', 'track', 'era', 'gallery', 'article', 'portal', 'index',
+  'member', 'release', 'track', 'era', 'award', 'tour', 'gallery', 'article', 'portal', 'index',
 ] as const;
 export type PageType = (typeof PAGE_TYPES)[number];
 
@@ -26,6 +26,8 @@ const SECTIONS: Record<PageType, string[]> = {
   release: ['Overview', 'Background', 'Tracklist', 'Reception', 'Promotion', 'Credits', 'Gallery'],
   track:   ['Overview', 'Composition', 'Live performances', 'Credits'],
   era:     ['Overview', 'Concept', 'Releases', 'Timeline', 'Gallery'],
+  award:   ['Overview'],
+  tour:    ['Overview', 'Dates', 'Setlist', 'Gallery'],
   gallery: ['Overview'],
   article: ['Overview'],
   portal:  [],
