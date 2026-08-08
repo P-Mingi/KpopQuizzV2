@@ -1,0 +1,14 @@
+PASS  save accepted (validator ok, no errors)  -> ok
+PASS  block count unchanged (no injection, no drop)  -> 4 -> 4
+PASS  EVERY block id unchanged (stable-id law)  -> blk-discography-0, blk-intro-0, blk-members-0, blk-vitals-0
+PASS  members block id is still blk-members-0  -> blk-members-0
+PASS  members rows count intact  -> 3 rows
+PASS  member ORDER preserved [7,3,12]  -> ["7","3","12"]
+PASS  PHOTO override preserved on member 3  -> space/42/9f8e7d6c5b4a.webp
+PASS  NAME override preserved on member 12  -> Leader Jae
+PASS  non-overridden member 7 stays a bare row (no fabricated fields)  -> {"member":"7"}
+PASS  re-save accepted  -> ok
+PASS  re-saved modules byte-identical to first save (no drift on reload)
+PASS  validator kept the members rows (schema clamp preserved overrides)  -> [{"member":"7"},{"member":"3","photo":"space/42/9f8e7d6c5b4a.webp"},{"member":"12","name":"Leader Jae"}]
+
+R-A round-trip: ALL PASS
