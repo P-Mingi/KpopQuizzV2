@@ -3547,6 +3547,69 @@ a.ranking-cta { text-decoration: none; }
 .vcreate-primary { padding: 11px 20px; border: 0; border-radius: 10px; background: var(--verse-cta, var(--verse-accent)); color: var(--verse-cta-text, var(--verse-accent-text)); font-size: 14px; font-weight: 700; cursor: pointer; }
 .vcreate-primary:disabled { opacity: 0.6; cursor: default; }
 @media (max-width: 560px) { .vcreate-types { grid-template-columns: repeat(2, 1fr); } }
+
+/* V-FOUNDATION F1 - the curated space MENU (locked prototype screen 03). Crawlable nested
+   nav; flyouts are pure CSS (hover + focus-within) so every link is real HTML. */
+.vnav { margin-bottom: 24px; border-bottom: 1px solid var(--verse-line); }
+.vnav-top { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+.vnav-top > li { position: relative; }
+.vnav-top > li > a, .vnav-parent { display: inline-flex; align-items: center; gap: 4px; padding: 10px 14px; font-size: 14px; font-weight: 600; color: var(--text-secondary); text-decoration: none; border-bottom: 2px solid transparent; cursor: pointer; }
+.vnav-top > li > a:hover, .vnav-parent:hover, .vnav-top > li:focus-within > a, .vnav-top > li:focus-within > .vnav-parent { color: var(--verse-ink); border-bottom-color: var(--verse-accent); }
+.vnav-parent:focus-visible { outline: 2px solid var(--verse-accent); outline-offset: -2px; }
+.vnav-caret { font-size: 9px; opacity: 0.7; }
+.vnav-sub { list-style: none; margin: 0; padding: 6px; position: absolute; top: 100%; left: 0; min-width: 210px; background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 10px; box-shadow: 0 12px 40px color-mix(in srgb, black 18%, transparent); z-index: 40; opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s; }
+.vnav-top > li:hover > .vnav-sub, .vnav-top > li:focus-within > .vnav-sub { opacity: 1; visibility: visible; transform: translateY(0); }
+.vnav-sub li { position: relative; }
+.vnav-sub a, .vnav-sub .vnav-parent { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--text-primary); text-decoration: none; }
+.vnav-sub a:hover, .vnav-sub .vnav-parent:hover { background: var(--verse-soft); color: var(--verse-ink); }
+.vnav-sub .vnav-caret { transform: rotate(-90deg); }
+.vnav-sub .vnav-sub { top: -7px; left: 100%; }
+@media (hover: none), (max-width: 767px) {
+  /* touch / narrow: expand the tree inline (still crawlable, still keyboard-reachable). */
+  .vnav { overflow-x: hidden; }
+  .vnav-top { flex-direction: column; }
+  .vnav-sub { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; border-left: 1px solid var(--verse-line); border-radius: 0; margin: 0 0 4px 16px; padding: 0; }
+  .vnav-sub .vnav-sub { left: 0; }
+}
+
+/* V-FOUNDATION F1 - the curator MENU editor (prototype screen 03, curator view). */
+.vnave { max-width: 1000px; margin: 0 auto; }
+.vnave-head h1 { font-family: var(--font-display); font-weight: 640; font-size: 26px; color: var(--text-primary); margin: 0 0 4px; }
+.vnave-head p { font-size: 13px; color: var(--text-tertiary); margin: 0 0 16px; }
+.vnave-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--verse-line); border-radius: 12px; overflow: hidden; }
+.vnave-col { border-right: 1px solid var(--verse-line); padding: 12px; min-height: 260px; }
+.vnave-col:last-child { border-right: 0; }
+.vnave-empty { display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: 12px; }
+.vnave-ch { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.vnave-ch h4 { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin: 0; }
+.vnave-ch .cnt { font-family: var(--v-mono); font-size: 10px; color: var(--verse-accent); }
+.vnave-ch .cnt.max { color: color-mix(in srgb, orange 70%, var(--text-primary)); font-weight: 700; }
+.vnave-row { border: 1px solid var(--verse-line); border-radius: 8px; margin-bottom: 6px; background: var(--bg-surface); }
+.vnave-row.sel { border-color: var(--verse-accent); box-shadow: 0 0 0 2px var(--verse-soft); }
+.vnave-rowmain { display: flex; align-items: center; gap: 6px; padding: 7px 8px; }
+.vnave-grip { color: var(--verse-line); font-size: 12px; cursor: grab; }
+.vnave-label { flex: 1; min-width: 0; text-align: left; border: 0; background: transparent; color: var(--text-primary); font-size: 13px; font-weight: 600; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vnave-label:disabled { cursor: default; }
+.vnave-type { font-family: var(--v-mono); font-size: 8.5px; letter-spacing: 0.06em; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--verse-line); color: var(--text-tertiary); }
+.vnave-type.warn { color: color-mix(in srgb, orange 70%, var(--text-primary)); border-color: color-mix(in srgb, orange 40%, var(--verse-line)); }
+.vnave-ic { width: 24px; height: 24px; border: 1px solid var(--verse-line); border-radius: 6px; background: transparent; color: var(--text-secondary); font-size: 12px; cursor: pointer; padding: 0; }
+.vnave-ic:disabled { opacity: 0.35; cursor: default; }
+.vnave-edit { padding: 0 8px 8px; display: flex; flex-direction: column; gap: 6px; }
+.vnave-edit input, .vnave-pick input { width: 100%; box-sizing: border-box; padding: 7px 9px; border: 1px solid var(--verse-line); border-radius: 7px; background: var(--bg-primary); color: var(--text-primary); font-size: 13px; }
+.vnave-attached { font-size: 12px; color: var(--text-secondary); }
+.vnave-attached button { margin-left: 6px; border: 0; background: transparent; color: var(--verse-ink); font-size: 11px; text-decoration: underline; cursor: pointer; }
+.vnave-hits { border: 1px solid var(--verse-line); border-radius: 7px; margin-top: 4px; overflow: hidden; }
+.vnave-hits button { display: flex; justify-content: space-between; gap: 8px; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--verse-line); background: transparent; color: var(--text-primary); font-size: 12px; padding: 7px 9px; cursor: pointer; }
+.vnave-hits button:last-child { border-bottom: 0; }
+.vnave-hits button:hover { background: var(--verse-soft); }
+.vnave-hits span { font-family: var(--v-mono); font-size: 10px; color: var(--text-tertiary); }
+.vnave-add { width: 100%; margin-top: 4px; padding: 8px; border: 1px dashed var(--verse-line); border-radius: 8px; background: transparent; color: var(--verse-ink); font-size: 12px; font-weight: 700; cursor: pointer; }
+.vnave-add:disabled { color: var(--text-tertiary); cursor: default; }
+.vnave-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+.vnave-msg { margin-right: auto; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.vnave-save { padding: 10px 20px; border: 0; border-radius: 10px; background: var(--verse-cta, var(--verse-accent)); color: var(--verse-cta-text, var(--verse-accent-text)); font-size: 14px; font-weight: 700; cursor: pointer; }
+.vnave-save:disabled { opacity: 0.6; cursor: default; }
+@media (max-width: 767px) { .vnave-cols { grid-template-columns: 1fr; } .vnave-col { border-right: 0; border-bottom: 1px solid var(--verse-line); } }
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle-icon { transition: none; }
   .theme-toggle:hover .theme-toggle-icon { transform: none; }

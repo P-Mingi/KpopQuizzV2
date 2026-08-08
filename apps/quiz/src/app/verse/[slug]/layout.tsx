@@ -6,6 +6,9 @@ import { isVersePrivileged } from '@/lib/verse/roles';
 import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
 import { SpaceTabs } from '@/components/verse/space-tabs';
+import { ReaderMenu } from '@/components/verse/tree/reader-menu';
+import { getNavMenu } from '@/lib/verse/tree/nav';
+import { createPublicReadClient } from '@/lib/supabase/server';
 import { BuildModeProvider, BuildModeToggle } from '@/components/verse/build-mode';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
@@ -92,6 +95,9 @@ export default async function SpaceLayout({
     { label: 'About', seg: 'about' },
   ];
   const tabs = composeTabs(available, space.presentation.tabs);
+  // F1 Phase E: the curated 5x3x10 menu replaces the flat tab bar when a curator has
+  // configured one; otherwise the legacy tab bar stays (strangler, zero regression).
+  const navMenu = await getNavMenu(createPublicReadClient(), space.group.id);
 
   // The BUILD layer (V-MODES): each entry min-gated by role, revealed only in
   // Build mode. Essays appears here while it has no reader tab yet, so writers
@@ -109,7 +115,9 @@ export default async function SpaceLayout({
       <BuildModeProvider groupId={space.group.id} slug={slug}>
         <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
         <div className="mt-6">
-          <SpaceTabs slug={slug} tabs={tabs} buildTabs={buildTabs} />
+          {navMenu
+            ? <ReaderMenu spaceSlug={slug} tree={navMenu} spaceName={space.group.fandom_name} />
+            : <SpaceTabs slug={slug} tabs={tabs} buildTabs={buildTabs} />}
           {children}
         </div>
       </BuildModeProvider>

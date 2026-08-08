@@ -1,0 +1,18 @@
+PASS  a valid 5x3x10 tree is accepted  -> ok
+PASS  page ref + index ref both survive  -> ok
+PASS  > 5 top-level entries rejected  -> Too many top-level entries (max 5).
+PASS  > 10 children rejected  -> "Big" has too many children (max 10).
+PASS  a 4th level is rejected (max 3 levels)  -> "L3" is too deep - the menu is capped at 3 levels.
+PASS  an entry with no target and no children is rejected  -> "Nowhere" must link to a page/index or contain children.
+PASS  an invalid page slug is rejected  -> "X" has an invalid target.
+
+Phase E menu caps: ALL PASS
+
+LIVE (dev server, a demo menu seeded on bts then removed):
+- GET /verse/bts -> HTTP 200. The curated 5x3x10 menu REPLACED the flat tab bar
+  (0 verse-tabs occurrences). The WHOLE tree is crawlable nested <a href> in the served
+  HTML (Home, Discography, Albums, WINGS, Members, Tracks all present) - reading order = DOM,
+  flyouts are pure CSS (hover + focus-within), keyboard-reachable.
+- Screenshots: reader-menu-light/dark.png (Discography flyout open), menu-editor-light.png
+  (three columns, visible cap counters 4/5 + 2/10, PAGE/MENU/INDEX AUTO badges).
+Non-migrated spaces keep the legacy tab bar (strangler) - the demo was removed, bts restored.
