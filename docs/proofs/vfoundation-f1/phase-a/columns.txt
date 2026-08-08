@@ -1,0 +1,64 @@
+V-FOUNDATION F1 Phase A - RESUME RECEIPT: migration 148 APPLIED + verified
+project rdkgouofytwfdpbxbzio (KpopQuizz, prod). Read-only introspection via MCP
+(information_schema.columns). Cowork amendment L-091 applied: tags -> space_tags,
+redirects -> page_redirects. All 7 tables present, columns match the migration.
+
+pages
+  1  id            bigint       NOT NULL  nextval('pages_id_seq')
+  2  space_id      integer      NOT NULL
+  3  parent_id     bigint       NULL
+  4  slug          text         NOT NULL
+  5  type          text         NOT NULL
+  6  title         text         NOT NULL
+  7  status        text         NOT NULL  'draft'
+  8  blocks        jsonb        NOT NULL  '{}'
+  9  entity_kind   text         NULL
+ 10  entity_id     bigint       NULL
+ 11  is_stub       boolean      NOT NULL  true
+ 12  created_by    uuid         NOT NULL
+ 13  published_at  timestamptz  NULL
+ 14  created_at    timestamptz  NOT NULL  now()
+ 15  updated_at    timestamptz  NOT NULL  now()
+
+page_revisions
+  1  id          bigint       NOT NULL  nextval('page_revisions_id_seq')
+  2  page_id     bigint       NOT NULL
+  3  space_id    integer      NOT NULL
+  4  rev         integer      NOT NULL
+  5  title       text         NOT NULL
+  6  blocks      jsonb        NOT NULL  '{}'
+  7  author      uuid         NOT NULL
+  8  created_at  timestamptz  NOT NULL  now()
+
+page_links
+  1  id            bigint       NOT NULL  nextval('page_links_id_seq')
+  2  space_id      integer      NOT NULL
+  3  from_page_id  bigint       NOT NULL
+  4  to_page_id    bigint       NULL
+  5  to_slug       text         NOT NULL
+  6  created_at    timestamptz  NOT NULL  now()
+
+page_redirects  (L-091 rename of `redirects`)
+  1  id          bigint       NOT NULL  nextval('page_redirects_id_seq')
+  2  space_id    integer      NOT NULL
+  3  from_slug   text         NOT NULL
+  4  to_page_id  bigint       NOT NULL
+  5  created_at  timestamptz  NOT NULL  now()
+
+space_tags  (L-091 rename of `tags`)
+  1  id           bigint       NOT NULL  nextval('space_tags_id_seq')
+  2  space_id     integer      NOT NULL
+  3  key          text         NOT NULL
+  4  label        text         NOT NULL
+  5  kind         text         NOT NULL  'manual'
+  6  description  text         NULL
+  7  created_at   timestamptz  NOT NULL  now()
+
+page_tags
+  1  page_id  bigint  NOT NULL
+  2  tag_id   bigint  NOT NULL
+
+nav_menus
+  1  space_id    integer      NOT NULL  (PK)
+  2  tree        jsonb        NOT NULL  '[]'
+  3  updated_at  timestamptz  NOT NULL  now()

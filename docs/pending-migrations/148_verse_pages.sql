@@ -1,4 +1,7 @@
 -- 148_verse_pages.sql
+-- COWORK AMENDMENT (L-091, pre-apply): tables renamed tags -> space_tags and
+-- redirects -> page_redirects (bare generic names reserved against future quiz-side
+-- collisions). Everything else applied exactly as the worker wrote it.
 -- V-FOUNDATION F1 - PHASE A: the page-tree CORE schema (F0 contract C1-C13, all
 -- locked; owner rulings FQ1-FQ7 OUI). Run manually / via MCP in the prod SQL editor
 -- after a line-by-line read (L-064). NOT auto-applied. The worker never touches the DB.
@@ -151,7 +154,7 @@ CREATE POLICY page_links_public_read ON public.page_links FOR SELECT USING (true
 -- 4. redirects - eternal, a published URL never dies (C2). Rename / move writes
 --    a row here, kept FOREVER.
 -- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS public.redirects (
+CREATE TABLE IF NOT EXISTS public.page_redirects (
   id          BIGSERIAL PRIMARY KEY,
   space_id    INTEGER NOT NULL REFERENCES public.groups(id) ON DELETE CASCADE,
   from_slug   TEXT NOT NULL,
@@ -159,17 +162,17 @@ CREATE TABLE IF NOT EXISTS public.redirects (
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (space_id, from_slug)
 );
-CREATE INDEX IF NOT EXISTS idx_redirects_from ON public.redirects (space_id, from_slug);
+CREATE INDEX IF NOT EXISTS idx_page_redirects_from ON public.page_redirects (space_id, from_slug);
 
-ALTER TABLE public.redirects ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS redirects_public_read ON public.redirects;
-CREATE POLICY redirects_public_read ON public.redirects FOR SELECT USING (true);  -- must resolve for everyone
+ALTER TABLE public.page_redirects ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS redirects_public_read ON public.page_redirects;
+CREATE POLICY redirects_public_read ON public.page_redirects FOR SELECT USING (true);  -- must resolve for everyone
 
 -- ---------------------------------------------------------------------------
 -- 5. tags + page_tags - CONTROLLED, faceted vocabulary (C7). A tag is created by
 --    an explicit act (manual) or derived from data (auto); a page carries several.
 -- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS public.tags (
+CREATE TABLE IF NOT EXISTS public.space_tags (
   id          BIGSERIAL PRIMARY KEY,
   space_id    INTEGER NOT NULL REFERENCES public.groups(id) ON DELETE CASCADE,
   key         TEXT NOT NULL CHECK (key ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),  -- the slug of the tag index page
@@ -182,15 +185,15 @@ CREATE TABLE IF NOT EXISTS public.tags (
 
 CREATE TABLE IF NOT EXISTS public.page_tags (
   page_id  BIGINT NOT NULL REFERENCES public.pages(id) ON DELETE CASCADE,
-  tag_id   BIGINT NOT NULL REFERENCES public.tags(id) ON DELETE CASCADE,
+  tag_id   BIGINT NOT NULL REFERENCES public.space_tags(id) ON DELETE CASCADE,
   PRIMARY KEY (page_id, tag_id)
 );
 CREATE INDEX IF NOT EXISTS idx_page_tags_tag  ON public.page_tags (tag_id);   -- tag index: pages carrying a tag
 CREATE INDEX IF NOT EXISTS idx_page_tags_page ON public.page_tags (page_id);  -- a page's tags (the foot list)
 
-ALTER TABLE public.tags ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS tags_public_read ON public.tags;
-CREATE POLICY tags_public_read ON public.tags FOR SELECT USING (true);
+ALTER TABLE public.space_tags ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS space_tags_public_read ON public.space_tags;
+CREATE POLICY space_tags_public_read ON public.space_tags FOR SELECT USING (true);
 ALTER TABLE public.page_tags ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS page_tags_public_read ON public.page_tags;
 CREATE POLICY page_tags_public_read ON public.page_tags FOR SELECT USING (true);
