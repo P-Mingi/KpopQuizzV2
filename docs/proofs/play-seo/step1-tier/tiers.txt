@@ -1,0 +1,69 @@
+PLAY-SEO Step 1 (SEO-2) -- Article Tiering
+Date: 2026-08-08
+Source: apps/quiz/src/lib/articles/registry.ts (20 articles)
+        apps/quiz/src/lib/articles/content/*.tsx (body files)
+Method: search-intent strength of the topic (no GSC per-page data available)
+
+========================================================================
+TOP TIER (11 articles -- ENRICH with real DB data + internal links)
+========================================================================
+
+ # | slug                              | lines | category   | search-intent reason
+---|-----------------------------------|-------|------------|-------------------------------------
+ 1 | kpop-generations-explained        |  151  | guide      | Head term "kpop generations explained". Evergreen, high volume.
+ 2 | bts-discography-guide             |   65  | guide      | Head term "bts discography". Massive BTS search volume. VERY thin for its topic (65 lines for 200+ songs) -- highest enrichment ROI.
+ 3 | kpop-blind-test-guide             |  164  | guide      | Head term "kpop blind test". Product explainer, converts to plays.
+ 4 | kpop-eras-timeline                |   60  | guide      | Head term "kpop eras timeline". Evergreen companion to generations article. Thin (60 lines) -- needs enrichment.
+ 5 | bts-vs-blackpink-quiz             |  136  | comparison | "bts vs blackpink" is one of the most searched K-pop comparisons.
+ 6 | stray-kids-vs-ateez               |   72  | comparison | "stray kids vs ateez" is the defining 4th-gen boy group comparison.
+ 7 | aespa-vs-newjeans-quiz            |   71  | comparison | "aespa vs newjeans" is the defining 4th-gen girl group comparison.
+ 8 | newjeans-fan-guide                |   61  | guide      | "newjeans members"/"newjeans guide" has high group-specific volume.
+ 9 | hardest-kpop-quizzes              |  145  | listicle   | "hardest kpop quiz" is an intent-rich query (user wants a challenge).
+10 | best-kpop-quiz-sites-2026         |  157  | listicle   | "best kpop quiz sites" is competitive but real. Already the deepest article.
+11 | kpop-facts-every-fan-should-know  |  116  | listicle   | "kpop facts" is a broad head term with consistent volume.
+
+Enrichment priorities (by current-depth gap vs topic opportunity):
+  HIGHEST: bts-discography-guide (65 lines for 200+ songs, 9 albums)
+  HIGH:    kpop-eras-timeline (60 lines for 5 generations)
+  HIGH:    newjeans-fan-guide (61 lines for a top-5 searched group)
+  MEDIUM:  stray-kids-vs-ateez, aespa-vs-newjeans-quiz (71-72 lines each)
+  LOWER:   kpop-blind-test-guide, best-kpop-quiz-sites-2026 (already 150+ lines)
+
+========================================================================
+THIN TIER (9 articles -- NOINDEX + drop from sitemap, keep page reachable)
+========================================================================
+
+ # | slug                              | lines | category   | reason for noindex
+---|-----------------------------------|-------|------------|-------------------------------------
+ 1 | kpop-quiz-statistics              |   90  | data       | Internal platform stats (play counts, group coverage). Zero external search demand -- nobody googles "kpop quiz statistics". Data is available live at /stats.
+ 2 | most-played-kpop-quizzes          |   71  | data       | Internal leaderboard rehash. The /stats page already surfaces this data dynamically. Thin wrapper around a DB query.
+ 3 | girl-groups-vs-boy-groups-kpop-quiz |  83 | comparison | Niche internal-data comparison (score averages from our DB). Not a query people search. Better served by the /stats page.
+ 4 | hardest-kpop-groups-to-memorize   |   76  | data       | Member count ranking from our Name All data. Very niche, data-only. The games/name-all hub already shows this.
+ 5 | kpop-blind-test-by-group-ranked   |   68  | listicle   | Internal difficulty ranking of our playlists. Self-referential, no external search intent. The /blindtest page already communicates this.
+ 6 | best-kpop-quizzes-for-beginners   |   62  | listicle   | Generic listicle, extremely thin (62 lines). The /easy-kpop-quizzes page is a better, richer landing for this intent.
+ 7 | guess-the-kpop-idol-guide         |   59  | guide      | Thinnest article (59 lines). The /guess-the-kpop-idol page itself is a better landing for this query.
+ 8 | rookie-kpop-groups-2026           |   60  | guide      | Thin seasonal article (60 lines). Will age out. Specific group names in the body are not from DB queries.
+ 9 | (none -- 11 + 9 = 20, complete)   |       |            |
+
+========================================================================
+TEMPLATE ALREADY HAS (no work needed):
+========================================================================
+- Article JSON-LD with headline, datePublished, dateModified, author, publisher
+- BreadcrumbList JSON-LD (Home > Articles > Title)
+- FAQPage JSON-LD (from registry FAQ entries)
+- Unique <title> and meta description per article
+- Single H1 (art-title class)
+- Canonical URL (/articles/{slug})
+- OG + Twitter cards
+
+========================================================================
+ENRICHMENT APPROACH (for Step 2):
+========================================================================
+For each TOP article:
+1. Pull REAL entity data from DB via Supabase queries (group members,
+   albums, debut dates, song counts, blind test stats).
+2. Deepen the article body with sourced facts (never fabricated).
+3. Add internal links FROM the matching group/-quiz pages TO the article
+   (the crawl-budget signal that actually helps).
+4. Keep article's own links to relevant quizzes.
+5. Honest emptiness where DB data doesn't cover the claim.

@@ -1,0 +1,58 @@
+SEO-3 Step 5: Freshness + newest-quiz discovery
+===============================================
+Date: 2026-08-09
+
+A. Sitemap lastmod audit (U7 truthfulness)
+==========================================
+File: apps/quiz/src/app/sitemap.ts
+
+VERDICT: TRUTHFUL. No fake-freshening.
+
+Evidence (line 26 comment): "we stop emitting `new Date()` every deploy
+- false 'changed today'". The generator explicitly avoids the fake-
+freshness anti-pattern.
+
+Real per-quiz lastmod (lines 305-311):
+  quizPages = quizRows.map((q) => ({
+    url: `${SITE_URL}/q/${q.slug}`,
+    lastModified: new Date(q.updated_at),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+Every /q/* entry's lastmod = quiz.updated_at from the DB. No inflation.
+
+Group hub lastmod = max(quiz.updated_at) across the group's quizzes
+(computed above at "groupLatest" map). Also truthful.
+
+Static pages that DON'T actually change: use a fixed STATIC_DATE
+(2026-06-15) rather than emitting `new Date()`. This is the correct
+honest choice - flat pages should not report daily freshness.
+
+No sitemap code changes needed. The SEO-1 sitemap-cleanliness ratchet
+holds; SEO-3 does not weaken it.
+
+B. Newest quizzes surface (U7 discovery lever)
+==============================================
+Modified: apps/quiz/src/app/[slug]/group-quiz-page.tsx (+30 lines)
+
+Before: GroupFeed (client component) SSR'd only the 10 POPULAR quizzes.
+Newest quizzes were reachable only after a user clicked the "Newest" tab
+(client-side fetch). Googlebot ran the initial HTML which did NOT
+contain the newest quizzes, only the popular ones.
+
+After: an SSR strip "Newest {group} quizzes" renders 5 real created_at-
+ordered quizzes into the initial HTML, next to the article-links
+section. Filtered to items NOT already in the popular list, so the strip
+adds signal instead of duplicating chrome.
+
+Fetch: getQuizzesByGroup(group.id, 'newest', 0, 5) - the existing
+'newest' sort tab that GroupFeed uses, just fetched server-side.
+
+Why this matters: a brand-new quiz gets an inbound crawlable link from
+its group hub the moment it publishes. Google recrawls the hub (which
+is high-priority) and follows the newest link to the new /q/* page.
+This is the honest "discovery before Google" lever the mission cites.
+
+No fake data. The created_at date is real from the quiz row. Empty
+strip (when no truly-new quiz exists) renders nothing.

@@ -5,10 +5,12 @@ export function ArticleBody(): React.ReactElement {
     <>
       <p className="art-lead">
         NewJeans are a 4th-generation K-pop girl group with five members: Minji,
-        Hanni, Danielle, Haerin and Hyein. They debuted in 2022 and quickly
-        became one of the most recognizable acts of their generation thanks to a
-        breezy, retro-leaning pop sound. This guide covers the members and how to
-        go from casual listener to quiz-ready fan.
+        Hanni, Danielle, Haerin, and Hyein. They debuted in August 2022 under
+        ADOR and quickly became one of the most recognizable acts of their
+        generation thanks to a breezy, retro-leaning pop sound. On kpopquiz.org,
+        NewJeans have 18 songs in the Deezer blind test and 10 in the YouTube
+        blind test. This guide covers the members, discography, and how to go
+        from casual listener to quiz-ready fan.
       </p>
 
       <h2 id="members">Who are the members of NewJeans?</h2>
@@ -17,12 +19,31 @@ export function ArticleBody(): React.ReactElement {
         any NewJeans quiz, since member questions are the most common format.
       </p>
       <ul>
-        <li><strong>Minji</strong></li>
-        <li><strong>Hanni</strong></li>
-        <li><strong>Danielle</strong></li>
-        <li><strong>Haerin</strong></li>
-        <li><strong>Hyein</strong></li>
+        <li><strong>Minji</strong> &ndash; vocalist, dancer, eldest member</li>
+        <li><strong>Hanni</strong> &ndash; vocalist, Vietnamese-Australian</li>
+        <li><strong>Danielle</strong> &ndash; vocalist, Korean-Australian</li>
+        <li><strong>Haerin</strong> &ndash; vocalist, dancer</li>
+        <li><strong>Hyein</strong> &ndash; vocalist, youngest member</li>
       </ul>
+
+      <h2 id="discography">NewJeans discography</h2>
+      <p>
+        NewJeans have released two EPs as of their catalog on kpopquiz.org. Their
+        compact discography makes them one of the easier groups to memorize for
+        quizzes, but quiz creators often go deep on member-specific and release
+        details.
+      </p>
+      <div className="art-table-wrap">
+        <table className="art-table">
+          <thead>
+            <tr><th>Album</th><th>Type</th><th>Release</th><th>Key tracks</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>New Jeans</td><td>EP</td><td>August 2022</td><td>Attention, Hype Boy, Cookie, Hurt</td></tr>
+            <tr><td>Get Up</td><td>EP</td><td>July 2023</td><td>Super Shy, ETA, Cool With You</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2 id="sound">What makes NewJeans easy to recognize?</h2>
       <p>
@@ -34,8 +55,16 @@ export function ArticleBody(): React.ReactElement {
       </p>
       <p className="art-highlight">
         <strong>Quiz tip:</strong> because their sound is so consistent, focus
-        your study on members, eras and release order rather than trying to
+        your study on members, eras, and release order rather than trying to
         distinguish songs by genre.
+      </p>
+
+      <h2 id="blind-test">NewJeans in the blind test</h2>
+      <p>
+        NewJeans have 18 songs in the Deezer blind test catalog and 10 in the
+        YouTube blind test. Their consistent sonic palette makes them one of the
+        easier groups to identify by ear, but telling individual songs apart
+        requires knowing the subtle differences between releases.
       </p>
 
       <h2 id="how-to-study">How do I get quiz-ready as a NewJeans fan?</h2>

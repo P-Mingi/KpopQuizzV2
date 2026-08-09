@@ -4,15 +4,19 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import Link from 'next/link';
 
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
-import { getPassRate } from '@/lib/db/queries/plays';
+import { getQuizExtraStats } from '@/lib/db/queries/plays';
+import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
+import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
+import { getGroupArticleLinks } from '@/lib/articles/group-links';
+import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 
 import type { Metadata } from 'next';
 
@@ -116,8 +120,26 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   if (!quiz) notFound();
 
   const questionCount = (quiz.questions as unknown[]).length;
-  const passRate = quiz.total_completions > 0
-    ? await safeFetch(getPassRate(quiz.id, questionCount), null, '[q/[slug]] getPassRate')
+
+  // SEO-3 U1: extra stats not on the quiz row (fastest time, perfect scores,
+  // passing count, total plays-table rows). Only fetched when there is at
+  // least one play - saves a DB round trip on brand-new quizzes.
+  //
+  // C3: pass rate is derived from what this call already returns
+  // (passingPlays / totalPlaysWithScore), so we do NOT also call
+  // getPassRate here. Two fewer round trips per render and the pass rate
+  // is mathematically guaranteed to share its denominator with the Plays
+  // cell. Leave getPassRate in place for its other callers.
+  const extraStats = quiz.play_count > 0
+    ? await safeFetch(
+        getQuizExtraStats(quiz.id, questionCount),
+        { fastestTimeSeconds: null, perfectScoreCount: 0, passingPlays: 0, totalPlaysWithScore: 0 },
+        '[q/[slug]] getQuizExtraStats',
+      )
+    : { fastestTimeSeconds: null, perfectScoreCount: 0, passingPlays: 0, totalPlaysWithScore: 0 };
+
+  const passRate = extraStats.totalPlaysWithScore > 0
+    ? Math.round((extraStats.passingPlays / extraStats.totalPlaysWithScore) * 100)
     : null;
 
   // SEO Fix 1: spoiler-safe question list rendered into the server HTML so the
@@ -132,16 +154,62 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     correct?: number | boolean;
   }>) ?? [];
 
-  // SEO Fix 2: unique, server-rendered intro paragraph generated from this
-  // quiz's metadata (group, difficulty, question count, author + social proof).
-  const introAvg = quiz.total_completions > 0 && questionCount > 0
+  // SEO-3 U2: dynamic intro with variation branches. Sentence STRUCTURE
+  // changes with data availability so pages do not read identical.
+  //
+  // R3: the plays TABLE is the source of truth. Use extra.totalPlaysWithScore
+  // when it is available; fall back to quiz.play_count (the counter row) when
+  // the extra query was skipped or degraded. The stats block quotes the same
+  // number, so the page reads consistently top to bottom.
+  //
+  // C2: gate on the same base as the display (plays), using the shared
+  // RANKING_UNLOCK_VOTES constant. Zero numeric literals for the threshold.
+  //
+  // C4: score-derived metrics only render for quiz types where `score` is
+  // per-question (perfect run == qcount). guess_from_clues awards multiple
+  // points per question by speed, so its avg %, pass rate, and perfect
+  // count are all meaningless under the qcount model. The same predicate
+  // gates the stats block below.
+  const perQuestionScore = scoreIsPerQuestion(quiz.quiz_type);
+  const plays =
+    extraStats.totalPlaysWithScore > 0
+      ? extraStats.totalPlaysWithScore
+      : quiz.play_count;
+  const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
+  const introAvg = perQuestionScore && scoresUnlocked && questionCount > 0 && quiz.total_completions > 0
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
     : null;
-  const intro = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}. ${
-    introAvg !== null
-      ? `${quiz.play_count.toLocaleString('en-US')} fans have already taken it, scoring ${introAvg}% on average. Think you can beat that?`
-      : 'Be one of the first to take it on and set the score to beat.'
-  }`;
+  // C4: perfect count is only meaningful when a perfect run == qcount;
+  // otherwise the underlying rows do not match "perfect" as a user reads it.
+  const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
+  const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
+  let socialProof: string;
+  if (plays === 0) {
+    // Branch A: brand new
+    socialProof = 'Be one of the first to take it on and set the score to beat.';
+  } else if (plays < RANKING_UNLOCK_VOTES) {
+    // Branch B: honest smallness - never fake community activity
+    socialProof = `${plays.toLocaleString('en-US')} ${plays === 1 ? 'player has' : 'players have'} tried it so far.`;
+  } else if (plays < 1000) {
+    // Branch C: standard social proof (avg is gated by threshold-30 above
+    // AND by perQuestionScore below)
+    socialProof = introAvg !== null
+      ? `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. Think you can beat that?`
+      : `${plays.toLocaleString('en-US')} fans have already tried it.`;
+  } else {
+    // Branch D: popular quiz - vary the framing by score profile.
+    // R5: no editorial. State the perfect-count figure without judgement.
+    // C4: falls through to the generic arm when perQuestionScore is false,
+    // since introAvg and introPerfCount are both suppressed for those types.
+    if (introPerfCount > 0 && introAvg !== null && introAvg < 60) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+    } else if (introAvg !== null) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. See where you land.`;
+    } else {
+      socialProof = `${plays.toLocaleString('en-US')} fans have played it.`;
+    }
+  }
+  const intro = `${base} ${socialProof}`;
 
   // SEO Fix 3: related quizzes - same group first (by plays), topped up with
   // popular quizzes so every quiz page exposes 4-6 crawlable <a href> links.
@@ -244,6 +312,20 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         </p>
       )}
 
+      {/* SEO-3 U1 - real per-quiz stats block. Crawlable numbers, threshold
+          gates ranking-ish metrics (hidden below the shared unlock line).
+          Renders nothing on zero-play quizzes. C4: quiz-type-aware -
+          score-derived cells are suppressed for types where score is not
+          per-question (guess_from_clues today). */}
+      <QuizStatsBlock
+        playCount={quiz.play_count}
+        quizType={quiz.quiz_type}
+        avgScorePercent={introAvg}
+        passRatePercent={passRate}
+        likeCount={quiz.like_count ?? 0}
+        extra={extraStats}
+      />
+
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
       <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} />
 
@@ -342,7 +424,44 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         </section>
       )}
 
-      {/* QA class 4: quiz.title (user-authored) escaped at the sink. */}
+      {/* SEO-3 Step 3 - link back to enriched group articles when they exist.
+          Extends the group-links.ts pattern that powers /[slug]-quiz pages.
+          Passes link equity from every /q/* page to the /articles/ hub. */}
+      {(() => {
+        const articleLinks = getGroupArticleLinks(quiz.group_slug);
+        if (articleLinks.length === 0) return null;
+        return (
+          <section className="related-quizzes" aria-label={`Read more about ${quiz.group_name}`}>
+            <h2 className="related-quizzes-title">Read more about {quiz.group_name}</h2>
+            <ul className="quiz-article-links">
+              {articleLinks.map((link) => (
+                <li key={link.slug}>
+                  <a href={`/articles/${link.slug}`} className="quiz-article-link">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={`/${quiz.group_slug}-quiz`} className="quiz-article-link">
+                  All {quiz.group_name} quizzes
+                </a>
+              </li>
+            </ul>
+          </section>
+        );
+      })()}
+
+      {/* QA class 4: quiz.title (user-authored) escaped at the sink.
+          SEO-3 Step 4: enriched Quiz JSON-LD.
+          - `about`: MusicGroup (correct type for K-pop groups)
+          - `assesses`: group name (what the quiz measures knowledge of)
+          - `educationalLevel`: difficulty (real value from quiz row)
+          - `hasPart`: Question array with `name` only, no suggestedAnswer
+            (structured question inventory without exposing correct answers)
+          - `interactionStatistic`: play count + a second counter for
+            completions when total_completions > 0
+          - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
+      */}
       {jsonLdScript({
         '@context': 'https://schema.org',
         '@type': 'Quiz',
@@ -353,6 +472,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
           alignmentType: 'educationalSubject',
           targetName: 'K-pop',
         },
+        educationalLevel: quiz.difficulty,
+        assesses: quiz.group_name,
+        keywords: `${quiz.group_name}, K-pop, ${quiz.difficulty} quiz`,
         author: {
           '@type': 'Person',
           name: quiz.creator_username,
@@ -360,15 +482,40 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         },
         dateCreated: quiz.created_at,
         dateModified: quiz.updated_at,
-        interactionStatistic: {
-          '@type': 'InteractionCounter',
-          interactionType: 'https://schema.org/PlayAction',
-          userInteractionCount: quiz.play_count,
-        },
+        interactionStatistic: [
+          {
+            '@type': 'InteractionCounter',
+            interactionType: 'https://schema.org/PlayAction',
+            userInteractionCount: quiz.play_count,
+          },
+          ...(quiz.total_completions > 0
+            ? [
+                {
+                  '@type': 'InteractionCounter',
+                  interactionType: 'https://schema.org/CompleteAction',
+                  userInteractionCount: quiz.total_completions,
+                },
+              ]
+            : []),
+          ...(quiz.like_count && quiz.like_count > 0
+            ? [
+                {
+                  '@type': 'InteractionCounter',
+                  interactionType: 'https://schema.org/LikeAction',
+                  userInteractionCount: quiz.like_count,
+                },
+              ]
+            : []),
+        ],
         about: {
-          '@type': 'Thing',
+          '@type': 'MusicGroup',
           name: quiz.group_name,
+          url: `https://kpopquiz.org/${quiz.group_slug}-quiz`,
         },
+        hasPart: seoQuestions
+          .map((q) => q.question)
+          .filter((text): text is string => typeof text === 'string' && text.length > 0)
+          .map((text) => ({ '@type': 'Question', name: text })),
         numberOfQuestions: questionCount,
         inLanguage: 'en',
         url: `https://kpopquiz.org/q/${quiz.slug}`,

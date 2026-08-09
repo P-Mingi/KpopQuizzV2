@@ -1,0 +1,87 @@
+SEO-3 Step 4: Quiz JSON-LD audit + additions
+============================================
+Date: 2026-08-09
+File: apps/quiz/src/app/q/[slug]/page.tsx
+
+BEFORE (pre-mission Quiz JSON-LD)
+=================================
+Fields present:
+  @type: Quiz
+  name: quiz.title
+  description: templated
+  educationalAlignment: K-pop
+  author: Person (creator username + profile URL)
+  dateCreated, dateModified
+  interactionStatistic: PlayAction count (single object)
+  about: Thing (group name only)
+  numberOfQuestions, inLanguage, url
+
+AFTER (this step's additions - all REAL values from the DB)
+===========================================================
++ educationalLevel: quiz.difficulty        (was missing)
++ assesses: quiz.group_name                (what the quiz measures)
++ keywords: 'GroupName, K-pop, Difficulty' (real values only)
++ about upgraded: Thing -> MusicGroup with url to /group-quiz hub
++ interactionStatistic upgraded to ARRAY:
+    - PlayAction (existing)
+    - CompleteAction: total_completions (when > 0)
+    - LikeAction: like_count (when > 0)
++ hasPart: Question[] with `name` only (each question text; NO
+  suggestedAnswer, NO acceptedAnswer -> correct answers stay OUT of
+  markup, spoiler-safe)
+
+Example expected output for a real quiz (bts_daily_v_dtl)
+=========================================================
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "name": "Daily BTS: guess the V detail",
+  "description": "A BTS quiz created by kmn on KpopQuiz",
+  "educationalAlignment": { "@type": "AlignmentObject", "alignmentType": "educationalSubject", "targetName": "K-pop" },
+  "educationalLevel": "hard",
+  "assesses": "BTS",
+  "keywords": "BTS, K-pop, hard quiz",
+  "author": { "@type": "Person", "name": "kmn", "url": "https://kpopquiz.org/u/kmn" },
+  "dateCreated": "2026-...",
+  "dateModified": "2026-...",
+  "interactionStatistic": [
+    { "@type": "InteractionCounter", "interactionType": "https://schema.org/PlayAction", "userInteractionCount": 132 },
+    { "@type": "InteractionCounter", "interactionType": "https://schema.org/CompleteAction", "userInteractionCount": 89 },
+    { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": 12 }
+  ],
+  "about": { "@type": "MusicGroup", "name": "BTS", "url": "https://kpopquiz.org/bts-quiz" },
+  "hasPart": [
+    { "@type": "Question", "name": "What is V's real name?" },
+    { "@type": "Question", "name": "Which member has the birthday closest to V?" }
+  ],
+  "numberOfQuestions": 10,
+  "inLanguage": "en",
+  "url": "https://kpopquiz.org/q/bts_daily_v_dtl"
+}
+
+Template variants (checked per quiz_type)
+=========================================
+The JSON-LD shape is IDENTICAL across quiz_types (multiple_choice,
+true_false, guess_from_clues, image, etc.) because all types have
+`question` text on each item. hasPart works for all types.
+
+FAQPage markup - deliberately NOT added
+=======================================
+Per mission: "FAQ markup ONLY where a page genuinely has Q/A content;
+no spam markup."
+
+A quiz's Questions are NOT FAQ. They are assessment items, not
+frequently-asked questions with authoritative answers. Emitting FAQPage
+schema over quiz questions would be classic spammy structured data and
+Google would penalize it (they have specifically warned against this
+pattern for quiz sites).
+
+Fun facts (q.fun_fact) COULD be shaped as FAQ-ish, but they are
+supplementary color, not "questions people ask", so we do not emit
+FAQPage for them either. Honest choice: no FAQPage on /q/*.
+
+Verification
+============
+Every added field maps to a REAL DB column on the quiz row or a plain
+computed value from it. No invented ratings, no fake reviewCount, no
+placeholder image. Covenant holds.

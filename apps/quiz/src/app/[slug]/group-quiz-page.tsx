@@ -13,6 +13,7 @@ import { getGroupProfiles } from '@/lib/personality/data';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
+import { getGroupArticleLinks } from '@/lib/articles/group-links';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -75,8 +76,12 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse] = await Promise.all([
+  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
+    // SEO-3 U7: SSR the 5 newest quizzes for this group. Crawlable-freshness
+    // signal for Google + a discovery surface so users find new uploads before
+    // Google does. Sorted by created_at DESC (see getQuizzesByGroup 'newest').
+    safeFetch(getQuizzesByGroup(group.id, 'newest', 0, 5), [], '[group-quiz] getNewestByGroup'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
     safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
@@ -88,6 +93,11 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     safeFetch(getGroupActiveComeback(group.id), null, '[group-quiz] getGroupActiveComeback'),
     safeFetch(getGroupMvPulse(group.id), null, '[group-quiz] getGroupMvPulse'),
   ]);
+
+  // Only show a distinct "newest" strip when it actually differs from the
+  // popular list a user already sees below (otherwise it's duplicate chrome).
+  const popularSlugs = new Set(initialQuizzes.map((q) => q.slug));
+  const newestDistinct = newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
 
   const intro = group.seo_intro || generateDefaultIntro(group);
 
@@ -219,6 +229,56 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           Make your own {group.name} quiz
         </Link>
       </div>
+
+      {/* SEO: internal article links pass equity from group pages to /articles/ */}
+      {(() => {
+        const articleLinks = getGroupArticleLinks(group.slug);
+        if (articleLinks.length === 0) return null;
+        return (
+          <section className="mt-8">
+            <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
+              Read more about {group.name}
+            </h2>
+            <div className="flex flex-col gap-2">
+              {articleLinks.map(link => (
+                <Link
+                  key={link.slug}
+                  href={`/articles/${link.slug}`}
+                  className="text-sm text-[var(--text-primary)] hover:underline"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* SEO-3 U7 - "Newest {group} quizzes" strip (SSR). Freshness signal
+          for Google + discovery for users. Only rendered when the newest
+          differ from the popular ordering above. */}
+      {newestDistinct.length > 0 && (
+        <section className="mt-8" aria-label={`Newest ${group.name} quizzes`}>
+          <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
+            Newest {group.name} quizzes
+          </h2>
+          <ul className="flex flex-col gap-2">
+            {newestDistinct.map((q) => (
+              <li key={q.id}>
+                <Link
+                  href={`/q/${q.slug}`}
+                  className="text-sm text-[var(--text-primary)] hover:underline"
+                >
+                  {q.title}
+                  <span className="text-[11px] text-[var(--text-tertiary)] ml-2">
+                    {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {relatedQuizzes.length > 0 && (
         <section className="mt-12 pt-8 border-t border-[var(--border)]">

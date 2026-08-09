@@ -1,0 +1,84 @@
+SEO-3 Step 1: Per-quiz data audit
+==================================
+Date: 2026-08-09
+Purpose: what U1 stats + U2 intro tokens are COMPUTABLE TODAY (no schema)
+
+DB tables + columns available (read from src/lib/db/types.ts + queries/)
+=======================================================================
+
+  quizzes:
+    id, title, slug, difficulty, quiz_type
+    play_count, total_score_sum, total_completions, like_count
+    questions (jsonb array), settings (jsonb), group_id
+    creator_id, created_at, updated_at
+
+  plays:
+    score, total_questions, time_taken_seconds, player_id, quiz_id
+
+  quiz_reactions: (crawlable count already surfaced)
+  quiz_comments:  (crawlable count already surfaced)
+
+Stats we CAN compute today (U1)
+===============================
+
+ # | Stat                  | Source                                          | Notes
+---|-----------------------|-------------------------------------------------|--------------------
+ 1 | Play count            | quiz.play_count                                 | already on quiz row (incl. incomplete)
+ 2 | Completions           | quiz.total_completions                          | already on quiz row
+ 3 | Average score %       | total_score_sum / total_completions / Q * 100   | already computed in intro; make it a stat
+ 4 | Pass rate %           | plays.count(score >= 0.7*Q) / plays.count       | getPassRate() exists
+ 5 | Fastest time (sec)    | MIN(time_taken_seconds) WHERE score >= 0.7*Q    | NEW aggregate needed
+ 6 | Perfect scores        | plays.count(score = Q)                          | NEW count needed
+ 7 | Completion rate %     | total_completions / play_count * 100            | derived
+ 8 | Like count            | quiz.like_count                                 | already crawlable
+
+Stats we CANNOT compute (need schema, deferred to O1/O3 slice)
+==============================================================
+
+ A | Hardest question      | requires per-question aggregate (missing table)
+ B | Most common wrong ans | same
+ C | Trivia/did-you-know   | requires curated trivia entity table (O1)
+
+Threshold-30 law (per memory: rankings-unlock-threshold)
+========================================================
+Stats that are leaderboard-ish (pass rate, avg score, fastest time) show
+provisional "early results" tier when total_completions < 30, else the
+full number. Play/completion counts always shown (they are counts, not
+rankings).
+
+Dynamic intro (U2) - existing + planned variation
+=================================================
+CURRENT (page.tsx line 140):
+  "Test your <group> knowledge with this <difficulty> <N>-question quiz
+   by <creator>. <play_count> fans have already taken it, scoring
+   <avg>% on average. Think you can beat that?"
+
+VARIATION LAYER (per SEO-3 mission "vary sentence structure by which
+data exists"):
+  - branch A: 0 plays -> "Be one of the first" (already present)
+  - branch B: 1-29 plays -> "N players have tried it; still finding
+    its footing" (small-audience honesty)
+  - branch C: 30-999 plays -> current sentence
+  - branch D: 1000+ plays -> add "hardest quizzes on the platform for
+    a <group> fan" or "popular" flag if avg < 60% or play_count > 1000
+
+Related-by-entity (U4) - shared-tag audit
+=========================================
+FINDING: no `tags` or `topic` column exists on quizzes. QuizSettings jsonb
+holds only {timer, timer_seconds, shuffle, show_answers}. No era/album/
+member field on quizzes.
+CONSEQUENCE: "shared tags" refinement of related quizzes is NOT feasible
+today. The existing same-group + play-count ordering IS the entity-based
+signal (same-group is the strongest entity link we have).
+IMPROVEMENT WE CAN DO: also include creator (same-creator variants
+exist), and vary which orderings each quiz sees so related rails differ.
+
+Freshness (U7) - sitemap lastmod audit
+======================================
+Sitemap at apps/quiz/src/app/sitemap.ts uses quiz.updated_at as lastmod
+per-quiz row. No fake-freshening. Truthful.
+
+Group hub already exposes recent quizzes via GroupFeed component (first
+10 SSR). The NEW work is: an explicit "newest" strip separate from the
+"popular" ordering that dominates GroupPlayRow, so users see recent
+uploads not just top plays.

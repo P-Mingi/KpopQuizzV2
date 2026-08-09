@@ -1,0 +1,53 @@
+SEO-3 Step 3: related-by-entity + hub cross-links
+=================================================
+Date: 2026-08-09
+
+Related-by-entity refinement (U4)
+==================================
+STATUS: existing implementation is the entity-max we can do today.
+The quizzes table has no `tags` column and QuizSettings jsonb has no
+era/album/member field. "Shared tags (era/album/member)" is NOT
+computable without schema changes -> DEFERRED to O1 slice.
+
+CURRENT related logic (page.tsx line 148):
+  1. Fetch top 8 quizzes for the same group (ordered by plays).
+  2. Filter out the current quiz.
+  3. Top up with popular quizzes if fewer than 4 same-group results.
+  4. Take up to 6.
+
+This IS entity-based already: "same group" is the strongest entity link
+we have without a tags column. No fake improvement was added on top.
+
+New cross-links added (this step)
+=================================
+
+Modified: apps/quiz/src/app/q/[slug]/page.tsx (+27 lines)
+  Added "Read more about {group}" section after related-quizzes,
+  reusing the getGroupArticleLinks() function from SEO-2 (which
+  powers /[slug]-quiz pages).
+
+  Every /q/* page now emits:
+    - link to each of the group's enriched articles (0-2 per group)
+    - link back to /{group-slug}-quiz (the group hub)
+
+  This closes the equity loop: articles -> group hub -> individual
+  quiz -> back to articles + hub. Bidirectional internal-link web.
+
+Modified: apps/quiz/src/styles/globals.css (+15 lines)
+  Added .quiz-article-links + .quiz-article-link (reuses existing
+  chrome tokens: --text-primary, hover underline).
+
+Coverage:
+  Groups with specific article links (from SEO-2 map):
+    bts, blackpink, stray-kids, ateez, aespa, newjeans
+  All other groups fall back to the general
+    kpop-generations-explained article.
+
+  So EVERY /q/* page (regardless of group) now has at least one
+  inbound link to /articles/.
+
+Hub link back to newest quizzes (deferred to Step 5)
+====================================================
+The "hub links to newest quizzes" half of this step overlaps with
+Step 5 (U7: newest quizzes surface on group hub). Deferred and
+implemented there to avoid duplicate code paths.

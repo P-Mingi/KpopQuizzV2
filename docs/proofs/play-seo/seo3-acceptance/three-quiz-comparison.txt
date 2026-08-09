@@ -1,0 +1,294 @@
+SEO-3c Acceptance: 4-quiz page comparison (real values, post C1-C4)
+==================================================================
+Date: 2026-08-09
+Source of numbers: Cowork queried the production database and supplied
+the values below in the SEO-3b + SEO-3c missions
+(docs/loop-seo/MISSION.md). This worktree has NO DB credentials, so
+the numbers were not derived here - they are quoted verbatim from
+Cowork's read.
+
+NOTE ON PRIOR RECEIPTS
+======================
+- SEO-3 receipt was a covenant failure (invented numbers labelled real).
+- SEO-3b receipt corrected that but rendered two cells for what is one
+  fact in this schema (play_count === total_completions on all 399
+  quizzes). "Completions" was noise on 396 and a false abandonment
+  signal on the 3 drifted rows. Removed in this pass.
+- SEO-3c C4 pass adds a 4th tier: guess_from_clues. Score-derived
+  cells and the intro's avg / perfect-count are suppressed for quiz
+  types where a raw `score` is NOT bounded by qcount, so a display
+  can never publish "Average score 136%".
+
+Values Cowork supplied
+======================
+
+BIG   ultimate-bts-era-quiz-only-real-armys-survive          (quiz_type: multiple_choice)
+      play_count 1880 · total_completions 1880 · plays rows 2060
+      8 questions · avg 53% · perfect 224 · passing 665
+      fastest perfect 18s · likes 38
+
+MID   enhypen-world-ultimate-fan-challenge                    (quiz_type: multiple_choice)
+      play_count 853 · total_completions 853 · plays rows 853
+      20 questions · avg 57% · perfect 62 · passing 308
+      fastest perfect 41s · likes 28
+
+TINY  girls-generation-the-legend-quiz                        (quiz_type: multiple_choice)
+      play_count 5 · total_completions 5 · plays rows 5
+      10 questions · avg 92% · perfect 2 · passing 5
+      fastest perfect 55s · likes 0
+
+CLUE  ateez-guess-the-song-from-the-clues                     (quiz_type: guess_from_clues)
+      play_count 7 · plays rows 7 (below the gate)
+      Cowork observed max raw score of 21 on a 10-question clue quiz
+      in prod (~3 points per question by speed), which is why the
+      qcount-based percentage would print >100% pre-fix.
+
+Notation: `{difficulty}` and `{creator}` are fields Cowork did not
+quote in the mission; they render from the quiz row exactly as
+supplied by the DB. Everything else in the strings below is literal -
+if a number appears, it is the one from the table above (or a
+computed value with its formula shown).
+
+===========================================================
+BIG - ultimate-bts-era-quiz-only-real-armys-survive
+===========================================================
+
+Preconditions (all computed inside the shipped code):
+  playsDisplay = extra.totalPlaysWithScore > 0
+               ? extra.totalPlaysWithScore
+               : quiz.play_count
+             = 2060                                  (R3 + C1)
+  scoresUnlocked = playsDisplay >= RANKING_UNLOCK_VOTES(30)
+                = true                               (C2)
+  passRate     = round(extra.passingPlays / extra.totalPlaysWithScore * 100)
+              = round(665 / 2060 * 100)
+              = 32                                   (C3)
+  introAvg     = round((total_score_sum / total_completions) / questionCount * 100)
+              = 53
+  intro branch = plays >= 1000 -> D
+  D sub-branch = perfect > 0 AND introAvg < 60 -> first arm
+
+INTRO sentence rendered:
+  "Test your BTS knowledge with this {difficulty} 8-question quiz by
+   {creator}. 2,060 fans have battled it (avg 53%), and 224 have
+   scored perfect. Join them?"
+
+STATS BLOCK cells rendered (in order, 6 cells):
+  Plays            | 2,060
+  Perfect scores   | 224
+  Likes            | 38
+  Average score    | 53%
+  Pass rate        | 32%
+  Fastest perfect  | 18s
+
+No gate line renders (scoresUnlocked = true).
+
+C1 sanity: no "Completions" cell. The prior receipt printed "1,880"
+beside "2,060" and invited the false read "180 abandoned". That is
+gone. The single Plays number now agrees with the pass-rate
+denominator.
+
+C3 sanity: pass rate and the Plays cell share their base (both use
+extra.totalPlaysWithScore), so no denominator drift is possible.
+
+===========================================================
+MID - enhypen-world-ultimate-fan-challenge
+===========================================================
+
+Preconditions:
+  playsDisplay   = 853
+  scoresUnlocked = 853 >= 30 -> true
+  passRate       = round(308 / 853 * 100) = 36
+  introAvg       = 57
+  intro branch   = 30 <= 853 < 1000 -> C
+  C branch       = introAvg not null -> first arm
+
+INTRO sentence rendered:
+  "Test your ENHYPEN knowledge with this {difficulty} 20-question
+   quiz by {creator}. 853 fans have taken it, averaging 57%. Think
+   you can beat that?"
+
+STATS BLOCK cells rendered (in order, 6 cells):
+  Plays            | 853
+  Perfect scores   | 62
+  Likes            | 28
+  Average score    | 57%
+  Pass rate        | 36%
+  Fastest perfect  | 41s
+
+No gate line renders.
+
+===========================================================
+TINY - girls-generation-the-legend-quiz
+===========================================================
+
+Preconditions:
+  playsDisplay   = 5
+  scoresUnlocked = 5 >= 30 -> FALSE
+  passRate value = 100 (round(5/5*100)) but NOT RENDERED
+                   because scoresUnlocked = false (C2)
+  introAvg       = null (gated by scoresUnlocked)
+  intro branch   = 5 < 30 -> B (honest smallness)
+
+INTRO sentence rendered:
+  "Test your Girls' Generation knowledge with this {difficulty}
+   10-question quiz by {creator}. 5 players have tried it so far."
+
+  The 92% average never appears in prose. introAvg is null because
+  the gate hasn't cleared.
+
+STATS BLOCK cells rendered (in order, 2 cells):
+  Plays            | 5
+  Perfect scores   | 2
+
+  Average score, Pass rate, Fastest perfect: NOT RENDERED
+  (scoresUnlocked = false, C2).
+  Likes: 0, cell omitted regardless.
+
+GATE LINE renders below the cells:
+  "Scores unlock at 30 plays (5 so far)."
+
+  Uses the same base (playsDisplay = 5) and the same constant
+  (RANKING_UNLOCK_VOTES) as the gate itself. Still unique-per-quiz
+  text because the count differs per quiz below the threshold.
+
+===========================================================
+CLUE - ateez-guess-the-song-from-the-clues (below the gate)
+===========================================================
+
+Preconditions:
+  perQuestionScore = scoreIsPerQuestion('guess_from_clues') = false
+                                                         (C4 allowlist)
+  playsDisplay   = 7
+  scoresUnlocked = 7 >= 30 -> FALSE
+  introAvg       = null (gated by perQuestionScore = false)
+  introPerfCount = 0    (gated by perQuestionScore = false)
+  passRate value = round(passing / 7 * 100) - computed but NOT
+                   RENDERED (score-derived, perQuestionScore = false)
+  intro branch   = 7 < 30 -> B (honest smallness)
+
+INTRO sentence rendered:
+  "Test your ATEEZ knowledge with this {difficulty} 10-question quiz
+   by {creator}. 7 players have tried it so far."
+
+  No percentage anywhere. introAvg is null because the type gate
+  blocks it, so branch C's / D's avg-quoting arms cannot fire.
+
+STATS BLOCK cells rendered (in order, 1 or 2 cells):
+  Plays            | 7
+  Likes            | {like_count if > 0}
+
+  Perfect scores:    NOT RENDERED (perQuestionScore = false, C4)
+  Average score:     NOT RENDERED (perQuestionScore = false, C4)
+  Pass rate:         NOT RENDERED (perQuestionScore = false, C4)
+  Fastest perfect:   NOT RENDERED (perQuestionScore = false, C4)
+
+GATE LINE: NOT RENDERED. The gate would tease an unlock that has no
+key for this quiz type - suppressed for perQuestionScore = false so
+the block does not read "wait for 23 more plays" when the metrics
+would never appear regardless.
+
+===========================================================
+CLUE (hypothetical UNLOCKED) - clue quiz above the gate
+===========================================================
+For any guess_from_clues quiz whose plays >= 30:
+
+Preconditions:
+  perQuestionScore = false                                (C4 allowlist)
+  scoresUnlocked   = true
+  introAvg         = null (gated by perQuestionScore = false)
+  introPerfCount   = 0    (gated by perQuestionScore = false)
+
+INTRO sentence rendered (branch depends on plays):
+  30 <= plays < 1000 -> Branch C, falls to the no-avg arm:
+    "Test your {group} knowledge with this {difficulty}
+     {qcount}-question quiz by {creator}. {plays,} fans have already
+     tried it."
+  plays >= 1000     -> Branch D, falls to the generic no-avg arm:
+    "... {plays,} fans have played it."
+
+STATS BLOCK cells rendered:
+  Plays            | {plays}
+  Likes            | {like_count if > 0}
+
+  Average score / Pass rate / Perfect scores / Fastest perfect:
+    NEVER RENDERED for this quiz type. The display can never publish
+    a >100% figure, and the "perfect" count that would previously
+    have counted the wrong rows never appears. Cowork's separate
+    data question about inflated total_score_sum on some clue
+    quizzes is orthogonal - the DISPLAY is honest either way.
+
+===========================================================
+Query-count comparison (per /q/[slug] render)
+===========================================================
+Focused on the plays-related counts only. Other queries (getQuizBySlug,
+related quizzes, hall of fame, social counts, trivia gate) are
+unchanged and not counted here.
+
+BEFORE C3:
+  getPassRate:        2 count queries (total plays, passing plays)
+  getQuizExtraStats:  1 select + 3 counts = 4 queries
+  ------------------------------------------------------------
+  Plays-related total: 6 queries per render
+  Of those, 1 was completely dead (extra.passingPlays had no reader)
+  and 1 duplicated the getPassRate total (extra.totalPlaysWithScore).
+
+AFTER C3:
+  getQuizExtraStats:  1 select + 3 counts = 4 queries
+  getPassRate:        NOT called from /q/[slug] anymore
+  ------------------------------------------------------------
+  Plays-related total: 4 queries per render (2 fewer, 33% reduction)
+  Zero dead values (extra.passingPlays now feeds the passRate math).
+  Pass-rate denominator is mathematically identical to the Plays cell.
+
+===========================================================
+Why these four pages still read genuinely differently
+===========================================================
+Chrome is shared (breadcrumb, player, hall of fame, related list,
+article links, JSON-LD wrapper). Everything else is per-quiz real
+data:
+
+  - Intro:     four DIFFERENT rendered shapes fire across the four
+               tiers (D / C / B / B-no-avg for the clue quiz).
+               Different lengths, different phrasings, different
+               embedded numbers.
+  - Cells:     BIG and MID render 6 cells with the ranking-ish trio
+               visible. TINY renders 2 cells and a gate line. CLUE
+               renders 1-2 cells and NO gate line (the type-suppressed
+               metrics have no unlock). HTML shape is materially
+               different across all four.
+  - Numbers:   every value (2060 / 853 / 5 / 7, plus 53 / 57 / gated /
+               gated, 224 / 62 / 2 / suppressed, 32% / 36% / gated /
+               suppressed, 18s / 41s / gated / suppressed) is unique
+               to the quiz or genuinely absent for a real reason.
+  - JSON-LD:   BIG and MID emit Complete+Like counters; TINY emits
+               Complete only (likes=0, no Like counter); CLUE emits
+               a Play counter only when plays=7. hasPart varies in
+               length (8 / 20 / 10 / 10 Question entities).
+
+Anti-thin bar mapping
+=====================
+  U2 dynamic intro        - PASS (four distinct rendered shapes fire)
+  U8 crawlable questions  - PASS (already shipped pre-mission)
+  O1 group facts          - DEFER (migration 149, Cowork)
+  O3 did-you-know         - DEFER (needs O1 + prototype, Cowork)
+  U1 real stats           - PASS (with R2 gate + R3 source-of-truth
+                                 + C1 no-noise-cell + C3 shared base
+                                 + C4 type-aware suppression)
+  U4 entity related       - PASS (same-group + top-up)
+  U6 creator context      - PASS (creator username + profile URL)
+
+C4 correctness verification
+===========================
+The score-derived cells and the intro's score-derived tokens flow
+through ONE named predicate, `scoreIsPerQuestion(quizType)` in
+apps/quiz/src/lib/quiz/scoring.ts. The allowlist:
+
+  multiple_choice   -> per-question (1 point / question)
+  true_false        -> per-question
+  image             -> per-question
+  intruder          -> per-question
+  guess_from_clues  -> NOT per-question (multi-point by speed)
+
+Deny by default. A new quiz type must OPT IN in that file. Any consumer
+that forgets the gate is a bug: use the helper, do not re-implement.

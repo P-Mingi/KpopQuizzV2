@@ -2122,6 +2122,67 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .quiz-review-fact span { font-weight: 600; color: var(--text-secondary); }
 
 /* ---------------------------------------------------------------------------
+   SEO-3 U1 - quiz-stats-block: real per-quiz numbers, server-rendered.
+   Follows the threshold-30 law: "early results" hint on ranking-ish stats
+   below the RANKING_UNLOCK line.
+   --------------------------------------------------------------------------- */
+.quiz-stats-block {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-surface);
+  padding: 0.9rem 1.1rem;
+}
+.quiz-stats-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.7rem 1rem;
+}
+.quiz-stats-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.quiz-stats-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.quiz-stats-label {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  line-height: 1.3;
+}
+.quiz-stats-gate {
+  margin: 0.85rem 0 0;
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
+/* ---------------------------------------------------------------------------
+   SEO-3 Step 3 - inbound article links on /q/[slug] (equity to /articles/).
+   --------------------------------------------------------------------------- */
+.quiz-article-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.quiz-article-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.quiz-article-link:hover { text-decoration: underline; }
+
+/* ---------------------------------------------------------------------------
    SEO Fix 3 - related quizzes (compact crawlable link list on /q/[slug]).
    --------------------------------------------------------------------------- */
 .related-quizzes { margin-top: 2.5rem; }

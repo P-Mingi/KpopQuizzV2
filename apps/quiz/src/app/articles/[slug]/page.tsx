@@ -39,6 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           : { url: `/api/og/page?title=${encodeURIComponent(article.title)}&subtitle=${encodeURIComponent(article.description.slice(0, 100))}`, width: 1200, height: 630, alt: article.coverAlt },
       ],
     },
+    robots: article.noindex ? { index: false, follow: true } : undefined,
     twitter: { card: 'summary_large_image' },
     alternates: { canonical: `/articles/${article.slug}` },
   };

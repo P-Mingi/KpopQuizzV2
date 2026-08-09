@@ -7,8 +7,9 @@ export function ArticleBody(): React.ReactElement {
         K-pop has evolved through five distinct generations, each defined by new sounds,
         business models, and global breakthroughs. Understanding these generations helps
         fans appreciate how the industry grew from a niche Korean export into the
-        dominant force in global pop music. Here is every generation explained, with the
-        key groups and defining moments of each era.
+        dominant force in global pop music. kpopquiz.org tracks 87 groups across all
+        generations, with 399 published quizzes and over 57,600 plays. Here is every
+        generation explained, with the key groups and defining moments of each era.
       </p>
 
       <h2 id="1st-gen">1st Generation (1996 - 2003): The Foundation</h2>
@@ -41,6 +42,7 @@ export function ArticleBody(): React.ReactElement {
       <h2 id="2nd-gen">2nd Generation (2003 - 2012): The Hallyu Wave</h2>
       <p>
         The second generation turned K-pop into a regional and then global export.
+        kpopquiz.org tracks 10 active 2nd-gen groups with quizzes and blind tests.
         YouTube launched in 2005 and gave groups unprecedented international reach.
         TVXQ, Super Junior, and BIGBANG built massive fanbases across Asia. Girls&apos;
         Generation and 2NE1 proved girl groups could match boy groups in scale.
@@ -70,11 +72,13 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="3rd-gen">3rd Generation (2012 - 2017): Global Breakthrough</h2>
       <p>
-        The third generation is when K-pop truly went global. BTS went from a small-agency
-        underdog to the biggest act on the planet. BLACKPINK became the highest-charting
-        female K-pop act. EXO dominated physical album sales. TWICE set streaming records
-        across Asia. Social media and streaming platforms replaced TV shows as the primary
-        way fans discovered and consumed K-pop.
+        The third generation is when K-pop truly went global, and it remains the
+        most quizzed era on the platform with 16 groups tracked. BTS went from a
+        small-agency underdog to the biggest act on the planet. BLACKPINK became
+        the highest-charting female K-pop act. EXO dominated physical album sales.
+        TWICE set streaming records across Asia. Social media and streaming
+        platforms replaced TV shows as the primary way fans discovered and consumed
+        K-pop.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
@@ -100,11 +104,13 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="4th-gen">4th Generation (2018 - 2022): The Streaming Era</h2>
       <p>
-        Fourth-generation groups debuted into an industry already global. Competition
-        was fierce. Stray Kids, ATEEZ, and ENHYPEN built loyal international fanbases
-        through digital-first strategies. aespa introduced metaverse concepts. IVE and
-        NewJeans challenged expectations with streamlined, hook-driven pop. Album sales
-        exploded past 10 million copies for top groups.
+        With 17 groups tracked, the 4th generation is the most represented era on
+        kpopquiz.org. Fourth-generation groups debuted into an industry already
+        global. Competition was fierce. Stray Kids, ATEEZ, and ENHYPEN built loyal
+        international fanbases through digital-first strategies. aespa introduced
+        metaverse concepts. IVE and NewJeans challenged expectations with
+        streamlined, hook-driven pop. Album sales exploded past 10 million copies
+        for top groups.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
@@ -130,10 +136,20 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="5th-gen">5th Generation (2023+): The Current Wave</h2>
       <p>
-        The fifth generation is still taking shape. Groups like BABYMONSTER (YG),
-        RIIZE (SM), ILLIT (BELIFT), TWS (Pledis), and KATSEYE (HYBE/Geffen) are
-        building fanbases in a post-pandemic landscape where debuts instantly reach
-        global audiences. The line between K-pop and global pop continues to blur.
+        The fifth generation is still taking shape, with 9 groups already tracked
+        on kpopquiz.org. Groups like BABYMONSTER (YG), RIIZE (SM), ILLIT (BELIFT),
+        TWS (Pledis), and KATSEYE (HYBE/Geffen) are building fanbases in a
+        post-pandemic landscape where debuts instantly reach global audiences. The
+        line between K-pop and global pop continues to blur.
+      </p>
+
+      <h2 id="platform-stats">K-pop on kpopquiz.org: by the numbers</h2>
+      <p>
+        The platform tracks 87 groups across all generations, with a blind test
+        catalog of 4,120 Deezer songs covering 81 groups. Fans have played over
+        57,600 quiz rounds across 399 published quizzes. For a visual timeline of
+        how these eras overlap, read the{' '}
+        <Link href="/articles/kpop-eras-timeline">K-pop eras timeline</Link>.
       </p>
 
       <h2 id="test-your-knowledge">Test Your K-pop Generation Knowledge</h2>

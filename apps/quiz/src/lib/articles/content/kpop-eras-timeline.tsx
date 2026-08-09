@@ -14,23 +14,30 @@ export function ArticleBody(): React.ReactElement {
       <h2 id="timeline">What are the K-pop generations, by year?</h2>
       <p>
         Generation boundaries are approximate and fans debate the edges, but the
-        broad ranges below are widely accepted. Use them to find your starting
-        era.
+        broad ranges below are widely accepted. The group counts come from the
+        kpopquiz.org database, which tracks 87 groups across all generations.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
           <thead>
-            <tr><th>Generation</th><th>Approx. years</th><th>Era markers</th></tr>
+            <tr><th>Generation</th><th>Approx. years</th><th>Groups on platform</th><th>Era markers</th></tr>
           </thead>
           <tbody>
-            <tr><td>1st gen</td><td>1996 - 2003</td><td>H.O.T., S.E.S., the idol template begins</td></tr>
-            <tr><td>2nd gen</td><td>2004 - 2011</td><td>Big Bang, Girls&apos; Generation, global YouTube reach</td></tr>
-            <tr><td>3rd gen</td><td>2012 - 2017</td><td>BTS, TWICE, EXO, worldwide breakthrough</td></tr>
-            <tr><td>4th gen</td><td>2018 - 2022</td><td>aespa, Stray Kids, ATEEZ, self-producing acts</td></tr>
-            <tr><td>5th gen</td><td>2023 - present</td><td>the newest debuts and rookie fandoms</td></tr>
+            <tr><td>1st gen</td><td>1996 - 2003</td><td>Legacy acts</td><td>H.O.T., S.E.S., the idol template begins</td></tr>
+            <tr><td>2nd gen</td><td>2004 - 2011</td><td>10</td><td>Big Bang, Girls&apos; Generation, global YouTube reach</td></tr>
+            <tr><td>3rd gen</td><td>2012 - 2017</td><td>16</td><td>BTS, TWICE, EXO, worldwide breakthrough</td></tr>
+            <tr><td>4th gen</td><td>2018 - 2022</td><td>17</td><td>aespa, Stray Kids, ATEEZ, self-producing acts</td></tr>
+            <tr><td>5th gen</td><td>2023 - present</td><td>9</td><td>The newest debuts and rookie fandoms</td></tr>
           </tbody>
         </table>
       </div>
+      <p className="art-highlight">
+        <strong>Platform note:</strong> kpopquiz.org tracks 87 groups in total.
+        The 3rd and 4th generations are the most represented, with 16 and 17
+        groups respectively. For the full generation-by-generation breakdown with
+        key groups, read the{' '}
+        <Link href="/articles/kpop-generations-explained">complete K-pop generations guide</Link>.
+      </p>
 
       <h2 id="which-gen">How do I know which K-pop generation I started in?</h2>
       <p>

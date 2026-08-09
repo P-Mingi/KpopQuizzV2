@@ -67,7 +67,11 @@ apps/quiz/.env.local.bak.deadproject
 # ratified working-system docs are tracked (Cowork/owner read them from git).
 docs/*
 !docs/loop/
+!docs/loop-seo/
 !docs/proofs/
+!docs/PLAY-SEO.md
+!docs/PLAY-SEO-HANDOFF.md
+!docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
