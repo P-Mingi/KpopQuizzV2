@@ -3655,8 +3655,11 @@ a.ranking-cta { text-decoration: none; }
 
 @media (max-width: 900px) {
   .vdoc { grid-template-columns: 1fr; gap: 20px; }
-  .vdoc-toc, .vdoc-rail { position: static; }
-  .vdoc-rail { order: 3; }
+  /* MOBILE-RAIL B: prose leads on mobile; the fact rail stacks BELOW it. The sticky
+     "on this page" jump-nav is desktop chrome, hidden on phone (the prose has the headings). */
+  .vdoc-toc { display: none; }
+  .vdoc-main { order: 1; }
+  .vdoc-rail { position: static; order: 3; }
   .vdoc-title { font-size: 34px; }
 }
 
@@ -6024,6 +6027,17 @@ main:has(.verse-page) { max-width: 1360px; }
 .vh2-btn.ghost { background: transparent; color: var(--v2-ink); border-color: var(--v2-line); }
 .vh2-btn.ghost:hover { border-color: var(--v2-muted); opacity: 1; }
 
+/* MOBILE-RAIL C: the compact key-facts strip, shown ONLY on mobile (< 960px). Hidden on
+   desktop, where the full fact sheet sits in the rail. Horizontally scrollable; tokens only. */
+.vh2-factstrip { display: none; }
+@media (max-width: 960px) {
+  .vh2-factstrip { display: flex; gap: 7px; overflow-x: auto; margin: 4px 0 2px; padding: 2px 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .vh2-factstrip::-webkit-scrollbar { display: none; }
+}
+.vh2-fpill { flex: 0 0 auto; border: 1px solid var(--v2-line); border-radius: 999px; padding: 7px 13px; background: var(--v2-surface); font-size: 12.5px; color: var(--v2-ink); white-space: nowrap; display: flex; gap: 6px; align-items: center; }
+.vh2-fpill b { font-weight: 600; }
+.vh2-fpill .k { font-family: var(--v-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--v2-faint); }
+
 /* ==========================================================================
    V-FOUNDATION F4.3 - the two-column body (document + data rail) and the rail
    widgets. Server components; every value is a live count or real row.
@@ -6074,9 +6088,11 @@ main:has(.verse-page) { max-width: 1360px; }
   .vh2-layout { grid-template-columns: 1fr; gap: 24px; }
   /* dissolve the rail so its two groups order around the document: the fact group
      (first) sits right after the head, the rest fall below the document sections. */
+  /* MOBILE-RAIL B: the DOCUMENT comes first on mobile; the entire data rail stacks BELOW it
+     (the owner-validated treatment). Desktop two-column layout above is unchanged. */
   .vh2-rail { display: contents; }
-  .vh2-railgroup.first { order: 1; }
-  .vh2-doc { order: 2; }
+  .vh2-doc { order: 1; }
+  .vh2-railgroup.first { order: 2; margin-top: 8px; }
   .vh2-railgroup.rest { order: 3; margin-top: 8px; }
 }
 

@@ -6,6 +6,7 @@
 import Link from 'next/link';
 
 import { DocToc } from './doc-toc';
+import { FactStrip, factStripRows } from './fact-strip';
 import { extractToc, headingAnchors } from '@/lib/verse/tree/toc';
 import { templateSections } from '@/lib/verse/tree/templates';
 import type { PageRow, PageBlock } from '@/lib/verse/tree/types';
@@ -67,6 +68,11 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
 
         {/* the page's ONE h1 */}
         <h1 className="vdoc-title">{page.title}{hangul ? <span className="hangul">{hangul}</span> : null}</h1>
+
+        {/* MOBILE-RAIL C: the compact key-facts strip (mobile only, CSS-gated). Reuses the
+            member's own fact rows (drops 'name' - it is already the title). Second
+            presentation of the fact sheet, no new fetch. */}
+        <FactStrip rows={factStripRows(facts, { hideKeys: ['name'], limit: 5 })} />
 
         <div className="vdoc-editline">
           <span>{revisionCount} revision{revisionCount === 1 ? '' : 's'}</span>

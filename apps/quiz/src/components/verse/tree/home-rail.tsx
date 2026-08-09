@@ -67,7 +67,8 @@ export async function VerseHomeRail({ space }: { space: Space }): Promise<React.
       {facts ? (
         <aside className="vh2-widget" aria-label={`${g.name} fact sheet`}>
           <div className="vh2-whead"><h2>Fact sheet</h2><span className="vh2-badge data">Data</span></div>
-          <div className="vh2-factphoto">group photo · moderated rail</div>
+          {/* MOBILE-RAIL A: no empty photo box. The slot appears ONLY when a real moderated
+              image exists; there is no group photo yet, so nothing renders (honest emptiness). */}
           <dl className="vh2-factrows">
             {facts.rows.map((r) => (
               <div className="vh2-frow" key={r.key}>
@@ -76,7 +77,7 @@ export async function VerseHomeRail({ space }: { space: Space }): Promise<React.
               </div>
             ))}
           </dl>
-          <p className="vh2-wsrc">Wikidata · MusicBrainz · CC0. Auto rows are computed from the database and cannot be edited.</p>
+          <p className="vh2-wsrc">Wikidata · MusicBrainz · CC0. Auto rows are computed from the database and cannot be edited. A group photo appears here once one is added through the moderated rail.</p>
         </aside>
       ) : null}
 

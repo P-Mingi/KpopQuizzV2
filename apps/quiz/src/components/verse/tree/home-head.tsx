@@ -6,6 +6,9 @@
 // hero + tabs are suppressed for the home (globals.css :has(.vh2-home)).
 import Link from 'next/link';
 
+import { buildGroupFactRail } from '@/lib/verse/tree/factrail';
+import { FactStrip, factStripRows } from './fact-strip';
+
 import type { Space } from '@/lib/verse/space';
 
 export function VerseHomeHead({ space }: { space: Space }): React.ReactElement {
@@ -37,6 +40,9 @@ export function VerseHomeHead({ space }: { space: Space }): React.ReactElement {
           <Link className="vh2-btn" href="#vh2-body">Explore the space</Link>
           {hasQuiz ? <Link className="vh2-btn ghost" href="/quizzes">Play a {g.name} quiz</Link> : null}
         </div>
+        {/* MOBILE-RAIL C: the compact key-facts strip (mobile only, CSS-gated). Reuses the
+            SAME group fact rows the rail's fact sheet shows - a second presentation, no fetch. */}
+        <FactStrip rows={factStripRows(buildGroupFactRail(g, space.counts.members, new Date()), { limit: 5 })} />
       </header>
     </div>
   );

@@ -1,0 +1,30 @@
+MOBILE-RAIL treatment (home + member). Verified live at 390px + 1280px.
+
+A. KILL THE EMPTY PHOTO BOX (all viewports)
+   home-rail.tsx: removed the always-on .vh2-factphoto placeholder box. The photo slot now
+   renders NOTHING until a real moderated image exists (none today -> nothing). The fact-sheet
+   source line gains: "A group photo appears here once one is added through the moderated rail."
+   (Member reader pages have no photo slot in the vdoc fact rail, so there was no member box.)
+   Verified: home 390px emptyPhotoBox = false.
+
+B. DOCUMENT FIRST ON MOBILE (< the existing breakpoints; desktop untouched)
+   Home (globals.css @media max-width:960px): flipped the order so `.vh2-doc { order: 1 }`
+   and the entire rail (.vh2-railgroup.first/.rest) comes AFTER. Verified: home 390px docTop
+   655 < factSheetTop 7029 (document leads, rail below).
+   Member (globals.css @media max-width:900px): `.vdoc-main { order:1 }`, `.vdoc-rail { order:3 }`,
+   and the desktop "on this page" jump-nav `.vdoc-toc { display:none }` on mobile. Verified:
+   member 390px proseBeforeRail = true, tocDisplay = none.
+
+C. COMPACT KEY-FACTS STRIP (mobile only, < 960px)
+   New components/verse/tree/fact-strip.tsx (FactStrip + factStripRows): a second presentation
+   of fact rows already computed for the sheet (NO new fetch). Home head renders it from
+   buildGroupFactRail (first 5 rows); the member page renders it from `facts` (drops 'name' =
+   the title). .vh2-factstrip / .vh2-fpill CSS (verse-v2 tokens only, no new colours/font).
+   Verified: home pills [Debut, Label, Generation, Origin, Fandom]; member pills [Born, From,
+   Debut, Years active, Positions]; both display:flex at 390px.
+
+DESKTOP UNTOUCHED (regression check at 1280px)
+   home 1280: .vh2-factstrip display = none (strip hidden); .vh2-layout grid = "848px 304px"
+   (the two-column document + rail is exactly as before). No desktop CSS changed.
+
+Screenshots: home-390.png, member-390.png, home-1280-desktop.png.

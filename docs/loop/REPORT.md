@@ -1,45 +1,45 @@
-# REPORT - MEMBER-RAIL: did-you-know + play cards on tree member pages
+# REPORT - MOBILE RAIL treatment (home + member)
 
-The two rail widgets the validated member-page prototype has (a "Did you know?" card + a
-"Play" card) are added on the live tree member page, in the same rail column under the fact
-infobox. Verified live on jungkook + v. No schema (READ only). NOTHING PUSHED.
+The owner-validated phone fix (prototypes/verse-mobile-rail.html): on mobile the document
+comes first, a compact key-facts strip sits under the hero, the data widgets stack BELOW the
+document, and the empty photo box is gone. Verified live at 390px + 1280px. On main. NOTHING
+PUSHED. No schema. Reused verse-v2 tokens (no new colours/font).
 
-## WHAT SHIPPED
-- lib/trivia/stored-facts.ts: new getStoredEntityTrivia(groupId, entityKind, entityId) reads
-  published rows for ONE bound entity (entity_id is text -> coerced), same TriviaFact shape +
-  fail-closed as the existing getStoredGroupTrivia (shared mapRows helper).
-- app/verse/[slug]/[pageSlug]/page.tsx: computes (server, fail-closed via safeFetch)
-  - didYouKnow: ENTITY-FIRST for a member (this idol's stored fact), else the group pool; one
-    fact picked by stableIndex(page.slug, pool.length) - stable + distinct per member.
-  - playLinks: getQuizzesByGroup(group.id, 'popular', 0, 3) -> up to 3 /q/<slug>; playCount =
-    group.quiz_count. Passes all three to DocumentPage.
-- components/verse/tree/document-page.tsx: DocumentPageProps gained optional didYouKnow /
-  playLinks / playCount; the vdoc-rail renders the two cards AFTER the fact infobox. The rail
-  now shows when facts OR either card exist; other callers (portal, non-idol) are unaffected.
-- globals.css: .vdoc-card* using only existing verse-v2 tokens (no new colours, no new font).
+## THE THREE CHANGES (home vh2 rail + member vdoc pages)
 
-## VERIFIED LIVE (receipt docs/proofs/vfoundation-memberrail/rail.txt + member-{jungkook,v}.png)
-- /verse/bts/jungkook: DYK = his ENTITY fact "Jungkook, born September 1, 1997, is the youngest
-  member of BTS, often called the maknae." (tag members). Play: the 3 top BTS quizzes + "30
-  quizzes for this group".
-- /verse/bts/v: DYK = "V, born Kim Taehyung on December 30, 1995, is a vocalist in BTS." -
-  DIFFERENT per member (entity-first works).
-- UNCHANGED: the fact rail (.vdoc-infobox + railnote) and the navbox (.vdoc-navbox "BTS members"
-  roster) are byte-identical - the cards were ADDED, nothing restyled. One H1 per page (verified).
+### A. Killed the empty photo box (all viewports)
+home-rail.tsx: removed the always-on `.vh2-factphoto` placeholder. The slot now renders only
+when a real moderated image exists (none today -> nothing, honest emptiness). The fact-sheet
+source line gains "A group photo appears here once one is added through the moderated rail."
+Member reader pages have no photo slot in the vdoc fact rail, so there was no member box.
+
+### B. Document first on mobile (desktop untouched)
+- Home (globals.css @media max-width:960px): `.vh2-doc { order: 1 }`; the whole rail
+  (.vh2-railgroup.first/.rest) stacks AFTER. (This reverses the earlier F4.5 fact-first order,
+  per the new owner-validated treatment.)
+- Member (globals.css @media max-width:900px): `.vdoc-main { order:1 }`, `.vdoc-rail { order:3 }`,
+  and the desktop "on this page" jump-nav `.vdoc-toc { display:none }` on mobile.
+
+### C. Compact key-facts strip (mobile only, < 960px)
+New components/verse/tree/fact-strip.tsx (FactStrip + factStripRows): a SECOND presentation of
+fact rows already computed for the sheet (no new fetch). The home head renders it from
+buildGroupFactRail (first 5 rows); the member page renders it from the `facts` prop (drops
+'name', which is the title). `.vh2-factstrip` / `.vh2-fpill` CSS, verse-v2 tokens only, shown
+only < 960px (the full fact sheet sits in the rail on desktop).
+
+## VERIFIED LIVE (receipts docs/proofs/vfoundation-mobile/)
+- home 390px: strip display=flex, pills [Debut, Label, Generation, Origin, Fandom],
+  emptyPhotoBox=false, docTop 655 < factSheetTop 7029 (document first, rail below). home-390.png.
+- member 390px: strip pills [Born, From, Debut, Years active, Positions], proseBeforeRail=true,
+  tocDisplay=none. member-390.png.
+- home 1280px (regression): strip display=none, `.vh2-layout` grid = "848px 304px" (two-column
+  document + rail unchanged). home-1280-desktop.png. No desktop CSS changed.
 
 ## GATES
 - tsc --noEmit: EXIT 0.
 - full build (check:routes + check:verse-tokens + next build): EXIT 0. check:routes pass (353
-  page routes); verse-tokens pass; "Compiled successfully".
+  routes); verse-tokens pass; "Compiled successfully".
 - em-dash / en-dash scan on the changed files: clean.
 
-## COMMIT
-Committed as a single small commit ON main (never pushed). Note: while this ran, the owner/a
-concurrent session advanced main to 2671887 ("quiz stats block: hero Plays + secondary grid",
-which committed the earlier user-approved quiz-stats UI tweak) on top of the play-seo final
-merge (0027c58). That cleared the globals.css entanglement, so member-rail committed cleanly on
-top. Only member-rail files + this report + the receipts were staged (by path).
-
 ## STOP
-MEMBER-RAIL complete + verified. Deferred (per the mission): deepening the short member pages
-(Cowork content) + organic child pages. Nothing pushed.
+MOBILE-RAIL complete + verified. Nothing pushed.
