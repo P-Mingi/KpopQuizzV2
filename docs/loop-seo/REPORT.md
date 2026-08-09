@@ -1,112 +1,152 @@
-# PLAY-SEO REPORT (SEO-1 + SEO-2)
+# PLAY-SEO REPORT (SEO-3)
 
-## SEO-1: SITEMAP AUDIT (DONE, no code changes)
+## SEO-3: Quiz page substance + uniqueness slice (DONE, 1 commit)
 
-**VERDICT: the sitemap is CLEAN.** The PLAY-SEO.md inference was REFUTED.
-Live sitemap (824 URLs) contains zero prohibited patterns.
-Receipt: docs/proofs/play-seo/step1/sitemap-audit.txt
+Commit: `seo: SEO-3 quiz page substance + uniqueness slice` (3fd9597)
+Scope: the no-schema slice of PLAY-QUIZ-PAGES.md (P5). O1 trivia + O3
+did-you-know deferred to Cowork's migration 149 + prototype.
 
-The 397 "non-indexed" GSC pages come from:
-- Bucket A (~27): old Google cache/backlinks, not current sitemap.
-- Bucket B (~336): thin articles Google deprioritized.
-- Bucket C (~29): content quality rejections + redirect errors + robots blocks.
+## Shipped + files
 
----
-
-## SEO-2: ARTICLE TIERING + ENRICHMENT (DONE, 2 commits)
-
-### Step 1: Tier the 20 articles
-
-Tiered all 20 articles by search-intent strength:
-- TOP TIER: 11 articles (enrich + keep indexed)
-- THIN TIER: 8 articles (noindex + drop from sitemap)
-- (one gap slot in the thin tier list was a count artifact)
-
-Receipt: docs/proofs/play-seo/step1-tier/tiers.txt
-
-### Step 3: Noindex thin articles
-
-Commit: `seo: noindex 8 thin articles, drop from sitemap` (f9ace70)
+### Step 1: real stats block + varied intro (U1 + U2)
 
 Files changed:
-- apps/quiz/src/lib/articles/types.ts (added `noindex?: boolean`)
-- apps/quiz/src/lib/articles/registry.ts (8 articles marked)
-- apps/quiz/src/app/articles/[slug]/page.tsx (robots noindex gate)
-- apps/quiz/src/app/sitemap.ts (filter noindex articles)
+- `apps/quiz/src/lib/db/queries/plays.ts` (+58 lines):
+  new `getQuizExtraStats(quizId, totalQuestions)` returns
+  `{fastestTimeSeconds, perfectScoreCount, passingPlays, totalPlaysWithScore}`.
+- `apps/quiz/src/components/quiz/quiz-stats-block.tsx` (NEW, 111 lines):
+  server-rendered stats grid. Honors threshold-30 law on ranking-ish
+  metrics (avg score, pass rate, fastest time show "early results" hint
+  when totalCompletions < 30). Renders nothing on zero-play quizzes.
+- `apps/quiz/src/app/q/[slug]/page.tsx` (intro + block wiring):
+  4-branch dynamic intro (0 / 1-29 / 30-999 / 1000+ plays) so no two
+  pages read identical. Real DB values only.
+- `apps/quiz/src/styles/globals.css` (+30 lines):
+  `.quiz-stats-block`, `.quiz-stats-list`, `.quiz-stats-cell`,
+  `.quiz-stats-value`, `.quiz-stats-label`, `.quiz-stats-hint`.
 
-Sitemap article count: 20 -> 12. Pages kept reachable (no hard delete).
-Receipt: docs/proofs/play-seo/step3/noindex-list.txt
+Receipt: `docs/proofs/play-seo/seo3-step1/stats-audit.txt`
 
-### Step 2: Enrich top-tier articles + internal links
+### Step 2: crawlable questions audit (U8)
 
-Commit: `seo: enrich 6 top-tier articles with real DB data + internal links` (a92bbad)
+No code changes. Verified the pre-existing `<details className="quiz-review">`
+block already renders every question crawlably (in the DOM before JS)
+with options listed and NO correct index. This is the honest
+crawlable-collapse pattern.
 
-Data source: production Supabase pull (/tmp/seo-enrichment-data.json).
+Receipt: `docs/proofs/play-seo/seo3-step2/questions-crawlable.txt`
 
-**Article enrichment (6 articles, +96 net lines):**
+### Step 3: related-by-entity + article cross-links (U4 + O2 partial)
 
-| Article | Before | After | DB entities |
-|---------|--------|-------|-------------|
-| bts-discography-guide | 65 ln | 195 ln | 17 albums by era, 7 members, 29 BT songs, 30 quizzes |
-| kpop-eras-timeline | 60 ln | 67 ln | 87 groups, generation counts |
-| newjeans-fan-guide | 61 ln | 90 ln | 5 members, 2 albums, BT stats |
-| stray-kids-vs-ateez | 72 ln | 79 ln | SKZ 20 albums, ATEEZ 25 albums |
-| aespa-vs-newjeans-quiz | 71 ln | 77 ln | aespa 11 albums, NJ 2 albums |
-| kpop-generations-explained | 151 ln | 167 ln | Platform stats, cross-links |
+Files changed:
+- `apps/quiz/src/app/q/[slug]/page.tsx` (+27 lines):
+  "Read more about {group}" section added after related-quizzes,
+  reusing `getGroupArticleLinks()` from SEO-2. Every /q/* page now
+  links to the group's enriched articles + back to the group hub.
+- `apps/quiz/src/styles/globals.css` (+15 lines):
+  `.quiz-article-links`, `.quiz-article-link`.
 
-5 articles NOT enriched (already 116-164 lines, deep enough).
+Groups with specific article links: bts, blackpink, stray-kids, ateez,
+aespa, newjeans. All others fall back to `kpop-generations-explained`.
 
-**Internal links (the biggest SEO fix):**
+Shared-tag refinement NOT possible: quizzes table has no `tags` column
+and QuizSettings jsonb has no era/album/member field. Deferred with O1.
 
-Before: ZERO inbound links from any page to /articles/.
-After: every group quiz page links relevant articles.
+Receipt: `docs/proofs/play-seo/seo3-step3/related-links.txt`
 
-New file: `apps/quiz/src/lib/articles/group-links.ts`
-Modified: `apps/quiz/src/app/[slug]/group-quiz-page.tsx` (+25 lines)
+### Step 4: Quiz JSON-LD enriched (U9)
 
-Link map:
-- bts -> bts-discography-guide, bts-vs-blackpink-quiz
-- blackpink -> bts-vs-blackpink-quiz
-- stray-kids -> stray-kids-vs-ateez
-- ateez -> stray-kids-vs-ateez
-- aespa -> aespa-vs-newjeans-quiz
-- newjeans -> newjeans-fan-guide, aespa-vs-newjeans-quiz
-- (all others) -> kpop-generations-explained (general fallback)
+Files changed:
+- `apps/quiz/src/app/q/[slug]/page.tsx` (JSON-LD block):
+  `about`: Thing -> MusicGroup (correct type + group hub URL);
+  `educationalLevel`: quiz.difficulty (real value);
+  `assesses`: quiz.group_name;
+  `keywords`: "{group}, K-pop, {difficulty} quiz";
+  `interactionStatistic`: array (Play always, Complete when > 0, Like when > 0);
+  `hasPart`: Question[] with `name` only (each question text, NO
+  suggestedAnswer / acceptedAnswer -> correct answers stay out of markup).
 
-Cross-links within articles:
-- kpop-generations-explained <-> kpop-eras-timeline (bidirectional)
-- bts-discography-guide -> bts-vs-blackpink-quiz
-- newjeans-fan-guide -> aespa-vs-newjeans-quiz
+FAQPage NOT added. Quiz questions are assessment items, not FAQ; adding
+FAQPage over them is a known spammy pattern Google penalizes.
 
-Receipt: docs/proofs/play-seo/step2/enrichment-receipt.txt
+Receipt: `docs/proofs/play-seo/seo3-step4/jsonld-audit.txt`
 
----
+### Step 5: freshness + newest-quiz discovery (U7)
 
-## GATES
+Files changed:
+- `apps/quiz/src/app/[slug]/group-quiz-page.tsx` (+30 lines):
+  SSR fetch of `getQuizzesByGroup(group.id, 'newest', 0, 5)` and a
+  "Newest {group} quizzes" section rendered into the initial HTML.
+  Filtered to items not already in the popular list; renders nothing
+  when there is no truly-new quiz.
 
-- em-dash scan: CLEAN (0 occurrences in all changed files)
-- tsc: CLEAN for all changed files
-- No new deps added
-- No schema changes
-- Nothing pushed (owner-gated)
+Sitemap lastmod audit: TRUTHFUL. Uses `quiz.updated_at` per-row, no
+fake-freshening (`STATIC_DATE` used for content-independent pages).
+The SEO-1 sitemap-cleanliness ratchet holds; SEO-3 does not weaken it.
 
-## DEVIATIONS
+Receipt: `docs/proofs/play-seo/seo3-step5/freshness.txt`
 
-- Step ordering: Step 3 (noindex) committed before Step 2 (enrichment)
-  because the code changes were independent and noindex was ready first.
-- 5 of 11 top-tier articles not enriched (already 116-164 lines).
-  Enrichment focused on the thinnest articles with highest search-intent gap.
+## Acceptance: 3-quiz comparison
 
-## DEFERRED
+Receipt: `docs/proofs/play-seo/seo3-acceptance/three-quiz-comparison.txt`
 
-- P5 (the 336 non-indexed /q/* quiz pages): NOT articles, NOT this mission.
-  Surface to owner for separate strategic decision.
-- Full build gate: not run (worktree lacks node_modules; main tree tsc
-  confirmed clean for all changed file paths).
-- check:routes, verse-tokens: not applicable to article content changes.
+Anti-thin bar status per tier:
 
-## FLAG FOR OWNER (from MISSION.md, not acted on)
+| Item | BIG | MID | TINY | Notes |
+|------|-----|-----|------|-------|
+| U2 dynamic intro | pass | pass | pass | 4 branches by play_count |
+| U8 crawlable questions | pass | pass | pass | already existed |
+| O1 group facts | DEFER | DEFER | DEFER | needs migration 149 |
+| O3 did-you-know | DEFER | DEFER | DEFER | needs Cowork prototype |
+| U1 real stats | pass | pass | partial | new stats block |
+| U4 entity related | pass | pass | pass | same-group + top-up |
+| U6 creator context | pass | pass | pass | already emitted |
 
-The GSC "336 discovered, not indexed" is dominated by /q/* individual quiz
-pages (399 published), not articles (only 20 exist). Enriching articles will
-not move that number. That is a SEPARATE strategic decision (P5).
+## Gates
+
+- em-dash / en-dash scan: CLEAN across all changed files
+- tsc: CLEAN for changed file paths (main tree node_modules;
+  worktree lacks own node_modules per SEO-2 precedent)
+- check:routes: N/A (no new page.tsx files added, only edits)
+- check:verse-tokens: N/A (Play surface, not Verse)
+- em-dash ban: honored throughout code and copy
+
+## Deviations
+
+- One atomic commit for all steps rather than one per step. Each step
+  is a distinct logical concern but they touch the same page.tsx and
+  splitting would produce partially-broken interim commits (Step 4's
+  hasPart depends on seoQuestions which Step 2 audited; Step 5's SSR
+  data depends on new Promise.all shape). Receipts are still per-step.
+- Step 3's "hub links back to newest quizzes" absorbed into Step 5's
+  "Newest {group} quizzes" strip (same code path, no duplication).
+- Full build gate not run (worktree lacks node_modules; SEO-2 precedent).
+
+## Deferred (expected per mission)
+
+- O1: trivia entity table + group facts panel. Needs migration 149.
+- O3: rotating did-you-know per quiz. Needs O1 first + Cowork prototype.
+- Any /q/* template redesign. This slice keeps the existing chrome.
+- Shared-tag refinement of related quizzes. No tags column in schema.
+- GSC measurement of the indexed-fraction lift. P4 window ~Aug 20.
+
+## Flag for owner (Step 2 tradeoff, requires ruling)
+
+The crawlable-questions `<details>` block currently prints:
+  - question text
+  - all option text (multiple-choice)
+  - fun_facts
+  - NO correct answer index
+
+Options being visible narrows the answer to N candidates but does not
+reveal which is right. This is the SEO-3 U8 lever (unique text per
+quiz), and Cowork recommends keeping the status quo. If you prefer a
+stricter anti-spoiler posture, tell me and I will hide options
+(losing ~60% of the crawlable text as tradeoff).
+
+## What comes next (not for this mission)
+
+- Owner rules on Step 2 tradeoff (options crawlable vs hidden).
+- Cowork drafts migration 149 for the trivia table (O1).
+- Cowork prototypes the new quiz-page design absorbing everything.
+- SEO-4 slice would wire O1/O3 once migration lands.
