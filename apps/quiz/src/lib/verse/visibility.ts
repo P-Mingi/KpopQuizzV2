@@ -9,19 +9,20 @@ export function verseHidden(): boolean {
   return process.env.VERSE_PUBLIC !== 'true';
 }
 
-// V-FOUNDATION F1 Phase G / R1 (L-071): BTS-ONLY. stray-kids + ateez are UNPUBLISHED for the
-// F-series - fail-closed 404 for non-privileged, ZERO data deleted, restore = remove a slug
-// here (a code flip, no data touched). Independent of VERSE_PUBLIC: these stay parked even
-// after the verse relaunches, until an owner restores them. The owner (isVersePrivileged)
-// still sees them for editing.
-// F2 Phase 1 (owner named blackpink explicitly, L-097): BTS is the only live space; the rest
-// are parked. stray-kids + ateez (Phase G) + blackpink.
-const UNPUBLISHED_SPACES = new Set(['stray-kids', 'ateez', 'blackpink']);
+// V-FOUNDATION F1 Phase G / R1 (L-071): BTS-ONLY. The owner's ruling is that BTS is the ONLY
+// live space during the F-series; every other group is parked. This is an ALLOWLIST (not a
+// per-group denylist) so a NEW group never leaks onto the Verse: only slugs in LIVE_SPACES
+// are published; everything else is a fail-closed 404 for non-privileged visitors and is
+// filtered off the /verse directory. ZERO data deleted; restore = add a slug to LIVE_SPACES
+// (a code flip, no data touched). Independent of VERSE_PUBLIC. The owner (isVersePrivileged)
+// can still reach a parked space by URL for editing.
+const LIVE_SPACES = new Set(['bts']);
 
-/** True when a space slug is parked (unpublished). A non-privileged visitor gets a 404; the
- * data is untouched, so restoring is just deleting the slug from the set above. */
+/** True when a space slug is parked (unpublished): anything not in LIVE_SPACES. A non-
+ * privileged visitor gets a 404; the data is untouched, so restoring is just adding the slug
+ * to LIVE_SPACES above. */
 export function spaceUnpublished(slug: string): boolean {
-  return UNPUBLISHED_SPACES.has(slug);
+  return !LIVE_SPACES.has(slug);
 }
 
 // The two routes that stay public even while hidden: the teaser and the covenant.

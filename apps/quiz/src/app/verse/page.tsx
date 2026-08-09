@@ -10,7 +10,7 @@ import { getVerseDirectory, getCatalogTotals, getTodayInKpop, getNewestWikiPages
 import { getTrending } from '@/lib/verse/discovery';
 import { verseScopeStyle } from '@/lib/verse/theme';
 import { safeFetch } from '@/lib/error-handling';
-import { verseHidden } from '@/lib/verse/visibility';
+import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { isVerseAdmin } from '@/lib/verse/roles';
 import { VerseTeaser } from '@/components/verse/verse-teaser';
 
@@ -82,14 +82,24 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
   if (verseHidden() && !(await isVerseAdmin())) return <VerseTeaser />;
 
   // The directory is the page: it throws instead of baking an empty shell.
-  const tiles = await getVerseDirectory();
-  const [trending, catalog, today, newest, activity] = await Promise.all([
+  // BTS-ONLY (R1): show ONLY live spaces here too, so no other fandom leaks onto the main
+  // Verse page. Non-live spaces are parked (spaceUnpublished); their pages 404 for the public.
+  const tiles = (await getVerseDirectory()).filter((t) => !spaceUnpublished(t.slug));
+  const [trendingAll, catalog, todayAll, newestAll, activityAll] = await Promise.all([
     safeFetch(getTrending(8), [], 'verse-trending'),
     safeFetch(getCatalogTotals(), { idols: 0, releases: 0 }, 'verse-catalog-totals'),
     safeFetch(getTodayInKpop(6), [], 'verse-today'),
     safeFetch(getNewestWikiPages(4), [], 'verse-newest-pages'),
     safeFetch(getLatestVerseActivity(3), [], 'verse-activity'),
   ]);
+  // BTS-ONLY (R1): keep only items whose target space is live, so no parked fandom leaks onto
+  // the main page via the trending row, the hero links, or the discovery feeds. Empty feeds
+  // min-gate their section away.
+  const liveSlugHref = (href: string): boolean => { const s = href.split('/')[2] ?? ''; return !!s && !spaceUnpublished(s); };
+  const trending = trendingAll.filter((g) => !spaceUnpublished(g.slug));
+  const today = todayAll.filter((t) => liveSlugHref(t.href));
+  const newest = newestAll.filter((p) => !spaceUnpublished(p.groupSlug));
+  const activity = activityAll.filter((a) => liveSlugHref(a.href));
   const launch = tiles.filter((t) => t.is_launch);
   const bySlug = new Map(tiles.map((t) => [t.slug, t] as const));
   const trendingTiles = trending.map((g) => bySlug.get(g.slug)).filter((t): t is SpaceTile => !!t);
