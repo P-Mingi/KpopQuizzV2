@@ -125,9 +125,14 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
                 <h4>{s.heading}</h4>
                 <dl>
                   {s.rows.map((r) => (
-                    <div key={r.dt} style={{ display: 'contents' }}>
+                    <div key={r.key ?? r.dt} style={{ display: 'contents' }}>
                       <dt>{r.dt}</dt>
-                      <dd>{r.dd}{r.auto ? <span className="auto">auto</span> : null}</dd>
+                      <dd>
+                        {r.links && r.links.length
+                          ? r.links.map((l, i) => <span key={l.href}>{i > 0 ? ', ' : ''}<Link href={l.href}>{l.label}</Link></span>)
+                          : r.href ? <Link href={r.href}>{r.dd}</Link> : r.dd}
+                        {r.auto ? <span className="auto">auto</span> : null}
+                      </dd>
                     </div>
                   ))}
                 </dl>

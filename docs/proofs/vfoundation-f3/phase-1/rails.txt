@@ -1,0 +1,57 @@
+PASS  release: a seeded album page exists  -> map-of-the-soul-persona
+
+--- RELEASE ---
+  [Release]
+    Type: EP (editable)
+    Released: Apr 12, 2019 (editable)
+    Tracks: 7 (auto)
+    Era: MAP OF THE SOUL : PERSONA  -> /verse/bts/map-of-the-soul-persona-2
+    Primary artist: BTS  -> /verse/bts
+PASS  release Type is sourced
+PASS  release Released is a real date  -> Apr 12, 2019
+PASS  release Tracks is AUTO (computed track count) + locked  -> 7
+PASS  release Era links to the era tree page  -> /verse/bts/map-of-the-soul-persona-2
+PASS  release Primary artist links to the space home  -> /verse/bts
+PASS  release: Type is EDITABLE (A2 override reaches it)
+PASS  release railGrantsIndex = TRUE (has a tracklist)  -> true
+PASS  clamp KEEPS the editable override (rel_type)  -> {"rel_type":"Studio album"}
+PASS  clamp DROPS the AUTO key (rel_tracks) + the LINKED key (rel_era)  -> {"rel_type":"Studio album"}
+PASS  override applied: Type shows the edit + is marked edited
+PASS  override blocked: Tracks STILL the computed count (hack never applied)
+PASS  
+track: a seeded track page exists  -> intro-persona
+
+--- TRACK ---
+  [Track]
+    Album: MAP OF THE SOUL : PERSONA  -> [/verse/bts/map-of-the-soul-persona]
+    Track number: 1 (editable)
+    Released: Apr 12, 2019 (editable)
+PASS  track Album row links to the album tree page  -> [{"label":"MAP OF THE SOUL : PERSONA","href":"/verse/bts/map-of-the-soul-persona"}]
+PASS  track Track number is sourced
+PASS  track railGrantsIndex = FALSE (conservative stub-until-body)  -> false
+PASS  
+era: a seeded era page exists  -> o-rul82-2
+
+--- ERA ---
+  [Era]
+    Years: 2013 (editable)
+    Release: 1 (auto)  -> [/verse/bts/o-rul82]
+    Followed by: Skool Luv Affair  -> /verse/bts/skool-luv-affair-2
+PASS  era Years is sourced  -> 2013
+PASS  era Releases is AUTO (computed count) + carries a linked list  -> 1
+PASS  era railGrantsIndex = TRUE (has releases)  -> true
+PASS  
+award: a seeded award page exists  -> order-of-cultural-merit-5th-class
+
+--- AWARD ---
+  [Award]
+    Year: 2018 (editable)
+    Result: Won (editable)
+    Recipient: BTS  -> /verse/bts
+PASS  award Result is sourced (won/nominated)  -> Won
+PASS  award Recipient links (member page or the space home)  -> /verse/bts
+PASS  award railGrantsIndex = FALSE (conservative stub-until-body)  -> false
+PASS  
+EDITABLE_FACT_KEYS excludes every computed + linked key  -> clean
+
+Phase 1 (four non-idol rails): ALL PASS

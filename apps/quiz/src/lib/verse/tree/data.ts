@@ -16,6 +16,7 @@ import { templateBody, isPageType } from './templates';
 import { syncPageLinks, resolveGhostsTo } from './links';
 import { applyAutoTags } from './tags';
 import { clampBlocks, bodyIsSubstantial } from './blocks';
+import { railGrantsIndex } from './factrail';
 import { PAGE_BODY_EMPTY } from './types';
 import type { PageBody, PageRow, PageRevisionRow, RecentChange, PageStatus } from './types';
 
@@ -40,17 +41,19 @@ export interface CreatePageResult {
 
 // ------------------------------------------------------------------ stub rule (C5)
 // A page is a STUB (noindex, out of sitemap) until it is substantial. Two ways to qualify:
-//   1. it carries a FACT RAIL (an entity kind the reader renders sourced facts for - idol
-//      today); those are indexable day 1 (members).
+//   1. its FACT RAIL alone is rich enough to stand as a page (railGrantsIndex, F3): an idol
+//      always; a release with a real tracklist; an era with releases. A THIN rail (a bare
+//      track, a 4-field award) does NOT qualify - conservative stub-until-body.
 //   2. its BODY meets the real substance bar (F2): a real intro + a section + enough words -
 //      the SAME rule the editor's substance meter shows (lib/verse/tree/blocks.substanceOf).
-// A kind can carry a fact rail only if a reader builder exists for it; extend as they land.
-const FACT_RAIL_KINDS = new Set(['idol']);
+// A kind can carry a fact rail only if a reader builder exists for it (idol/album/track/era/
+// award today); railGrantsIndex reads the live richness to decide the exemption per kind.
+const FACT_RAIL_KINDS = new Set(['idol', 'album', 'track', 'era', 'award']);
 export function entityHasFactRail(entityKind: string | null | undefined): boolean {
   return !!entityKind && FACT_RAIL_KINDS.has(entityKind);
 }
-export function computeIsStub(body: PageBody, hasFactRail: boolean): boolean {
-  if (hasFactRail) return false;
+export function computeIsStub(body: PageBody, railIndexable: boolean): boolean {
+  if (railIndexable) return false;
   return !bodyIsSubstantial(body as never);
 }
 
@@ -106,7 +109,7 @@ export async function createPage(svc: SupabaseClient, input: CreatePageInput): P
     blocks: body,
     entity_kind: input.entityKind ?? null,
     entity_id: input.entityId ?? null,
-    is_stub: computeIsStub(body, entityHasFactRail(input.entityKind)),
+    is_stub: computeIsStub(body, await railGrantsIndex(svc, input.entityKind, input.entityId)),
     created_by: input.createdBy,
   };
   const { data, error } = await svc.from('pages').insert(row).select(PAGE_COLS).single();
@@ -146,8 +149,9 @@ export async function savePage(
   // smuggle an unknown block or an unsafe href into a page.
   const raw = patch.blocks ?? cur.blocks ?? PAGE_BODY_EMPTY;
   const blocks = clampBlocks(raw).body as unknown as PageBody;
+  const railIndexable = await railGrantsIndex(svc, cur.entity_kind, cur.entity_id);
   const { data, error } = await svc.from('pages')
-    .update({ title, blocks, is_stub: computeIsStub(blocks, entityHasFactRail(cur.entity_kind)), updated_at: new Date().toISOString() })
+    .update({ title, blocks, is_stub: computeIsStub(blocks, railIndexable), updated_at: new Date().toISOString() })
     .eq('id', pageId).select(PAGE_COLS).single();
   if (error || !data) return { error: error?.message ?? 'Save failed.' };
   const page = data as PageRow;
