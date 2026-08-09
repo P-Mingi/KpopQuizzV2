@@ -1,40 +1,45 @@
-# REPORT - FINAL MERGE play-seo -> main (brings SEO-4 + SEO-5)
+# REPORT - MEMBER-RAIL: did-you-know + play cards on tree member pages
 
-play-seo is fully merged into main. Clean, all gates green. main = 0027c58 is READY FOR
-THE OWNER TO PUSH. NOTHING PUSHED (commit-not-push).
+The two rail widgets the validated member-page prototype has (a "Did you know?" card + a
+"Play" card) are added on the live tree member page, in the same rail column under the fact
+infobox. Verified live on jungkook + v. No schema (READ only). NOTHING PUSHED.
 
-## THE MERGE
-- Pre-state: main = adda44f, play-seo = 456c054 (ahead by exactly two commits: 054c000
-  SEO-4 did-you-know card, 456c054 SEO-5 cron reconcile + entity-level did-you-know).
-  merge base 19bc845.
-- `git merge --no-ff play-seo` -> commit 0027c58, parents adda44f + 456c054, ort strategy.
-  q/[slug]/page.tsx + globals.css + vercel.json AUTO-MERGED with ZERO conflict markers;
-  no other file conflicted. Created: the cron route, pick-fact.ts, stored-facts.ts, the
-  SEO-4/5 proof files.
-- Housekeeping handled before concluding:
-  1. A user-approved quiz-stats UI tweak sat UNCOMMITTED in main's globals.css and would
-     have blocked the merge. It was STASHED, the pure merge run + gated, then the stash
-     POPPED back cleanly (it touches a different section of globals.css than SEO-4's
-     .quiz-dyk). It remains working-tree drift for a separate commit later.
-  2. Stale empty .git locks (HEAD.lock + index.lock, plus the bridge's index.lock.stale*
-     / lk-* leftovers) were cleared per the mission HOUSEKEEPING note; no active git
-     process held them.
+## WHAT SHIPPED
+- lib/trivia/stored-facts.ts: new getStoredEntityTrivia(groupId, entityKind, entityId) reads
+  published rows for ONE bound entity (entity_id is text -> coerced), same TriviaFact shape +
+  fail-closed as the existing getStoredGroupTrivia (shared mapRows helper).
+- app/verse/[slug]/[pageSlug]/page.tsx: computes (server, fail-closed via safeFetch)
+  - didYouKnow: ENTITY-FIRST for a member (this idol's stored fact), else the group pool; one
+    fact picked by stableIndex(page.slug, pool.length) - stable + distinct per member.
+  - playLinks: getQuizzesByGroup(group.id, 'popular', 0, 3) -> up to 3 /q/<slug>; playCount =
+    group.quiz_count. Passes all three to DocumentPage.
+- components/verse/tree/document-page.tsx: DocumentPageProps gained optional didYouKnow /
+  playLinks / playCount; the vdoc-rail renders the two cards AFTER the fact infobox. The rail
+  now shows when facts OR either card exist; other callers (portal, non-idol) are unaffected.
+- globals.css: .vdoc-card* using only existing verse-v2 tokens (no new colours, no new font).
 
-## GATES (on merged main 0027c58) - receipt docs/proofs/merge-play-seo/final-gates.txt
-- `cd apps/quiz && npm run build`: EXIT 0. check:routes pass (353 page routes);
-  check:verse-tokens pass; "Compiled successfully in 13.3s".
-- NEW CRON ROUTE present: `ƒ /api/cron/plays-counter-reconcile`.
-- em-dash / en-dash scan across the 11 merge-changed files: 0 hits.
+## VERIFIED LIVE (receipt docs/proofs/vfoundation-memberrail/rail.txt + member-{jungkook,v}.png)
+- /verse/bts/jungkook: DYK = his ENTITY fact "Jungkook, born September 1, 1997, is the youngest
+  member of BTS, often called the maknae." (tag members). Play: the 3 top BTS quizzes + "30
+  quizzes for this group".
+- /verse/bts/v: DYK = "V, born Kim Taehyung on December 30, 1995, is a vocalist in BTS." -
+  DIFFERENT per member (entity-first works).
+- UNCHANGED: the fact rail (.vdoc-infobox + railnote) and the navbox (.vdoc-navbox "BTS members"
+  roster) are byte-identical - the cards were ADDED, nothing restyled. One H1 per page (verified).
 
-## WHAT THIS MERGE BRINGS
-- SEO-4: the inline "Did you know?" card on the quiz page (one real fact, distinct + stable
-  per quiz).
-- SEO-5: (A) the nightly plays-counter reconcile cron route (`/api/cron/plays-counter-
-  reconcile`, 04:15) calling reconcile_quiz_counters() - a no-op safety net today; (B) the
-  did-you-know pool now merges the derived group fun-facts with the entity-level STORED
-  trivia table (migration 149), so sourced entity facts surface on quiz pages.
+## GATES
+- tsc --noEmit: EXIT 0.
+- full build (check:routes + check:verse-tokens + next build): EXIT 0. check:routes pass (353
+  page routes); verse-tokens pass; "Compiled successfully".
+- em-dash / en-dash scan on the changed files: clean.
+
+## COMMIT
+Committed as a single small commit ON main (never pushed). Note: while this ran, the owner/a
+concurrent session advanced main to 2671887 ("quiz stats block: hero Plays + secondary grid",
+which committed the earlier user-approved quiz-stats UI tweak) on top of the play-seo final
+merge (0027c58). That cleared the globals.css entanglement, so member-rail committed cleanly on
+top. Only member-rail files + this report + the receipts were staged (by path).
 
 ## STOP
-The final merge is complete and green. main = 0027c58 is ready for `git push origin main`
-(owner-gated). NOTHING PUSHED. play-seo is now fully integrated (SEO-1..3c shipped in the
-earlier merge; SEO-4 + SEO-5 in this one).
+MEMBER-RAIL complete + verified. Deferred (per the mission): deepening the short member pages
+(Cowork content) + organic child pages. Nothing pushed.

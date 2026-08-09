@@ -3631,6 +3631,16 @@ a.ranking-cta { text-decoration: none; }
 .vdoc-infobox dd { font-weight: 500; margin: 0; color: var(--text-primary); }
 .vdoc-infobox dd .auto { font-family: var(--v-mono); font-size: 9.5px; color: var(--verse-accent); margin-left: 4px; }
 .vdoc-railnote { font-family: var(--v-mono); font-size: 10.5px; color: var(--text-tertiary); margin-top: 10px; line-height: 1.7; }
+/* MEMBER-RAIL: the did-you-know + play cards under the fact infobox (same rail column,
+   same surface language as .vdoc-infobox; existing verse-v2 tokens only). */
+.vdoc-card { margin-top: 14px; background: var(--bg-surface); border: 1px solid var(--verse-line); border-radius: 12px; padding: 14px 16px; }
+.vdoc-card-eyebrow { display: block; font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+.vdoc-card-body { font-size: 13px; line-height: 1.55; color: var(--text-primary); margin: 0; }
+.vdoc-card-tag { display: inline-block; margin-top: 10px; font-family: var(--v-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--verse-accent); background: color-mix(in srgb, var(--verse-accent) 10%, transparent); border-radius: 5px; padding: 2px 7px; }
+.vdoc-play-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.vdoc-play-list a { font-size: 13px; color: var(--verse-ink); text-decoration: none; line-height: 1.35; display: block; }
+.vdoc-play-list a:hover { text-decoration: underline; }
+.vdoc-card-note { font-family: var(--v-mono); font-size: 9.5px; color: var(--text-tertiary); margin: 11px 0 0; }
 
 .vdoc-foot { border-top: 1px solid var(--verse-line); margin-top: 44px; padding-top: 20px; }
 .vdoc-foot .h { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin: 14px 0 8px; }

@@ -26,6 +26,11 @@ export interface DocumentPageProps {
   revisionCount: number;
   updatedAt: string;
   existingSlugs?: string[];   // link targets that already exist (else the link is a ghost, C6)
+  // MEMBER-RAIL: two optional rail cards under the fact infobox. Computed server-side by
+  // the route (fail-closed); rendered only when present, so other callers are unaffected.
+  didYouKnow?: { fact: string; category: string } | null;
+  playLinks?: { slug: string; title: string }[];
+  playCount?: number | undefined;   // the group's total published quiz count (honest count line)
 }
 
 function fmt(iso: string): string {
@@ -36,7 +41,9 @@ function fmt(iso: string): string {
 }
 
 export function DocumentPage(props: DocumentPageProps): React.ReactElement {
-  const { page, crumbs, facts, navbox, tags, backlinks, revisionCount, updatedAt, hangul, spaceSlug } = props;
+  const { page, crumbs, facts, navbox, tags, backlinks, revisionCount, updatedAt, hangul, spaceSlug, didYouKnow, playLinks, playCount } = props;
+  const hasFacts = !!facts && facts.length > 0;
+  const hasPlay = !!playLinks && playLinks.length > 0;
   const blocks = page.blocks?.blocks ?? [];
   const anchors = headingAnchors(page.blocks);
   const toc = extractToc(page.blocks);
@@ -117,29 +124,57 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
         ) : null}
       </main>
 
-      {facts && facts.length > 0 ? (
+      {hasFacts || didYouKnow || hasPlay ? (
         <aside className="vdoc-rail" aria-label="Facts">
-          <div className="vdoc-infobox">
-            {facts.map((s) => (
-              <section key={s.heading}>
-                <h4>{s.heading}</h4>
-                <dl>
-                  {s.rows.map((r) => (
-                    <div key={r.key ?? r.dt} style={{ display: 'contents' }}>
-                      <dt>{r.dt}</dt>
-                      <dd>
-                        {r.links && r.links.length
-                          ? r.links.map((l, i) => <span key={l.href}>{i > 0 ? ', ' : ''}<Link href={l.href}>{l.label}</Link></span>)
-                          : r.href ? <Link href={r.href}>{r.dd}</Link> : r.dd}
-                        {r.auto ? <span className="auto">auto</span> : null}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </section>
-            ))}
-          </div>
-          <p className="vdoc-railnote">Every fact carries its source. Auto = derived from the data, never hand-copied.</p>
+          {hasFacts ? (
+            <>
+              <div className="vdoc-infobox">
+                {facts!.map((s) => (
+                  <section key={s.heading}>
+                    <h4>{s.heading}</h4>
+                    <dl>
+                      {s.rows.map((r) => (
+                        <div key={r.key ?? r.dt} style={{ display: 'contents' }}>
+                          <dt>{r.dt}</dt>
+                          <dd>
+                            {r.links && r.links.length
+                              ? r.links.map((l, i) => <span key={l.href}>{i > 0 ? ', ' : ''}<Link href={l.href}>{l.label}</Link></span>)
+                              : r.href ? <Link href={r.href}>{r.dd}</Link> : r.dd}
+                            {r.auto ? <span className="auto">auto</span> : null}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </section>
+                ))}
+              </div>
+              <p className="vdoc-railnote">Every fact carries its source. Auto = derived from the data, never hand-copied.</p>
+            </>
+          ) : null}
+
+          {/* MEMBER-RAIL: a did-you-know card (entity-first) under the fact infobox. */}
+          {didYouKnow ? (
+            <section className="vdoc-card vdoc-dyk" aria-label="Did you know">
+              <span className="vdoc-card-eyebrow">Did you know?</span>
+              <p className="vdoc-card-body">{didYouKnow.fact}</p>
+              {didYouKnow.category ? <span className="vdoc-card-tag">{didYouKnow.category}</span> : null}
+            </section>
+          ) : null}
+
+          {/* MEMBER-RAIL: a play card - up to 3 real group quizzes. */}
+          {hasPlay ? (
+            <section className="vdoc-card vdoc-play" aria-label="Play">
+              <span className="vdoc-card-eyebrow">Play</span>
+              <ul className="vdoc-play-list">
+                {playLinks!.map((q) => (
+                  <li key={q.slug}><Link href={`/q/${q.slug}`}>{q.title}</Link></li>
+                ))}
+              </ul>
+              {typeof playCount === 'number' && playCount > 0 ? (
+                <p className="vdoc-card-note">{playCount.toLocaleString('en-US')} quiz{playCount === 1 ? '' : 'zes'} for this group</p>
+              ) : null}
+            </section>
+          ) : null}
         </aside>
       ) : null}
     </div>

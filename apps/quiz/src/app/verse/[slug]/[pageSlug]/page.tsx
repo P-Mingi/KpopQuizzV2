@@ -10,6 +10,10 @@ import { extractLinks, backlinksFor } from '@/lib/verse/tree/links';
 import { tagsForPage } from '@/lib/verse/tree/tags';
 import { DocumentPage } from '@/components/verse/tree/document-page';
 import { breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
+import { getStoredEntityTrivia, getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
+import { stableIndex } from '@/lib/trivia/pick-fact';
+import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
 import type { Crumb, NavboxItem } from '@/components/verse/tree/document-page';
@@ -141,6 +145,23 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
     if (items.length > 1) navbox = { heading: `${space.group.name} members`, items };
   }
 
+  // MEMBER-RAIL: the two extra rail cards (fail-closed via safeFetch).
+  // WIDGET 1 - did-you-know, ENTITY-FIRST: prefer this idol's own stored fact, else the
+  // group pool. Pick one deterministically by the page slug (stable + distinct per member).
+  let dykPool = page.entity_kind === 'idol' && page.entity_id != null
+    ? await safeFetch(getStoredEntityTrivia(space.group.id, 'idol', page.entity_id), [], '[verse/page] entityTrivia')
+    : [];
+  if (dykPool.length === 0) {
+    dykPool = await safeFetch(getStoredGroupTrivia(space.group.id), [], '[verse/page] groupTrivia');
+  }
+  const chosenFact = dykPool.length > 0 ? dykPool[stableIndex(page.slug, dykPool.length)] : null;
+  const didYouKnow = chosenFact ? { fact: chosenFact.fact, category: chosenFact.category } : null;
+
+  // WIDGET 2 - play: up to 3 real published group quizzes (honest emptiness when 0).
+  const quizCards = await safeFetch(getQuizzesByGroup(space.group.id, 'popular', 0, 3), [], '[verse/page] playQuizzes');
+  const playLinks = quizCards.map((q) => ({ slug: q.slug, title: q.title }));
+  const playCount = space.group.quiz_count ?? undefined;
+
   const crumbs: Crumb[] = [
     { label: space.group.fandom_name, href: `/verse/${slug}` },
     ...chain.map((p) => ({ label: p.title, href: `/verse/${slug}/${p.slug}` })),
@@ -162,6 +183,9 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
         existingSlugs={existingSlugs}
         revisionCount={revCount.count ?? 0}
         updatedAt={page.updated_at}
+        didYouKnow={didYouKnow}
+        playLinks={playLinks}
+        playCount={playCount}
       />
     </div>
   );

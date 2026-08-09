@@ -1,0 +1,34 @@
+MEMBER-RAIL - the did-you-know + play cards on tree member pages. Verified live.
+
+WIDGET 1 - DID YOU KNOW (entity-first). Pick = stableIndex(page.slug, pool.length).
+  /verse/bts/jungkook  (idol entity_id 7):
+    source = ENTITY (trivia entity_kind='idol', entity_id=7, published) -> that member's own fact
+    fact   = "Jungkook, born September 1, 1997, is the youngest member of BTS, often called the maknae."
+    tag    = members
+  /verse/bts/v  (idol entity_id 6):
+    source = ENTITY (trivia entity_kind='idol', entity_id=6, published)
+    fact   = "V, born Kim Taehyung on December 30, 1995, is a vocalist in BTS."
+    tag    = members
+  -> the did-you-know DIFFERS per member (entity-first): each member surfaces its OWN sourced
+     idol fact. Fallback to the group pool (getStoredGroupTrivia) only when a member has no
+     entity fact; honest emptiness (render nothing) when both are empty.
+
+WIDGET 2 - PLAY. getQuizzesByGroup(group.id, 'popular', 0, 3) -> up to 3 /q/<slug> links.
+  Both jungkook + v (same group -> same top-3 popular quizzes):
+    /q/ultimate-bts-era-quiz-only-real-armys-survive
+    /q/bts-solo-era-quiz-match-the-member-to-the-music
+    /q/bts-true-or-false-bet-you-cant-get-100
+  count line: "30 quizzes for this group" (space.group.quiz_count). 0 quizzes -> render nothing.
+
+UNCHANGED (no restyle):
+  - The fact rail (.vdoc-infobox + .vdoc-railnote) is byte-identical; the two cards were ADDED
+    AFTER it in the same rail column. Rail order: infobox, railnote, DYK card, Play card.
+  - The navbox (.vdoc-navbox "BTS members" roster: RM, Jin, Suga, J-Hope, Jimin, ...) unchanged.
+  - One H1 per page (verified: h1 count = 1 on both). The cards use small mono eyebrows, no
+    heading tags that would fight the page title.
+  - .vdoc-card* CSS reuses only existing verse-v2 tokens (--bg-surface, --verse-line, --v-mono,
+    --text-primary/tertiary, --verse-accent, --verse-ink); no new colours, no new font.
+
+PROPS: DocumentPageProps gained optional didYouKnow / playLinks / playCount; the route computes
+them (server, fail-closed via safeFetch) and passes them. Callers that omit them (portal, other
+entity kinds) are unaffected.
