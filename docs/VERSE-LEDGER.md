@@ -1561,3 +1561,72 @@ Types: RULING · LOCK · GATE · COMMIT · AUDIT · ARTIFACT · METHOD · EVENT.
   deterministic PASS. Full build EXIT 0 (deps symlinked). Both
   ACCEPTED. Next: bring SEO-4 into main with one small merge, then a
   single push. The Verse-styled quiz prototype (L-119) stays abandoned.
+- L-122 · 2026-08-09 · SEED + SEO-5 MISSION · Owner: do the cron route,
+  the trivia seed, and the member pages before pushing, and ensure the
+  did-you-know is PRESENT. Verified SEO-4 did-you-know IS wired in the
+  JSX ({dykFact && <aside class="quiz-dyk">}, lightbulb icon, fed by
+  getOverriddenFacts + stableIndex), present for BTS (98-fact pool).
+  SEED APPLIED via MCP (docs/pending-migrations/149_seed_bts.sql, also
+  versioned): 14 real sourced BTS facts into the trivia table (5 group,
+  7 idol, 2 album), each with a source (Wikidata / MusicBrainz /
+  Billboard / Wikipedia / KpopVerse DB), covenant-clean; "Dynamite =
+  first Hot 100 #1" web-verified against Billboard; member facts
+  DB-grounded (real birth dates + positions); ON CONFLICT DO NOTHING
+  idempotent. SEO-5 mission written (docs/loop-seo/MISSION.md, synced to
+  worktree): PART A the plays-counter reconcile cron route (thin wrapper
+  over reconcile_quiz_counters, auth copied from duel-reconcile, 04:15,
+  the queued NEXT.md item); PART B wire the did-you-know to ALSO read
+  the trivia table (new lib/trivia/stored-facts.ts, merge stored+derived,
+  dedupe via normalizeFactKey, same stableIndex pick) so the entity-level
+  seed surfaces, honest emptiness kept, card CSS/placement untouched.
+  Both code, on play-seo, for the pre-push batch. Remaining: the final
+  play-seo->main merge (brings SEO-4 + SEO-5) then one push; and the
+  Jungkook member page (Verse content, admin-hidden, not in the push).
+- L-123 · 2026-08-09 · JUNGKOOK DRAFT · First member page drafted
+  (verse-jungkook-draft.md, delivered for validation): original vitrine
+  prose, 4 sections (overview / place in BTS / going solo / threads to
+  follow) + a fact rail line + sourcing footer. Facts DB-grounded (born
+  1997-09-01, Main Vocalist + Center, 전정국) plus solo career
+  web-verified (Golden album Nov 2023, singles Seven / 3D / Standing
+  Next to You) against Wikipedia + reviews; prose is ORIGINAL, not
+  copied (copyright/covenant). Awaits owner validation of the writing
+  before it loads into pages.blocks for the real Jungkook page. Pattern
+  for the remaining 6 member pages once approved. NOTE: member pages
+  are Verse content (admin-hidden), NOT part of the code push.
+- L-124 · 2026-08-09 · SEO-5 ACCEPTED · play-seo 456c054 (SEO-4 +
+  SEO-5), not pushed, no schema. PART A cron route
+  /api/cron/plays-counter-reconcile: auth guard copied from
+  duel-reconcile (x-vercel-cron OR Bearer CRON_SECRET, else 401),
+  service-role only after auth, calls reconcile_quiz_counters, returns
+  {fixed}, 04:15 cron in vercel.json clear of existing slots; a no-op
+  safety net today (fn returns 0, trigger keeps sync). PART B: new
+  lib/trivia/stored-facts.ts getStoredGroupTrivia reads published-only
+  trivia, fail-closed, category clamped; page.tsx builds the DYK pool
+  as derived CONCAT stored, deduped by normalizeFactKey via a seenKeys
+  Set (derived wins ties), then the existing stableIndex pick, nothing
+  if both empty. Verified on disk incl. the dedup Set. Receipt: BTS
+  derived 98 + stored 14 (0 dupes) = 112 pool, 3 ids -> 3 distinct, a
+  stored entity fact surfaces. Gates: tsc 0, full build EXIT 0 (352
+  routes, cron route compiled), verse-tokens pass, em-dash 0. ACCEPTED.
+  The SEO body of work (SEO-1..5) is done; only the final
+  play-seo->main merge + push remains.
+- L-125 · 2026-08-09 · FINAL MERGE ACCEPTED · play-seo fully merged
+  into main = 0027c58 (parents adda44f + 456c054, base 19bc845, ort,
+  clean auto-merge of page.tsx/globals.css/vercel.json). Verified:
+  did-you-know now present in main (quiz-dyk x5), 456c054 is an
+  ancestor of main (all SEO-1..5 integrated), the cron route compiled
+  (check:routes 353), build EXIT 0, verse-tokens pass, em-dash 0, 41
+  commits ahead of origin, NOTHING pushed. The whole SEO body of work
+  (SEO-1..5) is on main, ready for the owner push. TWO housekeeping
+  items the merge worker handled: stale .git locks cleared; an
+  owner-approved quiz-stats UI redesign that sat uncommitted in
+  globals.css was stashed for the pure-merge gate, then popped back as
+  working-tree drift. Cowork audited that drift: it renames
+  .quiz-stats-block -> .qstats and restructures the block into a hero
+  Plays number + a secondary grid; the .tsx and CSS class sets match
+  EXACTLY (no orphan old classes), all the SEO-3c/C4 correctness is
+  preserved (empty-return, threshold-30 gate, type-aware suppression),
+  em-dash 0. SAFE to commit + ship; caveat: the merge build gate ran
+  WITHOUT it (stashed), so run one npm run build WITH it before the
+  push. Doc drift (ledger + loop docs) committed by Cowork; the
+  stats-UI code drift left for the owner's word.

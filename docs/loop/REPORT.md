@@ -1,37 +1,40 @@
-# REPORT - MERGE play-seo INTO main (integration task)
+# REPORT - FINAL MERGE play-seo -> main (brings SEO-4 + SEO-5)
 
-The play-seo SEO workstream (SEO-1..SEO-3c) is merged into main. Clean, gates all green.
-main = dc0eabf is READY FOR THE OWNER TO PUSH. NOTHING PUSHED (commit-not-push).
+play-seo is fully merged into main. Clean, all gates green. main = 0027c58 is READY FOR
+THE OWNER TO PUSH. NOTHING PUSHED (commit-not-push).
 
 ## THE MERGE
-- Pre-state: main at 7320f9a (the owner's ledger commit, sitting directly on top of the
-  F3/F4 chain a304fb9). play-seo at 19bc845.
-- `git merge --no-ff play-seo` -> commit dc0eabf, parents 7320f9a + 19bc845, ort strategy.
-  sitemap.ts + globals.css AUTO-MERGED with ZERO conflict markers; no other file conflicted.
-- Two drift issues from a concurrent session were handled cleanly BEFORE concluding:
-  1. 13 play-seo output files (3 code + 10 proof .txt) sat UNTRACKED in main's working
-     tree. Each was verified BYTE-IDENTICAL to play-seo's version, then removed so the
-     merge could write them tracked (no unique work lost; the merge restored them).
-  2. A stale, empty `.git/HEAD.lock` (from 14:15, before the merge) blocked the ref
-     update after the tree was built. Cleared per the mission HOUSEKEEPING note; `git
-     commit` then concluded the already-merged index.
-  Untouched: docs/pending-migrations/149_trivia.sql + the prototypes/*.html (not part of
-  the merge, left as-is); the standing uncommitted doc drift (VERSE-LEDGER.md).
+- Pre-state: main = adda44f, play-seo = 456c054 (ahead by exactly two commits: 054c000
+  SEO-4 did-you-know card, 456c054 SEO-5 cron reconcile + entity-level did-you-know).
+  merge base 19bc845.
+- `git merge --no-ff play-seo` -> commit 0027c58, parents adda44f + 456c054, ort strategy.
+  q/[slug]/page.tsx + globals.css + vercel.json AUTO-MERGED with ZERO conflict markers;
+  no other file conflicted. Created: the cron route, pick-fact.ts, stored-facts.ts, the
+  SEO-4/5 proof files.
+- Housekeeping handled before concluding:
+  1. A user-approved quiz-stats UI tweak sat UNCOMMITTED in main's globals.css and would
+     have blocked the merge. It was STASHED, the pure merge run + gated, then the stash
+     POPPED back cleanly (it touches a different section of globals.css than SEO-4's
+     .quiz-dyk). It remains working-tree drift for a separate commit later.
+  2. Stale empty .git locks (HEAD.lock + index.lock, plus the bridge's index.lock.stale*
+     / lk-* leftovers) were cleared per the mission HOUSEKEEPING note; no active git
+     process held them.
 
-## GATES (on merged main dc0eabf) - receipt docs/proofs/merge-play-seo/gates.txt
-- `cd apps/quiz && npm run build`: EXIT 0. check:routes pass; check:verse-tokens pass
-  ("no raw hex colors in Verse surfaces"); "Compiled successfully in 9.9s"; 622 static pages.
-- `tsc --noEmit`: EXIT 0.
-- em-dash / en-dash scan across the 28 merge-changed files: 0 hits.
+## GATES (on merged main 0027c58) - receipt docs/proofs/merge-play-seo/final-gates.txt
+- `cd apps/quiz && npm run build`: EXIT 0. check:routes pass (353 page routes);
+  check:verse-tokens pass; "Compiled successfully in 13.3s".
+- NEW CRON ROUTE present: `ƒ /api/cron/plays-counter-reconcile`.
+- em-dash / en-dash scan across the 11 merge-changed files: 0 hits.
 
-## WHAT play-seo BRINGS (for the owner's awareness)
-SEO-1..3c: sitemap clean + noindex tiers, 8 articles enriched + group-links, quiz-page
-substance (real stats, dynamic intro, crawlable questions, related-by-entity, enriched
-JSON-LD, freshness), type-aware score suppression. (SEO-4, the did-you-know card, is a
-SEPARATE fork slice on the play-seo worktree, reported in docs/loop-seo/REPORT.md - NOT
-part of this merge.)
+## WHAT THIS MERGE BRINGS
+- SEO-4: the inline "Did you know?" card on the quiz page (one real fact, distinct + stable
+  per quiz).
+- SEO-5: (A) the nightly plays-counter reconcile cron route (`/api/cron/plays-counter-
+  reconcile`, 04:15) calling reconcile_quiz_counters() - a no-op safety net today; (B) the
+  did-you-know pool now merges the derived group fun-facts with the entity-level STORED
+  trivia table (migration 149), so sourced entity facts surface on quiz pages.
 
 ## STOP
-The merge is complete and green. main = dc0eabf is ready for `git push origin main`
-(owner-gated). NOTHING PUSHED. Optional housekeeping (`git gc --prune=now`) can clear the
-remaining inert .git leftovers (index.lock.stale*, lk-*) noted in the mission; harmless.
+The final merge is complete and green. main = 0027c58 is ready for `git push origin main`
+(owner-gated). NOTHING PUSHED. play-seo is now fully integrated (SEO-1..3c shipped in the
+earlier merge; SEO-4 + SEO-5 in this one).

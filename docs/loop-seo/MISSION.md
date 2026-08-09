@@ -1,58 +1,53 @@
-# SEO-4 MISSION (PLAY-SEO fork · 2026-08-09) - the DID-YOU-KNOW card (O3)
+# SEO-5 MISSION (PLAY-SEO fork · 2026-08-09) - cron reconcile + did-you-know entity-level
 
-The quiz page design is FINAL and good. Do NOT restyle it, do NOT
-reprototype. This adds ONE missing SEO element from the P5 plan, in the
-page's EXISTING design language: an inline "Did you know?" card showing
-ONE real fact, DIFFERENT per quiz. Work on YOUR worktree (.worktrees/
-play-seo, branch play-seo), never push, no schema, covenant, em-dash
-gate, receipts, report to docs/loop-seo/REPORT.md, STOP after the report.
+Two small code adds on the play-seo worktree (branch play-seo). Never push,
+covenant, em-dash gate, receipts docs/proofs/play-seo/seo5-*/, report to
+docs/loop-seo/REPORT.md, STOP after the report. NO schema (migration 149 +
+150 are already applied by Cowork; you only READ the trivia table / CALL the
+reconcile function).
 
-## WHAT EXISTS (do not duplicate)
+## PART A - the plays-counter reconcile CRON route
 
-apps/quiz/src/app/q/[slug]/page.tsx already renders: the dynamic intro,
-crawlable questions, related quizzes, stats block, JSON-LD, and a
-`trivia-entry` LINK to /[group]-trivia. What is MISSING is an inline
-did-you-know: today the page only LINKS to the trivia page, it never
-shows an actual fact. O3 wants one real fact on the quiz page itself,
-distinct per quiz, so no two quiz pages of the same group read the same.
+Migration 150 already created the trigger + reconcile_quiz_counters() in the
+DB. Build ONLY the thin nightly wrapper (this is the queued NEXT.md item):
+- New route apps/quiz/src/app/api/cron/plays-counter-reconcile/route.ts,
+  modelled EXACTLY on apps/quiz/src/app/api/cron/duel-reconcile/route.ts:
+  copy its cron authorization guard (CRON_SECRET / header check), its runtime
+  + response shape. Do NOT invent a new auth scheme.
+  Body: call supabase.rpc('reconcile_quiz_counters'), return { fixed: <n> }
+  as JSON, log the fixed count.
+- Add ONE entry to vercel.json crons:
+    { "path": "/api/cron/plays-counter-reconcile", "schedule": "15 4 * * *" }
+  (04:15, not colliding with the 3/3:30/4-based jobs already there).
+- Receipt seo5-cron/: the route + the vercel.json diff, the auth guard quoted
+  next to duel-reconcile's to prove it matches, and a note that
+  reconcile_quiz_counters returns 0 today (Cowork verified full sync) so the
+  first run is a no-op safety net.
 
-## THE ADD (O3)
+## PART B - did-you-know also reads the trivia table (O1 -> O3 enrichment)
 
-1. DATA: reuse the EXISTING verified fact pool, do not invent a source.
-   `getOverriddenFacts(groupId, groupSlug)` (apps/quiz/src/lib/trivia/
-   facts.ts) already returns real, override-verified TriviaFact[]. Call
-   it on the quiz page (it is React-cache()'d, so it dedupes with any
-   other caller in the same request).
-2. PICK ONE, DISTINCT + STABLE per quiz: choose index =
-   stableHash(quiz.id) % facts.length. MUST be deterministic (no
-   Math.random, no Date) so the ISR-cached page is stable and two
-   different quizzes of the same group land on different facts. Put the
-   hash in a tiny pure helper with a unit-style receipt (show that 3
-   different quiz ids map to 3 different facts for a group with >=3).
-3. RENDER: a "Did you know?" card in the EXISTING design. Reuse the
-   `.trivia-entry` visual language (surface card, 14px radius, the
-   brand-light icon chip, DM Sans, the reduced-motion rule). Add a
-   sibling class e.g. `.quiz-dyk` in globals.css next to `.trivia-entry`
-   using the SAME tokens (var(--surface), var(--border), var(--brand),
-   var(--brand-light), var(--txt1/2/3)) - NO new colours, NO new font.
-   Category label (fact.category) as a small brand-tinted eyebrow, the
-   fact text as the body. Place it right ABOVE the existing trivia-entry
-   link (one shows a taste, the other links to the full page).
-4. HONEST EMPTINESS: if the group has 0 facts, render nothing (no empty
-   card). If it has facts but fewer than the trivia-page gate, the card
-   still shows (a single fact needs only 1, it is not the >=12 page).
+The SEO-4 did-you-know card (already shipped, commit 054c000) currently draws
+ONLY from getOverriddenFacts (derived group fun_facts). Migration 149 added a
+stored `trivia` table (entity-level, sourced, covenant-checked) that Cowork is
+seeding with BTS facts. MERGE the two sources so the card is richer and the
+entity-level facts appear:
+- New reader lib/trivia/stored-facts.ts: getStoredGroupTrivia(groupId) ->
+  SELECT fact, category FROM trivia WHERE group_id = $1 AND status='published'
+  (published-only; the RLS policy already enforces this, but filter anyway).
+  Map each row to the SAME TriviaFact shape the derived pool uses
+  ({ fact, category, sourceQuizTitle:'', sourceQuizSlug:'' } or the minimal
+  shape the card consumes - do NOT invent fields).
+- In q/[slug]/page.tsx, build the did-you-know pool as the derived facts
+  CONCAT the stored facts, dedupe by the existing normalizeFactKey, THEN apply
+  the existing stableIndex(quiz.id, pool.length) pick. One fact, still distinct
+  + stable per quiz, now possibly an entity-level sourced one.
+- Covenant + honest emptiness unchanged: if BOTH sources are empty, render
+  nothing. Never invent a fact; stored facts are already sourced by CHECK.
+- Do NOT change the card's CSS or placement (SEO-4 is accepted as-is).
+- Receipt seo5-dyk/: for BTS, the merged pool size (derived + stored - dupes),
+  and that 3 quiz ids still map to distinct facts.
 
-## OUT OF SCOPE (do not do here)
-
-- The entity-level trivia table (migration 149) enrichment is a LATER
-  slice; this ship uses the existing derived pool so it needs no seed.
-- No restyle of the quiz page. No new design language. No prototype.
-- getPassRate / stats / JSON-LD: already shipped, do not touch.
-
-## RECEIPT + GATES
-
-docs/proofs/play-seo/seo4-dyk/: the hash-distinctness proof (3 quiz ids
--> 3 facts), a note of where the card renders, and the CSS class reusing
-existing tokens. Gates: tsc on changed paths, check:routes (no new
-route), em-dash scan, full build if the worktree allows else say so.
-STOP after the report.
+## GATES
+tsc on changed paths, check:routes (a NEW route.ts is added, so check:routes
+MUST pass), em-dash scan, full build if the worktree allows (deps symlink from
+main worked in SEO-4; do the same) else say so. STOP after the report.
