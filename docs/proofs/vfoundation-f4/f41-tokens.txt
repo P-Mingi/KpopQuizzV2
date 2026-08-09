@@ -1,0 +1,36 @@
+V-FOUNDATION F4.1 - tokens + fonts, applied Verse-wide, member page under new tokens.
+
+WHAT SHIPPED
+- 3 self-hosted faces via next/font/local (house pattern; quiz keeps Pretendard):
+  Fraunces (display, 400/500/600), Instrument Sans (body/UI, 400/400i/500/600),
+  Spline Sans Mono (data/labels, 400/500). latin subset; Pretendard falls back for
+  hangul + latin-ext. 9 woff2 in public/fonts.
+- The v2 Notion-neutral palette on a `.verse-v2` scope (the /verse layout wrapper,
+  display:contents so no layout change). Light + dark. One SYSTEM-NEUTRAL blue
+  accent (#2E6BD0 / dark #6FA0EE), NOT per-space.
+- The scope maps the shared canvas tokens (--text-*, --bg-*, --border) AND re-asserts
+  the --verse-* tokens on .verse-scope (0,2,0 beats the per-space --brand), so the
+  existing document canvas adopts the palette. globals.css is the token-definition
+  layer (verse-tokens gate does not scan it); NO hex added to any component.
+
+LIVE PROOF (computed on /verse/bts/rm)
+  light: h1 font-family = fraunces ; --verse-accent = #2e6bd0 ; --text-primary = #1d1b17 ; --v2-paper = #fff
+  dark : h1 font-family = fraunces ; --verse-accent = #6fa0ee ; --text-primary = #ededeb ; --v2-paper = #191919
+  screenshots: member-tokens-light.png, member-tokens-dark.png (both clean: Fraunces
+  headings, Spline Mono labels, neutral rail, "indexable" badge, one H1, layout intact).
+
+FLAGS (breakage / deferred, per the mission "flag + defer the document-canvas restyle")
+1. Doc-canvas "auto" badge in the fact rail renders in the accent (blue), not the v2
+   gold --v2-auto (#9A7B3F). The F4 home widgets use the correct Data/Auto badge
+   colors; retinting the existing .vdoc/.pfrm "auto" span is a doc-canvas restyle -> DEFERRED.
+2. The shared Play TopNav (the top "KpopVerse / Play / Fandoms" bar) is global chrome
+   OUTSIDE .verse-v2 and keeps its identity; the v2 quiet wiki top bar is a HOME
+   element built in F4.2. Not a regression, just the seam.
+3. Page-level (body) background stays the Play ground (cream light / near-black dark)
+   because <body> is outside .verse-v2; it is close to v2 paper so it does not jar, and
+   the true white-paper full bleed is painted by the F4 home's own cover/shell. A
+   Verse-wide body-bg override is DEFERRED.
+4. No layout shift: the display:contents wrapper changes tokens + fonts only.
+
+GATES: tsc 0. verse-tokens gate: pass (no component hex). em-dash scan: clean.
+DEFERRED beyond F4.1: document-canvas restyle pass, per-space accent hook.

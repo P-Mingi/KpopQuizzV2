@@ -5758,6 +5758,86 @@ main:has(.verse-page) { max-width: 1360px; }
   --v-frame-fill: color-mix(in srgb, var(--verse-accent) 10%, transparent);
 }
 
+/* ==========================================================================
+   V-FOUNDATION F4.1 - HOME V2 token scope. The owner-validated white, Notion-calm
+   palette (prototypes/bts-home-v2.html). Scoped to `.verse-v2` (set on the /verse
+   layout wrapper), so it applies Verse-wide but NEVER on Play (quiz routes are not
+   under /verse). Accent is SYSTEM-NEUTRAL (one muted blue), not per-space - a
+   per-space accent hook is future (flagged). The scope maps the shared canvas
+   tokens (--text-*, --bg-*, --border) AND re-asserts the --verse-* tokens on
+   .verse-scope (specificity 0,2,0 beats .verse-scope's own per-space accent), so
+   the existing document canvas adopts the palette. Document-canvas restyle beyond
+   tokens is DEFERRED (flagged in the report). globals.css is the token-definition
+   layer (not scanned by the verse-tokens gate). Font tokens point at the F4.1
+   self-hosted faces (Fraunces / Instrument Sans / Spline Sans Mono).
+   ========================================================================== */
+.verse-v2 {
+  --v2-paper: #FFFFFF; --v2-surface: #FFFFFF; --v2-wash: #F1F1EF;
+  --v2-ink: #1D1B17; --v2-body: #37352F; --v2-muted: #73726E; --v2-faint: #9F9D97;
+  --v2-line: #E7E6E3; --v2-line-soft: #F0EFED;
+  --v2-accent: #2E6BD0; --v2-accent-text: #FFFFFF;
+  --v2-accent-soft: color-mix(in srgb, #2E6BD0 6%, transparent);
+  --v2-accent-deep: color-mix(in srgb, #2E6BD0 25%, transparent);
+  --v2-pill: #1D1B17; --v2-pill-text: #FFFFFF;
+  --v2-data: #54803F; --v2-auto: #9A7B3F;
+  --v2-shadow: 0 1px 2px rgba(0,0,0,.03), 0 8px 24px -16px rgba(0,0,0,.12);
+  --v2-r-lg: 18px; --v2-r-md: 12px; --v2-r-sm: 8px;
+
+  /* fonts: verse display/body/mono -> the self-hosted v2 faces (Pretendard falls back) */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-instrument), var(--font-pretendard), -apple-system, "Segoe UI", sans-serif;
+  --v-mono: var(--font-spline-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* shared canvas tokens -> v2 neutral (Verse-wide; Play is outside .verse-v2) */
+  --bg-primary: var(--v2-paper);
+  --bg-surface: var(--v2-surface);
+  --bg-surface-alt: var(--v2-wash);
+  --surface: var(--v2-surface);
+  --text-primary: var(--v2-ink);
+  --text-secondary: var(--v2-body);
+  --text-tertiary: var(--v2-muted);
+  --border: var(--v2-line);
+  --v-hairline: var(--v2-line-soft);
+}
+/* re-assert the accent-derived verse tokens on .verse-scope too, so the neutral
+   accent beats the per-space --brand that .verse-scope sets on itself. */
+.verse-v2,
+.verse-v2 .verse-scope {
+  --verse-accent: var(--v2-accent);
+  --verse-accent-text: var(--v2-accent-text);
+  --verse-ink: var(--v2-ink);
+  --verse-soft: var(--v2-wash);
+  --verse-soft-strong: color-mix(in srgb, var(--v2-ink) 8%, var(--v2-surface));
+  --verse-line: var(--v2-line);
+  --verse-cta: var(--v2-pill);
+  --verse-cta-text: var(--v2-pill-text);
+}
+/* dark: redefine only the raw --v2-* values; every mapping above inherits them. */
+.dark .verse-v2 {
+  --v2-paper: #191919; --v2-surface: #1F1F1F; --v2-wash: #262626;
+  --v2-ink: #EDEDEB; --v2-body: #D4D4D2; --v2-muted: #9B9B98; --v2-faint: #6E6E6B;
+  --v2-line: #2F2F2D; --v2-line-soft: #292928;
+  --v2-accent: #6FA0EE; --v2-accent-text: #191919;
+  --v2-accent-soft: color-mix(in srgb, #6FA0EE 8%, transparent);
+  --v2-accent-deep: color-mix(in srgb, #6FA0EE 30%, transparent);
+  --v2-pill: #EDEDEB; --v2-pill-text: #191919;
+  --v2-data: #8FAF85; --v2-auto: #C2A06A;
+  --v2-shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 28px -18px rgba(0,0,0,.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .verse-v2 {
+    --v2-paper: #191919; --v2-surface: #1F1F1F; --v2-wash: #262626;
+    --v2-ink: #EDEDEB; --v2-body: #D4D4D2; --v2-muted: #9B9B98; --v2-faint: #6E6E6B;
+    --v2-line: #2F2F2D; --v2-line-soft: #292928;
+    --v2-accent: #6FA0EE; --v2-accent-text: #191919;
+    --v2-accent-soft: color-mix(in srgb, #6FA0EE 8%, transparent);
+    --v2-accent-deep: color-mix(in srgb, #6FA0EE 30%, transparent);
+    --v2-pill: #EDEDEB; --v2-pill-text: #191919;
+    --v2-data: #8FAF85; --v2-auto: #C2A06A;
+    --v2-shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 28px -18px rgba(0,0,0,.5);
+  }
+}
+
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact
    from HeroShell (segment-aware, server-rendered). */
