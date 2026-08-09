@@ -43,6 +43,7 @@ if (relPage) {
   show('RELEASE', secs);
   check('release Type is sourced', !!rowOf(secs, 'rel_type')?.dd);
   check('release Released is a real date', /\d{4}/.test(rowOf(secs, 'rel_released')?.dd ?? ''), rowOf(secs, 'rel_released')?.dd);
+  check('release Region is sourced (albums.region)', !!rowOf(secs, 'rel_region')?.dd, rowOf(secs, 'rel_region')?.dd);
   check('release Tracks is AUTO (computed track count) + locked', rowOf(secs, 'rel_tracks')?.auto === true && Number(rowOf(secs, 'rel_tracks')?.dd) > 0, rowOf(secs, 'rel_tracks')?.dd);
   check('release Era links to the era tree page', !!rowOf(secs, 'rel_era')?.href, rowOf(secs, 'rel_era')?.href);
   check('release Primary artist links to the space home', rowOf(secs, 'rel_artist')?.href === '/verse/bts', rowOf(secs, 'rel_artist')?.href);

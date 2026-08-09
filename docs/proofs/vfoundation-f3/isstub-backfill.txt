@@ -1,0 +1,6 @@
+album  total=  17  ->indexable=17  ->stub=0  unchanged=0  [APPLIED]
+track  total= 197  ->indexable=0  ->stub=0  unchanged=197  [APPLIED]
+era    total=  15  ->indexable=15  ->stub=0  unchanged=0  [APPLIED]
+award  total=  21  ->indexable=0  ->stub=0  unchanged=21  [APPLIED]
+
+backfill applied.

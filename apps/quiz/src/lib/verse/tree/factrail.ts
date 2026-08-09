@@ -25,7 +25,7 @@ export interface FactOverrides { fields?: Record<string, string>; photo?: string
  * fail-closed clamp (blocks.clampFactOverrides) drops any override aimed at them. */
 export const EDITABLE_FACT_KEYS = [
   'name', 'from', 'positions', 'debut', 'fandom',                   // idol
-  'rel_type', 'rel_released',                                       // release (album)
+  'rel_type', 'rel_released', 'rel_region',                         // release (album)
   'trk_no', 'trk_released',                                         // track
   'era_years', 'era_concept',                                      // era
   'awd_ceremony', 'awd_year', 'awd_category', 'awd_result',        // award
@@ -56,6 +56,7 @@ function yearOf(iso: string | null | undefined): string | null {
   return iso?.match(/^(\d{4})/)?.[1] ?? null;
 }
 const RELEASE_TYPE: Record<string, string> = { ep: 'EP', album: 'Album', single: 'Single', compilation: 'Compilation', mixtape: 'Mixtape' };
+const REGION: Record<string, string> = { kr: 'South Korea', jp: 'Japan', us: 'United States', cn: 'China', global: 'Global' };
 function titleCase(s: string | null | undefined): string | null { return s ? s.charAt(0).toUpperCase() + s.slice(1) : null; }
 
 // resolve the space slug (space_id REFERENCES groups(id)); links are /verse/<spaceSlug>/<pageSlug>.
@@ -136,9 +137,9 @@ async function idolRail(db: SupabaseClient, page: PageRow, now: Date, row: RowFn
 // ---------------------------------------------------------------- release / album (F3)
 async function releaseRail(db: SupabaseClient, page: PageRow, row: RowFn): Promise<FactSection[] | null> {
   const { data: album } = await db.from('albums')
-    .select('title, release_date, type, era_id, group_id').eq('id', page.entity_id!).maybeSingle();
+    .select('title, release_date, type, region, era_id, group_id').eq('id', page.entity_id!).maybeSingle();
   if (!album) return null;
-  const a = album as { title: string; release_date: string | null; type: string | null; era_id: number | null; group_id: number };
+  const a = album as { title: string; release_date: string | null; type: string | null; region: string | null; era_id: number | null; group_id: number };
   const spaceSlug = await spaceSlugOf(db, page.space_id);
 
   const { count: trackCount } = await db.from('album_tracks').select('id', { count: 'exact', head: true }).eq('album_id', page.entity_id!);
@@ -157,6 +158,8 @@ async function releaseRail(db: SupabaseClient, page: PageRow, row: RowFn): Promi
   if (type) rows.push(row('rel_type', 'Type', type));
   const released = fmtDate(a.release_date);
   if (released) rows.push(row('rel_released', 'Released', released));
+  const region = a.region ? (REGION[a.region.toLowerCase()] ?? a.region.toUpperCase()) : null;
+  if (region) rows.push(row('rel_region', 'Region', region));
   if ((trackCount ?? 0) > 0) rows.push(row('rel_tracks', 'Tracks', String(trackCount), { auto: true }));
   if (eraName) rows.push(row('rel_era', 'Era', eraName, eraHref ? { href: eraHref } : undefined));
   if (gName) rows.push(row('rel_artist', 'Primary artist', gName, spaceSlug ? { href: `/verse/${spaceSlug}` } : undefined));
