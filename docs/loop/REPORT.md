@@ -1,45 +1,69 @@
-# REPORT - MOBILE RAIL treatment (home + member)
+# REPORT - Verse bulk wave: de-stub 184 track pages (Task B) + Dynamite migration (Task A)
 
-The owner-validated phone fix (prototypes/verse-mobile-rail.html): on mobile the document
-comes first, a compact key-facts strip sits under the hero, the data widgets stack BELOW the
-document, and the empty photo box is gone. Verified live at 390px + 1280px. On main. NOTHING
-PUSHED. No schema. Reused verse-v2 tokens (no new colours/font).
+DB writes only. Nothing pushed to git. Covenant kept: DB-true minimum, nothing invented.
 
-## THE THREE CHANGES (home vh2 rail + member vdoc pages)
+## TASK B - de-stub the non-title track pages (DONE, applied to the DB)
+Idempotent seeder: apps/quiz/scripts/verse/seed-track-stubs.ts (service role, --apply flag).
 
-### A. Killed the empty photo box (all viewports)
-home-rail.tsx: removed the always-on `.vh2-factphoto` placeholder. The slot now renders only
-when a real moderated image exists (none today -> nothing, honest emptiness). The fact-sheet
-source line gains "A group photo appears here once one is added through the moderated rail."
-Member reader pages have no photo slot in the vdoc fact rail, so there was no member box.
+COUNTS (apply run):
+- track pages total: 197 (is_stub=false already: 13 - the title tracks Cowork enriched)
+- stubs scanned (excl. skip-list): 184
+- ENRICHED (changed): 184
+- skipped-unchanged (byte-identical): 0
+- skipped-title-track (skip-list still is_stub=true): 0  (none - the 13 are already is_stub=false)
+- no matching album page (link dropped -> plain text): 0  (100% linked - every album has a release page)
+- no entity/album resolvable: 0
+- earliest-album diverged from own album: 4  (all LEGITIMATE re-releases, verified: "Make It Right",
+  "Dionysus", "Intro : Persona", "Jamais vu" each appear on MAP OF THE SOUL : PERSONA (2019-04-12)
+  AND MAP OF THE SOUL : 7 (2020-02-21); the earliest-by-title rule correctly picks PERSONA.)
 
-### B. Document first on mobile (desktop untouched)
-- Home (globals.css @media max-width:960px): `.vh2-doc { order: 1 }`; the whole rail
-  (.vh2-railgroup.first/.rest) stacks AFTER. (This reverses the earlier F4.5 fact-first order,
-  per the new owner-validated treatment.)
-- Member (globals.css @media max-width:900px): `.vdoc-main { order:1 }`, `.vdoc-rail { order:3 }`,
-  and the desktop "on this page" jump-nav `.vdoc-toc { display:none }` on mobile.
+Each enriched page now has: heading "Overview" + one DB-true paragraph
+("<Title> is a track on <album linked to its release page>, released <Month D, YYYY>.") +
+a divider + the bold-lead source note. Every enriched page got exactly one new page_revisions
+row (rev = prior max + 1, author 00000000-0000-4000-8000-000000005eed). is_stub set false,
+updated_at bumped. slug/type/parent_id/status/created_by untouched.
 
-### C. Compact key-facts strip (mobile only, < 960px)
-New components/verse/tree/fact-strip.tsx (FactStrip + factStripRows): a SECOND presentation of
-fact rows already computed for the sheet (no new fetch). The home head renders it from
-buildGroupFactRail (first 5 rows); the member page renders it from the `facts` prop (drops
-'name', which is the title). `.vh2-factstrip` / `.vh2-fpill` CSS, verse-v2 tokens only, shown
-only < 960px (the full fact sheet sits in the rail on desktop).
+SAMPLE ENRICHED SLUGS:
+- jamais-vu -> MAP OF THE SOUL : PERSONA [map-of-the-soul-persona] (April 12, 2019)
+- aliens / swim / they-don-t-know-bout-us -> ARIRANG [arirang] (March 20, 2026)
+- intro-skool-luv-affair / bts-cypher-pt-2-triptych -> Skool Luv Affair [skool-luv-affair] (Feb 12, 2014)
 
-## VERIFIED LIVE (receipts docs/proofs/vfoundation-mobile/)
-- home 390px: strip display=flex, pills [Debut, Label, Generation, Origin, Fandom],
-  emptyPhotoBox=false, docTop 655 < factSheetTop 7029 (document first, rail below). home-390.png.
-- member 390px: strip pills [Born, From, Debut, Years active, Positions], proseBeforeRail=true,
-  tocDisplay=none. member-390.png.
-- home 1280px (regression): strip display=none, `.vh2-layout` grid = "848px 304px" (two-column
-  document + rail unchanged). home-1280-desktop.png. No desktop CSS changed.
+RENDER VERIFIED LIVE (/verse/bts/jamais-vu): one H1; the 3 empty headings gone; the paragraph
+renders with a WORKING internal link to /verse/bts/map-of-the-soul-persona; the source note shows.
 
-## GATES
-- tsc --noEmit: EXIT 0.
-- full build (check:routes + check:verse-tokens + next build): EXIT 0. check:routes pass (353
-  routes); verse-tokens pass; "Compiled successfully".
-- em-dash / en-dash scan on the changed files: clean.
+IDEMPOTENT: a dry re-run now scans 0 stubs (all are is_stub=false) -> 0 changes, 0 duplicate
+revisions. Re-applying is a safe no-op.
+
+## HARD GATE - ZERO ORPHANS: PASS
+  select count(*) from pages where space_id=1 and status='published'
+    and type not in ('index','portal') and parent_id is null;  =>  0
+Also asserted: all 197 track pages keep parent_id = 23 (distinct parent set = {23}); the 13
+skip-list pages are all still is_stub=false (untouched).
+
+## TASK A - Dynamite data model (GATED - migration PREPARED, NOT applied)
+FINDINGS (schema investigation):
+- Releases are `albums` rows (observed type set: 'ep','album' only - NO 'single' type) with
+  tracks in `album_tracks`. There is NO singles / releases / release_types table.
+- BTS "Dynamite" = album_tracks id 2815 on albums id 7 "BE" (release_date 2020-11-20). The Verse
+  "dynamite" page (id 133) binds to entity_id 2815. It is already is_stub=false (Cowork's prose
+  states the single truth). Truth: standalone digital single released 2020-08-21, later added to BE.
+- RIPPLE:
+  - Verse: release-date derivations (fact rail / did-you-know / the track-stub prose) take the
+    EARLIEST album by title. Today that is BE (2020-11-20). After the migration adds the single
+    (2020-08-21), the earliest becomes the single -> the Verse derives the correct date. Positive.
+  - Discography count: adding a release row moves BTS albums 17 -> 18; whether it gets its own
+    release PAGE is a separate re-seed decision (owner's call), not part of this migration.
+  - Play side: quizzes / questions / games are self-contained jsonb; NONE read Dynamite's
+    album/date live (0 quizzes even reference it by title), so no runtime break. Any quiz PROSE
+    that says "Dynamite (BE, 2020)" is a content inconsistency to fix later, not a data break.
+  - Code that switches on albums.type (ep vs album) should be audited to handle a new 'single'
+    value gracefully (flagged for the owner).
+- PREPARED MIGRATION: docs/pending-migrations/151_dynamite_single.sql (BEGIN/COMMIT, idempotent
+  guards). It (1) adds a 'single' release row for Dynamite (2020-08-21), (2) links the recording
+  to it (keeping the BE track - Dynamite is genuinely on both), and (3) leaves an OPTIONAL,
+  commented page-repoint. It also documents an OWNER PRE-STEP: if a CHECK constraint restricts
+  albums.type, widen it to include 'single' before running. NOT self-applied (owner SQL gate).
 
 ## STOP
-MOBILE-RAIL complete + verified. Nothing pushed.
+Task B complete + verified (184 enriched, zero orphans, idempotent, renders). Task A migration
+prepared for the owner. Nothing pushed.
