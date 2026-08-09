@@ -16,6 +16,7 @@ import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
+import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 
 import type { Metadata } from 'next';
 
@@ -163,14 +164,24 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   //
   // C2: gate on the same base as the display (plays), using the shared
   // RANKING_UNLOCK_VOTES constant. Zero numeric literals for the threshold.
+  //
+  // C4: score-derived metrics only render for quiz types where `score` is
+  // per-question (perfect run == qcount). guess_from_clues awards multiple
+  // points per question by speed, so its avg %, pass rate, and perfect
+  // count are all meaningless under the qcount model. The same predicate
+  // gates the stats block below.
+  const perQuestionScore = scoreIsPerQuestion(quiz.quiz_type);
   const plays =
     extraStats.totalPlaysWithScore > 0
       ? extraStats.totalPlaysWithScore
       : quiz.play_count;
   const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
-  const introAvg = scoresUnlocked && questionCount > 0 && quiz.total_completions > 0
+  const introAvg = perQuestionScore && scoresUnlocked && questionCount > 0 && quiz.total_completions > 0
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
     : null;
+  // C4: perfect count is only meaningful when a perfect run == qcount;
+  // otherwise the underlying rows do not match "perfect" as a user reads it.
+  const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
   const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
   let socialProof: string;
   if (plays === 0) {
@@ -180,16 +191,18 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     // Branch B: honest smallness - never fake community activity
     socialProof = `${plays.toLocaleString('en-US')} ${plays === 1 ? 'player has' : 'players have'} tried it so far.`;
   } else if (plays < 1000) {
-    // Branch C: standard social proof (avg is gated by threshold-30 above)
+    // Branch C: standard social proof (avg is gated by threshold-30 above
+    // AND by perQuestionScore below)
     socialProof = introAvg !== null
       ? `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. Think you can beat that?`
       : `${plays.toLocaleString('en-US')} fans have already tried it.`;
   } else {
     // Branch D: popular quiz - vary the framing by score profile.
     // R5: no editorial. State the perfect-count figure without judgement.
-    const perfCount = extraStats.perfectScoreCount;
-    if (perfCount > 0 && introAvg !== null && introAvg < 60) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${perfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+    // C4: falls through to the generic arm when perQuestionScore is false,
+    // since introAvg and introPerfCount are both suppressed for those types.
+    if (introPerfCount > 0 && introAvg !== null && introAvg < 60) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
     } else if (introAvg !== null) {
       socialProof = `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. See where you land.`;
     } else {
@@ -301,9 +314,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* SEO-3 U1 - real per-quiz stats block. Crawlable numbers, threshold
           gates ranking-ish metrics (hidden below the shared unlock line).
-          Renders nothing on zero-play quizzes. */}
+          Renders nothing on zero-play quizzes. C4: quiz-type-aware -
+          score-derived cells are suppressed for types where score is not
+          per-question (guess_from_clues today). */}
       <QuizStatsBlock
         playCount={quiz.play_count}
+        quizType={quiz.quiz_type}
         avgScorePercent={introAvg}
         passRatePercent={passRate}
         likeCount={quiz.like_count ?? 0}

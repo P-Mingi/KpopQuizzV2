@@ -1,23 +1,34 @@
 import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
+import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 
 import type { QuizExtraStats } from '@/lib/db/queries/plays';
+import type { QuizType } from '@/lib/db/types';
 
 /**
  * SEO-3 U1: real per-quiz stats block. Server-rendered, crawlable, cookie-free.
  *
  * Threshold-30 law (per RANKING_UNLOCK_VOTES): ranking-ish metrics
  * (average score, pass rate, fastest perfect time) are HIDDEN below the
- * threshold - not captioned. Plain counts (plays, perfect scores, likes)
- * are always safe to render since they are counts, not rankings. Under
- * the threshold, a single honest gate line names the remaining count.
+ * threshold - not captioned. Plain counts (plays, likes) are always safe
+ * to render since they are counts, not rankings. Under the threshold, a
+ * single honest gate line names the remaining count.
  *
  * C2 note: the gate uses the SAME base as the display (plays-table count
  * when available, counter row as fallback), so a quiz sitting on the
  * boundary cannot unlock on one number and render another.
+ *
+ * C4 note: score-derived cells (Average score, Pass rate, Perfect scores)
+ * only render for quiz types where `score` is per-question. Types like
+ * `guess_from_clues` award multiple points per question by speed, so a
+ * qcount-based percentage would print >100% and "perfect" would count
+ * the wrong rows. The `scoreIsPerQuestion` allowlist gates all three
+ * score-derived cells; the caller passes the raw quizType so this
+ * component and the intro sentence share one decision.
  */
 
 interface QuizStatsBlockProps {
   playCount: number;
+  quizType: QuizType; // C4: gates the score-derived cells (allowlist)
   avgScorePercent: number | null; // null when the caller could not compute it
   passRatePercent: number | null; // null when the caller could not compute it
   likeCount: number;
@@ -33,6 +44,7 @@ function formatDuration(seconds: number): string {
 
 export function QuizStatsBlock({
   playCount,
+  quizType,
   avgScorePercent,
   passRatePercent,
   likeCount,
@@ -59,6 +71,11 @@ export function QuizStatsBlock({
   // decision and the rendered value can never disagree.
   const scoresUnlocked = playsDisplay >= RANKING_UNLOCK_VOTES;
 
+  // C4: score-derived cells (Average score / Pass rate / Perfect scores)
+  // are meaningful only when a raw score of `qcount` means a perfect run.
+  // The allowlist keeps guess_from_clues (multi-point per question) out.
+  const perQuestionScore = scoreIsPerQuestion(quizType);
+
   const cells: Array<{ label: string; value: string }> = [];
 
   cells.push({
@@ -66,7 +83,9 @@ export function QuizStatsBlock({
     value: playsDisplay.toLocaleString('en-US'),
   });
 
-  if (extra.perfectScoreCount > 0) {
+  // C4: Perfect scores is score-derived (counts `score === qcount`), so
+  // it lives inside the perQuestionScore gate too.
+  if (perQuestionScore && extra.perfectScoreCount > 0) {
     cells.push({
       label: 'Perfect scores',
       value: extra.perfectScoreCount.toLocaleString('en-US'),
@@ -80,9 +99,10 @@ export function QuizStatsBlock({
     });
   }
 
-  // Ranking-ish metrics - only rendered once the threshold is cleared.
-  // No caption, no hint: the value stands on its own.
-  if (scoresUnlocked) {
+  // Ranking-ish + score-derived metrics - only rendered once the threshold
+  // is cleared AND the quiz type has per-question scoring. No caption:
+  // the value stands on its own.
+  if (scoresUnlocked && perQuestionScore) {
     if (avgScorePercent !== null) {
       cells.push({ label: 'Average score', value: `${avgScorePercent}%` });
     }
@@ -101,8 +121,11 @@ export function QuizStatsBlock({
 
   // Below the threshold, one honest line names the gate so the page still
   // says something true and unique-per-quiz (the plays count differs).
-  // Uses the same playsDisplay as the cell above.
-  const gateLine = !scoresUnlocked
+  // Uses the same playsDisplay as the cell above. The gate line is only
+  // meaningful when scoreable metrics would eventually unlock - for quiz
+  // types where the metrics never apply, suppress the line too so the
+  // block does not tease a lock that has no key.
+  const gateLine = !scoresUnlocked && perQuestionScore
     ? `Scores unlock at ${RANKING_UNLOCK_VOTES} plays (${playsDisplay.toLocaleString('en-US')} so far).`
     : null;
 
