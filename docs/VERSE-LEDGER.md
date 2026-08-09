@@ -1459,3 +1459,105 @@ Types: RULING · LOCK · GATE · COMMIT · AUDIT · ARTIFACT · METHOD · EVENT.
   -rail slot placeholder. DEFERRED remain: editor budget nudge,
   per-space accent, document-canvas restyle, unit/label pages,
   galleries. Both workers now IDLE.
+- L-117 · 2026-08-09 · MERGE BLOCKED (env) + TRIVIA DESIGN FINDING ·
+  Owner asked to prepare the play-seo merge AND start content in
+  parallel. MERGE: verified a CLEAN 3-way merge (only sitemap.ts +
+  globals.css overlap, both auto-merge with zero conflict markers via
+  git merge-file), but the merge CANNOT be executed from device_bash:
+  replacing tracked files needs unlink, which the bridge forbids
+  ("Operation not permitted"), so `git merge` half-applied then git
+  self-aborted on the failed checkout. Recovered cleanly: moved the
+  stale index.lock aside (mv works where rm does not), confirmed NO
+  MERGE_HEAD, main intact at 7320f9a, play-seo intact at 19bc845, zero
+  tracked modifications, all refs present. Before that, committed the
+  pending docs on main (7320f9a: ledger + missions + migration 150).
+  The merge must run in a REAL terminal (owner or a worker); the full
+  build gate needs one too. TRIVIA 149: found the existing trivia
+  system is DERIVED (apps/quiz/src/lib/trivia/*: group-level facts
+  harvested from quiz fun_facts, deduped, categorized members/music/
+  achievements/history/fun, corrected via a code-based TRIVIA_OVERRIDES
+  layer verified against docs/trivia-corpus.json, /trivia page gated at
+  >=12 facts). So O1 must COMPLEMENT not duplicate it. Drafted
+  docs/pending-migrations/149_trivia.sql (DRAFT, not applied): an
+  entity-level (entity_kind+entity_id) stored trivia table for
+  structured-data + curator facts that persist independent of quizzes,
+  denormalized group_id for O2, category reusing TriviaCategory,
+  covenant CHECK (source NOT NULL non-empty), unique per entity+fact,
+  RLS public-read-published only. FK types verified (groups.id integer,
+  profiles.id uuid). Read layer would MERGE stored + derived facts.
+  Awaiting owner design confirmation before finalizing + the SQL gate.
+- L-118 · 2026-08-09 · TRIVIA DIRECTION LOCKED · Owner chose "complement,
+  entity-level": the stored trivia table is entity-level (album/idol/era/
+  track/award), holds structured-data + curator facts that persist
+  independent of quizzes, and is MERGED at read time with the existing
+  fun_fact-derived group facts. It feeds BOTH the Verse fact rails and
+  the quiz did-you-know (O3). docs/pending-migrations/149_trivia.sql
+  matches this direction as drafted; ready for the owner SQL gate
+  ("applique la 149") to apply via MCP. Read-layer merge + seeding are
+  code slices that follow (worker), covenant-bound. Next Cowork content:
+  the P5 quiz-page prototype and the 7 BTS member pages (Jungkook first).
+- L-119 · 2026-08-09 · 149 APPLIED + MERGE MISSION + P5 PROTOTYPE ·
+  Owner: "applique le toi avec mcp" (149), merge via worker, P5 first.
+  (1) Migration 149 trivia_base APPLIED via MCP: 14 cols, 4 indexes
+  (PK + unique-per-entity-fact + 2 partial published), RLS on, one
+  public-read-published policy, 0 rows. Verified. (2) MERGE handed to
+  a worker: docs/loop/MISSION.md rewritten as a pure integration task
+  (checkout main, merge --no-ff play-seo, run the FULL gate suite incl
+  next build, never push, BLOCKED.md if any non-sitemap/globals
+  conflict, receipt docs/proofs/merge-play-seo/gates.txt). Owner
+  triggers it; owner pushes after green. (3) P5 quiz-page prototype
+  delivered + committed to device (prototypes/quiz-page-p5.html): same
+  white Notion-calm system as home v2, built on the REAL big BTS quiz
+  numbers (2060 plays / 53% / 32% pass / 224 perfect / 18s / 38 likes),
+  showing every substance+uniqueness block: U2 dynamic intro, U1 stats
+  (unlocked + per-question type so percentages show), U8 spoiler-safe
+  crawlable questions, U4 same-group related, U6 creator, U9 honest
+  JSON-LD note (no rich result post-deprecation), and the rail with O3
+  did-you-know (one distinct sourced fact) + O1 BTS facts panel fed by
+  the new trivia base + O2 newest/hardest links. Intro copy kept free
+  of the editorial "only" to match the shipped R5 rule. Gates: em-dash
+  0, JS syntax ok, rendered light+dark+mobile. Awaiting owner
+  validation of the LOOK before the SEO worker wires O1/O3 for real.
+- L-120 · 2026-08-09 · COURSE CORRECTION (my error) · The P5 quiz-page
+  prototype (L-119) was WRONG: I built it in the Verse home-v2 language
+  (Fraunces serif, blue accent, white, right data rail) when the quiz
+  side has its OWN final design (DM Sans, rose brand #E8457A, warm
+  #FAF8F5 ground, existing classes .trivia-entry / .quiz-review /
+  .related-quizzes). Owner: the quiz page is already perfect, do NOT
+  reprototype, just ADD the missing SEO elements in the existing design.
+  Reassessed against the real code: everything P5 is shipped by the SEO
+  worker EXCEPT O3 - the page only LINKS to /[group]-trivia, it never
+  shows an inline fact. The one genuinely missing SEO element = an
+  inline "Did you know?" card, one real fact DISTINCT per quiz. Key
+  find that unblocks it with no seed: getOverriddenFacts(group) already
+  returns real override-verified facts, so the card reuses that pool and
+  picks index = stableHash(quiz.id) % n (deterministic, ISR-safe).
+  Wrote SEO-4 mission: add ONLY the did-you-know card, reusing the
+  existing .trivia-entry visual language (new .quiz-dyk class, same
+  tokens, DM Sans, no new colours), placed above the trivia-entry link,
+  honest emptiness at 0 facts. The Verse-styled quiz prototype is
+  abandoned (it was for the Verse, not the quiz side; the confusion was
+  mine). Migration 149 entity-level enrichment is a LATER depth slice,
+  not a blocker for O3.
+- L-121 · 2026-08-09 · AUDIT ACCEPTED (merge + SEO-4) · MERGE: play-seo
+  (SEO-1..3c) merged into main = dc0eabf, parents 7320f9a + 19bc845
+  verified, 19bc845 confirmed ancestor of main. Merged-main content
+  spot-checked present: scoring.ts, MusicGroup JSON-LD, QuizStatsBlock,
+  globals.css verse tokens + quiz-stats classes. Worker handled two
+  concurrent-session drifts cleanly (13 untracked byte-identical
+  play-seo files removed so the merge writes them tracked, no work
+  lost; a stale .git/HEAD.lock cleared). Gates on merged main: build
+  EXIT 0 / 622 static pages, tsc 0, verse-tokens pass, em-dash 0.
+  main is 37 commits ahead of origin, NOTHING pushed - READY for the
+  owner push. SEO-4 (O3 did-you-know): shipped on play-seo (054c000),
+  NOT in the merge (merge took SEO-1..3c only), so ONE more small merge
+  brings it to main. Verified: pick-fact.ts is a pure FNV-1a hash (no
+  Math.random/Date, ISR-stable, distinct per quiz), .quiz-dyk reuses
+  ONLY existing tokens (--surface/--border/--brand/--brand-light/
+  --txt1), 14px radius + brand-light chip like .trivia-entry, no new
+  colour/font, no heading (one-H1 kept), honest emptiness at 0 facts,
+  card placed above the trivia-entry link. Receipt: BTS 27 quizzes /
+  98-fact pool, first 3 ids -> indices [12,69,52] = 3 distinct,
+  deterministic PASS. Full build EXIT 0 (deps symlinked). Both
+  ACCEPTED. Next: bring SEO-4 into main with one small merge, then a
+  single push. The Verse-styled quiz prototype (L-119) stays abandoned.
