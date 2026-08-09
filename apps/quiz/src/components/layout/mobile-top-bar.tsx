@@ -34,6 +34,9 @@ export function MobileTopBar(): React.ReactElement | null {
   if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
+  // ITERATION 2 - one nav on the Verse: the global mobile top bar is hidden on /verse; the
+  // Verse's own top bar (hamburger -> the left-nav drawer) is the single mobile nav there.
+  if (worldForPath(pathname) === 'verse') return null;
 
   const verse = worldForPath(pathname) === 'verse';
   const profile = state?.profile ?? null;

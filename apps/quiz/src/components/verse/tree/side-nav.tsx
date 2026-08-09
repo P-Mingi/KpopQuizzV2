@@ -1,11 +1,17 @@
-// V3 nav - the persistent foldable LEFT sidebar (Notion/Fandom style). Holds, top to bottom:
-// the brand + a collapse control, the space chip, "Navigate" (the getNavMenu space nav rendered
-// as CRAWLABLE nested <a> inside native <details> groups - no JS, expand/collapse is the element's
-// own), a divider, and the client scroll-spy TOC (VerseTocSpy). The fold states (open / 64px icon
-// rail + hover-peek / mobile drawer) are pure CSS driven by the #v-nav-collapse / #v-nav-drawer
-// checkboxes in the layout; the collapse glyph flips via :has(). Section icons show in the rail.
+// V3 nav (iteration 2) - the ONE Verse nav: the global top-bar chrome is relocated here on top
+// (real KpopVerse logo -> Play/Fandoms/Community + search/theme/profile), then the space chip +
+// quick links, the Navigate tree (crawlable nested <a> in <details>), a divider, and the client
+// scroll-spy TOC. The global TopNav is hidden on /verse (see top-nav-bar.tsx / mobile-top-bar.tsx),
+// so this rail is the single navigation. Fold state (open / 64px icon rail + peek / drawer) is pure
+// CSS via the #v-nav-collapse / #v-nav-drawer checkboxes; the only client JS is VerseTocSpy.
 import Link from 'next/link';
 
+import { VerseLogo } from '@/components/verse/brand/verse-logo';
+import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
+import { WorldToggle } from '@/components/layout/world-toggle';
+import { TopNavLinks } from '@/components/layout/top-nav-links';
+import { ThemeToggle } from '@/components/layout/theme-toggle';
+import { TopNavProfile } from '@/components/layout/top-nav-profile';
 import { VerseTocSpy } from './toc-spy';
 
 import type { NavNode, NavRef } from '@/lib/verse/tree/nav';
@@ -36,21 +42,46 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel }: {
 }): React.ReactElement {
   return (
     <aside className="v-sidenav" aria-label={`${spaceName} navigation`}>
-      <div className="v-side-head">
-        <Link href="/verse" className="v-side-brand">
-          <span className="v-side-mark" aria-hidden="true">V</span>
-          <span className="v-side-brandtext">Verse</span>
-        </Link>
-        <label htmlFor="v-nav-collapse" className="v-side-collapse" title="Collapse sidebar" aria-label="Collapse or expand the sidebar">
-          <span className="v-side-collapse-glyph" aria-hidden="true">&#9666;</span>
-        </label>
+      {/* GLOBAL chrome, relocated from the top navbar so this rail is the one nav. */}
+      <div className="v-side-top">
+        <div className="v-side-brandrow">
+          <span className="v-side-logo-full"><VerseLogo height={21} /></span>
+          <Link href="/verse" className="v-side-logo-mark" aria-label="KpopVerse home"><OrbitMark size={28} /></Link>
+          <label htmlFor="v-nav-collapse" className="v-side-collapse" title="Collapse sidebar" aria-label="Collapse or expand the sidebar">
+            <span className="v-side-collapse-glyph" aria-hidden="true">&#9666;</span>
+          </label>
+        </div>
+        <div className="v-side-primary">
+          <WorldToggle />
+          <TopNavLinks world="verse" />
+        </div>
+        <div className="v-side-actions">
+          <Link href="/verse?search=1" className="v-side-action" aria-label="Search the Verse">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+            <span className="v-side-action-lbl">Search</span>
+          </Link>
+          <span className="v-side-action v-side-themewrap"><ThemeToggle className="v-side-themebtn" /></span>
+          <span className="v-side-profilewrap"><TopNavProfile /></span>
+        </div>
       </div>
 
+      {/* SPACE identity + quick links. */}
       <Link href={`/verse/${spaceSlug}`} className="v-side-chip">
         <span className="v-side-chip-ic" aria-hidden="true">{spaceLabel.slice(0, 1)}</span>
         <span className="v-side-chip-tx">{spaceLabel}</span>
       </Link>
+      <div className="v-side-quick">
+        <Link href={`/verse/${spaceSlug}`} className="v-side-quicklink">
+          <span className="v-side-ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M9 22V12h6v10" /></svg></span>
+          <span className="v-side-lbl">Space home</span>
+        </Link>
+        <Link href="/verse" className="v-side-quicklink">
+          <span className="v-side-ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 3a14 14 0 0 0 0 18M12 3a14 14 0 0 1 0 18M3.5 9h17M3.5 15h17" /></svg></span>
+          <span className="v-side-lbl">Browse everything</span>
+        </Link>
+      </div>
 
+      {/* NAVIGATE - the crawlable space tree. */}
       <nav className="v-side-nav" aria-label="Space sections">
         <p className="v-side-eyebrow">Navigate</p>
         <ul className="v-side-list">

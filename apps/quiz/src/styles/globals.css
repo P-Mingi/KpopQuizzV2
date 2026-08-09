@@ -6195,25 +6195,37 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-navmain { flex: 1 1 0%; min-width: 0; }
 
 .v-sidenav {
-  flex: 0 0 244px; width: 244px; position: sticky; top: 14px; align-self: flex-start;
+  flex: 0 0 250px; width: 250px; position: sticky; top: 14px; align-self: flex-start;
   max-height: calc(100vh - 28px); overflow-y: auto; overflow-x: hidden;
   display: flex; flex-direction: column; gap: 4px; padding: 2px 8px 20px;
   transition: flex-basis 0.2s ease, width 0.2s ease;
+  /* let the relocated top-bar islands tint to the Verse accent */
+  --world-accent: var(--v2-accent);
 }
-.v-side-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 2px; }
-.v-side-brand { display: inline-flex; align-items: center; gap: 9px; color: var(--v2-ink); text-decoration: none; font-family: var(--font-display); font-weight: 600; }
-.v-side-brand:hover { text-decoration: none; }
-.v-side-mark { width: 26px; height: 26px; border-radius: 7px; background: var(--v2-pill); color: var(--v2-pill-text); display: grid; place-items: center; font-size: 14px; flex-shrink: 0; }
-.v-side-brandtext { font-size: 16px; letter-spacing: -0.01em; }
+
+/* ITERATION 2 - the relocated GLOBAL chrome (real logo -> world/links -> search/theme/profile) */
+.v-side-top { display: flex; flex-direction: column; gap: 9px; padding: 4px 6px 12px; border-bottom: 1px solid var(--v2-line-soft); margin-bottom: 6px; }
+.v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; }
+.v-side-logo-full { display: inline-flex; align-items: center; min-width: 0; }
+.v-side-logo-mark { display: none; align-items: center; }
 .v-side-collapse { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--v2-line); color: var(--v2-muted); cursor: pointer; background: var(--v2-surface); flex-shrink: 0; }
 .v-side-collapse:hover { border-color: var(--v2-muted); color: var(--v2-ink); }
 .v-side-collapse-glyph { font-size: 11px; transition: transform 0.2s ease; }
 #v-nav-collapse:focus-visible ~ .v-navshell .v-side-collapse { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
+.v-side-primary { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.v-side-primary .top-nav-tabs { margin-left: 0 !important; gap: 2px; overflow: visible !important; flex-wrap: wrap; }
+.v-side-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.v-side-action { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-body); font-size: 12.5px; font-weight: 600; text-decoration: none; }
+.v-side-action:hover { border-color: var(--v2-muted); color: var(--v2-ink); text-decoration: none; }
+.v-side-themewrap, .v-side-profilewrap { display: inline-flex; align-items: center; }
 
-.v-side-chip { display: flex; align-items: center; gap: 9px; margin: 4px 4px 8px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); text-decoration: none; }
+.v-side-chip { display: flex; align-items: center; gap: 9px; margin: 4px 4px 6px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); text-decoration: none; }
 .v-side-chip:hover { border-color: var(--v2-muted); text-decoration: none; }
 .v-side-chip-ic { width: 24px; height: 24px; border-radius: 6px; background: var(--v2-accent-soft); color: var(--v2-accent); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 13px; flex-shrink: 0; }
 .v-side-chip-tx { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.v-side-quick { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
+.v-side-quicklink { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 8px; color: var(--v2-body); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 36px; }
+.v-side-quicklink:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
 
 .v-side-nav { display: flex; flex-direction: column; }
 .v-side-eyebrow { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--v2-faint); padding: 8px 8px 6px; }
@@ -6248,55 +6260,71 @@ main:has(.verse-page) { max-width: 1360px; }
   .v-sidenav, .v-side-collapse-glyph, .v-side-chev { transition: none; }
 }
 
-/* ---- >=1200: OPEN by default; the collapse checkbox folds it to a 64px ICON RAIL,
-        and hovering the rail PEEKS it back (overlay, so the content never reflows). ---- */
+/* The RAIL (icon-only) hide/center set - shared by the >=1200 collapse and the 560-1199
+   default. Scoped with :not(:hover) so hovering PEEKS the full sidebar back with zero extra
+   reversal rules. The global top-bar links collapse to their icons; the two text-only controls
+   (the Play world-door and the profile pill) hide in the rail and return on peek/open/drawer. */
 @media (min-width: 1200px) {
-  #v-nav-collapse:checked ~ .v-navshell { gap: 0; padding-left: 76px; position: relative; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav {
-    position: absolute; left: 0; top: 14px; flex: none; width: 64px; padding-left: 6px; padding-right: 6px;
-    background: var(--v2-paper); z-index: 40;
-  }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-brandtext,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-chip-tx,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-eyebrow,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-lbl,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-chev,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-sub,
-  #v-nav-collapse:checked ~ .v-navshell .v-side-divider,
-  #v-nav-collapse:checked ~ .v-navshell .v-toc-group { display: none; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-head { justify-content: center; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-chip { justify-content: center; padding: 8px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-row { justify-content: center; padding: 8px; }
+  #v-nav-collapse:checked ~ .v-navshell { gap: 0; padding-left: 78px; position: relative; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav { position: absolute; left: 0; top: 14px; flex: none; width: 66px; padding-left: 8px; padding-right: 8px; background: var(--v2-paper); z-index: 40; border: 1px solid transparent; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover { width: 250px; box-shadow: var(--v2-shadow); border-color: var(--v2-line); border-radius: 12px; padding: 6px 8px 18px; }
   #v-nav-collapse:checked ~ .v-navshell .v-side-collapse-glyph { transform: rotate(180deg); }
-  /* peek: hovering the rail expands it as a floating overlay (the 76px gutter stays reserved) */
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover {
-    width: 250px; box-shadow: var(--v2-shadow); border: 1px solid var(--v2-line); border-radius: 12px; padding: 6px 8px 18px;
-  }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-brandtext,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-chip-tx,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-lbl { display: block; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-eyebrow { display: block; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-sub,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-toc-group { display: flex; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-chev { display: inline; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-divider { display: block; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-head { justify-content: space-between; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-chip { justify-content: flex-start; padding: 8px 10px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover .v-side-row { justify-content: flex-start; padding: 7px 8px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-logo-full,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .world-toggle,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .top-nav-link-label,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-action-lbl,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-profilewrap,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chip-tx,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-eyebrow,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-lbl,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chev,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-sub,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-divider,
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-toc-group { display: none; }
+  /* the world-door pill carries inline display, so !important is needed to fold it away */
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .world-toggle { display: none !important; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-logo-mark { display: inline-flex; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-brandrow { justify-content: center; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-primary { flex-direction: column; align-items: center; gap: 4px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-primary .top-nav-tabs { flex-direction: column; align-items: center; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-actions { flex-direction: column; align-items: center; gap: 4px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-action { padding: 8px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chip { justify-content: center; padding: 8px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-quicklink { justify-content: center; padding: 8px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-row { justify-content: center; padding: 8px; }
 }
 
-/* ---- 560-1199: start as the icon rail (static; no manual toggle) ---- */
+/* ---- 560-1199: start as the icon rail (static; no manual toggle); same peek-on-hover. ---- */
 @media (min-width: 560px) and (max-width: 1199px) {
   .v-side-collapse { display: none; }
-  .v-navshell { gap: 26px; }
-  .v-sidenav { flex-basis: 64px; width: 64px; padding-left: 6px; padding-right: 6px; }
-  .v-side-brandtext, .v-side-chip-tx, .v-side-eyebrow, .v-side-lbl,
-  .v-side-chev, .v-side-sub, .v-side-divider, .v-toc-group { display: none; }
-  .v-side-head, .v-side-chip, .v-side-row { justify-content: center; }
-  .v-side-chip, .v-side-row { padding: 8px; }
+  .v-navshell { gap: 0; padding-left: 78px; position: relative; }
+  .v-sidenav { position: absolute; left: 0; top: 14px; flex: none; width: 66px; padding-left: 8px; padding-right: 8px; background: var(--v2-paper); z-index: 40; border: 1px solid transparent; }
+  .v-sidenav:hover { width: 250px; box-shadow: var(--v2-shadow); border-color: var(--v2-line); border-radius: 12px; padding: 6px 8px 18px; }
+  .v-sidenav:not(:hover) .v-side-logo-full,
+  .v-sidenav:not(:hover) .world-toggle,
+  .v-sidenav:not(:hover) .top-nav-link-label,
+  .v-sidenav:not(:hover) .v-side-action-lbl,
+  .v-sidenav:not(:hover) .v-side-profilewrap,
+  .v-sidenav:not(:hover) .v-side-chip-tx,
+  .v-sidenav:not(:hover) .v-side-eyebrow,
+  .v-sidenav:not(:hover) .v-side-lbl,
+  .v-sidenav:not(:hover) .v-side-chev,
+  .v-sidenav:not(:hover) .v-side-sub,
+  .v-sidenav:not(:hover) .v-side-divider,
+  .v-sidenav:not(:hover) .v-toc-group { display: none; }
+  .v-sidenav:not(:hover) .world-toggle { display: none !important; }
+  .v-sidenav:not(:hover) .v-side-logo-mark { display: inline-flex; }
+  .v-sidenav:not(:hover) .v-side-brandrow { justify-content: center; }
+  .v-sidenav:not(:hover) .v-side-primary { flex-direction: column; align-items: center; gap: 4px; }
+  .v-sidenav:not(:hover) .v-side-primary .top-nav-tabs { flex-direction: column; align-items: center; }
+  .v-sidenav:not(:hover) .v-side-actions { flex-direction: column; align-items: center; gap: 4px; }
+  .v-sidenav:not(:hover) .v-side-action { padding: 8px; }
+  .v-sidenav:not(:hover) .v-side-chip { justify-content: center; padding: 8px; }
+  .v-sidenav:not(:hover) .v-side-quicklink { justify-content: center; padding: 8px; }
+  .v-sidenav:not(:hover) .v-side-row { justify-content: center; padding: 8px; }
 }
 
-/* ---- <560: off-canvas DRAWER opened by the top-bar hamburger, with a scrim ---- */
+/* ---- <560: off-canvas DRAWER opened by the top-bar hamburger, with a scrim (full chrome) ---- */
 @media (max-width: 559px) {
   .v-side-collapse { display: none; }
   .v-navtopbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 6px 2px; }

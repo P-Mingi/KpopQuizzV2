@@ -22,6 +22,10 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
   if (isBuilderCanvas(pathname)) return null; // chrome-less builder canvas
   const world = worldForPath(pathname);
   const verse = world === 'verse';
+  // ITERATION 2 - one nav on the Verse: the global top bar is hidden on /verse; its controls
+  // now live at the top of the left VerseSideNav. Play keeps this bar everywhere. Gate on the
+  // path (a fresh worldForPath call) so the downstream Play branches below stay type-live.
+  if (worldForPath(pathname) === 'verse') return null;
 
   return (
     <header
