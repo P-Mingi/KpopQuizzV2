@@ -1,15 +1,10 @@
 import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { CompositionRenderer } from '@/components/verse/presentation/composition-renderer';
-import { presentationToComposition } from '@/lib/verse/composition/convert';
-import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
-import { getPortalComposition } from '@/lib/verse/tree/portal';
 import { VerseHomeHead } from '@/components/verse/tree/home-head';
 import { VerseHomeRail } from '@/components/verse/tree/home-rail';
-import { VerseHomeOverview } from '@/components/verse/tree/home-overview';
-import { createPublicReadClient } from '@/lib/supabase/server';
+import { VerseHomeCenter } from '@/components/verse/tree/home-center';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
 export const revalidate = 3600;
@@ -23,13 +18,6 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
   const { slug } = await params;
   const space = await getSpace(slug);
   if (!space) notFound();
-  const backlinks = await getGroupBacklinks(space.group.slug);
-
-  // V-FOUNDATION F1 C11: render the home from the PORTAL page (pages.blocks) when the
-  // space has one; else fall back to the legacy verse_spaces.presentation with byte
-  // parity (the strangler seam - a space is migrated by its first publish).
-  const portalComposition = await getPortalComposition(createPublicReadClient(), space.group.id);
-  const composition = portalComposition ?? presentationToComposition(space.presentation);
 
   return (
     <>
@@ -49,10 +37,9 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
           <div className="mb-6">
             <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
           </div>
-          {/* F4.4: the portal Overview prose (pages.blocks) inside the anti-overflow fold;
-              self-hides until Cowork writes it. */}
-          <VerseHomeOverview spaceId={space.group.id} />
-          <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
+          {/* V3: the editorial center - Overview (fold) / Members / Discography / The story
+              so far / Community & Play, all pure presentation over the existing reads. */}
+          <VerseHomeCenter space={space} />
         </div>
         <aside className="vh2-rail" aria-label={`${space.group.name} data`}>
           <VerseHomeRail space={space} />

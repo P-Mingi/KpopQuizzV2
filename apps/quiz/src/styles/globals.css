@@ -6042,7 +6042,7 @@ main:has(.verse-page) { max-width: 1360px; }
    V-FOUNDATION F4.3 - the two-column body (document + data rail) and the rail
    widgets. Server components; every value is a live count or real row.
    ========================================================================== */
-.vh2-layout { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 48px; align-items: start; padding-top: 8px; }
+.vh2-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 52px; align-items: start; padding-top: 8px; }
 .vh2-doc { min-width: 0; }
 .vh2-rail { min-width: 0; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; align-self: start; }
 .vh2-railgroup { display: flex; flex-direction: column; gap: 16px; }
@@ -6119,6 +6119,70 @@ main:has(.verse-page) { max-width: 1360px; }
   .vh2-fold .foldbody { transition: none; }
   .foldbtn .chev { transition: none; }
 }
+
+/* ==========================================================================
+   V3 HOME - the editorial CENTER column (Members / Discography / The story so
+   far / Community & Play). Ported faithfully from prototypes/bts-home-v2.html;
+   every color is a --v2-* token, every face a loaded var(). Pure presentation.
+   ========================================================================== */
+.vh2-center { display: block; }
+.vh2-more { font-family: var(--v-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+
+/* Members */
+.vh2-members { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.vh2-member { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; border: 1px solid var(--v2-line); border-radius: var(--v2-r-md); background: var(--v2-surface); padding: 14px 6px 12px; color: var(--v2-body); transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; text-decoration: none; }
+.vh2-member:hover { text-decoration: none; border-color: var(--v2-line); transform: translateY(-2px); box-shadow: var(--v2-shadow); }
+.vh2-member .ph { width: 56px; height: 56px; border-radius: 50%; margin-bottom: 8px; background: var(--v2-wash); border: 1px solid var(--v2-line); display: grid; place-items: center; object-fit: cover; font-family: var(--font-display); font-size: 19px; color: var(--v2-faint); }
+.vh2-member b { font-size: 13.5px; font-weight: 600; color: var(--v2-ink); }
+.vh2-member .hg { font-size: 11px; color: var(--v2-muted); }
+.vh2-member .role { margin-top: 6px; font-family: var(--v-mono); font-size: 8.5px; letter-spacing: 0.08em; color: var(--v2-faint); text-transform: uppercase; line-height: 1.5; }
+
+/* Discography */
+.vh2-covers { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.vh2-coveritem { color: var(--v2-body); text-decoration: none; }
+.vh2-coveritem:hover { text-decoration: none; }
+.vh2-coveritem .art { aspect-ratio: 1; border-radius: var(--v2-r-sm); border: 1px solid var(--v2-line); background: radial-gradient(120% 120% at 20% 15%, var(--v2-surface), var(--v2-wash)); margin-bottom: 8px; display: grid; place-items: center; font-family: var(--font-display); font-size: 17px; letter-spacing: 0.02em; color: var(--v2-faint); transition: border-color 0.15s, transform 0.15s; }
+.vh2-coveritem:hover .art { border-color: var(--v2-muted); transform: translateY(-2px); }
+.vh2-coveritem b { display: block; font-size: 12.5px; font-weight: 600; color: var(--v2-ink); line-height: 1.35; }
+.vh2-coveritem > span { display: block; margin-top: 2px; font-family: var(--v-mono); font-size: 10px; color: var(--v2-faint); letter-spacing: 0.05em; }
+
+/* The story (eras) */
+.vh2-story { display: flex; flex-direction: column; }
+.vh2-era { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--v2-line-soft); }
+.vh2-era:last-child { border-bottom: 0; }
+.vh2-era .yr { font-family: var(--v-mono); font-size: 12px; color: var(--v2-muted); letter-spacing: 0.04em; padding-top: 4px; font-variant-numeric: tabular-nums; }
+.vh2-era h3 { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--v2-ink); letter-spacing: -0.005em; margin-bottom: 6px; }
+.vh2-era h3 a { color: inherit; }
+.vh2-era p { font-size: 15px; line-height: 1.65; max-width: 62ch; color: var(--v2-body); }
+.nowtag { display: inline-block; vertical-align: 2px; margin-left: 8px; font-family: var(--v-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--v2-accent); border: 1px solid var(--v2-accent-deep); border-radius: 999px; padding: 2px 8px; background: var(--v2-accent-soft); }
+
+/* Community & Play cards */
+.vh2-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.vh2-card { border: 1px solid var(--v2-line); border-radius: var(--v2-r-lg); background: var(--v2-surface); padding: 24px; }
+.vh2-card h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--v2-ink); margin-bottom: 8px; }
+.vh2-card p { font-size: 14.5px; line-height: 1.6; margin-bottom: 14px; color: var(--v2-body); }
+.vh2-card .links { display: flex; flex-wrap: wrap; gap: 8px; }
+.vh2-card .links a { font-size: 12.5px; border: 1px solid var(--v2-line); border-radius: 999px; padding: 5px 13px; color: var(--v2-ink); transition: border-color 0.15s; text-decoration: none; }
+.vh2-card .links a:hover { border-color: var(--v2-muted); text-decoration: none; }
+
+@media (max-width: 960px) {
+  .vh2-members { grid-template-columns: repeat(4, 1fr); }
+  .vh2-covers { grid-template-columns: repeat(3, 1fr); }
+  .vh2-cards { grid-template-columns: 1fr; }
+  .vh2-era { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (max-width: 520px) {
+  .vh2-members { grid-template-columns: repeat(2, 1fr); }
+  .vh2-covers { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* V3 deliverables 3 + 4 - pure-WHITE home ground (--v2-paper, NOT the global
+   warm --bg) and the 1120px reading cluster, centered. Scoped to the home via
+   :has(.vh2-home) so every other Verse surface and all of Play are untouched. */
+.verse-page:has(.vh2-home) { background: var(--v2-paper); }
+.verse-page:has(.vh2-home) .vnav,
+.verse-page:has(.vh2-home) .vh2-home,
+.verse-page:has(.vh2-home) #vh2-body { max-width: 1120px; margin-inline: auto; }
 
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact

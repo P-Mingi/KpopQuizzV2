@@ -1,69 +1,74 @@
-# REPORT - Verse bulk wave: de-stub 184 track pages (Task B) + Dynamite migration (Task A)
+# REPORT - v3 BTS/Verse home (editorial center + white ground + 1120 width)
 
-DB writes only. Nothing pushed to git. Covenant kept: DB-true minimum, nothing invented.
+Presentation rebuild over existing reads. Covenant kept: no fabricated content; the
+Overview lede is derived from DB facts only. Nothing pushed to git. Play/quiz untouched.
 
-## TASK B - de-stub the non-title track pages (DONE, applied to the DB)
-Idempotent seeder: apps/quiz/scripts/verse/seed-track-stubs.ts (service role, --apply flag).
+## STATUS
+- Deliverable 1 (editorial CENTER rebuild): DONE + verified.
+- Deliverable 3 (pure-white ground): DONE + verified.
+- Deliverable 4 (1120 width cluster): DONE + verified.
+- Deliverable 2 (persistent foldable LEFT NAV + on-this-page TOC): NOT STARTED (next step).
 
-COUNTS (apply run):
-- track pages total: 197 (is_stub=false already: 13 - the title tracks Cowork enriched)
-- stubs scanned (excl. skip-list): 184
-- ENRICHED (changed): 184
-- skipped-unchanged (byte-identical): 0
-- skipped-title-track (skip-list still is_stub=true): 0  (none - the 13 are already is_stub=false)
-- no matching album page (link dropped -> plain text): 0  (100% linked - every album has a release page)
-- no entity/album resolvable: 0
-- earliest-album diverged from own album: 4  (all LEGITIMATE re-releases, verified: "Make It Right",
-  "Dionysus", "Intro : Persona", "Jamais vu" each appear on MAP OF THE SOUL : PERSONA (2019-04-12)
-  AND MAP OF THE SOUL : 7 (2020-02-21); the earliest-by-title rule correctly picks PERSONA.)
+This commit = the center + ground + width (a coherent, shippable step). The left nav is
+a self-contained layout addition committed next.
 
-Each enriched page now has: heading "Overview" + one DB-true paragraph
-("<Title> is a track on <album linked to its release page>, released <Month D, YYYY>.") +
-a divider + the bold-lead source note. Every enriched page got exactly one new page_revisions
-row (rev = prior max + 1, author 00000000-0000-4000-8000-000000005eed). is_stub set false,
-updated_at bumped. slug/type/parent_id/status/created_by untouched.
+## DELIVERABLE 1 - the editorial center (from prototypes/bts-home-v2.html)
+New server component: apps/quiz/src/components/verse/tree/home-center.tsx (VerseHomeCenter),
+wired into apps/quiz/src/app/verse/[slug]/page.tsx in place of the old generic
+CompositionRenderer + VerseHomeOverview. In order:
+- Overview: the anti-overflow FOLD (reused <Fold>, full text stays in the DOM). Renders the
+  authored portal prose (pages.blocks) when present; today that is empty, so a DB-DERIVED
+  2-sentence lede shows instead ("BTS, a 3rd generation act, from South Korea, debuted in
+  June 2013." + a catalog-size sentence). Honest, sourced, replaceable by authored prose.
+- Members: the 7-up grid of the real bound idols, ordered by `ord`, each with photo (real
+  idols.photo_url, initials fallback) + name + hangul + positions, linking to the member
+  page. Links resolve by (entity_kind='idol', entity_id) -> the real tree page slug, NOT by
+  slug-guessing: rm / jin / suga / j-hope / jimin / v / jungkook all resolve.
+- Discography: the cover grid of every `albums` row for the group, release_date desc, each a
+  gradient placeholder tile (no cover images are stored) + title + year + type, linking to
+  its release page by (entity_kind='album', entity_id). 18 releases render; the junk "ARIRANG"
+  row is NOT special-cased (it disappears when the owner runs 152_purge_arirang.sql).
+- The story so far: the eras timeline (getEras), year column + era name + story excerpt
+  (honest empty when no story authored) + a "Now" tag on the newest. 15 eras render.
+- Community & Play: two cards - ARMY/fandom links (Community, Fandom) and the top BTS
+  quizzes (getQuizzesByGroup 'popular', linked to /q/{slug}).
+The page HEAD (cover, icon, eyebrow, H1 + hangul, lede, action pills) and the right data
+rail (VerseHomeRail) are unchanged. One H1 per page (the group name, in the head).
 
-SAMPLE ENRICHED SLUGS:
-- jamais-vu -> MAP OF THE SOUL : PERSONA [map-of-the-soul-persona] (April 12, 2019)
-- aliens / swim / they-don-t-know-bout-us -> ARIRANG [arirang] (March 20, 2026)
-- intro-skool-luv-affair / bts-cypher-pt-2-triptych -> Skool Luv Affair [skool-luv-affair] (Feb 12, 2014)
+## DELIVERABLE 3 - pure-white ground
+apps/quiz/src/styles/globals.css: `.verse-page:has(.vh2-home) { background: var(--v2-paper); }`.
+--v2-paper is #FFFFFF (light) / #191919 (dark) from the existing .verse-v2 scope. The global
+warm --bg (#FAF8F5) is UNTOUCHED, and the :has(.vh2-home) guard scopes the white ground to the
+Verse HOME only - every other Verse surface and all of Play render byte-for-byte the same.
 
-RENDER VERIFIED LIVE (/verse/bts/jamais-vu): one H1; the 3 empty headings gone; the paragraph
-renders with a WORKING internal link to /verse/bts/map-of-the-soul-persona; the source note shows.
+## DELIVERABLE 4 - 1120 width cluster
+The nav + head + body cluster is capped at max-width 1120px, centered
+(`.verse-page:has(.vh2-home) .vnav, .vh2-home, #vh2-body { max-width: 1120px; margin-inline: auto; }`).
+The doc+rail grid proportions match the prototype: main minmax(0,1fr) + 300px rail, gap 52px
+(edited the base .vh2-layout rule so the <=960px single-column collapse still wins - no
+specificity fight; an earlier higher-specificity override broke the mobile collapse and was
+removed).
 
-IDEMPOTENT: a dry re-run now scans 0 stubs (all are is_stub=false) -> 0 changes, 0 duplicate
-revisions. Re-applying is a safe no-op.
+## GATES
+- tsc: 0 errors (pnpm exec tsc --noEmit).
+- next build: PASS ("Compiled successfully"; 622/622 static pages). The >2MB pinterest-feed
+  data-cache warning is pre-existing and unrelated.
+- Runtime: /verse/bts HTTP 200; no NEW console/hydration errors. The two dev-overlay "Issues"
+  are pre-existing and unrelated to this change (the JSON-LD <script> tag notice, and a
+  ThemeToggle sun/moon icon hydration mismatch in the global RootLayout shell). VerseHomeCenter
+  is a pure server component with no Date.now()/random()/locale nondeterminism.
+- a11y: nav is the existing <nav>; member/release/era/quiz links are real crawlable <a>;
+  images carry alt; reduced-motion honoured on the fold.
 
-## HARD GATE - ZERO ORPHANS: PASS
-  select count(*) from pages where space_id=1 and status='published'
-    and type not in ('index','portal') and parent_id is null;  =>  0
-Also asserted: all 197 track pages keep parent_id = 23 (distinct parent set = {23}); the 13
-skip-list pages are all still is_stub=false (untouched).
+## SCREENSHOTS (docs/proofs/v3home/, CDP headless capture, full-page)
+- home-1440-light.png / home-1440-dark.png  (desktop)
+- home-1024-light.png / home-1024-dark.png  (tablet)
+- home-390-light.png  / home-390-dark.png   (mobile: single column, members/covers 2-up,
+  eras single-column, rail stacked below the document)
+Capture harness: apps/quiz/scripts/proof-v3home-capture.mjs.
 
-## TASK A - Dynamite data model (GATED - migration PREPARED, NOT applied)
-FINDINGS (schema investigation):
-- Releases are `albums` rows (observed type set: 'ep','album' only - NO 'single' type) with
-  tracks in `album_tracks`. There is NO singles / releases / release_types table.
-- BTS "Dynamite" = album_tracks id 2815 on albums id 7 "BE" (release_date 2020-11-20). The Verse
-  "dynamite" page (id 133) binds to entity_id 2815. It is already is_stub=false (Cowork's prose
-  states the single truth). Truth: standalone digital single released 2020-08-21, later added to BE.
-- RIPPLE:
-  - Verse: release-date derivations (fact rail / did-you-know / the track-stub prose) take the
-    EARLIEST album by title. Today that is BE (2020-11-20). After the migration adds the single
-    (2020-08-21), the earliest becomes the single -> the Verse derives the correct date. Positive.
-  - Discography count: adding a release row moves BTS albums 17 -> 18; whether it gets its own
-    release PAGE is a separate re-seed decision (owner's call), not part of this migration.
-  - Play side: quizzes / questions / games are self-contained jsonb; NONE read Dynamite's
-    album/date live (0 quizzes even reference it by title), so no runtime break. Any quiz PROSE
-    that says "Dynamite (BE, 2020)" is a content inconsistency to fix later, not a data break.
-  - Code that switches on albums.type (ep vs album) should be audited to handle a new 'single'
-    value gracefully (flagged for the owner).
-- PREPARED MIGRATION: docs/pending-migrations/151_dynamite_single.sql (BEGIN/COMMIT, idempotent
-  guards). It (1) adds a 'single' release row for Dynamite (2020-08-21), (2) links the recording
-  to it (keeping the BE track - Dynamite is genuinely on both), and (3) leaves an OPTIONAL,
-  commented page-repoint. It also documents an OWNER PRE-STEP: if a CHECK constraint restricts
-  albums.type, widen it to include 'single' before running. NOT self-applied (owner SQL gate).
-
-## STOP
-Task B complete + verified (184 enriched, zero orphans, idempotent, renders). Task A migration
-prepared for the owner. Nothing pushed.
+## NEXT
+Deliverable 2: the persistent foldable LEFT NAV (space nav from getNavMenu as crawlable
+nested <a>) + on-this-page TOC with an IntersectionObserver scroll-spy, in
+apps/quiz/src/app/verse/[slug]/layout.tsx, with the >=1200 open / icon-rail+peek / <560 drawer
+fold behaviour. The horizontal .vnav then moves into that sidebar.
