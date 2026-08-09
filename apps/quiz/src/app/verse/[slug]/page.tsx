@@ -35,7 +35,7 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       <div id="vh2-body" className="vh2-layout">
         <div className="vh2-doc">
           <div className="mb-6">
-            <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+            <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.name }]} />
           </div>
           {/* V3: the editorial center - Overview (fold) / Members / Discography / The story
               so far / Community & Play, all pure presentation over the existing reads. */}

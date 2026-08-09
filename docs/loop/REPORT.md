@@ -1,64 +1,55 @@
-# REPORT - iteration 2: consolidate the Verse nav into ONE left sidebar + use the real logo
+# REPORT - iteration 3: rebuild the Verse sidebar fold (kill the overlay; clean in-flow rail)
 
-Targeted corrections on top of the shipped v3 nav (no redesign). Scoped to the Verse; the Play
-app outside /verse renders identically. tsc 0; next build passes. Nothing pushed (owner pushes).
+The collapsed/hover behaviour was "horrible": an absolute overlay that floated over the
+document, top-nav button chrome crammed into the rail, and content bleeding under it. Rebuilt
+to two clean IN-FLOW states. Scoped to /verse; Play untouched. tsc 0; next build green. Not pushed.
 
-## STATUS - all three fixes DONE + verified
-- FIX 1 (one nav: hide the global top bar on /verse, move its controls into the sidebar top): DONE.
-- FIX 2 (complete the left nav: chip, Space home, Browse everything, full Navigate tree, TOC): DONE.
-- FIX 3 (real KpopVerse logo, never a fabricated letter-mark): DONE.
+## ROOT CAUSES - all three fixed
+1. HOVER-PEEK OVERLAY covered content -> KILLED. The collapsed rail was `position:absolute;
+   width:66px` with `:hover { width:250px }` floating a popover over Overview/members. Removed
+   entirely. No hover-peek anywhere.
+2. RAIL REUSED TOP-NAV BUTTON CHROME -> GONE. The rail no longer restyles the reused top-nav
+   islands. A dedicated `.v-side-rail` renders every icon (global AND space) as a uniform plain
+   40px button, no borrowed borders/boxes.
+3. CONTENT BLED UNDER THE RAIL -> FIXED. The sidebar is in-flow (position:sticky, never
+   absolute), so the cover/hero and document live entirely inside .v-navmain.
 
-## FIX 1 - ONE nav
-- The global top bar is hidden on /verse (not removed for Play):
-  - `top-nav-bar.tsx`: `if (worldForPath(pathname) === 'verse') return null;` (desktop TopNav).
-  - `mobile-top-bar.tsx`: same guard (mobile top bar). Verified: /verse/bts serves ZERO `.top-nav`
-    headers; the Play home (/) still serves its top nav and has NO `.v-sidenav` leak.
-- The top bar's GLOBAL controls now live at the TOP of VerseSideNav (side-nav.tsx), reusing the
-  existing components (no reimplementation, same hrefs/handlers):
-  the real KpopVerse logo, `WorldToggle` (Play door), `TopNavLinks world="verse"` (Fandoms +
-  Community), a Search link (/verse?search=1), `ThemeToggle`, and `TopNavProfile`.
-- Top-to-bottom in the rail now: [KpopVerse logo] -> Play / Fandoms / Community (+ search, theme,
-  profile) -> space chip (BTS) -> Space home / Browse everything -> NAVIGATE (Music > Discography/
-  Songs/Eras, Members, Shows > Tours/TV, Fandom > ARMY/BU, About > Company/Awards/Records) ->
-  divider -> ON THIS PAGE (scroll-spy TOC).
-- The icon-rail / hover-peek / mobile drawer behaviour is preserved. The folded rail shows sensible
-  icons for the global links too (Fandoms, Community, search, theme) plus the space-nav icons; the
-  two text-only controls (the Play world-door, the profile pill) fold away and return on peek/open/
-  drawer. (WorldToggle carries inline `display`, so the rail hides it with `display:none !important`.)
-  Verified via computed styles: rail width 66px, WorldToggle display:none, zero overflowing children.
+## TARGET - two clean IN-FLOW states (verified by computed styles)
+The layout is `[ .v-sidenav (fixed width) | .v-navmain (flex:1) ]`; toggling REFLOWS the row.
+side-nav.tsx now renders BOTH states, CSS toggles which shows:
+- OPEN (.v-side-open): the ~250px expanded column, unchanged from what already looked right
+  (real logo -> Play/Fandoms/Community + search/theme/profile, BTS chip, Space home / Browse
+  everything, NAVIGATE tree, ON THIS PAGE). Content to its right; the 1120 cluster centered.
+- COLLAPSED (.v-side-rail): a ~60px IN-FLOW icon rail. One uniform vertical column of 40px
+  square buttons - global group (Play, Fandoms, Community, Search, Theme, Profile) then a thin
+  divider then the space group (Space home, Browse, Music, Members, Shows, Fandom, About). Plain
+  icon buttons, no borders, muted color, even rhythm; hover = subtle wash; each has a title
+  tooltip + aria-label. The expand chevron sits at the top. Section icons link to the section's
+  first child so they navigate.
+- COMPUTED-STYLE PROOF at 1440 collapsed: sidebar position=sticky, width=60px, side.right=140 <
+  main.left=180 (overlap=false), cover.left=170 (no bleed), rail buttons all 40x40 (theme
+  toggle's base min-width:44 overridden to 40).
 
-## FIX 2 - complete the left nav
-Present and correct: the space chip (BTS), Space home (/verse/bts) and Browse everything (/verse),
-the full NAVIGATE tree with every nav_menus section + children (5 sections + 10 real crawlable
-sub-links in the served HTML), the divider, and the ON THIS PAGE scroll-spy TOC. The gap the owner
-flagged (the missing global links up top) is filled by FIX 1.
+## DEFAULT STATE PER WIDTH
+- >= 1200: OPEN; the collapse chevron folds to the icon rail (deliberate click, no hover).
+- 768-1199: the icon rail by default (static; expand chevron hidden).
+- < 768: off-canvas DRAWER (hamburger + scrim) showing the full open column - a MOBILE overlay,
+  which the mission allows; the desktop states never overlay.
 
-## FIX 3 - the real logo
-The fabricated letter-mark ("V" tile) is gone. The sidebar brand is the app's real Verse brand:
-`<VerseLogo />` (the OrbitLockup - the KpopVerse orbit mark from public/verse/brand/logo-192.png +
-the "KpopVerse" wordmark), linking to /verse; the collapsed rail shows `<OrbitMark />` (the same
-real mark). No invented or generated logo anywhere.
-
-## GUARDRAILS MET
-- Play outside /verse byte-identical (top nav intact, no sidebar leak; verified by curl).
-- Real crawlable <a> nav links; aria-labels on the collapse/drawer/search controls; reduced-motion
-  honoured; white ground via --v2-paper (global --bg untouched); 1120 content cluster unchanged.
-- The relocated top-bar islands (WorldToggle/TopNavLinks/ThemeToggle/TopNavProfile) keep their own
-  hrefs + handlers + auth fetch; --world-accent is set to --v2-accent on the sidebar so they tint.
-- tsc 0; `next build` PASS ("Compiled successfully"). Nothing pushed.
+## ALSO FIXED
+- Breadcrumb now reads the space NAME ("Verse / BTS"), not fandom_name ("ARMY"). (page.tsx)
 
 ## FILES
-- apps/quiz/src/components/verse/tree/side-nav.tsx  (global chrome relocated in; real logo)
-- apps/quiz/src/components/layout/top-nav-bar.tsx    (hide desktop top nav on /verse)
-- apps/quiz/src/components/layout/mobile-top-bar.tsx (hide mobile top bar on /verse)
-- apps/quiz/src/styles/globals.css                  (sidebar top-chrome CSS + rail :not(:hover) folds)
+- apps/quiz/src/components/verse/tree/side-nav.tsx  (two states; dedicated uniform rail)
+- apps/quiz/src/styles/globals.css                  (in-flow collapsed rail; removed overlay + peek)
+- apps/quiz/src/app/verse/[slug]/page.tsx           (breadcrumb -> space name)
 
-## SCREENSHOTS (docs/proofs/v3home/)
-- nav-1440-open-light.png / nav-1440-open-dark.png  (ONE nav, real logo, global chrome up top)
-- nav-1440-rail-light.png                            (icon rail: global + space icons, no overflow)
-- nav-1024-rail-light.png                            (tablet auto rail)
-- nav-390-drawer-light.png                           (mobile drawer: full consolidated nav + scrim)
+## SCREENSHOTS - before/after (docs/proofs/v3nav-rebuild/)
+- before/nav-1440-rail-light.png : the old absolute overlay (mismatched boxes, content bleed).
+- after/nav-1440-rail-light.png  : the clean 60px in-flow uniform icon rail, content reflowed.
+- after/nav-1440-open-light.png  : the OPEN column (unchanged, looks right), breadcrumb "Verse / BTS".
+- after/nav-390-drawer-light.png : the mobile drawer (full column over a scrim).
+- (before/ and after/ each also hold 1440-open-dark and 1024-rail for completeness.)
 
-## NOTE (not an owner-blocking ambiguity)
-The mobile bottom tab bar (MobileTabBar) is a separate global element and was left intact - the
-mission scoped FIX 1 to the "global TOP navbar". Say the word to also fold it on /verse.
+## GATES
+tsc 0; next build PASS. Play outside /verse byte-identical. Nothing pushed.

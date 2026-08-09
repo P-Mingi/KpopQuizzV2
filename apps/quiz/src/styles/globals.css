@@ -6203,6 +6203,21 @@ main:has(.verse-page) { max-width: 1360px; }
   --world-accent: var(--v2-accent);
 }
 
+/* ITERATION 3 - two clean IN-FLOW states: the OPEN column and the COLLAPSED icon rail. Both
+   are always in the DOM; the fold just toggles which one shows and reflows the row (no overlay). */
+.v-side-open { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.v-side-rail { display: none; flex-direction: column; align-items: center; gap: 3px; }
+.v-railbtn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 9px; border: none; background: transparent; color: var(--v2-muted); cursor: pointer; flex-shrink: 0; padding: 0; text-decoration: none; transition: background 0.12s ease, color 0.12s ease; }
+.v-railbtn:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
+.v-railbtn.active { background: var(--v2-accent-soft); color: var(--v2-accent); }
+.v-railbtn svg { width: 18px; height: 18px; }
+.v-rail-logo { color: var(--v2-ink); }
+.v-rail-div { width: 22px; height: 1px; background: var(--v2-line); margin: 5px 0; flex-shrink: 0; }
+/* the rail ThemeToggle: strip the .theme-toggle base chrome down to a plain 40px icon button */
+.theme-toggle.v-rail-themebtn { width: 40px; height: 40px; min-width: 40px; border: none; background: transparent; color: var(--v2-muted); border-radius: 9px; padding: 0; }
+.theme-toggle.v-rail-themebtn:hover { background: var(--v2-wash); color: var(--v2-ink); border: none; }
+@media (prefers-reduced-motion: reduce) { .v-railbtn { transition: none; } }
+
 /* ITERATION 2 - the relocated GLOBAL chrome (real logo -> world/links -> search/theme/profile) */
 .v-side-top { display: flex; flex-direction: column; gap: 9px; padding: 4px 6px 12px; border-bottom: 1px solid var(--v2-line-soft); margin-bottom: 6px; }
 .v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; }
@@ -6260,73 +6275,27 @@ main:has(.verse-page) { max-width: 1360px; }
   .v-sidenav, .v-side-collapse-glyph, .v-side-chev { transition: none; }
 }
 
-/* The RAIL (icon-only) hide/center set - shared by the >=1200 collapse and the 560-1199
-   default. Scoped with :not(:hover) so hovering PEEKS the full sidebar back with zero extra
-   reversal rules. The global top-bar links collapse to their icons; the two text-only controls
-   (the Play world-door and the profile pill) hide in the rail and return on peek/open/drawer. */
+/* ITERATION 3 - the COLLAPSED appearance is a tidy IN-FLOW icon rail. The flex row simply
+   reflows (content shifts right); NOTHING floats over or covers the document. No hover-peek -
+   expanding is a deliberate click on the chevron. Applied when collapse is checked (>=1200) or
+   by default in the 768-1199 range. The rail markup (.v-side-rail) is uniform 40px icons. */
 @media (min-width: 1200px) {
-  #v-nav-collapse:checked ~ .v-navshell { gap: 0; padding-left: 78px; position: relative; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav { position: absolute; left: 0; top: 14px; flex: none; width: 66px; padding-left: 8px; padding-right: 8px; background: var(--v2-paper); z-index: 40; border: 1px solid transparent; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:hover { width: 250px; box-shadow: var(--v2-shadow); border-color: var(--v2-line); border-radius: 12px; padding: 6px 8px 18px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-collapse-glyph { transform: rotate(180deg); }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-logo-full,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .world-toggle,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .top-nav-link-label,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-action-lbl,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-profilewrap,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chip-tx,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-eyebrow,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-lbl,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chev,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-sub,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-divider,
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-toc-group { display: none; }
-  /* the world-door pill carries inline display, so !important is needed to fold it away */
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .world-toggle { display: none !important; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-logo-mark { display: inline-flex; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-brandrow { justify-content: center; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-primary { flex-direction: column; align-items: center; gap: 4px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-primary .top-nav-tabs { flex-direction: column; align-items: center; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-actions { flex-direction: column; align-items: center; gap: 4px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-action { padding: 8px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-chip { justify-content: center; padding: 8px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-quicklink { justify-content: center; padding: 8px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav:not(:hover) .v-side-row { justify-content: center; padding: 8px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-sidenav { flex-basis: 60px; width: 60px; padding: 8px 6px 16px; }
+  #v-nav-collapse:checked ~ .v-navshell .v-side-open { display: none; }
+  #v-nav-collapse:checked ~ .v-navshell .v-side-rail { display: flex; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .v-sidenav { flex-basis: 60px; width: 60px; padding: 8px 6px 16px; }
+  .v-side-open { display: none; }
+  .v-side-rail { display: flex; }
+  .v-rail-toggle { display: none; } /* statically collapsed in this range - no expand toggle */
 }
 
-/* ---- 560-1199: start as the icon rail (static; no manual toggle); same peek-on-hover. ---- */
-@media (min-width: 560px) and (max-width: 1199px) {
+/* ---- <768: off-canvas DRAWER - the OPEN column slides in over a scrim (a MOBILE overlay is
+        fine per the mission; the desktop states above never overlay). ---- */
+@media (max-width: 767px) {
   .v-side-collapse { display: none; }
-  .v-navshell { gap: 0; padding-left: 78px; position: relative; }
-  .v-sidenav { position: absolute; left: 0; top: 14px; flex: none; width: 66px; padding-left: 8px; padding-right: 8px; background: var(--v2-paper); z-index: 40; border: 1px solid transparent; }
-  .v-sidenav:hover { width: 250px; box-shadow: var(--v2-shadow); border-color: var(--v2-line); border-radius: 12px; padding: 6px 8px 18px; }
-  .v-sidenav:not(:hover) .v-side-logo-full,
-  .v-sidenav:not(:hover) .world-toggle,
-  .v-sidenav:not(:hover) .top-nav-link-label,
-  .v-sidenav:not(:hover) .v-side-action-lbl,
-  .v-sidenav:not(:hover) .v-side-profilewrap,
-  .v-sidenav:not(:hover) .v-side-chip-tx,
-  .v-sidenav:not(:hover) .v-side-eyebrow,
-  .v-sidenav:not(:hover) .v-side-lbl,
-  .v-sidenav:not(:hover) .v-side-chev,
-  .v-sidenav:not(:hover) .v-side-sub,
-  .v-sidenav:not(:hover) .v-side-divider,
-  .v-sidenav:not(:hover) .v-toc-group { display: none; }
-  .v-sidenav:not(:hover) .world-toggle { display: none !important; }
-  .v-sidenav:not(:hover) .v-side-logo-mark { display: inline-flex; }
-  .v-sidenav:not(:hover) .v-side-brandrow { justify-content: center; }
-  .v-sidenav:not(:hover) .v-side-primary { flex-direction: column; align-items: center; gap: 4px; }
-  .v-sidenav:not(:hover) .v-side-primary .top-nav-tabs { flex-direction: column; align-items: center; }
-  .v-sidenav:not(:hover) .v-side-actions { flex-direction: column; align-items: center; gap: 4px; }
-  .v-sidenav:not(:hover) .v-side-action { padding: 8px; }
-  .v-sidenav:not(:hover) .v-side-chip { justify-content: center; padding: 8px; }
-  .v-sidenav:not(:hover) .v-side-quicklink { justify-content: center; padding: 8px; }
-  .v-sidenav:not(:hover) .v-side-row { justify-content: center; padding: 8px; }
-}
-
-/* ---- <560: off-canvas DRAWER opened by the top-bar hamburger, with a scrim (full chrome) ---- */
-@media (max-width: 559px) {
-  .v-side-collapse { display: none; }
+  .v-side-rail { display: none; }
   .v-navtopbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 6px 2px; }
   .v-navtopbar-burger { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); font-size: 18px; cursor: pointer; }
   .v-navtopbar-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--v2-ink); }
@@ -6340,7 +6309,7 @@ main:has(.verse-page) { max-width: 1360px; }
   .v-nav-scrim { display: block; position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.42); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
   #v-nav-drawer:checked ~ .v-nav-scrim { opacity: 1; pointer-events: auto; }
 }
-@media (max-width: 559px) and (prefers-reduced-motion: reduce) {
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
   .v-sidenav, .v-nav-scrim { transition: none; }
 }
 
