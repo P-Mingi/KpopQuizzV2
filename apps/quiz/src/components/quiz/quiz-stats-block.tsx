@@ -119,6 +119,12 @@ export function QuizStatsBlock({
 
   if (cells.length === 0) return null;
 
+  // Hierarchy: the first cell (Plays - always present, the headline social-proof
+  // number) is featured as a hero; the rest read as a quiet secondary rail. This
+  // also keeps the layout balanced (no lone orphan cell wrapping to its own row).
+  const [hero, ...secondary] = cells;
+  if (!hero) return null;
+
   // Below the threshold, one honest line names the gate so the page still
   // says something true and unique-per-quiz (the plays count differs).
   // Uses the same playsDisplay as the cell above. The gate line is only
@@ -130,16 +136,22 @@ export function QuizStatsBlock({
     : null;
 
   return (
-    <section className="quiz-stats-block mt-6 max-w-2xl" aria-label="Quiz stats">
-      <ul className="quiz-stats-list">
-        {cells.map((cell) => (
-          <li key={cell.label} className="quiz-stats-cell">
-            <span className="quiz-stats-value">{cell.value}</span>
-            <span className="quiz-stats-label">{cell.label}</span>
-          </li>
-        ))}
-      </ul>
-      {gateLine && <p className="quiz-stats-gate">{gateLine}</p>}
+    <section className="qstats mt-6 max-w-2xl" aria-label="Quiz stats">
+      <p className="qstats-hero">
+        <span className="qstats-hero-num">{hero.value}</span>
+        <span className="qstats-hero-label">{hero.label.toLowerCase()}</span>
+      </p>
+      {secondary.length > 0 && (
+        <ul className="qstats-grid">
+          {secondary.map((cell) => (
+            <li key={cell.label} className="qstats-item">
+              <span className="qstats-num">{cell.value}</span>
+              <span className="qstats-label">{cell.label}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {gateLine && <p className="qstats-gate">{gateLine}</p>}
     </section>
   );
 }
