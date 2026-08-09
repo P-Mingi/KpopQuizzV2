@@ -2156,7 +2156,12 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   color: var(--text-tertiary);
   line-height: 1.3;
 }
-.quiz-stats-hint { color: var(--text-tertiary); font-style: italic; }
+.quiz-stats-gate {
+  margin: 0.85rem 0 0;
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
 
 /* ---------------------------------------------------------------------------
    SEO-3 Step 3 - inbound article links on /q/[slug] (equity to /articles/).

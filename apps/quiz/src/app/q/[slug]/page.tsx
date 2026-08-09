@@ -147,10 +147,19 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   // SEO-3 U2: dynamic intro with variation branches. Sentence STRUCTURE
   // changes with data availability so pages do not read identical.
-  const introAvg = quiz.total_completions > 0 && questionCount > 0
+  //
+  // R3: the plays TABLE is the source of truth. Use extra.totalPlaysWithScore
+  // when it is available; fall back to quiz.play_count (the counter row) when
+  // the extra query was skipped or degraded. The stats block quotes the same
+  // number, so the page reads consistently top to bottom.
+  const scoresUnlocked = quiz.total_completions >= 30;
+  const introAvg = scoresUnlocked && questionCount > 0
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
     : null;
-  const plays = quiz.play_count;
+  const plays =
+    extraStats.totalPlaysWithScore > 0
+      ? extraStats.totalPlaysWithScore
+      : quiz.play_count;
   const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
   let socialProof: string;
   if (plays === 0) {
@@ -160,15 +169,16 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     // Branch B: honest smallness - never fake community activity
     socialProof = `${plays.toLocaleString('en-US')} ${plays === 1 ? 'player has' : 'players have'} tried it so far.`;
   } else if (plays < 1000) {
-    // Branch C: standard social proof
+    // Branch C: standard social proof (avg is gated by threshold-30 above)
     socialProof = introAvg !== null
       ? `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. Think you can beat that?`
       : `${plays.toLocaleString('en-US')} fans have already tried it.`;
   } else {
-    // Branch D: popular quiz - vary the framing by difficulty of the crowd
+    // Branch D: popular quiz - vary the framing by score profile.
+    // R5: no editorial. State the perfect-count figure without judgement.
     const perfCount = extraStats.perfectScoreCount;
     if (perfCount > 0 && introAvg !== null && introAvg < 60) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and only ${perfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${perfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
     } else if (introAvg !== null) {
       socialProof = `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. See where you land.`;
     } else {
@@ -279,11 +289,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       )}
 
       {/* SEO-3 U1 - real per-quiz stats block. Crawlable numbers, threshold-30
-          respected on ranking-ish metrics. Renders nothing on zero-play quizzes. */}
+          gates ranking-ish metrics (hidden below 30 completions). Renders
+          nothing on zero-play quizzes. */}
       <QuizStatsBlock
         playCount={quiz.play_count}
         totalCompletions={quiz.total_completions}
-        questionCount={questionCount}
         avgScorePercent={introAvg}
         passRatePercent={passRate}
         likeCount={quiz.like_count ?? 0}

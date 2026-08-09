@@ -58,11 +58,11 @@ ALTERNATIVES CONSIDERED:
          just play once. The SEO value is real and the covenant holds
          (no fake data, no hidden text tricks).
 
-FLAG FOR OWNER (per mission): if you prefer a stricter anti-spoiler
-policy, the honest move is Alt 1 (hide options). That trades a real
-chunk of crawlable text for a stricter spoiler-free preview. Cowork
-recommends KEEPING the status quo; Alt 1 would materially hurt SEO-3's
-purpose.
+OWNER RULING (SEO-3b R1, 2026-08-09): CLOSED. Options stay VISIBLE
+in the served HTML; correct index stays OUT. Rationale as summarised
+in the mission: hiding options costs ~60% of the unique crawlable text
+and seeing four candidates does not reveal which one is right. No code
+change. This question is settled and not to be reopened.
 
 Verification receipt
 ====================

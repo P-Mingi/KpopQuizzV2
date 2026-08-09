@@ -59,10 +59,12 @@ export async function getPassRate(quizId: string, totalQuestions: number): Promi
  * Cookie-free so /q/[slug] stays ISR-cacheable.
  */
 export interface QuizExtraStats {
-  fastestTimeSeconds: number | null; // fastest COMPLETED play (any score)
+  // Fastest perfect run: MIN(time_taken_seconds) among plays where
+  // score === total_questions. Null when no perfect play has a recorded time.
+  fastestTimeSeconds: number | null;
   perfectScoreCount: number; // plays where score === total_questions
   passingPlays: number; // plays where score >= 0.7 * total_questions
-  totalPlaysWithScore: number; // plays rows for this quiz
+  totalPlaysWithScore: number; // plays rows for this quiz (source of truth)
 }
 
 export async function getQuizExtraStats(
@@ -73,8 +75,10 @@ export async function getQuizExtraStats(
 
   const passingScore = Math.ceil(totalQuestions * 0.7);
 
-  // Fastest COMPLETED play: any play that reached total_questions with a
-  // non-null time. This is real: it comes from plays.time_taken_seconds.
+  // Fastest perfect play: score === total_questions with a non-null time,
+  // ordered ascending. Real value from plays.time_taken_seconds; the count
+  // and pass queries below mirror getPassRate's throw-on-error policy so
+  // a broken sub-query surfaces via safeFetch instead of silently reading 0.
   const [fastest, perfect, passing, total] = await Promise.all([
     supabase
       .from('plays')
@@ -100,6 +104,11 @@ export async function getQuizExtraStats(
       .select('*', { count: 'exact', head: true })
       .eq('quiz_id', quizId),
   ]);
+
+  if (fastest.error) throw new Error(`Failed to get fastest perfect: ${fastest.error.message}`);
+  if (perfect.error) throw new Error(`Failed to get perfect count: ${perfect.error.message}`);
+  if (passing.error) throw new Error(`Failed to get passing count: ${passing.error.message}`);
+  if (total.error) throw new Error(`Failed to get total plays count: ${total.error.message}`);
 
   const fastestRow = fastest.data as { time_taken_seconds: number | null } | null;
 

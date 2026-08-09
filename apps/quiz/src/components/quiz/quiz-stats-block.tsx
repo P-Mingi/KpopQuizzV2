@@ -1,22 +1,26 @@
+import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
+
 import type { QuizExtraStats } from '@/lib/db/queries/plays';
 
 /**
  * SEO-3 U1: real per-quiz stats block. Server-rendered, crawlable, cookie-free.
- * Follows the threshold-30 law for leaderboard-ish metrics (avg score, pass rate,
- * fastest time) - shows honest smallness under 30 completions.
+ *
+ * Threshold-30 law (per RANKING_UNLOCK_VOTES): ranking-ish metrics
+ * (average score, pass rate, fastest perfect time) are HIDDEN below the
+ * threshold - not captioned. Plain counts (plays, completions, perfect
+ * scores, likes) are always safe to render since they are counts, not
+ * rankings. Under the threshold, a single honest gate line names the
+ * remaining count needed.
  */
 
 interface QuizStatsBlockProps {
   playCount: number;
   totalCompletions: number;
-  questionCount: number;
   avgScorePercent: number | null; // null when totalCompletions === 0
   passRatePercent: number | null; // null when we haven't computed (0 plays)
   likeCount: number;
   extra: QuizExtraStats;
 }
-
-const RANKING_UNLOCK = 30;
 
 function formatDuration(seconds: number): string {
   if (seconds < 60) return `${seconds}s`;
@@ -28,7 +32,6 @@ function formatDuration(seconds: number): string {
 export function QuizStatsBlock({
   playCount,
   totalCompletions,
-  questionCount: _questionCount,
   avgScorePercent,
   passRatePercent,
   likeCount,
@@ -37,35 +40,23 @@ export function QuizStatsBlock({
   // Nothing to show at all yet: skip the whole block (honest emptiness).
   if (playCount === 0 && likeCount === 0) return null;
 
-  const completionsSufficient = totalCompletions >= RANKING_UNLOCK;
-  const cells: Array<{ label: string; value: string; hint?: string }> = [];
+  const scoresUnlocked = totalCompletions >= RANKING_UNLOCK_VOTES;
+  const cells: Array<{ label: string; value: string }> = [];
 
-  // Play count is always shown - it's a count, not a ranking.
+  // Plain counts - always safe (counts, not rankings). Use plays-table
+  // count when available (R3: single source of truth) and fall back to
+  // the counter row otherwise.
+  const playsDisplay =
+    extra.totalPlaysWithScore > 0 ? extra.totalPlaysWithScore : playCount;
   cells.push({
     label: 'Plays',
-    value: playCount.toLocaleString('en-US'),
+    value: playsDisplay.toLocaleString('en-US'),
   });
 
   if (totalCompletions > 0) {
     cells.push({
       label: 'Completions',
       value: totalCompletions.toLocaleString('en-US'),
-    });
-  }
-
-  if (avgScorePercent !== null) {
-    cells.push({
-      label: 'Average score',
-      value: `${avgScorePercent}%`,
-      hint: completionsSufficient ? undefined : 'early results',
-    });
-  }
-
-  if (passRatePercent !== null && extra.totalPlaysWithScore > 0) {
-    cells.push({
-      label: 'Pass rate',
-      value: `${passRatePercent}%`,
-      hint: completionsSufficient ? undefined : 'early results',
     });
   }
 
@@ -76,14 +67,6 @@ export function QuizStatsBlock({
     });
   }
 
-  if (extra.fastestTimeSeconds !== null) {
-    cells.push({
-      label: 'Fastest perfect',
-      value: formatDuration(extra.fastestTimeSeconds),
-      hint: completionsSufficient ? undefined : 'early results',
-    });
-  }
-
   if (likeCount > 0) {
     cells.push({
       label: likeCount === 1 ? 'Like' : 'Likes',
@@ -91,7 +74,30 @@ export function QuizStatsBlock({
     });
   }
 
+  // Ranking-ish metrics - only rendered once the threshold is cleared. No
+  // caption, no hint: the value stands on its own.
+  if (scoresUnlocked) {
+    if (avgScorePercent !== null) {
+      cells.push({ label: 'Average score', value: `${avgScorePercent}%` });
+    }
+    if (passRatePercent !== null && extra.totalPlaysWithScore > 0) {
+      cells.push({ label: 'Pass rate', value: `${passRatePercent}%` });
+    }
+    if (extra.fastestTimeSeconds !== null) {
+      cells.push({
+        label: 'Fastest perfect',
+        value: formatDuration(extra.fastestTimeSeconds),
+      });
+    }
+  }
+
   if (cells.length === 0) return null;
+
+  // Below the threshold, one honest line names the gate so the page still
+  // says something true and unique-per-quiz (the completion count differs).
+  const gateLine = !scoresUnlocked
+    ? `Scores unlock at ${RANKING_UNLOCK_VOTES} completions (${totalCompletions.toLocaleString('en-US')} so far).`
+    : null;
 
   return (
     <section className="quiz-stats-block mt-6 max-w-2xl" aria-label="Quiz stats">
@@ -99,13 +105,11 @@ export function QuizStatsBlock({
         {cells.map((cell) => (
           <li key={cell.label} className="quiz-stats-cell">
             <span className="quiz-stats-value">{cell.value}</span>
-            <span className="quiz-stats-label">
-              {cell.label}
-              {cell.hint && <span className="quiz-stats-hint"> · {cell.hint}</span>}
-            </span>
+            <span className="quiz-stats-label">{cell.label}</span>
           </li>
         ))}
       </ul>
+      {gateLine && <p className="quiz-stats-gate">{gateLine}</p>}
     </section>
   );
 }
