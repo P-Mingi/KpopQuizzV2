@@ -1,39 +1,40 @@
-# REPORT - SEO-4 (O3): the inline "Did you know?" card
+# REPORT - SEO-5: cron reconcile + entity-level did-you-know
 
-Shipped on the play-seo worktree (branch play-seo). One real fact on the quiz page
-itself, distinct + stable per quiz, in the page's EXISTING design language. No restyle,
-no new route, no schema. Committed, NOT pushed.
+Two small adds on the play-seo worktree (branch play-seo). No schema (migrations 149 +
+150 already applied by Cowork; this only READS the trivia table / CALLS the reconcile
+function). Committed, NOT pushed.
 
-## THE ADD
-1. DATA: reuses the existing verified pool - getOverriddenFacts(quiz.group_id,
-   quiz.group_slug) (lib/trivia/facts.ts), React-cache()'d so it dedupes with the
-   hasTriviaPage() gate in the same request. No new source, no invented facts.
-2. PICK (pure, deterministic): lib/trivia/pick-fact.ts - stableHash (FNV-1a) +
-   stableIndex(quiz.id, n) = hash % n. NO Math.random, NO Date, so the ISR-cached page
-   is stable and two quizzes of the same group land on different facts.
-3. RENDER: an <aside class="quiz-dyk"> right ABOVE the existing .trivia-entry link, in
-   the same surface language (surface card, 14px radius, brand-light icon chip). Category
-   as a brand-tinted eyebrow, the fact as the body. No heading (one-H1 kept).
-4. HONEST EMPTINESS: 0 facts -> nothing. >=1 fact -> the card shows (it needs only one),
-   even when the >=12 trivia-PAGE gate is not met.
+## PART A - the plays-counter reconcile CRON route
+- NEW apps/quiz/src/app/api/cron/plays-counter-reconcile/route.ts, modelled EXACTLY on
+  duel-reconcile: same `export const dynamic = 'force-dynamic'`, the SAME auth guard
+  (x-vercel-cron header OR Bearer CRON_SECRET, 401 otherwise), createServiceRoleClient.
+  Body: `supabase.rpc('reconcile_quiz_counters')` -> returns `{ fixed: <n> }`, logs the count.
+- vercel.json: added the cron `{ "/api/cron/plays-counter-reconcile", "15 4 * * *" }` (04:15,
+  clear of the 3:00 / 3:30 / 4:00 / 5:00 jobs).
+- NO-OP SAFETY NET: reconcile_quiz_counters() returns 0 today (verified live) - Cowork's
+  migration-150 trigger keeps counters in sync; the nightly run self-heals future drift only.
+- Receipt: docs/proofs/play-seo/seo5-cron/receipt.txt (route + vercel diff + the auth guard
+  quoted next to duel-reconcile's + the rpc=0 note).
 
-## RECEIPTS (docs/proofs/play-seo/seo4-dyk/)
-- hash-distinctness.txt: group BTS, 27 quizzes, 98-fact pool. The first 3 quiz ids map to
-  indices [12, 69, 52] = 3 DISTINCT facts; determinism PASS; DISTINCT-3 + DETERMINISTIC PASS.
-- placement-and-css.txt: where the card renders + the .quiz-dyk class reusing only
-  --surface / --border / --brand / --brand-light / --txt1 (no new colours, no new font).
+## PART B - did-you-know reads the stored trivia table too (O1 -> O3 enrichment)
+- NEW lib/trivia/stored-facts.ts: getStoredGroupTrivia(groupId) -> published rows from the
+  `trivia` table (migration 149), mapped to the SAME TriviaFact shape (category clamped to the
+  enum, else 'fun'; source fields ''). cache()'d + fail-closed ([] on error).
+- q/[slug]/page.tsx: the did-you-know pool is now DERIVED facts CONCAT STORED facts, deduped by
+  the shared normalizeFactKey (derived wins on a tie), THEN the existing stableIndex(quiz.id,
+  pool.length) pick. One fact, still distinct + stable per quiz, now possibly entity-level.
+- Covenant + honest emptiness unchanged; card CSS + placement untouched (SEO-4 accepted as-is).
+- Receipt: docs/proofs/play-seo/seo5-dyk/merged-pool.txt. BTS: derived 98 + stored 14 (all 14
+  NEW, 0 dupes) = merged pool 112. 3 quiz ids -> indices [110, 55, 38] = 3 distinct; and a
+  stored entity-level fact ("V, born Kim Taehyung...") now surfaces on a quiz page.
 
-## GATES (worktree; deps symlinked from main to run them, then removed)
+## GATES (worktree; deps symlinked from main, then removed)
 - tsc --noEmit: EXIT 0.
-- full build (check:routes + check:verse-tokens + next build): EXIT 0; check:routes pass;
-  "Verse token gate passed: no raw hex colors in Verse surfaces."; "Compiled successfully".
-  (Unlike SEO-1..3c, the full build DID run here - deps symlinked from main's node_modules.)
+- full build (check:routes + check:verse-tokens + next build): EXIT 0. check:routes PASS
+  (352 page routes; the new API cron route compiled: `ƒ /api/cron/plays-counter-reconcile`).
+  verse-tokens pass. "Compiled successfully".
 - em-dash / en-dash scan on the changed files: clean.
 
-## OUT OF SCOPE (untouched, per the mission)
-- The entity-level trivia table (migration 149) enrichment - a later slice.
-- No restyle of the quiz page; getPassRate / stats / JSON-LD untouched.
-
 ## STOP
-SEO-4 complete on play-seo. Committed, nothing pushed. NOT part of the play-seo -> main
-merge that just shipped (that carried SEO-1..3c only); this slice awaits a future integration.
+SEO-5 complete on play-seo. Committed, nothing pushed. Awaits a future integration (like SEO-4,
+it is NOT part of the play-seo -> main merge that already shipped SEO-1..3c).

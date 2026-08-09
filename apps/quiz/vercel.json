@@ -10,6 +10,10 @@
       "schedule": "0 3 * * *"
     },
     {
+      "path": "/api/cron/plays-counter-reconcile",
+      "schedule": "15 4 * * *"
+    },
+    {
       "path": "/api/cron/prune-activity",
       "schedule": "30 3 * * *"
     },
