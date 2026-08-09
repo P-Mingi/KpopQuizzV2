@@ -1,0 +1,15 @@
+SEO-4 O3 - the Did-you-know card: hash-distinctness proof (group BTS)
+BTS published quizzes: 27 ; override-verified fact pool: 98
+
+quiz 4ba8f255-2401-4220-8559-9a33c9ec1759  hash=2705951022  -> fact[12]: The Astronaut was released in October 2022, shortly before Jin beg
+quiz 777c9747-9c4d-4ec5-9022-43d674963cfd  hash=2335386423  -> fact[69]: Dynamite was BTS's first fully English-language song and had a vib
+quiz 8cadc674-a65a-4277-a8b4-d33051d09ef9  hash=3673366294  -> fact[52]: RM (Kim Namjoon) has been the leader since debut. He was the first
+quiz 08d264da-da1f-46e7-8c1a-0b4df73cfc5c  hash=2959525669  -> fact[51]: BTS has 7 members: RM, Jin, Suga, J-Hope, Jimin, V, and Jungkook.
+quiz 91cf0bf3-518a-431c-a15d-6408907d57ee  hash=1752299890  -> fact[12]: The Astronaut was released in October 2022, shortly before Jin beg
+quiz 7227a6b0-23d5-464e-b0da-056d57d6912c  hash=601346258  -> fact[30]: BANG BANG CON streamed past concert footage for free. They also he
+
+first 3 quiz ids -> indices [12, 69, 52] ; distinct = 3/3
+determinism (same key -> same index across calls): PASS
+no Math.random / no Date used in stableHash/stableIndex (pure).
+
+DISTINCT-3 + DETERMINISTIC: PASS

@@ -7,6 +7,10 @@ import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/que
 import { getQuizExtraStats } from '@/lib/db/queries/plays';
 import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { getOverriddenFacts } from '@/lib/trivia/facts';
+import { getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
+import { normalizeFactKey } from '@/lib/trivia/fact-key';
+import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
@@ -243,6 +247,25 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     '[q/[slug]] hasTriviaPage',
   );
 
+  // SEO-4 (O3) + SEO-5 (B): ONE real fact, distinct + stable per quiz, for the inline
+  // "Did you know?" card. The pool merges the DERIVED group fun-facts (getOverriddenFacts,
+  // React-cache()'d so it dedupes with hasTriviaPage above) with the entity-level STORED
+  // trivia (migration 149, sourced + covenant-checked), deduped by the shared fact key
+  // (derived wins on a tie). One fact is then picked stably; 0 in both -> nothing.
+  const [derivedFacts, storedFacts] = await Promise.all([
+    safeFetch(getOverriddenFacts(quiz.group_id, quiz.group_slug), [], '[q/[slug]] dykFacts'),
+    safeFetch(getStoredGroupTrivia(quiz.group_id), [], '[q/[slug]] storedTrivia'),
+  ]);
+  const dykPool: typeof derivedFacts = [];
+  const seenFactKeys = new Set<string>();
+  for (const f of [...derivedFacts, ...storedFacts]) {
+    const key = normalizeFactKey(f.fact);
+    if (seenFactKeys.has(key)) continue;
+    seenFactKeys.add(key);
+    dykPool.push(f);
+  }
+  const dykFact = dykPool.length ? dykPool[stableIndex(quiz.id, dykPool.length)] : null;
+
   // M1.19 - per-quiz hall of fame (top scorers), ISR-baked + crawlable.
   const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
 
@@ -328,6 +351,24 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
       <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} />
+
+      {/* SEO-4 (O3) - inline "Did you know?" card: ONE real fact, distinct per quiz.
+          Shows a taste on the page itself; the trivia-entry below links to the full
+          page. Honest emptiness: no fact -> nothing. */}
+      {dykFact && (
+        <aside className="quiz-dyk mt-6 max-w-2xl" aria-label="Did you know?">
+          <span className="quiz-dyk-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 1.5a5 5 0 00-3 9v1.75c0 .41.34.75.75.75h4.5c.41 0 .75-.34.75-.75V10.5a5 5 0 00-3-9z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+              <path d="M7 15.5h4M7.5 17h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+            </svg>
+          </span>
+          <div className="quiz-dyk-body">
+            <span className="quiz-dyk-eyebrow">Did you know{dykFact.category ? ` · ${dykFact.category}` : ''}</span>
+            <p className="quiz-dyk-fact">{dykFact.fact}</p>
+          </div>
+        </aside>
+      )}
 
       {/* J3 - entry point: learn the group's trivia before playing (conditional). */}
       {triviaAvailable && (

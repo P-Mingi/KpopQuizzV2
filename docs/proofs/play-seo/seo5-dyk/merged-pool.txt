@@ -1,0 +1,14 @@
+SEO-5 B - did-you-know MERGED pool (group BTS)
+derived (group fun_facts): 98
+stored (trivia table, published): 14
+stored facts NEW to the pool (not dupes of derived): 14
+merged pool (deduped by normalizeFactKey): 112  [dupes removed: 0]
+
+quiz 4ba8f255-2401-4220-8559-9a33c9ec1759 -> pool[110]: V, born Kim Taehyung on December 30, 1995, is a vocalist in BT
+quiz 777c9747-9c4d-4ec5-9022-43d674963cfd -> pool[55]: BTS debuted with the single No More Dream, from their first EP
+quiz 8cadc674-a65a-4277-a8b4-d33051d09ef9 -> pool[38]: ARIRANG features production from Diplo, Ryan Tedder (OneRepubl
+
+3 quiz ids -> indices [110, 55, 38] ; distinct = 3/3
+entity-level stored facts are now reachable in the pool: YES
+
+RESULT: PASS

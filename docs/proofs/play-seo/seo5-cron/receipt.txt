@@ -1,0 +1,31 @@
+SEO-5 A - the plays-counter reconcile CRON route.
+
+NEW ROUTE: apps/quiz/src/app/api/cron/plays-counter-reconcile/route.ts
+  export const dynamic = 'force-dynamic';
+  GET(req): auth guard (below) -> createServiceRoleClient()
+    -> supabase.rpc('reconcile_quiz_counters')
+    -> on error: NextResponse.json({ error }, { status: 500 })
+    -> fixed = number(data ?? 0); console.log(...); return NextResponse.json({ fixed })
+
+AUTH GUARD - copied EXACTLY from duel-reconcile (no new scheme):
+  new route (plays-counter-reconcile):
+    const cronSecret = process.env.CRON_SECRET;
+    const isVercelCron = req.headers.get('x-vercel-cron') === '1';
+    const authHeader = req.headers.get('authorization');
+    const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
+    if (!isVercelCron && !isManualAuth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  duel-reconcile (the template) - IDENTICAL four lines + the same 401 guard.
+
+vercel.json CRON added (apps/quiz/vercel.json), 04:15 so it does not collide with the
+3:00 / 3:30 / 4:00 / 5:00 jobs already present:
+    {
+      "path": "/api/cron/plays-counter-reconcile",
+      "schedule": "15 4 * * *"
+    }
+
+NO-OP SAFETY NET: reconcile_quiz_counters() returns 0 today (Cowork verified the counters
+are already in full sync via migration 150's trigger). Verified live: rpc('reconcile_quiz_counters')
+-> 0. The nightly run is a safety net that self-heals any future drift; it does not change
+data while things are in sync.
+
+NO SCHEMA: migration 150 (trigger + function) was applied by Cowork; this route only CALLS it.
