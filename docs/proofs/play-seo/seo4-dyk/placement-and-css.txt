@@ -1,0 +1,30 @@
+SEO-4 (O3) - the inline "Did you know?" card: placement + CSS.
+
+WHERE IT RENDERS
+- apps/quiz/src/app/q/[slug]/page.tsx. Fetched next to the existing trivia gate:
+    const dykFacts = await safeFetch(getOverriddenFacts(quiz.group_id, quiz.group_slug), [], ...)
+    const dykFact = dykFacts.length ? dykFacts[stableIndex(quiz.id, dykFacts.length)] : null
+  getOverriddenFacts is React-cache()'d, so it dedupes with the hasTriviaPage() call
+  in the SAME request (no extra DB read).
+- Rendered as `<aside className="quiz-dyk">` placed RIGHT ABOVE the existing
+  `{triviaAvailable && (<Link className="trivia-entry" .../>)}` block: the card shows a
+  taste on the page itself, the trivia-entry links to the full /[group]-trivia page.
+- INDEPENDENT gates: the card shows whenever the pool has >=1 fact (it needs only one);
+  the trivia-entry link still needs the >=12 page gate (triviaAvailable). 0 facts ->
+  the card renders NOTHING (honest emptiness). No new route added.
+- No <h1>/heading introduced (one-H1 law): the card is an <aside> with a <span> eyebrow
+  (the fact category, brand-tinted) + a <p> body (the fact).
+
+THE HELPER (pure, deterministic - no Math.random, no Date)
+- apps/quiz/src/lib/trivia/pick-fact.ts: stableHash (FNV-1a) + stableIndex(key, n) =
+  stableHash(key) % n. The ISR-cached page renders the SAME fact every build; two
+  different quizzes of a group land on different facts (proof: hash-distinctness.txt).
+
+THE CSS (globals.css, next to .trivia-entry) - SAME tokens, no new colours/font
+  .quiz-dyk        surface card: var(--surface) + 1px var(--border) + 14px radius (mirrors
+                   .trivia-entry, but static: not a link, no hover lift).
+  .quiz-dyk-icon   36x36 brand-light chip: background var(--brand-light), color var(--brand)
+                   (identical to .trivia-entry-icon).
+  .quiz-dyk-eyebrow small brand-tinted label: color var(--brand).
+  .quiz-dyk-fact   body: color var(--txt1), DM Sans (inherited). reduced-motion: n/a (no motion).
+  Tokens used: --surface, --border, --brand, --brand-light, --txt1. NO new colours, NO new font.
