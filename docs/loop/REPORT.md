@@ -1,52 +1,50 @@
-# REPORT - iteration 5: full-bleed home + tighter sidebar top block + bigger accordion toggles
+# REPORT - iteration 6 PART A: the SHELL (grey/white separation + light top block + full-bleed)
 
-Three owner-flagged nav/layout fixes. Scoped to /verse; Play untouched. tsc 0; next build green.
-Kept everything that works (in-flow sidebar, real logo, collapsible accordions, editorial center).
-Nothing pushed.
+PART A of the validated Verse design system. Scoped to /verse; Play untouched. tsc 0; next build
+green. Built from the mission's detailed spec (the verse-sidebar-v2.html prototype is not in the
+repo - exact tokens/behaviours were given; owner: flag any deviation from the prototype). Nothing
+pushed. PARTS B (index redesign) and C (per-type templates) are the next steps.
 
-## FIX 1 - FULL WIDTH (edge to edge)
-The home was centered in a capped column, so the global cream --bg showed as gutters on both
-sides. Now the home is FULL-BLEED white: dropped the 1360 cap and the shell's horizontal padding
-on the home so the white ground (--v2-paper) reaches BOTH viewport edges - sidebar flush at x=0,
-main to the right edge, the 1120 reading cluster still centered in main.
-- CSS (globals.css), desktop only (the mobile drawer keeps its padding):
-  `main:has(.vh2-home){max-width:none;padding-inline:0}` + `.verse-page:has(.vh2-home){padding-inline:0}`.
-- PROOF at 1720px: verse-page left=0, right=1720, background=rgb(255,255,255), main max-width=none.
-  No cream anywhere (see fullbleed-1720.png).
-- SCOPE: scoped to the home via :has(.vh2-home). Sub-pages keep their current padded layout and
-  ground on purpose - extending full-bleed white to every editorial sub-page (indexes, grids,
-  member pages) is unverified and would risk regressing them. Say the word to extend it once those
-  layouts are checked; the global cream --bg is never reintroduced on the home.
+## A1 - SEPARATION: recessed grey nav vs white content
+- New token pair on .verse-v2 (light: --v2-nav #F7F7F7 / --v2-content #FFFFFF / --v2-raised #FFFFFF;
+  dark: --v2-nav #161616 / --v2-content #1E1E1E / --v2-raised #262626). Never cream.
+- The sidebar is now a full-height RECESSED grey panel (.v-sidenav: background --v2-nav, 1px right
+  border) with a sticky inner (.v-sidenav-inner) that scrolls. The content beside it is the white
+  canvas (--v2-content). Verified full-height (grey extends past the fold) on open + rail.
+- Raised elements inside the grey nav are white with a hairline + tiny shadow so they read lifted:
+  the search field, the space chip, nav row hover/active (a white pill), and the rail buttons.
+  Applies to BOTH the open sidebar AND the collapsed 60px icon rail.
 
-## FIX 2 - the top block is now ONE tight structured stack
-Even 2px vertical rhythm, every control full-width to the same left edge, one type scale, no stray
-pills (globals.css .v-side-top and friends):
-- Row 1: real logo (left) + collapse chevron (right).
-- Play: the pink CTA, full-width, the clear primary action (kept).
-- Fandoms + Community: two equal .v-side-row nav rows (icon + label), identical to Space home /
-  Browse / Members.
-- Utility row: Search as a full-width soft FIELD with the theme toggle as a compact 40px square on
-  its right - one aligned row (.v-side-searchrow), not two stray pills.
-- Sign in / profile: one clean full-width control, same width as Play, soft-filled and centered
-  (the reused TopNavProfile's inline pill chrome is overridden) - no mismatched outline pill.
-- Then the divider and the BTS space chip.
+## A2 - TOP BLOCK de-cluttered to ONE primary CTA
+- Play stays the filled pink pill (full-width, the only primary CTA).
+- Fandoms + Community are light transparent nav rows (icon + label); hover = a lifted white pill.
+- Search is a raised white field with the theme toggle as a 40px white square on its right (one row).
+- Sign in / profile is a QUIET GHOST (outline) control, secondary to Play (no heavy grey fill).
+- Even spacing, one type scale (unchanged from iteration 5's rhythm, now on the grey ground).
 
-## FIX 3 - the accordion toggles are bigger and easier to hit
-The whole parent row was already the toggle (the <summary> is the full-width .v-side-row); made it
-obvious: comfortable 40px min-height rows and a clearer 15px SVG chevron on the right with better
-contrast (--v2-muted, ink on hover) that rotates 180deg on open. Reduced-motion still honoured.
-Verified: /verse/bts/discography-index auto-opens Music with the rotated chevron and Discography
-active; the home shows every section collapsed with the larger down-chevrons.
+## A3 - FULL-BLEED on ALL verse pages
+- Dropped the 1360 max-width cap and the shell's horizontal padding for every verse page (desktop;
+  mobile drawer keeps its padding). The app row fills the viewport: grey nav flush at x=0, white
+  content to the right edge. The reading cluster inside content is capped ~1120 and centered
+  (.v-navmain > .mt-6). Every verse surface is white (content) / neutral-grey (nav) - no cream.
+- .verse-page.verse-scope now paints --v2-content (white) on ALL verse pages, not just the home.
+
+## VERIFY A (docs/proofs/v3nav-iter6a/)
+- home-open-light.png / home-open-dark.png : grey nav vs white content, raised elements, light top block.
+- home-rail-light.png                      : the collapsed grey icon rail (separation preserved).
+- index-open-light.png                     : Discography index - full-bleed, grey/white, Music auto-open.
+- member-open-light.png / member-open-dark : Jungkook - the 3-col member layout on the new shell, both themes.
+All show the grey/white separation, no cream, full-bleed, the light top block; light + dark both correct.
 
 ## FILES
-- apps/quiz/src/styles/globals.css                       (full-bleed home; top-block reformat; chevron/row)
-- apps/quiz/src/components/verse/tree/side-nav-rows.tsx   (SVG chevron in the accordion summary)
-
-## SCREENSHOTS (docs/proofs/v3nav-iter5/)
-- fullbleed-1720.png            : full-bleed white home at 1720px (no cream gutters, sidebar flush-left).
-- open-accordion-collapsed.png  : the restructured top block; NAVIGATE collapsed by default.
-- open-accordion-expanded.png   : a Music sub-page - Music expanded (rotated chevron), Discography active.
-- icon-rail.png                 : the 60px in-flow uniform icon rail (unchanged).
+- apps/quiz/src/styles/globals.css                     (token pair; grey nav panel; raised elements; full-bleed)
+- apps/quiz/src/components/verse/tree/side-nav.tsx      (the .v-sidenav-inner sticky wrapper)
 
 ## GATES
 tsc 0; next build PASS. Play outside /verse byte-identical. Real logo only. Nothing pushed.
+
+## NEXT
+PART B: redesign the auto-list index pages (intro line + rich hover cards) from
+verse-child-templates.html. PART C: per-type page templates (release tracklist, era cover grid +
+prev/next, award table shell, BU violet accent). I will need verse-child-templates.html for B/C to
+match exactly - it is not in the repo; requesting it from Cowork / the owner before building those.

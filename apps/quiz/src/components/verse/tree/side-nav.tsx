@@ -23,6 +23,8 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel }: {
 }): React.ReactElement {
   return (
     <aside className="v-sidenav" aria-label={`${spaceName} navigation`}>
+      {/* the grey nav panel is full-height (.v-sidenav); this inner wrapper sticks + scrolls. */}
+      <div className="v-sidenav-inner">
       {/* COLLAPSED: a uniform 40px icon column (iteration 3). */}
       <div className="v-side-rail">
         <label htmlFor="v-nav-collapse" className="v-railbtn v-rail-toggle" title="Expand sidebar" aria-label="Expand the sidebar">
@@ -95,6 +97,7 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel }: {
 
         <div className="v-side-divider" />
         <VerseTocSpy />
+      </div>
       </div>
     </aside>
   );
