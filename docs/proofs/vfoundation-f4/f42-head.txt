@@ -1,0 +1,35 @@
+V-FOUNDATION F4.2 - the home v2 PAGE HEAD, on the real BTS portal.
+
+WHAT SHIPPED
+- components/verse/tree/home-head.tsx (VerseHomeHead, server): cover band (soft
+  gradient default, owner-approved; the "via the moderated image rail" tag names
+  where a real cover comes from), overlapping page icon (group initial in Fraunces),
+  eyebrow, the page's ONE H1 (group name), lede, two pill actions. Every value from
+  real group data (covenant), nothing invented.
+- .vh2-* CSS on the v2 tokens; the home suppresses the shared space hero + section
+  tabs via `.verse-page:has(.vh2-home) .verse-hero/.verse-tabs { display:none }`.
+- verse/[slug]/page.tsx renders the head above the body; the old sr-only h1 is gone
+  (the head carries the h1); #vh2-body anchors the "Explore" pill.
+
+LIVE PROOF (/verse/bts, computed in the browser)
+  h1 count = 1  -> ["BTS"]              (exactly one H1, the group name)
+  eyebrow   = "Home of ARMY · 3rd generation · since 2013"  (fandom_name / generation / inception year)
+  lede      = "Welcome to the home of ARMY. Everything BTS, built by fans."  (verse_spaces.welcome_line)
+  actions   = ["Explore the space", "Play a BTS quiz"]
+  .verse-hero display = none ; .verse-tabs display = none   (shared chrome suppressed on the home)
+  screenshots: home-head-light.png, home-head-dark.png (both clean: Fraunces H1,
+  Spline Mono eyebrow, cover gradient + tag, overlapping B icon, two pills).
+
+FLAGS / DEFERRED
+1. GROUP HANGUL subtitle: the groups table has no hangul/romanization field, so the
+   subtitle is OMITTED (honest emptiness, never invented). It needs a real source
+   (a verse_spaces/config field the owner sets, or a groups column) -> FLAGGED for Cowork.
+2. "Play a {name} quiz" links to /quizzes for now; the real per-group quiz target +
+   up to 3 quiz links land in F4.3 (the Play rail widget).
+3. The body under the head is still the EXISTING composition (v2-tokenized), incl. its
+   ad-hoc "In numbers" block. The two-column doc + data rail restructure (which
+   replaces that with the F4.3 widgets) is F4.3-F4.5.
+4. Cover is a contained rounded band (spans the content width); full-viewport bleed
+   is F4.5 polish.
+
+GATES: tsc 0. verse-tokens: pass. em-dash: clean.

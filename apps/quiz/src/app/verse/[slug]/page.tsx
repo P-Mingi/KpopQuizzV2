@@ -6,6 +6,7 @@ import { presentationToComposition } from '@/lib/verse/composition/convert';
 import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
 import { getPortalComposition } from '@/lib/verse/tree/portal';
+import { VerseHomeHead } from '@/components/verse/tree/home-head';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -29,23 +30,24 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
   const composition = portalComposition ?? presentationToComposition(space.presentation);
 
   return (
-    <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
-      {/* V-POLISH-2 A1: the page's ONE h1. The hero wordmark is a styled <p>
-          (chrome, repeated on every sub-page); the home carries the real
-          heading for crawlers and screen readers. */}
-      <h1 className="sr-only">{space.group.fandom_name}, home of {space.group.name} fans</h1>
+    <>
       {jsonLdScript(musicGroupLd({
         name: space.group.name, slug: space.group.slug, fandom_name: space.group.fandom_name,
         inception_date: space.group.inception_date, official_website: space.group.official_website,
         record_label: space.group.record_label, memberNames: space.idols.map((i) => i.name),
       }))}
-      <div className="lg:col-span-3 mb-6">
-        <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+      {/* V-FOUNDATION F4.2: the home v2 page head carries the page's ONE h1 (the group
+          name); the shared space hero + tabs are suppressed for the home. */}
+      <VerseHomeHead space={space} />
+      <div id="vh2-body" className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
+        <div className="lg:col-span-3 mb-6">
+          <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+        </div>
+        {/* V-BUILDER-1 step 3: the home body still renders THROUGH the unified
+            Composition (presentation -> composition -> the one renderer). The v2
+            two-column doc + data rail restructure is F4.3-F4.5. */}
+        <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
       </div>
-      {/* V-BUILDER-1 step 3: the home now renders THROUGH the unified Composition
-          (presentation -> composition -> the one renderer). Byte-identical to before
-          (the converter is lossless; proven on bts/stray-kids/ateez). */}
-      <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
-    </div>
+    </>
   );
 }

@@ -5838,6 +5838,62 @@ main:has(.verse-page) { max-width: 1360px; }
   }
 }
 
+/* ==========================================================================
+   V-FOUNDATION F4.2 - the home v2 PAGE HEAD (cover band + Notion-style opening).
+   Rendered only on the portal home; the shared space hero + tabs are suppressed
+   for the home (below). Uses the v2 tokens from the .verse-v2 scope.
+   ========================================================================== */
+/* the home owns its head, so hide the shared space hero + section tabs on it */
+.verse-page:has(.vh2-home) .verse-hero,
+.verse-page:has(.vh2-home) .verse-tabs { display: none; }
+
+.vh2-cover {
+  height: 200px; position: relative; overflow: hidden; border-radius: var(--v2-r-lg);
+  margin: 0 -1rem 0; border: 1px solid var(--v2-line-soft);
+  background:
+    radial-gradient(700px 320px at 18% 120%, var(--v2-accent-soft), transparent 70%),
+    radial-gradient(900px 380px at 85% -40%, var(--v2-accent-soft), transparent 65%),
+    linear-gradient(var(--v2-wash), var(--v2-paper) 92%);
+}
+@media (min-width: 640px) { .vh2-cover { margin: 0 -1.5rem; } }
+@media (min-width: 1024px) { .vh2-cover { margin: 0 -2.5rem; } }
+.vh2-covertag {
+  position: absolute; right: 18px; bottom: 14px;
+  font-family: var(--v-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--v2-faint); border: 1px dashed var(--v2-line); border-radius: 999px; padding: 5px 12px;
+  background: color-mix(in srgb, var(--v2-surface) 70%, transparent);
+}
+.vh2-head { padding: 0 0 8px; }
+.vh2-icon {
+  width: 76px; height: 76px; border-radius: 20px; margin-top: -38px;
+  background: var(--v2-surface); border: 1px solid var(--v2-line); box-shadow: var(--v2-shadow);
+  display: grid; place-items: center; position: relative; z-index: 3;
+  font-family: var(--font-display); font-size: 30px; font-weight: 600; color: var(--v2-ink);
+}
+.vh2-eyebrow {
+  margin: 20px 0 10px; font-family: var(--v-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v2-muted);
+}
+.vh2-h1 {
+  font-family: var(--font-display); font-weight: 600; color: var(--v2-ink);
+  font-size: clamp(40px, 6vw, 58px); line-height: 1.04; letter-spacing: -0.015em; margin: 0;
+}
+.vh2-hangul {
+  display: block; margin-top: 10px; font-family: var(--font-body);
+  font-size: 15px; font-weight: 400; letter-spacing: 0.02em; color: var(--v2-muted);
+}
+.vh2-lede { max-width: 66ch; margin: 18px 0 22px; font-size: 17.5px; line-height: 1.7; color: var(--v2-body); }
+.vh2-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.vh2-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 999px; padding: 10px 22px; font-size: 14px; font-weight: 500; min-height: 44px;
+  border: 1px solid var(--v2-pill); background: var(--v2-pill); color: var(--v2-pill-text);
+  transition: opacity 0.15s; text-decoration: none;
+}
+.vh2-btn:hover { opacity: 0.85; text-decoration: none; }
+.vh2-btn.ghost { background: transparent; color: var(--v2-ink); border-color: var(--v2-line); }
+.vh2-btn.ghost:hover { border-color: var(--v2-muted); opacity: 1; }
+
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact
    from HeroShell (segment-aware, server-rendered). */
