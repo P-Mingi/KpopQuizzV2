@@ -1,55 +1,45 @@
-# REPORT - iteration 3: rebuild the Verse sidebar fold (kill the overlay; clean in-flow rail)
+# REPORT - iteration 4: polish the OPEN sidebar (reformat global block + collapsible NAVIGATE)
 
-The collapsed/hover behaviour was "horrible": an absolute overlay that floated over the
-document, top-nav button chrome crammed into the rail, and content bleeding under it. Rebuilt
-to two clean IN-FLOW states. Scoped to /verse; Play untouched. tsc 0; next build green. Not pushed.
+Two OPEN-sidebar refinements on top of the in-flow rebuild. Scoped to /verse; Play untouched.
+tsc 0; next build green. Iteration 3 not regressed (in-flow, uniform 60px rail, real logo,
+breadcrumb = space name). Nothing pushed.
 
-## ROOT CAUSES - all three fixed
-1. HOVER-PEEK OVERLAY covered content -> KILLED. The collapsed rail was `position:absolute;
-   width:66px` with `:hover { width:250px }` floating a popover over Overview/members. Removed
-   entirely. No hover-peek anywhere.
-2. RAIL REUSED TOP-NAV BUTTON CHROME -> GONE. The rail no longer restyles the reused top-nav
-   islands. A dedicated `.v-side-rail` renders every icon (global AND space) as a uniform plain
-   40px button, no borrowed borders/boxes.
-3. CONTENT BLED UNDER THE RAIL -> FIXED. The sidebar is in-flow (position:sticky, never
-   absolute), so the cover/hero and document live entirely inside .v-navmain.
+## FIX 1 - the folded-in global controls are now ONE sidebar system
+Before, the top block mixed three UIs (top-nav underline-TABS for Fandoms/Community, bordered
+pills for Search/Sign-in, the pink Play pill). Now a single tidy stack:
+- KEPT: the real KpopVerse logo (top-left) + the collapse chevron (top-right); the Play pink
+  CTA pill (it is the jump to the game and should stand out) - now full-width in .v-side-cta.
+- Fandoms / Community: normal sidebar NAV ROWS (icon + label, the same .v-side-row style as
+  Space home / Members). The top-nav tab markup (top-nav-links.tsx) is no longer used in the
+  sidebar (verified: 0 `top-nav-tabs` in the served HTML). Active = the shared accent pill/tint.
+- Search: a clean soft-filled FIELD row (wash bg, search icon, muted label) with the theme
+  toggle as a small 38px icon control aligned on the same row (.v-side-searchrow).
+- Sign in / profile: a clean full-width ROW (the reused TopNavProfile keeps its hrefs/auth
+  fetch; its inline pill chrome is overridden to a plain sidebar row).
+Only presentation changed - every control reuses the existing component hrefs/handlers.
 
-## TARGET - two clean IN-FLOW states (verified by computed styles)
-The layout is `[ .v-sidenav (fixed width) | .v-navmain (flex:1) ]`; toggling REFLOWS the row.
-side-nav.tsx now renders BOTH states, CSS toggles which shows:
-- OPEN (.v-side-open): the ~250px expanded column, unchanged from what already looked right
-  (real logo -> Play/Fandoms/Community + search/theme/profile, BTS chip, Space home / Browse
-  everything, NAVIGATE tree, ON THIS PAGE). Content to its right; the 1120 cluster centered.
-- COLLAPSED (.v-side-rail): a ~60px IN-FLOW icon rail. One uniform vertical column of 40px
-  square buttons - global group (Play, Fandoms, Community, Search, Theme, Profile) then a thin
-  divider then the space group (Space home, Browse, Music, Members, Shows, Fandom, About). Plain
-  icon buttons, no borders, muted color, even rhythm; hover = subtle wash; each has a title
-  tooltip + aria-label. The expand chevron sits at the top. Section icons link to the section's
-  first child so they navigate.
-- COMPUTED-STYLE PROOF at 1440 collapsed: sidebar position=sticky, width=60px, side.right=140 <
-  main.left=180 (overlap=false), cover.left=170 (no bleed), rail buttons all 40x40 (theme
-  toggle's base min-width:44 overridden to 40).
-
-## DEFAULT STATE PER WIDTH
-- >= 1200: OPEN; the collapse chevron folds to the icon rail (deliberate click, no hover).
-- 768-1199: the icon rail by default (static; expand chevron hidden).
-- < 768: off-canvas DRAWER (hamburger + scrim) showing the full open column - a MOBILE overlay,
-  which the mission allows; the desktop states never overlay.
-
-## ALSO FIXED
-- Breadcrumb now reads the space NAME ("Verse / BTS"), not fandom_name ("ARMY"). (page.tsx)
+## FIX 2 - NAVIGATE sections are collapsible accordions
+`NavAccordion` (a client island; usePathname works in SSR too, so links render crawlable with
+the right state - no flash). Each parent with children (Music, Shows, Fandom, About) is a native
+`<details>` toggle with a right-side chevron that rotates; Members (no children) stays a plain row.
+- COLLAPSED by default. AUTO-EXPANDS the section that contains the current page (verified:
+  /verse/bts/discography-index opens Music with Discography marked active; the home /verse/bts
+  shows every section collapsed).
+- Crawlable: every child `<a>` stays in the DOM even when collapsed (10 `v-side-link` anchors in
+  the served HTML regardless of open state) - `<details>` hides visually, never removes.
+- Native `<details>` toggling (click the parent) - no JS beyond computing the initial open state.
+  Subtle eased reveal on expand; prefers-reduced-motion disables it.
 
 ## FILES
-- apps/quiz/src/components/verse/tree/side-nav.tsx  (two states; dedicated uniform rail)
-- apps/quiz/src/styles/globals.css                  (in-flow collapsed rail; removed overlay + peek)
-- apps/quiz/src/app/verse/[slug]/page.tsx           (breadcrumb -> space name)
+- apps/quiz/src/components/verse/tree/side-nav.tsx        (restructured OPEN column)
+- apps/quiz/src/components/verse/tree/side-nav-rows.tsx   (NEW client: GlobalNavRows + NavAccordion)
+- apps/quiz/src/components/verse/tree/side-nav-icons.tsx  (NEW shared: icons + href helpers)
+- apps/quiz/src/styles/globals.css                        (global-block reformat + accordion/active CSS)
 
-## SCREENSHOTS - before/after (docs/proofs/v3nav-rebuild/)
-- before/nav-1440-rail-light.png : the old absolute overlay (mismatched boxes, content bleed).
-- after/nav-1440-rail-light.png  : the clean 60px in-flow uniform icon rail, content reflowed.
-- after/nav-1440-open-light.png  : the OPEN column (unchanged, looks right), breadcrumb "Verse / BTS".
-- after/nav-390-drawer-light.png : the mobile drawer (full column over a scrim).
-- (before/ and after/ each also hold 1440-open-dark and 1024-rail for completeness.)
+## SCREENSHOTS (docs/proofs/v3nav-iter4/)
+- open-accordion-collapsed.png : reformatted global block; NAVIGATE collapsed by default.
+- open-accordion-expanded.png  : a Music sub-page - Music auto-expanded, Discography active.
+- icon-rail.png                : the 60px in-flow uniform icon rail (unchanged from iteration 3).
 
 ## GATES
 tsc 0; next build PASS. Play outside /verse byte-identical. Nothing pushed.

@@ -6219,7 +6219,8 @@ main:has(.verse-page) { max-width: 1360px; }
 @media (prefers-reduced-motion: reduce) { .v-railbtn { transition: none; } }
 
 /* ITERATION 2 - the relocated GLOBAL chrome (real logo -> world/links -> search/theme/profile) */
-.v-side-top { display: flex; flex-direction: column; gap: 9px; padding: 4px 6px 12px; border-bottom: 1px solid var(--v2-line-soft); margin-bottom: 6px; }
+.v-side-top { display: flex; flex-direction: column; gap: 3px; padding: 4px 4px 2px; }
+.v-side-top .v-side-brandrow { margin-bottom: 6px; }
 .v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; }
 .v-side-logo-full { display: inline-flex; align-items: center; min-width: 0; }
 .v-side-logo-mark { display: none; align-items: center; }
@@ -6227,12 +6228,23 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-side-collapse:hover { border-color: var(--v2-muted); color: var(--v2-ink); }
 .v-side-collapse-glyph { font-size: 11px; transition: transform 0.2s ease; }
 #v-nav-collapse:focus-visible ~ .v-navshell .v-side-collapse { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
-.v-side-primary { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
-.v-side-primary .top-nav-tabs { margin-left: 0 !important; gap: 2px; overflow: visible !important; flex-wrap: wrap; }
-.v-side-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-.v-side-action { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-body); font-size: 12.5px; font-weight: 600; text-decoration: none; }
-.v-side-action:hover { border-color: var(--v2-muted); color: var(--v2-ink); text-decoration: none; }
-.v-side-themewrap, .v-side-profilewrap { display: inline-flex; align-items: center; }
+/* ITERATION 4 - the global block reformatted to ONE sidebar system. The Play CTA keeps its
+   pink pill; Fandoms/Community are plain .v-side-row rows; search is a soft field + a theme
+   icon; the profile is a clean full-width row (its top-nav pill chrome is overridden below). */
+.v-side-cta { display: flex; margin: 2px 4px 4px; }
+.v-side-cta .world-toggle { width: 100%; justify-content: center; }
+.v-side-searchrow { display: flex; align-items: center; gap: 6px; margin: 2px 0; }
+.v-side-searchbtn { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-wash); color: var(--v2-muted); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 38px; }
+.v-side-searchbtn:hover { border-color: var(--v2-line); color: var(--v2-ink); text-decoration: none; }
+.v-side-searchbtn .v-side-ic { color: var(--v2-faint); }
+.v-side-themewrap { flex: 0 0 auto; display: inline-flex; }
+.theme-toggle.v-side-themebtn { width: 38px; height: 38px; min-width: 38px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-surface); color: var(--v2-muted); }
+.theme-toggle.v-side-themebtn:hover { border-color: var(--v2-line); color: var(--v2-ink); background: var(--v2-wash); }
+/* the reused TopNavProfile carries inline pill chrome; strip it to a clean full-width row. */
+.v-side-profilewrap { display: block; margin-top: 2px; }
+.v-side-profilewrap > a, .v-side-profilewrap > span { display: flex !important; align-items: center; gap: 10px !important; width: 100%; padding: 7px 8px !important; border: none !important; border-radius: 8px !important; background: transparent !important; justify-content: flex-start !important; min-height: 38px; }
+.v-side-profilewrap > a:hover { background: var(--v2-wash) !important; }
+.v-side-profilewrap .top-nav-profile-name { font-size: 13px !important; color: var(--v2-body) !important; }
 
 .v-side-chip { display: flex; align-items: center; gap: 9px; margin: 4px 4px 6px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); text-decoration: none; }
 .v-side-chip:hover { border-color: var(--v2-muted); text-decoration: none; }
@@ -6258,6 +6270,14 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-side-link { display: block; padding: 6px 8px; border-radius: 7px; font-size: 13px; color: var(--v2-muted); text-decoration: none; min-height: 32px; line-height: 1.55; }
 .v-side-link:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
 .v-side-link.disabled { color: var(--v2-faint); pointer-events: none; }
+/* active row/link = the same subtle accent pill/tint across the whole sidebar. */
+.v-side-row.active { background: var(--v2-accent-soft); color: var(--v2-accent); }
+.v-side-row.active .v-side-ic { color: var(--v2-accent); }
+.v-side-link.active { color: var(--v2-accent); background: var(--v2-accent-soft); font-weight: 600; }
+/* FIX 2: the NAVIGATE accordion - a subtle eased reveal when a section expands. */
+.v-side-sect[open] > .v-side-sub { animation: v-side-reveal 0.18s ease; }
+@keyframes v-side-reveal { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .v-side-sect[open] > .v-side-sub { animation: none; } }
 .v-side-divider { height: 1px; background: var(--v2-line-soft); margin: 10px 6px; }
 
 .v-toc-group { display: flex; flex-direction: column; }
