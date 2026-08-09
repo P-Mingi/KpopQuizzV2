@@ -6,7 +6,7 @@ import { isVerseAdmin } from '@/lib/verse/roles';
 import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
 import { SpaceTabs } from '@/components/verse/space-tabs';
-import { ReaderMenu } from '@/components/verse/tree/reader-menu';
+import { VerseSideNav } from '@/components/verse/tree/side-nav';
 import { getNavMenu } from '@/lib/verse/tree/nav';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { BuildModeProvider, BuildModeToggle } from '@/components/verse/build-mode';
@@ -116,12 +116,29 @@ export default async function SpaceLayout({
   return (
     <div className="verse-page verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-6 sm:py-8" data-preset={space.presentation.preset ?? undefined} style={presentationScopeStyle(space)}>
       <BuildModeProvider groupId={space.group.id} slug={slug}>
-        <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
-        <div className="mt-6">
-          {navMenu
-            ? <ReaderMenu spaceSlug={slug} tree={navMenu} spaceName={space.group.fandom_name} />
-            : <SpaceTabs slug={slug} tabs={tabs} buildTabs={buildTabs} />}
-          {children}
+        {/* V3 left nav. The fold state is pure CSS: these two hidden checkboxes drive the
+            desktop collapse (icon rail) and the mobile drawer via sibling selectors; the only
+            client JS is the scroll-spy TOC inside the sidebar. Every nav link is SSR/crawlable. */}
+        {navMenu ? (
+          <>
+            <input type="checkbox" id="v-nav-collapse" className="v-nav-state" aria-label="Collapse or expand the sidebar" />
+            <input type="checkbox" id="v-nav-drawer" className="v-nav-state" aria-label="Open or close the navigation drawer" />
+            <div className="v-navtopbar">
+              <label htmlFor="v-nav-drawer" className="v-navtopbar-burger" aria-label="Open navigation menu"><span aria-hidden="true">&#9776;</span></label>
+              <span className="v-navtopbar-title">{space.group.fandom_name} Verse</span>
+            </div>
+            <label htmlFor="v-nav-drawer" className="v-nav-scrim" aria-hidden="true" />
+          </>
+        ) : null}
+        <div className="v-navshell">
+          {navMenu ? <VerseSideNav spaceSlug={slug} tree={navMenu} spaceName={space.group.fandom_name} spaceLabel={space.group.name} /> : null}
+          <div className="v-navmain">
+            <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
+            <div className="mt-6">
+              {navMenu ? null : <SpaceTabs slug={slug} tabs={tabs} buildTabs={buildTabs} />}
+              {children}
+            </div>
+          </div>
         </div>
       </BuildModeProvider>
     </div>

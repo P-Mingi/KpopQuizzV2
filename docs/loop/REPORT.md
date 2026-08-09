@@ -3,14 +3,13 @@
 Presentation rebuild over existing reads. Covenant kept: no fabricated content; the
 Overview lede is derived from DB facts only. Nothing pushed to git. Play/quiz untouched.
 
-## STATUS
-- Deliverable 1 (editorial CENTER rebuild): DONE + verified.
-- Deliverable 3 (pure-white ground): DONE + verified.
-- Deliverable 4 (1120 width cluster): DONE + verified.
-- Deliverable 2 (persistent foldable LEFT NAV + on-this-page TOC): NOT STARTED (next step).
+## STATUS - all four deliverables DONE + verified (two commits)
+- Deliverable 1 (editorial CENTER rebuild): DONE + verified.  [commit 1]
+- Deliverable 3 (pure-white ground): DONE + verified.          [commit 1]
+- Deliverable 4 (1120 width cluster): DONE + verified.          [commit 1]
+- Deliverable 2 (persistent foldable LEFT NAV + on-this-page TOC): DONE + verified. [commit 2]
 
-This commit = the center + ground + width (a coherent, shippable step). The left nav is
-a self-contained layout addition committed next.
+Commit 1 = the center + ground + width. Commit 2 = the left foldable nav + TOC scroll-spy.
 
 ## DELIVERABLE 1 - the editorial center (from prototypes/bts-home-v2.html)
 New server component: apps/quiz/src/components/verse/tree/home-center.tsx (VerseHomeCenter),
@@ -67,8 +66,41 @@ removed).
   eras single-column, rail stacked below the document)
 Capture harness: apps/quiz/scripts/proof-v3home-capture.mjs.
 
-## NEXT
-Deliverable 2: the persistent foldable LEFT NAV (space nav from getNavMenu as crawlable
-nested <a>) + on-this-page TOC with an IntersectionObserver scroll-spy, in
-apps/quiz/src/app/verse/[slug]/layout.tsx, with the >=1200 open / icon-rail+peek / <560 drawer
-fold behaviour. The horizontal .vnav then moves into that sidebar.
+## DELIVERABLE 2 - the persistent foldable LEFT NAV + on-this-page TOC (commit 2)
+New in apps/quiz/src/app/verse/[slug]/layout.tsx: a left sidebar (VerseSideNav) added to the
+verse-scope, replacing the old horizontal ReaderMenu (.vnav) on every verse page. Structure:
+- brand (-> /verse) + a collapse control + the BTS space chip.
+- "Navigate": the getNavMenu space nav (Music > Discography/Songs/Eras, Members, Shows >
+  Tours/TV, Fandom > ARMY/BU, About > Company/Awards/Records), rendered as CRAWLABLE nested
+  <a> inside native <details> groups - reusing ReaderMenu's ref->href (page -> /verse/{space}/
+  {slug}). Verified in the served HTML: 5 section rows + 10 real <a> sub-links, zero client JS.
+  Each top section carries a stroke icon (shown in the collapsed rail).
+- a divider, then "On this page": VerseTocSpy, a 'use client' component that scans the page's
+  [data-toc] sections (SSR'd by the home center: Overview / Members / Discography / The story
+  so far / Community & Play), builds the same-page anchor list, and highlights the active
+  section with an IntersectionObserver. This is the ONLY client JS. It self-hides on pages with
+  no [data-toc] sections (SSR renders null, so no hydration mismatch).
+Fold behaviour - PURE CSS, driven by two sibling checkboxes (#v-nav-collapse / #v-nav-drawer):
+- >= 1200px: OPEN (244px, labels + TOC). The collapse control folds it to a 64px ICON RAIL
+  (glyph flips); hovering the rail PEEKS it back as a floating overlay (a 76px gutter stays
+  reserved, so the reading cluster never reflows).
+- 560-1199px: starts as the static icon rail.
+- < 560px: an off-canvas DRAWER opened by a top-bar hamburger, over a scrim (tap to close).
+- prefers-reduced-motion disables the width/transform transitions; the collapse checkbox has a
+  focus-visible ring; every control has an aria-label. The 1120 cluster stays centered in
+  .v-navmain, so the left nav lives in the gutter and never stretches the reading measure.
+Files: apps/quiz/src/components/verse/tree/side-nav.tsx (+ toc-spy.tsx), layout.tsx, globals.css.
+
+## SCREENSHOTS (docs/proofs/v3home/) - add the nav fold states
+- nav-1440-open-light.png / nav-1440-open-dark.png  (sidebar OPEN, both themes)
+- nav-1440-rail-light.png                            (desktop ICON RAIL, collapse checked)
+- nav-1024-rail-light.png                            (tablet auto icon-rail)
+- nav-390-drawer-light.png                           (mobile DRAWER open over the scrim)
+Capture harness: apps/quiz/scripts/proof-v3nav-capture.mjs.
+
+## GATES (commit 2)
+tsc 0; next build PASS ("Compiled successfully"); no new console/hydration errors. Nav links
+are SSR/crawlable; the scroll-spy is the only client JS. Nothing pushed.
+
+## DONE
+All four deliverables shipped across two commits on main; nothing pushed (owner pushes).

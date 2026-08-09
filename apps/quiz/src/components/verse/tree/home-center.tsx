@@ -48,7 +48,7 @@ export async function VerseHomeCenter({ space }: { space: Space }): Promise<Reac
   return (
     <div className="vh2-center">
       {/* OVERVIEW - with the anti-overflow fold (full text stays in the DOM). */}
-      <section className="vh2-sec" style={{ paddingTop: 4 }}>
+      <section className="vh2-sec" id="sec-overview" data-toc="Overview" style={{ paddingTop: 4 }}>
         <div className="vh2-sechead"><h2>Overview</h2></div>
         <Fold budgetPx={220}>
           <div className="vh2-prose">{overviewParas.map((t, i) => <p key={i}>{t}</p>)}</div>
@@ -57,7 +57,7 @@ export async function VerseHomeCenter({ space }: { space: Space }): Promise<Reac
 
       {/* MEMBERS */}
       {idols.length ? (
-        <section className="vh2-sec">
+        <section className="vh2-sec" id="sec-members" data-toc="Members">
           <div className="vh2-sechead"><h2>Members</h2><Link className="vh2-more" href={`/verse/${slug}/members`}>All {idols.length} &#8594;</Link></div>
           <div className="vh2-members">
             {idols.map((i) => {
@@ -76,7 +76,7 @@ export async function VerseHomeCenter({ space }: { space: Space }): Promise<Reac
 
       {/* DISCOGRAPHY */}
       {albums.length ? (
-        <section className="vh2-sec">
+        <section className="vh2-sec" id="sec-discography" data-toc="Discography">
           <div className="vh2-sechead"><h2>Discography</h2><Link className="vh2-more" href={`/verse/${slug}/discography`}>All {albums.length} releases &#8594;</Link></div>
           <div className="vh2-covers">
             {albums.map((a) => {
@@ -94,7 +94,7 @@ export async function VerseHomeCenter({ space }: { space: Space }): Promise<Reac
 
       {/* THE STORY SO FAR - eras */}
       {eras.length ? (
-        <section className="vh2-sec">
+        <section className="vh2-sec" id="sec-story" data-toc="The story so far">
           <div className="vh2-sechead"><h2>The story so far</h2><Link className="vh2-more" href={`/verse/${slug}/timeline`}>All {eras.length} eras &#8594;</Link></div>
           <div className="vh2-story">
             {eras.map((e, i) => {
@@ -117,7 +117,7 @@ export async function VerseHomeCenter({ space }: { space: Space }): Promise<Reac
       ) : null}
 
       {/* COMMUNITY & PLAY */}
-      <section className="vh2-sec">
+      <section className="vh2-sec" id="sec-community" data-toc="Community & Play">
         <div className="vh2-cards">
           <div className="vh2-card">
             <h3>{g.fandom_name}, the fandom</h3>
