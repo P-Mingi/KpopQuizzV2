@@ -1,152 +1,148 @@
-# PLAY-SEO REPORT (SEO-3)
+# PLAY-SEO REPORT (SEO-3b)
 
-## SEO-3: Quiz page substance + uniqueness slice (DONE, 1 commit)
+## SEO-3b: correction pass on SEO-3 (DONE, 1 commit)
 
-Commit: `seo: SEO-3 quiz page substance + uniqueness slice` (3fd9597)
-Scope: the no-schema slice of PLAY-QUIZ-PAGES.md (P5). O1 trivia + O3
-did-you-know deferred to Cowork's migration 149 + prototype.
+Commit: `seo: SEO-3b correction pass (R1-R5)` (50c2a07)
+Scope: rewrite the covenant-violating R0 receipt with real Cowork
+numbers, implement three owner rulings (R1 R2 R3), fix two defects
+(R4), and reword one editorialising line (R5). No new features.
 
 ## Shipped + files
 
-### Step 1: real stats block + varied intro (U1 + U2)
+### R0: acceptance receipt rewritten with real values
 
-Files changed:
-- `apps/quiz/src/lib/db/queries/plays.ts` (+58 lines):
-  new `getQuizExtraStats(quizId, totalQuestions)` returns
-  `{fastestTimeSeconds, perfectScoreCount, passingPlays, totalPlaysWithScore}`.
-- `apps/quiz/src/components/quiz/quiz-stats-block.tsx` (NEW, 111 lines):
-  server-rendered stats grid. Honors threshold-30 law on ranking-ish
-  metrics (avg score, pass rate, fastest time show "early results" hint
-  when totalCompletions < 30). Renders nothing on zero-play quizzes.
-- `apps/quiz/src/app/q/[slug]/page.tsx` (intro + block wiring):
-  4-branch dynamic intro (0 / 1-29 / 30-999 / 1000+ plays) so no two
-  pages read identical. Real DB values only.
-- `apps/quiz/src/styles/globals.css` (+30 lines):
-  `.quiz-stats-block`, `.quiz-stats-list`, `.quiz-stats-cell`,
-  `.quiz-stats-value`, `.quiz-stats-label`, `.quiz-stats-hint`.
+File: `docs/proofs/play-seo/seo3-acceptance/three-quiz-comparison.txt`
+(fully rewritten, 154 lines vs 132)
 
-Receipt: `docs/proofs/play-seo/seo3-step1/stats-audit.txt`
+The prior receipt printed illustrative values with "(real)" labels.
+That was called out as a covenant failure and is now corrected:
+- explicit note at the top acknowledging the previous failure
+- every number is from Cowork's production read
+- each of BIG / MID / TINY includes:
+  - preconditions (which flags / branches the code enters)
+  - the EXACT intro sentence the shipped code produces
+  - the EXACT stats-block cells the shipped code renders
+  - the gate line for TINY (below-threshold path)
+- anti-thin bar mapping preserved
 
-### Step 2: crawlable questions audit (U8)
+Test cases and rendered strings:
 
-No code changes. Verified the pre-existing `<details className="quiz-review">`
-block already renders every question crawlably (in the DOM before JS)
-with options listed and NO correct index. This is the honest
-crawlable-collapse pattern.
+BIG - ultimate-bts-era-quiz-only-real-armys-survive
+  intro branch D fires; sentence quotes 2,060 (plays-table count).
+  7 stats cells, ranking-ish trio visible (avg 53%, pass 32%,
+  fastest 18s), no caption, no gate.
 
-Receipt: `docs/proofs/play-seo/seo3-step2/questions-crawlable.txt`
+MID - enhypen-world-ultimate-fan-challenge
+  intro branch C fires; sentence quotes 853.
+  7 stats cells, ranking-ish trio visible (avg 57%, pass 36%,
+  fastest 41s).
 
-### Step 3: related-by-entity + article cross-links (U4 + O2 partial)
+TINY - girls-generation-the-legend-quiz
+  intro branch B fires; average NEVER quoted (introAvg is gated
+  by scoresUnlocked). 3 stats cells (Plays 5, Completions 5,
+  Perfect scores 2), plus gate line
+  "Scores unlock at 30 completions (5 so far)."
 
-Files changed:
-- `apps/quiz/src/app/q/[slug]/page.tsx` (+27 lines):
-  "Read more about {group}" section added after related-quizzes,
-  reusing `getGroupArticleLinks()` from SEO-2. Every /q/* page now
-  links to the group's enriched articles + back to the group hub.
-- `apps/quiz/src/styles/globals.css` (+15 lines):
-  `.quiz-article-links`, `.quiz-article-link`.
+### R1: owner ruling recorded
 
-Groups with specific article links: bts, blackpink, stray-kids, ateez,
-aespa, newjeans. All others fall back to `kpop-generations-explained`.
+File: `docs/proofs/play-seo/seo3-step2/questions-crawlable.txt`
+(the "FLAG FOR OWNER" paragraph replaced with a CLOSED ruling block).
+No code change per the ruling.
 
-Shared-tag refinement NOT possible: quizzes table has no `tags` column
-and QuizSettings jsonb has no era/album/member field. Deferred with O1.
+### R2: threshold-30 gates, does not caption
 
-Receipt: `docs/proofs/play-seo/seo3-step3/related-links.txt`
+File: `apps/quiz/src/components/quiz/quiz-stats-block.tsx` (rewritten)
 
-### Step 4: Quiz JSON-LD enriched (U9)
+Before: ranking-ish cells rendered with an "early results" hint below
+30 completions. Consequence in prod: TINY would print
+"Average score 92% · Pass rate 100%" off 5 completions.
 
-Files changed:
-- `apps/quiz/src/app/q/[slug]/page.tsx` (JSON-LD block):
-  `about`: Thing -> MusicGroup (correct type + group hub URL);
-  `educationalLevel`: quiz.difficulty (real value);
-  `assesses`: quiz.group_name;
-  `keywords`: "{group}, K-pop, {difficulty} quiz";
-  `interactionStatistic`: array (Play always, Complete when > 0, Like when > 0);
-  `hasPart`: Question[] with `name` only (each question text, NO
-  suggestedAnswer / acceptedAnswer -> correct answers stay out of markup).
+After: below 30, Average score / Pass rate / Fastest perfect are
+HIDDEN. Only counts render (Plays, Completions, Perfect scores,
+Likes). One honest gate line appears below the cells:
+"Scores unlock at 30 completions (N so far)." - itself a
+unique-per-quiz string because N differs per quiz.
 
-FAQPage NOT added. Quiz questions are assessment items, not FAQ; adding
-FAQPage over them is a known spammy pattern Google penalizes.
+At >= 30, ranking-ish cells render with NO caption.
 
-Receipt: `docs/proofs/play-seo/seo3-step4/jsonld-audit.txt`
+Local `RANKING_UNLOCK = 30` deleted. Imports `RANKING_UNLOCK_VOTES`
+from `@/lib/db/queries/duels`, the shared source of truth.
 
-### Step 5: freshness + newest-quiz discovery (U7)
+Intro also gated: `introAvg` is now null when scoresUnlocked=false,
+so branch B / branch A never quote the average in prose either.
 
-Files changed:
-- `apps/quiz/src/app/[slug]/group-quiz-page.tsx` (+30 lines):
-  SSR fetch of `getQuizzesByGroup(group.id, 'newest', 0, 5)` and a
-  "Newest {group} quizzes" section rendered into the initial HTML.
-  Filtered to items not already in the popular list; renders nothing
-  when there is no truly-new quiz.
+File: `apps/quiz/src/styles/globals.css`
+`.quiz-stats-hint` (unused) removed; `.quiz-stats-gate` added.
 
-Sitemap lastmod audit: TRUTHFUL. Uses `quiz.updated_at` per-row, no
-fake-freshening (`STATIC_DATE` used for content-independent pages).
-The SEO-1 sitemap-cleanliness ratchet holds; SEO-3 does not weaken it.
+### R3: plays table is the source of truth
 
-Receipt: `docs/proofs/play-seo/seo3-step5/freshness.txt`
+File: `apps/quiz/src/app/q/[slug]/page.tsx`
+File: `apps/quiz/src/components/quiz/quiz-stats-block.tsx`
 
-## Acceptance: 3-quiz comparison
+Both the intro sentence's play count AND the stats block's "Plays"
+cell now prefer `extra.totalPlaysWithScore` when > 0, falling back to
+`quiz.play_count` when the extra query was skipped (zero-play quiz)
+or degraded.
 
-Receipt: `docs/proofs/play-seo/seo3-acceptance/three-quiz-comparison.txt`
+Verified: BIG's page will now say "2,060 fans have battled it" (matches
+the pass-rate denominator) instead of the prior "1,880 fans" beside a
+pass rate computed over 2,060 rows.
 
-Anti-thin bar status per tier:
+Row reconciliation of the 3 disagreeing quizzes stays with Cowork
+under the owner SQL gate, per mission.
 
-| Item | BIG | MID | TINY | Notes |
-|------|-----|-----|------|-------|
-| U2 dynamic intro | pass | pass | pass | 4 branches by play_count |
-| U8 crawlable questions | pass | pass | pass | already existed |
-| O1 group facts | DEFER | DEFER | DEFER | needs migration 149 |
-| O3 did-you-know | DEFER | DEFER | DEFER | needs Cowork prototype |
-| U1 real stats | pass | pass | partial | new stats block |
-| U4 entity related | pass | pass | pass | same-group + top-up |
-| U6 creator context | pass | pass | pass | already emitted |
+### R4: two defects fixed
+
+File: `apps/quiz/src/lib/db/queries/plays.ts`
+
+Defect 1 - silent failures. Every one of the four sub-queries inside
+`getQuizExtraStats` now checks `.error` and throws with a descriptive
+message. `safeFetch` catches, logs, and falls back to zeros - matching
+`getPassRate`'s existing policy. No more "the query broke, we quietly
+read 0".
+
+Defect 2 - comment drift. `QuizExtraStats.fastestTimeSeconds` said
+"fastest COMPLETED play (any score)" while the query filters
+`score = totalQuestions`. UI label "Fastest perfect" was correct;
+comment now matches: "Fastest perfect run: MIN(time_taken_seconds)
+among plays where score === total_questions."
+
+### R5: intro copy reworded
+
+File: `apps/quiz/src/app/q/[slug]/page.tsx` (intro branch D)
+
+"...and only 224 have scored perfect. Join them?" -> "...and 224 have
+scored perfect. Join them?"
+
+224 of 2,060 is ~11%; "only" editorialises a number that is not rare.
+Removed. Every other branch is unchanged.
+
+## Not in scope (Cowork carries)
+
+- JSON-LD is FROZEN as shipped (Google deprecated Quiz + FAQ rich
+  results in January 2026; markup kept for crawler / AI answer-engine
+  clarity). Confirmed no change here.
+- Migration 149 (trivia table), O1, O3.
+- The 3-row counter reconciliation.
 
 ## Gates
 
-- em-dash / en-dash scan: CLEAN across all changed files
-- tsc: CLEAN for changed file paths (main tree node_modules;
-  worktree lacks own node_modules per SEO-2 precedent)
-- check:routes: N/A (no new page.tsx files added, only edits)
-- check:verse-tokens: N/A (Play surface, not Verse)
-- em-dash ban: honored throughout code and copy
+- em-dash / en-dash scan: CLEAN across all changed files (six files)
+- tsc: CLEAN for changed paths (main tree's pinned typescript@5.9.3
+  against apps/quiz/tsconfig.json; the worktree has no node_modules,
+  so the noise of "cannot find module 'next'" errors is filtered out).
+  No real errors in the files edited this pass.
+- check:routes: N/A (no new page.tsx added)
+- Full build: cannot run in this worktree (no node_modules).
+  Same as SEO-2 / SEO-3 precedent. The standing merge condition holds:
+  the full gate suite runs on main after the merge and before the
+  owner's next push.
+- Nothing pushed.
 
 ## Deviations
 
-- One atomic commit for all steps rather than one per step. Each step
-  is a distinct logical concern but they touch the same page.tsx and
-  splitting would produce partially-broken interim commits (Step 4's
-  hasPart depends on seoQuestions which Step 2 audited; Step 5's SSR
-  data depends on new Promise.all shape). Receipts are still per-step.
-- Step 3's "hub links back to newest quizzes" absorbed into Step 5's
-  "Newest {group} quizzes" strip (same code path, no duplication).
-- Full build gate not run (worktree lacks node_modules; SEO-2 precedent).
+None. One commit as the mission permitted.
 
-## Deferred (expected per mission)
+## Deferred (per mission)
 
-- O1: trivia entity table + group facts panel. Needs migration 149.
-- O3: rotating did-you-know per quiz. Needs O1 first + Cowork prototype.
-- Any /q/* template redesign. This slice keeps the existing chrome.
-- Shared-tag refinement of related quizzes. No tags column in schema.
-- GSC measurement of the indexed-fraction lift. P4 window ~Aug 20.
-
-## Flag for owner (Step 2 tradeoff, requires ruling)
-
-The crawlable-questions `<details>` block currently prints:
-  - question text
-  - all option text (multiple-choice)
-  - fun_facts
-  - NO correct answer index
-
-Options being visible narrows the answer to N candidates but does not
-reveal which is right. This is the SEO-3 U8 lever (unique text per
-quiz), and Cowork recommends keeping the status quo. If you prefer a
-stricter anti-spoiler posture, tell me and I will hide options
-(losing ~60% of the crawlable text as tradeoff).
-
-## What comes next (not for this mission)
-
-- Owner rules on Step 2 tradeoff (options crawlable vs hidden).
-- Cowork drafts migration 149 for the trivia table (O1).
-- Cowork prototypes the new quiz-page design absorbing everything.
-- SEO-4 slice would wire O1/O3 once migration lands.
+Nothing new. All non-scope items are already carried by Cowork.
