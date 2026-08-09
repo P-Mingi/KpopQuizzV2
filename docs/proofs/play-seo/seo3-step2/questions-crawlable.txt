@@ -1,0 +1,77 @@
+SEO-3 Step 2: crawlable questions review
+========================================
+Date: 2026-08-09
+File: apps/quiz/src/app/q/[slug]/page.tsx (lines 315-374)
+Component: <details className="quiz-review"> (already present as "SEO Fix 1")
+
+STATUS: ALREADY IMPLEMENTED PRE-MISSION (verified, no code changes needed).
+
+What is rendered in the server HTML today (per-quiz, crawlable):
+=================================================================
+For every question in the quiz.questions jsonb array:
+  1. Question text (q.question)          -> visible + crawlable
+  2. Clue list (q.clues[])               -> visible + crawlable (guess_from_clues)
+  3. All options (q.options[])           -> visible + crawlable (multi-choice)
+     or ['True', 'False'] for true_false
+  4. Fun fact (q.fun_fact)               -> visible + crawlable
+  5. Correct index (q.correct)           -> NEVER rendered, never in DOM
+
+The <details> element is the honest "crawlable-collapse" pattern:
+  - Googlebot reads the full content (it is in the DOM before JS runs).
+  - Humans see a summary line ("Show the N questions in this quiz") and
+    click to expand. Spoiler UX is preserved.
+  - Nothing hidden BY JS. Nothing loaded on demand. Nothing behind auth.
+
+The answers question (the mission's flag)
+==========================================
+CURRENT CHOICE: options ARE printed in the initial HTML; the CORRECT
+INDEX is not. So Google indexes the option text; the reader sees the
+same 4 options they will see in the player, without any "correct" mark.
+
+TRADEOFF:
+  For multiple-choice, the option TEXT is real content Google can index
+  (unique per quiz - biggest untapped uniqueness lever per U8). But a
+  reader who expands the details can see all four candidate answers
+  before playing. They still do not know which is right; the correct
+  index is not in the DOM. So it narrows to N candidates, not to the
+  answer.
+
+  For true_false, listing ['True', 'False'] gives away nothing (both
+  are always shown to the player anyway).
+
+  For guess_from_clues, clues are what the player sees to guess FROM,
+  not the answer, so no spoiler.
+
+ALTERNATIVES CONSIDERED:
+  Alt 1: HIDE options entirely, print questions only.
+         COST: loses ~60% of the unique text (options are longer than
+         the question in most quizzes). Weakens U8 substantially.
+  Alt 2: HIDE options AND fun_facts, print questions only.
+         COST: loses even more unique text; the fun_facts are the most
+         distinctive per-quiz content.
+  Alt 3: PRINT correct answer too (max SEO, zero anti-spoiler).
+         REJECTED: destroys quiz value.
+  Alt 4: STATUS QUO (current design). Questions + options + fun_facts
+         crawlable; correct index never in DOM.
+         RECOMMENDATION: KEEP. The narrow-to-N candidates behavior is a
+         mild spoiler at worst, and a reader determined to spoil could
+         just play once. The SEO value is real and the covenant holds
+         (no fake data, no hidden text tricks).
+
+FLAG FOR OWNER (per mission): if you prefer a stricter anti-spoiler
+policy, the honest move is Alt 1 (hide options). That trades a real
+chunk of crawlable text for a stricter spoiler-free preview. Cowork
+recommends KEEPING the status quo; Alt 1 would materially hurt SEO-3's
+purpose.
+
+Verification receipt
+====================
+grep confirmed no q.correct rendering in page.tsx:
+  $ grep -n 'q.correct\|correct:' apps/quiz/src/app/q/[slug]/page.tsx
+  132:    correct?: number | boolean;
+  332:                    : typeof q.correct === 'boolean'
+    (line 132 is a TYPE annotation only, not a render.
+     line 332 is the fallback trigger for true_false to emit
+     ['True','False'], not the answer itself.)
+
+Nothing else references q.correct in the rendered output tree.
