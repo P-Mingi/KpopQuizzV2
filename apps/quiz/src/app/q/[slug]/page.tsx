@@ -4,7 +4,8 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import Link from 'next/link';
 
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
-import { getPassRate, getQuizExtraStats } from '@/lib/db/queries/plays';
+import { getQuizExtraStats } from '@/lib/db/queries/plays';
+import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
@@ -118,13 +119,16 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   if (!quiz) notFound();
 
   const questionCount = (quiz.questions as unknown[]).length;
-  const passRate = quiz.total_completions > 0
-    ? await safeFetch(getPassRate(quiz.id, questionCount), null, '[q/[slug]] getPassRate')
-    : null;
 
-  // SEO-3 U1: extra stats not on the quiz row (fastest time, perfect scores).
-  // Only fetched when there is at least one play - saves a DB round trip on
-  // brand-new quizzes.
+  // SEO-3 U1: extra stats not on the quiz row (fastest time, perfect scores,
+  // passing count, total plays-table rows). Only fetched when there is at
+  // least one play - saves a DB round trip on brand-new quizzes.
+  //
+  // C3: pass rate is derived from what this call already returns
+  // (passingPlays / totalPlaysWithScore), so we do NOT also call
+  // getPassRate here. Two fewer round trips per render and the pass rate
+  // is mathematically guaranteed to share its denominator with the Plays
+  // cell. Leave getPassRate in place for its other callers.
   const extraStats = quiz.play_count > 0
     ? await safeFetch(
         getQuizExtraStats(quiz.id, questionCount),
@@ -132,6 +136,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         '[q/[slug]] getQuizExtraStats',
       )
     : { fastestTimeSeconds: null, perfectScoreCount: 0, passingPlays: 0, totalPlaysWithScore: 0 };
+
+  const passRate = extraStats.totalPlaysWithScore > 0
+    ? Math.round((extraStats.passingPlays / extraStats.totalPlaysWithScore) * 100)
+    : null;
 
   // SEO Fix 1: spoiler-safe question list rendered into the server HTML so the
   // unique quiz content (questions, options, fun facts) is crawlable. The
@@ -152,20 +160,23 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // when it is available; fall back to quiz.play_count (the counter row) when
   // the extra query was skipped or degraded. The stats block quotes the same
   // number, so the page reads consistently top to bottom.
-  const scoresUnlocked = quiz.total_completions >= 30;
-  const introAvg = scoresUnlocked && questionCount > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
-    : null;
+  //
+  // C2: gate on the same base as the display (plays), using the shared
+  // RANKING_UNLOCK_VOTES constant. Zero numeric literals for the threshold.
   const plays =
     extraStats.totalPlaysWithScore > 0
       ? extraStats.totalPlaysWithScore
       : quiz.play_count;
+  const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
+  const introAvg = scoresUnlocked && questionCount > 0 && quiz.total_completions > 0
+    ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
+    : null;
   const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
   let socialProof: string;
   if (plays === 0) {
     // Branch A: brand new
     socialProof = 'Be one of the first to take it on and set the score to beat.';
-  } else if (plays < 30) {
+  } else if (plays < RANKING_UNLOCK_VOTES) {
     // Branch B: honest smallness - never fake community activity
     socialProof = `${plays.toLocaleString('en-US')} ${plays === 1 ? 'player has' : 'players have'} tried it so far.`;
   } else if (plays < 1000) {
@@ -288,12 +299,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         </p>
       )}
 
-      {/* SEO-3 U1 - real per-quiz stats block. Crawlable numbers, threshold-30
-          gates ranking-ish metrics (hidden below 30 completions). Renders
-          nothing on zero-play quizzes. */}
+      {/* SEO-3 U1 - real per-quiz stats block. Crawlable numbers, threshold
+          gates ranking-ish metrics (hidden below the shared unlock line).
+          Renders nothing on zero-play quizzes. */}
       <QuizStatsBlock
         playCount={quiz.play_count}
-        totalCompletions={quiz.total_completions}
         avgScorePercent={introAvg}
         passRatePercent={passRate}
         likeCount={quiz.like_count ?? 0}

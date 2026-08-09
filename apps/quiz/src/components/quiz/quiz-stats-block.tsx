@@ -7,17 +7,19 @@ import type { QuizExtraStats } from '@/lib/db/queries/plays';
  *
  * Threshold-30 law (per RANKING_UNLOCK_VOTES): ranking-ish metrics
  * (average score, pass rate, fastest perfect time) are HIDDEN below the
- * threshold - not captioned. Plain counts (plays, completions, perfect
- * scores, likes) are always safe to render since they are counts, not
- * rankings. Under the threshold, a single honest gate line names the
- * remaining count needed.
+ * threshold - not captioned. Plain counts (plays, perfect scores, likes)
+ * are always safe to render since they are counts, not rankings. Under
+ * the threshold, a single honest gate line names the remaining count.
+ *
+ * C2 note: the gate uses the SAME base as the display (plays-table count
+ * when available, counter row as fallback), so a quiz sitting on the
+ * boundary cannot unlock on one number and render another.
  */
 
 interface QuizStatsBlockProps {
   playCount: number;
-  totalCompletions: number;
-  avgScorePercent: number | null; // null when totalCompletions === 0
-  passRatePercent: number | null; // null when we haven't computed (0 plays)
+  avgScorePercent: number | null; // null when the caller could not compute it
+  passRatePercent: number | null; // null when the caller could not compute it
   likeCount: number;
   extra: QuizExtraStats;
 }
@@ -31,7 +33,6 @@ function formatDuration(seconds: number): string {
 
 export function QuizStatsBlock({
   playCount,
-  totalCompletions,
   avgScorePercent,
   passRatePercent,
   likeCount,
@@ -40,25 +41,30 @@ export function QuizStatsBlock({
   // Nothing to show at all yet: skip the whole block (honest emptiness).
   if (playCount === 0 && likeCount === 0) return null;
 
-  const scoresUnlocked = totalCompletions >= RANKING_UNLOCK_VOTES;
-  const cells: Array<{ label: string; value: string }> = [];
-
   // Plain counts - always safe (counts, not rankings). Use plays-table
   // count when available (R3: single source of truth) and fall back to
   // the counter row otherwise.
+  //
+  // C1 note: no "Completions" cell. Cowork measured prod and found
+  // play_count === total_completions on all 399 published quizzes, and
+  // every plays row has a non-null score - so in this schema a play IS
+  // a completion. A second cell would either duplicate Plays (noise) or
+  // print a stale counter (a lie). If a schema ever records abandoned
+  // attempts, the cell comes back with real data behind it.
   const playsDisplay =
     extra.totalPlaysWithScore > 0 ? extra.totalPlaysWithScore : playCount;
+
+  // C2: gate on the same base as the display. Both are the plays-table
+  // count when available (or the counter fallback), so the unlock
+  // decision and the rendered value can never disagree.
+  const scoresUnlocked = playsDisplay >= RANKING_UNLOCK_VOTES;
+
+  const cells: Array<{ label: string; value: string }> = [];
+
   cells.push({
     label: 'Plays',
     value: playsDisplay.toLocaleString('en-US'),
   });
-
-  if (totalCompletions > 0) {
-    cells.push({
-      label: 'Completions',
-      value: totalCompletions.toLocaleString('en-US'),
-    });
-  }
 
   if (extra.perfectScoreCount > 0) {
     cells.push({
@@ -74,8 +80,8 @@ export function QuizStatsBlock({
     });
   }
 
-  // Ranking-ish metrics - only rendered once the threshold is cleared. No
-  // caption, no hint: the value stands on its own.
+  // Ranking-ish metrics - only rendered once the threshold is cleared.
+  // No caption, no hint: the value stands on its own.
   if (scoresUnlocked) {
     if (avgScorePercent !== null) {
       cells.push({ label: 'Average score', value: `${avgScorePercent}%` });
@@ -94,9 +100,10 @@ export function QuizStatsBlock({
   if (cells.length === 0) return null;
 
   // Below the threshold, one honest line names the gate so the page still
-  // says something true and unique-per-quiz (the completion count differs).
+  // says something true and unique-per-quiz (the plays count differs).
+  // Uses the same playsDisplay as the cell above.
   const gateLine = !scoresUnlocked
-    ? `Scores unlock at ${RANKING_UNLOCK_VOTES} completions (${totalCompletions.toLocaleString('en-US')} so far).`
+    ? `Scores unlock at ${RANKING_UNLOCK_VOTES} plays (${playsDisplay.toLocaleString('en-US')} so far).`
     : null;
 
   return (

@@ -1,19 +1,18 @@
-SEO-3b Acceptance: 3-quiz page comparison (real values)
-=======================================================
+SEO-3c Acceptance: 3-quiz page comparison (real values, post C1-C3)
+==================================================================
 Date: 2026-08-09
 Source of numbers: Cowork queried the production database and supplied
 the values below in the SEO-3b mission (docs/loop-seo/MISSION.md).
 This worktree has NO DB credentials, so the numbers were not derived
 here - they are quoted verbatim from Cowork's read.
 
-NOTE ON THE PREVIOUS RECEIPT (SEO-3, superseded)
-================================================
-The SEO-3 acceptance file printed illustrative values with "(real)"
-labels next to them. That was a covenant failure: a receipt must never
-contain an unmeasured number, and the honest move when the data cannot
-be reached is docs/loop-seo/BLOCKED.md, not an illustration. This
-rewrite corrects it - every number below is real (from Cowork) and
-every quoted string is what the shipped code produces after R1-R5.
+NOTE ON PRIOR RECEIPTS
+======================
+- SEO-3 receipt was a covenant failure (invented numbers labelled real).
+- SEO-3b receipt corrected that but rendered two cells for what is one
+  fact in this schema (play_count === total_completions on all 399
+  quizzes). "Completions" was noise on 396 and a false abandonment
+  signal on the 3 drifted rows. Removed in this pass.
 
 Values Cowork supplied
 ======================
@@ -35,71 +34,76 @@ TINY  girls-generation-the-legend-quiz
 
 Notation: `{difficulty}` and `{creator}` are fields Cowork did not
 quote in the mission; they render from the quiz row exactly as
-supplied by the DB. Everything else in the strings below is
-literal - if a number appears, it is the one from the table above.
+supplied by the DB. Everything else in the strings below is literal -
+if a number appears, it is the one from the table above (or a
+computed value with its formula shown).
 
 ===========================================================
 BIG - ultimate-bts-era-quiz-only-real-armys-survive
 ===========================================================
 
-Preconditions (computed from the numbers above):
-  totalPlaysWithScore = 2060 > 0  -> plays displayed = 2060 (source-of
-                                      -truth rule, R3)
-  total_completions = 1880 >= 30  -> scoresUnlocked = true (R2)
-  intro plays branch: 2060 >= 1000 -> branch D
-  branch-D sub-branch: perfect=224 > 0 AND avg=53 < 60 -> first arm
-  computed passRate = round(665 / 2060 * 100) = 32
+Preconditions (all computed inside the shipped code):
+  playsDisplay = extra.totalPlaysWithScore > 0
+               ? extra.totalPlaysWithScore
+               : quiz.play_count
+             = 2060                                  (R3 + C1)
+  scoresUnlocked = playsDisplay >= RANKING_UNLOCK_VOTES(30)
+                = true                               (C2)
+  passRate     = round(extra.passingPlays / extra.totalPlaysWithScore * 100)
+              = round(665 / 2060 * 100)
+              = 32                                   (C3)
+  introAvg     = round((total_score_sum / total_completions) / questionCount * 100)
+              = 53
+  intro branch = plays >= 1000 -> D
+  D sub-branch = perfect > 0 AND introAvg < 60 -> first arm
 
 INTRO sentence rendered:
   "Test your BTS knowledge with this {difficulty} 8-question quiz by
    {creator}. 2,060 fans have battled it (avg 53%), and 224 have
    scored perfect. Join them?"
 
-  R5 sanity: the word "only" no longer appears. The 224/2060 figure
-  stands on its own, no editorial.
+STATS BLOCK cells rendered (in order, 6 cells):
+  Plays            | 2,060
+  Perfect scores   | 224
+  Likes            | 38
+  Average score    | 53%
+  Pass rate        | 32%
+  Fastest perfect  | 18s
 
-STATS BLOCK cells rendered (in order):
-  Plays          | 2,060
-  Completions    | 1,880
-  Perfect scores | 224
-  Likes          | 38
-  Average score  | 53%
-  Pass rate      | 32%
-  Fastest perfect | 18s
+No gate line renders (scoresUnlocked = true).
 
-  R2 sanity: scoresUnlocked=true, so avg/pass/fastest render with NO
-  caption. R3 sanity: Plays cell shows 2,060 (the plays-table count),
-  matching the number quoted in the intro sentence.
+C1 sanity: no "Completions" cell. The prior receipt printed "1,880"
+beside "2,060" and invited the false read "180 abandoned". That is
+gone. The single Plays number now agrees with the pass-rate
+denominator.
 
-No gate line renders (scoresUnlocked=true).
+C3 sanity: pass rate and the Plays cell share their base (both use
+extra.totalPlaysWithScore), so no denominator drift is possible.
 
 ===========================================================
 MID - enhypen-world-ultimate-fan-challenge
 ===========================================================
 
 Preconditions:
-  totalPlaysWithScore = 853 > 0   -> plays displayed = 853
-  total_completions = 853 >= 30   -> scoresUnlocked = true
-  intro plays branch: 30 <= 853 < 1000 -> branch C
-  branch-C: introAvg not null (scoresUnlocked true) -> first arm
-  computed passRate = round(308 / 853 * 100) = 36
+  playsDisplay   = 853
+  scoresUnlocked = 853 >= 30 -> true
+  passRate       = round(308 / 853 * 100) = 36
+  introAvg       = 57
+  intro branch   = 30 <= 853 < 1000 -> C
+  C branch       = introAvg not null -> first arm
 
 INTRO sentence rendered:
   "Test your ENHYPEN knowledge with this {difficulty} 20-question
    quiz by {creator}. 853 fans have taken it, averaging 57%. Think
    you can beat that?"
 
-STATS BLOCK cells rendered (in order):
-  Plays          | 853
-  Completions    | 853
-  Perfect scores | 62
-  Likes          | 28
-  Average score  | 57%
-  Pass rate      | 36%
-  Fastest perfect | 41s
-
-  All three ranking-ish cells render (scoresUnlocked=true). Intro and
-  stats both quote 853, so the page reads consistently.
+STATS BLOCK cells rendered (in order, 6 cells):
+  Plays            | 853
+  Perfect scores   | 62
+  Likes            | 28
+  Average score    | 57%
+  Pass rate        | 36%
+  Fastest perfect  | 41s
 
 No gate line renders.
 
@@ -108,58 +112,76 @@ TINY - girls-generation-the-legend-quiz
 ===========================================================
 
 Preconditions:
-  totalPlaysWithScore = 5 > 0     -> plays displayed = 5
-  total_completions = 5 < 30      -> scoresUnlocked = FALSE
-  intro plays branch: 5 < 30      -> branch B (honest smallness)
-  introAvg = null                 (gated: scoresUnlocked=false)
-  perfect = 2, passing = 5, fastest = 55s, likes = 0
+  playsDisplay   = 5
+  scoresUnlocked = 5 >= 30 -> FALSE
+  passRate value = 100 (round(5/5*100)) but NOT RENDERED
+                   because scoresUnlocked = false (C2)
+  introAvg       = null (gated by scoresUnlocked)
+  intro branch   = 5 < 30 -> B (honest smallness)
 
 INTRO sentence rendered:
   "Test your Girls' Generation knowledge with this {difficulty}
    10-question quiz by {creator}. 5 players have tried it so far."
 
-  R2 sanity: the 92% average never appears in the intro, because
-  introAvg is null when scoresUnlocked=false. No caption trick.
+  The 92% average never appears in prose. introAvg is null because
+  the gate hasn't cleared.
 
-STATS BLOCK cells rendered (in order):
-  Plays          | 5
-  Completions    | 5
-  Perfect scores | 2
+STATS BLOCK cells rendered (in order, 2 cells):
+  Plays            | 5
+  Perfect scores   | 2
 
-  Average score, Pass rate, Fastest perfect: NOT RENDERED (scores
-  unlocked=false, R2). Likes: 0 so cell is omitted anyway.
+  Average score, Pass rate, Fastest perfect: NOT RENDERED
+  (scoresUnlocked = false, C2).
+  Likes: 0, cell omitted regardless.
 
 GATE LINE renders below the cells:
-  "Scores unlock at 30 completions (5 so far)."
+  "Scores unlock at 30 plays (5 so far)."
 
-  This is a real, checkable statement, and it is unique-per-quiz text
-  (the count "5" differs per quiz below the threshold).
+  Uses the same base (playsDisplay = 5) and the same constant
+  (RANKING_UNLOCK_VOTES) as the gate itself. Still unique-per-quiz
+  text because the count differs per quiz below the threshold.
 
 ===========================================================
-Why these three pages read genuinely differently
+Query-count comparison (per /q/[slug] render)
 ===========================================================
+Focused on the plays-related counts only. Other queries (getQuizBySlug,
+related quizzes, hall of fame, social counts, trivia gate) are
+unchanged and not counted here.
 
-The chrome is the same for all three (breadcrumb, player, hall of
-fame, related list, article links, JSON-LD wrapper). Everything else
-is per-quiz real data:
+BEFORE C3:
+  getPassRate:        2 count queries (total plays, passing plays)
+  getQuizExtraStats:  1 select + 3 counts = 4 queries
+  ------------------------------------------------------------
+  Plays-related total: 6 queries per render
+  Of those, 1 was completely dead (extra.passingPlays had no reader)
+  and 1 duplicated the getPassRate total (extra.totalPlaysWithScore).
 
-  - Intro tail:  three DIFFERENT sentence structures fire
-                 (branch D, branch C, branch B). Different lengths,
-                 different phrasings, different embedded numbers.
-  - Stats cells: BIG has 7 cells with the ranking-ish trio visible;
-                 MID has 7 cells with the same trio; TINY has 3 cells
-                 and a gate line (no trio at all). The rendered HTML
-                 is materially different for TINY vs the other two.
-  - Numbers:     every value (2060/853/5, 53/57/-, 224/62/2, etc.) is
-                 unique to the quiz.
-  - JSON-LD:     BIG and MID emit Complete+Like counters; TINY emits
-                 Complete only (likes=0, so no Like counter);
-                 numberOfQuestions differs (8/20/10);
-                 hasPart varies in length and content per quiz.
+AFTER C3:
+  getQuizExtraStats:  1 select + 3 counts = 4 queries
+  getPassRate:        NOT called from /q/[slug] anymore
+  ------------------------------------------------------------
+  Plays-related total: 4 queries per render (2 fewer, 33% reduction)
+  Zero dead values (extra.passingPlays now feeds the passRate math).
+  Pass-rate denominator is mathematically identical to the Plays cell.
 
-No two of these pages share more than the template shell. That is the
-anti-thin bar from docs/PLAY-QUIZ-PAGES.md line 79, satisfied without
-the O1/O3 trivia work (which stays deferred to Cowork's migration 149).
+===========================================================
+Why these three pages still read genuinely differently
+===========================================================
+Chrome is shared (breadcrumb, player, hall of fame, related list,
+article links, JSON-LD wrapper). Everything else is per-quiz real
+data:
+
+  - Intro:     three DIFFERENT branches (D / C / B). Different lengths,
+               different phrasings, different embedded numbers.
+  - Cells:     BIG and MID render 6 cells with the ranking-ish trio
+               visible. TINY renders 2 cells and a gate line - the
+               HTML is materially different from the other two.
+  - Numbers:   every value (2060 / 853 / 5, 53 / 57 / gated, 224 / 62
+               / 2, 32% / 36% / gated, 18s / 41s / gated) is unique
+               to the quiz.
+  - JSON-LD:   BIG and MID emit Complete+Like counters; TINY emits
+               Complete only (likes=0, no Like counter). hasPart
+               varies in length (8/20/10 Question entities).
 
 Anti-thin bar mapping
 =====================
@@ -167,6 +189,7 @@ Anti-thin bar mapping
   U8 crawlable questions  - PASS (already shipped pre-mission)
   O1 group facts          - DEFER (migration 149, Cowork)
   O3 did-you-know         - DEFER (needs O1 + prototype, Cowork)
-  U1 real stats           - PASS (with R2 gate + R3 source-of-truth)
+  U1 real stats           - PASS (with R2 gate + R3 source-of-truth
+                                 + C1 no-noise-cell + C3 shared base)
   U4 entity related       - PASS (same-group + top-up)
   U6 creator context      - PASS (creator username + profile URL)
