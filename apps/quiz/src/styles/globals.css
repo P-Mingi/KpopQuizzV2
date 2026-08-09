@@ -5900,8 +5900,8 @@ main:has(.verse-page) { max-width: 1360px; }
    ========================================================================== */
 .vh2-layout { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 48px; align-items: start; padding-top: 8px; }
 .vh2-doc { min-width: 0; }
-.vh2-rail { min-width: 0; }
-.vh2-railgroup { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; }
+.vh2-rail { min-width: 0; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; align-self: start; }
+.vh2-railgroup { display: flex; flex-direction: column; gap: 16px; }
 .vh2-widget { border: 1px solid var(--v2-line); border-radius: var(--v2-r-lg); background: var(--v2-surface); padding: 18px 18px 16px; box-shadow: var(--v2-shadow); }
 .vh2-whead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .vh2-whead h2 { font-family: var(--v-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v2-muted); }
@@ -5942,7 +5942,12 @@ main:has(.verse-page) { max-width: 1360px; }
 .vh2-curators p b { color: var(--v2-ink); font-weight: 500; }
 @media (max-width: 960px) {
   .vh2-layout { grid-template-columns: 1fr; gap: 24px; }
-  .vh2-railgroup { position: static; }
+  /* dissolve the rail so its two groups order around the document: the fact group
+     (first) sits right after the head, the rest fall below the document sections. */
+  .vh2-rail { display: contents; }
+  .vh2-railgroup.first { order: 1; }
+  .vh2-doc { order: 2; }
+  .vh2-railgroup.rest { order: 3; margin-top: 8px; }
 }
 
 /* ==========================================================================

@@ -59,7 +59,10 @@ export async function VerseHomeRail({ space }: { space: Space }): Promise<React.
   const nonStubPct = pagesPub > 0 ? Math.round((nonStub / pagesPub) * 100) : 0;
 
   return (
-    <div className="vh2-railgroup">
+    <>
+      {/* F4.5 mobile order: the FIRST group (fact sheet + numbers) sits right after the
+          head; the REST group falls below the document sections (CSS order on mobile). */}
+      <div className="vh2-railgroup first">
       {/* FACT SHEET - the group infobox (A2 Data / Auto grammar) */}
       {facts ? (
         <aside className="vh2-widget" aria-label={`${g.name} fact sheet`}>
@@ -87,7 +90,9 @@ export async function VerseHomeRail({ space }: { space: Space }): Promise<React.
           <p className="vh2-wsrc">Counted live from the KpopVerse database.</p>
         </aside>
       ) : null}
+      </div>
 
+      <div className="vh2-railgroup rest">
       {/* COMING UP - next member birthday from real birth dates */}
       {bday ? (
         <aside className="vh2-widget" aria-label="Coming up">
@@ -135,7 +140,8 @@ export async function VerseHomeRail({ space }: { space: Space }): Promise<React.
           </div>
         </aside>
       ) : null}
-    </div>
+      </div>
+    </>
   );
 }
 
