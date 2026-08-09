@@ -5945,6 +5945,30 @@ main:has(.verse-page) { max-width: 1360px; }
   .vh2-railgroup { position: static; }
 }
 
+/* ==========================================================================
+   V-FOUNDATION F4.4 - the Overview section + the anti-overflow FOLD. The full
+   content stays in the served HTML (SSR renders it expanded); JS collapses only
+   the overflow with a max-height clip (never display:none) + fade + Read more.
+   ========================================================================== */
+.vh2-sec { padding: 36px 0 0; }
+.vh2-sechead { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--v2-line); padding-bottom: 10px; margin-bottom: 20px; }
+.vh2-sechead h2 { font-family: var(--font-display); font-weight: 600; font-size: 26px; letter-spacing: -0.01em; color: var(--v2-ink); }
+.vh2-prose { max-width: 66ch; }
+.vh2-prose p { margin-bottom: 14px; font-size: 16.5px; line-height: 1.7; color: var(--v2-body); }
+.vh2-prose p:last-child { margin-bottom: 0; }
+.vh2-prose h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--v2-ink); margin: 18px 0 8px; }
+.vh2-fold { position: relative; }
+.vh2-fold .foldbody { overflow: hidden; transition: max-height 0.3s ease; }
+.vh2-fold .fade { position: absolute; left: 0; right: 0; bottom: 44px; height: 72px; pointer-events: none; background: linear-gradient(transparent, var(--v2-paper)); }
+.foldbtn { margin-top: 10px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); border-radius: 999px; padding: 7px 16px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; min-height: 44px; transition: border-color 0.15s; }
+.foldbtn:hover { border-color: var(--v2-muted); }
+.foldbtn .chev { transition: transform 0.2s; font-size: 11px; color: var(--v2-muted); }
+.vh2-fold:not(.collapsed) .foldbtn .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .vh2-fold .foldbody { transition: none; }
+  .foldbtn .chev { transition: none; }
+}
+
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact
    from HeroShell (segment-aware, server-rendered). */

@@ -1,0 +1,13 @@
+V-FOUNDATION F4.4 - anti-overflow FOLD proof (crawlable-collapse law).
+A long TEST passage was temporarily written to the BTS portal page (pages home),
+measured, then reverted to empty. The marker sentence sits in the LAST paragraph
+(the part that is visually clipped when collapsed).
+
+1) SERVED HTML (curl/fetch of /verse/bts, server-rendered): contains the hidden
+   marker sentence = true  (full text is in the HTML, not fetch-on-expand).
+2) CLIENT (after hydration): {"fold":true,"clientH":220,"scrollH":939,"clipped":true,"hasMarkerInDom":true,"readMoreBtn":"Read more▾","ariaExpanded":"false"}
+   -> foldbody clipped (clientHeight < scrollHeight, max-height applied, NOT display:none),
+      the marker text is still in the DOM, a "Read more" button with aria-expanded=false.
+
+Conclusion: the collapse hides overflow VISUALLY only; the whole text is crawlable.
+The portal blocks were restored to empty after the measurement.

@@ -8,6 +8,7 @@ import { getSpace } from '@/lib/verse/space';
 import { getPortalComposition } from '@/lib/verse/tree/portal';
 import { VerseHomeHead } from '@/components/verse/tree/home-head';
 import { VerseHomeRail } from '@/components/verse/tree/home-rail';
+import { VerseHomeOverview } from '@/components/verse/tree/home-overview';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -48,6 +49,9 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
           <div className="mb-6">
             <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
           </div>
+          {/* F4.4: the portal Overview prose (pages.blocks) inside the anti-overflow fold;
+              self-hides until Cowork writes it. */}
+          <VerseHomeOverview spaceId={space.group.id} />
           <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
         </div>
         <aside className="vh2-rail" aria-label={`${space.group.name} data`}>
