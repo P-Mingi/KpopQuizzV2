@@ -5894,6 +5894,57 @@ main:has(.verse-page) { max-width: 1360px; }
 .vh2-btn.ghost { background: transparent; color: var(--v2-ink); border-color: var(--v2-line); }
 .vh2-btn.ghost:hover { border-color: var(--v2-muted); opacity: 1; }
 
+/* ==========================================================================
+   V-FOUNDATION F4.3 - the two-column body (document + data rail) and the rail
+   widgets. Server components; every value is a live count or real row.
+   ========================================================================== */
+.vh2-layout { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 48px; align-items: start; padding-top: 8px; }
+.vh2-doc { min-width: 0; }
+.vh2-rail { min-width: 0; }
+.vh2-railgroup { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; }
+.vh2-widget { border: 1px solid var(--v2-line); border-radius: var(--v2-r-lg); background: var(--v2-surface); padding: 18px 18px 16px; box-shadow: var(--v2-shadow); }
+.vh2-whead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.vh2-whead h2 { font-family: var(--v-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v2-muted); }
+.vh2-wsrc { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--v2-line-soft); font-size: 10.5px; color: var(--v2-faint); line-height: 1.5; }
+.vh2-badge { font-family: var(--v-mono); font-size: 8.5px; letter-spacing: 0.1em; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; white-space: nowrap; }
+.vh2-badge.data { color: var(--v2-data); background: color-mix(in srgb, var(--v2-data) 10%, transparent); }
+.vh2-badge.auto { color: var(--v2-auto); background: color-mix(in srgb, var(--v2-auto) 12%, transparent); }
+.vh2-factphoto { aspect-ratio: 16 / 10; border-radius: var(--v2-r-md); border: 1px dashed var(--v2-line); background: var(--v2-wash); display: grid; place-items: center; margin-bottom: 14px; font-family: var(--v-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--v2-faint); text-align: center; padding: 8px; }
+.vh2-factrows { display: flex; flex-direction: column; margin: 0; }
+.vh2-frow { display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--v2-line-soft); }
+.vh2-frow:last-child { border-bottom: 0; }
+.vh2-frow dt { font-size: 12px; color: var(--v2-muted); }
+.vh2-frow dd { font-size: 13.5px; font-weight: 500; color: var(--v2-ink); font-variant-numeric: tabular-nums; margin: 0; }
+.vh2-numgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vh2-num { border: 1px solid var(--v2-line-soft); border-radius: var(--v2-r-md); background: var(--v2-paper); padding: 12px 14px; }
+.vh2-num b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--v2-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.vh2-num span { font-family: var(--v-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--v2-muted); }
+.vh2-upcoming { display: flex; align-items: center; gap: 14px; }
+.vh2-cal { width: 52px; border: 1px solid var(--v2-line); border-radius: var(--v2-r-sm); overflow: hidden; text-align: center; background: var(--v2-paper); flex-shrink: 0; }
+.vh2-cal .m { font-family: var(--v-mono); font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; background: var(--v2-pill); color: var(--v2-pill-text); padding: 3px 0; }
+.vh2-cal .d { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--v2-ink); padding: 4px 0 5px; }
+.vh2-what b { display: block; font-size: 14px; font-weight: 600; color: var(--v2-ink); }
+.vh2-what span { font-size: 12px; color: var(--v2-muted); }
+.vh2-covrows { display: flex; flex-direction: column; gap: 10px; }
+.vh2-covrow .lbl { display: flex; justify-content: space-between; font-size: 12px; color: var(--v2-muted); margin-bottom: 5px; }
+.vh2-covrow .lbl b { color: var(--v2-ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+.vh2-covbar { height: 5px; border-radius: 999px; background: var(--v2-wash); overflow: hidden; }
+.vh2-covbar i { display: block; height: 100%; border-radius: 999px; background: var(--v2-accent); opacity: 0.75; }
+.vh2-quizrow { display: flex; flex-direction: column; gap: 8px; }
+.vh2-quizrow a { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--v2-line-soft); border-radius: var(--v2-r-md); padding: 10px 14px; font-size: 13px; font-weight: 500; color: var(--v2-ink); background: var(--v2-paper); transition: border-color 0.15s; min-height: 44px; text-decoration: none; }
+.vh2-quizrow a:hover { border-color: var(--v2-muted); text-decoration: none; }
+.vh2-quizrow a .arr { color: var(--v2-faint); font-size: 12px; }
+.vh2-curators { display: flex; align-items: center; gap: 12px; }
+.vh2-curators .avs { display: flex; }
+.vh2-curators .av { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--v2-surface); background: var(--v2-wash); display: grid; place-items: center; font-family: var(--font-display); font-size: 12px; color: var(--v2-muted); margin-left: -8px; }
+.vh2-curators .av:first-child { margin-left: 0; }
+.vh2-curators p { font-size: 12px; color: var(--v2-muted); line-height: 1.5; margin: 0; }
+.vh2-curators p b { color: var(--v2-ink); font-weight: 500; }
+@media (max-width: 960px) {
+  .vh2-layout { grid-template-columns: 1fr; gap: 24px; }
+  .vh2-railgroup { position: static; }
+}
+
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact
    from HeroShell (segment-aware, server-rendered). */

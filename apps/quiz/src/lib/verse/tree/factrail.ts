@@ -263,6 +263,24 @@ async function awardRail(db: SupabaseClient, page: PageRow, row: RowFn): Promise
   return rows.length ? [{ heading: 'Award', rows }] : null;
 }
 
+/** F4.3 - the GROUP fact sheet for the portal home rail. Same A2 grammar (Data vs
+ * computed Auto rows), sourced from the group + a live member count. No entity page
+ * binding (the home is the space itself), so this takes the group directly. */
+export interface GroupFactInput { fandom_name: string; inception_date: string | null; record_label: string | null; generation: string | null; origin_country: string | null; }
+export function buildGroupFactRail(group: GroupFactInput, memberCount: number, now: Date): FactSection[] {
+  const rows: FactRow[] = [];
+  const debut = fmtDate(group.inception_date);
+  if (debut) rows.push({ key: 'g_debut', dt: 'Debut', dd: debut });
+  if (group.record_label) rows.push({ key: 'g_label', dt: 'Label', dd: group.record_label });
+  if (group.generation) rows.push({ key: 'g_gen', dt: 'Generation', dd: group.generation });
+  if (group.origin_country) rows.push({ key: 'g_origin', dt: 'Origin', dd: group.origin_country });
+  if (group.fandom_name) rows.push({ key: 'g_fandom', dt: 'Fandom', dd: group.fandom_name });
+  if (memberCount > 0) rows.push({ key: 'g_members', dt: 'Members', dd: String(memberCount), auto: true });
+  const active = yearsBetween(group.inception_date, now);
+  if (active != null) rows.push({ key: 'g_active', dt: 'Active', dd: `${active} year${active === 1 ? '' : 's'}`, auto: true });
+  return rows.length ? [{ heading: 'Fact sheet', rows }] : [];
+}
+
 /** Whether the fact rail ALONE justifies indexability (the Phase G exemption, per kind, F3):
  * idol always; a release with a real tracklist; an era with releases; track + award stay the
  * CONSERVATIVE stub-until-body (they need real prose to index). Reads live richness from the DB. */

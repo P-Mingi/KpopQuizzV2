@@ -7,6 +7,7 @@ import { getGroupBacklinks } from '@/lib/verse/backlinks';
 import { getSpace } from '@/lib/verse/space';
 import { getPortalComposition } from '@/lib/verse/tree/portal';
 import { VerseHomeHead } from '@/components/verse/tree/home-head';
+import { VerseHomeRail } from '@/components/verse/tree/home-rail';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { musicGroupLd, jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -39,14 +40,19 @@ export default async function SpaceHomePage({ params }: { params: Promise<{ slug
       {/* V-FOUNDATION F4.2: the home v2 page head carries the page's ONE h1 (the group
           name); the shared space hero + tabs are suppressed for the home. */}
       <VerseHomeHead space={space} />
-      <div id="vh2-body" className="grid grid-cols-1 gap-x-8 lg:grid-cols-3 lg:gap-x-16">
-        <div className="lg:col-span-3 mb-6">
-          <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+      {/* V-FOUNDATION F4.3: the two-column body - the document column (still the
+          unified Composition; the doc-column reconciliation is F4.5) + the real
+          data rail. */}
+      <div id="vh2-body" className="vh2-layout">
+        <div className="vh2-doc">
+          <div className="mb-6">
+            <Breadcrumbs items={[{ label: 'Verse', href: '/verse' }, { label: space.group.fandom_name }]} />
+          </div>
+          <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
         </div>
-        {/* V-BUILDER-1 step 3: the home body still renders THROUGH the unified
-            Composition (presentation -> composition -> the one renderer). The v2
-            two-column doc + data rail restructure is F4.3-F4.5. */}
-        <CompositionRenderer space={space} composition={composition} backlinks={backlinks} />
+        <aside className="vh2-rail" aria-label={`${space.group.name} data`}>
+          <VerseHomeRail space={space} />
+        </aside>
       </div>
     </>
   );
