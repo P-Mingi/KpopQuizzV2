@@ -53,7 +53,7 @@ export function NavAccordion({ spaceSlug, tree }: { spaceSlug: string; tree: Nav
                 <summary className="v-side-row">
                   <span className="v-side-ic" aria-hidden="true"><SectionIcon label={n.label} /></span>
                   <span className="v-side-lbl">{n.label}</span>
-                  <span className="v-side-chev" aria-hidden="true">&#9662;</span>
+                  <span className="v-side-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg></span>
                 </summary>
                 <ul className="v-side-sub">
                   {kids.map((c, j) => {

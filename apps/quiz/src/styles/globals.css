@@ -6183,6 +6183,18 @@ main:has(.verse-page) { max-width: 1360px; }
 .verse-page:has(.vh2-home) .vh2-home,
 .verse-page:has(.vh2-home) #vh2-body { max-width: 1120px; margin-inline: auto; }
 
+/* ITERATION 5 FIX 1 - FULL-BLEED white home. Drop the 1360 cap and the shell's horizontal
+   padding on the home so the white ground reaches BOTH viewport edges (no cream gutters): the
+   sidebar sits flush-left, main fills to the right edge, the 1120 reading cluster stays centered
+   in main. Desktop only (the mobile drawer keeps its padding); scoped to the home via
+   :has(.vh2-home) so every sub-page and the global cream --bg are untouched. */
+@media (min-width: 768px) {
+  main:has(.vh2-home) { max-width: none; padding-left: 0; padding-right: 0; }
+  .verse-page:has(.vh2-home) { padding-left: 0; padding-right: 0; }
+  /* keep the reading cluster off the very edges even when it is the full main width. */
+  .verse-page:has(.vh2-home) .v-navmain { padding-right: clamp(16px, 3vw, 40px); }
+}
+
 /* ==========================================================================
    V3 nav (deliverable 2) - the persistent foldable LEFT sidebar + scroll-spy TOC.
    Layout: [ .v-sidenav | .v-navmain ] flex row; the 1120 reading cluster stays
@@ -6219,9 +6231,10 @@ main:has(.verse-page) { max-width: 1360px; }
 @media (prefers-reduced-motion: reduce) { .v-railbtn { transition: none; } }
 
 /* ITERATION 2 - the relocated GLOBAL chrome (real logo -> world/links -> search/theme/profile) */
-.v-side-top { display: flex; flex-direction: column; gap: 3px; padding: 4px 4px 2px; }
-.v-side-top .v-side-brandrow { margin-bottom: 6px; }
-.v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; }
+/* ITERATION 5 FIX 2 - the top block as ONE tight structured stack: even 2px rhythm, every
+   control full-width to the same left edge, one type scale, no stray pills. */
+.v-side-top { display: flex; flex-direction: column; gap: 2px; padding: 2px 4px 2px; }
+.v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px; margin-bottom: 6px; }
 .v-side-logo-full { display: inline-flex; align-items: center; min-width: 0; }
 .v-side-logo-mark { display: none; align-items: center; }
 .v-side-collapse { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--v2-line); color: var(--v2-muted); cursor: pointer; background: var(--v2-surface); flex-shrink: 0; }
@@ -6231,20 +6244,23 @@ main:has(.verse-page) { max-width: 1360px; }
 /* ITERATION 4 - the global block reformatted to ONE sidebar system. The Play CTA keeps its
    pink pill; Fandoms/Community are plain .v-side-row rows; search is a soft field + a theme
    icon; the profile is a clean full-width row (its top-nav pill chrome is overridden below). */
-.v-side-cta { display: flex; margin: 2px 4px 4px; }
-.v-side-cta .world-toggle { width: 100%; justify-content: center; }
-.v-side-searchrow { display: flex; align-items: center; gap: 6px; margin: 2px 0; }
-.v-side-searchbtn { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-wash); color: var(--v2-muted); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 38px; }
+/* the Play CTA - full-width pink pill, the primary action (kept, made to stand out). */
+.v-side-cta { display: flex; margin: 1px 0 3px; }
+.v-side-cta .world-toggle { width: 100%; justify-content: center; padding-top: 10px; padding-bottom: 10px; }
+/* utility row: a full-width search FIELD + the theme toggle as a compact square on its right. */
+.v-side-searchrow { display: flex; align-items: center; gap: 6px; }
+.v-side-searchbtn { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-wash); color: var(--v2-muted); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 40px; }
 .v-side-searchbtn:hover { border-color: var(--v2-line); color: var(--v2-ink); text-decoration: none; }
 .v-side-searchbtn .v-side-ic { color: var(--v2-faint); }
 .v-side-themewrap { flex: 0 0 auto; display: inline-flex; }
-.theme-toggle.v-side-themebtn { width: 38px; height: 38px; min-width: 38px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-surface); color: var(--v2-muted); }
+.theme-toggle.v-side-themebtn { width: 40px; height: 40px; min-width: 40px; border-radius: 9px; border: 1px solid var(--v2-line-soft); background: var(--v2-surface); color: var(--v2-muted); }
 .theme-toggle.v-side-themebtn:hover { border-color: var(--v2-line); color: var(--v2-ink); background: var(--v2-wash); }
-/* the reused TopNavProfile carries inline pill chrome; strip it to a clean full-width row. */
-.v-side-profilewrap { display: block; margin-top: 2px; }
-.v-side-profilewrap > a, .v-side-profilewrap > span { display: flex !important; align-items: center; gap: 10px !important; width: 100%; padding: 7px 8px !important; border: none !important; border-radius: 8px !important; background: transparent !important; justify-content: flex-start !important; min-height: 38px; }
-.v-side-profilewrap > a:hover { background: var(--v2-wash) !important; }
-.v-side-profilewrap .top-nav-profile-name { font-size: 13px !important; color: var(--v2-body) !important; }
+/* Sign in / profile: one clean full-width control (same width as Play), soft-filled, centered
+   - the reused TopNavProfile's inline pill chrome is overridden. */
+.v-side-profilewrap { display: block; }
+.v-side-profilewrap > a, .v-side-profilewrap > span { display: flex !important; align-items: center; gap: 10px !important; width: 100%; padding: 9px !important; border: none !important; border-radius: 9px !important; background: var(--v2-wash) !important; justify-content: center !important; min-height: 40px; font-size: 13px !important; font-weight: 600 !important; color: var(--v2-ink) !important; }
+.v-side-profilewrap > a:hover { background: var(--v2-line-soft) !important; }
+.v-side-profilewrap .top-nav-profile-name { font-size: 13px !important; color: var(--v2-ink) !important; }
 
 .v-side-chip { display: flex; align-items: center; gap: 9px; margin: 4px 4px 6px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); text-decoration: none; }
 .v-side-chip:hover { border-color: var(--v2-muted); text-decoration: none; }
@@ -6260,11 +6276,15 @@ main:has(.verse-page) { max-width: 1360px; }
 .v-side-item { list-style: none; }
 .v-side-sect > summary { list-style: none; }
 .v-side-sect > summary::-webkit-details-marker { display: none; }
-.v-side-row { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 8px; cursor: pointer; color: var(--v2-body); font-size: 13.5px; font-weight: 500; text-decoration: none; min-height: 38px; }
+.v-side-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 9px; cursor: pointer; color: var(--v2-body); font-size: 13.5px; font-weight: 500; text-decoration: none; min-height: 40px; }
 .v-side-row:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
 .v-side-ic { display: grid; place-items: center; width: 20px; height: 20px; color: var(--v2-muted); flex-shrink: 0; }
 .v-side-lbl { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.v-side-chev { font-size: 9px; color: var(--v2-faint); transition: transform 0.2s ease; flex-shrink: 0; }
+/* FIX 3: the whole parent ROW is the toggle (summary is the full-width .v-side-row); the chevron
+   on the right is now a clearer 15px glyph with better contrast, rotating on open. */
+.v-side-chev { display: inline-flex; align-items: center; color: var(--v2-muted); transition: transform 0.2s ease; flex-shrink: 0; margin-left: auto; }
+.v-side-chev svg { width: 15px; height: 15px; }
+.v-side-sect > summary:hover .v-side-chev { color: var(--v2-ink); }
 .v-side-sect[open] > summary .v-side-chev { transform: rotate(180deg); }
 .v-side-sub { list-style: none; margin: 0 0 2px; padding: 1px 0 3px 30px; display: flex; flex-direction: column; gap: 1px; }
 .v-side-link { display: block; padding: 6px 8px; border-radius: 7px; font-size: 13px; color: var(--v2-muted); text-decoration: none; min-height: 32px; line-height: 1.55; }
