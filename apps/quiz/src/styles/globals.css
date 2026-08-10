@@ -3771,6 +3771,34 @@ a.ranking-cta { text-decoration: none; }
 .vtag-relh { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
 @media (max-width: 560px) { .vtag-grid { grid-template-columns: 1fr; } }
 
+/* ITERATION 6 PART B - the redesigned auto-list INDEX (verse-child-templates.html, Template 1):
+   a DB-true intro + mono meta line, then rich cards (thumb, title, meta, hover reveal, go-arrow).
+   All --v2 tokens; the whole card is a crawlable <a>. */
+.vix { padding-top: 2px; }
+.vix-crumb { font-family: var(--v-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--v2-faint); margin-bottom: 14px; text-transform: uppercase; }
+.vix-crumb a { color: var(--v2-muted); }
+.vix-crumb a:hover { color: var(--v2-ink); }
+.vix-crumb .sep { margin: 0 8px; color: var(--v2-line); }
+.vix-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 4vw, 40px); letter-spacing: -0.015em; color: var(--v2-ink); margin: 0 0 12px; }
+.vix-intro { font-size: 16.5px; line-height: 1.7; color: var(--v2-body); max-width: 62ch; margin-bottom: 6px; }
+.vix-metaline { font-family: var(--v-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--v2-faint); text-transform: uppercase; margin: 14px 0 20px; }
+.vix-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.vix-card { position: relative; display: block; border: 1px solid var(--v2-line); border-radius: var(--v2-r-md); background: var(--v2-surface); padding: 14px; overflow: hidden; text-decoration: none; color: var(--v2-body); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.vix-card:hover { transform: translateY(-3px); box-shadow: var(--v2-shadow); border-color: var(--v2-line); text-decoration: none; }
+.vix-art { display: grid; place-items: center; aspect-ratio: 1; width: 100%; border-radius: var(--v2-r-sm); background: radial-gradient(120% 120% at 25% 15%, var(--v2-surface), var(--v2-wash)); border: 1px solid var(--v2-line-soft); margin-bottom: 11px; object-fit: cover; font-family: var(--font-display); font-size: 22px; color: var(--v2-faint); }
+.vix-card b { display: block; font-size: 14px; font-weight: 600; color: var(--v2-ink); line-height: 1.3; }
+.vix-card .k { display: block; font-family: var(--v-mono); font-size: 9.5px; letter-spacing: 0.08em; color: var(--v2-faint); text-transform: uppercase; margin-top: 3px; }
+.vix-reveal { display: block; max-height: 0; opacity: 0; overflow: hidden; font-size: 12.5px; line-height: 1.5; color: var(--v2-muted); margin-top: 0; transition: max-height 0.22s ease, opacity 0.22s ease, margin 0.22s ease; }
+.vix-card:hover .vix-reveal { max-height: 64px; opacity: 1; margin-top: 9px; }
+.vix-go { position: absolute; top: 14px; right: 14px; color: var(--v2-faint); font-size: 14px; opacity: 0; transition: opacity 0.18s ease, transform 0.18s ease; }
+.vix-card:hover .vix-go { opacity: 1; transform: translateX(2px); }
+.vix-empty { color: var(--v2-muted); font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .vix-card, .vix-reveal, .vix-go { transition: none; } }
+@media (max-width: 900px) { .vix-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .vix-grid { grid-template-columns: 1fr; } }
+/* mobile / no-hover: always reveal the description (the prototype's tap / always-show fallback). */
+@media (hover: none) { .vix-reveal { max-height: 64px; opacity: 1; margin-top: 9px; } .vix-go { opacity: 0.55; } }
+
 /* V-FOUNDATION F2 - the page EDITOR (locked prototype). Writing-first; the chrome appears
    where the hand is (gutter on hover, toolbar on selection, palette on "/"). Tokenized. */
 .ped-wrap { max-width: 760px; margin: 0 auto; padding-top: 12px; }

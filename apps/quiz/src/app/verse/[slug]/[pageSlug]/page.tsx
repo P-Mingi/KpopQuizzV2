@@ -9,6 +9,7 @@ import { buildFactRail } from '@/lib/verse/tree/factrail';
 import { extractLinks, backlinksFor } from '@/lib/verse/tree/links';
 import { tagsForPage } from '@/lib/verse/tree/tags';
 import { DocumentPage } from '@/components/verse/tree/document-page';
+import { VerseIndexPage } from '@/components/verse/tree/index-page';
 import { breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
 import { getStoredEntityTrivia, getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
 import { stableIndex } from '@/lib/trivia/pick-fact';
@@ -85,26 +86,9 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
 
   // An INDEX page auto-lists its published children (never hand-kept). It is structural:
   // no TOC / fact rail, and it stays out of the sitemap (a container, not a document).
+  // PART B: the redesigned rich-card index (intro + DB-true meta + hover reveal).
   if (page.type === 'index') {
-    const { data: kidRows } = await createServiceRoleClient()
-      .from('pages').select('slug, title, type, entity_kind')
-      .eq('space_id', space.group.id).eq('parent_id', page.id).eq('status', 'published')
-      .neq('type', 'index').neq('type', 'portal').order('title').limit(1000);
-    const kids = (kidRows as { slug: string; title: string; type: string; entity_kind: string | null }[] | null) ?? [];
-    return (
-      <div className="verse-page verse-scope vtag">
-        <nav className="vdoc-crumb" aria-label="Breadcrumb">
-          <a href={`/verse/${slug}`}>{space.group.fandom_name}</a><span className="sep">/</span>{page.title}
-        </nav>
-        <h1 className="vtag-title">{page.title}</h1>
-        <div className="vtag-meta"><span className="vdoc-chip data">auto index</span><span className="vdoc-chip">{kids.length} page{kids.length === 1 ? '' : 's'}</span></div>
-        {kids.length > 0 ? (
-          <div className="vtag-grid">
-            {kids.map((c) => <a key={c.slug} className="vtag-card" href={`/verse/${slug}/${c.slug}`}><i aria-hidden="true" /><span><b>{c.title}</b><span className="k">{c.entity_kind ?? c.type}</span></span></a>)}
-          </div>
-        ) : <p className="vtag-empty">No pages here yet.</p>}
-      </div>
-    );
+    return <VerseIndexPage spaceSlug={slug} spaceId={space.group.id} spaceName={space.group.name} page={page} />;
   }
 
   const svc = createServiceRoleClient();
