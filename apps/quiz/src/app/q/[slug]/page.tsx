@@ -21,6 +21,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 
 import type { Metadata } from 'next';
 
@@ -304,6 +305,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     likeCount: quiz.like_count ?? 0,
   };
 
+  const inThisQuiz = buildInThisQuiz(quiz);
+
   return (
     <div className="py-4 md:py-6">
       <Breadcrumbs
@@ -322,6 +325,28 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
+
+      {/* SEO indexguard PART 3 - cold-start "In this quiz" block. Crawlable, unique by
+          construction (derived only from THIS quiz's data), spoiler-safe (prompts only).
+          It sits BELOW the QuizPlayer, so the play CTA stays above the fold. */}
+      {inThisQuiz && (
+        <section className="mt-4 max-w-2xl" aria-label="In this quiz">
+          <h2 className="text-sm font-semibold text-primary">In this quiz</h2>
+          <p className="text-sm text-secondary mt-1">
+            {inThisQuiz.contextLine}. {inThisQuiz.topicsLine.charAt(0).toUpperCase() + inThisQuiz.topicsLine.slice(1)}.
+          </p>
+          {inThisQuiz.sampleQuestions.length > 0 && (
+            <>
+              <p className="text-xs text-tertiary mt-2">A taste of the questions (no answers):</p>
+              <ul className="text-sm text-secondary mt-1 list-disc pl-5 space-y-1">
+                {inThisQuiz.sampleQuestions.map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+      )}
 
       {/* SEO (audit v2) - crawlable engagement counts. The live reaction/comment
           widgets are a post-play client island; these counts render server-side. */}

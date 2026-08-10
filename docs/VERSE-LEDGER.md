@@ -2349,3 +2349,11 @@ L-174 (SEO indexguard PART 2 SHIPPED: weekly prod indexability monitor cron)
   failures }. Read-only (logs + returns). vercel.json weekly cron Sun 09:00 UTC (no collision).
   RECEIPT: unauth -> 401; authed -> {"ok":true,"checked":40,"sitemapUrls":694,"failures":[]} vs live
   prod (docs/proofs/seo-indexguard/part2-cron-invocation.txt). tsc 0. PARTS 3-4 pending. Nothing pushed.
+
+L-175 (SEO indexguard PART 3 SHIPPED: cold-start "In this quiz" block on /q/[slug])
+  New src/lib/quiz/in-this-quiz.ts derives - from the quiz's OWN data only, zero fabrication - a topics
+  line (format+count via quiz_type), a context line (group · difficulty · count), and 1-2 sample
+  question PROMPTS (prompts only, never options/correct: spoiler-safe by construction). Rendered on
+  /q/[slug] as a crawlable <section> BELOW the QuizPlayer so the START QUIZ CTA stays above the fold;
+  renders for ALL quizzes. RECEIPT: proofs/seo-indexguard/part3-coldstart-block.png (1-play ARTMS quiz
+  shows the block, CTA above it). tsc 0. PART 4 pending. Nothing pushed.

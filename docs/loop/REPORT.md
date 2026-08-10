@@ -47,7 +47,16 @@ UTC (no collision with existing jobs).
 RECEIPT (docs/proofs/seo-indexguard/part2-cron-invocation.txt): unauthenticated -> HTTP 401; authed
 (Bearer CRON_SECRET) -> `{"ok":true,"checked":40,"sitemapUrls":694,"failures":[]}` against live prod.
 tsc 0.
-## PART 3 - COLD-START uniqueness block on /q/[slug]  [PENDING]
+## PART 3 - COLD-START uniqueness block on /q/[slug]  [DONE]
+New `src/lib/quiz/in-this-quiz.ts` derives, from the quiz's OWN data only (never fabricated/guessed): a
+topics line (question format + count, e.g. "5 guess-from-clues questions"), a context line (group ·
+difficulty · count), and 1-2 sample question PROMPTS - prompts only, never options/correct, spoiler-safe
+by construction. Rendered on `/q/[slug]` as a crawlable `<section aria-label="In this quiz">` placed
+BELOW the QuizPlayer, so the START QUIZ CTA stays above the fold. Renders for ALL quizzes (returns null
+only if a quiz has zero questions), enriching thin cold-start pages.
+RECEIPT: `docs/proofs/seo-indexguard/part3-coldstart-block.png` - a 1-play quiz (guess-the-artms-song)
+shows the block ("ARTMS · Medium · 5 questions. 5 guess-from-clues questions." + spoiler-safe sample
+prompts) with START QUIZ clearly above it. tsc 0.
 ## PART 4 - CREATOR NUDGES in the builder  [PENDING]
 
 (Continuing in subsequent loop iterations; each part committed on its own.)
