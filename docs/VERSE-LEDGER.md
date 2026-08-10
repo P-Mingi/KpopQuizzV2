@@ -2271,6 +2271,16 @@ L-171 (iter-8 follow-up: content/footer breathing room + fully-fixed sidebar; ow
   column to the footer; the hidden state slides the fixed layer off-left + fades it; mobile resets it
   to static (drawer). tsc 0, token gate + next build green. Nothing pushed.
 
+L-172 (iter-8 follow-up 2: sidebar/footer + hero overlaps, gap, smaller header; owner, frustrated)
+  position:fixed (L-171) made the nav overlap the FOOTER at page bottom (fixed never yields). Reverted
+  to position:sticky - stays pinned through the scroll but stops at the footer, so no overlap (the
+  right answer for "stick AND never overlap"). Also: the hero's full-bleed -mx (pre-sidebar era) pushed
+  its cover band ~40px UNDER the left panel on content pages -> zero the hero's horizontal margin on
+  desktop so it sits inside the content column. Added column-gap:16px on .v-navshell for a small
+  panel/content distinction (owner ask). Shrank the compact hero (body padding 1.1/1rem -> 0.7rem,
+  clear-the-bar margin 1.5rem -> 1rem): 94px -> 83px, title still clears the bar by 27px. tsc 0, token
+  gate + next build green. Nothing pushed.
+
 L-169 (iter-7 audit: PASS w/ 2 finish defects; iter-8 staged; release-prose tracklists trimmed)
   Cowork audited iter-7 (ab84416) independently: scope clean (/verse only), rail classes 0 in src,
   full hide + reopen tab verified on screenshots, FIX1 preserved (grey column to the white footer,
@@ -2286,3 +2296,21 @@ L-169 (iter-7 audit: PASS w/ 2 finish defects; iter-8 staged; release-prose trac
   16 published BTS release pages — the structured, linked tracklist from album_tracks renders
   instead. Verified: 0 pages still carry the static section, 16 trimmed to Overview-only prose,
   16 append-only page_revisions written (seed author), fully reversible. Push gate still closed.
+
+L-170 (SEO future-proofing ruled: 4-part indexguard mission queued)
+  Owner asked (1) are we SURE the SEO is good and (2) how to guarantee every FUTURE quiz stays
+  indexable and unique. Cowork verified the quiz mechanism in code: /q/[slug] has NO noindex flag
+  at all (the article-bug class cannot recur there), published quizzes flow into the sitemap
+  automatically (cap 10,000, currently 399), and each page already differentiates via data (unique
+  title+count, stat-driven description, self-canonical, per-quiz OG, Quiz JSON-LD about MusicGroup).
+  Honest caveat stated: the article fix is NOT live until the batch is pushed; after deploy the
+  owner must request re-indexing of the 8 URLs in GSC and click Validate fix.
+  Real future risks identified: silent regression (the article-bug class), prod drift after deploy,
+  cold-start thinness (0-play quizzes), duplicate user titles. Owner approved ALL FOUR counters,
+  promoting the creator nudges from "later" to now ("tres important"): P1 CI guard failing the build
+  on any sitemap×noindex contradiction (+ title/canonical checks + inverse coverage check), P2 weekly
+  prod monitor cron (duel-reconcile auth pattern), P3 cold-start "In this quiz" crawlable block
+  derived only from the quiz's own questions (teaser without answers), P4 builder nudges: exact-title
+  dedup hint (never blocking) + optional creator note in quizzes.settings.creator_note (NO DDL),
+  rendered on-page + folded into the meta description. Queued as
+  docs/loop/MISSION-seo-indexguard.next.md, to be promoted to MISSION.md after iter-8 is accepted.

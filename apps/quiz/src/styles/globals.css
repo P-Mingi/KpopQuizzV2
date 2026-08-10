@@ -6281,6 +6281,11 @@ main:has(.verse-page) { max-width: none; }
   main:has(.verse-page) { padding-bottom: 0; display: flex; flex-direction: column; }
   .verse-page.verse-scope { padding-top: 0; padding-bottom: 0; flex: 1 0 auto; display: flex; flex-direction: column; }
   .v-navshell { flex: 1 0 auto; }
+  /* iter-8 follow-up: on desktop the sidebar owns the left gutter. The hero's full-bleed -mx (from the
+     no-sidebar era) pushed its cover band ~40px UNDER the panel; sit the hero inside the content column
+     instead. (The small gap between the panel and the content lives on the base .v-navshell rule.) */
+  .v-navmain > .verse-hero,
+  .v-navmain > * > .verse-hero { margin-left: 0; margin-right: 0; }
 }
 
 /* ==========================================================================
@@ -6329,7 +6334,9 @@ main:has(.verse-page) { max-width: none; }
 .v-topbar-burger { display: none; place-items: center; width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-nav); color: var(--v2-ink); cursor: pointer; flex: 0 0 auto; padding: 0; }
 
 /* ----- the shell + the space-only grey sidebar ----- */
-.v-navshell { display: flex; align-items: flex-start; gap: 0; padding-top: var(--v-topbar-h); }
+/* column-gap 16px = a small distinction between the grey panel and the content column (desktop flex
+   row); row-gap 0. On mobile the shell is display:block so the gap is inert. */
+.v-navshell { display: flex; align-items: flex-start; gap: 0 16px; padding-top: var(--v-topbar-h); }
 /* The hero cover uses -mx (full-bleed width) + a negative -mt that used to pull it up into the page's
    old top padding (flush to y=0). FIX1 removed that padding and iter-7 added the fixed 52px top bar,
    so the -mt now slips the hero UNDER the bar. Cancel the top bleed (horizontal bleed untouched) and
@@ -6337,21 +6344,20 @@ main:has(.verse-page) { max-width: none; }
    title clears the bar edge instead of tucking right under it. The home masthead uses .vh2-home, not
    .verse-hero, so it is unaffected (its own top margin already gives the clearance). */
 .v-navmain > .verse-hero,
-.v-navmain > * > .verse-hero { margin-top: 1.5rem; }
+.v-navmain > * > .verse-hero { margin-top: 1rem; }
 .v-sidenav {
   flex: 0 0 var(--v-side-w); width: var(--v-side-w); align-self: stretch;
   background: var(--v2-nav); border-right: 1px solid var(--v2-line);
   transition: flex-basis .28s var(--v-fx), width .28s var(--v-fx), margin-left .28s var(--v-fx), opacity .2s ease;
   --world-accent: var(--v2-accent);
 }
-/* The nav content is FULLY FIXED to the viewport (top:52, left:0) so it never scrolls with the page,
-   not even at the bottom where a sticky would release. The grey .v-sidenav panel behind it (align-self
-   stretch) still fills the column to the footer; this fixed layer just holds the pinned nav. Mobile
-   resets this to static (the drawer). */
+/* The nav content is STICKY: it stays pinned at the top bar's bottom through the whole scroll (so it
+   reads as fixed) but stops cleanly when the grey panel reaches the footer, so it never overlaps the
+   footer. (A true position:fixed would keep covering the footer at the page bottom.) Mobile resets it
+   to static inside the drawer. */
 .v-sidenav-inner {
-  position: fixed; top: var(--v-topbar-h); left: 0; width: var(--v-side-w); height: calc(100vh - var(--v-topbar-h));
+  position: sticky; top: var(--v-topbar-h); max-height: calc(100vh - var(--v-topbar-h));
   overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 4px; padding: 10px 8px 20px;
-  transition: transform .28s var(--v-fx), opacity .2s ease;
 }
 .v-side-open { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
@@ -6422,12 +6428,6 @@ main:has(.verse-page) { max-width: none; }
   html[data-verse-nav='hidden'] .verse-page .v-sidenav {
     flex-basis: 0; width: 0; opacity: 0; pointer-events: none; overflow: hidden;
   }
-  /* the fixed nav layer is out of flow, so the panel collapsing to width 0 doesn't move it - slide it
-     off to the left and fade it in step with the collapse. */
-  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav-inner,
-  html[data-verse-nav='hidden'] .verse-page .v-sidenav-inner {
-    transform: translateX(calc(var(--v-side-w) * -1)); opacity: 0; pointer-events: none;
-  }
   html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-reopen,
   html[data-verse-nav='hidden'] .verse-page .v-side-reopen { display: grid; }
 }
@@ -6447,7 +6447,7 @@ main:has(.verse-page) { max-width: none; }
     background: var(--v2-nav); border-right: 1px solid var(--v2-line); box-shadow: var(--v2-shadow);
     transform: translateX(-104%); transition: transform 0.24s ease;
   }
-  .v-sidenav-inner { position: static; left: auto; width: auto; height: auto; max-height: none; padding: 16px 14px 24px; top: 0; transform: none; transition: none; }
+  .v-sidenav-inner { position: static; max-height: none; padding: 16px 14px 24px; top: 0; }
   .v-side-reopen { display: none !important; }
   #v-nav-drawer:checked ~ .v-navshell .v-sidenav { transform: translateX(0); }
   .v-nav-scrim { display: block; position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.42); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
@@ -6470,7 +6470,7 @@ main:has(.verse-page) { max-width: none; }
 .v-hero-compact { --v-type-display: clamp(24px, 2.6vw, 32px); }
 .v-hero-compact .verse-hero-body {
   flex-direction: row; align-items: center; flex-wrap: wrap;
-  gap: 0.5rem 1.25rem; padding-top: 1.1rem; padding-bottom: 1rem;
+  gap: 0.5rem 1.25rem; padding-top: 0.7rem; padding-bottom: 0.7rem;
 }
 .v-hero-compact .verse-hero-name { align-items: center; gap: 0.8rem; flex: 1 1 auto; min-width: 0; }
 .v-hero-compact .verse-hero-name h1 { margin-top: 0; }
