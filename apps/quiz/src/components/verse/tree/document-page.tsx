@@ -5,7 +5,7 @@
 // dangerouslySetInnerHTML (XSS law). Min-gated: absent sections simply do not render.
 import Link from 'next/link';
 
-import { DocToc } from './doc-toc';
+import { VerseTocRail } from './toc-rail';
 import { FactStrip, factStripRows } from './fact-strip';
 import { extractToc, headingAnchors } from '@/lib/verse/tree/toc';
 import { templateSections } from '@/lib/verse/tree/templates';
@@ -85,7 +85,9 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
 
   return (
     <div className={`vdoc${props.variant ? ` vdoc-${props.variant}` : ''}`}>
-      <DocToc items={toc} />
+      {/* iter-9 PART 5: the left "On this page" column is gone; the floating TOC rail (fixed, out of
+          flow) is the only TOC on content pages. Items are the same server-extracted anchors. */}
+      <VerseTocRail items={toc} />
 
       <main className="vdoc-main">
         <nav className="vdoc-crumb" aria-label="Breadcrumb">

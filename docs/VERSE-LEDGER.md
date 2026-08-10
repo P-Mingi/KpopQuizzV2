@@ -2369,3 +2369,17 @@ L-176 (SEO indexguard PART 4 SHIPPED: creator nudges - title dedup + creator not
   nudge+field (proofs/seo-indexguard/part4-builder-note-and-dedup.png); a set note rendered in body +
   as <meta name="description"> verbatim (test note reverted). Edit surface = small follow-up (same lib).
   tsc 0, next build green. ALL 4 PARTS SHIPPED. Nothing pushed.
+
+L-177 (iter-9 PART 5 SHIPPED: the Verse TOC rail)
+  Built to prototypes/verse-toc-rail.html. RULE: VerseTocSpy (sidebar "On this page") now renders ONLY
+  on the space home via usePathname (path === 2 segments) - kills the stale-TOC bug by construction.
+  Every other page: sidebar TOC gone, DocToc left column removed from document-page.tsx, replaced by a
+  new floating rail (components/verse/tree/toc-rail.tsx, client). Ticks (one/h2, active=BU violet+wider,
+  others .45), hover/focus-within -> raised panel ("ON THIS PAGE · N", active row violet+2px bar),
+  scroll-spy threshold 140. Items are the SAME server-extracted toc -> crawlable <a href="#id"> in SSR.
+  Mobile <768: thumb-zone pill bottom-right, tap opens panel, scrim closes, 40px+ targets. 0/1 h2 ->
+  no rail. LAYOUT: .vdoc grid 3col->2col (prose + 300px infobox), prose measure 66ch->72ch. OFFSET: rail
+  right:18px; resting ticks clear of the infobox; the hover PANEL is a floating popover (proto's z-30
+  model) that layers over the infobox edge on narrow desktops, clears on >=1600 (stated tradeoff, our
+  pages have an infobox the proto did not). Proofs docs/proofs/iter9-toc-rail/ (content L/D, home TOC,
+  mobile). doc-toc.tsx now dead code (follow-up delete). tsc 0, verse-tokens green, next build green.

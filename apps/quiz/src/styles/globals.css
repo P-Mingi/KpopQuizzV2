@@ -3566,7 +3566,9 @@ a.ranking-cta { text-decoration: none; }
    (theme-correct light + dark); this is the token-definition layer, not scanned.
    ============================================================ */
 :root { --v-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace; }
-.vdoc { display: grid; grid-template-columns: 200px minmax(0, 1fr) 300px; gap: 40px; padding-top: 24px; }
+/* iter-9 PART 5: the left "On this page" column is gone (the floating TOC rail replaces it), so the
+   doc is now two columns - prose + the fact infobox - and the freed width flows into the prose. */
+.vdoc { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; padding-top: 24px; }
 .vdoc-crumb { font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.04em; }
 .vdoc-crumb a { color: var(--text-tertiary); text-decoration: none; }
 .vdoc-crumb a:hover { color: var(--verse-ink); }
@@ -3583,7 +3585,42 @@ a.ranking-cta { text-decoration: none; }
 .vdoc-toc .prog { margin-top: 16px; height: 2px; background: var(--verse-line); border-radius: 2px; overflow: hidden; }
 .vdoc-toc .prog i { display: block; height: 100%; width: 0; background: var(--verse-accent); transition: width 0.12s linear; }
 
-.vdoc-main { max-width: var(--v-measure, 66ch); min-width: 0; }
+/* iter-9 PART 5: with the left TOC column removed, the prose measure widens from 66ch to 72ch -
+   still a comfortable reading line, using the freed width rather than leaving a wide empty gutter. */
+.vdoc-main { max-width: 72ch; min-width: 0; }
+
+/* iter-9 PART 5 - THE TOC RAIL (owner-validated prototype verse-toc-rail.html). Fixed to the right
+   edge, vertically centered: thin ticks (one per h2, active = BU violet + wider), quasi-invisible
+   while reading. Hover/focus (desktop) fades the ticks out and a raised panel in. It lives in the
+   viewport's right margin (right:18px, matching the prototype), clear of the 300px fact infobox which
+   sits inside the centered content cluster. All tokens, no raw hex on the surface. */
+.v-tocrail { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 30; }
+.v-tocrail-ticks { display: flex; flex-direction: column; gap: 9px; align-items: flex-end; padding: 10px 6px; cursor: pointer; background: none; border: none; transition: opacity .2s var(--v-fx); }
+.v-tocrail-ticks span { display: block; height: 2.5px; border-radius: 2px; background: var(--v2-faint); opacity: .45; transition: .2s var(--v-fx); }
+.v-tocrail-ticks span.on { background: var(--v2-bu); opacity: 1; width: 22px !important; }
+.v-tocrail-panel { position: absolute; right: 0; top: 50%; transform: translateY(-50%) translateX(6px); min-width: 210px; background: var(--v2-raised); border: 1px solid var(--v2-line); border-radius: 12px; box-shadow: 0 10px 34px rgba(0, 0, 0, .10); padding: 10px 8px; opacity: 0; pointer-events: none; transition: .18s var(--v-fx); }
+.v-tocrail:hover .v-tocrail-panel, .v-tocrail:focus-within .v-tocrail-panel { opacity: 1; pointer-events: auto; transform: translateY(-50%) translateX(0); }
+.v-tocrail:hover .v-tocrail-ticks { opacity: 0; }
+.v-tocrail-label { font-family: var(--v-mono); font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--v2-faint); padding: 2px 10px 7px; }
+.v-tocrail-panel a { display: block; padding: 6px 10px; border-radius: 7px; font-size: 13.5px; color: var(--v2-muted); border-left: 2px solid transparent; text-decoration: none; }
+.v-tocrail-panel a:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
+.v-tocrail-panel a.on { color: var(--v2-bu); border-left-color: var(--v2-bu); font-weight: 600; background: none; }
+.v-tocrail-panel a.sub { padding-left: 22px; font-size: 13px; }
+.v-tocrail-scrim { display: none; }
+@media (prefers-reduced-motion: reduce) { .v-tocrail-ticks, .v-tocrail-ticks span, .v-tocrail-panel { transition: none; } }
+@media (max-width: 767px) {
+  /* mobile: hover does not exist. The ticks become a thumb-zone pill bottom-right; tapping it opens
+     the panel above (via the .open class), a scrim closes it. Sits above the mobile bottom chrome. */
+  .v-tocrail { top: auto; bottom: 84px; right: 12px; transform: none; }
+  .v-tocrail-ticks { padding: 12px 8px; background: color-mix(in srgb, var(--v2-raised) 82%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--v2-line); border-radius: 11px; box-shadow: 0 2px 10px rgba(0, 0, 0, .07); }
+  .v-tocrail:hover .v-tocrail-panel { opacity: 0; pointer-events: none; }
+  .v-tocrail:hover .v-tocrail-ticks { opacity: 1; }
+  .v-tocrail.open .v-tocrail-panel { opacity: 1; pointer-events: auto; transform: none; top: auto; bottom: 0; right: 0; min-width: 230px; }
+  .v-tocrail.open .v-tocrail-ticks { opacity: 0; }
+  .v-tocrail-panel a { padding: 10px 12px; font-size: 14.5px; }
+  .v-tocrail-scrim { position: fixed; inset: 0; z-index: -1; display: none; }
+  .v-tocrail.open .v-tocrail-scrim { display: block; }
+}
 .vdoc-title { font-family: var(--font-display); font-weight: 640; font-size: 42px; line-height: 1.08; letter-spacing: -0.01em; color: var(--text-primary); margin: 14px 0 4px; }
 .vdoc-title .hangul { font-weight: 400; font-size: 22px; color: var(--text-tertiary); margin-left: 12px; }
 .vdoc-editline { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 10px 0 26px; font-family: var(--v-mono); font-size: 11px; color: var(--text-tertiary); }

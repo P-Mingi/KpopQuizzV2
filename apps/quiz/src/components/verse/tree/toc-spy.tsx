@@ -6,12 +6,19 @@
 // has no [data-toc] sections the whole block self-hides. prefers-reduced-motion is honoured by
 // the CSS (html scroll-behavior), so no JS smooth-scroll here.
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface TocItem { id: string; label: string }
 
 export function VerseTocSpy(): React.ReactElement | null {
   const [items, setItems] = useState<TocItem[]>([]);
   const [active, setActive] = useState<string>('');
+  // iter-9 PART 5 (the owner rule): the sidebar "On this page" block lives ONLY on the space HOME
+  // (/verse/{slug}). Every other page uses the floating TOC rail instead. Scoping it to the home by
+  // construction is what kills the stale-TOC bug (a client-nav to a sub-page could otherwise keep the
+  // home's headings). Home = exactly two path segments; sub-pages have three or more.
+  const pathname = usePathname();
+  const isSpaceHome = pathname.startsWith('/verse/') && pathname.split('/').filter(Boolean).length === 2;
 
   useEffect(() => {
     const secs = Array.from(document.querySelectorAll<HTMLElement>('[data-toc]'))
@@ -35,7 +42,7 @@ export function VerseTocSpy(): React.ReactElement | null {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!items.length) return null;
+  if (!isSpaceHome || !items.length) return null;
 
   return (
     <div className="v-side-group v-toc-group">

@@ -1,83 +1,56 @@
-# REPORT - SEO indexguard (CI guard + prod monitor + cold-start + creator nudges)
+# REPORT - iter-9 PART 5: the Verse TOC RAIL
 
-4-part mission to make "every future quiz is indexable and unique" a MECHANICAL guarantee. Scope:
-scripts/, one cron route, /q/[slug], the quiz builder UI, lib. NO DDL. tsc 0 + build green. Nothing
-pushed. This report is updated per part; commits are per part.
+(SEO indexguard PARTS 1-4 shipped earlier: 9fa1064, 54dd0e5, 6982779, 257aceb - see ledger L-173-176.)
 
-## PART 1 - CI GUARD: the sitemap x robots contradiction test  [DONE]
-New `scripts/check-indexability.mts`, wired as `check:indexability` next to `check:routes`. It is a
-smoke-style gate (needs a running server, since dynamic page metadata cannot be resolved statically):
+Built to the owner-validated prototype `prototypes/verse-toc-rail.html`. Scope /verse only. tsc 0;
+next build green; verse-token gate green. Light + dark. Nothing pushed.
 
-  INDEXCHECK_BASE_URL=http://localhost:3021 pnpm --filter quiz check:indexability
+## THE RULE (owner)
+- SPACE HOME keeps the "On this page" block IN THE SIDEBAR (the home's own sections). `VerseTocSpy` is
+  now gated to the space home by construction: `usePathname()` -> render only when the path is exactly
+  two segments (`/verse/{slug}`). Sub-pages (3+ segments) never render it. This KILLS the stale-TOC bug
+  by construction - the sidebar TOC cannot survive a client-nav onto a sub-page because it does not
+  exist there.
+- EVERY OTHER PAGE: the sidebar TOC is gone (above), the document's left "On this page" column is gone
+  (DocToc removed from document-page.tsx), and the ONLY TOC is the new floating rail.
 
-- FORWARD: pulls the live `/sitemap.xml`, samples ONE URL per route type + EVERY article, fetches each,
-  and FAILS when a sitemap URL contradicts "index me": robots noindex (meta OR X-Robots-Tag header) -
-  the article-bug class - missing `<title>`, or a canonical that is not self-referential. Core Play
-  types also fail on non-200.
-- INVERSE: FAILS when an indexable-by-design page is ABSENT from the sitemap - every non-noindex
-  article, plus a live DB sample of published quizzes (/q/[slug]) and groups with quiz_count>0
-  (/[slug]-quiz).
-- Deep on-demand-ISR types (verse leaf pages, rankings, pulse) are WARN-not-fail locally: a cold local
-  server hits the documented ISR cold-404 trap, so a non-200 there is an environment artifact, not a
-  contradiction; the PART 2 prod monitor checks their live status against warm prod. The noindex /
-  title / canonical checks still hard-fail on any of them that DOES render.
+## THE RAIL (new `components/verse/tree/toc-rail.tsx`, client)
+Fed the SAME server-extracted `toc` items DocToc used, so every anchor is a real crawlable
+`<a href="#id">` in the SSR HTML. Ticks (one per h2, varied widths), active tick = BU violet + wider,
+others faint (.45). Hover / focus-within (desktop) fades the ticks out and the raised panel in
+("ON THIS PAGE · N", one row per section, active row violet + 2px left bar). Scroll-spy (threshold
+140px, per prototype) drives the active tick AND row; click = smooth scroll. Pages with 0 or 1 h2
+render NOTHING (guarded `items.length < 2`).
+MOBILE (<768): the ticks become a thumb-zone pill bottom-right (bottom:84px); tap opens the panel
+(via the `.open` class), a scrim closes it; rows are 40px+ touch targets. No hover path on mobile.
 
-RECEIPT (red -> green):
-- RED (real): the guard's FIRST run failed on 3 genuine contradictions it surfaced - the sitemap
-  advertised `/games/this-or-that/[slug]` pages that 308-permanent-redirect to the query-param model.
-  Fixed the sitemap: those category slugs are no longer listed (the hub /games/this-or-that stays).
-- RED (injected, the noindex class): forcing the article page to emit `robots: noindex` while it stays
-  in the sitemap made the guard FAIL with 19 named failures ("Sitemap says index, page says do-not"),
-  exit 1. Reverted.
-- GREEN: after the tot fix and revert, the guard passes - 42 sampled pages index-consistent, every
-  article + sampled quiz/group present in the sitemap (2 verse-leaf warnings, non-gating).
+## LAYOUT
+Removed the left 200px column: `.vdoc` grid is now `minmax(0,1fr) 300px` (prose + fact infobox), and
+the prose measure widened 66ch -> 72ch (the freed width flows into the reading line, not an empty
+gutter). The fact infobox is untouched.
 
-Files: `scripts/check-indexability.mts` (new), `package.json` (check:indexability), `src/app/sitemap.ts`
-(drop the redirecting this-or-that category slugs). tsc 0; next build green (check:routes +
-check:verse-tokens pass inside it).
+## OFFSET CHOICE (stated per the mission) + the honest tradeoff
+The rail is `position: fixed; right: 18px` (the prototype value). The RESTING rail - the quasi-invisible
+ticks - sits in the viewport's right margin, clear of the 300px fact infobox. The prototype's single
+prose column had a wide empty right margin; our doc pages carry a fact infobox there. So on hover the
+raised PANEL (z-30, shadow - the prototype's own floating-panel model) opens leftward and, on narrower
+desktops, briefly layers OVER the infobox's right edge; on wide viewports (>=~1600px) it clears the
+infobox entirely. The persistent ticks never overlap. This is the documented tradeoff of putting a
+right-edge TOC on a page that already has a right infobox; a wider offset would push the ticks off the
+margin, and narrowing the content to clear the panel would undo the "widen the prose" goal.
 
-## PART 2 - PROD MONITOR CRON (weekly)  [DONE]
-New `app/api/cron/seo-indexability/route.ts`, auth + runtime + response shape mirroring duel-reconcile
-EXACTLY (byte-identical CRON_SECRET / x-vercel-cron guard; `export const dynamic = 'force-dynamic'`;
-`NextResponse.json`). It fetches the PROD `/sitemap.xml`, samples N=40 URLs stratified by route type
-(every article first, then round-robin one-per-type: quizzes, groups, verse, hubs, ...), fetches each,
-and reports any that are not HTTP 200 / carry robots noindex / lack a self-canonical. Read-only: it
-logs + returns `{ ok, checked, sitemapUrls, failures: [...] }`. Weekly `vercel.json` cron at Sun 09:00
-UTC (no collision with existing jobs).
-RECEIPT (docs/proofs/seo-indexguard/part2-cron-invocation.txt): unauthenticated -> HTTP 401; authed
-(Bearer CRON_SECRET) -> `{"ok":true,"checked":40,"sitemapUrls":694,"failures":[]}` against live prod.
-tsc 0.
-## PART 3 - COLD-START uniqueness block on /q/[slug]  [DONE]
-New `src/lib/quiz/in-this-quiz.ts` derives, from the quiz's OWN data only (never fabricated/guessed): a
-topics line (question format + count, e.g. "5 guess-from-clues questions"), a context line (group ·
-difficulty · count), and 1-2 sample question PROMPTS - prompts only, never options/correct, spoiler-safe
-by construction. Rendered on `/q/[slug]` as a crawlable `<section aria-label="In this quiz">` placed
-BELOW the QuizPlayer, so the START QUIZ CTA stays above the fold. Renders for ALL quizzes (returns null
-only if a quiz has zero questions), enriching thin cold-start pages.
-RECEIPT: `docs/proofs/seo-indexguard/part3-coldstart-block.png` - a 1-play quiz (guess-the-artms-song)
-shows the block ("ARTMS · Medium · 5 questions. 5 guess-from-clues questions." + spoiler-safe sample
-prompts) with START QUIZ clearly above it. tsc 0.
-## PART 4 - CREATOR NUDGES in the builder  [DONE]
-- TITLE DEDUP NUDGE: new read-only `GET /api/quiz/title-check?title=` returns whether an EXACT
-  (case-insensitive, LIKE-escaped) title already exists among PUBLISHED quizzes. The create funnel
-  debounces the title input against it and shows a soft, NON-blocking amber hint ("A quiz with this
-  exact name already exists. Add your angle..."). Never gates publishing.
-- CREATOR NOTE: an optional "About your quiz (1-2 sentences)" textarea in the funnel, stored in
-  `quizzes.settings.creator_note` (jsonb, NO DDL). Sanitized at the write boundary
-  (`src/lib/quiz/creator-note.ts`: strip HTML, collapse whitespace, cap 280) in `/api/quiz/create`.
-  Rendered on `/q/[slug]` as a crawlable human intro under the title, and folded into the meta
-  description (og + twitter too) - creator text beats the template. Re-sanitized on read.
-RECEIPTS:
-- Dedup: `GET /api/quiz/title-check?title=Guess the ARTMS song` -> `{"exists":true}`; nonsense ->
-  `{"exists":false}`. Funnel screenshot with the nudge firing + the note field:
-  `docs/proofs/seo-indexguard/part4-builder-note-and-dedup.png`.
-- Note: set on a quiz -> the page body renders it AND `<meta name="description">` = the note verbatim
-  (verified by curl; test note reverted afterwards).
-Scope note: the nudge + note field are wired into the CREATE funnel (new quizzes = the mission's
-"every future quiz"). The edit surface (quiz-editor) reuses the same lib + endpoint but its inline
-field is a small follow-up; the note already renders/derives correctly for any quiz whose settings
-carry it.
+## VERIFY (docs/proofs/iter9-toc-rail/, light + dark)
+1. Content page desktop: no sidebar TOC, no left column, ticks + hover panel, wider measure:
+   `01-content-rail-panel-light.png`, `02-...-dark.png` (panel opened via :focus-within).
+2. Scroll-spy: the active tick + row (Overview) track the scroll position; threshold 140px in code.
+3. Space home: sidebar TOC present and CORRECT (the home's own sections): `03-home-sidebar-toc-light.png`.
+4. Mobile 390: the pill + open panel, bottom-right (thumb zone), no collision with the top-bar
+   hamburger: `04-mobile-rail-open-light.png`.
+5. A 0/1-section page renders NO rail - guaranteed by `items.length < 2` (code), not screenshot-hunted.
+6. SSR anchors present: `curl /verse/bts/rm` -> `href="#overview" #his-place-in-bts #solo-work
+   #threads-to-follow` in the server HTML; the old `.vdoc-toc` left column is absent.
 
-## STATUS: all 4 parts shipped. tsc 0; next build green (check:routes + check:verse-tokens pass in it).
-Nothing pushed; Cowork reviews the diff. (Queued next: iter-9 toc-rail, prototype
-prototypes/verse-toc-rail.html provided by the owner.)
+## NOTES
+- `doc-toc.tsx` is now unused (its only importer was document-page.tsx). Left in place as dead code
+  this pass rather than deleted; a follow-up can remove it + its `.vdoc-toc` CSS.
+- tsc 0; check:verse-tokens green; next build green. Nothing pushed; Cowork reviews the diff.
