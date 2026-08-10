@@ -3,9 +3,6 @@
 import Link from 'next/link';
 
 import { OrbitLockup } from '@/components/verse/brand/verse-wordmarks';
-import { WorldToggle } from '@/components/layout/world-toggle';
-import { ThemeToggle } from '@/components/layout/theme-toggle';
-import { LocaleSwitcher } from '@/components/layout/locale-switcher';
 
 // V-IDENTITY step 2 (surface: footer) - the Verse world's own footer. Verse voice,
 // Verse links, the covenant, the soft network line + the world toggle. No Play
@@ -48,18 +45,6 @@ export function VerseFooter(): React.ReactElement {
               <Link href="/dmca" style={linkStyle}>Image takedown</Link>
             </div>
           </nav>
-        </div>
-
-        {/* Soft network line + the world toggle + theme/locale. */}
-        <div style={{ marginTop: 34, paddingTop: 16, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <Link href="/" style={{ fontSize: 11, color: 'var(--text-tertiary)', textDecoration: 'none' }}>part of the kpopquiz.org network</Link>
-            <WorldToggle />
-          </div>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-            <LocaleSwitcher />
-            <ThemeToggle />
-          </span>
         </div>
       </div>
     </footer>
