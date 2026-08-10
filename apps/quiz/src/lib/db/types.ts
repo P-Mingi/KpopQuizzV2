@@ -61,6 +61,9 @@ export interface QuizSettings {
   timer_seconds: number;
   shuffle: boolean;
   show_answers: boolean;
+  /** SEO indexguard PART 4: optional creator-written intro (1-2 sentences), stored in the
+   *  settings jsonb (NO DDL). Sanitized/limited at write time; see lib/quiz/creator-note.ts. */
+  creator_note?: string;
 }
 
 export interface MultipleChoiceQuestion {

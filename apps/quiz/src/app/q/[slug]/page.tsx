@@ -22,6 +22,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
+import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 
 import type { Metadata } from 'next';
 
@@ -79,11 +80,18 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionLen * 100)
     : null;
 
-  const description = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionLen}-question quiz by ${quiz.creator_username}.${
+  // SEO indexguard PART 4: the creator's own note (unique, human) beats the template
+  // description when present. Re-sanitized on read (defense in depth + old rows), and
+  // trimmed to a meta-friendly length (Google truncates ~155).
+  const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
+  const templateDescription = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionLen}-question quiz by ${quiz.creator_username}.${
     avgScore !== null
       ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played it, scoring ${avgScore}% on average.`
       : ` Played by ${quiz.play_count.toLocaleString('en-US')} fans.`
   } Can you beat them?`;
+  const description = creatorNote
+    ? (creatorNote.length > 155 ? `${creatorNote.slice(0, 152).trimEnd()}...` : creatorNote)
+    : templateDescription;
 
   // Unique, descriptive <title>: "<Quiz Title> - <N> questions" (layout template
   // appends " | KpopQuiz"). Distinct per quiz so Google stops sampling templates.
@@ -306,6 +314,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   };
 
   const inThisQuiz = buildInThisQuiz(quiz);
+  const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
 
   return (
     <div className="py-4 md:py-6">
@@ -322,6 +331,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       {/* Owner / admin actions (Edit, Delete, Remove). Renders nothing for
           everyone else - client island so the page shell stays cacheable. */}
       <QuizOwnerActions quizId={quiz.id} creatorId={quizIntro.creatorId} />
+
+      {/* SEO indexguard PART 4 - the creator's own note, a crawlable human intro
+          under the title (unique per page). Sanitized at write + read. */}
+      {creatorNote && (
+        <p className="text-[15px] text-primary leading-relaxed mt-6 max-w-2xl font-medium">{creatorNote}</p>
+      )}
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
       <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>

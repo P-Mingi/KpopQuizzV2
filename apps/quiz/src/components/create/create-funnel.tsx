@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { createBrowserClient } from '@/lib/supabase/client';
+import { CREATOR_NOTE_MAX } from '@/lib/quiz/creator-note';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { copyShareLink } from '@/lib/share';
 import { ShareCardModal, type SharePlatform } from '@/components/share/share-card-modal';
@@ -128,11 +129,12 @@ interface FunnelState {
   quiz_type: string; // Q-B6: chosen on step 1, locked once questions exist
   cover: string | null;
   coverRights: boolean; // H9: "I have the right to use this image"
+  creatorNote: string; // SEO indexguard PART 4: optional "About your quiz" note
   questions: QuestionData[];
 }
 
 function emptyState(): FunnelState {
-  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice', cover: null, coverRights: false, questions: [blankQuestionFor('multiple_choice')] };
+  return { title: '', group_slug: null, newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice', cover: null, coverRights: false, creatorNote: '', questions: [blankQuestionFor('multiple_choice')] };
 }
 
 /** A question the creator has actually started filling in (used to lock the type
@@ -191,6 +193,22 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   // Q-B6: type is locked once any question has content (switching would drop it).
   const typeLocked = data.questions.some(questionHasContent);
 
+  // SEO indexguard PART 4: soft, NON-blocking title-dedup nudge. Debounced check
+  // against published quizzes; if the exact title exists, hint the creator to add
+  // their angle. Never gates publishing.
+  const [titleDup, setTitleDup] = useState(false);
+  useEffect(() => {
+    const t = data.title.trim();
+    if (t.length < MIN_TITLE) { setTitleDup(false); return; }
+    const h = setTimeout(() => {
+      fetch(`/api/quiz/title-check?title=${encodeURIComponent(t)}`)
+        .then((r) => r.json())
+        .then((j) => setTitleDup(!!(j as { exists?: boolean })?.exists))
+        .catch(() => setTitleDup(false));
+    }, 500);
+    return () => clearTimeout(h);
+  }, [data.title]);
+
   // --- publish (claim draft onto the session user) ---
   const publish = useCallback(async () => {
     const d = dataRef.current;
@@ -239,7 +257,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
         language: d.language,
         cover_image_url: coverUrl,
         questions: withImages.map((q) => toApiQuestion(q, d.quiz_type)),
-        settings: { timer: true, timer_seconds: 15, shuffle: false, show_answers: true },
+        settings: { timer: true, timer_seconds: 15, shuffle: false, show_answers: true, creator_note: d.creatorNote?.trim() || undefined },
       };
       const res = await fetch('/api/quiz/create', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
@@ -267,7 +285,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
     if (d) {
       // A saved draft wins; if it had no group, fall back to the deep-linked one.
       // Old-format drafts predate newGroup/difficulty/language, so all default safely.
-      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', quiz_type: d.quiz_type ?? 'multiple_choice', cover: d.cover, coverRights: d.coverRights ?? false, questions: d.questions });
+      setData({ title: d.title, group_slug: d.group_slug ?? validInitialGroup, newGroup: d.newGroup ?? null, difficulty: d.difficulty ?? 'medium', language: d.language ?? 'en', quiz_type: d.quiz_type ?? 'multiple_choice', cover: d.cover, coverRights: d.coverRights ?? false, creatorNote: d.creatorNote ?? '', questions: d.questions });
     }
     // Language defaults to English for everyone (owner decision): English quizzes
     // reach the biggest audience. A saved draft's own language still wins above.
@@ -340,7 +358,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   useEffect(() => {
     if (!hydrated) return;
     const t = window.setTimeout(() => {
-      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, language: data.language, quiz_type: data.quiz_type, cover: data.cover, coverRights: data.coverRights, questions: data.questions };
+      const d: Omit<Draft, 'updatedAt'> = { title: data.title, group_slug: data.group_slug, newGroup: data.newGroup, difficulty: data.difficulty, language: data.language, quiz_type: data.quiz_type, cover: data.cover, coverRights: data.coverRights, creatorNote: data.creatorNote, questions: data.questions };
       saveDraft(d);
     }, 500);
     return () => window.clearTimeout(t);
@@ -425,6 +443,23 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
           <div className="cf-field">
             <label className="cf-label" htmlFor="cf-title">Quiz title</label>
             <input id="cf-title" className="cf-input" value={data.title} onChange={(e) => setData((s) => ({ ...s, title: e.target.value }))} placeholder={TITLE_PLACEHOLDER} maxLength={100} />
+            {/* SEO indexguard PART 4: soft, non-blocking dedup nudge. */}
+            {titleDup && (
+              <p className="cf-note" style={{ color: '#b45309', marginTop: 6, fontSize: 13, lineHeight: 1.4 }}>
+                A quiz with this exact name already exists. Add your angle (era, difficulty, B-sides...) so both can shine - it is not blocked.
+              </p>
+            )}
+          </div>
+
+          {/* SEO indexguard PART 4: optional creator note. Unique human intro, rendered on the
+              quiz page + folded into the meta description. Sanitized server-side at write. */}
+          <div className="cf-field">
+            <label className="cf-label" htmlFor="cf-note">About your quiz <span style={{ opacity: 0.6, fontWeight: 400 }}>(optional, 1-2 sentences)</span></label>
+            <textarea id="cf-note" className="cf-input" rows={2} maxLength={CREATOR_NOTE_MAX}
+              value={data.creatorNote}
+              onChange={(e) => setData((s) => ({ ...s, creatorNote: e.target.value }))}
+              placeholder="e.g. My hardest ARMY quiz yet, focused on the B-sides most fans skip." />
+            <p className="cf-note" style={{ opacity: 0.6, marginTop: 4, fontSize: 12 }}>{data.creatorNote.trim().length}/{CREATOR_NOTE_MAX} - shown on your quiz page and in search results.</p>
           </div>
 
           <div className="cf-field">

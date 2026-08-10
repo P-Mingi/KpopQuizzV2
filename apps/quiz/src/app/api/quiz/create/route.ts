@@ -5,6 +5,7 @@ import { generateSlug } from '@/lib/utils';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { pingIndexNow } from '@/lib/indexnow';
 import { validateQuestions } from '@/lib/quiz-validation';
+import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 
 import type { NextRequest } from 'next/server';
 
@@ -206,6 +207,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   //    service-role client and EXECUTE is revoked from anon/authenticated. All
   //    auth + validation above (steps 1-5) gates who can reach this call.
   //    creator_id is taken from the verified session, not from client input.
+  // SEO indexguard PART 4: sanitize the optional creator note at the write boundary
+  // (strip HTML, collapse whitespace, cap length) before it lands in settings jsonb.
+  // It is rendered on the page + folded into <meta description>, so it must be clean.
+  const rawSettings = input.settings as Record<string, unknown>;
+  const cleanNote = sanitizeCreatorNote(rawSettings.creator_note);
+  const settings: Record<string, unknown> = { ...rawSettings };
+  if (cleanNote) settings.creator_note = cleanNote; else delete settings.creator_note;
+
   const admin = createServiceRoleClient();
   const { data: quizResult, error: quizError } = await admin
     .rpc('create_quiz_bypass', {
@@ -218,7 +227,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         difficulty: (input.difficulty as string) || 'medium',
         language: (input.language as string) || 'en',
         questions: input.questions,
-        settings: input.settings,
+        settings,
         question_count: (input.questions as unknown[]).length,
         cover_image_url: manualCoverUrl,
       },

@@ -57,6 +57,27 @@ only if a quiz has zero questions), enriching thin cold-start pages.
 RECEIPT: `docs/proofs/seo-indexguard/part3-coldstart-block.png` - a 1-play quiz (guess-the-artms-song)
 shows the block ("ARTMS · Medium · 5 questions. 5 guess-from-clues questions." + spoiler-safe sample
 prompts) with START QUIZ clearly above it. tsc 0.
-## PART 4 - CREATOR NUDGES in the builder  [PENDING]
+## PART 4 - CREATOR NUDGES in the builder  [DONE]
+- TITLE DEDUP NUDGE: new read-only `GET /api/quiz/title-check?title=` returns whether an EXACT
+  (case-insensitive, LIKE-escaped) title already exists among PUBLISHED quizzes. The create funnel
+  debounces the title input against it and shows a soft, NON-blocking amber hint ("A quiz with this
+  exact name already exists. Add your angle..."). Never gates publishing.
+- CREATOR NOTE: an optional "About your quiz (1-2 sentences)" textarea in the funnel, stored in
+  `quizzes.settings.creator_note` (jsonb, NO DDL). Sanitized at the write boundary
+  (`src/lib/quiz/creator-note.ts`: strip HTML, collapse whitespace, cap 280) in `/api/quiz/create`.
+  Rendered on `/q/[slug]` as a crawlable human intro under the title, and folded into the meta
+  description (og + twitter too) - creator text beats the template. Re-sanitized on read.
+RECEIPTS:
+- Dedup: `GET /api/quiz/title-check?title=Guess the ARTMS song` -> `{"exists":true}`; nonsense ->
+  `{"exists":false}`. Funnel screenshot with the nudge firing + the note field:
+  `docs/proofs/seo-indexguard/part4-builder-note-and-dedup.png`.
+- Note: set on a quiz -> the page body renders it AND `<meta name="description">` = the note verbatim
+  (verified by curl; test note reverted afterwards).
+Scope note: the nudge + note field are wired into the CREATE funnel (new quizzes = the mission's
+"every future quiz"). The edit surface (quiz-editor) reuses the same lib + endpoint but its inline
+field is a small follow-up; the note already renders/derives correctly for any quiz whose settings
+carry it.
 
-(Continuing in subsequent loop iterations; each part committed on its own.)
+## STATUS: all 4 parts shipped. tsc 0; next build green (check:routes + check:verse-tokens pass in it).
+Nothing pushed; Cowork reviews the diff. (Queued next: iter-9 toc-rail, prototype
+prototypes/verse-toc-rail.html provided by the owner.)

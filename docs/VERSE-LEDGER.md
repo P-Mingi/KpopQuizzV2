@@ -2357,3 +2357,15 @@ L-175 (SEO indexguard PART 3 SHIPPED: cold-start "In this quiz" block on /q/[slu
   /q/[slug] as a crawlable <section> BELOW the QuizPlayer so the START QUIZ CTA stays above the fold;
   renders for ALL quizzes. RECEIPT: proofs/seo-indexguard/part3-coldstart-block.png (1-play ARTMS quiz
   shows the block, CTA above it). tsc 0. PART 4 pending. Nothing pushed.
+
+L-176 (SEO indexguard PART 4 SHIPPED: creator nudges - title dedup + creator note)
+  TITLE DEDUP: new read-only GET /api/quiz/title-check (exact case-insensitive, LIKE-escaped, published
+  only) -> {exists}. The create funnel debounces the title input against it and shows a soft NON-blocking
+  amber hint. CREATOR NOTE: optional "About your quiz" textarea in the funnel, stored in
+  quizzes.settings.creator_note (jsonb, NO DDL), sanitized at the /api/quiz/create write boundary
+  (lib/quiz/creator-note.ts: strip HTML, collapse ws, cap 280). Rendered on /q/[slug] as a crawlable
+  intro under the title AND folded into the meta description (og+twitter) - creator beats template;
+  re-sanitized on read. RECEIPTS: title-check {"exists":true}/{"exists":false}; funnel screenshot with
+  nudge+field (proofs/seo-indexguard/part4-builder-note-and-dedup.png); a set note rendered in body +
+  as <meta name="description"> verbatim (test note reverted). Edit surface = small follow-up (same lib).
+  tsc 0, next build green. ALL 4 PARTS SHIPPED. Nothing pushed.

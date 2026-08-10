@@ -25,6 +25,8 @@ export interface Draft {
   quiz_type?: string;
   cover: string | null; // data URL (anonymous) or an https URL (already uploaded)
   coverRights?: boolean; // H9: the user confirmed they have the right to use the cover
+  /** SEO indexguard PART 4: optional creator note ("About your quiz"). */
+  creatorNote?: string;
   questions: QuestionData[];
   updatedAt: number;
 }
