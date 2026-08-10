@@ -6254,6 +6254,11 @@ main:has(.verse-page) { max-width: none; }
    capped ~1120 and centered. Desktop drops the shell's horizontal padding; mobile (drawer) keeps
    it. The home's head/body already cap themselves; sub-page content caps via .v-navmain > .mt-6. */
 .verse-page.verse-scope { background: var(--v2-content); }
+/* PART D2 - the Verse footer renders in the ROOT layout, outside the .verse-v2 token scope, so
+   it gets the same white ground here. Never cream. Light + dark mirror the --v2-content values. */
+.verse-footer { background: #FFFFFF; }
+.dark .verse-footer { background: #1E1E1E; }
+@media (prefers-color-scheme: dark) { :root:not(.light) .verse-footer { background: #1E1E1E; } }
 .verse-page:has(.vh2-home) .vh2-home,
 .verse-page:has(.vh2-home) #vh2-body { max-width: 1120px; margin-inline: auto; }
 @media (min-width: 768px) {
@@ -6261,6 +6266,14 @@ main:has(.verse-page) { max-width: none; }
   .verse-page.verse-scope { padding-left: 0; padding-right: 0; }
   /* the reading cluster: capped and centered inside the white content column. */
   .v-navmain > .mt-6 { max-width: 1120px; margin-inline: auto; padding-inline: clamp(20px, 3vw, 44px); }
+
+  /* ITERATION 6 FIX 1 - the nav column runs the FULL page height: no white strip above it and
+     no dead band between it and the footer. Zero the shell's vertical padding (the hero band is
+     full-bleed by design, so flush to the top is correct) and give the flex row a viewport
+     min-height so a SHORT article still has its grey column reach down to the footer. */
+  main:has(.verse-page) { padding-bottom: 0; }
+  .verse-page.verse-scope { padding-top: 0; padding-bottom: 0; }
+  .v-navshell { min-height: 100vh; align-items: stretch; }
 }
 
 /* ==========================================================================
@@ -6310,10 +6323,10 @@ main:has(.verse-page) { max-width: none; }
 .v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px; margin-bottom: 6px; }
 .v-side-logo-full { display: inline-flex; align-items: center; min-width: 0; }
 .v-side-logo-mark { display: none; align-items: center; }
-.v-side-collapse { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--v2-line); color: var(--v2-muted); cursor: pointer; background: var(--v2-surface); flex-shrink: 0; }
+.v-side-collapse { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border-radius: 8px; border: 1px solid var(--v2-line); color: var(--v2-muted); cursor: pointer; background: var(--v2-surface); flex-shrink: 0; }
 .v-side-collapse:hover { border-color: var(--v2-muted); color: var(--v2-ink); }
 .v-side-collapse-glyph { font-size: 11px; transition: transform 0.2s ease; }
-#v-nav-collapse:focus-visible ~ .v-navshell .v-side-collapse { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
+.v-side-collapse:focus-visible, .v-rail-toggle:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
 /* ITERATION 4 - the global block reformatted to ONE sidebar system. The Play CTA keeps its
    pink pill; Fandoms/Community are plain .v-side-row rows; search is a soft field + a theme
    icon; the profile is a clean full-width row (its top-nav pill chrome is overridden below). */
@@ -6396,11 +6409,24 @@ main:has(.verse-page) { max-width: none; }
    reflows (content shifts right); NOTHING floats over or covers the document. No hover-peek -
    expanding is a deliberate click on the chevron. Applied when collapse is checked (>=1200) or
    by default in the 768-1199 range. The rail markup (.v-side-rail) is uniform 40px icons. */
+/* ITERATION 6 FIX 2 - the fold now has a PER-ROUTE DEFAULT plus a persistent user override.
+   Base style = OPEN. The RAIL applies only under two mutually exclusive conditions, so no rule
+   ever has to undo another:
+     (a) no saved preference AND this is not the space home  -> content pages fold by default
+         (the home is identified by .vh2-home, which only the portal home renders);
+     (b) the user's saved preference is 'rail'  -> it wins on every route, home included.
+   `data-verse-nav` is stamped on <html> before first paint by the blocking script in the verse
+   layout (reading the verse_nav cookie), so there is no flash and the pages stay static/ISR.
+   Both DOM states are always server-rendered; only CSS chooses which one shows. */
 @media (min-width: 1200px) {
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav { flex-basis: 60px; width: 60px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-sidenav-inner { padding-left: 6px; padding-right: 6px; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-open { display: none; }
-  #v-nav-collapse:checked ~ .v-navshell .v-side-rail { display: flex; }
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav,
+  html[data-verse-nav='rail'] .verse-page .v-sidenav { flex-basis: 60px; width: 60px; }
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav-inner,
+  html[data-verse-nav='rail'] .verse-page .v-sidenav-inner { padding-left: 6px; padding-right: 6px; }
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-open,
+  html[data-verse-nav='rail'] .verse-page .v-side-open { display: none; }
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-rail,
+  html[data-verse-nav='rail'] .verse-page .v-side-rail { display: flex; }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   .v-sidenav { flex-basis: 60px; width: 60px; }
@@ -6415,9 +6441,17 @@ main:has(.verse-page) { max-width: none; }
 @media (max-width: 767px) {
   .v-side-collapse { display: none; }
   .v-side-rail { display: none; }
-  .v-navtopbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 6px 2px; }
-  .v-navtopbar-burger { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-surface); color: var(--v2-ink); font-size: 18px; cursor: pointer; }
-  .v-navtopbar-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--v2-ink); }
+  /* PART D1 - ONE clean Verse top bar on mobile: full-bleed, sticky (a wiki page is long, the
+     nav must stay reachable), white ground with a hairline, and the hamburger that opens the
+     drawer. The global Play mobile chrome (top bar + bottom tab bar) is hidden on /verse. */
+  .v-navtopbar {
+    display: flex; align-items: center; gap: 12px; padding: 8px 16px;
+    position: sticky; top: 0; z-index: 60;
+    margin: -1.5rem -1rem 12px; /* cancel the shell's mobile padding so it runs edge to edge */
+    background: var(--v2-content); border-bottom: 1px solid var(--v2-line);
+  }
+  .v-navtopbar-burger { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-nav); color: var(--v2-ink); font-size: 18px; cursor: pointer; flex-shrink: 0; }
+  .v-navtopbar-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--v2-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .v-navshell { display: block; }
   .v-sidenav {
     position: fixed; top: 0; left: 0; bottom: 0; width: 284px; max-width: 86vw; z-index: 80; flex: none; align-self: auto;

@@ -38,6 +38,9 @@ export function MobileTabBar() {
   if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
+  // ITERATION 6 PART D - the Verse carries its own mobile nav (top bar + drawer), so the global
+  // bottom tab bar is hidden on /verse. Play keeps it everywhere else.
+  if (worldForPath(pathname) === 'verse') return null;
 
   const world = worldForPath(pathname);
   const tabs = world === 'verse' ? VERSE_TABS : PLAY_TABS;

@@ -15,7 +15,10 @@ const linkStyle: React.CSSProperties = { display: 'block', fontSize: 13.5, color
 
 export function VerseFooter(): React.ReactElement {
   return (
-    <footer style={{ padding: '44px 16px 22px', background: 'var(--surface-alt)', borderTop: '1px solid var(--border)' }}>
+    // PART D2: the ground is WHITE on every verse surface, footer included (never cream). The
+    // footer renders in the ROOT layout, outside the .verse-v2 token scope, so the colour comes
+    // from the .verse-footer rule in globals.css rather than an inline var() that would not resolve.
+    <footer className="verse-footer" style={{ padding: '44px 16px 22px', borderTop: '1px solid var(--border)' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 40, justifyContent: 'space-between', alignItems: 'flex-start' }}>
           {/* Brand + voice */}

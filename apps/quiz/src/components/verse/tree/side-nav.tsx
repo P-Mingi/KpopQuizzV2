@@ -13,6 +13,7 @@ import { WorldToggle } from '@/components/layout/world-toggle';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { TopNavProfile } from '@/components/layout/top-nav-profile';
 import { VerseTocSpy } from './toc-spy';
+import { VerseNavToggle } from './nav-toggle';
 import { GlobalNavRows, NavAccordion } from './side-nav-rows';
 import { SectionIcon, ICONS, sectionHref } from './side-nav-icons';
 
@@ -27,9 +28,9 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel }: {
       <div className="v-sidenav-inner">
       {/* COLLAPSED: a uniform 40px icon column (iteration 3). */}
       <div className="v-side-rail">
-        <label htmlFor="v-nav-collapse" className="v-railbtn v-rail-toggle" title="Expand sidebar" aria-label="Expand the sidebar">
+        <VerseNavToggle to="open" className="v-railbtn v-rail-toggle" title="Expand the sidebar">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 6l6 6-6 6" /><path d="M5 6l6 6-6 6" /></svg>
-        </label>
+        </VerseNavToggle>
         <Link href="/verse" className="v-railbtn v-rail-logo" title="KpopVerse home" aria-label="KpopVerse home"><OrbitMark size={24} /></Link>
         <div className="v-rail-div" />
         <Link href="/" className="v-railbtn" title="Play" aria-label="Play">{ICONS.play}</Link>
@@ -54,9 +55,9 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel }: {
         <div className="v-side-top">
           <div className="v-side-brandrow">
             <span className="v-side-logo-full"><VerseLogo height={21} /></span>
-            <label htmlFor="v-nav-collapse" className="v-side-collapse" title="Collapse sidebar" aria-label="Collapse the sidebar">
+            <VerseNavToggle to="rail" className="v-side-collapse" title="Collapse the sidebar">
               <span className="v-side-collapse-glyph" aria-hidden="true">&#9666;</span>
-            </label>
+            </VerseNavToggle>
           </div>
           {/* the Play CTA keeps its pink pill - it is the jump to the game and should stand out. */}
           <div className="v-side-cta"><WorldToggle /></div>

@@ -121,7 +121,8 @@ export default async function SpaceLayout({
             client JS is the scroll-spy TOC inside the sidebar. Every nav link is SSR/crawlable. */}
         {navMenu ? (
           <>
-            <input type="checkbox" id="v-nav-collapse" className="v-nav-state" aria-label="Collapse or expand the sidebar" />
+            {/* the desktop fold is driven by data-verse-nav on <html> (per-route default + the
+                verse_nav cookie); only the mobile drawer still needs a pure-CSS checkbox. */}
             <input type="checkbox" id="v-nav-drawer" className="v-nav-state" aria-label="Open or close the navigation drawer" />
             <div className="v-navtopbar">
               <label htmlFor="v-nav-drawer" className="v-navtopbar-burger" aria-label="Open navigation menu"><span aria-hidden="true">&#9776;</span></label>

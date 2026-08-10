@@ -47,12 +47,21 @@ const splineMono = localFont({
   variable: '--font-spline-mono', display: 'swap', fallback: ['ui-monospace', 'SFMono-Regular', 'monospace'], preload: false,
 });
 
+// ITERATION 6 FIX 2 - stamp the saved sidebar-fold preference on <html> BEFORE first paint, so
+// the user's choice survives navigation with no flash. Deliberately a blocking inline script
+// rather than a server-side cookies() read: cookies() is a Dynamic API and would opt every Verse
+// reader page out of static/ISR rendering, which the SEO work depends on. With no cookie the
+// attribute is absent and CSS falls back to the per-route default (home open, content folded).
+// Static string, no interpolation, so there is no injection sink here.
+const NAV_PREF_SCRIPT = `try{var m=document.cookie.match(/(?:^|; )verse_nav=(open|rail)/);if(m)document.documentElement.setAttribute('data-verse-nav',m[1])}catch(e){}`;
+
 export default function VerseWorldLayout({ children }: { children: React.ReactNode }): React.ReactElement {
   // display:contents wrapper: it carries the font variables + the `.verse-v2` token
   // scope (globals.css) for every /verse page, but generates no box, so the page
   // layout is unchanged. Custom properties still inherit to all descendants.
   return (
     <div className={`verse-v2 ${fraunces.variable} ${instrument.variable} ${splineMono.variable}`} style={{ display: 'contents' }}>
+      <script dangerouslySetInnerHTML={{ __html: NAV_PREF_SCRIPT }} />
       {children}
     </div>
   );

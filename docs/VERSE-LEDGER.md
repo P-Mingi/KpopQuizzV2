@@ -2163,3 +2163,52 @@ Ran docs/loop/MISSION.md (SEO iteration). Scope kept to /articles + lib/db/queri
 - Registry: 8 noindex flags removed (zero remain), updatedAt bumped to 2026-08-10, stale numbers
   softened out of titles/descriptions/coverAlt/FAQ. revalidate=3600 added to the article route.
 - Sitemap delta: /articles URLs 11 -> 19 (the 8 are now emitted). robots noindex: 0 on all 8.
+
+L-167 (SEO articles audit PASS + Verse desktop-nav mission staged)
+  Cowork audited the SEO articles fix (commit 4bc1f02) independently, not on the worker's word:
+  recomputed the 3 live stats straight from the DB and they matched exactly — most-played 30d
+  (SKZ 186 / BTS era 181 / Cortis 159 / ILLIT 145), girl-vs-boy split (65 quizzes 68% vs 77 quizzes
+  70%, completions 16,535 / 24,211), member counts (idols table). Verified: 8 noindex removed (0
+  remain), updatedAt bumped on all 8, sitemap 11->19, 5 bodies now async server components (2
+  evergreen + blind-test stay sync), real word counts all 745-886 (>600), girl-vs-boy has an honest
+  null->evergreen fallback with no invented numbers, "18 songs" claim verified false and removed,
+  scope clean (articles + stats.ts + page.tsx + docs only, /verse untouched). Worker also correctly
+  pushed back on the mission's name-all assumption (that game DOES name members) — accepted. Could not
+  re-run full tsc/next build in the 45s device shell; trusted the REPORT's "tsc 0 / compiled
+  successfully" on the strength of the code review. VERDICT: PASS, Cowork gate lifted.
+  Owner push choice: push SEO + Verse A/B/C together, PART D later (option 1). Cowork flagged that
+  pushing now ships the still-unpolished Verse; owner then surfaced 2 desktop nav bugs from a Love
+  Yourself era screenshot: (1) left sidebar does not extend to the footer (big dead gap on short
+  pages); (2) the big left space sidebar should default FOLDED on non-home content pages because
+  expanded it shoves the content too far right. Owner confirmed target = the big left sidebar (not
+  the On-this-page TOC).
+  Action: wrote new docs/loop/MISSION.md (Verse iter-6 continued) = FIX 1 sidebar full-height/footer
+  gap, FIX 2 auto-fold-on-content-pages via SSR-safe cookie with per-route default + persistent
+  manual toggle (today the fold is a pure-CSS checkbox with no persistence/route default), plus PART D
+  folded in from the parked file (mobile drawer + hide global chrome + hamburger bug + white footer).
+  Plan: finish this Verse polish, then push the Verse+SEO batch clean. Awaiting owner trigger.
+
+## 2026-08-10 - Verse iter-6 POLISH executed (worker): full-height nav, auto-fold, mobile, white footer
+Ran docs/loop/MISSION.md (iter-6 continued). Scope /verse only; Play byte-identical off /verse.
+tsc 0, next build green, nothing pushed.
+- FIX 1 (sidebar full height): measured the defect first - a 32px white strip ABOVE the sidebar and
+  a constant 64px dead band to the footer (the shell's py-8 sat outside the flex row); on a short
+  page the grey column stopped 160px short of the viewport. Fixed by zeroing the shell's vertical
+  padding on desktop and giving the row min-height:100vh + align-items:stretch. After: sidebar top
+  0, gap to footer 0 on home, short and long pages.
+- FIX 2 (auto-fold + persistence): base = OPEN; RAIL applies only when (no cookie AND not the space
+  home) or (cookie = rail). Home detected in CSS via :has(.vh2-home). Preference stamped on <html>
+  as data-verse-nav by a blocking script reading the verse_nav cookie; a client toggle writes it.
+  Verified: home OPEN, content pages RAIL (content x=100 vs x=290, visibly wider), manual expand
+  persists across navigation, re-folding wins on the home too.
+  DEVIATION (flagged): the mission asked for a server-side cookies() read in the /verse layout. Not
+  done: cookies() is a Dynamic API and would opt every Verse reader page out of static/ISR, against
+  the ISR law and the SEO batch. Blocking script gives the same no-flash result while staying
+  static. Owner can override.
+- PART D: bottom tab bar now gated off /verse (the top bar already was) - that overlap WAS the
+  "half-broken" mobile symptom; the Verse mobile bar rebuilt full-bleed + sticky with the drawer.
+  Footer is white (#FFFFFF / #1E1E1E dark) via a .verse-footer rule, since the footer renders in the
+  ROOT layout outside the .verse-v2 token scope.
+- Crawlability held: both fold states server-rendered (10 nav sub-links + 30 rail icon links in the
+  HTML of a rail-default page); only CSS picks the visible one. The #v-nav-collapse checkbox is gone;
+  the mobile drawer keeps its pure-CSS checkbox.
