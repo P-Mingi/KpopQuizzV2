@@ -10,6 +10,7 @@ import { extractLinks, backlinksFor } from '@/lib/verse/tree/links';
 import { tagsForPage } from '@/lib/verse/tree/tags';
 import { DocumentPage } from '@/components/verse/tree/document-page';
 import { VerseIndexPage } from '@/components/verse/tree/index-page';
+import { Tracklist, EraReleases, EraNav, AwardShell, TypeEyebrow } from '@/components/verse/tree/type-templates';
 import { breadcrumbLd, jsonLdScript } from '@/lib/verse/jsonld';
 import { getStoredEntityTrivia, getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
 import { stableIndex } from '@/lib/trivia/pick-fact';
@@ -152,6 +153,58 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
     { label: page.title },
   ];
 
+  // PART C - per-type template slots, all DB-derived (never fabricated).
+  let topSlot: React.ReactNode = null;
+  let bodyExtras: React.ReactNode = null;
+  let variant: string | undefined = chain.some((a) => a.slug === 'bu-index') ? 'bu' : undefined;
+  const yearOf = (iso: string | null): string | null => iso?.match(/^(\d{4})/)?.[1] ?? null;
+  const REL: Record<string, string> = { ep: 'EP', album: 'Album', single: 'Single', compilation: 'Compilation', mixtape: 'Mixtape' };
+  const inits = (s: string): string => s.trim().split(/\s+/).map((w) => w[0]).join('').slice(0, 3).toUpperCase();
+
+  if (page.type === 'release' && page.entity_id != null) {
+    const { data: atRows } = await svc.from('album_tracks').select('id, position, title').eq('album_id', page.entity_id).order('position');
+    const at = ((atRows as { id: number; position: number; title: string }[] | null) ?? []);
+    const trackIds = at.map((t) => t.id);
+    const { data: tpages } = trackIds.length
+      ? await svc.from('pages').select('slug, entity_id').eq('space_id', space.group.id).eq('entity_kind', 'track').eq('status', 'published').in('entity_id', trackIds)
+      : { data: [] as { slug: string; entity_id: number }[] };
+    const slugByTrack = new Map(((tpages as { slug: string; entity_id: number }[] | null) ?? []).map((p) => [p.entity_id, p.slug]));
+    const tracks = at.map((t) => { const ts = slugByTrack.get(t.id); return { n: t.position, title: t.title, href: ts ? `/verse/${slug}/${ts}` : null }; });
+    bodyExtras = <Tracklist tracks={tracks} />;
+  } else if (page.type === 'era' && page.entity_id != null) {
+    variant = 'era';
+    const { data: albs } = await svc.from('albums').select('id, title, type, release_date').eq('era_id', page.entity_id).order('release_date', { ascending: true, nullsFirst: false });
+    const albumList = ((albs as { id: number; title: string; type: string; release_date: string | null }[] | null) ?? []);
+    const { data: rpages } = albumList.length
+      ? await svc.from('pages').select('slug, entity_id').eq('space_id', space.group.id).eq('entity_kind', 'album').eq('status', 'published').in('entity_id', albumList.map((a) => a.id))
+      : { data: [] as { slug: string; entity_id: number }[] };
+    const slugByAlbum = new Map(((rpages as { slug: string; entity_id: number }[] | null) ?? []).map((p) => [p.entity_id, p.slug]));
+    const eraAlbums = albumList.flatMap((a) => { const s = slugByAlbum.get(a.id); return s ? [{ title: a.title, meta: [yearOf(a.release_date), REL[a.type?.toLowerCase()] ?? a.type].filter(Boolean).join(' · '), href: `/verse/${slug}/${s}`, initials: inits(a.title) }] : []; });
+    const { data: allEras } = await svc.from('eras').select('id, name, period_start, period_end').eq('group_id', space.group.id).order('period_start', { ascending: true, nullsFirst: false });
+    const eraList = ((allEras as { id: number; name: string; period_start: string | null; period_end: string | null }[] | null) ?? []);
+    const idx = eraList.findIndex((e) => e.id === page.entity_id);
+    const cur = idx >= 0 ? (eraList[idx] ?? null) : null;
+    const prevE = idx > 0 ? (eraList[idx - 1] ?? null) : null;
+    const nextE = idx >= 0 && idx < eraList.length - 1 ? (eraList[idx + 1] ?? null) : null;
+    const nIds = [prevE?.id, nextE?.id].filter((x): x is number => x != null);
+    const { data: epages } = nIds.length
+      ? await svc.from('pages').select('slug, entity_id').eq('space_id', space.group.id).eq('type', 'era').eq('status', 'published').in('entity_id', nIds)
+      : { data: [] as { slug: string; entity_id: number }[] };
+    const slugByEra = new Map(((epages as { slug: string; entity_id: number }[] | null) ?? []).map((p) => [p.entity_id, p.slug]));
+    const prevS = prevE ? slugByEra.get(prevE.id) : undefined;
+    const nextS = nextE ? slugByEra.get(nextE.id) : undefined;
+    const prev = prevE && prevS ? { label: prevE.name, href: `/verse/${slug}/${prevS}` } : null;
+    const next = nextE && nextS ? { label: nextE.name, href: `/verse/${slug}/${nextS}` } : null;
+    const ys = cur ? yearOf(cur.period_start) : null; const ye = cur ? yearOf(cur.period_end) : null;
+    const years = ys ? (ye && ye !== ys ? `${ys} · ${ye}` : ys) : '';
+    topSlot = <TypeEyebrow chapter text={`Chapter${years ? ` · ${years}` : ''}`} />;
+    bodyExtras = <><EraReleases albums={eraAlbums} /><EraNav prev={prev} next={next} /></>;
+  } else if (page.type === 'award') {
+    bodyExtras = <AwardShell />;
+  }
+  // BU pages get a violet 'lore' eyebrow (the story-world accent) unless a type eyebrow already set.
+  if (variant === 'bu' && !topSlot) topSlot = <TypeEyebrow text="BTS Universe · lore" />;
+
   return (
     <div className="verse-page verse-scope">
       {jsonLdScript(breadcrumbLd(crumbs.map((c) => ({ name: c.label, url: abs(c.href ?? `/verse/${slug}/${pageSlug}`) }))))}
@@ -170,6 +223,10 @@ export default async function TreePage({ params }: { params: Promise<{ slug: str
         didYouKnow={didYouKnow}
         playLinks={playLinks}
         playCount={playCount}
+        topSlot={topSlot}
+        bodyExtras={bodyExtras}
+        variant={variant}
+        suppressHeadings={page.type === 'release' ? ['tracklist'] : undefined}
       />
     </div>
   );

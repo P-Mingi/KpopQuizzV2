@@ -32,6 +32,35 @@ export interface DocumentPageProps {
   didYouKnow?: { fact: string; category: string } | null;
   playLinks?: { slug: string; title: string }[];
   playCount?: number | undefined;   // the group's total published quiz count (honest count line)
+  // PART C - per-type template slots injected by the route: an eyebrow/band above the h1, a
+  // type-specific body section after the prose (tracklist, era cover grid, award shell), and a
+  // variant class (era / bu) for accent + structure. All content is DB-derived by the route.
+  topSlot?: React.ReactNode;
+  bodyExtras?: React.ReactNode;
+  variant?: string | undefined;
+  // drop a prose section (a heading + its blocks) that a structured bodyExtras now supersedes,
+  // e.g. a release's static "Tracklist" once the linked tracklist renders. Keeps the TOC honest.
+  suppressHeadings?: string[] | undefined;
+}
+
+// drop each suppressed heading and the blocks under it, stopping at the next heading or a divider
+// (so a following "Sources" note or the next section survives).
+function dropSuppressed(blocks: PageBlock[], suppress: Set<string>): PageBlock[] {
+  if (!suppress.size) return blocks;
+  const out: PageBlock[] = [];
+  let skipping = false;
+  for (const b of blocks) {
+    if (b.type === 'heading') {
+      const txt = (Array.isArray(b.content) ? (b.content as { text?: string }[]) : []).map((r) => r.text ?? '').join('').trim().toLowerCase();
+      skipping = suppress.has(txt);
+      if (skipping) continue;
+      out.push(b); continue;
+    }
+    if (b.type === 'divider') { skipping = false; out.push(b); continue; }
+    if (skipping) continue;
+    out.push(b);
+  }
+  return out;
 }
 
 function fmt(iso: string): string {
@@ -45,15 +74,17 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
   const { page, crumbs, facts, navbox, tags, backlinks, revisionCount, updatedAt, hangul, spaceSlug, didYouKnow, playLinks, playCount } = props;
   const hasFacts = !!facts && facts.length > 0;
   const hasPlay = !!playLinks && playLinks.length > 0;
-  const blocks = page.blocks?.blocks ?? [];
-  const anchors = headingAnchors(page.blocks);
-  const toc = extractToc(page.blocks);
+  const suppress = new Set((props.suppressHeadings ?? []).map((s) => s.toLowerCase()));
+  const filteredBlocks = suppress.size ? { ...page.blocks, blocks: dropSuppressed(page.blocks?.blocks ?? [], suppress) } : page.blocks;
+  const blocks = filteredBlocks?.blocks ?? [];
+  const anchors = headingAnchors(filteredBlocks);
+  const toc = extractToc(filteredBlocks);
   const indexable = page.status === 'published' && !page.is_stub;
   const existing = new Set(props.existingSlugs ?? []);
   const sectionHints = page.is_stub ? templateSections(page.type) : [];
 
   return (
-    <div className="vdoc">
+    <div className={`vdoc${props.variant ? ` vdoc-${props.variant}` : ''}`}>
       <DocToc items={toc} />
 
       <main className="vdoc-main">
@@ -65,6 +96,9 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
             </span>
           ))}
         </nav>
+
+        {/* PART C: an optional per-type eyebrow / band above the title. */}
+        {props.topSlot}
 
         {/* the page's ONE h1 */}
         <h1 className="vdoc-title">{page.title}{hangul ? <span className="hangul">{hangul}</span> : null}</h1>
@@ -93,6 +127,9 @@ export function DocumentPage(props: DocumentPageProps): React.ReactElement {
         ) : null}
 
         {blocks.map((b, i) => <BodyBlock key={b.id ?? i} block={b} anchor={anchors.get(b)} lead={i === firstTextIndex(blocks)} spaceSlug={spaceSlug} existing={existing} />)}
+
+        {/* PART C: the per-type body section (tracklist / era cover grid + prev-next / award shell). */}
+        {props.bodyExtras}
 
         {(tags?.length || navbox?.items.length || (backlinks && backlinks.count > 0)) ? (
           <div className="vdoc-foot">
