@@ -2245,3 +2245,35 @@ L-169 (iter-7 SHIPPED: Notion-style nav built to the validated prototype)
   centered when hidden); (3) cookie reused, not server-side cookies() (ISR law). NOTE: two console
   errors (script-tag / hydration) are PRE-EXISTING site-wide (reproduce on Play /quizzes, from the
   reskin theme-launch script), not iter-7. Nothing pushed; Cowork reviews the diff.
+
+L-170 (iter-8 SHIPPED: finish micro-fixes + the content/footer gap)
+  Cowork's iter-7 audit + owner flagged: FIX A the compact hero title sat only ~18px under the fixed
+  bar (tight) -> gave `.verse-hero` margin-top:1.5rem so it clears by ~44px (home masthead uses
+  .vh2-home, already clear). FIX B the HIDE button read as a floating notch on the sidebar/hero edge
+  -> the markup already matched the prototype ([chip][name+meta][hide]); the cause was tight header
+  padding jamming it into the top-right corner, so matched the prototype's generous padding. FIX C the
+  condensed mobile bar dropped Fandoms/Community/theme -> added a mobile-drawer-ONLY global section
+  (divider + Fandoms + Community + theme row) at the bottom of side-nav.tsx, display:none on desktop.
+  EXTRA (owner: "space between content and footer"): iter-7 left min-height:100vh on .v-navshell, a
+  FIX1 remnant, which STACKED on the root sticky footer (main.flex-1 in min-h-screen) and shoved the
+  footer a full screen below short content (465px band). Replaced with a flex-column fill
+  (main:has(.verse-page) flex column; verse-page + navshell flex:1) so the footer sits under the
+  content, the grey sidebar reaches it, no cream shows; normal-viewport gap is now 0.
+  Gates: tsc 0, check:routes (353), check:verse-tokens, next build green. Proofs in
+  docs/proofs/iter8-finish/ (proof-iter8-capture.mjs). Nothing pushed.
+
+L-169 (iter-7 audit: PASS w/ 2 finish defects; iter-8 staged; release-prose tracklists trimmed)
+  Cowork audited iter-7 (ab84416) independently: scope clean (/verse only), rail classes 0 in src,
+  full hide + reopen tab verified on screenshots, FIX1 preserved (grey column to the white footer,
+  no dead band), cookie defaults + SSR crawlability verified, mobile condensed bar clean. Worker
+  deviations (1120 measure, mobile theme drop, cookie machinery) accepted as reasonable and flagged.
+  Two desktop finish defects found by Cowork in the proofs, owner agreed both: (A) hero title
+  clipped under the fixed top bar; (B) hide button floating on a notch instead of inside the space
+  header row per the prototype. Cowork also spotted (C) Fandoms/Community/theme unreachable on
+  mobile (condensed bar dropped them, drawer is space-only). Wrote docs/loop/MISSION.md (iter-8:
+  A/B/C, surgical, no push) — owner ruled: micro-fix + suite now, push later.
+  Content suite done by Cowork directly via MCP (the iter-6C follow-up the worker flagged for
+  Cowork): removed the now-redundant static "Tracklist" prose sections (blocks tl-h + tl) from all
+  16 published BTS release pages — the structured, linked tracklist from album_tracks renders
+  instead. Verified: 0 pages still carry the static section, 16 trimmed to Overview-only prose,
+  16 append-only page_revisions written (seed author), fully reversible. Push gate still closed.

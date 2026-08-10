@@ -9,6 +9,7 @@ import { VerseTocSpy } from './toc-spy';
 import { VerseNavToggle } from './nav-toggle';
 import { NavAccordion } from './side-nav-rows';
 import { ICONS } from './side-nav-icons';
+import { ThemeToggle } from '@/components/layout/theme-toggle';
 
 import type { NavNode } from '@/lib/verse/tree/nav';
 
@@ -48,6 +49,25 @@ export function VerseSideNav({ spaceSlug, tree, spaceName, spaceLabel, spaceMeta
 
           <div className="v-side-divider" />
           <VerseTocSpy />
+
+          {/* iter-8 FIX C: a compact GLOBAL section, mobile-drawer ONLY (hidden on desktop via CSS).
+              The condensed mobile top bar drops Fandoms / Community / theme, and this drawer is
+              otherwise space-only, so those destinations would be unreachable on mobile. Crawlable <a>. */}
+          <div className="v-side-mglobal">
+            <div className="v-side-divider" />
+            <Link href="/verse" className="v-side-row">
+              <span className="v-side-ic" aria-hidden="true">{ICONS.fandoms}</span>
+              <span className="v-side-lbl">Fandoms</span>
+            </Link>
+            <Link href="/verse/community" className="v-side-row">
+              <span className="v-side-ic" aria-hidden="true">{ICONS.community}</span>
+              <span className="v-side-lbl">Community</span>
+            </Link>
+            <div className="v-side-mtheme">
+              <span className="v-side-lbl">Theme</span>
+              <ThemeToggle className="v-side-mtheme-btn" />
+            </div>
+          </div>
         </div>
       </div>
     </aside>

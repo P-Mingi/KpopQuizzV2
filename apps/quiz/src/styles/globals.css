@@ -6267,13 +6267,18 @@ main:has(.verse-page) { max-width: none; }
   /* the reading cluster: capped and centered inside the white content column. */
   .v-navmain > .mt-6 { max-width: 1120px; margin-inline: auto; padding-inline: clamp(20px, 3vw, 44px); }
 
-  /* ITERATION 6 FIX 1 - the nav column runs the FULL page height: no white strip above it and
-     no dead band between it and the footer. Zero the shell's vertical padding (the hero band is
-     full-bleed by design, so flush to the top is correct) and give the flex row a viewport
-     min-height so a SHORT article still has its grey column reach down to the footer. */
-  main:has(.verse-page) { padding-bottom: 0; }
-  .verse-page.verse-scope { padding-top: 0; padding-bottom: 0; }
-  .v-navshell { min-height: 100vh; align-items: stretch; }
+  /* ITERATION 6 FIX 1, revised iter-8 - the nav column runs the FULL page height: no white strip
+     above it and no dead band between it and the footer. Zero the shell's vertical padding (the hero
+     band is full-bleed by design, so flush to the top is correct).
+     The footer is already pinned to the bottom by the ROOT sticky footer (main is flex-1 inside a
+     min-h-screen column). The old `min-height: 100vh` here stacked a SECOND viewport on top of that,
+     shoving the footer a full screen below short content (a big empty band). Instead let the verse
+     column FILL exactly the space the sticky footer already reserves: make verse main a flex column
+     and grow the page + shell into it. Footer sits right under the content, the grey sidebar reaches
+     it, and no cream body shows through. */
+  main:has(.verse-page) { padding-bottom: 0; display: flex; flex-direction: column; }
+  .verse-page.verse-scope { padding-top: 0; padding-bottom: 0; flex: 1 0 auto; display: flex; flex-direction: column; }
+  .v-navshell { flex: 1 0 auto; }
 }
 
 /* ==========================================================================
@@ -6325,10 +6330,12 @@ main:has(.verse-page) { max-width: none; }
 .v-navshell { display: flex; align-items: flex-start; gap: 0; padding-top: var(--v-topbar-h); }
 /* The hero cover uses -mx (full-bleed width) + a negative -mt that used to pull it up into the page's
    old top padding (flush to y=0). FIX1 removed that padding and iter-7 added the fixed 52px top bar,
-   so the -mt now slips the hero UNDER the bar. Cancel just the top bleed: the hero starts at the
-   navmain content top (the bar's bottom); the horizontal bleed is untouched. */
+   so the -mt now slips the hero UNDER the bar. Cancel the top bleed (horizontal bleed untouched) and
+   iter-8 FIX A: give the compact hero band the SAME breathing room the home cover has (~24px) so the
+   title clears the bar edge instead of tucking right under it. The home masthead uses .vh2-home, not
+   .verse-hero, so it is unaffected (its own top margin already gives the clearance). */
 .v-navmain > .verse-hero,
-.v-navmain > * > .verse-hero { margin-top: 0; }
+.v-navmain > * > .verse-hero { margin-top: 1.5rem; }
 .v-sidenav {
   flex: 0 0 var(--v-side-w); width: var(--v-side-w); align-self: stretch;
   background: var(--v2-nav); border-right: 1px solid var(--v2-line);
@@ -6342,7 +6349,11 @@ main:has(.verse-page) { max-width: none; }
 .v-side-open { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
 /* space header: chip + name + meta + HIDE */
-.v-side-shhead { display: flex; align-items: center; gap: 10px; padding: 4px 6px 8px 8px; }
+/* iter-8 FIX B: match the validated prototype's header padding (was 4px 6px 8px 8px, too tight - it
+   jammed the HIDE button into the top-right corner where the grey panel meets the hero, reading as a
+   floating notch on the edge). Generous padding seats [chip][name+meta][hide] cleanly inside the row,
+   the hide button right-aligned and vertically centred on the chip. The inner already adds 8px sides. */
+.v-side-shhead { display: flex; align-items: center; gap: 10px; padding: 12px 6px 10px 6px; }
 .v-side-shchip { width: 30px; height: 30px; border-radius: 8px; background: var(--v2-pill); color: var(--v2-pill-text); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 14px; flex: 0 0 auto; text-decoration: none; }
 .v-side-shchip:hover { text-decoration: none; opacity: .9; }
 .v-side-shmeta { flex: 1; min-width: 0; line-height: 1.2; display: flex; flex-direction: column; }
@@ -6384,6 +6395,9 @@ main:has(.verse-page) { max-width: none; }
 @keyframes v-side-reveal { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .v-side-sect[open] > .v-side-sub { animation: none; } .v-sidenav, .v-side-chev { transition: none; } }
 .v-side-divider { height: 1px; background: var(--v2-line-soft); margin: 10px 6px; }
+/* iter-8 FIX C: the mobile-drawer-only global section is hidden on desktop (the top bar carries these
+   globals there); the mobile media query below reveals it inside the off-canvas drawer. */
+.v-side-mglobal { display: none; }
 .v-toc-group { display: flex; flex-direction: column; }
 .v-toc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
 .v-toc-link { display: block; padding: 6px 10px; border-left: 2px solid transparent; font-size: 12.5px; color: var(--v2-muted); text-decoration: none; line-height: 1.5; }
@@ -6425,6 +6439,12 @@ main:has(.verse-page) { max-width: none; }
   #v-nav-drawer:checked ~ .v-navshell .v-sidenav { transform: translateX(0); }
   .v-nav-scrim { display: block; position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.42); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
   #v-nav-drawer:checked ~ .v-nav-scrim { opacity: 1; pointer-events: auto; }
+  /* FIX C: reveal the global section at the bottom of the drawer (Fandoms / Community / theme). */
+  .v-side-mglobal { display: flex; flex-direction: column; gap: 1px; margin-top: 4px; }
+  .v-side-mtheme { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 8px; min-height: 44px; }
+  .v-side-mtheme .v-side-lbl { flex: 1 1 auto; font-size: 14px; font-weight: 500; color: var(--v2-body); }
+  .theme-toggle.v-side-mtheme-btn { width: 40px; height: 40px; min-width: 40px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-raised); color: var(--v2-muted); flex: 0 0 auto; }
+  .theme-toggle.v-side-mtheme-btn:hover { color: var(--v2-ink); border-color: var(--v2-muted); background: var(--v2-wash); }
 }
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
   .v-sidenav, .v-nav-scrim { transition: none; }

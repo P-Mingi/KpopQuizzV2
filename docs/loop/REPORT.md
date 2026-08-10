@@ -1,100 +1,59 @@
-# REPORT - Verse iter-7: Notion-style nav (global top bar + space-only sidebar + FULL hide)
+# REPORT - Verse iter-8: finish micro-fixes (hero clearance, hide button, mobile globals) + footer gap
 
-Built to the VALIDATED prototype `prototypes/verse-nav-notion.html` (owner approved as-is; where prose
-and prototype disagreed, the prototype won). This REPLACES the iter-6 FIX2 icon-rail pattern: the rail
-is gone entirely. Kept FIX1 (full-height nav column, no dead band) and PART D's white footer, adapted
-to the new structure. Scope /verse only; Play byte-identical off /verse. tsc 0; route + verse-token
-gates green; `next build` green. Light + dark both checked. No cream on any verse surface. Nothing
-pushed; Cowork reviews the diff.
+Small surgical mission on top of iter-7 (ab84416 + the hero-overlap follow-up 06f3cc4). Scope /verse
+only; tsc 0; route + verse-token gates green; `next build` green. Light + dark. Nothing pushed.
+The prototype (prototypes/verse-nav-notion.html) stayed authoritative for placement.
 
-## A - the global TOP BAR (new, /verse only)
-New component `components/verse/tree/verse-topbar.tsx`: a discreet fixed 52px bar (hairline bottom
-border, `--v2-content` background at 88% + `blur(10px)`), rendered once in `verse/[slug]/layout.tsx`.
-It carries every global control that used to live in the sidebar:
-- Left: the REAL KpopVerse logo (`VerseLogo` -> `OrbitLockup`, never an invented mark) + a thin
-  divider + Fandoms + Community as quiet text links (crawlable `<a>`).
-- Center: the Verse search field (recessed `--v2-nav`, hairline, "Search the Verse").
-- Right: the pink Play pill (`WorldToggle`, the one primary CTA), the theme toggle, the profile/avatar
-  (`TopNavProfile`, sign-in aware).
-The shell offsets content below the bar (`.v-navshell { padding-top: 52px }`, sticky inner scroller at
-`top: 52px`), so there is no overlap and no layout shift. The bar is `.verse-page`-scoped; Play chrome
-elsewhere is untouched.
+## FIX A - hero title clipped under the fixed top bar
+The compact page hero (`.verse-hero`) started flush at the bar's bottom (y=52), so the title sat only
+~18px under the 52px bar - visibly tight. Gave the compact hero band the same breathing room the home
+cover already has: `margin-top: 1.5rem` (was 0). The title now clears the bar by ~44px on content
+pages. The home masthead uses `.vh2-home`/`.vh2-cover` (not `.verse-hero`) and already cleared the bar
+by 24px, so it is unaffected. Checked home + content, open + hidden, light + dark.
 
-## B - the LEFT sidebar becomes SPACE-ONLY
-`components/verse/tree/side-nav.tsx` rewritten. Removed every global row (logo, Play, Fandoms/Community,
-search, theme, profile - all now in the top bar). What remains, per the prototype:
-- Space header row: chip + name + a small meta line (`ARMY - 3rd Gen - 7 members`) + the HIDE button
-  (chevron-to-edge icon).
-- Space home / Browse everything rows.
-- NAVIGATE label + the section accordions (Music / Members / Shows / Fandom / About): collapsible,
-  auto-open the current section, crawlable links (unchanged behaviour from iter-6).
-Grey `--v2-nav` panel, hairline right border, full height to the footer.
+## FIX B - the HIDE button seated inside the space header row
+The header markup was already `[chip][name+meta][hide]` (matching the prototype), but its padding was
+too tight (`4px 6px 8px 8px`), jamming the hide button into the sidebar's top-right corner where the
+grey panel meets the hero - which read as a floating notch on the edge. Matched the prototype's
+generous padding (`12px 6px 10px 6px`, the inner already adds 8px sides), so the button now sits
+cleanly inside the row, right-aligned and vertically centred on the chip. No notch element existed in
+the code; the fix was purely the spacing. The floating REOPEN tab was left untouched.
 
-## C - FULL HIDE, no icon rail
-The HIDE button collapses the sidebar to width 0 (`flex-basis:0; width:0; opacity:0; pointer-events:none`;
-`.v-side-rail` and all its CSS deleted). Content then reads full width, centered (the 1120 reading
-cluster re-centers in the now-full `.v-navmain`). A floating REOPEN tab (chevron-right in a raised
-bordered square) appears top-left under the top bar and restores it. Smooth width/margin transition
-(`cubic-bezier(.22,.61,.36,1)`).
-PERSISTENCE reuses the iter-6 `verse_nav` cookie machinery, values now `open|hidden`: the blocking
-inline script in `verse/layout.tsx` stamps `data-verse-nav` pre-paint (no flash, pages stay static/ISR);
-`nav-toggle.tsx` writes the cookie + attribute on click. Defaults with NO cookie: space home -> open;
-any deeper content page -> hidden (pure CSS: `html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home))`).
-A manual toggle wins on every route after that. Both DOM states stay server-rendered; CSS hides, never
-removes - so the nav links are crawlable in both states.
+## FIX C - mobile drawer global section (Fandoms / Community / theme)
+The condensed mobile top bar drops Fandoms + Community + the theme toggle, and the drawer was
+space-only, so those were unreachable on mobile. Added a compact global section at the BOTTOM of the
+sidebar (side-nav.tsx): a thin divider, then a Fandoms row (`/verse`), a Community row
+(`/verse/community`), and a Theme row carrying the ThemeToggle. It is `display:none` on desktop and
+revealed only inside the off-canvas drawer (`@media max-width:767px`); the desktop sidebar stays
+space-only. Links are crawlable `<a>`.
 
-## D - MOBILE
-The top bar condenses (<768): the Fandoms/Community links, the wide search field, and the theme toggle
-drop out, leaving logo + search icon + Play + a hamburger (+ Sign in for auth). The hamburger opens the
-space sidebar as an off-canvas drawer (grey 288px panel, scrim, slide-in, scrim-to-close) via the same
-pure-CSS checkbox. Still NO global Play tab bar / mobile top bar on /verse. Footer stays white.
+## EXTRA - the "space between content and footer" you flagged
+Root cause: iter-7 left `min-height: 100vh` on `.v-navshell` (a FIX1 remnant). The site already pins
+the footer via a ROOT sticky footer (`main.flex-1` inside a `min-h-screen` column), so the extra
+`100vh` STACKED a second viewport under the content and shoved the footer up to a full screen below it
+(measured 465px of empty band on a page shorter than the viewport). Replaced it: verse `main` is now a
+flex column and the page + shell grow to fill exactly the space the sticky footer already reserves
+(`main:has(.verse-page){display:flex;flex-direction:column}`, `.verse-page{flex:1 0 auto;...}`,
+`.v-navshell{flex:1 0 auto}`). Result on every page: the footer sits directly under the content, the
+grey sidebar still runs to it, the body's cream never shows below it. At a normal viewport the gap is
+0; only when content is far shorter than the viewport does the standard (white, footer-at-bottom)
+sticky-footer space remain. Not in the mission scope but it was the same FIX1 CSS, so folded in here.
 
-## FIX 1 preserved (measured, not eyeballed)
-On a short page (`/verse/bts/tv-index`, doc height 1114, viewport 820): the fixed top bar sits at y=0
-(52px); the sidebar and the content BOTH start at y=52 (flush under the bar, no dead band above); the
-grey sidebar's bottom = the footer's top = y=820 (gap 0, no dead band below); footer background is pure
-white `rgb(255,255,255)`. `.v-navshell { min-height:100vh; align-items:stretch }` drives the full-height
-column.
-
-## VERIFY (proofs in docs/proofs/iter7-notion-nav/, real headless Chrome, light + dark)
-1. Desktop content page, top bar + space sidebar, accordion auto-open + active section:
-   `01-desktop-content-open-light.png` (light), `06-desktop-content-open-dark.png` (dark).
-2. FULL HIDE -> width 0 + floating reopen tab + content centered:
-   `02-desktop-content-hidden-light.png`, `07-desktop-content-hidden-dark.png`. Reopen restores it
-   (verified: setting the attribute back to `open` returns the panel to 264px, reopen tab hides).
-3. No-cookie defaults: space home OPEN (`03-desktop-home-default-open-light.png`) vs a deeper content
-   page HIDDEN (`04-desktop-content-default-hidden-light.png`). Manual toggle writes cookie=open +
-   `data-verse-nav=open` and persists (verified live).
-4. FIX1 intact on a short page - grey sidebar runs full height to the white footer, no dead band above
-   or below: `05-desktop-short-fix1-footer-light.png` (+ the numeric measurements above).
-5. Mobile 390: condensed top bar (`08-mobile-topbar-light.png`, `10-mobile-topbar-dark.png`), hamburger
-   drawer (`09-mobile-drawer-open-light.png`), no Play bottom bar, white footer.
-6. Crawl check (SSR HTML of the hidden-by-default `/verse/bts/discography-index`): the `v-sidenav`
-   aside, the "Navigate" accordion, all section sub-links (discography/eras/members/tours/fandom/big-hit)
-   and 10 `v-side-link`s are all in the server HTML with NO forced `data-verse-nav` - CSS alone hides
-   the visible panel. Verified by curl.
-
-Capture harness: `apps/quiz/scripts/proof-iter7-capture.mjs` (headless Chrome over --remote-debugging-pipe;
-the browser pane misrenders fixed elements + 1280 emulation).
-
-## DEVIATIONS (flagged)
-- MOBILE theme toggle hidden. The mission/prototype specify the condensed mobile bar as
-  "logo + search icon + Play + hamburger". The prototype has no mobile media query, so Part D prose
-  governs. Keeping theme + profile + Sign in all in a 390px bar clipped "Sign in". I dropped the theme
-  toggle on mobile (theme is launch-time via `themeScheme`, so losing its live toggle there costs
-  nothing) and kept Sign in (auth is essential). Owner can restore it.
-- Content measure stays 1120, not the prototype's 760. Our content pages carry rails/grids (the home is
-  3-column) that need the wider cluster; the prototype's 760 is a single prose column. "Full width,
-  centered" is honoured - the 1120 cluster centers in the full viewport when the sidebar is hidden.
-- Cookie machinery (not server-side cookies()) reused verbatim from iter-6 FIX2, for the same reason:
-  cookies() is a Dynamic API and would opt every Verse reader page out of static/ISR.
+## VERIFY (proofs in docs/proofs/iter8-finish/, real headless Chrome)
+1. Desktop content page, hero title clears the bar + hide button seated in the header row:
+   `01-desktop-content-hero-header-light.png`, `02-...-dark.png`. Home: `03-desktop-home-hero-light.png`.
+2. Mobile 390 drawer with the global section (Fandoms / Community / theme) at the bottom:
+   `04-mobile-drawer-global-light.png`, `05-...-dark.png`.
+3. Footer: short page - footer pinned under the content, grey sidebar reaching it, no double-count
+   band, no cream: `06-footer-short-page-light.png`. (Numbers: at viewport 1600 the gap dropped from
+   465px to the standard sticky-footer space with the footer AT the screen bottom; at a normal
+   viewport the content-to-footer gap is 0.)
+Capture harness: `apps/quiz/scripts/proof-iter8-capture.mjs`. (The harness toggles the theme class
+post-render, so the dark shots restyle the top bar/hero but not every launch-time token - true dark
+was confirmed live via localStorage + reload; the fixes are token-based and theme-agnostic.)
 
 ## NOTES
-- Two console errors ("script tag while rendering", "Hydration failed") are PRE-EXISTING and site-wide:
-  they reproduce identically on Play pages (`/quizzes`) that never touch the verse layout or the nav
-  script. They stem from the site's launch-time theme script + hydration pattern (reskin v2), not from
-  iter-7. Left untouched (out of scope).
-- Deleted all retired rail + global-chrome CSS (`.v-side-rail`, `.v-railbtn*`, `.v-rail-*`, `.v-side-top`,
-  `.v-side-chip*`, `.v-side-cta`, `.v-side-search*`, `.v-side-theme*`, `.v-side-profile*`,
-  `.v-navtopbar*`); no orphan class references remain in src.
-- SEO articles commit (4bc1f02) untouched. No SQL/migrations run. Nothing pushed.
+- The two pre-existing site-wide console errors (theme launch-script / hydration, reproduce on Play)
+  are unchanged and out of scope.
+- tsc 0; check:routes (353) and check:verse-tokens (no raw hex) green; `next build` green. Nothing
+  pushed; Cowork reviews the diff.
