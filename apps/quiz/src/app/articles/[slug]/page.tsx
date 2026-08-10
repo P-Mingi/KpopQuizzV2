@@ -9,6 +9,10 @@ import type { Metadata } from 'next';
 
 const SITE_URL = 'https://kpopquiz.org';
 
+// ISR: the data-entangled article bodies read the DB via cached queries; revalidate hourly so
+// their live numbers refresh (each query's own cache TTL still bounds the actual refresh).
+export const revalidate = 3600;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

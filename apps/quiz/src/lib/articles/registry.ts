@@ -179,14 +179,13 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-quiz-statistics',
-    title: 'K-pop Quiz Statistics: How Fans Score Across 87 Groups',
+    title: 'K-pop Quiz Statistics: How Fans Actually Score',
     description:
-      'Real first-party K-pop quiz data from kpopquiz.org: 374 quizzes, 54,000+ plays, 87 groups, the hardest quiz by average score, and girl-group vs boy-group scores. Updated for July 2026.',
+      'Live first-party K-pop quiz data from kpopquiz.org: how many quizzes and plays exist, which groups get played most, and the hardest and easiest quizzes by real average score.',
     category: 'data',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
-    coverAlt: 'K-pop quiz statistics dashboard showing plays across 87 groups',
-    noindex: true,
+    updatedAt: '2026-08-10',
+    coverAlt: 'K-pop quiz statistics dashboard showing plays across K-pop groups',
     tags: ['statistics', 'data', 'kpop quiz'],
     relatedLinks: [
       { label: 'See the live stats', href: '/stats' },
@@ -197,22 +196,22 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'How many K-pop quizzes are on kpopquiz.org?',
         answer:
-          'As of July 2026, kpopquiz.org hosts 374 published quizzes across 87 K-pop groups, plus 3,964 songs in the blind test catalog. The platform has recorded more than 54,000 quiz plays.',
+          'The article shows the current counts read straight from the database: published quizzes, total recorded plays, groups in the catalogue and active songs. The figures refresh regularly rather than being fixed to a date, so they stay accurate as the library grows.',
       },
       {
         question: 'What is the hardest K-pop quiz by average score?',
         answer:
-          'Across the 232 quizzes with at least 30 plays, the lowest average score belongs to a Stray Kids song quiz, where fans average just 41 percent. Average score is normalized by question count, so it reflects real performance.',
+          'The article ranks the hardest and easiest quizzes by their real average score, counting only quizzes with at least 30 completions so the average is trustworthy. Average score is normalised by question count, so it reflects real performance rather than a difficulty label.',
       },
       {
         question: 'Do fans score higher on girl-group or boy-group quizzes?',
         answer:
-          'Boy-group quizzes average 71.8 percent while girl-group quizzes average 68.1 percent, measured across quizzes with 30 or more plays as of July 2026. Girl groups draw more total plays.',
+          'The gap is small and it says more about who is playing than about which groups are harder. The girl-group versus boy-group article computes the current split from live quiz data, with the caveat that a few percentage points across a modest sample is a weak signal.',
       },
       {
         question: 'Where can I see live K-pop quiz statistics?',
         answer:
-          'The stats page at kpopquiz.org/stats recomputes hourly and adds the week\'s most-played fandom, the current hardest and easiest quizzes, and fan duel verdicts. It is free to cite with a link.',
+          'The stats page at kpopquiz.org/stats carries the fuller live picture, including the current hardest and easiest quizzes and the week\'s most-played fandom. It is free to cite with a link.',
       },
     ],
   },
@@ -220,12 +219,11 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'most-played-kpop-quizzes',
     title: 'The Most-Played K-pop Quizzes This Month (Live Data)',
     description:
-      'The most-played K-pop quizzes on kpopquiz.org over the last 30 days, ranked by real play counts. Led by a General K-pop label quiz, a Stray Kids challenge, and the Ultimate BTS era quiz. July 2026.',
+      'The most-played K-pop quizzes on kpopquiz.org over the trailing 30 days, ranked live by real play counts. The chart moves week to week as fandoms rally around new quizzes.',
     category: 'data',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'Ranked list of the most-played K-pop quizzes this month',
-    noindex: true,
     tags: ['most played', 'popular quizzes', 'data'],
     relatedLinks: [
       { label: 'Browse all quizzes', href: '/quizzes' },
@@ -236,17 +234,17 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'What is the most-played K-pop quiz right now?',
         answer:
-          'As of July 2026, a General K-pop quiz that matches groups to their labels leads the last 30 days, followed by a Stray Kids true-or-false and the Ultimate BTS era quiz. The ranking is counted from real plays and shifts week to week.',
+          'The article lists the current top ten, counted live from real plays over the trailing 30 days. The ranking shifts week to week, so the leader when you read it may not be the leader a fortnight later.',
       },
       {
         question: 'How is the most-played list calculated?',
         answer:
-          'It counts quiz plays directly from the plays table over the trailing 30 days. Activity spreads across roughly 190 quizzes a month, so a top-ten spot is genuinely competitive.',
+          'It counts completed plays recorded over the trailing 30 days for quizzes that are currently published. Activity spreads across hundreds of quizzes a month, so a top-ten spot is genuinely competitive.',
       },
       {
         question: 'How often does the list change?',
         answer:
-          'Every week. Fandoms rally around new quizzes, so the order moves. For the always-on version, the stats page recomputes hourly.',
+          'Continuously, because the window always covers the last 30 days relative to when the page refreshed. Fandoms rally around new quizzes, so the order moves week to week.',
       },
       {
         question: 'Where can I play the most popular K-pop quizzes?',
@@ -259,12 +257,11 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'girl-groups-vs-boy-groups-kpop-quiz',
     title: 'Girl Groups vs Boy Groups: Who Scores Higher on K-pop Quizzes?',
     description:
-      'Real data from kpopquiz.org: boy-group quizzes average 71.8 percent and girl-group quizzes 68.1 percent across quizzes with 30 or more plays. Girl groups draw more total plays. A dated comparison for July 2026.',
+      'Do fans score higher on girl-group or boy-group K-pop quizzes? A live comparison from kpopquiz.org, plus what actually drives the gap: audience concentration and catalogue depth, not difficulty.',
     category: 'comparison',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'Comparison chart of girl-group versus boy-group K-pop quiz scores',
-    noindex: true,
     tags: ['girl groups', 'boy groups', 'comparison'],
     relatedLinks: [
       { label: 'Boy group or girl group? Sort them', href: '/games/sort-it/boy-group-or-girl-group' },
@@ -276,22 +273,22 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Do fans score higher on girl-group or boy-group K-pop quizzes?',
         answer:
-          'Boy-group quizzes average 71.8 percent versus 68.1 percent for girl-group quizzes, measured across quizzes with 30 or more plays as of July 2026. The gap is small but consistent.',
+          'The article computes the current split live from quizzes with enough completions to be meaningful. The difference is typically a few percentage points, which is a real pattern but a small one.',
       },
       {
-        question: 'Why do boy-group quizzes score higher?',
+        question: 'Why does one side score higher?',
         answer:
-          'A higher average usually reflects a more concentrated, committed audience rather than easier questions. Large boy-group fandoms like ARMY and STAY answer more questions correctly on average.',
+          'A higher average usually reflects a more concentrated, committed audience rather than easier questions. Catalogue depth matters too: a group with fifteen years of releases gives quiz writers more obscure material to ask about.',
       },
       {
-        question: 'Are there more girl-group or boy-group quizzes?',
+        question: 'How many quizzes are behind each average?',
         answer:
-          'Girl groups have nearly twice as many high-volume quizzes: 65 with 30 or more plays and 16,005 total plays, against 34 quizzes and 9,421 plays for boy groups.',
+          'The article shows the live count of quizzes and completions behind each side, so you can judge the sample yourself. If either side is too sparse to be honest, the comparison is withheld rather than published with invented precision.',
       },
       {
         question: 'How is group type determined in this comparison?',
         answer:
-          'Group type is derived from the blind test catalog, where every song carries a gender tag. General mixed-group quizzes are excluded so each average is clean.',
+          'Each group\'s type is derived from the gender tags on its catalogued songs. Mixed and general K-pop quizzes are excluded, since they belong to neither side.',
       },
     ],
   },
@@ -299,12 +296,11 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'hardest-kpop-groups-to-memorize',
     title: 'The Hardest K-pop Groups to Fully Memorize (Member Count Data)',
     description:
-      'SEVENTEEN leads at 13 members, then EXO, NCT and TWICE at nine. Real roster data from the Name All Members game on kpopquiz.org, ranked by how hard each group is to recall. July 2026.',
+      'Which K-pop groups are hardest to fully memorise? Live roster sizes from the group catalogues on kpopquiz.org, plus why large lineups are hard to recall and how to learn them in units.',
     category: 'data',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'K-pop groups ranked by member count from largest to smallest',
-    noindex: true,
     tags: ['member count', 'name all members', 'data'],
     relatedLinks: [
       { label: 'Play Name All Members', href: '/games/name-all' },
@@ -316,7 +312,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Which K-pop group has the most members?',
         answer:
-          'Among groups on kpopquiz.org, SEVENTEEN has the most at 13 members, followed by EXO, NCT and TWICE at nine each. Counts come from the Name All Members rosters as of July 2026.',
+          'The article ranks groups by their live active-member counts, read from the group rosters catalogued on kpopquiz.org. SEVENTEEN currently leads, with several groups close behind, and the counts update as rosters change.',
       },
       {
         question: 'Why is SEVENTEEN so hard to memorize?',
@@ -326,12 +322,12 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'How many members do 4th-generation groups usually have?',
         answer:
-          'Most 4th-generation groups on the platform have five to eight members. Stray Kids and ATEEZ have eight, ENHYPEN seven, IVE six, and ITZY, LE SSERAFIM, (G)I-DLE, NewJeans and TXT five each.',
+          'Most 4th-generation groups on the platform sit in the five to eight member range, which is right at the edge of what most people can recall in one go. The article\'s table shows the current counts and generations side by side.',
       },
       {
         question: 'How can I test my K-pop roster memory?',
         answer:
-          'The Name All Members game gives you a countdown and asks you to type every member before time runs out. Start with a mid-size group, then work up to SEVENTEEN.',
+          'The Name All Members game gives you a countdown and asks you to type every member before time runs out. Start with a mid-size group to calibrate, then work up to the largest rosters.',
       },
     ],
   },
@@ -405,12 +401,11 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'kpop-blind-test-by-group-ranked',
     title: 'K-pop Blind Test by Group: Every Playlist Ranked by Difficulty',
     description:
-      'A practical difficulty ranking of the K-pop blind test group playlists on kpopquiz.org. Each group has 18 songs, so difficulty comes down to how recognizable the catalog is.',
+      'A practical difficulty ranking of the K-pop blind test group playlists on kpopquiz.org, and what actually decides difficulty: how recognisable a catalogue is in the first few seconds.',
     category: 'listicle',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'K-pop blind test group playlists ranked from easiest to hardest',
-    noindex: true,
     tags: ['blind test', 'by group', 'difficulty'],
     relatedLinks: [
       { label: 'Play the blind test', href: '/blindtest' },
@@ -431,7 +426,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'How many songs are in each group blind test?',
         answer:
-          'Each group playlist draws from 18 curated songs, so difficulty is about how recognizable the catalog is, not how big it is. You can also play the all-groups mix or filter by generation.',
+          'Playlist length varies by group, because the catalogue is built out over time and some groups have more catalogued tracks than others. Difficulty is about how recognisable the songs are, not how many there are.',
       },
     ],
   },
@@ -442,9 +437,8 @@ export const ARTICLES: ArticleMeta[] = [
       'How the guess-the-K-pop-idol image quiz works and how to get better at it. Recognize idols, groups and eras from a single photo, and train your eye past the styling.',
     category: 'guide',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'A guess-the-K-pop-idol photo quiz with multiple choice answers',
-    noindex: true,
     tags: ['guess the idol', 'image quiz', 'guide'],
     relatedLinks: [
       { label: 'Play guess the idol', href: '/guess-the-kpop-idol' },
@@ -476,9 +470,8 @@ export const ARTICLES: ArticleMeta[] = [
       'The best K-pop quizzes for beginners: start with one group you like on easy difficulty, learn members and title tracks first, then work up. A simple, encouraging path into K-pop quizzes.',
     category: 'listicle',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'Beginner-friendly K-pop quizzes for new fans',
-    noindex: true,
     tags: ['beginner', 'easy quizzes', 'guide'],
     relatedLinks: [
       { label: 'Browse easy quizzes', href: '/easy-kpop-quizzes' },
@@ -607,12 +600,11 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'rookie-kpop-groups-2026',
     title: 'The Rookie K-pop Groups Taking Over 2026 (With Quizzes)',
     description:
-      'How to spot rising rookie K-pop groups through real quiz activity on kpopquiz.org. As of July 2026, rookie fandoms like Cortis climb the most-played chart before the group is a household name.',
+      'How to spot rising rookie K-pop groups through real quiz activity on kpopquiz.org, using the live most-played chart instead of predictions the scene will outrun.',
     category: 'guide',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
+    updatedAt: '2026-08-10',
     coverAlt: 'Rising rookie K-pop groups of 2026 with their quizzes',
-    noindex: true,
     tags: ['rookies', '2026', 'new groups'],
     relatedLinks: [
       { label: 'Browse the newest quizzes', href: '/quizzes' },
@@ -623,7 +615,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Which rookie K-pop groups are rising in 2026?',
         answer:
-          'The most honest signal is real activity. On kpopquiz.org as of July 2026, quizzes for the rookie group Cortis have climbed into the monthly top ten, drawing more plays than many established groups.',
+          'The most honest signal is real activity. The article checks the live trailing 30-day most-played chart and only names a newer group as climbing when it is genuinely there, rather than predicting who will break out.',
       },
       {
         question: 'How do I follow a new K-pop group through quizzes?',

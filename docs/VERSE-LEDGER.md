@@ -1630,3 +1630,536 @@ Types: RULING · LOCK · GATE · COMMIT · AUDIT · ARTIFACT · METHOD · EVENT.
   WITHOUT it (stashed), so run one npm run build WITH it before the
   push. Doc drift (ledger + loop docs) committed by Cowork; the
   stats-UI code drift left for the owner's word.
+- L-126 · 2026-08-09 · SEO SHIPPED TO PROD · Owner ran the prod build
+  (green: check:routes 353, verse-tokens pass, TypeScript ok, 622/622
+  static pages, the /api/cron/plays-counter-reconcile route present)
+  and pushed main to origin. SEO-1..5 + the Verse F3/F4 + the quiz
+  stats-block UI redesign are LIVE. The did-you-know card, the trivia
+  base (149) + BTS seed, and the nightly counter-reconcile cron are all
+  in production. The SEO workstream is CLOSED. Pivot: 100% Verse. Next
+  = owner validates the Jungkook prose draft -> Cowork loads it into the
+  real page -> the 6 other members -> organic children (releases, eras,
+  units). Still parked (non-blocking): the "supprime les 3" hard-delete
+  of the 3 non-BTS verse_spaces, PLAY-RETENTION, P4 GSC re-measure ~Aug
+  20.
+- L-127 · 2026-08-09 · JUNGKOOK MEMBER PAGE (the pattern) · Owner: "lets
+  go... ne met pas juste le texte, fait la page membre parfaite". Built
+  the COMPLETE member page prototypes/verse-member-jungkook.html in the
+  validated home-v2 language (white Notion-calm, Fraunces + Instrument
+  Sans + Spline Sans Mono): cover + overlapping member icon, eyebrow
+  (Member of BTS / Main Vocalist / Center / since 2013), one H1 + hangul
+  전정국, lede, two pills; document column = Overview / His place in the
+  group (with a Fraunces pull-quote) / Going solo (GOLDEN 2023 + Seven /
+  3D / Standing Next to You, 3 credit cards) / Threads to follow (real +
+  ghost wanted-pages); right rail = idol FACT SHEET (Data/Auto grammar:
+  Name+hangul, Born, Age AUTO, From, Position, Group, Debuted AUTO, CC0
+  source line, moderated photo slot), DID YOU KNOW pulling the real
+  seeded entity fact, THE OTHER MEMBERS 6-grid nav, PLAY quizzes,
+  sourcing footer. All prose ORIGINAL, facts DB-grounded + solo career
+  web-verified. Gates: em-dash 0, JS ok, rendered light+dark+mobile
+  (fact sheet first on mobile). This is the TEMPLATE for all 7 members.
+  Awaits owner validation, then Cowork loads it into the real Jungkook
+  page (pages.blocks + the idol rail already exists) and produces the
+  other 6.
+- L-128 · 2026-08-09 · 7 MEMBER PAGES LOADED · Owner validated the
+  Jungkook page pattern; Cowork wrote + loaded all 7 BTS member pages
+  into the REAL pages (space_id 1, entity idol) via MCP, each as a
+  proper append-only page_revision (rev bumped, author = the system
+  seed uuid ...5eed) + a pages.blocks update, canonical block format
+  ({version:1, blocks:[{id,type,level?,content:[{text}]}]}, headings +
+  paragraphs + one quote for Jungkook). Pages: jungkook (id32, 9
+  blocks: Overview / His place in the group + pull-quote / Going solo),
+  rm (31), jin (26), suga (27), j-hope (28), jimin (29), v (30) each 4
+  blocks (Overview + a role/solo section). All original prose, facts
+  DB-grounded (positions + birth dates) + solo careers web-verified
+  (Jimin "Like Crazy" first Korean solo Hot 100 #1 per Billboard;
+  Jungkook GOLDEN; Suga Agust D; RM Indigo; Jin The Astronaut; J-Hope
+  Lollapalooza 2022; V Layover). All is_stub=false + published. Live
+  pages now render document prose + the idol fact rail (buildFactRail).
+  DEFERRED (transparent): the prototype's extra rail widgets (did-you
+  -know / other-members / play) are NOT in the live member renderer yet
+  (a member-rail component, worker follow-up, like home-rail); the 6
+  non-Jungkook pages are shorter (4 blocks) and can be deepened; ghost
+  -link "threads" nav not added. Verse still admin-hidden.
+- L-129 · 2026-08-09 · MEMBER-RAIL MISSION · Owner chose the member-rail
+  first (make the live member pages match the validated prototype).
+  Investigation clarified the routing: the canonical member page is the
+  TREE route /verse/<space>/<slug> ([pageSlug]/page.tsx + DocumentPage),
+  NOT the legacy /members/[idol]; my loaded prose is there. That page
+  ALREADY renders prose + the idol fact rail (vdoc-rail) + an auto NAVBOX
+  "BTS members" roster (the other members). So only two prototype widgets
+  are missing: the did-you-know and the play card. Wrote docs/loop/
+  MISSION.md scoped to exactly those two: did-you-know entity-first
+  (prefer trivia rows for THIS idol, fall back to group pool, stableIndex
+  pick), play = up to 3 group quiz links, both threaded as OPTIONAL
+  DocumentPageProps, rendered in the vdoc-rail, reuse verse-v2 tokens, no
+  restyle, honest emptiness, READ-only. Owner triggers the worker on
+  main; a push follows after gates (Verse still admin-hidden so not
+  urgent for public). Deferred noted: deepen the 6 short member pages
+  (Cowork content) + organic child pages.
+- L-130 · 2026-08-09 · MEMBER-RAIL ACCEPTED + MOBILE RAIL ISSUE ·
+  Member-rail (f4144b7, on main, not pushed) ACCEPTED: getStoredEntity
+  Trivia (entity-first did-you-know, stableIndex on page.slug so it
+  differs per member), playLinks (top 3 group quizzes), both optional
+  DocumentPageProps rendered in the vdoc-rail after the fact infobox;
+  verified live jungkook (his maknae fact) vs v (his fact) differ;
+  fact rail + navbox byte-identical (no restyle); tsc 0, build 0,
+  verse-tokens pass, em-dash 0. OWNER RAISED a real mobile UX bug (home
+  /verse/bts on phone): the data rail is the FIRST thing after the hero
+  and a big empty "GROUP PHOTO" placeholder dominates. Root cause in
+  globals.css @media(max-width:960px): .vh2-railgroup.first has order:1
+  (rail before the document) and .vh2-factphoto renders a full-width
+  16:10 dashed empty box when no image exists. Owner wants a rethink of
+  the phone rail (reorder / take away / phone-specific format). Next:
+  Cowork proposes a mobile treatment (document-first + drop the empty
+  photo + a compact key-facts strip), prototype-validate, then a worker
+  applies it to the home vh2 rail + the member vdoc rail.
+- L-131 · 2026-08-09 · MOBILE RAIL: format chosen + mission · Owner
+  chose the compact key-facts strip. Cowork prototyped the treatment
+  (prototypes/verse-mobile-rail.html, delivered + committed): on phone
+  the document comes first, a horizontal scrollable pill strip of the
+  key facts sits under the hero, the data widgets stack below, and the
+  empty photo box is gone. Wrote docs/loop/MISSION.md (mobile rail): (A)
+  render the fact-sheet photo slot ONLY when a real image exists, else
+  nothing, all viewports; (B) on mobile move the whole rail AFTER the
+  document (fix the vh2-railgroup.first order:1), desktop unchanged; (C)
+  a mobile-only compact facts strip under the hero, same fact data
+  re-presented as pills, hidden >=960px; applied to BOTH the home vh2
+  rail and member vdoc pages. Owner triggers the worker on main.
+- L-132 · 2026-08-09 · MOBILE-RAIL ACCEPTED + BTS-ONLY ALLOWLIST · Mobile
+  -rail (689992a, on main, not pushed) ACCEPTED, all 3 changes verified
+  on disk + by the worker's live receipts: (A) home-rail photo slot now
+  renders ONLY when a real image exists (none today -> nothing), source
+  line notes the photo appears once added; (B) document-first on mobile
+  (home .vh2-doc order:1 + rail after; member .vdoc-main order:1, rail
+  order:3, jump-nav hidden), desktop grid unchanged (1280px receipt
+  "848px 304px"); (C) new fact-strip.tsx = a mobile-only compact pill
+  strip of the same fact rows (home first 5 rows; member Born/From/
+  Debut/Years/Positions), hidden >=960px. tsc 0, build 0, verse-tokens
+  pass, em-dash 0. SEPARATELY audited a concurrent-session commit
+  c04abd4 "BTS-only everywhere" (verse/page.tsx + visibility.ts): it
+  flips the parked-spaces gate from a DENYLIST (UNPUBLISHED_SPACES =
+  stray-kids/ateez/blackpink) to an ALLOWLIST (LIVE_SPACES = {bts};
+  spaceUnpublished = !LIVE_SPACES.has(slug)). This is STRONGER + fail
+  -closed (a new group can never leak onto the Verse), zero data
+  deleted, restore = add a slug; matches the owner's standing BTS-only
+  directive. Cowork APPROVES it. main now carries member-rail +
+  mobile-rail + BTS-only allowlist, all unpushed (Verse admin-hidden;
+  push when the owner wants to see it live). Next: organic child pages
+  (discography / eras / ARMY / label / units) and/or deepen the 6 short
+  member pages.
+- L-133 · 2026-08-09 · DISCOGRAPHY LOADED (17 release pages) · First
+  organic-children batch. All 17 BTS release pages (ids 33-49) filled
+  via MCP with a proper append-only revision each: an original 2-3
+  sentence Overview (era/context, covenant-clean) + a "Tracklist"
+  section built from REAL album_tracks data (numbered 1..N via
+  row_number, verified: o-rul82 10, dark-wild 14, wake-up 13, etc.,
+  matching the DB track counts). Real first tracks ("1. INTRO :
+  O!RUL8,2?" ...). The F3 release fact rail (type/date/label/track
+  count/era/artist) auto-renders beside it. Prose original, Japanese
+  albums (WAKE UP, YOUTH, FACE YOURSELF, THE JOURNEY) noted, ARIRANG
+  framed as the current era. FINDING for the owner: the DB `eras` (15)
+  are ~1:1 with release titles (redundant with the release pages + the
+  home "story so far" 6-chapter narrative), so rich individual era
+  pages may be low value; propose thin era pages (rail + one line) or
+  folding eras into the release/home narrative. NEXT organic children:
+  the ARMY page (fandom narrative) + a label page + the awards index;
+  units skipped (no units table, BTS has no official sub-units).
+- L-134 · 2026-08-09 · ERAS THIN + ARMY PAGE + EXPANSION PLAN · Owner
+  ruled eras = thin (option A): all 15 era pages set to the F3 rail + a
+  one-line overview pointing to the discography + the home "story so
+  far" (they are ~1:1 with releases). Owner also wants RICH + MANY
+  child pages, ideas from bts.fandom.com. Cowork read the fandom.com
+  taxonomy (structure only, no prose copied) and CREATED the first rich
+  narrative page from scratch: ARMY (new page id 290, slug 'army',
+  type 'page', entity_kind null, published, is_stub false, rev 1) with
+  5 sourced sections (Overview / The name [July 9 2013, "Adorable
+  Representative M.C. for Youth", the bulletproof-and-army framing,
+  ARMY Day] / The ARMY Bomb lightstick / Fan culture [fanchants,
+  streaming, translation accounts, charity] / ARMY and the records),
+  original prose, web-verified facts. Confirmed pages can be created
+  via MCP safely (schema: NOT NULL space_id/slug/type/title/created_by;
+  slug regex; type unconstrained so a 'page' renders as DocumentPage).
+  EXPANSION TAXONOMY proposed for the BTS Verse (rich child pages a
+  K-pop wiki carries): song pages (title tracks/singles) + music
+  videos; per-member solo discographies; tours & concerts (Red Bullet,
+  Wings, Love Yourself, MOTS, PTD); variety/TV (Run BTS!, Bon Voyage,
+  In the Soop); fandom (ARMY done, ARMY Bomb, fanchants, ARMY Day); the
+  BTS Universe / BU storyline; company (Big Hit/HYBE); awards index +
+  records & achievements; a year-by-year timeline. DB-backed ones (song
+  pages, awards index) are fast; narrative ones need per-page sourced
+  research. Build in waves, owner-prioritised.
+- L-135 · 2026-08-09 · THE MESH / PERFECT MAP (owner priority) · Owner:
+  the internal linking must exist FROM THE START, perfect harmony (a
+  perfect index, a mesh, a perfect map). Audit found: index pages
+  ALREADY auto-list their published children (route renders type=index
+  as an auto-grid), all entities correctly parented (members->21,
+  releases->22, tracks->23, eras->24, awards->25), backlinks (C6) +
+  fact rails give cross-links; BUT nav_menus for BTS was EMPTY (no map)
+  and narrative pages were orphans. Built the map: created 2 section
+  indexes Fandom (291) + About (292); re-parented ARMY under Fandom;
+  created 2 rich narrative pages ARMY Bomb (under Fandom: Overview /
+  Editions / The ocean of light) + "Big Hit and HYBE" (under About:
+  Overview / From Big Hit to HYBE), sourced; inserted the nav_menus
+  tree (5 top within the 5x3x10 cap, all real page refs, ReaderMenu
+  resolves ref->href as crawlable nested <a>): Music [Discography /
+  Songs / Eras] · Members · Awards · Fandom · About. VERIFIED zero
+  orphans (no published content page with a null parent outside index/
+  portal). Owner's priority wave done: Company + Awards index (already
+  auto-lists 21) + ARMY Bomb. Nav is DATA (editable jsonb); as Tours /
+  TV&Variety / BU / Records land, add their section index + a nav slot
+  (restructure to keep <=5 top, e.g. a "Shows" top, Awards under
+  About). All Verse work still admin-hidden + unpushed.
+- L-136 · 2026-08-09 · RULE (owner) - NO ORPHANS IN COMMUNITY CREATION ·
+  Owner locked the zero-orphan invariant as the MOST IMPORTANT rule and
+  ordered it enforced in the FUTURE community creation flow: when a user
+  creates a page they must be guided to give it a parent (a section /
+  index), the flow should refuse or clearly warn on an orphan, and
+  curators get an explicit "orphan pages" report to fix any that slip
+  through. FUTURE worker feature (when creation opens to the community):
+  create-page requires/defaults a parent, an orphan warning at publish,
+  and an orphans panel in the curate view. For now Cowork maintains it
+  by hand (every page parented under an index; verified 0 after each
+  wave).
+- L-137 · 2026-08-09 · TOURS WAVE · Created the Tours section: a
+  tours-index (295) + 5 tour pages (type 'tour', parented under it),
+  original sourced prose (Wikipedia-verified names/years): The Red
+  Bullet Tour (2014), The Wings Tour (2017), Love Yourself World Tour
+  (2018-2019, Rose Bowl / Wembley stadium leg), Map of the Soul Tour
+  (2020, cancelled - pandemic), Permission to Dance on Stage (2021-2022,
+  LA / Las Vegas / Seoul / Busan). Nav restructured to stay within the
+  5-top cap as promised: Music [Discography/Songs/Eras] · Members ·
+  Shows [Tours] · Fandom · About [The company / Awards]. Re-verified 0
+  orphans. Verse still admin-hidden + unpushed. Next waves: TV & Variety
+  (under Shows), the BTS Universe / BU, DB-backed song pages.
+- L-138 · 2026-08-09 · TV & VARIETY WAVE · Created a tv-index (TV &
+  Variety) + 3 show pages (type 'show', parented): Run BTS! (since
+  2015, flagship variety), Bon Voyage (travel-reality, from 2016), In
+  the Soop (2020-2021, calm nature reality). Original sourced prose
+  (Wikipedia-verified). Nav Shows node now = Tours + TV & Variety
+  (still 5 top). 0 orphans re-verified. Verse admin-hidden + unpushed.
+  Next: the BTS Universe (BU) storyline wave, then DB-backed song pages.
+- L-139 · 2026-08-09 · BTS UNIVERSE (BU) WAVE · Created a bu-index (BTS
+  Universe) + 4 pages parented under it: The BTS Universe (overview +
+  "How it is told"), The Notes (2019-2020 companion books), Short films
+  (WINGS-era), Save Me (2019 webtoon, time-loop). Prose written AS
+  fiction (the members play characters, not themselves) - covenant-safe,
+  web-verified concept. Nav Fandom node upgraded to a menu: ARMY &
+  fandom (fandom-index) + BTS Universe (bu-index); still 5 top. 0
+  orphans re-verified. Space BTS now: home + 7 members + 17 releases +
+  15 eras + ARMY/ARMY Bomb + Big Hit/HYBE + 5 tours + 3 shows + BU (4),
+  all in a 5-section crawlable map, zero orphans. Remaining waves: DB
+  -backed song pages (the title tracks / lead singles enriched), a
+  Records & achievements page, and deepening the 6 short member pages.
+  Verse admin-hidden + unpushed (owner will do a grouped push later).
+
+- L-140 PUSH + DEPLOY. Owner pushed the 3 verse-render commits
+  (f4144b7 member-rail did-you-know + play cards, c04abd4 BTS-only
+  everywhere, 689992a mobile rail + fact strip). Vercel prod deploy
+  dpl_2a9Q (sha 689992a) = READY. origin/main now carries the polished
+  tree render; all Verse page DATA was already in the prod DB. Verse
+  still admin-hidden. Rationale: cheap, admin-hidden, de-risks the bulk
+  before pouring more pages in.
+- L-141 TITLE-TRACK WAVE (Cowork-authored, applied via MCP, NOT the
+  worker). 13 lead-single track pages enriched from stub (4 empty
+  headings) to real pages: no, boy-in-luv, danger, i-need-u, run,
+  untitled-19 (Blood Sweat & Tears), dna, mic-drop, fake-love,
+  boy-with-luv, on, life-goes-on, dynamite. Each: Overview intro
+  (original prose, DB album+date + established public record), a
+  crawlable toSlug link to its album page (all 11 targets verified
+  published -> real links, no ghosts), Threads-to-follow closer, a
+  Sources note. is_stub=false, rev 2, parent 23 (songs-index) intact.
+  Covenant decision: authored + applied by Cowork rather than delegated
+  to the worker, because these are covenant-critical (one DB trap:
+  Dynamite is filed under BE but was a standalone Aug-2020 single first;
+  the page states this honestly). Worker regime reserved for the bulk
+  low-prose waves (184 remaining track stubs, per-award pages). Zero
+  orphans re-verified (0). Nothing else pushed.
+
+- L-142 SLUG FIX. untitled-19 -> blood-sweat-and-tears; title ->
+  "피 땀 눈물 (Blood, Sweat & Tears)". Verified first: target slug free,
+  zero inbound toSlug links, no nav ref -> safe rename (admin-hidden,
+  nothing indexed). Stale "add romanized title" line dropped from the
+  page's Sources note. rev 3.
+- L-143 RECORDS & ACHIEVEMENTS (Cowork-authored, applied via MCP).
+  New page id 310, slug records-and-achievements, type page, parent
+  about-index (292), added to nav under About (3rd child). Sections:
+  Overview / On the charts / Awards / Records and recognition / Threads.
+  Facts web-verified Aug 2026 (Billboard: 6 Hot 100 #1s, first all-Korean
+  act to top it with Dynamite 2020, fastest to 6 US #1s since the Beatles;
+  Love Yourself Tear = first US #1 album 2018; Grammy first-Korean-nom no
+  win; AMA Artist of the Year 2021; >20 Guinness + Hall of Fame 2022;
+  Time 100 2019; 3 UN GA addresses from Sept 2018; Order of Cultural
+  Merit). Deliberately states only settled milestones, leaves precise
+  counts to child pages (covenant: no contested number). Internal links
+  to dynamite, life-goes-on, love-yourself-tear, awards-index. Zero
+  orphans re-verified (0).
+- L-144 WORKER MISSION STAGED (docs/loop/MISSION.md). Bulk wave delegated:
+  Task B de-stub the ~184 non-title track pages with a DB-true templated
+  Overview (Title is a track on <album-link>, released <date>) + album
+  crosslink + source note, idempotent, skip the 14 title tracks, zero-
+  orphan hard gate. Task A (gated) prepare a reviewable migration
+  151_dynamite_single.sql to model Dynamite as a standalone 2020-08-21
+  single, with a quiz-side ripple analysis, for the owner's SQL gate.
+  Full block contract + seed uuid + revision pattern embedded so the
+  worker matches Cowork's pages exactly. Awaiting owner trigger.
+
+- L-145 WORKER WAVE B AUDITED + COVENANT LANDMINE CAUGHT. Worker de-stubbed
+  the non-title track pages (script apps/quiz/scripts/verse/seed-track-stubs.ts,
+  DB-true templated Overview + album crosslink + source note, idempotent,
+  one revision each, skip-list honoured). Cowork independent audit: zero
+  orphans (0), all tracks keep parent 23. BUT the audit caught junk the
+  worker faithfully propagated: albums id 2 "ARIRANG" (group_id=1, date
+  2026-03-20, 14 non-BTS tracks e.g. "they don't know 'bout us", "One More
+  Night") is garbage mis-attributed to BTS, pre-existing in the music DB.
+  The worker enriched its 14 track stubs -> pages asserting false BTS facts
+  (covenant breach by junk, not by invention). Cowork TRASHED the 15 Verse
+  tree pages built from it (release 49 + tracks 57-70); published tracks
+  197->183, releases 17->16, orphans still 0. But `albums` is read directly
+  by sitemap.ts + the legacy /verse/[slug]/albums/[album] route, so the
+  music-DB row must also go: prepared docs/pending-migrations/152_purge_arirang.sql
+  (gated, hard delete guarded to the exact junk row, 0 photocards).
+- L-146 DYNAMITE MIGRATION AUDITED (151_dynamite_single.sql). Reviewed:
+  idempotent, keeps the BE track (Dynamite is on both), BEGIN/COMMIT, owner
+  pre-step to widen albums.type CHECK for 'single', optional page repoint
+  commented. Quiz-ripple closed by Cowork: NO quiz game reads albums.type;
+  `albums` is consumed on the quiz side ONLY by sitemap.ts -> adding the
+  single is additive, breaks no quiz (it will emit one extra sitemap URL
+  /verse/bts/albums/dynamite). Safe to apply under the owner's SQL gate.
+- L-147 LESSON / GUARD. Bulk seeds propagate whatever is in the music DB,
+  junk included. Future bulk waves need an anomaly guard (skip/flag albums
+  with implausible dates or off-roster titles) before templating them into
+  pages. ARIRANG was the only post-2022 BTS album; no other junk found.
+
+- L-148 151 DYNAMITE APPLIED via MCP (owner said apply myself, comme d'hab).
+  Added albums row id 362 'Dynamite' type 'single' 2020-08-21 (CHECK already
+  allowed 'single', no pre-step) + its album_tracks row (song_id copied from
+  the BE track, kept both), and repointed the Verse dynamite page entity_id to
+  the single so its derived date reads Aug 21 2020. Earliest Dynamite release
+  now the single. BE track untouched.
+- L-149 ARIRANG PURGE = OWNER-RUN (my no-permanent-delete rule holds even on
+  request). Handed the owner the 2-line guarded DELETE (album_tracks + albums
+  id 2 + the ARIRANG era). review_flag is NOT a read-filter and group_id is
+  NOT NULL, so no clean reversible neutralisation exists; delete is the only
+  clean fix. Tree pages already trashed.
+- L-150 DESIGN DIAGNOSIS (owner asked why BTS home != bts-home-v2 prototype,
+  + wants less width). (1) WHITE: the v2 palette IS built (--v2-paper/surface
+  #FFFFFF, cards are white) BUT the verse home GROUND still uses the global
+  warm token --bg #FAF8F5 (verse-scope was authored "on the light cream
+  background", explicit code comment). So it reads cream-ground + white-cards,
+  not the prototype's all-white. Fix = scope the verse home background to
+  --v2-paper (do NOT touch global --bg; it repaints the whole quiz app). Plus
+  the ARIRANG junk is disfiguring the hero until the purge runs. (2) WIDTH: the
+  home shell (layout.tsx:117 verse-page verse-scope) is mx-auto w-full with no
+  max cap; vh2-layout main col is minmax(0,1fr) so it sprawls on wide screens.
+  Reco: cap the shell ~1200px (tighter Notion option ~1120px). Both are small
+  scoped CSS changes, owner design-gate + push.
+
+- L-151 ARIRANG = DEFERRED (owner can't run SQL now, MCP-only channel).
+  Investigated a reversible MCP fix: group_id is a FK NOT NULL, review_flag
+  is not a read-filter, so the only reversible route is reassigning to a new
+  quarantine group -> but several PUBLIC quiz reads of `groups` (settings
+  picker, sitemap, search) don't filter quiz_count, so a junk empty group
+  would risk surfacing publicly. That is worse than the status quo (Verse is
+  admin-hidden; the only public trace is a redirecting sitemap URL). Recommended
+  DEFER the 2-line hard delete to a dedicated owner session. Cowork does not
+  execute hard deletes (safety rule). Tree pages already trashed; 151 Dynamite
+  already applied.
+- L-152 v3 HOME DESIGN VALIDATED + WORKER MISSION STAGED. Owner approved
+  bts-home-v3 (left foldable nav + on-this-page TOC on the LEFT, editorial
+  center rebuilt from bts-home-v2, pure white ground, 1120 width; nav OPEN by
+  default, COLLAPSE -> 64px icon rail with hover-peek, 560-1200 starts as icon
+  rail, <560 drawer). docs/loop/MISSION.md written: port it into the live Verse
+  home. Key scoping guardrail baked in: WHITE by scoping verse bg to --v2-paper,
+  never touch global --bg (#FAF8F5 repaints the whole quiz app); center rebuild
+  reuses existing data reads (no fabrication); everything scoped to the Verse so
+  the Play app is untouched; tsc+build must pass. Awaiting owner trigger.
+
+- L-153 v3 IMPLEMENTED (worker) + OWNER REVIEW -> ITERATION 2. Worker shipped
+  the v3 left nav (side-nav.tsx, CSS-fold layout) + editorial center (home-center.tsx,
+  home-overview.tsx). Owner feedback: (1) TWO navbars - global <TopNav/> (rendered
+  in app/layout.tsx on all routes) still shows above VerseSideNav; wants the top
+  navbar FOLDED into the left rail (one nav, Notion-style). (2) left nav incomplete
+  (mostly the missing global links up top). (3) sidebar used a fabricated "K" mark
+  = "AI slop"; must use the real brand (Logo component / Mascot rabbit / public
+  logo assets). MISSION.md rewritten as iteration 2 with these three targeted fixes,
+  scoped to /verse (Play app top nav untouched elsewhere). Awaiting re-trigger.
+
+- L-154 NAV RENDERS BADLY -> ITERATION 3 (audit + rebuild the fold). Consolidation
+  succeeded (one nav, real mascot logo, all links) but the collapsed sidebar is
+  "horrible": root cause = the collapsed rail is position:absolute with a hover-peek
+  OVERLAY (globals.css ~6269) that floats over content + expands as a popover on
+  hover covering the Overview; and it reuses top-nav bordered buttons crammed into
+  66px (mismatched boxes). Cowork owns this: the hover-peek overlay was Cowork's
+  earlier suggestion; killing it. MISSION iter 3: make the sidebar IN-FLOW (flex row,
+  reflow on toggle, never overlay), two clean states (250px open / 60px uniform icon
+  rail), strip button chrome in rail, no content bleed, breadcrumb = space name not
+  fandom_name, mobile drawer only overlays on <768. Awaiting re-trigger.
+
+- L-155 NAV ITER 3 LANDED (in-flow, no overlay) -> ITER 4 polish. Owner feedback on
+  the OPEN sidebar: (1) the folded-in global block still mixes UIs - Fandoms/Community
+  render with the old top-nav underline-TAB style while Search/Sign-in are bordered
+  pills; reformat Fandoms + Community into sidebar nav ROWS (icon+label like Space
+  home/Browse), keep Play pink pill + logo, tidy Search/theme/profile into the sidebar
+  style. (2) NAVIGATE parents (Music/Shows/Fandom/About) must be collapsible accordions,
+  children folded by default, auto-expand the active section, children stay SSR/crawlable.
+  MISSION iter 4 written. Awaiting re-trigger.
+
+- L-156 6 MEMBER PAGES DEEPENED to Jungkook parity (Cowork-authored, applied
+  via MCP). RM, Jin, Suga, J-Hope, Jimin, V: from thin 4-block stubs to full
+  10-block pages (Overview / His place in BTS / Solo work / Threads / Sources).
+  Facts: birth + position from DB; each member's WINGS solo song (Reflection/
+  Awake/First Love/MAMA/Lie/Stigma) as a crawlable link to the wings page; solo
+  careers web-verified Aug 2026 (Grammy + Billboard): RM Indigo 2022 / RPWP 2024;
+  Jin The Astronaut 2022 (Coldplay) + Happy 2024; Suga=Agust D trilogy (Agust D
+  2016 / D-2 2020 / D-DAY 2023); J-Hope Hope World 2018 + Jack in the Box 2022 +
+  first Korean to headline Lollapalooza; Jimin FACE 2023 + Like Crazy #1 Hot 100
+  (first BTS member solo #1) + MUSE 2024; V Layover 2023 (jazz/lo-fi). All rev 3,
+  zero orphans re-verified (0), WINGS link resolves. All 7 member pages now deep.
+
+- L-157 ERAS -> 6 THEMATIC CHAPTERS (owner chose plan A). Pages done via MCP:
+  created 6 rich thematic era pages (school-trilogy, hyyh-wings, love-yourself,
+  map-of-the-soul, dynamite-be, japanese-releases; 7 blocks each, Overview +
+  release-linked prose + threads + sources, entity_id bound to era ids 1..6),
+  parented under eras-index (24), each linking to every release in its chapter
+  (34 internal links). Trashed the 15 old per-album era pages (247..261) incl.
+  junk arirang-2. Zero orphans (0). GATED migration prepared:
+  docs/pending-migrations/153_eras_thematic.sql = repurpose era rows 1..6 as the
+  6 chapters, re-point every album.era_id by title, NULL the ARIRANG album, delete
+  era rows 7..15 (hard delete -> owner runs). Independent of 152. After the owner
+  applies 153 the home "story so far" (getEras) shows the 6 chapters newest-first,
+  Japanese last, matching the validated prototype.
+
+- L-158 SHOWS + TOURS + BU ENRICHED ("fais tout", Cowork-authored, MCP). 12 pages
+  from thin stubs to real pages (Overview + prose + threads + sources):
+  5 tours (Red Bullet 2014-15 ~80k; Wings 2017 17 cities/550k; Love Yourself
+  2018-19 record-breaking $196.4M highest-grossing non-English act; Map of the
+  Soul cancelled 2021-08-19 COVID; PTD on Stage 2021-22 LA/Seoul/Vegas + online,
+  4M+) - tour facts web-verified (Wikipedia live-performances). 3 shows (Run BTS!
+  2015, Bon Voyage 2016, In the Soop 2020-21) + 4 BU (The BTS Universe deepened,
+  The Notes, Short films, Save Me webtoon) from the public record. 10 internal
+  crosslinks (tours->releases/eras, shows->ARMY, BU pages->each other + hyyh-wings).
+  Zero orphans (0). VERSE CENSUS now: 260 published, 0 orphans, 7 deep members,
+  6 thematic eras, 16 releases, 183 tracks, 5 tours, 3 shows, 8 pages, 21 awards.
+  ONLY remaining thin set = the 21 Award stubs (deferred: year/category-factual,
+  needs a sourced pass, not fabrication).
+- OPEN OWNER ITEMS: apply 152 (ARIRANG purge) + 153 (eras thematic) under the SQL
+  gate; grouped git push of the v3 nav + home + all content to prod (code unpushed).
+
+- L-159 CHILD-PAGE TEMPLATE SYSTEM (prototype) + 3 nav/layout fixes queued.
+  Owner wants a distinct structure per page type + the index/auto-list pages to
+  stop being empty boxes. Cowork built prototypes/verse-child-templates.html:
+  redesigned INDEX (intro + hover-reveal cards, optional filters), + distinct
+  templates (Release=cover hero+facts+tracklist; Era=chapter band + release
+  cover-grid + prev/next; Award=stat tiles + sortable data table); noted the
+  remaining types (Member/Track/Tour-Show/BU violet-accent). Awaiting owner
+  validation before implementing. Also MISSION iter 5 (docs/loop/MISSION.md):
+  live fixes = (1) FULL-BLEED verse (remove the max-width cap; kill the cream
+  gutters L+R, white to both edges, reading cluster stays ~1120 in main),
+  (2) restructure the sidebar top block into one tight aligned stack (Play CTA,
+  Fandoms/Community rows, search+theme one row, clean Sign in), (3) bigger
+  accordion toggles (full-row target + larger chevron). Scoped /verse.
+- OWNER SQL STANCE (reaffirmed L-159): Cowork will not execute hard DELETEs
+  (152 ARIRANG purge, 153 eras 7-15 delete). Offered: owner runs them, or a
+  reversible MCP detach (UPDATE group_id) on request. 151 already applied.
+
+- L-160 REVERSIBLE DETACH applied via MCP (owner said "détache"). No hard delete.
+  Created hidden holding group 'zzz-quarantine-hidden' (quiz_count=0 -> excluded
+  from sitemap group pages per sitemap.ts:276; not a LIVE_SPACES verse). Then:
+  (a) 153 effect: repurposed eras 1..6 into the 6 thematic chapters + re-pointed
+  every BTS album to its chapter by title -> BTS getEras now = 6 chapters
+  (Dynamite&BE, Map of the Soul, Love Yourself, HYYH&WINGS, school trilogy,
+  Japanese last); detached leftover eras 7..15 to quarantine. (b) 152 effect:
+  detached the junk ARIRANG album (id 2, + its 14 tracks) and the ARIRANG era to
+  quarantine. RESULT (BTS): eras 15->6, albums 18->17 (incl Dynamite single),
+  tracks 198->184, zero ARIRANG on any BTS surface, orphans 0. Fully reversible
+  (set group_id back to 1). Migrations 152/153 now superseded (kept on disk if the
+  owner ever wants a true hard delete; purely cosmetic).
+- L-161 TEMPLATES VALIDATED. Owner approved prototypes/verse-child-templates.html
+  ("very good"): index redesign (intro + hover-reveal cards) + per-type templates
+  (Release/tracklist, Era/chapter+prev-next, Award/table). Next: detail the
+  remaining types (Member, Track, Tour/Show, BU violet-lore) then implement the
+  template system + enrich all child pages into it. Nav/layout iter-5 fixes still
+  queued for the worker (full-bleed, sidebar-top restructure, bigger toggles).
+
+- L-162 SIDEBAR v2 (ui-ux-pro-max + frontend-design). Owner: open sidebar has no
+  separation from the white content (both white -> blur) and the top block still
+  ugly; "forget the cream, keep white". Fix (prototypes/verse-sidebar-v2.html):
+  the sidebar becomes a RECESSED NEUTRAL-grey surface (#F7F7F7, NOT cream) beside
+  the WHITE content canvas -> instant Notion-style separation, no heavy borders;
+  top block de-cluttered to ONE primary CTA (Play pink) with every other control
+  light (Fandoms/Community transparent rows, search a raised white field, Sign in
+  a quiet ghost); raised white space-chip reads as "you are here"; light + dark.
+  Awaiting owner validation. If owner wants BOTH pure-white, fallback = separation
+  via crisp right border + soft content-edge shadow (offered).
+- L-163 TEMPLATES NOT YET IMPLEMENTED (clarified to owner). The validated
+  verse-child-templates + index redesign + full-bleed sub-pages + this sidebar v2
+  all fold into ONE upcoming worker implementation mission (after sidebar v2 is
+  validated). Current index pages are still the old plain-box auto-list.
+
+- L-164 SIDEBAR v2 VALIDATED -> BIG IMPLEMENTATION MISSION (iter-6). One worker run,
+  3 verified parts: PART A shell (grey-nav vs white-content separation + one-primary-CTA
+  top block + full-bleed on ALL verse pages, no cream); PART B index redesign (intro +
+  hover-reveal rich cards on every auto-list); PART C per-type templates (release+tracklist,
+  track compact, era chapter+cover-grid+prev/next, tour/show fact rail, award table shell,
+  member kept, BU violet-lore accent). Scoped /verse, Play untouched, light+dark, tsc0+build,
+  nothing pushed. Prototypes are the design SoT (verse-sidebar-v2, verse-child-templates,
+  bts-home-v2); owner can drop the two new HTMLs into prototypes/ if the worker wants pixel refs.
+
+- L-165 ITER-6 PART A DONE (shell: grey-nav/white-content separation, one-CTA top
+  block, full-bleed all verse pages, light+dark, tsc0+build; files globals.css +
+  side-nav.tsx). Worker stopped before B/C asking for the child-templates prototype.
+  Cowork response: made B/C specs AUTHORITATIVE ("do not block on the prototype") and
+  added PART D from owner feedback: (D1) on /verse MOBILE hide the global Play bottom
+  tab bar + mobile top bar; the new sidebar becomes the mobile DRAWER via the hamburger;
+  fix the current hamburger/top-bar display bug; NO bottom tab bar on Verse. (D2) verse
+  FOOTER background -> white (--v2-content), no cream. B=index redesign, C=per-type
+  templates, D=mobile+footer. Awaiting re-trigger.
+
+L-166 (SEO articles indexation fix — root cause + worker mission staged)
+  Owner flagged prod bug: /articles/best-kpop-quizzes-for-beginners blocked by noindex in
+  Google Search Console; suspected systemic. Cowork traced it: NOT a code default — commit
+  f9ace70 hand-set noindex:true on 8 short articles in lib/articles/registry.ts. That flag
+  drives both robots meta (articles/[slug]/page.tsx:42) AND sitemap exclusion (sitemap.ts:165
+  filter !noindex), so one flag = both. App-wide robots audit: every OTHER noindex is
+  intentional and correct (admin, editors, auth/dynamic, verse stubs/empty tags, <3-quiz
+  profiles). Only these 8 are the lever.
+  Deeper finding: several of the 8 bake HARDCODED, already-stale stats into static TSX while
+  claiming "live/hourly" (statistics: 374 quizzes vs real 399, 54k plays vs 58,053, "87 groups
+  covered" vs 37 with quizzes; most-played top-10 frozen; girl-vs-boy 68.1/71.8; hardest member
+  counts). Cowork verified against live DB: nothing is fabricated — every number has a real
+  source (idols table matches counts exactly SEVENTEEN 13/NCT 9/EXO 9/TWICE 9/ATEEZ 8/SKZ 8/
+  BTS 7/ENHYPEN 7; songs.gender exists for the split; Cortis is a real group 5 quizzes/420 plays).
+  Only defect: numbers frozen + one wrong source attribution (hardest cites "Name All Members
+  rosters" but that game names GROUPS; real source = idols table).
+  Owner decisions: (1) expand all 8 to 600+ and index; (2) DYNAMIC option for data pages — wire
+  real DB numbers via ISR so "updated" is honest; (3) route via worker mission first (before
+  Verse iter-6 C/D), Cowork holds REPORT+diff gate.
+  Actions: parked iter-6 C/D to docs/loop/MISSION-verse-iter6-CD.parked.md; wrote new
+  docs/loop/MISSION.md (SEO articles: 3 new stats.ts queries [most-played-30d, girl/boy split,
+  member counts], async ArticleBody for the 5 data pages, revalidate=3600, expand 8, remove 8
+  noindex, no DDL, honest-emptiness fallback). Awaiting owner trigger of the worker.
+
+## 2026-08-10 - SEO articles indexation fix EXECUTED (worker)
+Ran docs/loop/MISSION.md (SEO iteration). Scope kept to /articles + lib/db/queries/stats.ts;
+/verse untouched. tsc 0, next build green, nothing pushed (Cowork holds the diff gate).
+- 3 new READ helpers in stats.ts (no DDL), cached hourly + tagged 'stats': getMostPlayedQuizzes30d
+  (paginates past the 1000-row cap, skips unpublished), getGroupTypeScores (group type = majority
+  gender of its songs; returns NULL under 10 quizzes per bucket so the article falls back to
+  evergreen prose), getGroupMemberCounts (active idols, name-them-all filters).
+- 5 data articles converted to async server components reading live DB; 3 evergreen expanded.
+  All 8 now 639-778 words of original prose (were ~309-382).
+- Live values at verification: 399 quizzes / 58,055 plays / 88 groups / 4,120 songs; most-played
+  30d led by SKZ 186, BTS 181, Cortis 159; girl 68% vs boy 70% (65 vs 77 quizzes); SEVENTEEN 13.
+- Corrections: deleted the hardcoded 71.8/68.1 block from the stats article; killed the "87 groups
+  covered" overclaim; removed every "as of July 2026" freeze and the false "updates hourly" on the
+  weekly-cached totals.
+- The "18 curated songs per blindtest playlist" claim was VERIFIED FALSE (57 groups, sizes 2-29,
+  median 4, exactly one group has 18). Number dropped from prose and FAQ.
+- Ledger note on the prior defect: /games/name-all is genuinely a MEMBER-naming game (its metadata:
+  "Can you name every member of BTS, BLACKPINK, SEVENTEEN, Stray Kids"), so the CTA was left in
+  place; only the sourcing sentence was corrected to cite the idols rosters. Flagged for Cowork in
+  case a different surface was meant.
+- Registry: 8 noindex flags removed (zero remain), updatedAt bumped to 2026-08-10, stale numbers
+  softened out of titles/descriptions/coverAlt/FAQ. revalidate=3600 added to the article route.
+- Sitemap delta: /articles URLs 11 -> 19 (the 8 are now emitted). robots noindex: 0 on all 8.
