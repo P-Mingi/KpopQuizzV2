@@ -6323,6 +6323,12 @@ main:has(.verse-page) { max-width: none; }
 
 /* ----- the shell + the space-only grey sidebar ----- */
 .v-navshell { display: flex; align-items: flex-start; gap: 0; padding-top: var(--v-topbar-h); }
+/* The hero cover uses -mx (full-bleed width) + a negative -mt that used to pull it up into the page's
+   old top padding (flush to y=0). FIX1 removed that padding and iter-7 added the fixed 52px top bar,
+   so the -mt now slips the hero UNDER the bar. Cancel just the top bleed: the hero starts at the
+   navmain content top (the bar's bottom); the horizontal bleed is untouched. */
+.v-navmain > .verse-hero,
+.v-navmain > * > .verse-hero { margin-top: 0; }
 .v-sidenav {
   flex: 0 0 var(--v-side-w); width: var(--v-side-w); align-self: stretch;
   background: var(--v2-nav); border-right: 1px solid var(--v2-line);
