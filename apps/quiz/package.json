@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "check:routes": "tsx scripts/check-route-allowlist.mts",
+    "check:indexability": "tsx scripts/check-indexability.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts"
   },
   "dependencies": {

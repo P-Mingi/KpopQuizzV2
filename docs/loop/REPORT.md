@@ -1,59 +1,43 @@
-# REPORT - Verse iter-8: finish micro-fixes (hero clearance, hide button, mobile globals) + footer gap
+# REPORT - SEO indexguard (CI guard + prod monitor + cold-start + creator nudges)
 
-Small surgical mission on top of iter-7 (ab84416 + the hero-overlap follow-up 06f3cc4). Scope /verse
-only; tsc 0; route + verse-token gates green; `next build` green. Light + dark. Nothing pushed.
-The prototype (prototypes/verse-nav-notion.html) stayed authoritative for placement.
+4-part mission to make "every future quiz is indexable and unique" a MECHANICAL guarantee. Scope:
+scripts/, one cron route, /q/[slug], the quiz builder UI, lib. NO DDL. tsc 0 + build green. Nothing
+pushed. This report is updated per part; commits are per part.
 
-## FIX A - hero title clipped under the fixed top bar
-The compact page hero (`.verse-hero`) started flush at the bar's bottom (y=52), so the title sat only
-~18px under the 52px bar - visibly tight. Gave the compact hero band the same breathing room the home
-cover already has: `margin-top: 1.5rem` (was 0). The title now clears the bar by ~44px on content
-pages. The home masthead uses `.vh2-home`/`.vh2-cover` (not `.verse-hero`) and already cleared the bar
-by 24px, so it is unaffected. Checked home + content, open + hidden, light + dark.
+## PART 1 - CI GUARD: the sitemap x robots contradiction test  [DONE]
+New `scripts/check-indexability.mts`, wired as `check:indexability` next to `check:routes`. It is a
+smoke-style gate (needs a running server, since dynamic page metadata cannot be resolved statically):
 
-## FIX B - the HIDE button seated inside the space header row
-The header markup was already `[chip][name+meta][hide]` (matching the prototype), but its padding was
-too tight (`4px 6px 8px 8px`), jamming the hide button into the sidebar's top-right corner where the
-grey panel meets the hero - which read as a floating notch on the edge. Matched the prototype's
-generous padding (`12px 6px 10px 6px`, the inner already adds 8px sides), so the button now sits
-cleanly inside the row, right-aligned and vertically centred on the chip. No notch element existed in
-the code; the fix was purely the spacing. The floating REOPEN tab was left untouched.
+  INDEXCHECK_BASE_URL=http://localhost:3021 pnpm --filter quiz check:indexability
 
-## FIX C - mobile drawer global section (Fandoms / Community / theme)
-The condensed mobile top bar drops Fandoms + Community + the theme toggle, and the drawer was
-space-only, so those were unreachable on mobile. Added a compact global section at the BOTTOM of the
-sidebar (side-nav.tsx): a thin divider, then a Fandoms row (`/verse`), a Community row
-(`/verse/community`), and a Theme row carrying the ThemeToggle. It is `display:none` on desktop and
-revealed only inside the off-canvas drawer (`@media max-width:767px`); the desktop sidebar stays
-space-only. Links are crawlable `<a>`.
+- FORWARD: pulls the live `/sitemap.xml`, samples ONE URL per route type + EVERY article, fetches each,
+  and FAILS when a sitemap URL contradicts "index me": robots noindex (meta OR X-Robots-Tag header) -
+  the article-bug class - missing `<title>`, or a canonical that is not self-referential. Core Play
+  types also fail on non-200.
+- INVERSE: FAILS when an indexable-by-design page is ABSENT from the sitemap - every non-noindex
+  article, plus a live DB sample of published quizzes (/q/[slug]) and groups with quiz_count>0
+  (/[slug]-quiz).
+- Deep on-demand-ISR types (verse leaf pages, rankings, pulse) are WARN-not-fail locally: a cold local
+  server hits the documented ISR cold-404 trap, so a non-200 there is an environment artifact, not a
+  contradiction; the PART 2 prod monitor checks their live status against warm prod. The noindex /
+  title / canonical checks still hard-fail on any of them that DOES render.
 
-## EXTRA - the "space between content and footer" you flagged
-Root cause: iter-7 left `min-height: 100vh` on `.v-navshell` (a FIX1 remnant). The site already pins
-the footer via a ROOT sticky footer (`main.flex-1` inside a `min-h-screen` column), so the extra
-`100vh` STACKED a second viewport under the content and shoved the footer up to a full screen below it
-(measured 465px of empty band on a page shorter than the viewport). Replaced it: verse `main` is now a
-flex column and the page + shell grow to fill exactly the space the sticky footer already reserves
-(`main:has(.verse-page){display:flex;flex-direction:column}`, `.verse-page{flex:1 0 auto;...}`,
-`.v-navshell{flex:1 0 auto}`). Result on every page: the footer sits directly under the content, the
-grey sidebar still runs to it, the body's cream never shows below it. At a normal viewport the gap is
-0; only when content is far shorter than the viewport does the standard (white, footer-at-bottom)
-sticky-footer space remain. Not in the mission scope but it was the same FIX1 CSS, so folded in here.
+RECEIPT (red -> green):
+- RED (real): the guard's FIRST run failed on 3 genuine contradictions it surfaced - the sitemap
+  advertised `/games/this-or-that/[slug]` pages that 308-permanent-redirect to the query-param model.
+  Fixed the sitemap: those category slugs are no longer listed (the hub /games/this-or-that stays).
+- RED (injected, the noindex class): forcing the article page to emit `robots: noindex` while it stays
+  in the sitemap made the guard FAIL with 19 named failures ("Sitemap says index, page says do-not"),
+  exit 1. Reverted.
+- GREEN: after the tot fix and revert, the guard passes - 42 sampled pages index-consistent, every
+  article + sampled quiz/group present in the sitemap (2 verse-leaf warnings, non-gating).
 
-## VERIFY (proofs in docs/proofs/iter8-finish/, real headless Chrome)
-1. Desktop content page, hero title clears the bar + hide button seated in the header row:
-   `01-desktop-content-hero-header-light.png`, `02-...-dark.png`. Home: `03-desktop-home-hero-light.png`.
-2. Mobile 390 drawer with the global section (Fandoms / Community / theme) at the bottom:
-   `04-mobile-drawer-global-light.png`, `05-...-dark.png`.
-3. Footer: short page - footer pinned under the content, grey sidebar reaching it, no double-count
-   band, no cream: `06-footer-short-page-light.png`. (Numbers: at viewport 1600 the gap dropped from
-   465px to the standard sticky-footer space with the footer AT the screen bottom; at a normal
-   viewport the content-to-footer gap is 0.)
-Capture harness: `apps/quiz/scripts/proof-iter8-capture.mjs`. (The harness toggles the theme class
-post-render, so the dark shots restyle the top bar/hero but not every launch-time token - true dark
-was confirmed live via localStorage + reload; the fixes are token-based and theme-agnostic.)
+Files: `scripts/check-indexability.mts` (new), `package.json` (check:indexability), `src/app/sitemap.ts`
+(drop the redirecting this-or-that category slugs). tsc 0; next build green (check:routes +
+check:verse-tokens pass inside it).
 
-## NOTES
-- The two pre-existing site-wide console errors (theme launch-script / hydration, reproduce on Play)
-  are unchanged and out of scope.
-- tsc 0; check:routes (353) and check:verse-tokens (no raw hex) green; `next build` green. Nothing
-  pushed; Cowork reviews the diff.
+## PART 2 - PROD MONITOR CRON (weekly)  [PENDING]
+## PART 3 - COLD-START uniqueness block on /q/[slug]  [PENDING]
+## PART 4 - CREATOR NUDGES in the builder  [PENDING]
+
+(Continuing in subsequent loop iterations; each part committed on its own.)

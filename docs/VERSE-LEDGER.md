@@ -2314,3 +2314,29 @@ L-170 (SEO future-proofing ruled: 4-part indexguard mission queued)
   dedup hint (never blocking) + optional creator note in quizzes.settings.creator_note (NO DDL),
   rendered on-page + folded into the meta description. Queued as
   docs/loop/MISSION-seo-indexguard.next.md, to be promoted to MISSION.md after iter-8 is accepted.
+
+L-172 (TOC doubled + stale: owner ruled; TOC-rail prototype validated desktop+mobile; iter-9 queued)
+  Owner spotted the "On this page" TOC duplicated (sidebar block + in-page column) and the sidebar
+  copy showing ANOTHER page's sections (stale). Cowork recommended AGAINST owner's first instinct
+  (sidebar-only TOC) because iter-7 folds the sidebar by default on content pages, which would hide
+  the TOC exactly where it serves; proposed instead: kill the sidebar TOC, keep the document TOC as
+  a thin Notion-style right rail (ticks, hover-expand panel, violet scroll-spy). Built
+  prototypes/verse-toc-rail.html; owner validated desktop, then Cowork added the mobile behaviour
+  (bottom-right thumb pill, tap-to-open, tap-row = scroll + auto-close, scrim close) and owner's
+  final rule: SPACE HOME keeps the sidebar TOC (full fandom picture, home sections only, which also
+  kills the stale bug by construction); ALL other pages get ONLY the right rail, freed width flows
+  to the content. Queued as docs/loop/MISSION-toc-rail.next.md (iter-9), to be promoted after the
+  indexguard mission is reported + accepted. Push gate still closed; batch grows to SEO + iter-6/7/8
+  + content trims + indexguard + iter-9.
+
+L-173 (SEO indexguard PART 1 SHIPPED: the sitemap x robots contradiction gate)
+  New scripts/check-indexability.mts, wired as check:indexability beside check:routes. Smoke-style
+  gate (needs a running server - dynamic metadata can't be resolved statically): pulls live
+  /sitemap.xml, samples 1 URL/type + EVERY article, and FAILS on the article-bug class (a sitemap URL
+  that emits robots noindex / lacks title / non-self-canonical) AND on the inverse (a non-noindex
+  article, published quiz, or group with quizzes ABSENT from the sitemap). Deep on-demand-ISR types
+  (verse leaf, rankings, pulse) WARN-not-fail locally (the cold-ISR-404 trap is an env artifact; PART 2
+  prod monitor covers them warm). RECEIPT: first run went RED on a REAL bug - the sitemap advertised
+  /games/this-or-that/[slug] pages that 308-redirect to the query-param model - fixed the sitemap to
+  drop those slugs; then an injected article noindex made it RED with 19 named failures; reverted ->
+  GREEN (42 sampled index-consistent). tsc 0, next build green. PARTS 2-4 pending. Nothing pushed.

@@ -308,13 +308,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       })),
-      ...((totCategoriesResult.data ?? []) as Array<{ slug: string; created_at: string }>).map((c) => ({
-        url: `${SITE_URL}/games/this-or-that/${c.slug}`,
-        lastModified: new Date(c.created_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-      })),
+      // SEO indexguard: the per-category /games/this-or-that/[slug] pages were
+      // consolidated into the query-param model - that route now 308-permanent-
+      // redirects to /games/this-or-that?group=...&type=... So listing the slug
+      // URLs advertised redirecting (non-canonical) pages. The hub /games/this-or-that
+      // is in the static list; the category slugs are intentionally NOT sitemap'd.
+      // (totCategoriesResult is still fetched to keep the batch shape stable.)
     ];
+    void totCategoriesResult;
   } catch (err) {
     // Don't 500 the sitemap - log and return whatever we have.
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
