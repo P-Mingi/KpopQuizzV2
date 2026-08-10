@@ -2262,6 +2262,15 @@ L-170 (iter-8 SHIPPED: finish micro-fixes + the content/footer gap)
   Gates: tsc 0, check:routes (353), check:verse-tokens, next build green. Proofs in
   docs/proofs/iter8-finish/ (proof-iter8-capture.mjs). Nothing pushed.
 
+L-171 (iter-8 follow-up: content/footer breathing room + fully-fixed sidebar; owner)
+  The footer fix had overcorrected to gap 0 - content sat flush ON the footer ("collés"). Added a
+  normal bottom space on the reading cluster (.v-navmain > .mt-6 padding-bottom clamp(3.5rem,6vw,5rem)
+  ~77px) - intentional gap, not the old 465px dead band. And owner asked the left nav be FULLY fixed:
+  .v-sidenav-inner is now position:fixed (top 52, left 0, height calc(100vh-52)) so it never scrolls
+  with the page (a sticky released at the page bottom); the grey .v-sidenav panel still fills the
+  column to the footer; the hidden state slides the fixed layer off-left + fades it; mobile resets it
+  to static (drawer). tsc 0, token gate + next build green. Nothing pushed.
+
 L-169 (iter-7 audit: PASS w/ 2 finish defects; iter-8 staged; release-prose tracklists trimmed)
   Cowork audited iter-7 (ab84416) independently: scope clean (/verse only), rail classes 0 in src,
   full hide + reopen tab verified on screenshots, FIX1 preserved (grey column to the white footer,

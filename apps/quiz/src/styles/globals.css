@@ -6264,8 +6264,10 @@ main:has(.verse-page) { max-width: none; }
 @media (min-width: 768px) {
   main:has(.verse-page) { padding-left: 0; padding-right: 0; }
   .verse-page.verse-scope { padding-left: 0; padding-right: 0; }
-  /* the reading cluster: capped and centered inside the white content column. */
-  .v-navmain > .mt-6 { max-width: 1120px; margin-inline: auto; padding-inline: clamp(20px, 3vw, 44px); }
+  /* the reading cluster: capped and centered inside the white content column. The bottom padding is
+     the BREATHING ROOM before the footer - iter-8 zeroed it (content ended flush ON the footer,
+     "collés"); this restores a normal, intentional gap without the old 465px dead band. */
+  .v-navmain > .mt-6 { max-width: 1120px; margin-inline: auto; padding-inline: clamp(20px, 3vw, 44px); padding-bottom: clamp(3.5rem, 6vw, 5rem); }
 
   /* ITERATION 6 FIX 1, revised iter-8 - the nav column runs the FULL page height: no white strip
      above it and no dead band between it and the footer. Zero the shell's vertical padding (the hero
@@ -6342,9 +6344,14 @@ main:has(.verse-page) { max-width: none; }
   transition: flex-basis .28s var(--v-fx), width .28s var(--v-fx), margin-left .28s var(--v-fx), opacity .2s ease;
   --world-accent: var(--v2-accent);
 }
+/* The nav content is FULLY FIXED to the viewport (top:52, left:0) so it never scrolls with the page,
+   not even at the bottom where a sticky would release. The grey .v-sidenav panel behind it (align-self
+   stretch) still fills the column to the footer; this fixed layer just holds the pinned nav. Mobile
+   resets this to static (the drawer). */
 .v-sidenav-inner {
-  position: sticky; top: var(--v-topbar-h); max-height: calc(100vh - var(--v-topbar-h));
+  position: fixed; top: var(--v-topbar-h); left: 0; width: var(--v-side-w); height: calc(100vh - var(--v-topbar-h));
   overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 4px; padding: 10px 8px 20px;
+  transition: transform .28s var(--v-fx), opacity .2s ease;
 }
 .v-side-open { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
@@ -6415,6 +6422,12 @@ main:has(.verse-page) { max-width: none; }
   html[data-verse-nav='hidden'] .verse-page .v-sidenav {
     flex-basis: 0; width: 0; opacity: 0; pointer-events: none; overflow: hidden;
   }
+  /* the fixed nav layer is out of flow, so the panel collapsing to width 0 doesn't move it - slide it
+     off to the left and fade it in step with the collapse. */
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav-inner,
+  html[data-verse-nav='hidden'] .verse-page .v-sidenav-inner {
+    transform: translateX(calc(var(--v-side-w) * -1)); opacity: 0; pointer-events: none;
+  }
   html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-reopen,
   html[data-verse-nav='hidden'] .verse-page .v-side-reopen { display: grid; }
 }
@@ -6434,7 +6447,7 @@ main:has(.verse-page) { max-width: none; }
     background: var(--v2-nav); border-right: 1px solid var(--v2-line); box-shadow: var(--v2-shadow);
     transform: translateX(-104%); transition: transform 0.24s ease;
   }
-  .v-sidenav-inner { position: static; max-height: none; padding: 16px 14px 24px; top: 0; }
+  .v-sidenav-inner { position: static; left: auto; width: auto; height: auto; max-height: none; padding: 16px 14px 24px; top: 0; transform: none; transition: none; }
   .v-side-reopen { display: none !important; }
   #v-nav-drawer:checked ~ .v-navshell .v-sidenav { transform: translateX(0); }
   .v-nav-scrim { display: block; position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.42); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
