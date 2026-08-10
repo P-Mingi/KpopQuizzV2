@@ -2340,3 +2340,12 @@ L-173 (SEO indexguard PART 1 SHIPPED: the sitemap x robots contradiction gate)
   /games/this-or-that/[slug] pages that 308-redirect to the query-param model - fixed the sitemap to
   drop those slugs; then an injected article noindex made it RED with 19 named failures; reverted ->
   GREEN (42 sampled index-consistent). tsc 0, next build green. PARTS 2-4 pending. Nothing pushed.
+
+L-174 (SEO indexguard PART 2 SHIPPED: weekly prod indexability monitor cron)
+  New app/api/cron/seo-indexability/route.ts - auth + runtime + response shape byte-identical to
+  duel-reconcile (CRON_SECRET / x-vercel-cron, force-dynamic, NextResponse.json). Fetches PROD
+  /sitemap.xml, samples N=40 stratified by type (all articles + quizzes + groups + verse + hubs),
+  fetches each, reports non-200 / robots-noindex / non-self-canonical as { ok, checked, sitemapUrls,
+  failures }. Read-only (logs + returns). vercel.json weekly cron Sun 09:00 UTC (no collision).
+  RECEIPT: unauth -> 401; authed -> {"ok":true,"checked":40,"sitemapUrls":694,"failures":[]} vs live
+  prod (docs/proofs/seo-indexguard/part2-cron-invocation.txt). tsc 0. PARTS 3-4 pending. Nothing pushed.

@@ -36,7 +36,17 @@ Files: `scripts/check-indexability.mts` (new), `package.json` (check:indexabilit
 (drop the redirecting this-or-that category slugs). tsc 0; next build green (check:routes +
 check:verse-tokens pass inside it).
 
-## PART 2 - PROD MONITOR CRON (weekly)  [PENDING]
+## PART 2 - PROD MONITOR CRON (weekly)  [DONE]
+New `app/api/cron/seo-indexability/route.ts`, auth + runtime + response shape mirroring duel-reconcile
+EXACTLY (byte-identical CRON_SECRET / x-vercel-cron guard; `export const dynamic = 'force-dynamic'`;
+`NextResponse.json`). It fetches the PROD `/sitemap.xml`, samples N=40 URLs stratified by route type
+(every article first, then round-robin one-per-type: quizzes, groups, verse, hubs, ...), fetches each,
+and reports any that are not HTTP 200 / carry robots noindex / lack a self-canonical. Read-only: it
+logs + returns `{ ok, checked, sitemapUrls, failures: [...] }`. Weekly `vercel.json` cron at Sun 09:00
+UTC (no collision with existing jobs).
+RECEIPT (docs/proofs/seo-indexguard/part2-cron-invocation.txt): unauthenticated -> HTTP 401; authed
+(Bearer CRON_SECRET) -> `{"ok":true,"checked":40,"sitemapUrls":694,"failures":[]}` against live prod.
+tsc 0.
 ## PART 3 - COLD-START uniqueness block on /q/[slug]  [PENDING]
 ## PART 4 - CREATOR NUDGES in the builder  [PENDING]
 

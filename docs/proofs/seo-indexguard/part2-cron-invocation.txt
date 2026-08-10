@@ -1,0 +1,7 @@
+# PART 2 - prod indexability cron: local invocation receipt
+
+## Unauthenticated (guard mirrors duel-reconcile):
+GET /api/cron/seo-indexability -> HTTP 401
+
+## Authenticated (Bearer CRON_SECRET) JSON report (checks live prod):
+{"ok":true,"checked":40,"sitemapUrls":694,"failures":[]}
