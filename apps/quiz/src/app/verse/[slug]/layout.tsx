@@ -7,6 +7,8 @@ import { SpaceHero } from '@/components/verse/space-hero';
 import { HeroShell } from '@/components/verse/hero-shell';
 import { SpaceTabs } from '@/components/verse/space-tabs';
 import { VerseSideNav } from '@/components/verse/tree/side-nav';
+import { VerseTopBar } from '@/components/verse/tree/verse-topbar';
+import { VerseNavToggle } from '@/components/verse/tree/nav-toggle';
 import { getNavMenu } from '@/lib/verse/tree/nav';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { BuildModeProvider, BuildModeToggle } from '@/components/verse/build-mode';
@@ -121,18 +123,19 @@ export default async function SpaceLayout({
             client JS is the scroll-spy TOC inside the sidebar. Every nav link is SSR/crawlable. */}
         {navMenu ? (
           <>
-            {/* the desktop fold is driven by data-verse-nav on <html> (per-route default + the
-                verse_nav cookie); only the mobile drawer still needs a pure-CSS checkbox. */}
+            {/* V7: the global chrome is a discreet fixed top bar; the space-only sidebar hides
+                fully (data-verse-nav on <html> = open|hidden, per-route default + verse_nav cookie).
+                The mobile drawer + the desktop reopen tab still use one pure-CSS checkbox. */}
+            <VerseTopBar />
             <input type="checkbox" id="v-nav-drawer" className="v-nav-state" aria-label="Open or close the navigation drawer" />
-            <div className="v-navtopbar">
-              <label htmlFor="v-nav-drawer" className="v-navtopbar-burger" aria-label="Open navigation menu"><span aria-hidden="true">&#9776;</span></label>
-              <span className="v-navtopbar-title">{space.group.fandom_name} Verse</span>
-            </div>
             <label htmlFor="v-nav-drawer" className="v-nav-scrim" aria-hidden="true" />
+            <VerseNavToggle to="open" className="v-side-reopen" title="Show the sidebar">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /><path d="M4 4v16" /></svg>
+            </VerseNavToggle>
           </>
         ) : null}
         <div className="v-navshell">
-          {navMenu ? <VerseSideNav spaceSlug={slug} tree={navMenu} spaceName={space.group.fandom_name} spaceLabel={space.group.name} /> : null}
+          {navMenu ? <VerseSideNav spaceSlug={slug} tree={navMenu} spaceName={space.group.fandom_name} spaceLabel={space.group.name} spaceMeta={`${space.group.fandom_name} · ${space.group.generation ?? 'K-pop'} · ${space.counts.members} member${space.counts.members === 1 ? '' : 's'}`} /> : null}
           <div className="v-navmain">
             <HeroShell><SpaceHero space={space} buildToggle={<BuildModeToggle />} /></HeroShell>
             <div className="mt-6">

@@ -8,7 +8,8 @@
 // state is visible, so nothing here affects crawlability.
 import { useCallback } from 'react';
 
-export type NavState = 'open' | 'rail';
+// V7: the fold is now open|hidden (the icon rail is gone; hidden collapses the sidebar to width 0).
+export type NavState = 'open' | 'hidden';
 
 const COOKIE = 'verse_nav';
 const ONE_YEAR = 60 * 60 * 24 * 365;

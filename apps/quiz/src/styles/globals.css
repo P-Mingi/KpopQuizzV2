@@ -6284,181 +6284,138 @@ main:has(.verse-page) { max-width: none; }
    the only client JS is the scroll-spy inside VerseTocSpy. All tokens, no raw hex.
    ========================================================================== */
 .v-nav-state { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.v-navshell { display: flex; align-items: flex-start; gap: 40px; }
 .v-navmain { flex: 1 1 0%; min-width: 0; }
 
-/* ITERATION 6 A1 - the sidebar is a RECESSED NEUTRAL-GREY panel, full-height, with a 1px right
-   border; the content beside it is the white canvas. The inner wrapper sticks + scrolls. */
+/* ==========================================================================
+   ITERATION 7 (Notion-style) - a discreet global TOP BAR carries every global control; the LEFT
+   sidebar is SPACE-ONLY and hides FULLY to width 0 (no icon rail). Both nav states stay in the
+   SSR HTML; CSS alone chooses which shows. Built to prototypes/verse-nav-notion.html.
+   ========================================================================== */
+.verse-page { --v-topbar-h: 52px; --v-side-w: 264px; --v-fx: cubic-bezier(.22,.61,.36,1); }
+
+/* ----- the fixed global top bar (/verse only) ----- */
+.v-topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--v-topbar-h); z-index: 45;
+  display: flex; align-items: center; gap: 14px; padding: 0 16px;
+  background: color-mix(in srgb, var(--v2-content) 88%, transparent);
+  backdrop-filter: saturate(150%) blur(10px); -webkit-backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 1px solid var(--v2-line);
+}
+.v-topbar-brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
+.v-topbar-div { width: 1px; height: 22px; background: var(--v2-line); flex: 0 0 auto; }
+.v-topbar-links { display: flex; align-items: center; gap: 2px; }
+.v-topbar-link { padding: 6px 11px; border-radius: 8px; color: var(--v2-muted); font-weight: 500; font-size: 13.5px; text-decoration: none; transition: background .15s ease, color .15s ease; }
+.v-topbar-link:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
+.v-topbar-spacer { flex: 1; }
+.v-topbar-search { flex: 0 1 420px; display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 9px; background: var(--v2-nav); border: 1px solid var(--v2-line); color: var(--v2-faint); font-size: 13.5px; text-decoration: none; transition: border-color .15s ease; }
+.v-topbar-search:hover { border-color: var(--v2-muted); text-decoration: none; }
+.v-topbar-search .ic { display: inline-flex; color: var(--v2-faint); }
+.v-topbar-search .ic svg { width: 15px; height: 15px; }
+.v-topbar-search .lbl { flex: 1; }
+.v-topbar-searchicon { display: none; place-items: center; width: 34px; height: 34px; border-radius: 9px; color: var(--v2-muted); text-decoration: none; }
+.v-topbar-searchicon svg { width: 18px; height: 18px; }
+.v-topbar-right { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.v-topbar-play { display: inline-flex; }
+.theme-toggle.v-topbar-theme { width: 34px; height: 34px; min-width: 34px; border-radius: 9px; border: 1px solid transparent; background: transparent; color: var(--v2-muted); }
+.theme-toggle.v-topbar-theme:hover { background: var(--v2-wash); color: var(--v2-ink); border-color: transparent; }
+.v-topbar-profile > a, .v-topbar-profile > span { border: 1px solid var(--v2-line) !important; }
+.v-topbar-burger { display: none; place-items: center; width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-nav); color: var(--v2-ink); cursor: pointer; flex: 0 0 auto; padding: 0; }
+
+/* ----- the shell + the space-only grey sidebar ----- */
+.v-navshell { display: flex; align-items: flex-start; gap: 0; padding-top: var(--v-topbar-h); }
 .v-sidenav {
-  flex: 0 0 250px; width: 250px; align-self: stretch;
+  flex: 0 0 var(--v-side-w); width: var(--v-side-w); align-self: stretch;
   background: var(--v2-nav); border-right: 1px solid var(--v2-line);
-  transition: flex-basis 0.2s ease, width 0.2s ease;
-  /* let the relocated top-bar islands tint to the Verse accent */
+  transition: flex-basis .28s var(--v-fx), width .28s var(--v-fx), margin-left .28s var(--v-fx), opacity .2s ease;
   --world-accent: var(--v2-accent);
 }
 .v-sidenav-inner {
-  position: sticky; top: 0; max-height: 100vh; overflow-y: auto; overflow-x: hidden;
-  display: flex; flex-direction: column; gap: 4px; padding: 14px 8px 20px;
+  position: sticky; top: var(--v-topbar-h); max-height: calc(100vh - var(--v-topbar-h));
+  overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 4px; padding: 10px 8px 20px;
 }
-
-/* ITERATION 3 - two clean IN-FLOW states: the OPEN column and the COLLAPSED icon rail. Both
-   are always in the DOM; the fold just toggles which one shows and reflows the row (no overlay). */
 .v-side-open { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.v-side-rail { display: none; flex-direction: column; align-items: center; gap: 3px; }
-.v-railbtn { box-sizing: border-box; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 9px; border: 1px solid transparent; background: transparent; color: var(--v2-muted); cursor: pointer; flex-shrink: 0; padding: 0; text-decoration: none; transition: background 0.12s ease, color 0.12s ease; }
-.v-railbtn:hover { background: var(--v2-raised); border: 1px solid var(--v2-line); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-ink); text-decoration: none; }
-.v-railbtn.active { background: var(--v2-raised); border: 1px solid var(--v2-line); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-accent); }
-.v-railbtn svg { width: 18px; height: 18px; }
-.v-rail-logo { color: var(--v2-ink); }
-.v-rail-div { width: 22px; height: 1px; background: var(--v2-line); margin: 5px 0; flex-shrink: 0; }
-/* the rail ThemeToggle: strip the .theme-toggle base chrome down to a plain 40px icon button */
-.theme-toggle.v-rail-themebtn { width: 40px; height: 40px; min-width: 40px; border: none; background: transparent; color: var(--v2-muted); border-radius: 9px; padding: 0; }
-.theme-toggle.v-rail-themebtn:hover { background: var(--v2-wash); color: var(--v2-ink); border: none; }
-@media (prefers-reduced-motion: reduce) { .v-railbtn { transition: none; } }
 
-/* ITERATION 2 - the relocated GLOBAL chrome (real logo -> world/links -> search/theme/profile) */
-/* ITERATION 5 FIX 2 - the top block as ONE tight structured stack: even 2px rhythm, every
-   control full-width to the same left edge, one type scale, no stray pills. */
-.v-side-top { display: flex; flex-direction: column; gap: 2px; padding: 2px 4px 2px; }
-.v-side-brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px; margin-bottom: 6px; }
-.v-side-logo-full { display: inline-flex; align-items: center; min-width: 0; }
-.v-side-logo-mark { display: none; align-items: center; }
-.v-side-collapse { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border-radius: 8px; border: 1px solid var(--v2-line); color: var(--v2-muted); cursor: pointer; background: var(--v2-surface); flex-shrink: 0; }
-.v-side-collapse:hover { border-color: var(--v2-muted); color: var(--v2-ink); }
-.v-side-collapse-glyph { font-size: 11px; transition: transform 0.2s ease; }
-.v-side-collapse:focus-visible, .v-rail-toggle:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
-/* ITERATION 4 - the global block reformatted to ONE sidebar system. The Play CTA keeps its
-   pink pill; Fandoms/Community are plain .v-side-row rows; search is a soft field + a theme
-   icon; the profile is a clean full-width row (its top-nav pill chrome is overridden below). */
-/* the Play CTA - full-width pink pill, the primary action (kept, made to stand out). */
-.v-side-cta { display: flex; margin: 1px 0 3px; }
-.v-side-cta .world-toggle { width: 100%; justify-content: center; padding-top: 10px; padding-bottom: 10px; }
-/* utility row: a full-width search FIELD + the theme toggle as a compact square on its right. */
-.v-side-searchrow { display: flex; align-items: center; gap: 6px; }
-/* A1 raised element: the search field is white on the grey nav (hairline + tiny shadow = lifted). */
-.v-side-searchbtn { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-raised); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-muted); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 40px; }
-.v-side-searchbtn:hover { border-color: var(--v2-muted); color: var(--v2-ink); text-decoration: none; }
-.v-side-searchbtn .v-side-ic { color: var(--v2-faint); }
-.v-side-themewrap { flex: 0 0 auto; display: inline-flex; }
-.theme-toggle.v-side-themebtn { width: 40px; height: 40px; min-width: 40px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-raised); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-muted); }
-.theme-toggle.v-side-themebtn:hover { border-color: var(--v2-line); color: var(--v2-ink); background: var(--v2-wash); }
-/* Sign in / profile: one clean full-width control (same width as Play), soft-filled, centered
-   - the reused TopNavProfile's inline pill chrome is overridden. */
-.v-side-profilewrap { display: block; }
-/* A2: Sign in / profile is a QUIET GHOST (outline) control, secondary to the Play CTA. */
-.v-side-profilewrap > a, .v-side-profilewrap > span { display: flex !important; align-items: center; gap: 10px !important; width: 100%; padding: 9px !important; border: 1px solid var(--v2-line) !important; border-radius: 9px !important; background: transparent !important; justify-content: center !important; min-height: 40px; font-size: 13px !important; font-weight: 600 !important; color: var(--v2-body) !important; }
-.v-side-profilewrap > a:hover { background: var(--v2-raised) !important; border-color: var(--v2-muted) !important; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-.v-side-profilewrap .top-nav-profile-name { font-size: 13px !important; color: var(--v2-ink) !important; }
+/* space header: chip + name + meta + HIDE */
+.v-side-shhead { display: flex; align-items: center; gap: 10px; padding: 4px 6px 8px 8px; }
+.v-side-shchip { width: 30px; height: 30px; border-radius: 8px; background: var(--v2-pill); color: var(--v2-pill-text); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 14px; flex: 0 0 auto; text-decoration: none; }
+.v-side-shchip:hover { text-decoration: none; opacity: .9; }
+.v-side-shmeta { flex: 1; min-width: 0; line-height: 1.2; display: flex; flex-direction: column; }
+.v-side-shname { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--v2-ink); }
+.v-side-shsub { font-size: 11px; color: var(--v2-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v-side-hide { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; color: var(--v2-faint); background: none; border: none; cursor: pointer; transition: background .15s ease, color .15s ease; flex: 0 0 auto; padding: 0; }
+.v-side-hide:hover { background: var(--v2-wash); color: var(--v2-ink); }
+.v-side-hide:focus-visible, .v-side-reopen:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
 
-/* A1 raised element: the space chip is a white lifted card on the grey nav. */
-.v-side-chip { display: flex; align-items: center; gap: 9px; margin: 4px 4px 6px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--v2-line); background: var(--v2-raised); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-ink); text-decoration: none; }
-.v-side-chip:hover { border-color: var(--v2-muted); text-decoration: none; }
-.v-side-chip-ic { width: 24px; height: 24px; border-radius: 6px; background: var(--v2-accent-soft); color: var(--v2-accent); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 13px; flex-shrink: 0; }
-.v-side-chip-tx { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+/* the floating reopen tab (shown only when the sidebar is hidden - see the media query below) */
+.v-side-reopen { display: none; position: fixed; left: 10px; top: calc(var(--v-topbar-h) + 12px); z-index: 44; width: 32px; height: 32px; border-radius: 8px; background: var(--v2-raised); border: 1px solid var(--v2-line); place-items: center; color: var(--v2-muted); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.06); padding: 0; }
+.v-side-reopen:hover { color: var(--v2-ink); border-color: var(--v2-muted); }
+
+/* space nav rows + the Navigate accordion (behaviour unchanged from iter-6) */
 .v-side-quick { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
-.v-side-quicklink { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 8px; color: var(--v2-body); font-size: 13px; font-weight: 500; text-decoration: none; min-height: 36px; }
-.v-side-quicklink:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
-
 .v-side-nav { display: flex; flex-direction: column; }
-.v-side-eyebrow { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--v2-faint); padding: 8px 8px 6px; }
+.v-side-eyebrow { font-family: var(--v-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--v2-faint); padding: 12px 8px 5px; }
 .v-side-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
 .v-side-item { list-style: none; }
 .v-side-sect > summary { list-style: none; }
 .v-side-sect > summary::-webkit-details-marker { display: none; }
-/* A2: nav rows are light + transparent on the grey nav; hover = a lifted WHITE pill. */
-.v-side-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 9px; cursor: pointer; color: var(--v2-body); font-size: 13.5px; font-weight: 500; text-decoration: none; min-height: 40px; border: 1px solid transparent; }
-.v-side-row:hover { background: var(--v2-raised); border-color: var(--v2-line); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-ink); text-decoration: none; }
-.v-side-ic { display: grid; place-items: center; width: 20px; height: 20px; color: var(--v2-muted); flex-shrink: 0; }
+.v-side-row { display: flex; align-items: center; gap: 9px; padding: 6px 8px; border-radius: 7px; cursor: pointer; color: var(--v2-body); font-size: 14px; font-weight: 500; text-decoration: none; min-height: 34px; border: 1px solid transparent; }
+.v-side-row:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
+.v-side-ic { display: grid; place-items: center; width: 18px; height: 18px; color: var(--v2-faint); flex-shrink: 0; }
 .v-side-lbl { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* FIX 3: the whole parent ROW is the toggle (summary is the full-width .v-side-row); the chevron
-   on the right is now a clearer 15px glyph with better contrast, rotating on open. */
-.v-side-chev { display: inline-flex; align-items: center; color: var(--v2-muted); transition: transform 0.2s ease; flex-shrink: 0; margin-left: auto; }
-.v-side-chev svg { width: 15px; height: 15px; }
+.v-side-chev { display: inline-flex; align-items: center; color: var(--v2-faint); transition: transform 0.2s ease; flex-shrink: 0; margin-left: auto; }
+.v-side-chev svg { width: 14px; height: 14px; }
 .v-side-sect > summary:hover .v-side-chev { color: var(--v2-ink); }
 .v-side-sect[open] > summary .v-side-chev { transform: rotate(180deg); }
-.v-side-sub { list-style: none; margin: 0 0 2px; padding: 1px 0 3px 30px; display: flex; flex-direction: column; gap: 1px; }
-.v-side-link { display: block; padding: 6px 8px; border-radius: 7px; font-size: 13px; color: var(--v2-muted); text-decoration: none; min-height: 32px; line-height: 1.55; }
+.v-side-sub { list-style: none; margin: 0 0 2px; padding: 1px 0 3px 33px; display: flex; flex-direction: column; gap: 1px; }
+.v-side-link { display: block; padding: 5px 8px; border-radius: 7px; font-size: 13.5px; color: var(--v2-muted); text-decoration: none; min-height: 30px; line-height: 1.5; }
 .v-side-link:hover { background: var(--v2-wash); color: var(--v2-ink); text-decoration: none; }
 .v-side-link.disabled { color: var(--v2-faint); pointer-events: none; }
-/* active row/link = the same subtle accent pill/tint across the whole sidebar. */
-.v-side-row.active { background: var(--v2-raised); border-color: var(--v2-line); box-shadow: 0 1px 2px rgba(0,0,0,.05); color: var(--v2-ink); font-weight: 600; }
+.v-side-row:hover .v-side-ic { color: var(--v2-muted); }
+.v-side-row.active { background: var(--v2-active, var(--v2-wash)); border-color: transparent; color: var(--v2-ink); font-weight: 600; }
 .v-side-row.active .v-side-ic { color: var(--v2-accent); }
-.v-side-link.active { color: var(--v2-accent); background: var(--v2-accent-soft); font-weight: 600; }
-/* FIX 2: the NAVIGATE accordion - a subtle eased reveal when a section expands. */
+.v-side-link.active { color: var(--v2-ink); background: var(--v2-active, var(--v2-wash)); font-weight: 600; }
 .v-side-sect[open] > .v-side-sub { animation: v-side-reveal 0.18s ease; }
 @keyframes v-side-reveal { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .v-side-sect[open] > .v-side-sub { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .v-side-sect[open] > .v-side-sub { animation: none; } .v-sidenav, .v-side-chev { transition: none; } }
 .v-side-divider { height: 1px; background: var(--v2-line-soft); margin: 10px 6px; }
-
 .v-toc-group { display: flex; flex-direction: column; }
 .v-toc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
 .v-toc-link { display: block; padding: 6px 10px; border-left: 2px solid transparent; font-size: 12.5px; color: var(--v2-muted); text-decoration: none; line-height: 1.5; }
 .v-toc-link:hover { color: var(--v2-ink); text-decoration: none; }
 .v-toc-link.active { color: var(--v2-accent); border-left-color: var(--v2-accent); font-weight: 600; }
-
-.v-navtopbar { display: none; }
 .v-nav-scrim { display: none; }
 .vh2-sec { scroll-margin-top: 92px; }
 .vdoc-main [id] { scroll-margin-top: 92px; }
 
-@media (prefers-reduced-motion: reduce) {
-  .v-sidenav, .v-side-collapse-glyph, .v-side-chev { transition: none; }
-}
-
-/* ITERATION 3 - the COLLAPSED appearance is a tidy IN-FLOW icon rail. The flex row simply
-   reflows (content shifts right); NOTHING floats over or covers the document. No hover-peek -
-   expanding is a deliberate click on the chevron. Applied when collapse is checked (>=1200) or
-   by default in the 768-1199 range. The rail markup (.v-side-rail) is uniform 40px icons. */
-/* ITERATION 6 FIX 2 - the fold now has a PER-ROUTE DEFAULT plus a persistent user override.
-   Base style = OPEN. The RAIL applies only under two mutually exclusive conditions, so no rule
-   ever has to undo another:
-     (a) no saved preference AND this is not the space home  -> content pages fold by default
-         (the home is identified by .vh2-home, which only the portal home renders);
-     (b) the user's saved preference is 'rail'  -> it wins on every route, home included.
-   `data-verse-nav` is stamped on <html> before first paint by the blocking script in the verse
-   layout (reading the verse_nav cookie), so there is no flash and the pages stay static/ISR.
-   Both DOM states are always server-rendered; only CSS chooses which one shows. */
-@media (min-width: 1200px) {
+/* ----- FULL HIDE (desktop): per-route default + persistent cookie override via data-verse-nav.
+   Base is OPEN. Hidden applies when (no cookie AND not the space home) or (cookie = hidden); the
+   home is identified by :has(.vh2-home). Both DOM states stay server-rendered; CSS alone hides. */
+@media (min-width: 768px) {
   html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav,
-  html[data-verse-nav='rail'] .verse-page .v-sidenav { flex-basis: 60px; width: 60px; }
-  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-sidenav-inner,
-  html[data-verse-nav='rail'] .verse-page .v-sidenav-inner { padding-left: 6px; padding-right: 6px; }
-  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-open,
-  html[data-verse-nav='rail'] .verse-page .v-side-open { display: none; }
-  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-rail,
-  html[data-verse-nav='rail'] .verse-page .v-side-rail { display: flex; }
-}
-@media (min-width: 768px) and (max-width: 1199px) {
-  .v-sidenav { flex-basis: 60px; width: 60px; }
-  .v-sidenav-inner { padding-left: 6px; padding-right: 6px; }
-  .v-side-open { display: none; }
-  .v-side-rail { display: flex; }
-  .v-rail-toggle { display: none; } /* statically collapsed in this range - no expand toggle */
+  html[data-verse-nav='hidden'] .verse-page .v-sidenav {
+    flex-basis: 0; width: 0; opacity: 0; pointer-events: none; overflow: hidden;
+  }
+  html:not([data-verse-nav]) .verse-page:not(:has(.vh2-home)) .v-side-reopen,
+  html[data-verse-nav='hidden'] .verse-page .v-side-reopen { display: grid; }
 }
 
-/* ---- <768: off-canvas DRAWER - the OPEN column slides in over a scrim (a MOBILE overlay is
-        fine per the mission; the desktop states above never overlay). ---- */
+/* ----- MOBILE (<768): the top bar condenses; the sidebar is an off-canvas DRAWER ----- */
 @media (max-width: 767px) {
-  .v-side-collapse { display: none; }
-  .v-side-rail { display: none; }
-  /* PART D1 - ONE clean Verse top bar on mobile: full-bleed, sticky (a wiki page is long, the
-     nav must stay reachable), white ground with a hairline, and the hamburger that opens the
-     drawer. The global Play mobile chrome (top bar + bottom tab bar) is hidden on /verse. */
-  .v-navtopbar {
-    display: flex; align-items: center; gap: 12px; padding: 8px 16px;
-    position: sticky; top: 0; z-index: 60;
-    margin: -1.5rem -1rem 12px; /* cancel the shell's mobile padding so it runs edge to edge */
-    background: var(--v2-content); border-bottom: 1px solid var(--v2-line);
-  }
-  .v-navtopbar-burger { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 9px; border: 1px solid var(--v2-line); background: var(--v2-nav); color: var(--v2-ink); font-size: 18px; cursor: pointer; flex-shrink: 0; }
-  .v-navtopbar-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--v2-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .v-topbar { gap: 8px; padding: 0 10px; }
+  /* condense to the mission's mobile set: logo + search icon + Play + hamburger (+ Sign in for
+     auth). The Fandoms/Community links, the wide search field, and the theme toggle drop out;
+     theme is launch-time (themeScheme), so losing its toggle here costs nothing. */
+  .v-topbar-links, .v-topbar-div, .v-topbar-search, .theme-toggle.v-topbar-theme { display: none; }
+  .v-topbar-searchicon { display: grid; }
+  .v-topbar-burger { display: grid; }
   .v-navshell { display: block; }
   .v-sidenav {
-    position: fixed; top: 0; left: 0; bottom: 0; width: 284px; max-width: 86vw; z-index: 80; flex: none; align-self: auto;
+    position: fixed; top: 0; left: 0; bottom: 0; width: 288px; max-width: 86vw; z-index: 80; flex: none; align-self: auto; margin-left: 0; opacity: 1;
     background: var(--v2-nav); border-right: 1px solid var(--v2-line); box-shadow: var(--v2-shadow);
     transform: translateX(-104%); transition: transform 0.24s ease;
   }
-  .v-sidenav-inner { max-height: 100vh; padding: 16px 14px 24px; }
+  .v-sidenav-inner { position: static; max-height: none; padding: 16px 14px 24px; top: 0; }
+  .v-side-reopen { display: none !important; }
   #v-nav-drawer:checked ~ .v-navshell .v-sidenav { transform: translateX(0); }
   .v-nav-scrim { display: block; position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.42); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
   #v-nav-drawer:checked ~ .v-nav-scrim { opacity: 1; pointer-events: auto; }
@@ -6466,6 +6423,7 @@ main:has(.verse-page) { max-width: none; }
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
   .v-sidenav, .v-nav-scrim { transition: none; }
 }
+
 
 /* V-POLISH step 4 - THE COMPACT HERO (sub-pages). One name row + actions; the
    full masthead belongs to the space home alone. Driven by .v-hero-compact

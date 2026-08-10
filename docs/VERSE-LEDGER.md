@@ -2212,3 +2212,36 @@ tsc 0, next build green, nothing pushed.
 - Crawlability held: both fold states server-rendered (10 nav sub-links + 30 rail icon links in the
   HTML of a rail-default page); only CSS picks the visible one. The #v-nav-collapse checkbox is gone;
   the mobile drawer keeps its pure-CSS checkbox.
+
+L-168 (iter-7 staged: Notion-style nav pivot, prototype VALIDATED)
+  Owner reviewed iter-6 polish live and pivoted the desktop nav design, inspired by Notion +
+  Fandom: (2) global nav (logo, Fandoms, Community, search, Play, theme, profile) moves to a
+  discreet fixed TOP BAR; the left sidebar becomes SPACE-ONLY navigation; (3) the sidebar must
+  hide ENTIRELY (width 0, no icon rail) with a floating reopen tab, like Notion. Cowork agreed:
+  splitting global/space nav is what makes total hide viable, standard wiki pattern. Cowork built
+  prototypes/verse-nav-notion.html (top bar + space sidebar + full hide + reopen tab + light/dark);
+  owner validated it AS-IS ("just perfect", content styling included) and it was committed into the
+  repo for the worker. Wrote docs/loop/MISSION.md (iter-7): A top bar, B space-only sidebar, C full
+  hide replacing the FIX2 rail (reuse the verse_nav cookie, defaults home=open / content=hidden,
+  manual choice wins), D mobile adaptation (condensed top bar + drawer). Keep FIX1 full-height and
+  white footer; SEO commit untouched. Prototype is authoritative. Awaiting owner trigger.
+
+L-169 (iter-7 SHIPPED: Notion-style nav built to the validated prototype)
+  Built A/B/C/D to prototypes/verse-nav-notion.html. A: new verse-topbar.tsx - a fixed 52px global
+  bar (real logo + Fandoms/Community + search + pink Play + theme + profile), content offset below
+  it, /verse-scoped. B: side-nav.tsx rewritten SPACE-ONLY (space header chip+name+meta+HIDE, Space
+  home/Browse, the NAVIGATE accordion); every global row removed. C: the icon RAIL is deleted - HIDE
+  collapses the sidebar to width 0, a floating reopen tab restores it; the verse_nav cookie now
+  carries open|hidden (defaults home=open / content=hidden, manual choice wins, blocking script keeps
+  it flash-free + static/ISR); both DOM states stay server-rendered so links crawl in either. D:
+  mobile top bar condenses to logo+search+Play+hamburger(+Sign in); hamburger opens the space drawer;
+  no global Play chrome on /verse; white footer. FIX1 kept and re-measured: on a short page the grey
+  column runs y=52 to the footer at y=820, gap 0, no dead band above or below.
+  Gates: tsc 0, check:routes (353), check:verse-tokens (no raw hex), next build green. Proofs (real
+  headless Chrome, light+dark, 10 PNGs) in docs/proofs/iter7-notion-nav/ via
+  apps/quiz/scripts/proof-iter7-capture.mjs.
+  DEVIATIONS (flagged): (1) mobile drops the theme toggle only (theme is launch-time; kept Sign in) to
+  fit 390px; (2) content measure stays 1120 not the prototype's 760 (our pages have rails/grids;
+  centered when hidden); (3) cookie reused, not server-side cookies() (ISR law). NOTE: two console
+  errors (script-tag / hydration) are PRE-EXISTING site-wide (reproduce on Play /quizzes, from the
+  reskin theme-launch script), not iter-7. Nothing pushed; Cowork reviews the diff.
