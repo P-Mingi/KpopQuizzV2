@@ -84,12 +84,33 @@ export interface SelectResult {
  */
 export async function selectBattleQuestions(
   supabase: SupabaseClient,
-  opts: { quizId?: string | null; groupSlug?: string | null },
+  opts: { quizId?: string | null; groupSlug?: string | null; generation?: string | null; difficulty?: string | null },
 ): Promise<SelectResult> {
   const pool: BattleQuestion[] = [];
   let quizId: string | null = null;
   let groupSlug: string | null = opts.groupSlug ?? null;
   let groupId: number | null = null;
+  const generation = opts.generation ?? null;
+  const difficulty = opts.difficulty ?? null;
+
+  // W2b B2/B3: a FILTERED request (generation or difficulty) must never be
+  // silently widened. If "hard ATEEZ" cannot fill a battle we return what exists
+  // and the route says so, rather than quietly serving easy questions from another
+  // group and calling it a hard ATEEZ battle.
+  const filtered = generation !== null || difficulty !== null;
+
+  // Generation mode: resolve the real groups in that generation. groups.generation
+  // holds '2nd Gen'..'5th Gen' (7 groups with quizzes have none, and are excluded
+  // rather than guessed at).
+  let generationGroupIds: number[] | null = null;
+  if (generation) {
+    const { data: genGroups } = await supabase
+      .from('groups')
+      .select('id')
+      .eq('generation', generation)
+      .gt('quiz_count', 0);
+    generationGroupIds = ((genGroups ?? []) as Array<{ id: number }>).map((g) => g.id);
+  }
 
   if (opts.quizId) {
     const { data: quiz } = await supabase
@@ -108,14 +129,34 @@ export async function selectBattleQuestions(
     groupId = (group?.id as number | undefined) ?? null;
   }
 
+  // Generation mode: sample across every group in that generation.
+  if (pool.length < BATTLE_QUESTION_COUNT && generationGroupIds !== null) {
+    if (generationGroupIds.length > 0) {
+      let genQuery = supabase
+        .from('quizzes')
+        .select('id, group_id, questions')
+        .in('group_id', generationGroupIds)
+        .eq('status', 'published')
+        .limit(80);
+      if (difficulty) genQuery = genQuery.eq('difficulty', difficulty);
+      const { data: genQuizzes } = await genQuery;
+      for (const q of shuffle((genQuizzes ?? []) as QuizRow[])) {
+        topUp(pool, extractMC(q.questions));
+        if (pool.length >= BATTLE_QUESTION_COUNT) break;
+      }
+    }
+  }
+
   // Top up from the same group's other published quizzes.
   if (pool.length < BATTLE_QUESTION_COUNT && groupId !== null) {
-    const { data: groupQuizzes } = await supabase
+    let groupQuery = supabase
       .from('quizzes')
       .select('id, group_id, questions')
       .eq('group_id', groupId)
       .eq('status', 'published')
       .limit(40);
+    if (difficulty) groupQuery = groupQuery.eq('difficulty', difficulty);
+    const { data: groupQuizzes } = await groupQuery;
     for (const q of (groupQuizzes ?? []) as QuizRow[]) {
       if (q.id === quizId) continue;
       topUp(pool, extractMC(q.questions));
@@ -124,7 +165,9 @@ export async function selectBattleQuestions(
   }
 
   // Last resort: top up from any popular published quiz so a battle always has 7.
-  if (pool.length < BATTLE_QUESTION_COUNT) {
+  // SKIPPED for a filtered request: widening would break the promise the player
+  // picked (see `filtered` above).
+  if (pool.length < BATTLE_QUESTION_COUNT && !filtered) {
     const { data: anyQuizzes } = await supabase
       .from('quizzes')
       .select('id, group_id, questions')

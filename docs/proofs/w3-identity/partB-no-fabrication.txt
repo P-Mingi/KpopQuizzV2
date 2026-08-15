@@ -1,0 +1,20 @@
+=== VERIFY 7: no synthetic user, no generated score, no padded pool in the W3 diff ===
+
+-- grep for fabrication patterns across the whole W2b/W3 diff --
+ 7 files changed, 329 insertions(+), 46 deletions(-)
+
+  added lines matching Math.random    : 0
+  added lines matching faker          : 0
+  added lines matching seed           : 0
+  added lines matching fake           : 0
+  added lines matching synthetic      : 0
+  added lines matching dummy          : 0
+  added lines matching mock           : 0
+  added lines matching placeholder    : 0
+
+-- the only Math.random in the touched battle code, in context --
+apps/quiz/src/lib/battle/select-questions.ts:51:    const j = Math.floor(Math.random() * (i + 1));
+apps/quiz/src/components/battle/battle-game.tsx:130:      if (!groupSlug && groups.length > 0) groupSlug = groups[Math.floor(Math.random() * groups.length)]!.slug;
+
+Both are SHUFFLES of real rows (question order, random group pick), not generated players or scores.
+Every opponent served by /api/battle/random is an existing battles row created by a human and finished by them.

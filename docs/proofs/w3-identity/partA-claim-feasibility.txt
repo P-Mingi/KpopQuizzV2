@@ -1,0 +1,14 @@
+# W3 PART A - can anonymous history be carried over? (read-only)
+# 2026-08-15T11:58:51.267Z
+
+plays total                 : 59003
+plays with player_id NULL   : 36158 (61.3% guest)
+plays columns               : id, quiz_id, player_id, score, total_questions, time_taken_seconds, created_at, per_question_times
+  -> NO anon/browser id column. A guest play carries NOTHING identifying the browser.
+
+battle_results rows         : 1013 | anonymous: 955
+distinct anon player_hash   : 512
+hashes covering >1 run      : 199 (a claim keyed on player_hash takes ALL of them)
+largest single hash         : 15 runs
+  -> player_hash = sha256(ip + UTC day): shared by everyone behind one IP that day, and it ROTATES daily.
+  -> so it is neither stable enough to find a guest history, nor private enough to claim one.

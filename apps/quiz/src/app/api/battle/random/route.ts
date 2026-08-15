@@ -44,6 +44,7 @@ type BattleRow = {
 async function fetchCandidates(
   db: SupabaseClient,
   groupSlug: string | null,
+  quizId?: string | null,
 ): Promise<BattleRow[]> {
   let q = db
     .from('battles')
@@ -51,7 +52,8 @@ async function fetchCandidates(
     .not('challenger_score', 'is', null)
     .order('created_at', { ascending: false })
     .limit(CANDIDATE_WINDOW);
-  if (groupSlug) q = q.eq('group_slug', groupSlug);
+  if (quizId) q = q.eq('quiz_id', quizId);
+  else if (groupSlug) q = q.eq('group_slug', groupSlug);
   const { data } = await q;
   return (data ?? []) as BattleRow[];
 }
@@ -59,6 +61,8 @@ async function fetchCandidates(
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const url = new URL(req.url);
   const groupSlug = url.searchParams.get('groupSlug');
+  // W2b B1: "same quiz, new opponent" narrows the draw to one quiz first.
+  const quizId = url.searchParams.get('quizId');
   const scoreParam = url.searchParams.get('score');
   const myScore = scoreParam && /^\d+$/.test(scoreParam) ? Number(scoreParam) : null;
 
@@ -66,10 +70,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const playerHash = anonHash(req);
 
   // Same group first, then widen. Two bounded reads beat one unbounded one.
+  const sameQuiz = quizId ? await fetchCandidates(db, null, quizId) : [];
   const grouped = groupSlug ? await fetchCandidates(db, groupSlug) : [];
   const global = await fetchCandidates(db, null);
   const seen = new Set<string>();
-  const candidates = [...grouped, ...global].filter((b) => {
+  const candidates = [...sameQuiz, ...grouped, ...global].filter((b) => {
     if (seen.has(b.id)) return false;
     seen.add(b.id);
     return true;

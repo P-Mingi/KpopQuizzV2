@@ -13,22 +13,38 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  let body: { quizId?: string; groupSlug?: string };
+  let body: { quizId?: string; groupSlug?: string; generation?: string; difficulty?: string };
   try {
     body = (await req.json()) as typeof body;
   } catch {
     body = {};
   }
-  if (!body.quizId && !body.groupSlug) {
-    return NextResponse.json({ error: 'quizId or groupSlug required' }, { status: 400 });
+  if (!body.quizId && !body.groupSlug && !body.generation) {
+    return NextResponse.json({ error: 'quizId, groupSlug or generation required' }, { status: 400 });
   }
+  // W2b B3: only the three difficulties that exist on quizzes.difficulty.
+  const difficulty = body.difficulty && ['easy', 'medium', 'hard'].includes(body.difficulty) ? body.difficulty : null;
 
   const supabase = createServiceRoleClient();
 
-  const sel = await selectBattleQuestions(supabase, { quizId: body.quizId ?? null, groupSlug: body.groupSlug ?? null });
+  const sel = await selectBattleQuestions(supabase, {
+    quizId: body.quizId ?? null,
+    groupSlug: body.groupSlug ?? null,
+    generation: body.generation ?? null,
+    difficulty,
+  });
   if (sel.questions.length < BATTLE_QUESTION_COUNT) {
+    // W2b: a filtered pick that cannot fill a battle says so honestly instead of
+    // being widened into a different battle than the one the player chose.
+    const what = [body.generation, difficulty, body.groupSlug].filter(Boolean).join(' ');
     return NextResponse.json(
-      { error: 'Not enough questions for a battle', available: sel.questions.length },
+      {
+        error: what
+          ? `Not enough ${what} questions for a battle yet. Try another pick.`
+          : 'Not enough questions for a battle',
+        available: sel.questions.length,
+        needed: BATTLE_QUESTION_COUNT,
+      },
       { status: 400 },
     );
   }

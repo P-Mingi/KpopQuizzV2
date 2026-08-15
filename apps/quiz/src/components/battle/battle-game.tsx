@@ -34,6 +34,15 @@ interface Challenger { score: number; per_question: boolean[]; handle: string; p
 type Phase = 'entry' | 'loading' | 'playing' | 'reveal';
 
 const QUESTION_TIME = 10;
+// W2b B2/B3 - the real values that exist in the data. Generations come from
+// groups.generation ('2nd Gen'..'5th Gen'); difficulties from quizzes.difficulty.
+const GENERATIONS = ['2nd Gen', '3rd Gen', '4th Gen', '5th Gen'];
+const DIFFICULTIES = [
+  { value: '', label: 'Any' },
+  { value: 'easy', label: 'Easy' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'hard', label: 'Hard' },
+];
 const LETTERS = ['A', 'B', 'C', 'D'];
 const CHECK = <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 const CROSS = <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" /></svg>;
@@ -43,6 +52,10 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
 
   const [phase, setPhase] = useState<Phase>('entry');
   const [topic, setTopic] = useState('');
+  // W2b B2/B3 - pick your fight. Both are FILTERS over data that already exists
+  // (groups.generation, quizzes.difficulty), so no content is created for them.
+  const [generation, setGeneration] = useState('');
+  const [difficulty, setDifficulty] = useState('');
   const [battleId, setBattleId] = useState<string | null>(null);
   const [questions, setQuestions] = useState<BattleQ[]>([]);
   const [qIndex, setQIndex] = useState(0);
@@ -61,9 +74,16 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
   const [challenger, setChallenger] = useState<Challenger | null>(null);
   // W2: the real stake, shown on the accept screen.
   const [quizTitle, setQuizTitle] = useState<string | null>(null);
+  // W2b B1: what this battle was ABOUT, so the reveal can offer a rematch on the
+  // same ground instead of dumping the player into a random topic.
+  const [arenaQuizId, setArenaQuizId] = useState<string | null>(null);
+  const [arenaGroupSlug, setArenaGroupSlug] = useState<string | null>(null);
   // E7 - /battle?quiz=<id> prefills a quick match anchored to a specific quiz.
   const [prefillQuizId, setPrefillQuizId] = useState<string | null>(null);
 
+  // Refs, because rematchSameArena is declared before these callbacks exist.
+  const loadChallengeRef = useRef<((b: string) => Promise<void>) | null>(null);
+  const startBattleRef = useRef<(() => Promise<void>) | null>(null);
   const startedAt = useRef(0);
   const advanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const finishingRef = useRef(false);
@@ -99,14 +119,18 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     setChallenger(null);
     // E7: a quiz-anchored battle (from quiz detail / battle of the day) sends
     // quizId; otherwise quick-match by topic ("Any group" -> a random group).
-    let body: { quizId?: string; groupSlug?: string };
+    let body: { quizId?: string; groupSlug?: string; generation?: string; difficulty?: string };
     if (prefillQuizId) {
       body = { quizId: prefillQuizId };
+    } else if (generation) {
+      // A generation pick spans every group in it, so it does not carry a group.
+      body = { generation };
     } else {
       let groupSlug = topic;
       if (!groupSlug && groups.length > 0) groupSlug = groups[Math.floor(Math.random() * groups.length)]!.slug;
       body = { groupSlug };
     }
+    if (difficulty) body.difficulty = difficulty;
     try {
       const res = await fetch('/api/battle/start', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
@@ -119,19 +143,44 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       }
       setBattleId(data.battleId);
       setQuestions(data.questions);
+      // W2b B1: remember the ground so the reveal can offer a same-arena rematch.
+      setArenaQuizId(body.quizId ?? null);
+      setArenaGroupSlug(body.groupSlug ?? null);
       beginPlay();
     } catch {
       showToast('Could not start a battle. Check your connection.');
       setPhase('entry');
     }
-  }, [topic, groups, showToast, beginPlay, prefillQuizId]);
+  }, [topic, groups, showToast, beginPlay, prefillQuizId, generation, difficulty]);
+
+  // W2b B1 - never a dead end: draw ANOTHER real open run on the same ground the
+  // battle was just fought on (same quiz first, then same group). It reuses the
+  // PART B pool, so the opponent is always a real recorded human, never generated.
+  const rematchSameArena = useCallback(async () => {
+    setPhase('loading');
+    try {
+      const params = new URLSearchParams();
+      if (arenaQuizId) params.set('quizId', arenaQuizId);
+      if (arenaGroupSlug) params.set('groupSlug', arenaGroupSlug);
+      const res = await fetch(`/api/battle/random?${params.toString()}`);
+      const data = (await res.json()) as { battle?: { battleId: string } | null };
+      if (data.battle?.battleId) {
+        await loadChallengeRef.current?.(data.battle.battleId);
+        return;
+      }
+      showToast('No open runs left here yet. Starting a fresh battle instead.');
+      void startBattleRef.current?.();
+    } catch {
+      setPhase('entry');
+    }
+  }, [arenaQuizId, arenaGroupSlug, showToast]);
 
   // E5 - load an incoming challenge (?b=<id>): same 7 questions + the challenger.
   const loadChallenge = useCallback(async (b: string) => {
     setPhase('loading');
     try {
       const res = await fetch(`/api/battle/${b}`);
-      const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; challenger?: Challenger | null; quizTitle?: string | null };
+      const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; challenger?: Challenger | null; quizTitle?: string | null; quizId?: string | null; groupSlug?: string | null };
       if (!res.ok || !data.battleId || !data.questions?.length) {
         showToast('That challenge link is no longer available.');
         setPhase('entry');
@@ -141,12 +190,16 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       setQuestions(data.questions);
       setChallenger(data.challenger ?? null);
       setQuizTitle(data.quizTitle ?? null);
+      setArenaQuizId(data.quizId ?? null);
+      setArenaGroupSlug(data.groupSlug ?? null);
       setIsChallenge(true);
       setPhase('entry'); // a challenge-accept intro, then Start -> beginPlay
     } catch {
       setPhase('entry');
     }
   }, [showToast]);
+
+  useEffect(() => { loadChallengeRef.current = loadChallenge; startBattleRef.current = startBattle; }, [loadChallenge, startBattle]);
 
   // On mount: an incoming challenge link (?b) or a quiz-anchored entry (?quiz).
   useEffect(() => {
@@ -330,7 +383,40 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
             <span className="bp-label">Pick a topic</span>
             <div className="bp-groups">
               {TOPICS.map((g) => (
-                <button key={g.slug || 'any'} type="button" className={`bp-chip${topic === g.slug ? ' on' : ''}`} aria-pressed={topic === g.slug} onClick={() => setTopic(g.slug)}>{g.name}</button>
+                <button key={g.slug || 'any'} type="button" className={`bp-chip${topic === g.slug && !generation ? ' on' : ''}`} aria-pressed={topic === g.slug && !generation} onClick={() => { setTopic(g.slug); setGeneration(''); }}>{g.name}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* W2b B2 - or pick a whole generation. Real values from groups.generation;
+              groups with no generation set are simply not offered, never guessed. */}
+          <div className="bp-field">
+            <span className="bp-label">Or a generation</span>
+            <div className="bp-groups">
+              {GENERATIONS.map((g) => (
+                <button
+                  key={g}
+                  type="button"
+                  className={`bp-chip${generation === g ? ' on' : ''}`}
+                  aria-pressed={generation === g}
+                  onClick={() => { setGeneration(generation === g ? '' : g); setTopic(''); }}
+                >{g}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* W2b B3 - difficulty, filtering quizzes.difficulty. "Any" is the default. */}
+          <div className="bp-field">
+            <span className="bp-label">Difficulty</span>
+            <div className="bp-groups">
+              {DIFFICULTIES.map((d) => (
+                <button
+                  key={d.value || 'any'}
+                  type="button"
+                  className={`bp-chip${difficulty === d.value ? ' on' : ''}`}
+                  aria-pressed={difficulty === d.value}
+                  onClick={() => setDifficulty(d.value)}
+                >{d.label}</button>
               ))}
             </div>
           </div>
@@ -428,7 +514,13 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
                 void navigator.clipboard?.writeText(url).then(() => showToast('Battle link copied. Send it to a friend!')).catch(() => showToast('Could not copy link'));
               }}>Challenge a friend</button>
             )}
-            <button type="button" className="bp-ghost-btn bp-cta-half" onClick={() => void startBattle()}>New battle</button>
+            <button
+              type="button"
+              className="bp-ghost-btn bp-cta-half"
+              onClick={() => void ((arenaQuizId || arenaGroupSlug) ? rematchSameArena() : startBattle())}
+            >
+              {(arenaQuizId || arenaGroupSlug) ? 'Same quiz, new rival' : 'New battle'}
+            </button>
           </div>
 
           {/* K2 - Discord one-line on the battle reveal. */}

@@ -1,0 +1,7 @@
+=== B2/B3: each pick must produce a REAL battle (or an honest refusal) ===
+{"groupSlug":"bts"}                            -> battle 48553095 with 7 questions
+{"generation":"4th Gen"}                       -> battle feb7d6b2 with 7 questions
+{"generation":"3rd Gen","difficulty":"easy"}   -> battle 9e0216f4 with 7 questions
+{"groupSlug":"bts","difficulty":"hard"}        -> REFUSED: Not enough hard bts questions for a battle yet. Try another pick. (available 0/7)
+{"groupSlug":"treasure","difficulty":"hard"}   -> REFUSED: Not enough hard treasure questions for a battle yet. Try another pick. (available 0/7)
+{"generation":"2nd Gen","difficulty":"hard"}   -> battle 4054f98e with 7 questions

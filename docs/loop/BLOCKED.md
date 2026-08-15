@@ -19,6 +19,47 @@ When resolved, the worker clears the entry and continues.
 
 ---
 
+## w3-partA - "claim this run" cannot carry anonymous history: the column does not exist
+
+- What is blocked: PART A's non-negotiable rule, "claiming must carry the existing
+  anonymous history over, not discard it". PART D is blocked behind it by the
+  mission's own wording ("nothing in PART D can exist until a run belongs to
+  someone"). PARTS B and C are NOT blocked and are being built.
+- Why (the mission's own STOP condition: a column that does not exist):
+  - `plays` is `id, quiz_id, player_id, score, total_questions, time_taken_seconds,
+    created_at, per_question_times`. For a guest, `player_id` is NULL and there is
+    NOTHING else. 36,158 of 59,003 plays (61.3%) are guest rows that carry no trace
+    of which browser made them. They are unattributable by construction, so no code
+    can carry them over.
+  - `battle_results.player_hash` exists but is `sha256(ip + UTC day)`. Measured:
+    955 anonymous rows over 512 distinct hashes, 199 hashes cover more than one run,
+    the largest covers 15. Claiming by it would hand one signup EVERY run made
+    behind that IP that day, including strangers'. It also rotates daily, so it
+    cannot find the same guest's runs from yesterday. It is neither stable enough to
+    find a history nor private enough to claim one. Using it would be a privacy leak
+    dressed as a feature.
+- Options (each with its trade-off):
+  1) Add a stable browser-scoped anonymous id and start writing it now: a
+     `anon_id uuid` (or text) column on `plays` and on `battle_results`, filled from
+     a localStorage UUID the client sends. Claim then means "attach every row with
+     MY anon_id". Trade-off: needs a migration (owner-run), and it only carries
+     history from the day it ships forward. It cannot rescue the 36,158 existing
+     guest plays, and no design can.
+  2) Ship the claim scoped to THE CURRENT RUN only, with no migration: the client
+     already holds the row it just created, so signing in can stamp `user_id` on
+     that one row. Honest, useful, and it is literally what "CLAIM THIS RUN" says,
+     but it is not the retroactive merge the doctrine promises, and the signup copy
+     must NOT claim "your 12 games are now yours".
+  3) Do nothing until W3 proper. Trade-off: PART D stays impossible.
+- Recommendation: 1 AND 2 together. 2 ships now and is the moment that converts;
+  1 is the migration that makes the doctrine's retroactive merge true from ship date
+  onward. Both need you: 1 is DDL, and 2 needs your ruling that a current-run-only
+  claim is acceptable given the doctrine's wording.
+- Also worth knowing: migration 154 (W2) is NOT applied yet. Probed live today: an
+  insert of type `battle_beaten` is still rejected by the CHECK constraint. The
+  mission said it was being applied; it has not landed.
+- Proof / context: docs/proofs/w3-identity/partA-claim-feasibility.txt
+
 ## w2-notify - the challenge notification needs a migration the worker cannot run
 
 - What is blocked: the "someone beat your run" notification cannot be delivered.

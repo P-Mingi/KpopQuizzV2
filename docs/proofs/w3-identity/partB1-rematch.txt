@@ -1,0 +1,11 @@
+=== B1: same-arena rematch draws ANOTHER real open run, never a dead end ===
+
+-- player finishes a bts battle, then asks for the same arena --
+battle just played : 4d73967f-a859-45fe-9cd4-7b41eea28494
+rematch drew     : 6b2d0df2-a1f8-458b-8824-13748016d461
+  challenger     : @fan_b9eb scored 4/7
+  quiz           : (group battle)
+  group          : bts
+  open pool here : 236 real runs
+
+different battle than the one just played, and never the caller's own run (own-run exclusion is by challenger_hash + prior result rows).
