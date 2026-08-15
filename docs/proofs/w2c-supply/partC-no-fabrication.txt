@@ -1,0 +1,19 @@
+=== VERIFY 7 (repeat): no fabrication in the PART C diff ===
+
+  added lines matching Math.random    : 0
+  added lines matching faker          : 0
+  added lines matching fake           : 0
+  added lines matching synthetic      : 0
+  added lines matching dummy          : 0
+  added lines matching mock           : 0
+  added lines matching placeholder    : 0
+  added lines matching Math.max(      : 0
+  added lines matching || 1           : 0
+  added lines matching rounded        : 1
+
+The C1 count comes from countOpenRunsForGroup(), which paginates BOTH reads via
+fetchAllRows and counts real battles rows. No floor, no rounding, no minimum.
+At 0 the component returns null (treasure renders nothing, proven in partC1).
+
+The single "rounded" hit is a COMMENT asserting the opposite:
+  + never rounded and never floored. Renders nothing at zero. */}

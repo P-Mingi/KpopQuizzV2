@@ -14,6 +14,8 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
+import { countOpenRunsForGroup } from '@/lib/db/queries/open-runs';
+import { OpenRunsBlock } from '@/components/group/open-runs-block';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -92,7 +94,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse] = await Promise.all([
+  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse, openRuns] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     // SEO-3 U7: SSR the 5 newest quizzes for this group. Crawlable-freshness
     // signal for Google + a discovery surface so users find new uploads before
@@ -108,6 +110,9 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     safeFetch(getGroupFanKnowledge(group.id, group.slug), { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] }, '[group-quiz] getGroupFanKnowledge'),
     safeFetch(getGroupActiveComeback(group.id), null, '[group-quiz] getGroupActiveComeback'),
     safeFetch(getGroupMvPulse(group.id), null, '[group-quiz] getGroupMvPulse'),
+    // W2b C1: the real number of unbeaten runs waiting on this group. Fails soft to
+    // 0, which renders nothing, so a DB blip never fabricates a count.
+    safeFetch(countOpenRunsForGroup(group.slug), 0, '[group-quiz] countOpenRuns'),
   ]);
 
   // Only show a distinct "newest" strip when it actually differs from the
@@ -155,6 +160,10 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       {/* G2 hero (upgrade in place): logo, name, generation, member count,
           quiz/plays, fandom line (real fandoms only), war-map rank when charted. */}
       <GroupHubHero group={group} memberCount={nameAllGame?.count ?? null} warRank={warRank} />
+
+      {/* W2b C1 - the time-shifted supply, made visible. Real count, live query,
+          never rounded and never floored. Renders nothing at zero. */}
+      <OpenRunsBlock groupName={group.name} groupSlug={group.slug} count={openRuns} />
 
       {/* G2 play row: every real play surface this group has, gated per surface.
           Absorbs the old personality card + blindtest entry. */}

@@ -206,8 +206,12 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     const sp = new URLSearchParams(window.location.search);
     const b = sp.get('b');
     const quiz = sp.get('quiz');
+    // W2b C1: /battle?group=<slug> arrives from a group page's open-runs block.
+    // It preselects that group so the very next tap is a battle on what they read.
+    const group = sp.get('group');
     if (b) void loadChallenge(b);
     else if (quiz) setPrefillQuizId(quiz);
+    else if (group) setTopic(group);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

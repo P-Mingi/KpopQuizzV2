@@ -6702,3 +6702,23 @@ main:has(.verse-page) { max-width: none; }
 .notif-challenge:hover { border-color: var(--wrong); }
 .notif-challenge-chip { background: var(--wrong); color: #fff; }
 .notif-challenge-title { color: var(--wrong); }
+
+/* W2b C1 - open runs on a group page. Quiet by design: it is a real invitation,
+   not a banner. Hidden entirely when the count is 0 (component returns null). */
+.open-runs {
+  margin: 14px 0 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--wrong);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.open-runs-line { font-size: 15px; color: var(--txt1); margin: 0; }
+.open-runs-line strong { font-weight: 800; }
+.open-runs-sub { font-size: 13px; color: var(--txt3); margin: 4px 0 10px; line-height: 1.5; }
+.open-runs-cta {
+  display: inline-block; padding: 9px 18px; border-radius: 100px;
+  background: var(--wrong); color: #fff; font-size: 14px; font-weight: 700;
+  text-decoration: none;
+}
+.open-runs-cta:hover { filter: brightness(1.08); }

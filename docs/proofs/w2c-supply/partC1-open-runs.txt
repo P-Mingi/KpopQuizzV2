@@ -1,0 +1,13 @@
+=== C1: the rendered count vs an INDEPENDENT query ===
+# 2026-08-15T12:20:31Z
+
+bts          rendered on page: 49
+blackpink    rendered on page: 75
+stray-kids   rendered on page: 77
+treasure     rendered on page: (block not rendered)
+
+independent recount (written separately from the app code):
+  bts          battles finished:   53  OPEN: 49
+  blackpink    battles finished:   80  OPEN: 75
+  stray-kids   battles finished:   81  OPEN: 77
+  treasure     battles finished:    0  OPEN: 0

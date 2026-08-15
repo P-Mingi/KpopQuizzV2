@@ -1,0 +1,29 @@
+# Migration 154 RE-PROBE
+# 2026-08-15T12:17:29.599Z
+
+user_id used (FK-verified via battle_results.user_id): 7ca3268b-5449-4a26-91a2-889500b48b32
+control insert  type=cheer          -> OK
+probe insert    type=battle_beaten  -> OK
+negative control type=definitely_not_a_type -> ERROR: new row for relation "creator_notifications" violates check 
+
+probe rows left behind: 2 ["cheer","battle_beaten"]
+cleaned up.
+first-probe user_id was: d54e4b47-da59-4c68-aeb1-94d2fe01782f (@mingii)
+insert with that id, type=cheer -> OK
+insert with that id, type=battle_beaten -> OK
+
+CONCLUSION (honest attribution)
+-------------------------------
+Migration 154 IS applied. `battle_beaten` inserts cleanly, and the negative control
+(`definitely_not_a_type`) is still rejected, so the CHECK is genuinely enforcing and
+genuinely contains the new type.
+
+The FK theory in the mission does not hold: the SAME user_id my first probe used
+(d54e4b47, @mingii) now inserts BOTH `cheer` and `battle_beaten` without error. So the
+first probe did not fail on the auth.users FK.
+
+The remaining explanation that fits both observations is timing: the first probe ran at
+2026-08-15T11:58:30Z and reported a CHECK violation; this re-probe ran at 12:17:29Z and
+passes. The constraint changed between the two. The earlier report was accurate when it
+was written and is stale now, which is the same thing either way for the reader: the
+notification path is LIVE from here on.
