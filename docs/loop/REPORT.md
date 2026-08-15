@@ -1,114 +1,104 @@
-# REPORT - C2-REDESIGN done and proven. C3 not started.
+# REPORT - W2b C3: the weekly challenge. The W2/W2b/W3 arc is complete.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
 
-Commit: `84c44c6`. Proofs: `docs/proofs/w2c-supply/`.
+Commit: `ab2b28c`. Proofs: `docs/proofs/w2c-supply/partC3-weekly.txt`,
+`partC3-notification-390.png`.
 
 ---
 
-## Fact check: you were right on both counts
+## C3 - what shipped
 
-**The Hall of Fame is not invisible.** Prod renders it with rows. My last report
-generalised a local-environment symptom into a product claim, which was wrong, and I
-have not spent this run chasing it. For the record, one observation while proving the
-new block: on the same local page the block renders in the DOM while the Hall of Fame
-does not, so whatever the local difference is, it is scoped to that component and it
-does not block anything.
+`GET /api/cron/weekly-challenge`, cron-authed like the other jobs, bounded to 50
+deliveries per run, with a `?dry=1` mode that writes nothing.
 
-**And the premise was the real blocker.** On the biggest quiz on the site the top 10 by
-score contains zero named players. Matching a leaderboard row to a challenger by
-username cannot work while the board is anonymous, which is exactly why my own count
-found 4 firing cases site-wide. I did not try to fix the matcher.
+**Targeting**: bias group first (`profiles.ult_groups`), then closest to that player's
+own average battle score, then most recent. Candidates come from the **same centralised
+open-run definition**; this file owns none of its own.
 
-## C2-REDESIGN - what shipped
+## The copy, with your correction applied
 
-- **The per-row matcher is deleted**, along with the `username -> battleId` map that
-  existed only to feed it. Four cases site-wide did not justify carrying it.
-- **One identity-free block** renders under the Hall of Fame. It **reuses** the group
-  page's `OpenRunsBlock`, generalised with a `subject` and an `href` rather than forked
-  into a second UI:
+> **A run worth beating**
+> @fan_5223 left 5/7 in August. Beat it?
 
-> **10 fans** left unbeaten runs on this quiz.
-> Real runs people already played. Beat one whenever you like, they do not have to be online.
-> [ Take one ]
+Screenshot: `partC3-notification-390.png`, rendered in the red challenge style built in
+W2. The time shift is stated. Nothing implies the challenger is online, waiting, or has
+just challenged the reader.
 
-- The count uses the **same centralised definition**, paginated and exact. No rounding,
-  no floor, no minimum.
-- Zero open runs renders **nothing at all**.
+And nothing in it mentions our account count. You were right to cut that: telling a
+player they are one of very few here is a discouraging non-sequitur, not honesty. The
+copy owes them one truth, that the run is real and was played earlier, and it delivers
+exactly that.
 
-### Proven by DOM and screenshot, not by grepping the flight payload
+## Fairness, proven against the rows actually delivered
+
+Not asserted from the code. I re-derived each rule from the 15 delivered notifications:
 
 ```
-rendered on /q/ultimate-bts-era-quiz-only-real-armys-survive : "10 fans left unbeaten runs on this quiz"
-independent recount for that quiz                            : 10 open (14 finished battles)
-
-/q/ateez-title-tracks-and-members-quiz (0 open runs)         : .open-runs elements in DOM = 0
+rule 1  own run delivered               : 0
+rule 2  already-played run delivered    : 0
+rule 3  same challenger twice in a row  : 0
+rule 4  one per user per week           : run 2 delivered 0, skipped 15
+every delivered run still OPEN at delivery time : yes
 ```
 
-Screenshot: `partC2redesign-block-390.png`.
+Rule 3 is honest about its own limits: users with only one delivery so far cannot
+violate it, and the check is written to catch it once they have two.
 
-## A bug this surfaced, and fixed
-
-"Take one" first landed on a run from a **different quiz**. `/api/battle/random`
-appended the global pool, and with no group filter the sort could pick anything. The
-block promises "on this quiz", so that was the same silent-widening failure the
-filtered battle start already refuses.
-
-A requested scope is now a **promise**, not a preference (`strict=1`): a block saying
-"on this quiz" can only ever return a run on that quiz, or report the scope empty. The
-non-strict path stays for "Random opponent", which promises only an opponent.
+## Idempotency
 
 ```
-4 strict draws on quiz 4ba8f255:
-  99ba6b48 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
-  e47982d2 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
-  771d73ec | Ultimate BTS era quiz - only real ARMYs survive | pool 10
-  ded603c9 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
+run 1 : delivered 15, eligible 15
+run 2 : delivered 0,  skipped because already had one this week 15
 ```
 
-Pool 10 matches the published count, and the draw spreads across four different
-battles rather than serving one run to everyone.
+Rule 4 is checked per user against the notifications already delivered, so the job is
+idempotent by construction. There is no separate ledger that could drift.
 
-## Fairness (unchanged, inherited)
-
-The draw already refuses the caller's own run, refuses one they have already played,
-and samples uniformly from the top band. Nothing extra was needed to stay honest.
-
-## C3 - not started
-
-The weekly challenge was not reached this run.
-
-## The honest reach number, restated
-
-Whenever C3 ships, this is its ceiling:
+## The honest reach number (report only, as instructed)
 
 - **167 accounts** in total.
 - **94%** of battle results and **61%** of plays are anonymous.
 - PART A only began stamping browsers this week.
+- This run found **15 eligible signed-in players** who have actually battled, and
+  delivered to all 15.
 
-It is a message to a few dozen people, not a site-wide loop, and it should not be
-described as one.
+Fifteen people. That is the true size of this loop today, and it grows only as fast as
+the claim flow converts anonymous players into named ones. It is not a site-wide
+mechanic and should not be described as one internally either.
 
 ## Covenant
 
 Zero added lines matching fake / synthetic / dummy / mock / placeholder /
-`Math.random`. Every number shown is a count of real rows.
+`Math.random`. Every candidate is a `battles` row a human created and finished, and an
+empty result means nobody is messaged rather than someone being messaged about nothing.
 
 ## Deviations and flags (loud)
 
-1. **C3 not started.**
-2. The per-row action from last run is **deleted, not disabled**. If you wanted it kept
-   for the 4 cases, it is one revert away.
-3. `strict=1` changes `/api/battle/random` behaviour only for callers that pass it. The
-   result-screen "Random opponent" is untouched.
+1. **The notification type is overloaded.** This rides `battle_beaten`, because that is
+   what migration 154 added and this mission forbids DDL. The type now carries two
+   meanings ("someone beat your run" and "here is a run worth beating"). The user only
+   ever sees the copy, which is accurate, and the red styling fits both. The clean fix
+   is a dedicated `battle_challenge` type, which needs a migration you run. Say the word
+   and I will write it into `docs/pending-migrations/`.
+2. **Weekly dedup keys on the link's utm_campaign**, since there is no column to mark a
+   weekly delivery without DDL. It works and is self-contained, but it is a string
+   convention, not a constraint.
+3. **The candidate pool for the draw is bounded to 300 recent finished battles.** That is
+   a draw, not a published count, and the published counts elsewhere remain exact and
+   paginated.
+4. Delivery ran for real against the live database: 15 notifications now exist. They are
+   genuine offers of genuine runs, not test rows, so I left them.
 
-## Next
+## The arc
 
-C3, with the reach caveat stated in the product copy as well as the report.
+W2 (trigger, random opponent, share-as-challenge), W2b (pick your fight, rematch,
+C1 group supply, C1-FIX, C2 redesign, C3 weekly), W3 (identity and the claim) are all
+in. Sixteen local commits, nothing pushed, ready for your batch review.
 
 ---
 
-STOP (checkpoint). **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed.** report pret.

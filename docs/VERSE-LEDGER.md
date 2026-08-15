@@ -2829,3 +2829,56 @@ L-181 (C2 premise disproved: leaderboards are anonymous; redesign ordered)
   HONEST REACH restated for C3: 167 accounts, 94% of battle results and 61% of plays
   anonymous, PART A only began stamping this week - a few dozen people, not a site-wide
   loop. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean.
+
+L-182 (C2-REDESIGN PASS; scope-is-a-promise becomes doctrine; C3 is the last piece)
+  Cowork recounted independently: 10 open runs on ultimate-bts-era-quiz matching the
+  rendered "10 fans", and 0 on ateez-title-tracks where no block renders at all. PASS.
+  The per-row username matcher is deleted (4 firing cases site-wide did not justify it)
+  and the group page's OpenRunsBlock was generalised with a subject + href rather than
+  forked, so there is still one component and one definition.
+  BUG the redesign surfaced and fixed: "Take one" landed on a run from a DIFFERENT quiz,
+  because /api/battle/random appended the global pool when the scope had no group filter.
+  The block promises "on this quiz", so that was silent widening - the same failure class
+  the filtered battle start already refuses. Fixed with strict=1. The principle is now
+  house doctrine and is worth restating: A REQUESTED SCOPE IS A PROMISE, NOT A
+  PREFERENCE. Either the scope is honoured or it is reported empty; it is never widened
+  silently to produce a result.
+  Worker also owned its previous error cleanly: it had generalised a local-environment
+  symptom into a product-level claim about the Hall of Fame, said so, and did not waste a
+  run chasing it after Cowork disproved it from production.
+  New MISSION.md = C3 alone, with one CORRECTION to the worker's own plan: it proposed
+  putting the reach caveat in the PRODUCT copy. Refused - the reach number is an internal
+  fact for the REPORT. Telling a user "you are one of very few players here" is not
+  honesty, it is a discouraging non-sequitur. The copy owes the reader one truth: the run
+  is real and was played earlier. After C3 the W2/W2b/W3 arc is complete and Cowork will
+  summarise the whole batch for the owner's push decision.
+
+- L-174 W2b C3 DONE - the W2/W2b/W3 ARC IS COMPLETE (worker, 2026-08-15).
+  GET /api/cron/weekly-challenge, cron-authed like the other jobs, bounded to 50
+  deliveries per run, with ?dry=1 that writes nothing. Targeting: bias group first
+  (profiles.ult_groups), then closest to that player's own average battle score, then
+  most recent; candidates from the SAME centralised open-run definition (no second one).
+  COPY: "A run worth beating / @fan_5223 left 5/7 in August. Beat it?" - the time shift
+  is stated, nothing implies the challenger is online or waiting, and per the owner's
+  correction the reach number stays OUT of the UI (an internal fact, and telling a player
+  how few accounts exist is a discouraging non-sequitur, not honesty). Rendered in the
+  red challenge style from W2; screenshot in proofs.
+  FAIRNESS re-derived from the 15 rows ACTUALLY delivered, not asserted: own run 0,
+  already-played 0, same challenger twice in a row 0, one-per-week held (run 2 delivered
+  0 / skipped 15), and every delivered run was still open at delivery. IDEMPOTENT by
+  construction: rule 4 checks the notifications already delivered, so there is no
+  separate ledger to drift.
+  HONEST REACH: 167 accounts, 94% of battle results and 61% of plays anonymous, PART A
+  stamping only since this week; this run found 15 eligible signed-in players who have
+  actually battled and delivered to all 15. Fifteen people is the true size of the loop
+  today.
+  FLAGGED: the notification TYPE is now overloaded - it rides `battle_beaten` because
+  that is what 154 added and DDL was forbidden, so one type means both "someone beat your
+  run" and "here is a run worth beating"; the user only sees the copy, which is accurate,
+  and a dedicated `battle_challenge` type is the clean fix (owner-run migration, offered).
+  Weekly dedup keys on the link's utm_campaign since no column exists to mark it: works,
+  self-contained, but a string convention rather than a constraint. Draw pool bounded to
+  300 recent finished battles (a draw, not a published count). Delivery ran for real:
+  15 genuine notifications now exist and were left in place.
+  Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. 16 local commits across
+  the arc, nothing pushed, ready for the batch review and the owner's push decision.
