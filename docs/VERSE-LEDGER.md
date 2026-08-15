@@ -2992,3 +2992,59 @@ L-184 (W3b PART 1 PASS - the funnel is countable, and a silent denominator bug w
   follow-up. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. Standing
   recommendation for the fifth report running: none of this measures anything until a
   deploy.
+
+L-185 (W3b PARTS 2+3 PASS; PART 3's refusal was correct; migration 156 written)
+  PART 2 shipped the streak backup. Cowork's dark-pattern grep over the diff came back
+  clean: the only matches are comments forbidding countdowns. Rule proven against a fake
+  clock - shown at 3, 7, 14 and at no other day, once per milestone ever, same-day double
+  play does not double count, a 7 day gap resets to 1 with no fake continuity. Copy is a
+  true statement about this browser and nothing more, dismissible, blocks nothing. The
+  worker also corrected the doctrine's own premise: guests had no streak COUNT at all
+  (daily-played.ts only recorded "played today"), so it had to build the count before
+  anything could be backed up.
+  Moment 3 (stats view) not built because no guest stats surface exists - it refused to
+  fake a line onto the public /stats data page. Correct.
+  PART 3 NOT SHIPPED, and Cowork verified the blocker is real: game_plays is
+  (id, game_id, player_id, choices, created_at) with NO anon_id, so the block would move
+  zero rows on every game screen - a promise the code cannot keep. It also rejected the
+  tempting shortcut of pointing the block at earlier quiz runs, which a player who just
+  finished a GAME would reasonably misread. Good judgement.
+  COWORK MEASUREMENT that reprioritises this: game_plays is 1,517 rows, 1,390 guest = 92%
+  anonymous, 706 in the last 30 days. Game screens are MORE anonymous than quizzes (61%),
+  so this is the LARGEST remaining claim surface, not a tail case.
+  COWORK CORRECTION to the worker's options: name_all_member_results must NOT get an
+  anon_id. It has no player_id at all - those are per-member detail rows of a round, not
+  an ownable run. Migration 156 therefore covers game_plays only, written to
+  docs/pending-migrations/156_game_plays_anon_id.sql for the owner to apply.
+  New MISSION.md = PART 3 once 156 lands (same security contract, foreign anon_id refused
+  first in the proof order, min-gate holds, reuse the existing 'game-result' surface enum)
+  plus the worker's own flagged follow-up: wire the streak backup to the blindtest daily.
+  Standing note repeated: none of this measures anything until a deploy. 20 commits local.
+
+- L-177 W3b PART 3 DONE + streak follow-up closed (worker, 2026-08-15). Migration 156
+  verified live FIRST: game_plays.anon_id PRESENT. Confirmed the surface matters:
+  game_plays 1,517 rows, 1,390 guest (92%) vs 61% on the quiz side.
+  A1 the game write path stamps anon_id exactly as plays/battle_results do (same
+  localStorage UUID, same httpOnly nq_anon mirror, never from IP or any fingerprint,
+  guest rows only); a play with NO id still succeeds (proven: both return 200).
+  A2 /api/claim-runs now moves game_plays under the SAME contract - cookie-only trust,
+  NULL-owner filter, idempotent, rate limited. PROVEN: foreign anon_id -> 403
+  anon_id_mismatch with 0 rows touched; own anon_id -> 200 {"plays":0,"battles":0,
+  "games":1}; before 1 unowned -> after 1 owned by 67358f12.
+  A3 the EXISTING ClaimRun component mounted on the name-all and blind-test result
+  screens using the 'game-result' surface enum that already existed (reused, not forked,
+  so copy + min-gate come along unchanged). sort-it and match-up still persist no result
+  row, so they render nothing - same rule as before.
+  name_all_member_results deliberately EXCLUDED per Cowork's refinement: it has no
+  player_id at all, so those rows are per-member detail of a round, not an ownable run.
+  BLOCKED.md w3b-part3 cleared.
+  FOLLOW-UP CLOSED (the worker's own flag from L-176): recordGuestDaily() now runs where
+  completeDaily('blindtest') fires and the streak line renders on that result too; the
+  3/7/14 once-per-milestone rule is unchanged and still proven by the PART 2 logic test.
+  FLAGGED: the blindtest streak line is mounted but not screenshotted this run (the rule,
+  which is the part that could be wrong, is proven by the logic test); this-or-that also
+  writes game_plays and is now stamped + claimable by the same code, but its result
+  screen was NOT given the block because it was not in the mission's list - deliberate
+  rather than inferred. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean
+  (including "countdown": 0). Standing recommendation, sixth report running: DEPLOY -
+  every number in this arc reads near zero only because nothing is in front of a player.
