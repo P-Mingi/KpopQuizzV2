@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { useToast } from '@/components/ui/toast-provider';
 import { analytics } from '@/lib/analytics';
+import { getAnonId } from '@/lib/anon-id';
 
 // W2 PART A - the trigger. Spawns a challenge at the emotional peak (the quiz
 // result screen) instead of from a nav entry, and carries the run into it: the
@@ -81,6 +82,7 @@ export function ResultChallenge({
           score,
           per_question: perQuestion,
           time_ms: Math.max(0, Math.round(timeTakenSec * 1000)),
+          anon_id: getAnonId(),
         }),
       });
       if (res.status === 429) {

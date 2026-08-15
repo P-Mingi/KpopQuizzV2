@@ -9,6 +9,8 @@ import { useToast } from '@/components/ui/toast-provider';
 import { analytics } from '@/lib/analytics';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { ResultChallenge, canChallenge } from '@/components/quiz/result-challenge';
+import { getAnonId } from '@/lib/anon-id';
+import { ClaimRun } from '@/components/quiz/claim-run';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
@@ -564,6 +566,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           time_taken_seconds: timeTaken,
           max_score: maxScore,
           per_question_times: perQuestionTimesRef.current,
+          // W3 A1: this browser's id, so the run can later carry a name. Null in
+          // private mode, and the play succeeds either way.
+          anon_id: getAnonId(),
         }),
       });
       if (res.ok) {
@@ -1132,6 +1137,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             answers={state.answers}
           />
         )}
+
+        {/* W3 A4 - claim this run. After the score, never before. */}
+        <ClaimRun signedIn={profileXp !== null} surface="quiz" />
 
         {/* Like - placed high, right under the result */}
         <div className="mt-3">

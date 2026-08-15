@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { isUuid, setAnonCookie } from '@/lib/anon-claim';
+
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
@@ -25,7 +27,7 @@ export async function POST(
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
   }
 
-  const { score, total_questions, time_taken_seconds, max_score, per_question_times } = body as Record<string, unknown>;
+  const { score, total_questions, time_taken_seconds, max_score, per_question_times, anon_id } = body as Record<string, unknown>;
 
   if (typeof score !== 'number' || typeof total_questions !== 'number') {
     return NextResponse.json({ error: 'score and total_questions are required' }, { status: 400 });
@@ -244,7 +246,22 @@ export async function POST(
       }
     }
 
-    return NextResponse.json({
+    // W3 A1 - stamp this browser's id on the row the RPC just inserted, so the
+    // player can later put their name on it. record_play() returns the new play id,
+    // so this needs no DDL and no change to the RPC. Only guest rows are stamped: a
+    // signed-in play already has an owner and nothing to claim. Failure here is
+    // swallowed, because a play must never fail over identity plumbing.
+    const claimableId = isUuid(anon_id) && !playerId && result?.play_id ? (anon_id as string) : null;
+    if (claimableId) {
+      const { error: stampErr } = await admin
+        .from('plays')
+        .update({ anon_id: claimableId })
+        .eq('id', result.play_id as string)
+        .is('player_id', null);
+      if (stampErr) console.error('anon_id stamp failed:', stampErr.message);
+    }
+
+    const res = NextResponse.json({
       play_id: result?.play_id ?? null,
       percentile: result?.percentile ?? 50,
       xp_earned: xpEarned,
@@ -254,6 +271,9 @@ export async function POST(
       new_level: newLevel,
       new_level_name: newLevelName,
     });
+    // W3 A2 - proof of possession for the later claim (httpOnly, unforgeable by JS).
+    if (isUuid(anon_id)) setAnonCookie(res, anon_id);
+    return res;
   } catch (err) {
     console.error('Failed to record play:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

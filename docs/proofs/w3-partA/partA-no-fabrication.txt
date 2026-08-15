@@ -1,0 +1,16 @@
+=== VERIFY 8: no fabrication in the PART A diff ===
+
+  added lines matching faker          : 0
+  added lines matching fake           : 0
+  added lines matching synthetic      : 0
+  added lines matching dummy          : 0
+  added lines matching mock           : 0
+  added lines matching placeholder    : 0
+  added lines matching Math.random    : 0
+  added lines matching player_hash    : 0
+
+player_hash hits are COMMENTS explaining why it is never used for claiming:
+
+The claim reads ONLY the httpOnly nq_anon cookie. grep for the claim filter:
+    84:    .eq('anon_id', proven)
+    91:    .eq('anon_id', proven)

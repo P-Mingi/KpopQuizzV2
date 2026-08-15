@@ -4,6 +4,7 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 import { anonHash } from '@/lib/anon-hash';
 import { BATTLE_QUESTION_COUNT } from '@/lib/battle/select-questions';
 import { notifyRunBeaten } from '@/lib/notifications';
+import { isUuid, setAnonCookie } from '@/lib/anon-claim';
 
 import type { NextRequest } from 'next/server';
 
@@ -24,7 +25,7 @@ export async function POST(
 ): Promise<NextResponse> {
   const { id } = await params;
 
-  let body: { score?: unknown; per_question?: unknown; time_ms?: unknown };
+  let body: { score?: unknown; per_question?: unknown; time_ms?: unknown; anon_id?: unknown };
   try {
     body = (await req.json()) as typeof body;
   } catch {
@@ -82,6 +83,8 @@ export async function POST(
       score,
       per_question: perQuestion,
       time_ms: Math.round(timeMs),
+      // W3 A1: the browser id, when the client has one. A play is NEVER gated on it.
+      anon_id: isUuid(body.anon_id) ? body.anon_id : null,
     })
     .select('id, battle_id, score, per_question, time_ms, created_at')
     .single();
@@ -137,5 +140,9 @@ export async function POST(
     }
   }
 
-  return NextResponse.json({ result, is_challenger: isChallenger });
+  const res = NextResponse.json({ result, is_challenger: isChallenger });
+  // W3 A2: mirror the id into the httpOnly cookie so a later claim can PROVE this
+  // browser owns it. The client cannot forge this.
+  if (isUuid(body.anon_id)) setAnonCookie(res, body.anon_id);
+  return res;
 }

@@ -1,0 +1,41 @@
+=== W3 PART A proofs ===
+# 2026-08-15T12:56:04Z
+browser A anon_id : a660fc15-aed4-43ba-bb23-88397c2ab9be
+foreign anon_id   : 096e0ac1-6a07-4230-9212-9a270543932c
+
+--- 1. a GUEST play carrying the browser id ---
+{"play_id":"26dd47f4-7315-475d-9782-13776c216e37","percentile":32,"xp_earned":0,"pass_rate":39,"new_xp":null,"leveled_up":false,"new_level":null,"new_level_name
+cookie set by server: a660fc15-aed4-43ba-bb23-88397c2ab9be
+
+--- 7. a play with NO anon_id still succeeds (nothing is gated) ---
+{"play_id":"bace59ab-1217-4acc-ba64-2a1ed2e34463","percentile":15,"xp_earned":0,"pass_rate":39,"new_xp":null,"leveled_up
+
+--- 5. the same browser also records a BATTLE result (claim must work from a battle) ---
+battle: 47ce6d49-05fb-4ff8-a39f-3ea89ced6fed
+{"result":{"id":"c1bd20b8-37cb-4b69-892b-9fc1a647cecb","battle_id":"47ce6d49-05fb-4ff8-a39f-3ea89ced6fed","score":5,"per_question"
+
+--- 2. DB BEFORE the claim ---
+plays          with anon_id A: 1 | owned: 0 | unowned: 1
+battle_results with anon_id A: 1 | owned: 0 | unowned: 1
+
+--- signed in via the dev-login route (same cookie jar = same browser) ---
+
+=== 1. THE SECURITY PROOF: a FOREIGN anon_id is REFUSED ===
+request body: {"anonId":"096e0ac1-6a07-4230-9212-9a270543932c"}   (an id this browser never proved)
+response: {"error":"anon_id_mismatch","detail":"The browser id supplied does not match this browser."} [HTTP 403]
+
+=== the legitimate claim: the id this browser actually proved ===
+response: {"claimed":{"plays":1,"battles":1}} [HTTP 200]
+
+=== 4. IDEMPOTENCY: the same claim again moves nothing ===
+response: {"claimed":{"plays":0,"battles":0}} [HTTP 200]
+
+--- 2. DB AFTER the claim: ONLY this browser's rows moved ---
+plays          with anon_id A: 1 | owned now: 1 -> owner 67358f12-5068-4cd9-ba02-ad19fdadad73
+battle_results with anon_id A: 1 | owned now: 1 -> owner 67358f12-5068-4cd9-ba02-ad19fdadad73
+rows carrying the FOREIGN id: 0 (the refused claim created and moved nothing)
+
+--- 3. already-owned rows are never re-owned ---
+plays with an anon_id AND already an owner: 1 (the claim filters .is(player_id,null), so these are untouchable)
+guest plays still unowned site-wide       : 36159 (the 36,158 pre-155 rows carry NO anon_id and can never be claimed)
+   of those, with anon_id NULL            : 36159

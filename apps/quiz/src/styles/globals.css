@@ -6722,3 +6722,20 @@ main:has(.verse-page) { max-width: none; }
   text-decoration: none;
 }
 .open-runs-cta:hover { filter: brightness(1.08); }
+
+/* W3 A4 - the claim moment. Appears AFTER the score, never before: the run is
+   already recorded, the account only names it. Quiet on purpose, no urgency. */
+.claim-run {
+  margin-top: 12px; padding: 14px 16px;
+  border: 1px solid var(--border); border-radius: 14px; background: var(--surface);
+  text-align: center;
+}
+.claim-run-line { margin: 0; font-size: 15px; font-weight: 700; color: var(--txt1); }
+.claim-run-sub { margin: 4px 0 10px; font-size: 13px; color: var(--txt2); line-height: 1.5; }
+.claim-run-cta {
+  display: inline-block; padding: 10px 20px; border: none; border-radius: 100px;
+  background: var(--brand-btn); color: #fff; font-size: 14px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+}
+.claim-run-cta:disabled { opacity: 0.55; cursor: not-allowed; }
+.claim-run-note { margin: 8px 0 0; font-size: 12px; color: var(--txt3); }

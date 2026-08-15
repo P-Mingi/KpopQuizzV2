@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { anonHash } from '@/lib/anon-hash';
+import { isUuid, setAnonCookie } from '@/lib/anon-claim';
 
 import type { NextRequest } from 'next/server';
 import type { BattleQuestion } from '@/lib/battle/select-questions';
@@ -53,6 +54,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     score?: unknown;
     per_question?: unknown;
     time_ms?: unknown;
+    anon_id?: unknown;
   };
   try {
     body = (await req.json()) as typeof body;
@@ -180,6 +182,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     battle_id: battle.id,
     player_hash: challengerHash,
     user_id: user?.id ?? null,
+    // W3 A1: so a guest who challenges someone can later claim that run and become
+    // notifiable when it is beaten.
+    anon_id: isUuid(body.anon_id) ? body.anon_id : null,
     score,
     per_question: perQuestion,
     time_ms: Math.round(timeMs),
@@ -191,5 +196,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     console.error('Challenge created but challenger result row failed:', resultError.message);
   }
 
-  return NextResponse.json({ battleId: battle.id, questionCount: snapshot.length });
+  const res = NextResponse.json({ battleId: battle.id, questionCount: snapshot.length });
+  if (isUuid(body.anon_id)) setAnonCookie(res, body.anon_id);
+  return res;
 }

@@ -11,6 +11,8 @@ import { DiscordContextLine } from '@/components/discord/discord-context-line';
 import { BragButton } from '@/components/discord/brag-button';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { celebrate } from '@/lib/celebrate';
+import { getAnonId } from '@/lib/anon-id';
+import { ClaimRun } from '@/components/quiz/claim-run';
 
 // E4 - the real async 1v1 quick-match battle (Type 1), wired to the E2/E3 APIs.
 // Reuses the validated /battle-preview UI (.bp-* styles). Honest async ghost,
@@ -224,7 +226,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     try {
       await fetch(`/api/battle/${battleId}/result`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ score, per_question: perQuestion, time_ms: timeMs }),
+        body: JSON.stringify({ score, per_question: perQuestion, time_ms: timeMs, anon_id: getAnonId() }),
       });
       // Challenge mode: the opponent IS the challenger (real head-to-head), not a
       // random ghost. Otherwise pull an honest ghost.
@@ -526,6 +528,10 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
               {(arenaQuizId || arenaGroupSlug) ? 'Same quiz, new rival' : 'New battle'}
             </button>
           </div>
+
+          {/* W3 A4 - claim this run from a BATTLE result too, so a challenger
+              becomes someone who can be told when their run is beaten. */}
+          <ClaimRun signedIn={signedIn} surface="battle" />
 
           {/* K2 - Discord one-line on the battle reveal. */}
           <div style={{ textAlign: 'center', marginTop: -4, marginBottom: 4 }}>
