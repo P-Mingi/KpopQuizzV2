@@ -58,13 +58,14 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
     : `${group.name} Quiz: Free Fan-Made Trivia Test`);
 
   // Bing flagged ~119 pages with meta descriptions under the ~120 char floor.
-  // CTR override wins for the targeted groups; otherwise the curated seo_intro
-  // when long enough (an editorial escape hatch: it is empty on every group
-  // today, so every non-override group currently lands on the formula below).
+  // W2 PART D (owner ruling): `seo_intro` NO LONGER touches the meta description.
+  // It used to win over the formula whenever it was >= 110 chars, which meant
+  // filling it in admin would silently drop the live quiz count that earns the
+  // click, inside a ~150 char budget that cannot absorb an editorial paragraph.
+  // seo_intro is now additive and VISIBLE only: it renders as the intro paragraph
+  // at the top of the page (see `intro` below). The CTR formula always wins here.
   const description = override
     ? `Play ${group.quiz_count}+ free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
-    : group.seo_intro && group.seo_intro.length >= 110
-    ? group.seo_intro
     : n >= 2
     ? `Play ${n} free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`
     : `Play the free ${group.name} quiz made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
