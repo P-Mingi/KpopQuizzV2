@@ -18,6 +18,12 @@ import { track } from '@vercel/analytics';
 // event names, no new props.
 export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up' | 'name-them-all' | 'battle';
 
+/** Where the claim block was rendered. Small enum on purpose. */
+export type ClaimSurface = 'quiz-result' | 'battle-result' | 'game-result' | 'stats';
+
+/** Why a claim did not move any rows. Fixed codes, never free text. */
+export type ClaimRefusal = 'no_browser_id' | 'anon_id_mismatch' | 'nothing_to_claim' | 'sign_in_required' | 'error';
+
 /** Where a cross-promo sends the player. Kept as a small enum on purpose. */
 export type CrossPromoTarget =
   | 'quiz'
@@ -70,4 +76,25 @@ export const analytics = {
   signinClick: (type: GameType): void => ev('result_signin_click', { type }),
 
   dailyComplete: (kind: string, streak: number): void => ev('daily_complete', { kind, streak }),
+
+  // W3b - the claim funnel. ONE name carrying a `step`, rather than four new event
+  // names, so the six-name rule above bends as little as possible. Props stay
+  // enum/number only, no PII: `surface` is where the block was, `reason` is a fixed
+  // refusal code, `moved` is a row count.
+  //
+  // Why a new name at all: the DB can see COMPLETED (rows moved) but it can never
+  // see SHOWN or REFUSED, and no existing event means either. The tap itself reuses
+  // result_signin_click where that already fits. Flagged in the REPORT for reversal
+  // if the owner would rather keep the file at six.
+  claimFunnel: (
+    step: 'shown' | 'started' | 'completed' | 'refused',
+    surface: ClaimSurface,
+    detail?: { reason?: ClaimRefusal; moved?: number },
+  ): void =>
+    ev('claim_funnel', {
+      step,
+      surface,
+      ...(detail?.reason ? { reason: detail.reason } : {}),
+      ...(typeof detail?.moved === 'number' ? { moved: detail.moved } : {}),
+    }),
 };

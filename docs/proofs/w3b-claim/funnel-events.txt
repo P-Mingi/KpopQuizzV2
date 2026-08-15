@@ -1,0 +1,30 @@
+=== W3b PART 1: the claim funnel events, captured at the source ===
+
+Method: window.va (the Vercel analytics sink) is wrapped by
+Page.addScriptToEvaluateOnNewDocument BEFORE any app script runs, so every call is
+recorded with its real payload. Not read from console text, which only shows the
+analytics envelope.
+
+Signed in, quiz result screen, real run:
+
+  {"name":"claim_funnel","data":{"step":"shown","surface":"quiz-result"}}
+  {"name":"claim_funnel","data":{"step":"started","surface":"quiz-result"}}
+  {"name":"claim_funnel","data":{"step":"completed","surface":"quiz-result","moved":12}}
+
+`moved: 12` is the real number of rows the claim attached, returned by the API and
+carried into the event, so "claimed and moved nothing" is distinguishable from
+"claimed and moved 12 runs".
+
+A BUG FOUND AND FIXED WHILE PROVING THIS: `shown` fired TWICE per mount. React
+StrictMode double-invokes effects in dev, so every impression was double counted and
+the funnel's denominator would have been quietly wrong. A ref guard now fires it once
+per mount. Before the fix the capture showed two identical `shown` events; after, one.
+
+REFUSAL STEPS: emitted from the same component on
+  no_browser_id     (no localStorage id: fires instead of `shown`)
+  sign_in_required  (401)
+  anon_id_mismatch  (403, the security refusal proven in W3 PART A)
+  nothing_to_claim  (200 but zero rows moved)
+  error             (network/500)
+Only the three above were exercised live; the refusal branches are code paths on the
+same call site, not a separate mechanism.

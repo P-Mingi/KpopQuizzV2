@@ -562,7 +562,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
 
           {/* W3 A4 - claim this run from a BATTLE result too, so a challenger
               becomes someone who can be told when their run is beaten. */}
-          <ClaimRun signedIn={signedIn} surface="battle" />
+          <ClaimRun signedIn={signedIn} surface="battle-result" />
 
           {/* K2 - Discord one-line on the battle reveal. */}
           <div style={{ textAlign: 'center', marginTop: -4, marginBottom: 4 }}>

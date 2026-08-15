@@ -1139,7 +1139,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         )}
 
         {/* W3 A4 - claim this run. After the score, never before. */}
-        <ClaimRun signedIn={profileXp !== null} surface="quiz" />
+        <ClaimRun signedIn={profileXp !== null} surface="quiz-result" />
 
         {/* Like - placed high, right under the result */}
         <div className="mt-3">

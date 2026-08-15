@@ -1,0 +1,19 @@
+# CLAIM FUNNEL (database side)
+# 2026-08-15T15:23:32.616Z
+
+## plays
+  total rows                 : 59020
+  stamped (has browser id)   : 5
+    of those, claimed        : 1  (20.0% of stamped)
+    of those, still ownerless: 4
+  UNSTAMPABLE (pre-155)      : 36169  <- can never be claimed, by anyone
+
+## battle_results
+  total rows                 : 1016
+  stamped (has browser id)   : 1
+    of those, claimed        : 1  (100.0% of stamped)
+    of those, still ownerless: 0
+  UNSTAMPABLE (pre-155)      : 956  <- can never be claimed, by anyone
+
+Read this next to the analytics funnel (event claim_funnel: shown ->
+started -> completed | refused). Analytics sees intent; this sees effect.
