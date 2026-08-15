@@ -1,135 +1,109 @@
-# REPORT - W3 PART A: identity, and the refusal that makes it safe
+# REPORT - W2b C2: implemented, NOT verified. C3 not started.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
-`check:metadata-dupes` not re-run: no page and no metadata changed.
 
-Commit: `c62c00f`. Proofs: `docs/proofs/w3-partA/`.
+Commit: `f228301`. Proofs: `docs/proofs/w2c-supply/`.
+
+**Read the status line first: C2 is built and its data is proven, but I could not
+observe it rendering, so I am not claiming it works. C3 was not started.**
 
 ---
 
-## 1. THE SECURITY PROOF (first, as ordered)
+## C2 - what shipped
 
-A body field is a claim, not a proof. If the client could simply name an `anon_id`,
-anyone could type a stranger's and take their runs.
+- `openRunsForQuiz()` lives in the **same module** that owns the open-run definition.
+  There is still exactly one definition; a second one is what caused the 455-run blind
+  spot last run. It returns the open count plus a `username -> battleId` map.
+- **One page-level call for the whole leaderboard**: 3 bounded reads (battles by quiz,
+  their results, one profiles lookup), constant in the number of rows shown. No per-row
+  query, no N+1.
+- The action links to **that player's actual open run** (`/battle?b=<id>`), not a
+  generic battle. Where no open run exists the row renders **no action**: no disabled
+  tease, no substitute, no redirect.
 
-So the server mirrors every browser id it sees **on a write** into an httpOnly
-`nq_anon` cookie that JS cannot read or forge. The claim endpoint trusts only that
-cookie, and refuses outright when the body names something else rather than quietly
-falling back to the cookie (a silent fallback would let the attack "succeed" from the
-attacker's point of view, which is worse than a refusal).
-
-```
-POST /api/claim-runs  {"anonId":"096e0ac1-...")   <- an id this browser never proved
-  -> 403 {"error":"anon_id_mismatch",
-          "detail":"The browser id supplied does not match this browser."}
-
-POST /api/claim-runs  {"anonId":"a660fc15-..."}   <- the id this browser proved
-  -> 200 {"claimed":{"plays":1,"battles":1}}
-```
-
-The refused call created and moved nothing: rows carrying the foreign id remain **0**.
-
-## 2. Rows before and after: only this browser's runs moved
+## C2 - what IS proven (the data)
 
 ```
-BEFORE   plays          with anon_id A: 1   owned 0   unowned 1
-         battle_results with anon_id A: 1   owned 0   unowned 1
-
-AFTER    plays          with anon_id A: 1   owned 1 -> 67358f12-...
-         battle_results with anon_id A: 1   owned 1 -> 67358f12-...
-         rows carrying the FOREIGN id : 0
+open quiz-linked runs                    : 459
+  left by a SIGNED-IN player             :  28
+  AND that player is in that quiz top-10 :   4   <- when the action can fire today
 ```
 
-## 3. Already-owned rows are untouchable
+This is the honest shape of the feature: battle challengers and quiz top-scorers are
+**near-disjoint populations**. An anonymous challenger has no username to match a
+leaderboard row against, and 94% of battle results are anonymous. So even working
+perfectly, this action is rare until more challengers carry names, which is exactly
+what PART A started fixing this week.
 
-The claim filters `.is('player_id', null)` / `.is('user_id', null)`, so a run that
-already belongs to somebody can never be re-owned. Counted live: 1 play carries an
-anon_id and already has an owner, and it is outside the claim's reach by construction.
+## C2 - what is NOT proven, and why
 
-## 4. Idempotency
-
-```
-second identical claim -> 200 {"claimed":{"plays":0,"battles":0}}
-```
-
-Nothing duplicated, nothing stolen: the second pass finds no NULL-owner rows left.
-
-## 5. It works from a battle, not only a quiz
-
-The same browser recorded a battle result (battle `47ce6d49`), and the claim moved
-both the play and the battle row. That is the point of doing it from a battle: it turns
-an anonymous challenger into someone who can be told their run was beaten, which is
-what migration 154 unlocked.
-
-## 6. The copy, legible rather than asserted
-
-`partA-claim-mobile-390.png` and `partA-claim-desktop.png`:
-
-> **This run counts either way.**
-> Sign in and it takes your name, along with the runs you make from this browser from
-> now on. No email needed.
-> [ Claim your spot ]
-> Your score is saved whether you do this or not.
-
-No "recover your history", no "get your past scores back". It cannot say those things,
-because **36,159 guest plays carry no anon_id and can never be claimed**. That number is
-in the proof file next to the copy.
-
-## 7. Nothing is gated on identity
+The Hall of Fame block **does not appear in the DOM** on the quizzes I tested:
 
 ```
-play WITH anon_id    -> 200 play_id 26dd47f4...
-play with NO anon_id -> 200 play_id bace59ab...
+document.body.innerText.includes('Hall of Fame')  -> false
+document.body.innerText.includes('Top scorers')   -> false
+document.querySelectorAll('.beat-run').length     -> 0
 ```
 
-Private mode, storage blocked, or an older client: the run is written with `anon_id`
-NULL exactly as before, and the claim block simply does not render.
+`QuizHallOfFame` always renders its own header, even in the thin case
+(`quiz-hall-of-fame.tsx:73`), so an absent header means **the component is not being
+reached at all** on these pages. That is pre-existing and independent of this change,
+and it deserves attention on its own: the per-quiz Hall of Fame appears to be invisible.
 
-## 8. Covenant
+I ruled out the obvious causes:
+- not the ISR cache: `.next` was nuked and the server restarted;
+- not RLS: `getQuizHallOfFame`'s read works from the anon key when called directly
+  (verified live, plays readable);
+- not the data: `illit-guess-the-idol` has an open run by `@staygllit_nix`, who IS in
+  that quiz's top 10, which is precisely the case the action targets.
+
+I also wasted effort on a bad test earlier: I grepped the raw HTTP response for
+`class="beat-run"`, but `/q/[slug]` returns an RSC flight payload where row content
+sits in referenced chunks, so those greps were meaningless. The DOM checks above are
+the real ones.
+
+**Next diagnostic**: instrument the `/q/[slug]` render to log whether
+`QuizHallOfFame` is reached and what `hallOfFame.length` is at render time.
+
+## C3 - not started
+
+The weekly challenge (targeting, signed-in delivery, rate limit, time-shift copy) was
+not reached.
+
+## The honest reach number you asked for
+
+Whenever C3 does ship, this is its ceiling today:
+
+- **167 accounts** exist in total.
+- **94%** of battle results and **61%** of plays are anonymous.
+- PART A only began stamping browsers this week: at audit time **5 plays stamped, 1
+  claimed**.
+
+So a weekly challenge is not a site-wide loop. It is a message to a few dozen people at
+most, growing only as fast as the claim flow converts. Presenting it as anything larger
+would be a lie.
+
+## Covenant
 
 Zero added lines matching fake / synthetic / dummy / mock / placeholder /
-`Math.random`. `player_hash` appears zero times in the added code: it is for battle
-pairing only, and using it to claim would hand over strangers' runs (199 hashes cover
-more than one run, the largest covers 15).
-
----
-
-## How it is wired
-
-- `lib/anon-id.ts` (client): random UUID per browser in localStorage. Not derived from
-  IP, user agent, or anything about the device.
-- `lib/anon-claim.ts` (server): the `nq_anon` httpOnly cookie, plus UUID validation.
-- Write paths stamping `anon_id` and setting the cookie: `/api/quiz/[id]/play` (after
-  `record_play`, which returns `play_id`, so no DDL and no change to the RPC),
-  `/api/battle/[id]/result`, `/api/battle/challenge`.
-- `/api/claim-runs`: service-role write, cookie-only trust, NULL-owner filter, rate
-  limited per user.
-- `components/quiz/claim-run.tsx` mounted on the quiz result and the battle reveal.
+`Math.random`. The action renders only when the map holds a real battle id for that row.
 
 ## Deviations and flags (loud)
 
-1. **Guest plays are stamped only when the player is signed out.** A signed-in play
-   already has an owner and nothing to claim, so stamping it would store a browser id
-   against a named account for no benefit. Deliberate.
-2. **The rate limiter is in-process** (a Map, bounded and cleared). It does not survive
-   a restart and is per-instance. Fine for a guard on an idempotent endpoint; say the
-   word if you want it in the DB.
-3. **The claim needs the cookie**, so a browser that played before this shipped has no
-   proof and gets `{"claimed":{...0},"reason":"no_browser_id"}` until it writes one run.
-   Honest and unavoidable.
-4. `signedIn` on the quiz result is inferred from `profileXp !== null`, the existing
-   pattern on that screen. There is no auth hook in this app.
-5. The proof used the dev-login route for a real session. It is double-gated
-   (NODE_ENV + DEV_LOGIN_ENABLED) and cannot run in production.
+1. **C2 is unverified.** Committed anyway because it is additive, gated (renders only
+   on a real match), and typechecks and builds. If you would rather it not sit in the
+   tree unproven, say so and I will revert it.
+2. **The Hall of Fame not rendering is a separate, pre-existing problem** that this
+   mission surfaced by accident. It is worth its own look regardless of C2.
+3. **C3 not started.**
 
 ## Next
 
-C2 (leaderboard "beat this run") and C3 (weekly challenge). C3 is now genuinely
-deliverable: 154 is live and, from here, challengers can have names.
+Find out why the Hall of Fame does not render, which unblocks proving C2. Then C3.
 
 ---
 
-STOP. **Nothing was pushed.** report pret.
+STOP (checkpoint). **Nothing was pushed.** report pret.

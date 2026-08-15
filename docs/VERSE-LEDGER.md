@@ -2726,3 +2726,57 @@ L-179 (C1-FIX verified PASS; worker found a second bug Cowork missed; PART A nex
   migration 154 unlocked. Gates tsc 0 / build 0 / check:routes 0. Proofs
   docs/proofs/w3-partA/ (security proof first, as the mission ordered). NOT BUILT: C2,
   C3 (now genuinely deliverable: 154 is live and challengers can have names).
+
+L-180 (W3 PART A PASS - identity shipped with a real refusal; C2+C3 next)
+  Cowork audited PART A (c62c00f). VERDICT PASS. The security design is the right one and
+  the reasoning behind it is sharp: a body field is a claim, not a proof, so the server
+  mirrors every browser id it sees on a WRITE into an httpOnly `nq_anon` cookie that JS
+  cannot read or forge, and the claim endpoint trusts ONLY that cookie. When the body
+  names a different id it REFUSES with 403 anon_id_mismatch rather than silently falling
+  back to the cookie - the worker's argument being that a silent fallback would let the
+  attack appear to succeed, which is worse than a refusal. Correct.
+  Cowork verified live in the DB: 5 plays stamped with anon_id (1 claimed), 1
+  battle_result stamped and claimed, and 36,159 legacy guest plays carrying no anon_id -
+  matching the number the worker put next to the claim copy. Already-owned rows are
+  unreachable by the claim (NULL-owner filter), the second identical claim returns
+  {plays:0,battles:0}, the claim works from a BATTLE result (turning an anonymous
+  challenger into someone notifiable, which is what 154 unlocked), and a play with NO
+  anon_id still succeeds so nothing is gated on identity.
+  Copy verified legible in the proofs, not merely asserted: "This run counts either way /
+  Sign in and it takes your name, along with the runs you make from this browser from now
+  on. No email needed. / Your score is saved whether you do this or not." No "recover
+  your history" anywhere - it could not be true for the 36,159.
+  Flags recorded: the rate limiter is in-process (per-instance, lost on restart) which is
+  acceptable on an idempotent endpoint but is not durable; a browser that played before
+  this shipped has no cookie and gets no_browser_id until it writes one run; signed-in
+  plays are deliberately not stamped.
+  New MISSION.md = C2 (leaderboard beat-this-run, reusing the ONE centralised open-runs
+  definition, fetch-once to avoid N+1) + C3 (weekly challenge, honest time-shift copy,
+  fairness rules, and a REQUIRED honest statement of how few users it can actually reach
+  today: 167 accounts, stamping only started this week). Nothing pushed.
+
+- L-172 W2b C2 IMPLEMENTED BUT NOT VERIFIED, C3 NOT STARTED (worker, 2026-08-15,
+  checkpoint). C2 built: openRunsForQuiz() added to the SAME module that owns the
+  open-run definition (still exactly one definition, since a second one caused the
+  455-run blind spot), returning the open count plus a username -> battleId map; ONE
+  page-level call for the whole leaderboard (3 bounded reads, constant in rows, no
+  N+1); the row action links to THAT player's actual open run (/battle?b=<id>) and
+  renders NOTHING where no open run exists (no disabled tease, no substitute).
+  DATA PROVEN: 459 open quiz-linked runs, 28 left by a signed-in player, and only 4
+  where that player is also in that quiz's top 10 - battle challengers and quiz
+  top-scorers are near-disjoint, so the action is rare by nature until challengers
+  have names (which PART A only started fixing this week).
+  NOT PROVEN, stated as such: the Hall of Fame block does not appear in the DOM on the
+  tested quizzes ('Hall of Fame' false, 'Top scorers' false, .beat-run 0). QuizHallOfFame
+  always renders its own header even when thin, so the component is not being reached at
+  all - PRE-EXISTING, independent of this change, and worth its own investigation. Ruled
+  out: ISR cache (.next nuked + restart), RLS (getQuizHallOfFame reads fine from the anon
+  key directly), and the data (illit-guess-the-idol has an open run by @staygllit_nix who
+  IS in its top 10). METHOD NOTE: an early test grepped the raw HTTP response for
+  class="beat-run", but /q/[slug] returns an RSC flight payload with row content in
+  referenced chunks, so those greps were meaningless; DOM checks are the real test.
+  HONEST REACH for C3 whenever it ships: 167 accounts total, 94% of battle results and
+  61% of plays anonymous, PART A stamped 5 plays with 1 claimed at audit time - a few
+  dozen people at most, not a site-wide loop. Gates tsc 0 / build 0 / check:routes 0.
+  Covenant grep clean. C2 committed anyway (additive, gated, typechecks) and flagged for
+  revert if the owner prefers nothing unproven in the tree.
