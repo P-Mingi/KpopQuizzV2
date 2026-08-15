@@ -2564,3 +2564,59 @@ L-176 (W2 audited PASS - first 2-player battle ever; fake-users proposal rejecte
   matching fake/synthetic/dummy/mock/seed/faker/placeholder/Math.random; the only
   Math.random in the touched files shuffles real rows. Gates tsc 0 / build 0 /
   check:routes 0. Proofs docs/proofs/w3-identity/.
+
+L-177 (W3 PART B PASS; PART A blocked on a real privacy wall; migration 155 written)
+  Cowork audited the checkpoint. PART B PASS: it fixed a dead end nobody had seen (after
+  accepting a challenge link, "New battle" dumped the player into a RANDOM group because
+  the reveal kept no arena state), and the group/generation/difficulty pickers REFUSE
+  honestly instead of topping up from other groups - "Not enough hard bts questions yet"
+  is a true statement, since only 23 hard quizzes exist site-wide against 110 easy and
+  267 medium. That content gap is now a known limit of the difficulty feature.
+  PART A block verified independently and UPHELD. Two facts, both measured by Cowork:
+  `plays` carries NO browser-scoped identifier at all (columns are id, quiz_id,
+  player_id, score, total_questions, time_taken_seconds, created_at, per_question_times),
+  so the 36,158 existing guest plays are unattributable by construction; and
+  `battle_results.player_hash` = sha256(ip + UTC day), where 199 hashes cover more than
+  one run and the largest covers 15 - claiming by it would hand a new account STRANGERS'
+  runs from the same IP that day while still missing that guest's own runs from the day
+  before. The worker refused to ship it. Correct call: that is a privacy leak dressed as
+  a feature.
+  Cowork corrected the worker on one point: migration 154 IS applied (verified live
+  twice - the CHECK accepts battle_beaten and the prefs function maps it, and verse_watch,
+  to 'social'). Its probe most likely failed on the FK to auth.users with a test uuid and
+  misattributed the cause. Re-probe ordered with a real user_id.
+  Owner ruled: anon_id + honest claim. docs/pending-migrations/155_anon_id_claim.sql
+  written for the owner to apply - additive only, two nullable uuid columns plus two
+  partial indexes, with the privacy contract in the file (client-generated, localStorage,
+  never derived from IP or fingerprint, discardable) and the hard honesty limit stated:
+  the 36,158 existing guest plays can NEVER be claimed and the copy must not pretend
+  otherwise. New MISSION.md = PART C (make the 869 open runs visible: real group counts,
+  leaderboard beat-this-run, honest time-shifted weekly challenge) with PART A gated
+  behind 155 landing, and a security requirement that the claim write verifies the caller
+  actually owns the anon_id it claims. Nothing pushed.
+
+- L-169 W2b PART C1 DONE + MIGRATION 154/155 RECEIPTS (worker, 2026-08-15, checkpoint).
+  FACT CHECK: Cowork was right, migration 154 IS applied. Re-probed with controls using
+  an FK-verified user_id: type=cheer OK, type=battle_beaten OK, type=definitely_not_a_type
+  REJECTED (so the CHECK is genuinely enforcing and genuinely contains the new type).
+  Correction to the mission's diagnosis: the FK theory does not hold, since the exact
+  user_id the first probe used (d54e4b47 @mingii) now inserts both types cleanly; the
+  only explanation fitting both observations is timing (first probe 11:58:30Z returned a
+  check violation, re-probe 12:17:29Z passes). Practical answer unchanged: the
+  notification path is LIVE. Migration 155 is ALSO applied: plays.anon_id and
+  battle_results.anon_id both exist (verified live), so W3 PART A is unblocked; both
+  blockers cleared from BLOCKED.md.
+  C1 SHIPPED (e3a535e): group pages now show the REAL number of unbeaten runs waiting on
+  that group ("75 fans left unbeaten runs on BLACKPINK") with one tap to take one, and
+  /battle?group=<slug> preselects it. countOpenRunsForGroup paginates BOTH reads through
+  fetchAllRows because a JS aggregate stopping at the 1000-row cap would UNDER-count a
+  number shown to users. Proven against an INDEPENDENT recount written separately from
+  the app code: bts 49=49, blackpink 75=75, stray-kids 77=77, and treasure (0 open)
+  renders NO block at all (min-gate). Copy states the time shift ("they do not have to be
+  online"), never implies anyone is waiting. Covenant grep clean: 0 added lines matching
+  fake/synthetic/dummy/mock/placeholder/Math.random/Math.max(/|| 1; the single "rounded"
+  hit is a comment asserting the opposite. Gates tsc 0 / build 0 / check:routes 0.
+  NOT BUILT: C2 (leaderboard beat-this-run), C3 (weekly challenge, now unblocked by 154),
+  PART A (now unblocked by 155). Flagged: C1 costs two paginated reads per group page
+  render, cached by ISR but the most expensive thing on that page; denormalise if group
+  pages get hot.
