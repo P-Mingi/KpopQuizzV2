@@ -2937,3 +2937,58 @@ L-183 (C3 PASS, arc complete; owner declined the push; W3b = claim conversion)
   component takes a `surface` enum, which PART 1 introduced for that purpose.
   Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. Standing recommendation,
   unchanged for four reports: none of this measures anything until a deploy.
+
+L-184 (W3b PART 1 PASS - the funnel is countable, and a silent denominator bug was caught)
+  Cowork re-derived the funnel definitions independently against the live DB and they
+  match the script's: stamped = anon_id NOT NULL, claimed = anon_id NOT NULL AND owner
+  NOT NULL, unstampable = anon_id NULL AND owner NULL. At audit time 17 plays stamped /
+  13 claimed / 36,170 unstampable (the worker's report said 5 / 1 / 36,169 because it kept
+  testing afterwards; one claim moved 12 rows at once, which is consistent).
+  WORKER CATCH worth recording: the `shown` event fired TWICE per mount because React
+  StrictMode double-invokes effects in dev. The funnel's denominator would have been
+  quietly wrong from the first day and no one would have known why conversion looked
+  halved. Fixed with a ref guard, with before/after captures. It also kept `moved` on the
+  completion event, which separates "claimed and moved 12 runs" from "claimed and moved
+  nothing" - outcomes that would otherwise be indistinguishable.
+  Refusal codes are fixed enums (no_browser_id, sign_in_required, anon_id_mismatch,
+  nothing_to_claim, error) rather than free text, so they can be counted.
+  The worker stated plainly that its numbers are near zero and SHOULD be, since nothing is
+  deployed: the instrumentation proves the pipe works, not that anything converts. That is
+  the honest framing this mission asked for.
+  MISSION.md re-scoped to PARTS 2 + 3 only: the unbuilt conversion moments from
+  PLAY-GUEST-CONVERSION (streak backup at 3/7/14 only, calm true line, never a countdown;
+  the stats-view line) and widening the claim to game result screens ONLY where a run was
+  actually earned - no sitewide banner, no interstitial, no arrival modal. Nothing pushed;
+  18+ commits still local by the owner's choice.
+
+- L-176 W3b PART 2 SHIPPED, PART 3 NOT SHIPPABLE (worker, 2026-08-15). PART 1 untouched
+  as instructed.
+  PART 2 moment 2 STREAK BACKUP (e04d7aa): the doctrine's premise was not true yet -
+  daily-played.ts recorded "played today" with NO count, so guests had no streak to back
+  up. lib/guest-streak.ts adds the count as a true statement about THIS BROWSER only:
+  not synced, not server-backed, ends when site data is cleared, which is what makes the
+  line honest instead of a scare. The line shows at streak 3, 7, 14 ONLY, once per
+  milestone ever, dismissible, blocks nothing. PROVEN against the real exported logic
+  with a fake clock: day 3/7/14 YES, days 4-6, 8-13, 15 no; streak 3 asked twice ->
+  shown then hidden; twice on day 1 -> streak 1 (no double count); after a 7-day gap ->
+  streak 1 (resets honestly, no fake continuity). Copy: "3 days in a row. This streak
+  lives in this browser only." + Save it to an account / Not now. No countdown, no
+  warning colour, and no claim that signing in restores the past.
+  PART 2 moment 3 STATS VIEW: NOT BUILT - no surface exists. /stats is the public
+  site-wide data page, not a guest's personal panel; building the surface was out of
+  scope and nothing was faked onto it.
+  PART 3 NOT SHIPPED, per the mission's OWN rule ("if a surface has nothing to claim it
+  shows nothing"): claim-runs can only move rows carrying anon_id, which 155 added to
+  plays + battle_results ONLY. blindtest / sort-it / match-up persist NO result row at
+  all; name-all + this-or-that write game_plays (id, game_id, player_id, choices,
+  created_at) with NO anon_id. The block would move ZERO rows on all four, so it shows
+  nothing. BLOCKED.md w3b-part3 has the options; recommendation is an owner-run migration
+  adding anon_id to game_plays (+ name_all_member_results), after which the same
+  component drops on unchanged (its `surface` enum already defines 'game-result'). The
+  rejected option is named too: pointing the block at earlier quiz runs, which a player
+  who just finished a GAME would reasonably misread as claiming that game.
+  FLAGGED: the streak line currently mounts only on the quiz result (where
+  completeDaily('quiz') fires); the blindtest daily has its own path and is a small
+  follow-up. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. Standing
+  recommendation for the fifth report running: none of this measures anything until a
+  deploy.

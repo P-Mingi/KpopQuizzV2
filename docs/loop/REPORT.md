@@ -1,99 +1,96 @@
-# REPORT - W3b PART 1: the claim funnel is measurable. PARTS 2 and 3 not built.
+# REPORT - W3b PART 2 shipped. PART 3 is not shippable, and that is the answer.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
 
-Commit: `ce03015`. Proofs: `docs/proofs/w3b-claim/`.
-
-**PART 1 only.** The mission gates everything behind measurement, so that is what
-shipped. PARTS 2 (streak backup, stats line) and 3 (game result surfaces) are not built.
+Commit: `e04d7aa`. Proofs: `docs/proofs/w3b-claim/`.
 
 ---
 
-## The analytics half: what the database cannot see
+## PART 2 moment 2 - STREAK BACKUP (shipped)
 
-`claim_funnel` fires `shown -> started -> completed | refused`, with the surface and,
-on completion, the real number of rows moved.
+**The doctrine's premise was not true yet.** It assumes guests already have real
+localStorage streaks; `daily-played.ts` only recorded "played today", with no count.
+There was nothing to back up, so the count had to exist first.
 
-Captured **at the source**, by wrapping `window.va` before any app script runs, so
-these are the actual payloads rather than console text:
+`lib/guest-streak.ts` adds it as a true statement about this browser and nothing more:
+not synced, not server-backed, and it ends when site data is cleared. That is precisely
+what makes the line honest rather than a scare.
 
-```
-{"step":"shown","surface":"quiz-result"}
-{"step":"started","surface":"quiz-result"}
-{"step":"completed","surface":"quiz-result","moved":12}
-```
-
-`moved` matters: it separates "claimed and moved 12 runs" from "claimed and moved
-nothing", which are completely different outcomes and would otherwise look identical.
-
-Refusal codes are fixed enums: `no_browser_id`, `sign_in_required`, `anon_id_mismatch`,
-`nothing_to_claim`, `error`. Three steps were exercised live; the refusals are branches
-on the same call site, not a separate mechanism.
-
-### A bug found while proving it
-
-`shown` fired **twice per mount**. React StrictMode double-invokes effects in dev, so
-every impression was double counted and the funnel's denominator would have been quietly
-wrong from day one. A ref guard now fires it once per mount. The capture before and
-after is in `funnel-events.txt`.
-
-## The database half: what actually moved
-
-`apps/quiz/scripts/claim-funnel.mjs`, read-only. Definitions stated in the script so you
-can re-derive them:
-
-- **stamped** = `anon_id IS NOT NULL`
-- **claimed** = `anon_id IS NOT NULL AND owner IS NOT NULL`
-- **unclaimed** = `anon_id IS NOT NULL AND owner IS NULL`
-- **unstampable** = `anon_id IS NULL AND owner IS NULL` (pre-155)
+### The rule, proven against the real exported logic and a fake clock
 
 ```
-plays          : 59,020 total |  5 stamped | 1 claimed | 36,169 UNSTAMPABLE
-battle_results :  1,016 total |  1 stamped | 1 claimed |    956 UNSTAMPABLE
+day  3 -> backup shown: YES        day  4, 5, 6   -> no
+day  7 -> backup shown: YES        day  8 .. 13   -> no
+day 14 -> backup shown: YES        day 15         -> no
+
+streak 3 asked twice    -> shown, then hidden
+played twice on day 1   -> streak 1   (same day never double counts)
+after a 7 day gap       -> streak 1   (resets honestly, no fake continuity)
 ```
 
-**These numbers are near zero, and they should be.** Nothing is deployed. Five plays and
-one battle carry a browser id because I created them while testing this week. The
-instrumentation proves the pipe works; it proves nothing about conversion, and it cannot
-until a deploy puts it in front of real players.
+### The copy
 
-`UNSTAMPABLE` is reported as its own line on purpose: 36,169 plays and 956 battle
-results can never be claimed by anyone, by any means. They are not a backlog to convert,
-and listing them separately keeps them from ever being read as one.
+> **3 days in a row. This streak lives in this browser only.**
+> [ Save it to an account ]   [ Not now ]
 
-## Not built
+No countdown, no warning colour, no nagging, dismissible, blocks nothing. And it does
+not claim that signing in restores anything from the past, because it would not.
 
-- **PART 2**: streak backup at 3/7/14, and the stats-view line.
-- **PART 3**: the claim on game result screens (blindtest, name-all, sort-it, match-up).
+## PART 2 moment 3 - STATS VIEW: no surface exists
 
-Both are straightforward now that the component takes a `surface` enum, which this part
-introduced for exactly that reason.
+There is no guest local stats panel to add a line to. `/stats` is the public site-wide
+data page (fandom counts, hardest quizzes), not a personal view. Building the surface
+itself was outside this mission's scope, so I did not invent one to hang a line on.
 
-## Deviations and flags (loud)
+## PART 3 - NOT SHIPPED, deliberately
 
-1. **One new analytics event name.** `analytics.ts` says six names are fixed. The DB can
-   see COMPLETED but never SHOWN or REFUSED, and no existing event means either, so I
-   added one name carrying a `step` rather than four names. That is still a bend of a
-   stated rule, it is flagged here rather than buried, and reverting is trivial.
-2. **PARTS 2 and 3 not reached.**
-3. The `moved: 12` in the proof is real: those are rows my own test browser had stamped
-   across this week's runs, claimed in one go.
+Your own condition was "if they record a run that an account could own", and "if a
+surface has nothing to claim, it shows nothing". Checked live:
+
+```
+plays           anon_id PRESENT   -> claimable
+battle_results  anon_id PRESENT   -> claimable
+
+blindtest       no result table exists at all
+sort-it         no result table
+match-up        no result table
+name-all        writes game_plays  -> NO anon_id column
+this-or-that    writes game_plays  -> NO anon_id column
+```
+
+On every one of those screens the block would move **zero rows**. Showing it would be a
+promise the code cannot keep, which is the exact failure the min-gate rule exists to
+prevent. So it shows nothing, which is your rule applied rather than ignored.
+
+**The unblocking step is yours**: a migration adding `anon_id uuid` to `game_plays` (and
+`name_all_member_results` if those runs should be ownable). After that the same
+component drops onto those screens unchanged, since it already takes a `surface` enum
+with `'game-result'` defined. Options and trade-offs in BLOCKED.md `w3b-part3`,
+including the one I rejected: pointing the block at earlier quiz runs, which a player
+who just finished a game would reasonably misread as claiming that game.
 
 ## Covenant
 
 Zero added lines matching fake / synthetic / dummy / mock / placeholder /
-`Math.random`. The funnel script only counts rows; the events carry enum steps and a
-real row count.
+`Math.random`. The streak is counted from real completions, and a gap resets it.
+
+## Deviations and flags (loud)
+
+1. **The streak backup only mounts on the quiz result** today, because that is where
+   `completeDaily('quiz')` fires. The blindtest daily has its own path; wiring it there
+   is a small follow-up, not done here.
+2. **Moment 3 has no surface**, so it is not built rather than faked onto `/stats`.
+3. **PART 3 is blocked on a migration**, not on effort.
+4. I did not re-touch PART 1, as instructed.
 
 ## Next
 
-PARTS 2 and 3, which are now cheap. But the honest recommendation is unchanged from the
-last three reports: **none of this measures anything until a deploy.** The funnel exists
-to be read after one.
+Your call on the `game_plays.anon_id` migration. And the standing recommendation,
+unchanged: **none of this measures anything until a deploy.**
 
 ---
 
-STOP (checkpoint). **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed.** report pret.
