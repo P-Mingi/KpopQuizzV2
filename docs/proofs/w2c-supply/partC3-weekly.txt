@@ -1,0 +1,38 @@
+=== C3: weekly challenge, DRY RUN (writes nothing) ===
+# 2026-08-15T13:57:31Z
+eligible signed-in players : 15
+would deliver              : 5 (dry run, nothing written)
+skipped: already had one   : 0
+skipped: no open run for me : 0
+
+--- the copy that would be sent (time shift in bold) ---
+  A run worth beating | @fan_48a6 left 5/7 in August. Beat it?
+  A run worth beating | @fan_d4c8 left 2/7 on BLACKPINK ultimate fan challenge in August. Beat it?
+  A run worth beating | @fan_aaa9 left 6/7 on How well do you know IVE? in August. Beat it?
+  A run worth beating | @fan_5223 left 5/7 in August. Beat it?
+  A run worth beating | @fan_aaa9 left 7/7 on SEVENTEEN members mega quiz - all 13! in August. Beat it?
+
+=== REAL RUN 1 ===
+delivered: 15 | eligible: 15 | skipped this week: 0 | no run: 0
+
+=== REAL RUN 2, same week (rule 4 + idempotency) ===
+delivered: 0 | skipped because already had one this week: 15
+
+=== FAIRNESS, checked against the rows actually delivered (15) ===
+  rule 1 - own run delivered            : 0 (0 = holds)
+  rule 2 - already-played run delivered : 0 (0 = holds)
+  every delivered run is still OPEN     : yes
+  rule 3 - same challenger twice in a row: 0 (0 = holds; users with 1 delivery so far cannot violate it)
+  rule 4 - one per user per week        : run 2 delivered 0, skipped 15
+
+=== VERIFY 5: no fabrication in the C3 diff ===
+  +lines matching faker        : 0
+  +lines matching fake         : 0
+  +lines matching synthetic    : 0
+  +lines matching dummy        : 0
+  +lines matching mock         : 0
+  +lines matching placeholder  : 0
+  +lines matching Math.random  : 0
+
+Every candidate is a battles row a human created and finished. An empty result
+means nobody is messaged, never a generated opponent.
