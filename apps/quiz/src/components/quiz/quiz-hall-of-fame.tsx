@@ -24,7 +24,7 @@ const card: React.CSSProperties = {
   boxShadow: 'var(--shadow-card)', padding: 16, marginTop: 24, maxWidth: 672,
 };
 
-function Row({ entry, rank, divider, isClues }: { entry: HallOfFameEntry; rank: number; divider: boolean; isClues: boolean }): React.ReactElement {
+function Row({ entry, rank, divider, isClues, openRunBattleId }: { entry: HallOfFameEntry; rank: number; divider: boolean; isClues: boolean; openRunBattleId: string | null }): React.ReactElement {
   const time = fmtTime(entry.timeSeconds);
   // guess_from_clues scores up to 3 points/question, so the denominator is total * 3.
   const displayTotal = entry.total * (isClues ? 3 : 1);
@@ -41,6 +41,18 @@ function Row({ entry, rank, divider, isClues }: { entry: HallOfFameEntry; rank: 
           </div>
         )}
       </div>
+      {/* W2b C2 - a quiet "beat this run" ONLY where this player has left a real
+          unbeaten run on this quiz. Where none exists there is no action at all: no
+          disabled tease, no substitute, no redirect to a random battle. */}
+      {openRunBattleId && (
+        <a
+          className="beat-run"
+          href={`/battle?b=${openRunBattleId}&utm_source=hall&utm_medium=internal&utm_campaign=beat_this_run`}
+          aria-label="Beat this run"
+        >
+          Beat this run
+        </a>
+      )}
       <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 48 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--txt1)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.15 }}>{entry.score}/{displayTotal}</div>
         {time && <div style={{ fontSize: 11, color: 'var(--txt3)', fontVariantNumeric: 'tabular-nums' }}>{time}</div>}
@@ -49,7 +61,9 @@ function Row({ entry, rank, divider, isClues }: { entry: HallOfFameEntry; rank: 
   );
 }
 
-export function QuizHallOfFame({ quizId, entries, isClues = false }: { quizId: string; entries: HallOfFameEntry[]; isClues?: boolean }): React.ReactElement {
+export function QuizHallOfFame({ quizId, entries, isClues = false, openRuns = [] }: { quizId: string; entries: HallOfFameEntry[]; isClues?: boolean; openRuns?: Array<[string, string]> }): React.ReactElement {
+  // Matched in memory from ONE page-level query, never a per-row lookup.
+  const openRunners = new Map(openRuns);
   const thin = entries.length < MIN_ENTRIES;
   const top = entries.slice(0, TOP_VISIBLE);
   const rest = entries.slice(TOP_VISIBLE);
@@ -67,7 +81,7 @@ export function QuizHallOfFame({ quizId, entries, isClues = false }: { quizId: s
       ) : (
         <>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {top.map((e, i) => <Row key={i} entry={e} rank={i + 1} divider={i > 0} isClues={isClues} />)}
+            {top.map((e, i) => <Row key={i} entry={e} rank={i + 1} divider={i > 0} isClues={isClues} openRunBattleId={e.person ? openRunners.get(e.person.username) ?? null : null} />)}
           </div>
 
           {rest.length > 0 && (
@@ -80,7 +94,7 @@ export function QuizHallOfFame({ quizId, entries, isClues = false }: { quizId: s
                 Show all {entries.length}
               </summary>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {rest.map((e, i) => <Row key={i} entry={e} rank={i + 1 + TOP_VISIBLE} divider={i > 0} isClues={isClues} />)}
+                {rest.map((e, i) => <Row key={i} entry={e} rank={i + 1 + TOP_VISIBLE} divider={i > 0} isClues={isClues} openRunBattleId={e.person ? openRunners.get(e.person.username) ?? null : null} />)}
               </div>
             </details>
           )}

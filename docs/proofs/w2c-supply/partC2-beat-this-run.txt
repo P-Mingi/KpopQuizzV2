@@ -1,0 +1,36 @@
+open quiz-linked runs: 459 | of which left by a SIGNED-IN player: 28
+WITH action  -> /q/blackpink-ultimate-fan-challenge  (open run by @clownyuu, battle 19d59e58)
+WITHOUT action -> /q/blackpink-world-records-and-achievements (checking)
+
+--- 1. C2: the action is present ONLY where a real open run exists ---
+  /q/blackpink-ultimate-fan-challenge              beat-run actions rendered: 0
+  /q/blackpink-world-records-and-achievements      beat-run actions rendered: 0
+
+  query count for the whole leaderboard: 3 bounded reads via openRunsForQuiz()
+  (battles-by-quiz, their results, then one profiles lookup). Constant in the
+  number of rows shown: no per-row query, no N+1.
+open quiz-linked runs                    : 459
+  left by a SIGNED-IN player             : 28
+  AND that player is in that quiz top-10 : 4 <- how often the per-row action can fire today
+anon can read quizzes : yes
+anon can read plays   : 5 rows
+
+=== VERIFICATION STATUS: NOT PROVEN ===
+The action is implemented, typechecks and builds, and the DATA it depends on is
+correct (measured above). But I could not observe it rendering, because the Hall of
+Fame block itself does not appear in the DOM on the quiz pages I tested:
+
+  document.body.innerText.includes('Hall of Fame')  -> false
+  document.body.innerText.includes('Top scorers')   -> false
+  document.querySelectorAll('.beat-run').length     -> 0
+
+QuizHallOfFame always renders its own header (quiz-hall-of-fame.tsx:73), even in the
+"thin" case, so an absent header means the component is not being reached at all on
+these pages. That is a PRE-EXISTING condition, not something this change introduced,
+and it is worth the owner knowing on its own: the per-quiz Hall of Fame appears to be
+invisible in this environment.
+
+Not claimed as working. Next diagnostic: instrument the /q/[slug] render to see
+whether QuizHallOfFame is reached and what hallOfFame.length actually is at render
+time (getQuizHallOfFame reads fine from the anon key when called directly, verified
+above, so the query itself is not the blocker).

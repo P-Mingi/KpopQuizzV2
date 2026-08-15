@@ -6739,3 +6739,13 @@ main:has(.verse-page) { max-width: none; }
 }
 .claim-run-cta:disabled { opacity: 0.55; cursor: not-allowed; }
 .claim-run-note { margin: 8px 0 0; font-size: 12px; color: var(--txt3); }
+
+/* W2b C2 - "beat this run" on a leaderboard row. Quiet by design, and rendered
+   ONLY where that player has left a real unbeaten run on this quiz. */
+.beat-run {
+  flex-shrink: 0; padding: 5px 11px; border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--wrong) 45%, transparent);
+  color: var(--wrong); background: transparent;
+  font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap;
+}
+.beat-run:hover { background: color-mix(in srgb, var(--wrong) 10%, transparent); }

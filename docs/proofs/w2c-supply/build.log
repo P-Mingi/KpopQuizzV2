@@ -6,7 +6,7 @@
 > quiz@1.0.0 check:routes
 > tsx scripts/check-route-allowlist.mts
 
-Route allowlist guard passed: 357 page routes reachable.
+Route allowlist guard passed: 358 page routes reachable.
   - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
   - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
   - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
@@ -20,38 +20,16 @@ Verse token gate passed: no raw hex colors in Verse surfaces.
 
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 10.6s
+✓ Compiled successfully in 11.2s
   Running TypeScript ...
-  Finished TypeScript in 20.1s ...
+  Finished TypeScript in 15.5s ...
   Collecting page data using 7 workers ...
   Generating static pages using 7 workers (0/623) ...
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get passing count: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3631)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__07fxxbt._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
   Generating static pages using 7 workers (155/623) 
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get fastest perfect: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3481)
-    at async c (.next/server/chunks/ssr/apps_quiz_src_13bh1vd._.js:1:1116)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
-verse-home-strip failed: Error: getVerseDirectory: query[1] failed: {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: read ECONNRESET (ECONNRESET)\nError: read ECONNRESET\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:216:20)","hint":"","code":""}
-    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__046wi9b._.js:15:21180)
-    at Array.forEach (<anonymous>)
-    at d (.next/server/chunks/ssr/[root-of-the-server]__046wi9b._.js:15:21139)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__0~2f--e._.js:1:1279)
-    at async z (.next/server/chunks/ssr/apps_quiz_src_0f2b7ef._.js:1:4618)
   Generating static pages using 7 workers (311/623) 
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get total plays count: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3705)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__07fxxbt._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
   Generating static pages using 7 workers (467/623) 
 Failed to set Next.js data cache for https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/pinterest-question-pins/feed.xml, items over 2MB can not be cached (4416108 bytes)
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get perfect count: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3557)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__07fxxbt._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
-✓ Generating static pages using 7 workers (623/623) in 15.7s
+✓ Generating static pages using 7 workers (623/623) in 14.8s
   Finalizing page optimization ...
 
 Route (app)                                             Revalidate  Expire
@@ -151,6 +129,7 @@ Route (app)                                             Revalidate  Expire
 ├ ƒ /api/blind-test/modes
 ├ ƒ /api/blind-test/play
 ├ ƒ /api/cheer
+├ ƒ /api/claim-runs
 ├ ƒ /api/community/fans
 ├ ƒ /api/cron/duel-reconcile
 ├ ƒ /api/cron/mv-snapshot

@@ -1,0 +1,11 @@
+=== VERIFY 5: no fabrication in the C2 diff ===
+
+  added lines matching faker          : 0
+  added lines matching fake           : 0
+  added lines matching synthetic      : 0
+  added lines matching dummy          : 0
+  added lines matching mock           : 0
+  added lines matching placeholder    : 0
+  added lines matching Math.random    : 0
+
+The action renders only when openRunByUsername has a real battle id for that row.

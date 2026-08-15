@@ -12,6 +12,7 @@ import { getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
 import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
+import { openRunsForQuiz } from '@/lib/db/queries/open-runs';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
@@ -289,6 +290,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   // M1.19 - per-quiz hall of fame (top scorers), ISR-baked + crawlable.
   const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
+  // W2b C2 - ONE page-level query for the whole leaderboard (3 bounded reads,
+  // constant in the number of rows). A per-row lookup would be N+1.
+  const openRuns = await safeFetch(openRunsForQuiz(quiz.id), { count: 0, openRunByUsername: new Map<string, string>() }, '[q/[slug]] openRunsForQuiz');
 
   // SEO (audit v2): crawlable reactions + comments counts (the live widgets are
   // a client island shown post-play, so the COUNTS render into the server HTML).
@@ -402,7 +406,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       />
 
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
-      <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} />
+      <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} openRuns={[...openRuns.openRunByUsername]} />
 
       {/* SEO-4 (O3) - inline "Did you know?" card: ONE real fact, distinct per quiz.
           Shows a taste on the page itself; the trivia-entry below links to the full
