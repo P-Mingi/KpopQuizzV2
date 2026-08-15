@@ -2669,3 +2669,60 @@ L-178 (C1 approved on honesty; Cowork found the definition hides 52% of the pool
   applied so PART A is unblocked; it carries a security requirement - a foreign anon_id
   must be REFUSED - and deserves its own run). Flagged: the group page now costs a quiz-id
   lookup plus two paginated battle reads per render; denormalise onto groups if hot.
+
+L-179 (C1-FIX verified PASS; worker found a second bug Cowork missed; PART A next)
+  Cowork recounted the fixed numbers with its own definition: bts 106, blackpink 145,
+  stray-kids 169, seventeen 64, twice 23 - exact match to what the app now renders. The
+  455 previously hidden runs are back AND reachable: the draw now returns group_slug=NULL
+  quiz-linked runs it could never serve before, and the bts candidate pool went 236 ->
+  282. One definition now lives in lib/db/queries/open-runs.ts and the draw imports it, so
+  count and draw cannot drift again.
+  WORKER FINDING Cowork missed: the draw was fully DETERMINISTIC (it took open[0] after
+  ranking), so every caller at the same score got the identical run while hundreds sat
+  idle, and a player who abandoned that run would be handed it forever, since the "never
+  twice" rule only excludes runs actually played. Present since W2 PART B. Fixed by
+  uniform sampling within the top-ranked band - real rows, spread; the only Math.random in
+  the diff and it is justified.
+  METHOD NOTE worth keeping, in the worker's words: "proven against an independent
+  recount only proves the arithmetic, not the premise, when I write both sides from the
+  same wrong assumption." This is exactly why the two-party audit works - the worker
+  measures, Cowork recounts from its OWN definition. Neither party alone would have found
+  the 455.
+  Known perf item recorded: the group page now runs a quiz-id lookup plus two paginated
+  battle reads per render (ISR-cached). Denormalising the open count onto `groups` is the
+  fix if those pages get hot.
+  New MISSION.md = W3 PART A alone (identity), on the worker's own recommendation and
+  Cowork's agreement: it carries a security requirement and deserves its own run. A1
+  localStorage UUID sent with every play and result, A2 claim as a SECURITY feature (must
+  refuse a foreign anon_id, only NULL-owner rows, idempotent, rate-limited, player_hash
+  never used to claim), A3 honest copy (the 36,158 pre-155 guest plays can never be
+  claimed and the wording must not pretend otherwise), A4 the claim-this-run moment from
+  PLAY-GUEST-CONVERSION. Required proof order puts the REFUSAL of a foreign anon_id ahead
+  of the happy path. C2 and C3 follow. Nothing pushed.
+
+- L-171 W3 PART A DONE (worker, 2026-08-15). Identity shipped: a guest can put their
+  name on what they earned, and the claim is safe by construction.
+  A1 browser id (lib/anon-id.ts): a random UUID per browser in localStorage, sent with
+  every play and battle result. NOT a fingerprint, nothing about the device feeds it;
+  clearing site data ends it by design. No id (private mode) = row written with anon_id
+  NULL and the play still succeeds. record_play() returns play_id so a guest play is
+  stamped right after the RPC: no DDL, no change to the function.
+  A2 THE SECURITY MODEL: a body field is a claim, not a proof, so the server mirrors
+  every browser id seen ON A WRITE into an httpOnly nq_anon cookie JS cannot forge, and
+  POST /api/claim-runs trusts ONLY that cookie, REFUSING outright when the body names a
+  different id (a silent fallback would let the attack look successful). PROVEN LIVE:
+  foreign anon_id -> 403 anon_id_mismatch and 0 rows created/moved; own anon_id -> 200
+  {plays:1,battles:1}; repeat -> 200 {plays:0,battles:0} (idempotent). Only NULL-owner
+  rows are touched (.is(player_id,null)/.is(user_id,null)) so an owned run can never be
+  re-owned. Rate limited per user (in-process Map, flagged). player_hash appears 0 times
+  in the added code and is never used to claim (199 hashes cover >1 run, largest 15).
+  A3 HONEST COPY, screenshotted at 390 and desktop so it can be read not asserted: "This
+  run counts either way / Sign in and it takes your name, along with the runs you make
+  from this browser from now on / Your score is saved whether you do this or not." NO
+  "recover your history": 36,159 guest plays carry no anon_id and can NEVER be claimed,
+  and that number sits in the proof next to the copy.
+  A4 mounted on the quiz result AND the battle reveal (after the score, never before),
+  so a challenger becomes someone who can be told their run was beaten - the return hook
+  migration 154 unlocked. Gates tsc 0 / build 0 / check:routes 0. Proofs
+  docs/proofs/w3-partA/ (security proof first, as the mission ordered). NOT BUILT: C2,
+  C3 (now genuinely deliverable: 154 is live and challengers can have names).

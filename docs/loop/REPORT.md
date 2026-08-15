@@ -1,4 +1,4 @@
-# REPORT - W2b C1-FIX: the hidden half of the pool, and a second bug behind it
+# REPORT - W3 PART A: identity, and the refusal that makes it safe
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
@@ -6,120 +6,130 @@ No DDL run. Nothing pushed. Verse untouched.
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
 `check:metadata-dupes` not re-run: no page and no metadata changed.
 
-Commit: `116d5b7`. Proofs: `docs/proofs/w2c-supply/`.
-
-**Checkpoint report.** C1-FIX is done and proven. C2, C3 and PART A are not built.
+Commit: `c62c00f`. Proofs: `docs/proofs/w3-partA/`.
 
 ---
 
-## C1-FIX - confirmed to the row, and it was worse than a wrong number
+## 1. THE SECURITY PROOF (first, as ordered)
 
-Your finding is exact. I recounted independently before touching anything
-(`partC1fix-before.txt`):
+A body field is a claim, not a proof. If the client could simply name an `anon_id`,
+anyone could type a stranger's and take their runs.
 
-```
-group          shown today    real open runs    hidden
-bts                     49               106        57
-blackpink               75               145        70
-stray-kids              77               169        92
-seventeen               32                64        32
-twice                   22                23         1
-SITE TOTAL             415               870       455   (52%)
-
-open runs with group_slug NULL but a quiz resolving to a group : 455
-open runs attributable to no group at all                      : 0
-```
-
-Every hidden run resolves to a group through its quiz. Nothing was genuinely
-unattributable, so 52% of the pool was invisible purely because of my filter.
-
-**And you were right that it was worse than a count.** `/api/battle/random` applied the
-same `.eq('group_slug', ...)`, so those 455 runs could never be served. They are exactly
-the quiz-anchored battles the W2 result-screen challenge creates: we shipped the front
-door in W2 and then hid what it produces.
-
-### The fix: one definition, in one place
-
-`lib/db/queries/open-runs.ts` now owns the definition and exports it
-(`fetchFinishedGroupBattles`, `playersByBattle`, `isOpenRun`). The draw imports the same
-functions. The count and the draw can no longer drift apart, because there is only one
-of each. A battle belongs to a group if `group_slug` matches OR its `quiz_id` resolves
-through `quizzes.group_id -> groups.slug`; results are deduped by battle id so a battle
-carrying both links counts once. Every read paginates, the count stays exact (no cap, no
-rounding, no floor), and the min-gate still renders nothing at zero.
-
-### Proof
-
-Rendered on the page vs the independent recount (`partC1fix-after.txt`):
+So the server mirrors every browser id it sees **on a write** into an httpOnly
+`nq_anon` cookie that JS cannot read or forge. The claim endpoint trusts only that
+cookie, and refuses outright when the body names something else rather than quietly
+falling back to the cookie (a silent fallback would let the attack "succeed" from the
+attacker's point of view, which is worse than a refusal).
 
 ```
-group          before    after    independent recount
-bts                49      106                    106
-blackpink          75      145                    145
-stray-kids         77      169                    169
-seventeen          32       64                     64
-twice              22       23                     23
+POST /api/claim-runs  {"anonId":"096e0ac1-...")   <- an id this browser never proved
+  -> 403 {"error":"anon_id_mismatch",
+          "detail":"The browser id supplied does not match this browser."}
+
+POST /api/claim-runs  {"anonId":"a660fc15-..."}   <- the id this browser proved
+  -> 200 {"claimed":{"plays":1,"battles":1}}
 ```
 
-And the runs are now genuinely reachable, not just counted. Ten draws from distinct
-callers on `?groupSlug=bts` return a MIX, including `group_slug=NULL` quiz-linked runs
-that the old draw could never serve:
+The refused call created and moved nothing: rows carrying the foreign id remain **0**.
+
+## 2. Rows before and after: only this browser's runs moved
 
 ```
-drew 108ab89e | group_slug=null | quiz=BTS solo era quiz ...
-drew 46de14f6 | group_slug=null | quiz=BTS solo era quiz ...
-drew 815aa5fc | group_slug=bts  | quiz=(none)
-drew bb3c1d39 | group_slug=null | quiz=Ultimate BTS era quiz ...
-drew cf265296 | group_slug=bts  | quiz=(none)
+BEFORE   plays          with anon_id A: 1   owned 0   unowned 1
+         battle_results with anon_id A: 1   owned 0   unowned 1
+
+AFTER    plays          with anon_id A: 1   owned 1 -> 67358f12-...
+         battle_results with anon_id A: 1   owned 1 -> 67358f12-...
+         rows carrying the FOREIGN id : 0
 ```
 
-The bts candidate pool went from 236 to 282 in the draw itself.
+## 3. Already-owned rows are untouchable
+
+The claim filters `.is('player_id', null)` / `.is('user_id', null)`, so a run that
+already belongs to somebody can never be re-owned. Counted live: 1 play carries an
+anon_id and already has an owner, and it is outside the claim's reach by construction.
+
+## 4. Idempotency
+
+```
+second identical claim -> 200 {"claimed":{"plays":0,"battles":0}}
+```
+
+Nothing duplicated, nothing stolen: the second pass finds no NULL-owner rows left.
+
+## 5. It works from a battle, not only a quiz
+
+The same browser recorded a battle result (battle `47ce6d49`), and the claim moved
+both the play and the battle row. That is the point of doing it from a battle: it turns
+an anonymous challenger into someone who can be told their run was beaten, which is
+what migration 154 unlocked.
+
+## 6. The copy, legible rather than asserted
+
+`partA-claim-mobile-390.png` and `partA-claim-desktop.png`:
+
+> **This run counts either way.**
+> Sign in and it takes your name, along with the runs you make from this browser from
+> now on. No email needed.
+> [ Claim your spot ]
+> Your score is saved whether you do this or not.
+
+No "recover your history", no "get your past scores back". It cannot say those things,
+because **36,159 guest plays carry no anon_id and can never be claimed**. That number is
+in the proof file next to the copy.
+
+## 7. Nothing is gated on identity
+
+```
+play WITH anon_id    -> 200 play_id 26dd47f4...
+play with NO anon_id -> 200 play_id bace59ab...
+```
+
+Private mode, storage blocked, or an older client: the run is written with `anon_id`
+NULL exactly as before, and the claim block simply does not render.
+
+## 8. Covenant
+
+Zero added lines matching fake / synthetic / dummy / mock / placeholder /
+`Math.random`. `player_hash` appears zero times in the added code: it is for battle
+pairing only, and using it to claim would hand over strangers' runs (199 hashes cover
+more than one run, the largest covers 15).
 
 ---
 
-## A SECOND BUG, found while proving the first
+## How it is wired
 
-The draw was **fully deterministic**. Ranking is group, then closest score, then most
-recent, and it took `open[0]`. So:
-
-- every caller with the same score got the **identical** run, while hundreds sat idle;
-- a player who was served a run and did not finish it would be handed the same one
-  forever, because C4's "never twice" only excludes runs they actually *played*.
-
-The first six draws in my proof returned the same battle six times, which is what
-surfaced it. The draw now samples uniformly from the top-ranked band. That is sampling
-**real rows**, spread across them; it invents nothing. It is also the single added
-`Math.random` in the diff, quoted in full in `partC1fix-no-fabrication.txt`.
-
----
-
-## Not built in this run
-
-- **C2 leaderboard "beat this run"**: needs a per-row check for a real open run, with no
-  action rendered where none exists.
-- **C3 weekly challenge**: targeting, signed-in delivery, rate limit, time-shift copy.
-- **PART A**: migration 155 is applied and verified, so it is unblocked. It is the
-  largest remaining piece and carries a security requirement (a client passing a foreign
-  `anon_id` must be refused), which deserves its own run rather than a rushed tail.
+- `lib/anon-id.ts` (client): random UUID per browser in localStorage. Not derived from
+  IP, user agent, or anything about the device.
+- `lib/anon-claim.ts` (server): the `nq_anon` httpOnly cookie, plus UUID validation.
+- Write paths stamping `anon_id` and setting the cookie: `/api/quiz/[id]/play` (after
+  `record_play`, which returns `play_id`, so no DDL and no change to the RPC),
+  `/api/battle/[id]/result`, `/api/battle/challenge`.
+- `/api/claim-runs`: service-role write, cookie-only trust, NULL-owner filter, rate
+  limited per user.
+- `components/quiz/claim-run.tsx` mounted on the quiz result and the battle reveal.
 
 ## Deviations and flags (loud)
 
-1. This is my own bug, found by your audit, on code I reported as proven last run. The
-   count matched its own definition exactly; the definition was wrong. Worth noting for
-   the method: "proven against an independent recount" only proves the arithmetic, not
-   the premise, when I write both sides from the same wrong assumption.
-2. The deterministic-draw bug existed since W2 PART B and was not in your findings. It
-   is fixed here.
-3. C1's cost grew: the group page now runs a quiz-id lookup plus two paginated battle
-   reads per render. Cached by ISR, but this is now clearly the most expensive thing on
-   the page. Denormalising the open count onto `groups` is the obvious next step if
-   these pages get hot.
-4. C2, C3 and PART A not reached.
+1. **Guest plays are stamped only when the player is signed out.** A signed-in play
+   already has an owner and nothing to claim, so stamping it would store a browser id
+   against a named account for no benefit. Deliberate.
+2. **The rate limiter is in-process** (a Map, bounded and cleared). It does not survive
+   a restart and is per-instance. Fine for a guard on an idempotent endpoint; say the
+   word if you want it in the DB.
+3. **The claim needs the cookie**, so a browser that played before this shipped has no
+   proof and gets `{"claimed":{...0},"reason":"no_browser_id"}` until it writes one run.
+   Honest and unavoidable.
+4. `signedIn` on the quiz result is inferred from `profileXp !== null`, the existing
+   pattern on that screen. There is no auth hook in this app.
+5. The proof used the dev-login route for a real session. It is double-gated
+   (NODE_ENV + DEV_LOGIN_ENABLED) and cannot run in production.
 
 ## Next
 
-PART A, as its own run.
+C2 (leaderboard "beat this run") and C3 (weekly challenge). C3 is now genuinely
+deliverable: 154 is live and, from here, challengers can have names.
 
 ---
 
-STOP (checkpoint). **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed.** report pret.
