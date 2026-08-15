@@ -10,31 +10,29 @@ import Link from 'next/link';
 // never floored to look busier, and never invented. At zero this renders NOTHING
 // rather than an empty-state advertising a door that leads nowhere (min-gate).
 export function OpenRunsBlock({
-  groupName,
-  groupSlug,
+  subject,
   count,
+  href,
+  cta = 'Take one',
 }: {
-  groupName: string;
-  groupSlug: string;
+  /** What the runs are on: a group name, or "this quiz". */
+  subject: string;
   count: number;
+  href: string;
+  cta?: string;
 }): React.ReactElement | null {
   if (count < 1) return null;
 
   return (
-    <section className="open-runs" aria-label={`Open ${groupName} battles`}>
+    <section className="open-runs" aria-label={`Open battles ${subject}`}>
       <p className="open-runs-line">
         <strong>{count === 1 ? '1 fan' : `${count} fans`}</strong>{' '}
-        {count === 1 ? 'left an unbeaten run' : 'left unbeaten runs'} on {groupName}.
+        {count === 1 ? 'left an unbeaten run' : 'left unbeaten runs'} on {subject}.
       </p>
       <p className="open-runs-sub">
         Real runs people already played. Beat one whenever you like, they do not have to be online.
       </p>
-      <Link
-        className="open-runs-cta"
-        href={`/battle?group=${groupSlug}&utm_source=group&utm_medium=internal&utm_campaign=open_runs`}
-      >
-        Take one on
-      </Link>
+      <Link className="open-runs-cta" href={href}>{cta}</Link>
     </section>
   );
 }

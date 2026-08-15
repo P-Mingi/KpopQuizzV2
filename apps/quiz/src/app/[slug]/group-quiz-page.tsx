@@ -163,7 +163,11 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
       {/* W2b C1 - the time-shifted supply, made visible. Real count, live query,
           never rounded and never floored. Renders nothing at zero. */}
-      <OpenRunsBlock groupName={group.name} groupSlug={group.slug} count={openRuns} />
+      <OpenRunsBlock
+        subject={group.name}
+        count={openRuns}
+        href={`/battle?open=group:${group.slug}&utm_source=group&utm_medium=internal&utm_campaign=open_runs`}
+      />
 
       {/* G2 play row: every real play surface this group has, gated per surface.
           Absorbs the old personality card + blindtest entry. */}

@@ -64,6 +64,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const groupSlug = url.searchParams.get('groupSlug');
   // W2b B1: "same quiz, new opponent" narrows the draw to one quiz first.
   const quizId = url.searchParams.get('quizId');
+  // W2b C2-REDESIGN: strict=1 means the requested scope is a PROMISE, not a
+  // preference. "Take one on this quiz" must never hand back a run from another
+  // quiz. Without it the global pool is appended and the sort can pick anything,
+  // which is the same silent-widening failure the filtered battle start already
+  // refuses. The non-strict path stays for "Random opponent", which promises only
+  // an opponent.
+  const strict = url.searchParams.get('strict') === '1';
   const scoreParam = url.searchParams.get('score');
   const myScore = scoreParam && /^\d+$/.test(scoreParam) ? Number(scoreParam) : null;
 
@@ -76,7 +83,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // quiz-anchored battles the result-screen challenge creates.
   const sameQuiz = quizId ? await fetchCandidates(db, null, quizId) : [];
   const grouped = groupSlug ? ((await fetchFinishedGroupBattles(db, groupSlug)) as BattleRow[]) : [];
-  const global = await fetchCandidates(db, null);
+  const global = strict && (quizId || groupSlug) ? [] : await fetchCandidates(db, null);
   const seen = new Set<string>();
   const candidates = [...sameQuiz, ...grouped, ...global].filter((b) => {
     if (seen.has(b.id)) return false;

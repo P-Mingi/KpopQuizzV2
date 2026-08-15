@@ -124,56 +124,24 @@ export async function countOpenRunsForGroup(groupSlug: string): Promise<number> 
 }
 
 /**
- * The open runs on ONE quiz, and which signed-in players left them.
+ * How many open runs exist on ONE quiz.
  *
- * C2 uses this for the leaderboard action. It is deliberately ONE call for the whole
- * page (three bounded reads, constant in the number of rows shown), not a per-row
- * lookup: a leaderboard is a list, and a per-row query would be N+1.
+ * C2-REDESIGN: this used to also return a username -> battleId map so a leaderboard
+ * ROW could carry a "beat this run" action. That premise was wrong: on the biggest
+ * quiz on the site (2,107 plays, 711 signed in) the top 10 by score contains ZERO
+ * named players, because anonymous players dominate the board. Matching a row to a
+ * challenger by username cannot work while leaderboards are anonymous, and it fired
+ * on 4 quizzes site-wide. The map is gone; one identity-free block replaces it.
  *
- * Same definition as everywhere else in this module. The 455-run blind spot came from
- * a second definition living somewhere else, so there is still only one.
+ * Same definition as everywhere else in this module. Paginated, so the published
+ * count is exact.
  */
-export async function openRunsForQuiz(quizId: string): Promise<{
-  count: number;
-  /** username -> the battle id of THEIR open run on this quiz, so the action leads
-   *  to that exact run rather than a generic battle. */
-  openRunByUsername: Map<string, string>;
-}> {
+export async function countOpenRunsForQuiz(quizId: string): Promise<number> {
   const db: SupabaseClient = createServiceRoleClient();
-
   const battles = await fetchAllRows<GroupBattleRow>(() =>
     db.from('battles').select(BATTLE_COLS).eq('quiz_id', quizId).not('challenger_score', 'is', null),
   );
-  if (battles.length === 0) return { count: 0, openRunByUsername: new Map() };
-
+  if (battles.length === 0) return 0;
   const played = await playersByBattle(db, battles.map((b) => b.id));
-  const open = battles.filter((b) => isOpenRun(b, played));
-  if (open.length === 0) return { count: 0, openRunByUsername: new Map() };
-
-  // Who left each open run, when they were signed in. Anonymous challengers simply
-  // have no id to match a leaderboard row against, and that is fine: the action then
-  // does not render on any row, which is the honest outcome.
-  const rows = await fetchAllRows<{ battle_id: string; player_hash: string; user_id: string | null }>(() =>
-    db.from('battle_results').select('battle_id, player_hash, user_id').in('battle_id', open.map((b) => b.id)),
-  );
-  const challengerOf = new Map(open.map((b) => [b.id, b.challenger_hash]));
-  const battleByUser = new Map<string, string>();
-  for (const r of rows) {
-    if (r.user_id && challengerOf.get(r.battle_id) === r.player_hash && !battleByUser.has(r.user_id)) {
-      battleByUser.set(r.user_id, r.battle_id);
-    }
-  }
-  if (battleByUser.size === 0) return { count: open.length, openRunByUsername: new Map() };
-
-  // Leaderboard rows carry a username, not a user id, so resolve once here rather
-  // than leaking ids into the view layer.
-  const profiles = await fetchAllRows<{ id: string; username: string }>(() =>
-    db.from('profiles').select('id, username').in('id', [...battleByUser.keys()]),
-  );
-  const openRunByUsername = new Map<string, string>();
-  for (const p of profiles) {
-    const battleId = battleByUser.get(p.id);
-    if (battleId) openRunByUsername.set(p.username, battleId);
-  }
-  return { count: open.length, openRunByUsername };
+  return battles.filter((b) => isOpenRun(b, played)).length;
 }

@@ -1,0 +1,17 @@
+=== C2-REDESIGN: rendered count vs an independent recount ===
+  /q/ultimate-bts-era-quiz-only-real-armys-survive
+     quiz id 4ba8f255-2401-4220-8559-9a33c9ec1759 | finished battles 14 | OPEN (independent recount): 10
+  /q/blackpink-world-records-and-achievements
+     quiz id 5d2c7c50-bca8-4b90-9472-76bfa697e9aa | finished battles 4 | OPEN (independent recount): 3
+
+=== 3. Take one: strict scope means the run really is on THAT quiz ===
+target quiz: 4ba8f255 (Ultimate BTS era quiz), 10 open runs
+  drew 99ba6b48 | quiz: Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  drew e47982d2 | quiz: Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  drew 771d73ec | quiz: Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  drew ded603c9 | quiz: Ultimate BTS era quiz - only real ARMYs survive | pool 10
+
+before strict=1 the same request returned a run from a DIFFERENT quiz
+(SEVENTEEN members mega quiz), because the global pool was appended and the
+sort could pick anything. The block promises this quiz, so the draw now refuses
+to widen and reports an empty scope instead.

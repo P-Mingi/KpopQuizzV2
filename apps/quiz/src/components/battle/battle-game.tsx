@@ -177,6 +177,33 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     }
   }, [arenaQuizId, arenaGroupSlug, showToast]);
 
+  // W2b C2-REDESIGN - take one open run from the pool. The draw already refuses the
+  // caller's own run, refuses one they have already played, and samples uniformly
+  // from the top band, so nothing extra is needed here to stay honest.
+  const takeOpenRun = useCallback(async (spec: string) => {
+    setPhase('loading');
+    const [kind, value] = spec.split(':');
+    // strict: the block promised runs on THIS quiz / THIS group, so the draw must
+    // not widen to something else. An empty scope says so instead.
+    const params = new URLSearchParams({ strict: '1' });
+    if (kind === 'quiz' && value) params.set('quizId', value);
+    else if (kind === 'group' && value) params.set('groupSlug', value);
+    try {
+      const res = await fetch(`/api/battle/random?${params.toString()}`);
+      const data = (await res.json()) as { battle?: { battleId: string } | null };
+      if (data.battle?.battleId) {
+        await loadChallengeRef.current?.(data.battle.battleId);
+        return;
+      }
+      // Honest empty: no run left to take here, so fall back to the picker rather
+      // than inventing an opponent.
+      showToast('No open runs left here right now. Pick a battle instead.');
+      setPhase('entry');
+    } catch {
+      setPhase('entry');
+    }
+  }, [showToast]);
+
   // E5 - load an incoming challenge (?b=<id>): same 7 questions + the challenger.
   const loadChallenge = useCallback(async (b: string) => {
     setPhase('loading');
@@ -208,10 +235,14 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     const sp = new URLSearchParams(window.location.search);
     const b = sp.get('b');
     const quiz = sp.get('quiz');
-    // W2b C1: /battle?group=<slug> arrives from a group page's open-runs block.
-    // It preselects that group so the very next tap is a battle on what they read.
+    // W2b C1: /battle?group=<slug> preselects a group.
     const group = sp.get('group');
+    // W2b C2-REDESIGN: /battle?open=quiz:<id> | group:<slug> comes from an open-runs
+    // block and TAKES one: it draws a real open run and loads it as a challenge,
+    // rather than merely preselecting a topic. Same pool, same fairness rules.
+    const open = sp.get('open');
     if (b) void loadChallenge(b);
+    else if (open) void takeOpenRun(open);
     else if (quiz) setPrefillQuizId(quiz);
     else if (group) setTopic(group);
     // eslint-disable-next-line react-hooks/exhaustive-deps
