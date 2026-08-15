@@ -1,0 +1,29 @@
+battles.questions[0] = {
+  "correct": 1,
+  "options": [
+    "Hyunjin, Han",
+    "Han, Felix",
+    "Felix, Seungmin",
+    "Seungmin, I.N"
+  ],
+  "fun_fact": null,
+  "question": "Which Stray Kids pairing are known as \"The Sunshine twins\""
+}
+quizzes.questions[0] = {
+  "correct": 2,
+  "options": [
+    "2013",
+    "2014",
+    "2015",
+    "2016"
+  ],
+  "fun_fact": "MONSTA X debuted on May 14, 2015 under Starship Entertainment after being formed through the Mnet survival show No.Mercy.",
+  "question": "In what year did MONSTA X debut?"
+}
+d767b7ca-dc84-4876-b721-9b9191a4d77f | quiz f6060a57 | group null | qids ["b1e615c6-3cfa-47d7-99b2-a4d588f2b75f","906b5c44-91ce-47c2-9c04-eec827548abb","35fdfd06-d63a-4a8f-a87c-5826beb77b9b","3
+5e2a9208-5b05-4a72-9a89-21eb475fe7e3 | quiz b88541ff | group null | qids ["79808fb2-a944-4b42-bfbb-3a76f96131f1","271f5080-1093-4ba4-92e9-a437f42c0442","39cac280-6a8b-494d-9527-a99f6d764187","0
+afbd8f5c-9cac-4d3a-86c2-a66d4681cca9 | quiz 9b077bf6 | group null | qids ["bc491479-0abc-4460-b7da-bc0f3f3ecbfd","58f1c519-c030-4964-b7a8-6bfedef4ba26","fdc14f42-318c-45ff-b8b6-30623bb5e20c","0
+battles with empty question_ids: 0
+battles with null group_slug: 743
+questions -> ABSENT: Could not find the table 'public.questions' in the schema cache
+quiz_questions -> ABSENT: Could not find the table 'public.quiz_questions' in the schema cache

@@ -1,0 +1,35 @@
+# W2 - battles schema probe (read-only)
+# 2026-08-15T11:04:53.894Z
+
+## battles  (rows: 1429)
+  - id                     string     056e0bb2-92e9-41cb-bcdf-457d92abdb30
+  - quiz_id                null       
+  - group_slug             string     bts
+  - question_ids           array[7]   ["e5a629c4-26c5-4c87-8b1c-fac7858dd4f8","8fdb717d-799b-42bc-a16b-74fd7414b267","
+  - challenger_hash        string     f39b2f59eaf2ff20
+  - challenger_score       number     3
+  - created_at             string     2026-06-18T09:50:29.790552+00:00
+  - questions              array[7]   [{"correct":1,"options":["Wings","Love Yourself: Tear","Map of the Soul: Persona
+
+## battle_results  (rows: 1005)
+  - id                     string     1c73415d-8c28-4482-9019-2fd315f2ed9e
+  - battle_id              string     e06bb8e9-f5e2-4b67-b7b0-f98a9bbb2e94
+  - player_hash            string     6655babe2b7d490e
+  - score                  number     6
+  - per_question           array[7]   [true,false,true,true,true,true,true]
+  - time_ms                number     34386
+  - created_at             string     2026-06-18T06:58:10.296266+00:00
+  - user_id                null       
+
+## battle_participants
+  ABSENT or unreadable: Could not find the table 'public.battle_participants' in the schema cache
+
+## battle_players
+  ABSENT or unreadable: Could not find the table 'public.battle_players' in the schema cache
+
+battles total: 1429
+  column opponent_score     MISSING
+  column opponent_hash      MISSING
+  column opponent_name      MISSING
+  column status             MISSING
+  column accepted_at        MISSING

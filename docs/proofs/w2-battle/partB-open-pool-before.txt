@@ -1,0 +1,5 @@
+battles total: 1429
+battles with challenger_score set: 1003
+OPEN (nobody but the challenger has played): 863
+  of those, quiz-linked: 453  group-linked: 410
+score distribution of open pool: {"0":13,"1":34,"2":43,"3":82,"4":100,"5":150,"6":172,"7":269}

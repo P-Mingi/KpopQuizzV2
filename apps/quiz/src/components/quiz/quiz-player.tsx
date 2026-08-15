@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useToast } from '@/components/ui/toast-provider';
 import { analytics } from '@/lib/analytics';
 import { QuizComments } from '@/components/quiz/quiz-comments';
+import { ResultChallenge, canChallenge } from '@/components/quiz/result-challenge';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
@@ -171,6 +172,12 @@ type QuizState =
       phase: 'result';
       score: number;
       totalQuestions: number;
+      // W2: the run itself survives into the result. It used to be dropped here,
+      // which is why the old battle CTA could only start a fresh, unrelated set of
+      // questions. The challenge block needs the exact questions the player saw
+      // (post-shuffle order) and what they answered.
+      questions: QuestionData[];
+      answers: (number | null)[];
       quizType: QuizType;
       percentile: number | null;
       passRate: number | null;
@@ -322,6 +329,8 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         phase: 'result',
         score: state.score,
         totalQuestions: state.questions.length,
+        questions: state.questions,
+        answers: state.answers,
         quizType: state.quizType,
         percentile: action.percentile,
         passRate: action.passRate,
@@ -1106,6 +1115,23 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             </div>
           )}
         </div>
+
+        {/* W2 PART A - the challenge trigger, at the emotional peak: directly under
+            the score card, above everything else on this screen. Hidden when the
+            run cannot be replayed faithfully as a battle (clue quizzes, boolean
+            answers) rather than shipping a battle that does not match the run. */}
+        {canChallenge(state.questions) && (
+          <ResultChallenge
+            quizId={quiz.id}
+            quizTitle={quiz.title}
+            groupSlug={quiz.groupSlug}
+            score={state.score}
+            maxScore={maxScore}
+            timeTakenSec={state.timeTaken}
+            questions={state.questions}
+            answers={state.answers}
+          />
+        )}
 
         {/* Like - placed high, right under the result */}
         <div className="mt-3">

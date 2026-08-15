@@ -229,14 +229,18 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
         <div className="bp-body">
           <span className="bp-eyebrow">1v1 Battle</span>
           <h1 className="bp-head">You&apos;ve been challenged</h1>
+          {/* W2: the count is the challenge's REAL length, not a hardcoded 7. A
+              challenge created from a played quiz carries that quiz's question
+              count (5, 10, ...), and claiming "7 questions" on a 5-question
+              challenge would be a promise the battle does not keep. */}
           <p className="bp-sub">
             {challenger ? `${challenger.handle} dares you to beat their run.` : 'A fan dares you to beat their run.'} Same
-            7 questions, head to head. Their score stays hidden until you finish.
+            {` ${questions.length} `}questions, head to head. Their score stays hidden until you finish.
           </p>
           <button type="button" className="bp-start" onClick={beginPlay}>Accept the challenge</button>
           <p className="bp-note">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-            You play the exact same 7 questions they did.
+            You play the exact same {questions.length} questions they did.
           </p>
         </div>
       )}

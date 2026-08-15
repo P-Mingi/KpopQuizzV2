@@ -1,0 +1,17 @@
+=== THE HEAD-TO-HEAD ===
+battle          : 09d68d7b-00c6-45be-9196-16da2bfe8a41
+quiz_id         : 5d2c7c50-bca8-4b90-9472-76bfa697e9aa (the quiz that was actually played)
+questions       : 5
+challenger_score: 2
+
+battle_results rows for this battle: 2
+  row 1: 184311da08e548a6 score 2/5 | challenger? true | 2026-08-15T11:19:48.705817+00:00
+  row 2: 2e6e8a2041796ee2 score 4/5 | challenger? false | 2026-08-15T11:20:38.867794+00:00
+
+DISTINCT players: 2
+winner          : the accepter (4 beat 2)
+
+=== SITE-WIDE ===
+battle_results rows total      : 1007
+battles with 2+ DISTINCT players: 1 (was 0 before this workstream)
+    09d68d7b-00c6-45be-9196-16da2bfe8a41 -> 2 players

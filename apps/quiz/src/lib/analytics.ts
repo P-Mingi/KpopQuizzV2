@@ -13,7 +13,10 @@
 
 import { track } from '@vercel/analytics';
 
-export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up' | 'name-them-all';
+// W2: 'battle' added so the 1v1 can reuse the existing six events (game_start /
+// game_complete / share_click) instead of inventing a battle-only scheme. No new
+// event names, no new props.
+export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up' | 'name-them-all' | 'battle';
 
 /** Where a cross-promo sends the player. Kept as a small enum on purpose. */
 export type CrossPromoTarget =

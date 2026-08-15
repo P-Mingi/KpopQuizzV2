@@ -1,0 +1,18 @@
+W2 PART C - the share IS the challenge (captured live, not asserted)
+
+Method: on a real result screen, navigator.clipboard.writeText and navigator.share
+were instrumented to record what the "Challenge a friend" CTA actually passes, then
+the button was clicked. This is the exact string the code emitted.
+
+CLIPBOARD PAYLOAD
+-----------------
+I got 1/5 on "BTS music video trivia - can you get 100%?", beat me http://localhost:3021/battle?b=7fbaa597-2e87-461b-ad84-b83db6722536&utm_source=share&utm_medium=social&utm_campaign=battle_challenge
+
+Reads as: real score, real quiz title, and a LIVE challenge URL rather than a
+generic link. The URL is the EXISTING ?b= accept flow (battle-game.tsx loadChallenge)
+and carries the SAME utm tags the old battle copy-link used
+(utm_source=share / utm_medium=social / utm_campaign=battle_challenge), so nothing
+new had to be invented for tracking and no new image system was added.
+
+On a device with navigator.share the same text+url go to the native share sheet
+(window.__cap.share); the clipboard branch is the desktop fallback.

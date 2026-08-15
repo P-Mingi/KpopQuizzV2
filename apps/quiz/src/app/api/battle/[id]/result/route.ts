@@ -35,8 +35,8 @@ export async function POST(
   const timeMs = body.time_ms;
 
   if (
-    typeof score !== 'number' || score < 0 || score > BATTLE_QUESTION_COUNT ||
-    !Array.isArray(perQuestion) || perQuestion.length === 0 || perQuestion.length > 20 ||
+    typeof score !== 'number' || score < 0 ||
+    !Array.isArray(perQuestion) || perQuestion.length === 0 || perQuestion.length > 50 ||
     !perQuestion.every((b) => typeof b === 'boolean') ||
     typeof timeMs !== 'number' || timeMs < 0
   ) {
@@ -47,11 +47,21 @@ export async function POST(
 
   const { data: battle } = await supabase
     .from('battles')
-    .select('id, challenger_hash, challenger_score')
+    .select('id, challenger_hash, challenger_score, questions')
     .eq('id', id)
     .maybeSingle();
   if (!battle) {
     return NextResponse.json({ error: 'Battle not found' }, { status: 404 });
+  }
+
+  // W2: the score ceiling is the battle's OWN question count, not a hardcoded 7.
+  // Quick-match battles are 7 (BATTLE_QUESTION_COUNT), but a challenge created from
+  // a played quiz (POST /api/battle/challenge) carries that quiz's real length, and
+  // a 10-question run used to be rejected here as an invalid payload. Existing rows
+  // all hold 7, so this is identical for them and correct for the new ones.
+  const questionCount = Array.isArray(battle.questions) ? battle.questions.length : BATTLE_QUESTION_COUNT;
+  if (score > questionCount) {
+    return NextResponse.json({ error: 'Invalid result payload' }, { status: 400 });
   }
 
   const playerHash = anonHash(req);

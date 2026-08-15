@@ -1,0 +1,9 @@
+new battles in last 10 min: 1
+battle id       : 09d68d7b-00c6-45be-9196-16da2bfe8a41
+quiz_id         : 5d2c7c50-bca8-4b90-9472-76bfa697e9aa
+group_slug      : blackpink
+challenger_hash : 184311da08e548a6
+challenger_score: 2 / 5
+first question  : Which BLACKPINK member has the most Instagram followers?
+result rows     : 1
+    184311da08e548a6 score 2 per_q [false,true,false,false,true] time_ms 14000 user null

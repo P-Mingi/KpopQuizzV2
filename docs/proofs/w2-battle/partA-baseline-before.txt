@@ -1,0 +1,5 @@
+battle_results rows (paginated, not capped): 1005
+battles with >= 1 result row      : 1005
+battles with 2+ DISTINCT players  : 0
+max distinct players on any battle: 1
+battles with quiz_id set          : 743 (of 1429)
