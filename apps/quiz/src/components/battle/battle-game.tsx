@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { VsBadge } from '@/components/duel/vs-badge';
 import { Mascot } from '@/components/ui/mascot';
+import { UserAvatar } from '@/components/ui/user-avatar';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { DiscordContextLine } from '@/components/discord/discord-context-line';
@@ -19,6 +20,16 @@ import { celebrate } from '@/lib/celebrate';
 interface PickerGroup { slug: string; name: string }
 interface BattleQ { question: string; options: string[]; correct: number; fun_fact: string | null }
 interface Ghost { score: number; per_question: boolean[]; handle: string; played_ago: string | null; cold: boolean }
+// W2 - the challenger, enriched when they were signed in. `profile` is null for an
+// anonymous challenger (the common case), and the card degrades to the handle.
+interface ChallengerProfile {
+  username: string; displayName: string; avatarUrl: string | null;
+  avatarBg: string | null; avatarText: string | null;
+  avatarKind: string | null; avatarRef: string | null;
+  level: number; bias: string | null;
+  battlesPlayed: number; battlesWon: number; nameAccent: string | null;
+}
+interface Challenger { score: number; per_question: boolean[]; handle: string; profile: ChallengerProfile | null }
 
 type Phase = 'entry' | 'loading' | 'playing' | 'reveal';
 
@@ -47,7 +58,9 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
   const [reduceMotion, setReduceMotion] = useState(false);
   // E5 - challenge mode: a friend opened /battle?b=<id> and plays the SAME 7.
   const [isChallenge, setIsChallenge] = useState(false);
-  const [challenger, setChallenger] = useState<{ score: number; per_question: boolean[]; handle: string } | null>(null);
+  const [challenger, setChallenger] = useState<Challenger | null>(null);
+  // W2: the real stake, shown on the accept screen.
+  const [quizTitle, setQuizTitle] = useState<string | null>(null);
   // E7 - /battle?quiz=<id> prefills a quick match anchored to a specific quiz.
   const [prefillQuizId, setPrefillQuizId] = useState<string | null>(null);
 
@@ -118,7 +131,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
     setPhase('loading');
     try {
       const res = await fetch(`/api/battle/${b}`);
-      const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; challenger?: typeof challenger };
+      const data = (await res.json()) as { battleId?: string; questions?: BattleQ[]; challenger?: Challenger | null; quizTitle?: string | null };
       if (!res.ok || !data.battleId || !data.questions?.length) {
         showToast('That challenge link is no longer available.');
         setPhase('entry');
@@ -127,6 +140,7 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
       setBattleId(data.battleId);
       setQuestions(data.questions);
       setChallenger(data.challenger ?? null);
+      setQuizTitle(data.quizTitle ?? null);
       setIsChallenge(true);
       setPhase('entry'); // a challenge-accept intro, then Start -> beginPlay
     } catch {
@@ -229,15 +243,55 @@ export function BattleGame({ groups, signedIn }: { groups: PickerGroup[]; signed
         <div className="bp-body">
           <span className="bp-eyebrow">1v1 Battle</span>
           <h1 className="bp-head">You&apos;ve been challenged</h1>
-          {/* W2: the count is the challenge's REAL length, not a hardcoded 7. A
-              challenge created from a played quiz carries that quiz's question
-              count (5, 10, ...), and claiming "7 questions" on a 5-question
-              challenge would be a promise the battle does not keep. */}
-          <p className="bp-sub">
-            {challenger ? `${challenger.handle} dares you to beat their run.` : 'A fan dares you to beat their run.'} Same
-            {` ${questions.length} `}questions, head to head. Their score stays hidden until you finish.
+          {/* W2: the challenger, as a person. A signed-in challenger brings a real
+              avatar, level, bias and battle record; an anonymous one (the common
+              case) degrades to the @fan_XXXX handle and an initials mark. Nothing
+              here is invented: no fake face, no fake level, no fake record. Their
+              SCORE stays hidden until you finish, which is the existing rule. */}
+          <div className="bc-duel">
+            <div className="bc-side">
+              <div className="bc-face">
+                <UserAvatar
+                  username={challenger?.profile?.username ?? (challenger?.handle ?? 'fan').replace(/^@/, '')}
+                  avatarUrl={challenger?.profile?.avatarUrl ?? null}
+                  bgColor={challenger?.profile?.avatarBg ?? 'var(--elevated)'}
+                  textColor={challenger?.profile?.avatarText ?? 'var(--txt2)'}
+                  size={78}
+                />
+              </div>
+              <span className="bc-name" style={challenger?.profile?.nameAccent ? { color: challenger.profile.nameAccent } : undefined}>
+                {challenger?.profile?.displayName ?? challenger?.handle ?? 'A fan'}
+              </span>
+              {challenger?.profile ? (
+                <>
+                  <span className="bc-handle">@{challenger.profile.username}</span>
+                  <span className="bc-lv">Lv {challenger.profile.level} · {getTitleForLevel(challenger.profile.level).en}</span>
+                  {challenger.profile.bias && <span className="bc-bias">bias {challenger.profile.bias}</span>}
+                  {challenger.profile.battlesPlayed > 0 && (
+                    <span className="bc-record">{challenger.profile.battlesWon}W of {challenger.profile.battlesPlayed} battles</span>
+                  )}
+                </>
+              ) : (
+                <span className="bc-handle">no account</span>
+              )}
+            </div>
+
+            <VsBadge className="bc-vs" />
+
+            <div className="bc-side">
+              <div className="bc-face bc-face-you">
+                <span className="bc-you-mark">YOU</span>
+              </div>
+              <span className="bc-name">You</span>
+              <span className="bc-handle">{signedIn ? 'signed in' : 'no account needed'}</span>
+            </div>
+          </div>
+
+          <p className="bp-sub bc-stake">
+            {quizTitle ? <>They left a run on <strong>{quizTitle}</strong>. </> : null}
+            Same {questions.length} questions, head to head. Their score stays hidden until you finish.
           </p>
-          <button type="button" className="bp-start" onClick={beginPlay}>Accept the challenge</button>
+          <button type="button" className="bp-start bc-accept-btn" onClick={beginPlay}>Accept the challenge</button>
           <p className="bp-note">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
             You play the exact same {questions.length} questions they did.

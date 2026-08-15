@@ -19,6 +19,36 @@ When resolved, the worker clears the entry and continues.
 
 ---
 
+## w2-notify - the challenge notification needs a migration the worker cannot run
+
+- What is blocked: the "someone beat your run" notification cannot be delivered.
+  The code path is built, typechecked and wired, but `creator_notifications.type`
+  has a CHECK constraint that does not include `battle_beaten`, so every insert is
+  rejected until the constraint is swapped.
+- Why (owner decision + law): this mission says NO DDL, block instead, and DDL is
+  owner-run in this repo. The SQL is written and ready:
+  `docs/pending-migrations/154_battle_challenge_notification.sql`. It does two
+  things: adds `battle_beaten` to the type CHECK, and adds it (plus the already
+  live `verse_watch`, which drifted) to the `gate_notification_prefs()` CASE so the
+  type respects the user's mute settings instead of bypassing them.
+- Options (each with its trade-off):
+  1) Apply 154 as written. The notification starts working for signed-in
+     challengers immediately. Nothing else changes.
+  2) Do not apply it. Everything else in W2 works; the battle loop simply has no
+     return hook, and the insert keeps failing soft (logged, swallowed, never
+     blocking a battle result).
+  3) Reuse an existing type such as `cheer` to avoid the migration. Rejected: it
+     would mislabel the data and break the red styling, which keys on the type.
+- Recommendation: 1.
+- Second, separate limitation the owner should know: a notification can ONLY reach
+  a challenger who was SIGNED IN when they created the run.
+  `creator_notifications.user_id` is NOT NULL against `auth.users`, and 94% of
+  battle results are anonymous. So this return hook covers a small slice today and
+  gets materially better with W3 (identity), which is why the audit pairs them.
+- Proof / context: docs/proofs/w2-battle/ · the CHECK lives in
+  supabase/migrations/133_verse_discussions_watchlists.sql:45-51 · the prefs CASE
+  in 122_notification_foundation.sql:83-95.
+
 ## w1-ctr - the new duplicate-metadata gate is RED on a duplicate quiz the code cannot honestly split
 
 - What is blocked: `check:metadata-dupes` cannot go green on the quiz side. One collision is left

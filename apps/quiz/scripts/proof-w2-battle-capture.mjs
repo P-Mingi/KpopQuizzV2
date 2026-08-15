@@ -72,7 +72,11 @@ const shots = [
   { name: 'p2-result-challenge-mobile-390', w: 390, h: 844 },
 ];
 
-for (const s of shots) {
+// ACCEPT_ONLY re-shoots just the accept screens (W2_ACCEPT_URL / W2_ACCEPT_URL_2)
+// without replaying quizzes, so a restyle does not mint new battles each time.
+const ACCEPT_ONLY = process.env.W2_ACCEPT_ONLY === '1';
+
+for (const s of (ACCEPT_ONLY ? [] : shots)) {
   await send('Emulation.setDeviceMetricsOverride', { width: s.w, height: s.h, deviceScaleFactor: 1, mobile: s.w < 560 }, S);
   await send('Page.navigate', { url: BASE + QUIZ }, S);
   await sleep(2500);
@@ -89,6 +93,7 @@ for (const s of shots) {
 }
 
 // The honest empty state, at phone width.
+if (!ACCEPT_ONLY) {
 await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }, S);
 await send('Page.navigate', { url: BASE + QUIZ }, S);
 await sleep(2500);
@@ -101,17 +106,19 @@ const clip2 = box2 ? { x: 0, y: Math.max(0, box2.y - 24), width: 390, height: bo
 const { data: d2 } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: clip2 }, S);
 writeFileSync(`${OUT}/p3-empty-pool-mobile-390.png`, Buffer.from(d2, 'base64'));
 console.log(`saved p3-empty-pool-mobile-390 (clicked=${clicked})`);
+}
 
 // The accept screen the shared link lands on. ACCEPT_URL is passed in because the
 // battle id only exists once a challenge has been created.
-const ACCEPT_URL = process.env.W2_ACCEPT_URL;
-if (ACCEPT_URL) {
+for (const [envKey, outName] of [['W2_ACCEPT_URL', 'p4-accept-anon-mobile-390'], ['W2_ACCEPT_URL_2', 'p5-accept-signedin-mobile-390']]) {
+  const ACCEPT_URL = process.env[envKey];
+  if (!ACCEPT_URL) continue;
   await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }, S);
   await send('Page.navigate', { url: ACCEPT_URL }, S);
   await sleep(3000);
-  const { data: d3 } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: 0, width: 390, height: 520, scale: 1 } }, S);
-  writeFileSync(`${OUT}/p4-accept-screen-mobile-390.png`, Buffer.from(d3, 'base64'));
-  console.log('saved p4-accept-screen-mobile-390');
+  const { data: d3 } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: 0, width: 390, height: 640, scale: 1 } }, S);
+  writeFileSync(`${OUT}/${outName}.png`, Buffer.from(d3, 'base64'));
+  console.log(`saved ${outName}`);
 }
 
 chrome.kill(); await sleep(150); process.exit(0);

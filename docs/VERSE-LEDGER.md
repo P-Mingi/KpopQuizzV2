@@ -2441,3 +2441,66 @@ L-174 (Verse paused; quiz-side master plan ranked; academy read; W1 CTR mission 
   Proofs docs/proofs/w1-ctr/. Measured against a production build, not the dev server
   (it serves stale server components and produced two wrong captures that were
   discarded). Next: measurement, not more edits.
+
+L-175 (W1 CTR audited PASS; seo_intro ruled additive-on-page; W2 battle trigger live)
+  Cowork audited W1 (commit 404e8f8) independently: doubled-suffix fix verified in source
+  (top-level title bare, suffix kept only in openGraph, correct since OG has no template),
+  check:metadata-dupes wired in package.json, July control pages byte-identical (git diff
+  empty), and the blocking /q collision confirmed in the DB - two published quizzes both
+  titled "SEVENTEEN true or false", 7 questions each, 257 and 351 plays, created 9 days
+  apart. Real duplicate, not a false positive. VERDICT PASS.
+  Worker credit: it refused to rewrite the 10 pages inside the July measurement window
+  (re-check due 2026-08-24) because that would destroy the only CTR measurement we have;
+  it found a site-wide bug nobody had seen (20 titles rendering "X | KpopQuiz | KpopQuiz",
+  11 wasted chars); it caught its own mid-sprint regression with the new gate and reported
+  it; and it shipped the gate RED rather than narrowing its scope to fake a green.
+  Owner decisions: (1) SEVENTEEN duplicate -> retitle one in admin, never delete.
+  (2) seo_intro -> ADDITIVE, with Cowork's refinement: never in the meta description (a
+  ~150 char budget cannot absorb it and truncation would eat the CTR number), instead a
+  visible intro paragraph on the group page, which becomes the answer-first brick for W8.
+  W2 written to docs/loop/MISSION.md: trigger on the quiz RESULT screen carrying the REAL
+  run (same quiz, same questions, real score as the target - the existing "Battle a fan"
+  CTA at quiz-player.tsx:745 mints an unrelated question set, which is why it connects
+  nobody), async random-opponent queue (push + pull, real human runs only, honest empty
+  state), share-card-as-challenge, plus the seo_intro fix. Required proof: two browser
+  contexts producing a battle with TWO result rows - the thing that has never happened
+  once in production. No DDL allowed; block instead. Nothing pushed.
+
+- L-167 W2 BATTLE TRIGGER DONE (worker, 2026-08-15). Priority-2 workstream, built on
+  PLAY-BATTLE-AUDIT R0/R0b. NO DDL, nothing pushed, Verse untouched. THE RESULT: a
+  battle now has TWO players in it, the first time in 1,420 battles over two months
+  (baseline re-verified independently at 0 before building; battle 09d68d7b now holds
+  two battle_results rows, two distinct players, the accepter beat 2 with 4).
+  A: POST /api/battle/challenge creates the battle FROM the quiz run just played,
+  same quiz, same questions, real score as the target. /api/battle/start could not be
+  reused (it mints a fresh random 7 = the missing-stake bug). Client sends the ORDER
+  it played, never the content: every question is matched against the quiz's stored
+  questions and the SERVER copy is persisted, so a forged body cannot inject text or
+  move the answer. Quiz result state now carries questions+answers (it used to drop
+  them). Challenger's own run is written as a battle_results row, which is what makes
+  a finished challenge hold two rows. Rate limit 20/hour per anon hash.
+  B: GET /api/battle/random serves an existing OPEN challenge (same group, then
+  closest score, then recent), never fabricating, never padding, never the caller's
+  own run. Measured supply BEFORE shipping: 863 open runs already existed, so the
+  draw serves real humans from day one. CORRECTION TO THE MISSION: /api/battle/pending
+  is NOT an opponent queue and NOT unused, it serves pending_questions for the E6
+  crowd-confirm hook on every reveal; a new route was written instead.
+  C: the share IS the challenge, captured live ("I got 1/5 on <quiz>, beat me" + a
+  live ?b= URL), reusing the existing accept flow, utm tags and OG path.
+  D (separate commit): seo_intro no longer touches the meta description; it stays
+  visible-only as the group page intro paragraph, per the owner ruling.
+  OWNER FOLLOW-UPS same day: (1) the accept screen rebuilt as a DUEL card, real
+  avatar/level/bias/battle-record for a signed-in challenger, an honest initials mark
+  and "no account" for an anonymous one (94% of results), VS badge, challenge-red CTA;
+  fixed its hardcoded "same 7 questions" claim. (2) notifications: a challenge did NOT
+  touch them before; notifyRunBeaten + a distinctly RED unread style (--wrong, crossed
+  swords) are built, but BLOCKED on the owner applying
+  docs/pending-migrations/154_battle_challenge_notification.sql (type CHECK + prefs
+  CASE; also fixes verse_watch, which had drifted out of the TS union and was silently
+  unmutable). Hard limit named: creator_notifications.user_id is NOT NULL, so only a
+  SIGNED-IN challenger can ever be notified, which is why W2 and W3 belong together.
+  Also fixed: /api/battle/[id]/result hardcoded a 7-question ceiling and would have
+  rejected any challenge from a longer quiz. Gates tsc 0 / build 0 / check:routes 0.
+  Proofs docs/proofs/w2-battle/. Two-player proof uses a distinct x-forwarded-for for
+  the second identity (anonHash is ip+day, so two local browsers are ONE player);
+  disclosed, not buried.

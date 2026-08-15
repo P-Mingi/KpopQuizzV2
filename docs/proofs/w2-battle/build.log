@@ -20,32 +20,16 @@ Verse token gate passed: no raw hex colors in Verse surfaces.
 
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 10.9s
+✓ Compiled successfully in 10.1s
   Running TypeScript ...
-  Finished TypeScript in 17.2s ...
+  Finished TypeScript in 16.6s ...
   Collecting page data using 7 workers ...
   Generating static pages using 7 workers (0/623) ...
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get fastest perfect: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3481)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__11c3h.n._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
   Generating static pages using 7 workers (155/623) 
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get fastest perfect: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3481)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__0~2f--e._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get passing count: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3631)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__11c3h.n._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
   Generating static pages using 7 workers (311/623) 
   Generating static pages using 7 workers (467/623) 
-Failed to set Next.js data cache for https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/pinterest-question-pins/feed.xml, items over 2MB can not be cached (4416109 bytes)
-[q/[slug]] getQuizExtraStats failed: Error: Failed to get fastest perfect: TypeError: fetch failed
-    at h (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:3481)
-    at async c (.next/server/chunks/ssr/[root-of-the-server]__0~2f--e._.js:1:1279)
-    at async H (.next/server/chunks/ssr/apps_quiz_src_0aqsz5d._.js:1:11062)
-✓ Generating static pages using 7 workers (623/623) in 14.6s
+Failed to set Next.js data cache for https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/pinterest-question-pins/feed.xml, items over 2MB can not be cached (4416108 bytes)
+✓ Generating static pages using 7 workers (623/623) in 6.9s
   Finalizing page optimization ...
 
 Route (app)                                             Revalidate  Expire

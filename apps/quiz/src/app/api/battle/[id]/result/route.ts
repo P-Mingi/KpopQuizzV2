@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { anonHash } from '@/lib/anon-hash';
 import { BATTLE_QUESTION_COUNT } from '@/lib/battle/select-questions';
+import { notifyRunBeaten } from '@/lib/notifications';
 
 import type { NextRequest } from 'next/server';
 
@@ -104,6 +105,36 @@ export async function POST(
       .eq('id', id)
       .is('challenger_score', null);
     isChallenger = true;
+  }
+
+  // W2 - the return hook: the challenger learns their run was beaten. Only
+  // reachable when the challenger was signed in (creator_notifications.user_id is
+  // NOT NULL), so anonymous challengers get nothing and nothing here can fail the
+  // result write. Fires only on a genuine beat by a genuine other player.
+  if (!isChallenger && battle.challenger_score !== null && score > (battle.challenger_score as number)) {
+    const { data: challengerRow } = await supabase
+      .from('battle_results')
+      .select('user_id')
+      .eq('battle_id', id)
+      .eq('player_hash', battle.challenger_hash)
+      .not('user_id', 'is', null)
+      .limit(1)
+      .maybeSingle<{ user_id: string }>();
+    if (challengerRow?.user_id && challengerRow.user_id !== userId) {
+      let quizTitle: string | null = null;
+      const { data: b2 } = await supabase.from('battles').select('quiz_id').eq('id', id).maybeSingle<{ quiz_id: string | null }>();
+      if (b2?.quiz_id) {
+        const { data: quiz } = await supabase.from('quizzes').select('title').eq('id', b2.quiz_id).maybeSingle<{ title: string }>();
+        quizTitle = quiz?.title ?? null;
+      }
+      await notifyRunBeaten({
+        challengerUserId: challengerRow.user_id,
+        battleId: id,
+        winnerScore: score,
+        challengerScore: battle.challenger_score as number,
+        quizTitle,
+      });
+    }
   }
 
   return NextResponse.json({ result, is_challenger: isChallenger });

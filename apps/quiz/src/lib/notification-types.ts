@@ -5,10 +5,16 @@
 
 // The live types. The 3 dead ones (trending, like, achievement_unlocked) were
 // removed from the DB CHECK in mig 122 and are gone here too.
+//
+// W2: 'verse_watch' was already live in the DB CHECK (mig 133) and inserted by
+// lib/verse/watchlist.ts, but had drifted out of this list. Added so the two
+// stay in sync. 'battle_beaten' is NEW and needs
+// docs/pending-migrations/154_battle_challenge_notification.sql applied by the
+// owner before the DB will accept it; the insert fails soft until then.
 export const NOTIFICATION_TYPES = [
   'milestone', 'rating', 'comment', 'admin_dm', 'new_follower',
   'streak_milestone', 'group_mastered', 'followed_new_quiz',
-  'badge_earned', 'cheer',
+  'badge_earned', 'cheer', 'verse_watch', 'battle_beaten',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
@@ -22,7 +28,7 @@ export interface NotificationCategory {
 }
 export const NOTIFICATION_CATEGORIES: NotificationCategory[] = [
   { key: 'your_quizzes', label: 'Activity on your quizzes', description: 'Play milestones, reactions, and comments on quizzes you made.', types: ['milestone', 'rating', 'comment'] },
-  { key: 'social', label: 'Social', description: 'New followers and cheers.', types: ['new_follower', 'cheer'] },
+  { key: 'social', label: 'Social', description: 'New followers, cheers, and battle challenges.', types: ['new_follower', 'cheer', 'battle_beaten', 'verse_watch'] },
   { key: 'achievements', label: 'Achievements and streaks', description: 'Badges, mastered groups, and streak milestones.', types: ['badge_earned', 'group_mastered', 'streak_milestone'] },
   { key: 'following', label: 'From creators you follow', description: 'New quizzes from people you follow.', types: ['followed_new_quiz'] },
   { key: 'announcements', label: 'Announcements', description: 'Messages from the KpopQuiz team.', types: ['admin_dm'] },

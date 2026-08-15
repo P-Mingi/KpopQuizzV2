@@ -41,6 +41,8 @@ function notificationIcon(type: NotificationRow['type']): React.ReactElement {
       return <Ico><circle cx="12" cy="8" r="6" /><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11" /></Ico>;
     case 'cheer': // heart
       return <Ico><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" /></Ico>;
+    case 'battle_beaten': // crossed swords - the challenge type, styled red below
+      return <Ico><path d="M14.5 17.5 3 6V3h3l11.5 11.5" /><path d="m13 19 6-6" /><path d="m16 16 4 4" /><path d="M19 21h2v-2" /><path d="M9.5 6.5 21 18v3h-3L6.5 9.5" /></Ico>;
     default: // bell
       return <Ico><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></Ico>;
   }
@@ -63,22 +65,35 @@ export function NotificationCard({ notification, onMute, onDismiss, onOpen }: {
   onDismiss?: (id: string) => void;
   onOpen?: () => void;
 }): React.ReactElement {
+  // W2: a challenge reads differently from every other notification. It is the one
+  // type that is somebody coming FOR you, so it gets the challenge red rather than
+  // the brand pink every other unread notification uses. Read challenges calm down
+  // like the rest, so the inbox does not stay shouting.
+  const isChallenge = notification.type === 'battle_beaten';
+  const unreadChallenge = isChallenge && !notification.is_read;
+
   const inner = (
     <div
       className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-colors ${
-        notification.is_read ? 'bg-surface border-default' : 'bg-accent-bg border-accent hover:border-accent-hover'
+        notification.is_read
+          ? 'bg-surface border-default'
+          : unreadChallenge
+            ? 'notif-challenge'
+            : 'bg-accent-bg border-accent hover:border-accent-hover'
       }`}
     >
       <div
         className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
-          notification.is_read ? 'bg-elevated text-tertiary' : 'bg-btn text-white'
+          notification.is_read ? 'bg-elevated text-tertiary' : unreadChallenge ? 'notif-challenge-chip' : 'bg-btn text-white'
         }`}
         aria-hidden="true"
       >
         {notificationIcon(notification.type)}
       </div>
       <div className="flex-1 min-w-0">
-        <p className={`text-[11px] font-semibold truncate ${notification.is_read ? 'text-secondary' : 'text-accent-hover'}`}>
+        <p className={`text-[11px] font-semibold truncate ${
+          notification.is_read ? 'text-secondary' : unreadChallenge ? 'notif-challenge-title' : 'text-accent-hover'
+        }`}>
           {notification.title}
         </p>
         {notification.body && <p className="text-[10px] text-ghost truncate">{notification.body}</p>}

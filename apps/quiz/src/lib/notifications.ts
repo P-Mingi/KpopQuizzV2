@@ -198,3 +198,38 @@ export async function notifyComment(params: {
     body: params.recentCount > 1 ? `On "${params.quizTitle}".` : params.content.slice(0, 100),
   });
 }
+
+// W2 - "your run was beaten". The strongest return trigger the battle audit
+// identified (R0b T4): someone challenged you beats "there is a new quiz".
+//
+// Reachability is honest and limited: creator_notifications.user_id is NOT NULL
+// against auth.users, so only a challenger who was SIGNED IN when they created the
+// run can be told. Anonymous challengers (the common case today) simply get
+// nothing, which is why W3 identity and this feature belong together.
+//
+// FAIL SOFT: type 'battle_beaten' is not in the live CHECK constraint until the
+// owner applies docs/pending-migrations/154_battle_challenge_notification.sql. The
+// insert throws until then and is swallowed here, exactly like every other helper
+// in this file, so the battle result itself is never blocked.
+export async function notifyRunBeaten(params: {
+  challengerUserId: string;
+  battleId: string;
+  winnerScore: number;
+  challengerScore: number;
+  quizTitle: string | null;
+}): Promise<void> {
+  if (!COMMUNITY_FEATURES_ENABLED) return;
+  try {
+    const admin = createServiceRoleClient();
+    const on = params.quizTitle ? ` on ${params.quizTitle}` : '';
+    await admin.from('creator_notifications').insert({
+      user_id: params.challengerUserId,
+      type: 'battle_beaten',
+      title: 'Someone beat your run',
+      body: `They scored ${params.winnerScore} against your ${params.challengerScore}${on}. Rematch?`,
+      link_url: `/battle?b=${params.battleId}`,
+    });
+  } catch (err) {
+    console.error('Failed to insert battle-beaten notification:', err);
+  }
+}
