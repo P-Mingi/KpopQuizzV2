@@ -2504,3 +2504,63 @@ L-175 (W1 CTR audited PASS; seo_intro ruled additive-on-page; W2 battle trigger 
   Proofs docs/proofs/w2-battle/. Two-player proof uses a distinct x-forwarded-for for
   the second identity (anonHash is ip+day, so two local browsers are ONE player);
   disclosed, not buried.
+
+L-176 (W2 audited PASS - first 2-player battle ever; fake-users proposal rejected on
+       evidence; W3+W2b merged mission live)
+  Cowork audited W2 in the DB, not on trust: battle 09d68d7b-00c6-45be-9196-16da2bfe8a41
+  holds exactly 2 DISTINCT players (2 vs 4) and is the ONLY such battle site-wide. After
+  1,420 battles and 1,002 finished runs over two months with zero head-to-heads, the loop
+  closed for the first time. Worker also corrected two errors in Cowork's own mission
+  (/api/battle/pending is NOT unused - it serves the E6 crowd-confirm hook on every
+  reveal), blocked properly on migration 154 instead of inventing DDL, and refused to
+  screenshot a red notification it could not yet trigger. Accepted. Found on the way: a
+  verse_watch drift between the DB CHECK and the TS union that silently bypassed user
+  mute settings; migration 154 fixes it. Owner applies 154 himself.
+  FAKE USERS: owner proposed seeding synthetic players who auto-play with invented 7-10
+  scores, 1-3 challenges per user per week. Cowork refused and measured the premise
+  instead: 869 open challenges from real humans, 541 distinct real challengers, 354
+  created in the last 30 days. There is no opponent shortage, only a visibility problem.
+  Decisive argument beyond ethics: our published averages feed /stats, the article pages
+  and the W5 data-PR play, which is the ONLY lever we have on a DR of 1 - fabricated
+  scores would poison the single asset nobody can copy. Owner agreed and chose the
+  TIME-SHIFTED model: real recorded human runs, served asynchronously, honestly labelled
+  ("left 8/10 in March"), never implying the person is online. Recorded as a hard line in
+  the mission: if any part seems to need a fake user, the worker must STOP and block.
+  Owner also ruled the sequencing: W3 (identity) and W2b (duel fun) merged into ONE
+  mission, because XP / history / streaks are worthless while 94% of battle results are
+  anonymous. docs/loop/MISSION.md now carries A claim-this-run, B fun-without-identity
+  (one-click rematch, group + generation picker, difficulty filter on the existing
+  quizzes.difficulty), C time-shifted supply (surface the 869, leaderboard beat button,
+  honest weekly challenge), D identity-gated fun (battle history, win streak, battle XP
+  via the existing route, real W/L). Proof required that no synthetic user, generated
+  score or padded pool appears anywhere in the diff. Nothing pushed.
+
+- L-168 W2b PART B DONE, W3 PART A BLOCKED (worker, 2026-08-15, checkpoint not a full
+  mission). PART A hit the mission's own STOP condition: a guest run carries NO
+  browser-scoped id. Measured: plays is (id, quiz_id, player_id, score,
+  total_questions, time_taken_seconds, created_at, per_question_times) and 36,158 of
+  59,003 rows (61.3%) have player_id NULL with nothing else identifying them, so they
+  are unattributable by construction. battle_results.player_hash exists but is
+  sha256(ip + UTC day): 955 anon rows over 512 hashes, 199 hashes cover >1 run (largest
+  15), so claiming by it would hand one signup every run made behind that IP that day
+  including strangers', and would still miss the same guest's older runs. Neither
+  stable enough to find a history nor private enough to claim one. BLOCKED.md w3-partA
+  recommends adding anon_id to plays + battle_results (owner DDL) AND shipping a
+  current-run-only claim now, with copy that does not promise a retroactive merge that
+  cannot happen for existing rows. PART D not attempted (the mission ties it to A).
+  PART C not started. ALSO FLAGGED: migration 154 from W2 is still NOT applied
+  (probed live, battle_beaten still rejected by the CHECK), contradicting the mission's
+  premise; the challenge notification stays inert.
+  PART B SHIPPED (ce93d92), no identity, no DDL, no new content: B1 the reveal now
+  remembers the arena (quiz id + group slug, both paths) and offers "Same quiz, new
+  rival" drawing another REAL open run, fixing a real dead end (after a challenge
+  accept, "New battle" used to dump the player into a RANDOM group); B2 generation
+  picker off groups.generation (2nd-5th Gen; the 7 groups with no generation are not
+  offered rather than guessed); B3 difficulty picker off quizzes.difficulty. The
+  honest-refusal rule is enforced in code: selectBattleQuestions no longer widens a
+  FILTERED request, so "hard bts" returns "Not enough hard bts questions for a battle
+  yet (0/7)" instead of silently serving easy questions from another group and calling
+  it a hard BTS battle. Covenant proven by grep over the whole diff: 0 added lines
+  matching fake/synthetic/dummy/mock/seed/faker/placeholder/Math.random; the only
+  Math.random in the touched files shuffles real rows. Gates tsc 0 / build 0 /
+  check:routes 0. Proofs docs/proofs/w3-identity/.

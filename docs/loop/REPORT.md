@@ -1,203 +1,153 @@
-# REPORT - W2 BATTLE TRIGGER: make the 1v1 actually happen
+# REPORT - W3 + W2b: PART B shipped, PART A blocked at a schema wall
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL was run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
-`check:metadata-dupes` unchanged: W2 adds only API routes, no indexable page, so the
-indexable set is byte-identical to W1's run.
+`check:metadata-dupes` not re-run: this phase adds no page and no metadata, so the
+indexable set is unchanged from W1.
 
-Commits: `df65c57` (A/B/C) · `4a47a28` (D) · this phase (owner's two follow-ups).
-Proofs: `docs/proofs/w2-battle/`.
+Commit: `ce93d92` (PART B). Proofs: `docs/proofs/w3-identity/`.
 
----
-
-## THE HEADLINE
-
-**A battle has two players in it for the first time.** 1,420 battles over two months,
-1,002 finished, and the audit's finding was that not one had ever had a second player.
-Re-verified independently before building (paginated past the 1000-row cap, so no
-undercount):
-
-```
-battle_results rows: 1005 · battles with >= 1 result: 1005
-battles with 2+ DISTINCT players: 0 · max distinct players on any battle: 1
-```
-
-After the build, an end-to-end run through the real UI plus a second player:
-
-```
-battle 09d68d7b-00c6-45be-9196-16da2bfe8a41   quiz 5d2c7c50 (the quiz actually played)
-  row 1: 184311da08e548a6  score 2/5  challenger? true
-  row 2: 2e6e8a2041796ee2  score 4/5  challenger? false
-  DISTINCT players: 2   winner: the accepter (4 beat 2)
-
-SITE-WIDE: battles with 2+ DISTINCT players: 1  (was 0)
-```
-
-Proof files: `partA-baseline-before.txt`, `partA-challenge-created.txt`,
-`partA-two-result-rows.txt`.
-
-**Method, stated plainly:** context A is a real browser playing a real quiz and
-clicking the real button. Context B is a second identity created with a distinct
-`x-forwarded-for`, because `anonHash` is `sha256(ip + day)` and two browsers on this
-machine share 127.0.0.1, so they would collapse into ONE player locally. The XFF
-header is exactly how production tells two players apart, so this exercises the real
-code path, not a stub.
+**This is a checkpoint report, not a finished mission.** PART B is done. PART A is
+blocked on a schema wall I will not guess my way past, and PART D is blocked behind
+it by the mission's own wording. PART C is not started.
 
 ---
 
-## PART A - the trigger
+## PART A - BLOCKED. The column does not exist, and the mission said to stop here
 
-`POST /api/battle/challenge` creates a battle FROM the run just played.
-
-- **No DDL needed, confirmed against the live schema first** (`partA-schema-probe.txt`):
-  `battles` already has `quiz_id · group_slug · question_ids · questions ·
-  challenger_hash · challenger_score`, and `battle_results` is a separate table with
-  one row per player run. `quizzes.questions` and `battles.questions` are the SAME
-  shape, so a quiz run copies across with no mapping (`partA-question-shapes.txt`).
-- **Why not `/api/battle/start`:** it calls `selectBattleQuestions()` and mints a
-  fresh random 7. That is the missing-stake bug the workstream exists to fix, and
-  that helper has no "use exactly these questions" mode.
-- **Trust model:** the client sends the ORDER it played, never the content. Every
-  question is matched against the quiz's stored questions and the SERVER's copy is
-  persisted, so a forged body cannot inject text or move the correct answer. A
-  deliberately bogus payload returns `400 Questions do not match this quiz`.
-- **The result state now carries the run.** `phase: 'result'` used to drop
-  `questions` and `answers`, which is precisely why the old CTA could only launch an
-  unrelated battle.
-- The challenger's own run is written as a real `battle_results` row. That is what
-  makes a finished challenge hold TWO rows.
-- Guests are never gated. Rate limit: 20 challenges per hour per anon hash.
-
-## PART B - random opponent
-
-`GET /api/battle/random` serves an existing OPEN challenge: same group first, then
-closest score, then most recent.
-
-**The pool was already full before we shipped anything** (`partB-open-pool-before.txt`):
+The mission's rule: "Guest data is sacred: claiming must carry the existing anonymous
+history over, not discard it. If carrying it over needs a column that does not exist,
+STOP and block." It does. Measured today, `partA-claim-feasibility.txt`:
 
 ```
-open challenges (challenger finished, nobody else has run it): 863
-  quiz-linked 453 · group-linked 410
-scores: 7 -> 269, 6 -> 172, 5 -> 150, 4 -> 100, 3 -> 82, 2 -> 43, 1 -> 34, 0 -> 13
+plays total               : 59,003
+plays with player_id NULL : 36,158  (61.3% guest)
+plays columns             : id, quiz_id, player_id, score, total_questions,
+                            time_taken_seconds, created_at, per_question_times
 ```
 
-So "random opponent" serves real recorded humans from day one. Verified live: a third
-identity drew `73868427` from a pool of 258 for blackpink, and the own-run exclusion
-holds (the draw never returns the caller's own battle).
+**A guest play stores nothing that identifies the browser that made it.** `player_id`
+is simply NULL. Those 36,158 rows are unattributable by construction: no code, however
+written, can carry them into a new account.
 
-**COVENANT kept:** never fabricates an opponent, never pads the queue, never serves a
-player their own run.
-
-**`/api/battle/pending` was NOT reused, and the mission's premise about it is wrong.**
-It is not an opponent queue and it is not unused: it returns `pending_questions` for
-the E6 crowd-confirm hook, and `battle-game.tsx:465` calls it on every battle reveal.
-It only looks dead because it renders nothing when no questions are pending.
-Overloading it would have buried an unrelated feature, so PART B is a new route.
-
-**Empty state:** honest copy, and unreachable today by construction because the pool
-is 863 real runs. The branch and its copy are proven by forcing the client state
-(`p3-empty-pool-mobile-390.png`), clearly labelled: the stub returns the exact
-`{battle: null}` shape the route emits. No fake pool was created.
-
-## PART C - the share is the challenge
-
-Captured live from the real CTA (`partC-share-is-the-challenge.txt`):
+The battle side is worse than absent, it is misleading:
 
 ```
-I got 1/5 on "BTS music video trivia - can you get 100%?", beat me
-http://localhost:3021/battle?b=7fbaa597...&utm_source=share&utm_medium=social&utm_campaign=battle_challenge
+battle_results anonymous rows : 955 over 512 distinct player_hash
+hashes covering >1 run        : 199   (largest covers 15 runs)
+player_hash = sha256(ip + UTC day)
 ```
 
-Real score, real title, a LIVE challenge URL. Reuses the existing `?b=` accept flow,
-the existing utm tags and the existing OG path. No new image system.
+Claiming by `player_hash` would hand one signup **every run made behind that IP that
+day, including strangers'**, and would still miss the same guest's runs from
+yesterday because the hash rotates daily. It is neither stable enough to find a
+history nor private enough to claim one. Shipping it would be a privacy leak dressed
+as a feature, so I did not.
 
-## PART D - the seo_intro trap (separate commit, `4a47a28`)
+**What I recommend** (full options in BLOCKED.md): add `anon_id` to `plays` and
+`battle_results`, written from a localStorage UUID, AND ship a current-run-only claim
+now. The migration makes the doctrine's retroactive merge true from ship date forward.
+Nothing can rescue the 36,158 existing guest plays, and the signup copy must not
+promise otherwise.
 
-`seo_intro` no longer touches the meta description; the W1 data-driven formula always
-wins. It keeps rendering as the visible intro paragraph at the top of the group page,
-which it already did (`group-quiz-page.tsx:118,152`), so the "additive, visible only"
-ruling needed only the description branch removed.
+**Also: migration 154 from W2 is still not applied.** The mission said it was being
+applied. Probed live today, an insert of type `battle_beaten` is still rejected by the
+CHECK constraint, so the challenge notification remains inert.
+
+## PART D - not attempted
+
+The mission states "nothing in PART D can exist until a run belongs to someone". It
+depends entirely on PART A. Building history, streaks and W/L on top of anonymous rows
+would mean inventing the attribution that PART A is blocked on.
 
 ---
 
-## The owner's two follow-ups (this phase)
+## PART B - DONE (ships for everyone, no identity, no DDL, no new content)
 
-### 1. The challenge screen, rebuilt as a duel
+### B1. Rematch in one click
 
-`p4-accept-anon-mobile-390.png` and `p5-accept-signedin-mobile-390.png`.
+The reveal offered "New battle", which called `startBattle()` with whatever topic
+state happened to be set. After accepting a challenge link that state is empty, so it
+**dumped the player into a random group**: the exact dead end the mission names. The
+reveal now remembers the ground the battle was fought on (quiz id + group slug,
+recorded on both the challenge-accept and quick-match paths) and offers **"Same quiz,
+new rival"**, drawing another real open run from the PART B pool.
 
-A duel card: challenger on the left behind a red wash, the site `VsBadge` in the
-middle, YOU on the right. `GET /api/battle/[id]` now resolves the challenger's profile
-(a second keyed read, because `battle_results` and `profiles` both FK to `auth.users`
-and have no FK to each other, so a PostgREST embed is impossible).
+Proven end to end (`partB1-rematch.txt`): a player finishes a bts battle, asks for the
+same arena, and gets a different real run.
 
-- **Signed in:** real avatar photo, display name with their accent colour, `@handle`,
-  `Lv 11 · Bias`, `bias ATZ OT8`, `0W of 5 battles`. All real columns.
-- **Anonymous:** initials mark, `@fan_48a6`, `no account`. **No invented face, no
-  invented level, no invented record.** This is the common case: 94% of battle results
-  are anonymous.
-- The stake now names the real quiz, and the CTA carries the challenge red
-  (`--wrong`) rather than the brand pink.
+```
+battle just played : 4d73967f...
+rematch drew       : 6b2d0df2...   @fan_b9eb scored 4/7   group bts
+open pool here     : 236 real runs
+```
 
-**A copy bug was fixed on the way:** the accept screen claimed "the same 7 questions"
-on every challenge. A challenge from a 5-question quiz now says 5.
+If the arena has nothing left it says so and falls back to a fresh battle, rather than
+dead-ending or silently widening.
 
-### 2. Notifications: the honest answer
+### B2 + B3. Pick your fight, and the honest refusal
 
-**No, a challenge did not touch the notification system, and it still cannot be fully
-delivered. Two separate reasons, one of which is yours to unblock.**
+`groups.generation` ('2nd Gen'..'5th Gen') and `quizzes.difficulty` (easy 110 /
+medium 267 / hard 23) already exist, so both pickers are filters, not content. The 7
+groups with no generation set are not offered rather than guessed at.
 
-- **Built:** `notifyRunBeaten()` fires when someone genuinely beats a challenger's
-  run, linking straight back to `/battle?b=<id>` for the rematch. This is R0b T4, the
-  strongest return trigger in your own audit.
-- **Styled red as asked:** the challenge notification is the only type that is another
-  player coming for you, so unread it uses `--wrong` (a real red) for the card, the
-  icon chip and the title, with a crossed-swords glyph, instead of the brand pink
-  every other unread notification uses. Read state calms down like the rest so the
-  inbox does not stay shouting.
-- **BLOCKED on you:** `creator_notifications.type` has a CHECK constraint that rejects
-  `battle_beaten`. DDL is owner-run and this mission says block rather than migrate,
-  so the SQL is written and waiting:
-  `docs/pending-migrations/154_battle_challenge_notification.sql`. The insert fails
-  soft until you apply it, so nothing else breaks. See BLOCKED.md.
-- **A limit worth knowing:** `creator_notifications.user_id` is NOT NULL against
-  `auth.users`, so only a challenger who was SIGNED IN can ever be notified. With 94%
-  of results anonymous, this hook covers a thin slice until W3 identity lands. That is
-  why the audit pairs W2 and W3.
-- Found and fixed on the way: `verse_watch` was live in the DB CHECK but had drifted
-  out of the TS union and out of the prefs CASE, so it silently bypassed user mute
-  settings. Migration 154 fixes that too.
+The rule that mattered most here was "if a filter would leave a bucket empty, say so
+honestly, do not silently widen it". `selectBattleQuestions` previously always topped
+up from any published quiz, which would have served easy questions from another group
+and called it a hard BTS battle. That last resort is now **skipped for any filtered
+request**, and the route reports what actually exists (`partB-pickers.txt`):
+
+```
+{"groupSlug":"bts"}                          -> battle with 7 questions
+{"generation":"4th Gen"}                     -> battle with 7 questions
+{"generation":"3rd Gen","difficulty":"easy"} -> battle with 7 questions
+{"generation":"2nd Gen","difficulty":"hard"} -> battle with 7 questions
+{"groupSlug":"bts","difficulty":"hard"}      -> REFUSED: "Not enough hard bts
+                                                questions for a battle yet." (0/7)
+{"groupSlug":"treasure","difficulty":"hard"} -> REFUSED (0/7)
+```
+
+The refusals are real: there genuinely are no hard BTS questions. Screenshot of all
+three pickers: `partB-pickers-mobile-390.png`.
+
+### The covenant line
+
+No synthetic player, no generated score, no padded pool. Grep proof over the whole
+diff (`partB-no-fabrication.txt`): zero added lines matching `fake`, `synthetic`,
+`dummy`, `mock`, `seed`, `faker`, `placeholder`, `Math.random`. The only `Math.random`
+in the touched files shuffles real rows (question order, random group pick). Every
+opponent served is an existing `battles` row a human created and finished.
+
+---
+
+## PART C - not started
+
+Time-shifted supply (group-page counts, leaderboard "beat this run", the weekly
+challenge). It is independent of PART A and is the natural next slice. It was not
+reached in this run.
 
 ---
 
 ## Deviations and flags (loud)
 
-1. **The mission's claim that `/api/battle/pending` is unused is incorrect.** It is
-   live on every battle reveal, for a different feature. Not reused, by decision.
-2. **The two-player proof uses a forged `x-forwarded-for` for the second identity.**
-   Unavoidable locally: both browsers share one IP and would be one player. Named
-   here rather than buried.
-3. **The empty-pool state is proven by a forced client state**, not a real empty pool,
-   because 863 real open runs exist. Labelled in the script and in the proof.
-4. **The red notification cannot be shown end to end** until migration 154 is applied.
-   The styling is implemented and typechecks; there is no screenshot of a live red
-   notification and I am not going to fake one.
-5. **`score` is client-reported**, exactly as the existing battle and quiz systems
-   already work (battle-game.tsx scores client-side). W2 did not change that trust
-   model; hardening it is its own piece of work.
-6. **`question_ids` is filled with throwaway UUIDs**, matching what `/api/battle/start`
-   already does. The column is `uuid[] NOT NULL` and is never read anywhere in the app.
-7. A NUL byte landed in `challenge/route.ts` during authoring and was stripped; the
-   file is clean (checked across every touched file).
+1. **PART A blocked deliberately**, per the mission's own STOP condition. The wall is
+   the absence of a browser-scoped anonymous id, not a difficulty of implementation.
+2. **PART D not attempted**, because the mission ties it to PART A.
+3. **PART C not started.** Checkpoint reached before it.
+4. **Migration 154 (W2) has still not been applied**, contradicting the mission's
+   premise. The challenge notification stays inert until it lands.
+5. B1's "rematch the same opponent's run" is implemented as **same arena, next real
+   rival**. Replaying one specific opponent would need an opponent-scoped endpoint and
+   a second open run from that same person, which the data does not guarantee. What
+   shipped never dead-ends and never invents an opponent.
 
 ## Next
 
-W3 (claim this run / identity) is the multiplier: it turns anonymous challengers into
-people who can be notified, named and beaten back. Until then the loop works but only
-the link-share and random-draw halves are fully alive.
+Owner decision on BLOCKED.md w3-partA (the `anon_id` migration plus the
+current-run-only claim), and apply 154. Then PART C, which needs neither.
 
 ---
 
-STOP. **Nothing was pushed.** report pret.
+STOP (checkpoint). **Nothing was pushed.** report pret.
