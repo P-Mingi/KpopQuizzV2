@@ -1,0 +1,8 @@
+=== VERIFY 6: no fabrication in the W3b PARTS 2+3 diff ===
+  +lines matching faker        : 0
+  +lines matching fake         : 0
+  +lines matching synthetic    : 0
+  +lines matching dummy        : 0
+  +lines matching mock         : 0
+  +lines matching placeholder  : 0
+  +lines matching Math.random  : 0

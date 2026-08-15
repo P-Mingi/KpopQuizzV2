@@ -6749,3 +6749,21 @@ main:has(.verse-page) { max-width: none; }
   font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap;
 }
 .beat-run:hover { background: color-mix(in srgb, var(--wrong) 10%, transparent); }
+
+/* W3b - the streak backup line. Calm by design: no timer, no warning colour, no
+   urgency. It appears at 3/7/14 only and never twice for the same milestone. */
+.streak-backup {
+  margin-top: 10px; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
+  text-align: center;
+}
+.streak-backup-line { margin: 0 0 8px; font-size: 13px; color: var(--txt2); line-height: 1.5; }
+.streak-backup-actions { display: flex; gap: 8px; justify-content: center; align-items: center; }
+.streak-backup-cta {
+  padding: 8px 16px; border-radius: 100px; background: var(--brand-btn); color: #fff;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+}
+.streak-backup-dismiss {
+  padding: 8px 12px; border: none; background: none; color: var(--txt3);
+  font-size: 13px; cursor: pointer;
+}

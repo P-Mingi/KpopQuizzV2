@@ -1,0 +1,30 @@
+=== W3b PART 3: why the claim was NOT added to the game result screens ===
+
+The mission's own condition: add it "if they record a run that an account could own",
+and "if a surface has nothing to claim, it shows nothing".
+
+Checked live. `claim-runs` can only move rows that carry `anon_id`, which migration 155
+added to exactly two tables:
+
+  plays           anon_id  PRESENT   (quiz runs)          -> claimable
+  battle_results  anon_id  PRESENT   (battle runs)        -> claimable
+
+The four named surfaces:
+
+  blindtest      no result table exists at all. /api/blind-test/{generate,modes,play}
+                 read songs and modes; nothing persists a run.
+  sort-it        no result table.
+  match-up       no result table.
+  name-all       writes game_plays (+ name_all_member_results) via
+                 /api/game/[id]/play, columns: id, game_id, player_id, choices,
+                 created_at. NO anon_id column.
+  this-or-that   same game_plays table. NO anon_id column.
+
+So on every one of those screens the claim block would either move zero rows, or
+require DDL that this mission forbids. Showing it there would be a promise the code
+cannot keep, which is the exact failure the min-gate rule exists to prevent.
+
+NOT SHIPPED, deliberately. The unblocking step is an owner-run migration adding
+`anon_id uuid` to `game_plays` (and `name_all_member_results` if those runs should be
+ownable too), after which the same component drops onto those screens unchanged: it
+already takes a `surface` enum with 'game-result' defined.

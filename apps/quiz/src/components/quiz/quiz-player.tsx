@@ -11,6 +11,8 @@ import { QuizComments } from '@/components/quiz/quiz-comments';
 import { ResultChallenge, canChallenge } from '@/components/quiz/result-challenge';
 import { getAnonId } from '@/lib/anon-id';
 import { ClaimRun } from '@/components/quiz/claim-run';
+import { StreakBackup } from '@/components/quiz/streak-backup';
+import { recordGuestDaily } from '@/lib/guest-streak';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { RollingNumber } from '@/components/ui/rolling-number';
 import { ReportForm } from '@/components/quiz/report-form';
@@ -418,6 +420,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
       // F6 + L4: if this was today's daily quiz (linked with ?daily=quiz),
       // record it locally (sleep card) AND, if signed in, award the streak XP.
       if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'quiz') {
+        // W3b: the guest's own streak count for this browser, recorded alongside the
+        // signed-in server streak. Same day never double counts (see nextStreak).
+        recordGuestDaily();
         void completeDaily('quiz');
       }
       router.refresh();
@@ -1140,6 +1145,9 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
         {/* W3 A4 - claim this run. After the score, never before. */}
         <ClaimRun signedIn={profileXp !== null} surface="quiz-result" />
+
+        {/* W3b - streak backup, daily plays only, at 3/7/14, once each. */}
+        <StreakBackup signedIn={profileXp !== null} />
 
         {/* Like - placed high, right under the result */}
         <div className="mt-3">

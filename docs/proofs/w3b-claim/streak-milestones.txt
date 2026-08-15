@@ -1,0 +1,24 @@
+=== consecutive days build a streak; the line shows ONLY at 3, 7, 14 ===
+  day  1 -> streak  1 | backup shown: no
+  day  2 -> streak  2 | backup shown: no
+  day  3 -> streak  3 | backup shown: YES
+  day  4 -> streak  4 | backup shown: no
+  day  5 -> streak  5 | backup shown: no
+  day  6 -> streak  6 | backup shown: no
+  day  7 -> streak  7 | backup shown: YES
+  day  8 -> streak  8 | backup shown: no
+  day  9 -> streak  9 | backup shown: no
+  day 10 -> streak 10 | backup shown: no
+  day 11 -> streak 11 | backup shown: no
+  day 12 -> streak 12 | backup shown: no
+  day 13 -> streak 13 | backup shown: no
+  day 14 -> streak 14 | backup shown: YES
+  day 15 -> streak 15 | backup shown: no
+
+=== the same milestone never shows twice ===
+  streak 3, first ask : shown
+  streak 3, second ask: hidden
+
+=== same day never double counts; a gap resets honestly ===
+  played twice on day 1 -> streak 1 (1 = correct)
+  after a 7 day gap     -> streak 1 (1 = reset, no fake continuity)
