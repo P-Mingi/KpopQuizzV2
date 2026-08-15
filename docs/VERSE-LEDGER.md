@@ -2620,3 +2620,52 @@ L-177 (W3 PART B PASS; PART A blocked on a real privacy wall; migration 155 writ
   PART A (now unblocked by 155). Flagged: C1 costs two paginated reads per group page
   render, cached by ISR but the most expensive thing on that page; denormalise if group
   pages get hot.
+
+L-178 (C1 approved on honesty; Cowork found the definition hides 52% of the pool)
+  C1 audited. Approved on honesty: the rendered count matches its own definition exactly
+  (Cowork recount: bts 49, blackpink 75, stray-kids 77 - perfect match), pagination is
+  correct, the min-gate returns null at zero rather than advertising an empty door, and
+  the copy states the time shift. The worker was also RIGHT about migration 154 and
+  proved it better than Cowork's theory: a negative control (`definitely_not_a_type` ->
+  check violation) shows the CHECK is enforcing, so `battle_beaten` passing is real. It
+  disproved Cowork's auth.users FK explanation; timing is the only consistent account.
+  COWORK FINDING the worker missed: the definition counts only battles carrying a
+  `group_slug`, so every battle linked solely by `quiz_id` is excluded. Verified live -
+  the app's numbers equal `count(*) filter (where group_slug is not null)` exactly.
+  Site-wide: 870 real open runs, 415 reachable, **455 (52%) invisible**. And
+  app/api/battle/random/route.ts:56 applies the same filter, so those 455 are not merely
+  uncounted, they are UNREACHABLE by the draw. The excluded set is precisely what the W2
+  result-screen challenge creates: we built the front door and hid what it produces.
+  Not a covenant breach (the count never overstates) but it empties PART C of its point.
+  New MISSION.md: C1-FIX first (one definition - group_slug match OR quiz_id resolving to
+  the group - applied in BOTH the count and the draw, with before/after and an
+  independent recount), then C2 leaderboard, C3 weekly challenge (unblocked now that 154
+  is proven live), then PART A (155 verified applied by Cowork: both anon_id uuid columns
+  and both partial indexes exist, row counts intact) with the claim-security proof that a
+  foreign anon_id is refused. Nothing pushed.
+
+- L-170 W2b C1-FIX DONE (worker, 2026-08-15, checkpoint). Cowork's finding CONFIRMED to
+  the row by an independent recount before any edit: both the count and the draw filtered
+  on battles.group_slug, but a battle belongs to a group two ways (group_slug from the
+  quick-match path, or quiz_id from the quiz-anchored path, which is exactly what the W2
+  result-screen challenge creates). Hidden: bts 49->106, blackpink 75->145, stray-kids
+  77->169, seventeen 32->64, SITE TOTAL 415 of 870 visible = 455 hidden (52%), and ALL 455
+  resolve to a group via their quiz (0 unattributable). Worse than a count: /api/battle/
+  random applied the same filter, so those runs were UNREACHABLE, never servable. We
+  shipped the front door in W2 and hid what it produced. FIX: ONE definition owned by
+  lib/db/queries/open-runs.ts (fetchFinishedGroupBattles + playersByBattle + isOpenRun),
+  imported by the draw, so count and draw cannot drift; deduped by battle id; every read
+  paginated; count still exact, unrounded, unfloored; min-gate intact. Proven: rendered
+  counts now equal the recount (106/145/169/64/23) and 10 draws return a MIX including
+  group_slug=NULL quiz-linked runs (bts draw pool 236->282).
+  SECOND BUG found while proving the first, not in the audit: the draw was fully
+  DETERMINISTIC (took open[0]), so every caller with the same score got the identical run
+  while hundreds sat idle, and a run served-but-unfinished would be re-served forever
+  (C4's "never twice" only excludes runs actually played). Now samples uniformly from the
+  top-ranked band - real rows, spread; it is the single added Math.random and is quoted
+  in the proof. METHOD NOTE worth carrying: "proven against an independent recount" only
+  proves the arithmetic, not the premise, when the same wrong assumption is written on
+  both sides. Gates tsc 0 / build 0 / check:routes 0. NOT BUILT: C2, C3, PART A (155 is
+  applied so PART A is unblocked; it carries a security requirement - a foreign anon_id
+  must be REFUSED - and deserves its own run). Flagged: the group page now costs a quiz-id
+  lookup plus two paginated battle reads per render; denormalise onto groups if hot.
