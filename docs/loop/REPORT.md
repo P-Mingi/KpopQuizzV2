@@ -1,108 +1,113 @@
-# REPORT - W2b C2: implemented, NOT verified. C3 not started.
+# REPORT - C2-REDESIGN done and proven. C3 not started.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
 
-Commit: `f228301`. Proofs: `docs/proofs/w2c-supply/`.
-
-**Read the status line first: C2 is built and its data is proven, but I could not
-observe it rendering, so I am not claiming it works. C3 was not started.**
+Commit: `84c44c6`. Proofs: `docs/proofs/w2c-supply/`.
 
 ---
 
-## C2 - what shipped
+## Fact check: you were right on both counts
 
-- `openRunsForQuiz()` lives in the **same module** that owns the open-run definition.
-  There is still exactly one definition; a second one is what caused the 455-run blind
-  spot last run. It returns the open count plus a `username -> battleId` map.
-- **One page-level call for the whole leaderboard**: 3 bounded reads (battles by quiz,
-  their results, one profiles lookup), constant in the number of rows shown. No per-row
-  query, no N+1.
-- The action links to **that player's actual open run** (`/battle?b=<id>`), not a
-  generic battle. Where no open run exists the row renders **no action**: no disabled
-  tease, no substitute, no redirect.
+**The Hall of Fame is not invisible.** Prod renders it with rows. My last report
+generalised a local-environment symptom into a product claim, which was wrong, and I
+have not spent this run chasing it. For the record, one observation while proving the
+new block: on the same local page the block renders in the DOM while the Hall of Fame
+does not, so whatever the local difference is, it is scoped to that component and it
+does not block anything.
 
-## C2 - what IS proven (the data)
+**And the premise was the real blocker.** On the biggest quiz on the site the top 10 by
+score contains zero named players. Matching a leaderboard row to a challenger by
+username cannot work while the board is anonymous, which is exactly why my own count
+found 4 firing cases site-wide. I did not try to fix the matcher.
+
+## C2-REDESIGN - what shipped
+
+- **The per-row matcher is deleted**, along with the `username -> battleId` map that
+  existed only to feed it. Four cases site-wide did not justify carrying it.
+- **One identity-free block** renders under the Hall of Fame. It **reuses** the group
+  page's `OpenRunsBlock`, generalised with a `subject` and an `href` rather than forked
+  into a second UI:
+
+> **10 fans** left unbeaten runs on this quiz.
+> Real runs people already played. Beat one whenever you like, they do not have to be online.
+> [ Take one ]
+
+- The count uses the **same centralised definition**, paginated and exact. No rounding,
+  no floor, no minimum.
+- Zero open runs renders **nothing at all**.
+
+### Proven by DOM and screenshot, not by grepping the flight payload
 
 ```
-open quiz-linked runs                    : 459
-  left by a SIGNED-IN player             :  28
-  AND that player is in that quiz top-10 :   4   <- when the action can fire today
+rendered on /q/ultimate-bts-era-quiz-only-real-armys-survive : "10 fans left unbeaten runs on this quiz"
+independent recount for that quiz                            : 10 open (14 finished battles)
+
+/q/ateez-title-tracks-and-members-quiz (0 open runs)         : .open-runs elements in DOM = 0
 ```
 
-This is the honest shape of the feature: battle challengers and quiz top-scorers are
-**near-disjoint populations**. An anonymous challenger has no username to match a
-leaderboard row against, and 94% of battle results are anonymous. So even working
-perfectly, this action is rare until more challengers carry names, which is exactly
-what PART A started fixing this week.
+Screenshot: `partC2redesign-block-390.png`.
 
-## C2 - what is NOT proven, and why
+## A bug this surfaced, and fixed
 
-The Hall of Fame block **does not appear in the DOM** on the quizzes I tested:
+"Take one" first landed on a run from a **different quiz**. `/api/battle/random`
+appended the global pool, and with no group filter the sort could pick anything. The
+block promises "on this quiz", so that was the same silent-widening failure the
+filtered battle start already refuses.
+
+A requested scope is now a **promise**, not a preference (`strict=1`): a block saying
+"on this quiz" can only ever return a run on that quiz, or report the scope empty. The
+non-strict path stays for "Random opponent", which promises only an opponent.
 
 ```
-document.body.innerText.includes('Hall of Fame')  -> false
-document.body.innerText.includes('Top scorers')   -> false
-document.querySelectorAll('.beat-run').length     -> 0
+4 strict draws on quiz 4ba8f255:
+  99ba6b48 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  e47982d2 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  771d73ec | Ultimate BTS era quiz - only real ARMYs survive | pool 10
+  ded603c9 | Ultimate BTS era quiz - only real ARMYs survive | pool 10
 ```
 
-`QuizHallOfFame` always renders its own header, even in the thin case
-(`quiz-hall-of-fame.tsx:73`), so an absent header means **the component is not being
-reached at all** on these pages. That is pre-existing and independent of this change,
-and it deserves attention on its own: the per-quiz Hall of Fame appears to be invisible.
+Pool 10 matches the published count, and the draw spreads across four different
+battles rather than serving one run to everyone.
 
-I ruled out the obvious causes:
-- not the ISR cache: `.next` was nuked and the server restarted;
-- not RLS: `getQuizHallOfFame`'s read works from the anon key when called directly
-  (verified live, plays readable);
-- not the data: `illit-guess-the-idol` has an open run by `@staygllit_nix`, who IS in
-  that quiz's top 10, which is precisely the case the action targets.
+## Fairness (unchanged, inherited)
 
-I also wasted effort on a bad test earlier: I grepped the raw HTTP response for
-`class="beat-run"`, but `/q/[slug]` returns an RSC flight payload where row content
-sits in referenced chunks, so those greps were meaningless. The DOM checks above are
-the real ones.
-
-**Next diagnostic**: instrument the `/q/[slug]` render to log whether
-`QuizHallOfFame` is reached and what `hallOfFame.length` is at render time.
+The draw already refuses the caller's own run, refuses one they have already played,
+and samples uniformly from the top band. Nothing extra was needed to stay honest.
 
 ## C3 - not started
 
-The weekly challenge (targeting, signed-in delivery, rate limit, time-shift copy) was
-not reached.
+The weekly challenge was not reached this run.
 
-## The honest reach number you asked for
+## The honest reach number, restated
 
-Whenever C3 does ship, this is its ceiling today:
+Whenever C3 ships, this is its ceiling:
 
-- **167 accounts** exist in total.
+- **167 accounts** in total.
 - **94%** of battle results and **61%** of plays are anonymous.
-- PART A only began stamping browsers this week: at audit time **5 plays stamped, 1
-  claimed**.
+- PART A only began stamping browsers this week.
 
-So a weekly challenge is not a site-wide loop. It is a message to a few dozen people at
-most, growing only as fast as the claim flow converts. Presenting it as anything larger
-would be a lie.
+It is a message to a few dozen people, not a site-wide loop, and it should not be
+described as one.
 
 ## Covenant
 
 Zero added lines matching fake / synthetic / dummy / mock / placeholder /
-`Math.random`. The action renders only when the map holds a real battle id for that row.
+`Math.random`. Every number shown is a count of real rows.
 
 ## Deviations and flags (loud)
 
-1. **C2 is unverified.** Committed anyway because it is additive, gated (renders only
-   on a real match), and typechecks and builds. If you would rather it not sit in the
-   tree unproven, say so and I will revert it.
-2. **The Hall of Fame not rendering is a separate, pre-existing problem** that this
-   mission surfaced by accident. It is worth its own look regardless of C2.
-3. **C3 not started.**
+1. **C3 not started.**
+2. The per-row action from last run is **deleted, not disabled**. If you wanted it kept
+   for the 4 cases, it is one revert away.
+3. `strict=1` changes `/api/battle/random` behaviour only for callers that pass it. The
+   result-screen "Random opponent" is untouched.
 
 ## Next
 
-Find out why the Hall of Fame does not render, which unblocks proving C2. Then C3.
+C3, with the reach caveat stated in the product copy as well as the report.
 
 ---
 

@@ -2780,3 +2780,52 @@ L-180 (W3 PART A PASS - identity shipped with a real refusal; C2+C3 next)
   dozen people at most, not a site-wide loop. Gates tsc 0 / build 0 / check:routes 0.
   Covenant grep clean. C2 committed anyway (additive, gated, typechecks) and flagged for
   revert if the owner prefers nothing unproven in the tree.
+
+L-181 (C2 premise disproved: leaderboards are anonymous; redesign ordered)
+  Worker shipped C2 unverified and concluded the per-quiz Hall of Fame "appears to be
+  invisible" sitewide. Cowork disproved that from PRODUCTION: kpopquiz.org/q/ultimate-
+  bts-era-quiz-only-real-armys-survive renders the section with rows ("1 someone 8/8
+  0:18"), and app/q/[slug]/page.tsx:409 renders <QuizHallOfFame> unconditionally. The
+  failure was local, not product-level. Ordered: stop hunting it.
+  THE REAL BLOCKER, measured by Cowork: on that same quiz - 2,107 plays, 711 signed in -
+  the top 10 by score contains ZERO named players. Every visible row is "someone".
+  Anonymous players outnumber named ones and dominate the board. That is why the worker's
+  own count found only 4 firing cases site-wide. C2 does not fail on a bug, it fails on
+  its premise: matching a leaderboard row to a challenger BY USERNAME cannot work while
+  leaderboards are anonymous.
+  Redesign ordered: drop per-row username matching, render ONE identity-free block under
+  the Hall of Fame using the same centralised open-runs definition - "N fans left an
+  unbeaten run on this quiz, take one" - exact live count, min-gate at zero, same
+  fairness rules, reuse the group-page component rather than forking a second UI. 459
+  open quiz-linked runs are available to it versus 4 for the matcher.
+  Worker credit: it refused to claim C2 worked when it could not observe it rendering,
+  it flagged the near-disjoint populations itself, and it reported its own wasted effort
+  (grepping an RSC flight payload proves nothing). C3 still to come, with the honest
+  reach statement required in the report. Nothing pushed.
+
+- L-173 C2-REDESIGN DONE AND PROVEN, C3 NOT STARTED (worker, 2026-08-15, checkpoint).
+  FACT CHECK accepted on both counts: prod DOES render the Hall of Fame, so the previous
+  report wrongly generalised a local-env symptom into a product claim (not chased this
+  run; noted only that locally the new block renders while the HoF does not, so the
+  difference is scoped to that component and blocks nothing). And the real blocker was
+  the PREMISE: on the biggest quiz the top 10 by score has ZERO named players, so
+  matching a leaderboard row to a challenger by username cannot work while boards are
+  anonymous - which is why the earlier count found only 4 firing cases site-wide.
+  SHIPPED (84c44c6): the per-row matcher DELETED along with the username->battleId map
+  that only fed it; ONE identity-free block under the Hall of Fame, REUSING the group
+  page's OpenRunsBlock generalised with subject+href (not forked): "10 fans left
+  unbeaten runs on this quiz / Real runs people already played. Beat one whenever you
+  like, they do not have to be online / [Take one]". Count from the same centralised
+  definition, paginated, exact; zero renders nothing. PROVEN BY DOM + SCREENSHOT (never
+  a grep of the RSC flight payload): rendered 10 = independent recount 10; a quiz with 0
+  open runs has 0 .open-runs elements in the DOM.
+  BUG SURFACED AND FIXED: "Take one" first landed on a run from a DIFFERENT quiz because
+  /api/battle/random appended the global pool and the sort could pick anything - the same
+  silent-widening class as the filtered battle start. A requested scope is now a PROMISE
+  (strict=1): "on this quiz" can only return a run on that quiz or report the scope
+  empty; the non-strict path stays for "Random opponent", which promises only an
+  opponent. 4 strict draws all stayed on the promised quiz, pool 10 matching the
+  published count, spread across 4 different battles.
+  HONEST REACH restated for C3: 167 accounts, 94% of battle results and 61% of plays
+  anonymous, PART A only began stamping this week - a few dozen people, not a site-wide
+  loop. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean.
