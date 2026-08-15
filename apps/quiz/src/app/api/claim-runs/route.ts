@@ -92,12 +92,27 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     .is('user_id', null)
     .select('id');
 
-  if (playErr || battleErr) {
-    console.error('claim-runs failed:', playErr?.message ?? battleErr?.message);
+  // W3b PART 3 A2: game runs, under the SAME contract. game_plays is the largest
+  // remaining claim surface: 1,517 rows, 1,390 of them guest (92%), which is far more
+  // anonymous than the quiz side. Same cookie-only trust, same NULL-owner filter, so
+  // an owned game run can never be re-owned either.
+  const { data: gameRows, error: gameErr } = await db
+    .from('game_plays')
+    .update({ player_id: user.id })
+    .eq('anon_id', proven)
+    .is('player_id', null)
+    .select('id');
+
+  if (playErr || battleErr || gameErr) {
+    console.error('claim-runs failed:', playErr?.message ?? battleErr?.message ?? gameErr?.message);
     return NextResponse.json({ error: 'claim_failed' }, { status: 500 });
   }
 
   return NextResponse.json({
-    claimed: { plays: playRows?.length ?? 0, battles: battleRows?.length ?? 0 },
+    claimed: {
+      plays: playRows?.length ?? 0,
+      battles: battleRows?.length ?? 0,
+      games: gameRows?.length ?? 0,
+    },
   });
 }

@@ -8,6 +8,8 @@ import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
 import { hasPlayedDaily, markDailyPlayed, completeDaily } from '@/lib/daily-played';
+import { recordGuestDaily } from '@/lib/guest-streak';
+import { StreakBackup } from '@/components/quiz/streak-backup';
 import { useAudioPlayer } from './use-audio-player';
 
 // ============================================
@@ -239,6 +241,9 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         } catch {
           // anon or network: the score still shows, just unranked
         }
+        // W3b follow-up: the guest's own streak for this browser, recorded on the
+        // blindtest daily too (it previously only counted on the quiz).
+        recordGuestDaily();
         void completeDaily('blindtest');
         await loadBoard();
       })();
@@ -792,6 +797,9 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
             this result ends the same way every other game does. The anon nudge
             moved there too (ResultLoop shows it on signed-out state rather than
             on an every-third-play counter). */}
+        {/* W3b follow-up: the streak backup, at 3/7/14 only, once each. */}
+        <StreakBackup signedIn={signedIn === true} />
+
         <ResultLoop
           game="blindtest"
           score={score}

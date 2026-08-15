@@ -56,7 +56,7 @@ export function ClaimRun({ signedIn, surface }: { signedIn: boolean; surface: Cl
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ anonId: getAnonId() }),
       });
-      const data = (await res.json()) as { claimed?: { plays: number; battles: number }; error?: string };
+      const data = (await res.json()) as { claimed?: { plays: number; battles: number; games?: number }; error?: string };
       if (res.status === 401) {
         analytics.claimFunnel('refused', surface, { reason: 'sign_in_required' });
         showToast('Sign in first, then this run takes your name.', 'info');
@@ -72,7 +72,7 @@ export function ClaimRun({ signedIn, surface }: { signedIn: boolean; surface: Cl
         showToast('Could not attach this run right now.', 'error');
         return;
       }
-      const total = data.claimed.plays + data.claimed.battles;
+      const total = data.claimed.plays + data.claimed.battles + (data.claimed.games ?? 0);
       // COMPLETED carries the row count, so the funnel can tell "claimed and moved
       // 3 runs" from "claimed and moved nothing", which are very different outcomes.
       if (total > 0) analytics.claimFunnel('completed', surface, { moved: total });

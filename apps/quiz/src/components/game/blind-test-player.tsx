@@ -1,5 +1,9 @@
 'use client';
 
+import { getAnonId } from '@/lib/anon-id';
+import { useSignedIn } from '@/lib/use-signed-in';
+import { ClaimRun } from '@/components/quiz/claim-run';
+
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
@@ -24,6 +28,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
   const { songs } = content;
   const clipDuration = content.settings.clip_duration;
 
+  const signedIn = useSignedIn();
   const [phase, setPhase] = useState<Phase>('intro');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [choices, setChoices] = useState<Record<string, SongChoice>>({});
@@ -264,7 +269,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
       const res = await fetch(`/api/game/${game.id}/play`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ choices }),
+        body: JSON.stringify({ choices, anon_id: getAnonId() }),
       });
       if (res.ok) await res.json();
     } catch (err) {
@@ -433,6 +438,8 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
 
         return (
           <div className="text-center animate-result-in">
+            {/* W3b PART 3 A3: claim this game run (game_plays.anon_id, mig 156). */}
+            <ClaimRun signedIn={signedIn === true} surface="game-result" />
             <p className="text-xs text-[var(--text-tertiary)] mb-2">{game.title}</p>
 
             <p className="text-5xl font-medium mb-1">{score}/{totalPlayed}</p>

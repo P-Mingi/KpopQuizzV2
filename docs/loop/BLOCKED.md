@@ -27,30 +27,6 @@ w2-notify blocker CLEARED 2026-08-15: migration 154 is applied. Re-probed with
 controls, `battle_beaten` inserts cleanly and a bogus type is still rejected
 (docs/proofs/w2c-supply/partC-mig154-reprobe.txt).
 
-## w3b-part3 - the game result screens have nothing an account can own
-
-- What is blocked: PART 3 (claim on blindtest / name-all / sort-it / match-up
-  results). Not built, on purpose, per the mission's own rule.
-- Why: `claim-runs` can only move rows carrying `anon_id`, which migration 155 added
-  to `plays` and `battle_results` only. blindtest, sort-it and match-up persist NO
-  result row at all; name-all and this-or-that write `game_plays`
-  (id, game_id, player_id, choices, created_at), which has no `anon_id`. On every one
-  of those screens the block would move zero rows, so showing it would be a promise
-  the code cannot keep.
-- Options:
-  1) Owner applies a migration adding `anon_id uuid` to `game_plays` (and to
-     `name_all_member_results` if those runs should be ownable). The component then
-     drops onto those screens unchanged: it already takes a `surface` enum with
-     'game-result' defined, and the write paths mirror the quiz one.
-  2) Leave game runs unownable. Those screens keep showing nothing, which is honest,
-     and the claim stays a quiz-and-battle feature.
-  3) Show the block there anyway, pointing at quiz/battle runs the browser made
-     earlier. Rejected: the reader just finished a game and would reasonably read it
-     as claiming THAT run.
-- Recommendation: 1 if game results are meant to belong to people, otherwise 2. Both
-  are honest; 3 is not.
-- Proof / context: docs/proofs/w3b-claim/part3-not-claimable.txt
-
 ## w1-ctr - the new duplicate-metadata gate is RED on a duplicate quiz the code cannot honestly split
 
 - What is blocked: `check:metadata-dupes` cannot go green on the quiz side. One collision is left

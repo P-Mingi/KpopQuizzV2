@@ -1,0 +1,40 @@
+=== W3b PART 3 proofs ===
+browser A : 0011f5f1-32c9-4bf2-8772-144092418149
+foreign   : 3d377bee-8b2f-42f9-8815-d0b25a4af48a
+game      : 97ccfc2e-c2ba-488b-b0aa-17f115bf7ad5
+
+--- 4. a GUEST game play carrying the browser id ---
+{"play_count":24,"score":3,"already_played":false}
+cookie set by server: 0011f5f1-32c9-4bf2-8772-144092418149
+
+--- a game play with NO anon_id still succeeds (nothing is gated) ---
+{"play_count":24,"score":2,"already_played":false}
+
+--- 2. DB BEFORE the claim ---
+game_plays with anon_id A: 1 | owned: 0 | unowned: 1
+
+--- signed in (same cookie jar = same browser) ---
+
+=== 1. SECURITY: a FOREIGN anon_id is REFUSED ===
+request: {"anonId":"3d377bee-8b2f-42f9-8815-d0b25a4af48a"}
+response: {"error":"anon_id_mismatch","detail":"The browser id supplied does not match this browser."} [HTTP 403]
+
+=== the legitimate claim ===
+response: {"claimed":{"plays":0,"battles":0,"games":1}} [HTTP 200]
+
+--- 2. DB AFTER: only this browser game_plays moved ---
+game_plays with anon_id A: 1 | owned now: 1 -> owner 67358f12-5068-4cd9-ba02-ad19fdadad73
+rows carrying the FOREIGN id: 0 (the refused claim moved nothing)
+
+=== 6. covenant grep on the PART 3 diff ===
+  +lines matching faker        : 0
+  +lines matching fake         : 0
+  +lines matching synthetic    : 0
+  +lines matching dummy        : 0
+  +lines matching mock         : 0
+  +lines matching placeholder  : 0
+  +lines matching Math.random  : 0
+  +lines matching countdown    : 0
+
+name_all_member_results was deliberately NOT included: it has no player_id at all,
+so those rows are per-member detail of a round, not an ownable run.

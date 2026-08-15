@@ -1,5 +1,7 @@
 'use client';
 
+import { getAnonId } from '@/lib/anon-id';
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,6 +10,7 @@ import { playFound, playPerfect } from '@/lib/sounds';
 import { completeDaily } from '@/lib/daily-played';
 import { findMatch, formatTimer, getScoreLabel, getInitials, spawnParticles } from '@/lib/name-all-utils';
 import { ResultLoop } from '@/components/result/result-loop';
+import { ClaimRun } from '@/components/quiz/claim-run';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { analytics, isDailyLaunch } from '@/lib/analytics';
@@ -300,6 +303,7 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          anon_id: getAnonId(),
           choices: {
             score: foundRef.current.size,
             total: members.length,
@@ -746,6 +750,11 @@ export function NameAllPlayer({ game }: NameAllPlayerProps): React.ReactElement 
             {/* Workstream LOOP - "Try again / Back to games" replaced by the
                 shared footer, so this ends in the same loop as every other game
                 and points at the player's own group quiz when we know it. */}
+            {/* W3b PART 3 A3: claim this game run. game_plays now carries anon_id
+                (migration 156), so this block moves real rows here. Reused, not
+                forked: the component already had a 'game-result' surface. */}
+            <ClaimRun signedIn={signedIn === true} surface="game-result" />
+
             <ResultLoop
               game="name-all"
               score={found.size}

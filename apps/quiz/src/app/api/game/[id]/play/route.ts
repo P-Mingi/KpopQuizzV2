@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { isUuid, setAnonCookie } from '@/lib/anon-claim';
+
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -21,6 +23,9 @@ export async function POST(
 
   const { data: { user } } = await supabase.auth.getUser();
   const playerId = user?.id ?? null;
+  // W3b PART 3 A1: this browser's id, exactly as plays and battle_results take it.
+  // Never derived from IP or any fingerprint. A play with no id still succeeds.
+  const anonId = isUuid(body.anon_id) ? body.anon_id : null;
 
   // Fetch game
   const { data: game, error: gameError } = await supabase
@@ -54,11 +59,11 @@ export async function POST(
   }
 
   if (game.game_type === 'blind_test') {
-    return recordBlindTestPlay(supabase, game, playerId, body);
+    return recordBlindTestPlay(supabase, game, playerId, body, anonId);
   }
 
   if (game.game_type === 'name_all_members') {
-    return recordNameAllPlay(supabase, game, playerId, body);
+    return recordNameAllPlay(supabase, game, playerId, body, anonId);
   }
 
   return NextResponse.json({ error: 'Unsupported game type' }, { status: 400 });
@@ -69,6 +74,7 @@ async function recordBlindTestPlay(
   game: { id: string; content: unknown; play_count: number; creator_id: string },
   playerId: string | null,
   body: Record<string, unknown>,
+  anonId: string | null,
 ): Promise<NextResponse> {
   const choices = body.choices as Record<string, { picked: number; time: number }>;
   if (!choices || typeof choices !== 'object') {
@@ -125,6 +131,8 @@ async function recordBlindTestPlay(
   await supabase.from('game_plays').insert({
     game_id: game.id,
     player_id: playerId,
+    // W3b: only guest rows carry it; a signed-in play already has an owner.
+    anon_id: playerId ? null : anonId,
     choices,
   });
 
@@ -153,12 +161,15 @@ async function recordBlindTestPlay(
     });
   }
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     content: updatedContent,
     play_count: game.play_count + 1,
     score,
     already_played: false,
   });
+  // W3b A1: proof of possession for a later claim (httpOnly, unforgeable by JS).
+  if (anonId) setAnonCookie(res, anonId);
+  return res;
 }
 
 async function recordNameAllPlay(
@@ -166,6 +177,7 @@ async function recordNameAllPlay(
   game: { id: string; content: unknown; play_count: number; creator_id: string; group_id: number | null },
   playerId: string | null,
   body: Record<string, unknown>,
+  anonId: string | null,
 ): Promise<NextResponse> {
   const choices = body.choices as {
     score: number;
@@ -197,6 +209,8 @@ async function recordNameAllPlay(
   await supabase.from('game_plays').insert({
     game_id: game.id,
     player_id: playerId,
+    // W3b: only guest rows carry it; a signed-in play already has an owner.
+    anon_id: playerId ? null : anonId,
     choices,
   });
 
@@ -243,9 +257,11 @@ async function recordNameAllPlay(
     });
   }
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     play_count: game.play_count + 1,
     score: choices.score,
     already_played: false,
   });
+  if (anonId) setAnonCookie(res, anonId);
+  return res;
 }
