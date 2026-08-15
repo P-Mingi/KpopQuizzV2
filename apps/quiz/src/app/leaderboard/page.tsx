@@ -8,8 +8,8 @@ import type { Metadata } from 'next';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: 'Community',
-  description: 'See which K-pop fandom is winning the week on the fandom war map, watch the live feed of what fans are playing right now, and follow the top creators on kpopquiz.org.',
+  title: 'K-pop Fandom Leaderboard: Who Wins This Week',
+  description: 'See which K-pop fandom is winning the week on the fandom war map, watch what fans are playing right now, and follow the top quiz creators.',
   openGraph: { title: 'Community | KpopQuiz', description: 'The fandom war map, a live feed of what fans are playing, and the top creators on kpopquiz.org.', url: '/leaderboard' },
   twitter: { card: 'summary_large_image' },
   alternates: {

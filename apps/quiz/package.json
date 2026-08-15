@@ -10,6 +10,7 @@
     "lint": "next lint",
     "check:routes": "tsx scripts/check-route-allowlist.mts",
     "check:indexability": "tsx scripts/check-indexability.mts",
+    "check:metadata-dupes": "tsx scripts/check-metadata-dupes.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts"
   },
   "dependencies": {

@@ -23,7 +23,7 @@ interface SearchPageProps {
 export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
   const { q } = await searchParams;
   return {
-    title: q ? `Search: ${q} | KpopQuiz` : 'Search | KpopQuiz',
+    title: q ? `Search: ${q}` : 'Search',
     robots: { index: false, follow: true },
   };
 }

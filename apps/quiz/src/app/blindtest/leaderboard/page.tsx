@@ -49,7 +49,7 @@ function rowName(r: LbRow): string {
 }
 
 export const metadata: Metadata = {
-  title: 'Blindtest of the Day Leaderboard | KpopQuiz',
+  title: 'Blindtest of the Day Leaderboard',
   description: 'See who topped the K-pop Blindtest of the Day. Daily ranking by score, fastest time breaks ties.',
   alternates: { canonical: '/blindtest/leaderboard' },
   robots: { index: false, follow: true },

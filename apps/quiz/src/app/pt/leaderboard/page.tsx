@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: 'Ranking de K-pop - Top Fas e Criadores | KpopQuiz',
+  title: 'Ranking de K-pop - Top Fas e Criadores',
   description:
     'Os melhores criadores e jogadores de quiz de K-pop do kpopquiz.org. Veja quem esta em alta esta semana e quem chegou ao nivel Lenda.',
   alternates: {

@@ -2383,3 +2383,61 @@ L-177 (iter-9 PART 5 SHIPPED: the Verse TOC rail)
   model) that layers over the infobox edge on narrow desktops, clears on >=1600 (stated tradeoff, our
   pages have an infobox the proto did not). Proofs docs/proofs/iter9-toc-rail/ (content L/D, home TOC,
   mobile). doc-toc.tsx now dead code (follow-up delete). tsc 0, verse-tokens green, next build green.
+
+L-174 (Verse paused; quiz-side master plan ranked; academy read; W1 CTR mission live)
+  Owner pivoted the whole program to the QUIZ side, Verse on pause. Cowork read the
+  BabyLoveGrowth SEO/GEO academy in full via 4 subagents (56 lessons: basics 15,
+  get-cited-by-AI 14, authority 12, numbers 1, 100-day plan 4, checklists 6, Claude
+  MCP 2, tools 2) and audited kpopquiz.org against it -> docs/PLAY-GEO-AEO-AUDIT.md.
+  Honest calibration recorded: the academy is a beginner primer (150-400 word
+  lessons, no code) and its authority chapter sells its OWN automated link-exchange
+  network, which Cowork rejects on the same grounds the chapter rejects paid links.
+  Value kept: a clean checklist + a sequencing argument.
+  Already-right (verified in code): all AI crawlers allowed in robots.ts, FAQ/Article/
+  Quiz JSON-LD, self-canonical, unique quiz titles, and the indexguard PART 3 cold
+  start block which is exactly the academy's "keep content in HTML" rule - shipped
+  before reading the course.
+  Biggest gap found, and it was NOT where the owner expected: CTR. 571K impressions /
+  4.9K clicks = 0.86%, below the position-10 expectation while ranking widely. Owner
+  ordered it as priority 1 -> docs/loop/MISSION.md is now W1 CTR SPRINT (build the
+  target table first, then rewrite titles/metas under strict length + honesty rules,
+  plus a NEW duplicate-metadata CI gate, which is the one academy rule we had no gate
+  for). Nothing pushed.
+  Domain rating answer recorded: DR is an Ahrefs lagging metric, chapter 3 never tells
+  you to target it; the lever is our ORIGINAL DATA (59,508 duel votes / 870 voters /
+  58,936 plays / real score splits) which nobody else in K-pop has. Ranked legit plan:
+  mention reclamation -> data report -> embed widget (specced, never built) -> broken
+  links -> topical clusters -> Reddit. No automated or paid links, ever.
+  Battle: owner validated R0 (challenge born on the quiz RESULT screen, friend or
+  random async queue) and asked for more triggers -> R0b added with 8 (share card as
+  challenge, leaderboard beat button, group-hub supply, your-run-was-beaten return
+  hook, post-battle continuation, daily rival, non-quiz surfaces, embed challenge).
+  New: docs/PLAY-MASTER-PLAN.md ranks every quiz workstream W1-W14 in 5 tiers with
+  the evidence for each, folds in the existing PLAY-*/workstream-* docs, and records
+  the 3 rejected directions (public API, B2B engine, live multiplayer/tournaments).
+
+- L-166 W1 CTR SPRINT DONE (worker, 2026-08-15). Priority-1 workstream from
+  PLAY-MASTER-PLAN, grounded in G1 of PLAY-GEO-AEO-AUDIT (~571K Bing impressions at
+  0.86% CTR, below the position-10 expectation). Metadata only, apps/quiz/src, no
+  schema, nothing pushed. RULING APPLIED: the 10 pages from the July sprint
+  (ctr-sprint-baseline.md) sit in a live GSC re-check window to 2026-08-31, so W1
+  did NOT touch them and carried them as byte-identical CONTROLS in the proof.
+  Shipped: (a) the doubled-suffix bug, 20 title expressions in 19 files rendered
+  "X | KpopQuiz | KpopQuiz" because they hardcoded the suffix that the root template
+  already appends, proven live before the fix and now single across the board;
+  (b) /leaderboard title was the bare word "Community", now keyword-led;
+  (c) the 30 non-override group pages moved off one generic title to a live
+  quiz_count title + description, with a singular variant for the 8 one-quiz groups;
+  (d) all 37 trivia pages lead with their real fact count (free, the eligibility gate
+  already resolved it); (e) /q/[slug], 400 URLs, description now names the quiz
+  itself and truncation became a middle-ellipsis. NEW GATE check:metadata-dupes
+  (scripts/check-metadata-dupes.mts): fetches every sitemap URL and fails on a
+  duplicate rendered title, duplicate description, or blank description. It found 11
+  collision groups on its first run and the sprint closed 3 of the 4 quiz-side ones,
+  including a regression the worker itself introduced mid-run. It ships RED on
+  purpose: 1 genuinely duplicate quiz (BLOCKED.md, owner call) + 7 groups in /verse
+  (paused, out of scope). Narrowing the gate to force green was refused.
+  Gates: tsc 0 · build 0 · check:routes 0 · check:indexability 0 · dupes RED as above.
+  Proofs docs/proofs/w1-ctr/. Measured against a production build, not the dev server
+  (it serves stale server components and produced two wrong captures that were
+  discarded). Next: measurement, not more edits.

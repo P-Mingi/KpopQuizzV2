@@ -29,7 +29,7 @@ function getItemLabel(gameType: string): string {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const game = await safeFetch(getNameAllGameBySlug(slug), null, '[name-all] getGame');
-  if (!game) return { title: 'Game Not Found' };
+  if (!game) return { title: 'Game Not Found', robots: { index: false, follow: true } };
 
   const content = game.content as unknown as Record<string, unknown>;
   const itemCount = getItemCount(content);
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = `Can you name all ${itemCount} ${groupName} ${label} in ${timer} seconds? ${game.play_count.toLocaleString('en-US')} fans have tried.`;
 
   return {
-    title: `${game.title} - K-pop Game | KpopQuiz`,
+    title: `${game.title} - K-pop Game`,
     description,
     openGraph: {
       title: `${game.title} | KpopQuiz`,

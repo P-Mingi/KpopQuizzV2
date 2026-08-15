@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   const facts = await getOverriddenFacts(group.id, group.slug);
   if (facts.length < TRIVIA_MIN_FACTS) notFound();
 
-  return generateGroupTriviaMetadata(group);
+  return generateGroupTriviaMetadata(group, facts.length);
 }
 
 export default async function SlugPage({ params }: SlugPageProps): Promise<React.ReactElement> {

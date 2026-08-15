@@ -10,9 +10,9 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blind Test de K-pop - Adivinhe a Musica pelo Clipe | KpopQuiz',
+  title: 'Blind Test de K-pop: Adivinhe a Musica pelo Clipe',
   description:
-    'Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica ou artista. Mais de 300 musicas em mais de 60 grupos de todas as geracoes.',
+    'Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica. Mais de 300 musicas de mais de 60 grupos. Sem cadastro.',
   alternates: {
     canonical: '/pt/blindtest',
     languages: {

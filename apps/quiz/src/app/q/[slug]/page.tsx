@@ -84,7 +84,13 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   // description when present. Re-sanitized on read (defense in depth + old rows), and
   // trimmed to a meta-friendly length (Google truncates ~155).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
-  const templateDescription = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionLen}-question quiz by ${quiz.creator_username}.${
+  // CTR sprint W1: the template used to name the GROUP but never the quiz itself,
+  // so two different quizzes in the same group with the same difficulty, question
+  // count, creator, play count and average rendered a byte-identical description
+  // (check:metadata-dupes caught 2 such pairs live). Leading with the quiz's own
+  // title makes it vary by construction, and it is better copy: the searcher sees
+  // what this specific quiz is about.
+  const templateDescription = `${quiz.title}: a ${quiz.difficulty} ${questionLen}-question K-pop quiz on ${quiz.group_name}, made by ${quiz.creator_username}.${
     avgScore !== null
       ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played it, scoring ${avgScore}% on average.`
       : ` Played by ${quiz.play_count.toLocaleString('en-US')} fans.`
@@ -98,12 +104,18 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   // Bing flagged long titles: keep the rendered <title> (core + " | KpopQuiz")
   // under ~60 chars. Add the question count only when it fits; truncate a very
   // long user title rather than overflow.
-  const withCount = `${quiz.title} · ${questionLen} questions`;
-  const title = withCount.length <= 49
-    ? withCount
-    : quiz.title.length <= 49
-      ? quiz.title
-      : `${quiz.title.slice(0, 48).trimEnd()}...`;
+  // CTR sprint W1: head-truncation collided. Quiz titles in this catalogue are
+  // routinely distinguished by their LAST few words ("... girl groups" vs
+  // "... boy groups", "... artists (2)"), so cutting the tail off made two
+  // different quizzes render one identical title. Ellipsize the MIDDLE instead:
+  // the head keeps the keyword, the tail keeps what makes this quiz distinct.
+  const countSuffix = ` · ${questionLen} questions`;
+  const titleRoom = 49 - countSuffix.length;
+  const TAIL = 12;
+  const titleCore = quiz.title.length <= titleRoom
+    ? quiz.title
+    : `${quiz.title.slice(0, titleRoom - 3 - TAIL).trimEnd()}...${quiz.title.slice(-TAIL).trimStart()}`;
+  const title = `${titleCore}${countSuffix}`;
   const ogImageUrl = `/api/og/${slug}`;
 
   return {

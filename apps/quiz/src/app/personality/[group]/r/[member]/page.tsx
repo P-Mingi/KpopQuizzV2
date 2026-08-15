@@ -36,7 +36,7 @@ export async function generateMetadata(
   const { group: slug, member } = await params;
   const { p } = await searchParams;
   const r = await resolve(slug, member);
-  if (!r) return { title: 'Personality quiz | KpopQuiz', robots: { index: false, follow: true } };
+  if (!r) return { title: 'Personality quiz', robots: { index: false, follow: true } };
   const pct = clampPct(p);
   const canonical = `/which-${slug}-member-are-you/r/${member}`;
   const ogUrl = `/api/og/personality?group=${encodeURIComponent(r.group.name)}&member=${encodeURIComponent(r.profile.member_name)}&pct=${pct}&accent=${encodeURIComponent(r.group.display_color)}&photo=${encodeURIComponent(r.profile.photo_url ?? '')}`;

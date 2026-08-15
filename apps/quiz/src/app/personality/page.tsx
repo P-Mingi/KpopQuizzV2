@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Which K-pop Member Are You? Personality Quizzes | KpopQuiz',
+  title: 'Which K-pop Member Are You? Personality Quizzes',
   description:
     'Free K-pop personality quizzes: 10 questions, 1 result. Find out which member of BTS, Stray Kids, SEVENTEEN, aespa, and more you match. Pick a group and go.',
   alternates: { canonical: '/personality' },

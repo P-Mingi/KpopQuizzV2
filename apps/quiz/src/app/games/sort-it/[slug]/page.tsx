@@ -29,7 +29,7 @@ export function generateStaticParams(): Array<{ slug: string }> {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const playlist = getSortItPlaylist(slug);
-  if (!playlist) return { title: 'Game Not Found' };
+  if (!playlist) return { title: 'Game Not Found', robots: { index: false, follow: true } };
 
   // Real count from the same (cached) loader the page uses, so the title's
   // number is honest and updates with the catalog.

@@ -13,7 +13,7 @@ import type { Metadata } from 'next';
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: 'All This or That Matchups | KpopQuiz',
+  title: 'All This or That Matchups',
   description:
     'Every K-pop This or That matchup in one place. Pick a category and vote in head-to-head fan matchups: biases, best songs, favorite members, and more.',
   alternates: { canonical: '/games/this-or-that/all' },

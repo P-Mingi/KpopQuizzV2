@@ -45,19 +45,34 @@ const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string }> = {
 export function generateGroupQuizMetadata(group: Group): Metadata {
   const override = GROUP_SEO_OVERRIDES[group.slug];
 
+  // CTR sprint W1. The 7 override groups above are inside a live GSC measurement
+  // window (docs/ctr-sprint-baseline.md, re-check 2026-08-24) so they are NOT
+  // touched here. The other 30 groups with quizzes all fell to one generic title
+  // ("<name> Quiz - Test Your Knowledge"): no number, no reason to click. The
+  // default now leads with the LIVE quiz count, so it is true by construction and
+  // updates itself as the catalog grows. Singular groups (8 of them today) get
+  // their own phrasing so we never render "1 Free Fan-Made Tests".
+  const n = group.quiz_count;
+  const title = override?.title ?? (n >= 2
+    ? `${group.name} Quiz: ${n} Free Fan-Made Tests`
+    : `${group.name} Quiz: Free Fan-Made Trivia Test`);
+
   // Bing flagged ~119 pages with meta descriptions under the ~120 char floor.
-  // CTR override wins for the targeted groups; otherwise use the curated
-  // seo_intro when long enough, else a keyword-dense fallback that clears 120-160.
+  // CTR override wins for the targeted groups; otherwise the curated seo_intro
+  // when long enough (an editorial escape hatch: it is empty on every group
+  // today, so every non-override group currently lands on the formula below).
   const description = override
     ? `Play ${group.quiz_count}+ free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
     : group.seo_intro && group.seo_intro.length >= 110
     ? group.seo_intro
-    : `Play ${group.quiz_count}+ free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
+    : n >= 2
+    ? `Play ${n} free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`
+    : `Play the free ${group.name} quiz made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
 
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
   return {
-    title: override?.title ?? `${group.name} Quiz - Test Your Knowledge`,
+    title,
     description,
     alternates: { canonical: `/${group.slug}-quiz` },
     openGraph: {

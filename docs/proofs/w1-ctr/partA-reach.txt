@@ -1,0 +1,82 @@
+# W1 PART A - reach proxy (DB, read-only)
+# captured: 2026-08-15T10:06:28.050Z
+
+## URL supply per page type (head counts, no 1000-row cap)
+published quizzes (/q/[slug])            : 400
+groups total                             : 88
+groups with quiz_count > 0 (/{slug}-quiz): 37
+
+## Group pages ranked by total_plays (reach proxy for /{slug}-quiz + /{slug}-trivia)
+| rank | slug | name | quiz_count | total_plays |
+|---|---|---|---|---|
+| 1 | general-kpop | General K-pop | 152 | 15370 |
+| 2 | bts | BTS | 30 | 8963 |
+| 3 | stray-kids | Stray Kids | 27 | 6386 |
+| 4 | blackpink | BLACKPINK | 27 | 4400 |
+| 5 | seventeen | SEVENTEEN | 11 | 2900 |
+| 6 | newjeans | NewJeans | 10 | 2307 |
+| 7 | twice | TWICE | 14 | 2273 |
+| 8 | enhypen | ENHYPEN | 7 | 2240 |
+| 9 | aespa | aespa | 13 | 1742 |
+| 10 | ive | IVE | 8 | 1582 |
+| 11 | le-sserafim | LE SSERAFIM | 5 | 1354 |
+| 12 | exo | EXO | 8 | 1178 |
+| 13 | ateez | ATEEZ | 20 | 1088 |
+| 14 | g-i-dle | (G)I-DLE | 7 | 1059 |
+| 15 | txt | TXT | 6 | 993 |
+| 16 | itzy | ITZY | 7 | 953 |
+| 17 | red-velvet | Red Velvet | 7 | 888 |
+| 18 | shinee | SHINee | 4 | 589 |
+| 19 | cortis | Cortis | 5 | 521 |
+| 20 | illit | ILLIT | 4 | 406 |
+| 21 | nct | NCT | 3 | 285 |
+| 22 | babymonster | BABYMONSTER | 3 | 243 |
+| 23 | monsta-x | MONSTA X | 2 | 187 |
+| 24 | bigbang | BIGBANG | 1 | 184 |
+| 25 | nmixx | NMIXX | 1 | 161 |
+| 26 | loona | LOONA | 5 | 158 |
+| 27 | got7 | GOT7 | 3 | 126 |
+| 28 | kickflip | KickFlip | 3 | 70 |
+| 29 | artms | ARTMS | 5 | 57 |
+| 30 | loossemble | Loossemble | 4 | 42 |
+| 31 | mamamoo | MAMAMOO | 2 | 15 |
+| 32 | akmu | AKMU | 1 | 15 |
+| 33 | tws | TWS | 1 | 8 |
+| 34 | dreamcatcher | Dreamcatcher | 1 | 8 |
+| 35 | xikers | XIKERS | 1 | 6 |
+| 36 | astro | ASTRO | 1 | 6 |
+| 37 | treasure | TREASURE | 1 | 4 |
+
+top-60 total_plays sum: 58767 · top-10 share: 82.0%
+
+## Top 25 published quizzes by play_count (reach proxy for /q/[slug])
+| rank | slug | play_count |
+|---|---|---|
+| 1 | ultimate-bts-era-quiz-only-real-armys-survive | 2106 |
+| 2 | bts-solo-era-quiz-match-the-member-to-the-music | 1351 |
+| 3 | blackpink-ultimate-fan-challenge | 1273 |
+| 4 | bts-true-or-false-bet-you-cant-get-100 | 1228 |
+| 5 | k-pop-company-quiz-match-the-group-to-the-label | 1195 |
+| 6 | skz-true-or-false-only-real-stays-pass | 1105 |
+| 7 | seventeen-members-mega-quiz-all-13 | 1054 |
+| 8 | which-k-pop-group-debuted-first-timeline-challenge | 1013 |
+| 9 | enhypen-world-ultimate-fan-challenge | 879 |
+| 10 | stray-kids-basics | 814 |
+| 11 | newjeans-discography-deep-dive-quiz | 765 |
+| 12 | blackpink-true-or-false-think-you-know-everything | 743 |
+| 13 | seventeen-discography-and-milestones-quiz | 608 |
+| 14 | k-pop-fandom-names-true-or-false | 600 |
+| 15 | enhypen-debut-and-beyond-quiz | 578 |
+| 16 | how-well-do-you-know-txt | 536 |
+| 17 | guess-the-bts-member-from-clues | 527 |
+| 18 | gi-dle-self-produced-queens-quiz | 525 |
+| 19 | how-well-do-you-know-ive | 516 |
+| 20 | bts-discography-challenge | 511 |
+| 21 | bts-true-or-false-test-your-army-knowledge | 510 |
+| 22 | newjeans-members-fun-facts-quiz | 488 |
+| 23 | stray-kids-members-deep-knowledge | 484 |
+| 24 | exo-legends-quiz-only-exo-ls-survive | 475 |
+| 25 | k-pop-numbers-quiz-how-many-members | 443 |
+
+---
+DONE

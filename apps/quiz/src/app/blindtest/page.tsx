@@ -10,9 +10,9 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'K-pop Blind Test - Guess the Song from a Clip | KpopQuiz',
+  title: 'K-pop Blind Test - Guess the Song from a Clip',
   description:
-    'Play the free K-pop blind test: listen to a 10-second clip and guess the song or artist. 300+ songs across 60+ groups from every generation. Pick All K-pop, a generation, or your favorite group.',
+    'Play the free K-pop blind test: hear a 10-second clip and guess the song. 300+ songs across 60+ groups, from every generation. No sign-up.',
   alternates: {
     canonical: '/blindtest',
     languages: {

@@ -20,11 +20,11 @@ export async function generateStaticParams(): Promise<{ group: string }[]> {
 export async function generateMetadata({ params }: { params: Promise<{ group: string }> }): Promise<Metadata> {
   const { group: slug } = await params;
   const data = await getPersonalityGroupBySlug(slug);
-  if (!data) return { title: 'Personality quiz | KpopQuiz', robots: { index: false, follow: true } };
+  if (!data) return { title: 'Personality quiz', robots: { index: false, follow: true } };
   const name = data.group.name;
   const canonical = `/which-${slug}-member-are-you`;
   return {
-    title: `Which ${name} Member Are You? | KpopQuiz`,
+    title: `Which ${name} Member Are You?`,
     description: `Take the free ${name} personality quiz: 10 questions, 1 result. Find out which ${name} member matches your vibe and see how you compare with other fans.`,
     alternates: { canonical },
     openGraph: {

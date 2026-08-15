@@ -39,7 +39,7 @@ export async function generateMetadata({
   const r = await getRanking(group, type);
   if (!r) return {};
 
-  const title = `${heading(group, type)} | KpopQuiz`;
+  const title = `${heading(group, type)}`;
   const description = r.public
     ? `${r.entities[0]?.name ? `${r.entities[0].name} leads. ` : ''}A live fan ranking built from ${r.total_votes.toLocaleString('en-US')} head-to-head votes. Fan opinion, not an official list.`
     : r.provisional

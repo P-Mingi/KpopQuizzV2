@@ -1,0 +1,50 @@
+# Which group pages actually use which description branch
+# groups with quiz_count > 0: 37
+
+| slug | plays | quizzes | override? | seo_intro len | desc branch | title branch |
+|---|---|---|---|---|---|---|
+| general-kpop | 15372 | 152 | - | 0 | fallback | DEFAULT |
+| bts | 8967 | 30 | YES | 0 | override | override |
+| stray-kids | 6386 | 27 | YES | 0 | override | override |
+| blackpink | 4401 | 27 | YES | 0 | override | override |
+| seventeen | 2900 | 11 | YES | 0 | override | override |
+| newjeans | 2307 | 10 | - | 0 | fallback | DEFAULT |
+| twice | 2273 | 14 | YES | 0 | override | override |
+| enhypen | 2240 | 7 | - | 0 | fallback | DEFAULT |
+| aespa | 1742 | 13 | YES | 0 | override | override |
+| ive | 1582 | 8 | - | 0 | fallback | DEFAULT |
+| le-sserafim | 1354 | 5 | - | 0 | fallback | DEFAULT |
+| exo | 1178 | 8 | - | 0 | fallback | DEFAULT |
+| ateez | 1088 | 20 | - | 0 | fallback | DEFAULT |
+| g-i-dle | 1059 | 7 | - | 0 | fallback | DEFAULT |
+| txt | 993 | 6 | - | 0 | fallback | DEFAULT |
+| itzy | 953 | 7 | - | 0 | fallback | DEFAULT |
+| red-velvet | 888 | 7 | - | 0 | fallback | DEFAULT |
+| shinee | 589 | 4 | - | 0 | fallback | DEFAULT |
+| cortis | 521 | 5 | - | 0 | fallback | DEFAULT |
+| illit | 406 | 4 | YES | 0 | override | override |
+| nct | 285 | 3 | - | 0 | fallback | DEFAULT |
+| babymonster | 243 | 3 | - | 0 | fallback | DEFAULT |
+| monsta-x | 187 | 2 | - | 0 | fallback | DEFAULT |
+| bigbang | 184 | 1 | - | 0 | fallback | DEFAULT |
+| nmixx | 161 | 1 | - | 0 | fallback | DEFAULT |
+| loona | 158 | 5 | - | 0 | fallback | DEFAULT |
+| got7 | 126 | 3 | - | 0 | fallback | DEFAULT |
+| kickflip | 70 | 3 | - | 0 | fallback | DEFAULT |
+| artms | 57 | 5 | - | 0 | fallback | DEFAULT |
+| loossemble | 42 | 4 | - | 0 | fallback | DEFAULT |
+| mamamoo | 15 | 2 | - | 0 | fallback | DEFAULT |
+| akmu | 15 | 1 | - | 0 | fallback | DEFAULT |
+| tws | 8 | 1 | - | 0 | fallback | DEFAULT |
+| dreamcatcher | 8 | 1 | - | 0 | fallback | DEFAULT |
+| xikers | 6 | 1 | - | 0 | fallback | DEFAULT |
+| astro | 6 | 1 | - | 0 | fallback | DEFAULT |
+| treasure | 4 | 1 | - | 0 | fallback | DEFAULT |
+
+branch totals -> override: 7 · seo_intro: 0 · fallback formula: 30
+
+## fandom_name presence (the fallback description interpolates it)
+groups with NO fandom_name: 0
+
+## singular risk: groups with exactly 1 quiz (title/desc must not say "1 tests")
+bigbang, nmixx, akmu, tws, dreamcatcher, xikers, astro, treasure

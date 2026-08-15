@@ -13,9 +13,9 @@ import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'K-pop Trivia and Fun Facts | KpopQuiz',
+  title: 'K-pop Trivia and Fun Facts',
   description:
-    'Browse K-pop trivia and fun facts by group. Surprising facts about your favorite idols, their music, records, and members, then test yourself with fan-made quizzes.',
+    'Browse K-pop trivia and fun facts by group. Surprising facts about the idols, their music, and the records they broke, then test yourself with quizzes.',
   alternates: { canonical: '/trivia' },
   openGraph: {
     title: 'K-pop Trivia and Fun Facts | KpopQuiz',

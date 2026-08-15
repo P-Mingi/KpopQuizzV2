@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export const revalidate = 600;
 export const metadata: Metadata = {
-  title: 'This or That - K-pop Fan Rankings | KpopQuiz',
+  title: 'This or That - K-pop Fan Rankings',
   description:
     'Vote in head-to-head K-pop matchups and watch the live fan ranking reorder in real time. Pick your bias, your favorite song, the best group. Tap and go.',
   alternates: { canonical: '/games/this-or-that' },

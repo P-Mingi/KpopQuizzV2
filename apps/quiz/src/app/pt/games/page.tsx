@@ -13,9 +13,9 @@ import type { Metadata } from 'next';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Jogos de K-pop Gratis - This or That, Membros e Mais | KpopQuiz',
+  title: 'Jogos de K-pop Gratis: Bias, Membros e Blind Test',
   description:
-    'Jogue jogos gratis de K-pop: escolha seu bias em duelos de idols, nomeie todos os membros antes do tempo acabar, jogue blind test. BTS, BLACKPINK, SEVENTEEN e mais.',
+    'Jogue jogos gratis de K-pop: escolha seu bias em duelos de idols, nomeie todos os membros antes do tempo acabar e jogue o blind test. Sem cadastro.',
   alternates: {
     canonical: '/pt/games',
     languages: {

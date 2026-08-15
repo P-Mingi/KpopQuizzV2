@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export const revalidate = 600;
 export const metadata: Metadata = {
-  title: 'Name All Members - K-pop Typing Game | KpopQuiz',
+  title: 'Name All Members - K-pop Typing Game',
   description: 'Can you name every member of BTS, BLACKPINK, SEVENTEEN, Stray Kids before time runs out? 24 groups available. Blind mode and photo clue mode.',
   alternates: { canonical: '/games/name-all' },
 };

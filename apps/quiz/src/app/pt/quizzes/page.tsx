@@ -10,7 +10,7 @@ import type { BrowseGroup } from '@/components/quiz/browse-quizzes';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Quiz de K-pop - Todos os Quizzes | KpopQuiz',
+  title: 'Quiz de K-pop - Todos os Quizzes',
   description:
     'Explore todos os quizzes de K-pop: BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Filtre por grupo, tipo e dificuldade. Feito por fas.',
   alternates: {

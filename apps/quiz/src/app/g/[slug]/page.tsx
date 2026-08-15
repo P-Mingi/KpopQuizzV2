@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
   }
 
   return {
-    title: `${game.title} | KpopQuiz`,
+    title: `${game.title}`,
     description: `${game.play_count} fans have played. Pick your favorite in each matchup.`,
     alternates: { canonical: `/g/${game.slug}` },
   };

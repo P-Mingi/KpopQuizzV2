@@ -93,12 +93,18 @@ function TriviaFactCard({ item }: { item: TriviaFact }) {
 // Metadata
 // ------------------------------------------------------------------
 
-export function generateGroupTriviaMetadata(group: Group): Metadata {
+// CTR sprint W1: factCount is the REAL number of facts this page renders (the
+// caller already resolved it to run the TRIVIA_MIN_FACTS eligibility gate, and
+// getOverriddenFacts is cache()'d, so this costs no extra query). Leading with
+// it gives every trivia page a concrete, true reason to click instead of one
+// generic title shared by all 37 of them. The gate guarantees >= 12, so the
+// count is always plural.
+export function generateGroupTriviaMetadata(group: Group, factCount: number): Metadata {
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
   return {
-    title: `${group.name} Trivia - Facts Only Fans Know`,
-    description: `How well do you really know ${group.name}? Discover surprising facts about the members, music, and achievements - then test yourself with fan-made quizzes.`,
+    title: `${group.name} Trivia: ${factCount} Facts Only Real Fans Know`,
+    description: `How well do you really know ${group.name}? ${factCount} surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes.`,
     alternates: { canonical: `/${group.slug}-trivia` },
     openGraph: {
       title: `${group.name} Trivia | KpopQuiz`,

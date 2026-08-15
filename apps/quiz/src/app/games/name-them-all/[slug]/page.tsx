@@ -32,7 +32,7 @@ export function generateStaticParams(): Array<{ slug: string }> {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const playlist = getNameThemAllPlaylist(slug);
-  if (!playlist) return { title: 'Game Not Found' };
+  if (!playlist) return { title: 'Game Not Found', robots: { index: false, follow: true } };
 
   const count = (await getNameThemAllItems(slug)).length;
   const title = count > 0 ? playlist.seoTitle.replace('{n}', String(count)) : playlist.title;

@@ -29,7 +29,7 @@ export function generateStaticParams(): Array<{ slug: string }> {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const playlist = getMatchUpPlaylist(slug);
-  if (!playlist) return { title: 'Game Not Found' };
+  if (!playlist) return { title: 'Game Not Found', robots: { index: false, follow: true } };
 
   return {
     title: playlist.seoTitle,

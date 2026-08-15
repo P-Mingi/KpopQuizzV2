@@ -1,0 +1,104 @@
+URL   /trivia  [HTTP 200]
+TITLE (37) K-pop Trivia and Fun Facts | KpopQuiz
+DESC  (151) Browse K-pop trivia and fun facts by group. Surprising facts about the idols, their music, and the records they broke, then test yourself with quizzes.
+
+URL   /quizzes/popular-today  [HTTP 200]
+TITLE (42) Most Played K-pop Quizzes Today | KpopQuiz
+DESC  (134) The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated every 30 minutes from real plays. Free to play.
+
+URL   /quizzes/popular-this-week  [HTTP 200]
+TITLE (46) Most Played K-pop Quizzes This Week | KpopQuiz
+DESC  (106) The most played K-pop quizzes of the last 7 days, ranked by real plays and refreshed hourly. Free to play.
+
+URL   /quizzes/popular-this-month  [HTTP 200]
+TITLE (47) Most Played K-pop Quizzes This Month | KpopQuiz
+DESC  (129) The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderboard of what fans are into. Free to play.
+
+URL   /blindtest  [HTTP 200]
+TITLE (56) K-pop Blind Test - Guess the Song from a Clip | KpopQuiz
+DESC  (138) Play the free K-pop blind test: hear a 10-second clip and guess the song. 300+ songs across 60+ groups, from every generation. No sign-up.
+
+URL   /personality  [HTTP 200]
+TITLE (58) Which K-pop Member Are You? Personality Quizzes | KpopQuiz
+DESC  (156) Free K-pop personality quizzes: 10 questions, 1 result. Find out which member of BTS, Stray Kids, SEVENTEEN, aespa, and more you match. Pick a group and go.
+
+URL   /which-ateez-member-are-you  [HTTP 200]
+TITLE (38) Which ATEEZ Member Are You? | KpopQuiz
+DESC  (148) Take the free ATEEZ personality quiz: 10 questions, 1 result. Find out which ATEEZ member matches your vibe and see how you compare with other fans.
+
+URL   /rankings  [HTTP 200]
+TITLE (29) K-pop Fan Rankings | KpopQuiz
+DESC  (131) Live fan-voted rankings: who fans pick as the best idols, songs, and groups in head-to-head matchups. Rankings unlock as fans vote.
+
+URL   /games/name-all  [HTTP 200]
+TITLE (47) Name All Members - K-pop Typing Game | KpopQuiz
+DESC  (141) Can you name every member of BTS, BLACKPINK, SEVENTEEN, Stray Kids before time runs out? 24 groups available. Blind mode and photo clue mode.
+
+URL   /games/this-or-that  [HTTP 200]
+TITLE (44) This or That - K-pop Fan Rankings | KpopQuiz
+DESC  (152) Vote in head-to-head K-pop matchups and watch the live fan ranking reorder in real time. Pick your bias, your favorite song, the best group. Tap and go.
+
+URL   /games/this-or-that/all  [HTTP 200]
+TITLE (36) All This or That Matchups | KpopQuiz
+DESC  (149) Every K-pop This or That matchup in one place. Pick a category and vote in head-to-head fan matchups: biases, best songs, favorite members, and more.
+
+URL   /leaderboard  [HTTP 200]
+TITLE (55) K-pop Fandom Leaderboard: Who Wins This Week | KpopQuiz
+DESC  (138) See which K-pop fandom is winning the week on the fandom war map, watch what fans are playing right now, and follow the top quiz creators.
+
+URL   /enhypen-quiz  [HTTP 200]
+TITLE (46) ENHYPEN Quiz: 7 Free Fan-Made Tests | KpopQuiz
+DESC  (143) Play 7 free ENHYPEN quizzes made by fans. Test your knowledge of ENHYPEN's members, songs, eras, and history, then prove you are a real ENGENE.
+
+URL   /ive-quiz  [HTTP 200]
+TITLE (42) IVE Quiz: 8 Free Fan-Made Tests | KpopQuiz
+DESC  (133) Play 8 free IVE quizzes made by fans. Test your knowledge of IVE's members, songs, eras, and history, then prove you are a real DIVE.
+
+URL   /tws-quiz  [HTTP 200]
+TITLE (46) TWS Quiz: Free Fan-Made Trivia Test | KpopQuiz
+DESC  (137) Play the free TWS quiz made by fans. Test your knowledge of TWS's members, songs, eras, and history, then prove you are a real TWogether.
+
+URL   /enhypen-trivia  [HTTP 200]
+TITLE (55) ENHYPEN Trivia: 26 Facts Only Real Fans Know | KpopQuiz
+DESC  (156) How well do you really know ENHYPEN? 26 surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes.
+
+URL   /got7-trivia  [HTTP 200]
+TITLE (52) GOT7 Trivia: 19 Facts Only Real Fans Know | KpopQuiz
+DESC  (153) How well do you really know GOT7? 19 surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes.
+
+URL   /pt/games  [HTTP 200]
+TITLE (60) Jogos de K-pop Gratis: Bias, Membros e Blind Test | KpopQuiz
+DESC  (147) Jogue jogos gratis de K-pop: escolha seu bias em duelos de idols, nomeie todos os membros antes do tempo acabar e jogue o blind test. Sem cadastro.
+
+URL   /pt/quizzes  [HTTP 200]
+TITLE (43) Quiz de K-pop - Todos os Quizzes | KpopQuiz
+DESC  (152) Explore todos os quizzes de K-pop: BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Filtre por grupo, tipo e dificuldade. Feito por fas.
+
+URL   /pt/blindtest  [HTTP 200]
+TITLE (60) Blind Test de K-pop: Adivinhe a Musica pelo Clipe | KpopQuiz
+DESC  (143) Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica. Mais de 300 musicas de mais de 60 grupos. Sem cadastro.
+
+URL   /pt/leaderboard  [HTTP 200]
+TITLE (49) Ranking de K-pop - Top Fas e Criadores | KpopQuiz
+DESC  (132) Os melhores criadores e jogadores de quiz de K-pop do kpopquiz.org. Veja quem esta em alta esta semana e quem chegou ao nivel Lenda.
+
+URL   /bts-quiz  [HTTP 200]
+TITLE (57) BTS Quiz: Only Real ARMY Can Name All 7 (2026) | KpopQuiz
+DESC  (145) Play 30+ free BTS quizzes made by fans. Name all 7 members, guess the song from the lyrics, and prove you are a real ARMY. Start now, no sign-up.
+
+URL   /games  [HTTP 200]
+TITLE (62) K-pop Games: Blind Test, This or That, Which Member | KpopQuiz
+DESC  (163) Play free K-pop games: guess the song in a blind test, pick sides in This or That, find out which idol you are, and name every member before the timer. No sign-up.
+
+URL   /quizzes  [HTTP 200]
+TITLE (63) K-pop Quizzes: 400+ Free Fan-Made Tests, Every Group | KpopQuiz
+DESC  (145) Browse 400+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.
+
+URL   /seventeen-quiz  [HTTP 200]
+TITLE (62) SEVENTEEN Quiz: Can You Name All 13 Members? (2026) | KpopQuiz
+DESC  (136) Play 11+ free SEVENTEEN quizzes made by fans. Name all 13 members, guess the era, and prove you are a real CARAT. Start now, no sign-up.
+
+URL   /illit-quiz  [HTTP 200]
+TITLE (59) ILLIT Quiz: Free Fan-Made Tests for GLLIT (2026) | KpopQuiz
+DESC  (153) Play 4+ free ILLIT quizzes made by fans. Test your knowledge of ILLIT's members, songs, and eras, then prove you are a real GLLIT. Start now, no sign-up.
+

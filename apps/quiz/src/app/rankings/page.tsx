@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const rankings = await safeFetch(getRankingsIndex(), [], '[rankings/meta] getRankingsIndex');
   const anyPublic = rankings.some((r) => r.public);
   const base: Metadata = {
-    title: 'K-pop Fan Rankings | KpopQuiz',
+    title: 'K-pop Fan Rankings',
     description:
       'Live fan-voted rankings: who fans pick as the best idols, songs, and groups in head-to-head matchups. Rankings unlock as fans vote.',
     alternates: { canonical: '/rankings' },

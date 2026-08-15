@@ -49,7 +49,7 @@ export function popularMeta(window: PopularWindow): Metadata {
   const c = CONFIG[window];
   const path = `/quizzes/${c.slug}`;
   return {
-    title: `${c.title} | KpopQuiz`,
+    title: `${c.title}`,
     description: c.description,
     openGraph: {
       title: c.title,
