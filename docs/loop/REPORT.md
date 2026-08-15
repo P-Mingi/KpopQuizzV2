@@ -1,104 +1,99 @@
-# REPORT - W2b C3: the weekly challenge. The W2/W2b/W3 arc is complete.
+# REPORT - W3b PART 1: the claim funnel is measurable. PARTS 2 and 3 not built.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
 No DDL run. Nothing pushed. Verse untouched.
 
 Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0**.
 
-Commit: `ab2b28c`. Proofs: `docs/proofs/w2c-supply/partC3-weekly.txt`,
-`partC3-notification-390.png`.
+Commit: `ce03015`. Proofs: `docs/proofs/w3b-claim/`.
+
+**PART 1 only.** The mission gates everything behind measurement, so that is what
+shipped. PARTS 2 (streak backup, stats line) and 3 (game result surfaces) are not built.
 
 ---
 
-## C3 - what shipped
+## The analytics half: what the database cannot see
 
-`GET /api/cron/weekly-challenge`, cron-authed like the other jobs, bounded to 50
-deliveries per run, with a `?dry=1` mode that writes nothing.
+`claim_funnel` fires `shown -> started -> completed | refused`, with the surface and,
+on completion, the real number of rows moved.
 
-**Targeting**: bias group first (`profiles.ult_groups`), then closest to that player's
-own average battle score, then most recent. Candidates come from the **same centralised
-open-run definition**; this file owns none of its own.
-
-## The copy, with your correction applied
-
-> **A run worth beating**
-> @fan_5223 left 5/7 in August. Beat it?
-
-Screenshot: `partC3-notification-390.png`, rendered in the red challenge style built in
-W2. The time shift is stated. Nothing implies the challenger is online, waiting, or has
-just challenged the reader.
-
-And nothing in it mentions our account count. You were right to cut that: telling a
-player they are one of very few here is a discouraging non-sequitur, not honesty. The
-copy owes them one truth, that the run is real and was played earlier, and it delivers
-exactly that.
-
-## Fairness, proven against the rows actually delivered
-
-Not asserted from the code. I re-derived each rule from the 15 delivered notifications:
+Captured **at the source**, by wrapping `window.va` before any app script runs, so
+these are the actual payloads rather than console text:
 
 ```
-rule 1  own run delivered               : 0
-rule 2  already-played run delivered    : 0
-rule 3  same challenger twice in a row  : 0
-rule 4  one per user per week           : run 2 delivered 0, skipped 15
-every delivered run still OPEN at delivery time : yes
+{"step":"shown","surface":"quiz-result"}
+{"step":"started","surface":"quiz-result"}
+{"step":"completed","surface":"quiz-result","moved":12}
 ```
 
-Rule 3 is honest about its own limits: users with only one delivery so far cannot
-violate it, and the check is written to catch it once they have two.
+`moved` matters: it separates "claimed and moved 12 runs" from "claimed and moved
+nothing", which are completely different outcomes and would otherwise look identical.
 
-## Idempotency
+Refusal codes are fixed enums: `no_browser_id`, `sign_in_required`, `anon_id_mismatch`,
+`nothing_to_claim`, `error`. Three steps were exercised live; the refusals are branches
+on the same call site, not a separate mechanism.
+
+### A bug found while proving it
+
+`shown` fired **twice per mount**. React StrictMode double-invokes effects in dev, so
+every impression was double counted and the funnel's denominator would have been quietly
+wrong from day one. A ref guard now fires it once per mount. The capture before and
+after is in `funnel-events.txt`.
+
+## The database half: what actually moved
+
+`apps/quiz/scripts/claim-funnel.mjs`, read-only. Definitions stated in the script so you
+can re-derive them:
+
+- **stamped** = `anon_id IS NOT NULL`
+- **claimed** = `anon_id IS NOT NULL AND owner IS NOT NULL`
+- **unclaimed** = `anon_id IS NOT NULL AND owner IS NULL`
+- **unstampable** = `anon_id IS NULL AND owner IS NULL` (pre-155)
 
 ```
-run 1 : delivered 15, eligible 15
-run 2 : delivered 0,  skipped because already had one this week 15
+plays          : 59,020 total |  5 stamped | 1 claimed | 36,169 UNSTAMPABLE
+battle_results :  1,016 total |  1 stamped | 1 claimed |    956 UNSTAMPABLE
 ```
 
-Rule 4 is checked per user against the notifications already delivered, so the job is
-idempotent by construction. There is no separate ledger that could drift.
+**These numbers are near zero, and they should be.** Nothing is deployed. Five plays and
+one battle carry a browser id because I created them while testing this week. The
+instrumentation proves the pipe works; it proves nothing about conversion, and it cannot
+until a deploy puts it in front of real players.
 
-## The honest reach number (report only, as instructed)
+`UNSTAMPABLE` is reported as its own line on purpose: 36,169 plays and 956 battle
+results can never be claimed by anyone, by any means. They are not a backlog to convert,
+and listing them separately keeps them from ever being read as one.
 
-- **167 accounts** in total.
-- **94%** of battle results and **61%** of plays are anonymous.
-- PART A only began stamping browsers this week.
-- This run found **15 eligible signed-in players** who have actually battled, and
-  delivered to all 15.
+## Not built
 
-Fifteen people. That is the true size of this loop today, and it grows only as fast as
-the claim flow converts anonymous players into named ones. It is not a site-wide
-mechanic and should not be described as one internally either.
+- **PART 2**: streak backup at 3/7/14, and the stats-view line.
+- **PART 3**: the claim on game result screens (blindtest, name-all, sort-it, match-up).
+
+Both are straightforward now that the component takes a `surface` enum, which this part
+introduced for exactly that reason.
+
+## Deviations and flags (loud)
+
+1. **One new analytics event name.** `analytics.ts` says six names are fixed. The DB can
+   see COMPLETED but never SHOWN or REFUSED, and no existing event means either, so I
+   added one name carrying a `step` rather than four names. That is still a bend of a
+   stated rule, it is flagged here rather than buried, and reverting is trivial.
+2. **PARTS 2 and 3 not reached.**
+3. The `moved: 12` in the proof is real: those are rows my own test browser had stamped
+   across this week's runs, claimed in one go.
 
 ## Covenant
 
 Zero added lines matching fake / synthetic / dummy / mock / placeholder /
-`Math.random`. Every candidate is a `battles` row a human created and finished, and an
-empty result means nobody is messaged rather than someone being messaged about nothing.
+`Math.random`. The funnel script only counts rows; the events carry enum steps and a
+real row count.
 
-## Deviations and flags (loud)
+## Next
 
-1. **The notification type is overloaded.** This rides `battle_beaten`, because that is
-   what migration 154 added and this mission forbids DDL. The type now carries two
-   meanings ("someone beat your run" and "here is a run worth beating"). The user only
-   ever sees the copy, which is accurate, and the red styling fits both. The clean fix
-   is a dedicated `battle_challenge` type, which needs a migration you run. Say the word
-   and I will write it into `docs/pending-migrations/`.
-2. **Weekly dedup keys on the link's utm_campaign**, since there is no column to mark a
-   weekly delivery without DDL. It works and is self-contained, but it is a string
-   convention, not a constraint.
-3. **The candidate pool for the draw is bounded to 300 recent finished battles.** That is
-   a draw, not a published count, and the published counts elsewhere remain exact and
-   paginated.
-4. Delivery ran for real against the live database: 15 notifications now exist. They are
-   genuine offers of genuine runs, not test rows, so I left them.
-
-## The arc
-
-W2 (trigger, random opponent, share-as-challenge), W2b (pick your fight, rematch,
-C1 group supply, C1-FIX, C2 redesign, C3 weekly), W3 (identity and the claim) are all
-in. Sixteen local commits, nothing pushed, ready for your batch review.
+PARTS 2 and 3, which are now cheap. But the honest recommendation is unchanged from the
+last three reports: **none of this measures anything until a deploy.** The funnel exists
+to be read after one.
 
 ---
 
-STOP. **Nothing was pushed.** report pret.
+STOP (checkpoint). **Nothing was pushed.** report pret.

@@ -2882,3 +2882,58 @@ L-182 (C2-REDESIGN PASS; scope-is-a-promise becomes doctrine; C3 is the last pie
   15 genuine notifications now exist and were left in place.
   Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. 16 local commits across
   the arc, nothing pushed, ready for the batch review and the owner's push decision.
+
+L-183 (C3 PASS, arc complete; owner declined the push; W3b = claim conversion)
+  C3 audited. Cowork verified in the DB: 15 battle_beaten notifications across 15
+  DISTINCT users, i.e. exactly one per person, so rule 4 holds in the data and not only
+  in the code. The worker re-derived all four fairness rules from the delivered rows
+  rather than asserting them from the source, and was honest about rule 3's limit (a user
+  with a single delivery cannot violate "never twice in a row"). The copy states the time
+  shift and, per Cowork's correction, contains nothing about our account count. PASS.
+  ARC COMPLETE: 18 commits, 53 files, +2312 lines. The 1v1 had never had two players in
+  1,420 attempts; it now has a trigger at the emotional peak, a dead-end-free rematch,
+  group/generation/difficulty filters that refuse honestly, 870 real runs visible and
+  reachable instead of 415, an identity claim that genuinely refuses foreign anon_ids,
+  and an honest weekly challenge. Plus the CTR sprint and a duplicate-metadata CI gate.
+  Four bugs nobody was looking for: the doubled "| KpopQuiz | KpopQuiz" suffix on 20
+  titles, half the pool invisible AND unreachable, a fully deterministic draw serving one
+  run to everyone, and "Take one" landing on a different quiz.
+  OWNER DECLINED THE PUSH and chose to continue building. Cowork stated the cost once,
+  for the record: nothing reaches a user and NOTHING CAN BE MEASURED while 18 commits sit
+  local. Claim rate, challenge acceptance and the CTR effect do not exist as numbers
+  until a deploy. From here we are building blind. Owner's gate, respected.
+  New MISSION.md = W3b, chosen because every measurement in the arc hit the same wall
+  (167 accounts, 94% anonymous battles, zero named players in the biggest quiz's top 10,
+  4 firing cases for C2's matcher, 5 plays stamped and 1 claimed). PART 1 measurement
+  FIRST (instrument shown/started/completed/refused with reasons, plus a funnel query
+  Cowork will re-derive), PART 2 the unbuilt conversion moments from
+  PLAY-GUEST-CONVERSION (streak backup at 3/7/14 only, stats-view line), PART 3 widen the
+  surface only where something real was earned - explicitly no sitewide banner, no
+  interstitial, no arrival modal. Nothing pushed.
+
+- L-175 W3b PART 1 DONE, PARTS 2+3 NOT BUILT (worker, 2026-08-15, checkpoint). The
+  mission gates everything behind measurement, so only PART 1 shipped (ce03015).
+  ANALYTICS: claim_funnel fires shown -> started -> completed | refused with `surface`
+  and, on completion, the REAL rows-moved count. Proven at the SOURCE by wrapping
+  window.va before any app script runs (payloads, not console text):
+  {"step":"shown","surface":"quiz-result"} / {"step":"started",...} /
+  {"step":"completed","surface":"quiz-result","moved":12}. Refusal codes are fixed enums
+  (no_browser_id, sign_in_required, anon_id_mismatch, nothing_to_claim, error).
+  BUG FOUND WHILE PROVING IT: `shown` fired TWICE per mount (React StrictMode
+  double-invokes effects in dev), so every impression was double counted and the funnel
+  denominator would have been quietly wrong from day one; a ref guard fires it once.
+  FLAGGED: this adds ONE event name to a file whose header says six are fixed. The DB can
+  see COMPLETED but never SHOWN or REFUSED and no existing event means either, so one
+  name carrying a `step` was the smallest bend available; trivial to revert.
+  DB FUNNEL: apps/quiz/scripts/claim-funnel.mjs (read-only) with definitions stated in
+  the script - stamped / claimed / unclaimed / UNSTAMPABLE. Today: plays 59,020 total, 5
+  stamped, 1 claimed, 36,169 unstampable; battle_results 1,016 total, 1 stamped, 1
+  claimed, 956 unstampable. Near-zero BY DESIGN because nothing is deployed: the
+  instrumentation proves the pipe works, not that the funnel converts, and cannot until a
+  deploy. UNSTAMPABLE is its own line so those 36,169+956 rows are never mistaken for a
+  backlog to convert - they can never be claimed by anyone.
+  NOT BUILT: PART 2 (streak backup at 3/7/14, stats-view line), PART 3 (claim on
+  blindtest/name-all/sort-it/match-up result screens). Both are cheap now that the
+  component takes a `surface` enum, which PART 1 introduced for that purpose.
+  Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean. Standing recommendation,
+  unchanged for four reports: none of this measures anything until a deploy.
