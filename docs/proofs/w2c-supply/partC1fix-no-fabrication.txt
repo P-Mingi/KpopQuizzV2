@@ -1,0 +1,15 @@
+=== VERIFY 5: no fabrication in the C1-FIX diff ===
+
+  added lines matching faker          : 0
+  added lines matching fake           : 0
+  added lines matching synthetic      : 0
+  added lines matching dummy          : 0
+  added lines matching mock           : 0
+  added lines matching placeholder    : 0
+  added lines matching Math.max(      : 0
+  added lines matching || 1           : 0
+
+Math.random added: 1, and it is the DRAW SPREAD:
++  const pick = band[Math.floor(Math.random() * band.length)]!;
+It samples uniformly among REAL top-ranked rows so one run is not served to
+everyone while hundreds sit idle. It creates no player and no score.

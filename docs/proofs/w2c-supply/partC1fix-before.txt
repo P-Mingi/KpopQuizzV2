@@ -1,0 +1,12 @@
+finished battles: 1011 | OPEN total: 870
+
+| group | shown today (group_slug only) | real (slug OR quiz group) | hidden |
+| bts         |    49 |   106 |   57 |
+| blackpink   |    75 |   145 |   70 |
+| stray-kids  |    77 |   169 |   92 |
+| seventeen   |    32 |    64 |   32 |
+| twice       |    22 |    23 |    1 |
+| SITE TOTAL  |   415 |   870 |  455 |
+
+open runs with group_slug NULL but a quiz that resolves to a group: 455
+open runs attributable to NO group at all: 0

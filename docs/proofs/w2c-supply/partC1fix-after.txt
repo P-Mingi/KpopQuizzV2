@@ -1,0 +1,25 @@
+=== C1-FIX: before/after vs an independent recount ===
+# 2026-08-15T12:37:34Z
+
+group          before    after  recount
+bts                49      106
+blackpink          75      145
+stray-kids         77      169
+seventeen          32       64
+twice              22       23
+
+independent recount (same method as before-file): bts 106 · blackpink 145 · stray-kids 169 · seventeen 64 · twice 23
+SITE TOTAL open runs: 870 (was 415 visible = 455 hidden, 52%)
+
+=== the draw can now SERVE a quiz-linked run (group_slug NULL) ===
+(10 draws, distinct callers; the draw samples the top band so load spreads)
+  drew 108ab89e | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew 108ab89e | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew 46de14f6 | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew 108ab89e | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew 108ab89e | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew 815aa5fc | group_slug=bts | quiz=(none)
+  drew 815aa5fc | group_slug=bts | quiz=(none)
+  drew bb3c1d39 | group_slug=null | quiz=Ultimate BTS era quiz - only r
+  drew 108ab89e | group_slug=null | quiz=BTS solo era quiz - match the 
+  drew cf265296 | group_slug=bts | quiz=(none)
