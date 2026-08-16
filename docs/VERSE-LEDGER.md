@@ -3048,3 +3048,58 @@ L-185 (W3b PARTS 2+3 PASS; PART 3's refusal was correct; migration 156 written)
   rather than inferred. Gates tsc 0 / build 0 / check:routes 0. Covenant grep clean
   (including "countdown": 0). Standing recommendation, sixth report running: DEPLOY -
   every number in this arc reads near zero only because nothing is in front of a player.
+
+L-186 (W3b PART 3 PASS - claim now covers quiz + battle + game; W4 embed next)
+  Cowork verified live: game_plays.anon_id column and its partial index exist (migration
+  156 applied by the owner), 1 game run stamped and claimed, 1,391 legacy rows
+  unstampable. The foreign-anon_id refusal returns 403 anon_id_mismatch under the SAME
+  contract as PART A - httpOnly nq_anon cookie is the only trusted source, a disagreeing
+  body is refused rather than silently falling back. Only player_id IS NULL rows are
+  touched, and a game play with no anon_id still succeeds so nothing is gated. PASS.
+  W3b arc complete: the claim funnel is instrumented (with the StrictMode double-count
+  bug caught), the streak backup ships at 3/7/14 only with no countdown and no nagging,
+  and the claim now reaches quiz, battle and game runs.
+  NEXT = W4, the embeddable quiz widget, chosen deliberately. Reasoning recorded so it can
+  be challenged: every retention feature we built is unmeasurable until a deploy, and the
+  owner is holding that gate; authority is the opposite, it compounds over MONTHS (~7
+  links/month benchmark, <5 to 60+ in seven months), so starting late costs permanently.
+  DR is 1/100 with ~1 backlink against ~571K Bing impressions - a strong page on a
+  weightless domain. The embed is the one authority lever that needs nobody's permission.
+  docs/WIDGET-EMBED-SPEC.md (260 lines, written months ago, never built) is authoritative;
+  this mission executes it rather than redesigning it. The critical fact carried forward:
+  an iframe src passes almost NO link equity, so the paste snippet MUST render a visible
+  <a> OUTSIDE the iframe in the partner's DOM - a widget without it is a traffic toy, not
+  an authority lever. The embed result screen also carries the battle challenge (R0b T8),
+  so one mechanic serves acquisition, retention and the backlink at once. The embed route
+  must be noindex and absent from the sitemap (it duplicates the real quiz page) - our own
+  CI gate would catch the contradiction otherwise. Nothing pushed; 22 commits local.
+
+- L-178 W4 EMBED WIDGET BUILT, one defect open (worker, 2026-08-15, checkpoint).
+  Execution of docs/WIDGET-EMBED-SPEC.md. THE BACKLINK IS REAL AND PROVEN FROM THE HOST
+  DOM (not the snippet source): the visible <a> renders in the PARTNER's own DOM outside
+  the iframe, with descriptive anchor text ("<title> on kpopquiz.org") and utm tags;
+  linkIsOutsideIframe true. The generator cannot omit it.
+  SHIPPED: /embed/q/[slug] with ISR + generateStaticParams(top 200), cookie-free read,
+  notFound on unpublished; REUSES QuizPlayer instead of forking, so the W2 end-of-quiz
+  challenge block comes along and the widget feeds the battle loop; noindex,follow +
+  canonical to the real /q/[slug]; absent from the sitemap and check:indexability green
+  (0 contradictions); /embed/ added to KNOWN_ROUTES (without it the middleware 301s every
+  embed to home and partners silently frame our homepage); snippet generator
+  (lib/embed/snippet.ts) dependency-free, partner key sanitised to [a-z0-9-], title
+  HTML-escaped.
+  HEADERS SET DELIBERATELY - the site had NO framing header at all before this:
+  /embed/* gets frame-ancestors *, everything else frame-ancestors 'self' +
+  X-Frame-Options SAMEORIGIN. The global rule is scoped '/((?!embed/).*)' because Next
+  applies EVERY matching rule: a plain '/:path*' also matched /embed and the restrictive
+  value won, making the widget unframeable. Caught by reading live headers, not the config.
+  BUG FOUND AND FIXED: the resizer measured document.documentElement.scrollHeight and
+  posted 33,482px into the partner page (html/body inherit app min-heights, and each
+  applied height fed the next observation). Now measures the embed's own box with a
+  change guard: 33,482px -> 640px.
+  DEFECT LEFT OPEN, stated not hidden: the embed still renders inside the ROOT layout, so
+  TopNav + MobileTabBar appear inside the iframe; the spec requires neither. Fix is a
+  route group with its own root layout (app/(embed)/...). Not attempted at end of
+  context, because refactoring the site's root layout unverified is the wrong last move.
+  ALSO NOT BUILT: theming (?theme/?accent/?bg, spec s8), the partner= attribution log
+  (s9), the internal generator page (s10), and the desktop screenshot (390px only).
+  Gates tsc 0 / build 0 / check:routes 0 / check:indexability 0. Covenant grep clean.
