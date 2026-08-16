@@ -3211,3 +3211,54 @@ L-188 (W4b item 1 PASS - chrome defect closed, and the worker overruled its own 
   floating theme circle still renders inside the iframe (outside the chrome block, needs
   its own gate); the generator shows snippet text with no live preview; theming is proven
   by served HTML (class + custom properties), not by a screenshot of a dark widget.
+
+L-189 (W4b items 2+4 PASS; item 3 correctly declined; W8 answer-first next)
+  Theming: the hex is REBUILT from a regex capture rather than passed through, so only
+  [0-9a-f] can reach the stylesheet, and only two tokens are exposed so a partner cannot
+  repaint arbitrary parts of the widget. Injection attempt `?accent=red);}` refused,
+  malformed values fall back to the default, a broken URL still renders a working widget.
+  Proven in the served HTML. Generator page placed under /admin so it INHERITS noindex
+  and sitemap-absence instead of needing a new rule, and it is a thin shell over the
+  tested buildEmbedSnippet() so it cannot emit a block without the outside-iframe <a>.
+  ITEM 3 BLOCKED and Cowork AGREES with the worker's recommendation to not build it at
+  all yet. No table exists, and writing embed impressions into plays or game_plays would
+  corrupt the counts feeding /stats and the W5 data-PR play - the exact asset the covenant
+  protects. The utm tags already answer the only question that matters at zero partners;
+  an empty table plus a retention cron is cost before value. The CREATE TABLE and three
+  options are written in BLOCKED.md for when a real partner exists.
+  Open flag carried forward: the floating theme circle still renders inside the partner's
+  iframe - site furniture in someone else's page, one gate away.
+  CONVERGENCE POINT worth stating: after that one line, W4 is complete. But the widget's
+  VALUE depends on two owner actions - a deploy, and outreach. A widget nobody can paste
+  creates no links.
+  New MISSION.md = the theme-circle gate + W8 (answer-first block of 40-60 words, literal
+  question headings, and query fan-out as SELF-CONTAINED chunks because an AI lifts a
+  chunk not a page - six or more citation shots per group page instead of one). Hard
+  rules: real DB values only with sentences omitted when a value is missing, no new URLs,
+  and do NOT touch the meta descriptions since W1's July control set is inside its
+  measurement window until 2026-08-24. Nothing pushed; 28 commits local.
+
+- L-181 W4b PART 1 CLOSED PROPERLY, W8 NOT STARTED (worker, 2026-08-16, checkpoint).
+  TWO CORRECTIONS, both the worker's own. (1) The floating circle is NOT ours: zero theme
+  toggles and zero fixed-position elements render in the embed DOM, and the circle in the
+  screenshot was the Next DEV-MODE INDICATOR, absent from a production build. It was
+  flagged twice as site furniture and gating it would have fixed nothing. Lesson, the
+  inverse of L-179's: a screenshot was trusted over a DOM probe that had already said
+  zero. (2) A REAL defect sat underneath it: the L-179 fix passed the chrome to a CLIENT
+  component as a prop, so React SERIALISED the whole chrome tree into the RSC payload -
+  it rendered nothing but the partner's iframe still downloaded a nav it would never
+  show (production build: embed HTML carried a theme-toggle reference). Unrendered is not
+  absent, and the mission asked for absent.
+  FIX: the decision moved to the SERVER - middleware forwards the pathname as x-pathname,
+  the root layout reads it and never BUILDS the chrome tree for /embed/*; a missing header
+  falls back to rendering the chrome (safe default for the site); the client component is
+  deleted. PROVEN on a production build: /embed/q/<slug> theme-toggle 0 / mobile-tab 0,
+  while /q/<slug> 2/0, /quizzes 2/1 and / 2/1 are unchanged. W4 is closed.
+  NOT STARTED: W8 answer-first (2a block, 2b question headings, 2c fan-out chunks). Not
+  blocked - member count / debut / fandom / quiz count / generation all exist in the DB,
+  and the no-generation group is already handled elsewhere - simply not begun, and it
+  deserves a run where the per-group and missing-value proofs land with it.
+  FLAGGED: the middleware now sets a header on every request (one Headers copy on the
+  passthrough path, but it is the file that 301s unknown routes, so it is named not
+  buried); check:metadata-dupes not re-run because nothing here touches a title or a
+  description. Gates tsc 0 / build 0 / check:routes 0 / check:indexability 0.
