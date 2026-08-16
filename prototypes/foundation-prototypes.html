@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-FOUNDATION · 5 prototypes · co-design F5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,640&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS : tout est calcule ================= */
+:root{
+  --u:4px;                    /* unite de base */
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#20222E; --ink2:#6A6D7C;
+  --line:#E6E1D5; --line2:#D8D2C2;
+  --accent:#5F4BC9; --accent-ink:#4A3AA6; --ghost:#8F7ED8;
+  --data:#1F6E52; --warn:#9C6410; --wash:#F2EEE4; --hi:#F6F3FF;
+  --ff-display:'Fraunces',serif; --ff-prose:'Source Serif 4',Georgia,serif;
+  --ff-ui:'Spline Sans',sans-serif; --ff-mono:'Spline Sans Mono',monospace;
+  --measure:66ch; --rail:300px; --toc:200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--ff-ui);font-size:15px;line-height:1.6}
+a{color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent)}
+
+/* lien fantome : la page n'existe pas encore */
+.ghostlink{color:var(--ghost);text-decoration-style:dashed;cursor:pointer;position:relative}
+.ghostlink:after{content:"cette page n'existe pas encore · cliquer pour la creer";position:absolute;left:0;top:130%;background:var(--ink);color:#fff;font-family:var(--ff-mono);font-size:10px;padding:4px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:50}
+.ghostlink:hover:after{opacity:1}
+
+/* ============ barre haute du prototype ============ */
+.protobar{position:sticky;top:0;z-index:100;background:var(--ink);color:#fff;display:flex;align-items:center;gap:16px;padding:0 20px;height:48px}
+.protobar .t{font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:#9DA2B8}
+.protobar nav{display:flex;gap:4px;margin-left:auto}
+.protobar button{font-family:var(--ff-mono);font-size:11px;background:none;border:1px solid #3A3E52;color:#C9CCDD;padding:6px 10px;border-radius:6px;cursor:pointer}
+.protobar button.on{background:#fff;color:var(--ink);border-color:#fff}
+.protobar .gridbtn{border-style:dashed}
+body.showgrid .gridbtn{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* overlay grille 12 colonnes + baseline 4px */
+.gridoverlay{display:none;pointer-events:none;position:fixed;inset:48px 0 0 0;z-index:99}
+body.showgrid .gridoverlay{display:block}
+.gridoverlay .cols{position:absolute;inset:0;max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.gridoverlay .cols i{background:rgba(95,75,201,.06);border-inline:1px solid rgba(95,75,201,.14)}
+.gridoverlay .base{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 15px,rgba(95,75,201,.08) 15px,rgba(95,75,201,.08) 16px)}
+
+/* ============ ecrans ============ */
+.screen{display:none}
+.screen.on{display:block}
+.shell{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* bandeau annotation de l'ecran */
+.spec{border-bottom:1px solid var(--line);background:var(--wash)}
+.spec .shell{display:flex;gap:24px;align-items:baseline;padding:12px 24px}
+.spec h1{font-family:var(--ff-mono);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.spec p{font-size:12.5px;color:var(--ink2);max-width:70ch}
+
+/* pastilles d'annotation numerotees */
+.an{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--ff-mono);font-style:normal;font-size:10.5px;vertical-align:middle;margin:0 2px;flex:none;cursor:default}
+.legend{background:var(--wash);border-top:1px solid var(--line);padding:20px 0 28px;margin-top:48px}
+.legend .shell{display:grid;grid-template-columns:1fr 1fr;gap:10px 40px}
+.legend div{display:flex;gap:10px;font-size:12.5px;color:var(--ink2);align-items:baseline}
+.legend b{color:var(--ink);font-weight:600}
+
+/* ============ chrome de l'espace (commun aux ecrans) ============ */
+.sitebar{background:var(--card);border-bottom:1px solid var(--line);font-size:13px}
+.sitebar .shell{display:flex;align-items:center;gap:20px;height:52px}
+.sitebar .logo{font-family:var(--ff-display);font-weight:640;font-size:17px;text-decoration:none;color:var(--ink)}
+.sitebar .logo em{color:var(--accent);font-style:normal}
+.sitebar .tabs{display:flex;gap:16px;margin-left:8px}
+.sitebar .tabs a{text-decoration:none;color:var(--ink2);font-weight:500}
+.sitebar .tabs a.on{color:var(--ink)}
+.sitebar .right{margin-left:auto;display:flex;gap:12px;align-items:center;color:var(--ink2)}
+.sitebar .search{border:1px solid var(--line2);border-radius:8px;padding:6px 12px;width:220px;color:var(--ink2);background:var(--paper);font-family:var(--ff-ui);font-size:12.5px}
+
+/* menu d'espace 5 x 3 x 10 */
+.spacenav{background:var(--card);border-bottom:1px solid var(--line)}
+.spacenav .shell{display:flex;align-items:stretch;gap:0;height:46px}
+.spacenav .space{display:flex;align-items:center;gap:8px;font-family:var(--ff-display);font-weight:560;font-size:15px;padding-right:20px;border-right:1px solid var(--line);margin-right:8px}
+.spacenav .space .dot{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#6C5BD4,#9B8CF0);flex:none}
+.menu{display:flex}
+.menu>li{list-style:none;position:relative}
+.menu>li>a{display:flex;align-items:center;gap:5px;height:46px;padding:0 14px;text-decoration:none;color:var(--ink);font-weight:500;font-size:13.5px}
+.menu>li>a .car{font-size:9px;color:var(--ink2)}
+.menu>li:hover>a{background:var(--hi);color:var(--accent-ink)}
+.drop{position:absolute;top:46px;left:0;background:var(--card);border:1px solid var(--line);border-radius:0 0 10px 10px;box-shadow:0 12px 32px rgba(32,34,46,.10);min-width:220px;padding:6px;display:none;z-index:60}
+.menu>li:hover .drop{display:block}
+.drop li{list-style:none;position:relative}
+.drop li>a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:13px}
+.drop li>a:hover{background:var(--hi)}
+.drop li>a .car{color:var(--ink2);font-size:10px}
+.drop .sub{position:absolute;left:100%;top:-7px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(32,34,46,.10);min-width:200px;padding:6px;display:none}
+.drop li:hover .sub{display:block}
+.countcap{font-family:var(--ff-mono);font-size:10px;color:var(--ink2);padding:6px 12px 4px;border-top:1px dashed var(--line);margin-top:4px}
+
+/* ============ ECRAN 1 : PAGE DOCUMENT ============ */
+.doc{display:grid;grid-template-columns:var(--toc) minmax(0,1fr) var(--rail);gap:40px;padding-top:32px}
+.crumb{font-family:var(--ff-mono);font-size:11px;color:var(--ink2);letter-spacing:.04em}
+.crumb a{color:var(--ink2);text-decoration:none}
+.crumb a:hover{color:var(--accent-ink)}
+.crumb .sep{margin:0 6px;color:var(--line2)}
+
+.toc{position:sticky;top:64px;align-self:start;font-size:12.5px}
+.toc .h{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:10px}
+.toc ol{list-style:none}
+.toc li{padding:3px 0}
+.toc a{text-decoration:none;color:var(--ink2);border-left:2px solid transparent;padding-left:10px;display:block}
+.toc a.on{color:var(--accent-ink);border-left-color:var(--accent)}
+.toc a:hover{color:var(--ink)}
+.toc .l2{padding-left:22px;font-size:12px}
+.toc .prog{margin-top:16px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.toc .prog i{display:block;height:100%;width:34%;background:var(--accent)}
+
+.docmain{max-width:var(--measure)}
+.docmeta{display:flex;gap:10px;align-items:center;margin:14px 0 4px}
+.pagetitle{font-family:var(--ff-display);font-weight:640;font-size:42px;line-height:1.08;letter-spacing:-.01em}
+.pagetitle .hangul{font-weight:400;font-size:22px;color:var(--ink2);margin-left:12px}
+.editline{display:flex;gap:14px;align-items:center;margin:10px 0 26px;font-family:var(--ff-mono);font-size:11px;color:var(--ink2)}
+.editline a{color:var(--ink2)}
+.editline .btn{border:1px solid var(--line2);border-radius:6px;padding:4px 10px;text-decoration:none;color:var(--ink);background:var(--card)}
+.editline .btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+.docmain p{font-family:var(--ff-prose);font-size:16.5px;line-height:1.72;margin:0 0 18px}
+.docmain .lead{font-size:18px}
+.docmain h2{font-family:var(--ff-display);font-weight:560;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:1px solid var(--line);scroll-margin-top:64px}
+.docmain h3{font-family:var(--ff-ui);font-weight:600;font-size:15px;margin:24px 0 8px;color:var(--ink)}
+.docmain h2 .anchor{font-family:var(--ff-mono);font-size:11px;color:var(--line2);margin-left:8px;text-decoration:none}
+.docmain h2:hover .anchor{color:var(--accent)}
+blockquote{border-left:2px solid var(--accent);padding:6px 0 6px 18px;margin:0 0 18px;font-family:var(--ff-prose);font-style:italic;color:var(--ink2);font-size:16px}
+blockquote cite{display:block;font-family:var(--ff-mono);font-style:normal;font-size:11px;margin-top:6px}
+
+table.data{border-collapse:collapse;width:100%;margin:6px 0 22px;font-size:13px;font-family:var(--ff-ui)}
+table.data th{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line2)}
+table.data td{padding:8px 12px;border-bottom:1px solid var(--line)}
+table.data tr:hover td{background:var(--hi)}
+
+.gallerystrip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 8px}
+.gallerystrip i{aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,var(--wash),var(--line));display:block}
+.gallerystrip i:nth-child(2){background:linear-gradient(135deg,#E4DcF8,#C9BCF2)}
+.gallerystrip i:nth-child(4){background:linear-gradient(135deg,#EFE9DA,#DED4BC)}
+.galmore{font-size:13px}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.04em;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;color:var(--ink2);background:var(--card);text-decoration:none}
+.chip.data{border-color:#BFDCCF;color:var(--data);background:#F1F8F4}
+.chip.warn{border-color:#E8D5AE;color:var(--warn);background:#FBF6E9}
+.chip.edited{border-color:#D5CDF2;color:var(--accent-ink);background:var(--hi)}
+
+/* rail de faits (infobox) */
+.factrail{position:sticky;top:64px;align-self:start}
+.infobox{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.infobox .pic{height:180px;background:linear-gradient(160deg,#B9AEE8,#6C5BD4 70%);position:relative}
+.infobox .pic span{position:absolute;bottom:10px;left:12px;font-family:var(--ff-mono);font-size:10px;color:#fff;opacity:.85}
+.infobox section{padding:12px 16px;border-top:1px solid var(--line)}
+.infobox h4{font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.infobox dl{display:grid;grid-template-columns:96px 1fr;gap:5px 12px;font-size:12.5px}
+.infobox dt{color:var(--ink2)}
+.infobox dd{font-weight:500}
+.infobox dd .auto{font-family:var(--ff-mono);font-size:9.5px;color:var(--data);margin-left:4px}
+.railnote{font-family:var(--ff-mono);font-size:10.5px;color:var(--ink2);margin-top:10px;line-height:1.7}
+
+/* pied de document */
+.docfoot{border-top:1px solid var(--line2);margin-top:44px;padding-top:20px}
+.docfoot .h{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin:14px 0 8px}
+.navbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.navbox b{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-right:6px}
+.backlinks{font-size:13px;color:var(--ink2)}
+</style>
+</head>
+<body>
+
+<div class="protobar">
+  <span class="t">V-FOUNDATION · CO-DESIGN F5 · 5 ECRANS</span>
+  <nav>
+    <button class="on" data-s="s1">01 Document</button>
+    <button data-s="s2">02 Portail</button>
+    <button data-s="s3">03 Menu</button>
+    <button data-s="s4">04 Creation</button>
+    <button data-s="s5">05 Tag</button>
+    <button class="gridbtn" id="gridbtn" title="touche G">Grille 12col + 4px</button>
+  </nav>
+</div>
+<div class="gridoverlay"><div class="base"></div><div class="cols"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+<!-- ================================================== ECRAN 1 : DOCUMENT -->
+<section class="screen on" id="s1">
+<div class="spec"><div class="shell">
+  <h1>01 · Page document</h1>
+  <p>Le canvas DOCUMENT: sommaire a gauche, prose 66ch au centre, rail de faits a droite. La lecture d'abord, le chrome au minimum.</p>
+</div></div>
+
+<div class="sitebar"><div class="shell">
+  <a class="logo" href="#">Kpop<em>Verse</em></a>
+  <div class="tabs"><a href="#">Play</a><a href="#" class="on">Fandoms</a><a href="#">Community</a></div>
+  <div class="right"><span class="search">Rechercher dans ARMY... <span style="float:right;opacity:.6">/</span></span></div>
+</div></div>
+
+<div class="spacenav"><div class="shell">
+  <span class="space"><span class="dot"></span> ARMY</span>
+  <ul class="menu">
+    <li><a href="#">Accueil</a></li>
+    <li><a href="#">BTS <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Discographie <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Culture ARMY <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Communaute <span class="car">&#9662;</span></a></li>
+  </ul>
+</div></div>
+
+<div class="shell doc">
+  <aside class="toc">
+    <div class="h">Sommaire <i class="an">4</i></div>
+    <ol>
+      <li><a class="on" href="#">Jeunesse</a></li>
+      <li><a href="#">Carriere</a></li>
+      <li class="l2"><a href="#">2013-present : BTS</a></li>
+      <li class="l2"><a href="#">2015-present : solo</a></li>
+      <li><a href="#">Discographie</a></li>
+      <li><a href="#">Recompenses</a></li>
+      <li><a href="#">Galerie</a></li>
+    </ol>
+    <div class="prog"><i></i></div>
+  </aside>
+
+  <main class="docmain">
+    <div class="crumb"><a href="#">ARMY</a><span class="sep">/</span><a href="#">Membres</a><span class="sep">/</span>Jungkook <i class="an">1</i></div>
+    <h1 class="pagetitle">Jungkook<span class="hangul">전정국</span></h1>
+    <div class="editline">
+      <a class="btn" href="#">Modifier</a>
+      <a href="#">Historique (34 versions)</a> <i class="an">2</i>
+      <span>modifie il y a 2 j par mina</span>
+      <span class="chip data">indexable</span>
+    </div>
+
+    <p class="lead"><strong>Jungkook</strong> (전정국) est le chanteur principal et plus jeune membre de <a href="#">BTS</a>. Ne le 1er septembre 1997 a Busan, il debute avec le groupe le 13 juin 2013 sous <a href="#">Big Hit Entertainment</a>.</p>
+    <p>Son premier album solo <a href="#">GOLDEN</a> sort en novembre 2023 et place trois titres simultanement dans le top 10 du Billboard Hot 100, une premiere pour un artiste solo coreen. La tournee <span class="ghostlink">GOLDEN Live On Stage</span> <i class="an">3</i> accompagne sa sortie.</p>
+
+    <h2>Jeunesse<a class="anchor" href="#">#</a></h2>
+    <p>Jeon Jungkook grandit a Busan avec son frere aine. Repere en 2011 lors d'une audition de <span class="ghostlink">Superstar K3</span>, il recoit des offres de sept agences et choisit Big Hit apres avoir vu <a href="#">RM</a> rapper.</p>
+    <blockquote>Je ne savais pas chanter du tout. Je suis venu pour RM, et je suis devenu chanteur ici.<cite>Jungkook · 2017.04.03</cite></blockquote>
+
+    <h2>Carriere<a class="anchor" href="#">#</a></h2>
+    <h3>2013-present : BTS</h3>
+    <p>Il occupe les positions de chanteur principal, danseur principal et rappeur occasionnel. Sa ligne vocale ouvre <a href="#">Spring Day</a> et <a href="#">Euphoria</a>, cette derniere devenant l'intro de l'ere <a href="#">Love Yourself</a>.</p>
+    <h3>2015-present : solo</h3>
+    <p>Ses covers publiees sur SoundCloud depassent chacune les 50 millions d'ecoutes. <a href="#">Seven</a> (feat. Latto) reste 14 semaines numero 1 du Billboard Global 200.</p>
+
+    <h2>Recompenses<a class="anchor" href="#">#</a></h2>
+    <table class="data">
+      <tr><th>Annee</th><th>Ceremonie</th><th>Categorie</th><th>Resultat</th></tr>
+      <tr><td>2023</td><td>MTV EMA</td><td>Best K-pop</td><td>Laureat</td></tr>
+      <tr><td>2024</td><td>Billboard Music Awards</td><td>Top Global K-pop Song</td><td>Laureat</td></tr>
+      <tr><td>2024</td><td>MAMA Awards</td><td>Best Male Artist</td><td>Nomme</td></tr>
+    </table>
+
+    <h2>Galerie<a class="anchor" href="#">#</a></h2>
+    <div class="gallerystrip"><i></i><i></i><i></i><i></i></div>
+    <p class="galmore"><a href="#">Voir la galerie · 128 images</a> <i class="an">5</i></p>
+
+    <div class="docfoot">
+      <div class="h">Tags</div>
+      <p style="font-family:var(--ff-ui);font-size:13px;margin-bottom:4px">
+        <a class="chip" href="#">Vocal Line</a> <a class="chip" href="#">Dance Line</a> <a class="chip" href="#">Maknae Line</a> <a class="chip" href="#">1997</a> <a class="chip" href="#">Auteur-compositeur</a> <i class="an">6</i>
+      </p>
+      <div class="h">Membres de BTS</div>
+      <div class="navbox"><b>auto</b> <a href="#">RM</a> <a href="#">Jin</a> <a href="#">Suga</a> <a href="#">J-Hope</a> <a href="#">Jimin</a> <a href="#">V</a> <strong>Jungkook</strong> <i class="an">7</i></div>
+      <div class="h">Pages qui pointent ici</div>
+      <p class="backlinks">12 pages · <a href="#">GOLDEN</a>, <a href="#">Seven</a>, <a href="#">Euphoria</a>, <a href="#">Ere ARIRANG</a> et <a href="#">8 autres</a></p>
+    </div>
+  </main>
+
+  <aside class="factrail">
+    <div class="infobox">
+      <div class="pic"><span>photo d'ere · ARIRANG</span></div>
+      <section>
+        <h4>Personnel</h4>
+        <dl>
+          <dt>Nom</dt><dd>Jeon Jung-kook</dd>
+          <dt>Naissance</dt><dd>1 sept. 1997 <span class="auto">age 28 auto</span></dd>
+          <dt>Ville</dt><dd>Busan</dd>
+          <dt>MBTI</dt><dd>ISFJ</dd>
+        </dl>
+      </section>
+      <section>
+        <h4>BTS <i class="an">8</i></h4>
+        <dl>
+          <dt>Debut</dt><dd>13 juin 2013</dd>
+          <dt>Anciennete</dt><dd>13 ans <span class="auto">auto</span></dd>
+          <dt>Positions</dt><dd>Chant principal, danse</dd>
+          <dt>Fandom</dt><dd>ARMY</dd>
+        </dl>
+      </section>
+      <section>
+        <h4>Solo</h4>
+        <dl>
+          <dt>Debut</dt><dd>Seven · 2023</dd>
+          <dt>Album</dt><dd>GOLDEN</dd>
+        </dl>
+      </section>
+    </div>
+    <p class="railnote">Chaque fait porte sa source. Vert = derive des donnees, jamais recopie a la main. <span class="chip data">Data</span> <span class="chip edited">Edite</span></p>
+  </aside>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Fil d'ariane</b> : l'arbre logique (parent / enfant). L'URL reste plate : /verse/bts/jungkook, elle ne bouge jamais.</span></div>
+  <div><i class="an">2</i><span><b>Historique</b> : chaque sauvegarde est une version, revert non destructif, corbeille au lieu de suppression.</span></div>
+  <div><i class="an">3</i><span><b>Lien fantome</b> : pointille = la page n'existe pas encore, cliquer propose de la creer. Le moteur de creation.</span></div>
+  <div><i class="an">4</i><span><b>Rail de lecture</b> : sommaire auto genere des H2/H3, barre de progression. Le TOC est la carte de la page.</span></div>
+  <div><i class="an">5</i><span><b>Galerie = collection</b> : requete sur les images moderees de l'espace, pas une sous-page morte.</span></div>
+  <div><i class="an">6</i><span><b>Tags controles</b> : facettes multiples, chaque tag a sa page d'index automatique.</span></div>
+  <div><i class="an">7</i><span><b>Navbox auto</b> : derivee de la base de donnees, ne derive jamais (fandom la maintient a la main et elle pourrit).</span></div>
+  <div><i class="an">8</i><span><b>Infobox groupee</b> : Personnel / BTS / Solo, champs calcules (age, anciennete) toujours a jour sans edition.</span></div>
+</div></div>
+</section>
+
+<style>
+/* ============ ECRAN 2 : PORTAIL ============ */
+.hero{display:flex;align-items:center;gap:20px;padding:36px 0 24px}
+.hero .dot{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#6C5BD4,#9B8CF0);flex:none}
+.hero h1{font-family:var(--ff-display);font-weight:640;font-size:40px;line-height:1}
+.hero .sub{font-family:var(--ff-mono);font-size:11.5px;color:var(--ink2);margin-top:8px;letter-spacing:.04em}
+.hero .cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+.hero .join{background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;border-radius:10px;padding:10px 18px}
+.hero .pages{font-family:var(--ff-mono);font-size:11px;color:var(--ink2);text-align:right;line-height:1.5}
+.hero .pages b{display:block;font-size:20px;color:var(--ink)}
+
+.portal{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding-bottom:8px}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.mod .mh{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.mod .mh h2{font-family:var(--ff-display);font-weight:560;font-size:19px}
+.mod .mh a{margin-left:auto;font-family:var(--ff-mono);font-size:10.5px;text-decoration:none;color:var(--ink2)}
+.mod .mh a:hover{color:var(--accent-ink)}
+.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}.c12{grid-column:span 12}
+
+.memgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.memgrid a{text-decoration:none;color:var(--ink);font-size:12px;font-weight:500;text-align:center}
+.memgrid i{display:block;aspect-ratio:3/4;border-radius:8px;background:linear-gradient(160deg,#DED8F5,#B4A7EC);margin-bottom:6px}
+.memgrid a:nth-child(2n) i{background:linear-gradient(160deg,#EFE9DA,#D8CDB2)}
+.memgrid a:hover i{outline:2px solid var(--accent);outline-offset:2px}
+
+.covers{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.covers a{text-decoration:none;color:var(--ink);font-size:11.5px}
+.covers i{display:block;aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#C9BCF2,#8D7BE0);margin-bottom:6px}
+.covers a:nth-child(2) i{background:linear-gradient(135deg,#F2D8C0,#E0A87B)}
+.covers a:nth-child(3) i{background:linear-gradient(135deg,#D6E4D0,#9DBD92)}
+.covers a:nth-child(5) i{background:linear-gradient(135deg,#F0E1E8,#D3A9C0)}
+.covers b{display:block;font-weight:600}
+.covers span{font-family:var(--ff-mono);font-size:9.5px;color:var(--ink2)}
+
+.nowlist{display:flex;flex-direction:column;gap:0;font-size:13px}
+.nowlist>div{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line)}
+.nowlist>div:first-child{border-top:0}
+.nowlist .k{font-family:var(--ff-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);width:84px;flex:none}
+.changes{font-size:12.5px;color:var(--ink2)}
+.changes li{list-style:none;padding:6px 0;border-top:1px dashed var(--line);display:flex;gap:8px}
+.changes li:first-child{border-top:0}
+.changes .who{font-family:var(--ff-mono);font-size:10.5px;color:var(--accent-ink);flex:none}
+
+.essay h3{font-family:var(--ff-display);font-weight:560;font-size:17px;line-height:1.3;margin-bottom:6px}
+.essay p{font-size:13px;color:var(--ink2)}
+.playstrip{display:flex;gap:10px;flex-wrap:wrap}
+.playstrip a{text-decoration:none;font-weight:600;font-size:13px;color:var(--ink);border:1px solid var(--line2);border-radius:999px;padding:8px 16px;background:var(--paper)}
+.playstrip a:hover{border-color:var(--accent);color:var(--accent-ink)}
+.covbar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:10px 0 6px}
+.covbar i{display:block;height:100%;width:75%;background:var(--data)}
+.covnote{font-family:var(--ff-mono);font-size:10.5px;color:var(--ink2)}
+
+/* ============ ECRAN 3 : MENU ============ */
+.menuwrap{padding-top:28px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:28px}
+.panel .ph{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);padding:10px 16px;border-bottom:1px solid var(--line);background:var(--wash)}
+.menudemo{padding:0}
+.menudemo .spacenav{border-bottom:0}
+.staticdrop{position:static;display:block;box-shadow:none;border:0;border-top:1px solid var(--line);border-radius:0;columns:1}
+.flyrow{display:grid;grid-template-columns:240px 240px 240px 1fr;min-height:280px}
+.flyrow>div{border-right:1px solid var(--line);padding:8px}
+.flyrow .fh{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);padding:6px 10px}
+.flyrow a{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:13px}
+.flyrow a:hover{background:var(--hi)}
+.flyrow a.sel{background:var(--hi);color:var(--accent-ink);font-weight:600}
+.flyrow .car{color:var(--ink2);font-size:10px}
+.flyrow .capnote{font-family:var(--ff-mono);font-size:10px;color:var(--ink2);padding:8px 10px;border-top:1px dashed var(--line);margin-top:6px}
+.flyrow .ctx{padding:16px;color:var(--ink2);font-size:12.5px;line-height:1.7}
+
+.editor3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.editor3>div{border-right:1px solid var(--line);padding:12px}
+.editor3>div:last-child{border-right:0}
+.editor3 .eh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.editor3 .eh h4{font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.editor3 .eh .cnt{font-family:var(--ff-mono);font-size:10px;color:var(--data)}
+.editor3 .eh .cnt.max{color:var(--warn)}
+.mrow{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:13px;background:var(--card)}
+.mrow .grip{color:var(--line2);cursor:grab;font-size:13px}
+.mrow.sel{border-color:var(--accent);background:var(--hi)}
+.mrow .type{margin-left:auto;font-family:var(--ff-mono);font-size:9px;color:var(--ink2)}
+.addrow{border:1px dashed var(--line2);border-radius:8px;padding:8px 10px;font-size:12.5px;color:var(--ink2);text-align:center;cursor:pointer}
+.addrow:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+/* ============ ECRAN 4 : CREATION ============ */
+.createwrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding-top:28px;align-items:start}
+.dialog{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 64px rgba(32,34,46,.10);overflow:hidden}
+.dialog .dh{padding:16px 20px;border-bottom:1px solid var(--line)}
+.dialog .dh h3{font-family:var(--ff-display);font-weight:560;font-size:18px}
+.dialog .dh p{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.dsearch{margin:16px 20px 6px;border:1.5px solid var(--accent);border-radius:10px;padding:11px 14px;font-size:14.5px;color:var(--ink);background:var(--paper);font-family:var(--ff-ui)}
+.dsearch .caret{border-left:1.5px solid var(--ink);margin-left:1px;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.dres{padding:6px 12px 12px}
+.dres .rh{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);padding:8px 8px 4px}
+.dres a{display:flex;gap:10px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:13.5px}
+.dres a:hover{background:var(--hi)}
+.dres .path{font-family:var(--ff-mono);font-size:10px;color:var(--ink2);margin-left:auto}
+.dres a.create{border-top:1px solid var(--line);border-radius:0 0 8px 8px;margin-top:4px;padding-top:12px;color:var(--accent-ink);font-weight:600}
+.dres a.create .plus{width:20px;height:20px;border-radius:6px;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none;align-self:center}
+
+.step2 section{padding:14px 20px;border-top:1px solid var(--line)}
+.step2 .sh{font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.typegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.typegrid label{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12.5px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.typegrid label.sel{border-color:var(--accent);background:var(--hi);font-weight:600}
+.typegrid label .note{font-family:var(--ff-mono);font-size:9px;color:var(--data);margin-left:auto}
+.parentpick{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px}
+.parentpick .crumb{font-size:12px}
+.slugprev{font-family:var(--ff-mono);font-size:12px;color:var(--ink2);background:var(--wash);border-radius:8px;padding:9px 12px}
+.slugprev b{color:var(--ink);font-weight:500}
+.dfoot{display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--line);background:var(--wash)}
+.dfoot .primary{background:var(--ink);color:#fff;border:0;font-weight:600;font-size:13.5px;border-radius:9px;padding:10px 18px;cursor:pointer;font-family:var(--ff-ui)}
+.dfoot .ghostbtn{background:none;border:0;color:var(--ink2);font-size:13px;cursor:pointer;font-family:var(--ff-ui)}
+
+.stub{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px}
+.stub .crumb{margin-bottom:10px}
+.stub h2{font-family:var(--ff-display);font-weight:640;font-size:28px;margin-bottom:8px}
+.stub .chips{display:flex;gap:8px;margin-bottom:16px}
+.stubbody{border:1.5px dashed var(--line2);border-radius:10px;padding:22px;text-align:center;color:var(--ink2);font-size:13.5px;line-height:1.8}
+.stubbody a{font-weight:600}
+.seednote{margin-top:14px;font-family:var(--ff-mono);font-size:10.5px;color:var(--ink2);line-height:1.7}
+
+/* ============ ECRAN 5 : TAG ============ */
+.tagpage{padding-top:32px;max-width:820px}
+.tagpage .pagetitle{font-size:34px}
+.tagdesc{font-family:var(--ff-prose);font-size:15.5px;color:var(--ink2);margin:10px 0 4px;max-width:60ch}
+.tagmeta{display:flex;gap:10px;align-items:center;margin:12px 0 24px}
+.taggrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.tagcard{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-decoration:none;color:var(--ink)}
+.tagcard:hover{border-color:var(--accent)}
+.tagcard i{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#DED8F5,#B4A7EC);flex:none}
+.tagcard b{display:block;font-size:14.5px}
+.tagcard span{font-family:var(--ff-mono);font-size:10px;color:var(--ink2)}
+.related{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.mergebox{margin-top:28px;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--ink2);display:flex;gap:12px;align-items:baseline}
+</style>
+
+<!-- ================================================== ECRAN 2 : PORTAIL -->
+<section class="screen" id="s2">
+<div class="spec"><div class="shell">
+  <h1>02 · Page portail (home d'espace)</h1>
+  <p>Le canvas PORTAIL: zero prose, tout est porte d'entree. C'est ici que les widgets du builder gardent toute leur valeur. Grille 12 colonnes stricte.</p>
+</div></div>
+
+<div class="sitebar"><div class="shell">
+  <a class="logo" href="#">Kpop<em>Verse</em></a>
+  <div class="tabs"><a href="#">Play</a><a href="#" class="on">Fandoms</a><a href="#">Community</a></div>
+  <div class="right"><span class="search">Rechercher dans ARMY...</span></div>
+</div></div>
+<div class="spacenav"><div class="shell">
+  <span class="space"><span class="dot"></span> ARMY</span>
+  <ul class="menu">
+    <li><a href="#" style="color:var(--accent-ink)">Accueil</a></li>
+    <li><a href="#">BTS <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Discographie <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Culture ARMY <span class="car">&#9662;</span></a></li>
+    <li><a href="#">Communaute <span class="car">&#9662;</span></a></li>
+  </ul>
+</div></div>
+
+<div class="shell">
+  <div class="hero">
+    <span class="dot"></span>
+    <div>
+      <h1>ARMY</h1>
+      <div class="sub">EST. 2013 · 7 MEMBRES · 17 RELEASES · 197 PISTES · CHAQUE FAIT SOURCE</div>
+    </div>
+    <div class="cta">
+      <div class="pages"><b>412</b> pages <i class="an">1</i></div>
+      <a class="join" href="#">Rejoindre ARMY</a>
+    </div>
+  </div>
+
+  <div class="portal">
+    <div class="mod c8">
+      <div class="mh"><h2>Membres</h2><a href="#">LES 7 &#8594;</a></div>
+      <div class="memgrid">
+        <a href="#"><i></i>RM</a><a href="#"><i></i>Jin</a><a href="#"><i></i>Suga</a><a href="#"><i></i>J-Hope</a><a href="#"><i></i>Jimin</a><a href="#"><i></i>V</a><a href="#"><i></i>Jungkook</a>
+      </div>
+    </div>
+    <div class="mod c4">
+      <div class="mh"><h2>Maintenant</h2></div>
+      <div class="nowlist">
+        <div><span class="k">Ere</span><span><a href="#">ARIRANG</a> · depuis 2026</span></div>
+        <div><span class="k">Anniv</span><span>Jungkook · dans 27 jours</span></div>
+        <div><span class="k">Prochain</span><span>Tour ARIRANG · Goyang 09.04</span></div>
+      </div>
+      <div class="mh" style="margin-top:16px"><h2 style="font-size:15px">Dernieres modifications</h2> <i class="an">2</i></div>
+      <ul class="changes">
+        <li><span class="who">mina</span><span><a href="#">Jungkook</a> · section Solo enrichie</span></li>
+        <li><span class="who">jae</span><span><a href="#">Ere ARIRANG</a> · page creee</span></li>
+        <li><span class="who">mina</span><span><a href="#">Seven</a> · certifications ajoutees</span></li>
+      </ul>
+    </div>
+
+    <div class="mod c8">
+      <div class="mh"><h2>Discographie</h2><a href="#">17 RELEASES &#8594;</a></div>
+      <div class="covers">
+        <a href="#"><i></i><b>ARIRANG</b><span>2026 · ALBUM</span></a>
+        <a href="#"><i></i><b>BE</b><span>2020 · ALBUM</span></a>
+        <a href="#"><i></i><b>MOTS : 7</b><span>2020 · ALBUM</span></a>
+        <a href="#"><i></i><b>PERSONA</b><span>2019 · EP</span></a>
+        <a href="#"><i></i><b>LY : Answer</b><span>2018 · ALBUM</span></a>
+        <a href="#"><i></i><b>LY : Tear</b><span>2018 · ALBUM</span></a>
+      </div>
+    </div>
+    <div class="mod c4 essay">
+      <div class="mh"><h2>Essai a la une</h2></div>
+      <h3>Pourquoi ARMY documente tout : l'instinct d'archive d'un fandom</h3>
+      <p>Chaque fandom se souvient. ARMY l'ecrit. Une question sur une ere, une scene, un fragment...</p>
+      <p style="margin-top:8px"><a href="#" style="font-size:12.5px">Lire · 4 min</a></p>
+    </div>
+
+    <div class="mod c6">
+      <div class="mh"><h2>Jouer</h2><a href="#">TOUT LE PLAY &#8594;</a></div>
+      <div class="playstrip">
+        <a href="#">Quiz des eras</a><a href="#">Blind test</a><a href="#">Name them all</a><a href="#">Which member</a>
+      </div>
+    </div>
+    <div class="mod c6">
+      <div class="mh"><h2>Couverture</h2> <i class="an">3</i></div>
+      <div class="covbar"><i></i></div>
+      <div class="covnote">75% DOCUMENTE · ERAS 3/15 · LORE 0/7 MEMBRES · <a href="#" style="color:var(--accent-ink)">PAGES DEMANDEES : 23</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Compteur de pages</b> : signal de vie du wiki (le "1 703 PAGES" de fandom). Il grandit avec la communaute.</span></div>
+  <div><i class="an">2</i><span><b>Dernieres modifications</b> : le flux d'activite rend le wiki vivant et donne la surface de moderation. Existe grace a l'historique (C3).</span></div>
+  <div><i class="an">3</i><span><b>Pages demandees</b> : les liens fantomes agreges deviennent une liste de travail publique. Invitation permanente a creer.</span></div>
+</div></div>
+</section>
+
+<!-- ================================================== ECRAN 3 : MENU -->
+<section class="screen" id="s3">
+<div class="spec"><div class="shell">
+  <h1>03 · Menu d'espace 5 x 3 x 10</h1>
+  <p>En haut: ce que voit le lecteur, volet ouvert. En bas: l'editeur de menu du curator, trois niveaux, compteurs de cap visibles.</p>
+</div></div>
+
+<div class="shell menuwrap">
+  <div class="panel menudemo">
+    <div class="ph">VUE LECTEUR · VOLET "DISCOGRAPHIE" OUVERT</div>
+    <div class="spacenav"><div class="shell" style="padding:0 16px">
+      <span class="space"><span class="dot"></span> ARMY</span>
+      <ul class="menu">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">BTS <span class="car">&#9662;</span></a></li>
+        <li><a href="#" style="background:var(--hi);color:var(--accent-ink)">Discographie <span class="car">&#9652;</span></a></li>
+        <li><a href="#">Culture ARMY <span class="car">&#9662;</span></a></li>
+        <li><a href="#">Communaute <span class="car">&#9662;</span></a></li>
+      </ul>
+    </div></div>
+    <div class="flyrow">
+      <div>
+        <div class="fh">Niveau 2</div>
+        <a href="#">Toute la discographie <span class="car">&#8594;</span></a>
+        <a href="#" class="sel">Albums <span class="car">&#9656;</span></a>
+        <a href="#">EPs et singles <span class="car">&#9656;</span></a>
+        <a href="#">Solo <span class="car">&#9656;</span></a>
+        <a href="#">Japonais <span class="car">&#9656;</span></a>
+        <a href="#">Pistes A-Z <span class="car">&#8594;</span></a>
+      </div>
+      <div>
+        <div class="fh">Niveau 3 · Albums</div>
+        <a href="#">ARIRANG</a><a href="#">BE</a><a href="#">MAP OF THE SOUL : 7</a><a href="#">LOVE YOURSELF : Answer</a><a href="#">LOVE YOURSELF : Tear</a><a href="#">WINGS</a>
+        <div class="capnote">6 / 10 enfants max <i class="an">1</i></div>
+      </div>
+      <div style="border-right:0">
+        <div class="fh">&nbsp;</div>
+        <div class="ctx">Niveau 3 = dernier niveau. Un noeud peut etre une PAGE ou un INDEX AUTO (Pistes A-Z est genere, jamais maintenu a la main). <i class="an">2</i></div>
+      </div>
+      <div style="display:none"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph">VUE CURATOR · EDITEUR DE MENU</div>
+    <div class="editor3">
+      <div>
+        <div class="eh"><h4>Niveau 1</h4><span class="cnt max">5 / 5 MAX</span> <i class="an">3</i></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Accueil <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> BTS <span class="type">MENU</span></div>
+        <div class="mrow sel"><span class="grip">&#8942;&#8942;</span> Discographie <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Culture ARMY <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Communaute <span class="type">MENU</span></div>
+      </div>
+      <div>
+        <div class="eh"><h4>Niveau 2 · Discographie</h4><span class="cnt">6 / 10</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Toute la discographie <span class="type">PAGE</span></div>
+        <div class="mrow sel"><span class="grip">&#8942;&#8942;</span> Albums <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> EPs et singles <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Solo <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Japonais <span class="type">MENU</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> Pistes A-Z <span class="type">INDEX AUTO</span></div>
+        <div class="addrow">+ Ajouter une entree</div>
+      </div>
+      <div>
+        <div class="eh"><h4>Niveau 3 · Albums</h4><span class="cnt">6 / 10</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> ARIRANG <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> BE <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> MAP OF THE SOUL : 7 <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> LY : Answer <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> LY : Tear <span class="type">PAGE</span></div>
+        <div class="mrow"><span class="grip">&#8942;&#8942;</span> WINGS <span class="type">PAGE</span></div>
+        <div class="addrow">+ Ajouter une entree</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Caps visibles</b> : 5 entrees niveau 1, 3 niveaux, 10 enfants par noeud. La contrainte de fandom, prouvee sur des milliers de wikis, rendue explicite dans l'UI.</span></div>
+  <div><i class="an">2</i><span><b>Index auto dans le menu</b> : un noeud peut pointer une page generee (Pistes A-Z). Le menu cure ne se perime pas.</span></div>
+  <div><i class="an">3</i><span><b>Compteur orange au max</b> : pas d'affordance morte, la limite se voit avant d'etre touchee (loi min-gate).</span></div>
+</div></div>
+</section>
+
+<!-- ================================================== ECRAN 4 : CREATION -->
+<section class="screen" id="s4">
+<div class="spec"><div class="shell">
+  <h1>04 · Creation de page</h1>
+  <p>A gauche: le dialogue "Creer", recherche d'abord (jamais de doublon silencieux). A droite: la page juste apres creation, vide honnete + noindex mecanique.</p>
+</div></div>
+
+<div class="shell createwrap">
+  <div class="dialog">
+    <div class="dh">
+      <h3>Nouvelle page</h3>
+      <p>Chercher d'abord. Si elle existe, on y va; sinon, on la cree. <i class="an">1</i></p>
+    </div>
+    <div class="dsearch">Jin's Kitchen<span class="caret">&nbsp;</span></div>
+    <div class="dres">
+      <div class="rh">Pages existantes</div>
+      <a href="#">Jin <span class="path">/verse/bts/jin</span></a>
+      <a href="#">The Astronaut (Jin) <span class="path">/verse/bts/the-astronaut</span></a>
+      <a href="#" class="create"><span class="plus">+</span> Creer la page "Jin's Kitchen"</a>
+    </div>
+    <div class="step2">
+      <section>
+        <div class="sh">Type de page <i class="an">2</i></div>
+        <div class="typegrid">
+          <label class="sel">Article libre</label>
+          <label>Galerie <span class="note">COLLECTION</span></label>
+          <label>Index <span class="note">AUTO</span></label>
+          <label>Emission / show</label>
+        </div>
+      </section>
+      <section>
+        <div class="sh">Position dans l'arbre <i class="an">3</i></div>
+        <div class="parentpick"><span class="crumb">ARMY <span class="sep">/</span> Videographie <span class="sep">/</span> Emissions</span><span style="margin-left:auto;color:var(--ink2);font-size:11px">changer</span></div>
+      </section>
+      <section>
+        <div class="sh">URL definitive <i class="an">4</i></div>
+        <div class="slugprev">kpopquiz.org/verse/bts/<b>jins-kitchen</b> · plate, ne changera jamais</div>
+      </section>
+    </div>
+    <div class="dfoot">
+      <button class="ghostbtn">Annuler</button>
+      <button class="primary">Creer la page</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="stub">
+      <div class="crumb"><a href="#">ARMY</a><span class="sep">/</span><a href="#">Videographie</a><span class="sep">/</span><a href="#">Emissions</a><span class="sep">/</span>Jin's Kitchen</div>
+      <h2>Jin's Kitchen</h2>
+      <div class="chips">
+        <span class="chip warn">brouillon · invisible pour Google <i class="an">5</i></span>
+        <span class="chip">0 lien entrant</span>
+      </div>
+      <div class="stubbody">
+        Cette page est une coquille honnete : rien d'invente, rien de genere.<br>
+        Le gabarit "Emission" propose ses sections : <a href="#">Concept</a> · <a href="#">Episodes</a> · <a href="#">Diffusion</a>.<br>
+        <a href="#">Commencer a ecrire &#8594;</a>
+      </div>
+      <p class="seednote">DEVIENT INDEXABLE QUAND : intro redigee + une section reelle, ou liaison a une entite de la base. Regle machine, pas un bouton qu'on oublie. <i class="an">6</i></p>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Recherche avant creation</b> : le meme principe que l'entity picker des membres. Zero doublon silencieux, jamais.</span></div>
+  <div><i class="an">2</i><span><b>Gabarits mecaniques</b> : le type choisi pre-seme les sections dans le bon ordre. Fandom le fait socialement et ca derive; nous, l'editeur l'impose.</span></div>
+  <div><i class="an">3</i><span><b>Position dans l'arbre</b> : parent choisi a la creation, deplacable plus tard sans casser l'URL (plate, C2).</span></div>
+  <div><i class="an">4</i><span><b>URL montree avant de creer</b> : le slug est un engagement. Le voir rend la promesse "cette adresse ne mourra jamais" concrete.</span></div>
+  <div><i class="an">5</i><span><b>Noindex mecanique</b> : la coquille est invisible pour Google jusqu'a substance (C5, extension de min-gate + no-placeholder).</span></div>
+  <div><i class="an">6</i><span><b>Vide honnete</b> : la loi real-data appliquee a la creation. La page dit ce qui manque au lieu de faire semblant.</span></div>
+</div></div>
+</section>
+
+<!-- ================================================== ECRAN 5 : TAG -->
+<section class="screen" id="s5">
+<div class="spec"><div class="shell">
+  <h1>05 · Page de tag (index automatique)</h1>
+  <p>Chaque tag genere sa page d'index. Description editable par le curator, contenu jamais maintenu a la main.</p>
+</div></div>
+
+<div class="shell tagpage">
+  <div class="crumb"><a href="#">ARMY</a><span class="sep">/</span><a href="#">Tags</a><span class="sep">/</span>Vocal Line</div>
+  <h1 class="pagetitle">Vocal Line</h1>
+  <p class="tagdesc">Les quatre voix principales de BTS. Ligne editable par un curator; la liste en dessous, elle, se genere toute seule. <i class="an">1</i></p>
+  <div class="tagmeta">
+    <span class="chip data">INDEX AUTOMATIQUE</span>
+    <span class="chip">4 PAGES</span>
+    <span class="chip edited">TAG CONTROLE</span>
+  </div>
+  <div class="taggrid">
+    <a class="tagcard" href="#"><i></i><span><b>Jin</b><span>MEMBRE · 김석진</span></span></a>
+    <a class="tagcard" href="#"><i></i><span><b>Jimin</b><span>MEMBRE · 박지민</span></span></a>
+    <a class="tagcard" href="#"><i></i><span><b>V</b><span>MEMBRE · 김태형</span></span></a>
+    <a class="tagcard" href="#"><i></i><span><b>Jungkook</b><span>MEMBRE · 전정국</span></span></a>
+  </div>
+  <div class="related"><span class="chip" style="border:0;padding-left:0;color:var(--ink2)">TAGS VOISINS</span>
+    <a class="chip" href="#">Rap Line</a><a class="chip" href="#">Dance Line</a><a class="chip" href="#">Maknae Line</a><a class="chip" href="#">Hyung Line</a>
+  </div>
+  <div class="mergebox"><i class="an">2</i><span><b>Vue curator</b> : renommer / fusionner ce tag (les pages suivent automatiquement). La creation d'un tag est un acte explicite: pas de jungle de tags.</span></div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Auto + humain</b> : la description est humaine, la liste est machine. Chacun fait ce qu'il fait le mieux.</span></div>
+  <div><i class="an">2</i><span><b>Tags controles</b> (C7) : creation explicite, fusion possible, chaque tag a une page. Les categories de fandom en mieux range.</span></div>
+</div></div>
+</section>
+
+<script>
+const btns=document.querySelectorAll('.protobar button[data-s]');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(b.dataset.s).classList.add('on');
+  window.scrollTo({top:0});
+}));
+const gb=document.getElementById('gridbtn');
+gb.addEventListener('click',()=>document.body.classList.toggle('showgrid'));
+document.addEventListener('keydown',e=>{if(e.key==='g'||e.key==='G')document.body.classList.toggle('showgrid')});
+</script>
+</body>
+</html>

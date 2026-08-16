@@ -17,6 +17,7 @@ import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { countOpenRunsForGroup } from '@/lib/db/queries/open-runs';
 import { OpenRunsBlock } from '@/components/group/open-runs-block';
 import { AnswerFirst } from '@/components/group/answer-first';
+import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -95,7 +96,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse, openRuns] = await Promise.all([
+  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse, openRuns, contentDate] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     // SEO-3 U7: SSR the 5 newest quizzes for this group. Crawlable-freshness
     // signal for Google + a discovery surface so users find new uploads before
@@ -114,6 +115,9 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     // W2b C1: the real number of unbeaten runs waiting on this group. Fails soft to
     // 0, which renders nothing, so a DB blip never fabricates a count.
     safeFetch(countOpenRunsForGroup(group.slug), 0, '[group-quiz] countOpenRuns'),
+    // W9b: real content freshness. NOT updated_at (record_play bumps it on every play,
+    // which would print today's date on any active group).
+    safeFetch(getGroupContentDate(group.id), null, '[group-quiz] getGroupContentDate'),
   ]);
 
   // Only show a distinct "newest" strip when it actually differs from the
@@ -165,6 +169,14 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       {/* W8 - answer-first + query fan-out. Real DB values only; a missing value
           produces no sentence. seo_intro rides here (additive on page), and stays out
           of the meta description exactly as W2 PART D left it. */}
+      {/* W9b - a visible freshness line and a matching dateModified, both derived from
+          the newest published quiz for this group. Absent when the group has none. */}
+      {formatContentMonth(contentDate) && (
+        <p className="group-updated">
+          Updated <time dateTime={(contentDate as string).slice(0, 10)}>{formatContentMonth(contentDate)}</time>
+        </p>
+      )}
+
       <AnswerFirst
         group={group}
         facts={{ memberCount: nameAllGame?.count ?? null, songCount: blindtest.songs }}
@@ -369,6 +381,10 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         name: `${group.name} Quizzes`,
         description: intro,
         url: `https://kpopquiz.org/${group.slug}-quiz`,
+        // W9b: the SAME date the visible line shows, so the markup and the page agree.
+        // Omitted entirely when the group has no published quiz, rather than emitting
+        // a build timestamp.
+        ...(contentDate ? { dateModified: contentDate.slice(0, 10) } : {}),
         mainEntity: {
           '@type': 'ItemList',
           numberOfItems: group.quiz_count,

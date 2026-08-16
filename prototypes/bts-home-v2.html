@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTS · Verse · KpopVerse (home prototype v2 · minimal)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KpopVerse · BTS home · prototype v2
+   Direction: warm paper minimalism (Notion-calm, editorial wiki)
+   One accent (deep iris), cream neutrals, pill actions,
+   right data rail, anti-overflow collapse system.
+   4px spacing scale · 66ch measure · one H1 · crawlable collapse
+   ============================================================ */
+
+:root{
+  --paper:#FFFFFF;
+  --surface:#FFFFFF;
+  --wash:#F1F1EF;
+  --ink:#1D1B17;
+  --body:#37352F;
+  --muted:#73726E;
+  --faint:#9F9D97;
+  --line:#E7E6E3;
+  --line-soft:#F0EFED;
+  --accent:#2E6BD0;
+  --accent-deep:#2E6BD040;
+  --accent-soft:#2E6BD00d;
+  --pill-ink:#1D1B17;
+  --pill-ink-text:#FFFFFF;
+  --data:#54803F;
+  --auto:#9A7B3F;
+  --shadow:0 1px 2px rgba(0,0,0,.03),0 8px 24px -16px rgba(0,0,0,.12);
+  --r-lg:18px; --r-md:12px; --r-sm:8px;
+}
+[data-theme="dark"]{
+  --paper:#191919;
+  --surface:#1F1F1F;
+  --wash:#262626;
+  --ink:#EDEDEB;
+  --body:#D4D4D2;
+  --muted:#9B9B98;
+  --faint:#6E6E6B;
+  --line:#2F2F2D;
+  --line-soft:#292928;
+  --accent:#6FA0EE;
+  --accent-deep:#6FA0EE4d;
+  --accent-soft:#6FA0EE14;
+  --pill-ink:#EDEDEB;
+  --pill-ink-text:#191919;
+  --data:#8FAF85;
+  --auto:#C2A06A;
+  --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 28px -18px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:"Instrument Sans","Segoe UI","Helvetica Neue",sans-serif;
+  background:var(--paper);
+  color:var(--body);
+  font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--accent-deep)}
+
+.shell{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.topbar .shell{display:flex;align-items:center;gap:16px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;font-size:14px;letter-spacing:.01em}
+.brand:hover{text-decoration:none}
+.brand .mark{
+  width:24px;height:24px;border-radius:7px;background:var(--pill-ink);color:var(--pill-ink-text);
+  display:grid;place-items:center;font-family:"Fraunces","Georgia",serif;font-size:13px;font-weight:600;
+}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.crumb .sep{color:var(--faint)}
+.crumb b{color:var(--ink);font-weight:600}
+.topbar .grow{flex:1}
+.search{
+  display:flex;align-items:center;gap:8px;min-width:180px;
+  border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+  color:var(--faint);font-size:13px;background:var(--surface);cursor:text;
+}
+.search kbd{
+  font-family:"Spline Sans Mono",monospace;font-size:10.5px;color:var(--muted);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;background:var(--paper);
+}
+.adminchip{
+  display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);
+  border:1px dashed var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap;
+}
+.adminchip .dot{width:6px;height:6px;border-radius:50%;background:var(--auto)}
+.iconbtn{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;
+  font-family:inherit;transition:border-color .15s,background .15s;white-space:nowrap;
+}
+.iconbtn:hover{border-color:var(--muted)}
+.editpill{
+  background:var(--pill-ink);color:var(--pill-ink-text);border:1px solid var(--pill-ink);
+  border-radius:999px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;
+  font-family:inherit;transition:opacity .15s;white-space:nowrap;
+}
+.editpill:hover{opacity:.85}
+
+/* ---------- cover + page head (the Notion nod) ---------- */
+.cover{
+  height:200px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 320px at 18% 120%,var(--accent-soft),transparent 70%),
+    radial-gradient(900px 380px at 85% -40%,var(--accent-soft),transparent 65%),
+    linear-gradient(var(--wash),var(--paper) 92%);
+  border-bottom:1px solid var(--line-soft);
+}
+.cover .tag{
+  position:absolute;right:24px;bottom:16px;
+  font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint);
+  border:1px dashed var(--line);border-radius:999px;padding:5px 12px;
+  background:color-mix(in srgb,var(--surface) 70%,transparent);
+}
+.pagehead{padding:0 0 8px}
+.pagehead .icon{
+  width:76px;height:76px;border-radius:20px;margin-top:-38px;
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:grid;place-items:center;position:relative;z-index:3;
+  font-family:"Fraunces","Georgia",serif;font-size:30px;font-weight:600;color:var(--ink);
+}
+.eyebrow{
+  margin:20px 0 10px;font-family:"Spline Sans Mono",monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+h1{
+  font-family:"Fraunces","Georgia",serif;font-weight:600;color:var(--ink);
+  font-size:clamp(40px,6vw,58px);line-height:1.04;letter-spacing:-.015em;
+}
+.hangul{display:block;margin-top:10px;font-family:"Instrument Sans","Segoe UI","Helvetica Neue",sans-serif;
+  font-size:15px;font-weight:400;letter-spacing:.02em;color:var(--muted)}
+.lede{max-width:66ch;margin:18px 0 22px;font-size:17.5px;line-height:1.7;color:var(--body)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:999px;padding:10px 22px;font-size:14px;font-weight:500;
+  border:1px solid var(--pill-ink);background:var(--pill-ink);color:var(--pill-ink-text);
+  transition:opacity .15s;min-height:44px;
+}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--muted);opacity:1}
+
+/* ---------- the two-column body: document + data rail ---------- */
+.layout{
+  display:grid;grid-template-columns:minmax(0,1fr) 304px;
+  gap:56px;align-items:start;padding:24px 0 72px;
+}
+.doc{min-width:0}
+.railcol{display:flex;flex-direction:column;gap:16px;min-width:0}
+.railgroup{display:flex;flex-direction:column;gap:16px}
+
+/* ---------- sections (document column) ---------- */
+.sec{padding:36px 0 0}
+.sechead{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:20px;
+}
+.sechead h2{
+  font-family:"Fraunces","Georgia",serif;font-weight:600;font-size:26px;
+  letter-spacing:-.01em;color:var(--ink);
+}
+.sechead .more{
+  font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.prose{max-width:66ch}
+.prose p{margin-bottom:14px;font-size:16.5px;line-height:1.7}
+.prose p:last-child{margin-bottom:0}
+
+/* ---------- anti-overflow: the collapse system ---------- */
+.fold{position:relative}
+.fold .foldbody{
+  overflow:hidden;max-height:var(--fold-h,13.6em);
+  transition:max-height .3s ease;
+}
+.fold.open .foldbody{max-height:none}
+.fold .fade{
+  position:absolute;left:0;right:0;bottom:44px;height:72px;pointer-events:none;
+  background:linear-gradient(transparent,var(--paper));
+  transition:opacity .2s;
+}
+.fold.open .fade{opacity:0}
+.foldbtn{
+  margin-top:10px;display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  border-radius:999px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;
+  font-family:inherit;min-height:36px;transition:border-color .15s;
+}
+.foldbtn:hover{border-color:var(--muted)}
+.foldbtn .chev{transition:transform .2s;font-size:11px;color:var(--muted)}
+.fold.open .foldbtn .chev{transform:rotate(180deg)}
+.budgetnote{
+  margin-top:14px;display:flex;align-items:center;gap:10px;
+  border:1px dashed var(--line);border-radius:var(--r-md);padding:10px 14px;
+  font-size:12.5px;color:var(--muted);background:var(--accent-soft);
+}
+.budgetnote .k{
+  font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);white-space:nowrap;
+}
+
+/* ---------- members ---------- */
+.members{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.member{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;
+  border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--surface);padding:14px 6px 12px;color:var(--body);
+  transition:border-color .15s,transform .15s,box-shadow .15s;
+}
+.member:hover{text-decoration:none;border-color:var(--line);transform:translateY(-2px);box-shadow:var(--shadow)}
+.member .ph{
+  width:56px;height:56px;border-radius:50%;margin-bottom:8px;
+  background:var(--wash);border:1px solid var(--line);
+  display:grid;place-items:center;
+  font-family:"Fraunces","Georgia",serif;font-size:19px;color:var(--faint);
+}
+.member b{font-size:13.5px;font-weight:600;color:var(--ink)}
+.member .hg{font-size:11px;color:var(--muted)}
+.member .role{
+  margin-top:6px;font-family:"Spline Sans Mono",monospace;font-size:8.5px;
+  letter-spacing:.08em;color:var(--faint);text-transform:uppercase;line-height:1.5;
+}
+
+/* ---------- discography ---------- */
+.covers{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.coveritem{color:var(--body)}
+.coveritem:hover{text-decoration:none}
+.coveritem .art{
+  aspect-ratio:1;border-radius:var(--r-sm);border:1px solid var(--line);
+  background:
+    radial-gradient(120% 120% at 20% 15%,var(--surface),var(--wash));
+  margin-bottom:8px;display:grid;place-items:center;
+  font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;
+  color:var(--faint);text-transform:uppercase;
+  transition:border-color .15s,transform .15s;
+}
+.coveritem:hover .art{border-color:var(--muted);transform:translateY(-2px)}
+.coveritem b{display:block;font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.coveritem span{font-family:"Spline Sans Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.05em}
+
+/* ---------- the story (eras) ---------- */
+.story{display:flex;flex-direction:column}
+.era{
+  display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;
+  padding:20px 0;border-bottom:1px solid var(--line-soft);
+}
+.era:last-child{border-bottom:0}
+.era .yr{
+  font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--muted);
+  letter-spacing:.04em;padding-top:4px;font-variant-numeric:tabular-nums;
+}
+.era h3{
+  font-family:"Fraunces","Georgia",serif;font-size:19px;font-weight:600;color:var(--ink);
+  letter-spacing:-.005em;margin-bottom:6px;
+}
+.era p{font-size:15px;line-height:1.65;max-width:62ch}
+.era .rel{
+  margin-top:8px;font-family:"Spline Sans Mono",monospace;font-size:10.5px;
+  color:var(--faint);letter-spacing:.04em;
+}
+.nowtag{
+  display:inline-block;vertical-align:2px;margin-left:8px;
+  font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.12em;
+  color:var(--accent);border:1px solid var(--accent-deep);border-radius:999px;
+  padding:2px 8px;background:var(--accent-soft);
+}
+
+/* ---------- community cards ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  background:var(--surface);padding:24px;
+}
+.card h3{font-family:"Fraunces","Georgia",serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.card p{font-size:14.5px;line-height:1.6;margin-bottom:14px}
+.card .links{display:flex;flex-wrap:wrap;gap:8px}
+.card .links a{
+  font-size:12.5px;border:1px solid var(--line);border-radius:999px;
+  padding:5px 13px;color:var(--ink);transition:border-color .15s;
+}
+.card .links a:hover{border-color:var(--muted);text-decoration:none}
+
+/* ---------- rail widgets ---------- */
+.widget{
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  background:var(--surface);padding:18px 18px 16px;box-shadow:var(--shadow);
+}
+.widget .whead{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:12px;
+}
+.widget .whead h2{
+  font-family:"Spline Sans Mono",monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.wsrc{
+  margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft);
+  font-size:10.5px;color:var(--faint);line-height:1.5;
+}
+.badge{
+  font-family:"Spline Sans Mono",monospace;font-size:8.5px;letter-spacing:.1em;
+  border-radius:4px;padding:2px 6px;text-transform:uppercase;white-space:nowrap;
+}
+.badge.data{color:var(--data);background:color-mix(in srgb,var(--data) 10%,transparent)}
+.badge.auto{color:var(--auto);background:color-mix(in srgb,var(--auto) 12%,transparent)}
+
+/* fact card */
+.factrows{display:flex;flex-direction:column}
+.frow{
+  display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:10px;align-items:baseline;
+  padding:8px 0;border-bottom:1px solid var(--line-soft);
+}
+.frow:last-child{border-bottom:0}
+.frow dt{font-size:12px;color:var(--muted)}
+.frow dd{font-size:13.5px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.factphoto{
+  aspect-ratio:16/10;border-radius:var(--r-md);border:1px dashed var(--line);
+  background:var(--wash);display:grid;place-items:center;margin-bottom:14px;
+  font-family:"Spline Sans Mono",monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);text-align:center;padding:8px;
+}
+
+/* numbers mini-grid */
+.numgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{
+  border:1px solid var(--line-soft);border-radius:var(--r-md);
+  background:var(--paper);padding:12px 14px;
+}
+.num b{
+  display:block;font-family:"Fraunces","Georgia",serif;font-size:24px;font-weight:600;
+  color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums;
+}
+.num span{font-family:"Spline Sans Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* coming up */
+.upcoming{display:flex;align-items:center;gap:14px}
+.upcoming .cal{
+  width:52px;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;
+  text-align:center;background:var(--paper);flex-shrink:0;
+}
+.upcoming .cal .m{
+  font-family:"Spline Sans Mono",monospace;font-size:8.5px;letter-spacing:.14em;
+  text-transform:uppercase;background:var(--pill-ink);color:var(--pill-ink-text);padding:3px 0;
+}
+.upcoming .cal .d{font-family:"Fraunces","Georgia",serif;font-size:22px;font-weight:600;color:var(--ink);padding:4px 0 5px}
+.upcoming .what b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.upcoming .what span{font-size:12px;color:var(--muted)}
+
+/* coverage */
+.covrows{display:flex;flex-direction:column;gap:10px}
+.covrow .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
+.covrow .lbl b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.covbar{height:5px;border-radius:999px;background:var(--wash);overflow:hidden}
+.covbar i{display:block;height:100%;border-radius:999px;background:var(--accent);opacity:.75}
+
+/* play widget */
+.quizrow{display:flex;flex-direction:column;gap:8px}
+.quizrow a{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--line-soft);border-radius:var(--r-md);
+  padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink);
+  background:var(--paper);transition:border-color .15s;min-height:44px;
+}
+.quizrow a:hover{border-color:var(--muted);text-decoration:none}
+.quizrow a .arr{color:var(--faint);font-size:12px}
+
+/* curators */
+.curators{display:flex;align-items:center;gap:12px}
+.curators .avs{display:flex}
+.curators .av{
+  width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);
+  background:var(--wash);display:grid;place-items:center;
+  font-family:"Fraunces","Georgia",serif;font-size:12px;color:var(--muted);margin-left:-8px;
+}
+.curators .av:first-child{margin-left:0}
+.curators p{font-size:12px;color:var(--muted);line-height:1.5}
+.curators p b{color:var(--ink);font-weight:500}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--line-soft);padding:32px 0 48px;margin-top:24px}
+.foot .src{font-size:12.5px;color:var(--muted);line-height:1.7;max-width:76ch}
+.foot .src b{color:var(--ink);font-weight:600}
+
+/* ---------- load reveal (subtle, staggered) ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.reveal{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
+.reveal:nth-child(2){animation-delay:.06s}
+.reveal:nth-child(3){animation-delay:.12s}
+.reveal:nth-child(4){animation-delay:.18s}
+.reveal:nth-child(5){animation-delay:.24s}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .railcol{display:contents}
+  .railgroup{margin-top:8px}
+  .railgroup.first{order:1}
+  .doc{order:2}
+  .railgroup.rest{order:3;margin-top:40px}
+  .members{grid-template-columns:repeat(4,1fr)}
+  .covers{grid-template-columns:repeat(3,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .era{grid-template-columns:1fr;gap:4px}
+  .search{display:none}
+  .crumb .home{display:none}
+}
+@media (max-width:520px){
+  .shell{padding:0 18px}
+  .members{grid-template-columns:repeat(2,1fr)}
+  .covers{grid-template-columns:repeat(2,1fr)}
+  .adminchip span{display:none}
+  .adminchip{padding:6px 9px}
+  .cover{height:140px}
+  .foldbtn{min-height:44px;padding:9px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR : quiet wiki chrome -->
+<header class="topbar"><div class="shell">
+  <a class="brand" href="#"><span class="mark">K</span>KpopVerse</a>
+  <nav class="crumb" aria-label="Breadcrumb"><span class="home">Verse</span><span class="sep">/</span><b>BTS</b></nav>
+  <div class="grow"></div>
+  <div class="search" role="button" tabindex="0" aria-label="Search this space">Search BTS&hellip;<kbd>&#8984;K</kbd></div>
+  <div class="adminchip" title="The Verse is visible to the admin account only while it is being built"><span class="dot"></span><span>Admin view &middot; hidden from public</span></div>
+  <button class="editpill" type="button">Edit page</button>
+  <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">Dark</button>
+</div></header>
+
+<!-- COVER + PAGE HEAD : the Notion-style opening -->
+<div class="cover" role="img" aria-label="Cover image placeholder">
+  <span class="tag">cover &middot; via the moderated image rail</span>
+</div>
+
+<div class="shell">
+  <div class="pagehead">
+    <div class="icon" aria-hidden="true">B</div>
+    <div class="eyebrow">Home of ARMY &middot; 3rd generation &middot; since 2013</div>
+    <h1>BTS<span class="hangul">&#48169;&#53444;&#49548;&#45380;&#45800; &middot; Bangtan Sonyeondan</span></h1>
+    <p class="lede">Seven members who debuted in a small Seoul studio in June 2013 and grew, with ARMY, into one of the defining acts of their generation. This space keeps the catalog, the eras and the culture in one place, every fact sourced, built by the fans who care about it.</p>
+    <div class="actions">
+      <a class="btn" href="#">Explore the space</a>
+      <a class="btn ghost" href="#">Play a BTS quiz</a>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- ===================== DOCUMENT COLUMN ===================== -->
+    <main class="doc">
+
+      <!-- OVERVIEW · with the anti-overflow fold -->
+      <section class="sec reveal" style="padding-top:12px">
+        <div class="sechead"><h2>Overview</h2></div>
+        <div class="fold prose" id="fold-overview">
+          <div class="foldbody">
+            <p>BTS is a South Korean group of seven: RM, Jin, Suga, J-Hope, Jimin, V and Jungkook. They debuted on June 13, 2013 under Big Hit Entertainment, a small company at the time, with a sound rooted in hip hop and a habit of writing candidly about the pressures of being young. That directness, more than any single hit, is what pulled a global fandom together.</p>
+            <p>Across their catalog the group moved from the school-age frustration of their earliest records to the introspection of the Map of the Soul era, without losing the thread that started it all. This home page is the door into everything ARMY has documented here: the members, the discography, the eras, and the community around them.</p>
+            <p>The name itself carries the idea: Bangtan Sonyeondan translates roughly as "bulletproof boy scouts", later widened internationally to "Beyond The Scene". Both readings fit a group that began by deflecting the pressures aimed at young people and ended up redefining what a Korean act could reach. The pages below trace how, one era and one record at a time.</p>
+          </div>
+          <div class="fade" aria-hidden="true"></div>
+          <button class="foldbtn" type="button" aria-expanded="false" aria-controls="fold-overview">
+            <span class="txt">Read more</span><span class="chev" aria-hidden="true">&#9662;</span>
+          </button>
+        </div>
+        <div class="budgetnote">
+          <span class="k">Layout budget</span>
+          <span>Long sections collapse for readers, the full text stays on the page for search engines. When a section outgrows its budget, the editor proposes moving it to a child page.</span>
+        </div>
+      </section>
+
+      <!-- MEMBERS -->
+      <section class="sec reveal">
+        <div class="sechead"><h2>Members</h2><a class="more" href="#">All 7 &#8594;</a></div>
+        <div class="members">
+          <a class="member" href="#"><span class="ph" aria-hidden="true">RM</span><b>RM</b><span class="hg">&#44608;&#45224;&#51900;</span><span class="role">Leader &middot; Main rapper</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">J</span><b>Jin</b><span class="hg">&#44608;&#49437;&#51652;</span><span class="role">Vocalist</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">S</span><b>Suga</b><span class="hg">&#48124;&#50980;&#44592;</span><span class="role">Lead rapper</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">JH</span><b>J-Hope</b><span class="hg">&#51221;&#54840;&#49437;</span><span class="role">Main dancer &middot; Rapper</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">JM</span><b>Jimin</b><span class="hg">&#48149;&#51648;&#48124;</span><span class="role">Main dancer &middot; Vocalist</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">V</span><b>V</b><span class="hg">&#44608;&#53468;&#54805;</span><span class="role">Vocalist</span></a>
+          <a class="member" href="#"><span class="ph" aria-hidden="true">JK</span><b>Jungkook</b><span class="hg">&#51204;&#51221;&#44397;</span><span class="role">Main vocalist &middot; Center</span></a>
+        </div>
+      </section>
+
+      <!-- DISCOGRAPHY -->
+      <section class="sec reveal">
+        <div class="sechead"><h2>Discography</h2><a class="more" href="#">All 17 releases &#8594;</a></div>
+        <p class="prose" style="margin-bottom:20px;font-size:15.5px">Seventeen releases in the catalog, from the 2013 EP that opened the school trilogy to the current ARIRANG era. Korean and Japanese records, studio albums and EPs, each with its own page.</p>
+        <div class="covers">
+          <a class="coveritem" href="#"><span class="art">cover</span><b>O!RUL8,2?</b><span>2013 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>Skool Luv Affair</b><span>2014 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>DARK&amp;WILD</b><span>2014 &middot; Album</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>&#54868;&#50577;&#50672;&#54868; pt.1</b><span>2015 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>&#54868;&#50577;&#50672;&#54868; pt.2</b><span>2015 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>WINGS</b><span>2016 &middot; Album</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>LOVE YOURSELF &#25215; 'Her'</b><span>2017 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>LOVE YOURSELF &#36578; 'Tear'</b><span>2018 &middot; Album</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>MAP OF THE SOUL : PERSONA</b><span>2019 &middot; EP</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>MAP OF THE SOUL : 7</b><span>2020 &middot; Album</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>BE</b><span>2020 &middot; Album</span></a>
+          <a class="coveritem" href="#"><span class="art">cover</span><b>ARIRANG</b><span>2026 &middot; Album</span></a>
+        </div>
+      </section>
+
+      <!-- THE STORY SO FAR -->
+      <section class="sec reveal">
+        <div class="sechead"><h2>The story so far</h2><a class="more" href="#">All 15 eras &#8594;</a></div>
+        <div class="story">
+          <div class="era">
+            <div class="yr">2013 &middot; 2014</div>
+            <div>
+              <h3>The school trilogy</h3>
+              <p>The earliest records read like a diary of being seventeen: school, expectations, and the itch to do something with it. O!RUL8,2?, Skool Luv Affair and DARK&amp;WILD set the group's voice before anyone was watching closely.</p>
+              <div class="rel">O!RUL8,2? &middot; Skool Luv Affair &middot; DARK&amp;WILD</div>
+            </div>
+          </div>
+          <div class="era">
+            <div class="yr">2015 &middot; 2016</div>
+            <div>
+              <h3>The Most Beautiful Moment in Life &middot; WINGS</h3>
+              <p>The &#54868;&#50577;&#50672;&#54868; records turned toward youth as something fragile and fleeting, and it was the turn that made people pay attention. WINGS, in 2016, pushed the writing further and gave each member room of their own.</p>
+              <div class="rel">&#54868;&#50577;&#50672;&#54868; pt.1 &middot; &#54868;&#50577;&#50672;&#54868; pt.2 &middot; WINGS</div>
+            </div>
+          </div>
+          <div class="era">
+            <div class="yr">2017 &middot; 2018</div>
+            <div>
+              <h3>Love Yourself</h3>
+              <p>A trilogy built around a simple, stubborn idea: that learning to like yourself is the whole work. It broadened the sound into pop, EDM and R&amp;B, and it is the stretch where the group's reach became global.</p>
+              <div class="rel">LOVE YOURSELF &#25215; 'Her' &middot; LOVE YOURSELF &#36578; 'Tear'</div>
+            </div>
+          </div>
+          <div class="era">
+            <div class="yr">2019 &middot; 2020</div>
+            <div>
+              <h3>Map of the Soul</h3>
+              <p>Drawing on Jungian ideas of persona and shadow, this era looked inward just as everything around the group was getting louder. MAP OF THE SOUL : 7 gathered the threads of the whole journey into one record.</p>
+              <div class="rel">MAP OF THE SOUL : PERSONA &middot; MAP OF THE SOUL : 7</div>
+            </div>
+          </div>
+          <div class="era">
+            <div class="yr">2020</div>
+            <div>
+              <h3>BE</h3>
+              <p>Made largely at home during a year no one planned for, BE is quieter and more hand-made, the group writing about stillness and staying connected when touring stopped.</p>
+              <div class="rel">BE</div>
+            </div>
+          </div>
+          <div class="era">
+            <div class="yr">2026</div>
+            <div>
+              <h3>ARIRANG<span class="nowtag">Now</span></h3>
+              <p>The current era, and the one the space is documenting in real time. Its page fills as ARMY adds to it.</p>
+              <div class="rel">ARIRANG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY + PLAY -->
+      <section class="sec reveal">
+        <div class="grid2">
+          <div class="card">
+            <h3>ARMY, the fandom</h3>
+            <p>The name was made official in July 2013. This corner keeps the story of the fandom itself: where the name comes from, and how it grew alongside the group.</p>
+            <div class="links"><a href="#">The ARMY page</a><a href="#">Fan culture</a><a href="#">Name origin</a></div>
+          </div>
+          <div class="card">
+            <h3>Play what you know</h3>
+            <p>Every page connects back to the games. Test your era knowledge, guess the song in a blind test, or name all seven against the clock.</p>
+            <div class="links"><a href="#">BTS era quiz</a><a href="#">Blind test</a><a href="#">Name all members</a></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===================== DATA RAIL ===================== -->
+    <div class="railcol">
+
+      <div class="railgroup first">
+        <!-- FACT CARD : the group infobox -->
+        <aside class="widget" aria-label="BTS fact sheet">
+          <div class="whead"><h2>Fact sheet</h2><span class="badge data">Data</span></div>
+          <div class="factphoto">group photo &middot; moderated rail</div>
+          <dl class="factrows">
+            <div class="frow"><dt>Name</dt><dd>&#48169;&#53444;&#49548;&#45380;&#45800;</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Debut</dt><dd>June 13, 2013</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Agency</dt><dd>Big Hit Ent.</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Generation</dt><dd>3rd</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Fandom</dt><dd>ARMY</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Members</dt><dd>7</dd><span class="badge auto">Auto</span></div>
+            <div class="frow"><dt>Active</dt><dd>13 years</dd><span class="badge auto">Auto</span></div>
+          </dl>
+          <p class="wsrc">Wikidata &middot; MusicBrainz &middot; CC0. Auto rows are computed from the database and cannot be edited.</p>
+        </aside>
+
+        <!-- BY THE NUMBERS -->
+        <aside class="widget" aria-label="Catalog in numbers">
+          <div class="whead"><h2>In numbers</h2><span class="badge auto">Auto</span></div>
+          <div class="numgrid">
+            <div class="num"><b>17</b><span>Releases</span></div>
+            <div class="num"><b>197</b><span>Tracks</span></div>
+            <div class="num"><b>15</b><span>Eras</span></div>
+            <div class="num"><b>21</b><span>Awards</span></div>
+          </div>
+          <p class="wsrc">Counted live from the KpopVerse database.</p>
+        </aside>
+      </div>
+
+      <div class="railgroup rest">
+        <!-- COMING UP -->
+        <aside class="widget" aria-label="Coming up">
+          <div class="whead"><h2>Coming up</h2><span class="badge auto">Auto</span></div>
+          <div class="upcoming">
+            <div class="cal" aria-hidden="true"><div class="m" id="up-month">Sep</div><div class="d" id="up-day">12</div></div>
+            <div class="what"><b id="up-title">RM's birthday</b><span id="up-sub">in 34 days</span></div>
+          </div>
+          <p class="wsrc">Computed from member birth dates in the database.</p>
+        </aside>
+
+        <!-- SPACE COVERAGE -->
+        <aside class="widget" aria-label="Space coverage">
+          <div class="whead"><h2>This space</h2><span class="badge auto">Auto</span></div>
+          <div class="covrows">
+            <div class="covrow"><div class="lbl"><span>Pages</span><b>263</b></div><div class="covbar"><i style="width:100%"></i></div></div>
+            <div class="covrow"><div class="lbl"><span>Members covered</span><b>7 / 7</b></div><div class="covbar"><i style="width:100%"></i></div></div>
+            <div class="covrow"><div class="lbl"><span>Releases covered</span><b>17 / 17</b></div><div class="covbar"><i style="width:100%"></i></div></div>
+            <div class="covrow"><div class="lbl"><span>Written prose</span><b>starting</b></div><div class="covbar"><i style="width:6%"></i></div></div>
+          </div>
+          <p class="wsrc">Every entity has a page. Most are honest stubs: facts first, prose being written.</p>
+        </aside>
+
+        <!-- QUIZZES -->
+        <aside class="widget" aria-label="BTS quizzes">
+          <div class="whead"><h2>Play</h2><span class="badge data">Data</span></div>
+          <div class="quizrow">
+            <a href="#">BTS era quiz<span class="arr">&#8594;</span></a>
+            <a href="#">Blind test<span class="arr">&#8594;</span></a>
+            <a href="#">Name all 7 members<span class="arr">&#8594;</span></a>
+          </div>
+          <p class="wsrc">27 published BTS quizzes on the Play side.</p>
+        </aside>
+
+        <!-- CURATORS -->
+        <aside class="widget" aria-label="Curators">
+          <div class="whead"><h2>Curators</h2></div>
+          <div class="curators">
+            <div class="avs"><span class="av">A</span></div>
+            <p><b>1 curator</b> tends this space. Creation opens to the community once the skeleton is validated.</p>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SOURCING FOOTER -->
+<footer class="foot"><div class="shell"><p class="src">
+  <b>Sources.</b> Member list, positions, discography and era data come from the KpopVerse database, drawn from Wikidata and MusicBrainz (both released under CC0). Historical and biographical prose on this page is written for KpopVerse, informed by a range of public references and not copied from any single source. Photography is added through the moderated image rail with its own attribution. Corrections improve the page: this is a wiki.
+</p></div></footer>
+
+<script>
+(function(){
+  /* theme */
+  var t=document.getElementById('theme');
+  t.addEventListener('click',function(){
+    var dark=document.documentElement.dataset.theme==='dark';
+    document.documentElement.dataset.theme=dark?'light':'dark';
+    t.textContent=dark?'Dark':'Light';
+  });
+
+  /* anti-overflow fold: content stays in the DOM (crawlable), max-height hides it */
+  document.querySelectorAll('.fold').forEach(function(f){
+    var btn=f.querySelector('.foldbtn');
+    var body=f.querySelector('.foldbody');
+    /* if the text fits its budget, no fold chrome at all */
+    if(body.scrollHeight<=body.clientHeight+8){
+      btn.style.display='none';
+      f.querySelector('.fade').style.display='none';
+      return;
+    }
+    btn.addEventListener('click',function(){
+      var open=f.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      btn.querySelector('.txt').textContent=open?'Show less':'Read more';
+      if(!open){f.scrollIntoView({block:'nearest'});}
+    });
+  });
+
+  /* coming up: next member birthday, computed from real birth dates */
+  var bdays=[
+    ['RM','1994-09-12'],['Jin','1992-12-04'],['Suga','1993-03-09'],
+    ['J-Hope','1994-02-18'],['Jimin','1995-10-13'],['V','1995-12-30'],
+    ['Jungkook','1997-09-01']
+  ];
+  var now=new Date();now.setHours(0,0,0,0);
+  var best=null;
+  bdays.forEach(function(b){
+    var d=new Date(b[1]);
+    var next=new Date(now.getFullYear(),d.getMonth(),d.getDate());
+    if(next<now){next.setFullYear(now.getFullYear()+1);}
+    if(!best||next<best.next){best={name:b[0],next:next};}
+  });
+  if(best){
+    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var days=Math.round((best.next-now)/86400000);
+    document.getElementById('up-month').textContent=months[best.next.getMonth()];
+    document.getElementById('up-day').textContent=best.next.getDate();
+    document.getElementById('up-title').textContent=best.name+"'s birthday";
+    document.getElementById('up-sub').textContent=days===0?'today':('in '+days+(days===1?' day':' days'));
+  }
+})();
+</script>
+</body>
+</html>

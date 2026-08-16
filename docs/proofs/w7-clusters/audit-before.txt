@@ -1,0 +1,55 @@
+=== W7 AUDIT: the link graph BEFORE any change ===
+# production build, served HTML, 2026-08-16T10:53:53.282Z
+
+sitemap URLs (non-verse): 681   crawled sample: 186
+  group quiz pages: 37 | trivia pages: 24 | /q/ sampled: 120
+
+--- 7b. does a QUIZ page already link back to its group hub? ---
+  120/120 sampled quiz pages already link to a *-quiz group hub
+  example anchors on /q/blackpink-world-records-and-achievements: [{"href":"/blackpink-quiz","text":"BLACKPINK Quiz"},{"href":"/blackpink-quiz","text":"BLACKPINK"},{"href":"/blackpink-quiz","text":"All BLACKPINK quizzes"}]
+
+--- 7c. what does a GROUP hub link out to? ---
+  /red-velvet-quiz -> {"quiz":18,"trivia":1,"blindtest":4,"games":13,"group":3,"other":37}
+  /bts-quiz -> {"quiz":45,"trivia":1,"blindtest":4,"games":15,"group":3,"other":39}
+  /got7-quiz -> {"quiz":10,"trivia":1,"blindtest":4,"games":7,"group":3,"other":33}
+
+--- 7d. ORPHANS in the crawled set (zero inbound links from it) ---
+  11 of 186 crawled pages
+    /akmu-quiz
+    /loona-quiz
+    /kickflip-quiz
+    /xikers-quiz
+    /loossemble-quiz
+    /artms-quiz
+    /treasure-quiz
+    /tws-quiz
+    /monsta-x-quiz
+    /dreamcatcher-quiz
+    /astro-quiz
+
+--- 3. ANCHOR TEXT VARIETY (does the mesh already vary its wording?) ---
+  /bts-quiz: 93 links, 81 DISTINCT anchor texts
+      "KpopQuiz"
+      "Verse"
+      "Home"
+      "30 quizzesPlay the group quizzes"
+      "Blind test28 songs"
+      "Name all members7 to name"
+      "Which member are you?10 questions, 1 result"
+      "Sort K-pop groups: boy or girl, 3rd gen or 4th gen"
+  /q/ultimate-bts-era-quiz-only-real-armys-survive: 41 links, 36 DISTINCT anchor texts
+      "KpopQuiz"
+      "Quizzes"
+      "Popular quizzes"
+      "Trivia"
+      "Games"
+      "Blindtest"
+      "Rankings"
+      "Leaderboard"
+
+--- LIMITATION, stated ---
+Orphan status is computed against the CRAWLED SET (186 pages), not all 681 non-verse
+sitemap URLs. A page counted as an orphan here could still have an inbound link from a
+page outside the sample. The 11 listed are orphaned relative to every hub, group page,
+trivia page and the 120 sampled quizzes, which is the part of the graph that matters
+for depth signal, but the number is a floor on inbound links, not a proof of zero.

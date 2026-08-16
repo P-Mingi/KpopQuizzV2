@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jungkook · BTS · Verse (member page prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KpopVerse · Jungkook member page · the pattern for all 7.
+   Same white Notion-calm system as the validated home v2.
+   Page head + idol fact rail + prose + right data rail.
+   ============================================================ */
+:root{
+  --paper:#FFFFFF; --surface:#FFFFFF; --wash:#F1F1EF;
+  --ink:#1D1B17; --body:#37352F; --muted:#73726E; --faint:#9F9D97;
+  --line:#E7E6E3; --line-soft:#F0EFED;
+  --accent:#2E6BD0; --accent-deep:#2E6BD040; --accent-soft:#2E6BD00d;
+  --pill-ink:#1D1B17; --pill-ink-text:#FFFFFF;
+  --data:#54803F; --auto:#9A7B3F;
+  --shadow:0 1px 2px rgba(0,0,0,.03),0 8px 24px -16px rgba(0,0,0,.12);
+  --r-lg:18px; --r-md:12px; --r-sm:8px;
+}
+[data-theme="dark"]{
+  --paper:#191919; --surface:#1F1F1F; --wash:#262626;
+  --ink:#EDEDEB; --body:#D4D4D2; --muted:#9B9B98; --faint:#6E6E6B;
+  --line:#2F2F2D; --line-soft:#292928;
+  --accent:#6FA0EE; --accent-deep:#6FA0EE4d; --accent-soft:#6FA0EE14;
+  --pill-ink:#EDEDEB; --pill-ink-text:#191919;
+  --data:#8FAF85; --auto:#C2A06A;
+  --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 28px -18px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{font-family:"Instrument Sans","Segoe UI","Helvetica Neue",sans-serif;background:var(--paper);color:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--accent-deep)}
+.shell{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.topbar .shell{display:flex;align-items:center;gap:16px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;font-size:14px}
+.brand:hover{text-decoration:none}
+.brand .mark{width:24px;height:24px;border-radius:7px;background:var(--pill-ink);color:var(--pill-ink-text);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:13px;font-weight:600}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.crumb a{color:var(--muted)}
+.crumb .sep{color:var(--faint)}
+.crumb b{color:var(--ink);font-weight:600}
+.topbar .grow{flex:1}
+.adminchip{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.adminchip .dot{width:6px;height:6px;border-radius:50%;background:var(--auto)}
+.iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
+.iconbtn:hover{border-color:var(--muted)}
+.editpill{background:var(--pill-ink);color:var(--pill-ink-text);border:1px solid var(--pill-ink);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
+.editpill:hover{opacity:.85}
+
+/* cover + head */
+.cover{height:190px;position:relative;overflow:hidden;background:radial-gradient(600px 300px at 15% 120%,var(--accent-soft),transparent 70%),radial-gradient(800px 360px at 88% -40%,var(--accent-soft),transparent 65%),linear-gradient(var(--wash),var(--paper) 92%);border-bottom:1px solid var(--line-soft)}
+.cover .tag{position:absolute;right:24px;bottom:16px;font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:1px dashed var(--line);border-radius:999px;padding:5px 12px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.pagehead{padding:0 0 6px}
+.pagehead .icon{width:92px;height:92px;border-radius:24px;margin-top:-46px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center;position:relative;z-index:3;font-family:"Fraunces",serif;font-size:34px;font-weight:600;color:var(--ink)}
+.eyebrow{margin:18px 0 10px;font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.eyebrow .sepd{color:var(--faint)}
+h1{font-family:"Fraunces",serif;font-weight:600;color:var(--ink);font-size:clamp(38px,5.4vw,54px);line-height:1.04;letter-spacing:-.015em}
+.hangul{display:block;margin-top:9px;font-family:"Instrument Sans",sans-serif;font-size:15px;font-weight:400;letter-spacing:.02em;color:var(--muted)}
+.lede{max-width:66ch;margin:16px 0 22px;font-size:17.5px;line-height:1.7;color:var(--body)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 22px;font-size:14px;font-weight:500;border:1px solid var(--pill-ink);background:var(--pill-ink);color:var(--pill-ink-text);min-height:44px}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 312px;gap:52px;align-items:start;padding:22px 0 72px}
+.doc{min-width:0}
+.railcol{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+/* sections */
+.sec{padding:32px 0 0}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+.sechead h2{font-family:"Fraunces",serif;font-weight:600;font-size:24px;letter-spacing:-.01em;color:var(--ink)}
+.sechead .more{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.prose{max-width:66ch}
+.prose p{margin-bottom:14px;font-size:16.5px;line-height:1.72}
+.prose p:last-child{margin-bottom:0}
+.prose .pull{margin:18px 0;padding:2px 0 2px 18px;border-left:2px solid var(--accent-deep);font-family:"Fraunces",serif;font-size:19px;line-height:1.5;color:var(--ink)}
+
+/* discography credits mini-cards */
+.rel3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.relc{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);padding:14px;color:var(--body)}
+.relc:hover{text-decoration:none;border-color:var(--line)}
+.relc b{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.relc span{font-family:"Spline Sans Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em}
+
+/* threads list */
+.threads{display:flex;flex-direction:column;gap:0}
+.thread{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft);color:var(--body)}
+.thread:last-child{border-bottom:0}
+.thread:hover{text-decoration:none}
+.thread .tk{width:30px;height:30px;border-radius:9px;background:var(--wash);border:1px solid var(--line);display:grid;place-items:center;font-family:"Spline Sans Mono",monospace;font-size:11px;color:var(--muted);flex-shrink:0}
+.thread .tt b{font-size:14px;font-weight:600;color:var(--ink)}
+.thread .tt span{font-size:12.5px;color:var(--muted)}
+.thread .arr{margin-left:auto;color:var(--faint)}
+.ghost-thread{opacity:.62}
+.ghost-thread .tt b{color:var(--muted);border-bottom:1px dashed var(--faint)}
+
+/* rail widgets */
+.widget{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 18px 16px;box-shadow:var(--shadow)}
+.whead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.whead h2{font-family:"Spline Sans Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wsrc{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft);font-size:10.5px;color:var(--faint);line-height:1.5}
+.badge{font-family:"Spline Sans Mono",monospace;font-size:8.5px;letter-spacing:.1em;border-radius:4px;padding:2px 6px;text-transform:uppercase;white-space:nowrap}
+.badge.data{color:var(--data);background:color-mix(in srgb,var(--data) 10%,transparent)}
+.badge.auto{color:var(--auto);background:color-mix(in srgb,var(--auto) 12%,transparent)}
+.badge.o1{color:var(--accent);background:var(--accent-soft)}
+
+/* fact sheet (idol infobox) */
+.facephoto{aspect-ratio:1/1;border-radius:var(--r-md);border:1px dashed var(--line);background:var(--wash);display:grid;place-items:center;margin-bottom:14px;font-family:"Spline Sans Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;padding:8px}
+.frows{display:flex;flex-direction:column}
+.frow{display:grid;grid-template-columns:74px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.frow:last-child{border-bottom:0}
+.frow dt{font-size:12px;color:var(--muted)}
+.frow dd{font-size:13.5px;font-weight:500;color:var(--ink)}
+.frow dd .hg{font-weight:400;color:var(--muted);font-size:12px}
+
+/* did you know */
+.dyk .cat{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:inline-block}
+.dyk .fact{font-family:"Fraunces",serif;font-size:16.5px;line-height:1.45;color:var(--ink);font-weight:500}
+
+/* members grid */
+.mem6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mem{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--paper);padding:11px 4px 9px;color:var(--body)}
+.mem:hover{text-decoration:none;border-color:var(--line)}
+.mem .ph{width:38px;height:38px;border-radius:50%;background:var(--wash);border:1px solid var(--line);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:14px;color:var(--faint);margin-bottom:5px}
+.mem b{font-size:12px;font-weight:600;color:var(--ink)}
+.mem span{font-size:9px;font-family:"Spline Sans Mono",monospace;letter-spacing:.05em;color:var(--faint);text-transform:uppercase}
+
+/* play */
+.qz{display:flex;flex-direction:column;gap:8px}
+.qz a{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line-soft);border-radius:var(--r-md);padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink);background:var(--paper);min-height:44px}
+.qz a:hover{border-color:var(--muted);text-decoration:none}
+.qz .arr{color:var(--faint);font-size:12px}
+
+/* footer */
+.foot{border-top:1px solid var(--line-soft);padding:30px 0 48px;margin-top:22px}
+.foot .src{font-size:12.5px;color:var(--muted);line-height:1.7;max-width:78ch}
+.foot .src b{color:var(--ink);font-weight:600}
+
+/* reveal */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.reveal{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+.reveal:nth-child(2){animation-delay:.05s}.reveal:nth-child(3){animation-delay:.1s}.reveal:nth-child(4){animation-delay:.15s}.reveal:nth-child(5){animation-delay:.2s}
+
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .railcol{display:contents}
+  .railgroup.first{order:1;margin-top:8px}
+  .doc{order:2}
+  .railgroup.rest{order:3;margin-top:36px;display:flex;flex-direction:column;gap:16px}
+  .rel3{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){.shell{padding:0 18px}.cover{height:140px}.rel3{grid-template-columns:1fr}.adminchip span{display:none}}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="shell">
+  <a class="brand" href="#"><span class="mark">K</span>KpopVerse</a>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="#">Verse</a><span class="sep">/</span><a href="#">BTS</a><span class="sep">/</span><a href="#">Members</a><span class="sep">/</span><b>Jungkook</b></nav>
+  <div class="grow"></div>
+  <div class="adminchip"><span class="dot"></span><span>Admin view &middot; hidden from public</span></div>
+  <button class="editpill" type="button">Edit page</button>
+  <button class="iconbtn" id="theme" type="button">Dark</button>
+</div></header>
+
+<div class="cover" role="img" aria-label="Cover placeholder"><span class="tag">cover &middot; moderated image rail</span></div>
+
+<div class="shell">
+  <div class="pagehead">
+    <div class="icon" aria-hidden="true">JK</div>
+    <div class="eyebrow"><span>Member of BTS</span><span class="sepd">&middot;</span><span>Main vocalist</span><span class="sepd">&middot;</span><span>Center</span><span class="sepd">&middot;</span><span>Since 2013</span></div>
+    <h1>Jungkook<span class="hangul">&#51204;&#51221;&#44397; &middot; Jeon Jungkook</span></h1>
+    <p class="lede">The youngest of BTS and the group's Main Vocalist and Center. He was fifteen when the group debuted in 2013 and grew up in public, becoming, over a decade, one of the most recognisable voices in pop.</p>
+    <div class="actions">
+      <a class="btn" href="#">Read the story</a>
+      <a class="btn ghost" href="#">Play a BTS quiz</a>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main class="doc">
+
+      <section class="sec reveal" style="padding-top:12px">
+        <div class="sechead"><h2>Overview</h2></div>
+        <div class="prose">
+          <p>Jeon Jungkook is the maknae of BTS, the youngest of the seven, and the member the group built many of its biggest choruses around. He auditioned as a young teenager, chose Big Hit over several other offers because he wanted to train alongside RM, and debuted at fifteen. That head start shaped him: he learned to sing, rap, dance and perform more or less simultaneously, and the fandom's nickname for the result, the "Golden Maknae", was only half a joke.</p>
+          <p>Within BTS he is the Main Vocalist and the Center, the member the formations tend to resolve around. Between the group's own releases he built an unusually open second life as a coverer of other artists' songs, an ongoing, unhurried vocal education that ARMY watched happen in real time.</p>
+        </div>
+      </section>
+
+      <section class="sec reveal">
+        <div class="sechead"><h2>His place in the group</h2></div>
+        <div class="prose">
+          <p>Center is a specific job in a Korean group: it is the position the eye lands on first, and it usually falls to a member who can hold a stage without asking for it. Jungkook carries it quietly. As Main Vocalist his register sits at the emotional centre of a lot of BTS songs, the part that lifts a chorus into its final gear.</p>
+          <p class="pull">He grew up on stage, and you can hear the years of practice folded into how effortless he tries to make it look.</p>
+          <p>He is also, by a wide margin, the group's most restless performer, the one most likely to be found singing on a live stream at two in the morning. That appetite is the throughline from the fifteen-year-old trainee to the soloist he became.</p>
+        </div>
+      </section>
+
+      <section class="sec reveal">
+        <div class="sechead"><h2>Going solo</h2><a class="more" href="#">The GOLDEN era &#8594;</a></div>
+        <div class="prose">
+          <p>In 2023 Jungkook stepped out on his own without stepping away from the group. The single "Seven" arrived first that summer, followed by "3D", and in November by his solo debut album <b>GOLDEN</b>, led by "Standing Next to You". The record leaned fully into English-language pop and dance, a widening rather than a reinvention, and "Standing Next to You" in particular became one of the most-streamed songs by any K-pop soloist. It was the clearest statement yet of what Jungkook sounds like when the frame is only his.</p>
+        </div>
+        <div class="rel3" style="margin-top:18px">
+          <a class="relc" href="#"><b>Seven</b><span>2023 &middot; single</span></a>
+          <a class="relc" href="#"><b>3D</b><span>2023 &middot; single</span></a>
+          <a class="relc" href="#"><b>GOLDEN</b><span>2023 &middot; album</span></a>
+        </div>
+      </section>
+
+      <section class="sec reveal">
+        <div class="sechead"><h2>Threads to follow</h2></div>
+        <p class="prose" style="margin-bottom:16px;font-size:15.5px;color:var(--muted)">This page grows the way a wiki does, one real thing at a time. Each of these becomes its own page when there is enough to say.</p>
+        <div class="threads">
+          <a class="thread" href="#"><span class="tk">&#9834;</span><span class="tt"><b>Vocal &amp; writing credits</b><br><span>His parts across the BTS discography</span></span><span class="arr">&#8594;</span></a>
+          <a class="thread" href="#"><span class="tk">7</span><span class="tt"><b>Units &amp; pairings</b><br><span>The sub-groupings he has sung in</span></span><span class="arr">&#8594;</span></a>
+          <a class="thread ghost-thread" href="#"><span class="tk">+</span><span class="tt"><b>The GOLDEN era</b><br><span>Wanted page &middot; not written yet</span></span><span class="arr">&#8594;</span></a>
+          <a class="thread ghost-thread" href="#"><span class="tk">&#9673;</span><span class="tt"><b>Gallery</b><br><span>Wanted page &middot; deferred (collections)</span></span><span class="arr">&#8594;</span></a>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="railcol">
+      <div class="railgroup first" style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- IDOL FACT SHEET -->
+        <aside class="widget" aria-label="Jungkook fact sheet">
+          <div class="whead"><h2>Fact sheet</h2><span class="badge data">Data</span></div>
+          <div class="facephoto">member photo &middot; moderated rail</div>
+          <dl class="frows">
+            <div class="frow"><dt>Name</dt><dd>Jeon Jungkook <span class="hg">&#51204;&#51221;&#44397;</span></dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Born</dt><dd>Sep 1, 1997</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Age</dt><dd>28</dd><span class="badge auto">Auto</span></div>
+            <div class="frow"><dt>From</dt><dd>South Korea</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Position</dt><dd>Main Vocalist, Center</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Group</dt><dd>BTS</dd><span class="badge data">Data</span></div>
+            <div class="frow"><dt>Debuted</dt><dd>2013 (age 15)</dd><span class="badge auto">Auto</span></div>
+          </dl>
+          <p class="wsrc">Wikidata &middot; MusicBrainz &middot; CC0. Auto rows are computed and cannot be edited.</p>
+        </aside>
+
+        <!-- DID YOU KNOW (from trivia base) -->
+        <aside class="widget dyk" aria-label="Did you know">
+          <div class="whead"><h2>Did you know?</h2><span class="badge o1">Trivia</span></div>
+          <span class="cat">Members</span>
+          <p class="fact">Jungkook, born September 1, 1997, is the youngest member of BTS, often called the maknae.</p>
+          <p class="wsrc">From the trivia base (entity-level). One sourced fact; rotates so pages stay distinct.</p>
+        </aside>
+      </div>
+
+      <div class="railgroup rest" style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- THE OTHER MEMBERS -->
+        <aside class="widget" aria-label="The other members">
+          <div class="whead"><h2>The other members</h2><span class="badge data">6</span></div>
+          <div class="mem6">
+            <a class="mem" href="#"><span class="ph">RM</span><b>RM</b><span>Leader</span></a>
+            <a class="mem" href="#"><span class="ph">J</span><b>Jin</b><span>Vocalist</span></a>
+            <a class="mem" href="#"><span class="ph">S</span><b>Suga</b><span>Rapper</span></a>
+            <a class="mem" href="#"><span class="ph">JH</span><b>J-Hope</b><span>Dancer</span></a>
+            <a class="mem" href="#"><span class="ph">JM</span><b>Jimin</b><span>Dancer</span></a>
+            <a class="mem" href="#"><span class="ph">V</span><b>V</b><span>Vocalist</span></a>
+          </div>
+        </aside>
+
+        <!-- PLAY -->
+        <aside class="widget" aria-label="Play">
+          <div class="whead"><h2>Play</h2><span class="badge data">Data</span></div>
+          <div class="qz">
+            <a href="#">BTS members quiz<span class="arr">&#8594;</span></a>
+            <a href="#">Name all 7 members<span class="arr">&#8594;</span></a>
+            <a href="#">BTS solo era quiz<span class="arr">&#8594;</span></a>
+          </div>
+          <p class="wsrc">Real BTS quizzes on the Play side.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="foot"><div class="shell"><p class="src">
+  <b>Sources.</b> Name, birth date, nationality and position come from the KpopVerse database (Wikidata, MusicBrainz, both CC0). Solo-career details (GOLDEN, November 2023; the singles "Seven", "3D" and "Standing Next to You") are verified against public reporting. All prose on this page is written for KpopVerse and is not copied from any single source. Photography is added through the moderated image rail. Corrections improve the page: this is a wiki.
+</p></div></footer>
+
+<script>
+(function(){
+  var t=document.getElementById('theme');
+  t.addEventListener('click',function(){
+    var d=document.documentElement.dataset.theme==='dark';
+    document.documentElement.dataset.theme=d?'light':'dark';
+    t.textContent=d?'Dark':'Light';
+  });
+})();
+</script>
+</body>
+</html>

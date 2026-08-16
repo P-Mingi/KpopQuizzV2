@@ -6784,3 +6784,6 @@ main:has(.verse-page) { max-width: none; }
 .answer-first-chunks { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
 .answer-first-q { font-size: 14px; font-weight: 700; color: var(--txt1); margin: 0; }
 .answer-first-a { font-size: 14px; line-height: 1.55; color: var(--txt2); margin: 3px 0 0; }
+
+/* W9b - the freshness line. Quiet: it is a signal, not a headline. */
+.group-updated { font-size: 12px; color: var(--txt3); margin: 10px 0 0; }

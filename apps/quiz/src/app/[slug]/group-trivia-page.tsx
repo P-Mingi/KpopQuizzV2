@@ -7,6 +7,7 @@ import { TriviaShareButton } from '@/components/trivia/trivia-share-button';
 import { formatCount } from '@/lib/utils';
 import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupNameAllGame, getGroupBlindtestInfo } from '@/lib/db/queries/group-hub';
+import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 
@@ -128,11 +129,12 @@ export function generateGroupTriviaMetadata(group: Group, factCount: number): Me
 // ------------------------------------------------------------------
 
 export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
-  const [uniqueFacts, nameAllGame, blindtest] = await Promise.all([
+  const [uniqueFacts, nameAllGame, blindtest, contentDate] = await Promise.all([
     safeFetch(getOverriddenFacts(group.id, group.slug), [] as TriviaFact[], '[group-trivia] getOverriddenFacts'),
     // W8: the same two live counts the quiz page uses, so both pages answer identically.
     safeFetch(getGroupNameAllGame(group.id), null, '[group-trivia] getGroupNameAllGame'),
     safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-trivia] getGroupBlindtestInfo'),
+    safeFetch(getGroupContentDate(group.id), null, '[group-trivia] getGroupContentDate'),
   ]);
 
   if (uniqueFacts.length < 12) {
@@ -179,6 +181,11 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
           {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
           might not know - pulled from fan-made quizzes.
         </p>
+        {formatContentMonth(contentDate) && (
+          <p className="group-updated">
+            Updated <time dateTime={(contentDate as string).slice(0, 10)}>{formatContentMonth(contentDate)}</time>
+          </p>
+        )}
         <div className="trivia-share">
           <TriviaShareButton url={canonicalUrl} title={heroTitle} />
         </div>
@@ -278,7 +285,11 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
               name: group.name,
             },
             datePublished: group.created_at,
-            dateModified: new Date().toISOString(),
+            // W9b: was `new Date().toISOString()`, i.e. the build timestamp. That told
+            // crawlers the page changed every deploy even when no fact on it had moved,
+            // which is the freshness signal spent on nothing. Now the newest published
+            // quiz date for this group, and omitted rather than faked when absent.
+            ...(contentDate ? { dateModified: contentDate.slice(0, 10) } : {}),
           }),
         }}
       />

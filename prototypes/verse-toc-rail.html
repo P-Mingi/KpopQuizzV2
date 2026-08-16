@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-nav="open">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verse TOC rail · thin hover-expand (Notion-style)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --nav:#F7F7F7; --content:#FFFFFF; --raised:#FFFFFF;
+    --ink:#1A1A1A; --ink-soft:#5A5A5A; --ink-faint:#8A8A8A;
+    --line:#EAEAEA; --hover:#EFEFEF; --active:#E7E7E7;
+    --pink:#EC4899; --violet:#6D4AA6;
+    --topbar-h:52px; --side-w:264px;
+    --fx:cubic-bezier(.22,.61,.36,1);
+  }
+  [data-theme="dark"]{
+    --nav:#161616; --content:#1E1E1E; --raised:#262626;
+    --ink:#ECECEC; --ink-soft:#A8A8A8; --ink-faint:#777;
+    --line:#2C2C2C; --hover:#242424; --active:#2E2E2E; --violet:#A98BD6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--content);color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .mono{font-family:'Spline Sans Mono',monospace}
+  a{color:inherit;text-decoration:none}
+
+  .topbar{position:fixed;inset:0 0 auto 0;height:var(--topbar-h);z-index:40;display:flex;align-items:center;gap:14px;padding:0 16px;
+    background:color-mix(in srgb,var(--content) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .tb-word{font-family:'Fraunces',serif;font-weight:600;font-size:16px}
+  .tb-word b{color:var(--violet)}
+  .tb-link{padding:6px 11px;border-radius:8px;color:var(--ink-soft);font-weight:500;font-size:13.5px}
+  .tb-link:hover{background:var(--hover);color:var(--ink)}
+  .tb-spacer{flex:1}
+  .tb-search{flex:0 1 380px;display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:9px;background:var(--nav);border:1px solid var(--line);color:var(--ink-faint);font-size:13.5px}
+  .tb-play{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 15px;border-radius:9px;background:var(--pink);color:#fff;font-weight:600;font-size:13.5px}
+  .tb-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--ink-soft);border:none;background:none;cursor:pointer}
+  .tb-icon:hover{background:var(--hover);color:var(--ink)}
+
+  .shell{display:flex;min-height:100vh;padding-top:var(--topbar-h)}
+  .side{flex:0 0 var(--side-w);background:var(--nav);border-right:1px solid var(--line);align-self:stretch}
+  .side-inner{position:sticky;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:12px 8px}
+  .side-head{display:flex;align-items:center;gap:10px;padding:2px 6px 10px}
+  .sh-chip{width:30px;height:30px;border-radius:8px;background:#111;color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  [data-theme="dark"] .sh-chip{background:#f2f2f2;color:#111}
+  .sh-name{font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.1}
+  .sh-sub{font-size:11px;color:var(--ink-faint)}
+  .nrow{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px;color:var(--ink-soft);font-size:14px;font-weight:500}
+  .nrow:hover{background:var(--hover);color:var(--ink)}
+  .side-label{font-family:'Spline Sans Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);padding:14px 10px 5px}
+  .subrow{display:block;padding:5px 8px 5px 30px;border-radius:7px;color:var(--ink-soft);font-size:13.5px}
+  .subrow:hover{background:var(--hover);color:var(--ink)}
+  .subrow.active{color:var(--ink);font-weight:600;background:var(--active)}
+  /* NOTE: no "ON THIS PAGE" block here anymore — the sidebar is site/space nav only. */
+
+  .main{flex:1;min-width:0;position:relative;display:flex;justify-content:center}
+  .doc{width:100%;max-width:840px;padding:40px 56px 90px}
+  .crumbs{font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--ink-faint);margin-bottom:20px}
+  h1.doc-title{font-family:'Fraunces',serif;font-weight:600;font-size:42px;line-height:1.06;letter-spacing:-.015em;margin-bottom:10px}
+  .doc-meta{font-size:12px;color:var(--ink-faint);margin-bottom:34px;display:flex;gap:10px;align-items:center}
+  .pill{font-family:'Spline Sans Mono',monospace;font-size:11px;border:1px solid var(--line);border-radius:20px;padding:2px 9px;color:var(--ink-soft)}
+  h2.doc-h{font-family:'Fraunces',serif;font-weight:600;font-size:23px;margin:36px 0 12px;letter-spacing:-.01em}
+  .doc p{color:#2E2E2E;margin-bottom:15px;max-width:68ch}
+  [data-theme="dark"] .doc p{color:#cfcfcf}
+
+  /* ============ THE TOC RAIL (the point of this prototype) ============ */
+  .tocrail{
+    position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:30;
+  }
+  /* collapsed: small ticks */
+  .toc-ticks{display:flex;flex-direction:column;gap:9px;align-items:flex-end;padding:10px 6px;cursor:pointer}
+  .toc-ticks span{display:block;height:2.5px;border-radius:2px;background:var(--ink-faint);opacity:.45;transition:.2s var(--fx)}
+  .toc-ticks span:nth-child(1){width:18px}
+  .toc-ticks span:nth-child(2){width:12px}
+  .toc-ticks span:nth-child(3){width:15px}
+  .toc-ticks span:nth-child(4){width:11px}
+  .toc-ticks span.on{background:var(--violet);opacity:1;width:22px}
+  /* expanded panel */
+  .toc-panel{
+    position:absolute; right:0; top:50%; transform:translateY(-50%) translateX(6px);
+    min-width:210px; background:var(--raised); border:1px solid var(--line); border-radius:12px;
+    box-shadow:0 10px 34px rgba(0,0,0,.10); padding:10px 8px;
+    opacity:0; pointer-events:none; transition:.18s var(--fx);
+  }
+  .tocrail:hover .toc-panel, .tocrail:focus-within .toc-panel{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+  .tocrail:hover .toc-ticks{opacity:0}
+  .toc-label{font-family:'Spline Sans Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);padding:2px 10px 7px}
+  .toc-panel a{display:block;padding:6px 10px;border-radius:7px;font-size:13.5px;color:var(--ink-soft);border-left:2px solid transparent}
+  .toc-panel a:hover{background:var(--hover);color:var(--ink)}
+  .toc-panel a.on{color:var(--violet);border-left-color:var(--violet);font-weight:600;background:none}
+
+  /* ============ MOBILE: hover n'existe pas -> TAP ============ */
+  @media (max-width:767px){
+    .side{display:none}
+    .doc{padding:28px 20px 80px}
+    /* rail ancre en bas a droite, zone du pouce */
+    .tocrail{top:auto;bottom:84px;right:12px;transform:none}
+    .toc-ticks{padding:12px 8px;background:color-mix(in srgb,var(--raised) 82%,transparent);backdrop-filter:blur(8px);
+      border:1px solid var(--line);border-radius:11px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+    /* pas de hover: la classe .open (posee au tap) pilote tout */
+    .tocrail:hover .toc-panel{opacity:0;pointer-events:none}
+    .tocrail:hover .toc-ticks{opacity:1}
+    .tocrail.open .toc-panel{opacity:1;pointer-events:auto;transform:none;top:auto;bottom:0;right:0;min-width:230px}
+    .tocrail.open .toc-ticks{opacity:0}
+    .toc-panel a{padding:10px 12px;font-size:14.5px} /* cibles tactiles 40px+ */
+    .toc-scrim{position:fixed;inset:0;z-index:-1;display:none}
+    .tocrail.open .toc-scrim{display:block}
+  }
+
+  .note{position:fixed;left:16px;bottom:16px;z-index:50;max-width:300px;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 22px rgba(0,0,0,.10);font-size:12.5px;color:var(--ink-soft)}
+  .note b{color:var(--ink)}
+  .note button{margin-top:8px;width:100%;font-size:12px;font-family:'Spline Sans Mono',monospace;padding:6px;border-radius:7px;border:1px solid var(--line);background:var(--nav);color:var(--ink-soft);cursor:pointer}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="tb-word">🐰 Kpop<b>Verse</b></span>
+  <a class="tb-link" href="#">Fandoms</a>
+  <a class="tb-link" href="#">Community</a>
+  <div class="tb-spacer"></div>
+  <div class="tb-search">🔍 Search the Verse</div>
+  <a class="tb-play" href="#">▶ Play</a>
+  <button class="tb-icon" id="theme">☀</button>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <div class="side-inner">
+      <div class="side-head">
+        <span class="sh-chip">B</span>
+        <span><div class="sh-name">BTS</div><div class="sh-sub">ARMY · 3rd Gen · 7 members</div></span>
+      </div>
+      <a class="nrow" href="#">⌂ Space home</a>
+      <a class="nrow" href="#">◍ Browse everything</a>
+      <div class="side-label">Navigate</div>
+      <a class="nrow" href="#">♪ Music</a>
+      <a class="nrow" href="#">☺ Members</a>
+      <a class="subrow active" href="#">Jung Kook</a>
+      <a class="nrow" href="#">▤ Shows</a>
+      <a class="nrow" href="#">♡ Fandom</a>
+      <a class="nrow" href="#">ⓘ About</a>
+      <!-- PLUS de bloc "ON THIS PAGE" ici : la sidebar = navigation du site/espace uniquement. -->
+    </div>
+  </aside>
+
+  <main class="main">
+    <article class="doc">
+      <div class="crumbs mono">ARMY / Members / Jung Kook</div>
+      <h1 class="doc-title">Jung Kook</h1>
+      <div class="doc-meta"><span class="pill mono">indexable</span><span>1 revision · updated Aug 9, 2026</span></div>
+
+      <h2 class="doc-h" id="s1">Overview</h2>
+      <p>Jeon Jung-kook, known mononymously as Jung Kook, is the youngest member of BTS. He debuted with the group in June 2013 at fifteen, and grew up quite literally on stage, from the group's earliest school-concept eras to global stadium tours.</p>
+      <p>Nicknamed the golden maknae by fans and members alike, he is known for covering an unusual amount of ground at once: main vocalist duties, dance line work, and a steady stream of covers and solo releases that chart on their own.</p>
+
+      <h2 class="doc-h" id="s2">His place in BTS</h2>
+      <p>Within the group he anchors the vocal line while sitting comfortably in the centre of most choreography. The dynamic between the youngest member and his six seniors has been a running thread of the group's variety content since the beginning.</p>
+      <p>Fans track his growth era by era: the wide-eyed rookie of 2 Cool 4 Skool, the breakout performer of the Love Yourself stadium years, the solo artist of the chapter that followed.</p>
+
+      <h2 class="doc-h" id="s3">Solo work</h2>
+      <p>His solo output spans official soundtrack singles and a full solo era, with releases that broke into global charts and streaming records. Each solo release becomes its own page as there is more sourced to say.</p>
+      <p>Beyond official releases, his song covers form a parallel discography of their own, widely circulated and often credited with introducing new listeners to the group.</p>
+
+      <h2 class="doc-h" id="s4">Threads to follow</h2>
+      <p>His solo era, the covers archive, and the early pre-debut trainee period each become their own page as there is more sourced to say. Corrections welcome, this is a wiki.</p>
+      <p style="height:40vh"></p>
+    </article>
+
+    <!-- ============ TOC RAIL ============ -->
+    <nav class="tocrail" id="tocrail" aria-label="On this page">
+      <div class="toc-scrim" id="tocscrim"></div>
+      <div class="toc-ticks" id="ticks">
+        <span class="on"></span><span></span><span></span><span></span>
+      </div>
+      <div class="toc-panel">
+        <div class="toc-label">On this page · 4</div>
+        <a href="#s1" class="on">Overview</a>
+        <a href="#s2">His place in BTS</a>
+        <a href="#s3">Solo work</a>
+        <a href="#s4">Threads to follow</a>
+      </div>
+    </nav>
+  </main>
+</div>
+
+<div class="note">
+  <b>Prototype · TOC rail</b><br/>
+  Le bloc "On this page" a disparu de la sidebar. Le sommaire vit colle a la page: traits fins a droite, survole-les pour deployer la liste. Le trait/lien violet suit ta position de scroll.
+  <button id="p-theme">light / dark</button>
+</div>
+
+<script>
+  document.getElementById('theme').onclick=flip; document.getElementById('p-theme').onclick=flip;
+  function flip(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='light'?'dark':'light')}
+  // scroll spy: active section drives both the tick and the panel link
+  const ids=['s1','s2','s3','s4'];
+  const ticks=[...document.querySelectorAll('.toc-ticks span')];
+  const links=[...document.querySelectorAll('.toc-panel a')];
+  const spy=()=>{
+    let cur=0;
+    ids.forEach((id,i)=>{const el=document.getElementById(id); if(el && el.getBoundingClientRect().top < 140) cur=i;});
+    ticks.forEach((t,i)=>t.classList.toggle('on',i===cur));
+    links.forEach((l,i)=>l.classList.toggle('on',i===cur));
+  };
+  addEventListener('scroll',spy,{passive:true}); spy();
+  links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();document.querySelector(l.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});rail.classList.remove('open')}));
+  // mobile: tap les traits -> ouvre le panneau; tap ailleurs -> ferme
+  const rail=document.getElementById('tocrail');
+  document.getElementById('ticks').addEventListener('click',()=>rail.classList.toggle('open'));
+  document.getElementById('tocscrim').addEventListener('click',()=>rail.classList.remove('open'));
+</script>
+</body>
+</html>

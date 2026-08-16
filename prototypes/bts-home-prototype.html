@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMY · BTS · home page (vitrine, real data)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,640;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#20222E; --ink2:#6A6D7C; --ink3:#9C9FAD;
+  --line:#E6E1D5; --line2:#D8D2C2; --accent:#5F4BC9; --accent-ink:#4A3AA6; --accent-soft:#EDE9FB;
+  --data:#1F6E52; --wash:#F2EEE4; --hi:#F6F3FF;
+  --purple1:#6C5BD4; --purple2:#9B8CF0;
+  --ff-display:'Fraunces',serif; --ff-prose:'Source Serif 4',Georgia,serif;
+  --ff-ui:'Spline Sans',sans-serif; --ff-mono:'Spline Sans Mono',monospace;
+}
+[data-theme="dark"]{
+  --paper:#16141D; --card:#1E1B28; --ink:#ECE9F4; --ink2:#A6A1BC; --ink3:#6E6987;
+  --line:#2E2A3D; --line2:#3B3650; --accent:#9B8CF0; --accent-ink:#B4A7EC; --accent-soft:#2A2440;
+  --data:#5BC29A; --wash:#1A1724; --hi:#241F35;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--ff-ui);font-size:15px;line-height:1.6;transition:background .25s,color .25s}
+a{color:var(--accent-ink);text-decoration:none}
+.shell{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* prototype bar */
+.pb{position:sticky;top:0;z-index:100;background:#14121C;color:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;height:44px}
+.pb .t{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.09em;color:#8F8AA8}
+.pb button{margin-left:auto;font-family:var(--ff-mono);font-size:10.5px;background:none;border:1px solid #37334B;color:#C9C5DC;padding:5px 11px;border-radius:6px;cursor:pointer}
+
+/* site chrome */
+.sitebar{background:var(--card);border-bottom:1px solid var(--line)}
+.sitebar .shell{display:flex;align-items:center;gap:22px;height:56px}
+.logo{font-family:var(--ff-display);font-weight:700;font-size:18px;color:var(--ink)}
+.logo em{color:var(--accent);font-style:normal}
+.sitebar .tabs{display:flex;gap:18px;font-size:13.5px}
+.sitebar .tabs a{color:var(--ink2);font-weight:500}
+.sitebar .tabs a.on{color:var(--ink)}
+.sitebar .right{margin-left:auto;display:flex;gap:12px;align-items:center;color:var(--ink2);font-size:13px}
+.pill{background:var(--ink);color:var(--paper);border-radius:9px;padding:7px 14px;font-weight:600;font-size:13px}
+[data-theme="dark"] .pill{background:var(--accent);color:#16141D}
+
+/* space nav (5x3x10 curated) */
+.spacenav{background:var(--card);border-bottom:1px solid var(--line)}
+.spacenav .shell{display:flex;align-items:center;gap:2px;height:46px}
+.spacenav .sp{display:flex;align-items:center;gap:9px;font-family:var(--ff-display);font-weight:560;font-size:15px;padding-right:18px;margin-right:8px;border-right:1px solid var(--line)}
+.spacenav .sp .dot{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--purple1),var(--purple2))}
+.spacenav a{padding:0 13px;height:46px;display:flex;align-items:center;gap:5px;color:var(--ink);font-weight:500;font-size:13.5px;border-bottom:2px solid transparent}
+.spacenav a:hover{color:var(--accent-ink)}
+.spacenav a.on{border-bottom-color:var(--accent);color:var(--accent-ink)}
+.spacenav a .c{font-size:9px;color:var(--ink3)}
+
+/* hero */
+.hero{padding:44px 0 30px}
+.hero .shell{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:center}
+.eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+.hero h1{font-family:var(--ff-display);font-weight:700;font-size:58px;line-height:.98;letter-spacing:-.02em}
+.hero h1 .hangul{display:block;font-weight:400;font-size:24px;color:var(--ink2);margin-top:8px;letter-spacing:0}
+.hero .lede{font-family:var(--ff-prose);font-size:18px;line-height:1.6;color:var(--ink);max-width:52ch;margin:20px 0 22px}
+.hero .facts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.fact{font-family:var(--ff-mono);font-size:11px;letter-spacing:.03em;border:1px solid var(--line2);border-radius:999px;padding:5px 12px;color:var(--ink2);background:var(--card)}
+.hero .cta{display:flex;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:var(--paper);border-radius:11px;padding:12px 20px;font-weight:600;font-size:14px}
+[data-theme="dark"] .btn{background:var(--accent);color:#16141D}
+.btn.ghost{background:none;border:1.5px solid var(--line2);color:var(--ink)}
+.heroart{aspect-ratio:4/5;border-radius:20px;background:linear-gradient(160deg,#B9AEE8,#6C5BD4 72%);position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(108,91,212,.22)}
+.heroart .tag{position:absolute;bottom:14px;left:16px;font-family:var(--ff-mono);font-size:10px;color:#fff;opacity:.85}
+
+/* in numbers strip */
+.numbers{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--wash)}
+.numbers .shell{display:flex;gap:0;flex-wrap:wrap}
+.numbers .n{flex:1;min-width:120px;padding:22px 8px;text-align:center;border-right:1px solid var(--line)}
+.numbers .n:last-child{border-right:0}
+.numbers .n b{font-family:var(--ff-display);font-weight:640;font-size:34px;display:block;line-height:1}
+.numbers .n span{font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.numbers .src{width:100%;text-align:center;font-family:var(--ff-mono);font-size:9.5px;color:var(--ink3);padding:0 0 12px}
+
+/* section */
+.sec{padding:44px 0}
+.sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.sechead h2{font-family:var(--ff-display);font-weight:640;font-size:28px}
+.sechead a{margin-left:auto;font-family:var(--ff-mono);font-size:11px;color:var(--ink2)}
+.lead{font-family:var(--ff-prose);font-size:17px;line-height:1.68;max-width:66ch;color:var(--ink);margin-bottom:8px}
+.lead + .lead{margin-top:14px}
+
+/* members */
+.members{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.member{text-decoration:none;color:var(--ink)}
+.member .ph{aspect-ratio:3/4;border-radius:14px;background:linear-gradient(160deg,#DED8F5,#B4A7EC);margin-bottom:10px;transition:outline .15s}
+.member:nth-child(2) .ph{background:linear-gradient(160deg,#F3D9E6,#E5A9C6)}
+.member:nth-child(3) .ph{background:linear-gradient(160deg,#D9E7F5,#A9C4E5)}
+.member:nth-child(4) .ph{background:linear-gradient(160deg,#F3E7D2,#E0C79B)}
+.member:nth-child(5) .ph{background:linear-gradient(160deg,#E0F0E4,#A9D6BB)}
+.member:nth-child(6) .ph{background:linear-gradient(160deg,#EDE0F5,#C6A9E5)}
+.member:nth-child(7) .ph{background:linear-gradient(160deg,#F5E4D9,#E5BFA9)}
+.member:hover .ph{outline:2.5px solid var(--accent);outline-offset:3px}
+.member b{font-family:var(--ff-display);font-weight:560;font-size:17px;display:block}
+.member .hg{color:var(--ink3);font-size:12.5px}
+.member .role{font-family:var(--ff-mono);font-size:10px;color:var(--ink2);margin-top:3px;letter-spacing:.02em}
+
+/* discography grid */
+.covers{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.cover{text-decoration:none;color:var(--ink)}
+.cover .art{aspect-ratio:1;border-radius:11px;background:linear-gradient(135deg,#C9BCF2,#8D7BE0);margin-bottom:8px}
+.cover:nth-child(3n) .art{background:linear-gradient(135deg,#F2D8C0,#E0A87B)}
+.cover:nth-child(3n+1) .art{background:linear-gradient(135deg,#D6E4D0,#9DBD92)}
+.cover:nth-child(4n) .art{background:linear-gradient(135deg,#F0E1E8,#D3A9C0)}
+.cover b{font-weight:600;font-size:12.5px;display:block;line-height:1.25}
+.cover span{font-family:var(--ff-mono);font-size:9.5px;color:var(--ink3)}
+
+/* story / eras */
+.story{border-left:2px solid var(--line2);margin-left:6px;padding-left:26px}
+.era{position:relative;padding:0 0 26px}
+.era:before{content:"";position:absolute;left:-33px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--card);border:2.5px solid var(--accent)}
+.era.now:before{background:var(--accent)}
+.era .yr{font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;color:var(--accent-ink)}
+.era h3{font-family:var(--ff-display);font-weight:560;font-size:20px;margin:2px 0 6px}
+.era p{font-family:var(--ff-prose);font-size:15.5px;line-height:1.62;color:var(--ink);max-width:64ch}
+.era .rel{font-family:var(--ff-mono);font-size:10.5px;color:var(--ink3);margin-top:6px}
+.nowtag{display:inline-block;font-family:var(--ff-mono);font-size:9px;letter-spacing:.08em;background:var(--accent);color:#fff;border-radius:5px;padding:2px 7px;margin-left:8px;vertical-align:middle}
+
+/* two-col cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.card h3{font-family:var(--ff-display);font-weight:560;font-size:19px;margin-bottom:8px}
+.card p{font-family:var(--ff-prose);font-size:15px;color:var(--ink2);line-height:1.6;margin-bottom:12px}
+.card .links{display:flex;gap:8px;flex-wrap:wrap}
+.card .links a{font-size:12.5px;font-weight:600;border:1px solid var(--line2);border-radius:999px;padding:6px 13px;color:var(--ink)}
+.card .links a:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+/* footer sourcing */
+.foot{border-top:1px solid var(--line);padding:26px 0 60px;margin-top:20px}
+.foot .shell{display:flex;gap:20px;align-items:baseline;flex-wrap:wrap}
+.foot .src{font-family:var(--ff-mono);font-size:10.5px;color:var(--ink3);line-height:1.7;max-width:70ch}
+.foot .src b{color:var(--ink2)}
+
+@media (max-width:900px){.hero .shell{grid-template-columns:1fr}.heroart{display:none}.members{grid-template-columns:repeat(2,1fr)}.covers{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="pb"><span class="t">VITRINE · ARMY / BTS HOME · DONNEES REELLES (DB) · PROSE ORIGINALE · CANVAS VERROUILLE</span><button id="theme">Sombre</button></div>
+
+<div class="sitebar"><div class="shell">
+  <span class="logo">Kpop<em>Verse</em></span>
+  <div class="tabs"><a href="#">Play</a><a href="#" class="on">Fandoms</a><a href="#">Community</a></div>
+  <div class="right"><span>&#128269; Search</span><span class="pill">admin · mingi</span></div>
+</div></div>
+
+<div class="spacenav"><div class="shell">
+  <span class="sp"><span class="dot"></span> ARMY</span>
+  <a href="#" class="on">Home</a>
+  <a href="#">BTS <span class="c">&#9662;</span></a>
+  <a href="#">Discography <span class="c">&#9662;</span></a>
+  <a href="#">Eras <span class="c">&#9662;</span></a>
+  <a href="#">Community <span class="c">&#9662;</span></a>
+</div></div>
+
+<!-- HERO -->
+<section class="hero"><div class="shell">
+  <div>
+    <div class="eyebrow">Home of ARMY · 3rd generation · since 2013</div>
+    <h1>BTS<span class="hangul">방탄소년단 · Bangtan Sonyeondan</span></h1>
+    <p class="lede">Seven members who debuted in a small Seoul studio in June 2013 and grew, with ARMY, into one of the defining acts of their generation. This space keeps the catalog, the eras and the culture in one place, every fact sourced, built by the fans who care about it.</p>
+    <div class="facts">
+      <span class="fact">Debut · June 13, 2013</span>
+      <span class="fact">7 members</span>
+      <span class="fact">Big Hit Entertainment</span>
+      <span class="fact">Fandom · ARMY</span>
+    </div>
+    <div class="cta"><a class="btn" href="#">Explore the space</a><a class="btn ghost" href="#">Play a BTS quiz</a></div>
+  </div>
+  <div class="heroart"><span class="tag">group photo · via the moderated rail</span></div>
+</div></section>
+
+<!-- IN NUMBERS -->
+<section class="numbers"><div class="shell">
+  <div class="n"><b>2013</b><span>Debut</span></div>
+  <div class="n"><b>7</b><span>Members</span></div>
+  <div class="n"><b>17</b><span>Releases</span></div>
+  <div class="n"><b>197</b><span>Tracks</span></div>
+  <div class="n"><b>15</b><span>Eras</span></div>
+  <div class="src">Every number sourced from the KpopVerse database · Wikidata + MusicBrainz, both CC0</div>
+</div></section>
+
+<!-- OVERVIEW PROSE -->
+<section class="sec"><div class="shell">
+  <div class="sechead"><h2>Overview</h2></div>
+  <p class="lead">BTS is a South Korean group of seven: RM, Jin, Suga, J-Hope, Jimin, V and Jungkook. They debuted on June 13, 2013 under Big Hit Entertainment, a small company at the time, with a sound rooted in hip hop and a habit of writing candidly about the pressures of being young. That directness, more than any single hit, is what pulled a global fandom together.</p>
+  <p class="lead">Across their catalog the group moved from the school-age frustration of their earliest records to the introspection of the Map of the Soul era, without losing the thread that started it all. This home page is the door into everything ARMY has documented here: the members, the discography, the eras, and the community around them.</p>
+</div></section>
+
+<!-- MEMBERS -->
+<section class="sec" style="padding-top:8px"><div class="shell">
+  <div class="sechead"><h2>Members</h2><a href="#">ALL 7 &#8594;</a></div>
+  <div class="members">
+    <a class="member" href="#"><div class="ph"></div><b>RM</b><span class="hg">김남준</span><div class="role">LEADER · MAIN RAPPER</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>Jin</b><span class="hg">김석진</span><div class="role">VOCALIST</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>Suga</b><span class="hg">민윤기</span><div class="role">LEAD RAPPER</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>J-Hope</b><span class="hg">정호석</span><div class="role">MAIN DANCER · RAPPER</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>Jimin</b><span class="hg">박지민</span><div class="role">MAIN DANCER · VOCALIST</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>V</b><span class="hg">김태형</span><div class="role">VOCALIST</div></a>
+    <a class="member" href="#"><div class="ph"></div><b>Jungkook</b><span class="hg">전정국</span><div class="role">MAIN VOCALIST · CENTER</div></a>
+  </div>
+</div></section>
+
+<!-- DISCOGRAPHY -->
+<section class="sec" style="padding-top:8px"><div class="shell">
+  <div class="sechead"><h2>Discography</h2><a href="#">17 RELEASES &#8594;</a></div>
+  <p class="lead" style="margin-bottom:20px">Seventeen releases in the catalogue, from the 2013 EP that opened the school trilogy to the current ARIRANG era. Korean and Japanese records, studio albums and EPs, each with its own page.</p>
+  <div class="covers">
+    <a class="cover" href="#"><div class="art"></div><b>O!RUL8,2?</b><span>2013 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>Skool Luv Affair</b><span>2014 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>DARK&amp;WILD</b><span>2014 · ALBUM</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>화양연화 pt.1</b><span>2015 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>화양연화 pt.2</b><span>2015 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>WINGS</b><span>2016 · ALBUM</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>LOVE YOURSELF 承 'Her'</b><span>2017 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>LOVE YOURSELF 轉 'Tear'</b><span>2018 · ALBUM</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>MAP OF THE SOUL : PERSONA</b><span>2019 · EP</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>MAP OF THE SOUL : 7</b><span>2020 · ALBUM</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>BE</b><span>2020 · ALBUM</span></a>
+    <a class="cover" href="#"><div class="art"></div><b>ARIRANG</b><span>2026 · ALBUM</span></a>
+  </div>
+</div></section>
+
+<!-- THE STORY / ERAS -->
+<section class="sec" style="padding-top:8px"><div class="shell">
+  <div class="sechead"><h2>The story so far</h2><a href="#">ALL 15 ERAS &#8594;</a></div>
+  <div class="story">
+    <div class="era">
+      <div class="yr">2013 - 2014</div>
+      <h3>The school trilogy</h3>
+      <p>The earliest records read like a diary of being seventeen: school, expectations, and the itch to do something with it. O!RUL8,2?, Skool Luv Affair and DARK&amp;WILD set the group's voice before anyone was watching closely.</p>
+      <div class="rel">O!RUL8,2? · Skool Luv Affair · DARK&amp;WILD</div>
+    </div>
+    <div class="era">
+      <div class="yr">2015 - 2016</div>
+      <h3>The Most Beautiful Moment in Life · WINGS</h3>
+      <p>The 화양연화 records turned toward youth as something fragile and fleeting, and it was the turn that made people pay attention. WINGS, in 2016, pushed the writing further and gave each member room of their own.</p>
+      <div class="rel">화양연화 pt.1 · 화양연화 pt.2 · WINGS</div>
+    </div>
+    <div class="era">
+      <div class="yr">2017 - 2018</div>
+      <h3>Love Yourself</h3>
+      <p>A trilogy built around a simple, stubborn idea: that learning to like yourself is the whole work. It broadened the sound into pop, EDM and R&amp;B, and it is the stretch where the group's reach became global.</p>
+      <div class="rel">LOVE YOURSELF 承 'Her' · LOVE YOURSELF 轉 'Tear'</div>
+    </div>
+    <div class="era">
+      <div class="yr">2019 - 2020</div>
+      <h3>Map of the Soul</h3>
+      <p>Drawing on Jungian ideas of persona and shadow, this era looked inward just as everything around the group was getting louder. MAP OF THE SOUL : 7 gathered the threads of the whole journey into one record.</p>
+      <div class="rel">MAP OF THE SOUL : PERSONA · MAP OF THE SOUL : 7</div>
+    </div>
+    <div class="era">
+      <div class="yr">2020</div>
+      <h3>BE</h3>
+      <p>Made largely at home during a year no one planned for, BE is quieter and more hand-made, the group writing about stillness and staying connected when touring stopped.</p>
+      <div class="rel">BE</div>
+    </div>
+    <div class="era now">
+      <div class="yr">2026</div>
+      <h3>ARIRANG <span class="nowtag">NOW</span></h3>
+      <p>The current era, and the one the space is documenting in real time. Its page fills as ARMY adds to it.</p>
+      <div class="rel">ARIRANG</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- COMMUNITY + PLAY -->
+<section class="sec" style="padding-top:8px"><div class="shell">
+  <div class="grid2">
+    <div class="card">
+      <h3>ARMY, the fandom</h3>
+      <p>The name was made official in July 2013. This corner keeps the story of the fandom itself: where the name comes from, and how it grew alongside the group.</p>
+      <div class="links"><a href="#">The ARMY page</a><a href="#">Fan culture</a><a href="#">Recruitment history</a></div>
+    </div>
+    <div class="card">
+      <h3>Play what you know</h3>
+      <p>Every page connects back to the games. Test your era knowledge, guess the song in a blind test, or name all seven against the clock.</p>
+      <div class="links"><a href="#">BTS era quiz</a><a href="#">Blind test</a><a href="#">Name all members</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- SOURCING FOOTER -->
+<footer class="foot"><div class="shell"><p class="src">
+  <b>Sources.</b> Member list, positions, discography and era data come from the KpopVerse database, drawn from Wikidata and MusicBrainz (both released under CC0). Historical and biographical prose on this page is written for KpopVerse, informed by a range of public references and not copied from any single source. Photography is added through the moderated image rail with its own attribution. Corrections improve the page: this is a wiki.
+</p></div></footer>
+
+<script>
+document.getElementById('theme').onclick=function(){
+  const d=document.documentElement.dataset.theme==='dark';
+  document.documentElement.dataset.theme=d?'light':'dark';
+  this.textContent=d?'Sombre':'Clair';
+};
+</script>
+</body>
+</html>

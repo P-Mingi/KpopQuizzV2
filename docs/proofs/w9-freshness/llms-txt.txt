@@ -1,18 +1,7 @@
-import { NextResponse } from 'next/server';
-
-// W9a - llms.txt.
-//
-// CALIBRATION, recorded so nobody over-invests later: the academy that recommends this
-// also calls it "a cheap experiment, not a core ranking lever". It is a static text
-// file describing what the site is and where the good pages are. Ship it, expect
-// nothing.
-//
-// Everything below is either a fixed fact about the site or a real route. No counts are
-// printed, because a hardcoded count would rot and a live one is not worth a DB read on
-// a file nothing is proven to consume.
-export const dynamic = 'force-static';
-
-const BODY = `# kpopquiz.org
+=== W9a: /llms.txt served from the production build ===
+HTTP: 200 text/plain; charset=utf-8
+--- body ---
+# kpopquiz.org
 
 > Free, fan-made K-pop quizzes, trivia and games. Every quiz is written by a fan, and
 > every statistic on the site is derived from real plays, never simulated.
@@ -38,13 +27,5 @@ Please attribute to kpopquiz.org and link the specific page rather than the home
 ## What we do not publish
 We do not publish simulated scores, invented play counts, or fabricated opponents. If a
 number appears on this site, a person produced it.
-`;
-
-export function GET(): NextResponse {
-  return new NextResponse(BODY, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-    },
-  });
-}
+--- is it in the sitemap? (it should NOT be a crawlable page entry) ---
+  llms.txt occurrences in sitemap index: 0

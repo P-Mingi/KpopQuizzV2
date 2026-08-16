@@ -1,0 +1,22 @@
+FINAL MERGE play-seo -> main (brings SEO-4 + SEO-5). All gates green. Ready to push. NOT pushed.
+
+MERGE COMMIT: 0027c58  "merge: play-seo SEO-4 + SEO-5 into main"
+  parents: adda44f (main) + 456c054 (play-seo). merge base 19bc845. strategy: ort.
+  Clean 3-way: q/[slug]/page.tsx + globals.css + vercel.json AUTO-MERGED, zero conflict
+  markers; no other file conflicted. 11 files changed, +305/-156; created the cron
+  route.ts, pick-fact.ts, stored-facts.ts + the SEO-4/5 proofs.
+  (Pre-merge housekeeping: a user-approved quiz-stats UI tweak sat uncommitted in main's
+  globals.css and would have blocked the merge, so it was STASHED, the pure merge run +
+  gated, then the stash popped back cleanly as working-tree drift. Stale empty .git locks
+  (HEAD.lock/index.lock + the bridge's index.lock.stale*/lk-*) were cleared per the
+  mission HOUSEKEEPING note.)
+
+BUILD (cd apps/quiz && npm run build): EXIT 0
+  > check:routes  -> "Route allowlist guard passed: 353 page routes reachable."
+  > check:verse-tokens -> "Verse token gate passed: no raw hex colors in Verse surfaces."
+  > next build -> "Compiled successfully in 13.3s".
+  NEW CRON ROUTE in the route list: "ƒ /api/cron/plays-counter-reconcile" (dynamic function).
+
+EM-DASH / EN-DASH scan across the 11 merge-changed files: 0 hits.
+
+VERDICT: green. main = 0027c58 is ready for `git push origin main` (owner-gated; NOT pushed).

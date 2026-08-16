@@ -3318,3 +3318,61 @@ L-190 (W4 CLOSED - and Cowork's own audit missed the RSC payload leak)
   FLAGGED: coverage is uneven (of 37 groups with quizzes, inception_date 17, origin 20,
   label 20, generation 30), so the lever lands hardest where data already exists and 7
   sparse groups show no block at all - honest, but it means the win is not uniform.
+
+L-191 (W8 PASS on code; DB figures unverified this run; W7 mesh next)
+  W8 shipped the answer-first block, literal question headings and the six-chunk query
+  fan-out on the group quiz and trivia pages, both driven by one shared module so the two
+  pages cannot drift into different answers for the same group. Cowork verified the two
+  things that matter in code: PLACEHOLDER_FANDOMS is a CLOSED allowlist (new Set(['fan',
+  ''])) so only known placeholders are treated as absent and no real fandom name is ever
+  rewritten or guessed, and `if (chunks.length === 0) return null` withholds the whole
+  block rather than publishing a non-answer.
+  HONEST GAP: Cowork could NOT re-derive the DB coverage numbers this run - the Supabase
+  MCP refused access on every query, including a trivial count. The field-coverage figures
+  (inception_date 17/37, origin 20, label 20, generation 30, 7 groups with a placeholder
+  fandom, TWICE with no debut date) stand on the worker's report alone until access
+  returns. Recorded rather than papered over.
+  TWO FINDINGS ONLY RENDERING COULD PRODUCE: fandom_name is the literal string "fan" on 7
+  groups, so the page was publishing "Their fandom is called fan" - a real value rendering
+  as a non-answer; and the min-gate was loose enough to emit a 15-word lead that answered
+  nothing (Cortis), now withheld entirely.
+  METHOD NOTE from the worker: its first covenant grep ran through `git diff`, which never
+  saw the new files because they were UNTRACKED - a false clean. Cowork's own greps run
+  between two commits so added files are included (confirmed: it caught the rule comment
+  in the new file), but the rule is worth carrying - a diff-based grep proves nothing
+  about files not yet tracked.
+  New MISSION.md = W7 internal link mesh (hub to spokes, spoke to hub, spoke to sibling,
+  plus an ORPHAN AUDIT reported before any change - report first, decide together, never
+  invent links to hide orphans) with no new URLs and varied anchor text, then W9 cheap
+  plumbing (llms.txt, honestly calibrated as a cheap experiment per the academy itself,
+  and a real derived freshness date, never a build timestamp). Nothing pushed; 32 commits
+  local.
+
+## L-183 - W7 audited and deliberately not built; W9 llms.txt + real freshness dates (2026-08-16)
+
+W7 (internal link mesh): crawled the served HTML of a production build, 186 pages.
+7b is 120/120 already linking back to the group hub with varied anchors; 7a/7c already
+dense (/bts-quiz = 93 links, 81 distinct anchor texts). Adding a related-links module
+would have added noise, so NO change was made to the link graph. 7d found 11 orphaned
+group hubs (akmu, loona, kickflip, xikers, loossemble, artms, treasure, tws, monsta-x,
+dreamcatcher, astro) with zero inbound links in the crawled set: reported, not fixed,
+per the mission. Orphan status is a floor on inbound links (186 of 681 URLs crawled),
+not a proof of zero. Audit filter bug fixed mid-run: /-quiz$/ also matched
+/articles/bts-vs-blackpink-quiz and inflated hubs to 160; correct count is 37.
+
+W9a: /llms.txt served 200 text/plain, force-static, allowlisted, absent from sitemap.
+
+W9b: visible "Updated <month year>" + matching dateModified on group quiz and trivia
+pages, from `select created_at from quizzes where group_id=$1 and status='published'
+order by created_at desc limit 1`. THE COLUMN CHOICE IS THE POINT: quizzes.updated_at
+is bumped by record_play() on every play, so it would have printed today's date on any
+actively played group (bts updated_at 2026-08-16 vs created_at 2026-07-28). created_at
+moves only when content is added. Withheld entirely (no line, no dateModified) when a
+group has no published quiz. Honest-stale proof: /astro-quiz renders "Updated April
+2026". Found and removed a pre-existing lie: group-trivia-page.tsx shipped
+`dateModified: new Date().toISOString()`, telling crawlers all 24 trivia pages changed
+on every deploy. Every other dateModified in src/ is a real column.
+
+Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:metadata-dupes
+unchanged (8 groups, 0 non-verse skips). Proofs: docs/proofs/w7-clusters/FINDINGS.md,
+docs/proofs/w9-freshness/FRESHNESS.md. Nothing pushed.

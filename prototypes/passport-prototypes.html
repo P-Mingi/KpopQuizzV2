@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-POP PASSPORT · 5 ecrans · une grammaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS : la grammaire unique ============ */
+:root{
+  --bg:#FBF9FF; --card:#FFFFFF; --ink:#221F33; --ink2:#6E6A85;
+  --line:#E9E4F5; --violet:#6C5BD4; --pink:#E5407A; --gold:#F5B301;
+  --green:#1F9D6B; --hi:#F3EFFF; --wash:#F6F3FC;
+  --ff-d:'Bricolage Grotesque',sans-serif; --ff:'Instrument Sans',sans-serif;
+  --ff-m:'Spline Sans Mono',monospace;
+  --r-common:#8B93A7; --r-uncommon:#22C55E; --r-rare:#3B82F6; --r-epic:#A855F7; --r-legendary:#F5B301;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--ff);font-size:15px;line-height:1.55}
+a{color:var(--violet);text-decoration:none}
+.shell{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* barre du prototype */
+.pb{position:sticky;top:0;z-index:100;background:var(--ink);color:#fff;display:flex;align-items:center;gap:14px;padding:0 20px;height:48px}
+.pb .t{font-family:var(--ff-m);font-size:11px;letter-spacing:.08em;color:#A8A4C0}
+.pb nav{display:flex;gap:4px;margin-left:auto}
+.pb button{font-family:var(--ff-m);font-size:11px;background:none;border:1px solid #454060;color:#CFCBE4;padding:6px 10px;border-radius:6px;cursor:pointer}
+.pb button.on{background:#fff;color:var(--ink);border-color:#fff}
+.screen{display:none}.screen.on{display:block}
+.spec{border-bottom:1px solid var(--line);background:var(--wash)}
+.spec .shell{display:flex;gap:20px;align-items:baseline;padding:12px 24px}
+.spec h1{font-family:var(--ff-m);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet)}
+.spec p{font-size:12.5px;color:var(--ink2);max-width:72ch}
+.an{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--pink);color:#fff;font-family:var(--ff-m);font-style:normal;font-size:10.5px;vertical-align:middle;margin:0 2px;flex:none}
+.legend{background:var(--wash);border-top:1px solid var(--line);padding:18px 0 26px;margin-top:40px}
+.legend .shell{display:grid;grid-template-columns:1fr 1fr;gap:10px 36px}
+.legend div{display:flex;gap:10px;font-size:12.5px;color:var(--ink2);align-items:baseline}
+.legend b{color:var(--ink)}
+
+/* ====== LA GRAMMAIRE : le composant delta, partout identique ====== */
+.delta{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-weight:600;font-size:13.5px;box-shadow:0 2px 8px rgba(108,91,212,.07);animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.delta .ic{width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex:none}
+.delta .plus{color:var(--green);font-family:var(--ff-m);font-size:12px}
+.delta.xp .ic{background:var(--violet)}
+.delta.mastery .ic{background:var(--pink)}
+.delta.badge .ic{background:var(--gold)}
+.delta.streak .ic{background:#F26B3A}
+.delta.duel .ic{background:#3B82F6}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.dstack{display:flex;flex-wrap:wrap;gap:8px}
+.dstack .delta:nth-child(2){animation-delay:.12s}.dstack .delta:nth-child(3){animation-delay:.24s}.dstack .delta:nth-child(4){animation-delay:.36s}
+
+/* barres animees */
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--violet),var(--pink));animation:grow 1s .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{width:var(--from,0%)}to{width:var(--to,50%)}}
+.mono{font-family:var(--ff-m);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* coins de badge (rarete existante) */
+.coin{width:44px;height:44px;border-radius:50%;background:var(--wash);border:3px solid var(--r-common);display:inline-flex;align-items:center;justify-content:center;font-size:18px;position:relative}
+.coin.uncommon{border-color:var(--r-uncommon)}.coin.rare{border-color:var(--r-rare)}
+.coin.epic{border-color:var(--r-epic);box-shadow:0 0 12px rgba(168,85,247,.35)}
+.coin.legendary{border-color:var(--r-legendary);box-shadow:0 0 16px rgba(245,179,1,.45)}
+.coin.locked{filter:grayscale(1);opacity:.4;border-style:dashed}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.h2{font-family:var(--ff-d);font-weight:700;font-size:19px;margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;border:0;border-radius:12px;padding:12px 20px;cursor:pointer;text-decoration:none}
+.btn.pink{background:var(--pink)}
+.btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink)}
+.btn.sm{padding:8px 14px;font-size:13px;border-radius:10px}
+
+/* toast rail (grammaire, coin haut droit) */
+.toastrail{position:absolute;top:14px;right:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+
+/* ============ ECRAN 1 : POST-SCORE ============ */
+.ps{max-width:640px;margin:36px auto;position:relative}
+.ps .card{padding:28px 30px;position:relative;overflow:hidden}
+.scorehead{display:flex;gap:24px;align-items:center;margin-bottom:18px}
+.ring{width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--pink) 0 324deg,var(--line) 324deg 360deg);display:flex;align-items:center;justify-content:center;flex:none}
+.ring b{width:86px;height:86px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--ff-d);font-size:26px;font-weight:800}
+.ring b span{font-size:11px;font-weight:500;color:var(--ink2)}
+.scorehead h1{font-family:var(--ff-d);font-weight:800;font-size:26px;line-height:1.1}
+.scorehead p{color:var(--ink2);font-size:13.5px;margin-top:4px}
+.nearmiss{margin:14px 0;background:var(--hi);border:1px dashed var(--violet);border-radius:12px;padding:12px 16px;font-size:14px;display:flex;align-items:center;gap:10px}
+.nearmiss b{color:var(--violet)}
+.growrow{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;margin:16px 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.growrow .lbl{font-size:13.5px;font-weight:600}
+.growrow .val{font-family:var(--ff-m);font-size:11px;color:var(--ink2)}
+.psactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.pscommunity{margin-top:16px;background:var(--wash);border-radius:12px;padding:14px 16px;font-size:13.5px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ============ ECRAN 2 : TODAY ============ */
+.today{padding-top:30px}
+.todayhead{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
+.todayhead h1{font-family:var(--ff-d);font-weight:800;font-size:30px}
+.flame{display:inline-flex;align-items:center;gap:8px;background:#FFF3EC;border:1px solid #F8D9C8;border-radius:999px;padding:8px 16px;font-weight:700;color:#D14E1F}
+.flame .fz{font-family:var(--ff-m);font-size:10px;color:var(--ink2);font-weight:400}
+.dailies{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+.daily{position:relative;border-radius:16px;padding:18px;color:#fff;min-height:130px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.daily .k{font-family:var(--ff-m);font-size:10px;letter-spacing:.1em;opacity:.85}
+.daily h3{font-family:var(--ff-d);font-weight:700;font-size:19px}
+.daily .st{font-size:12.5px;opacity:.9}
+.daily.q{background:linear-gradient(135deg,#6C5BD4,#9B8CF0)}
+.daily.b{background:linear-gradient(135deg,#E5407A,#F58FB4)}
+.daily.i{background:linear-gradient(135deg,#1F9D6B,#59C99E)}
+.daily .done{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.25);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700}
+.eventbar{display:flex;gap:16px;align-items:center;background:linear-gradient(90deg,#221F33,#3A2E63);color:#fff;border-radius:16px;padding:16px 20px;margin-bottom:16px}
+.eventbar .tag{font-family:var(--ff-m);font-size:10px;letter-spacing:.1em;background:var(--gold);color:#221F33;border-radius:6px;padding:3px 8px;font-weight:600}
+.eventbar h3{font-family:var(--ff-d);font-size:17px;font-weight:700}
+.eventbar p{font-size:12.5px;opacity:.8}
+.eventbar .cd{margin-left:auto;font-family:var(--ff-m);font-size:11px;opacity:.9;text-align:right}
+.todaygrid{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.sharegrid{display:grid;grid-template-columns:repeat(6,22px);gap:4px;margin:10px 0}
+.sharegrid i{width:22px;height:22px;border-radius:5px;background:var(--line)}
+.sharegrid i.g{background:var(--green)}.sharegrid i.y{background:var(--gold)}
+.tplayers{display:flex;flex-direction:column;gap:0;font-size:13.5px}
+.tplayers>div{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.tplayers>div:first-child{border-top:0}
+.tplayers .rank{font-family:var(--ff-m);font-size:11px;color:var(--ink2);width:18px}
+.tplayers .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#DED8F5,#B4A7EC)}
+.tplayers .sc{margin-left:auto;font-family:var(--ff-m);font-size:11.5px}
+
+/* ============ ECRAN 3 : PASSPORT ============ */
+.pp{padding-top:30px}
+.pphead{display:flex;gap:20px;align-items:center;margin-bottom:18px}
+.ppav{width:92px;height:92px;border-radius:50%;background:linear-gradient(135deg,#B9AEE8,#6C5BD4);position:relative;flex:none}
+.ppav .lvl{position:absolute;inset:-5px;border-radius:50%;border:3px solid transparent;background:conic-gradient(var(--violet) 0 61%,var(--line) 61% 100%) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.pphead h1{font-family:var(--ff-d);font-weight:800;font-size:28px;display:flex;align-items:center;gap:10px}
+.title-chip{font-family:var(--ff-m);font-size:10.5px;letter-spacing:.06em;background:var(--hi);border:1px solid #D5CDF2;color:var(--violet);border-radius:999px;padding:4px 10px}
+.pphead .sub{color:var(--ink2);font-size:13.5px;margin-top:4px}
+.ppgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.mrow2{display:grid;grid-template-columns:110px 1fr 52px;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.mrow2:first-of-type{border-top:0}
+.mrow2 .pc{font-family:var(--ff-m);font-size:11px;text-align:right;color:var(--ink2)}
+.biascard{background:linear-gradient(135deg,#2A2440,#4A3AA6);color:#fff;border-radius:16px;padding:20px 22px}
+.biascard .mono{color:#B9AEE8}
+.biascard h3{font-family:var(--ff-d);font-size:22px;font-weight:800;margin:6px 0 10px}
+.biascard .row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-top:1px solid rgba(255,255,255,.14)}
+.shelf{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.cardstrip{display:flex;gap:10px;margin-top:8px}
+.pcx{width:64px;aspect-ratio:3/4.2;border-radius:8px;background:linear-gradient(160deg,#DED8F5,#B4A7EC);border:1px solid var(--line)}
+.pcx.n2{background:linear-gradient(160deg,#F5D8E4,#E5407A55)}
+.pcx.empty{background:var(--wash);border:1.5px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink2);font-size:20px}
+.wrapmini{display:flex;gap:14px;align-items:center;background:var(--wash);border-radius:12px;padding:14px 16px;margin-top:12px}
+.wrapmini .cover{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--gold));flex:none}
+
+/* ============ ECRAN 4 : DUELS ============ */
+.duels{padding-top:30px;max-width:760px;margin:0 auto}
+.duelcard{position:relative;margin-bottom:14px}
+.duelhead{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.duelhead .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#F5D8E4,#E5407A)}
+.duelhead h3{font-family:var(--ff-d);font-size:17px;font-weight:700}
+.duelhead p{font-size:12.5px;color:var(--ink2)}
+.tobeat{margin-left:auto;text-align:center;background:var(--hi);border:1.5px solid var(--violet);border-radius:12px;padding:8px 16px}
+.tobeat b{font-family:var(--ff-d);font-size:22px;font-weight:800;color:var(--violet);display:block;line-height:1}
+.tobeat span{font-family:var(--ff-m);font-size:9.5px;color:var(--ink2)}
+.attempts{border-top:1px solid var(--line);margin-top:6px}
+.attempts>div{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.attempts .av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#DED8F5,#B4A7EC)}
+.attempts .sc{margin-left:auto;font-family:var(--ff-m);font-size:11.5px}
+.attempts .beat{color:var(--green);font-weight:700}
+.reactions{display:flex;gap:8px;margin-top:12px;align-items:center}
+.reactions .r{background:var(--wash);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer}
+.reactions .cm{margin-left:auto;font-size:12.5px;color:var(--ink2)}
+
+/* ============ ECRAN 5 : PACK ============ */
+.packwrap{max-width:560px;margin:40px auto;text-align:center}
+.pack{width:180px;height:240px;margin:0 auto 20px;border-radius:16px;background:linear-gradient(160deg,#6C5BD4,#E5407A);position:relative;box-shadow:0 20px 50px rgba(108,91,212,.35);animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.pack .shine{position:absolute;inset:0;border-radius:16px;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 48%,transparent 60%);animation:shine 2.4s infinite}
+@keyframes shine{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+.pack .lbl{position:absolute;bottom:14px;left:0;right:0;color:#fff;font-family:var(--ff-d);font-weight:800;font-size:15px}
+.revealed{display:flex;gap:14px;justify-content:center;margin:20px 0}
+.rcard{width:110px;aspect-ratio:3/4.2;border-radius:12px;background:linear-gradient(160deg,#DED8F5,#B4A7EC);border:2px solid var(--r-rare);padding:8px;display:flex;flex-direction:column;justify-content:flex-end;animation:pop .6s .2s both}
+.rcard .nm{font-size:11.5px;font-weight:700;background:rgba(255,255,255,.85);border-radius:6px;padding:3px 6px}
+.odds{font-family:var(--ff-m);font-size:10.5px;color:var(--ink2);margin-top:14px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="pb">
+  <span class="t">K-POP PASSPORT · UNE GRAMMAIRE, CINQ ECRANS</span>
+  <nav>
+    <button class="on" data-s="e1">01 Post-score</button>
+    <button data-s="e2">02 Today</button>
+    <button data-s="e3">03 Passport</button>
+    <button data-s="e4">04 Duels</button>
+    <button data-s="e5">05 Pack</button>
+  </nav>
+</div>
+
+<!-- ============ 01 POST-SCORE ============ -->
+<section class="screen on" id="e1">
+<div class="spec"><div class="shell"><h1>01 · L'ecran post-score, le moment identite</h1>
+<p>Avant: score puis rien. Apres: chaque partie montre ce qui a change POUR TOI, avec la meme grammaire de deltas que partout ailleurs sur le site.</p></div></div>
+
+<div class="ps">
+  <div class="card">
+    <div class="toastrail"><span class="delta badge"><span class="ic">&#9733;</span> Badge debloque <b>Perfect x3</b> <i class="an">4</i></span></div>
+    <div class="scorehead">
+      <div class="ring"><b>9<span>/ 10</span></b></div>
+      <div>
+        <h1>Presque parfait.</h1>
+        <p>Ultimate BTS era quiz · par mina · ta 3e tentative</p>
+      </div>
+    </div>
+
+    <div class="dstack">
+      <span class="delta xp"><span class="ic">&#10022;</span> +35 XP <span class="plus">niv. 12 &#8594; 61%</span> <i class="an">1</i></span>
+      <span class="delta mastery"><span class="ic">&#9825;</span> Maitrise BTS <span class="plus">68 &#8594; 71%</span></span>
+      <span class="delta streak"><span class="ic">&#9650;</span> Streak jour 5 <span class="plus">garde</span></span>
+    </div>
+
+    <div class="growrow">
+      <div><div class="lbl">Maitrise BTS</div><div class="bar" style="--from:68%;--to:71%"><i></i></div></div><div class="val">71% <i class="an">2</i></div>
+      <div><div class="lbl">Fan Level 12 · Stan confirme</div><div class="bar" style="--from:54%;--to:61%"><i></i></div></div><div class="val">61%</div>
+    </div>
+
+    <div class="nearmiss">&#9889; <span><b>A 1 question du parfait.</b> La question 7 t'a eu. Revanche?</span> <i class="an">3</i></div>
+
+    <div class="psactions">
+      <a class="btn pink" href="#">Revanche</a>
+      <a class="btn" href="#">Defier la communaute <i class="an">5</i></a>
+      <a class="btn ghost" href="#">Quiz suivant</a>
+      <a class="btn ghost" href="#">Partager 9/10</a>
+    </div>
+
+    <div class="pscommunity">
+      <span class="mono">Communaute</span>
+      <span>Hot take du jour: "2015 est la meilleure annee de BTS". D'accord?</span>
+      <a class="btn sm ghost" href="#">D'accord</a><a class="btn sm ghost" href="#">Pas d'accord</a>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Le composant delta</b>: LA grammaire. Meme pastille, meme animation, meme ordre (XP, maitrise, streak, badge) partout sur le site. Tous les chiffres reels.</span></div>
+  <div><i class="an">2</i><span><b>Barres animees</b> de l'ancien vers le nouveau: on VOIT la progression, pas juste un nombre.</span></div>
+  <div><i class="an">3</i><span><b>Near-miss</b>: nomme la question fautive, propose la revanche. L'aimant honnete.</span></div>
+  <div><i class="an">4</i><span><b>Toast rail</b>: les evenements rares (badge, level up, titre) arrivent en haut a droite, meme position partout.</span></div>
+  <div><i class="an">5</i><span><b>Defier la communaute</b>: le score devient un duel ouvert (ecran 04). La partie ne meurt plus au score.</span></div>
+</div></div>
+</section>
+
+<!-- ============ 02 TODAY ============ -->
+<section class="screen" id="e2">
+<div class="spec"><div class="shell"><h1>02 · Today, le rituel quotidien</h1>
+<p>Trois dailies sous UN streak, l'evenement comeback detecte automatiquement depuis nos donnees, la grille de partage, les vrais joueurs de la semaine.</p></div></div>
+
+<div class="shell today">
+  <div class="todayhead">
+    <h1>Aujourd'hui</h1>
+    <span class="flame">&#128293; 5 jours <span class="fz">· 2 gels dispo <i class="an">1</i></span></span>
+  </div>
+
+  <div class="eventbar">
+    <span class="tag">EVENT</span>
+    <div><h3>Comeback ARIRANG</h3><p>5 quiz d'event · badge limite "ARIRANG Era" · detecte depuis la vraie sortie <i class="an">2</i></p></div>
+    <div class="cd">SE TERMINE<br>DANS 4 J</div>
+  </div>
+
+  <div class="dailies">
+    <div class="daily q"><span class="done">&#10003; Fait</span><span class="k">DAILY QUIZ</span><h3>Le quiz du jour</h3><span class="st">9/10 · revanche demain</span></div>
+    <div class="daily b"><span class="k">DAILY BLINDTEST</span><h3>3 clips, 3 titres</h3><span class="st">Pas encore joue</span></div>
+    <div class="daily i"><span class="k">K-POP IDLE</span><h3>Qui est l'idole?</h3><span class="st">Pas encore joue</span></div>
+  </div>
+
+  <div class="todaygrid">
+    <div class="card">
+      <div class="h2">Ta grille du jour <i class="an">3</i></div>
+      <div class="sharegrid"><i class="g"></i><i class="g"></i><i class="y"></i><i class="g"></i><i></i><i></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="y"></i><i></i></div>
+      <p style="font-size:13px;color:var(--ink2)">Sans spoiler, prete a partager. "KpopQuiz 07.08 · 2/3 dailies · streak 5"</p>
+      <div style="margin-top:10px"><a class="btn sm ghost" href="#">Copier la grille</a></div>
+    </div>
+    <div class="card">
+      <div class="h2">Top joueurs BTS cette semaine</div>
+      <div class="tplayers">
+        <div><span class="rank">1</span><span class="av"></span> mina <span class="sc">2 840 pts</span></div>
+        <div><span class="rank">2</span><span class="av"></span> jae <span class="sc">2 615 pts</span></div>
+        <div><span class="rank">3</span><span class="av"></span> sooyoung <span class="sc">2 590 pts</span></div>
+      </div>
+      <p class="mono" style="margin-top:10px">AFFICHE SEULEMENT SI DENSITE REELLE (SEUIL 30) <i class="an">4</i></p>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Un seul streak</b> pour les trois dailies, gels visibles, zero culpabilisation. Le systeme serveur existant (+5 XP/jour plafonne) est conserve tel quel.</span></div>
+  <div><i class="an">2</i><span><b>Comeback auto</b>: notre pipeline de donnees detecte la nouvelle release, toi tu APPROUVES en un clic dans l'admin. Jamais de scraping, jamais de manuel.</span></div>
+  <div><i class="an">3</i><span><b>Grille de partage</b> logique Wordle: spoiler-free, jamais bloquante.</span></div>
+  <div><i class="an">4</i><span><b>Loi covenant</b>: le bandeau joueurs n'apparait qu'avec de la vraie densite. Pas d'affordance morte, pas de faux monde.</span></div>
+</div></div>
+</section>
+
+<!-- ============ 03 PASSPORT ============ -->
+<section class="screen" id="e3">
+<div class="spec"><div class="shell"><h1>03 · Le K-pop Passport (page profil)</h1>
+<p>Tout ce qui existait en fragments, unifie en une destination: niveau, titre, bias prouve, maitrises, badges par rarete, collection, Wrapped mensuel, duels.</p></div></div>
+
+<div class="shell pp">
+  <div class="pphead">
+    <div class="ppav"><span class="lvl"></span></div>
+    <div>
+      <h1>mingi <span class="title-chip">ARMY SCHOLAR <i class="an">1</i></span></h1>
+      <p class="sub">Fan Level 12 · Stan confirme · 61% vers le niv. 13 · membre depuis 2025</p>
+    </div>
+    <div style="margin-left:auto"><span class="coin legendary" title="badge epingle">&#127942;</span></div>
+  </div>
+
+  <div class="ppgrid">
+    <div class="card">
+      <div class="h2">Maitrises</div>
+      <div class="mrow2"><b>BTS</b><div class="bar" style="--from:0%;--to:71%"><i></i></div><span class="pc">71%</span></div>
+      <div class="mrow2"><b>BLACKPINK</b><div class="bar" style="--from:0%;--to:44%"><i></i></div><span class="pc">44%</span></div>
+      <div class="mrow2"><b>Stray Kids</b><div class="bar" style="--from:0%;--to:38%"><i></i></div><span class="pc">38%</span></div>
+      <div class="mrow2"><b>aespa</b><div class="bar" style="--from:0%;--to:12%"><i></i></div><span class="pc">12%</span></div>
+      <p class="mono" style="margin-top:10px">MAITRISE = COUVERTURE REELLE DES QUIZ DU GROUPE, TABLE player_group_mastery EXISTANTE <i class="an">2</i></p>
+
+      <div class="h2" style="margin-top:22px">Badges</div>
+      <div class="shelf">
+        <span class="coin legendary">&#127942;</span><span class="coin epic">&#9889;</span><span class="coin rare">&#127925;</span><span class="coin uncommon">&#128293;</span><span class="coin">&#127793;</span><span class="coin locked">?</span><span class="coin locked">?</span>
+        <span class="mono">5 / 23 · PAR RARETE <i class="an">3</i></span>
+      </div>
+
+      <div class="h2" style="margin-top:22px">Collection</div>
+      <div class="cardstrip"><span class="pcx"></span><span class="pcx n2"></span><span class="pcx empty">+</span></div>
+      <p style="font-size:12.5px;color:var(--ink2);margin-top:8px">2 photocards gagnees en jouant · s'afficheront sur MY VERSE a l'ouverture du Verse <i class="an">4</i></p>
+    </div>
+
+    <div>
+      <div class="biascard">
+        <span class="mono">BIAS PROUVE <i class="an">5</i></span>
+        <h3>&#128156; BTS</h3>
+        <div class="row"><span>Maitrise</span><b>71%</b></div>
+        <div class="row"><span>Parties jouees</span><b>212</b></div>
+        <div class="row"><span>Parmi les joueurs BTS</span><b>top 8%</b></div>
+        <div class="row"><span>Bias depuis</span><b>mars 2026</b></div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="h2" style="font-size:16px">Duels</div>
+        <p style="font-size:13.5px">12 lances · 8 gagnes · <a href="#">2 duels ouverts &#8594;</a></p>
+      </div>
+
+      <div class="wrapmini">
+        <span class="cover"></span>
+        <div style="flex:1"><b style="font-family:var(--ff-d)">Ton aout en K-pop</b><br><span style="font-size:12.5px;color:var(--ink2)">Wrapped mensuel pret <i class="an">6</i></span></div>
+        <a class="btn sm" href="#">Voir</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Titre equipable</b> gagne par un vrai exploit, a cote du badge epingle (qui existe deja).</span></div>
+  <div><i class="an">2</i><span><b>Maitrise</b>: la table par groupe existe deja en base. On la calcule, on l'affiche, on l'anime. Rien d'invente.</span></div>
+  <div><i class="an">3</i><span><b>Etagere par rarete</b>: l'echelle 5 tiers deja integree (anneaux common &#8594; legendary), cases verrouillees visibles = envie honnete.</span></div>
+  <div><i class="an">4</i><span><b>Le pont</b>: les cartes gagnees en jouant vivent ici ET dans le binder MY VERSE. Un seul compte, deux facettes.</span></div>
+  <div><i class="an">5</i><span><b>Bias prouve</b>: le champ bias existait; on l'adosse a la vraie maitrise, au vrai temps de jeu, au vrai percentile. Le flex identitaire honnete, partageable.</span></div>
+  <div><i class="an">6</i><span><b>Wrapped</b>: mini mensuel discret ici, grand Wrapped annuel anime en decembre. Donnees reelles uniquement.</span></div>
+</div></div>
+</section>
+
+<!-- ============ 04 DUELS ============ -->
+<section class="screen" id="e4">
+<div class="spec"><div class="shell"><h1>04 · Les duels, objets de communaute</h1>
+<p>Le duel n'est plus un lien mort entre deux personnes: c'est un defi PUBLIC. Tout le monde peut tenter, les scores s'empilent, on commente, on reagit.</p></div></div>
+
+<div class="duels">
+  <div class="card duelcard">
+    <div class="duelhead">
+      <span class="av"></span>
+      <div><h3>mina a lance un duel <i class="an">1</i></h3><p>Ultimate BTS era quiz · il y a 2 h · expire dans 22 h</p></div>
+      <div class="tobeat"><b>9/10</b><span>A BATTRE</span></div>
+    </div>
+    <a class="btn pink" href="#">Tenter le duel</a>
+    <a class="btn ghost sm" href="#" style="margin-left:8px">Sans compte, joue direct <i class="an">2</i></a>
+    <div class="attempts">
+      <div><span class="av"></span> jae <span class="mono" style="margin-left:4px">IL Y A 40 MIN</span> <span class="sc beat">10/10 &#128081;</span></div>
+      <div><span class="av"></span> sooyoung <span class="sc">8/10</span></div>
+      <div><span class="av"></span> invite-7231 <span class="mono" style="margin-left:4px">SANS COMPTE</span> <span class="sc">7/10</span></div>
+    </div>
+    <div class="reactions">
+      <span class="r">&#128293; 12</span><span class="r">&#128561; 4</span><span class="r">&#128156; 9</span>
+      <span class="cm"><a href="#">6 commentaires</a> · "la question 7 est cruelle" <i class="an">3</i></span>
+    </div>
+  </div>
+
+  <div class="card duelcard" style="opacity:.75">
+    <div class="duelhead">
+      <span class="av" style="background:linear-gradient(135deg,#D6E4D0,#59C99E)"></span>
+      <div><h3>jae a lance un duel</h3><p>Blindtest 4e gen · il y a 5 h</p></div>
+      <div class="tobeat"><b>8/10</b><span>A BATTRE</span></div>
+    </div>
+    <div class="reactions"><span class="r">&#128293; 3</span><span class="cm">2 tentatives · 1 commentaire</span></div>
+  </div>
+  <p class="mono" style="margin:6px 0 0">FLUX AFFICHE SUR LA PAGE COMMUNAUTE + EN POST-SCORE ("DEFIER LA COMMUNAUTE") <i class="an">4</i></p>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Duel public</b>: lancer un duel publie un defi ouvert avec le score a battre. Fini le duel mort a deux.</span></div>
+  <div><i class="an">2</i><span><b>Zero friction</b>: on peut tenter SANS compte; le resultat propose de reclamer son score (G-CLAIM). La boucle virale.</span></div>
+  <div><i class="an">3</i><span><b>Reactions + commentaires</b> sur les rails de moderation existants. Le duel devient une conversation.</span></div>
+  <div><i class="an">4</i><span><b>Distribution</b>: page communaute + CTA post-score. Deux portes vers le meme objet.</span></div>
+</div></div>
+</section>
+
+<!-- ============ 05 PACK ============ -->
+<section class="screen" id="e5">
+<div class="spec"><div class="shell"><h1>05 · Le moment pack (le pont Play &#8594; Verse)</h1>
+<p>Un jalon reel atteint = un pack. Dedans: de vraies photocards du catalogue. Transparence totale sur les taux. Direction: ton binder MY VERSE.</p></div></div>
+
+<div class="packwrap">
+  <p class="mono">MAITRISE BTS 70% ATTEINTE · PACK GAGNE <i class="an">1</i></p>
+  <div class="pack"><span class="shine"></span><span class="lbl">BTS PACK</span></div>
+  <a class="btn pink" href="#">Ouvrir</a>
+  <div class="revealed">
+    <div class="rcard"><span class="nm">Jungkook · Proof era <i class="an">2</i></span></div>
+    <div class="rcard" style="border-color:var(--r-uncommon);animation-delay:.35s"><span class="nm">Jimin · BE era</span></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink2)">Ajoutees a ta collection · visibles sur ton Passport et dans ton binder MY VERSE</p>
+  <p class="odds">TAUX AFFICHES: COMMON 60% · UNCOMMON 25% · RARE 10% · EPIC 4% · LEGENDARY 1% <i class="an">3</i><br>CARTES = CATALOGUE REEL UNIQUEMENT · JAMAIS D'ACHAT, ON GAGNE EN JOUANT <i class="an">4</i></p>
+</div>
+
+<div class="legend"><div class="shell">
+  <div><i class="an">1</i><span><b>Jalon reel</b>: le pack recompense un exploit verifiable (maitrise, streak, event), jamais un achat, jamais du hasard pur.</span></div>
+  <div><i class="an">2</i><span><b>Vraies cartes</b>: chaque carte est une entree du catalogue photocards reel, avec son era. Zero contenu genere.</span></div>
+  <div><i class="an">3</i><span><b>Taux transparents</b>, affiches en clair. Le covenant applique au dopamine.</span></div>
+  <div><i class="an">4</i><span><b>Le pont</b>: la collection vit des maintenant sur le Passport, et s'affichera dans le binder MY VERSE a la reouverture du Verse.</span></div>
+</div></div>
+</section>
+
+<script>
+const bs=document.querySelectorAll('.pb button[data-s]');
+bs.forEach(b=>b.addEventListener('click',()=>{
+  bs.forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(b.dataset.s).classList.add('on');window.scrollTo({top:0});
+}));
+</script>
+</body>
+</html>

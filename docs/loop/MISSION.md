@@ -1,31 +1,67 @@
-# MISSION (Verse iter-8) — 2 micro-fixes desktop (owner-agreed) + mobile global-nav gap. NO PUSH.
+# MISSION (W7 - topical clusters + W9 plumbing). NO PUSH.
 
-iter-7 is accepted on architecture and behaviour (ab84416). Cowork's screenshot audit found 2 desktop
-finish defects, owner agreed both. Plus one gap Cowork spotted in the mobile condensed bar. Small,
-surgical mission. Prototype prototypes/verse-nav-notion.html stays authoritative for placement.
-Scope /verse only; tsc 0 + build green; light + dark; nothing pushed.
+## REPO GUARD
+KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
+Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
+BLOCKED.md, stop.
 
-## FIX A — hero title clipped under the fixed top bar (desktop)
-On all desktop pages the space hero band slides under the 52px fixed top bar: the top of the hero
-title (e.g. "ARMY") is visibly cropped (see docs/proofs/iter7-notion-nav/01/02/05). The shell offset
-exists but the hero's own top spacing is short. Give the hero band enough top padding/offset that the
-title never touches the bar edge (match the prototype's breathing room). Check home + content pages,
-open AND hidden sidebar states.
+W8 is Cowork-approved (78810a4). Verse PAUSED. Nothing pushed.
+NOTE: Cowork could NOT re-derive your DB coverage numbers this run - the Supabase MCP
+refused access. Your field-coverage figures stand on your report alone until Cowork can
+recount. Keep stating the SQL beside every number so that recount stays possible.
 
-## FIX B — the HIDE button belongs INSIDE the space header row
-The hide chevron currently floats on a small grey notch straddling the sidebar/hero edge. Per the
-validated prototype it sits INSIDE the space header row: [chip][name+meta][hide button] right-aligned,
-inside the grey panel, aligned with the chip. Move it there; remove the notch. Hover = --v2 hover bg.
-The floating REOPEN tab (when hidden) is correct as-is; do not touch it.
+## W7 - THE INTERNAL LINK MESH (the authority lever nobody has to approve)
+From docs/PLAY-GEO-AEO-AUDIT.md A5: "owning one topic completely beats being shallow
+across ten". This is the only authority work that needs no third party, no outreach and
+no deploy to build. We already rank on relevance; what is missing is depth signal.
 
-## FIX C — mobile: Fandoms / Community / theme are unreachable
-The condensed mobile top bar drops Fandoms + Community + theme toggle, and the drawer only carries the
-space nav, so on mobile those destinations are now unreachable. Add a compact global section at the
-BOTTOM of the mobile drawer (thin divider, then Fandoms / Community rows + the theme toggle row),
-mobile-drawer only, desktop sidebar stays space-only. Keep crawlable <a>.
+Build the mesh between pages that ALREADY EXIST. Do NOT create URLs.
+7a. HUB: each group page links to its own spokes - its quizzes, its trivia page, its
+    blind test playlist, its games - with descriptive anchor text, never "click here"
+    and never the bare slug.
+7b. SPOKE -> HUB: every quiz page links back to its group hub. Check whether this
+    already exists before adding a second one; a duplicated link is not a stronger one.
+7c. SPOKE -> SIBLING: a quiz links to closely related quizzes of the SAME group before
+    reaching outside it. Related-quizzes already exists - audit what it actually links to
+    today and report it before changing anything.
+7d. ORPHANS: find any page with ZERO internal inbound links and report the list. Do not
+    invent links to fix them; report first, we decide together.
+Anchor text rule: descriptive and varied, never exact-match repeated site-wide - that
+reads as manipulation, not structure.
 
-## VERIFY
-1. Desktop home + content page: hero title fully visible below the bar (open + hidden), light + dark.
-2. The hide button sits in the space header row per the prototype; the notch is gone.
-3. Mobile 390: drawer shows the global section at the bottom; links work; theme toggles.
-Screenshots to docs/proofs/iter8-finish/. REPORT to docs/loop/REPORT.md + ledger entry. Nothing pushed.
+## W9 - THE CHEAP PLUMBING (small, do it after W7)
+9a. `llms.txt` at the root. Honest calibration, recorded so you do not overinvest: the
+    academy itself calls it "a cheap experiment, not a core ranking lever". Ship it,
+    expect nothing, spend an hour not a day.
+9b. FRESHNESS: a visible "Updated <month year>" plus a correct `dateModified` on group
+    pages, driven by REAL data (the newest quiz/content date for that group), never
+    today's date, never a build timestamp. K-pop churns, and a stale-looking page is a
+    weak citation candidate.
+NOT in scope: Bing Webmaster Tools submission is the owner's action, not code.
+
+## HARD RULES
+- No new URLs. This is structure over existing pages.
+- Real data only. A freshness date that is not derived from real content is a lie.
+- Do NOT touch titles or meta descriptions: W1's July control set is inside its
+  measurement window until 2026-08-24, and `check:metadata-dupes` must stay unchanged.
+- Report BEFORE changing anything on 7c and 7d - Cowork wants the audit, not a silent
+  rewrite of the link graph.
+
+## GUARDRAILS
+Scope: group pages, quiz pages, related-quizzes, a root llms.txt route. Do NOT touch
+/verse. NO DDL. tsc 0, build green, check:routes / check:indexability /
+check:metadata-dupes must not regress.
+
+## VERIFY (proofs to docs/proofs/w7-clusters/)
+1. The current link graph BEFORE changes: what links to what, and the orphan list.
+2. The mesh after: a group hub's outbound links and a quiz's inbound path to its hub,
+   read from the SERVED HTML of a production build, not from source.
+3. Anchor text sample showing variety, not one repeated phrase.
+4. llms.txt served, and its content.
+5. A freshness date next to the SQL that produced it, plus a group where the newest
+   content is old and the date says so honestly.
+6. check:metadata-dupes unchanged.
+
+## REPORT
+docs/loop/REPORT.md + docs/VERSE-LEDGER.md entry. BLOCKED.md for real owner decisions.
+NOTHING PUSHED.

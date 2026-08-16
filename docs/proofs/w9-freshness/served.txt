@@ -1,0 +1,15 @@
+=== /bts-quiz ===
+"dateModified":"2026-07-28"
+=== /twice-quiz ===
+"dateModified":"2026-08-10"
+=== /astro-quiz ===
+"dateModified":"2026-04-11"
+=== /dreamcatcher-quiz ===
+"dateModified":"2026-07-10"
+=== /bts-quiz visible line ===
+   Updated July 2026 | raw time attr: []
+=== /astro-quiz visible line ===
+   Updated April 2026 | raw time attr: []
+=== /dreamcatcher-quiz visible line ===
+   Updated July 2026 | raw time attr: []
+'div></div><p class="group-updated">Updated <time dateTime="2026-04-11">April 2026</time></p><section class="answer-first" aria-label="About ASTRO"><p class="ans'

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz page P5 prototype · substance + uniqueness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* P5 quiz page - same white Notion-calm system as bts-home-v2.
+   Shows every substance/uniqueness block wrapped around the existing
+   quiz player, so Google + fans see real per-quiz content, and O1/O3
+   (trivia base + did-you-know) have a home. Prototype = LOOK only. */
+:root{
+  --paper:#FFFFFF; --surface:#FFFFFF; --wash:#F1F1EF;
+  --ink:#1D1B17; --body:#37352F; --muted:#73726E; --faint:#9F9D97;
+  --line:#E7E6E3; --line-soft:#F0EFED;
+  --accent:#2E6BD0; --accent-soft:#2E6BD00d;
+  --pill-ink:#1D1B17; --pill-ink-text:#FFFFFF;
+  --data:#54803F; --auto:#9A7B3F; --live:#B0642B;
+  --shadow:0 1px 2px rgba(0,0,0,.03),0 8px 24px -16px rgba(0,0,0,.12);
+  --r-lg:18px; --r-md:12px; --r-sm:8px;
+}
+[data-theme="dark"]{
+  --paper:#191919; --surface:#1F1F1F; --wash:#262626;
+  --ink:#EDEDEB; --body:#D4D4D2; --muted:#9B9B98; --faint:#6E6E6B;
+  --line:#2F2F2D; --line-soft:#292928;
+  --accent:#6FA0EE; --accent-soft:#6FA0EE14;
+  --pill-ink:#EDEDEB; --pill-ink-text:#191919;
+  --data:#8FAF85; --auto:#C2A06A; --live:#D08A54;
+  --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 28px -18px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{font-family:"Instrument Sans","Segoe UI",sans-serif;background:var(--paper);color:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.shell{max-width:1140px;margin:0 auto;padding:0 28px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.topbar .shell{display:flex;align-items:center;gap:16px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;font-size:14px}
+.brand:hover{text-decoration:none}
+.brand .mark{width:24px;height:24px;border-radius:7px;background:var(--pill-ink);color:var(--pill-ink-text);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:13px;font-weight:600}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.crumb .sep{color:var(--faint)}
+.crumb b{color:var(--ink);font-weight:600}
+.topbar .grow{flex:1}
+.tbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
+
+/* head */
+.qhead{padding:34px 0 8px}
+.eyebrow{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.chip.diff{color:var(--accent);border-color:var(--accent-soft);background:var(--accent-soft)}
+h1{font-family:"Fraunces",serif;font-weight:600;color:var(--ink);font-size:clamp(30px,4.4vw,44px);line-height:1.08;letter-spacing:-.015em}
+/* U2 dynamic intro */
+.intro{max-width:66ch;margin:16px 0 20px;font-size:17px;line-height:1.7;color:var(--body)}
+.intro b{color:var(--ink);font-weight:600}
+.startbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 26px;font-size:15px;font-weight:600;border:1px solid var(--pill-ink);background:var(--pill-ink);color:var(--pill-ink-text);min-height:48px;cursor:pointer;font-family:inherit}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);font-weight:500}
+.startmeta{font-size:13px;color:var(--muted)}
+
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:52px;align-items:start;padding:20px 0 72px}
+.main{min-width:0}
+.rail{display:flex;flex-direction:column;gap:16px}
+
+.sec{padding:30px 0 0}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+.sechead h2{font-family:"Fraunces",serif;font-weight:600;font-size:22px;letter-spacing:-.01em;color:var(--ink)}
+.sechead .tag{font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+
+/* U1 stats strip (unlocked, per-question type -> full) */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.stat{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);padding:14px 12px;text-align:center}
+.stat b{display:block;font-family:"Fraunces",serif;font-size:22px;font-weight:600;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}
+
+/* U8 crawlable questions */
+.qlist{display:flex;flex-direction:column;gap:12px}
+.qitem{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);padding:16px 18px}
+.qitem .qn{font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+.qitem h3{font-size:16px;font-weight:600;color:var(--ink);margin:4px 0 10px;font-family:"Instrument Sans",sans-serif}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--body);background:var(--paper)}
+.qnote{margin-top:12px;font-size:12px;color:var(--faint);display:flex;align-items:center;gap:8px}
+.qnote .k{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* U4 related */
+.related{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rel{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);padding:14px 16px;color:var(--body)}
+.rel:hover{text-decoration:none;border-color:var(--line)}
+.rel b{font-size:14px;font-weight:600;color:var(--ink)}
+.rel span{font-family:"Spline Sans Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em}
+
+/* U6 creator */
+.creator{display:flex;align-items:center;gap:14px;border:1px solid var(--line-soft);border-radius:var(--r-lg);background:var(--surface);padding:18px}
+.creator .av{width:44px;height:44px;border-radius:50%;background:var(--wash);border:1px solid var(--line);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:18px;color:var(--muted)}
+.creator .who b{font-size:15px;color:var(--ink)}
+.creator .who span{font-size:13px;color:var(--muted)}
+.creator .who a{font-size:13px}
+
+/* rail widgets */
+.widget{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px;box-shadow:var(--shadow)}
+.whead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.whead h2{font-family:"Spline Sans Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.badge{font-family:"Spline Sans Mono",monospace;font-size:8.5px;letter-spacing:.1em;border-radius:4px;padding:2px 6px;text-transform:uppercase;white-space:nowrap}
+.badge.data{color:var(--data);background:color-mix(in srgb,var(--data) 10%,transparent)}
+.badge.o1{color:var(--accent);background:var(--accent-soft)}
+.badge.live{color:var(--live);background:color-mix(in srgb,var(--live) 12%,transparent)}
+.wsrc{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft);font-size:10.5px;color:var(--faint);line-height:1.5}
+
+/* O3 did you know */
+.dyk .fact{font-family:"Fraunces",serif;font-size:17px;line-height:1.45;color:var(--ink);font-weight:500}
+.dyk .cat{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:inline-block}
+
+/* O1 group facts */
+.facts{display:flex;flex-direction:column}
+.frow{padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px;color:var(--body);display:flex;gap:10px;align-items:baseline}
+.frow:last-child{border-bottom:0}
+.frow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px;opacity:.6}
+.frow .src{font-family:"Spline Sans Mono",monospace;font-size:8.5px;color:var(--faint);letter-spacing:.04em;white-space:nowrap}
+
+/* rail play list */
+.qz{display:flex;flex-direction:column;gap:8px}
+.qz a{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line-soft);border-radius:var(--r-md);padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink);background:var(--paper);min-height:44px}
+.qz a:hover{border-color:var(--line);text-decoration:none}
+.qz .arr{color:var(--faint)}
+
+.jsonld{margin-top:14px;border:1px dashed var(--line);border-radius:var(--r-md);padding:12px 14px;font-size:11.5px;color:var(--muted);background:var(--accent-soft);line-height:1.5}
+.jsonld .k{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+
+.foot{border-top:1px solid var(--line-soft);padding:28px 0 46px;margin-top:20px}
+.foot .src{font-size:12px;color:var(--muted);line-height:1.7;max-width:80ch}
+.foot .src b{color:var(--ink)}
+
+@media (max-width:940px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .rail{order:2;margin-top:36px}
+  .main{order:1}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .related{grid-template-columns:1fr}
+}
+@media (max-width:520px){.shell{padding:0 18px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="shell">
+  <a class="brand" href="#"><span class="mark">K</span>KpopQuiz</a>
+  <nav class="crumb"><span>Quizzes</span><span class="sep">/</span><span>BTS</span><span class="sep">/</span><b>Era quiz</b></nav>
+  <div class="grow"></div>
+  <button class="tbtn" id="theme" type="button">Dark</button>
+</div></header>
+
+<div class="shell">
+  <div class="qhead">
+    <div class="eyebrow">
+      <span class="chip diff">Medium</span>
+      <span class="chip">8 questions</span>
+      <span class="chip">BTS</span>
+      <span class="chip">by ARMYforever</span>
+    </div>
+    <h1>Ultimate BTS era quiz: only real ARMYs survive</h1>
+    <!-- U2 dynamic intro, real values -->
+    <p class="intro">This medium 8-question quiz walks the BTS eras from the school trilogy to now. <b>2,060 fans</b> have battled it, averaging <b>53%</b>, and <b>224</b> have scored perfect. Think you can beat that?</p>
+    <div class="startbar">
+      <button class="btn" type="button">Start the quiz</button>
+      <button class="btn ghost" type="button">Practice mode</button>
+      <span class="startmeta">Fastest perfect run 18s &middot; 38 likes</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main class="main">
+
+      <!-- U1 real stats (unlocked: 2060 >= 30; multiple_choice -> percentages shown) -->
+      <section class="sec" style="padding-top:10px">
+        <div class="sechead"><h2>How players do</h2><span class="tag">Live &middot; real</span></div>
+        <div class="stats">
+          <div class="stat"><b>2,060</b><span>Plays</span></div>
+          <div class="stat"><b>53%</b><span>Avg score</span></div>
+          <div class="stat"><b>32%</b><span>Pass rate</span></div>
+          <div class="stat"><b>224</b><span>Perfect</span></div>
+          <div class="stat"><b>18s</b><span>Fastest</span></div>
+          <div class="stat"><b>38</b><span>Likes</span></div>
+        </div>
+      </section>
+
+      <!-- U8 crawlable questions, spoiler-safe -->
+      <section class="sec">
+        <div class="sechead"><h2>What this quiz covers</h2><span class="tag">8 questions</span></div>
+        <div class="qlist">
+          <div class="qitem">
+            <div class="qn">Question 1</div>
+            <h3>Which EP opened the BTS "school trilogy" in 2013?</h3>
+            <div class="opts"><span class="opt">O!RUL8,2?</span><span class="opt">Skool Luv Affair</span><span class="opt">2 Cool 4 Skool</span><span class="opt">DARK&amp;WILD</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qn">Question 2</div>
+            <h3>The 화양연화 series is known in English as what?</h3>
+            <div class="opts"><span class="opt">Wings</span><span class="opt">The Most Beautiful Moment in Life</span><span class="opt">Love Yourself</span><span class="opt">Map of the Soul</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qn">Question 3</div>
+            <h3>Which era drew on Jungian ideas of persona and shadow?</h3>
+            <div class="opts"><span class="opt">BE</span><span class="opt">Wings</span><span class="opt">Map of the Soul</span><span class="opt">Love Yourself</span></div>
+          </div>
+          <div class="qnote"><span class="k">Spoiler-safe</span> Questions and options render in the page HTML so search engines read the real content; the correct answer is never in the markup.</div>
+        </div>
+      </section>
+
+      <!-- U4 related by entity -->
+      <section class="sec">
+        <div class="sechead"><h2>More BTS quizzes</h2><span class="tag">Same group</span></div>
+        <div class="related">
+          <a class="rel" href="#"><b>BTS discography blind test</b><span>29 songs &middot; hard</span></a>
+          <a class="rel" href="#"><b>Name all 7 members</b><span>timed &middot; easy</span></a>
+          <a class="rel" href="#"><b>Guess the BTS song from the clues</b><span>10 rounds &middot; medium</span></a>
+          <a class="rel" href="#"><b>BTS lyrics challenge</b><span>15 questions &middot; hard</span></a>
+        </div>
+      </section>
+
+      <!-- U6 creator -->
+      <section class="sec">
+        <div class="sechead"><h2>The creator</h2></div>
+        <div class="creator">
+          <div class="av" aria-hidden="true">A</div>
+          <div class="who">
+            <b>ARMYforever</b><br>
+            <span>17 quizzes &middot; 42,000 plays across them</span><br>
+            <a href="#">See their other quizzes &#8594;</a>
+          </div>
+        </div>
+        <!-- U9 JSON-LD, honest note -->
+        <div class="jsonld"><span class="k">Structured data</span> &middot; A Quiz JSON-LD block ships with the page (question count, BTS as MusicGroup, real difficulty). Since Google retired the Quiz rich result in early 2026, this earns no rich snippet; it is kept so crawlers and AI answer engines understand what the page is.</div>
+      </section>
+
+    </main>
+
+    <aside class="rail">
+
+      <!-- O3 did you know, distinct per quiz -->
+      <div class="widget dyk">
+        <div class="whead"><h2>Did you know?</h2><span class="badge o1">Trivia</span></div>
+        <span class="cat">History</span>
+        <p class="fact">The name ARMY was made official in July 2013, one month after debut, and stands for "Adorable Representative M.C. for Youth".</p>
+        <p class="wsrc">One sourced fact, dealt distinct per quiz from the trivia base. Rotates so no two quiz pages read the same.</p>
+      </div>
+
+      <!-- O1 group facts, from the trivia table -->
+      <div class="widget">
+        <div class="whead"><h2>BTS facts</h2><span class="badge data">Sourced</span></div>
+        <div class="facts">
+          <div class="frow"><span class="dot"></span><span>Debuted June 13, 2013 under Big Hit Entertainment.<br><span class="src">Wikidata</span></span></div>
+          <div class="frow"><span class="dot"></span><span>Seven members: RM, Jin, Suga, J-Hope, Jimin, V, Jungkook.<br><span class="src">MusicBrainz</span></span></div>
+          <div class="frow"><span class="dot"></span><span>17 releases and 197 tracks catalogued so far.<br><span class="src">KpopVerse DB</span></span></div>
+        </div>
+        <p class="wsrc">From the trivia base (migration 149): entity-level sourced facts, the same engine the Verse fact rails use. Covenant: sourced or nothing.</p>
+      </div>
+
+      <!-- O2 same-group quizzes -->
+      <div class="widget">
+        <div class="whead"><h2>Play more BTS</h2><span class="badge data">27 quizzes</span></div>
+        <div class="qz">
+          <a href="#">Newest: ARIRANG era quiz<span class="arr">&#8594;</span></a>
+          <a href="#">Hardest: lyrics deep cut<span class="arr">&#8594;</span></a>
+          <a href="#">The BTS discography guide<span class="arr">&#8594;</span></a>
+        </div>
+        <p class="wsrc">Newest + hardest + the group's article, so a new quiz is found before Google indexes it.</p>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<footer class="foot"><div class="shell"><p class="src">
+  <b>Why this page is substantial.</b> Every filled value is real per-quiz data: the intro numbers, the stats, the questions, the sourced facts, the rotating did-you-know, the related quizzes and the creator. The chrome is shared; the content is unique per quiz. Facts come from our sourced K-pop data (Wikidata, MusicBrainz, both CC0) and the trivia base, never fabricated. This is a prototype of the LOOK; the SEO worker wires the real data.
+</p></div></footer>
+
+<script>
+(function(){
+  var t=document.getElementById('theme');
+  t.addEventListener('click',function(){
+    var d=document.documentElement.dataset.theme==='dark';
+    document.documentElement.dataset.theme=d?'light':'dark';
+    t.textContent=d?'Dark':'Light';
+  });
+})();
+</script>
+</body>
+</html>

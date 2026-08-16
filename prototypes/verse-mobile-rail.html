@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verse mobile rail treatment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Mobile rail treatment: document first + compact key-facts strip up top
+   + NO empty photo box. Shown at phone width. */
+:root{--paper:#FFFFFF;--surface:#FFFFFF;--wash:#F1F1EF;--ink:#1D1B17;--body:#37352F;--muted:#73726E;--faint:#9F9D97;--line:#E7E6E3;--line-soft:#F0EFED;--accent:#2E6BD0;--accent-soft:#2E6BD00d;--pill-ink:#1D1B17;--pill-ink-text:#FFFFFF;--data:#54803F;--auto:#9A7B3F;--r-lg:18px;--r-md:12px;--shadow:0 1px 2px rgba(0,0,0,.03),0 8px 24px -16px rgba(0,0,0,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Instrument Sans",sans-serif;background:var(--paper);color:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.phone{max-width:412px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line);min-height:100vh}
+.pad{padding:0 20px}
+a{color:var(--accent);text-decoration:none}
+.tb{display:flex;align-items:center;gap:10px;height:52px;border-bottom:1px solid var(--line-soft)}
+.brand{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:600;font-size:14px}
+.brand .mark{width:22px;height:22px;border-radius:6px;background:var(--pill-ink);color:var(--pill-ink-text);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:12px}
+.play{margin-left:auto;background:#D13A6E;color:#fff;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600}
+
+.cover{height:96px;background:radial-gradient(400px 200px at 20% 130%,var(--accent-soft),transparent 70%),linear-gradient(var(--wash),var(--paper) 92%);border-bottom:1px solid var(--line-soft)}
+.icon{width:66px;height:66px;border-radius:18px;margin-top:-33px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:26px;font-weight:600;color:var(--ink)}
+.eyebrow{margin:14px 0 8px;font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:"Fraunces",serif;font-weight:600;color:var(--ink);font-size:40px;line-height:1.05;letter-spacing:-.015em}
+.lede{margin:12px 0 16px;font-size:16px;line-height:1.6;color:var(--body)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.btn{border-radius:999px;padding:10px 18px;font-size:14px;font-weight:500;border:1px solid var(--pill-ink);background:var(--pill-ink);color:var(--pill-ink-text);min-height:44px;display:inline-flex;align-items:center}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+
+/* THE COMPACT KEY-FACTS STRIP (mobile only) */
+.factstrip{display:flex;gap:7px;overflow-x:auto;padding:2px 0 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.factstrip::-webkit-scrollbar{display:none}
+.fpill{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:var(--surface);font-size:12.5px;color:var(--ink);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.fpill b{font-weight:600}
+.fpill .k{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+
+/* document */
+.sec{padding:26px 0 0}
+.sh{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:9px;margin-bottom:14px}
+.sh h2{font-family:"Fraunces",serif;font-weight:600;font-size:21px;color:var(--ink)}
+.sh .more{font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.prose p{margin-bottom:12px;font-size:16px;line-height:1.65}
+.members{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.mem{display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface);padding:12px 6px}
+.mem .ph{width:44px;height:44px;border-radius:50%;background:var(--wash);border:1px solid var(--line);display:grid;place-items:center;font-family:"Fraunces",serif;font-size:16px;color:var(--faint);margin-bottom:6px}
+.mem b{font-size:13px;color:var(--ink)}
+.mem span{font-size:9px;font-family:"Spline Sans Mono",monospace;letter-spacing:.05em;color:var(--faint);text-transform:uppercase;margin-top:2px}
+
+/* DATA widgets, now BELOW the document */
+.railwrap{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+.railtitle{font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding-bottom:2px}
+.widget{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:16px}
+.whead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.whead h3{font-family:"Spline Sans Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.badge{font-family:"Spline Sans Mono",monospace;font-size:8px;letter-spacing:.1em;border-radius:4px;padding:2px 6px;text-transform:uppercase}
+.badge.data{color:var(--data);background:color-mix(in srgb,var(--data) 10%,transparent)}
+.badge.auto{color:var(--auto);background:color-mix(in srgb,var(--auto) 12%,transparent)}
+/* NOTE: no .factphoto here at all - the empty box is gone */
+.frow{display:grid;grid-template-columns:76px 1fr auto;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px}
+.frow:last-child{border-bottom:0}
+.frow dt{color:var(--muted);font-size:12px}
+.frow dd{color:var(--ink);font-weight:500}
+.wsrc{margin-top:10px;padding-top:9px;border-top:1px solid var(--line-soft);font-size:10px;color:var(--faint);line-height:1.5}
+.numg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--paper);padding:11px 13px}
+.num b{display:block;font-family:"Fraunces",serif;font-size:22px;font-weight:600;color:var(--ink);line-height:1.1}
+.num span{font-family:"Spline Sans Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.note{margin:22px 0 30px;padding:12px 14px;border:1px dashed var(--line);border-radius:var(--r-md);background:var(--accent-soft);font-size:12px;color:var(--muted);line-height:1.5}
+.note b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="pad tb"><span class="brand"><span class="mark">K</span>KpopVerse</span><span class="play">&#9654; Play</span></div>
+  <div class="cover"></div>
+  <div class="pad">
+    <div class="icon">B</div>
+    <div class="eyebrow">Home of ARMY &middot; 3rd gen &middot; since 2013</div>
+    <h1>BTS</h1>
+    <p class="lede">Welcome to the home of ARMY. Everything BTS, built by fans.</p>
+    <div class="acts"><span class="btn">Explore the space</span><span class="btn ghost">Play a BTS quiz</span></div>
+
+    <!-- COMPACT KEY-FACTS STRIP (mobile only) -->
+    <div class="factstrip">
+      <span class="fpill"><span class="k">Debut</span><b>2013</b></span>
+      <span class="fpill"><span class="k">Members</span><b>7</b></span>
+      <span class="fpill"><span class="k">Gen</span><b>3rd</b></span>
+      <span class="fpill"><span class="k">Fandom</span><b>ARMY</b></span>
+      <span class="fpill"><span class="k">Label</span><b>Columbia</b></span>
+    </div>
+
+    <!-- DOCUMENT FIRST -->
+    <section class="sec" style="padding-top:6px">
+      <div class="sh"><h2>Overview</h2></div>
+      <div class="prose">
+        <p>BTS is a South Korean group of seven who debuted in June 2013 and grew, with ARMY, into one of the defining acts of their generation. This space keeps the catalog, the eras and the culture in one place.</p>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="sh"><h2>Members</h2><span class="more">All 7 &#8594;</span></div>
+      <div class="members">
+        <div class="mem"><span class="ph">RM</span><b>RM</b><span>Leader</span></div>
+        <div class="mem"><span class="ph">JK</span><b>Jungkook</b><span>Main Vocal</span></div>
+        <div class="mem"><span class="ph">V</span><b>V</b><span>Vocalist</span></div>
+        <div class="mem"><span class="ph">JM</span><b>Jimin</b><span>Dancer</span></div>
+      </div>
+    </section>
+
+    <!-- DATA, now below the document. No empty photo box. -->
+    <div class="railwrap">
+      <div class="railtitle">The data</div>
+      <div class="widget">
+        <div class="whead"><h3>Fact sheet</h3><span class="badge data">Data</span></div>
+        <dl>
+          <div class="frow"><dt>Debut</dt><dd>Jun 13, 2013</dd><span class="badge data">Data</span></div>
+          <div class="frow"><dt>Label</dt><dd>Columbia Records</dd><span class="badge data">Data</span></div>
+          <div class="frow"><dt>Generation</dt><dd>3rd Gen</dd><span class="badge data">Data</span></div>
+          <div class="frow"><dt>Fandom</dt><dd>ARMY</dd><span class="badge data">Data</span></div>
+          <div class="frow"><dt>Members</dt><dd>7</dd><span class="badge auto">Auto</span></div>
+        </dl>
+        <p class="wsrc">Wikidata &middot; MusicBrainz &middot; CC0. The group photo appears here once one is added through the moderated rail.</p>
+      </div>
+      <div class="widget">
+        <div class="whead"><h3>In numbers</h3><span class="badge auto">Auto</span></div>
+        <div class="numg">
+          <div class="num"><b>17</b><span>Releases</span></div>
+          <div class="num"><b>197</b><span>Tracks</span></div>
+          <div class="num"><b>15</b><span>Eras</span></div>
+          <div class="num"><b>21</b><span>Awards</span></div>
+        </div>
+        <p class="wsrc">Counted live from the KpopVerse database.</p>
+      </div>
+    </div>
+
+    <div class="note"><b>The treatment.</b> On phone: the document comes first, the data widgets stack below, and the key facts sit in a compact scrollable strip right under the hero. The big empty photo box is gone, it only appears once a real image exists.</div>
+  </div>
+</div>
+</body>
+</html>
