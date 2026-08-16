@@ -1,0 +1,11 @@
+=== PART 1: the floating circle, resolved ===
+# 2026-08-16T10:18:49Z  PRODUCTION BUILD (next start), not dev
+
+/embed/q/blackpink-world-records-and-achievements    theme-toggle occurrences in served HTML: 1
+/q/blackpink-world-records-and-achievements          theme-toggle occurrences in served HTML: 2
+
+--- AFTER moving the decision server-side ---
+/embed/q/blackpink-world-records-and-achievements    theme-toggle: 0  mobile-tab: 0
+/q/blackpink-world-records-and-achievements          theme-toggle: 2  mobile-tab: 0
+/quizzes                                             theme-toggle: 2  mobile-tab: 1
+/                                                    theme-toggle: 2  mobile-tab: 1

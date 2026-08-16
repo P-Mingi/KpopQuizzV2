@@ -11,7 +11,7 @@ import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
-import { SiteChrome } from '@/components/layout/site-chrome';
+import { headers } from 'next/headers';
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 import type { Metadata, Viewport } from 'next';
@@ -107,7 +107,12 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
+export default async function RootLayout({ children }: RootLayoutProps): Promise<React.ReactElement> {
+  // W4b: /embed/* renders the payload alone. Decided HERE, on the server, from the
+  // pathname the middleware forwards, so the chrome tree is never built and never
+  // reaches the partner's iframe in the RSC payload. Missing header falls back to
+  // rendering the chrome, which is the safe default for the site.
+  const isEmbed = ((await headers()).get('x-pathname') ?? '').startsWith('/embed');
   return (
     <html lang="en" className={pretendard.variable} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
@@ -154,25 +159,23 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
         <ToastProvider>
           {/* W4b: /embed/* renders the payload alone. Everything else gets the full
               chrome, defined here and nowhere else. */}
-          <SiteChrome
-            chrome={
-              <>
-                <div className="flex flex-col min-h-screen">
-                  <Suspense fallback={<TopNavSkeleton />}>
-                    <TopNav />
-                  </Suspense>
-                  <MobileTopBar />
-                  <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
-                    {children}
-                  </main>
-                  <SiteFooter play={<Footer />} />
-                </div>
-                <MobileTabBar />
-              </>
-            }
-          >
-            {children}
-          </SiteChrome>
+          {isEmbed ? (
+            children
+          ) : (
+            <>
+              <div className="flex flex-col min-h-screen">
+                <Suspense fallback={<TopNavSkeleton />}>
+                  <TopNav />
+                </Suspense>
+                <MobileTopBar />
+                <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
+                  {children}
+                </main>
+                <SiteFooter play={<Footer />} />
+              </div>
+              <MobileTabBar />
+            </>
+          )}
         </ToastProvider>
         <Analytics />
       </body>

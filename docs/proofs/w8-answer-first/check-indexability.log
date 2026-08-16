@@ -1,0 +1,11 @@
+
+> quiz@1.0.0 check:indexability
+> tsx scripts/check-indexability.mts
+
+Indexability guard: 3022 sitemap URLs, sampling 42 (1 per type + all articles) against http://localhost:3021
+
+Indexability guard warnings (2) - deep on-demand ISR, not gating locally (PART 2 prod monitor covers these):
+  ! /verse/blackpink/albums/the-album - in the sitemap but returned HTTP 404 (should be 200). [verse-album: deep ISR - verify via the prod monitor]
+  ! /verse/got7/songs/003cf085-6156-4c0e-8c1c-dce442c49bd0 - in the sitemap but returned HTTP 404 (should be 200). [verse-song: deep ISR - verify via the prod monitor]
+Indexability guard passed: 42 sampled pages are index-consistent, and every article + sampled quiz/group is in the sitemap.
+INDEX_EXIT=0
