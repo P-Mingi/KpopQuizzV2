@@ -6776,3 +6776,11 @@ main:has(.verse-page) { max-width: none; }
 .embed-credit { margin: 10px 0 0; text-align: center; font-size: 12px; }
 .embed-credit a { color: var(--txt3); text-decoration: underline; }
 .embed-credit a:hover { color: var(--brand); }
+
+/* W8 - answer-first. Plain, crawlable prose: the value is the text, not the styling. */
+.answer-first { margin: 14px 0 4px; }
+.answer-first-lead { font-size: 15px; line-height: 1.6; color: var(--txt1); margin: 0; }
+.answer-first-intro { font-size: 14px; line-height: 1.6; color: var(--txt2); margin: 10px 0 0; }
+.answer-first-chunks { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+.answer-first-q { font-size: 14px; font-weight: 700; color: var(--txt1); margin: 0; }
+.answer-first-a { font-size: 14px; line-height: 1.55; color: var(--txt2); margin: 3px 0 0; }

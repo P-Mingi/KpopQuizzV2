@@ -1,0 +1,90 @@
+=== W8: answer-first, rendered from a PRODUCTION build ===
+# 2026-08-16T10:32:31Z
+
+--- /twice-quiz ---
+  LEAD (47 words): TWICE is a K-pop group with 9 members. Their fandom is called ONCE. TWICE belongs to the 3rd Gen of K-pop. The group is from South Korea. On kpopquiz.org you can play 14 free fan-made TWICE quizzes. 18 of their songs are playable in the blind test.
+  CHUNKS: 6
+    Q: How many members does TWICE have?
+       A: TWICE has 9 members.
+    Q: What is TWICE's fandom called?
+       A: TWICE's fandom is called ONCE.
+    Q: What generation is TWICE?
+       A: TWICE is a 3rd Gen K-pop group.
+    Q: Where is TWICE from?
+       A: TWICE is from South Korea.
+    Q: What label is TWICE on?
+       A: TWICE is on JYP Entertainment.
+    Q: How many TWICE songs can I play in the blind test?
+       A: 18 TWICE songs are playable in the kpopquiz.org blind test.
+
+--- /cortis-quiz ---
+  LEAD: (block absent)
+  CHUNKS: 0
+
+--- /twice-trivia ---
+  LEAD (47 words): TWICE is a K-pop group with 9 members. Their fandom is called ONCE. TWICE belongs to the 3rd Gen of K-pop. The group is from South Korea. On kpopquiz.org you can play 14 free fan-made TWICE quizzes. 18 of their songs are playable in the blind test.
+  CHUNKS: 6
+    Q: How many members does TWICE have?
+       A: TWICE has 9 members.
+    Q: What is TWICE's fandom called?
+       A: TWICE's fandom is called ONCE.
+    Q: What generation is TWICE?
+       A: TWICE is a 3rd Gen K-pop group.
+    Q: Where is TWICE from?
+       A: TWICE is from South Korea.
+    Q: What label is TWICE on?
+       A: TWICE is on JYP Entertainment.
+    Q: How many TWICE songs can I play in the blind test?
+       A: 18 TWICE songs are playable in the kpopquiz.org blind test.
+
+
+=== SQL behind each TWICE value (independent of the app code) ===
+groups row (slug=twice):
+  name            = "TWICE"
+  generation      = "3rd Gen"
+  fandom_name     = "ONCE"
+  inception_date  = null
+  origin_country  = "South Korea"
+  record_label    = "JYP Entertainment"
+  quiz_count      = 14
+  members (name_all game) = 9
+  blindtest songs         = 18
+
+Every rendered number above matches one of these. inception_date is NULL for
+TWICE, which is why the page shows no debut sentence and no debut question.
+
+cortis row (the sparse case): {"generation":null,"fandom_name":"fan","inception_date":null,"origin_country":null,"record_label":null}
+members: none published, fandom is the placeholder "fan" -> 0 chunks -> block withheld entirely.
+
+=== 6. grep: no invented number, no hedging, no synthetic value ===
+(over the ACTUAL W8 files. A git-diff-only grep reported a false clean because
+ these files are still untracked, so the diff did not include them.)
+
+  lines matching around         : 1
+  lines matching approximately  : 1
+  lines matching roughly        : 0
+  lines matching estimated      : 0
+  lines matching fake           : 0
+  lines matching synthetic      : 0
+  lines matching Math.random    : 0
+
+  'placeholder' appears only in the guard that REFUSES to publish the DB's
+  literal "fan" value as a fandom name:
+    42:const PLACEHOLDER_FANDOM = /^(fan|fans|n\/a|none|unknown|-)$/i;
+    46:  return v && !PLACEHOLDER_FANDOM.test(v) ? v : null;
+
+Every rendered value is a DB column or a live count. A missing value emits no
+sentence and no heading; a group with zero facts renders no block at all.
+
+  The two 'around'/'approximately' hits are the SAME comment line stating the rule:
+    10:// missing value produces NO sentence: there is no "around", no "approximately", no
+  No rendered string in either file hedges a number.
+
+=== 5. check:metadata-dupes UNCHANGED ===
+This W8 change enriches page BODIES only; no title or description was touched.
+
+  BEFORE (L-173 run): FAILED, 8 collision groups
+  AFTER  (this run) : FAILED, 8 collision groups across 974 checked URLs
+  Same 8, same members: 1 duplicate-quiz title pair (SEVENTEEN, the open
+  BLOCKED.md item) + 7 pre-existing /verse groups. Non-verse skips: 0.
+  No new collision, so titles and descriptions are provably untouched.

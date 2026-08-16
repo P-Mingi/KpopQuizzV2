@@ -16,6 +16,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { countOpenRunsForGroup } from '@/lib/db/queries/open-runs';
 import { OpenRunsBlock } from '@/components/group/open-runs-block';
+import { AnswerFirst } from '@/components/group/answer-first';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -160,6 +161,15 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       {/* G2 hero (upgrade in place): logo, name, generation, member count,
           quiz/plays, fandom line (real fandoms only), war-map rank when charted. */}
       <GroupHubHero group={group} memberCount={nameAllGame?.count ?? null} warRank={warRank} />
+
+      {/* W8 - answer-first + query fan-out. Real DB values only; a missing value
+          produces no sentence. seo_intro rides here (additive on page), and stays out
+          of the meta description exactly as W2 PART D left it. */}
+      <AnswerFirst
+        group={group}
+        facts={{ memberCount: nameAllGame?.count ?? null, songCount: blindtest.songs }}
+        seoIntro={group.seo_intro}
+      />
 
       {/* W2b C1 - the time-shifted supply, made visible. Real count, live query,
           never rounded and never floored. Renders nothing at zero. */}

@@ -5,6 +5,8 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { TriviaShareButton } from '@/components/trivia/trivia-share-button';
 import { formatCount } from '@/lib/utils';
+import { AnswerFirst } from '@/components/group/answer-first';
+import { getGroupNameAllGame, getGroupBlindtestInfo } from '@/lib/db/queries/group-hub';
 import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 
@@ -126,11 +128,12 @@ export function generateGroupTriviaMetadata(group: Group, factCount: number): Me
 // ------------------------------------------------------------------
 
 export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
-  const uniqueFacts = await safeFetch(
-    getOverriddenFacts(group.id, group.slug),
-    [] as TriviaFact[],
-    '[group-trivia] getOverriddenFacts',
-  );
+  const [uniqueFacts, nameAllGame, blindtest] = await Promise.all([
+    safeFetch(getOverriddenFacts(group.id, group.slug), [] as TriviaFact[], '[group-trivia] getOverriddenFacts'),
+    // W8: the same two live counts the quiz page uses, so both pages answer identically.
+    safeFetch(getGroupNameAllGame(group.id), null, '[group-trivia] getGroupNameAllGame'),
+    safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-trivia] getGroupBlindtestInfo'),
+  ]);
 
   if (uniqueFacts.length < 12) {
     notFound();
@@ -180,6 +183,14 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
           <TriviaShareButton url={canonicalUrl} title={heroTitle} />
         </div>
       </header>
+
+      {/* W8 - answer-first + query fan-out, same module as the quiz page so the two
+          pages cannot drift into different answers for the same group. */}
+      <AnswerFirst
+        group={group}
+        facts={{ memberCount: nameAllGame?.count ?? null, songCount: blindtest.songs }}
+        seoIntro={group.seo_intro}
+      />
 
       {/* Quick stats */}
       <div className="trivia-stats">
