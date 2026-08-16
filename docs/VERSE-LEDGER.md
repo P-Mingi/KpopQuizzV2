@@ -3103,3 +3103,61 @@ L-186 (W3b PART 3 PASS - claim now covers quiz + battle + game; W4 embed next)
   ALSO NOT BUILT: theming (?theme/?accent/?bg, spec s8), the partner= attribution log
   (s9), the internal generator page (s10), and the desktop screenshot (390px only).
   Gates tsc 0 / build 0 / check:routes 0 / check:indexability 0. Covenant grep clean.
+
+L-187 (W4 PASS with one open defect; the backlink is real and proven host-side)
+  Cowork audited W4 (946d431). The thing that matters is proven: the visible <a> renders
+  in the HOST page's DOM, outside the iframe, with real utm tags and descriptive anchor
+  text ("<title> on kpopquiz.org", not exact-match spam), and the generator has no option
+  to omit it. Proven by reading the host DOM after pasting the snippet verbatim, which is
+  what the mission demanded, not by reading the snippet source.
+  Two bugs the worker caught by verifying instead of trusting its own config:
+  (1) its first header matcher `/:path*` also matched the embed, and since Next applies
+  EVERY matching rule the embed inherited frame-ancestors 'self' and became unframeable -
+  the one thing a widget must never be. Now `frame-ancestors *` on the embed and 'self' +
+  SAMEORIGIN elsewhere via a negative-lookahead matcher. (2) the resize handshake posted
+  33,482px into the partner page because html/body inherit app-wide min-heights and each
+  applied height fed the next observation; it now measures the embed's own box (640px).
+  Indexability: noindex + canonical to the real quiz + absent from the sitemap,
+  check:indexability 0 contradictions - our own CI gate confirming the duplicate is not
+  advertised. The battle challenge rides along because QuizPlayer was reused, not forked,
+  so one mechanic serves acquisition, retention and the backlink.
+  OPEN DEFECT, honestly flagged and Cowork-verified: app/embed/layout.tsx declares no
+  <html>/<body>, so it is a NESTED layout and the root layout still wraps it, dragging
+  TopNav and MobileTabBar into the partner's iframe. No partner embeds a widget that
+  pulls a whole site nav into their page. The worker did not attempt the fix at the end
+  of its context because a root-layout refactor left unverified is the worst thing to
+  ship - correct judgement.
+  New MISSION.md = W4b: the route-group fix FIRST (prove BOTH the embed loses the chrome
+  AND normal pages are unchanged - that regression is the real risk), then theming
+  (accepted but ignored today), the partner attribution log, the generator page, and the
+  desktop screenshot skipped last run. Nothing pushed; 24 commits local.
+
+- L-179 W4b ITEM 1 DONE - chrome no longer leaks into the iframe; items 2/3/4 NOT built
+  (worker, 2026-08-16, checkpoint). DEVIATION, flagged: the worker's own W4 proposal (a
+  route group with its own root layout) was checked and found WRONG before acting - a
+  second root layout only works in Next when EVERY route lives in a group, since
+  app/layout.tsx is the root while it exists, so doing it as proposed means relocating
+  all ~60 routes under app/(site)/ to serve one widget, exactly the "do not regress the
+  site to fix the widget" risk. Instead the chrome SELF-HIDES: one client component reads
+  the pathname, the root layout keeps a single definition of the chrome, and usePathname
+  runs during SSR so the nav is never in the embed's HTML (not merely CSS-hidden). If the
+  owner wants the route group it is a separate deliberate refactor with its own
+  regression budget.
+  PROVEN BOTH SIDES, regression side hardest. Rendered DOM: home nav2/header2/footer1/
+  tabBarLinks15, /q/<slug> 2/1/1/8, /embed/q/<slug> 0/0/0/0. Served HTML before vs after
+  on the three normal pages: byte-identical on every counter (topNav 9, mobileTabBar,
+  footer, themeInit, quizzes links); only the embed moved (topNav 9->0, quizzes 3->0).
+  Screenshots at 390px AND desktop (item 5, skipped last run) show the widget in a host
+  page with no top bar, no tab bar, and the outside-iframe backlink still in the host DOM.
+  METHOD NOTE worth carrying: the first screenshots this run looked unchanged and the fix
+  was nearly reported as failed - the images were STALE because a shell cwd reset sent the
+  capture to a relative path outside the repo. The DOM probe disagreed with the picture
+  and the probe was right; the file timestamp settled it. Check mtimes before trusting a
+  proof image.
+  NOT BUILT: item 2 theming (?theme still accepted and ignored, ?accent/?bg absent),
+  item 3 partner attribution log (partner= still unrecorded; likely needs a table = a
+  BLOCKED decision, not a build), item 4 the generator UI. FLAGGED: a small floating
+  element (theme/nuri circle) still renders inside the iframe, outside the chrome block
+  that was moved; and check:indexability was run BEFORE the layout change, not after
+  (the change adds no route and alters no metadata, but it was not re-run).
+  Gates tsc 0 / build 0 / check:routes 0.
