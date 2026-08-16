@@ -27,6 +27,45 @@ w2-notify blocker CLEARED 2026-08-15: migration 154 is applied. Re-probed with
 controls, `battle_beaten` inserts cleanly and a bogus type is still rejected
 (docs/proofs/w2c-supply/partC-mig154-reprobe.txt).
 
+## w4b-item3 - the partner attribution log has nowhere to write
+
+- What is blocked: spec section 9's `partner=` log. The parameter reaches the embed page
+  and is already carried into the snippet's URLs, but there is no table to record it in,
+  and this mission forbids DDL.
+- Why (owner decision): probed live today, none of these exist: `embed_views`,
+  `embed_log`, `partner_embeds`, `share_events`, `events`. Nothing else in the schema is
+  an appropriate home: writing embed impressions into `plays` or `game_plays` would
+  corrupt the play counts that feed /stats and the W5 data-PR play, which is exactly the
+  asset the covenant protects.
+- The exact shape, ready to apply:
+
+    CREATE TABLE public.embed_views (
+      id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      quiz_id     uuid NOT NULL REFERENCES public.quizzes(id) ON DELETE CASCADE,
+      partner     text NOT NULL,              -- sanitised to [a-z0-9-], max 32
+      referer_host text,                      -- host only, never a full URL
+      created_at  timestamptz NOT NULL DEFAULT now()
+    );
+    CREATE INDEX embed_views_partner_idx ON public.embed_views (partner, created_at DESC);
+    CREATE INDEX embed_views_quiz_idx    ON public.embed_views (quiz_id, created_at DESC);
+    -- service-role writes only; no RLS insert policy, matching creator_notifications.
+
+- Options (each with its trade-off):
+  1) Apply the table above. The log becomes a real fire-and-forget insert on the embed
+     render. Trade-off: one row per embed view, so it grows with success and will want a
+     retention cron like notification-prune.
+  2) Aggregate instead of logging rows: a per-partner counter table upserted on view.
+     Cheaper to store, but loses the time series that makes "which partner actually sent
+     traffic" answerable.
+  3) Skip it and rely on the utm tags already on the outbound links. Free, and they
+     already work, but it only measures partners whose readers CLICK, never how often the
+     widget was merely rendered.
+- Recommendation: 3 now, 1 when a real partner exists. The utm tags already answer the
+  question that matters at zero partners, and an empty table with a retention job is
+  cost before value. Worth saying plainly: this is the one item of W4b I would not build
+  yet even if the DDL were free.
+- Proof / context: docs/proofs/w4-embed/, spec section 9.
+
 ## w1-ctr - the new duplicate-metadata gate is RED on a duplicate quiz the code cannot honestly split
 
 - What is blocked: `check:metadata-dupes` cannot go green on the quiz side. One collision is left

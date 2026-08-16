@@ -1,0 +1,20 @@
+=== W4b item 2: theming, every input validated ===
+# 2026-08-16T10:02:45Z
+
+(no params, default)                           -> class="embed-page" style="background:transparent" 
+?theme=dark                                    -> class="embed-page dark" style="background:transparent" 
+?theme=light                                   -> class="embed-page" style="background:transparent" 
+?theme=BOGUS  (falls back light)               -> class="embed-page" style="background:transparent" 
+?accent=00ff88                                 -> class="embed-page" style="--brand:#00ff88;--brand-btn:#00ff88;background:transparent" 
+?accent=ff0  (3-char hex)                      -> class="embed-page" style="--brand:#ff0;--brand-btn:#ff0;background:transparent" 
+?accent=red);}  (INJECTION try)                -> class="embed-page" style="background:transparent" 
+?accent=zzzzzz (malformed)                     -> class="embed-page" style="background:transparent" 
+?bg=101010                                     -> class="embed-page" style="background:#101010" 
+
+=== 7. covenant grep on the W4b items 2+4 diff ===
+  +lines matching faker        : 0
+  +lines matching fake         : 0
+  +lines matching synthetic    : 0
+  +lines matching dummy        : 0
+  +lines matching placeholder  : 0
+  +lines matching Math.random  : 0

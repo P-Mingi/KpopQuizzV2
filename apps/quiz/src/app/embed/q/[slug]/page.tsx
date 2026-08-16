@@ -4,6 +4,7 @@ import { getQuizBySlug } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { EmbedResizer } from '@/components/embed/embed-resizer';
+import { parseEmbedTheme, embedStyle } from '@/lib/embed/theme';
 
 import type { Metadata } from 'next';
 
@@ -43,6 +44,7 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
 
 interface EmbedPageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export async function generateMetadata({ params }: EmbedPageProps): Promise<Metadata> {
@@ -59,8 +61,12 @@ export async function generateMetadata({ params }: EmbedPageProps): Promise<Meta
   };
 }
 
-export default async function EmbedQuizPage({ params }: EmbedPageProps): Promise<React.ReactElement> {
+export default async function EmbedQuizPage({ params, searchParams }: EmbedPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
+  // W4b item 2: theming, validated. An unknown theme falls back to light and a
+  // malformed hex is ignored, so a bad URL renders the default widget rather than a
+  // broken one.
+  const themeOpts = parseEmbedTheme(await searchParams);
   const quiz = await safeFetch(getQuizBySlug(slug), null, '[embed/q/[slug]] getQuizBySlug');
   if (!quiz) notFound();
 
@@ -100,7 +106,7 @@ export default async function EmbedQuizPage({ params }: EmbedPageProps): Promise
   };
 
   return (
-    <div className="embed-page">
+    <div className={`embed-page${themeOpts.theme === 'dark' ? ' dark' : ''}`} style={embedStyle(themeOpts)}>
       <QuizPlayer quiz={quizIntro} />
 
       {/* The in-frame credit. Secondary to the snippet's visible link (which is the
