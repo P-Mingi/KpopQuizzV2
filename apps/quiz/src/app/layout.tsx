@@ -11,6 +11,7 @@ import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
+import { SiteChrome } from '@/components/layout/site-chrome';
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 import type { Metadata, Viewport } from 'next';
@@ -151,17 +152,27 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
         />
         <ThemeInit />
         <ToastProvider>
-          <div className="flex flex-col min-h-screen">
-            <Suspense fallback={<TopNavSkeleton />}>
-              <TopNav />
-            </Suspense>
-            <MobileTopBar />
-            <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
-              {children}
-            </main>
-            <SiteFooter play={<Footer />} />
-          </div>
-          <MobileTabBar />
+          {/* W4b: /embed/* renders the payload alone. Everything else gets the full
+              chrome, defined here and nowhere else. */}
+          <SiteChrome
+            chrome={
+              <>
+                <div className="flex flex-col min-h-screen">
+                  <Suspense fallback={<TopNavSkeleton />}>
+                    <TopNav />
+                  </Suspense>
+                  <MobileTopBar />
+                  <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
+                    {children}
+                  </main>
+                  <SiteFooter play={<Footer />} />
+                </div>
+                <MobileTabBar />
+              </>
+            }
+          >
+            {children}
+          </SiteChrome>
         </ToastProvider>
         <Analytics />
       </body>

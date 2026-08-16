@@ -1,0 +1,23 @@
+{
+ "home": {
+  "nav": 2,
+  "header": 2,
+  "footer": 1,
+  "tabBarLinks": 15,
+  "hasKpopQuizWordmark": false
+ },
+ "quiz": {
+  "nav": 2,
+  "header": 1,
+  "footer": 1,
+  "tabBarLinks": 8,
+  "hasKpopQuizWordmark": false
+ },
+ "embed": {
+  "nav": 0,
+  "header": 0,
+  "footer": 0,
+  "tabBarLinks": 0,
+  "hasKpopQuizWordmark": false
+ }
+}

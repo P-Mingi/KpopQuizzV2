@@ -1,0 +1,38 @@
+[
+ {
+  "path": "/",
+  "status": 200,
+  "topNav": 9,
+  "mobileTabBar": 3,
+  "footerWord": 2,
+  "themeInit": true,
+  "quizzesLink": 5
+ },
+ {
+  "path": "/quizzes",
+  "status": 200,
+  "topNav": 9,
+  "mobileTabBar": 3,
+  "footerWord": 2,
+  "themeInit": true,
+  "quizzesLink": 3
+ },
+ {
+  "path": "/q/blackpink-world-records-and-achievements",
+  "status": 200,
+  "topNav": 9,
+  "mobileTabBar": 2,
+  "footerWord": 2,
+  "themeInit": true,
+  "quizzesLink": 2
+ },
+ {
+  "path": "/embed/q/blackpink-world-records-and-achievements",
+  "status": 200,
+  "topNav": 9,
+  "mobileTabBar": 3,
+  "footerWord": 2,
+  "themeInit": true,
+  "quizzesLink": 3
+ }
+]
