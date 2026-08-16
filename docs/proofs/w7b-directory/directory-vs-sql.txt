@@ -1,0 +1,104 @@
+SQL says groups with >=1 published quiz: 37
+directory links to distinct group hubs: 37
+MISSING from the directory: 0 []
+EXTRA (linked but no published quiz): 0 []
+counts with no matching rendered value (coarse check): 37
+duplicate links to the same hub? 37 link instances for 37 hubs
+rows rendered: 0
+COUNT MISMATCHES vs SQL: 37 [
+  'red-velvet rendered=undefined sql=7',
+  'enhypen rendered=undefined sql=7',
+  'bts rendered=undefined sql=27',
+  'blackpink rendered=undefined sql=22',
+  'shinee rendered=undefined sql=4',
+  'akmu rendered=undefined sql=1',
+  'bigbang rendered=undefined sql=1',
+  'got7 rendered=undefined sql=3',
+  'seventeen rendered=undefined sql=11',
+  'exo rendered=undefined sql=8',
+  'loona rendered=undefined sql=5',
+  'stray-kids rendered=undefined sql=26',
+  'cortis rendered=undefined sql=5',
+  'kickflip rendered=undefined sql=3',
+  'g-i-dle rendered=undefined sql=7',
+  'xikers rendered=undefined sql=1',
+  'general-kpop rendered=undefined sql=152',
+  'loossemble rendered=undefined sql=4',
+  'aespa rendered=undefined sql=13',
+  'artms rendered=undefined sql=4',
+  'tws rendered=undefined sql=1',
+  'nmixx rendered=undefined sql=1',
+  'itzy rendered=undefined sql=7',
+  'babymonster rendered=undefined sql=3',
+  'treasure rendered=undefined sql=1',
+  'twice rendered=undefined sql=14',
+  'illit rendered=undefined sql=4',
+  'newjeans rendered=undefined sql=10',
+  'ateez rendered=undefined sql=20',
+  'monsta-x rendered=undefined sql=2',
+  'txt rendered=undefined sql=6',
+  'nct rendered=undefined sql=3',
+  'mamamoo rendered=undefined sql=2',
+  'le-sserafim rendered=undefined sql=5',
+  'dreamcatcher rendered=undefined sql=1',
+  'astro rendered=undefined sql=1',
+  'ive rendered=undefined sql=8'
+]
+groups where the denormalized quiz_count would have LIED, and the page does not:
+    bts denorm=30 rendered=undefined sql=27
+    blackpink denorm=27 rendered=undefined sql=22
+    stray-kids denorm=27 rendered=undefined sql=26
+    artms denorm=5 rendered=undefined sql=4
+rows rendered: 0
+COUNT MISMATCHES vs SQL: 37
+   red-velvet rendered=None sql=7
+   enhypen rendered=None sql=7
+   bts rendered=None sql=27
+   blackpink rendered=None sql=22
+   shinee rendered=None sql=4
+   akmu rendered=None sql=1
+   bigbang rendered=None sql=1
+   got7 rendered=None sql=3
+   seventeen rendered=None sql=11
+   exo rendered=None sql=8
+   loona rendered=None sql=5
+   stray-kids rendered=None sql=26
+   cortis rendered=None sql=5
+   kickflip rendered=None sql=3
+   g-i-dle rendered=None sql=7
+   xikers rendered=None sql=1
+   general-kpop rendered=None sql=152
+   loossemble rendered=None sql=4
+   aespa rendered=None sql=13
+   artms rendered=None sql=4
+   tws rendered=None sql=1
+   nmixx rendered=None sql=1
+   itzy rendered=None sql=7
+   babymonster rendered=None sql=3
+   treasure rendered=None sql=1
+   twice rendered=None sql=14
+   illit rendered=None sql=4
+   newjeans rendered=None sql=10
+   ateez rendered=None sql=20
+   monsta-x rendered=None sql=2
+   txt rendered=None sql=6
+   nct rendered=None sql=3
+   mamamoo rendered=None sql=2
+   le-sserafim rendered=None sql=5
+   dreamcatcher rendered=None sql=1
+   astro rendered=None sql=1
+   ive rendered=None sql=8
+
+groups where the denormalized quiz_count would have LIED, and the page does not:
+   bts: groups.quiz_count=30  rendered=None  real published=27
+   blackpink: groups.quiz_count=27  rendered=None  real published=22
+   stray-kids: groups.quiz_count=27  rendered=None  real published=26
+   artms: groups.quiz_count=5  rendered=None  real published=4
+rows rendered: 37
+COUNT MISMATCHES vs SQL: 0
+
+groups where the denormalized quiz_count would have LIED, and the page does not:
+   bts: groups.quiz_count=30  rendered=27  real published=27
+   blackpink: groups.quiz_count=27  rendered=22  real published=22
+   stray-kids: groups.quiz_count=27  rendered=26  real published=26
+   artms: groups.quiz_count=5  rendered=4  real published=4

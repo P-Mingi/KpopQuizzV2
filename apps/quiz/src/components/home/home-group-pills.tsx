@@ -32,7 +32,9 @@ export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElem
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>Browse by group</p>
-        <Link href="/quizzes" style={SEE_ALL}>Browse all quizzes &rarr;</Link>
+        {/* W7b: the pills show 13 of 37 groups. The directory is the surface that
+            reaches the rest, so the rail's own "see all" points there. */}
+        <Link href="/groups" style={SEE_ALL}>All K-pop groups &rarr;</Link>
       </div>
 
       <ScrollRow scrollerClassName="home-group-rail" scrollerRole="list" ariaLabel="Browse quizzes by group">

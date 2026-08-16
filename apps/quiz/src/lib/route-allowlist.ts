@@ -47,7 +47,7 @@ export const KNOWN_ROUTES = [
   // short link we have ever handed out 301'd to home instead of resolving. The
   // guard below found this one; it is the sixth page this list has swallowed.
   '/s/',
-  '/leaderboard', '/quizzes', '/profile', '/me', '/notifications', '/news', '/stats',
+  '/leaderboard', '/quizzes', '/groups', '/profile', '/me', '/notifications', '/news', '/stats',
   '/verse',
   // V-BUILDER-2: the chrome-less builder draft canvas (/build/<slug>). Curator-gated
   // server-side (404 otherwise) + noindex; it self-gates, so it stays out of

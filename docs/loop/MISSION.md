@@ -1,66 +1,76 @@
-# MISSION (W7 - topical clusters + W9 plumbing). NO PUSH.
+# MISSION (W7b - fix the CLASS of orphans, not the 11 instances). NO PUSH.
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-W8 is Cowork-approved (78810a4). Verse PAUSED. Nothing pushed.
-NOTE: Cowork could NOT re-derive your DB coverage numbers this run - the Supabase MCP
-refused access. Your field-coverage figures stand on your report alone until Cowork can
-recount. Keep stating the SQL beside every number so that recount stays possible.
+W7 audit + W9 are Cowork-approved (dcfac2a). Verse PAUSED. Nothing pushed.
 
-## W7 - THE INTERNAL LINK MESH (the authority lever nobody has to approve)
-From docs/PLAY-GEO-AEO-AUDIT.md A5: "owning one topic completely beats being shallow
-across ten". This is the only authority work that needs no third party, no outreach and
-no deploy to build. We already rank on relevance; what is missing is depth signal.
+## THE RULING, AND WHY IT OVERRIDES YOUR RECOMMENDATION
+You recommended extending RELATED_GROUPS so each of the 11 orphans neighbours a group it
+genuinely resembles. That is a good instinct and Cowork rejected it anyway, for a reason
+you could not see from the audit: it treats 11 instances, not the class.
 
-Build the mesh between pages that ALREADY EXIST. Do NOT create URLs.
-7a. HUB: each group page links to its own spokes - its quizzes, its trivia page, its
-    blind test playlist, its games - with descriptive anchor text, never "click here"
-    and never the bare slug.
-7b. SPOKE -> HUB: every quiz page links back to its group hub. Check whether this
-    already exists before adding a second one; a duplicated link is not a stronger one.
-7c. SPOKE -> SIBLING: a quiz links to closely related quizzes of the SAME group before
-    reaching outside it. Related-quizzes already exists - audit what it actually links to
-    today and report it before changing anything.
-7d. ORPHANS: find any page with ZERO internal inbound links and report the list. Do not
-    invent links to fix them; report first, we decide together.
-Anchor text rule: descriptive and varied, never exact-match repeated site-wide - that
-reads as manipulation, not structure.
+Cowork found the cause. There is NO all-groups directory page anywhere, and the only
+global surface that lists groups is capped: `home-group-rail.tsx` `slice(0, 10)` and
+`home-group-pills.tsx` `slice(0, 13)`. There are 37 groups with quizzes. So 27 appear on
+no global surface at all and depend entirely on a hand-curated map. **Group number 38
+will be born an orphan too.** Curation does not scale; structure does.
 
-## W9 - THE CHEAP PLUMBING (small, do it after W7)
-9a. `llms.txt` at the root. Honest calibration, recorded so you do not overinvest: the
-    academy itself calls it "a cheap experiment, not a core ranking lever". Ship it,
-    expect nothing, spend an hour not a day.
-9b. FRESHNESS: a visible "Updated <month year>" plus a correct `dateModified` on group
-    pages, driven by REAL data (the newest quiz/content date for that group), never
-    today's date, never a build timestamp. K-pop churns, and a stale-looking page is a
-    weak citation candidate.
-NOT in scope: Bing Webmaster Tools submission is the owner's action, not code.
+## PART 1 - THE A-Z GROUP DIRECTORY (one new URL, deliberately)
+Cowork's own "no new URLs" rule from the last mission is SUSPENDED for this one page, and
+the reason matters: that rule exists to stop us minting pages for crawlers. This is not
+that. It is an index a human actually wants (browse every K-pop group), and it makes
+orphanhood structurally impossible.
+
+- One page listing EVERY group that has at least one published quiz, each linked once.
+- Organise it so it is genuinely usable, not a wall: A-Z, and by generation where the
+  generation is known. Groups with no generation go under a plainly labelled group, not
+  a guessed one.
+- Real counts per row from the DB (quizzes, and whatever else is already free to read).
+  No invented numbers, no floors, no rounding.
+- It must be indexable and IN the sitemap. It is a real page, not a doorway.
+- Honest title and description, not keyword stuffing. Do NOT touch any other page's
+  metadata: W1's July control set is still inside its window to 2026-08-24, and
+  check:metadata-dupes must stay unchanged apart from this page's own new entry.
+
+## PART 2 - IRRIGATE IT
+A directory nobody links to is itself an orphan. Add a plain "see all groups" link from
+the home group rail (and the pills, if it fits without clutter). Descriptive anchor, not
+"click here".
+
+## PART 3 - THE ORPHAN GATE (the part that makes this permanent)
+Extend the CI guard family we already have. Same shape as `check:indexability`, which
+already catches the sitemap-vs-noindex contradiction:
+- Crawl the served HTML of a production build, build the internal link graph.
+- FAIL when a URL that is IN the sitemap has ZERO internal inbound links.
+- Report the offenders by URL, never a bare count.
+- Be honest about the crawl boundary in the output, the way your audit was: if the crawl
+  samples rather than covers, the result is a floor on inbound links, not a proof of
+  zero. State the sample size in the failure message.
+- Prove it RED then GREEN, like the indexability guard: show it failing on a real orphan
+  before the directory exists (or on an injected one), then passing after.
 
 ## HARD RULES
-- No new URLs. This is structure over existing pages.
-- Real data only. A freshness date that is not derived from real content is a lie.
-- Do NOT touch titles or meta descriptions: W1's July control set is inside its
-  measurement window until 2026-08-24, and `check:metadata-dupes` must stay unchanged.
-- Report BEFORE changing anything on 7c and 7d - Cowork wants the audit, not a silent
-  rewrite of the link graph.
+Real data only. No invented links. No page exists to hold a link. If the directory would
+be thin for a group, it shows fewer facts for that group, never a filler.
 
 ## GUARDRAILS
-Scope: group pages, quiz pages, related-quizzes, a root llms.txt route. Do NOT touch
-/verse. NO DDL. tsc 0, build green, check:routes / check:indexability /
-check:metadata-dupes must not regress.
+Scope: the new directory route, the home rail link, the new CI script, sitemap
+registration, route allowlist. Do NOT touch /verse. NO DDL. tsc 0, build green,
+check:routes / check:indexability / check:metadata-dupes must not regress.
 
-## VERIFY (proofs to docs/proofs/w7-clusters/)
-1. The current link graph BEFORE changes: what links to what, and the orphan list.
-2. The mesh after: a group hub's outbound links and a quiz's inbound path to its hub,
-   read from the SERVED HTML of a production build, not from source.
-3. Anchor text sample showing variety, not one repeated phrase.
-4. llms.txt served, and its content.
-5. A freshness date next to the SQL that produced it, plus a group where the newest
-   content is old and the date says so honestly.
-6. check:metadata-dupes unchanged.
+## VERIFY (proofs to docs/proofs/w7b-directory/)
+1. The directory rendering from a PRODUCTION build's served HTML, with every group that
+   has quizzes present - counted against the SQL that lists them.
+2. The 11 previously orphaned hubs each now having an inbound link, read from the served
+   HTML, not from source.
+3. The home rail linking to the directory.
+4. The orphan gate RED (real or injected orphan, named) then GREEN, with the crawl
+   boundary stated in its output.
+5. check:indexability 0, run against a RUNNING server (your own flag from last run).
+6. check:metadata-dupes unchanged apart from the new page.
 
 ## REPORT
 docs/loop/REPORT.md + docs/VERSE-LEDGER.md entry. BLOCKED.md for real owner decisions.

@@ -1,0 +1,6 @@
+=== B) SAME SCOPE, RED via an INJECTED orphan (proves the scoped gate still fails) ===
+Orphan gate: 683 non-verse sitemap URLs, crawled 198 of 199 sampled pages against http://localhost:3021
+  asserting only on paths matching /^\/[a-z0-9-]+-quiz$/ (scoped run: the unscoped run is the full truth)
+Orphan gate FAILED: 1 sitemap URL(s) have ZERO inbound internal links from the 198 crawled pages. Because the crawl SAMPLES (198 of 683 URLs), this is a FLOOR on inbound links, not a proof of zero: a page listed here could still be linked from a page outside the sample. Each offender by URL:
+  x /nobody-links-here-quiz
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.

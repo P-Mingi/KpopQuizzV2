@@ -1,0 +1,17 @@
+=== VERIFY 2: the 11 previously orphaned hubs, inbound from SERVED html of /groups ===
+  /akmu-quiz  inbound from /groups: 1
+  /loona-quiz  inbound from /groups: 1
+  /kickflip-quiz  inbound from /groups: 1
+  /xikers-quiz  inbound from /groups: 1
+  /loossemble-quiz  inbound from /groups: 1
+  /artms-quiz  inbound from /groups: 1
+  /treasure-quiz  inbound from /groups: 1
+  /tws-quiz  inbound from /groups: 1
+  /monsta-x-quiz  inbound from /groups: 1
+  /dreamcatcher-quiz  inbound from /groups: 1
+  /astro-quiz  inbound from /groups: 1
+
+=== VERIFY 3: home page links to the directory (served html) ===
+  href="/groups" on /: 1
+  anchor text:
+    >All K-pop groups →

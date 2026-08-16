@@ -6787,3 +6787,44 @@ main:has(.verse-page) { max-width: none; }
 
 /* W9b - the freshness line. Quiet: it is a signal, not a headline. */
 .group-updated { font-size: 12px; color: var(--txt3); margin: 10px 0 0; }
+
+/* W7b - the A-Z group directory (/groups). */
+.gdir { padding-bottom: 32px; }
+.gdir-head { margin: 8px 0 18px; }
+.gdir-title { font-size: 26px; font-weight: 800; margin: 0 0 8px; color: var(--text-primary); }
+.gdir-intro { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0; }
+.gdir-genline { font-size: 12px; color: var(--txt3); margin: 8px 0 0; }
+.gdir-empty { font-size: 14px; color: var(--text-secondary); }
+.gdir-jump {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px;
+  padding: 10px; border: 1px solid var(--border); border-radius: 12px;
+}
+.gdir-jump-link {
+  min-width: 30px; padding: 5px 8px; text-align: center; border-radius: 8px;
+  font-size: 12px; font-weight: 700; color: var(--text-primary); text-decoration: none;
+  background: var(--surface-alt);
+}
+.gdir-jump-link:hover { background: var(--accent); color: #fff; }
+.gdir-letter-block { margin-bottom: 22px; scroll-margin-top: 80px; }
+.gdir-letter {
+  font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-secondary); margin: 0 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border); scroll-margin-top: 80px;
+}
+.gdir-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.gdir-card {
+  display: flex; align-items: center; gap: 10px; padding: 10px;
+  border: 1px solid var(--border); border-radius: 12px;
+  text-decoration: none; color: inherit; background: var(--surface);
+}
+.gdir-card:hover { border-color: var(--accent); }
+.gdir-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.gdir-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.gdir-meta { font-size: 11px; color: var(--txt3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gdir-gen {
+  flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 3px 6px;
+  border-radius: 6px; background: var(--surface-alt); color: var(--text-secondary);
+}

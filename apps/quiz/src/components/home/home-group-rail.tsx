@@ -16,11 +16,14 @@ export function HomeGroupRail({ groups }: Props) {
         <h2 style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.01em', color: 'var(--text-primary)', margin: 0 }}>
           Browse by group
         </h2>
-        <Link href="/quizzes" style={{
+        {/* W7b: this rail is capped at 10 of 37 groups, so it used to point at
+            /quizzes and leave 27 group hubs unreachable from any global surface.
+            It now points at the full A-Z directory, with a descriptive anchor. */}
+        <Link href="/groups" style={{
           fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em',
           color: 'var(--accent)', textDecoration: 'none',
         }}>
-          All 30+ {'\u2192'}
+          All K-pop groups {'\u2192'}
         </Link>
       </div>
       <div className="scrollbar-hide" style={{

@@ -1,0 +1,5 @@
+=== A) SCOPED GREEN: the group-hub class, after the directory ===
+Orphan gate: 682 non-verse sitemap URLs, crawled 198 of 198 sampled pages against http://localhost:3021
+  asserting only on paths matching /^\/[a-z0-9-]+-quiz$/ (scoped run: the unscoped run is the full truth)
+Orphan gate passed: every IN-SCOPE sitemap URL of the 682 non-verse ones has at least one inbound internal link from the 198 crawled pages. (Sampled crawl, so this proves inbound links exist, not that the count is complete.)
+   EXIT=

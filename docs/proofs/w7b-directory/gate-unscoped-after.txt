@@ -1,0 +1,73 @@
+
+> quiz@1.0.0 check:orphans
+> tsx scripts/check-orphans.mts
+
+Orphan gate: 682 non-verse sitemap URLs, crawled 198 of 198 sampled pages against http://localhost:3021
+
+Orphan gate FAILED: 64 sitemap URL(s) have ZERO inbound internal links from the 198 crawled pages. Because the crawl SAMPLES (198 of 682 URLs), this is a FLOOR on inbound links, not a proof of zero: a page listed here could still be linked from a page outside the sample. Each offender by URL:
+  x /blindtest/2nd-gen
+  x /blindtest/3rd-gen
+  x /blindtest/4th-gen
+  x /blindtest/4th-gen-bg
+  x /blindtest/4th-gen-gg
+  x /blindtest/b-sides
+  x /blindtest/boy-groups
+  x /blindtest/bridge-or-break
+  x /blindtest/classic
+  x /blindtest/girl-groups
+  x /blindtest/group-2ne1
+  x /blindtest/group-akmu
+  x /blindtest/group-apink
+  x /blindtest/group-btob
+  x /blindtest/group-chungha
+  x /blindtest/group-day6
+  x /blindtest/group-dreamcatcher
+  x /blindtest/group-fx
+  x /blindtest/group-hyuna
+  x /blindtest/group-ikon
+  x /blindtest/group-iu
+  x /blindtest/group-jennie
+  x /blindtest/group-jimin
+  x /blindtest/group-jungkook
+  x /blindtest/group-kara
+  x /blindtest/group-kep1er
+  x /blindtest/group-miss-a
+  x /blindtest/group-nct-127
+  x /blindtest/group-nct-dream
+  x /blindtest/group-nmixx
+  x /blindtest/group-pentagon
+  x /blindtest/group-psy
+  x /blindtest/group-rose
+  x /blindtest/group-sistar
+  x /blindtest/group-stayc
+  x /blindtest/group-sunmi
+  x /blindtest/group-t-ara
+  x /blindtest/group-taeyang
+  x /blindtest/group-taeyeon
+  x /blindtest/group-the-boyz
+  x /blindtest/group-treasure
+  x /blindtest/group-v-bts
+  x /blindtest/group-winner
+  x /blindtest/group-wonder-girls
+  x /blindtest/group-zico
+  x /blindtest/intro-challenge
+  x /blindtest/kpop-legends
+  x /blindtest/random-all
+  x /blindtest/recent-hits
+  x /blindtest/solo-artists
+  x /blindtest/speed-round
+  x /blindtest/title-tracks
+  x /blindtest/verse-only
+  x /data/pulse/2026-07
+  x /games/name-all/name-all-babymonster
+  x /games/name-all/name-all-got7
+  x /games/name-all/name-all-nct-dream
+  x /games/name-all/name-all-nmixx
+  x /games/name-all/name-all-treasure
+  x /guess-the-kpop-idol
+  x /kpop-quiz-2026
+  x /most-liked
+  x /new
+  x /trending
+
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.

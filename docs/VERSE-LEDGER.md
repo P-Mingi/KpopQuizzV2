@@ -3376,3 +3376,71 @@ on every deploy. Every other dateModified in src/ is a real column.
 Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:metadata-dupes
 unchanged (8 groups, 0 non-verse skips). Proofs: docs/proofs/w7-clusters/FINDINGS.md,
 docs/proofs/w9-freshness/FRESHNESS.md. Nothing pushed.
+
+L-192 (W7 audit PASS - it shipped nothing, correctly; orphan CLASS fix ordered)
+  Best report of the arc, and it shipped zero code on W7. The audit argued against its own
+  mission: 120/120 sampled quiz pages already link back to their group hub with varied
+  anchors, /bts-quiz emits 93 links with 81 DISTINCT anchor texts. A related-links module
+  is the fix for a thin graph with repeated exact-match anchors; this graph is neither, so
+  adding one would have made it noisier, not stronger. Handing over numbers instead of a
+  module is the right call and Cowork accepts it.
+  W9b was the standout find. `quizzes.updated_at` is bumped by record_play() on every
+  play - Cowork verified the SQL directly at supabase/migrations/002_functions.sql:33
+  (`UPDATE public.quizzes SET play_count = play_count + 1, ... updated_at = NOW()`). Using
+  it would have printed "Updated August 2026" on every group anyone happened to play,
+  including ones whose newest quiz is four months old: today's date wearing a database
+  column as a costume. It used the newest published quiz's created_at instead, and
+  /astro-quiz honestly says "Updated April 2026". It also found an anti-pattern ALREADY
+  LIVE: group-trivia-page.tsx shipped dateModified: new Date().toISOString(), telling
+  crawlers all 24 trivia pages changed on every deploy.
+  Three honest self-corrections recorded, including a zsh glob failure that printed its
+  own "clean" fallback - an unearned pass it re-ran properly and flagged as luck.
+  OWNER ASKED FOR ANOTHER WAY on the 11 orphans and chose Cowork's. Cowork found the
+  cause the audit could not see: there is NO all-groups directory, and the only global
+  group surfaces are capped (home-group-rail slice(0,10), pills slice(0,13)) against 37
+  groups with quizzes. 27 appear on no global surface and depend on a hand-curated map, so
+  GROUP 38 WILL BE BORN AN ORPHAN TOO. RELATED_GROUPS treats instances; the class needs
+  structure.
+  New MISSION.md = W7b: an A-Z group directory (Cowork's own "no new URLs" rule
+  deliberately suspended for it - that rule exists to stop minting pages for crawlers, and
+  a browse-all-groups index is a page humans want), a "see all groups" link from the home
+  rail so the directory is not itself an orphan, and an ORPHAN CI GATE that fails the
+  build when a sitemap URL has zero internal inbound links, proven RED then GREEN and
+  honest about its crawl boundary. Fix the class, not the instances. Nothing pushed.
+
+## L-184 - W7b: the A-Z group directory (/groups) + the orphan gate (2026-08-16)
+
+Cowork rejected my RELATED_GROUPS curation recommendation and was right: the cause of the
+11 orphaned group hubs is structural, not instance-level. The only global surfaces listing
+groups are capped (home rail slice(0,10), pills slice(0,13)) against 37 groups, so 27
+depended on hand curation and group 38 would have been born an orphan.
+
+NEW: /groups, an A-Z directory of every group with >=1 published quiz. 37/37, each linked
+EXACTLY once (37 link instances for 37 hubs), 0 missing / 0 extra vs SQL. Indexable, in
+the sitemap, allowlisted. COUNT SOURCE: groups.quiz_count is denormalised and counts
+unpublished rows, wrong on 4 of 37 (bts 30 vs 27, blackpink 27 vs 22, stray-kids 27 vs 26,
+artms 5 vs 4); the directory computes from published rows via fetchAllRows, so it shows
+the true number. Generation is a per-row tag shown ONLY where recorded (7 groups show no
+tag rather than a guess). Rendered generation as a tag instead of a second "by generation"
+section because a second section = a second link to all 37 hubs on one page, and the
+mission said each linked once.
+
+Home rail + pills "see all" now point at /groups ("All K-pop groups") instead of /quizzes.
+
+NEW GATE: scripts/check-orphans.mts + `npm run check:orphans`. Crawls served HTML of a
+running server, FAILS when a sitemap URL has zero inbound internal links, names every
+offender by URL, and prints the crawl boundary (a sampled crawl is a FLOOR on inbound
+links, not a proof of zero). ORPHANCHECK_SCOPE is a ratchet: inbound links are always
+counted from the FULL crawl, scope only narrows what is asserted, so a scoped run cannot
+manufacture a pass. Proven RED (71 before, 7 group hubs among them) -> 64 after with ZERO
+group hubs, GREEN scoped to ^/[a-z0-9-]+-quiz$, and still RED on that same scope with an
+injected orphan.
+
+THE GATE'S FIRST-RUN FINDING (BLOCKED.md w7b-orphans): 64 orphans remain in classes this
+mission did not scope. Biggest is 53 blindtest playlists, cause CONFIRMED: /blindtest
+serves 45 links and ZERO point at any /blindtest/ playlist. Plus 5 name-all playlists and
+6 landing pages. Not fixed: outside stated scope, and it is an index-page design change.
+
+Gates: tsc 0, build 0, check:routes 0, check:indexability 0 (running server),
+check:metadata-dupes unchanged (8 groups, 0 non-verse skips, /groups in none).
+Proofs: docs/proofs/w7b-directory/. Nothing pushed.
