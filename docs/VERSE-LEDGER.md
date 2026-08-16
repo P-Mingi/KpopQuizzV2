@@ -3161,3 +3161,53 @@ L-187 (W4 PASS with one open defect; the backlink is real and proven host-side)
   that was moved; and check:indexability was run BEFORE the layout change, not after
   (the change adds no route and alters no metadata, but it was not re-run).
   Gates tsc 0 / build 0 / check:routes 0.
+
+L-188 (W4b item 1 PASS - chrome defect closed, and the worker overruled its own plan)
+  The defect is closed. Cowork verified in code and in the rendered DOM:
+  components/layout/site-chrome.tsx returns <>{children}</> on /embed - a real empty
+  return, not a CSS hide - and usePathname is available to client components during SSR,
+  so the chrome is never in the embed's HTML at all. DOM counts: embed 0 nav / 0 header /
+  0 footer / 0 tabBar; home and /q/<slug> unchanged. Served HTML byte-identical on every
+  counter across the three normal pages before and after. The regression risk Cowork
+  flagged hardest is the one it proved hardest.
+  THE JUDGEMENT WORTH RECORDING: the worker had proposed the route group and Cowork had
+  approved it. On checking BEFORE acting, it found the proposal wrong - a second root
+  layout only works in Next when EVERY route lives in a group, since app/layout.tsx is
+  root for everything while it exists, so doing it properly means relocating all ~60
+  routes to serve one widget. That is exactly the "do not regress the site to fix the
+  widget" risk the mission named. It overruled its own plan, took the contained path, and
+  said so plainly. If the route group is ever wanted it is a deliberate refactor with its
+  own regression budget, not a side effect of the widget.
+  Items 2 (theming, accepted but ignored), 3 (partner attribution log), 4 (generator page)
+  remain; item 5 (desktop screenshot) is done. MISSION.md re-scoped to 2-4 with an
+  explicit instruction not to revisit item 1 or the route group. Nothing pushed; 26
+  commits local.
+
+- L-180 W4b ITEMS 2+4 DONE, ITEM 3 BLOCKED (worker, 2026-08-16). The widget is complete
+  apart from the partner log.
+  ITEM 2 THEMING (spec s8): ?theme / ?accent / ?bg implemented with every input
+  validated. The hex is REBUILT from a regex capture rather than passed through, so only
+  [0-9a-f] can reach the stylesheet, and only two tokens are exposed so a partner cannot
+  repaint arbitrary parts of the widget. Proven: no params -> light + transparent;
+  theme=dark -> class "embed-page dark"; theme=BOGUS -> falls back to light;
+  accent=00ff88 and accent=ff0 -> --brand set; accent=red);} (injection try) and
+  accent=zzzzzz -> IGNORED; bg=101010 -> background:#101010. A malformed URL renders the
+  default widget, never a broken one.
+  ITEM 4 GENERATOR (spec s10): /admin/embed - pick a quiz, partner key, theme, copy.
+  Lives under /admin so it INHERITS noindex + sitemap absence rather than needing a new
+  rule. The UI is a thin shell over the tested buildEmbedSnippet(), so it cannot produce
+  a block that function would not, and cannot produce one without the outside-iframe <a>
+  (verified in the rendered page: "on kpopquiz.org" + "kpopquiz-embed" both present).
+  ITEM 3 BLOCKED (BLOCKED.md w4b-item3): no table exists to write partner views into
+  (embed_views / embed_log / partner_embeds / share_events / events all absent) and no
+  existing table is an appropriate home - putting embed impressions into plays or
+  game_plays would corrupt the counts feeding /stats and the W5 data-PR play, the exact
+  asset the covenant protects. The entry carries the exact CREATE TABLE, three options,
+  and the recommendation: rely on the utm tags now, apply the table when a real partner
+  exists. Stated plainly in the report that this is the one W4b item the worker would not
+  build today even if the DDL were free.
+  Gates tsc 0 / build 0 / check:routes 0 / check:indexability 0 (embed still absent from
+  the sitemap). Covenant grep clean. FLAGGED, carried from L-179 and NOT fixed: the
+  floating theme circle still renders inside the iframe (outside the chrome block, needs
+  its own gate); the generator shows snippet text with no live preview; theming is proven
+  by served HTML (class + custom properties), not by a screenshot of a dark widget.
