@@ -1,0 +1,22 @@
+<!-- kpopquiz.org quiz embed -->
+<div class="kpopquiz-embed-wrap" style="max-width:680px;margin:24px auto;">
+  <p style="font:14px/1.4 sans-serif;margin:0 0 8px;">
+    Quiz: <a href="http://localhost:3021/q/blackpink-world-records-and-achievements?utm_source=testpartner&utm_medium=embed&utm_campaign=widget">BLACKPINK world records and achievements on kpopquiz.org</a>
+  </p>
+  <iframe
+    id="kpopquiz-embed"
+    src="http://localhost:3021/embed/q/blackpink-world-records-and-achievements?partner=testpartner&theme=light"
+    title="BLACKPINK world records and achievements - K-pop quiz"
+    loading="lazy"
+    style="width:100%;min-height:420px;border:0;display:block;"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <script>
+    window.addEventListener('message',function(e){
+      if(e.origin!=='http://localhost:3021')return;
+      if(e.data&&e.data.type==='kpopquiz:resize'){
+        var f=document.getElementById('kpopquiz-embed');
+        if(f)f.style.height=e.data.height+'px';
+      }
+    });
+  </script>
+</div>

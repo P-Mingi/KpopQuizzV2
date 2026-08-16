@@ -1,0 +1,24 @@
+=== W4 headers: /embed is frameable, the rest is not ===
+# 2026-08-15T16:15:28Z
+
+--- /embed/q/blackpink-world-records-and-achievements ---
+Content-Security-Policy: frame-ancestors *
+
+--- /q/blackpink-world-records-and-achievements ---
+Content-Security-Policy: frame-ancestors 'self'
+X-Frame-Options: SAMEORIGIN
+
+<meta name="robots" content="noindex, follow"
+rel="canonical" href="https://kpopquiz.org/q/blackpink-world-records-and-achievements"
+
+=== 7. covenant grep on the W4 diff ===
+  +lines matching faker          : 0
+  +lines matching fake           : 0
+  +lines matching synthetic      : 0
+  +lines matching dummy          : 0
+  +lines matching placeholder    : 0
+  +lines matching played by      : 0
+  +lines matching Math.random    : 0
+
+The snippet interpolates only the real slug and title. No counts are printed in it,
+so there is nothing to inflate.

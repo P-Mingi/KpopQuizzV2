@@ -6767,3 +6767,12 @@ main:has(.verse-page) { max-width: none; }
   padding: 8px 12px; border: none; background: none; color: var(--txt3);
   font-size: 13px; cursor: pointer;
 }
+
+/* W4 - the embed shell. Transparent by default so the widget takes the colour of the
+   partner's page, with a min-height so their layout does not shift before the resize
+   message lands (CLS on their page is our responsibility too). */
+.embed-root { background: transparent; }
+.embed-page { min-height: 420px; padding: 8px 10px 14px; }
+.embed-credit { margin: 10px 0 0; text-align: center; font-size: 12px; }
+.embed-credit a { color: var(--txt3); text-decoration: underline; }
+.embed-credit a:hover { color: var(--brand); }

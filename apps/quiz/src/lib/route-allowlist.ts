@@ -16,6 +16,10 @@ export const KNOWN_ROUTES = [
   // (the public quiz view) and '/quizzes' (browse). It self-gates to the
   // creator/admin server-side.
   '/quiz/',
+  // W4: the embeddable widget. Prefix match, because every /embed/q/<slug> must be
+  // reachable; without this the middleware 301s every embed to the home page and the
+  // partner's iframe silently shows our homepage.
+  '/embed/',
   '/', '/q/', '/g/', '/games', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/rankings',

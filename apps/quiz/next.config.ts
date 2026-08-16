@@ -80,6 +80,39 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  // W4 - framing policy, set deliberately because the site had NO anti-clickjacking
+  // header at all before this.
+  //
+  //   /embed/*      frameable by anyone. That is the product: partners put the widget
+  //                 on their own pages. The page reads no cookies and exposes no user
+  //                 data, so framing it is safe.
+  //   everything    frame-ancestors 'self' + X-Frame-Options SAMEORIGIN. The rest of
+  //   else          the site is now explicitly NOT frameable by third parties, which
+  //                 it previously was by omission.
+  //
+  // Order matters: the more specific /embed rule is listed first.
+  async headers() {
+    return [
+      {
+        source: '/embed/:path*',
+        headers: [
+          { key: 'Content-Security-Policy', value: 'frame-ancestors *' },
+        ],
+      },
+      {
+        // Everything EXCEPT /embed. Next applies every matching rule, so a plain
+        // '/:path*' here also matched /embed and the restrictive value won: the
+        // widget was unframeable, which is the one thing it must not be. The
+        // negative lookahead keeps the two policies from overlapping at all.
+        source: '/((?!embed/).*)',
+        headers: [
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
