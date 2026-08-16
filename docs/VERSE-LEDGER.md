@@ -3262,3 +3262,59 @@ L-189 (W4b items 2+4 PASS; item 3 correctly declined; W8 answer-first next)
   passthrough path, but it is the file that 301s unknown routes, so it is named not
   buried); check:metadata-dupes not re-run because nothing here touches a title or a
   description. Gates tsc 0 / build 0 / check:routes 0 / check:indexability 0.
+
+L-190 (W4 CLOSED - and Cowork's own audit missed the RSC payload leak)
+  Two corrections from the worker, both accepted. (1) The floating circle it flagged twice
+  as site furniture was the Next DEV-MODE indicator, which does not exist in a production
+  build. Gating it would have been a fix for nothing - it checked before building.
+  (2) The real defect underneath was its own: the previous item-1 fix passed the chrome
+  as a PROP to a client component, so React serialised the entire chrome tree into the RSC
+  payload. Nothing rendered, but a partner's iframe still downloaded a nav it would never
+  show. Unrendered is not absent.
+  COWORK MISS, recorded honestly: Cowork approved that fix after verifying
+  site-chrome.tsx returns <>{children}</> on /embed. The check was correct and
+  insufficient - in RSC a prop is evaluated and serialised by the SERVER before the client
+  component ever decides not to render it. Cowork audited "does it render", not "is it in
+  the payload". STANDING RULE for both parties from now on: anything that must be ABSENT
+  is proven against the served HTML of a PRODUCTION build, never against what renders.
+  This is the same failure class the worker itself named earlier - proving the arithmetic
+  without proving the premise.
+  The fix moved the decision to the server: middleware forwards x-pathname, the root
+  layout never builds the chrome tree for /embed/*, a missing header falls back to
+  rendering the chrome (safe default for the site), the client component is deleted.
+  Verified on a production build: embed 0 theme-toggle / 0 mobile-tab; /, /quizzes and
+  /q/<slug> unchanged. W4 is closed.
+  MISSION.md re-scoped to W8 alone (answer-first block, literal question headings, query
+  fan-out as self-contained chunks), which the worker deliberately did not start rather
+  than land a partial block without its per-group proofs. Nothing pushed; 30 commits local.
+
+- L-182 W8 ANSWER-FIRST SHIPPED (worker, 2026-08-16). The AEO lever from
+  PLAY-GEO-AEO-AUDIT G2, on /{slug}-quiz AND /{slug}-trivia, both using the SAME module
+  so the two pages cannot drift into different answers for one group.
+  RENDERS (TWICE, production build): a 47-word lead, inside the 40-60 window, plus 6
+  chunks each headed by the literal question a fan types (how many members / fandom /
+  generation / where from / what label / how many blindtest songs). Each answer repeats
+  the group name so a lifted chunk still says what it is about. Every value is a DB
+  column or a live count and the proof lists each beside its SQL. TWICE has no
+  inception_date, so NO debut sentence and NO debut question render - omitted, not
+  guessed.
+  TWO FINDINGS ONLY RENDERING COULD PRODUCE: (1) fandom_name is the literal string "fan"
+  on 7 groups (akmu, loona, cortis, kickflip, general-kpop, loossemble, artms) - a typed
+  placeholder, so the page was publishing "Their fandom is called fan", a real value
+  rendered as a non-answer; those are now treated as ABSENT (known placeholders only, a
+  real name is never rewritten). (2) the min-gate was too loose: with no chunks the lead
+  degraded to "Cortis is a K-pop group. On kpopquiz.org you can play 5 quizzes", which
+  answers nothing and repeats the intro already on the page, so the whole block is now
+  withheld unless at least one real fact exists (Cortis renders NOTHING).
+  seo_intro rides in this block; W2 PART D untouched (additive on page, still out of the
+  meta description).
+  GATE THAT MATTERED: check:metadata-dupes UNCHANGED - FAILED with the SAME 8 collision
+  groups before and after (1 duplicate-quiz pair + 7 verse), 0 non-verse skips, no new
+  collision, so enriching bodies provably touched no title or description. Also tsc 0 /
+  build 0 / check:routes 0 / check:indexability 0.
+  METHOD NOTE worth carrying: the first covenant grep was a FALSE CLEAN because it ran
+  through `git diff`, which never saw the new files (untracked). A diff-based grep proves
+  nothing about files not yet added; redo it against the files themselves.
+  FLAGGED: coverage is uneven (of 37 groups with quizzes, inception_date 17, origin 20,
+  label 20, generation 30), so the lever lands hardest where data already exists and 7
+  sparse groups show no block at all - honest, but it means the win is not uniform.

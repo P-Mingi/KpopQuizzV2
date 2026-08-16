@@ -1,78 +1,78 @@
-# REPORT - W4b PART 1 closed properly. PART 2 (W8) not started.
+# REPORT - W8 answer-first shipped on the group quiz and trivia pages.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
-No DDL run. Nothing pushed. Verse untouched.
+No DDL run. Nothing pushed. Verse untouched. PART 1 was already closed and was not reopened.
 
-Gates: `npx tsc --noEmit` -> **0** · `npm run build` -> **0** · `check:routes` -> **0** ·
-`check:indexability` -> **0**.
+Gates: `npx tsc --noEmit` -> **0** - `npm run build` -> **0** - `check:routes` -> **0** -
+`check:indexability` -> **0** - `check:metadata-dupes` **unchanged** (see below).
 
-Commit: `0f5ef7d`. Proofs: `docs/proofs/w8-answer-first/part1-theme-circle.txt`.
-
-**PART 1 only. W8 was not started.**
+Commit: `78810a4`. Proofs: `docs/proofs/w8-answer-first/answer-first.txt`.
 
 ---
 
-## PART 1: the flag was right, but not for the reason I gave
+## What renders (TWICE, production build)
 
-**The floating circle is not ours.** Zero theme toggles and zero fixed-position elements
-render in the embed DOM. The circle in my screenshot was the **Next dev-mode indicator**,
-which does not exist in a production build. I flagged it twice as site furniture; it was
-never our element, and gating it would have been a fix for nothing.
+**Lead, 47 words, inside the 40-60 window:**
 
-**But there was a real defect underneath it, and it was mine.** My item-1 fix passed the
-chrome to a client component as a prop. It rendered nothing, but React **serialised the
-whole chrome tree into the RSC payload**, so a partner's iframe still downloaded a nav it
-would never show. Measured on a production build, the embed HTML carried a `theme-toggle`
-reference. Unrendered is not absent, and you asked for absent.
+> TWICE is a K-pop group with 9 members. Their fandom is called ONCE. TWICE belongs to
+> the 3rd Gen of K-pop. The group is from South Korea. On kpopquiz.org you can play 14
+> free fan-made TWICE quizzes. 18 of their songs are playable in the blind test.
 
-### The fix
+**Six chunks**, each headed by the literal question a fan types: how many members, what
+the fandom is called, what generation, where they are from, what label, how many songs
+in the blind test. Each answer repeats the group name, so a chunk lifted alone still
+says what it is about.
 
-The decision moved to the **server**. Middleware forwards the pathname as `x-pathname`;
-the root layout reads it and never builds the chrome tree for `/embed/*`. A missing
-header falls back to rendering the chrome, which is the safe default for the site. The
-client component is deleted.
+The proof file lists every value beside the SQL that produces it. **TWICE has no
+`inception_date`, so the page shows no debut sentence and no debut question** rather
+than guessing a year.
 
-```
-PRODUCTION BUILD, served HTML:
-  /embed/q/<slug>   theme-toggle 0   mobile-tab 0
-  /q/<slug>         theme-toggle 2   mobile-tab 0
-  /quizzes          theme-toggle 2   mobile-tab 1
-  /                 theme-toggle 2   mobile-tab 1
-```
+Both pages use the same module, so `/twice-quiz` and `/twice-trivia` cannot drift into
+different answers for the same group.
 
-Zero on the embed, unchanged on every normal page. W4 is closed.
+## Two things only rendering it could have found
 
-## PART 2 (W8 answer-first): not started
+1. **`fandom_name` is the literal string "fan" on 7 groups.** A placeholder someone
+   typed, not a fandom. The page was publishing "Their fandom is called fan": a real
+   value rendered as a non-answer. Those are now treated as absent. Known placeholders
+   only; a real name is never rewritten or guessed.
+2. **The min-gate was too loose.** With no chunks the lead degraded to "Cortis is a
+   K-pop group. On kpopquiz.org you can play 5 quizzes", which answers nothing and
+   repeats the intro already on the page. The block is now withheld entirely unless at
+   least one real fact exists, so Cortis renders nothing rather than a 15-word
+   non-answer.
 
-I did not begin it. It is the larger half of this mission and it deserves a run where I
-can do 2a, 2b and 2c together with the per-group proofs you asked for, including the
-missing-value case, rather than a partial block landed without them.
+## The gate that mattered here
 
-Nothing about it is blocked: the data it needs (member count via the name-all game,
-debut, fandom name, quiz count, generation) all exists, and the group with no generation
-is already handled correctly elsewhere in the code.
+`check:metadata-dupes` is **unchanged**: FAILED with the same 8 collision groups before
+and after (1 duplicate-quiz title pair, the open BLOCKED.md item, plus 7 pre-existing
+`/verse` groups), 0 non-verse skips, no new collision. Enriching bodies did not touch a
+single title or description.
 
 ## Deviations and flags (loud)
 
-1. **I reported the circle as a real defect twice.** It was a dev artifact. The lesson is
-   the same one from last run, in reverse: I trusted a screenshot over a DOM probe. The
-   probe said zero fixed elements and I should have believed it the first time.
-2. **The middleware now sets a header on every request.** It is one `Headers` copy on the
-   passthrough path, but it is a change to the file that 301s unknown routes, so it is
-   worth naming explicitly rather than burying.
-3. `check:metadata-dupes` was not re-run. Nothing in this change touches a title or a
-   description, and W8 (which would) was not started.
+1. **My first covenant grep was a false clean.** It ran through `git diff`, which never
+   saw the new files because they were untracked. Redone against the files themselves,
+   which is where the two `around` / `approximately` hits turned out to be one comment
+   stating the rule. Worth carrying: a diff-based grep proves nothing about new files.
+2. **Sparse groups get less, by design.** Of 37 groups with quizzes, `inception_date`
+   covers 17, `origin_country` 20, `record_label` 20, `generation` 30. Those pages show
+   fewer chunks, and 7 with a placeholder fandom and no members show no block at all.
+   That is the honest outcome, not a bug, but it does mean the lever lands hardest on
+   the groups that already have data.
+3. **The 40-60 word window is met where data allows.** TWICE lands at 47. A sparse group
+   would fall short, which is why the block is withheld instead of padded.
 
 ## Covenant
 
-No invented number, no synthetic value, nothing approximated. This change only removes
-markup.
+Every rendered value is a DB column or a live count. No hedging words, no estimates, no
+invented numbers, and the 7 groups with no generation are not guessed at.
 
 ## Next
 
-W8 in full: the answer-first block, question headings and the fan-out chunks, with the
-missing-value proof.
+Nothing outstanding on W8. The remaining open items across the arc are the duplicate
+SEVENTEEN quiz (BLOCKED.md, yours) and the partner log (BLOCKED.md, agreed to defer).
 
 ---
 
-STOP (checkpoint). **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed.** report pret.
