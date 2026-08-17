@@ -1,116 +1,86 @@
-# REPORT - W5 PART 1b: the window now closes, and the two figures are measured on it.
+# REPORT - GRAPHIFY TRIAL: BLOCKED. The tool is not installed on this machine.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every gate run. Read-only against the database: no DDL, no writes, **nothing pushed**.
+before every check. No application code, no DDL, no database writes, **nothing pushed**.
 
-Output: section **R** appended to `docs/data/w5-dataset.md`. Sections 0 through Q untouched.
-Proofs: `docs/proofs/w5-part1b/`.
+Blocker: `graphify-trial` in BLOCKED.md. Proof: `docs/proofs/graphify-trial/not-installed.txt`.
 
 ---
 
-## PART 2 first, because it decides PART 1
+## The mission's premise does not hold
 
-**The snapshot instant is recoverable and exact.** Section A already recorded it as the
-newest play at the time, and closing the window there reproduces section N to the row:
+It opens "The owner installed Graphify". Every check says otherwise:
 
-    where created_at >= '2026-05-01T00:00:00+00:00'
-      and created_at <= '2026-08-17T12:30:50.619691+00:00'
+    graphify binary     not on PATH; absent from ~/.local/bin, ~/.cargo/bin,
+                        /opt/homebrew/bin, /usr/local/bin
+    uv                  NOT INSTALLED - and it is the README's recommended installer
+    pipx                present, holds only certbot
+    python package      import graphify -> ModuleNotFoundError
+                        pip show graphifyy -> not found
+    skill registration  none under ~/.claude/skills; the project's 12 skills include
+                        no graphify; no mention in ~/.claude/settings.json or CLAUDE.md
+    build artefact      no graphify-out/ or .graphify/ in the repo
 
-    usable in-window plays at that boundary : 17,425
-    section N published                     : 17,425
-    match                                   : EXACT
+Nine checks, all negative. There is no version of this trial I can run and report honestly.
 
-**One thing I did not expect, and it matters for exactly the reason this mission exists.**
-Section A prints that timestamp truncated to the second, `2026-08-17T12:30:50Z`, and the
-newest play sits at `.619691` inside that second. So a journalist who copies the timestamp
-we published and applies `<=` gets **17,424**, not 17,425, and concludes our headline number
-is wrong by one.
+## Why I did not install it myself
 
-| boundary | attempts | vs N |
-| --- | --- | --- |
-| full precision `.619691` | 17,425 | exact |
-| as printed in section A | 17,424 | **-1** |
-| `12:30:51Z` | 17,425 | exact |
-| window left open (today) | 17,435 | +10 |
+Three reasons, and I would rather state them than have the block read as fussiness.
 
-Section R states the full-precision value as canonical and says the printed one does not
-reproduce. The +10 is confirmed as ten attempts played after the snapshot inside an open
-window, not drift and not an error. With the edge fixed, the number stops moving.
+1. **It is the owner's call and the bus said so.** The previous mission listed "whether to
+   trial Graphify" under *waiting on the owner*. A mission that assumes the decision was
+   taken does not itself take it.
+2. **I was blocked from this last session.** The permission classifier refused even the
+   prerequisite check (`python3 --version`, `uv --version`), and the instruction on that
+   refusal is to stop and explain rather than route around it. Installing is a larger action
+   than the one already denied.
+3. **The install is three steps here, not two.** `uv` is absent, so the README's recommended
+   path needs `brew install uv` first. `pipx install graphifyy` avoids that, since pipx
+   already works. Either way it puts a new tool on the machine, which is not mine to decide.
 
-## PART 1 - the two figures, on exactly section N's basis
+## What unblocks it
 
-Denominator **17,425**, same window, same usable-play definition from section 0c:
+    pipx install graphifyy      # pipx is already installed; avoids adding uv
+    graphify install            # registers the skill with Claude Code
 
-| | count | share |
-| --- | --- | --- |
-| perfect (`score = total_questions`) | **6,257** | **35.9%** |
-| zero (`score = 0`) | **109** | **0.6%** |
+Then re-issue the trial unchanged. **The answer key is good and I would rather run it than
+rewrite it** - questions 1 to 4 are all facts this session established by measurement, and
+question 4 is the one that matters, because a code-graph tool asserting a working relationship
+between `songs` and `blind_test_songs` would be confidently wrong about the exact thing that
+froze the per-song stats.
 
-Perfect scores are **1 in 2.78** attempts, not one in five.
+## The one part of the mission I can answer without the tool
 
-For comparison, kept in R3 rather than buried: all history is 20.6% and 2.1% on 59,417
-attempts. The two bases differ by **15.3 points** on perfect scores and 1.5 on zero. Section
-G5 is not withdrawn; it is correct for all history, and R2 is the pair that belongs to the
-report's window.
+You asked whether `graphify-out/` belongs in `.gitignore`, and to be explicit rather than let
+it land by accident. **It should be gitignored.**
 
-Sections A through Q were **not** recomputed, per your instruction.
-
-## PART 3 - untouched
-
-`git status` on both paths is empty: no edit to
-`apps/quiz/src/app/data/knowledge-report-2026/` and none to `docs/PLAY-W5-REPORT-DRAFT.md`.
-The page still serves v3 prose with the two wrong figures in it, which is the correct state
-until you write v4.
-
-## The thing I had to rebuild, and why it is worth knowing
-
-The dataset route reads the markdown at **build time**, which is the property you approved
-and it is the right one. It also means **appending section R did not publish it**: the
-running build kept serving the 52,416-byte pre-R file while the repo held 55,653 bytes.
-
-Rebuilt, and re-verified: the served dataset is now **byte-identical to
-`docs/data/w5-dataset.md` at 55,653 bytes**, carries section R, and serves the 6,257 count
-and the 35.908% precise share.
-
-The general form: **a dataset edit is not live until the app is rebuilt.** Worth stating
-because the next person to correct a figure will assume the file is the publication.
-
-## Gates, cwd printed before each
-
-`check:docs-secrets` **0** · `check:routes` **0** · `check:indexability` **0** ·
-`check:orphans` **0** (706 non-verse URLs, complete crawl, floor 706 vs 600) ·
-`check:metadata-dupes` **unchanged** at 8 collision groups with `knowledge-report` in **0**
-of them. `tsc` **0**, run as a no-regression check although no application code changed.
-
-## On the two errors
-
-For the record, since you called them yours: the perfect-score one was catchable only by
-recomputing rather than reading the figure back, and the catalogue-range one was catchable
-only by counting the rows the sentence claimed. Both are the same check, and it is the check
-this loop keeps proving is worth the minute it costs. The half-fix point is the sharper
-lesson of the two: correcting one clause and leaving the other made a sentence that reads
-as reviewed.
+It is a derived artefact of a codebase that changes every commit, so a tracked copy is stale
+the moment anyone merges. We inverted `docs/` to track-by-default two days ago precisely
+because deny-by-default made *humans* responsible for freshness and they were not - but that
+inversion came with `check:docs-secrets` making the safety property automatic. A tracked
+graph has the mirror problem with no equivalent gate: nothing would tell you it had gone
+stale, and a stale graph nobody notices is the exact failure mode this trial exists to test
+for. If it is ever tracked, it needs a freshness gate, not a habit.
 
 ## Deviations and flags (loud)
 
-1. **Section R adds a fifth basis to a file that already has several.** The dataset now
-   carries all-history figures, May-Aug figures, the canonical-window figures, and per-period
-   splits. R3 states plainly which pair belongs to the report so v4 cannot pick the wrong
-   one, but the file is getting easy to misread and that risk grows with each pass.
-2. **The canonical boundary applies to R only, by instruction.** Sections A to Q were
-   measured against the open window, so a reader reproducing, say, section L exactly could
-   land a play or two off. Stated in R1 rather than fixed, because recomputing them is what
-   you told me not to do and ten plays do not justify it.
+1. **I did not write the .gitignore entry.** The mission's scope is the trial, the directory
+   does not exist yet, and adding a rule for an artefact no tool produces would be tidying
+   something I noticed rather than executing what was asked. The recommendation is above and
+   it is one line whenever it is wanted.
+2. **Nine checks is more than it took to know.** The first three settled it. I ran the rest
+   because "not installed" is the kind of claim that gets challenged, and I would rather the
+   block cite a table than an impression.
 
 ## Covenant
 
-Every figure in section R carries its query, its denominator and its boundary. The
-boundary was tested four ways rather than assumed, which is what found the off-by-one in our
-own published timestamp.
+Nothing was installed, nothing was configured, and no verdict was invented about a tool I
+could not run. There is no partial grade in this report because a partial grade of an
+uninstalled tool is a fabrication.
 
 ## Next
 
-Section R exists, so v4 can be written. The page still needs a later mission to take it.
+Two commands and the trial runs as written.
 
 ---
 

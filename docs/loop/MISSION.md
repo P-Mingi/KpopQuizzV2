@@ -1,63 +1,80 @@
-# MISSION (W5 PART 1c - take v4 onto the page. NO push.)
+# MISSION (GRAPHIFY TRIAL - grade a new tool against facts we already proved. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-PART 1b is Cowork-approved (62733b7). `origin/main` is at `fab3911`; every commit from here
-is one push from production. No DDL, no database writes, no push.
+W5 PART 1c is Cowork-approved (c12222e). 3 commits local, nothing pushed. Verse PAUSED.
+**No application code, no DDL, no database writes, no push.**
 
-## WHAT YOU FOUND, AND WHY IT IS THE BEST CATCH OF THE WORKSTREAM
-You did not just measure the two figures. You tested the boundary four ways and found that
-**the timestamp we publish does not reproduce the number we publish**: section A prints the
-instant truncated to the second, the newest play sits at `.619691` inside it, so a reader
-copying our own timestamp with `<=` gets 17,424 and concludes our headline is off by one.
+## WHY THIS EXISTS
+The owner installed Graphify and wants it used as a standing tool. Standing use is the
+heaviest thing this project grants: we have given "always" to exactly three gates, and each
+one we proved red and then green before believing it. A tool that answers architecture
+questions gets the same treatment, because the failure mode of a code-graph tool is not
+crashing - it is confidently returning an edge that does not exist, which is the most
+expensive kind of wrong for something we would then trust by default.
 
-The entire pitch is "here are our figures, here are the queries, check us". A reader who
-checks us and lands one short is worse than a reader who never checks. Nobody would have
-found that except by reproducing our own published method as an outsider would.
+We are in an unusually good position to test it. This session established hard facts about
+this codebase by measurement, not by reading. Those are the answer key.
 
-The rebuild note is the other one worth keeping: **a dataset edit is not live until the app
-is rebuilt**, because the route reads the markdown at build time. That property is correct
-and it is now a documented trap.
+## SETUP
+Build the graph **code-only, keyless**, as the skill describes. Do not point it at `docs/`
+on this run: we found personal addresses and Supabase org labels in tracked docs two days
+ago, and a first run is not the moment to widen the input.
 
-## THE JOB
-`docs/PLAY-W5-REPORT-DRAFT.md` is now **v4**. Take it onto
-`/data/knowledge-report-2026`, replacing the v3 prose.
+`graphify-out/` is a build artefact. Decide whether it belongs in `.gitignore` and say why;
+if you track it, say what stops it from rotting into a stale graph nobody notices. Given
+we just inverted `docs/` to track-by-default, be explicit rather than letting the new
+directory land by accident either way.
 
-Same rule as PART 1, and for the same reason: **ship it verbatim.** Do not add a number, a
-ranking or an example. Do not soften or shorten "What we cannot say". If a figure looks
-wrong, **BLOCK and name it** - that instruction has now caught three errors, two of them
-mine, and it is worth more than any speed it costs.
+## THE ANSWER KEY - grade it, do not describe it
+For each question below: ask the graph, record what it returns, then mark it **RIGHT**,
+**WRONG**, or **MISSING**. Where it distinguishes EXTRACTED from INFERRED, record which,
+because that distinction is the tool's own central claim and it is where it will fail first.
 
-What changed in v4, so you know what to look for:
-- the perfect and zero shares are now the window's own: 6,257 of 17,425, 35.9%, and 109 at
-  0.6%, replacing the all-history 20.6% and 2.1%
-- the window is described as a snapshot, with a sentence saying the exact boundary is in the
-  dataset and that a boundary rounded to the second lands one attempt short
-- the catalogue sentence now says 21 rows, 20 groups plus the general bucket, 3 to 27 quizzes
-  per group and 152 in the bucket
+1. **The blind test playlist definition.** `src/lib/blind-test-playlists.ts` exports
+   `getAdvertisablePlaylists`, and exactly three surfaces read it: the sitemap, the
+   `/blindtest` index page, and the picker via `getBlindtestGroups`. Does the graph find all
+   three consumers, and does it find that `getBlindtestGroups` is a delegating wrapper
+   rather than an independent rule?
+2. **The two Supabase clients in one file.** `src/app/sitemap.ts` calls
+   `createPublicReadClient` at two sites and `createServiceRoleClient` at one. Does the
+   graph separate them, or does it collapse them into "sitemap uses supabase"?
+3. **The duplicated read.** Before the `cache()` fix, `/blindtest/page.tsx` reached
+   `getAdvertisablePlaylists` twice in one `Promise.all`, once directly and once through
+   `getBlindtestGroups`. Can the graph show that two paths from one page reach one function?
+4. **A relationship that is NOT in the code.** `songs` and `blind_test_songs` have
+   completely disjoint id spaces - 4,120 against 349, intersection zero - and
+   `/api/blind-test/play` joins them anyway, which is why per-song stats froze. Ask the
+   graph about the relationship between those two tables. **The correct answer is that it
+   cannot know**: the disjointness is a property of the data, not of the source. If it
+   asserts a working relationship, that is the finding, and it is the one that decides
+   whether this tool can be trusted by default.
+5. **One question I did not seed.** Pick something about this codebase you do not already
+   know, ask the graph, then verify the answer by reading the code. Report whether the graph
+   saved you time or sent you somewhere wrong. This is the only test that measures the thing
+   we would actually be buying.
 
-## THE PART THAT IS NOT COPY-PASTE
-The report now tells the reader the exact boundary is in the dataset. **Make that true.**
-Section R has to be findable by someone who lands on the raw markdown and searches for it -
-not buried as a line in the middle of a 55KB file with no way in. How you do that is yours;
-the test is that a journalist who reads the sentence in the report can get to the value in
-under a minute.
+## THE VERDICT I WANT
+Not a score out of five. Answer three questions in plain terms:
+- What is it faster at than grep, concretely, with an example from the run?
+- Where did it mislead you, if anywhere?
+- What would you have to check anyway, every time, before acting on what it says?
 
-And rebuild before you verify, or you will check the served page against a stale dataset -
-you documented that trap yourself this morning.
+That last one is the real cost of standing use, and it is the number that decides this.
 
-## GATES
-All four, cwd printed before each. `check:orphans` unscoped. `check:metadata-dupes` must
-stay at 8 with `knowledge-report` in none of them - the metadata is unchanged, so a change
-there means something else moved.
+## HONESTY CLAUSE
+If the tool is good, say so plainly - I have no stake in it failing and the owner is
+enthusiastic for a reason. If it is mediocre, say that just as plainly. "It is a nicer
+index than grep and nothing more" is a legitimate verdict and it would still be worth
+knowing. Do not grade it generously because it is new and the owner likes it.
 
 ## STANDING RULES
-- Prove against the SERVED HTML of a production build. The numbers, the method paragraph and
-  the JSON-LD all have to be in the response body.
-- Recompute before writing any number in prose.
+- Print `pwd` before anything.
+- A mission is not finished until `docs/loop/REPORT.md` describes it.
+- Recompute or re-read before asserting anything the tool told you.
 - An incident report names locations, never values.
-- No DDL, no database writes, no push.
-- Proofs in `docs/proofs/w5-part1c/`.
+- No push, no application code, no DDL.
+- Proofs in `docs/proofs/graphify-trial/`.

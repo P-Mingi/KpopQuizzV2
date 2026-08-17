@@ -1,0 +1,27 @@
+=== GRAPHIFY TRIAL: the tool is not installed on this machine ===
+checked 2026-08-17, from /Users/louis/IT/Dev/projects/KpopQuizzV2
+
+-- binary --
+  graphify: not on PATH
+  absent  /Users/louis/.local/bin/graphify
+  absent  /Users/louis/.cargo/bin/graphify
+  absent  /opt/homebrew/bin/graphify
+  absent  /usr/local/bin/graphify
+
+-- installers --
+  uv: NOT INSTALLED (the README's recommended installer)
+  pipx: present, packages: certbot 4.2.0 
+
+-- python package --
+  import graphify -> ModuleNotFoundError: No module named 'graphify'
+  pip show graphifyy -> WARNING: Package(s) not found: graphifyy
+
+-- skill registration --
+(eval):1: no matches found: /Users/louis/.claude/skills/*graphify*
+  no graphify skill under ~/.claude/skills
+  project .claude/skills holds 12 skills, none named graphify
+
+-- build artefact --
+  no graphify-out/ or .graphify/ in the repo
+
+CONCLUSION: every check is negative. The trial cannot run.

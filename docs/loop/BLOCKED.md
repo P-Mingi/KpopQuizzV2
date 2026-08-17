@@ -49,6 +49,43 @@ which is those workflows' own bot credential, not a failure hook. NO workflow in
 notifies on failure. The new workflow posts to a Discord webhook on failure and no-ops
 when the secret is absent.
 
+## graphify-trial - the tool is not installed, so the trial cannot run
+
+- What is blocked: the whole GRAPHIFY TRIAL mission. The mission opens "The owner installed
+  Graphify", and on this machine it is not installed. I did not install it myself: that is
+  the owner's decision, the previous bus listed "whether to trial Graphify" as owner-pending,
+  and last session the permission classifier blocked me from even checking the prerequisites.
+- Why (evidence, all negative, docs/proofs/graphify-trial/not-installed.txt):
+
+      graphify binary        not on PATH, absent from ~/.local/bin, ~/.cargo/bin,
+                             /opt/homebrew/bin, /usr/local/bin
+      uv                     NOT INSTALLED (the README's recommended installer)
+      pipx                   present, but holds only certbot
+      python package         import graphify -> ModuleNotFoundError
+                             pip show graphifyy -> not found
+      skill registration     none under ~/.claude/skills; the project's 12 skills
+                             include no graphify; not mentioned in ~/.claude/settings.json
+                             or ~/.claude/CLAUDE.md
+      build artefact         no graphify-out/ or .graphify/ in the repo
+
+- What unblocks it, two commands, owner-run:
+
+      brew install uv          # or: pipx install graphifyy, since pipx is already here
+      uv tool install graphifyy
+      graphify install         # registers the skill with Claude Code
+
+  Note the README's recommended path needs `uv` first and `uv` is absent, so this is three
+  steps rather than two. `pipx install graphifyy` skips that, since pipx already works.
+- One thing worth deciding before it runs, because the mission asks and it is cheap to get
+  wrong: `graphify-out/` should be **gitignored**. It is a derived artefact of a codebase
+  that changes every commit, so a tracked copy is stale the moment anyone merges, and a
+  stale graph that nobody notices is exactly the failure mode this trial exists to test for.
+  If it is ever tracked, it needs a freshness gate the way check:docs-secrets guards docs,
+  not a human remembering to rebuild.
+- Recommendation: install via pipx (one command, no new installer), then re-issue the trial
+  unchanged. The answer key in the mission is good and I would rather run it than rewrite it.
+- Proof / context: docs/proofs/graphify-trial/not-installed.txt
+
 ## w5-report-figures - two figures in the shipped draft do not match the report's own window
 
 - What is blocked: pitching the report, and the owner's push of this page while it says

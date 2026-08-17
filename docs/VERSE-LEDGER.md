@@ -4395,3 +4395,69 @@ unchanged at 8 collision groups with knowledge-report in 0 of them. tsc 0.
 SELF-CORRECTION: my first edit produced "No table in here mixes the two" where v4 reads "No
 table here mixes the two"; caught on a verbatim diff of the changed sentences and fixed
 before the build.
+
+## L-205 - W5 PART 1c audited from the commit, because the bus was never updated
+
+PART 1c (c12222e) is a PASS on the work and a FAIL on the protocol, and the second one is
+the finding.
+
+**`docs/loop/REPORT.md` was never written.** The bus still carries the PART 1b report, word
+for word, while the commit that shipped v4 exists in history. The trigger word arrived as
+usual. So the state was: a report file describing the previous mission, a commit describing
+this one, and an auditor told to read the former. Had I taken the bus at face value I would
+have approved PART 1b a second time and never looked at what actually shipped. This is the
+same shape as every false green in this project - a green computed against the wrong object -
+except it happened in the protocol rather than inside a gate. The commit message carried the
+real report, which is why nothing was lost, but a commit message is not the bus.
+
+The work itself, verified from the commit and the tree rather than from any report:
+
+- The page carries v4. The draft diff shows my v4 text going in unaltered; the worker
+  committed the file rather than editing it, so "ship it verbatim" held.
+- `docs/proofs/w5-part1c/v4-figure-check.txt` recomputes every claim in v4 independently:
+  perfect 6,257 of 17,425 at 35.908%, zero 109 at 0.626%, 21 rows of which 20 are groups,
+  3 to 27 quizzes per group and 152 in the bucket, and the rounded boundary returning 17,424.
+  It even evaluates "better than one in three" as a boolean rather than trusting the prose.
+- The dataset now opens with a START HERE block carrying the full-precision boundary and the
+  one-attempt-short warning, moving the canonical value from line 1,340 to line 18 of 1,413.
+  The report tells readers the boundary is in the dataset and that is now true in under a
+  minute, which was the test.
+- Rebuilt before verifying, per its own trap from PART 1b.
+
+Standing rule to add: **a mission is not finished until REPORT.md describes it.** A commit is
+the record of what changed; the bus is the record of what was claimed, and the audit reads
+the bus. If they disagree, the audit is grading the wrong mission.
+
+Three commits sit unpushed: 578550f, 62733b7, c12222e. Content-side, nothing blocks the
+pitch now.
+
+## L-207 - GRAPHIFY TRIAL: BLOCKED, the tool is not installed (2026-08-17)
+
+No app code, no DDL, no DB writes, nothing pushed. Proof:
+docs/proofs/graphify-trial/not-installed.txt. Blocker: BLOCKED.md `graphify-trial`.
+
+The mission opens "The owner installed Graphify". Nine checks say otherwise, all negative:
+graphify not on PATH nor in ~/.local/bin, ~/.cargo/bin, /opt/homebrew/bin, /usr/local/bin;
+`uv` NOT INSTALLED (and it is the README's recommended installer); pipx present but holds
+only certbot; `import graphify` -> ModuleNotFoundError; `pip show graphifyy` -> not found;
+no skill under ~/.claude/skills; the project's 12 skills include no graphify; no mention in
+~/.claude/settings.json or ~/.claude/CLAUDE.md; no graphify-out/ or .graphify/ in the repo.
+
+DID NOT INSTALL IT: (1) the previous bus listed "whether to trial Graphify" as owner-pending,
+so a mission assuming the decision does not take it; (2) last session the permission
+classifier refused even the prerequisite check and the instruction on that refusal is to stop
+and explain rather than route around it; (3) the install is three steps here, not two, since
+uv is absent - `pipx install graphifyy` avoids adding uv because pipx already works.
+
+UNBLOCK: `pipx install graphifyy` then `graphify install`, then re-issue the trial UNCHANGED.
+The answer key is good; questions 1-4 are facts this session established by measurement and
+Q4 is the decisive one (a graph asserting a working songs <-> blind_test_songs relationship
+would be confidently wrong about the exact thing that froze the per-song stats).
+
+ANSWERED WITHOUT THE TOOL, per the mission's ask: `graphify-out/` should be GITIGNORED. It is
+derived from a codebase that changes every commit, so a tracked copy is stale on the next
+merge. The docs/ inversion two days ago worked only because check:docs-secrets made the
+safety property automatic; a tracked graph has the mirror problem with NO equivalent gate,
+and a stale graph nobody notices is the failure mode this trial exists to test for. If ever
+tracked it needs a freshness gate, not a habit. NOT written as a rule: the directory does not
+exist yet and adding it would be tidying rather than executing.
