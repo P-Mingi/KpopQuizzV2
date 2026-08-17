@@ -1,145 +1,139 @@
-# REPORT - GRAPHIFY TRIAL: good at what exists, silent about what does not. Verdict inside.
+# REPORT - GRAPHIFY PART 0: the global file is trivial. The SKILL's default instruction is not.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every step. No application code, no DDL, no database writes, **nothing pushed**.
+before every step. Read-only: no code, no DDL, no writes outside `docs/loop/` and
+`docs/proofs/graphify-part0/`, **nothing pushed**. `/graphify` was not run in the bloom repo.
 
-Proofs: `docs/proofs/graphify-trial/answer-key-graded.txt`.
+Proof: `docs/proofs/graphify-part0/global-instruction-audit.txt`.
 
 ---
 
-## Setup
+## First, the miss, because it is worse than you diagnosed
 
-graphify 0.9.45, installed by the owner since the block. Built **code-only, keyless**:
-scan root `apps/quiz/src`, 990 code files, AST only, no API key, no LLM, no subagents.
-`docs/` was never an input.
+You said the instruction was seen and the reporting was dropped. It is worse: **I never read
+it.** On the turn the trial ran, the bus had been rewritten (mtime moved 18:33 to 18:47) and
+I ran `head -8 docs/loop/MISSION.md`, saw a familiar title, and went to the skill. `READ
+FIRST` and `PART 0` were below line 8. I truncated my own read of the bus and then executed
+confidently against a mission I had not read.
 
-One deviation and one warning:
+That is the same shape as the two you named, and it has a single root: I treat re-reads as
+confirmation rather than as reading. The trial's technical content was good because the
+answer key was in the part I did read. That is luck, not method.
 
-- The detector found **one** markdown inside the source tree
-  (`lib/verse/pages/requirements.md`). I dropped it so the run stayed strictly code-only,
-  rather than letting a single file pull in semantic extraction.
-- 990 files exceeds the skill's own 500-file "ask the user to narrow" threshold. I did not
-  narrow, because questions 1 to 3 span `src/lib`, `src/app` and `src/components`, and any
-  narrower root makes the answer key unanswerable. Stating it rather than hiding it.
+The fix is one line and I am stating it so it can be held against me: **`cat` the mission,
+never `head` it.** Not "verify twice" or "be careful" - a specific command I got wrong.
 
-Graph: **5,306 nodes, 13,177 edges, 238 communities**.
+## 1. The global file, verbatim
 
-**The tool's own health check raised a warning and its honesty rules say to surface it:
-1,221 dangling-endpoint edges, 300 collapsed directed, 315 collapsed undirected.**
-Extraction produced 14,713 edges and 13,177 survived into the graph, so **1,536 edges were
-lost between extract and build**. Nothing in the trial depended on the lost ones, but a tool
-that silently drops 10% of its own edges is a fact that belongs next to any verdict.
+`/Users/louis/.claude/CLAUDE.md`, 228 bytes, 3 lines, in full:
 
-## The answer key, graded
+```
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+```
 
-| # | question | grade |
-| --- | --- | --- |
-| 1 | three consumers of `getAdvertisablePlaylists` | **RIGHT** |
-| 2 | two Supabase clients in one file | **SPLIT: identities RIGHT, call sites MISSING** |
-| 3 | two paths from one page to one function | **RIGHT in the graph, MISSING in the interface** |
-| 4 | a relationship that is not in the code | **RIGHT, and it is the one that mattered** |
-| 5 | something I did not know | **RIGHT and useful** |
+**It is trivial and it is gated.** It fires only when the user types `/graphify`. It does not
+tell agents to prefer the graph over source, does not run anything, does not reach the
+network. As a global file it is close to the smallest thing it could have written.
 
-**Q1.** `explain` returned all three consumers with typed edges, all `[EXTRACTED]`, and every
-one matched source line-for-line: sitemap L14/L234, blindtest page L5/L120, and the wrapper
-call at `blindtest.ts:L23`. It also correctly did **not** list `pt/blindtest` as a direct
-consumer, because that page reaches the function through the wrapper. The delegation is
-visible as an edge.
+## 2. Overwrite check
 
-**Q2.** It separates them properly: two distinct nodes, different IDs, different communities,
-degrees 207 and 458. It is not "sitemap uses supabase". But **the call sites are absent**.
-The only sitemap edge either client has is `[imports] L1`. The real calls sit at L219 and
-L382 (`createPublicReadClient`) and L405 (`createServiceRoleClient`), and none of the three
-is in the graph. The 2x-vs-1x multiplicity, which is the whole point of the question, is not
-recoverable. Note the contrast with Q1, where a `calls` edge from the same file **was**
-recorded.
+Birth and modified are both `Aug 17 18:45:17`, so the file has not been touched since
+creation. Only one `CLAUDE.md` exists anywhere under `~/.claude`. `~/.claude/backups` holds
+only `.claude.json` backups, no CLAUDE.md of any vintage. No `.bak` or `.orig` sibling.
 
-**Q3.** Both legs are in the graph, so the duplication is representable and I recovered it in
-two commands. But `graphify path` answers with the **shortest** route, returned the one-hop
-direct call, and would have hidden the second path from anyone who trusted it.
+**`~/.claude` is not a git repo, so there is no history to diff.** Everything on disk is
+consistent with "created", and **I cannot prove a prior file was not deleted and replaced** -
+no artefact would distinguish those two cases. Saying that rather than assuming it, per the
+mission.
 
-**Q4.** It did not invent the edge. `explain blind_test_songs` and `path songs
-blind_test_songs` both answer **"No node matching found"**, and `explain songs` resolves to
-two API route files, not a table. A code-only AST graph models no database tables, and it
-says so instead of guessing. The failure mode you named as decisive did not occur.
+Separately: the user-memory file this session actually reads
+(`~/.claude/projects/.../memory/MEMORY.md`) has mtime 17:42, predates the 18:45 install, and
+is untouched.
 
-One caveat worth carrying: `explain` and `path` refuse explicitly, but the natural-language
-`query` just returned adjacent noise (a `TABLE` constant from an unrelated route,
-`yearsBetween()`) with no "no relationship found" statement. The refusal is in the precise
-commands, not in the conversational one.
+## 3. What the SKILL instructs by default, and the one that conflicts
 
-**Q5.** The graph told me `isAdmin()` is the 4th most connected symbol in the codebase at 201
-edges. I did not know that and would not have thought to look. Verified by reading: 213
-mentions across `src`, and **50 admin API route files**. The admin surface is far larger than
-I assumed. Counter-note: the report's "Surprising Connections" section was not surprising,
-five entries all saying an API route calls `createServerClient`.
+**The conflict is real and it is in the frontmatter, which loads into every session:**
 
-## The verdict you asked for
+> "Use for any question about a codebase, its architecture, file relationships, or project
+> content — **especially when `graphify-out/` exists, where the question should be treated as
+> a graphify query first**."
 
-**What is it faster at than grep, concretely.** Reverse dependency lookup with typed edges
-and line numbers. `graphify explain getAdvertisablePlaylists` returned eight edges in one
-call, each labelled `imports` / `calls` / `contains` and each with `file:line`. The grep
-equivalent is one search for the symbol, then reading every hit to tell an import from a
-call from a re-export, then a second pass to find the transitive caller. On Q1 that is a
-single command against roughly four, and the typing is the part grep cannot give you at all.
+And `SKILL.md:53`, the fast path:
 
-**Where it misled me.** The `query` command, twice. Q1 as natural language returned 270
-nodes truncated to 80, with the right answer unranked among `mascot.tsx`, `guest-streak.ts`
-and `threads.ts`. Q4 as natural language returned unrelated nodes next to a question about a
-relationship that does not exist. And `path` gave a confident one-hop answer that omitted the
-second route. **The precise commands are trustworthy; the conversational one is a
-concordance with a ranking problem.**
+> "**Fast path — existing graph:** Before doing anything else, check whether
+> `graphify-out/graph.json` exists. ... If it exists AND the user's request is a
+> natural-language question about the codebase ... **skip Steps 1–5 entirely and jump
+> straight to `## For /graphify query`.** Run `graphify query "<question>"` immediately. Do
+> not run detect. Do not check corpus size. Do not ask the user to narrow. **The graph is
+> already built — use it.**"
 
-**What I would have to check every time, which is the real cost.** *Whether an absent edge
-means an absent relationship.* Q2 settles it: the call sites exist in the source and not in
-the graph, so **absence in this graph is not evidence of absence in the code**. Every
-positive claim it made was true and line-exact, 3 out of 3 verified. Every negative claim
-needs a grep before you act on it. That asymmetry is the price of standing use, and it is
-not small: "nothing calls this, safe to delete" is exactly the question you would want to ask
-a code graph, and it is the one question this graph cannot answer safely.
+And `SKILL.md:691`, on answering:
 
-## My recommendation, stated plainly
+> "**Answer using only what the graph output contains**, and quote `source_location` when
+> citing a specific fact."
 
-**Standing use: yes for `explain` and `path`, no for `query`, and never for a negative.**
+**These three are a direct conflict with the doctrine.** The doctrine's binding line is *the
+graph is for orientation, the source is for truth*; the skill says treat a codebase question
+as a graph query first, and answer using only what the graph contains. And they route the
+agent to `query` specifically — the one command I measured as the weakest, which returned 270
+nodes truncated to 80 with the answer unranked among `mascot.tsx` and `guest-streak.ts`.
 
-It earns "always" the way the three gates did, but only within its proven range. Concretely:
-use it first for "what touches X and where", which it does better and faster than grep; do
-not use it to conclude "nothing touches X"; and treat `query` output as a starting set of
-filenames, not an answer. It is meaningfully more than a nicer index — the typed edges and
-the transitive call in Q1 are things grep genuinely cannot produce — but it is not an oracle,
-and the Q2 gap is the reason.
+**And `graphify-out/` now exists in this repo**, so that fast path is live here from the next
+session onward. This is not hypothetical.
 
-I have no stake in this and the owner's enthusiasm is not misplaced. Q4 is the result that
-earns the trust: a tool that answers "I have no node for that" when asked about something
-outside its model is rarer and more valuable than a tool that answers everything.
+Three lesser flags, none of them alarming:
 
-## `graphify-out/` is gitignored
+- **`SKILL.md:88-93` runs an install/upgrade unprompted** if the import fails:
+  `uv tool install --upgrade graphifyy -q`, falling back to `pip install graphifyy -q
+  --break-system-packages`. A skill invocation can therefore upgrade a package without
+  asking. Worth knowing; not worth blocking.
+- **`SKILL.md:638` prints a sponsorship link** to the user after a run.
+- **`SKILL.md:649-651` instructs an unprompted follow-up offer** ("Want me to trace it?").
 
-Rule added at `.gitignore:118`, verified by `git status` showing it clean. 19MB, derived from
-a codebase that changes every commit, so a tracked copy is stale on the next merge. We
-inverted `docs/` to track-by-default only because `check:docs-secrets` made its safety
-property automatic; a tracked graph has the mirror problem with **no equivalent gate**, and a
-stale graph nobody notices is precisely the failure mode this trial was run to test for. The
-rebuild command is in the comment.
+**Network:** the only endpoints anywhere in the skill directory are `github.com` (repo
+cloning on explicit request) and the sponsor URL. **No telemetry, no phone-home, no analytics
+host.**
+
+## 4. The bloom project
+
+Nothing was written into it. `/Users/louis/Bloom` does not exist; `/Users/louis/IT/Dev/projects/Bloom`
+exists and has no `graphify-out/`, no `.graphify/`, no `CLAUDE.md`. A `find` across the whole
+projects directory shows the only `graphify-out` is this repo's own. `/graphify` was not run
+there and that repo was not modified.
+
+## The override you asked for, if you want it
+
+The global file needs nothing. The conflict is entirely in the skill's frontmatter and fast
+path, and it is load-bearing: it changes the default behaviour of every session in this repo
+now that `graphify-out/` exists.
+
+The doctrine already says the right thing; what it lacks is precedence over a third-party
+instruction that contradicts it. One line in the project's own `CLAUDE.md` would do it, since
+project instructions load after the skill description:
+
+> The graphify skill's "treat the question as a graphify query first" and "answer using only
+> what the graph output contains" do **not** apply in this repo. `PLAY-GRAPHIFY-DOCTRINE.md`
+> governs: `explain` and `path` for orientation, never `query` for an answer, never the graph
+> for a negative, and the source is what gets cited.
+
+I did not write it, because the mission's scope is read-and-report and it says no writes
+outside `docs/loop/` and the proofs directory. It is yours to place.
 
 ## Deviations and flags (loud)
 
-1. **I dropped one file from the corpus** to keep the run code-only. Named above; it is a
-   requirements doc inside `src/lib/verse/pages/`, not in `docs/`.
-2. **I did not narrow at the 500-file prompt**, for the reason given. The skill asks the user;
-   I decided, because narrowing would have made the mission's own answer key unanswerable.
-3. **The 1,536 lost edges are unexplained.** I did not chase them: the trial is about the
-   answers, not the extractor, and none of the five questions depended on a lost edge. It is
-   worth a look before anyone builds tooling on top of the graph.
-4. **Q3's grade depends on how you read it.** The information was there; the command that
-   exists to answer that shape of question did not surface it. I graded the graph RIGHT and
-   the interface MISSING rather than picking one.
+1. **I could not prove the no-overwrite claim**, only that everything on disk is consistent
+   with it. Stated in section 2 rather than rounded up to "confirmed".
+2. **One check swallowed its own exit code.** My first Bloom probe piped `ls` into `sed`, so
+   the `||` fallback could never fire and the empty output proved nothing. I re-ran it with
+   explicit `-e` tests per path. Flagging because a silently-passing check is the same class
+   of error as the mission I am reporting on.
 
 ## Covenant
 
-Every claim the tool made was re-read against source before I graded it. The three
-`[EXTRACTED]` edge sets in Q1, the three call sites in Q2, and the `isAdmin` count in Q5 were
-all verified by grep or by reading the file, not accepted from the tool.
+Every quote in section 3 is `sed -n '<line>p'` out of the installed file, not retyped from
+memory. The verbatim CLAUDE.md is `cat`, not a summary.
 
 ---
 

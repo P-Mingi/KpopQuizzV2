@@ -4,8 +4,12 @@ Owner ruling: Graphify becomes central to how we work on this project, and the r
 is token cost. This document is the rule that makes that safe, because "central" and "cheap"
 pull in opposite directions and the whole value of this loop is what happens at that seam.
 
-Status: PROVISIONAL until the graph has been graded against the answer key in the trial
-mission. Nothing below is licence to skip that.
+Status: **GRADED** against the answer key (trial run 2026-08-17, graphify 0.9.45, 5,306
+nodes / 13,177 edges over 990 files in `apps/quiz/src`). The measured range is in THE PROVEN
+RANGE below and it is now the binding part of this document.
+
+Still outstanding: nobody has read `/Users/louis/.claude/CLAUDE.md`, which `graphify install`
+created and which governs every session on that machine. See THE GLOBAL CLAUDE.md.
 
 ## THE ONE RULE
 
@@ -18,6 +22,38 @@ not tell you what is written on the wall.
 That split is what makes the token saving real instead of borrowed. The expensive part of
 being wrong here is not the tokens, it is the mission that gets built on a relationship
 nobody checked.
+
+## THE PROVEN RANGE - measured, not assumed
+
+**Trusted.** `graphify explain` and `graphify path`, for the question "what touches X, and
+where". Three positive claims were checked against source and all three were right to the
+line, including a transitive caller that grep would need a second pass to find, and edges
+typed `imports` / `calls` / `contains` which grep cannot produce at all. On the reverse-
+dependency question this was one command against roughly four.
+
+**Never trusted: any NEGATIVE.** This is the finding that decides the doctrine. In
+`sitemap.ts` the two Supabase clients are correctly modelled as distinct nodes, and **the
+three actual call sites - L219, L382, L405 - are absent from the graph**, while a `calls`
+edge from the same file was recorded elsewhere. So **absence in the graph is not evidence of
+absence in the code.** "Nothing calls this, it is safe to delete" is exactly the question one
+would want to ask a code graph, and it is the one question this graph cannot answer safely.
+A negative always costs a grep before anyone acts on it.
+
+**Not trusted, and it costs tokens rather than saving them:** the natural-language `query`.
+Asked the Q1 question it returned 270 nodes truncated to 80, with the correct answer
+unranked among unrelated files. Treat its output as a starting set of filenames, never as an
+answer. If the goal is fewer tokens, `explain` is the cheap command and `query` is the
+expensive one.
+
+**Known and unexplained:** extraction produced 14,713 edges and 13,177 reached the graph, so
+**1,536 edges - about 10% - were lost in between**. Nobody has chased this. It is consistent
+with the Q2 gap and it is the first thing to investigate before anyone builds tooling on top
+of the graph.
+
+**Credit where it is due:** asked about a relationship between two database tables, it
+answered "No node matching found" rather than inventing an edge. A tool that says it has no
+node for something outside its model is rarer than one that answers everything, and that
+result is why it earns standing use at all.
 
 ## WHERE IT SAVES REAL MONEY, AND WHERE IT SAVES NONE
 

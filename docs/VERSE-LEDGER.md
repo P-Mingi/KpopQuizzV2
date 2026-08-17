@@ -4512,3 +4512,52 @@ with NO equivalent gate.
 DEVIATIONS: dropped lib/verse/pages/requirements.md from the corpus to keep the run code-only;
 did NOT narrow at the skill's 500-file prompt (990 files) because questions 1-3 span src/lib,
 src/app and src/components and any narrower root makes the answer key unanswerable.
+
+## L-209 - GRAPHIFY PART 0: the global file is trivial, the SKILL default is not (2026-08-17)
+
+Read-only. No code, no DDL, no writes outside docs/loop/ and docs/proofs/graphify-part0/,
+nothing pushed. /graphify NOT run in the bloom repo. Proof:
+docs/proofs/graphify-part0/global-instruction-audit.txt.
+
+ROOT CAUSE OF THE MISS, worse than diagnosed: PART 0 was not "seen and dropped", it was NEVER
+READ. On the trial turn the bus had been rewritten (mtime 18:33 -> 18:47) and I ran
+`head -8 docs/loop/MISSION.md`, recognised the title, and went to the skill. READ FIRST and
+PART 0 were below line 8. I truncated my own read of the bus and executed against a mission I
+had not read. Same shape as PART 1c's missing REPORT.md. FIX, stated as a command not a
+resolution: `cat` the mission, never `head` it.
+
+1. /Users/louis/.claude/CLAUDE.md is 228 bytes, 3 lines, and TRIVIAL: it only says that when
+the user types `/graphify`, use the installed skill. Gated on the trigger. No preference for
+the graph over source, no commands, no network.
+
+2. OVERWRITE: birth == modified == Aug 17 18:45:17; only one CLAUDE.md anywhere under
+~/.claude; ~/.claude/backups holds only .claude.json backups; no .bak/.orig. BUT ~/.claude is
+not a git repo, so NOT PROVEN that no prior file was deleted and replaced - nothing on disk
+distinguishes those cases and I did not round it up to "confirmed". The user-memory file this
+session reads (projects/.../memory/MEMORY.md, mtime 17:42) predates the install and is
+untouched.
+
+3. THE CONFLICT IS REAL AND IT IS LOAD-BEARING. SKILL frontmatter (injected into EVERY
+session): "especially when graphify-out/ exists, where the question should be treated as a
+graphify query first". SKILL.md:53 fast path: "skip Steps 1-5 entirely and jump straight to
+## For /graphify query. Run graphify query immediately. Do not run detect... The graph is
+already built - use it." SKILL.md:691: "Answer using only what the graph output contains."
+All three contradict the doctrine's binding line (graph for orientation, source for truth),
+and they route to `query` - the one command the trial measured as weakest (270 nodes
+truncated to 80, answer unranked among unrelated files). graphify-out/ NOW EXISTS in this
+repo, so the fast path is live here from the next session.
+LESSER FLAGS: SKILL.md:88-93 runs `uv tool install --upgrade graphifyy` (or pip with
+--break-system-packages) UNPROMPTED if the import fails; SKILL.md:638 prints a sponsorship
+link; SKILL.md:649-651 instructs an unprompted follow-up offer. NETWORK: github.com only
+(clone on request + sponsor URL). No telemetry, no phone-home.
+
+4. BLOOM: nothing written. ~/Bloom does not exist; /Users/louis/IT/Dev/projects/Bloom exists
+with no graphify-out/, no .graphify/, no CLAUDE.md; a find across the projects dir shows the
+only graphify-out is this repo's own.
+
+PROPOSED OVERRIDE (drafted, NOT written - mission scope is read-and-report): one line in the
+project CLAUDE.md saying the skill's "query first" and "answer using only the graph" do not
+apply here and PLAY-GRAPHIFY-DOCTRINE.md governs.
+
+SELF-CORRECTION: my first Bloom probe piped ls into sed so the `||` fallback could never fire
+and the empty output proved nothing; re-ran with explicit -e tests per path.
