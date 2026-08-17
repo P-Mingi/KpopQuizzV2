@@ -35,6 +35,52 @@ orphans at all: a sampled crawl that skipped index pages invented them. check:or
 passes UNSCOPED on a complete crawl of all 679 non-verse sitemap URLs, and the scope flag
 was deleted rather than narrowed. See docs/proofs/w7c-orphans/.
 
+## w7d-ci - the three gates cannot run in CI: the repo has no service-role secret
+
+- What is blocked: PART 1, automating `check:indexability`, `check:metadata-dupes` and
+  `check:orphans`. All three grade a RUNNING app, so CI must build and boot it, and the
+  build needs DB credentials this repo does not hold. Per the mission I did not stub the
+  check, did not point it at production, and did not commit a workflow that would fail on
+  its first run.
+- Why (owner decision): measured, not assumed. `.github/workflows/` holds 7 files, all
+  content crons, and between them they reference exactly 5 secrets:
+  `DISCORD_TOKEN`, `GUILD_ID`, `INDEXNOW_TOKEN`, `QUIZ_SUPABASE_URL`,
+  `QUIZ_SUPABASE_ANON_KEY`. The app needs these to build and serve:
+
+      NEXT_PUBLIC_SUPABASE_URL        <- QUIZ_SUPABASE_URL can supply this
+      NEXT_PUBLIC_SUPABASE_ANON_KEY   <- QUIZ_SUPABASE_ANON_KEY can supply this
+      NEXT_PUBLIC_SITE_URL            <- not a secret, can be a literal
+      SUPABASE_SERVICE_ROLE_KEY       <- MISSING, and it is the one that matters
+
+  `sitemap.ts` builds through `createServiceRoleClient()`. Without the service-role key
+  the sitemap falls back to STATIC-ONLY, and `check:orphans` would then grade a sitemap
+  with every quiz, group and playlist URL missing: a green that means nothing. That is
+  the specific reason this is a block and not a "try it and see".
+- What I DID do (safe, no fabrication): `check-indexability.mts` hard-required a
+  `.env.local` FILE, which is gitignored and can never exist in CI. It now falls back to
+  `process.env` when the file is absent. Same variables, read from wherever they live.
+  This removes one blocker; the missing secret remains.
+- Options (each with its trade-off):
+  1) Add `SUPABASE_SERVICE_ROLE_KEY` as a GitHub Actions secret, then a nightly workflow
+     builds the app, boots it on :3021 and runs all three gates. Trade-off: a
+     service-role key in CI is a real secret-surface increase, and it is read-write. It
+     would be used only by a scheduled job on this repo.
+  2) Run the gates against the deployed production URL instead of a CI build. No secret
+     needed for the HTTP checks. Trade-off: `check-indexability` still needs DB reads for
+     its inverse test, and grading production tells you a page is already broken for
+     users rather than catching it before merge.
+  3) Leave them manual. Free, and it is what we have today. Trade-off: three missions of
+     assertions that cannot fail anything, which is what this mission called a document.
+- Recommendation: 1, nightly, plus the visibility answer below. If the service-role key
+  in CI is not acceptable, 2 is a genuine second best for orphans + metadata-dupes (both
+  are pure HTTP), and `check:indexability` stays manual.
+- VISIBILITY, since a red nightly nobody looks at is the likely outcome: 6 of the 7
+  existing workflows already have failure notification wired, and the repo has
+  `DISCORD_TOKEN` plus the app has `DISCORD_FLEX_WEBHOOK_URL`. The nightly should post to
+  the same Discord channel on failure ONLY, naming the gate and the offending URLs. A
+  GitHub Actions email nobody reads is not a notification.
+- Proof / context: docs/proofs/w7d/ci-env.txt
+
 ## w4b-item3 - the partner attribution log has nowhere to write
 
 - What is blocked: spec section 9's `partner=` log. The parameter reaches the embed page

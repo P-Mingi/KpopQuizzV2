@@ -1,0 +1,5 @@
+songs ids: 4120 | blind_test_songs ids: 349
+INTERSECTION of the two id spaces: 0
+newest blind_test_plays row: 2026-06-05T17:36:38.04596+00:00
+blind_test_plays since 2026-07-01: 0
+blind_test_songs columns: id, title, artist, group_id, youtube_id, year, is_title_track, gender, generation, clip_intro, clip_chorus, clip_verse, clip_bridge, wrong_answers, times_played, times_correct, avg_answer_time, status, created_at, updated_at

@@ -1,0 +1,13 @@
+PART 4 - cost of the pieces inside the 15s raced batch (3 runs each)
+ run 1
+  getAdvertisablePlaylists-equivalent (paginate songs + groups): 364 ms
+  the query it REPLACED (blind_test_songs, one round trip): 72 ms
+  quizzes batch query (the batch's other big read): 279 ms
+ run 2
+  getAdvertisablePlaylists-equivalent (paginate songs + groups): 235 ms
+  the query it REPLACED (blind_test_songs, one round trip): 96 ms
+  quizzes batch query (the batch's other big read): 240 ms
+ run 3
+  getAdvertisablePlaylists-equivalent (paginate songs + groups): 256 ms
+  the query it REPLACED (blind_test_songs, one round trip): 166 ms
+  quizzes batch query (the batch's other big read): 210 ms

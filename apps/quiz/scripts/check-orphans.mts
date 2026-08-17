@@ -16,15 +16,15 @@
  *
  *   ORPHANCHECK_BASE_URL=http://localhost:3021 npm run check:orphans
  *
- * HONESTY ABOUT THE BOUNDARY: crawling every sitemap URL is too slow for CI, so the
- * crawl SAMPLES. That means a "zero inbound links" result is a FLOOR on inbound links,
- * not a proof of zero: a page reported here could still be linked from a page outside
- * the sample. The output states the sample size every time, and the failure message
- * says so in words. Never report a bare count.
+ * HONESTY ABOUT THE BOUNDARY: by default this crawls EVERY non-verse sitemap URL, so a
+ * "zero inbound links" result is a proof, not an estimate. When ORPHANCHECK_SAMPLE caps
+ * the crawl, the result becomes a FLOOR on inbound links instead: a page reported could
+ * still be linked from a page outside the sample. The output states which of the two it
+ * was, every run. Never report a bare count; always list offenders by URL.
  *
  * Env:
  *   ORPHANCHECK_BASE_URL   default http://localhost:3021
- *   ORPHANCHECK_SAMPLE     max pages to crawl (default 200)
+ *   ORPHANCHECK_SAMPLE     cap the crawl for a fast local pass (default: no cap)
  *   ORPHANCHECK_INJECT     a path to treat as if it were in the sitemap, used to prove
  *                          the gate RED without having to un-fix a real orphan.
  *

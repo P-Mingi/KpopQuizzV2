@@ -1,0 +1,15 @@
+=== PART 3: does a clipless group produce a FULL round? ===
+  loona: questions=10 songs_count=10 with_preview_url=10
+  astro: questions=10 songs_count=10 with_preview_url=10
+  tws: questions=10 songs_count=10 with_preview_url=10
+  artms: questions=10 songs_count=10 with_preview_url=10
+  katseye: questions=10 songs_count=10 with_preview_url=10
+
+control: a group that DOES have clip rows
+  bts: questions= 10 with_preview_url= 10
+=== the THINNEST pools: does 10 clean songs really fill a round? ===
+  akmu: questions=10 with_preview_url=10 err=
+  jeon-somi: questions=10 with_preview_url=10 err=
+  cortis: questions=10 with_preview_url=10 err=
+  babymonster: questions=10 with_preview_url=10 err=
+  taeyang: questions=10 with_preview_url=10 err=

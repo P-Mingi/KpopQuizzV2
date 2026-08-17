@@ -28,11 +28,20 @@ const SITE_URL = 'https://kpopquiz.org';
 const FETCH_TIMEOUT_MS = 30000;
 
 // Env for the inverse DB checks (a page indexable-by-design must be in the map).
-// Read .env.local directly - same pattern as the backfill scripts, no server-only imports.
-const env = Object.fromEntries(
-  readFileSync(new URL('../.env.local', import.meta.url), 'utf8')
-    .split('\n').filter((l) => l.includes('=')).map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim().replace(/^["']|["']$/g, '')]; }),
-);
+// Prefer .env.local when it exists (local runs), fall back to the real process env.
+// W7d: this used to REQUIRE the file, which made the gate impossible to run in CI at
+// all, since .env.local is gitignored and never exists there. Falling back is not a
+// stub: the same variables are read, just from wherever they actually live.
+const env: Record<string, string | undefined> = (() => {
+  try {
+    return Object.fromEntries(
+      readFileSync(new URL('../.env.local', import.meta.url), 'utf8')
+        .split('\n').filter((l) => l.includes('=')).map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim().replace(/^["']|["']$/g, '')]; }),
+    );
+  } catch {
+    return process.env;
+  }
+})();
 
 const failures: string[] = [];
 

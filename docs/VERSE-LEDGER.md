@@ -3516,3 +3516,96 @@ check:metadata-dupes unchanged (8 groups, 0 non-verse skips). Proofs:
 docs/proofs/w7c-orphans/. NOT DONE, flagged: 23 playable blind test playlists are still
 absent from the sitemap (reachable but unadvertised) - a different question from
 orphanhood. Nothing pushed.
+
+## L-194 - W7c audited: PASS on the goal, and the gates turn out to run nowhere
+
+W7c (84182a5) delivered what W7b's mission asked for. Verified in the tree, not taken on
+report: `ORPHANCHECK_SCOPE` exists in no file (only in the sentence of REPORT.md saying it
+is gone), the gate crawls 679 of 679 non-verse sitemap URLs, the green proof is a complete
+crawl rather than a floor, and the RED proof is a real failure on an injected
+`/nobody-links-here`. `linksIn()` matches `<a ... href=`, so it counts rendered anchors and
+not href strings sitting in the RSC flight payload - the pass means links, not bytes.
+
+The best work in it was refusing to fix things. The sampler had been INVENTING orphans: it
+only force-crawled 2-segment paths, so `/games/name-all` (three segments) usually missed
+the sample and the five games it links looked orphaned. Eight phantom orphans, eight fixes
+not made. `/data/pulse/2026-07` was not removed from the sitemap and
+`/guess-the-kpop-idol` did not get a second link, both correctly.
+
+Three findings the report did not reach:
+
+1. **Zero of the three gates run anywhere.** `.github/workflows/` holds seven files -
+   birthdays, daily-quiz, indexnow, leaderboard, news, setup, youtube - all content crons.
+   `check:indexability`, `check:metadata-dupes` and `check:orphans` are package scripts a
+   human must remember to type. Three missions of assertions, none of which can fail a
+   push. This is now PART 1 of W7d and it outranks everything else in the arc.
+
+2. **"One definition" covers two surfaces of three.** `blind-test-playlists.ts` is read by
+   the sitemap and the index, but the picker on that same page still runs
+   `getBlindtestGroups` with `MIN_SONGS_FOR_GROUP = 15` and no clip condition. So akmu (11
+   songs) and taeyang (13) are advertised and linked while the picker beside them does not
+   offer them, and the 23 playable-but-unadvertised playlists the report flagged as "a
+   different question" are the same question seen from the other side. The drift moved.
+
+3. **The clip condition may mean nothing at runtime.** `getAdvertisablePlaylists` requires
+   clip-ready rows in `blind_test_songs`, but the group blind test path is
+   `/blindtest/group-X` -> `blind-test-player.tsx` -> `/api/blind-test/generate`, which
+   reads `songs` and re-fetches Deezer previews. `blind_test_songs` is admin, verse, modes
+   and the play-route stats loop. If nothing in the game consults it, 23 playable playlists
+   are excluded on a criterion the engine never checks, and "advertisable because it has
+   clip rows" is the old sitemap's rule restated as a principle. W7d measures it instead of
+   arguing it.
+
+Also flagged, unproven: W7c moved two fully paginated reads inside the sitemap's 15s race,
+whose timeout branch emits a STATIC-ONLY sitemap - total blast radius, so it gets measured.
+And `/api/blind-test/play` updates per-song stats by selecting `blind_test_songs` with ids
+minted from `songs`; if those id spaces differ, `if (!song) continue` has been silently
+freezing `times_played` for a long time. Report-only in W7d.
+
+Cowork still cannot re-derive any DB figure: Supabase MCP has refused with "You do not have
+permission" since W8. Every count in this entry comes from the tree or from the worker's
+committed proofs. Nothing pushed; 37 commits local.
+
+## L-186 - W7d: third blindtest surface collapsed, clip condition DISPROVED, CI blocked (2026-08-16)
+
+PART 3 (measured, not reasoned): the clip condition in getAdvertisablePlaylists had NO
+runtime meaning. /blindtest/group-X -> blind-test-player -> /api/blind-test/generate reads
+`songs` and re-fetches Deezer previews; nothing in that path reads blind_test_songs. Five
+groups with >=10 clean songs and ZERO clip rows (loona, astro, tws, artms, katseye) each
+returned a full 10-question round with 10 preview URLs, same as bts (control, has clips).
+Clip condition DROPPED. The old justification was circular (advertisable because the old
+sitemap advertised it). Threshold also dropped 15 -> ROUND_SIZE(10): the picker's 15 was
+headroom asserted in a comment, and pools of 11 (akmu, jeon-somi) return full rounds.
+
+PART 2: getBlindtestGroups no longer has its own rule, it delegates to
+blind-test-playlists.ts. All three surfaces on /blindtest now agree: 97 linked (97
+instances, each once), 97 in sitemap, 0 either way. akmu and taeyang are now advertised
+AND linked AND offered; the 23 playable-but-unadvertised playlists are all three too.
+Sitemap 679 -> 705 non-verse URLs, orphan gate still GREEN unscoped on a full 705 crawl.
+
+PART 4 (measured): the playlist read costs 153-253ms = 1.0-1.7% of the 15s raced batch,
+same order as the quizzes read already in it, and it got CHEAPER this mission (dropping
+the clip condition removed a paginated read). /sitemap.xml cold = 31ms, 3046 <loc>, zero
+static-only warnings; it is prerendered so the race runs at BUILD time not per request.
+NO cache added: the condition for caching was "a meaningful fraction of 15s" and it is not.
+
+PART 5 (REPORT ONLY, not fixed): songs.id and blind_test_songs.id are COMPLETELY DISJOINT
+(4120 vs 349 ids, intersection 0, exhaustive not sampled). /api/blind-test/play looks up
+blind_test_songs by ids that came from `songs`, so `if (!song) continue` fires every time
+and times_played/times_correct/avg_answer_time cannot be written. Frozen since
+2026-06-05T17:36:42Z (newest blind_test_songs.updated_at) / 17:36:38Z (newest
+blind_test_plays), 0 plays since. 327/349 rows have times_played>0, so they were real once.
+Needs its own mission; first question is whether per-song stats should move to `songs`.
+
+PART 1 BLOCKED (w7d-ci): the 3 gates cannot run in CI. 7 workflows exist, all content
+crons, referencing 5 secrets; SUPABASE_SERVICE_ROLE_KEY is NOT one of them and sitemap.ts
+builds through createServiceRoleClient(), so without it the sitemap emits static-only and
+check:orphans would grade a crippled sitemap = a green that means nothing. Did NOT stub,
+did NOT point at production, did NOT commit a workflow that fails on first run. One real
+enabler shipped: check-indexability.mts no longer hard-requires a gitignored .env.local
+FILE, it falls back to process.env. Also fixed a stale lie in check-orphans.mts's own
+header ("the crawl SAMPLES", "default 200"), untrue since W7c.
+
+Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:orphans 0 (705 URLs,
+unscoped, complete), check:metadata-dupes unchanged (8 groups, 0 non-verse skips, 971 ->
+997 checked). Proofs: docs/proofs/w7d/. Nothing pushed.

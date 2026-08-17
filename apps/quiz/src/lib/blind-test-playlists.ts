@@ -10,20 +10,26 @@ export interface PlaylistGroup {
   songs: number;
 }
 
-// W7c - ONE definition of "a blind test playlist we are willing to advertise".
+// W7c/W7d - THE one definition of a group blind test playlist. Read by the sitemap, by
+// the /blindtest index links, and by the picker on that page, so all three agree.
 //
-// Before this, three places disagreed about which group playlists exist:
-//   - the sitemap advertised groups found in `blind_test_songs`      (56)
-//   - the /blindtest picker offered groups with >= 15 rows in `songs` (74)
-//   - the game itself generates from `songs`, needing 10 to fill a round
-// So the sitemap advertised 5 playlists the picker never offered, 3 of which cannot
-// even fill a round (the-boyz 9 songs, miss-a 0, psy 0), while 23 playable ones were
-// never advertised at all. Divergent sources are how the orphans got made.
+// W7c collapsed two of those three surfaces and left the picker on its own rule
+// (MIN_SONGS_FOR_GROUP = 15, no clip condition), which moved the drift instead of
+// removing it: akmu and taeyang ended up advertised and linked but not offered.
 //
-// The rule here: a playlist is advertisable when it is BOTH advertised-basis (it has
-// clip-ready rows in blind_test_songs) AND playable (>= ROUND_SIZE rows in `songs`,
-// which is what /api/blind-test/generate actually draws from). Sitemap and index page
-// both read this, so they cannot drift apart again.
+// W7d also DROPPED the clip condition, because it was measured to have no runtime
+// meaning. The group blind test path is /blindtest/group-X -> blind-test-player ->
+// /api/blind-test/generate, which reads `songs` and re-fetches Deezer previews.
+// Nothing in that path reads `blind_test_songs`. Proof: five groups with >= 10 clean
+// `songs` rows and ZERO clip rows (loona, astro, tws, artms, katseye) each returned a
+// full 10-question round with 10 preview URLs, identical to bts which has clips. The
+// old justification ("it has clip-ready rows") was circular: advertisable because the
+// old sitemap advertised it.
+//
+// THE RULE, and it is the runtime's own: a group playlist exists when the group has at
+// least ROUND_SIZE clean active songs, because that is exactly what generate needs to
+// fill a round. The thinnest real pools (akmu 11, jeon-somi 11, cortis 13, babymonster
+// 13, taeyang 13) were each verified to return a full round.
 
 /** A round needs this many songs; below it the page cannot produce a game. */
 export const ROUND_SIZE = 10;
@@ -60,24 +66,17 @@ export async function getAdvertisablePlaylists(): Promise<{
     return out;
   };
 
-  const [songRows, clipRows, groupsRes] = await Promise.all([
+  const [songRows, groupsRes] = await Promise.all([
     pageAll<{ group_id: number }>(() => cleanSongs(db)),
-    pageAll<{ groups: { slug: string } | null }>(() =>
-      db.from('blind_test_songs').select('groups!inner(slug)').eq('status', 'active').not('clip_chorus', 'is', null),
-    ),
     db.from('groups').select('id, name, slug'),
   ]);
 
   const playable = new Map<number, number>();
   for (const r of songRows) playable.set(r.group_id, (playable.get(r.group_id) ?? 0) + 1);
 
-  const hasClips = new Set(
-    clipRows.map(r => (Array.isArray(r.groups) ? r.groups[0]?.slug : r.groups?.slug)).filter(Boolean) as string[],
-  );
-
   const groups = ((groupsRes.data ?? []) as { id: number; name: string; slug: string }[])
     .map(g => ({ slug: g.slug, name: g.name, songs: playable.get(g.id) ?? 0 }))
-    .filter(g => hasClips.has(g.slug) && g.songs >= ROUND_SIZE)
+    .filter(g => g.songs >= ROUND_SIZE)
     .sort((a, b) => a.name.localeCompare(b.name, 'en'));
 
   return { staticModes: STATIC_MODES, groups };

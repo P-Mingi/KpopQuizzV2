@@ -1,0 +1,10 @@
+PART 2/3 - the three surfaces on one page
+  linked on /blindtest: 97 (instances 97, so each once)
+  in the sitemap:       97
+  sitemap NOT linked:   0
+  linked NOT in sitemap: 0
+  picker groups in the server payload: 79
+
+  akmu + taeyang: advertised AND linked AND offered?
+    akmu: sitemap=true linked=true inPayload=true
+    taeyang: sitemap=true linked=true inPayload=true
