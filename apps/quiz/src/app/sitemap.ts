@@ -34,7 +34,7 @@ const TERMS_DATE = new Date('2026-03-27');
 // URLs whose content is derived from the live quiz catalogue: their lastmod is
 // the newest quiz updated_at, not the deploy time.
 const CATALOG_PATHS = new Set<string>([
-  '', '/groups', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+  '', '/groups', '/data/knowledge-report-2026', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
   '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/games',
@@ -94,6 +94,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // W7b: the A-Z group directory. A real index page, indexable, so that no group hub
     // can be orphaned by the capped rails on the home page.
     { url: `${SITE_URL}/groups`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
+    // W5: the K-pop Knowledge Report. The dataset route beside it is deliberately NOT listed:
+    // it is a raw markdown file, not a page competing for a query.
+    { url: `${SITE_URL}/data/knowledge-report-2026`, lastModified: new Date('2026-08-17'), changeFrequency: 'yearly', priority: 0.8 },
     // S2 #3 time-sliced popular index pages (lastmod bumped to contentDate below).
     { url: `${SITE_URL}/quizzes/popular-today`, lastModified: STATIC_DATE, changeFrequency: 'hourly', priority: 0.7 },
     { url: `${SITE_URL}/quizzes/popular-this-week`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },

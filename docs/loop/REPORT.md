@@ -1,121 +1,121 @@
-# REPORT - W5-DOCS-2: the leak I widened is gone from unpushed history, and the manual gate is now automatic.
+# REPORT - W5 PART 1: the report page is built and shipped verbatim. Two figures BLOCKED.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every command. No application code beyond the gate script, no DDL, **nothing pushed**.
+before every gate run. No DDL, no database writes, **nothing pushed**. I am treating every
+commit from here as one push away from production, per your note.
 
-Proofs: `docs/proofs/w5-docs-2/`.
+Proofs: `docs/proofs/w5-part1/`.
 
 ---
 
-## PART 1 - the values never reach the remote
+## BLOCKED: two figures in the draft do not match the report's own window
 
-You were right, and it is the worst kind of mistake: I reported a leak by copying it, into
-four tracked files, in a repo about to be pushed. One file went from one occurrence to four.
+Filed as `w5-report-figures`. I did not fix either one.
 
-Only HEAD introduced them, so this was an ordinary amend rather than a history rewrite.
-`328c6a1` is now `dbec5d9`, and the verification is over the commits, not the working tree
-(`pii-verification.txt`):
+**1. The perfect-score and zero-score shares are all-history, not the window.**
 
-    HEAD tree, files containing either value          NONE
-    unpushed commits carrying a value in docs/loop/   NONE
-    working tree, whole repo                          NONE
+    Draft: "Across the whole window, one attempt in five is a perfect score, and 2.1%
+            score zero."
 
-The 44 earlier unpushed commits still carry the two pre-existing occurrences, unchanged,
-because they inherit them from `origin/main`, which already holds 1 line in
-`VERSE-LEDGER.md` and 2 in `VERSE-WORKING-SYSTEM-V2.md`. Those are the ones that cannot be
-recalled. Pushing adds no new exposure.
+    Recomputed against the live table:
+      May-Aug (the report's window, n=17,435):  perfect 35.9%   zero 0.6%
+      All history (n=59,417):                   perfect 20.6%   zero 2.1%
 
-The finding survives, by location: `docs/VERSE-WORKING-SYSTEM-V2.md:112` and `:114`,
-`docs/VERSE-LEDGER.md:97`. That is how L-202, BLOCKED.md and REPORT.md now say it.
+20.6% and 2.1% are the all-history figures from dataset section G5. The method section three
+scroll-lengths above explains why 70.7% of that history is excluded, so the report currently
+excludes a period and then quotes a statistic computed on it. In-window, one in five is
+closer to one in three.
 
-**The rule is written into `docs/LOOP-CHARTER.md`** as "Incident reporting: locations, never
-values", with the incident that produced it and a corollary: if the value is not yet on a
-remote it can still be removed, so fix the unpushed commits *before* reporting anywhere.
+**2. "published quizzes per group run from 3 to 27" cannot be true of 21 groups.**
 
-## PART 2 - the already-pushed occurrences
+Across the 21 compared groups the range is **3 to 152**; the maximum is `general-kpop`, the
+catch-all bucket, at 152 published quizzes. It is 3 to 27 only if you exclude it, and then
+it is 20 groups, not 21. The sentence is right about the numbers or right about the count,
+not both. Dataset section Q lists all 21 rows.
 
-Replaced in the working copy with `<owner-dev-account>` and `<owner-prod-account>`, with an
-HTML comment in `VERSE-WORKING-SYSTEM-V2.md` saying what was replaced, that they were org
-labels rather than contact details, that the project refs still identify each org, and that
-older revisions on the remote still hold the literal values so nobody reads the placeholder
-as data loss. No history rewrite, no force-push.
+Both are one-line edits in the draft and both are yours. **This is the reason not to pitch
+yet**: the report hands the journalist the dataset that contradicts it.
 
-## PART 3 - you are right, and I implemented it
+## What is built
 
-Your argument beats mine, and the part I had missed is the part that matters:
-**deny-by-default is what lost the 101 documents.** My framing weighed a hypothetical future
-doc-with-a-key against a hypothetical future doc-that-gets-lost, when one of those had
-already happened and I had just spent a mission repairing it.
+`/data/knowledge-report-2026`, prose verbatim from v3. No number, ranking or example added,
+nothing softened, nothing moved below the fold, no charts, no explorer, no capture, no share
+widgets.
 
-Implemented:
+## The four hard constraints
 
-1. **`.gitignore`**: 101 explicit lines deleted, replaced by **`!docs/*.md`**. Tracked docs
-   581, still 581 after the swap, `.DS_Store` still ignored, zero newly-untracked files.
-2. **`apps/quiz/scripts/check-docs-secrets.mts`** + `npm run check:docs-secrets`, in the
-   shape of the other three.
-3. **Wired into `.github/workflows/seo-gates.yml` as its own job that runs on push**, since
-   it needs no server and no database. The three heavy gates are now guarded with
-   `if: github.event_name != 'push'` so they stay nightly instead of adding ~20 minutes to
-   every push.
+**1. Not an orphan.** `check:orphans` green, unscoped, complete crawl of **706** non-verse
+URLs (705 + this page). Its inbound links are structural, not minted: the **footer** already
+indexes data work and now lists Knowledge Report beside Pulse, and the **`/data/pulse`
+index** links its sibling first-party report in the citation footer where it already points
+readers at our data.
 
-**The gate is calibrated against the real corpus, not guessed.** Measured over 423 tracked
-files before writing it: the *word* `service_role` appears **45** times and `password` **9**,
-all ordinary prose, while every value-shaped pattern scored **zero**. A gate matching the
-vocabulary would have been red on its first run and ignored by its second, which is
-`w7-close-1` happening again. So it matches value shapes, and secret-ish words only fail
-when a credential-shaped value sits on the same line.
+**2. Unique metadata.** `check:metadata-dupes` still **8 collision groups**, unchanged, and
+`knowledge-report` appears in **0** of them. Title is `The K-pop Knowledge Report 2026`
+(root layout appends the suffix, so it is not doubled).
 
-**Proven red then green**, like the orphan gate:
+**3. The dataset ships beside it.** `/data/knowledge-report-2026/dataset` serves
+`docs/data/w5-dataset.md` **byte-identical**, 52,416 bytes, all 16 sections including the
+discarded findings. Read at build time from the single copy in the repo, so the page cannot
+drift from the doc. Two links to it on the page, one in the header line and one on the
+closing sentence that promises it.
 
-    injected doc with a fake JWT and a non-allowlisted address
-      x docs/__gate-red-proof.md:2  JWT
-      x docs/__gate-red-proof.md:3  EMAIL-NOT-ALLOWLISTED          EXIT=1
-    proof file removed                                             EXIT=0, 581 files scanned
+**4. All four gates, cwd printed before each:** `check:docs-secrets` **0** ·
+`check:routes` **0** · `check:indexability` **0** · `check:orphans` **0** ·
+`check:metadata-dupes` unchanged.
 
-**It obeys the new rule itself**: findings print `path:line PATTERN-NAME` and the matched
-text is never echoed.
+## The 59,000 problem
 
-## PART 4 - the duplicate
+`/stats` untouched, no caveat added, no reconciling sentence invented. The defusing
+paragraph is in the served HTML, in full, in normal body type: "17,425 completed attempts
+across 76 quizzes" and "at a cost of 70.7% of our raw volume" both present, and there are
+**zero `<details>` elements on the page**, so nothing is collapsed behind anything.
 
-Mine is now `L-201b` at line 4111. Yours is untouched at 4153. `L-202` follows, and this
-mission is `L-203`.
+## Schema
+
+`Report`, not `Article` and not a bare `Dataset`. `headline`, `datePublished`, `inLanguage`,
+`author` and `publisher` as `Organization`, and the dataset attached via `isBasedOn` as a
+real `Dataset` carrying `temporalCoverage: 2026-05-01/2026-08-17`, a CC-BY `license`, and a
+`DataDownload` distribution with `encodingFormat: text/markdown` pointing at the live route.
+Parsed out of the served HTML rather than eyeballed.
+
+## Decisions worth your veto
+
+1. **The dataset route is deliberately not in the sitemap** and carries
+   `X-Robots-Tag: noindex, follow`. It is a raw markdown file, not a page competing for a
+   query, and keeping it out means it can never become an orphan-gate or duplicate-metadata
+   problem. It is reachable, which is what the report promises. Verified: 0 occurrences in
+   the sitemap, the report itself 1.
+2. **`text/markdown`, not a rendered HTML page.** A journalist gets the raw file with the
+   SQL in it, which is the point of the offer, and it costs no renderer and no second design.
+3. **Footer placement.** A footer link is a weak link, but the footer is where this site
+   already indexes its data work, and the mission's rule is to link where it belongs rather
+   than where it would rank. The Pulse index link is the stronger one.
 
 ## Deviations and flags (loud)
 
-1. **I went broader than you specified on the wildcard.** You said `!docs/PLAY-*.md`,
-   `!docs/VERSE-*.md` "and whatever other families the directory actually supports". I used
-   **`!docs/*.md`** instead, because a family list is still a manual list: a doc named
-   `pricing-notes.md` next month matches no family and gets lost exactly as before. `*.md`
-   keeps binaries and exports out, which is the only distinction that needed to survive.
-   Say the word and I will narrow it to families.
-2. **What the scanner cannot catch, which you are now accepting by inverting the default.**
-   It matches credential *shapes*. A doc containing an NDA extract, a partner's name before
-   announcement, or a person's name and address in prose will be tracked automatically and
-   pass clean. Deny-by-default caught that class by forcing a human to read; the wildcard
-   does not. I think the trade is still right, because the failure it prevents already
-   happened and the failure it permits has not. It is worth stating rather than discovering.
-3. **Two false positives on the gate's first run, and I tightened rather than allowlisted.**
-   `docs/blindtest-migration-map.md:67` and `:101` matched a script filename and a list of
-   env var *names*. Adding them to an exception list would have hidden the flaw; the value
-   test now requires mixed case and digits and rejects `ALL_CAPS_ENV_NAMES`, dotted
-   filenames and paths.
-4. **The gate scanned exactly one file and passed, on its first real run.** `git ls-files
-   docs` run from `apps/quiz` resolves to `apps/quiz/docs`. It is now anchored to
-   `git rev-parse --show-toplevel`, prints the absolute root and the file count, and fails
-   loudly if it finds zero files, because a gate quietly checking the wrong tree is worse
-   than no gate.
+1. **I built the page while blocking on its content.** The alternative readings were to stop
+   entirely, or to fix two numbers I was explicitly told not to touch. Building means the
+   page is ready the moment you rule; blocking means it should not be pushed or pitched
+   until you do. If you would rather it did not exist on disk until the figures are settled,
+   say so and I will revert the route in one commit.
+2. **The live table has moved since the dataset snapshot**: 17,435 usable in-window plays
+   now against 17,425 in the file. That is people playing, not an error, and the report
+   cites a snapshot. Worth knowing before anyone re-runs a figure and gets a different last
+   digit.
+3. **`Report` is a thin schema.org type.** I used it because it is the accurate one; a
+   richer `Dataset`-first shape would describe the wrong primary object. If a Tier 1 target
+   turns out to need `Article` for their CMS, that is a one-line change.
 
 ## Covenant
 
-Every claim in this report is verified against commits rather than the working tree, and no
-value appears anywhere in it. The gate was calibrated by measurement before it was written
-and proven in both directions after.
+The prose is the draft, unaltered. Every figure I checked was recomputed against the live
+table rather than read back from the file, which is what surfaced both blocked items. Every
+claim in this report is verified against the served HTML of a production build.
 
 ## Next
 
-`w5-docs-pii` in BLOCKED.md is now partly executed: PART 2 done, history deliberately left
-alone. It stays open only as the record of what is on the remote and why we chose not to
-chase it. 46 commits local, nothing pushed.
+`w5-report-figures` is the one thing standing between this page and a pitch.
 
 ---
 

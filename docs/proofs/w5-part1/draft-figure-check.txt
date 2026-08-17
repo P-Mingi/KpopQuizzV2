@@ -1,0 +1,10 @@
+CLAIM: "Across the whole window, one attempt in five is a perfect score, and 2.1% score zero"
+  MAY-AUG (the report window, n=17435): perfect 35.9%  zero 0.6%
+  ALL HISTORY (n=59417):            perfect 20.6%  zero 2.1%
+
+CLAIM: "published quizzes per group run from 3 to 27" across the 21 compared groups
+  groups clearing 100 May-Aug attempts: 21
+  published-quiz range INCLUDING general-kpop: 3 to 152  (max = general-kpop)
+  published-quiz range EXCLUDING general-kpop: 3 to 27  (max = bts, n groups = 20)
+
+CLAIM: "56 accounts ... median of 249 ... against a median of six per account afterwards"

@@ -4282,3 +4282,45 @@ SELF-CORRECTIONS: the gate's first real run scanned exactly ONE file and passed,
 `git rev-parse --show-toplevel`, prints the count, and fails on zero files. Two false
 positives (a script filename, a list of env var NAMES) were fixed by tightening the value
 test, not by allowlisting them.
+
+## L-204 - W5 PART 1: the Knowledge Report landing page, draft shipped verbatim, 2 figures BLOCKED (2026-08-17)
+
+No DDL, no DB writes, nothing pushed. Proofs: docs/proofs/w5-part1/.
+
+BLOCKED w5-report-figures, NOT fixed per the mission:
+ 1. "Across the whole window, one attempt in five is a perfect score, and 2.1% score zero"
+    uses ALL-HISTORY figures (dataset G5). Recomputed: May-Aug window (n=17,435) is
+    perfect 35.9% / zero 0.6%; all history (n=59,417) is 20.6% / 2.1%. The report excludes
+    70.7% of history in its method section and then quotes a statistic computed on it.
+ 2. "Across the 21 groups compared here ... published quizzes per group run from 3 to 27":
+    across those 21 the range is 3 to 152 (max = general-kpop, the catch-all bucket).
+    3 to 27 is true only of 20 groups. Right about the numbers or the count, not both.
+Both are one-line owner edits. The report links the dataset that contradicts it, so this is
+the reason not to pitch yet.
+
+BUILT: /data/knowledge-report-2026, prose VERBATIM from PLAY-W5-REPORT-DRAFT.md v3. Nothing
+added, nothing softened, no charts/explorer/capture/share widgets.
+ - NOT AN ORPHAN: check:orphans green unscoped over 706 non-verse URLs. Inbound links are
+   structural, not minted: footer already indexes data work (Knowledge Report beside Pulse),
+   and /data/pulse links its sibling first-party report in the citation footer.
+ - METADATA: check:metadata-dupes unchanged at 8 collision groups, knowledge-report in 0.
+ - DATASET BESIDE IT: /data/knowledge-report-2026/dataset serves docs/data/w5-dataset.md
+   BYTE-IDENTICAL (52,416 bytes, all 16 sections incl. the discarded findings), read at
+   BUILD time from the single repo copy so page and doc cannot drift. Deliberately NOT in
+   the sitemap + X-Robots-Tag noindex,follow: a raw markdown file, not a page competing for
+   a query, and staying out means it can never become an orphan/dupes problem.
+ - THE 59,000 PROBLEM: /stats untouched, no caveat added, no reconciling sentence invented.
+   The defusing paragraph is in the served HTML in normal body type and there are ZERO
+   <details> elements on the page.
+ - SCHEMA: schema.org Report (not Article, not a bare Dataset), with author/publisher as
+   Organization and the dataset attached via isBasedOn as a real Dataset carrying
+   temporalCoverage 2026-05-01/2026-08-17, CC-BY license and a DataDownload distribution
+   (text/markdown). Parsed out of the served HTML.
+
+GATES, cwd printed before each: check:docs-secrets 0, check:routes 0, check:indexability 0,
+check:orphans 0 (706, complete crawl), check:metadata-dupes unchanged.
+
+FLAGGED: built the page while blocking its content (revertible in one commit if the owner
+prefers it not exist until the figures are settled). The live table has moved since the
+snapshot: 17,435 in-window usable plays now vs 17,425 in the file, which is people playing,
+not an error.

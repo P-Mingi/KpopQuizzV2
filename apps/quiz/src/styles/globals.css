@@ -6836,3 +6836,29 @@ main:has(.verse-page) { max-width: none; }
 .bt-pl-card:hover { border-color: var(--accent); }
 .bt-pl-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
 .bt-pl-desc { font-size: 11px; color: var(--txt3); }
+
+/* W5 - the K-pop Knowledge Report landing page. Plain, fast, readable: no charts, no
+   widgets. Measure-limited body text and tables that scroll rather than squash. */
+.kr { max-width: 720px; margin: 0 auto; padding-bottom: 48px; }
+.kr-head { margin: 8px 0 30px; }
+.kr-title { font-size: 34px; line-height: 1.12; font-weight: 800; margin: 0 0 10px; color: var(--text-primary); letter-spacing: -0.02em; }
+.kr-standfirst { font-size: 19px; line-height: 1.4; font-weight: 600; color: var(--text-secondary); margin: 0 0 14px; }
+.kr-dek { font-size: 12px; color: var(--txt3); margin: 0; }
+.kr-inline-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.kr-section { margin-bottom: 34px; }
+.kr-h2 { font-size: 21px; font-weight: 800; margin: 0 0 12px; color: var(--text-primary); letter-spacing: -0.01em; }
+.kr p { font-size: 16px; line-height: 1.65; color: var(--text-primary); margin: 0 0 14px; }
+.kr-callout { border-left: 3px solid var(--accent); padding: 2px 0 2px 14px; }
+/* The limits section is the credibility of the piece, so it reads as part of the report
+   rather than an appendix: same type size, own surface, never collapsed. */
+.kr-cannot { border: 1px solid var(--border); border-radius: 14px; padding: 20px 20px 8px; background: var(--surface); }
+.kr-table-wrap { overflow-x: auto; margin: 0 0 18px; }
+.kr-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.kr-table-caption { text-align: left; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); padding-bottom: 8px; }
+.kr-table th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--txt3); border-bottom: 1px solid var(--border); padding: 6px 10px 6px 0; }
+.kr-table td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--border); color: var(--text-primary); vertical-align: top; }
+.kr-num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kr-foot { border-top: 1px solid var(--border); padding-top: 16px; }
+.kr-foot p { font-size: 13px; color: var(--text-secondary); }
+.kr-foot-links a { color: var(--accent); text-decoration: none; }
+@media (max-width: 640px) { .kr-title { font-size: 27px; } .kr-standfirst { font-size: 17px; } }

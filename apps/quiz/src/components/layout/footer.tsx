@@ -41,6 +41,7 @@ export function Footer(): React.ReactElement {
               { label: 'Leaderboard', href: '/leaderboard' },
               { label: 'Stats', href: '/stats' },
               { label: 'Pulse', href: '/data/pulse' },
+              { label: 'Knowledge Report', href: '/data/knowledge-report-2026' },
               { label: 'Articles', href: '/articles' },
               { label: 'News', href: '/news' },
             ].map(l => (

@@ -49,6 +49,50 @@ which is those workflows' own bot credential, not a failure hook. NO workflow in
 notifies on failure. The new workflow posts to a Discord webhook on failure and no-ops
 when the secret is absent.
 
+## w5-report-figures - two figures in the shipped draft do not match the report's own window
+
+- What is blocked: pitching the report, and the owner's push of this page while it says
+  these two things. NOT the build: the page is built and the draft is shipped verbatim as
+  instructed. I did not fix either figure, per the mission.
+- Why this matters more than usual: both are checkable by anyone who clicks the dataset
+  link the report itself provides, and the second one is internally inconsistent with the
+  sentence it sits in. A Tier 1 journalist can be approached once.
+
+**1. The perfect-score and zero-score shares are all-history, not the window.**
+
+    Draft: "Across the whole window, one attempt in five is a perfect score, and 2.1%
+            score zero."
+
+    Recomputed just now against the live table:
+      May-Aug (the report's window, n=17,435):  perfect 35.9%   zero 0.6%
+      All history (n=59,417):                   perfect 20.6%   zero 2.1%
+
+  20.6% and 2.1% are the all-history figures from dataset section G5. The report's whole
+  method section is about excluding 70.7% of that history, so quoting a statistic computed
+  on it contradicts the paragraph three sections above. In-window, "one attempt in five" is
+  actually closer to one in three.
+
+**2. "published quizzes per group run from 3 to 27" does not hold for 21 groups.**
+
+    Draft: "Across the 21 groups compared here ... published quizzes per group run from
+            3 to 27."
+
+    Recomputed: across those 21 groups the range is 3 to 152. The maximum is general-kpop,
+    a catch-all bucket rather than a group, with 152 published quizzes. Excluding it the
+    range is 3 to 27, but that is 20 groups, not 21.
+
+  So the sentence is right about the numbers or right about the count, not both. Dataset
+  section Q lists all 21 rows including general-kpop at 152.
+
+- Options: 1) Correct both in the draft and I re-ship it verbatim: "roughly one in three"
+  and "0.6%", and either "20 groups" or "3 to 152". 2) Keep the all-history framing but say
+  so explicitly, e.g. "across our whole history". 3) Ship as-is and accept that the dataset
+  published alongside contradicts the report in two places.
+- Recommendation: 1. Both are one-line edits in the draft, both are yours to make since the
+  content is not mine to change, and 3 spends a Tier 1 approach on a piece with a
+  self-refuting number in it.
+- Proof / context: docs/proofs/w5-part1/draft-figure-check.txt, dataset sections G5, N and Q.
+
 ## w5-docs-pii - two personal email addresses are in ALREADY-TRACKED docs, and already on origin
 
 - What this is: an owner decision, not a blocker on W5-DOCS. The allowlist work is done and

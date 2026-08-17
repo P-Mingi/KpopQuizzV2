@@ -1,0 +1,34 @@
+=== W5 PART 1: served HTML of a production build ===
+--- constraint 2: title + description, unique ---
+  <title>: The K-pop Knowledge Report 2026 | KpopQuiz
+  description: We scored 17,425 K-pop quiz attempts to measure what fans actually know. Fans name members at 97.5% and place eras at 41...
+  canonical: https://kpopquiz.org/data/knowledge-report-2026
+--- the method paragraph must be visible, not collapsed ---
+  "17,425 completed attempts across 76 quizzes" in body: 2
+  "70.7% of our raw volume" in body: 2
+  <details> collapsers on the page: 0
+--- the limits section, in full ---
+  2  What we cannot say
+  2  The ranking is not real
+  2  Neither is the gender comparison
+  2  Neither is the generation gradient
+  2  The root cause is us
+  2  We cannot tell you which questions
+  2  This is our audience
+--- constraint 3: the dataset link ---
+  dataset links in body: 2
+--- JSON-LD ---
+  @type: Report | datePublished: 2026-08-17
+  author: Organization KpopQuiz
+  isBasedOn: Dataset | https://kpopquiz.org/data/knowledge-report-2026/dataset
+  temporalCoverage: 2026-05-01/2026-08-17 | distribution: text/markdown
+  JSON-LD parses: yes
+=== constraint 3: the dataset served in FULL ===
+  served bytes : 52416
+  source bytes : 52416
+  BYTE-IDENTICAL to docs/data/w5-dataset.md
+  sections present: 16
+  discarded findings included (section P verdict): 1
+  X-Robots-Tag: x-robots-tag: noindex, follow
+  in sitemap (should be 0): 0
+  report in sitemap (should be 1): 1

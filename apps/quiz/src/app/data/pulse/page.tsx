@@ -111,7 +111,9 @@ export default async function PulseIndexPage(): Promise<React.ReactElement> {
 
       <p className="pulse-cite-foot">
         This data is free to cite with a link to{' '}
-        <Link href="/data/pulse" className="pulse-cite-foot-link">kpopquiz.org/data/pulse</Link>. Every figure is
+        <Link href="/data/pulse" className="pulse-cite-foot-link">kpopquiz.org/data/pulse</Link>. See also{' '}
+        <Link href="/data/knowledge-report-2026" className="pulse-cite-foot-link">The K-pop Knowledge Report 2026</Link>,
+        our measurement of what fans actually know. Every figure is
         first-party and stamped with the month it was measured.
       </p>
     </div>
