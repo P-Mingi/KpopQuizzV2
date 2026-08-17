@@ -4561,3 +4561,56 @@ apply here and PLAY-GRAPHIFY-DOCTRINE.md governs.
 
 SELF-CORRECTION: my first Bloom probe piped ls into sed so the `||` fallback could never fire
 and the empty output proved nothing; re-ran with explicit -e tests per path.
+
+## L-210 - RENDER-MODE: every page-level revalidate is inert; the root layout costs 35 pages (2026-08-17)
+
+Read-only: no app code committed, no DDL, nothing pushed. Scratch edit auto-reverted, source
+verified byte-clean. Proofs: docs/proofs/render-mode/.
+
+PART 1 CENSUS (baseline build, source as shipped): 366 route-table rows, 5 STATIC, 361
+DYNAMIC. The only static routes are /data/knowledge-report-2026/dataset, /llms.txt,
+/pinterest-feed.xml, /robots.txt, /sitemap.xml - every one a route handler with explicit
+force-static. NO PAGE IS STATIC. 86 files export `export const revalidate`; exactly 1 is
+static and it is a route handler. EVERY PAGE-LEVEL revalidate IS INERT.
+
+PART 2 CAUSE, established not assumed. Scratch build changing ONLY layout.tsx:115
+(`const isEmbed = ((await headers()).get('x-pathname') ?? '')...` -> `false`, plus the unused
+import): WITH the call 5 static / 361 dynamic; WITHOUT it 63 static / 295 dynamic. Of the 86
+revalidate routes: 1 static with, 36 static without. SO THE HYPOTHESIS IS CONFIRMED BUT
+NARROWER than "every revalidate is dead because of this line": the root layout costs 35 PAGES
+their ISR; the other 50 revalidate exports are inert for their OWN reasons and stay dynamic
+either way. Recovered set includes /leaderboard, /games, /groups, /blindtest, /data/pulse,
+/data/knowledge-report-2026 and the SEO landing pages. First scratch attempt FAILED (Type
+error: 'headers' is declared but its value is never read) and is recorded, not hidden.
+
+RECONCILIATION of the contradiction: the build prints "Generating static pages using 7 workers
+(0/826)" - 826 pages ARE rendered at build, which is where the 401 q/[slug] throws came from,
+and q/[slug] also declares generateStaticParams (11 routes do) which queries the DB itself.
+Next renders, hits the root layout's dynamic API, marks the route f. The render happens, the
+output is not reusable: the app pays build-time DB traffic AND per-request re-rendering.
+
+PART 3 COST, three consecutive requests on the production build (numbers do NOT fall on
+repeat, which is the direct proof): /leaderboard 726/732/710ms, /games 253/287/259ms,
+/blindtest 138/115/126ms, /groups 26/12/12ms, /data/knowledge-report-2026 11/7/7ms. The two
+heaviest that would otherwise be ISR are /leaderboard ~720ms and /games ~265ms PER REQUEST
+instead of once an hour. The recoverable saving is concentrated, not spread: 33 of the 35
+cost 7-140ms.
+
+PART 4 OPTIONS ONLY, nothing implemented: (1) move embed detection out of the root layout -
+recovers all 35, cost is re-proving W4b's absent-from-payload guarantee; (2) route group
+(site)/(embed) - idiomatic and cleanest end state, relocates ~60 routes, refused on cost in
+W4b and that refusal was endorsed; (3) PPR - designed for this, least proven here, unmeasured;
+(4) live with it - defensible for 33 of 35 at 7-140ms, NOT for /leaderboard at 720ms.
+Worker's read: option 1 is the right size, and fix /leaderboard first to confirm the saving
+before touching a layout every page depends on.
+
+WHOSE MISS: not the x-pathname design, which was sound and whose alternative was correctly
+refused on cost. What was missing is that NOBODY MEASURED THE RENDER MODE AFTERWARDS - and I
+looked straight at a `f` marker twice (/pt/games in W7-CLOSE-2, and again here) and wrote
+"something downstream opts it out" without opening the route table that was already in my own
+build log. The table was in every build output for weeks.
+
+FLAGGED: four builds this mission (baseline, failed scratch, clean scratch, plus a rebuild to
+restore .next, which the scratch had overwritten with an artefact not matching the source).
+The 63-vs-5 comparison is from a build with a BEHAVIOUR change (isEmbed=false renders chrome
+into /embed) - valid for counting render modes, invalid for anything else.

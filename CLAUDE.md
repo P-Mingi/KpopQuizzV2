@@ -54,3 +54,32 @@ proof artifact is saved as a file under `docs/proofs/<step-id>/`. `git push` is
 owner-gated (hook-blocked). Migrations are owner-run: write the SQL to
 `docs/pending-migrations/` as a file, never to `supabase/migrations/`. A Stop hook
 keeps `tsc` green before any turn ends.
+
+## Graphify: this repo overrides the skill's defaults
+
+The `graphify` skill's own instructions tell an agent to treat a codebase question as a
+graph query first, and to "answer using only what the graph output contains". **Those two
+instructions do not apply in this repo.** `docs/PLAY-GRAPHIFY-DOCTRINE.md` governs, and it
+was written from a graded trial rather than from the skill's own description.
+
+The rules, shortest form:
+
+- **`explain` and `path` first** for "what touches X and where". They were measured right to
+  the line, three times out of three, including a transitive caller and typed
+  `imports`/`calls`/`contains` edges that grep cannot produce.
+- **Never `query` for an answer.** Measured on this repo it returned 270 nodes truncated to
+  80 with the correct answer unranked. Its output is a starting set of filenames.
+- **Never the graph for a NEGATIVE.** In `apps/quiz/src/app/sitemap.ts` the three real
+  client call sites at L219, L382 and L405 are absent from the graph while the file's import
+  edge is present. Absence in the graph is not absence in the code, so "nothing calls this"
+  always costs a grep before anyone acts on it.
+- **Never the graph for data, runtime, absence-in-served-HTML, a gate result, or a number in
+  a report.** Those come from a query, a build, a served response, or the committed dataset,
+  exactly as before.
+- **Cite the source, not the graph.** The graph says where to look; the file says what is
+  true. State the graph's build time whenever an answer leans on it, and rebuild after any
+  structural change - `graphify . --update`.
+
+Nothing here is scepticism about the tool. Asked about a relationship between two database
+tables it answered "No node matching found" rather than inventing an edge, which is why it
+earns standing use at all. The limits above are the measured ones.

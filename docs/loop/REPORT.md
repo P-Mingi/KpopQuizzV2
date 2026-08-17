@@ -1,139 +1,150 @@
-# REPORT - GRAPHIFY PART 0: the global file is trivial. The SKILL's default instruction is not.
+# REPORT - RENDER-MODE: your hypothesis is right, and narrower than you feared.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every step. Read-only: no code, no DDL, no writes outside `docs/loop/` and
-`docs/proofs/graphify-part0/`, **nothing pushed**. `/graphify` was not run in the bloom repo.
+before every build. Mission `cat`-ed, not `head`-ed. **Read-only: no application code
+committed, no DDL, no writes, nothing pushed.** The scratch edit auto-reverted and the source
+is verified clean.
 
-Proof: `docs/proofs/graphify-part0/global-instruction-audit.txt`.
+Proofs: `docs/proofs/render-mode/`.
 
 ---
 
-## First, the miss, because it is worse than you diagnosed
+## PART 1 - the census settles it
 
-You said the instruction was seen and the reporting was dropped. It is worse: **I never read
-it.** On the turn the trial ran, the bus had been rewritten (mtime moved 18:33 to 18:47) and
-I ran `head -8 docs/loop/MISSION.md`, saw a familiar title, and went to the skill. `READ
-FIRST` and `PART 0` were below line 8. I truncated my own read of the bus and then executed
-confidently against a mission I had not read.
+Baseline build, source exactly as shipped:
 
-That is the same shape as the two you named, and it has a single root: I treat re-reads as
-confirmation rather than as reading. The trial's technical content was good because the
-answer key was in the part I did read. That is luck, not method.
+    route-table rows : 366
+    static           :   5
+    dynamic          : 361
 
-The fix is one line and I am stating it so it can be held against me: **`cat` the mission,
-never `head` it.** Not "verify twice" or "be careful" - a specific command I got wrong.
+The only five static routes in the entire application:
 
-## 1. The global file, verbatim
+    /data/knowledge-report-2026/dataset   /llms.txt   /pinterest-feed.xml
+    /robots.txt                           /sitemap.xml
 
-`/Users/louis/.claude/CLAUDE.md`, 228 bytes, 3 lines, in full:
+Every one is a route handler with an explicit `force-static`. **No page in this app is
+static.** 86 files export `export const revalidate`, and exactly **1** of them is static in
+the shipped build, and that one is `/pinterest-feed.xml`, a route handler.
 
-```
-# graphify
-- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
-When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
-```
+So: **every page-level `revalidate` in this app is inert.** Confirmed.
 
-**It is trivial and it is gated.** It fires only when the user types `/graphify`. It does not
-tell agents to prefer the graph over source, does not run anything, does not reach the
-network. As a global file it is close to the smallest thing it could have written.
+## PART 2 - the cause, established rather than assumed
 
-## 2. Overwrite check
+One line changed in a scratch build, `src/app/layout.tsx:115`, plus its now-unused import:
 
-Birth and modified are both `Aug 17 18:45:17`, so the file has not been touched since
-creation. Only one `CLAUDE.md` exists anywhere under `~/.claude`. `~/.claude/backups` holds
-only `.claude.json` backups, no CLAUDE.md of any vintage. No `.bak` or `.orig` sibling.
+    const isEmbed = ((await headers()).get('x-pathname') ?? '').startsWith('/embed');
+      ->  const isEmbed = false;
 
-**`~/.claude` is not a git repo, so there is no history to diff.** Everything on disk is
-consistent with "created", and **I cannot prove a prior file was not deleted and replaced** -
-no artefact would distinguish those two cases. Saying that rather than assuming it, per the
-mission.
+| | static | dynamic |
+| --- | --- | --- |
+| **with** the `headers()` call | **5** | 361 |
+| **without** it | **63** | 295 |
 
-Separately: the user-memory file this session actually reads
-(`~/.claude/projects/.../memory/MEMORY.md`) has mtime 17:42, predates the 18:45 install, and
-is untouched.
+Of the 86 routes exporting `revalidate`: **1 static with it, 36 without it.**
 
-## 3. What the SKILL instructs by default, and the one that conflicts
+**Your hypothesis is confirmed, and it is narrower than "every `revalidate` is dead because
+of this line".** The root layout costs **35 pages** their ISR. The other 50 `revalidate`
+exports are inert for their own reasons and would stay dynamic even if the layout were
+fixed. That distinction matters for PART 4: fixing the layout recovers 35 pages, not 86.
 
-**The conflict is real and it is in the frontmatter, which loads into every session:**
+The 36 that recover include `/leaderboard`, `/games`, `/groups`, `/blindtest`, `/data/pulse`,
+`/data/knowledge-report-2026`, the games sub-pages and the SEO landing pages. Full list in
+the proof.
 
-> "Use for any question about a codebase, its architecture, file relationships, or project
-> content — **especially when `graphify-out/` exists, where the question should be treated as
-> a graphify query first**."
+**The first scratch attempt failed and I am reporting it rather than hiding it**: removing
+the call without the import gave `Type error: 'headers' is declared but its value is never
+read`. Re-run with both removed, it built clean. The failure is in the proof file.
 
-And `SKILL.md:53`, the fast path:
+### Reconciling the contradiction you flagged
 
-> "**Fast path — existing graph:** Before doing anything else, check whether
-> `graphify-out/graph.json` exists. ... If it exists AND the user's request is a
-> natural-language question about the codebase ... **skip Steps 1–5 entirely and jump
-> straight to `## For /graphify query`.** Run `graphify query "<question>"` immediately. Do
-> not run detect. Do not check corpus size. Do not ask the user to narrow. **The graph is
-> already built — use it.**"
+Both facts are true at once, and the build output says so directly:
 
-And `SKILL.md:691`, on answering:
+    Generating static pages using 7 workers (0/826)
 
-> "**Answer using only what the graph output contains**, and quote `source_location` when
-> citing a specific fact."
+**826 pages are rendered during the build.** That is where the 401 `q/[slug]` throws came
+from, and `q/[slug]` additionally declares `generateStaticParams` (11 routes do) which queries
+the DB itself. Next renders the routes at build, encounters the root layout's dynamic API,
+and marks them `ƒ`. **The render happens; the output is not reusable.** So the app pays the
+build-time DB traffic *and* re-renders per request. It is the worst of both, not evidence of
+working static generation.
 
-**These three are a direct conflict with the doctrine.** The doctrine's binding line is *the
-graph is for orientation, the source is for truth*; the skill says treat a codebase question
-as a graph query first, and answer using only what the graph contains. And they route the
-agent to `query` specifically — the one command I measured as the weakest, which returned 270
-nodes truncated to 80 with the answer unranked among `mascot.tsx` and `guest-streak.ts`.
+## PART 3 - the cost, in numbers
 
-**And `graphify-out/` now exists in this repo**, so that fast path is live here from the next
-session onward. This is not hypothetical.
+Three consecutive requests each, production build, warm process:
 
-Three lesser flags, none of them alarming:
+| route | req 1 | req 2 | req 3 |
+| --- | --- | --- | --- |
+| `/leaderboard` | 726ms | 732ms | **710ms** |
+| `/games` | 253ms | 287ms | **259ms** |
+| `/blindtest` | 138ms | 115ms | **126ms** |
+| `/groups` | 26ms | 12ms | 12ms |
+| `/data/knowledge-report-2026` | 11ms | 7ms | 7ms |
 
-- **`SKILL.md:88-93` runs an install/upgrade unprompted** if the import fails:
-  `uv tool install --upgrade graphifyy -q`, falling back to `pip install graphifyy -q
-  --break-system-packages`. A skill invocation can therefore upgrade a package without
-  asking. Worth knowing; not worth blocking.
-- **`SKILL.md:638` prints a sponsorship link** to the user after a run.
-- **`SKILL.md:649-651` instructs an unprompted follow-up offer** ("Want me to trace it?").
+**The numbers do not fall on repeat.** That is the direct evidence, better than the route
+table: an ISR hit would serve request 2 in single-digit milliseconds. Every request
+re-renders.
 
-**Network:** the only endpoints anywhere in the skill directory are `github.com` (repo
-cloning on explicit request) and the sponsor URL. **No telemetry, no phone-home, no analytics
-host.**
+The two heaviest that would otherwise be ISR are **`/leaderboard` at ~720ms** and **`/games`
+at ~265ms**, on every single request instead of once an hour. `/groups` and the report page
+are cheap because their work is mostly static content, so the recoverable saving is
+concentrated in a handful of pages rather than spread across all 35.
 
-## 4. The bloom project
+## PART 4 - options, not a fix
 
-Nothing was written into it. `/Users/louis/Bloom` does not exist; `/Users/louis/IT/Dev/projects/Bloom`
-exists and has no `graphify-out/`, no `.graphify/`, no `CLAUDE.md`. A `find` across the whole
-projects directory shows the only `graphify-out` is this repo's own. `/graphify` was not run
-there and that repo was not modified.
+No implementation, per the mission. Four ways out, with what each costs:
 
-## The override you asked for, if you want it
+**1. Move the embed detection out of the root layout.** The middleware already knows the
+path; it could set a header the `/embed` layout reads, or `/embed` could carry its own
+minimal layout. Recovers all 35 pages. The cost is that W4b's guarantee gets re-proven from
+scratch: the chrome must be absent from the served HTML *and* the RSC payload, which is the
+exact thing that took two attempts to get right the first time.
 
-The global file needs nothing. The conflict is entirely in the skill's frontmatter and fast
-path, and it is load-bearing: it changes the default behaviour of every session in this repo
-now that `graphify-out/` exists.
+**2. A route group.** `(site)` and `(embed)` with separate layouts is the idiomatic Next
+answer and removes the conditional entirely. I measured this cost in W4b and refused it then:
+it relocates every one of ~60 routes. That refusal was endorsed at the time. It is still the
+cleanest end state and still the largest diff.
 
-The doctrine already says the right thing; what it lacks is precedence over a third-party
-instruction that contradicts it. One line in the project's own `CLAUDE.md` would do it, since
-project instructions load after the skill description:
+**3. PPR (Partial Prerendering).** Designed for exactly this: a static shell with the dynamic
+bit streamed. It is the most modern answer and the least proven here, and it would need its
+own measurement pass before I would trust a number from it.
 
-> The graphify skill's "treat the question as a graphify query first" and "answer using only
-> what the graph output contains" do **not** apply in this repo. `PLAY-GRAPHIFY-DOCTRINE.md`
-> governs: `explain` and `path` for orientation, never `query` for an answer, never the graph
-> for a negative, and the source is what gets cited.
+**4. Live with it.** Defensible for 33 of the 35 pages, which cost 7-140ms. It is not
+defensible for `/leaderboard` at 720ms per request, and a targeted fix for that one page
+alone may be worth more than the site-wide change.
 
-I did not write it, because the mission's scope is read-and-report and it says no writes
-outside `docs/loop/` and the proofs directory. It is yours to place.
+My read, offered as opinion and not measurement: **1 is the right size**, and the honest
+sequencing is to fix `/leaderboard` first and confirm the saving is real before touching a
+layout that every page depends on.
+
+## On whose miss this is
+
+You wrote that if the `x-pathname` fix cost the site its caching, the miss is yours. I do not
+think that is where it lands. The design was sound and the alternative was correctly refused
+on cost. What was missing is that **nobody measured the render mode afterwards** — not you
+when you approved it, and not me when I built it and then twice looked straight at a `ƒ`
+marker (`/pt/games` in W7-CLOSE-2, and again here) and wrote "something downstream opts it
+out" without opening the route table that was already in my build log.
+
+The route table was in every build output for weeks. That is the cheap check nobody ran.
 
 ## Deviations and flags (loud)
 
-1. **I could not prove the no-overwrite claim**, only that everything on disk is consistent
-   with it. Stated in section 2 rather than rounded up to "confirmed".
-2. **One check swallowed its own exit code.** My first Bloom probe piped `ls` into `sed`, so
-   the `||` fallback could never fire and the empty output proved nothing. I re-ran it with
-   explicit `-e` tests per path. Flagging because a silently-passing check is the same class
-   of error as the mission I am reporting on.
+1. **Three full builds this mission** (baseline, failed scratch, clean scratch) plus a fourth
+   to restore `.next`, because the scratch build had overwritten it with an artefact that did
+   not match the source. Leaving that in place would have made the next session's
+   measurements silently wrong.
+2. **The 63-vs-5 comparison is from a build with a behaviour change**, not just a compile
+   change: `isEmbed = false` means the scratch build renders chrome into `/embed`. It is
+   valid for counting render modes and invalid for anything else. Not committed, reverted,
+   verified clean.
+3. **I did not measure PPR or any option in PART 4.** They are described from the code and
+   from prior missions, and option 3 in particular is unmeasured here.
 
 ## Covenant
 
-Every quote in section 3 is `sed -n '<line>p'` out of the installed file, not retyped from
-memory. The verbatim CLAUDE.md is `cat`, not a summary.
+Every number is from a build log or a `curl` against a production build, both preserved in
+the proofs. The scratch comparison changed exactly one expression and one import, and the
+source file is byte-identical to HEAD afterwards.
 
 ---
 

@@ -1,0 +1,93 @@
+=== RENDER-MODE: is every revalidate in this app dead? ===
+read-only. two full builds compared. the scratch edit auto-reverted; source verified clean.
+
+--- PART 1: the census (baseline build, source as shipped) ---
+  route-table rows : 366
+  static (o)       : 5
+  dynamic (f)      : 361
+  the ONLY static routes in the whole app:
+    ├ ○ /data/knowledge-report-2026/dataset
+    ├ ○ /llms.txt
+    ├ ○ /pinterest-feed.xml                                  1h      1y
+    ├ ○ /robots.txt
+    ├ ○ /sitemap.xml
+  every one is a route handler with an explicit force-static. NO PAGE is static.
+
+  files exporting  : 86
+  of those, static in the shipped build     : 1  (/pinterest-feed.xml, a route handler)
+  => every PAGE-level revalidate in this app is inert.
+
+--- PART 2: proving the cause ---
+scratch build with ONLY this changed in src/app/layout.tsx:115
+    const isEmbed = ((await headers()).get('x-pathname') ?? '').startsWith('/embed');
+  ->  const isEmbed = false;   (and the now-unused import removed)
+
+  WITH the headers() call    : 5 static / 361 dynamic
+  WITHOUT the headers() call : 63 static / 295 dynamic
+
+  of the 86 revalidate routes:
+    WITH    : 1 static
+    WITHOUT : 36 static
+  => the root layout costs 35 PAGES their static/ISR rendering.
+  => the other 50 revalidate exports are inert for their OWN reasons, not the layout's.
+
+  the 36 that recover:
+    /data/knowledge-report-2026
+    /data/pulse
+    /games
+    /games/match-up
+    /games/name-all
+    /games/name-them-all
+    /games/sort-it
+    /games/this-or-that/all
+    /groups
+    /guess-the-kpop-idol
+    /kpop-quiz-2026
+    /kpop-true-or-false
+    /leaderboard
+    /most-liked
+    /new
+    /news
+    /personality
+    /pinterest-feed.xml
+    /pt
+    /pt/games
+    /pt/guess-the-kpop-idol
+    /pt/kpop-quiz-2026
+    /pt/kpop-true-or-false
+    /pt/leaderboard
+    /pt/quizzes
+    /pt/stats
+    /quizzes/popular-this-month
+    /quizzes/popular-this-week
+    /quizzes/popular-today
+    /rankings
+    /stats
+    /trending
+    /trivia
+    /verse
+    /verse/community
+    /verse/tags
+
+  first scratch attempt FAILED and is reported rather than hidden:
+    Type error: 'headers' is declared but its value is never read.
+    (removing the call without the import; re-run with both removed built clean)
+
+--- PART 2b: reconciling the 401 build-time throws from q/[slug] ---
+  the baseline build prints: 'Generating static pages using 7 workers (0/826)'
+  so 826 pages ARE rendered during the build, which is where the DB calls came from.
+  q/[slug] also declares generateStaticParams (11 routes do), which itself queries the DB.
+  Next renders them at build, discovers the root layout's dynamic API, and marks the
+  route f. The render happens; the OUTPUT is not reusable. Both facts are true at once:
+  build-time DB traffic AND per-request re-rendering.
+
+--- PART 3: what it costs, measured on the shipped build ---
+  three consecutive requests each, production server, warm process:
+    /blindtest                     138ms  115ms  126ms
+    /groups                         26ms   12ms   12ms
+    /data/knowledge-report-2026     11ms    7ms    7ms
+    /games                         253ms  287ms  259ms
+    /leaderboard                   726ms  732ms  710ms
+  the numbers do NOT fall on repeat, which is the direct evidence: an ISR hit would
+  serve request 2 in single-digit ms. Every request re-renders.
+  the two heaviest that WOULD be ISR: /leaderboard ~720ms and /games ~265ms per request.

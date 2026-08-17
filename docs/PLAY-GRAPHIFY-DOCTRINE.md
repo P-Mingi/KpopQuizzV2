@@ -101,16 +101,47 @@ relying on it after any structural change. If the build time cannot be establish
 answer does not count. This is the same discipline as the dataset snapshot boundary, and it
 exists for the same reason.
 
+## THE SKILL CONTRADICTS THIS DOCUMENT, AND THE PROJECT OVERRIDES THE SKILL
+
+Read and quoted from the installed copy on 2026-08-17. The skill's frontmatter says a
+codebase question "should be treated as a graphify query first"; its fast path says to skip
+straight to `graphify query` when `graphify-out/` exists and not to check corpus size or ask
+the user; and its answering section says to "answer using only what the graph output
+contains".
+
+All three contradict the binding line of this document, and they route to `query`, the one
+command the trial measured as the weakest. `graphify-out/` now exists in this repo, so that
+fast path is live rather than hypothetical.
+
+**The override is in the project's own `CLAUDE.md`.** Project instructions load after the
+skill description, so the repo wins. Anyone moving this doctrine to another repo has to move
+that override with it.
+
+**The two environments do not run the same skill.** The copy installed on the owner's machine
+is 691+ lines with a `references/` directory and carries the instructions above. The copy
+synced into Cowork is **49 lines, 2,211 bytes**, with a tamer description and **none** of the
+contested phrases - grepped, zero matches. So the worker's default behaviour is shaped by
+instructions that Cowork's copy does not contain, and Cowork could not have found this
+conflict by reading its own copy. That asymmetry is worth remembering the next time a skill
+"is installed": installed where, and in which version.
+
+Also noted, not blocking: the skill will run `uv tool install --upgrade graphifyy -q`
+unprompted if its import fails, so a skill invocation can upgrade a package without asking.
+Its only network endpoints are `github.com` and a sponsorship URL; no telemetry.
+
 ## THE GLOBAL CLAUDE.md
 
-`graphify install` created `/Users/louis/.claude/CLAUDE.md`, a standing instruction file
-that applies to **every** Claude session on this machine, including the worker in this repo
-and the worker in the nuri/bloom repo that shares this bus convention.
+Read in full on 2026-08-17. **It is trivial and it is gated**: 228 bytes, three lines,
+firing only when the user types `/graphify`. It does not tell agents to prefer the graph over
+source, runs nothing, and reaches no network. As a global file it is close to the smallest
+thing the installer could have written, and it needs no override.
 
-We have not read it. Until we have, nothing in this doctrine is final, because a third-party
-file now sits upstream of every mission and we do not know what it says. Reading it is PART
-0 of the trial mission, and if anything in it conflicts with the rules above, the rules
-above win and the conflict gets written down rather than silently resolved.
+One honest limit: `~/.claude` is not a git repo, everything on disk is consistent with
+"created", and **it cannot be proven that no prior file was deleted and replaced.** No
+artefact would distinguish the two cases. Recorded as unproven rather than rounded up.
+
+The bloom repo was untouched: no `graphify-out/`, no `.graphify/`, no `CLAUDE.md`, and
+`/graphify` was never run there.
 
 ## THE HONEST POSITION
 
