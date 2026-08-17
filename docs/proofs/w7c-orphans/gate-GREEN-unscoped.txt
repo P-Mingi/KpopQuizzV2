@@ -1,0 +1,4 @@
+=== VERIFY 5: check:orphans UNSCOPED, no scope flag exists ===
+Orphan gate: 679 non-verse sitemap URLs, crawled 679 of 679 pages against http://localhost:3021
+Orphan gate passed: every one of the 679 non-verse sitemap URLs has at least one inbound internal link from the 679 crawled pages. (Complete crawl of every non-verse sitemap URL.)
+EXIT=

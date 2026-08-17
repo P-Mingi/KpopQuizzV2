@@ -27,38 +27,13 @@ w2-notify blocker CLEARED 2026-08-15: migration 154 is applied. Re-probed with
 controls, `battle_beaten` inserts cleanly and a bogus type is still rejected
 (docs/proofs/w2c-supply/partC-mig154-reprobe.txt).
 
-## w7b-orphans - the gate found 64 MORE orphans, in two classes this mission did not scope
-
-- What is blocked: taking `check:orphans` GREEN unscoped, and therefore wiring it into CI
-  as a blocking gate. It currently exits 1 on 64 real orphans. The group-hub class this
-  mission fixed is fully closed (7 detected before, 0 after), so the gate is honest and
-  the remaining 64 are a genuine, previously unmeasured finding.
-- Why (owner decision): fixing them is outside this mission's stated scope ("the new
-  directory route, the home rail link, the new CI script, sitemap registration, route
-  allowlist"), and the biggest class needs a product call, not a mechanical edit.
-- The classes, measured in the served HTML:
-  1) **53 blindtest playlists** (`/blindtest/*`). Cause confirmed, not guessed: `/blindtest`
-     serves 45 links and **zero** of them point at any `/blindtest/` playlist. The index
-     page does not link its own children in HTML at all. This is the same shape as the
-     group-hub bug and it is bigger.
-  2) **5 name-all playlists** (`/games/name-all/name-all-{babymonster,got7,nct-dream,nmixx,treasure}`).
-     Their siblings are linked, these five are not.
-  3) **6 landing/index pages**: /trending, /new, /most-liked, /kpop-quiz-2026,
-     /guess-the-kpop-idol, /data/pulse/2026-07.
-- Options (each with its trade-off):
-  1) Link playlists from `/blindtest` (and name-all from `/games/name-all`), the same
-     structural fix as /groups. Closes 58 of 64 at the source and is the one I would do.
-     Trade-off: it is a real design change to two index pages, not a one-line edit.
-  2) Add a nav/footer link for the 6 landing pages. Cheap, but a footer link is the
-     weakest kind of internal link and it does not touch the 58.
-  3) Drop the orphans from the sitemap instead. Fastest way to green and the worst
-     outcome: it hides the problem by un-advertising real pages.
-- Recommendation: 1 for the two index-page classes, then 2 for the remaining 6, then the
-  gate can go green unscoped and become blocking. Until then it is wired as a script and
-  can be run scoped (`ORPHANCHECK_SCOPE='^/[a-z0-9-]+-quiz$'`) to block on the class that
-  is already fixed, so the ratchet only tightens.
-- Proof / context: docs/proofs/w7b-directory/gate-unscoped-after.txt (all 64 by URL),
-  gate-RED-before.txt (71 before), PROOFS.md.
+w7b-orphans blocker CLEARED 2026-08-16 (W7c): all 64 are closed. 53 blindtest playlists
+are now linked from /blindtest (the index links what it indexes); 3 unplayable ones were
+removed from the sitemap instead (the-boyz 9 songs, miss-a 0, psy 0, against a 10-song
+round); /trending, /new and /most-liked are linked from /quizzes. The other 8 were never
+orphans at all: a sampled crawl that skipped index pages invented them. check:orphans now
+passes UNSCOPED on a complete crawl of all 679 non-verse sitemap URLs, and the scope flag
+was deleted rather than narrowed. See docs/proofs/w7c-orphans/.
 
 ## w4b-item3 - the partner attribution log has nowhere to write
 

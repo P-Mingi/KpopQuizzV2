@@ -11,6 +11,7 @@ import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 
 import type { MetadataRoute } from 'next';
 
@@ -20,7 +21,6 @@ const SITE_URL = 'https://kpopquiz.org';
 // 50,000 URLs per file, so anything above these values should eventually be
 // split into sub-sitemaps. For now a safe ceiling.
 const QUIZZES_LIMIT = 10000;
-const BT_SONG_LIMIT = 5000;
 
 // LASTMOD honesty (SEO audit v2): evergreen pages (legal/info) carry a STABLE
 // date so we stop emitting `new Date()` every deploy - false "changed today"
@@ -220,7 +220,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       Promise.all([
         supabase.from('quizzes').select('slug, updated_at, group_id, questions').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
         supabase.from('groups').select('id, slug, quiz_count'),
-        supabase.from('blind_test_songs').select('groups!inner(slug)').eq('status', 'active').not('clip_chorus', 'is', null).limit(BT_SONG_LIMIT),
+        // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
+        // the same one the /blindtest index links.
+        getAdvertisablePlaylists(),
         supabase.from('games').select('slug, game_type, updated_at').eq('status', 'published').eq('game_type', 'name_all_members').limit(500),
         supabase.from('tot_categories').select('slug, created_at').eq('is_published', true).limit(500),
       ]),
@@ -230,7 +232,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
       throw new Error('sitemap batch timeout');
     }
-    const [quizzesResult, groupsResult, btSongGroupsResult, gamesResult, totCategoriesResult] = raced as [Row, Row, Row, Row, Row];
+    const [quizzesResult, groupsResult, advertisablePlaylists, gamesResult, totCategoriesResult] =
+      raced as [Row, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>, Row, Row];
 
     // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
     // change on the site. Also fold the per-group newest date for group pages.
@@ -243,14 +246,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!prev || d > prev) groupLatest.set(q.group_id, d);
     }
 
-    // Dynamic group blind test pages (deduplicated)
-    const btGroupSlugs = [
-      ...new Set(
-        (btSongGroupsResult.data ?? [])
-          .map((r) => (r.groups as unknown as { slug: string } | null)?.slug)
-          .filter(Boolean) as string[],
-      ),
-    ];
+    // Dynamic group blind test pages. W7c: this used to advertise every group with a
+    // clip row, including 3 that cannot fill a 10-song round (the-boyz 9 songs, miss-a 0,
+    // psy 0). Advertising a playlist that cannot produce a game is the (b) case from the
+    // orphan principle: not worth advertising. It now reads the SAME advertisable set the
+    // /blindtest index links, so the sitemap and the page cannot drift apart.
+    const btGroupSlugs = advertisablePlaylists.groups.map((g) => g.slug);
     blindTestGroupPages = btGroupSlugs.map((slug) => ({
       url: `${SITE_URL}/blindtest/group-${slug}`,
       lastModified: contentDate,

@@ -6828,3 +6828,11 @@ main:has(.verse-page) { max-width: none; }
   flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 3px 6px;
   border-radius: 6px; background: var(--surface-alt); color: var(--text-secondary);
 }
+
+/* W7c - the blind test playlist index. */
+.bt-pl-h3 { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin: 18px 0 10px; }
+.bt-pl-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.bt-pl-card { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); text-decoration: none; color: inherit; }
+.bt-pl-card:hover { border-color: var(--accent); }
+.bt-pl-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.bt-pl-desc { font-size: 11px; color: var(--txt3); }

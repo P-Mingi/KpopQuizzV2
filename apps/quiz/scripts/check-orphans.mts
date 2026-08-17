@@ -27,19 +27,20 @@
  *   ORPHANCHECK_SAMPLE     max pages to crawl (default 200)
  *   ORPHANCHECK_INJECT     a path to treat as if it were in the sitemap, used to prove
  *                          the gate RED without having to un-fix a real orphan.
- *   ORPHANCHECK_SCOPE      regex; assert only on paths matching it. This exists so the
- *                          gate can RATCHET: a class you have fixed can be gated green
- *                          today while the classes you have not fixed are still being
- *                          worked. It is not an excuse. The unscoped run is the truth,
- *                          the scoped run is what you are willing to block CI on, and
- *                          the scope must only ever shrink.
+ *
+ * There is deliberately NO scope flag. W7b shipped one as a ratchet while the blindtest
+ * and landing-page classes were still open; W7c closed them, so it was deleted rather
+ * than narrowed. A gate that can be pointed away from a failure is a gate that will be.
  */
 
 const BASE = (process.env.ORPHANCHECK_BASE_URL ?? 'http://localhost:3021').replace(/\/$/, '');
 const SITE_URL = 'https://kpopquiz.org';
-const SAMPLE = Number(process.env.ORPHANCHECK_SAMPLE ?? 200);
+// Default: crawl EVERYTHING. W7c: a sampled crawl invents phantom orphans (pages whose
+// only inbound link lives on a page that did not make the sample) and the set churns run
+// to run, which is worse than slow. A complete crawl turns the result from a floor into a
+// proof. ORPHANCHECK_SAMPLE still caps it for a fast local pass.
+const SAMPLE = Number(process.env.ORPHANCHECK_SAMPLE ?? Number.POSITIVE_INFINITY);
 const INJECT = process.env.ORPHANCHECK_INJECT ?? '';
-const SCOPE = process.env.ORPHANCHECK_SCOPE ? new RegExp(process.env.ORPHANCHECK_SCOPE) : null;
 const FETCH_TIMEOUT_MS = 30000;
 
 // Verse is PAUSED and out of scope for this gate.
@@ -97,11 +98,21 @@ async function main(): Promise<void> {
   const all = await sitemapPaths();
   if (INJECT) all.push(pathOf(INJECT));
 
-  // Deterministic, spread sample: always include the short "hub-shaped" paths (they are
-  // the ones that matter for depth signal) and then stride through the rest, so the
-  // sample is not just the first N of one type.
-  const hubs = all.filter(p => p.split('/').length === 2);
-  const rest = all.filter(p => !hubs.includes(p));
+  // Deterministic, spread sample. Two kinds of page are ALWAYS crawled:
+  //   1. short "hub-shaped" paths (/bts-quiz, /groups, /blindtest)
+  //   2. INDEX pages: any sitemap path that is a path-prefix of other sitemap paths.
+  //      /games/name-all is a prefix of /games/name-all/*, so by definition it indexes
+  //      them and is exactly where their inbound links live.
+  // W7c found this the hard way: five name-all games were reported as orphans purely
+  // because /games/name-all (3 segments, so not "hub-shaped") never made the sample,
+  // while it links all five. Missing an index page manufactures phantom orphans, which
+  // is the failure mode most likely to make someone "fix" a non-problem by adding a
+  // link that was never needed.
+  const isIndex = (p: string): boolean =>
+    all.some(other => other !== p && other.startsWith(p + '/'));
+  const hubSet = new Set(all.filter(p => p.split('/').length === 2 || isIndex(p)));
+  const hubs = [...hubSet];
+  const rest = all.filter(p => !hubSet.has(p));
   const room = Math.max(0, SAMPLE - hubs.length);
   const stride = rest.length > room && room > 0 ? Math.ceil(rest.length / room) : 1;
   const sampled = [...hubs, ...rest.filter((_, i) => i % stride === 0).slice(0, room)];
@@ -121,25 +132,27 @@ async function main(): Promise<void> {
     }
   }
 
-  // Links are always counted from the FULL crawl; SCOPE only narrows what we assert on,
-  // so a scoped run can never manufacture a pass by ignoring inbound links.
   const orphans = [...inbound.entries()]
     .filter(([, n]) => n === 0)
     .map(([p]) => p)
-    .filter(p => !SCOPE || SCOPE.test(p))
     .sort();
 
   console.log(
-    `Orphan gate: ${all.length} non-verse sitemap URLs, crawled ${crawled} of ${sampled.length} sampled pages against ${BASE}` +
-      (SCOPE ? `\n  asserting only on paths matching ${SCOPE} (scoped run: the unscoped run is the full truth)` : ''),
+    `Orphan gate: ${all.length} non-verse sitemap URLs, crawled ${crawled} of ${sampled.length} pages against ${BASE}`,
   );
 
+  const partial = sampled.length < all.length;
   if (orphans.length > 0) {
     console.error(
       `\nOrphan gate FAILED: ${orphans.length} sitemap URL(s) have ZERO inbound internal links ` +
-      `from the ${crawled} crawled pages. Because the crawl SAMPLES (${crawled} of ${all.length} ` +
-      `URLs), this is a FLOOR on inbound links, not a proof of zero: a page listed here could ` +
-      `still be linked from a page outside the sample. Each offender by URL:`,
+      `from the ${crawled} crawled pages.` +
+      (partial
+        ? ` Because this run SAMPLED (${sampled.length} of ${all.length} URLs), the result is a ` +
+          `FLOOR on inbound links, not a proof of zero: a page listed here could still be linked ` +
+          `from a page outside the sample.`
+        : ` This run crawled EVERY non-verse sitemap URL, so these have no internal inbound link ` +
+          `from anywhere in the sitemap.`) +
+      ` Each offender by URL:`,
     );
     for (const p of orphans) console.error(`  x ${p}`);
     console.error(
@@ -150,9 +163,11 @@ async function main(): Promise<void> {
   }
 
   console.log(
-    `Orphan gate passed: every ${SCOPE ? 'IN-SCOPE' : ''} sitemap URL of the ${all.length} non-verse ones has at least one ` +
-    `inbound internal link from the ${crawled} crawled pages. (Sampled crawl, so this proves ` +
-    `inbound links exist, not that the count is complete.)`,
+    `Orphan gate passed: every one of the ${all.length} non-verse sitemap URLs has at least one ` +
+    `inbound internal link from the ${crawled} crawled pages.` +
+    (sampled.length < all.length
+      ? ' (SAMPLED crawl, so this proves inbound links exist, not that the count is complete.)'
+      : ' (Complete crawl of every non-verse sitemap URL.)'),
   );
 }
 

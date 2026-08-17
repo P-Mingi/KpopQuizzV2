@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
 import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { createServerClient } from '@/lib/supabase/server';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
@@ -111,9 +112,12 @@ const webAppJsonLd = {
 };
 
 export default async function BlindtestPage(): Promise<React.ReactElement> {
-  const [groups, stats] = await Promise.all([
+  const [groups, stats, playlists] = await Promise.all([
     safeFetch(getBlindtestGroups(), [], '[blindtest] getBlindtestGroups'),
     getStats(),
+    // W7c: the picker inside the game is a client-side selector, and a selector is not
+    // a link. These are the same playlists, server-rendered as real crawlable <a>.
+    safeFetch(getAdvertisablePlaylists(), { staticModes: [], groups: [] }, '[blindtest] getAdvertisablePlaylists'),
   ]);
 
   return (
@@ -174,6 +178,47 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
             </div>
           </div>
         </section>
+
+        {/* W7c - every playlist as a real link. The index used to serve 45 links and
+            ZERO of them pointed at a /blindtest/ playlist: an index that did not link
+            what it indexes. Each playlist appears exactly once. */}
+        {(playlists.staticModes.length > 0 || playlists.groups.length > 0) && (
+          <section className="bt-hub-section">
+            <h2 className="bt-hub-h2">Every blind test playlist</h2>
+
+            {playlists.staticModes.length > 0 && (
+              <>
+                <h3 className="bt-pl-h3">By theme</h3>
+                <ul className="bt-pl-grid">
+                  {playlists.staticModes.map(m => (
+                    <li key={m.id}>
+                      <Link href={`/blindtest/${m.id}`} className="bt-pl-card">
+                        <span className="bt-pl-name">{m.title}</span>
+                        <span className="bt-pl-desc">{m.description}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {playlists.groups.length > 0 && (
+              <>
+                <h3 className="bt-pl-h3">By group</h3>
+                <ul className="bt-pl-grid">
+                  {playlists.groups.map(g => (
+                    <li key={g.slug}>
+                      <Link href={`/blindtest/group-${g.slug}`} className="bt-pl-card">
+                        <span className="bt-pl-name">{g.name} blind test</span>
+                        <span className="bt-pl-desc">{g.songs} songs in the pool</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </section>
+        )}
 
         {/* Internal links */}
         <section className="bt-hub-section">

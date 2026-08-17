@@ -1,0 +1,21 @@
+VERIFY 1 - /blindtest index vs the sitemap
+  playlists linked on the index: 71 (link instances: 71, so each appears once)
+  blindtest playlists in sitemap: 71
+  sitemap playlists NOT linked by the index: 0 
+
+VERIFY - the 3 unplayable playlists are gone from the sitemap:
+   /blindtest/group-the-boyz removed
+   /blindtest/group-miss-a removed
+   /blindtest/group-psy removed
+
+VERIFY 3 - the name-all five (artefact, not a defect): inbound from /games/name-all
+   name-all-babymonster: 1
+   name-all-got7: 1
+   name-all-nct-dream: 1
+   name-all-nmixx: 1
+   name-all-treasure: 1
+
+VERIFY - /quizzes now links the three browse views
+   /trending: 1
+   /new: 1
+   /most-liked: 1

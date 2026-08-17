@@ -3444,3 +3444,75 @@ serves 45 links and ZERO point at any /blindtest/ playlist. Plus 5 name-all play
 Gates: tsc 0, build 0, check:routes 0, check:indexability 0 (running server),
 check:metadata-dupes unchanged (8 groups, 0 non-verse skips, /groups in none).
 Proofs: docs/proofs/w7b-directory/. Nothing pushed.
+
+L-193 (W7b PASS - directory built, and the new gate immediately found a bigger class)
+  /groups ships with 37 of 37 groups that have a published quiz, each linked EXACTLY once
+  (37 instances for 37 hubs), verified against the SQL. The count column would have lied:
+  groups.quiz_count is denormalised and includes unpublished rows, wrong on 4 of 37, so
+  the directory computes from published rows and shows bts 27 not 30, blackpink 22 not 27.
+  A directory advertising 30 over a list of 27 is the exact failure the covenant exists to
+  stop. Generation is a per-row tag shown only where recorded; 7 groups show none rather
+  than a guess. Both capped home surfaces now link the directory with a descriptive anchor.
+  One judgement call accepted: the mission asked for A-Z "and by generation", but a second
+  generation section would have meant a second link to all 37 hubs on one page, where only
+  the first anchor counts. Generation became a per-row tag instead. Correct reading of the
+  intent over the letter.
+  THE GATE EARNED ITSELF ON RUN ONE. Group-hub class closed (7 -> 0), but unscoped it is
+  RED on 64 real orphans, and the big one is a bug nobody had seen: /blindtest serves 45
+  links and ZERO point at any /blindtest/ playlist. 53 orphaned playlists - an index that
+  does not link what it indexes, the same shape as the group-hub bug and bigger.
+  WORKER SELF-REPORT that makes the whole system trustworthy: it reported "0 offenders,
+  class closed" off a command that NEVER RAN - the shell cwd had reset, npm printed
+  "Missing script", and its grep counted zero offender lines inside an npm error. It caught
+  it, re-ran, and noted this is the SECOND time a cwd reset nearly produced a false green,
+  with the same tell both times: a summary line missing from output it had not read before
+  summarising. It also flagged that the gate's scope flag is a ratchet that could become an
+  excuse, and documented "the unscoped run is the truth, the scope must only ever shrink".
+  New MISSION.md = W7c, whose stated goal is to DELETE the scope, not narrow it: link
+  /blindtest's own children server-rendered (a client selector is not a link), explain the
+  5 name-all outliers, TRIAGE the 6 landing pages with the principle that an unlinked
+  sitemap URL is either under-linked (link it where it belongs) or not worth advertising
+  (remove it from the sitemap) - and never the third option of inventing a link to clear a
+  counter. Cowork could not re-derive the quiz_count figures this run; Supabase MCP is
+  still refusing access. Nothing pushed; 34 commits local.
+
+## L-185 - W7c: orphan classes closed, check:orphans green UNSCOPED, scope flag deleted (2026-08-16)
+
+THE GATE WAS INVENTING ORPHANS FIRST. Two sampling defects had to be fixed before any
+"fix", or 8 non-problems would have been papered over with invented links:
+ 1. index pages were not always crawled (the sampler called only 2-segment paths hubs, so
+    /games/name-all missed the sample and the 5 games it links looked orphaned). NEW RULE:
+    always crawl any sitemap path that is a path-prefix of other sitemap paths, because
+    that page is by definition an index and is where inbound links live.
+ 2. sampling itself churned the set run to run (71 -> 64 -> 59). The crawl now covers
+    EVERYTHING by default; ORPHANCHECK_SAMPLE still caps it for a fast local pass, and the
+    output says in words when a run was partial (a floor) vs complete (a proof).
+Phantom orphans removed: the 5 name-all games, /easy-kpop-quizzes, /guess-the-kpop-idol
+(linked from its own guide article), /kpop-quiz-2026. Definitive full-crawl set was 56.
+
+PART 1: /blindtest served 45 links and ZERO to any playlist (the picker is a client-side
+selector, and a selector is not a link). Now 71 playlists, 71 link instances (each once),
+0 sitemap playlists unlinked. ROOT CAUSE was three disagreeing sources: sitemap read
+blind_test_songs (56 groups), the picker read songs>=15 (74), the game generates from
+songs needing 10. NEW src/lib/blind-test-playlists.ts is the ONE definition, read by both
+the sitemap and the index. 3 playlists REMOVED from the sitemap instead of linked, on
+measured counts in `songs`: the-boyz 9, miss-a 0, psy 0, against a 10-song round. akmu 11
+and taeyang 13 clear the bar and are linked. Sitemap 682 -> 679 on purpose.
+
+PART 2: the name-all five were NOT a data condition and NOT a template gap. All 24 games
+are published and /games/name-all links all five in served HTML. Pure crawl artefact.
+
+PART 3: /trending, /new, /most-liked were genuinely unlinked. THE TRAP: they appear in
+top-nav-links.tsx but only inside the `match` array of the Home entry, which is a tab
+highlight rule, NOT a rendered anchor (served home page has href="/trending" 0 times).
+Now linked from /quizzes beside the popular-window row. /data/pulse/2026-07 did NOT need
+removing from the sitemap: the /data/pulse index links it.
+
+PART 4: ORPHANCHECK_SCOPE deleted, not narrowed. check:orphans passes unscoped on a
+complete crawl of 679 non-verse sitemap URLs, and still FAILS on an injected orphan.
+
+Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:orphans 0 unscoped,
+check:metadata-dupes unchanged (8 groups, 0 non-verse skips). Proofs:
+docs/proofs/w7c-orphans/. NOT DONE, flagged: 23 playable blind test playlists are still
+absent from the sitemap (reachable but unadvertised) - a different question from
+orphanhood. Nothing pushed.

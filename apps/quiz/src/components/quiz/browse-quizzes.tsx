@@ -481,6 +481,21 @@ export function BrowseQuizzes({
         </div>
       )}
 
+      {/* W7c - /trending, /new and /most-liked are browse views of this same catalogue,
+          and nothing on the site linked them: the top nav lists them only as `match`
+          patterns to highlight Home, which is a highlight rule, not a link. They belong
+          beside the popular windows, so they live here rather than in a footer. */}
+      {!isSearchActive && (
+        <div className="browse-popular-row">
+          <span className="browse-popular-label">Browse</span>
+          <Link href="/trending">trending</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href="/new">newest</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href="/most-liked">most liked</Link>
+        </div>
+      )}
+
       {/* Search result count */}
       {isSearchActive && !searching && results !== null && (
         <p className="search-count">

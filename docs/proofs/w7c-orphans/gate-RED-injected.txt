@@ -1,0 +1,4 @@
+Orphan gate: 680 non-verse sitemap URLs, crawled 680 of 680 pages against http://localhost:3021
+Orphan gate FAILED: 1 sitemap URL(s) have ZERO inbound internal links from the 680 crawled pages. This run crawled EVERY non-verse sitemap URL, so these have no internal inbound link from anywhere in the sitemap. Each offender by URL:
+  x /nobody-links-here
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.
