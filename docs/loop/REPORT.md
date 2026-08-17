@@ -1,151 +1,128 @@
-# REPORT - RENDER-MODE: your hypothesis is right, and narrower than you feared.
+# REPORT - W5 HOTFIX: the page does not 404 in production. No fix shipped, nothing pushed.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every build. Mission `cat`-ed, not `head`-ed. **Read-only: no application code
-committed, no DDL, no writes, nothing pushed.** The scratch edit auto-reverted and the source
-is verified clean.
+before every step. Mission `cat`-ed. No DDL, no database writes. **Nothing pushed, because
+there was nothing to fix.**
 
-Proofs: `docs/proofs/render-mode/`.
+Proofs: `docs/proofs/w5-hotfix/`.
 
 ---
 
-## PART 1 - the census settles it
+## The answer: both URLs are 200 and always were, on this deployment
 
-Baseline build, source exactly as shipped:
+    https://kpopquiz.org/data/pulse                          200  text/html
+    https://kpopquiz.org/data/knowledge-report-2026          200  text/html
+    https://kpopquiz.org/data/knowledge-report-2026/dataset  200  text/markdown
 
-    route-table rows : 366
-    static           :   5
-    dynamic          : 361
+The page is 83,811 bytes of real content with the v4 figure `6,257` and the full "What we
+cannot say" section. The dataset is **byte-identical** to `docs/data/w5-dataset.md`, 57,370
+bytes both sides. `x-matched-path: /data/knowledge-report-2026`, so the route resolves.
 
-The only five static routes in the entire application:
+## The proof, from Vercel's logs rather than a local build
 
-    /data/knowledge-report-2026/dataset   /llms.txt   /pinterest-feed.xml
-    /robots.txt                           /sitemap.xml
+**The current production deployment is the same one you measured** —
+`dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ`, commit `5b47c6e`. It is still the newest; no redeploy
+happened between your 404 and my 200. Same artefact, both results.
 
-Every one is a route handler with an explicit `force-static`. **No page in this app is
-static.** 86 files export `export const revalidate`, and exactly **1** of them is static in
-the shipped build, and that one is `/pinterest-feed.xml`, a route handler.
+404s on that deployment, grouped by path, last 3 hours:
 
-So: **every page-level `revalidate` in this app is inert.** Confirmed.
+    /sitemap.xml.gz   1
 
-## PART 2 - the cause, established rather than assumed
+**That is the whole list.** The report paths never 404'd on the live artefact. Its last hour
+is 2,350 × 200 against a single 404, and that one is a sitemap variant.
 
-One line changed in a scratch build, `src/app/layout.tsx:115`, plus its now-unused import:
+404s on the **previous** deployment, `dpl_UTmPvyyoReCf3HNpjadTXnoSxwrF`, commit `fab3911`:
 
-    const isEmbed = ((await headers()).get('x-pathname') ?? '').startsWith('/embed');
-      ->  const isEmbed = false;
+    /quizzes/new                          8
+    /quizzes/most-liked                   7
+    /data/knowledge-report-2026/dataset   2
+    /wonder-girls-trivia                  1
+    /data/knowledge-report-2026           1
+    /sitemap.txt                          1
 
-| | static | dynamic |
-| --- | --- | --- |
-| **with** the `headers()` call | **5** | 361 |
-| **without** it | **63** | 295 |
+**There they are.** `fab3911` predates the report page entirely, so a 404 from it is correct
+behaviour, not a bug. The 404s you saw are logged against the deployment that does not
+contain the route.
 
-Of the 86 routes exporting `revalidate`: **1 static with it, 36 without it.**
+Your suspicion about `join(process.cwd(), '..', '..', 'docs', ...)` is disproved rather than
+untested: the dataset route serves 57,370 bytes of correct markdown from production right
+now, so the traced file resolves in Vercel's build exactly as it does locally.
 
-**Your hypothesis is confirmed, and it is narrower than "every `revalidate` is dead because
-of this line".** The root layout costs **35 pages** their ISR. The other 50 `revalidate`
-exports are inert for their own reasons and would stay dynamic even if the layout were
-fixed. That distinction matters for PART 4: fixing the layout recovers 35 pages, not 86.
+## The loose end I am not going to paper over
 
-The 36 that recover include `/leaderboard`, `/games`, `/groups`, `/blindtest`, `/data/pulse`,
-`/data/knowledge-report-2026`, the games sub-pages and the SEO landing pages. Full list in
-the proof.
+The timing does not fully reconcile and I would rather say so than invent a story:
 
-**The first scratch attempt failed and I am reporting it rather than hiding it**: removing
-the call without the import gave `Type error: 'headers' is declared but its value is never
-read`. Re-run with both removed, it built clean. The failure is in the proof file.
+    fab3911 (no report page) deployed : 2026-08-17T14:40:17Z
+    5b47c6e (has report page) deployed: 2026-08-17T18:39:29Z
+    mission file written              : 2026-08-17T19:41:12Z
+    my check returned 200             : 2026-08-17T19:43:20Z
 
-### Reconciling the contradiction you flagged
+The new deployment was live **about an hour before the mission was written**, so "the alias
+had not switched yet" does not cleanly explain a measurement taken at 19:41. What the logs
+prove is *which deployment served those 404s*, and it is unambiguous. What I cannot pin is
+the minute your external check actually ran. If it ran before 18:39 and the mission was
+written up later, everything fits exactly; I have no evidence either way and I am not going
+to assert it.
 
-Both facts are true at once, and the build output says so directly:
+The one detail that argues for a later run is your note that `/data/pulse` already carried
+the "See also" link, which only exists in `5b47c6e`. If both checks were in the same pass,
+that pass straddled the switch.
 
-    Generating static pages using 7 workers (0/826)
+## Steps I did not do, and why
 
-**826 pages are rendered during the build.** That is where the 401 `q/[slug]` throws came
-from, and `q/[slug]` additionally declares `generateStaticParams` (11 routes do) which queries
-the DB itself. Next renders the routes at build, encounters the root layout's dynamic API,
-and marks them `ƒ`. **The render happens; the output is not reusable.** So the app pays the
-build-time DB traffic *and* re-renders per request. It is the worst of both, not evidence of
-working static generation.
+**No fix (step 2), no push (step 5).** There is no defect. The mission authorised a push for
+a fix; shipping a change to a live site to correct a problem that does not exist would be
+worse than doing nothing. If you want the deployment re-promoted or an alias re-pointed, that
+is your call and I have not touched it.
 
-## PART 3 - the cost, in numbers
+**Gates (step 4): I ran one, against production, and skipped the other three.** With no code
+change, re-running localhost gates would prove nothing about this incident. Running them
+against the live domain does, so that is what I did — see below. `check:orphans` against
+production would issue ~708 requests at the live site and `check:metadata-dupes` about 1,000;
+I did not fire that at production traffic unasked.
 
-Three consecutive requests each, production build, warm process:
+## The real finding, and it is closer to solved than you think
 
-| route | req 1 | req 2 | req 3 |
-| --- | --- | --- | --- |
-| `/leaderboard` | 726ms | 732ms | **710ms** |
-| `/games` | 253ms | 287ms | **259ms** |
-| `/blindtest` | 138ms | 115ms | **126ms** |
-| `/groups` | 26ms | 12ms | 12ms |
-| `/data/knowledge-report-2026` | 11ms | 7ms | 7ms |
+You are right that every green we have reported is a statement about a local build. But the
+capability is already there and I proved it rather than costing it:
 
-**The numbers do not fall on repeat.** That is the direct evidence, better than the route
-table: an ISR hit would serve request 2 in single-digit milliseconds. Every request
-re-renders.
+**All three HTTP gates already read a base URL** — `INDEXCHECK_BASE_URL`,
+`METADUPE_BASE_URL`, `ORPHANCHECK_BASE_URL`. Run just now, no code changed:
 
-The two heaviest that would otherwise be ISR are **`/leaderboard` at ~720ms** and **`/games`
-at ~265ms**, on every single request instead of once an hour. `/groups` and the report page
-are cheap because their work is mostly static content, so the recoverable saving is
-concentrated in a handful of pages rather than spread across all 35.
+    INDEXCHECK_BASE_URL=https://kpopquiz.org npm run check:indexability
+    -> Indexability guard: 708 sitemap URLs, sampling 37 against https://kpopquiz.org
+    -> PASSED, exit 0
 
-## PART 4 - options, not a fix
+So "what would it take" is: **one env var and a job that runs after the deploy**. The cost is
+not engineering, it is three decisions:
 
-No implementation, per the mission. Four ways out, with what each costs:
+1. **When it runs.** A post-deploy hook, or the existing nightly pointed at production
+   instead of a local build. The nightly is the cheaper start and it already exists.
+2. **What it is allowed to hit.** `check:indexability` samples 37 URLs and is harmless.
+   `check:orphans` crawls all 708 and `check:metadata-dupes` about 1,000; against production
+   that is real traffic and it will pollute analytics unless it is excluded by user agent.
+3. **Coverage stays honest.** Against production the anon-key limitation disappears, so the
+   gate would cover `/rankings` and Verse too, and the workflow's stated coverage numbers
+   would need rewriting to match.
 
-**1. Move the embed detection out of the root layout.** The middleware already knows the
-path; it could set a header the `/embed` layout reads, or `/embed` could carry its own
-minimal layout. Recovers all 35 pages. The cost is that W4b's guarantee gets re-proven from
-scratch: the chrome must be absent from the served HTML *and* the RSC payload, which is the
-exact thing that took two attempts to get right the first time.
-
-**2. A route group.** `(site)` and `(embed)` with separate layouts is the idiomatic Next
-answer and removes the conditional entirely. I measured this cost in W4b and refused it then:
-it relocates every one of ~60 routes. That refusal was endorsed at the time. It is still the
-cleanest end state and still the largest diff.
-
-**3. PPR (Partial Prerendering).** Designed for exactly this: a static shell with the dynamic
-bit streamed. It is the most modern answer and the least proven here, and it would need its
-own measurement pass before I would trust a number from it.
-
-**4. Live with it.** Defensible for 33 of the 35 pages, which cost 7-140ms. It is not
-defensible for `/leaderboard` at 720ms per request, and a targeted fix for that one page
-alone may be worth more than the site-wide change.
-
-My read, offered as opinion and not measurement: **1 is the right size**, and the honest
-sequencing is to fix `/leaderboard` first and confirm the saving is real before touching a
-layout that every page depends on.
-
-## On whose miss this is
-
-You wrote that if the `x-pathname` fix cost the site its caching, the miss is yours. I do not
-think that is where it lands. The design was sound and the alternative was correctly refused
-on cost. What was missing is that **nobody measured the render mode afterwards** — not you
-when you approved it, and not me when I built it and then twice looked straight at a `ƒ`
-marker (`/pt/games` in W7-CLOSE-2, and again here) and wrote "something downstream opts it
-out" without opening the route table that was already in my build log.
-
-The route table was in every build output for weeks. That is the cheap check nobody ran.
+Not built, per the mission.
 
 ## Deviations and flags (loud)
 
-1. **Three full builds this mission** (baseline, failed scratch, clean scratch) plus a fourth
-   to restore `.next`, because the scratch build had overwritten it with an artefact that did
-   not match the source. Leaving that in place would have made the next session's
-   measurements silently wrong.
-2. **The 63-vs-5 comparison is from a build with a behaviour change**, not just a compile
-   change: `isEmbed = false` means the scratch build renders chrome into `/embed`. It is
-   valid for counting render modes and invalid for anything else. Not committed, reverted,
-   verified clean.
-3. **I did not measure PPR or any option in PART 4.** They are described from the code and
-   from prior missions, and option 3 in particular is unmeasured here.
+1. **The mission's premise did not hold, so most of its steps did not apply.** I did not
+   diagnose a cause, fix it, or push, because the evidence says there is nothing wrong. That
+   is the honest outcome and it is stated plainly rather than dressed as work.
+2. **I could not fully explain the timing**, only which deployment served the 404s. Section
+   above.
+3. **One 404 does exist on the live deployment**: `/sitemap.xml.gz`, one request in three
+   hours. Not investigated, not in scope, and flagged only so it is not a surprise later.
 
 ## Covenant
 
-Every number is from a build log or a `curl` against a production build, both preserved in
-the proofs. The scratch comparison changed exactly one expression and one import, and the
-source file is byte-identical to HEAD afterwards.
+Every status code here is from `curl` against `https://kpopquiz.org`, and every log figure is
+from Vercel's runtime logs for a named deployment id. Nothing in this report is from a local
+build, which is the rule this mission exists to enforce.
 
 ---
 
-STOP. **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed, and nothing was fixed, because nothing was broken.** report pret.

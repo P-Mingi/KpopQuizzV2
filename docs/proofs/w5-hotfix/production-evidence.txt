@@ -1,0 +1,50 @@
+=== W5 HOTFIX: the report page does NOT 404 in production. No fix was needed. ===
+measured 2026-08-17 ~19:43 UTC against https://kpopquiz.org
+
+--- 1. the live domain, right now ---
+  https://kpopquiz.org/data/pulse                          200 text/html; charset=utf-8
+  https://kpopquiz.org/data/knowledge-report-2026          200 text/html; charset=utf-8
+  https://kpopquiz.org/data/knowledge-report-2026/dataset  200 text/markdown; charset=utf-8
+  report page bytes: 83811
+  contains the v4 figure 6,257 and the limits section: yes
+  dataset byte-identical to docs/data/w5-dataset.md: yes (57370 = 57370)
+  x-matched-path: /data/knowledge-report-2026   x-vercel-cache: MISS
+
+--- 2. THE PROOF, from Vercel runtime logs, not from a local build ---
+  current production deployment: dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ  commit 5b47c6e
+  it is the NEWEST deployment; no redeploy happened between the 404 report and now.
+
+  404s on the CURRENT deployment, grouped by path, last 3h:
+      /sitemap.xml.gz   1
+  -> the report paths are NOT there. Zero 404s for them on the live artefact.
+
+  404s on the PREVIOUS deployment dpl_UTmPvyyoReCf3HNpjadTXnoSxwrF (commit fab3911):
+      /quizzes/new                          8
+      /quizzes/most-liked                   7
+      /data/knowledge-report-2026/dataset   2
+      /wonder-girls-trivia                  1
+      /data/knowledge-report-2026           1
+      /sitemap.txt                          1
+  -> fab3911 PREDATES the report page entirely, so a 404 there is correct behaviour.
+     The observed 404s belong to that deployment.
+
+  status-code mix on the CURRENT deployment, last 1h: 200 x2350, 301 x87, 302 x12,
+  400 x6, 307 x2, 404 x1 (the sitemap.xml.gz one).
+
+--- 3. timing, stated with its loose end ---
+  fab3911 (no report page) deployed : 2026-08-17T14:40:17Z
+  5b47c6e (has report page) deployed: 2026-08-17T18:39:29Z
+  mission file written              : 2026-08-17T19:41:12Z (21:41:12 CEST)
+  my live check returned 200        : 2026-08-17T19:43:20Z
+  The new deployment was live ~1h BEFORE the mission was written, so 'the alias had
+  not switched yet' does not fully explain a measurement taken at 19:41. What the logs
+  DO prove is which deployment served the 404s. I cannot pin the minute the external
+  measurement ran, and I am not going to invent one.
+
+--- 4. the real finding: a gate CAN already run against production ---
+  check:indexability, check:metadata-dupes and check:orphans all read a base URL:
+      INDEXCHECK_BASE_URL   METADUPE_BASE_URL   ORPHANCHECK_BASE_URL
+  RUN JUST NOW against the live domain, zero code changes:
+      INDEXCHECK_BASE_URL=https://kpopquiz.org npm run check:indexability
+      -> 708 sitemap URLs, 37 sampled, PASSED, exit 0
+  So the capability exists today and is one env var away from the workflow.

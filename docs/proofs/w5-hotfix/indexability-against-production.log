@@ -1,0 +1,6 @@
+
+> quiz@1.0.0 check:indexability
+> tsx scripts/check-indexability.mts
+
+Indexability guard: 708 sitemap URLs, sampling 37 (1 per type + all articles) against https://kpopquiz.org
+Indexability guard passed: 37 sampled pages are index-consistent, and every article + sampled quiz/group is in the sitemap.

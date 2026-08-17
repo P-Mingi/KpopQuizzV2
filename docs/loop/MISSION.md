@@ -1,67 +1,77 @@
-# MISSION (RENDER-MODE - is every `revalidate` in this app dead? READ-ONLY. NO push.)
+# MISSION (W5 HOTFIX - the report page 404s in PRODUCTION. NO push until I audit.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-**`cat` this file. Do not `head` it.** Your own correction, and it is the reason it is here.
+**`cat` this file. Do not `head` it.**
 
-Graphify PART 0 is Cowork-approved. The override is placed in the project `CLAUDE.md` and
-`docs/PLAY-GRAPHIFY-DOCTRINE.md` is updated. 6 commits local, nothing pushed.
-**Read-only: no application code, no DDL, no writes, no push.**
+Render-mode is Cowork-approved and the finding is excellent. This mission is unrelated and
+it is urgent: **the report is live-linked and unreachable.**
 
-## THE QUESTION, AND WHY NOW
-This has been open since W7-CLOSE-2 and it is the last unmeasured technical item on the
-board. You found that `/pt/games` is marked `ƒ` despite exporting `revalidate = 3600`, and
-wrote "something downstream opts it out" without naming it.
+## WHAT I MEASURED FROM OUTSIDE, JUST NOW
 
-My hypothesis, and it is only that: `app/layout.tsx:115` awaits
-`(await headers()).get('x-pathname')`. A dynamic API in the ROOT layout opts routes out of
-static rendering. If that is what is happening, **every `export const revalidate` in this
-app is inert** and every page pays a DB round trip per request rather than once an hour.
+    https://kpopquiz.org/data/pulse                          200, loads
+      and it contains: "See also The K-pop Knowledge Report 2026"
+      linking to https://kpopquiz.org/data/knowledge-report-2026
 
-Contradicting evidence, which is why this is a measurement and not a conclusion: the
-absent-key run recorded 401 build-time `supabaseKey is required.` throws from `q/[slug]`,
-which means those routes executed at build. Both cannot be simply true.
+    https://kpopquiz.org/data/knowledge-report-2026          404
+    https://kpopquiz.org/data/knowledge-report-2026/         404
+    https://kpopquiz.org/data/knowledge-report-2026/dataset  404
 
-**And that root layout is my fix.** I approved the `x-pathname` middleware solution to keep
-the chrome out of `/embed`. If it cost the whole site its caching, the miss is mine and it
-has been running for weeks.
+The Vercel production deployment `dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ` is **READY**, target
+production, commit **5b47c6e**, which contains all of this work. `/data/pulse` serving the
+link proves the deployed build includes the PART 1 changes. So the route is in the build and
+it 404s anyway.
 
-The timing matters: we are about to point four journalists at this domain. TTFB is not the
-reason a story gets written, but it is a real ranking input and a real bill, and pitching
-traffic at a site that renders every page cold is a bad order of operations.
+**This is the exact scenario the pitch could not survive.** Four journalists, one shot each,
+two links, both dead. Nothing goes out until this is green in production.
 
-## PART 1 - the census
-Build, and read the route table. Report the counts of `○` static, `ƒ` dynamic and anything
-else, and list which of the pages that export `revalidate` are actually static. That single
-table settles the hypothesis without any theory.
+## WHAT I RULED OUT, SO YOU DO NOT REDO IT
+- **Not the route allowlist.** `src/lib/route-allowlist.ts:60` carries `'/data'`, which
+  covers this path by `startsWith`, and `/data/pulse` proves that prefix works.
+- **Not a failed deploy.** State is READY on the right commit.
+- **Not a stale alias**, unless the `/data/pulse` copy predates PART 1, which it does not.
 
-## PART 2 - if they are dynamic, prove WHY
-Do not stop at "the layout does it". Establish it: does removing the `headers()` call from
-the root layout in a scratch build flip routes to static? Do NOT commit that change - build
-it, read the table, revert. If the cause is something else entirely, name that instead; I
-would rather be wrong with evidence than right by assumption.
+## WHAT I SUSPECT, AND IT IS ONLY A SUSPICION
+`dataset/route.ts:18` reads `join(process.cwd(), '..', '..', 'docs', 'data',
+'w5-dataset.md')` with `force-static`. That path is resolved relative to the build's cwd and
+reaches OUTSIDE the app directory. It works locally. Whether it resolves the same way in
+Vercel's build, and whether the file is traced into the deployment, is the first thing I
+would check. If that route fails, find out whether it can take the page's segment down with
+it.
 
-And reconcile the contradiction: if the app is fully dynamic, explain the 401 build-time
-throws from `q/[slug]`.
+Do not stop at my suspicion. **Get the actual status code and the actual error**, from
+Vercel's runtime logs and build logs for that deployment, not from a local build. A local
+build cannot reproduce this: our own `check:orphans` crawled 706 URLs green against
+localhost while production was serving a 404 on one of them.
 
-## PART 3 - what it costs, in numbers not adjectives
-If `revalidate` is inert: how many pages export it, and what does a cold render of the two
-heaviest actually cost? You already measured `getAdvertisablePlaylists` at 235-364 ms. Per
-request instead of per hour is the difference between a rounding error and a bill.
+## THAT LAST SENTENCE IS THE REAL FINDING, AND IT NEEDS FIXING TOO
+Three gates grade `http://localhost:3021`. Production is a different artefact, built
+differently, on a different filesystem. **Every green we have ever reported is a statement
+about a local build.** Report what it would take for at least `check:indexability` to run
+against the live domain after a deploy, and what it would cost. Do not build it in this
+mission.
 
-## PART 4 - options only, no fix
-If it is real, give me the ways out with their trade-offs - moving the embed detection out
-of the root layout, a route group, PPR, or living with it. **Do not implement any of them.**
-The fix touches every page in the app and it gets its own mission with its own before and
-after.
+## THE JOB
+1. Diagnose from production evidence. Name the cause with the log line that proves it.
+2. Fix it, minimally. This is the one mission where shipping matters more than elegance.
+3. Prove it against **the live domain**, not localhost: both URLs 200, the dataset serving
+   markdown byte-identical to `docs/data/w5-dataset.md`, and the `/data/pulse` link resolving.
+4. Re-run all four gates.
+5. **You may push for this one**, because a fix that sits unpushed fixes nothing and the
+   live site is currently linking to a 404. Push only after step 3 passes locally, and say
+   in the report exactly what you pushed. Then I verify the live domain myself.
+
+If the cause turns out to be something that cannot be fixed in a small diff, STOP, write it
+in BLOCKED.md with the evidence, and do not push.
 
 ## STANDING RULES
-- Print `pwd` before every build.
-- `cat` the mission.
+- Print `pwd` before anything.
 - A mission is not finished until `docs/loop/REPORT.md` describes it.
-- If you skip a part, say so in the report.
-- The graph does not answer runtime questions. Doctrine, and this mission is the example.
-- No writes, no DDL, no push. Proofs in `docs/proofs/render-mode/`.
+- If you skip a part, say so.
+- Prove against the served response of the real thing. That rule was written for a
+  production build; this mission is why it has to mean the production DEPLOYMENT.
+- No DDL, no database writes.
+- Proofs in `docs/proofs/w5-hotfix/`.

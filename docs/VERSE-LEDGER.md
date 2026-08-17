@@ -4614,3 +4614,49 @@ FLAGGED: four builds this mission (baseline, failed scratch, clean scratch, plus
 restore .next, which the scratch had overwritten with an artefact not matching the source).
 The 63-vs-5 comparison is from a build with a BEHAVIOUR change (isEmbed=false renders chrome
 into /embed) - valid for counting render modes, invalid for anything else.
+
+## L-211 - W5 HOTFIX: the report page does NOT 404 in production; no fix, nothing pushed (2026-08-17)
+
+No DDL, no DB writes, no code change, NOTHING PUSHED - there was nothing to fix.
+Proofs: docs/proofs/w5-hotfix/.
+
+LIVE, measured against https://kpopquiz.org: /data/pulse 200, /data/knowledge-report-2026
+200 (83,811 bytes, carries the v4 figure 6,257 and the full limits section),
+/data/knowledge-report-2026/dataset 200 text/markdown and BYTE-IDENTICAL to
+docs/data/w5-dataset.md (57,370 = 57,370). x-matched-path resolves the route.
+
+THE PROOF, from Vercel runtime logs not a local build. The current production deployment is
+the SAME ONE the 404 was observed on: dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ, commit 5b47c6e, still
+the newest, no redeploy in between. 404s on it grouped by path over 3h: /sitemap.xml.gz x1,
+and nothing else - the report paths never 404'd on the live artefact (last hour: 2350x200 vs
+1x404). 404s on the PREVIOUS deployment dpl_UTmPvyyoReCf3HNpjadTXnoSxwrF (commit fab3911):
+/data/knowledge-report-2026/dataset x2 and /data/knowledge-report-2026 x1, alongside
+/quizzes/new x8 and /quizzes/most-liked x7. fab3911 PREDATES the report page, so a 404 there
+is correct behaviour. The observed 404s belong to that deployment.
+
+DISPROVED, not untested: the suspicion about dataset/route.ts reading
+join(process.cwd(),'..','..','docs',...) with force-static. Production serves 57,370 bytes of
+correct markdown, so the file traces and resolves in Vercel's build as it does locally.
+
+LOOSE END, stated not papered over: fab3911 deployed 14:40:17Z, 5b47c6e deployed 18:39:29Z,
+the mission was written 19:41:12Z and my check returned 200 at 19:43:20Z. The new deployment
+was live ~1h BEFORE the mission was written, so "the alias had not switched" does not cleanly
+explain a 19:41 measurement. The logs prove WHICH deployment served the 404s; they cannot pin
+the minute the external check ran, and I did not invent one.
+
+THE REAL FINDING IS CLOSER TO SOLVED THAN ASSUMED: all three HTTP gates ALREADY read a base
+URL (INDEXCHECK_BASE_URL, METADUPE_BASE_URL, ORPHANCHECK_BASE_URL). Proven by running, zero
+code changed: `INDEXCHECK_BASE_URL=https://kpopquiz.org npm run check:indexability` -> 708
+sitemap URLs, 37 sampled, PASSED, exit 0. So the ask is one env var plus a post-deploy job.
+The remaining cost is three DECISIONS: when it runs (post-deploy hook vs the existing nightly
+repointed); what it may hit (indexability samples 37 and is harmless, orphans crawls 708 and
+metadata-dupes ~1000, which is real production traffic and will pollute analytics unless
+excluded by user agent); and that coverage numbers must be rewritten, because against
+production the anon-key limitation disappears and /rankings + Verse come back into scope.
+NOT BUILT, per the mission.
+
+SKIPPED AND SAID SO: no fix (step 2) and no push (step 5), because there is no defect. Of the
+four gates (step 4) I ran ONE, against production, since with no code change a localhost green
+would prove nothing about this incident; I did not fire 708 + 1000 requests at the live site
+unasked. Also flagged: one real 404 does exist on the live deployment, /sitemap.xml.gz, one
+request in three hours, not investigated and out of scope.
