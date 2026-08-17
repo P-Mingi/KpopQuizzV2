@@ -1,0 +1,25 @@
+=== PART 2: does the recorded boundary reproduce section N exactly? ===
+  open  : 2026-05-01T00:00:00+00:00
+  close : 2026-08-17T12:30:50.619691+00:00   (section A's "newest play", i.e. the snapshot instant)
+  usable in-window plays AT the snapshot boundary : 17425
+  section N published                             : 17425
+  match                                           : EXACT
+  usable in-window plays with an OPEN window (now) : 17435
+  plays added since the snapshot                   : 10
+
+=== PART 1: perfect and zero scores, on exactly that basis ===
+  denominator (usable in-window attempts) : 17425
+  perfect (score = total_questions)       : 6257  = 35.9%
+  zero    (score = 0)                     : 109  = 0.6%
+
+  for contrast, the figures currently in the draft (dataset G5, ALL HISTORY):
+    all history n=59417: perfect 20.6%  zero 2.1%
+=== does the PUBLISHED (second-truncated) timestamp reproduce 17,425? ===
+  full precision  2026-08-17T12:30:50.619691+00:00 -> 17425  (matches N)
+  as published    2026-08-17T12:30:50Z             -> 17424  (differs by -1)
+  next second     2026-08-17T12:30:51Z             -> 17425  (matches N)
+  end of that day 2026-08-18T00:00:00Z             -> 17435  (differs by 10)
+
+=== exact shares on the reproducing boundary ===
+  n=17425  perfect=6257 (35.908%)  zero=109 (0.626%)
+  perfect as a fraction: 1 in 2.78

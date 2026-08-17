@@ -1,121 +1,116 @@
-# REPORT - W5 PART 1: the report page is built and shipped verbatim. Two figures BLOCKED.
+# REPORT - W5 PART 1b: the window now closes, and the two figures are measured on it.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every gate run. No DDL, no database writes, **nothing pushed**. I am treating every
-commit from here as one push away from production, per your note.
+before every gate run. Read-only against the database: no DDL, no writes, **nothing pushed**.
 
-Proofs: `docs/proofs/w5-part1/`.
+Output: section **R** appended to `docs/data/w5-dataset.md`. Sections 0 through Q untouched.
+Proofs: `docs/proofs/w5-part1b/`.
 
 ---
 
-## BLOCKED: two figures in the draft do not match the report's own window
+## PART 2 first, because it decides PART 1
 
-Filed as `w5-report-figures`. I did not fix either one.
+**The snapshot instant is recoverable and exact.** Section A already recorded it as the
+newest play at the time, and closing the window there reproduces section N to the row:
 
-**1. The perfect-score and zero-score shares are all-history, not the window.**
+    where created_at >= '2026-05-01T00:00:00+00:00'
+      and created_at <= '2026-08-17T12:30:50.619691+00:00'
 
-    Draft: "Across the whole window, one attempt in five is a perfect score, and 2.1%
-            score zero."
+    usable in-window plays at that boundary : 17,425
+    section N published                     : 17,425
+    match                                   : EXACT
 
-    Recomputed against the live table:
-      May-Aug (the report's window, n=17,435):  perfect 35.9%   zero 0.6%
-      All history (n=59,417):                   perfect 20.6%   zero 2.1%
+**One thing I did not expect, and it matters for exactly the reason this mission exists.**
+Section A prints that timestamp truncated to the second, `2026-08-17T12:30:50Z`, and the
+newest play sits at `.619691` inside that second. So a journalist who copies the timestamp
+we published and applies `<=` gets **17,424**, not 17,425, and concludes our headline number
+is wrong by one.
 
-20.6% and 2.1% are the all-history figures from dataset section G5. The method section three
-scroll-lengths above explains why 70.7% of that history is excluded, so the report currently
-excludes a period and then quotes a statistic computed on it. In-window, one in five is
-closer to one in three.
+| boundary | attempts | vs N |
+| --- | --- | --- |
+| full precision `.619691` | 17,425 | exact |
+| as printed in section A | 17,424 | **-1** |
+| `12:30:51Z` | 17,425 | exact |
+| window left open (today) | 17,435 | +10 |
 
-**2. "published quizzes per group run from 3 to 27" cannot be true of 21 groups.**
+Section R states the full-precision value as canonical and says the printed one does not
+reproduce. The +10 is confirmed as ten attempts played after the snapshot inside an open
+window, not drift and not an error. With the edge fixed, the number stops moving.
 
-Across the 21 compared groups the range is **3 to 152**; the maximum is `general-kpop`, the
-catch-all bucket, at 152 published quizzes. It is 3 to 27 only if you exclude it, and then
-it is 20 groups, not 21. The sentence is right about the numbers or right about the count,
-not both. Dataset section Q lists all 21 rows.
+## PART 1 - the two figures, on exactly section N's basis
 
-Both are one-line edits in the draft and both are yours. **This is the reason not to pitch
-yet**: the report hands the journalist the dataset that contradicts it.
+Denominator **17,425**, same window, same usable-play definition from section 0c:
 
-## What is built
+| | count | share |
+| --- | --- | --- |
+| perfect (`score = total_questions`) | **6,257** | **35.9%** |
+| zero (`score = 0`) | **109** | **0.6%** |
 
-`/data/knowledge-report-2026`, prose verbatim from v3. No number, ranking or example added,
-nothing softened, nothing moved below the fold, no charts, no explorer, no capture, no share
-widgets.
+Perfect scores are **1 in 2.78** attempts, not one in five.
 
-## The four hard constraints
+For comparison, kept in R3 rather than buried: all history is 20.6% and 2.1% on 59,417
+attempts. The two bases differ by **15.3 points** on perfect scores and 1.5 on zero. Section
+G5 is not withdrawn; it is correct for all history, and R2 is the pair that belongs to the
+report's window.
 
-**1. Not an orphan.** `check:orphans` green, unscoped, complete crawl of **706** non-verse
-URLs (705 + this page). Its inbound links are structural, not minted: the **footer** already
-indexes data work and now lists Knowledge Report beside Pulse, and the **`/data/pulse`
-index** links its sibling first-party report in the citation footer where it already points
-readers at our data.
+Sections A through Q were **not** recomputed, per your instruction.
 
-**2. Unique metadata.** `check:metadata-dupes` still **8 collision groups**, unchanged, and
-`knowledge-report` appears in **0** of them. Title is `The K-pop Knowledge Report 2026`
-(root layout appends the suffix, so it is not doubled).
+## PART 3 - untouched
 
-**3. The dataset ships beside it.** `/data/knowledge-report-2026/dataset` serves
-`docs/data/w5-dataset.md` **byte-identical**, 52,416 bytes, all 16 sections including the
-discarded findings. Read at build time from the single copy in the repo, so the page cannot
-drift from the doc. Two links to it on the page, one in the header line and one on the
-closing sentence that promises it.
+`git status` on both paths is empty: no edit to
+`apps/quiz/src/app/data/knowledge-report-2026/` and none to `docs/PLAY-W5-REPORT-DRAFT.md`.
+The page still serves v3 prose with the two wrong figures in it, which is the correct state
+until you write v4.
 
-**4. All four gates, cwd printed before each:** `check:docs-secrets` **0** ·
-`check:routes` **0** · `check:indexability` **0** · `check:orphans` **0** ·
-`check:metadata-dupes` unchanged.
+## The thing I had to rebuild, and why it is worth knowing
 
-## The 59,000 problem
+The dataset route reads the markdown at **build time**, which is the property you approved
+and it is the right one. It also means **appending section R did not publish it**: the
+running build kept serving the 52,416-byte pre-R file while the repo held 55,653 bytes.
 
-`/stats` untouched, no caveat added, no reconciling sentence invented. The defusing
-paragraph is in the served HTML, in full, in normal body type: "17,425 completed attempts
-across 76 quizzes" and "at a cost of 70.7% of our raw volume" both present, and there are
-**zero `<details>` elements on the page**, so nothing is collapsed behind anything.
+Rebuilt, and re-verified: the served dataset is now **byte-identical to
+`docs/data/w5-dataset.md` at 55,653 bytes**, carries section R, and serves the 6,257 count
+and the 35.908% precise share.
 
-## Schema
+The general form: **a dataset edit is not live until the app is rebuilt.** Worth stating
+because the next person to correct a figure will assume the file is the publication.
 
-`Report`, not `Article` and not a bare `Dataset`. `headline`, `datePublished`, `inLanguage`,
-`author` and `publisher` as `Organization`, and the dataset attached via `isBasedOn` as a
-real `Dataset` carrying `temporalCoverage: 2026-05-01/2026-08-17`, a CC-BY `license`, and a
-`DataDownload` distribution with `encodingFormat: text/markdown` pointing at the live route.
-Parsed out of the served HTML rather than eyeballed.
+## Gates, cwd printed before each
 
-## Decisions worth your veto
+`check:docs-secrets` **0** · `check:routes` **0** · `check:indexability` **0** ·
+`check:orphans` **0** (706 non-verse URLs, complete crawl, floor 706 vs 600) ·
+`check:metadata-dupes` **unchanged** at 8 collision groups with `knowledge-report` in **0**
+of them. `tsc` **0**, run as a no-regression check although no application code changed.
 
-1. **The dataset route is deliberately not in the sitemap** and carries
-   `X-Robots-Tag: noindex, follow`. It is a raw markdown file, not a page competing for a
-   query, and keeping it out means it can never become an orphan-gate or duplicate-metadata
-   problem. It is reachable, which is what the report promises. Verified: 0 occurrences in
-   the sitemap, the report itself 1.
-2. **`text/markdown`, not a rendered HTML page.** A journalist gets the raw file with the
-   SQL in it, which is the point of the offer, and it costs no renderer and no second design.
-3. **Footer placement.** A footer link is a weak link, but the footer is where this site
-   already indexes its data work, and the mission's rule is to link where it belongs rather
-   than where it would rank. The Pulse index link is the stronger one.
+## On the two errors
+
+For the record, since you called them yours: the perfect-score one was catchable only by
+recomputing rather than reading the figure back, and the catalogue-range one was catchable
+only by counting the rows the sentence claimed. Both are the same check, and it is the check
+this loop keeps proving is worth the minute it costs. The half-fix point is the sharper
+lesson of the two: correcting one clause and leaving the other made a sentence that reads
+as reviewed.
 
 ## Deviations and flags (loud)
 
-1. **I built the page while blocking on its content.** The alternative readings were to stop
-   entirely, or to fix two numbers I was explicitly told not to touch. Building means the
-   page is ready the moment you rule; blocking means it should not be pushed or pitched
-   until you do. If you would rather it did not exist on disk until the figures are settled,
-   say so and I will revert the route in one commit.
-2. **The live table has moved since the dataset snapshot**: 17,435 usable in-window plays
-   now against 17,425 in the file. That is people playing, not an error, and the report
-   cites a snapshot. Worth knowing before anyone re-runs a figure and gets a different last
-   digit.
-3. **`Report` is a thin schema.org type.** I used it because it is the accurate one; a
-   richer `Dataset`-first shape would describe the wrong primary object. If a Tier 1 target
-   turns out to need `Article` for their CMS, that is a one-line change.
+1. **Section R adds a fifth basis to a file that already has several.** The dataset now
+   carries all-history figures, May-Aug figures, the canonical-window figures, and per-period
+   splits. R3 states plainly which pair belongs to the report so v4 cannot pick the wrong
+   one, but the file is getting easy to misread and that risk grows with each pass.
+2. **The canonical boundary applies to R only, by instruction.** Sections A to Q were
+   measured against the open window, so a reader reproducing, say, section L exactly could
+   land a play or two off. Stated in R1 rather than fixed, because recomputing them is what
+   you told me not to do and ten plays do not justify it.
 
 ## Covenant
 
-The prose is the draft, unaltered. Every figure I checked was recomputed against the live
-table rather than read back from the file, which is what surfaced both blocked items. Every
-claim in this report is verified against the served HTML of a production build.
+Every figure in section R carries its query, its denominator and its boundary. The
+boundary was tested four ways rather than assumed, which is what found the off-by-one in our
+own published timestamp.
 
 ## Next
 
-`w5-report-figures` is the one thing standing between this page and a pitch.
+Section R exists, so v4 can be written. The page still needs a later mission to take it.
 
 ---
 

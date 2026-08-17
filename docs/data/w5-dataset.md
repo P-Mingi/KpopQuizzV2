@@ -1294,3 +1294,81 @@ Published quizzes across the same 21 groups: min **3**, median **8**, max **152*
 Two groups that are adjacent in the ladder can therefore have been measured on completely
 different material: stray-kids at 70.1% easy plays against bts at 7.6%, both boy groups,
 both above 2,500 plays in-window.
+
+---
+---
+
+# PART 1b - the closing boundary, and the two figures measured on it
+
+Read-only. Raw output and scripts: `docs/proofs/w5-part1b/`.
+
+Sections A through Q are **not** recomputed here. This section fixes the closing boundary so
+every future figure uses the same one, and measures two figures on exactly the basis section
+N used.
+
+## R1. THE CANONICAL WINDOW
+
+Section N's window had an open right-hand edge: it ended on the day it was measured, so it
+kept filling. The closing boundary is the instant of the snapshot, which section A recorded
+as the newest play at the time.
+
+```sql
+-- THE canonical window for every figure in this file.
+where created_at >= '2026-05-01T00:00:00+00:00'
+  and created_at <= '2026-08-17T12:30:50.619691+00:00'
+  and total_questions > 0 and score between 0 and total_questions   -- section 0c's definition
+```
+
+| boundary used | usable in-window plays | vs section N (17,425) |
+| --- | --- | --- |
+| **`2026-08-17T12:30:50.619691+00:00`** (full precision) | **17,425** | **exact** |
+| `2026-08-17T12:30:50Z` (as printed in section A) | 17,424 | **-1** |
+| `2026-08-17T12:30:51Z` | 17,425 | exact |
+| `2026-08-18T00:00:00Z` (end of that day) | 17,435 | +10 |
+| no closing boundary (window left open) | 17,435 | +10 |
+
+**The boundary reproduces section N exactly, and the timestamp as printed in section A does
+not.** Section A shows `2026-08-17T12:30:50Z`, truncated to the second, and the newest play
+is at `.619691` within that second, so a `<=` comparison against the printed value drops it
+and returns 17,424. Anyone reproducing a figure from this file must use the full-precision
+value above, or `<= 2026-08-17T12:30:51Z`.
+
+The +10 is not drift or error: it is ten attempts played after the snapshot, inside a window
+that had no closing edge. With the boundary fixed, the number no longer moves.
+
+## R2. PERFECT AND ZERO SCORES, ON THE CANONICAL WINDOW
+
+```sql
+select count(*)                                                     as attempts,
+       count(*) filter (where score = total_questions)              as perfect,
+       count(*) filter (where score = 0)                            as zero
+from plays
+where created_at >= '2026-05-01T00:00:00+00:00'
+  and created_at <= '2026-08-17T12:30:50.619691+00:00'
+  and total_questions > 0 and score between 0 and total_questions;
+```
+
+Denominator: **17,425** usable in-window attempts.
+
+| | count | share |
+| --- | --- | --- |
+| perfect (`score = total_questions`) | **6,257** | **35.9%** (35.908%) |
+| zero (`score = 0`) | **109** | **0.6%** (0.626%) |
+
+Perfect scores are **1 in 2.78** attempts.
+
+## R3. THE SAME TWO FIGURES ON ALL HISTORY, FOR COMPARISON
+
+Section G5 computed these over the whole table, not the window:
+
+| basis | attempts | perfect | zero |
+| --- | --- | --- | --- |
+| **canonical window (R2)** | **17,425** | **35.9%** | **0.6%** |
+| all history (G5) | 59,417 | 20.6% | 2.1% |
+
+Both are correct on their own basis. They are not interchangeable: the window excludes
+70.7% of the history, and the two periods differ on these figures by 15.3 points on perfect
+scores and 1.5 points on zero scores.
+
+**Section G5's figures remain valid for all history and are not withdrawn.** R2 is the pair
+that belongs to the reporting window.

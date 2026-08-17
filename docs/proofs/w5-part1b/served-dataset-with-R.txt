@@ -1,0 +1,6 @@
+=== the published dataset now carries section R ===
+  served bytes : 55653
+  source bytes : 55653
+  BYTE-IDENTICAL to docs/data/w5-dataset.md
+  section R present: 1
+  R2 figures served: 1 perfect-count, 1 precise-share

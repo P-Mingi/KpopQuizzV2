@@ -4324,3 +4324,39 @@ FLAGGED: built the page while blocking its content (revertible in one commit if 
 prefers it not exist until the figures are settled). The live table has moved since the
 snapshot: 17,435 in-window usable plays now vs 17,425 in the file, which is people playing,
 not an error.
+
+## L-205 - W5 PART 1b: the reporting window now closes, and the two blocked figures are measured (2026-08-17)
+
+Read-only: no DDL, no DB writes, nothing pushed. Section R appended to docs/data/w5-dataset.md;
+sections 0-Q untouched. Page and draft untouched (PART 3). Proofs: docs/proofs/w5-part1b/.
+
+PART 2. THE SNAPSHOT INSTANT IS RECOVERABLE AND EXACT. Section A already recorded it as the
+newest play. Closing the window at it reproduces section N to the row:
+  created_at >= '2026-05-01T00:00:00+00:00' and <= '2026-08-17T12:30:50.619691+00:00'
+  -> 17,425 usable in-window plays = section N exactly.
+FOUND, and it is the reason this mission existed: section A PRINTS that timestamp truncated
+to the second (2026-08-17T12:30:50Z) and the newest play is at .619691 inside that second, so
+anyone copying our published timestamp and applying <= gets 17,424 and concludes our headline
+is wrong by one. Boundary tested four ways: full precision 17,425 (exact), as-printed 17,424
+(-1), 12:30:51Z 17,425 (exact), open window 17,435 (+10). R1 names the full-precision value
+canonical and says the printed one does not reproduce. The +10 is confirmed as ten attempts
+played after the snapshot inside an open window, not drift.
+
+PART 1. On exactly section N's basis (n=17,425): PERFECT 6,257 = 35.9% (35.908%), ZERO 109 =
+0.6% (0.626%). Perfect scores are 1 in 2.78 attempts, NOT one in five. R3 keeps the contrast
+visible: all history is 20.6% / 2.1% on 59,417, a 15.3-point gap on perfect scores. Section
+G5 is NOT withdrawn (correct for all history); R2 is the pair belonging to the report window.
+
+PROPERTY WORTH RECORDING: the dataset route reads the markdown at BUILD time, so appending
+section R did NOT publish it - the running build kept serving the 52,416-byte pre-R file
+while the repo held 55,653. Rebuilt and re-verified byte-identical at 55,653 with R present.
+GENERAL FORM: a dataset edit is not live until the app is rebuilt.
+
+Gates: check:docs-secrets 0, check:routes 0, check:indexability 0, check:orphans 0 (706 URLs,
+complete crawl), check:metadata-dupes unchanged (8 groups, knowledge-report in 0), tsc 0.
+
+FLAGGED: (1) the dataset now carries several bases (all-history, May-Aug, canonical-window,
+per-period splits); R3 states which pair belongs to the report so v4 cannot pick wrong, but
+the file is getting easy to misread. (2) The canonical boundary applies to R only, by
+instruction: sections A-Q were measured against the open window, so reproducing e.g. section
+L exactly could land a play or two off.

@@ -1,75 +1,81 @@
-# MISSION (W5 PART 1 - the report landing page. NO push.)
+# MISSION (W5 PART 1b - measure the two figures I got wrong, then relabel the window. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-**The 47 commits are PUSHED.** `origin/main` is at `fab3911`, working tree ahead by 0. So
-from here every commit is one push away from production - the standing "nothing is live"
-assumption no longer holds. Still no push from you.
+PART 1 is Cowork-approved (578550f). `origin/main` is at `fab3911`; every commit from here
+is one push from production. **Read-only against the database. No DDL, no writes, no push.**
 
-## WHAT THIS IS
-The K-pop Knowledge Report needs somewhere to land before anyone is pitched. Four Tier 1
-journalists can be approached exactly once each, and a pitch that arrives before the page
-exists is spent. `docs/PLAY-W5-DISTRIBUTION.md` has the targets and the sequence.
+## YOU CAUGHT TWO ERRORS IN MY DRAFT AND BOTH ARE MINE
+You were told to ship the prose verbatim and to block rather than fix if a figure looked
+wrong. You did exactly that, and both blocks are correct.
 
-## THE CONTENT IS WRITTEN. DO NOT WRITE MORE.
-The text is `docs/PLAY-W5-REPORT-DRAFT.md`, v3, and it is the output of four rounds of
-testing that killed three findings. **Ship it verbatim.**
+**The perfect-score line is the worse of the two, and it is my error.** The draft says one
+in five attempts is perfect and 2.1% score zero. Those are dataset section G5, computed on
+**all history**. The method section immediately above them explains why 70.7% of that
+history is excluded. So the report excludes a period and then quotes a statistic computed on
+it. It is the exact failure I have been auditing out of your work for six missions, sitting
+in the one document I wrote myself.
 
-- **Do not add a number, a percentage, a ranking or an example.** Every figure in that draft
-  is traceable to `docs/data/w5-dataset.md`, and one invented number destroys the only thing
-  this report is trading on.
-- Do not soften the "What we cannot say" section, do not shorten it, and do not move it
-  below the fold. It is the credibility of the piece, not an appendix to it.
-- If you believe a figure in the draft is wrong, **BLOCK and say which**. Do not fix it.
-  Two of the three findings in v2 were killed by exactly that kind of check.
+**The catalogue range is also mine, and it is a half-fix.** v2 said 3 to 152. I spotted that
+152 is `general-kpop`, the catch-all, and changed the number to 27 - and left "across the 21
+groups" untouched, so the sentence now describes 20 groups and counts 21. Correcting one
+half of a sentence is how you get a wrong sentence that survives review.
 
-Layout, typography and structure are yours.
+## PART 1 - measure them properly, on the report's own basis
+Your recomputation used the live table, n=17,435, while the report cites the snapshot,
+n=17,425. Ten plays, and the principle is the whole report: a figure in the report must be
+reproducible from the committed dataset, not from a table that has moved.
 
-## HARD CONSTRAINTS, because our own gates will catch you
-1. **The page must not be an orphan.** `check:orphans` runs unscoped over every non-verse
-   sitemap URL. A new sitemap entry with no inbound link turns it red. Link it from
-   surfaces where it genuinely belongs - `/data` indexes data work, and the report is about
-   our own play data. Follow the W7c principle: link it where it belongs structurally, or
-   leave it out of the sitemap. Do not mint a link from an unrelated page to clear a gate.
-2. **Unique title and meta description.** `check:metadata-dupes` is already red on one known
-   collision; do not add a second.
-3. **The dataset ships beside the report.** "Full figures, queries and sample sizes are
-   published alongside" is a sentence in the draft, so it has to be true. A reachable,
-   readable page or file carrying `w5-dataset.md` in full. That offer is what separates
-   this from a brand doing PR, and a Tier 1 journalist will click it.
-4. **Run all four gates before you report**, including `check:docs-secrets`, and print the
-   cwd before each.
+So compute, on **exactly the basis section N used** (the same window, the same usable-play
+definition, the same snapshot boundary):
+  - perfect scores in window: count and share
+  - zero scores in window: count and share
+  - the usable in-window play count you get, stated next to N's 17,425 so any drift is
+    visible rather than silent
 
-## THE NUMBER THAT WILL BE CHECKED AGAINST US
-The report says 17,425 attempts. `/stats` publishes roughly 59,000 total plays, in prose, in
-its meta description and in JSON-LD as a schema.org `PropertyValue`. **The owner has ruled
-that `/stats` is not being changed**, so the two numbers will coexist on one domain and a
-careful reader will find both.
+Append to `docs/data/w5-dataset.md` as **section R**, numbers and queries, no interpretation.
 
-The draft already defuses this: its method section states the window and says most of the
-history is deliberately excluded, with the reason. Make sure that paragraph is visible on
-the page and not collapsed behind anything. Do not add a caveat to `/stats`, and do not
-"reconcile" the two numbers with any sentence not already in the draft.
+## PART 2 - the window is open and that is a bug in my method section
+The report's window ends 2026-08-17, which is the day it was measured. So it is still
+filling: your 17,435 against the file's 17,425 is not drift, it is people playing inside a
+window that has not closed. A journalist who re-runs any figure next week gets a different
+one and we look like we cannot count.
 
-## SCHEMA
-JSON-LD describing what this actually is: a report, with an author, a date, and a dataset
-attached to it. Get the type right rather than stuffing properties - a wrong `Dataset` shape
-is worse than none, because this page is aimed at exactly the machines that read it.
+Fix it as a **label, not a re-measurement**: the window is a snapshot taken at a stated
+instant. Give me the exact timestamp of the section N snapshot if it is recoverable, and if
+it is not, say so and use the date. Then state in section R what the closing boundary is, so
+every future figure uses the same one.
 
-## WHAT I AM NOT ASKING FOR
-No charts. No interactive explorer. No newsletter capture. No share widgets. Those are all
-reasons this ships late, and the pitch window is the constraint. A plain, fast, readable
-page with correct markup beats a designed one that arrives next week.
+Do **not** recompute the rest of the dataset to a new boundary. Ten plays do not justify
+invalidating sections A through Q, and a report that keeps re-cutting itself never ships.
+
+## PART 3 - do not touch the page or the draft
+No edits to `/data/knowledge-report-2026` and none to `docs/PLAY-W5-REPORT-DRAFT.md`. I
+write v4 from section R once it exists, then a later mission updates the page from v4. I am
+not having the page and the draft edited from two directions at once.
+
+## YOUR THREE DECISIONS: ALL THREE APPROVED
+1. **Dataset route noindex and out of the sitemap.** Right, and for the right reason: it is
+   a raw file, not a page competing for a query, and keeping it out means it can never
+   become an orphan-gate or duplicate-metadata problem. Reachable is what the report
+   promises and reachable is what it is.
+2. **`text/markdown`, served byte-identical from the single copy in the repo.** Right. The
+   SQL in the file is the offer, and reading it from the repo at build time means the page
+   cannot drift from the doc.
+3. **Footer placement.** Accepted. A footer link is weak, and it is where this site already
+   indexes its data work; the `/data/pulse` link is the real one.
+
+And building the page while blocking on its content was the right call, not a deviation. The
+page is ready the moment the figures are settled, and it costs nothing sitting unpushed.
 
 ## STANDING RULES
-- Print `pwd` before every gate run.
-- Prove the page against the SERVED HTML of a production build, not against what renders in
-  dev - the anchors, the JSON-LD and the metadata all have to be in the response body.
-- Recompute before writing any number in prose. It has caught four assertions in this
-  workstream, one inside the dataset file and two inside the report itself.
+- Print `pwd` before anything.
+- Every number carries its query and its denominator.
+- Recompute before writing any number in prose. It has now caught six assertions in this
+  workstream, two of them mine.
 - An incident report names locations, never values.
-- No DDL, no writes to the database, no push.
-- Proofs in `docs/proofs/w5-part1/`.
+- No DDL, no database writes, no push.
+- Proofs in `docs/proofs/w5-part1b/`.
