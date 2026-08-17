@@ -1,0 +1,119 @@
+# H. DIFFICULTY-STANDARDISED GROUP LADDER (all periods)
+standardisation: direct, weights = the combined PLAY mix across all groups in scope,
+renormalised over the tiers a group actually has plays in (stated per row).
+
+### H1 ALL (2026-03-10 to 2026-08-17): reference mix (plays) easy=12922 medium=46034 hard=451 (total 59407)
+groups above floor(100) in this period: 27
+rank_std | group | raw% | std% | plays | rank_raw | move | tiers covered | easy n/% | medium n/% | hard n/%
+ 1 | babymonster    |  82.8 |  82.4 |    263 |  2 | +1 | easy+medium        |   138/86.4% |    125/81.3% | -
+ 2 | cortis         |  84.6 |  81.4 |    582 |  1 | -1 | easy+medium        |   284/93.7% |      298/78% | -
+ 3 | illit          |  75.1 |  75.4 |    463 |  4 | +1 | easy+medium        |    96/77.1% |    367/74.9% | -
+ 4 | got7           |  70.2 |  71.3 |    125 |  8 | +4 | easy+medium        |    13/85.4% |    112/67.3% | -
+ 5 | twice          |  68.3 |  71.0 |   2286 | 10 | +5 | easy+medium        |   218/87.3% |   2068/66.5% | -
+ 6 | ateez          |  69.9 |  69.8 |   1088 |  9 | +3 | medium+hard        |           - |   1068/69.8% | 20/73%
+ 7 | itzy           |  67.7 |  69.5 |    959 | 14 | +7 | easy+medium        |      90/88% |    869/64.3% | -
+ 8 | newjeans       |  65.9 |  69.1 |   2319 | 17 | +9 | easy+medium+hard   |    65/81.8% |   2246/65.3% | 8/93.8%
+ 9 | nct            |  66.3 |  69.0 |    286 | 16 | +7 | easy+medium        |    19/86.8% |    267/63.9% | -
+10 | stray-kids     |  73.4 |  68.7 |   6395 |  5 | -5 | easy+medium        |  4156/77.5% |   2239/66.2% | -
+11 | red-velvet     |  67.8 |  68.6 |    886 | 13 | +2 | easy+medium+hard   |      10/72% |    869/67.7% | 7/72.9%
+12 | txt            |  70.5 |  68.5 |    999 |  7 | -5 | easy+medium        |   620/71.9% |    379/67.5% | -
+13 | blackpink      |  63.6 |  68.3 |   4469 | 24 | +11 | easy+medium+hard   |   153/89.6% |   4314/62.6% | 2/41.7%
+14 | aespa          |  65.0 |  68.3 |   1751 | 20 | +6 | easy+medium        |    97/83.4% |     1654/64% | -
+15 | seventeen      |  71.7 |  68.0 |   2940 |  6 | -9 | easy+medium        |    1712/75% |     1228/66% | -
+16 | ive            |  67.9 |  67.7 |   1585 | 12 | -4 | medium+hard        |           - |     1576/68% | 9/28.9%
+17 | monsta-x       |  63.4 |  67.6 |    187 | 25 | +8 | easy+medium        |       4/85% |    183/62.7% | -
+18 | general-kpop   |  67.9 |  67.3 |  15464 | 11 | -7 | easy+medium+hard   |  3487/79.7% |  11588/63.9% | 389/61.8%
+19 | shinee         |  67.2 |  66.0 |    589 | 15 | -4 | easy+medium+hard   |     6/61.7% |    573/67.2% | 10/72%
+20 | exo            |  65.2 |  65.9 |   1180 | 19 | -1 | easy+medium        |     7/68.6% |   1173/65.2% | -
+21 | g-i-dle        |  63.1 |  65.9 |   1064 | 26 | +5 | easy+medium        |       5/76% |     1059/63% | -
+22 | le-sserafim    |  65.6 |  65.6 |   1358 | 18 | -4 | medium             |           - |   1358/65.6% | -
+23 | bts            |  62.8 |  65.0 |   9169 | 27 | +4 | easy+medium        |   465/75.3% |   8704/62.1% | -
+24 | nmixx          |  64.4 |  64.4 |    164 | 21 | -3 | medium             |           - |    164/64.4% | -
+25 | bigbang        |  64.1 |  64.1 |    185 | 22 | -3 | medium             |           - |    185/64.1% | -
+26 | enhypen        |  64.0 |  63.0 |   2258 | 23 | -3 | easy+medium        |    1010/79% |   1248/58.6% | -
+27 | loona          |  78.3 |  61.7 |    158 |  3 | -24 | easy+medium        |   146/80.1% |     12/56.5% | -
+correlation log10(plays) vs RAW score : r = -0.242  (n=27)
+correlation log10(plays) vs STD score : r = -0.141  (n=27)
+   without general-kpop: raw r = -0.254  std r = -0.129  (n=26)
+
+
+# I. SPLIT BY REGIME
+Mar+Apr usable plays: 41982   May-Aug usable plays: 17425
+
+### I1 MAR+APR: reference mix (plays) easy=5849 medium=35808 hard=325 (total 41982)
+groups above floor(100) in this period: 22
+rank_std | group | raw% | std% | plays | rank_raw | move | tiers covered | easy n/% | medium n/% | hard n/%
+ 1 | twice          |  64.8 |  67.0 |   1832 |  5 | +4 | easy+medium        |   136/91.9% |     1696/63% | -
+ 2 | newjeans       |  64.1 |  65.7 |   1914 |  8 | +6 | easy+medium        |      31/77% |   1883/63.8% | -
+ 3 | red-velvet     |  65.6 |  65.6 |    723 |  2 | -1 | medium             |           - |    723/65.6% | -
+ 4 | itzy           |  61.9 |  65.2 |    759 | 19 | +15 | easy+medium        |    14/91.4% |      745/61% | -
+ 5 | aespa          |  62.3 |  64.7 |   1439 | 15 | +10 | easy+medium        |    49/83.3% |   1390/61.7% | -
+ 6 | blackpink      |  62.0 |  64.6 |   3446 | 17 | +11 | easy+medium        |      60/83% |   3386/61.6% | -
+ 7 | ateez          |  64.6 |  64.6 |    758 |  6 | -1 | medium             |           - |    758/64.6% | -
+ 8 | shinee         |  64.5 |  64.5 |    519 |  7 | -1 | medium             |           - |    519/64.5% | -
+ 9 | seventeen      |  65.8 |  63.9 |   2159 |  1 | -8 | easy+medium        |  1185/67.4% |    974/63.3% | -
+10 | stray-kids     |  65.3 |  63.4 |   2839 |  4 | -6 | easy+medium        |    1664/67% |   1175/62.8% | -
+11 | general-kpop   |  63.5 |  63.4 |  12051 | 10 | -1 | easy+medium+hard   |    1576/71% |  10158/62.2% | 317/60.7%
+12 | exo            |  63.4 |  63.4 |   1070 | 11 | -1 | medium             |           - |   1070/63.4% | -
+13 | ive            |  63.6 |  63.4 |   1266 |  9 | -4 | medium+hard        |           - |   1258/63.8% | 8/25%
+14 | bts            |  61.8 |  63.2 |   6511 | 20 | +6 | easy+medium        |     264/76% |   6247/61.1% | -
+15 | txt            |  65.4 |  63.1 |    669 |  3 | -12 | easy+medium        |   398/66.9% |    271/62.5% | -
+16 | nmixx          |  63.1 |  63.1 |    125 | 12 | -4 | medium             |           - |    125/63.1% | -
+17 | nct            |  62.9 |  62.9 |    233 | 13 | -4 | medium             |           - |    233/62.9% | -
+18 | bigbang        |  62.9 |  62.9 |    170 | 14 | -4 | medium             |           - |    170/62.9% | -
+19 | monsta-x       |  62.1 |  62.1 |    178 | 16 | -3 | medium             |           - |    178/62.1% | -
+20 | le-sserafim    |  62.0 |  62.0 |   1157 | 18 | -2 | medium             |           - |     1157/62% | -
+21 | g-i-dle        |  60.6 |  60.6 |    948 | 22 | +1 | medium             |           - |    948/60.6% | -
+22 | enhypen        |  61.1 |  60.3 |   1101 | 21 | -1 | easy+medium        |   467/67.3% |    634/59.2% | -
+correlation log10(plays) vs RAW score : r = 0.066  (n=22)
+correlation log10(plays) vs STD score : r = 0.199  (n=22)
+   without general-kpop: raw r = 0.057  std r = 0.243  (n=21)
+
+### I2 MAY-AUG: reference mix (plays) easy=7073 medium=10226 hard=126 (total 17425)
+groups above floor(100) in this period: 21
+rank_std | group | raw% | std% | plays | rank_raw | move | tiers covered | easy n/% | medium n/% | hard n/%
+ 1 | itzy           |  85.5 |  85.2 |    200 |  2 | +1 | easy+medium        |    76/87.4% |    124/83.7% | -
+ 2 | le-sserafim    |  84.6 |  84.6 |    201 |  4 | +2 | medium             |           - |    201/84.6% | -
+ 3 | cortis         |  84.6 |  84.4 |    582 |  3 | 0 | easy+medium        |   284/93.7% |      298/78% | -
+ 4 | ive            |  83.9 |  83.6 |    319 |  5 | +1 | medium+hard        |           - |    318/83.9% | 1/60%
+ 5 | babymonster    |  82.8 |  83.4 |    263 |  6 | +1 | easy+medium        |   138/86.4% |    125/81.3% | -
+ 6 | seventeen      |  86.9 |  82.0 |    781 |  1 | -5 | easy+medium        |   527/91.8% |    254/75.3% | -
+ 7 | twice          |  82.1 |  81.6 |    454 |  9 | +2 | easy+medium        |    82/80.4% |    372/82.5% | -
+ 8 | g-i-dle        |  82.3 |  79.9 |    116 |  7 | -1 | easy+medium        |       5/76% |    111/82.7% | -
+ 9 | txt            |  80.1 |  79.3 |    330 | 10 | +1 | easy+medium        |     222/81% |    108/78.1% | -
+10 | aespa          |  77.0 |  79.0 |    312 | 15 | +5 | easy+medium        |    48/83.5% |    264/75.9% | -
+11 | newjeans       |  73.8 |  78.1 |    405 | 18 | +7 | easy+medium+hard   |    34/86.1% |    363/72.3% | 8/93.8%
+12 | ateez          |  77.5 |  78.0 |    330 | 14 | +2 | medium+hard        |           - |    310/78.1% | 20/73%
+13 | general-kpop   |  79.5 |  77.9 |   3413 | 11 | -2 | easy+medium+hard   |  1911/86.5% |   1430/72.1% | 72/64%
+14 | exo            |  82.2 |  77.4 |    110 |  8 | -6 | easy+medium        |     7/68.6% |    103/83.5% | -
+15 | blackpink      |  68.7 |  76.7 |   1023 | 19 | +4 | easy+medium+hard   |    93/92.9% |    928/65.9% | 2/41.7%
+16 | illit          |  75.1 |  75.8 |    463 | 16 | 0 | easy+medium        |    96/77.1% |    367/74.9% | -
+17 | stray-kids     |  79.1 |  75.2 |   3556 | 12 | -5 | easy+medium        |    2492/84% |   1064/69.2% | -
+18 | red-velvet     |  74.7 |  73.8 |    163 | 17 | -1 | easy+medium+hard   |      10/72% |      146/75% | 7/72.9%
+19 | enhypen        |  66.7 |  70.2 |   1157 | 20 | +1 | easy+medium        |     543/88% |    614/57.9% | -
+20 | bts            |  65.0 |  68.3 |   2658 | 21 | +1 | easy+medium        |   201/74.2% |   2457/64.2% | -
+21 | loona          |  78.0 |  66.0 |    156 | 13 | -8 | easy+medium        |   144/79.8% |     12/56.5% | -
+correlation log10(plays) vs RAW score : r = -0.421  (n=21)
+correlation log10(plays) vs STD score : r = -0.267  (n=21)
+   without general-kpop: raw r = -0.488  std r = -0.294  (n=20)
+
+groups above floor in BOTH periods: 17
+Spearman rank correlation of the STANDARDISED ladder, Mar+Apr vs May-Aug: rho = -0.474 (n=17)
+group | rank Mar+Apr | rank May-Aug | std% Mar+Apr | std% May-Aug
+  twice           1 ->  7   67.0% -> 81.6%
+  newjeans        2 -> 11   65.7% -> 78.1%
+  red-velvet      3 -> 18   65.6% -> 73.8%
+  itzy            4 ->  1   65.2% -> 85.2%
+  aespa           5 -> 10   64.7% -> 79.0%
+  blackpink       6 -> 15   64.6% -> 76.7%
+  ateez           7 -> 12   64.6% -> 78.0%
+  seventeen       9 ->  6   63.9% -> 82.0%
+  stray-kids     10 -> 17   63.4% -> 75.2%
+  general-kpop   11 -> 13   63.4% -> 77.9%
+  exo            12 -> 14   63.4% -> 77.4%
+  ive            13 ->  4   63.4% -> 83.6%
+  bts            14 -> 20   63.2% -> 68.3%
+  txt            15 ->  9   63.1% -> 79.3%
+  le-sserafim    20 ->  2   62.0% -> 84.6%
+  g-i-dle        21 ->  8   60.6% -> 79.9%
+  enhypen        22 -> 19   60.3% -> 70.2%

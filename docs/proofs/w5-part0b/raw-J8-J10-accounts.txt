@@ -1,0 +1,37 @@
+# J8. CONCENTRATION OF SIGNED-IN PLAY, per period
+
+Mar+Apr: total plays 41982, signed-in 21650 (51.6%), distinct signed-in accounts 56
+  top 1 account : 674 plays = 3.1% of signed-in, 1.6% of ALL plays in the period
+  top 5 accounts: 3304 plays = 15.3% of signed-in, 7.9% of ALL
+  top 10        : 30.2% of signed-in, 15.6% of ALL
+  median plays per signed-in account: 249
+  accounts with >100 plays: 54   with >500: 22   with >1000: 0
+
+May-Aug: total plays 17425, signed-in 1245 (7.1%), distinct signed-in accounts 87
+  top 1 account : 219 plays = 17.6% of signed-in, 1.3% of ALL plays in the period
+  top 5 accounts: 529 plays = 42.5% of signed-in, 3.0% of ALL
+  top 10        : 57.3% of signed-in, 4.1% of ALL
+  median plays per signed-in account: 6
+  accounts with >100 plays: 1   with >500: 0   with >1000: 0
+
+# J9. the heaviest accounts in Mar+Apr: how do they score, and how fast?
+rank | plays | score% | median seconds | distinct quizzes | plays/quiz
+   1 |   674 |  61.8 |    100 |  153 | 4.4
+   2 |   664 |  60.6 |    100 |  151 | 4.4
+   3 |   661 |  61.3 |    100 |  150 | 4.4
+   4 |   654 |  61.0 |    101 |  163 | 4.0
+   5 |   651 |  61.6 |     99 |  153 | 4.3
+   6 |   651 |  62.4 |    102 |  147 | 4.4
+   7 |   646 |  62.5 |    101 |  151 | 4.3
+   8 |   646 |  60.4 |    103 |  151 | 4.3
+   9 |   645 |  60.6 |    100 |  160 | 4.0
+  10 |   642 |  60.1 |    101 |  147 | 4.4
+
+# J10. what the two periods look like if the heaviest Mar+Apr accounts are removed
+Mar+Apr all plays              : n=41982  score=63.2%
+Mar+Apr minus top-10 accounts  : n=35448  score=63.6%
+Mar+Apr anonymous plays only   : n=20332  score=64.7%
+Mar+Apr signed-in plays only   : n=21650  score=61.8%
+May-Aug all plays              : n=17425  score=75.9%
+May-Aug anonymous plays only   : n=16180  score=75.4%
+May-Aug signed-in plays only   : n=1245  score=82.5%

@@ -1,116 +1,123 @@
-# REPORT - W5 PART 0: the dataset exists, and one headline number reverses under control.
+# REPORT - W5 PART 0b: the headline does not survive. Two findings killed, one strengthened.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every run. **Read-only: zero writes, zero DDL, and zero files under `apps/` changed**
-(`git status --porcelain apps/` = 0). Nothing pushed.
+before every run. **Read-only: no writes, no DDL, `git status --porcelain apps/` = 0.**
+Nothing pushed.
 
-Output: `docs/data/w5-dataset.md`. Raw output and the scripts: `docs/proofs/w5-part0/`.
+Output: sections H, I, J appended to `docs/data/w5-dataset.md`. Sections 0-G untouched.
+Proofs: `docs/proofs/w5-part0b/`.
 
 ---
 
-## The three things you need to know before writing
+## The short version
 
-**1. Girl groups vs boy groups reverses when you control for difficulty.** This is the
-finding that would have shipped backwards.
+**"The biggest fandoms know the least" is dead.** Not weakened, dead as a stable claim.
+Standardising for difficulty removes 41.7% of the correlation's magnitude (-0.242 to
+-0.141), and 49.2% excluding general-kpop. That alone would have left a real if smaller
+finding. What kills it is the regime split:
 
-    pooled          gg 66.5%   bg 67.7%   gap -1.2 pt  (girl groups LOWER)
-    easy quizzes    gg 84.1%   bg 77.1%   gap +7.0 pt
-    medium quizzes  gg 65.3%   bg 63.2%   gap +2.2 pt
-    standardised    gg 69.5%   bg 66.2%   gap +3.2 pt  (girl groups HIGHER)
+    Mar+Apr  plays-vs-score correlation, standardised:  +0.199   (POSITIVE)
+    May-Aug  plays-vs-score correlation, standardised:  -0.267   (NEGATIVE)
 
-Simpson's paradox, and the cause is in the data: 33.7% of boy-group plays are on `easy`
-quizzes versus 6.0% of girl-group plays. The raw gap is a selection artefact of what we
-happened to write, exactly the case your plan says must not ship. Both cuts are in the
-file with their denominators.
+The correlation **changes sign** depending on which period you use. And the ladder itself
+is not stable: across the 17 groups above floor in both periods, the Spearman rank
+correlation of the standardised ladders is **rho = -0.474**. The two periods rank the
+groups in close to opposite order. There is no "knowledge ladder" to publish; there are
+two different ladders that disagree with each other.
 
-**2. There is a regime change in the middle of the window, and every pooled figure
-straddles it.**
+You asked me not to soften either result. It collapses.
 
-    Mar + Apr : 41,982 usable plays, pooled 63.2%   (70.7% of all usable plays)
-    May - Aug : 17,425 usable plays, pooled 75.9%
-    break     : 12.7 points, between April and May, not gradual
+**The girl-group finding survives and gets stronger.** Standardised, the gap favours girl
+groups in both periods independently: **+3.4 pt in Mar+Apr and +4.5 pt in May-Aug**, within
+1.1 points of each other, while the raw gap changes sign between them (-0.4 then +2.0).
+That is the one comparison in the dataset that holds up under both tests.
 
-Every percentage in the file mixes those two periods weighted 70.7 / 29.3 toward the
-low-scoring one. I did not investigate the cause: read-only mission. If the report quotes
-a single site-wide average, this is the first thing a careful reader breaks it on.
+## PART 3 answered directly: what changed in May
 
-**3. The question-level section is NOT ANSWERABLE, and it is the section your plan calls
-the most quotable.** The schema stores only a total score per play. `per_question_times` is
-the only per-question column, it holds timings not correctness, **and it is null on all
-59,513 rows**. No `play_answers`, `quiz_questions` or `question_stats` table exists. It
-cannot be approximated from quiz-level data without inventing it, so structure section 4
-of the report around the hardest QUIZZES, which are real, or accept a schema change and new
-writes as its own mission.
+The change is in **who played**, and the Mar+Apr cohort does not look like people.
 
-## What is in the file
+| | Mar+Apr | May-Aug |
+| --- | --- | --- |
+| signed-in share of all plays | 51.6% | 7.1% |
+| distinct signed-in accounts | 56 | 87 |
+| median plays per account | **249** | **6** |
+| accounts with >= 100 plays | **54 of 56** | **1 of 87** |
+| median seconds per play | 95 | 34 |
 
-A scope, B per group (27 above floor, 10 below), B2 by plays, B3 the correlation, C1 per
-quiz (227 of 400 above floor), C2 the not-answerable note, D gender both raw and
-controlled, E generations, F duels as colour only, G seven things you did not ask for.
-Every table states its denominator and its window; every number carries its query.
+Then the part that settles it. The ten heaviest Mar+Apr accounts:
 
-**Floors, set before any result was looked at:** 100 usable plays per group, 50 per quiz,
-100 votes per matchup. Below-floor rows are listed separately and never ranked.
+    plays          642 - 674     (5.0% spread)
+    score        60.1 - 62.5%    (2.4 points)
+    median time    99 - 103 s    (4 seconds)
+    plays/quiz    4.0 - 4.4
 
-**The score definition is pooled** (`SUM(score)/SUM(total_questions)`). Checked against the
-alternative for every group: they agree within 1 point on 26 of 27, the exception being
-enhypen at 4.7 points.
+Ten separate accounts agreeing to within 2.4 points of score and 4 seconds of median play
+time while each playing 640-674 times. Across all 56: **50 score within 58-65%** and **52
+have a median time within 90-115 seconds**. The May-Aug control behaves like people: score
+interquartile spread **24.1 points against 1.9**, median 6 plays per account against 249.
 
-## Things in the data that will bite the report if nobody says them
+And it is **not just the heavy accounts**: removing the top ten moves the period by 0.4
+points, and the 20,332 anonymous Mar+Apr plays score 64.7%, 10.7 points below the May-Aug
+anonymous figure. The whole period is the anomaly, not a few users inside it.
 
-- **`general-kpop` is the single largest row, 15,464 plays, and it is not a group.** It is
-  a catch-all bucket (`groups.id=30, name="General K-pop"`). It tops the by-plays ranking.
-  Excluding it changes the play-count story, not the score spread.
-- **106 plays record a score higher than the number of questions** and are excluded from
-  everything. 0.18% of rows. Cause not investigated.
-- **Anonymous plays score 6.4 points higher than signed-in ones** (69.8% vs 63.4%),
-  uncontrolled for which quizzes each played.
-- **The difficulty labels are not a difficulty scale.** `hard` scores 0.2 points BELOW
-  `medium`, on only 451 plays. The labels are author-assigned.
-- **The duel lists are each dominated by one prompt.** 8 of the 10 most lopsided come from
-  "Best of the 3rd generation"; 6 of the 10 most contested from "Who is your BTS bias?".
-- **Gender is derived, not stored.** `groups` has no gender column. It comes from
-  `songs.gender`, which resolves to exactly one value for all 81 groups that have songs.
-  Flagged in the file as an inference.
-- The duel panel is **891 voters, 60,364 votes** now, up from the plan's 59,508 / ~870.
+**What the data cannot distinguish**, stated because you asked for that answer when it is
+the true one: seeded data, automated play, or a real campaign that drove a small cohort to
+grind the catalogue. `plays` records no source, IP, user agent or session, so no row in it
+can separate those three. I did not investigate whether those 56 accounts exist in
+`profiles` with distinguishing metadata; that is a read the mission did not authorise and
+it is the obvious next step if you want the answer.
 
-## Two repo findings, because they affect whether you can read this at all
+**Recommendation, and it follows from the numbers rather than from taste:** write the
+report on **May-Aug only**, 17,425 plays. It costs 70.7% of the volume and buys a dataset
+whose account behaviour is not uniform. Quoting the 59,407 figure means quoting a number
+70.7% composed of traffic that behaves like this.
 
-1. **`docs/data/` was gitignored.** `.gitignore` line 68 is `docs/*` with an explicit
-   allowlist, and `docs/data/` was not on it, so the mission's own required output could
-   not have been committed. I added `!docs/data/`. That is the only non-doc change in this
-   commit.
-2. **`docs/PLAY-W5-REPORT-PLAN.md` is itself untracked and ignored** by the same rule. The
-   mission says to read it first and it exists only on this machine, so it is one disk
-   failure from gone and Cowork cannot read it from git. I did **not** add it: keeping
-   strategy docs out of the repo may be deliberate. One line if you want it.
+## What is now in the file
+
+H: the standardised ladder, all 27 groups, raw vs standardised with the rank move and the
+tiers each row could be standardised over. I: both periods, each with its own ladder,
+correlation and gg/bg comparison, plus the rank-stability table. J: eleven diagnostics for
+the April/May boundary, ending with what the evidence supports and what it cannot.
+
+Also in H, flagged rather than buried: **loona's -24 rank move is a renormalisation
+artefact**, not a measurement. 146 of its 158 plays are easy and 12 are medium;
+standardising to a 77.5%-medium mix reweights those 12 plays until they set the score.
+Three groups (le-sserafim, nmixx, bigbang) have medium plays only, so their standardised
+score equals their raw one by construction and is evidence for nothing.
+
+## PART 4
+
+1. **`docs/PLAY-W5-REPORT-PLAN.md` is now tracked.** Added to the `.gitignore` allowlist
+   beside `docs/PLAY-SEO.md`. It is the contract this workstream is written against and it
+   was living on one disk. Verified with `git status`, not with `git check-ignore`, which
+   prints the matching rule for a negation too and reads as "still ignored".
+2. **Below-floor groups with quiz counts:** section J11. Seven of the ten were first
+   published in June or July 2026; three (akmu, mamamoo, astro) date from March and April.
+   Nine of the ten have 1-4 published quizzes.
 
 ## Deviations and flags (loud)
 
-1. **I wrote three numbers in prose that the raw file did not support and corrected them.**
-   G3 said "63.3% / 76.1% / 13.4 pt break" from reading the month table; computed directly
-   it is **63.2% / 75.9% / 12.7 pt**. Your standing rule caught this exact failure last
-   mission, so I recomputed rather than eyeballed and the file now carries the measured
-   values.
-2. **Two different play counts appear in section D** (17,725 / 25,697 versus 17,805 /
-   24,580). They are different cuts, groups-above-floor versus published-quiz plays, not a
-   discrepancy. Each table now says which it uses rather than leaving a reader to notice.
-3. **I stated a correlation excluding general-kpop before computing it.** Written as "see
-   raw output" when no such output existed. Computed: r = -0.254 against -0.242 for all 27.
-4. **Verse and the ledger.** `docs/VERSE-LEDGER.md` already contained a new entry (L-197)
-   that is not mine. I appended L-198 after it and did not touch it.
+1. **I wrote a false note into the file and caught it before commit.** J11 originally said
+   the difficulty mixes "do not always sum to the quiz count" and named three groups.
+   Checked: **all ten rows sum correctly**. It was an assertion I never computed, in the
+   same section as the numbers that disprove it. Corrected, and worth stating plainly
+   because it is the third time this failure mode has appeared in this workstream.
+2. **Two hedges replaced with the arithmetic.** "Roughly half" of the correlation is 41.7%
+   and 49.2%; "roughly triples" is 2.99x. Both were describing numbers printed beside them.
+3. **The standardisation is only as good as the difficulty labels**, and section G1 already
+   showed those labels are author-assigned and not monotonic (hard scores 0.2 pt below
+   medium). Every standardised figure in H and I inherits that.
 
 ## Covenant
 
-Every figure is counted from `plays` directly at read time. The denormalised counters
-(`quizzes.play_count`, `groups.total_plays`) were deliberately not used and not compared.
-No number is rounded to flatter, no below-floor row is ranked, and the one question that
-cannot be answered says so instead of being approximated.
+Every figure counted from `plays` at read time. Below-floor rows listed, never ranked.
+Where standardisation could not be applied honestly the row says so. The one question the
+data cannot answer is written as unanswerable rather than guessed.
 
 ## Next
 
-The dataset is ready to write from. The three things above decide the report's structure
-more than any single number in it.
+The report's spine has to change. The ladder cannot carry it, the girl-group comparison
+can, and the period decision comes before any writing.
 
 ---
 

@@ -1,0 +1,15 @@
+# J11. DO ALL 56 Mar+Apr ACCOUNTS SHARE ONE FINGERPRINT?
+accounts: 56
+plays per account  min=5.0  p25=233.0  median=249.0  p75=628.0  max=674.0
+score %            min=54.7  p25=61.0  median=61.8  p75=62.9  max=67.6
+median seconds     min=65.0  p25=92.0  median=95.0  p75=100.0  max=104.0
+accounts scoring 58-65%          : 50 of 56
+accounts with median 90-115 sec  : 52 of 56
+accounts with >=100 plays        : 54 of 56
+
+CONTROL, May-Aug accounts: 87
+plays per account  min=1.0  p25=2.0  median=6.0  p75=13.0  max=219.0
+score %            min=25.0  p25=71.3  median=84.7  p75=95.4  max=100.0
+median seconds     min=9.0  p25=26.0  median=34.0  p75=44.0  max=214.0
+accounts scoring 58-65%          : 3 of 87
+accounts with >=100 plays        : 1 of 87

@@ -535,3 +535,342 @@ Stated because the mission asks for it.
   directly instead. They were not compared against the computed figures.
 - `game_plays` (1,546 rows): blind test and game modes, a different scoring model. Out of
   scope for a report about quiz scores.
+
+---
+---
+
+# PART 0b - tests that can kill a finding
+
+Same snapshot, read-only, 2026-08-17. Raw output and scripts: `docs/proofs/w5-part0b/`.
+
+## H. THE GROUP LADDER, DIFFICULTY-STANDARDISED
+
+**Method.** Direct standardisation. For each group, its score is recomputed as if it had
+faced the reference difficulty mix instead of its own. Reference = the combined **play**
+mix across all groups in scope: easy 12,922, medium 46,034, hard 451 (59,407 plays).
+Weights are renormalised over the tiers a group actually has plays in, and the tiers
+covered are stated on every row, because a group with no `easy` plays cannot be
+standardised across a mix that contains them.
+
+```sql
+-- per group per difficulty tier, then reweight to the combined mix
+select g.slug, q.difficulty, count(*) as plays,
+       100.0*sum(p.score)/sum(p.total_questions) as tier_pct
+from plays p join quizzes q on q.id=p.quiz_id join groups g on g.id=q.group_id
+where p.total_questions>0 and p.score between 0 and p.total_questions
+  and q.difficulty in ('easy','medium','hard')
+group by g.slug, q.difficulty;
+```
+
+### H1. Raw vs standardised, 27 groups above floor (100 plays)
+
+| rank std | group | raw | std | plays | rank raw | move | tiers covered |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | babymonster | 82.8% | 82.4% | 263 | 2 | +1 | easy+medium |
+| 2 | cortis | 84.6% | 81.4% | 582 | 1 | -1 | easy+medium |
+| 3 | illit | 75.1% | 75.4% | 463 | 4 | +1 | easy+medium |
+| 4 | got7 | 70.2% | 71.3% | 125 | 8 | +4 | easy+medium |
+| 5 | twice | 68.3% | 71.0% | 2,286 | 10 | +5 | easy+medium |
+| 6 | ateez | 69.9% | 69.8% | 1,088 | 9 | +3 | medium+hard |
+| 7 | itzy | 67.7% | 69.5% | 959 | 14 | +7 | easy+medium |
+| 8 | newjeans | 65.9% | 69.1% | 2,319 | 17 | +9 | easy+medium+hard |
+| 9 | nct | 66.3% | 69.0% | 286 | 16 | +7 | easy+medium |
+| 10 | stray-kids | 73.4% | 68.7% | 6,395 | 5 | -5 | easy+medium |
+| 11 | red-velvet | 67.8% | 68.6% | 886 | 13 | +2 | easy+medium+hard |
+| 12 | txt | 70.5% | 68.5% | 999 | 7 | -5 | easy+medium |
+| 13 | blackpink | 63.6% | 68.3% | 4,469 | 24 | **+11** | easy+medium+hard |
+| 14 | aespa | 65.0% | 68.3% | 1,751 | 20 | +6 | easy+medium |
+| 15 | seventeen | 71.7% | 68.0% | 2,940 | 6 | -9 | easy+medium |
+| 16 | ive | 67.9% | 67.7% | 1,585 | 12 | -4 | medium+hard |
+| 17 | monsta-x | 63.4% | 67.6% | 187 | 25 | +8 | easy+medium |
+| 18 | general-kpop | 67.9% | 67.3% | 15,464 | 11 | -7 | easy+medium+hard |
+| 19 | shinee | 67.2% | 66.0% | 589 | 15 | -4 | easy+medium+hard |
+| 20 | exo | 65.2% | 65.9% | 1,180 | 19 | -1 | easy+medium |
+| 21 | g-i-dle | 63.1% | 65.9% | 1,064 | 26 | +5 | easy+medium |
+| 22 | le-sserafim | 65.6% | 65.6% | 1,358 | 18 | -4 | medium only |
+| 23 | bts | 62.8% | 65.0% | 9,169 | 27 | +4 | easy+medium |
+| 24 | nmixx | 64.4% | 64.4% | 164 | 21 | -3 | medium only |
+| 25 | bigbang | 64.1% | 64.1% | 185 | 22 | -3 | medium only |
+| 26 | enhypen | 64.0% | 63.0% | 2,258 | 23 | -3 | easy+medium |
+| 27 | loona | 78.3% | 61.7% | 158 | 3 | **-24** | easy+medium |
+
+Per-tier plays and per-tier scores for every row: `raw-H-I-ladders.txt`.
+
+**Rows where standardisation does nothing:** le-sserafim, nmixx, bigbang have plays in
+`medium` only, so std = raw by construction. They are not evidence for or against
+standardisation.
+
+**The largest single move, loona, is a renormalisation artefact:** 146 of its 158 plays are
+`easy` (80.1%) and 12 are `medium` (56.5%). Standardising to a mix that is 77.5% medium
+reweights 12 plays up to dominate the score. Its standardised figure rests on those 12
+plays and should not be read as a measurement.
+
+### H2. The plays-vs-score correlation
+
+```sql
+-- Pearson r between log10(plays) and score %, across groups above floor
+```
+
+| | raw score | standardised score |
+| --- | --- | --- |
+| all 27 groups | **-0.242** | **-0.141** |
+| 26 groups, excluding general-kpop | **-0.254** | **-0.129** |
+
+**Standardisation removes 41.7% of the correlation's magnitude** across all 27 groups
+(-0.242 to -0.141), and 49.2% excluding general-kpop (-0.254 to -0.129). It does not
+remove all of it: the sign stays negative in both cuts.
+
+bts moves from **rank 27 of 27 (last) on raw** to **rank 23 of 27 on standardised**, at
+65.0%. blackpink moves from 24 to 13.
+
+---
+
+## I. EVERYTHING SPLIT BY REGIME
+
+Mar+Apr = 41,982 usable plays. May-Aug = 17,425. Split at 2026-05-01.
+
+### I1. Mar+Apr, 22 groups above floor
+
+Reference play mix: easy 5,849, medium 35,808, hard 325.
+
+Standardised score range across the 22 groups: **60.3% (enhypen) to 67.0% (twice)**, a
+spread of **6.7 points**. Top five standardised: twice 67.0, newjeans 65.7, red-velvet
+65.6, itzy 65.2, aespa 64.7. bts is **14th of 22** at 63.2%.
+
+| | raw score | standardised score |
+| --- | --- | --- |
+| all 22 groups | **+0.066** | **+0.199** |
+| 21 groups, excluding general-kpop | **+0.057** | **+0.243** |
+
+**The correlation is POSITIVE in this period.**
+
+### I2. May-Aug, 21 groups above floor
+
+Reference play mix: easy 7,073, medium 10,226, hard 126.
+
+Standardised range: **66.0% (loona) to 85.2% (itzy)**, a spread of **19.2 points**. Top
+five standardised: itzy 85.2, le-sserafim 84.6, cortis 84.4, ive 83.6, babymonster 83.4.
+bts is **20th of 21** at 68.3%.
+
+| | raw score | standardised score |
+| --- | --- | --- |
+| all 21 groups | **-0.421** | **-0.267** |
+| 20 groups, excluding general-kpop | **-0.488** | **-0.294** |
+
+**The correlation is NEGATIVE in this period.**
+
+### I3. Is the ladder the same in both periods?
+
+17 groups clear the floor in both. Spearman rank correlation of the standardised ladders:
+
+    rho = -0.474   (n = 17)
+
+| group | rank Mar+Apr | rank May-Aug | std Mar+Apr | std May-Aug |
+| --- | --- | --- | --- | --- |
+| twice | 1 | 7 | 67.0% | 81.6% |
+| newjeans | 2 | 11 | 65.7% | 78.1% |
+| red-velvet | 3 | 18 | 65.6% | 73.8% |
+| itzy | 4 | 1 | 65.2% | 85.2% |
+| aespa | 5 | 10 | 64.7% | 79.0% |
+| blackpink | 6 | 15 | 64.6% | 76.7% |
+| ateez | 7 | 12 | 64.6% | 78.0% |
+| seventeen | 9 | 6 | 63.9% | 82.0% |
+| stray-kids | 10 | 17 | 63.4% | 75.2% |
+| general-kpop | 11 | 13 | 63.4% | 77.9% |
+| exo | 12 | 14 | 63.4% | 77.4% |
+| ive | 13 | 4 | 63.4% | 83.6% |
+| bts | 14 | 20 | 63.2% | 68.3% |
+| txt | 15 | 9 | 63.1% | 79.3% |
+| le-sserafim | 20 | 2 | 62.0% | 84.6% |
+| g-i-dle | 21 | 8 | 60.6% | 79.9% |
+| enhypen | 22 | 19 | 60.3% | 70.2% |
+
+The two periods' rankings are **negatively** rank-correlated.
+
+### I4. Girl vs boy groups, by period (published quizzes)
+
+| period | raw gg | raw bg | raw gap | std gg | std bg | std gap |
+| --- | --- | --- | --- | --- | --- | --- |
+| Mar+Apr | 62.9% (n=13,611) | 63.3% (n=15,445) | -0.4 pt | 66.0% | 62.6% | **+3.4 pt** |
+| May-Aug | 76.2% (n=4,194) | 74.2% (n=9,135) | +2.0 pt | 77.9% | 73.4% | **+4.5 pt** |
+
+The standardised gap favours girl groups in **both** periods, +3.4 and +4.5 points, and
+the two are within 1.1 points of each other. The raw gap changes sign between periods
+(-0.4 then +2.0).
+
+---
+
+## J. WHAT CHANGED BETWEEN APRIL AND MAY
+
+### J1. What was played
+
+| month | plays | score | easy % | medium % | hard % |
+| --- | --- | --- | --- | --- | --- |
+| 2026-03 | 17,860 | 62.7% | 15.5 | 84.2 | 0.3 |
+| 2026-04 | 24,122 | 63.7% | 12.8 | 86.1 | 1.1 |
+| 2026-05 | 3,281 | 77.1% | 38.3 | 61.5 | 0.2 |
+| 2026-06 | 5,991 | 75.9% | 46.1 | 53.8 | 0.1 |
+| 2026-07 | 4,955 | 75.8% | 38.7 | 59.9 | 1.4 |
+| 2026-08 | 3,198 | 75.3% | 35.6 | 63.0 | 1.4 |
+
+The easy share is 2.99x higher in May than in April (12.8% to 38.3%).
+
+### J2. What was published (`quizzes.created_at`, published only)
+
+| month | published | easy | medium | hard |
+| --- | --- | --- | --- | --- |
+| 2026-03 | 124 | 34 | 86 | 4 |
+| 2026-04 | 132 | 27 | 101 | 4 |
+| 2026-05 | 33 | 18 | 12 | 3 |
+| 2026-06 | 51 | 25 | 24 | 2 |
+| 2026-07 | 54 | 4 | 41 | 9 |
+| 2026-08 | 6 | 2 | 3 | 1 |
+
+### J3. Who played
+
+| month | plays | signed-in % | distinct signed-in accounts | plays per account | perfect % | zero % |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2026-03 | 17,860 | 55.3 | **54** | **182.8** | 12.9 | 2.5 |
+| 2026-04 | 24,122 | 48.8 | **56** | **210.3** | 15.3 | 2.8 |
+| 2026-05 | 3,281 | 7.0 | 12 | 19.2 | 38.2 | 0.4 |
+| 2026-06 | 5,991 | 5.3 | 24 | 13.1 | 35.0 | 0.6 |
+| 2026-07 | 4,955 | 10.0 | 43 | 11.5 | 36.1 | 0.5 |
+| 2026-08 | 3,198 | 6.4 | 24 | 8.5 | 34.9 | 1.0 |
+
+Denominator note: "plays per account" is signed-in plays divided by distinct signed-in
+accounts. Anonymous plays carry no identifier (`anon_id` is set on 18 rows total), so no
+per-person figure exists for them.
+
+### J4. Concentration of volume on quizzes
+
+| month | plays | distinct quizzes | top 1 | top 5 | top 10 | top 20 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2026-03 | 17,860 | 123 | 6.8% | 23.9% | 39.0% | 61.0% |
+| 2026-04 | 24,122 | 250 | 1.4% | 6.8% | 12.8% | 22.7% |
+| 2026-05 | 3,281 | 222 | 6.2% | 21.8% | 34.7% | 51.4% |
+| 2026-06 | 5,991 | 273 | 5.0% | 20.0% | 33.5% | 50.5% |
+| 2026-07 | 4,955 | 349 | 3.7% | 15.5% | 27.4% | 43.5% |
+| 2026-08 | 3,198 | 284 | 4.3% | 18.6% | 30.3% | 47.5% |
+
+April is the *least* concentrated month, not the most.
+
+### J5. Speed and length
+
+| month | mean questions | median seconds |
+| --- | --- | --- |
+| 2026-03 | 7.42 | 104 |
+| 2026-04 | 6.13 | 90 |
+| 2026-05 | 7.55 | 33 |
+| 2026-06 | 8.20 | 38 |
+| 2026-07 | 8.22 | 37 |
+| 2026-08 | 8.69 | 38 |
+
+After the boundary plays are **longer** (6.13 to 8.69 mean questions) and **faster**
+(90 to 38 median seconds).
+
+### J6. Signed-in account concentration
+
+| | Mar+Apr | May-Aug |
+| --- | --- | --- |
+| signed-in plays | 21,650 (51.6%) | 1,245 (7.1%) |
+| distinct accounts | 56 | 87 |
+| median plays per account | **249** | **6** |
+| accounts with >= 100 plays | **54 of 56** | **1 of 87** |
+| accounts with >= 500 plays | 22 | 0 |
+| top 1 account, share of all plays | 1.6% | 1.3% |
+| top 10 accounts, share of all plays | 15.6% | 4.1% |
+
+### J7. The ten heaviest Mar+Apr accounts
+
+| rank | plays | score | median seconds | distinct quizzes | plays per quiz |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 674 | 61.8% | 100 | 153 | 4.4 |
+| 2 | 664 | 60.6% | 100 | 151 | 4.4 |
+| 3 | 661 | 61.3% | 100 | 150 | 4.4 |
+| 4 | 654 | 61.0% | 101 | 163 | 4.0 |
+| 5 | 651 | 61.6% | 99 | 153 | 4.3 |
+| 6 | 651 | 62.4% | 102 | 147 | 4.4 |
+| 7 | 646 | 62.5% | 101 | 151 | 4.3 |
+| 8 | 646 | 60.4% | 103 | 151 | 4.3 |
+| 9 | 645 | 60.6% | 100 | 160 | 4.0 |
+| 10 | 642 | 60.1% | 101 | 147 | 4.4 |
+
+Ranges across those ten: plays 642-674 (5.0%), score 60.1-62.5% (2.4 pt), median seconds
+99-103 (4 s), plays per quiz 4.0-4.4.
+
+### J8. The fingerprint across ALL accounts, with May-Aug as the control
+
+| statistic | Mar+Apr (56 accounts) | May-Aug (87 accounts) |
+| --- | --- | --- |
+| plays per account: min / p25 / median / p75 / max | 5 / 233 / **249** / 628 / 674 | 1 / 2 / **6** / 13 / 219 |
+| score %: min / p25 / median / p75 / max | 54.7 / 61.0 / **61.8** / 62.9 / 67.6 | 25.0 / 71.3 / **84.7** / 95.4 / 100.0 |
+| median seconds: min / p25 / median / p75 / max | 65 / 92 / **95** / 100 / 104 | 9 / 26 / **34** / 44 / 214 |
+| accounts scoring 58-65% | **50 of 56** | **3 of 87** |
+| accounts with median 90-115 s | **52 of 56** | n/a |
+| accounts with >= 100 plays | **54 of 56** | **1 of 87** |
+
+Interquartile spread, Mar+Apr vs May-Aug: score **1.9 pt** vs **24.1 pt**; median seconds
+**8 s** vs **18 s**; plays per account **395** vs **11**.
+
+### J9. Removing the heavy accounts does not move the period
+
+| set | plays | score |
+| --- | --- | --- |
+| Mar+Apr, all | 41,982 | 63.2% |
+| Mar+Apr, minus the top 10 accounts | 35,448 | 63.6% |
+| Mar+Apr, anonymous only | 20,332 | 64.7% |
+| Mar+Apr, signed-in only | 21,650 | 61.8% |
+| May-Aug, all | 17,425 | 75.9% |
+| May-Aug, anonymous only | 16,180 | 75.4% |
+| May-Aug, signed-in only | 1,245 | 82.5% |
+
+Excluding the ten heaviest accounts changes Mar+Apr by **0.4 points**. The anonymous half
+of Mar+Apr scores 64.7%, also far below the May-Aug anonymous figure of 75.4%.
+
+### J10. What the evidence supports, and what it does not
+
+Supported by the rows above:
+
+1. In Mar+Apr, 51.6% of all plays came from **56 accounts**, median 249 plays each, and
+   54 of those 56 have at least 100 plays. In May-Aug, 87 accounts produced 7.1% of plays
+   with a median of 6 each and one account above 100.
+2. Those 56 accounts are **tightly clustered on three independent axes at once**: 50 of 56
+   score within 58-65%, 52 of 56 have a median play time within 90-115 seconds, and the
+   ten heaviest agree to within 2.4 points of score and 4 seconds of median time while
+   each playing 640-674 times. The May-Aug control shows the dispersion normally seen
+   across accounts (score IQR 24.1 points against 1.9).
+3. The anomaly is **not confined to the heavy accounts**: removing the top ten moves the
+   period by 0.4 points, and Mar+Apr anonymous plays (20,332 of them) score 64.7%, also
+   10.7 points below the May-Aug anonymous figure of 75.4%.
+
+What the data **cannot** distinguish:
+
+- Whether the Mar+Apr pattern is seeded/synthetic data, automated play, or a real campaign
+  that drove a small cohort to grind the catalogue. Nothing in `plays` records source, IP,
+  user agent or session, so no row can separate those.
+- Whether the May-Aug figures are themselves representative: they are 7.1% signed-in and
+  the anonymous majority carries no identifier, so repeat play by one person is invisible.
+
+Not investigated, as this is a read-only mission: whether the 56 accounts exist in
+`profiles` with distinguishing metadata, and what the 106 `score > total_questions` rows
+have in common.
+
+### J11. Below-floor groups, with quiz counts (PART 4.2)
+
+| group | plays | published quizzes | difficulty mix | oldest quiz | newest quiz |
+| --- | --- | --- | --- | --- | --- |
+| kickflip | 70 | 3 | e2 m1 h0 | 2026-06-07 | 2026-06-15 |
+| artms | 57 | 4 | e1 m3 h0 | 2026-06-01 | 2026-06-01 |
+| loossemble | 42 | 4 | e2 m1 h1 | 2026-06-08 | 2026-06-10 |
+| akmu | 15 | 1 | e0 m1 h0 | 2026-03-27 | 2026-03-27 |
+| mamamoo | 15 | 2 | e1 m0 h1 | 2026-04-21 | 2026-04-26 |
+| tws | 12 | 1 | e0 m1 h0 | 2026-07-13 | 2026-07-13 |
+| dreamcatcher | 8 | 1 | e0 m1 h0 | 2026-07-10 | 2026-07-10 |
+| astro | 6 | 1 | e1 m0 h0 | 2026-04-11 | 2026-04-11 |
+| xikers | 6 | 1 | e1 m0 h0 | 2026-07-19 | 2026-07-19 |
+| treasure | 4 | 1 | e0 m1 h0 | 2026-06-30 | 2026-06-30 |
+
+The difficulty mix sums to the published quiz count on all ten rows.
+
+Seven of the ten were first published in June or July 2026; three (akmu, mamamoo, astro)
+date from March and April.

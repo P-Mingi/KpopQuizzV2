@@ -71,6 +71,7 @@ docs/*
 !docs/proofs/
 !docs/data/
 !docs/PLAY-SEO.md
+!docs/PLAY-W5-REPORT-PLAN.md
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/

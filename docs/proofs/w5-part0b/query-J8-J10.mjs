@@ -1,0 +1,50 @@
+import {readFileSync,writeFileSync} from 'fs';
+import {createRequire} from 'module';
+const r=createRequire('/Users/louis/IT/Dev/projects/KpopQuizzV2/apps/quiz/');
+const {createClient}=r('@supabase/supabase-js');
+const env=Object.fromEntries(readFileSync('apps/quiz/.env.local','utf8').split('\n').filter(l=>l.includes('=')&&!l.trim().startsWith('#')).map(l=>{const i=l.indexOf('=');return [l.slice(0,i).trim(),l.slice(i+1).trim().replace(/^["']|["']$/g,'')]}));
+const db=createClient(env.NEXT_PUBLIC_SUPABASE_URL,env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}});
+const page=async(m)=>{const o=[];for(let f=0;;f+=1000){const {data,error}=await m().range(f,f+999);if(error)throw new Error(error.message);const rows=data??[];o.push(...rows);if(rows.length<1000)break;}return o;};
+const O=[];const say=s=>O.push(s);const pct=(a,b)=>b?100*a/b:0;const R=x=>x.toFixed(1);
+const plays=await page(()=>db.from('plays').select('quiz_id,score,total_questions,player_id,created_at,time_taken_seconds'));
+const valid=plays.filter(p=>p.total_questions>0&&p.score>=0&&p.score<=p.total_questions);
+const A=valid.filter(p=>p.created_at<'2026-05-01'), B=valid.filter(p=>p.created_at>='2026-05-01');
+
+say('# J8. CONCENTRATION OF SIGNED-IN PLAY, per period');
+for(const [label,set] of [['Mar+Apr',A],['May-Aug',B]]){
+  const si=set.filter(p=>p.player_id);
+  const c=new Map(); si.forEach(p=>c.set(p.player_id,(c.get(p.player_id)||0)+1));
+  const sorted=[...c.values()].sort((a,b)=>b-a);
+  const shareOfAll=n=>R(pct(sorted.slice(0,n).reduce((x,y)=>x+y,0),set.length));
+  const shareOfSi=n=>R(pct(sorted.slice(0,n).reduce((x,y)=>x+y,0),si.length));
+  say(`\n${label}: total plays ${set.length}, signed-in ${si.length} (${R(pct(si.length,set.length))}%), distinct signed-in accounts ${c.size}`);
+  say(`  top 1 account : ${sorted[0]??0} plays = ${shareOfSi(1)}% of signed-in, ${shareOfAll(1)}% of ALL plays in the period`);
+  say(`  top 5 accounts: ${sorted.slice(0,5).reduce((x,y)=>x+y,0)} plays = ${shareOfSi(5)}% of signed-in, ${shareOfAll(5)}% of ALL`);
+  say(`  top 10        : ${shareOfSi(10)}% of signed-in, ${shareOfAll(10)}% of ALL`);
+  say(`  median plays per signed-in account: ${sorted[Math.floor(sorted.length/2)]}`);
+  say(`  accounts with >100 plays: ${sorted.filter(x=>x>100).length}   with >500: ${sorted.filter(x=>x>500).length}   with >1000: ${sorted.filter(x=>x>1000).length}`);
+}
+say('\n# J9. the heaviest accounts in Mar+Apr: how do they score, and how fast?');
+const siA=A.filter(p=>p.player_id);
+const cA=new Map(); siA.forEach(p=>{if(!cA.has(p.player_id))cA.set(p.player_id,[]);cA.get(p.player_id).push(p);});
+const top=[...cA].sort((a,b)=>b[1].length-a[1].length).slice(0,10);
+say('rank | plays | score% | median seconds | distinct quizzes | plays/quiz');
+top.forEach(([pid,ps],i)=>{
+  const S=ps.reduce((x,p)=>x+p.score,0),T=ps.reduce((x,p)=>x+p.total_questions,0);
+  const t=ps.map(p=>p.time_taken_seconds).filter(x=>x!=null).sort((a,b)=>a-b);
+  const dq=new Set(ps.map(p=>p.quiz_id)).size;
+  say(`${String(i+1).padStart(4)} | ${String(ps.length).padStart(5)} | ${R(pct(S,T)).padStart(5)} | ${String(t.length?t[Math.floor(t.length/2)]:'-').padStart(6)} | ${String(dq).padStart(4)} | ${(ps.length/dq).toFixed(1)}`);
+});
+say('\n# J10. what the two periods look like if the heaviest Mar+Apr accounts are removed');
+const heavy=new Set(top.map(([pid])=>pid));
+const Aclean=A.filter(p=>!p.player_id||!heavy.has(p.player_id));
+const sc=set=>{const S=set.reduce((x,p)=>x+p.score,0),T=set.reduce((x,p)=>x+p.total_questions,0);return R(pct(S,T));};
+say(`Mar+Apr all plays              : n=${A.length}  score=${sc(A)}%`);
+say(`Mar+Apr minus top-10 accounts  : n=${Aclean.length}  score=${sc(Aclean)}%`);
+say(`Mar+Apr anonymous plays only   : n=${A.filter(p=>!p.player_id).length}  score=${sc(A.filter(p=>!p.player_id))}%`);
+say(`Mar+Apr signed-in plays only   : n=${siA.length}  score=${sc(siA)}%`);
+say(`May-Aug all plays              : n=${B.length}  score=${sc(B)}%`);
+say(`May-Aug anonymous plays only   : n=${B.filter(p=>!p.player_id).length}  score=${sc(B.filter(p=>!p.player_id))}%`);
+say(`May-Aug signed-in plays only   : n=${B.filter(p=>p.player_id).length}  score=${sc(B.filter(p=>p.player_id))}%`);
+writeFileSync('/tmp/w5k.txt',O.join('\n'));
+console.log(O.join('\n'));

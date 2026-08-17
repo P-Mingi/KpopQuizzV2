@@ -1,0 +1,84 @@
+# I3. GIRL vs BOY, BY PERIOD (published quizzes only)
+
+Mar+Apr: reference play mix easy=4272 medium=24776 hard=8 (29056)
+  raw          gg 62.9% (n=13611)   bg 63.3% (n=15445)   gap -0.4 pt
+  standardised gg 66.0%          bg 62.6%          gap 3.4 pt
+    easy    gg 87.0% (n=292)   bg 67.8% (n=3980)
+    medium  gg 62.4% (n=13311)   bg 61.7% (n=11465)
+    hard    gg 25.0% (n=8)   bg -
+
+May-Aug: reference play mix easy=5059 medium=8218 hard=52 (13329)
+  raw          gg 76.2% (n=4194)   bg 74.2% (n=9135)   gap 2.0 pt
+  standardised gg 77.9%          bg 73.4%          gap 4.5 pt
+    easy    gg 83.2% (n=751)   bg 85.5% (n=4308)
+    medium  gg 74.6% (n=3421)   bg 65.9% (n=4797)
+    hard    gg 75.4% (n=22)   bg 72.8% (n=30)
+
+
+# J. WHAT CHANGED BETWEEN APRIL AND MAY (data only)
+
+## J1. per month: plays, score, difficulty mix OF WHAT WAS PLAYED
+month | plays | score | easy% | medium% | hard% | unlabelled/other%
+2026-03 |  17860 | 62.7% | 15.5 | 84.2 | 0.3 | 0.0
+2026-04 |  24122 | 63.7% | 12.8 | 86.1 | 1.1 | 0.0
+2026-05 |   3281 | 77.1% | 38.3 | 61.5 | 0.2 | 0.0
+2026-06 |   5991 | 75.9% | 46.1 | 53.8 | 0.1 | 0.0
+2026-07 |   4955 | 75.8% | 38.7 | 59.9 | 1.4 | 0.0
+2026-08 |   3198 | 75.3% | 35.6 | 63.0 | 1.4 | 0.0
+
+## J2. quizzes PUBLISHED per month (by quizzes.created_at) and their difficulty mix
+month | published | easy | medium | hard
+2026-03 |       124 |   34 |     86 |    4
+2026-04 |       132 |   27 |    101 |    4
+2026-05 |        33 |   18 |     12 |    3
+2026-06 |        51 |   25 |     24 |    2
+2026-07 |        54 |    4 |     41 |    9
+2026-08 |         6 |    2 |      3 |    1
+
+## J3. per month: signed-in share, plays per distinct signed-in player, perfect/zero share
+month | plays | signedIn% | distinct signed-in players | plays per player (signed-in only) | perfect% | zero%
+2026-03 |  17860 | 55.3 |    54 | 182.8 | 12.9 | 2.5
+2026-04 |  24122 | 48.8 |    56 | 210.3 | 15.3 | 2.8
+2026-05 |   3281 | 7.0 |    12 | 19.2 | 38.2 | 0.4
+2026-06 |   5991 | 5.3 |    24 | 13.1 | 35.0 | 0.6
+2026-07 |   4955 | 10.0 |    43 | 11.5 | 36.1 | 0.5
+2026-08 |   3198 | 6.4 |    24 | 8.5 | 34.9 | 1.0
+
+## J4. per month: concentration of volume (share of plays on the top N quizzes)
+month | plays | distinct quizzes | top1% | top5% | top10% | top20%
+2026-03 |  17860 |  123 | 6.8 | 23.9 | 39.0 | 61.0
+2026-04 |  24122 |  250 | 1.4 | 6.8 | 12.8 | 22.7
+2026-05 |   3281 |  222 | 6.2 | 21.8 | 34.7 | 51.4
+2026-06 |   5991 |  273 | 5.0 | 20.0 | 33.5 | 50.5
+2026-07 |   4955 |  349 | 3.7 | 15.5 | 27.4 | 43.5
+2026-08 |   3198 |  284 | 4.3 | 18.6 | 30.3 | 47.5
+
+## J5. per month: quiz length mix and median time taken
+month | mean total_questions | median time_taken_seconds | plays with time null
+2026-03 | 7.42 | 104 | 0
+2026-04 | 6.13 | 90 | 0
+2026-05 | 7.55 | 33 | 0
+2026-06 | 8.20 | 38 | 0
+2026-07 | 8.22 | 37 | 0
+2026-08 | 8.69 | 38 | 1
+
+## J6. the single most-played quiz per month
+2026-03: 1221 plays (6.8% of month) [medium] Ultimate BTS era quiz - only real ARMYs survive score=60.7%
+2026-04: 348 plays (1.4% of month) [easy] Stray Kids basics score=61.7%
+2026-05: 203 plays (6.2% of month) [medium] Ultimate BTS era quiz - only real ARMYs survive score=43.6%
+2026-06: 297 plays (5.0% of month) [medium] Ultimate BTS era quiz - only real ARMYs survive score=39.9%
+2026-07: 182 plays (3.7% of month) [easy] K-pop company quiz - match the group to the label score=82.8%
+2026-08: 136 plays (4.3% of month) [medium] ILLIT quiz score=74.1%
+
+## J7. below-floor groups: quiz counts and first/last publish (PART 4.2)
+group | plays | published quizzes | difficulty mix | oldest quiz | newest quiz
+kickflip       |    70 |   3 | e2 m1 h0 | 2026-06-07 | 2026-06-15
+artms          |    57 |   4 | e1 m3 h0 | 2026-06-01 | 2026-06-01
+loossemble     |    42 |   4 | e2 m1 h1 | 2026-06-08 | 2026-06-10
+akmu           |    15 |   1 | e0 m1 h0 | 2026-03-27 | 2026-03-27
+mamamoo        |    15 |   2 | e1 m0 h1 | 2026-04-21 | 2026-04-26
+tws            |    12 |   1 | e0 m1 h0 | 2026-07-13 | 2026-07-13
+dreamcatcher   |     8 |   1 | e0 m1 h0 | 2026-07-10 | 2026-07-10
+astro          |     6 |   1 | e1 m0 h0 | 2026-04-11 | 2026-04-11
+xikers         |     6 |   1 | e1 m0 h0 | 2026-07-19 | 2026-07-19
+treasure       |     4 |   1 | e0 m1 h0 | 2026-06-30 | 2026-06-30

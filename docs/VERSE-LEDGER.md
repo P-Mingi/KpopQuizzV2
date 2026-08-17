@@ -3907,3 +3907,107 @@ is 63.2%/75.9%/12.7pt and the file carries the measured values. Also stated a co
 excluding general-kpop before computing it (it is r=-0.254 vs -0.242 for all 27), and
 reconciled two different play counts in section D that are different cuts, not a conflict.
 Nothing pushed.
+
+## L-199 - W5 PART 0 audited: dataset accepted, and the headline is not safe yet
+
+PART 0 (177a4e9) is the best data work of the project so far, and the reason is that it
+went looking for the ways its own numbers would be wrong.
+
+Verified by me, recomputed not trusted: the direct standardisation in D1 is arithmetically
+right. Weights from the combined easy+medium mix (easy 9,331, medium 32,994, total 42,325)
+give gg = 84.1*0.2205 + 65.3*0.7795 = 69.4 and bg = 77.1*0.2205 + 63.2*0.7795 = 66.3,
+matching the file's 69.5 / 66.2 within rounding. The `hard` row is 30 plays per side and
+carries no weight either way. So the reversal is real: pooled, girl groups are 1.2 points
+LOWER; standardised, 3.2 points HIGHER, because 33.7% of boy-group plays are on easy
+quizzes against 6.0% of girl-group plays. That number would have shipped backwards.
+
+The worker also declared, unprompted: 106 plays with score > total_questions excluded
+(0.18%), `general-kpop` is a catch-all bucket carrying 15,464 plays and not a group,
+gender is derived from `songs.gender` and not stored, `duel_votes.voter_hash` counts one
+person twice across devices, difficulty labels are author-assigned and non-monotonic
+(hard 63.9% sits 0.2 pt BELOW medium), and the denormalised counters were deliberately not
+used. It corrected three of its own prose numbers against a direct recomputation after the
+standing rule from L-196. That rule has now caught its target twice.
+
+**MY FINDING, and it is the one that matters: section B has the same defect section D was
+praised for catching.** The group ladder is not difficulty-controlled. BTS is last at 62.8%
+on 9,169 plays and the plays/score correlation is negative (r = -0.242, -0.254 excluding
+general-kpop), which reads as "the biggest fandoms know the least" - the exact headline the
+report wants. But C1 shows all 15 highest-scoring quizzes are labelled `easy` and 13 of the
+15 lowest are `medium`, so a group's score is largely a function of the difficulty mix
+somebody wrote for it. BTS and blackpink have deep catalogues including deep-cut quizzes;
+cortis (84.6%, 582 plays) and babymonster (82.8%, 263) have few. Until the ladder is
+standardised the way D was, "big fandoms score worse" is plausibly "big fandoms have harder
+quizzes written about them". Publishing it unchecked is how the report dies in public.
+
+**Second: the regime change makes every pooled figure suspect, including the ladder.**
+Mar+Apr = 41,982 usable plays at 63.2%, May-Aug = 17,425 at 75.9%, a 12.7 point step at a
+month boundary, with plays collapsing 24,122 -> 3,281 across the same boundary. A 7x traffic
+drop and a 12.7 point score jump at the same instant is a change in WHO or WHAT was played,
+not fans getting smarter. If the big groups' volume sits in the low regime and the small
+groups' in the high one, the ladder is a calendar artefact. Testable, and it must be tested
+before a word is written.
+
+**Third: the most quotable section is not answerable.** Only a total score per play is
+stored; `per_question_times` holds timings and is null on all 59,513 rows. No table records
+per-question correctness. So section 4 of the plan becomes hardest QUIZZES, and capturing
+per-question correctness going forward is a candidate mission - it needs a migration, so it
+is an owner gate, and its value only arrives once data accumulates.
+
+Repo: the worker found `docs/data/` was gitignored by `.gitignore:68` (`docs/*` with an
+allowlist) and added `!docs/data/`, without which the mission's own output could not have
+been committed. It also flagged that `docs/PLAY-W5-REPORT-PLAN.md` is untracked and ignored
+by the same rule and did NOT add it, on the reasoning that keeping strategy docs out of the
+repo might be deliberate. It is not: that plan is the contract this workstream is written
+against and it currently exists on one disk.
+
+Nothing pushed; 41 commits local.
+
+## L-199 - W5 PART 0b: the ladder headline dies, the girl-group finding survives (2026-08-17)
+
+Read-only again. No writes, no DDL, 0 files under apps/ changed. Appended sections H, I, J
+to docs/data/w5-dataset.md (0-G untouched). Proofs: docs/proofs/w5-part0b/.
+
+H. DIFFICULTY-STANDARDISED LADDER (direct standardisation, reference = combined play mix,
+weights renormalised over the tiers a group actually has, stated per row). Standardisation
+removes 41.7% of the plays-vs-score correlation magnitude (-0.242 -> -0.141), 49.2% without
+general-kpop (-0.254 -> -0.129). bts moves 27th -> 23rd, blackpink 24th -> 13th. FLAGGED:
+loona's -24 move is a renormalisation artefact (146 of 158 plays easy, 12 medium; the 12
+end up setting the score); le-sserafim/nmixx/bigbang have medium-only plays so std = raw by
+construction and prove nothing.
+
+I. REGIME SPLIT KILLS THE HEADLINE. The plays-vs-score correlation CHANGES SIGN by period:
+Mar+Apr standardised r = +0.199 (+0.243 without general-kpop); May-Aug standardised
+r = -0.267 (-0.294 without). And the ladder is not stable: across the 17 groups above floor
+in both periods, Spearman rho of the standardised ladders = -0.474, i.e. close to opposite
+order. Score spread is 6.7pt in Mar+Apr vs 19.2pt in May-Aug. "The biggest fandoms know the
+least" is not publishable.
+
+I4. THE GIRL-GROUP FINDING SURVIVES BOTH TESTS: standardised gap favours gg in each period
+independently, +3.4pt (Mar+Apr) and +4.5pt (May-Aug), within 1.1pt of each other, while the
+RAW gap changes sign (-0.4 then +2.0). This is the only comparison that holds up.
+
+J. WHAT CHANGED IN MAY: who played. Mar+Apr = 51.6% signed-in from 56 accounts, median 249
+plays each, 54 of 56 with >=100 plays, median 95s per play. May-Aug = 7.1% signed-in from
+87 accounts, median 6 plays, 1 account >=100, median 34s. THE FINGERPRINT: the 10 heaviest
+Mar+Apr accounts agree to within 2.4pt of score (60.1-62.5%), 4 seconds of median time
+(99-103s) and 5.0% of play count (642-674), each covering 147-163 distinct quizzes at
+4.0-4.4 plays per quiz. Across all 56: 50 score within 58-65%, 52 have median time 90-115s.
+May-Aug control: score IQR 24.1pt vs 1.9pt. NOT confined to heavy accounts: removing the top
+10 moves the period 0.4pt, and the 20,332 Mar+Apr ANONYMOUS plays score 64.7%, 10.7pt below
+the May-Aug anonymous 75.4%.
+CANNOT DISTINGUISH (stated as unanswerable): seeded data vs automated play vs a real
+campaign. plays records no source/IP/user-agent/session. Not investigated: whether those 56
+accounts exist in profiles with distinguishing metadata.
+RECOMMENDATION: write the report on May-Aug only (17,425 plays). Quoting 59,407 means
+quoting a number 70.7% composed of that traffic.
+
+PART 4: docs/PLAY-W5-REPORT-PLAN.md added to the .gitignore allowlist (verified via git
+status, NOT git check-ignore, which prints the matching rule for a negation too and reads
+as "still ignored"). Below-floor groups now carry quiz counts + publish dates (J11): 7 of 10
+first published Jun/Jul 2026, 9 of 10 have 1-4 quizzes.
+
+SELF-CORRECTION: J11 originally asserted the difficulty mixes "do not always sum to the quiz
+count" and named three groups. Checked: all ten rows sum correctly. An assertion never
+computed, sitting next to the numbers that disprove it. Corrected before commit. Also
+replaced two hedges with arithmetic (41.7%/49.2%, 2.99x). Nothing pushed.

@@ -1,85 +1,90 @@
-# MISSION (W5 PART 0 - produce the dataset. NO code changes. NO push.)
+# MISSION (W5 PART 0b - can the headline survive? READ-ONLY. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-W7 arc closed at 6a745ba, Cowork-approved. Verse PAUSED. 40 commits local, nothing pushed.
+PART 0 is Cowork-approved (177a4e9). 41 commits local, nothing pushed. Verse PAUSED.
+**Read-only again: no writes, no DDL, no files under `apps/` changed.**
 
-## WHAT THIS IS
-W5 is the K-pop Knowledge Report: original data, published, pitched, to earn real links.
-It is the only lever we have on Domain Rating 1/100 that is not a link scheme. The plan,
-the angle and the honesty rules are in `docs/PLAY-W5-REPORT-PLAN.md` - **read it first**,
-because it decides what counts as a usable number.
+## WHY THERE IS A PART 0b
+Your D1 is the best thing in the dataset: you saw that a pooled gap can have the opposite
+sign to the controlled one, and you controlled it. **Section B has the same defect and
+nobody controlled it, me included when I wrote the questions.**
 
-Cowork writes the report. Cowork cannot reach the database: Supabase MCP has refused with
-"You do not have permission" since W8. So this mission exists for one reason: **every
-number the report ships must exist in a committed file, derived by you, traceable.** A
-figure that is not in `docs/data/w5-dataset.md` will not appear in the report.
+The ladder says bts is LAST at 62.8% on 9,169 plays, and plays correlate negatively with
+score (r = -0.242). That reads as "the biggest fandoms know the least", which is exactly
+the headline this report wants - which is exactly why it has to be attacked before it is
+believed. Your own C1 shows all 15 highest-scoring quizzes are labelled `easy` and 13 of
+the 15 lowest are `medium`. So a group's score may be mostly a function of the difficulty
+mix somebody wrote for that group. bts and blackpink have deep catalogues with deep-cut
+quizzes; cortis (84.6%, 582 plays) and babymonster (82.8%, 263) have few.
 
-**This is a READ-ONLY mission.** No migration, no DDL, no app code, no schema change, no
-write of any kind to the database. If a question needs a write to answer, it does not get
-answered.
+If that is what is happening, the finding is not "ARMY knows less", it is "we wrote harder
+quizzes about BTS", and publishing the first version is how this report dies in public.
 
-## THE RULE THAT MATTERS MOST
-I am giving you QUESTIONS, not SQL. I cannot verify the schema from here, so any SQL I
-wrote would be invented column names dressed up as instructions. **Read the real schema
-first, write the query it supports, and print the query next to its result.** If a question
-cannot be answered by the schema as it stands, write "NOT ANSWERABLE" and why. That is a
-useful answer. A plausible number derived from a column that means something else is not.
+Everything below is a test that can KILL a finding. That is the point. A killed finding is
+a good outcome of this mission, not a failure of it.
 
-## THE OUTPUT: docs/data/w5-dataset.md
-Numbers and the query that produced each one. **No prose, no interpretation, no
-conclusions** - interpretation is my job and mixing them is how a report ends up asserting
-what its data does not support. Every table states its denominator and its date window.
+## PART 1 - standardise the group ladder
+Redo section B the way you did D1. For each of the 27 groups above floor, give me:
+  - quizzes published about it, and its difficulty mix (easy / medium / hard counts)
+  - plays per difficulty tier and the score in each
+  - a difficulty-standardised score, using the combined mix across all groups as the
+    reference, so every group is scored as if it faced the same mix
+Then the two ladders side by side, raw and standardised, and the rank change per group.
+And recompute the plays-vs-score correlation on the STANDARDISED scores.
 
-## THE FLOOR, DECIDED BEFORE THE NUMBERS
-Set a minimum sample per row (per group, per quiz, per question) BEFORE you look at any
-result, state it at the top of the file with your reasoning, and apply it everywhere.
-Anything under it is listed separately as "below floor", never mixed into a ranking. The
-top of a leaderboard is exactly where a tiny sample hides, and that is what gets a report
-taken apart in public.
+If the negative correlation survives standardisation, say so plainly: that is a real
+finding and it becomes the report's spine. If it collapses, say that just as plainly.
+Do not soften either result.
 
-## THE QUESTIONS
+## PART 2 - split everything by regime
+Mar+Apr is 63.2% on 41,982 plays, May-Aug is 75.9% on 17,425, a 12.7 point step at a month
+boundary, with plays collapsing 24,122 -> 3,281 at the same instant. A 7x traffic drop and
+a 12.7 point score jump at the same moment is a change in WHO played or WHAT was played,
+not fans getting smarter.
 
-**A. Scope.** How many plays, over how many published quizzes, how many groups, over what
-date range. The oldest and newest play. How many plays are from signed-in players vs
-anonymous. This is the report's method section, so it must be exact.
+Rerun the headline breakdowns SEPARATELY for Mar-Apr and for May-Aug:
+  - the group ladder (raw and standardised), and whether the ranking holds
+  - the plays-vs-score correlation, within each period
+  - the gg/bg comparison, raw and standardised
+  - the difficulty mix of what was played, and the mix of what was PUBLISHED, per period
+Then answer one question directly: **does the story change depending on which period you
+use?** If it does, the report will be written on one period only and it needs to be the
+defensible one.
 
-**B. The knowledge ladder.** Average score per group, as a percentage, with the play count
-behind each. Both directions: the best-scoring groups and the worst, above the floor. Then
-the question I actually care about: **do the most-played groups score better, or just play
-more?** Give me the ranking by plays next to the ranking by score.
+## PART 3 - what changed between April and May, from the data alone
+Do not speculate about marketing; look for what the rows can show. Candidates worth
+checking, and add any you find: quizzes published per month and their difficulty mix; the
+share of plays going to easy quizzes per month; plays per distinct player per month;
+signed-in share per month; the perfect-score and zero-score share per month; quiz length
+mix per month; whether the Mar-Apr volume concentrates on a handful of quizzes or spreads.
 
-**C. Hardest and easiest.** The lowest-scoring and highest-scoring quizzes above the floor,
-with their play counts. Then, if the schema stores per-question results, the same at
-question level: the questions most people get wrong, with the number of attempts. Question
-level is the most quotable section of the report, so if it is not answerable, say so
-clearly rather than approximating from quiz-level data.
+A zero-score or perfect-score share that moves sharply, or volume concentrated on very few
+quizzes, would point at non-human or campaign traffic. Say what the evidence supports and
+no more. "The data cannot distinguish these two explanations" is an acceptable answer and
+a better one than a guess.
 
-**D. Girl groups vs boy groups.** Average score and play count for each, AND the numbers a
-fair comparison needs: how many quizzes on each side, and whether the difficulty mix is
-comparable. If we cannot control for difficulty, say so - a raw gap on unmatched quiz sets
-is a selection artefact and it will not ship.
+## PART 4 - two small ones
+1. `docs/PLAY-W5-REPORT-PLAN.md` is untracked and ignored by `.gitignore:68`. It is the
+   contract this workstream is written against and it lives on one disk. Add it to the
+   allowlist the same way you added `docs/data/`. If you think it should stay out, say why
+   and leave it.
+2. In section B4 you list 10 below-floor groups. Give me their quiz counts too - I want to
+   know whether the below-floor groups are new, or old and ignored. It changes what the
+   report can say about coverage.
 
-**E. Generations.** Average score and play count by generation, if generation is real data
-on groups rather than something we infer.
-
-**F. Duel votes, colour only.** Total votes, distinct voters, votes per voter, and the most
-lopsided and most contested matchups above the floor. Flagged in the file as **COLOUR
-ONLY**: roughly 870 self-selected voters cannot carry a headline.
-
-**G. Anything you find that I did not ask for.** You are the one who will see the shape of
-this data. If something is more interesting than the six questions above, put it in a
-clearly marked section at the end with its numbers. Do not leave it out because it was not
-on the list.
+## OUTPUT
+Append to `docs/data/w5-dataset.md` as sections H, I, J - do not rewrite the existing
+sections, they are approved and the report will cite them. Numbers, queries, denominators.
+**No interpretation.** Proofs in `docs/proofs/w5-part0b/`.
 
 ## STANDING RULES
 - Print `pwd` before anything.
-- Every number in the file carries the query that produced it and its denominator.
+- Every number carries its query and its denominator.
+- Recompute before writing a number in prose. That rule has caught its target twice now.
 - Read the schema, do not assume it. Report any column whose meaning you had to guess.
-- No DDL, no writes, no push. This mission changes no application code at all.
-- If a query is expensive, say how expensive rather than silently sampling. If you sample,
-  the file says SAMPLED and states the size.
-- Proofs / raw output in `docs/proofs/w5-part0/`, committed.
+- No writes, no DDL, no push, no application code.
+- If a finding dies under one of these tests, that is the mission working.
