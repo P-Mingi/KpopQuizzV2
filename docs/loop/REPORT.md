@@ -1,106 +1,122 @@
-# REPORT - W5 PART 0d: the girl-group gap does not survive the format-matched test.
+# REPORT - W5-DOCS: 101 strategy docs into git, each one read first. One PII finding.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every run. **Read-only: no writes, no DDL, `git status --porcelain apps/` = 0.**
-Nothing pushed.
+before every command. **This mission touched `.gitignore` and nothing else.** No application
+code, no DDL, nothing pushed.
 
-Output: sections O, P, Q appended to `docs/data/w5-dataset.md`. Nothing before them
-touched. Proofs: `docs/proofs/w5-part0d/`.
+`.git/index.lock`: the owner removed it before this run, so no git command was blocked and
+BLOCKED.md was not needed for it.
+
+Proofs: `docs/proofs/w5-docs/`.
 
 ---
 
-## The answer you asked for: it dies
+## Result
 
-**PART 2 kills it.** Matching quizzes by format is the only control available that does not
-depend on score, and inside matched formats the gap does not point one way:
+| | count |
+| --- | --- |
+| top-level files in `docs/` | 122 |
+| tracked before | 20 |
+| **newly visible after this change** | **101** |
+| deliberately left out | 1 |
+| docs tracked before (whole tree) | 475 |
+| docs tracked after | **576** |
 
-| | gg median above bg | bg median above gg |
-| --- | --- | --- |
-| all 7 formats | **3** | **4** |
-| 6 classified formats | **3** | **3** |
+Proven with `git status --porcelain docs`, per your correction about `git check-ignore`.
+Full list of the 101 in `docs/proofs/w5-docs/newly-visible.txt`.
 
-And the largest gaps point in opposite directions: general-fan **+14.3** to girl groups,
-photo-visual **-14.8** and timeline-era **-13.8** to boy groups. A finding that reverses
-depending on whether you look at "how well do you know" quizzes or photo quizzes is not a
-finding about knowledge.
+Everything you named is in: `PLAY-MASTER-PLAN.md`, `PLAY-GEO-AEO-AUDIT.md`,
+`PLAY-BATTLE-AUDIT.md`, `PLAY-GUEST-CONVERSION.md`, `PLAY-RETENTION.md`,
+`PLAY-COMPETITOR-RESEARCH.md`, `PLAY-QUIZ-PAGES.md`, `PLAY-COMMUNITY-PULSE.md`,
+`PLAY-BLINDTEST-X.md`, `SEO-OUTREACH-PLAYBOOK.md`, `SEO-AUDIT-2026-06-11.md`,
+`LOOP-CHARTER.md`, `PLAY-W5-REPORT-DRAFT.md`, plus `PLAY-W5-DISTRIBUTION.md` and every
+`VERSE-*` blueprint, roadmap and the master vision.
 
-**PART 1 says the same thing in a second way.** Within the `medium` label, girl-group
-quizzes score higher at every floor (+9.7 / +5.6 / +4.7 pt). Within `easy`, boy-group
-quizzes score higher at every floor (-4.7 / -4.7 / -3.7 pt). **The sign flips with the
-label.** The +5.6 pt overall gap is the weighted result of two sub-gaps that disagree.
+## How each file was checked
 
-This is the ladder's failure mode exactly, and you named it before I measured it.
+Two passes over the full bytes of all 102 untracked files, then hand review of every hit.
 
-## The deeper problem, which is worth putting in the limits section
+**Pass 1, credentials and identity:** email addresses, JWTs (`eyJ…`), `service_role` /
+`anon_key`, `sk-` / `ghp_` / `xox?-` / `AIza` tokens, `password:`/`=` assignments, bearer
+tokens, URLs with inline credentials, phone numbers. **One file hit: `SEO-AUDIT-2026-06-11.md`,
+three matches, all `hello@kpopquiz.org`.** That is the public support address, already
+shipped in `apps/quiz/src/app/contact/page.tsx`, so it is published on the site already.
+Safe, added.
 
-The within-label test cannot settle the question even in principle, and I want to be
-precise about why rather than leave it as a caveat.
+**Pass 2, shape:** non-markdown, NUL bytes, lines over 2,000 chars, files over 200KB,
+PEM private-key blocks, card-like digit runs, Postgres/Mongo connection strings.
+**One file hit: `.DS_Store`.**
 
-A quiz's score is **the only difficulty measure this schema has**. `quizzes.difficulty` is
-an author-assigned label that section G1 already showed does not order the measured scores
-monotonically. So "our boy-group medium quizzes are harder as written" and "players know
-girl groups better" produce the *identical* measurement, and nothing in `plays` or
-`quizzes` separates them.
+## What I left out, and why
 
-That is why PART 2 was the right test and why its answer is the one that counts: format
-matching is content-based, independent of score, and it says the direction is not stable.
+**`docs/.DS_Store`** is the only exclusion. macOS Finder metadata, binary, contains NUL
+bytes and a 4,093-character line. Not a strategy doc and not something a repo should carry.
+It stays ignored.
 
-## PART 3 - the number for the method section
+Nothing else looked like scratch or a one-off export. The remaining 101 are all markdown
+specs, audits, roadmaps or plans.
 
-Across the 21 groups being compared in May-Aug, the share of plays on `easy` quizzes:
+## The finding that matters more than the mission
 
-    min 0.0%   p25 6.4%   median 18.1%   p75 52.5%   max 92.3%
-    range: 92.3 percentage points
+Your rule is that a doc with a private address must not become tracked in a repo that will
+be pushed. **Two already are, and they are already on the remote.**
 
-Three groups have **0.0%** easy plays (ateez, ive, le-sserafim). loona has **92.3%**.
-Published quizzes across the same groups run from **3** to **152**, median 8.
+    docs/VERSE-WORKING-SYSTEM-V2.md:112, :114     two owner addresses
+    docs/VERSE-LEDGER.md:97                       one owner address
 
-The sharpest illustration is two boy groups with comparable volume: **stray-kids 70.1%
-easy plays, bts 7.6%**, both above 2,500 in-window plays. They are not being measured on
-the same material, and the ladder puts them 10 rank positions apart.
+Both were tracked long before this mission, and `VERSE-WORKING-SYSTEM-V2.md` is in
+`origin/main` history via commit `bbce579`. They appear as Supabase **org identifiers** in
+notes about which org a token can reach, not as contact details, and the repo is private.
 
-## What I would say the file now supports
+I did not touch them. Removing the strings from the working copy would leave them in
+history, which looks fixed without being fixed; genuinely clearing them needs a history
+rewrite and a force-push, which is outside a `.gitignore` mission that forbids pushing, and
+44 unpushed commits sit on top of exactly the commits that would be rewritten. Filed as
+`w5-docs-pii` in BLOCKED.md with three options; my recommendation is to replace them with a
+placeholder in the working copy now, and only consider a rewrite if this repo ever goes
+public.
 
-Not my call, but you asked me to be plain rather than soft, so: after four passes the
-dataset supports a report about **how uneven our own catalogue is and what that does to
-naive comparisons**, and it supports the concrete hardest/easiest quiz list (76 quizzes
-above floor in-window). It does not support a group ranking, a gender comparison, or a
-generation gradient as claims about knowledge. Section Q is the honest headline: we can
-measure what people got right, and we cannot yet compare groups fairly because we did not
-write comparable quizzes.
+**None of the 101 files I added contains either address.** I checked before adding, which
+is what caught this.
 
-That is a smaller report. It is also one nobody can take apart, and every limitation in it
-is one we found ourselves.
+## One design decision you should be able to overrule
+
+I added **101 individual `!docs/<file>.md` lines** rather than three patterns
+(`!docs/PLAY-*.md`, `!docs/VERSE-*.md`, `!docs/workstream-*.md`), which would have been
+three lines instead of a hundred.
+
+I chose verbose on purpose. A wildcard would auto-track every **future** doc matching it,
+including one written next month with a key in it, and the review gate that made this a
+mission rather than your one-line edit would be gone. Deny-by-default means a new doc stays
+invisible until a human opens it and adds its line. The `.gitignore` block says so, with
+the date they were reviewed.
+
+If you would rather have three lines and accept that trade, it is a two-minute change.
 
 ## Deviations and flags (loud)
 
-1. **A formatter bug made the first O run print `-` for every distribution.** I called
-   `.length` on a stats object, so all six rows read as empty while the medians beneath
-   them computed correctly. Caught on reading the output rather than the code, fixed, re-run.
-   Every number in O is from the corrected run.
-2. **`(unclassified)` is the joint-largest format bucket**, 14 quizzes on each side, which
-   is a limit of my rule set and not of the data. I report the direction count both with
-   and without it (3-4 and 3-3) because dropping it silently would have improved the
-   apparent result.
-3. **The format buckets are small**: 2 to 15 quizzes per side, and play counts inside a
-   format are lopsided (members: 627 gg plays against 1,998 bg). The 3-3 split is a weak
-   signal in absolute terms. It is still the strongest available evidence, and it does not
-   support the finding.
-4. **`hard` is not computable here at all**: no quiz on either side clears floors 50 or 20,
-   and at floor 10 there are 2 bg quizzes and zero gg. Stated as not computable rather than
-   printed.
+1. **My first scan reported one file with email hits, and a separate grep found three
+   distinct addresses in `docs/*.md`.** Not a contradiction: the scan's hit list only
+   printed untracked files, and the two personal addresses live in tracked ones. It looked
+   like a miss for a moment and I chased it rather than assuming. That chase is what
+   surfaced the PII finding.
+2. **`docs/VERSE-LEDGER.md` now has two entries numbered L-201**, mine at line 4111 and
+   Cowork's at 4153, written independently for the same mission. I left both and used
+   **L-202** for this one rather than renumbering someone else's entry.
+3. **I am committing Cowork's uncommitted L-201 along with my own work**, because it was
+   sitting modified in the tree and leaving it out would have meant staging by path around
+   someone else's finished text. Flagging so it is not a surprise in the diff.
 
 ## Covenant
 
-Every figure counted at read time. The format rule is published in full so the buckets can
-be judged rather than trusted. Where a cell could not be computed it says so. No number was
-chosen after seeing which way it pointed.
+Every file added was read in full by the scanner and its output reviewed by hand; the one
+flagged file was opened and its three matches inspected in context. Nothing was added on
+the strength of its filename.
 
 ## Next
 
-No more data passes, per the mission. The file is what it is, and its four sections of
-tests are the limits section writing itself.
+The strategy layer is in git. `w5-docs-pii` is the one decision waiting on you.
 
 ---
 
-STOP. **Nothing was pushed.** report pret.
+STOP. **Nothing was pushed.** 44 commits local before this one. report pret.

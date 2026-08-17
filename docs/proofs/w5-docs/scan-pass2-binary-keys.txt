@@ -1,0 +1,3 @@
+second-pass risk checks over the 102 untracked top-level docs
+
+  .DS_Store                                      NOT-MARKDOWN BINARY(NUL) LONG-LINE(4093)

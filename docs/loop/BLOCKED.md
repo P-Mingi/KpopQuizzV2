@@ -49,6 +49,35 @@ which is those workflows' own bot credential, not a failure hook. NO workflow in
 notifies on failure. The new workflow posts to a Discord webhook on failure and no-ops
 when the secret is absent.
 
+## w5-docs-pii - two personal email addresses are in ALREADY-TRACKED docs, and already on origin
+
+- What this is: an owner decision, not a blocker on W5-DOCS. The allowlist work is done and
+  none of the 101 files I added contains a personal address. This is about files that were
+  already tracked before this mission.
+- The finding, by LOCATION not by value (the standing rule this incident created):
+  `docs/VERSE-WORKING-SYSTEM-V2.md:112` and `:114` carry two owner email addresses, and
+  `docs/VERSE-LEDGER.md:97` carries one of them. They are used as Supabase ORG identifiers,
+  in notes explaining which org a token can reach, not as contact details.
+- Why it matters now: this mission exists because a doc with a private address must not
+  become tracked in a repo that will be pushed. Two already are, and
+  `VERSE-WORKING-SYSTEM-V2.md` is in `origin/main` history via commit bbce579, so they are
+  already on the remote. The repo is private today; if it is ever made public they go with it.
+- Why I did not fix it: removing the strings from the working copy would not remove them
+  from history, so it would look fixed while not being fixed. Actually clearing them needs a
+  history rewrite (git filter-repo or BFG) plus a force-push, which is far outside a mission
+  whose scope is `.gitignore` and which forbids pushing.
+- Options (each with its trade-off):
+  1) Leave them. The repo is private and they are org labels, not credentials. Zero work,
+     and the exposure is real only if the repo ever goes public.
+  2) Replace them in the working copy with a placeholder like `<owner-org>` and commit that.
+     Cheap, stops them spreading into new docs, but history still holds them.
+  3) History rewrite + force-push. The only option that actually removes them. It rewrites
+     every commit hash and needs coordination, and there are 44 unpushed commits sitting on
+     top right now, so this is the worst possible moment for it.
+- Recommendation: 2 now, and only consider 3 if the repo is ever going public. Doing 2 costs
+  a minute and means no future reader copies the address into a new doc.
+- Proof / context: docs/proofs/w5-docs/, and `git log origin/main -- docs/VERSE-WORKING-SYSTEM-V2.md`
+
 ## w7-close-2-degrade - createServiceRoleClient throws instead of degrading (candidate mission)
 
 - What this is: a candidate, not a blocker. Recorded because W7-CLOSE-2 measured it and was

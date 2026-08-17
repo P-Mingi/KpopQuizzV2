@@ -1,79 +1,82 @@
-# MISSION (W5 PART 0d - THE LAST DATA PASS. READ-ONLY. NO push.)
+# MISSION (W5-DOCS-2 - stop the leak you just widened, before the push. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-PART 0c is Cowork-approved. Verse PAUSED. **Read-only: no writes, no DDL, no `apps/`.**
+W5-DOCS is Cowork-approved (328c6a1). 45 commits local, nothing pushed. Verse PAUSED.
+**No application code. No DDL. No push.**
 
-## THIS IS THE LAST ONE, AND HERE IS WHY IT EXISTS
-Four data missions is enough. I am not going to keep testing forever - at some point that
-is just a way of never publishing. But there is exactly one threat left to the report's
-spine that I can name precisely, and it is the same threat that killed the ladder.
+## WHAT YOU GOT RIGHT
+Reading all 102 files before adding any of them is the reason this mission exists at all -
+the PII was found by the check, not by luck. Excluding `.DS_Store` on its bytes rather than
+its name, and refusing to "fix" already-pushed history by editing the working copy, were
+both right calls.
 
-The girl-group gap is standardised on `quizzes.difficulty`. Your own G1 showed that label
-is author-assigned and not monotonic (`hard` scores 0.2 pt BELOW `medium`). So
-standardising on it controls for the LABEL, not for difficulty. If our boy-group `medium`
-quizzes are systematically harder than our girl-group `medium` quizzes, the +5.6 pt gap is
-a fact about what we wrote, not about who knows more - which is precisely what "the biggest
-fandoms know least" turned out to be.
+## PART 1 - the finding inside your finding
+`docs/VERSE-LEDGER.md` had **one** occurrence of the address, at line 97. It now has
+**four**. Your L-202 entry reports the leak by quoting both addresses verbatim, at lines
+4222-4224, into the same tracked file that will be pushed.
 
-Your L1 makes this worth checking rather than assuming: the May-Aug hardest list is heavy
-with boy-group deep-cut quizzes (Ultimate BTS era 41.6%, Stray Kids Guess the Song 41.5%,
-BTS concerts 52.3%, ENHYPEN 54.5%), though it is not exclusively so - aespa B-sides sits at
-60.3%.
+**And that distinction is the whole point: line 97 is already on the remote and cannot be
+recalled. Lines 4222-4224 are in local commit 328c6a1 and have never left this machine.**
+There is still time for those, and only until the owner pushes.
 
-**If it dies, it dies, and I will write a different report.** I would rather that than
-publish it and be corrected in public.
+Rewrite the unpushed local history so the literal addresses in your L-202 entry never reach
+the remote. They are your own commits and nothing is published, so this is an ordinary local
+amend, not a shared-history rewrite. Keep the finding - it is a good one - but reference it
+by location, `docs/VERSE-WORKING-SYSTEM-V2.md:112,114` and `docs/VERSE-LEDGER.md:97`, not by
+value. Verify with a grep over the rewritten commits, not over the working tree alone.
 
-## PART 1 - the within-label test
-Restrict to May-Aug, `medium` quizzes only, gg and bg groups only. Work at the QUIZ level,
-not the play level, so one heavily-played quiz cannot carry it:
-  - the distribution of per-quiz scores for gg medium quizzes and for bg medium quizzes:
-    n, median, quartiles, min, max
-  - the same for `easy`
-Then answer directly: **are our boy-group medium quizzes harder as written than our
-girl-group medium quizzes?** A clear difference in the per-quiz medians means the
-standardisation is not controlling what it claims to control, and the gap is a
-quiz-writing artefact. Similar distributions mean the finding stands on much firmer ground
-than a label.
+**New standing rule, and write it into the loop docs: an incident report names locations,
+never values.** Reporting a leak by copying it is how a leak spreads.
 
-## PART 2 - matched formats, the strongest evidence available
-Some quiz FORMATS exist on both sides. Your lists show the shape: "How well do you know
-SKZ members?", "BTS members real names", "TWICE discography quiz", "BTS discography
-challenge", "Stray Kids discography test", "SEVENTEEN true or false", "IVE true or false".
+## PART 2 - the already-pushed occurrences
+Owner ruling: your recommendation stands. Replace the three in
+`docs/VERSE-WORKING-SYSTEM-V2.md` and the one in `docs/VERSE-LEDGER.md:97` with a
+placeholder in the working copy. **No history rewrite, no force-push.** They are the owner's
+own addresses, in a private repo, used as Supabase org labels rather than as contact
+details, and 45 unpushed commits sit on top of exactly what a rewrite would touch. The value
+does not justify the risk. Say in the file that the string was replaced and why, so nobody
+later reads the placeholder as data loss.
 
-Group the May-Aug above-floor quizzes into formats by their titles - members, discography,
-true-or-false, guess-the-song, timeline, deep-cuts, whatever the titles actually support.
-**State the rule you used to assign each one and list the assignments**, so I can see
-whether the buckets are honest rather than fitted.
+## PART 3 - the allowlist decision, which I am overruling with a reason
+You framed it as verbose-and-safe versus wildcards-and-brief, and asked to be overruled if I
+disagreed. I do, because your framing left out the failure that already happened.
 
-Then, for every format that has quizzes on BOTH sides: gg score, bg score, quiz counts and
-play counts. Does the gap point the same way inside matched formats as it does overall?
-If too few formats have both sides above floor, say so - that is a real answer.
+**Deny-by-default is what lost the 101 documents in the first place.** It was in place for
+months, nobody added a line, and the entire strategy layer sat outside git while the code was
+safe. A 116-line manual allowlist has exactly that failure mode, scaled up: the doc written
+next month stays invisible until a human remembers a file nobody opens. That is not a
+hypothetical, it is the bug you were sent to fix.
 
-## PART 3 - one number for the method section
-Per group, in May-Aug: published quizzes, plays, and the group's own share of plays that
-are `easy`. I want to state in the report, with a number, how uneven the catalogue is
-across the groups being compared. That unevenness is the report's main limitation and it
-should be quantified rather than described.
+So: **wildcards for the doc families that clearly are documents** - `!docs/PLAY-*.md`,
+`!docs/VERSE-*.md`, and whatever other families the directory actually supports - **plus a
+scanner that makes the safety property automatic instead of manual.**
 
-## OUTPUT
-Append as sections O, P, Q to `docs/data/w5-dataset.md`. Do not rewrite anything before it.
-Numbers, queries, denominators, **no interpretation**. Proofs in `docs/proofs/w5-part0d/`.
+Add a `check:docs-secrets` script, in the shape of the other three gates, that fails on any
+TRACKED file under `docs/` containing the patterns you already wrote for pass 1: email
+addresses, `eyJ` JWTs, `service_role`, `sk-` / `ghp_` / `xox?-` / `AIza`, bearer tokens,
+connection strings, URLs with inline credentials. Allow a short, commented exception list -
+`hello@kpopquiz.org` is published on the contact page and must not fail the build. Wire it
+into `.github/workflows/seo-gates.yml` beside the others; unlike them it needs no server and
+no database, so it can run on push rather than nightly, and say so.
 
-## AFTER THIS
-No more data missions for W5. I write the report from what the file says, and its limits
-section will state exactly what these four passes could not control for. Anything you find
-that is interesting but out of scope goes in BLOCKED.md as a candidate.
+Then tracking is the default, nothing gets lost again, and a document with a key in it fails
+a gate instead of relying on someone remembering to look.
+
+If you think this is wrong, say so and leave the verbose list. I would rather be argued with
+than obeyed.
+
+## PART 4 - the duplicate L-201
+Two entries are numbered L-201, yours and mine, written independently. You were right not to
+renumber mine. Renumber **yours** to L-201b and leave mine alone, so the ledger's numbering
+stays a sequence rather than a collision.
 
 ## STANDING RULES
 - Print `pwd` before anything.
-- Every number carries its query and its denominator.
-- Recompute before writing any number in prose. Three assertions in this workstream have
-  been caught that way, one of them inside the dataset file.
-- A standardised number means nothing without its reference mix. Say which, every time -
-  you were right to flag that +4.5 and +5.6 are the same data against different references.
-- Where a cell cannot be computed honestly, say so instead of printing a number.
-- No writes, no DDL, no push, no application code.
+- An incident report names locations, never values. New, and it came from this mission.
+- Prove with `git status` / `git log -p`, not `git check-ignore`.
+- No application code beyond the gate script, no DDL, no push.
+- Proofs in `docs/proofs/w5-docs-2/`.

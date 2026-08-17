@@ -94,7 +94,7 @@ Types: RULING · LOCK · GATE · COMMIT · AUDIT · ARTIFACT · METHOD · EVENT.
   hook) · skills shortlist · full-autonomy + agent-teams REJECTED
   (gates stay human).
 - L-017 · 2026-08-04 · EVENT · Supabase MCP inspected: token sees only
-  Bloom org (louispecchia@hotmail.com). Prod rdkgouofytwfdpbxbzio
+  Bloom org (<owner-dev-account>). Prod rdkgouofytwfdpbxbzio
   unreachable from it. Rebind = owner reconnects connector with prod
   org account. Read-only use recommended even then; owner-runs-SQL
   law unchanged.
@@ -4108,7 +4108,7 @@ every number in K and M. SELF-CORRECTION: wrote "less than 1.2 points" when the 
 generation move is exactly 1.2; recomputed and replaced with "at most 1.2" plus the five
 per-row moves. Nothing pushed.
 
-## L-201 - W5 PART 0d: the girl-group gap dies under format matching (2026-08-17)
+## L-201b - W5 PART 0d: the girl-group gap dies under format matching (2026-08-17)
 
 Read-only. No writes, no DDL, 0 files under apps/. Appended O, P, Q to
 docs/data/w5-dataset.md. Proofs: docs/proofs/w5-part0d/. All figures May-Aug only.
@@ -4149,3 +4149,85 @@ NOT a gender comparison, NOT a generation gradient, as claims about knowledge.
 SELF-CORRECTION: a formatter bug printed "-" for all six distributions in the first O run
 (called .length on a stats object) while the medians below computed fine; caught by reading
 the output, fixed, re-run. Every O number is from the corrected run. Nothing pushed.
+
+## L-201 - W5 PART 0d: the girl-group gap died too, and what survived is better
+
+The test I named as the last threat found what I suspected. Matching quizzes by FORMAT - a
+control that does not depend on score - splits the girl-group advantage 3 formats to 3, with
+the four largest gaps pointing in different directions: general-fan +14.3 to girl groups,
+photo-visual -14.8 and timeline-era -13.8 to boy groups. The within-label test says it a
+second way: inside `medium` girl-group quizzes lead at every floor (+9.7/+5.6/+4.7), inside
+`easy` boy-group quizzes lead at every floor (-4.7/-4.7/-3.7). The +5.6 pt headline was the
+weighted result of two sub-gaps that disagree. Same failure mode as the ladder.
+
+The worker also stated the epistemic limit precisely, and it belongs in the report: a quiz's
+SCORE is the only difficulty measure this schema has, so "our boy-group medium quizzes are
+harder as written" and "players know girl groups better" produce the identical measurement.
+Nothing in `plays` or `quizzes` separates them. That is why format matching was the right
+test and why its answer counts.
+
+Catalogue unevenness, quantified for the method section: across the 21 compared groups the
+share of plays on easy quizzes runs 0.0% to 92.3% (median 18.1%), published quizzes run 3 to
+152 (median 8), and the cleanest illustration is stray-kids at 70.1% easy plays against bts
+at 7.6%, both above 2,500 in-window plays and ten rank positions apart on the dead ladder.
+
+Four findings tested, four dead: the knowledge ladder, the gender gap, the generation
+gradient, and per-question difficulty (never answerable - no correctness is stored).
+
+**What survived is the one comparison nobody designed for.** The format buckets were built
+to test the gender gap, and as a byproduct they order the QUESTION TYPES: true-or-false and
+members at 81-92%, discography at 69-77%, timeline-era and photo at 58-75%. That ordering is
+identical in both halves - members beat discography by +4.4 for girl groups and +20.9 for
+boy groups, timeline and photo come last in both - which is exactly the stability test the
+other three findings failed. Fans know the roster; they do not know the catalogue. It needs
+no cross-group fairness to hold, because it never compares groups.
+
+Report DRAFT v2 written and committed to `docs/PLAY-W5-REPORT-DRAFT.md`, delivered to the
+owner. v1's spine removed rather than softened. The four dead findings are now the "what we
+cannot say" section, which is what makes the rest believable, and the root cause is named as
+ours: we did not write comparable quizzes.
+
+Standing: `/stats` publishes the full 59k figure in JSON-LD while the report will quote
+17,425. Owner ruled do not touch it (L-200); the draft's method section discloses the window
+and the atypical period instead, which defuses the contradiction without changing the page.
+**Accepted risk, recorded, closed.**
+
+Nothing pushed; 45 commits local.
+
+## L-202 - W5-DOCS: the strategy layer enters git, 101 files, each read first (2026-08-17)
+
+Touched .gitignore and nothing else. No app code, no DDL, nothing pushed. The owner removed
+the stale .git/index.lock before the run, so no command was blocked.
+
+RESULT: docs/ top-level files 122; tracked before 20; NEWLY VISIBLE 101; excluded 1. Whole
+tree: 475 tracked docs before, 576 after. Proven with `git status --porcelain docs`, NOT
+git check-ignore (which prints the matching rule for a negation and reads as "still
+ignored"). List: docs/proofs/w5-docs/newly-visible.txt.
+
+METHOD, two full-byte passes over all 102 untracked files plus hand review of every hit:
+ pass 1 (credentials/identity): emails, JWT eyJ, service_role/anon_key, sk-/ghp_/xox?-/AIza,
+   password assignments, bearer tokens, URLs with inline creds, phone numbers.
+   ONE HIT: SEO-AUDIT-2026-06-11.md, 3 matches, all hello@kpopquiz.org = the public support
+   address already shipped in apps/quiz/src/app/contact/page.tsx. Safe, added.
+ pass 2 (shape): non-markdown, NUL bytes, >2000-char lines, >200KB, PEM private-key blocks,
+   card-like digit runs, postgres/mongo connection strings. ONE HIT: .DS_Store.
+EXCLUDED: docs/.DS_Store only (macOS binary metadata, NUL bytes, 4093-char line).
+
+DESIGN DECISION, overrulable: added 101 individual `!docs/<file>.md` lines instead of three
+wildcards (!docs/PLAY-*.md etc). A wildcard would auto-track every FUTURE doc matching it,
+including one written later with a key in it, destroying the review gate that made this a
+mission. Deny-by-default: a new doc stays ignored until a human opens it and adds its line.
+
+THE FINDING THAT OUTRANKS THE MISSION (BLOCKED w5-docs-pii): two owner email addresses are
+in ALREADY-TRACKED docs and already on the remote. Locations only, never values, per the
+standing rule this incident created: docs/VERSE-WORKING-SYSTEM-V2.md:112 and :114, and
+docs/VERSE-LEDGER.md:97. They are SUPABASE ORG IDENTIFIERS in notes about token reach, not
+contact details. VERSE-WORKING-SYSTEM-V2.md is in origin/main history via bbce579, so those
+revisions are already pushed and cannot be recalled. W5-DOCS-2 replaced the working-copy
+occurrences with placeholders (owner ruling: no history rewrite, no force-push). NONE of the
+101 files added contains either address; checking before adding is what found this.
+
+FLAGGED: docs/VERSE-LEDGER.md now holds TWO entries numbered L-201 (mine at line 4111,
+Cowork's at 4153, written independently for PART 0d). Both left in place; this entry is
+L-202 rather than renumbering someone else's text. This commit also carries Cowork's
+previously-uncommitted L-201.

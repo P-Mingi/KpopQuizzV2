@@ -109,9 +109,16 @@ them. Cowork drafts it, owner installs.
 
 ## 7. Supabase MCP finding (2026-08-04)
 
-Connected token sees ONLY org "louispecchia@hotmail.com's Org" with
+<!-- W5-DOCS-2 (2026-08-17): the two owner email addresses that named these orgs were
+     replaced with <owner-dev-account> and <owner-prod-account>. Nothing was lost: they
+     were Supabase ORG LABELS, never contact details, and the project refs below still
+     identify each org unambiguously. Earlier revisions of this file are on the remote and
+     still contain the literal values; that was left alone deliberately, because editing
+     the working copy cannot remove them from history and would only look like a fix. -->
+
+Connected token sees ONLY org "<owner-dev-account>'s Org" with
 project Bloom (iiwovvyofjccmnercniq). Prod rdkgouofytwfdpbxbzio lives
-under the lpecchia.nt1@gmail.com org: NOT reachable from this token.
+under the <owner-prod-account> org: NOT reachable from this token.
 Fix = owner action in Claude settings -> connectors -> Supabase:
 re-authenticate with the prod org account (or a PAT scoped to it).
 RECOMMENDATION even after rebind: read-only use (list_tables,
