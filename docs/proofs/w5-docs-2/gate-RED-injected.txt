@@ -1,0 +1,12 @@
+
+> quiz@1.0.0 check:docs-secrets
+> tsx scripts/check-docs-secrets.mts
+
+Docs secret gate: scanned 582 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+
+Docs secret gate FAILED: 2 finding(s) in tracked documentation. Locations only, never values: this gate does not print what it matched, because reporting a leak by copying it is how a leak spreads.
+  x docs/__gate-red-proof.md:2  JWT
+  x docs/__gate-red-proof.md:3  EMAIL-NOT-ALLOWLISTED
+
+If a hit is a real credential: rotate it first, then remove it from the file. Removing it from the working copy does NOT remove it from git history.
+If a hit is deliberately public (a support address, a sample token in a spec), add it to ALLOWED_EMAILS or narrow the pattern in this file, with a comment saying why.

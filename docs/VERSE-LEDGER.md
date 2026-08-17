@@ -4231,3 +4231,54 @@ FLAGGED: docs/VERSE-LEDGER.md now holds TWO entries numbered L-201 (mine at line
 Cowork's at 4153, written independently for PART 0d). Both left in place; this entry is
 L-202 rather than renumbering someone else's text. This commit also carries Cowork's
 previously-uncommitted L-201.
+
+## L-203 - W5-DOCS-2: leak removed from unpushed history, docs tracking inverted, gate added (2026-08-17)
+
+No app code beyond the gate script, no DDL, nothing pushed. Proofs: docs/proofs/w5-docs-2/.
+
+PART 1. My L-202 reported the PII finding by QUOTING both addresses into four tracked files
+(ledger, BLOCKED, REPORT) in a repo about to be pushed; one file went 1 -> 4 occurrences.
+Only HEAD introduced them, so an ordinary amend sufficed: 328c6a1 -> dbec5d9. VERIFIED OVER
+COMMITS, not the working tree: HEAD tree contains neither value; no unpushed commit carries
+a value under docs/loop/; working tree clean. The 44 earlier unpushed commits still carry
+the PRE-EXISTING occurrences inherited from origin/main (which already holds 1 line in
+VERSE-LEDGER.md and 2 in VERSE-WORKING-SYSTEM-V2.md), so pushing adds no new exposure.
+
+NEW STANDING RULE, written into docs/LOOP-CHARTER.md ("Incident reporting: locations, never
+values"): report a leaked credential by LOCATION (docs/FILE.md:112), never by value.
+Reporting a leak by copying it is how a leak spreads, and the copy is usually easier to
+publish than the original. Corollary: if the value is not yet on a remote it can still be
+removed, so fix the unpushed commits BEFORE reporting anywhere.
+
+PART 2 (owner ruling): the already-pushed occurrences replaced in the WORKING COPY with
+<owner-dev-account> / <owner-prod-account>, plus an in-file comment saying what was replaced,
+that they were Supabase org labels not contact details, and that older remote revisions still
+hold the literals so nobody reads the placeholder as data loss. No history rewrite, no
+force-push.
+
+PART 3 (owner OVERRULED my verbose allowlist, correctly): deny-by-default is what lost the
+101 docs in the first place. Replaced the 101 explicit lines with `!docs/*.md` - tracking is
+now the DEFAULT for documentation; 581 tracked before and after, .DS_Store still ignored.
+NEW GATE apps/quiz/scripts/check-docs-secrets.mts + npm run check:docs-secrets, wired into
+.github/workflows/seo-gates.yml as its OWN job running ON PUSH (needs no server, no DB); the
+three heavy gates now carry `if: github.event_name != 'push'` so they stay nightly.
+CALIBRATED BEFORE WRITING: across 423 tracked files the WORD service_role appears 45 times
+and password 9 (all prose) while every value-shaped pattern scored ZERO, so the gate matches
+value SHAPES and only fails on secret words when a credential-shaped value is on the same
+line. Proven RED (injected fake JWT + non-allowlisted address, EXIT=1) then GREEN (EXIT=0,
+581 files). The gate obeys the new rule: prints path:line PATTERN-NAME, never the match.
+
+PART 4: my duplicate L-201 renumbered to L-201b (line 4111); Cowork's L-201 untouched (4153).
+
+DEVIATION, flagged: went broader than instructed, `!docs/*.md` instead of per-family
+wildcards, because a family list is still a manual list (a future pricing-notes.md matches
+no family and would be lost the same way). Narrowable on request.
+RESIDUAL RISK, stated not discovered: the scanner matches credential SHAPES. A doc with an
+NDA extract, an unannounced partner name, or a person's details in prose now gets tracked
+automatically and passes clean. Deny-by-default caught that class by forcing a human to read;
+the wildcard does not.
+SELF-CORRECTIONS: the gate's first real run scanned exactly ONE file and passed, because
+`git ls-files docs` from apps/quiz resolves to apps/quiz/docs; now anchored to
+`git rev-parse --show-toplevel`, prints the count, and fails on zero files. Two false
+positives (a script filename, a list of env var NAMES) were fixed by tightening the value
+test, not by allowlisting them.

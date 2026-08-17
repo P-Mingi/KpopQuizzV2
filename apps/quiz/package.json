@@ -12,6 +12,7 @@
     "check:indexability": "tsx scripts/check-indexability.mts",
     "check:metadata-dupes": "tsx scripts/check-metadata-dupes.mts",
     "check:orphans": "tsx scripts/check-orphans.mts",
+    "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts"
   },
   "dependencies": {

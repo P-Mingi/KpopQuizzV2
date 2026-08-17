@@ -1,0 +1,6 @@
+
+> quiz@1.0.0 check:docs-secrets
+> tsx scripts/check-docs-secrets.mts
+
+Docs secret gate: scanned 581 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+Docs secret gate passed: no credential-shaped value in any tracked doc.

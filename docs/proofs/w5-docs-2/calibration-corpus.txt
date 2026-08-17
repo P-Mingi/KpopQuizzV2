@@ -1,0 +1,9 @@
+files scanned (tracked under docs/): 423
+
+naive pattern tally across the whole tracked corpus:
+  WORD service_role    45
+  WORD password        9
+  EMAIL                6
+
+distinct email values found:
+  hello@kpopquiz.org

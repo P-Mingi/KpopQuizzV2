@@ -1,0 +1,11 @@
+=== PART 1 VERIFICATION: the values in the unpushed history ===
+HEAD tree, files containing either value:
+
+any unpushed commit carrying a value in docs/loop/ (where my report wrote them):
+  (empty = none)
+
+origin/main already contains (pre-existing, cannot be recalled):
+  origin/main:docs/VERSE-LEDGER.md -> 1 line(s)
+  origin/main:docs/VERSE-WORKING-SYSTEM-V2.md -> 2 line(s)
+
+working tree, whole repo:

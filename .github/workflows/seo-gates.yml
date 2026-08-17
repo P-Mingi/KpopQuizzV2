@@ -23,12 +23,38 @@ name: SEO gates (nightly)
 # minutes. It is a completeness check, not a fast pre-merge lint.
 
 on:
+  push:
+    branches: [main, seo-indexation]
   schedule:
     - cron: '30 4 * * *' # 04:30 UTC daily, clear of the content crons
   workflow_dispatch: {}
 
 jobs:
+  # W5-DOCS-2. Separate job because it needs NO server and NO database: it reads tracked
+  # files out of the checkout. That is why it runs on every push while the three below stay
+  # nightly, and why it is not gated on the app booting.
+  docs-secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: check:docs-secrets
+        working-directory: apps/quiz
+        run: pnpm run check:docs-secrets
+
   gates:
+    # The heavy gates build and boot the app, so they stay on the nightly schedule and the
+    # manual trigger. Running them on every push would add ~20 minutes to each one.
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:

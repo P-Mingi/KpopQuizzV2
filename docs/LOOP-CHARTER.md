@@ -42,6 +42,26 @@ LOOP: [class] · GOAL: [machine-checkable criteria] · MAX: [N iterations] ·
 STOP IF: [conditions: migration needed / criteria unreachable / policy touch /
 budget] · REPORT: [what the final report must show, incl. iterations used].
 
+## Incident reporting: locations, never values
+
+Standing rule, created by the W5-DOCS-2 incident (2026-08-17).
+
+**When you report a leaked credential, address or token, name its LOCATION and never its
+VALUE.** Write `docs/FILE.md:112`, not the string itself.
+
+The incident: a scan found two owner email addresses in already-tracked docs. The report of
+that finding quoted both addresses verbatim, into the ledger, into BLOCKED.md and into
+REPORT.md, all tracked files, in a repo about to be pushed. The count in one file went from
+one occurrence to four. **Reporting a leak by copying it is how a leak spreads**, and the
+copy is usually easier to publish than the original.
+
+Applies to: REPORT.md, BLOCKED.md, VERSE-LEDGER.md, commit messages, proof files, and any
+tool output. `check:docs-secrets` follows the same rule and prints `path:line PATTERN-NAME`
+without ever echoing what it matched.
+
+Corollary: if the value is not yet on a remote, it can still be removed. Fix it in the
+unpushed commits before reporting anywhere, then report by location.
+
 ## Why the gates are the point
 
 This project's quality record comes from verify-first + human gates: the loop
