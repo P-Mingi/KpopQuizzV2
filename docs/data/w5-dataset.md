@@ -1116,3 +1116,181 @@ Removing stray-kids, the largest single contributor at 3,556 plays, moves the ga
 **Every duel vote in the database falls inside this window.** Oldest is
 2026-06-11T21:42:13Z, newest 2026-08-17T11:05:17Z, and the count before 2026-05-01 is 0.
 The duel figures in section F are therefore unaffected by the period decision.
+
+---
+---
+
+# PART 0d - the last data pass: does the girl-group gap survive its own control?
+
+Same snapshot, read-only. Raw output and script: `docs/proofs/w5-part0d/`.
+All figures below are **May-Aug only** (17,425 usable plays).
+
+## O. THE WITHIN-LABEL TEST
+
+**Unit of analysis is the QUIZ, not the play.** Each quiz contributes one score, so a
+heavily-played quiz cannot carry a side. A quiz's score is
+`SUM(score)/SUM(total_questions)` over its May-Aug plays.
+
+```sql
+select q.id, q.difficulty, gender_derived, count(*) as plays,
+       100.0*sum(p.score)/sum(p.total_questions) as quiz_pct
+from plays p join quizzes q on q.id=p.quiz_id
+where p.created_at >= '2026-05-01' and q.status='published'
+  and p.total_questions>0 and p.score between 0 and p.total_questions
+group by q.id, q.difficulty
+having count(*) >= <floor>;
+```
+
+Reported at three floors, because the floor changes how many quizzes qualify.
+
+### O1. `medium` quizzes
+
+| floor | side | n | min | p25 | median | p75 | max |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 50 | gg | 19 | 40.0 | 70.2 | **81.2** | 82.9 | 94.4 |
+| 50 | bg | 21 | 41.5 | 59.0 | **71.5** | 78.1 | 97.5 |
+| 20 | gg | 47 | 40.0 | 68.8 | **81.3** | 88.9 | 96.4 |
+| 20 | bg | 41 | 41.5 | 65.3 | **75.7** | 84.0 | 97.5 |
+| 10 | gg | 59 | 40.0 | 65.0 | **81.3** | 89.2 | 98.9 |
+| 10 | bg | 59 | 41.5 | 68.2 | **76.7** | 86.6 | 97.5 |
+
+Median difference (gg - bg): **+9.7 pt** at floor 50, **+5.6 pt** at floor 20, **+4.7 pt**
+at floor 10. The ranges overlap almost completely at every floor (gg 40.0-98.9, bg
+41.5-97.5).
+
+### O2. `easy` quizzes
+
+| floor | side | n | min | p25 | median | p75 | max |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 50 | gg | 5 | 71.0 | 77.1 | **86.4** | 87.8 | 99.4 |
+| 50 | bg | 20 | 60.0 | 76.0 | **91.1** | 92.9 | 97.2 |
+| 20 | gg | 8 | 71.0 | 77.1 | **86.4** | 87.8 | 99.4 |
+| 20 | bg | 27 | 57.3 | 78.3 | **91.1** | 92.9 | 97.2 |
+| 10 | gg | 19 | 53.0 | 72.0 | **86.1** | 88.6 | 99.4 |
+| 10 | bg | 31 | 57.3 | 78.8 | **89.8** | 92.7 | 97.2 |
+
+Median difference (gg - bg): **-4.7 pt**, **-4.7 pt**, **-3.7 pt**. **The sign is the
+opposite of O1.**
+
+`hard`: no quizzes on either side clear floors 50 or 20. At floor 10 there are 2 bg
+quizzes and 0 gg quizzes. **Not computable.**
+
+### O3. What this test can and cannot separate
+
+Within the `medium` label, girl-group quizzes score higher at every floor; within `easy`,
+boy-group quizzes score higher at every floor.
+
+The measurement above **cannot distinguish** "our boy-group medium quizzes are harder as
+written" from "players know girl groups better", because a quiz's score is the only
+difficulty measure in this schema. Section G1 already established that
+`quizzes.difficulty` is an author-assigned label that does not order the measured scores
+monotonically (`hard` sits 0.2 pt below `medium` overall), and there is no other
+difficulty column. Any control built on that label controls the label.
+
+## P. MATCHED FORMATS
+
+A control that does **not** depend on score: match quizzes by what they ask.
+
+**The rule, stated so the buckets can be judged.** Each quiz is assigned to the **first**
+matching pattern, tested in this order against the lowercased title. Anything matching
+nothing is `(unclassified)` and is shown rather than dropped.
+
+| order | format | pattern |
+| --- | --- | --- |
+| 1 | true-or-false | `true or false`, `true-or-false`, `t/f` |
+| 2 | members | `member`, `who is this`, `which member`, `name all`, `bias(es)` |
+| 3 | discography | `discograph`, `album`, `title track`, `b-side`, `deep cut`, `song quiz`, `guess the song`, `name that song`, `complete the …title` |
+| 4 | timeline-era | `timeline`, `debut`, `era`, `which year`, `came out`, `generation` |
+| 5 | intruder | `intruder`, `non-`, `odd one`, `find the` |
+| 6 | photo-visual | `recognise/recognize`, `photo`, `picture`, `image`, `kids` |
+| 7 | label-company | `company`, `label`, `entertainment`, `jyp`, `sm`, `yg`, `hybe` |
+| 8 | lyrics | `lyric` |
+| 9 | general-fan | `how well do you know`, `ultimate`, `only real`, `real <fandom>`, `challenge`, `fan` |
+
+Pool: May-Aug quizzes with **>= 20 plays** whose group has a derived gender. Every
+assignment is listed in `raw-O-P-Q.txt` so the buckets can be audited quiz by quiz.
+
+### P1. Formats present on both sides
+
+| format | gg quizzes | gg median | gg plays | bg quizzes | bg median | bg plays | median gap (gg-bg) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| (unclassified) | 14 | 74.0% | 1,001 | 14 | 84.0% | 984 | **-10.1 pt** |
+| discography | 11 | 76.9% | 580 | 9 | 69.2% | 714 | **+7.7 pt** |
+| general-fan | 5 | 86.1% | 737 | 6 | 71.9% | 781 | **+14.3 pt** |
+| members | 11 | 81.3% | 627 | 15 | 90.1% | 1,998 | **-8.8 pt** |
+| photo-visual | 2 | 58.2% | 99 | 6 | 73.0% | 1,026 | **-14.8 pt** |
+| timeline-era | 2 | 60.8% | 56 | 8 | 74.6% | 1,269 | **-13.8 pt** |
+| true-or-false | 10 | 91.7% | 596 | 10 | 89.8% | 1,863 | **+1.9 pt** |
+
+All 7 formats in the pool have quizzes on both sides.
+
+### P2. Direction of the gap inside matched formats
+
+| | gg median above bg | bg median above gg | tied |
+| --- | --- | --- | --- |
+| all 7 formats | **3** | **4** | 0 |
+| 6 classified formats (excluding `(unclassified)`) | **3** | **3** | 0 |
+
+The four largest absolute gaps point in different directions: general-fan +14.3 (gg),
+photo-visual -14.8 (bg), timeline-era -13.8 (bg), unclassified -10.1 (bg).
+
+**Bucket sizes are small and uneven**: 2 to 15 quizzes per side, and `(unclassified)` is
+the joint-largest bucket at 14 quizzes each side, which is a limit of the rule set above.
+Play counts are also lopsided within formats (members: 627 gg plays against 1,998 bg;
+timeline-era: 56 against 1,269).
+
+## Q. CATALOGUE UNEVENNESS
+
+```sql
+-- per group, May-Aug: published quizzes (all time), plays in window, easy-labelled plays
+select g.slug, count(*) as plays,
+       sum(case when q.difficulty='easy' then 1 else 0 end) as easy_plays
+from plays p join quizzes q on q.id=p.quiz_id join groups g on g.id=q.group_id
+where p.created_at >= '2026-05-01' and p.total_questions>0
+  and p.score between 0 and p.total_questions
+group by g.slug having count(*) >= 100;
+```
+
+21 groups clear 100 May-Aug plays.
+
+| group | side | published quizzes | May-Aug plays | easy plays | easy share |
+| --- | --- | --- | --- | --- | --- |
+| stray-kids | bg | 26 | 3,557 | 2,493 | **70.1%** |
+| general-kpop | - | 152 | 3,413 | 1,911 | 56.0% |
+| bts | bg | 27 | 2,658 | 201 | **7.6%** |
+| enhypen | bg | 7 | 1,157 | 543 | 46.9% |
+| blackpink | gg | 22 | 1,023 | 93 | 9.1% |
+| seventeen | bg | 11 | 781 | 527 | 67.5% |
+| cortis | bg | 5 | 582 | 284 | 48.8% |
+| illit | gg | 4 | 463 | 96 | 20.7% |
+| twice | gg | 14 | 454 | 82 | 18.1% |
+| newjeans | gg | 10 | 405 | 34 | 8.4% |
+| txt | bg | 6 | 330 | 222 | 67.3% |
+| ateez | bg | 20 | 330 | 0 | **0.0%** |
+| ive | gg | 8 | 319 | 0 | **0.0%** |
+| aespa | gg | 13 | 312 | 48 | 15.4% |
+| babymonster | gg | 3 | 263 | 138 | 52.5% |
+| le-sserafim | gg | 5 | 201 | 0 | **0.0%** |
+| itzy | gg | 7 | 200 | 76 | 38.0% |
+| red-velvet | gg | 7 | 163 | 10 | 6.1% |
+| loona | gg | 5 | 156 | 144 | **92.3%** |
+| g-i-dle | gg | 7 | 116 | 5 | 4.3% |
+| exo | bg | 8 | 110 | 7 | 6.4% |
+
+**The one number for the method section:**
+
+| easy-share across the 21 compared groups | |
+| --- | --- |
+| min | **0.0%** (ateez, ive, le-sserafim) |
+| p25 | 6.4% |
+| median | 18.1% |
+| p75 | 52.5% |
+| max | **92.3%** (loona) |
+| **range** | **92.3 percentage points** |
+
+Published quizzes across the same 21 groups: min **3**, median **8**, max **152**
+(general-kpop).
+
+Two groups that are adjacent in the ladder can therefore have been measured on completely
+different material: stray-kids at 70.1% easy plays against bts at 7.6%, both boy groups,
+both above 2,500 plays in-window.

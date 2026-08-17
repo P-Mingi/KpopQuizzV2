@@ -4107,3 +4107,45 @@ contains it (0.8% of it), flagged rather than silently dropped since dropping wo
 every number in K and M. SELF-CORRECTION: wrote "less than 1.2 points" when the largest
 generation move is exactly 1.2; recomputed and replaced with "at most 1.2" plus the five
 per-row moves. Nothing pushed.
+
+## L-201 - W5 PART 0d: the girl-group gap dies under format matching (2026-08-17)
+
+Read-only. No writes, no DDL, 0 files under apps/. Appended O, P, Q to
+docs/data/w5-dataset.md. Proofs: docs/proofs/w5-part0d/. All figures May-Aug only.
+
+O. WITHIN-LABEL TEST (quiz level, so no single heavily-played quiz can carry a side).
+Within `medium`, gg quiz medians are ABOVE bg at every floor: +9.7pt (floor 50, n=19/21),
++5.6pt (floor 20, n=47/41), +4.7pt (floor 10, n=59/59). Within `easy`, the sign FLIPS: gg
+is BELOW bg by -4.7/-4.7/-3.7pt. The overall +5.6pt gap is the weighted result of two
+sub-gaps that disagree. `hard` not computable (no quiz either side clears floor 50 or 20;
+at floor 10 it is 2 bg and 0 gg).
+
+O3. THE DEEPER PROBLEM: a quiz's score is the ONLY difficulty measure in this schema.
+quizzes.difficulty is author-assigned and G1 showed it is not monotonic. So "our bg medium
+quizzes are harder as written" and "players know girl groups better" produce the IDENTICAL
+measurement and nothing in plays/quizzes separates them. Controlling on the label controls
+the label.
+
+P. MATCHED FORMATS - the only control independent of score. Title-based rule published in
+full (9 ordered patterns, first match wins, unmatched shown as "(unclassified)"), every
+assignment listed in the raw proof so buckets can be audited. All 7 formats have both
+sides. DIRECTION IS NOT STABLE: gg median above bg in 3, bg above gg in 4 (3-3 excluding
+unclassified). Largest gaps point opposite ways: general-fan +14.3 (gg), photo-visual
+-14.8 (bg), timeline-era -13.8 (bg). VERDICT: the gap does not survive. Weaknesses stated:
+buckets are 2-15 quizzes per side, "(unclassified)" is joint-largest at 14/14, play counts
+lopsided within formats (members 627 gg vs 1,998 bg).
+
+Q. CATALOGUE UNEVENNESS, the number for the method section: across the 21 groups compared
+in May-Aug, the easy-play share runs min 0.0% / p25 6.4% / median 18.1% / p75 52.5% / max
+92.3%, a RANGE OF 92.3 PERCENTAGE POINTS. Three groups have 0.0% easy plays (ateez, ive,
+le-sserafim); loona has 92.3%. Published quizzes per group run 3 to 152, median 8. Sharpest
+case: stray-kids 70.1% easy vs bts 7.6%, both bg, both >2,500 in-window plays, 10 rank
+positions apart.
+
+WHAT THE FILE NOW SUPPORTS (worker's read, not a ruling): the hardest/easiest quiz list (76
+above floor in-window) and a report about catalogue unevenness itself. NOT a group ranking,
+NOT a gender comparison, NOT a generation gradient, as claims about knowledge.
+
+SELF-CORRECTION: a formatter bug printed "-" for all six distributions in the first O run
+(called .length on a stats object) while the medians below computed fine; caught by reading
+the output, fixed, re-run. Every O number is from the corrected run. Nothing pushed.

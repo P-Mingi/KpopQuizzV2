@@ -1,0 +1,300 @@
+# O. THE WITHIN-LABEL TEST (May-Aug, quiz level, gg vs bg)
+Unit of analysis is the QUIZ, not the play: each quiz contributes one score, so a
+heavily-played quiz cannot carry a side. Score per quiz = SUM(score)/SUM(total_questions)
+over that quiz's May-Aug plays.
+
+## floor = 50 May-Aug plays per quiz
+  medium  gg: n=19 min=40.0 p25=70.2 med=81.2 p75=82.9 max=94.4
+  medium  bg: n=21 min=41.5 p25=59.0 med=71.5 p75=78.1 max=97.5
+  medium  median difference (gg - bg): 9.7 pt
+  easy    gg: n= 5 min=71.0 p25=77.1 med=86.4 p75=87.8 max=99.4
+  easy    bg: n=20 min=60.0 p25=76.0 med=91.1 p75=92.9 max=97.2
+  easy    median difference (gg - bg): -4.7 pt
+  hard   : no quizzes on either side at this floor
+
+## floor = 20 May-Aug plays per quiz
+  medium  gg: n=47 min=40.0 p25=68.8 med=81.3 p75=88.9 max=96.4
+  medium  bg: n=41 min=41.5 p25=65.3 med=75.7 p75=84.0 max=97.5
+  medium  median difference (gg - bg): 5.6 pt
+  easy    gg: n= 8 min=71.0 p25=77.1 med=86.4 p75=87.8 max=99.4
+  easy    bg: n=27 min=57.3 p25=78.3 med=91.1 p75=92.9 max=97.2
+  easy    median difference (gg - bg): -4.7 pt
+  hard   : no quizzes on either side at this floor
+
+## floor = 10 May-Aug plays per quiz
+  medium  gg: n=59 min=40.0 p25=65.0 med=81.3 p75=89.2 max=98.9
+  medium  bg: n=59 min=41.5 p25=68.2 med=76.7 p75=86.6 max=97.5
+  medium  median difference (gg - bg): 4.7 pt
+  easy    gg: n=19 min=53.0 p25=72.0 med=86.1 p75=88.6 max=99.4
+  easy    bg: n=31 min=57.3 p25=78.8 med=89.8 p75=92.7 max=97.2
+  easy    median difference (gg - bg): -3.7 pt
+  hard    gg: NO QUIZZES
+  hard    bg: n= 2 min=72.0 p25=72.0 med=72.0 p75=72.0 max=77.3
+
+## the medium quizzes themselves (floor 20), so the buckets are auditable
+
+### gg medium, 47 quizzes
+   40.0%  n=  71  blackpink     BLACKPINK world records and achievements
+   50.5%  n=  30  twice         TWICE Japanese discography and tours quiz
+   54.2%  n= 400  blackpink     BLACKPINK ultimate fan challenge
+   57.7%  n=  24  artms         ARTMS trivia
+   58.2%  n=  25  red-velvet    For the hardcore ReVeluvs - Guess the Red Velvet MV fro
+   60.3%  n=  85  aespa         aespa B-sides and deep cuts quiz
+   60.8%  n=  25  twice         TWICE specific eras quiz
+   61.5%  n= 102  illit         ILLIT - guess the idol!
+   61.6%  n=  25  babymonster   guess the babymonster member
+   62.6%  n=  26  blackpink     BLACKPINK brand deals and fashion quiz
+   65.0%  n=  36  newjeans      NewJeans discography and facts
+   68.8%  n=  39  nmixx         NMIXX members quiz
+   69.8%  n=  36  ive           how big of a dive are you?
+   70.2%  n= 170  newjeans      NewJeans discography deep dive quiz
+   73.5%  n=  34  blackpink     BLACKPINK discography deep dive
+   74.0%  n=  32  blackpink     Guess the BLACKPINK song from clues
+   76.7%  n= 216  illit         ILLIT quiz
+   76.8%  n=  61  newjeans      NewJeans members fun facts quiz
+   76.9%  n=  26  red-velvet    Red Velvet discography quiz
+   79.8%  n=  70  g-i-dle       (G)I-DLE self-produced queens quiz
+   80.5%  n=  95  twice         TWICE members - Once test
+   81.2%  n=  33  blackpink     BLACKPINK solo careers deep dive
+   81.2%  n= 127  le-sserafim   LE SSERAFIM members and music quiz
+   81.3%  n=  65  itzy          ITZY members and discography quiz
+   81.4%  n= 127  ive           How well do you know IVE?
+   81.8%  n=  48  red-velvet    Red Velvet dual concept queens quiz
+   82.3%  n= 177  blackpink     BLACKPINK true or false - think you know everything?
+   82.6%  n=  39  aespa         aespa discography quiz
+   82.9%  n= 100  babymonster   BABYMONSTER quiz
+   84.2%  n=  24  itzy          ITZY discography deep dive
+   85.2%  n=  56  aespa         aespa members and concepts
+   87.1%  n=  49  illit         Illit quiz
+   87.3%  n=  36  blackpink     BLACKPINK members quiz
+   88.6%  n=  39  aespa         aespa true or false - think you know MY girls?
+   88.9%  n=  41  twice         TWICE true or false - test your ONCE knowledge
+   89.2%  n=  72  blackpink     BLACKPINK true or false
+   90.8%  n=  38  ive           IVE members quiz
+   91.7%  n= 108  twice         TWICE true or false
+   91.8%  n=  49  ive           IVE discography and hits
+   92.3%  n=  24  aespa         aespa true or false
+   92.9%  n=  24  le-sserafim   LE SSERAFIM true or false
+   93.2%  n=  32  newjeans      NewJeans members quiz
+   94.2%  n=  26  newjeans      NewJeans true or false
+   94.3%  n=  56  twice         TWICE discography quiz
+   94.4%  n=  57  ive           IVE true or false
+   95.2%  n=  31  le-sserafim   LE SSERAFIM basics
+   96.4%  n=  28  red-velvet    Red Velvet true or false
+
+### bg medium, 41 quizzes
+   41.5%  n=  86  stray-kids    Stray Kids: Guess the Song Quiz
+   41.6%  n= 781  bts           Ultimate BTS era quiz - only real ARMYs survive
+   52.3%  n=  59  bts           BTS concerts and tour moments quiz
+   54.5%  n= 424  enhypen       ENHYPEN Quiz: Ultimate Fan Challenge
+   58.8%  n=  69  bts           Guess the BTS member from clues
+   59.0%  n= 102  stray-kids    Stray Kids: Guess the member Quiz Part-1
+   62.8%  n= 145  stray-kids    Identify the Stray Kids sub-unit
+   64.0%  n=  33  stray-kids    Stray Kids Song Sorter: What Album Is It From?
+   64.1%  n=  34  seventeen     SEVENTEEN FML era quiz
+   64.2%  n= 136  bts           BTS discography challenge
+   65.3%  n=  59  stray-kids    Stray Kids discography test
+   68.2%  n=  22  txt           TXT: Can't You See Me? Quiz
+   69.2%  n= 111  seventeen     SEVENTEEN discography and milestones quiz
+   71.2%  n=  25  ateez         ATEEZ discography challenge
+   71.5%  n= 360  bts           BTS solo era quiz - match the member to the music
+   71.9%  n=  54  cortis        real COERS (cortis fans) can take this quiz!
+   72.8%  n=  47  txt           TXT discography deep dive
+   74.6%  n=  44  stray-kids    Stray Kids NOEASY to MAXIDENT era
+   74.6%  n=  28  bts           BTS: The Ultimate Quiz
+   75.5%  n=  22  stray-kids    Stray Kids: District 9 Quiz
+   75.7%  n=  74  cortis        THE COER QUIZ.
+   77.0%  n= 154  enhypen       ENHYPEN discography quiz
+   77.1%  n=  21  bts           BTS Wings era deep dive
+   77.3%  n=  30  ateez         ATEEZ members quiz
+   77.5%  n= 533  bts           BTS true or false - bet you can't get 100%
+   78.1%  n=  36  enhypen       ENHYPEN - Guess the MV from the screenshot
+   78.1%  n= 150  bts           BTS true or false - test your ARMY knowledge
+   79.2%  n=  20  bts           BTS Map of the Soul era
+   81.0%  n= 161  cortis        Cortis fun quiz
+   81.5%  n=  85  ateez         ATEEZ title tracks and members quiz
+   84.0%  n=  47  exo           EXO legends quiz - only EXO-Ls survive
+   86.0%  n=  23  stray-kids    Skz memes who said what??
+   86.6%  n=  51  bts           BTS debut era - how well do you remember?
+   87.8%  n=  37  ateez         ATEEZ basics for ATINYs
+   88.1%  n=  42  seventeen     SEVENTEEN units quiz
+   89.8%  n=  35  seventeen     SEVENTEEN true or false
+   91.6%  n=  46  shinee        SHINee legends quiz - K-pop pioneers
+   92.7%  n=  39  txt           TXT members deep knowledge
+   93.9%  n=  33  ateez         ATEEZ true or false
+   96.2%  n= 114  bts           BTS members - know your biases
+   97.5%  n=  61  bts           BTS members real names - complete test
+
+
+# P. MATCHED FORMATS
+RULE: each quiz is assigned to the FIRST matching pattern below, tested in this order
+against the lowercased title. A quiz matching nothing is "(unclassified)" and is shown.
+
+pool: May-Aug quizzes with >= 20 plays whose group has a derived gender: 123
+
+## every assignment, so the buckets can be audited
+  (unclassified)  bg  84.5% n=  85 [easy] ENHYPEN: Drunk-Dazed Quiz
+  (unclassified)  bg  57.3% n=  22 [easy] BTS music video trivia - can you get 100%?
+  (unclassified)  bg  93.7% n= 284 [easy] Are you a real coer??!!
+  (unclassified)  bg  96.4% n=  46 [easy] SEVENTEEN basics for CARATs
+  (unclassified)  bg  88.1% n=  42 [medium] SEVENTEEN units quiz
+  (unclassified)  bg  86.0% n=  23 [medium] Skz memes who said what??
+  (unclassified)  bg  52.3% n=  59 [medium] BTS concerts and tour moments quiz
+  (unclassified)  bg  75.7% n=  74 [medium] THE COER QUIZ.
+  (unclassified)  bg  87.8% n=  37 [medium] ATEEZ basics for ATINYs
+  (unclassified)  bg  84.0% n=  47 [medium] EXO legends quiz - only EXO-Ls survive
+  (unclassified)  bg  81.0% n= 161 [medium] Cortis fun quiz
+  (unclassified)  bg  91.6% n=  46 [medium] SHINee legends quiz - K-pop pioneers
+  (unclassified)  bg  68.2% n=  22 [medium] TXT: Can't You See Me? Quiz
+  (unclassified)  bg  78.1% n=  36 [medium] ENHYPEN - Guess the MV from the screenshot
+  (unclassified)  gg  79.8% n=  70 [medium] (G)I-DLE self-produced queens quiz
+  (unclassified)  gg  71.0% n=  98 [easy] Who Said It?: LOONA Quotes Quiz
+  (unclassified)  gg  57.7% n=  24 [medium] ARTMS trivia
+  (unclassified)  gg  62.6% n=  26 [medium] BLACKPINK brand deals and fashion quiz
+  (unclassified)  gg  76.7% n= 216 [medium] ILLIT quiz
+  (unclassified)  gg  81.2% n=  33 [medium] BLACKPINK solo careers deep dive
+  (unclassified)  gg  74.0% n=  32 [medium] Guess the BLACKPINK song from clues
+  (unclassified)  gg  81.8% n=  48 [medium] Red Velvet dual concept queens quiz
+  (unclassified)  gg  61.5% n= 102 [medium] ILLIT - guess the idol!
+  (unclassified)  gg  69.8% n=  36 [medium] how big of a dive are you?
+  (unclassified)  gg  40.0% n=  71 [medium] BLACKPINK world records and achievements
+  (unclassified)  gg  87.1% n=  49 [medium] Illit quiz
+  (unclassified)  gg  77.1% n=  96 [easy] are u a real GLLIT?!!
+  (unclassified)  gg  82.9% n= 100 [medium] BABYMONSTER quiz
+  discography     bg  65.3% n=  59 [medium] Stray Kids discography test
+  discography     bg  77.0% n= 154 [medium] ENHYPEN discography quiz
+  discography     bg  64.2% n= 136 [medium] BTS discography challenge
+  discography     bg  72.8% n=  47 [medium] TXT discography deep dive
+  discography     bg  69.2% n= 111 [medium] SEVENTEEN discography and milestones quiz
+  discography     bg  86.5% n=  63 [easy] Stray Kids discography challenge
+  discography     bg  41.5% n=  86 [medium] Stray Kids: Guess the Song Quiz
+  discography     bg  71.2% n=  25 [medium] ATEEZ discography challenge
+  discography     bg  64.0% n=  33 [medium] Stray Kids Song Sorter: What Album Is It From?
+  discography     gg  94.3% n=  56 [medium] TWICE discography quiz
+  discography     gg  70.2% n= 170 [medium] NewJeans discography deep dive quiz
+  discography     gg  65.0% n=  36 [medium] NewJeans discography and facts
+  discography     gg  73.5% n=  34 [medium] BLACKPINK discography deep dive
+  discography     gg  84.2% n=  24 [medium] ITZY discography deep dive
+  discography     gg  87.1% n=  31 [easy] TWICE title tracks challenge - name that song
+  discography     gg  60.3% n=  85 [medium] aespa B-sides and deep cuts quiz
+  discography     gg  76.9% n=  26 [medium] Red Velvet discography quiz
+  discography     gg  91.8% n=  49 [medium] IVE discography and hits
+  discography     gg  82.6% n=  39 [medium] aespa discography quiz
+  discography     gg  50.5% n=  30 [medium] TWICE Japanese discography and tours quiz
+  general-fan     bg  78.3% n= 184 [easy] How well do you know TXT?
+  general-fan     bg  54.5% n= 424 [medium] ENHYPEN Quiz: Ultimate Fan Challenge
+  general-fan     bg  74.6% n=  28 [medium] BTS: The Ultimate Quiz
+  general-fan     bg  60.0% n=  68 [easy] BTS ARIRANG comeback quiz - only real ARMYs will pas
+  general-fan     bg  87.0% n=  23 [easy] How well do you know SEVENTEEN ?
+  general-fan     bg  71.9% n=  54 [medium] real COERS (cortis fans) can take this quiz!
+  general-fan     gg  54.2% n= 400 [medium] BLACKPINK ultimate fan challenge
+  general-fan     gg  86.4% n= 138 [easy] ONLY REAL MONSTIEZ
+  general-fan     gg  86.1% n=  34 [easy] Only real Bunnies can ace this NewJeans quiz
+  general-fan     gg  91.2% n=  38 [easy] LOONA Songs Quiz: How well do you know LOONA songs?
+  general-fan     gg  81.4% n= 127 [medium] How well do you know IVE?
+  members         bg  97.5% n=  61 [medium] BTS members real names - complete test
+  members         bg  92.7% n= 133 [easy] ENHYPEN members deep dive
+  members         bg  91.1% n= 346 [easy] SEVENTEEN members mega quiz - all 13!
+  members         bg  81.5% n=  85 [medium] ATEEZ title tracks and members quiz
+  members         bg  58.8% n=  69 [medium] Guess the BTS member from clues
+  members         bg  96.2% n= 114 [medium] BTS members - know your biases
+  members         bg  71.5% n= 360 [medium] BTS solo era quiz - match the member to the music
+  members         bg  92.3% n= 282 [easy] Stray Kids members deep knowledge
+  members         bg  92.7% n=  39 [medium] TXT members deep knowledge
+  members         bg  90.1% n= 196 [easy] Stray Kids - know each member
+  members         bg  96.8% n= 101 [easy] How well do you know SKZ members?
+  members         bg  86.6% n=  51 [medium] BTS debut era - how well do you remember?
+  members         bg  89.7% n=  29 [easy] How well do you know BTS members?
+  members         bg  77.3% n=  30 [medium] ATEEZ members quiz
+  members         bg  59.0% n= 102 [medium] Stray Kids: Guess the member Quiz Part-1
+  members         gg  81.2% n= 127 [medium] LE SSERAFIM members and music quiz
+  members         gg  81.3% n=  65 [medium] ITZY members and discography quiz
+  members         gg  85.2% n=  56 [medium] aespa members and concepts
+  members         gg  99.4% n=  53 [easy] Find the Non-BLACKPINK Member
+  members         gg  80.5% n=  95 [medium] TWICE members - Once test
+  members         gg  87.3% n=  36 [medium] BLACKPINK members quiz
+  members         gg  76.8% n=  61 [medium] NewJeans members fun facts quiz
+  members         gg  68.8% n=  39 [medium] NMIXX members quiz
+  members         gg  90.8% n=  38 [medium] IVE members quiz
+  members         gg  93.2% n=  32 [medium] NewJeans members quiz
+  members         gg  61.6% n=  25 [medium] guess the babymonster member
+  photo-visual    bg  94.1% n= 478 [easy] Stray Kids basics
+  photo-visual    bg  92.5% n=  78 [easy] Only real STAYs can ace this Stray Kids quiz
+  photo-visual    bg  62.8% n= 145 [medium] Identify the Stray Kids sub-unit
+  photo-visual    bg  73.0% n= 231 [easy] Stray Kids Lee Know Quiz Part-1
+  photo-visual    bg  72.9% n=  72 [easy] Stray Kids Lee Know Quiz Part-2
+  photo-visual    bg  75.5% n=  22 [medium] Stray Kids: District 9 Quiz
+  photo-visual    gg  87.8% n=  74 [easy] Can You Recognize These K-pop Idols ?
+  photo-visual    gg  58.2% n=  25 [medium] For the hardcore ReVeluvs - Guess the Red Velvet MV 
+  timeline-era    bg  79.2% n=  20 [medium] BTS Map of the Soul era
+  timeline-era    bg  41.6% n= 781 [medium] Ultimate BTS era quiz - only real ARMYs survive
+  timeline-era    bg  93.6% n= 263 [easy] ENHYPEN debut and beyond quiz
+  timeline-era    bg  92.5% n=  44 [easy] Only real ARMYs can pass this BTS debut quiz
+  timeline-era    bg  64.1% n=  34 [medium] SEVENTEEN FML era quiz
+  timeline-era    bg  74.6% n=  44 [medium] Stray Kids NOEASY to MAXIDENT era
+  timeline-era    bg  69.7% n=  62 [easy] ENHYPEN: The DARK BLOOD Era
+  timeline-era    bg  77.1% n=  21 [medium] BTS Wings era deep dive
+  timeline-era    gg  60.8% n=  25 [medium] TWICE specific eras quiz
+  timeline-era    gg  95.2% n=  31 [medium] LE SSERAFIM basics
+  true-or-false   bg  77.5% n= 533 [medium] BTS true or false - bet you can't get 100%
+  true-or-false   bg  76.0% n= 685 [easy] SKZ true or false - only real STAYs pass
+  true-or-false   bg  97.2% n=  96 [easy] SEVENTEEN true or false
+  true-or-false   bg  78.1% n= 150 [medium] BTS true or false - test your ARMY knowledge
+  true-or-false   bg  91.4% n=  51 [easy] True or false stray kids quiz
+  true-or-false   bg  92.9% n= 218 [easy] Stray Kids true or false
+  true-or-false   bg  89.8% n=  28 [easy] BTS true or false - harder edition
+  true-or-false   bg  95.8% n=  34 [easy] TXT true or false - MOA edition
+  true-or-false   bg  93.9% n=  33 [medium] ATEEZ true or false
+  true-or-false   bg  89.8% n=  35 [medium] SEVENTEEN true or false
+  true-or-false   gg  82.3% n= 177 [medium] BLACKPINK true or false - think you know everything?
+  true-or-false   gg  88.9% n=  41 [medium] TWICE true or false - test your ONCE knowledge
+  true-or-false   gg  91.7% n= 108 [medium] TWICE true or false
+  true-or-false   gg  94.2% n=  26 [medium] NewJeans true or false
+  true-or-false   gg  89.2% n=  72 [medium] BLACKPINK true or false
+  true-or-false   gg  92.3% n=  24 [medium] aespa true or false
+  true-or-false   gg  96.4% n=  28 [medium] Red Velvet true or false
+  true-or-false   gg  88.6% n=  39 [medium] aespa true or false - think you know MY girls?
+  true-or-false   gg  94.4% n=  57 [medium] IVE true or false
+  true-or-false   gg  92.9% n=  24 [medium] LE SSERAFIM true or false
+
+## formats with quizzes on BOTH sides
+format | gg quizzes | gg median | gg plays | bg quizzes | bg median | bg plays | median gap (gg-bg)
+(unclassified)  |         14 |      74.0 |     1001 |         14 |      84.0 |      984 |  -10.1 pt
+discography     |         11 |      76.9 |      580 |          9 |      69.2 |      714 |    7.7 pt
+general-fan     |          5 |      86.1 |      737 |          6 |      71.9 |      781 |   14.3 pt
+members         |         11 |      81.3 |      627 |         15 |      90.1 |     1998 |   -8.8 pt
+photo-visual    |          2 |      58.2 |       99 |          6 |      73.0 |     1026 |  -14.8 pt
+timeline-era    |          2 |      60.8 |       56 |          8 |      74.6 |     1269 |  -13.8 pt
+true-or-false   |         10 |      91.7 |      596 |         10 |      89.8 |     1863 |    1.9 pt
+formats with quizzes on both sides: 7 of 7
+of those, gg median above bg median in: 3; bg above gg in: 4; tied: 0
+
+
+# Q. CATALOGUE UNEVENNESS PER GROUP (May-Aug)
+groups clearing 100 May-Aug plays: 21
+group | side | published quizzes (all time) | May-Aug plays | easy plays | easy share
+stray-kids     | bg |  26 |  3557 |  2493 |  70.1%
+general-kpop   | - | 152 |  3413 |  1911 |  56.0%
+bts            | bg |  27 |  2658 |   201 |   7.6%
+enhypen        | bg |   7 |  1157 |   543 |  46.9%
+blackpink      | gg |  22 |  1023 |    93 |   9.1%
+seventeen      | bg |  11 |   781 |   527 |  67.5%
+cortis         | bg |   5 |   582 |   284 |  48.8%
+illit          | gg |   4 |   463 |    96 |  20.7%
+twice          | gg |  14 |   454 |    82 |  18.1%
+newjeans       | gg |  10 |   405 |    34 |   8.4%
+txt            | bg |   6 |   330 |   222 |  67.3%
+ateez          | bg |  20 |   330 |     0 |   0.0%
+ive            | gg |   8 |   319 |     0 |   0.0%
+aespa          | gg |  13 |   312 |    48 |  15.4%
+babymonster    | gg |   3 |   263 |   138 |  52.5%
+le-sserafim    | gg |   5 |   201 |     0 |   0.0%
+itzy           | gg |   7 |   200 |    76 |  38.0%
+red-velvet     | gg |   7 |   163 |    10 |   6.1%
+loona          | gg |   5 |   156 |   144 |  92.3%
+g-i-dle        | gg |   7 |   116 |     5 |   4.3%
+exo            | bg |   8 |   110 |     7 |   6.4%
+
+easy-share across those 21 groups: min=0.0% p25=6.4% median=18.1% p75=52.5% max=92.3%
+range = 92.3 percentage points
+published quizzes across those groups: min=3 median=8 max=152
