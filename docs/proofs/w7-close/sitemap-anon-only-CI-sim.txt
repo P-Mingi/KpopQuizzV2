@@ -1,0 +1,3 @@
+total sitemap URLs: 684
+  non-verse: 684
+  verse:     0

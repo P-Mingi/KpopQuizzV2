@@ -1,110 +1,111 @@
-# REPORT - W7d: the third surface collapsed, the clip rule disproved, CI blocked on a missing secret.
+# REPORT - W7-CLOSE: CI is real, on the two secrets we already had. No new key.
 
-Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. Correct repo.
-`pwd` printed before every gate run. No DDL, no deletes, nothing pushed. Verse untouched.
-No title or meta description edited, so W1's July control set stays inside its window.
+Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
+before every gate run. No DDL, no deletes, nothing pushed. Verse untouched. No title or
+meta description edited.
 
-Gates: tsc **0** · build **0** · check:routes **0** · check:indexability **0** (running
-server) · **check:orphans 0, unscoped, complete crawl of 705 URLs** ·
-check:metadata-dupes **unchanged** (8 groups, 0 non-verse skips).
+Gates (real build): tsc **0** · build **0** · check:routes **0** · check:indexability
+**0** · check:orphans **0** (705 of 705, complete crawl) · check:metadata-dupes
+**unchanged** (8 groups, 0 non-verse skips, 997 checked).
 
-Proofs: `docs/proofs/w7d/`. BLOCKED: `w7d-ci`.
+Proofs: `docs/proofs/w7-close/`. BLOCKED: `w7d-ci` resolved, `w7-close-1` filed.
 
 ---
 
-## PART 1 - BLOCKED, and this is the honest answer
+## PART 1 - outcome (b), and the good half of (a) came with it
 
-You were right that we have spent three missions building assertions that cannot fail a
-push. I could not close it, and I did not fake closing it.
+**The service role key is not needed and is not requested.** Measured table by table,
+anon returns identical counts for everything the non-verse sitemap batch reads: quizzes
+400=400, groups 88=88, games 24=24, tot_categories 20=20, pulse_reports 1=1, songs
+4120=4120. The non-verse sitemap now runs on `createPublicReadClient`, and production
+output is byte-identical: **3046 URLs, 705 non-verse, 2341 verse**, verified on a build
+with the real environment.
 
-The three gates grade a **running** app, so CI must build and boot it. The repo's
-workflows reference exactly 5 secrets, and **`SUPABASE_SERVICE_ROLE_KEY` is not one of
-them**. `sitemap.ts` builds through `createServiceRoleClient()`; without that key the
-sitemap falls back to static-only, and `check:orphans` would then grade a sitemap with
-every quiz, group and playlist URL missing. That is a **green that means nothing**, which
-is worse than no gate at all. So: BLOCKED.md `w7d-ci`, with the three options and the
-visibility answer (post to the existing Discord channel on failure only; 6 of the 7
-workflows already have failure notification wired, and a GitHub email nobody reads is not
-a notification).
+`check:indexability` also dropped to anon. It only reads `quizzes` and `groups`, both
+MATCH, and that was the last reason anyone would have needed a key in CI.
 
-One real enabler did ship: `check-indexability.mts` hard-required a `.env.local` **file**,
-which is gitignored and can never exist in CI. It now falls back to `process.env`. Same
-variables, read from wherever they live. That is one of two blockers removed; the secret
-is yours.
+**The CI simulation is the proof that matters.** A build with an invalid service role key:
+`BUILD_EXIT=0`, Verse skipped with a clean warning, and **zero static-only fallbacks**.
+That fallback was the entire risk in my w7d-ci block: before this change the same build
+would have emitted ~41 static URLs and any gate on it would have been a lie. It now emits
+**684 non-verse URLs** and all three gates run against them.
 
-## PART 3 - you were right, and I measured it rather than agreeing
+**What CI does not cover, stated in numbers:** 21 of 705 non-verse URLs (`/rankings` and
+its 20 pages, 3%) and all 2341 Verse URLs.
 
-The clip condition had **no runtime meaning**. Five groups with zero clip rows each
-returned a full 10-question round with 10 preview URLs, identical to bts which has clips.
-So it is dropped, and the circular justification with it.
+**I found the 21 the hard way, and it corrects my own measurement.** My first sweep used
+the table list in the mission and reported that anon covered everything non-verse. The CI
+build then produced 684 instead of 705, and the missing 21 were `/rankings`, which
+`getRankingsIndex()` builds from `duel_votes`: **0 rows under anon, 60361 under service
+role**. RLS is right to hide per-user votes, so I did not switch that call. Doing so
+would have made every ranking read as locked on the live site, not just in the sitemap.
 
-The threshold moved too, and for the same kind of evidence: the picker's 15 was headroom
-asserted in a comment. Pools of **11** (akmu, jeon-somi) return full rounds. The threshold
-is now ROUND_SIZE, the number `/api/blind-test/generate` actually needs.
+`.github/workflows/seo-gates.yml` runs nightly at 04:30 UTC, builds, boots the app, runs
+all three gates (each still runs if an earlier one failed), and posts to Discord on
+failure. Two bugs fixed before commit rather than on first run: `secrets` is not available
+in a step-level `if:` (moved into the shell via `env:`), and the gates were guarded with
+`always()`, which would have run them even when the app never booted.
 
-## PART 2 - the drift is removed, not moved
+**A correction to my last BLOCKED entry.** `w7d-ci` claimed "6 of the 7 existing workflows
+already have failure notification wired". That was **wrong**: my grep matched
+`DISCORD_TOKEN`, which is those workflows' own bot credential, not a failure hook.
+**No workflow in this repo notifies on failure.** The new one is the first, and it no-ops
+cleanly when no webhook secret exists, so it is useful today and louder once one does.
 
-`getBlindtestGroups` no longer has its own rule; it delegates to
-`blind-test-playlists.ts`. All three surfaces on that page now agree:
+**The nightly will be RED on its first run.** Under CI conditions `check:metadata-dupes`
+reports exactly 1 collision: the SEVENTEEN duplicate already filed as `w1-ctr`. Filed as
+`w7-close-1`, because a nightly that is red from day one for a known reason is how a team
+learns to ignore a red nightly. It is a 30-second admin retitle and then the first run is
+green.
 
-    linked on /blindtest: 97   in the sitemap: 97   sitemap-not-linked: 0   linked-not-in-sitemap: 0
-    akmu:    sitemap=true linked=true offered=true
-    taeyang: sitemap=true linked=true offered=true
+## PART 2.1 - deduped, counted not asserted
 
-The 23 playable-but-unadvertised playlists I flagged in Next are now advertised, linked
-and offered. Sitemap 679 -> 705, every URL of it linked, gate still green.
+`getAdvertisablePlaylists` is wrapped in React `cache()`. Counted in one traced build:
+**4 call sites invoked, 3 real DB reads**. `/blindtest` asks twice and reads once, which
+is the duplicated `songs` pagination gone. Trace lines are env-gated and silent otherwise.
 
-## PART 4 - measured, and deliberately NOT cached
+## PART 2.2 - /pt/blindtest
 
-The playlist read costs **153-253 ms**, which is 1.0-1.7% of the 15s ceiling and the same
-order as the quizzes read that has always been in that batch. It also got *cheaper* this
-mission, because dropping the clip condition removed a second paginated read. The route
-cold: 31 ms, 3046 `<loc>`, zero static-only warnings.
+Renders correctly: HTTP 200, h1 present, the same 79-group picker, akmu and taeyang
+included. No playlist section added, as instructed.
 
-So I did not add a cache. You said cache **if** it is a meaningful fraction of 15s; it is
-not, and a cache layer bought without evidence still has to be invalidated forever.
+**Alphabetical is right for that page too, and the old order was worse than "count
+descending" sounds.** The previous sort was by *how many songs we happen to have
+catalogued* for each group. That is an implementation detail leaking into the UI: it told
+users nothing actionable and fronted whichever group we imported most for. The picker is
+79 unlabelled name chips with **no search box**, so the only action is hunting for a name,
+and alphabetical is the order that makes hunting predictable in both locales.
 
-## PART 5 - report only, and it is worse than a mismatch
-
-The two id spaces are **completely disjoint**, tested exhaustively rather than sampled:
-4120 `songs` ids, 349 `blind_test_songs` ids, **intersection 0**. So `if (!song) continue`
-fires on every choice and those stats cannot be written by the current game.
-
-The dates put an instant on it: newest `blind_test_songs.updated_at` is
-**2026-06-05T17:36:42Z**, newest `blind_test_plays` row is **2026-06-05T17:36:38Z**, four
-seconds apart, and zero plays since. 327 of 349 rows have `times_played > 0`, so the stats
-were real once and froze when the game moved to `songs`.
-
-Not fixed, as instructed. Flagging one thing for whoever picks it up: the first question
-is not "how do we repair the join" but "should per-song stats live on `songs` now", since
-`blind_test_songs` is a table the game no longer reads at all.
+**Should /pt link its playlists? Yes, eventually.** `/pt/blindtest` is in the sitemap and
+links none of the 97, the same shape as the bug W7c fixed on `/blindtest`. Not an orphan
+risk today because the English index links them all. Not done here, as instructed.
 
 ## Deviations and flags (loud)
 
-1. **I corrected a lie in my own file.** `check-orphans.mts` still opened with "crawling
-   every sitemap URL is too slow for CI, so the crawl SAMPLES" and "default 200", both
-   false since W7c changed the default to a complete crawl. A stale header on a gate is
-   how the next person mis-reads a result. Fixed.
-2. **PART 4's first timing was from Node, not the server.** Direct query timing is not the
-   same as the route's cold path, so I measured the route too. It is prerendered, so the
-   15s race runs at build time and not per request, which is the fact that actually
-   settles the risk.
-3. **26 new URLs entered the sitemap.** They are real, playable, already-existing pages
-   that now have links, not minted URLs, and PART 3's measurement is what justifies them.
-   Worth stating plainly since "no new URL" is a standing rule.
+1. **You caught a real number mismatch and here is the cause.** W7d's report said the
+   playlist read cost "153-253 ms" while `part4-timing.txt` recorded 364/235/256. I quoted
+   the exploratory run in prose and then re-ran the script when saving the proof file, so
+   the committed artefact recorded a different, slower run. The conclusion held at either
+   number, which is exactly why it would never have been caught. Every number in this
+   report is read back from the file it is stored in.
+2. **My PART 1 measurement was incomplete and the simulation caught it, not me.** I
+   measured the tables I was handed instead of asking what else the sitemap calls. The
+   21-URL gap is small, but the habit that produced it is not.
+3. **A false claim in my last BLOCKED entry**, corrected above and in BLOCKED.md itself.
+   I asserted failure notification existed on the strength of a grep that matched a
+   different thing entirely.
 
 ## Covenant
 
-Every threshold in this change is the runtime's own requirement, measured against the API
-that serves the game. No count is estimated, no playlist is advertised that was not proven
-to produce a full round, and the frozen-stats finding is reported with the exhaustive test
-behind it rather than a sample.
+Every count in this report is a measured row count or a served-HTML count, and the ones
+that differ between anon and service role are named with both numbers rather than
+summarised. Nothing is estimated.
 
 ## Next
 
-`w7d-ci` is yours: one secret decides whether the gates become real. Still open: the
-duplicate SEVENTEEN quiz and the partner log. New and unclaimed: the frozen blind test
-per-song stats, which needs its own mission.
+The arc is closed. `w7-close-1` (retitle the SEVENTEEN quiz) is the one thing standing
+between this workflow and a green first run. Still open and unrelated: the partner log,
+and the frozen blind test per-song stats from W7d, which still wants its own mission.
 
 ---
 

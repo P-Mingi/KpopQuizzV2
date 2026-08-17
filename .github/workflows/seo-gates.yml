@@ -1,0 +1,102 @@
+name: SEO gates (nightly)
+
+# W7-CLOSE. Three gates existed as package scripts a human had to remember to type,
+# which made them documents rather than gates. This runs them against a real build.
+#
+# WHY THE ANON KEY AND NOT THE SERVICE ROLE KEY
+# Measured table by table, the anon key returns identical counts to the service role for
+# everything the non-verse sitemap needs: quizzes(published) 400=400, groups 88=88,
+# games(published) 24=24, tot_categories(published) 20=20, pulse_reports 1=1,
+# songs(active) 4120=4120. So no RLS bypass is shipped to a GitHub runner. The two
+# secrets below already exist in this repo; this workflow adds none.
+#
+# WHAT THIS RUN DOES NOT COVER, stated so a green is not over-read:
+#   - /verse/* (2341 URLs). verse_seed_ids reads 0 under anon (30 under service role)
+#     and awards reads 45 of 55. Verse is PAUSED, so this is not a gap worth a key.
+#   - /rankings and its 20 pages (21 URLs). getRankingsIndex counts rows in duel_votes,
+#     which anon reads as 0 by design: it is per-user vote data and RLS is correct to
+#     hide it. Under anon every ranking looks locked, so those URLs leave the sitemap.
+# The gate therefore asserts on 684 of the 705 non-verse URLs. That is coverage stated
+# in numbers, not a green that quietly means less than it looks.
+#
+# Nightly, not on push: check:orphans crawls every sitemap URL (~684 fetches) and takes
+# minutes. It is a completeness check, not a fast pre-merge lint.
+
+on:
+  schedule:
+    - cron: '30 4 * * *' # 04:30 UTC daily, clear of the content crons
+  workflow_dispatch: {}
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}
+      NEXT_PUBLIC_SITE_URL: https://kpopquiz.org
+      NEXT_PUBLIC_SITE_NAME: KpopQuiz
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the quiz app
+        run: pnpm --filter quiz build
+
+      - name: Start the built app on :3021
+        id: start
+        working-directory: apps/quiz
+        run: |
+          nohup npx next start -p 3021 > /tmp/app.log 2>&1 &
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 http://localhost:3021/ || true)
+            if [ "$code" = "200" ]; then echo "app up"; exit 0; fi
+            sleep 2
+          done
+          echo "app did not come up on :3021"; exit 1
+
+      # Each gate runs even if an earlier one failed, so one nightly reports every
+      # problem instead of only the first.
+      - name: check:indexability
+        if: steps.start.outcome == 'success'
+        working-directory: apps/quiz
+        run: pnpm run check:indexability
+
+      - name: check:metadata-dupes
+        if: always() && steps.start.outcome == 'success'
+        working-directory: apps/quiz
+        run: pnpm run check:metadata-dupes
+
+      - name: check:orphans
+        if: always() && steps.start.outcome == 'success'
+        working-directory: apps/quiz
+        run: pnpm run check:orphans
+
+      # VISIBILITY. Nothing in this repo notifies on failure today, so without this a red
+      # nightly is one grey cross nobody opens. This step is skipped when the secret is
+      # absent, so the workflow is useful before the webhook exists and louder after.
+      - name: Report failure to Discord
+        if: failure()
+        env:
+          # The `secrets` context is NOT available in a step-level `if`, so the presence
+          # test happens in the shell instead. No webhook set = the step no-ops.
+          WEBHOOK: ${{ secrets.DISCORD_ALERT_WEBHOOK }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "No DISCORD_ALERT_WEBHOOK secret set, so this failure is only visible in the Actions tab."
+            exit 0
+          fi
+          curl -sS -X POST -H 'Content-Type: application/json' \
+            -d "{\"content\":\"SEO gates FAILED on ${GITHUB_REF_NAME}. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}\"}" \
+            "$WEBHOOK"

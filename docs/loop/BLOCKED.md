@@ -35,51 +35,39 @@ orphans at all: a sampled crawl that skipped index pages invented them. check:or
 passes UNSCOPED on a complete crawl of all 679 non-verse sitemap URLs, and the scope flag
 was deleted rather than narrowed. See docs/proofs/w7c-orphans/.
 
-## w7d-ci - the three gates cannot run in CI: the repo has no service-role secret
+w7d-ci blocker RESOLVED 2026-08-16 (W7-CLOSE) WITHOUT a service role key. Measured table
+by table: anon returns identical counts to service role for everything the non-verse
+sitemap batch needs (quizzes 400=400, groups 88=88, games 24=24, tot_categories 20=20,
+pulse_reports 1=1, songs 4120=4120). The non-verse sitemap and check:indexability now run
+on the anon key, and .github/workflows/seo-gates.yml runs all three gates nightly on the
+two secrets the repo already had. NO new key requested. Outcome (b): coverage is 684 of
+705 non-verse URLs. See docs/proofs/w7-close/.
 
-- What is blocked: PART 1, automating `check:indexability`, `check:metadata-dupes` and
-  `check:orphans`. All three grade a RUNNING app, so CI must build and boot it, and the
-  build needs DB credentials this repo does not hold. Per the mission I did not stub the
-  check, did not point it at production, and did not commit a workflow that would fail on
-  its first run.
-- Why (owner decision): measured, not assumed. `.github/workflows/` holds 7 files, all
-  content crons, and between them they reference exactly 5 secrets:
-  `DISCORD_TOKEN`, `GUILD_ID`, `INDEXNOW_TOKEN`, `QUIZ_SUPABASE_URL`,
-  `QUIZ_SUPABASE_ANON_KEY`. The app needs these to build and serve:
+CORRECTION to what the w7d-ci entry claimed: it said "6 of the 7 existing workflows
+already have failure notification wired". That was WRONG. The grep matched DISCORD_TOKEN,
+which is those workflows' own bot credential, not a failure hook. NO workflow in this repo
+notifies on failure. The new workflow posts to a Discord webhook on failure and no-ops
+when the secret is absent.
 
-      NEXT_PUBLIC_SUPABASE_URL        <- QUIZ_SUPABASE_URL can supply this
-      NEXT_PUBLIC_SUPABASE_ANON_KEY   <- QUIZ_SUPABASE_ANON_KEY can supply this
-      NEXT_PUBLIC_SITE_URL            <- not a secret, can be a literal
-      SUPABASE_SERVICE_ROLE_KEY       <- MISSING, and it is the one that matters
+## w7-close-1 - the nightly will be RED on its first run, for a reason you already own
 
-  `sitemap.ts` builds through `createServiceRoleClient()`. Without the service-role key
-  the sitemap falls back to STATIC-ONLY, and `check:orphans` would then grade a sitemap
-  with every quiz, group and playlist URL missing: a green that means nothing. That is
-  the specific reason this is a block and not a "try it and see".
-- What I DID do (safe, no fabrication): `check-indexability.mts` hard-required a
-  `.env.local` FILE, which is gitignored and can never exist in CI. It now falls back to
-  `process.env` when the file is absent. Same variables, read from wherever they live.
-  This removes one blocker; the missing secret remains.
-- Options (each with its trade-off):
-  1) Add `SUPABASE_SERVICE_ROLE_KEY` as a GitHub Actions secret, then a nightly workflow
-     builds the app, boots it on :3021 and runs all three gates. Trade-off: a
-     service-role key in CI is a real secret-surface increase, and it is read-write. It
-     would be used only by a scheduled job on this repo.
-  2) Run the gates against the deployed production URL instead of a CI build. No secret
-     needed for the HTTP checks. Trade-off: `check-indexability` still needs DB reads for
-     its inverse test, and grading production tells you a page is already broken for
-     users rather than catching it before merge.
-  3) Leave them manual. Free, and it is what we have today. Trade-off: three missions of
-     assertions that cannot fail anything, which is what this mission called a document.
-- Recommendation: 1, nightly, plus the visibility answer below. If the service-role key
-  in CI is not acceptable, 2 is a genuine second best for orphans + metadata-dupes (both
-  are pure HTTP), and `check:indexability` stays manual.
-- VISIBILITY, since a red nightly nobody looks at is the likely outcome: 6 of the 7
-  existing workflows already have failure notification wired, and the repo has
-  `DISCORD_TOKEN` plus the app has `DISCORD_FLEX_WEBHOOK_URL`. The nightly should post to
-  the same Discord channel on failure ONLY, naming the gate and the offending URLs. A
-  GitHub Actions email nobody reads is not a notification.
-- Proof / context: docs/proofs/w7d/ci-env.txt
+- What is blocked: `check:metadata-dupes` going green in CI. Under CI conditions it
+  reports exactly 1 collision group, and it is the SEVENTEEN duplicate already recorded
+  in `w1-ctr` below: /q/seventeen-true-or-false and /q/seventeen-true-or-false-65 render
+  the identical title. (Locally it reports 8, because 7 more are /verse pages that fall
+  out of the sitemap under anon.)
+- Why (owner decision): no metadata template can invent a difference that is not in the
+  data. It is a catalogue edit, not a code one, and it is your call, exactly as w1-ctr
+  says.
+- Why it matters MORE now than when it was filed: a nightly that is red from day one for
+  a known reason is how a team learns to ignore a red nightly. The gate would be
+  training people to skip it before it ever catches anything real.
+- Options: 1) retitle one quiz in the admin (30 seconds, fixes the cause, w1-ctr's own
+  recommendation). 2) merge the workflow anyway and accept a red nightly until then.
+  3) hold the workflow until w1-ctr is cleared.
+- Recommendation: 1, then the nightly is green on its first run. If that cannot happen
+  before the push, 3 over 2: an unmerged workflow is honest, a permanently red one lies.
+- Proof / context: docs/proofs/w7-close/gates-under-anon.txt
 
 ## w4b-item3 - the partner attribution log has nowhere to write
 

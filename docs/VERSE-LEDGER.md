@@ -3609,3 +3609,113 @@ header ("the crawl SAMPLES", "default 200"), untrue since W7c.
 Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:orphans 0 (705 URLs,
 unscoped, complete), check:metadata-dupes unchanged (8 groups, 0 non-verse skips, 971 ->
 997 checked). Proofs: docs/proofs/w7d/. Nothing pushed.
+
+## L-195 - W7d audited: PASS, and the CI block asks for the wrong key
+
+W7d (3c1cbf4) answered all four findings of L-194 with measurement instead of argument,
+which is the right instinct, and two of them it disproved in a direction that cost it work.
+
+Verified in the tree:
+- The clip condition is GONE from `blind-test-playlists.ts`, and the proof is runtime, not
+  reasoning: loona, astro, tws, artms and katseye have zero clip rows and each returned a
+  full 10-question round with 10 preview URLs, against a bts control that has clips.
+- `getBlindtestGroups` no longer holds a rule at all; it delegates. The old
+  `MIN_SONGS_FOR_GROUP = 15` was headroom asserted in a comment, and pools of 11 (akmu,
+  jeon-somi) were measured filling a round. Three surfaces, one definition: 97 linked, 97
+  in the sitemap, 0 either way, 79 groups in the picker payload + 18 static modes = 97.
+- The orphan gate is green unscoped at 705 of 705, up 26 URLs that are real playable pages
+  gaining links rather than minted ones.
+- PART 5 is exhaustive, not sampled: 4120 `songs` ids, 349 `blind_test_songs` ids,
+  intersection **0**. Per-song blind test stats froze on 2026-06-05, four seconds after the
+  last recorded play, and 327 of 349 rows have `times_played > 0`, so they were real once.
+  Correctly left unfixed, and the right first question was asked: whether those stats
+  should live on `songs` at all now.
+
+Findings the audit adds:
+
+1. **The CI block asks for the more dangerous of two options and never tested the cheaper
+   one.** The block is honest and its reasoning is right - a gate grading a static-only
+   sitemap is a green that means nothing. But the ask is `SUPABASE_SERVICE_ROLE_KEY` in a
+   CI runner, a full RLS bypass, when `server.ts` says in its own comment that the service
+   role client is for admin API routes only, and the sitemap calls it three times.
+   `getAdvertisablePlaylists` already reads `songs` and `groups` with the ANON client
+   inside that very batch, so anon is proven for part of it. Untested: whether anon can
+   read `pulse_reports`, `verse_seed_ids`, `idols`, `albums`. That measurement decides
+   whether any new secret is needed at all.
+
+2. **`/blindtest` now runs the same paginated read twice per render.** `page.tsx` calls
+   `getBlindtestGroups()` and `getAdvertisablePlaylists()` in one `Promise.all`, and the
+   first is now a wrapper around the second, with no `cache()` anywhere. At 235-364 ms a
+   read, that is one full duplicate. ISR at 3600 keeps the bill small; the trap is that
+   the next caller makes it three.
+
+3. **`/pt/blindtest` was never mentioned.** It is a second consumer of
+   `getBlindtestGroups` and it is in the sitemap. The picker's order also changed silently
+   from count-descending to alphabetical, because the shared definition sorts by name. Not
+   a defect, but a shared query changed and only one of its two callers was audited - the
+   same shape as the open-runs bug.
+
+4. **The report's timing does not match its own proof.** REPORT says the playlist read
+   costs "153-253 ms"; `part4-timing.txt` records 364, 235, 256. The decision is unchanged
+   at either number, and the same paragraph calls the read "cheaper" when the query it
+   replaced measured 72-166 ms - cheaper than W7c, more expensive than before the arc.
+
+Arc note: W7b, W7c and W7d have all been link-mesh plumbing, and W7d generated three more
+follow-ups. The plumbing is now honest. Recommendation is to close the arc, push the 38
+commits, and go back to PLAY-MASTER-PLAN rather than mint W7e out of momentum.
+
+Supabase MCP still refuses ("You do not have permission"), so every DB figure above comes
+from the worker's committed proofs. Nothing pushed; 38 commits local.
+
+## L-187 - W7-CLOSE: the gates run in CI on the anon key, no service role key shipped (2026-08-16)
+
+OWNER RULING HONOURED: test anon first. Measured table by table, anon == service role for
+everything the non-verse sitemap batch needs (quizzes 400=400, groups 88=88, games 24=24,
+tot_categories 20=20, pulse_reports 1=1, songs 4120=4120, idols 118=118, albums 351=351,
+photocards 7=7, collectibles 5=5). The non-verse sitemap batch + the pulse block switched
+to createPublicReadClient; production output byte-identical (3046 total / 705 non-verse /
+2341 verse). check:indexability also dropped to anon (it reads only quizzes + groups).
+
+CI SIMULATION (build with an invalid service role key): BUILD_EXIT=0, verse skipped with a
+clean warning, ZERO static-only fallbacks. That fallback was the whole risk in w7d-ci:
+before this change the same build emitted a static-only sitemap and any gate on it would
+have been meaningless. Now 684 non-verse URLs, all three gates run, injected orphan still
+FAILS.
+
+OUTCOME (b). Not covered in CI: 21 of 705 non-verse URLs (/rankings + 20 pages, 3%) and
+all 2341 verse URLs. THE 21 CORRECT MY OWN FIRST SWEEP: I measured the tables the mission
+listed and missed that getRankingsIndex() reads duel_votes, which anon sees as 0 rows vs
+60361 under service role. RLS is RIGHT to hide per-user votes, so that call was NOT
+switched: under anon every ranking reads as locked, which would break the live /rankings
+pages, not just the sitemap.
+
+NEW: .github/workflows/seo-gates.yml, nightly 04:30 UTC + dispatch, builds, boots on
+:3021, runs all three gates (each runs even if an earlier failed), Discord webhook on
+failure (no-ops when the secret is absent). Uses ONLY the two existing secrets
+QUIZ_SUPABASE_URL + QUIZ_SUPABASE_ANON_KEY. Two bugs fixed before commit: `secrets` is NOT
+available in a step-level `if:` (moved to env + shell test), and gates guarded by always()
+would have run even when the app failed to boot (now gated on steps.start.outcome).
+
+CORRECTION to the w7d-ci BLOCKED entry: it claimed 6 of 7 workflows had failure
+notification wired. FALSE - the grep matched DISCORD_TOKEN, those workflows' own bot
+credential. NO workflow in this repo notifies on failure; this is the first.
+CORRECTION to L-186: the report said the playlist read cost 153-253ms while
+part4-timing.txt recorded 364/235/256. Prose quoted an exploratory run, the proof file
+recorded a later re-run. The conclusion (a small fraction of 15s) holds at either.
+
+BLOCKED w7-close-1: the nightly is RED on its first run, on exactly 1 collision, the
+SEVENTEEN duplicate already filed as w1-ctr. A nightly red from day one for a known reason
+trains people to ignore it. 30-second admin retitle clears it.
+
+PART 2.1: getAdvertisablePlaylists wrapped in React cache(). Traced build: 4 call sites
+invoked, 3 real DB reads (/blindtest asks twice, reads once). Trace is env-gated.
+PART 2.2: /pt/blindtest renders correctly with the new 79-group set (akmu + taeyang
+included), links 0 playlists (unchanged, as instructed). Alphabetical IS right for it: the
+old sort was b.count-a.count where count = how many songs we catalogued, an implementation
+detail leaking into a 79-chip picker with no search box. FLAGGED not done: /pt/blindtest is
+in the sitemap and links none of the 97 playlists, same shape as the bug W7c fixed on
+/blindtest; not an orphan risk because the English index links them all.
+
+Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:orphans 0 (705,
+complete), check:metadata-dupes unchanged (8 groups, 0 non-verse skips, 997 checked).
+Proofs: docs/proofs/w7-close/. Nothing pushed.

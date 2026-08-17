@@ -1,4 +1,4 @@
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
@@ -207,7 +207,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let pulsePages: MetadataRoute.Sitemap = [];
 
   try {
-    const supabase = createServiceRoleClient();
+    // W7-CLOSE: the NON-VERSE sitemap runs on the ANON key. Measured table by table,
+    // anon reads exactly what service role reads for everything this batch needs:
+    // quizzes(published) 400=400, groups 88=88, games(published) 24=24,
+    // tot_categories(published) 20=20, songs(active) 4120=4120. server.ts reserves the
+    // service role client for admin routes, and a full RLS bypass sitting in a GitHub
+    // runner is a permanent security cost, so it is not spent where anon suffices.
+    const supabase = createPublicReadClient();
 
     // Hard 15s ceiling for the entire sitemap batch. Under a DB outage the
     // build would otherwise hang for 60s per attempt and fail the deploy.
@@ -369,7 +375,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // own so a failure here cannot drop the rest of the sitemap. lastmod is each
   // report's real updated_at (honest - it only changes when the cron reruns).
   try {
-    const supabase = createServiceRoleClient();
+    // W7-CLOSE: anon reads pulse_reports identically (1 = 1).
+    const supabase = createPublicReadClient();
     const { data } = await supabase
       .from('pulse_reports')
       .select('month, updated_at')

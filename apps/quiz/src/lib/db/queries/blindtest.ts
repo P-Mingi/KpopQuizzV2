@@ -19,6 +19,7 @@ export interface BlindtestGroup {
 }
 
 export async function getBlindtestGroups(): Promise<BlindtestGroup[]> {
+  if (process.env.PLAYLIST_TRACE) console.log('[playlist-trace] wrapper call');
   const { groups } = await getAdvertisablePlaylists();
   return groups.map(g => ({ slug: g.slug, name: g.name, count: g.songs }));
 }

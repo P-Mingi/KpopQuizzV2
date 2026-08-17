@@ -1,0 +1,19 @@
+PART 1 - what the ANON key can read of what sitemap.ts needs
+table                              anon   service   verdict
+quizzes (published)                 400       400   MATCH
+groups                               88        88   MATCH
+games (published,name_all)           24        24   MATCH
+tot_categories (published)           20        20   MATCH
+pulse_reports                         1         1   MATCH
+verse_seed_ids                        0        30   DIFFERS
+idols (active)                      118       118   MATCH
+albums                              351       351   MATCH
+songs (active)                     4120      4120   MATCH
+photocards (published)                7         7   MATCH
+collectibles (published)              5         5   MATCH
+awards                               45        55   DIFFERS
+the three tables my first sweep missed (they feed /rankings, 21 non-verse URLs)
+table                  anon   service   verdict
+duel_questions           20        20   MATCH
+duel_ratings            360       360   MATCH
+duel_votes                0     60361   DIFFERS

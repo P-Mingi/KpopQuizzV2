@@ -1,0 +1,24 @@
+=== all three gates against an ANON-ONLY build (the CI simulation) ===
+build: SUPABASE_SERVICE_ROLE_KEY=invalid-key-ci-simulation
+
+--- check:indexability ---
+Indexability guard passed: 34 sampled pages are index-consistent, and every article + sampled quiz/group is in the sitemap.
+EXIT=0
+
+--- check:orphans ---
+Orphan gate: 684 non-verse sitemap URLs, crawled 684 of 684 pages against http://localhost:3021
+Orphan gate passed: every one of the 684 non-verse sitemap URLs has at least one inbound internal link from the 684 crawled pages. (Complete crawl of every non-verse sitemap URL.)
+EXIT=0
+
+--- check:orphans with an injected orphan ---
+Orphan gate FAILED: 1 sitemap URL(s) have ZERO inbound internal links from the 685 crawled pages. This run crawled EVERY non-verse sitemap URL, so these have no internal inbound link from anywhere in the sitemap. Each offender by URL:
+  x /nobody-links-here
+EXIT=1
+
+--- check:metadata-dupes ---
+Duplicate-metadata gate FAILED (1 collision group(s)) across 684 checked URLs:
+  x 2 indexable URLs render an IDENTICAL title:
+      "SEVENTEEN true or false · 7 questions | KpopQuiz"
+      - /q/seventeen-true-or-false-65
+      - /q/seventeen-true-or-false
+EXIT=1 (the known w1-ctr SEVENTEEN duplicate, see BLOCKED w7-close-1)

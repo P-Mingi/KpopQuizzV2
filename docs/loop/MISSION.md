@@ -1,100 +1,77 @@
-# MISSION (W7d - make the gates real, collapse the last divergent surface). NO PUSH.
+# MISSION (W7-CLOSE - decide the CI key with a measurement, then the arc is shut). NO PUSH.
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-W7c is Cowork-approved (84182a5). Verse PAUSED. Nothing pushed. 37 commits local.
+W7d is Cowork-approved (3c1cbf4). Verse PAUSED. Nothing pushed. 38 commits local.
 
-## WHAT W7C EARNED
-The scope flag is gone, the gate fails on an injected orphan, the crawl is complete, and
-the phantom-orphan finding was the best work of the arc: you nearly fixed eight problems
-that did not exist and you checked first. `/data/pulse/2026-07` not being removed, and
-`/guess-the-kpop-idol` not getting a second link, are both right for the same reason.
+This is the LAST mission of the W7 arc. After it the owner pushes and we go back to
+PLAY-MASTER-PLAN. Do not open new fronts. If you find something big, write it in BLOCKED.md
+as a candidate mission and leave it there.
 
-This mission is what the audit found underneath it.
+## WHAT W7D EARNED
+You disproved two things you could have simply agreed with, and both cost you extra work:
+the clip condition (five clipless groups returning full rounds against a bts control) and
+the 15-song threshold (a comment's assertion, beaten by measuring pools of 11). PART 5 was
+exhaustive rather than sampled, and you asked the right first question instead of repairing
+a join nobody wants. That is the standard.
 
-## PART 1 - a gate nobody runs is a document (the big one)
-`.github/workflows/` contains seven files: birthdays, daily-quiz, indexnow, leaderboard,
-news, setup, youtube. All content crons. **NONE of the three gates runs anywhere.**
-`check:indexability`, `check:metadata-dupes` and `check:orphans` exist only as package
-scripts a human remembers to type. We have spent three missions building assertions that
-cannot fail a push.
+## PART 1 - the CI block: measure before anyone ships a key (owner ruling)
+Your BLOCKED `w7d-ci` is right that a gate grading a static-only sitemap is a green that
+means nothing. The owner has ruled on the ask itself: **test anon first, do not request the
+service role key yet.**
 
-Fix the ones that can honestly be automated:
-- Write a workflow that runs the gates against a built, running app.
-- `check:orphans` at 679 fetches is slow and you already said it belongs in a nightly.
-  Agreed: nightly (schedule), not on push. `check:indexability` and
-  `check:metadata-dupes` are cheaper - measure them and put them wherever they honestly
-  fit; if either is also too slow for push, say so and put it in the same nightly rather
-  than inventing a faster but weaker assertion.
-- A failing nightly must be VISIBLE. If a red nightly nobody looks at is the likely
-  outcome, say so and propose how it surfaces.
+The reason is in the codebase, not in taste. `src/lib/supabase/server.ts` says the service
+role client is for admin API routes only, and `sitemap.ts` calls it three times.
+`getAdvertisablePlaylists` already reads `songs` and `groups` with the ANON client inside
+that same raced batch, so anon is proven for part of the sitemap already. A full RLS bypass
+living in a GitHub runner is a permanent security cost; it must be the answer to a measured
+question, not the first idea.
 
-**BLOCK, do not guess:** these gates need a running server and DB credentials. Check what
-secrets the repo actually has. If the env is not there, do NOT stub the check, do NOT
-point it at production, do NOT fabricate a workflow that will fail on first run. Write
-exactly what is missing in BLOCKED.md and stop that part.
+Measure, table by table, what the ANON key can actually read of what the sitemap needs:
+`quizzes` (published), `groups`, `games` (published), `tot_categories` (published),
+`pulse_reports`, `verse_seed_ids`, `idols`, `albums`, plus the songs reads already proven.
+Report a row count per table under anon, not a yes/no feeling.
 
-## PART 2 - "one definition" is two surfaces out of three
-The report says the sitemap and the index cannot drift again. True. But the picker on the
-SAME PAGE still uses its own rule: `src/lib/db/queries/blindtest.ts`,
-`MIN_SONGS_FOR_GROUP = 15`, no clip condition. Measured consequences of two rules on one
-page:
-- **akmu (11 songs) and taeyang (13)** are now advertised in the sitemap and linked on
-  `/blindtest`, and the picker on that same page does NOT offer them.
-- The **23 playable-but-unadvertised** playlists you flagged in Next are the mirror image:
-  offered by the picker, linked by nothing, in no sitemap.
+Then land in exactly one of these and say which:
+  (a) **Anon covers everything the sitemap needs.** Switch the sitemap's clients to
+      `createPublicReadClient`, prove the sitemap still emits the same URL count (705
+      non-verse, and the verse total unchanged), wire the workflow with the two secrets
+      that already exist, and CI is real with no new key. This is the good outcome.
+  (b) **Anon covers all but a named few.** Say which tables and what they contribute. If
+      what is lost is only Verse URLs, note that Verse is PAUSED and a gate that grades the
+      non-verse sitemap completely is still a real gate - propose that, do not just block.
+  (c) **Anon covers too little.** Then the service role key is genuinely the answer, and
+      the BLOCKED entry says so with the measurement behind it instead of an assumption.
 
-You moved the drift, you did not remove it. Collapse the third surface onto
-`blind-test-playlists.ts` too, or state in the report why the picker must keep a different
-threshold - a real reason, not the comment already in the file.
+Whatever ships, the gate must still fail on an injected orphan, run from the workflow, and
+the failure must be visible where the other six workflows already report.
 
-## PART 3 - the clip condition may have no runtime meaning
-`getAdvertisablePlaylists` requires clip-ready rows in `blind_test_songs`. I traced the
-game: `/blindtest/group-X` -> `blind-test-player.tsx` -> `/api/blind-test/generate`, which
-reads **`songs`** and re-fetches Deezer previews. `blind_test_songs` is read by admin, by
-`/verse/*`, by `/api/blind-test/modes`, and by the stats loop in `/api/blind-test/play`.
-**Nothing in the group blind test path consults it.**
+## PART 2 - two small things, because you are already in the file
+Not design decisions, so they do not deserve their own mission. If either turns out to be
+more than it looks, stop and write it down instead.
 
-If that holds, then `hasClips` excludes 23 fully playable playlists on a criterion the game
-never checks, and the justification in the file ("advertised-basis: it has clip-ready
-rows") is circular - it is advertisable because the old sitemap advertised it.
-
-MEASURE IT, do not reason about it: pick a group that has >= 10 clean `songs` rows and NO
-`blind_test_songs` clip rows, hit `/api/blind-test/generate` for it locally, and report
-whether a full round comes back. Then either drop the clip condition and advertise the 23,
-or keep it with the runtime reason written down. Both are fine. Guessing is not.
-
-## PART 4 - the sitemap batch got more expensive inside a 15s race
-`sitemap.ts` races the dynamic batch against `SITEMAP_BATCH_TIMEOUT_MS = 15000`, and on
-timeout it emits a **static-only sitemap** - every quiz, group and playlist URL gone. W7c
-replaced one capped query (`limit 5000`, one round trip) with `getAdvertisablePlaylists`,
-which paginates `songs` AND `blind_test_songs` sequentially inside that same race.
-
-Not observed failing. The blast radius is total, so measure rather than assume: time the
-sitemap route cold, report the batch duration and the playlist read's share of it. If it
-is a meaningful fraction of 15s, cache the playlist set (it changes when songs are
-imported, not per request) or move it out of the raced batch with its own fallback, so a
-slow playlist read costs the blindtest URLs and not the whole sitemap.
-
-## PART 5 - report only, no fix without evidence
-`/api/blind-test/play` updates per-song stats by selecting `blind_test_songs` by the ids in
-`body.choices`, but those ids come from `/api/blind-test/generate`, which selects from
-`songs`. If the two tables do not share an id space, `if (!song) continue` means
-`times_played`, `times_correct` and `avg_answer_time` have been silently frozen. Check
-whether the ids match. Report what you find. Do NOT fix it in this mission - if it is
-real it is its own mission with its own before/after.
+1. `/blindtest` runs the same paginated read twice per render: `page.tsx` awaits
+   `getBlindtestGroups()` AND `getAdvertisablePlaylists()` in one `Promise.all`, and the
+   first is now a wrapper around the second. Dedupe it (React `cache()` on the shared
+   function is the obvious shape). Prove it with a query count or a timing, not by reading
+   the code back to me.
+2. `/pt/blindtest` is the second caller of `getBlindtestGroups` and it is in the sitemap,
+   and W7d's report never mentions it. Check it renders correctly with the new set, and say
+   plainly whether the picker's order changing from count-descending to alphabetical is
+   right for that page too. If /pt should also link its playlists, say so - do NOT add the
+   section in this mission.
 
 ## STANDING RULES
-- Print `pwd` before every gate run. Two near-misses came from a cwd reset making a
-  command that never ran look like a clean result.
+- Print `pwd` before every gate run.
 - Anything that must be ABSENT is proven against the served HTML of a production build.
 - Never `git diff` to prove a covenant: it does not see untracked files. Grep the tree.
-- Capture the exit code, not just the last line of output. `gate-GREEN-unscoped.txt` ends
-  with `EXIT=` and nothing after it.
+- Capture exit codes, not just the last line of output.
+- Numbers in the REPORT must match the numbers in the proof files. W7d's report said the
+  playlist read cost "153-253 ms" while `part4-timing.txt` recorded 364, 235, 256. The
+  conclusion held at either number, which is exactly why nobody would have caught it.
 - No DDL, no deletes, no push. Prepared SQL goes to `docs/pending-migrations/`.
-- Proofs in `docs/proofs/w7d/`, committed.
-- When you are unsure which of two honest options applies, BLOCK and say so. Every time
-  you have done that this arc it was the right call.
+- Proofs in `docs/proofs/w7-close/`, committed.
+- When two honest options exist and you cannot choose on evidence, BLOCK and say so.

@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 
@@ -47,7 +49,7 @@ function cleanSongs(db: ReturnType<typeof createPublicReadClient>) {
     .not('title', 'ilike', '%karaoke%');
 }
 
-export async function getAdvertisablePlaylists(): Promise<{
+async function fetchAdvertisablePlaylists(): Promise<{
   staticModes: BlindTestMode[];
   groups: PlaylistGroup[];
 }> {
@@ -81,3 +83,11 @@ export async function getAdvertisablePlaylists(): Promise<{
 
   return { staticModes: STATIC_MODES, groups };
 }
+
+// W7-CLOSE: /blindtest asks for this twice in one render (once directly for the links,
+// once through getBlindtestGroups for the picker). React cache() dedupes it to a single
+// DB read per request instead of paginating `songs` twice.
+export const getAdvertisablePlaylists = cache(async () => {
+  if (process.env.PLAYLIST_TRACE) console.log('[playlist-trace] EXECUTE (real DB read)');
+  return fetchAdvertisablePlaylists();
+});

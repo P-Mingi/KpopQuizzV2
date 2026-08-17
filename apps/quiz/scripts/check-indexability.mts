@@ -167,7 +167,11 @@ for (const a of ARTICLES) {
 // (b) live catalogue: a sample of published quizzes and groups with quizzes.
 try {
   const { createClient } = await import('@supabase/supabase-js');
-  const db = createClient(env.NEXT_PUBLIC_SUPABASE_URL!, env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
+  // W7-CLOSE: anon, not service role. This reads only `quizzes` (published) and
+  // `groups`, and anon was measured to return identical counts on both (400 = 400,
+  // 88 = 88). Dropping the service role here is what lets this gate run in CI on the
+  // two secrets the repo already has, instead of shipping an RLS bypass to a runner.
+  const db = createClient(env.NEXT_PUBLIC_SUPABASE_URL!, env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, { auth: { persistSession: false } });
   const { data: quizzes } = await db.from('quizzes').select('slug').eq('status', 'published').order('play_count', { ascending: false }).limit(25);
   for (const q of (quizzes ?? []) as { slug: string }[]) {
     const p = `/q/${q.slug}`;
