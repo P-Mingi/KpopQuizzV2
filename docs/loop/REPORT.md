@@ -1,123 +1,120 @@
-# REPORT - W5 PART 0b: the headline does not survive. Two findings killed, one strengthened.
+# REPORT - W5 PART 0c: the girl-group finding is solid, generations is thin, the quiz list shrinks by two thirds.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
 before every run. **Read-only: no writes, no DDL, `git status --porcelain apps/` = 0.**
 Nothing pushed.
 
-Output: sections H, I, J appended to `docs/data/w5-dataset.md`. Sections 0-G untouched.
-Proofs: `docs/proofs/w5-part0b/`.
+Output: sections K, L, M, N appended to `docs/data/w5-dataset.md`. Sections 0-J untouched.
+Proofs: `docs/proofs/w5-part0c/`.
 
 ---
 
-## The short version
+## PART 1 - generations: survives the difficulty test, cannot take the period test
 
-**"The biggest fandoms know the least" is dead.** Not weakened, dead as a stable claim.
-Standardising for difficulty removes 41.7% of the correlation's magnitude (-0.242 to
--0.141), and 49.2% excluding general-kpop. That alone would have left a real if smaller
-finding. What kills it is the regime split:
+**Your suspicion was half right, and the half that is wrong matters.**
 
-    Mar+Apr  plays-vs-score correlation, standardised:  +0.199   (POSITIVE)
-    May-Aug  plays-vs-score correlation, standardised:  -0.267   (NEGATIVE)
+Standardising does **not** kill it. Every generation moves by at most 1.2 points (2nd 1.0,
+3rd 1.1, 4th 0.9, 5th 0.7, not-recorded 1.2) and the ordering is unchanged. So 5th Gen's
+76.9% is not an artefact of easy catalogues, which is what you expected it to be.
 
-The correlation **changes sign** depending on which period you use. And the ladder itself
-is not stable: across the 17 groups above floor in both periods, the Spearman rank
-correlation of the standardised ladders is **rho = -0.474**. The two periods rank the
-groups in close to opposite order. There is no "knowledge ladder" to publish; there are
-two different ladders that disagree with each other.
+The period test cannot be run at all: **5th Gen has zero plays before 2026-05-01.** Its
+entire contribution comes from May-Aug, so there is no second period to check it against.
+That is not a pass and not a fail; the test does not apply.
 
-You asked me not to soften either result. It collapses.
+What is left, on May-Aug only and above floor: 3rd **71.8%**, 4th **72.9%**, 5th **76.9%**.
+A 5.1 point rise. Two things sit against publishing it as a gradient:
 
-**The girl-group finding survives and gets stronger.** Standardised, the gap favours girl
-groups in both periods independently: **+3.4 pt in Mar+Apr and +4.5 pt in May-Aug**, within
-1.1 points of each other, while the raw gap changes sign between them (-0.4 then +2.0).
-That is the one comparison in the dataset that holds up under both tests.
+1. **2nd Gen is the highest-scoring generation in that window at 83.4%**, on **85 plays**
+   across 2 groups. It is below the 100-play floor, so it is listed and not ranked, but a
+   "newer generations know more" line has an older generation sitting on top of it and the
+   only reason it is not in the ranking is our own floor.
+2. **5th Gen is 12 quizzes across 4 groups**, with no `hard` quiz at all. In Mar+Apr the
+   three generations that do have plays are within 1.1 standardised points of each other.
 
-## PART 3 answered directly: what changed in May
+My read: it is a real 5.1 point difference in one window, not a gradient across five
+generations, and it cannot carry a section on its own.
 
-The change is in **who played**, and the Mar+Apr cohort does not look like people.
+## PART 2 - the concrete section survives, at a third of its size
 
-| | Mar+Apr | May-Aug |
-| --- | --- | --- |
-| signed-in share of all plays | 51.6% | 7.1% |
-| distinct signed-in accounts | 56 | 87 |
-| median plays per account | **249** | **6** |
-| accounts with >= 100 plays | **54 of 56** | **1 of 87** |
-| median seconds per play | 95 | 34 |
+| | quizzes above the 50-play floor |
+| --- | --- |
+| all history (C1) | 227 |
+| **May-Aug only** | **76** |
 
-Then the part that settles it. The ten heaviest Mar+Apr accounts:
+Losing 70.7% of the plays costs **66.5% of the qualifying quizzes**. 76 is not "a handful",
+so the section is publishable, but the entries largely change: **9 of the 15 lowest and 11
+of the 15 highest are different** from C1.
 
-    plays          642 - 674     (5.0% spread)
-    score        60.1 - 62.5%    (2.4 points)
-    median time    99 - 103 s    (4 seconds)
-    plays/quiz    4.0 - 4.4
+Six survive in the lowest list, including the one with real volume: "Ultimate BTS era quiz"
+at **41.6% on 781 in-window plays**, harder in this window than in the pooled data (53.1%).
+"BLACKPINK world records and achievements" is the new hardest at 40.0% on 71 plays.
 
-Ten separate accounts agreeing to within 2.4 points of score and 4 seconds of median play
-time while each playing 640-674 times. Across all 56: **50 score within 58-65%** and **52
-have a median time within 90-115 seconds**. The May-Aug control behaves like people: score
-interquartile spread **24.1 points against 1.9**, median 6 plays per account against 249.
+## PART 3 - the girl-group gap is not one group in a trenchcoat
 
-And it is **not just the heavy accounts**: removing the top ten moves the period by 0.4
-points, and the 20,332 anonymous Mar+Apr plays score 64.7%, 10.7 points below the May-Aug
-anonymous figure. The whole period is the anomaly, not a few users inside it.
+On May-Aug, standardised to section H's reference mix: **gg 76.5%, bg 70.9%, gap +5.6 pt**
+(4,194 vs 9,651 plays).
 
-**What the data cannot distinguish**, stated because you asked for that answer when it is
-the true one: seeded data, automated play, or a real campaign that drove a small cohort to
-grind the catalogue. `plays` records no source, IP, user agent or session, so no row in it
-can separate those three. I did not investigate whether those 56 accounts exist in
-`profiles` with distinguishing metadata; that is a read the mission did not authorise and
-it is the obvious next step if you want the answer.
+The leave-one-out ran 32 times, once per group:
 
-**Recommendation, and it follows from the numbers rather than from taste:** write the
-report on **May-Aug only**, 17,425 plays. It costs 70.7% of the volume and buys a dataset
-whose account behaviour is not uniform. Quoting the 59,407 figure means quoting a number
-70.7% composed of traffic that behaves like this.
+| test | result |
+| --- | --- |
+| any single removal moving the gap by more than the gap itself | **NO** |
+| gap stays positive in all 32 runs | **YES** |
+| range across all 32 runs | **3.8 to 7.6 pt** |
 
-## What is now in the file
+Largest movers are blackpink (+2.0, removing it *widens* the gap) and enhypen (-1.8).
+Removing **stray-kids, the largest single contributor at 3,556 plays, moves the gap by
+0.0 points**. Twelve gg groups and eight bg groups clear 100 plays inside the window.
 
-H: the standardised ladder, all 27 groups, raw vs standardised with the rank move and the
-tiers each row could be standardised over. I: both periods, each with its own ladder,
-correlation and gg/bg comparison, plus the rank-stability table. J: eleven diagnostics for
-the April/May boundary, ending with what the evidence supports and what it cannot.
+The mechanism is visible in the tiers and the report should state it rather than hide it:
+boy groups score **higher** on easy quizzes (85.5% vs 83.2%) and **lower** on medium ones
+(66.8% vs 74.6%), and 44.6% of bg plays are easy against 17.9% of gg plays. The gap is a
+medium-difficulty gap.
 
-Also in H, flagged rather than buried: **loona's -24 rank move is a renormalisation
-artefact**, not a measurement. 146 of its 158 plays are easy and 12 are medium;
-standardising to a 77.5%-medium mix reweights those 12 plays until they set the score.
-Three groups (le-sserafim, nmixx, bigbang) have medium plays only, so their standardised
-score equals their raw one by construction and is evidence for nothing.
+## PART 4 - the real sample
 
-## PART 4
+| | count |
+| --- | --- |
+| usable plays | **17,425** |
+| groups clearing 100 plays | **21** |
+| quizzes clearing 50 plays | **76** |
+| duel matchups clearing 100 votes | **62** |
 
-1. **`docs/PLAY-W5-REPORT-PLAN.md` is now tracked.** Added to the `.gitignore` allowlist
-   beside `docs/PLAY-SEO.md`. It is the contract this workstream is written against and it
-   was living on one disk. Verified with `git status`, not with `git check-ignore`, which
-   prints the matching rule for a negation too and reads as "still ignored".
-2. **Below-floor groups with quiz counts:** section J11. Seven of the ten were first
-   published in June or July 2026; three (akmu, mamamoo, astro) date from March and April.
-   Nine of the ten have 1-4 published quizzes.
+**One piece of good news I did not expect: every duel vote in the database is inside the
+window.** Oldest 2026-06-11, newest 2026-08-17, zero before 2026-05-01. Section F loses
+nothing to the period decision, so the 60,364 votes and 891 voters stand exactly as
+written, with the same colour-only caveat.
 
 ## Deviations and flags (loud)
 
-1. **I wrote a false note into the file and caught it before commit.** J11 originally said
-   the difficulty mixes "do not always sum to the quiz count" and named three groups.
-   Checked: **all ten rows sum correctly**. It was an assertion I never computed, in the
-   same section as the numbers that disprove it. Corrected, and worth stating plainly
-   because it is the third time this failure mode has appeared in this workstream.
-2. **Two hedges replaced with the arithmetic.** "Roughly half" of the correlation is 41.7%
-   and 49.2%; "roughly triples" is 2.99x. Both were describing numbers printed beside them.
-3. **The standardisation is only as good as the difficulty labels**, and section G1 already
-   showed those labels are author-assigned and not monotonic (hard scores 0.2 pt below
-   medium). Every standardised figure in H and I inherits that.
+1. **The standardised numbers in K-N are not comparable with I1/I2/I4.** You asked for
+   section H's reference mix and I used it throughout, but I4 standardised each period
+   against its own mix. Same data, different reference, different number: the May-Aug
+   girl-group gap is **+4.5 pt** under I4's reference and **+5.6 pt** under H's. Neither is
+   wrong; a standardised score means nothing without its reference, and both are now stated
+   next to their numbers. If the report quotes one, it must quote which.
+2. **I wrote "less than 1.2 points" and the largest move is exactly 1.2.** Recomputed and
+   replaced with "at most 1.2" plus the five per-generation moves, so the claim matches the
+   table above it.
+3. **The `hard` tier is unusable everywhere it appears here.** 22 gg plays and 30 bg plays
+   in M1, 13 to 37 plays per generation in K. It is carried in the standardisation because
+   the reference mix contains it, and it is 0.8% of the reference. Flagged rather than
+   dropped, because dropping it silently would change every number in K and M.
+4. **K3's 2nd Gen row is below floor and I put it in the table anyway**, labelled, because
+   omitting the one row that contradicts a gradient would be the more dishonest choice.
 
 ## Covenant
 
-Every figure counted from `plays` at read time. Below-floor rows listed, never ranked.
-Where standardisation could not be applied honestly the row says so. The one question the
-data cannot answer is written as unanswerable rather than guessed.
+Every figure counted from `plays` at read time, against a stated reference mix. Rows that
+cannot be standardised say so instead of printing a number (K2's 2nd Gen, "medium only").
+Below-floor rows are labelled where shown. Nothing rounded to flatter.
 
 ## Next
 
-The report's spine has to change. The ladder cannot carry it, the girl-group comparison
-can, and the period decision comes before any writing.
+Three findings, in the order the evidence supports them: the girl-group gap survives every
+test applied to it; the quiz list survives at a third of its size with mostly different
+entries; generations is a one-window 5.1 point difference on 12 quizzes and should be a
+paragraph rather than a section.
 
 ---
 

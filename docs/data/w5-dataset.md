@@ -874,3 +874,245 @@ The difficulty mix sums to the published quiz count on all ten rows.
 
 Seven of the ten were first published in June or July 2026; three (akmu, mamamoo, astro)
 date from March and April.
+
+---
+---
+
+# PART 0c - the same two tests on everything that was left
+
+Same snapshot, read-only. Raw output and script: `docs/proofs/w5-part0c/`.
+
+**Reference mix for every standardised figure in K, L, M, N** is section H's, so the
+numbers here are comparable with H: easy 12,922, medium 46,034, hard 451 (59,407 plays).
+Note this differs from I1/I2/I4, which used each period's own mix. A standardised score is
+only meaningful against a stated reference, and the two references give different values
+for the same underlying data.
+
+## K. GENERATIONS, STANDARDISED AND SPLIT
+
+```sql
+select coalesce(nullif(trim(g.generation),''),'(not recorded)') as generation,
+       q.difficulty, count(*) as plays,
+       100.0*sum(p.score)/sum(p.total_questions) as tier_pct
+from plays p join quizzes q on q.id=p.quiz_id join groups g on g.id=q.group_id
+where p.total_questions>0 and p.score between 0 and p.total_questions
+  and q.difficulty in ('easy','medium','hard')
+group by 1,2;   -- then reweight to the reference mix above
+```
+
+### K1. All history
+
+| generation | groups | plays | raw | standardised |
+| --- | --- | --- | --- | --- |
+| 2nd Gen | 2 | 774 | 66.5% | 65.5% |
+| 3rd Gen | 12 | 21,557 | 65.2% | 66.3% |
+| 4th Gen | 12 | 19,944 | 68.3% | 67.4% |
+| 5th Gen | 4 | 795 | 76.2% | 76.9% |
+| (not recorded) | 7 | 16,337 | 69.2% | 68.0% |
+
+Standardisation moves each generation by at most 1.2 points (2nd 1.0, 3rd 1.1, 4th 0.9,
+5th 0.7, not-recorded 1.2). **Difficulty mix does not explain the 5th Gen figure.**
+
+### K2. Mar+Apr
+
+| generation | groups | plays | raw | standardised |
+| --- | --- | --- | --- | --- |
+| 2nd Gen | 2 | 689 | 64.1% | **NOT STANDARDISABLE (medium only)** |
+| 3rd Gen | 10 | 16,252 | 63.0% | 63.9% |
+| 4th Gen | 11 | 12,975 | 63.2% | 63.0% |
+| 5th Gen | 0 | **0** | - | **no plays in this window** |
+| (not recorded) | 3 | 12,066 | 63.5% | 64.1% |
+
+**5th Gen has zero plays before 2026-05-01.** Its entire contribution to K1 comes from
+May-Aug. The three generations that do have plays here sit within 1.1 standardised points
+of each other (63.0 to 64.1).
+
+### K3. May-Aug
+
+| generation | groups | plays | raw | standardised |
+| --- | --- | --- | --- | --- |
+| 2nd Gen | 2 | **85** | 84.0% | 83.4% |
+| 3rd Gen | 12 | 5,305 | 71.4% | 71.8% |
+| 4th Gen | 12 | 6,969 | 76.2% | 72.9% |
+| 5th Gen | 4 | 795 | 76.2% | 76.9% |
+| (not recorded) | 7 | 4,271 | 80.5% | 75.9% |
+
+**The 2nd Gen row is below the 100-play floor** (85 plays, 2 groups) and is the
+highest-scoring generation in this window. It is listed, not ranked.
+
+Among the rows that clear the floor: 3rd 71.8%, 4th 72.9%, 5th 76.9%. A 5.1 point rise from
+3rd to 5th.
+
+### K4. Published quizzes per generation (all time)
+
+| generation | quizzes | easy | medium | hard |
+| --- | --- | --- | --- | --- |
+| 2nd Gen | 5 | 1 | 3 | 1 |
+| 3rd Gen | 101 | 30 | 68 | 3 |
+| 4th Gen | 111 | 30 | 77 | 4 |
+| 5th Gen | 12 | 3 | 9 | 0 |
+| (not recorded) | 171 | 46 | 110 | 15 |
+
+5th Gen rests on **12 quizzes across 4 groups**, with no `hard` quiz at all.
+
+### K5. Does the generation gradient survive?
+
+- **Standardisation: yes.** Every generation moves less than 1.2 points and the ordering in
+  K1 is unchanged.
+- **The period split: it cannot be tested for 5th Gen.** 5th Gen has 0 plays in Mar+Apr, so
+  there is no second period to compare it against. In Mar+Apr the remaining generations are
+  within 1.1 standardised points of each other; in May-Aug they span 71.8 to 76.9 among
+  rows above floor, plus an 85-play 2nd Gen row at 83.4%.
+
+## L. HARDEST AND EASIEST QUIZZES, RECOMPUTED ON MAY-AUG
+
+| | quizzes above the 50-play floor |
+| --- | --- |
+| all history (section C1) | 227 |
+| **May-Aug only** | **76** |
+| May-Aug qualifiers also in C1's 227 | 76 (all of them) |
+
+**Losing 70.7% of the plays costs 66.5% of the qualifying quizzes**: 227 to 76.
+
+### L1. May-Aug, 15 lowest scoring above floor
+
+| # | score | plays | difficulty | title |
+| --- | --- | --- | --- | --- |
+| 1 | 40.0% | 71 | medium | BLACKPINK world records and achievements |
+| 2 | 41.5% | 86 | medium | Stray Kids: Guess the Song Quiz |
+| 3 | 41.6% | 781 | medium | Ultimate BTS era quiz - only real ARMYs survive |
+| 4 | 52.3% | 59 | medium | BTS concerts and tour moments quiz |
+| 5 | 54.2% | 400 | medium | BLACKPINK ultimate fan challenge |
+| 6 | 54.5% | 424 | medium | ENHYPEN Quiz: Ultimate Fan Challenge |
+| 7 | 58.8% | 69 | medium | Guess the BTS member from clues |
+| 8 | 59.0% | 102 | medium | Stray Kids: Guess the member Quiz Part-1 |
+| 9 | 59.1% | 334 | medium | Which K-pop group debuted first? Timeline challenge |
+| 10 | 60.0% | 68 | easy | BTS ARIRANG comeback quiz - only real ARMYs will pass |
+| 11 | 60.3% | 85 | medium | aespa B-sides and deep cuts quiz |
+| 12 | 61.5% | 102 | medium | ILLIT - guess the idol! |
+| 13 | 62.8% | 145 | medium | Identify the Stray Kids sub-unit |
+| 14 | 64.2% | 136 | medium | BTS discography challenge |
+| 15 | 65.3% | 59 | medium | Stray Kids discography test |
+
+### L2. May-Aug, 15 highest scoring above floor
+
+| # | score | plays | difficulty | title |
+| --- | --- | --- | --- | --- |
+| 1 | 99.4% | 53 | easy | Find the Non-BLACKPINK Member |
+| 2 | 97.5% | 61 | medium | BTS members real names - complete test |
+| 3 | 97.2% | 96 | easy | SEVENTEEN true or false |
+| 4 | 96.8% | 101 | easy | How well do you know SKZ members? |
+| 5 | 96.4% | 208 | easy | Which group is this member from? (boy groups) |
+| 6 | 96.3% | 378 | easy | K-pop fandom names true or false |
+| 7 | 96.2% | 114 | medium | BTS members - know your biases |
+| 8 | 95.9% | 60 | easy | KickFlip mega quiz!! |
+| 9 | 94.4% | 57 | medium | IVE true or false |
+| 10 | 94.3% | 56 | medium | TWICE discography quiz |
+| 11 | 94.1% | 478 | easy | Stray Kids basics |
+| 12 | 93.9% | 79 | medium | K-pop positions explained quiz |
+| 13 | 93.7% | 107 | easy | Complete the K-pop song title |
+| 14 | 93.7% | 284 | easy | Are you a real coer??!! |
+| 15 | 93.6% | 263 | easy | ENHYPEN debut and beyond quiz |
+
+### L3. Overlap with the all-history lists in C1
+
+| | in both lists |
+| --- | --- |
+| lowest-15 | **6 of 15** |
+| highest-15 | **4 of 15** |
+
+The six lowest in both: BLACKPINK world records and achievements; Stray Kids: Guess the
+Song Quiz; Ultimate BTS era quiz; BLACKPINK ultimate fan challenge; ENHYPEN Quiz: Ultimate
+Fan Challenge; Stray Kids: Guess the member Quiz Part-1.
+
+The four highest in both: Find the Non-BLACKPINK Member; How well do you know SKZ members?;
+KickFlip mega quiz!!; Are you a real coer??!!
+
+**Nine of the fifteen lowest and eleven of the fifteen highest change** when the window
+changes.
+
+## M. THE GIRL-GROUP GAP, HARDENED (May-Aug only)
+
+### M1. Baseline
+
+| | standardised | plays |
+| --- | --- | --- |
+| girl groups | **76.5%** | 4,194 |
+| boy groups | **70.9%** | 9,651 |
+| **gap** | **+5.6 pt** | |
+
+Per tier:
+
+| side | easy | medium | hard |
+| --- | --- | --- | --- |
+| gg | n=751, 83.2% | n=3,421, 74.6% | n=22, 75.4% |
+| bg | n=4,308, 85.5% | n=5,313, 66.8% | n=30, 72.8% |
+
+Boy groups score **higher** on easy quizzes (85.5% vs 83.2%) and **lower** on medium ones
+(66.8% vs 74.6%). 44.6% of bg plays are easy against 17.9% of gg plays, which is why the
+raw and standardised gaps differ.
+
+The `hard` cells are 22 and 30 plays, both far below any floor in this file.
+
+### M2. Groups clearing 100 plays inside the window
+
+| side | groups with any May-Aug play | clearing 100 in-window |
+| --- | --- | --- |
+| gg | 16 | **12** |
+| bg | 16 | **8** |
+
+gg: blackpink 1,023 · illit 463 · twice 454 · newjeans 405 · ive 319 · aespa 312 ·
+babymonster 263 · le-sserafim 201 · itzy 200 · red-velvet 163 · loona 156 · g-i-dle 116
+
+bg: stray-kids 3,556 · bts 2,658 · enhypen 1,157 · seventeen 781 · cortis 582 · txt 330 ·
+ateez 330 · exo 110
+
+### M3. Leave-one-out: is one group carrying the gap?
+
+The standardised gap recomputed 32 times, once with each group removed. Largest movers:
+
+| removed | side | plays removed | gg std | bg std | gap | change |
+| --- | --- | --- | --- | --- | --- | --- |
+| blackpink | gg | 1,023 | 78.5% | 70.9% | 7.6 | **+2.0 pt** |
+| enhypen | bg | 1,157 | 76.5% | 72.7% | 3.8 | **-1.8 pt** |
+| bts | bg | 2,658 | 76.5% | 72.3% | 4.2 | -1.4 pt |
+| cortis | bg | 582 | 76.5% | 70.3% | 6.2 | +0.6 pt |
+| ateez | bg | 330 | 76.5% | 70.3% | 6.2 | +0.6 pt |
+| ive | gg | 319 | 75.9% | 70.9% | 5.0 | -0.6 pt |
+| twice | gg | 454 | 76.0% | 70.9% | 5.0 | -0.5 pt |
+| seventeen | bg | 781 | 76.5% | 70.4% | 6.1 | +0.5 pt |
+| loona | gg | 156 | 77.0% | 70.9% | 6.1 | +0.5 pt |
+| stray-kids | bg | 3,556 | 76.5% | 70.9% | 5.6 | -0.0 pt |
+
+Full 32-row table in `raw-K-L-M-N.txt`.
+
+| test | result |
+| --- | --- |
+| baseline gap | +5.6 pt |
+| does any single removal move the gap by more than the gap itself? | **NO** |
+| does the gap stay positive (gg above bg) in all 32 runs? | **YES** |
+| range of the gap across all 32 runs | **3.8 to 7.6 pt** |
+
+Removing stray-kids, the largest single contributor at 3,556 plays, moves the gap by
+**0.0 points**.
+
+## N. WHAT MAY-AUG CAN SUPPORT
+
+```sql
+-- everything below counted on created_at >= '2026-05-01'
+```
+
+| | count |
+| --- | --- |
+| usable plays in window | **17,425** |
+| groups with any play | 37 |
+| groups clearing 100 plays | **21** |
+| published quizzes with any play | 393 |
+| quizzes clearing 50 plays | **76** |
+| duel votes in window | **60,364** |
+| duel matchups with any vote | 3,525 |
+| duel matchups clearing 100 votes | **62** |
+
+**Every duel vote in the database falls inside this window.** Oldest is
+2026-06-11T21:42:13Z, newest 2026-08-17T11:05:17Z, and the count before 2026-05-01 is 0.
+The duel figures in section F are therefore unaffected by the period decision.

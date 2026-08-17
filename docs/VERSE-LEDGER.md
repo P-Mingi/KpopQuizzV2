@@ -4011,3 +4011,99 @@ SELF-CORRECTION: J11 originally asserted the difficulty mixes "do not always sum
 count" and named three groups. Checked: all ten rows sum correctly. An assertion never
 computed, sitting next to the numbers that disprove it. Corrected before commit. Also
 replaced two hedges with arithmetic (41.7%/49.2%, 2.99x). Nothing pushed.
+
+## L-200 - W5 PART 0b: the headline died, and the problem is bigger than the report
+
+PART 0b did what the mission asked and the mission was worth writing: it killed the finding
+we most wanted. "The biggest fandoms know the least" does not survive. Standardising for
+difficulty removes 41.7% of the correlation's magnitude (-0.242 -> -0.141), and the regime
+split then flips its SIGN: +0.199 in Mar+Apr, -0.267 in May-Aug. Worse, the two periods'
+standardised ladders rank the groups in near-opposite order (Spearman rho = -0.474). There
+is no single knowledge ladder to publish.
+
+The girl-group comparison survives both tests and gets stronger: standardised, +3.4 pt in
+Mar+Apr and +4.5 pt in May-Aug, within 1.1 points of each other, while the RAW gap changes
+sign between periods. That is now the only comparison in the dataset that holds up twice.
+
+**But PART 3 is the real result, and it is not a reporting problem.** The Mar+Apr cohort
+does not behave like people. 56 signed-in accounts produced 51.6% of that period's plays,
+median 249 plays per account, 54 of the 56 with >= 100 plays, against 87 accounts at a
+median of 6 plays in May-Aug. The ten heaviest agree with each other to within 2.4 points of
+score, 4 seconds of median play time, and a 5.0% spread in play count, each having played
+640-674 times. Across all 56, 50 score inside 58-65% and 52 have a median time of 90-115
+seconds. The May-Aug control has a score interquartile spread of 24.1 points against 1.9.
+Humans do not cluster like that.
+
+I recomputed the two claims that carry it. Removing the top ten moves the period 63.2 ->
+63.6, so 0.4 pt, and the period's two halves reconcile exactly: 20,332 anonymous plays at
+64.7% and ~21,650 signed-in at ~61.8% weight to 63.2%. Both check. So the anomaly is the
+whole period, not a few accounts inside it - the ANONYMOUS Mar+Apr plays are themselves
+10.7 points below anonymous May-Aug.
+
+The worker correctly refused to name the cause: `plays` records no source, IP, user agent or
+session, so seeded data, automated play and a real campaign that drove a small cohort to
+grind the catalogue cannot be told apart from that table alone. It flagged the read that
+would settle it (`profiles` metadata for those 56 accounts) and did not take it, because the
+mission did not authorise it.
+
+**The escalation, which is mine and not the worker's:** if 70.7% of our play history is not
+organic, then `/stats` is currently publishing it. `src/app/stats/page.tsx` prints total
+plays in the page body, in the meta description, and in JSON-LD as a schema.org
+`PropertyValue` named "Total Plays". That is a machine-readable claim to Google and to every
+AI engine, on the same domain we are about to publish a credibility-based data report from.
+The report window is a small decision next to that one.
+
+Also caught by the worker before commit: it had written into J11 that the difficulty mixes
+"do not always sum to the quiz count", naming three groups, without computing it - all ten
+rows sum correctly. Third appearance of that failure mode in this workstream, and the second
+time the standing recompute rule caught it. `docs/PLAY-W5-REPORT-PLAN.md` is now tracked.
+
+Standing caveat on everything standardised in H and I: it is only as good as
+`quizzes.difficulty`, which G1 already showed is author-assigned and non-monotonic.
+
+Nothing pushed; 42 commits local.
+
+## L-200 - W5 PART 0c: girl-group gap holds, generations is thin, quiz list survives at a third (2026-08-17)
+
+Read-only. No writes, no DDL, 0 files under apps/. Appended K, L, M, N to
+docs/data/w5-dataset.md (0-J untouched). Proofs: docs/proofs/w5-part0c/.
+All standardised figures in K-N use SECTION H's reference mix (easy 12,922 / medium 46,034 /
+hard 451), NOT the per-period mixes used in I1/I2/I4. Same data, different reference,
+different number: the May-Aug gg/bg gap is +4.5pt under I4's reference and +5.6pt under H's.
+A standardised score is meaningless without its reference; both are now stated.
+
+K. GENERATIONS: survives standardisation (each generation moves at most 1.2pt: 2nd 1.0,
+3rd 1.1, 4th 0.9, 5th 0.7, not-recorded 1.2; ordering unchanged). So 5th Gen's 76.9% is NOT
+an easy-catalogue artefact, which is what the mission expected. BUT the period test CANNOT
+BE RUN: 5th Gen has ZERO plays before 2026-05-01, so its whole contribution is May-Aug.
+In-window and above floor: 3rd 71.8%, 4th 72.9%, 5th 76.9% (5.1pt rise). Two things against
+publishing it as a gradient: 2nd Gen is the HIGHEST in that window at 83.4% on 85 plays
+(below floor, listed not ranked, and it breaks monotonicity), and 5th Gen rests on 12
+quizzes across 4 groups with no hard quiz. Verdict: a one-window 5.1pt difference, not a
+five-generation gradient.
+
+L. QUIZ LIST ON MAY-AUG: 227 -> 76 above the 50-play floor. Losing 70.7% of plays costs
+66.5% of qualifying quizzes. All 76 are also in C1's 227. But the entries move: 9 of the 15
+lowest and 11 of the 15 highest are DIFFERENT. New hardest = BLACKPINK world records 40.0%
+(n=71); Ultimate BTS era quiz is 41.6% in-window vs 53.1% pooled, on 781 in-window plays.
+
+M. GIRL-GROUP GAP HARDENED (May-Aug, H reference): gg 76.5% (n=4,194) vs bg 70.9%
+(n=9,651), gap +5.6pt. LEAVE-ONE-OUT over 32 groups: no single removal moves the gap by
+more than the gap itself; the gap stays POSITIVE in all 32 runs; range 3.8 to 7.6pt.
+Largest movers blackpink +2.0 (removing it WIDENS the gap) and enhypen -1.8. Removing
+stray-kids (3,556 plays, the largest contributor) moves it 0.0pt. 12 gg and 8 bg groups
+clear 100 plays in-window. MECHANISM, to be stated not hidden: bg score HIGHER on easy
+(85.5 vs 83.2) and LOWER on medium (66.8 vs 74.6); 44.6% of bg plays are easy vs 17.9% of
+gg. It is a medium-difficulty gap.
+
+N. MAY-AUG SAMPLE: 17,425 usable plays, 21 groups >=100 plays, 76 quizzes >=50 plays, 62
+duel matchups >=100 votes. UNEXPECTED GOOD NEWS: every duel vote in the DB is inside the
+window (oldest 2026-06-11, newest 2026-08-17, zero before 2026-05-01), so section F is
+unaffected by the period decision.
+
+FLAGGED: the `hard` tier is unusable everywhere it appears in K-N (22 gg / 30 bg plays in
+M1; 13-37 per generation in K). Carried in the standardisation because the reference mix
+contains it (0.8% of it), flagged rather than silently dropped since dropping would change
+every number in K and M. SELF-CORRECTION: wrote "less than 1.2 points" when the largest
+generation move is exactly 1.2; recomputed and replaced with "at most 1.2" plus the five
+per-row moves. Nothing pushed.

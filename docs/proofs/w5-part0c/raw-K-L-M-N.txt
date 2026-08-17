@@ -1,0 +1,155 @@
+# REFERENCE MIX (section H's, used for every standardised figure below)
+easy=12922 medium=46034 hard=451 total=59407
+
+
+# K. GENERATIONS, STANDARDISED AND SPLIT
+
+### K1 ALL
+generation | groups | plays | raw% | std% | tiers | easy n/% | medium n/% | hard n/%
+2nd Gen         |      2 |    774 |  66.5 |                        65.5% | easy+medium+hard | 6/61.7% | 758/66.5% | 10/72.0%
+3rd Gen         |     12 |  21557 |  65.2 |                        66.3% | easy+medium+hard | 2618/76.8% | 18926/63.4% | 13/68.9%
+4th Gen         |     12 |  19944 |  68.3 |                        67.4% | easy+medium+hard | 6043/77.5% | 13864/64.5% | 37/71.0%
+5th Gen         |      4 |    795 |  76.2 |                        76.9% | easy+medium | 248/83.5% | 547/75.0% | -
+(not recorded)  |      7 |  16337 |  69.2 |                        68.0% | easy+medium+hard | 4007/81.2% | 11939/64.3% | 391/61.9%
+published quizzes per generation (all time, not window-specific):
+  2nd Gen         quizzes=  5  e:1 m:3 h:1
+  3rd Gen         quizzes=101  e:30 m:68 h:3
+  4th Gen         quizzes=111  e:30 m:77 h:4
+  5th Gen         quizzes= 12  e:3 m:9 h:0
+  (not recorded)  quizzes=171  e:46 m:110 h:15
+
+### K2 MAR+APR
+generation | groups | plays | raw% | std% | tiers | easy n/% | medium n/% | hard n/%
+2nd Gen         |      2 |    689 |  64.1 | NOT STANDARDISABLE (medium only) | medium | - | 689/64.1% | -
+3rd Gen         |     10 |  16252 |  63.0 |                        63.9% | easy+medium | 1648/70.8% | 14604/62.0% | -
+4th Gen         |     11 |  12975 |  63.2 |                        63.0% | easy+medium+hard | 2623/67.6% | 10344/62.1% | 8/25.0%
+5th Gen         | (no plays in this window)
+(not recorded)  |      3 |  12066 |  63.5 |                        64.1% | easy+medium+hard | 1578/71.1% | 10171/62.2% | 317/60.7%
+published quizzes per generation (all time, not window-specific):
+  2nd Gen         quizzes=  5  e:1 m:3 h:1
+  3rd Gen         quizzes=101  e:30 m:68 h:3
+  4th Gen         quizzes=111  e:30 m:77 h:4
+  5th Gen         quizzes= 12  e:3 m:9 h:0
+  (not recorded)  quizzes=171  e:46 m:110 h:15
+
+### K3 MAY-AUG
+generation | groups | plays | raw% | std% | tiers | easy n/% | medium n/% | hard n/%
+2nd Gen         |      2 |     85 |  84.0 |                        83.4% | easy+medium+hard | 6/61.7% | 69/89.6% | 10/72.0%
+3rd Gen         |     12 |   5305 |  71.4 |                        71.8% | easy+medium+hard | 970/86.6% | 4322/67.6% | 13/68.9%
+4th Gen         |     12 |   6969 |  76.2 |                        72.9% | easy+medium+hard | 3420/84.6% | 3520/69.7% | 29/75.1%
+5th Gen         |      4 |    795 |  76.2 |                        76.9% | easy+medium | 248/83.5% | 547/75.0% | -
+(not recorded)  |      7 |   4271 |  80.5 |                        75.9% | easy+medium+hard | 2429/87.0% | 1768/72.9% | 74/64.3%
+published quizzes per generation (all time, not window-specific):
+  2nd Gen         quizzes=  5  e:1 m:3 h:1
+  3rd Gen         quizzes=101  e:30 m:68 h:3
+  4th Gen         quizzes=111  e:30 m:77 h:4
+  5th Gen         quizzes= 12  e:3 m:9 h:0
+  (not recorded)  quizzes=171  e:46 m:110 h:15
+
+
+# L. HARDEST/EASIEST QUIZZES ON THE REPORTING WINDOW (May-Aug)
+quizzes above the 50-play floor, ALL history : 227 (matches C1's 227)
+quizzes above the 50-play floor, MAY-AUG only: 76
+of the May-Aug qualifiers, also in C1's list : 76
+
+### May-Aug: 15 LOWEST scoring above floor
+ 1.  40.0%  n=  71  [medium] BLACKPINK world records and achievements
+ 2.  41.5%  n=  86  [medium] Stray Kids: Guess the Song Quiz
+ 3.  41.6%  n= 781  [medium] Ultimate BTS era quiz - only real ARMYs survive
+ 4.  52.3%  n=  59  [medium] BTS concerts and tour moments quiz
+ 5.  54.2%  n= 400  [medium] BLACKPINK ultimate fan challenge
+ 6.  54.5%  n= 424  [medium] ENHYPEN Quiz: Ultimate Fan Challenge
+ 7.  58.8%  n=  69  [medium] Guess the BTS member from clues
+ 8.  59.0%  n= 102  [medium] Stray Kids: Guess the member Quiz Part-1
+ 9.  59.1%  n= 334  [medium] Which K-pop group debuted first? Timeline challenge
+10.  60.0%  n=  68  [easy] BTS ARIRANG comeback quiz - only real ARMYs will pass
+11.  60.3%  n=  85  [medium] aespa B-sides and deep cuts quiz
+12.  61.5%  n= 102  [medium] ILLIT - guess the idol!
+13.  62.8%  n= 145  [medium] Identify the Stray Kids sub-unit
+14.  64.2%  n= 136  [medium] BTS discography challenge
+15.  65.3%  n=  59  [medium] Stray Kids discography test
+
+### May-Aug: 15 HIGHEST scoring above floor
+ 1.  99.4%  n=  53  [easy] Find the Non-BLACKPINK Member
+ 2.  97.5%  n=  61  [medium] BTS members real names - complete test
+ 3.  97.2%  n=  96  [easy] SEVENTEEN true or false
+ 4.  96.8%  n= 101  [easy] How well do you know SKZ members?
+ 5.  96.4%  n= 208  [easy] Which group is this member from? (boy groups)
+ 6.  96.3%  n= 378  [easy] K-pop fandom names true or false
+ 7.  96.2%  n= 114  [medium] BTS members - know your biases
+ 8.  95.9%  n=  60  [easy] KickFlip mega quiz!!
+ 9.  94.4%  n=  57  [medium] IVE true or false
+10.  94.3%  n=  56  [medium] TWICE discography quiz
+11.  94.1%  n= 478  [easy] Stray Kids basics
+12.  93.9%  n=  79  [medium] K-pop positions explained quiz
+13.  93.7%  n= 107  [easy] Complete the K-pop song title
+14.  93.7%  n= 284  [easy] Are you a real coer??!!
+15.  93.6%  n= 263  [easy] ENHYPEN debut and beyond quiz
+
+entries in BOTH lowest-15 lists : 6  -> BLACKPINK world records and achievements | Stray Kids: Guess the Song Quiz | Ultimate BTS era quiz - only real ARMYs  | BLACKPINK ultimate fan challenge | ENHYPEN Quiz: Ultimate Fan Challenge | Stray Kids: Guess the member Quiz Part-1
+entries in BOTH highest-15 lists: 4  -> Find the Non-BLACKPINK Member | How well do you know SKZ members? | KickFlip mega quiz!! | Are you a real coer??!!
+
+
+# M. THE GIRL-GROUP GAP, HARDENED (May-Aug only)
+baseline (May-Aug, all groups with a derived gender):
+  gg std 76.5% (n=4194)   bg std 70.9% (n=9651)   gap 5.6 pt
+
+per-tier plays and scores:
+  gg: easy n=751 83.2%  |  medium n=3421 74.6%  |  hard n=22 75.4%
+  bg: easy n=4308 85.5%  |  medium n=5313 66.8%  |  hard n=30 72.8%
+
+gg: groups with any May-Aug play = 16, groups clearing 100 plays IN-WINDOW = 12
+   blackpink(1023), illit(463), twice(454), newjeans(405), ive(319), aespa(312), babymonster(263), le-sserafim(201), itzy(200), red-velvet(163), loona(156), g-i-dle(116)
+
+bg: groups with any May-Aug play = 16, groups clearing 100 plays IN-WINDOW = 8
+   stray-kids(3556), bts(2658), enhypen(1157), seventeen(781), cortis(582), txt(330), ateez(330), exo(110)
+
+### LEAVE-ONE-OUT: the standardised gap with each group removed
+removed | side | plays removed | gg std | bg std | gap | change vs baseline
+blackpink      | gg |  1023 |  78.5 |  70.9 |   7.6 | +2.0 pt
+enhypen        | bg |  1157 |  76.5 |  72.7 |   3.8 | -1.8 pt
+bts            | bg |  2658 |  76.5 |  72.3 |   4.2 | -1.4 pt
+cortis         | bg |   582 |  76.5 |  70.3 |   6.2 | +0.6 pt
+ateez          | bg |   330 |  76.5 |  70.3 |   6.2 | +0.6 pt
+ive            | gg |   319 |  75.9 |  70.9 |   5.0 | -0.6 pt
+twice          | gg |   454 |  76.0 |  70.9 |   5.0 | -0.5 pt
+seventeen      | bg |   781 |  76.5 |  70.4 |   6.1 | +0.5 pt
+loona          | gg |   156 |  77.0 |  70.9 |   6.1 | +0.5 pt
+babymonster    | gg |   263 |  76.1 |  70.9 |   5.2 | -0.4 pt
+le-sserafim    | gg |   201 |  76.1 |  70.9 |   5.2 | -0.4 pt
+itzy           | gg |   200 |  76.2 |  70.9 |   5.2 | -0.3 pt
+artms          | gg |    57 |  76.8 |  70.9 |   5.9 | +0.3 pt
+exo            | bg |   110 |  76.5 |  70.7 |   5.8 | +0.2 pt
+g-i-dle        | gg |   116 |  76.3 |  70.9 |   5.4 | -0.2 pt
+shinee         | bg |    70 |  76.5 |  70.8 |   5.7 | +0.1 pt
+newjeans       | gg |   405 |  76.6 |  70.9 |   5.7 | +0.1 pt
+txt            | bg |   330 |  76.5 |  70.8 |   5.7 | +0.1 pt
+mamamoo        | gg |    15 |  76.6 |  70.9 |   5.7 | +0.1 pt
+aespa          | gg |   312 |  76.4 |  70.9 |   5.5 | -0.1 pt
+red-velvet     | gg |   163 |  76.5 |  70.9 |   5.6 | +0.0 pt
+nmixx          | gg |    39 |  76.5 |  70.9 |   5.6 | +0.0 pt
+got7           | bg |    28 |  76.5 |  70.9 |   5.6 | +0.0 pt
+tws            | bg |    12 |  76.5 |  70.9 |   5.6 | +0.0 pt
+illit          | gg |   463 |  76.5 |  70.9 |   5.6 | +0.0 pt
+bigbang        | bg |    15 |  76.5 |  70.9 |   5.6 | +0.0 pt
+monsta-x       | bg |     9 |  76.5 |  70.9 |   5.6 | +0.0 pt
+dreamcatcher   | gg |     8 |  76.5 |  70.9 |   5.6 | +0.0 pt
+xikers         | bg |     6 |  76.5 |  70.9 |   5.6 | +0.0 pt
+treasure       | bg |     4 |  76.5 |  70.9 |   5.6 | +0.0 pt
+stray-kids     | bg |  3556 |  76.5 |  70.9 |   5.6 | -0.0 pt
+astro          | bg |     3 |  76.5 |  70.9 |   5.6 | -0.0 pt
+
+largest single-group swing: blackpink (gg), gap moves 2.0 pt, from 5.6 to 7.6
+baseline gap = 5.6 pt. Does any single removal exceed the gap itself? NO
+gap stays positive (gg above bg) in all leave-one-out runs? YES  (min gap 3.8, max 7.6)
+
+
+# N. WHAT MAY-AUG CAN SUPPORT
+usable plays in window            : 17425
+groups with any play              : 37
+groups clearing 100 plays         : 21
+quizzes with any play (published) : 393
+quizzes clearing 50 plays         : 76
+duel votes in window              : 60364 (of 60364 all time)
+duel matchups with any vote       : 3525
+duel matchups clearing 100 votes  : 62
