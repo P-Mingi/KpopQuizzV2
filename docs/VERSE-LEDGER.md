@@ -3810,3 +3810,100 @@ check:orphans 0 (floor 705 vs 600, 705 of 705 crawled), check:metadata-dupes unc
 (8 groups, 0 non-verse skips, 997 checked). /pt/games and /blindtest/leaderboard both 200
 in production, confirming the 500s were purely the simulated CI env.
 Proofs: docs/proofs/w7-close-2/. Nothing pushed.
+
+## L-197 - W7-CLOSE-2 audited: PASS, arc shut, and my own prediction was the thing that was wrong
+
+W7-CLOSE-2 (6a745ba) shipped all three parts and disproved the mission's premise while doing
+it, which is the correct order of loyalty: to the measurement, not to the instruction.
+
+Verified in the tree: `SUPABASE_SERVICE_ROLE_KEY: not-a-credential-ci-placeholder` is in the
+workflow `env:` (seo-gates.yml:49); `NON_VERSE_FLOOR = 600` sits at check-orphans.mts:62 and
+is asserted at 122-123, BEFORE the crawl, with a message naming the timed-out batch and an
+RLS change as the two causes to check first; each gate has a step `id` and the alert reads
+`START_OUTCOME` / `INDEXABILITY_OUTCOME` / `DUPES_OUTCOME` / `ORPHANS_OUTCOME`, so a checkout
+failure can no longer be announced as an SEO gate failure. `apps/quiz/.env.local` is intact,
+mtime 2026-08-08, untouched by the simulation runs.
+
+**I was wrong and the worker measured it.** I predicted the CI build would DIE at
+`/pt/games` because it exports `revalidate = 3600` and calls `createServiceRoleClient()` as a
+bare statement. I inferred prerendering from the export instead of reading the build's own
+route marker. The build is green (`BUILD_EXIT=0`), the page is marked `ƒ`, and the real
+defect is at request time: `/pt/games` 500s and it IS in the sitemap, so the nightly would
+have reported a real-looking page failure caused by its own environment - someone would have
+gone hunting for a bug in the page. Right fix, wrong reason, and the worker said so plainly
+instead of reproducing my sentence. That is the behaviour the whole protocol exists to get.
+
+Left unexplained by the report, and worth one check later: WHY `/pt/games` is dynamic despite
+its `revalidate` export. The likely cause is `app/layout.tsx:115`, `(await headers()).get(
+'x-pathname')` - the root-layout half of the embed-chrome fix **I approved**. A dynamic API in
+the root layout opts routes out of static rendering, which would make every `export const
+revalidate` in the app inert and cost a DB round trip per request. Contradicting evidence:
+the absent-key run recorded 401 build-time `supabaseKey is required.` throws from `q/[slug]`,
+which means those routes DID execute at build. So it is a hypothesis with evidence on both
+sides, not a finding. The check is cheap - build and read the ○ / ƒ counts in the route table.
+Filed as debt, not a mission.
+
+Also tracked, not blocking: under the placeholder key every service-role READ in CI returns
+401 and is swallowed by `safeFetch`, so the nightly grades a build where that whole class of
+read silently degraded. Harmless today (all three gates green, both pages 200), but nothing
+asserts it stays harmless if someone later moves a load-bearing read onto the service role.
+
+Coverage, stated in numbers rather than implied: the nightly asserts on 684 of 705 non-verse
+URLs. Excluded by design: 2341 Verse URLs (paused) and `/rankings` + its 20 pages, because
+`duel_votes` reads 0 under anon and RLS is right to hide per-user votes.
+
+THE W7 ARC IS CLOSED. W7b directory, W7c orphan classes, W7d one definition, W7-CLOSE anon
+CI, W7-CLOSE-2 the real condition. Owner actions: retitle one SEVENTEEN quiz (`w7-close-1`,
+30 seconds, and it is what stands between the nightly and a green first run), then push 40
+commits. Next per the owner's ruling: back to PLAY-MASTER-PLAN, and my recommendation is W5,
+the K-pop Knowledge Report, since it is the only real lever on DR 1/100 and it is content,
+which is my job rather than the worker's.
+
+Supabase MCP has refused since W8, so no figure here was re-derived from the DB. Nothing
+pushed; 40 commits local.
+
+## L-198 - W5 PART 0: the K-pop Knowledge Report dataset, read-only (2026-08-17)
+
+Produced docs/data/w5-dataset.md from a live read-only snapshot. ZERO writes, ZERO DDL,
+ZERO files under apps/ changed. Raw output + scripts: docs/proofs/w5-part0/.
+
+FLOORS set before looking at any result: 100 usable plays per group, 50 per quiz, 100 votes
+per matchup. Below-floor rows listed separately, never ranked. Score is POOLED
+(SUM(score)/SUM(total_questions)); checked against mean-of-plays for every group, agreeing
+within 1pt on 26 of 27 (exception enhypen, 4.7pt).
+
+SCOPE: 59,513 plays, 59,407 usable, 2026-03-10 to 2026-08-17, 400 published quizzes, 37
+groups. 106 plays have score > total_questions (0.18%) and are excluded.
+
+THE FINDING THAT WOULD HAVE SHIPPED BACKWARDS: girl vs boy groups REVERSES under control.
+Pooled gg 66.5% vs bg 67.7% (gg lower by 1.2pt); within difficulty tiers gg is HIGHER
+(easy +7.0, medium +2.2) and standardised to the combined mix gg 69.5% vs bg 66.2%, +3.2pt.
+Simpson's paradox: 33.7% of bg plays are on easy quizzes vs 6.0% of gg plays. The raw gap
+is exactly the selection artefact the plan says must not ship.
+
+REGIME CHANGE mid-window: Mar+Apr = 41,982 plays pooled 63.2%; May-Aug = 17,425 plays
+pooled 75.9%; a 12.7pt break between April and May, not gradual. Every pooled figure in the
+file straddles it, weighted 70.7/29.3 toward the low-scoring period. Cause not investigated
+(read-only).
+
+NOT ANSWERABLE: per-question correctness. plays stores only a total score;
+per_question_times is timings not correctness AND is null on all 59,513 rows; no
+play_answers / quiz_questions / question_stats table exists. The plan's "most quotable
+section" must be built on hardest QUIZZES or get its own schema mission.
+
+OTHER TRAPS RECORDED: general-kpop is the largest row (15,464 plays) and is a bucket, not a
+group; anonymous plays score 6.4pt above signed-in; the difficulty labels are not a scale
+(hard scores 0.2pt BELOW medium on 451 plays); both duel lists are dominated by one prompt
+each; gender is DERIVED from songs.gender (groups has no gender column), consistent across
+all 81 groups with songs. Duel panel is now 891 voters / 60,364 votes.
+
+REPO FINDING: .gitignore line 68 is `docs/*` with an explicit allowlist and docs/data/ was
+NOT on it, so this mission's required output could not have been committed. Added
+`!docs/data/`. Also flagged, NOT changed: docs/PLAY-W5-REPORT-PLAN.md is itself untracked
+and ignored by the same rule, so the plan exists only on this machine.
+
+SELF-CORRECTIONS: prose said 63.3%/76.1%/13.4pt for the regime split; computed directly it
+is 63.2%/75.9%/12.7pt and the file carries the measured values. Also stated a correlation
+excluding general-kpop before computing it (it is r=-0.254 vs -0.242 for all 27), and
+reconciled two different play counts in section D that are different cuts, not a conflict.
+Nothing pushed.

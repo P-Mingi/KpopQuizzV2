@@ -1,0 +1,179 @@
+## B. PER GROUP (usable plays; percentage = SUM(score)/SUM(total_questions))
+floor = 100 usable plays. above floor: 27, below floor: 10
+
+### ranked by score, above floor
+ 1. cortis            84.6%  n=   582  gen=-  gender=bg
+ 2. babymonster       82.8%  n=   263  gen=5th Gen  gender=gg
+ 3. loona             78.3%  n=   158  gen=-  gender=gg
+ 4. illit             75.1%  n=   463  gen=5th Gen  gender=gg
+ 5. stray-kids        73.4%  n=  6395  gen=4th Gen  gender=bg
+ 6. seventeen         71.7%  n=  2940  gen=3rd Gen  gender=bg
+ 7. txt               70.5%  n=   999  gen=4th Gen  gender=bg
+ 8. got7              70.2%  n=   125  gen=3rd Gen  gender=bg
+ 9. ateez             69.9%  n=  1088  gen=4th Gen  gender=bg
+10. twice             68.3%  n=  2286  gen=3rd Gen  gender=gg
+11. general-kpop      67.9%  n= 15464  gen=-  gender=-
+12. ive               67.9%  n=  1585  gen=4th Gen  gender=gg
+13. red-velvet        67.8%  n=   886  gen=3rd Gen  gender=gg
+14. itzy              67.7%  n=   959  gen=4th Gen  gender=gg
+15. shinee            67.2%  n=   589  gen=2nd Gen  gender=bg
+16. nct               66.3%  n=   286  gen=3rd Gen  gender=-
+17. newjeans          65.9%  n=  2319  gen=4th Gen  gender=gg
+18. le-sserafim       65.6%  n=  1358  gen=4th Gen  gender=gg
+19. exo               65.2%  n=  1180  gen=3rd Gen  gender=bg
+20. aespa             65.0%  n=  1751  gen=4th Gen  gender=gg
+21. nmixx             64.4%  n=   164  gen=4th Gen  gender=gg
+22. bigbang           64.1%  n=   185  gen=2nd Gen  gender=bg
+23. enhypen           64.0%  n=  2258  gen=4th Gen  gender=bg
+24. blackpink         63.6%  n=  4469  gen=3rd Gen  gender=gg
+25. monsta-x          63.4%  n=   187  gen=3rd Gen  gender=bg
+26. g-i-dle           63.1%  n=  1064  gen=4th Gen  gender=gg
+27. bts               62.8%  n=  9169  gen=3rd Gen  gender=bg
+
+### ranked by plays, above floor
+ 1. general-kpop     n= 15464   67.9%
+ 2. bts              n=  9169   62.8%
+ 3. stray-kids       n=  6395   73.4%
+ 4. blackpink        n=  4469   63.6%
+ 5. seventeen        n=  2940   71.7%
+ 6. newjeans         n=  2319   65.9%
+ 7. twice            n=  2286   68.3%
+ 8. enhypen          n=  2258   64.0%
+ 9. aespa            n=  1751   65.0%
+10. ive              n=  1585   67.9%
+11. le-sserafim      n=  1358   65.6%
+12. exo              n=  1180   65.2%
+13. ateez            n=  1088   69.9%
+14. g-i-dle          n=  1064   63.1%
+15. txt              n=   999   70.5%
+16. itzy             n=   959   67.7%
+17. red-velvet       n=   886   67.8%
+18. shinee           n=   589   67.2%
+19. cortis           n=   582   84.6%
+20. illit            n=   463   75.1%
+21. nct              n=   286   66.3%
+22. babymonster      n=   263   82.8%
+23. monsta-x         n=   187   63.4%
+24. bigbang          n=   185   64.1%
+25. nmixx            n=   164   64.4%
+26. loona            n=   158   78.3%
+27. got7             n=   125   70.2%
+
+### BELOW FLOOR (listed, never ranked)
+   kickflip         n=   70  93.6%
+   artms            n=   57  61.8%
+   loossemble       n=   42  72.1%
+   akmu             n=   15  43.3%
+   mamamoo          n=   15  68.0%
+   tws              n=   12  90.5%
+   dreamcatcher     n=    8  66.7%
+   astro            n=    6  88.3%
+   xikers           n=    6  96.7%
+   treasure         n=    4  72.5%
+
+Pearson r between log10(plays) and score%, above floor, n=27: -0.242
+
+## C. PER QUIZ (published only). floor = 50 usable plays. above: 227 of 400
+
+### 15 LOWEST scoring, above floor
+ 1.  41.5%  n=   86  [medium] Stray Kids: Guess the Song Quiz
+ 2.  53.1%  n= 2123  [medium] Ultimate BTS era quiz - only real ARMYs survive
+ 3.  54.1%  n=   74  [hard] K-pop boy group generations timeline
+ 4.  55.6%  n=  147  [medium] Which year did this song come out?
+ 5.  56.8%  n=   80  [medium] ATEEZ discography challenge
+ 6.  56.9%  n=  884  [medium] ENHYPEN Quiz: Ultimate Fan Challenge
+ 7.  57.0%  n=  307  [medium] BLACKPINK world records and achievements
+ 8.  57.5%  n=   60  [medium] Name That Album Cover
+ 9.  57.6%  n=   84  [medium] Can You Recognize These Idols as Kids?
+10.  57.8%  n=   86  [medium] Which group is this member from?
+11.  57.8%  n=  102  [medium] JYP Entertainment groups quiz
+12.  58.0%  n= 1278  [medium] BLACKPINK ultimate fan challenge
+13.  59.0%  n=  172  [medium] IU - the nation's little sister
+14.  59.0%  n=  102  [medium] Stray Kids: Guess the member Quiz Part-1
+15.  59.6%  n=  113  [medium] K-pop girl group generations timeline
+
+### 15 HIGHEST scoring, above floor
+ 1.  97.9%  n=   62  [easy] Find the Non-BLACKPINK Member
+ 2.  97.8%  n=  172  [easy] How well do you know SKZ members?
+ 3.  96.4%  n=   56  [easy] TWICE members facts quiz
+ 4.  95.9%  n=   60  [easy] KickFlip mega quiz!!
+ 5.  93.7%  n=  284  [easy] Are you a real coer??!!
+ 6.  93.5%  n=   53  [easy] Only real ARMYs can pass this BTS debut quiz
+ 7.  92.3%  n=  136  [easy] Only real STAYs can ace this Stray Kids quiz
+ 8.  91.4%  n=  127  [easy] Find the 3rd Gen Intruder Among 4th Gen
+ 9.  91.4%  n=   51  [easy] True or false stray kids quiz
+10.  91.1%  n=   64  [easy] How well do you know BTS members?
+11.  88.4%  n=   88  [easy] Can You Recognize These K-pop Idols ?
+12.  87.9%  n=   99  [easy] TWICE title tracks challenge - name that song
+13.  87.5%  n=  184  [easy] Stray Kids discography challenge
+14.  86.5%  n=   86  [easy] How well do you know SEVENTEEN ?
+15.  86.4%  n=  138  [easy] ONLY REAL MONSTIEZ
+
+## D. GIRL GROUPS vs BOY GROUPS (gender DERIVED from songs.gender, see notes)
+gg: groups above floor=13  plays=17725  score=66.5%  published quizzes=113  difficulty mix={"medium":80,"hard":5,"easy":28}
+bg: groups above floor=12  plays=25697  score=67.7%  published quizzes=124  difficulty mix={"easy":40,"medium":81,"hard":3}
+other gender values present on groups above floor: ["gg","bg",null]
+
+## E. GENERATIONS (groups.generation, real column)
+(not recorded)   groups= 7  plays= 16337  score=69.2%
+2nd Gen          groups= 2  plays=   774  score=66.5%
+3rd Gen          groups=12  plays= 21557  score=65.2%
+4th Gen          groups=12  plays= 19944  score=68.3%
+5th Gen          groups= 4  plays=   795  score=76.2%
+
+## F. DUEL VOTES  ** COLOUR ONLY **
+total votes: 60364
+distinct voter_hash: 891
+votes per voter (mean): 67.7
+matchups with >= 100 votes: 62 of 3525
+
+### 10 most lopsided (winner share of that matchup)
+ 1. 94.6%  n= 111  Sana vs Irene
+ 2. 94.5%  n= 127  Nayeon vs Irene
+ 3. 94.2%  n= 139  Sana vs Seulgi
+ 4. 91.4%  n= 162  Seulgi vs Irene
+ 5. 90.0%  n= 100  Nayeon vs Seulgi
+ 6. 89.7%  n= 116  Joy vs Irene
+ 7. 87.5%  n= 120  Hwasa vs Momo
+ 8. 87.4%  n= 119  aespa vs (G)I-DLE
+ 9. 87.4%  n= 119  Nayeon vs Hwasa
+10. 86.8%  n= 114  aespa vs TWICE
+
+### 10 most contested (closest to 50%)
+ 1. 50.5%  n= 329  J-Hope vs Suga
+ 2. 50.6%  n= 257  Jimin vs Jin
+ 3. 50.9%  n= 346  V vs Jungkook
+ 4. 50.9%  n= 269  J-Hope vs RM
+ 5. 51.8%  n= 139  Lee Know vs Seungmin
+ 6. 52.8%  n= 108  Rose vs Jennie
+ 7. 53.3%  n= 122  Jisoo vs Jennie
+ 8. 54.3%  n= 350  J-Hope vs Jin
+ 9. 55.5%  n= 321  Suga vs Jin
+10. 56.6%  n= 304  Suga vs Jimin
+
+## G. EXTRAS
+score by the quiz difficulty LABEL (published):
+  medium   plays= 44890  score=64.1%
+  easy     plays= 12921  score=78.6%
+  hard     plays=   451  score=63.9%
+signed-in plays: n=22895 score=63.4%
+anonymous plays: n=36512 score=69.8%
+plays and score by month:
+  2026-03  plays= 17860  score=62.7%
+  2026-04  plays= 24122  score=63.7%
+  2026-05  plays=  3281  score=77.1%
+  2026-06  plays=  5991  score=75.9%
+  2026-07  plays=  4955  score=75.8%
+  2026-08  plays=  3198  score=75.3%
+score by quiz length (total_questions), lengths with >=200 plays:
+    5 questions  plays= 10316  score=65.7%
+    6 questions  plays= 15175  score=67.7%
+    7 questions  plays= 17230  score=68.8%
+    8 questions  plays= 10786  score=64.3%
+    9 questions  plays=  1210  score=73.4%
+   10 questions  plays=  2245  score=73.2%
+   11 questions  plays=   231  score=73.0%
+   12 questions  plays=   352  score=74.9%
+   20 questions  plays=  1382  score=64.9%
+perfect scores: 12245 (20.6% of 59407)
+zero scores   : 1228 (2.1%)

@@ -1,0 +1,64 @@
+## METHOD CHECK: pooled vs mean-of-plays, per group above floor
+pooled = SUM(score)/SUM(total_questions). mean = average of each play's own percentage.
+  cortis           n=   582  pooled=84.6%  mean=85.3%  diff=-0.6pt
+  babymonster      n=   263  pooled=82.8%  mean=82.7%  diff=0.1pt
+  loona            n=   158  pooled=78.3%  mean=76.3%  diff=2.0pt
+  illit            n=   463  pooled=75.1%  mean=74.5%  diff=0.6pt
+  stray-kids       n=  6395  pooled=73.4%  mean=74.1%  diff=-0.7pt
+  seventeen        n=  2940  pooled=71.7%  mean=71.2%  diff=0.4pt
+  txt              n=   999  pooled=70.5%  mean=70.2%  diff=0.3pt
+  got7             n=   125  pooled=70.2%  mean=68.9%  diff=1.3pt
+  ateez            n=  1088  pooled=69.9%  mean=68.7%  diff=1.2pt
+  twice            n=  2286  pooled=68.3%  mean=68.6%  diff=-0.3pt
+  general-kpop     n= 15464  pooled=67.9%  mean=67.1%  diff=0.8pt
+  ive              n=  1585  pooled=67.9%  mean=67.7%  diff=0.2pt
+  red-velvet       n=   886  pooled=67.8%  mean=68.2%  diff=-0.4pt
+  itzy             n=   959  pooled=67.7%  mean=66.5%  diff=1.2pt
+  shinee           n=   589  pooled=67.2%  mean=67.1%  diff=0.1pt
+  nct              n=   286  pooled=66.3%  mean=65.7%  diff=0.6pt
+  newjeans         n=  2319  pooled=65.9%  mean=65.8%  diff=0.1pt
+  le-sserafim      n=  1358  pooled=65.6%  mean=65.2%  diff=0.3pt
+  exo              n=  1180  pooled=65.2%  mean=65.1%  diff=0.1pt
+  aespa            n=  1751  pooled=65.0%  mean=65.0%  diff=-0.0pt
+  nmixx            n=   164  pooled=64.4%  mean=64.4%  diff=0.0pt
+  bigbang          n=   185  pooled=64.1%  mean=64.1%  diff=-0.0pt
+  enhypen          n=  2258  pooled=64.0%  mean=68.7%  diff=-4.7pt
+  blackpink        n=  4469  pooled=63.6%  mean=63.5%  diff=0.1pt
+  monsta-x         n=   187  pooled=63.4%  mean=63.1%  diff=0.3pt
+  g-i-dle          n=  1064  pooled=63.1%  mean=63.1%  diff=0.0pt
+  bts              n=  9169  pooled=62.8%  mean=62.9%  diff=-0.2pt
+largest pooled-vs-mean gap across groups: 4.7 pt
+
+## B-bis. RANKING EXCLUDING general-kpop (a catch-all bucket, not a real group)
+general-kpop: id=30 name="General K-pop" plays=15464
+  by plays #1: bts n=9169 62.8%
+  by plays #2: stray-kids n=6395 73.4%
+  by plays #3: blackpink n=4469 63.6%
+  by plays #4: seventeen n=2940 71.7%
+  by plays #5: newjeans n=2319 65.9%
+
+## F-bis. DUEL MATCHUPS with the winner named (floor 100 votes, 62 of 3525 qualify)
+### 10 most lopsided
+ 1. 94.6% chose Irene over Sana  n=111  [general] Best of the 3rd generation
+ 2. 94.5% chose Irene over Nayeon  n=127  [general] Best of the 3rd generation
+ 3. 94.2% chose Seulgi over Sana  n=139  [general] Best of the 3rd generation
+ 4. 91.4% chose Seulgi over Irene  n=162  [general] Best of the 3rd generation
+ 5. 90.0% chose Seulgi over Nayeon  n=100  [general] Best of the 3rd generation
+ 6. 89.7% chose Irene over Joy  n=116  [general] Best of the 3rd generation
+ 7. 87.5% chose Momo over Hwasa  n=120  [general] Best of the 3rd generation
+ 8. 87.4% chose (G)I-DLE over aespa  n=119  [general] Best 4th generation group?
+ 9. 87.4% chose Nayeon over Hwasa  n=119  [general] Best of the 3rd generation
+10. 86.8% chose TWICE over aespa  n=114  [general] Best K-pop girl group ever?
+### 10 most contested
+ 1. 50.5% Suga vs J-Hope  n=329  [bts] Who is your BTS bias?
+ 2. 50.6% Jin vs Jimin  n=257  [bts] Who is your BTS bias?
+ 3. 50.9% V vs Jungkook  n=346  [bts] Who is your BTS bias?
+ 4. 50.9% J-Hope vs RM  n=269  [bts] Who is your BTS bias?
+ 5. 51.8% Lee Know vs Seungmin  n=139  [stray-kids] Who is your SKZ bias?
+ 6. 52.8% Rose vs Jennie  n=108  [blackpink] Who is your BLACKPINK bias?
+ 7. 53.3% Jisoo vs Jennie  n=122  [blackpink] Who is your BLACKPINK bias?
+ 8. 54.3% Jin vs J-Hope  n=350  [bts] Who is your BTS bias?
+ 9. 55.5% Jin vs Suga  n=321  [bts] Who is your BTS bias?
+10. 56.6% Jimin vs Suga  n=304  [bts] Who is your BTS bias?
+
+total duel votes at this snapshot: 60364

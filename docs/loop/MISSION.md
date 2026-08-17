@@ -1,69 +1,85 @@
-# MISSION (W7-CLOSE-2 - three small things, then the arc is shut). NO PUSH.
+# MISSION (W5 PART 0 - produce the dataset. NO code changes. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-W7-CLOSE is Cowork-approved (fe8f457). Verse PAUSED. Nothing pushed. 39 commits local.
+W7 arc closed at 6a745ba, Cowork-approved. Verse PAUSED. 40 commits local, nothing pushed.
 
-This is the last mission of the arc, and it is deliberately tiny. Do not widen it. Anything
-you find that is not one of these three goes into BLOCKED.md as a candidate and stays there.
+## WHAT THIS IS
+W5 is the K-pop Knowledge Report: original data, published, pitched, to earn real links.
+It is the only lever we have on Domain Rating 1/100 that is not a link scheme. The plan,
+the angle and the honesty rules are in `docs/PLAY-W5-REPORT-PLAN.md` - **read it first**,
+because it decides what counts as a usable number.
 
-## WHAT W7-CLOSE EARNED
-You answered the key question with a measurement and the answer saved us a permanent
-security cost. Two things stood out: you found the `/rankings` gap by simulation AFTER your
-own table sweep had said "all covered", and you reported that your measurement was the thing
-at fault. And you refused to switch `getRankingsIndex` to anon, because `duel_votes` reads 0
-under anon by design and the site would have shown every ranking as locked. Retracting the
-false notification claim from your own BLOCKED entry is the same instinct.
+Cowork writes the report. Cowork cannot reach the database: Supabase MCP has refused with
+"You do not have permission" since W8. So this mission exists for one reason: **every
+number the report ships must exist in a committed file, derived by you, traceable.** A
+figure that is not in `docs/data/w5-dataset.md` will not appear in the report.
 
-## PART 1 - the simulation was not the CI condition (this is the blocking one)
-Your proof ran `SUPABASE_SERVICE_ROLE_KEY=invalid-key-ci-simulation npm run build`. The
-committed workflow passes **no such variable at all**. Those are different code paths:
+**This is a READ-ONLY mission.** No migration, no DDL, no app code, no schema change, no
+write of any kind to the database. If a question needs a write to answer, it does not get
+answered.
 
-  node_modules/.pnpm/@supabase+supabase-js@2.100.1/.../dist/index.mjs:367
-    if (!supabaseKey) throw new Error("supabaseKey is required.");
+## THE RULE THAT MATTERS MOST
+I am giving you QUESTIONS, not SQL. I cannot verify the schema from here, so any SQL I
+wrote would be invented column names dressed up as instructions. **Read the real schema
+first, write the query it supports, and print the query next to its result.** If a question
+cannot be answered by the schema as it stands, write "NOT ANSWERABLE" and why. That is a
+useful answer. A plausible number derived from a column that means something else is not.
 
-An INVALID key constructs fine and fails later as a 401, which is why your build was green.
-An ABSENT key throws at construction. And `createServiceRoleClient()` is called as a bare
-statement, outside any `safeFetch` or try, in two public pages:
-  - `src/app/pt/games/page.tsx:36` - has `revalidate = 3600`, no dynamic escape, so it is
-    PRERENDERED AT BUILD. The build step throws before a single gate runs.
-  - `src/app/blindtest/leaderboard/page.tsx:69` - dynamic (it awaits `searchParams`), so it
-    500s per request instead, which the crawlers would then report as a broken page.
+## THE OUTPUT: docs/data/w5-dataset.md
+Numbers and the query that produced each one. **No prose, no interpretation, no
+conclusions** - interpretation is my job and mixing them is how a report ends up asserting
+what its data does not support. Every table states its denominator and its date window.
 
-Ship the condition you actually proved: put the placeholder in the workflow's `env:`, named
-so nobody mistakes it for a credential, with a comment saying why a value that cannot
-authenticate is deliberate. Then re-run the CI simulation with the variable ABSENT first, so
-you have seen the failure you are fixing, and again with the placeholder.
+## THE FLOOR, DECIDED BEFORE THE NUMBERS
+Set a minimum sample per row (per group, per quiz, per question) BEFORE you look at any
+result, state it at the top of the file with your reasoning, and apply it everywhere.
+Anything under it is listed separately as "below floor", never mixed into a ranking. The
+top of a leaderboard is exactly where a tiny sample hides, and that is what gets a report
+taken apart in public.
 
-If you instead want to make `createServiceRoleClient` degrade rather than throw, that is a
-bigger change touching every caller - do NOT do it here, write it in BLOCKED.md.
+## THE QUESTIONS
 
-## PART 2 - nothing asserts a floor on the sitemap
-Moving the sitemap to anon was right, and it means production output is now governed by RLS.
-So a policy change can silently shrink the sitemap, and all three gates stay GREEN, because
-each one grades whatever the sitemap says. There is no minimum-count assertion anywhere; I
-grepped. That is the same shape as the static-only fallback you correctly called a green
-that means nothing, one level up.
+**A. Scope.** How many plays, over how many published quizzes, how many groups, over what
+date range. The oldest and newest play. How many plays are from signed-in players vs
+anonymous. This is the report's method section, so it must be exact.
 
-Add a floor. Keep it dumb and legible: a committed constant, the gate prints the real count
-next to it, and it fails when the count drops below. It must work at BOTH numbers we know
-about - 705 non-verse in production, 684 under CI anon - so the floor is a collapse detector,
-not a fixture that breaks the day someone publishes a quiz. Say in a comment how to raise it
-and why raising it is a deliberate act.
+**B. The knowledge ladder.** Average score per group, as a percentage, with the play count
+behind each. Both directions: the best-scoring groups and the worst, above the floor. Then
+the question I actually care about: **do the most-played groups score better, or just play
+more?** Give me the ranking by plays next to the ranking by score.
 
-## PART 3 - the alert names the wrong thing
-`if: failure()` fires for any failed step, including checkout, install and build, and the
-message always says "SEO gates FAILED". The first alert this workflow ever sends would
-therefore name the wrong failure. Make it say which step failed.
+**C. Hardest and easiest.** The lowest-scoring and highest-scoring quizzes above the floor,
+with their play counts. Then, if the schema stores per-question results, the same at
+question level: the questions most people get wrong, with the number of attempts. Question
+level is the most quotable section of the report, so if it is not answerable, say so
+clearly rather than approximating from quiz-level data.
+
+**D. Girl groups vs boy groups.** Average score and play count for each, AND the numbers a
+fair comparison needs: how many quizzes on each side, and whether the difficulty mix is
+comparable. If we cannot control for difficulty, say so - a raw gap on unmatched quiz sets
+is a selection artefact and it will not ship.
+
+**E. Generations.** Average score and play count by generation, if generation is real data
+on groups rather than something we infer.
+
+**F. Duel votes, colour only.** Total votes, distinct voters, votes per voter, and the most
+lopsided and most contested matchups above the floor. Flagged in the file as **COLOUR
+ONLY**: roughly 870 self-selected voters cannot carry a headline.
+
+**G. Anything you find that I did not ask for.** You are the one who will see the shape of
+this data. If something is more interesting than the six questions above, put it in a
+clearly marked section at the end with its numbers. Do not leave it out because it was not
+on the list.
 
 ## STANDING RULES
-- Print `pwd` before every gate run.
-- Prove against the real condition, not a nearby one. That is the whole content of PART 1.
-- Numbers in the REPORT must match the numbers in the proof files.
-- Never `git diff` to prove a covenant: it does not see untracked files. Grep the tree.
-- Capture exit codes, not just the last line of output.
-- No DDL, no deletes, no push. Prepared SQL goes to `docs/pending-migrations/`.
-- Proofs in `docs/proofs/w7-close-2/`, committed.
+- Print `pwd` before anything.
+- Every number in the file carries the query that produced it and its denominator.
+- Read the schema, do not assume it. Report any column whose meaning you had to guess.
+- No DDL, no writes, no push. This mission changes no application code at all.
+- If a query is expensive, say how expensive rather than silently sampling. If you sample,
+  the file says SAMPLED and states the size.
+- Proofs / raw output in `docs/proofs/w5-part0/`, committed.

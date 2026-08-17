@@ -1,0 +1,16 @@
+## B3-bis. correlation log10(plays) vs score%, above floor
+  all 27 groups            : r = -0.242
+  26 groups, no general-kpop: r = -0.254
+
+## D-bis. GIRL vs BOY, CONTROLLED FOR DIFFICULTY (per-difficulty pooled score)
+difficulty | gg score (n) | bg score (n) | gap (gg - bg)
+  easy    | 84.1% (1043) | 77.1% (8288) | 7.0 pt
+  medium  | 65.3% (16732) | 63.2% (16262) | 2.2 pt
+  hard    | 66.0% (30) | 72.8% (30) | -6.8 pt
+  POOLED  | 66.5% (17805) | 67.7% (24580) | -1.2 pt
+
+direct-standardised to the COMBINED difficulty mix:
+  gg = 69.5%   bg = 66.2%   gap = 3.2 ptMar+Apr : plays=41982  pooled=63.2%
+May-Aug : plays=17425  pooled=75.9%
+share of all usable plays in Mar+Apr: 70.7%
+break size: 12.7 pt

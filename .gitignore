@@ -69,6 +69,7 @@ docs/*
 !docs/loop/
 !docs/loop-seo/
 !docs/proofs/
+!docs/data/
 !docs/PLAY-SEO.md
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
