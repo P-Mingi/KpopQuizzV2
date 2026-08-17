@@ -1,0 +1,18 @@
+=== PART 2: the sitemap floor ===
+
+constant: NON_VERSE_FLOOR = 600, in apps/quiz/scripts/check-orphans.mts
+known real counts it must sit below: 705 (production, service role) and 684 (CI, anon only)
+collapse it must catch: the static-only sitemap fallback, ~41 URLs
+
+--- PASSES at the CI count (684) ---
+Sitemap floor: 684 non-verse URLs vs a floor of 600.
+Orphan gate passed: every one of the 684 non-verse sitemap URLs has at least one inbound internal link from the 684 crawled pages. (Complete crawl of every non-verse sitemap URL.)
+EXIT=0
+
+--- FAILS when the count is below the floor (floor temporarily raised to 100000) ---
+Sitemap floor: 684 non-verse URLs vs a floor of 100000.
+Sitemap floor FAILED: the non-verse sitemap has 684 URLs, below the floor of 100000. The sitemap itself has collapsed, so every other assertion in this gate would be grading a fraction of the site and would otherwise pass. Likely causes: the sitemap's DB batch timed out and fell back to static-only (~41 URLs), or an RLS policy now hides rows the anon key used to read. Fix the sitemap before trusting any orphan result.
+EXIT=1
+
+The check runs BEFORE the crawl: a collapsed sitemap is not worth crawling, and every
+orphan assertion after it would be grading a fraction of the site while passing.

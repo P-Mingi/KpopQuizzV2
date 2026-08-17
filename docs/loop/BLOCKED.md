@@ -49,6 +49,23 @@ which is those workflows' own bot credential, not a failure hook. NO workflow in
 notifies on failure. The new workflow posts to a Discord webhook on failure and no-ops
 when the secret is absent.
 
+## w7-close-2-degrade - createServiceRoleClient throws instead of degrading (candidate mission)
+
+- What this is: a candidate, not a blocker. Recorded because W7-CLOSE-2 measured it and was
+  told not to widen scope.
+- The finding: `@supabase/supabase-js` throws `supabaseKey is required.` at CONSTRUCTION
+  when the key is absent, and `createServiceRoleClient()` is called as a bare statement
+  outside any `safeFetch` in two public pages: `src/app/pt/games/page.tsx:36` and
+  `src/app/blindtest/leaderboard/page.tsx:69`. Measured with the variable absent, both
+  return HTTP 500 while the rest of the site serves 200, and `/pt/games` is in the sitemap.
+- Why it is not urgent: production always has the key, so both pages serve 200 there
+  (verified this mission). CI is covered by the placeholder in the workflow env.
+- Why it is still worth doing: a missing env var should degrade a section, not 500 a public
+  page. The same shape exists anywhere else a bare `createServiceRoleClient()` sits outside
+  a guard.
+- Size: it touches every caller of the factory, which is why it was not done inline.
+- Proof / context: docs/proofs/w7-close-2/part1-ci-condition.txt
+
 ## w7-close-1 - the nightly will be RED on its first run, for a reason you already own
 
 - What is blocked: `check:metadata-dupes` going green in CI. Under CI conditions it

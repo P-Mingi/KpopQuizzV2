@@ -1,111 +1,97 @@
-# REPORT - W7-CLOSE: CI is real, on the two secrets we already had. No new key.
+# REPORT - W7-CLOSE-2: the real CI condition, a floor under the sitemap, an alert that names the failure.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
 before every gate run. No DDL, no deletes, nothing pushed. Verse untouched. No title or
 meta description edited.
 
-Gates (real build): tsc **0** · build **0** · check:routes **0** · check:indexability
-**0** · check:orphans **0** (705 of 705, complete crawl) · check:metadata-dupes
-**unchanged** (8 groups, 0 non-verse skips, 997 checked).
+Gates (real production build): tsc **0** · build **0** · check:routes **0** ·
+check:indexability **0** · check:orphans **0** (floor 705 vs 600; 705 of 705 crawled) ·
+check:metadata-dupes **unchanged** (8 groups, 0 non-verse skips, 997 checked).
 
-Proofs: `docs/proofs/w7-close/`. BLOCKED: `w7d-ci` resolved, `w7-close-1` filed.
+Proofs: `docs/proofs/w7-close-2/`. BLOCKED: `w7-close-2-degrade` filed as a candidate.
 
 ---
 
-## PART 1 - outcome (b), and the good half of (a) came with it
+## PART 1 - you were right about the condition, and wrong about the consequence
 
-**The service role key is not needed and is not requested.** Measured table by table,
-anon returns identical counts for everything the non-verse sitemap batch reads: quizzes
-400=400, groups 88=88, games 24=24, tot_categories 20=20, pulse_reports 1=1, songs
-4120=4120. The non-verse sitemap now runs on `createPublicReadClient`, and production
-output is byte-identical: **3046 URLs, 705 non-verse, 2341 verse**, verified on a build
-with the real environment.
+The catch is real: I proved with an **invalid** key, the workflow passed **none**, and an
+invalid key constructs while an absent one throws. I ran the condition I had actually
+shipped, and it does not behave as the mission predicted.
 
-`check:indexability` also dropped to anon. It only reads `quizzes` and `groups`, both
-MATCH, and that was the last reason anyone would have needed a key in CI.
+**The build does not die. `BUILD_EXIT=0`.** `supabaseKey is required.` is thrown 414 times
+during it and every one is swallowed by a `safeFetch`. **`/pt/games` is not prerendered**:
+the build marks it `ƒ`, dynamic, so it never runs at build time. It has `revalidate = 3600`
+but something downstream opts it out, and the marker is what settles it, not the export.
 
-**The CI simulation is the proof that matters.** A build with an invalid service role key:
-`BUILD_EXIT=0`, Verse skipped with a clean warning, and **zero static-only fallbacks**.
-That fallback was the entire risk in my w7d-ci block: before this change the same build
-would have emitted ~41 static URLs and any gate on it would have been a lie. It now emits
-**684 non-verse URLs** and all three gates run against them.
+What does break is at request time, and it still had to be fixed:
 
-**What CI does not cover, stated in numbers:** 21 of 705 non-verse URLs (`/rankings` and
-its 20 pages, 3%) and all 2341 Verse URLs.
+    /pt/games              -> HTTP 500   (and it IS in the sitemap)
+    /blindtest/leaderboard -> HTTP 500   (not in the sitemap)
+    /  /blindtest  /quizzes -> HTTP 200  (control)
 
-**I found the 21 the hard way, and it corrects my own measurement.** My first sweep used
-the table list in the mission and reported that anon covered everything non-verse. The CI
-build then produced 684 instead of 705, and the missing 21 were `/rankings`, which
-`getRankingsIndex()` builds from `duel_votes`: **0 rows under anon, 60361 under service
-role**. RLS is right to hide per-user votes, so I did not switch that call. Doing so
-would have made every ranking read as locked on the live site, not just in the sitemap.
+So the nightly would have run and reported a **real-looking** failure caused by its own
+environment: `check:indexability` flags `/pt/games` as a sitemap URL returning 500, and
+`check:orphans` silently drops that page's outbound links because non-200 fetches are
+skipped. That is worse than not running, because someone would go hunting for a bug in the
+page. Your fix was right; the reason to want it is different from the one stated.
 
-`.github/workflows/seo-gates.yml` runs nightly at 04:30 UTC, builds, boots the app, runs
-all three gates (each still runs if an earlier one failed), and posts to Discord on
-failure. Two bugs fixed before commit rather than on first run: `secrets` is not available
-in a step-level `if:` (moved into the shell via `env:`), and the gates were guarded with
-`always()`, which would have run them even when the app never booted.
+**Shipped:** `SUPABASE_SERVICE_ROLE_KEY: not-a-credential-ci-placeholder` in the workflow
+`env:`, with a comment explaining that a value which cannot authenticate is the point.
+Re-measured with it: `BUILD_EXIT=0`, **zero** construction errors, both pages **200**, and
+all three gates run (indexability 0 at 36 sampled pages, orphans 0 at 684, metadata-dupes
+1 collision, the known one).
 
-**A correction to my last BLOCKED entry.** `w7d-ci` claimed "6 of the 7 existing workflows
-already have failure notification wired". That was **wrong**: my grep matched
-`DISCORD_TOKEN`, which is those workflows' own bot credential, not a failure hook.
-**No workflow in this repo notifies on failure.** The new one is the first, and it no-ops
-cleanly when no webhook secret exists, so it is useful today and louder once one does.
+I did **not** make the factory degrade instead of throw. Filed as `w7-close-2-degrade`.
 
-**The nightly will be RED on its first run.** Under CI conditions `check:metadata-dupes`
-reports exactly 1 collision: the SEVENTEEN duplicate already filed as `w1-ctr`. Filed as
-`w7-close-1`, because a nightly that is red from day one for a known reason is how a team
-learns to ignore a red nightly. It is a 30-second admin retitle and then the first run is
-green.
+## PART 2 - the floor
 
-## PART 2.1 - deduped, counted not asserted
+`NON_VERSE_FLOOR = 600` in `check-orphans.mts`, checked **before** the crawl, because a
+collapsed sitemap is not worth crawling and everything after it would grade a fraction of
+the site while passing.
 
-`getAdvertisablePlaylists` is wrapped in React `cache()`. Counted in one traced build:
-**4 call sites invoked, 3 real DB reads**. `/blindtest` asks twice and reads once, which
-is the duplicated `songs` pagination gone. Trace lines are env-gated and silent otherwise.
+| condition | count | result |
+| --- | --- | --- |
+| production (service role, /rankings included) | 705 | passes |
+| CI (anon only, /rankings excluded by design) | 684 | passes |
+| static-only fallback, the collapse it exists for | ~41 | fails |
 
-## PART 2.2 - /pt/blindtest
+Proven both ways: passing at 684 and at 705, and failing when the count is below the floor
+(temporarily raised to 100000, then reverted). The failure message names the two causes
+worth checking first, the timed-out batch and an RLS change. The constant says how to raise
+it and warns that hugging the current count turns a collapse detector into a fixture that
+breaks the day someone publishes a quiz.
 
-Renders correctly: HTTP 200, h1 present, the same 79-group picker, akmu and taeyang
-included. No playlist section added, as instructed.
+## PART 3 - the alert
 
-**Alphabetical is right for that page too, and the old order was worse than "count
-descending" sounds.** The previous sort was by *how many songs we happen to have
-catalogued* for each group. That is an implementation detail leaking into the UI: it told
-users nothing actionable and fronted whichever group we imported most for. The picker is
-79 unlabelled name chips with **no search box**, so the only action is hunting for a name,
-and alphabetical is the order that makes hunting predictable in both locales.
-
-**Should /pt link its playlists? Yes, eventually.** `/pt/blindtest` is in the sitemap and
-links none of the 97, the same shape as the bug W7c fixed on `/blindtest`. Not an orphan
-risk today because the English index links them all. Not done here, as instructed.
+Each gate has a step `id` and the failure step reads their outcomes, so the message
+resolves to the gates that failed **by name**, or "the app never started on :3021 (no gate
+ran)", or "setup failed before any gate ran (checkout, install or build)". `failure()`
+still fires for any step; it can no longer call a checkout failure an SEO gate failure.
 
 ## Deviations and flags (loud)
 
-1. **You caught a real number mismatch and here is the cause.** W7d's report said the
-   playlist read cost "153-253 ms" while `part4-timing.txt` recorded 364/235/256. I quoted
-   the exploratory run in prose and then re-ran the script when saving the proof file, so
-   the committed artefact recorded a different, slower run. The conclusion held at either
-   number, which is exactly why it would never have been caught. Every number in this
-   report is read back from the file it is stored in.
-2. **My PART 1 measurement was incomplete and the simulation caught it, not me.** I
-   measured the tables I was handed instead of asking what else the sitemap calls. The
-   21-URL gap is small, but the habit that produced it is not.
-3. **A false claim in my last BLOCKED entry**, corrected above and in BLOCKED.md itself.
-   I asserted failure notification existed on the strength of a grep that matched a
-   different thing entirely.
+1. **The mission's premise was partly wrong and I said so rather than reproducing it.**
+   It predicted a build failure at `/pt/games`. The build is green and that page is
+   dynamic. The fix stands on the 500s I measured instead.
+2. **Simulating CI meant hiding `.env.local`**, which is a mutation of the working tree.
+   Every run went through a script with a restore trap and each reported `restored: yes`.
+   None of my backups remain. The one `.env.local.bak.deadproject` in the tree is from
+   2026-06-10 and gitignored, not mine, and I checked its mtime before saying so.
+3. **My first floor placement was after the crawl.** It would still have failed correctly
+   but only after several minutes of crawling a sitemap already known to be broken. Moved
+   before the crawl.
 
 ## Covenant
 
-Every count in this report is a measured row count or a served-HTML count, and the ones
-that differ between anon and service role are named with both numbers rather than
-summarised. Nothing is estimated.
+Every number here is a measured exit code, HTTP status or row count, read back from the
+proof file it is stored in. The 500s, the 414 swallowed errors and the `ƒ` marker are all
+observations, not inferences from the code.
 
 ## Next
 
-The arc is closed. `w7-close-1` (retitle the SEVENTEEN quiz) is the one thing standing
-between this workflow and a green first run. Still open and unrelated: the partner log,
-and the frozen blind test per-song stats from W7d, which still wants its own mission.
+The arc is shut. Two things wait on you: `w7-close-1` (retitle the SEVENTEEN quiz, so the
+nightly's first run is green) and, whenever it is wanted, `w7-close-2-degrade`. Also still
+open: the partner log, and the frozen blind test per-song stats from W7d.
 
 ---
 

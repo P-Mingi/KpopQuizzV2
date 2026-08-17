@@ -3719,3 +3719,94 @@ in the sitemap and links none of the 97 playlists, same shape as the bug W7c fix
 Gates: tsc 0, build 0, check:routes 0, check:indexability 0, check:orphans 0 (705,
 complete), check:metadata-dupes unchanged (8 groups, 0 non-verse skips, 997 checked).
 Proofs: docs/proofs/w7-close/. Nothing pushed.
+
+## L-196 - W7-CLOSE audited: the key question was answered right, the workflow will still fail on run one
+
+W7-CLOSE (fe8f457) got the important thing right and cheaply. No service role key is
+requested, and the reason is measured rather than argued: anon returns identical counts for
+everything the non-verse sitemap needs (quizzes 400=400, groups 88=88, games 24=24,
+tot_categories 20=20, pulse_reports 1=1, songs 4120=4120). `sitemap.ts` lines 216 and 379
+now use `createPublicReadClient`; only the Verse block at 402 still takes the service role,
+and it sits inside a try/catch. `check-indexability` dropped to anon too.
+
+Credit where it is unusual: the worker found the `/rankings` gap by simulation AFTER its
+own table sweep said everything was covered, reported that its measurement had been
+incomplete, and refused to switch `getRankingsIndex` to anon because `duel_votes` reads 0
+under anon by design - doing so would have made every ranking look locked on the live site,
+not just in CI. It also retracted a false claim from its previous BLOCKED entry: no
+workflow in this repo notifies on failure; its earlier grep had matched `DISCORD_TOKEN`,
+those workflows' own bot credential.
+
+**BLOCKING finding: the CI simulation was not the CI condition.** The proof ran
+`SUPABASE_SERVICE_ROLE_KEY=invalid-key-ci-simulation npm run build` - a key that is present
+but wrong. The committed workflow passes **no such variable at all**, and in
+supabase-js 2.100.1 (`dist/index.mjs:367`) `createClient` throws `supabaseKey is required.`
+on a falsy key, at construction. Two public pages call `createServiceRoleClient()` as a
+bare statement outside any `safeFetch` or try: `src/app/pt/games/page.tsx:36`, which has
+`revalidate = 3600` and no dynamic escape, so it is prerendered at build - the build step
+throws before a single gate runs - and `src/app/blindtest/leaderboard/page.tsx:69`, which
+is dynamic because it awaits `searchParams`, so it 500s per request instead. An invalid key
+constructs fine and fails later at 401, which is why the simulation was green. Fix is one
+line: ship the placeholder that was actually proven, in the workflow's `env:`.
+
+**Second finding: the production sitemap is now governed by RLS, and nothing asserts a
+floor.** That is the correct trade for keeping the key out of a runner, but a policy change
+can now silently shrink the sitemap, and all three gates would stay green because each one
+grades whatever the sitemap says. No gate asserts a minimum URL count - grepped, there is
+none. The same shape as the static-only fallback the worker was right to call a green that
+means nothing, one level up.
+
+Smaller: the Discord failure message says "SEO gates FAILED" for any failed step, including
+install and build, so the first alert this workflow ever sends would name the wrong thing.
+
+Coverage is stated honestly in the workflow header: the gate asserts on 684 of 705 non-verse
+URLs (Verse 2341 and /rankings 21 excluded, both with the numbers behind them).
+
+Owner rulings this round: test anon before shipping any key (done, and it paid), and close
+the W7 arc, push, return to PLAY-MASTER-PLAN. One tiny mission stands between the workflow
+and a first run that means something. Supabase MCP still refuses; every figure here is from
+the tree, from node_modules, or from committed proofs. Nothing pushed; 39 commits local.
+
+## L-188 - W7-CLOSE-2: real CI condition, sitemap floor, alert names the failing step (2026-08-16)
+
+PART 1. The catch was right: W7-CLOSE proved with an INVALID service role key while the
+workflow passed NONE. An invalid key constructs and fails later as 401; an absent one
+throws "supabaseKey is required." at construction. BUT the predicted consequence was WRONG
+and I measured instead of agreeing: with the variable ABSENT the build is GREEN
+(BUILD_EXIT=0). 414 construction errors are all swallowed by safeFetch, and /pt/games is
+NOT prerendered - the build marks it `f` (dynamic) despite `revalidate = 3600`, so it never
+runs at build time. The real damage is at REQUEST time: /pt/games -> HTTP 500 (and it IS in
+the sitemap) and /blindtest/leaderboard -> HTTP 500, while /, /blindtest, /quizzes serve
+200. So the nightly would have run and blamed the SITE for its own missing env:
+check:indexability flags /pt/games as a sitemap URL returning 500, check:orphans silently
+loses its outbound links (non-200 fetches are skipped).
+FIX SHIPPED: SUPABASE_SERVICE_ROLE_KEY: not-a-credential-ci-placeholder in the workflow
+env, named so nobody reads it as a credential. Re-measured with it: BUILD_EXIT=0, ZERO
+construction errors, both pages 200, gates run (indexability 0 / 36 sampled, orphans 0 at
+684, dupes 1 collision = the known w1-ctr). Did NOT make createServiceRoleClient degrade
+(touches every caller); filed as BLOCKED candidate w7-close-2-degrade.
+
+PART 2. NEW: NON_VERSE_FLOOR = 600 in check-orphans.mts, checked BEFORE the crawl. Since
+W7-CLOSE the non-verse sitemap is built with the ANON key, so RLS governs its contents and
+a policy change could shrink it while all three gates stay green on the remainder - the
+same shape as the static-only fallback, one level up. The floor straddles both real counts
+(705 production, 684 CI anon) and catches the ~41-URL static-only collapse. Proven passing
+at 684 and 705 and FAILING when the count is below it (floor temporarily raised to 100000,
+then reverted). Comment states how to raise it and that hugging the current count turns a
+collapse detector into a fixture that breaks when someone publishes a quiz.
+
+PART 3. Each gate step now has an id; the failure step reads their outcomes and names the
+gate(s) that failed, or says the app never started, or that setup failed before any gate
+ran. Previously `if: failure()` always said "SEO gates FAILED", so the first alert the
+workflow ever sent could have misnamed a checkout failure.
+
+HOUSEKEEPING: simulating CI required hiding .env.local (a runner has no env file). Every
+run went through a script with a restore trap; all reported restored: yes; no backups of
+mine remain. The .env.local.bak.deadproject in the tree is from 2026-06-10, gitignored,
+not mine (mtime checked before claiming it).
+
+Gates on the real build: tsc 0, build 0, check:routes 0, check:indexability 0,
+check:orphans 0 (floor 705 vs 600, 705 of 705 crawled), check:metadata-dupes unchanged
+(8 groups, 0 non-verse skips, 997 checked). /pt/games and /blindtest/leaderboard both 200
+in production, confirming the 500s were purely the simulated CI env.
+Proofs: docs/proofs/w7-close-2/. Nothing pushed.

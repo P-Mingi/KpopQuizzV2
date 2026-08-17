@@ -43,6 +43,24 @@ const SAMPLE = Number(process.env.ORPHANCHECK_SAMPLE ?? Number.POSITIVE_INFINITY
 const INJECT = process.env.ORPHANCHECK_INJECT ?? '';
 const FETCH_TIMEOUT_MS = 30000;
 
+// W7-CLOSE-2 - the FLOOR. A collapse detector, not a fixture.
+//
+// The three gates all grade whatever the sitemap says, so none of them notices the
+// sitemap itself shrinking. Since W7-CLOSE the non-verse sitemap is built with the ANON
+// key, which means RLS now governs its contents: one policy change could quietly drop
+// most of it and every gate would stay green on the remainder. That is the same shape as
+// the static-only fallback we already called a green that means nothing, one level up.
+//
+// Known real counts: 705 non-verse in production (service role present, so /rankings is
+// included), 684 in CI on anon alone (/rankings excluded by design, see the workflow).
+// The floor sits below BOTH so a normal day never trips it, and far above a collapse:
+// the static-only fallback is ~41 URLs, which this catches instantly.
+//
+// TO RAISE IT: change the constant, deliberately, in a commit that says why. Raising it
+// to hug the current count would turn a collapse detector into a fixture that breaks the
+// day someone publishes a quiz, which is how a gate gets disabled instead of fixed.
+const NON_VERSE_FLOOR = 600;
+
 // Verse is PAUSED and out of scope for this gate.
 const isVerse = (p: string): boolean => p.startsWith('/verse');
 
@@ -98,6 +116,21 @@ async function main(): Promise<void> {
   const all = await sitemapPaths();
   if (INJECT) all.push(pathOf(INJECT));
 
+  // The floor is checked BEFORE crawling: if the sitemap has collapsed there is nothing
+  // worth crawling, and every orphan result below would be graded against a fraction of
+  // the site while passing.
+  console.log(`Sitemap floor: ${all.length} non-verse URLs vs a floor of ${NON_VERSE_FLOOR}.`);
+  if (all.length < NON_VERSE_FLOOR) {
+    console.error(
+      `\nSitemap floor FAILED: the non-verse sitemap has ${all.length} URLs, below the floor of ` +
+      `${NON_VERSE_FLOOR}. The sitemap itself has collapsed, so every other assertion in this gate ` +
+      `would be grading a fraction of the site and would otherwise pass. Likely causes: the ` +
+      `sitemap's DB batch timed out and fell back to static-only (~41 URLs), or an RLS policy now ` +
+      `hides rows the anon key used to read. Fix the sitemap before trusting any orphan result.`,
+    );
+    process.exit(1);
+  }
+
   // Deterministic, spread sample. Two kinds of page are ALWAYS crawled:
   //   1. short "hub-shaped" paths (/bts-quiz, /groups, /blindtest)
   //   2. INDEX pages: any sitemap path that is a path-prefix of other sitemap paths.
@@ -140,6 +173,7 @@ async function main(): Promise<void> {
   console.log(
     `Orphan gate: ${all.length} non-verse sitemap URLs, crawled ${crawled} of ${sampled.length} pages against ${BASE}`,
   );
+
 
   const partial = sampled.length < all.length;
   if (orphans.length > 0) {

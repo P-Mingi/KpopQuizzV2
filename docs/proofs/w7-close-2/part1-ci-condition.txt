@@ -1,0 +1,39 @@
+=== PART 1: the CI condition, measured three ways ===
+
+--- A) variable ABSENT (what the committed workflow actually did) ---
+build: BUILD_EXIT=0
+'supabaseKey is required.' occurrences during the build: 414
+callers that swallowed it via safeFetch:
+    401 [q/[slug]
+      6 [community]
+      2 [sitemap]
+      1 [tot/all]
+      1 [stats]
+      1 [rankings]
+      1 [rankings/meta]
+      1 [pt/home]
+
+the two pages that call createServiceRoleClient() OUTSIDE safeFetch:
+   /pt/games            -> HTTP 500   (and it IS in the sitemap: 1 <loc>)
+   /blindtest/leaderboard -> HTTP 500 (not in the sitemap: 0 <loc>)
+   control / , /blindtest , /quizzes -> HTTP 200
+
+--- B) variable set to the PLACEHOLDER (what the workflow now ships) ---
+build: BUILD_EXIT=0
+'supabaseKey is required.' occurrences: 0
+   /pt/games            -> HTTP 200
+   /blindtest/leaderboard -> HTTP 200
+
+--- C) all three gates against the placeholder build ---
+=== check:indexability ===
+  EXIT=0
+Indexability guard passed: 36 sampled pages are index-consistent, and every article + sampled quiz/group is in the sitemap.
+=== check:orphans (includes the floor) ===
+  EXIT=0
+Sitemap floor: 684 non-verse URLs vs a floor of 600.
+Orphan gate: 684 non-verse sitemap URLs, crawled 684 of 684 pages against http://localhost:3021
+Orphan gate passed: every one of the 684 non-verse sitemap URLs has at least one inbound internal link from the 684 crawled pages. (Complete crawl of every non-verse sitemap URL.)
+=== check:metadata-dupes ===
+  EXIT=1
+Duplicate-metadata gate FAILED (1 collision group(s)) across 686 checked URLs:
+restored: yes

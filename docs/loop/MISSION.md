@@ -1,77 +1,69 @@
-# MISSION (W7-CLOSE - decide the CI key with a measurement, then the arc is shut). NO PUSH.
+# MISSION (W7-CLOSE-2 - three small things, then the arc is shut). NO PUSH.
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-W7d is Cowork-approved (3c1cbf4). Verse PAUSED. Nothing pushed. 38 commits local.
+W7-CLOSE is Cowork-approved (fe8f457). Verse PAUSED. Nothing pushed. 39 commits local.
 
-This is the LAST mission of the W7 arc. After it the owner pushes and we go back to
-PLAY-MASTER-PLAN. Do not open new fronts. If you find something big, write it in BLOCKED.md
-as a candidate mission and leave it there.
+This is the last mission of the arc, and it is deliberately tiny. Do not widen it. Anything
+you find that is not one of these three goes into BLOCKED.md as a candidate and stays there.
 
-## WHAT W7D EARNED
-You disproved two things you could have simply agreed with, and both cost you extra work:
-the clip condition (five clipless groups returning full rounds against a bts control) and
-the 15-song threshold (a comment's assertion, beaten by measuring pools of 11). PART 5 was
-exhaustive rather than sampled, and you asked the right first question instead of repairing
-a join nobody wants. That is the standard.
+## WHAT W7-CLOSE EARNED
+You answered the key question with a measurement and the answer saved us a permanent
+security cost. Two things stood out: you found the `/rankings` gap by simulation AFTER your
+own table sweep had said "all covered", and you reported that your measurement was the thing
+at fault. And you refused to switch `getRankingsIndex` to anon, because `duel_votes` reads 0
+under anon by design and the site would have shown every ranking as locked. Retracting the
+false notification claim from your own BLOCKED entry is the same instinct.
 
-## PART 1 - the CI block: measure before anyone ships a key (owner ruling)
-Your BLOCKED `w7d-ci` is right that a gate grading a static-only sitemap is a green that
-means nothing. The owner has ruled on the ask itself: **test anon first, do not request the
-service role key yet.**
+## PART 1 - the simulation was not the CI condition (this is the blocking one)
+Your proof ran `SUPABASE_SERVICE_ROLE_KEY=invalid-key-ci-simulation npm run build`. The
+committed workflow passes **no such variable at all**. Those are different code paths:
 
-The reason is in the codebase, not in taste. `src/lib/supabase/server.ts` says the service
-role client is for admin API routes only, and `sitemap.ts` calls it three times.
-`getAdvertisablePlaylists` already reads `songs` and `groups` with the ANON client inside
-that same raced batch, so anon is proven for part of the sitemap already. A full RLS bypass
-living in a GitHub runner is a permanent security cost; it must be the answer to a measured
-question, not the first idea.
+  node_modules/.pnpm/@supabase+supabase-js@2.100.1/.../dist/index.mjs:367
+    if (!supabaseKey) throw new Error("supabaseKey is required.");
 
-Measure, table by table, what the ANON key can actually read of what the sitemap needs:
-`quizzes` (published), `groups`, `games` (published), `tot_categories` (published),
-`pulse_reports`, `verse_seed_ids`, `idols`, `albums`, plus the songs reads already proven.
-Report a row count per table under anon, not a yes/no feeling.
+An INVALID key constructs fine and fails later as a 401, which is why your build was green.
+An ABSENT key throws at construction. And `createServiceRoleClient()` is called as a bare
+statement, outside any `safeFetch` or try, in two public pages:
+  - `src/app/pt/games/page.tsx:36` - has `revalidate = 3600`, no dynamic escape, so it is
+    PRERENDERED AT BUILD. The build step throws before a single gate runs.
+  - `src/app/blindtest/leaderboard/page.tsx:69` - dynamic (it awaits `searchParams`), so it
+    500s per request instead, which the crawlers would then report as a broken page.
 
-Then land in exactly one of these and say which:
-  (a) **Anon covers everything the sitemap needs.** Switch the sitemap's clients to
-      `createPublicReadClient`, prove the sitemap still emits the same URL count (705
-      non-verse, and the verse total unchanged), wire the workflow with the two secrets
-      that already exist, and CI is real with no new key. This is the good outcome.
-  (b) **Anon covers all but a named few.** Say which tables and what they contribute. If
-      what is lost is only Verse URLs, note that Verse is PAUSED and a gate that grades the
-      non-verse sitemap completely is still a real gate - propose that, do not just block.
-  (c) **Anon covers too little.** Then the service role key is genuinely the answer, and
-      the BLOCKED entry says so with the measurement behind it instead of an assumption.
+Ship the condition you actually proved: put the placeholder in the workflow's `env:`, named
+so nobody mistakes it for a credential, with a comment saying why a value that cannot
+authenticate is deliberate. Then re-run the CI simulation with the variable ABSENT first, so
+you have seen the failure you are fixing, and again with the placeholder.
 
-Whatever ships, the gate must still fail on an injected orphan, run from the workflow, and
-the failure must be visible where the other six workflows already report.
+If you instead want to make `createServiceRoleClient` degrade rather than throw, that is a
+bigger change touching every caller - do NOT do it here, write it in BLOCKED.md.
 
-## PART 2 - two small things, because you are already in the file
-Not design decisions, so they do not deserve their own mission. If either turns out to be
-more than it looks, stop and write it down instead.
+## PART 2 - nothing asserts a floor on the sitemap
+Moving the sitemap to anon was right, and it means production output is now governed by RLS.
+So a policy change can silently shrink the sitemap, and all three gates stay GREEN, because
+each one grades whatever the sitemap says. There is no minimum-count assertion anywhere; I
+grepped. That is the same shape as the static-only fallback you correctly called a green
+that means nothing, one level up.
 
-1. `/blindtest` runs the same paginated read twice per render: `page.tsx` awaits
-   `getBlindtestGroups()` AND `getAdvertisablePlaylists()` in one `Promise.all`, and the
-   first is now a wrapper around the second. Dedupe it (React `cache()` on the shared
-   function is the obvious shape). Prove it with a query count or a timing, not by reading
-   the code back to me.
-2. `/pt/blindtest` is the second caller of `getBlindtestGroups` and it is in the sitemap,
-   and W7d's report never mentions it. Check it renders correctly with the new set, and say
-   plainly whether the picker's order changing from count-descending to alphabetical is
-   right for that page too. If /pt should also link its playlists, say so - do NOT add the
-   section in this mission.
+Add a floor. Keep it dumb and legible: a committed constant, the gate prints the real count
+next to it, and it fails when the count drops below. It must work at BOTH numbers we know
+about - 705 non-verse in production, 684 under CI anon - so the floor is a collapse detector,
+not a fixture that breaks the day someone publishes a quiz. Say in a comment how to raise it
+and why raising it is a deliberate act.
+
+## PART 3 - the alert names the wrong thing
+`if: failure()` fires for any failed step, including checkout, install and build, and the
+message always says "SEO gates FAILED". The first alert this workflow ever sends would
+therefore name the wrong failure. Make it say which step failed.
 
 ## STANDING RULES
 - Print `pwd` before every gate run.
-- Anything that must be ABSENT is proven against the served HTML of a production build.
+- Prove against the real condition, not a nearby one. That is the whole content of PART 1.
+- Numbers in the REPORT must match the numbers in the proof files.
 - Never `git diff` to prove a covenant: it does not see untracked files. Grep the tree.
 - Capture exit codes, not just the last line of output.
-- Numbers in the REPORT must match the numbers in the proof files. W7d's report said the
-  playlist read cost "153-253 ms" while `part4-timing.txt` recorded 364, 235, 256. The
-  conclusion held at either number, which is exactly why nobody would have caught it.
 - No DDL, no deletes, no push. Prepared SQL goes to `docs/pending-migrations/`.
-- Proofs in `docs/proofs/w7-close/`, committed.
-- When two honest options exist and you cannot choose on evidence, BLOCK and say so.
+- Proofs in `docs/proofs/w7-close-2/`, committed.
