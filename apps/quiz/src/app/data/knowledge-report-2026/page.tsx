@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 // W5 PART 1 - the K-pop Knowledge Report landing page.
 //
-// The prose below is docs/PLAY-W5-REPORT-DRAFT.md v3, shipped VERBATIM. Every figure in it
+// The prose below is docs/PLAY-W5-REPORT-DRAFT.md v4, shipped VERBATIM. Every figure in it
 // is traceable to docs/data/w5-dataset.md, which is published in full at
 // /data/knowledge-report-2026/dataset. Do not add a number, a percentage, a ranking or an
 // example to this file: the report is trading on the fact that nothing in it was invented,
@@ -117,7 +117,7 @@ export default function KnowledgeReportPage(): React.ReactElement {
         <h1 className="kr-title">The K-pop Knowledge Report 2026</h1>
         <p className="kr-standfirst">Fans know the people. They don&apos;t know the catalogue.</p>
         <p className="kr-dek">
-          kpopquiz.org · 1 May to 17 August 2026 · 17,425 measured attempts ·{' '}
+          kpopquiz.org · 1 May 2026 to a snapshot on 17 August 2026 · 17,425 measured attempts ·{' '}
           <a href={DATASET_URL} className="kr-inline-link">full dataset</a>
         </p>
       </header>
@@ -130,8 +130,12 @@ export default function KnowledgeReportPage(): React.ReactElement {
           this.
         </p>
         <p className="kr-callout">
-          <strong>Window: 1 May 2026 to 17 August 2026. 17,425 completed attempts across 76
-          quizzes.</strong>
+          <strong>Window: 1 May 2026 to a snapshot taken on 17 August 2026. 17,425 completed
+          attempts across 76 quizzes.</strong> The snapshot boundary is published to the
+          microsecond in the dataset, because we found that a boundary rounded to the second
+          reproduces our own headline number one attempt short. Anyone re-running these
+          figures should use the value in the dataset, and will then get exactly what is
+          printed here.
         </p>
         <p>
           We hold a longer history and we are deliberately not using most of it. In March and
@@ -143,9 +147,9 @@ export default function KnowledgeReportPage(): React.ReactElement {
         </p>
         <p>
           Minimum samples were fixed before any result was looked at: 100 attempts per group, 50
-          per quiz, 100 votes per matchup. Anything below is named and never ranked. No table in
-          this report mixes the two. Everything is computed from individual play records at read
-          time, never from stored counters.
+          per quiz, 100 votes per matchup. Anything below is named and never ranked. No table here
+          mixes the two. Everything is computed from individual play records at read time, never
+          from stored counters.
         </p>
       </section>
 
@@ -171,8 +175,10 @@ export default function KnowledgeReportPage(): React.ReactElement {
           is also why we are not turning this into a ranking of fandoms. See below.
         </p>
         <p>
-          Across the whole window, <strong>one attempt in five is a perfect score</strong>, and
-          2.1% score zero.
+          Across the window, <strong>6,257 of 17,425 attempts are perfect scores - 35.9%, better
+          than one in three</strong> - and 109, or 0.6%, score zero. That says as much about the
+          quizzes as about the players: an identity question is a question most fans get right,
+          and we have written a lot of them.
         </p>
       </section>
 
@@ -207,11 +213,12 @@ export default function KnowledgeReportPage(): React.ReactElement {
         </p>
         <p>
           <strong>The root cause is us.</strong> We did not write comparable quizzes. Across the
-          21 groups compared here, the share of attempts on easy quizzes runs from 0% to 92.3%,
-          and published quizzes per group run from 3 to 27. Two boy groups of similar catalogue
-          size make it concrete: 70.1% of Stray Kids attempts are on easy quizzes, against 7.6%
-          for BTS. They are not sitting the same exam, and any table that ranks them is measuring
-          our editorial history.
+          21 rows compared here - 20 groups plus a general K-pop bucket that is not a group at
+          all - the share of attempts on easy quizzes runs from 0% to 92.3%. Published quizzes
+          run from 3 to 27 per group, with 152 in that general bucket. Two boy groups make it
+          concrete: 70.1% of Stray Kids attempts are on easy quizzes, against 7.6% for BTS. They
+          are not sitting the same exam, and any table that ranks them is measuring our editorial
+          history.
         </p>
         <p>
           <strong>We cannot tell you which questions people miss.</strong> We record a score per
@@ -239,8 +246,9 @@ export default function KnowledgeReportPage(): React.ReactElement {
       <footer className="kr-foot">
         <p>
           <em>
-            Data: kpopquiz.org, 1 May - 17 August 2026, 17,425 attempts. Full figures, queries and
-            sample sizes - including the findings we discarded - are{' '}
+            Data: kpopquiz.org, 1 May 2026 to a snapshot on 17 August 2026, 17,425 attempts. Full
+            figures, queries, sample sizes and the exact snapshot boundary - including the
+            findings we discarded - are{' '}
             <a href={DATASET_URL} className="kr-inline-link">published alongside this report</a>.
           </em>
         </p>

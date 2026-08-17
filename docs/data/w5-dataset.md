@@ -8,6 +8,45 @@ no conclusions** - those belong to the report.
 
 ---
 
+## REPRODUCING ANY FIGURE: START HERE
+
+**The exact snapshot boundary.** The report cites 17,425 attempts. To get that number, and
+every other figure in this file, use this window:
+
+```sql
+where created_at >= '2026-05-01T00:00:00+00:00'
+  and created_at <= '2026-08-17T12:30:50.619691+00:00'   -- the snapshot instant, to the microsecond
+  and total_questions > 0 and score between 0 and total_questions
+```
+
+**A boundary rounded to the second returns 17,424, one attempt short**, because the newest
+play in the snapshot sits at `.619691` inside that second. That is why the microsecond value
+is printed here rather than the readable one. Full working, and the four boundaries tested,
+in **section R** at the end of this file.
+
+**What is in this file**
+
+| section | what it holds |
+| --- | --- |
+| 0 | the floor, the score definition, usable-row counts |
+| A | scope: attempts, window, signed-in vs anonymous |
+| B | per group, ranked by score and by attempts |
+| C | per quiz, hardest and easiest, and why question-level is not answerable |
+| D | girl groups vs boy groups, raw and difficulty-controlled |
+| E | generations |
+| F | duel votes, colour only |
+| G | seven things nobody asked for, including the regime change |
+| H, I | the group ladder standardised, and split by period |
+| J | what changed between April and May |
+| K, L, M, N | generations, quizzes, the girl-group gap hardened, and the May-Aug sample |
+| O, P, Q | the within-label test, matched formats, catalogue unevenness |
+| **R** | **the canonical window boundary, and the perfect/zero shares measured on it** |
+
+Sections H onward are the tests that killed three findings. They are kept in full, including
+the ones that did not survive.
+
+---
+
 ## 0. THE FLOOR, set before any result was looked at
 
 | level | floor | reasoning |

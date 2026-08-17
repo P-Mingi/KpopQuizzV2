@@ -1,0 +1,13 @@
+v4 CLAIM: "6,257 of 17,425 attempts are perfect scores - 35.9%, better than one in three"
+  n=17425  perfect=6257 (35.908%)  1 in 2.78
+  "better than one in three" (>33.33%)? TRUE
+v4 CLAIM: "109, or 0.6%, score zero"
+  zero=109 (0.626%)
+
+v4 CLAIM: "21 rows - 20 groups plus a general K-pop bucket ... 3 to 27 per group, 152 in that bucket"
+  rows clearing 100 in-window attempts: 21   of which non-bucket groups: 20
+  published quizzes, non-bucket groups: 3 to 27
+  general-kpop bucket: 152
+
+v4 CLAIM: "a boundary rounded to the second reproduces our headline one attempt short"
+  rounded-to-second boundary -> 17424  (headline 17425, short by 1)

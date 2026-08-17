@@ -4360,3 +4360,38 @@ per-period splits); R3 states which pair belongs to the report so v4 cannot pick
 the file is getting easy to misread. (2) The canonical boundary applies to R only, by
 instruction: sections A-Q were measured against the open window, so reproducing e.g. section
 L exactly could land a play or two off.
+
+## L-206 - W5 PART 1c: v4 onto the page, and section R made findable (2026-08-17)
+
+No DDL, no DB writes, nothing pushed. Proofs: docs/proofs/w5-part1c/.
+
+VERIFIED BEFORE SHIPPING (no block needed, all v4 figures reproduce on the canonical window):
+perfect 6,257/17,425 = 35.908% and "better than one in three" TRUE (>33.33%); zero 109 =
+0.626%; 21 rows clearing 100 in-window attempts of which 20 are real groups + the
+general-kpop bucket; published quizzes 3 to 27 for the 20, 152 for the bucket; a
+rounded-to-the-second boundary returns 17,424, one short.
+
+PAGE: /data/knowledge-report-2026 now carries v4 prose VERBATIM. v3's figures are GONE from
+the served HTML ("one attempt in five" 0, "2.1% score zero" 0, "21 groups compared here" 0).
+The new snapshot sentence is in the body, zero <details> on the page, limits section whole
+(all 7 paragraphs present). JSON-LD unchanged and still parses with isBasedOn -> Dataset.
+
+FINDABILITY (the non-copy-paste part): the report now tells readers the exact boundary is in
+the dataset, so the dataset had to make it findable. Added a "REPRODUCING ANY FIGURE: START
+HERE" block at the TOP of docs/data/w5-dataset.md carrying the full-precision window inline,
+the one-attempt-short warning, and a contents table naming section R. Measured on the SERVED
+file: the exact boundary first appears on LINE 18 of 1,413; the START HERE heading on line
+11; the warning on line 22; section R itself at line 1,340. A reader landing on the raw
+markdown sees the value on the first screen instead of hunting a 57KB file.
+
+REBUILD TRAP APPLIED (documented in L-205): rebuilt BEFORE verifying, because the dataset
+route reads the markdown at build time. Served dataset is byte-identical to the repo file at
+57,370 bytes.
+
+Gates, cwd printed before each: check:docs-secrets 0, check:routes 0, check:indexability 0,
+check:orphans 0 (706 non-verse URLs, unscoped, complete crawl), check:metadata-dupes
+unchanged at 8 collision groups with knowledge-report in 0 of them. tsc 0.
+
+SELF-CORRECTION: my first edit produced "No table in here mixes the two" where v4 reads "No
+table here mixes the two"; caught on a verbatim diff of the changed sentences and fixed
+before the build.

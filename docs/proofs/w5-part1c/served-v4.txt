@@ -1,0 +1,43 @@
+=== W5 PART 1c: v4 in the SERVED HTML of a production build ===
+--- v4's corrected figures ---
+  6,257 of 17,425 attempt are perfect core         2
+  betterthan one in three                          2
+  109, or 0.6%, core zero                          2
+  21 row compared here                             2
+  20 group plu a general K-pop bucket              2
+  152 in that general bucket                       2
+--- v3 figures must be ABSENT ---
+  one attempt in five                              0  GONE
+  2.1% score zero                                  0  GONE
+  21 groups compared here                          0  GONE
+--- the snapshot sentence, visible not collapsed ---
+  boundary sentence in body: 2
+  <details> collapsers: 0
+--- limits section still whole ---
+  2  What we cannot say
+  2  The ranking is not real
+  2  Neither is the gender comparison
+  2  Neither is the generation gradient
+  2  The root cause is us
+  2  We cannot tell you which questions
+  2  This is our audience
+--- JSON-LD ---
+  Report parses | isBasedOn: Dataset | https://kpopquiz.org/data/knowledge-report-2026/dataset
+=== the dataset a journalist actually receives ===
+  bytes served : 57370
+  bytes source : 57370
+  BYTE-IDENTICAL to the repo file
+
+--- can they find the boundary in under a minute? ---
+  line on which the exact boundary first appears : 18
+  total lines in the file                        : 1413
+  'REPRODUCING ANY FIGURE: START HERE' at line    : 11
+  contents table lists section R                  : 1
+  'one attempt short' warning near the top        : line 22
+  section R itself at line                        : 1340
+
+--- the figures the report cites are in the file ---
+    6,257      1
+    35.908     1
+    17,425     11
+    17,424     3
