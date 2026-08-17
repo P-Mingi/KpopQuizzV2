@@ -108,3 +108,11 @@ avatar-assets/
 
 # nested git worktrees (fork workers)
 .worktrees/
+
+# Graphify build artefact (GRAPHIFY TRIAL, 2026-08-17). 19MB, and derived from a codebase
+# that changes every commit, so a tracked copy is stale on the next merge. We inverted
+# docs/ to track-by-default only because check:docs-secrets made its safety property
+# automatic; a tracked graph has the mirror problem with NO equivalent gate, and a stale
+# graph nobody notices is exactly the failure mode this trial was run to test for.
+# Rebuild with: graphify . --update
+graphify-out/

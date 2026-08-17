@@ -8,6 +8,11 @@ BLOCKED.md, stop.
 W5 PART 1c is Cowork-approved (c12222e). 3 commits local, nothing pushed. Verse PAUSED.
 **No application code, no DDL, no database writes, no push.**
 
+## READ FIRST
+`docs/PLAY-GRAPHIFY-DOCTRINE.md` - the rule the owner asked for, written before the
+trial rather than after it. One line of it governs everything below: **the graph is for
+orientation, the source is for truth.**
+
 ## WHY THIS EXISTS
 The owner installed Graphify and wants it used as a standing tool. Standing use is the
 heaviest thing this project grants: we have given "always" to exactly three gates, and each
@@ -18,6 +23,32 @@ expensive kind of wrong for something we would then trust by default.
 
 We are in an unusually good position to test it. This session established hard facts about
 this codebase by measurement, not by reading. Those are the answer key.
+
+## PART 0 - READ WHAT GRAPHIFY WROTE INTO EVERY SESSION (do this first)
+`graphify install` printed `CLAUDE.md -> created at /Users/louis/.claude/CLAUDE.md`. That is
+a **global** instruction file: it applies to every Claude session on this machine, this repo
+and the nuri/bloom repo both. A third-party tool now sits upstream of every mission we run,
+and neither the owner nor I have read a line of it. Cowork cannot: only this repo is mounted
+on the bridge, `~/.claude` is not.
+
+So, before anything else:
+- Print `/Users/louis/.claude/CLAUDE.md` **in full** in your report. Verbatim, not summarised.
+- Say whether it existed before (the CLI said "created", so presumably not - confirm nothing
+  was overwritten).
+- Read `/Users/louis/.claude/skills/graphify/SKILL.md` and say what it instructs an agent to
+  do BY DEFAULT, without being asked.
+- Flag anything that would change how a mission behaves: instructions to prefer the graph
+  over reading files, to skip verification, to run commands, to phone home, or anything that
+  conflicts with `docs/PLAY-GRAPHIFY-DOCTRINE.md`.
+
+If it is boring and useful, say so and move on. If it tells agents to trust the graph
+instead of the source, that is a direct conflict with the doctrine and with the covenant
+this loop runs on, and I need the exact wording.
+
+**Also note:** the install was run from `~/Bloom`, not from this repo. Check whether
+anything was written into the nuri/bloom project itself, and do NOT run `/graphify .` from
+there - graphing the wrong repo is the same class of mistake as the worker that was once
+launched in the wrong project.
 
 ## SETUP
 Build the graph **code-only, keyless**, as the skill describes. Do not point it at `docs/`

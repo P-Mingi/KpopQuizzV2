@@ -1,0 +1,69 @@
+=== GRAPHIFY TRIAL - the answer key, graded ===
+tool: graphify 0.9.45 | corpus: apps/quiz/src, 990 code files, code-only, keyless (no API key, no LLM)
+graph: 5,306 nodes, 13,177 edges, 238 communities
+extraction produced 14,713 edges; 13,177 survived into the graph (1,536 lost)
+GRAPH HEALTH WARNING (from the tool's own diagnostic, surfaced per its honesty rules):
+  1,221 dangling-endpoint edges; 300 collapsed (directed); 315 collapsed (undirected)
+
+--- Q1 three consumers of getAdvertisablePlaylists: RIGHT (all EXTRACTED) ---
+graph said (graphify explain):
+  <-- sitemap.ts [imports] app/sitemap.ts:L14
+  <-- sitemap() [calls] app/sitemap.ts:L234
+  <-- app/blindtest/page.tsx [imports] L5
+  <-- BlindtestPage() [calls] L120
+  <-- getBlindtestGroups() [calls] lib/db/queries/blindtest.ts:L23
+  --> fetchAdvertisablePlaylists() [calls] L92
+source says:
+  apps/quiz/src/app/sitemap.ts:14:import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+  apps/quiz/src/app/sitemap.ts:234:        getAdvertisablePlaylists(),
+  apps/quiz/src/app/sitemap.ts:245:      raced as [Row, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>, Row, Row];
+  apps/quiz/src/app/blindtest/page.tsx:5:import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+  apps/quiz/src/app/blindtest/page.tsx:120:    safeFetch(getAdvertisablePlaylists(), { staticModes: [], groups: [] }, '[blindtest] getAdvertisablePlaylists'),
+  apps/quiz/src/lib/db/queries/blindtest.ts:1:import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+  apps/quiz/src/lib/db/queries/blindtest.ts:23:  const { groups } = await getAdvertisablePlaylists();
+verdict: all three consumers found, line-exact. The delegation edge
+  getBlindtestGroups -> getAdvertisablePlaylists is present, so the wrapper is visible.
+  It correctly does NOT list pt/blindtest as a direct consumer (it goes via the wrapper).
+
+--- Q2 two clients in one file: SPLIT VERDICT ---
+RIGHT: they are two distinct nodes, not one 'sitemap uses supabase' blob
+  createPublicReadClient()  lib/supabase/server.ts:L48  community 35  degree 207
+  createServiceRoleClient() lib/supabase/server.ts:L32  community 2   degree 458
+MISSING: the call sites. Every sitemap edge the graph holds for either client:
+  createPublicReadClient  <-- sitemap.ts [imports] app/sitemap.ts:L1
+  createServiceRoleClient <-- sitemap.ts [imports] app/sitemap.ts:L1
+source says the calls are at:
+  219:    const supabase = createPublicReadClient();
+  382:    const supabase = createPublicReadClient();
+  405:    const svc = createServiceRoleClient();
+verdict: it separates the identities but loses 2x + 1x multiplicity. Note the
+  contrast with Q1, where a calls edge WAS recorded from the same file.
+
+--- Q3 two paths from one page to one function: RIGHT in the graph, MISSING in the interface ---
+graphify path returned only:
+  BlindtestPage() --calls--> getAdvertisablePlaylists   (1 hop, shortest only)
+both legs of the second path ARE in the graph (from explain getBlindtestGroups):
+  <-- BlindtestPage() [calls] app/blindtest/page.tsx:L116
+  --> getAdvertisablePlaylists [calls] lib/db/queries/blindtest.ts:L23
+verdict: the duplication is representable and was recoverable in 2 commands, but
+  'path' answers with the shortest route and would have HIDDEN it from a trusting reader.
+
+--- Q4 a relationship that is NOT in the code: RIGHT, and this is the one that mattered ---
+  graphify explain blind_test_songs -> 'No node matching blind_test_songs found.'
+  graphify path songs blind_test_songs -> 'No node matching blind_test_songs found.'
+  graphify explain songs -> ambiguous between two API ROUTE FILES, not a table
+  natural-language query -> returned unrelated nodes (a TABLE const, yearsBetween())
+     and asserted NO relationship
+verdict: it did not invent the edge. A code-only AST graph models no DB tables at all,
+  and it said so plainly instead of guessing. The feared failure mode did not occur.
+  Caveat: explain/path say 'not found' explicitly; the NL query just returns adjacent
+  noise with no 'no relationship' statement, which a careless reader could misread.
+
+--- Q5 something I did not know: RIGHT and useful ---
+graph said: isAdmin() is the 4th most connected symbol in the codebase, 201 edges
+I did not know that and would not have thought to look. Verified by reading:
+  isAdmin mentions across src : 213
+  admin API route files       : 50
+verdict: corroborated. The admin surface is far larger than I assumed.
+  Counter-note: the report's 'Surprising Connections' section was NOT surprising -
+  five entries, all of them 'an API route calls createServerClient'.

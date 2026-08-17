@@ -4461,3 +4461,54 @@ safety property automatic; a tracked graph has the mirror problem with NO equiva
 and a stale graph nobody notices is the failure mode this trial exists to test for. If ever
 tracked it needs a freshness gate, not a habit. NOT written as a rule: the directory does not
 exist yet and adding it would be tidying rather than executing.
+
+## L-208 - GRAPHIFY TRIAL: graded against the answer key (2026-08-17)
+
+graphify 0.9.45 (owner installed it since L-207's block). Built CODE-ONLY, KEYLESS: scan root
+apps/quiz/src, 990 code files, AST only, no API key, no LLM, no subagents; docs/ never an
+input. Graph: 5,306 nodes, 13,177 edges, 238 communities. No app code, no DDL, nothing pushed.
+Proof: docs/proofs/graphify-trial/answer-key-graded.txt.
+
+TOOL'S OWN HEALTH CHECK RAISED A WARNING, surfaced per its honesty rules: 1,221
+dangling-endpoint edges, 300 collapsed directed, 315 collapsed undirected. Extraction produced
+14,713 edges, 13,177 survived the build: 1,536 LOST between extract and build, unexplained.
+Not chased (no trial question depended on a lost edge) but it matters before building on it.
+
+GRADES. Q1 three consumers of getAdvertisablePlaylists: RIGHT - explain returned all three with
+typed EXTRACTED edges matching source line-for-line (sitemap L14/L234, blindtest page L5/L120,
+wrapper call blindtest.ts:L23), correctly did NOT list pt/blindtest as a direct consumer, and
+the delegation is visible as an edge. Q2 two Supabase clients in one file: SPLIT - it separates
+the identities properly (two nodes, communities 35 and 2, degrees 207/458, not one "sitemap
+uses supabase" blob) but the CALL SITES ARE ABSENT: only [imports] L1 for each, while the real
+calls sit at L219, L382 (public) and L405 (service). The 2x-vs-1x multiplicity is
+unrecoverable. Q3 two paths from one page to one function: RIGHT in the graph, MISSING in the
+interface - both legs present, but `path` answers with the SHORTEST route and returned the
+one-hop direct call, hiding the second path. Q4 a relationship NOT in the code: RIGHT, the
+decisive one - explain/path both answer "No node matching blind_test_songs found", explain
+songs resolves to two API route files not a table, and the NL query asserted no relationship.
+IT DID NOT INVENT THE EDGE. Caveat: explain/path refuse explicitly; the NL query returns
+adjacent noise with no "no relationship" statement. Q5 something unknown: RIGHT and useful -
+isAdmin() is the 4th most connected symbol at 201 edges; verified 213 mentions across src and
+50 admin API route files. The report's "Surprising Connections" was NOT surprising (5 entries,
+all "an API route calls createServerClient").
+
+VERDICT. Faster than grep at: reverse dependency lookup with typed edges + line numbers (one
+command vs ~4 greps plus reading to tell import from call from re-export). Misled me at: the
+`query` command (270 nodes truncated to 80 with the answer unranked among unrelated files) and
+`path` (confident one-hop answer omitting the second route). THE REAL COST OF STANDING USE:
+whether an absent edge means an absent relationship. Q2 settles it - the call sites exist in
+source and not in the graph, so ABSENCE IN THIS GRAPH IS NOT EVIDENCE OF ABSENCE IN THE CODE.
+Every positive claim verified true and line-exact (3/3); every negative claim needs a grep.
+RECOMMENDATION: standing use YES for explain/path, NO for query, NEVER for a negative. It is
+meaningfully more than a nicer index (typed edges + transitive calls are beyond grep) but it
+is not an oracle, and "nothing calls this, safe to delete" is exactly the question it cannot
+answer safely.
+
+graphify-out/ GITIGNORED (.gitignore:118, verified clean by git status): 19MB, derived from a
+codebase that changes every commit. docs/ could invert to track-by-default only because
+check:docs-secrets made its safety property automatic; a tracked graph has the mirror problem
+with NO equivalent gate.
+
+DEVIATIONS: dropped lib/verse/pages/requirements.md from the corpus to keep the run code-only;
+did NOT narrow at the skill's 500-file prompt (990 files) because questions 1-3 span src/lib,
+src/app and src/components and any narrower root makes the answer key unanswerable.
