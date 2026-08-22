@@ -32,7 +32,6 @@ import { QuizMyRank } from '@/components/quiz/quiz-my-rank';
 import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
-import { getLevelInfo } from '@/lib/constants';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Mascot } from '@/components/ui/mascot';
@@ -373,6 +372,17 @@ function formatDuration(seconds: number): string {
   return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
+// UI-1 zone 1 - the human label printed on the photocard serial strip, one per
+// quiz type. Kept here (not invented per render) so the strip reads the same on
+// every card of a given kind.
+const SERIAL_KIND: Record<QuizType, string> = {
+  multiple_choice: 'Quiz',
+  true_false: 'True / False',
+  guess_from_clues: 'Clue Quiz',
+  image: 'Image Quiz',
+  intruder: 'Odd One Out',
+};
+
 export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const [state, dispatch] = useReducer(quizReducer, { phase: 'intro' });
   const [loading, setLoading] = useState(false);
@@ -414,6 +424,12 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   useEffect(() => {
     if (typeof document === 'undefined') return;
     document.body.dataset.quizPhase = state.phase;
+    // UI-1 zone 5: the same signal that shows the tab bar again also tells the
+    // server-rendered "About this quiz" drawer, lower on the page, to collapse.
+    // Only the result phase fires it, so a cold visitor's drawer stays open.
+    if (state.phase === 'result') {
+      window.dispatchEvent(new CustomEvent('quiz:played'));
+    }
     return () => { delete document.body.dataset.quizPhase; };
   }, [state.phase]);
 
@@ -1038,26 +1054,30 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
 
     const showLevelUp = state.leveledUp && state.newLevel !== null && !levelUpDismissed;
 
-    // Level progress for the XP bar. xpAfter is what the profile holds now, so
-    // the bar can show the slice this round just added instead of a static fill.
-    const xpAfter = profileXp;
-    const xpBefore = xpAfter !== null ? Math.max(0, xpAfter - state.xpEarned) : null;
-    const xpBeforePct = xpBefore !== null ? getLevelInfo(xpBefore).progress : null;
-    const xpAfterPct = xpAfter !== null ? getLevelInfo(xpAfter).progress : null;
-    // A level-up wraps the bar back to ~0, which would render as a shrink. Fall
-    // back to a simple full sweep in that case.
-    const xpWrapped = xpBeforePct !== null && xpAfterPct !== null && xpAfterPct < xpBeforePct;
-
-    // Stat cells, including the time so it sits in the same row as the rest.
-    const statCells: Array<{ value: string; label: string; tone?: string }> = [
-      { value: `${scorePct}%`, label: 'Score' },
-      { value: avgScorePct !== null ? `${avgScorePct}%` : '-', label: 'Avg', tone: avgScorePct !== null ? 'text-primary' : 'text-tertiary' },
-      { value: state.percentile !== null ? `Top ${Math.max(100 - state.percentile, 1)}%` : '-', label: 'Rank', tone: state.percentile !== null ? 'text-combo' : 'text-tertiary' },
+    // Zone 3 - the run ledger cells. A comparison row, deliberately in the same
+    // unit across cells: your score as a percent sits next to the field average
+    // and the pass rate, so "You 25% / Avg 53% / Pass 32%" reads at a glance.
+    // The raw score (2/8) and the percentile live on the photocard, so no fact
+    // is repeated. The XP the round earned is a cell here, not its own card.
+    const ledgerCells: Array<{ value: string; label: string; tone?: string }> = [
+      { value: `${scorePct}%`, label: 'You', tone: 'text-accent' },
+      avgScorePct !== null
+        ? { value: `${avgScorePct}%`, label: 'Avg' }
+        : { value: '-', label: 'Avg', tone: 'text-tertiary' },
     ];
-    if (state.passRate !== null) statCells.push({ value: `${state.passRate}%`, label: 'Pass rate' });
-    if (state.timeTaken > 0) statCells.push({ value: formatDuration(state.timeTaken), label: 'Time' });
-    const statColsClass =
-      statCells.length >= 5 ? 'grid-cols-5' : statCells.length === 4 ? 'grid-cols-4' : 'grid-cols-3';
+    if (state.passRate !== null) ledgerCells.push({ value: `${state.passRate}%`, label: 'Pass' });
+    if (state.xpEarned > 0) ledgerCells.push({ value: `+${state.xpEarned}`, label: 'XP', tone: 'text-accent' });
+    if (state.timeTaken > 0) ledgerCells.push({ value: formatDuration(state.timeTaken), label: 'Time' });
+    const ledgerCols = Math.min(ledgerCells.length, 5);
+
+    // Zone 1 - the photocard serial strip. Real data only: the run's play
+    // number is this quiz's recorded play count plus this run (which is not in
+    // the ISR-baked count yet), and the mint month is now. The result phase
+    // only ever renders client-side after a play, so new Date() cannot cause a
+    // server/client hydration mismatch.
+    const serialNo = quiz.playCount + 1;
+    const serialMonth = new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    const serialKind = SERIAL_KIND[state.quizType] ?? 'Quiz';
 
     return (
       <div className="max-w-[440px] mx-auto px-1 py-2 animate-result-in">
@@ -1074,67 +1094,63 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* F3 + F5 - mascot above the (clean) result card: celebrate on a good
-            result (>=50%), sad on a failing one. sad is static (never animates). */}
-        <div className="flex justify-center" style={{ marginBottom: 4 }}>
-          {isGoodResult
-            ? <Mascot variant="celebrate" animate="bob" size={104} />
-            : <Mascot variant="sad" size={104} />}
-        </div>
-
-        {/* §10i + §12b - single branded result hero: count-up score, bar,
-            beat-%, label, and share actions (no duplicate score block). */}
-        <div className="result-share-card">
-          <div className="result-share-header">
-            <p className="result-share-group">{quiz.groupName} quiz</p>
-            <p className="result-share-title">{quiz.title}</p>
-          </div>
-          <div className="result-share-body">
-            {/* The star rank was removed: it restated the score that is already
-                right below it in numbers, plus the bar and the beat-%. */}
-
-            {/* Animated count-up score (instant under reduced-motion) */}
-            <p className="result-share-score" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
+        {/* ZONE 1 - the photocard hero. The result IS the share image: a
+            branded gradient top with the score, the mascot as a sticker on the
+            seam, a verdict stamp, share/replay actions, and a real serial strip.
+            Count-up score, fill bar and share handler are all kept from the
+            previous hero, only recomposed. */}
+        <div className="photocard">
+          <div className="photocard-top">
+            <div className="photocard-group">{quiz.groupName} quiz</div>
+            <div className="photocard-quiz-title">{quiz.title}</div>
+            <div className="photocard-score" aria-live="polite" aria-label={`You scored ${state.score} out of ${maxScore}`}>
               {reduceMotion ? state.score : <RollingNumber value={state.score} duration={Math.max(400, state.score * 80)} />}
-              <span style={{ fontSize: '0.42em', color: 'var(--txt3)', fontWeight: 700 }}>/{maxScore}</span>
-            </p>
-            <p className="result-share-total">{isClues ? `${maxScore} points max` : `out of ${maxScore} questions`}</p>
-
-            {/* §10i bar + beat-% */}
-            <div className="result-bar-wrap">
-              <div className="result-bar" style={{ width: `${barReady ? scorePct : 0}%` }} />
+              <small>/{maxScore}</small>
+            </div>
+            <div className="photocard-bar">
+              <i style={{ width: `${barReady ? scorePct : 0}%` }} />
             </div>
             {state.percentile !== null && (
-              <p className="text-[13px] text-secondary" style={{ marginBottom: 14 }}>
-                You beat <strong className="text-accent">{state.percentile}%</strong> of players
-              </p>
+              <div className="photocard-beat">
+                You beat <strong>{state.percentile}%</strong> of players
+              </div>
             )}
-
-            {/* Verdict line. The sub-line under it was dropped on purpose: it
-                repeated the same idea in weaker words. */}
-            <p className="text-[15px] font-bold text-accent tracking-wide" style={{ marginBottom: 14 }}>
+            {/* The real mascot as the sticker, overlapping the seam. Celebrate
+                on a pass, sad on a miss (sad never animates by design). */}
+            <div className="photocard-sticker">
+              {isGoodResult
+                ? <Mascot variant="celebrate" animate="bob" size={72} />
+                : <Mascot variant="sad" size={72} />}
+            </div>
+          </div>
+          <div className="photocard-body">
+            <span className="verdict-stamp">
               <span>{resultLabel.kr}</span>{' '}
               <span className="uppercase">{resultLabel.en}</span>
-            </p>
+            </span>
           </div>
-          <div className="result-share-actions">
-            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result">
-              Share result
+          <div className="photocard-actions">
+            <button type="button" className="btn-primary" onClick={handleShare} aria-label="Share your result card">
+              Share this card
             </button>
             <Link href="/quizzes" className="btn-outline" aria-label="Play another quiz">
-              Play another
+              Play again
             </Link>
           </div>
           {/* K2 - one-line Discord link near the share row. */}
-          <div className="text-center" style={{ marginTop: 6 }}>
+          <div className="text-center" style={{ marginTop: 2, marginBottom: 4 }}>
             <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
           </div>
           {/* K7 - Brag in the Discord on a GOOD result (>=70%). */}
           {scorePct >= 70 && (
-            <div className="text-center">
+            <div className="text-center" style={{ marginBottom: 4 }}>
               <BragButton payload={{ kind: 'quiz', title: quiz.title, score: state.score, total: maxScore, quizSlug: quiz.slug }} />
             </div>
           )}
+          <div className="photocard-serial">
+            <span>KpopQuiz &middot; {serialKind}</span>
+            <span>Play No. {serialNo.toLocaleString('en-US')} &middot; {serialMonth}</span>
+          </div>
         </div>
 
         {/* W2 PART A - the challenge trigger, at the emotional peak: directly under
@@ -1154,76 +1170,35 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           />
         )}
 
-        {/* W3 A4 - claim this run. After the score, never before. */}
-        <ClaimRun signedIn={profileXp !== null} surface="quiz-result" />
-
-        {/* W3b - streak backup, daily plays only, at 3/7/14, once each. */}
+        {/* W3b - streak backup, daily plays only, at 3/7/14, once each. An
+            occasional nudge, kept at the emotional peak just under the battle. */}
         <StreakBackup signedIn={profileXp !== null} />
 
-        {/* Like - placed high, right under the result */}
-        <div className="mt-3">
-          <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
-        </div>
-
-        {/* Stats row - Score / Avg / Rank / Pass rate / Time, all one row */}
-        <div className={`mt-5 grid ${statColsClass} gap-px bg-default rounded-xl overflow-hidden border border-default`}>
-          {statCells.map((cell) => (
-            <div key={cell.label} className="bg-surface px-2 py-3 text-center">
-              <p className={`text-[15px] font-semibold tabular-nums ${cell.tone ?? 'text-primary'}`}>{cell.value}</p>
-              <p className="text-[9px] uppercase tracking-wider text-ghost mt-0.5">{cell.label}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Where you landed on this quiz's board, right after finishing. */}
-        <QuizMyRank quizId={quiz.id} isClues={quiz.quizType === 'guess_from_clues'} />
-
-        {/* XP card */}
-        {state.xpEarned > 0 && (
-          <div className="mt-3 bg-surface border border-default rounded-xl p-4 animate-fade-in">
-            <div className="flex items-baseline justify-between">
-              <span className="text-[13px] font-semibold text-accent">
-                +<RollingNumber value={state.xpEarned} duration={1200} /> XP
-              </span>
-              <span className="text-[10px] text-ghost">earned this round</span>
-            </div>
-            {/* Level bar: the solid part is where you already were, the lighter
-                part animates in to show the XP this round actually added. */}
-            <div className="mt-2 h-1.5 rounded-full bg-elevated overflow-hidden flex">
-              <div
-                className="h-full bg-accent"
-                style={{
-                  width: `${xpBeforePct !== null && !xpWrapped ? xpBeforePct : 0}%`,
-                  transition: 'width 600ms cubic-bezier(0.22, 1, 0.36, 1)',
-                }}
-              />
-              <div
-                className="h-full bg-accent"
-                style={{
-                  width: `${
-                    xpAfterPct === null
-                      ? 0
-                      : xpWrapped
-                        ? (barReady ? xpAfterPct : 0)
-                        : (barReady ? Math.max(0, xpAfterPct - (xpBeforePct ?? 0)) : 0)
-                  }%`,
-                  opacity: 0.55,
-                  transition: 'width 1200ms cubic-bezier(0.22, 1, 0.36, 1) 300ms',
-                }}
-              />
-            </div>
-            {xpAfter !== null && (
-              <p className="text-[10px] text-ghost mt-1.5 text-right tabular-nums">
-                Lv {getLevelInfo(xpAfter).level}
-                {getLevelInfo(xpAfter).xpForNextLevel !== null
-                  ? ` - ${Math.max(0, getLevelInfo(xpAfter).xpForNextLevel! - xpAfter)} XP to next`
-                  : ' - max level'}
-              </p>
-            )}
+        {/* ZONE 3 - the run ledger. One card absorbs the old stat row, the XP
+            card, your-best/rank, the like pill and the claim card into a single
+            summary. Every fact appears once, and the components (QuizMyRank,
+            LikeQuizButton, ClaimRun) keep their internals; only placement and
+            the claim block's shell change. */}
+        <div className="run-ledger mt-3" style={{ '--ledger-cols': ledgerCols } as React.CSSProperties}>
+          <div className="run-ledger-cells">
+            {ledgerCells.map((cell) => (
+              <div key={cell.label}>
+                <p className={`v ${cell.tone ?? 'text-primary'}`}>{cell.value}</p>
+                <p className="k">{cell.label}</p>
+              </div>
+            ))}
           </div>
-        )}
+          <div className="run-ledger-body">
+            {/* Your standing on this quiz's board (signed-in island). */}
+            <QuizMyRank quizId={quiz.id} isClues={quiz.quizType === 'guess_from_clues'} />
+            <LikeQuizButton quizId={quiz.id} initialLiked={false} initialCount={quiz.likeCount} />
+          </div>
+          {/* W3 A4 - claim this run. After the score, never before. Flush shell
+              so it reads as the ledger's last section; copy and logic unchanged. */}
+          <ClaimRun signedIn={profileXp !== null} surface="quiz-result" flush />
+        </div>
 
-        {/* Clue breakdown */}
+        {/* Clue breakdown - belongs with the ledger (zone 3). */}
         {isClues && state.clueResults.length > 0 && (
           <div className="bg-surface border border-default rounded-xl p-4 mt-3 animate-fade-in">
             <p className="text-[10px] uppercase tracking-wider text-ghost mb-2">How you scored</p>
@@ -1258,10 +1233,35 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           </div>
         )}
 
-        {/* Reactions */}
+        {/* ZONE 4 - keep playing. Related quizzes plus the blindtest cross-link
+            as the last row, in one list card. Play again lives in the photocard,
+            so it is not repeated here. */}
+        <div className="mt-6">
+          <div className="keep-playing-head">
+            <span className="h">Keep playing</span>
+            <Link href={`/${quiz.groupSlug}-quiz`} className="a">All {quiz.groupName} quizzes</Link>
+          </div>
+          <div className="keep-playing-list" style={{ marginTop: 7 }}>
+            {relatedQuizzes.map((rq) => (
+              <Link key={rq.id} href={`/q/${rq.slug}`} className="keep-playing-row">
+                <span className="t">{rq.title}</span>
+                <span className="m">{formatCount(rq.play_count)} plays</span>
+              </Link>
+            ))}
+            <Link href="/blindtest" className="keep-playing-row">
+              <span className="t" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
+                  <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
+                </svg>
+                K-pop blind test
+              </span>
+              <span className="m">audio</span>
+            </Link>
+          </div>
+        </div>
 
-
-        <div className="mt-2">
+        {/* Per-network share (Reddit / Discord / X), kept below the zones. */}
+        <div className="mt-4">
           <QuizShareRow quizId={quiz.id} slug={quiz.slug} quizTitle={quiz.title} creatorId={quiz.creatorId} />
         </div>
 
@@ -1269,48 +1269,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         <QuizComments quizId={quiz.id} isClues={quiz.quizType === 'guess_from_clues'} />
 
         <ReportForm quizId={quiz.id} />
-
-        {/* Related quizzes */}
-        {relatedQuizzes.length >= 2 && (
-          <div className="mt-6 pt-5 border-t border-default animate-fade-in">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-[10px] uppercase tracking-wider text-ghost">
-                More {quiz.groupName} quizzes
-              </p>
-              <Link
-                href={`/${quiz.groupSlug}-quiz`}
-                className="text-[11px] font-medium text-accent hover:text-accent-hover transition-colors"
-              >
-                See all
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              {relatedQuizzes.map((rq) => (
-                <Link key={rq.id} href={`/q/${rq.slug}`} className="block">
-                  <div className="bg-surface border border-default rounded-xl p-3 hover:border-accent transition-colors">
-                    <p className="text-[13px] font-semibold text-primary truncate">{rq.title}</p>
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <span className="text-[10px] text-ghost capitalize">{rq.difficulty}</span>
-                      <span className="text-[10px] text-ghost">&middot;</span>
-                      <span className="text-[10px] text-ghost">{formatCount(rq.play_count)} plays</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Cross-link: blindtest discovery */}
-        <Link
-          href="/blindtest"
-          className="mt-4 flex items-center gap-2.5 p-3 bg-surface border border-default rounded-xl text-[13px] text-secondary hover:text-primary transition-colors animate-fade-in"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
-            <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
-          </svg>
-          <span>Try the K-pop blind test: guess songs from audio clips</span>
-        </Link>
       </div>
     );
   }

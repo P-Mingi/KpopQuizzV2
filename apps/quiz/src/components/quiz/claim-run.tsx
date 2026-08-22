@@ -20,7 +20,11 @@ import type { ClaimSurface } from '@/lib/analytics';
 // your history", "get your past scores back", or anything implying old runs return.
 // It says only what is true: from here on, this browser's runs carry your name.
 
-export function ClaimRun({ signedIn, surface }: { signedIn: boolean; surface: ClaimSurface }): React.ReactElement | null {
+// `flush` is a SHELL-ONLY option (UI-1 zone 3). It drops this block's own card
+// border and background so it can sit as the final section of the run-ledger
+// card without a card-inside-a-card. Not one word of copy and not one line of
+// the claim logic, funnel or honesty rules changes with it.
+export function ClaimRun({ signedIn, surface, flush = false }: { signedIn: boolean; surface: ClaimSurface; flush?: boolean }): React.ReactElement | null {
   const { showToast } = useToast();
   const [hasId, setHasId] = useState(false);
   const [done, setDone] = useState(false);
@@ -95,7 +99,7 @@ export function ClaimRun({ signedIn, surface }: { signedIn: boolean; surface: Cl
   if (!hasId || done) return null;
 
   return (
-    <div className="claim-run">
+    <div className={flush ? 'claim-run claim-run-flush' : 'claim-run'}>
       <p className="claim-run-line">
         {signedIn ? 'This run is not on your account yet.' : 'This run counts either way.'}
       </p>

@@ -19,6 +19,7 @@ import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
+import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
@@ -349,6 +350,16 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
           everyone else - client island so the page shell stays cacheable. */}
       <QuizOwnerActions quizId={quiz.id} creatorId={quizIntro.creatorId} />
 
+      {/* UI-1 zone 5 - every server-rendered SEO block below the player now
+          lives inside one "About this quiz" drawer. Server renders it OPEN, so
+          the crawler and a cold visitor get all of it exactly as before; it
+          only collapses client-side for a visitor who has just played. Not one
+          crawlable string is edited, reworded or removed here: the drawer is a
+          container, its children are byte-identical to what shipped before. */}
+      <AboutQuizDrawer
+        title="About this quiz"
+        summary="Stats, leaderboard, the questions, and more"
+      >
       {/* SEO indexguard PART 4 - the creator's own note, a crawlable human intro
           under the title (unique per page). Sanitized at write + read. */}
       {creatorNote && (
@@ -558,6 +569,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
           </section>
         );
       })()}
+      </AboutQuizDrawer>
 
       {/* QA class 4: quiz.title (user-authored) escaped at the sink.
           SEO-3 Step 4: enriched Quiz JSON-LD.

@@ -1,128 +1,107 @@
-# REPORT - W5 HOTFIX: the page does not 404 in production. No fix shipped, nothing pushed.
+# REPORT - UI-1: the post-play result screen is now the photocard. No push.
 
-Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd` printed
-before every step. Mission `cat`-ed. No DDL, no database writes. **Nothing pushed, because
-there was nothing to fix.**
-
-Proofs: `docs/proofs/w5-hotfix/`.
+Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd`
+printed before the work. No DDL, no database writes, no push. The prototype
+`prototypes/quiz-result-photocard.html` was read in full before a line was
+written. Proofs: `docs/proofs/ui-1/`.
 
 ---
 
-## The answer: both URLs are 200 and always were, on this deployment
+## What shipped
 
-    https://kpopquiz.org/data/pulse                          200  text/html
-    https://kpopquiz.org/data/knowledge-report-2026          200  text/html
-    https://kpopquiz.org/data/knowledge-report-2026/dataset  200  text/markdown
+The `/q/[slug]` result phase was rebuilt from a 13-card pile into the five zones
+of the owner-approved prototype, inside the existing design system. Tokens only,
+DM Sans, the existing radii and elevation, the real components reused.
 
-The page is 83,811 bytes of real content with the v4 figure `6,257` and the full "What we
-cannot say" section. The dataset is **byte-identical** to `docs/data/w5-dataset.md`, 57,370
-bytes both sides. `x-matched-path: /data/knowledge-report-2026`, so the route resolves.
+**Zone 1 - the photocard.** `result-share-card` became `.photocard`: a
+brand->plum->violet gradient top (the count-up score, fill bar and beat-line all
+kept), the real `Mascot` (celebrate / sad) as a sticker overlapping the seam, a
+dashed verdict stamp, Share/Play-again actions, and a serial strip. The serial
+is real data: `Play No. <playCount + 1>` (this run is not in the ISR-baked count
+yet) and the current month. The share handler is unchanged.
 
-## The proof, from Vercel's logs rather than a local build
+**Zone 2 - the battle.** `ResultChallenge` is directly under the card, its W2
+placement and its funnel analytics **untouched** (`git diff` of the file is
+empty). Rendered once, gated by `canChallenge` as before.
 
-**The current production deployment is the same one you measured** —
-`dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ`, commit `5b47c6e`. It is still the newest; no redeploy
-happened between your 404 and my 200. Same artefact, both results.
+**Zone 3 - the run ledger.** One card folds the old stat row, the XP card, your
+best/rank, the like pill and the claim card into a single summary. The cells are
+a comparison row in one unit (You 25% / Avg 53% / Pass / XP / Time), so the raw
+score and percentile stay on the card and no fact repeats. `QuizMyRank`,
+`LikeQuizButton` and `ClaimRun` keep their internals; `ClaimRun` gained a
+shell-only `flush` option (copy, logic, funnel and the once-per-mount `shownRef`
+guard all unchanged) so it sits flush as the card's last section.
 
-404s on that deployment, grouped by path, last 3 hours:
+**Zone 4 - keep playing.** Related quizzes plus the blindtest cross-link as the
+last row, in one list card. "Play again" lives in the photocard, so it is not
+duplicated here.
 
-    /sitemap.xml.gz   1
+**Zone 5 - the drawer.** Every server-rendered SEO block below the player now
+lives inside one `AboutQuizDrawer`. It renders OPEN on the server, and collapses
+client-side only when the player fires `quiz:played` on reaching the result
+phase (`defaultOpen = !hasPlayed`). See the SEO proof below.
 
-**That is the whole list.** The report paths never 404'd on the live artefact. Its last hour
-is 2,350 × 200 against a single 404, and that one is a sitemap variant.
+The two new tokens (`--photocard-plum`, `--photocard-violet`) are defined in all
+three token sites (light `:root`, the system-dark media block, and `.dark`),
+derived from the brand hue. Dark mode was verified, not assumed.
 
-404s on the **previous** deployment, `dpl_UTmPvyyoReCf3HNpjadTXnoSxwrF`, commit `fab3911`:
+## Proofs
 
-    /quizzes/new                          8
-    /quizzes/most-liked                   7
-    /data/knowledge-report-2026/dataset   2
-    /wonder-girls-trivia                  1
-    /data/knowledge-report-2026           1
-    /sitemap.txt                          1
+- **Screenshots at 390px** (`docs/proofs/ui-1/`): `played-light-390.png`,
+  `played-dark-390.png`, `cold-light-390.png`. The played state is the five
+  zones, one primary CTA per moment, and no duplicate score/rank/like on screen.
+- **SEO unchanged** (`docs/proofs/ui-1/SEO-PROOF.md`): the `page.tsx` diff is
+  purely the drawer wrapper (import + two tags, zero content edits); the served
+  HTML before/after shows every SEO string present with only data-driven
+  additions and no removals; the panel ships open with the content inside it.
+- **Battle `shown` fires once**: `ResultChallenge` is untouched, and the
+  once-per-mount `shownRef` guard in `ClaimRun` is byte-identical (only the
+  outer `className` changed for the flush shell).
+- **No em dash**: `grep -c` over every changed file returns 0.
+- **Typecheck**: `npx tsc --noEmit` is clean.
 
-**There they are.** `fab3911` predates the report page entirely, so a 404 from it is correct
-behaviour, not a bug. The 404s you saw are logged against the deployment that does not
-contain the route.
+## Gates, and which I ran
 
-Your suspicion about `join(process.cwd(), '..', '..', 'docs', ...)` is disproved rather than
-untested: the dataset route serves 57,370 bytes of correct markdown from production right
-now, so the traced file resolves in Vercel's build exactly as it does locally.
-
-## The loose end I am not going to paper over
-
-The timing does not fully reconcile and I would rather say so than invent a story:
-
-    fab3911 (no report page) deployed : 2026-08-17T14:40:17Z
-    5b47c6e (has report page) deployed: 2026-08-17T18:39:29Z
-    mission file written              : 2026-08-17T19:41:12Z
-    my check returned 200             : 2026-08-17T19:43:20Z
-
-The new deployment was live **about an hour before the mission was written**, so "the alias
-had not switched yet" does not cleanly explain a measurement taken at 19:41. What the logs
-prove is *which deployment served those 404s*, and it is unambiguous. What I cannot pin is
-the minute your external check actually ran. If it ran before 18:39 and the mission was
-written up later, everything fits exactly; I have no evidence either way and I am not going
-to assert it.
-
-The one detail that argues for a later run is your note that `/data/pulse` already carried
-the "See also" link, which only exists in `5b47c6e`. If both checks were in the same pass,
-that pass straddled the switch.
-
-## Steps I did not do, and why
-
-**No fix (step 2), no push (step 5).** There is no defect. The mission authorised a push for
-a fix; shipping a change to a live site to correct a problem that does not exist would be
-worse than doing nothing. If you want the deployment re-promoted or an alias re-pointed, that
-is your call and I have not touched it.
-
-**Gates (step 4): I ran one, against production, and skipped the other three.** With no code
-change, re-running localhost gates would prove nothing about this incident. Running them
-against the live domain does, so that is what I did — see below. `check:orphans` against
-production would issue ~708 requests at the live site and `check:metadata-dupes` about 1,000;
-I did not fire that at production traffic unasked.
-
-## The real finding, and it is closer to solved than you think
-
-You are right that every green we have reported is a statement about a local build. But the
-capability is already there and I proved it rather than costing it:
-
-**All three HTTP gates already read a base URL** — `INDEXCHECK_BASE_URL`,
-`METADUPE_BASE_URL`, `ORPHANCHECK_BASE_URL`. Run just now, no code changed:
-
-    INDEXCHECK_BASE_URL=https://kpopquiz.org npm run check:indexability
-    -> Indexability guard: 708 sitemap URLs, sampling 37 against https://kpopquiz.org
-    -> PASSED, exit 0
-
-So "what would it take" is: **one env var and a job that runs after the deploy**. The cost is
-not engineering, it is three decisions:
-
-1. **When it runs.** A post-deploy hook, or the existing nightly pointed at production
-   instead of a local build. The nightly is the cheaper start and it already exists.
-2. **What it is allowed to hit.** `check:indexability` samples 37 URLs and is harmless.
-   `check:orphans` crawls all 708 and `check:metadata-dupes` about 1,000; against production
-   that is real traffic and it will pollute analytics unless it is excluded by user agent.
-3. **Coverage stays honest.** Against production the anon-key limitation disappears, so the
-   gate would cover `/rankings` and Verse too, and the workflow's stated coverage numbers
-   would need rewriting to match.
-
-Not built, per the mission.
+- `check:docs-secrets`: PASSED (606 tracked docs, no credential-shaped value).
+- `check:routes`: PASSED (364 page routes reachable).
+- `check:metadata-dupes` (against the running dev server): reports 3 pre-existing
+  collision groups (SEVENTEEN true/false, ateez lyrics part 4/5). These are
+  quiz-title-template issues; UI-1 edits no title or description
+  (`generateMetadata` is not in the diff), so it neither caused nor changed them.
+- `check:indexability`, `check:orphans`: NOT run. See the deviation below.
 
 ## Deviations and flags (loud)
 
-1. **The mission's premise did not hold, so most of its steps did not apply.** I did not
-   diagnose a cause, fix it, or push, because the evidence says there is nothing wrong. That
-   is the honest outcome and it is stated plainly rather than dressed as work.
-2. **I could not fully explain the timing**, only which deployment served the 404s. Section
-   above.
-3. **One 404 does exist on the live deployment**: `/sitemap.xml.gz`, one request in three
-   hours. Not investigated, not in scope, and flagged only so it is not a surprise later.
+1. **No local production build, so two of the five gates did not run.** Two live
+   servers are using this checkout's `.next` right now (`next start` on :3021 and
+   `next dev` on :8081, both cwd this app). A `next build` rewrites `.next` under
+   them and would risk breaking a concurrent session's server. I judged clobbering
+   a shared build worse than skipping a gate that this change does not exercise:
+   UI-1 adds no route, no sitemap entry, no `noindex`, and no metadata, so
+   `check:indexability` and `check:orphans` test surfaces it does not touch. They
+   run nightly in CI against a real build. If you want them locally, say so and I
+   will build in an isolated worktree.
 
-## Covenant
+2. **Zone 3 keeps `ClaimRun` as a flush section rather than a one-line cell.**
+   The prototype crams claim into the cell row; `ClaimRun`'s copy carries the A3
+   honesty rules the owner protects. Where the prototype and the owner's
+   "keep internals" rule conflict, the rule wins: I changed only the shell, never
+   the copy. The ledger is still one card, each fact once.
 
-Every status code here is from `curl` against `https://kpopquiz.org`, and every log figure is
-from Vercel's runtime logs for a named deployment id. Nothing in this report is from a local
-build, which is the rule this mission exists to enforce.
+3. **`QuizShareRow` (Reddit/Discord/X) and comments were kept, below the zones.**
+   The prototype drops the standalone share row; I kept it rather than remove
+   working per-network share the mission did not ask me to delete.
+
+4. **Screenshots are the "sad" mascot / a failing score**, because the capture
+   harness answers the first option each time. The celebrate variant renders on a
+   pass (>=50%) through the same code path.
+
+## Steps not done, and why
+
+No push (owner-gated). No DDL, no writes. `docs/loop/QUEUED-PERF-1.md` remains on
+the bus for next, per the mission's note.
 
 ---
 
-STOP. **Nothing was pushed, and nothing was fixed, because nothing was broken.** report pret.
+STOP. Photocard result screen built across five zones, tokens only, components
+reused, SEO byte-preserved. Nothing pushed. Report ready.
