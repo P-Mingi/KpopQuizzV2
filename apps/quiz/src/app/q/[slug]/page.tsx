@@ -367,23 +367,24 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       )}
 
       {/* SEO Fix 2 - unique server-rendered intro paragraph (crawlable lead text). */}
-      <p className="text-sm text-secondary leading-relaxed mt-6 max-w-2xl">{intro}</p>
+      <p className="quiz-about-lead mt-6">{intro}</p>
 
       {/* SEO indexguard PART 3 - cold-start "In this quiz" block. Crawlable, unique by
           construction (derived only from THIS quiz's data), spoiler-safe (prompts only).
-          It sits BELOW the QuizPlayer, so the play CTA stays above the fold. */}
+          It sits BELOW the QuizPlayer, so the play CTA stays above the fold.
+          UI-1 polish: carded, same tokens as the rest; the text is unchanged. */}
       {inThisQuiz && (
-        <section className="mt-4 max-w-2xl" aria-label="In this quiz">
-          <h2 className="text-sm font-semibold text-primary">In this quiz</h2>
-          <p className="text-sm text-secondary mt-1">
+        <section className="quiz-inthis" aria-label="In this quiz">
+          <h2 className="quiz-inthis-h">In this quiz</h2>
+          <p className="quiz-inthis-sub">
             {inThisQuiz.contextLine}. {inThisQuiz.topicsLine.charAt(0).toUpperCase() + inThisQuiz.topicsLine.slice(1)}.
           </p>
           {inThisQuiz.sampleQuestions.length > 0 && (
             <>
-              <p className="text-xs text-tertiary mt-2">A taste of the questions (no answers):</p>
-              <ul className="text-sm text-secondary mt-1 list-disc pl-5 space-y-1">
+              <p className="quiz-inthis-taste">A taste of the questions (no answers):</p>
+              <ul className="quiz-inthis-qs">
                 {inThisQuiz.sampleQuestions.map((q, i) => (
-                  <li key={i}>{q}</li>
+                  <li key={i}><span>{q}</span></li>
                 ))}
               </ul>
             </>
@@ -394,7 +395,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       {/* SEO (audit v2) - crawlable engagement counts. The live reaction/comment
           widgets are a post-play client island; these counts render server-side. */}
       {(social.reactions > 0 || social.comments > 0 || quizIntro.likeCount > 0) && (
-        <p className="text-xs text-tertiary mt-2 max-w-2xl">
+        <p className="quiz-about-counts">
           {[
             quizIntro.likeCount > 0 && `${quizIntro.likeCount.toLocaleString('en-US')} like${quizIntro.likeCount === 1 ? '' : 's'}`,
             social.reactions > 0 && `${social.reactions.toLocaleString('en-US')} reaction${social.reactions === 1 ? '' : 's'}`,

@@ -2473,19 +2473,107 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
    --------------------------------------------------------------------------- */
 .quiz-article-links {
   list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* UI-1 polish - the "Read more about" links become carded rows with an arrow
+   affordance, matching the related-quiz cards above rather than raw text. */
+.quiz-article-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--txt1);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.quiz-article-link::after {
+  content: '\2192';
+  color: var(--txt3);
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.quiz-article-link:hover { border-color: var(--brand); background: var(--surface-alt); }
+.quiz-article-link:hover::after { color: var(--brand); transform: translateX(2px); }
+
+/* UI-1 polish - the "About this quiz" drawer prose (intro + In this quiz +
+   engagement counts). Same tokens and radii as the cards; the crawlable text is
+   unchanged, only its presentation. */
+.quiz-about-lead {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--txt2);
+  max-width: 42rem;
+  margin-top: 0;
+}
+.quiz-inthis {
+  margin-top: 16px;
+  max-width: 42rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 14px 16px;
+}
+.quiz-inthis-h {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin: 0;
+}
+.quiz-inthis-sub {
+  font-size: 14px;
+  color: var(--txt1);
+  font-weight: 600;
+  margin: 7px 0 0;
+  line-height: 1.5;
+}
+.quiz-inthis-taste { font-size: 12px; color: var(--txt3); margin: 13px 0 7px; }
+.quiz-inthis-qs {
+  list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 8px;
 }
-.quiz-article-link {
-  display: inline-block;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  text-decoration: none;
+.quiz-inthis-qs li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--txt2);
+  line-height: 1.45;
+  padding: 10px 12px;
+  background: var(--surface-alt);
+  border-radius: 10px;
 }
-.quiz-article-link:hover { text-decoration: underline; }
+.quiz-inthis-qs li::before {
+  content: '';
+  flex-shrink: 0;
+  margin-top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+.quiz-about-counts {
+  font-size: 12px;
+  color: var(--txt3);
+  margin-top: 12px;
+  max-width: 42rem;
+}
 
 /* ---------------------------------------------------------------------------
    SEO Fix 3 - related quizzes (compact crawlable link list on /q/[slug]).
