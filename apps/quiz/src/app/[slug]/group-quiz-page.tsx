@@ -286,18 +286,20 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         const articleLinks = getGroupArticleLinks(group.slug);
         if (articleLinks.length === 0) return null;
         return (
-          <section className="mt-8">
-            <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
-              Read more about {group.name}
-            </h2>
-            <div className="flex flex-col gap-2">
+          <section className="gsec">
+            <h2 className="gsec-title">Read more about {group.name}</h2>
+            <div className="gsec-list">
               {articleLinks.map(link => (
-                <Link
-                  key={link.slug}
-                  href={`/articles/${link.slug}`}
-                  className="text-sm text-[var(--text-primary)] hover:underline"
-                >
-                  {link.label}
+                <Link key={link.slug} href={`/articles/${link.slug}`} className="gsec-row">
+                  <span className="gsec-ico" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                  </span>
+                  <span className="gsec-label">{link.label}</span>
+                  <svg className="gsec-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </Link>
               ))}
             </div>
@@ -309,21 +311,23 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           for Google + discovery for users. Only rendered when the newest
           differ from the popular ordering above. */}
       {newestDistinct.length > 0 && (
-        <section className="mt-8" aria-label={`Newest ${group.name} quizzes`}>
-          <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
-            Newest {group.name} quizzes
-          </h2>
-          <ul className="flex flex-col gap-2">
+        <section className="gsec" aria-label={`Newest ${group.name} quizzes`}>
+          <h2 className="gsec-title">Newest {group.name} quizzes</h2>
+          <ul className="gsec-list">
             {newestDistinct.map((q) => (
               <li key={q.id}>
-                <Link
-                  href={`/q/${q.slug}`}
-                  className="text-sm text-[var(--text-primary)] hover:underline"
-                >
-                  {q.title}
-                  <span className="text-[11px] text-[var(--text-tertiary)] ml-2">
-                    {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                <Link href={`/q/${q.slug}`} className="gsec-row">
+                  <span className="gsec-ico" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
                   </span>
+                  <span className="gsec-label">{q.title}</span>
+                  {/* The date is the freshness signal, so it gets a real <time> rather
+                      than a floating span, and it never wraps under the title. */}
+                  <time className="gsec-date" dateTime={q.created_at.slice(0, 10)}>
+                    {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </time>
                 </Link>
               </li>
             ))}

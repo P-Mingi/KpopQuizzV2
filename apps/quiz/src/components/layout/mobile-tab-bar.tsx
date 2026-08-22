@@ -34,8 +34,16 @@ const VERSE_TABS: readonly Tab[] = [
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Hide during active quiz/game play + on the chrome-less builder canvas
-  if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
+  // Hide on the chrome-less builder canvas outright.
+  if (isBuilderCanvas(pathname)) return null;
+
+  // /q/ used to be hidden outright too, which also hid the bar on the RESULT screen -
+  // the one moment the player is finished and most needs to navigate. The result is
+  // client state on this same route, so the decision cannot be made from the pathname
+  // here: the bar renders, and CSS hides it while a quiz is actually being played,
+  // keyed on the phase the player publishes on <body>. If that script never runs the
+  // bar simply stays visible, which is the safe way to fail for navigation.
+  const onQuizRoute = pathname.startsWith('/q/');
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
   if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
   // ITERATION 6 PART D - the Verse carries its own mobile nav (top bar + drawer), so the global
@@ -60,6 +68,7 @@ export function MobileTabBar() {
     <nav
       className="mobile-tab-bar"
       data-world={world}
+      data-quiz-route={onQuizRoute ? '1' : undefined}
       style={{
         position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
         background: 'color-mix(in srgb, var(--bg) 95%, transparent)',

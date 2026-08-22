@@ -95,7 +95,12 @@ export function GroupFeed({ groupId, initialQuizzes }: GroupFeedProps): React.Re
         <TabBar tabs={[...TABS]} activeTab={activeTab} onTabChange={handleTabChange} />
       </div>
 
-      <div className="space-y-3">
+      {/* Tailwind's space-y-* sets margin-top on DIRECT children, and QuizCardHover
+          renders `display: contents` - a box that generates no layout box at all, so
+          margins on it are ignored and every quiz with a hover teaser lost its gap.
+          A flex container with `gap` works instead: with display:contents the grandchild
+          card becomes the flex item, so the gap applies to the thing you can actually see. */}
+      <div className="flex flex-col gap-4">
         {quizzes.map((q) => {
           const teaser = buildTeaser(q);
           return teaser

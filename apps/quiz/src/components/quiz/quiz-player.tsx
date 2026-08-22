@@ -406,6 +406,17 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
+  // The bottom tab bar lives in the ROOT LAYOUT and only knows the pathname, while the
+  // result screen is client state on the same /q/[slug] route. Publishing the phase on
+  // <body> is what lets the layout-level nav tell "still playing" from "finished", so the
+  // player can hide it and the result screen can bring it back. Cleared on unmount, so a
+  // client-side navigation away from a finished quiz cannot leave the flag behind.
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.dataset.quizPhase = state.phase;
+    return () => { delete document.body.dataset.quizPhase; };
+  }, [state.phase]);
+
   // §10i - fill the score bar shortly after the result mounts (CSS transitions it).
   useEffect(() => {
     if (state.phase !== 'result') { setBarReady(false); return; }

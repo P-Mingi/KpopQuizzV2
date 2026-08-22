@@ -34,21 +34,23 @@ export function AnswerFirst({
   if (chunks.length === 0) return null;
 
   return (
-    <section className="answer-first" aria-label={`About ${group.name}`}>
-      {answer && <p className="answer-first-lead">{answer}</p>}
+    <section className="af" aria-label={`About ${group.name}`}>
+      {answer && <p className="af-lead">{answer}</p>}
 
-      {seoIntro && <p className="answer-first-intro">{seoIntro}</p>}
+      {seoIntro && <p className="af-intro">{seoIntro}</p>}
 
-      {chunks.length > 0 && (
-        <div className="answer-first-chunks">
-          {chunks.map((c) => (
-            <div className="answer-first-chunk" key={c.question}>
-              <h2 className="answer-first-q">{c.question}</h2>
-              <p className="answer-first-a">{c.answer}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      {/* The Q&A stays real headings and real paragraphs, because that crawlable shape
+          is the whole point of the block. Only the presentation changed: a card grid
+          instead of an undifferentiated run of text, so a reader can scan for the one
+          fact they came for. */}
+      <div className="af-grid">
+        {chunks.map((c) => (
+          <div className="af-item" key={c.question}>
+            <h2 className="af-q">{c.question}</h2>
+            <p className="af-a">{c.answer}</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

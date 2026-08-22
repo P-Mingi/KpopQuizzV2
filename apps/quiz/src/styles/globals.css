@@ -602,6 +602,12 @@ body {
 @media (max-width: 767px) {
   .top-nav { display: none; }
   .mobile-tab-bar { display: block; }
+
+  /* On a quiz route the bar is hidden WHILE PLAYING and comes back on the result
+     screen. Default-hidden so a JS failure cannot leave the nav covering the game;
+     the result phase is the single case that re-shows it. */
+  .mobile-tab-bar[data-quiz-route='1'] { display: none; }
+  body[data-quiz-phase='result'] .mobile-tab-bar[data-quiz-route='1'] { display: block; }
   .mobile-top-bar {
     display: flex;
     align-items: center;
@@ -6777,13 +6783,122 @@ main:has(.verse-page) { max-width: none; }
 .embed-credit a { color: var(--txt3); text-decoration: underline; }
 .embed-credit a:hover { color: var(--brand); }
 
-/* W8 - answer-first. Plain, crawlable prose: the value is the text, not the styling. */
-.answer-first { margin: 14px 0 4px; }
-.answer-first-lead { font-size: 15px; line-height: 1.6; color: var(--txt1); margin: 0; }
-.answer-first-intro { font-size: 14px; line-height: 1.6; color: var(--txt2); margin: 10px 0 0; }
-.answer-first-chunks { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
-.answer-first-q { font-size: 14px; font-weight: 700; color: var(--txt1); margin: 0; }
-.answer-first-a { font-size: 14px; line-height: 1.55; color: var(--txt2); margin: 3px 0 0; }
+/* Group hub: the answer-first block and the two footer sections.
+   W8 shipped these as bare prose ("the value is the text, not the styling") and it read
+   as an undifferentiated wall. The HTML shape is unchanged - real <h2> questions, real
+   <p> answers, so the crawlable/AEO property survives - only the presentation is new. */
+
+.af {
+  margin: 18px 0 4px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.af-lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin: 0;
+  /* 65-75 characters is the readable measure; the lead is the one long-form paragraph here. */
+  max-width: 68ch;
+}
+.af-intro {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 12px 0 0;
+  max-width: 68ch;
+}
+
+/* Two columns on desktop so seven short facts scan as a table of facts rather than a
+   scroll. One column under 640px, where two would crush the answers. */
+.af-grid {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: 14px 24px;
+}
+.af-item { min-width: 0; }
+.af-q {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin: 0 0 3px;
+}
+/* The answer is the payload, so it gets the stronger colour of the pair; the question
+   is the label. Reversing that is what made the old block read as grey mush. */
+.af-a {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* The two footer sections: "Read more about X" and "Newest X quizzes". */
+.gsec { margin-top: 32px; }
+.gsec-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 10px;
+}
+.gsec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.gsec-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  min-height: 44px;                 /* touch target */
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+/* Colour/border only on hover: no transform, so the row never shifts under the cursor. */
+.gsec-row:hover { border-color: var(--accent); background: var(--surface-alt); }
+.gsec-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gsec-ico {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  color: var(--text-secondary);
+}
+.gsec-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.gsec-date {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--txt3);
+  white-space: nowrap;
+}
+.gsec-arrow { flex-shrink: 0; color: var(--txt3); }
+
+@media (max-width: 640px) {
+  .af { padding: 16px; }
+  .af-lead { font-size: 15px; }
+  /* The date drops below the title rather than squeezing it on a narrow screen. */
+  .gsec-row { flex-wrap: wrap; }
+  .gsec-date { margin-left: 40px; }
+}
 
 /* W9b - the freshness line. Quiet: it is a signal, not a headline. */
 .group-updated { font-size: 12px; color: var(--txt3); margin: 10px 0 0; }
