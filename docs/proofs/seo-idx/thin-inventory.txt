@@ -1,0 +1,25 @@
+=== The 17 crawled-not-indexed /q pages: lifetime plays + questions ===
+plays  qs  status      slug
+    9   5  published   are-u-a-real-bunnie
+   24  10  published   nct-127-limitless-quiz
+   14  10  published   k-pop-awards-and-milestones
+    5  10  published   mamamoo-the-curtain-call-era
+  134   5  published   k-pop-training-system-quiz
+  207   5  published   itzy-discography-deep-dive
+   20  10  published   4th-gen-groups-true-or-false
+    9  10  published   k-pop-inside-jokes-and-running-gags
+   31   5  published   bts-music-video-trivia-can-you-get-100
+  211   5  published   blackpink-solo-careers-deep-dive
+   45  10  published   bts-the-ultimate-quiz
+   82   8  published   how-big-of-a-dive-are-you
+   17  10  published   gi-dle-the-tomboy-era
+   13  10  published   got7-never-ever-quiz
+  189   6  published   stray-kids-discography-challenge
+  179   6  published   k-pop-companies-quiz
+  124   7  published   k-pop-fun-facts-true-or-false-volume-2
+
+=== Thin-page inventory across published quizzes ===
+denominator: 406 published quizzes read (under the 1000-row cap, complete)
+  play_count < 50 : 177
+  play_count < 10 : 80
+  questions <= 5  : 85

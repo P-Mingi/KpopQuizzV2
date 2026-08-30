@@ -105,15 +105,37 @@ if (locs.length === 0) {
 }
 const sitemapPaths = new Set(locs.map(pathOf));
 
-// ---- 2. Sample one URL per route type + EVERY article -----------------------
-const perType = new Map<string, string>();
-const sample: string[] = [];
-for (const loc of locs) {
-  const type = routeType(pathOf(loc));
-  if (type === 'article') { sample.push(loc); continue; } // all articles
-  if (!perType.has(type)) { perType.set(type, loc); sample.push(loc); }
+// ---- 2. Build the crawl set: COMPLETE by default ----------------------------
+// W7c orphan-gate pattern: check EVERY sitemap URL by default. The old behaviour
+// (one URL per route type + all articles, ~37 of 708) is now an opt-in FLOOR for a
+// fast local smoke, behind INDEXCHECK_SAMPLE. That 37-of-708 floor is exactly how a
+// noindexed quiz page sat in the sitemap unnoticed, so a partial run must announce
+// itself as partial rather than read like full coverage.
+const FLOOR = process.env.INDEXCHECK_SAMPLE !== undefined && process.env.INDEXCHECK_SAMPLE !== '';
+let sample: string[];
+if (FLOOR) {
+  const perType = new Map<string, string>();
+  sample = [];
+  for (const loc of locs) {
+    const type = routeType(pathOf(loc));
+    if (type === 'article') { sample.push(loc); continue; } // all articles
+    if (!perType.has(type)) { perType.set(type, loc); sample.push(loc); }
+  }
+} else {
+  sample = [...locs];
 }
-console.log(`Indexability guard: ${locs.length} sitemap URLs, sampling ${sample.length} (1 per type + all articles) against ${BASE}`);
+// INDEXCHECK_EXTRA force-checks paths that are NOT (yet) in the sitemap: it proves
+// the contradiction detector actually bites (point it at a known-noindex page like
+// /battle and the run must go red), and lets you spot-check a page before you
+// advertise it. Comma-separated paths or full URLs.
+const EXTRA = (process.env.INDEXCHECK_EXTRA ?? '')
+  .split(',').map((s) => s.trim()).filter(Boolean)
+  .map((p) => (p.startsWith('http') ? p : `${SITE_URL}${p.startsWith('/') ? p : `/${p}`}`));
+for (const e of EXTRA) sample.push(e);
+const coverage = FLOOR
+  ? `FLOOR sample (${sample.length - EXTRA.length} of ${locs.length}, 1 per type + all articles)`
+  : `COMPLETE crawl (all ${locs.length})`;
+console.log(`Indexability guard: ${locs.length} sitemap URLs -> ${coverage}${EXTRA.length ? ` + ${EXTRA.length} injected` : ''}, against ${BASE}`);
 
 // Types whose pages are DEEP on-demand ISR: hitting them cold on a local dev
 // server triggers the documented ISR cold-404 trap (a timed-out first hit caches
@@ -124,18 +146,21 @@ console.log(`Indexability guard: ${locs.length} sitemap URLs, sampling ${sample.
 const SOFT_STATUS_TYPES = new Set(['verse-root', 'verse-space', 'verse-tab', 'verse-member', 'verse-album', 'verse-song', 'verse-leaf', 'ranking', 'pulse', 'game-name-all']);
 const warnings: string[] = [];
 
-// ---- 3. Forward check: no sampled sitemap URL may contradict "index me" ------
-for (const loc of sample) {
+// ---- 3. Forward check: no crawled URL may contradict "index me" -------------
+// Concurrency-limited so a COMPLETE 708-URL crawl finishes in reasonable time
+// without hammering the server. Pushes to failures/warnings are safe under the
+// single-threaded event loop.
+async function checkOne(loc: string): Promise<void> {
   const local = toLocal(loc);
   const page = await fetchText(local);
   const p = pathOf(loc);
   const type = routeType(p);
-  if (!page) { failures.push(`${p} - request failed (no response).`); continue; }
+  if (!page) { failures.push(`${p} - request failed (no response).`); return; }
   if (page.status !== 200) {
     const msg = `${p} - in the sitemap but returned HTTP ${page.status} (should be 200).`;
     if (SOFT_STATUS_TYPES.has(type)) warnings.push(`${msg} [${type}: deep ISR - verify via the prod monitor]`);
     else failures.push(msg);
-    continue;
+    return;
   }
 
   // robots noindex (header OR meta) - the article-bug class.
@@ -155,6 +180,16 @@ for (const loc of sample) {
     failures.push(`${p} - in the sitemap but canonicals to ${pathOf(canonHref)} (not self). Sitemap advertises a non-canonical URL.`);
   }
 }
+
+const CONCURRENCY = Number(process.env.INDEXCHECK_CONCURRENCY ?? '10');
+let cursor = 0;
+async function worker(): Promise<void> {
+  while (cursor < sample.length) {
+    const i = cursor++;
+    await checkOne(sample[i]!);
+  }
+}
+await Promise.all(Array.from({ length: Math.min(CONCURRENCY, sample.length) }, () => worker()));
 
 // ---- 4. Inverse check: indexable-by-design pages must BE in the sitemap ------
 // (a) articles: every non-noindex article.
@@ -198,4 +233,4 @@ if (failures.length > 0) {
     `or an indexable page fell out of the sitemap. Fix the page's metadata OR the sitemap inclusion in src/app/sitemap.ts.\n`);
   process.exit(1);
 }
-console.log(`Indexability guard passed: ${sample.length} sampled pages are index-consistent, and every article + sampled quiz/group is in the sitemap.`);
+console.log(`Indexability guard passed: ${coverage} - ${sample.length} pages index-consistent, and every article + sampled quiz/group is in the sitemap.`);

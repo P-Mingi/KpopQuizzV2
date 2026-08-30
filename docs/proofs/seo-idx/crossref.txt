@@ -1,0 +1,12 @@
+432 GSC URLs x 708 sitemap URLs
+bucket           total in-sitemap expected
+  discovered       344        344 IN
+  crawled           48         21 IN
+  noindex           18          1 NOT
+  redirect          11          0 NOT
+  robots             5          0 NOT
+  canonical          4          0 NOT
+  redirect-error     2          0 NOT
+
+cross-bucket hits (in sitemap but bucketed as excluded):
+  [noindex] https://kpopquiz.org/rankings/stray-kids/members

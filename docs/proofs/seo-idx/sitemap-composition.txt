@@ -1,0 +1,11 @@
+=== Sitemap composition (live https://kpopquiz.org/sitemap.xml) ===
+total URLs:      708
+verse-PRODUCT URLs (/verse, /verse/*): 2
+  https://kpopquiz.org/verse
+  https://kpopquiz.org/verse/promises
+non-verse: 706
+
+Mission premise was 2,341 verse URLs advertised. ACTUAL = 2 (the teaser + the covenant).
+Cause: sitemap.ts PUSH-GATE-1 - while verseHidden() (VERSE_PUBLIC != 'true'),
+only /verse and /verse/promises are pushed; the bulk verse block is skipped.
+Verse is ALREADY pulled from the sitemap. GSC 'ZERO verse in any bucket' confirms it.
