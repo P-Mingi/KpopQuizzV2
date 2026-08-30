@@ -1,0 +1,31 @@
+PERF-2 measurements. Local production build (next build + next start -p 3021),
+same machine both runs. Absolute ms carry this machine's DB latency; the deltas
+are the point. BEFORE = PERF-1 (793ddc2): /games uncached, community two batches.
+
+=== PART 1: /games gets the cache (3 requests) ===
+BEFORE (uncached, every request pays the DB):
+  /games  req1 0.243s  req2 0.364s  req3 0.365s
+AFTER (unstable_cache, TTL 3600):
+  /games  req1 MISS 0.570s  req2 HIT 0.016s  req3 HIT 0.010s
+Repeat requests get faster: ~0.36s -> ~0.01s on a hit. This is the headline win.
+
+=== PART 2: merge the two community Promise.all batches into one ===
+/leaderboard MISS (first request after a fresh server start, both runs):
+  BEFORE (two sequential batches): 0.773s
+  AFTER  (one Promise.all(14))   : 0.745s
+Within noise: no measurable page-level MISS win. Honest reading: the isolated
+probe that measured 347ms + 819ms ran cold Supabase clients from this laptop; in
+the built server the DB pool is warm, so the sequential-batch penalty is a small
+fraction of the page MISS (render + serialization + the separate CrossSpaceFeed
+read dominate). The merge is still correct - the 14 reads now run concurrently -
+and it costs nothing, so it stays. It just does not move the page total here.
+/leaderboard HIT stays ~0.16-0.18s (unchanged, as expected: hits skip the DB).
+
+=== control (untouched) ===
+  /quizzes  before 0.230/0.126/0.201s   after 0.348/0.133/0.129s   (unchanged)
+
+=== gates ===
+  check:routes: PASSED (364 routes)
+  check:indexability: PASSED (floor)
+  /games output intact: correct title + CollectionPage JSON-LD render on the after-build.
+  layout.tsx: byte-identical to HEAD.

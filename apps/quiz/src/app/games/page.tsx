@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache';
+
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { getPersonalityGroups } from '@/lib/personality/data';
@@ -38,23 +40,42 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 };
 
-export default async function GamesPage() {
-  const supabase = createServiceRoleClient();
+// PERF-2 (PERF-1's pattern for /games). Every read below is identical for every
+// visitor: getRankingsIndex and the two count reads use createServiceRoleClient,
+// getPersonalityGroups uses createPublicReadClient - all cookie-free, none touch
+// createServerClient/cookies/session, so nothing per-visitor is cached. The page
+// declares revalidate = 3600 but the layout's await headers() makes it dynamic and
+// dropped that ISR; unstable_cache restores the 3600s contract one layer down (a
+// DATA cache, so it holds regardless of render mode; on a hit the DB is untouched).
+// L-216 trade-off: safeFetch stays INSIDE the cache, so a transient read error
+// caches its fallback for the TTL rather than retrying next request. Accepted:
+// the fallbacks are zeros/empties that render a smaller-but-valid hub, and the
+// same 3600s the page already promised bounds the staleness.
+const getGamesData = unstable_cache(
+  async () => {
+    const supabase = createServiceRoleClient();
+    // Lean picker: only the counts + the daily + one live ranking. The exhaustive
+    // catalogs (20+ categories, 24 rosters) now live on their own index pages.
+    const [rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
+      safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
+      safeFetch(getPersonalityGroups(), [], '[games] getPersonalityGroups'),
+      safeFetch(
+        Promise.resolve(supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active')).then((r) => r.count ?? 0),
+        0, '[games] songCount',
+      ),
+      safeFetch(
+        Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).in('game_type', ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols']).eq('status', 'published')).then((r) => r.count ?? 0),
+        0, '[games] nameAllCount',
+      ),
+    ]);
+    return { rankings, personalityGroups, songCount, nameAllCount };
+  },
+  ['games-hub-data'],
+  { revalidate: 3600 },
+);
 
-  // Lean picker: only the counts + the daily + one live ranking. The exhaustive
-  // catalogs (20+ categories, 24 rosters) now live on their own index pages.
-  const [rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
-    safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
-    safeFetch(getPersonalityGroups(), [], '[games] getPersonalityGroups'),
-    safeFetch(
-      Promise.resolve(supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active')).then((r) => r.count ?? 0),
-      0, '[games] songCount',
-    ),
-    safeFetch(
-      Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).in('game_type', ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols']).eq('status', 'published')).then((r) => r.count ?? 0),
-      0, '[games] nameAllCount',
-    ),
-  ]);
+export default async function GamesPage() {
+  const { rankings, personalityGroups, songCount, nameAllCount } = await getGamesData();
 
   const counts = {
     personality: personalityGroups.length,

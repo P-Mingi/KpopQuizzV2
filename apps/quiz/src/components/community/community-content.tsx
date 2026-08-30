@@ -67,10 +67,17 @@ function profToPerson(p: {
 // and runs all 14 reads on every request. unstable_cache restores the author's
 // 300s contract ONE LAYER DOWN - it caches the DATA, not the page, so it holds
 // regardless of render mode. On a cache hit (every request inside the 300s
-// window) the DB is not touched at all. The batch structure is unchanged.
+// window) the DB is not touched at all.
 const getCommunityData = unstable_cache(
   async () => {
-    const [rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed] = await Promise.all([
+    // PERF-2: the 14 reads were two sequential Promise.all batches (7 + 7) with no
+    // data dependency between them (measured 347ms + 819ms). Merged into one
+    // Promise.all so they all run concurrently. This path only runs on a cache
+    // MISS now, so the win is revalidation latency, not steady-state serving.
+    const [
+      rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed,
+      qotd, warMap, badgeEarns, debate, comments, fresh, matchups,
+    ] = await Promise.all([
       safeFetch(getRisingCreators(8), [], '[community] rising'),
       safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
       safeFetch(getTopCreatorsAllTime(8), [], '[community] allTime'),
@@ -78,11 +85,6 @@ const getCommunityData = unstable_cache(
       safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
       safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
       safeFetch(getHappeningNow(5), { events: [], recentCount: 0 }, '[community] feed'),
-    ]);
-
-    // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
-    // (F2b B3), baked in parallel.
-    const [qotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
       safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
       safeFetch(getFandomWarMap(30), [], '[community] warMap'),
       safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
