@@ -1,0 +1,46 @@
+PERF-1 measurements. Local production build (next build + next start -p 3021),
+same machine both runs, so before/after are comparable. Absolute ms include this
+machine's network latency to the DB (Vercel dub1 is faster); the DELTA is the point.
+
+=== PART 1: where the ~720ms goes (per query, warm, from this machine) ===
+  278ms  getHappeningNow(5)
+  270ms  getQuizOfTheDay()
+  258ms  getDailyDebate()
+  219ms  getHotMatchups(5)
+  186ms  getNewQuizzes(0,6)
+  151ms  getFandomWarMap(30)
+  128ms  getTopPlayersByXp(8)
+  128ms  getCommunityComments(8)
+  113ms  getRisingCreators(8)
+  110ms  getTopCreatorsAllTime(8)
+  104ms  getCommunityStats()
+   83ms  getTopCreatorsThisWeek(8)
+   65ms  getLatestBadgeEarns(6)
+   53ms  getTodayStats()
+Structure: 14 reads in TWO sequential Promise.all batches.
+  batch 1 (7, parallel): 347ms
+  batch 2 (7, parallel): 819ms
+  page DB wall-clock: 1166ms
+Finding: the time IS in the DB. No single query dominates; the two batches are
+needlessly sequential (no data dependency), an available concurrency win left
+untouched per "smallest form / no while-I-am-here".
+
+=== PART 4: before vs after (3 requests each, :3021) ===
+BEFORE (build of HEAD, no cache):
+  /leaderboard : 1.008s  1.095s  0.810s   <- every request pays the DB; no repeat speedup
+  /games       : 0.237s  0.401s  0.268s
+  /quizzes ctrl: 0.242s  0.119s  0.201s
+
+AFTER (build with the unstable_cache fix):
+  /leaderboard : 0.277s  0.244s  0.214s   <- well under 720ms
+  /games       : 0.298s  0.375s  0.414s   <- UNCHANGED (not touched)
+  /quizzes ctrl: 0.205s  0.145s  0.252s   <- UNCHANGED
+
+AFTER, cold-cache sequence (data cache cleared, so req1 is a guaranteed MISS):
+  /leaderboard req1 (MISS): 0.837s
+  /leaderboard req2 (HIT) : 0.160s
+  /leaderboard req3 (HIT) : 0.164s
+  /leaderboard req4 (HIT) : 0.347s
+  /leaderboard req5 (HIT) : 0.172s
+Do requests 2 and 3 get faster? YES. Miss 0.84s -> hit ~0.16s. Before, they did not
+(all ~1.0s). /leaderboard on repeat now serves in ~0.16s, ~5x under the 720ms target.

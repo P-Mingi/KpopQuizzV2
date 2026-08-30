@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache';
+
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
 import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns, getCommunityComments, getHotMatchups } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
@@ -54,28 +56,50 @@ function profToPerson(p: {
   };
 }
 
-export async function CommunityContent(): Promise<React.ReactElement> {
-  const [rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed] = await Promise.all([
-    safeFetch(getRisingCreators(8), [], '[community] rising'),
-    safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
-    safeFetch(getTopCreatorsAllTime(8), [], '[community] allTime'),
-    safeFetch(getTopPlayersByXp(8), [], '[community] legends'),
-    safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
-    safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
-    safeFetch(getHappeningNow(5), { events: [], recentCount: 0 }, '[community] feed'),
-  ]);
+// PERF-1: every read below is identical for every visitor. All of them use the
+// cookie-free createPublicReadClient / createServiceRoleClient (verified: no
+// cookie, session, createServerClient or per-user read anywhere in this path), so
+// caching them can never serve one visitor another's data - the personal bits
+// (YourStanding, follow buttons) are separate client islands.
+//
+// Why this and not page ISR: the page declares revalidate = 300, but the root
+// layout's await headers() makes the route dynamic, which silently drops that ISR
+// and runs all 14 reads on every request. unstable_cache restores the author's
+// 300s contract ONE LAYER DOWN - it caches the DATA, not the page, so it holds
+// regardless of render mode. On a cache hit (every request inside the 300s
+// window) the DB is not touched at all. The batch structure is unchanged.
+const getCommunityData = unstable_cache(
+  async () => {
+    const [rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed] = await Promise.all([
+      safeFetch(getRisingCreators(8), [], '[community] rising'),
+      safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
+      safeFetch(getTopCreatorsAllTime(8), [], '[community] allTime'),
+      safeFetch(getTopPlayersByXp(8), [], '[community] legends'),
+      safeFetch(getCommunityStats(), { totalPlays: 0, totalQuizzes: 0, groups: 0 }, '[community] stats'),
+      safeFetch(getTodayStats(), { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null }, '[community] today'),
+      safeFetch(getHappeningNow(5), { events: [], recentCount: 0 }, '[community] feed'),
+    ]);
 
-  // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
-  // (F2b B3), baked at ISR in parallel.
-  const [qotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
-    safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
-    safeFetch(getFandomWarMap(30), [], '[community] warMap'),
-    safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
-    safeFetch(getDailyDebate(), null, '[community] debate'),
-    safeFetch(getCommunityComments(8), [], '[community] comments'),
-    safeFetch(getNewQuizzes(0, 6), [], '[community] fresh'),
-    safeFetch(getHotMatchups(5), [], '[community] matchups'),
-  ]);
+    // Daily ritual (F1.3) + war map (F1.7) + badge watch (F1.8) + daily debate
+    // (F2b B3), baked in parallel.
+    const [qotd, warMap, badgeEarns, debate, comments, fresh, matchups] = await Promise.all([
+      safeFetch(getQuizOfTheDay(), null, '[community] qotd'),
+      safeFetch(getFandomWarMap(30), [], '[community] warMap'),
+      safeFetch(getLatestBadgeEarns(6), [], '[community] badgeEarns'),
+      safeFetch(getDailyDebate(), null, '[community] debate'),
+      safeFetch(getCommunityComments(8), [], '[community] comments'),
+      safeFetch(getNewQuizzes(0, 6), [], '[community] fresh'),
+      safeFetch(getHotMatchups(5), [], '[community] matchups'),
+    ]);
+
+    return { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups };
+  },
+  ['community-content-data'],
+  { revalidate: 300 },
+);
+
+export async function CommunityContent(): Promise<React.ReactElement> {
+  const { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups } = await getCommunityData();
 
   // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
   // island. fandomRanks lets it show "{GROUP} is #N this week"; weeklyBoard is

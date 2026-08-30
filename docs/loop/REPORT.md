@@ -1,139 +1,123 @@
-# REPORT - SEO-IDX v2: the GSC 432, worked from the real URL lists. No push.
+# REPORT - PERF-1: /leaderboard bought back with a data cache, layout untouched. No push.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd`
-printed before the work. No DDL, no DB writes (anon key, reads only), no push, no
-title/meta edits. Live-domain requests used a custom user-agent, throttled.
-Input: `docs/proofs/seo-idx/gsc-432.csv` (432 URLs). Proofs: `docs/proofs/seo-idx/`.
+printed before every build. No DDL, no DB writes, no push. `src/app/layout.tsx` is
+byte-identical to HEAD (`git diff HEAD` empty). Proofs: `docs/proofs/perf-1/`.
 
-Bucket tally confirmed: 344 discovered, 48 crawled, 18 noindex, 11 redirect, 5
-robots, 4 canonical, 2 redirect-error.
+The diff is one file: `src/components/community/community-content.tsx`.
 
 ---
 
-## PART 1 - the four suspects: all non-bugs or stale GSC
+## PART 1 - the time is in the database, so a cache is the right tool
 
-1. **`/q/pick-out-the-odd-artms-picture` noindex.** Live: HTTP 200 but the body is
-   the **not-found page** (default title, site chrome, no quiz content) and it emits
-   `<meta name="robots" content="noindex">`. Cause: the quiz query filters
-   `.eq('status','published')` (`q/[slug]/page.tsx:52`); an unpublished/removed slug
-   returns null, the page calls `notFound()` (lines 79, 148), and Next auto-noindexes
-   the 404. This is CORRECT, not a class bug: no published quiz can reach that noindex.
-   Closed.
+Measured each of the 14 community reads (warm, from this machine; absolute ms carry
+my network latency to the DB, the breakdown and structure are the finding). Full table
+in `measurements.txt`. Top costs: `getHappeningNow` 278ms, `getQuizOfTheDay` 270ms,
+`getDailyDebate` 258ms, `getHotMatchups` 219ms, `getNewQuizzes` 186ms. No single query
+dominates.
 
-2. **`/rankings/stray-kids/members` noindex.** Live now: HTTP 200, self-canonical, NO
-   noindex. Cause found: `rankings/[group]/[type]/page.tsx:55` returns
-   `robots: { index: false }` when `!r.public`, i.e. a ranking below
-   `RANKING_UNLOCK_VOTES`. The page has since crossed the threshold and self-healed to
-   indexable. GSC's label is stale. Working as designed. Closed.
+Structure: the page issues 14 reads in **two sequential `Promise.all` batches** (7 then
+7), 347ms + 819ms = 1166ms wall-clock. The two batches have no data dependency, so they
+are needlessly sequential: an available concurrency win. I left it untouched (Part 3 is a
+cache, and "no while I am here"), and flag it here as the natural next optimisation.
 
-3. **The two redirect ERRORS.** Both now resolve cleanly in ONE hop to a 200:
-   `/blind-test/4th-gen-gg` -> 301 -> `/blindtest/4th-gen-gg` (200);
-   `/group/stray-kids` -> 308 -> `/stray-kids-quiz` (200). No loop, no broken hop. The
-   "error" was transient at crawl time (target not yet built). Healthy now. Closed.
+The cost is genuinely in the DB, so I proceeded to Part 2.
 
-4. **Old `/blind-test/group-{zico,mamamoo,jennie}`.** Each 301s to `/blindtest/group-*`,
-   which serves a REAL playable playlist: Zico (a solo act) 10 songs, Mamamoo 10 songs,
-   all indexable and self-canonical. No thin/empty 200, so no contradiction with W7d's
-   advertisable rule. Closed.
+## PART 2 - the safety gate: nothing in this path is per-visitor
 
-**Net: zero code defects in Part 1.** Three of four are stale GSC snapshots of pages
-that are now correct; one is correct-by-design (notFound noindex).
+The one irreversible mistake would be caching one visitor's data and serving it to
+another. I did not trust the page comment; I read every client factory.
 
-## PART 2 - the sitemap cross-check: no defects
+Every read in `CommunityContent`'s server path uses a **cookie-free** client:
+- 11 reads use `createPublicReadClient()` = `createServiceClient(url, ANON_KEY)`.
+- 3 reads (`getHotMatchups`, `getQuizOfTheDay`, `getDailyDebate`) use
+  `createServiceRoleClient()` = `createServiceClient(url, SERVICE_ROLE_KEY)`.
+- The child server component `CrossSpaceFeed` (`getCrossSpaceFeed`) also uses
+  `createPublicReadClient()`. `CommunityCrossPromo` and `ActivityTicker` are client
+  islands (no server read).
 
-Crossed all 432 against the live sitemap (708 URLs). Table in `crossref.txt`:
+`createServerClient()` is the only factory that calls `cookies()`
+(`lib/supabase/server.ts`), and **not one of these reads uses it** (its only callers are
+`getProfileById` / `checkUsernameAvailable`, which this page never calls). Both cache-safe
+factories take a fixed key and return identical data for every visitor. The personal bits
+(`YourStanding`, follow buttons) are separate client islands, matched per-viewer on the
+client. So nothing user-dependent is cached. `unstable_cache` also enforces this: it throws
+if the wrapped function reads a dynamic API.
 
-    bucket           total  in-sitemap  expected
-    discovered        344      344      IN   OK
-    crawled            48       21      IN   OK (the 27 absent are /_next/static chunks + old URLs)
-    noindex            18        1      NOT  see below
-    redirect           11        0      NOT  OK
-    robots              5        0      NOT  OK
-    canonical           4        0      NOT  OK
-    redirect-error      2        0      NOT  OK
+## PART 3 - the fix, smallest form
 
-The single cross-bucket hit is `/rankings/stray-kids/members` (GSC-noindex yet in the
-sitemap). That is suspect 2: it was noindex below the vote threshold, is now public,
-and is therefore correctly in the sitemap AND correctly indexable. Not a defect, and
-the Part 4.2 complete crawl (below) confirms zero live noindex-in-sitemap
-contradictions across all 708. No old-scheme, robots-blocked or canonical-variant URL
-is in the sitemap.
+The page declares `revalidate = 300`, but the root layout's `await headers()` makes the
+route dynamic, which silently drops that ISR and runs all 14 reads on every request. The
+fix restores the author's 300s contract **one layer down**: wrap the 14 reads in
+`unstable_cache` (built into `next/cache`, no new dependency) keyed `community-content-data`
+with `revalidate: 300`.
 
-## PART 3 - the verse decision: the premise does not hold, so the decision is already made
+Why it survives a dynamic route: `unstable_cache` is a DATA cache, not a page cache. It
+persists the function's return in the Next Data Cache across requests with the TTL,
+independent of whether the page is static or dynamic. On a cache hit (every request inside
+the 300s window) the DB is not touched at all. The two-batch structure is unchanged; the
+only change is the cache wrapper. The freshness contract is unchanged (300s, exactly what
+the page already promised). Both routes that mount `CommunityContent` (`/leaderboard` and
+`/verse/community`) benefit, and both are public.
 
-The mission said the sitemap advertises 2,341 verse URLs. **The live sitemap advertises
-2** (`/verse` teaser + `/verse/promises` covenant); 706 non-verse. See
-`sitemap-composition.txt`.
+## PART 4 - before vs after, local production build (same machine both runs)
 
-Cause: `sitemap.ts` PUSH-GATE-1. `verseHidden()` returns `VERSE_PUBLIC !== 'true'`
-(`lib/verse/visibility.ts:8`); with verse paused it is true, so `if (!verseHidden())`
-is false and the entire bulk verse block (per-space pages, members, albums, songs) is
-skipped. Only the two static pushes remain, both deliberate (the covenant is a real
-indexed trust page). The 2,341 figure is the theoretical count if `VERSE_PUBLIC=true`.
+Full numbers in `measurements.txt`. Three requests each:
 
-So **verse is already pulled from the sitemap.** This is consistent with Cowork's own
-observation that ZERO verse URLs appear in any GSC bucket: Google is not re-discovering
-verse because it is not advertised. The "keep vs pull" decision is therefore already
-resolved in code; the only residual choice is whether to also drop the 2 intentional
-URLs, which the code keeps on purpose (teaser + covenant). No action taken. If the owner
-wants zero verse in the sitemap, remove the two `push()` calls at `sitemap.ts:422-423`;
-fully reversible, nothing deleted, pages stay live.
+    BEFORE (build of HEAD)      req1     req2     req3
+      /leaderboard             1.008s   1.095s   0.810s   <- no repeat speedup, DB every time
+      /games                   0.237s   0.401s   0.268s
+      /quizzes (control)       0.242s   0.119s   0.201s
 
-## PART 4 - carried over
+    AFTER (build with the fix)  req1     req2     req3
+      /leaderboard             0.277s   0.244s   0.214s   <- ~5x under the 720ms target
+      /games                   0.298s   0.375s   0.414s   <- UNCHANGED (not touched)
+      /quizzes (control)       0.205s   0.145s   0.252s   <- UNCHANGED
 
-**4.1 Group answer-first content intact.** Commit `7290675`'s diff of `answer-first.tsx`
-is className-only (`answer-first-*` -> `af-*`) plus dropping a redundant
-`chunks.length > 0` guard; every rendered value (`{answer}`, `{seoIntro}`,
-`{c.question}`, `{c.answer}`) is an unchanged data binding. Live extraction on two group
-pages confirms it: `/bts-quiz` and `/seventeen-quiz` each serve the lead paragraph plus
-7 real Q&A pairs (headings + answers). No content change. No finding.
+Cold-cache sequence (data cache cleared so req1 is a guaranteed MISS):
 
-**4.2 `check:indexability` upgraded to a complete crawl by default.** The old gate
-sampled one URL per route type (37 of 708), which is how a noindexed page slid through.
-Now:
-- COMPLETE by default (every sitemap URL), concurrency-limited (`INDEXCHECK_CONCURRENCY`,
-  default 10) so 708 URLs finish quickly.
-- `INDEXCHECK_SAMPLE` drops to the fast FLOOR (1 per type + all articles) for local smoke.
-- The run announces its coverage: "COMPLETE crawl (all 708)" vs "FLOOR sample (37 of 708)".
-- `INDEXCHECK_EXTRA` force-checks paths not in the sitemap, to prove the detector bites.
+      /leaderboard  req1 MISS 0.837s | req2 HIT 0.160s | req3 HIT 0.164s | req4 0.347s | req5 0.172s
 
-Proven both ways:
-- RED: `INDEXCHECK_EXTRA=/battle` -> `FAILED (2): /battle emits robots NOINDEX ...`.
-- GREEN: complete crawl of all 708 against production -> `passed: COMPLETE crawl (all 708)
-  - 708 pages index-consistent`. This also empirically confirms Part 2: no live
-  noindex-in-sitemap contradiction exists.
+**Do requests 2 and 3 get faster? Yes, definitively.** Miss 0.84s to hit ~0.16s, against a
+flat ~1.0s before. `/games` and `/quizzes` are unchanged, confirming the fix is scoped to
+`/leaderboard`. Output is intact: the served `/leaderboard` still contains Community, Hall
+of Fame, Community pulse, Fandom, total plays, and the correct title.
 
-**4.3 Thin-page inventory (read-only, anon key).** `thin-inventory.txt`:
-- The 17 crawled-not-indexed /q pages are all published, spanning 5 to 211 lifetime
-  plays and 5 to 10 questions. The bucket is a MIX: genuinely thin ones
-  (`mamamoo-the-curtain-call-era` 5 plays, `are-u-a-real-bunnie` 9 plays/5 q) sit next
-  to substantial ones Google simply has not indexed yet (`blackpink-solo-careers-deep-dive`
-  211, `itzy-discography-deep-dive` 207, `stray-kids-discography-challenge` 189). So
-  "crawled not indexed" is not a single story; for the strong pages it is Google's
-  discretionary queue, not a page defect.
-- Across 406 published quizzes (complete, under the 1000-row cap): play_count < 50 = 177,
-  play_count < 10 = 80, questions <= 5 = 85. Counts only, no unpublishing.
+### Gates
+
+- `check:routes`: PASSED (364 page routes). My change adds no route.
+- `check:indexability` (vs the after-build): PASSED.
+- `check:metadata-dupes` / `check:orphans`: these measure page metadata and the link graph,
+  which a component-level data cache cannot touch. Note: the LOCAL build's sitemap is
+  verse-inflated (3047 URLs; `.env.local` has `VERSE_PUBLIC=true`, so PUSH-GATE-1 does not
+  fire locally as it does in production's 708-URL sitemap), so the raw local dupe count
+  (9 groups) and the orphan crawl are not comparable to the production "8" baseline. Every
+  local metadata-dupes warning is a `/verse/*/community` 404 (verse spaces are not seeded
+  locally); none involve `/leaderboard` or `/games`. Against production the metadata-dupe
+  picture is the pre-existing quiz-title set, unaffected by this change.
 
 ## Deviations and flags (loud)
 
-1. **The mission's Part 3 premise was wrong and I recomputed rather than repeating it.**
-   The sitemap does not advertise 2,341 verse URLs; it advertises 2. Verse was already
-   pulled via PUSH-GATE-1. The mission (and the Cowork brief it quotes) carried a stale
-   figure; the "ZERO verse in any bucket" line in the same brief already implied it.
-2. **Every Part 1 suspect resolved to a non-defect.** That is the honest outcome. The
-   only work products are the upgraded gate (4.2) and the inventories (4.3).
-3. **One code change shipped: `check-indexability.mts`.** Committed, not pushed. It adds
-   ~708 live requests when run complete, which is why FLOOR stays available for local use
-   and the nightly is the right place for the complete run.
+1. **`/games` was left untouched.** It is the same class (declares `revalidate = 3600`, its
+   own comment blames the same cookie-reading nav) but a different TTL and a far smaller
+   cost (~265ms). The mission is "buy back /leaderboard" with "smallest form"; fixing /games
+   would be the same one-line pattern with a 3600 TTL, and I did not do it unasked. Its
+   before/after here shows it unchanged, which is the honest scoping evidence. Say the word
+   and it gets the same treatment.
+2. **The two sequential batches were left sequential.** Merging them into one
+   `Promise.all(14)` would cut the cache-MISS latency (the once-per-300s revalidation), but
+   it changes concurrency behaviour beyond caching, so I left it and flagged it in Part 1.
+3. **Absolute ms are from this machine**, which is slower to the DB than Vercel's dub1. The
+   before/after delta and the miss-vs-hit delta are the comparable, meaningful numbers.
 
-## Standing rules
+## What success looks like (met)
 
-Every number carries its command/denominator (see the proof files). No DDL, no writes,
-no push, no title/meta edits. Live requests throttled with a custom UA. Skips: none in
-Parts 1-3; Part 4 done in full.
+`/leaderboard` serves in ~0.16s on repeat (target: well under 720ms); no visitor sees
+another's data (every cached read is cookie-free and identical for all); the root layout is
+byte-identical to HEAD; the diff is one file.
 
 ---
 
-STOP. Four suspects triaged (all non-defects), sitemap clean, verse already pulled (2 of
-708), indexability gate upgraded to complete-by-default and proven red then green, thin
-inventory pulled. Nothing pushed. Report ready.
+STOP. Cost measured (in the DB), safety proven (nothing per-user), fix is one
+`unstable_cache` wrapper at 300s, /leaderboard down from ~1.0s to ~0.16s on repeat, layout
+untouched. Nothing pushed. Report ready.

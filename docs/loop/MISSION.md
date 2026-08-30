@@ -1,81 +1,84 @@
-# MISSION (SEO-IDX v2 - the GSC 432, now with the real URL lists. NO push.)
+# MISSION (PERF-1 - buy back /leaderboard without touching the root layout. NO push.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
 Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's
 BLOCKED.md, stop.
 
-**`cat` this file.** This replaces the earlier SEO-IDX draft: the owner exported the
-per-reason URL lists from GSC and Cowork has already classified them. **The input is
-`docs/proofs/seo-idx/gsc-432.csv`** (bucket,url for all 432). Work from it; do not
-re-derive the buckets.
+**`cat` this file. Do not `head` it.**
 
-## WHAT COWORK ALREADY ESTABLISHED (do not re-litigate, verify where told)
-The trajectory is healthy (59 -> 399 indexed in 82 days, impressions x10). Most buckets
-are our own architecture echoing back:
-- **redirect (11)**: all old-scheme URLs (`/group/<slug>`, `/blind-test/*`,
-  `/games/this-or-that/<type>`). Our own SEO consolidation: next.config.ts:20 308s
-  `/group/:slug`, middleware.ts:59 301s `/blind-test/*`. EXPECTED, provided none of these
-  old URLs is in today's sitemap.
-- **robots (5)**: `/api/og/*` and `/login`. Deliberate. EXPECTED.
-- **canonical (4)**: query-string variants (`?daily=game`, `?group=...`) canonicalising
-  to the clean URL. Working as designed. EXPECTED.
-- **discovered-not-indexed (344)**: the crawl queue, and its composition is the strategic
-  finding: **187 /q quiz pages, 53 /blindtest playlists, 29 /games, 19 /rankings, 8 /pt.
-  ZERO verse URLs anywhere in any bucket.** Google has not even processed most of the
-  2,341 verse URLs the sitemap advertises. No technical fix exists for this bucket.
-- **noindex (18)**: mostly deliberate (`/battle`, `/battle?quiz=...` x8, `/u/*` x5,
-  `/create`, `/news`). EXPECTED, minus the two suspects below.
-- **crawled-not-indexed (48)**: 18 are `/_next/static/*` hashed chunks/fonts with `?dpl=`
-  params (ephemeral per-deploy noise, standard advice is to leave JS/CSS crawlable, no
-  action unless you find otherwise); the rest are 17 real /q pages, 2 articles, 3 old
-  `/blind-test/group-*` and a few landing pages.
+W5 HOTFIX is Cowork-approved and its refusal to push was the right call. 1 commit local.
 
-## PART 1 - the four real suspects, one by one
-1. **`/q/pick-out-the-odd-artms-picture` reported noindex.** There is no noindex logic
-   greppable in `src/app/q/[slug]/page.tsx`. Establish WHY Google saw noindex: quiz
-   unpublished? A robots field in a metadata helper? Serve the URL from a production
-   build and read the actual meta. If a published quiz page can emit noindex, that is a
-   class bug, find the rule. If the quiz is simply unpublished/gone, say so and close.
-2. **`/rankings/stray-kids/members` reported noindex** while 19 other /rankings URLs sit
-   in the ordinary queue (so rankings are indexable). Same treatment: find the rule
-   (threshold gating?) or the bug.
-3. **Two redirect ERRORS**: `/blind-test/4th-gen-gg` and `/group/stray-kids`. Trace the
-   full chain with curl -IL against the live domain: loop, chain length, or broken hop.
-   Fix the chain if it is ours (a redirect should land on a 200 in one hop).
-4. **Old `/blind-test/group-{zico,mamamoo,jennie}` show as CRAWLED not redirect**: check
-   what those URLs serve today after the middleware 301, and what the TARGET serves
-   (zico is a solo act: does /blindtest/group-zico 200 with a thin/empty page, 404, or
-   redirect?). A 200 on an unplayable playlist would contradict W7d's advertisable rule.
+## THE DECISION, AND WHY IT IS NOT THE LAYOUT
+Your render-mode measurement stands: the root layout's `await headers()` costs 35 pages
+their ISR, and the concentrated cost is `/leaderboard` at ~720ms and `/games` at ~265ms on
+every request. Your own sequencing note was to fix `/leaderboard` first and confirm the
+saving before touching a layout every page depends on. **That is what we are doing, and there
+is a second reason you could not have known:**
 
-## PART 2 - the sitemap cross-check (the contradiction test)
-Cross `gsc-432.csv` against the live sitemap: which of the 432 are IN the sitemap?
-Expected: the discovered/crawled buckets yes (they are our real pages), the redirect /
-noindex / robots / canonical buckets NO. Any old-scheme, noindexed or robots-blocked URL
-that IS in the sitemap is a real defect: fix smallest-diff. Report the counts per bucket.
+We are about to send four one-shot pitches to journalists, and the report page is one of the
+35. Changing the root layout this week means re-proving the W4b embed covenant (chrome absent
+from served HTML *and* the RSC payload, which took two attempts) on the same days a stranger
+first clicks our link. Wrong week. The layout gets its own mission after the pitch window.
 
-## PART 3 - the verse decision, prepared with numbers
-The queue is 344 deep in core quiz pages while the sitemap advertises 2,341 verse URLs
-for a PAUSED product Google is not even processing. Quantify: sitemap composition
-(verse vs non-verse), and what pulling verse from the sitemap while paused would change
-(URLs advertised, nothing deleted, fully reversible; verse pages stay live and linked).
-Lay out keep vs pull with trade-offs. **Do not act. Owner decision.**
+So: **do not touch `src/app/layout.tsx`.** Fix the cost where it actually is.
 
-## PART 4 - carried over from SEO-IDX v1
-1. Commit 7290675 restyled `answer-first.tsx` (W8 SEO component) and the group FAQ, and
-   no proof covered group pages. Extract the served answer-first text on two group pages
-   and diff against the strings the d7103b1 version produced. Content changes = finding.
-2. Upgrade `check:indexability` to a complete crawl by default (the W7c orphan-gate
-   pattern): `INDEXCHECK_SAMPLE` stays as the fast local cap, output says complete vs
-   floor, proven red on an injected contradiction then green. The 37-of-708 sample is how
-   a noindexed quiz page went unnoticed.
-3. The 17 real /q pages in crawled-not-indexed: pull their lifetime plays and question
-   counts from the DB (read-only) alongside the thin-page inventory (<50 plays, <10
-   plays, <=5 questions across published quizzes). Counts only, no unpublishing.
+## THE ANGLE
+`/leaderboard` is 25 lines. It exports `revalidate = 300` and its comment says the design
+intent out loud: public sections baked, personal bits as client islands. **The page was
+written for ISR and the layout silently took it away.** We are not inventing caching, we are
+restoring what the author already asked for, one layer down: cache the DATA rather than the
+page, so it works regardless of render mode.
+
+## PART 1 - measure before you touch anything
+Where do the ~720ms go? Per query, not per page. `CommunityContent` and everything it calls:
+how many DB round trips, which ones dominate, and are any of them sequential that could be
+concurrent. Report the list with timings, and the same for `/games` at ~265ms.
+
+If the time turns out not to be in the database, say so and stop before PART 2. A cache is
+the wrong tool for a rendering cost, and I would rather this mission end at PART 1 than ship
+the wrong fix confidently.
+
+## PART 2 - the safety gate, and it is the one that matters
+**Anything cached must be identical for every visitor.**
+
+Before caching a single read, prove that nothing in `CommunityContent`'s server path reads
+cookies, the session, `createServerClient`, or any per-user state. The page comment claims
+personal bits are client islands. Verify it, do not trust it. If any server-side read is
+user-dependent, that read is excluded from the cache and you say which and why.
+
+Getting this wrong serves one visitor's data to another. It is the only irreversible mistake
+available in this mission, and it is worth more of your time than the optimisation.
+
+## PART 3 - the fix, smallest form that works
+Cache the public reads with a TTL of **300 seconds**, matching the `revalidate` the page
+already declares, so the freshness contract does not change. Whatever mechanism you choose,
+say why it survives the fact that the route is dynamic.
+
+Do not add a route, a schema change, a dependency or a config flag. Do not "while I am here"
+anything.
+
+## PART 4 - prove it, before and after, against a production build
+Three consecutive requests each, same method as your render-mode measurement, so the numbers
+are comparable to the ones already in the ledger:
+  - `/leaderboard` and `/games`, before and after
+  - a page you did NOT touch, as a control
+  - and state plainly whether requests 2 and 3 get faster. That is the whole point.
+
+Then the four gates. `check:orphans` unscoped, `check:metadata-dupes` unchanged at 8.
+
+## WHAT SUCCESS LOOKS LIKE
+`/leaderboard` serves in well under 720ms on repeat, no visitor ever sees another's data, the
+root layout is byte-identical to HEAD, and the diff is small enough to read in one sitting.
+
+If the honest outcome is "the cost is real but the fix is bigger than this mission", write
+that in BLOCKED.md with the evidence and ship nothing. That answer has been right twice this
+week.
 
 ## STANDING RULES
-- A mission is not finished until docs/loop/REPORT.md describes it. Skips named loudly.
-- Every number carries its command and denominator. Recompute before prose.
-- Live-domain requests throttled, custom user-agent.
-- No DDL, no DB writes, no push, no title/meta edits.
-- Proofs in docs/proofs/seo-idx/.
+- Print `pwd` before every build.
+- A mission is not finished until `docs/loop/REPORT.md` describes it.
+- If you skip a part, say so.
+- Recompute before writing any number in prose.
+- No DDL, no database writes, no push.
+- Proofs in `docs/proofs/perf-1/`.
