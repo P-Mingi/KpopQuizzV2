@@ -1,0 +1,34 @@
+SOFT-404 mechanism + candidate results (all against next build + next start :3021, Next 16.2.1).
+
+BASELINE (HEAD 75dcabb, bare notFound on ISR route /q/[slug], mode ●):
+  /q/definitely-never-existed-zzz999   -> HTTP 200  x-nextjs-prerender:1  cache MISS then HIT
+  /q/pick-out-the-odd-artms-picture    -> HTTP 200  x-nextjs-prerender:1
+  Next PRERENDERS the notFound() output as a cacheable 200 (s-maxage=3600). Soft-404.
+
+CONTROL (embed twin /embed/q/[slug], mode ƒ dynamic, identical notFound() shape):
+  /embed/q/definitely-never-existed-zzz999 -> HTTP 404
+  => a DYNAMIC render statuses notFound() as a real 404. The difference is render mode,
+     not the notFound() call. ISR (●) soft-404s; dynamic (ƒ) 404s.
+
+CANDIDATE A - connection() before notFound() (force this request dynamic):
+  build OK, but at serve time every missing-quiz request -> HTTP 500, digest DYNAMIC_SERVER_USAGE.
+  An ISR on-demand render happens in a STATIC-generation context; a dynamic API there is a
+  hard error, not a graceful bail. Broke: the route (500s instead of 404s).
+
+CANDIDATE B - notFound() in the page body only (metadata returns minimal noindex, no notFound):
+  build OK, still HTTP 200 (and now caches the bogus 200 MISS->HIT). The 200 is the ISR
+  prerender of notFound(), independent of which function throws it. Broke: nothing fixed.
+
+CANDIDATE C (not shipped, reasoned) - export const dynamic = 'force-dynamic' on /q/[slug]:
+  would 404 (matches the embed twin) BUT reverts /q/[slug] from ● to ƒ - exactly the ISR win
+  RENDER-FIX just landed on the single biggest SEO route (400+ quiz pages, the crawl-wave
+  target). Broke: RENDER-FIX's headline outcome.
+
+CANDIDATE D (forbidden by the mission, pre-proven) - dynamicParams = false:
+  would 404 non-prerendered slugs BUT (1) a newly-published slug 404s until the next deploy
+  (no revalidatePath/revalidateTag anywhere on the publish path - re-verified, zero hits), and
+  (2) a build-time generateStaticParams timeout returns [] which would then 404 the whole
+  catalogue instead of degrading to on-demand. Broke: hazard-1 and hazard-2.
+
+CONCLUSION: no fix keeps goal + hazard-1 + hazard-2 + ISR-render-mode true at once in Next
+16.2.1 without Partial Prerendering (PPR), which the mission scopes to a separate mission.
