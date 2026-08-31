@@ -1,18 +1,9 @@
 import '@/styles/globals.css';
 
-import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/react';
-import { TopNav } from '@/components/layout/top-nav';
 import { ThemeInit } from '@/components/layout/theme-init';
-import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
-import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
-import { MobileTopBar } from '@/components/layout/mobile-top-bar';
-import { Footer } from '@/components/layout/footer';
-import { SiteFooter } from '@/components/layout/site-footer';
 import { ToastProvider } from '@/components/ui/toast-provider';
-import { headers } from 'next/headers';
-import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -107,76 +98,20 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps): Promise<React.ReactElement> {
-  // W4b: /embed/* renders the payload alone. Decided HERE, on the server, from the
-  // pathname the middleware forwards, so the chrome tree is never built and never
-  // reaches the partner's iframe in the RSC payload. Missing header falls back to
-  // rendering the chrome, which is the safe default for the site.
-  const isEmbed = ((await headers()).get('x-pathname') ?? '').startsWith('/embed');
+// RENDER-FIX: the root layout is now free of every dynamic API. It renders only
+// html/body, the pre-paint theme, providers and analytics - things every route
+// (site chrome AND /embed) needs. The site chrome and the site-wide JSON-LD moved
+// to app/(site)/layout.tsx; /embed sits outside that group, so an iframe gets this
+// bare shell and its own embed layout, never the chrome tree. With no await
+// headers() here, the ~36 routes that declare `revalidate` get their static/ISR
+// render mode back.
+export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
   return (
     <html lang="en" className={pretendard.variable} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'KpopQuiz',
-              url: 'https://kpopquiz.org',
-              logo: 'https://kpopquiz.org/logo-512.png',
-              sameAs: [
-                SOCIAL_LINKS.reddit.url,
-                SOCIAL_LINKS.discord.invite,
-                SOCIAL_LINKS.pinterest.url,
-                SOCIAL_LINKS.tiktok.url,
-                SOCIAL_LINKS.youtube.url,
-                SOCIAL_LINKS.instagram.url,
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'SiteNavigationElement',
-              name: 'Main Navigation',
-              hasPart: [
-                { '@type': 'WebPage', name: 'Quizzes', url: 'https://kpopquiz.org/quizzes' },
-                { '@type': 'WebPage', name: 'Games', url: 'https://kpopquiz.org/games' },
-                { '@type': 'WebPage', name: 'Blind Test', url: 'https://kpopquiz.org/blindtest' },
-                { '@type': 'WebPage', name: 'Leaderboard', url: 'https://kpopquiz.org/leaderboard' },
-                { '@type': 'WebPage', name: 'Trivia', url: 'https://kpopquiz.org/trivia' },
-                { '@type': 'WebPage', name: 'Rankings', url: 'https://kpopquiz.org/rankings' },
-              ],
-            }),
-          }}
-        />
         <ThemeInit />
-        <ToastProvider>
-          {/* W4b: /embed/* renders the payload alone. Everything else gets the full
-              chrome, defined here and nowhere else. */}
-          {isEmbed ? (
-            children
-          ) : (
-            <>
-              <div className="flex flex-col min-h-screen">
-                <Suspense fallback={<TopNavSkeleton />}>
-                  <TopNav />
-                </Suspense>
-                <MobileTopBar />
-                <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
-                  {children}
-                </main>
-                <SiteFooter play={<Footer />} />
-              </div>
-              <MobileTabBar />
-            </>
-          )}
-        </ToastProvider>
+        <ToastProvider>{children}</ToastProvider>
         <Analytics />
       </body>
     </html>

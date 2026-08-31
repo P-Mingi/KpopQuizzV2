@@ -1,0 +1,39 @@
+RENDER-FIX gates (after build; local :3021 unless noted).
+- check:docs-secrets : PASSED
+- check:routes       : PASSED (364 page routes)
+- check:indexability : PASSED, COMPLETE crawl (all 3062 local URLs), 0 contradictions.
+    2051 warnings = verse deep-ISR pages non-200 locally (VERSE_PUBLIC=true inflates the
+    local sitemap to 3062; prod ships 708 via PUSH-GATE-1). L-215 caveat. Not gating.
+- check:orphans      : PASSED (718 non-verse sitemap URLs, complete crawl, all have inbound links).
+- check:metadata-dupes (vs production kpopquiz.org): 1 pre-existing collision group across
+    708 URLs. RENDER-FIX edits no title/meta/sitemap (git-verified), so it introduces zero
+    dupes. The mission's "baseline 8" is stale (SEO-IDX saw 3; the quiz set drifts).
+
+Route render mode (all routes):        ƒ 362 -> 295   ○ 5 -> 64   ● 0 -> 8   (~67 flipped to static/ISR)
+URL paths before vs after: 367 = 367, IDENTICAL (route groups change no URLs).
+sitemap.ts / robots.ts: untouched (git diff empty).
+
+Safety (per-user pages after build):
+  /me ƒ   /battle ƒ   /notifications ƒ   /admin ƒ      (still dynamic, correct)
+  /settings ○  /onboarding ○  -> flipped static, but BOTH are client shells: /settings is
+  'use client' (its auth.getUser() runs in the browser), /onboarding renders OnboardingForm
+  (client island). Neither server-renders user data. 2-session diff: /settings + /leaderboard
+  byte-IDENTICAL across two anon cookie jars -> no per-user data in the static HTML.
+
+Embed covenant (W4b), re-proven on the built artefact:
+  /embed served HTML  : 0 chrome markers (min-h-screen, mobile-tab-bar, SiteNavigationElement,
+                        "Leaderboard", "Blind Test", "Made with", top-nav, site-footer all 0)
+  /embed RSC payload  : 0 chrome markers (the check that failed silently before)
+  /quizzes control    : chrome present in HTML AND RSC (SiteNavigationElement)
+
+ISR works (repeat request, x-nextjs-cache):
+  /leaderboard  r2 0.007s  HIT      /games r2 0.003s HIT     /data/knowledge-report-2026 r2 0.004s HIT
+  Interplay: /leaderboard is now ○ (static page) AND keeps its PERF-1 unstable_cache data
+  cache - a data cache under a static page is fine; the HIT proves both layers coexist.
+
+Mobile nav (7290675): /q served HTML carries mobile-tab-bar; quiz-player still writes
+  document.body.dataset.quizPhase (2 sites); CSS result-phase rule present. Intact.
+
+soft-404 (proof 4): NOT healed. /q/pick-out-the-odd-artms-picture still HTTP 200 (soft-404).
+  The render-mode change did not fix it; it is separate L-215 debt (notFound() on an ISR
+  on-demand render still returns 200 here). Reported, not fixed (scope fence).

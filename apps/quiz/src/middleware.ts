@@ -32,17 +32,11 @@ const MIDDLEWARE_TIMEOUT_MS = 2500;
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  // W4b: the server needs to know the path to decide whether to build the site chrome
-  // at all. A client-side check renders nothing but still SERIALISES the chrome tree
-  // into the RSC payload, so the partner's iframe downloads a nav it never shows.
-  // Forwarding the pathname lets the root layout skip constructing it entirely.
-  const withPath = (): Headers => {
-    const h = new Headers(request.headers);
-    h.set('x-pathname', pathname);
-    return h;
-  };
-  const passthrough = (): NextResponse =>
-    NextResponse.next({ request: { headers: withPath() } });
+  // RENDER-FIX: the x-pathname header is gone. It existed only so the root layout
+  // could branch chrome on/off for /embed via await headers(), which forced every
+  // page dynamic. /embed now lives outside the (site) route group, so the chrome
+  // is chosen by folder, not by a runtime header, and nothing reads x-pathname.
+  const passthrough = (): NextResponse => NextResponse.next();
 
   // PUSH-GATE-1 (VERSE_PUBLIC): while the Verse is hidden, an ANONYMOUS request (no auth
   // cookie) to any gated Verse route -> 302 to the /verse teaser. Pure cookie-presence check,

@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 // and metadata are declared locally because Next forbids re-exporting route config.
 // Auth-gated + noindex: nothing to canonicalize, no duplicate-content exposure; out
 // of sitemap.
-export { default } from '@/app/notifications/page';
+export { default } from '@/app/(site)/notifications/page';
 
 export const dynamic = 'force-dynamic';
 

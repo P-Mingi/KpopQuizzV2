@@ -14,11 +14,11 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const ROOTS = ['src/app/verse', 'src/components/verse'];
+const ROOTS = ['src/app/(site)/verse', 'src/components/verse'];
 const ALLOW_FILES = new Set([
   'src/components/verse/brand/verse-wordmarks.tsx', // brand mark, renders outside verse-scope
   'src/components/verse/studio/studio-client.tsx',  // the space-customization tool: <input type=color> values + saved-config hexes are FUNCTIONAL, not style-bleed
-  'src/app/verse/[slug]/create/page.tsx',            // space config defaults saved to the DB (functional hexes)
+  'src/app/(site)/verse/[slug]/create/page.tsx',            // space config defaults saved to the DB (functional hexes)
 ]);
 const HEXG = /#[0-9a-fA-F]{3,8}\b/g;
 

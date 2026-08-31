@@ -1,0 +1,1 @@
+embed served HTML + RSC payload: 0 chrome markers (min-h-screen, mobile-tab-bar, SiteNavigationElement, nav labels, footer text all absent). /quizzes has them. status 200.

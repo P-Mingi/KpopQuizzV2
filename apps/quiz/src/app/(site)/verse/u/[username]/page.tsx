@@ -5,6 +5,6 @@
 // content. revalidate is declared locally (Next forbids re-exporting route config).
 // generateStaticParams is intentionally NOT re-exported: the mirror is out of the
 // sitemap and renders on-demand, so we never pre-build a second copy of a profile.
-export { default, generateMetadata } from '@/app/u/[username]/page';
+export { default, generateMetadata } from '@/app/(site)/u/[username]/page';
 
 export const revalidate = 3600;

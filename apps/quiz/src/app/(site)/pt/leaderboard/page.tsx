@@ -3,7 +3,7 @@ import {
   getTopCreatorsAllTime,
   getTopPlayersByXp,
 } from '@/lib/db/queries/profiles';
-import { LeaderboardTabs } from '@/app/leaderboard/leaderboard-tabs';
+import { LeaderboardTabs } from '@/app/(site)/leaderboard/leaderboard-tabs';
 import { safeFetch } from '@/lib/error-handling';
 import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 

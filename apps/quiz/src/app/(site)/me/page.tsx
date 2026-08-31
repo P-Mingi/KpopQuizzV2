@@ -7,7 +7,7 @@ import { getProfileById } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { getLatestPersonalityMatch } from '@/lib/personality/data';
 import { safeFetch } from '@/lib/error-handling';
-import { ProfileTabs } from '@/app/u/[username]/profile-tabs';
+import { ProfileTabs } from '@/app/(site)/u/[username]/profile-tabs';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';

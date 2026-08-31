@@ -1,89 +1,90 @@
-# REPORT - PERF-2: /games cached, community batches merged. Tiny. No push.
+# REPORT - RENDER-FIX: 67 routes get their static/ISR render mode back. No push.
 
 Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. `pwd`
-printed before every build. No DDL, no DB writes, no push, no title/meta edits, no
-layout changes (`src/app/layout.tsx` byte-identical to HEAD). Proofs:
-`docs/proofs/perf-2/`. Two files changed, both pre-authorised in PERF-1's flags.
+printed before every build. Proven against the built artefact (`next build` + `next
+start`), never dev mode. No DDL, no DB writes, no push, no title/meta/sitemap/copy
+edits. Proofs: `docs/proofs/render-fix/`.
+
+## The decision: route group (option 1), as the owner's prior
+
+Took option 1. The one dynamic call was `layout.tsx` `await headers()` reading
+`x-pathname` to branch the `/embed` chrome. Fix: a `(site)` route group holding the
+chrome layout with all 52 page-route entries moved inside it (`git mv`, history
+preserved); `/embed` stays at the bare root, so its chrome is chosen by folder, not
+a runtime header. The root layout is now free of every dynamic API. PPR was not
+needed and not tried; the route-group path hit no wall.
+
+The move was mechanical: `git mv` 52 entries into `(site)`, write `(site)/layout.tsx`
+(the chrome, verbatim from the old chrome branch), reduce the root layout to
+html/body + theme + providers, move the site-wide JSON-LD into `(site)` (so `/embed`
+carries no nav labels), and delete the now-unread `x-pathname` from middleware.
+
+Three follow-on fixes the move required, all path-adjustments not logic:
+- 5 cross-route `@/app/...` imports repointed to `@/app/(site)/...` (route groups are
+  invisible in URLs but real on disk).
+- `scripts/check-verse-tokens.mts` hardcoded `src/app/verse` -> `src/app/(site)/verse`.
+- `(site)/verse/layout.tsx` relative font paths gained one `../` (moved a level deeper).
+
+## The headline number
+
+    render mode (all routes):   dynamic ƒ 362 -> 295    static ○ 5 -> 64    SSG ● 0 -> 8
+
+67 routes flipped dynamic -> static/ISR, including `/leaderboard`, `/games`, `/q/[slug]`
+(now ● SSG, 1h), the knowledge-report page, and the ~36 `revalidate` routes the fix
+was for. Full before/after tables: `route-table-before.txt`, `route-table-after.txt`.
+
+## The safety gate (this mission's mirror risk)
+
+Two pages flipped static that the mission flagged to watch: `/settings` and
+`/onboarding`. Investigated, both SAFE:
+- `/settings` is a `'use client'` page; its `auth.getUser()` runs in the browser. The
+  server renders only a shell.
+- `/onboarding` is a server shell rendering `OnboardingForm`, a client island.
+
+Neither server-renders user data, which is exactly why Next let them go static. The
+mission's "must be f" was a conservative assumption; the reality is these never
+server-rendered per-user content. Proven, not assumed: `/settings` and `/leaderboard`
+fetched as two different anonymous cookie jars are byte-IDENTICAL. `/me`, `/battle`,
+`/notifications`, `/admin` remain `f` (they do read cookies server-side).
+
+## The proof battery (docs/proofs/render-fix/, full detail in gate-results.txt)
+
+1. **Route table before/after**: above. Paths IDENTICAL (367 = 367), so no URL changed
+   (proof 6). `sitemap.ts` / `robots.ts` untouched.
+2. **W4b covenant, re-proven on the build**: `/embed` served HTML AND RSC/flight payload
+   contain ZERO chrome markers (min-h-screen, mobile-tab-bar, SiteNavigationElement, the
+   nav labels, footer text). `/quizzes` carries them in both. The RSC-payload half is the
+   check that failed silently once; it passes now.
+3. **ISR works**: `/leaderboard` 0.007s, `/games` 0.003s, report page 0.004s on repeat,
+   all `x-nextjs-cache: HIT`. Interplay stated: `/leaderboard` is now a static page AND
+   keeps its PERF-1 `unstable_cache` data cache; a data cache under a static page is fine,
+   and the HIT proves both layers coexist.
+5. **Gates**: docs-secrets PASS, routes PASS (364), indexability PASS (COMPLETE crawl of
+   all 3062 local URLs, 0 contradictions), orphans PASS (718 non-verse, complete). The
+   local sitemap is verse-inflated to 3062 (`VERSE_PUBLIC=true` locally; prod ships 708
+   via PUSH-GATE-1) - the L-215 caveat, which is why indexability logs 2051 deep-ISR
+   warnings. metadata-dupes vs production: 1 pre-existing collision group; RENDER-FIX
+   edits no metadata so it adds none (the "baseline 8" is stale).
+7. **Mobile nav (7290675)**: `/q` served HTML carries `mobile-tab-bar`; the player still
+   writes `document.body.dataset.quizPhase`; the CSS result-phase rule is present. Intact.
+
+## Deviation, named loudly
+
+**Proof 4 (soft-404) did NOT heal.** `/q/pick-out-the-odd-artms-picture` still returns
+HTTP 200, not 404. The render-mode change did not fix it: `notFound()` on an ISR
+on-demand render still soft-404s (200 + not-found body + noindex) in this Next version.
+This is separate L-215 debt, not the layout's doing. Reported and NOT fixed: forcing a
+real 404 needs a `dynamicParams`/status change on `/q/[slug]`, which is outside this
+mission's scope fence ("no while-I-am-here"). It wants its own mission.
+
+## Scope
+
+3 commits were already local; this builds a 4th on top. No push. `layout.tsx` changed
+by design (that is the mission) - 9 insertions, 74 deletions. The middleware lost only
+the x-pathname plumbing; its auth and PUSH-GATE paths are untouched.
 
 ---
 
-## PART 1 - /games gets the PERF-1 treatment (TTL 3600)
-
-**Safety gate first, not optional.** Read every factory in the /games server path:
-- `getRankingsIndex` -> `createServiceRoleClient` (cookie-free)
-- `getPersonalityGroups` -> `createPublicReadClient` (cookie-free)
-- the `songs` count and `games` count -> the page's own `createServiceRoleClient`
-
-None use `createServerClient`, none read cookies/session. All four reads are
-identical for every visitor, so nothing per-visitor is cached. Wrapped the four in
-`unstable_cache` keyed `games-hub-data` with `revalidate: 3600` (the value the page
-already declares). The daily-rotation `pickDaily` and the `counts` derivation stay
-in the render, computed from the cached data (deterministic by UTC day, unchanged).
-
-The L-216 trade-off is noted in the wrapper comment: `safeFetch` stays inside the
-cache, so a transient read error caches its zero/empty fallback for the TTL rather
-than retrying next request; accepted, because the fallbacks render a smaller-but-
-valid hub and the 3600s the page already promised bounds the staleness.
-
-Result (`measurements.txt`): repeat requests drop from ~0.36s (uncached, every
-request) to **~0.01s on a cache hit**. MISS 0.57s once per hour, then near-instant.
-This is the headline win of PERF-2.
-
-## PART 2 - merge the two community batches
-
-Inside PERF-1's cached function the 14 reads ran as two sequential `Promise.all`
-(7 + 7) with no data dependency. Merged into one `Promise.all(14)` so they run
-concurrently. This path only runs on a cache MISS, so any win is revalidation
-latency.
-
-Measured, `/leaderboard` MISS (first request after a fresh server start, both runs):
-
-    BEFORE (two sequential batches): 0.773s
-    AFTER  (one Promise.all(14))   : 0.745s
-
-**Within noise - no measurable page-level MISS win, and I will not claim one.** The
-honest reading: the isolated probe in PERF-1 that measured 347ms + 819ms ran cold
-Supabase clients from this laptop; in the built server the connection pool is warm,
-so the sequential-batch penalty is a small fraction of the page MISS, which is
-dominated by render, serialization and the separate `CrossSpaceFeed` read. The
-merge is still correct (the 14 reads now run concurrently) and costs nothing, so it
-stays - it simply does not move the page total in this environment. `/leaderboard`
-HIT is unchanged (~0.16s; hits skip the DB regardless of batch shape).
-
-## PART 3 - proof
-
-Full numbers in `measurements.txt`. Production build, same machine both runs:
-- `/games`: repeat 0.36s -> 0.01s (Part 1 win).
-- `/leaderboard` MISS: 0.773s -> 0.745s (Part 2, within noise).
-- `/quizzes` (untouched control): unchanged.
-- `check:routes`: PASSED (364 routes). `check:indexability`: PASSED (floor).
-- `/games` output intact on the after-build (correct title + CollectionPage JSON-LD).
-- `layout.tsx`: byte-identical to HEAD.
-
-The local build's sitemap is verse-inflated (3059 URLs; `.env.local` has
-`VERSE_PUBLIC=true`, so PUSH-GATE-1 does not fire locally as it does in
-production's 708), which is why the indexability floor counts against 3059. That is
-an environment fact, unrelated to a data-cache change that touches no route,
-metadata or link.
-
-## Deviations and flags
-
-1. **Part 2 produced no measurable win, reported as such** rather than dressed up.
-   The merge is a free correctness change; the MISS-latency benefit that the PERF-1
-   probe implied does not survive the warm-pool reality of the built server.
-2. **/games MISS (0.57s) is higher than its old uncached time (~0.24s).** Expected:
-   the miss now also primes the cache, and `getRankingsIndex` is the heavier read;
-   every request after it in the 3600s window pays ~0.01s instead of ~0.36s, which
-   is the trade the mission asked for.
-
-## What success looks like (met)
-
-`/games` repeat requests are ~0.01s (were ~0.36s); the batches are merged; every
-cached read is cookie-free and identical for all visitors; the root layout is
-byte-identical to HEAD; the diff is two files.
-
----
-
-STOP. /games cached at 3600s (repeat 0.36s -> 0.01s), community batches merged
-(correct, but no measurable page MISS win, said plainly), layout untouched. Nothing
-pushed. Report ready.
+STOP. 67 routes static/ISR, embed covenant re-proven in HTML and RSC, no URL changed,
+no per-user page leaked static, all five gates green, mobile nav intact. One honest
+miss: the soft-404 is separate debt and stays open. Nothing pushed. Report ready.

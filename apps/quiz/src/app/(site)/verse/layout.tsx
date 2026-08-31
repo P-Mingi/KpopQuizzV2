@@ -24,25 +24,25 @@ export const metadata: Metadata = {
 // carries the `.verse-v2` class + these variables, so Play is byte-identical.
 const fraunces = localFont({
   src: [
-    { path: '../../../public/fonts/Fraunces-400-latin.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/Fraunces-500-latin.woff2', weight: '500', style: 'normal' },
-    { path: '../../../public/fonts/Fraunces-600-latin.woff2', weight: '600', style: 'normal' },
+    { path: '../../../../public/fonts/Fraunces-400-latin.woff2', weight: '400', style: 'normal' },
+    { path: '../../../../public/fonts/Fraunces-500-latin.woff2', weight: '500', style: 'normal' },
+    { path: '../../../../public/fonts/Fraunces-600-latin.woff2', weight: '600', style: 'normal' },
   ],
   variable: '--font-fraunces', display: 'swap', fallback: ['Georgia', 'Times New Roman', 'serif'], preload: true,
 });
 const instrument = localFont({
   src: [
-    { path: '../../../public/fonts/InstrumentSans-400-latin.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/InstrumentSans-400i-latin.woff2', weight: '400', style: 'italic' },
-    { path: '../../../public/fonts/InstrumentSans-500-latin.woff2', weight: '500', style: 'normal' },
-    { path: '../../../public/fonts/InstrumentSans-600-latin.woff2', weight: '600', style: 'normal' },
+    { path: '../../../../public/fonts/InstrumentSans-400-latin.woff2', weight: '400', style: 'normal' },
+    { path: '../../../../public/fonts/InstrumentSans-400i-latin.woff2', weight: '400', style: 'italic' },
+    { path: '../../../../public/fonts/InstrumentSans-500-latin.woff2', weight: '500', style: 'normal' },
+    { path: '../../../../public/fonts/InstrumentSans-600-latin.woff2', weight: '600', style: 'normal' },
   ],
   variable: '--font-instrument', display: 'swap', fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'], preload: true,
 });
 const splineMono = localFont({
   src: [
-    { path: '../../../public/fonts/SplineSansMono-400-latin.woff2', weight: '400', style: 'normal' },
-    { path: '../../../public/fonts/SplineSansMono-500-latin.woff2', weight: '500', style: 'normal' },
+    { path: '../../../../public/fonts/SplineSansMono-400-latin.woff2', weight: '400', style: 'normal' },
+    { path: '../../../../public/fonts/SplineSansMono-500-latin.woff2', weight: '500', style: 'normal' },
   ],
   variable: '--font-spline-mono', display: 'swap', fallback: ['ui-monospace', 'SFMono-Regular', 'monospace'], preload: false,
 });
