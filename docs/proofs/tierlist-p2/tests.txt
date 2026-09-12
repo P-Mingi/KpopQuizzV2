@@ -1,0 +1,20 @@
+=== vitest ===
+
+ Test Files  3 passed (3)
+      Tests  13 passed (13)
+   Start at  01:15:42
+   Duration  308ms (transform 51%, import 26%, worker 17%, tests 5%)
+
+=== playwright (desktop) ===
+
+Running 8 tests using 1 worker
+
+[1/8] [desktop] › e2e/smoke.spec.ts:5:1 › playwright + system Chrome runs
+[2/8] [desktop] › e2e/tier-list.spec.ts:9:3 › discovery › nav has Tier Lists right after Games and links to the hub
+[3/8] [desktop] › e2e/tier-list.spec.ts:18:3 › discovery › home CTA present and links correctly
+[4/8] [desktop] › e2e/tier-list.spec.ts:27:3 › discovery › hub renders with make-your-own, start-blank and featured
+[5/8] [desktop] › e2e/tier-list.spec.ts:38:3 › maker › create-from-blank reaches an empty maker with default tiers
+[6/8] [desktop] › e2e/tier-list.spec.ts:46:3 › maker › create-from-subject loads bank items, tap places a card, undo restores
+[7/8] [desktop] › e2e/tier-list.spec.ts:63:3 › maker › rename a tier via the tier editor
+[8/8] [desktop] › e2e/tier-list.spec.ts:73:3 › maker › share button reaches the share sheet, OG preview + rows render
+  8 passed (10.0s)

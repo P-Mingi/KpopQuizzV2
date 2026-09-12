@@ -1,95 +1,113 @@
-# REPORT - TIERLIST: foundation shipped, feature NOT complete. Stopped at a clean boundary. No push.
+# REPORT - TIERLIST phase 2: harness + the migration-independent front slice. No push.
 
-Repo guard: `git remote -v` = `https://github.com/P-Mingi/KpopQuizzV2.git`. The index.lock
-was removed as the owner noted. No DDL applied, no DB writes, no push. Proofs:
-`docs/proofs/tierlist/`.
+Repo guard OK. No DDL applied (146 stays for the owner), no DB writes, no push. The
+approved design spec was versioned (`git add -f docs/design/tier-list/`). Proofs:
+`docs/proofs/tierlist-p2/`. Built and proven on `next build` + `next start` (:3021),
+never dev. No em dashes.
 
-## The honest headline
+## What shipped (committed across 2a / 2b / this commit), all working logged-out, no DB
 
-This is a multi-session feature (10 pixel-perfect screens, a full backend, a share/OG
-pipeline, community integration, and an automated-test suite). It cannot be built to the
-mission's bar in one session. Per the mission's own instruction - "a half-built, untested
-feature merged is the worst outcome; STOP at a clean phase boundary and REPORT" - I built
-and tested the BACKEND FOUNDATION and stopped there. The 10 screens, the maker, share,
-publish and community are NOT built. This report says exactly what shipped and what did not.
+**Harness (2a).** vitest (`test:unit`) + `@playwright/test` (`test:e2e`) using the
+system Chrome via `channel: 'chrome'` (no browser download; `playwright install` not
+run). The 24 Phase-1 assertions run under vitest; a smoke spec proves Chrome launches.
 
-## What shipped this session (tested, committed)
+**Bank read layer (2b).** `getBankItems(groupId, kind)` returns the uniform
+`{id,kind,name,image_url}` from the existing tables (idols photo_url, albums Cover Art
+Archive by MBID, songs Deezer cover), namespaced ids, cookie-free client, `blank` -> [].
+Pure shaping split into `bank-shape.ts` and fixture-tested.
 
-1. **Migration `supabase/migrations/146_tier_lists.sql`** (owner-gated, WRITTEN not applied):
-   - `tier_lists` (id, slug unique, creator_id nullable, anon_id, subject_group_id ->
-     groups(id), subject_kind check, title, tiers jsonb, placements jsonb, visibility
-     check, views, likes, timestamps). RLS: public/unlisted world-readable, private
-     creator-only, writes creator-only; a CHECK forbids an anonymous PUBLIC list.
-   - `tier_list_assets` (custom uploads, status pending/approved/rejected) with
-     read-approved-or-own RLS.
-   - public storage bucket `tier-list-assets` (public read, service-role writes), mirroring
-     the avatars bucket (migration 103).
-   - Verified against the real schema (PART 0): groups.id is integer, profiles.id is uuid.
-2. **The pure tier-list library** `apps/quiz/src/lib/tier-list/`:
-   - `types.ts` (item/tier/placements/row shapes), `defaults.ts` (the design's tier
-     palette S #E8457A / A #F5894D / B #EBB33E / C #5FA65A / D #4F9BD9, F available),
-   - `serialization.ts` - the load-bearing invariant that every item sits in exactly one
-     bucket across tiers + the unranked tray, surviving DB round-trips, remixes and tier
-     edits,
-   - `slug.ts` - slug generation + collision-safe uniqueness (DB unique is the final guard),
-   - `aggregate.ts` - the "where the fandom agrees" consensus math (modal tier + agreement,
-     unranked casts no vote), pure, ready to run under `unstable_cache`.
-3. **Unit tests** `apps/quiz/scripts/check-tier-list.mts` (`npm run check:tier-list`): 24
-   assertions over serialization, slug and aggregate. All green (`docs/proofs/tierlist/
-   unit-tests.txt`). Written as a tsx assertion script because the repo has NO test harness
-   (see PART 0), not vitest/playwright.
+**The front (this commit):**
+- **Nav:** a "Tier Lists" item immediately after Games (SVG icon), links to `/tier-list`.
+- **Home CTA:** a full-bleed gradient band ("Make your K-pop tier list") between the
+  daily pair and the trending strip, per Home.dc.html. Start -> maker, Browse -> hub.
+- **Hub** `/tier-list` (static/ISR `o`, in the sitemap): hero, "Make your own" +
+  "Start blank", featured templates derived from the bank (real groups, no DB), and an
+  honest coming-soon for Trending (which needs published lists).
+- **Create + maker** `/tier-list/new` (noindex tool): from a subject
+  (`?group=&kind=`, bank items loaded server-side) OR blank (`Start blank`, first-class).
+  The `<TierMaker>` client component: desktop drag-and-drop AND mobile tap-to-place,
+  coloured tiers, a toolbar (add tier, reset, rename + recolor via a tier editor, undo,
+  redo, share), autosave to localStorage, all board state through the Phase-1
+  serialization so the exactly-once invariant holds. Real member photos render; missing
+  images fall back to the initials tile.
+- **Share:** an **edge OG route** `/api/og/tier-list` (`ƒ` route handler) that renders the
+  group-themed 1080-wide card with the kpopquiz.org watermark from board state encoded in
+  the URL (`?d=<base64>`), no DB. A 9:16 `variant=story`. The **ShareSheet**
+  `/tier-list/share` (noindex): Save image (PNG), Copy link, system Share (Web Share API),
+  Story, Challenge a friend (a stateless link that reopens the same item set on a blank
+  board), and a disabled "Publish publicly (coming soon)" row (Phase 3). `share-state.ts`
+  encode/decode is isomorphic and unit-tested.
 
-## What did NOT ship (named plainly, with the plan)
+Render modes (proof `route-modes.txt`): `o /tier-list` (static/ISR), `f /tier-list/new`
+and `f /tier-list/share` (noindex tools), `f /api/og/tier-list` (route handler). The
+`(site)` group is intact; no existing URL changed; `/tier-list` added to sitemap + the
+middleware allowlist.
 
-None of the user-facing feature exists yet. Remaining phases, each its own clean boundary:
-- **Bank read layer**: the uniform `{id,kind,name,image_url}` reader over groups/idols/
-  albums/songs per subject+what-to-rank (pure of DB tables it already has - buildable and
-  unit-testable now; deferred only for time).
-- **Discovery**: nav "Tier Lists" item after Games; Home CTA band (Home.dc.html); Hub page
-  under `(site)` static/ISR (Hub.dc.html).
-- **Create wizard**: CreateSubject (+ Start blank, first-class), CreatePool, ImportModal.
-- **The maker**: desktop drag-and-drop + mobile tap-to-place (Main.dc.html / MakerMobile),
-  toolbar, undo/redo, autosave.
-- **Share**: the OG edge route (satori) for the 600px card + watermark, ShareSheet (Save
-  PNG, Copy link, Web Share, 9:16 Story, Challenge), ResultCard.
-- **Publish + community**: PublicView page (static/ISR) + the fandom-agrees aggregate wired
-  into the existing Community surface + Remix/Make-your-own.
-- **CRUD + moderation** server actions; **e2e** tests (need a harness - see below).
+## Tests (all green - nothing here is migration-gated)
 
-## Two owner gates (unavoidable) plus one decision
+Unit (vitest, 13): serialization exactly-once, slug uniqueness, fandom-agrees math, bank
+shaping (fixtures), share-state round-trip (default + allItems + garbage). e2e
+(Playwright, 8 desktop + 1 mobile): nav item after Games links to hub; home CTA present +
+links; hub renders with make-your-own/start-blank/featured/trending-empty;
+create-from-blank -> empty maker with default tiers; create-from-subject loads bank items,
+tap places a card, undo restores; rename a tier; share reaches the sheet, the OG route
+returns a real image/png for the encoded state, challenge link points back to the maker;
+mobile touch tap-to-place. Full output: `docs/proofs/tierlist-p2/tests.txt`.
 
-1. **Apply migration 146** (Supabase MCP refuses this session; DDL is the owner's). Until
-   then no DB-backed path runs live and the CRUD/bank/OG tests stay gated.
-2. **Push** (owner only; nothing pushed).
-3. **NEW - the test-harness decision.** The mission assumes a Playwright/unit harness that
-   does not exist in this repo (no vitest, no @playwright/test, no test script; only the
-   tsx check:* gates). I did not add a harness dependency unilaterally (scope fence + "no
-   new deps" posture). The owner must decide: add vitest + @playwright/test (a real dep
-   addition) so the required e2e suite can exist, or keep the tsx-assertion idiom for unit
-   logic and accept that browser e2e is out of reach without that dep. All future TIERLIST
-   phases' testing depends on this call.
+## Proofs (docs/proofs/tierlist-p2/)
 
-## Deviations / flags
+`share-card.png` (the OG export with watermark), `screen-hub.png`, `screen-maker.png`
+(real BTS photos in coloured tiers), `screen-share.png`, `no-emoji.txt` (0 emoji
+codepoints in tier-list source; every icon is inline SVG), `route-modes.txt`, `gates.txt`,
+`tests.txt`.
 
-- Design "six default tiers S-D" is internally inconsistent (S-D is five rows; the artboard
-  renders five). `defaults.ts` follows the RENDERED five (S,A,B,C,D) with F as an addable
-  colour, noted in the code and here.
-- The mission's migration numbers (154/155, 067/068) did not match the repo; real max is
-  145, so the file is 146. Named so the owner is not surprised.
-- No SEO gates were run this session: no route, sitemap, metadata or page shipped, so there
-  is nothing for indexability/orphans/metadata-dupes to newly cover. They must run once the
-  discovery/public pages exist (a later phase).
+## SEO gates
 
-## Proofs (docs/proofs/tierlist/)
+docs-secrets PASS, routes PASS (368), indexability PASS (floor; the hub is static,
+self-canonical, unique-titled, in the sitemap). metadata-dupes: `/tier-list` is NOT in any
+collision group (verified); the 10 groups the gate reports are the pre-existing local
+verse-inflation baseline (L-215). orphans: `/tier-list` is linked from the home CTA and the
+nav on every page (not orphaned); the gate reports 3 PRE-EXISTING orphans unrelated to this
+work - see the adjacent-bugs note below. Details in `gates.txt`.
 
-- `unit-tests.txt` - 24/24 green.
-- `part0-findings.txt` - schema + harness reality, verified not assumed.
-- No emoji in the shipped tier-list source (grep over the emoji codepoint ranges: 0 hits).
-- No em dashes in anything written this session.
+## What is NOT built (named plainly)
+
+- **Phase 3 (needs migration 146 applied):** publish to a persisted public page with a
+  real slug, the community integration, the fandom-agrees WIRING (the math exists and is
+  tested; it is not yet read from public rows), server-side CRUD, and custom-upload server
+  storage + moderation. Clean seams are left: the publish row is a disabled stub, the
+  aggregate is a pure function ready to feed.
+- **Deferred within Phase 2 (a 2d, no DB needed), said honestly:**
+  - **ImportModal / custom client-side uploads** (object-URL items baked into the board and
+    the export) were NOT built. The maker ranks bank + blank today; add-your-own-image is
+    the main missing INCLUDE item.
+  - The dedicated **CreateSubject / CreatePool** wizard screens were not built as separate
+    artboard-matched screens; creation is served by the hub (featured templates + Start
+    blank) feeding `/tier-list/new`. The pixel-matched pick-subject search/popular-grid
+    screen remains.
+  - e2e exercises placement via the **tap** flow (reliable in Playwright); native HTML5
+    drag is implemented and works in the browser but is not asserted by an e2e (Playwright
+    does not faithfully simulate native drag-and-drop).
+
+## Deviations (intentional)
+
+- The OG card renders item tiles as **initials-on-gradient**, not remote photos, so the
+  image always composes without a per-face cross-origin fetch; a later phase can prefetch
+  covers to data URIs. Single-word names show one initial.
+- Hub filter chips are a visual set; the client-side filter is a later polish.
+
+## Adjacent bugs (named, not fixed - scope fence)
+
+The orphan gate found 3 pre-existing orphaned sitemap URLs unrelated to tier lists:
+`/katseye-trivia`, `/q/katseye-quiz`, `/q/bts-true-or-false-bet-you-cant-get-100`.
+
+## Two owner gates
+
+1. **Apply migration 146** (Phase 3 unblock). 2. **Push** (nothing pushed).
 
 ---
 
-STOP. Foundation only: the owner-gated migration (correct shape, verified schema), the pure
-tier-list library, and green unit tests. The feature itself - every screen, the maker, share,
-publish, community - is NOT built and is named above as remaining. Nothing applied, nothing
-pushed. This is a clean boundary, not a finished feature.
+STOP. Harness + bank + nav + home CTA + hub + create + maker (drag/tap) + share (OG +
+sheet + challenge) shipped, pixel-referenced, all logged-out with no DB, covered by 13
+unit + 9 e2e tests, all green. Custom uploads + the dedicated create wizard screens remain
+within Phase 2; publish/community remain for Phase 3. Nothing applied, nothing pushed.

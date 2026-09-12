@@ -20,7 +20,7 @@ export const KNOWN_ROUTES = [
   // reachable; without this the middleware 301s every embed to the home page and the
   // partner's iframe silently shows our homepage.
   '/embed/',
-  '/', '/q/', '/g/', '/games', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  '/', '/q/', '/g/', '/games', '/tier-list', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/rankings',
   // Workstream P personality quizzes. The public URL is

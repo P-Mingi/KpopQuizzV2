@@ -38,7 +38,7 @@ const CATALOG_PATHS = new Set<string>([
   '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/games',
-  '/games/this-or-that', '/games/name-all', '/stats',
+  '/games/this-or-that', '/games/name-all', '/stats', '/tier-list',
   '/pt', '/pt/quizzes', '/pt/blindtest', '/pt/games', '/pt/leaderboard', '/pt/stats',
   '/pt/easy-kpop-quizzes', '/pt/hard-kpop-quizzes', '/pt/kpop-quiz-2026',
   '/pt/guess-the-kpop-idol', '/pt/kpop-true-or-false',

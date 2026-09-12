@@ -16,6 +16,7 @@ import { buildTeaser } from '@/lib/quiz/teaser';
 import { DiscordCommunityStrip } from '@/components/discord/discord-community';
 import { HomeBattleCta } from '@/components/home/home-battle-cta';
 import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
+import { TierListHomeCta } from '@/components/home/tier-list-home-cta';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
@@ -298,6 +299,12 @@ export default function HomePage(): React.ReactElement {
       <Suspense fallback={<SkelDaily />}>
         <QotdSection />
       </Suspense>
+
+      {/* 2a. Tier Lists CTA band - its own colour between the daily pair and the
+          trending strip (TIERLIST, Home.dc.html). Static, no data. */}
+      <section className="home-section">
+        <TierListHomeCta />
+      </section>
 
       {/* 2b. Game of the day (this-or-that / name-all), relocated below the
           premium daily pair now that the blindtest holds the twoup slot. */}

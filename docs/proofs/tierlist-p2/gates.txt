@@ -1,0 +1,11 @@
+TIERLIST phase 2 SEO gates (built app on :3021).
+- check:docs-secrets : PASSED.
+- check:routes       : PASSED (368 page routes; the 3 new tier-list routes are allowlisted).
+- check:indexability : PASSED (floor). /tier-list is static, self-canonical, has a unique title, in the sitemap.
+- check:metadata-dupes: /tier-list is NOT in any collision group (verified: unique title/description).
+    The gate reports 10 pre-existing collision groups on the LOCAL sitemap (verse-inflated,
+    VERSE_PUBLIC=true -> 1009 URLs; prod ships far fewer via PUSH-GATE-1). L-215 caveat. Not from tier-list.
+- check:orphans      : reports 3 orphans - /katseye-trivia, /q/katseye-quiz,
+    /q/bts-true-or-false-bet-you-cant-get-100. NONE are tier-list: /tier-list is linked from the
+    home CTA and the nav on every page (verified in served HTML: href="/tier-list" + "/tier-list/new").
+    The 3 are PRE-EXISTING, unrelated orphans - named as adjacent candidates, not fixed (scope fence).

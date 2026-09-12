@@ -1,0 +1,4 @@
+├ ƒ /api/og/tier-list
+├ ○ /tier-list                                                 10m      1y
+├ ƒ /tier-list/new
+├ ƒ /tier-list/share
