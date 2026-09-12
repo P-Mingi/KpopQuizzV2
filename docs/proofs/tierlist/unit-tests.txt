@@ -1,0 +1,29 @@
+serialization:
+  ok   buildInitialPlacements: all items unranked
+  ok   buildInitialPlacements: tier S empty
+  ok   initial placements are valid
+  ok   normalize: dupe + unknown dropped from S
+  ok   normalize: A kept
+  ok   normalize: unplaced rm joins jk in unranked
+  ok   normalized placements are valid
+  ok   rankedCount: jm + v placed
+  ok   normalize: item from a removed tier returns to unranked
+  ok   valid after tier removal
+slug:
+  ok   slugify basic
+  ok   slugify empty -> fallback
+  ok   slugify diacritics
+  ok   makeUniqueSlug increments past taken
+  ok   makeUniqueSlug free base
+aggregate (fandom agrees):
+  ok   jm modal tier is S (2 of 3)
+  ok   jm agreement 2/3
+  ok   v modal tier A
+  ok   v agreement 1.0
+  ok   v got 3 votes
+  ok   jk never ranked -> not in aggregate
+  ok   aggregate ordered by tier: S first
+  ok   modal tie breaks to the higher tier
+
+TIERLIST tests passed.
+exit 0

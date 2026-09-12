@@ -1,0 +1,22 @@
+TIERLIST PART 0 - schema + harness reality, verified against the repo (not assumed).
+
+MIGRATION NUMBERING: the mission references 154/155 (anon) and 067/068 (duel). The
+real max migration in supabase/migrations/ is 145. The new file is therefore
+146_tier_lists.sql, not 156. (The mission's numbers were the author's mental model.)
+
+BANK TABLES (the item source, do not duplicate): groups (groups.id INTEGER, has
+logo_url/display_color/text_color/fandom_name), idols, albums, songs. Confirmed via
+.from() usage counts: albums 19, idols 14, songs 6, plus groups. profiles.id is uuid
+(= auth.users.id). Placements reference bank items by string id inside jsonb, so
+146 needs no FK to idols/albums/songs - only subject_group_id -> groups(id).
+
+MODERATION + STORAGE precedents mirrored by 146: status enum shape from migration 064
+(pending/approved/rejected); public bucket + service-role-write from migration 103
+(avatars). RLS creator-write via auth.uid().
+
+TEST HARNESS: there is NONE. No vitest, no @playwright/test, no test script - the only
+automated checks in the repo are the tsx check:* gates. The mission's "reuse the repo's
+existing Playwright harness" does not match reality. Unit tests were therefore written
+in the repo's actual idiom (a tsx assertion script, npm run check:tier-list, no new
+dep). e2e (Playwright) cannot be written without ADDING a harness dependency, which is
+a scope/owner decision - named in the REPORT, not taken unilaterally.
