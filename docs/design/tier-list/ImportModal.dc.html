@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap');
+:root{
+  --brand:#E8457A; --brand-light:#FCE8EF; --brand-dark:#B5345F;
+  --brand-btn:#D13A6E; --brand-btn-hover:#B5345F;
+  --plum:#A83A8F; --violet:#7B3FA8;
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-alt:#F3F1ED;
+  --txt1:#1A1714; --txt2:#6B6560; --txt3:#9E998F; --ghost:#C9C4BB;
+  --border:rgba(26,23,20,0.10); --border-h:rgba(26,23,20,0.20); --border-sub:rgba(26,23,20,0.06);
+  --correct:#0F6E56; --wrong:#A32D2D;
+  --sc:0 1px 0 rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.04);
+  --lift:0 8px 24px rgba(232,69,122,0.10),0 2px 8px rgba(0,0,0,0.06);
+  --lift-hi:0 18px 44px rgba(232,69,122,0.20),0 6px 16px rgba(0,0,0,0.10);
+  /* tier palette, harmonised on cream, S tied to the brand */
+  --S:#E8457A; --A:#F5894D; --B:#EBB33E; --C:#5FA65A; --D:#4F9BD9; --F:#9E998F;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--txt1);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}
+.page{width:1280px;background:var(--bg);min-height:100%}
+.phone{width:390px;background:var(--bg);min-height:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 32px 48px}
+.pw{padding:20px 16px 40px}
+/* top nav (real site chrome) */
+.nav{display:flex;align-items:center;gap:22px;height:60px;padding:0 32px;background:var(--surface);border-bottom:1px solid var(--border)}
+.brandmark{font-weight:800;font-size:19px;letter-spacing:-0.02em}
+.brandmark b{color:var(--brand)}
+.nav .lk{font-size:14px;color:var(--txt2);font-weight:600}
+.nav .lk.on{color:var(--txt1)}
+.sp{flex:1}
+.pn{display:flex;align-items:center;height:44px;padding:0 14px;font-weight:600;font-size:14px;gap:8px;background:var(--surface);border-bottom:1px solid var(--border)}
+/* type */
+.kick{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand)}
+.kick.mute{color:var(--txt3)}
+.d1{font-size:40px;font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin:6px 0}
+.d2{font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:0 0 6px}
+.h3{font-size:16px;font-weight:700;margin:0 0 8px}
+.sub{font-size:15px;color:var(--txt2);max-width:60ch}
+.mut{font-size:13px;color:var(--txt3)}
+.mono{font-family:ui-monospace,Menlo,monospace}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font-weight:700;font-size:14px;border:0;cursor:pointer;white-space:nowrap}
+.btn.pri{background:var(--brand-btn);color:#fff;box-shadow:var(--lift)}
+.btn.out{background:var(--surface);color:var(--txt1);border:1.5px solid var(--border-h)}
+.btn.gho{background:transparent;color:var(--txt2);font-weight:600}
+.btn.sm{height:34px;padding:0 14px;font-size:13px}
+.btn.lg{height:52px;padding:0 26px;font-size:16px}
+.btn.grad{background:linear-gradient(100deg,var(--brand),var(--plum) 55%,var(--violet));color:#fff;box-shadow:var(--lift)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--border);color:var(--txt2)}
+.chip.on{background:var(--brand-light);border-color:transparent;color:var(--brand-dark)}
+.chip.sm{height:24px;font-size:11px;padding:0 9px}
+/* cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--sc)}
+.pad{padding:20px}
+.soft{background:var(--surface-alt);border:1px solid var(--border-sub);border-radius:16px}
+.row{display:flex;align-items:center;gap:12px}
+.row.wr{flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.betw{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+/* idol/album tile = photocard */
+.tile{width:84px;flex:none;text-align:center}
+.face{width:84px;height:84px;border-radius:14px;overflow:hidden;position:relative;box-shadow:var(--sc);border:1px solid var(--border)}
+.face.tall{height:112px}
+.face .nm{position:absolute;left:0;right:0;bottom:0;padding:12px 4px 4px;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55));text-align:center;line-height:1.1}
+.tile .cap{font-size:11px;font-weight:600;color:var(--txt2);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* gradient placeholder faces (stand-ins for real photos) */
+.gp{background:linear-gradient(135deg,#f6d9e6,#e7d4f2)}
+.gp2{background:linear-gradient(135deg,#ffe0cf,#ffd0e0)}
+.gp3{background:linear-gradient(135deg,#d9e9fb,#e6ddf7)}
+.gp4{background:linear-gradient(135deg,#dcefe0,#eef3d6)}
+.gp .ini,.gp2 .ini,.gp3 .ini,.gp4 .ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;color:rgba(26,23,20,.35)}
+/* tier row */
+.tier{display:flex;border-radius:16px;overflow:hidden;box-shadow:var(--sc);border:1px solid var(--border);background:var(--surface);min-height:104px}
+.tlabel{width:92px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:34px;color:#fff;position:relative}
+.tlabel .grip{position:absolute;top:6px;right:6px;font-size:10px;color:rgba(255,255,255,.7)}
+.tstrip{flex:1;display:flex;gap:10px;align-items:center;padding:12px;flex-wrap:wrap;min-width:0}
+.tstrip.empty{color:var(--txt3);font-size:13px}
+/* drop + drag states */
+.drop{outline:2px dashed var(--brand);outline-offset:-6px;background:var(--brand-light)}
+.ghost{opacity:.5;transform:rotate(-4deg)}
+.dragging{box-shadow:var(--lift-hi);transform:scale(1.06) rotate(-3deg)}
+/* tray */
+.tray{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--sc);padding:14px}
+.tray .grid{display:flex;gap:10px;flex-wrap:wrap}
+/* toolbar */
+.tbar{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px 10px;box-shadow:var(--sc)}
+.iconbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px}
+/* share result card */
+.share{border-radius:24px;overflow:hidden;box-shadow:var(--lift-hi)}
+.share-hd{background:linear-gradient(120deg,var(--brand),var(--plum) 55%,var(--violet));color:#fff;padding:22px 22px 18px}
+.watermark{font-size:11px;letter-spacing:.12em;font-weight:700;text-transform:uppercase}
+/* input */
+.inp{height:44px;border:1.5px solid var(--border);border-radius:12px;background:var(--surface);display:flex;align-items:center;padding:0 14px;color:var(--txt3);font-size:14px;gap:8px}
+.inp.big{height:52px;font-size:18px;font-weight:700;color:var(--txt1)}
+.search{height:46px;border:1.5px solid var(--border);border-radius:999px;background:var(--surface);display:flex;align-items:center;padding:0 18px;color:var(--txt3);font-size:14px;gap:10px;box-shadow:var(--sc)}
+/* segmented */
+.seg{display:inline-flex;background:var(--surface-alt);border-radius:999px;padding:4px;gap:4px}
+.seg .s{padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:var(--txt2)}
+.seg .s.on{background:var(--surface);color:var(--txt1);box-shadow:var(--sc)}
+.note{border:1px dashed #d4b43a;background:#fff9dc;color:#5a4a00;border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.5;margin-top:22px}
+.note b{display:block;text-transform:uppercase;letter-spacing:.06em;font-size:11px;margin-bottom:5px}
+.hair{height:1px;background:var(--border);margin:16px 0}
+.pill-count{font-size:12px;font-weight:700;color:var(--txt3)}
+.badge{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.thumb{width:56px;height:56px;border-radius:12px;flex:none;box-shadow:var(--sc);position:relative;overflow:hidden}
+</style>
+</helmet>
+<div class="page">
+<div class="page" style="background:linear-gradient(0deg,rgba(26,23,20,.55),rgba(26,23,20,.55))">
+<div style="padding:70px 0;display:flex;justify-content:center">
+  <div class="card" style="width:560px;padding:0;overflow:hidden">
+    <div class="betw" style="padding:18px 22px;border-bottom:1px solid var(--border)"><div class="d2" style="margin:0;font-size:20px">Add an item</div><span class="iconbtn">✕</span></div>
+    <div style="padding:8px 22px 0"><div class="seg"><span class="s on">Upload</span><span class="s">Search bank</span></div></div>
+    <div class="pad" style="padding:20px 22px">
+      <div class="soft" style="border:2px dashed var(--border-h);padding:30px;text-align:center;color:var(--txt3)"><div style="font-size:34px">⬆️</div><div class="h3" style="margin:8px 0 2px;color:var(--txt2)">Drop an image, or <a>browse files</a></div><div class="mut">PNG / JPG / WEBP · up to 8MB</div></div>
+      <div class="row" style="margin-top:18px;gap:16px;align-items:flex-start">
+        <div style="text-align:center"><div class="face gp3" style="width:110px;height:110px;border-radius:16px"><div class="ini">JK</div></div><div class="mut" style="margin-top:6px">crop to card</div></div>
+        <div class="col" style="flex:1;gap:10px">
+          <div><div class="kick mute" style="margin-bottom:5px">Name</div><div class="inp">Jung Kook (solo)</div></div>
+          <div><div class="kick mute" style="margin-bottom:5px">Zoom</div><div class="soft" style="height:10px;border-radius:999px;position:relative"><div style="position:absolute;left:40%;top:-4px;width:18px;height:18px;border-radius:50%;background:var(--brand);box-shadow:var(--sc)"></div></div></div>
+        </div>
+      </div>
+      <div class="row" style="justify-content:flex-end;gap:8px;margin-top:20px"><span class="btn gho">Cancel</span><span class="btn pri">Add to pool</span></div>
+    </div>
+  </div>
+</div></div></div>
+</x-dc>
+</body>
+</html>

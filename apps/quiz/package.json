@@ -14,7 +14,9 @@
     "check:orphans": "tsx scripts/check-orphans.mts",
     "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts",
-    "check:tier-list": "tsx scripts/check-tier-list.mts"
+    "check:tier-list": "tsx scripts/check-tier-list.mts",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@kpopquiz/shared": "workspace:*",
@@ -39,6 +41,7 @@
     "swr": "^2.4.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -47,7 +50,8 @@
     "eslint-config-next": "^16.2.1",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
   },
   "browserslist": [
     "last 2 versions",

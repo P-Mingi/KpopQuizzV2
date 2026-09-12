@@ -1,0 +1,162 @@
+{
+ "artboards": [
+  {
+   "file": "Home.dc.html",
+   "title": "1 \u00b7 Homepage placement",
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 1048,
+   "page": "page-1"
+  },
+  {
+   "file": "Hub.dc.html",
+   "title": "2 \u00b7 Tier Lists hub (browse + SEO)",
+   "x": 1420,
+   "y": 0,
+   "w": 1280,
+   "h": 1112,
+   "page": "page-1"
+  },
+  {
+   "file": "CreateSubject.dc.html",
+   "title": "3 \u00b7 Create step 1: pick subject (official bank)",
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 1195,
+   "page": "page-2"
+  },
+  {
+   "file": "CreatePool.dc.html",
+   "title": "4 \u00b7 Create step 2: item pool + image import",
+   "x": 1420,
+   "y": 0,
+   "w": 1280,
+   "h": 1036,
+   "page": "page-2"
+  },
+  {
+   "file": "ImportModal.dc.html",
+   "title": "7 \u00b7 Image import modal (upload + crop / search bank)",
+   "x": 2840,
+   "y": 0,
+   "w": 1280,
+   "h": 970,
+   "page": "page-2"
+  },
+  {
+   "file": "Main.dc.html",
+   "title": "5 \u00b7 The maker (desktop, drag-and-drop)",
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 970,
+   "page": "page-3"
+  },
+  {
+   "file": "MakerMobile.dc.html",
+   "title": "6 \u00b7 The maker (mobile, tap-to-place)",
+   "x": 1420,
+   "y": 0,
+   "w": 390,
+   "h": 970,
+   "page": "page-3"
+  },
+  {
+   "file": "ResultCard.dc.html",
+   "title": "8 \u00b7 Shareable result card (the export)",
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 970,
+   "page": "page-4"
+  },
+  {
+   "file": "ShareSheet.dc.html",
+   "title": "9 \u00b7 Native share sheet (mobile)",
+   "x": 1420,
+   "y": 0,
+   "w": 390,
+   "h": 1119,
+   "page": "page-4"
+  },
+  {
+   "file": "PublicView.dc.html",
+   "title": "10 \u00b7 Published tier list page (SEO + remix loop)",
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 1027,
+   "page": "page-5"
+  }
+ ],
+ "annotations": [
+  {
+   "id": "note-page-1",
+   "x": 0,
+   "y": -230,
+   "w": 900,
+   "text": "1 \u00b7 Discovery\nWhere the feature lives: a homepage hero band + a browse hub. The hub and every list are static/ISR pages, so the crawl-budget win holds.",
+   "page": "page-1"
+  },
+  {
+   "id": "note-page-2",
+   "x": 0,
+   "y": -230,
+   "w": 900,
+   "text": "2 \u00b7 Create flow\nTwo steps to a board: pick a subject from the official K-pop bank (images included), trim the pool and add your own uploads. Import = official bank (fast, on-image) or a cropped upload (moderated before public).",
+   "page": "page-2"
+  },
+  {
+   "id": "note-page-3",
+   "x": 0,
+   "y": -230,
+   "w": 900,
+   "text": "3 \u00b7 The maker\nThe centre. Desktop = drag a card onto a coloured tier (shown mid-drag). Mobile (most traffic) = tap a card then tap a tier. Autosaves, group-themed.",
+   "page": "page-3"
+  },
+  {
+   "id": "note-page-4",
+   "x": 0,
+   "y": -230,
+   "w": 900,
+   "text": "4 \u00b7 Share\nThe growth engine: a 600px group-themed card with the kpopquiz.org watermark baked in, exported via an edge OG route; native OS share + a 9:16 Story export + Challenge a friend.",
+   "page": "page-4"
+  },
+  {
+   "id": "note-page-5",
+   "x": 0,
+   "y": -230,
+   "w": 900,
+   "text": "5 \u00b7 Published page\nEvery public list is an indexed page: the ranking + a real 'where the fandom agrees' strip + Make your own / Remix. That closes the loop view -> make -> share.",
+   "page": "page-5"
+  }
+ ],
+ "pages": [
+  {
+   "id": "page-1",
+   "name": "1 \u00b7 Discovery"
+  },
+  {
+   "id": "page-2",
+   "name": "2 \u00b7 Create flow"
+  },
+  {
+   "id": "page-3",
+   "name": "3 \u00b7 The maker"
+  },
+  {
+   "id": "page-4",
+   "name": "4 \u00b7 Share"
+  },
+  {
+   "id": "page-5",
+   "name": "5 \u00b7 Published page"
+  }
+ ],
+ "launch": {
+  "view": "canvas",
+  "page": "page-3"
+ }
+}
