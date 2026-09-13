@@ -116,13 +116,13 @@ function Face({ item, picked, onPick, onDragStart, onDragEnd, dragging }: {
   );
 }
 
-export function TierMaker({ items, boardId, title }: { items: TierListItem[]; boardId: string; title: string }) {
+export function TierMaker({ items, boardId, title, initialTiers }: { items: TierListItem[]; boardId: string; title: string; initialTiers?: Tier[] }) {
   const byId = new Map(items.map((i) => [i.id, i]));
   const [history, dispatch] = useReducer(
     historyReducer(items),
     undefined,
     (): HistoryState => {
-      const tiers = defaultTiers();
+      const tiers = initialTiers && initialTiers.length ? initialTiers : defaultTiers();
       return { past: [], present: { tiers, placements: buildInitialPlacements(items, tiers) }, future: [] };
     },
   );

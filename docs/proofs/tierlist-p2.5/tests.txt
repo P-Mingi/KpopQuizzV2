@@ -1,0 +1,45 @@
+# TIERLIST phase 2.5 - full test run (2026-09-13)
+# Built app on :3021 (next build + next start), never dev.
+
+===== UNIT (vitest) =====
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/apps/quiz
+
+
+ Test Files  4 passed (4)
+      Tests  22 passed (22)
+   Start at  14:29:37
+   Duration  320ms (transform 56%, import 27%, worker 10%, tests 7%)
+
+
+===== E2E (Playwright: desktop + mobile projects) =====
+Running 26 tests using 1 worker
+
+[1/26] [desktop] › e2e/smoke.spec.ts:5:1 › playwright + system Chrome runs
+[2/26] [desktop] › e2e/tier-list.spec.ts:17:3 › discovery › nav has Tier Lists right after Games and links to the hub
+[3/26] [desktop] › e2e/tier-list.spec.ts:26:3 › discovery › home CTA present and links correctly
+[4/26] [desktop] › e2e/tier-list.spec.ts:35:3 › discovery › hub renders; make-your-own opens the wizard, start-blank the maker
+[5/26] [desktop] › e2e/tier-list.spec.ts:48:3 › wizard › make-your-own reaches the subject step with Start blank first-class
+[6/26] [desktop] › e2e/tier-list.spec.ts:55:3 › wizard › pick a subject -> pool step loads real bank items -> open the board
+[7/26] [desktop] › e2e/tier-list.spec.ts:72:3 › wizard › Start blank reaches an empty maker
+[8/26] [desktop] › e2e/tier-list.spec.ts:79:3 › wizard › import modal adds a cropped, named custom item to the tray
+[9/26] [desktop] › e2e/tier-list.spec.ts:98:3 › maker › create-from-blank reaches an empty maker with default tiers
+[10/26] [desktop] › e2e/tier-list.spec.ts:105:3 › maker › create-from-subject loads bank items, tap places a card, undo restores
+[11/26] [desktop] › e2e/tier-list.spec.ts:120:3 › maker › rename a tier via the tier editor
+[12/26] [desktop] › e2e/tier-list.spec.ts:130:3 › maker › share button reaches the share sheet, OG preview + rows render
+[13/26] [desktop] › e2e/tier-list.spec.ts:149:3 › maker › OG card for a bank board embeds real photos (materially larger than initials)
+[14/26] [mobile] › e2e/smoke.spec.ts:5:1 › playwright + system Chrome runs
+[15/26] [mobile] › e2e/tier-list.spec.ts:17:3 › discovery › nav has Tier Lists right after Games and links to the hub
+[16/26] [mobile] › e2e/tier-list.spec.ts:26:3 › discovery › home CTA present and links correctly
+[17/26] [mobile] › e2e/tier-list.spec.ts:35:3 › discovery › hub renders; make-your-own opens the wizard, start-blank the maker
+[18/26] [mobile] › e2e/tier-list.spec.ts:48:3 › wizard › make-your-own reaches the subject step with Start blank first-class
+[19/26] [mobile] › e2e/tier-list.spec.ts:55:3 › wizard › pick a subject -> pool step loads real bank items -> open the board
+[20/26] [mobile] › e2e/tier-list.spec.ts:72:3 › wizard › Start blank reaches an empty maker
+[21/26] [mobile] › e2e/tier-list.spec.ts:79:3 › wizard › import modal adds a cropped, named custom item to the tray
+[22/26] [mobile] › e2e/tier-list.spec.ts:98:3 › maker › create-from-blank reaches an empty maker with default tiers
+[23/26] [mobile] › e2e/tier-list.spec.ts:105:3 › maker › create-from-subject loads bank items, tap places a card, undo restores
+[24/26] [mobile] › e2e/tier-list.spec.ts:120:3 › maker › rename a tier via the tier editor
+[25/26] [mobile] › e2e/tier-list.spec.ts:130:3 › maker › share button reaches the share sheet, OG preview + rows render
+[26/26] [mobile] › e2e/tier-list.spec.ts:149:3 › maker › OG card for a bank board embeds real photos (materially larger than initials)
+  7 skipped
+  19 passed (28.5s)

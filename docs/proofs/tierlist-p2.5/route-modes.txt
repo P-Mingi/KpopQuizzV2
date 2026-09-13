@@ -1,0 +1,16 @@
+# Render modes - TIERLIST phase 2.5 (from next build)
+# o = static/ISR, f = dynamic (server-rendered on demand)
+
+├ ƒ /api/og/tier-list
+├ ○ /tier-list                                                 10m      1y
+├ ƒ /tier-list/create
+├ ƒ /tier-list/new
+├ ƒ /tier-list/share
+
+Doctrine check:
+  o /tier-list          -> static hub, self-canonical, in sitemap + allowlist (indexable)
+  f /tier-list/create   -> NEW wizard, noindex tool, NOT in sitemap
+  f /tier-list/new      -> maker, noindex tool, NOT in sitemap (unchanged)
+  f /tier-list/share    -> share sheet, noindex tool (unchanged)
+  f /api/og/tier-list   -> route handler (unchanged)
+No existing URL changed; only /tier-list/create is added.

@@ -1,14 +1,18 @@
 import { ImageResponse } from 'next/og';
 
 import { decodeBoard } from '@/lib/tier-list/share-state';
+import { fetchFaceImages, type FaceRef, type FaceImageMap } from '@/lib/tier-list/og-faces';
 
 import type { NextRequest } from 'next/server';
 
 // The tier-list share image. Reads the whole board from the URL (?d=<base64>),
 // so it needs NO database this phase. A route handler, never an indexed page.
-// Item tiles render as initials-on-gradient (not remote photos) so the image
-// always composes without a per-face cross-origin fetch; a later phase can
-// prefetch covers to data URIs. Every text node sets display:flex (satori).
+// For K-pop the faces ARE the product, so each placed bank item renders its real
+// photo: the photos shown on the card are prefetched to data URIs (og-faces.ts,
+// bounded by a timeout + size guard) and embedded, and any face whose fetch
+// fails, times out, or is a client-only custom upload falls back to the initials
+// tile. The card therefore always composes. Every text node sets display:flex
+// (satori). No emoji.
 
 export const runtime = 'edge';
 
@@ -27,11 +31,26 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
   const board = decodeBoard(d);
   const width = 1080;
   const height = story ? 1920 : 1350;
+  const perRow = story ? 9 : 7;
 
   const title = board?.title ?? 'K-pop Tier List';
   const byId = new Map((board?.items ?? []).map((i) => [i.id, i]));
   const tiers = board?.tiers ?? [];
   const placements = board?.placements ?? {};
+
+  // The exact faces the card will draw (sliced per tier), deduped, so we prefetch
+  // only what is shown. Custom uploads carry a blob/object URL that is not a
+  // fetchable host, so they are skipped here and fall back to the initials tile.
+  const shown: FaceRef[] = [];
+  const seen = new Set<string>();
+  for (const t of tiers) {
+    for (const id of (placements[t.label] ?? []).slice(0, perRow)) {
+      if (seen.has(id)) continue;
+      seen.add(id);
+      shown.push({ id, url: byId.get(id)?.image_url ?? null });
+    }
+  }
+  const faceImages: FaceImageMap = await fetchFaceImages(shown, { timeoutMs: 2500, cap: story ? 63 : 49, origin: request.nextUrl.origin });
 
   return new ImageResponse(
     (
@@ -43,7 +62,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', background: '#fff', padding: 24, gap: 14, flex: 1 }}>
             {tiers.map((t) => {
-              const ids = (placements[t.label] ?? []).slice(0, story ? 9 : 7);
+              const ids = (placements[t.label] ?? []).slice(0, perRow);
               const extra = (placements[t.label] ?? []).length - ids.length;
               return (
                 <div key={t.label} style={{ display: 'flex', alignItems: 'stretch', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(26,23,20,0.1)', minHeight: 96 }}>
@@ -51,6 +70,13 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 12, flexWrap: 'wrap', flex: 1, background: '#fff' }}>
                     {ids.map((id) => {
                       const it = byId.get(id);
+                      const photo = faceImages[id];
+                      if (photo) {
+                        return (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img key={id} src={photo} alt="" width={78} height={78} style={{ width: 78, height: 78, borderRadius: 12, objectFit: 'cover' }} />
+                        );
+                      }
                       return (
                         <div key={id} style={{ display: 'flex', flexDirection: 'column', width: 78, height: 78, borderRadius: 12, background: 'linear-gradient(135deg,#f6d9e6,#e7d4f2)', alignItems: 'center', justifyContent: 'center' }}>
                           <div style={{ display: 'flex', fontSize: 24, fontWeight: 800, color: 'rgba(26,23,20,0.45)' }}>{initials(it?.name ?? '?')}</div>
@@ -70,6 +96,14 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
         </div>
       </div>
     ),
-    { width, height },
+    {
+      width,
+      height,
+      headers: {
+        // The card is deterministic from ?d= (all state is in the URL), so it is
+        // safe to cache hard; mirrors the passport OG route's posture.
+        'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+      },
+    },
   );
 }

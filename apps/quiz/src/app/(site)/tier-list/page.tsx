@@ -42,7 +42,7 @@ export default async function TierListHub(): Promise<React.ReactElement> {
         <h1 className="tl-d1" style={{ fontSize: 44 }}>Rank anything in K-pop</h1>
         <p className="tl-sub" style={{ margin: '0 auto 20px' }}>Pick a group, drag your favourites into tiers, share the result. No sign-up to play.</p>
         <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/tier-list/new" className="tl-btn grad lg" data-testid="make-your-own">
+          <Link href="/tier-list/create" className="tl-btn grad lg" data-testid="make-your-own">
             <Icon d="M12 5v14M5 12h14" /> Make your own tier list
           </Link>
           <Link href="/tier-list/new" className="tl-btn out lg" data-testid="start-blank">Start blank</Link>

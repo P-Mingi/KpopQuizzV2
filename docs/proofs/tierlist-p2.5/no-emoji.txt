@@ -1,0 +1,4 @@
+no-emoji scan over 24 tier-list source files
+scanned roots: src/components/tier-list, src/app/(site)/tier-list, src/app/api/og/tier-list, src/lib/tier-list
+
+RESULT: 0 emoji codepoints. Every icon is inline SVG.

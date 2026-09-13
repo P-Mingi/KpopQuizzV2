@@ -135,7 +135,7 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
             }}
           >
             <NavIcon name={item.label} active={active} />
-            <span className="top-nav-link-label">{item.label}</span>
+            <span className="top-nav-link-label" style={{ whiteSpace: 'nowrap' }}>{item.label}</span>
           </Link>
         );
       })}

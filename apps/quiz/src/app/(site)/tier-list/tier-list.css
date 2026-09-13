@@ -81,3 +81,37 @@
 .tl-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .tl-note { border: 1px dashed var(--border-h); background: var(--surface-alt); color: var(--txt2); border-radius: 14px; padding: 12px 14px; font-size: 12px; line-height: 1.5; }
 .tl-empty { text-align: center; padding: 28px 16px; color: var(--txt3); font-size: 14px; }
+
+/* create wizard - subject step */
+.tl-search { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--surface); box-shadow: var(--tl-sc); color: var(--txt3); }
+.tl-search input { flex: 1; border: 0; background: transparent; outline: none; font: inherit; color: var(--txt1); }
+.tl-grid-groups { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .tl-grid-groups { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .tl-grid-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tl-grouptile { padding: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); border-radius: 16px; }
+.tl-grouptile.on { outline: 2px solid var(--brand); outline-offset: -1px; }
+.tl-grouplogo { width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; color: #fff; font-weight: 800; font-size: 16px; flex: none; }
+.tl-grouplogo.sm { width: 44px; height: 44px; font-size: 14px; }
+.tl-grouplogo img { width: 100%; height: 100%; object-fit: cover; }
+.tl-hair { height: 1px; background: var(--border); margin: 16px 0; }
+.tl-kindtile { padding: 16px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: 1px solid var(--border-sub, var(--border)); background: var(--surface-alt); border-radius: 14px; }
+.tl-kindtile:hover { outline: 2px solid var(--brand); outline-offset: -1px; background: var(--brand-light); }
+
+/* create wizard - pool step */
+.tl-seg { display: inline-flex; background: var(--surface-alt); border-radius: 999px; padding: 4px; gap: 4px; }
+.tl-seg-s { padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--txt2); border: 0; background: transparent; cursor: pointer; }
+.tl-seg-s.on { background: var(--surface); color: var(--txt1); box-shadow: var(--tl-sc); }
+.tl-pooltile { position: relative; }
+.tl-face.off { opacity: 0.4; filter: grayscale(0.7); }
+.tl-face-x { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: rgba(26, 23, 20, 0.62); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+.tl-addtile { width: 84px; height: 84px; border-radius: 14px; border: 2px dashed var(--border-h); background: var(--surface-alt); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--txt3); font-size: 10px; font-weight: 700; cursor: pointer; flex: none; }
+.tl-dropzone { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; border: 2px dashed var(--border-h); border-radius: 14px; padding: 22px; background: var(--surface-alt); color: var(--txt2); font-weight: 700; cursor: pointer; }
+.tl-input { width: 100%; height: 44px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); padding: 0 14px; font: inherit; color: var(--txt1); }
+.tl-input.big { height: 52px; font-size: 18px; font-weight: 700; }
+.tl-badge { display: inline-flex; align-items: center; justify-content: center; height: 24px; min-width: 24px; padding: 0 8px; border-radius: 6px; font-size: 12px; font-weight: 800; color: #fff; }
+
+/* import modal */
+.tl-modal-backdrop { position: fixed; inset: 0; background: rgba(26, 23, 20, 0.55); display: flex; align-items: flex-start; justify-content: center; padding: 60px 16px; z-index: 100; overflow-y: auto; }
+.tl-modal { width: 560px; max-width: 100%; background: var(--surface); border-radius: 20px; box-shadow: var(--tl-lift-hi); overflow: hidden; }
+.tl-crop { width: 130px; height: 130px; border-radius: 16px; overflow: hidden; background: var(--surface-alt); }
+.tl-crop img { width: 100%; height: 100%; object-fit: cover; transform-origin: center; }

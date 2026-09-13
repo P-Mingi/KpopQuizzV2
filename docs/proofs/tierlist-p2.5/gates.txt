@@ -1,0 +1,52 @@
+# SEO gates - TIERLIST phase 2.5 (run 2026-09-13)
+=== check:docs-secrets ===
+PASS
+Docs secret gate: scanned 648 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+Docs secret gate passed: no credential-shaped value in any tracked doc.
+
+=== check:routes ===
+PASS
+Route allowlist guard passed: 369 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+=== check:indexability ===
+NONZERO EXIT (see below)
+  x /q/bts-true-or-false-bet-you-cant-get-100 - in the sitemap but emits robots NOINDEX (meta robots). Sitemap says index, page says do-not.
+  x /q/bts-true-or-false-bet-you-cant-get-100 - in the sitemap but has no <link rel="canonical">.
+
+Either the sitemap advertises a page it should not (noindex / missing title / non-self-canonical),
+or an indexable page fell out of the sitemap. Fix the page's metadata OR the sitemap inclusion in src/app/sitemap.ts.
+
+
+=== check:metadata-dupes ===
+NONZERO EXIT (see below)
+      - /verse/bts/the-notes
+      - /verse/bts/save-me-webtoon
+
+Every indexable URL needs a unique title and a unique description.
+Fix the template so it varies by construction, or stop advertising the duplicate URL in the sitemap.
+
+
+=== check:orphans ===
+NONZERO EXIT (see below)
+Orphan gate FAILED: 3 sitemap URL(s) have ZERO inbound internal links from the 717 crawled pages. This run crawled EVERY non-verse sitemap URL, so these have no internal inbound link from anywhere in the sitemap. Each offender by URL:
+  x /katseye-trivia
+  x /q/bts-true-or-false-bet-you-cant-get-100
+  x /q/katseye-quiz
+
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.
+
+
+--- READING (phase 2.5) ---
+docs-secrets PASS. routes PASS (369 reachable, incl. the new /tier-list/create via the
+'/tier-list' prefix already in the allowlist).
+
+indexability / metadata-dupes / orphans: the SAME pre-existing offenders as phase 2, none
+tier-list. /tier-list/create is a noindex tool and is NOT in the sitemap, so it appears in
+none of these lists. This work adds no new dupe, no new orphan, no new indexability break.
+  - indexability + orphan offender /q/bts-true-or-false-bet-you-cant-get-100: pre-existing.
+  - orphan offenders /katseye-trivia, /q/katseye-quiz: pre-existing (named phase 2).
+  - metadata-dupes /verse/bts/*: the local verse-inflation baseline (L-215).
+Verified: `grep tier-list` over each gate's output = only the reachability PASS line.
