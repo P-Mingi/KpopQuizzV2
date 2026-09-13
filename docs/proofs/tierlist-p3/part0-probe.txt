@@ -1,0 +1,18 @@
+# PHASE 3 PART 0 probe - is migration 146 applied? (run 2026-09-13)
+# Read-only probe of the LIVE quiz DB via the public REST endpoint (anon key).
+# No DDL attempted, no writes, no MCP apply. Keys not shown.
+
+GET /rest/v1/tier_lists?select=id&limit=1
+  -> HTTP 404
+  {"code":"PGRST205","message":"Could not find the table 'public.tier_lists' in the schema cache"}
+
+GET /rest/v1/tier_list_assets?select=id&limit=1
+  -> HTTP 404
+  {"code":"PGRST205","message":"Could not find the table 'public.tier_list_assets' in the schema cache"}
+
+POST /storage/v1/object/list/tier-list-assets
+  -> HTTP 200 []   (bucket name resolves, but the TABLES are the gate and are absent)
+
+VERDICT: migration 146 is NOT applied. public.tier_lists and public.tier_list_assets
+do not exist. Phase 3 is entirely gated on 146 (PART 0). STOP: nothing DB-backed built,
+no tables faked, 146 not applied by the worker (owner applies DDL).
