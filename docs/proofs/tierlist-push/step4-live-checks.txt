@@ -1,0 +1,35 @@
+# PHASE PUSH - STEP 4 live-domain checks (https://kpopquiz.org), production deploy
+# dpl_4f6aFaWdNukxwpdh7qs3URUBYdwX = READY, commit 750d724, 2026-09-14T13:34:05Z
+
+CHECK 1 - share card photos (HEADLINE): PASS
+  /api/og/tier-list?d=<BTS board>  -> image/png, 197239 bytes, REAL PHOTOS (RM/V/Jin/Jungkook).
+  initials-only card               -> image/png, 121615 bytes.
+  The photo card is 62% larger and visibly shows faces (prod-share-card-photos.png),
+  proving the Vercel-SSO 401 that forced initials on preview is gone on the live domain.
+  board d = eyJ0IjoiQlRTIG1lbWJlcnMiLCJrIjpbWyJTIiwiI0U4NDU3QSJdLFsiQSIsIiNGNTg5NEQiXV0sInAiOnsiUyI6WyJpZG9sOjEiLCJpZG9sOjYiXSwiQSI6WyJpZG9sOjIiLCJpZG9sOjciXX0sImkiOltbImlkb2w6MSIsIlJNIiwiL2lkb2xzL1JNIEJUUy5qcGciXSxbImlkb2w6NiIsIlYiLCIvaWRvbHMvViBCVFMuanBnIl0sWyJpZG9sOjIiLCJKaW4iLCIvaWRvbHMvSmluIEJUUy5qcGciXSxbImlkb2w6NyIsIkp1bmdrb29rIiwiL2lkb2xzL0p1bmdrb29rIEJUUy5qcGciXV19
+
+CHECK 2 - the unfurl: FAIL (defect, reported not fixed - no code change this mission)
+  /tier-list/share?d=<board> og:image = https://kpopquiz.org/og-default.png
+  It is absolute and on the production domain, but it is the SITE DEFAULT, not the
+  per-board card. share/page.tsx sets only a static title + robots; it has no
+  generateMetadata setting openGraph.images to /api/og/tier-list?d=. So a shared link
+  unfurls with the generic image, not the tier card. Follow-up: add generateMetadata
+  to the share page. (The card ITSELF renders correctly - CHECK 1 - it is just not
+  referenced by the share page's og:image.)
+
+CHECK 3 - canonical + noindex + routes: MOSTLY PASS, one defect
+  canonical /tier-list = https://kpopquiz.org/tier-list (self, production).  PASS
+  robots noindex,follow on /tier-list/new, /tier-list/create, /tier-list/share.   PASS
+  /tier-list, /tier-list/new, /tier-list/create -> 200.   PASS
+  home: exactly ONE data-testid=home-tier-cta, home-cta-start -> /tier-list/new,
+    zero pq-banner.   PASS
+  general board: /tier-list/new?group=general-kpop&kind=members renders
+    "K-pop idols (all groups)" + "118 items loaded".   PASS
+  SITEMAP: /tier-list/new, /create, /share ABSENT from /sitemap.xml.   PASS
+  SITEMAP DEFECT: the /tier-list HUB is ALSO absent from /sitemap.xml (734 URLs).
+    Root cause is a genuine code gap, not cache: sitemap.ts line 41 adds /tier-list
+    to CATALOG_PATHS (which only bumps lastmod) but it was never added to the emitted
+    staticPages array (lines 91-148). Only /tier-list/l/<slug> (published lists, none
+    yet) and /tier-list/subject/... are emitted. So the indexable hub is not advertised.
+    check:indexability/orphans did not catch it because they only inspect URLs that ARE
+    in the sitemap. Follow-up: add a { url: SITE_URL + '/tier-list' } entry to staticPages.

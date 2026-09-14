@@ -1,82 +1,86 @@
-# REPORT - TIERLIST phase 3.4: blank board can add items, General K-pop loads the whole bank, wider maker. Preview push only.
+# REPORT - TIERLIST PUSH: decision trail committed, main fast-forwarded, production live. Two defects found, not fixed (scope).
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). Three functional defects from the owner's preview
-playtest, all fixed. Built and proven on `next build` + `next start` (:3021), never dev; CI green on
-a real runner. No push to main, no change to og-faces/OG route, no new migration, no env file
-touched, no em dashes, zero emoji. Proofs: `docs/proofs/tierlist-p3.4/`.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). The owner authorised the production push; the ordered
+steps ran without improvising on main. Production is LIVE and healthy on the headline path; STEP 4
+surfaced two SEO/social defects that are named here and left for a follow-up (this mission changes no
+code). No migration, no env file, no rollback. No em dashes.
 
-Context confirmed, not "fixed": on the preview the share card shows initials because Vercel SSO
-(all_except_custom_domains) 401s the edge route's fetch of its own /idols assets; it will render
-photos on the production domain. og-faces and the OG route are untouched.
+## STEP 1 - decision trail committed
 
-## ITEM 1 - the blank board is no longer a dead end
+`check:docs-secrets` PASSED (705 tracked docs, no credential-shaped value). The three modified docs
+(VERSE-LEDGER.md L-218..L-228, loop/BLOCKED.md, loop/MISSION.md) were committed docs-only as 750d724
+and pushed to preview/verse-stack. No code changed.
 
-- Extracted `ImportModal` to a shared component (`src/components/tier-list/import-modal.tsx`) so the
-  wizard AND the maker use ONE uploader, reusing the existing `/api/tier-list/asset` path (upload to
-  the moderated `tier_list_assets` store, pending; client object-URL fallback on failure).
-- Added an "Add images" control to the maker toolbar (`tier-maker.tsx`). It works on ANY board
-  (blank or a subject board). Multi-select: several files chosen at once are processed as a queue,
-  each cropped square + named, each landing in the Unranked tray. Runtime uploads merge into the
-  board via `extraItems` and are placed into unranked; their blob URLs are revoked on unmount.
-- The empty tray stopped lying: a board with nothing shows an invite that opens the importer
-  instead of "Everything is ranked." (which now only shows when items exist and are all ranked).
-- e2e regression lock: from Start blank, the toolbar exposes Add images, adding one lands it in the
-  tray, and it can be placed on a tier.
+## STEP 2 - main fast-forwarded (the production push)
 
-## ITEM 2 - "General K-pop members" now means the whole bank
+`origin/main` (75dcabb) was re-confirmed a clean-fast-forward ancestor of the branch head. Pushed:
+`75dcabb..750d724 -> main`. **15 commits** landed (the 14 tier-list phase commits + the docs commit).
+New `main` sha: **750d72417562cec1376e75045afd70289a74e240**.
 
-- New `getAllBankMembers` (`bank.ts`): members across every real group, photo-only, ordered so the
-  best-known groups come first (the `getAllGroups` quiz_count ranking), capped at
-  `GENERAL_MEMBERS_CAP = 120`. Pure order/cap logic is `orderAndCapMembers` in bank-shape (unit
-  tested). The live board loads 118 idols with real photos.
-- The hub drops the catch-all from the auto featured loop (it would open empty) and offers it as an
-  explicit "K-pop idols (all groups)" tile; `/tier-list/new?group=general-kpop` resolves to the
-  all-bank pool. Any OTHER named subject that resolves to zero items now shows an honest state
-  (`data-testid=empty-subject`) rather than a silently blank board wearing the subject title.
-- Challenge link on a large pool: `encodeBoard` caps carried items at `CARRY_CAP = 80` in BOTH the
-  default (ranked-first) and the allItems (challenge) paths, so even a 120-idol general board
-  produces a link well under URL limits (unit test: a 200-item allItems board encodes to 80 items
-  and under 8000 chars). Decision stated: cap the carried set, not fall back to a subject reload, so
-  one rule covers every board.
-- Submit a missing idol reuses the EXISTING custom-asset flow: it is a moderated user asset
-  (`tier_list_assets`, pending -> approved), shown on the submitter's own board immediately and only
-  reaching a PUBLIC list once approved. It is NEVER a write to the official `idols` table, and no
-  migration is added.
-- e2e: the general template opens a non-empty pool; a featured template never opens an empty board.
+## STEP 3 - production deploy
 
-## ITEM 3 - the board is no longer too narrow
+Vercel production deployment **dpl_4f6aFaWdNukxwpdh7qs3URUBYdwX** (commit 750d724, target production)
+reached **READY**, aliased to kpopquiz.org + www.kpopquiz.org. No `check:env` failure appeared (the
+build ran it before next build and passed). Build ~4 min, region dub1.
 
-Root cause: the `(site)` layout caps `<main>` at `max-w-[720px]`, so `.tl-wrap`'s max-width never
-applied. The maker surface now opts into `.tl-wide`, which breaks OUT of the 720 parent and centres
-on the viewport at `min(1440px, calc(100vw - 32px))` (the -32 so a vertical scrollbar never forces
-horizontal scroll; verified scrollWidth == innerWidth at 1440), with a 240px tray (was 300). Only
-the maker opts in; the hub, create and share pages keep the 720 column. Mobile (<=820px) keeps the
-stacked tray and tap-to-place unchanged.
+## STEP 4 - the three live-domain checks (kpopquiz.org)
 
-Measured 84px faces per tier row (proof `faces-per-row.txt`):
-- 1280: BEFORE 2, AFTER 8.
-- 1440: BEFORE 2, AFTER 10.
+**CHECK 1 - share card photos (HEADLINE): PASS.** `/api/og/tier-list?d=<BTS board>` returns
+`image/png`, 197239 bytes, rendering the real member photos (RM, V, Jin, Jungkook); an initials-only
+card is 121615 bytes. The photo card is 62% larger and visibly shows faces
+(`docs/proofs/tierlist-push/prod-share-card-photos.png`). The Vercel-SSO 401 that forced initials on
+the preview is gone on the live domain, exactly as predicted.
 
-## Tests + CI
+**CHECK 2 - the unfurl: FAIL (defect, reported not fixed).** `/tier-list/share?d=<board>` carries
+`og:image = https://kpopquiz.org/og-default.png` - absolute and on the production domain, but the
+SITE DEFAULT, not the per-board card. `share/page.tsx` exports only a static `title` + `robots`; it
+has no `generateMetadata` pointing `openGraph.images` at `/api/og/tier-list?d=`. So a shared link
+unfurls with the generic image. The card itself is correct (CHECK 1); it is simply not referenced by
+the share page. Follow-up: add `generateMetadata` to the share page.
 
-Local: 55 unit + 32 e2e / 8 skipped, all green. CI (the real gate, run
-https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34846953602 on preview/verse-stack, commit
-a6c84b0) conclusion **success**: unit 55 passed, e2e 40 -> 32 passed / 8 skipped. Test-created
-pending assets were torn down (DB rows deleted; 0 left).
+**CHECK 3 - canonical, noindex, routes: MOSTLY PASS, one defect.**
+- `/tier-list` canonical = `https://kpopquiz.org/tier-list` (self, production). PASS
+- `/tier-list/new`, `/tier-list/create`, `/tier-list/share` emit `noindex, follow`. PASS
+- `/tier-list`, `/tier-list/new`, `/tier-list/create` return 200. PASS
+- Home: exactly ONE `home-tier-cta`, `home-cta-start -> /tier-list/new`, zero `pq-banner`. PASS
+- General board: `?group=general-kpop&kind=members` renders "K-pop idols (all groups)" + "118 items
+  loaded". PASS
+- Sitemap: `/tier-list/new`, `/create`, `/share` ABSENT from `/sitemap.xml`. PASS
+- **SITEMAP DEFECT:** the indexable `/tier-list` HUB is ALSO absent from `/sitemap.xml` (734 URLs).
+  This is a genuine code gap, not stale cache: `sitemap.ts` line 41 adds `/tier-list` to
+  `CATALOG_PATHS` (which only bumps lastmod) but it was never added to the emitted `staticPages`
+  array (lines 91-148); only `/tier-list/l/<slug>` (published lists, none yet) and
+  `/tier-list/subject/...` are emitted. `check:indexability`/`check:orphans` never flagged it because
+  they only inspect URLs that ARE in the sitemap. Follow-up: add a `{ url: SITE_URL + '/tier-list' }`
+  entry to `staticPages`.
 
-Five SEO gates (`gates.txt`): docs-secrets + routes PASS; indexability / metadata-dupes / orphans
-NONZERO but every offender is the pre-existing katseye/bts/seventeen quiz flip and the verse-inflation
-dupes - no tier-list, general-kpop, or /verse URL appears in any failure (verse orphan hits: 0), so
-this phase adds no new orphan and no new dupe. Render modes unchanged (hub o static; new/create/share
-f noindex tools; OG a route handler). Zero emoji, zero em dashes.
+## Is production healthy?
 
-## Owner gate
+**Yes on the headline and on function.** The deploy is READY, the share card renders real photos on
+the live domain (the whole reason the push was needed), every tier-list route resolves 200, the tool
+pages are correctly noindex and out of the sitemap, the home page shows one strong CTA and no stale
+banner, and the general board loads its 118 idols. Migrations 146 + 147 are applied and additive.
 
-1. **Push main** for production, when you choose. Local main is ahead of origin; nothing on main was
-   pushed. preview/verse-stack was fast-forwarded to a6c84b0 for the playtest.
+**Two defects to fix next (neither breaks production, both are discoverability):**
+1. The share page's `og:image` is the site default, not the per-board card - shared links unfurl with
+   the generic image.
+2. The `/tier-list` hub is missing from the sitemap (in CATALOG_PATHS, not in the emitted staticPages
+   array), so the indexable hub is not advertised to crawlers.
+
+Both are single-line additions but out of THIS mission's scope (no code change), so they are named,
+not fixed. Nothing else could not be verified: the signed-in publish/upload/moderation/mobile checks
+are deliberately the owner's, per `docs/loop/POST-PUSH-SMOKE.md`.
+
+## Owner gates
+
+1. Decide whether to spin a short follow-up for the two SEO/social defects above (both one-line).
+2. The signed-in smoke checks in `docs/loop/POST-PUSH-SMOKE.md` remain yours.
+Rollback target if ever needed: dpl_7PF9HwCDF48hykBnudTMJkZCX3LC (75dcabb), rollback-capable; 146/147
+are inert for it, so no DB action.
 
 ---
 
-STOP. Blank boards can add images (regression locked by e2e), "General K-pop" loads 118 real idols
-with a bounded challenge link and a moderated submit-an-idol path, and the maker fits 8-10 faces per
-row instead of 2. 55 unit + 32 e2e green in CI on preview. main not pushed.
+DONE. main = 750d724 (15 commits), production dpl_4f6aFaWdNukxwpdh7qs3URUBYdwX READY on kpopquiz.org.
+Share card renders real photos live (headline PASS). Two named defects: the share-page og:image
+default, and the /tier-list hub missing from the sitemap. No code changed, no rollback, main pushed
+exactly once as authorised.
