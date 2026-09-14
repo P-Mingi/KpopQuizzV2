@@ -119,7 +119,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
       <section className="gh-band" aria-label="Today's blind test">
         <div className="gh-band-main">
           <p className="gh-band-kick"><ClockIcon stroke="#FFD1E2" /> Today&apos;s blind test · resets in <GamesCountdown /></p>
-          <h2 className="gh-band-h2">Name the song <br className="gh-band-br" />from a 10-second clip.</h2>
+          <h2 className="gh-band-h2">Name the song <br className="gh-band-br" />from a 10‑second clip.</h2>
           <p className="gh-band-sub">Same ten songs for everyone today. Beat your friends&apos; score, keep the streak alive.</p>
           <div className="gh-wave" aria-hidden="true">
             {WAVE_HEIGHTS.map((h, i) => (

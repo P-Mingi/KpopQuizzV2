@@ -7,6 +7,20 @@ closed. `feat/tierlist-social` (unpushed e93315d) left untouched.
 Full proof battery: `docs/proofs/games-hub/` (start at its README). All proofs re-taken on
 `next build` + `next start -p 3021` against the revision-3 renders.
 
+## NIT: non-breaking hyphen in the band H2
+
+One-line change in `games-hub.tsx`: the daily band H2 `from a 10-second clip.` used a normal hyphen,
+so at 390 it could break as `10-` / `second`. Replaced only that hyphen with a non-breaking hyphen
+(U+2011, the literal character, matching the file's existing "K-pop" nit): `from a 10‑second clip.`.
+No other line, no CSS.
+
+Before/after at 390: the band H2 now wraps as `Name the song from a` / `10-second clip.` with
+`10-second` intact on one line (verified in `pixel/render-390.png`; no mid-word break). Desktop 1440
+is unchanged: a self-diff against the previous render is 0.00% (the explicit `<br>` still controls the
+desktop break; the non-breaking hyphen is inert there since the line fits). Re-proven on next build +
+next start: 1440 diff 4.47% (unchanged), 390 full 12.54%, route table still `○ /games` / `○ /pt/games`
+at 1h, unit 80 passed, e2e 18 passed, tsc 0. CI: see the CI section below.
+
 ## FIX 1: audit findings closed (on the same branch)
 
 BLOCKER 1, proofs were on a dev server. Re-taken on `next build` + `next start -p 3021` (the exact
