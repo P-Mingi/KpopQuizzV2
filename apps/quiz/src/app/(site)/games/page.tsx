@@ -8,7 +8,7 @@ import { GamesHub } from '@/components/game/games-hub';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
-import { pickDaily } from '@/lib/games/daily-rotation';
+import { pickDaily, pickDailyMany } from '@/lib/games/daily-rotation';
 import type { Metadata } from 'next';
 
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders all game
@@ -56,7 +56,8 @@ const getGamesData = unstable_cache(
     const supabase = createServiceRoleClient();
     // Lean picker: only the counts + the daily + one live ranking. The exhaustive
     // catalogs (20+ categories, 24 rosters) now live on their own index pages.
-    const [rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
+    const today = new Date().toISOString().slice(0, 10);
+    const [rankings, personalityGroups, songCount, nameAllCount, bandPool, dailyRow] = await Promise.all([
       safeFetch(getRankingsIndex(), [], '[games] getRankingsIndex'),
       safeFetch(getPersonalityGroups(), [], '[games] getPersonalityGroups'),
       safeFetch(
@@ -67,15 +68,33 @@ const getGamesData = unstable_cache(
         Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).in('game_type', ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols']).eq('status', 'published')).then((r) => r.count ?? 0),
         0, '[games] nameAllCount',
       ),
+      // Band preview: a small pool of real songs (title + artist) to illustrate the
+      // blind-test answer chips. Cached like everything else; no per-request read.
+      safeFetch(
+        Promise.resolve(supabase.from('songs').select('id, title, artist_name').eq('status', 'active').not('title', 'is', null).not('artist_name', 'is', null).limit(80))
+          .then((r) => (r.data ?? []) as Array<{ id: string; title: string; artist_name: string }>),
+        [], '[games] bandPool',
+      ),
+      // Today's daily blind-test song ids, so the band's illustrative chips never
+      // show the real answers of today's daily.
+      safeFetch(
+        Promise.resolve(supabase.from('daily_blindtests').select('song_ids').eq('date', today).maybeSingle())
+          .then((r) => ((r.data?.song_ids ?? []) as string[])),
+        [], '[games] dailyExclude',
+      ),
     ]);
-    return { rankings, personalityGroups, songCount, nameAllCount };
+    const excl = new Set(dailyRow);
+    const bandSongs = bandPool.filter((s) => !excl.has(s.id)).map((s) => ({ title: s.title, artist: s.artist_name }));
+    return { rankings, personalityGroups, songCount, nameAllCount, bandSongs };
   },
-  ['games-hub-data'],
+  ['games-hub-data-v2'],
   { revalidate: 3600 },
 );
 
 export default async function GamesPage() {
-  const { rankings, personalityGroups, songCount, nameAllCount } = await getGamesData();
+  const { rankings, personalityGroups, songCount, nameAllCount, bandSongs } = await getGamesData();
+  // Four real song options for the blind-test band preview, rotated per UTC day.
+  const bandAnswers = pickDailyMany(bandSongs, 4);
 
   const counts = {
     personality: personalityGroups.length,
@@ -117,13 +136,14 @@ export default async function GamesPage() {
                 { '@type': 'ListItem', position: 5, name: 'Sort It', url: 'https://kpopquiz.org/games/sort-it' },
                 { '@type': 'ListItem', position: 6, name: 'Match-Up', url: 'https://kpopquiz.org/games/match-up' },
                 { '@type': 'ListItem', position: 7, name: 'Duel 1v1', url: 'https://kpopquiz.org/battle' },
-                ...(liveRanking ? [{ '@type': 'ListItem', position: 8, name: 'K-pop Fan Rankings', url: 'https://kpopquiz.org/rankings' }] : []),
+                { '@type': 'ListItem', position: 8, name: 'K-pop Tier Lists', url: 'https://kpopquiz.org/tier-list' },
+                ...(liveRanking ? [{ '@type': 'ListItem', position: 9, name: 'K-pop Fan Rankings', url: 'https://kpopquiz.org/rankings' }] : []),
               ],
             },
           }),
         }}
       />
-      <GamesHub counts={counts} liveRanking={liveRanking} />
+      <GamesHub counts={counts} liveRanking={liveRanking} bandAnswers={bandAnswers} />
     </div>
   );
 }
