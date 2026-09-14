@@ -1,0 +1,41 @@
+# PHASE 3 PART A+B live verification (2026-09-14, next build + next start :3021, never dev)
+# Seeded 2 PUBLIC + 1 UNLISTED + 1 PRIVATE tier_lists rows via the service role,
+# verified the live pages, then TORE DOWN every seed row (DB left clean).
+
+PART 0: migration 146 confirmed APPLIED (tier_lists + tier_list_assets return 200).
+
+Render modes (next build):
+  o  /tier-list                         (static hub)
+  ●  /tier-list/l/[slug]                (SSG/ISR, indexable public page)
+  ●  /tier-list/subject/[group]/[kind]  (SSG/ISR, indexable community page)
+  f  /tier-list/create, /new, /share    (noindex tools, unchanged)
+  f  /api/tier-list/save, /engage, /api/og/tier-list (route handlers)
+
+Publish auth posture (logged out, via /api/tier-list/save):
+  public publish  -> HTTP 401 {"needsAuth":true}  (public needs a signed-in creator)
+  unlisted save   -> HTTP 200 {"slug":"unlisted-seed-test"}  (anon save via service role + anon cookie)
+
+Public list page /tier-list/l/zzt-p3seed-1:
+  HTTP 200; renders title, real member photos in coloured tiers, byline
+  "by mingii · 12 views · 5 likes", like button, "Make your own version",
+  "Where the fandom agrees" (RM 100% S, V 50% S, Jin 100% A, Jungkook 50% A,
+  Suga 100% B, J-Hope 100% C, Jimin 100% D across the 2 seeded lists), "Remix this list".
+  (screenshot: public-list.png)
+
+Subject/community page /tier-list/subject/bts/members:
+  HTTP 200; "BTS members tier lists", "2 public lists rank this set", the
+  fandom-agrees board (consensus by tier, real photos + agreement %), a
+  "Community lists" grid of both lists with creator + likes, "Make your own version".
+  (screenshot: subject-page.png)
+
+Visibility:
+  unlisted page  -> HTTP 200 + <meta name="robots" content="noindex, follow"> (out of sitemap)
+  private page (anon) -> HTTP 404 (RLS hides it; notFound)
+  unknown slug   -> HTTP 404
+
+Teardown: DELETE zzt-p3seed-1, zzt-p3seed-2, unlisted-seed-test, zzt-p3seed-private
+  -> all 204; re-query returns [] [] (no seed rows remain).
+
+Note: DB round-trip paths were verified with service-role-seeded rows + curl/screenshots
+(then torn down) rather than a signed-in Playwright session, which is not set up against
+live auth. The logged-out publish-prompt path is also covered by an e2e.

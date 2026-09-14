@@ -1,0 +1,37 @@
+# PHASE 3 PART C live verification: custom-upload storage + moderation + the closed seam
+# (2026-09-14, next build + next start :3021). Uploaded via the real routes, then
+# TORE DOWN every asset row + storage object (DB + bucket left clean).
+
+1) Upload a custom image (logged out) via POST /api/tier-list/asset (multipart):
+   -> HTTP 200 { id, url: https://<proj>.supabase.co/storage/v1/object/public/tier-list-assets/a/<anon>/<uuid>.png,
+                 status: "pending", itemId: "custom:<id>" }
+   Public bucket read of that url -> HTTP 200 image/png.
+
+2) Admin gate: POST /api/admin/tier-list-assets/action WITHOUT an admin session -> HTTP 401.
+   (Approve/reject flips tier_list_assets.status via the service role, isAdmin-gated,
+    same rails as /api/admin/verse/action.)
+
+3) Moderation gate on the public read path (RLS):
+   - asset APPROVED  -> a public list using custom:<id> embeds the *.supabase.co photo
+     (the public page HTML contains .../tier-list-assets/...).
+   - asset PENDING   -> anon read of tier_list_assets returns [] (RLS hides it), so the
+     public page falls back to the initials/name tile. A pending asset never shows on a
+     public list.
+
+4) The closed seam (L-223): the OG card for a board with an APPROVED custom asset embeds
+   that custom face as a real photo, with NO OG change - a stored asset lives at a
+   *.supabase.co URL, already on the isConfiguredImageHost allowlist, so og-faces fetches
+   and embeds it. Proof: seam-custom-og.png - S tier shows a bank face (RM, local /idols)
+   PLUS the uploaded custom face (from the supabase bucket); A tier shows Jin.
+   OG -> HTTP 200 image/png, 163,686 bytes.
+
+5) Publish gate (unit-tested in publish.test.ts, exercised live at the app layer):
+   a PUBLIC publish with a pending custom asset is refused (409); once approved it is
+   allowed; a private/unlisted list may use a pending asset immediately.
+
+Teardown: DELETE every seeded tier_lists row, every tier_list_assets row, and every
+storage object created above -> all 204/200; re-query returns [] (DB + bucket clean).
+
+Note: the full publish -> approve -> OG flow needs a signed-in creator + an admin session,
+which are not wired for Playwright against live auth; it is verified here via the real
+routes + service-role seeding (torn down). The logged-out publish-prompt path has an e2e.

@@ -8,6 +8,10 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
   workers: 1,
+  // These feature specs hit a shared LIVE Supabase (bank reads, the publish gate),
+  // so a transient slow round-trip can flake a run; retry twice to absorb that
+  // without masking a real failure (a genuine break fails all attempts).
+  retries: 2,
   reporter: [['line']],
   timeout: 30_000,
   use: {

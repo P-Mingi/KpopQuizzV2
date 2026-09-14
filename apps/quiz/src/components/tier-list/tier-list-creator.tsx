@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { getAnonId } from '@/lib/anon-id';
 import { TIER_PRESET_LABELS, tiersForPreset, type TierPreset } from '@/lib/tier-list/defaults';
 import { SUBJECT_KIND_LABEL } from '@/lib/tier-list/subject';
 import { TierMaker } from '@/components/tier-list/tier-maker';
@@ -23,6 +24,7 @@ export interface GroupLite { slug: string; name: string; logo: string | null; co
 interface Props {
   groups: GroupLite[];
   initialGroup: { slug: string; name: string } | null;
+  initialGroupId: number | null;
   initialKind: SubjectKind;
   initialPool: TierListItem[];
 }
@@ -55,7 +57,7 @@ function Stepper({ step }: { step: 'subject' | 'pool' | 'rank' }) {
   );
 }
 
-export function TierListCreator({ groups, initialGroup, initialKind, initialPool }: Props) {
+export function TierListCreator({ groups, initialGroup, initialGroupId, initialKind, initialPool }: Props) {
   const router = useRouter();
   const hasSubject = Boolean(initialGroup) && initialKind !== 'blank';
 
@@ -136,7 +138,8 @@ export function TierListCreator({ groups, initialGroup, initialKind, initialPool
         <p className="tl-mut" style={{ marginBottom: 18 }}>
           {boardItems.length > 0 ? `${boardItems.length} items on the board.` : 'Blank board. Add your own items from the pool step, or just build tiers.'}
         </p>
-        <TierMaker items={boardItems} boardId={boardId} title={title} initialTiers={tiersForPreset(preset)} />
+        <TierMaker items={boardItems} boardId={boardId} title={title} initialTiers={tiersForPreset(preset)}
+          subjectGroupId={hasSubject ? initialGroupId : null} subjectKind={hasSubject ? initialKind : 'blank'} />
       </div>
     );
   }
@@ -353,9 +356,26 @@ function ImportModal({ onClose, onAdd, existingCount }: { onClose: () => void; o
       ctx.drawImage(imgEl, (CROP_SIZE - dw) / 2, (CROP_SIZE - dh) / 2, dw, dh);
       const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/jpeg', 0.9));
       if (!blob) throw new Error('no blob');
-      const croppedUrl = URL.createObjectURL(blob);
       const label = name.trim() || `Item ${existingCount + 1}`;
-      onAdd({ id: `custom:${crypto.randomUUID()}`, kind: 'custom', name: label, image_url: croppedUrl });
+
+      // Persist the cropped image to the moderated asset store so it survives a
+      // publish (and can reach the share card once approved). If the upload fails,
+      // fall back to a client-only object URL: the item still works in this local
+      // draft, it just cannot be published or embedded until it is uploaded.
+      try {
+        const fd = new FormData();
+        fd.append('file', blob, 'custom.jpg');
+        fd.append('name', label);
+        const anon = getAnonId();
+        if (anon) fd.append('anonId', anon);
+        const r = await fetch('/api/tier-list/asset', { method: 'POST', body: fd });
+        if (r.ok) {
+          const j = await r.json();
+          onAdd({ id: j.itemId as string, kind: 'custom', name: label, image_url: j.url as string });
+          return;
+        }
+      } catch { /* fall through to client-only */ }
+      onAdd({ id: `custom:${crypto.randomUUID()}`, kind: 'custom', name: label, image_url: URL.createObjectURL(blob) });
     } catch {
       setError('Could not crop that image.');
       setBusy(false);

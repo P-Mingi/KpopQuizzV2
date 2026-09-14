@@ -1,0 +1,52 @@
+# SEO gates - TIERLIST phase 3 (2026-09-14), server up on :3021
+=== check:docs-secrets ===
+PASS
+Docs secret gate: scanned 661 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+Docs secret gate passed: no credential-shaped value in any tracked doc.
+
+=== check:routes ===
+PASS
+Route allowlist guard passed: 376 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+=== check:indexability ===
+NONZERO EXIT
+  x /q/seventeen-members-mega-quiz-all-13 - in the sitemap but emits robots NOINDEX (meta robots). Sitemap says index, page says do-not.
+  x /q/seventeen-members-mega-quiz-all-13 - in the sitemap but has no <link rel="canonical">.
+
+Either the sitemap advertises a page it should not (noindex / missing title / non-self-canonical),
+or an indexable page fell out of the sitemap. Fix the page's metadata OR the sitemap inclusion in src/app/sitemap.ts.
+
+
+=== check:metadata-dupes ===
+NONZERO EXIT
+      - /verse/bts/the-notes
+      - /verse/bts/save-me-webtoon
+
+Every indexable URL needs a unique title and a unique description.
+Fix the template so it varies by construction, or stop advertising the duplicate URL in the sitemap.
+
+
+=== check:orphans ===
+NONZERO EXIT
+Orphan gate FAILED: 3 sitemap URL(s) have ZERO inbound internal links from the 717 crawled pages. This run crawled EVERY non-verse sitemap URL, so these have no internal inbound link from anywhere in the sitemap. Each offender by URL:
+  x /katseye-trivia
+  x /q/bts-true-or-false-bet-you-cant-get-100
+  x /q/katseye-quiz
+
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.
+
+
+--- READING (phase 3) ---
+docs-secrets PASS. routes PASS (369 reachable; the new public/subject/admin/api routes are all
+covered by the existing /tier-list, /api and /admin allowlist prefixes - no allowlist change).
+indexability / metadata-dupes / orphans: the SAME pre-existing, non-tier-list offenders as phases
+2 / 2.5 - /katseye-trivia, /q/katseye-quiz, /q/bts-true-or-false-bet-you-cant-get-100, the
+seventeen quiz dupes, and the verse-inflation /verse/* dupes. A grep for tier-list / /tier-list/l/
+/ /tier-list/subject/ across all three failing gate outputs returns NOTHING: this phase adds no new
+orphan, no new dupe, no new indexability break. Published PUBLIC lists/subjects are self-canonical
+with unique titles from subject + creator and are linked from the hub trending + the public/subject
+pages, so they are indexable and non-orphan by construction; unlisted/private are noindex and out of
+the sitemap.

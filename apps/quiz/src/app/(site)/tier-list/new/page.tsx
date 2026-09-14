@@ -23,6 +23,8 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
   let items: TierListItem[] = [];
   let title = 'My tier list';
   let boardId = 'blank';
+  let subjectGroupId: number | null = null;
+  let subjectKind: typeof kind = 'blank';
 
   // Challenge / shared item set: reopen the same items on an empty board.
   if (sp.d) {
@@ -31,6 +33,8 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
       items = board.items;
       title = `${board.title} (your turn)`;
       boardId = `challenge-${sp.d.slice(0, 12)}`;
+      subjectGroupId = board.subjectGroupId ?? null;
+      subjectKind = board.subjectKind ?? 'blank';
     }
   } else if (sp.group && kind !== 'blank') {
     const group = await getGroupBySlug(sp.group);
@@ -38,6 +42,8 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
       items = await getBankItems(group.id, kind);
       title = `${group.name} ${SUBJECT_KIND_LABEL[kind]}`;
       boardId = `${group.slug}-${kind}`;
+      subjectGroupId = group.id;
+      subjectKind = kind;
     }
   }
 
@@ -48,7 +54,7 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
       <p className="tl-mut" style={{ marginBottom: 18 }}>
         {items.length > 0 ? `${items.length} items loaded.` : 'Blank board. Add your own items, or start from a subject on the hub.'}
       </p>
-      <TierMaker items={items} boardId={boardId} title={title} />
+      <TierMaker items={items} boardId={boardId} title={title} subjectGroupId={subjectGroupId} subjectKind={subjectKind} />
     </div>
   );
 }

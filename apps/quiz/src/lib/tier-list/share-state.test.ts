@@ -28,6 +28,17 @@ describe('share-state encode/decode (URL state, no DB)', () => {
     expect(dec.items.map((i) => i.id).sort()).toEqual(['idol:1', 'idol:2', 'idol:3']);
     expect(Object.keys(dec.placements)).toHaveLength(0);
   });
+  it('round-trips the subject (group + kind) when present, blank otherwise', () => {
+    const enc = encodeBoard({ title: 'BTS members', tiers, placements: { S: ['idol:1'] }, items, subjectGroupId: 42, subjectKind: 'members' });
+    const dec = decodeBoard(enc)!;
+    expect(dec.subjectGroupId).toBe(42);
+    expect(dec.subjectKind).toBe('members');
+    // A board with no subject decodes to a blank subject (backward compatible).
+    const enc2 = encodeBoard({ title: 'x', tiers, placements: { S: ['idol:1'] }, items });
+    const dec2 = decodeBoard(enc2)!;
+    expect(dec2.subjectKind).toBe('blank');
+    expect(dec2.subjectGroupId).toBeNull();
+  });
   it('returns null on garbage', () => {
     expect(decodeBoard('not-valid-base64!!')).toBeNull();
     expect(decodeBoard('')).toBeNull();

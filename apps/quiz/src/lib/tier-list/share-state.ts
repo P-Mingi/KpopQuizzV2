@@ -1,24 +1,30 @@
-import type { Placements, Tier, TierListItem } from './types';
+import type { Placements, SubjectKind, Tier, TierListItem } from './types';
 
 // Encode a whole board into a URL-safe base64 param so a share link and the OG
-// image route need NO database this phase: the state travels in the URL. Kept
-// compact (short keys, only ranked items carried) so the link stays well under
-// browser URL limits for a normal board. Isomorphic (no server imports), so the
-// same code runs in the client, the edge OG route, and unit tests.
+// image route need NO database: the state travels in the URL. Kept compact (short
+// keys, only ranked items carried) so the link stays well under browser URL limits
+// for a normal board. Isomorphic (no server imports), so the same code runs in the
+// client, the edge OG route, and unit tests. Phase 3 adds an optional subject (s)
+// so a shared board can be published against its bank subject; older links without
+// it decode to a blank subject, so the format stays backward compatible.
 
 export interface SharedBoard {
   title: string;
   tiers: Tier[];
   placements: Placements;
   items: TierListItem[];
+  subjectGroupId?: number | null;
+  subjectKind?: SubjectKind;
 }
 
-// Compact wire shape: t=title, k=tiers[[label,color]], p=placements, i=items[[id,name,imageOrEmpty]].
+// Compact wire shape: t=title, k=tiers[[label,color]], p=placements,
+// i=items[[id,name,imageOrEmpty]], s=[subjectGroupId|null, subjectKind] (optional).
 interface Wire {
   t: string;
   k: [string, string][];
   p: Record<string, string[]>;
   i: [string, string, string][];
+  s?: [number | null, SubjectKind];
 }
 
 function toBase64Url(bytes: Uint8Array): string {
@@ -54,6 +60,9 @@ export function encodeBoard(board: SharedBoard, opts?: { allItems?: boolean }): 
     p: opts?.allItems ? {} : p,
     i: carried.map((it) => [it.id, it.name, it.image_url ?? '']),
   };
+  if (board.subjectKind && board.subjectKind !== 'blank') {
+    wire.s = [board.subjectGroupId ?? null, board.subjectKind];
+  }
   const json = JSON.stringify(wire);
   return toBase64Url(new TextEncoder().encode(json));
 }
@@ -68,6 +77,8 @@ export function decodeBoard(param: string): SharedBoard | null {
       tiers: w.k.map(([label, color], ord) => ({ label, color, ord })),
       placements: w.p ?? {},
       items: w.i.map(([id, name, image]) => ({ id, name, image_url: image || null, kind: 'custom' as const })),
+      subjectGroupId: w.s ? w.s[0] : null,
+      subjectKind: w.s ? w.s[1] : 'blank',
     };
   } catch {
     return null;

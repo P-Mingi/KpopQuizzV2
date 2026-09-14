@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 
+import { getAnonId } from '@/lib/anon-id';
 import { decodeBoard, encodeBoard } from '@/lib/tier-list/share-state';
+
+import type { Visibility } from '@/lib/tier-list/types';
 
 // The ShareSheet (ShareSheet.dc.html): the OG card preview + a list of actions,
 // all working logged-out with state in the URL. Publishing to a persisted public
@@ -37,6 +40,36 @@ export function ShareSheetClient({ d }: { d: string }): React.ReactElement {
   let challengeHref = '/tier-list/new';
   const board = d ? decodeBoard(d) : null;
   if (board) challengeHref = `/tier-list/new?d=${encodeBoard(board, { allItems: true })}`;
+
+  const [visibility, setVisibility] = useState<Visibility>('public');
+  const [publishing, setPublishing] = useState(false);
+  const [publishErr, setPublishErr] = useState<string>('');
+  const [publishedUrl, setPublishedUrl] = useState<string>('');
+
+  async function publish() {
+    if (!board || publishing) return;
+    setPublishing(true); setPublishErr('');
+    try {
+      const res = await fetch('/api/tier-list/save', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: board.title, tiers: board.tiers, placements: board.placements,
+          subjectGroupId: board.subjectGroupId ?? null, subjectKind: board.subjectKind ?? 'blank',
+          visibility, anonId: getAnonId(),
+        }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setPublishErr(j.needsAuth ? 'Sign in to publish publicly (a private or unlisted save works logged out).' : (j.error ?? 'Could not publish.'));
+        setPublishing(false);
+        return;
+      }
+      setPublishedUrl(j.url as string);
+    } catch {
+      setPublishErr('Could not publish.');
+    }
+    setPublishing(false);
+  }
 
   async function savePng() {
     try {
@@ -79,8 +112,42 @@ export function ShareSheetClient({ d }: { d: string }): React.ReactElement {
         label="Story (9:16)" hint="Vertical card for Stories" href={storyUrl} />
       <Row testid="challenge" icon={ic(<><path d="M14.5 2v6l4 4-4 4v6" /><path d="M9.5 2v6l-4 4 4 4v6" /></>)}
         label="Challenge a friend" hint="They rank the same set" href={challengeHref} />
-      <Row testid="publish" icon={ic(<><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20" /></>)}
-        label="Publish publicly" hint="Coming soon (needs an account)" disabled />
+      {/* Publish to a persisted, indexable page (Phase 3). Public needs a signed-in
+          creator; a private/unlisted save works logged out via an anon id. */}
+      <div className="tl-card" style={{ padding: 14, marginTop: 6 }} data-testid="tl-publish">
+        {publishedUrl ? (
+          <div>
+            <div className="tl-h3" style={{ margin: 0 }}>Published</div>
+            <p className="tl-mut" style={{ margin: '4px 0 10px' }}>Your list has its own page now.</p>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <a href={publishedUrl} className="tl-btn pri sm" data-testid="tl-published-link">View your page</a>
+              <button type="button" className="tl-btn out sm" onClick={() => { void navigator.clipboard?.writeText(publishedUrl); setShared('Link copied'); }}>Copy page link</button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="tl-betw" style={{ marginBottom: 8 }}>
+              <div className="tl-h3" style={{ margin: 0 }}>Publish this list</div>
+              <div className="tl-seg" role="group" aria-label="Visibility">
+                {(['public', 'unlisted', 'private'] as Visibility[]).map((v) => (
+                  <button key={v} type="button" className={`tl-seg-s${visibility === v ? ' on' : ''}`} onClick={() => setVisibility(v)} data-testid={`vis-${v}`}>
+                    {v[0]!.toUpperCase() + v.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="tl-mut" style={{ margin: '0 0 10px' }}>
+              {visibility === 'public' ? 'A public page anyone can find and remix (needs an account).'
+                : visibility === 'unlisted' ? 'Reachable only by link, not listed anywhere.'
+                : 'Only you can open it.'}
+            </p>
+            <button type="button" className="tl-btn grad" onClick={publish} disabled={publishing || !board} data-testid="tl-publish-btn">
+              {publishing ? 'Publishing...' : 'Publish'}
+            </button>
+            {publishErr && <p className="tl-mut" role="alert" style={{ color: 'var(--wrong, #A32D2D)', marginTop: 8 }}>{publishErr} {publishErr.startsWith('Sign in') && <a className="tl-crumb" style={{ color: 'var(--brand)' }} href="/login">Sign in</a>}</p>}
+          </div>
+        )}
+      </div>
 
       {shared && <p className="tl-mut" role="status" style={{ marginTop: 6 }}>{shared}</p>}
     </div>

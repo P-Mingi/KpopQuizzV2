@@ -35,11 +35,13 @@ export default async function CreateTierListPage({ searchParams }: Props): Promi
     .map(toLite);
 
   let initialGroup: { slug: string; name: string } | null = null;
+  let initialGroupId: number | null = null;
   let initialPool: TierListItem[] = [];
   if (sp.group && kind !== 'blank') {
     const group = await getGroupBySlug(sp.group);
     if (group) {
       initialGroup = { slug: group.slug, name: group.name };
+      initialGroupId = group.id;
       initialPool = await getBankItems(group.id, kind);
     }
   }
@@ -52,6 +54,7 @@ export default async function CreateTierListPage({ searchParams }: Props): Promi
       key={`${sp.group ?? ''}:${sp.kind ?? ''}`}
       groups={groups}
       initialGroup={initialGroup}
+      initialGroupId={initialGroupId}
       initialKind={initialGroup ? kind : 'blank'}
       initialPool={initialPool}
     />

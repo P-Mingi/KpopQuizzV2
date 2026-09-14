@@ -6,7 +6,7 @@ import { ADDABLE_TIER_COLORS, UNRANKED, defaultTiers } from '@/lib/tier-list/def
 import { buildInitialPlacements, normalizePlacements } from '@/lib/tier-list/serialization';
 import { encodeBoard } from '@/lib/tier-list/share-state';
 
-import type { Placements, Tier, TierListItem } from '@/lib/tier-list/types';
+import type { Placements, SubjectKind, Tier, TierListItem } from '@/lib/tier-list/types';
 
 // The maker. Board state (tiers + placements) always flows through the
 // src/lib/tier-list serialization so the exactly-once invariant holds through
@@ -116,7 +116,10 @@ function Face({ item, picked, onPick, onDragStart, onDragEnd, dragging }: {
   );
 }
 
-export function TierMaker({ items, boardId, title, initialTiers }: { items: TierListItem[]; boardId: string; title: string; initialTiers?: Tier[] }) {
+export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId = null, subjectKind = 'blank' }: {
+  items: TierListItem[]; boardId: string; title: string; initialTiers?: Tier[];
+  subjectGroupId?: number | null; subjectKind?: SubjectKind;
+}) {
   const byId = new Map(items.map((i) => [i.id, i]));
   const [history, dispatch] = useReducer(
     historyReducer(items),
@@ -163,7 +166,7 @@ export function TierMaker({ items, boardId, title, initialTiers }: { items: Tier
   const unranked = (placements[UNRANKED] ?? []).map((id) => byId.get(id)).filter(Boolean) as TierListItem[];
 
   function share() {
-    const d = encodeBoard({ title, tiers, placements, items });
+    const d = encodeBoard({ title, tiers, placements, items, subjectGroupId, subjectKind });
     window.location.assign(`/tier-list/share?d=${d}`);
   }
 

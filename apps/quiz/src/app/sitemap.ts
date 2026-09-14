@@ -208,6 +208,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let gamePages: MetadataRoute.Sitemap = [];
   let rankingPages: MetadataRoute.Sitemap = [];
   let pulsePages: MetadataRoute.Sitemap = [];
+  let tierListPages: MetadataRoute.Sitemap = [];
 
   try {
     // W7-CLOSE: the NON-VERSE sitemap runs on the ANON key. Measured table by table,
@@ -515,6 +516,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     versePages = [];
   }
 
+  // TIERLIST phase 3: published PUBLIC lists + their subject pages. Own guarded
+  // block (mirrors the verse block) so a tier-list DB blip never drops the rest of
+  // the sitemap. Unlisted/private lists are deliberately absent.
+  try {
+    const tldb = createPublicReadClient();
+    const [listsRes, subjectsRes, groupsRes] = await Promise.all([
+      tldb.from('tier_lists').select('slug, updated_at').eq('visibility', 'public').order('created_at', { ascending: false }).limit(2000),
+      tldb.from('tier_lists').select('subject_group_id, subject_kind').eq('visibility', 'public').not('subject_group_id', 'is', null).limit(2000),
+      tldb.from('groups').select('id, slug'),
+    ]);
+    const listEntries: MetadataRoute.Sitemap = ((listsRes.data ?? []) as Array<{ slug: string; updated_at: string }>).map((r) => ({
+      url: `${SITE_URL}/tier-list/l/${r.slug}`, lastModified: new Date(r.updated_at), changeFrequency: 'weekly' as const, priority: 0.5,
+    }));
+    const idToSlug = new Map(((groupsRes.data ?? []) as Array<{ id: number; slug: string }>).map((g) => [g.id, g.slug]));
+    const seen = new Set<string>();
+    const subjectEntries: MetadataRoute.Sitemap = [];
+    for (const s of (subjectsRes.data ?? []) as Array<{ subject_group_id: number; subject_kind: string }>) {
+      const gslug = idToSlug.get(s.subject_group_id);
+      if (!gslug || s.subject_kind === 'blank') continue;
+      const key = `${gslug}/${s.subject_kind}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      subjectEntries.push({ url: `${SITE_URL}/tier-list/subject/${gslug}/${s.subject_kind}`, lastModified: STATIC_DATE, changeFrequency: 'weekly' as const, priority: 0.5 });
+    }
+    tierListPages = [...listEntries, ...subjectEntries];
+  } catch (err) {
+    console.error('[sitemap] tier-list query failed, skipping tier-list pages:', err);
+    tierListPages = [];
+  }
+
   return [
     ...staticPages,
     ...articlePages,
@@ -527,5 +558,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...rankingPages,
     ...pulsePages,
     ...versePages,
+    ...tierListPages,
   ];
 }

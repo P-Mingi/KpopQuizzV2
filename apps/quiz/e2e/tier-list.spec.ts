@@ -77,6 +77,10 @@ test.describe('wizard', () => {
   });
 
   test('import modal adds a cropped, named custom item to the tray', async ({ page }) => {
+    // Keep this hermetic: force the asset upload to fail so the modal uses its
+    // client-only fallback and writes nothing to the DB/bucket. The real upload +
+    // moderation seam is verified live in docs/proofs/tierlist-p3.
+    await page.route('**/api/tier-list/asset', (r) => r.abort());
     await page.goto('/tier-list/create?group=bts&kind=members');
     await expect(page.getByTestId('tl-pool')).toBeVisible();
     await page.getByTestId('open-import').click();
@@ -144,6 +148,33 @@ test.describe('maker', () => {
     await expect(page.getByTestId('save-png')).toBeVisible();
     await expect(page.getByTestId('copy-link')).toBeVisible();
     await expect(page.getByTestId('challenge')).toHaveAttribute('href', /\/tier-list\/new\?d=/);
+  });
+
+  test('publish: the share sheet offers a publish control with visibility options', async ({ page }) => {
+    await page.goto('/tier-list/new?group=bts&kind=members');
+    const trayFaces = page.getByTestId('tray').locator('.tl-face');
+    await trayFaces.first().click();
+    await page.getByTestId('tier-S').click();
+    await page.getByTestId('share-btn').click();
+    await expect(page).toHaveURL(/\/tier-list\/share\?d=/);
+    await expect(page.getByTestId('tl-publish')).toBeVisible();
+    await expect(page.getByTestId('vis-public')).toBeVisible();
+    await expect(page.getByTestId('vis-unlisted')).toBeVisible();
+    await expect(page.getByTestId('vis-private')).toBeVisible();
+    await expect(page.getByTestId('tl-publish-btn')).toBeVisible();
+  });
+
+  test('publish: a logged-out PUBLIC publish is refused 401 needsAuth (no row written)', async ({ page }) => {
+    // Assert the server gate directly (deterministic, no UI-timing dependency):
+    // a public list requires a signed-in creator, so logged out it is refused and
+    // nothing is written. Private/unlisted saves are what a guest gets instead.
+    await page.goto('/tier-list');
+    const resp = await page.request.post('/api/tier-list/save', {
+      data: { title: 'E2E gate check', visibility: 'public', subjectKind: 'members', subjectGroupId: 1,
+        tiers: [{ label: 'S', color: '#E8457A', ord: 0 }], placements: { S: ['idol:1'] } },
+    });
+    expect(resp.status()).toBe(401);
+    expect((await resp.json()).needsAuth).toBe(true);
   });
 
   test('OG card for a bank board embeds real photos (materially larger than initials)', async ({ page }) => {

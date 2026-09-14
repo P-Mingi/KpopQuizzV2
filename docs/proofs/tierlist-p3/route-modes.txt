@@ -1,0 +1,23 @@
+# Render modes - TIERLIST phase 3 (clean next build, no seed rows); o=static ●=SSG/ISR f=dynamic
+├ ƒ /admin/tier-list-assets
+├ ƒ /api/admin/tier-list-assets/action
+├ ƒ /api/og/tier-list
+├ ƒ /api/tier-list/asset
+├ ƒ /api/tier-list/engage
+├ ƒ /api/tier-list/save
+├ ○ /tier-list                                                  5m      1y
+├ ƒ /tier-list/create
+├ ● /tier-list/l/[slug]
+├ ƒ /tier-list/new
+├ ƒ /tier-list/share
+├ ● /tier-list/subject/[group]/[kind]
+
+Indexable public pages are ● (SSG/ISR over published PUBLIC slugs/subjects, self-canonical, in sitemap):
+  ● /tier-list/l/[slug]                published list page
+  ● /tier-list/subject/[group]/[kind]  community/subject page
+  o /tier-list                          hub (static)
+Noindex tools stay f: /tier-list/create, /new, /share, /admin/tier-list-assets.
+Route handlers f: /api/tier-list/{save,engage,asset}, /api/admin/tier-list-assets/action, /api/og/tier-list.
+No existing URL changed; new routes covered by /tier-list + /api + /admin allowlist prefixes.
+(generateStaticParams returns [] with no public rows, so nothing tier-list is baked; real
+ published lists render on-demand via ISR and enter the sitemap on publish.)

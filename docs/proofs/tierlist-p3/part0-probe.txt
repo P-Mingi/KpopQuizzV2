@@ -1,18 +1,14 @@
-# PHASE 3 PART 0 probe - is migration 146 applied? (run 2026-09-13)
+# PHASE 3 PART 0 probe - is migration 146 applied? (2026-09-14)
 # Read-only probe of the LIVE quiz DB via the public REST endpoint (anon key).
-# No DDL attempted, no writes, no MCP apply. Keys not shown.
+# The owner applied 146 between the blocked run (2026-09-13) and this run.
 
-GET /rest/v1/tier_lists?select=id&limit=1
-  -> HTTP 404
-  {"code":"PGRST205","message":"Could not find the table 'public.tier_lists' in the schema cache"}
+GET /rest/v1/tier_lists?select=<all 14 columns>&limit=1        -> HTTP 200 []
+GET /rest/v1/tier_list_assets?select=<all 7 columns>&limit=1   -> HTTP 200 []
+storage bucket tier-list-assets                                -> exists, public read
 
-GET /rest/v1/tier_list_assets?select=id&limit=1
-  -> HTTP 404
-  {"code":"PGRST205","message":"Could not find the table 'public.tier_list_assets' in the schema cache"}
-
-POST /storage/v1/object/list/tier-list-assets
-  -> HTTP 200 []   (bucket name resolves, but the TABLES are the gate and are absent)
-
-VERDICT: migration 146 is NOT applied. public.tier_lists and public.tier_list_assets
-do not exist. Phase 3 is entirely gated on 146 (PART 0). STOP: nothing DB-backed built,
-no tables faked, 146 not applied by the worker (owner applies DDL).
+VERDICT: migration 146 is APPLIED. Both tables exist with the full 146 column set
+(tier_lists: id, slug, creator_id, anon_id, subject_group_id, subject_kind, title,
+tiers, placements, visibility, views, likes, created_at, updated_at; tier_list_assets:
+id, owner_id, anon_id, name, image_url, status, created_at), RLS public-read works
+(anon returns 200), and the public bucket is present. PART 0 passes -> proceeded to
+build PART A/B/C live. No DDL applied by the worker.

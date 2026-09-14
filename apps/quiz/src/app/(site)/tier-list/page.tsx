@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
+import { getRecentPublicLists } from '@/lib/tier-list/db';
 
 import type { Metadata } from 'next';
 
@@ -26,6 +27,7 @@ interface Template { slug: string; name: string; kind: 'members' | 'tracks' | 'a
 
 export default async function TierListHub(): Promise<React.ReactElement> {
   const groups = await safeFetch(getAllGroups(), [], '[tier-list] groups');
+  const trending = await safeFetch(getRecentPublicLists(8), [], '[tier-list] trending');
   // A featured set from the bank: the first groups that have a logo, as members
   // templates (always populated). Real, not invented.
   const featured: Template[] = (groups as Array<{ slug: string; name: string; logo_url: string | null; display_color?: string }>)
@@ -54,13 +56,25 @@ export default async function TierListHub(): Promise<React.ReactElement> {
         {chips.map((c, i) => <span key={c} className={`tl-chip${i === 0 ? ' on' : ''}`}>{c}</span>)}
       </div>
 
-      {/* Trending needs published lists (Phase 3): honest empty state, no fake rows. */}
+      {/* Trending: real published public lists (Phase 3). Honest empty until the
+          first list is published. */}
       <div className="tl-betw" style={{ marginBottom: 12 }}>
         <h2 className="tl-d2" style={{ margin: 0 }}>Trending this week</h2>
       </div>
-      <div className="tl-card tl-empty" style={{ marginBottom: 30 }} data-testid="trending-empty">
-        Published tier lists show up here soon. Make one and be first.
-      </div>
+      {trending.length === 0 ? (
+        <div className="tl-card tl-empty" style={{ marginBottom: 30 }} data-testid="trending-empty">
+          Published tier lists show up here soon. Make one and be first.
+        </div>
+      ) : (
+        <div className="tl-g4" style={{ marginBottom: 30 }} data-testid="trending">
+          {trending.map((t) => (
+            <Link key={t.slug} href={`/tier-list/l/${t.slug}`} className="tl-card" style={{ padding: 16, textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <span className="tl-h3" style={{ margin: 0, fontSize: 15 }}>{t.title}</span>
+              <span className="tl-mut">{t.likes.toLocaleString()} likes · {t.views.toLocaleString()} views</span>
+            </Link>
+          ))}
+        </div>
+      )}
 
       {/* Featured templates from the bank (no DB writes). */}
       <div className="tl-betw" style={{ margin: '28px 0 12px' }}>

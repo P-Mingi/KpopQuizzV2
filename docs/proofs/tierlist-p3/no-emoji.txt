@@ -1,0 +1,3 @@
+no-emoji scan over 36 tier-list source files (incl. phase 3)
+
+RESULT: 0 emoji codepoints. Every icon is inline SVG.
