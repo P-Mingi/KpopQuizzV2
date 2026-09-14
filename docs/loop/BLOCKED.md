@@ -1,5 +1,7 @@
 # BLOCKED - SOFT-404: no fix holds all four invariants at once in Next 16.2.1
 
+STATUS: ACCEPTED by owner 2026-08-31 (option 1). Soft-404 is recorded debt, not an open blocker. PPR is the future fix. See VERSE-LEDGER L-220.
+
 Nothing shipped. The route `src/app/(site)/q/[slug]/page.tsx` is byte-identical to HEAD
 (75dcabb). Evidence: `docs/proofs/soft-404/evidence.txt`. Proven on `next build` +
 `next start`, never dev.

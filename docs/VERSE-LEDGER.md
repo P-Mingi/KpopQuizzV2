@@ -4660,3 +4660,566 @@ four gates (step 4) I ran ONE, against production, since with no code change a l
 would prove nothing about this incident; I did not fire 708 + 1000 requests at the live site
 unasked. Also flagged: one real 404 does exist on the live deployment, /sitemap.xml.gz, one
 request in three hours, not investigated and out of scope.
+
+## L-210 - W5 HOTFIX: there was no bug. The stale measurement was mine.
+
+The worker was right and I was wrong, and the way it was wrong is the exact failure this
+loop exists to catch, committed by the auditor.
+
+I reported `/data/knowledge-report-2026` and its dataset route as 404 in production, wrote a
+hotfix mission, and **authorised a push** on the strength of it. The worker measured the same
+URLs from its own machine, got 200, pulled Vercel's runtime logs, and showed the 404s were
+logged against deployment `dpl_UTmPvyyoReCf3HNpjadTXnoSxwrF` on commit `fab3911`, which
+predates the report page and was therefore 404ing correctly. On the current deployment,
+`dpl_CCDqSvtNoEUdXYidd7BExu3YdQcQ`, the only 404 in three hours is one `/sitemap.xml.gz`.
+
+I re-tested afterwards and still got 404, twice, which is what made this worth resolving
+rather than conceding. The resolution: **WebFetch caches its responses for 15 minutes per
+URL.** Every repeat fetch of those two exact URL strings was replaying my own pre-deploy 404.
+Fetching `.../knowledge-report-2026?v=1`, a string I had never requested, returns 200 with
+the v4 figure `6,257 of 17,425` in the body, and `.../dataset?v=1` returns the raw markdown
+carrying `2026-08-17T12:30:50.619691+00:00`. Both live, both correct, both always were.
+
+So: **a WebFetch result is not a measurement until the cache is bypassed.** That is my
+version of the worker's own trap from PART 1b, "a dataset edit is not live until the app is
+rebuilt", and I walked into it one mission later. Added to the standing rules: when an
+external check contradicts a build that should contain the change, vary the URL before
+believing the check.
+
+Two things the worker did that are worth recording as the standard:
+
+1. **It refused an authorised push.** The mission granted push rights for a fix. It found no
+   defect and shipped nothing, on the reasoning that changing a live site to correct a
+   problem that does not exist is worse than doing nothing. That refusal is worth more than
+   any of the fixes in this workstream.
+2. **It would not invent a story for the part that did not reconcile.** The new deployment
+   was live about an hour before I wrote the mission, so "the alias had not switched" does
+   not cleanly explain a check at 19:41. It said so, stated what the logs do and do not
+   prove, and left it open rather than closing it with a plausible narrative. The cache
+   explanation above closes it, and it could not have found that from its side.
+
+Also delivered, unasked and genuinely useful: **the production-gate problem is smaller than I
+claimed.** All three HTTP gates already read a base URL, and
+`INDEXCHECK_BASE_URL=https://kpopquiz.org npm run check:indexability` passes against the live
+domain right now, 708 sitemap URLs, 37 sampled, exit 0. So "our greens only describe a local
+build" is fixable with one env var and a post-deploy job, and the open questions are policy
+rather than engineering: when it runs, how much live traffic `check:orphans` (708 requests)
+and `check:metadata-dupes` (~1,000) are allowed to generate, and that coverage numbers would
+have to be rewritten upward since the anon-key limitation disappears against production.
+
+The report and its dataset are live and correct. Nothing blocks the pitch on the content side
+any more, and the four Gmail drafts can go out once the addresses are filled.
+
+## L-215 - SEO-IDX v2 audited: PASS, zero defects in the GSC 432, and one of OUR old claims falls
+
+The worker triaged all 432 GSC URLs from the owner's drilldown exports and every suspect
+resolved to a non-defect, each with the mechanism named: the noindexed /q page is an
+unpublished quiz whose notFound() auto-noindexes (q/[slug]/page.tsx:52,79,148); the
+noindexed ranking was below RANKING_UNLOCK_VOTES and has self-healed public (GSC label
+stale); both redirect errors now resolve in one hop to 200; the old /blind-test/group-*
+URLs 301 to real playable playlists. Sitemap cross-check: the only cross-bucket hit is the
+self-healed ranking, correctly in the sitemap. check:indexability upgraded to
+complete-crawl-by-default (W7c orphan-gate pattern), proven RED on INDEXCHECK_EXTRA=/battle
+then GREEN on all 708, which also empirically proves zero live noindex-in-sitemap
+contradictions.
+
+**The finding that corrects our own record: the live sitemap is 708 URLs, not 3,046.**
+PUSH-GATE-1's verseHidden() skips the entire verse block when VERSE_PUBLIC is not 'true',
+which is the case in production. The 3,046/2,341-verse figure that W7-CLOSE reported as
+"production output" (L-196 era) was measured on a LOCAL build carrying .env.local, where
+VERSE_PUBLIC enables the block. Three independent signals confirm the worker: GSC knows
+only 831 pages total, ZERO verse URLs appear in any GSC bucket, and the worker's live
+crawl counted 708. So the verse-crawl-budget question I raised was moot: verse was already
+pulled from the sitemap by design, minus the deliberate teaser + covenant pair. My mission
+premise was wrong and the worker recomputed instead of repeating it, which is the standing
+rule doing its job. Standing lesson recorded: **"production" means the deployed artefact,
+not a local build with production-looking env.** Same family as the WebFetch cache lesson.
+
+My own external counter-checks this audit were INCONCLUSIVE and are recorded as such:
+WebFetch truncates large documents, so its sitemap count (462) and its artms-page reading
+are unreliable. What its fetch DID prove: the unpublished-quiz URL returns HTTP 200 (a 404
+would have errored the fetch), so notFound-after-shell renders as a **soft 404**: 200 +
+noindex + not-found body. Harmless for indexing (Google honoured the noindex), untidy for
+crawl budget (Google recrawls 200s). Likely tied to every page being dynamic (render-mode,
+L-202 era): a static page would emit a real 404. Filed as debt attached to the layout fix,
+not a mission.
+
+Thin inventory for the catalogue decision later: of 406 published quizzes, 177 under 50
+plays, 80 under 10, 85 with <=5 questions. The 48 crawled-not-indexed are a mix, not one
+story: genuinely thin pages next to 200-play pages Google simply has not admitted yet.
+
+Net GSC verdict, final: 432 non-indexed = 344 queue (authority problem, the unsent
+pitches), ~68 architecture echoes and stale labels (all verified correct), 0 code defects.
+One commit local (09a8835). UI-1 and its polish were pushed by the owner earlier.
+
+## L-216 - PERF-1 audited: PASS. /leaderboard 1.0s -> 0.16s on repeat, layout untouched
+
+The fix is one unstable_cache wrapper (300s, the TTL the page already declared) around the
+14 community reads. Safety proven by reading the factories, not the page comment: all 14
+reads use cookie-free clients, CommunityContent takes no props (both mounts bare), so one
+cache key serves one dataset to everyone. Methodology exemplary: before/after, an untouched
+control (/games, /quizzes unchanged), and a cold-miss sequence (MISS 0.84s, HIT 0.16s).
+Worker correctly declined to fix /games or merge the two sequential batches unasked; both
+become PERF-2. Trade-off recorded: safeFetch fallbacks now sit INSIDE the cached function,
+so a transient DB error during revalidation can pin empty sections for up to 300s (was: one
+ugly request). Accepted, 5-minute blast radius. Also honest: the local build's sitemap is
+verse-inflated (3,047; .env.local carries VERSE_PUBLIC=true) versus production's 708,
+consistent with L-215. Crawl-budget relevance: every ms shaved off served pages feeds
+Google's crawl-rate controller; this is SEO work wearing a perf jacket. 2 commits local.
+
+## L-217 - PERF-2 audited: PASS. /games 0.36s -> 0.01s on repeat, and a negative result reported straight
+
+The /games hub now caches its four reads (unstable_cache, key games-hub-data, the 3600s the
+page already declared). Safety gate done properly again: all four reads cookie-free, and
+pickDaily correctly stays OUTSIDE the cache, computed at render, so the daily rotation
+cannot straddle midnight inside a 3600s entry. Repeat requests ~0.01s (were ~0.36s), MISS
+0.57s once per hour. The batch merge in the community cache produced NO measurable page
+MISS win (0.773s -> 0.745s, within noise) and the report says so plainly instead of
+dressing it: the PERF-1 probe measured cold clients, the built server has a warm pool. The
+merge stays as a free correctness change. That negative result, reported as a negative
+result, is the standing recompute rule working end to end. 3 commits local: 09a8835
+(indexability complete-by-default), 793ddc2 (/leaderboard cache), 05b3c67 (/games cache +
+merge). All three are crawl-budget work: faster served pages feed Google's crawl-rate
+controller, the one technical lever on the August indexation slowdown.
+
+## L-218 - RENDER-FIX audited: PASS. 67 routes regain static/ISR, layout free of dynamic API, no URL moved
+
+The x-pathname hack in the root layout is gone, and with it the dynamic tax it silently
+levied on every page for weeks (L-208/L-215 debt). Fix is the route group I proposed and the
+owner refused in W4b on diff size: a (site) group holds the chrome layout with all 52 page
+routes moved inside (git mv, 100% renames, moved files byte-unchanged - verified in the
+commit), /embed stays at the bare root so its chrome is chosen by folder not a runtime header.
+
+Recomputed from the two route tables, not taken from prose:
+  before   f 362  o 5   . 0   = 367
+  after   f 295  o 64  . 8   = 367
+67 routes flipped dynamic -> static/ISR. The 8 SSG (.) routes are the mass-count ones that
+matter for crawl budget: /q/[slug], /articles/[slug], /u/[username], /personality/[group],
+/games/{match-up,name-them-all,sort-it}/[slug], /data/pulse/[month], all 1h ISR. /q/[slug]
+was the exact route holding the 187 quiz pages stuck in Google's crawl queue.
+
+Path column diffed before vs after: IDENTICAL, 367=367, zero URL changed (route groups are
+invisible in the URL). sitemap.ts / robots.ts git-untouched. Root layout.tsx now matches
+headers()/cookies() only in a comment explaining the removal; middleware x-pathname only in
+a removal comment. Both actually clean.
+
+W4b covenant re-proven on the BUILT artefact, both halves: /embed served HTML and RSC/flight
+payload carry 0 chrome markers, /quizzes carries them in both. The RSC half is the check that
+failed silently in W4b; it passes now.
+
+Safety mirror (the inverted gate): /settings and /onboarding flipped static, investigated,
+both client shells ('use client' / client island) that never server-render user data, proven
+by two anon cookie jars returning byte-identical HTML. /me, /battle, /notifications, /admin
+stay f, correct. No per-user page leaked into static HTML.
+
+One honest miss, named loudly by the worker and endorsed here: proof 4, the soft-404, did NOT
+heal. /q/<unpublished> still returns HTTP 200 + noindex, because notFound() on an ISR
+on-demand render still soft-404s in this Next version. Separate L-215 debt, left open under
+the scope fence rather than fixed while-here. That refusal to widen scope is the standard.
+
+This is the biggest single crawl-budget lever in the whole SEO arc: 67 routes that were slow
+dynamic renders are now static/ISR, which is exactly what feeds Google's crawl-rate
+controller. It is worth nothing until pushed. 4 commits local, unpushed.
+
+## L-219 - SOFT-404 audited: BLOCKED is the correct outcome. But option 3's premise is likely false.
+
+The worker blocked instead of shipping, and the block is sound, not premature. It established
+the mechanism with a clean control instead of guessing: on the ISR (mode ●) /q/[slug],
+notFound() is PRERENDERED as a cacheable HTTP 200 (x-nextjs-prerender:1, s-maxage=3600), even
+on the first on-demand generation; the embed twin /embed/q/[slug], identical notFound() shape
+but mode ƒ (dynamic), returns a real 404. Same call, different render mode, different status.
+The x-nextjs-prerender:1 on a 200 for a bogus slug is the smoking gun. This is a real Next
+16.2.1 limitation, not a worker error. Four candidates tried, each broke an invariant:
+connection() -> 500 DYNAMIC_SERVER_USAGE; notFound()-in-body-only -> still 200; force-dynamic
+-> real 404 but reverts /q from ● to ƒ, undoing RENDER-FIX on the 400+ quiz pages that are the
+crawl-wave target; dynamicParams=false -> forbidden, both hazards re-confirmed (and it found
+the one revalidatePath in the repo is for /u/<username>, not the quiz publish path, which
+sharpens hazard-1 beyond what the mission stated). The block honoured the mission's own rule:
+a soft-404 left open beats a real 404 that eats a freshly published quiz.
+
+Where I add to the worker's write-up: **option 3 (publish-path revalidation makes
+dynamicParams=false safe) rests on a premise I believe is false and must not be treated as the
+cheap durable fix.** Under dynamicParams=false, a slug outside the build-time
+generateStaticParams list returns 404 BEFORE the page component runs; revalidatePath invalidates
+a cached path, it does not add a new param to the allowed set. So adding revalidatePath on
+publish does NOT make a newly-published slug reachable under dynamicParams=false. The only ways
+a new slug becomes reachable there are a full rebuild (a deploy) or something that regenerates
+the static-param set, which revalidatePath is not. If option 3 is ever pursued, proving that a
+brand-new slug serves 200 under dynamicParams=false + revalidatePath is the FIRST gate, and I
+expect it to fail, collapsing option 3 into "redeploy on every publish", which is heavy.
+
+So the real menu is two, not three: accept the soft-404 now (option 1), or PPR later (option 2,
+the only shape that keeps the ● ISR win AND statuses the miss as 404, once PPR is ungated in
+this Next version). The cost of accepting is genuinely low: a soft-404 only affects slugs Google
+already knew and that later went unpublished or deleted; a never-existed slug is never requested.
+That is a small population against the 400+ live quiz pages whose crawl win we are protecting.
+Recommendation to the owner: option 1 now, option 2 (PPR) as the durable fix, option 3 struck
+unless its first gate is proven. Nothing shipped, nothing pushed; the route is byte-identical to
+75dcabb.
+
+## L-220 - SOFT-404 decision: owner ratified option 1. Accepted debt, PPR is the future fix.
+
+Owner ruled option 1: accept the soft-404 now (HTTP 200 + noindex on a dead /q slug, filed by
+Google as soft-404, no worse than today, the RENDER-FIX ISR win untouched). Option 2 (PPR) is
+the durable fix, parked until PPR is ungated in this Next version. Option 3 struck, per L-219:
+its premise (revalidatePath makes dynamicParams=false safe for a new slug) is almost certainly
+false, since an unknown param 404s before the page renders. No code was written; the route is
+byte-identical to 75dcabb. This is now recorded debt, not an open loop. The SOFT-404 mission is
+retired from the bus so no stray trigger re-runs a decided question.
+
+## L-221 - TIERLIST phase 1 audited: PASS. Foundation only, honest clean stop, two of my mission errors caught.
+
+The worker shipped the tested backend foundation and NOTHING user-facing, exactly per the
+mission's own rule (half-built merge = worst outcome, stop at a clean boundary). Audited, not
+taken on trust:
+- Migration 146 (written, owner-gated, NOT applied): tier_lists + tier_list_assets + a public
+  bucket. Schema verified against the real DB - groups.id integer, profiles.id uuid - and it
+  carries a real constraint I did not spell out (tier_lists_public_needs_creator: a public list
+  must have a non-null creator, so anon boards can only be private/unlisted). RLS mirrors
+  064/103. Placements reference bank items by string id in jsonb, no FK - correct.
+- Pure lib src/lib/tier-list/: serialization enforces the load-bearing exactly-once invariant
+  properly (first-occurrence wins on a dupe, unknown ids dropped, removed-tier buckets folded
+  to unranked, unplaced known items to the tray); aggregate fandomAgrees is correct modal-tier
+  math with a sensible tie-break (higher tier in tierOrder wins) and a distribution for the UI.
+  Read both, they are right.
+- 24/24 unit tests green (committed proof docs/proofs/tierlist/unit-tests.txt: "TIERLIST tests
+  passed"). I could not re-run them from device_bash - tsx@4.21.0 hits an ESM loader error
+  under the device VM's Node 22.23.2 - an environment artifact on my side, not a code defect;
+  the worker's own run is green and the logic reads correct. Zero emoji, zero em dashes in the
+  shipped source (grepped).
+
+Two errors in MY mission the worker caught and corrected, both recorded so I do not repeat them:
+(1) I said "reuse the existing Playwright harness" - there IS NO test harness in this repo (no
+vitest, no @playwright/test); tests are bespoke tsx .mts scripts run by the check:* gates. The
+worker refused to add a dep unilaterally and escalated it as an owner decision. (2) My migration
+numbers (154/155, 067/068) did not match the repo; real max is 145, so the file is 146.
+
+Also caught: docs/design is gitignored, so the 10 approved artboards I dropped there are LOCAL
+spec, not versioned. Fixed now with a .gitignore negation for docs/design/tier-list so the pixel
+spec is committed and every future phase/CI sees it.
+
+Re-plan (the feature is multi-session, always was): phase 2 = the migration-INDEPENDENT front
+slice - hub, nav item after Games, home CTA, the whole client maker (drag desktop / tap mobile),
+and the OG share card + native share - all of which work logged-out with no DB, so the owner can
+see and ship a usable, shareable feature WITHOUT applying 146 yet. Phase 3 = the DB half (publish,
+community, fandom-agrees wiring, CRUD, moderation) after 146 is applied. The harness decision
+gates phase 2's e2e and is the owner's to make.
+
+
+## L-222 - TIERLIST phase 2 audited: structure PASS, but NOT product-ready to push (2 real gaps vs owner bar).
+
+Verified myself, not on trust:
+- Scope clean. Only the tier-list namespace plus the 3 authorized host touches (nav item after
+  Games in top-nav-links.tsx, home CTA in (site)/page.tsx, /tier-list added to sitemap +
+  route-allowlist). No "while I am here" creep in 59 changed files.
+- Nothing pushed: 5 commits sit origin/main..HEAD. Migration 146 is a file, NOT applied.
+- Zero emoji: my own scan of 21 shipped tier-list source files, 0 hits (not just the worker grep).
+- Render doctrine held. Hub /tier-list is o (static), self-canonical, in sitemap, allowlisted.
+  /tier-list/new and /tier-list/share are f (dynamic) BUT both carry robots index:false and are
+  NOT in the sitemap, so no crawl-budget regression - they are noindex tools, correct. OG route
+  is a route handler, not an indexed page. Verified the robots + sitemap myself.
+- Tests are real, read the source. e2e share test does request.get on the OG url and asserts
+  content-type image/png (true integration, not a mock). Unit tests cover the exactly-once
+  invariant, the fandom-agrees modal + tie-break math, bank shaping (cover-art fallback chain),
+  and URL state round-trip plus null-on-garbage. Substantive, not stubs.
+- I could NOT re-run the suite from my device VM: vitest 5 dies on a missing rolldown native
+  binding (same class as the tsx ESM artifact in L-221) - my-env problem, not a code defect. The
+  green rests on the worker committed run (13 vitest + 8 desktop e2e) plus my read of the tests.
+- Design spec is now versioned (the 10 .dc.html + canvas.json are committed via git add -f).
+
+Two gaps against the owner's OWN stated bar (product-ready, one session, then push):
+- FINDING 1, the one that matters: the OG SHARE CARD renders items as grey initials-on-gradient
+  tiles, NOT the idol photos. Deliberate worker choice (code comment: the image always composes
+  without a per-face cross-origin fetch). Sound engineering, but the owner said share must be
+  "incredibly beautiful" and for K-pop the faces ARE the product. The share card is the growth
+  engine - the artifact that actually spreads - and it currently ships as grey letters. Fix is to
+  prefetch the photos to data URIs and bake them into the card. NOT migration-gated.
+- FINDING 2: the phase-2 mission scope named the create wizard (CreateSubject + CreatePool) and
+  client-side custom uploads (ImportModal); the worker deferred both. Creation works via the hub
+  plus /tier-list/new?group=&kind=. Worker was honest about it. These complete the approved
+  phase-2 front and are not migration-gated either.
+Nits: the nav "Tier Lists" label wraps to two lines; the mobile e2e run output is absent from the
+proof (only the desktop 8 are shown, though the mobile project exists in the config).
+
+Verdict: do NOT push as "product ready" - it misses the owner's headline share-beauty bar. Recommend
+a tight phase 2.5 patch (real faces in the OG card + the create wizard + client-side ImportModal),
+then push all of phase 2 together. Migration 146 stays for phase 3 only.
+
+
+## L-223 - TIERLIST phase 2.5 audited: PASS. Both owner-validated gaps closed, verified not trusted.
+
+The two things the owner rejected in phase 2 are fixed, and I checked each against the real
+artifact, not the worker word.
+- FIX 1, real photos in the share card. The OG route now prefetches each shown face to a data URI
+  (new og-faces.ts) and embeds it; a face that fails, times out, is off-allowlist, or is a
+  client-only blob falls back to the initials tile. I read the code and looked at the rendered
+  PNGs: share-card.png shows seven real BTS member photos in the tiers; share-card-fallback.png
+  shows three photos plus one "MB" initials tile - graceful per-face degradation, never all-grey,
+  never a 500. Bonus beyond my spec: the worker gated every fetch to isConfiguredImageHost, so the
+  attacker-controllable ?d= state cannot make the edge route fetch an arbitrary URL (SSRF-safe).
+  Local /idols/... paths resolve because isConfiguredImageHost treats a relative path as a local
+  asset and the route passes request origin to absolutise it; coverartarchive + dzcdn are on the
+  allowlist so album/track boards get covers too. Response is cache-hardened (deterministic from d).
+- FIX 2, the create wizard + ImportModal. New noindex /tier-list/create: CreateSubject (search +
+  real group logos + what-to-rank tiles + Start-blank first-class) -> CreatePool -> the maker;
+  ImportModal does client upload -> square crop -> name. Verified by screenshots: the subject step
+  renders real logos; the maker shows a custom "Jung Kook (solo)" item beside the seven real
+  members in the tray (8 items), so the client-only object-URL upload survives pool->board (one
+  mounted client tree keyed by the subject params).
+Also: the nav "Tier Lists" no longer wraps (nit fixed); the mobile Playwright project run is in the
+proof this time.
+
+Verified independently: nothing pushed (6 commits sit origin/main..HEAD); migration 146 is still a
+file, not applied; zero emoji across 25 tier-list source files (my own scan); create is noindex and
+NOT in the sitemap, so no new dupe/orphan and the crawl win holds; scope is confined to the
+tier-list namespace + the create route + the one-char nav change, no creep. The og-faces unit test
+is substantive: it byte-compares the embedded data URI to the source bytes, and exercises every
+fallback path (reject, abort, non-image, off-allowlist skip-without-fetch, dedup, origin resolve,
+cap). A new e2e asserts the bank-board OG PNG is materially larger than the initials-only version
+(photos really embedded). I still could NOT re-run the suite from my device VM (vitest 5 dies on a
+missing rolldown native binding - my-env artifact, same class as L-221's tsx issue); the green
+(22 unit + 19 e2e) rests on the worker committed run plus my read of the tests.
+
+One honest residual, pre-agreed as Phase 3: a CUSTOM upload still falls back to initials in the
+SHARED image (the OG card and the "Save image" PNG both come from the edge route, which cannot
+reach a blob URL, and a full photo data URI will not fit the share URL). The custom item shows in
+the maker; full custom-upload fidelity in the shared/downloaded image needs the asset stored at a
+fetchable moderated URL, which is the Phase 3 storage/moderation work. Bank boards - the dominant
+case - are fully photographed.
+
+Verdict: the phase-2 + phase-2.5 front is product-ready for the two gaps the owner named. Owner
+gates unchanged: push (nothing pushed), and apply 146 only for Phase 3. Phase 3 remains: publish,
+community, fandom-agrees wiring, CRUD, upload storage + moderation.
+
+
+## L-224 - TIERLIST phase 3 audited: PASS. Feature complete end to end. One abuse hole to close (engage).
+
+146 applied by the owner (the earlier BLOCK at PART 0 was correct: the worker probed, found the
+tables absent, built nothing, faked nothing). Note for next time: that probe had NO control query
+against a table that must exist, so it could not itself prove it hit the right database - and this
+repo has a root .env.local still pointing at the DEAD project (fvyuznnyugznzfskgcvy) while the app
+uses rdkgouofytwfdpbxbzio, with several seed scripts reading that root file. The conclusion was
+right anyway, but every future DB probe must include a control row.
+
+Verified myself, not on the worker word:
+- Publish authorisation. A PUBLIC list needs a signed-in creator (401 live, logged out), enforced
+  in publishGate AND backstopped by the 146 constraint. A signed-in insert goes through the COOKIE
+  client so creator RLS forbids forging creator_id; an anon save goes through the service role but
+  is bounded to private/unlisted with creator_id null. The update path uses the service role only
+  behind an explicit ownership check (creator_id = user.id, or anon_id match with creator_id null).
+  sanitizeBoard validates title/tiers/colours and re-enforces the exactly-once invariant with caps
+  (500 items, 26 tiers) at the persistence boundary.
+- Moderation. /api/admin/tier-list-assets/action is isAdmin-gated before the service-role flip
+  (live 401 without an admin session), same rails as /api/admin/verse/action. A PUBLIC list may
+  only use APPROVED assets (409 otherwise); pending assets are additionally hidden from anon reads
+  by RLS, so the public page falls back to the initials tile. Upload allows only jpg/png/webp (no
+  SVG, so no XSS vector), caps 8MB, namespaces the path, and removes the object if the row insert
+  fails.
+- Render + SEO. Published list page is a real ISR page, self-canonical, in the sitemap; UNLISTED
+  renders with robots noindex and is excluded from the sitemap; PRIVATE 404s through RLS; unknown
+  slug 404s; the subject/community page is ISR too; hub stays static; create/new/share/admin stay
+  noindex tools; the sitemap query filters visibility = 'public' explicitly. No existing URL changed.
+- Fandom-agrees is real: computed by the already-tested fandomAgrees over live rows under
+  unstable_cache (300s, tagged), no counter table and no 147, as 146 was designed for. The live
+  verify shows genuine consensus across two seeded lists, and the page screenshot matches.
+- The L-223 seam is CLOSED exactly as predicted: an approved custom asset lives at a *.supabase.co
+  URL already on the isConfiguredImageHost allowlist, so og-faces fetches and embeds it with ZERO
+  OG change. Proof card shows a custom face rendered as a real photo.
+- Discipline: the live verification seeded rows and assets through the real routes and then TORE
+  DOWN every row and storage object (re-query empty). 34 unit tests (11 of them the publish +
+  moderation gate matrix) and 23 e2e green. 36 tier-list source files, zero emoji, zero dashes.
+  Nothing pushed (7 commits local). Scope confined to tier-list + the admin queue + sitemap.
+
+THE ONE REAL HOLE - /api/tier-list/engage (like + view counters):
+- No auth, no rate limit, dedup only in client localStorage. A loop of curl POSTs inflates likes
+  and views without limit.
+- This is not cosmetic: db.ts orders the community list on every subject page by likes desc, so
+  farming likes puts a list at the top of its subject page.
+- Separately it is a read-modify-write (select then update), so concurrent likes LOSE increments.
+  That bug needs NO migration: an atomic increment fixes it on the applied 146.
+The worker disclosed the cross-device idempotency limit honestly (it would need a 147 join table),
+but the atomicity and the abuse surface were closeable now and were not.
+
+Smaller notes: the upload trusts the client-supplied MIME (a forged content-type can store junk as
+.png; no XSS since SVG is excluded and the type is forced image/*, and moderation still gates public
+use) - magic-byte sniffing would harden it. The anon identity is read from the request body rather
+than the cookie (a UUID, so unguessable in practice, and it matches the plays precedent). The
+[slug] page comment calls its notFound a "true 404" while per L-219/220 an ISR notFound is a
+cacheable 200 soft-404; the behaviour matches the site-wide accepted posture, only the comment
+overclaims. The signed-in publish -> approve -> OG flow is not a Playwright e2e (live auth is not
+wired for it) and was verified through the real routes with seeded rows plus teardown; disclosed.
+
+Verdict: the whole tier list feature (phases 1 to 3) is complete and coherent. Fix engage (atomic
+increment, plus an abuse decision: auth-required likes or rate limiting) before this goes public,
+because likes rank a public surface. Then push.
+
+
+## L-225 - TIERLIST phase 3.1 audited: PASS. The engage hole is closed. Feature is push-ready.
+
+147 applied by the owner. The committed `supabase/migrations/147_tier_list_likes.sql` is
+BYTE-IDENTICAL to the SQL that was applied (sha256 8d123fc4... on both sides), so the repo matches
+the database.
+
+The hole from L-224 is properly closed, verified on the live DB, not taken on trust:
+- A like is now a ROW in tier_list_likes owned by a SIGNED-IN user. The route refuses anonymous
+  likes (401 needsAuth) because an anonymous like cannot be made idempotent: a fresh id per request
+  is a fresh like, and this counter orders a public surface. The write goes through the COOKIE
+  client, so the 147 RLS (user_id = auth.uid()) is the real guard and the id is the verified
+  auth.getUser() id, never client-supplied. A concurrent insert that hits the primary key is
+  treated as a benign no-op (23505), not an error.
+- Application code no longer writes tier_lists.likes at all; the 147 trigger owns the counter
+  (grep proof, and only reads remain). Live: two inserts of the same (list_id,user_id) -> the
+  second 409s and the counter reads 1, not 2; unlike returns it to 0; a logged-out like leaves it
+  unchanged.
+- Views bump through the atomic tier_list_bump_view RPC (one UPDATE, no read-modify-write), so
+  concurrent views cannot lose increments, plus a 30/min throttle keyed on the pre-existing
+  anonHash helper. Live burst of 40 -> 27 accepted, 13 rate-limited. The throttle is in-memory and
+  therefore per-instance, which is the repo's existing pattern and acceptable here because views
+  rank nothing.
+- Identity now comes from the httpOnly cookie, not the request body (resolveAnonId: cookie wins,
+  a body value may only mint a first id, never override). The exact attack I flagged was tested
+  live: cookie B plus a body asserting the owner's anon id A -> 403 "You do not own this list."
+- Uploads verify the REAL file type from magic bytes (JPEG/PNG/WEBP; SVG deliberately absent and
+  documented). Live: a text file sent as content-type image/png -> 400; a real jpg -> 200.
+- The [slug] comment that called its notFound a "true 404" now states the accepted posture
+  correctly (a cacheable 200 soft-404 per L-219/L-220). Behaviour unchanged.
+
+Process lesson applied: the phase-3.1 PART 0 probe carries a CONTROL query (groups?slug=eq.bts ->
+200 with the BTS row) and names the live project ref, so the probe proves which database it
+reached. That rule is now written into the proof itself. The dead root .env.local was reported and
+NOT touched (credentials stay the owner's call).
+
+Rest verified: 51 unit + 25 e2e green; render modes unchanged from phase 3 except engage being
+replaced by like + view; hub static, published list and subject pages ISR, tools noindex; SEO gates
+pass; 41 tier-list source files with zero emoji and zero dashes; live seeds torn down (DB + bucket
+clean); nothing pushed (8 commits local); no env file in the commit.
+
+Verdict: the whole tier list feature, phases 1 through 3.1, is complete, hardened and push-ready.
+The only remaining owner gate is the push itself. Open non-blocking items for later, none of them
+tier-list bugs: the view throttle is per-instance, and the repo root .env.local still points at the
+dead Supabase project while several seed scripts read it.
+
+
+## L-226 - TIERLIST phase 3.2 audited: PASS. And a gap I own: the tests have NEVER run in CI.
+
+Phase 3.2 verified, not trusted:
+- Home renders EXACTLY ONE tier-list CTA, in the high slot the personality launch banner used to
+  occupy, and that banner is gone (its own comment always called it a one-only launch banner).
+  The new band is genuinely not slop: it is the only dark element on a cream page so the eye lands
+  on it, the copy is specific, and it carries a miniature S/A/B board with member chips, so it
+  SHOWS the mechanic instead of describing it. Site tokens throughout; the daily pair stays above
+  the fold.
+- WorldToggle removed from `top-nav-bar.tsx` ONLY. It is still in `mobile-top-bar.tsx` and, the
+  part that mattered, still in `verse-topbar.tsx`, so a visitor is not trapped inside the Verse.
+  The footer gained a Verse entry, so the Verse stays reachable on desktop and is not orphaned.
+  Nav at 1280 shows Home / Quizzes / Games / Tier Lists / Blindtest / Community, no wrap, no toggle.
+- The four legacy seed scripts now resolve `apps/quiz/.env.local`, PRINT the target project ref,
+  and REFUSE to write unless SEED_CONFIRM_PROJECT matches it. No env file was edited, moved or
+  deleted, and they were deliberately NOT repointed silently at the live project, which would have
+  armed write-heavy scripts against production data.
+- 51 unit + 26 e2e reported green; zero emoji, zero dashes; main untouched.
+
+THE GAP, and it is mine: there are 8 workflows and NOT ONE runs vitest or playwright. Every test
+green from phase 2 onward has been a log pasted from the worker's own machine, never an independent
+run. My phase-2 mission explicitly asked for "CI: extend the existing gates workflow (or add one)
+so unit + e2e run"; the worker did not do it and I did not catch it in the phase-2 audit. I also
+cannot run the suite myself: device_bash is a Linux VM while node_modules is installed for macOS
+arm64, so the native bindings (tsx, then rolldown/vitest) never load. That is the real reason every
+audit since L-221 has rested on reading test source plus the worker's run. Mission 3.3 fixes it:
+a real workflow, and a CI run is the required proof.
+
+Preview build failure (worker report): diagnosed as missing env in the Vercel Preview scope, not a
+code defect. Verified the falsifiable parts myself: the error is `supabaseUrl is required` across
+every Supabase read app-wide, not tier-list specific; `/leaderboard` was last touched by RENDER-FIX
+(75dcabb) and by no tier-list commit; the sitemap and home paths wrap their reads (try/catch and
+safeFetch) while the `/leaderboard` -> CommunityContent path does not, which is why that one page
+takes the build down. The fix is the owner adding the Supabase vars to the Preview environment.
+I explicitly REFUSED the worker's offer to wrap /leaderboard in safeFetch: that unwrapped read is
+currently the only thing that fails a build when the database is unreachable, so wrapping it would
+let a database-less build ship as a silently empty site and go green. Mission 3.3 replaces the
+accidental canary with a deliberate env preflight that names the missing variable, and keeps the
+hard failure.
+
+Sequence agreed with the owner: CI green first, then preview, then production.
+
+
+## L-227 - TIERLIST phase 3.3 audited: PASS, and this time the green is independently verified.
+
+The gap from L-226 is closed. `.github/workflows/tests.yml` now runs the suite on a real runner:
+a `unit` job (no secrets, every push and PR) and an `e2e` job (installs bundled Chromium, builds,
+starts on :3021, runs the suite with the existing QUIZ_SUPABASE_* anon secrets, gated to PRs, main
+and preview/**). `playwright.config.ts` is CI-aware: channel 'chrome' locally, bundled Chromium on
+CI. seo-gates.yml is untouched (empty diff), as required.
+
+I verified the run MYSELF rather than trusting the pasted link, which is the whole point of this
+phase. The repo is public, so api.github.com answers unauthenticated from the device shell:
+- run 34841673270, head 91dc629, branch preview/verse-stack: completed / SUCCESS. Job steps show
+  unit actually ran `test:unit`, and e2e actually ran install, Playwright Chromium, build, start
+  on :3021 and `test:e2e`. The report upload is skipped because it is `if: failure()`.
+- The branch head had ALREADY moved past the commit the worker reported (c04fac5, not 91dc629),
+  with its run still in flight when the report landed. I waited for it: run 34842080647, head
+  c04fac5, completed / SUCCESS, and BOTH jobs ran their real steps (not an e2e skipped by the
+  `if:`). So the current branch head is green, not just the reported commit.
+- I read the YAML looking for a hollow green: no `continue-on-error`, no `if: false`, and the only
+  `|| true` / `exit 0` sit inside the wait-for-server readiness poll, which is correct usage.
+  `test:unit` and `test:e2e` run bare, so a failing test fails the job.
+
+ITEM 2: `check:env` is chained into the build BEFORE `next build`
+(`check:routes && check:verse-tokens && check:env && next build`). It asserts
+NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, fails at the top naming the missing
+variable and the environment, and never prints a value. `/leaderboard` was left unwrapped on
+purpose, as I directed: it is the only thing that fails a build when the database is unreachable,
+so wrapping it would let a database-less build ship as a silently empty site.
+
+Coverage stated honestly, so the green is not over-read: 51 unit (pure) and 26 e2e passed with 8
+skipped, under the ANON key only. NOT covered by CI: any signed-in creator or admin path (no
+runner session), so publish-as-creator, like-as-user, and moderation approval remain the live
+checks done in phases 3 and 3.1. Also NOT covered: the preflight only guards the two PUBLIC vars,
+so a missing SUPABASE_SERVICE_ROLE_KEY still builds green and would only fail at runtime on the
+anon save, upload and view routes. The owner must set that key in the Vercel Preview scope too.
+
+State of the gates: `refs/heads/main` is still 75dcabb (RENDER-FIX), so NOTHING of the tier-list
+work is on production; the whole feature sits on preview/verse-stack. Remaining owner gates: add
+the Supabase vars to the Vercel Preview scope, deploy preview, run docs/loop/POST-PUSH-SMOKE.md,
+then fast-forward main.
+
+
+## L-228 - TIERLIST phase 3.4 audited: PASS. The three defects the OWNER found by playing are fixed.
+
+All three were invisible to CI, to 51 unit + 26 e2e, and to my own audits. They were found by the
+owner clicking around the preview. That is the single most useful lesson of this whole build.
+- Blank board dead end: the maker toolbar now carries "Add images". The ImportModal was EXTRACTED
+  into its own component (the creator shrank by 126 lines) rather than duplicated, as directed. The
+  empty tray no longer lies: it shows "No items yet. Add images to start." as a dropzone when the
+  board has nothing, and keeps "Everything is ranked." only when items exist and are all placed.
+- The empty "General K-pop members" template: the catch-all pseudo-group (slug general-kpop) has a
+  logo but no idols, so the subject resolved to []. It now means the WHOLE bank:
+  getAllBankMembers reads every real group (excluding is_custom, needs_review and the catch-all
+  itself), photo-only, ordered by the existing quiz_count ranking, capped at 120. The live board
+  shows "K-pop idols (all groups), 118 items loaded" with real faces across BTS, BLACKPINK,
+  Stray Kids and more. Submitting a missing idol goes through the EXISTING custom-asset upload and
+  moderation; I verified no tier-list path writes to the official `idols` table (the only writes to
+  it are pre-existing Verse routes, untouched) and no migration was added.
+- The narrow board: I had guessed the cause was .tl-wrap at 1120px plus the 300px tray. I was
+  wrong, and the worker measured instead of trusting me: the real constraint is the (site) layout
+  capping <main> at 720px. A .tl-wide opt-in breaks the maker out of that parent and centres it at
+  min(1440px, 100vw - 32px), reverting on phone. Measured: 2 faces per row before, 8 at viewport
+  1280 and 10 at 1440 after, with no horizontal scroll. Only the maker opts in.
+- The trap I flagged is closed: CARRY_CAP 80 bounds BOTH the share link and the challenge link
+  (which used allItems and would otherwise have put a 118-item pool into a URL), ranked items
+  prioritised, covered by a test.
+
+Verified independently, not on the worker word: CI run 34847958584 on head 3a4a067 is green, both
+jobs ran their real steps, and local HEAD equals the remote branch head this time (last phase the
+reported run was on a commit the branch had already moved past). 55 unit + 32 e2e, up from 51 + 26.
+main is still 75dcabb, untouched. 38 tier-list source files, zero emoji, zero dashes, migrations
+still 146 and 147 only.
+
+Confirmed for the owner, with proof from his own screenshots: grey faces on the preview share card
+are EXPECTED. The maker shows photos because the browser carries the Vercel SSO cookie; the OG
+route fetches server side without one and falls back per face. It is the Deployment Protection,
+not a regression, and it will render photos on the custom domain.
+
+Recommendation recorded: redeploy the preview at 3a4a067 and spend ten minutes using it before the
+production fast-forward. Every defect in this feature that mattered was found by hands-on use, not
+by a green suite.
