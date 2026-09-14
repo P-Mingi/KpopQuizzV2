@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { getAnonId } from '@/lib/anon-id';
 import { TIER_PRESET_LABELS, tiersForPreset, type TierPreset } from '@/lib/tier-list/defaults';
 import { SUBJECT_KIND_LABEL } from '@/lib/tier-list/subject';
 import { TierMaker } from '@/components/tier-list/tier-maker';
+import { ImportModal } from '@/components/tier-list/import-modal';
 
 import type { SubjectKind, TierListItem } from '@/lib/tier-list/types';
 
@@ -131,7 +131,7 @@ export function TierListCreator({ groups, initialGroup, initialGroupId, initialK
   // -- Rank step: hand the assembled pool to the maker (same mounted client). --
   if (step === 'rank') {
     return (
-      <div className="tl tl-wrap">
+      <div className="tl tl-wrap tl-wide">
         <Stepper step="rank" />
         <div className="tl-kick" style={{ marginBottom: 2 }}>KpopQuiz Tier Lists</div>
         <h1 className="tl-d2" data-testid="maker-title">{title}</h1>
@@ -305,128 +305,6 @@ export function TierListCreator({ groups, initialGroup, initialGroupId, initialK
       <p className="tl-note" style={{ marginTop: 22 }}>
         The official bank keeps one moderated, square image per idol, release and track, so picking a subject auto-loads its items with photos and you write nothing. Custom uploads are added in the next step and stay on your device this phase.
       </p>
-    </div>
-  );
-}
-
-// -- ImportModal (ImportModal.dc.html): client upload -> square crop -> name. --
-const MAX_BYTES = 8 * 1024 * 1024;
-const CROP_SIZE = 400;
-
-function ImportModal({ onClose, onAdd, existingCount }: { onClose: () => void; onAdd: (item: TierListItem) => void; existingCount: number }) {
-  const [srcUrl, setSrcUrl] = useState<string | null>(null);
-  const [imgEl, setImgEl] = useState<HTMLImageElement | null>(null);
-  const [name, setName] = useState('');
-  const [zoom, setZoom] = useState(1);
-  const [error, setError] = useState<string>('');
-  const [busy, setBusy] = useState(false);
-  const fileRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => () => { if (srcUrl) URL.revokeObjectURL(srcUrl); }, [srcUrl]);
-
-  function onFile(file: File | undefined) {
-    setError('');
-    if (!file) return;
-    if (!file.type.startsWith('image/')) { setError('That is not an image file.'); return; }
-    if (file.size > MAX_BYTES) { setError('Image is over 8MB. Pick a smaller one.'); return; }
-    if (srcUrl) URL.revokeObjectURL(srcUrl);
-    const url = URL.createObjectURL(file);
-    setSrcUrl(url);
-    const img = new Image();
-    img.onload = () => setImgEl(img);
-    img.onerror = () => setError('Could not read that image.');
-    img.src = url;
-    if (!name) setName(file.name.replace(/\.[^.]+$/, '').slice(0, 40));
-  }
-
-  async function add() {
-    if (!imgEl || busy) return;
-    setBusy(true);
-    try {
-      const canvas = document.createElement('canvas');
-      canvas.width = CROP_SIZE; canvas.height = CROP_SIZE;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('no ctx');
-      // Cover-fit the source into the square, then apply the zoom around centre:
-      // a genuine centre square crop matching the preview.
-      const base = Math.max(CROP_SIZE / imgEl.naturalWidth, CROP_SIZE / imgEl.naturalHeight);
-      const scale = base * zoom;
-      const dw = imgEl.naturalWidth * scale;
-      const dh = imgEl.naturalHeight * scale;
-      ctx.drawImage(imgEl, (CROP_SIZE - dw) / 2, (CROP_SIZE - dh) / 2, dw, dh);
-      const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/jpeg', 0.9));
-      if (!blob) throw new Error('no blob');
-      const label = name.trim() || `Item ${existingCount + 1}`;
-
-      // Persist the cropped image to the moderated asset store so it survives a
-      // publish (and can reach the share card once approved). If the upload fails,
-      // fall back to a client-only object URL: the item still works in this local
-      // draft, it just cannot be published or embedded until it is uploaded.
-      try {
-        const fd = new FormData();
-        fd.append('file', blob, 'custom.jpg');
-        fd.append('name', label);
-        const anon = getAnonId();
-        if (anon) fd.append('anonId', anon);
-        const r = await fetch('/api/tier-list/asset', { method: 'POST', body: fd });
-        if (r.ok) {
-          const j = await r.json();
-          onAdd({ id: j.itemId as string, kind: 'custom', name: label, image_url: j.url as string });
-          return;
-        }
-      } catch { /* fall through to client-only */ }
-      onAdd({ id: `custom:${crypto.randomUUID()}`, kind: 'custom', name: label, image_url: URL.createObjectURL(blob) });
-    } catch {
-      setError('Could not crop that image.');
-      setBusy(false);
-    }
-  }
-
-  return (
-    <div className="tl-modal-backdrop" role="dialog" aria-modal="true" aria-label="Add an item" data-testid="import-modal" onClick={onClose}>
-      <div className="tl-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="tl-betw" style={{ padding: '18px 22px', borderBottom: '1px solid var(--border)' }}>
-          <div className="tl-d2" style={{ margin: 0, fontSize: 20 }}>Add an item</div>
-          <button type="button" className="tl-iconbtn" aria-label="Close" onClick={onClose}>
-            <Icon d="M18 6L6 18M6 6l12 12" size={16} />
-          </button>
-        </div>
-        <div style={{ padding: 20 }}>
-          <input ref={fileRef} type="file" accept="image/*" data-testid="import-file" style={{ display: 'none' }} onChange={(e) => onFile(e.target.files?.[0])} />
-          {!imgEl ? (
-            <button type="button" className="tl-dropzone" style={{ width: '100%' }} onClick={() => fileRef.current?.click()}>
-              <Icon d="M12 3v13m0-13l-4 4m4-4l4 4M4 21h16" size={30} />
-              <span>Choose an image to upload</span>
-              <span className="tl-mut">PNG / JPG / WEBP · up to 8MB</span>
-            </button>
-          ) : (
-            <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-              <div style={{ textAlign: 'center' }}>
-                <div className="tl-crop">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {srcUrl && <img src={srcUrl} alt="" style={{ transform: `scale(${zoom})` }} />}
-                </div>
-                <button type="button" className="tl-chip sm" style={{ marginTop: 8 }} onClick={() => fileRef.current?.click()}>Replace</button>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-                <div>
-                  <div className="tl-kick mute" style={{ marginBottom: 5 }}>Name</div>
-                  <input className="tl-input" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} placeholder="e.g. Jung Kook (solo)" aria-label="Item name" data-testid="import-name" />
-                </div>
-                <div>
-                  <div className="tl-kick mute" style={{ marginBottom: 5 }}>Zoom</div>
-                  <input type="range" min={1} max={3} step={0.01} value={zoom} onChange={(e) => setZoom(Number(e.target.value))} aria-label="Zoom" style={{ width: '100%' }} />
-                </div>
-              </div>
-            </div>
-          )}
-          {error && <p className="tl-mut" role="alert" style={{ color: 'var(--wrong, #A32D2D)', marginTop: 10 }}>{error}</p>}
-          <div className="tl-betw" style={{ justifyContent: 'flex-end', gap: 8, marginTop: 20 }}>
-            <button type="button" className="tl-btn out" onClick={onClose}>Cancel</button>
-            <button type="button" className="tl-btn pri" onClick={add} disabled={!imgEl || busy} data-testid="import-add">Add to pool</button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

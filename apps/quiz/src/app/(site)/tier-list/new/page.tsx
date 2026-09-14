@@ -1,5 +1,5 @@
 import { getGroupBySlug } from '@/lib/db/queries/groups';
-import { getBankItems } from '@/lib/tier-list/bank';
+import { getBankItems, getAllBankMembers, GENERAL_SLUG } from '@/lib/tier-list/bank';
 import { SUBJECT_KIND_LABEL, parseKind } from '@/lib/tier-list/subject';
 import { decodeBoard } from '@/lib/tier-list/share-state';
 import { TierMaker } from '@/components/tier-list/tier-maker';
@@ -25,6 +25,7 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
   let boardId = 'blank';
   let subjectGroupId: number | null = null;
   let subjectKind: typeof kind = 'blank';
+  let emptySubject = false;
 
   // Challenge / shared item set: reopen the same items on an empty board.
   if (sp.d) {
@@ -36,6 +37,12 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
       subjectGroupId = board.subjectGroupId ?? null;
       subjectKind = board.subjectKind ?? 'blank';
     }
+  } else if (sp.group === GENERAL_SLUG && kind !== 'blank') {
+    // The catch-all subject means the WHOLE bank, not one empty group row.
+    items = await getAllBankMembers();
+    title = 'K-pop idols (all groups)';
+    boardId = 'general-members';
+    subjectKind = 'members';
   } else if (sp.group && kind !== 'blank') {
     const group = await getGroupBySlug(sp.group);
     if (group) {
@@ -44,16 +51,22 @@ export default async function NewTierListPage({ searchParams }: Props): Promise<
       boardId = `${group.slug}-${kind}`;
       subjectGroupId = group.id;
       subjectKind = kind;
+      // A named subject that resolved to nothing must not silently look blank.
+      emptySubject = items.length === 0;
     }
   }
 
+  const lead = items.length > 0
+    ? `${items.length} items loaded.`
+    : emptySubject
+      ? `We could not load items for "${title}" yet. Add your own with Add images below, or pick another subject on the hub.`
+      : 'Blank board. Add your own items with Add images, or start from a subject on the hub.';
+
   return (
-    <div className="tl tl-wrap">
+    <div className="tl tl-wrap tl-wide">
       <div className="tl-kick" style={{ marginBottom: 2 }}>KpopQuiz Tier Lists</div>
       <h1 className="tl-d2" data-testid="maker-title">{title}</h1>
-      <p className="tl-mut" style={{ marginBottom: 18 }}>
-        {items.length > 0 ? `${items.length} items loaded.` : 'Blank board. Add your own items, or start from a subject on the hub.'}
-      </p>
+      <p className="tl-mut" style={{ marginBottom: 18 }} data-testid={emptySubject ? 'empty-subject' : undefined}>{lead}</p>
       <TierMaker items={items} boardId={boardId} title={title} subjectGroupId={subjectGroupId} subjectKind={subjectKind} />
     </div>
   );

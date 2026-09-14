@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { getAllGroups } from '@/lib/db/queries/groups';
+import { GENERAL_SLUG } from '@/lib/tier-list/bank';
 import { safeFetch } from '@/lib/error-handling';
 import { getRecentPublicLists } from '@/lib/tier-list/db';
 
@@ -28,12 +29,17 @@ interface Template { slug: string; name: string; kind: 'members' | 'tracks' | 'a
 export default async function TierListHub(): Promise<React.ReactElement> {
   const groups = await safeFetch(getAllGroups(), [], '[tier-list] groups');
   const trending = await safeFetch(getRecentPublicLists(8), [], '[tier-list] trending');
-  // A featured set from the bank: the first groups that have a logo, as members
-  // templates (always populated). Real, not invented.
-  const featured: Template[] = (groups as Array<{ slug: string; name: string; logo_url: string | null; display_color?: string }>)
-    .filter((g) => g.logo_url)
-    .slice(0, 8)
-    .map((g) => ({ slug: g.slug, name: g.name, kind: 'members', kindLabel: 'members', logo: g.logo_url, color: g.display_color ?? '#E8457A' }));
+  // A featured set from the bank. The catch-all "general-kpop" row has a logo but
+  // no idols of its own, so it must NOT ride the auto loop (it would open an empty
+  // board). It is offered as an explicit "K-pop idols" tile that resolves to the
+  // WHOLE bank (getAllBankMembers). Custom/unreviewed groups are excluded too.
+  const rows = groups as Array<{ slug: string; name: string; logo_url: string | null; display_color?: string; is_custom?: boolean; needs_review?: boolean }>;
+  const general = rows.find((g) => g.slug === GENERAL_SLUG);
+  const realGroups = rows.filter((g) => g.logo_url && !g.is_custom && !g.needs_review && g.slug !== GENERAL_SLUG);
+  const featured: Template[] = [
+    { slug: GENERAL_SLUG, name: 'K-pop idols', kind: 'members', kindLabel: 'all groups', logo: general?.logo_url ?? null, color: general?.display_color ?? '#E8457A' },
+    ...realGroups.slice(0, 7).map((g) => ({ slug: g.slug, name: g.name, kind: 'members' as const, kindLabel: 'members', logo: g.logo_url, color: g.display_color ?? '#E8457A' })),
+  ];
 
   const chips = ['All', 'Members', 'Title tracks', 'Albums', 'Girl groups', 'Boy groups', '4th gen', 'Soloists'];
 

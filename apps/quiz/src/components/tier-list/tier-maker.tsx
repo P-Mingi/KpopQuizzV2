@@ -5,6 +5,7 @@ import { useEffect, useReducer, useRef, useState, useCallback } from 'react';
 import { ADDABLE_TIER_COLORS, UNRANKED, defaultTiers } from '@/lib/tier-list/defaults';
 import { buildInitialPlacements, normalizePlacements } from '@/lib/tier-list/serialization';
 import { encodeBoard } from '@/lib/tier-list/share-state';
+import { ImportModal } from '@/components/tier-list/import-modal';
 
 import type { Placements, SubjectKind, Tier, TierListItem } from '@/lib/tier-list/types';
 
@@ -120,9 +121,15 @@ export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId 
   items: TierListItem[]; boardId: string; title: string; initialTiers?: Tier[];
   subjectGroupId?: number | null; subjectKind?: SubjectKind;
 }) {
-  const byId = new Map(items.map((i) => [i.id, i]));
+  // Items the user uploads from the maker toolbar live here and merge with the
+  // bank/blank items the board opened with, so an item can be added to ANY board,
+  // a blank one included. The reducer is recreated with the CURRENT full list each
+  // render, so a freshly added id normalises correctly on the next action.
+  const [extraItems, setExtraItems] = useState<TierListItem[]>([]);
+  const allItems = extraItems.length ? [...items, ...extraItems] : items;
+  const byId = new Map(allItems.map((i) => [i.id, i]));
   const [history, dispatch] = useReducer(
-    historyReducer(items),
+    historyReducer(allItems),
     undefined,
     (): HistoryState => {
       const tiers = initialTiers && initialTiers.length ? initialTiers : defaultTiers();
@@ -135,7 +142,15 @@ export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId 
   const [dragId, setDragId] = useState<string | null>(null);
   const [dropBucket, setDropBucket] = useState<string | null>(null);
   const [editing, setEditing] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
   const loadedRef = useRef(false);
+
+  // Revoke any client-only blob URLs from maker uploads when the board unmounts.
+  const extraRef = useRef<TierListItem[]>([]);
+  extraRef.current = extraItems;
+  useEffect(() => () => {
+    for (const it of extraRef.current) if (it.image_url?.startsWith('blob:')) URL.revokeObjectURL(it.image_url);
+  }, []);
 
   // Load a saved board once, on mount (client only).
   useEffect(() => {
@@ -165,8 +180,13 @@ export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId 
 
   const unranked = (placements[UNRANKED] ?? []).map((id) => byId.get(id)).filter(Boolean) as TierListItem[];
 
+  function onAddImage(item: TierListItem) {
+    setExtraItems((prev) => [...prev, item]);
+    dispatch({ type: 'place', itemId: item.id, bucket: UNRANKED });
+  }
+
   function share() {
-    const d = encodeBoard({ title, tiers, placements, items, subjectGroupId, subjectKind });
+    const d = encodeBoard({ title, tiers, placements, items: allItems, subjectGroupId, subjectKind });
     window.location.assign(`/tier-list/share?d=${d}`);
   }
 
@@ -183,9 +203,13 @@ export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId 
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
           Add tier
         </button>
-        <button type="button" className="tl-chip sm" onClick={() => dispatch({ type: 'reset', items })}>
+        <button type="button" className="tl-chip sm" onClick={() => dispatch({ type: 'reset', items: allItems })}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></svg>
           Reset
+        </button>
+        <button type="button" className="tl-chip sm" onClick={() => setImportOpen(true)} data-testid="maker-add-images">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16l4.5-4.5a2 2 0 0 1 2.8 0L16 16" /><path d="M14 14l1.5-1.5a2 2 0 0 1 2.8 0L20 14" /><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /></svg>
+          Add images
         </button>
         <div style={{ flex: 1 }} />
         <button type="button" className="tl-btn grad sm" onClick={share} data-testid="share-btn">
@@ -251,15 +275,25 @@ export function TierMaker({ items, boardId, title, initialTiers, subjectGroupId 
             onDrop={(e) => { e.preventDefault(); const id = e.dataTransfer.getData('text/plain') || dragId; if (id) dispatch({ type: 'place', itemId: id, bucket: UNRANKED }); setDropBucket(null); setDragId(null); }}
             onClick={() => onTap(UNRANKED)}
           >
-            {unranked.length === 0 ? <span className="tl-mut">Everything is ranked.</span> : unranked.map((it) => (
+            {unranked.length === 0 ? (
+              allItems.length === 0 ? (
+                <button type="button" className="tl-dropzone" style={{ width: '100%' }} onClick={() => setImportOpen(true)} data-testid="tray-empty-add">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14" /></svg>
+                  <span>No items yet. Add images to start.</span>
+                  <span className="tl-mut">Upload your own, or open a group from the hub.</span>
+                </button>
+              ) : <span className="tl-mut">Everything is ranked.</span>
+            ) : unranked.map((it) => (
               <Face key={it.id} item={it} picked={picked === it.id} dragging={dragId === it.id}
                 onPick={() => setPicked(picked === it.id ? null : it.id)}
                 onDragStart={() => setDragId(it.id)} onDragEnd={() => setDragId(null)} />
             ))}
           </div>
-          <p className="tl-mut" style={{ marginTop: 10 }}>Drag a card onto a tier. On phone, tap a card then tap a tier.</p>
+          <p className="tl-mut" style={{ marginTop: 10 }}>Drag a card onto a tier. On phone, tap a card then tap a tier. Add your own with Add images.</p>
         </div>
       </div>
+
+      {importOpen && <ImportModal onClose={() => setImportOpen(false)} onAdd={onAddImage} existingCount={extraItems.length} />}
     </div>
   );
 }

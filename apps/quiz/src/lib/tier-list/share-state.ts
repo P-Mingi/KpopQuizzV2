@@ -27,6 +27,13 @@ interface Wire {
   s?: [number | null, SubjectKind];
 }
 
+// Bound the items carried in a link so even a large board (the general all-bank
+// board can hold ~120 idols) stays well under browser/server URL limits. The OG
+// card only ever draws a few faces per tier, and a Challenge reopens a playable
+// set, so a cap loses nothing important. A board past this many carried items has
+// its list truncated (ranked items are prioritised in the default link).
+export const CARRY_CAP = 80;
+
 function toBase64Url(bytes: Uint8Array): string {
   let bin = '';
   for (const b of bytes) bin += String.fromCharCode(b);
@@ -53,7 +60,11 @@ export function encodeBoard(board: SharedBoard, opts?: { allItems?: boolean }): 
     p[bucket] = ids;
     for (const id of ids) ranked.add(id);
   }
-  const carried = opts?.allItems ? board.items : board.items.filter((it) => ranked.has(it.id));
+  // Default link carries ranked items (prioritised) first; the challenge link
+  // (allItems) carries the whole set. Both are capped at CARRY_CAP so an oversized
+  // general board cannot blow the URL length.
+  const base = opts?.allItems ? board.items : board.items.filter((it) => ranked.has(it.id));
+  const carried = base.slice(0, CARRY_CAP);
   const wire: Wire = {
     t: board.title,
     k: board.tiers.map((tier) => [tier.label, tier.color]),

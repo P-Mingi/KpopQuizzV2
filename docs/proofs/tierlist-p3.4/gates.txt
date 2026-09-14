@@ -1,0 +1,14 @@
+# SEO gates - TIERLIST phase 3.4 (2026-09-14), server :3021
+=== check:docs-secrets ===
+PASS
+Docs secret gate: scanned 694 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+Docs secret gate passed: no credential-shaped value in any tracked doc.
+
+=== check:routes ===
+PASS
+Route allowlist guard passed: 377 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+=== check:indexability ===

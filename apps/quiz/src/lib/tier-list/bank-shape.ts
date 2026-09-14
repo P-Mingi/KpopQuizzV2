@@ -23,3 +23,11 @@ export function shapeAlbums(rows: AlbumRow[]): TierListItem[] {
 export function shapeTracks(rows: SongRow[]): TierListItem[] {
   return rows.map((r) => ({ id: `song:${r.id}`, kind: 'track', name: r.title, image_url: r.album_cover_big ?? r.album_cover_medium ?? null }));
 }
+
+// The whole-bank members path (getAllBankMembers): order rows so idols from the
+// best-known groups come first (rankById = group id -> rank, lower is better),
+// keep only idols that actually have a photo, and cap. Pure so it is unit-tested.
+export function orderAndCapMembers(rows: (IdolRow & { group_id: number })[], rankById: Map<number, number>, cap: number): TierListItem[] {
+  const sorted = [...rows].sort((a, b) => (rankById.get(a.group_id) ?? Number.MAX_SAFE_INTEGER) - (rankById.get(b.group_id) ?? Number.MAX_SAFE_INTEGER));
+  return shapeMembers(sorted).filter((it) => it.image_url).slice(0, cap);
+}

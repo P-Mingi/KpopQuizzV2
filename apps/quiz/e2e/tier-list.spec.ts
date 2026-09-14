@@ -228,4 +228,43 @@ test.describe('maker', () => {
     const initialsBytes = (await initials.body()).length;
     expect(photoBytes).toBeGreaterThan(initialsBytes);
   });
+
+  // ITEM 1 regression: a blank board must never be a dead end. The maker toolbar
+  // exposes Add images, adding one lands it in the tray, and it can be placed.
+  test('Start blank: add-images control adds an item to the tray and it is placeable', async ({ page }) => {
+    await page.goto('/tier-list/new');
+    await expect(page.getByTestId('tl-board')).toBeVisible();
+    await expect(page.getByTestId('tray').locator('.tl-face')).toHaveCount(0);
+    await expect(page.getByTestId('tray-empty-add')).toBeVisible(); // empty tray invites, does not lie
+    await page.getByTestId('maker-add-images').click();
+    await expect(page.getByTestId('import-modal')).toBeVisible();
+    const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/pLvAAAAAElFTkSuQmCC', 'base64');
+    await page.getByTestId('import-file').setInputFiles({ name: 'bias.png', mimeType: 'image/png', buffer: png });
+    await page.getByTestId('import-name').fill('My Bias');
+    await page.getByTestId('import-add').click();
+    const face = page.getByTestId('tray').locator('.tl-face[aria-label="My Bias"]');
+    await expect(face).toBeVisible();
+    await face.click();
+    await page.getByTestId('tier-S').click();
+    await expect(page.getByTestId('tier-S').locator('.tl-face[aria-label="My Bias"]')).toBeVisible();
+  });
+
+  // ITEM 2: the general/catch-all subject loads the whole bank, never an empty board.
+  test('General K-pop template opens a non-empty pool', async ({ page }) => {
+    await page.goto('/tier-list/new?group=general-kpop&kind=members');
+    await expect(page.getByTestId('tl-board')).toBeVisible();
+    await expect(page.getByTestId('maker-title')).toContainText('K-pop idols');
+    await expect(page.getByTestId('tray').locator('.tl-face').first()).toBeVisible();
+    expect(await page.getByTestId('tray').locator('.tl-face').count()).toBeGreaterThan(5);
+  });
+
+  // ITEM 2: no featured template may silently resolve to an empty board.
+  test('a featured template never opens an empty board', async ({ page }) => {
+    await page.goto('/tier-list');
+    const first = page.getByTestId('featured').locator('a').first();
+    await expect(first).toHaveAttribute('href', /group=general-kpop/);
+    await first.click();
+    await expect(page.getByTestId('tl-board')).toBeVisible();
+    await expect(page.getByTestId('tray').locator('.tl-face').first()).toBeVisible();
+  });
 });

@@ -43,4 +43,13 @@ describe('share-state encode/decode (URL state, no DB)', () => {
     expect(decodeBoard('not-valid-base64!!')).toBeNull();
     expect(decodeBoard('')).toBeNull();
   });
+
+  it('caps the challenge (allItems) link so a large general board fits a URL', () => {
+    const big: TierListItem[] = Array.from({ length: 200 }, (_, i) => ({ id: `idol:${i}`, kind: 'member', name: `Idol ${i}`, image_url: null }));
+    const enc = encodeBoard({ title: 'K-pop idols', tiers, placements: {}, items: big }, { allItems: true });
+    const dec = decodeBoard(enc)!;
+    expect(dec.items.length).toBe(80); // CARRY_CAP
+    // The encoded param stays well under browser URL limits (~a few KB, not tens).
+    expect(enc.length).toBeLessThan(8000);
+  });
 });
