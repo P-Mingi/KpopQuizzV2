@@ -1,82 +1,86 @@
-# REPORT - TIERLIST phase 3.4: blank board can add items, General K-pop loads the whole bank, wider maker. Preview push only.
+# REPORT - TIERLIST prod hotfix: three launch bugs fixed, verified on the LIVE domain, shipped to production.
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). Three functional defects from the owner's preview
-playtest, all fixed. Built and proven on `next build` + `next start` (:3021), never dev; CI green on
-a real runner. No push to main, no change to og-faces/OG route, no new migration, no env file
-touched, no em dashes, zero emoji. Proofs: `docs/proofs/tierlist-p3.4/`.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). The owner hit three real bugs on the live tier list.
+Each root cause was VERIFIED against production (the auditor could not reach it), fixed, covered by
+tests, and re-verified on the live domain. CI green on the branch (PR #22). The owner then authorised
+production, so `main` was fast-forwarded and the prod deploy is READY. No migration, no env file, no
+em dashes, zero emoji.
 
-Context confirmed, not "fixed": on the preview the share card shows initials because Vercel SSO
-(all_except_custom_domains) 401s the edge route's fetch of its own /idols assets; it will render
-photos on the production domain. og-faces and the OG route are untouched.
+## BUG 1 - share card showed grey initials / the shared link unfurled with a generic image
 
-## ITEM 1 - the blank board is no longer a dead end
+Verified on production: every members board's photos are LOCAL `/idols/*` paths, and the OG route
+resolved them against `request.nextUrl.origin`. That origin is the host the route is reached on; on
+the SSO-protected deployment alias (`*.vercel.app`, `all_except_custom_domains`) a fetch 401s and
+every face falls back to initials, and because the response is cached a single such render poisons
+the card. Separately, the share page set no `og:image`, so a shared link unfurled with the site
+default `og-default.png` (the "grey card" the owner saw when sharing).
 
-- Extracted `ImportModal` to a shared component (`src/components/tier-list/import-modal.tsx`) so the
-  wizard AND the maker use ONE uploader, reusing the existing `/api/tier-list/asset` path (upload to
-  the moderated `tier_list_assets` store, pending; client object-URL fallback on failure).
-- Added an "Add images" control to the maker toolbar (`tier-maker.tsx`). It works on ANY board
-  (blank or a subject board). Multi-select: several files chosen at once are processed as a queue,
-  each cropped square + named, each landing in the Unranked tray. Runtime uploads merge into the
-  board via `extraItems` and are placed into unranked; their blob URLs are revoked on unmount.
-- The empty tray stopped lying: a board with nothing shows an invite that opens the importer
-  instead of "Everything is ranked." (which now only shows when items exist and are all ranked).
-- e2e regression lock: from Start blank, the toolbar exposes Add images, adding one lands it in the
-  tray, and it can be placed on a tier.
+Fix: the OG route resolves local paths against a STABLE public base (`og-faces.publicImageBase`:
+`NEXT_PUBLIC_SITE_URL` when it is an absolute https origin, else the production domain), NEVER the
+request origin, so the card is independent of the host it is reached on. And `share/page.tsx` now
+sets `og:image` (via `generateMetadata`) to the board's OWN card, absolute on the public domain.
 
-## ITEM 2 - "General K-pop members" now means the whole bank
+Live proof (kpopquiz.org): the OG card returns `image/png` 197239 bytes with REAL photos
+(`prod-og-photos.png`), and `/tier-list/share?d=` carries
+`og:image = https://kpopquiz.org/api/og/tier-list?d=<board>`, not og-default.
 
-- New `getAllBankMembers` (`bank.ts`): members across every real group, photo-only, ordered so the
-  best-known groups come first (the `getAllGroups` quiz_count ranking), capped at
-  `GENERAL_MEMBERS_CAP = 120`. Pure order/cap logic is `orderAndCapMembers` in bank-shape (unit
-  tested). The live board loads 118 idols with real photos.
-- The hub drops the catch-all from the auto featured loop (it would open empty) and offers it as an
-  explicit "K-pop idols (all groups)" tile; `/tier-list/new?group=general-kpop` resolves to the
-  all-bank pool. Any OTHER named subject that resolves to zero items now shows an honest state
-  (`data-testid=empty-subject`) rather than a silently blank board wearing the subject title.
-- Challenge link on a large pool: `encodeBoard` caps carried items at `CARRY_CAP = 80` in BOTH the
-  default (ranked-first) and the allItems (challenge) paths, so even a 120-idol general board
-  produces a link well under URL limits (unit test: a 200-item allItems board encodes to 80 items
-  and under 8000 chars). Decision stated: cap the carried set, not fall back to a subject reload, so
-  one rule covers every board.
-- Submit a missing idol reuses the EXISTING custom-asset flow: it is a moderated user asset
-  (`tier_list_assets`, pending -> approved), shown on the submitter's own board immediately and only
-  reaching a PUBLIC list once approved. It is NEVER a write to the official `idols` table, and no
-  migration is added.
-- e2e: the general template opens a non-empty pool; a featured template never opens an empty board.
+## BUG 2 - "Save to private" appeared to save nothing
 
-## ITEM 3 - the board is no longer too narrow
+Verified against the 146 RLS (`visibility in ('public','unlisted') or creator_id = auth.uid()`):
+UNLISTED was never broken (anon can read it), but a PRIVATE row is readable only by its creator via
+`auth.uid()`, and the public `/tier-list/l/[slug]` page is ISR and reads with the cookie-free client,
+so `auth.uid()` is null and the creator's own private list 404s.
 
-Root cause: the `(site)` layout caps `<main>` at `max-w-[720px]`, so `.tl-wrap`'s max-width never
-applied. The maker surface now opts into `.tl-wide`, which breaks OUT of the 720 parent and centres
-on the viewport at `min(1440px, calc(100vw - 32px))` (the -32 so a vertical scrollbar never forces
-horizontal scroll; verified scrollWidth == innerWidth at 1440), with a 240px tray (was 300). Only
-the maker opts in; the hub, create and share pages keep the 720 column. Mobile (<=820px) keeps the
-stacked tray and tap-to-place unchanged.
+Fix: a new DYNAMIC, noindex owner-view route `/tier-list/mine/[slug]` reads the row with the service
+role and authorizes with the pure `canViewOwned` helper (session user, or the anon cookie id for a
+logged-out creator); a non-owner gets `notFound()`. The public ISR page is UNTOUCHED (still `●` ISR,
+crawl posture preserved). `save` returns the owner the working link (private -> `/mine/`, else
+`/l/`), and the share sheet now confirms "Saved (private)". No migration - works on the applied
+146/147; a submitted idol stays a moderated user asset, never a write to `idols`.
 
-Measured 84px faces per tier row (proof `faces-per-row.txt`):
-- 1280: BEFORE 2, AFTER 8.
-- 1440: BEFORE 2, AFTER 10.
+Live proof: `/tier-list/mine/<unknown>` -> 404 on kpopquiz.org. The full round-trip (owner 200 /
+stranger 404 / public `/l/` 404) was proven on the local build against live Supabase
+(`bug2-private-roundtrip.txt`, `bug2-owner-private-view.png`), because an anon private save needs the
+service role, which CI does not carry; the test row was torn down.
+
+## BUG 3 - logging in on the Play home bounced the user to /verse
+
+Confirmed in code: `WorldHomeRedirect` ran on "/" and client-side `router.replace('/verse')` on a
+`world=verse` cookie. With the desktop world toggle retired in phase 3.2, a stuck cookie turned every
+landing on "/" - including right after login - into a bounce to Verse.
+
+Fix: the auto-forward is removed; "/" now lands and STAYS on Play. SEO-safe: the redirect was already
+browser-only (no server 3xx), so the "/" HTML served to Googlebot is unchanged - this is a pure
+deletion of a client effect and the home stays static/ISR. Verse remains reachable via the footer
+Fandoms link, the mobile top-bar toggle, and the Verse topbar toggle.
+
+Live proof: with `document.cookie='world=verse'` set on kpopquiz.org, loading "/" keeps
+`location.pathname === '/'`, renders the Play home, and shows the footer `/verse` link - no bounce.
 
 ## Tests + CI
 
-Local: 55 unit + 32 e2e / 8 skipped, all green. CI (the real gate, run
-https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34846953602 on preview/verse-stack, commit
-a6c84b0) conclusion **success**: unit 55 passed, e2e 40 -> 32 passed / 8 skipped. Test-created
-pending assets were torn down (DB rows deleted; 0 left).
+Unit 63 (+8: `canViewOwned` x5, `publicImageBase` x3). e2e 38 passed / 8 skipped (added: bug 3 no
+bounce with a verse cookie; bug 1 share unfurl og:image is the card; bug 2 owner-view 404s an unknown
+slug). One pre-existing hub test was made data-agnostic (production now has public lists, so
+`trending-empty` is no longer guaranteed). CI on PR #22 (branch `hotfix/tierlist-prod`) conclusion
+**success**: unit + e2e green on a real runner.
 
-Five SEO gates (`gates.txt`): docs-secrets + routes PASS; indexability / metadata-dupes / orphans
-NONZERO but every offender is the pre-existing katseye/bts/seventeen quiz flip and the verse-inflation
-dupes - no tier-list, general-kpop, or /verse URL appears in any failure (verse orphan hits: 0), so
-this phase adds no new orphan and no new dupe. Render modes unchanged (hub o static; new/create/share
-f noindex tools; OG a route handler). Zero emoji, zero em dashes.
+## Production
 
-## Owner gate
+The owner authorised production. `main` was fast-forwarded `750d724..ba1aaf1` (1 commit). Production
+deploy **dpl_B1ACQUfy5SYgmLdqiCr1H4ESPj3E** = **READY** on kpopquiz.org, no `check:env` failure, and
+all three fixes were re-verified on the live domain (above). Render modes unchanged: `/tier-list/l/`
+stays `●` ISR, `/tier-list/mine/` is `ƒ` noindex, the OG route stays a handler.
 
-1. **Push main** for production, when you choose. Local main is ahead of origin; nothing on main was
-   pushed. preview/verse-stack was fast-forwarded to a6c84b0 for the playtest.
+## Still open
+
+- The two SEO defects named in the prior push report are NOT part of this hotfix and remain: the
+  `/tier-list` hub is missing from the sitemap (in CATALOG_PATHS, not the emitted staticPages array),
+  and (now fixed here) the share `og:image`. The sitemap-hub omission is still a one-line follow-up.
+- Signed-in publish/upload/moderation/mobile smoke checks remain the owner's, per POST-PUSH-SMOKE.md.
 
 ---
 
-STOP. Blank boards can add images (regression locked by e2e), "General K-pop" loads 118 real idols
-with a bounded challenge link and a moderated submit-an-idol path, and the maker fits 8-10 faces per
-row instead of 2. 55 unit + 32 e2e green in CI on preview. main not pushed.
+DONE. Share card renders real photos and shared links unfurl to the card; a private save now shows
+the owner their list (stranger 404s); logging in stays on Play. Verified on kpopquiz.org, shipped to
+production (main ba1aaf1, deploy READY).

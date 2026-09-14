@@ -1,0 +1,23 @@
+# TIERLIST prod hotfix - verified on the LIVE production domain (kpopquiz.org)
+# Production deploy dpl_B1ACQUfy5SYgmLdqiCr1H4ESPj3E = READY, commit ba1aaf1 (main).
+
+BUG 1 - share card + unfurl
+  GET /api/og/tier-list?d=<BTS board>  -> image/png, 197239 bytes, REAL PHOTOS
+    (prod-og-photos.png: RM/V in S, Jin/Jungkook in A). The card no longer depends on
+    the incoming host: it resolves /idols against the pinned public base.
+  GET /tier-list/share?d=<board>  og:image =
+    https://kpopquiz.org/api/og/tier-list?d=<board>   (the board's OWN card, absolute,
+    NOT og-default) - a shared link now unfurls to the tier card.
+
+BUG 2 - private owner-view
+  GET /tier-list/mine/no-such-list-xyz  -> HTTP 404  (route live; non-owner cannot read).
+  Full private round-trip (owner 200 / stranger 404) proven on the local build against
+  live Supabase: bug2-private-roundtrip.txt (owner needs the service role, absent in CI).
+
+BUG 3 - login world-bounce (browser on the live domain)
+  With document.cookie = 'world=verse' set, loading https://kpopquiz.org/ and waiting:
+    location.pathname === '/'   (NO bounce to /verse)
+    home-tier-cta present (Play home rendered), footer a[href="/verse"] present.
+  Screenshot: the live Play home stays put with the verse cookie.
+
+Sanity: /, /tier-list, /tier-list/new all HTTP 200.
