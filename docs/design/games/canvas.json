@@ -1,0 +1,55 @@
+{
+ "artboards": [
+  {
+   "file": "Main.dc.html",
+   "title": "Games hub \u00b7 desktop",
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 2540
+  },
+  {
+   "file": "Mobile.dc.html",
+   "title": "Games hub \u00b7 mobile",
+   "x": 1560,
+   "y": 0,
+   "w": 390,
+   "h": 3800
+  },
+  {
+   "file": "CardAnatomy.dc.html",
+   "title": "Card anatomy",
+   "x": 0,
+   "y": 2700,
+   "w": 1100,
+   "h": 720
+  },
+  {
+   "file": "MidPlay.dc.html",
+   "title": "Daily \u00b7 mid-play",
+   "x": 2080,
+   "y": 0,
+   "w": 1100,
+   "h": 700
+  }
+ ],
+ "annotations": [
+  {
+   "id": "brief",
+   "x": 0,
+   "y": -170,
+   "w": 900,
+   "text": "GAMES HUB REDESIGN\nThesis: show the game, not an abstraction. Every card previews the real game state with real idols. The daily blind test is the one dark element, so it wins the eye. One hook line in fan voice, one honest stat, one action per card. Tier Lists added as New. Coming-soon demoted and dimmed. Same tokens as the site: DM Sans, cream, rose, radius 20, rose-tinted shadows."
+  },
+  {
+   "id": "sample",
+   "x": 1560,
+   "y": -170,
+   "w": 380,
+   "text": "SAMPLE VALUES\nFans-today, votes, Elo, streak and best-score are illustrative. Mode counts (53 / 4 / 14 / 20) are the real ones from the current page."
+  }
+ ],
+ "launch": {
+  "view": "canvas"
+ }
+}
