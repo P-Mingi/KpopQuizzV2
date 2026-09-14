@@ -142,14 +142,15 @@ noted for a follow-up rather than shipped half-built.
 - tsc: 0 source errors. `next build`: green (check:routes, check:verse-tokens, check:env all pass).
 - No em dashes, zero emoji in the shipped hub.
 
-## CI (on the current head 80b681d)
+## CI (feature branch, main stays owner-gated)
 
-Pushed the feature branch (main stays owner-gated) and opened PR #23 to run the full suite. Both jobs
-are GREEN on head 80b681d: unit passed (30s), e2e passed (3m14s). Run:
-https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34879005227 (PR
-https://github.com/P-Mingi/KpopQuizzV2/pull/23).
+The feature branch is pushed and PR #23 runs the full suite (unit + e2e) on each head. Latest head
+`3a07484` (this NIT) is GREEN: unit passed (23s), e2e passed (3m23s), run
+https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34898258269 (PR
+https://github.com/P-Mingi/KpopQuizzV2/pull/23). The FIX 1 code head `80b681d` was likewise green
+(run 34879005227). This REPORT line is a docs-only child of `3a07484`.
 
-The one owner gate that remains: merging to main (production). This branch is not merged.
+The one owner gate that remains: merging PR #23 to main (production). This branch is not merged.
 
 ## Scope touched
 
