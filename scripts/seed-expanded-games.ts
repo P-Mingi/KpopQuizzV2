@@ -2,14 +2,26 @@ import { createClient } from '@supabase/supabase-js';
 import * as fs from 'fs';
 
 // Load env (allow overrides from process.env for production)
-if (fs.existsSync('.env.local')) {
-  const envContent = fs.readFileSync('.env.local', 'utf-8');
-  for (const line of envContent.split('\n')) {
-    const t = line.trim();
-    if (!t || t.startsWith('#')) continue;
-    const i = t.indexOf('=');
-    if (i > 0 && !process.env[t.slice(0, i)]) process.env[t.slice(0, i)] = t.slice(i + 1);
-  }
+const ENV_CANDIDATES = ['apps/quiz/.env.local', '.env.local', '../apps/quiz/.env.local'];
+const envFile = ENV_CANDIDATES.find((p) => fs.existsSync(p));
+if (!envFile) {
+  console.error('[seed] No env file found (looked for apps/quiz/.env.local first). Refusing to run.');
+  process.exit(1);
+}
+for (const line of fs.readFileSync(envFile, 'utf-8').split('\n')) {
+  const t = line.trim();
+  if (!t || t.startsWith('#')) continue;
+  const i = t.indexOf('=');
+  if (i > 0 && !process.env[t.slice(0, i)]) process.env[t.slice(0, i)] = t.slice(i + 1);
+}
+// Phase 3.2 safety: this write-heavy legacy seed script must never silently target
+// the wrong database (the repo-root .env.local historically points at a DEAD
+// project). Print the resolved project ref and refuse unless the caller confirms it.
+const SEED_PROJECT_REF = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').match(/https?:\/\/([^.]+)\./)?.[1] ?? 'unknown';
+console.log(`[seed] env from ${envFile}; target Supabase project: ${SEED_PROJECT_REF}`);
+if (process.env.SEED_CONFIRM_PROJECT !== SEED_PROJECT_REF) {
+  console.error(`[seed] REFUSING to write. Re-run with SEED_CONFIRM_PROJECT=${SEED_PROJECT_REF} to confirm you mean to seed that project.`);
+  process.exit(1);
 }
 
 const supabase = createClient(

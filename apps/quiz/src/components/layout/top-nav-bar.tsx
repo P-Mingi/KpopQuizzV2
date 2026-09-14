@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { TopNavLinks } from './top-nav-links';
-import { WorldToggle } from './world-toggle';
 import { VerseLogo } from '@/components/verse/brand/verse-logo';
 import { worldForPath, WORLD_ACCENT, isBuilderCanvas } from '@/lib/world';
 
@@ -52,8 +51,10 @@ export function TopNavBar({ logo, themeToggle, bell, profile }: {
         {/* Verse world wears the KpopVerse mark; Play keeps its logo untouched. */}
         {verse ? <VerseLogo /> : logo}
 
-        <WorldToggle />
-
+        {/* The world toggle was removed from this desktop bar to make room for the
+            Tier Lists tab; the Verse stays reachable from the mobile top bar's
+            toggle, the Verse topbar's own toggle, and the site footer's Fandoms
+            link. Play keeps its full tab set here. */}
         <TopNavLinks world={world} />
 
         <div style={{ flex: 1 }} />

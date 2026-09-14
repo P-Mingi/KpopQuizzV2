@@ -280,17 +280,10 @@ export default function HomePage(): React.ReactElement {
       {/* 1. Hero */}
       <HomeHero />
 
-      {/* Workstream P launch-week banner (one only; ongoing home presence comes
-          from the GOTD rotation). */}
-      <Link href="/personality" className="pq-banner">
-        <span className="pq-banner-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="m17 11 1.5 1.5L21 10" />
-          </svg>
-        </span>
-        <span className="pq-banner-text"><strong>New: personality quizzes.</strong> Which member of your bias group are you? 10 questions, 1 result.</span>
-        <span className="pq-banner-arrow" aria-hidden="true">&rarr;</span>
-      </Link>
+      {/* Home launch band: the tier list maker is the newest mode, so it takes the
+          high slot above the daily pair (the retired personality launch banner sat
+          here). Exactly one tier-list CTA on the home page. */}
+      <TierListHomeCta />
 
       {/* 1b. Streak surface (client island; home stays static/ISR) */}
       <HomeStreakNudge />
@@ -299,12 +292,6 @@ export default function HomePage(): React.ReactElement {
       <Suspense fallback={<SkelDaily />}>
         <QotdSection />
       </Suspense>
-
-      {/* 2a. Tier Lists CTA band - its own colour between the daily pair and the
-          trending strip (TIERLIST, Home.dc.html). Static, no data. */}
-      <section className="home-section">
-        <TierListHomeCta />
-      </section>
 
       {/* 2b. Game of the day (this-or-that / name-all), relocated below the
           premium daily pair now that the blindtest holds the twoup slot. */}

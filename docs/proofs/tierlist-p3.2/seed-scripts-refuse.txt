@@ -1,0 +1,22 @@
+# PHASE 3.2 ITEM 3 - legacy seed scripts now refuse to write without a confirmed target
+# (2026-09-14). Run WITHOUT the correct SEED_CONFIRM_PROJECT -> loud refusal, no write.
+# They resolve apps/quiz/.env.local (LIVE) but never write unless SEED_CONFIRM_PROJECT matches.
+
+$ SEED_CONFIRM_PROJECT=wrong npx tsx scripts/import-batch1.ts
+[seed] env from apps/quiz/.env.local; target Supabase project: rdkgouofytwfdpbxbzio
+[seed] REFUSING to write. Re-run with SEED_CONFIRM_PROJECT=rdkgouofytwfdpbxbzio to confirm you mean to seed that project.
+
+$ SEED_CONFIRM_PROJECT=wrong npx tsx scripts/seed-platform.ts
+[seed] env from apps/quiz/.env.local; target Supabase project: rdkgouofytwfdpbxbzio
+[seed] REFUSING to write. Re-run with SEED_CONFIRM_PROJECT=rdkgouofytwfdpbxbzio to confirm you mean to seed that project.
+
+$ SEED_CONFIRM_PROJECT=wrong npx tsx scripts/seed-comments.ts
+[seed] env from apps/quiz/.env.local; target Supabase project: rdkgouofytwfdpbxbzio
+[seed] REFUSING to write. Re-run with SEED_CONFIRM_PROJECT=rdkgouofytwfdpbxbzio to confirm you mean to seed that project.
+
+$ SEED_CONFIRM_PROJECT=wrong npx tsx scripts/seed-expanded-games.ts
+[seed] env from apps/quiz/.env.local; target Supabase project: rdkgouofytwfdpbxbzio
+[seed] REFUSING to write. Re-run with SEED_CONFIRM_PROJECT=rdkgouofytwfdpbxbzio to confirm you mean to seed that project.
+
+No env file at all -> loud failure ([seed] No env file found ... Refusing to run.)
+No .env* file was edited, moved or deleted.

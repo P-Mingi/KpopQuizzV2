@@ -3270,13 +3270,38 @@ a.ranking-cta { text-decoration: none; }
 .pqh-tile:focus-visible, .pqh-card:focus-visible { outline: 2px solid var(--pq-accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .pqh-tile { transition: none; } .pqh-tile:hover { transform: none; } }
 
-.pq-banner { display: flex; align-items: center; gap: 11px; margin: 14px 0 16px; padding: 13px 16px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--brand) 30%, var(--border)); background: linear-gradient(100deg, var(--brand-light), var(--surface)); text-decoration: none; transition: border-color 120ms ease; }
-.pq-banner:hover { border-color: var(--brand); }
-.pq-banner-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--brand); }
-.pq-banner-text { flex: 1; min-width: 0; font-size: 13.5px; color: var(--txt2); line-height: 1.4; }
-.pq-banner-text strong { color: var(--txt1); }
-.pq-banner-arrow { color: var(--brand); font-weight: 700; font-size: 18px; flex-shrink: 0; }
-.pq-banner:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* TIERLIST home launch band (replaces the retired pq-banner). A dark ink -> plum
+   -> violet card that stands apart from the cream page, with a tilted mini tier
+   board. Dark in both themes by design (it is a launch hero). Tokens only. */
+.tlcta { position: relative; overflow: hidden; margin: 14px 0 18px; border-radius: 20px; padding: 30px 30px; color: #fff;
+  background: linear-gradient(115deg, #1a1714, #2a1420 55%, #241033); box-shadow: var(--shadow-lift, 0 18px 44px rgba(232, 69, 122, 0.18));
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px; align-items: center; }
+.tlcta-glow { position: absolute; inset: -40% 55% auto -10%; height: 320px; background: radial-gradient(closest-side, rgba(232, 69, 122, 0.35), transparent); pointer-events: none; }
+.tlcta-copy { position: relative; min-width: 0; }
+.tlcta-kick { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: #ffb9d1; }
+.tlcta-title { font-size: clamp(28px, 4.2vw, 44px); font-weight: 900; letter-spacing: -0.025em; line-height: 1.04; margin: 12px 0 10px; color: #fff; }
+.tlcta-sub { font-size: 15px; line-height: 1.5; color: rgba(255, 255, 255, 0.82); max-width: 46ch; margin: 0 0 20px; }
+.tlcta-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.tlcta-btn { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; }
+.tlcta-btn.primary { background: linear-gradient(100deg, var(--brand, #E8457A), var(--photocard-plum, #A83A8F) 55%, var(--photocard-violet, #7B3FA8)); color: #fff; box-shadow: 0 10px 24px rgba(232, 69, 122, 0.35); }
+.tlcta-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(232, 69, 122, 0.45); }
+.tlcta-btn.ghost { background: rgba(255, 255, 255, 0.09); color: #fff; border: 1px solid rgba(255, 255, 255, 0.26); }
+.tlcta-btn.ghost:hover { background: rgba(255, 255, 255, 0.16); }
+.tlcta-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.tlcta-board { position: relative; display: flex; flex-direction: column; gap: 8px; width: 250px; flex: none; transform: rotate(-3deg); }
+.tlcta-row { display: flex; align-items: stretch; background: rgba(255, 255, 255, 0.10); border-radius: 13px; overflow: hidden; min-height: 52px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); opacity: 0; animation: tlcta-in 480ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+.tlcta-label { width: 46px; flex: none; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; color: #fff; }
+.tlcta-faces { display: flex; align-items: center; gap: 6px; padding: 0 10px; }
+.tlcta-face { position: relative; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; flex: none; }
+.tlcta-face.gp-a { background: linear-gradient(135deg, #f6d9e6, #e7d4f2); }
+.tlcta-face.gp-b { background: linear-gradient(135deg, #ffe0cf, #ffd0e0); }
+.tlcta-face.gp-c { background: linear-gradient(135deg, #d9e9fb, #e6ddf7); }
+.tlcta-face.gp-d { background: linear-gradient(135deg, #dcefe0, #eef3d6); }
+.tlcta-ini { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: rgba(26, 23, 20, 0.42); }
+.tlcta-nm { display: none; }
+@keyframes tlcta-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tlcta-row { animation: none; opacity: 1; } }
+@media (max-width: 760px) { .tlcta { grid-template-columns: 1fr; padding: 24px 20px; } .tlcta-board { display: none; } }
 
 .pq-start:focus-visible, .pq-option:focus-visible, .pq-seeall:focus-visible, .pq-back:focus-visible, .pq-ghost:focus-visible { outline: 2px solid var(--pq-accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .pq-progress-fill, .pq-q, .pq-option, .pq-start { transition: none; animation: none; } }

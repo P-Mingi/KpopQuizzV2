@@ -1,0 +1,13 @@
+# ITEM 2 grep proof - exactly ONE tier-list CTA, no pq-banner
+home page TierListHomeCta count: 2 (1 import + 1 render = 2 lines; renders once)
+home page render sites:
+286:      <TierListHomeCta />
+pq-banner in home page: 0
+pq-banner in globals.css: 1
+pq-banner anywhere in src: 1 files
+home-tier-cta testid render count in component: 1
+WorldToggle in top-nav-bar: 0
+WorldToggle still used elsewhere (mobile/verse):
+src/components/layout/world-toggle.tsx
+src/components/layout/mobile-top-bar.tsx
+src/components/verse/tree/verse-topbar.tsx

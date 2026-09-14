@@ -30,6 +30,24 @@ test.describe('discovery', () => {
     await expect(cta.getByText('Make your K-pop tier list')).toBeVisible();
     await expect(page.getByTestId('home-cta-start')).toHaveAttribute('href', '/tier-list/new');
     await expect(page.getByTestId('home-cta-browse')).toHaveAttribute('href', '/tier-list');
+    // Exactly one tier-list CTA, and the retired personality launch banner is gone.
+    await expect(page.getByTestId('home-tier-cta')).toHaveCount(1);
+    await expect(page.locator('.pq-banner')).toHaveCount(0);
+    // High slot: the CTA sits above the daily pair.
+    const ctaY = (await cta.boundingBox())!.y;
+    const dailyY = (await page.locator('.daily-twoup').first().boundingBox())!.y;
+    expect(ctaY).toBeLessThan(dailyY);
+  });
+
+  test('desktop nav has no world toggle and does not wrap; Verse reachable from footer', async ({ page }) => {
+    await page.setViewportSize({ width: 1024, height: 900 });
+    await page.goto('/');
+    const nav = page.locator('header.top-nav nav[aria-label="Main navigation"]');
+    await expect(nav).toBeVisible();
+    // No world toggle in the desktop bar (mobile bar + verse topbar keep theirs).
+    await expect(page.locator('header.top-nav').getByRole('button', { name: /verse|play|world/i })).toHaveCount(0);
+    // Verse stays reachable: a footer Fandoms link -> /verse.
+    await expect(page.locator('footer a[href="/verse"]').first()).toHaveAttribute('href', '/verse');
   });
 
   test('hub renders; make-your-own opens the wizard, start-blank the maker', async ({ page }) => {

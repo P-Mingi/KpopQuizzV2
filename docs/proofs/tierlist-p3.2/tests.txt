@@ -1,0 +1,16 @@
+# TIERLIST phase 3.2 - full test run (2026-09-14); next build + next start :3021
+
+===== UNIT (vitest) =====
+
+ Test Files  7 passed (7)
+      Tests  51 passed (51)
+   Start at  13:36:07
+   Duration  422ms (transform 60%, import 29%, worker 7%, tests 5%)
+
+
+===== E2E (Playwright desktop + mobile) =====
+[32/34] [mobile] › e2e/tier-list.spec.ts:185:3 › maker › publish: a logged-out PUBLIC publish is refused 401 needsAuth (no row written)
+[33/34] [mobile] › e2e/tier-list.spec.ts:198:3 › maker › like: a logged-out like is refused 401 needsAuth (writes no row)
+[34/34] [mobile] › e2e/tier-list.spec.ts:207:3 › maker › OG card for a bank board embeds real photos (materially larger than initials)
+  8 skipped
+  26 passed (1.1m)
