@@ -1,0 +1,6 @@
+Route (app)                                             Revalidate  Expire
+├ ○ /games                                                      1h      1y
+├ ○ /pt/games                                                   1h      1y
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand

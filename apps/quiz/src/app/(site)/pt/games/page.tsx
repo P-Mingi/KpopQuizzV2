@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache';
+
 import { safeFetch } from '@/lib/error-handling';
 import { getRankingsIndex } from '@/lib/db/queries/duels';
 import { getPersonalityGroups } from '@/lib/personality/data';
@@ -6,11 +8,32 @@ import { GamesHub } from '@/components/game/games-hub';
 import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
 import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
 import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
-import { pickDaily } from '@/lib/games/daily-rotation';
+import { pickDaily, pickDailyMany } from '@/lib/games/daily-rotation';
+import { readBandSongs } from '@/lib/games/hub-data';
 
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
+
+// Same cost fence as /games: every read below is identical for every visitor and
+// runs once per hourly revalidation inside this unstable_cache (a DATA cache, so a
+// request serves prerendered HTML and touches the DB zero times). Shares the band
+// song read with /games via readBandSongs so the band is never an empty panel.
+const getPtGamesData = unstable_cache(
+  async () => {
+    const supabase = createServiceRoleClient();
+    const [rankings, personalityGroups, songCount, nameAllCount, bandSongs] = await Promise.all([
+      safeFetch(getRankingsIndex(), [], '[pt/games] getRankingsIndex'),
+      safeFetch(getPersonalityGroups(), [], '[pt/games] getPersonalityGroups'),
+      safeFetch(Promise.resolve(supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active')).then((r) => r.count ?? 0), 0, '[pt/games] songCount'),
+      safeFetch(Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).eq('game_type', 'name_all_members').eq('status', 'published')).then((r) => r.count ?? 0), 0, '[pt/games] nameAllCount'),
+      readBandSongs(supabase),
+    ]);
+    return { rankings, personalityGroups, songCount, nameAllCount, bandSongs };
+  },
+  ['pt-games-hub-data-v2'],
+  { revalidate: 3600 },
+);
 
 export const metadata: Metadata = {
   title: 'Jogos de K-pop Gratis: Bias, Membros e Blind Test',
@@ -33,14 +56,8 @@ export const metadata: Metadata = {
 };
 
 export default async function PtGamesPage() {
-  const supabase = createServiceRoleClient();
-
-  const [rankings, personalityGroups, songCount, nameAllCount] = await Promise.all([
-    safeFetch(getRankingsIndex(), [], '[pt/games] getRankingsIndex'),
-    safeFetch(getPersonalityGroups(), [], '[pt/games] getPersonalityGroups'),
-    safeFetch(Promise.resolve(supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active')).then((r) => r.count ?? 0), 0, '[pt/games] songCount'),
-    safeFetch(Promise.resolve(supabase.from('games').select('id', { count: 'exact', head: true }).eq('game_type', 'name_all_members')).then((r) => r.count ?? 0), 0, '[pt/games] nameAllCount'),
-  ]);
+  const { rankings, personalityGroups, songCount, nameAllCount, bandSongs } = await getPtGamesData();
+  const bandAnswers = pickDailyMany(bandSongs, 4);
 
   const counts = {
     personality: personalityGroups.length, songs: songCount, categories: rankings.length,
@@ -66,7 +83,7 @@ export default async function PtGamesPage() {
           }),
         }}
       />
-      <GamesHub counts={counts} liveRanking={liveRanking} />
+      <GamesHub counts={counts} liveRanking={liveRanking} bandAnswers={bandAnswers} />
     </div>
   );
 }

@@ -1,0 +1,16 @@
+import pkg from '/Users/louis/IT/Dev/projects/KpopQuizzV2/node_modules/.pnpm/@playwright+test@1.63.0/node_modules/@playwright/test/index.js';
+const { chromium } = pkg;
+const O = process.env.O;
+const b = await chromium.launch({ channel: 'chrome' });
+const ctx = await b.newContext({ viewport: { width: 390, height: 1600 }, deviceScaleFactor: 1 });
+const p = await ctx.newPage();
+p.setDefaultTimeout(20000);
+await p.goto('http://localhost:3021/games', { waitUntil: 'domcontentloaded', timeout: 40000 });
+await p.waitForSelector('.gh', { timeout: 20000 });
+await p.waitForTimeout(2500);
+const info = await p.evaluate(() => { const g=document.querySelector('.gh').getBoundingClientRect(); return { x:g.x, w:g.width, h:g.height, sw:document.documentElement.scrollWidth, cw:document.documentElement.clientWidth }; });
+console.log('info', JSON.stringify(info));
+await p.screenshot({ path: `${O}/mine-390.png`, fullPage: true, timeout: 30000 });
+console.log('shot done');
+await b.close();
+console.log('DONE');

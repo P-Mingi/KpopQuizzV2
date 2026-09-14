@@ -1,82 +1,159 @@
-# REPORT - TIERLIST phase 3.4: blank board can add items, General K-pop loads the whole bank, wider maker. Preview push only.
+# REPORT - GAMES HUB REDESIGN + FIX 1: report pret.
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). Three functional defects from the owner's preview
-playtest, all fixed. Built and proven on `next build` + `next start` (:3021), never dev; CI green on
-a real runner. No push to main, no change to og-faces/OG route, no new migration, no env file
-touched, no em dashes, zero emoji. Proofs: `docs/proofs/tierlist-p3.4/`.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). Branch `feat/games-hub-redesign` off main (ba1aaf1).
+The redesign is built, tested, proven, and the audit findings on the first build (fa91886) are
+closed. `feat/tierlist-social` (unpushed e93315d) left untouched.
 
-Context confirmed, not "fixed": on the preview the share card shows initials because Vercel SSO
-(all_except_custom_domains) 401s the edge route's fetch of its own /idols assets; it will render
-photos on the production domain. og-faces and the OG route are untouched.
+Full proof battery: `docs/proofs/games-hub/` (start at its README). All proofs re-taken on
+`next build` + `next start -p 3021` against the revision-3 renders.
 
-## ITEM 1 - the blank board is no longer a dead end
+## NIT: non-breaking hyphen in the band H2
 
-- Extracted `ImportModal` to a shared component (`src/components/tier-list/import-modal.tsx`) so the
-  wizard AND the maker use ONE uploader, reusing the existing `/api/tier-list/asset` path (upload to
-  the moderated `tier_list_assets` store, pending; client object-URL fallback on failure).
-- Added an "Add images" control to the maker toolbar (`tier-maker.tsx`). It works on ANY board
-  (blank or a subject board). Multi-select: several files chosen at once are processed as a queue,
-  each cropped square + named, each landing in the Unranked tray. Runtime uploads merge into the
-  board via `extraItems` and are placed into unranked; their blob URLs are revoked on unmount.
-- The empty tray stopped lying: a board with nothing shows an invite that opens the importer
-  instead of "Everything is ranked." (which now only shows when items exist and are all ranked).
-- e2e regression lock: from Start blank, the toolbar exposes Add images, adding one lands it in the
-  tray, and it can be placed on a tier.
+One-line change in `games-hub.tsx`: the daily band H2 `from a 10-second clip.` used a normal hyphen,
+so at 390 it could break as `10-` / `second`. Replaced only that hyphen with a non-breaking hyphen
+(U+2011, the literal character, matching the file's existing "K-pop" nit): `from a 10‑second clip.`.
+No other line, no CSS.
 
-## ITEM 2 - "General K-pop members" now means the whole bank
+Before/after at 390: the band H2 now wraps as `Name the song from a` / `10-second clip.` with
+`10-second` intact on one line (verified in `pixel/render-390.png`; no mid-word break). Desktop 1440
+is unchanged: a self-diff against the previous render is 0.00% (the explicit `<br>` still controls the
+desktop break; the non-breaking hyphen is inert there since the line fits). Re-proven on next build +
+next start: 1440 diff 4.47% (unchanged), 390 full 12.54%, route table still `○ /games` / `○ /pt/games`
+at 1h, unit 80 passed, e2e 18 passed, tsc 0. CI: see the CI section below.
 
-- New `getAllBankMembers` (`bank.ts`): members across every real group, photo-only, ordered so the
-  best-known groups come first (the `getAllGroups` quiz_count ranking), capped at
-  `GENERAL_MEMBERS_CAP = 120`. Pure order/cap logic is `orderAndCapMembers` in bank-shape (unit
-  tested). The live board loads 118 idols with real photos.
-- The hub drops the catch-all from the auto featured loop (it would open empty) and offers it as an
-  explicit "K-pop idols (all groups)" tile; `/tier-list/new?group=general-kpop` resolves to the
-  all-bank pool. Any OTHER named subject that resolves to zero items now shows an honest state
-  (`data-testid=empty-subject`) rather than a silently blank board wearing the subject title.
-- Challenge link on a large pool: `encodeBoard` caps carried items at `CARRY_CAP = 80` in BOTH the
-  default (ranked-first) and the allItems (challenge) paths, so even a 120-idol general board
-  produces a link well under URL limits (unit test: a 200-item allItems board encodes to 80 items
-  and under 8000 chars). Decision stated: cap the carried set, not fall back to a subject reload, so
-  one rule covers every board.
-- Submit a missing idol reuses the EXISTING custom-asset flow: it is a moderated user asset
-  (`tier_list_assets`, pending -> approved), shown on the submitter's own board immediately and only
-  reaching a PUBLIC list once approved. It is NEVER a write to the official `idols` table, and no
-  migration is added.
-- e2e: the general template opens a non-empty pool; a featured template never opens an empty board.
+## FIX 1: audit findings closed (on the same branch)
 
-## ITEM 3 - the board is no longer too narrow
+BLOCKER 1, proofs were on a dev server. Re-taken on `next build` + `next start -p 3021` (the exact
+command and its first log lines are in `test-output.md`); the full mobile capture
+`pixel/render-390-fullpage-no-dev-badge.png` ends in the footer with no dev badge. No old PNG reused.
 
-Root cause: the `(site)` layout caps `<main>` at `max-w-[720px]`, so `.tl-wrap`'s max-width never
-applied. The maker surface now opts into `.tl-wide`, which breaks OUT of the 720 parent and centres
-on the viewport at `min(1440px, calc(100vw - 32px))` (the -32 so a vertical scrollbar never forces
-horizontal scroll; verified scrollWidth == innerWidth at 1440), with a 240px tray (was 300). Only
-the maker opts in; the hub, create and share pages keep the 720 column. Mobile (<=820px) keeps the
-stacked tray and tap-to-place unchanged.
+BLOCKER 2, data honesty:
+1. This or That foot stat is `{votes} votes` (no "today"; `total_votes` is all-time).
+2. The This or That preview 61/39 split is labelled "live" with NO number (it is a demo split); the
+   real total stays in the foot stat.
+3. `/pt/games` band is no longer empty: a shared `readBandSongs` helper feeds both pages' band chips,
+   each inside its own `unstable_cache` (new `getPtGamesData`), still no per-request read.
 
-Measured 84px faces per tier row (proof `faces-per-row.txt`):
-- 1280: BEFORE 2, AFTER 8.
-- 1440: BEFORE 2, AFTER 10.
+Visual defects 4 to 10, all fixed and verified in the new renders:
+4. Mobile Name Them All uses 46px faces and three slots (RM no longer clipped).
+5. Foot stats use the short copy ("Beat the clock", "Timer counts up", "+3 s per wrong pair", "N
+   votes", "Elo, best of 7", "Just launched", "Daily, soon") and stay on one line at 390; the mobile
+   foot was tightened so the widest CTAs (Start ranking, Find a duel) never overlap the stat. e2e
+   asserts one line and no stat/CTA overlap on all eight cards at 390.
+6. Mobile header sub trims its second sentence (kept in the DOM via a hidden span for crawlers).
+7. Match-Up hook uses a non-breaking hyphen (U+2011) in "K-pop", so it never orphans.
+8. K-pop Idle "Coming soon" is a non-interactive chip (surface-alt fill), not an outline button.
+9. Mobile ranking strip wraps its actions to a second row with the dot inline before the title.
+10. Band answer chips put the artist inline after the title in muted text, not right-aligned.
 
-## Tests + CI
+Cost nit 11: the streak fetch is gated on a JS-readable `sb-...-auth-token` cookie (the app's browser
+client stores the session there, not httpOnly), so anonymous viewers and crawlers make zero
+`/api/daily/streak` calls; only signed-in viewers hit it.
 
-Local: 55 unit + 32 e2e / 8 skipped, all green. CI (the real gate, run
-https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34846953602 on preview/verse-stack, commit
-a6c84b0) conclusion **success**: unit 55 passed, e2e 40 -> 32 passed / 8 skipped. Test-created
-pending assets were torn down (DB rows deleted; 0 left).
+New pixel numbers (next start, vs revision-3 renders): 1440 diff 4.47%, 390 full-column diff 12.49%
+(down from 15.71%; the mobile height now matches the revised oracle to within 3px). Route table
+unchanged: `○ /games` and `○ /pt/games` at 1h. Unit 80 passed, e2e 18 passed (2 mobile-only guards
+skipped on desktop), tsc 0 source errors.
 
-Five SEO gates (`gates.txt`): docs-secrets + routes PASS; indexability / metadata-dupes / orphans
-NONZERO but every offender is the pre-existing katseye/bts/seventeen quiz flip and the verse-inflation
-dupes - no tier-list, general-kpop, or /verse URL appears in any failure (verse orphan hits: 0), so
-this phase adds no new orphan and no new dupe. Render modes unchanged (hub o static; new/create/share
-f noindex tools; OG a route handler). Zero emoji, zero em dashes.
+## What shipped (PART A)
 
-## Owner gate
+`/games` and `/pt/games` are rebuilt as a faithful port of the owner artboards `Main.dc.html`
+(1440) and `Mobile.dc.html` (390). Header (kicker, "Prove it.", sub, streak chip), one dark daily
+blind-test band (live countdown to the UTC reset, CSS waveform with the middle run tinted rose,
+"Play today's" to /blindtest, streak pill, four REAL song answer chips, none marked picked), the
+"All games" header with five filter chips (client-side CSS filter that keeps every card in the
+server HTML), eight cards with real `/idols` faces in the artboard order (Name Them All, Sort It,
+Match-Up, This or That, Which member, Duel 1v1, Tier Lists [New], K-pop Idle [dimmed, "Coming
+soon", no dead button]), and the live ranking strip.
 
-1. **Push main** for production, when you choose. Local main is ahead of origin; nothing on main was
-   pushed. preview/verse-stack was fast-forwarded to a6c84b0 for the playtest.
+New files: `components/game/games-hub.tsx` (rewritten), `games-filter.tsx`, `games-countdown.tsx`,
+`games-streak.tsx`, `lib/games/reset-countdown.ts`, `lib/games/hub-filters.ts`,
+`lib/games/pickDailyMany` (in `daily-rotation.ts`). CSS: the `gh-*` block in `styles/globals.css`
+(replaced the old `gh2-*` block; the separate lobby `lmc-*` block is untouched).
 
----
+## Pixel fidelity (`docs/proofs/games-hub/pixel-fidelity.md`)
 
-STOP. Blank boards can add images (regression locked by e2e), "General K-pop" loads 118 real idols
-with a bounded challenge link and a moderated submit-an-idol path, and the maker fits 8-10 faces per
-row instead of 2. 55 unit + 32 e2e green in CI on preview. main not pushed.
+Rendered in system Chrome at both widths, clipped to the hub root, pixelmatched against the owner
+renders (oracle cropped to its content column, offset swept to tightest alignment; the real site
+nav and tab bar are out of scope and excluded).
+
+- 1440: 4.52% mismatch, structurally aligned.
+- 390: 15.71% full column, 14.08% header+band.
+
+The residual is not layout drift. It is (1) real idol photos vs the artboard placeholders (the
+largest share, a fidelity gain), (2) real data text vs sample text, and (3) the intentional
+data-honesty deviations. Every box, radius, color, the dark band, the eight-card grid, the filter
+row and the strip land on the artboard grid. Full deviation list with reasons in `deviations.md`.
+
+## Data honesty (`docs/proofs/games-hub/data-honesty.md`)
+
+No artboard SAMPLE literal ships. Corrections from the pre-build plan:
+
+- "N fans playing today" and "N played today": DROPPED. The pre-build note called a 24h plays count
+  feasible; on inspection it is not cheaply so (the plays index is keyed quiz_id/player_id, no
+  owner-gated index bounds a 24h count under 200ms server-side). Real or absent -> absent, rather
+  than add a per-request read that would break the cost fence.
+- Band answers: four real songs from a cached pool, rotated per UTC day by `pickDailyMany`,
+  excluding today's actual daily answers; none marked picked.
+- Counts (groups, modes, boards, rankings), live votes, and the ranking strip: real from the cached
+  `getGamesData`. Streak and countdown: client, real or absent. "Your best: 5 of 7" and "Fans
+  online now" foot stats replaced with the games' honest mechanics.
+- Card preview zones are the artboard's illustrative gameplay mock-ups, marked aria-hidden; the demo
+  Elo and percentages live only inside those hidden previews and never appear as the viewer's stats.
+- No dead buttons. K-pop Idle is a non-interactive "Coming soon" label.
+
+## Cost fence (`docs/proofs/games-hub/cost-fence.md`)
+
+- `next build` route table: `/games` and `/pt/games` are both `Static` with a 1h ISR window.
+  Neither is `Dynamic`. A request serves prerendered HTML with zero DB reads.
+- The page diff adds no `force-dynamic`, no `cookies()`, no `headers()`, no page-level `fetch`
+  (grep of added lines = 0). Render mode is unchanged from before this branch.
+- The two new reads (band song pool + today's daily exclusion) are inside the existing
+  `getGamesData` `unstable_cache(3600s)`, shared across all visitors, once per hourly revalidation.
+- Client fetch on load: only the pre-existing `/api/daily/streak` (the old hub already called it via
+  `BlindStreak`); returns nothing for anon and crawlers. Countdown is pure client math. Filter is
+  client-only state. No new API route.
+
+## PART B, SEO (`docs/proofs/games-hub/seo.md`)
+
+Five gates green against the built HTML: canonical `/games` unchanged; hreflang en/pt-BR/x-default
+unchanged; title/description unchanged; JSON-LD ItemList gains "K-pop Tier Lists" at position 8
+(after Duel), rankings shifted to 9; all eight card test ids present in the prerendered static HTML
+(the filter only toggles visibility, never removes a card).
+
+## PART C, band-becomes-game
+
+Deferred; the band keeps its link to `/blindtest` (a live route, no dead button). It is feasible to
+lazy-mount the blind-test player on tap via `next/dynamic` (zero initial load cost, the player
+fetching its own data only after the interaction), but mounting the full player with audio and
+scoring is a real new surface that should not be rushed under this pixel-and-cost mission. It is
+noted for a follow-up rather than shipped half-built.
+
+## Verification
+
+- Unit: 80 passed (10 files), including the three new games-hub files (filter tag map, band picker
+  determinism, countdown helper) = 17 tests.
+- e2e: 18 passed, 2 skipped (the desktop skips of the two mobile-only guards), on both the desktop
+  and mobile Playwright projects, against the `next start` build on :3021. Covers the eight cards in
+  server HTML, every idol face loaded (naturalWidth > 0), band CTA -> /blindtest, Tier Lists ->
+  /tier-list with the New badge, K-pop Idle has no link, each filter reveals its set and All restores
+  eight, no emoji, /pt/games same eight cards, no horizontal overflow at 390, and (new) every foot
+  stat is one line and never overlaps its CTA at 390.
+- tsc: 0 source errors. `next build`: green (check:routes, check:verse-tokens, check:env all pass).
+- No em dashes, zero emoji in the shipped hub.
+
+## CI (feature branch, main stays owner-gated)
+
+The feature branch is pushed and PR #23 runs the full suite (unit + e2e) on each head. Latest head
+`3a07484` (this NIT) is GREEN: unit passed (23s), e2e passed (3m23s), run
+https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34898258269 (PR
+https://github.com/P-Mingi/KpopQuizzV2/pull/23). The FIX 1 code head `80b681d` was likewise green
+(run 34879005227). This REPORT line is a docs-only child of `3a07484`.
+
+The one owner gate that remains: merging PR #23 to main (production). This branch is not merged.
+
+## Scope touched
+
+Only `/games`, `/pt/games`, `GamesHub` and its new children, the `gh-*` CSS, `hub-filters.ts`,
+`daily-rotation.ts` (added `pickDailyMany`), `reset-countdown.ts`, the tests, and the proofs.
+Nothing else. `feat/tierlist-social` and its unpushed e93315d untouched.
