@@ -1,0 +1,14 @@
+# PHASE 3.3 ITEM 2 - env preflight (check:env), chained in build before next build
+# (2026-09-14). Presence only, never a value.
+
+PASS (repo, apps/quiz/.env.local present):
+  $ npx tsx scripts/check-env.mts
+  [check:env] OK - NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY present (environment: local).  (exit 0)
+
+FAIL (clean dir, vars unset, no env file - simulates the Vercel Preview scope that broke):
+  [check:env] Build preflight FAILED for environment "local".
+  [check:env] Missing required public env var(s): NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
+  [check:env] Set them for this scope ... No value is ever printed.  (exit 1)
+
+build chain now: check:routes && check:verse-tokens && check:env && next build
+So a missing Supabase env fails HERE with the variable named, not later as /leaderboard.

@@ -1,0 +1,104 @@
+name: Tests
+
+# TIERLIST phase 3.3. The 51 unit tests and 26 e2e tests existed but nothing ran
+# them in CI, so every "green" was a local log. This workflow makes them a real
+# gate. It is separate from seo-gates.yml (nightly, crawl-heavy) and does not touch
+# it.
+#
+# WHAT THIS COVERS, in numbers, so a green is not over-read:
+#   unit: 51 vitest tests (pure: they mock fetch, no DB, no secrets) - runs on every
+#         push and every PR.
+#   e2e:  26 Playwright tests (+ 8 skipped: the desktop-only discovery/wizard specs
+#         skip on the mobile project), built and started against the app on :3021
+#         with the anon Supabase key (same posture as seo-gates.yml: no service-role
+#         key on a runner). It runs on main, preview/** and PRs, not on every branch.
+# WHAT IT DOES NOT COVER: signed-in creator/admin flows (no auth session on a
+#   runner) - those are verified by the phase-3 live checks, not here.
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  # Pure unit tests: no server, no database, no secrets - so this gates every push
+  # and stays fast.
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: test:unit
+        working-directory: apps/quiz
+        run: pnpm run test:unit
+
+  # e2e: builds and boots the app, so it needs the Supabase env and a browser. Runs
+  # on main / preview/** / PRs only (a full build + start is too heavy for every
+  # branch push).
+  e2e:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/preview/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Same mapping and posture as seo-gates.yml: the anon key is enough for the
+      # public bank reads the e2e exercises; no service-role key is shipped to a
+      # runner (the logged-out publish/like gates return 401 before any DB call, so
+      # a placeholder is all the service client needs to construct).
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}
+      NEXT_PUBLIC_SITE_URL: https://kpopquiz.org
+      NEXT_PUBLIC_SITE_NAME: KpopQuiz
+      SUPABASE_SERVICE_ROLE_KEY: not-a-credential-ci-placeholder
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # CI has no `channel: 'chrome'` (that is the owner's local Mac Chrome); install
+      # the bundled Chromium that playwright.config.ts falls back to on CI.
+      - name: Install Playwright Chromium
+        working-directory: apps/quiz
+        run: npx playwright install chromium --with-deps
+
+      - name: Build the quiz app
+        run: pnpm --filter quiz build
+
+      - name: Start the built app on :3021
+        id: start
+        working-directory: apps/quiz
+        run: |
+          nohup npx next start -p 3021 > /tmp/app.log 2>&1 &
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 http://localhost:3021/ || true)
+            if [ "$code" = "200" ]; then echo "app up"; exit 0; fi
+            sleep 2
+          done
+          echo "app did not come up on :3021"; cat /tmp/app.log; exit 1
+
+      - name: test:e2e
+        working-directory: apps/quiz
+        run: pnpm run test:e2e
+
+      # A red run is only diagnosable with the report; keep it on failure only.
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/quiz/playwright-report/
+          retention-days: 7
