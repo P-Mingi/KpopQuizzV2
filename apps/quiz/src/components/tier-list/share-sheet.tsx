@@ -45,6 +45,7 @@ export function ShareSheetClient({ d }: { d: string }): React.ReactElement {
   const [publishing, setPublishing] = useState(false);
   const [publishErr, setPublishErr] = useState<string>('');
   const [publishedUrl, setPublishedUrl] = useState<string>('');
+  const [publishedVis, setPublishedVis] = useState<Visibility>('public');
 
   async function publish() {
     if (!board || publishing) return;
@@ -65,6 +66,7 @@ export function ShareSheetClient({ d }: { d: string }): React.ReactElement {
         return;
       }
       setPublishedUrl(j.url as string);
+      setPublishedVis((j.visibility as Visibility) ?? visibility);
     } catch {
       setPublishErr('Could not publish.');
     }
@@ -116,11 +118,19 @@ export function ShareSheetClient({ d }: { d: string }): React.ReactElement {
           creator; a private/unlisted save works logged out via an anon id. */}
       <div className="tl-card" style={{ padding: 14, marginTop: 6 }} data-testid="tl-publish">
         {publishedUrl ? (
-          <div>
-            <div className="tl-h3" style={{ margin: 0 }}>Published</div>
-            <p className="tl-mut" style={{ margin: '4px 0 10px' }}>Your list has its own page now.</p>
+          <div data-testid="tl-published" data-visibility={publishedVis}>
+            <div className="tl-h3" style={{ margin: 0 }}>
+              {publishedVis === 'private' ? 'Saved (private)' : publishedVis === 'unlisted' ? 'Saved (unlisted)' : 'Published'}
+            </div>
+            <p className="tl-mut" style={{ margin: '4px 0 10px' }}>
+              {publishedVis === 'private' ? 'Only you can open this page. Use the link below to come back to it.'
+                : publishedVis === 'unlisted' ? 'Reachable only by this link; not listed or indexed.'
+                : 'Your list has its own public page now.'}
+            </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <a href={publishedUrl} className="tl-btn pri sm" data-testid="tl-published-link">View your page</a>
+              <a href={publishedUrl} className="tl-btn pri sm" data-testid="tl-published-link">
+                {publishedVis === 'private' ? 'Open your private page' : 'View your page'}
+              </a>
               <button type="button" className="tl-btn out sm" onClick={() => { void navigator.clipboard?.writeText(publishedUrl); setShared('Link copied'); }}>Copy page link</button>
             </div>
           </div>

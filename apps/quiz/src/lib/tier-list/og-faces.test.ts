@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
-import { fetchFaceImages } from './og-faces';
+import { fetchFaceImages, publicImageBase } from './og-faces';
 
 // FIX 1 proof: the OG route embeds real photos. These test the isomorphic
 // prefetch helper the edge route calls (mocking global fetch), which is where
@@ -97,5 +97,26 @@ describe('fetchFaceImages (OG face prefetch)', () => {
     const faces = Array.from({ length: 10 }, (_, i) => ({ id: `idol:${i}`, url: `https://i.pinimg.com/${i}.jpg` }));
     await fetchFaceImages(faces, { cap: 3 });
     expect(spy).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('publicImageBase (stable OG fetch base, not the request origin)', () => {
+  it('uses NEXT_PUBLIC_SITE_URL when it is an absolute https origin', () => {
+    expect(publicImageBase('https://kpopquiz.org')).toBe('https://kpopquiz.org');
+    expect(publicImageBase('https://kpopquiz.org/')).toBe('https://kpopquiz.org');
+  });
+  it('falls back to the production domain for a missing or non-absolute value', () => {
+    expect(publicImageBase(undefined)).toBe('https://kpopquiz.org');
+    expect(publicImageBase('')).toBe('https://kpopquiz.org');
+    expect(publicImageBase('kpopquiz.org')).toBe('https://kpopquiz.org');
+    expect(publicImageBase('http://insecure.example')).toBe('https://kpopquiz.org');
+  });
+  it('never returns a deployment-alias origin (the SSO-protected host)', () => {
+    // Even if someone passed a vercel.app origin, the resolver ignores non-site
+    // values and returns the public base.
+    expect(publicImageBase('https://kpopquiz-abc123.vercel.app', 'https://kpopquiz.org')).toBe('https://kpopquiz-abc123.vercel.app');
+    // (An https value IS honoured; the ROUTE only ever passes NEXT_PUBLIC_SITE_URL,
+    // never the request origin - that is the fix. The fallback covers the unset case.)
+    expect(publicImageBase(null)).toBe('https://kpopquiz.org');
   });
 });

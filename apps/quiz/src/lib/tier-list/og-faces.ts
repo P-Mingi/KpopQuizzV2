@@ -20,6 +20,21 @@ export interface FaceRef {
   url: string | null;
 }
 
+/**
+ * The base a local `/idols/...` image path is resolved against for the OG route's
+ * server-side fetch. It MUST be the stable public custom domain (NEXT_PUBLIC_SITE_URL
+ * when it is an absolute https origin), NEVER request.nextUrl.origin: on Vercel the
+ * OG route can be reached on the deployment alias (*.vercel.app), which is
+ * SSO-protected even in production (all_except_custom_domains), so a fetch against
+ * that origin 401s and every face falls back to initials - and the cached response
+ * then poisons the card for everyone. Pinning the base makes the card independent of
+ * the incoming host.
+ */
+export function publicImageBase(siteUrlEnv?: string | null, fallback = 'https://kpopquiz.org'): string {
+  if (siteUrlEnv && /^https:\/\//i.test(siteUrlEnv)) return siteUrlEnv.replace(/\/+$/, '');
+  return fallback;
+}
+
 /** id -> data URI, only for faces whose photo was fetched successfully. */
 export type FaceImageMap = Record<string, string>;
 

@@ -1,33 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-
-import { readWorldPreference } from '@/lib/world-preference';
-
 /**
- * W-NAV step 4 - preferred-world open, on the games home ONLY.
+ * W-NAV: the preferred-world auto-open on "/" was REMOVED (TIERLIST prod hotfix,
+ * bug 3). It read a `world=verse` cookie and client-side router.replace'd "/" to
+ * /verse. Because the desktop world toggle was retired in phase 3.2, a cookie stuck
+ * on 'verse' turned every landing on the Play home - including the one right after
+ * logging in - into a bounce to Verse, with no easy way back. Play is the launch
+ * focus, so "/" now always lands and STAYS on Play.
  *
- * Mounted only on "/". After hydration it reads the world cookie (written solely by
- * a deliberate toggle click) and, if the user last chose Verse, does a client-side
- * router.replace to /verse. Play needs no redirect - "/" is already the Play home.
+ * Why this is SEO-safe and does not strand Verse:
+ *  - The redirect was already browser-only (no server 3xx), so the "/" HTML served
+ *    to Googlebot never changed and does not change now. This is a pure deletion of
+ *    a client effect: the home page stays static/ISR.
+ *  - Verse is still reachable: the site footer carries a Fandoms -> /verse link at
+ *    every viewport (added in phase 3.2), plus the mobile top-bar toggle and the
+ *    Verse topbar's own Play/Verse toggle inside Verse chrome.
  *
- * CRAWLER SAFETY (why this cannot change what Googlebot sees at "/"):
- *  - It runs only in the browser, after hydration. There is no server redirect and
- *    no 3xx - the "/" HTML served to everyone is the games home, unchanged.
- *  - It is gated entirely on a cookie that a crawler never sends, so a bot is a
- *    no-cookie visitor by construction and the branch never fires for it.
- *  - It reads document.cookie (not cookies()/headers()), so the home page stays
- *    static/ISR - nothing here opts it into dynamic SSR.
- *  - It only exists on "/", so it can never intercept a deep SEO landing
- *    (/bts-quiz, /verse/bts, ...). Those are served by their own routes, untouched.
- * router.replace (not push) keeps the back button sane for the rare Verse-preferrer.
+ * The component is kept as an inert no-op so its mount site in the home page needs
+ * no change; it renders nothing and runs nothing.
  */
 export function WorldHomeRedirect(): null {
-  const router = useRouter();
-  useEffect(() => {
-    if (window.location.pathname !== '/') return;
-    if (readWorldPreference() === 'verse') router.replace('/verse');
-  }, [router]);
   return null;
 }

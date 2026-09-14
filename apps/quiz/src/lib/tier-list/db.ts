@@ -1,8 +1,9 @@
 import { unstable_cache } from 'next/cache';
 
-import { createPublicReadClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { getBankItems } from './bank';
+import { canViewOwned } from './publish';
 import { fandomAgrees, type ItemConsensus } from './aggregate';
 import { encodeBoard, type SharedBoard } from './share-state';
 
@@ -53,6 +54,27 @@ export async function getListBySlug(slug: string): Promise<StoredList | null> {
   const db = createPublicReadClient();
   const { data } = await db.from('tier_lists').select(LIST_COLS).eq('slug', slug).maybeSingle();
   return data ? rowToStored(data as Row) : null;
+}
+
+/**
+ * Owner read for a PRIVATE (or any owned) list. The public/ISR page uses the
+ * cookie-free client, which RLS hides a private row from - so a creator saving
+ * private could not see it. This reads the row with the service role and returns
+ * it ONLY when the viewer is its owner (session user, or the anon cookie id for a
+ * logged-out creator); a non-owner gets null (the caller 404s). Used only by the
+ * dynamic, noindex owner-view route, never by the public ISR page.
+ */
+export async function getOwnedListBySlug(
+  slug: string,
+  viewer: { userId: string | null; anonId: string | null },
+): Promise<StoredList | null> {
+  if (!viewer.userId && !viewer.anonId) return null;
+  const admin = createServiceRoleClient();
+  const { data } = await admin.from('tier_lists').select(LIST_COLS).eq('slug', slug).maybeSingle();
+  if (!data) return null;
+  const row = data as Row;
+  if (!canViewOwned({ creator_id: row.creator_id, anon_id: row.anon_id }, viewer)) return null;
+  return rowToStored(row);
 }
 
 /** All PUBLIC slugs, for generateStaticParams + the sitemap. */

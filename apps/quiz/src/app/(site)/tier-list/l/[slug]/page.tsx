@@ -10,9 +10,9 @@ import {
   encodeStoredForOg, encodeStoredForRemix, type StoredList,
 } from '@/lib/tier-list/db';
 import { PublicEngage } from '@/components/tier-list/public-engage';
+import { TierBoardView } from '@/components/tier-list/tier-board-view';
 
 import type { Metadata } from 'next';
-import type { TierListItem } from '@/lib/tier-list/types';
 
 // A published tier list, at /tier-list/l/<slug>. Indexable static/ISR (mirrors the
 // published quiz page): generateStaticParams over PUBLIC slugs, notFound() in
@@ -68,17 +68,6 @@ async function ogParam(list: StoredList): Promise<string | null> {
   try { return encodeStoredForOg(list, itemMap); } catch { return null; }
 }
 
-function Face({ item }: { item: TierListItem }) {
-  const ini = (() => { const p = item.name.trim().split(/\s+/); return ((p[0]?.[0] ?? '') + (p[1]?.[0] ?? '')).toUpperCase() || item.name.slice(0, 2).toUpperCase(); })();
-  return (
-    <div className="tl-face tl-face-72">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      {item.image_url ? <img src={item.image_url} alt="" referrerPolicy="no-referrer" /> : <span className="tl-ini">{ini}</span>}
-      <span className="tl-nm">{item.name}</span>
-    </div>
-  );
-}
-
 export default async function PublicListPage({ params }: { params: Promise<{ slug: string }> }): Promise<React.ReactElement> {
   const { slug } = await params;
   const list = await safeFetch(getListBySlug(slug), null, '[tier-list] l page');
@@ -128,21 +117,7 @@ export default async function PublicListPage({ params }: { params: Promise<{ slu
 
       <div className="tl-public-grid">
         {/* The ranking */}
-        <div className="tl-card" style={{ padding: 20 }} data-testid="tl-public-board">
-          <div className="tl-board">
-            {list.tiers.map((t) => {
-              const rowItems = (list.placements[t.label] ?? []).map((id) => byId.get(id)).filter(Boolean) as TierListItem[];
-              return (
-                <div className="tl-tier" key={t.label}>
-                  <div className="tl-tlabel" style={{ background: t.color }}>{t.label}</div>
-                  <div className={`tl-tstrip${rowItems.length === 0 ? ' empty' : ''}`}>
-                    {rowItems.length === 0 ? 'No picks in this tier' : rowItems.map((it) => <Face key={it.id} item={it} />)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <TierBoardView list={list} byId={byId} />
 
         {/* Right rail */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

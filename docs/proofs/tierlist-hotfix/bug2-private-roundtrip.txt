@@ -1,0 +1,23 @@
+# BUG 2 - "Save to private" now shows the owner their list. Proven on the local
+# built server against the LIVE Supabase (service role present), then torn down.
+
+POST /api/tier-list/save {visibility:'private', anonId:<uuid>}  (logged out)
+  -> {"slug":"hotfix-private-probe","url":".../tier-list/mine/hotfix-private-probe","visibility":"private"}
+     (the returned link is the DYNAMIC owner-view route, not the public /l/ page)
+
+OWNER  GET /tier-list/mine/hotfix-private-probe  (with the nq_anon cookie)  -> HTTP 200
+  board rendered (tl-public-board present), title present, note "Only you can see this page".
+STRANGER GET same path (no cookie)                                          -> HTTP 404
+PUBLIC   GET /tier-list/l/hotfix-private-probe                              -> HTTP 404
+  (private stays hidden on the public ISR page; RLS + the cookie-free client, unchanged)
+
+Screenshot: bug2-owner-private-view.png. Test row deleted afterwards (1 row).
+
+Root cause (confirmed): the public /l/[slug] page is ISR and reads via the cookie-free
+public client, which RLS hides a PRIVATE row from even for its creator (private is
+readable only when auth.uid() = creator_id). Unlisted was NEVER broken - RLS allows
+anon SELECT on unlisted - so only PRIVATE needed the fix. The fix is a new dynamic,
+noindex owner-view route that reads with the service role and authorizes by
+canViewOwned (session user, or the anon cookie id for a logged-out creator); the
+public page is untouched (still ISR). save returns the owner the working link and the
+share sheet now says "Saved (private)".

@@ -56,7 +56,9 @@ test.describe('discovery', () => {
     await expect(page.getByTestId('make-your-own')).toHaveAttribute('href', '/tier-list/create');
     await expect(page.getByTestId('start-blank')).toHaveAttribute('href', '/tier-list/new');
     await expect(page.getByTestId('featured').locator('a').first()).toBeVisible();
-    await expect(page.getByTestId('trending-empty')).toBeVisible();
+    // Trending resolves to one of its two honest states: the empty note, or real
+    // published rows (production now has public lists, so this must not assume zero).
+    await expect(page.getByTestId('trending-empty').or(page.getByTestId('trending'))).toBeVisible();
   });
 });
 
@@ -266,5 +268,31 @@ test.describe('maker', () => {
     await first.click();
     await expect(page.getByTestId('tl-board')).toBeVisible();
     await expect(page.getByTestId('tray').locator('.tl-face').first()).toBeVisible();
+  });
+});
+
+// TIERLIST prod hotfix: three launch bugs. These run against the built app on :3021.
+test.describe('prod-hotfix', () => {
+  test('bug 3: a verse cookie does not bounce the Play home; Verse stays reachable', async ({ page, context }) => {
+    await context.addCookies([{ name: 'world', value: 'verse', domain: 'localhost', path: '/' }]);
+    await page.goto('/');
+    // Give any client-side redirect a chance to fire; it must NOT navigate to /verse.
+    await page.waitForTimeout(700);
+    await expect(page).toHaveURL(/localhost:3021\/$/);
+    await expect(page.locator('footer a[href="/verse"]').first()).toHaveAttribute('href', '/verse');
+  });
+
+  test('bug 1: the share page unfurl og:image is the board card, not the site default', async ({ page }) => {
+    // A minimal real board (ranked BTS faces) encoded into ?d=.
+    const d = 'eyJ0IjoiQlRTIiwiayI6W1siUyIsIiNFODQ1N0EiXV0sInAiOnsiUyI6WyJpZG9sOjEiXX0sImkiOltbImlkb2w6MSIsIlJNIiwiL2lkb2xzL1JNIEJUUy5qcGciXV19';
+    await page.goto(`/tier-list/share?d=${d}`);
+    const og = await page.locator('head meta[property="og:image"]').getAttribute('content');
+    expect(og).toMatch(/\/api\/og\/tier-list\?d=/);
+    expect(og).not.toMatch(/og-default/);
+  });
+
+  test('bug 2: the owner-view route 404s an unknown slug (non-owner cannot read)', async ({ page }) => {
+    const res = await page.goto('/tier-list/mine/no-such-list-xyz');
+    expect(res?.status()).toBe(404);
   });
 });

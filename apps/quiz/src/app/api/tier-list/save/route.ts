@@ -76,7 +76,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const { error } = await admin.from('tier_lists').update(patch).eq('id', existing.id);
     if (error) return NextResponse.json({ error: 'Could not save.' }, { status: 500 });
     revalidateFor(existing.slug);
-    return NextResponse.json({ slug: existing.slug, url: absUrl(req, existing.slug) });
+    return NextResponse.json({ slug: existing.slug, url: viewUrl(req, existing.slug, visibility), visibility });
   }
 
   // --- Create a new list with a unique slug ---
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       const retry = `${base.slice(0, 55)}-${Math.random().toString(36).slice(2, 6)}`;
       const { error: e2 } = await writer.from('tier_lists').insert({ ...row, slug: retry });
       if (e2) return NextResponse.json({ error: 'Could not save.' }, { status: 500 });
-      const res = NextResponse.json({ slug: retry, url: absUrl(req, retry) });
+      const res = NextResponse.json({ slug: retry, url: viewUrl(req, retry, visibility), visibility });
       if (!user && anonId && mintCookie) setAnonCookie(res, anonId);
       revalidateFor(retry);
       return res;
@@ -107,14 +107,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Could not save.' }, { status: 500 });
   }
 
-  const res = NextResponse.json({ slug, url: absUrl(req, slug) });
+  const res = NextResponse.json({ slug, url: viewUrl(req, slug, visibility), visibility });
   if (!user && anonId && mintCookie) setAnonCookie(res, anonId);
   revalidateFor(slug);
   return res;
 }
 
-function absUrl(req: NextRequest, slug: string): string {
-  return `${req.nextUrl.origin}/tier-list/l/${slug}`;
+// The link handed back to the owner. A PRIVATE list is not readable on the public
+// ISR page (RLS hides it there), so its owner link is the dynamic owner-view route;
+// public and unlisted lists resolve on the public page.
+function viewUrl(req: NextRequest, slug: string, visibility: Visibility): string {
+  const path = visibility === 'private' ? `/tier-list/mine/${slug}` : `/tier-list/l/${slug}`;
+  return `${req.nextUrl.origin}${path}`;
 }
 
 // Refresh the new/updated page render, the hub, and the sitemap immediately. The

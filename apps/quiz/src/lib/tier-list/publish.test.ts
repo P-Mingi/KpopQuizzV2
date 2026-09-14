@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { sanitizeBoard, customAssetIds, publishGate } from './publish';
+import { sanitizeBoard, customAssetIds, publishGate, canViewOwned } from './publish';
 
 // PART A gates: the pure publish-path helpers (no DB), which enforce the
 // exactly-once + size invariants at the persistence boundary and the auth /
@@ -64,5 +64,24 @@ describe('publishGate', () => {
     const g = publishGate({ visibility: 'private', userId: 'u1', referencedAssetIds: ['a'], assetStatuses: { a: 'rejected' } });
     expect(g.ok).toBe(false);
     if (!g.ok) expect(g.status).toBe(409);
+  });
+});
+
+describe('canViewOwned (private list owner read)', () => {
+  it('signed-in creator can view their own row', () => {
+    expect(canViewOwned({ creator_id: 'u1', anon_id: null }, { userId: 'u1', anonId: null })).toBe(true);
+  });
+  it('a different signed-in user cannot', () => {
+    expect(canViewOwned({ creator_id: 'u1', anon_id: null }, { userId: 'u2', anonId: null })).toBe(false);
+  });
+  it('logged-out creator can view their anon row when the cookie id matches', () => {
+    expect(canViewOwned({ creator_id: null, anon_id: 'a1' }, { userId: null, anonId: 'a1' })).toBe(true);
+  });
+  it('a wrong/absent anon id cannot view an anon row', () => {
+    expect(canViewOwned({ creator_id: null, anon_id: 'a1' }, { userId: null, anonId: 'a2' })).toBe(false);
+    expect(canViewOwned({ creator_id: null, anon_id: 'a1' }, { userId: null, anonId: null })).toBe(false);
+  });
+  it('anon viewer cannot use the anon path on a row that has a creator', () => {
+    expect(canViewOwned({ creator_id: 'u1', anon_id: 'a1' }, { userId: null, anonId: 'a1' })).toBe(false);
   });
 });

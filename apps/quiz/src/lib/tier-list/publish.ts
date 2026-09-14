@@ -108,3 +108,18 @@ export function publishGate(params: {
   }
   return { ok: true };
 }
+
+/**
+ * Read-side ownership: may this viewer see this owned (private) row? A signed-in
+ * creator owns their own rows (creator_id match). A logged-out guest owns a row
+ * they created anonymously (creator_id null AND anon_id matches their cookie id).
+ * Anything else is not the owner. Pure so the owner-view route can be unit-tested.
+ */
+export function canViewOwned(
+  row: { creator_id: string | null; anon_id: string | null },
+  viewer: { userId: string | null; anonId: string | null },
+): boolean {
+  if (viewer.userId && row.creator_id === viewer.userId) return true;
+  if (!viewer.userId && viewer.anonId && row.creator_id === null && row.anon_id === viewer.anonId) return true;
+  return false;
+}

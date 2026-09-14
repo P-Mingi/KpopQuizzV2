@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { decodeBoard } from '@/lib/tier-list/share-state';
-import { fetchFaceImages, type FaceRef, type FaceImageMap } from '@/lib/tier-list/og-faces';
+import { fetchFaceImages, publicImageBase, type FaceRef, type FaceImageMap } from '@/lib/tier-list/og-faces';
 
 import type { NextRequest } from 'next/server';
 
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
       shown.push({ id, url: byId.get(id)?.image_url ?? null });
     }
   }
-  const faceImages: FaceImageMap = await fetchFaceImages(shown, { timeoutMs: 2500, cap: story ? 63 : 49, origin: request.nextUrl.origin });
+  const faceImages: FaceImageMap = await fetchFaceImages(shown, { timeoutMs: 2500, cap: story ? 63 : 49, origin: publicImageBase(process.env.NEXT_PUBLIC_SITE_URL) });
 
   return new ImageResponse(
     (
