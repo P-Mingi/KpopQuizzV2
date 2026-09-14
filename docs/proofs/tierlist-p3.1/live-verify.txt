@@ -1,0 +1,24 @@
+# PHASE 3.1 live verification (next build + next start :3021). Seeded via service role,
+# TORN DOWN after (final check [][], DB + bucket clean).
+
+ITEM 1 - likes are authenticated idempotent rows:
+  tier_list_likes insert #1 -> 201; insert #2 (same list_id+user_id, PK) -> 409 (idempotent).
+  tier_lists.likes after two inserts -> 1 (the 147 trigger, not app code). unlike -> likes 0.
+  POST /api/tier-list/like logged out -> 401 {"needsAuth":true}; likes unchanged (0).
+  grep proof: no app code writes tier_lists.likes (only reads for the response); the trigger owns it.
+
+ITEM 2 - views atomic + throttled:
+  POST /api/tier-list/view -> {"views":1}, {"views":2}, {"views":3} (tier_list_bump_view RPC, one UPDATE).
+  Burst of 40 from one ip in the window -> 27x200 + 13x429 (30/min throttle; the 3 above used part of it).
+
+ITEM 3 - identity from the cookie, not the body:
+  save#1 (no cookie, body anonId=A) -> 200, mints cookie A.
+  update with cookie A + body anonId=B (different) -> 200 (cookie wins, owns).
+  update with cookie B + body anonId=A (asserting the owner's id in the body) -> 403 "You do not own this list."
+  => a body value can never override an existing cookie on the ownership check.
+
+ITEM 4 - upload verifies the real file type:
+  a text file sent as content-type image/png -> 400 "That file is not a real JPG, PNG or WEBP image."
+  a real .jpg -> 200 (uploaded, then torn down).
+
+Teardown: deleted every seeded list + like row + asset row + storage object -> final query [][].

@@ -1,0 +1,3 @@
+no-emoji scan over 37 phase-3.1 files
+
+RESULT: 0 emoji. Inline SVG only.

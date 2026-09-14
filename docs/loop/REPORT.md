@@ -1,134 +1,122 @@
-# REPORT - TIERLIST phase 3: the DB half (publish + public page + community + fandom-agrees + CRUD + moderation). No push.
+# REPORT - TIERLIST phase 3.1: close the engage abuse hole + hardening. Push-ready. No push.
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). PART 0 passed: migration 146 is now APPLIED
-(tier_lists + tier_list_assets + the public bucket all resolve; full column set confirmed). Built
-and proven on `next build` + `next start` (:3021), never dev. Every live check seeded rows through
-the service role and TORE THEM DOWN (DB + bucket left clean). No DDL applied by the worker, no
-push, no em dashes. Proofs: `docs/proofs/tierlist-p3/`.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). PART 0 passed WITH a control (below). Short patch
+phase: five items, all done. Built and proven on `next build` + `next start` (:3021), never dev.
+Every live check seeded through the service role and TORE DOWN (final query `[][]`, DB + bucket
+clean). No DDL applied by the worker, no env file touched, no push, no em dashes. Proofs:
+`docs/proofs/tierlist-p3.1/`.
 
-## PART 0 - gate confirmed
+## PART 0 - 147 confirmed applied (with a control)
 
-Read-only probe: `public.tier_lists` and `public.tier_list_assets` both return 200 with the full
-146 column set; the `tier-list-assets` bucket exists with public read. Proceeded.
+Standing rule now followed: use `apps/quiz/.env.local` (the repo-root `.env.local` points at a DEAD
+project) and always include a control. CONTROL `groups?slug=eq.bts` -> 200 `[{"id":1,"name":"BTS"}]`
+(proves the live project `rdkgouofytwfdpbxbzio`); `tier_list_likes` -> 200 (exists);
+`rpc tier_list_bump_view` -> 200 `null` on a nonexistent slug (callable, harmless). Proceeded.
 
-## PART A - publish, CRUD, the persisted public page
+## Migration file committed
 
-- **Write layer** `POST /api/tier-list/save`: a signed-in creator writes their own rows through the
-  cookie client (creator RLS); a logged-out guest may save a PRIVATE or UNLISTED board via the
-  service role with an `anon_id` + anon cookie (the plays precedent), but a PUBLIC list requires a
-  signed-in creator (the 146 constraint + a 401 gate). Every board is sanitised before write
-  (`sanitizeBoard`: exactly-once ids across buckets, capped size, valid tiers) so the invariant
-  holds at the persistence boundary; a unique slug is assigned via `makeUniqueSlug` checked against
-  the DB (with a 23505 retry). Update is owner-only (creator or matching anon). On write the slug
-  page + hub + sitemap `revalidatePath`; the cached reads carry a 300s TTL.
-- **Like / view** `POST /api/tier-list/engage` + the `PublicEngage` island: the 146 counters
-  (`likes` / `views`) bump through the service role, deduped per browser (localStorage). See the
-  "no 147" note below.
-- **The public page** `/tier-list/l/<slug>` (`PublicView.dc.html`): indexable SSG/ISR
-  (`generateStaticParams` over PUBLIC slugs, `notFound()` in `generateMetadata` for unknown/private
-  slugs = true 404, self-canonical, `revalidate=3600`), mirroring the published-quiz page so it
-  inherits the decided soft-404 posture (L-219/220). The ranking renders REAL photos (bank +
-  approved custom assets); a "where the fandom agrees" strip (PART B); "Make your own version" and
-  "Remix this list" doors (remix reopens the same set via `?d=`). UNLISTED lists render but are
-  `robots noindex` and out of the sitemap; PRIVATE returns 404 to anyone but the creator.
-- **ShareSheet publish** wired (was the disabled stub): a visibility toggle (public/unlisted/
-  private), logged-out public -> sign-in prompt, private/unlisted -> saved; after publish the sheet
-  links the persisted slug page.
-- **Sitemap**: published PUBLIC lists + their subject pages added in a guarded block (mirrors the
-  verse block), unlisted/private absent.
+`supabase/migrations/147_tier_list_likes.sql` written EXACTLY as the owner applied it (the appendix
+SQL, verbatim). Repo now matches the database. No defect found in that SQL.
 
-## PART B - community + where the fandom agrees
+## ITEM 1 - likes are authenticated idempotent rows (the hole, L-224)
 
-- **Subject page** `/tier-list/subject/<group>/<kind>`: every PUBLIC list of that subject + the
-  fandom-agrees consensus rendered as a board, a "Community lists" grid, and a "Make your own"
-  door. Indexable SSG/ISR (`generateStaticParams` over public subjects), unique title/description,
-  self-canonical, `notFound()` for an unknown subject or one with zero public lists.
-- **Fandom-agrees**: `fandomAgrees()` (already unit-tested) over every public list sharing the
-  subject, read through the cookie-free client under `unstable_cache` (the `tier_lists_subject_idx`
-  makes it cheap). NO counter table, NO new migration - compute-at-read as 146 was designed.
-- **Wired into existing surfaces**: the hub's "Trending this week" now lists real published lists
-  (honest empty until the first publish), and the public + subject pages cross-link, so nothing is
-  orphaned. (The tier-list hub is the feature's own community surface; the shared /leaderboard
-  CommunityContent was left untouched to keep blast radius contained - named, not a gap.)
+- A like is a ROW in `tier_list_likes (list_id, user_id)`, idempotent by primary key. A like
+  REQUIRES a signed-in user (anonymous likes cannot be idempotent, and this counter ranks a public
+  surface). The endpoint `/api/tier-list/like` is a TOGGLE: like inserts, unlike deletes, a second
+  like is a no-op. `tier_lists.likes` is maintained by the 147 trigger only - application code never
+  writes it again (the old select-then-update counter path is gone; grep proof in the REPORT below).
+- Writes use the cookie client so the 147 creator RLS is the guard, keyed by the verified
+  `auth.getUser()` id, never a client value. Logged out: the page still shows the count + heart, a
+  GET returns the viewer's own like state (filled heart), and the control prompts sign-in instead of
+  silently failing. The old open `/api/tier-list/engage` route was removed.
+- Live: `tier_list_likes` insert #2 with the same (list,user) -> 409, `likes` stays 1; unlike -> 0;
+  logged-out POST /like -> 401 needsAuth, counter unchanged.
 
-## PART C - custom-upload storage + moderation (and the closed seam)
+## ITEM 2 - views atomic + throttled
 
-- **Upload** `POST /api/tier-list/asset` (multipart): stores the cropped image to the public
-  `tier-list-assets` bucket via the service role (avatars/space-image precedent) and ledgers a
-  `tier_list_assets` row (`status='pending'`), owner = a signed-in user or an anon session; returns
-  the `*.supabase.co` public URL + `custom:<id>`. On row-insert failure the object is removed (no
-  orphan). ImportModal now uploads on "Add to pool" (falling back to a client-only blob if the
-  upload fails - a purely local draft).
-- **Moderation gate**: a PUBLIC list may only use APPROVED assets (enforced in the save gate +
-  proven on the public read path: RLS returns only approved assets to anon, so a pending custom
-  face falls back to initials on a public page); a private/unlisted list may use a pending asset.
-- **Admin queue** `/admin/tier-list-assets` + `/api/admin/tier-list-assets/action` (isAdmin,
-  service-role status flip), reusing the member-review admin rails. Approve/reject flips `status`.
-- **Seam closed (L-223) with no OG change**: a stored asset lives at a `*.supabase.co` URL, already
-  on `isConfiguredImageHost`, so `og-faces` fetches and embeds an approved custom face. Verified end
-  to end: the OG card for a board with an approved custom asset shows that custom face as a real
-  photo beside the bank faces (`seam-custom-og.png`).
+- `/api/tier-list/view` bumps through the atomic `tier_list_bump_view(p_slug)` RPC (one UPDATE, no
+  read-modify-write, so concurrent views cannot lose increments), following the repo `.rpc(...)`
+  convention. Open to logged-out viewers (views rank nothing), but a server-side per-ip+day throttle
+  (the in-memory rate-limit pattern from `/api/claim-runs`, 30/min) caps a burst; the client keeps
+  its per-browser dedup. Live: views 1/2/3 via the RPC; a 40-request burst -> 27x200 + 13x429.
 
-## Tests (all green - now LIVE, since 146 is applied)
+## ITEM 3 - identity from the cookie, not the body
 
-Unit (vitest, 34): + `publish.test.ts` (sanitizeBoard exactly-once/oversize/colour; customAssetIds;
-publishGate: public needs a creator (401), public blocks a pending asset (409), approved allows,
-unlisted allows a pending asset, any rejected asset blocks (409)); + share-state subject round-trip.
-fandom-agrees / serialization / slug / bank / og-faces still green.
+- `/api/tier-list/save` and `/api/tier-list/asset` now take the anon id from `readAnonCookie(req)`.
+  A body value may ONLY mint a first id when no cookie exists and NEVER overrides an existing cookie
+  (`resolveAnonId`, unit-tested). Live: a request with cookie B but body anonId=A (the owner's id)
+  is refused 403 on the ownership check - the body cannot impersonate the cookie.
 
-e2e (Playwright, 23 passed + 7 skipped desktop-only-on-mobile): the whole phase-2/2.5 suite still
-passes; + the share sheet offers a publish control with public/unlisted/private options; + a
-logged-out PUBLIC publish is refused 401 needsAuth and writes no row (asserted on the real endpoint,
-so it is deterministic). Config gains `retries: 2` because the feature specs hit a shared LIVE
-Supabase and a transient slow round-trip can flake a run.
+## ITEM 4 - upload verifies the real file type
 
-Live integration (seeded via service role, then torn down; `partAB-live-verify.txt`,
-`partC-seam-verify.txt`): publish auth posture; the public slug page renders static with the
-ranking + real photos; the list appears on its subject/community page; fandom-agrees shows real
-aggregated data across two published lists; remix reopens the set; visibility (public indexable,
-unlisted noindex + out of sitemap, private 404, unknown 404); a pending custom asset is hidden from
-a public page and blocked from a public publish, approved is allowed and embedded in the OG card.
-The signed-in-creator + admin UI paths were exercised through the real routes with seeded sessions/
-rows rather than a Playwright login (no live-auth session is wired for e2e) - stated plainly.
+- `/api/tier-list/asset` sniffs the uploaded buffer's magic bytes (`sniffImageType`: JPEG FF D8 FF,
+  PNG 89 50 4E 47..., WEBP RIFF....WEBP) and rejects on mismatch; the sniffed type is authoritative
+  for the stored content-type + extension. The declared-type allowlist (no SVG), 8MB cap and orphan
+  cleanup are unchanged. Live: a text file sent as image/png -> 400; a real jpg -> 200.
+
+## ITEM 5 - one overclaiming comment fixed (docs only)
+
+`l/[slug]/page.tsx` no longer says "true 404": it now says the `notFound()` on that ISR route is a
+CACHEABLE 200 soft-404 (the accepted site-wide posture, L-219/L-220). No behaviour change.
+
+## Grep proof (no app write to the ranked counter)
+
+`grep` over `src/app/api` + `src/lib/tier-list` shows NO `update`/`set` of `tier_lists.likes`; the
+two `.likes` reads in the like route are only for the response body. The 147 trigger is the sole
+writer.
+
+## Tests
+
+Unit (vitest, 51 = 34 + 17): `resolveAnonId` (cookie wins, body only mints when no cookie, never
+overrides); `resolveLike` (second like no-op, unlike removes, toggle); `sniffImageType` (accepts
+real JPEG/PNG/WEBP, rejects a text file renamed .png, a disallowed real type (GIF), and RIFF-not-
+WEBP). All phase-1/2/3 unit tests still green.
+
+e2e (Playwright, 25 passed + 7 skipped): + a logged-out like is refused 401 needsAuth and writes no
+row (asserted on the real endpoint, deterministic). The whole phase-2/2.5/3 suite still green.
+
+Live integration (seeded, verified, torn down): `live-verify.txt` - the double-like showing likes=1
+not 2, the logged-out refusal with an unchanged counter, the view RPC + the throttle refusing a
+burst, the cookie-beats-body identity, the forged-content-type rejection. DB + bucket left clean.
 
 ## Render modes + SEO
 
-`route-modes.txt`: `o /tier-list`; `● /tier-list/l/[slug]` and `● /tier-list/subject/[group]/[kind]`
-(SSG/ISR, indexable, self-canonical, in sitemap); `f` for create/new/share + the admin queue + every
-route handler. No existing URL changed; the new routes are covered by the existing /tier-list, /api
-and /admin allowlist prefixes (routes gate PASS, 369 reachable). `gates.txt`: docs-secrets + routes
-PASS; indexability / metadata-dupes / orphans report only the SAME pre-existing, non-tier-list
-offenders as before (grep for tier-list in each failure = none). A published list/subject is
-self-canonical with a unique title from its subject + creator and is linked from the hub + public
-pages, so it adds no dupe and no orphan.
+`route-modes.txt`: `/api/tier-list/engage` removed; `/api/tier-list/like` + `/api/tier-list/view`
+added (both `f` route handlers under the /api allowlist prefix). Public + subject pages still `●`
+SSG/ISR indexable; tools still `f` noindex; no existing URL changed. `gates.txt`: docs-secrets,
+routes, indexability AND orphans all PASS (732 URLs, complete crawl, zero orphans); only
+metadata-dupes is NONZERO and its offenders are the pre-existing verse-inflation `/verse/*` dupes -
+a grep for tier-list across every failing gate output = none. Zero emoji, zero em dashes.
 
-## Why NO new migration (147) was written
+## Env-file finding (REPORT ONLY - no file touched)
 
-146 was designed for compute-at-read, and fandom-agrees needs no counter table (PART B). The only
-thing that would want a table is server-enforced, cross-device idempotent likes/views (the duel-vote
-`voter_hash` precedent). I did NOT add a 147: likes/views bump the existing 146 integer columns
-through the service role, deduped per browser (localStorage), which keeps the whole phase running
-live on the applied 146 and avoids shipping a half-applied migration. If the owner wants
-cross-device one-per-user idempotency, a `147_tier_list_engagement.sql` (a likes join table + a
-views table + SECURITY DEFINER RPCs, mirroring 067/068) is the clean follow-up - say the word and I
-will write it (owner-applied, as always). This is the one honest limitation of the phase.
+The repo-root `.env.local` points at the DEAD Supabase project; `apps/quiz/.env.local` points at the
+LIVE one (`rdkgouofytwfdpbxbzio`). Scripts split into three groups:
+- SAFE (LIVE): `apps/quiz/scripts/*` that read `new URL('../.env.local', import.meta.url)` - most of
+  them (e.g. seed-industry-mvs, ingest-blindtest-songs, the vfoundation proofs, claim-funnel).
+- WRONG (DEAD): scripts under the repo-root `scripts/` that read a relative `'.env.local'` or
+  `join(process.cwd(), '.env.local')` - they resolve to the root DEAD project. Examples:
+  `scripts/seed-duels.ts`, `import-batch1..3.ts`, `seed-comments.ts`, `audit-quizzes.ts`,
+  `seed-expanded-games.ts`, `fetch-deezer-covers.ts`, `seed-platform.ts`, `apply-idol-images.ts`,
+  `seed-this-or-that.ts`, `seed-name-all-games.ts`, `apply-audit-fixes.ts`,
+  `seed-new-blindtest-groups.ts`, `extract-trivia-corpus.ts`, `generate-pins.ts`,
+  `scripts/verse/01-seed-candidates.mjs`, `scripts/blindtest/import-curated.mjs`,
+  `scripts/blindtest/populate-curated.mjs`.
+- CWD-DEPENDENT: some `apps/quiz/scripts/*` read a bare relative `'.env.local'` (LIVE only if run
+  from `apps/quiz`, DEAD if run from the repo root): `verify-identity-activity.mts`,
+  `verify-threads-cleanup.mts`, `generate-question-pins.mts`, `verify-profile-cleanup.mts`,
+  `verify-cards-purge.mts`, `verify-essays-cleanup.mts`, `verify-atlas-graph.mts`,
+  `seed-personality.mjs`, `seed-battle-ghosts.mjs`.
+Owner decides; I changed nothing.
 
-## Adjacent (named, not fixed - scope fence)
+## Owner gate
 
-The pre-existing gate offenders remain: `/katseye-trivia`, `/q/katseye-quiz`,
-`/q/bts-true-or-false-bet-you-cant-get-100` (orphans), the verse-inflation metadata dupes. Unrelated
-to tier lists.
-
-## Owner gates
-
-1. **Push** - local main is ahead of origin; nothing pushed (including this report).
-2. (Optional) apply a `147` ONLY if you want server-enforced like/view idempotency; not needed for
-   anything shipped here.
+1. **Push** - local main is ahead of origin; nothing pushed (including this report + the 147 file).
 
 ---
 
-STOP. The whole tier-list feature is now complete end to end (Phase 1 -> 3): make (bank + custom
-upload), rank (desktop drag / mobile tap), share (real-photo OG card), PUBLISH to an indexable
-public page, browse a subject's community + where the fandom agrees, remix, and moderate custom
-uploads - all on the applied 146, tested (34 unit + 23 e2e + live integration), nothing pushed. The
-single deferred nicety (cross-device like/view idempotency) is named with its 147 recipe.
+STOP. The engage hole is closed (authenticated idempotent like rows + trigger counter), views are
+atomic + throttled, identity comes from the cookie, uploads are type-sniffed, and the overclaiming
+comment is fixed. 51 unit + 25 e2e green, live-verified and torn down, four of five SEO gates green
+(the fifth is pre-existing verse dupes). The whole tier-list feature (phases 1 -> 3.1) is complete
+and PUSH-READY. Nothing pushed.

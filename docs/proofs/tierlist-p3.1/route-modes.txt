@@ -1,0 +1,18 @@
+# Render modes - TIERLIST phase 3.1 (next build). Unchanged from phase 3 except:
+#   /api/tier-list/engage REMOVED, replaced by /api/tier-list/like + /api/tier-list/view.
+├ ƒ /admin/tier-list-assets
+├ ƒ /api/admin/tier-list-assets/action
+├ ƒ /api/og/tier-list
+├ ƒ /api/tier-list/asset
+├ ƒ /api/tier-list/like
+├ ƒ /api/tier-list/save
+├ ƒ /api/tier-list/view
+├ ○ /tier-list                                                  5m      1y
+├ ƒ /tier-list/create
+├ ● /tier-list/l/[slug]
+├ ƒ /tier-list/new
+├ ƒ /tier-list/share
+├ ● /tier-list/subject/[group]/[kind]
+
+public + subject pages ● (SSG/ISR indexable); create/new/share + admin queue f (noindex);
+route handlers f. No existing URL changed (like/view are new /api paths under /api allowlist).

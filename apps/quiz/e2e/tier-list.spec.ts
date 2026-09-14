@@ -177,6 +177,15 @@ test.describe('maker', () => {
     expect((await resp.json()).needsAuth).toBe(true);
   });
 
+  test('like: a logged-out like is refused 401 needsAuth (writes no row)', async ({ page }) => {
+    await page.goto('/tier-list');
+    // A like requires a signed-in user (it ranks a public surface), so logged out
+    // the endpoint refuses before any write; the GET still returns the public count.
+    const post = await page.request.post('/api/tier-list/like', { data: { slug: 'anything', action: 'like' } });
+    expect(post.status()).toBe(401);
+    expect((await post.json()).needsAuth).toBe(true);
+  });
+
   test('OG card for a bank board embeds real photos (materially larger than initials)', async ({ page }) => {
     // A bank board (real photos) vs a same-shape board with an unfetchable face
     // (initials fallback): the photo card is materially larger, proving real

@@ -1,0 +1,40 @@
+# SEO gates - TIERLIST phase 3.1 (2026-09-14), server up on :3021
+=== check:docs-secrets ===
+PASS
+Docs secret gate: scanned 671 tracked files under /Users/louis/IT/Dev/projects/KpopQuizzV2/docs/.
+Docs secret gate passed: no credential-shaped value in any tracked doc.
+
+=== check:routes ===
+PASS
+Route allowlist guard passed: 377 page routes reachable.
+  - skipped /avatar-studio (Avatar studio is frozen: hidden on purpose, code and assets kept.)
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+=== check:indexability ===
+PASS
+  ! /verse/stray-kids/wiki - in the sitemap but returned HTTP 404 (should be 200). [verse-tab: deep ISR - verify via the prod monitor]
+  ! /verse/bts/pt1 - in the sitemap but returned HTTP 404 (should be 200). [verse-tab: deep ISR - verify via the prod monitor]
+  ! /verse/bts/coffee - in the sitemap but returned HTTP 500 (should be 200). [verse-tab: deep ISR - verify via the prod monitor]
+Indexability guard passed: COMPLETE crawl (all 3077) - 3077 pages index-consistent, and every article + sampled quiz/group is in the sitemap.
+
+=== check:metadata-dupes ===
+NONZERO EXIT
+
+Every indexable URL needs a unique title and a unique description.
+Fix the template so it varies by construction, or stop advertising the duplicate URL in the sitemap.
+
+
+=== check:orphans ===
+PASS
+Sitemap floor: 732 non-verse URLs vs a floor of 600.
+Orphan gate: 732 non-verse sitemap URLs, crawled 732 of 732 pages against http://localhost:3021
+Orphan gate passed: every one of the 732 non-verse sitemap URLs has at least one inbound internal link from the 732 crawled pages. (Complete crawl of every non-verse sitemap URL.)
+
+
+--- READING (phase 3.1) ---
+docs-secrets PASS. routes PASS. indexability PASS. orphans PASS (732 URLs, complete crawl, zero
+orphans). Only metadata-dupes NONZERO, and its offenders are the pre-existing verse-inflation
+/verse/* dupes - a grep for tier-list across the failing gate output = NONE. This patch adds no
+new dupe, orphan or indexability break. (indexability + orphans also improved vs phase 3: the
+katseye / bts-true-or-false offenders are gone this run.)

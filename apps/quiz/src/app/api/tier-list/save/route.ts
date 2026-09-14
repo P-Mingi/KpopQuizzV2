@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { setAnonCookie, isUuid } from '@/lib/anon-claim';
+import { setAnonCookie, readAnonCookie } from '@/lib/anon-claim';
+import { resolveAnonId } from '@/lib/tier-list/engage';
 import { slugify, makeUniqueSlug } from '@/lib/tier-list/slug';
 import { sanitizeBoard, customAssetIds, publishGate } from '@/lib/tier-list/publish';
 import { parseKind } from '@/lib/tier-list/subject';
@@ -60,7 +61,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const gate = publishGate({ visibility, userId: user?.id ?? null, referencedAssetIds: refAssetIds, assetStatuses });
   if (!gate.ok) return NextResponse.json({ error: gate.error, needsAuth: gate.status === 401 }, { status: gate.status });
 
-  const anonId = isUuid(body.anonId) ? body.anonId : null;
+  // Identity from the httpOnly cookie, not the request body: the cookie wins, the
+  // body may only mint a first id when no cookie exists (never override it), so a
+  // caller cannot assert someone else's anon id on the ownership check below.
+  const { anonId, mintCookie } = resolveAnonId(readAnonCookie(req), body.anonId);
 
   // --- Update an existing list (owner only) ---
   if (body.slug) {
@@ -96,7 +100,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       const { error: e2 } = await writer.from('tier_lists').insert({ ...row, slug: retry });
       if (e2) return NextResponse.json({ error: 'Could not save.' }, { status: 500 });
       const res = NextResponse.json({ slug: retry, url: absUrl(req, retry) });
-      if (!user && anonId) setAnonCookie(res, anonId);
+      if (!user && anonId && mintCookie) setAnonCookie(res, anonId);
       revalidateFor(retry);
       return res;
     }
@@ -104,7 +108,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const res = NextResponse.json({ slug, url: absUrl(req, slug) });
-  if (!user && anonId) setAnonCookie(res, anonId);
+  if (!user && anonId && mintCookie) setAnonCookie(res, anonId);
   revalidateFor(slug);
   return res;
 }

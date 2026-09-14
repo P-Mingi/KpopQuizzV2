@@ -16,7 +16,9 @@ import type { TierListItem } from '@/lib/tier-list/types';
 
 // A published tier list, at /tier-list/l/<slug>. Indexable static/ISR (mirrors the
 // published quiz page): generateStaticParams over PUBLIC slugs, notFound() in
-// generateMetadata for unknown/private slugs (true 404, cached), self-canonical.
+// generateMetadata for unknown/private slugs. On an ISR route that notFound() is a
+// CACHEABLE 200 soft-404 (the accepted site-wide posture, L-219/L-220), not a hard
+// 404. Self-canonical.
 // UNLISTED lists render but are noindex and out of the sitemap. The ranking uses
 // real photos; the fandom-agrees strip and the remix/make-your-own doors close the
 // view -> make -> share loop.

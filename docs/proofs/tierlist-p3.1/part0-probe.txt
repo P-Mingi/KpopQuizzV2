@@ -1,0 +1,11 @@
+# PHASE 3.1 PART 0 probe - is 147 applied? WITH a control query (2026-09-14)
+# Standing rule: always use apps/quiz/.env.local (root .env.local points at a DEAD
+# project) and always include a control, else a probe cannot prove it hit the right DB.
+
+CONTROL: GET /rest/v1/groups?slug=eq.bts -> HTTP 200, [{"id":1,"name":"BTS"}]
+  (proves the probe reached the LIVE project rdkgouofytwfdpbxbzio)
+GET /rest/v1/tier_list_likes?select=list_id,user_id&limit=1 -> HTTP 200  (table exists)
+POST /rest/v1/rpc/tier_list_bump_view {p_slug:"zzt-nonexistent"} -> HTTP 200, null
+  (function callable; nonexistent slug updates 0 rows = harmless)
+
+VERDICT: 147 applied. Proceeded.

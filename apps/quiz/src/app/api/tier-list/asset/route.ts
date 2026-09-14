@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { setAnonCookie, isUuid } from '@/lib/anon-claim';
+import { setAnonCookie, readAnonCookie } from '@/lib/anon-claim';
+import { resolveAnonId } from '@/lib/tier-list/engage';
+import { sniffImageType } from '@/lib/tier-list/image-sniff';
 
 import type { NextRequest } from 'next/server';
 
@@ -29,20 +31,30 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const anonRaw = form.get('anonId') as string | null;
 
   if (!(file instanceof File)) return NextResponse.json({ error: 'No image.' }, { status: 400 });
+  // Extension/type allowlist (no SVG) on the declared type first.
   if (!EXT[file.type]) return NextResponse.json({ error: 'Use a JPG, PNG or WEBP image.' }, { status: 400 });
   if (file.size === 0 || file.size > MAX_BYTES) return NextResponse.json({ error: 'Image must be under 8MB.' }, { status: 400 });
 
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
-  const anonId = isUuid(anonRaw) ? anonRaw : null;
+  // Identity from the httpOnly cookie, not the body: cookie wins, body only mints
+  // a first id when no cookie exists (never overrides it).
+  const { anonId, mintCookie } = resolveAnonId(readAnonCookie(req), anonRaw);
   if (!user && !anonId) return NextResponse.json({ error: 'Could not identify you.' }, { status: 400 });
 
   const admin = createServiceRoleClient();
   const bytes = Buffer.from(await file.arrayBuffer());
-  const prefix = user ? `u/${user.id}` : `a/${anonId}`;
-  const path = `${prefix}/${crypto.randomUUID()}.${EXT[file.type]}`;
+  // Do not trust the client MIME: sniff the real magic bytes and require the true
+  // signature to be an allowed raster type (a text file renamed .png, or a forged
+  // content-type, is rejected). The sniffed type is authoritative for the stored
+  // content type + extension.
+  const realType = sniffImageType(bytes);
+  if (!realType) return NextResponse.json({ error: 'That file is not a real JPG, PNG or WEBP image.' }, { status: 400 });
 
-  const up = await admin.storage.from(BUCKET).upload(path, bytes, { contentType: file.type, upsert: false });
+  const prefix = user ? `u/${user.id}` : `a/${anonId}`;
+  const path = `${prefix}/${crypto.randomUUID()}.${EXT[realType]}`;
+
+  const up = await admin.storage.from(BUCKET).upload(path, bytes, { contentType: realType, upsert: false });
   if (up.error) return NextResponse.json({ error: 'Upload failed.' }, { status: 500 });
   const publicUrl = admin.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
 
@@ -55,6 +67,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const res = NextResponse.json({ id: data.id, url: publicUrl, status: data.status, itemId: `custom:${data.id}` });
-  if (!user && anonId) setAnonCookie(res, anonId);
+  if (!user && anonId && mintCookie) setAnonCookie(res, anonId);
   return res;
 }
