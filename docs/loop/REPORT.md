@@ -119,16 +119,23 @@ noted for a follow-up rather than shipped half-built.
 
 - Unit: 80 passed (10 files), including the three new games-hub files (filter tag map, band picker
   determinism, countdown helper) = 17 tests.
-- e2e: 17 passed, 1 skipped (the desktop skip of the mobile-only overflow guard), on both the
-  desktop and mobile Playwright projects, against the `next start` build on :3021. Covers the eight
-  cards in server HTML, every idol face loaded (naturalWidth > 0), band CTA -> /blindtest, Tier
-  Lists -> /tier-list with the New badge, K-pop Idle has no link, each filter reveals its set and
-  All restores eight, no emoji, /pt/games same eight cards, and no horizontal overflow at 390.
+- e2e: 18 passed, 2 skipped (the desktop skips of the two mobile-only guards), on both the desktop
+  and mobile Playwright projects, against the `next start` build on :3021. Covers the eight cards in
+  server HTML, every idol face loaded (naturalWidth > 0), band CTA -> /blindtest, Tier Lists ->
+  /tier-list with the New badge, K-pop Idle has no link, each filter reveals its set and All restores
+  eight, no emoji, /pt/games same eight cards, no horizontal overflow at 390, and (new) every foot
+  stat is one line and never overlaps its CTA at 390.
 - tsc: 0 source errors. `next build`: green (check:routes, check:verse-tokens, check:env all pass).
 - No em dashes, zero emoji in the shipped hub.
 
-CI: not triggered from here (no push). Running the branch head through CI is the owner's call after
-this audit; locally the same gates (vitest, tsc, next build, playwright) are green.
+## CI (on the current head 80b681d)
+
+Pushed the feature branch (main stays owner-gated) and opened PR #23 to run the full suite. Both jobs
+are GREEN on head 80b681d: unit passed (30s), e2e passed (3m14s). Run:
+https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34879005227 (PR
+https://github.com/P-Mingi/KpopQuizzV2/pull/23).
+
+The one owner gate that remains: merging to main (production). This branch is not merged.
 
 ## Scope touched
 
