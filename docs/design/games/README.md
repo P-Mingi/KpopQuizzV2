@@ -46,3 +46,7 @@ bottom-right). Tier colors S #E8457A, A #F5894D, B #EBB33E.
 fans playing today (3,204), votes today (12,880), Elo numbers, streak "1 day", "Your best: 5 of 7",
 the four blind test answers, the countdown "12:27:14". Real values from the current page: 53
 groups, 4 modes, 14 boards, 20 rankings. The mission says what replaces each sample.
+
+Timer semantics (verified in the players): Name Them All counts DOWN (`playlist.timerSeconds`);
+Sort It and Match-Up count UP (finish time is the score; Match-Up adds 3 s per wrong pair). The
+pills in the Sort It and Match-Up previews are elapsed time.

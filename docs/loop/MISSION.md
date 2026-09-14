@@ -15,6 +15,29 @@ The COST mission that was on this bus is parked at `docs/loop/queue/MISSION-cost
 start it. But respect its spirit here: this redesign must add ZERO new server work per request
 (see the COST FENCE below).
 
+## STATE (read first): recon done at 28d06f2, build NOT started, this is a FRESH session
+The previous session did the setup and stopped honestly before building (REPORT.md says so).
+Branch `feat/games-hub-redesign` exists off main with commit 28d06f2 (the spec + report). Start
+there; do not re-branch. Facts already established, do not re-discover them:
+- Name Them All: real countdown, `playlist.timerSeconds` per playlist (name-them-all-player.tsx).
+- Sort It: the timer counts UP, the finish time is the score, there is NO round countdown
+  (sort-it-player.tsx line ~16). Match-Up: the timer counts UP, +3 seconds per wrong pair
+  (`PENALTY_SECONDS = 3`, match-up-player.tsx), pool gated at `MATCH_UP_MIN_PAIRS = 12`.
+  The artboards were corrected for this: Sort It stat = "Timer counts up, beat your time",
+  Match-Up stat = "Wrong pair adds 3 seconds", Match-Up hook = "clear the board fast". The
+  timer pills in those two previews are elapsed time, not countdowns.
+- "N fans playing today": `plays` has `created_at` but its indexes lead with quiz_id /
+  player_id, so a bare 24h count may be a scan. Rule: reuse the existing pulse computation if
+  it already yields a recent-plays figure; otherwise EXPLAIN the count and ship it only if it
+  runs under 200ms without a seq scan on a large table; otherwise drop the chip (no new index,
+  DDL is an owner gate). Same rule for "N played today" in the band.
+- No notify/subscribe mechanism exists: K-pop Idle renders non-interactive "Coming soon".
+- Band answer chips: real song titles from a small cached list inside `getGamesData`,
+  `pickDaily` per UTC day, excluding today's actual daily answers.
+Recheck the source of truth: `docs/design/games/` was updated after 28d06f2 (the two stat lines
+above, and "K-pop" no longer orphans in the Match-Up hook). The renders in `renders/` are the
+oracle as of this mission; if the committed copy differs from the owner's ZIP, the ZIP wins.
+
 ## SOURCE OF TRUTH
 `docs/design/games/` (committed with this mission):
 - `Main.dc.html` (1440) and `Mobile.dc.html` (390): the page. `preview/*.html` opens standalone
@@ -72,14 +95,13 @@ Rebuild `GamesHub` (and its CSS) to match `Main.dc.html` at 1440 and `Mobile.dc.
    REAL faces from `/idols/`, the title, the one hook line (copy verbatim from the artboard), one
    stat, one count chip, one primary action with the verb from the artboard (Play / Vote / Play /
    Find a duel / Start ranking / Notify me). Preview tiles are static illustrations of the
-   mechanic; their timers and states must be consistent with the real rules (verify Sort It's
-   round length and Match-Up's board time in `src/lib/games/*` and use the real values in the
-   stat lines).
+   mechanic; their timers and states must be consistent with the real rules (see STATE: Name
+   Them All counts down, Sort It and Match-Up count up).
    Data rules per card (SAMPLE values from the README must never ship):
    - Name Them All: chip = the real nameThemAll count; stat "Your best: X of Y" only if
      HubLastPlayed/local state holds a real best, else "Beat the clock, all members".
-   - Sort It: chip = real sortIt count; stat = the real seconds per round.
-   - Match-Up: chip = real matchUp count; stat = the real board time.
+   - Sort It: chip = real sortIt count; stat "Timer counts up, beat your time".
+   - Match-Up: chip = real matchUp count; stat "Wrong pair adds 3 seconds".
    - This or That: chip = real categories count; stat "N votes" from `liveRanking.total_votes`
      (no "today" unless the number is a real daily count).
    - Which member: chip "All groups" or the real personality count; stat "Made for sharing".
@@ -151,7 +173,7 @@ acceptable; a half-mounted player is not.
 7. Five SEO gates green. No em dashes. Zero emoji.
 
 ## SCOPE FENCE / GATES
-Branch `feat/games-hub-redesign` from `main` (ba1aaf1). Note: `feat/tierlist-social` carries an
+Branch `feat/games-hub-redesign` already exists (28d06f2 off ba1aaf1); continue on it. Note: `feat/tierlist-social` carries an
 unpushed commit e93315d (OG share card sizing); leave it alone, do not merge it, mention it in
 the REPORT. Only /games, /pt/games, `GamesHub` and its children, the `gh2-*` CSS (rename freely),
 tests and proofs. No other page. No change to /blindtest, /battle, /tier-list, /personality or
