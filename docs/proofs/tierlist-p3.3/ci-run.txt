@@ -1,0 +1,31 @@
+# PHASE 3.3 ITEM 1 - the test suite now runs in CI on a GitHub runner (not a local log)
+
+Run:        https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34841673270
+Workflow:   Tests (.github/workflows/tests.yml)
+Branch:     preview/verse-stack
+Commit:     91dc62999fc9230b9e500b9c4c51a0bd2d511978
+Trigger:    push
+Conclusion: success
+
+unit job (no secrets, pure vitest, every push + PR):
+   Test Files  7 passed (7)
+        Tests  51 passed (51)
+
+e2e job (build + start on :3021, Playwright, main / preview/** / PRs):
+   Install Playwright Chromium  ok
+   Build the quiz app           ok  (build chain ran check:env: "[check:env] OK - NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY present")
+   Start the built app on :3021 ok
+   test:e2e                     Running 34 tests using 1 worker
+                                8 skipped
+                                26 passed (29.6s)
+
+Coverage stated in numbers (so a green is not over-read):
+   unit: 51 pure tests (mock fetch, no DB, no secrets).
+   e2e:  26 passed + 8 skipped (the desktop-only discovery/wizard specs skip on the
+         mobile project). Uses the anon Supabase key only; the logged-out publish/like
+         gates return 401 before any DB call, so a placeholder service-role key is enough.
+   NOT covered: signed-in creator/admin flows (no auth session on a runner) - those are
+   the phase-3 live checks, not CI.
+
+seo-gates.yml: UNMODIFIED (git diff empty).
+main: NOT pushed. Only preview/verse-stack was pushed.
