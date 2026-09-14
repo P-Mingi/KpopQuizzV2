@@ -12,3 +12,31 @@ Route allowlist guard passed: 377 page routes reachable.
   - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
 
 === check:indexability ===
+NONZERO
+
+Either the sitemap advertises a page it should not (noindex / missing title / non-self-canonical),
+or an indexable page fell out of the sitemap. Fix the page's metadata OR the sitemap inclusion in src/app/sitemap.ts.
+
+
+=== check:metadata-dupes ===
+NONZERO
+
+Every indexable URL needs a unique title and a unique description.
+Fix the template so it varies by construction, or stop advertising the duplicate URL in the sitemap.
+
+
+=== check:orphans ===
+NONZERO
+  x /q/bts-true-or-false-bet-you-cant-get-100
+  x /q/katseye-quiz
+
+Fix by linking them from a real surface people use (e.g. /groups, the A-Z directory), not by minting a page to hold the link.
+
+
+--- READING (phase 3.4) ---
+docs-secrets + routes PASS. indexability + metadata-dupes + orphans NONZERO, every
+offender pre-existing and unrelated: the katseye/bts/seventeen quizzes that flip in
+and out of the local sitemap by seed-data state, and the verse-inflation /verse/*
+dupes. NO tier-list, /tier-list/new, general-kpop, or /verse URL appears in any
+failing gate (verse orphan hits: 0). This phase adds no new orphan and no new dupe;
+render modes are unchanged (hub o static; new/create/share f noindex tools).

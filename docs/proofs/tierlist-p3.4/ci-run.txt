@@ -1,0 +1,7 @@
+# PHASE 3.4 - CI green on a real runner (preview/verse-stack)
+
+Run:        https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34846953602
+Branch:     preview/verse-stack   Commit: a6c84b0   Conclusion: success
+unit: Test Files 7 passed (7), Tests 55 passed (55)
+e2e:  Running 40 tests -> 8 skipped, 32 passed
+main: NOT pushed.

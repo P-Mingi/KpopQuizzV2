@@ -1,82 +1,82 @@
-# REPORT - TIERLIST phase 3.3: the test suite runs in CI, and a missing env fails legibly. Preview push only.
+# REPORT - TIERLIST phase 3.4: blank board can add items, General K-pop loads the whole bank, wider maker. Preview push only.
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). The audit gap - 51 unit + 26 e2e tests existed but
-NOTHING ran them in CI - is closed. Both items done and proven by a real GitHub run, not a local
-log. No push to main, no env file touched, no new migration, no em dashes, zero emoji. Proofs:
-`docs/proofs/tierlist-p3.3/`.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). Three functional defects from the owner's preview
+playtest, all fixed. Built and proven on `next build` + `next start` (:3021), never dev; CI green on
+a real runner. No push to main, no change to og-faces/OG route, no new migration, no env file
+touched, no em dashes, zero emoji. Proofs: `docs/proofs/tierlist-p3.4/`.
 
-## ITEM 1 - a test workflow that actually gates
+Context confirmed, not "fixed": on the preview the share card shows initials because Vercel SSO
+(all_except_custom_domains) 401s the edge route's fetch of its own /idols assets; it will render
+photos on the production domain. og-faces and the OG route are untouched.
 
-New `.github/workflows/tests.yml` (seo-gates.yml untouched: `git diff` vs origin/main empty), two
-jobs, copying the seo-gates setup shape (pnpm 10.32.1, node 20, `pnpm install --frozen-lockfile`):
-- **unit**: `pnpm run test:unit` in apps/quiz. No server, no DB, no secrets (the unit tests are
-  pure and mock fetch), so it runs on EVERY push and every PR and stays fast.
-- **e2e**: maps the existing secrets exactly as seo-gates does (`QUIZ_SUPABASE_URL` ->
-  `NEXT_PUBLIC_SUPABASE_URL`, `QUIZ_SUPABASE_ANON_KEY` -> `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
-  `NEXT_PUBLIC_SITE_URL/NAME`, and the same `not-a-credential-ci-placeholder` service-role key),
-  installs the bundled Chromium, builds and starts the app on :3021, waits for a 200, then runs
-  `test:e2e`; the Playwright report is uploaded as an artifact on failure. It runs on `main`,
-  `preview/**` and pull requests, not on every branch push (a full build + start is too heavy for
-  that).
-- Playwright browser trap handled: `playwright.config.ts` is now CI-aware - `channel: 'chrome'`
-  locally (the owner's Mac Chrome), `channel: undefined` on CI (the key is set explicitly so it
-  overrides any device default), which uses the Chromium that
-  `npx playwright install chromium --with-deps` installs. The local system-Chrome run is unchanged.
+## ITEM 1 - the blank board is no longer a dead end
 
-**CI proof (a runner executed it):**
-Run https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34841673270 on `preview/verse-stack`
-(commit 91dc629), conclusion **success**.
-- unit: `Test Files 7 passed (7)`, `Tests 51 passed (51)`.
-- e2e: `Running 34 tests` -> `8 skipped`, `26 passed (29.6s)`, after the in-workflow `check:env`
-  printed OK, Chromium installed, the app built and started on :3021.
+- Extracted `ImportModal` to a shared component (`src/components/tier-list/import-modal.tsx`) so the
+  wizard AND the maker use ONE uploader, reusing the existing `/api/tier-list/asset` path (upload to
+  the moderated `tier_list_assets` store, pending; client object-URL fallback on failure).
+- Added an "Add images" control to the maker toolbar (`tier-maker.tsx`). It works on ANY board
+  (blank or a subject board). Multi-select: several files chosen at once are processed as a queue,
+  each cropped square + named, each landing in the Unranked tray. Runtime uploads merge into the
+  board via `extraItems` and are placed into unranked; their blob URLs are revoked on unmount.
+- The empty tray stopped lying: a board with nothing shows an invite that opens the importer
+  instead of "Everything is ranked." (which now only shows when items exist and are all ranked).
+- e2e regression lock: from Start blank, the toolbar exposes Add images, adding one lands it in the
+  tray, and it can be placed on a tier.
 
-Coverage in numbers (so the green is not over-read): unit = 51 pure tests (mock fetch, no DB, no
-secrets); e2e = 26 passed + 8 skipped (the desktop-only discovery/wizard specs skip on the mobile
-project), against the anon key only. NOT covered: signed-in creator/admin flows - a runner has no
-auth session, so those stay the phase-3 live checks, not CI (the same honesty seo-gates.yml applies
-to /verse and /rankings).
+## ITEM 2 - "General K-pop members" now means the whole bank
 
-## ITEM 2 - a missing env fails fast and legibly
+- New `getAllBankMembers` (`bank.ts`): members across every real group, photo-only, ordered so the
+  best-known groups come first (the `getAllGroups` quiz_count ranking), capped at
+  `GENERAL_MEMBERS_CAP = 120`. Pure order/cap logic is `orderAndCapMembers` in bank-shape (unit
+  tested). The live board loads 118 idols with real photos.
+- The hub drops the catch-all from the auto featured loop (it would open empty) and offers it as an
+  explicit "K-pop idols (all groups)" tile; `/tier-list/new?group=general-kpop` resolves to the
+  all-bank pool. Any OTHER named subject that resolves to zero items now shows an honest state
+  (`data-testid=empty-subject`) rather than a silently blank board wearing the subject title.
+- Challenge link on a large pool: `encodeBoard` caps carried items at `CARRY_CAP = 80` in BOTH the
+  default (ranked-first) and the allItems (challenge) paths, so even a 120-idol general board
+  produces a link well under URL limits (unit test: a 200-item allItems board encodes to 80 items
+  and under 8000 chars). Decision stated: cap the carried set, not fall back to a subject reload, so
+  one rule covers every board.
+- Submit a missing idol reuses the EXISTING custom-asset flow: it is a moderated user asset
+  (`tier_list_assets`, pending -> approved), shown on the submitter's own board immediately and only
+  reaching a PUBLIC list once approved. It is NEVER a write to the official `idols` table, and no
+  migration is added.
+- e2e: the general template opens a non-empty pool; a featured template never opens an empty board.
 
-New `apps/quiz/scripts/check-env.mts`, chained into the build before `next build`:
-`check:routes && check:verse-tokens && check:env && next build`. It asserts
-`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are present, checking `process.env`
-(Vercel injects vars there) and then the local env files Next itself would load (a dev's
-`apps/quiz/.env.local`), since this runs before Next loads them. On a miss it exits 1 immediately,
-naming the missing variable(s) and the environment; it never prints a value. So the Vercel Preview
-failure that surfaced as `Export encountered an error on /leaderboard` would now fail at the top of
-the build as `[check:env] Build preflight FAILED ... Missing required public env var(s):
-NEXT_PUBLIC_SUPABASE_URL, ...`.
+## ITEM 3 - the board is no longer too narrow
 
-`/leaderboard` (and `CommunityContent`) were deliberately NOT wrapped in `safeFetch`: that unwrapped
-read is the only thing that fails a build when the database is unreachable, and wrapping it would let
-a build with no database ship as a silently empty green site. The preflight replaces the accidental
-canary with a deliberate, legible one; the hard failure stays.
+Root cause: the `(site)` layout caps `<main>` at `max-w-[720px]`, so `.tl-wrap`'s max-width never
+applied. The maker surface now opts into `.tl-wide`, which breaks OUT of the 720 parent and centres
+on the viewport at `min(1440px, calc(100vw - 32px))` (the -32 so a vertical scrollbar never forces
+horizontal scroll; verified scrollWidth == innerWidth at 1440), with a 240px tray (was 300). Only
+the maker opts in; the hub, create and share pages keep the 720 column. Mobile (<=820px) keeps the
+stacked tray and tap-to-place unchanged.
 
-**Preflight proof (`preflight.txt`):** with the env present -> `[check:env] OK ...` (exit 0), build
-proceeds (verified in the local build and in the CI e2e build); with the vars unset and no env file
--> the named failure (exit 1).
+Measured 84px faces per tier row (proof `faces-per-row.txt`):
+- 1280: BEFORE 2, AFTER 8.
+- 1440: BEFORE 2, AFTER 10.
 
-## Local still green
+## Tests + CI
 
-`test:unit` = 51 passed; `test:e2e` = 26 passed + 8 skipped with `channel: 'chrome'` on the Mac - the
-CI-aware change did not break the local run.
+Local: 55 unit + 32 e2e / 8 skipped, all green. CI (the real gate, run
+https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34846953602 on preview/verse-stack, commit
+a6c84b0) conclusion **success**: unit 55 passed, e2e 40 -> 32 passed / 8 skipped. Test-created
+pending assets were torn down (DB rows deleted; 0 left).
 
-## Not pushed / not touched
-
-main NOT pushed (production stays the owner's gate); only `preview/verse-stack` was pushed
-(46289a2 -> 91dc629). No env file edited. `seo-gates.yml` unmodified. No phase 1-3.2 work reopened.
+Five SEO gates (`gates.txt`): docs-secrets + routes PASS; indexability / metadata-dupes / orphans
+NONZERO but every offender is the pre-existing katseye/bts/seventeen quiz flip and the verse-inflation
+dupes - no tier-list, general-kpop, or /verse URL appears in any failure (verse orphan hits: 0), so
+this phase adds no new orphan and no new dupe. Render modes unchanged (hub o static; new/create/share
+f noindex tools; OG a route handler). Zero emoji, zero em dashes.
 
 ## Owner gate
 
-1. **The Vercel Preview scope still needs the Supabase env vars** (NEXT_PUBLIC_SUPABASE_URL +
-   NEXT_PUBLIC_SUPABASE_ANON_KEY, and the service-role key) for the preview DEPLOY to build - the CI
-   test workflow has them from repo secrets and is green, but the Vercel deploy reads Vercel's own
-   env. With the preflight in place, a missing one now fails at `check:env` naming the variable.
-2. **Push main** for production, when you choose.
+1. **Push main** for production, when you choose. Local main is ahead of origin; nothing on main was
+   pushed. preview/verse-stack was fast-forwarded to a6c84b0 for the playtest.
 
 ---
 
-STOP. The 51 unit + 26 e2e tests now gate in CI (run 34841673270, success on preview/verse-stack),
-and a missing Supabase env fails at `check:env` naming the variable instead of as an unrelated
-/leaderboard error. main not pushed. seo-gates untouched.
+STOP. Blank boards can add images (regression locked by e2e), "General K-pop" loads 118 real idols
+with a bounded challenge link and a moderated submit-an-idol path, and the maker fits 8-10 faces per
+row instead of 2. 55 unit + 32 e2e green in CI on preview. main not pushed.

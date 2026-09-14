@@ -1,0 +1,10 @@
+# ITEM 3 - faces per tier row (84px face + 10px gap), measured on the general board
+# (.tl-tstrip clientWidth), before vs after the width fix. The (site) layout caps
+# <main> at 720px; .tl-wide breaks the maker out of that and centres it on the
+# viewport. Formula: floor((tstripWidth - 24 padding + 10 gap) / (84 + 10)).
+#
+#   viewport 1280:  BEFORE tstrip 268px -> 2 faces   AFTER tstrip 856px  -> 8 faces
+#   viewport 1440:  BEFORE tstrip 268px -> 2 faces   AFTER tstrip 1016px -> 10 faces
+#
+# No horizontal scroll after the change (documentElement.scrollWidth == innerWidth
+# at 1440). Screenshots: general-before-1280/1440.png, general-after-1280/1440.png.
