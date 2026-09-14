@@ -1,10 +1,45 @@
-# REPORT - GAMES HUB REDESIGN: report pret.
+# REPORT - GAMES HUB REDESIGN + FIX 1: report pret.
 
 Repo guard OK (origin = P-Mingi/KpopQuizzV2). Branch `feat/games-hub-redesign` off main (ba1aaf1).
-The redesign is built, tested, and proven. NOT pushed (mission rule). `feat/tierlist-social`
-(unpushed e93315d, the OG share-card sizing fix from earlier this session) left untouched.
+The redesign is built, tested, proven, and the audit findings on the first build (fa91886) are
+closed. `feat/tierlist-social` (unpushed e93315d) left untouched.
 
-Full proof battery: `docs/proofs/games-hub/` (start at its README).
+Full proof battery: `docs/proofs/games-hub/` (start at its README). All proofs re-taken on
+`next build` + `next start -p 3021` against the revision-3 renders.
+
+## FIX 1: audit findings closed (on the same branch)
+
+BLOCKER 1, proofs were on a dev server. Re-taken on `next build` + `next start -p 3021` (the exact
+command and its first log lines are in `test-output.md`); the full mobile capture
+`pixel/render-390-fullpage-no-dev-badge.png` ends in the footer with no dev badge. No old PNG reused.
+
+BLOCKER 2, data honesty:
+1. This or That foot stat is `{votes} votes` (no "today"; `total_votes` is all-time).
+2. The This or That preview 61/39 split is labelled "live" with NO number (it is a demo split); the
+   real total stays in the foot stat.
+3. `/pt/games` band is no longer empty: a shared `readBandSongs` helper feeds both pages' band chips,
+   each inside its own `unstable_cache` (new `getPtGamesData`), still no per-request read.
+
+Visual defects 4 to 10, all fixed and verified in the new renders:
+4. Mobile Name Them All uses 46px faces and three slots (RM no longer clipped).
+5. Foot stats use the short copy ("Beat the clock", "Timer counts up", "+3 s per wrong pair", "N
+   votes", "Elo, best of 7", "Just launched", "Daily, soon") and stay on one line at 390; the mobile
+   foot was tightened so the widest CTAs (Start ranking, Find a duel) never overlap the stat. e2e
+   asserts one line and no stat/CTA overlap on all eight cards at 390.
+6. Mobile header sub trims its second sentence (kept in the DOM via a hidden span for crawlers).
+7. Match-Up hook uses a non-breaking hyphen (U+2011) in "K-pop", so it never orphans.
+8. K-pop Idle "Coming soon" is a non-interactive chip (surface-alt fill), not an outline button.
+9. Mobile ranking strip wraps its actions to a second row with the dot inline before the title.
+10. Band answer chips put the artist inline after the title in muted text, not right-aligned.
+
+Cost nit 11: the streak fetch is gated on a JS-readable `sb-...-auth-token` cookie (the app's browser
+client stores the session there, not httpOnly), so anonymous viewers and crawlers make zero
+`/api/daily/streak` calls; only signed-in viewers hit it.
+
+New pixel numbers (next start, vs revision-3 renders): 1440 diff 4.47%, 390 full-column diff 12.49%
+(down from 15.71%; the mobile height now matches the revised oracle to within 3px). Route table
+unchanged: `○ /games` and `○ /pt/games` at 1h. Unit 80 passed, e2e 18 passed (2 mobile-only guards
+skipped on desktop), tsc 0 source errors.
 
 ## What shipped (PART A)
 

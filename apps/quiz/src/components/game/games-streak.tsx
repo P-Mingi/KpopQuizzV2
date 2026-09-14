@@ -5,9 +5,20 @@ import { useEffect, useState } from 'react';
 // The signed-in blind-test streak, real data only (reads /api/daily/streak like
 // BlindStreak). Renders nothing when there is no streak (anon or 0), so the hub
 // never shows a fabricated "1 day". Two shapes: the header chip and the band pill.
+//
+// Cost fence: the Supabase auth token is stored in a JS-readable `sb-...-auth-token`
+// cookie (the app's browser client reads it), so an anonymous viewer has no such
+// cookie. We skip the fetch entirely unless one is present, so anon loads and
+// crawlers make zero /api/daily/streak calls; only signed-in viewers hit it.
+function hasAuthCookie(): boolean {
+  if (typeof document === 'undefined') return false;
+  return /(?:^|;\s*)sb-[^=]*-auth-token(?:\.\d+)?=/.test(document.cookie);
+}
+
 function useStreak(): number {
   const [streak, setStreak] = useState(0);
   useEffect(() => {
+    if (!hasAuthCookie()) return; // anon / crawler: no request
     let cancelled = false;
     fetch('/api/daily/streak', { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { streak: 0 }))

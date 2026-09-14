@@ -28,25 +28,28 @@ before this branch: `○ Static, 1h`.
 
 ## Where the new work lives
 
-Everything new is inside the existing `getGamesData` `unstable_cache([...], { revalidate: 3600 })`:
+The band song reads live in a shared helper `readBandSongs(supabase)` (one `songs`
+read + one `daily_blindtests` read to exclude today's answers). Each page calls it
+inside its own `unstable_cache([...], { revalidate: 3600 })`:
 
-- `bandPool`: one `songs` read (id, title, artist_name; active; limit 80).
-- `dailyExclude`: one `daily_blindtests` read (today's song_ids) so the band
-  preview never shows the real answers of today's daily.
+- `/games`: `getGamesData` (`games-hub-data-v2`).
+- `/pt/games`: `getPtGamesData` (`pt-games-hub-data-v2`), added this fix so its band
+  is real, not empty, still without a per-request read.
 
-Both are added to the same `Promise.all` already inside the cache, so they run once
-per hourly revalidation and are shared across every visitor. No new read happens per
-request. The four band answer chips are computed from that cached pool with
-`pickDailyMany` (pure, no I/O).
+Both run once per hourly revalidation, shared across every visitor. The four band
+answer chips are computed from the cached pool with `pickDailyMany` (pure, no I/O).
 
 ## Client fetches on load
 
-One, and it is not new: `StreakChip` / `StreakPill` read `/api/daily/streak`, the
-same endpoint the previous hub already called from `BlindStreak`. It is per-user
-data that cannot live in ISR HTML; it returns nothing for anonymous viewers and
-crawlers (so most loads make no meaningful call), and it is not the hub's main data.
+The streak fetch is now GATED. `StreakChip` / `StreakPill` read `/api/daily/streak`
+only when a Supabase auth cookie is present. The app's browser client stores the
+session in a JS-readable `sb-...-auth-token` cookie (it is not httpOnly; the browser
+`createBrowserClient` reads it), so an anonymous viewer or a crawler has no such
+cookie and makes ZERO `/api/daily/streak` calls. Only a signed-in viewer hits it.
+This closes cost nit 11 from the audit.
+
 The live countdown is pure client math (`msUntilUtcMidnight`), no fetch. The filter
-is client-only state toggling a data attribute, no fetch.
+is client-only state toggling a data attribute, no fetch. No new API route.
 
 ## No new API route
 

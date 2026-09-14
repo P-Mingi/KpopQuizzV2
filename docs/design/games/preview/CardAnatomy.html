@@ -32,7 +32,7 @@ a{color:var(--brand);text-decoration:none}a:hover{color:var(--brand-dark)}
 .btn.grad{background:linear-gradient(100deg,var(--brand),var(--plum) 60%,var(--violet));color:#fff;box-shadow:var(--lift)}
 .kick{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
 .kick.mute{color:var(--txt3)}
-.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--alt);color:var(--txt2);border:1px solid var(--border-sub)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;white-space:nowrap;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--alt);color:var(--txt2);border:1px solid var(--border-sub)}
 .chip.new{background:var(--brand);color:#fff;border-color:transparent}
 .chip.live{background:#E8F5EE;color:var(--ok)}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--sc);overflow:hidden;display:flex;flex-direction:column}
@@ -42,7 +42,7 @@ a{color:var(--brand);text-decoration:none}a:hover{color:var(--brand-dark)}
 .ttl{font-size:18px;font-weight:800;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px}
 .hook{font-size:14px;color:var(--txt2);line-height:1.4}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px}
-.stat{font-size:12px;color:var(--txt3);font-weight:600;display:flex;align-items:center;gap:6px}
+.stat{font-size:12px;color:var(--txt3);font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap;min-width:0}
 .face{border-radius:12px;overflow:hidden;position:relative;flex:none;border:1px solid var(--border);box-shadow:var(--sc);background:var(--surface)}
 .face img{width:100%;height:100%;object-fit:cover;display:block}
 .face .nm{position:absolute;left:0;right:0;bottom:0;padding:10px 3px 3px;font-size:9px;font-weight:800;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6));text-align:center;line-height:1.1}

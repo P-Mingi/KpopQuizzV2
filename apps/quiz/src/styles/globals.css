@@ -2237,7 +2237,9 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .gh-band-answers { display: flex; flex-direction: column; gap: 8px; }
 .gh-answer { height: 46px; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); display: flex; align-items: center; padding: 0 14px; gap: 10px; font-weight: 700; font-size: 14px; color: #fff; }
 .gh-answer-k { width: 22px; height: 22px; border-radius: 7px; background: rgba(255,255,255,.14); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex: none; }
-.gh-answer-ar { opacity: .6; font-weight: 600; font-size: 12px; margin-left: auto; }
+.gh-answer-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Artist sits inline right after the title in muted text (artboard), not pushed right. */
+.gh-answer-ar { opacity: .6; font-weight: 600; font-size: 12px; flex: none; }
 
 /* All games header + filter chips (one row) */
 .gh-all-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -2267,13 +2269,16 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 .gh-ttl { font-size: 18px; font-weight: 800; letter-spacing: -.01em; margin: 0; color: var(--txt1); display: flex; align-items: center; gap: 8px; }
 .gh-hook { font-size: 14px; color: var(--txt2); line-height: 1.4; margin: 0; }
 .gh-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
-.gh-stat { font-size: 12px; color: var(--txt3); font-weight: 600; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.gh-stat { font-size: 12px; color: var(--txt3); font-weight: 600; display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; }
+.gh-stat svg { flex: none; }
 .gh-cta { display: inline-flex; align-items: center; gap: 8px; flex: none; }
 .gh-play { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--brand-btn); color: #fff; font-weight: 700; font-size: 13px; text-decoration: none; box-shadow: var(--lift, 0 8px 24px rgba(232,69,122,.10)); white-space: nowrap; transition: background 120ms, transform 120ms; }
 .gh-play:hover { background: var(--brand-btn-hover, var(--brand-dark)); color: #fff; }
 .gh-card:active .gh-play { transform: scale(.98); }
 .gh-play-sm { height: 36px; padding: 0 14px; }
-.gh-soon { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface); color: var(--txt2); border: 1.5px solid var(--border-h); font-weight: 700; font-size: 13px; }
+/* "Coming soon" is a non-interactive chip (surface-alt fill, subtle border), NOT an
+   outline button, so it never reads as clickable (revised artboard). */
+.gh-soon { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface-alt); color: var(--txt2); border: 1px solid var(--border-sub, rgba(26,23,20,0.06)); font-weight: 700; font-size: 13px; white-space: nowrap; }
 
 /* Face primitive (artboard .face) */
 .gh-face { display: block; position: relative; overflow: hidden; flex: none; border: 1px solid var(--border); box-shadow: var(--sc, 0 1px 2px rgba(0,0,0,.04)); background: var(--surface); }
@@ -2341,6 +2346,8 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 /* Live-ranking strip (artboard .strip) */
 .gh-strip { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; box-shadow: var(--sc, 0 1px 2px rgba(0,0,0,.04)); flex-wrap: wrap; }
 .gh-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok, #0F6E56); box-shadow: 0 0 0 4px #E8F5EE; flex: none; }
+/* Mobile-only inline dot inside the strip title (desktop uses the standalone .gh-dot). */
+.gh-dot-inline { display: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok, #0F6E56); box-shadow: 0 0 0 4px #E8F5EE; margin-right: 10px; vertical-align: middle; }
 .gh-strip-body { flex: 1 1 200px; min-width: 0; }
 .gh-strip-q { font-weight: 800; font-size: 15px; color: var(--txt1); }
 .gh-strip-meta { font-size: 12px; color: var(--txt3); font-weight: 600; }
@@ -2368,6 +2375,28 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
   .gh-band-actions { margin-top: 16px; }
   .gh-all-bar { align-items: flex-start; }
   .gh-grid { grid-template-columns: 1fr; }
+  /* Header sub trims its second sentence on mobile (stays in the DOM for crawlers). */
+  .gh-sub-more { display: none; }
+  /* Name Them All preview: 46px faces and three slots at 390 (artboard), so RM is
+     never clipped. The face/slot sizes are inline on the elements, so override with
+     !important; the fourth slot is hidden to leave three. */
+  .gh-nta { padding: 0 14px; }
+  .gh-nta-row .gh-face { width: 46px !important; height: 46px !important; }
+  .gh-nta-row .gh-slot { width: 46px !important; height: 46px !important; }
+  .gh-nta-row .gh-slot:last-child { display: none; }
+  /* Ranking strip: dot moves inline before the title, actions wrap to a second row. */
+  .gh-strip { flex-wrap: wrap; gap: 10px 12px; }
+  .gh-dot { display: none; }
+  .gh-dot-inline { display: inline-block; }
+  .gh-strip-body { flex: 1 1 100%; }
+  /* Foot fits on one line at 390 (artboard): trim the button and gaps so the stat
+     keeps its room next to the widest CTAs (Start ranking, Find a duel), and let the
+     stat ellipsize rather than ever overlapping the chip. */
+  .gh-foot { gap: 8px; }
+  .gh-cta { gap: 6px; }
+  .gh-play { padding: 0 11px; gap: 6px; }
+  .gh-cta .gh-chip { padding: 0 8px; }
+  .gh-stat { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
 }
 @media (prefers-reduced-motion: reduce) {
   .gh-card, .gh-play, .gh-caret, .gh-band-play, .gh-wave i { transition: none; animation: none; }

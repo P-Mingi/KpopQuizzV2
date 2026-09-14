@@ -19,9 +19,9 @@ marked `aria-hidden` exactly as the artboard draws them; they are labelled below
 | Name Them All count | `53 groups` | `{nameThemAll} groups` | real: name-them-all playlists + published name-all games |
 | Sort It count | `4 modes` | `{sortIt} modes` | real: `SORT_IT_PLAYLISTS.length` |
 | Match-Up count | `14 boards` | `{matchUp} boards` | real: `MATCH_UP_PLAYLISTS.length` |
-| This or That foot stat | `12,880 votes today` | `{votes} votes today` or `Live fandom ranking` | real featured-ranking total, else the neutral label |
+| This or That foot stat | `12,880 votes today` | `{votes} votes` or `Live fandom ranking` | real featured-ranking total (all-time), with NO "today" since the count is not a daily figure |
 | This or That count | `20 rankings` | `{categories} rankings` | real: rankings index length |
-| This or That preview vote label | `12,880 votes, live` | `{votes} votes, live` or `live` | real featured total when present (inside the aria-hidden preview) |
+| This or That preview vote label | `12,880 votes, live` | `live` (no number) | the 61/39 split is a demo, so it carries no number, only a "live" label; the real total lives in the foot stat |
 | Duel foot stat | `Fans online now` | `Elo, best of 7` | replaced the fake presence claim with the game's mechanic (no live presence count) |
 | Live ranking strip | `#1 Supernova . 2,221 votes` | real prompt, `#1 {top} . {votes} votes` | real featured public ranking from `getRankingsIndex` |
 
@@ -30,11 +30,17 @@ marked `aria-hidden` exactly as the artboard draws them; they are labelled below
 These reproduce the artboard's "see the game before you play it" previews and are
 marked `aria-hidden`. They show what a round looks like, not the viewer's results:
 the card timers (0:42, 0:09, 1:15), the This or That 61/39 split with the Seven vs
-Slow Dancing demo, the Which member "82% Jimin" demo result, and the Duel demo
-match (YOU vs army_lee, Elo 1,240/1,198). The Duel Elo numbers and the member
-percentage are demo values inside these hidden previews; they are never read out as
-the viewer's own and never appear in a foot stat or a chip. Every face in them is a
-real idol photo.
+Slow Dancing demo (labelled "live" with NO number, since the split is invented), the
+Which member "82% Jimin" demo result, and the Duel demo match (YOU vs army_lee, Elo
+1,240/1,198). The Duel Elo numbers and the member percentage are demo values inside
+these hidden previews; they are never read out as the viewer's own and never appear
+in a foot stat or a chip. Every face in them is a real idol photo.
+
+## /pt/games parity
+
+Both `/games` and `/pt/games` render the four real band answer chips (each page's
+own `unstable_cache` calls the shared `readBandSongs` helper), so the Portuguese
+hub's band is never an empty panel. Same eight cards, same real values.
 
 ## Dead buttons
 

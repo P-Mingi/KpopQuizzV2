@@ -108,4 +108,31 @@ test.describe('games hub mobile', () => {
     }));
     expect(sw).toBeLessThanOrEqual(cw);
   });
+
+  test('foot stats stay one line and never overlap the CTA at 390', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile', 'mobile-only one-line guard');
+    await page.setViewportSize({ width: 390, height: 800 });
+    await gotoHub(page);
+    const bad = await page.locator('.gh-card').evaluateAll((cards) =>
+      cards.flatMap((card) => {
+        const out: Array<{ card: string | null; issue: string }> = [];
+        const id = card.getAttribute('data-testid');
+        const stat = card.querySelector('.gh-stat') as HTMLElement | null;
+        const cta = card.querySelector('.gh-cta') as HTMLElement | null;
+        if (stat) {
+          // one line: a nowrap stat never exceeds ~1.6 line-heights of box height
+          const lh = parseFloat(getComputedStyle(stat).lineHeight) || 16;
+          if (stat.getBoundingClientRect().height > lh * 1.6) out.push({ card: id, issue: 'stat wraps' });
+          // no overlap: the stat's right edge must clear the CTA's left edge
+          if (cta) {
+            const s = stat.getBoundingClientRect();
+            const c = cta.getBoundingClientRect();
+            if (s.right > c.left + 1) out.push({ card: id, issue: 'stat overlaps cta' });
+          }
+        }
+        return out;
+      }),
+    );
+    expect(bad).toEqual([]);
+  });
 });

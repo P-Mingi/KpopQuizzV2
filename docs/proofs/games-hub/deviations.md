@@ -1,7 +1,9 @@
 # Games hub, deviations from the artboard (with reason)
 
-Every difference between the rebuilt `/games` and `docs/design/games` artboards,
-and why. Grouped by cause. None are layout or structural drift.
+Every difference between the rebuilt `/games` and the revision-3 `docs/design/games`
+artboards, and why. The audit's visual defects (items 4 to 10) are fixed and no
+longer appear here. What remains is data honesty, real data replacing sample data,
+and out-of-scope site chrome. None are layout or structural drift.
 
 ## Data honesty (required by the mission, see data-honesty.md)
 
@@ -14,10 +16,10 @@ and why. Grouped by cause. None are layout or structural drift.
    state, so none is picked.
 4. Streak chip and streak pill are absent for anonymous viewers (the captured
    render is logged out). The artboard shows "Your streak: 1 day" / "Streak 1".
-5. Name Them All foot stat is "Beat the clock, all members" instead of the
-   artboard "Your best: 5 of 7" (no per-user best is available here).
-6. Duel foot stat is "Elo, best of 7" instead of the artboard "Fans online now"
-   (no live presence count).
+5. This or That preview split (61/39) carries no vote number, only a "live" label,
+   because the split is an invented demo; the real total is in the foot stat.
+6. Name Them All foot stat is "Beat the clock" (no per-user best is available).
+   Duel foot stat is "Elo, best of 7" (no live presence count).
 
 ## Real data replacing sample data
 
@@ -36,13 +38,17 @@ and why. Grouped by cause. None are layout or structural drift.
     artboard's mock nav and tab bar. These were not to be rebuilt, so they are
     excluded from the pixel diff (the diff clips to the hub root).
 
-## Minor, documented
+## Fixed since the first build (audit items 4 to 10, now gone)
 
-12. On mobile, the band drops the sub line and the answer panel to match the mobile
-    artboard's compact CTA (they stay in the DOM for SEO, hidden by media query).
-    The header sub keeps its full desktop copy on mobile (the mobile artboard trims
-    it to one sentence); this adds one line of height and is the main contributor to
-    the small cumulative vertical drift down the 390 column.
-13. `/pt/games` renders the same eight cards via the same `GamesHub`, but without
-    the band answer chips (its page does not run the band-song read); the band
-    answer panel is empty there rather than faked.
+- Mobile Name Them All uses 46px faces and three slots at 390: RM is no longer
+  clipped.
+- Foot stats use the short revised copy and stay on one line at 390 (asserted in
+  e2e): "Beat the clock", "Timer counts up", "+3 s per wrong pair", "N votes",
+  "Made for sharing", "Elo, best of 7", "Just launched", "Daily, soon".
+- Mobile header sub trims its second sentence (kept in the DOM for crawlers).
+- Match-Up hook uses a non-breaking hyphen in "K-pop", so it never orphans.
+- K-pop Idle "Coming soon" is a non-interactive chip, not an outline button.
+- Mobile ranking strip wraps its actions to a second row with the dot inline before
+  the title.
+- Band answer chips put the artist inline after the title in muted text, not
+  right-aligned uppercase.

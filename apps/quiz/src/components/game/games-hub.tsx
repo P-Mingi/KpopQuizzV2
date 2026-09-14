@@ -7,7 +7,10 @@ import { StreakChip, StreakPill } from './games-streak';
 
 import { HUB_CARD_TAGS } from '@/lib/games/hub-filters';
 
+import type { BandAnswer } from '@/lib/games/hub-data';
 import type { RankingIndexItem } from '@/lib/db/queries/duels';
+
+export type { BandAnswer };
 
 // GAMES HUB REDESIGN (docs/design/games, artboard Main.dc.html @1440 / Mobile @390).
 // A faithful port of the owner-validated artboard: header, one dark daily blind-test
@@ -29,8 +32,6 @@ export interface GamesHubCounts {
   sortIt: number;
   matchUp: number;
 }
-
-export interface BandAnswer { title: string; artist: string }
 
 interface GamesHubProps {
   counts?: Partial<GamesHubCounts> | null;
@@ -107,7 +108,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
         <div className="gh-head-copy">
           <p className="gh-kicker">Games</p>
           <h1 className="gh-h1">Prove it.</h1>
-          <p className="gh-sub">Name every member. Beat the clock. Out-vote the fandom. Seven ways to show how well you really know K-pop, every one of them starts in one tap.</p>
+          <p className="gh-sub">Name every member. Beat the clock. Out-vote the fandom.<span className="gh-sub-more"> Seven ways to show how well you really know K-pop, every one of them starts in one tap.</span></p>
         </div>
         <div className="gh-head-chips">
           <StreakChip />
@@ -118,7 +119,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
       <section className="gh-band" aria-label="Today's blind test">
         <div className="gh-band-main">
           <p className="gh-band-kick"><ClockIcon stroke="#FFD1E2" /> Today&apos;s blind test · resets in <GamesCountdown /></p>
-          <h2 className="gh-band-h2">Name the song<br className="gh-band-br" />from a 10-second clip.</h2>
+          <h2 className="gh-band-h2">Name the song <br className="gh-band-br" />from a 10-second clip.</h2>
           <p className="gh-band-sub">Same ten songs for everyone today. Beat your friends&apos; score, keep the streak alive.</p>
           <div className="gh-wave" aria-hidden="true">
             {WAVE_HEIGHTS.map((h, i) => (
@@ -169,7 +170,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
             <h3 className="gh-ttl">Name Them All</h3>
             <p className="gh-hook">Type every BTS member before the clock runs out. Miss one and the timer shows you who.</p>
             <div className="gh-foot">
-              <span className="gh-stat"><TrophyIcon /> Beat the clock, all members</span>
+              <span className="gh-stat"><TrophyIcon /> Beat the clock</span>
               <span className="gh-cta"><span className="gh-chip">{c.nameThemAll} groups</span><Link href="/games/name-them-all" className="gh-play" data-lp="name-them-all" data-lp-base="/games/name-them-all/"><PlayIcon /> Play</Link></span>
             </div>
           </div>
@@ -190,7 +191,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
             <h3 className="gh-ttl">Sort It</h3>
             <p className="gh-hook">Two idols, one question, one tap. Who debuted first? Who is older? Your time is the score.</p>
             <div className="gh-foot">
-              <span className="gh-stat"><ClockIcon /> Timer counts up, beat your time</span>
+              <span className="gh-stat"><ClockIcon /> Timer counts up</span>
               <span className="gh-cta"><span className="gh-chip">{c.sortIt} modes</span><Link href="/games/sort-it" className="gh-play" data-lp="sort-it" data-lp-base="/games/sort-it/"><PlayIcon /> Play</Link></span>
             </div>
           </div>
@@ -214,9 +215,9 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
           </div>
           <div className="gh-body">
             <h3 className="gh-ttl">Match-Up</h3>
-            <p className="gh-hook">Flip the tiles, pair the faces, clear the board fast. Memory, but make it K-pop.</p>
+            <p className="gh-hook">Flip the tiles, pair the faces, clear the board fast. Memory, but make it K‑pop.</p>
             <div className="gh-foot">
-              <span className="gh-stat"><ClockIcon /> Wrong pair adds 3 seconds</span>
+              <span className="gh-stat"><ClockIcon /> +3 s per wrong pair</span>
               <span className="gh-cta"><span className="gh-chip">{c.matchUp} boards</span><Link href="/games/match-up" className="gh-play" data-lp="match-up" data-lp-base="/games/match-up/"><PlayIcon /> Play</Link></span>
             </div>
           </div>
@@ -242,7 +243,10 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
                 <div className="gh-vbar"><i style={{ width: '61%', background: 'var(--brand)' }} /><i style={{ width: '39%', background: 'var(--photocard-violet)' }} /></div>
                 <div className="gh-tot-nums">
                   <span style={{ color: 'var(--brand)' }}>61%</span>
-                  {votes ? <span className="gh-tot-live">{votes} votes, live</span> : <span className="gh-tot-live">live</span>}
+                  {/* The 61/39 split is an illustrative demo (aria-hidden preview); it is
+                      NOT a real tally, so it carries no vote number, only a "live" label.
+                      The real vote total is stated honestly in the foot stat below. */}
+                  <span className="gh-tot-live">live</span>
                   <span style={{ color: 'var(--photocard-violet)' }}>39%</span>
                 </div>
               </div>
@@ -252,7 +256,7 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
             <h3 className="gh-ttl">This or That</h3>
             <p className="gh-hook">Vote between two songs and watch the fandom ranking move live. Your pick counts today.</p>
             <div className="gh-foot">
-              <span className="gh-stat"><PersonIcon /> {votes ? `${votes} votes today` : 'Live fandom ranking'}</span>
+              <span className="gh-stat"><PersonIcon /> {votes ? `${votes} votes` : 'Live fandom ranking'}</span>
               <span className="gh-cta"><span className="gh-chip">{c.categories} rankings</span><Link href="/games/this-or-that/all" className="gh-play"><PlayIcon /> Vote</Link></span>
             </div>
           </div>
@@ -361,9 +365,11 @@ export function GamesHub({ counts, liveRanking, bandAnswers = [] }: GamesHubProp
       {/* Live ranking strip */}
       {liveRanking && (
         <section className="gh-strip" aria-label="Today's live ranking">
+          {/* Desktop: dot is a standalone leading item. Mobile: the artboard moves it
+              inline before the title and wraps the actions to a second row (CSS). */}
           <span className="gh-dot" aria-hidden="true" />
           <div className="gh-strip-body">
-            <div className="gh-strip-q">{liveRanking.prompt}</div>
+            <div className="gh-strip-q"><span className="gh-dot-inline" aria-hidden="true" />{liveRanking.prompt}</div>
             <div className="gh-strip-meta">
               {liveRanking.top_entity ? `#1 ${liveRanking.top_entity.name} · ` : ''}{votes} votes · changes daily
             </div>

@@ -47,6 +47,12 @@ fans playing today (3,204), votes today (12,880), Elo numbers, streak "1 day", "
 the four blind test answers, the countdown "12:27:14". Real values from the current page: 53
 groups, 4 modes, 14 boards, 20 rankings. The mission says what replaces each sample.
 
+Spec revision 3 (post-audit of the first build): stat lines shortened so they never wrap at 390
+(Name Them All keeps "Your best" only as a personal-best sample; Sort It "Timer counts up";
+Match-Up "+3 s per wrong pair"; This or That "N votes" with no "today"; Duel "Elo, best of 7");
+K-pop Idle shows a non-interactive "Coming soon" chip, not a button; the mobile ranking strip
+wraps its actions onto a second row; chips and stats are nowrap.
+
 Timer semantics (verified in the players): Name Them All counts DOWN (`playlist.timerSeconds`);
 Sort It and Match-Up count UP (finish time is the score; Match-Up adds 3 s per wrong pair). The
 pills in the Sort It and Match-Up previews are elapsed time.
