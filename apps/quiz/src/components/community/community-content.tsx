@@ -22,8 +22,9 @@ import { BadgeShowcase } from '@/components/community/badge-showcase';
 import { DailyDebate } from '@/components/community/daily-debate';
 import { getDailyDebate } from '@/lib/db/queries/debate';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
-import { CrossSpaceFeed } from '@/components/verse/presentation/cross-space-feed';
 import { CommunityCrossPromo } from '@/components/verse/community-cross-promo';
+import { RecentTierLists } from '@/components/community/recent-tier-lists';
+import { getRecentTierListsForCommunity } from '@/lib/tier-list/db';
 
 // V-UPGRADE-1 Phase B - the world-agnostic Community CONTENT. This is the one
 // component both the Play route (/leaderboard) and the Verse route mount, so the
@@ -76,7 +77,7 @@ const getCommunityData = unstable_cache(
     // MISS now, so the win is revalidation latency, not steady-state serving.
     const [
       rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed,
-      qotd, warMap, badgeEarns, debate, comments, fresh, matchups,
+      qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists,
     ] = await Promise.all([
       safeFetch(getRisingCreators(8), [], '[community] rising'),
       safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
@@ -92,16 +93,17 @@ const getCommunityData = unstable_cache(
       safeFetch(getCommunityComments(8), [], '[community] comments'),
       safeFetch(getNewQuizzes(0, 6), [], '[community] fresh'),
       safeFetch(getHotMatchups(5), [], '[community] matchups'),
+      safeFetch(getRecentTierListsForCommunity(4), [], '[community] recentTierLists'),
     ]);
 
-    return { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups };
+    return { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists };
   },
   ['community-content-data'],
   { revalidate: 300 },
 );
 
 export async function CommunityContent(): Promise<React.ReactElement> {
-  const { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups } = await getCommunityData();
+  const { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists } = await getCommunityData();
 
   // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
   // island. fandomRanks lets it show "{GROUP} is #N this week"; weeklyBoard is
@@ -144,7 +146,10 @@ export async function CommunityContent(): Promise<React.ReactElement> {
           cross-space Verse feed (opted-in spaces only, min-gated), alongside the
           Play-world events: one community, two products. */}
       <CommunityCrossPromo />
-      <CrossSpaceFeed />
+
+      {/* Recent tier lists (replaces the across-the-Verse feed): the newest public
+          tier lists with a mini board preview, real author, and real counts. */}
+      <RecentTierLists lists={recentTierLists} />
 
       {/* F1.3 - Daily ritual: quiz + blindtest of the day (client island) */}
       <DailyRitual quiz={qotd} />
