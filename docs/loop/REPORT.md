@@ -71,9 +71,14 @@ Unit 165 passed (incl. 85 new matcher cases). e2e 56 passed / 10 skipped (site-w
 regression). tsc 0 source errors. next build green. No URL behaviour changed, no Verse touched, no env
 file, no migration. Zero emoji, zero em dashes.
 
-## CI
+## CI (on head 84d9f2e, PR #24)
 
-CI run URL to be filled after the branch push + PR (tests workflow + the seo-gates `gates` job).
+- Tests workflow (unit + e2e) GREEN on the PR:
+  https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34943181253
+- seo-gates: the nightly `gates` job, which was FAILING on check:metadata-dupes, now
+  PASSES (3m13s) with the sitemap dedupe. Triggered on the branch via workflow_dispatch
+  (it does not run on PRs): https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34943223445
+  So the recurring nightly red is fixed at the source.
 
 ## Owner gate
 
