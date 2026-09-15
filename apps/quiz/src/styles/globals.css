@@ -7499,3 +7499,35 @@ main:has(.verse-page) { max-width: none; }
 .kr-foot p { font-size: 13px; color: var(--text-secondary); }
 .kr-foot-links a { color: var(--accent); text-decoration: none; }
 @media (max-width: 640px) { .kr-title { font-size: 27px; } .kr-standfirst { font-size: 17px; } }
+
+/* ===========================================================================
+   COMMUNITY: Recent tier lists box (replaces the across-the-Verse feed). A grid
+   of the newest public tier lists, each a mini board preview + author + counts.
+   Tokens only (light/dark safe). Real data; the section min-gates when empty.
+   =========================================================================== */
+.rtl { margin-bottom: 12px; }
+.rtl-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.rtl-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--txt3); margin: 0; }
+.rtl-all { font-size: 13px; font-weight: 700; color: var(--brand); text-decoration: none; white-space: nowrap; }
+.rtl-all:hover { color: var(--brand-dark); }
+.rtl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 12px; }
+.rtl-card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; transition: box-shadow 160ms, transform 160ms, border-color 160ms; }
+.rtl-card:hover { border-color: transparent; box-shadow: 0 10px 28px rgba(232,69,122,.14), 0 2px 8px rgba(0,0,0,.06); transform: translateY(-2px); }
+.rtl-card:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+.rtl-board { background: var(--surface-alt); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; overflow: hidden; }
+.rtl-row { display: flex; align-items: center; gap: 8px; }
+.rtl-tier { width: 34px; height: 34px; border-radius: 9px; color: #fff; font-weight: 900; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.rtl-chips { display: flex; align-items: center; gap: 5px; min-width: 0; overflow: hidden; }
+.rtl-chip { height: 30px; min-width: 30px; padding: 0 8px; border-radius: 8px; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.rtl-more { font-size: 12px; font-weight: 700; color: var(--txt3); flex: none; }
+.rtl-title { font-size: 18px; font-weight: 800; letter-spacing: -.01em; margin: 0 0 10px; color: var(--txt1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rtl-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rtl-author { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.rtl-avatar { width: 26px; height: 26px; border-radius: 50%; flex: none; object-fit: cover; display: block; }
+.rtl-avatar-init { align-items: center; justify-content: center; display: inline-flex; font-weight: 800; font-size: 11px; }
+.rtl-by { font-size: 13px; font-weight: 600; color: var(--txt2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rtl-stats { display: inline-flex; align-items: center; gap: 12px; flex: none; }
+.rtl-stat { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; }
+.rtl-likes { color: #E8457A; }
+.rtl-views { color: var(--txt3); }
+@media (prefers-reduced-motion: reduce) { .rtl-card { transition: none; } .rtl-card:hover { transform: none; } }

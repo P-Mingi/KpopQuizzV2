@@ -117,6 +117,94 @@ export const getRecentPublicLists = unstable_cache(
   { revalidate: 300, tags: ['tier-lists'] },
 );
 
+// One coloured tier row of the community card's mini board preview: the tier
+// label + colour, the first couple of members' initials, and how many more.
+export interface CommunityTierRow { label: string; color: string; chips: string[]; more: number }
+// A recent public tier list, shaped for the Community "Recent tier lists" box.
+export interface CommunityTierList {
+  slug: string;
+  title: string;
+  likes: number;
+  views: number;
+  authorName: string | null;
+  authorAvatarUrl: string | null;
+  authorBg: string;
+  authorText: string;
+  authorInitial: string;
+  rows: CommunityTierRow[];
+}
+
+function chipInitials(name: string): string {
+  const clean = name.trim();
+  if (!clean) return '?';
+  const parts = clean.split(/\s+/);
+  if (parts.length >= 2 && parts[0]![0] && parts[1]![0]) return (parts[0]![0]! + parts[1]![0]!).toUpperCase();
+  return clean.replace(/[^A-Za-z0-9]/g, '').slice(0, 2).toUpperCase() || clean.slice(0, 2).toUpperCase();
+}
+
+/**
+ * The newest public tier lists for the Community "Recent tier lists" box, each
+ * with its real author (from profiles) and a compact top-3-tier board preview
+ * (real member initials from the bank). Cached like the other reads (ISR, 5 min),
+ * so the profile + bank reads run once per revalidation, not per request.
+ */
+export const getRecentTierListsForCommunity = unstable_cache(
+  async (limit = 4): Promise<CommunityTierList[]> => {
+    const db = createPublicReadClient();
+    const { data } = await db.from('tier_lists').select(LIST_COLS)
+      .eq('visibility', 'public').order('created_at', { ascending: false }).limit(limit);
+    const lists = (data ?? []).map((r) => rowToStored(r as Row));
+    if (lists.length === 0) return [];
+
+    // Batch the authors so N lists cost one profiles read, not N.
+    const creatorIds = [...new Set(lists.map((l) => l.creatorId).filter((id): id is string => !!id))];
+    const authorById = new Map<string, { name: string; avatarUrl: string | null; bg: string; text: string }>();
+    if (creatorIds.length > 0) {
+      const { data: profs } = await db.from('profiles')
+        .select('id, username, display_name, avatar_url, avatar_bg, avatar_text').in('id', creatorIds);
+      for (const p of (profs ?? []) as Array<{ id: string; username: string | null; display_name: string | null; avatar_url: string | null; avatar_bg: string | null; avatar_text: string | null }>) {
+        authorById.set(p.id, {
+          name: p.display_name || p.username || 'anonymous',
+          avatarUrl: p.avatar_url,
+          bg: p.avatar_bg || '#ED93B1',
+          text: p.avatar_text || '#FFFFFF',
+        });
+      }
+    }
+
+    const out: CommunityTierList[] = [];
+    for (const l of lists) {
+      const items = await getBankItems(l.subjectGroupId, l.subjectKind);
+      const byId = new Map(items.map((i) => [i.id, i] as const));
+      const rows: CommunityTierRow[] = [];
+      for (const t of [...l.tiers].sort((a, b) => a.ord - b.ord)) {
+        const named = (l.placements[t.label] ?? []).map((id) => byId.get(id)).filter((i): i is TierListItem => !!i);
+        if (named.length === 0) continue;
+        const shown = named.slice(0, 2);
+        rows.push({ label: t.label, color: t.color, chips: shown.map((i) => chipInitials(i.name)), more: named.length - shown.length });
+        if (rows.length >= 3) break;
+      }
+      if (rows.length === 0) continue; // nothing placed yet: not a card worth showing
+      const author = l.creatorId ? authorById.get(l.creatorId) : undefined;
+      out.push({
+        slug: l.slug,
+        title: l.title,
+        likes: l.likes,
+        views: l.views,
+        authorName: author?.name ?? null,
+        authorAvatarUrl: author?.avatarUrl ?? null,
+        authorBg: author?.bg ?? '#E7DFF5',
+        authorText: author?.text ?? '#8A7BB0',
+        authorInitial: (author?.name ?? 'A').charAt(0).toUpperCase(),
+        rows,
+      });
+    }
+    return out;
+  },
+  ['tier-list:community-recent:v1'],
+  { revalidate: 300, tags: ['tier-lists'] },
+);
+
 /** Distinct public subjects (for the community index of tier-list subjects). */
 export const getPublicSubjects = unstable_cache(
   async (): Promise<{ groupId: number; kind: SubjectKind; count: number }[]> => {
