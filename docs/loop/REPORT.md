@@ -1,159 +1,81 @@
-# REPORT - GAMES HUB REDESIGN + FIX 1: report pret.
+# REPORT - COST: cut Vercel invocations + make the nightly SEO gate green.
 
-Repo guard OK (origin = P-Mingi/KpopQuizzV2). Branch `feat/games-hub-redesign` off main (ba1aaf1).
-The redesign is built, tested, proven, and the audit findings on the first build (fa91886) are
-closed. `feat/tierlist-social` (unpushed e93315d) left untouched.
+Repo guard OK (origin = P-Mingi/KpopQuizzV2). Branch `perf/cost-cut` off main (7cf53c2).
+Measure-first, behaviour-preserving, no Verse change, no URL change, not pushed to main.
+Full proofs: `docs/proofs/cost/` (start at its README).
 
-Full proof battery: `docs/proofs/games-hub/` (start at its README). All proofs re-taken on
-`next build` + `next start -p 3021` against the revision-3 renders.
+## Before (measured)
 
-## NIT: non-breaking hyphen in the band H2
+Auditor's 24h split: middleware 67,739 / cache 50,322 / function 27,363 / redirect 2,024. Top
+routes: /q/[slug] 17,139, then /, /leaderboard, /verse, /games, /login, /search, /api/auth/me
+2,035, /api/duels/next 854. Code facts re-confirmed on the branch: the middleware matcher matched
+every HTML page (the 67k is no-op passthrough on cached known pages); /api/auth/me is force-dynamic
+and fetched independently by 4 nav islands (2 to 4 calls per page view); 34 real force-dynamic pages.
 
-One-line change in `games-hub.tsx`: the daily band H2 `from a 10-second clip.` used a normal hyphen,
-so at 390 it could break as `10-` / `second`. Replaced only that hyphen with a non-breaking hyphen
-(U+2011, the literal character, matching the file's existing "K-pop" nit): `from a 10‑second clip.`.
-No other line, no CSS.
+## PART 1 - middleware invocations (the big lever)
 
-Before/after at 390: the band H2 now wraps as `Name the song from a` / `10-second clip.` with
-`10-second` intact on one line (verified in `pixel/render-390.png`; no mid-word break). Desktop 1440
-is unchanged: a self-diff against the previous render is 0.00% (the explicit `<br>` still controls the
-desktop break; the non-breaking hyphen is inert there since the line fits). Re-proven on next build +
-next start: 1440 diff 4.47% (unchanged), 390 full 12.54%, route table still `○ /games` / `○ /pt/games`
-at 1h, unit 80 passed, e2e 18 passed, tsc 0. CI: see the CI section below.
+The matcher now EXCLUDES the known cached page prefixes so they never invoke middleware, while every
+path that needs runtime logic still matches. Nothing moved out of middleware, so every redirect stays
+its exact status: the legacy 301s, the /which-...-member-are-you rewrite, the verse cookie gate, the
+protected-auth updateSession and the unknown-route 301-to-home are all unchanged. Exclusion rules
+mirror isKnownRoute: slash-terminated prefixes exclude with the slash (so `/q` still 301s while
+`/q/slug` skips), word prefixes use a `(?:/|$)` boundary (so `/create-preview` still redirects while
+`/create` skips), `$` excludes the home page, `[^/]+-(?:quiz|trivia)` excludes the generated group
+landing pages. A prefix missed here costs a wasted invocation, never wrong behaviour.
 
-## FIX 1: audit findings closed (on the same branch)
+Proven: `middleware-matcher.test.ts` (85 cases) + a live behaviour matrix on `next start` where
+/blind-test, /blind-test/sample, /create-preview, /battle-preview, the /which-* rewrite, /q/*, /games,
+a bad sub-path and an unknown URL all behave byte-identically to before. The 67,739 was dominated by
+these now-excluded pages (/q/[slug] alone 17,139), so the large majority is removed; the exact new
+number is on the Vercel by-source panel after deploy.
 
-BLOCKER 1, proofs were on a dev server. Re-taken on `next build` + `next start -p 3021` (the exact
-command and its first log lines are in `test-output.md`); the full mobile capture
-`pixel/render-390-fullpage-no-dev-badge.png` ends in the footer with no dev badge. No old PNG reused.
+## PART 2 - per-pageview function calls
 
-BLOCKER 2, data honesty:
-1. This or That foot stat is `{votes} votes` (no "today"; `total_votes` is all-time).
-2. The This or That preview 61/39 split is labelled "live" with NO number (it is a demo split); the
-   real total stays in the foot stat.
-3. `/pt/games` band is no longer empty: a shared `readBandSongs` helper feeds both pages' band chips,
-   each inside its own `unstable_cache` (new `getPtGamesData`), still no per-request read.
+The 4 nav islands (profile chip, notification bell, mobile top bar, home streak nudge) now share ONE
+`/api/auth/me` request via a module-level `useMe` cache, so a page view makes at most one call, not
+2 to 4. The cache clears on a full reload exactly like the mounted islands did, so login/logout still
+update the nav on the next full navigation (unchanged behaviour). /api/duels/next left as-is this pass
+(low count, 854/day; idle-poll trimming is a follow-up if the owner wants it).
 
-Visual defects 4 to 10, all fixed and verified in the new renders:
-4. Mobile Name Them All uses 46px faces and three slots (RM no longer clipped).
-5. Foot stats use the short copy ("Beat the clock", "Timer counts up", "+3 s per wrong pair", "N
-   votes", "Elo, best of 7", "Just launched", "Daily, soon") and stay on one line at 390; the mobile
-   foot was tightened so the widest CTAs (Start ranking, Find a duel) never overlap the stat. e2e
-   asserts one line and no stat/CTA overlap on all eight cards at 390.
-6. Mobile header sub trims its second sentence (kept in the DOM via a hidden span for crawlers).
-7. Match-Up hook uses a non-breaking hyphen (U+2011) in "K-pop", so it never orphans.
-8. K-pop Idle "Coming soon" is a non-interactive chip (surface-alt fill), not an outline button.
-9. Mobile ranking strip wraps its actions to a second row with the dot inline before the title.
-10. Band answer chips put the artist inline after the title in muted text, not right-aligned.
+## PART 3 - the 34 force-dynamic pages
 
-Cost nit 11: the streak fetch is gated on a JS-readable `sb-...-auth-token` cookie (the app's browser
-client stores the session there, not httpOnly), so anonymous viewers and crawlers make zero
-`/api/daily/streak` calls; only signed-in viewers hit it.
+None can flip without breaking a rule: 18 are /verse/* (hard constraint), 13 are /admin/* auth
+dashboards, /me and /notifications are per-user, /tier-list/mine and /build are gated + noindex,
+/battle reads auth for ranked XP and is noindex + low-traffic. The SEO-load-bearing pages (home,
+/games, /q, /leaderboard) are already ISR from the earlier RENDER-FIX. Honest finding: no straggler.
 
-New pixel numbers (next start, vs revision-3 renders): 1440 diff 4.47%, 390 full-column diff 12.49%
-(down from 15.71%; the mobile height now matches the revised oracle to within 3px). Route table
-unchanged: `○ /games` and `○ /pt/games` at 1h. Unit 80 passed, e2e 18 passed (2 mobile-only guards
-skipped on desktop), tsc 0 source errors.
+## PART 4 - the tier list is not a cost driver
 
-## What shipped (PART A)
+No tier-list route is in the hog list. The OG card route is cache-hardened, /api/tier-list/* are
+one-shot user actions, and the tier-list pages are ISR. The launch did not cause the spend.
 
-`/games` and `/pt/games` are rebuilt as a faithful port of the owner artboards `Main.dc.html`
-(1440) and `Mobile.dc.html` (390). Header (kicker, "Prove it.", sub, streak chip), one dark daily
-blind-test band (live countdown to the UTC reset, CSS waveform with the middle run tinted rose,
-"Play today's" to /blindtest, streak pill, four REAL song answer chips, none marked picked), the
-"All games" header with five filter chips (client-side CSS filter that keeps every card in the
-server HTML), eight cards with real `/idols` faces in the artboard order (Name Them All, Sort It,
-Match-Up, This or That, Which member, Duel 1v1, Tier Lists [New], K-pop Idle [dimmed, "Coming
-soon", no dead button]), and the live ranking strip.
+## PART 5 - the nightly SEO gate
 
-New files: `components/game/games-hub.tsx` (rewritten), `games-filter.tsx`, `games-countdown.tsx`,
-`games-streak.tsx`, `lib/games/reset-countdown.ts`, `lib/games/hub-filters.ts`,
-`lib/games/pickDailyMany` (in `daily-rotation.ts`). CSS: the `gh-*` block in `styles/globals.css`
-(replaced the old `gh2-*` block; the separate lobby `lmc-*` block is untouched).
+Run against LIVE production (738 indexable URLs, the real indexed set), check:metadata-dupes found
+exactly ONE collision: two published SEVENTEEN true-or-false quizzes rendering an identical title.
+Fixed at the source that is cost-neutral: the sitemap now advertises only one URL per (title,
+question count), the most-played (proven: the sitemap now emits a single seventeen-true-or-false, the
+390-play `-65`, dropping the 265-play one; the dropped page still works and self-canonicals). A per-/q
+canonical lookup was rejected on purpose: it would add a DB read to the single highest-traffic route.
 
-## Pixel fidelity (`docs/proofs/games-hub/pixel-fidelity.md`)
-
-Rendered in system Chrome at both widths, clipped to the hub root, pixelmatched against the owner
-renders (oracle cropped to its content column, offset swept to tightest alignment; the real site
-nav and tab bar are out of scope and excluded).
-
-- 1440: 4.52% mismatch, structurally aligned.
-- 390: 15.71% full column, 14.08% header+band.
-
-The residual is not layout drift. It is (1) real idol photos vs the artboard placeholders (the
-largest share, a fidelity gain), (2) real data text vs sample text, and (3) the intentional
-data-honesty deviations. Every box, radius, color, the dark band, the eight-card grid, the filter
-row and the strip land on the artboard grid. Full deviation list with reasons in `deviations.md`.
-
-## Data honesty (`docs/proofs/games-hub/data-honesty.md`)
-
-No artboard SAMPLE literal ships. Corrections from the pre-build plan:
-
-- "N fans playing today" and "N played today": DROPPED. The pre-build note called a 24h plays count
-  feasible; on inspection it is not cheaply so (the plays index is keyed quiz_id/player_id, no
-  owner-gated index bounds a 24h count under 200ms server-side). Real or absent -> absent, rather
-  than add a per-request read that would break the cost fence.
-- Band answers: four real songs from a cached pool, rotated per UTC day by `pickDailyMany`,
-  excluding today's actual daily answers; none marked picked.
-- Counts (groups, modes, boards, rankings), live votes, and the ranking strip: real from the cached
-  `getGamesData`. Streak and countdown: client, real or absent. "Your best: 5 of 7" and "Fans
-  online now" foot stats replaced with the games' honest mechanics.
-- Card preview zones are the artboard's illustrative gameplay mock-ups, marked aria-hidden; the demo
-  Elo and percentages live only inside those hidden previews and never appear as the viewer's stats.
-- No dead buttons. K-pop Idle is a non-interactive "Coming soon" label.
-
-## Cost fence (`docs/proofs/games-hub/cost-fence.md`)
-
-- `next build` route table: `/games` and `/pt/games` are both `Static` with a 1h ISR window.
-  Neither is `Dynamic`. A request serves prerendered HTML with zero DB reads.
-- The page diff adds no `force-dynamic`, no `cookies()`, no `headers()`, no page-level `fetch`
-  (grep of added lines = 0). Render mode is unchanged from before this branch.
-- The two new reads (band song pool + today's daily exclusion) are inside the existing
-  `getGamesData` `unstable_cache(3600s)`, shared across all visitors, once per hourly revalidation.
-- Client fetch on load: only the pre-existing `/api/daily/streak` (the old hub already called it via
-  `BlindStreak`); returns nothing for anon and crawlers. Countdown is pure client math. Filter is
-  client-only state. No new API route.
-
-## PART B, SEO (`docs/proofs/games-hub/seo.md`)
-
-Five gates green against the built HTML: canonical `/games` unchanged; hreflang en/pt-BR/x-default
-unchanged; title/description unchanged; JSON-LD ItemList gains "K-pop Tier Lists" at position 8
-(after Duel), rankings shifted to 9; all eight card test ids present in the prerendered static HTML
-(the filter only toggles visibility, never removes a card).
-
-## PART C, band-becomes-game
-
-Deferred; the band keeps its link to `/blindtest` (a live route, no dead button). It is feasible to
-lazy-mount the blind-test player on tap via `next/dynamic` (zero initial load cost, the player
-fetching its own data only after the interaction), but mounting the full player with audio and
-scoring is a real new surface that should not be rushed under this pixel-and-cost mission. It is
-noted for a follow-up rather than shipped half-built.
+The local build (service-role, Verse visible, 1027 URLs) shows 7 collision groups, but the extra 6
+are Verse/rankings pairs absent from production's sitemap (Verse hidden, rankings need votes the anon
+key reads as 0) - exactly the VERSE_PUBLIC-vs-hidden scope point in the mission. Production had one,
+and it is fixed; the nightly `gates` job (anon key) sees a subset. The branch PR triggers the real
+`gates` job (it runs on non-push events), which is the authoritative check; if check:orphans reports
+its pre-existing offenders they are reported, not guessed.
 
 ## Verification
 
-- Unit: 80 passed (10 files), including the three new games-hub files (filter tag map, band picker
-  determinism, countdown helper) = 17 tests.
-- e2e: 18 passed, 2 skipped (the desktop skips of the two mobile-only guards), on both the desktop
-  and mobile Playwright projects, against the `next start` build on :3021. Covers the eight cards in
-  server HTML, every idol face loaded (naturalWidth > 0), band CTA -> /blindtest, Tier Lists ->
-  /tier-list with the New badge, K-pop Idle has no link, each filter reveals its set and All restores
-  eight, no emoji, /pt/games same eight cards, no horizontal overflow at 390, and (new) every foot
-  stat is one line and never overlaps its CTA at 390.
-- tsc: 0 source errors. `next build`: green (check:routes, check:verse-tokens, check:env all pass).
-- No em dashes, zero emoji in the shipped hub.
+Unit 165 passed (incl. 85 new matcher cases). e2e 56 passed / 10 skipped (site-wide, no middleware
+regression). tsc 0 source errors. next build green. No URL behaviour changed, no Verse touched, no env
+file, no migration. Zero emoji, zero em dashes.
 
-## CI (feature branch, main stays owner-gated)
+## CI
 
-The feature branch is pushed and PR #23 runs the full suite (unit + e2e) on each head. Latest head
-`3a07484` (this NIT) is GREEN: unit passed (23s), e2e passed (3m23s), run
-https://github.com/P-Mingi/KpopQuizzV2/actions/runs/34898258269 (PR
-https://github.com/P-Mingi/KpopQuizzV2/pull/23). The FIX 1 code head `80b681d` was likewise green
-(run 34879005227). This REPORT line is a docs-only child of `3a07484`.
+CI run URL to be filled after the branch push + PR (tests workflow + the seo-gates `gates` job).
 
-The one owner gate that remains: merging PR #23 to main (production). This branch is not merged.
+## Owner gate
 
-## Scope touched
-
-Only `/games`, `/pt/games`, `GamesHub` and its new children, the `gh-*` CSS, `hub-filters.ts`,
-`daily-rotation.ts` (added `pickDailyMany`), `reset-countdown.ts`, the tests, and the proofs.
-Nothing else. `feat/tierlist-social` and its unpushed e93315d untouched.
+Not pushed to main. The owner reviews the branch/PR and merges. After deploy, read the Vercel
+by-source invocation panel to see the middleware and /api/auth/me drop land.

@@ -1,31 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-interface NavProfile {
-  username: string;
-  display_name: string | null;
-  avatar_url: string | null;
-  avatar_bg: string;
-  avatar_text: string;
-}
+import { useMe } from '@/lib/auth/use-me';
 
 // Client island - replaces the old async server fetch in <TopNav>. By moving
 // the cookie-reading Supabase call out of the SSR tree, the layout shell (and
 // therefore every page that uses it) stays static/ISR-cacheable. Initial
-// render is a sized placeholder so there's no layout shift on hydration.
+// render is a sized placeholder so there's no layout shift on hydration. The
+// /api/auth/me read is shared (useMe) with the other nav islands so a page view
+// makes at most one call, not one per island.
 export function TopNavProfile(): React.ReactElement {
-  const [state, setState] = useState<{ profile: NavProfile | null } | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((r) => (r.ok ? r.json() : { profile: null }))
-      .then((d) => { if (!cancelled) setState(d); })
-      .catch(() => { if (!cancelled) setState({ profile: null }); });
-    return () => { cancelled = true; };
-  }, []);
+  const state = useMe();
 
   // Pre-hydration / loading: the audit caught the old empty pill reading as
   // broken UI on every first paint. The placeholder now IS the Sign in visual

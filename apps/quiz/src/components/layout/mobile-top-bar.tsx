@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -9,27 +8,11 @@ import { WorldToggle } from '@/components/layout/world-toggle';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { worldForPath, isBuilderCanvas } from '@/lib/world';
-
-interface NavProfile {
-  username: string;
-  display_name: string | null;
-  avatar_url: string | null;
-  avatar_bg: string;
-  avatar_text: string;
-}
+import { useMe } from '@/lib/auth/use-me';
 
 export function MobileTopBar(): React.ReactElement | null {
   const pathname = usePathname();
-  const [state, setState] = useState<{ profile: NavProfile | null } | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((r) => (r.ok ? r.json() : { profile: null }))
-      .then((d) => { if (!cancelled) setState(d); })
-      .catch(() => { if (!cancelled) setState({ profile: null }); });
-    return () => { cancelled = true; };
-  }, []);
+  const state = useMe();
 
   if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
   if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;

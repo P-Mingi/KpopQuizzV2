@@ -228,7 +228,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const timeoutSentinel = Symbol('sitemap-batch-timeout');
     const raced = await Promise.race([
       Promise.all([
-        supabase.from('quizzes').select('slug, updated_at, group_id, questions').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
+        supabase.from('quizzes').select('slug, updated_at, group_id, questions, title, question_count, play_count, like_count').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
         supabase.from('groups').select('id, slug, quiz_count'),
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
@@ -247,7 +247,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
     // change on the site. Also fold the per-group newest date for group pages.
-    const quizRows = (quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string; group_id: number | null }>;
+    const quizRows = (quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string; group_id: number | null; title: string; question_count: number | null; play_count: number | null; like_count: number | null }>;
     if (quizRows[0]?.updated_at) contentDate = new Date(quizRows[0].updated_at);
     for (const q of quizRows) {
       if (q.group_id == null || !q.updated_at) continue;
@@ -308,7 +308,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return entries;
     });
 
-    quizPages = quizRows.map((q) => ({
+    // Duplicate-title guard (SEO / check:metadata-dupes). Two published quizzes can
+    // share an identical title and question count (e.g. a re-created "SEVENTEEN true
+    // or false"), which renders a byte-identical <title> on two indexable URLs -
+    // Google resolves that by dropping one from the snippet lottery. Advertise only
+    // ONE per (title, question count): the most-played, tiebroken by likes then slug
+    // for a stable URL. The dropped duplicate page still works and self-canonicals;
+    // it just leaves the sitemap. This runs in the periodically generated sitemap, so
+    // it adds no per-request cost.
+    const bestByTitle = new Map<string, (typeof quizRows)[number]>();
+    for (const q of quizRows) {
+      const key = `${q.title} ${q.question_count ?? ''}`;
+      const cur = bestByTitle.get(key);
+      const better =
+        !cur
+        || (q.play_count ?? 0) > (cur.play_count ?? 0)
+        || ((q.play_count ?? 0) === (cur.play_count ?? 0) && (q.like_count ?? 0) > (cur.like_count ?? 0))
+        || ((q.play_count ?? 0) === (cur.play_count ?? 0) && (q.like_count ?? 0) === (cur.like_count ?? 0) && q.slug < cur.slug);
+      if (better) bestByTitle.set(key, q);
+    }
+    quizPages = [...bestByTitle.values()].map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
       lastModified: new Date(q.updated_at),
       changeFrequency: 'monthly' as const,
