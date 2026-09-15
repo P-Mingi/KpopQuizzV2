@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { useUnreadCount, refetchUnread } from '@/lib/notifications-store';
 import { worldForPath, worldHref } from '@/lib/world';
+import { useMe } from '@/lib/auth/use-me';
 
 // Unread notification badge (Workstream M / O1). CLIENT island so the layout
 // shell stays static/ISR. Renders nothing until it confirms the viewer is
@@ -15,19 +16,11 @@ import { worldForPath, worldHref } from '@/lib/world';
 const POLL_MS = 90_000;
 
 export function NotificationBell(): React.ReactElement | null {
-  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const me = useMe();
+  const signedIn = me === null ? null : !!me.profile;
   const unread = useUnreadCount();
   // Stay in-world: from Verse the bell opens /verse/notifications, from Play /notifications.
   const world = worldForPath(usePathname());
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((r) => (r.ok ? r.json() : { profile: null }))
-      .then((d: { profile: unknown }) => { if (!cancelled) setSignedIn(!!d.profile); })
-      .catch(() => { if (!cancelled) setSignedIn(false); });
-    return () => { cancelled = true; };
-  }, []);
 
   useEffect(() => {
     if (!signedIn) return;

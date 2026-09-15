@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
 import { streakState, type StreakState } from '@/lib/streak';
+import { useMe } from '@/lib/auth/use-me';
 
 // Home streak surface (Workstream M, M1.3). Client island: the per-user streak
 // is fetched from /api/auth/me (same payload the TopNav chip already uses, no
@@ -12,22 +13,14 @@ import { streakState, type StreakState } from '@/lib/streak';
 // 'none' state (logged out / no streak / stale) - no empty or zero state. The
 // nudge links to /daily (today's daily ritual). Real Mascot only.
 export function HomeStreakNudge(): React.ReactElement | null {
-  const [view, setView] = useState<{ state: StreakState; days: number } | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((r) => (r.ok ? r.json() : { profile: null }))
-      .then((d: { profile: { daily_streak?: number; last_daily_date?: string | null } | null }) => {
-        if (cancelled) return;
-        const p = d.profile;
-        if (!p) { setView({ state: 'none', days: 0 }); return; }
-        const days = p.daily_streak ?? 0;
-        setView({ state: streakState(days, p.last_daily_date ?? null), days });
-      })
-      .catch(() => { if (!cancelled) setView({ state: 'none', days: 0 }); });
-    return () => { cancelled = true; };
-  }, []);
+  const me = useMe();
+  const view = useMemo<{ state: StreakState; days: number } | null>(() => {
+    if (me === null) return null; // still loading
+    const p = me.profile;
+    if (!p) return { state: 'none', days: 0 };
+    const days = p.daily_streak ?? 0;
+    return { state: streakState(days, p.last_daily_date ?? null), days };
+  }, [me]);
 
   if (!view || view.state === 'none') return null;
 

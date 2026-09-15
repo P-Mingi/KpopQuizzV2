@@ -100,10 +100,24 @@ export async function middleware(request: NextRequest) {
   }
 }
 
+// COST: the matcher decides which requests INVOKE the middleware function. It used
+// to match every HTML page, so the ~67k daily middleware invocations were mostly a
+// no-op passthrough on cached, known pages (/q/*, /, /games, the -quiz/-trivia group
+// pages, ...) that need no runtime logic. We exclude those known page prefixes so
+// they never pay an invocation, while STILL matching (so behaviour is unchanged):
+//   - the runtime-only work: /verse/* (verse gate), /login, /onboarding, /settings,
+//     /admin (auth), and the retired /blind-test, /create-preview, /battle-preview
+//     301s and the /which-...-member-are-you rewrite, all still handled here;
+//   - genuinely UNKNOWN paths (not in any excluded prefix), so the unknown-route
+//     301-to-home still fires.
+// Exclusion rules mirror isKnownRoute (route-allowlist.ts): slash-terminated prefixes
+// exclude WITH the slash so `/q` (unknown -> 301) still runs while `/q/slug` skips;
+// word prefixes use a `(?:/|$)` boundary so `/create-preview` (redirect) still runs
+// while `/create` skips; `$` excludes the home page. A prefix added to the allowlist
+// but not here only costs a wasted invocation, never wrong behaviour. See
+// middleware-matcher.test.ts for the full path matrix.
 export const config = {
   matcher: [
-    // Skip Next internals, API routes, static assets, sitemap/robots, OG images,
-    // and any root .txt file (robots.txt, llms.txt, the IndexNow key file).
-    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$).*)',
+    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:games|quizzes|blindtest|leaderboard|tier-list|trivia|rankings|articles|data|groups|trending|new|most-liked|build|battle|search|profile|me|notifications|news|stats|create|personality|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
   ],
 };
