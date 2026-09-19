@@ -9,13 +9,10 @@ import { getGroupNameAllGame, getGroupBlindtestInfo, getGroupWarRank, getGroupFa
 import { RELATED_GROUPS, RELATED_GROUP_NAMES } from '@/lib/related-groups';
 import { GroupFeed } from '@/components/home/group-feed';
 import { GroupHubHero, GroupPlayRow, GroupMembersStrip, GroupFanKnowledgeSection, GroupMvPulseSection, GroupComebackBanner } from '@/components/group/group-hub-sections';
-import { getGroupProfiles } from '@/lib/personality/data';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { formatCount } from '@/lib/utils';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
-import { countOpenRunsForGroup } from '@/lib/db/queries/open-runs';
-import { OpenRunsBlock } from '@/components/group/open-runs-block';
 import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 
@@ -96,7 +93,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
 export async function GroupQuizPage({ group }: { group: Group }): Promise<React.ReactElement> {
   const relatedSlugs = RELATED_GROUPS[group.slug] ?? [];
 
-  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, personalityProfiles, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse, openRuns, contentDate] = await Promise.all([
+  const [initialQuizzes, newestQuizzes, relatedQuizzes, triviaAvailable, allQuizLinks, nameAllGame, blindtest, warRank, fanKnowledge, comeback, mvPulse, contentDate] = await Promise.all([
     safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] getQuizzesByGroup'),
     // SEO-3 U7: SSR the 5 newest quizzes for this group. Crawlable-freshness
     // signal for Google + a discovery surface so users find new uploads before
@@ -105,16 +102,15 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-quiz] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(group.id, group.slug), false, '[group-quiz] hasTriviaPage'),
     safeFetch(getGroupQuizLinks(group.id), [], '[group-quiz] getGroupQuizLinks'),
-    safeFetch(getGroupProfiles(group.id), [], '[group-quiz] getGroupProfiles'),
+    // Kept for the member count (hero + answer-first) and the roster strip. The
+    // name-all GAME it used to link into was removed (REFONTE P1); this reads the
+    // still-present games row only for the roster facts, no dead link.
     safeFetch(getGroupNameAllGame(group.id), null, '[group-quiz] getGroupNameAllGame'),
     safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-quiz] getGroupBlindtestInfo'),
     safeFetch(getGroupWarRank(group.slug), null, '[group-quiz] getGroupWarRank'),
     safeFetch(getGroupFanKnowledge(group.id, group.slug), { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] }, '[group-quiz] getGroupFanKnowledge'),
     safeFetch(getGroupActiveComeback(group.id), null, '[group-quiz] getGroupActiveComeback'),
     safeFetch(getGroupMvPulse(group.id), null, '[group-quiz] getGroupMvPulse'),
-    // W2b C1: the real number of unbeaten runs waiting on this group. Fails soft to
-    // 0, which renders nothing, so a DB blip never fabricates a count.
-    safeFetch(countOpenRunsForGroup(group.slug), 0, '[group-quiz] countOpenRuns'),
     // W9b: real content freshness. NOT updated_at (record_play bumps it on every play,
     // which would print today's date on any active group).
     safeFetch(getGroupContentDate(group.id), null, '[group-quiz] getGroupContentDate'),
@@ -127,21 +123,13 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
 
   const intro = group.seo_intro || generateDefaultIntro(group);
 
-  // G2 link mesh: a gen-level popular game page for this group's generation.
-  const genLink =
-    group.generation === '3rd Gen'
-      ? { href: '/games/name-them-all/name-all-3rd-gen-groups', label: 'Name all 3rd gen K-pop groups' }
-      : group.generation === '4th Gen'
-      ? { href: '/games/name-them-all/name-all-4th-gen-groups', label: 'Name all 4th gen K-pop groups' }
-      : null;
-
-  // G2 additive JSON-LD: an ItemList of this group's real play surfaces.
+  // G2 additive JSON-LD: an ItemList of this group's real play surfaces. The
+  // name-all and personality surfaces were removed in REFONTE P1, so the list is
+  // now the kept quiz + blindtest surfaces only.
   const playSurfaces: Array<{ name: string; url: string }> = [
     { name: `${group.name} quizzes`, url: `https://kpopquiz.org/${group.slug}-quiz` },
   ];
   if (blindtest.qualifies) playSurfaces.push({ name: `${group.name} blind test`, url: `https://kpopquiz.org/blindtest/group-${group.slug}` });
-  if (nameAllGame) playSurfaces.push({ name: `Name all ${group.name} members`, url: `https://kpopquiz.org/games/name-all/${nameAllGame.slug}` });
-  if (personalityProfiles.length > 0) playSurfaces.push({ name: `Which ${group.name} member are you`, url: `https://kpopquiz.org/which-${group.slug}-member-are-you` });
 
   return (
     <div className="py-6">
@@ -183,22 +171,13 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
         seoIntro={group.seo_intro}
       />
 
-      {/* W2b C1 - the time-shifted supply, made visible. Real count, live query,
-          never rounded and never floored. Renders nothing at zero. */}
-      <OpenRunsBlock
-        subject={group.name}
-        count={openRuns}
-        href={`/battle?open=group:${group.slug}&utm_source=group&utm_medium=internal&utm_campaign=open_runs`}
-      />
-
       {/* G2 play row: every real play surface this group has, gated per surface.
-          Absorbs the old personality card + blindtest entry. */}
+          The name-all and personality tiles were removed in REFONTE P1; the row is
+          now quiz + blindtest. */}
       <GroupPlayRow
         group={group}
         topQuizSlug={initialQuizzes[0]?.slug ?? null}
         blindtest={blindtest}
-        nameAll={nameAllGame}
-        hasPersonality={personalityProfiles.length > 0}
       />
 
       {triviaAvailable && (
@@ -236,15 +215,6 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           </svg>
         </Link>
       )}
-
-      {/* V closeout: internal-link mesh into the new game modes (crawlable). */}
-      <nav className="group-games-mesh mt-4" aria-label="More K-pop games">
-        <span className="group-games-mesh-label">More K-pop games</span>
-        <Link href="/games/sort-it">Sort K-pop groups: boy or girl, 3rd gen or 4th gen</Link>
-        <Link href="/games/match-up/song-to-group">Match K-pop songs to their groups</Link>
-        <Link href="/games/name-them-all/name-all-kpop-groups">Name all K-pop groups before the timer</Link>
-        {genLink && <Link href={genLink.href}>{genLink.label}</Link>}
-      </nav>
 
       <GroupFeed groupId={group.id} initialQuizzes={initialQuizzes} />
 

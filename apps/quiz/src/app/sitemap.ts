@@ -2,12 +2,7 @@ import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
-import { getRankingsIndex } from '@/lib/db/queries/duels';
-import { getPersonalityGroups } from '@/lib/personality/data';
 import { ARTICLES } from '@/lib/articles/registry';
-import { SORT_IT_PLAYLISTS } from '@/lib/games/sort-it';
-import { MATCH_UP_PLAYLISTS } from '@/lib/games/match-up';
-import { NAME_THEM_ALL_PLAYLISTS } from '@/lib/games/name-them-all';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
@@ -37,9 +32,8 @@ const CATALOG_PATHS = new Set<string>([
   '', '/groups', '/data/knowledge-report-2026', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
   '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
-  '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/games',
-  '/games/this-or-that', '/games/name-all', '/stats', '/tier-list',
-  '/pt', '/pt/quizzes', '/pt/blindtest', '/pt/games', '/pt/leaderboard', '/pt/stats',
+  '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/stats',
+  '/pt', '/pt/quizzes', '/pt/blindtest', '/pt/leaderboard', '/pt/stats',
   '/pt/easy-kpop-quizzes', '/pt/hard-kpop-quizzes', '/pt/kpop-quiz-2026',
   '/pt/guess-the-kpop-idol', '/pt/kpop-true-or-false',
 ].map((p) => `${SITE_URL}${p}`));
@@ -112,34 +106,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${SITE_URL}/games`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/games/this-or-that`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/games/name-all`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    // Workstream V1 - Sort It index + one page per programmatic playlist. The
-    // playlists are a static code registry, so they enumerate without a DB query.
-    { url: `${SITE_URL}/games/sort-it`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    ...SORT_IT_PLAYLISTS.map((p) => ({
-      url: `${SITE_URL}/games/sort-it/${p.slug}`,
-      lastModified: STATIC_DATE,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    })),
-    // Workstream V2 - Match-Up index + one page per programmatic playlist.
-    { url: `${SITE_URL}/games/match-up`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    ...MATCH_UP_PLAYLISTS.map((p) => ({
-      url: `${SITE_URL}/games/match-up/${p.slug}`,
-      lastModified: STATIC_DATE,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    })),
-    // Workstream V3 - Name Them All index + one page per programmatic dataset.
-    { url: `${SITE_URL}/games/name-them-all`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    ...NAME_THEM_ALL_PLAYLISTS.map((p) => ({
-      url: `${SITE_URL}/games/name-them-all/${p.slug}`,
-      lastModified: STATIC_DATE,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    })),
     { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${SITE_URL}/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
@@ -155,7 +121,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/pt`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
     { url: `${SITE_URL}/pt/quizzes`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/pt/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${SITE_URL}/pt/games`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/pt/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/pt/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE_URL}/pt/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
@@ -175,20 +140,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Workstream P: the "which {group} member are you" personality quizzes.
-  let personalityPages: MetadataRoute.Sitemap = [];
-  try {
-    const pGroups = await getPersonalityGroups();
-    personalityPages = pGroups.map((g) => ({
-      url: `${SITE_URL}/which-${g.slug}-member-are-you`,
-      lastModified: STATIC_DATE,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }));
-  } catch {
-    personalityPages = [];
-  }
-
   // Static blind test mode pages (from the in-code catalogue) - evergreen.
   const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map((mode) => ({
     url: `${SITE_URL}/blindtest/${mode.id}`,
@@ -205,10 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // (self-canonical, no noindex above the 3-quiz gate) and reachable via internal
   // links - we just stop advertising them so Google spends its budget on winners.
   let blindTestGroupPages: MetadataRoute.Sitemap = [];
-  let gamePages: MetadataRoute.Sitemap = [];
-  let rankingPages: MetadataRoute.Sitemap = [];
   let pulsePages: MetadataRoute.Sitemap = [];
-  let tierListPages: MetadataRoute.Sitemap = [];
 
   try {
     // W7-CLOSE: the NON-VERSE sitemap runs on the ANON key. Measured table by table,
@@ -233,8 +181,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
         getAdvertisablePlaylists(),
-        supabase.from('games').select('slug, game_type, updated_at').eq('status', 'published').eq('game_type', 'name_all_members').limit(500),
-        supabase.from('tot_categories').select('slug, created_at').eq('is_published', true).limit(500),
       ]),
       new Promise<typeof timeoutSentinel>((resolve) => setTimeout(() => resolve(timeoutSentinel), SITEMAP_BATCH_TIMEOUT_MS)),
     ]);
@@ -242,8 +188,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
       throw new Error('sitemap batch timeout');
     }
-    const [quizzesResult, groupsResult, advertisablePlaylists, gamesResult, totCategoriesResult] =
-      raced as [Row, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>, Row, Row];
+    const [quizzesResult, groupsResult, advertisablePlaylists] =
+      raced as [Row, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>];
 
     // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
     // change on the site. Also fold the per-group newest date for group pages.
@@ -333,22 +279,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
-
-    gamePages = [
-      ...((gamesResult.data ?? []) as Array<{ slug: string; updated_at: string }>).map((g) => ({
-        url: `${SITE_URL}/games/name-all/${g.slug}`,
-        lastModified: new Date(g.updated_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-      })),
-      // SEO indexguard: the per-category /games/this-or-that/[slug] pages were
-      // consolidated into the query-param model - that route now 308-permanent-
-      // redirects to /games/this-or-that?group=...&type=... So listing the slug
-      // URLs advertised redirecting (non-canonical) pages. The hub /games/this-or-that
-      // is in the static list; the category slugs are intentionally NOT sitemap'd.
-      // (totCategoriesResult is still fetched to keep the batch shape stable.)
-    ];
-    void totCategoriesResult;
   } catch (err) {
     // Don't 500 the sitemap - log and return whatever we have.
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
@@ -358,40 +288,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // lastmod). Evergreen + legal pages keep their stable dates.
   for (const page of staticPages) {
     if (CATALOG_PATHS.has(page.url)) page.lastModified = contentDate;
-  }
-
-  // Ranking pages: ONLY questions whose real votes have crossed min_votes are
-  // public/indexable (the rest are noindex locked states). The /rankings hub is
-  // listed only when at least one ranking is public (otherwise it's a noindex
-  // empty hub). Guarded separately so a failure here can't drop the rest.
-  try {
-    const RANKINGS_TIMEOUT_MS = 5000;
-    const rankingsSentinel = Symbol('rankings-timeout');
-    const rankingsResult = await Promise.race([
-      getRankingsIndex(),
-      new Promise<typeof rankingsSentinel>((resolve) => setTimeout(() => resolve(rankingsSentinel), RANKINGS_TIMEOUT_MS)),
-    ]);
-    if (rankingsResult === rankingsSentinel) {
-      console.warn('[sitemap] rankings index timed out - skipping ranking URLs');
-      throw new Error('rankings index timeout');
-    }
-    const publicRankings = (rankingsResult as Awaited<ReturnType<typeof getRankingsIndex>>).filter((r) => r.public);
-    rankingPages = publicRankings.map((r) => ({
-      url: `${SITE_URL}/rankings/${r.group_slug}/${r.question_type}`,
-      lastModified: contentDate,
-      changeFrequency: 'daily' as const,
-      priority: 0.6,
-    }));
-    if (publicRankings.length > 0) {
-      rankingPages.unshift({
-        url: `${SITE_URL}/rankings`,
-        lastModified: contentDate,
-        changeFrequency: 'daily' as const,
-        priority: 0.6,
-      });
-    }
-  } catch (err) {
-    console.error('[sitemap] rankings query failed, skipping ranking pages:', err);
   }
 
   // Workstream T0: one URL per generated monthly Pulse report. Guarded on its
@@ -535,48 +431,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     versePages = [];
   }
 
-  // TIERLIST phase 3: published PUBLIC lists + their subject pages. Own guarded
-  // block (mirrors the verse block) so a tier-list DB blip never drops the rest of
-  // the sitemap. Unlisted/private lists are deliberately absent.
-  try {
-    const tldb = createPublicReadClient();
-    const [listsRes, subjectsRes, groupsRes] = await Promise.all([
-      tldb.from('tier_lists').select('slug, updated_at').eq('visibility', 'public').order('created_at', { ascending: false }).limit(2000),
-      tldb.from('tier_lists').select('subject_group_id, subject_kind').eq('visibility', 'public').not('subject_group_id', 'is', null).limit(2000),
-      tldb.from('groups').select('id, slug'),
-    ]);
-    const listEntries: MetadataRoute.Sitemap = ((listsRes.data ?? []) as Array<{ slug: string; updated_at: string }>).map((r) => ({
-      url: `${SITE_URL}/tier-list/l/${r.slug}`, lastModified: new Date(r.updated_at), changeFrequency: 'weekly' as const, priority: 0.5,
-    }));
-    const idToSlug = new Map(((groupsRes.data ?? []) as Array<{ id: number; slug: string }>).map((g) => [g.id, g.slug]));
-    const seen = new Set<string>();
-    const subjectEntries: MetadataRoute.Sitemap = [];
-    for (const s of (subjectsRes.data ?? []) as Array<{ subject_group_id: number; subject_kind: string }>) {
-      const gslug = idToSlug.get(s.subject_group_id);
-      if (!gslug || s.subject_kind === 'blank') continue;
-      const key = `${gslug}/${s.subject_kind}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      subjectEntries.push({ url: `${SITE_URL}/tier-list/subject/${gslug}/${s.subject_kind}`, lastModified: STATIC_DATE, changeFrequency: 'weekly' as const, priority: 0.5 });
-    }
-    tierListPages = [...listEntries, ...subjectEntries];
-  } catch (err) {
-    console.error('[sitemap] tier-list query failed, skipping tier-list pages:', err);
-    tierListPages = [];
-  }
-
   return [
     ...staticPages,
     ...articlePages,
-    ...personalityPages,
     ...blindTestModePages,
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,
-    ...gamePages,
-    ...rankingPages,
     ...pulsePages,
     ...versePages,
-    ...tierListPages,
   ];
 }

@@ -3,20 +3,15 @@ import Link from 'next/link';
 
 import { getBrowseQuizzes, getNewQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
 import { HomeHero } from '@/components/home/home-hero';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
 import { HomeBtotd } from '@/components/home/home-btotd';
-import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
 import { buildTeaser } from '@/lib/quiz/teaser';
 import { DiscordCommunityStrip } from '@/components/discord/discord-community';
-import { HomeBattleCta } from '@/components/home/home-battle-cta';
-import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
-import { TierListHomeCta } from '@/components/home/tier-list-home-cta';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
@@ -89,21 +84,6 @@ function SkelGroups(): React.ReactElement {
     </section>
   );
 }
-function SkelGotd(): React.ReactElement {
-  return (
-    <section className="home-section" aria-hidden="true">
-      <div className="home-skel home-skel-card" />
-    </section>
-  );
-}
-// Battle has no .home-section wrapper in resolved output (it's a .home-cta-row).
-function SkelBattle(): React.ReactElement {
-  return (
-    <div className="home-cta-row" aria-hidden="true">
-      <div className="home-skel home-skel-battle" />
-    </div>
-  );
-}
 
 /* ---------- Async streaming sections ---------- */
 
@@ -119,32 +99,6 @@ async function QotdSection(): Promise<React.ReactElement> {
       </div>
     </section>
   );
-}
-
-async function GotdSection(): Promise<React.ReactElement> {
-  // This-or-That / Name-all "of the day", relocated out of the premium slot
-  // (now held by the blindtest). Still full home exposure. Renders nothing
-  // when there is no game of the day.
-  const gotd = await safeFetch(getGameOfTheDay(), null, '[home] getGameOfTheDay');
-  if (!gotd) return <></>;
-  return (
-    <section className="home-section">
-      <GameOfTheDay data={gotd} />
-    </section>
-  );
-}
-
-async function BattleOfDay(): Promise<React.ReactElement> {
-  // Date-seeded featured quiz so the "Battle of the day" is stable per day.
-  const quizzes = await safeFetch(
-    getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 12 }),
-    [],
-    '[home] battle of the day',
-  );
-  if (quizzes.length === 0) return <HomeBattleCta />;
-  const dayIdx = Math.floor(Date.now() / 86_400_000);
-  const q = quizzes[dayIdx % quizzes.length]!;
-  return <HomeBattleCta quizId={q.id} groupName={q.group_name} />;
 }
 
 async function TrendingSection(): Promise<React.ReactElement> {
@@ -280,28 +234,15 @@ export default function HomePage(): React.ReactElement {
       {/* 1. Hero */}
       <HomeHero />
 
-      {/* Home launch band: the tier list maker is the newest mode, so it takes the
-          high slot above the daily pair (the retired personality launch banner sat
-          here). Exactly one tier-list CTA on the home page. */}
-      <TierListHomeCta />
-
       {/* 1b. Streak surface (client island; home stays static/ISR) */}
       <HomeStreakNudge />
 
-      {/* 2. Quiz of the day */}
+      {/* 2. The daily pair (quiz of the day + blindtest of the day) now takes the
+          high content slot directly under the hero. The retired tier-list launch
+          band and the game/battle-of-the-day rows freed this space; the energy
+          re-routes to the two daily surfaces that remain (REFONTE P1). */}
       <Suspense fallback={<SkelDaily />}>
         <QotdSection />
-      </Suspense>
-
-      {/* 2b. Game of the day (this-or-that / name-all), relocated below the
-          premium daily pair now that the blindtest holds the twoup slot. */}
-      <Suspense fallback={<SkelGotd />}>
-        <GotdSection />
-      </Suspense>
-
-      {/* 2c. Battle of the day - date-seeded quiz-anchored 1v1 battle */}
-      <Suspense fallback={<SkelBattle />}>
-        <BattleOfDay />
       </Suspense>
 
       {/* 3. Trending this week */}
@@ -319,13 +260,11 @@ export default function HomePage(): React.ReactElement {
         <AllTimeBestSection />
       </Suspense>
 
-      {/* 4. Play games */}
-      <HomeGamesTeaser />
-
-      {/* 4b. Verse spaces (portal v1, Option A: additive body strip, no head change) */}
+      {/* 4. Verse spaces (portal v1, Option A: additive body strip, no head change) */}
       <VerseHomeStrip />
 
-      {/* 5. Browse by group */}
+      {/* 5. Browse by group - the group hubs take the freed mid-page slot the
+          games teaser held (REFONTE P1 energy re-route to group hubs). */}
       <Suspense fallback={<SkelGroups />}>
         <GroupSection />
       </Suspense>

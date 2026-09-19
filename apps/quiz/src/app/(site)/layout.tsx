@@ -52,11 +52,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
             name: 'Main Navigation',
             hasPart: [
               { '@type': 'WebPage', name: 'Quizzes', url: 'https://kpopquiz.org/quizzes' },
-              { '@type': 'WebPage', name: 'Games', url: 'https://kpopquiz.org/games' },
               { '@type': 'WebPage', name: 'Blind Test', url: 'https://kpopquiz.org/blindtest' },
               { '@type': 'WebPage', name: 'Leaderboard', url: 'https://kpopquiz.org/leaderboard' },
               { '@type': 'WebPage', name: 'Trivia', url: 'https://kpopquiz.org/trivia' },
-              { '@type': 'WebPage', name: 'Rankings', url: 'https://kpopquiz.org/rankings' },
             ],
           }),
         }}

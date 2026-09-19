@@ -7,12 +7,12 @@ import { worldForPath, WORLD_ACCENT, isBuilderCanvas } from '@/lib/world';
 
 interface Tab { label: string; href: string; match: readonly string[] }
 
-// PLAY bottom bar = the exact current 5 tabs.
+// PLAY bottom bar. REFONTE P1 removed the Games tab with its hub; the bar is now
+// Home / Quizzes / Blindtest / Community.
 const PLAY_TABS: readonly Tab[] = [
   { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest', '/blind-test'] },
-  { label: 'Games', href: '/games', match: ['/games'] },
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
 
@@ -44,8 +44,6 @@ export function MobileTabBar() {
   // keyed on the phase the player publishes on <body>. If that script never runs the
   // bar simply stays visible, which is the safe way to fail for navigation.
   const onQuizRoute = pathname.startsWith('/q/');
-  if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
-  if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
   // ITERATION 6 PART D - the Verse carries its own mobile nav (top bar + drawer), so the global
   // bottom tab bar is hidden on /verse. Play keeps it everywhere else.
   if (worldForPath(pathname) === 'verse') return null;
@@ -132,13 +130,6 @@ function TabIcon({ name, active, accent }: { name: string; active: boolean; acce
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 4h16v14H8l-4 3z" />
-        </svg>
-      );
-    case 'Games':
-      return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0z" />
-          <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
         </svg>
       );
     case 'Blindtest':
