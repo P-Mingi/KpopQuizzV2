@@ -1,5 +1,11 @@
 import { getTitleForLevel } from './level-titles';
 
+// Threshold below which a quiz shows only provisional "early results" (counts, not
+// score rankings). Single source of truth; relocated here from the retired
+// duels/rankings query module when the ranking feature was removed, because kept
+// quiz pages still gate their score display on it.
+export const RANKING_UNLOCK_VOTES = 30;
+
 export const RESERVED_USERNAMES = [
   'admin',
   'api',

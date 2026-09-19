@@ -20,7 +20,9 @@ import { analytics, type CrossPromoTarget, type GameType } from '@/lib/analytics
 // This component owns no game state. Presentation, routing, the share handler,
 // and the analytics joints only.
 
-type LoopGame = Extract<GameType, 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'sort-it' | 'match-up' | 'name-them-all'>;
+// REFONTE P1: the mini games, this-or-that, duel and name-all result screens were
+// removed, so the blind test is the only non-quiz result that still mounts this.
+type LoopGame = Extract<GameType, 'blindtest'>;
 
 interface ResultLoopProps {
   game: LoopGame;
@@ -54,39 +56,13 @@ interface LoopCard {
 
 type IconName = 'music' | 'versus' | 'people' | 'cards' | 'grid';
 
-// A2 - the loop table. Each game points at the next best thing to do, so the
-// player cycles quiz <-> blindtest <-> games instead of falling out.
-//
-// Note on the two merged rows: /games/this-or-that renders DuelGame, so
-// 'this-or-that' and 'duel' are the same screen for a player and share a row.
+// A2 - the loop table. The blind test finisher cycles into the kept play
+// surfaces (quiz of the day + the quiz browse) instead of falling out. The mini
+// games it used to point at were removed in REFONTE P1.
 const LOOP_CARDS: Record<LoopGame, LoopCard[]> = {
   blindtest: [
-    { href: '/games/this-or-that', target: 'this-or-that', icon: 'versus', text: 'Play This or That: pick your bias in head-to-head matchups' },
     { href: '/daily', target: 'daily', icon: 'cards', text: 'Quiz of the day: keep your daily streak alive' },
-  ],
-  'this-or-that': [
-    { href: '/blindtest', target: 'blindtest', icon: 'music', text: 'Try the K-pop blind test: guess songs from audio clips' },
-    { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
-  ],
-  duel: [
-    { href: '/blindtest', target: 'blindtest', icon: 'music', text: 'Try the K-pop blind test: guess songs from audio clips' },
-    { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
-  ],
-  'name-all': [
-    { href: '/blindtest', target: 'blindtest', icon: 'music', text: 'Try the K-pop blind test: guess songs from audio clips' },
-    { href: '/games/this-or-that', target: 'this-or-that', icon: 'versus', text: 'Play This or That: pick your bias in head-to-head matchups' },
-  ],
-  'sort-it': [
-    { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
-    { href: '/games/this-or-that', target: 'this-or-that', icon: 'versus', text: 'Play This or That: pick your bias in head-to-head matchups' },
-  ],
-  'match-up': [
-    { href: '/games/sort-it', target: 'games', icon: 'grid', text: 'Play Sort It: boy group or girl group, 3rd gen or 4th gen, against the clock' },
-    { href: '/games/name-all', target: 'name-all', icon: 'people', text: 'Name All Members: how many can you list before the clock runs out' },
-  ],
-  'name-them-all': [
-    { href: '/games/match-up', target: 'games', icon: 'grid', text: 'Play Match-Up: pair songs, idols, and groups against the clock' },
-    { href: '/games/sort-it', target: 'games', icon: 'grid', text: 'Play Sort It: boy group or girl group, 3rd gen or 4th gen, against the clock' },
+    { href: '/quizzes', target: 'quizzes', icon: 'grid', text: 'Browse all K-pop quizzes by group and difficulty' },
   ],
 };
 
@@ -177,7 +153,7 @@ export function ResultLoop({
             {playAgainLabel ?? 'Play again'}
           </button>
         ) : (
-          <Link href={playAgainHref ?? '/games'} className="btn-primary flex-1 text-center no-underline" aria-label={playAgainLabel ?? 'Play again'}>
+          <Link href={playAgainHref ?? '/blindtest'} className="btn-primary flex-1 text-center no-underline" aria-label={playAgainLabel ?? 'Play again'}>
             {playAgainLabel ?? 'Play again'}
           </Link>
         )}

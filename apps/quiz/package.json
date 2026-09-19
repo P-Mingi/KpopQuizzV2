@@ -15,7 +15,6 @@
     "check:orphans": "tsx scripts/check-orphans.mts",
     "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts",
-    "check:tier-list": "tsx scripts/check-tier-list.mts",
     "test:unit": "vitest run",
     "test:e2e": "playwright test"
   },

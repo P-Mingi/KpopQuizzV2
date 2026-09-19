@@ -1,0 +1,15 @@
+REFONTE P1 - sitemap URL count (prod-like build, VERSE_PUBLIC unset = Verse hidden, matches prod)
+Captured Sat Sep 19 19:48:21 CEST 2026
+Total <loc> entries: 645
+Audit baseline (prod, Verse hidden): 738  ->  after kill: 645
+
+Killed-feature URL patterns still present (each must be 0):
+  /games               0
+  /rankings            0
+  /tier-list/          0
+  -member-are-you      0
+  /personality         0
+  /battle              0
+  /pinterest-feed      0
+
+(note: /q/which-...-* are KEPT quiz slugs, not the killed /which-*-member-are-you personality pages)

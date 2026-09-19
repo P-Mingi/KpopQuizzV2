@@ -24,13 +24,10 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
       <nav className="flex items-center gap-4 py-3 border-b border-default mb-4 text-sm overflow-x-auto">
         <Link href="/admin" className="font-medium text-primary hover:text-accent-hover whitespace-nowrap">Dashboard</Link>
         <Link href="/admin/quiz-bank" className="text-secondary hover:text-primary whitespace-nowrap">Quiz Bank</Link>
-        <Link href="/admin/pinterest" className="text-secondary hover:text-primary whitespace-nowrap">Pinterest</Link>
         <Link href="/admin/quiz/search" className="text-secondary hover:text-primary whitespace-nowrap">Edit Quizzes</Link>
-        <Link href="/admin/this-or-that" className="text-secondary hover:text-primary whitespace-nowrap">This or That</Link>
         <Link href="/admin/ai-visibility" className="text-secondary hover:text-primary whitespace-nowrap">AI Visibility</Link>
         <Link href="/admin/pulse" className="text-secondary hover:text-primary whitespace-nowrap">Pulse</Link>
         <Link href="/admin/industry" className="text-secondary hover:text-primary whitespace-nowrap">Industry</Link>
-        <Link href="/admin/game-images" className="text-secondary hover:text-primary whitespace-nowrap">Game Images</Link>
         <Link href="/admin/verse" className="text-secondary hover:text-primary whitespace-nowrap">Verse</Link>
         <Link href="/admin/verse/entities" className="text-secondary hover:text-primary whitespace-nowrap">Entities</Link>
         <Link href="/admin/verse/quality" className="text-secondary hover:text-primary whitespace-nowrap">Quality</Link>

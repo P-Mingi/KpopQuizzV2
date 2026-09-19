@@ -1,4 +1,4 @@
-import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -347,13 +347,16 @@ export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]
         phrase = score !== null && total !== null ? `got ${score}/${total} on the blind test` : 'played the blind test';
         href = '/blindtest';
         break;
+      // REFONTE P1: the duel + battle features were removed. Historical events may
+      // still surface in the feed, so they now point at the fan's group hub (a kept
+      // surface) instead of the dead /games routes.
       case 'duel_voted':
         phrase = 'voted in a duel';
-        href = '/games/this-or-that';
+        href = groupHref(r.group_slug);
         break;
       case 'battle_won':
         phrase = 'won a battle';
-        href = '/games';
+        href = groupHref(r.group_slug);
         break;
       case 'streak_milestone':
         phrase = streak !== null ? `hit a ${streak}-day streak` : 'kept a streak going';
@@ -511,48 +514,7 @@ export async function getCommunityComments(limit = 8): Promise<CommunityComment[
     .filter((c): c is CommunityComment => c !== null);
 }
 
-// ============================================================
-// F2b B6 - This week's matchups. Battles v2 are anonymous (player_hash, no
-// winner identity), so a "winner" row cannot be built from real data. The spec
-// fallback is duel matchups by votes, which is matchup-based and needs no
-// person. Only 20 duel questions exist, so we count votes per question with 20
-// parallel indexed counts rather than pulling ~8k vote rows.
-// ============================================================
-
-export interface HotMatchup {
-  prompt: string;
-  groupSlug: string;
-  questionType: string;
-  votes: number;
-}
-
-export async function getHotMatchups(limit = 5): Promise<HotMatchup[]> {
-  // duel_votes has a public INSERT policy but NO public SELECT (mig 067), so the
-  // cookie-free client counts zero. The service-role client bypasses RLS, same
-  // pattern getQuizOfTheDay uses for the daily pick. Vote counts only, no rows.
-  const db = createServiceRoleClient();
-  const since = new Date(Date.now() - 7 * 24 * 3600_000).toISOString();
-
-  const { data: questions } = await db
-    .from('duel_questions')
-    .select('id, group_slug, question_type, prompt')
-    .eq('is_active', true);
-  const qs = (questions ?? []) as Array<{ id: string; group_slug: string; question_type: string; prompt: string }>;
-  if (qs.length === 0) return [];
-
-  const counted = await Promise.all(
-    qs.map(async (q) => {
-      const { count } = await db
-        .from('duel_votes')
-        .select('*', { count: 'exact', head: true })
-        .eq('question_id', q.id)
-        .gte('created_at', since);
-      return { prompt: q.prompt, groupSlug: q.group_slug, questionType: q.question_type, votes: count ?? 0 };
-    }),
-  );
-
-  return counted
-    .filter((m) => m.votes > 0)
-    .sort((a, b) => b.votes - a.votes)
-    .slice(0, limit);
-}
+// REFONTE P1: getHotMatchups (this-week duel matchups, read from the killed
+// duel_questions / duel_votes tables) was removed with the this-or-that / rankings
+// feature. Its only consumers were community-content.tsx and stats/page.tsx, both
+// unpicked.

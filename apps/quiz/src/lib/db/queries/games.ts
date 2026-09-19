@@ -1,4 +1,4 @@
-import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
 
 import type { GameCardData, GameWithGroup } from '@/lib/db/types';
 
@@ -97,48 +97,6 @@ export async function getGameBySlug(slug: string): Promise<GameWithGroup | null>
   return toGameWithGroup(data as unknown as GameRow);
 }
 
-export async function getPopularGames(offset: number, limit: number, gameType?: string): Promise<GameCardData[]> {
-  const supabase = await createServerClient();
-  let query = supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .eq('status', 'published');
-  if (gameType) query = query.eq('game_type', gameType);
-  const { data, error } = await query
-    .order('play_count', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error) throw new Error(`Failed to fetch games: ${error.message}`);
-  return (data as unknown as GameRow[]).map(toGameCardData);
-}
-
-export async function getRecentGames(offset: number, limit: number): Promise<GameCardData[]> {
-  const supabase = await createServerClient();
-  const { data, error } = await supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error) throw new Error(`Failed to fetch games: ${error.message}`);
-  return (data as unknown as GameRow[]).map(toGameCardData);
-}
-
-export async function getGamesByCreator(creatorId: string, offset: number, limit: number): Promise<GameCardData[]> {
-  const supabase = await createServerClient();
-  const { data, error } = await supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .eq('creator_id', creatorId)
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error) throw new Error(`Failed to fetch games: ${error.message}`);
-  return (data as unknown as GameRow[]).map(toGameCardData);
-}
-
 export async function getBlindTests(): Promise<GameWithGroup[]> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
@@ -165,50 +123,3 @@ export async function getAdminBlindTests(): Promise<GameCardData[]> {
   return (data as unknown as GameRow[]).map(toGameCardData);
 }
 
-const NAME_ALL_TYPES = ['name_all_members', 'name_all_songs', 'name_top_songs', 'name_all_groups', 'name_all_idols'];
-
-export async function getNameAllGames(offset: number, limit: number): Promise<GameCardData[]> {
-  // Public catalog read - cookie-free so the home page game-of-the-day stays ISR-cacheable.
-  const supabase = createPublicReadClient();
-  const { data, error } = await supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .in('game_type', NAME_ALL_TYPES)
-    .eq('status', 'published')
-    .order('play_count', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error) throw new Error(`Failed to fetch name-all games: ${error.message}`);
-  return (data as unknown as GameRow[]).map(toGameCardData);
-}
-
-export async function getNameAllGameBySlug(slug: string): Promise<GameWithGroup | null> {
-  const supabase = await createServerClient();
-  const { data, error } = await supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .eq('slug', slug)
-    .in('game_type', NAME_ALL_TYPES)
-    .eq('status', 'published')
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') return null;
-    throw new Error(`Failed to fetch name-all game: ${error.message}`);
-  }
-
-  return toGameWithGroup(data as unknown as GameRow);
-}
-
-export async function getAllGamesForHub(offset: number, limit: number): Promise<GameCardData[]> {
-  const supabase = await createServerClient();
-  const { data, error } = await supabase
-    .from('games')
-    .select(GAME_SELECT)
-    .eq('status', 'published')
-    .order('play_count', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error) throw new Error(`Failed to fetch games: ${error.message}`);
-  return (data as unknown as GameRow[]).map(toGameCardData);
-}

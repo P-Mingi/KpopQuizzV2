@@ -20,18 +20,15 @@ export const KNOWN_ROUTES = [
   // reachable; without this the middleware 301s every embed to the home page and the
   // partner's iframe silently shows our homepage.
   '/embed/',
-  '/', '/q/', '/g/', '/games', '/tier-list', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
+  // REFONTE P1: /games, /tier-list, /rankings, /which-, /personality, /battle were
+  // removed with their features (see next.config.ts for the 301 redirects). '/g/'
+  // stays: /g/[slug] is the kept blind-test game.
+  '/', '/q/', '/g/', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
-  '/rankings',
-  // Workstream P personality quizzes. The public URL is
-  // /which-{group}-member-are-you, rewritten by the middleware to /personality/*
-  // (real route). Both prefixes are allowlisted: the pretty one for any direct
-  // hit before the rewrite, the real one for the app/ route guard.
-  '/which-', '/personality',
   '/terms', '/privacy', '/dmca', '/about', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
-  '/sitemap.xml', '/robots.txt', '/llms.txt', '/pinterest-feed.xml',
+  '/sitemap.xml', '/robots.txt', '/llms.txt',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
   // bell) are real signed-in pages that were never allowlisted, so the
   // unknown-route rule 301'd them to / and made both unreachable. They guard
@@ -54,7 +51,11 @@ export const KNOWN_ROUTES = [
   // PROTECTED_PATH_PREFIXES (no Supabase round trip in the middleware).
   '/build',
   '/articles',
-  '/battle',
+  // REFONTE P1: /tier-list is gone EXCEPT this one resolver route, which 301s a
+  // published tier list to its subject group's kept hub (the rest of /tier-list is
+  // 301'd in next.config, which runs before the middleware). The narrow '/tier-list/l/'
+  // prefix keeps the resolver reachable while every other /tier-list/* stays unknown.
+  '/tier-list/l/',
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
   // One '/data' prefix covers both via startsWith.
   '/data',

@@ -25,7 +25,6 @@ export const TRANSLATED_ROUTES: string[] = [
   '/kpop-true-or-false',
   '/kpop-quiz-2026',
   '/quizzes',
-  '/games',
   '/leaderboard',
 ];
 

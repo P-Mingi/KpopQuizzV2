@@ -78,21 +78,15 @@ interface PlayTile {
 
 const ICON_QUIZ = <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 5v14l11-7z" /></svg>;
 const ICON_BLIND = <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>;
-const ICON_NAME = <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" /></svg>;
-const ICON_MATCH = <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="m17 11 1.5 1.5L21 10" /></svg>;
 
 export function GroupPlayRow({
   group,
   topQuizSlug,
   blindtest,
-  nameAll,
-  hasPersonality,
 }: {
   group: Group;
   topQuizSlug: string | null;
   blindtest: { qualifies: boolean; songs: number };
-  nameAll: GroupNameAllGame | null;
-  hasPersonality: boolean;
 }): React.ReactElement {
   const tiles: PlayTile[] = [];
   // Quiz CTA always. Play the top quiz, or create one when the group has none.
@@ -103,12 +97,6 @@ export function GroupPlayRow({
   );
   if (blindtest.qualifies) {
     tiles.push({ href: `/blindtest/group-${group.slug}`, title: 'Blind test', sub: `${blindtest.songs} songs`, icon: ICON_BLIND, tint: '--blind' });
-  }
-  if (nameAll) {
-    tiles.push({ href: `/games/name-all/${nameAll.slug}`, title: 'Name all members', sub: `${nameAll.count} to name`, icon: ICON_NAME, tint: '--nam' });
-  }
-  if (hasPersonality) {
-    tiles.push({ href: `/which-${group.slug}-member-are-you`, title: 'Which member are you?', sub: '10 questions, 1 result', icon: ICON_MATCH, tint: '--tot' });
   }
 
   return (
@@ -136,7 +124,10 @@ export function GroupMembersStrip({
       <p className="sec-label" style={{ marginBottom: 12 }}>The members</p>
       <div className="ghub-members">
         {nameAll.members.map((m) => (
-          <Link key={m.name} href={`/games/name-all/${nameAll.slug}`} className="ghub-member" aria-label={`Name all ${group.name} members`}>
+          // The roster is real group content (faces + names). The name-all game it
+          // used to link into was removed (REFONTE P1), so each member is now a
+          // plain display cell rather than a link to a dead route.
+          <div key={m.name} className="ghub-member">
             {m.photoUrl ? (
               <img className="ghub-member-face" src={m.photoUrl} alt="" loading="lazy" />
             ) : (
@@ -145,7 +136,7 @@ export function GroupMembersStrip({
               </span>
             )}
             <span className="ghub-member-name">{m.name}</span>
-          </Link>
+          </div>
         ))}
       </div>
     </section>

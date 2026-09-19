@@ -5,15 +5,13 @@ import Link from 'next/link';
 
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { getQuizExtraStats } from '@/lib/db/queries/plays';
-import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
+import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
 import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
-import { countOpenRunsForQuiz } from '@/lib/db/queries/open-runs';
-import { OpenRunsBlock } from '@/components/group/open-runs-block';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
@@ -294,7 +292,6 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
   // W2b C2 - ONE page-level query for the whole leaderboard (3 bounded reads,
   // constant in the number of rows). A per-row lookup would be N+1.
-  const openRunCount = await safeFetch(countOpenRunsForQuiz(quiz.id), 0, '[q/[slug]] countOpenRunsForQuiz');
 
   // SEO (audit v2): crawlable reactions + comments counts (the live widgets are
   // a client island shown post-play, so the COUNTS render into the server HTML).
@@ -421,15 +418,6 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       {/* M1.19 - per-quiz Hall of Fame (public, ISR-baked; personal rank is an island) */}
       <QuizHallOfFame quizId={quiz.id} entries={hallOfFame} isClues={quiz.quiz_type === 'guess_from_clues'} />
 
-      {/* W2b C2-REDESIGN - one identity-free block. Per-row matching by username
-          cannot work while the leaderboard is anonymous (the biggest quiz on the site
-          has ZERO named players in its top 10), so the supply is surfaced for the
-          quiz as a whole. Real count, live, paginated; renders nothing at zero. */}
-      <OpenRunsBlock
-        subject="this quiz"
-        count={openRunCount}
-        href={`/battle?open=quiz:${quiz.id}&utm_source=quiz&utm_medium=internal&utm_campaign=open_runs`}
-      />
 
       {/* SEO-4 (O3) - inline "Did you know?" card: ONE real fact, distinct per quiz.
           Shows a taste on the page itself; the trivia-entry below links to the full
