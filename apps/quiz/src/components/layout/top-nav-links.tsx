@@ -109,16 +109,16 @@ export function TopNavLinks({ world: forced }: { world?: World } = {}) {
             key={item.href}
             href={item.href}
             aria-current={active ? 'page' : undefined}
+            // Owner-validated active state (2026-09-20): a solid brand-pink pill with
+            // white label + filled white icon, instead of the underline bracket.
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '8px 12px', borderRadius: 6,
-              background: 'transparent',
-              color: active ? 'var(--txt1)' : 'var(--txt2)',
+              padding: '8px 14px', borderRadius: 999,
+              background: active ? accent : 'transparent',
+              color: active ? '#fff' : 'var(--txt2)',
               border: 'none', textDecoration: 'none',
               fontSize: 14, fontWeight: active ? 700 : 600,
-              borderBottom: active ? `1.5px solid ${accent}` : '1.5px solid transparent',
-              paddingBottom: active ? 6 : 8,
-              transition: 'color 120ms ease, border-color 120ms ease',
+              transition: 'color 120ms ease, background 120ms ease',
             }}
           >
             <NavIcon name={item.label} active={active} />

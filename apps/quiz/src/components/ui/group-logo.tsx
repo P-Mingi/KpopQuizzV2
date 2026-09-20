@@ -59,8 +59,10 @@ function InlineLogo({ groupName, size }: { groupName: string; size: number }): R
     const sw = Math.max(1, s * 0.012);
     return (
       <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} xmlns="http://www.w3.org/2000/svg">
-        <rect width={s} height={s} fill="#000" />
-        <rect x={bx} y={by} width={bw} height={bh} rx={1} fill="none" stroke="#F5A0B8" strokeWidth={sw} />
+        {/* Owner-validated look (2026-09-20): brand pink coin, white wordmark, so it
+            sits with the other circles instead of reading as a heavy black blob. */}
+        <rect width={s} height={s} fill="#F06292" />
+        <rect x={bx} y={by} width={bw} height={bh} rx={1} fill="none" stroke="#FFFFFF" strokeWidth={sw} />
         <text
           x={s / 2}
           y={s / 2 + fs * 0.36}
@@ -69,7 +71,7 @@ function InlineLogo({ groupName, size }: { groupName: string; size: number }): R
           fontWeight="900"
           fontSize={fs}
           letterSpacing={fs * 0.1}
-          fill="#F5A0B8"
+          fill="#FFFFFF"
         >
           BLACKPINK
         </text>
