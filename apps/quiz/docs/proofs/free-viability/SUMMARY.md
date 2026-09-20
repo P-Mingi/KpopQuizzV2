@@ -20,6 +20,13 @@ cookie client, forcing the group hubs fully DYNAMIC.
 2. Added generateStaticParams to /[slug] so the group hub is ISR-cached (a dynamic segment is
    per-request unless it declares one). Now cookie-free children make prerender legal.
 3. /api/stats/live counts cached (60s); useMe cookie-gated (anon pageview -> 0 /api/auth/me).
+4. (owner-requested) Quiz of the Day: STOP the per-render write. getQuizOfTheDay called the
+   ensure_daily_quiz WRITE RPC on every home render (329/24h, 38% failing under nano load).
+   The write moved to a daily cron (/api/cron/ensure-daily-quiz, vercel.json "5 0 * * *");
+   getQuizOfTheDay is now a pure READ wrapped in unstable_cache keyed by date. Also cached the
+   remaining per-render plays reads: getPopularQuizzes' window scan (aggregateWindow, the
+   heaviest /rest/v1/plays read, on /trending|/new|/most-liked; cached hour-quantized) and the
+   community getTodayStats counter. The home now does ZERO DB writes and ZERO uncached reads.
 
 ## Proven (files in this dir)
 - route-modes.txt: /[slug] flipped `ƒ` Dynamic (no-store) -> `●` SSG/ISR 1h. /q/[slug] stayed `●`.

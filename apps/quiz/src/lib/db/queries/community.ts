@@ -160,23 +160,30 @@ export interface TodayStats {
   hotGroup: { slug: string; name: string; logoUrl: string | null } | null;
 }
 
-export async function getTodayStats(): Promise<TodayStats> {
-  const db = createPublicReadClient();
-  const { data } = await db.rpc('get_today_stats');
-  const row = ((data ?? []) as Array<{
-    plays_today: number; quizzes_today: number; masters_today: number;
-    hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
-  }>)[0];
-  if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
-  return {
-    playsToday: Number(row.plays_today ?? 0),
-    quizzesToday: Number(row.quizzes_today ?? 0),
-    mastersToday: Number(row.masters_today ?? 0),
-    hotGroup: row.hot_group_slug && row.hot_group_name
-      ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
-      : null,
-  };
-}
+// FREE-VIABILITY: the community "today" counters (the get_today_stats RPC reads
+// plays). It rendered per community-page request; cached at the stats TTL (1h) so
+// the counters come from the data cache, not a per-render plays aggregate.
+export const getTodayStats = unstable_cache(
+  async (): Promise<TodayStats> => {
+    const db = createPublicReadClient();
+    const { data } = await db.rpc('get_today_stats');
+    const row = ((data ?? []) as Array<{
+      plays_today: number; quizzes_today: number; masters_today: number;
+      hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
+    }>)[0];
+    if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
+    return {
+      playsToday: Number(row.plays_today ?? 0),
+      quizzesToday: Number(row.quizzes_today ?? 0),
+      mastersToday: Number(row.masters_today ?? 0),
+      hotGroup: row.hot_group_slug && row.hot_group_name
+        ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
+        : null,
+    };
+  },
+  ['db:community:getTodayStats:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
 
 export interface WarMapEntry {
   slug: string;

@@ -1,0 +1,9 @@
+FREE-VIABILITY fix 4 proof - home renders Quiz of the Day + Trending from cache (next start :3030, build3)
+
+GET /  -> HTTP 200, x-nextjs-cache: HIT, Cache-Control: s-maxage=600 (STATIC/ISR, was re-rendering + WRITING per request)
+  - 'Quiz of the day' heading present + a REAL quiz card (General K-pop group logo from group-logos bucket) - NOT the empty fail-soft state
+  - 'Trending' rail present; 18 distinct /q/ quiz links in the cached HTML; 0 empty-state markers (no/check back/unavailable)
+GET /trending -> HTTP 200, x-nextjs-cache: HIT (getPopularQuizzes' plays scan now cached via aggregateWindow, hour-quantized)
+
+getQuizOfTheDay no longer calls ensure_daily_quiz (the write) on render; that RPC moved to /api/cron/ensure-daily-quiz (vercel.json '5 0 * * *'). The home does ZERO DB writes on render.
+Route table (build3): / = o Static 10m ; /trending = o Static 10m ; /api/cron/ensure-daily-quiz = f (API).

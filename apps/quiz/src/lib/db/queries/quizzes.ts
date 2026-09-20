@@ -547,57 +547,71 @@ export async function getQuizzesByType(
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
+// FREE-VIABILITY: the home Quiz of the Day. This used to call the ensure_daily_quiz
+// WRITE RPC on every render (329 calls/24h, 38% failing under nano load) - a DB
+// write on every home request. That write moved to /api/cron/ensure-daily-quiz
+// (daily, idempotent); this function is now a pure READ, wrapped in unstable_cache
+// so the home reads it from the data cache instead of hitting the DB per render.
+// The `today` arg IS the cache key, so the pick rolls over at the UTC date change
+// and is cached for the stats TTL within the day. If the cron has not published
+// today's bank quiz yet (brief post-midnight window), the deterministic rotation
+// fallback covers it - a valid QOTD, no write, no blank slot.
 export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
-  const admin = createServiceRoleClient();
   const today = new Date().toISOString().split('T')[0]!;
+  return getQuizOfTheDayForDate(today);
+}
 
-  // Atomically publish today's bank quiz if not yet done (no cron needed)
-  await admin.rpc('ensure_daily_quiz', { p_date: today });
+const getQuizOfTheDayForDate = unstable_cache(
+  async (today: string): Promise<QuizCardData | null> => {
+    const admin = createServiceRoleClient();
 
-  const { data, error } = await admin
-    .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
-    .eq('status', 'published')
-    .eq('is_quiz_of_the_day', true)
-    .eq('quiz_of_the_day_date', today)
-    .maybeSingle();
-
-  if (error) {
-    console.error('[getQuizOfTheDay]', error.message);
-    // fall through to the fallback so a transient DB error doesn't blank out the slot
-  }
-  if (data) return toQuizCardData(data as unknown as RawQuizRow);
-
-  // Fallback: bank empty (or ensure_daily_quiz failed). Re-cycle through the
-  // quizzes that were ALREADY published from the original bank (any row with
-  // quiz_of_the_day_date IS NOT NULL is one that was a QOTD at some point).
-  // No new rows are inserted - we read existing catalog quizzes only, so this
-  // never pollutes the /quizzes browse list.
-  //
-  // Ordering: by the original quiz_of_the_day_date ASC so today's pick is the
-  // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
-  // restart date so the rotation stays stable across redeploys.
-  try {
-    const { data: pool, error: poolErr } = await admin
+    const { data, error } = await admin
       .from('quizzes')
       .select(QUIZ_CARD_SELECT)
       .eq('status', 'published')
-      .not('quiz_of_the_day_date', 'is', null)
-      .order('quiz_of_the_day_date', { ascending: true });
-    if (poolErr || !pool || pool.length === 0) return null;
+      .eq('is_quiz_of_the_day', true)
+      .eq('quiz_of_the_day_date', today)
+      .maybeSingle();
 
-    // Day 0 of the restart = 2026-06-18 (the day the original bank ran out).
-    const RESTART_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
-    const daysSinceAnchor = Math.max(0, Math.floor((Date.now() - RESTART_ANCHOR_MS) / 86_400_000));
-    const pickIdx = daysSinceAnchor % pool.length;
-    const pick = pool[pickIdx];
-    if (!pick) return null;
-    return toQuizCardData(pick as unknown as RawQuizRow);
-  } catch (err) {
-    console.error('[getQuizOfTheDay] fallback failed:', err);
-    return null;
-  }
-}
+    if (error) {
+      console.error('[getQuizOfTheDay]', error.message);
+      // fall through to the fallback so a transient DB error doesn't blank out the slot
+    }
+    if (data) return toQuizCardData(data as unknown as RawQuizRow);
+
+    // Fallback: bank empty (or today not published yet). Re-cycle through the
+    // quizzes that were ALREADY published from the original bank (any row with
+    // quiz_of_the_day_date IS NOT NULL is one that was a QOTD at some point).
+    // No new rows are inserted - we read existing catalog quizzes only, so this
+    // never pollutes the /quizzes browse list.
+    //
+    // Ordering: by the original quiz_of_the_day_date ASC so today's pick is the
+    // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
+    // restart date so the rotation stays stable across redeploys.
+    try {
+      const { data: pool, error: poolErr } = await admin
+        .from('quizzes')
+        .select(QUIZ_CARD_SELECT)
+        .eq('status', 'published')
+        .not('quiz_of_the_day_date', 'is', null)
+        .order('quiz_of_the_day_date', { ascending: true });
+      if (poolErr || !pool || pool.length === 0) return null;
+
+      // Day 0 of the restart = 2026-06-18 (the day the original bank ran out).
+      const RESTART_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
+      const daysSinceAnchor = Math.max(0, Math.floor((Date.parse(`${today}T00:00:00Z`) - RESTART_ANCHOR_MS) / 86_400_000));
+      const pickIdx = daysSinceAnchor % pool.length;
+      const pick = pool[pickIdx];
+      if (!pick) return null;
+      return toQuizCardData(pick as unknown as RawQuizRow);
+    } catch (err) {
+      console.error('[getQuizOfTheDay] fallback failed:', err);
+      return null;
+    }
+  },
+  ['db:quizzes:getQuizOfTheDay:v2'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
 
 export async function checkSlugExists(slug: string): Promise<boolean> {
   const supabase = createPublicReadClient();

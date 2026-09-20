@@ -4,6 +4,10 @@
   ],
   "crons": [
     {
+      "path": "/api/cron/ensure-daily-quiz",
+      "schedule": "5 0 * * *"
+    },
+    {
       "path": "/api/cron/plays-counter-reconcile",
       "schedule": "15 4 * * *"
     },
