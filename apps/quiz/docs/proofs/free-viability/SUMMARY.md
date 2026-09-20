@@ -18,7 +18,10 @@ cookie client, forcing the group hubs fully DYNAMIC.
    once-per-hub to once total. Signed-in/user-specific reads keep createServerClient and are
    never cached.
 2. Added generateStaticParams to /[slug] so the group hub is ISR-cached (a dynamic segment is
-   per-request unless it declares one). Now cookie-free children make prerender legal.
+   per-request unless it declares one; the export's PRESENCE flips it, so it returns [] and
+   prerenders nothing - hubs render on-demand MISS->HIT). Returning [] keeps the build
+   DB-independent for this route (prerendering the hubs made getGroupBySlug's hard throw fail
+   the CI export under nano timeouts).
 3. /api/stats/live counts cached (60s); useMe cookie-gated (anon pageview -> 0 /api/auth/me).
 4. (owner-requested) Quiz of the Day: STOP the per-render write. getQuizOfTheDay called the
    ensure_daily_quiz WRITE RPC on every home render (329/24h, 38% failing under nano load).
