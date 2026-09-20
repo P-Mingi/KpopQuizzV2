@@ -296,10 +296,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // W7-CLOSE: anon reads pulse_reports identically (1 = 1).
     const supabase = createPublicReadClient();
-    const { data } = await supabase
-      .from('pulse_reports')
-      .select('month, updated_at')
-      .order('month', { ascending: false });
+    // Bound the read like the main batch: an anon read has no built-in timeout, so
+    // if the DB is unreachable at build time (e.g. a CI runner that cannot reach
+    // Supabase) an unbounded await would hang the whole /sitemap.xml route past the
+    // build timeout. On timeout we skip the pulse URLs and keep the rest.
+    const PULSE_TIMEOUT_MS = 5000;
+    const pulseSentinel = Symbol('pulse-timeout');
+    const pulseRaced = await Promise.race([
+      supabase.from('pulse_reports').select('month, updated_at').order('month', { ascending: false }),
+      new Promise<typeof pulseSentinel>((resolve) => setTimeout(() => resolve(pulseSentinel), PULSE_TIMEOUT_MS)),
+    ]);
+    if (pulseRaced === pulseSentinel) {
+      console.warn('[sitemap] pulse query timed out - skipping pulse URLs');
+      throw new Error('pulse query timeout');
+    }
+    const { data } = pulseRaced as { data: Array<{ month: string; updated_at: string }> | null };
     pulsePages = ((data ?? []) as Array<{ month: string; updated_at: string }>).map((r) => ({
       url: `${SITE_URL}/data/pulse/${r.month}`,
       lastModified: new Date(r.updated_at),
@@ -319,11 +330,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let versePages: MetadataRoute.Sitemap = [];
   try {
     const svc = createServiceRoleClient();
-    const [{ data: seeds }, { data: idols }, { data: albums }] = await Promise.all([
-      svc.from('verse_seed_ids').select('groups(slug)').not('checked_at', 'is', null),
-      svc.from('idols').select('name, groups(slug)').eq('active', true),
-      svc.from('albums').select('title, groups(slug)'),
+    // Bound the seed reads: if the DB is unreachable at build time these have no
+    // built-in timeout and would hang the /sitemap.xml route past the build limit.
+    // On timeout the whole verse block is skipped (the catch below empties it).
+    const VERSE_TIMEOUT_MS = 8000;
+    const verseSentinel = Symbol('verse-timeout');
+    const verseRaced = await Promise.race([
+      Promise.all([
+        svc.from('verse_seed_ids').select('groups(slug)').not('checked_at', 'is', null),
+        svc.from('idols').select('name, groups(slug)').eq('active', true),
+        svc.from('albums').select('title, groups(slug)'),
+      ]),
+      new Promise<typeof verseSentinel>((resolve) => setTimeout(() => resolve(verseSentinel), VERSE_TIMEOUT_MS)),
     ]);
+    if (verseRaced === verseSentinel) {
+      console.warn('[sitemap] verse seed query timed out - skipping verse URLs');
+      throw new Error('verse query timeout');
+    }
+    const [{ data: seeds }, { data: idols }, { data: albums }] = verseRaced as [
+      { data: Array<{ groups: unknown }> | null },
+      { data: Array<{ name: string; groups: unknown }> | null },
+      { data: Array<{ title: string; groups: unknown }> | null },
+    ];
     const gslug = (g: unknown): string | null => {
       const v = Array.isArray(g) ? g[0] : g;
       return v && typeof v === 'object' && 'slug' in v ? (v as { slug: string }).slug : null;
