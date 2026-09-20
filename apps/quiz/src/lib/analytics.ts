@@ -13,10 +13,10 @@
 
 import { track } from '@vercel/analytics';
 
-// W2: 'battle' added so the 1v1 can reuse the existing six events (game_start /
-// game_complete / share_click) instead of inventing a battle-only scheme. No new
-// event names, no new props.
-export type GameType = 'quiz' | 'blindtest' | 'this-or-that' | 'name-all' | 'duel' | 'personality' | 'sort-it' | 'match-up' | 'name-them-all' | 'battle';
+// REFONTE P1: the mini games, this-or-that, rankings/duel, personality and battle
+// were removed, so their GameType members are pruned. Only the kept play surfaces
+// (quiz + blindtest) remain.
+export type GameType = 'quiz' | 'blindtest';
 
 /** Where the claim block was rendered. Small enum on purpose. */
 export type ClaimSurface = 'quiz-result' | 'battle-result' | 'game-result' | 'stats';
@@ -24,16 +24,14 @@ export type ClaimSurface = 'quiz-result' | 'battle-result' | 'game-result' | 'st
 /** Why a claim did not move any rows. Fixed codes, never free text. */
 export type ClaimRefusal = 'no_browser_id' | 'anon_id_mismatch' | 'nothing_to_claim' | 'sign_in_required' | 'error';
 
-/** Where a cross-promo sends the player. Kept as a small enum on purpose. */
+/** Where a cross-promo sends the player. Kept as a small enum on purpose.
+ * REFONTE P1: the this-or-that / name-all / duel / games targets were removed with
+ * their features. */
 export type CrossPromoTarget =
   | 'quiz'
   | 'group-quiz'
   | 'quizzes'
   | 'blindtest'
-  | 'this-or-that'
-  | 'name-all'
-  | 'duel'
-  | 'games'
   | 'daily'
   | 'create'
   | 'login-debate'

@@ -4,12 +4,18 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { getVerseDirectory } from '@/lib/verse/space-data';
 import { verseScopeStyle } from '@/lib/verse/theme';
+import { verseHidden } from '@/lib/verse/visibility';
 import { safeFetch } from '@/lib/error-handling';
 
 // Root portal v1 (Option A): the quiz home stays the converting home, unchanged
 // in head + SEO. This ADDITIVE body strip surfaces the Verse world so both halves
 // of the platform are visible from the home. Renders nothing if no spaces exist.
 export async function VerseHomeStrip(): Promise<React.ReactElement | null> {
+  // Owner request (2026-09-19): while the Verse is pre-launch (VERSE_PUBLIC not
+  // 'true'), show NO Verse entry point on the public Play home. This gates on the
+  // same switch as the rest of the hide, so flipping VERSE_PUBLIC=true brings the
+  // strip back untouched.
+  if (verseHidden()) return null;
   const tiles = await safeFetch(getVerseDirectory(), [], 'verse-home-strip');
   if (tiles.length < 3) return null;
   const featured = tiles.slice(0, 4);

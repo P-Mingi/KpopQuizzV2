@@ -1,0 +1,26 @@
+REFONTE P1 - bundle grep: killed-feature code must NOT ship in client chunks
+Captured Sat Sep 19 19:34:05 CEST 2026  (searched .next/static/chunks/**)
+=================================================================
+-- 1. killed route paths referenced in built client chunks (want 0 hits each) --
+  games/sort-it                 chunks matching: 0
+  games/match-up                chunks matching: 0
+  games/name-them-all           chunks matching: 0
+  games/name-all                chunks matching: 0
+  games/this-or-that            chunks matching: 0
+  /rankings/                    chunks matching: 0
+  /tier-list/                   chunks matching: 0
+  /battle?                      chunks matching: 0
+  which-.*-member-are-you       chunks matching: 0
+  pinterest-feed                chunks matching: 0
+-- 2. killed component/module identifiers in client chunks (want 0) --
+  SortItPlayer              chunks matching: 0
+  MatchUpPlayer             chunks matching: 0
+  NameThemAllPlayer         chunks matching: 0
+  TierListBuilder           chunks matching: 0
+  BattleGame                chunks matching: 0
+  PersonalityQuiz           chunks matching: 0
+  AvatarStudio              chunks matching: 0
+  DuelGame                  chunks matching: 0
+-- 3. sanity: kept identifiers SHOULD still appear (>0) --
+  BlindTest                 chunks matching: 3
+  QuizCard                  chunks matching: 9

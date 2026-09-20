@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { getTopCreatorsThisWeek, getTopCreatorsAllTime, getTopPlayersByXp } from '@/lib/db/queries/profiles';
-import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns, getCommunityComments, getHotMatchups } from '@/lib/db/queries/community';
+import { getRisingCreators, getCommunityStats, getTodayStats, getHappeningNow, getFandomWarMap, getLatestBadgeEarns, getCommunityComments } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import type { PersonCardData } from '@/components/profile/person-card';
@@ -16,15 +16,13 @@ import { DailyRitual } from '@/components/community/daily-ritual';
 import { FandomWarMap } from '@/components/community/fandom-war-map';
 import { CommunityPicks } from '@/components/community/community-picks';
 import { FreshQuizzes } from '@/components/community/fresh-quizzes';
-import { HotMatchups } from '@/components/community/hot-matchups';
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
 import { BadgeShowcase } from '@/components/community/badge-showcase';
 import { DailyDebate } from '@/components/community/daily-debate';
 import { getDailyDebate } from '@/lib/db/queries/debate';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { CommunityCrossPromo } from '@/components/verse/community-cross-promo';
-import { RecentTierLists } from '@/components/community/recent-tier-lists';
-import { getRecentTierListsForCommunity } from '@/lib/tier-list/db';
+import { verseHidden } from '@/lib/verse/visibility';
 
 // V-UPGRADE-1 Phase B - the world-agnostic Community CONTENT. This is the one
 // component both the Play route (/leaderboard) and the Verse route mount, so the
@@ -77,7 +75,7 @@ const getCommunityData = unstable_cache(
     // MISS now, so the win is revalidation latency, not steady-state serving.
     const [
       rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed,
-      qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists,
+      qotd, warMap, badgeEarns, debate, comments, fresh,
     ] = await Promise.all([
       safeFetch(getRisingCreators(8), [], '[community] rising'),
       safeFetch(getTopCreatorsThisWeek(8), [], '[community] week'),
@@ -92,18 +90,16 @@ const getCommunityData = unstable_cache(
       safeFetch(getDailyDebate(), null, '[community] debate'),
       safeFetch(getCommunityComments(8), [], '[community] comments'),
       safeFetch(getNewQuizzes(0, 6), [], '[community] fresh'),
-      safeFetch(getHotMatchups(5), [], '[community] matchups'),
-      safeFetch(getRecentTierListsForCommunity(4), [], '[community] recentTierLists'),
     ]);
 
-    return { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists };
+    return { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh };
   },
   ['community-content-data'],
   { revalidate: 300 },
 );
 
 export async function CommunityContent(): Promise<React.ReactElement> {
-  const { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh, matchups, recentTierLists } = await getCommunityData();
+  const { rising, weekRaw, allTimeRaw, legendsRaw, stats, today, feed, qotd, warMap, badgeEarns, debate, comments, fresh } = await getCommunityData();
 
   // F1.10 - Your standing v2 extras, baked here and matched per-viewer in the
   // island. fandomRanks lets it show "{GROUP} is #N this week"; weeklyBoard is
@@ -143,13 +139,11 @@ export async function CommunityContent(): Promise<React.ReactElement> {
       <HappeningNow events={feed.events} recentCount={feed.recentCount} />
 
       {/* V-COMM-3 - the cross-promo strip (your spaces / claim a space) + the
-          cross-space Verse feed (opted-in spaces only, min-gated), alongside the
-          Play-world events: one community, two products. */}
-      <CommunityCrossPromo />
+          cross-space Verse feed. Owner request (2026-09-19): hidden on the public
+          Play community while the Verse is pre-launch (VERSE_PUBLIC not 'true');
+          returns untouched when the flag flips. */}
+      {!verseHidden() && <CommunityCrossPromo />}
 
-      {/* Recent tier lists (replaces the across-the-Verse feed): the newest public
-          tier lists with a mini board preview, real author, and real counts. */}
-      <RecentTierLists lists={recentTierLists} />
 
       {/* F1.3 - Daily ritual: quiz + blindtest of the day (client island) */}
       <DailyRitual quiz={qotd} />
@@ -163,8 +157,6 @@ export async function CommunityContent(): Promise<React.ReactElement> {
       {/* F2b B5 - Fresh quizzes shelf (hides under 3 in the last 30 days) */}
       <FreshQuizzes quizzes={fresh} nowMs={Date.now()} />
 
-      {/* F2b B6 - This week's matchups (duel fallback; battles are anonymous) */}
-      <HotMatchups matchups={matchups} />
 
       {/* F1.9 - Hall of Fame: rising / week / all-time / legends in one tabbed card */}
       <HallOfFame tabs={hofTabs} />

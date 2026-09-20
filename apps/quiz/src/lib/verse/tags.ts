@@ -31,12 +31,15 @@ const MIN_GROUPS = 2;
 const contentGroups = cache(async (): Promise<Array<{ id: number; slug: string; name: string; fandom_name: string | null; generation: string | null; record_label: string | null; origin_country: string | null }>> => {
   const db = createPublicReadClient();
   const { data: albums, error: albErr } = await db.from('albums').select('group_id');
-  // ISR bake law: the category directory + tag hubs are defined by these reads.
-  if (albErr) throw new Error(`contentGroups: albums read: ${albErr.message}`);
+  // Fail-soft: these reads define the category directory + tag hubs at build time,
+  // but a build must never crash when the DB read fails (e.g. a CI runner whose
+  // requests to Supabase are returning a Cloudflare HTML error page). On error we
+  // return no hubs; ISR restores them on the next revalidate with the DB reachable.
+  if (albErr) { console.error('[tags] contentGroups albums read failed, returning none:', albErr.message); return []; }
   const ids = [...new Set(((albums ?? []) as Array<{ group_id: number }>).map((a) => a.group_id))];
   if (!ids.length) return [];
   const { data: groups, error: grpErr } = await db.from('groups').select('id, slug, name, fandom_name, generation, record_label, origin_country').in('id', ids);
-  if (grpErr) throw new Error(`contentGroups: groups read: ${grpErr.message}`);
+  if (grpErr) { console.error('[tags] contentGroups groups read failed, returning none:', grpErr.message); return []; }
   return (groups ?? []) as never[];
 });
 

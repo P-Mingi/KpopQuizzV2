@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
-import { WorldToggle } from '@/components/layout/world-toggle';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { worldForPath, isBuilderCanvas } from '@/lib/world';
@@ -15,8 +14,6 @@ export function MobileTopBar(): React.ReactElement | null {
   const state = useMe();
 
   if (pathname.startsWith('/q/') || isBuilderCanvas(pathname)) return null;
-  if (pathname.match(/\/games\/this-or-that\/[^/]+$/)) return null;
-  if (pathname.match(/\/games\/name-all\/[^/]+$/)) return null;
   // ITERATION 2 - one nav on the Verse: the global mobile top bar is hidden on /verse; the
   // Verse's own top bar (hamburger -> the left-nav drawer) is the single mobile nav there.
   if (worldForPath(pathname) === 'verse') return null;
@@ -29,9 +26,9 @@ export function MobileTopBar(): React.ReactElement | null {
 
   return (
     <header className="mobile-top-bar" data-world={verse ? 'verse' : 'play'}>
-      {/* Logo + the Play|Verse toggle share the left; the toggle lives in the
-          header on both worlds (W-NAV). Wordmark hides on the narrowest screens
-          via CSS so the compact toggle always fits. */}
+      {/* Logo on the left. REFONTE P1 (L-230): the mobile Play|Verse toggle was
+          removed from this header; Verse is reached from its own surfaces. Wordmark
+          hides on the narrowest screens via CSS. */}
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
         {verse ? (
           <Link href="/verse" aria-label="KpopVerse home" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, textDecoration: 'none' }}>
@@ -48,7 +45,6 @@ export function MobileTopBar(): React.ReactElement | null {
             </span>
           </Link>
         )}
-        <WorldToggle compact />
       </div>
 
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>

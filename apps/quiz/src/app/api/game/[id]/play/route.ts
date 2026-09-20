@@ -58,12 +58,10 @@ export async function POST(
     }
   }
 
+  // REFONTE P1: the name_all_members branch was removed with the mini games. Only
+  // the kept blind_test game (played at /g/[slug]) records through this route now.
   if (game.game_type === 'blind_test') {
     return recordBlindTestPlay(supabase, game, playerId, body, anonId);
-  }
-
-  if (game.game_type === 'name_all_members') {
-    return recordNameAllPlay(supabase, game, playerId, body, anonId);
   }
 
   return NextResponse.json({ error: 'Unsupported game type' }, { status: 400 });
@@ -168,100 +166,6 @@ async function recordBlindTestPlay(
     already_played: false,
   });
   // W3b A1: proof of possession for a later claim (httpOnly, unforgeable by JS).
-  if (anonId) setAnonCookie(res, anonId);
-  return res;
-}
-
-async function recordNameAllPlay(
-  supabase: Awaited<ReturnType<typeof createServerClient>>,
-  game: { id: string; content: unknown; play_count: number; creator_id: string; group_id: number | null },
-  playerId: string | null,
-  body: Record<string, unknown>,
-  anonId: string | null,
-): Promise<NextResponse> {
-  const choices = body.choices as {
-    score: number;
-    total: number;
-    time_taken: number;
-    mode: string;
-    found_members: string[];
-  };
-
-  if (!choices || typeof choices.score !== 'number' || typeof choices.total !== 'number') {
-    return NextResponse.json({ error: 'Invalid choices data' }, { status: 400 });
-  }
-
-  // Increment play count
-  const { error: updateError } = await supabase
-    .from('games')
-    .update({
-      play_count: game.play_count + 1,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', game.id);
-
-  if (updateError) {
-    console.error('Failed to update game play count:', updateError);
-    return NextResponse.json({ error: 'Failed to record play' }, { status: 500 });
-  }
-
-  // Record the play
-  await supabase.from('game_plays').insert({
-    game_id: game.id,
-    player_id: playerId,
-    // W3b: only guest rows carry it; a signed-in play already has an owner.
-    anon_id: playerId ? null : anonId,
-    choices,
-  });
-
-  // award_xp is server-only post-revoke. Server computes amount from validated score.
-  const admin = createServiceRoleClient();
-
-  // Aggregate-only name-recognition logging (migration 126). One row per member
-  // per finished round recording only whether they were named. NO user linkage /
-  // PII. Feeds the idol WHAT-FANS-KNOW "% name them right" cell (gated >= 30
-  // rounds via verse_name_recognition). Fail-soft: never blocks the play.
-  try {
-    const roster = ((game.content as { members?: { name?: string }[] }).members ?? [])
-      .map((m) => m?.name).filter((n): n is string => typeof n === 'string' && n.length > 0);
-    if (game.group_id && roster.length > 0) {
-      const foundSet = new Set(choices.found_members ?? []);
-      const roundId = crypto.randomUUID();
-      const rows = roster.map((name) => ({
-        group_id: game.group_id, member_name: name, found: foundSet.has(name), round_id: roundId,
-      }));
-      await admin.from('name_all_member_results').insert(rows);
-    }
-  } catch (e) {
-    console.error('name-recognition logging skipped:', e);
-  }
-
-  // Award XP: 15 per correct answer
-  if (playerId) {
-    const xpAmount = Math.min(choices.score * 15, 200);
-    if (xpAmount > 0) {
-      await admin.rpc('award_xp', {
-        p_user_id: playerId,
-        p_amount: xpAmount,
-        p_reason: 'game_play',
-      });
-    }
-  }
-
-  // Award creator XP
-  if (game.creator_id && game.creator_id !== playerId && game.play_count < 500) {
-    await admin.rpc('award_xp', {
-      p_user_id: game.creator_id,
-      p_amount: 1,
-      p_reason: 'play_received',
-    });
-  }
-
-  const res = NextResponse.json({
-    play_count: game.play_count + 1,
-    score: choices.score,
-    already_played: false,
-  });
   if (anonId) setAnonCookie(res, anonId);
   return res;
 }

@@ -32,7 +32,44 @@ const nextConfig: NextConfig = {
       { source: '/ranks', destination: '/leaderboard', permanent: true },
       { source: '/hall-of-fame', destination: '/leaderboard', permanent: true },
     ];
-    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects];
+    // REFONTE P1 - the killed features' 301s (permanent). Group-scoped URLs carry
+    // their fandom intent to the kept /{group}-quiz hub; everything else lands on
+    // the nearest kept browse hub (/quizzes), never on home. /tier-list/l/[slug] is
+    // deliberately NOT listed: its own route handler resolves the list's subject
+    // group per-list (see app/(site)/tier-list/l/[slug]/route.ts).
+    const refonteRedirects = [
+      // 1. Games hub + all mini games (sort-it, match-up, name-them-all, name-all,
+      // this-or-that). The group-specific game slugs are not group-prefixed in the
+      // path, so they cannot be resolved statically and go to /quizzes.
+      { source: '/games', destination: '/quizzes', permanent: true },
+      { source: '/games/:path*', destination: '/quizzes', permanent: true },
+      { source: '/pt/games', destination: '/pt/quizzes', permanent: true },
+      // 2. Rankings (this-or-that verdicts). The hub -> /quizzes; a group ranking
+      // carries group intent -> the group hub.
+      { source: '/rankings', destination: '/quizzes', permanent: true },
+      { source: '/rankings/:group/:type', destination: '/:group-quiz', permanent: true },
+      // 3. Tier lists. Subject pages are group-scoped -> the group hub; the maker
+      // surfaces -> /quizzes. /tier-list/l/:slug handled by its resolver route.
+      { source: '/tier-list', destination: '/quizzes', permanent: true },
+      { source: '/tier-list/new', destination: '/quizzes', permanent: true },
+      { source: '/tier-list/create', destination: '/quizzes', permanent: true },
+      { source: '/tier-list/share', destination: '/quizzes', permanent: true },
+      { source: '/tier-list/mine/:path*', destination: '/quizzes', permanent: true },
+      { source: '/tier-list/subject/:group/:kind', destination: '/:group-quiz', permanent: true },
+      // 4. Battle / duel 1v1 (was noindex). -> /quizzes.
+      { source: '/battle', destination: '/quizzes', permanent: true },
+      { source: '/battle/:path*', destination: '/quizzes', permanent: true },
+      { source: '/battle-preview', destination: '/quizzes', permanent: true },
+      { source: '/battle-preview/:path*', destination: '/quizzes', permanent: true },
+      // 5. Personality ("which member are you"). The pretty /which-* URLs and the
+      // /personality/[group] routes carry group intent -> the group hub.
+      { source: '/personality', destination: '/quizzes', permanent: true },
+      { source: '/personality/:group', destination: '/:group-quiz', permanent: true },
+      { source: '/personality/:group/r/:member', destination: '/:group-quiz', permanent: true },
+      { source: '/which-:group-member-are-you', destination: '/:group-quiz', permanent: true },
+      { source: '/which-:group-member-are-you/r/:member', destination: '/:group-quiz', permanent: true },
+    ];
+    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...refonteRedirects];
   },
   images: {
     formats: ['image/avif', 'image/webp'],

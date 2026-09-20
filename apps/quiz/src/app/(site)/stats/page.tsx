@@ -2,8 +2,7 @@ import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
 import { getSiteStats, getQuizScoreExtremes } from '@/lib/db/queries/stats';
-import { getFandomWarMap, getHotMatchups } from '@/lib/db/queries/community';
-import { getRanking } from '@/lib/db/queries/duels';
+import { getFandomWarMap } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
 
 import type { Metadata } from 'next';
@@ -118,18 +117,6 @@ function IconHeadphones(): React.ReactElement {
   );
 }
 
-function IconGamepad(): React.ReactElement {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <line x1="6" y1="12" x2="10" y2="12" />
-      <line x1="8" y1="10" x2="8" y2="14" />
-      <line x1="15" y1="13" x2="15.01" y2="13" />
-      <line x1="18" y1="11" x2="18.01" y2="11" />
-      <rect x="2" y="6" width="20" height="12" rx="2" />
-    </svg>
-  );
-}
-
 function IconTrophy(): React.ReactElement {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -154,35 +141,12 @@ function IconArrow(): React.ReactElement {
 
 const EXTREMES_FALLBACK: QuizExtremes = { hardest: [], easiest: [], minPlays: 30, candidates: 0, updatedAt: new Date().toISOString() };
 
-interface DuelVerdict { prompt: string; groupSlug: string; winner: string; runner: string | null; votes: number; }
-
 export default async function StatsPage(): Promise<React.ReactElement> {
-  const [stats, warMap, extremes, matchups] = await Promise.all([
+  const [stats, warMap, extremes] = await Promise.all([
     safeFetch(getSiteStats(), FALLBACK, '[stats] getSiteStats'),
     safeFetch(getFandomWarMap(5), [], '[stats] getFandomWarMap'),
     safeFetch(getQuizScoreExtremes(), EXTREMES_FALLBACK, '[stats] getQuizScoreExtremes'),
-    safeFetch(getHotMatchups(3), [], '[stats] getHotMatchups'),
   ]);
-
-  // Duel verdicts: for each top-voted matchup this week, resolve the fan-ranked
-  // #1 (and runner-up) by all-time Elo. Real names only; drop any that cannot
-  // resolve a winner.
-  const verdicts: DuelVerdict[] = (
-    await Promise.all(
-      matchups.map(async (m) => {
-        const ranking = await safeFetch(getRanking(m.groupSlug, m.questionType), null, '[stats] getRanking');
-        const top = ranking?.entities?.[0];
-        if (!top) return null;
-        return {
-          prompt: m.prompt,
-          groupSlug: m.groupSlug,
-          winner: top.name,
-          runner: ranking?.entities?.[1]?.name ?? null,
-          votes: m.votes,
-        } satisfies DuelVerdict;
-      }),
-    )
-  ).filter((v): v is DuelVerdict => v !== null);
 
   const asOf = formatDate(stats.updatedAt);
   const topFandom = warMap[0] ?? null;
@@ -436,27 +400,6 @@ export default async function StatsPage(): Promise<React.ReactElement> {
         </section>
       )}
 
-      {/* Fan duel verdicts */}
-      {verdicts.length > 0 && (
-        <section className="stats-table-section">
-          <h2 className="stats-section-title">Fan duel verdicts</h2>
-          <p className="stats-section-desc">
-            {`In head-to-head fan voting on kpopquiz.org, fans crowned ${verdicts[0]!.winner} the pick for "${verdicts[0]!.prompt}" with ${verdicts[0]!.votes.toLocaleString('en-US')} votes this week, as of ${asOf}.`}
-          </p>
-          <ul className="stats-verdicts">
-            {verdicts.map((v) => (
-              <li key={v.prompt} className="stats-verdict">
-                <span className="stats-verdict-q">{v.prompt}</span>
-                <span className="stats-verdict-result">
-                  Fans rank <strong>{v.winner}</strong>{v.runner ? <> over {v.runner}</> : null}
-                </span>
-                <span className="stats-verdict-votes">{v.votes.toLocaleString('en-US')} votes this week</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
       {/* Internal links */}
       <section className="stats-links">
         <h2 className="stats-section-title">Explore the platform</h2>
@@ -477,11 +420,11 @@ export default async function StatsPage(): Promise<React.ReactElement> {
             </div>
             <span className="stats-link-arrow"><IconArrow /></span>
           </Link>
-          <Link href="/games" className="stats-link-card">
-            <span className="stats-link-icon"><IconGamepad /></span>
+          <Link href="/groups" className="stats-link-card">
+            <span className="stats-link-icon"><IconUsers /></span>
             <div className="stats-link-body">
-              <span className="stats-link-title">Games hub</span>
-              <span className="stats-link-desc">This or That, Name All Members</span>
+              <span className="stats-link-title">Browse by group</span>
+              <span className="stats-link-desc">Every K-pop group with a quiz hub</span>
             </div>
             <span className="stats-link-arrow"><IconArrow /></span>
           </Link>

@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { useToast } from '@/components/ui/toast-provider';
 import { analytics } from '@/lib/analytics';
 import { QuizComments } from '@/components/quiz/quiz-comments';
-import { ResultChallenge, canChallenge } from '@/components/quiz/result-challenge';
 import { getAnonId } from '@/lib/anon-id';
 import { ClaimRun } from '@/components/quiz/claim-run';
 import { StreakBackup } from '@/components/quiz/streak-backup';
@@ -788,15 +787,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           )}
         </button>
 
-        {/* E7 - battle entry point: play this quiz head-to-head vs a real fan. */}
-        <Link
-          href={`/battle?quiz=${quiz.id}`}
-          className="w-full mt-2.5 py-3 rounded-2xl border border-default text-primary text-[15px] font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 3l14 14M14 5l5-2-2 5M5 19l5 2-2-5" /><path d="M16 16l3 3M8 8L5 5" /></svg>
-          Battle a fan
-        </Link>
-
         <div className="mt-4">
           <QuizShareRow quizId={quiz.id} slug={quiz.slug} quizTitle={quiz.title} creatorId={quiz.creatorId} />
         </div>
@@ -1152,23 +1142,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
             <span>Play No. {serialNo.toLocaleString('en-US')} &middot; {serialMonth}</span>
           </div>
         </div>
-
-        {/* W2 PART A - the challenge trigger, at the emotional peak: directly under
-            the score card, above everything else on this screen. Hidden when the
-            run cannot be replayed faithfully as a battle (clue quizzes, boolean
-            answers) rather than shipping a battle that does not match the run. */}
-        {canChallenge(state.questions) && (
-          <ResultChallenge
-            quizId={quiz.id}
-            quizTitle={quiz.title}
-            groupSlug={quiz.groupSlug}
-            score={state.score}
-            maxScore={maxScore}
-            timeTakenSec={state.timeTaken}
-            questions={state.questions}
-            answers={state.answers}
-          />
-        )}
 
         {/* W3b - streak backup, daily plays only, at 3/7/14, once each. An
             occasional nudge, kept at the emotional peak just under the battle. */}

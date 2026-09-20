@@ -2,10 +2,27 @@ import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
+import { verseHidden } from '@/lib/verse/visibility';
 import { ThemeToggle } from './theme-toggle';
 import { LocaleSwitcher } from './locale-switcher';
 
 export function Footer(): React.ReactElement {
+  // Owner request (2026-09-19): the "Fandoms" (Verse) link is dropped from the
+  // footer while the Verse is pre-launch (VERSE_PUBLIC not 'true'); it returns when
+  // the flag flips.
+  const discoverLinks = [
+    { label: 'Quizzes', href: '/quizzes' },
+    { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
+    { label: 'Trivia', href: '/trivia' },
+    { label: 'Blindtest', href: '/blindtest' },
+    ...(verseHidden() ? [] : [{ label: 'Fandoms', href: '/verse' }]),
+    { label: 'Leaderboard', href: '/leaderboard' },
+    { label: 'Stats', href: '/stats' },
+    { label: 'Pulse', href: '/data/pulse' },
+    { label: 'Knowledge Report', href: '/data/knowledge-report-2026' },
+    { label: 'Articles', href: '/articles' },
+    { label: 'News', href: '/news' },
+  ];
   return (
     <footer style={{
       padding: '28px 16px 18px',
@@ -31,22 +48,7 @@ export function Footer(): React.ReactElement {
           {/* Discover */}
           <div>
             <p style={{ fontSize: 8, fontWeight: 700, color: 'var(--txt3)', margin: 0, marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>Discover</p>
-            {[
-              { label: 'Quizzes', href: '/quizzes' },
-              { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
-              { label: 'Trivia', href: '/trivia' },
-              { label: 'Games', href: '/games' },
-              { label: 'Tier Lists', href: '/tier-list' },
-              { label: 'Blindtest', href: '/blindtest' },
-              { label: 'Fandoms', href: '/verse' },
-              { label: 'Rankings', href: '/rankings' },
-              { label: 'Leaderboard', href: '/leaderboard' },
-              { label: 'Stats', href: '/stats' },
-              { label: 'Pulse', href: '/data/pulse' },
-              { label: 'Knowledge Report', href: '/data/knowledge-report-2026' },
-              { label: 'Articles', href: '/articles' },
-              { label: 'News', href: '/news' },
-            ].map(l => (
+            {discoverLinks.map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: 'var(--txt2)', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>
             ))}
           </div>

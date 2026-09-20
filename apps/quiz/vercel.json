@@ -4,14 +4,6 @@
   ],
   "crons": [
     {
-      "path": "/api/cron/pinterest-post",
-      "schedule": "0 12 * * *"
-    },
-    {
-      "path": "/api/cron/duel-reconcile",
-      "schedule": "0 3 * * *"
-    },
-    {
       "path": "/api/cron/plays-counter-reconcile",
       "schedule": "15 4 * * *"
     },

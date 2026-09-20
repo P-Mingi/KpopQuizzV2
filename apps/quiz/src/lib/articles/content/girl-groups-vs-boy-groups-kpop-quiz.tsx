@@ -1,12 +1,15 @@
 import Link from 'next/link';
 
 import { getGroupTypeScores } from '@/lib/db/queries/stats';
+import { safeFetch } from '@/lib/error-handling';
 
 // Data-entangled: the split is computed live from published quizzes with enough completions, with
 // each group's type derived from its songs' gender tags. If either bucket is too sparse the helper
-// returns null and this article falls back to evergreen prose with NO invented percentages.
+// returns null and this article falls back to evergreen prose with NO invented percentages. The read
+// is fail-soft (safeFetch) so a DB timeout at build time degrades to that prose instead of crashing
+// the static export.
 export async function ArticleBody(): Promise<React.ReactElement> {
-  const scores = await getGroupTypeScores();
+  const scores = await safeFetch(getGroupTypeScores(), null, '[article:girl-vs-boy] getGroupTypeScores');
   const nf = (n: number): string => n.toLocaleString('en-US');
   const lead = scores
     ? (scores.male.avgPct === scores.female.avgPct

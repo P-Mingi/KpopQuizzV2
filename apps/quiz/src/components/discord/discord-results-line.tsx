@@ -1,23 +1,16 @@
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 
-// K2 - one tasteful line on result screens (quiz/blindtest/battle reveal).
-// Subtle, sits near the share row; NOT a modal or popup. Carries
-// utm_campaign=result-<surface> so K6 monitoring can attribute referrals.
+// K2 - one tasteful line on result screens (quiz + blindtest). Subtle, sits near
+// the share row; NOT a modal or popup. Carries utm_campaign=result-<surface> so
+// K6 monitoring can attribute referrals. REFONTE P1 removed the battle-reveal and
+// mini-game result kinds with their screens.
 export function DiscordResultsLine({
   surface,
   text = 'Compare with the community on Discord',
 }: {
   surface:
     | 'quiz-result'
-    | 'blindtest-result'
-    | 'battle-reveal'
-    // Workstream LOOP - the game results that now end in a shared ResultLoop.
-    | 'this-or-that-result'
-    | 'name-all-result'
-    | 'duel-result'
-    | 'sort-it-result'
-    | 'match-up-result'
-    | 'name-them-all-result';
+    | 'blindtest-result';
   text?: string;
 }): React.ReactElement {
   return (

@@ -1,4 +1,4 @@
-import { RANKING_UNLOCK_VOTES } from '@/lib/db/queries/duels';
+import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 
 import type { QuizExtraStats } from '@/lib/db/queries/plays';

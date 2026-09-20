@@ -7,12 +7,12 @@ import { worldForPath, type World } from '@/lib/world';
 
 interface NavItem { label: string; href: string; match: readonly string[] }
 
-// PLAY world tabs = the exact current games product (Verse moved to the toggle).
+// PLAY world tabs. REFONTE P1 removed the Games and Tier Lists tabs with their
+// hubs; the Play nav is now the two kept products (quizzes + blindtest) plus home
+// and community.
 const PLAY_ITEMS: readonly NavItem[] = [
   { label: 'Home', href: '/', match: ['/trending', '/new', '/most-liked'] },
   { label: 'Quizzes', href: '/quizzes', match: ['/quizzes', '/q/'] },
-  { label: 'Games', href: '/games', match: ['/games'] },
-  { label: 'Tier Lists', href: '/tier-list', match: ['/tier-list'] },
   { label: 'Blindtest', href: '/blindtest', match: ['/blindtest'] },
   { label: 'Community', href: '/leaderboard', match: ['/leaderboard'] },
 ] as const;
@@ -47,23 +47,10 @@ function NavIcon({ name, active }: { name: string; active: boolean }) {
           <path d="M4 4h16v14H8l-4 3z" />
         </svg>
       );
-    case 'Games':
-      return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0z" />
-          <path d="M17 4h3v3a3 3 0 01-3 3M7 4H4v3a3 3 0 003 3" />
-        </svg>
-      );
     case 'Blindtest':
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
-        </svg>
-      );
-    case 'Tier Lists':
-      return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="4" width="18" height="5" rx="1.5" fill={fill} /><rect x="3" y="10.5" width="18" height="5" rx="1.5" /><rect x="3" y="17" width="18" height="3" rx="1.5" />
         </svg>
       );
     case 'Fandoms':

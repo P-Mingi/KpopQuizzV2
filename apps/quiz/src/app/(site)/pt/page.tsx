@@ -3,13 +3,9 @@ import Link from 'next/link';
 
 import { getBrowseQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { getGameOfTheDay } from '@/lib/db/queries/game-of-the-day';
 import { safeFetch } from '@/lib/error-handling';
 import { HomeQotd } from '@/components/home/home-qotd';
-import { GameOfTheDay } from '@/components/home/game-of-the-day';
 import { HomeBlindtestCta } from '@/components/home/home-blindtest-cta';
-import { HomeBattleCta } from '@/components/home/home-battle-cta';
-import { HomeGamesTeaser } from '@/components/home/home-games-teaser';
 import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { ScrollRow } from '@/components/ui/scroll-row';
@@ -74,36 +70,17 @@ function SkelGroups(): React.ReactElement {
 function SkelDaily(): React.ReactElement {
   return <section className="home-section" aria-hidden="true"><div className="daily-twoup"><div className="home-skel home-skel-card" /><div className="home-skel home-skel-card" /></div></section>;
 }
-function SkelBattle(): React.ReactElement {
-  return <div className="home-cta-row" aria-hidden="true"><div className="home-skel home-skel-battle" /></div>;
-}
 
 async function QotdSection(): Promise<React.ReactElement> {
-  const [qotd, gotd] = await Promise.all([
-    safeFetch(getQuizOfTheDay(), null, '[pt/home] getQuizOfTheDay'),
-    safeFetch(getGameOfTheDay(), null, '[pt/home] getGameOfTheDay'),
-  ]);
-  if (!qotd && !gotd) return <></>;
+  const qotd = await safeFetch(getQuizOfTheDay(), null, '[pt/home] getQuizOfTheDay');
+  if (!qotd) return <></>;
   return (
     <section className="home-section">
       <div className="daily-twoup">
-        {qotd && <HomeQotd quiz={qotd} />}
-        <GameOfTheDay data={gotd} />
+        <HomeQotd quiz={qotd} />
       </div>
     </section>
   );
-}
-
-async function BattleOfDay(): Promise<React.ReactElement> {
-  const quizzes = await safeFetch(
-    getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 12 }),
-    [],
-    '[pt/home] battle of the day',
-  );
-  if (quizzes.length === 0) return <HomeBattleCta />;
-  const dayIdx = Math.floor(Date.now() / 86_400_000);
-  const q = quizzes[dayIdx % quizzes.length]!;
-  return <HomeBattleCta quizId={q.id} groupName={q.group_name} />;
 }
 
 async function TrendingSection(): Promise<React.ReactElement> {
@@ -146,15 +123,9 @@ export default function PtHomePage(): React.ReactElement {
 
       <HomeBlindtestCta />
 
-      <Suspense fallback={<SkelBattle />}>
-        <BattleOfDay />
-      </Suspense>
-
       <Suspense fallback={<SkelTrending />}>
         <TrendingSection />
       </Suspense>
-
-      <HomeGamesTeaser />
 
       <Suspense fallback={<SkelGroups />}>
         <GroupSection />

@@ -1,0 +1,31 @@
+REFONTE P1 - live 301/308 redirect matrix (next start on :3021, no dev)
+Captured Sat Sep 19 19:33:11 CEST 2026
+Format: <code>  <path>  ->  <location>   (permanent = 308 via next.config permanent:true; 301 = middleware unknown-route)
+========================================================================
+308   /games                                     ->  /quizzes
+308   /games/sort-it                             ->  /quizzes
+308   /games/match-up                            ->  /quizzes
+308   /games/name-them-all                       ->  /quizzes
+308   /games/this-or-that                        ->  /quizzes
+308   /games/name-all/bts-members                ->  /quizzes
+308   /pt/games                                  ->  /pt/quizzes
+308   /rankings                                  ->  /quizzes
+308   /rankings/bts/best-song                    ->  /bts-quiz
+308   /tier-list                                 ->  /quizzes
+308   /tier-list/new                             ->  /quizzes
+308   /tier-list/create                          ->  /quizzes
+308   /tier-list/share                           ->  /quizzes
+308   /tier-list/mine/x                          ->  /quizzes
+308   /tier-list/subject/bts/visual              ->  /bts-quiz
+308   /tier-list/l/does-not-exist-xyz            ->  /quizzes
+308   /battle                                    ->  /quizzes
+308   /battle-preview                            ->  /quizzes
+308   /personality                               ->  /quizzes
+308   /personality/bts                           ->  /bts-quiz
+308   /personality/bts/r/jimin                   ->  /bts-quiz
+308   /which-bts-member-are-you                  ->  /bts-quiz
+308   /which-le-sserafim-member-are-you          ->  /le-sserafim-quiz
+308   /which-le-sserafim-member-are-you/r/chaewon ->  /le-sserafim-quiz
+301   /pinterest-feed.xml                        ->  /
+301   /avatar-studio                             ->  /
+301   /zzz-totally-removed-xyz                   ->  /
