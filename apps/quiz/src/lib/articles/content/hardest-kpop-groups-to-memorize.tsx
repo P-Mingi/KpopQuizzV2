@@ -1,12 +1,14 @@
 import Link from 'next/link';
 
 import { getGroupMemberCounts } from '@/lib/db/queries/stats';
+import { safeFetch } from '@/lib/error-handling';
 
 // Data-entangled: roster sizes come live from the idols table (active members), which is the
 // actual source of the counts. Source claim corrected: the counts are the catalogued group
-// rosters on kpopquiz.org, not a by-product of any single game mode.
+// rosters on kpopquiz.org, not a by-product of any single game mode. Fail-soft (safeFetch): a DB
+// timeout at build time degrades to the evergreen fallback instead of crashing the static export.
 export async function ArticleBody(): Promise<React.ReactElement> {
-  const rosters = await getGroupMemberCounts(12);
+  const rosters = await safeFetch(getGroupMemberCounts(12), [], '[article:hardest-to-memorize] getGroupMemberCounts');
   const biggest = rosters[0] ?? null;
   const sevenPlus = rosters.filter((r) => r.members >= 7).length;
 

@@ -1,12 +1,27 @@
 import Link from 'next/link';
 
 import { getSiteStats, getQuizScoreExtremes } from '@/lib/db/queries/stats';
+import { safeFetch } from '@/lib/error-handling';
+
+import type { SiteStats, QuizExtremes } from '@/lib/db/queries/stats';
+
+// Fail-soft fallbacks (mirror stats/page.tsx): a data article must DEGRADE, not crash the static
+// export, when the DB read times out at build time (e.g. a CI runner that cannot reach Supabase).
+// ISR refreshes the real numbers on the next revalidate with the DB reachable.
+const STATS_FALLBACK: SiteStats = {
+  totalSongs: 0, totalQuizzes: 0, totalPlays: 0, totalGroups: 0, generationsCovered: 5,
+  topQuizzesByGroup: [], updatedAt: new Date().toISOString(),
+};
+const EXTREMES_FALLBACK: QuizExtremes = { hardest: [], easiest: [], minPlays: 30, candidates: 0, updatedAt: new Date().toISOString() };
 
 // Data-entangled article: an async server component reading the live DB. Every number below comes
 // from the database at build/revalidate time. No hardcoded figures, no invented averages, and no
 // hourly-refresh claim on the headline totals (their cache TTL is a week).
 export async function ArticleBody(): Promise<React.ReactElement> {
-  const [stats, extremes] = await Promise.all([getSiteStats(), getQuizScoreExtremes()]);
+  const [stats, extremes] = await Promise.all([
+    safeFetch(getSiteStats(), STATS_FALLBACK, '[article:kpop-quiz-statistics] getSiteStats'),
+    safeFetch(getQuizScoreExtremes(), EXTREMES_FALLBACK, '[article:kpop-quiz-statistics] getQuizScoreExtremes'),
+  ]);
   const nf = (n: number): string => n.toLocaleString('en-US');
   const topByPlays = stats.topQuizzesByGroup.slice(0, 8);
   const groupsWithQuizzes = stats.topQuizzesByGroup.length;

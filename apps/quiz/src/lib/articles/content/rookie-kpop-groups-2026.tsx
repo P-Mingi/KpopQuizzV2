@@ -1,17 +1,20 @@
 import Link from 'next/link';
 
 import { getMostPlayedQuizzes30d } from '@/lib/db/queries/stats';
+import { safeFetch } from '@/lib/error-handling';
 
 // Data-entangled: a group is only described as "climbing" when it is ACTUALLY present in the live
 // trailing-30-day most-played list. No hardcoded ranking, no "as of July 2026" freeze, and no
 // prediction. If nothing rookie-shaped is charting, the piece speaks in evergreen terms instead.
+// Fail-soft (safeFetch): a DB timeout at build time degrades to that evergreen path instead of
+// crashing the static export.
 const ESTABLISHED = new Set([
   'bts', 'blackpink', 'twice', 'stray-kids', 'seventeen', 'exo', 'nct', 'ateez', 'enhypen',
   'txt', 'ive', 'aespa', 'itzy', 'red-velvet', 'g-i-dle', 'newjeans', 'le-sserafim', 'general-kpop',
 ]);
 
 export async function ArticleBody(): Promise<React.ReactElement> {
-  const top = await getMostPlayedQuizzes30d(10);
+  const top = await safeFetch(getMostPlayedQuizzes30d(10), [], '[article:rookie-2026] getMostPlayedQuizzes30d');
   const nf = (n: number): string => n.toLocaleString('en-US');
   // groups in the live top ten that are not one of the long-established majors: the honest
   // definition of "punching above its weight right now".

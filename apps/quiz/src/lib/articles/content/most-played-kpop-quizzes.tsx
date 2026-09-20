@@ -1,11 +1,14 @@
 import Link from 'next/link';
 
 import { getMostPlayedQuizzes30d } from '@/lib/db/queries/stats';
+import { safeFetch } from '@/lib/error-handling';
 
 // Data-entangled: the ranking is counted live from the plays table over the trailing 30 days.
 // No hardcoded titles or counts; if the window is too quiet the page says so instead of inventing.
+// Fail-soft (safeFetch): a DB timeout at build time degrades to the "too quiet" copy instead of
+// crashing the static export.
 export async function ArticleBody(): Promise<React.ReactElement> {
-  const top = await getMostPlayedQuizzes30d(10);
+  const top = await safeFetch(getMostPlayedQuizzes30d(10), [], '[article:most-played] getMostPlayedQuizzes30d');
   const nf = (n: number): string => n.toLocaleString('en-US');
   const leader = top[0] ?? null;
   // the distinct groups appearing in the live top ten, for honest "who is leading" prose + links.
