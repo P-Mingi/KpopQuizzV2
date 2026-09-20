@@ -49,7 +49,7 @@ The two blindtest pages now share ONE cached reader, `getBlindtestStats` in
 - No em dashes, zero emoji.
 
 ## Owner gate remaining
-1. CI green on the branch (unit + e2e) - CI run URL: [pushed, link folded in].
+1. CI green on the branch (unit + e2e). PR: https://github.com/P-Mingi/KpopQuizzV2/pull/29
 2. Review + merge `perf/free-viability-2` to main (owner-gated). After deploy, clicking Blindtest
    in the top nav serves cached HTML (no ~3s render).
 
