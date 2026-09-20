@@ -1,6 +1,8 @@
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 import { categorizeFact } from './categorize';
 import { normalizeFactKey } from './fact-key';
@@ -55,30 +57,38 @@ export function buildOverriddenFacts(
 }
 
 /**
- * DB-backed wrapper over buildOverriddenFacts. Wrapped in React cache() so the
- * route's generateMetadata gate and the page render dedupe to a single DB read
- * within one request.
+ * DB-backed wrapper over buildOverriddenFacts. Two cache layers:
+ * - React cache() (inner-most caller sees it): the route's generateMetadata gate,
+ *   hasTriviaPage and the page render dedupe to a single call within one request.
+ * - unstable_cache: the underlying quizzes(200) read is shared across renders and
+ *   across the crawl wave for the catalog TTL (6h). The corpus derives from
+ *   published quiz titles/questions, which change rarely, so it holds the long TTL.
+ *   FREE-VIABILITY: this read runs on every group hub (hasTriviaPage) and every /q
+ *   page (dyk facts), so it fed the /rest/v1/quizzes count; now it hits DB per TTL.
  */
-export const getOverriddenFacts = cache(async (
-  groupId: number,
-  groupSlug: string,
-): Promise<TriviaFact[]> => {
-  // Public trivia source - cookie-free so /trivia + /[group]-trivia stay ISR-cacheable.
-  const supabase = createPublicReadClient();
+export const getOverriddenFacts = cache(
+  unstable_cache(
+    async (groupId: number, groupSlug: string): Promise<TriviaFact[]> => {
+      // Public trivia source - cookie-free so /trivia + /[group]-trivia stay ISR-cacheable.
+      const supabase = createPublicReadClient();
 
-  const { data: quizzes, error } = await supabase
-    .from('quizzes')
-    .select('title, slug, questions')
-    .eq('group_id', groupId)
-    .eq('status', 'published')
-    .order('play_count', { ascending: false })
-    .limit(200);
+      const { data: quizzes, error } = await supabase
+        .from('quizzes')
+        .select('title, slug, questions')
+        .eq('group_id', groupId)
+        .eq('status', 'published')
+        .order('play_count', { ascending: false })
+        .limit(200);
 
-  if (error) {
-    console.error('[getOverriddenFacts] query failed:', error);
-    return [];
-  }
-  if (!quizzes) return [];
+      if (error) {
+        console.error('[getOverriddenFacts] query failed:', error);
+        return [];
+      }
+      if (!quizzes) return [];
 
-  return buildOverriddenFacts(groupSlug, quizzes as FactSourceQuiz[]);
-});
+      return buildOverriddenFacts(groupSlug, quizzes as FactSourceQuiz[]);
+    },
+    ['trivia:getOverriddenFacts:v1'],
+    { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+  ),
+);

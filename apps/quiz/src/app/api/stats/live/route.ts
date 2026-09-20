@@ -1,6 +1,37 @@
 import { NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+
+interface LiveStats { online: number; todayPlays: number; totalPlays: number }
+
+// FREE-VIABILITY: this route is fetched on mount by the home/community activity
+// ticker, so it ran 3 fresh `plays` head counts per JS pageview. Wrapping them in
+// unstable_cache (60s) collapses every pageview inside a minute to ONE set of
+// reads. Only a successful read is cached; a timeout/error is never cached, so the
+// fail-soft below still returns live null counts when the DB is choking.
+const getLiveStats = unstable_cache(
+  async (): Promise<LiveStats> => {
+    const supabase = createPublicReadClient();
+    const fifteenMinAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+
+    const [recentRes, todayRes, totalRes] = await Promise.all([
+      supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', fifteenMinAgo),
+      supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
+      supabase.from('plays').select('*', { count: 'exact', head: true }),
+    ]);
+
+    return {
+      online: Math.max(recentRes.count ?? 0, 1),
+      todayPlays: todayRes.count ?? 0,
+      totalPlays: totalRes.count ?? 0,
+    };
+  },
+  ['api:stats:live:v1'],
+  { revalidate: 60, tags: ['plays'] },
+);
 
 /**
  * GET /api/stats/live
@@ -14,21 +45,10 @@ import { createPublicReadClient } from '@/lib/supabase/server';
  * Supabase auth wave.
  */
 export async function GET(): Promise<NextResponse> {
-  const supabase = createPublicReadClient();
-
-  const now = Date.now();
-  const fifteenMinAgo = new Date(now - 15 * 60 * 1000).toISOString();
-  const todayStart = new Date();
-  todayStart.setUTCHours(0, 0, 0, 0);
-
   try {
     const TIMEOUT_MS = 2000;
     const result = await Promise.race([
-      Promise.all([
-        supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', fifteenMinAgo),
-        supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
-        supabase.from('plays').select('*', { count: 'exact', head: true }),
-      ]),
+      getLiveStats(),
       new Promise<null>((resolve) => setTimeout(() => resolve(null), TIMEOUT_MS)),
     ]);
 
@@ -37,12 +57,7 @@ export async function GET(): Promise<NextResponse> {
       return NextResponse.json({ online: null, todayPlays: null, totalPlays: null });
     }
 
-    const [recentRes, todayRes, totalRes] = result;
-    return NextResponse.json({
-      online: Math.max(recentRes.count ?? 0, 1),
-      todayPlays: todayRes.count ?? 0,
-      totalPlays: totalRes.count ?? 0,
-    });
+    return NextResponse.json(result);
   } catch (err) {
     console.warn('[api/stats/live] degraded - returning null:', (err as Error)?.message ?? err);
     return NextResponse.json({ online: null, todayPlays: null, totalPlays: null });

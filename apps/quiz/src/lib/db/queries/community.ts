@@ -1,4 +1,7 @@
+import { unstable_cache } from 'next/cache';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -46,7 +49,15 @@ export async function getRisingCreators(limit = 8): Promise<Array<{ person: Pers
 
 // Active fans of a group: by per-group plays in player_group_mastery (cheap,
 // group-filtered), hydrated with one IN read. Accuracy is shown, not a rank.
-export async function getActiveFansByGroup(groupSlug: string, limit = 8): Promise<Array<{ person: PersonCardData; accuracy: number }>> {
+// FREE-VIABILITY: cached at the stats TTL (1h). Used by the community page and by
+// getGroupFanKnowledge; a mastery-derived leaderboard tolerates ~1h staleness.
+export const getActiveFansByGroup = unstable_cache(
+  fetchActiveFansByGroup,
+  ['db:community:getActiveFansByGroup:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['community'] },
+);
+
+async function fetchActiveFansByGroup(groupSlug: string, limit = 8): Promise<Array<{ person: PersonCardData; accuracy: number }>> {
   const db = createPublicReadClient();
   const { data: g } = await db.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
   if (!g) return [];
@@ -85,7 +96,15 @@ interface PlayRow {
   profiles: ProfileRow | null;
 }
 
-export async function getQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFameEntry[]> {
+// FREE-VIABILITY: per-quiz Hall of Fame (plays + profiles read) rendered on every
+// /q page. Cached at the stats TTL (1h); the personal-rank row is a client island.
+export const getQuizHallOfFame = unstable_cache(
+  fetchQuizHallOfFame,
+  ['db:community:getQuizHallOfFame:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
+
+async function fetchQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFameEntry[]> {
   const db = createPublicReadClient();
   const { data } = await db
     .from('plays')
@@ -141,23 +160,30 @@ export interface TodayStats {
   hotGroup: { slug: string; name: string; logoUrl: string | null } | null;
 }
 
-export async function getTodayStats(): Promise<TodayStats> {
-  const db = createPublicReadClient();
-  const { data } = await db.rpc('get_today_stats');
-  const row = ((data ?? []) as Array<{
-    plays_today: number; quizzes_today: number; masters_today: number;
-    hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
-  }>)[0];
-  if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
-  return {
-    playsToday: Number(row.plays_today ?? 0),
-    quizzesToday: Number(row.quizzes_today ?? 0),
-    mastersToday: Number(row.masters_today ?? 0),
-    hotGroup: row.hot_group_slug && row.hot_group_name
-      ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
-      : null,
-  };
-}
+// FREE-VIABILITY: the community "today" counters (the get_today_stats RPC reads
+// plays). It rendered per community-page request; cached at the stats TTL (1h) so
+// the counters come from the data cache, not a per-render plays aggregate.
+export const getTodayStats = unstable_cache(
+  async (): Promise<TodayStats> => {
+    const db = createPublicReadClient();
+    const { data } = await db.rpc('get_today_stats');
+    const row = ((data ?? []) as Array<{
+      plays_today: number; quizzes_today: number; masters_today: number;
+      hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
+    }>)[0];
+    if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
+    return {
+      playsToday: Number(row.plays_today ?? 0),
+      quizzesToday: Number(row.quizzes_today ?? 0),
+      mastersToday: Number(row.masters_today ?? 0),
+      hotGroup: row.hot_group_slug && row.hot_group_name
+        ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
+        : null,
+    };
+  },
+  ['db:community:getTodayStats:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
 
 export interface WarMapEntry {
   slug: string;
@@ -176,7 +202,18 @@ export interface WarMapEntry {
 // the war map (a fandom cannot "win" the week over the misc pile).
 const NON_FANDOM_SLUGS = new Set(['general-kpop']);
 
-export async function getFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
+// FREE-VIABILITY: the single biggest shared read. getGroupWarRank calls this with
+// the SAME arg (90) on EVERY one of the ~87 group hubs, so before caching the war
+// map RPC + a groups read ran once PER HUB render across the crawl wave. Cached at
+// the stats TTL (1h) and keyed by `limit`, so all 87 hubs plus the community page
+// now share ONE entry: one RPC per hour instead of ~87 per revalidation wave.
+export const getFandomWarMap = unstable_cache(
+  fetchFandomWarMap,
+  ['db:community:getFandomWarMap:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['community'] },
+);
+
+async function fetchFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
   // Over-fetch so excluding the general bucket still leaves a full board of real
   // groups rather than 29.

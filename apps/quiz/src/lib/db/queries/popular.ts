@@ -1,4 +1,7 @@
+import { unstable_cache } from 'next/cache';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { getBrowseQuizzes, getQuizCardsByIds } from './quizzes';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -37,8 +40,14 @@ export interface PopularResult {
   qualifyingCount: number; // published quizzes with >= MIN_PLAYS this window
 }
 
-/** Paginate the window's plays and count by quiz. Returns rows scanned. */
-async function aggregateWindow(sinceIso: string): Promise<{ counts: Map<string, number>; scanned: number }> {
+/** Paginate the window's plays and count by quiz. Returns rows scanned.
+ *  FREE-VIABILITY: this is the single heaviest plays read in the app (it scans
+ *  EVERY play row in the window, 1000 at a time), and it ran per render of
+ *  /trending, /new and /most-liked - a /rest/v1/plays 503 magnet under nano load.
+ *  It is cached below (keyed by the hour-quantized sinceIso) so the whole scan is
+ *  one DB pass per hour per window instead of one per render. unstable_cache
+ *  serializes the return, so the Map is returned as entries and rebuilt. */
+async function aggregateWindowRaw(sinceIso: string): Promise<{ counts: Array<[string, number]>; scanned: number }> {
   const db = createPublicReadClient();
   const counts = new Map<string, number>();
   let from = 0;
@@ -56,7 +65,18 @@ async function aggregateWindow(sinceIso: string): Promise<{ counts: Map<string, 
     if (rows.length < 1000) break;
     from += 1000;
   }
-  return { counts, scanned };
+  return { counts: [...counts.entries()], scanned };
+}
+
+const aggregateWindowCached = unstable_cache(
+  aggregateWindowRaw,
+  ['db:popular:aggregateWindow:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
+
+async function aggregateWindow(sinceIso: string): Promise<{ counts: Map<string, number>; scanned: number }> {
+  const { counts, scanned } = await aggregateWindowCached(sinceIso);
+  return { counts: new Map(counts), scanned };
 }
 
 /**
@@ -66,7 +86,13 @@ async function aggregateWindow(sinceIso: string): Promise<{ counts: Map<string, 
  *  - fallback: < 3 cleared -> labeled all-time favorites (window claim dropped).
  */
 export async function getPopularQuizzes(window: PopularWindow, nowMs: number): Promise<PopularResult> {
-  const sinceIso = new Date(nowMs - WINDOW_MS[window]).toISOString();
+  // FREE-VIABILITY: quantize the window START to the hour so the cached aggregate
+  // key is stable under the crawl wave (a raw per-ms nowMs would make every call a
+  // unique key = never a cache hit). A rolling 1/7/30-day window does not care
+  // about sub-hour precision on its lower bound. generatedAt stays real-time (it is
+  // just a display stamp).
+  const hourMs = Math.floor(nowMs / 3_600_000) * 3_600_000;
+  const sinceIso = new Date(hourMs - WINDOW_MS[window]).toISOString();
   const generatedAt = new Date(nowMs).toISOString();
 
   const { counts, scanned } = await aggregateWindow(sinceIso);

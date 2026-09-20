@@ -1,0 +1,23 @@
+FREE-VIABILITY runtime cache proof (next start on :3030, prod build 2, VERSE_PUBLIC unset)
+curl -sD- -o/dev/null <url> | grep x-nextjs-cache / cache-control
+
+A cached (ISR) response carries `x-nextjs-cache: HIT` + `Cache-Control: s-maxage=3600,
+stale-while-revalidate=...`. A truly dynamic (uncached) response carries NO x-nextjs-cache
+header and `Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate`.
+
+== BEFORE the generateStaticParams fix (build 1) ==
+/bts-quiz  -> HTTP 200
+           Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate
+           (no x-nextjs-cache)  => DYNAMIC: the group hub re-rendered on every request
+
+== AFTER (build 2) ==
+/bts-quiz   (prerendered hub)      -> x-nextjs-cache: HIT   s-maxage=3600  => cached, 0 DB per crawl
+/twice-quiz (hub)                  -> x-nextjs-cache: HIT   s-maxage=3600  => cached
+/bts-trivia (on-demand ISR) req 1  -> x-nextjs-cache: MISS  s-maxage=3600  => first render, then cached
+/bts-trivia            req 2       -> x-nextjs-cache: HIT   s-maxage=3600  => served from cache
+/q/2ne1-legacy-quiz (quiz page)    -> x-nextjs-cache: HIT   s-maxage=3600  => cached (was already, kept)
+
+Also observed on build 1 (reads cached, page still dynamic): /bts-quiz responded in ~13ms
+per request even "cold" - 12 live reads to the remote Supabase could not return that fast,
+proving the per-render reads were already served from the unstable_cache data cache. Build 2
+adds the full-route cache on top, so a crawl now costs ZERO render AND zero DB.

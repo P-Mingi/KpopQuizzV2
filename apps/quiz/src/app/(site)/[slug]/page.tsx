@@ -18,13 +18,29 @@ const RESERVED_SLUGS = [
   'hard-kpop-quizzes', 'kpop-quiz-2026', 'guess-the-kpop-idol', 'kpop-true-or-false',
 ];
 
-// ISR: revalidate the cached HTML hourly (SEO Fix 1). The child pages
-// (group-quiz-page / group-trivia-page) instantiate the Supabase server client,
-// which reads cookies - and so does the shared <TopNav> - so these routes render
-// dynamically (SSR) today and this window stays dormant until those reads are
-// made cookie-free. `generateStaticParams` is intentionally omitted: combined
-// with the cookie-reading children it triggers DYNAMIC_SERVER_USAGE at build.
+// ISR: revalidate the cached HTML hourly (SEO Fix 1).
+//
+// FREE-VIABILITY: the child pages' reads are now cookie-free (getGroupBySlug and
+// the group-hub queries moved to createPublicReadClient + unstable_cache), and the
+// shared <TopNav> was already cookie-free, so the DYNAMIC_SERVER_USAGE that once
+// forced this route dynamic is gone. A dynamic route segment renders per-request
+// (Cache-Control: no-store) UNLESS it declares generateStaticParams, so declaring
+// one is what flips this route from Dynamic to ISR: a crawl of a group hub now
+// serves cached HTML with ZERO DB work instead of re-rendering every time.
+//
+// It returns [] on purpose: the PRESENCE of the export is what enables ISR (proven
+// - the route builds as `●` and /bts-quiz serves MISS then HIT), while returning no
+// params means the build prerenders NOTHING and so makes ZERO DB calls for this
+// route. Every hub renders on-demand on first hit and caches thereafter. This is
+// deliberate: prerendering the hubs made the build depend on the DB being healthy,
+// and under the nano's crawl-load timeouts getGroupBySlug (a hard throw, unlike the
+// fail-soft group-hub reads) killed the export. On-demand rendering keeps the build
+// DB-independent AND avoids baking a 404 for a real group that timed out at build.
 export const revalidate = 3600;
+
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  return [];
+}
 
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;

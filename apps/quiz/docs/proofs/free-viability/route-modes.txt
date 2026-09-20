@@ -1,0 +1,25 @@
+FREE-VIABILITY render-mode proof (local next build + next start, prod-like, VERSE_PUBLIC unset)
+Next.js 16.2.1. Legend: o=Static  *=SSG(prerendered)  f=Dynamic(per-request,no-store)
+
+== BEFORE (reads made cookie-free + unstable_cached, but /[slug] had no generateStaticParams) ==
+  f (Dynamic) /[slug]       -> the group hub re-rendered per request (Cache-Control: no-store)
+  * (SSG)     /q/[slug]      -> already ISR
+
+== AFTER (added generateStaticParams to /[slug]) ==
+  * (SSG/ISR) /[slug]        1h revalidate  -> the hub serves cached HTML
+  * (SSG/ISR) /q/[slug]      1h revalidate
+
+The flip is caused by the PRESENCE of generateStaticParams, not its return value: a dynamic
+route segment renders per-request (no-store) unless it declares one. generateStaticParams
+returns [] on purpose - the route still builds as `*` and serves ISR on-demand (proven at
+runtime: /bts-quiz and /twice-quiz each return x-nextjs-cache MISS then HIT), while the build
+prerenders NOTHING for this route and so makes ZERO build-time DB calls.
+
+Why not prerender the top hubs: an earlier version prerendered the 24 busiest hubs, which made
+the build depend on the DB being healthy. Under the nano's crawl-load timeouts, getGroupBySlug
+(a hard throw, unlike the fail-soft group-hub reads) failed the CI export:
+  Error occurred prerendering page "/babymonster-quiz"
+  Error: Failed to fetch group: upstream request timeout   (getGroupBySlug via generateMetadata)
+  Export encountered an error ... exiting the build.
+Returning [] keeps the ISR win with ZERO build DB dependency and no baked-404 risk for a real
+group that timed out at build. Every hub renders on-demand on first hit, cached thereafter.
