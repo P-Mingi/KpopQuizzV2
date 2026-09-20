@@ -1,9 +1,8 @@
 import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
-import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtest';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
-import { createServerClient } from '@/lib/supabase/server';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -32,14 +31,15 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
+// PERF NAV: the "300+ songs / 60+ groups" label counts. The old `await
+// createServerClient()` (cookie client) opted the WHOLE /blindtest route into
+// DYNAMIC rendering, so it re-rendered per request on nano (the ~3s nav). The shared
+// getBlindtestStats is cookie-free + unstable_cache'd, so the route goes back to
+// Static/ISR. The try/catch stays OUTSIDE the cache so a DB blip at build/render
+// falls back to the label defaults WITHOUT caching that fallback.
 async function getStats() {
   try {
-    const supabase = await createServerClient();
-    const [{ count: songCount }, { count: groupCount }] = await Promise.all([
-      supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
-      supabase.from('groups').select('id', { count: 'exact', head: true }),
-    ]);
-    return { songs: songCount ?? 0, groups: groupCount ?? 0 };
+    return await getBlindtestStats();
   } catch {
     return { songs: 300, groups: 60 };
   }

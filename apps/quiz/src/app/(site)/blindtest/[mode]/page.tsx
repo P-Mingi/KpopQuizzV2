@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getModeById, isGroupModeId, getGroupSlugFromModeId } from '@/lib/blind-test-modes';
+import { getModeById, isGroupModeId, getGroupSlugFromModeId, STATIC_MODES } from '@/lib/blind-test-modes';
 import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
 
 import type { Metadata } from 'next';
@@ -8,6 +8,18 @@ import type { BlindTestMode } from '@/lib/blind-test-modes';
 
 interface ModePageProps {
   params: Promise<{ mode: string }>;
+}
+
+// PERF NAV: this playlist page reads only `params` + STATIC_MODES (a code constant,
+// zero DB) and mounts a client player, but a dynamic segment renders per-request
+// (Cache-Control: no-store) unless it declares generateStaticParams. Declaring it
+// flips the route from Dynamic to Static/ISR. The static (theme/era/difficulty)
+// modes are a known finite DB-free list, so they prerender; group modes
+// (group-<slug>) fall to on-demand ISR via the default dynamicParams.
+export const revalidate = 3600;
+
+export function generateStaticParams(): Array<{ mode: string }> {
+  return STATIC_MODES.map((m) => ({ mode: m.id }));
 }
 
 export async function generateMetadata({ params }: ModePageProps): Promise<Metadata> {

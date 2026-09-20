@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
-import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
-import { createServerClient } from '@/lib/supabase/server';
+import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtest';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -31,14 +30,11 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
+// PERF NAV: see /blindtest. The old cookie client forced this pt mirror dynamic too;
+// the shared cookie-free cached getBlindtestStats flips it back to Static/ISR.
 async function getStats() {
   try {
-    const supabase = await createServerClient();
-    const [{ count: songCount }, { count: groupCount }] = await Promise.all([
-      supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
-      supabase.from('groups').select('id', { count: 'exact', head: true }),
-    ]);
-    return { songs: songCount ?? 0, groups: groupCount ?? 0 };
+    return await getBlindtestStats();
   } catch {
     return { songs: 300, groups: 60 };
   }

@@ -1,0 +1,10 @@
+PERF NAV runtime cache proof (next start :3030, AFTER build, VERSE_PUBLIC unset)
+curl -sD- -o/dev/null <url> | grep x-nextjs-cache
+
+/blindtest        req1 x-nextjs-cache: HIT   req2 HIT   (was: no-store dynamic, ~3s)
+/pt/blindtest     req1 HIT   req2 HIT
+/blindtest/classic (prerendered static mode)  HIT
+/blindtest/group-bts (on-demand group mode)   MISS then HIT
+
+/quizzes (searchParams-dynamic, NOT full-route-cached): 0.91s cold, 0.21-0.30s warm, http 200.
+  -> fast nav from the cookie-free + unstable_cache reads (#28), not the 3s dynamic+uncached path.

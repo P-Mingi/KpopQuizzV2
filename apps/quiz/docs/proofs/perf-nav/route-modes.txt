@@ -1,0 +1,17 @@
+PERF NAV render-mode proof (local next build + next start, prod-like, VERSE_PUBLIC unset)
+Next.js 16.2.1. Legend: o=Static  *=SSG(prerendered)  f=Dynamic(per-request,no-store)
+
+BEFORE (main dda4880)          AFTER (perf/free-viability-2)
+  f  /blindtest          ->     o  /blindtest         1h   FLIPPED (cookie read killed)
+  f  /pt/blindtest       ->     o  /pt/blindtest      1h   FLIPPED (mirror)
+  f  /blindtest/[mode]   ->     *  /blindtest/[mode]  1h   FLIPPED (generateStaticParams from STATIC_MODES)
+  *  /[slug]             ->     *  /[slug]                 unchanged (group hubs, stayed ISR from #28)
+  o  /leaderboard        ->     o  /leaderboard       5m   unchanged (already static)
+  o  /trivia             ->     o  /trivia           10m   unchanged
+
+NOT flipped, and why (both are searchParams-dynamic, NOT a cookie bug - cannot be full-route-cached):
+  f  /quizzes            : reads searchParams (browse filters group/type/sort/page). Its DB reads are
+                          cookie-free + unstable_cache'd (from #28), so it renders fast (~0.2-0.3s warm,
+                          not 3s). The MISSION's premise that /quizzes is 'already ISR/HIT' is inaccurate;
+                          it is dynamic-by-searchParams and fast-by-cached-reads. Left as-is (no rewrite).
+  f  /blindtest/leaderboard : reads searchParams (?date=). Same category. Out of scope.
