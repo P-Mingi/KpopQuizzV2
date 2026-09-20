@@ -1,4 +1,7 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { unstable_cache } from 'next/cache';
+
+import { createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 export interface RelatedQuiz {
   id: string;
@@ -12,10 +15,20 @@ export interface RelatedQuiz {
   group_text_color: string;
 }
 
-export async function getRelatedQuizzes(groupSlugs: string[]): Promise<RelatedQuiz[]> {
+// FREE-VIABILITY: the "Fans also play" rail on every group hub. Was on the cookie
+// client (forced the hub dynamic); it is a public read (top quiz per related
+// group, same for everyone), so it moves cookie-free + cached. The array arg is
+// part of the cache key, so each hub's fixed related-set is one stable entry.
+export const getRelatedQuizzes = unstable_cache(
+  fetchRelatedQuizzes,
+  ['db:related-quizzes:getRelatedQuizzes:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
+
+async function fetchRelatedQuizzes(groupSlugs: string[]): Promise<RelatedQuiz[]> {
   if (groupSlugs.length === 0) return [];
 
-  const supabase = await createServerClient();
+  const supabase = createPublicReadClient();
 
   const results = await Promise.all(
     groupSlugs.map(async (slug) => {

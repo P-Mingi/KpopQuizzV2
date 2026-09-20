@@ -1,0 +1,12 @@
+FREE-VIABILITY render-mode proof (local next build + next start, prod-like, VERSE_PUBLIC unset)
+Next.js 16.2.1. Legend: o=Static  *=SSG(prerendered)  f=Dynamic(per-request,no-store)
+
+== BEFORE (build 1: reads made cookie-free + unstable_cached, but no generateStaticParams on /[slug]) ==
+├ f (Dynamic) /[slug]
+├ * (SSG) /q/[slug]                                                   1h      1y
+  -> /[slug] = Dynamic (no-store): the hub re-rendered per request
+
+== AFTER (build 2: + generateStaticParams on /[slug]) ==
+├ * (SSG) /[slug]                                                     1h      1y
+├ * (SSG) /q/[slug]                                                   1h      1y
+  -> /[slug] = SSG/ISR, 1h revalidate: the hub serves cached HTML

@@ -1,4 +1,7 @@
+import { unstable_cache } from 'next/cache';
+
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 // W9b - group content freshness.
 //
@@ -11,18 +14,22 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 // `created_at` of the newest PUBLISHED quiz is when content was actually added to that
 // group, so it moves when the page really changes and stays put when it does not. A
 // group whose newest quiz is from April says April.
-export async function getGroupContentDate(groupId: number): Promise<string | null> {
-  const db = createPublicReadClient();
-  const { data } = await db
-    .from('quizzes')
-    .select('created_at')
-    .eq('group_id', groupId)
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle<{ created_at: string }>();
-  return data?.created_at ?? null;
-}
+export const getGroupContentDate = unstable_cache(
+  async (groupId: number): Promise<string | null> => {
+    const db = createPublicReadClient();
+    const { data } = await db
+      .from('quizzes')
+      .select('created_at')
+      .eq('group_id', groupId)
+      .eq('status', 'published')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle<{ created_at: string }>();
+    return data?.created_at ?? null;
+  },
+  ['db:group-freshness:getGroupContentDate:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
 
 /** "August 2026". Null in, null out: no date is better than a made-up one. */
 export function formatContentMonth(iso: string | null): string | null {

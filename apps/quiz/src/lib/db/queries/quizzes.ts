@@ -1,4 +1,7 @@
+import { unstable_cache } from 'next/cache';
+
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
@@ -93,37 +96,47 @@ export async function getQuizCardsByIds(ids: string[]): Promise<QuizCardData[]> 
   return ((data ?? []) as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
-export async function getQuizBySlug(slug: string): Promise<QuizWithGroup | null> {
-  const supabase = createPublicReadClient();
+// FREE-VIABILITY: the quiz-row read behind /q/[slug]. Called TWICE per page
+// (generateMetadata + the page body), so caching by slug collapses that into one
+// DB read AND lets a crawl wave on the same URL share the row within the TTL. This
+// is the top table in the baseline (/rest/v1/quizzes 17,548 GET). Kept at the
+// stats TTL (1h) so a creator's edit still surfaces within the hour, exactly as
+// today's hourly page revalidate did. tag: quizzes (for future on-demand busting).
+export const getQuizBySlug = unstable_cache(
+  async (slug: string): Promise<QuizWithGroup | null> => {
+    const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
-    .from('quizzes')
-    .select(QUIZ_FULL_SELECT)
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single();
+    const { data, error } = await supabase
+      .from('quizzes')
+      .select(QUIZ_FULL_SELECT)
+      .eq('slug', slug)
+      .eq('status', 'published')
+      .single();
 
-  if (error) {
-    if (error.code === 'PGRST116') return null;
-    throw new Error(`Failed to fetch quiz: ${error.message}`);
-  }
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw new Error(`Failed to fetch quiz: ${error.message}`);
+    }
 
-  const row = data as unknown as RawQuizRow;
-  return {
-    ...data,
-    group_name: row.groups.name,
-    group_slug: row.groups.slug,
-    display_color: row.groups.display_color,
-    text_color: row.groups.text_color,
-    logo_url: row.groups.logo_url,
-    fandom_name: row.groups.fandom_name,
-    creator_username: row.profiles.username,
-    creator_avatar_url: row.profiles.avatar_url,
-    creator_avatar_bg: row.profiles.avatar_bg,
-    creator_avatar_text: row.profiles.avatar_text,
-    creator_xp: row.profiles.xp ?? null,
-  } as QuizWithGroup;
-}
+    const row = data as unknown as RawQuizRow;
+    return {
+      ...data,
+      group_name: row.groups.name,
+      group_slug: row.groups.slug,
+      display_color: row.groups.display_color,
+      text_color: row.groups.text_color,
+      logo_url: row.groups.logo_url,
+      fandom_name: row.groups.fandom_name,
+      creator_username: row.profiles.username,
+      creator_avatar_url: row.profiles.avatar_url,
+      creator_avatar_bg: row.profiles.avatar_bg,
+      creator_avatar_text: row.profiles.avatar_text,
+      creator_xp: row.profiles.xp ?? null,
+    } as QuizWithGroup;
+  },
+  ['db:quizzes:getQuizBySlug:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
 
 export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
   const supabase = createPublicReadClient();
@@ -187,7 +200,18 @@ export interface BrowseQuizzesParams {
  * Single source of truth shared by the SSR page and the /api/quizzes route so
  * server render and client load-more never diverge.
  */
-export async function getBrowseQuizzes({
+// FREE-VIABILITY: shared by the /quizzes SSR page, the home browse rails and the
+// /api/quizzes load-more route, so the same params are requested repeatedly under
+// the crawl wave. unstable_cache keys on the params object, so each distinct
+// filter/sort/page is one hot entry for the TTL. stats TTL (1h) - the catalog is
+// public and the 30-day "trending" window does not need sub-hour precision.
+export const getBrowseQuizzes = unstable_cache(
+  fetchBrowseQuizzes,
+  ['db:quizzes:getBrowseQuizzes:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
+
+async function fetchBrowseQuizzes({
   groupId = null,
   quizType = null,
   language = null,
@@ -362,7 +386,16 @@ export async function getMostLikedQuizzes(offset: number, limit: number): Promis
   return (data as unknown as RawQuizRow[]).map(toQuizCardData);
 }
 
-export async function getQuizzesByGroup(
+// FREE-VIABILITY: the per-group quiz lists (group hub popular+newest strips, quiz
+// page "more quizzes"). Cookie-free public read; cached at the stats TTL (1h) so a
+// newly published quiz still appears within the hour, keyed by (groupId,tab,page).
+export const getQuizzesByGroup = unstable_cache(
+  fetchQuizzesByGroup,
+  ['db:quizzes:getQuizzesByGroup:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
+
+async function fetchQuizzesByGroup(
   groupId: number,
   tab: 'popular' | 'newest' | 'most_liked' | 'hardest',
   offset: number,
@@ -412,7 +445,16 @@ export async function getQuizzesByGroup(
  * popularity. Used to expose crawlable <a href="/q/{slug}"> links for all of a
  * group's quizzes (SEO Fix 3 - internal linking) without loading full card data.
  */
-export async function getGroupQuizLinks(
+// FREE-VIABILITY: the noscript crawl list of EVERY quiz slug in a group. Read on
+// every group hub render; the slug list changes rarely, so it holds the catalog
+// TTL (6h). Cookie-free public read.
+export const getGroupQuizLinks = unstable_cache(
+  fetchGroupQuizLinks,
+  ['db:quizzes:getGroupQuizLinks:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
+
+async function fetchGroupQuizLinks(
   groupId: number,
 ): Promise<Array<{ slug: string; title: string }>> {
   const supabase = createPublicReadClient();

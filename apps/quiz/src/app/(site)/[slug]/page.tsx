@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getGroupBySlug } from '@/lib/db/queries/groups';
+import { getGroupBySlug, getAllGroups } from '@/lib/db/queries/groups';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
@@ -18,13 +18,30 @@ const RESERVED_SLUGS = [
   'hard-kpop-quizzes', 'kpop-quiz-2026', 'guess-the-kpop-idol', 'kpop-true-or-false',
 ];
 
-// ISR: revalidate the cached HTML hourly (SEO Fix 1). The child pages
-// (group-quiz-page / group-trivia-page) instantiate the Supabase server client,
-// which reads cookies - and so does the shared <TopNav> - so these routes render
-// dynamically (SSR) today and this window stays dormant until those reads are
-// made cookie-free. `generateStaticParams` is intentionally omitted: combined
-// with the cookie-reading children it triggers DYNAMIC_SERVER_USAGE at build.
+// ISR: revalidate the cached HTML hourly (SEO Fix 1).
+//
+// FREE-VIABILITY: the child pages' reads are now cookie-free (getGroupBySlug and
+// the group-hub queries moved to createPublicReadClient + unstable_cache), and the
+// shared <TopNav> was already cookie-free, so the DYNAMIC_SERVER_USAGE that once
+// forced this route dynamic is gone. A dynamic route segment renders per-request
+// (Cache-Control: no-store) UNLESS it declares generateStaticParams, so declaring
+// it is what actually flips this route from Dynamic to ISR - a crawl of a group hub
+// now serves cached HTML with ZERO DB work instead of re-rendering every time. We
+// prerender the busiest hubs (top group `-quiz` pages by quiz_count) and let every
+// other slug (including all `-trivia`) fall to on-demand ISR via the default
+// dynamicParams. Fail-soft to [] so a saturated DB never fails the build.
 export const revalidate = 3600;
+
+const PRERENDER_TOP_HUBS = 24;
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+  try {
+    const groups = await getAllGroups(); // cached, cookie-free, sorted by quiz_count desc
+    return groups.slice(0, PRERENDER_TOP_HUBS).map((g) => ({ slug: `${g.slug}-quiz` }));
+  } catch (err) {
+    console.warn('[[slug]] generateStaticParams failed - on-demand ISR only:', (err as Error)?.message ?? err);
+    return [];
+  }
+}
 
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;

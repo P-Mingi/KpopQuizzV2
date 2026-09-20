@@ -1,4 +1,7 @@
+import { unstable_cache } from 'next/cache';
+
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
+import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 import type { RecordPlayResult } from '@/lib/db/types';
 
@@ -67,7 +70,18 @@ export interface QuizExtraStats {
   totalPlaysWithScore: number; // plays rows for this quiz (source of truth)
 }
 
-export async function getQuizExtraStats(
+// FREE-VIABILITY: 4 plays reads (3 of them head-count) behind the /q stats block -
+// a big slice of the /rest/v1/plays 9,442 HEAD counts in the baseline. Cookie-free
+// public read; cached at the stats TTL (1h). The live post-play widgets reconcile
+// client-side on mount, so a baked count up to an hour stale is the intended
+// behaviour, not a regression.
+export const getQuizExtraStats = unstable_cache(
+  fetchQuizExtraStats,
+  ['db:plays:getQuizExtraStats:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
+
+async function fetchQuizExtraStats(
   quizId: string,
   totalQuestions: number,
 ): Promise<QuizExtraStats> {

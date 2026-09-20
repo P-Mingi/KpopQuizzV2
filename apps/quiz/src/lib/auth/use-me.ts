@@ -35,9 +35,27 @@ const SIGNED_OUT: MeResponse = { profile: null };
 let cache: MeResponse | null = null;
 let inflight: Promise<MeResponse> | null = null;
 
+// FREE-VIABILITY: an anonymous visitor has no Supabase auth cookie, so /api/auth/me
+// can only ever answer "signed out" for them - the round trip is pure waste. Skip it
+// when no `sb-...-auth-token` cookie is present. If we cannot read cookies (SSR, a
+// privacy mode that throws), fall through to the fetch so behaviour is unchanged for
+// a signed-in user; the fetch itself still resolves to SIGNED_OUT on a 401.
+function hasAuthCookie(): boolean {
+  try {
+    if (typeof document === 'undefined') return true; // can't tell - don't skip
+    return /(?:^|;\s*)sb-[a-z0-9-]+-auth-token/i.test(document.cookie);
+  } catch {
+    return true; // can't tell - don't skip
+  }
+}
+
 function loadMe(): Promise<MeResponse> {
   if (cache) return Promise.resolve(cache);
   if (inflight) return inflight;
+  if (!hasAuthCookie()) {
+    cache = SIGNED_OUT;
+    return Promise.resolve(cache);
+  }
   inflight = fetch('/api/auth/me', { credentials: 'include' })
     .then((r) => (r.ok ? (r.json() as Promise<MeResponse>) : SIGNED_OUT))
     .then((d) => { cache = d ?? SIGNED_OUT; inflight = null; return cache; })
