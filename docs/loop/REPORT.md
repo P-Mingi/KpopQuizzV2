@@ -53,7 +53,15 @@ freeze) leaning on the 2025 debut (no member/fandom claim - Cortis has neither i
 Cortis FAQ = 2 truthful Q (no fabricated fandom/members); ILLIT = 3 (member Q correctly skipped, real
 GLLIT fandom kept); BTS = full set. Visible `<dl>` matches the schema. All hubs get the FAQPage.
 CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35618661780 (PR #39)
-### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
+### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (branch `feat/seo-w3-hubs`, stacked on W2)  DONE
+3 of the 4 were already fully levered (bespoke frozen titles + FAQPage from W2 + PR-I2 anchors). Gaps
+closed: (1) **BABYMONSTER title override** (816i, not frozen) leaning on the YG-rookie angle (neutral
+hook, no member/fandom claim); (2) the **default hub intro now leads with the exact "{group} quizzes"
+anchor** - `generateDefaultIntro` only fires for groups without a curated `seo_intro`, so the
+high-value hubs keep their own intro. Proof: babymonster title + anchor-led intro + inherited FAQPage;
+all 4 render 200 with FAQPage. tsc 0, unit 121/121, build (CI), 0 em/en dash. Stacked: merge after W2.
+CI: <<fill after push>>
+### PR-W4 Rescue blackpink + twice  (pending)
 ### PR-W4 Rescue blackpink + twice  (pending)
 
 ## Notes
