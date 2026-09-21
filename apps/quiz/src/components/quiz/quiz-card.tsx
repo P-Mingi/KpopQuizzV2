@@ -9,6 +9,8 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { LikeButton } from '@/components/ui/like-button';
 import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { formatCount } from '@/lib/utils';
+import { UX_V1 } from '@/lib/ux-v1';
+import { UxQuizCard } from './ux-v1/ux-quiz-card';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -19,6 +21,10 @@ interface QuizCardProps {
 }
 
 export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): React.ReactElement {
+  // UX v1: one re-skin for every consumer, behind the flag. Flag-off keeps the
+  // current card byte-identical.
+  if (UX_V1) return <UxQuizCard quiz={quiz} />;
+
   const avgPct = quiz.total_completions > 0 && quiz.question_count > 0
     ? Math.round((quiz.total_score_sum / quiz.total_completions) / quiz.question_count * 100)
     : null;

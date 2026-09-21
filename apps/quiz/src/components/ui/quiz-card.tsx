@@ -6,6 +6,8 @@ import { FanTitle } from '@/components/ui/fan-title';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { languageChip } from '@/lib/languages';
+import { UX_V1 } from '@/lib/ux-v1';
+import { UxQuizCard } from '@/components/quiz/ux-v1/ux-quiz-card';
 
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 
@@ -56,6 +58,11 @@ interface Props {
 }
 
 export function QuizCard({ quiz, index = 0, showScore = true }: Props): React.ReactElement {
+  // UX v1: the shared re-skin, behind the flag (flag-off byte-identical). Both this
+  // canonical card and components/quiz/quiz-card delegate here so the whole app is
+  // consistent when the flag is on.
+  if (UX_V1) return <UxQuizCard quiz={quiz} />;
+
   const type = TYPE_BADGE[quiz.quiz_type];
   const diff = DIFF_BADGE[quiz.difficulty];
   const pct = avgScorePct(quiz);
