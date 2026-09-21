@@ -136,6 +136,9 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
+          // SEO PR-I2: an UP link to the /quizzes catalogue on every group hub,
+          // both as a crawl path and in the BreadcrumbList schema.
+          { label: 'Quizzes', href: '/quizzes' },
           { label: `${group.name} Quiz` },
         ]}
       />

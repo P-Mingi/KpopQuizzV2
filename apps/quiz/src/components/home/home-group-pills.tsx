@@ -11,10 +11,14 @@ const HEAD: React.CSSProperties = {
   display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14,
 };
 
-// §2e - spec display order.
+// §2e - spec display order. SEO PR-I2: the rail now carries every Tier A/B head-term
+// hub so the home page links directly to all of them (crawl-path + authority flow).
+// The high-impression rookies (cortis 3410i, illit 2347i, babymonster) are surfaced
+// near the front - they were the biggest hubs missing from the home rail.
 const ORDER = [
-  'general-kpop', 'bts', 'blackpink', 'stray-kids', 'twice', 'aespa',
-  'seventeen', 'newjeans', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim',
+  'general-kpop', 'bts', 'blackpink', 'cortis', 'illit', 'stray-kids', 'twice',
+  'aespa', 'seventeen', 'newjeans', 'babymonster', 'exo', 'ive', 'enhypen',
+  'txt', 'le-sserafim', 'itzy',
 ];
 
 /** §2e + §10f - circle group coins (logo only, no label) in a horizontal scroll rail.
@@ -25,14 +29,14 @@ const ORDER = [
 export function HomeGroupPills({ groups }: { groups: Group[] }): React.ReactElement | null {
   const bySlug = new Map(groups.map((g) => [g.slug, g]));
   const ordered = ORDER.map((s) => bySlug.get(s)).filter((g): g is Group => Boolean(g));
-  const pills = ordered.length > 0 ? ordered : groups.filter((g) => g.quiz_count > 0).slice(0, 13);
+  const pills = ordered.length > 0 ? ordered : groups.filter((g) => g.quiz_count > 0).slice(0, 17);
   if (pills.length === 0) return null;
 
   return (
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>Browse by group</p>
-        {/* W7b: the pills show 13 of 37 groups. The directory is the surface that
+        {/* W7b: the pills show the priority hubs; the directory is the surface that
             reaches the rest, so the rail's own "see all" points there. */}
         <Link href="/groups" style={SEE_ALL}>All K-pop groups &rarr;</Link>
       </div>

@@ -19,6 +19,12 @@ export const RELATED_GROUPS: Record<string, string[]> = {
   'got7': ['bts', 'exo', 'seventeen'],
   'mamamoo': ['red-velvet', 'blackpink', 'g-i-dle'],
   'nct': ['exo', 'seventeen', 'stray-kids'],
+  // SEO PR-I2: the priority rookie hubs were emitting no sibling cross-links.
+  // Siblings pair a labelmate with fellow rookies (all have quizzes, so the
+  // "Fans also play" section renders and the rookie hubs stop being orphaned).
+  'cortis': ['txt', 'enhypen', 'illit'],           // BigHit/HYBE boy group + HYBE labelmates + rookie
+  'illit': ['newjeans', 'le-sserafim', 'babymonster'], // HYBE girl-group labelmates + rookie
+  'babymonster': ['blackpink', 'illit', 'cortis'], // YG labelmate + fellow rookies
 };
 
 export const RELATED_GROUP_NAMES: Record<string, string> = {
@@ -42,4 +48,7 @@ export const RELATED_GROUP_NAMES: Record<string, string> = {
   'got7': 'GOT7',
   'mamamoo': 'MAMAMOO',
   'nct': 'NCT',
+  'cortis': 'Cortis',
+  'illit': 'ILLIT',
+  'babymonster': 'BABYMONSTER',
 };
