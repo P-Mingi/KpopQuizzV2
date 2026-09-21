@@ -2,6 +2,44 @@ import type { ArticleMeta } from './types';
 
 export const ARTICLES: ArticleMeta[] = [
   {
+    slug: 'kpop-blind-test-2026',
+    title: 'K-pop Blind Test 2026: Guess This Year’s Biggest Songs',
+    description:
+      'The 2026 K-pop blind test, explained: which groups you will hear, how the 10-second guessing game works, and how to name a song in the first two seconds.',
+    category: 'guide',
+    publishedAt: '2026-09-21',
+    updatedAt: '2026-09-21',
+    coverAlt: 'Soundwave and play button representing the 2026 K-pop blind test',
+    tags: ['blind test', '2026', 'guessing game'],
+    relatedLinks: [
+      { label: 'Play the K-pop blind test', href: '/blindtest' },
+      { label: 'Cortis quiz', href: '/cortis-quiz' },
+      { label: 'How to recognize any song', href: '/articles/kpop-blind-test-guide' },
+    ],
+    faq: [
+      {
+        question: 'What is a K-pop blind test?',
+        answer:
+          'A K-pop blind test is a listening game: you hear a short audio clip, usually around ten seconds, of a K-pop song with no title or video, then pick the right song or artist from four choices before the timer ends. It tests song recognition rather than trivia.',
+      },
+      {
+        question: 'What makes a 2026 blind test different?',
+        answer:
+          'A 2026 blind test leans on the groups charting this year, so the pool weights toward current comebacks and breakout rookies like Cortis, ILLIT and BABYMONSTER alongside the all-time hits from BTS, BLACKPINK, aespa and other established groups. The questions shift with the year even when the game stays the same.',
+      },
+      {
+        question: 'Is the K-pop blind test free to play?',
+        answer:
+          'Yes. The KpopQuiz.org blind test is free and needs no account. You can start a round instantly and play the full mixed mode, a single generation, or one group at a time.',
+      },
+      {
+        question: 'Can I play the blind test for just one group?',
+        answer:
+          'Yes. Any group with enough songs in the catalog has its own blind test playlist, so you can practise a single group like BTS, BLACKPINK or Stray Kids before attempting the mixed all-K-pop round.',
+      },
+    ],
+  },
+  {
     slug: 'best-kpop-quiz-sites-2026',
     title: 'Best Free K-pop Quiz Sites in 2026: 5 Ranked and Reviewed',
     description:
@@ -117,8 +155,8 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['blind test', 'guide', 'tips'],
     relatedLinks: [
       { label: 'Play the blind test', href: '/blindtest' },
+      { label: 'K-pop blind test 2026', href: '/articles/kpop-blind-test-2026' },
       { label: 'Browse quizzes', href: '/quizzes' },
-      { label: 'Play K-pop quizzes', href: '/quizzes' },
     ],
     faq: [
       {

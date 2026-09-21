@@ -1,60 +1,63 @@
-# REPORT - SEO QUICK WINS (from docs/seo/AUDIT.md)
+# REPORT - CONTENT ENGINE v1 (W3 of docs/seo/STRATEGY.md)
 
-Branch `seo/p1-quickwins` off main `0cc9399`. Code changes, behaviour-preserving, PR-gated. No push to
-main. ZERO DB writes/DDL. Verse untouched (except the one explicitly-listed teaser link). Proofs in
-`docs/proofs/seo-quickwins/`.
+Branch `seo/content-engine-v1` off main `a1b2a1f`. TSX-only, **zero DB / DDL**, behaviour preserved,
+Verse untouched, no new paid service. No push to main. Proofs in `docs/proofs/content-engine/`.
 
-## Items done (each: file + proof)
-1. **P1.1 Home title** - `(site)/page.tsx`: gave `/` a `title.absolute` so the rendered `<title>` is
-   `K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group` (was `KpopQuiz - K-pop Quizzes Made by
-   Fans | KpopQuiz`, brand doubled). Left the root template untouched (correct for every other page).
-   Benefit-driven meta description added. Proof: `runtime.txt` (before/after title).
-2. **P1.4 Dead /games links** - repointed EVERY live internal `/games*` link to a live surface across
-   11 files (blindtest + pt/blindtest "more games" tiles -> /trivia//groups//pt/leaderboard//pt/quizzes;
-   news -> /trivia; pt/stats -> /pt/blindtest; popular-page + both hardest-* articles +
-   blind-test-player + verse-teaser -> /blindtest; the 9 `registry.ts` article links -> /quizzes,
-   /blindtest, /groups). Also fixed the stale `/games` line in `llms.txt` (AI-crawler entry point).
-   Proof: `games-links.txt` - ZERO live `/games` links remain. The only 2 left are deep-Verse
-   (`verse/[slug]/members`, `space-home-modules`), behind the `verseHidden` gate and the
-   Verse-untouched fence, so not live/indexable on the Play site.
-3. **P2.1 Blindtest count** - `blindtest/page.tsx:28` OG subtitle 4000+/87+ -> 300+/60+ to match the
-   desc/FAQ/JSON-LD. Proof: `runtime.txt`. **CAVEAT for Cowork:** the blind-test-guide article FAQ
-   (`registry.ts` ~line 137-142) says "nearly 4,000 songs / 87+ groups", and the live /blindtest label
-   matches the getBlindtestStats FALLBACK ({300,60}) exactly - so the TRUE active-song count is
-   unconfirmed. I standardized on 300+/60+ per the item's instruction, but the owner should confirm the
-   real count and, if it is ~4000, update the label/desc/OG/FAQ together. Did NOT edit the article FAQ
-   (out of item 3 scope + uncertain truth).
-4. **P2.2 robots.txt** - `robots.ts`: added `/admin/ /settings/ /onboarding/` Disallow under
-   `User-Agent: *`. Proof: `robots-diff.txt`.
-5. **P2.3 ItemList JSON-LD** - added a valid schema.org ItemList of real quizzes to the home
-   (`page.tsx`, a cached trending read -> `/q/<slug>` items) and to `/quizzes` (`quizzes/page.tsx`, the
-   rendered grid). No fabricated data. Proof: `runtime.txt` (both present, valid structure).
-6. **P2.5 Blindtest H1** - `blindtest-game.tsx`: the setup eyebrow `Blind test` -> `K-pop Blind Test`
-   (the exact ranking phrase, above the "Name that K-pop song" H1). Ranks "kpop blind test" pos 3.97.
-7. **P2.4 Member alt** - `group-hub-sections.tsx`: member faces `alt=""` -> `alt="{member} of {group}"`
-   for image search.
-8. **P1.3 COER hub - PATH TAKEN: pure-code 301, NO DB row.** DISCOVERY: "COER"/"COERS" is the CORTIS
-   FANDOM NAME, not a group - the quiz `/q/are-you-a-real-coer` belongs to the Cortis group and the
-   real hub is `/cortis-quiz` (the #1 hub, 635 clicks). So there is no COER group and no DB row is
-   needed. Added a permanent 301 `/coer-quiz -> /cortis-quiz` in `next.config.ts` (fandom-name ->
-   real group hub consolidation). Proof: `runtime.txt` (308 -> /cortis-quiz). No `COER-HUB.sql` was
-   staged because none is needed. This is more correct than a fabricated COER hub, which would
-   duplicate Cortis.
-9. **P0.1 /news made indexable** - `news/page.tsx`: removed `robots:{index:false}`; added `/news` to
-   `sitemap.ts`; it was already footer-linked (`footer.tsx:24`). CONTENT NOTE for Cowork: /news is a
-   curated-headline AGGREGATOR - the feed items link OUT to allkpop/Soompi/Koreaboo, so its own
-   crawlable text is thin. It is now indexable + in the sitemap + linked, but to actually EARN
-   rankings it needs its own original context/text, not just outbound headlines. Flagged, not built.
+Built the repeatable AEO-article pipeline, shipped ONE article end-to-end as the proof, and queued
+the next 10.
 
-## Verification
-- tsc 0, unit 118/118, `next build` exit 0 (795 static pages, ZERO 522 - DB Pro/micro stable),
-  check:routes + check:verse-tokens + check:env green in the build. The three crawl gates
-  (check:metadata-dupes, check:indexability, check:orphans) run in `qw-gates.log` [result folded in].
-- All runtime proofs green (`docs/proofs/seo-quickwins/runtime.txt`).
-- No em dashes, zero emoji.
+## PART 1 - the pipeline (`docs/seo/CONTENT-ENGINE.md`)
+The re-runnable 5-step process, written so the next article is a repeat:
+1. **Keyword selection** from `docs/seo/GSC-21SEP.md` (proven intent, non-cannibalizing an existing
+   hub/quiz/article, article-shaped not page-shaped).
+2. **Brief** (target query + GSC numbers, intent, the ONE internal-link target, angle, schema type).
+3. **Draft** - answer-first (BLUF) body in the site voice, question-style H2s, verified facts
+   (never fabricate members/dates/counts/generation), no em dashes, no emoji.
+4. **Wire-up** - `registry.ts` `ArticleMeta` (title with no doubled brand) + `content/index.ts`
+   `CONTENT_MAP` entry + one anti-orphan inbound link; sitemap + Article/FAQ/Breadcrumb JSON-LD are
+   automatic from the route.
+5. **Self-check** - the repo's SEO gates (`check-metadata-dupes`/`orphans`/`indexability`) + render
+   200 + JSON-LD validation + tsc/unit/build.
+Each step is annotated with exactly what a `[CRON]` would automate in v2 (wire-up + self-check are
+fully automatable; keyword non-cannibalization and fact verification stay human; a human still merges).
 
-## What stays for Cowork's strategy / a later build
-The bigger plays deliberately NOT started: the full fresh-group-hub auto-create/refresh pipeline
-(freshness engine), lifting `/quizzes` off page 2 (authority + internal links), the hub-vs-quiz
-cannibalization guard, `/pt` localization (the PT "quiz do illit" / "test cortis" demand), and giving
-/news real content so it can rank. Plus: confirm the true blindtest song count (item 3 caveat).
+## PART 2 - article #1 shipped (the proof)
+**Slug:** `kpop-blind-test-2026` -> `/articles/kpop-blind-test-2026`
+**Target query:** "blind test kpop 2026" (GSC-21SEP.md: **pos 4, open field, 0 clicks to take** - the
+strategy's named blindtest long-tail gap). Dated variant, so it does NOT cannibalize `/blindtest`
+(the head term) or the existing `kpop-blind-test-guide` how-to article - it widens the surface and
+funnels INTO `/blindtest`.
+**Links to:** `/blindtest` (x7, the money surface), `/cortis-quiz` (freshness), and the sibling
+`/articles/kpop-blind-test-guide`. **Inbound:** contextually linked FROM `kpop-blind-test-guide`
+(a 53-click ranking article) + listed on `/articles` + in the sitemap. Not orphaned.
+**Schema:** Article + FAQPage (4 Q/A) + BreadcrumbList, all valid JSON (saved to
+`docs/proofs/content-engine/article-jsonld.json`).
+**seo-check result:** render 200; single-brand title (no doubling); in sitemap; no duplicate
+title/description across all 20 articles; 0 em dashes / 0 emoji.
+**Facts:** all named groups real + active; generation labels cross-checked against the site's own
+`kpop-generations-explained` (fixed a draft slip - Stray Kids is 4th gen, replaced with EXO in the
+3rd-gen line); NO song titles / dates / member counts / blindtest song-count asserted (that count is
+still unconfirmed, 300-vs-4000).
+
+## PART 3 - the backlog (`docs/seo/CONTENT-BACKLOG.md`)
+Next 10 articles ranked by ROI, each with target query (+ GSC impressions/position), intent,
+internal-link target, and schema type. Top of queue: Who Is Cortis (test cortis 1026i pos7.8),
+BLACKPINK Blind Test (blind test blackpink pos6 open), Who Is ILLIT (illit 2347i pos5.1). Plus a
+"refresh not new" note (extend `guess-the-kpop-idol-guide` for "by picture" rather than compete) and
+the PT-localization angle queued behind the `/pt` on-page work.
+
+## Gates (local)
+- `tsc --noEmit` full project: **exit 0**
+- `pnpm test:unit`: **118 passed (118)**
+- `next build`: **compiled successfully** (see PART: build in `docs/proofs/content-engine/`)
+- em-dash / emoji sweep (article + registry + both docs): **0 / 0**
+- CI on the branch head: PR **#32** (https://github.com/P-Mingi/KpopQuizzV2/pull/32); Tests run
+  https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35596576363 (push run 35596552208 already green:
+  unit pass). Vercel Preview building.
+
+## Notes for the owner / Cowork
+- Zero DB. The article is code; merging it needs only a normal PR review.
+- The full-sitemap crawl gate (`check-metadata-dupes`) is CI-oriented (too slow against a dev server,
+  as in prior missions); the dedup risk was verified directly against the registry (no collisions).
+  It runs green in CI on the PR.
+- Cowork to audit the article body before the owner merges. No push to main.

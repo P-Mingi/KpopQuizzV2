@@ -1,0 +1,90 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "K-pop Blind Test 2026: Guess This Year’s Biggest Songs",
+    "description": "The 2026 K-pop blind test, explained: which groups you will hear, how the 10-second guessing game works, and how to train your ear to name a song in the first two seconds.",
+    "datePublished": "2026-09-21",
+    "dateModified": "2026-09-21",
+    "author": {
+      "@type": "Organization",
+      "name": "KpopQuiz Team",
+      "url": "https://kpopquiz.org"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "KpopQuiz",
+      "url": "https://kpopquiz.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kpopquiz.org/logo-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kpopquiz.org/articles/kpop-blind-test-2026"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kpopquiz.org"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://kpopquiz.org/articles"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "K-pop Blind Test 2026: Guess This Year’s Biggest Songs",
+        "item": "https://kpopquiz.org/articles/kpop-blind-test-2026"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a K-pop blind test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A K-pop blind test is a listening game: you hear a short audio clip, usually around ten seconds, of a K-pop song with no title or video, then pick the right song or artist from four choices before the timer ends. It tests song recognition rather than trivia."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes a 2026 blind test different?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A 2026 blind test leans on the groups charting this year, so the pool weights toward current comebacks and breakout rookies like Cortis, ILLIT and BABYMONSTER alongside the all-time hits from BTS, BLACKPINK, aespa and other established groups. The questions shift with the year even when the game stays the same."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the K-pop blind test free to play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The KpopQuiz.org blind test is free and needs no account. You can start a round instantly and play the full mixed mode, a single generation, or one group at a time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I play the blind test for just one group?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Any group with enough songs in the catalog has its own blind test playlist, so you can practise a single group like BTS, BLACKPINK or Stray Kids before attempting the mixed all-K-pop round."
+        }
+      }
+    ]
+  }
+]
