@@ -1,0 +1,19 @@
+UI-POLISH #27 rebase proof - only the 3 intended UI changes survive
+
+Branch refonte/ui-polish rebased dfc009c-base -> origin/main (5059264, has #26 kill + #28 + #29).
+old tip 0af60ca  ->  new tip a0afe91.  1 ahead of main, 0 behind (clean fast-forwardable).
+
+git range-diff dfc009c..0af60ca  origin/main..a0afe91 :
+1:  0af60ca = 1:  a0afe91 ui-polish: nav solid pill, single-group blindtest toggle, BLACKPINK coin
+  ('=' means the patch is byte-identical: the rebase preserved the commit exactly, zero drift)
+
+git diff origin/main..HEAD --stat (the ONLY files changed vs main):
+ .../src/components/blind-test/blindtest-game.tsx   | 133 +++++++++++++--------
+ apps/quiz/src/components/layout/top-nav-links.tsx  |  12 +-
+ apps/quiz/src/components/ui/group-logo.tsx         |   8 +-
+ 3 files changed, 93 insertions(+), 60 deletions(-)
+
+The 3 changes (per file):
+  top-nav-links.tsx : active tab = solid filled-brand pill (bg accent, #fff text, radius 999, underline removed)
+  blindtest-game.tsx: 'By group' toggle -> single-group select grid
+  group-logo.tsx    : BLACKPINK inline coin recolored (pink fill + white text, no black blob)
