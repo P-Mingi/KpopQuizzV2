@@ -165,10 +165,10 @@ export default async function PtStatsPage(): Promise<React.ReactElement> {
               <span className="stats-link-desc">Adivinhe musicas de K-pop em 10 segundos</span>
             </div>
           </Link>
-          <Link href="/games" className="stats-link-card">
+          <Link href="/pt/blindtest" className="stats-link-card">
             <div className="stats-link-body">
-              <span className="stats-link-title">Jogos</span>
-              <span className="stats-link-desc">This or That, Nomeie Todos os Membros</span>
+              <span className="stats-link-title">Blind Test</span>
+              <span className="stats-link-desc">Adivinhe a musica de K-pop pelo clipe</span>
             </div>
           </Link>
           <Link href="/leaderboard" className="stats-link-card">

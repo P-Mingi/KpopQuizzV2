@@ -270,6 +270,28 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         </nav>
       </noscript>
 
+      {/* SEO P2.3: schema.org ItemList of the quizzes on this page (real data, the
+          same set the noscript nav lists), so /quizzes is eligible for a list rich
+          result. Crawlable /q/<slug> URLs + real titles. */}
+      {pageQuizzes.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: 'K-pop quizzes',
+              itemListElement: pageQuizzes.map((q, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                url: `https://kpopquiz.org/q/${q.slug}`,
+                name: q.title,
+              })),
+            }),
+          }}
+        />
+      )}
+
       {showFaq && (
         <>
           <section aria-labelledby="quizzes-faq" style={{ marginTop: 36, maxWidth: 720 }}>

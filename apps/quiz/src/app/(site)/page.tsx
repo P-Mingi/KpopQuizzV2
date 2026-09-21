@@ -28,17 +28,24 @@ import type { Metadata } from 'next';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'KpopQuiz - K-pop Quizzes Made by Fans',
-  description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
+  // SEO P1.1: the home is the #1 page and it is what ranks for the head term
+  // "kpop quiz" (5127 impr, pos 9.14, CTR 4.21%). A plain string title gets the
+  // root template `%s | KpopQuiz` appended, which doubled the brand
+  // ("KpopQuiz ... | KpopQuiz"). `title.absolute` bypasses the template (the
+  // template stays correct for every OTHER page), leading with the head term and a
+  // benefit, with the brand carried once by the site name / OG. No hardcoded
+  // suffix (see the quiz-metadata-title-template gotcha).
+  title: { absolute: 'K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group' },
+  description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.',
   openGraph: {
-    title: 'KpopQuiz - K-pop Quizzes Made by Fans',
-    description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
+    title: 'K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz',
+    description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.',
     url: '/',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KpopQuiz - K-pop Quizzes Made by Fans',
-    description: 'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups.',
+    title: 'K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz',
+    description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group.',
   },
   alternates: {
     canonical: '/',
@@ -197,6 +204,38 @@ async function GroupSection(): Promise<React.ReactElement> {
   return <HomeGroupPills groups={groups} />;
 }
 
+// SEO P2.3: a schema.org ItemList of the site's featured (trending) quizzes, so
+// the home is eligible for a carousel/list rich result (it had WebSite only). Real
+// data only - the same cached trending read the Trending rail uses, mapped to the
+// crawlable /q/<slug> URLs. Renders nothing when there is no data. Emits a <script>
+// only, no visible UI, so it stays out of the way of the static/ISR render.
+async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
+  const quizzes = await safeFetch(
+    getBrowseQuizzes({ sort: 'trending', offset: 0, limit: 10 }),
+    [],
+    '[home] itemlist',
+  );
+  if (quizzes.length === 0) return null;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Trending K-pop quizzes',
+          itemListElement: quizzes.map((q, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `https://kpopquiz.org/q/${q.slug}`,
+            name: q.title,
+          })),
+        }),
+      }}
+    />
+  );
+}
+
 /* ---------- Page ---------- */
 
 export default function HomePage(): React.ReactElement {
@@ -226,6 +265,9 @@ export default function HomePage(): React.ReactElement {
           }),
         }}
       />
+      <Suspense fallback={null}>
+        <HomeFeaturedJsonLd />
+      </Suspense>
 
       {/* 0. Activity ticker (Option A; client island; home stays static/ISR;
           renders nothing when the feed is quiet) */}

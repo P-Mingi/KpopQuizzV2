@@ -1,0 +1,10 @@
+SEO QUICK WINS - runtime proof (next start :3030, build exit 0, 795 pages, DB Pro/micro stable)
+
+Item 1 home <title>: <title>K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group</title>  (was 'KpopQuiz - K-pop Quizzes Made by Fans | KpopQuiz' - brand doubled)
+Item 3 blindtest OG: subtitle now '300+ songs across 60+ groups' (was 4000+/87+); consistent with desc/FAQ/JSON-LD.
+Item 4 robots: /admin /settings /onboarding now Disallowed under User-Agent:* (see robots-diff.txt).
+Item 5 ItemList JSON-LD: home=1, /quizzes=2 (real /q/<slug> items).
+Item 6 blindtest H1/eyebrow: kicker now 'K-pop Blind Test' (was 'Blind test').
+Item 8 /coer-quiz -> 308 http://localhost:3030/cortis-quiz (COER = CORTIS fandom, not a group; pure-code 301 to the real hub, NO DB row, no COER-HUB.sql needed).
+Item 9 /news: robots meta = ; in sitemap.xml = 1 entry; footer-linked (footer.tsx:24).
+Item 2 dead /games links: 0 live (grep games-links.txt); 2 deep-Verse remain behind verseHidden gate + Verse-untouched fence.

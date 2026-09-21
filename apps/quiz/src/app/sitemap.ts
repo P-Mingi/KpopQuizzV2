@@ -114,6 +114,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/privacy`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/dmca`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
+    // SEO P0.1 (owner: make /news rank): now indexable (was robots.index=false), so
+    // it joins the sitemap. Curated K-pop headlines, refreshed daily.
+    { url: `${SITE_URL}/news`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.5 },
     // Workstream T0 monthly Pulse index. Per-month reports are appended below.
     { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },
 

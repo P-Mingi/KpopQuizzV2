@@ -33,7 +33,7 @@ export function VerseTeaser(): React.ReactElement {
           }}>
             What we promise <Arrow />
           </Link>
-          <Link href="/games" style={{
+          <Link href="/blindtest" style={{
             display: 'inline-flex', alignItems: 'center', gap: 7, minHeight: 44, padding: '0 20px', borderRadius: 12,
             border: '1px solid var(--verse-line, var(--border))', color: 'var(--verse-ink, var(--text-primary))',
             fontSize: 14, fontWeight: 700, textDecoration: 'none',

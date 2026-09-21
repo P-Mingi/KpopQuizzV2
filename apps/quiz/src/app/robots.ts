@@ -9,7 +9,11 @@ export default function robots(): MetadataRoute.Robots {
         // wins, so the /api/og/ allow overrides the /api/ disallow.
         userAgent: '*',
         allow: ['/', '/api/og/'],
-        disallow: ['/api/', '/auth/'],
+        // SEO P2.2: /admin /settings /onboarding are already noindex, but the
+        // generic crawler was still free to crawl them (only the AI-bot rules below
+        // blocked them). Disallow them for * too so Googlebot does not spend crawl
+        // budget on gated, non-indexable pages.
+        disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
       },
       {
         userAgent: 'GPTBot',

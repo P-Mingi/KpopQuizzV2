@@ -1,0 +1,5 @@
+Live /games links AFTER the fix (grep href/Link in src, excluding tests/config/comments/css):
+src/app/(site)/verse/[slug]/members/[idol]/page.tsx:142:              <Link href={`/games/name-all/${d.group.slug}`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Name them all</Link>
+src/components/verse/presentation/space-home-modules.tsx:47:    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', target: 'name-all' as CrossPromoTarget },
+---
+Remaining are ONLY the 2 deep-Verse links (verseHidden gate, Verse-untouched fence):

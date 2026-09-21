@@ -1,56 +1,60 @@
-# REPORT - PR #27 UI-POLISH: rebased on the new main, re-CI, merge-ready for the screenshot audit
+# REPORT - SEO QUICK WINS (from docs/seo/AUDIT.md)
 
-Branch `refonte/ui-polish` (PR #27). Three validated UI tweaks, opened before the #26 kill and the
-#28/#29 perf work landed, so it was stale on the old main with a stale-saturation CI red. Rebased
-onto the current main. NO push to main, NO merge (owner gate). No content/behaviour change beyond
-the three intended UI tweaks.
+Branch `seo/p1-quickwins` off main `0cc9399`. Code changes, behaviour-preserving, PR-gated. No push to
+main. ZERO DB writes/DDL. Verse untouched (except the one explicitly-listed teaser link). Proofs in
+`docs/proofs/seo-quickwins/`.
 
-## The rebase (clean, zero drift)
-- Base moved: `dfc009c` (kill-era) -> `origin/main` `5059264` (has #26 kill + #28 + #29).
-- Old tip `0af60ca` -> new tip `a0afe91`. Branch is 1 ahead of main, 0 behind (fast-forwardable).
-- NO conflicts: main never touched the three files this commit changes (verified
-  `git diff dfc009c..origin/main` on those paths = empty), so the single commit replayed cleanly.
-- Owner's uncommitted docs (VERSE-LEDGER.md, MISSION.md) preserved via `--autostash`.
-
-## Only the 3 intended UI changes survive (proof: docs/proofs/ui-polish-27/range-diff.txt)
-`git range-diff dfc009c..0af60ca  origin/main..a0afe91` prints `1: 0af60ca = 1: a0afe91` - the `=`
-means the patch is byte-identical across the rebase (zero drift). `git diff origin/main..HEAD
---stat` shows exactly three files, nothing else:
-
-| File | Change (the validated tweak) |
-|---|---|
-| `components/layout/top-nav-links.tsx` | active tab = solid filled-brand PILL: `background: accent`, `color:#fff`, `borderRadius:999`, underline removed |
-| `components/blind-test/blindtest-game.tsx` | "By group" toggle -> single-group select grid |
-| `components/ui/group-logo.tsx` | BLACKPINK inline coin recolored: `#F06292` fill + `#FFFFFF` box/text (no black blob) |
+## Items done (each: file + proof)
+1. **P1.1 Home title** - `(site)/page.tsx`: gave `/` a `title.absolute` so the rendered `<title>` is
+   `K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group` (was `KpopQuiz - K-pop Quizzes Made by
+   Fans | KpopQuiz`, brand doubled). Left the root template untouched (correct for every other page).
+   Benefit-driven meta description added. Proof: `runtime.txt` (before/after title).
+2. **P1.4 Dead /games links** - repointed EVERY live internal `/games*` link to a live surface across
+   11 files (blindtest + pt/blindtest "more games" tiles -> /trivia//groups//pt/leaderboard//pt/quizzes;
+   news -> /trivia; pt/stats -> /pt/blindtest; popular-page + both hardest-* articles +
+   blind-test-player + verse-teaser -> /blindtest; the 9 `registry.ts` article links -> /quizzes,
+   /blindtest, /groups). Also fixed the stale `/games` line in `llms.txt` (AI-crawler entry point).
+   Proof: `games-links.txt` - ZERO live `/games` links remain. The only 2 left are deep-Verse
+   (`verse/[slug]/members`, `space-home-modules`), behind the `verseHidden` gate and the
+   Verse-untouched fence, so not live/indexable on the Play site.
+3. **P2.1 Blindtest count** - `blindtest/page.tsx:28` OG subtitle 4000+/87+ -> 300+/60+ to match the
+   desc/FAQ/JSON-LD. Proof: `runtime.txt`. **CAVEAT for Cowork:** the blind-test-guide article FAQ
+   (`registry.ts` ~line 137-142) says "nearly 4,000 songs / 87+ groups", and the live /blindtest label
+   matches the getBlindtestStats FALLBACK ({300,60}) exactly - so the TRUE active-song count is
+   unconfirmed. I standardized on 300+/60+ per the item's instruction, but the owner should confirm the
+   real count and, if it is ~4000, update the label/desc/OG/FAQ together. Did NOT edit the article FAQ
+   (out of item 3 scope + uncertain truth).
+4. **P2.2 robots.txt** - `robots.ts`: added `/admin/ /settings/ /onboarding/` Disallow under
+   `User-Agent: *`. Proof: `robots-diff.txt`.
+5. **P2.3 ItemList JSON-LD** - added a valid schema.org ItemList of real quizzes to the home
+   (`page.tsx`, a cached trending read -> `/q/<slug>` items) and to `/quizzes` (`quizzes/page.tsx`, the
+   rendered grid). No fabricated data. Proof: `runtime.txt` (both present, valid structure).
+6. **P2.5 Blindtest H1** - `blindtest-game.tsx`: the setup eyebrow `Blind test` -> `K-pop Blind Test`
+   (the exact ranking phrase, above the "Name that K-pop song" H1). Ranks "kpop blind test" pos 3.97.
+7. **P2.4 Member alt** - `group-hub-sections.tsx`: member faces `alt=""` -> `alt="{member} of {group}"`
+   for image search.
+8. **P1.3 COER hub - PATH TAKEN: pure-code 301, NO DB row.** DISCOVERY: "COER"/"COERS" is the CORTIS
+   FANDOM NAME, not a group - the quiz `/q/are-you-a-real-coer` belongs to the Cortis group and the
+   real hub is `/cortis-quiz` (the #1 hub, 635 clicks). So there is no COER group and no DB row is
+   needed. Added a permanent 301 `/coer-quiz -> /cortis-quiz` in `next.config.ts` (fandom-name ->
+   real group hub consolidation). Proof: `runtime.txt` (308 -> /cortis-quiz). No `COER-HUB.sql` was
+   staged because none is needed. This is more correct than a fabricated COER hub, which would
+   duplicate Cortis.
+9. **P0.1 /news made indexable** - `news/page.tsx`: removed `robots:{index:false}`; added `/news` to
+   `sitemap.ts`; it was already footer-linked (`footer.tsx:24`). CONTENT NOTE for Cowork: /news is a
+   curated-headline AGGREGATOR - the feed items link OUT to allkpop/Soompi/Koreaboo, so its own
+   crawlable text is thin. It is now indexable + in the sitemap + linked, but to actually EARN
+   rankings it needs its own original context/text, not just outbound headlines. Flagged, not built.
 
 ## Verification
-- `tsc --noEmit`: 0 errors. Unit: 118/118. range-diff: identical (above).
-- Route table UNCHANGED vs main BY CONSTRUCTION: the diff touches only three CLIENT component
-  files - zero page.tsx / render-config / generateStaticParams changes - so no route can change
-  mode. (No route-table diff to show because nothing route-affecting changed.)
-- `next build` LOCAL: not completed - the Supabase nano origin was returning 522 (Cloudflare
-  "Connection timed out") during the attempt, so page prerenders hit the 60s limit. This is the
-  same transient DB-saturation the CI has hit before, NOT the rebase (which is byte-identical to
-  the already-green 0af60ca content). I stopped the local build rather than keep hammering a
-  struggling production origin. The build runs on CI + the Vercel preview (their infra) instead.
-- Screenshots (1440 + 390): PARTIAL, blocked by the intermittent nano 522.
-  - nav pill: CONFIRMED - "Home"/"Blindtest" active tab renders as the solid filled-brand pink
-    pill with white text (DB-independent chrome, captured cleanly).
-  - blindtest by-group toggle: could not capture - the toggle only renders when `groups.length
-    > 0` (blindtest-game.tsx:467), and getBlindtestGroups returned empty on every attempt because
-    the DB was 522-ing. Not a code issue.
-  - BLACKPINK coin: could not capture - /blackpink-quiz hit the error boundary because
-    getGroupBySlug threw on a 522.
-  - Both data-dependent shots are blocked by the SAME transient DB saturation that failed my
-    local build and the Vercel preview. Playwright's headless browser is not installed and I did
-    not install it (owner rule). The definitive isolation proof is the range-diff (byte-identical
-    to the already-owner-validated 0af60ca), which answers "did the rebase change the 3 tweaks"
-    more strongly than a screenshot. Remaining two shots: capture from the Vercel preview once it
-    redeploys on a healthy-DB window, or re-run when the nano stabilizes.
-- CI run: PR #27 https://github.com/P-Mingi/KpopQuizzV2/pull/27
+- tsc 0, unit 118/118, `next build` exit 0 (795 static pages, ZERO 522 - DB Pro/micro stable),
+  check:routes + check:verse-tokens + check:env green in the build. The three crawl gates
+  (check:metadata-dupes, check:indexability, check:orphans) run in `qw-gates.log` [result folded in].
+- All runtime proofs green (`docs/proofs/seo-quickwins/runtime.txt`).
 - No em dashes, zero emoji.
 
-## Owner gate remaining
-1. CI green on the rebased head (unit + e2e).
-2. Cowork audits the three screenshots.
-3. Owner merges `refonte/ui-polish` to main. NOT done here.
+## What stays for Cowork's strategy / a later build
+The bigger plays deliberately NOT started: the full fresh-group-hub auto-create/refresh pipeline
+(freshness engine), lifting `/quizzes` off page 2 (authority + internal links), the hub-vs-quiz
+cannibalization guard, `/pt` localization (the PT "quiz do illit" / "test cortis" demand), and giving
+/news real content so it can rank. Plus: confirm the true blindtest song count (item 3 caveat).

@@ -113,7 +113,7 @@ export async function ArticleBody(): Promise<React.ReactElement> {
         of the larger rosters above and see how far you get before the names run out.
       </p>
       <div className="art-cta-inline">
-        <Link href="/games/name-all" className="art-cta-btn">Play Name All Members</Link>
+        <Link href="/blindtest" className="art-cta-btn">Play the K-pop Blind Test</Link>
         <Link href="/quizzes" className="art-cta-btn art-cta-secondary">Browse member quizzes</Link>
       </div>
     </>

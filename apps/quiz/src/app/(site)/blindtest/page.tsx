@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: 'K-pop Blind Test - Guess the Song from a Clip',
     description: 'Listen to a 10-second clip and guess the K-pop song. 300+ songs, 60+ groups, every generation.',
     url: '/blindtest',
-    images: [{ url: '/api/og/page?title=K-pop+Blind+Test&subtitle=Guess+the+song+from+a+10-second+clip.+4000%2B+songs+across+87%2B+groups.&accent=%237c5cfc', width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
+    images: [{ url: '/api/og/page?title=K-pop+Blind+Test&subtitle=Guess+the+song+from+a+10-second+clip.+300%2B+songs+across+60%2B+groups.&accent=%237c5cfc', width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
   },
 };
 
@@ -222,15 +222,15 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
 
         {/* Internal links */}
         <section className="bt-hub-section">
-          <h2 className="bt-hub-h2">More K-pop games</h2>
+          <h2 className="bt-hub-h2">More ways to play</h2>
           <div className="bt-hub-links">
-            <Link href="/games/this-or-that" className="bt-hub-link">
+            <Link href="/trivia" className="bt-hub-link">
               <span className="bt-hub-link-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
               </span>
               <span>
-                <span className="bt-hub-link-t">This or That</span>
-                <span className="bt-hub-link-d">Vote in head-to-head K-pop matchups</span>
+                <span className="bt-hub-link-t">K-pop Trivia</span>
+                <span className="bt-hub-link-d">Learn the facts real fans know</span>
               </span>
             </Link>
             <Link href="/quizzes" className="bt-hub-link">
@@ -242,13 +242,13 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
                 <span className="bt-hub-link-d">Fan-made quizzes for every group</span>
               </span>
             </Link>
-            <Link href="/games/name-all" className="bt-hub-link">
+            <Link href="/groups" className="bt-hub-link">
               <span className="bt-hub-link-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
               </span>
               <span>
-                <span className="bt-hub-link-t">Name All Members</span>
-                <span className="bt-hub-link-d">Can you name every member of your favorite group?</span>
+                <span className="bt-hub-link-t">Browse by Group</span>
+                <span className="bt-hub-link-d">Quizzes and blind tests for every group</span>
               </span>
             </Link>
           </div>

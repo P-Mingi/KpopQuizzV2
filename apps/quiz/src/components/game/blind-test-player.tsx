@@ -490,7 +490,7 @@ export function BlindTestPlayer({ game }: { game: GameWithGroup }): React.ReactE
             </div>
 
             <div className="mt-6 pt-6 border-t border-[var(--border)]">
-              <Link href="/games" className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+              <Link href="/blindtest" className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                 More blind tests
               </Link>
             </div>

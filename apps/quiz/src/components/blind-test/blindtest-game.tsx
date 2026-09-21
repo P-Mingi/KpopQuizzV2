@@ -446,7 +446,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     return (
       <div className="bt-screen">
         <div className="bt-setup">
-          <span className="bt-kicker">Blind test</span>
+          <span className="bt-kicker">K-pop Blind Test</span>
           {hero ?? <h1 className="bt-title">Name that<br /><span className="bt-title-accent">K-pop song</span></h1>}
           <p className="bt-sub">10 songs. 10 seconds each. Guess the song or the artist from a clip.</p>
 
