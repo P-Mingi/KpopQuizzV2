@@ -14,6 +14,7 @@
     "check:metadata-dupes": "tsx scripts/check-metadata-dupes.mts",
     "check:orphans": "tsx scripts/check-orphans.mts",
     "check:sitemap-hygiene": "tsx scripts/check-sitemap-hygiene.mts",
+    "data-guard": "tsx scripts/data-guard.ts",
     "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts",
     "test:unit": "vitest run",

@@ -1,9 +1,11 @@
 import '@/styles/globals.css';
 
 import localFont from 'next/font/local';
+import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
+import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -38,6 +40,27 @@ const pretendard = localFont({
   adjustFontFallback: 'Arial',
   preload: true,
 });
+
+// UX v1 (owner Q4): Inter is the latin body + display face; Pretendard stays the
+// Korean/CJK fallback. Applied ONLY under the flag (its `--font-inter` variable is
+// added to <html> and mapped onto --font-body/--font-display in globals under
+// `html.ux-v1`), so flag-off renders Pretendard exactly as today. preload:false so
+// an Inter preload never leaks onto a flag-off page - it loads on demand (swap)
+// only where the flag applies it.
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-inter',
+  preload: false,
+});
+
+// Marker class + Inter variable go on <html> only when the redesign flag is on.
+// The theme scripts (THEME_SCRIPT / ThemeInit) only add/remove `light`/`dark`, so
+// `ux-v1` survives their classList churn.
+const HTML_CLASS = UX_V1
+  ? `${pretendard.variable} ${inter.variable} ux-v1`
+  : pretendard.variable;
 
 // Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only
 // when it is an absolute https origin - never let a dev value
@@ -107,7 +130,7 @@ interface RootLayoutProps {
 // render mode back.
 export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
   return (
-    <html lang="en" className={pretendard.variable} suppressHydrationWarning>
+    <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeInit />
