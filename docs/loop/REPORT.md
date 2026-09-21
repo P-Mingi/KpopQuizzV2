@@ -60,7 +60,7 @@ hook, no member/fandom claim); (2) the **default hub intro now leads with the ex
 anchor** - `generateDefaultIntro` only fires for groups without a curated `seo_intro`, so the
 high-value hubs keep their own intro. Proof: babymonster title + anchor-led intro + inherited FAQPage;
 all 4 render 200 with FAQPage. tsc 0, unit 121/121, build (CI), 0 em/en dash. Stacked: merge after W2.
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35619813433 (PR #40)
 ### PR-W4 Rescue blackpink + twice  (branch `feat/seo-w4-rescue`, stacked on W3)  DONE
 The rescue was mostly already delivered: both hubs have bespoke (frozen) titles, the W2 FAQPage,
 H1/ItemList, and PR-I2 home + sibling cross-links (they cross-link each other). The one real gap:
@@ -69,7 +69,7 @@ girl-groups-vs-boy-groups article carried a redundant duplicate `/quizzes` link;
 exact-anchor `TWICE quiz` -> `/twice-quiz` (+ `BLACKPINK quiz`). Proof: /twice-quiz link now live on
 that article; both hubs render 200 with FAQPage + their bespoke titles. tsc 0, unit 121/121, build
 (CI), no dupes, 0 em/en dash. Stacked: merge after W2 (#39) then W3 (#40).
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35620520368 (PR #41)
 
 ## PHASE 2 COMPLETE
 W1-W4 done (PR #38 merged; #39/#40/W4 open, stacked W2->W3->W4). Every Tier A/B head-term hub now
