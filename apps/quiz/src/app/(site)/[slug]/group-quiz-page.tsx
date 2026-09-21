@@ -26,6 +26,51 @@ function generateDefaultIntro(group: Group): string {
   return `Think you're a real ${group.fandom_name}? Play ${group.quiz_count}+ free ${group.name} quizzes created by fans who actually know ${group.name}. From easy trivia to impossible deep-cut challenges - prove you deserve your fan card. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
 }
 
+// W2: hub FAQ built from REAL group facts only, reusing the hero's gates so a
+// placeholder fandom or a missing member count is skipped (never fabricated). The
+// same array feeds the visible <dl> and the FAQPage JSON-LD, so the markup and the
+// page always agree (Google requires the FAQ answers to be visible on the page).
+const FAQ_PLACEHOLDER_FANDOMS = new Set(['fan', '']);
+function buildGroupFaqs(
+  group: Group,
+  memberCount: number | null,
+  blindtestQualifies: boolean,
+): { q: string; text: string; a: React.ReactNode }[] {
+  const faqs: { q: string; text: string; a: React.ReactNode }[] = [];
+  const n = group.quiz_count;
+  if (n > 0) {
+    const t = `KpopQuiz has ${n} free fan-made ${group.name} quizzes covering members, songs, eras and more.`;
+    faqs.push({ q: `How many ${group.name} quizzes are there?`, text: t, a: t });
+  }
+  if (memberCount && memberCount > 0) {
+    const t = `${group.name} has ${memberCount} members.`;
+    faqs.push({ q: `How many members does ${group.name} have?`, text: t, a: t });
+  }
+  const fandom = (group.fandom_name ?? '').trim();
+  if (fandom.length > 0 && !FAQ_PLACEHOLDER_FANDOMS.has(fandom.toLowerCase())) {
+    const t = `${group.name}'s official fandom name is ${fandom}.`;
+    faqs.push({ q: `What is ${group.name}'s fandom called?`, text: t, a: t });
+  }
+  if (blindtestQualifies) {
+    faqs.push({
+      q: `Is there a ${group.name} blind test?`,
+      text: `Yes. You can play a ${group.name} blind test and name their songs from a short audio clip.`,
+      a: (
+        <>
+          Yes. You can play a{' '}
+          <Link href={`/blindtest/group-${group.slug}`} style={{ color: 'var(--brand)', fontWeight: 600 }}>{group.name} blind test</Link>{' '}
+          and name their songs from a short audio clip.
+        </>
+      ),
+    });
+  }
+  if (n > 0) {
+    const t = `Yes. Every ${group.name} quiz on KpopQuiz is free to play, with no account needed.`;
+    faqs.push({ q: `Are the ${group.name} quizzes free?`, text: t, a: t });
+  }
+  return faqs;
+}
+
 // CTR sprint: bespoke title + description hook for the highest-impression group
 // pages (worst CTR-vs-position first). Titles use MEMBER counts, which are
 // stable facts verified against each group's published name_all_members game, so
@@ -41,6 +86,10 @@ const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string }> = {
   twice: { title: 'TWICE Quiz: Can You Name All 9 Members? (2026)', hook: 'Name all 9 members, guess the era, and prove you are a real ONCE' },
   'stray-kids': { title: 'Stray Kids Quiz: Name All 8 Members and More (2026)', hook: 'Name all 8 members, guess the song, and prove you are a real STAY' },
   illit: { title: 'ILLIT Quiz: Free Fan-Made Tests for GLLIT (2026)', hook: "Test your knowledge of ILLIT's members, songs, and eras, then prove you are a real GLLIT" },
+  // W2: Cortis is the #1 hub by impressions (freshness weapon). No name-all game
+  // (no member claim) and the DB fandom is a placeholder, so the hook leans on the
+  // 2025 debut angle rather than a member count or fandom name.
+  cortis: { title: 'Cortis Quiz: Test How Well You Know the Rookie Group (2026)', hook: "Test your knowledge of Cortis's members, songs, and 2025 debut" },
 };
 
 export function generateGroupQuizMetadata(group: Group): Metadata {
@@ -130,6 +179,11 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
     { name: `${group.name} quizzes`, url: `https://kpopquiz.org/${group.slug}-quiz` },
   ];
   if (blindtest.qualifies) playSurfaces.push({ name: `${group.name} blind test`, url: `https://kpopquiz.org/blindtest/group-${group.slug}` });
+
+  // W2: fact-gated hub FAQ (visible + FAQPage schema below). Emitted only with >= 2
+  // real Q/A, so a thin group (e.g. Cortis: no members, placeholder fandom) still
+  // gets a truthful FAQ instead of a padded one.
+  const groupFaqs = buildGroupFaqs(group, nameAllGame?.count ?? null, blindtest.qualifies);
 
   return (
     <div className="py-6">
@@ -349,6 +403,38 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
             ))}
           </div>
         </section>
+      )}
+
+      {/* W2: visible hub FAQ + matching FAQPage JSON-LD (built from the same
+          fact-gated array, so the answers are always visible on the page). */}
+      {groupFaqs.length >= 2 && (
+        <>
+          <section aria-labelledby="group-faq" style={{ marginTop: 36, maxWidth: 720 }}>
+            <h2 id="group-faq" style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--txt1)', marginBottom: 14 }}>{group.name} quiz: FAQ</h2>
+            <dl style={{ display: 'flex', flexDirection: 'column', gap: 16, margin: 0 }}>
+              {groupFaqs.map((f) => (
+                <div key={f.q}>
+                  <dt style={{ fontSize: 15, fontWeight: 700, color: 'var(--txt1)' }}>{f.q}</dt>
+                  <dd style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--txt2)', lineHeight: 1.55 }}>{f.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: groupFaqs.map((f) => ({
+                  '@type': 'Question',
+                  name: f.q,
+                  acceptedAnswer: { '@type': 'Answer', text: f.text },
+                })),
+              }),
+            }}
+          />
+        </>
       )}
 
       {/* QA class 4: q.title (user-authored quiz titles) escaped at the sink. */}
