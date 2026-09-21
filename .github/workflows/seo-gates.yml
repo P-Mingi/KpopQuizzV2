@@ -123,6 +123,12 @@ jobs:
         working-directory: apps/quiz
         run: pnpm run check:orphans
 
+      - name: check:sitemap-hygiene
+        id: sitemap_hygiene
+        if: always() && steps.start.outcome == 'success'
+        working-directory: apps/quiz
+        run: pnpm run check:sitemap-hygiene
+
       # VISIBILITY. Nothing in this repo notifies on failure today, so without this a red
       # nightly is one grey cross nobody opens. This step is skipped when the secret is
       # absent, so the workflow is useful before the webhook exists and louder after.
@@ -141,11 +147,13 @@ jobs:
           INDEXABILITY_OUTCOME: ${{ steps.indexability.outcome }}
           DUPES_OUTCOME: ${{ steps.dupes.outcome }}
           ORPHANS_OUTCOME: ${{ steps.orphans.outcome }}
+          SITEMAP_HYGIENE_OUTCOME: ${{ steps.sitemap_hygiene.outcome }}
         run: |
           failed=""
           [ "$INDEXABILITY_OUTCOME" = "failure" ] && failed="$failed check:indexability"
           [ "$DUPES_OUTCOME" = "failure" ]        && failed="$failed check:metadata-dupes"
           [ "$ORPHANS_OUTCOME" = "failure" ]      && failed="$failed check:orphans"
+          [ "$SITEMAP_HYGIENE_OUTCOME" = "failure" ] && failed="$failed check:sitemap-hygiene"
           if [ -n "$failed" ]; then
             what="gate(s) failed:$failed"
           elif [ "$START_OUTCOME" = "failure" ]; then

@@ -1,36 +1,55 @@
-# MISSION (GAMES HUB NIT - one non-breaking hyphen in the band H2, re-prove, re-CI. NO push to main.)
+# MISSION (SEO GROWTH - Google indexation + W1 head-term push. Small gated PRs. NO push to main, owner merges each.)
 
 ## REPO GUARD
 KpopQuizzV2 ONLY. `git remote -v` must be https://github.com/P-Mingi/KpopQuizzV2.git.
-Otherwise (nuri / bloom share this bus) execute NOTHING, one line in that repo's BLOCKED.md, stop.
+Otherwise execute NOTHING, one line in that repo's BLOCKED.md, stop.
 
-**`cat` this whole file.** The games hub redesign on `feat/games-hub-redesign` was audited and
-ACCEPTED (fd59db6, PR #23, CI green). One cosmetic nit remains and this mission closes exactly it,
-nothing else. Do NOT touch anything but the band H2 string. Do NOT start the parked COST mission.
-Stay on `feat/games-hub-redesign`, do not re-branch, do not merge (the owner merges).
+## CONTEXT (cat this whole file first)
+The content-engine autopilot is a SEPARATE scheduled task (`docs/loop/AUTO-CONTENT.md`) - do NOT
+touch it, do NOT run it. This mission is the on-page + technical SEO growth work. Grounded in
+`docs/seo/AUDIT.md`, `docs/seo/GSC-21SEP.md`, `docs/seo/STRATEGY.md` (W1), `docs/seo/CONTENT-BACKLOG.md`,
+and the market + keyword analysis (top-20 ROI). Every step is its OWN small PR, CI-green, opened with
+`gh pr create --base main`, NEVER merged and NEVER pushed to main (the owner merges each). No DB writes,
+no DDL. No em dashes, no en dashes, no emoji. Cannibalization guard: a bare "{group} quiz" head term
+belongs ONLY to the `/{group}-quiz` hub; explainer/long-tail stays on articles/blindtest.
 
-## THE ONE FIX
-In `apps/quiz/src/components/game/games-hub.tsx`, the daily band H2 renders
-`Name the song <br .../>from a 10-second clip.` The `10-second` uses a normal hyphen, so at 390 it
-can break as `10-` / `second`. The mission spec (and the Mobile artboard) require `10-second` to
-stay on one line. Replace ONLY that hyphen with a non-breaking hyphen (U+2011). In JSX text, write
-it as the entity `10&#8209;second` or the literal `10‑second` character, whichever the file's
-other entities already use for consistency. Change nothing else, no other line, no CSS.
+## ORDER OF PRs (one small PR each, top of list first; do them in order)
 
-## PROVE (docs/proofs/games-hub/, overwrite only what this touches, on next build + next start)
-- `next build`; `next start -p 3021`; capture /games at 390; the band H2 reads `10-second` on one
-  line (no mid-word break). Save the new mobile capture; keep the "no dev badge" file naming.
-- Confirm the desktop 1440 render is unchanged (the explicit `<br>` still controls the desktop
-  break; the non-breaking hyphen is inert there).
-- Full suite still green: unit, e2e desktop + mobile, tsc 0, `next build` green. Route table
-  unchanged (`○ /games`, `○ /pt/games`, 1h). No em dashes, zero emoji, scope = this one file
-  (+ the refreshed mobile proof).
+### PHASE 1 - INDEXATION (the single biggest immediate lever: content exists, Bing ranks it, Google is under-indexed)
+- **PR-I1 Sitemap hygiene.** Ensure `sitemap.xml` lists every LIVE hub / quiz / article / blindtest /
+  pt page and EXCLUDES killed or 404 routes; correct `lastmod`; split into a sitemap index if oversize.
+  Verify no dead entries remain (killed `/games` sublinks, `/coer-quiz` -> `/cortis-quiz` 301). Prove:
+  fetch the sitemap, count URLs, spot-check a sample return 200.
+- **PR-I2 Internal-linking crawl paths.** Home + `/groups` link to ALL Tier A + Tier B hubs (cortis,
+  illit, seventeen, babymonster, aespa, stray-kids, blackpink, twice, bts, newjeans, le-sserafim, ive,
+  enhypen, txt, itzy). Each hub links UP to `/quizzes` and ACROSS to 2-3 sibling hubs (same generation
+  or company). Each article links INTO its target hub. Kill any orphan hub (a hub with no inbound
+  internal link). Prove: from home, every Tier A/B hub reachable in <= 2 clicks.
+- **PR-I3 Bing/IndexNow + robots/llms sanity.** Confirm IndexNow pings on publish, robots allows the
+  hubs + AI bots, `llms.txt` current. Some of this shipped in #31 - verify and only patch gaps.
 
-## CI
-Push the feature branch (main stays owner-gated): `git push origin feat/games-hub-redesign`. Wait
-for both jobs on the CURRENT head, paste the run URL in the REPORT. Do not merge.
+### PHASE 2 - W1 HEAD-TERM PUSH (hub on-page, in top-20 ROI order)
+Apply the SAME lever set to each hub: title + H1 + intro copy LEADING with the exact "{group} quiz"
+anchor; JSON-LD **Quiz + ItemList + FAQPage**; internal links INTO the hub with the exact "{group} quiz"
+anchor from home + sibling hubs + any article that mentions the group.
+- **PR-W1 Home + `/quizzes` head** ("kpop quiz" 5127i pos9 ; "kpop quizzes" pos18): title/H1/intro +
+  ItemList schema + internal links with "kpop quiz" / "kpop quizzes" anchors. Home title was tuned in
+  #31 - build on it, do not regress it.
+- **PR-W2 Cortis + ILLIT hubs** (3410i + 2347i, rookie, biggest impressions): full lever set.
+- **PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids hubs**: full lever set.
+- **PR-W4 Rescue `/blackpink-quiz` (pos10.6, CTR 3%) + `/twice-quiz` (pos9.3)**: full lever set. Biggest
+  fandoms ranking worst = pure upside.
 
-## WHEN DONE
-Update `docs/loop/REPORT.md`: the one-line change, the before/after of the band H2 wrap at 390,
-the new CI run URL on the current head, and that the only remaining owner gate is merging PR #23
-to main. Recompute nothing else changed. Do not push main. No em dashes.
+## PER-PR GATES (all must pass before the PR is done)
+`npx tsc --noEmit` 0, unit + e2e green, `pnpm --filter quiz build` green, render 200 on every touched
+route, every JSON-LD block parses, 0 em dashes, 0 en dashes, 0 emoji. Branch `feat/seo-<slug>`, push,
+`gh pr create --base main`, wait for CI green on the current head, paste the run URL in the REPORT.
+**DO NOT MERGE. DO NOT PUSH TO MAIN.**
+
+## WHEN DONE (per PR)
+Update `docs/loop/REPORT.md`: what changed, the target query + expected effect, the CI run URL, and that
+the only remaining gate is the owner merging the PR. Then move to the next PR in the list.
+
+## AFTER W1
+The next mission (do NOT start it here) is W2 - the freshness engine: a comeback/debut detector that
+auto-seeds a group hub within hours of a new group pulling its first GSC impressions.

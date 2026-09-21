@@ -1,55 +1,40 @@
-# REPORT - CONTENT ENGINE v2 (the autopilot)
+# REPORT - SEO GROWTH (Google indexation + W1 head-term push)
 
-Two branches, two PRs, both CI-green, **no push to main, no auto-merge, zero DB/DDL**. Turned the v1
-manual pipeline into a hands-off autopilot and proved it by shipping article #2 through that path.
+Small gated PRs, one per mission step, opened with `gh pr create --base main`, **never merged, never
+pushed to main** (owner merges each). Zero DB/DDL. No em/en dashes, no emoji. Proofs in
+`docs/proofs/seo-indexation/`.
 
-## PART 1 - the grounding layer (`docs/seo/KPOP-SOURCES.md`)
-Curated the authoritative sources with what each is good for and the fact-check rule per tier:
-Tier A profiles/data (kprofiles / Kpop Wiki / official label) for roster+debut+fandom, Tier B news
-(Soompi / allkpop / official SNS) for the freshness signal, Tier C charts (Circle / Billboard) for
-"what is charting" context. Six fact-check rules, including the one that stops the generation-label
-class of error v1 caught: only label uncontested gen buckets, neutral phrasing for boundary groups.
+## PHASE 1 - INDEXATION
 
-## PART 2 - the autopilot run-doc (`docs/loop/AUTO-CONTENT.md`)
-A fully self-contained procedure a fresh scheduled Claude session executes start to finish with no
-prior context: preconditions (repo guard + sync main + read the machinery) -> pick topic (backlog
-top, freshness override, non-cannibalizing) -> fact-check vs KPOP-SOURCES -> draft via the v1
-pipeline -> deterministic 3-file wire-up -> self-check gates -> branch + commit + push + open PR ->
-emit `EMAIL-<slug>.json` for Cowork. Explicit automatic-vs-human split: everything is automatic
-except the final PR **merge** (the human quality gate) and Cowork's Resend send + schedule. It never
-merges and never pushes to main.
-**PR #33** (branch `content/engine-v2`) - machinery only, CI green.
+### PR-I1 - Sitemap hygiene  (branch `feat/seo-sitemap-hygiene`)
+**What changed:** the sitemap was already hygienic (allow-list built from live DB, killed routes
+excluded by construction, honest lastmod, title-dedup) - proven: prod `/sitemap.xml` = 649 URLs,
+0 killed-pattern occurrences (games / coer-quiz / tier-list / rankings / battle / personality /
+avatar / pinterest / blind-test), all 15 Tier A/B hubs present, a 16-URL sample all HTTP 200. So no
+dead entry to remove. Instead of fabricating churn, PR-I1 ships the **lasting guarantee**: a
+regression gate `scripts/check-sitemap-hygiene.mts` (sibling to check:indexability/orphans/dupes)
+that fails CI if a killed route ever re-enters the sitemap, a priority hub drops out, or the file
+exceeds Google's 50k limit. Wired into the nightly `seo-gates.yml` + its Discord failure line.
+**Target query + effect:** structural - protects the indexation of all ~649 advertised URLs (the
+mission's "single biggest lever": content exists, Bing ranks it, Google is under-indexed). Keeps the
+crawl budget on live winners, never on 301/404 ghosts.
+**Gates:** tsc 0, unit 118/118, next build (green), gate positive (2992 local URLs, 0 killed, 15/15
+hubs) + negative (synthetic killed+missing -> exit 1) both proven. 0 em/en dash.
+**CI run URL:** https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35611707386 (PR #35)
+**Only remaining gate:** the owner merging the PR.
 
-## PART 3 - proof: article #2 shipped via the auto path
-Ran AUTO-CONTENT.md for real on the top backlog item.
-- **Article:** `/articles/who-is-cortis` - "Who Is Cortis? Members, Debut and Fandom Name".
-- **Target query:** "who is cortis / cortis members". **Data + freshness rationale:** Cortis is the
-  strategy's freshness weapon (GSC cortis cluster ~3410 impr; `/cortis-quiz` the #1 hub, 635 clicks);
-  the explainer surface is unowned by the quiz hub, so this widens it and funnels into `/cortis-quiz`
-  (non-cannibalizing).
-- **Facts (verified vs KPOP-SOURCES Tier A):** 5 members (Martin, James, Juhoon, Seonghyeon,
-  Keonho), BigHit Music / HYBE, debut Aug 18 2025 with "What You Want", fandom Coer - agreed across
-  kprofiles + Kpop Wiki, fandom confirmed by allkpop. **Hedged on purpose:** no generation number
-  (2025 rookie = newest wave), no positions/ages, no discography beyond the sourced debut single.
-- **seo-check:** render 200, single-brand title, Article + FAQPage (4 Q/A) + BreadcrumbList JSON-LD
-  all valid, in sitemap, inbound-linked from `/articles/rookie-kpop-groups-2026` (not orphaned),
-  primary link `/cortis-quiz` returns 200, no title/desc dupes across 21 articles, 0 em/en dash / 0 emoji.
-- **Email payload:** `docs/proofs/auto-content/EMAIL-who-is-cortis.json` (status ready_for_review, PR
-  url, GSC numbers, 3-line summary, fact-check notes, seo-check, CI run url) - Cowork sends via Resend.
-- **PR #34** (branch `content/auto-who-is-cortis`), CI green (unit + e2e + Vercel).
+### PR-I2 - Internal-linking crawl paths  (pending)
+### PR-I3 - Bing/IndexNow + robots/llms sanity  (pending)
 
-## Gates
-- Machinery PR #33: docs only, CI green (unit + e2e + Vercel).
-- Article PR #34: tsc 0, unit 118/118, `next build` 797/797 static (`/articles/[slug]` SSG),
-  render 200, CI green (unit + e2e + Vercel). Proof json in `docs/proofs/auto-content/`.
+## PHASE 2 - W1 HEAD-TERM PUSH
+### PR-W1 Home + /quizzes head  (pending)
+### PR-W2 Cortis + ILLIT  (pending)
+### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
+### PR-W4 Rescue blackpink + twice  (pending)
 
-## Could a scheduled session run AUTO-CONTENT.md unattended? Yes.
-This run WAS that procedure executed end to end: pick -> fact-check -> draft -> wire-up -> CI-green PR
--> email payload, with the only human step being the merge. Cowork now: (1) reads
-`EMAIL-who-is-cortis.json` and sends the first owner email via Resend, (2) sets up the scheduled task
-that runs `docs/loop/AUTO-CONTENT.md`. No push to main; the owner merges #33 then #34.
-
-## Shared-worktree note
-A concurrent chat's unpushed "tierlist push" commits had advanced LOCAL main to 5b0a9d7 while
-origin/main stayed cdc2fb8. Both my branches were re-based onto origin/main (cdc2fb8) so neither PR
-carries the other chat's work; their local commits are untouched. Staged every commit by explicit path.
+## Notes
+- The content-engine autopilot (`docs/loop/AUTO-CONTENT.md`) is a SEPARATE scheduled task and is NOT
+  touched by this mission. While this worker runs (tree not clean), that autopilot self-halts and
+  emails harmlessly; it resumes when the tree is clean and paused.
+- `docs/loop/MISSION.md` (the owner's mission spec) is committed on the PR-I1 branch, since the owner
+  wrote it into the tree and the worker commits it as it starts.
