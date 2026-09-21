@@ -1,0 +1,90 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Who Is Cortis? Members, Debut and Fandom Name",
+    "description": "Cortis, explained: the five members, the August 2025 debut under BigHit Music, what the name means, and the Coer fandom, plus where to take a Cortis quiz.",
+    "datePublished": "2026-09-21",
+    "dateModified": "2026-09-21",
+    "author": {
+      "@type": "Organization",
+      "name": "KpopQuiz Team",
+      "url": "https://kpopquiz.org"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "KpopQuiz",
+      "url": "https://kpopquiz.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kpopquiz.org/logo-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kpopquiz.org/articles/who-is-cortis"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kpopquiz.org"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://kpopquiz.org/articles"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Who Is Cortis? Members, Debut and Fandom Name",
+        "item": "https://kpopquiz.org/articles/who-is-cortis"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is Cortis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cortis is a five-member boy group under BigHit Music, HYBE's label. They debuted on August 18, 2025 with the digital single 'What You Want'. The members are Martin, James, Juhoon, Seonghyeon and Keonho."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many members does Cortis have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cortis has five members: Martin, James, Juhoon, Seonghyeon and Keonho. They debuted as a group with no prior lineup changes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When did Cortis debut?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cortis debuted on August 18, 2025 under BigHit Music, HYBE's label, with the digital single 'What You Want'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Cortis fandom name?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cortis's official fandom name is Coer. It combines 'Cor' from Cortis with '-er' for those who stand with the group, and echoes the word 'core'."
+        }
+      }
+    ]
+  }
+]
