@@ -5,11 +5,18 @@ import Link from 'next/link';
 export function HomeHero(): React.ReactElement {
   return (
     <section style={{ padding: '20px 0', textAlign: 'center' }}>
-      {/* §14c - challenge-hook headline */}
+      {/* §14c challenge-hook headline. W1 (head term "kpop quiz", 5127 impr, pos 9):
+          the H1 now LEADS with the exact "K-pop Quiz" anchor as an eyebrow line, so
+          the site's #1 page carries the keyword in its H1, while the challenge hook
+          stays the visual focus. The <title> tuned in #31 is untouched. */}
       <h1 style={{
         fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800,
         letterSpacing: '-0.025em', lineHeight: 1.04, margin: 0,
       }}>
+        <span style={{
+          display: 'block', fontSize: '0.4em', fontWeight: 700, letterSpacing: '0.02em',
+          color: 'var(--text-secondary)', marginBottom: 6,
+        }}>K-pop Quiz</span>
         Are you a{' '}
         <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>real fan?</span>
       </h1>
@@ -23,9 +30,12 @@ export function HomeHero(): React.ReactElement {
 
       {/* §2a - two CTAs */}
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginTop: 20 }}>
-        <Link href="/quizzes" className="btn-primary" aria-label="Browse quizzes">
+        {/* W1: exact-match anchor "K-pop quizzes" on the primary internal link into
+            /quizzes (the plural head term, stuck at pos 18) - the home page is the
+            strongest source of internal-link equity for that page. */}
+        <Link href="/quizzes" className="btn-primary" aria-label="Browse K-pop quizzes">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ marginRight: 6 }}><path d="M8 5v14l11-7z" /></svg>
-          Browse quizzes
+          Browse K-pop quizzes
         </Link>
         <Link href="/create" className="btn-outline" aria-label="Create a quiz">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true" style={{ marginRight: 6 }}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>

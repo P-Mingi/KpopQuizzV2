@@ -31,8 +31,18 @@ tests) asserting the public key file matches the exported key; runs on every PR.
 **Effect:** protects the Bing IndexNow pipeline from silent death. unit 121/121 (118 + 3). 0 em/en dash.
 CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35613784804 (PR #37)
 
+Phase 1 MERGED to main (PRs #35, #36, #37; main 645d707) - deployed, home links the cortis-quiz coin
+live (I2 verified on prod).
+
 ## PHASE 2 - W1 HEAD-TERM PUSH
-### PR-W1 Home + /quizzes head  (pending)
+### PR-W1 Home + /quizzes head  (branch `feat/seo-w1-head`)  DONE
+Both pages were already strongly optimized (title + ItemList shipped in #31; /quizzes also has H1 +
+FAQPage). The one real gap: the home H1 was "Are you a real fan?" with no keyword, on the site's #1
+page for "kpop quiz" (5127i pos9). Home changes only (`home-hero.tsx`): (1) H1 now LEADS with the
+exact "K-pop Quiz" anchor (eyebrow line) while keeping the challenge hook; (2) primary CTA "Browse
+quizzes" -> "Browse K-pop quizzes", an exact-match internal anchor into the pos-18 `/quizzes`. The
+tuned `<title>` is untouched (not regressed). tsc 0, unit 121/121, render 200, 0 em/en dash.
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35616813624 (PR #38)
 ### PR-W2 Cortis + ILLIT  (pending)
 ### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
 ### PR-W4 Rescue blackpink + twice  (pending)
