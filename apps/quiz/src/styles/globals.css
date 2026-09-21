@@ -7531,3 +7531,41 @@ main:has(.verse-page) { max-width: none; }
 .rtl-likes { color: #E8457A; }
 .rtl-views { color: var(--txt3); }
 @media (prefers-reduced-motion: reduce) { .rtl-card { transition: none; } .rtl-card:hover { transform: none; } }
+
+/* ==========================================================================
+   UX DASHBOARD v1 - tokens, behind NEXT_PUBLIC_UX_V1 (html.ux-v1). Everything
+   here is SCOPED to html.ux-v1, so flag-off is byte-identical to today.
+   Colour tokens are PREFIXED --uxv1-* so they never collide with the current
+   design's --bg / --brand / --txt* (existing pages, which render inside the
+   flag-on shell until Phase 2 re-skins them, keep their own tokens). The one
+   global change under the flag is the font: Inter for latin, Pretendard for
+   CJK, per the owner's Q4. Values verbatim from the prototype (DESIGN-SPEC 2 +
+   15.3), mirrored in lib/design-tokens.ts (UX_V1_LIGHT / UX_V1_DARK).
+   Dark reuses the EXISTING class system (html.dark), not [data-theme].
+   ========================================================================== */
+html.ux-v1 {
+  --font-body: var(--font-inter);
+  --font-display: var(--font-inter);
+  /* light */
+  --uxv1-bg: #FAF9F7; --uxv1-panel: #FFFFFF; --uxv1-tint: #F4F2EE; --uxv1-tint2: #EFECE7;
+  --uxv1-ink: #26221D; --uxv1-mut: #6F6A62; --uxv1-fnt: #A6A096;
+  --uxv1-line: #ECE8E1; --uxv1-line2: #E2DDD5;
+  --uxv1-pink: #E8457A; --uxv1-pink-dk: #C93868; --uxv1-pink-lt: #FCE8EF; --uxv1-pink-md: #F7CFDD;
+  --uxv1-ok: #3A8F5C; --uxv1-ok-bg: #E7F2E1; --uxv1-ok-line: #9CCB84;
+  --uxv1-no: #C0392B; --uxv1-no-bg: #FDE8E8; --uxv1-no-line: #F0A9A9;
+  --uxv1-amber-bg: #FAF0DC; --uxv1-warn: #B7791F;
+  --uxv1-sh: 0 1px 2px rgba(38,34,29,.05); --uxv1-sh-h: 0 12px 32px rgba(38,34,29,.10);
+  /* layout */
+  --uxv1-r: 16px; --uxv1-r-sm: 10px; --uxv1-r-pill: 999px; --uxv1-side: 232px; --uxv1-topbar: 64px;
+  --uxv1-content-max: 1200px; --uxv1-bottom-nav: 62px;
+}
+html.ux-v1.dark {
+  --uxv1-bg: #141118; --uxv1-panel: #1C1822; --uxv1-tint: #26212D; --uxv1-tint2: #332C3B;
+  --uxv1-ink: #F1ECE6; --uxv1-mut: #A8A0AF; --uxv1-fnt: #726B7C;
+  --uxv1-line: #2A2532; --uxv1-line2: #3A3343;
+  --uxv1-pink: #E8457A; --uxv1-pink-dk: #FF7AA5; --uxv1-pink-lt: #33202A; --uxv1-pink-md: #5A2A40;
+  --uxv1-ok: #5DE0A0; --uxv1-ok-bg: #16301F; --uxv1-ok-line: #2E6B45;
+  --uxv1-no: #FF7A7A; --uxv1-no-bg: #3A1A1A; --uxv1-no-line: #7A3030;
+  --uxv1-amber-bg: #2E2616; --uxv1-warn: #E9B963;
+  --uxv1-sh: 0 1px 2px rgba(0,0,0,.3); --uxv1-sh-h: 0 14px 34px rgba(0,0,0,.45);
+}
