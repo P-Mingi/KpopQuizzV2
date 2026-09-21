@@ -20,7 +20,7 @@ mission's "single biggest lever": content exists, Bing ranks it, Google is under
 crawl budget on live winners, never on 301/404 ghosts.
 **Gates:** tsc 0, unit 118/118, next build (green), gate positive (2992 local URLs, 0 killed, 15/15
 hubs) + negative (synthetic killed+missing -> exit 1) both proven. 0 em/en dash.
-**CI run URL:** <<fill after push>>
+**CI run URL:** https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35611707386 (PR #35)
 **Only remaining gate:** the owner merging the PR.
 
 ### PR-I2 - Internal-linking crawl paths  (pending)
