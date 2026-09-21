@@ -51,7 +51,9 @@ the PT-localization angle queued behind the `/pt` on-page work.
 - `pnpm test:unit`: **118 passed (118)**
 - `next build`: **compiled successfully** (see PART: build in `docs/proofs/content-engine/`)
 - em-dash / emoji sweep (article + registry + both docs): **0 / 0**
-- CI on the branch head: <<fill after push: PR CI run URL>>
+- CI on the branch head: PR **#32** (https://github.com/P-Mingi/KpopQuizzV2/pull/32); Tests run
+  https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35596576363 (push run 35596552208 already green:
+  unit pass). Vercel Preview building.
 
 ## Notes for the owner / Cowork
 - Zero DB. The article is code; merging it needs only a normal PR review.
