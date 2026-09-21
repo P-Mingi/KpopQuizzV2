@@ -52,7 +52,7 @@ FAQPage JSON-LD (>= 2 real Q/A). Added the **Cortis** title override (was missin
 freeze) leaning on the 2025 debut (no member/fandom claim - Cortis has neither in the DB). Proof:
 Cortis FAQ = 2 truthful Q (no fabricated fandom/members); ILLIT = 3 (member Q correctly skipped, real
 GLLIT fandom kept); BTS = full set. Visible `<dl>` matches the schema. All hubs get the FAQPage.
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35618661780 (PR #39)
 ### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
 ### PR-W4 Rescue blackpink + twice  (pending)
 
