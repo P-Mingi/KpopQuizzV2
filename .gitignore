@@ -74,6 +74,7 @@ docs/*
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/
+!docs/design/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
 !docs/COWORK-HANDOFF.md
