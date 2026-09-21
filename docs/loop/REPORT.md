@@ -30,7 +30,7 @@ Closed three real gaps in the hub crawl graph:
 No orphan priority hub remains (inbound from home + /groups + sibling sections).
 **Target query + effect:** structural - tightens the crawl graph feeding all 15 head-term hubs, the
 mission's biggest indexation lever. tsc 0, unit 118/118, build (CI). 0 em/en dash.
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35613126921 (PR #36)
 
 ### PR-I3 - Bing/IndexNow + robots/llms sanity  (pending)
 
