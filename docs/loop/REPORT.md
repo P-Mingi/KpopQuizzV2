@@ -29,7 +29,7 @@ rotated in `lib/indexnow.ts` but not in `public/<KEY>.txt` (or the file is delet
 403s and Bing (the #1 referrer) stops recrawling, invisibly. Added `src/lib/indexnow.test.ts` (3
 tests) asserting the public key file matches the exported key; runs on every PR.
 **Effect:** protects the Bing IndexNow pipeline from silent death. unit 121/121 (118 + 3). 0 em/en dash.
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35613784804 (PR #37)
 
 ## PHASE 2 - W1 HEAD-TERM PUSH
 ### PR-W1 Home + /quizzes head  (pending)
