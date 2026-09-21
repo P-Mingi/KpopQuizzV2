@@ -33,18 +33,19 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="which-groups">Which groups will you hear in a 2026 blind test?</h2>
       <p>
-        The pool spans every generation, but a current test leans on the acts carrying 2026. Among
-        the fifth-generation rookies, groups like Cortis, ILLIT and BABYMONSTER have moved fast from
+        The pool spans every generation, but a current test leans on the acts carrying 2026. The
+        newest breakout rookies, groups like Cortis, ILLIT and BABYMONSTER, have moved fast from
         debut to daily rotation, which is exactly why their songs now show up in a fresh blind test
         the way established acts do. Getting a rookie clip right is often the difference between a good
         score and a great one, because most players have logged fewer listens on a new group.
       </p>
       <p>
-        Above them sit the fourth-generation heavyweights, aespa, IVE, LE SSERAFIM, ENHYPEN, ITZY and
-        NewJeans, whose title tracks are some of the most-streamed clips in any round. And the
-        third-generation catalog is still the backbone of the game: BTS, BLACKPINK, TWICE, SEVENTEEN
-        and EXO have the deepest discographies, so their questions range from obvious lead
-        singles to b-sides that separate casual listeners from serious fans.
+        Above them sit the fourth-generation heavyweights, aespa, IVE, LE SSERAFIM, ENHYPEN and ITZY,
+        whose title tracks are some of the most-streamed clips in any round. NewJeans belongs in the
+        same conversation and turns up just as often. And the third-generation catalog is still the
+        backbone of the game: BTS, BLACKPINK, TWICE, SEVENTEEN and EXO have the deepest
+        discographies, so their questions range from obvious lead singles to b-sides that separate
+        casual listeners from serious fans.
       </p>
       <p className="art-highlight">
         <strong>Tip:</strong> if a clip stumps you, listen for the production era before the melody.

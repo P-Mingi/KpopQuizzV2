@@ -55,6 +55,12 @@ returning a fragment. Rules, matching the ranking articles:
   generation. When a number is unconfirmed (e.g. the blindtest song count, currently 300-vs-4000
   and unresolved), state the fact qualitatively ("hundreds of songs across every generation")
   rather than asserting a figure. A wrong fact is a worse outcome than a vaguer sentence.
+- **Generation labels are the classic trap** - verify EVERY "Nth-gen" tag before you attach it to a
+  named group, and only label groups whose generation is uncontested. Boundary groups are actively
+  debated: Stray Kids (2018) is 4th not 3rd gen; NewJeans, ILLIT and BABYMONSTER are argued between
+  4th and 5th. For a debated group, drop the label and use a neutral phrase ("the newest breakout
+  rookies", "belongs in the same conversation") instead of guessing. Safe, uncontested buckets:
+  3rd gen = BTS/BLACKPINK/TWICE/SEVENTEEN/EXO; 4th gen = aespa/IVE/LE SSERAFIM/ENHYPEN/ITZY.
 - **Structure devices** (`art-highlight` tip callouts, ordered lists) only when the content is
   genuinely a tip or a real sequence, never as decoration.
 - **CTAs**: `<div className="art-cta-inline">` with `art-cta-btn` (primary) + `art-cta-secondary`
