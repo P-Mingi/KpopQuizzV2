@@ -7,6 +7,8 @@ import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
+import { UX_V1 } from '@/lib/ux-v1';
+import { UxShell } from '@/components/layout/ux-v1/ux-shell';
 
 // RENDER-FIX: the site chrome. Moved OUT of the root layout so the root can drop
 // its one dynamic call (await headers() for the embed branch) and let every route
@@ -59,17 +61,26 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
           }),
         }}
       />
-      <div className="flex flex-col min-h-screen">
-        <Suspense fallback={<TopNavSkeleton />}>
-          <TopNav />
-        </Suspense>
-        <MobileTopBar />
-        <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
-          {children}
-        </main>
-        <SiteFooter play={<Footer />} />
-      </div>
-      <MobileTabBar />
+      {/* UX v1 shell behind NEXT_PUBLIC_UX_V1. Flag-off renders the EXISTING chrome
+          byte-identical; the site-wide JSON-LD above is shared by both, so search
+          engines read the same markup either way (contract rule 2). */}
+      {UX_V1 ? (
+        <UxShell>{children}</UxShell>
+      ) : (
+        <>
+          <div className="flex flex-col min-h-screen">
+            <Suspense fallback={<TopNavSkeleton />}>
+              <TopNav />
+            </Suspense>
+            <MobileTopBar />
+            <main className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-0 pb-24 md:pb-8">
+              {children}
+            </main>
+            <SiteFooter play={<Footer />} />
+          </div>
+          <MobileTabBar />
+        </>
+      )}
     </>
   );
 }

@@ -7569,3 +7569,63 @@ html.ux-v1.dark {
   --uxv1-amber-bg: #2E2616; --uxv1-warn: #E9B963;
   --uxv1-sh: 0 1px 2px rgba(0,0,0,.3); --uxv1-sh-h: 0 14px 34px rgba(0,0,0,.45);
 }
+
+/* --- UX v1 shell layout. Every selector is .uxv1-*, which only exists inside the
+   shell (rendered only when the flag is on), so this whole block is inert flag-off. --- */
+.uxv1-app { display: grid; grid-template-columns: var(--uxv1-side) minmax(0, 1fr); min-height: 100vh; background: var(--uxv1-bg); color: var(--uxv1-ink); }
+.uxv1-col { display: flex; flex-direction: column; min-width: 0; min-height: 100vh; }
+
+/* Sidebar */
+.uxv1-sidebar { position: sticky; top: 0; align-self: start; height: 100vh; display: flex; flex-direction: column; background: var(--uxv1-panel); border-right: 1px solid var(--uxv1-line); padding: 16px 12px; }
+.uxv1-sidebar-logo { padding: 6px 8px 14px; }
+.uxv1-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; overflow-y: auto; }
+.uxv1-nav-section { margin: 16px 8px 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--uxv1-fnt); }
+.uxv1-nav-section:first-child { margin-top: 4px; }
+.uxv1-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--uxv1-r-sm); font-size: 13.5px; font-weight: 600; color: var(--uxv1-ink); text-decoration: none; transition: background .12s ease, color .12s ease; }
+.uxv1-nav-item:hover { background: var(--uxv1-tint); }
+.uxv1-nav-item.is-active { background: var(--uxv1-pink-lt); color: var(--uxv1-pink-dk); }
+.uxv1-nav-icon { flex: none; opacity: .9; }
+.uxv1-nav-label { flex: 1; }
+.uxv1-nav-count { font-size: 11px; font-weight: 700; color: var(--uxv1-mut); background: var(--uxv1-tint2); border-radius: var(--uxv1-r-pill); padding: 1px 7px; }
+.uxv1-nav-item.is-active .uxv1-nav-count { color: var(--uxv1-pink-dk); background: var(--uxv1-panel); }
+.uxv1-sidebar-foot { border-top: 1px solid var(--uxv1-line); margin-top: 8px; padding-top: 10px; }
+.uxv1-user { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: var(--uxv1-r-sm); text-decoration: none; color: var(--uxv1-ink); }
+.uxv1-user:hover { background: var(--uxv1-tint); }
+.uxv1-user-avatar { width: 30px; height: 30px; border-radius: var(--uxv1-r-pill); object-fit: cover; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; flex: none; }
+.uxv1-user-avatar-guest { background: var(--uxv1-tint2); color: var(--uxv1-mut); }
+.uxv1-user-meta { display: flex; flex-direction: column; min-width: 0; }
+.uxv1-user-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.uxv1-user-streak { font-size: 11px; color: var(--uxv1-mut); }
+
+/* Top bar */
+.uxv1-topbar { position: sticky; top: 0; z-index: 30; height: var(--uxv1-topbar); display: flex; align-items: center; gap: 12px; padding: 0 24px; background: color-mix(in srgb, var(--uxv1-bg) 82%, transparent); backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--uxv1-line); }
+.uxv1-topbar-search { flex: 1; max-width: 460px; }
+.uxv1-topbar-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.uxv1-streak { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--uxv1-r-pill); background: var(--uxv1-pink-lt); color: var(--uxv1-pink-dk); font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.uxv1-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: var(--uxv1-r-sm); color: var(--uxv1-mut); }
+.uxv1-icon-btn:hover { background: var(--uxv1-tint); color: var(--uxv1-ink); }
+
+/* Content + footer */
+.uxv1-content { flex: 1; width: 100%; max-width: var(--uxv1-content-max); margin: 0 auto; padding: 24px 24px 48px; }
+.uxv1-footer { border-top: 1px solid var(--uxv1-line); }
+
+/* Mobile bottom nav (<= 760px) */
+.uxv1-mnav { display: none; }
+@media (max-width: 760px) {
+  .uxv1-app { grid-template-columns: minmax(0, 1fr); }
+  .uxv1-sidebar { display: none; }
+  .uxv1-topbar { padding: 0 14px; }
+  .uxv1-content { padding: 16px 14px calc(var(--uxv1-bottom-nav) + 24px); }
+  .uxv1-mnav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; height: calc(var(--uxv1-bottom-nav) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); display: flex; background: var(--uxv1-panel); border-top: 1px solid var(--uxv1-line); }
+  .uxv1-mnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: var(--uxv1-mut); text-decoration: none; }
+  .uxv1-mnav-item svg { stroke: currentColor; }
+  .uxv1-mnav-item.is-active { color: var(--uxv1-pink-dk); }
+}
+
+/* Appearance setting (/settings, flag-on) */
+.uxv1-appearance { padding: 2px 0 12px; }
+.uxv1-appearance-label { font-size: 13px; font-weight: 600; color: var(--uxv1-ink); margin: 0 0 8px; }
+.uxv1-appearance-seg { display: inline-flex; background: var(--uxv1-tint); border-radius: var(--uxv1-r-sm); padding: 3px; gap: 2px; }
+.uxv1-appearance-opt { border: 0; background: transparent; color: var(--uxv1-mut); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 8px; cursor: pointer; }
+.uxv1-appearance-opt.is-active { background: var(--uxv1-panel); color: var(--uxv1-ink); box-shadow: var(--uxv1-sh); }
+.uxv1-appearance-hint { font-size: 12px; color: var(--uxv1-mut); margin: 8px 0 0; }

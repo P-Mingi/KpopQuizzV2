@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/toast-provider';
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { UX_V1 } from '@/lib/ux-v1';
+import { UxAppearanceSetting } from '@/components/layout/ux-v1/ux-appearance-setting';
 import { SoundToggle } from '@/components/settings/sound-toggle';
 import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { NotificationPrefs } from '@/components/settings/notification-prefs';
@@ -621,6 +623,9 @@ export default function SettingsPage(): React.ReactElement {
       {/* Preferences */}
       <div className="bg-primary border border-default rounded-lg p-5 mt-4">
         <p className="text-sm font-medium text-primary mb-2">Preferences</p>
+        {/* UX v1: appearance (System/Light/Dark), behind the flag so flag-off is
+            unchanged. Reuses the existing class-based theme system. */}
+        {UX_V1 && <UxAppearanceSetting />}
         <SoundToggle />
         <HapticsToggle />
         <div className="flex items-center justify-between py-2">
