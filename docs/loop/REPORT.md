@@ -43,7 +43,16 @@ exact "K-pop Quiz" anchor (eyebrow line) while keeping the challenge hook; (2) p
 quizzes" -> "Browse K-pop quizzes", an exact-match internal anchor into the pos-18 `/quizzes`. The
 tuned `<title>` is untouched (not regressed). tsc 0, unit 121/121, render 200, 0 em/en dash.
 CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35616813624 (PR #38)
-### PR-W2 Cortis + ILLIT  (pending)
+### PR-W2 Cortis + ILLIT  (branch `feat/seo-w2-cortis-illit`)  DONE
+The hub lever set was mostly already shipped (H1 leads "{group} Quiz"; ItemList present; Quiz schema
+lives on the `/q/` pages; internal anchors from PR-I2). The real gap: **no FAQPage on any hub**. Added
+a shared, fact-gated FAQ to `group-quiz-page.tsx` - `buildGroupFaqs` builds Q/A from real facts only,
+reusing the hero's gates (placeholder fandom + memberCount>0), feeding BOTH a visible `<dl>` and the
+FAQPage JSON-LD (>= 2 real Q/A). Added the **Cortis** title override (was missing; not in the CTR
+freeze) leaning on the 2025 debut (no member/fandom claim - Cortis has neither in the DB). Proof:
+Cortis FAQ = 2 truthful Q (no fabricated fandom/members); ILLIT = 3 (member Q correctly skipped, real
+GLLIT fandom kept); BTS = full set. Visible `<dl>` matches the schema. All hubs get the FAQPage.
+CI: <<fill after push>>
 ### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
 ### PR-W4 Rescue blackpink + twice  (pending)
 
