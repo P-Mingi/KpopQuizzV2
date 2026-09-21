@@ -104,6 +104,10 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   const [playlistLabel, setPlaylistLabel] = useState('All K-pop');
   // U-2b: multi-group pick (up to 3). Empty = a general/single playlist pick.
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  // Owner-validated (2026-09-20): a "By group" toggle. Off by default keeps the
+  // setup clean (All / type / generation); on reveals a single-group picker, and
+  // choosing a group overrides + dims type & generation.
+  const [showGroups, setShowGroups] = useState(false);
   // U-2c: round count (5/10/15). Daily mode ignores this (its own fixed-10 route).
   const [roundCount, setRoundCount] = useState(10);
   // Only a by-group pick carries a real group for the cross-promo. A single
@@ -387,16 +391,13 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     setSelectedGroups([]); // general/type/gen pick clears any group selection
   };
 
-  // U-2b: toggle a group in the multi-select (cap 3). Picking any group switches
-  // the pick away from All/type/generation.
-  const toggleGroup = (slug: string): void => {
+  // Owner-validated single-group pick: choosing a group replaces the selection (a
+  // group blindtest is one group, every era of theirs); tapping it again clears it
+  // back to All. It overrides any type/generation pick.
+  const pickSingleGroup = (slug: string): void => {
     setPickKind('group');
     setPlaylist('all');
-    setSelectedGroups((prev) => {
-      if (prev.includes(slug)) return prev.filter((s) => s !== slug);
-      if (prev.length >= 3) return prev;
-      return [...prev, slug];
-    });
+    setSelectedGroups((prev) => (prev.length === 1 && prev[0] === slug ? [] : [slug]));
   };
 
   const score = answers.filter((a) => a.correct).length;
@@ -441,6 +442,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
 
   // ============================================ SETUP
   if (phase === 'setup') {
+    const groupChosen = selectedGroups.length > 0;
     return (
       <div className="bt-screen">
         <div className="bt-setup">
@@ -454,63 +456,92 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               className={`bt-pick-all${pickKind === 'all' ? ' on' : ''}`}
               onClick={() => choosePlaylist('all', 'all', 'All K-pop')}
               aria-pressed={pickKind === 'all'}
+              style={{ opacity: groupChosen ? 0.4 : 1, transition: 'opacity .15s ease' }}
             >
               <span className="bt-pick-all-title">All K-pop</span>
               <span className="bt-pick-all-sub">Every group, every generation</span>
             </button>
 
-            <p className="bt-pick-heading">By type</p>
-            <div className="bt-chip-row">
-              {GENDER_PICKS.map((g) => (
-                <button
-                  key={g.id}
-                  type="button"
-                  className={`bt-chip${playlist === g.id ? ' on' : ''}`}
-                  onClick={() => choosePlaylist('type', g.id, g.label)}
-                  aria-pressed={playlist === g.id}
-                >
-                  {g.label}
-                </button>
-              ))}
-            </div>
-
-            <p className="bt-pick-heading">By generation</p>
-            <div className="bt-chip-row">
-              {GENERATIONS.map((g) => (
-                <button
-                  key={g.id}
-                  type="button"
-                  className={`bt-chip${playlist === g.id ? ' on' : ''}`}
-                  onClick={() => choosePlaylist('gen', g.id, g.label)}
-                  aria-pressed={playlist === g.id}
-                >
-                  {g.label}
-                </button>
-              ))}
-            </div>
-
+            {/* Owner-validated By-group toggle: off by default; on reveals a single-
+                group picker. A chosen group overrides + dims type & generation. */}
             {groups.length > 0 && (
-              <p className="bt-pick-heading">
-                By group <span className="bt-pick-hint">pick up to 3</span>
-              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0 2px' }}>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={showGroups}
+                  onClick={() => { setShowGroups((v) => !v); if (showGroups) choosePlaylist('all', 'all', 'All K-pop'); }}
+                  aria-label="Choose one group"
+                  style={{
+                    position: 'relative', width: 44, height: 26, flex: 'none', cursor: 'pointer',
+                    borderRadius: 999, border: '1px solid var(--border)', padding: 0,
+                    background: showGroups ? 'var(--brand)' : 'var(--surface-alt)',
+                    transition: 'background .18s ease',
+                  }}
+                >
+                  <span aria-hidden="true" style={{
+                    position: 'absolute', top: 2, left: showGroups ? 20 : 2, width: 20, height: 20,
+                    borderRadius: '50%', background: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,.25)',
+                    transition: 'left .18s ease',
+                  }} />
+                </button>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--txt1)' }}>By group</div>
+                  <div style={{ fontSize: 12.5, color: 'var(--txt2)' }}>One group only, every era of theirs</div>
+                </div>
+              </div>
             )}
-            <div className="bt-group-grid">
-              {groups.map((g) => {
-                const on = selectedGroups.includes(g.slug);
-                const capped = !on && selectedGroups.length >= 3;
-                return (
+            {showGroups && groups.length > 0 && (
+              <div className="bt-group-grid">
+                {groups.map((g) => {
+                  const on = selectedGroups.length === 1 && selectedGroups[0] === g.slug;
+                  return (
+                    <button
+                      key={g.slug}
+                      type="button"
+                      className={`bt-chip${on ? ' on' : ''}`}
+                      onClick={() => pickSingleGroup(g.slug)}
+                      aria-pressed={on}
+                    >
+                      {g.name}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <div style={{ opacity: groupChosen ? 0.4 : 1, pointerEvents: groupChosen ? 'none' : 'auto', transition: 'opacity .15s ease' }} aria-hidden={groupChosen}>
+              <p className="bt-pick-heading">By type</p>
+              <div className="bt-chip-row">
+                {GENDER_PICKS.map((g) => (
                   <button
-                    key={g.slug}
+                    key={g.id}
                     type="button"
-                    className={`bt-chip${on ? ' on' : ''}`}
-                    onClick={() => toggleGroup(g.slug)}
-                    aria-pressed={on}
-                    disabled={capped}
+                    className={`bt-chip${playlist === g.id ? ' on' : ''}`}
+                    onClick={() => choosePlaylist('type', g.id, g.label)}
+                    aria-pressed={playlist === g.id}
+                    tabIndex={groupChosen ? -1 : 0}
                   >
-                    {g.name}
+                    {g.label}
                   </button>
-                );
-              })}
+                ))}
+              </div>
+
+              <p className="bt-pick-heading">By generation</p>
+              <div className="bt-chip-row">
+                {GENERATIONS.map((g) => (
+                  <button
+                    key={g.id}
+                    type="button"
+                    className={`bt-chip${playlist === g.id ? ' on' : ''}`}
+                    onClick={() => choosePlaylist('gen', g.id, g.label)}
+                    aria-pressed={playlist === g.id}
+                    tabIndex={groupChosen ? -1 : 0}
+                  >
+                    {g.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <p className="bt-pick-heading">Rounds</p>
@@ -534,7 +565,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
           <button type="button" className="bt-start" onClick={start}>
             Start <span className="bt-start-pl">{selectedGroups.length > 0 ? `${selectedGroups.map((s) => groups.find((g) => g.slug === s)?.name ?? s).join(' + ')} · ${roundCount}` : `${playlistLabel} · ${roundCount}`}</span>
           </button>
-          <Link href="/games" className="bt-back">Back to games</Link>
+          <Link href="/" className="bt-back">Back home</Link>
         </div>
       </div>
     );

@@ -1,59 +1,56 @@
-# REPORT - PERF 3s NAV: kill the per-request dynamic render on the public nav pages
+# REPORT - PR #27 UI-POLISH: rebased on the new main, re-CI, merge-ready for the screenshot audit
 
-Branch `perf/free-viability-2` off main `dda4880` (includes #28). Same patron as #28: a PUBLIC
-page that reads cookies only for public data is forced into DYNAMIC rendering, so it re-renders
-per request on nano (the ~3s nav). CODE ONLY. Zero DDL, zero content/layout change, no push to
-main. Behaviour preserved for signed-in users (none of the touched reads were user-specific).
+Branch `refonte/ui-polish` (PR #27). Three validated UI tweaks, opened before the #26 kill and the
+#28/#29 perf work landed, so it was stale on the old main with a stale-saturation CI red. Rebased
+onto the current main. NO push to main, NO merge (owner gate). No content/behaviour change beyond
+the three intended UI tweaks.
 
-## The bug (owner-observed, Cowork-diagnosed)
-`/blindtest` declared `revalidate=3600` but `getStats()` called `await createServerClient()` (the
-COOKIE client) for two count queries (active songs, groups). Reading cookies opts the WHOLE route
-into dynamic rendering, so Next ignored the revalidate and rendered per request. Those counts feed
-only the static "300+ songs / 60+ groups" label - they never needed to be live per request.
+## The rebase (clean, zero drift)
+- Base moved: `dfc009c` (kill-era) -> `origin/main` `5059264` (has #26 kill + #28 + #29).
+- Old tip `0af60ca` -> new tip `a0afe91`. Branch is 1 ahead of main, 0 behind (fast-forwardable).
+- NO conflicts: main never touched the three files this commit changes (verified
+  `git diff dfc009c..origin/main` on those paths = empty), so the single commit replayed cleanly.
+- Owner's uncommitted docs (VERSE-LEDGER.md, MISSION.md) preserved via `--autostash`.
 
-## What changed (each route flipped to Static/ISR)
+## Only the 3 intended UI changes survive (proof: docs/proofs/ui-polish-27/range-diff.txt)
+`git range-diff dfc009c..0af60ca  origin/main..a0afe91` prints `1: 0af60ca = 1: a0afe91` - the `=`
+means the patch is byte-identical across the rebase (zero drift). `git diff origin/main..HEAD
+--stat` shows exactly three files, nothing else:
 
-| Route | Before | After | How |
-|---|---|---|---|
-| `/blindtest` | `ƒ` Dynamic (no-store) | `○` Static, 1h | getStats -> cookie-free `createPublicReadClient` + `unstable_cache` (catalog TTL), try/catch OUTSIDE the cache |
-| `/pt/blindtest` | `ƒ` Dynamic | `○` Static, 1h | same fix (the pt mirror) |
-| `/blindtest/[mode]` | `ƒ` Dynamic | `●` SSG/ISR, 1h | `generateStaticParams` from `STATIC_MODES` (a DB-free code constant) + `revalidate`; group modes on-demand |
+| File | Change (the validated tweak) |
+|---|---|
+| `components/layout/top-nav-links.tsx` | active tab = solid filled-brand PILL: `background: accent`, `color:#fff`, `borderRadius:999`, underline removed |
+| `components/blind-test/blindtest-game.tsx` | "By group" toggle -> single-group select grid |
+| `components/ui/group-logo.tsx` | BLACKPINK inline coin recolored: `#F06292` fill + `#FFFFFF` box/text (no black blob) |
 
-The two blindtest pages now share ONE cached reader, `getBlindtestStats` in
-`lib/db/queries/blindtest.ts` (the counts are locale-independent, so one entry serves both).
-
-## Swept and left as-is (with reason)
-- `/quizzes`: **the mission's premise that it is "already ISR/HIT" is inaccurate.** It reads
-  `searchParams` (browse filters group/type/sort/page), which forces dynamic rendering - it
-  cannot be full-route-cached without moving filtering client-side (a behaviour change, out of
-  scope). Its DB reads are already cookie-free + `unstable_cache`d (#28), so it renders fast
-  (~0.2-0.3s warm, http 200 - not 3s). Left untouched; the nav is not slow for a DB reason.
-- `/blindtest/leaderboard`: `searchParams` (`?date=`) - same legitimate dynamic category. Out of scope.
-- `/leaderboard` (Community), `/trivia`, `/` (home): already `○` Static. `/[slug]` group hubs:
-  `●` (stayed ISR from #28). Verified, not rewritten.
-- Verse / `/quiz/[id]/edit` / `/notifications` / `/search` / builder / admin / auth: use
-  `createServerClient` for genuinely per-user or searchParams reasons. NOT touched.
-
-## Proof (docs/proofs/perf-nav/, on next build + next start, never dev)
-- Route table before/after: `route-modes.txt` (the 3 flips above; /quizzes stays ƒ, explained).
-- next start cache: `cache-headers.txt` - `/blindtest` + `/pt/blindtest` -> `x-nextjs-cache: HIT`;
-  `/blindtest/classic` (prerendered static mode) HIT; `/blindtest/group-bts` (on-demand) MISS then HIT.
-- `next build` exit 0 (795 static pages, was 795-ish; no export error - the try/catch-outside
-  keeps the now-Static /blindtest build DB-independent). `tsc --noEmit` 0 errors. Unit 118/118.
-- SEO gates: `check:routes` (303 routes) + `check:verse-tokens` green in the build.
-  `check:indexability` ran a COMPLETE crawl of all 2988 sitemap URLs and passed (this is the
-  gate that actually exercises the changed /blindtest pages - they stay indexable). `check:
-  metadata-dupes` + `check:orphans` are nightly-CI gates (`seo-gates.yml`, off the push path
-  because they crawl every sitemap URL); this change touches no metadata, links or sitemap
-  entries, so they are invariant to it, and they run nightly against prod.
+## Verification
+- `tsc --noEmit`: 0 errors. Unit: 118/118. range-diff: identical (above).
+- Route table UNCHANGED vs main BY CONSTRUCTION: the diff touches only three CLIENT component
+  files - zero page.tsx / render-config / generateStaticParams changes - so no route can change
+  mode. (No route-table diff to show because nothing route-affecting changed.)
+- `next build` LOCAL: not completed - the Supabase nano origin was returning 522 (Cloudflare
+  "Connection timed out") during the attempt, so page prerenders hit the 60s limit. This is the
+  same transient DB-saturation the CI has hit before, NOT the rebase (which is byte-identical to
+  the already-green 0af60ca content). I stopped the local build rather than keep hammering a
+  struggling production origin. The build runs on CI + the Vercel preview (their infra) instead.
+- Screenshots (1440 + 390): PARTIAL, blocked by the intermittent nano 522.
+  - nav pill: CONFIRMED - "Home"/"Blindtest" active tab renders as the solid filled-brand pink
+    pill with white text (DB-independent chrome, captured cleanly).
+  - blindtest by-group toggle: could not capture - the toggle only renders when `groups.length
+    > 0` (blindtest-game.tsx:467), and getBlindtestGroups returned empty on every attempt because
+    the DB was 522-ing. Not a code issue.
+  - BLACKPINK coin: could not capture - /blackpink-quiz hit the error boundary because
+    getGroupBySlug threw on a 522.
+  - Both data-dependent shots are blocked by the SAME transient DB saturation that failed my
+    local build and the Vercel preview. Playwright's headless browser is not installed and I did
+    not install it (owner rule). The definitive isolation proof is the range-diff (byte-identical
+    to the already-owner-validated 0af60ca), which answers "did the rebase change the 3 tweaks"
+    more strongly than a screenshot. Remaining two shots: capture from the Vercel preview once it
+    redeploys on a healthy-DB window, or re-run when the nano stabilizes.
+- CI run: PR #27 https://github.com/P-Mingi/KpopQuizzV2/pull/27
 - No em dashes, zero emoji.
 
 ## Owner gate remaining
-1. CI green on the branch (unit + e2e). PR: https://github.com/P-Mingi/KpopQuizzV2/pull/29
-2. Review + merge `perf/free-viability-2` to main (owner-gated). After deploy, clicking Blindtest
-   in the top nav serves cached HTML (no ~3s render).
-
-## Out-of-scope observation (NOT fixed here)
-`/blindtest` still links to `/games/this-or-that` and `/games/name-all` (page.tsx lines ~227/245),
-which the #26 kill removed (they now 301 to /quizzes). Dead internal links - a content fix for a
-separate change, flagged not touched (this mission is render-mode only).
+1. CI green on the rebased head (unit + e2e).
+2. Cowork audits the three screenshots.
+3. Owner merges `refonte/ui-polish` to main. NOT done here.
