@@ -1,0 +1,41 @@
+SEO AUDIT - codebase sweep output (read-only agent run over apps/quiz/src, 2026-09-21)
+This is the raw file-level sweep that feeds docs/seo/AUDIT.md. Condensed; file:line refs are exact.
+
+TITLE TEMPLATE: root layout.tsx:53-56 sets `%s | KpopQuiz`. Default: "KpopQuiz - Play K-pop Quizzes Made by Fans for Fans".
+
+ON-PAGE (per template):
+- Home page.tsx:31 title "KpopQuiz - K-pop Quizzes Made by Fans" (string -> template appends) => rendered <title> doubles the brand "KpopQuiz ... | KpopQuiz". H1 in HomeHero. canonical / + hreflang en/pt-BR/x-default (:43-50).
+- /quizzes quizzes/page.tsx:65 title "K-pop Quizzes: {countLabel} Free Fan-Made Tests, Every Group"; H1 :233; self-canonical, ?group= facet cross-canonicals to /{slug}-quiz (:49), other facets noindex,follow (:84); FAQPage JSON-LD :286. Sound.
+- Group hub group-quiz-page.tsx:57 title override-map(:36-44, 7 groups) else "{name} Quiz: {n} Free Fan-Made Tests"; desc :68 live-count; H1 :147; canonical /{slug}-quiz (:79); no hreflang (no PT mirror - ok).
+- Group trivia group-trivia-page.tsx:109 title "{name} Trivia: {factCount} Facts Only Real Fans Know"; canonical /{slug}-trivia; route-gated <12 facts -> true 404 ([slug]/page.tsx:67).
+- Quiz page q/[slug]/page.tsx:113 title "{middle-ellipsized} · {N} questions"; desc creator_note else per-quiz template leading with quiz title; canonical /q/{slug} (:138).
+- /blindtest blindtest/page.tsx:13 title "K-pop Blind Test - Guess the Song from a Clip"; canonical+hreflang; H1 "Name that K-pop song" (no "blind test" kw); COUNT INCONSISTENCY: desc+webAppJsonLd "300+/60+" (:14,:111) vs OG url "4000+/87+" (:28).
+- Articles articles/[slug]/page.tsx:30 title article.title; canonical /articles/{slug}; per-article robots.noindex honored (:46).
+
+JSON-LD:
+- Site-wide layout.tsx: Organization(:31)+SiteNavigationElement(:51).
+- Home page.tsx:214 WebSite+SearchAction (NO ItemList of featured quizzes - gap).
+- Group hub: CollectionPage->ItemList(:352) + 2nd ItemList "ways to play"(:375) + BreadcrumbList.
+- Group trivia :269 Article+about:MusicGroup+BreadcrumbList.
+- Quiz page :574 Quiz(about MusicGroup, hasPart Questions, interactionStatistic, author Person)+BreadcrumbList.
+- /blindtest :269 FAQPage+WebApplication+BreadcrumbList.
+- /quizzes BreadcrumbList+conditional FAQPage (NO grid ItemList - minor gap).
+- Articles Article+BreadcrumbList+conditional FAQPage.
+- No malformed schema; user strings escaped via jsonLdScript sink (lib/verse/jsonld.ts).
+
+CANONICAL/NOINDEX/HREFLANG:
+- All major indexable templates self-canonical. metadataBase layout.tsx:47.
+- noindex (intentional): /embed/*, /admin/*, /settings, /create, /search, /login, /onboarding, /me, /profile, /notifications, /banned, /quiz/[id]/edit, /build/[slug], /blindtest/leaderboard(:55), thin /u/[username] <3 quizzes(:82), /quizzes facets(:84).
+- FLAG: /news is robots{index:false} (news/page.tsx:13) - confirm intentional (potential accidental deindexation).
+- hreflang en/pt-BR/x-default reciprocal across the mirrored static set + all /pt/*; /pt/layout.tsx:19 lang=pt-BR. Group hubs/quiz/trivia set no hreflang (correct - no PT equivalent).
+
+DEAD /games LINKS (killed by #26, now 301 hops - equity leak). Indexable-surface ones are priority:
+- INDEXABLE: lib/articles/content/hardest-kpop-quizzes.tsx:132 (/games/name-all); lib/articles/content/hardest-kpop-groups-to-memorize.tsx:116 (/games/name-all); components/quiz/popular-page.tsx:155 (/games) [renders on /quizzes/popular-*].
+- blindtest/page.tsx:227 (/games/this-or-that), :245 (/games/name-all); pt/blindtest/page.tsx:159,:177; news/page.tsx:516 (/games); pt/stats/page.tsx:168 (/games); components/game/blind-test-player.tsx:493; components/verse/verse-teaser.tsx:36; verse/[slug]/members/[idol]/page.tsx:142.
+- No live links to /tier-list, /rankings, /battle, /personality, /avatar, /pinterest, /which-* (only allowlist/regex refs).
+
+INTERNAL LINKING to hubs: home HomeGroupPills->/{slug}-quiz(:42)+/groups(:37); quiz page->hub breadcrumb+about.url+"All {group} quizzes"; hub->related hubs(:341); /quizzes FAQ hard-links bts/blackpink/stray-kids(:217). Orphan control: hub SSRs 10 + <noscript> lists EVERY quiz(:231); /groups A-Z indexable in sitemap. Healthy; weakness = capped home rail (mitigated by /groups).
+
+IMAGE ALT: core SEO images have descriptive alt (quiz covers, question images, logos). alt="" on: group-hub member faces (group-hub-sections.tsx:132, name in adjacent span - arguably-content image with empty alt, minor image-search miss); leaderboard/admin/essays avatars (noindex/decorative - ok); mascot (decorative - ok). No missing-alt on indexable Play templates.
+
+SITEMAP sitemap.ts (allow-list, omission=exclusion): static core + /pt(:121) + articles(non-noindex :136) + blindtest modes/playlists + group hubs /{slug}-quiz (quiz_count>0 :236) + trivia /{slug}-trivia (>=12 facts :245) + quiz /q/{slug} (dedup :276) + pulse + Verse(gated verseHidden :371). NO killed-feature URLs. Honest lastmod. DB-fail fallback to static-only(:282). Hardcoded STATIC_DATE 2026-06-15 - bump when pages change.

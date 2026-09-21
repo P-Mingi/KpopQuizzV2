@@ -1,56 +1,56 @@
-# REPORT - PR #27 UI-POLISH: rebased on the new main, re-CI, merge-ready for the screenshot audit
+# REPORT - SEO AUDIT ULTRA (post-refonte, read-only)
 
-Branch `refonte/ui-polish` (PR #27). Three validated UI tweaks, opened before the #26 kill and the
-#28/#29 perf work landed, so it was stale on the old main with a stale-saturation CI red. Rebased
-onto the current main. NO push to main, NO merge (owner gate). No content/behaviour change beyond
-the three intended UI tweaks.
+Branch `seo/p0-audit` off main `0cc9399` (kill #26, cache #28, 3s-nav #29, ui-polish #27 all merged).
+READ ONLY: nothing in `src/` changed. No push to main. Deliverable: `docs/seo/AUDIT.md` + proofs.
 
-## The rebase (clean, zero drift)
-- Base moved: `dfc009c` (kill-era) -> `origin/main` `5059264` (has #26 kill + #28 + #29).
-- Old tip `0af60ca` -> new tip `a0afe91`. Branch is 1 ahead of main, 0 behind (fast-forwardable).
-- NO conflicts: main never touched the three files this commit changes (verified
-  `git diff dfc009c..origin/main` on those paths = empty), so the single commit replayed cleanly.
-- Owner's uncommitted docs (VERSE-LEDGER.md, MISSION.md) preserved via `--autostash`.
+## What was done
+- Grounded the whole audit in real GSC data: the owner's FRESH 6-month export (2026-09-21: 3.46k
+  clicks, 46.5k impr, 7.5% CTR, pos 7.8) cross-checked with the committed 3-month `DATA-19SEP.md`.
+- Technical facts from the live site + a clean local build (795 static pages, exit 0, ZERO 522 - DB
+  now Supabase Pro/micro, stable): robots.txt, sitemap (646 URLs), render-mode table, Googlebot 2MB
+  HTML check, image/LCP signals.
+- File-level codebase sweep (on-page templates, JSON-LD per template, canonical/noindex/hreflang, dead
+  internal links, internal linking to hubs, image alt, sitemap.ts).
+- claude-seo v2.3.1 checklist methodology folded in.
 
-## Only the 3 intended UI changes survive (proof: docs/proofs/ui-polish-27/range-diff.txt)
-`git range-diff dfc009c..0af60ca  origin/main..a0afe91` prints `1: 0af60ca = 1: a0afe91` - the `=`
-means the patch is byte-identical across the rebase (zero drift). `git diff origin/main..HEAD
---stat` shows exactly three files, nothing else:
+## claude-seo install status
+CLONED cleanly; NOT formally installed. Why: its install needs the interactive `/plugin` Claude Code
+command (unavailable in this non-interactive session) OR `install.sh`/`/seo setup` which provision a
+Playwright-Chromium + Python runtime (heavy install the owner asked to avoid, out of the read-only
+scope). Its skill checklists were READ and applied (2MB fetch cap, crawl depth, GEO/llms.txt, IndexNow).
+Full note: `docs/proofs/seo-audit/claude-seo-status.txt`.
 
-| File | Change (the validated tweak) |
-|---|---|
-| `components/layout/top-nav-links.tsx` | active tab = solid filled-brand PILL: `background: accent`, `color:#fff`, `borderRadius:999`, underline removed |
-| `components/blind-test/blindtest-game.tsx` | "By group" toggle -> single-group select grid |
-| `components/ui/group-logo.tsx` | BLACKPINK inline coin recolored: `#F06292` fill + `#FFFFFF` box/text (no black blob) |
+## Verdict: the technical base is SOUND (no hard P0). The wins are CTR/ranking + freshness + small leaks
+- P0.1 (confirm): `/news` `index:false` - possible accidental deindexation, settle intent.
+- P1 (big): home `<title>` brand-doubling on the top page (ranks "kpop quiz" pos 9.14, CTR 4.21%);
+  `/quizzes` stuck at pos 18.22; MISSING fresh-group hubs (`/coer-quiz` 404 despite 32 clicks pos
+  4.81); dead `/games` links on indexable article bodies + popular-page; hub-vs-quiz slug
+  cannibalization (illit/cortis); evergreen big hubs under-perform (blackpink pos 10.64 CTR 3.02%);
+  trivia/test/"name all"/"guess by picture" query-intent coverage.
+- P2 (polish): blindtest 300+/60+ vs OG 4000+/87+ count conflict; robots `*` missing
+  /admin//settings//onboarding Disallow; no ItemList JSON-LD on home + /quizzes; group-hub member-face
+  `alt=""`; /blindtest H1 missing "blind test" kw; /pt under-localized; kpopquiz.io brand confusion;
+  Bing >> Google referrer = Google headroom.
 
-## Verification
-- `tsc --noEmit`: 0 errors. Unit: 118/118. range-diff: identical (above).
-- Route table UNCHANGED vs main BY CONSTRUCTION: the diff touches only three CLIENT component
-  files - zero page.tsx / render-config / generateStaticParams changes - so no route can change
-  mode. (No route-table diff to show because nothing route-affecting changed.)
-- `next build` LOCAL: not completed - the Supabase nano origin was returning 522 (Cloudflare
-  "Connection timed out") during the attempt, so page prerenders hit the 60s limit. This is the
-  same transient DB-saturation the CI has hit before, NOT the rebase (which is byte-identical to
-  the already-green 0af60ca content). I stopped the local build rather than keep hammering a
-  struggling production origin. The build runs on CI + the Vercel preview (their infra) instead.
-- Screenshots (1440 + 390): PARTIAL, blocked by the intermittent nano 522.
-  - nav pill: CONFIRMED - "Home"/"Blindtest" active tab renders as the solid filled-brand pink
-    pill with white text (DB-independent chrome, captured cleanly).
-  - blindtest by-group toggle: could not capture - the toggle only renders when `groups.length
-    > 0` (blindtest-game.tsx:467), and getBlindtestGroups returned empty on every attempt because
-    the DB was 522-ing. Not a code issue.
-  - BLACKPINK coin: could not capture - /blackpink-quiz hit the error boundary because
-    getGroupBySlug threw on a 522.
-  - Both data-dependent shots are blocked by the SAME transient DB saturation that failed my
-    local build and the Vercel preview. Playwright's headless browser is not installed and I did
-    not install it (owner rule). The definitive isolation proof is the range-diff (byte-identical
-    to the already-owner-validated 0af60ca), which answers "did the rebase change the 3 tweaks"
-    more strongly than a screenshot. Remaining two shots: capture from the Vercel preview once it
-    redeploys on a healthy-DB window, or re-run when the nano stabilizes.
-- CI run: PR #27 https://github.com/P-Mingi/KpopQuizzV2/pull/27
-- No em dashes, zero emoji.
+## Top-10 quick wins (in AUDIT.md, ranked impact/effort)
+Home title fix; repoint indexable dead /games links; settle /news noindex; fix blindtest count;
+robots Disallow admin/settings/onboarding; ItemList JSON-LD home+/quizzes; big-hub internal-link boost;
+/blindtest H1 keyword; repoint remaining /games links; seed /coer-quiz + fresh-hub trigger.
 
-## Owner gate remaining
-1. CI green on the rebased head (unit + e2e).
-2. Cowork audits the three screenshots.
-3. Owner merges `refonte/ui-polish` to main. NOT done here.
+## Proof battery (`apps/quiz/docs/proofs/seo-audit/`)
+route-modes.txt, technical-facts.txt, gsc-evidence.txt, codebase-sweep.txt, claude-seo-status.txt.
+
+## Scope proof
+Only `docs/seo/*`, `docs/proofs/seo-audit/*`, `docs/loop/REPORT.md` touched. `src/` UNCHANGED (no fix of
+anything found - each is named in AUDIT.md for Cowork's strategy + the owner to schedule). No push to
+main. No new paid service. No em dashes, zero emoji.
+
+NOTE on `.gitignore`: `docs/*` is ignored with negations for the tracked trees (`!docs/loop/`,
+`!docs/proofs/`, `!docs/data/`, `!docs/loop-seo/`), but `docs/seo/` has NO negation, so `AUDIT.md` was
+committed with `git add -f` (the scope fence explicitly authorizes `docs/seo/*`). If you want `docs/seo/`
+tracked by default, add `!docs/seo/` to `.gitignore` - I did not touch `.gitignore` (out of scope).
+
+## Cowork next
+Write the full strategy FROM `docs/seo/AUDIT.md`. The through-line: freshness converts (fresh-group hub
+pipeline), the head terms are within reach on page 1 (home title + /quizzes), and Bing outranks Google
+so the Google upside is the whole game.

@@ -1,0 +1,83 @@
+GSC EVIDENCE - fresh 6-month export (Performance-on-Search-2026-09-21.zip, owner-supplied 2026-09-21)
+Site-wide 6mo: 3.46k clicks, 46.5k impressions, 7.5% CTR, avg pos 7.8 (per GSC UI screenshot).
+Cross-checked with committed 3mo docs/refonte/DATA-19SEP.md (3100 clicks, hubs 54%, Bing #1 referrer).
+NOTE: raw CSVs NOT committed (outside the docs/seo + docs/proofs scope fence); numbers transcribed here.
+
+== QUERIES (top 30 of 780) ==
+Requêtes les plus fréquentes,Clics,Impressions,CTR,Position
+cortis quiz,283,3410,8.3%,6.49
+illit quiz,227,2347,9.67%,5.1
+kpop quiz,216,5127,4.21%,9.14
+kpopquiz,209,664,31.48%,2.57
+kpopquiz.io,160,273,58.61%,1.71
+seventeen quiz,120,1315,9.13%,7.41
+blind test kpop,50,262,19.08%,5.06
+quiz cortis,47,974,4.83%,8.03
+kpop quizzes,47,512,9.18%,12.79
+kpop quiz. io,47,135,34.81%,3.07
+cortis trivia,42,87,48.28%,4.01
+babymonster quiz,41,816,5.02%,8.31
+kpopquiz.oi,40,73,54.79%,1.25
+cortis test,35,1026,3.41%,7.75
+kpop quiz io,33,78,42.31%,2.32
+aespa quiz,30,424,7.08%,8.72
+k pop quiz,30,142,21.13%,12.46
+kpop blind test,29,79,36.71%,3.97
+illit test,28,295,9.49%,6.71
+illit trivia,20,81,24.69%,4.88
+stray kids quiz,16,362,4.42%,10.42
+cortis quizzes,16,219,7.31%,7.89
+twice quiz,14,190,7.37%,10.25
+test cortis,11,318,3.46%,8.78
+seventeen kpop quiz,10,112,8.93%,7.83
+cortis quizz,10,75,13.33%,6.43
+bts quiz arirang,10,62,16.13%,8.24
+kpopquiz. io,10,26,38.46%,2.35
+kpop quiz.io,10,21,47.62%,1.43
+bts arirang quiz,9,77,11.69%,8.66
+
+== PAGES (top 25 of 419) ==
+Pages les plus populaires,Clics,Impressions,CTR,Position
+https://kpopquiz.org/,1068,8129,13.14%,6.16
+https://kpopquiz.org/cortis-quiz,635,9478,6.7%,7.09
+https://kpopquiz.org/illit-quiz,422,5943,7.1%,6.03
+https://kpopquiz.org/seventeen-quiz,259,3502,7.4%,8.9
+https://kpopquiz.org/blindtest,171,1099,15.56%,5.63
+https://kpopquiz.org/aespa-quiz,102,1810,5.64%,7.79
+https://kpopquiz.org/q/babymonster-quiz,93,2104,4.42%,7.53
+https://kpopquiz.org/stray-kids-quiz,76,1851,4.11%,8.42
+https://kpopquiz.org/quizzes,71,1873,3.79%,18.22
+https://kpopquiz.org/cortis-trivia,62,974,6.37%,6.76
+https://kpopquiz.org/articles/guess-the-kpop-idol-guide,53,599,8.85%,6.51
+https://kpopquiz.org/q/bts-arirang-comeback-quiz,46,426,10.8%,8.25
+https://kpopquiz.org/q/are-you-a-real-coer,32,208,15.38%,4.81
+https://kpopquiz.org/bts-quiz,31,467,6.64%,8.39
+https://kpopquiz.org/q/illit-quiz,29,949,3.06%,6.79
+https://kpopquiz.org/articles/hardest-kpop-quizzes,29,409,7.09%,6.75
+https://kpopquiz.org/babymonster-quiz,27,374,7.22%,7.29
+https://kpopquiz.org/twice-quiz,26,739,3.52%,9.31
+https://kpopquiz.org/blackpink-quiz,23,761,3.02%,10.64
+https://kpopquiz.org/newjeans-quiz,22,332,6.63%,7.72
+https://kpopquiz.org/games,17,441,3.85%,5.7
+https://kpopquiz.org/q/cortis-quiz,17,342,4.97%,6.61
+https://kpopquiz.org/pt,14,174,8.05%,9.99
+https://kpopquiz.org/enhypen-quiz,13,308,4.22%,8.14
+https://kpopquiz.org/red-velvet-quiz,13,259,5.02%,7.79
+
+== COUNTRIES (top 15 of 183) ==
+Pays,Clics,Impressions,CTR,Position
+États-Unis,586,7811,7.5%,8.54
+France,189,1431,13.21%,6.91
+Malaisie,185,1804,10.25%,7.02
+Inde,181,2385,7.59%,7.57
+Royaume-Uni,180,2336,7.71%,8.51
+Philippines,167,2480,6.73%,6.83
+Indonésie,127,1794,7.08%,7.89
+Vietnam,123,1536,8.01%,8.57
+Allemagne,112,1368,8.19%,7.75
+Canada,110,1465,7.51%,7.73
+Australie,98,1374,7.13%,7.53
+Brésil,91,2412,3.77%,8.57
+Italie,60,779,7.7%,8.15
+Turquie,55,604,9.11%,8.7
+Singapour,53,833,6.36%,6.94

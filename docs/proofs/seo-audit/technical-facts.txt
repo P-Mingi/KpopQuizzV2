@@ -1,0 +1,20 @@
+SEO AUDIT - technical facts (live kpopquiz.org + local build, 2026-09-21)
+
+robots.txt: Allow /, Disallow /api/ (except /api/og/) + /auth/. AI bots (GPTBot, ClaudeBot,
+  PerplexityBot, anthropic-ai, Bytespider, cohere-ai, ChatGPT-User) additionally Disallow
+  /admin/ /settings/ /onboarding/. Google-Extended: Allow /. Sitemap declared.
+  FINDING: the generic 'User-Agent: *' does NOT Disallow /admin /settings /onboarding -
+  only the AI bots do. Googlebot can crawl those paths (P2, see AUDIT).
+
+sitemap.xml: flat (not an index), 646 <loc> URLs (live). Build: 795 static pages, exit 0,
+  zero 522 (DB now Supabase Pro/micro, stable).
+
+Googlebot 2MB HTML fetch limit (claude-seo checklist): all key pages well under it -
+  home 200KB, /cortis-quiz 101KB, /q/babymonster-quiz 127KB, /quizzes 355KB, /blindtest 139KB.
+  => the About-this-quiz drawer content + JSON-LD are safely within the first 2MB. OK.
+
+LCP/images: text hero (no giant hero image); logos via next/image (srcset, alt, lazy). OK.
+
+Render modes (route-modes.txt): SEO winners all cached - /[slug] hubs *, /q/[slug] *,
+  /articles/[slug] *, /blindtest o, home o. The ONE key SEO page that is dynamic: /quizzes = f
+  (reads searchParams for browse filters; ranks pos 18.22 in GSC - see AUDIT P1).

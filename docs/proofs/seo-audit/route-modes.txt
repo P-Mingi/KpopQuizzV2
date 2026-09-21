@@ -1,0 +1,15 @@
+SEO AUDIT - route-mode table (local next build, DB Pro/micro stable, VERSE_PUBLIC unset)
+Next 16. Legend: o=Static  *=SSG/ISR(prerendered)  f=Dynamic(per-request)
+Build: exit 0, 795 static pages, ZERO 522 (DB now stable on Pro/micro).
+
+SEO-critical templates:
+┌ ○ /                                                          10m      1y
+├ ● /[slug]
+├ ● /articles/[slug]                                            1h      1y
+├ ○ /blindtest                                                  1h      1y
+├ ○ /groups                                                     1h      1y
+├ ○ /leaderboard                                                5m      1y
+├ ○ /pt                                                        10m      1y
+├ ● /q/[slug]                                                   1h      1y
+├ ƒ /quizzes
+├ ○ /trivia                                                    10m      1y

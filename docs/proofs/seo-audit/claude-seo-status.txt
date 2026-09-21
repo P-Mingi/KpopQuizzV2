@@ -1,0 +1,24 @@
+PART 0 - claude-seo install status (github.com/AgriciDaniel/claude-seo, v2.3.1)
+
+CLONED cleanly (git clone --depth 1, exit 0). It is a Claude Code PLUGIN:
+  .claude-plugin/ manifest + skills/ (25 sub-skills: seo-audit, seo-technical, seo-google,
+  seo-content-brief, seo-competitor-pages, seo-images, seo-plan, ...) + agents/ (18) + 8
+  optional MCP extensions (DataForSEO, Firecrawl, Ahrefs, Bing Webmaster, Unlighthouse...).
+
+NOT formally installed in this session, and exactly why (per mission: note + continue):
+  1. The documented install is the interactive '/plugin marketplace add' + '/plugin install'
+     Claude Code TUI command - not runnable in this non-interactive SDK session.
+  2. The manual path (install.sh + '/seo setup') provisions an ISOLATED PYTHON RUNTIME and
+     PLAYWRIGHT CHROMIUM, and its skill scripts (render_page.py, sitemap_discovery.py,
+     google_auth.py) all require that runtime + a headless browser to run.
+  3. That is a heavy system install (Python venv + Chromium) the owner asked to avoid, and
+     it exceeds the read-only / docs-only / no-new-service scope fence of this mission.
+
+WHAT IT STILL ADDED (checklist methodology, read from its skills, folded into AUDIT.md):
+  - seo-technical: 9 categories (crawlability, indexability, security headers, URL structure,
+    mobile, CWV, structured data, JS rendering, IndexNow) + the Googlebot 2MB-HTML / 64MB-PDF
+    fetch cap (checked: all key pages 101-355KB, OK).
+  - seo-audit: crawl-depth <=3 clicks from home, business-type detection, health-score framing.
+  - seo-geo: AI-crawler access + llms.txt + citability (site HAS /llms.txt and allows AI bots).
+  These are applied as explicit checks in the audit below; the plugin's live-crawl scripts
+  (Chromium) were substituted with direct curl + the local build + the committed GSC exports.
