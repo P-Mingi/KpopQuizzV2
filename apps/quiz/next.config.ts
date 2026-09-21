@@ -32,6 +32,15 @@ const nextConfig: NextConfig = {
       { source: '/ranks', destination: '/leaderboard', permanent: true },
       { source: '/hall-of-fame', destination: '/leaderboard', permanent: true },
     ];
+    // SEO (fandom-name -> real group hub). "coer" / "coers" is the CORTIS fandom
+    // name, NOT a separate group: the quiz /q/are-you-a-real-coer belongs to the
+    // Cortis group and the real hub is /cortis-quiz (the #1 hub). /coer-quiz was
+    // 404-ing while "coer quiz" intent ranks (pos 4.81). Consolidate the fandom
+    // slug onto the real hub. No COER group exists, so no DB row is needed - this
+    // is the pure-code path for the "COER hub" item.
+    const fandomRedirects = [
+      { source: '/coer-quiz', destination: '/cortis-quiz', permanent: true },
+    ];
     // REFONTE P1 - the killed features' 301s (permanent). Group-scoped URLs carry
     // their fandom intent to the kept /{group}-quiz hub; everything else lands on
     // the nearest kept browse hub (/quizzes), never on home. /tier-list/l/[slug] is
@@ -69,7 +78,7 @@ const nextConfig: NextConfig = {
       { source: '/which-:group-member-are-you', destination: '/:group-quiz', permanent: true },
       { source: '/which-:group-member-are-you/r/:member', destination: '/:group-quiz', permanent: true },
     ];
-    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...refonteRedirects];
+    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...fandomRedirects, ...refonteRedirects];
   },
   images: {
     formats: ['image/avif', 'image/webp'],

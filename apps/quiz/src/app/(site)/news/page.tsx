@@ -9,8 +9,12 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'K-pop News - Latest Headlines',
   description:
-    'Latest K-pop news from allkpop, Soompi, and Koreaboo. Stay up to date and test your knowledge with quizzes and games.',
-  robots: { index: false, follow: true },
+    'Latest K-pop news from allkpop, Soompi, and Koreaboo. Stay up to date and test your knowledge with free fan-made quizzes.',
+  // SEO P0.1 (owner decision: make /news rank): was robots.index=false, which
+  // self-suppressed the whole surface from Google. Now indexable (default). NOTE
+  // for Cowork: /news is a curated-headline aggregator (feed items link out to
+  // allkpop/Soompi/Koreaboo); to actually earn rankings it needs its own crawlable
+  // text/context, not just outbound headlines - flagged in the REPORT.
   alternates: { canonical: '/news' },
 };
 
@@ -513,8 +517,8 @@ export default async function NewsPage(): Promise<React.ReactElement> {
           <Link href="/blindtest" className="nw-bottom-btn">
             Blind test
           </Link>
-          <Link href="/games" className="nw-bottom-btn">
-            More games
+          <Link href="/trivia" className="nw-bottom-btn">
+            K-pop trivia
           </Link>
         </div>
       </div>

@@ -14,7 +14,7 @@ export const ARTICLES: ArticleMeta[] = [
     relatedLinks: [
       { label: 'Browse all quizzes', href: '/quizzes' },
       { label: 'Try a blind test', href: '/blindtest' },
-      { label: 'Play K-pop games', href: '/games' },
+      { label: 'Play K-pop quizzes', href: '/quizzes' },
     ],
     faq: [
       {
@@ -51,7 +51,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['generations', 'history', 'guide'],
     relatedLinks: [
       { label: 'K-pop blind test', href: '/blindtest' },
-      { label: 'Sort 3rd gen vs 4th gen groups', href: '/games/sort-it/3rd-gen-or-4th-gen' },
+      { label: 'Browse K-pop quizzes', href: '/quizzes' },
       { label: 'Browse quizzes by group', href: '/quizzes' },
     ],
     faq: [
@@ -118,7 +118,7 @@ export const ARTICLES: ArticleMeta[] = [
     relatedLinks: [
       { label: 'Play the blind test', href: '/blindtest' },
       { label: 'Browse quizzes', href: '/quizzes' },
-      { label: 'Play games', href: '/games' },
+      { label: 'Play K-pop quizzes', href: '/quizzes' },
     ],
     faq: [
       {
@@ -156,8 +156,8 @@ export const ARTICLES: ArticleMeta[] = [
     relatedLinks: [
       { label: 'Hard quizzes', href: '/hard-kpop-quizzes' },
       { label: 'K-pop blind test', href: '/blindtest' },
-      { label: 'Name All Members', href: '/games/name-all' },
-      { label: 'Match songs to their groups', href: '/games/match-up/song-to-group' },
+      { label: 'K-pop member quizzes', href: '/quizzes' },
+      { label: 'Guess the song (Blind Test)', href: '/blindtest' },
     ],
     faq: [
       {
@@ -264,7 +264,7 @@ export const ARTICLES: ArticleMeta[] = [
     coverAlt: 'Comparison chart of girl-group versus boy-group K-pop quiz scores',
     tags: ['girl groups', 'boy groups', 'comparison'],
     relatedLinks: [
-      { label: 'Boy group or girl group? Sort them', href: '/games/sort-it/boy-group-or-girl-group' },
+      { label: 'Girl group vs boy group quizzes', href: '/quizzes' },
       { label: 'Browse all quizzes', href: '/quizzes' },
       { label: 'Community leaderboard', href: '/leaderboard' },
       { label: 'Live stats', href: '/stats' },
@@ -303,8 +303,8 @@ export const ARTICLES: ArticleMeta[] = [
     coverAlt: 'K-pop groups ranked by member count from largest to smallest',
     tags: ['member count', 'name all members', 'data'],
     relatedLinks: [
-      { label: 'Play Name All Members', href: '/games/name-all' },
-      { label: 'Name all K-pop groups', href: '/games/name-them-all/name-all-kpop-groups' },
+      { label: 'Play the K-pop Blind Test', href: '/blindtest' },
+      { label: 'Browse all K-pop groups', href: '/groups' },
       { label: 'SEVENTEEN quizzes', href: '/seventeen-quiz' },
       { label: 'Browse all quizzes', href: '/quizzes' },
     ],
@@ -508,7 +508,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['generations', 'eras', 'timeline'],
     relatedLinks: [
       { label: 'Play by generation', href: '/blindtest' },
-      { label: 'Sort 3rd gen vs 4th gen groups', href: '/games/sort-it/3rd-gen-or-4th-gen' },
+      { label: 'Browse K-pop quizzes', href: '/quizzes' },
       { label: 'Generations explained', href: '/articles/kpop-generations-explained' },
       { label: 'Browse all quizzes', href: '/quizzes' },
     ],

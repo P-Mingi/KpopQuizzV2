@@ -154,15 +154,15 @@ export default async function PtBlindtestPage(): Promise<React.ReactElement> {
         </section>
 
         <section className="bt-hub-section">
-          <h2 className="bt-hub-h2">Mais jogos de K-pop</h2>
+          <h2 className="bt-hub-h2">Mais formas de jogar</h2>
           <div className="bt-hub-links">
-            <Link href="/games/this-or-that" className="bt-hub-link">
+            <Link href="/pt/leaderboard" className="bt-hub-link">
               <span className="bt-hub-link-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
               </span>
               <span>
-                <span className="bt-hub-link-t">This or That</span>
-                <span className="bt-hub-link-d">Vote em duelos de idols de K-pop</span>
+                <span className="bt-hub-link-t">Ranking</span>
+                <span className="bt-hub-link-d">Veja onde voce fica entre os fas</span>
               </span>
             </Link>
             <Link href="/quizzes" className="bt-hub-link">
@@ -174,13 +174,13 @@ export default async function PtBlindtestPage(): Promise<React.ReactElement> {
                 <span className="bt-hub-link-d">Quizzes feitos por fas para cada grupo</span>
               </span>
             </Link>
-            <Link href="/games/name-all" className="bt-hub-link">
+            <Link href="/pt/quizzes" className="bt-hub-link">
               <span className="bt-hub-link-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
               </span>
               <span>
-                <span className="bt-hub-link-t">Nomeie Todos os Membros</span>
-                <span className="bt-hub-link-d">Voce consegue nomear todos os membros do seu grupo favorito?</span>
+                <span className="bt-hub-link-t">Todos os Quizzes</span>
+                <span className="bt-hub-link-d">Explore quizzes de todos os grupos</span>
               </span>
             </Link>
           </div>

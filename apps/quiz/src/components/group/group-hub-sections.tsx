@@ -129,7 +129,9 @@ export function GroupMembersStrip({
           // plain display cell rather than a link to a dead route.
           <div key={m.name} className="ghub-member">
             {m.photoUrl ? (
-              <img className="ghub-member-face" src={m.photoUrl} alt="" loading="lazy" />
+              // SEO P2.4: descriptive alt (was alt="") so these real member photos
+              // on an indexable group hub contribute to image search.
+              <img className="ghub-member-face" src={m.photoUrl} alt={`${m.name} of ${group.name}`} loading="lazy" />
             ) : (
               <span className="ghub-member-face ghub-member-mono" style={{ background: group.display_color, color: group.text_color }} aria-hidden="true">
                 {getInitials(m.name)}

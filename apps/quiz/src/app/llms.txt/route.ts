@@ -26,7 +26,7 @@ play counts and averages come from real recorded plays.
 - /quizzes: every published quiz, filterable by group and type
 - /{group}-quiz: a group's hub, e.g. /bts-quiz, with that group's quizzes and facts
 - /{group}-trivia: sourced facts about a group, e.g. /twice-trivia
-- /games: the game modes (blind test, this or that, name them all, sort it, match-up)
+- /blindtest: the K-pop blind test, guess the song from a 10-second clip
 - /data/pulse: monthly first-party reports drawn from real plays
 - /stats: site-wide statistics from real plays
 - /articles: original guides and comparisons

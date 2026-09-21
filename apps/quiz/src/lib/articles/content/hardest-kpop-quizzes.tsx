@@ -129,7 +129,7 @@ export function ArticleBody(): React.ReactElement {
         Nobody has completed the full run with a perfect score.
       </p>
       <div className="art-cta-inline">
-        <Link href="/games/name-all" className="art-cta-btn">Try Name All Members</Link>
+        <Link href="/blindtest" className="art-cta-btn">Try the K-pop Blind Test</Link>
         <Link href="/hard-kpop-quizzes" className="art-cta-btn art-cta-secondary">Hard quizzes</Link>
       </div>
 

@@ -152,7 +152,7 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
         Ranked from real, first-party play data on kpopquiz.org. See also the{' '}
         <Link href="/stats" className="pop-foot-link">platform stats</Link>, the{' '}
         <Link href="/data/pulse" className="pop-foot-link">monthly Pulse</Link>, and free{' '}
-        <Link href="/games" className="pop-foot-link">K-pop games</Link>.
+        <Link href="/blindtest" className="pop-foot-link">the K-pop blind test</Link>.
       </p>
     </div>
   );
