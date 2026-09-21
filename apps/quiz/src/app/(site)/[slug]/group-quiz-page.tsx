@@ -23,7 +23,10 @@ function generateDefaultIntro(group: Group): string {
   if (group.quiz_count === 0) {
     return `No ${group.name} quizzes yet - be the first to create one! Think you know ${group.name} well enough to challenge other ${group.fandom_name}s? Create a free quiz at kpopquiz.org.`;
   }
-  return `Think you're a real ${group.fandom_name}? Play ${group.quiz_count}+ free ${group.name} quizzes created by fans who actually know ${group.name}. From easy trivia to impossible deep-cut challenges - prove you deserve your fan card. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
+  // W3: lead with the exact "{group} quizzes" anchor (body-copy keyword prominence).
+  // Only used when a group has no curated seo_intro, so the high-value hubs that
+  // carry their own intro are untouched.
+  return `${group.name} quizzes, made by fans who actually know ${group.name}: play ${group.quiz_count}+ free tests, from easy trivia to impossible deep cuts, and prove you're a real ${group.fandom_name}. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
 }
 
 // W2: hub FAQ built from REAL group facts only, reusing the hero's gates so a
@@ -90,6 +93,9 @@ const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string }> = {
   // (no member claim) and the DB fandom is a placeholder, so the hook leans on the
   // 2025 debut angle rather than a member count or fandom name.
   cortis: { title: 'Cortis Quiz: Test How Well You Know the Rookie Group (2026)', hook: "Test your knowledge of Cortis's members, songs, and 2025 debut" },
+  // W3: BABYMONSTER (816i, YG rookie) had no override. Neutral hook (no specific
+  // member count - the lineup has shifted - and no fandom claim).
+  babymonster: { title: 'BABYMONSTER Quiz: Free Fan-Made Tests for the YG Rookies (2026)', hook: "Test your knowledge of BABYMONSTER's members, songs, and eras" },
 };
 
 export function generateGroupQuizMetadata(group: Group): Metadata {
