@@ -2,6 +2,44 @@ import type { ArticleMeta } from './types';
 
 export const ARTICLES: ArticleMeta[] = [
   {
+    slug: 'who-is-cortis',
+    title: 'Who Is Cortis? Members, Debut and Fandom Name',
+    description:
+      'Cortis, explained: the five members, the August 2025 debut under BigHit Music, what the name means, and the Coer fandom, plus where to take a Cortis quiz.',
+    category: 'guide',
+    publishedAt: '2026-09-21',
+    updatedAt: '2026-09-21',
+    coverAlt: 'The five members of the rookie K-pop group Cortis',
+    tags: ['Cortis', 'rookies', 'new groups'],
+    relatedLinks: [
+      { label: 'Take the Cortis quiz', href: '/cortis-quiz' },
+      { label: 'K-pop blind test', href: '/blindtest' },
+      { label: 'The 2026 blind test', href: '/articles/kpop-blind-test-2026' },
+    ],
+    faq: [
+      {
+        question: 'Who is Cortis?',
+        answer:
+          "Cortis is a five-member boy group under BigHit Music, HYBE's label. They debuted on August 18, 2025 with the digital single 'What You Want'. The members are Martin, James, Juhoon, Seonghyeon and Keonho.",
+      },
+      {
+        question: 'How many members does Cortis have?',
+        answer:
+          'Cortis has five members: Martin, James, Juhoon, Seonghyeon and Keonho. They debuted as a group with no prior lineup changes.',
+      },
+      {
+        question: 'When did Cortis debut?',
+        answer:
+          "Cortis debuted on August 18, 2025 under BigHit Music, HYBE's label, with the digital single 'What You Want'.",
+      },
+      {
+        question: 'What is the Cortis fandom name?',
+        answer:
+          "Cortis's official fandom name is Coer. It combines 'Cor' from Cortis with '-er' for those who stand with the group, and echoes the word 'core'.",
+      },
+    ],
+  },
+  {
     slug: 'kpop-blind-test-2026',
     title: 'K-pop Blind Test 2026: Guess This Year’s Biggest Songs',
     description:
@@ -646,6 +684,7 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['rookies', '2026', 'new groups'],
     relatedLinks: [
       { label: 'Browse the newest quizzes', href: '/quizzes' },
+      { label: 'Who is Cortis?', href: '/articles/who-is-cortis' },
       { label: 'Most-played this month', href: '/articles/most-played-kpop-quizzes' },
       { label: 'Live stats', href: '/stats' },
     ],

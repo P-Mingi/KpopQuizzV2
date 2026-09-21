@@ -2,6 +2,7 @@
 export type ArticleBodyComponent = () => React.ReactElement | Promise<React.ReactElement>;
 
 const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ArticleBodyComponent }>> = {
+  'who-is-cortis': () => import('./who-is-cortis'),
   'kpop-blind-test-2026': () => import('./kpop-blind-test-2026'),
   'best-kpop-quiz-sites-2026': () => import('./best-kpop-quiz-sites-2026'),
   'kpop-generations-explained': () => import('./kpop-generations-explained'),

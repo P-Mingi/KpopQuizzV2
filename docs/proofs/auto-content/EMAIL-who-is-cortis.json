@@ -1,0 +1,17 @@
+{
+  "status": "ready_for_review",
+  "slug": "who-is-cortis",
+  "articleTitle": "Who Is Cortis? Members, Debut and Fandom Name",
+  "targetQuery": "who is cortis / cortis members",
+  "gsc": "Cortis cluster ~3410 impressions (GSC-21SEP); /cortis-quiz is the #1 hub (635 clicks); freshness weapon, Aug 2025 debut still rising.",
+  "prUrl": "https://github.com/P-Mingi/KpopQuizzV2/pull/34",
+  "summary": [
+    "New explainer article on the rookie group Cortis, targeting the unowned 'who is cortis / cortis members' search surface and funnelling into the /cortis-quiz hub.",
+    "Facts verified against KPOP-SOURCES Tier A (kprofiles + Kpop Wiki, cross-checked; allkpop for the fandom): 5 members, BigHit/HYBE, debut Aug 18 2025 with 'What You Want', fandom Coer.",
+    "Shipped end-to-end via the AUTO-CONTENT autopilot: fact-check, draft, 3-file wire-up, CI-green PR. A human still merges."
+  ],
+  "factCheckNotes": "Verified: roster (Martin, James, Juhoon, Seonghyeon, Keonho), label (BigHit Music, HYBE), debut date (2025-08-18), debut single ('What You Want'), name meaning (Color Outside The Lines), fandom (Coer) - all agreed across kprofiles.com and kpop.fandom.com, fandom confirmed by allkpop. Hedged on purpose: NO generation number (2025 debut = 'newest rookie wave', per the rule that caught v1's gen-label error); NO member positions/ages and NO discography beyond the sourced debut single; nothing fabricated.",
+  "seoCheck": "render 200; single-brand title (no doubling); Article + FAQPage (4 Q/A) + BreadcrumbList JSON-LD all valid; in sitemap; inbound-linked from /articles/rookie-kpop-groups-2026 (not orphaned); primary link /cortis-quiz returns 200; no duplicate title/description across 21 articles; 0 em dashes / 0 emoji.",
+  "internalLinks": ["/cortis-quiz", "/blindtest", "/articles/kpop-blind-test-2026"],
+  "ciRunUrl": "https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35600752260"
+}
