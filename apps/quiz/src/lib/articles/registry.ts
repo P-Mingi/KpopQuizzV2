@@ -341,7 +341,11 @@ export const ARTICLES: ArticleMeta[] = [
     tags: ['girl groups', 'boy groups', 'comparison'],
     relatedLinks: [
       { label: 'Girl group vs boy group quizzes', href: '/quizzes' },
-      { label: 'Browse all quizzes', href: '/quizzes' },
+      // W4 rescue: TWICE (a top girl group) had ZERO article inbound links; this
+      // article about girl groups is its natural exact-anchor home. Replaces a
+      // redundant duplicate /quizzes link.
+      { label: 'TWICE quiz', href: '/twice-quiz' },
+      { label: 'BLACKPINK quiz', href: '/blackpink-quiz' },
       { label: 'Community leaderboard', href: '/leaderboard' },
       { label: 'Live stats', href: '/stats' },
     ],
