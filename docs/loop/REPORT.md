@@ -42,7 +42,7 @@ page for "kpop quiz" (5127i pos9). Home changes only (`home-hero.tsx`): (1) H1 n
 exact "K-pop Quiz" anchor (eyebrow line) while keeping the challenge hook; (2) primary CTA "Browse
 quizzes" -> "Browse K-pop quizzes", an exact-match internal anchor into the pos-18 `/quizzes`. The
 tuned `<title>` is untouched (not regressed). tsc 0, unit 121/121, render 200, 0 em/en dash.
-CI: <<fill after push>>
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35616813624 (PR #38)
 ### PR-W2 Cortis + ILLIT  (pending)
 ### PR-W3 SEVENTEEN + BABYMONSTER + aespa + Stray Kids  (pending)
 ### PR-W4 Rescue blackpink + twice  (pending)
