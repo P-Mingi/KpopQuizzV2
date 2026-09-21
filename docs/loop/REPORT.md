@@ -1,63 +1,55 @@
-# REPORT - CONTENT ENGINE v1 (W3 of docs/seo/STRATEGY.md)
+# REPORT - CONTENT ENGINE v2 (the autopilot)
 
-Branch `seo/content-engine-v1` off main `a1b2a1f`. TSX-only, **zero DB / DDL**, behaviour preserved,
-Verse untouched, no new paid service. No push to main. Proofs in `docs/proofs/content-engine/`.
+Two branches, two PRs, both CI-green, **no push to main, no auto-merge, zero DB/DDL**. Turned the v1
+manual pipeline into a hands-off autopilot and proved it by shipping article #2 through that path.
 
-Built the repeatable AEO-article pipeline, shipped ONE article end-to-end as the proof, and queued
-the next 10.
+## PART 1 - the grounding layer (`docs/seo/KPOP-SOURCES.md`)
+Curated the authoritative sources with what each is good for and the fact-check rule per tier:
+Tier A profiles/data (kprofiles / Kpop Wiki / official label) for roster+debut+fandom, Tier B news
+(Soompi / allkpop / official SNS) for the freshness signal, Tier C charts (Circle / Billboard) for
+"what is charting" context. Six fact-check rules, including the one that stops the generation-label
+class of error v1 caught: only label uncontested gen buckets, neutral phrasing for boundary groups.
 
-## PART 1 - the pipeline (`docs/seo/CONTENT-ENGINE.md`)
-The re-runnable 5-step process, written so the next article is a repeat:
-1. **Keyword selection** from `docs/seo/GSC-21SEP.md` (proven intent, non-cannibalizing an existing
-   hub/quiz/article, article-shaped not page-shaped).
-2. **Brief** (target query + GSC numbers, intent, the ONE internal-link target, angle, schema type).
-3. **Draft** - answer-first (BLUF) body in the site voice, question-style H2s, verified facts
-   (never fabricate members/dates/counts/generation), no em dashes, no emoji.
-4. **Wire-up** - `registry.ts` `ArticleMeta` (title with no doubled brand) + `content/index.ts`
-   `CONTENT_MAP` entry + one anti-orphan inbound link; sitemap + Article/FAQ/Breadcrumb JSON-LD are
-   automatic from the route.
-5. **Self-check** - the repo's SEO gates (`check-metadata-dupes`/`orphans`/`indexability`) + render
-   200 + JSON-LD validation + tsc/unit/build.
-Each step is annotated with exactly what a `[CRON]` would automate in v2 (wire-up + self-check are
-fully automatable; keyword non-cannibalization and fact verification stay human; a human still merges).
+## PART 2 - the autopilot run-doc (`docs/loop/AUTO-CONTENT.md`)
+A fully self-contained procedure a fresh scheduled Claude session executes start to finish with no
+prior context: preconditions (repo guard + sync main + read the machinery) -> pick topic (backlog
+top, freshness override, non-cannibalizing) -> fact-check vs KPOP-SOURCES -> draft via the v1
+pipeline -> deterministic 3-file wire-up -> self-check gates -> branch + commit + push + open PR ->
+emit `EMAIL-<slug>.json` for Cowork. Explicit automatic-vs-human split: everything is automatic
+except the final PR **merge** (the human quality gate) and Cowork's Resend send + schedule. It never
+merges and never pushes to main.
+**PR #33** (branch `content/engine-v2`) - machinery only, CI green.
 
-## PART 2 - article #1 shipped (the proof)
-**Slug:** `kpop-blind-test-2026` -> `/articles/kpop-blind-test-2026`
-**Target query:** "blind test kpop 2026" (GSC-21SEP.md: **pos 4, open field, 0 clicks to take** - the
-strategy's named blindtest long-tail gap). Dated variant, so it does NOT cannibalize `/blindtest`
-(the head term) or the existing `kpop-blind-test-guide` how-to article - it widens the surface and
-funnels INTO `/blindtest`.
-**Links to:** `/blindtest` (x7, the money surface), `/cortis-quiz` (freshness), and the sibling
-`/articles/kpop-blind-test-guide`. **Inbound:** contextually linked FROM `kpop-blind-test-guide`
-(a 53-click ranking article) + listed on `/articles` + in the sitemap. Not orphaned.
-**Schema:** Article + FAQPage (4 Q/A) + BreadcrumbList, all valid JSON (saved to
-`docs/proofs/content-engine/article-jsonld.json`).
-**seo-check result:** render 200; single-brand title (no doubling); in sitemap; no duplicate
-title/description across all 20 articles; 0 em dashes / 0 emoji.
-**Facts:** all named groups real + active; generation labels cross-checked against the site's own
-`kpop-generations-explained` (fixed a draft slip - Stray Kids is 4th gen, replaced with EXO in the
-3rd-gen line); NO song titles / dates / member counts / blindtest song-count asserted (that count is
-still unconfirmed, 300-vs-4000).
+## PART 3 - proof: article #2 shipped via the auto path
+Ran AUTO-CONTENT.md for real on the top backlog item.
+- **Article:** `/articles/who-is-cortis` - "Who Is Cortis? Members, Debut and Fandom Name".
+- **Target query:** "who is cortis / cortis members". **Data + freshness rationale:** Cortis is the
+  strategy's freshness weapon (GSC cortis cluster ~3410 impr; `/cortis-quiz` the #1 hub, 635 clicks);
+  the explainer surface is unowned by the quiz hub, so this widens it and funnels into `/cortis-quiz`
+  (non-cannibalizing).
+- **Facts (verified vs KPOP-SOURCES Tier A):** 5 members (Martin, James, Juhoon, Seonghyeon,
+  Keonho), BigHit Music / HYBE, debut Aug 18 2025 with "What You Want", fandom Coer - agreed across
+  kprofiles + Kpop Wiki, fandom confirmed by allkpop. **Hedged on purpose:** no generation number
+  (2025 rookie = newest wave), no positions/ages, no discography beyond the sourced debut single.
+- **seo-check:** render 200, single-brand title, Article + FAQPage (4 Q/A) + BreadcrumbList JSON-LD
+  all valid, in sitemap, inbound-linked from `/articles/rookie-kpop-groups-2026` (not orphaned),
+  primary link `/cortis-quiz` returns 200, no title/desc dupes across 21 articles, 0 em/en dash / 0 emoji.
+- **Email payload:** `docs/proofs/auto-content/EMAIL-who-is-cortis.json` (status ready_for_review, PR
+  url, GSC numbers, 3-line summary, fact-check notes, seo-check, CI run url) - Cowork sends via Resend.
+- **PR #34** (branch `content/auto-who-is-cortis`), CI green (unit + e2e + Vercel).
 
-## PART 3 - the backlog (`docs/seo/CONTENT-BACKLOG.md`)
-Next 10 articles ranked by ROI, each with target query (+ GSC impressions/position), intent,
-internal-link target, and schema type. Top of queue: Who Is Cortis (test cortis 1026i pos7.8),
-BLACKPINK Blind Test (blind test blackpink pos6 open), Who Is ILLIT (illit 2347i pos5.1). Plus a
-"refresh not new" note (extend `guess-the-kpop-idol-guide` for "by picture" rather than compete) and
-the PT-localization angle queued behind the `/pt` on-page work.
+## Gates
+- Machinery PR #33: docs only, CI green (unit + e2e + Vercel).
+- Article PR #34: tsc 0, unit 118/118, `next build` 797/797 static (`/articles/[slug]` SSG),
+  render 200, CI green (unit + e2e + Vercel). Proof json in `docs/proofs/auto-content/`.
 
-## Gates (local)
-- `tsc --noEmit` full project: **exit 0**
-- `pnpm test:unit`: **118 passed (118)**
-- `next build`: **compiled successfully** (see PART: build in `docs/proofs/content-engine/`)
-- em-dash / emoji sweep (article + registry + both docs): **0 / 0**
-- CI on the branch head: PR **#32** (https://github.com/P-Mingi/KpopQuizzV2/pull/32); Tests run
-  https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35596576363 (push run 35596552208 already green:
-  unit pass). Vercel Preview building.
+## Could a scheduled session run AUTO-CONTENT.md unattended? Yes.
+This run WAS that procedure executed end to end: pick -> fact-check -> draft -> wire-up -> CI-green PR
+-> email payload, with the only human step being the merge. Cowork now: (1) reads
+`EMAIL-who-is-cortis.json` and sends the first owner email via Resend, (2) sets up the scheduled task
+that runs `docs/loop/AUTO-CONTENT.md`. No push to main; the owner merges #33 then #34.
 
-## Notes for the owner / Cowork
-- Zero DB. The article is code; merging it needs only a normal PR review.
-- The full-sitemap crawl gate (`check-metadata-dupes`) is CI-oriented (too slow against a dev server,
-  as in prior missions); the dedup risk was verified directly against the registry (no collisions).
-  It runs green in CI on the PR.
-- Cowork to audit the article body before the owner merges. No push to main.
+## Shared-worktree note
+A concurrent chat's unpushed "tierlist push" commits had advanced LOCAL main to 5b0a9d7 while
+origin/main stayed cdc2fb8. Both my branches were re-based onto origin/main (cdc2fb8) so neither PR
+carries the other chat's work; their local commits are untouched. Staged every commit by explicit path.
