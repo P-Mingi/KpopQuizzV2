@@ -4,7 +4,11 @@
 // only asks engines to (re)crawl URLs we own. The key is published at
 // https://kpopquiz.org/<KEY>.txt (public/ file) which proves ownership.
 
-const KEY = '4b2f9a7ce8d1465fb0a3e6c95d47128a';
+// Exported so a unit test can assert public/<KEY>.txt matches it. If the key is
+// ever rotated here but not in the public file (or the file is deleted), every
+// IndexNow submission silently 403s and Bing - our #1 referrer - stops recrawling.
+export const INDEXNOW_KEY = '4b2f9a7ce8d1465fb0a3e6c95d47128a';
+const KEY = INDEXNOW_KEY;
 const HOST = 'kpopquiz.org';
 const ORIGIN = `https://${HOST}`;
 const ENDPOINT = 'https://api.indexnow.org/indexnow';

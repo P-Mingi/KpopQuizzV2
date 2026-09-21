@@ -8,31 +8,28 @@ need a trivial rebase when an earlier PR merges - expected.)
 ## PHASE 1 - INDEXATION
 
 ### PR-I1 - Sitemap hygiene  (branch `feat/seo-sitemap-hygiene`, PR #35)  DONE
-The sitemap was already hygienic (allow-list from live DB, killed routes excluded by construction,
-honest lastmod, title-dedup): prod `/sitemap.xml` = 649 URLs, 0 killed-pattern occurrences, all 15
-Tier A/B hubs present, a 16-URL sample all 200. So instead of churn, PR-I1 ships the lasting guarantee:
-`scripts/check-sitemap-hygiene.mts`, a regression gate (sibling to check:indexability/orphans/dupes)
-that fails CI if a killed route re-enters the sitemap, a priority hub drops out, or the file passes
-Google's 50k limit. Wired into the nightly `seo-gates.yml`. Proven positive + negative.
+Sitemap already hygienic (allow-list, killed routes excluded, honest lastmod, title-dedup): prod
+649 URLs, 0 killed-pattern hits, 15/15 hubs, 16-URL sample all 200. Ships the lasting guarantee:
+`scripts/check-sitemap-hygiene.mts` regression gate (killed-pattern exclusion + priority-hub presence
++ 50k size guard), wired into nightly `seo-gates.yml`. Proven positive + negative.
 CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35611707386
 
-### PR-I2 - Internal-linking crawl paths  (branch `feat/seo-internal-links`)  DONE
-Closed three real gaps in the hub crawl graph:
-1. **Home rail** (`home-group-pills.tsx`) capped at 13 and omitted the biggest rookie hubs
-   (cortis 3410i, illit 2347i, babymonster, itzy). `ORDER` now carries all 15 Tier A/B hubs, rookies
-   surfaced near the front. Proof: home links 15/15 priority hubs as `/{slug}-quiz` coins - every one
-   reachable in 1 click (mission target was <= 2).
-2. **Hub UP link** (`group-quiz-page.tsx`): added a `/quizzes` breadcrumb item, rendered as a link and
-   in the `BreadcrumbList` JSON-LD. Proof: every hub now `Home > Quizzes > {group} Quiz` (valid schema).
-3. **Sibling cross-links** (`related-groups.ts`): cortis / illit / babymonster had no `RELATED_GROUPS`
-   entry, so their "Fans also play" section did not render. Added entries (labelmate + fellow rookies,
-   all with quizzes). Proof: each rookie hub now emits 3 sibling hub links.
-No orphan priority hub remains (inbound from home + /groups + sibling sections).
-**Target query + effect:** structural - tightens the crawl graph feeding all 15 head-term hubs, the
-mission's biggest indexation lever. tsc 0, unit 118/118, build (CI). 0 em/en dash.
-CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35613126921 (PR #36)
+### PR-I2 - Internal-linking crawl paths  (branch `feat/seo-internal-links`, PR #36)  DONE
+Three crawl-graph gaps closed: (1) home rail now carries all 15 Tier A/B hubs (was 13, missing
+cortis/illit/babymonster/itzy) - every hub 1 click from home; (2) every hub gained a `/quizzes` UP
+link in the breadcrumb + BreadcrumbList schema; (3) cortis/illit/babymonster now emit sibling
+cross-links (were absent from `RELATED_GROUPS`). No orphan priority hub remains.
+CI: https://github.com/P-Mingi/KpopQuizzV2/actions/runs/35613126921
 
-### PR-I3 - Bing/IndexNow + robots/llms sanity  (pending)
+### PR-I3 - Bing/IndexNow + robots/llms sanity  (branch `feat/seo-indexnow-sanity`)  DONE
+Verified already-correct: robots allows every hub + 8 AI bots + declares the sitemap; llms.txt current
+with 0 dead routes; IndexNow fully wired (lib + api route + per-publish ping + on-deploy workflow) and
+the key file is live on prod (200). One genuine silent-failure risk guarded: if the IndexNow key is
+rotated in `lib/indexnow.ts` but not in `public/<KEY>.txt` (or the file is deleted), every submission
+403s and Bing (the #1 referrer) stops recrawling, invisibly. Added `src/lib/indexnow.test.ts` (3
+tests) asserting the public key file matches the exported key; runs on every PR.
+**Effect:** protects the Bing IndexNow pipeline from silent death. unit 121/121 (118 + 3). 0 em/en dash.
+CI: <<fill after push>>
 
 ## PHASE 2 - W1 HEAD-TERM PUSH
 ### PR-W1 Home + /quizzes head  (pending)
