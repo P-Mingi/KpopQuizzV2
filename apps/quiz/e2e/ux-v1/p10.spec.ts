@@ -121,9 +121,10 @@ const P10_LANDMARKS: P10Landmark[] = [
   { proto: '#settings textarea.inp', impl: '#p10-s-bio', state: 'settings', skip: ['height'] },
   { proto: '#settings .help', impl: '#p10-s-user-h', state: 'settings', skip: TEXT },
   { proto: '#settings #look .help', impl: '#look .p10-lead', state: 'settings', skip: ['height'] },
-  { proto: '#settings .personprev', impl: '.p10-personprev', state: 'settings' },
+  // the sub line carries the real level title ("Lv 2 New Fan" is longer than "Lv 7 Stan"): may wrap on phones
+  { proto: '#settings .personprev', impl: '.p10-personprev', state: 'settings', skip: ['height'] },
   { proto: '#pp-name', impl: '.p10-personprev .ux-who', state: 'settings', skip: [...TEXT, 'height', 'color', 'border-top-color'] },
-  { proto: '#settings .personprev .muted', impl: '.p10-prev-sub', state: 'settings', skip: TEXT },
+  { proto: '#settings .personprev .muted', impl: '.p10-prev-sub', state: 'settings', skip: [...TEXT, 'height'] },
   { proto: '#settings .flabel', impl: '#look .ux-flabel', state: 'settings' },
   { proto: '#settings .flair-row', impl: '#look .p10-flair-row', state: 'settings', skip: ['height'] },
   { proto: '#f-accent .fopt', impl: '#look .p10-fopt[aria-checked="false"]', state: 'settings', skip: TEXT },
@@ -212,6 +213,8 @@ async function openPassport(page: Page): Promise<boolean> {
   const res = await page.goto(`/u/${USER}`);
   if (!res || res.status() !== 200) return false;
   if (!(await hasShell(page)) || (await page.locator('.p10-passport').count()) === 0) return false;
+  // /u/[username] has a loading.tsx: the streamed page sits in a hidden node until it is swapped in
+  await expect(page.locator('.p10-passport')).toBeVisible({ timeout: 30_000 });
   await waitHydrated(page);
   return true;
 }

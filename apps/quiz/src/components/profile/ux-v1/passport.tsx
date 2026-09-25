@@ -215,7 +215,8 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
           <small className="ux-num"><b>{p.xp.have}</b>{p.xp.rest}</small>
         </div>
       </div>
-      <div className="p10-stats">
+      {/* scrolls sideways on phones: focusable region so keyboard users can scroll it (axe scrollable-region-focusable) */}
+      <div className="p10-stats" role="region" aria-label="Stats" tabIndex={0}>
         {p.stats.map((s) => <div key={s.label}><b className="ux-num">{s.value}</b><span>{s.label}</span></div>)}
       </div>
       <PassportTabs items={tabs} panels={panels} />
