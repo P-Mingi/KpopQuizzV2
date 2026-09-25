@@ -11,16 +11,16 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | merged (2cad6a7, PR #45) | 9b71ace | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | running (resumed after restart; had 1 commit + uncommitted work) | ac24f22 | 0 | v11/reports/P1.md |
+| P1 | ux11/p1-home | running (resumed 23:51 after usage limit; 7 commits, 3 unpushed) | 5d423e0 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | queued | - | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | queued | - | 0 | v11/reports/P3.md |
-| P4 | ux11/p4-quiz | running (resumed after restart; had 0 commits, uncommitted work + 2 pending migrations) | - | 0 | v11/reports/P4.md |
+| P4 | ux11/p4-quiz | running (resumed 23:51 after usage limit; 8 commits, all pushed) | cc1671a | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
-| P6 | ux11/p6-blindtest | running (resumed after restart) | 62472cb | 0 | v11/reports/P6.md |
+| P6 | ux11/p6-blindtest | running (resumed 23:51 after usage limit; 5 commits, 3 unpushed) | 5a56822 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | engine pass done, draft PR #44; UI pass queued (next free slot) | 56eb011 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
-| P10 | ux11/p10-passport | running (resumed after restart) | ca7e9cb | 0 | v11/reports/P10.md |
+| P10 | ux11/p10-passport | running (resumed 23:51 after usage limit; 8 commits, 5 unpushed) | 881968c | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | queued | - | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
 | C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
@@ -65,6 +65,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 ## Log
 
+- 2026-09-25 23:51 Usage limit: P1, P4, P6, P10 were stopped by the account session limit (reset 23:50) after pushing part of their work. All four resumed from their transcripts with their live servers listed (next servers of the ask-link project on this machine are not ours, never touched). Lesson for the run: agents commit and push after every meaningful step.
 - 2026-09-25 Briefs written to v11/briefs/ (COMMON + one per page agent) so spawns and respawns are short and identical. OWNERSHIP: /g/** moved P3 -> P6 (blind-test game). Open item: the /pt pages (unowned) render their current content inside the v11 shell under the flag; SEO unchanged; re-skin is an owner call.
 - 2026-09-25 RESUME: the previous ORCH session ended with P1, P4, P6, P10 stopped mid-task. Checked against git: worktrees intact under .claude/worktrees/agent-*, no branch pushed, no dev server alive. All four resumed from their own transcripts (not respawned) with orders to commit any uncommitted work first, update their Progress block and push their branch before continuing. Resume recipe for the next restart: resume a stopped agent by messaging its agent id (its transcript is kept); respawn with its brief + "continue from your branch and your Progress block" only if resuming fails.
 - 2026-09-25 A0 merged into feat/ux-v1-v11 (2cad6a7): guard ok on 105 files, flag-off proof (DOM/head/JSON-LD/CSS identical, 0 px), kit + shell specs green. ORCH a20e709: /ux-v1/ and /community known only with the flag on (flag off keeps the 301), check:routes 306 both ways. Page CSS convention: styles/ux-v1/<id>.css, never imported.
