@@ -78,10 +78,16 @@ async function recordQuestions(page: Page): Promise<{ get: () => Q[] }> {
 async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> {
   // domcontentloaded: the dev server optimises remote covers and avatars on the fly, and
   // the load event waits for every image (not what these checks are about)
-  const res = await page.goto(`/q/${slug}${query}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
-  // a failed load is a failure, never a skip; only a flag-off page (no v11 markup) skips
-  expect(res?.status(), `GET /q/${slug}`).toBe(200);
-  if (!(await hasShell(page)) || (await page.locator('.p4-page').count()) === 0) return false;
+  for (let attempt = 1; ; attempt++) {
+    const res = await page.goto(`/q/${slug}${query}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
+    // a failed load is a failure, never a skip; only a flag-off page (no v11 shell) skips
+    expect(res?.status(), `GET /q/${slug}`).toBe(200);
+    if (!(await hasShell(page))) return false;
+    if ((await page.locator('.p4-page').count()) > 0) break;
+    // Shell but no quiz page: the quiz read timed out on a saturated database (safeFetch
+    // fallback -> notFound() after the layout streamed, so still HTTP 200). Retry twice, then fail.
+    expect(attempt, `the quiz page rendered (/q/${slug})`).toBeLessThan(3);
+  }
   await waitHydrated(page);
   // the P4 islands are code-split (components/quiz/ux-v1/islands.tsx) and hydrate after the shell;
   // tests that click another island wait for its own marker (a dev server compiles each chunk on demand)
