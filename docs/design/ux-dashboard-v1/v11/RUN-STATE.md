@@ -17,7 +17,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P4 | ux11/p4-quiz | queued | - | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | queued | - | 0 | v11/reports/P6.md |
-| P7 | ux11/p7-ranked | running (engine pass) | - | 0 | v11/reports/P7.md |
+| P7 | ux11/p7-ranked | engine pass done, draft PR #44; UI pass waits for A0 | 56eb011 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | queued | - | 0 | v11/reports/P10.md |
@@ -48,14 +48,18 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 ## Pending migrations (written, never applied)
 
-None yet.
+- `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
 
 1. Production writes as the test user. The local dev server and the preview both use the production Supabase, so every signed-in or guest action that saves something (play a quiz, like, comment, vote, save Your look, upload a header) writes production rows. The worker prompt lets agents act as the test user; the launch prompt says never write production data. Until the owner answers: no mutating request at all, e2e stubs POST/PUT/PATCH/DELETE and asserts the payload, C2 proves wiring by request shape plus read-only SQL. Asked 2026-09-25.
+2. Ranked go-live (P7): apply v11-p7-ranked.sql, insert the season 1 row, enable the nightly Legend cron, decide whether ranked runs award blindtest XP (default no).
+3. Security, existing (found by P7): the ranked_plays insert policy from migration 059 is open to the public, so anyone can insert forged rows today. Tightening it is an RLS change, out of this run's rules; owner call.
+4. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-25 P7 engine pass done: 211 vitest tests green, fail-soft API (503 not_live flag on, 404 flag off), 30 files all inside P7 paths (checked by ORCH), draft PR #44.
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
