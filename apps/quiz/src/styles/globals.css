@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+/* UX v11 foundation (A0): tokens + shared components, all scoped to html.ux-v1 /
+   .ux-* so the flag-off site is unchanged. Imported here so it ships in the same
+   stylesheet (no extra <link> on flag-off pages). */
+@import './ux-v1/a0.css';
 
 @tailwind base;
 @tailwind components;
@@ -7533,125 +7537,14 @@ main:has(.verse-page) { max-width: none; }
 @media (prefers-reduced-motion: reduce) { .rtl-card { transition: none; } .rtl-card:hover { transform: none; } }
 
 /* ==========================================================================
-   UX DASHBOARD v1 - tokens, behind NEXT_PUBLIC_UX_V1 (html.ux-v1). Everything
-   here is SCOPED to html.ux-v1, so flag-off is byte-identical to today.
-   Colour tokens are PREFIXED --uxv1-* so they never collide with the current
-   design's --bg / --brand / --txt* (existing pages, which render inside the
-   flag-on shell until Phase 2 re-skins them, keep their own tokens). The one
-   global change under the flag is the font: Inter for latin, Pretendard for
-   CJK, per the owner's Q4. Values verbatim from the prototype (DESIGN-SPEC 2 +
-   15.3), mirrored in lib/design-tokens.ts (UX_V1_LIGHT / UX_V1_DARK).
-   Dark reuses the EXISTING class system (html.dark), not [data-theme].
+   UX v1 / v11.2 - behind NEXT_PUBLIC_UX_V1 (html.ux-v1). Flag-off inert.
+   The one global change under the flag is the font: Inter for latin, Pretendard
+   kept as the CJK fallback (owner Q4). Tokens, shell and every shared component
+   live in ./ux-v1/a0.css (imported at the top of this file); page styles live in
+   ./ux-v1/<agent>.css, imported by their routes. The Phase 1 sidebar shell and the
+   Phase 2 card styles (--uxv1-*, .uxv1-*) were superseded by v11 and removed.
    ========================================================================== */
 html.ux-v1 {
   --font-body: var(--font-inter);
   --font-display: var(--font-inter);
-  /* light */
-  --uxv1-bg: #FAF9F7; --uxv1-panel: #FFFFFF; --uxv1-tint: #F4F2EE; --uxv1-tint2: #EFECE7;
-  --uxv1-ink: #26221D; --uxv1-mut: #6F6A62; --uxv1-fnt: #A6A096;
-  --uxv1-line: #ECE8E1; --uxv1-line2: #E2DDD5;
-  --uxv1-pink: #E8457A; --uxv1-pink-dk: #C93868; --uxv1-pink-lt: #FCE8EF; --uxv1-pink-md: #F7CFDD;
-  --uxv1-ok: #3A8F5C; --uxv1-ok-bg: #E7F2E1; --uxv1-ok-line: #9CCB84;
-  --uxv1-no: #C0392B; --uxv1-no-bg: #FDE8E8; --uxv1-no-line: #F0A9A9;
-  --uxv1-amber-bg: #FAF0DC; --uxv1-warn: #B7791F;
-  --uxv1-sh: 0 1px 2px rgba(38,34,29,.05); --uxv1-sh-h: 0 12px 32px rgba(38,34,29,.10);
-  /* layout */
-  --uxv1-r: 16px; --uxv1-r-sm: 10px; --uxv1-r-pill: 999px; --uxv1-side: 232px; --uxv1-topbar: 64px;
-  --uxv1-content-max: 1200px; --uxv1-bottom-nav: 62px;
 }
-html.ux-v1.dark {
-  --uxv1-bg: #141118; --uxv1-panel: #1C1822; --uxv1-tint: #26212D; --uxv1-tint2: #332C3B;
-  --uxv1-ink: #F1ECE6; --uxv1-mut: #A8A0AF; --uxv1-fnt: #726B7C;
-  --uxv1-line: #2A2532; --uxv1-line2: #3A3343;
-  --uxv1-pink: #E8457A; --uxv1-pink-dk: #FF7AA5; --uxv1-pink-lt: #33202A; --uxv1-pink-md: #5A2A40;
-  --uxv1-ok: #5DE0A0; --uxv1-ok-bg: #16301F; --uxv1-ok-line: #2E6B45;
-  --uxv1-no: #FF7A7A; --uxv1-no-bg: #3A1A1A; --uxv1-no-line: #7A3030;
-  --uxv1-amber-bg: #2E2616; --uxv1-warn: #E9B963;
-  --uxv1-sh: 0 1px 2px rgba(0,0,0,.3); --uxv1-sh-h: 0 14px 34px rgba(0,0,0,.45);
-}
-
-/* --- UX v1 shell layout. Every selector is .uxv1-*, which only exists inside the
-   shell (rendered only when the flag is on), so this whole block is inert flag-off. --- */
-.uxv1-app { display: grid; grid-template-columns: var(--uxv1-side) minmax(0, 1fr); min-height: 100vh; background: var(--uxv1-bg); color: var(--uxv1-ink); }
-.uxv1-col { display: flex; flex-direction: column; min-width: 0; min-height: 100vh; }
-
-/* Sidebar */
-.uxv1-sidebar { position: sticky; top: 0; align-self: start; height: 100vh; display: flex; flex-direction: column; background: var(--uxv1-panel); border-right: 1px solid var(--uxv1-line); padding: 16px 12px; }
-.uxv1-sidebar-logo { padding: 6px 8px 14px; }
-.uxv1-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; overflow-y: auto; }
-.uxv1-nav-section { margin: 16px 8px 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--uxv1-fnt); }
-.uxv1-nav-section:first-child { margin-top: 4px; }
-.uxv1-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--uxv1-r-sm); font-size: 13.5px; font-weight: 600; color: var(--uxv1-ink); text-decoration: none; transition: background .12s ease, color .12s ease; }
-.uxv1-nav-item:hover { background: var(--uxv1-tint); }
-.uxv1-nav-item.is-active { background: var(--uxv1-pink-lt); color: var(--uxv1-pink-dk); }
-.uxv1-nav-icon { flex: none; opacity: .9; }
-.uxv1-nav-label { flex: 1; }
-.uxv1-nav-count { font-size: 11px; font-weight: 700; color: var(--uxv1-mut); background: var(--uxv1-tint2); border-radius: var(--uxv1-r-pill); padding: 1px 7px; }
-.uxv1-nav-item.is-active .uxv1-nav-count { color: var(--uxv1-pink-dk); background: var(--uxv1-panel); }
-.uxv1-sidebar-foot { border-top: 1px solid var(--uxv1-line); margin-top: 8px; padding-top: 10px; }
-.uxv1-user { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: var(--uxv1-r-sm); text-decoration: none; color: var(--uxv1-ink); }
-.uxv1-user:hover { background: var(--uxv1-tint); }
-.uxv1-user-avatar { width: 30px; height: 30px; border-radius: var(--uxv1-r-pill); object-fit: cover; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; flex: none; }
-.uxv1-user-avatar-guest { background: var(--uxv1-tint2); color: var(--uxv1-mut); }
-.uxv1-user-meta { display: flex; flex-direction: column; min-width: 0; }
-.uxv1-user-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.uxv1-user-streak { font-size: 11px; color: var(--uxv1-mut); }
-
-/* Top bar */
-.uxv1-topbar { position: sticky; top: 0; z-index: 30; height: var(--uxv1-topbar); display: flex; align-items: center; gap: 12px; padding: 0 24px; background: color-mix(in srgb, var(--uxv1-bg) 82%, transparent); backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--uxv1-line); }
-.uxv1-topbar-search { flex: 1; max-width: 460px; }
-.uxv1-topbar-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-.uxv1-streak { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--uxv1-r-pill); background: var(--uxv1-pink-lt); color: var(--uxv1-pink-dk); font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }
-.uxv1-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: var(--uxv1-r-sm); color: var(--uxv1-mut); }
-.uxv1-icon-btn:hover { background: var(--uxv1-tint); color: var(--uxv1-ink); }
-
-/* Content + footer */
-.uxv1-content { flex: 1; width: 100%; max-width: var(--uxv1-content-max); margin: 0 auto; padding: 24px 24px 48px; }
-.uxv1-footer { border-top: 1px solid var(--uxv1-line); }
-
-/* Mobile bottom nav (<= 760px) */
-.uxv1-mnav { display: none; }
-@media (max-width: 760px) {
-  .uxv1-app { grid-template-columns: minmax(0, 1fr); }
-  .uxv1-sidebar { display: none; }
-  .uxv1-topbar { padding: 0 14px; }
-  .uxv1-content { padding: 16px 14px calc(var(--uxv1-bottom-nav) + 24px); }
-  .uxv1-mnav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; height: calc(var(--uxv1-bottom-nav) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); display: flex; background: var(--uxv1-panel); border-top: 1px solid var(--uxv1-line); }
-  .uxv1-mnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: var(--uxv1-mut); text-decoration: none; }
-  .uxv1-mnav-item svg { stroke: currentColor; }
-  .uxv1-mnav-item.is-active { color: var(--uxv1-pink-dk); }
-}
-
-/* Appearance setting (/settings, flag-on) */
-.uxv1-appearance { padding: 2px 0 12px; }
-.uxv1-appearance-label { font-size: 13px; font-weight: 600; color: var(--uxv1-ink); margin: 0 0 8px; }
-.uxv1-appearance-seg { display: inline-flex; background: var(--uxv1-tint); border-radius: var(--uxv1-r-sm); padding: 3px; gap: 2px; }
-.uxv1-appearance-opt { border: 0; background: transparent; color: var(--uxv1-mut); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 8px; cursor: pointer; }
-.uxv1-appearance-opt.is-active { background: var(--uxv1-panel); color: var(--uxv1-ink); box-shadow: var(--uxv1-sh); }
-.uxv1-appearance-hint { font-size: 12px; color: var(--uxv1-mut); margin: 8px 0 0; }
-
-/* --- UX v1 quiz card (DESIGN-SPEC 6). Rendered by quiz-card.tsx when the flag is
-   on, so it re-skins every consumer. --- */
-.uxv1-qc { display: flex; flex-direction: column; background: var(--uxv1-panel); border: 1px solid var(--uxv1-line); border-radius: var(--uxv1-r); overflow: hidden; text-decoration: none; color: var(--uxv1-ink); box-shadow: var(--uxv1-sh); transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
-.uxv1-qc:hover { transform: translateY(-4px); box-shadow: var(--uxv1-sh-h); border-color: var(--uxv1-line2); }
-.uxv1-qc-cov { position: relative; aspect-ratio: 1.55; background-size: cover; background-position: center top; display: flex; align-items: center; justify-content: center; background-color: var(--uxv1-tint); }
-.uxv1-qc-cov.has-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,20,16,.28), transparent 55%); }
-.uxv1-qc-mono { font-size: clamp(34px, 7vw, 46px); font-weight: 800; opacity: .32; }
-.uxv1-qc-plays { position: absolute; top: 10px; right: 10px; z-index: 1; display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #26221D; background: rgba(255,255,255,.82); backdrop-filter: blur(6px); border-radius: var(--uxv1-r-pill); padding: 3px 9px; white-space: nowrap; }
-.uxv1-qc-plays i { width: 6px; height: 6px; border-radius: 50%; background: var(--uxv1-pink); flex: none; }
-.uxv1-qc-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; }
-.uxv1-qc-title { font-size: 13.5px; font-weight: 650; line-height: 1.35; margin: 0; color: var(--uxv1-ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.uxv1-qc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.uxv1-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: var(--uxv1-r-pill); }
-/* Type-tag tints (DESIGN-SPEC 2 light / 15.3 dark) */
-.uxv1-tag-classic { background: #E8F0F9; color: #2C5F94; }
-.uxv1-tag-image { background: #FBE7EF; color: #A03A64; }
-.uxv1-tag-intruder { background: #EEEBFA; color: #584FA8; }
-.uxv1-tag-tf { background: #E7F2E1; color: #42722A; }
-.uxv1-tag-clue { background: #FAF0DC; color: #8F5F1E; }
-.uxv1-tag-level { background: var(--uxv1-tint); color: var(--uxv1-mut); }
-html.ux-v1.dark .uxv1-tag-classic { background: #1B2A3A; color: #8FBBEA; }
-html.ux-v1.dark .uxv1-tag-image { background: #3A1F2C; color: #F08BB3; }
-html.ux-v1.dark .uxv1-tag-intruder { background: #2A2544; color: #B4ABF5; }
-html.ux-v1.dark .uxv1-tag-tf { background: #1B2E1B; color: #9DD27E; }
-html.ux-v1.dark .uxv1-tag-clue { background: #33281A; color: #E9B963; }

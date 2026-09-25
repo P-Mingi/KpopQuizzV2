@@ -2,65 +2,35 @@
 
 import { useEffect, useState } from 'react';
 
-// UX v1 /settings appearance control (System / Light / Dark). Reuses the EXISTING
-// class-based theme system - it writes the same localStorage['theme'] key
-// (absent = system) and toggles the same .light/.dark class on <html> the top-bar
-// toggle uses, so the two stay in sync. No new theme system, no server write.
-type Choice = 'system' | 'light' | 'dark';
+import { Segmented } from '@/components/ux-v1/segmented';
+import { applyTheme, storedTheme } from '@/lib/ux-v1/a0/theme';
 
-function currentChoice(): Choice {
-  try {
-    const t = localStorage.getItem('theme');
-    if (t === 'light' || t === 'dark') return t;
-  } catch { /* storage blocked */ }
-  return 'system';
-}
+import type { ThemeChoice } from '@/lib/ux-v1/a0/theme';
 
-function apply(choice: Choice): void {
-  const root = document.documentElement;
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    root.classList.add('theme-transition');
-    window.setTimeout(() => root.classList.remove('theme-transition'), 280);
-  }
-  root.classList.remove('light', 'dark');
-  try {
-    if (choice === 'system') localStorage.removeItem('theme');
-    else { root.classList.add(choice); localStorage.setItem('theme', choice); }
-  } catch { /* storage blocked - still applies for this session */ }
-  // System: follow the OS immediately for the live tab.
-  if (choice === 'system') {
-    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (dark) root.classList.add('dark');
-  }
-}
-
-const OPTIONS: { key: Choice; label: string }[] = [
-  { key: 'system', label: 'System' },
-  { key: 'light', label: 'Light' },
-  { key: 'dark', label: 'Dark' },
+const OPTIONS: { value: ThemeChoice; label: string }[] = [
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
 ];
 
+/**
+ * Settings > Appearance (DESIGN-SPEC 16.7: System / Light / Dark). The EXISTING
+ * class-based theme system (localStorage['theme'], html.light / html.dark), no new
+ * system, no server write. Rendered by /settings when the flag is on.
+ */
 export function UxAppearanceSetting(): React.ReactElement {
-  const [choice, setChoice] = useState<Choice>('system');
-  useEffect(() => { setChoice(currentChoice()); }, []);
-
+  const [choice, setChoice] = useState<ThemeChoice>('system');
+  useEffect(() => { setChoice(storedTheme()); }, []);
   return (
-    <div className="uxv1-appearance">
-      <p className="uxv1-appearance-label">Appearance</p>
-      <div className="uxv1-appearance-seg" role="group" aria-label="Appearance">
-        {OPTIONS.map((o) => (
-          <button
-            key={o.key}
-            type="button"
-            className={`uxv1-appearance-opt${choice === o.key ? ' is-active' : ''}`}
-            aria-pressed={choice === o.key}
-            onClick={() => { setChoice(o.key); apply(o.key); }}
-          >
-            {o.label}
-          </button>
-        ))}
-      </div>
-      <p className="uxv1-appearance-hint">System follows your device. Your choice is saved on this browser.</p>
+    <div className="ux-field" style={{ marginTop: 0 }}>
+      <p className="ux-flabel">Appearance</p>
+      <Segmented
+        label="Appearance"
+        options={OPTIONS}
+        value={choice}
+        onChange={(v) => { setChoice(v); applyTheme(v); }}
+      />
+      <p className="ux-help">System follows your device. Your choice is saved on this browser.</p>
     </div>
   );
 }

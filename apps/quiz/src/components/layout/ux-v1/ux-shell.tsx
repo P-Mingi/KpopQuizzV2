@@ -1,42 +1,43 @@
-import { SearchBar } from '@/components/home/search-bar';
-import { ThemeToggle } from '@/components/layout/theme-toggle';
-import { NotificationBell } from '@/components/layout/notification-bell';
-import { TopNavProfile } from '@/components/layout/top-nav-profile';
-import { Footer } from '@/components/layout/footer';
+import { UxBrand } from '@/components/ux-v1/brand';
+import { SiteFooter } from '@/components/layout/site-footer';
 
-import { UxSidebar } from './ux-sidebar';
-import { UxMobileNav } from './ux-mobile-nav';
-import { UxStreakPill } from './ux-streak-pill';
+import { UxChromeGate, UxNavScroll, UxRouteFocus } from './ux-chrome-gate';
+import { UxFooter } from './ux-footer';
+import { UxNavActions } from './ux-nav-actions';
+import { UxNavLinks } from './ux-nav-links';
+import { UxProviders } from './ux-providers';
+import { UxTabBar } from './ux-tab-bar';
 
 /**
- * UX v1 shell (DESIGN-SPEC 3). Server component: it renders the static frame and
- * hands off every user-specific bit to the SAME client islands the current chrome
- * uses (SearchBar, ThemeToggle, NotificationBell, TopNavProfile) plus the two new
- * count/streak islands. No cookie/header read here, so wrapping a page in this
- * shell keeps the page's static/ISR render mode - exactly like the current
- * (site) chrome it replaces behind the flag.
+ * UX v11.2 shell (DESIGN-SPEC 16.5, 17.1), rendered by app/(site)/layout.tsx only
+ * when NEXT_PUBLIC_UX_V1 is on. Server component that reads no cookies or headers:
+ * the frame (skip link, sticky 64px top bar, <main>, footer, phone tab bar) is in
+ * the static HTML, and the user-specific bits are small client islands (active
+ * link, account / streak / bell, search overlay, sign-in sheet, toast). Pages
+ * keep their static / ISR mode.
  *
- * The theme toggle is the EXISTING one (class-based .dark/.light), reused, not a
- * parallel system. Footer is the existing Footer, reused.
+ * Replaces the Phase 1 232px sidebar shell (DECISIONS-LOG 2026-09-25, v10).
  */
 export function UxShell({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="uxv1-app">
-      <UxSidebar />
-      <div className="uxv1-col">
-        <header className="uxv1-topbar">
-          <div className="uxv1-topbar-search"><SearchBar /></div>
-          <div className="uxv1-topbar-actions">
-            <UxStreakPill />
-            <ThemeToggle className="uxv1-icon-btn" />
-            <NotificationBell />
-            <TopNavProfile />
-          </div>
-        </header>
-        <main className="uxv1-content">{children}</main>
-        <div className="uxv1-footer"><Footer /></div>
+    <UxProviders>
+      <div className="ux-app">
+        <a className="ux-skip" href="#main">Skip to content</a>
+        <UxChromeGate part="nav">
+          <header className="ux-nav ux-chrome" id="ux-nav">
+            <div className="ux-wrap ux-nav-in">
+              <UxBrand />
+              <UxNavLinks />
+              <UxNavActions />
+            </div>
+          </header>
+          <UxNavScroll />
+        </UxChromeGate>
+        <main id="main" className="ux-main" tabIndex={-1}>{children}</main>
+        <SiteFooter play={<UxFooter />} />
+        <UxChromeGate part="tabbar"><UxTabBar /></UxChromeGate>
+        <UxRouteFocus />
       </div>
-      <UxMobileNav />
-    </div>
+    </UxProviders>
   );
 }
