@@ -338,6 +338,24 @@ for (const theme of THEMES) {
       expect(nonGenerate(h.writes)).toEqual([]);
     });
 
+    test('quit while the songs load: the hub stays, the late answer is ignored', async ({ page }) => {
+      await harness(page, theme);
+      // Slow generate: the answer lands after the player has quit.
+      await page.route((u) => u.pathname === '/api/blind-test/generate', async (r) => {
+        await new Promise((res) => setTimeout(res, 1500));
+        await json(r, { questions: QUESTIONS });
+      });
+      test.skip(!(await openHub(page)), 'UX v1 flag is OFF on this build');
+      await hubReady(page);
+      await page.locator('.p6-setup .ux-btn-primary').click();
+      await expect(page.locator('.p6-play[data-phase="loading"]')).toBeVisible();
+      await page.getByRole('button', { name: 'Quit blindtest' }).click();
+      await expect(page.locator('.p6-hero')).toBeVisible();
+      await page.waitForTimeout(2500);
+      await expect(page.locator('.p6-play')).toHaveCount(0);
+      await expect(page.locator('.p6-hero')).toBeVisible();
+    });
+
     test('results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else', async ({ page }) => {
       const h = await harness(page, theme);
       test.skip(!(await openHub(page)), 'UX v1 flag is OFF on this build');

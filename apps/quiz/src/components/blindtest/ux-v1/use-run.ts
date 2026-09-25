@@ -106,6 +106,9 @@ export function useBlindtestRun(opts: {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const blockedRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startRef = useRef(0);
+  /** Bumped by every start and by quit: a late generate / daily answer or a stale
+   *  timer of a run the player left never brings that run back. */
+  const runRef = useRef(0);
   const answeredRef = useRef(false);
   const mutedRef = useRef(false);
   const submittedRef = useRef(false);
@@ -143,7 +146,9 @@ export function useBlindtestRun(opts: {
     if (nextUrl) preload(nextUrl);
     startRef.current = Date.now();
     stopTimer();
-    timerRef.current = setInterval(() => {
+    const run = runRef.current;
+    const handle = setInterval(() => {
+      if (runRef.current !== run) { clearInterval(handle); return; }
       const remaining = TIMER_S - (Date.now() - startRef.current) / 1000;
       if (remaining <= 0) {
         stopTimer();
@@ -153,6 +158,7 @@ export function useBlindtestRun(opts: {
         setTimeLeft(remaining);
       }
     }, 50);
+    timerRef.current = handle;
     // Autoplay refused (no gesture, or the browser blocked it): the element stays paused.
     blockedRef.current = setTimeout(() => {
       const a = audioRef.current;
@@ -173,6 +179,7 @@ export function useBlindtestRun(opts: {
 
   const startFree = useCallback(async (p: BtPick, n: number) => {
     unlock(); // inside the tap (iOS Safari)
+    const id = ++runRef.current;
     setError(null);
     setMode('free');
     setPick(p);
@@ -184,11 +191,13 @@ export function useBlindtestRun(opts: {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(generateBody(p, n)),
       });
+      const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
+      if (runRef.current !== id) return; // the player quit while the songs loaded
       if (!res.ok) { setError('Not enough songs for this pick. Try another.'); setPhase('idle'); return; }
-      const data = (await res.json()) as { questions?: BtQuestion[] };
-      if (!data.questions?.length) { setError('No songs found. Try another pick.'); setPhase('idle'); return; }
+      if (!data?.questions?.length) { setError('No songs found. Try another pick.'); setPhase('idle'); return; }
       begin(data.questions, 'free');
     } catch {
+      if (runRef.current !== id) return;
       setError('Could not start the game. Check your connection.');
       setPhase('idle');
     }
@@ -196,6 +205,7 @@ export function useBlindtestRun(opts: {
 
   const startDaily = useCallback(async () => {
     unlock();
+    const id = ++runRef.current;
     setError(null);
     setMode('daily');
     setPick(DAILY_PICK);
@@ -203,12 +213,13 @@ export function useBlindtestRun(opts: {
     setPhase('loading');
     try {
       const res = await fetch('/api/daily/blindtest');
-      if (!res.ok) { setError('Could not load today’s blindtest. Try a free run.'); setPhase('idle'); return; }
-      const data = (await res.json()) as { questions?: BtQuestion[] };
-      if (!data.questions?.length) { setError('Could not load today’s blindtest. Try a free run.'); setPhase('idle'); return; }
+      const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
+      if (runRef.current !== id) return; // the player quit while the songs loaded
+      if (!data?.questions?.length) { setError('Could not load today\'s blindtest. Try a free run.'); setPhase('idle'); return; }
       begin(data.questions, 'daily');
     } catch {
-      setError('Could not load today’s blindtest. Try a free run.');
+      if (runRef.current !== id) return;
+      setError('Could not load today\'s blindtest. Try a free run.');
       setPhase('idle');
     }
   }, [begin, unlock]);
@@ -230,6 +241,7 @@ export function useBlindtestRun(opts: {
 
   const startChallenge = useCallback((qs: BtQuestion[], p: BtPick) => {
     unlock();
+    runRef.current++;
     setError(null);
     setMode('challenge');
     setPick(p);
@@ -255,7 +267,8 @@ export function useBlindtestRun(opts: {
   // Auto-next from the reveal (the live game auto-advances too).
   useEffect(() => {
     if (phase !== 'reveal') return;
-    const t = setTimeout(() => next(), AUTO_NEXT_MS);
+    const run = runRef.current;
+    const t = setTimeout(() => { if (runRef.current === run) next(); }, AUTO_NEXT_MS);
     return () => clearTimeout(t);
   }, [phase, next]);
 
@@ -319,6 +332,7 @@ export function useBlindtestRun(opts: {
   }, [phase]);
 
   const quit = useCallback(() => {
+    runRef.current++;
     stopTimer();
     stop();
     setBlocked(false);
