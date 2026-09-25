@@ -38,11 +38,19 @@ export function UxPopover({ trigger, children, menu, label, className, wrap, onO
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const popRef = useRef<HTMLDivElement | null>(null);
 
+  // Closing with focus return is state-driven (the effect below moves focus), so
+  // the close() handed to the content never touches a ref during render.
+  const [focusBack, setFocusBack] = useState(false);
   const setOpen = useCallback((v: boolean) => { setOpenState(v); onOpenChange?.(v); }, [onOpenChange]);
   const close = useCallback((refocus = true) => {
+    setFocusBack(refocus);
     setOpen(false);
-    if (refocus) triggerRef.current?.focus();
   }, [setOpen]);
+  const closeAndRefocus = useCallback(() => close(true), [close]);
+
+  useEffect(() => {
+    if (!open && focusBack) triggerRef.current?.focus();
+  }, [open, focusBack]);
 
   useEffect(() => {
     if (!open) return;
@@ -81,7 +89,7 @@ export function UxPopover({ trigger, children, menu, label, className, wrap, onO
 
   const triggerProps: PopoverTriggerProps = {
     ref: triggerRef,
-    onClick: () => setOpen(!open),
+    onClick: () => { setFocusBack(false); setOpen(!open); },
     'aria-haspopup': menu ? 'menu' : 'dialog',
     'aria-expanded': open,
     'aria-controls': id,
@@ -98,7 +106,7 @@ export function UxPopover({ trigger, children, menu, label, className, wrap, onO
       onKeyDown={onKeyDown}
       onBlur={onBlur}
     >
-      {open ? children(() => close(true)) : null}
+      {open ? children(closeAndRefocus) : null}
     </div>
   );
 

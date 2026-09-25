@@ -47,15 +47,23 @@ export default defineConfig({
     {
       name: 'ux-1440',
       testMatch: /ux-v1\/.*\.spec\.ts$/,
+      testIgnore: /ux-v1\/parity\.spec\.ts$/,
       dependencies: ['setup'],
       use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, channel: CHANNEL, ...LAUNCH },
     },
     {
       name: 'ux-390',
       testMatch: /ux-v1\/.*\.spec\.ts$/,
+      testIgnore: /ux-v1\/parity\.spec\.ts$/,
       dependencies: ['setup'],
       use: { ...devices['Desktop Chrome'], userAgent: devices['Pixel 5'].userAgent, viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, channel: CHANNEL, ...LAUNCH },
     },
+    // Existing-account parity visits /profile -> /me, which is NOT read-only (it may
+    // grant earned badge tiers and write a passport snapshot for the viewer). It runs
+    // only when asked for (UX_V1_PARITY=1), where the owner allows those writes.
+    ...(process.env.UX_V1_PARITY === '1'
+      ? [{ name: 'ux-parity', testMatch: /ux-v1\/parity\.spec\.ts$/, dependencies: ['setup'], use: { ...devices['Desktop Chrome'], channel: CHANNEL, ...LAUNCH } }]
+      : []),
   ],
   // No webServer block: the built app on :3021 is started manually (next build +
   // next start), so the smoke spec runs with no server and feature specs run against

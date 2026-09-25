@@ -357,6 +357,10 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-pa2 .ux-ico { width: 18px; height: 18px; }
 .ux-pa2[aria-pressed="true"] { color: var(--ux-pink-ink); }
 .ux-pa2[aria-pressed="true"] .ux-ico { fill: var(--ux-pink); stroke: var(--ux-pink); }
+.ux-chsc { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; margin-right: 8px; }
+.ux-reps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.ux-reps > span { font-size: 13px; color: var(--ux-muted); background: var(--ux-surface); border-radius: 999px; padding: 5px 10px; }
+.ux-reps b { color: var(--ux-ink); font-variant-numeric: tabular-nums; }
 .ux-panel { border: 1px solid var(--ux-line); border-radius: 20px; padding: 20px 20px 16px; background: var(--ux-raised); color: var(--ux-ink); }
 .ux-panel-h { font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .ux-panel-h > span { display: inline-flex; align-items: center; gap: 8px; }
@@ -391,7 +395,7 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-medal2 { text-align: center; }
 .ux-medal2-i { width: 64px; height: 64px; margin: 0 auto; display: grid; place-items: center; }
 .ux-medal2:hover .ux-bmed.is-earned { transform: translateY(-2px) rotate(-5deg); }
-.ux-medal2 b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; line-height: 1.4; }
+.ux-medal2 b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
 .ux-medal2.is-locked b { color: var(--ux-muted); }
 .ux-medal2-rar { display: block; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ux-rar-ink, var(--ux-muted)); margin-top: 2px; }
 .ux-medal2 small { font-size: 12px; color: var(--ux-muted); }
@@ -433,7 +437,7 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 .ux-sh-h h2, .ux-sh-h h3 { font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .ux-sh-h.is-bare { padding-right: 24px; }
 .ux-sh-b { padding: 16px 24px 24px; }
-.ux-sh-b > .ux-help { margin-top: 12px; }
+.ux-sh-b .ux-help { margin-top: 12px; }
 .ux-sh-p { font-size: 15px; color: var(--ux-muted); }
 .ux-sh-foot { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; flex-wrap: wrap; }
 .ux-authbs { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }

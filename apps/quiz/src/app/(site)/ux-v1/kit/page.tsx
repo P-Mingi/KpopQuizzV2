@@ -7,7 +7,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { Panel, PinnedRow, UxBox, UxRow, UxStatsRow } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
-import { PostAction, PostCard } from '@/components/ux-v1/post-card';
+import { PostAction, PostCard, ReplyScores, ScoreChip } from '@/components/ux-v1/post-card';
 import { LevelBars, UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { TextCard, TextCardGrid } from '@/components/ux-v1/text-card';
@@ -234,9 +234,11 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
             href="#kit-posts"
             author={{ name: 'stay4life', accent: 'teal', bias: 'Felix' }}
             meta="Lv 9 · 20 min ago"
-            excerpt="A STAY playing an ARMY quiz. Missed the Daesang year, 1:04 total. Your turn."
+            excerpt={<><ScoreChip>7/8</ScoreChip>A STAY playing an ARMY quiz. Missed the Daesang year, 1:04 total. Your turn.</>}
             actions={<><PostAction icon="heart" pressed>64</PostAction><PostAction icon="msg">18</PostAction><PostAction icon="play">Take it</PostAction><PostAction icon="share" end aria-label="Share" /></>}
-          />
+          >
+            <ReplyScores items={[{ score: '8/8', name: 'hanjisung_fan' }, { score: '6/8', name: 'quokka_han' }, { score: '5/8', name: 'moa_bloom' }]} more={14} />
+          </PostCard>
           <PostCard
             kind="thread"
             chipDetail="Stray Kids"

@@ -34,7 +34,6 @@ test.describe('existing-account parity', () => {
     const plays = text.match(/([\d,]+)\s+plays?/i)?.[1] ?? 'n/a';
     const mastered = text.match(/([\d,]+)\s+mastered/i)?.[1] ?? 'n/a';
     const xp = text.match(/([\d,]+)\s*xp/i)?.[1] ?? 'n/a';
-    // eslint-disable-next-line no-console
     console.log(`[parity] user=${env.userId ?? 'test user'} plays=${plays} mastered=${mastered} xp=${xp}`);
 
     // Smoke: the passport is the signed-in test user (fixture username testtest),

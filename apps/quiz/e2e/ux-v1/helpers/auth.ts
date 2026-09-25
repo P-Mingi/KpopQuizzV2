@@ -14,8 +14,8 @@ import { AUTH_FILE } from './env';
 export { expect } from '@playwright/test';
 
 export const signedInTest = base.extend({
-  storageState: async ({}, use) => {
-    await use(fs.existsSync(AUTH_FILE) ? AUTH_FILE : { cookies: [], origins: [] });
+  storageState: async ({}, provide) => {
+    await provide(fs.existsSync(AUTH_FILE) ? AUTH_FILE : { cookies: [], origins: [] });
   },
 });
 

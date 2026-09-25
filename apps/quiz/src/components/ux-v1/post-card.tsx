@@ -60,6 +60,21 @@ export function PostCard({ kind, chipDetail, title, href, author, meta, excerpt,
   );
 }
 
+/** Score chip (challenge posts, replies and comments with a score: "7/8"). */
+export function ScoreChip({ children }: { children: React.ReactNode }): React.ReactElement {
+  return <span className="ux-chsc">{children}</span>;
+}
+
+/** Row of reply scores under a challenge post: [{ score: '8/8', name }], "+14 more". */
+export function ReplyScores({ items, more }: { items: { score: string; name: React.ReactNode }[]; more?: number | undefined }): React.ReactElement {
+  return (
+    <div className="ux-reps">
+      {items.map((r, i) => <span key={i}><b>{r.score}</b> {r.name}</span>)}
+      {more ? <span>+{more} more</span> : null}
+    </div>
+  );
+}
+
 interface PostActionProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   icon: UxIconName;
   /** Visible text or count. */

@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Icon } from './icon';
+import { useIsClient } from './use-is-client';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -36,13 +37,11 @@ export interface SheetProps {
  * it. Renders nothing while closed (and nothing on the server).
  */
 export function Sheet({ open, onClose, title, children, width, role = 'dialog', hideClose, initialFocus, describedBy, className, inline }: SheetProps): React.ReactElement | null {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const titleId = `ux-sheet-t-${useId().replace(/:/g, '')}`;
   const ref = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   useEffect(() => { onCloseRef.current = onClose; });
-
-  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (!open || inline) return;
@@ -52,7 +51,11 @@ export function Sheet({ open, onClose, title, children, width, role = 'dialog', 
     root.style.overflow = 'hidden';
 
     const focusFirst = (): void => {
-      const el = initialFocus?.current ?? ref.current?.querySelector<HTMLElement>(FOCUSABLE) ?? ref.current;
+      // The first control of the body (the prototype's choice), not the X.
+      const el = initialFocus?.current
+        ?? ref.current?.querySelector<HTMLElement>(`.ux-sh-b :is(${FOCUSABLE})`)
+        ?? ref.current?.querySelector<HTMLElement>(FOCUSABLE)
+        ?? ref.current;
       el?.focus({ preventScroll: true });
     };
     const t = window.setTimeout(focusFirst, 30);

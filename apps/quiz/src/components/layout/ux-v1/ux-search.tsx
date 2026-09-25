@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 
 import { Icon } from '@/components/ux-v1/icon';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 
 import { SearchResults } from './slots';
 
@@ -28,12 +29,10 @@ function isTyping(el: Element | null): boolean {
 export function UxSearchProvider({ children }: { children: React.ReactNode }): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const opener = useRef<HTMLElement | null>(null);
   const input = useRef<HTMLInputElement>(null);
   const router = useRouter();
-
-  useEffect(() => { setMounted(true); }, []);
 
   const show = useCallback(() => {
     opener.current = document.activeElement as HTMLElement | null;
