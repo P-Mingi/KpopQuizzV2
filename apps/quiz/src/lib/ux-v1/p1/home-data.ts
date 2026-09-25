@@ -191,18 +191,24 @@ export async function getHomeLists(exclude: string[] = [], now: number = Date.no
     getBrowseQuizzes({ sort: 'new', offset: 0, limit: 16 }),
   ]);
   const seen = new Set(exclude);
-  const take = (list: QuizCardData[], n: number): QuizCardData[] => {
+  const take = (list: QuizCardData[], n: number, ok: (q: QuizCardData, picked: QuizCardData[]) => boolean = () => true): QuizCardData[] => {
     const out: QuizCardData[] = [];
     for (const q of list) {
       if (out.length >= n) break;
-      if (seen.has(q.id)) continue;
+      if (seen.has(q.id) || !ok(q, out)) continue;
       seen.add(q.id);
       out.push(q);
     }
     return out;
   };
+  // 16.8: never the same photo twice in one row. A card without its own cover
+  // shows its group photo, so a second quiz of the same group waits its turn.
+  const distinctPhoto = (q: QuizCardData, picked: QuizCardData[]): boolean =>
+    !!q.cover_image_url || !picked.some((p) => !p.cover_image_url && p.group_slug === q.group_slug);
   const week = popular && popular.state !== 'fallback' ? popular.rows.map((r) => r.card) : [];
-  const trending = take(week.length >= 4 ? week : [...week, ...browseTrending], 4);
+  const pool = [...week, ...browseTrending];
+  const trending = take(pool, 4, distinctPhoto);
+  if (trending.length < 4) trending.push(...take(pool, 4 - trending.length));
   const best = take(mostPlayed, 5);
   const fresh = take(newest, 5);
   return { trending, best, fresh };
