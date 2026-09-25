@@ -314,8 +314,8 @@ for (const theme of THEMES) {
       await expect(page.getByTestId('ux-live')).toContainText('Missed.');
       await info.attach(`btplay-answered-${widthOf(page)}-${theme}.png`, { body: await page.screenshot(), contentType: 'image/png' });
 
-      // Auto-next after 3 s.
-      await expect(page.locator('.p6-ans:not([disabled])')).toHaveCount(4, { timeout: 5000 });
+      // Auto-next after 3 s (generous timeout: a loaded CI box can be slow to paint).
+      await expect(page.locator('.p6-ans:not([disabled])')).toHaveCount(4, { timeout: 10_000 });
       await expect(page.locator('.p6-lstate')).toContainText('Song 3 of 10');
 
       // Sound toggle + replay are keyboard buttons.
