@@ -4,6 +4,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { getBlindtestStats } from '@/lib/db/queries/blindtest';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupPopularity, getTodayPlayers, popularSix } from '@/lib/ux-v1/p6/hub-data';
@@ -108,15 +109,22 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           </div>
         </section>
 
-        <section className="ux-sec p6-btg" aria-labelledby="p6-btg-h">
-          <BtGroupIndexLoader popular={popular} />
-          {playlists.staticModes.length > 0 ? (
+        {groups.length > 0 ? (
+          <section className="ux-sec p6-btg" aria-labelledby="p6-btg-h">
+            <BtGroupIndexLoader popular={popular} />
             <p className="p6-themes">
               <b>Theme playlists</b>
-              {playlists.staticModes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+              {STATIC_MODES.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
             </p>
-          ) : null}
-        </section>
+          </section>
+        ) : (
+          // Min-gate: no group list (a DB blip on this render) = no empty index; the
+          // theme playlists (a code constant) keep their links.
+          <p className="ux-sec p6-themes">
+            <b>Theme playlists</b>
+            {STATIC_MODES.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+          </p>
+        )}
 
         <section className="ux-sec p6-faq" aria-labelledby="p6-faq-h">
           <h2 id="p6-faq-h" className="ux-h2">Frequently asked questions</h2>

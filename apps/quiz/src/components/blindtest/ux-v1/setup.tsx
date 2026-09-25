@@ -47,15 +47,19 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
   );
   return (
     <>
-      {item(ALL_PICK, <>All K-pop<small className="ux-num">{hub.songs.toLocaleString('en-US')} songs</small></>)}
-      <div className="p6-pl-h">Groups<small>{list.length} {list.length === 1 ? 'playlist' : 'playlists'}</small></div>
-      <div className="p6-pl-f">
-        <label className="ux-sr" htmlFor="p6-pl-find">Find a group</label>
-        <input className="ux-inp" id="p6-pl-find" type="search" placeholder="Find a group" autoComplete="off" value={q} onChange={(e) => setQ(e.target.value)} />
-      </div>
-      <div className="p6-pl-list">
-        {list.map((g) => item(groupPick(g), <><Avatar slug={g.slug} name={g.name} />{g.name}<small className="ux-num">{g.songs} songs</small></>, g.slug))}
-      </div>
+      {item(ALL_PICK, <>All K-pop{hub.songs > 0 ? <small className="ux-num">{hub.songs.toLocaleString('en-US')} songs</small> : null}</>)}
+      {hub.groups.length > 0 ? (
+        <>
+          <div className="p6-pl-h">Groups<small>{list.length} {list.length === 1 ? 'playlist' : 'playlists'}</small></div>
+          <div className="p6-pl-f">
+            <label className="ux-sr" htmlFor="p6-pl-find">Find a group</label>
+            <input className="ux-inp" id="p6-pl-find" type="search" placeholder="Find a group" autoComplete="off" value={q} onChange={(e) => setQ(e.target.value)} />
+          </div>
+          <div className="p6-pl-list">
+            {list.map((g) => item(groupPick(g), <><Avatar slug={g.slug} name={g.name} />{g.name}<small className="ux-num">{g.songs} songs</small></>, g.slug))}
+          </div>
+        </>
+      ) : null}
       <div className="ux-msep" />
       <div className="p6-pl-h">Mixes</div>
       {MIXES.map((m) => item(m, m.label))}
