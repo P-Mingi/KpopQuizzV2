@@ -85,7 +85,8 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
   await waitHydrated(page);
   // the P4 islands are code-split (components/quiz/ux-v1/islands.tsx) and hydrate after the shell;
   // tests that click another island wait for its own marker (a dev server compiles each chunk on demand)
-  await page.locator('.p4-act[data-ready]').waitFor({ state: 'attached', timeout: 90_000 });
+  // (a ?resume=1 link goes straight to the game: then the question is the ready signal)
+  await page.locator('.p4-act[data-ready], .p4-qq').first().waitFor({ state: 'attached', timeout: 90_000 });
   return true;
 }
 
