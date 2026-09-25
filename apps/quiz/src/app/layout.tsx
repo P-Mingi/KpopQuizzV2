@@ -134,10 +134,24 @@ interface RootLayoutProps {
 // headers() here, the ~36 routes that declare `revalidate` get their static/ISR
 // render mode back.
 export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
+  // UX v1: a separate tree (not a `{flag ? <link> : null}` slot) so the flag-off
+  // tree, and the RSC payload that describes it, stay exactly today's.
+  if (UX_V1) {
+    return (
+      <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
+        <body className="bg-primary text-primary font-sans antialiased">
+          <link rel="stylesheet" href={UX_CSS_HREF} precedence="ux-v1" />
+          <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+          <ThemeInit />
+          <ToastProvider>{children}</ToastProvider>
+          <Analytics />
+        </body>
+      </html>
+    );
+  }
   return (
     <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">
-        {UX_V1 ? <link rel="stylesheet" href={UX_CSS_HREF} precedence="ux-v1" /> : null}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeInit />
         <ToastProvider>{children}</ToastProvider>

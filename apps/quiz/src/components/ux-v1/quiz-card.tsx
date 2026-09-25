@@ -4,9 +4,14 @@ import Image from 'next/image';
 import { formatCount } from '@/lib/utils';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
-import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
+import { QUIZ_TYPE_GLYPH, TYPE_GLYPHS } from '@/lib/ux-v1/a0/type-glyphs';
 
-import { Icon } from './icon';
+/** The type glyph of the typographic cover (own tiny map: this card is imported by
+ *  legacy client lists, so it must not pull the whole icon set flag-off). */
+function TypeGlyph({ quizType }: { quizType: string }): React.ReactElement {
+  const [viewBox, inner] = TYPE_GLYPHS[QUIZ_TYPE_GLYPH[quizType] ?? 't-classic'];
+  return <svg className="ux-ico" viewBox={viewBox} aria-hidden="true" focusable="false" dangerouslySetInnerHTML={{ __html: inner }} />;
+}
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -77,7 +82,7 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
           />
         ) : (
           <div className="ux-qcov-fb">
-            <span className="ux-fbn"><Icon name={QUIZ_TYPE_ICON[quiz.quiz_type] ?? 't-classic'} />{quiz.group_name}</span>
+            <span className="ux-fbn"><TypeGlyph quizType={quiz.quiz_type} />{quiz.group_name}</span>
           </div>
         )}
       </div>

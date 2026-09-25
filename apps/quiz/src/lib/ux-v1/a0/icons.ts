@@ -4,7 +4,10 @@
 // The inner markup is a trusted constant rendered by <Icon>; never feed user
 // input into this map.
 
+import { QUIZ_TYPE_GLYPH, TYPE_GLYPHS } from './type-glyphs';
+
 export const UX_ICONS = {
+  ...TYPE_GLYPHS,
   "search": ['0 0 24 24', '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>'],
   "plus": ['0 0 24 24', '<path d="M12 5v14M5 12h14"/>'],
   "flame": ['0 0 24 24', '<path d="M12 3c.8 3.6-3.6 5.6-3.6 9.6a3.6 3.6 0 0 0 7.2.3c0-1.8-.8-2.9-1.6-3.8.2 1.4-.4 2.4-1.2 2.6 0-3.3 1.2-5.8-.8-8.7Z"/><path d="M8.4 12.6A5.6 5.6 0 0 0 12 21a5.6 5.6 0 0 0 5.6-5.6c0-2.2-1-3.8-2-5"/>'],
@@ -37,11 +40,6 @@ export const UX_ICONS = {
   "vol": ['0 0 24 24', '<path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4Z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/>'],
   "mute": ['0 0 24 24', '<path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4Z"/><path d="m16 10 4 4M20 10l-4 4"/>'],
   "star": ['0 0 24 24', '<path d="m12 3.8 2.5 5.1 5.6.8-4 4 .9 5.6-5-2.7-5 2.7.9-5.6-4-4 5.6-.8L12 3.8Z"/>'],
-  "t-classic": ['0 0 24 24', '<circle cx="6" cy="7" r="1.2"/><circle cx="6" cy="12" r="1.2"/><circle cx="6" cy="17" r="1.2"/><path d="M10 7h9M10 12h9M10 17h6"/>'],
-  "t-tf": ['0 0 24 24', '<rect x="3" y="7" width="18" height="10" rx="5"/><circle cx="15.5" cy="12" r="2.6"/>'],
-  "t-clue": ['0 0 24 24', '<circle cx="10.5" cy="10.5" r="6"/><path d="m19.5 19.5-4.5-4.5M10.5 8v3M10.5 13.2v.3"/>'],
-  "t-image": ['0 0 24 24', '<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17.5 5-4.5 3 2.5 3-3.5 5 5"/>'],
-  "t-intruder": ['0 0 24 24', '<rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><path d="m14.5 14.5 5 5M19.5 14.5l-5 5"/>'],
   "cal": ['0 0 24 24', '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>'],
   "target": ['0 0 24 24', '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>'],
   "flag": ['0 0 24 24', '<path d="M5 21V4.5M5 4.5h11l-2 4 2 4H5"/>'],
@@ -70,13 +68,7 @@ export const UX_ICONS = {
 export type UxIconName = keyof typeof UX_ICONS;
 
 /** Quiz type -> glyph (prototype TYPE map: classic, tf, clue, image, intruder). */
-export const QUIZ_TYPE_ICON: Record<string, UxIconName> = {
-  multiple_choice: 't-classic',
-  true_false: 't-tf',
-  guess_from_clues: 't-clue',
-  image: 't-image',
-  intruder: 't-intruder',
-};
+export const QUIZ_TYPE_ICON: Record<string, UxIconName> = QUIZ_TYPE_GLYPH;
 
 /** Quiz type -> label, in the prototype's words. */
 export const QUIZ_TYPE_LABEL: Record<string, string> = {

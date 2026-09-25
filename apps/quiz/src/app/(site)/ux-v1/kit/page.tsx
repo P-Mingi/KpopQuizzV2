@@ -113,8 +113,11 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
   const withCover = quizzes.filter((q) => q.cover_image_url);
   const withPhoto = quizzes.filter((q) => !q.cover_image_url && groupPhotoUrl(q.group_slug));
   const typographic = quizzes.filter((q) => !q.cover_image_url && !groupPhotoUrl(q.group_slug));
-  const grid = [...withPhoto.slice(0, 2), ...withCover.slice(0, 1), ...typographic.slice(0, 1)];
-  const gridFill = grid.length < 4 ? [...grid, ...quizzes.filter((q) => !grid.includes(q)).slice(0, 4 - grid.length)] : grid;
+  // (named `picked`: Tailwind's content scanner read a negated call on a variable
+  // named like a utility as an important utility class and added a CSS rule to
+  // every flag-off page)
+  const picked = [...withPhoto.slice(0, 2), ...withCover.slice(0, 1), ...typographic.slice(0, 1)];
+  const gridFill = picked.length < 4 ? [...picked, ...quizzes.filter((q) => picked.indexOf(q) < 0).slice(0, 4 - picked.length)] : picked;
 
   return (
     <UxPage width="wide">

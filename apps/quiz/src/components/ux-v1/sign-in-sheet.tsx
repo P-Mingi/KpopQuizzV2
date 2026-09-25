@@ -2,8 +2,13 @@
 
 import { createContext, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
 
-import { createBrowserClient } from '@/lib/supabase/client';
 import { setPendingAction } from '@/lib/ux-v1/a0/pending-action';
+
+// The Supabase browser client (~220 KB) is loaded on the click, not with the page.
+async function supabase(): Promise<ReturnType<typeof import('@/lib/supabase/client').createBrowserClient>> {
+  const { createBrowserClient } = await import('@/lib/supabase/client');
+  return createBrowserClient();
+}
 
 import { Icon } from './icon';
 import { Sheet } from './sheet';
@@ -66,7 +71,7 @@ export function SignInSheet({ open, request, onClose, inline }: { open: boolean;
     setError(null);
     setPending(provider);
     remember();
-    const { error: err } = await createBrowserClient().auth.signInWithOAuth({ provider, options: { redirectTo: callbackUrl() } });
+    const { error: err } = await (await supabase()).auth.signInWithOAuth({ provider, options: { redirectTo: callbackUrl() } });
     if (err) { setPending(null); setError(err.message); }
   };
 
@@ -76,7 +81,7 @@ export function SignInSheet({ open, request, onClose, inline }: { open: boolean;
     setError(null);
     setPending('email');
     remember();
-    const { error: err } = await createBrowserClient().auth.signInWithOtp({ email, options: { emailRedirectTo: callbackUrl() } });
+    const { error: err } = await (await supabase()).auth.signInWithOtp({ email, options: { emailRedirectTo: callbackUrl() } });
     setPending(null);
     if (err) { setError(err.message); return; }
     onClose();

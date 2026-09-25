@@ -19,6 +19,8 @@ const opt = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args.splice(i
 const A = opt('--a', 'http://localhost:4001');
 const B = opt('--b', 'http://localhost:4002');
 const OUT = opt('--out', null);
+const LEVEL = args.includes('--structure') ? 'structure' : 'bytes';
+if (LEVEL === 'structure') args.splice(args.indexOf('--structure'), 1);
 const pages = args.length ? args : ['/'];
 
 function normalise(html) {
@@ -34,6 +36,20 @@ function normalise(html) {
     .replace(/("buildId":")[A-Za-z0-9_-]{10,}(")/g, '$1<build>$2');
 }
 
+// Second level (--structure): the served document without the JS plumbing, i.e.
+// without the client chunk <script src> tags, their preloads and the inline RSC
+// hydration payload (self.__next_f.push), whose client-module ids and chunk lists
+// change whenever any client code in the shared layout changes. Kept: every
+// element, attribute and text a user or a crawler reads, the head (title, meta,
+// canonical, hreflang, stylesheets, fonts), JSON-LD and the pre-paint theme script.
+function structure(html) {
+  return normalise(html)
+    .replace(/<script src="static\/chunks\/<asset>\.js" async=""><\/script>/g, '')
+    .replace(/<link rel="preload" as="script" fetchPriority="low" href="static\/chunks\/<asset>\.js"\/>/g, '')
+    .replace(/<script>self\.__next_f\.push\([\s\S]*?\)<\/script>/g, '')
+    .replace(/<script>\(self\.__next_f=self\.__next_f\|\|\[\]\)\.push\([\s\S]*?\)<\/script>/g, '');
+}
+
 async function get(base, p) {
   const r = await fetch(base + p, { redirect: 'manual', headers: { 'user-agent': 'ux11-flag-off-diff' } });
   return { status: r.status, location: r.headers.get('location'), body: await r.text() };
@@ -43,8 +59,10 @@ let diffs = 0;
 const rows = [];
 for (const p of pages) {
   const [a, b] = await Promise.all([get(A, p), get(B, p)]);
-  const na = normalise(a.body);
-  const nb = normalise(b.body);
+  const norm = LEVEL === 'structure' ? structure : normalise;
+  const na = norm(a.body);
+  const nb = norm(b.body);
+  const scripts = (h) => (h.match(/<script src="\/_next\/static\/chunks\/[^"]+"/g) ?? []).length;
   const same = a.status === b.status && a.location === b.location && na === nb;
   const found = [];
   if (!same) {
@@ -54,7 +72,7 @@ for (const p of pages) {
       if (la[i] !== lb[i]) found.push({ at: i, a: (la[i] ?? '').slice(0, 300), b: (lb[i] ?? '').slice(0, 300) });
     }
   }
-  rows.push({ page: p, status: `${a.status}/${b.status}`, bytes: `${a.body.length}/${b.body.length}`, normalisedBytes: `${na.length}/${nb.length}`, identical: same, found });
+  rows.push({ page: p, status: `${a.status}/${b.status}`, bytes: `${a.body.length}/${b.body.length}`, normalisedBytes: `${na.length}/${nb.length}`, scripts: `${scripts(a.body)}/${scripts(b.body)}`, identical: same, found });
   if (OUT) {
     fs.mkdirSync(OUT, { recursive: true });
     const f = p === '/' ? 'home' : p.replace(/^\//, '').replace(/[^a-z0-9-]+/gi, '_');
@@ -63,7 +81,7 @@ for (const p of pages) {
   }
 }
 for (const r of rows) {
-  process.stdout.write(`${r.identical ? 'IDENTICAL' : 'DIFFERENT'}  ${r.page}  status ${r.status}  raw bytes ${r.bytes}  normalised ${r.normalisedBytes}\n`);
+  process.stdout.write(`${r.identical ? 'IDENTICAL' : 'DIFFERENT'} (${LEVEL})  ${r.page}  status ${r.status}  raw bytes ${r.bytes}  normalised ${r.normalisedBytes}  js chunks ${r.scripts}\n`);
   for (const d of r.found) process.stdout.write(`  node ${d.at}\n    A: ${d.a}\n    B: ${d.b}\n`);
 }
 process.stdout.write(diffs ? `${diffs} page(s) differ\n` : `all ${rows.length} pages identical after normalising build ids and hashed asset names\n`);

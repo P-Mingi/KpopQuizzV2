@@ -11,7 +11,6 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
-import { createBrowserClient } from '@/lib/supabase/client';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { applyTheme, useEffectiveTheme } from '@/lib/ux-v1/a0/theme';
 
@@ -133,7 +132,10 @@ export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile;
 function Account({ profile }: { profile: MeProfile }): React.ReactElement {
   const name = profile.display_name || profile.username;
   const signOut = async (): Promise<void> => {
-    try { await createBrowserClient().auth.signOut(); } catch { /* still leave */ }
+    try {
+      const { createBrowserClient } = await import('@/lib/supabase/client'); // loaded on the click only
+      await createBrowserClient().auth.signOut();
+    } catch { /* still leave */ }
     clearMe();
     window.location.assign('/');
   };

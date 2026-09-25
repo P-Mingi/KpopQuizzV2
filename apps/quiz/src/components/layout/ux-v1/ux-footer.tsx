@@ -1,9 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { Icon } from '@/components/ux-v1/icon';
-import { verseHidden } from '@/lib/verse/visibility';
 
 import { UxFooterLocale, UxFooterTheme } from './ux-footer-controls';
 
@@ -12,8 +13,9 @@ import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 // Prototype footer (16.7: surface band, brand + Play / Explore / Community /
 // Support + Top groups row, 2 columns on phones). The columns keep EVERY link the
 // live footer has today (WIRING-MAP "Footer links", SEO: internal links are part
-// of the served HTML) and add the prototype's; all are existing routes.
-function columns(): FooterCol[] {
+// of the served HTML) and add the prototype's; all are existing routes. Client
+// component inside the lazily loaded shell; server-only facts arrive as props.
+function columns(showFandoms: boolean): FooterCol[] {
   return [
     { title: 'Play', links: [
       { label: 'Daily quiz', href: '/daily' },
@@ -36,7 +38,7 @@ function columns(): FooterCol[] {
     { title: 'Community', links: [
       { label: 'Feed', href: '/community' },
       { label: 'Leaderboard', href: '/leaderboard' },
-      ...(verseHidden() ? [] : [{ label: 'Fandoms', href: '/verse' }]),
+      ...(showFandoms ? [{ label: 'Fandoms', href: '/verse' }] : []),
       { label: 'Create a quiz', href: '/create' },
       { label: 'Discord', href: discordInviteWithUtm('footer'), external: true },
       { label: 'Reddit', href: 'https://reddit.com/r/Kpop_Verse', external: true },
@@ -64,10 +66,9 @@ const TOP_GROUPS: { name: string; slug: string }[] = [
   { name: 'SEVENTEEN', slug: 'seventeen' },
 ];
 
-/** Site footer of the v11 shell. Server component; two tiny client islands
- *  (language link, theme switch). */
-export function UxFooter(): React.ReactElement {
-  const year = new Date().getFullYear();
+/** Site footer of the v11 shell. `showFandoms` = the Verse is public
+ *  (lib/verse/visibility, server env); `year` from the server render. */
+export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: number }): React.ReactElement {
   return (
     <footer className="ux-foot ux-chrome">
       <div className="ux-wrap">
@@ -77,7 +78,7 @@ export function UxFooter(): React.ReactElement {
             <p>Free K-pop quizzes and blindtests, made by fans for fans.</p>
             <p>Made by fans <Icon name="heart" label="with love" /></p>
           </div>
-          {columns().map((c) => (
+          {columns(showFandoms).map((c) => (
             <div key={c.title} className="ux-fcol">
               <p className="ux-fcol-h">{c.title}</p>
               {c.links.map((l) => l.external
