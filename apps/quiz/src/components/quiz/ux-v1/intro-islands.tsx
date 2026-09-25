@@ -108,7 +108,7 @@ export function P4HofMine(): React.ReactElement {
     );
   }
   return (
-    <div className="p4-mine" data-testid="p4-mine">
+    <div className="p4-mine" data-testid="p4-mine" data-ready={ready ? '' : undefined}>
       <span className="p4-grow">Play to put your name on this board.</span>
     </div>
   );
