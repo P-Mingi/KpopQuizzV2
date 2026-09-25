@@ -1,0 +1,89 @@
+
+== /q/ultimate-bts-era-quiz-only-real-armys-survive
+SAME  status  200/200 
+SAME  title  "Ultimate BTS era qui...RMYs survive · 8 questions | KpopQuiz"
+SAME  meta description
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:type
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/q/ultimate-bts-era-quiz-only-real-armys-survive
+SAME  hreflang / alternate  0 links
+SAME  H1  ["Ultimate BTS era quiz - only real ARMYs survive"]
+SAME  JSON-LD blocks  4/4 (BreadcrumbList, Organization, Quiz, SiteNavigationElement)
+SAME  FAQ (none on quiz pages)
+SAME  intro paragraph (verbatim in B)  "Test your BTS knowledge with this medium 8-question quiz by mina. 2,37..."
+SAME  question review texts  8/8 in B
+SAME  internal links of the page kept  12 in A, all in B (B has 12)
+SAME  server rendered (B HTML carries the content)  86033 chars of text
+
+== /q/skz-true-or-false-only-real-stays-pass
+SAME  status  200/200 
+SAME  title  "SKZ true or false -...l STAYs pass · 8 questions | KpopQuiz"
+SAME  meta description
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:type
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/q/skz-true-or-false-only-real-stays-pass
+SAME  hreflang / alternate  0 links
+SAME  H1  ["SKZ true or false - only real STAYs pass"]
+SAME  JSON-LD blocks  4/4 (BreadcrumbList, Organization, Quiz, SiteNavigationElement)
+SAME  FAQ (none on quiz pages)
+SAME  intro paragraph (verbatim in B)  "Test your Stray Kids knowledge with this easy 8-question quiz by mappl..."
+SAME  question review texts  8/8 in B
+SAME  internal links of the page kept  12 in A, all in B (B has 12)
+SAME  server rendered (B HTML carries the content)  83684 chars of text
+
+== /q/real-coers-cortis-fans-can-take-this-quiz
+SAME  status  200/200 
+SAME  title  "real COERS (cortis f...e this quiz! · 5 questions | KpopQuiz"
+SAME  meta description
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:type
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/q/real-coers-cortis-fans-can-take-this-quiz
+SAME  hreflang / alternate  0 links
+SAME  H1  ["real COERS (cortis fans) can take this quiz!"]
+SAME  JSON-LD blocks  4/4 (BreadcrumbList, Organization, Quiz, SiteNavigationElement)
+SAME  FAQ (none on quiz pages)
+SAME  intro paragraph (verbatim in B)  "Test your Cortis knowledge with this medium 5-question quiz by multist..."
+SAME  question review texts  5/5 in B
+SAME  internal links of the page kept  11 in A, all in B (B has 11)
+SAME  server rendered (B HTML carries the content)  80133 chars of text
+
+== /pt/q/ultimate-bts-era-quiz-only-real-armys-survive
+SAME  status  404/404 
+
+== /pt/q/skz-true-or-false-only-real-stays-pass
+SAME  status  404/404 
+
+== /pt/q/real-coers-cortis-fans-can-take-this-quiz
+SAME  status  404/404 
+
+no SEO difference
