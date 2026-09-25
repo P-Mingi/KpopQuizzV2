@@ -48,6 +48,34 @@ describe('tokens: a0.css and lib/design-tokens.ts agree', () => {
   });
 });
 
+describe('ink floor: every text token pair is AA (16.9)', () => {
+  const rgb = (h: string): number[] => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const lum = (h: string): number => {
+    const [r, g, b] = rgb(h).map((v) => { const c = v / 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; });
+    return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (b ?? 0);
+  };
+  const ratio = (a: string, b: string): number => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return ((x ?? 0) + 0.05) / ((y ?? 0) + 0.05); };
+  // The text / ground pairs the v11 components actually use.
+  const PAIRS: [string[], string[]][] = [
+    [['ink', 'muted'], ['page', 'surface', 'surface-2', 'raised']],
+    [['ink'], ['pink-soft']],
+    [['pink-ink'], ['page', 'surface', 'raised']],
+    [['pink-soft-ink'], ['pink-soft']],
+  ];
+  for (const [name, t] of [['light', UX_TOKENS_LIGHT], ['dark', UX_TOKENS_DARK]] as const) {
+    it(`${name}: ink, muted, pink-ink, pink-soft-ink, accents and rarity words >= 4.5`, () => {
+      const flair = Object.keys(t).filter((k) => k.startsWith('acc-') || k.startsWith('rar-'));
+      const pairs: [string[], string[]][] = [...PAIRS, [flair, ['page', 'surface', 'surface-2', 'raised', 'pink-soft']]];
+      for (const [inks, grounds] of pairs) for (const i of inks) for (const g of grounds) {
+        expect(ratio(t[i] as string, t[g] as string), `${name} ${i} on ${g}`).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+  }
+  it('white on the pink fill button (4.62:1, 16.1)', () => {
+    expect(ratio('#FFFFFF', UX_TOKENS_LIGHT['pink-fill'] as string)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
 describe('nav model', () => {
   it('every item is a real path', () => {
     for (const it2 of [...NAV_ITEMS, ...TAB_ITEMS]) expect(it2.href.startsWith('/')).toBe(true);

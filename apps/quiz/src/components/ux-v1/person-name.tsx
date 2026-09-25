@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { isValidNameAccent, isValidNameFont, NAME_ACCENTS, NAME_FONTS } from '@/lib/passport-flair';
+import { isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
 
 import { Icon } from './icon';
 
@@ -17,9 +17,12 @@ export interface PersonFlair {
   bias?: string | null | undefined;
 }
 
-function accentColor(accent: string | null | undefined): string | undefined {
-  if (!accent || accent === 'default' || !isValidNameAccent(accent)) return undefined; // inherits ink
-  return NAME_ACCENTS[accent]?.color;
+/** The accent class (ux-acc-<key>) or null for default. The colours are the
+ *  passport-flair presets clamped to AA on every v11 ground, per theme (a0.css
+ *  --ux-acc-*: 16.9 "contrast AA on every text pair in both themes"). */
+function accentClass(accent: string | null | undefined): string | null {
+  if (!accent || accent === 'default' || !isValidNameAccent(accent)) return null; // inherits ink
+  return `ux-acc-${accent}`;
 }
 
 function fontFamily(font: string | null | undefined): string | undefined {
@@ -33,7 +36,7 @@ export function BiasTag({ bias, accent }: { bias?: string | null | undefined; ac
   const text = (bias ?? '').trim().slice(0, 40);
   if (!text) return null;
   return (
-    <span className="ux-bias" style={{ color: accentColor(accent) ?? 'var(--ux-muted)' }}>
+    <span className={`ux-bias ${accentClass(accent) ?? 'ux-acc-none'}`}>
       <Icon name="heart" />{text}
     </span>
   );
@@ -55,12 +58,9 @@ interface PersonNameProps extends PersonFlair {
  * /u/[username] already shows.
  */
 export function PersonName({ name, accent, font, bias, href, showBias = true, className }: PersonNameProps): React.ReactElement {
-  const style: React.CSSProperties = {};
-  const c = accentColor(accent);
   const f = fontFamily(font);
-  if (c) style.color = c;
-  if (f) style.fontFamily = f;
-  const cls = ['ux-who', className ?? ''].filter(Boolean).join(' ');
+  const style = f ? { fontFamily: f } : undefined;
+  const cls = ['ux-who', accentClass(accent) ?? '', className ?? ''].filter(Boolean).join(' ');
   return (
     <>
       {href

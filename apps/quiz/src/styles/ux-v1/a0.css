@@ -34,6 +34,10 @@ html.ux-v1,
   --ux-lav-soft: #EEEDFE; --ux-lav-ink: #3C3489;
   --ux-hl: #DB4B7E;
   --ux-bulb: #E0A100; --ux-bulb-fill: #FFE9A6;
+  /* name accents (lib/passport-flair.ts) clamped to AA on every v11 ground (16.9 ink floor) */
+  --ux-acc-pink: #BC3863; --ux-acc-purple: #665FB1; --ux-acc-blue: #2B6CAC; --ux-acc-teal: #167859; --ux-acc-amber: #975D08; --ux-acc-coral: #B14A27;
+  /* rarity words (lib/badges.ts RARITY_COLOR) clamped to AA the same way */
+  --ux-rar-common: #646A78; --ux-rar-uncommon: #19793F; --ux-rar-rare: #2F67C2; --ux-rar-epic: #8B47CD; --ux-rar-legendary: #896200;
   --ux-ease: cubic-bezier(.2, .7, .2, 1); --ux-spring: cubic-bezier(.34, 1.4, .64, 1);
   --ux-wide: 1120px; --ux-text: 720px; --ux-stage: 600px; --ux-gut: 32px;
   --ux-font: var(--font-inter, Inter), var(--font-pretendard, Pretendard), "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -62,6 +66,8 @@ html.ux-v1.dark,
   --ux-lav-soft: #26233F; --ux-lav-ink: #C9C4FF;
   --ux-hl: #FF7AA5;
   --ux-bulb: #F5C542; --ux-bulb-fill: rgba(245, 197, 66, .22);
+  --ux-acc-pink: #EB618E; --ux-acc-purple: #8D86E1; --ux-acc-blue: #4995E0; --ux-acc-teal: #28A37C; --ux-acc-amber: #CA8117; --ux-acc-coral: #DE734F;
+  --ux-rar-common: #8B93A7; --ux-rar-uncommon: #26A558; --ux-rar-rare: #5190F7; --ux-rar-epic: #B56FF8; --ux-rar-legendary: #E0A100;
   color-scheme: dark;
 }
 /* ---------- tokens: dark (system theme, no stored choice) ---------- */
@@ -86,6 +92,8 @@ html.ux-v1.dark,
     --ux-lav-soft: #26233F; --ux-lav-ink: #C9C4FF;
     --ux-hl: #FF7AA5;
     --ux-bulb: #F5C542; --ux-bulb-fill: rgba(245, 197, 66, .22);
+    --ux-acc-pink: #EB618E; --ux-acc-purple: #8D86E1; --ux-acc-blue: #4995E0; --ux-acc-teal: #28A37C; --ux-acc-amber: #CA8117; --ux-acc-coral: #DE734F;
+    --ux-rar-common: #8B93A7; --ux-rar-uncommon: #26A558; --ux-rar-rare: #5190F7; --ux-rar-epic: #B56FF8; --ux-rar-legendary: #E0A100;
     color-scheme: dark;
   }
 }
@@ -111,7 +119,12 @@ html.ux-v1 body { background: var(--ux-page); color: var(--ux-ink); overflow-x: 
 :where(.ux-chrome, .ux-page, .ux-layer) :where(svg) { display: block; flex: 0 0 auto; stroke-linecap: round; stroke-linejoin: round; }
 :where(.ux-chrome, .ux-page, .ux-layer) :where(img) { max-width: 100%; display: block; }
 :where(.ux-chrome, .ux-page, .ux-layer) :where(ul, ol) { margin: 0; padding: 0; list-style: none; }
-:where(.ux-app, .ux-layer) :focus-visible { outline: 2px solid var(--ux-pink); outline-offset: 2px; border-radius: 8px; }
+/* The legacy preflight gives every element border-color: var(--border); v11
+   boxes default to currentColor like the prototype (component rules below win). */
+.ux-chrome, .ux-page, .ux-layer, .ux-chrome *, .ux-page *, .ux-layer * { border-color: currentColor; }
+/* 16.9 focus ring: 2px pink. Beats the legacy global :focus-visible (#D4537E). */
+.ux-app :focus-visible, .ux-layer :focus-visible, .ux-layer:focus-visible { outline: 2px solid var(--ux-pink); outline-offset: 2px; }
+:where(.ux-app, .ux-layer) :focus-visible { border-radius: 8px; }
 :where(.ux-app, .ux-layer) [tabindex="-1"]:focus { outline: none; }
 .ux-num { font-variant-numeric: tabular-nums; }
 .ux-muted { color: var(--ux-muted); }
@@ -350,6 +363,15 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-panel-h .ux-ico { width: 18px; height: 18px; color: var(--ux-pink); align-self: center; }
 .ux-panel-h small { font-size: 13px; font-weight: 500; color: var(--ux-muted); }
 .ux-panel-sub { font-size: 13px; color: var(--ux-muted); margin-top: 4px; }
+.ux-stats3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; max-width: 440px; margin: 24px auto 0; border: 1px solid var(--ux-line); border-radius: 18px; padding: 16px 0; background: var(--ux-raised); color: var(--ux-ink); }
+.ux-stats3 > div { text-align: center; }
+.ux-stats3 > div + div { border-left: 1px solid var(--ux-line-2); }
+.ux-stats3 b { display: block; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ux-stats3 span { font-size: 13px; color: var(--ux-muted); }
+.ux-pin { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: var(--ux-surface); border-radius: 16px; padding: 14px 18px; margin-top: 12px; color: var(--ux-ink); }
+.ux-pin.is-you { background: var(--ux-pink-soft); box-shadow: inset 0 0 0 1px var(--ux-qotd-edge); }
+.ux-pin-grow { flex: 1; min-width: 160px; }
+.ux-pin-rk { width: 44px; font-weight: 600; color: var(--ux-muted); font-variant-numeric: tabular-nums; }
 .ux-box { border: 1px solid var(--ux-line); border-radius: 20px; padding: 24px 26px; background: var(--ux-raised); }
 .ux-boxed { border: 1px solid var(--ux-line); border-radius: 20px; padding: 8px 22px; background: var(--ux-raised); }
 
@@ -357,6 +379,9 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-who { font-weight: 600; }
 .ux-bias { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid currentColor; vertical-align: middle; margin-left: 6px; line-height: 1; font-family: var(--ux-font); white-space: nowrap; }
 .ux-bias .ux-ico { width: 12px; height: 12px; }
+.ux-acc-pink { color: var(--ux-acc-pink); } .ux-acc-purple { color: var(--ux-acc-purple); } .ux-acc-blue { color: var(--ux-acc-blue); }
+.ux-acc-teal { color: var(--ux-acc-teal); } .ux-acc-amber { color: var(--ux-acc-amber); } .ux-acc-coral { color: var(--ux-acc-coral); }
+.ux-bias.ux-acc-none { color: var(--ux-muted); }
 .ux-personprev { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--ux-line); border-radius: 16px; background: var(--ux-surface); }
 .ux-personprev .ux-ava { width: 40px; height: 40px; }
 
@@ -368,12 +393,14 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-medal2:hover .ux-bmed.is-earned { transform: translateY(-2px) rotate(-5deg); }
 .ux-medal2 b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; line-height: 1.4; }
 .ux-medal2.is-locked b { color: var(--ux-muted); }
-.ux-medal2-rar { display: block; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ux-rc); margin-top: 2px; }
+.ux-medal2-rar { display: block; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ux-rar-ink, var(--ux-muted)); margin-top: 2px; }
 .ux-medal2 small { font-size: 12px; color: var(--ux-muted); }
 .ux-medals { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
 .ux-rarkey { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ux-muted); margin-top: 4px; }
 .ux-rarkey span { display: inline-flex; align-items: center; gap: 6px; }
-.ux-r-common { --ux-rc: #8b93a7; } .ux-r-uncommon { --ux-rc: #22a355; } .ux-r-rare { --ux-rc: #3b82f6; } .ux-r-epic { --ux-rc: #a855f7; } .ux-r-legendary { --ux-rc: #e0a100; }
+.ux-r-common { --ux-rc: #8b93a7; --ux-rar-ink: var(--ux-rar-common); } .ux-r-uncommon { --ux-rc: #22a355; --ux-rar-ink: var(--ux-rar-uncommon); }
+.ux-r-rare { --ux-rc: #3b82f6; --ux-rar-ink: var(--ux-rar-rare); } .ux-r-epic { --ux-rc: #a855f7; --ux-rar-ink: var(--ux-rar-epic); }
+.ux-r-legendary { --ux-rc: #e0a100; --ux-rar-ink: var(--ux-rar-legendary); }
 
 /* ---------- forms ---------- */
 .ux-field { margin-top: 32px; }
@@ -503,6 +530,9 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   .ux-tcard:hover { background: none; }
   .ux-post { padding: 20px 18px; }
   .ux-box { padding: 20px; }
+  .ux-stats3 { max-width: none; }
+  .ux-pin { flex-wrap: nowrap; }
+  .ux-pin-grow { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ux-seg { overflow-x: auto; scrollbar-width: none; }
   .ux-seg::-webkit-scrollbar { display: none; }
   .ux-utabs { gap: 6px; }
@@ -536,10 +566,19 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
 .ux-kit-sec > h2 { font-size: 13px; font-weight: 600; color: var(--ux-muted); letter-spacing: .02em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--ux-hair); }
 .ux-kit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
 .ux-kit-row + .ux-kit-row { margin-top: 16px; }
+.ux-kit-row > * { min-width: 0; max-width: 100%; }
 .ux-kit-label { font-size: 12px; color: var(--ux-muted); display: block; margin-bottom: 6px; }
 .ux-kit-panes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--ux-line); border-radius: 20px; overflow: hidden; }
 .ux-kit-pane { padding: 24px; }
 .ux-kit-grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.ux-kit-display { font-size: 48px; line-height: 1.05; font-weight: 700; letter-spacing: -0.03em; }
+.ux-kit-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.ux-kit-sw { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ux-muted); min-width: 0; }
+.ux-kit-sw i { width: 24px; height: 24px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--ux-line); flex: 0 0 auto; }
+.ux-kit-sw code { font: 500 12px/1.3 ui-monospace, Menlo, monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ux-kit-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; }
+.ux-kit-icons span { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px; border: 1px solid var(--ux-line); border-radius: 12px; }
+.ux-kit-icons small { font-size: 12px; color: var(--ux-muted); }
 .ux-kit-static { position: relative; }
 .ux-kit-static .ux-pop, .ux-kit-static .ux-sov, .ux-kit-static .ux-sheet { position: relative; inset: auto; top: auto; left: auto; right: auto; bottom: auto; transform: none; animation: none; z-index: 1; margin: 0; }
 .ux-kit-static .ux-sov { width: 100%; }

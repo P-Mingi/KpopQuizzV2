@@ -78,6 +78,10 @@ export const UX_TOKENS_LIGHT: UxThemeTokens = {
   'on-ok': '#FFFFFF', 'knob-off': '#FFFFFF',
   'qotd-edge': '#F4D6E1', 'lav-soft': '#EEEDFE', 'lav-ink': '#3C3489', hl: '#DB4B7E',
   bulb: '#E0A100', 'bulb-fill': '#FFE9A6', 'theme-band': '#FBE4D8',
+  // name accents of lib/passport-flair.ts, clamped to AA on every light ground
+  'acc-pink': '#BC3863', 'acc-purple': '#665FB1', 'acc-blue': '#2B6CAC', 'acc-teal': '#167859', 'acc-amber': '#975D08', 'acc-coral': '#B14A27',
+  // rarity words (lib/badges.ts RARITY_COLOR), clamped to AA on light grounds
+  'rar-common': '#646A78', 'rar-uncommon': '#19793F', 'rar-rare': '#2F67C2', 'rar-epic': '#8B47CD', 'rar-legendary': '#896200',
 };
 
 export const UX_TOKENS_DARK: UxThemeTokens = {
@@ -91,6 +95,9 @@ export const UX_TOKENS_DARK: UxThemeTokens = {
   'on-ok': '#141312', 'knob-off': '#A8A198',
   'qotd-edge': '#40283A', 'lav-soft': '#26233F', 'lav-ink': '#C9C4FF', hl: '#FF7AA5',
   bulb: '#F5C542', 'bulb-fill': 'rgba(245,197,66,.22)', 'theme-band': '#3A2620',
+  // name accents, clamped to AA on every dark ground
+  'acc-pink': '#EB618E', 'acc-purple': '#8D86E1', 'acc-blue': '#4995E0', 'acc-teal': '#28A37C', 'acc-amber': '#CA8117', 'acc-coral': '#DE734F',
+  'rar-common': '#8B93A7', 'rar-uncommon': '#26A558', 'rar-rare': '#5190F7', 'rar-epic': '#B56FF8', 'rar-legendary': '#E0A100',
 };
 
 /** Theme-independent layout scale (DESIGN-SPEC 16.3 + 16.4). */

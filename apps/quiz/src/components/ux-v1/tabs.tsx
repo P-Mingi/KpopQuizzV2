@@ -75,7 +75,9 @@ export function UxTabs({ items, value, onChange, label, idPrefix = 'ux-tabs', cl
             role="tab"
             id={`${idPrefix}-tab-${t.id}`}
             aria-selected={on}
-            aria-controls={`${idPrefix}-panel-${t.id}`}
+            // Only the selected panel is guaranteed to be in the DOM (pages may
+            // render just the active one), so only its tab points at it.
+            aria-controls={on ? `${idPrefix}-panel-${t.id}` : undefined}
             tabIndex={on ? 0 : -1}
             onClick={() => onChange?.(t.id)}
           >

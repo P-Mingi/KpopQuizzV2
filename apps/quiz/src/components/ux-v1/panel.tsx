@@ -43,6 +43,31 @@ export function UxBox({ children, as: Tag = 'section', className, label }: { chi
   return <Tag className={['ux-box', className ?? ''].filter(Boolean).join(' ')} aria-label={label}>{children}</Tag>;
 }
 
+/** Three numbers in one bordered row with hairline dividers, max 440 wide (17.4
+ *  results: You / Average / Time; blindtest results). Values are the run's real ones. */
+export function UxStatsRow({ items, className }: { items: { value: React.ReactNode; label: string }[]; className?: string | undefined }): React.ReactElement {
+  return (
+    <div className={['ux-stats3', className ?? ''].filter(Boolean).join(' ')}>
+      {items.map((it) => <div key={it.label}><b>{it.value}</b><span>{it.label}</span></div>)}
+    </div>
+  );
+}
+
+/** Pinned "your row" (leaderboard, ranked ladder, hall of fame): surface pill row;
+ *  `you` = the signed-in fan's own row, pink-soft with the pink edge (17.1). */
+export function PinnedRow({ rank, lead, children, end, you, className }: {
+  rank?: React.ReactNode; lead?: React.ReactNode; children: React.ReactNode; end?: React.ReactNode; you?: boolean | undefined; className?: string | undefined;
+}): React.ReactElement {
+  return (
+    <div className={['ux-pin', you ? 'is-you' : '', className ?? ''].filter(Boolean).join(' ')}>
+      {rank !== undefined ? <span className="ux-pin-rk">{rank}</span> : null}
+      {lead}
+      <span className="ux-pin-grow">{children}</span>
+      {end}
+    </div>
+  );
+}
+
 interface UxRowProps {
   href?: string;
   /** Leading visual: <span className="ux-rn">1</span>, a .ux-thumb, a .ux-gav, an avatar. */

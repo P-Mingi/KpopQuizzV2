@@ -19,14 +19,37 @@ import { BellPanel } from './slots';
 import { useUxSearch } from './ux-search';
 
 import type { MeProfile } from '@/lib/auth/use-me';
+import type { StreakView } from '@/lib/ux-v1/a0/streak';
 
 const POLL_MS = 90_000;
+
+/** Streak popover content (also rendered statically by the /ux-v1/kit gallery). */
+export function StreakBody({ v, close }: { v: StreakView; close: () => void }): React.ReactElement {
+  const risk = v.state === 'at_risk';
+  return (
+    <>
+      <div className="ux-streakpop-big">{v.days} {v.days === 1 ? 'day' : 'days'}</div>
+      <p>{risk
+        ? `Today is not played yet. Play any quiz or blindtest in the next ${v.left} to keep it.`
+        : `Today is played. Come back tomorrow to make it ${v.days + 1}.`}</p>
+      <ol className="ux-week" aria-label="This week">
+        {v.week.map((d, i) => (
+          <li key={i} className={[d.done ? 'is-done' : '', d.today && !d.done ? 'is-today' : ''].filter(Boolean).join(' ')}>
+            {d.label}<span className="ux-sr">{d.done ? ', played' : d.today ? ', today' : ''}</span>
+          </li>
+        ))}
+      </ol>
+      {risk
+        ? <Link href="/daily" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
+        : <Link href="/profile" className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
+    </>
+  );
+}
 
 function StreakPill({ profile }: { profile: MeProfile }): React.ReactElement | null {
   const v = streakView(profile.daily_streak, profile.last_daily_date);
   if (!v) return null;
   const risk = v.state === 'at_risk';
-  const unit = v.days === 1 ? 'day' : 'days';
   return (
     <UxPopover
       label="Your streak"
@@ -42,24 +65,7 @@ function StreakPill({ profile }: { profile: MeProfile }): React.ReactElement | n
         </button>
       )}
     >
-      {(close) => (
-        <>
-          <div className="ux-streakpop-big">{v.days} {unit}</div>
-          <p>{risk
-            ? `Today is not played yet. Play any quiz or blindtest in the next ${v.left} to keep it.`
-            : `Today is played. Come back tomorrow to make it ${v.days + 1}.`}</p>
-          <ol className="ux-week" aria-label="This week">
-            {v.week.map((d, i) => (
-              <li key={i} className={[d.done ? 'is-done' : '', d.today && !d.done ? 'is-today' : ''].filter(Boolean).join(' ')}>
-                {d.label}<span className="ux-sr">{d.done ? ', played' : d.today ? ', today' : ''}</span>
-              </li>
-            ))}
-          </ol>
-          {risk
-            ? <Link href="/daily" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
-            : <Link href="/profile" className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
-        </>
-      )}
+      {(close) => <StreakBody v={v} close={close} />}
     </UxPopover>
   );
 }
@@ -100,10 +106,32 @@ function Bell(): React.ReactElement {
   );
 }
 
-function Account({ profile }: { profile: MeProfile }): React.ReactElement {
+/** Account menu content (also rendered statically by the /ux-v1/kit gallery). */
+export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile; close: () => void; onSignOut: () => void }): React.ReactElement {
   const dark = useEffectiveTheme() === 'dark';
   const name = profile.display_name || profile.username;
   const lv = getLevelInfo(profile.xp ?? 0);
+  return (
+    <>
+      <div className="ux-pop-id">
+        <UxAvatar name={name} src={profile.avatar_url} size={40} />
+        <div><b>{profile.username}</b><small>Lv {lv.level} · {lv.name}</small></div>
+      </div>
+      <div className="ux-msep" />
+      <Link className="ux-mi" href="/profile" onClick={close}><Icon name="user" />Passport</Link>
+      <Link className="ux-mi" href={`/u/${encodeURIComponent(profile.username)}`} onClick={close}><Icon name="layers" />My quizzes</Link>
+      <Link className="ux-mi" href="/settings" onClick={close}><Icon name="gear" />Settings</Link>
+      <button type="button" className="ux-mi" onClick={() => applyTheme(dark ? 'light' : 'dark')}>
+        <Icon name={dark ? 'sun' : 'moon'} />{dark ? 'Light mode' : 'Dark mode'}
+      </button>
+      <div className="ux-msep" />
+      <button type="button" className="ux-mi" onClick={onSignOut}><Icon name="out" />Sign out</button>
+    </>
+  );
+}
+
+function Account({ profile }: { profile: MeProfile }): React.ReactElement {
+  const name = profile.display_name || profile.username;
   const signOut = async (): Promise<void> => {
     try { await createBrowserClient().auth.signOut(); } catch { /* still leave */ }
     clearMe();
@@ -118,23 +146,7 @@ function Account({ profile }: { profile: MeProfile }): React.ReactElement {
         </button>
       )}
     >
-      {(close) => (
-        <>
-          <div className="ux-pop-id">
-            <UxAvatar name={name} src={profile.avatar_url} size={40} />
-            <div><b>{profile.username}</b><small>Lv {lv.level} · {lv.name}</small></div>
-          </div>
-          <div className="ux-msep" />
-          <Link className="ux-mi" href="/profile" onClick={close}><Icon name="user" />Passport</Link>
-          <Link className="ux-mi" href={`/u/${encodeURIComponent(profile.username)}`} onClick={close}><Icon name="layers" />My quizzes</Link>
-          <Link className="ux-mi" href="/settings" onClick={close}><Icon name="gear" />Settings</Link>
-          <button type="button" className="ux-mi" onClick={() => applyTheme(dark ? 'light' : 'dark')}>
-            <Icon name={dark ? 'sun' : 'moon'} />{dark ? 'Light mode' : 'Dark mode'}
-          </button>
-          <div className="ux-msep" />
-          <button type="button" className="ux-mi" onClick={() => { void signOut(); }}><Icon name="out" />Sign out</button>
-        </>
-      )}
+      {(close) => <AccountBody profile={profile} close={close} onSignOut={() => { void signOut(); }} />}
     </UxPopover>
   );
 }
