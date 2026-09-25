@@ -97,7 +97,8 @@ async function harness(page: Page, theme: Theme, opts: { board?: 'guest' | 'fres
   await page.route(/cdnt-preview\.dzcdn\.net/, (r) => r.fulfill({ status: 200, contentType: 'audio/wav', body: WAV }));
   await page.route((u) => u.pathname === '/api/blind-test/generate', async (r) => { h.generate.push(r.request().postDataJSON()); await json(r, { questions: QUESTIONS }); });
   await page.route((u) => u.pathname === '/api/daily/blindtest', (r) => json(r, { date: 'fixture', questions: QUESTIONS, timer_duration: 10, songs_count: 10 }));
-  if (opts.board !== 'real') await page.route((u) => u.pathname === '/api/ux-v1/p6/board', (r) => json(r, board(opts.board ?? 'guest')));
+  const which = opts.board === 'real' ? null : (opts.board ?? 'guest');
+  if (which) await page.route((u) => u.pathname === '/api/ux-v1/p6/board', (r) => json(r, board(which)));
   await page.route((u) => u.pathname === '/api/ranked/me', (r) => json(r, { ranked: 'not_live' }, 503));
   await page.route((u) => u.pathname === '/api/ux-v1/p6/challenge', async (r) => {
     if (r.request().method() !== 'POST') { await r.fallback(); return; }
@@ -116,7 +117,7 @@ async function openHub(page: Page, path = '/blindtest'): Promise<boolean> {
   if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
   if ((await page.locator('.p6-hub').count()) === 0 && (await page.locator('.p6-play').count()) === 0) return false;
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
-  await page.locator('[data-live]').first().waitFor({ timeout: 20_000 });
+  await page.locator('.p6-hub[data-live], .p6-play[data-live]').first().waitFor({ timeout: 45_000 });
   return true;
 }
 

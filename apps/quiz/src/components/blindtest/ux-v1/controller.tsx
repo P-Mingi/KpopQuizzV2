@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { refreshUxMe } from '@/components/ux-v1/use-ux-me';
@@ -29,6 +29,24 @@ interface Props {
 }
 
 const IN_GAME = new Set(['tap', 'loading', 'playing', 'reveal']);
+
+// "Played today" in this browser (lib/daily-played.ts, localStorage), as an
+// external store: re-read on storage events and after a daily is saved here.
+const PLAYED_EVT = 'p6:daily-played';
+function subscribePlayed(cb: () => void): () => void {
+  window.addEventListener('storage', cb);
+  window.addEventListener(PLAYED_EVT, cb);
+  return () => { window.removeEventListener('storage', cb); window.removeEventListener(PLAYED_EVT, cb); };
+}
+
+async function fetchBoard(): Promise<BoardResponse | null> {
+  try {
+    const res = await fetch('/api/ux-v1/p6/board', { credentials: 'include', cache: 'no-store' });
+    return res.ok ? ((await res.json()) as BoardResponse) : null;
+  } catch {
+    return null; // the board is a nice-to-have; the hub stands without it
+  }
+}
 const PLAYED_TOAST = 'One try per day. See how you rank on today\'s board.';
 
 /**
@@ -46,32 +64,27 @@ export function BtHubController({ groups, songs, children }: Props): React.React
   const [board, setBoard] = useState<BoardResponse | null>(null);
   const [pick, setPick] = useState<BtPick>(ALL_PICK);
   const [rounds, setRounds] = useState(10);
-  const [localPlayed, setLocalPlayed] = useState(false);
+  const [boardTick, setBoardTick] = useState(0);
+  const localPlayed = useSyncExternalStore(subscribePlayed, () => hasPlayedDaily('blindtest'), () => false);
   const [scrollTo, setScrollTo] = useState<string | null>(null);
   const [challenge, setChallenge] = useState<ChallengeView | null>(null);
 
-  const loadBoard = useCallback(async () => {
-    try {
-      const res = await fetch('/api/ux-v1/p6/board', { credentials: 'include', cache: 'no-store' });
-      if (res.ok) setBoard((await res.json()) as BoardResponse);
-    } catch {
-      // the board is a nice-to-have; the hub stands without it
-    }
-  }, []);
+  useEffect(() => {
+    let alive = true;
+    void fetchBoard().then((b) => { if (alive && b) setBoard(b); });
+    return () => { alive = false; };
+  }, [boardTick]);
 
   const onDailySaved = useCallback(() => {
-    setLocalPlayed(true);
-    void loadBoard();
+    window.dispatchEvent(new Event(PLAYED_EVT));
+    setBoardTick((t) => t + 1);
     // After any daily: the streak pill, popover and greeting read the saved state (16.7).
     refreshUxMe();
-  }, [loadBoard]);
+  }, []);
 
   const run = useBlindtestRun({ announce, onDailySaved });
   const inGame = IN_GAME.has(run.phase);
   useShellMode(inGame ? 'focus' : null);
-
-  useEffect(() => { void loadBoard(); }, [loadBoard]);
-  useEffect(() => { setLocalPlayed(hasPlayedDaily('blindtest')); }, [run.phase]);
 
   const playedToday = localPlayed || Boolean(board?.me?.played);
 
@@ -99,8 +112,15 @@ export function BtHubController({ groups, songs, children }: Props): React.React
   // Deep links (once, on mount).
   const deepLinked = useRef(false);
   useEffect(() => {
-    if (deepLinked.current) return;
-    deepLinked.current = true;
+    // In a timer so the state it sets is not set in the effect body; the ref keeps
+    // it to one run (Strict Mode mounts twice, deps change every render).
+    const t = window.setTimeout(() => {
+      if (deepLinked.current) return;
+      deepLinked.current = true;
+      openDeepLink();
+    }, 0);
+    return () => window.clearTimeout(t);
+    function openDeepLink(): void {
     const params = new URLSearchParams(window.location.search);
     const code = (params.get('c') ?? '').toUpperCase();
     if (code) {
@@ -125,6 +145,7 @@ export function BtHubController({ groups, songs, children }: Props): React.React
     if (params.get('daily') !== 'true') return;
     if (hasPlayedDaily('blindtest')) { showBoard(PLAYED_TOAST); return; }
     run.prepareDaily();
+    }
   }, [run, showBoard, toast]);
 
   // A finished challenge run is one attempt (POST .../attempt), recorded once per run.

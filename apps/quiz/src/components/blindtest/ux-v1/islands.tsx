@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { UxAvatar } from '@/components/ux-v1/avatar';
@@ -58,17 +59,18 @@ export function BtDailyCard(): React.ReactElement {
     else foot = `${comma(b.total)} played · ${hoursLeft(b.resetsInMs)}`;
   }
   return (
-    <a
+    <Link
       className="p6-mcard"
       data-live={live || undefined}
       href="/blindtest?daily=true"
+      prefetch={false}
       onClick={(e) => { if (!hub || !plainClick(e)) return; e.preventDefault(); hub.playDaily(); }}
     >
       <Icon name="cal" size="lg" />
       <h3>Blindtest of the day</h3>
       <p>Ten songs, the same for everyone. One try, then see your rank.</p>
       <span className="p6-ft">{foot}</span>
-    </a>
+    </Link>
   );
 }
 
@@ -97,17 +99,18 @@ export function BtChallengeCard(): React.ReactElement {
   const hub = useHub();
   const live = useIsClient();
   return (
-    <a
+    <Link
       className="p6-mcard"
       data-live={live || undefined}
       href="/blindtest#bt-start"
+      prefetch={false}
       onClick={(e) => { if (!hub || !plainClick(e)) return; e.preventDefault(); hub.startSelected(); }}
     >
       <Icon name="target" size="lg" />
       <h3>Challenge a friend</h3>
       <p>Play a run, then send a link. They get your exact ten songs.</p>
       <span className="p6-ft">Your link works for 48 hours</span>
-    </a>
+    </Link>
   );
 }
 

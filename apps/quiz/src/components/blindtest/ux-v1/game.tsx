@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { UxIconButton } from '@/components/ux-v1/button';
@@ -21,16 +21,14 @@ const R = 80;
 const CIRC = 2 * Math.PI * R;
 const KEYS = ['A', 'B', 'C', 'D'] as const;
 
+const RM = '(prefers-reduced-motion: reduce)';
+function subscribeRm(cb: () => void): () => void {
+  const mq = window.matchMedia(RM);
+  mq.addEventListener('change', cb);
+  return () => mq.removeEventListener('change', cb);
+}
 function useReducedMotion(): boolean {
-  const [rm, setRm] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setRm(mq.matches);
-    const on = (): void => setRm(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return rm;
+  return useSyncExternalStore(subscribeRm, () => window.matchMedia(RM).matches, () => false);
 }
 
 interface BtGameProps {
