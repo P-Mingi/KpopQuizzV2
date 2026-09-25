@@ -19,6 +19,11 @@ import type { Landmark } from './helpers/landmarks';
 
 const env = loadTestEnv();
 
+// A dev server renders /q/[slug] on demand (several seconds cold, much more on a loaded
+// machine): every P4 test gets 2 minutes.
+test.describe.configure({ timeout: 120_000 });
+signedInTest.describe.configure({ timeout: 120_000 });
+
 const SLUG = {
   classic: 'ultimate-bts-era-quiz-only-real-armys-survive',
   tf: 'skz-true-or-false-only-real-stays-pass',
@@ -71,7 +76,9 @@ async function recordQuestions(page: Page): Promise<{ get: () => Q[] }> {
 }
 
 async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> {
-  const res = await page.goto(`/q/${slug}${query}`);
+  // domcontentloaded: the dev server optimises remote covers and avatars on the fly, and
+  // the load event waits for every image (not what these checks are about)
+  const res = await page.goto(`/q/${slug}${query}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
   if (!res || res.status() !== 200) return false;
   if (!(await hasShell(page)) || (await page.locator('.p4-page').count()) === 0) return false;
   await waitHydrated(page);
