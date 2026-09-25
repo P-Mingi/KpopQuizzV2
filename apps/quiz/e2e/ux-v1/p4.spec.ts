@@ -83,10 +83,9 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
   expect(res?.status(), `GET /q/${slug}`).toBe(200);
   if (!(await hasShell(page)) || (await page.locator('.p4-page').count()) === 0) return false;
   await waitHydrated(page);
-  // the P4 islands are code-split (components/quiz/ux-v1/islands.tsx) and hydrate after the shell
-  for (const sel of ['.p4-act[data-ready]', '.p4-mine[data-ready]', '[data-p4-report][data-ready]']) {
-    await page.locator(sel).first().waitFor({ state: 'attached', timeout: 60_000 });
-  }
+  // the P4 islands are code-split (components/quiz/ux-v1/islands.tsx) and hydrate after the shell;
+  // tests that click another island wait for its own marker (a dev server compiles each chunk on demand)
+  await page.locator('.p4-act[data-ready]').waitFor({ state: 'attached', timeout: 90_000 });
   return true;
 }
 
@@ -147,6 +146,7 @@ for (const theme of THEMES) {
       await expect(page.locator('.p4-timerline')).toContainText(/seconds per question/);
       const rows = await page.locator('.p4-hrow').count();
       expect(rows).toBeLessThanOrEqual(5);
+      await page.locator('.p4-mine[data-ready]').waitFor({ state: 'attached', timeout: 90_000 });
       await expect(page.locator('[data-testid="p4-mine"]')).toBeVisible();
       await expect(page.locator('.p4-about')).toContainText('About this quiz');
       await expect(page.locator('.p4-qrow')).toHaveCount(4);
