@@ -58,10 +58,14 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 4. /me writes on view (found by A0): viewing /me (and /profile, which redirects there) signed in grants badge tiers and writes passport snapshots. No agent loads them signed in; parity.spec runs only with UX_V1_PARITY=1; P10 verifies the passport through /u/testtest and render tests. Folded into decision 1.
 5. Logo (A0): the prototype's pink K tile + "KpopQuiz" (17.1) is shipped under the flag; the live site shows the rabbit mascot. One-line swap in components/ux-v1/brand.tsx.
 6. Contrast (A0): name accents and badge rarity words are shown through per-theme AA-clamped tokens (same hue); stored values unchanged.
-7. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+7. Live ticker online count (DESIGN-SPEC 17.11, already marked pending there): the live component floors the online count with a random 12 to 27. Kept as is unless the owner says otherwise (it is not real data).
+8. Group hubs with few quizzes: the worker prompt asks for noindex until 3 quizzes; today's hubs have no robots rule, so it is an SEO diff outside 16.10. Not shipped; owner call.
+9. New public URLs under the flag (/community and its posts, /blindtest/ranked): noindex and out of the sitemap until the owner decides.
+10. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-25 Briefs written to v11/briefs/ (COMMON + one per page agent) so spawns and respawns are short and identical. OWNERSHIP: /g/** moved P3 -> P6 (blind-test game). Open item: the /pt pages (unowned) render their current content inside the v11 shell under the flag; SEO unchanged; re-skin is an owner call.
 - 2026-09-25 RESUME: the previous ORCH session ended with P1, P4, P6, P10 stopped mid-task. Checked against git: worktrees intact under .claude/worktrees/agent-*, no branch pushed, no dev server alive. All four resumed from their own transcripts (not respawned) with orders to commit any uncommitted work first, update their Progress block and push their branch before continuing. Resume recipe for the next restart: resume a stopped agent by messaging its agent id (its transcript is kept); respawn with its brief + "continue from your branch and your Progress block" only if resuming fails.
 - 2026-09-25 A0 merged into feat/ux-v1-v11 (2cad6a7): guard ok on 105 files, flag-off proof (DOM/head/JSON-LD/CSS identical, 0 px), kit + shell specs green. ORCH a20e709: /ux-v1/ and /community known only with the flag on (flag off keeps the 301), check:routes 306 both ways. Page CSS convention: styles/ux-v1/<id>.css, never imported.
 - 2026-09-25 Phase 2 started: P1, P4, P6, P10 spawned.
@@ -69,4 +73,4 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: wait for P1, P4, P6, P10. For each finished agent: `UX11_AGENT=<id> node scripts/ux11-owner-guard.mjs --range origin/feat/ux-v1-v11..origin/<branch>`, check its report, merge --no-ff into feat/ux-v1-v11, push, then fill the free slot in this order: P7 (ranked UI pass, continue ux11/p7-ranked), P2, P3, P5, P8, P9, P11.
+NEXT ACTION: wait for P1, P4, P6, P10 (resumed). For each finished agent: `UX11_AGENT=<id> node scripts/ux11-owner-guard.mjs --range origin/feat/ux-v1-v11..origin/<branch>`, check its report, merge --no-ff into feat/ux-v1-v11, push, then fill the free slot in this order: P7 (ranked UI pass, continue ux11/p7-ranked), P2, P3, P5, P8, P9, P11. Spawn prompt = "You are <ID> <name> on the KpopQuiz UX v11 run. Read and follow docs/design/ux-dashboard-v1/v11/briefs/COMMON.md and v11/briefs/<ID>.md." (Agent tool, isolation worktree, background).
