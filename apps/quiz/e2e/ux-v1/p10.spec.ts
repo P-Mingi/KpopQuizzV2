@@ -786,6 +786,7 @@ for (const theme of THEMES) {
     });
 
     signedInTest('account: download is a read, sign out and delete never write for real', async ({ page }) => {
+      signedInTest.setTimeout(300_000); // four navigations and a file download on a busy shared database
       signedInTest.skip(!(await openSettings(page)), 'flag off or not served here');
       await expect(page.getByText(/no password needed/)).toBeVisible();
       const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 90_000 }), page.getByRole('button', { name: 'Download' }).click()]);
