@@ -411,10 +411,16 @@ export function UxSettings(): React.ReactElement {
             {biasOptions.map((m) => <Opt key={m} on={form.bias === m} onPick={() => set('bias', m)}>{m}</Opt>)}
             <Opt on={!form.bias} onPick={() => set('bias', '')}>No bias tag</Opt>
           </RadioGroup>
-          <form className="ux-urlrow" onSubmit={(e) => { e.preventDefault(); const v = customBias.trim().slice(0, BIAS_MAX); if (v) { set('bias', v); setCustomBias(''); } }}>
+          <form className="ux-urlrow" onSubmit={(e) => {
+            e.preventDefault();
+            const v = customBias.trim().slice(0, BIAS_MAX);
+            if (!v) { document.getElementById('p10-s-bias')?.focus(); return; }
+            set('bias', v);
+            setCustomBias('');
+          }}>
             <label className="ux-sr" htmlFor="p10-s-bias">Custom bias tag</label>
             <input className="ux-inp" id="p10-s-bias" maxLength={BIAS_MAX} placeholder="Or type your own, like 3RACHA" value={customBias} onChange={(e) => setCustomBias(e.target.value)} />
-            <button type="submit" className="ux-btn ux-btn-ghost" disabled={!customBias.trim()}>Use</button>
+            <button type="submit" className="ux-btn ux-btn-ghost">Use</button>
           </form>
         </div>
         <div className="ux-field">

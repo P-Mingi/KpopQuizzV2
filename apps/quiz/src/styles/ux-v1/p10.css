@@ -104,8 +104,8 @@
 .p10-fopt .ux-bmed { margin-left: -6px; flex: 0 0 auto; }
 .p10-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
 .p10-dot.is-ink { color: var(--ux-ink); }
-.p10-swatches { gap: 10px; }
-.p10-fopt.p10-sw { width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; position: relative; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.p10-flair-row.p10-swatches { gap: 10px; margin-top: 0; }
+.p10-fopt.p10-sw { display: block; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; position: relative; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); font-size: 16px; font-weight: 400; line-height: 25.6px; gap: normal; }
 .p10-fopt.p10-sw[aria-checked="true"] { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
 .p10-fopt.p10-sw[aria-checked="true"]::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; box-shadow: 0 0 0 2px var(--ux-pink); }
 
