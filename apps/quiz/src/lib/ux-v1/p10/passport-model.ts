@@ -111,10 +111,11 @@ export function personalStats(s: { quizzesPlayed: number; averagePct: number | n
 /** Public stats: exactly what the public passport exposed before (streak,
  *  mastered, quizzes made, plays received). Privacy fail-closed: no play counts,
  *  no average. */
-export function publicStats(s: { streak: number; groupsMastered: number; groupsTotal: number; quizzesMade: number; playsReceived: number }): StatCell[] {
+export function publicStats(s: { streak: number; groupsMastered: number; quizzesMade: number; playsReceived: number }): StatCell[] {
   return [
     { value: streakLabel(s.streak), label: 'streak' },
-    { value: `${s.groupsMastered} / ${s.groupsTotal}`, label: 'groups mastered' },
+    // the count alone: groups.total counts a hidden quarantine row (91 rows, 90 visible groups)
+    { value: countLabel(s.groupsMastered), label: 'groups mastered' },
     { value: countLabel(s.quizzesMade), label: 'quizzes made' },
     { value: countLabel(s.playsReceived), label: 'plays received' },
   ];
@@ -147,9 +148,14 @@ export function masteryPct(plays: number, accuracy: number, mastered: boolean): 
 
 export interface MasteryRow { name: string; slug: string; pct: number }
 
+/** Not a group: the general K-pop catch-all and hidden rows (zzz-*). */
+export function isRealGroup(slug: string): boolean {
+  return slug !== 'general-kpop' && !slug.startsWith('zzz-');
+}
+
 export function topMastery(stats: Array<{ group_id: number; songs_played: number; accuracy: number; mastered: boolean }>, groups: Map<number, { name: string; slug: string }>, limit = 3): MasteryRow[] {
   return stats
-    .filter((s) => s.songs_played > 0 && groups.has(s.group_id))
+    .filter((s) => s.songs_played > 0 && groups.has(s.group_id) && isRealGroup(groups.get(s.group_id)!.slug))
     .map((s) => ({ name: groups.get(s.group_id)!.name, slug: groups.get(s.group_id)!.slug, pct: masteryPct(s.songs_played, s.accuracy, s.mastered), plays: s.songs_played }))
     .sort((a, b) => b.pct - a.pct || b.plays - a.plays || a.name.localeCompare(b.name))
     .slice(0, limit)

@@ -65,7 +65,7 @@ export function buildPassport(i: PassportInput): Omit<UxPassportProps, 'footer'>
     band: { mode: bandMode(p.header_url, groupPhoto), image: p.header_url && /^https:\/\//i.test(p.header_url) ? p.header_url : null, groupPhoto },
     stats: personal
       ? personalStats({ quizzesPlayed: s?.quizzes_played ?? 0, averagePct: i.averagePct ?? null, streak: s?.streak_current ?? 0, quizzesMade, blindtestsPlayed: s?.blindtests_played ?? 0 })
-      : publicStats({ streak: s?.streak_current ?? 0, groupsMastered: i.collection.groups_mastered, groupsTotal: i.collection.groups_total, quizzesMade, playsReceived: p.total_plays_received ?? 0 }),
+      : publicStats({ streak: s?.streak_current ?? 0, groupsMastered: i.collection.groups_mastered, quizzesMade, playsReceived: p.total_plays_received ?? 0 }),
     war: i.war,
     pinned: pinnedTiles(tiles, p.pinned_badge_id),
     badges: tiles,
