@@ -1,0 +1,22 @@
+#!/bin/sh
+# UX v11 run: ownership guard, installed PER WORKTREE only:
+#   git config extensions.worktreeConfig true
+#   git config --worktree core.hooksPath scripts/ux11-hooks
+# No-op when UX11_AGENT is unset (the owner's normal commits are never blocked).
+#
+# The guard script and OWNERSHIP.json are taken from HEAD (the committed
+# versions), so an uncommitted edit of either cannot loosen the check. Before the
+# guard exists in HEAD (its own first commit) the working-tree copy is used.
+[ -z "$UX11_AGENT" ] && exit 0
+root="$(git rev-parse --show-toplevel)" || exit 2
+guard=scripts/ux11-owner-guard.mjs
+own=docs/design/ux-dashboard-v1/v11/OWNERSHIP.json
+if git cat-file -e "HEAD:$guard" 2>/dev/null && git cat-file -e "HEAD:$own" 2>/dev/null; then
+  tmp="${TMPDIR:-/tmp}/ux11-owner-guard-$$.mjs"
+  git show "HEAD:$guard" > "$tmp" || exit 2
+  node "$tmp" --ownership-ref HEAD
+  rc=$?
+  rm -f "$tmp"
+  exit $rc
+fi
+exec node "$root/$guard"

@@ -10,7 +10,7 @@ import { LikeButton } from '@/components/ui/like-button';
 import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
-import { UxQuizCard } from './ux-v1/ux-quiz-card';
+import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
 import type { QuizCardData } from '@/lib/db/types';
 

@@ -7,7 +7,7 @@ import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { languageChip } from '@/lib/languages';
 import { UX_V1 } from '@/lib/ux-v1';
-import { UxQuizCard } from '@/components/quiz/ux-v1/ux-quiz-card';
+import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
 

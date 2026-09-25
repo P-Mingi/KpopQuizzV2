@@ -56,106 +56,57 @@ export function getTagStyle(category: 'type' | 'difficulty' | 'group', value?: s
 }
 
 // ---------------------------------------------------------------------------
-// UX DASHBOARD v1 tokens (docs/design/ux-dashboard-v1/DESIGN-SPEC.md sections 2
-// + 15.3). Verbatim from the owner-validated prototype's :root and
-// [data-theme=dark] CSS blocks. ADDED for Phase 0 only - nothing consumes these
-// yet, so there is no visual change. Phase 1 emits them as CSS custom properties
-// (`--bg`, `--ink`, ...) on `:root` (light) and `:root[data-theme="dark"]`.
-// Keys are the CSS variable name without the leading `--`.
+// UX v11.2 tokens (DESIGN-SPEC 16.1 + 17.1 + 17.10 + 17.11), verbatim from the
+// pinned prototype (docs/design/ux-dashboard-v1/prototype.html). The CSS custom
+// properties live in src/styles/ux-v1/a0.css as `--ux-<key>` on html.ux-v1 (light)
+// and html.ux-v1.dark / system dark. This object is the same set for code that
+// needs a value in JS (OG images, canvas, tests). a0.test.ts keeps the two in
+// sync. Keys are the CSS variable name without the leading `--ux-`.
+// Supersedes the Phase 0 UX_V1_* tokens (sidebar era), which nothing consumed.
 // ---------------------------------------------------------------------------
 
-export type UxV1Theme = Record<string, string>;
+export type UxThemeTokens = Record<string, string>;
 
-/** Light theme = the bare `:root` set. */
-export const UX_V1_LIGHT: UxV1Theme = {
-  bg: '#FAF9F7',
-  panel: '#FFFFFF',
-  tint: '#F4F2EE',
-  tint2: '#EFECE7',
-  ink: '#26221D',
-  mut: '#6F6A62',
-  fnt: '#A6A096',
-  line: '#ECE8E1',
-  line2: '#E2DDD5',
-  pink: '#E8457A',
-  'pink-dk': '#C93868',
-  'pink-lt': '#FCE8EF',
-  'pink-md': '#F7CFDD',
-  ok: '#3A8F5C',
-  'ok-bg': '#E7F2E1',
-  'ok-line': '#9CCB84',
-  no: '#C0392B',
-  'no-bg': '#FDE8E8',
-  'no-line': '#F0A9A9',
-  'amber-bg': '#FAF0DC',
-  warn: '#B7791F',
-  sh: '0 1px 2px rgba(38,34,29,.05)',
-  'sh-h': '0 12px 32px rgba(38,34,29,.10)',
+export const UX_TOKENS_LIGHT: UxThemeTokens = {
+  page: '#FFFFFF', surface: '#F7F6F4', 'surface-2': '#F0EEEA', raised: '#FFFFFF',
+  hair: '#ECE9E4', line: '#ECE8E3', 'line-2': '#F3F1EE', edge: '#E5E0DA', 'pink-line': '#F2CFDB',
+  input: '#8C857C',
+  ink: '#1F1B17', muted: '#6B655E',
+  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#C93868',
+  'pink-soft': '#FCE8EF', 'pink-soft-ink': '#B3305C',
+  ok: '#257547', 'ok-soft': '#E9F4EC', no: '#B83A34', 'no-soft': '#FBECEA', warn: '#9A5B0F',
+  'on-ok': '#FFFFFF', 'knob-off': '#FFFFFF',
+  'qotd-edge': '#F4D6E1', 'lav-soft': '#EEEDFE', 'lav-ink': '#3C3489', hl: '#DB4B7E',
+  bulb: '#E0A100', 'bulb-fill': '#FFE9A6', 'theme-band': '#FBE4D8',
+  // name accents of lib/passport-flair.ts, clamped to AA on every light ground
+  'acc-pink': '#BC3863', 'acc-purple': '#665FB1', 'acc-blue': '#2B6CAC', 'acc-teal': '#167859', 'acc-amber': '#975D08', 'acc-coral': '#B14A27',
+  // rarity words (lib/badges.ts RARITY_COLOR), clamped to AA on light grounds
+  'rar-common': '#646A78', 'rar-uncommon': '#19793F', 'rar-rare': '#2F67C2', 'rar-epic': '#8B47CD', 'rar-legendary': '#896200',
 };
 
-/** Night theme = the `[data-theme="dark"]` overrides. `warn` is not set by the
- *  prototype's dark block; the dark clue-tag text colour (#E9B963) is used so the
- *  key stays parallel with light (flagged in WIRING-MAP.verified.md). */
-export const UX_V1_DARK: UxV1Theme = {
-  bg: '#141118',
-  panel: '#1C1822',
-  tint: '#26212D',
-  tint2: '#332C3B',
-  ink: '#F1ECE6',
-  mut: '#A8A0AF',
-  fnt: '#726B7C',
-  line: '#2A2532',
-  line2: '#3A3343',
-  pink: '#E8457A',
-  'pink-dk': '#FF7AA5',
-  'pink-lt': '#33202A',
-  'pink-md': '#5A2A40',
-  ok: '#5DE0A0',
-  'ok-bg': '#16301F',
-  'ok-line': '#2E6B45',
-  no: '#FF7A7A',
-  'no-bg': '#3A1A1A',
-  'no-line': '#7A3030',
-  'amber-bg': '#2E2616',
-  warn: '#E9B963',
-  sh: '0 1px 2px rgba(0,0,0,.3)',
-  'sh-h': '0 14px 34px rgba(0,0,0,.45)',
+export const UX_TOKENS_DARK: UxThemeTokens = {
+  page: '#141312', surface: '#1C1B19', 'surface-2': '#232120', raised: '#1C1B19',
+  hair: '#2F2C29', line: '#2B2826', 'line-2': '#242220', edge: '#35312E', 'pink-line': '#4A2A37',
+  input: '#6E6A64',
+  ink: '#F3F0EB', muted: '#A8A198',
+  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#FF7AA5',
+  'pink-soft': '#3A2129', 'pink-soft-ink': '#FF9DBC',
+  ok: '#4FC07F', 'ok-soft': '#16261C', no: '#FF7A70', 'no-soft': '#2E1917', warn: '#E3A24A',
+  'on-ok': '#141312', 'knob-off': '#A8A198',
+  'qotd-edge': '#40283A', 'lav-soft': '#26233F', 'lav-ink': '#C9C4FF', hl: '#FF7AA5',
+  bulb: '#F5C542', 'bulb-fill': 'rgba(245,197,66,.22)', 'theme-band': '#3A2620',
+  // name accents, clamped to AA on every dark ground
+  'acc-pink': '#EB618E', 'acc-purple': '#8D86E1', 'acc-blue': '#4995E0', 'acc-teal': '#28A37C', 'acc-amber': '#CA8117', 'acc-coral': '#DE734F',
+  'rar-common': '#8B93A7', 'rar-uncommon': '#26A558', 'rar-rare': '#5190F7', 'rar-epic': '#B56FF8', 'rar-legendary': '#E0A100',
 };
 
-/** Shared, theme-independent layout tokens (DESIGN-SPEC section 2 + 3). */
-export const UX_V1_LAYOUT = {
-  radius: '16px', // cards / panels
-  radiusSm: '10px', // small controls
-  radiusPill: '999px',
-  sidebar: '232px',
-  topbar: '64px',
-  contentMax: '1200px',
-  bottomNav: '62px',
-  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-  fontBase: '14px',
+/** Theme-independent layout scale (DESIGN-SPEC 16.3 + 16.4). */
+export const UX_LAYOUT = {
+  wide: 1120, text: 720, stage: 600, gutter: 32, gutterMobile: 20,
+  navHeight: 64, tabBarHeight: 64, pageTop: 56, pageTopMobile: 28,
+  sectionGap: 64, sectionGapHome: 80, sectionGapMobile: 48,
+  radius: { thumb: 8, input: 12, card: 16, quizCard: 18, box: 20, hero: 24, pill: 999 },
+  breakpoints: { phone: 760, tablet: 900, narrow: 1100, iconsInNav: 1280 },
 } as const;
 
-/** Type-tag pill tints (Notion-style), background/text per quiz type, per theme.
- *  DESIGN-SPEC section 2 (light) + 15.3 (dark). `level` is the neutral fallback;
- *  the prototype's dark block does not define a `level` tint, so tint2/mut is used. */
-export const UX_V1_TYPE_TAGS = {
-  light: {
-    classic: { bg: '#E8F0F9', fg: '#2C5F94' },
-    image: { bg: '#FBE7EF', fg: '#A03A64' },
-    intruder: { bg: '#EEEBFA', fg: '#584FA8' },
-    tf: { bg: '#E7F2E1', fg: '#42722A' },
-    clue: { bg: '#FAF0DC', fg: '#8F5F1E' },
-    level: { bg: '#F4F2EE', fg: '#6F6A62' },
-  },
-  dark: {
-    classic: { bg: '#1B2A3A', fg: '#8FBBEA' },
-    image: { bg: '#3A1F2C', fg: '#F08BB3' },
-    intruder: { bg: '#2A2544', fg: '#B4ABF5' },
-    tf: { bg: '#1B2E1B', fg: '#9DD27E' },
-    clue: { bg: '#33281A', fg: '#E9B963' },
-    level: { bg: '#332C3B', fg: '#A8A0AF' },
-  },
-} as const;
-
-/** Convenience: the two themes keyed by name, for Phase 1's CSS emitter. */
-export const UX_V1_TOKENS = { light: UX_V1_LIGHT, dark: UX_V1_DARK } as const;
+export const UX_TOKENS = { light: UX_TOKENS_LIGHT, dark: UX_TOKENS_DARK } as const;

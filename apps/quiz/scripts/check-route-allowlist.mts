@@ -25,7 +25,7 @@ import { readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { isKnownRoute } from '../src/lib/route-allowlist.ts';
+import { isKnownRoute, UX_V1_ROUTES } from '../src/lib/route-allowlist.ts';
 
 const APP_DIR = fileURLToPath(new URL('../src/app', import.meta.url));
 
@@ -99,6 +99,13 @@ for (const route of routes) {
     } else {
       skipped.push(`${route} (${INTENTIONALLY_UNREACHABLE.get(route)})`);
     }
+    continue;
+  }
+
+  // UX v1 routes are known only when NEXT_PUBLIC_UX_V1 is on (route-allowlist.ts).
+  // With the flag off they 301 to home on purpose, as they did before they existed.
+  if (!isKnownRoute(route) && UX_V1_ROUTES.some((p) => route.startsWith(p))) {
+    skipped.push(`${route} (UX v1 route: reachable only with NEXT_PUBLIC_UX_V1 on)`);
     continue;
   }
 

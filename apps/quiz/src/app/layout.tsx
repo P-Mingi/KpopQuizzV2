@@ -62,6 +62,11 @@ const HTML_CLASS = UX_V1
   ? `${pretendard.variable} ${inter.variable} ux-v1`
   : pretendard.variable;
 
+// UX v11 stylesheet (tokens + shared components + page styles of styles/ux-v1/),
+// linked ONLY when the flag is on, so flag-off pages carry no extra tag or byte
+// (see app/api/ux-v1/a0/styles/route.ts). Versioned per commit for caching.
+const UX_CSS_HREF = `/api/ux-v1/a0/styles?v=${(process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.VERCEL_DEPLOYMENT_ID ?? 'local').slice(0, 12)}`;
+
 // Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only
 // when it is an absolute https origin - never let a dev value
 // (http://localhost:3021) leak into canonical tags. Falls back to the live
@@ -129,6 +134,21 @@ interface RootLayoutProps {
 // headers() here, the ~36 routes that declare `revalidate` get their static/ISR
 // render mode back.
 export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
+  // UX v1: a separate tree (not a `{flag ? <link> : null}` slot) so the flag-off
+  // tree, and the RSC payload that describes it, stay exactly today's.
+  if (UX_V1) {
+    return (
+      <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
+        <body className="bg-primary text-primary font-sans antialiased">
+          <link rel="stylesheet" href={UX_CSS_HREF} precedence="ux-v1" />
+          <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+          <ThemeInit />
+          <ToastProvider>{children}</ToastProvider>
+          <Analytics />
+        </body>
+      </html>
+    );
+  }
   return (
     <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
       <body className="bg-primary text-primary font-sans antialiased">

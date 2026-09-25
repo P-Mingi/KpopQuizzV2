@@ -8,6 +8,8 @@ import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 import { UX_V1 } from '@/lib/ux-v1';
+// The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
+// flag-off pages never download it; only a tiny loader sits in this layout's bundle.
 import { UxShell } from '@/components/layout/ux-v1/ux-shell';
 
 // RENDER-FIX: the site chrome. Moved OUT of the root layout so the root can drop
