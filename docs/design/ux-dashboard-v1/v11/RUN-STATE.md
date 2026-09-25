@@ -10,14 +10,14 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | queued | - | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | running | - | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | queued | - | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | queued | - | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | queued | - | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | queued | - | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | queued | - | 0 | v11/reports/P6.md |
-| P7 | ux11/p7-ranked | queued | - | 0 | v11/reports/P7.md |
+| P7 | ux11/p7-ranked | running (engine pass) | - | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | queued | - | 0 | v11/reports/P10.md |
@@ -52,10 +52,11 @@ None yet.
 
 ## Owner decisions needed
 
-None yet.
+1. Production writes as the test user. The local dev server and the preview both use the production Supabase, so every signed-in or guest action that saves something (play a quiz, like, comment, vote, save Your look, upload a header) writes production rows. The worker prompt lets agents act as the test user; the launch prompt says never write production data. Until the owner answers: no mutating request at all, e2e stubs POST/PUT/PATCH/DELETE and asserts the payload, C2 proves wiring by request shape plus read-only SQL. Asked 2026-09-25.
 
 ## Log
 
+- 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: spawn A0 (foundation) and P7 (ranked engine) from `feat/ux-v1-v11`; when A0's PR is green, merge it and start P1, P4, P6, P10.
+NEXT ACTION: wait for A0 and P7. When A0's PR is green: run the guard in range mode on its branch, merge it into feat/ux-v1-v11 with --no-ff, then spawn P1, P4, P6, P10 (P7 continues with the ranked UI on the foundation).
