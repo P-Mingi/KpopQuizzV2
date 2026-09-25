@@ -5,11 +5,9 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { safeFetch } from '@/lib/error-handling';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 
-import { BlindtestBand } from './blindtest-band';
 import { CommunityRows } from './community-rows';
-import { ContinuePlaying } from './continue-playing';
 import { GroupsRail } from './groups-rail';
-import { HomeHeader } from './home-header';
+import { BlindtestBand, ContinuePlaying, HomeHeader } from './islands';
 import { QotdRow } from './qotd-row';
 import { BestRows, NewRows } from './quiz-rows';
 

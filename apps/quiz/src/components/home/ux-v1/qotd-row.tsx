@@ -5,7 +5,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { levelOf } from '@/components/ux-v1/quiz-card';
 import { QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 
-import { QotdNote } from './qotd-note';
+import { QotdNote } from './islands';
 
 import type { HomeQotd } from '@/lib/ux-v1/p1/home-data';
 

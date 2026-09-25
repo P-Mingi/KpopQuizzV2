@@ -17,6 +17,7 @@ import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
+import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
@@ -257,12 +258,12 @@ const WEBSITE_JSON_LD = {
   },
 };
 
-export default async function HomePage(): Promise<React.ReactElement> {
+export default function HomePage(): React.ReactElement {
   if (UX_V1) {
-    // UX v11 home (P1), behind NEXT_PUBLIC_UX_V1 (default off). Loaded with a
-    // dynamic import so the flag-off home never carries its code. Same metadata,
-    // canonical, hreflang, JSON-LD, H1 and intro as the live home.
-    const { UxHome } = await import('@/components/home/ux-v1/ux-home');
+    // UX v11 home (P1), behind NEXT_PUBLIC_UX_V1 (default off). Same metadata,
+    // canonical, hreflang, JSON-LD, H1 and intro as the live home. Its client
+    // islands sit behind next/dynamic (components/home/ux-v1/islands.tsx), so the
+    // flag-off home ships none of their code.
     return (
       <UxHome
         head={(
