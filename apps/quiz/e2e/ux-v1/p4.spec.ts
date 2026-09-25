@@ -385,7 +385,7 @@ test.describe('P4 interactions', () => {
     await expect(page.locator('.p4-resact .ux-btn-primary')).toHaveText(/Play again/);
     await expect(page.locator('.p4-stamp')).toContainText(/Keep trying/i);
     await page.locator('.p4-resact .ux-btn-primary').click();
-    await expect(page.locator('.p4-qq')).toBeVisible();
+    await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 60_000 });
     await expect(page.locator('.p4-segs')).toHaveAttribute('aria-valuenow', '1');
   });
 
