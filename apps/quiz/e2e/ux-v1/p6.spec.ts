@@ -519,8 +519,10 @@ for (const theme of THEMES) {
       await expect(row.locator('.p6-gp')).toHaveCSS('opacity', '1');
       await page.keyboard.press('Enter');
       await expect(page.locator('.p6-play')).toBeVisible();
+      await expect(page.locator('.p6-ans').first()).toBeVisible();
       expect(h.generate.at(-1)).toEqual({ playlist: 'stray-kids', count: 10, mode: 'challenge' });
       await page.getByRole('button', { name: 'Quit blindtest' }).click();
+      await expect(page.locator('.p6-hero')).toBeVisible();
       await expect(page.locator('.p6-pl b')).toHaveText('Stray Kids');
 
       // Popular tile starts its group too.
