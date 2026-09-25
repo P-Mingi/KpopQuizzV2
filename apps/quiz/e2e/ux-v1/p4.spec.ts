@@ -408,6 +408,7 @@ test.describe('P4 interactions', () => {
     await like.click();
     await expect(like).toHaveAttribute('aria-pressed', 'true');
     await expect(like).toContainText(String(before + 1));
+    await expect.poll(() => writesTo(calls, /\/api\/quiz\/[^/]+\/like$/).length, { timeout: 30_000 }).toBe(1);
     const likes = writesTo(calls, /\/api\/quiz\/[^/]+\/like$/);
     expect(likes.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ action: 'like' }]);
 
@@ -472,6 +473,7 @@ test.describe('P4 interactions', () => {
     if (widthOf(page) >= 760) await expect(page.getByTestId('p4-challenge-chip')).toHaveText(beat);
     await playRun(page, () => questions, 'right');
     await expect(page.getByTestId('p4-rankline')).toHaveText(`You beat mingi (5/${questions.length}). Reply with your score.`);
+    await expect.poll(() => writesTo(calls, new RegExp(`/api/ux-v1/p4/challenge/${id}/attempt$`)).length, { timeout: 30_000 }).toBe(1);
     const att = writesTo(calls, new RegExp(`/api/ux-v1/p4/challenge/${id}/attempt$`));
     expect(att).toHaveLength(1);
     const body = JSON.parse(att[0]!.body ?? '{}') as { sig: string; score: number; perQuestion: boolean[]; timeMs: number };
@@ -490,6 +492,7 @@ test.describe('P4 interactions', () => {
     await start(page);
     await expect(page.locator('.p4-segs span')).toHaveCount(10);
     await playRun(page, qs.get, 'right');
+    await expect.poll(() => writesTo(calls, /^\/api\/daily\/complete$/).length, { timeout: 30_000 }).toBe(1);
     const daily = writesTo(calls, /^\/api\/daily\/complete$/);
     expect(daily.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ kind: 'quiz' }]);
     expect(writesTo(calls, /^\/api\/quiz\/[^/]+\/play$/)).toHaveLength(1);
@@ -614,6 +617,7 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     await page.locator('.p4-acc > summary', { hasText: 'Comments' }).click();
     await page.locator('.p4-cform textarea').fill('Great quiz');
     await page.locator('.p4-cform').getByRole('button', { name: 'Send' }).click();
+    await expect.poll(() => writesTo(calls, /\/api\/quiz\/[^/]+\/comment$/).length, { timeout: 30_000 }).toBe(1);
     const sent = writesTo(calls, /\/api\/quiz\/[^/]+\/comment$/);
     expect(sent.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ content: 'Great quiz' }]);
     const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/(play|comment)$|\/api\/share\/generate$|\/api\/ux-v1\/p4\/|^\/api\/follow$/.test(new URL(c.url).pathname));
