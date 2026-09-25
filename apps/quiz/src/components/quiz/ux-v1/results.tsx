@@ -33,10 +33,15 @@ type Result = Extract<RunState, { phase: 'result' }>;
 const CONFETTI = ['#E8457A', '#FF9DBC', '#C99A1E', '#4FC07F', '#7A50DC', '#3FA3A3'];
 const LEVEL: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
 
+function reducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/** Results render only on the client (after a run), so the lazy initial value is safe. */
 function useCountUp(to: number, ms: number): number {
-  const [v, setV] = useState(0);
+  const [v, setV] = useState(() => (reducedMotion() ? to : 0));
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setV(to); return; }
+    if (reducedMotion()) return;
     const t0 = performance.now();
     let raf = 0;
     const f = (now: number): void => {

@@ -47,8 +47,8 @@ export function P4Game({ quiz, state, challenge, relaxed, saving, onAnswer, onRe
   const hasTimer = state.settings.timer && !relaxed;
   const timerTotal = state.settings.timer_seconds;
 
-  const [sound, setSound] = useState(true);
-  useEffect(() => { setSound(isSoundEnabled()); }, []);
+  // the game renders only on the client (after Start), so reading the stored choice is safe
+  const [sound, setSound] = useState(() => isSoundEnabled());
   const toggleSound = (): void => { const on = !sound; setSoundEnabled(on); setSound(on); };
 
   // the ring keeps the last second it showed after the answer (frozen, no layout shift)

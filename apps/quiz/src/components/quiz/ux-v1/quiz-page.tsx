@@ -237,7 +237,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               <SectionHeader
                 id="p4-more-h"
                 title={moreSameGroup ? `More ${q.groupName} quizzes` : 'More quizzes to play'}
-                action={moreSameGroup && p.groupQuizCount !== null && p.groupQuizCount > 0 ? { href: `/${q.groupSlug}-quiz`, label: `All ${p.groupQuizCount.toLocaleString('en-US')}` } : undefined}
+                {...(moreSameGroup && p.groupQuizCount !== null && p.groupQuizCount > 0 ? { action: { href: `/${q.groupSlug}-quiz`, label: `All ${p.groupQuizCount.toLocaleString('en-US')}` } } : {})}
               />
               <TextCardGrid className="p4-more-grid">
                 {p.related.map((r) => (

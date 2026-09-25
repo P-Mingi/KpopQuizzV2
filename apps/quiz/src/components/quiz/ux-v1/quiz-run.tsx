@@ -545,7 +545,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
           preview={shareProps.preview}
           url={shareUrl}
           text={shareProps.text}
-          {...('onStoryImage' in shareProps && shareProps.onStoryImage ? { onStoryImage: shareProps.onStoryImage, storyFile: shareProps.storyFile } : {})}
+          {...('onStoryImage' in shareProps ? { onStoryImage: shareProps.onStoryImage, storyFile: shareProps.storyFile } : {})}
           {...(shareProps.challenge ? { challenge: shareProps.challenge } : {})}
         />
       ) : null}

@@ -425,10 +425,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       seoQuestions,
       related,
       triviaAvailable,
-      dykFact,
+      dykFact: dykFact ? { fact: dykFact.fact, category: dykFact.category } : null,
       social,
       inThisQuiz,
-      creatorNote,
+      creatorNote: creatorNote ?? null,
       breadcrumbItems,
       quizJsonLd,
     });
