@@ -99,7 +99,7 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
 async function start(page: Page): Promise<void> {
   await page.locator('.p4-act .ux-btn-primary').click();
   // the first question waits on GET /api/quiz/[id]/questions (live DB, slow on a loaded dev machine)
-  await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 60_000 });
+  await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 90_000 });
 }
 
 const answerButtons = (page: Page) => page.locator('.p4-answers .p4-ans, .p4-igrid .p4-ians');
@@ -382,7 +382,7 @@ test.describe('P4 interactions', () => {
   });
 
   test('low score: Play again is the primary action and starts a new run', async ({ page }) => {
-    test.setTimeout(120_000);
+    test.setTimeout(180_000);
     await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
     test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
@@ -391,7 +391,8 @@ test.describe('P4 interactions', () => {
     await expect(page.locator('.p4-resact .ux-btn-primary')).toHaveText(/Play again/);
     await expect(page.locator('.p4-stamp')).toContainText(/Keep trying/i);
     await page.locator('.p4-resact .ux-btn-primary').click();
-    await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 60_000 });
+    // a new run reads fresh questions (same GET as Start)
+    await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 90_000 });
     await expect(page.locator('.p4-segs')).toHaveAttribute('aria-valuenow', '1');
   });
 
@@ -515,7 +516,8 @@ test.describe('P4 interactions', () => {
   });
 
   test('quiz types: true/false, image, clues, intruder render and answer', async ({ page }) => {
-    test.setTimeout(180_000);
+    // four quiz pages and four live question reads in one test
+    test.setTimeout(300_000);
     await guardWrites(page, env.supabaseUrl);
     test.skip(!(await openQuiz(page, SLUG.tf)), 'flag off');
     await start(page);
