@@ -12,12 +12,12 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | merged (2cad6a7, PR #45) | 9b71ace | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | running (resumed 23:51 after usage limit; 7 commits, 4 unpushed at that time) | 5d423e0 | 0 | v11/reports/P1.md |
-| P2 | ux11/p2-quizzes | queued | - | 0 | v11/reports/P2.md |
+| P2 | ux11/p2-quizzes | running (spawned from 5e6db4e with briefs/COMMON.md + P2.md) | - | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | queued | - | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
-| P7 | ux11/p7-ranked | engine pass done, draft PR #44; UI pass queued (next free slot) | 56eb011 | 0 | v11/reports/P7.md |
+| P7 | ux11/p7-ranked | running (UI pass 2, resumed on its branch; draft PR #44 covers both passes) | 56eb011 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | running (resumed 23:51 after usage limit; 8 commits, 5 unpushed) | 881968c | 0 | v11/reports/P10.md |
@@ -73,6 +73,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P7 UI pass started (resumed agent) and P2 spawned. The blindtest mode-page bug was handed to the owner as a separate task chip (fix on main, outside this run). P1 told to read Continue playing through lib/ux-v1/p4/continue.ts.
 - 2026-09-26 P4 merged (7a13aa6) and P6 merged (bedaf6f): guard ok (66 and 51 files), tsc clean, check:routes 315 both ways, 84 unit tests green on integration. P4: quiz rules in lib/ux-v1/p4/engine.ts with a parity test that transpiles quiz-player.tsx and compares results and save-payload keys; making quiz-player.tsx import the engine is a flag-off change, left for the owner's cleanup. P6: challenges use `challenges`/`challenge_attempts`, P4's use `battles`, both as WIRING-MAP rows 79 and 255 say. A0 request queue: P4 (useUxMe null until mounted; ShareSheet on phones). Open: /pt/blindtest unowned; /g/[slug] unchanged (no prototype state).
 - 2026-09-25 23:51 Usage limit: P1, P4, P6, P10 were stopped by the account session limit (reset 23:50) after pushing part of their work. All four resumed from their transcripts with their live servers listed (next servers of the ask-link project on this machine are not ours, never touched). Lesson for the run: agents commit and push after every meaningful step.
 - 2026-09-25 Briefs written to v11/briefs/ (COMMON + one per page agent) so spawns and respawns are short and identical. OWNERSHIP: /g/** moved P3 -> P6 (blind-test game). Open item: the /pt pages (unowned) render their current content inside the v11 shell under the flag; SEO unchanged; re-skin is an owner call.
