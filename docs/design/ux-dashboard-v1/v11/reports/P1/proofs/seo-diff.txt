@@ -1,0 +1,25 @@
+== /
+same    status
+same    title
+same    meta (description, robots, og, twitter)
+same    canonical
+same    hreflang
+same    h1
+same    intro (first h2)
+same    json-ld
+info    internal links: off 66, on 58; only-off 26: /blindtest/leaderboard /cortis-quiz /exo-quiz /general-kpop-quiz /itzy-quiz /ive-quiz /le-sserafim-quiz /q/are-you-a-real-coer-2 /q/are-you-a-real-eyekon /q/are-you-real-coer-version-2 /q/blackpink /q/blackpink-true-or-false /q/bts-discography-challenge /q/bts-true-or-false-test-your-army-knowledge /q/cortis-quiz /q/illit-fans-here /q/k-pop-training-system-and-idol-life?daily=quiz /q/stray-kids-basics /quizzes/most-liked /quizzes/new /search /txt-quiz /verse/blackpink /verse/bts /verse/seventeen /verse/stray-kids; only-on 18: /ateez-quiz /blindtest/ranked /community /daily /new /profile /q/are-u-a-real-gllit /q/are-you-a-real-coer /q/blackpink-ultimate-fan-challenge /q/bts-solo-era-quiz-match-the-member-to-the-music /q/k-pop-company-quiz-match-the-group-to-the-label /q/stray-kids-district-9-quiz?daily=quiz /q/which-k-pop-group-debuted-first-timeline-challenge /quizzes?sort=most_played /quizzes?sort=newest /trending /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3 /verse/bts/essays/2
+info    server-rendered /q/ links: off 19, on 15; hub links: off 18, on 11
+
+== /pt
+same    status
+same    title
+same    meta (description, robots, og, twitter)
+same    canonical
+same    hreflang
+same    h1
+same    intro (first h2)
+same    json-ld
+info    internal links: off 46, on 52; only-off 1: /search; only-on 7: /ateez-quiz /blindtest/ranked /community /daily /new /profile /trending
+info    server-rendered /q/ links: off 7, on 7; hub links: off 18, on 19
+
+SEO DIFF EMPTY (title, meta, canonical, hreflang, h1, intro, json-ld identical)

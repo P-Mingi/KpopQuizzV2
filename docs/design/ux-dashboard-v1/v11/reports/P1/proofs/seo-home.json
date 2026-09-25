@@ -1,0 +1,316 @@
+{
+ "off": {
+  "title": "K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group",
+  "meta": {
+   "description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.",
+   "og:title": "K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz",
+   "og:description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.",
+   "og:url": "https://kpopquiz.org",
+   "twitter:card": "summary_large_image",
+   "twitter:title": "K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz",
+   "twitter:description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group."
+  },
+  "canonical": [
+   "https://kpopquiz.org"
+  ],
+  "hreflang": [
+   "en https://kpopquiz.org",
+   "pt-BR https://kpopquiz.org/pt",
+   "x-default https://kpopquiz.org"
+  ],
+  "h1": [
+   "K-pop QuizAre you a real fan?"
+  ],
+  "intro": "Prove it. Play K-pop quizzes and see where you rank.",
+  "h2": [
+   "Prove it. Play K-pop quizzes and see where you rank.",
+   "Fandom spaces on Verse"
+  ],
+  "ld": [
+   {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "logo": "https://kpopquiz.org/logo-512.png",
+    "sameAs": [
+     "https://www.reddit.com/r/Kpop_Verse/",
+     "https://discord.gg/X7AW95WFT",
+     "https://www.pinterest.com/kpopquizorg/",
+     "https://www.tiktok.com/@kpopquiz.org",
+     "https://www.youtube.com/@kpopquizorg",
+     "https://www.instagram.com/kpopquiz.org/"
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Main Navigation",
+    "hasPart": [
+     {
+      "@type": "WebPage",
+      "name": "Quizzes",
+      "url": "https://kpopquiz.org/quizzes"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Blind Test",
+      "url": "https://kpopquiz.org/blindtest"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Leaderboard",
+      "url": "https://kpopquiz.org/leaderboard"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Trivia",
+      "url": "https://kpopquiz.org/trivia"
+     }
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "description": "K-pop quizzes made by fans, played by thousands.",
+    "potentialAction": {
+     "@type": "SearchAction",
+     "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://kpopquiz.org/search?q={search_term_string}"
+     },
+     "query-input": "required name=search_term_string"
+    }
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Trending K-pop quizzes",
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://kpopquiz.org/q/one-for-sones",
+      "name": "One for Sones"
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://kpopquiz.org/q/are-you-a-real-eyekon",
+      "name": "Are you a real eyekon?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://kpopquiz.org/q/cortis-quiz",
+      "name": "Cortis quiz"
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://kpopquiz.org/q/illit-fans-here",
+      "name": "Illit fans here"
+     },
+     {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://kpopquiz.org/q/are-you-a-real-coer-2",
+      "name": "Are you a real COER?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://kpopquiz.org/q/blackpink",
+      "name": "Blackpink"
+     },
+     {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://kpopquiz.org/q/are-you-real-coer",
+      "name": "Are you real COER"
+     },
+     {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://kpopquiz.org/q/skz-quiz",
+      "name": "SKZ QUIZ"
+     },
+     {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://kpopquiz.org/q/are-you-real-h2u",
+      "name": "Are you real H2U"
+     },
+     {
+      "@type": "ListItem",
+      "position": 10,
+      "url": "https://kpopquiz.org/q/are-you-real-coer-version-2",
+      "name": "Are you real COER (version 2)"
+     }
+    ]
+   }
+  ]
+ },
+ "on": {
+  "title": "K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group",
+  "meta": {
+   "description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.",
+   "og:title": "K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz",
+   "og:description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.",
+   "og:url": "https://kpopquiz.org",
+   "twitter:card": "summary_large_image",
+   "twitter:title": "K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz",
+   "twitter:description": "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group."
+  },
+  "canonical": [
+   "https://kpopquiz.org"
+  ],
+  "hreflang": [
+   "en https://kpopquiz.org",
+   "pt-BR https://kpopquiz.org/pt",
+   "x-default https://kpopquiz.org"
+  ],
+  "h1": [
+   "K-pop QuizAre you a real fan?"
+  ],
+  "intro": "Prove it. Play K-pop quizzes and see where you rank.",
+  "h2": [
+   "Prove it. Play K-pop quizzes and see where you rank.",
+   "Stray Kids: District 9 Quiz",
+   "Groups",
+   "Trending this week",
+   "All time best",
+   "New quizzes",
+   "Ten songs. Same for everyone. One shot.",
+   "From the community"
+  ],
+  "ld": [
+   {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "logo": "https://kpopquiz.org/logo-512.png",
+    "sameAs": [
+     "https://www.reddit.com/r/Kpop_Verse/",
+     "https://discord.gg/X7AW95WFT",
+     "https://www.pinterest.com/kpopquizorg/",
+     "https://www.tiktok.com/@kpopquiz.org",
+     "https://www.youtube.com/@kpopquizorg",
+     "https://www.instagram.com/kpopquiz.org/"
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Main Navigation",
+    "hasPart": [
+     {
+      "@type": "WebPage",
+      "name": "Quizzes",
+      "url": "https://kpopquiz.org/quizzes"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Blind Test",
+      "url": "https://kpopquiz.org/blindtest"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Leaderboard",
+      "url": "https://kpopquiz.org/leaderboard"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Trivia",
+      "url": "https://kpopquiz.org/trivia"
+     }
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "description": "K-pop quizzes made by fans, played by thousands.",
+    "potentialAction": {
+     "@type": "SearchAction",
+     "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://kpopquiz.org/search?q={search_term_string}"
+     },
+     "query-input": "required name=search_term_string"
+    }
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Trending K-pop quizzes",
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://kpopquiz.org/q/one-for-sones",
+      "name": "One for Sones"
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://kpopquiz.org/q/are-you-a-real-eyekon",
+      "name": "Are you a real eyekon?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://kpopquiz.org/q/cortis-quiz",
+      "name": "Cortis quiz"
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://kpopquiz.org/q/illit-fans-here",
+      "name": "Illit fans here"
+     },
+     {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://kpopquiz.org/q/are-you-a-real-coer-2",
+      "name": "Are you a real COER?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://kpopquiz.org/q/blackpink",
+      "name": "Blackpink"
+     },
+     {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://kpopquiz.org/q/are-you-real-coer",
+      "name": "Are you real COER"
+     },
+     {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://kpopquiz.org/q/skz-quiz",
+      "name": "SKZ QUIZ"
+     },
+     {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://kpopquiz.org/q/are-you-real-h2u",
+      "name": "Are you real H2U"
+     },
+     {
+      "@type": "ListItem",
+      "position": 10,
+      "url": "https://kpopquiz.org/q/are-you-real-coer-version-2",
+      "name": "Are you real COER (version 2)"
+     }
+    ]
+   }
+  ]
+ }
+}
