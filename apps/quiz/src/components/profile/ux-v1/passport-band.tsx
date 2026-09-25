@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 
 import { HEADER_EVENT } from './header-actions';
@@ -22,11 +23,14 @@ interface PassportBandProps {
   tint: string;
 }
 
-/** Owner of this passport? /me knows it; /u asks the shared /api/auth/me read. */
+/** Owner of this passport? /me knows it; /u asks the shared /api/auth/me read. On /u
+ *  the answer is false until after hydration (the server HTML never has owner controls,
+ *  and the shared read may already be cached when a lazy island hydrates). */
 export function useIsOwner(username: string, owner: 'server' | 'check'): boolean {
   const me = useUxMe();
+  const client = useIsClient();
   if (owner === 'server') return true;
-  return Boolean(me?.profile && me.profile.username === username);
+  return client && Boolean(me?.profile && me.profile.username === username);
 }
 
 /**

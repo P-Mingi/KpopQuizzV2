@@ -451,8 +451,11 @@ for (const theme of THEMES) {
     });
 
     signedInTest('owner controls: Change header, Edit passport, no Follow, prototype styles, no write', async ({ page }, info) => {
+      const hydration: string[] = [];
+      page.on('console', (m) => { if (m.type() === 'error' && /hydrat/i.test(m.text())) hydration.push(m.text().slice(0, 200)); });
       signedInTest.skip(!(await openPassport(page)), 'flag off or not served here');
       await ownerReady(page);
+      expect(hydration, 'owner controls appear after hydration, never during it').toEqual([]);
       await expect(page.getByRole('link', { name: 'Edit passport' })).toHaveAttribute('href', '/settings');
       await expect(page.locator('.p10-acts').getByRole('button', { name: /^Follow/ })).toHaveCount(0);
       const b = await compareP10(page, theme, 'passport');
