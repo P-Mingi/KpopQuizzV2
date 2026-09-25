@@ -108,10 +108,10 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
       {jsonLdScript(p.breadcrumbJsonLd)}
       <P4Run quiz={p.run}>
         <div className="ux-col ux-pg p4-intro">
-          <nav className="ux-crumb" aria-label="Breadcrumb">
+          <nav className="ux-crumb p4-crumb" aria-label="Breadcrumb">
             {p.crumbs.map((c, i) => (
-              <span key={i} style={{ display: 'contents' }}>
-                {i > 0 ? <span aria-hidden="true" style={{ opacity: 0.6 }}>/</span> : null}
+              <span key={i} className={c.href ? undefined : 'p4-crumb-cur'}>
+                {i > 0 ? <span aria-hidden="true" className="p4-sep">/</span> : null}
                 {c.href ? <Link href={c.href}>{c.label}</Link> : <span aria-current="page">{c.label}</span>}
               </span>
             ))}
@@ -151,7 +151,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               <div className="ux-rows">
                 {top.map((h, i) => (
                   <div className="p4-hrow" key={i}>
-                    <span className={`p4-rk${i < 3 ? ' is-top' : ''}`}>{i + 1}</span>
+                    <span className="p4-rk">{i + 1}</span>
                     <UxAvatar name={h.person?.username ?? '?'} src={h.person?.avatarUrl ?? null} />
                     {h.person ? (
                       <>
@@ -174,7 +174,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               <div>
                 {p.dyk ? (
                   <>
-                    <span className="p4-lab2">Did you know{p.dyk.category ? ` · ${p.dyk.category}` : ''}</span>
+                    <span className="p4-lab2">Did you know</span>
                     <p>{p.dyk.fact}</p>
                   </>
                 ) : null}

@@ -8,6 +8,11 @@
    ========================================================================== */
 
 /* ---------- quiz page ---------- */
+.p4-crumb { flex-wrap: nowrap; min-width: 0; line-height: 1.6; }
+.p4-crumb > span { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto; }
+.p4-crumb > .p4-crumb-cur { flex: 0 1 auto; min-width: 0; }
+.p4-crumb > .p4-crumb-cur > span[aria-current] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.p4-crumb .p4-sep { opacity: .6; }
 .p4-cover { position: relative; aspect-ratio: 12 / 5; border-radius: 24px; overflow: hidden; background: var(--ux-surface); margin-top: 20px; box-shadow: var(--ux-photo-edge); }
 .p4-cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
 .p4-cover .ux-fbn { position: absolute; inset: 0; justify-content: center; font-size: 28px; }
@@ -30,7 +35,6 @@
 .p4-hof-h small { font-size: 14px; color: var(--ux-muted); font-variant-numeric: tabular-nums; }
 .p4-hrow { display: flex; align-items: center; gap: 14px; padding: 12px 0; min-width: 0; }
 .p4-hrow .p4-rk { width: 24px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ux-muted); flex: 0 0 auto; }
-.p4-hrow .p4-rk.is-top { color: var(--ux-pink-ink); }
 .p4-hrow .ux-ava { width: 32px; height: 32px; }
 .p4-hrow .p4-nm { flex: 0 1 auto; min-width: 0; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .p4-hrow .p4-nm .ux-who { font-weight: 500; }
@@ -119,7 +123,7 @@
 .p4-play-in { padding-top: 40px; padding-bottom: 96px; }
 
 .p4-tring { width: 76px; height: 76px; position: relative; margin: 0 auto 24px; border-radius: 50%; }
-.p4-tring svg { width: 76px; height: 76px; transform: rotate(-90deg); }
+.p4-tring > svg { width: 76px; height: 76px; transform: rotate(-90deg); }
 .p4-tring .p4-bg { fill: none; stroke: var(--ux-hair); stroke-width: 5; }
 .p4-tring .p4-fg { fill: none; stroke: var(--ux-pink); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke .3s; }
 .p4-tring .p4-n { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }

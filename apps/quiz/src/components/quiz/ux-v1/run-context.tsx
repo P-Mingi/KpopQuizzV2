@@ -29,7 +29,7 @@ export interface P4RunQuiz {
   /** v11-p4-relaxed-runs.sql is applied (the relaxed control shows only then). */
   relaxedLive: boolean;
   commentCount: number;
-  /** Keep playing: up to 3 other quizzes of the group (the page's own related list). */
+  /** Keep playing: one big next quiz + one row (16.7), other quizzes of the group from the page's related list. */
   keepPlaying: Array<{ slug: string; title: string; quizType: string; difficulty: string; plays: number; photo: string | null }>;
   /** The group's blindtest playlist (lib/blind-test-playlists.ts rule), when it has one. */
   playlist: { songs: number } | null;

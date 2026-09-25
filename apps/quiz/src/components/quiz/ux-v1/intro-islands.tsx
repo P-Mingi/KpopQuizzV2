@@ -48,7 +48,7 @@ export function P4StartActions(): React.ReactElement {
             ) : null}
           </>
         ) : <span>No timer on this quiz.</span>}
-        {signedIn === false ? <span> · No account needed.</span> : null}
+        {signedIn === false ? <span>{quiz.relaxedLive && quiz.timerOn && !live ? ' · ' : ' '}No account needed.</span> : null}
       </p>
     </>
   );

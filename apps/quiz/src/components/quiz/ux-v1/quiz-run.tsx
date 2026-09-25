@@ -500,7 +500,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
 
   return (
     <P4RunContext value={api}>
-      <div className="p4-run" data-phase={phase}>
+      <div className="p4-run" data-phase={phase} data-p4-quiz={quiz.id}>
         {phase === 'intro' ? children : null}
         {phase === 'play' && (state.phase === 'playing' || state.phase === 'answered') ? (
           <P4Game

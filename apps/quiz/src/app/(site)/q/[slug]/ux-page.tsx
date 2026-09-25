@@ -71,7 +71,8 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     likeCount: quiz.like_count ?? 0,
     groupName: quiz.group_name,
     groupSlug: quiz.group_slug,
-    photo: cover,
+    // photocard + share preview: the group photo (prototype), else the quiz cover
+    photo: groupPhoto ?? cover,
     groupPhoto,
     creatorUsername: quiz.creator_username,
     averagePct: averagePct(quiz.total_score_sum, quiz.total_completions, a.questionCount, quiz.quiz_type),
@@ -81,7 +82,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     commentCount: a.social.comments,
     keepPlaying: a.related
       .filter((r) => r.group_slug === quiz.group_slug)
-      .slice(0, 3)
+      .slice(0, 2)
       .map((r) => ({ slug: r.slug, title: r.title, quizType: r.quiz_type, difficulty: r.difficulty, plays: r.play_count, photo: groupPhotoUrl(r.group_slug) ?? r.cover_image_url })),
     playlist,
   };
