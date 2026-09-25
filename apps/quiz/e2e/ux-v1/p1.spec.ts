@@ -350,11 +350,20 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       for (let i = 0; i < 4 && !me.profile; i++) me = await (await page.request.get('/api/auth/me')).json() as typeof me;
       expect(me.profile, 'GET /api/auth/me with the storage state = the test user').not.toBeNull();
       const name = (me.profile?.display_name || me.profile?.username || '').trim();
+      // Two unfinished runs on this device: a quiz the home does not list (older than
+      // 60 days, least played: not new, not trending, not all time best) and the quiz
+      // of the day (already on the home: left out, 16.7).
       const q = await expectedQotd();
-      if (q) {
-        await page.addInitScript((slug) => {
-          try { localStorage.setItem('kq_ux_continue_v1', JSON.stringify([{ slug, title: 'Continue run', groupSlug: 'stray-kids', answered: 3, total: 8, updatedAt: new Date().toISOString() }])); } catch { /* blocked */ }
-        }, q.slug);
+      const before = new Date(Date.now() - 60 * 86_400_000).toISOString();
+      const { rows: oldest } = await rest<{ slug: string }[]>(`quizzes?select=slug&status=eq.published&created_at=lt.${before}&order=play_count.asc,id.asc&limit=1`);
+      const runSlug = oldest[0]?.slug;
+      if (runSlug) {
+        await page.addInitScript(([slug, qotdSlug]) => {
+          const at = new Date().toISOString();
+          const runs = [{ slug, title: 'Continue run', groupSlug: 'stray-kids', answered: 3, total: 8, updatedAt: at }];
+          if (qotdSlug) runs.push({ slug: qotdSlug, title: 'Quiz of the day run', groupSlug: 'stray-kids', answered: 2, total: 8, updatedAt: at });
+          try { localStorage.setItem('kq_ux_continue_v1', JSON.stringify(runs)); } catch { /* blocked */ }
+        }, [runSlug, q?.slug ?? null] as const);
       }
       const band = page.waitForResponse((r) => r.url().includes('/api/ux-v1/p1/daily-band'));
       signedInTest.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
@@ -366,10 +375,11 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       await expect(page.locator('.p1-hhead p.p1-hsub')).toHaveText(/streak/);
       await expect(page.locator('.p1-hcta'), 'no CTAs for a signed-in fan').toHaveCount(0);
 
-      if (q) {
+      if (runSlug) {
         const cont = page.locator('section[aria-labelledby="p1-cont-h"]');
         await expect(cont.locator('h2')).toHaveText('Continue playing');
-        await expect(cont.locator('a.p1-citem')).toHaveAttribute('href', `/q/${q.slug}`);
+        await expect(cont.locator('a.p1-citem'), 'the quiz of the day run is not listed twice').toHaveCount(1);
+        await expect(cont.locator('a.p1-citem')).toHaveAttribute('href', `/q/${runSlug}`);
         await expect(cont.locator('.ux-rs')).toHaveText('3 of 8 answered');
       }
 

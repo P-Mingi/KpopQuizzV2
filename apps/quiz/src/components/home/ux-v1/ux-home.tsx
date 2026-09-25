@@ -44,7 +44,7 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       {qotd ? <QotdRow qotd={qotd} /> : null}
 
-      <ContinuePlaying />
+      <ContinuePlaying exclude={[qotd?.slug, ...lists.trending.map((q) => q.slug), ...lists.best.map((q) => q.slug), ...lists.fresh.map((q) => q.slug)].filter((x): x is string => !!x)} />
 
       {groups.groups.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-groups-h">

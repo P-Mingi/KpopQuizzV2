@@ -15,14 +15,18 @@ import { useNowMs, useStoredValue } from './use-client-values';
 /**
  * Continue playing (16.7, prototype: signed-in only). Unfinished runs saved on this
  * device by the quiz player (lib/ux-v1/p1/continue-store.ts), up to 3, each a real
- * link to /q/{slug}. Renders NOTHING for guests or when there is no saved run
- * (min-gate): no empty state is advertised.
+ * link to /q/{slug}. A quiz the home already shows elsewhere (`exclude`) is left out
+ * ("no quiz appears twice", 16.7). Renders NOTHING for guests or when there is no
+ * saved run (min-gate): no empty state is advertised.
  */
-export function ContinuePlaying(): React.ReactElement | null {
+export function ContinuePlaying({ exclude = [] }: { exclude?: string[] }): React.ReactElement | null {
   const me = useUxMe();
   const raw = useStoredValue(CONTINUE_KEY);
   const now = useNowMs();
-  const runs = useMemo(() => (raw && now ? parseRuns(raw, now) : []), [raw, now]);
+  const runs = useMemo(
+    () => (raw && now ? parseRuns(raw, now).filter((r) => !exclude.includes(r.slug)) : []),
+    [raw, now, exclude],
+  );
 
   if (!me?.profile || runs.length === 0) return null;
   return (
