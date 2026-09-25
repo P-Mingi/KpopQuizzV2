@@ -243,8 +243,8 @@ html.ux-v1.dark .p6-stats3.ux-stats3 { background: rgba(0, 0, 0, .18); }
   .p6-bars { display: none; }
   .p6-display { font-size: 32px; line-height: 1.1; }
   .p6-lead { font-size: 16px; margin-top: 14px; }
-  .p6-setup .ux-dd-wrap { flex: 1; min-width: 0; }
-  .p6-setup .p6-pl { width: 100%; }
+  /* the menu stays anchored under the playlist button (the shared .ux-pop turns fixed on phones) */
+  .p6-plmenu.ux-pop { position: absolute; left: 0; right: auto; top: calc(100% + 8px); width: 340px !important; max-width: calc(100vw - 2 * var(--ux-gut) - 10px); }
   .p6-setup .p6-seg { display: none; }
   .p6-setup > .ux-btn { width: 100%; }
   .p6-mgrid { grid-template-columns: 1fr; }
