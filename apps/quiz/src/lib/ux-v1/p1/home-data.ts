@@ -20,6 +20,15 @@ import { aboutMinutes, averagePct, comma, groupInitials, isVisibleGroupSlug, mea
 
 import type { QuizCardData } from '@/lib/db/types';
 
+/** A read that failed must THROW inside unstable_cache: a thrown read is not
+ *  cached (the caller's safeFetch hides the section for this render only and the
+ *  next render retries), while a returned empty value would be cached for the
+ *  whole TTL and hide real data after a transient DB error. */
+function must<T extends { error: { message: string } | null }>(res: T, what: string): T {
+  if (res.error) throw new Error(`[ux-home] ${what}: ${res.error.message}`);
+  return res;
+}
+
 /* ---------------------------------------------------------------- QOTD --- */
 
 export interface HomeQotd {
@@ -49,6 +58,8 @@ async function readQotd(today: string): Promise<HomeQotd | null> {
     db.from('quizzes').select('id, quiz_of_the_day_date').eq('status', 'published').eq('is_quiz_of_the_day', true)
       .lte('quiz_of_the_day_date', today).order('quiz_of_the_day_date', { ascending: false }).limit(3),
   ]);
+  must(logRes, 'qotd_log');
+  must(flagRes, 'quizzes qotd flag');
   const picks: { id: string; date: string }[] = [
     ...((logRes.data ?? []) as { quiz_id: string; featured_date: string }[]).map((r) => ({ id: r.quiz_id, date: r.featured_date })),
     ...((flagRes.data ?? []) as { id: string; quiz_of_the_day_date: string }[]).map((r) => ({ id: r.id, date: r.quiz_of_the_day_date })),
@@ -56,19 +67,20 @@ async function readQotd(today: string): Promise<HomeQotd | null> {
   if (picks.length === 0) return null;
 
   for (const pick of picks) {
-    const { data } = await db.from('quizzes')
+    const { data } = must(await db.from('quizzes')
       .select('id, slug, title, quiz_type, difficulty, question_count, total_score_sum, total_completions')
-      .eq('id', pick.id).eq('status', 'published').maybeSingle();
+      .eq('id', pick.id).eq('status', 'published').maybeSingle(), 'qotd quiz');
     const q = data as {
       id: string; slug: string; title: string; quiz_type: string; difficulty: string;
       question_count: number; total_score_sum: number; total_completions: number;
     } | null;
     if (!q) continue; // unpublished since: try the previous pick
 
-    const [{ data: stats }, rotates] = await Promise.all([
+    const [statsRes, rotates] = await Promise.all([
       db.from('quiz_time_stats').select('attempt_count, avg_time_seconds, total_questions').eq('quiz_id', q.id).limit(200),
       nextRotationExpected(today),
     ]);
+    const stats = must(statsRes, 'quiz_time_stats').data;
     return {
       id: q.id,
       slug: q.slug,
@@ -90,14 +102,10 @@ async function readQotd(today: string): Promise<HomeQotd | null> {
  *  a verified/scheduled bank row is dated tomorrow (today's cron behaviour). */
 async function nextRotationExpected(today: string): Promise<boolean> {
   if (qotdRotationFixEnabled()) return true;
-  try {
-    const db = createServiceRoleClient();
-    const { count } = await db.from('quiz_bank').select('id', { count: 'exact', head: true })
-      .eq('scheduled_date', addDays(today, 1)).in('status', ['verified', 'scheduled']);
-    return (count ?? 0) > 0;
-  } catch {
-    return false;
-  }
+  const db = createServiceRoleClient();
+  const { count } = must(await db.from('quiz_bank').select('id', { count: 'exact', head: true })
+    .eq('scheduled_date', addDays(today, 1)).in('status', ['verified', 'scheduled']), 'quiz_bank tomorrow');
+  return (count ?? 0) > 0;
 }
 
 const readQotdCached = unstable_cache(readQotd, ['ux-v1:p1:qotd:v1'], { revalidate: CACHE_TTL.stats, tags: ['quizzes'] });
@@ -138,6 +146,7 @@ async function readGroups(): Promise<HomeGroups> {
     ),
     db.from('groups').select('id, slug, name'),
   ]);
+  must(groupsRes, 'groups');
   const groups = ((groupsRes.data ?? []) as { id: number; slug: string; name: string }[]).filter((g) => isVisibleGroupSlug(g.slug));
   const stats = new Map<number, { quizzes: number; plays: number; newest: string }>();
   for (const r of rows) {
@@ -230,14 +239,16 @@ async function readCommunity(today: string): Promise<CommunityRow[]> {
   const rows: CommunityRow[] = [];
 
   // Daily debate (read only: never ensure_daily_debate, which writes).
-  const { data: dd } = await db.from('daily_debates').select('date, question_id').lte('date', today)
-    .order('date', { ascending: false }).limit(1).maybeSingle();
+  const { data: dd } = must(await db.from('daily_debates').select('date, question_id').lte('date', today)
+    .order('date', { ascending: false }).limit(1).maybeSingle(), 'daily_debates');
   const debate = dd as { date: string; question_id: string } | null;
   if (debate) {
-    const [{ data: q }, { count }] = await Promise.all([
+    const [qRes, votesRes] = await Promise.all([
       db.from('debate_questions').select('question').eq('id', debate.question_id).maybeSingle(),
       db.from('debate_votes').select('id', { count: 'exact', head: true }).eq('date', debate.date),
     ]);
+    const q = must(qRes, 'debate_questions').data;
+    const count = must(votesRes, 'debate_votes').count;
     const question = (q as { question: string } | null)?.question;
     if (question) {
       const votes = count ?? 0;
@@ -251,24 +262,30 @@ async function readCommunity(today: string): Promise<CommunityRow[]> {
 
   // Verse threads and essays: only spaces that opted into the cross-space feed
   // (the same gate as lib/verse/feed.ts).
-  const { data: opted } = await db.from('verse_spaces').select('group_id').eq('feed_opt_in', true).limit(500);
+  const { data: opted } = must(await db.from('verse_spaces').select('group_id').eq('feed_opt_in', true).limit(500), 'verse_spaces');
   const groupIds = [...new Set(((opted ?? []) as { group_id: number }[]).map((r) => r.group_id))];
   if (groupIds.length > 0) {
-    const [{ data: groups }, { data: thread }, { data: essay }] = await Promise.all([
+    const [groupsRes, threadRes, essayRes] = await Promise.all([
       db.from('groups').select('id, slug, name').in('id', groupIds),
       db.from('verse_threads').select('id, group_id, slug, title, created_at').in('group_id', groupIds).eq('status', 'visible')
         .order('created_at', { ascending: false }).limit(1).maybeSingle(),
       db.from('verse_essays').select('id, group_id, featured_at').in('group_id', groupIds).eq('status', 'featured')
         .order('featured_at', { ascending: false, nullsFirst: false }).limit(1).maybeSingle(),
     ]);
+    const groups = must(groupsRes, 'groups').data;
+    const thread = must(threadRes, 'verse_threads').data;
+    const essay = must(essayRes, 'verse_essays').data;
     const bySlug = new Map(((groups ?? []) as { id: number; slug: string; name: string }[]).map((g) => [g.id, g]));
 
     const t = thread as { id: number; group_id: number; slug: string; title: string; created_at: string } | null;
     const tg = t ? bySlug.get(t.group_id) : undefined;
     if (t && tg) {
+      // listThreads swallows read errors (returns []): a thread that is visible
+      // but missing from its own list means that read failed, so do not cache it.
       const summary = (await listThreads(t.group_id)).find((x) => x.id === t.id);
-      const author = summary?.author?.displayName;
-      const replies = summary?.replyCount ?? 0;
+      if (!summary) throw new Error('[ux-home] verse thread list unavailable');
+      const author = summary.author?.displayName;
+      const replies = summary.replyCount;
       rows.push({
         kind: 'thread', title: t.title, href: `/verse/${tg.slug}/community/${t.slug}`, at: t.created_at,
         sub: ['Thread', author, `${comma(replies)} ${replies === 1 ? 'reply' : 'replies'}`].filter(Boolean).join(' · '),
@@ -308,7 +325,7 @@ export interface BandInfo { date: string; fans: number }
 
 async function readBand(today: string): Promise<BandInfo> {
   const db = createPublicReadClient();
-  const { count } = await db.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', today);
+  const { count } = must(await db.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', today), 'daily_blindtest_scores');
   return { date: today, fans: count ?? 0 };
 }
 
