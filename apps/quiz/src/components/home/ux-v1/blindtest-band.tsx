@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { UxButton, UxLink } from '@/components/ux-v1/button';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
-import { hasPlayedDaily } from '@/lib/daily-played';
 import { countdownLabel, fansLabel, hoursLeftLabel, minutesToUtcMidnight, utcDay } from '@/lib/ux-v1/p1/format';
+
+import { useNowMs, useStoredValue } from './use-client-values';
 
 interface BandMe {
   signedIn: boolean;
@@ -34,18 +35,14 @@ const EQ_DELAYS = ['0s', '-.2s', '-.4s', '-.1s', '-.3s', '-.5s', '-.15s'];
 export function BlindtestBand({ fans, date }: Props): React.ReactElement {
   const me = useUxMe();
   const signedIn = !!me?.profile;
-  const [mins, setMins] = useState<number | null>(null);
-  const [today, setToday] = useState<string | null>(null);
-  const [guestPlayed, setGuestPlayed] = useState(false);
+  const ms = useNowMs();
+  const now = ms === null ? null : new Date(ms);
+  const mins = now ? minutesToUtcMidnight(now) : null;
+  const today = now ? utcDay(now) : null;
+  // The daily game's own "played today" flag (lib/daily-played.ts), per browser.
+  const playedFlag = useStoredValue('kq_daily_blindtest_played');
+  const guestPlayed = today !== null && playedFlag === today;
   const [mine, setMine] = useState<BandMe | null>(null);
-
-  useEffect(() => {
-    const tick = (): void => { const n = new Date(); setMins(minutesToUtcMidnight(n)); setToday(utcDay(n)); };
-    tick();
-    setGuestPlayed(hasPlayedDaily('blindtest'));
-    const t = window.setInterval(tick, 30_000);
-    return () => window.clearInterval(t);
-  }, []);
 
   useEffect(() => {
     if (!signedIn) return;

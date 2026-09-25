@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { countdownLabel, minutesToUtcMidnight, pickedOnLabel, utcDay } from '@/lib/ux-v1/p1/format';
+
+import { useNowMs } from './use-client-values';
 
 interface Props {
   /** Day it was (or is) the quiz of the day, YYYY-MM-DD. */
@@ -18,13 +18,8 @@ interface Props {
  *  its way; "Today's pick" when it is today's but none is scheduled next; "Picked
  *  on June 30" / "Picked yesterday" when the stored pick is old (rotation stopped). */
 export function QotdNote({ featured, served, rotates }: Props): React.ReactElement {
-  const [now, setNow] = useState<Date | null>(null);
-  useEffect(() => {
-    setNow(new Date());
-    const t = window.setInterval(() => setNow(new Date()), 30_000);
-    return () => window.clearInterval(t);
-  }, []);
-
+  const ms = useNowMs();
+  const now = ms === null ? null : new Date(ms);
   const today = now ? utcDay(now) : served;
   let text: string;
   if (featured === today) {

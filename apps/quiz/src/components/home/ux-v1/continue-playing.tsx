@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
-import { readRuns } from '@/lib/ux-v1/p1/continue-store';
+import { CONTINUE_KEY, parseRuns } from '@/lib/ux-v1/p1/continue-store';
 import { groupInitials } from '@/lib/ux-v1/p1/format';
 
-import type { ContinueRun } from '@/lib/ux-v1/p1/continue-store';
+import { useNowMs, useStoredValue } from './use-client-values';
 
 /**
  * Continue playing (16.7, prototype: signed-in only). Unfinished runs saved on this
@@ -20,8 +20,9 @@ import type { ContinueRun } from '@/lib/ux-v1/p1/continue-store';
  */
 export function ContinuePlaying(): React.ReactElement | null {
   const me = useUxMe();
-  const [runs, setRuns] = useState<ContinueRun[]>([]);
-  useEffect(() => { setRuns(readRuns()); }, []);
+  const raw = useStoredValue(CONTINUE_KEY);
+  const now = useNowMs();
+  const runs = useMemo(() => (raw && now ? parseRuns(raw, now) : []), [raw, now]);
 
   if (!me?.profile || runs.length === 0) return null;
   return (
