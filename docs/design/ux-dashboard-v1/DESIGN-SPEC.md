@@ -417,3 +417,333 @@ RANKED (competitive, seasonal):
   title. No new table.
 Screenshots: shot-hub.png, shot-notifications.png, shot-ranked.png, shot-btresults-ranked.png,
 shot-dark-*.png.
+
+## 16. v10 "Air" - SUPERSEDES the shell (section 3) and the visual rules of sections 2, 4 to 15
+
+Owner brief: v9 was too heavy. Top navbar back, much more air, less overwhelming, more readable, on every
+page. v10 was designed from a written direction, reviewed by three critical agents (visual, UX,
+fan/accessibility/SEO), cross-critiqued, rebuilt, then reviewed twice more against the build
+(see DECISIONS-LOG 2026-09-25). Where section 16 and an older section disagree, section 16 wins.
+Product rules, data sources and the ranked rule set of the older sections still apply.
+
+### 16.1 Tokens (light / dark warm)
+- Surfaces: page #FFFFFF / #141312, surface #F7F6F4 / #1C1B19, surface-2 #F0EEEA / #232120,
+  hairline #ECE9E4 / #2F2C29 (decorative only), card edge #E0DBD3 / #3A3632, input border #8C857C / #6E6A64.
+- Text: ink #1F1B17 / #F3F0EB, muted #6B655E / #A8A198. Only these two text colours. #9A948B is never text.
+- Pink: --pink #E8457A for non-text marks only (nav underline, unread dots, rings, XP and timer);
+  --pink-fill #D13A6E buttons with white text (4.62:1), hover #BE2F62; --pink-ink #C93868 / #FF7AA5
+  pink text; --pink-soft #FCE8EF / #3A2129 with #B3305C / #FF9DBC text.
+- Semantic: ok #257547 / #4FC07F, no #B83A34 / #FF7A70, text on ok/no chips #FFFFFF / #141312.
+  Never colour alone: every right/wrong state has an icon and a word.
+- Plum #1B1524 / #2A2135 only for the blindtest hero, the daily band and the blindtest game.
+- Toggles on = ink (not pink). Knob page colour; off knob #FFFFFF / #A8A198.
+- Theme: the real site's class-based `.dark` + localStorage 'theme' stays; map these tokens onto it.
+
+### 16.2 Pink budget
+Max one filled pink button per view, max ~2 pink marks in the first viewport besides the logo tile.
+Links are ink with a quiet underline (#E0DBD3, current colour on hover), arrows muted. Progress bars in
+lists (Continue, Groups mastered) are ink; only the XP bar, game progress and timers are pink.
+
+### 16.3 Type (Inter 400/500/600/700, Pretendard fallback for Korean)
+Display 48/1.05 700 -0.03em (mobile 32). H1 32/1.15 700 (mobile 26). H2 20/1.3 600. Card title
+16/1.35 600. Body 16/1.6. UI 15 (segmented controls, dropdowns, chips, menu items). Meta 13 muted.
+Page subtitles 18/1.55 muted. Stats 24/700 tabular. Nothing under 12px. tabular-nums on every score,
+rank, timer and count. Sentence case everywhere, no uppercase labels except the photocard.
+Long text max 34em (post body) / 38em (prose).
+
+### 16.4 Layout and spacing
+Widths: wide 1120 (home, groups, quizzes, blindtest, community, hub, passport); text 720 (quiz, create,
+post, leaderboard, ranked, settings, notifications); stage 600 (games, results). Community: 720 feed +
+80 gap + 320 rail. Gutter 32 (mobile 20). Page top 56 (mobile 28). Section gaps 80 home / 64 others /
+48 mobile. Section title to content 20. Grid gap 24 columns / 40 rows. Radius 8 thumbs, 12 inputs and
+answers, 16 cards, 24 hero and photocard, 999 buttons and chips. Buttons 48 / 40 / 32 (40 min on touch),
+pill, no glow. Icons 20px, 1.5 stroke. No boxes around sections; borders only on clickable objects
+(text cards, mode cards, inputs). Photo cards are frameless.
+
+### 16.5 Navigation (replaces the 232px sidebar)
+- Desktop bar 64px, sticky, blurred page colour, hairline appears after 8px of scroll, aligned to 1120:
+  logo (= Home) | Quizzes, Groups, Blindtest, Community, Leaderboard (15/500 muted, active ink +
+  2px pink underline, aria-current) | search (180px field with "/" hint at >=1280, 40px icon below;
+  opens an overlay with groups, quizzes, songs, a real no-results state) | + Create (ghost) | streak
+  pill (neutral; flame turns pink when the streak is at risk; popover with the week) | bell (panel with
+  the latest 6, Mark all read, See all) | avatar menu (Passport, My quizzes, Settings, Theme, Sign out).
+  Guest: search, Create, Sign in. Leaderboard link hides under 1100px (reachable from Community/You).
+- Mobile: top bar = logo, search, streak, bell (44px targets). Bottom tabs = Home, Quizzes, Blindtest,
+  Community, You (64px + safe area).
+- Focus mode: in quiz and blindtest games the bars and footer disappear; a slim game bar remains.
+  Create hides the bottom tabs and the footer (its own sticky bar takes the bottom).
+- Every navigation item is an `<a href>` with the real path (/, /quizzes, /groups, /{slug}-quiz,
+  /q/{slug}, /blindtest, /community, /leaderboard, ?page=2). Buttons only for actions. On client
+  navigation: update document.title, focus the page H1 (tabindex -1, no focus ring).
+
+### 16.6 Sign-in sheet (NEW, replaces "Sign in = instant")
+Sheet (bottom sheet on mobile): title from context ("Save your 7/8", "Sign in to publish", "Sign in to
+reply"), Continue with Google, Continue with Discord, or email + "Email me a sign-in link". No
+password anywhere (matches the real passwordless auth). After success the original action continues
+(score saved, quiz published, reply posted) and the draft is kept. Guests can build a whole quiz;
+sign-in is asked at Publish.
+
+### 16.7 Pages (what each one keeps, in order)
+- Home: hero (guest H1 "Free K-pop quizzes and blindtests" + keyword lead / signed-in eyebrow greeting +
+  "Today's Ten"), one pink button; Continue playing (resumes at the saved question); Groups rail
+  (10, 80px avatars, "New quiz" as a word, never a dot alone); Trending this week (4 photo cards); All
+  time best (numbered, no thumbnails) beside New quizzes (type glyph, no initials); Blindtest of the day
+  band (the only coloured block; after playing it shows "You scored 8/10 today" + See today's board);
+  From the community (3 rows). No quiz appears twice.
+- Groups: filter, Most played (hidden while filtering), A to Z in 3 columns. Groups without a quiz are
+  listed muted and open an empty group page.
+- Quizzes: sort segmented (Trending, Newest, Most played, Top rated) + Type / Level / Group dropdowns
+  that add removable chips; the grid really filters; empty state with Clear filters; Load more is a real
+  ?page=2 link. Photo grid on desktop, compact rows on phones.
+- Quiz page (720): breadcrumb, cover, H1, one meta line, author + Follow, Start + share; under it the
+  timer rule and "Play without a timer" (relaxed runs do not enter the hall of fame); Hall of fame with
+  your best + Beat it + Challenge a friend; Did you know (labelled) + trivia link; About; In this quiz
+  (3); More from the group as text cards; creator + Report. Mobile: sticky Start once the first one
+  scrolls away (hidden and not focusable until then).
+- Quiz game: game bar (quit asks for confirmation once an answer would be lost and saves the run to
+  Continue; title or "Beat {user}: 7/8" chip in challenge runs; segmented progress filled/hollow;
+  score; sound). Timer ring 72 with seconds (warn 8, danger 5). Question 28. Answers 56px with 1-4 key
+  chips (A-D on touch, aria-hidden, aria-keyshortcuts). After answer: Correct (check) / Your pick (X),
+  others muted but readable; Did you know; Next + Enter; focus moves to Next; a polite live region
+  announces the result. "3 in a row" pill from 3.
+- Results (600): photocard (kept exactly, owner-approved), XP + streak line (guest: "Save your 7/8" ->
+  sign-in sheet), You / Average / Time, rank line (challenge runs: win or lose line). Primary button:
+  Share when above the quiz average, Play again when below. Like. Keep playing (one big next quiz + 2
+  rows with type glyphs). Comments folded, real field with score chip. Visually hidden H1 "7/8 on {quiz}".
+  After any quiz: streak pill, popover, home greeting and notifications all switch to "saved".
+- Share sheet: numbers come from the actual run (score, beat %, rank). Copy link, Story image, More apps
+  (navigator.share; share the story image as a file where supported), Discord. Challenge link block when
+  relevant. Bottom sheet on mobile.
+- Create (720): stepper (aria-current step), title field validates (5+), 5 native radio type rows,
+  group, difficulty, language, cover + rights checkbox (native). Questions list with one open editor,
+  circle marks the correct answer. Publish step shows the card as it will look + checklist. Done state
+  with link, Open the quiz, Post a challenge.
+- Blindtest hub: plum hero with the whole setup in one row (playlist menu, 5/10/15, Start, "Your best
+  8/10 · Idol"); challenges waiting (Accept starts a run with the score to beat); Ways to play (Daily,
+  Ranked, Challenge a friend); Today's board (your row: Play or your score); How it works; Play by group;
+  FAQ in the HTML. One site-wide streak only (no blindtest streak). Daily = one try per day.
+- Blindtest game: plum, game bar with replay and sound. The orb (200, 168 mobile) becomes the album art
+  (140, 116 mobile) in the same space so answers never move; points pop; auto-next 3s, Next + Enter;
+  focus to Next. Needed in build: a "Tap to play the clip" state when autoplay is blocked.
+- Blindtest results: score card; mode-aware primary (Play again / Play another ranked run / See today's
+  board); ranked season sentence + tier chips; challenge win/lose sentence; challenge link; every song
+  row has a play button.
+- Ranked (720): shield + division + season score + progress (solid tier colour); "Score over 1,420 to
+  count" (the lowest of the best 5; best 5 always sorted descending and summed); tier track (mobile:
+  label only on the current tier); ladder Global / My fandom / Following; rules accordion; rewards.
+- Community: feed 720 (one-field composer, tabs For you / Following / Blogs, group dropdown, frameless
+  posts); rail 320 sticky: Daily debate, Happening now (with the community pulse line), Badge watch.
+  Phone: fandom war strip + debate at the top of the feed, Happening now + Badge watch after the 3rd post.
+- Post (720): per type - challenge (quiz card with the score to beat), blog (cover max 480 wide, no
+  upscaling), debate (vote then results), thread. Replies: real field, score chip, 44px Send.
+- Leaderboard (720): tabs Fandom war / Players / Ranked / Creators; frameless podium; rows with +n / -n;
+  your row pinned; guest pin opens the sign-in sheet.
+- Group hub (/{slug}-quiz): SPLIT hero - H1 "{Group} Quiz", intro, Play the top quiz + Blindtest, facts
+  line on the left; the group photo on the right, no text over it (one column when there is no photo).
+  Quiz text cards (6) + sort + filters + "Show all N" as a real ?page=2 link; About in plain view;
+  trivia link (real href); 8 FAQ questions in details, answers in the HTML, first open (FAQPage JSON-LD
+  must match); From the community; Fans also play; fandom war line. Live rooms link removed until rooms
+  ship (Phase 7). Group with 0 quizzes: empty state (Make the first quiz + Notify me), noindex until
+  3 quizzes.
+- Passport: band 120 (mobile 96) = the fan's image, else their main group photo blurred over their tint;
+  avatar 96 overlapping (above the band); name Inter 28/700 ink + "Lv 7 · Stan" chip; meta; XP bar
+  (pink); stats in one row (scrolls on phones); tabs Overview / Quizzes / History / Badges; Overview
+  starts with the fandom war strip (Leaderboard is one tap away on phones); badges on neutral discs.
+- Settings (720): Profile, Fandom, Passport look (folded), Notifications (7 switches, role=switch),
+  Appearance (System / Light / Dark), Account (sign-in method, data export, sign out, delete). Save bar
+  appears after the first change.
+- Notifications (720): All / Your quizzes / Social / Achievements; streak row pinned (turns into
+  "Streak saved" after playing); rows are links to their target, unread dot + bold title.
+- Footer: surface band, brand + Play / Explore / Community / Support + Top groups row (2 columns on
+  phones).
+
+### 16.8 Images
+Every photo in the prototype is a 480x300 site asset shown up to 2.3x. Production needs: hub photo
+1040w (2x of 520), quiz cover 1440w, photocard portrait crop 640x853, thumbs 2x. Never repeat the same
+photo twice in one row or stacked in one column. Quiz without a cover: the group photo; group without a
+photo: typographic cover (type glyph + group name on surface-2), neutral initials for avatars. Top 20
+groups need a real photo (ATEEZ first: #4 by quizzes, #5 in the fandom war).
+
+### 16.9 Accessibility checklist (all verified in the prototype)
+Contrast AA on every text pair in both themes; focus-visible ring 2px pink; skip link; one H1 per view;
+live region for game results; aria-pressed on segmented controls and toggles, role=switch on settings
+switches, role=tab/aria-selected on tabs, aria-expanded/aria-haspopup/aria-controls on popovers and
+dropdowns; native radios/checkboxes; 44px touch targets on coarse pointers; key hints hidden on touch;
+lang="ko" on Korean stickers; reduced motion kills confetti, count-ups and point pops; timer can be
+turned off (relaxed mode).
+
+### 16.10 SEO checklist (unchanged pages keep everything; these are additions)
+Per-page title and meta description; canonical; JSON-LD: FAQPage + BreadcrumbList on hubs,
+BreadcrumbList (+ Quiz where valid) on quiz pages; the blindtest FAQ stays in the HTML; real hrefs for
+every group, quiz, pagination and trivia link. Group counts: 90 visible groups (the DB has 91 rows
+including one quarantine group); 422 published quizzes. NOTE: `groups.quiz_count` is stale against
+published quizzes (BTS 31 vs 27 published, BLACKPINK 29 vs 24, Stray Kids 29 vs 28): show counts from
+published quizzes, not from that column.
+
+## 17. v11 - owner review fixes (2026-09-25). SUPERSEDES section 16 where they differ
+
+Owner verdict on v10: home, quizzes, groups + group pages, create, new thread, leaderboard, ranked UI
+and the community threads are VALIDATED. The changes below are the only deltas. The prototype is the
+reference, "pixel by pixel".
+
+### 17.1 Global
+- Every box has a border, and borders are LIGHT (v11.1: owner found them too heavy). One hairline token
+  for every box: `--line` #ECE8E3 light / #2B2826 dark; inner dividers `--line-2` #F3F1EE / #242220;
+  control borders `--edge` lightened to #E5E0DA / #35312E; hover on cards `--pink-line` #F2CFDB /
+  #4A2A37 (no shadow). Boxes: quiz cards (cover inside the card, 8px inset, radius 18, 2px lift on
+  hover), community posts (radius 20, padding 24/26, 16 between posts), the community rail panels and
+  its debate options, the quiz of the day card, "About this quiz", the results stats row, popovers,
+  menus, the identity preview.
+- More pink, on purpose:
+  - Nav: icon + label per item, Home added back, the active item is a filled pink pill (#D13A6E, white
+    text, 38px). Mobile tab bar: active icon sits in a pink-soft pill.
+  - Section titles carry a 20px pink line icon (flame for Trending, trophy for All time best...).
+  - Links are pink-ink again (no underline until hover).
+  - Tabs (community, leaderboard, passport): active = pink-soft pill with pink-ink text.
+  - Segmented controls: active text pink-ink. Filter chips and post type chips: pink-soft.
+  - Top 3 ranks pink-ink; your pinned leaderboard row pink-soft.
+- Logo: unchanged (pink K tile + "KpopQuiz"). Do not redraw.
+- Search in the top bar is an icon button at every width (the pill nav needs the room); "/" still opens it.
+
+### 17.2 Home
+- (v11.2) Live ticker, then the CENTRED header of the live site (components/home/home-hero.tsx), see
+  17.11. Guest: eyebrow "K-pop Quiz" inside the H1, "Are you a real fan?" with "real fan?" pink italic,
+  H2 "Prove it. Play K-pop quizzes and see where you rank.", CTAs "Browse K-pop quizzes" + "Create a
+  quiz". Signed in: same look, "Good evening, Mingi" with the name pink italic, one streak line, no CTAs.
+- Quiz of the day card (v11.1: owner asked for smaller, calmer, minimalist; the group tag and the
+  question preview are REMOVED). One bordered row, white (`--raised`), radius 20, padding 22/24/22/28:
+  background = soft pink gradient (v11.2, 17.11), border `--qotd-edge`;
+  left = label "Quiz of the day" (13/600 pink-ink, 14px bolt icon, no pill) + countdown (13 muted),
+  the REAL quiz title (22/700), one meta line (14 muted, dot separated: type, level, question count,
+  average, time); right = one pink "Play" button (40px). Mobile: stacks, padding 20, title 20, Play full
+  width 44px. No blobs, no description, no chips, no preview.
+- Data: quizzes.is_quiz_of_the_day / qotd_log. BACKEND BUG: rotation stopped on 2026-06-30 (last
+  qotd_log.featured_date). Fix the scheduler (quiz_bank + qotd_log, lib/quiz-bank-scheduling.ts).
+
+### 17.3 Quizzes, Groups, group hub, Leaderboard
+Validated. Only the global pink and border rules apply. Group photos: use the site's own
+`public/idols/<Group>.jpg` (736 to 1200px wide) through next/image with correct `sizes`; never the
+480px copies. 33 groups have a photo today; others use the typographic cover.
+
+### 17.4 Quiz page, game, results
+- "About this quiz" in a bordered box.
+- Timer ring 76px, the number alone, optically centred (no "s" unit; aria-label "14 seconds left").
+- Results: You / Average / Time in one bordered row with hairline dividers, max 440 wide. Average and
+  plays come from the quiz played (no hard-coded 52%).
+
+### 17.5 Blindtest: day mode
+- No plum anywhere. Hub hero, the daily band on Home, the game page and the results card use the light
+  pink-lilac gradient with a pink-edge border. In dark theme they follow the dark tokens.
+- Game: light page, white orb with pink ring, song round chip pink-soft, artist round chip lavender-soft,
+  answers use the standard answer states.
+- Playlist menu: "All K-pop" first, then the GROUPS: every group playlist (79 today), searchable, with
+  the song count, then the mixes (Girl groups, Boy groups, generation, title tracks, recent hits,
+  legends, speed round).
+- Play by group (v11.1 redesign, the chip wall is gone): section title + a search field on the right
+  ("Search 79 groups", 40px pill, light border, pink border on focus). Then a row of 6 popular group
+  playlists as photo tiles (4:3 photo radius 14, name 15/600, "18 songs" 13 muted; 3 per row under
+  1100px). Then a clean index of ALL playable groups: 4 columns (3 under 1100, 2 on mobile), 48px rows
+  with a `--line` bottom hairline, name left 15/500, song count right 13 muted (mobile: number only);
+  hover or focus = name pink-ink and the count swaps for a pink play icon. First 24 shown, then "Show all
+  79 groups". Typing in search filters the whole list live, hides the popular row, and shows "No group
+  matches. Try the All K-pop playlist." when empty. Popular six = most blindtest plays over the last 30
+  days (fallback: most quiz plays).
+- Rule (runtime truth, lib/blind-test-playlists.ts): a group playlist exists when the group has at least
+  ROUND_SIZE = 10 clean active rows in `songs` (not blind_test_songs). Today: 79 groups, 4,120 active songs.
+
+### 17.6 Ranked
+UI validated. The system must work exactly as section 15.4 says, and today `ranked_plays` has 0 rows,
+so it is not live yet. Scoring per song: right = (100 + speed bonus) x combo; speed bonus 100 under 2s,
+then round(100 x (10 - t) / 8) down to 0 at 10s; combo x1.0, +0.1 per consecutive right answer, cap
+x2.0; wrong or timeout = 0 and resets the combo. Season score = sum of the 5 best runs; a run counts
+when it beats the 5th best. Tiers Bronze 0 / Silver 4,000 / Gold 6,500 / Platinum 8,500 / Diamond
+10,500 / Master 12,000, divisions III-II-I as equal thirds of each tier range from Bronze to Diamond (Master has no divisions), Legend = top 100
+Masters, nightly. 15 runs a day, 8-week seasons, placement = first 5 runs, quit runs recorded with the
+answered songs, ties by average answer time. Server-drawn runs (4 easy / 4 medium / 2 hard by
+accuracy, 6 song + 4 artist rounds), timing measured server side.
+
+### 17.7 Community
+Validated for threads, blogs, debates, challenges. Deltas: bordered posts and rail panels, comment likes
+are a heart + count (pink when liked), names render with the author's identity flair (17.8), a bit
+more pink (type chips, tabs, liked hearts).
+
+### 17.8 Passport and identity flair (backend already has the columns)
+- profiles.name_accent (default, pink, purple, blue, teal, amber, coral), profiles.name_font (default,
+  serif, mono), profiles.bias (free text, max 40), profiles.profile_theme (default, purple, blue, teal,
+  amber, coral), profiles.header_url, profiles.pinned_badge_id. Options and validation already live in
+  lib/passport-flair.ts, lib/passport-themes.ts and /api/auth/update-profile.
+- Settings > "Your look" (open, not folded): live preview "how you appear in Community", name colour,
+  name font, bias tag (members of your main group as one-tap chips + custom text), passport theme,
+  header picture, pinned badge.
+- Everywhere a person is named (posts, comments, hall of fame, happening now, leaderboard players,
+  passport): the name uses the accent colour and font, followed by the bias tag chip (heart + text,
+  outlined in the accent).
+- Header picture: "Change header" on the passport band opens a sheet: upload from computer (JPG, PNG,
+  WebP, 5 MB, stored in Supabase storage, 1500x300 crop) or paste a link (server fetches it, checks type
+  and size, copies it to storage; never hot-link), or use the theme colour. Default when nothing is set:
+  the main group photo blurred over the theme tint.
+- Badges (v11.1: NO mascot/rabbit art anymore, new medallions). Each badge is an SVG medallion (one
+  `<BadgeMedal id rarity earned size>` component, no PNG): the RARITY sets the frame shape and gradient,
+  the BADGE sets a unique glyph. Frames on a 72 box, corners rounded by stroking the shape with its own
+  gradient (stroke 5, round joins): common = circle, uncommon = rounded square (rx 19), rare = hexagon,
+  epic = shield, legendary = 12-point star. Gradients top-left to bottom-right: common #C9CED9 to
+  #7C8499, uncommon #74E3A4 to #17994F, rare #93BFFF to #2C67DB, epic #DBAEFF to #8A3CDF, legendary
+  #FFE38A to #E08E00 (base colours = lib/badges.ts RARITY_COLOR). Inside: a soft white highlight in the
+  top half (16%), an inner ring at 80% scale (white 45%, 1.6), then the white glyph (24 box scaled 1.25,
+  stroke 1.7, round caps). Earned: drop shadow in the rarity colour at 28%, hover tilts -5deg. Locked:
+  `--surface-2` fill, dashed `--edge` ring, muted glyph, name muted. Glyph map (Lucide paths, ISC):
+  perfect_score star, streak_7 flame, streak_30 calendar-check, creator_bronze pen-tool, creator_silver
+  feather, golden_ear_* headphones, first_steps sprout, hard_mode zap, quiz_maker message-question,
+  quizmaker_5 layers, marathoner_* flag, perfectionist_* target, debater_* messages, multi_stan users,
+  fandom_traveler_* compass, dedicated_fan heart, viral_hit rocket, community_star sparkles,
+  group_master crown, founding_fan gem. A badge id without a mapping falls back to its family glyph.
+  Sizes: 64 in grids, 32 in the community rail, 28 next to the passport name (pinned badge), 22 in the
+  settings picker, 16 frame-only in the rarity legend ("colour and shape show rarity"). Badge names,
+  descriptions and rarity come from badge_definitions / lib/badges.ts; counts are live ("12 of 20
+  earned", "All 20 badges").
+
+### 17.9 Create, new thread
+Validated. No change.
+
+### 17.10 v11.1 fixes (owner review of v11, same day)
+- Borders lighter everywhere (17.1 tokens).
+- Quiz of the day: minimalist row, no group tag, no question preview (17.2).
+- Play by group: popular six + searchable index (17.5).
+- Badges: new medallions with unique glyphs, shape + colour by rarity, no mascot art (17.8).
+- Guest state bug: never hide/show auth content with `display: revert` (it drops flex layouts; the
+  "Save your 8/8 ... Sign in to save" line lost its centring). In the product auth content is rendered
+  server side per session; in the prototype the rule is `body:not(.guest) [data-auth=out]{display:none}`.
+  The prototype's "Guest preview" bar is a prototype control, not a product feature.
+- Header picture sheet: X, Escape and a click on the backdrop all close it (the prototype only closed
+  some sheets). Every sheet/dialog must close the same three ways and return focus to its trigger.
+- Results: "Save your 8/8 and start a streak. Sign in to save" is one centred line with a space before
+  the link.
+
+### 17.11 v11.2 fixes (owner review of v11.1)
+- Home header = the live site's hero, restyled in Inter. Order: live ticker, header, quiz of the day.
+  - Live ticker (= components/home/activity-ticker.tsx): full-width bar, 44px (40 mobile), radius 14,
+    `--line` border, white; pulsing 7px pink dot + "LIVE" 11/800 uppercase +0.1em pink-ink; line 14px,
+    ellipsis. Cycles recent activity every 3.5s (fade-up 0.45s, none under reduced motion); when quiet
+    shows "N fans playing now"; renders nothing when there is neither. Sits 24px under the nav (16 mobile).
+    OWNER DECISION PENDING: the live component floors the online count with a random 12 to 27
+    (`Math.max(d.online, 12 + random*16)`). Keep the current behaviour unless the owner says otherwise.
+  - Header: centred, max 760, margin 48 auto 44 (32/28 mobile). H1 clamp(32px, 6vw, 48px), 800,
+    -0.025em, line-height 1.04; eyebrow "K-pop Quiz" INSIDE the H1 as a block span (0.4em, 700, +0.02em,
+    muted, 8px under); accent words italic 800 in `--hl` (#DB4B7E light / #FF7AA5 dark). Sub line 16px
+    (15 mobile) muted, max 480, 14px under (guest: an H2, as today, for SEO). Guest CTAs 24px under,
+    gap 10: primary "Browse K-pop quizzes" (play icon, links /quizzes, keeps the exact-match anchor) and
+    ghost "Create a quiz". Heading semantics and copy for guests are unchanged from production.
+- Quiz of the day background: `--qotd-bg` linear-gradient(110deg, #FBE1EA 0%, #FCEBF1 48%, #FEF6F8 100%)
+  light / (#36202B, #2B1D25, #221B1F) dark; border `--qotd-edge` #F4D6E1 / #40283A.
+- Quiz cards (UxQuizCard) redone: the photo is FLUSH with the card (no inset frame). Card: `--line`
+  border, radius 18, overflow hidden, white, full height in its grid row. Cover 4:3, no radius of its
+  own. Body padding 14/16/16: group name 13/600 pink-ink (ellipsis), title 16/600 two lines max, footer
+  pushed to the bottom (margin-top auto, 14 above): left = difficulty bars (3 bars 3px wide, 5/8/11px
+  tall, filled pink for the level: Easy 1, Medium 2, Hard 3; empty bars `--line`) + level; right =
+  "842 plays" (or "New"). 13px muted. Hover: border `--pink-line`, lift 2px, soft pink shadow
+  0 10px 24px -12px rgba(209,58,110,.22), photo zoom 1.035, title pink-ink. Mobile list rows: 96px
+  square thumb radius 12 inside a bordered row (padding 10, gap 14), same eyebrow/title/footer.
+- "Did you know" bulb (quiz page and the in-game fact) is yellow: stroke `--bulb` #E0A100 / #F5C542,
+  fill `--bulb-fill` #FFE9A6 / rgba(245,197,66,.22).
+- The prototype exposes `window.UX_VERSION` ("v11.2 (2026-09-25)"); the repo copy and the published
+  artifact are the same build when that string matches.

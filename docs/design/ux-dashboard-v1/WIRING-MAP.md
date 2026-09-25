@@ -319,3 +319,63 @@ stays the correct count). Season config in `lib/blind-test-modes.ts` (start date
 | Reduced motion | `reduceMotion` in players | EXISTS |
 | Discord / Reddit | `/api/discord/*`, `lib/reddit-api.ts`, share images | EXISTS |
 | i18n `/pt` | `lib/i18n` | EXISTS, mirror the new pages |
+
+## v10 additions and changes (2026-09-25)
+
+Status legend as above: EXISTS / PARTIAL / NEW. Anything NEW that needs a table or column goes to
+`docs/pending-migrations/` first and waits for the owner.
+
+| View | Control | What it must do | Status / source |
+|---|---|---|---|
+| Shell | Top nav links, logo, search, Create, streak, bell, avatar | Replace the 232px sidebar shell of Phase 1 | NEW shell (Phase 1 redo), same routes |
+| Shell | Search overlay | Groups, quizzes (incl. quizzes of a matched group), songs; no-results state; Enter opens first | PARTIAL: existing search endpoint + blind_test_songs |
+| Shell | Streak pill + popover | Neutral; pink flame when at risk; switches to "saved" after any quiz or blindtest | EXISTS profiles.daily_streak; one rule for all game types |
+| Any | Sign-in sheet | Google, Discord, email magic link; continues the pending action after auth | EXISTS auth (OAuth + magic link); NEW sheet + return-to-action |
+| Home | Continue playing | Resume at the saved question | NEW: needs saved in-progress runs (pending migration) |
+| Home | Daily band played state | After the daily: score + See today's board | EXISTS daily_blindtests + blind_test_plays |
+| Quizzes | Sort + Type/Level/Group chips | Real server filtering; empty state; ?page=2 link | EXISTS quizzes (status='published') |
+| Quiz | Play without a timer | Relaxed run; excluded from hall of fame and quiz_time_stats | NEW flag on the play record (pending migration) |
+| Quiz game | Quit confirm | Only when answers would be lost; saves the run to Continue | NEW (depends on in-progress runs) |
+| Quiz game | Challenge chip "Beat X: 7/8" | Shown in challenge runs; results show win/lose | EXISTS challenges/battles table (short code, 48h) |
+| Results | Primary action by score | Share if pct >= quiz average, else Play again | EXISTS quiz averages |
+| Results | Comment field | Real textarea, score chip, Send | EXISTS quiz comments endpoint |
+| Share sheet | Numbers | From the finished run (score, beat %, rank) | EXISTS result payload |
+| Share sheet | More apps | navigator.share with the story image as a file where supported | NEW client only |
+| Create | Publish as guest | Opens sign-in, keeps the draft, then publishes | EXISTS create-funnel draft + auth |
+| Blindtest hub | Accept a challenge | Starts the run with the score to beat | EXISTS challenges |
+| Blindtest game | Replay + sound | Replay the clip, mute | NEW UI on EXISTS audio player |
+| Blindtest game | Autoplay blocked state | "Tap to play the clip" | NEW client only |
+| Blindtest results | Song row play button | Replays that clip | EXISTS blind_test_songs preview url |
+| Blindtest | Daily one try | Second attempt goes to the board | EXISTS daily_blindtests uniqueness |
+| Ranked | Target number | Lowest of the best 5 runs, list sorted desc, sum shown | EXISTS ranked_plays (season + points columns pending) |
+| Group hub | Split hero, 8 FAQ, trivia href, Show all N link | Server-rendered; counts from published quizzes | EXISTS groups + quizzes; FIX stale groups.quiz_count usage |
+| Group hub | Empty group (0 quizzes) | Make the first quiz + Notify me; noindex until 3 quizzes | NEW notify subscription (pending migration) |
+| Community | Composer, tabs, mobile rail blocks | As section 16.7 | Phase 2 scope (unchanged data model) |
+| Post | Reply field | Real field, score chip | Phase 2 scope |
+| Passport | Band default | Main group photo blurred over tint when no image | EXISTS profile theme/header image |
+| Settings | Sign out | Signs out and returns home | EXISTS |
+
+## v11 additions (2026-09-25)
+
+| View | Control | What it must do | Status / source |
+|---|---|---|---|
+| Home | Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | EXISTS quizzes.is_quiz_of_the_day + qotd_log; BUG rotation stopped 2026-06-30 |
+| Home | Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | EXISTS components/home/home-hero.tsx (keep H1/H2 semantics and copy), profiles.display_name, daily_streak |
+| Home | Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | EXISTS components/home/activity-ticker.tsx, /api/activity/recent, /api/stats/live (owner to decide on the random floor) |
+| Nav | Pink pill active item + icons + Home link | Route-aware active state | NEW shell (A0) |
+| Blindtest | Playlist menu groups | All playable groups under All K-pop, searchable, counts | EXISTS lib/blind-test-playlists.ts getAdvertisablePlaylists() |
+| Blindtest | Play by group (v11.1) | Popular six photo tiles + searchable index of every playable group, first 24 then Show all | same source; popular = blindtest plays last 30 days (fallback quiz plays) |
+| Blindtest | Day mode | Light hero, game, results, home band | NEW styles only |
+| Ranked | Whole system | Scoring, season, tiers, divisions, limits, anti-cheat | ranked_plays EXISTS but 0 rows: NEW engine + pending migration (season, run token, index) |
+| Community | Comment like heart | Toggle like with count | EXISTS likes / quiz_comments; verify endpoint |
+| Community | Author flair | Accent, font, bias chip on every name | EXISTS profiles.name_accent, name_font, bias |
+| Community | Happening now | Live feed + cheer | EXISTS activity_events, activity_cheers |
+| Community | Daily debate | Vote, results after vote | EXISTS daily_debates, debate_questions, debate_votes |
+| Passport | Change header (upload) | Upload to storage, crop 1500x300, save header_url | PARTIAL: header_url EXISTS; verify bucket + upload route |
+| Passport | Change header (link) | Server fetch, validate, copy to storage | NEW route (no hot-linking) |
+| Settings | Your look | name_accent, name_font, bias, profile_theme, pinned_badge_id | EXISTS /api/auth/update-profile + lib/passport-flair.ts |
+| Passport | Badge medallions (v11.1) | SVG medallion per badge: frame + gradient by rarity, unique glyph, locked state, live counts; no PNG mascot art | EXISTS lib/badges.ts, badge_definitions, user_badges; NEW BadgeMedal component + glyph map |
+| Passport | Pinned badge next to name | Shows profiles.pinned_badge_id as a 28px medallion | EXISTS profiles.pinned_badge_id |
+| All | Sheets close | X, Escape, backdrop close any sheet; focus returns | NEW behaviour check (C3) |
+| Quiz page | About box, timer, stats box | Visual only; averages from the played quiz | EXISTS quizzes.total_score_sum / total_completions |
+| All grids | Quiz card (v11.2) | Flush photo, group eyebrow, title, difficulty bars + level, plays | EXISTS quizzes.difficulty, play counts; UxQuizCard restyle (A0) |

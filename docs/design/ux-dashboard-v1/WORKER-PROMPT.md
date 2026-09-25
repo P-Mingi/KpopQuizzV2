@@ -1,3 +1,29 @@
+# READ FIRST (v11, 2026-09-25): the implementation now runs from ONE prompt
+
+Open `v11/WORKER-PROMPT-V11-MULTIAGENT.md` and follow it: orchestrator + foundation agent + 11 page
+agents + pixel, backend and QA checkers, with ownership rules so nobody overwrites anybody.
+DESIGN-SPEC section 17 (v11) wins over section 16 (v10). The v10 notes below still hold where 17 is silent.
+
+# v10 "Air" update (2026-09-25)
+
+The owner found v9 too heavy. The prototype is now v10 and it changes the shell:
+- The 232px sidebar is gone. Top bar 64px (logo, Quizzes, Groups, Blindtest, Community, Leaderboard,
+  search, Create, streak, bell, avatar) + bottom tabs on phones. Your Phase 1 shell (PR #43) must be
+  redone on this top bar before Phase 2 pages go further. The flag, data-guard, parity e2e and
+  data-safety contract do not change.
+- DESIGN-SPEC section 16 supersedes the visual rules of sections 2 to 15 (tokens, pink budget, type,
+  spacing, every page). WIRING-MAP has a new "v10 additions" table. DECISIONS-LOG 2026-09-25 explains
+  why. `critique/` holds the direction and the three review rounds.
+- Screenshots are in `shots-v10/` (desk-light-*, desk-dark-*, mob-light-* at 390px). The old v9
+  `shot-*.png` files are in `archive-v9/` and are no longer the reference.
+- In the prototype: every view is reachable from the top bar and buttons; the avatar menu has
+  "Preview as guest" and "Design notes" (per-view rationale). Console: go('id'), openG('ATEEZ'),
+  startQuiz(), btStart('Ranked'), openSignin().
+- Anything in section 16 that needs a new column or table (in-progress runs, relaxed flag, notify-me
+  for empty groups, ranked season columns) goes to docs/pending-migrations and waits for the owner.
+
+---
+
 # Mission: UX v1, pixel by pixel, on a new branch
 
 You are the implementation worker for kpopquiz.org (repo `KpopQuizzV2`, app in `apps/quiz`, Next.js 16
@@ -9,7 +35,7 @@ paste tokens in files or logs.
 
 The redesign in `docs/design/ux-dashboard-v1/`:
 - `prototype.html` - the clickable prototype, the single source of truth for layout, spacing, colour,
-  type, states and motion. Open it in a browser. Every view is reachable from the sidebar and the
+  type, states and motion. Open it in a browser. Every view is reachable from the top bar and the
   buttons; `openHub('BP')`, `go('ranked')`, `go('notifs')`, `startQuiz()`, `btStart('Ranked')` in the
   console open the rest. The moon icon in the top bar switches night mode.
 - `DESIGN-SPEC.md` - tokens, components, per-view rules, data sources (sections 1 to 15).
@@ -19,7 +45,7 @@ The redesign in `docs/design/ux-dashboard-v1/`:
   matches the screenshot for layout, spacing, radii, colours, type sizes and weights. Copy is the
   prototype's copy unless the wiring map says the real value replaces it.
 
-Structure: game-dashboard shell (232px sidebar, 64px top bar, content max 1200px, footer), Notion-minimal
+Structure (v10): top bar 64px + mobile bottom tabs, content max 1120px, footer, Notion-minimal
 skin with pink accents, Inter, zero emoji (SVG icons only), light and night themes.
 
 ## Rules that do not bend

@@ -117,3 +117,6 @@ avatar-assets/
 # graph nobody notices is exactly the failure mode this trial was run to test for.
 # Rebuild with: graphify . --update
 graphify-out/
+
+# UX v11 run: Playwright signed-in storage state (live session, never commit)
+apps/quiz/e2e/.auth/
