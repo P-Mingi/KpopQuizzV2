@@ -92,7 +92,8 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
 
 async function start(page: Page): Promise<void> {
   await page.locator('.p4-act .ux-btn-primary').click();
-  await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 20_000 });
+  // the first question waits on GET /api/quiz/[id]/questions (live DB, slow on a loaded dev machine)
+  await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 60_000 });
 }
 
 const answerButtons = (page: Page) => page.locator('.p4-answers .p4-ans, .p4-igrid .p4-ians');
