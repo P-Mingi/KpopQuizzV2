@@ -35,6 +35,7 @@
   "apps/quiz/e2e/ux-v1/kit.spec.ts",
   "apps/quiz/e2e/ux-v1/helpers/**",
   "scripts/ux11-owner-guard.mjs",
+  "scripts/ux11-hooks/**",
   "docs/pending-migrations/v11-a0-*.sql"
  ],
  "P1": [
