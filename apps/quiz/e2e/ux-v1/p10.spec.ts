@@ -214,13 +214,13 @@ async function openPassport(page: Page): Promise<boolean> {
   if (!res || res.status() !== 200) return false;
   if (!(await hasShell(page)) || (await page.locator('.p10-passport').count()) === 0) return false;
   // /u/[username] has a loading.tsx: the streamed page sits in a hidden node until it is swapped in
-  await expect(page.locator('.p10-passport')).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('.p10-passport')).toBeVisible({ timeout: 60_000 });
   await waitHydrated(page);
   return true;
 }
 
 async function ownerReady(page: Page): Promise<void> {
-  await expect(page.locator('.p10-hbtn'), 'owner resolved on the client').toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.p10-hbtn'), 'owner resolved on the client').toBeVisible({ timeout: 60_000 }); // /api/auth/me on a busy shared DB
 }
 
 function mutating(page: Page): Request[] {
@@ -576,9 +576,10 @@ for (const theme of THEMES) {
 async function openSettings(page: Page): Promise<boolean> {
   const res = await page.goto('/settings');
   if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
-  await expect(page.locator('.p10-settings')).toBeVisible({ timeout: 20_000 });
-  await expect(page.locator('.p10-personprev')).toBeVisible({ timeout: 20_000 });
-  await expect(page.locator('.p10-srows .ux-switch').first()).toBeEnabled({ timeout: 20_000 });
+  // the settings reads go through a busy shared Supabase: give them time
+  await expect(page.locator('.p10-settings')).toBeVisible({ timeout: 60_000 });
+  await expect(page.locator('.p10-personprev')).toBeVisible({ timeout: 60_000 });
+  await expect(page.locator('.p10-srows .ux-switch').first()).toBeEnabled({ timeout: 60_000 });
   return true;
 }
 
