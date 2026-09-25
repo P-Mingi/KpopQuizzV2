@@ -7,6 +7,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxPopover } from '@/components/ux-v1/popover';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { ALL_PICK, filterGroups, GENERATIONS, groupPick, initials, MIXES, ROUND_OPTIONS, TITLE_TRACKS } from '@/lib/ux-v1/p6/playlists';
 
@@ -71,12 +72,13 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
 
 export function BtSetup(): React.ReactElement | null {
   const hub = useHub();
+  const live = useIsClient();
   if (!hub) return null;
   const me = hub.board?.me ?? null;
   const loading = hub.run.phase === 'loading';
   return (
     <>
-      <div className="p6-setup">
+      <div className="p6-setup" data-live={live || undefined}>
         <UxPopover
           wrap
           label="Choose a playlist"

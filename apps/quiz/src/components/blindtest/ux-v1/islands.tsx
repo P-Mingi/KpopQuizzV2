@@ -7,6 +7,7 @@ import { UxAvatar } from '@/components/ux-v1/avatar';
 import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { PersonName } from '@/components/ux-v1/person-name';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { comma, secs } from '@/lib/ux-v1/p6/points';
 import { filterGroups, initials } from '@/lib/ux-v1/p6/playlists';
@@ -47,6 +48,7 @@ export function BtLiveCount({ initial }: { initial: number }): React.ReactElemen
 /** Ways to play: Blindtest of the day (one try per day). */
 export function BtDailyCard(): React.ReactElement {
   const hub = useHub();
+  const live = useIsClient();
   const b = hub?.board;
   let foot = '';
   if (b) {
@@ -58,6 +60,7 @@ export function BtDailyCard(): React.ReactElement {
   return (
     <a
       className="p6-mcard"
+      data-live={live || undefined}
       href="/blindtest?daily=true"
       onClick={(e) => { if (!hub || !plainClick(e)) return; e.preventDefault(); hub.playDaily(); }}
     >
@@ -92,9 +95,11 @@ export function BtRankedFoot(): React.ReactElement | null {
 /** Ways to play: Challenge a friend (a run, then a link with the exact songs). */
 export function BtChallengeCard(): React.ReactElement {
   const hub = useHub();
+  const live = useIsClient();
   return (
     <a
       className="p6-mcard"
+      data-live={live || undefined}
       href="/blindtest#bt-start"
       onClick={(e) => { if (!hub || !plainClick(e)) return; e.preventDefault(); hub.startSelected(); }}
     >
@@ -109,10 +114,11 @@ export function BtChallengeCard(): React.ReactElement {
 /** Today's board: top 5 with flair + your row (Play, or your score). */
 export function BtBoard(): React.ReactElement {
   const hub = useHub();
+  const live = useIsClient();
   const b = hub?.board ?? null;
   const me = b?.me ?? null;
   return (
-    <div className="ux-rows p6-board" id="bt-board" aria-live="polite">
+    <div className="ux-rows p6-board" id="bt-board" aria-live="polite" data-live={live || undefined} data-loaded={b ? '1' : undefined}>
       {b?.top.map((r) => (
         <div className="p6-lrow" key={r.rank}>
           <span className="p6-rk ux-num">{r.rank}</span>
@@ -148,11 +154,13 @@ const FIRST = 24;
 
 function GroupRow({ g, onStart }: { g: BtGroup; onStart: (g: BtGroup, e: React.MouseEvent) => void }): React.ReactElement {
   return (
-    <a className="p6-gi" href={`/blindtest/group-${g.slug}`} aria-label={`${g.name} blindtest, ${g.songs} songs`} onClick={(e) => onStart(g, e)}>
-      <span className="p6-gn">{g.name}</span>
-      <span className="p6-gc ux-num">{g.songs}<span className="p6-gcs"> songs</span></span>
-      <Icon name="play" size="sm" className="p6-gp" />
-    </a>
+    <li>
+      <a className="p6-gi" href={`/blindtest/group-${g.slug}`} aria-label={`${g.name} blindtest, ${g.songs} songs`} onClick={(e) => onStart(g, e)}>
+        <span className="p6-gn">{g.name}</span>
+        <span className="p6-gc ux-num">{g.songs}<span className="p6-gcs"> songs</span></span>
+        <Icon name="play" size="sm" className="p6-gp" />
+      </a>
+    </li>
   );
 }
 
@@ -164,6 +172,7 @@ function GroupRow({ g, onStart }: { g: BtGroup; onStart: (g: BtGroup, e: React.M
  */
 export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactElement | null {
   const hub = useHub();
+  const live = useIsClient();
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   if (!hub) return null;
@@ -177,7 +186,7 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
   const searching = q.trim().length > 0;
   return (
     <>
-      <div className="ux-sec-h p6-btg-h">
+      <div className="ux-sec-h p6-btg-h" data-live={live || undefined}>
         <h2 id="p6-btg-h"><Icon name="users" className="ux-si" />Play by group</h2>
         <label className="p6-gsearch">
           <Icon name="search" size="sm" />
@@ -186,11 +195,12 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
         </label>
       </div>
       {!searching ? (
-        <div className="p6-btpop" role="list" aria-label="Popular group playlists">
+        <ul className="p6-btpop" aria-label="Popular group playlists">
           {popular.map((g) => {
             const src = groupPhotoUrl(g.slug);
             return (
-              <a className="p6-bpt" role="listitem" key={g.slug} href={`/blindtest/group-${g.slug}`} onClick={(e) => start(g, e)}>
+              <li key={g.slug}>
+              <a className="p6-bpt" href={`/blindtest/group-${g.slug}`} onClick={(e) => start(g, e)}>
                 <span className="p6-bpi">
                   {src
                     ? <Image src={src} alt="" fill sizes="(max-width: 1100px) 30vw, 180px" style={{ objectFit: 'cover', objectPosition: photoFocal(g.slug) }} />
@@ -199,28 +209,29 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
                 <b>{g.name}</b>
                 <small className="ux-num">{g.songs} songs</small>
               </a>
+              </li>
             );
           })}
-        </div>
+        </ul>
       ) : null}
       {searching ? (
         <>
-          <div className="p6-btidx" aria-label="Matching group playlists">
+          <ul className="p6-btidx" aria-label="Matching group playlists">
             {filtered.map((g) => <GroupRow key={g.slug} g={g} onStart={start} />)}
-          </div>
+          </ul>
           {filtered.length === 0 ? <p className="p6-btg-empty ux-muted" role="status">No group matches. Try the All K-pop playlist.</p> : null}
         </>
       ) : (
         <>
-          <div className="p6-btidx" aria-label="All group playlists">
+          <ul className="p6-btidx" aria-label="All group playlists">
             {groups.slice(0, FIRST).map((g) => <GroupRow key={g.slug} g={g} onStart={start} />)}
-          </div>
+          </ul>
           {groups.length > FIRST ? (
             <details className="p6-more" open={open} onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}>
               <summary className="ux-btn ux-btn-ghost">Show all {groups.length} groups</summary>
-              <div className="p6-btidx">
+              <ul className="p6-btidx" aria-label="More group playlists">
                 {groups.slice(FIRST).map((g) => <GroupRow key={g.slug} g={g} onStart={start} />)}
-              </div>
+              </ul>
             </details>
           ) : null}
         </>

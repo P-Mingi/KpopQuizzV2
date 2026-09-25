@@ -86,7 +86,9 @@
 .p6-gsearch input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ux-ink); outline: none; -webkit-appearance: none; appearance: none; }
 .p6-gsearch input::placeholder { color: var(--ux-muted); }
 .p6-gsearch input:focus-visible { outline: none; }
+.p6-btpop, .p6-btidx { margin: 0; padding: 0; list-style: none; }
 .p6-btpop { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
+.p6-btpop > li, .p6-btidx > li { min-width: 0; list-style: none; }
 .p6-bpt { display: block; min-width: 0; color: var(--ux-ink); }
 .p6-bpi { position: relative; display: block; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 14px; overflow: hidden; background: var(--ux-surface); box-shadow: var(--ux-photo-edge); transition: transform .2s var(--ux-ease); }
 .p6-bpi-fb { position: absolute; inset: 0; display: grid; place-items: center; font-size: 22px; font-weight: 700; color: var(--ux-muted); background: var(--ux-surface-2); }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { refreshUxMe } from '@/components/ux-v1/use-ux-me';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useShellMode } from '@/components/ux-v1/use-shell-mode';
 import { hasPlayedDaily } from '@/lib/daily-played';
 import { challengeOutcome, CODE_RE } from '@/lib/ux-v1/p6/challenge';
@@ -41,6 +42,7 @@ const PLAYED_TOAST = 'One try per day. See how you rank on today\'s board.';
 export function BtHubController({ groups, songs, children }: Props): React.ReactElement {
   const announce = useAnnounce();
   const toast = useUxToast();
+  const live = useIsClient();
   const [board, setBoard] = useState<BoardResponse | null>(null);
   const [pick, setPick] = useState<BtPick>(ALL_PICK);
   const [rounds, setRounds] = useState(10);
@@ -200,7 +202,7 @@ export function BtHubController({ groups, songs, children }: Props): React.React
         challenge={run.mode === 'free' ? <BtChallengeLink run={run} /> : undefined}
       />
     );
-  } else body = <div className="ux-wrap ux-pg p6-hub">{children}</div>;
+  } else body = <div className="ux-wrap ux-pg p6-hub" data-live={live || undefined}>{children}</div>;
 
   return <HubCtx value={api}>{body}</HubCtx>;
 }

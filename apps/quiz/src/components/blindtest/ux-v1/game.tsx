@@ -99,7 +99,7 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
   };
 
   return (
-    <div className="p6-play" data-phase={phase}>
+    <div className="p6-play" data-phase={phase} data-live="1">
       <div className="p6-gbar">
         <div className="ux-stage p6-gbar-in">
           <UxIconButton icon="x" label="Quit blindtest" onClick={run.quit} />
