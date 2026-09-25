@@ -1,42 +1,22 @@
-import { SearchBar } from '@/components/home/search-bar';
-import { ThemeToggle } from '@/components/layout/theme-toggle';
-import { NotificationBell } from '@/components/layout/notification-bell';
-import { TopNavProfile } from '@/components/layout/top-nav-profile';
-import { Footer } from '@/components/layout/footer';
+import { verseHidden } from '@/lib/verse/visibility';
 
-import { UxSidebar } from './ux-sidebar';
-import { UxMobileNav } from './ux-mobile-nav';
-import { UxStreakPill } from './ux-streak-pill';
+import { UxShellLoader } from './ux-shell-loader';
 
 /**
- * UX v1 shell (DESIGN-SPEC 3). Server component: it renders the static frame and
- * hands off every user-specific bit to the SAME client islands the current chrome
- * uses (SearchBar, ThemeToggle, NotificationBell, TopNavProfile) plus the two new
- * count/streak islands. No cookie/header read here, so wrapping a page in this
- * shell keeps the page's static/ISR render mode - exactly like the current
- * (site) chrome it replaces behind the flag.
+ * UX v11.2 shell (DESIGN-SPEC 16.5, 17.1), rendered by app/(site)/layout.tsx only
+ * when NEXT_PUBLIC_UX_V1 is on. Server component that reads no cookies or headers
+ * (pages keep their static / ISR mode); it hands the page and two server-only
+ * facts to the client shell, which is code-split (UxShellLoader) so flag-off pages
+ * never download it. Everything is server-rendered: nav links, footer links and
+ * the page are in the static HTML; the account / streak / bell / search / sheets
+ * are islands that hydrate.
  *
- * The theme toggle is the EXISTING one (class-based .dark/.light), reused, not a
- * parallel system. Footer is the existing Footer, reused.
+ * Replaces the Phase 1 232px sidebar shell (DECISIONS-LOG 2026-09-25, v10).
  */
 export function UxShell({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="uxv1-app">
-      <UxSidebar />
-      <div className="uxv1-col">
-        <header className="uxv1-topbar">
-          <div className="uxv1-topbar-search"><SearchBar /></div>
-          <div className="uxv1-topbar-actions">
-            <UxStreakPill />
-            <ThemeToggle className="uxv1-icon-btn" />
-            <NotificationBell />
-            <TopNavProfile />
-          </div>
-        </header>
-        <main className="uxv1-content">{children}</main>
-        <div className="uxv1-footer"><Footer /></div>
-      </div>
-      <UxMobileNav />
-    </div>
+    <UxShellLoader showFandoms={!verseHidden()} year={new Date().getFullYear()}>
+      {children}
+    </UxShellLoader>
   );
 }
