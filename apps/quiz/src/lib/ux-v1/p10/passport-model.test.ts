@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  averagePct, badgeTiles, bandMode, cssUrl, earnedLine, historyLine, masteryPct, metaLine, pinnedTiles, publicStats, personalStats, quizLine, themeColours, timeAgo, topMastery, xpLine,
+  averagePct, badgeTiles, bandMode, cssUrl, earnedLine, historyLine, masteryPct, metaSegments, metaText, pinnedTiles, publicStats, personalStats, quizLine, themeColours, timeAgo, topMastery, xpLine,
 } from './passport-model';
 
 describe('passport model', () => {
@@ -18,9 +18,14 @@ describe('passport model', () => {
   });
 
   it('meta line and XP line use the real fields', () => {
-    expect(metaLine({ fandomName: 'STAY', stanSince: 2019, createdAt: '2025-03-04T10:00:00Z', followers: 24 })).toBe('STAY since 2019 · joined March 2025 · 24 followers');
-    expect(metaLine({ fandomName: null, stanSince: 2020, createdAt: '2025-03-04T10:00:00Z', followers: 1 })).toBe('Stan since 2020 · joined March 2025 · 1 follower');
-    expect(metaLine({ createdAt: '2026-09-01T00:00:00Z', followers: 0 })).toBe('joined September 2026 · 0 followers');
+    const skz = { name: 'Stray Kids', slug: 'stray-kids', fandom: 'STAY' };
+    expect(metaText(metaSegments({ groups: [skz], stanSince: 2019, createdAt: '2025-03-04T10:00:00Z', followers: 24 }))).toBe('STAY since 2019 · joined March 2025 · 24 followers');
+    const three = metaSegments({ groups: [skz, { name: 'BTS', slug: 'bts' }, { name: 'TWICE', slug: 'twice' }], stanSince: 2019, createdAt: '2025-03-04T10:00:00Z', followers: 24 });
+    expect(metaText(three)).toBe('STAY since 2019 · also BTS, TWICE · joined March 2025 · 24 followers');
+    expect(three.flat().filter((p) => p.href).map((p) => p.href)).toEqual(['/stray-kids-quiz', '/bts-quiz', '/twice-quiz']);
+    expect(metaText(metaSegments({ groups: [{ name: 'ILLIT', slug: 'illit', fandom: null }], createdAt: '2025-03-04T10:00:00Z', followers: 2 }))).toBe('ILLIT · joined March 2025 · 2 followers');
+    expect(metaText(metaSegments({ stanSince: 2020, createdAt: '2025-03-04T10:00:00Z', followers: 1 }))).toBe('Stan since 2020 · joined March 2025 · 1 follower');
+    expect(metaText(metaSegments({ createdAt: '2026-09-01T00:00:00Z', followers: 0 }))).toBe('joined September 2026 · 0 followers');
     expect(xpLine(1280, 2000, 7, 56)).toEqual({ have: '1,280', rest: ' / 2,000 XP to Lv 8', pct: 56 });
   });
 

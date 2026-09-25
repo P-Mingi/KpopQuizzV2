@@ -62,15 +62,46 @@ export function levelChip(level: number, title: string): string {
 
 const MONTH_FMT = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-/** "STAY since 2019 · joined March 2025 · 24 followers" (prototype pmeta). Every
- *  part is real and optional except the join date. */
-export function metaLine(args: { fandomName?: string | null; stanSince?: number | null; createdAt: string; followers: number }): string {
-  const parts: string[] = [];
-  if (args.stanSince) parts.push(`${args.fandomName?.trim() || 'Stan'} since ${args.stanSince}`);
+/** One piece of the meta line: plain text, or a link to a group hub. */
+export type MetaPart = { text: string; href?: string };
+export type MetaSegment = MetaPart[];
+
+/**
+ * The meta line (prototype pmeta "STAY since 2019 · joined March 2025 · 24 followers").
+ * The fan's groups (profiles.ult_groups, max 3) stay real links to their hubs, as
+ * on the live passport: the main group's fandom name ("STAY", else the group name)
+ * links to /{slug}-quiz, the other groups follow as "also BTS, TWICE". Every part
+ * is real and optional except the join date and the follower count.
+ */
+export function metaSegments(args: {
+  groups?: Array<{ name: string; slug: string; fandom?: string | null }>;
+  stanSince?: number | null;
+  createdAt: string;
+  followers: number;
+}): MetaSegment[] {
+  const out: MetaSegment[] = [];
+  const [main, ...others] = args.groups ?? [];
+  if (main) {
+    const seg: MetaSegment = [{ text: main.fandom?.trim() || main.name, href: `/${main.slug}-quiz` }];
+    if (args.stanSince) seg.push({ text: ` since ${args.stanSince}` });
+    out.push(seg);
+  } else if (args.stanSince) {
+    out.push([{ text: `Stan since ${args.stanSince}` }]);
+  }
+  if (others.length) {
+    const seg: MetaSegment = [{ text: 'also ' }];
+    others.forEach((g, i) => { if (i) seg.push({ text: ', ' }); seg.push({ text: g.name, href: `/${g.slug}-quiz` }); });
+    out.push(seg);
+  }
   const d = new Date(args.createdAt);
-  if (!Number.isNaN(d.getTime())) parts.push(`joined ${MONTH_FMT.format(d)}`);
-  parts.push(`${args.followers.toLocaleString('en-US')} ${args.followers === 1 ? 'follower' : 'followers'}`);
-  return parts.join(' · ');
+  if (!Number.isNaN(d.getTime())) out.push([{ text: `joined ${MONTH_FMT.format(d)}` }]);
+  out.push([{ text: `${args.followers.toLocaleString('en-US')} ${args.followers === 1 ? 'follower' : 'followers'}` }]);
+  return out;
+}
+
+/** The meta line as plain text (tests, share text). */
+export function metaText(segments: MetaSegment[]): string {
+  return segments.map((seg) => seg.map((p) => p.text).join('')).join(' · ');
 }
 
 /** "1,280 / 2,000 XP to Lv 8" (total XP / total XP needed for the next level, as

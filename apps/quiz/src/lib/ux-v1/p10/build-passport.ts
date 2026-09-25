@@ -7,7 +7,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
 import {
-  badgeTiles, bandMode, levelChip, metaLine, personalStats, pinnedTiles, publicStats, themeColours, topMastery, xpLine,
+  badgeTiles, bandMode, levelChip, metaSegments, personalStats, pinnedTiles, publicStats, themeColours, topMastery, xpLine,
 } from './passport-model';
 
 import type { UxPassportProps } from '@/components/profile/ux-v1/passport';
@@ -47,6 +47,11 @@ export function buildPassport(i: PassportInput): Omit<UxPassportProps, 'footer'>
   const groupMap = new Map(i.groups.map((g) => [g.id, { name: g.name, slug: g.slug }]));
   const quizzesMade = s?.total_quizzes_created ?? p.total_quizzes_created;
   const personal = i.mode === 'personal';
+  // the fan's groups, in their order, as the live passport shows them (existing groups only)
+  const bySlug = new Map(i.groups.map((g) => [g.slug, g]));
+  const ultGroups = (s?.ult_groups ?? []).slice(0, 3)
+    .map((slug, n) => { const g = bySlug.get(slug); return g ? { name: g.name, slug: g.slug, fandom: n === 0 ? i.fandomName : null } : null; })
+    .filter((g): g is { name: string; slug: string; fandom: string | null } => g !== null);
 
   return {
     mode: i.mode,
@@ -59,7 +64,7 @@ export function buildPassport(i: PassportInput): Omit<UxPassportProps, 'footer'>
     avatar: { url: p.avatar_url, bg: p.avatar_bg, text: p.avatar_text, kind: p.avatar_kind, ref: p.avatar_ref },
     pinnedBadge,
     level: levelChip(lvl.level, title),
-    meta: metaLine({ fandomName: i.fandomName, stanSince: p.stan_since, createdAt: p.created_at, followers: p.follower_count ?? 0 }),
+    meta: metaSegments({ groups: ultGroups, stanSince: p.stan_since, createdAt: p.created_at, followers: p.follower_count ?? 0 }),
     xp: xpLine(p.xp, lvl.xpForNextLevel, lvl.level, lvl.progress),
     theme,
     band: { mode: bandMode(p.header_url, groupPhoto), image: p.header_url && /^https:\/\//i.test(p.header_url) ? p.header_url : null, groupPhoto },

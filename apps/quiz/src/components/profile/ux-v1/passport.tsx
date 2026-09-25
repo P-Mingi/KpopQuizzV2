@@ -11,7 +11,7 @@ import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 import { MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
-import type { BadgeTile, BandMode, HistoryRow, MasteryRow, StatCell } from '@/lib/ux-v1/p10/passport-model';
+import type { BadgeTile, BandMode, HistoryRow, MasteryRow, MetaSegment, StatCell } from '@/lib/ux-v1/p10/passport-model';
 import type { QuizCardData } from '@/lib/db/types';
 
 export interface UxPassportProps {
@@ -26,7 +26,7 @@ export interface UxPassportProps {
   avatar: { url: string | null; bg: string; text: string; kind: string | null; ref: string | null };
   pinnedBadge: BadgeTile | null;
   level: string;
-  meta: string;
+  meta: MetaSegment[];
   xp: { have: string; rest: string; pct: number };
   theme: { band: string; bar: string };
   band: { mode: BandMode; image: string | null; groupPhoto: string | null };
@@ -201,7 +201,14 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
           ) : null}
           <span className="p10-lvl">{p.level}</span>
         </div>
-        <p className="p10-meta">{p.meta}</p>
+        <p className="p10-meta">
+          {p.meta.map((seg, i) => (
+            <span key={i}>
+              {i > 0 ? ' · ' : null}
+              {seg.map((part, j) => (part.href ? <Link key={j} href={part.href}>{part.text}</Link> : <span key={j}>{part.text}</span>))}
+            </span>
+          ))}
+        </p>
         {p.bio && p.bio.trim() ? <p className="p10-bio">{p.bio.trim()}</p> : null}
       </div>
       <div className="p10-xpwrap">

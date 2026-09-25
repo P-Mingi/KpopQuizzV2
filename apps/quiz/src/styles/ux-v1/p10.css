@@ -32,6 +32,9 @@
 .p10-pinb { display: inline-flex; align-items: center; }
 .p10-lvl { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--ux-surface); font-size: 13px; font-weight: 600; line-height: 20.8px; font-family: Inter, system-ui; white-space: nowrap; }
 .p10-meta { font-size: 15px; line-height: 24px; color: var(--ux-muted); margin-top: 4px; }
+/* the fan's groups: real links to their hubs, same colour as the line, underlined (link-in-text-block) */
+.p10-meta a { color: inherit; text-decoration: underline; text-decoration-color: var(--ux-edge); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .15s, text-decoration-color .15s; }
+.p10-meta a:hover { color: var(--ux-pink-ink); text-decoration-color: currentColor; }
 .p10-bio { font-size: 15px; line-height: 1.55; margin-top: 8px; max-width: 60ch; overflow-wrap: anywhere; }
 
 /* xp bar (theme colour) */

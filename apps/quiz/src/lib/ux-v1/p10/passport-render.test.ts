@@ -101,7 +101,9 @@ describe('v11 passport, personal (/me props)', () => {
   });
 
   it('meta, XP and the five owner stats (real fields, blindtests played replaces the dead rank)', () => {
-    expect(html).toContain('STAY since 2019 · joined March 2025 · 24 followers');
+    expect(html.replace(/<[^>]+>/g, '')).toContain('STAY since 2019 · also BTS · joined March 2025 · 24 followers');
+    expect(html).toContain('<a href="/stray-kids-quiz">STAY</a>');
+    expect(html).toContain('<a href="/bts-quiz">BTS</a>');
     expect(html).toMatch(/<b>1,280<\/b> \/ \d[\d,]* XP to Lv 8/);
     for (const label of ['quizzes played', 'average score', 'streak', 'quizzes made', 'blindtests played']) expect(html).toContain(`<span>${label}</span>`);
     expect(html).toContain('>71%<');
