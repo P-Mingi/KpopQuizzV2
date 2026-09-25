@@ -92,6 +92,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
 
   const questionStart = useRef(Date.now());
   const perQ = useRef<number[]>([]);
+  // one save per run, even when Enter and a click land in the same tick
+  const savingRef = useRef(false);
   const runRelaxed = useRef(false);
   const runChallenge = useRef<LoadedChallenge | null>(null);
   // Restoring a finished run after sign-in: the reducer has no "load result" action on
@@ -251,7 +253,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   const revealClue = useCallback(() => dispatch({ type: 'REVEAL_CLUE' }), []);
 
   const finish = useCallback(async () => {
-    if (state.phase !== 'answered' || saving) return;
+    if (state.phase !== 'answered' || savingRef.current) return;
+    savingRef.current = true;
     setSaving(true);
     const now = Date.now();
     const relaxedRun = runRelaxed.current;
@@ -301,6 +304,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     setExtras(ex);
     dispatch({ type: 'SHOW_RESULT', percentile, passRate, timeTaken, xpEarned, leveledUp, newLevel, newLevelName });
     setSaving(false);
+    savingRef.current = false;
     analytics.gameComplete('quiz', state.score, max);
     window.scrollTo(0, 0);
     clearContinueRun(quiz.id);
@@ -337,7 +341,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
       }).catch(() => {});
     }
     refreshUxMe();
-  }, [state, saving, quiz.id, toast, announce]);
+  }, [state, quiz.id, toast, announce]);
 
   const next = useCallback(() => {
     if (state.phase !== 'answered') return;

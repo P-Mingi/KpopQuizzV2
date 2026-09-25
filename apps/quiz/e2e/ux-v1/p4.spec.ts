@@ -79,7 +79,8 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
   // domcontentloaded: the dev server optimises remote covers and avatars on the fly, and
   // the load event waits for every image (not what these checks are about)
   const res = await page.goto(`/q/${slug}${query}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
-  if (!res || res.status() !== 200) return false;
+  // a failed load is a failure, never a skip; only a flag-off page (no v11 markup) skips
+  expect(res?.status(), `GET /q/${slug}`).toBe(200);
   if (!(await hasShell(page)) || (await page.locator('.p4-page').count()) === 0) return false;
   await waitHydrated(page);
   return true;
