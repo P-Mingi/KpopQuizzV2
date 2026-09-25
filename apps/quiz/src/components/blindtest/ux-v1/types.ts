@@ -21,7 +21,8 @@ export interface BtAnswer {
   time_ms: number;
 }
 
-export type BtMode = 'free' | 'daily';
+/** free = a playlist run, daily = Blindtest of the day, challenge = a friend's link. */
+export type BtMode = 'free' | 'daily' | 'challenge';
 
 /** idle = the hub; tap = waiting for a tap to start the audio (no user gesture yet). */
 export type BtPhase = 'idle' | 'tap' | 'loading' | 'playing' | 'reveal' | 'results';

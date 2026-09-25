@@ -66,6 +66,19 @@ export function filterGroups<T extends { name: string }>(groups: readonly T[], q
   return groups.filter((g) => g.name.toLowerCase().includes(needle));
 }
 
+/** Label of a playlist id; a group slug needs its name (null when unknown). */
+export function playlistLabel(playlist: string, groupName?: string | null): string | null {
+  if (playlist === ALL_PICK.playlist) return ALL_PICK.label;
+  const mix = [...MIXES, ...GENERATIONS, TITLE_TRACKS].find((m) => m.playlist === playlist);
+  if (mix) return mix.label;
+  return groupName ?? null;
+}
+
+/** True when the id is one of the fixed (non-group) playlists above. */
+export function isFixedPlaylist(playlist: string): boolean {
+  return playlist === ALL_PICK.playlist || [...MIXES, ...GENERATIONS, TITLE_TRACKS].some((m) => m.playlist === playlist);
+}
+
 /** Initials for a group without a photo (typographic avatar, 16.8). */
 export function initials(name: string): string {
   const clean = name.replace(/[^\p{L}\p{N} ]/gu, ' ').trim();

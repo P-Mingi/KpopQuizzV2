@@ -33,13 +33,23 @@ function useReducedMotion(): boolean {
   return rm;
 }
 
-export function BtGame({ run }: { run: RunApi }): React.ReactElement {
+interface BtGameProps {
+  run: RunApi;
+  /** Challenge runs: "Beat blink_edits: 9/10" instead of the playlist name (16.7). */
+  chip?: string | undefined;
+  /** Tap-to-play screen (no user gesture yet): the heading and the state line. */
+  intro?: { title: string; state: string } | undefined;
+  /** What the tap starts (defaults to today's Blindtest of the day). */
+  onTap?: (() => void) | undefined;
+}
+
+export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactElement {
   const reduced = useReducedMotion();
   const qRef = useRef<HTMLHeadingElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const { phase, questions, index, answers, selected, timeLeft, isPlaying, blocked, muted, summary } = run;
   const q = questions[index];
-  const total = run.phase === 'tap' ? 10 : questions.length || run.count;
+  const total = questions.length || run.count;
   const answered = phase === 'reveal';
   const last = index >= questions.length - 1;
   const answer = answered ? answers[index] : undefined;
@@ -76,7 +86,7 @@ export function BtGame({ run }: { run: RunApi }): React.ReactElement {
   const artist = q?.question_type === 'artist';
 
   let stateText = '';
-  if (phase === 'tap') stateText = 'Blindtest of the day · one try';
+  if (phase === 'tap') stateText = intro?.state ?? 'Blindtest of the day · one try';
   else if (phase === 'loading') stateText = 'Picking your songs';
   else if (answered) stateText = `Song ${index + 1} of ${total}`;
   else stateText = `Song ${index + 1} of ${total} · ${isPlaying ? 'listening' : blocked ? 'tap to play' : 'loading clip'}`;
@@ -93,7 +103,7 @@ export function BtGame({ run }: { run: RunApi }): React.ReactElement {
       <div className="p6-gbar">
         <div className="ux-stage p6-gbar-in">
           <UxIconButton icon="x" label="Quit blindtest" onClick={run.quit} />
-          <span className="p6-gt">{run.pick.label}</span>
+          {chip ? <span className="p6-gt p6-gch">{chip}</span> : <span className="p6-gt">{run.pick.label}</span>}
           <div className="p6-segs" role="img" aria-label={`Song ${Math.min(index + 1, total)} of ${total}, ${summary.correct} right`}>
             {Array.from({ length: total }, (_, i) => {
               const a = answers[i];
@@ -129,7 +139,7 @@ export function BtGame({ run }: { run: RunApi }): React.ReactElement {
                 <circle className="p6-orb-fg" cx="100" cy="100" r={R} strokeDasharray={CIRC.toFixed(1)} strokeDashoffset={(CIRC * (1 - (phase === 'playing' ? frac : 1))).toFixed(1)} />
               </svg>
               {phase === 'tap' || blocked ? (
-                <button type="button" className="p6-tap" onClick={() => { if (phase === 'tap') void run.startDaily(); else run.resume(); }}>
+                <button type="button" className="p6-tap" onClick={() => { if (phase !== 'tap') run.resume(); else if (onTap) onTap(); else void run.startDaily(); }}>
                   <Icon name="play" size="lg" />
                   <span>Tap to play the clip</span>
                 </button>
@@ -170,7 +180,7 @@ export function BtGame({ run }: { run: RunApi }): React.ReactElement {
             </div>
           </>
         ) : (
-          <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{phase === 'tap' ? 'Ten songs, the same for everyone.' : 'Getting your songs ready'}</h1>
+          <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{phase === 'tap' ? (intro?.title ?? 'Ten songs, the same for everyone.') : 'Getting your songs ready'}</h1>
         )}
 
         {run.error ? <p className="p6-err" role="alert">{run.error}</p> : null}

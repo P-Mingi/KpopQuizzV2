@@ -63,6 +63,10 @@ export interface RunApi {
   startDaily: () => Promise<void>;
   /** Deep link without a gesture: show the game in the "Tap to play" state. */
   prepareDaily: () => void;
+  /** A friend's challenge link: the frozen rounds, waiting for a tap. */
+  prepareChallenge: (pick: BtPick, count: number) => void;
+  /** Start the challenge rounds (inside the tap). */
+  startChallenge: (questions: BtQuestion[], pick: BtPick) => void;
   pickAnswer: (i: number) => void;
   next: () => void;
   quit: () => void;
@@ -216,6 +220,23 @@ export function useBlindtestRun(opts: {
     setPhase('tap');
   }, []);
 
+  const prepareChallenge = useCallback((p: BtPick, n: number) => {
+    setMode('challenge');
+    setPick(p);
+    setCount(n);
+    setError(null);
+    setPhase('tap');
+  }, []);
+
+  const startChallenge = useCallback((qs: BtQuestion[], p: BtPick) => {
+    unlock();
+    setError(null);
+    setMode('challenge');
+    setPick(p);
+    setCount(qs.length);
+    begin(qs, 'challenge');
+  }, [begin, unlock]);
+
   const finish = useCallback(() => {
     stopTimer();
     stop();
@@ -336,6 +357,6 @@ export function useBlindtestRun(opts: {
 
   return {
     phase, mode, pick, count, questions, index, answers, selected, timeLeft, isPlaying, blocked, muted, error, summary, daily,
-    startFree, startDaily, prepareDaily, pickAnswer, next, quit, replay, toggleMute, resume, playClip, stopClip, clearError,
+    startFree, startDaily, prepareDaily, prepareChallenge, startChallenge, pickAnswer, next, quit, replay, toggleMute, resume, playClip, stopClip, clearError,
   };
 }
