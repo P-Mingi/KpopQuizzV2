@@ -5,6 +5,7 @@ import { useId, useRef, useState } from 'react';
 import { Icon } from '@/components/ux-v1/icon';
 import { Sheet } from '@/components/ux-v1/sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 
 // Same reasons and the same POST /api/quiz/[id]/report { reason, details } payload as
 // the EXISTS components/quiz/report-form.tsx; only the skin is new (a sheet).
@@ -26,6 +27,7 @@ export function P4ReportButton({ quizId, withIcon = false, className }: { quizId
   const toast = useUxToast();
   const uid = useId().replace(/:/g, '');
   const first = useRef<HTMLInputElement>(null);
+  const ready = useIsClient();
 
   const send = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -53,7 +55,7 @@ export function P4ReportButton({ quizId, withIcon = false, className }: { quizId
 
   return (
     <>
-      <button type="button" className={['p4-report', className ?? ''].filter(Boolean).join(' ')} onClick={() => setOpen(true)} disabled={sent} aria-haspopup="dialog">
+      <button type="button" className={['p4-report', className ?? ''].filter(Boolean).join(' ')} onClick={() => setOpen(true)} disabled={sent} aria-haspopup="dialog" data-p4-report="" data-ready={ready ? '' : undefined}>
         {withIcon ? <Icon name="flag" /> : null}{sent ? 'Reported' : 'Report this quiz'}
       </button>
       <Sheet open={open} onClose={() => setOpen(false)} title="Report this quiz" width={440} initialFocus={first}>

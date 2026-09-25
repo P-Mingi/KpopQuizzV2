@@ -17,9 +17,8 @@ import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration } from '@/lib/ux-v1/p4/engine';
 import { aboutMinutes, cardAverage } from '@/lib/ux-v1/p4/format';
 
-import { P4Follow, P4HofMine, P4StartActions, P4StickyStart } from './intro-islands';
-import { P4Run } from './quiz-run';
-import { P4ReportButton } from './report';
+// client islands through code-split loaders (flag-off pages never download them)
+import { P4Follow, P4HofMine, P4ReportButton, P4Run, P4StartActions, P4StickyStart } from './islands';
 
 import type { QuizCardData, QuizType } from '@/lib/db/types';
 import type { P4Creator, P4HofRow } from '@/lib/ux-v1/p4/queries';

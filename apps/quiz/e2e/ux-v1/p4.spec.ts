@@ -83,6 +83,10 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
   expect(res?.status(), `GET /q/${slug}`).toBe(200);
   if (!(await hasShell(page)) || (await page.locator('.p4-page').count()) === 0) return false;
   await waitHydrated(page);
+  // the P4 islands are code-split (components/quiz/ux-v1/islands.tsx) and hydrate after the shell
+  for (const sel of ['.p4-act[data-ready]', '.p4-mine[data-ready]', '[data-p4-report][data-ready]']) {
+    await page.locator(sel).first().waitFor({ state: 'attached', timeout: 60_000 });
+  }
   return true;
 }
 
@@ -423,6 +427,7 @@ test.describe('P4 interactions', () => {
     const calls = await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
     test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
+    await page.locator('.p4-author button[data-ready]').waitFor({ timeout: 60_000 });
     await page.locator('.p4-author').getByRole('button', { name: 'Follow' }).click();
     await expect(page.getByRole('dialog', { name: /^Follow / })).toBeVisible();
     await page.keyboard.press('Escape');
@@ -548,6 +553,7 @@ test.describe('P4 interactions', () => {
     test.skip(widthOf(page) >= 760, 'phone only');
     test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
     const sticky = page.locator('.p4-sstart');
+    await page.locator('.p4-sstart[data-ready]').waitFor({ state: 'attached', timeout: 60_000 });
     await expect(sticky).not.toHaveClass(/is-shown/);
     await expect(sticky.locator('button')).toHaveAttribute('tabindex', '-1');
     await page.locator('.p4-about').scrollIntoViewIfNeeded();
@@ -581,6 +587,7 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     // Follow the creator: the existing POST /api/follow { username, action } (stubbed)
     const creator = (await page.locator('.p4-author a.p4-handle').innerText()).trim();
     const follow = page.locator('.p4-author button.ux-lnk');
+    await follow.and(page.locator('[data-ready]')).waitFor({ timeout: 60_000 }).catch(() => {});
     if (await follow.count()) {
       await follow.click();
       await expect.poll(() => writesTo(calls, /^\/api\/follow$/).length).toBe(1);

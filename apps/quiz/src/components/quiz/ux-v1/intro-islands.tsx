@@ -32,10 +32,11 @@ function useSignedIn(): boolean | null {
 export function P4StartActions(): React.ReactElement {
   const { quiz, start, loading, relaxed, setRelaxed, challenge, openShare } = useP4Run();
   const signedIn = useSignedIn();
+  const ready = useIsClient();
   const live = challenge && !challenge.expired ? challenge : null;
   return (
     <>
-      <div className="p4-act" data-p4-start="">
+      <div className="p4-act" data-p4-start="" data-ready={ready ? '' : undefined}>
         <UxButton variant="primary" size="lg" icon="play" onClick={start} disabled={loading} aria-busy={loading || undefined}>
           {loading ? 'Loading...' : 'Start quiz'}
         </UxButton>
@@ -62,6 +63,7 @@ export function P4StartActions(): React.ReactElement {
 /** Phones: a sticky Start once the first one scrolls away (hidden and not focusable until then). */
 export function P4StickyStart(): React.ReactElement {
   const { start, loading } = useP4Run();
+  const ready = useIsClient();
   const [shown, setShown] = useState(false);
   useEffect(() => {
     const el = document.querySelector('[data-p4-start]');
@@ -71,7 +73,7 @@ export function P4StickyStart(): React.ReactElement {
     return () => io.disconnect();
   }, []);
   return (
-    <div className={`p4-sstart${shown ? ' is-shown' : ''}`} aria-hidden={!shown || undefined}>
+    <div className={`p4-sstart${shown ? ' is-shown' : ''}`} aria-hidden={!shown || undefined} data-ready={ready ? '' : undefined}>
       <UxButton variant="primary" size="lg" block icon="play" onClick={start} disabled={loading} tabIndex={shown ? 0 : -1}>Start quiz</UxButton>
     </div>
   );
@@ -83,6 +85,7 @@ interface Standing { played: boolean; bestScore?: number; total?: number; bestAt
 export function P4HofMine(): React.ReactElement {
   const { quiz, start, openShare } = useP4Run();
   const signedIn = useSignedIn();
+  const ready = useIsClient();
   const [standing, setStanding] = useState<Standing | null>(null);
   useEffect(() => {
     if (signedIn !== true) return;
@@ -97,7 +100,7 @@ export function P4HofMine(): React.ReactElement {
   if (signedIn && standing?.played && typeof standing.bestScore === 'number') {
     const max = maxScoreFor(quiz.quizType, standing.total ?? quiz.questionCount);
     return (
-      <div className="p4-mine" data-testid="p4-mine">
+      <div className="p4-mine" data-testid="p4-mine" data-ready={ready ? '' : undefined}>
         <span className="p4-grow">Your best <b>{standing.bestScore}/{max}</b>{standing.bestAt ? <span className="ux-muted"> · {relativeTime(standing.bestAt)}</span> : null}</span>
         <UxButton variant="ghost" size="sm" onClick={start}>Beat it</UxButton>
         <button type="button" className="ux-lnk" onClick={() => openShare('best', { score: standing.bestScore!, total: max })}>Challenge a friend</button>
@@ -120,6 +123,7 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
   const [self, setSelf] = useState(false);
   const [busy, setBusy] = useState(false);
   const resumed = useRef(false);
+  const ready = useIsClient();
 
   const post = async (action: 'follow' | 'unfollow'): Promise<void> => {
     setBusy(true);
@@ -170,7 +174,7 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
     void post(following ? 'unfollow' : 'follow');
   };
   return (
-    <button type="button" className="ux-lnk" aria-pressed={following} onClick={onClick} disabled={busy}>
+    <button type="button" className="ux-lnk" aria-pressed={following} onClick={onClick} disabled={busy} data-ready={ready ? '' : undefined}>
       {following ? 'Following' : 'Follow'}
     </button>
   );
