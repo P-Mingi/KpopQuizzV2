@@ -57,8 +57,10 @@ async function readTodayPlayers(): Promise<number> {
   return count ?? 0;
 }
 
-/** Fans on today's Blindtest of the day board (hero eyebrow). The client refreshes it. */
-export const getTodayPlayers = unstable_cache(readTodayPlayers, ['ux11:p6:today-players:v1'], { revalidate: 300 });
+/** Fans on today's Blindtest of the day board (hero eyebrow). The client refreshes it
+ *  on load, so the stats TTL keeps the page's ISR at 1 h (a shorter TTL here would
+ *  lower the whole page's revalidate and multiply the catalog reads). */
+export const getTodayPlayers = unstable_cache(readTodayPlayers, ['ux11:p6:today-players:v1'], { revalidate: CACHE_TTL.stats });
 
 /**
  * The six popular group playlists (DESIGN-SPEC 17.5): most blindtest plays over
