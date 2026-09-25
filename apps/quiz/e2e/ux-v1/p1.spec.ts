@@ -45,12 +45,23 @@ const GUEST_TOPS: Record<number, Record<string, number>> = {
 };
 
 async function rest<T>(query: string, count = false): Promise<{ rows: T; count: number | null }> {
-  const r = await fetch(`${env.supabaseUrl}/rest/v1/${query}`, {
-    headers: { apikey: env.anonKey as string, Authorization: `Bearer ${env.anonKey}`, ...(count ? { Prefer: 'count=exact', Range: '0-0' } : {}) },
-  });
-  const range = r.headers.get('content-range');
-  return { rows: (await r.json()) as T, count: range ? Number(range.split('/')[1]) : null };
+  // GET only. Retried on a network error (the shared live backend can be slow to connect).
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const r = await fetch(`${env.supabaseUrl}/rest/v1/${query}`, {
+        headers: { apikey: env.anonKey as string, Authorization: `Bearer ${env.anonKey}`, ...(count ? { Prefer: 'count=exact', Range: '0-0' } : {}) },
+      });
+      const range = r.headers.get('content-range');
+      return { rows: (await r.json()) as T, count: range ? Number(range.split('/')[1]) : null };
+    } catch (e) {
+      if (attempt >= 3) throw e;
+    }
+  }
 }
+
+// Every case reads the live backend (page render + client islands + the checks
+// above): allow for a slow network, the assertions stay the same.
+test.describe.configure({ timeout: 90_000 });
 
 const today = (): string => new Date().toISOString().slice(0, 10);
 
