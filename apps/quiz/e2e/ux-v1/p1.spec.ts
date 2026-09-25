@@ -344,6 +344,12 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       skipUnlessSignedIn();
       await preparePage(page, theme);
       const calls = await guardWrites(page, env.supabaseUrl);
+      // /api/auth/me fails open (signed out) when Supabase auth answers slower than
+      // 2.5 s; the first call on a cold server can: read it until it answers (GET).
+      let me: { profile: { username: string; display_name: string | null } | null } = { profile: null };
+      for (let i = 0; i < 4 && !me.profile; i++) me = await (await page.request.get('/api/auth/me')).json() as typeof me;
+      expect(me.profile, 'GET /api/auth/me with the storage state = the test user').not.toBeNull();
+      const name = (me.profile?.display_name || me.profile?.username || '').trim();
       const q = await expectedQotd();
       if (q) {
         await page.addInitScript((slug) => {
@@ -352,9 +358,6 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       }
       const band = page.waitForResponse((r) => r.url().includes('/api/ux-v1/p1/daily-band'));
       signedInTest.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
-      const me = await (await page.request.get('/api/auth/me')).json() as { profile: { username: string; display_name: string | null } | null };
-      expect(me.profile, 'GET /api/auth/me with the storage state = the test user').not.toBeNull();
-      const name = (me.profile?.display_name || me.profile?.username || '').trim();
 
       const h1 = page.locator('h1');
       await expect(h1).toHaveCount(1);
