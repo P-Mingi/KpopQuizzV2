@@ -14,6 +14,14 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: () => undefined, push: () => undefined }), usePathname: () => '/me' }));
+// The islands are next/dynamic loaders in the app (async chunks); a synchronous
+// server-free render uses the island components themselves.
+vi.mock('@/components/profile/ux-v1/islands', async () => ({
+  PassportBand: (await import('@/components/profile/ux-v1/passport-band')).PassportBand,
+  PassportActions: (await import('@/components/profile/ux-v1/passport-actions')).PassportActions,
+  PassportTabs: (await import('@/components/profile/ux-v1/passport-tabs')).PassportTabs,
+  MoreQuizzes: (await import('@/components/profile/ux-v1/more-quizzes')).MoreQuizzes,
+}));
 
 import { UxPassport } from '@/components/profile/ux-v1/passport';
 

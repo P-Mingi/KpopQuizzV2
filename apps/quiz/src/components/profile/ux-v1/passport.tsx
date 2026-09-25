@@ -8,10 +8,7 @@ import { BiasTag } from '@/components/ux-v1/person-name';
 import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
 import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 
-import { PassportBand } from './passport-band';
-import { PassportActions } from './passport-actions';
-import { PassportTabs } from './passport-tabs';
-import { MoreQuizzes } from './more-quizzes';
+import { MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
 import type { BadgeTile, BandMode, HistoryRow, MasteryRow, StatCell } from '@/lib/ux-v1/p10/passport-model';

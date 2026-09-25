@@ -561,7 +561,7 @@ for (const theme of THEMES) {
       const link = await page.request.post('/api/profile/header/link', { data: { url: 'https://kpopquiz.org/robots.txt' } });
       expect([503, 415]).toContain(link.status());
       // (4) signed out: 401
-      const guest = await playwright.request.newContext({ baseURL, storageState: { cookies: [], origins: [] } });
+      const guest = await playwright.request.newContext({ ...(baseURL ? { baseURL } : {}), storageState: { cookies: [], origins: [] } });
       const anon = await guest.post('/api/profile/header/link', { data: { url: 'https://kpopquiz.org/robots.txt' } });
       expect(anon.status()).toBe(401);
       await guest.dispose();
