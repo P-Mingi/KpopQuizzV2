@@ -1,5 +1,5 @@
 {
- "_note": "Globs are relative to the repo root. A commit by agent X may only touch paths matching X's globs (a path is allowed when it matches at least one positive glob and no ! glob of X). docs/design/ux-dashboard-v1/v11/reports/<id>.md and v11/requests/<id>.md are implicitly owned by <id>, and so is v11/reports/<id>/** (report screenshots; confirmed by ORCH after A0). Phase 0 adjustments vs the template: A0 also owns the two quiz-card delegators, the Phase 2 UxQuizCard file (to move it into components/ux-v1), the root layout, design-tokens, the playwright config + auth setup + parity spec and the Phase 1 count endpoint; every page agent gets a new-endpoint namespace api/ux-v1/<id>/**, a lib namespace lib/ux-v1/<id>/**, and its pending-migrations prefix; P1 owns the QOTD cron route; the blindtest components live in a new components/blindtest/ux-v1 folder (the legacy folder is components/blind-test).",
+ "_note": "Globs are relative to the repo root. A commit by agent X may only touch paths matching X's globs (a path is allowed when it matches at least one positive glob and no ! glob of X). docs/design/ux-dashboard-v1/v11/reports/<id>.md and v11/requests/<id>.md are implicitly owned by <id>, and so is v11/reports/<id>/** (report screenshots; confirmed by ORCH after A0). Phase 0 adjustments vs the template: A0 also owns the two quiz-card delegators, the Phase 2 UxQuizCard file (to move it into components/ux-v1), the root layout, design-tokens, the playwright config + auth setup + parity spec and the Phase 1 count endpoint; every page agent gets a new-endpoint namespace api/ux-v1/<id>/**, a lib namespace lib/ux-v1/<id>/**, and its pending-migrations prefix; P1 owns the QOTD cron route; the blindtest components live in a new components/blindtest/ux-v1 folder (the legacy folder is components/blind-test). 2026-09-25: /g/** moved from P3 to P6 (/g/[slug] is the kept blind-test game, not a group page); ORCH owns v11/briefs/**.",
  "ORCH": [
   "docs/design/ux-dashboard-v1/*",
   "docs/design/ux-dashboard-v1/archive-v9/**",
@@ -11,6 +11,7 @@
   ".gitignore",
   "apps/quiz/src/lib/route-allowlist.ts",
   "apps/quiz/scripts/check-route-allowlist.mts",
+  "docs/design/ux-dashboard-v1/v11/briefs/**",
   "!docs/design/ux-dashboard-v1/v11/REPORT.md"
  ],
  "A0": [
@@ -64,7 +65,6 @@
  "P3": [
   "apps/quiz/src/app/(site)/groups/**",
   "apps/quiz/src/app/(site)/[slug]/**",
-  "apps/quiz/src/app/(site)/g/**",
   "apps/quiz/src/components/group/ux-v1/**",
   "apps/quiz/src/styles/ux-v1/p3.css",
   "apps/quiz/src/lib/ux-v1/p3/**",
@@ -93,6 +93,7 @@
  ],
  "P6": [
   "apps/quiz/src/app/(site)/blindtest/**",
+  "apps/quiz/src/app/(site)/g/**",
   "!apps/quiz/src/app/(site)/blindtest/ranked/**",
   "apps/quiz/src/components/blindtest/ux-v1/**",
   "apps/quiz/src/styles/ux-v1/p6.css",
