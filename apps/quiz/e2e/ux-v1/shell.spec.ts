@@ -29,6 +29,7 @@ for (const theme of THEMES) {
       await page.goto('/');
       test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
 
+      await expect(page.locator('head link[rel="stylesheet"][href^="/api/ux-v1/a0/styles"]'), 'the v11 stylesheet (flag-on only)').toHaveCount(1);
       await expect(page.locator('a.ux-skip')).toHaveAttribute('href', '#main');
       await expect(page.locator('main#main')).toHaveCount(1);
       await expect(page.locator('.ux-nav .ux-brand')).toHaveAttribute('href', '/');

@@ -1,6 +1,10 @@
 /* ==========================================================================
-   UX v11.2 foundation (A0). Imported once by globals.css.
-   Everything here is INERT with the flag off:
+   UX v11.2 foundation (A0). NOT imported anywhere: app/api/ux-v1/a0/styles serves
+   every file of this folder (this one first) as one stylesheet, and the root
+   layout links it only when NEXT_PUBLIC_UX_V1 is on, so flag-off pages carry no
+   extra <link> and no extra byte. Page agents: put your <id>.css here and do not
+   import it (an import adds a <link> to flag-off pages with Turbopack).
+   Everything here is also inert on its own:
      - tokens live on html.ux-v1 (the class exists only when NEXT_PUBLIC_UX_V1=1)
        or on .ux-theme-light / .ux-theme-dark (kit panes only);
      - every rule targets a .ux-* class that only flag-on markup carries.

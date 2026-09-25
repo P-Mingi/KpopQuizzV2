@@ -26,6 +26,9 @@ function normalise(html) {
     // content-hashed assets: /_next/static/chunks/app/page-3f2a....js, css, media, and the build-id folder
     .replace(/(\/?_next\/)?static\/(chunks|css|media)\/[A-Za-z0-9_\-./~%()[\]@]+?\.(js|css|woff2?|png|svg|jpg|webp|avif)/g, 'static/$2/<asset>.$3')
     .replace(/\/_next\/static\/[A-Za-z0-9_-]{10,}\/(_buildManifest|_ssgManifest)\.js/g, '/_next/static/<build>/$1.js')
+    // CSS-module / next/font class names carry a hash of the file path (differs when
+    // the two builds live in different folders)
+    .replace(/module__[A-Za-z0-9_-]{6}__/g, 'module__<h>__')
     // build id inside the RSC payload ("b":"<id>") and the page's buildId field
     .replace(/(\\?"b\\?":\\?")[A-Za-z0-9_-]{10,}(\\?")/g, '$1<build>$2')
     .replace(/("buildId":")[A-Za-z0-9_-]{10,}(")/g, '$1<build>$2');
@@ -43,15 +46,15 @@ for (const p of pages) {
   const na = normalise(a.body);
   const nb = normalise(b.body);
   const same = a.status === b.status && a.location === b.location && na === nb;
-  let firstDiff = null;
+  const found = [];
   if (!same) {
     diffs++;
     const la = na.split(/(?<=>)/); const lb = nb.split(/(?<=>)/);
-    for (let i = 0; i < Math.max(la.length, lb.length); i++) {
-      if (la[i] !== lb[i]) { firstDiff = { at: i, a: (la[i] ?? '').slice(0, 300), b: (lb[i] ?? '').slice(0, 300) }; break; }
+    for (let i = 0; i < Math.max(la.length, lb.length) && found.length < 6; i++) {
+      if (la[i] !== lb[i]) found.push({ at: i, a: (la[i] ?? '').slice(0, 300), b: (lb[i] ?? '').slice(0, 300) });
     }
   }
-  rows.push({ page: p, status: `${a.status}/${b.status}`, bytes: `${a.body.length}/${b.body.length}`, normalisedBytes: na.length, identical: same, firstDiff });
+  rows.push({ page: p, status: `${a.status}/${b.status}`, bytes: `${a.body.length}/${b.body.length}`, normalisedBytes: `${na.length}/${nb.length}`, identical: same, found });
   if (OUT) {
     fs.mkdirSync(OUT, { recursive: true });
     const f = p === '/' ? 'home' : p.replace(/^\//, '').replace(/[^a-z0-9-]+/gi, '_');
@@ -61,7 +64,7 @@ for (const p of pages) {
 }
 for (const r of rows) {
   process.stdout.write(`${r.identical ? 'IDENTICAL' : 'DIFFERENT'}  ${r.page}  status ${r.status}  raw bytes ${r.bytes}  normalised ${r.normalisedBytes}\n`);
-  if (r.firstDiff) process.stdout.write(`  first difference at node ${r.firstDiff.at}\n  A: ${r.firstDiff.a}\n  B: ${r.firstDiff.b}\n`);
+  for (const d of r.found) process.stdout.write(`  node ${d.at}\n    A: ${d.a}\n    B: ${d.b}\n`);
 }
 process.stdout.write(diffs ? `${diffs} page(s) differ\n` : `all ${rows.length} pages identical after normalising build ids and hashed asset names\n`);
 process.exit(diffs ? 1 : 0);
