@@ -84,6 +84,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   const [shareUrl, setShareUrl] = useState<string>(() => `${process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org'}/q/${quiz.slug}`);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [claimed, setClaimed] = useState(false);
+  const [rank, setRank] = useState<{ rank: number; total: number } | null>(null);
   const toast = useUxToast();
   const announce = useAnnounce();
   const me = useUxMe();
@@ -226,6 +227,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
       restoreResult.current = null;
       setExtras({ playId: null, relaxed: useRelaxed, saved: false, outcome: null });
       setClaimed(false);
+      setRank(null);
       clearContinueRun(quiz.id);
       dispatch({ type: 'START', questions: ch ? ch.questions : data.questions, settings, quizType: ((data.quiz_type as QuizType) ?? quiz.quizType) });
       window.scrollTo(0, 0);
@@ -472,7 +474,10 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     const avg = quiz.averagePct;
     if (share.kind === 'result' && result) {
       const max = maxScoreFor(result.quizType, result.totalQuestions);
-      const beat = result.percentile !== null ? `You beat ${result.percentile}% of players` : null;
+      const beat = [
+        result.percentile !== null ? `You beat ${result.percentile}% of players` : null,
+        rank ? `#${rank.rank.toLocaleString('en-US')} of ${rank.total.toLocaleString('en-US')}` : null,
+      ].filter(Boolean).join(' · ') || null;
       const story = { photo: quiz.groupPhoto, groupName: quiz.groupName, title: quiz.title, score: result.score, maxScore: max, beatPct: result.percentile, stamp: 'KpopQuiz' };
       return {
         title: 'Share your score',
@@ -524,6 +529,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
             claimed={claimed}
             onShare={openResultShare}
             onPlayAgain={playAgain}
+            onRank={setRank}
             pendingComment={pendingComment}
           />
         ) : null}

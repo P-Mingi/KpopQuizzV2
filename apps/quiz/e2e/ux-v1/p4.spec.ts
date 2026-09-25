@@ -461,6 +461,35 @@ test.describe('P4 interactions', () => {
     expect(typeof body.timeMs).toBe('number');
   });
 
+  test('quiz of the day (?daily=quiz): the run also completes the daily through the existing call', async ({ page }) => {
+    test.setTimeout(120_000);
+    const calls = await guardWrites(page, env.supabaseUrl);
+    const qs = await recordQuestions(page);
+    test.skip(!(await openQuiz(page, 'stray-kids-district-9-quiz', '?daily=quiz')), 'flag off');
+    await start(page);
+    await expect(page.locator('.p4-segs span')).toHaveCount(10);
+    await playRun(page, qs.get, 'right');
+    const daily = writesTo(calls, /^\/api\/daily\/complete$/);
+    expect(daily.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ kind: 'quiz' }]);
+    expect(writesTo(calls, /^\/api\/quiz\/[^/]+\/play$/)).toHaveLength(1);
+  });
+
+  test('level up: the save response drives the EXISTS level-up overlay', async ({ page }) => {
+    test.setTimeout(120_000);
+    await guardWrites(page, env.supabaseUrl);
+    const qs = await recordQuestions(page);
+    await page.route(/\/api\/quiz\/[^/]+\/play$/, (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ play_id: null, percentile: 88, xp_earned: 30, pass_rate: 61, new_xp: 1200, leveled_up: true, new_level: 6, new_level_name: 'Stan' }),
+    }));
+    test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
+    await start(page);
+    await playRun(page, qs.get, 'right');
+    await expect(page.locator('.p4-pc-b .p4-beat')).toContainText('You beat 88% of players');
+    await expect(page.getByText(/level 6|Lv\.? ?6/i).first()).toBeVisible();
+  });
+
   test('quiz types: true/false, image, clues, intruder render and answer', async ({ page }) => {
     test.setTimeout(180_000);
     await guardWrites(page, env.supabaseUrl);
@@ -541,19 +570,30 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     await expect(page.locator('.ux-nav-signin'), 'signed in: no Sign in button').toHaveCount(0);
     await expect(page.getByTestId('p4-mine')).toContainText(/Your best \d+\/\d+|Play to put your name on this board\./);
     await expect(page.locator('.p4-timerline')).not.toContainText('No account needed');
+    // Follow the creator: the existing POST /api/follow { username, action } (stubbed)
+    const creator = (await page.locator('.p4-author a.p4-handle').innerText()).trim();
+    const follow = page.locator('.p4-author button.ux-lnk');
+    if (await follow.count()) {
+      await follow.click();
+      await expect.poll(() => writesTo(calls, /^\/api\/follow$/).length).toBe(1);
+      expect(JSON.parse(writesTo(calls, /^\/api\/follow$/)[0]!.body ?? '{}')).toMatchObject({ username: creator, action: expect.stringMatching(/^(follow|unfollow)$/) });
+    }
     await start(page);
     const n = await playRun(page, qs.get, 'right');
     const plays = writesTo(calls, /^\/api\/quiz\/[^/]+\/play$/);
     expect(plays).toHaveLength(1);
     expect(JSON.parse(plays[0]!.body ?? '{}')).toMatchObject({ score: n, total_questions: n, max_score: n });
     await expect(page.getByTestId('p4-xpline')).toContainText(/Saved to your passport|XP/);
+    // rank line from get_quiz_rank for the session user (read only): shown when they have a play on this quiz
+    const mine = await (await page.request.get(`/api/ux-v1/p4/standing?quiz=${await page.locator('[data-p4-quiz]').getAttribute('data-p4-quiz')}`)).json() as { played?: boolean };
+    if (mine.played) await expect(page.getByTestId('p4-rankline')).toContainText(/^#\d+ of [\d,]+ players · your best \d+\/\d+$/);
     // the comment field posts the existing payload for a signed-in fan
     await page.locator('.p4-acc > summary', { hasText: 'Comments' }).click();
     await page.locator('.p4-cform textarea').fill('Great quiz');
     await page.locator('.p4-cform').getByRole('button', { name: 'Send' }).click();
     const sent = writesTo(calls, /\/api\/quiz\/[^/]+\/comment$/);
     expect(sent.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ content: 'Great quiz' }]);
-    const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/(play|comment)$|\/api\/share\/generate$|\/api\/ux-v1\/p4\//.test(new URL(c.url).pathname));
+    const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/(play|comment)$|\/api\/share\/generate$|\/api\/ux-v1\/p4\/|^\/api\/follow$/.test(new URL(c.url).pathname));
     expect(other, 'no other write attempt').toEqual([]);
   });
 });

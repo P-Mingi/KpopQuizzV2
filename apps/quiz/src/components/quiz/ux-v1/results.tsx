@@ -66,7 +66,7 @@ interface Standing { signedIn: boolean; played?: boolean; bestScore?: number; to
  * Like, Keep playing, comments folded, Report. Every number comes from the finished
  * run and the quiz played.
  */
-export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, onPlayAgain, pendingComment }: {
+export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, onPlayAgain, onRank, pendingComment }: {
   quiz: P4RunQuiz;
   result: Result;
   extras: RunExtras;
@@ -74,6 +74,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   claimed: boolean;
   onShare: () => void;
   onPlayAgain: () => void;
+  /** the rank line's numbers, for the share sheet */
+  onRank: (r: { rank: number; total: number } | null) => void;
   pendingComment: React.RefObject<string | null>;
 }): React.ReactElement {
   const max = maxScoreFor(result.quizType, result.totalQuestions);
@@ -108,9 +110,14 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
     let cancelled = false;
     fetch(`/api/ux-v1/p4/standing?quiz=${quiz.id}&score=${result.score}`, { credentials: 'include' })
       .then((r) => (r.ok ? (r.json() as Promise<Standing>) : null))
-      .then((d) => { if (!cancelled && d) setStanding(d); })
+      .then((d) => {
+        if (cancelled || !d) return;
+        setStanding(d);
+        onRank(d.rank !== null && d.totalPlayers ? { rank: d.rank, total: d.totalPlayers } : null);
+      })
       .catch(() => {});
     return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz.id, result.score, signedIn, extras.outcome, claimed]);
 
   const passed = pct >= 60;

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { UxButton, UxIconButton } from '@/components/ux-v1/button';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
@@ -13,9 +14,13 @@ import { relativeTime } from '@/lib/ux-v1/p4/format';
 
 import { useP4Run } from './run-context';
 
-/** Signed in (true), guest (false), still loading (null). */
+/** Signed in (true), guest (false), still loading (null). Null during SSR and
+ *  hydration too (the shared /api/auth/me cache can already be filled on the
+ *  client), so the server HTML and the first client render always match. */
 function useSignedIn(): boolean | null {
   const me = useUxMe();
+  const mounted = useIsClient();
+  if (!mounted) return null;
   return me === null ? null : Boolean(me.profile);
 }
 
