@@ -37,8 +37,8 @@ export function PassportTabs({ items, panels }: PassportTabsProps): React.ReactE
       const m = /^#p10-panel-([a-z]+)$/.exec(window.location.hash);
       return m ? m[1]! : null;
     };
-    const first = fromHash();
-    if (first) open(first, true);
+    // a #p10-panel-<id> deep link opens that tab once the page is interactive
+    const t = window.setTimeout(() => { const first = fromHash(); if (first) open(first, true); }, 0);
     const onHash = (): void => { const id = fromHash(); if (id) open(id, true); };
     const onClick = (e: MouseEvent): void => {
       const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[data-p10-tab]');
@@ -50,7 +50,7 @@ export function PassportTabs({ items, panels }: PassportTabsProps): React.ReactE
     };
     window.addEventListener('hashchange', onHash);
     document.addEventListener('click', onClick);
-    return () => { window.removeEventListener('hashchange', onHash); document.removeEventListener('click', onClick); };
+    return () => { window.clearTimeout(t); window.removeEventListener('hashchange', onHash); document.removeEventListener('click', onClick); };
   }, [open]);
 
   return (

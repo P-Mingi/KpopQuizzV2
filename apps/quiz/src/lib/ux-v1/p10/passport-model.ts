@@ -50,7 +50,6 @@ export function bandMode(headerUrl: string | null | undefined, groupPhoto: strin
 export function cssUrl(u: string | null | undefined): string | null {
   if (!u) return null;
   if (!/^https:\/\//i.test(u) && !/^\/(?!\/)/.test(u)) return null;
-  // eslint-disable-next-line no-control-regex
   const safe = u.replace(/[\\"'()\u0000-\u001f\u007f]/g, (c) => `\\${c.charCodeAt(0).toString(16)} `);
   return `url("${safe}")`;
 }

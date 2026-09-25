@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { UxPage } from '@/components/ux-v1/page';
@@ -296,7 +297,7 @@ export function UxSettings(): React.ReactElement {
         <header className="ux-ph"><h1>Settings</h1><p>Your profile, passport look, notifications and account.</p></header>
         <div className="ux-empty">
           <b>{state === 'signed-out' ? 'Sign in to change your settings' : 'We could not load your settings'}</b>
-          {state === 'signed-out' ? <a className="ux-btn ux-btn-primary" href="/login?returnTo=/settings">Sign in</a> : 'Reload the page to try again.'}
+          {state === 'signed-out' ? <Link className="ux-btn ux-btn-primary" href="/login?returnTo=/settings">Sign in</Link> : 'Reload the page to try again.'}
         </div>
       </UxPage>
     );

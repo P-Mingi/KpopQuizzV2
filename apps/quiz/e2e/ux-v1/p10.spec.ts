@@ -263,6 +263,7 @@ async function sheetClosesThreeWays(page: Page, trigger: ReturnType<Page['locato
 
 for (const theme of THEMES) {
   test.describe(`passport, guest, ${theme}`, () => {
+    test.describe.configure({ timeout: 90_000 }); // a dev server compiles routes on first hit
     let calls: StubbedCall[] = [];
     test.beforeEach(async ({ page }) => {
       await preparePage(page, theme);
@@ -433,6 +434,7 @@ for (const theme of THEMES) {
 
 for (const theme of THEMES) {
   signedInTest.describe(`passport, owner, ${theme}`, () => {
+    signedInTest.describe.configure({ timeout: 90_000 });
     let calls: StubbedCall[] = [];
     signedInTest.beforeEach(async ({ page }) => {
       skipUnlessSignedIn();
@@ -586,6 +588,7 @@ async function checkedLabel(page: Page, group: string): Promise<string> {
 
 for (const theme of THEMES) {
   signedInTest.describe(`settings, ${theme}`, () => {
+    signedInTest.describe.configure({ timeout: 120_000 });
     let calls: StubbedCall[] = [];
     signedInTest.beforeEach(async ({ page }) => {
       skipUnlessSignedIn();
@@ -772,7 +775,7 @@ for (const theme of THEMES) {
     signedInTest('account: download is a read, sign out and delete never write for real', async ({ page }) => {
       signedInTest.skip(!(await openSettings(page)), 'flag off or not served here');
       await expect(page.getByText(/no password needed/)).toBeVisible();
-      const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download' }).click()]);
+      const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 90_000 }), page.getByRole('button', { name: 'Download' }).click()]);
       expect(dl.suggestedFilename()).toMatch(/^kpopquiz-[a-z0-9_]+\.json$/);
       const data = JSON.parse(fs.readFileSync((await dl.path())!, 'utf8')) as { profile: { username: string }; quiz_plays: unknown[] };
       expect(data.profile.username).toBe(USER);
