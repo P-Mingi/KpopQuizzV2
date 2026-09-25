@@ -219,8 +219,16 @@ async function openPassport(page: Page): Promise<boolean> {
   return true;
 }
 
+/** The owner controls appear once GET /api/auth/me answers for the test user. On a busy
+ *  shared Supabase that read can time out (the route then answers "signed out"): load the
+ *  page again, up to 3 times, before failing. The assertion itself is unchanged. */
 async function ownerReady(page: Page): Promise<void> {
-  await expect(page.locator('.p10-hbtn'), 'owner resolved on the client').toBeVisible({ timeout: 60_000 }); // /api/auth/me on a busy shared DB
+  for (let i = 0; i < 2; i++) {
+    if (await page.locator('.p10-hbtn').waitFor({ state: 'visible', timeout: 25_000 }).then(() => true, () => false)) return;
+    await page.reload();
+    await expect(page.locator('.p10-passport')).toBeVisible({ timeout: 60_000 });
+  }
+  await expect(page.locator('.p10-hbtn'), 'owner resolved on the client').toBeVisible({ timeout: 60_000 });
 }
 
 function mutating(page: Page): Request[] {
@@ -574,7 +582,11 @@ for (const theme of THEMES) {
 // ---------------------------------------------------------------------------
 
 async function openSettings(page: Page): Promise<boolean> {
-  const res = await page.goto('/settings');
+  // The middleware treats a session as signed out when Supabase auth answers after 1.5 s
+  // (fail open) and sends /settings elsewhere: on a busy shared database, navigate again
+  // (up to 3 times) before deciding.
+  let res = await page.goto('/settings');
+  for (let i = 0; i < 2 && new URL(page.url()).pathname !== '/settings'; i++) res = await page.goto('/settings');
   if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
   // the settings reads go through a busy shared Supabase: give them time
   await expect(page.locator('.p10-settings')).toBeVisible({ timeout: 60_000 });
