@@ -477,6 +477,8 @@ for (const theme of THEMES) {
       await expect(dlg.getByText('JPG, PNG or WebP up to 5 MB · 1500 x 300 works best')).toBeVisible();
       // The reference is the sheet at rest; A0's sheet moves focus to the file input,
       // which lights the drop zone (:focus-within, good for keyboard users). Measure at rest.
+      // (touch emulation keeps :hover where the last tap landed: tap the sheet title instead)
+      await dlg.locator('.ux-sh-h h2').click();
       await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
       await page.mouse.move(1, 1);
       const b = await compareP10(page, theme, 'header-sheet');
