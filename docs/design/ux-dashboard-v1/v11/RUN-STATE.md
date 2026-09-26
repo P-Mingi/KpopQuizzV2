@@ -19,7 +19,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | PR #55 open; sent back: the feed ignored VERSE_PUBLIC / LIVE_SPACES (privacy fail-closed blocker) | 674fd2b | 0 | v11/reports/P8.md |
-| P9 | ux11/p9-leaderboard | PR #54 open (report pending); asked to check the daily debate rotation caller | - | 0 | v11/reports/P9.md |
+| P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
@@ -60,6 +60,10 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 ## Owner decisions needed
 
+FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the weekly board with made-up accounts from lib/weekly-leaderboard-padding.ts (FAKE_USERS). Handed to the owner as a separate task chip.
+
+DAILY DEBATE ROTATION (P8 + P9): the only caller of ensure_daily_debate is the legacy CommunityContent on /leaderboard (a write on view); no cron calls it. With the flag on, /leaderboard no longer mounts it and /verse/community 302s guests while the Verse is hidden, so the daily debate stops rotating. No write path was added. Owner call before turning the flag on (for example a Vercel cron).
+
 WAITING ON THE OWNER NOW: P2's branch `ux11/p2-quizzes` (9 commits, adea732, local only, worktree .claude/worktrees/agent-a2b9cc4c27e8fa88a) could not be pushed: the permission check refused the agent's push. Either the owner pushes it (`git push -u origin ux11/p2-quizzes`, then a PR into feat/ux-v1-v11) or tells ORCH to push it.
 
 SECURITY, LIVE SITE (found by P2, confirmed by ORCH in code): /quizzes puts user-written quiz titles into an ld+json script tag with a bare JSON.stringify (titles only length-checked), so a title containing </script> could break out: likely stored XSS. The Verse code already has the escaping sink jsonLdScript (lib/verse/jsonld.tsx). Handed to the owner as a separate task chip (fix on main).
@@ -92,10 +96,12 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 22. Cleanup items for the owner (from A0): give lib/streak.ts streakState an optional `now` so streakView never reads the clock (tests now freeze the clock instead); `turbopack.root` in next.config.ts (dev only, P1's note); once P2 is merged, P2 can drop its copy of the link-option rule now that Segmented and UxDropdown accept href options; the inert Phase 1 `.uxv1-*` CSS in globals.css.
 23. P5: /create keeps the live H1 "What's your quiz about?" and intro (SEO lock) instead of the prototype's "Create a quiz" (one line to switch; the page is noindex); the paste format; the new Easy and Hard difficulty lines. Existing bug (found by P5): the legacy create-funnel autosave can re-save a draft it just cleared. Cleanup: like P4, make create-funnel.tsx and question-list-editor.tsx import lib/ux-v1/p5 so there is one copy (a flag-off change). The sign-in callback uses NEXT_PUBLIC_SITE_URL, which matters for OAuth round trips on preview deploys.
 24. P11 copy states the real rules: read notifications are cleared after 60 days (not 30); the streak counts only the daily quiz and the daily blindtest. Dismiss and Mute of the live center are kept in a row menu (not drawn in the prototype); four filters; search ranks the closest name first; a song row opens /blindtest/<group mode>, which fails on Play today (the production bug P6 reported). /search itself stays the live page inside the shell (no prototype state).
-25. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+25. P9: the H1 stays "Community" (SEO lock) instead of "Leaderboard"; "Around the community" is kept until /community is indexable; Players = all-time XP (no XP history exists); the weekly change is the real percent change, not rank moves; migration 097 (Rising) is not applied in prod; 19 groups have fandom_name 'fan'; the shared getFandomWarMap caches an empty board for 1h after an RPC error (P9 reads through its own throwing getWarMap).
+26. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P9 merged (8756aaa): guard ok (41 files), e2e 41/41 on a flag-on production build, landmarks 0px to row 10, SEO identical, 0 links lost (/leaderboard 76 -> 97), flag off identical. Integration: tsc 0, unit 769/769, check:routes 331 both ways. Remaining: P8 (Verse gates fix), A0 round 3, P2 (owner push).
 - 2026-09-26 P8 finished (PR #55, e2e 56/57 + 1 flaky, /community noindex, flag off 301 + 404s) but NOT merged: its feed ignored the Verse gates (VERSE_PUBLIC fail-closed, LIVE_SPACES = bts only), so turning the flag on would publish hidden Verse content. Privacy blocker, sent back. P8 also found that the daily debate only rotates through the legacy community on /leaderboard (ensure_daily_debate on view): P9 asked to check. C2 brief: probe the nested challenge attempt routes of P4 and P6 (dev 404 shape found by P8).
 - 2026-09-26 P5's spec fix merged (ed8abea): whole-app tsc clean again (e2e included).
 - 2026-09-26 P11 merged (6b17e0e): guard ok (38 files), notifications page + BellPanel + SearchResults on A0's slot props, read-only /api/ux-v1/p11/search, flag-off identical, SEO and links unchanged on /search and /notifications. Integration: check:routes 330 both ways, unit 738/738, tsc: only P5's spec error (fix in progress). A0 resumed for round 3.
