@@ -1,0 +1,15 @@
+# SEO + link-set diff, server HTML (no JavaScript), production builds fetched back to back (2026-09-26 ~10:15):
+# A = base feat/ux-v1-v11 89e1e94 flag OFF (next start :4391), B = ux11/p9-leaderboard flag ON (next start :4393).
+# node docs/design/ux-dashboard-v1/v11/reports/P9/seo-diff.mjs --a http://localhost:4391 --b http://localhost:4393 /leaderboard /pt/leaderboard
+== /leaderboard
+SEO items: identical (title, description, robots, canonical, hreflang, og, twitter, h1, intro, json-ld)
+  title: "K-pop Fandom Leaderboard: Who Wins This Week | KpopQuiz"  h1: ["Community"]  intro: "Discover fans, creators, and rising stars."  json-ld blocks: 2
+Links: flag off 84 {"site":22,"hub":30,"profile":15,"quiz":15,"external":2} | flag on 97 {"site":30,"hub":30,"profile":20,"quiz":15,"external":2}
+  lost (flag off hrefs missing on flag on): none
+  added: ["#main","/groups","/community","/u/carat","/u/lea_mnm","/u/ersopa","/u/twiceland","/u/pinkvelvet","/daily","/blindtest/ranked","/trending","/new","/profile"]
+== /pt/leaderboard
+SEO items: identical (title, description, robots, canonical, hreflang, og, twitter, h1, intro, json-ld)
+  title: "Ranking de K-pop - Top Fas e Criadores | KpopQuiz"  h1: ["Top fas esta semana"]  intro: "Ganhe XP jogando quizzes, mantendo sequencias e criando conteudo."  json-ld blocks: 2
+Links: flag off 25 {"site":20,"profile":3,"external":2} | flag on 41 {"site":28,"profile":3,"external":2,"hub":8}
+  lost (flag off hrefs missing on flag on): none
+  added: ["#main","/groups","/community","/daily","/blindtest/ranked","/trending","/new","/bts-quiz","/blackpink-quiz","/stray-kids-quiz","/ateez-quiz","/twice-quiz","/aespa-quiz","/newjeans-quiz","/seventeen-quiz","/profile"]
