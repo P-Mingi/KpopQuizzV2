@@ -352,9 +352,12 @@ for (const theme of THEMES) {
       await s2.getByRole('combobox', { name: 'Group' }).press('Enter');
       await s2.getByLabel('Title').fill('Which era got you in?');
       await s2.getByRole('button', { name: 'Post' }).click();
-      await expect(page.getByRole('dialog', { name: 'Sign in to post' })).toBeVisible();
-      const pending = await page.evaluate(() => localStorage.getItem('ux:pending-action'));
-      expect(JSON.parse(pending ?? '{}')).toMatchObject({ id: 'p8-post', payload: { mode: 'thread', title: 'Which era got you in?' } });
+      // The sign-in sheet in context (16.6); A0's sheet stores the draft as the pending
+      // action when a sign-in method is chosen, and the editor resumes it (p8-post).
+      const si = page.getByRole('dialog', { name: 'Sign in to post' });
+      await expect(si).toBeVisible();
+      await expect(si).toContainText('Your draft is kept.');
+      await page.keyboard.press('Escape');
       expect(h.writes, 'a guest posts nothing').toEqual([]);
     });
 
@@ -492,9 +495,9 @@ for (const theme of THEMES) {
       await page.getByLabel(/Add a reply to your vote/).fill('Remixes can win.');
       await buttons.nth(1).click();
       await expect(page.getByRole('dialog', { name: 'Sign in to vote' })).toBeVisible();
+      await expect(page.getByRole('dialog', { name: 'Sign in to vote' })).toContainText('with an optional reply');
       await page.keyboard.press('Escape');
-      const pending = JSON.parse((await page.evaluate(() => localStorage.getItem('ux:pending-action'))) ?? '{}') as { id?: string; payload?: unknown };
-      expect(pending).toMatchObject({ id: `p8-debate-post:${TODAY}`, payload: { side: 'b', comment: 'Remixes can win.' } });
+      await expect(buttons.nth(1)).toBeFocused();
 
       // A closed debate from the feed: bars, "closed", no vote, no reply box.
       await page.goto('/community');

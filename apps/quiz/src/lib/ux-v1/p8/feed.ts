@@ -73,18 +73,26 @@ async function likeCounts(targetType: string, ids: string[], live: boolean): Pro
 
 async function readThreads(live: boolean): Promise<FeedPost[]> {
   const db = createPublicReadClient();
-  const groups = groupMap(await getP8Groups());
-  const { data } = must(await db.from('verse_threads')
-    .select('id, group_id, slug, title, created_by, created_at')
-    .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP), 'threads');
-  const threads = (data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string }[];
+  // Three rounds at most (groups + threads, then comments + people + hearts, then the
+  // opening bodies): the page must render fast even when the database is slow.
+  const [groupList, threadRes] = await Promise.all([
+    getP8Groups(),
+    db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at')
+      .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP),
+  ]);
+  const groups = groupMap(groupList);
+  const threads = (must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string }[];
   if (!threads.length) return [];
   const ids = threads.map((t) => t.id);
 
   // Every visible comment of these threads (paginated past the 1000-row cap): the
   // first one is the opening post, the rest are the replies.
-  const comments = await fetchAllRows<{ id: number; thread_id: number; created_at: string }>(() => db.from('verse_discussions')
-    .select('id, thread_id, created_at').in('thread_id', ids).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true }));
+  const [comments, people, likes] = await Promise.all([
+    fetchAllRows<{ id: number; thread_id: number; created_at: string }>(() => db.from('verse_discussions')
+      .select('id, thread_id, created_at').in('thread_id', ids).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true })),
+    readPeople(db, threads.map((t) => t.created_by)),
+    likeCounts('thread', ids.map(String), live),
+  ]);
   const first = new Map<number, number>();
   const count = new Map<number, number>();
   for (const c of comments) {
@@ -97,10 +105,6 @@ async function readThreads(live: boolean): Promise<FeedPost[]> {
     const { data: ob } = must(await db.from('verse_discussions').select('id, body').in('id', openIds), 'thread bodies');
     for (const r of (ob ?? []) as { id: number; body: string }[]) bodies.set(r.id, r.body);
   }
-  const [people, likes] = await Promise.all([
-    readPeople(db, threads.map((t) => t.created_by)),
-    likeCounts('thread', ids.map(String), live),
-  ]);
 
   return threads.map((t): FeedPost => {
     const g = groups.get(t.group_id) ?? null;
@@ -132,11 +136,13 @@ export function blogCover(cover: unknown, groupSlug: string | null): string | nu
 
 async function readBlogs(): Promise<FeedPost[]> {
   const db = createPublicReadClient();
-  const groups = groupMap(await getP8Groups());
-  const { data } = must(await db.from('verse_essays')
-    .select('id, group_id, title, author, content, cover, featured_at, created_at')
-    .eq('status', 'featured').order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP), 'essays');
-  const essays = (data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string }[];
+  const [groupList, essayRes] = await Promise.all([
+    getP8Groups(),
+    db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at')
+      .eq('status', 'featured').order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
+  ]);
+  const groups = groupMap(groupList);
+  const essays = (must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string }[];
   if (!essays.length) return [];
   const ids = essays.map((e) => e.id);
   const [reactions, comments, people] = await Promise.all([
@@ -174,10 +180,12 @@ export async function readDailyDebates(db: Db, today: string, days = DEBATE_DAYS
     .order('date', { ascending: false }).limit(days), 'daily_debates');
   const rows = (data ?? []) as { date: string; question_id: string }[];
   if (!rows.length) return [];
-  const { data: qs } = must(await db.from('debate_questions').select('id, question, side_a, side_b').in('id', rows.map((r) => r.question_id)), 'debate_questions');
-  const qById = new Map(((qs ?? []) as { id: string; question: string; side_a: string; side_b: string }[]).map((q) => [q.id, q] as const));
-  const votes = await fetchAllRows<{ date: string; side: string; comment: string | null }>(() => db.from('debate_votes')
-    .select('date, side, comment').in('date', rows.map((r) => r.date)));
+  const [qRes, votes] = await Promise.all([
+    db.from('debate_questions').select('id, question, side_a, side_b').in('id', rows.map((r) => r.question_id)),
+    fetchAllRows<{ date: string; side: string; comment: string | null }>(() => db.from('debate_votes')
+      .select('date, side, comment').in('date', rows.map((r) => r.date))),
+  ]);
+  const qById = new Map(((must(qRes, 'debate_questions').data ?? []) as { id: string; question: string; side_a: string; side_b: string }[]).map((q) => [q.id, q] as const));
   const split = new Map<string, { a: number; b: number; c: number }>();
   for (const v of votes) {
     const s = split.get(v.date) ?? { a: 0, b: 0, c: 0 };
@@ -201,9 +209,9 @@ export function dailyClosesAt(date: string): string {
 
 async function readDebatePosts(live: boolean, today: string): Promise<FeedPost[]> {
   const db = createPublicReadClient();
-  const groups = await getP8Groups();
+  const [groups, debates] = await Promise.all([getP8Groups(), readDailyDebates(db, today)]);
   const general = groups.find((g) => g.slug === 'general-kpop') ?? null;
-  const past = (await readDailyDebates(db, today)).filter((d) => d.date < today && d.votesA + d.votesB > 0).slice(0, PAST_DEBATES_IN_FEED);
+  const past = debates.filter((d) => d.date < today && d.votesA + d.votesB > 0).slice(0, PAST_DEBATES_IN_FEED);
   const likes = await likeCounts('daily_debate', past.map((d) => d.date), live);
   return past.map((d): FeedPost => ({
     kind: 'debate', key: d.date, href: `/community/debate/${d.date}`,
@@ -325,9 +333,9 @@ async function replyScores(db: Db, rows: { id: number; quiz_id: string }[], repl
 
 /* ------------------------------------------------------------------- feed --- */
 
-const cachedThreads = unstable_cache((live: boolean) => readThreads(live), ['ux-v1:p8:threads:v1'], { revalidate: 120, tags: ['community'] });
-const cachedBlogs = unstable_cache(() => readBlogs(), ['ux-v1:p8:blogs:v1'], { revalidate: 120, tags: ['community'] });
-const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v2'], { revalidate: 120, tags: ['community'] });
+const cachedThreads = unstable_cache((live: boolean) => readThreads(live), ['ux-v1:p8:threads:v2'], { revalidate: 120, tags: ['community'] });
+const cachedBlogs = unstable_cache(() => readBlogs(), ['ux-v1:p8:blogs:v2'], { revalidate: 120, tags: ['community'] });
+const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v3'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
 

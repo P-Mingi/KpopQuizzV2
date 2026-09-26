@@ -179,9 +179,11 @@ async function readBadgeWatch(limit: number, today: string): Promise<BadgeWatchR
   }
   // Latest earned first (the rows are ordered by earned_at desc).
   const order = [...byBadge.keys()].slice(0, limit);
-  const { data: defs } = must(await db.from('badge_definitions').select('id, name, description').in('id', order), 'badge_definitions');
-  const defById = new Map(((defs ?? []) as { id: string; name: string; description: string }[]).map((d) => [d.id, d] as const));
-  const people = await readPeople(db, order.map((id) => byBadge.get(id)!.latest.user_id));
+  const [defRes, people] = await Promise.all([
+    db.from('badge_definitions').select('id, name, description').in('id', order),
+    readPeople(db, order.map((id) => byBadge.get(id)!.latest.user_id)),
+  ]);
+  const defById = new Map(((must(defRes, 'badge_definitions').data ?? []) as { id: string; name: string; description: string }[]).map((d) => [d.id, d] as const));
   const now = Date.parse(`${today}T12:00:00Z`);
   return order.map((id): BadgeWatchRow | null => {
     const def = defById.get(id);

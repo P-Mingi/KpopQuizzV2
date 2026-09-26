@@ -40,11 +40,13 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
   const features = await safeFetch(getP8Features(), NO_FEATURES, '[p8] features');
   const src = feedSources(features, now);
   const [threads, blogs, debates, fanDebates, challenges, groups, today, happening, pulse, badges, war] = await Promise.all([
-    safeFetch<FeedPost[] | null>(src.threads, null, '[p8] threads'),
-    safeFetch<FeedPost[] | null>(src.blogs, null, '[p8] blogs'),
-    safeFetch<FeedPost[] | null>(src.debates, null, '[p8] debates'),
-    safeFetch<FeedPost[] | null>(src.fanDebates, null, '[p8] fan debates'),
-    safeFetch<FeedPost[] | null>(src.challenges, null, '[p8] challenges'),
+    // The posts are the page: give a slow database 8s before falling back (the
+    // timed-out read still fills its cache for the next visit).
+    safeFetch<FeedPost[] | null>(src.threads, null, '[p8] threads', 8000),
+    safeFetch<FeedPost[] | null>(src.blogs, null, '[p8] blogs', 8000),
+    safeFetch<FeedPost[] | null>(src.debates, null, '[p8] debates', 8000),
+    safeFetch<FeedPost[] | null>(src.fanDebates, null, '[p8] fan debates', 8000),
+    safeFetch<FeedPost[] | null>(src.challenges, null, '[p8] challenges', 8000),
     safeFetch(getP8Groups(), [], '[p8] groups'),
     safeFetch(getTodayDebate(utcDate(now)), null, '[p8] today debate'),
     safeFetch(getHappening(5, now), [], '[p8] happening'),
