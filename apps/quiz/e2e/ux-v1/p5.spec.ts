@@ -780,7 +780,7 @@ signedInTest.describe('P5 signed in (test user; publish answered locally)', () =
     skipUnlessSignedIn();
     const { calls, posts } = await openCreate(page, {
       theme: 'light', draft: SAMPLE_DRAFT, step: 3, noProfile: true,
-      routes: (p) => p.route('**/api/auth/check-username**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ available: true }) })),
+      routes: async (p) => { await p.route('**/api/auth/check-username**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ available: true }) })); },
     });
     test.skip(!(await hasShell(page)), 'flag off');
     const uname = page.locator('#p5-uname');
