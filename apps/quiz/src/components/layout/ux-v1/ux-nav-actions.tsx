@@ -172,15 +172,16 @@ export function UxNavActions(): React.ReactElement {
 
   return (
     <div className="ux-nav-r">
-      <a
+      <Link
         href="/search"
+        prefetch={false}
         className="ux-sbtn"
         aria-label="Search"
         aria-keyshortcuts="/"
         onClick={(e) => { if (!isPlainClick(e)) return; e.preventDefault(); openSearch(); }}
       >
         <Icon name="search" size="sm" />
-      </a>
+      </Link>
       <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" />Create</Link>
       {profile ? (
         <>
