@@ -1,0 +1,3 @@
+guest POST /api/ux-v1/p3/notify body={"groupId":57,"on":true} -> 401 {"error":"Not authenticated"}
+guest POST /api/ux-v1/p3/notify body={"groupId":57} -> 400 {"error":"groupId and on required"}
+user POST /api/ux-v1/p3/notify body={"groupId":57,"on":true} -> 503 {"error":"not_live"}

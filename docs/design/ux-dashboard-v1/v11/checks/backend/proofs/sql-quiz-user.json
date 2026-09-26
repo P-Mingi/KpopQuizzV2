@@ -1,0 +1,108 @@
+[
+ {
+  "q": {
+   "t": "plays",
+   "s": "score,total_questions,time_taken_seconds,player_id",
+   "eq": {
+    "quiz_id": "62e332ec-a506-425a-97ab-07f26e4729f3"
+   },
+   "order": [
+    "score",
+    false
+   ],
+   "limit": 10
+  },
+  "rows": 6,
+  "data": [
+   {
+    "score": 9,
+    "total_questions": 10,
+    "time_taken_seconds": 44,
+    "player_id": "80e5b2b1-d8b0-467a-8476-a95348027689"
+   },
+   {
+    "score": 6,
+    "total_questions": 10,
+    "time_taken_seconds": 53,
+    "player_id": null
+   },
+   {
+    "score": 5,
+    "total_questions": 10,
+    "time_taken_seconds": 12,
+    "player_id": "<test user id>"
+   },
+   {
+    "score": 5,
+    "total_questions": 10,
+    "time_taken_seconds": 67,
+    "player_id": null
+   },
+   {
+    "score": 4,
+    "total_questions": 10,
+    "time_taken_seconds": 64,
+    "player_id": null
+   },
+   {
+    "score": 3,
+    "total_questions": 10,
+    "time_taken_seconds": 72,
+    "player_id": null
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,play_count,question_count,like_count,creator_id,difficulty",
+   "eq": {
+    "id": "62e332ec-a506-425a-97ab-07f26e4729f3"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "slug": "this-is-only-for-true-gllits",
+    "play_count": 6,
+    "question_count": 10,
+    "like_count": 2,
+    "creator_id": "80e5b2b1-d8b0-467a-8476-a95348027689",
+    "difficulty": "hard"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "profiles",
+   "s": "username,bias,name_accent,name_font",
+   "eq": {
+    "id": "80e5b2b1-d8b0-467a-8476-a95348027689"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "username": "peachyblssom2014",
+    "bias": "Wonhee Illit",
+    "name_accent": "pink",
+    "name_font": "default"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "profiles",
+   "s": "username",
+   "eq": {
+    "id": "2836aed8-cecb-4706-8eb5-d224bc69e8cf"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "username": "mina"
+   }
+  ]
+ }
+]

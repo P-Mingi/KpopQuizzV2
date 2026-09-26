@@ -9,8 +9,9 @@
 //
 // Compared: HTTP status, <title>, meta description, robots, canonical, hreflang,
 // og:* / twitter:*, JSON-LD blocks (parsed, key order normalised), every H1, the
-// intro paragraph under the H1, and the set of internal <a href> of the served
-// HTML (every flag-off link must be served flag on; additions are listed).
+// intro paragraph under the H1, the set of internal <a href> of the served
+// HTML (every flag-off link must be served flag on; additions are listed) and the
+// served prose (every flag-off text chunk of 8+ words must be served flag on).
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,6 +37,22 @@ const dec = (s) => s.replace(/&amp;/g, '&').replace(/&#x27;|&#39;/g, "'").replac
 const attr = (tag, name) => { const m = new RegExp(`\\s${name}="([^"]*)"`, 'i').exec(tag); return m ? dec(m[1]) : null; };
 const sortKeys = (v) => Array.isArray(v) ? v.map(sortKeys) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortKeys(v[k])])) : v;
 
+// Served text (no JS): the text nodes of the body without scripts, styles and the
+// RSC payload, whitespace collapsed. `sentences` = the chunks of 8+ words (prose).
+// Live lines the prototype replaces with its own equivalent line (P5 report, section 5): the
+// replacement must be served instead. Everything else of the live text must be served as is.
+const REPLACED = {
+  '- shown on your quiz page and in search results.': 'Shown on your quiz page and in Google results.',
+  '3 clues per question, score more the fewer you reveal.': '3 clues, more points for fewer clues',
+  'e.g. 3 clues that point to one idol.': 'Clue 1: born in 1997',
+};
+
+function prose(body) {
+  const clean = body.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ').replace(/<noscript\b[\s\S]*?<\/noscript>/gi, ' ');
+  const chunks = clean.split(/<[^>]+>/).map((t) => dec(t).replace(/\s+/g, ' ').trim()).filter(Boolean);
+  return { text: chunks.join(' '), sentences: [...new Set(chunks.filter((t) => t.split(' ').length >= 8))] };
+}
+
 function extract(html) {
   const metas = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]);
   const meta = (key, val) => metas.filter((t) => (attr(t, key) ?? '').toLowerCase() === val).map((t) => attr(t, 'content'));
@@ -54,6 +71,7 @@ function extract(html) {
     intro: h1m ? dec(h1m[2].replace(/<[^>]+>/g, '')).trim() : null,
     hrefs: [...new Set([...body.matchAll(/<a\b[^>]*\shref="([^"]+)"/gi)].map((m) => dec(m[1])))].sort(),
     aTags: [...body.matchAll(/<a\b[^>]*\shref="([^"]+)"/gi)].length,
+    ...prose(body),
   };
 }
 
@@ -75,11 +93,21 @@ for (const file of Object.keys(PAGES)) {
   out.push(`  ${missing.length ? 'DIFF' : 'SAME'} link set: flag off ${a.hrefs.length} unique hrefs (${a.aTags} <a>), flag on ${b.hrefs.length} unique (${b.aTags} <a>); missing flag on: ${missing.length ? missing.join(' ') : 'none'}`);
   out.push(`    flag off: ${a.hrefs.join(' ')}`);
   out.push(`    added flag on (16.10 additions allowed): ${added.length ? added.join(' ') : 'none'}`);
+  // text diff: every flag-off prose chunk (8+ words) must be in the flag-on served text
+  const lost = a.sentences.filter((t) => !b.text.includes(t) && !REPLACED[t]);
+  const replaced = a.sentences.filter((t) => !b.text.includes(t) && REPLACED[t]);
+  for (const r of replaced) {
+    const ok = b.text.includes(REPLACED[r]);
+    if (!ok) broken = true;
+    out.push(`  ${ok ? 'REPLACED' : 'DIFF'} by the prototype's own line: "${r}" -> "${REPLACED[r]}"${ok ? '' : ' (replacement NOT served)'}`);
+  }
+  if (lost.length) broken = true;
+  out.push(`  ${lost.length ? 'DIFF' : 'SAME'} prose: ${a.sentences.length} flag-off chunks of 8+ words, ${a.sentences.length - replaced.length} served as is${replaced.length ? `, ${replaced.length} replaced by the prototype's line (above)` : ''}${lost.length ? `; LOST:\n    - ${lost.join('\n    - ')}` : ''}`);
 }
 const pa = fs.readFileSync(path.join(x, 'pt-create.status'), 'utf8');
 const pb = fs.readFileSync(path.join(y, 'pt-create.status'), 'utf8');
 if (pa !== pb) broken = true;
 out.push(`== /pt/create (mirror): ${pa === pb ? 'SAME' : 'DIFF'} ${pa} -> ${pb}`);
-out.push(broken ? 'SEO LOCK BROKEN' : 'no SEO difference (title, meta, robots, canonical, hreflang, og, JSON-LD, H1, intro, link set)');
+out.push(broken ? 'SEO LOCK BROKEN' : 'no SEO difference (title, meta, robots, canonical, hreflang, og, JSON-LD, H1, intro, link set, prose)');
 console.log(out.join('\n'));
 process.exit(broken ? 1 : 0);

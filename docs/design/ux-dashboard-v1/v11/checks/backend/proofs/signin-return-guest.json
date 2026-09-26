@@ -1,0 +1,81 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:42:37.858Z",
+ "sheet": "Follow mapple Sign in to follow creators and see their new quizzes. G Continue with Google D Continue with Discord or Em",
+ "pendingAfterGoogle": {
+  "id": "p4-follow",
+  "path": "/q/skz-true-or-false-only-real-stays-pass",
+  "payload": {
+   "username": "mapple"
+  },
+  "at": 1790444551634
+ },
+ "authorize": {
+  "host": "supabase",
+  "path": "/auth/v1/authorize",
+  "provider": "google",
+  "redirect_to": "http://localhost:3021/auth/callback?returnTo=%2Fq%2Fskz-true-or-false-only-real-stays-pass"
+ },
+ "otp": {
+  "path": "supabase:/auth/v1/otp?redirect_to=http://localhost:3021/auth/callback?returnTo=%2Fq%2Fskz-true-or-false-only-real-stays-pass",
+  "bodyKeys": [
+   "email",
+   "data",
+   "create_user",
+   "gotrue_meta_security",
+   "code_challenge",
+   "code_challenge_method"
+  ]
+ },
+ "errors": [
+  "guest: quiz page Follow -> sheet: Unexpected token '<'",
+  "guest: Email me a sign-in link: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "guest: quiz page Follow -> sheet",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "guest: Continue with Google",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "guest: Email me a sign-in link",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "guest: Email me a sign-in link",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "guest: Email me a sign-in link",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "guest: Email me a sign-in link",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "supabase:/auth/v1/otp?redirect_to=http%3A%2F%2Flocalhost%3A3021%2Fauth%2Fcallback%3FreturnTo%3D%252Fq%252Fskz-true-or-false-only-real-stays-pass",
+   "body": "{\"email\":\"c2-probe@example.com\",\"data\":{},\"create_user\":true,\"gotrue_meta_security\":{},\"code_challenge\":\"LlOeHYwogxR1WEeS0lukR_TCnL1bhIayXPaMk_6v8BY\",\"code_challenge_method\":\"s256\"}"
+  }
+ ]
+}

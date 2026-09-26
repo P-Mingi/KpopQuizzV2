@@ -4,27 +4,27 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **3** (checkers, loop 1) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration-b at dcc3159 (P8 included, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
+- Phase: **3**, loop 2 (checkers re-running the affected states and rows on cc6c394). while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration at cc6c394 (after fix loop 1, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
 
 ## Agents
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged #45, #50, #56 + type fix (eed8a49) | 5c9c483 | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
+| A0 | ux11/a0-foundation | fix loop 1 merged (eb09ce6, PR #57): C2-001, C1-002 | ab88390 | 0 | v11/reports/A0.md |
+| P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
-| P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
-| P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
-| P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
+| P3 | ux11/p3-groups | fix loop 1 merged (ad57928, PR #63, branch ux11/p3-fix1): C1-001, C3-001, C3-002, C2-006, C2-007 | 11442da | 0 | v11/reports/P3.md |
+| P4 | ux11/p4-quiz | fix loop 1 merged (3650a27, PR #62): C3-004 (+ Follow and comment-load races), C2-003 | e764ca5 | 0 | v11/reports/P4.md |
+| P5 | ux11/p5-create | fix loop 1 merged (cc6c394, PR #64, branch ux11/p5-fix1): C3-005 + a second lost live line, UxQuizCard preview | 70747b7 | 0 | v11/reports/P5.md |
+| P6 | ux11/p6-blindtest | fix loop 1 merged (982cf9c, PR #61): C3-009 | 2c74301 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
-| P8 | ux11/p8-community | merged (dcc3159, PR #55) with the Verse gates | 97f02e0 | 0 | v11/reports/P8.md |
+| P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
-| P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
+| P10 | ux11/p10-passport | fix merged (4a2fa44, PR #60): sharp tests 30 s timeout | 26e6e47 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | ux11/c1-check | running (loop 1; resumed 18:26 after the app stopped; evidence was uncommitted, told to commit) | - | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | running (loop 1; resumed 18:26; 3 commits pushed; issue C2-001 filed for A0) | 26b53ba | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | running LOCALLY: its push was refused by the permission check ("Git Destructive"); branch unpublished, waiting for the owner like P2 | 4f3ef6c | - | v11/REPORT.md |
+| C1 | ux11/c1-check | loop 2 running (affected states on cc6c394) | 4a4da49 | - | v11/checks/pixel/ |
+| C2 | ux11/c2-check | loop 2 running (issue rows + touched rows on cc6c394) | b89834e | - | v11/checks/backend/ |
+| C3 | ux11/c3-check | loop 2 running LOCALLY (full e2e, a11y, SEO, perf; then REPORT.md) | edb382e | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -59,6 +59,8 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
+
+SECURITY, LIVE SITE (found by C2, confirmed by ORCH in code): /auth/callback redirects to returnTo without checking it stays on the site (`NextResponse.redirect(new URL(returnTo, request.url))`): an open redirect after sign-in. Auth is out of this run's scope; handed to the owner as a separate task chip.
 
 FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the weekly board with made-up accounts from lib/weekly-leaderboard-padding.ts (FAKE_USERS). Handed to the owner as a separate task chip.
 
@@ -99,10 +101,24 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 25. P9: the H1 stays "Community" (SEO lock) instead of "Leaderboard"; "Around the community" is kept until /community is indexable; Players = all-time XP (no XP history exists); the weekly change is the real percent change, not rank moves; migration 097 (Rising) is not applied in prod; 19 groups have fandom_name 'fan'; the shared getFandomWarMap caches an empty board for 1h after an RPC error (P9 reads through its own throwing getWarMap).
 26. Security, existing (found by P8): the existing /api/verse/* write routes (threads, essays, discussions, reactions, flags) do not check VERSE_PUBLIC or LIVE_SPACES themselves, so a hand-crafted request can write Verse rows for hidden or parked spaces today. The v11 /community never offers them for gated content. Owner call.
 27. P8 remaining decisions: apply v11-p8-community.sql; blogs keep curator review and a space Join (no cover upload); the feed shows the last 3 closed daily debates; the daily debate reply is sent with the vote; /community stays noindex until the owner decides. The feed shows no Verse item unless VERSE_PUBLIC is 'true', and never a parked space (lib/ux-v1/p8/verse-gate.ts).
-28. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+28. Cached failed reads on legacy (flag-off) code, found by P2, P1, P6 and C3: lib/db/queries/popular.ts, getFandomWarMap, getQuizOfTheDay (null for the day), lib/db/queries/blindtest.ts getBlindtestStats (`count ?? 0` inside unstable_cache), and ISR pages keeping a render whose reads failed. The v11 pages no longer do this (P1, P3, P6 fixes). Owner call for the legacy code (one task chip exists for popular.ts).
+29. Shared hub reads (found by P3): 10 shared reads used by the group hubs (group-hub, community, freshness, related quizzes, trivia facts) return an empty value when Supabase fails and unstable_cache keeps it up to an hour, on the v11 hubs and the live ones alike (in this loop every flag-on hub lost its fandom war line until the dev cache was cleared). A ready fix is in docs/design/ux-dashboard-v1/v11/reports/P3/fail-closed-queries.patch (39 lines, applies cleanly, type-checks; callers to check are listed in v11/requests/P3.md request 2). It changes shared flag-off code, so it is the owner's call, not applied in this run.
+30. P4: the v11 results keep the live Discord line and Brag button (70% and up, hidden while the Discord flex webhook is unset): one centred row that is not in the prototype; the link uses the v11 muted colour because the legacy blue fails AA on dark.
+31. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 Loop 2: cc6c394 built (809/809) in .worktrees/ux11-integration and swapped onto :3021; C1, C2, C3 re-running only what fix loop 1 touched.
+- 2026-09-26 P5 fix merged (cc6c394): the live cover help line and the English language note restored (3 other live lines replaced by the prototype's equivalents, listed in P5.md); the draft card is A0's UxQuizCard preview. Fix loop 1 complete: all 17 filed issues fixed and merged (A0 2, P1 6, P3 5, P4 2, P5 1, P6 1, P8 1) plus the P10 test timeout. Integration: tsc 0, unit 823/823. Rebuilding the checker server in .worktrees/ux11-integration at cc6c394 for loop 2.
+- 2026-09-26 P4 fix merged (3650a27): the like race fixed (and the same race on Follow and on comment loading), Discord line + Brag back; e2e forces the late read. P3 fix merged (ad57928): tile 88x138, every quiz a real card link (12 visible + native <details> Show all, no <noscript>), fail-closed /groups reads proven on a production build, Verse links only when the gate allows, the empty state points to the top quiz for closed spaces. Integration: tsc 0, unit 823/823, check:routes 340 both ways. Only P5 left in fix loop 1, then one rebuild and the checkers' re-run of the affected states.
+- 2026-09-26 P6 fix loop 1 merged (982cf9c): no cached hub read stores a failure (today's players keyed by UTC day, song count, popularity, playable groups; the playable list now cached at the catalog TTL instead of re-reading 4,120 songs per render); failed ISR regeneration throws so the last good /blindtest stays. tsc 0, unit 817/817.
+- 2026-09-26 P10 test fix merged (4a2fa44): unit 809/809 at load ~35-40. P5 started on C3-005.
+- 2026-09-26 P1 fix loop 1 merged (1b3120f): a render that lost a read is never cached (runtime throw keeps the last complete page, 30 s retry; build prerender revalidates in 30 s; accepted after 15 min of failures so the home cannot freeze), proven with a DB-cutting proxy; rail photos 220w (154 KB vs 598 KB); only published Verse spaces linked; streak wording = A0's; every saved run in Continue. Existing (flag off): live getQuizOfTheDay caches null for the day when its reads fail and the flag-off home has the same page-cache exposure (owner note). Unit 808/809: P10's sharp WebP test times out at 5 s under load 41 (CI passes): P10 raising its timeout.
+- 2026-09-26 P8 fix merged (249efd4): the feed panel shows the shared focus ring (one `outline: none` removed; the new keyboard case fails with it back). P6 started on C3-009.
+- 2026-09-26 C2 loop 1 done and merged (e95c0ef; issue files A0.md and P3.md were add/add conflicts with C1's, resolved as the union of both lists). Must-prove passes: QOTD pick/average/label, ticker, /groups counts and hub sorts, 79 playlists, daily one try, badge rarity, sign-in returns to the action, mark-read payloads, the Verse gate (VERSE_PUBLIC=false run too), ranked 233 unit tests + 503 before any write, P8 writes 503 not_live, header routes refuse private addresses + 503 bucket_missing, nested challenge attempt routes resolve on both prod build and dev (P8's dev 404 does not reproduce). Data guard: counts only grew, test user unchanged, no production write. New issues routed: P1 C2-002/004/005, P3 C2-006/007, P4 C2-003.
+- 2026-09-26 A0 fix loop 1 merged (eb09ce6): /api/quizzes/count 404 unless the flag is on (C2-001); drop zone resting look on open, 2px ring only for keyboard focus (C1-002). tsc 0, unit 805/805.
+- 2026-09-26 C3 own checks done (local branch edb382e): e2e 542 pass / 1 flaky (C3-004 race) / 0 fail / 8 skipped by design of 551; axe 0 serious/critical on all 190 v11 state runs (legacy contrast failures exist flag off too, fewer flag on); keyboard ok on 14 pages except C3-007; all 9 sheets pass; live regions ok; SEO fields equal on 34 URLs, robots.txt identical, sitemap 2998 both ways; LCP (390, 4x CPU, slow 4G, gzip as Vercel) home 2.22 vs 3.04 s, quiz 2.34 vs 2.42, hub 2.30 vs 3.25, blindtest 2.22 vs 2.05, CLS <= 0.0003; Lighthouse pending the owner. Issues: P1 C3-003/006/008, P3 C3-001/002, P4 C3-004, P5 C3-005 (low), P6 C3-009 (low), P8 C3-007. Fix loop 1 now: A0, P3, P1, P4, P8; P5 and P6 next.
+- 2026-09-26 C1 loop 1 done and merged (69b3a47): 152 checks, 128 pass, 8 fail (groups x4: P3 C1-001 tile 133.2 vs 138px; header-sheet x4: A0 C1-002 drop zone opens in hover look), 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). Nav fit, hover, focus, tokens (44), reduced motion, no horizontal scroll at 390: all pass. Fix loop 1 started for A0 (C2-001, C1-002) and P3 (C1-001 + C3's noscript links + cached failed reads) while C2 and C3 finish.
 - 2026-09-26 C3's push of ux11/c3-check was refused by the permission check ("Git Destructive"). C3 stopped, then was resumed to continue with local commits only; publishing its branch waits for the owner, like P2. C3 so far: robots.txt identical, sitemap 2998 URLs both ways, no new URL; title, description, robots, canonical, hreflang, H1 identical on every existing URL; /community 200 noindex flag on, 301 flag off. Link losses in its first pass came from ISR pages cached with empty sections while the machine was saturated (fail-soft reads cached); most recovered, /groups and /data/pulse to re-check.
 - 2026-09-26 18:24 The app stopped: C1, C2, C3 and the :3021 server were stopped. Server restarted from the same dcc3159 build (.worktrees/ux11-integration-b); checkers resumed from their transcripts. Load average ~40 from other projects on the machine (Pricely test runs, a VM), not this run. First issue in: C2-001 (A0): /api/quizzes/count (Phase 1 endpoint) answers 200 with the flag off; gate it (404 flag off) or delete it. Fixes are batched after loop 1 so there is one rebuild.
 - 2026-09-26 Server swapped to the dcc3159 build (809/809 pages; /community 200 noindex, follow). C1, C2, C3 told to check the community states and rows now.

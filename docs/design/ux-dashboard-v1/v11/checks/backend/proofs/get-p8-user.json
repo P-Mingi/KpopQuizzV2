@@ -1,0 +1,75 @@
+[
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p8/viewer",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": true,
+   "following": [
+    "mina",
+    "peachyblssom2014"
+   ],
+   "liked": []
+  }
+ },
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p8/my-results?quiz=this-is-only-for-true-gllits",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "results": [
+    {
+     "id": "2e26d782-54d2-4ad6-911a-4e0c9d6482c2",
+     "label": "5/10 · This is only for ~true~ Gllits!",
+     "sub": "4 days ago · 0:12",
+     "thumb": null
+    }
+   ],
+   "quiz": {
+    "slug": "this-is-only-for-true-gllits",
+    "title": "This is only for ~true~ Gllits!"
+   }
+  }
+ },
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p8/my-results",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "results": [
+    {
+     "id": "2e26d782-54d2-4ad6-911a-4e0c9d6482c2",
+     "label": "5/10 · This is only for ~true~ Gllits!",
+     "sub": "4 days ago · 0:12",
+     "thumb": null
+    },
+    {
+     "id": "bcfae5ce-060c-47fd-b55d-ccd18c863e4a",
+     "label": "0/7 · BTS solo era quiz - match the member to the music",
+     "sub": "4 days ago · 0:07",
+     "thumb": "https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-images/quiz-images/2026/04/14063591-e57b-4e17-8dc6-970df20b149f.jpg"
+    },
+    {
+     "id": "1c1298ac-8e5c-4e65-acb8-490e0d7a9857",
+     "label": "1/8 · Ultimate BTS era quiz - only real ARMYs survive",
+     "sub": "4 days ago · 0:08",
+     "thumb": "https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-images/quiz-images/2026/05/672f0afb-77c7-43f0-a8e6-556316cf7468.jpg"
+    }
+   ]
+  }
+ },
+ {
+  "who": "user",
+  "path": "/api/debate/me",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": true,
+   "voted": false,
+   "side": null
+  }
+ }
+]

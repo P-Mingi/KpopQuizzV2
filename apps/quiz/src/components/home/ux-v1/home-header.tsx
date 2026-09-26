@@ -14,10 +14,12 @@ import { greetingFor } from '@/lib/ux-v1/p1/format';
 // cookie on the server (static/ISR), so a signed-in fan's greeting ("Good evening,
 // Mingi" + one streak line, no CTAs) swaps in on the client from /api/auth/me.
 
+// The streak only moves on the daily quiz or the daily blindtest (lib/daily-streak.ts,
+// C2-002), said with the words of A0's streak popover.
 function streakLine(days: number | undefined, last: string | null | undefined): string {
   const v = streakView(days, last);
-  if (!v) return 'Your quiz of the day is ready. Any quiz or blindtest today starts a streak.';
-  if (v.state === 'at_risk') return `Your quiz of the day is ready. Any quiz or blindtest today keeps your ${v.days}-day streak.`;
+  if (!v) return 'Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to start a streak.';
+  if (v.state === 'at_risk') return `Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to keep your ${v.days}-day streak.`;
   return `Streak saved: ${v.days} ${v.days === 1 ? 'day' : 'days'}. Come back tomorrow to make it ${v.days + 1}.`;
 }
 

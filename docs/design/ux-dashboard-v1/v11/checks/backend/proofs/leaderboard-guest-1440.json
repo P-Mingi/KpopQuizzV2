@@ -1,0 +1,146 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:20:08.723Z",
+ "h1": "Community",
+ "tabs": [
+  "Fandom war",
+  "Players",
+  "Ranked",
+  "Creators"
+ ],
+ "war": [
+  "#1 SONE Girls' Generation 383 points",
+  "#2 STAY Stray Kids 298 points",
+  "CO #3 Cortis 177 points",
+  "4 ARMYBTS 147 points -9% down 9 percent since last week",
+  "5 IL GLLITILLIT 127 points +92% up 92 percent since last week",
+  "6 ENGENEENHYPEN 107 points +57% up 57 percent since last week",
+  "7 BLINKBLACKPINK 78 points +5% up 5 percent since last week",
+  "8 CARATSEVENTEEN 62 points +48% up 48 percent since last week",
+  "9 MONSTIEZBABYMONSTER 59 points +69% up 69 percent since last week",
+  "10 KA EYEKONKATSEYE 51 points +16% up 16 percent since last week",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  ""
+ ],
+ "warLinks": [
+  "/girls-generation-quiz",
+  "/stray-kids-quiz",
+  "/cortis-quiz",
+  "/bts-quiz",
+  "/illit-quiz",
+  "/enhypen-quiz",
+  "/blackpink-quiz",
+  "/seventeen-quiz",
+  "/babymonster-quiz",
+  "/katseye-quiz",
+  "/twice-quiz",
+  "/ive-quiz",
+  "/le-sserafim-quiz",
+  "/newjeans-quiz",
+  "/ateez-quiz",
+  "/hearts2hearts-quiz",
+  "/txt-quiz",
+  "/aespa-quiz",
+  "/red-velvet-quiz",
+  "/exo-quiz",
+  "/g-i-dle-quiz",
+  "/itzy-quiz",
+  "/nct-quiz",
+  "/tws-quiz",
+  "/team-quiz",
+  "/artms-quiz",
+  "/bigbang-quiz",
+  "/mamamoo-quiz",
+  "/fifty-fifty-quiz",
+  "/nmixx-quiz"
+ ],
+ "warPin": "Sign in and pick your group: every quiz you play for it adds to its fandom. Sign in",
+ "points": "Fandom war points",
+ "Players": {
+  "rows": [
+   "K #1 kpophistory Lv 17 · Ride-or-Die 14,360 XP",
+   "#2 mina Lv 15 · Ride-or-Die 9,520 XP",
+   "#3 roseeeyh Lv 13 · Bias 7,536 XP",
+   "4 N njeansstanLv 13 · Bias 7,463 XP",
+   "5 mappleLv 13 · Bias 7,186 XP",
+   "6 caratLv 13 · Bias 6,959 XP",
+   "7 S skzrealmLv 13 · Bias 6,779 XP",
+   "8 J joonifiedLv 13 · Bias 6,636 XP",
+   "9 lea_mnmLv 13 · Bias 6,548 XP",
+   "10 ersopaLv 13 · Bias 6,521 XP"
+  ],
+  "pin": "",
+  "text": "Players, all-time XP K #1 kpophistory Lv 17 · Ride-or-Die 14,360 XP #2 mina Lv 15 · Ride-or-Die 9,520 XP #3 roseeeyh Lv 13 · Bias 7,536 XP 4 N njeansstanLv 13 · Bias 7,463 XP 5 mappleLv 13 · Bias 7,186 XP 6 caratLv 13 · Bias 6,959 XP 7 S skzrealmLv 13 · Bias 6,779 XP 8 J joonifiedLv 13 · Bias 6,636 XP 9 lea_mnmLv 13 · Bias 6,548 XP 10 ersopaLv 13 · Bias 6,521 XP"
+ },
+ "Creators": {
+  "rows": [
+   "#1 mina 8 quizzes 9,433 plays",
+   "K #2 kpophistory 46 quizzes 7,795 plays",
+   "S #3 skzrealm 17 quizzes 4,869 plays",
+   "4 J joonified15 quizzes 3,836 plays",
+   "5 N njeansstan16 quizzes 3,494 plays",
+   "6 roseeeyh4 quizzes 3,071 plays",
+   "7 mapple3 quizzes 3,037 plays",
+   "8 K kpopquizz110 quizzes 2,785 plays",
+   "9 T twiceland12 quizzes 2,705 plays",
+   "10 P pinkvelvet12 quizzes 2,544 plays",
+   "P#1peachyblssom20142 quizzes14 plays",
+   "F#2freyaa1 quiz10 plays"
+  ],
+  "pin": "",
+  "text": "All time This week Creators, all-time plays received #1 mina 8 quizzes 9,433 plays K #2 kpophistory 46 quizzes 7,795 plays S #3 skzrealm 17 quizzes 4,869 plays 4 J joonified15 quizzes 3,836 plays 5 N njeansstan16 quizzes 3,494 plays 6 roseeeyh4 quizzes 3,071 plays 7 mapple3 quizzes 3,037 plays 8 K kpopquizz110 quizzes 2,785 plays 9 T twiceland12 quizzes 2,705 plays 10 P pinkvelvet12 quizzes 2,544 plays"
+ },
+ "Ranked": {
+  "rows": [],
+  "pin": "",
+  "text": "Ranked, season ladder Ranked is not live yet: the first season has not started, so there is no ladder to show. How ranked works"
+ },
+ "pinSheet": "Join the fandom war Pick your group and every quiz you play for it adds points to its fandom. G Continue with Google D Continue with Discord or Email Email me a",
+ "errors": [
+  "load /leaderboard: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /leaderboard",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "tab Ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ranked/ladder?scope=global",
+   "status": 503
+  },
+  {
+   "step": "tab Ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ranked/me",
+   "status": 503
+  }
+ ]
+}

@@ -23,7 +23,6 @@
 .p8-fctl { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 .p8-fctl .ux-dd { margin-bottom: 8px; }
 .p8-feed { margin-top: 12px; }
-.p8-feed:focus { outline: none; }
 .p8-more { text-align: center; margin-top: 32px; }
 .p8-empty { padding: 48px 0; text-align: center; color: var(--ux-muted); }
 .p8-empty b { display: block; color: var(--ux-ink); font-size: 17px; font-weight: 600; margin-bottom: 6px; }

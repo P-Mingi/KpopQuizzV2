@@ -12,6 +12,10 @@
   SAME link set: flag off 22 unique hrefs (35 <a>), flag on 38 unique (51 <a>); missing flag on: none
     flag off: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
     added flag on (16.10 additions allowed): #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  REPLACED by the prototype's own line: "- shown on your quiz page and in search results." -> "Shown on your quiz page and in Google results."
+  REPLACED by the prototype's own line: "3 clues per question, score more the fewer you reveal." -> "3 clues, more points for fewer clues"
+  REPLACED by the prototype's own line: "e.g. 3 clues that point to one idol." -> "Clue 1: born in 1997"
+  SAME prose: 6 flag-off chunks of 8+ words, 3 served as is, 3 replaced by the prototype's line (above)
 == /create?group=bts
   SAME status: "200"
   SAME title: "Create a quiz | KpopQuiz"
@@ -26,5 +30,9 @@
   SAME link set: flag off 22 unique hrefs (35 <a>), flag on 38 unique (51 <a>); missing flag on: none
     flag off: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
     added flag on (16.10 additions allowed): #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  REPLACED by the prototype's own line: "- shown on your quiz page and in search results." -> "Shown on your quiz page and in Google results."
+  REPLACED by the prototype's own line: "3 clues per question, score more the fewer you reveal." -> "3 clues, more points for fewer clues"
+  REPLACED by the prototype's own line: "e.g. 3 clues that point to one idol." -> "Clue 1: born in 1997"
+  SAME prose: 6 flag-off chunks of 8+ words, 3 served as is, 3 replaced by the prototype's line (above)
 == /pt/create (mirror): SAME 404 -> 404
-no SEO difference (title, meta, robots, canonical, hreflang, og, JSON-LD, H1, intro, link set)
+no SEO difference (title, meta, robots, canonical, hreflang, og, JSON-LD, H1, intro, link set, prose)

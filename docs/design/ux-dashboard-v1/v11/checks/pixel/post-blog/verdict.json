@@ -1,0 +1,425 @@
+{
+ "state": "post-blog",
+ "owner": "P8",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:25:55.676Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/blog/2",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2404
+    ],
+    "implSize": [
+     1440,
+     2610
+    ],
+    "diffPct": 9.2,
+    "maskedPct": 18.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "cover",
+     "proto": ".post-cover",
+     "impl": ".p8-post-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:25:58.520Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/blog/2",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2404
+    ],
+    "implSize": [
+     1440,
+     2610
+    ],
+    "diffPct": 9.2,
+    "maskedPct": 18.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "cover",
+     "proto": ".post-cover",
+     "impl": ".p8-post-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-09-26T17:26:01.475Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/blog/2",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2938
+    ],
+    "implSize": [
+     390,
+     3742
+    ],
+    "diffPct": 33.12,
+    "maskedPct": 42.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "cover",
+     "proto": ".post-cover",
+     "impl": ".p8-post-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:26:04.520Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/blog/2",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2938
+    ],
+    "implSize": [
+     390,
+     3742
+    ],
+    "diffPct": 33.1,
+    "maskedPct": 42.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "cover",
+     "proto": ".post-cover",
+     "impl": ".p8-post-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

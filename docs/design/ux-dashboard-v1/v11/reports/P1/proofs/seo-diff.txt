@@ -7,7 +7,7 @@ same    hreflang
 same    h1
 same    intro (first h2)
 same    json-ld
-info    internal links: off 66, on 74; only-off 3: /quizzes/most-liked /quizzes/new /search; only-on 11: /ateez-quiz /blindtest/ranked /community /daily /hearts2hearts-quiz /most-liked /new /profile /trending /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3 /verse/bts/essays/2
+info    internal links: off 66, on 72; only-off 5: /quizzes/most-liked /quizzes/new /verse/blackpink /verse/seventeen /verse/stray-kids; only-on 11: /ateez-quiz /blindtest/ranked /community /daily /girls-generation-quiz /most-liked /new /profile /trending /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3 /verse/bts/essays/2
 info    server-rendered /q/ links: off 19, on 19; hub links: off 18, on 20
 
 == /pt
@@ -19,7 +19,7 @@ same    hreflang
 same    h1
 same    intro (first h2)
 same    json-ld
-info    internal links: off 46, on 52; only-off 1: /search; only-on 7: /ateez-quiz /blindtest/ranked /community /daily /new /profile /trending
+info    internal links: off 46, on 53; only-off 0: ; only-on 7: /ateez-quiz /blindtest/ranked /community /daily /new /profile /trending
 info    server-rendered /q/ links: off 7, on 7; hub links: off 18, on 19
 
 SEO DIFF EMPTY (title, meta, canonical, hreflang, h1, intro, json-ld identical)

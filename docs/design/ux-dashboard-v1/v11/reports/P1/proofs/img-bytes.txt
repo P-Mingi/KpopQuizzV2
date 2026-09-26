@@ -1,0 +1,46 @@
+== flag off (http://localhost:4002/, 390 x 844, DPR 3; pass 2 after a warm-up pass)
+images loaded at first paint (networkidle): 39, 169 KB
+images after scrolling to the end: 50, 394 KB
+largest images:
+  57 KB  /2026/09/Kim-Hye-Young-FI.jpg w=-
+  40 KB  /blindtest-header.jpg w=-
+  29 KB  /verse/brand/logo-192.png w=-
+  25 KB  /storage/v1/object/public/group-logos/newjeans.jpg w=-
+  21 KB  /storage/v1/object/public/group-logos/seventeen.jpg w=-
+  18 KB  /storage/v1/object/public/group-logos/aespa.jpg w=-
+  18 KB  /storage/v1/object/public/group-logos/red-velvet.jpg w=-
+  16 KB  /storage/v1/object/public/group-logos/le-sserafim.jpg w=-
+photos from public/idols (served width, rendered width): 0
+
+== flag on (http://localhost:4003/, 390 x 844, DPR 3; pass 2 after a warm-up pass)
+images loaded at first paint (networkidle): 21, 486 KB
+images after scrolling to the end: 23, 521 KB
+largest images:
+  114 KB  <storage>/storage/v1/object/public/quiz-images/quiz-images/2026/09/dec w=1080
+  65 KB  <storage>/storage/v1/object/public/quiz-images/quiz-images/2026/09/811 w=1080
+  61 KB  <storage>/storage/v1/object/public/quiz-images/quiz-images/2026/09/491 w=1080
+  53 KB  <storage>/storage/v1/object/public/quiz-images/quiz-images/2026/09/30e w=1080
+  41 KB  <storage>/storage/v1/object/public/quiz-images/quiz-images/2026/09/bee w=1080
+  29 KB  /verse/brand/logo-192.png w=-
+  15 KB  /idols/TWICE.jpg w=220
+  13 KB  /idols/ITZY.jpg w=220
+photos from public/idols (served width, rendered width): 17
+  BTS.jpg@220w (80px)
+  BLACKPINK.jpg@220w (80px)
+  Stray Kids.jpg@220w (80px)
+  TWICE.jpg@220w (80px)
+  Aespa.jpg@220w (80px)
+  SEVENTEEN.jpg@220w (80px)
+  NewJeans.jpg@220w (80px)
+  BABYMONSTER.jpg@220w (80px)
+  EXO.jpg@220w (80px)
+  IVE.jpg@220w (80px)
+  ENHYPEN.jpg@220w (80px)
+  TXT.jpg@220w (80px)
+  LE SSERAFIM.jpg@220w (80px)
+  ITZY.jpg@220w (80px)
+  Girls' Generation.jpg@220w (80px)
+  BTS.jpg@128w (40px)
+  BTS.jpg@128w (40px)
+
+groups rail photos: 15; at 220 w (now, DPR 2 and 3): 154 KB; at 640 w (before the fix on DPR 3): 598 KB

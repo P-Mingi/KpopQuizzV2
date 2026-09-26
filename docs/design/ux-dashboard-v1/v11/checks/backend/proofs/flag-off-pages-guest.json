@@ -1,0 +1,273 @@
+{
+ "base": "http://localhost:4202",
+ "takenAt": "2026-09-26T16:09:40.989Z",
+ "pages": [
+  {
+   "path": "/",
+   "who": "guest",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/stats/live 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/activity/recent 200",
+    "GET /api/discord/widget 200"
+   ],
+   "errors": [
+    "/: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/quizzes",
+   "who": "guest",
+   "status": 200,
+   "final": "/quizzes",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/quizzes: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/groups",
+   "who": "guest",
+   "status": 200,
+   "final": "/groups",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/groups: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/bts-quiz",
+   "who": "guest",
+   "status": 200,
+   "final": "/bts-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/enhypen.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/9c540376-0edc-4d46-9cdc-b1aa4dcf8e2b.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/seventeen.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/05/672f0afb-77c7-43f0-a8e6-556316cf7468.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/14063591-e57b-4e17-8dc6-970df20b149f.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/txt.jpg 200"
+   ],
+   "errors": [
+    "/bts-quiz: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/q/blackpink-ultimate-fan-challenge",
+   "who": "guest",
+   "status": 200,
+   "final": "/q/blackpink-ultimate-fan-challenge",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/follow?username=roseeeyh 200",
+    "GET /api/quiz/9ac9f7f9-fbd9-4f17-8fb9-0beca03a9958/my-rank 200"
+   ],
+   "errors": [
+    "/q/blackpink-ultimate-fan-challenge: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/create",
+   "who": "guest",
+   "status": 200,
+   "final": "/create",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/create: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/blindtest",
+   "who": "guest",
+   "status": 200,
+   "final": "/blindtest",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200"
+   ],
+   "errors": [
+    "/blindtest: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/blindtest/ranked",
+   "who": "guest",
+   "status": 404,
+   "final": "/blindtest/ranked",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": []
+  },
+  {
+   "path": "/leaderboard",
+   "who": "guest",
+   "status": 200,
+   "final": "/leaderboard",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/bts.jpg 200",
+    "GET /api/auth/me 200",
+    "GET /api/stats/live 200",
+    "GET /api/activity/recent 200",
+    "GET /api/verse/my-spaces 200",
+    "GET /api/debate/me 200"
+   ],
+   "errors": [
+    "/leaderboard: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/community",
+   "who": "guest",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/stats/live 200",
+    "GET /api/activity/recent 200",
+    "GET /api/discord/widget 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200"
+   ],
+   "errors": [
+    "/community: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/community/thread/x",
+   "who": "guest",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/stats/live 200",
+    "GET /api/activity/recent 200",
+    "GET /api/discord/widget 200"
+   ],
+   "errors": [
+    "/community/thread/x: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/u/testtest",
+   "who": "guest",
+   "status": 200,
+   "final": "/u/testtest",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/follow?username=testtest 200",
+    "GET /api/auth/me 200",
+    "GET /api/auth/me 200",
+    "GET /api/auth/me 200",
+    "GET /api/auth/me 200"
+   ],
+   "errors": [
+    "/u/testtest: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/search",
+   "who": "guest",
+   "status": 200,
+   "final": "/search",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/search: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/pt",
+   "who": "guest",
+   "status": 200,
+   "final": "/pt",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/daily/streak 200"
+   ],
+   "errors": [
+    "/pt: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/notifications",
+   "who": "guest",
+   "status": 200,
+   "final": "/login",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/notifications: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  },
+  {
+   "path": "/settings",
+   "who": "guest",
+   "status": 200,
+   "final": "/login?returnTo=%2Fsettings",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/settings: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/clien"
+   ]
+  }
+ ]
+}

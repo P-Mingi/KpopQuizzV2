@@ -123,9 +123,13 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
   const [self, setSelf] = useState(false);
   const [busy, setBusy] = useState(false);
   const resumed = useRef(false);
+  /** bumped by every follow / unfollow; a status read started under an older value is stale */
+  const writes = useRef(0);
+  const [synced, setSynced] = useState(false);
   const ready = useIsClient();
 
   const post = async (action: 'follow' | 'unfollow'): Promise<void> => {
+    writes.current += 1;
     setBusy(true);
     try {
       const res = await fetch('/api/follow', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, action }) });
@@ -147,11 +151,14 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
   useEffect(() => {
     if (signedIn !== true) return;
     let cancelled = false;
+    const startedAt = writes.current;
     fetch(`/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { isSelf?: boolean; following?: boolean } | null) => {
         if (cancelled || !d) return;
         setSelf(Boolean(d.isSelf));
+        // a click while this read was in flight wins: its POST answer is newer than the read
+        if (writes.current !== startedAt) return;
         setFollowing(Boolean(d.following));
         if (!resumed.current && !d.isSelf && !d.following) {
           resumed.current = true;
@@ -159,7 +166,8 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
           if (pending && (pending.payload as { username?: string } | undefined)?.username === username) void post('follow');
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setSynced(true); });
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signedIn, username]);
@@ -174,7 +182,7 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
     void post(following ? 'unfollow' : 'follow');
   };
   return (
-    <button type="button" className="ux-lnk" aria-pressed={following} onClick={onClick} disabled={busy} data-ready={ready ? '' : undefined}>
+    <button type="button" className="ux-lnk" aria-pressed={following} onClick={onClick} disabled={busy} data-ready={ready ? '' : undefined} data-synced={synced ? '' : undefined}>
       {following ? 'Following' : 'Follow'}
     </button>
   );

@@ -1,12 +1,11 @@
 'use client';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { LevelBars, levelOf } from '@/components/ux-v1/quiz-card';
-import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
-import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
+import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 import { TITLE_PLACEHOLDER } from '@/lib/ux-v1/p5/funnel';
 import { checklist, leftOutNote } from '@/lib/ux-v1/p5/view';
 
+import type { QuizType } from '@/lib/db/types';
 import type { FunnelGroup, FunnelState } from '@/lib/ux-v1/p5/funnel';
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
@@ -16,38 +15,28 @@ import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 // itself is the bar's button (create.tsx): guests get A0's sign-in sheet.
 
 /**
- * The quiz card as it will look, from the draft. Same classes and parts as A0's
- * UxQuizCard (flush 4:3 photo, group eyebrow, title, level bars, "New"), but not a
- * link (the quiz has no page yet) and able to show the draft cover, which is a data
- * URL until publish. Request to A0: a preview mode on UxQuizCard (v11/requests/P5.md).
+ * The quiz card as it will look, from the draft: A0's UxQuizCard in preview mode (no
+ * link, the quiz has no page yet; a data-URL draft cover shown as it is).
  */
 export function DraftCard({ data, groups }: { data: FunnelState; groups: FunnelGroup[] }): React.ReactElement {
   const g = groups.find((x) => x.slug === data.group_slug);
-  const groupName = g?.name ?? data.newGroup ?? 'K-pop';
-  const title = data.title.trim() || TITLE_PLACEHOLDER.replace('e.g. ', '');
-  const photo = data.cover ?? groupPhotoUrl(g?.slug);
-  const level = levelOf(data.difficulty);
   return (
-    <div className="ux-qcard p5-card" aria-label={`Preview: ${title}, ${groupName}, ${level.label}`} role="img">
-      <div className="ux-qcov">
-        {photo ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={photo} alt="" className="ux-qcov-img" style={{ objectPosition: data.cover ? 'center 25%' : photoFocal(title) }} />
-        ) : (
-          <div className="ux-qcov-fb">
-            <span className="ux-fbn"><Icon name={QUIZ_TYPE_ICON[data.quiz_type] ?? 't-classic'} />{groupName}</span>
-          </div>
-        )}
-      </div>
-      <div className="ux-qb">
-        <span className="ux-qg">{groupName}</span>
-        <span className="ux-qt">{title}</span>
-        <div className="ux-qf">
-          <span className="ux-qlv"><LevelBars level={level.n} />{level.label}</span>
-          <span className="ux-qpl">New</span>
-        </div>
-      </div>
-    </div>
+    <UxQuizCard
+      preview
+      className="p5-card"
+      titleAs="p"
+      sizes="(max-width: 760px) 280px, 260px"
+      quiz={{
+        slug: '',
+        title: data.title.trim() || TITLE_PLACEHOLDER.replace('e.g. ', ''),
+        group_name: g?.name ?? data.newGroup ?? 'K-pop',
+        group_slug: g?.slug ?? '',
+        quiz_type: data.quiz_type as QuizType,
+        difficulty: data.difficulty,
+        play_count: 0,
+        cover_image_url: data.cover,
+      }}
+    />
   );
 }
 

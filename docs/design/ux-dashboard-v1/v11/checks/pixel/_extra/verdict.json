@@ -1,0 +1,936 @@
+{
+ "nav": {
+  "1280-user": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 860.09375,
+   "rightLeft": 966.890625,
+   "rightRight": 1200,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1280-user.png"
+  },
+  "1280-guest": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 860.09375,
+   "rightLeft": 963.765625,
+   "rightRight": 1200,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1280-guest.png"
+  },
+  "1280-prototype": {
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "navH": 65
+  },
+  "1440-user": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 940.09375,
+   "rightLeft": 1046.890625,
+   "rightRight": 1280,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1440-user.png"
+  },
+  "1440-guest": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 940.09375,
+   "rightLeft": 1043.765625,
+   "rightRight": 1280,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1440-guest.png"
+  },
+  "1440-prototype": {
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "navH": 65
+  }
+ },
+ "hover": {
+  "quiz card-light": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(255, 255, 255)",
+      "border-top-color": "rgb(242, 207, 219)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "rgba(209, 58, 110, 0.22) 0px 10px 24px -12px",
+      "transform": "matrix(1, 0, 0, 1, 0, -2)",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     },
+     " h3": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(201, 56, 104)",
+      "color": "rgb(201, 56, 104)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(201, 56, 104)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(255, 255, 255)",
+      "border-top-color": "rgb(242, 207, 219)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "rgba(209, 58, 110, 0.22) 0px 10px 24px -12px",
+      "transform": "matrix(1, 0, 0, 1, 0, -2)",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     },
+     " h3": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(201, 56, 104)",
+      "color": "rgb(201, 56, 104)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(201, 56, 104)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-quiz-card-light-{proto,impl}.png"
+  },
+  "primary button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(190, 47, 98)",
+      "border-top-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 255, 255)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(190, 47, 98)",
+      "border-top-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 255, 255)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-primary-button-light-{proto,impl}.png"
+  },
+  "ghost button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-ghost",
+   "impl": ".p1-hcta .ux-btn-ghost",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(247, 246, 244)",
+      "border-top-color": "rgb(140, 133, 124)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(247, 246, 244)",
+      "border-top-color": "rgb(140, 133, 124)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-ghost-button-light-{proto,impl}.png"
+  },
+  "text card-light": {
+   "verdict": "pass",
+   "proto": ".tcard",
+   "impl": ".ux-tcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(255, 255, 255)",
+      "border-top-color": "rgb(242, 207, 219)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(255, 255, 255)",
+      "border-top-color": "rgb(242, 207, 219)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-text-card-light-{proto,impl}.png"
+  },
+  "tab (off)-light": {
+   "verdict": "pass",
+   "proto": "#ptabs button:not(.on)",
+   "impl": ".p10-tabs [aria-selected=\"false\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-tab-off--light-{proto,impl}.png"
+  },
+  "nav link-light": {
+   "verdict": "pass",
+   "proto": ".links a:not(.on)",
+   "impl": ".ux-links a:not([aria-current])",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(247, 246, 244)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(247, 246, 244)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-nav-link-light-{proto,impl}.png"
+  },
+  "row-light": {
+   "verdict": "pass",
+   "proto": "#h-best .row",
+   "impl": ".p1-home .ux-rows .ux-row",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(31, 27, 23)",
+      "color": "rgb(31, 27, 23)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(31, 27, 23)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-row-light-{proto,impl}.png"
+  },
+  "quiz card-dark": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(74, 42, 55)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "rgba(209, 58, 110, 0.22) 0px 10px 24px -12px",
+      "transform": "matrix(1, 0, 0, 1, 0, -2)",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     },
+     " h3": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(255, 122, 165)",
+      "color": "rgb(255, 122, 165)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 122, 165)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(74, 42, 55)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "rgba(209, 58, 110, 0.22) 0px 10px 24px -12px",
+      "transform": "matrix(1, 0, 0, 1, 0, -2)",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     },
+     " h3": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(255, 122, 165)",
+      "color": "rgb(255, 122, 165)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 122, 165)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-quiz-card-dark-{proto,impl}.png"
+  },
+  "primary button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(190, 47, 98)",
+      "border-top-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 255, 255)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(190, 47, 98)",
+      "border-top-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(255, 255, 255)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-primary-button-dark-{proto,impl}.png"
+  },
+  "ghost button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-ghost",
+   "impl": ".p1-hcta .ux-btn-ghost",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(110, 106, 100)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(110, 106, 100)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-ghost-button-dark-{proto,impl}.png"
+  },
+  "text card-dark": {
+   "verdict": "pass",
+   "proto": ".tcard",
+   "impl": ".ux-tcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(74, 42, 55)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(74, 42, 55)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-text-card-dark-{proto,impl}.png"
+  },
+  "tab (off)-dark": {
+   "verdict": "pass",
+   "proto": "#ptabs button:not(.on)",
+   "impl": ".p10-tabs [aria-selected=\"false\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-tab-off--dark-{proto,impl}.png"
+  },
+  "nav link-dark": {
+   "verdict": "pass",
+   "proto": ".links a:not(.on)",
+   "impl": ".ux-links a:not([aria-current])",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgb(28, 27, 25)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-nav-link-dark-{proto,impl}.png"
+  },
+  "row-dark": {
+   "verdict": "pass",
+   "proto": "#h-best .row",
+   "impl": ".p1-home .ux-rows .ux-row",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    },
+    "impl": {
+     "": {
+      "background-color": "rgba(0, 0, 0, 0)",
+      "border-top-color": "rgb(243, 240, 235)",
+      "color": "rgb(243, 240, 235)",
+      "box-shadow": "none",
+      "transform": "none",
+      "outline-style": "none",
+      "outline-width": "3px",
+      "outline-color": "rgb(243, 240, 235)",
+      "outline-offset": "0px",
+      "text-decoration-line": "none"
+     }
+    }
+   },
+   "evidence": "_extra/hover-row-dark-{proto,impl}.png"
+  }
+ },
+ "focus": {
+  "quiz card-light": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-quiz-card-light-impl.png"
+  },
+  "primary button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-primary-button-light-impl.png"
+  },
+  "tab-light": {
+   "verdict": "pass",
+   "proto": "#ptabs button.on",
+   "impl": ".p10-tabs [aria-selected=\"true\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "BUTTON",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-tab-light-impl.png"
+  },
+  "nav link-light": {
+   "verdict": "pass",
+   "proto": ".links a.on",
+   "impl": ".ux-links a[aria-current=\"page\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-nav-link-light-impl.png"
+  },
+  "quiz card-dark": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-quiz-card-dark-impl.png"
+  },
+  "primary button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-primary-button-dark-impl.png"
+  },
+  "tab-dark": {
+   "verdict": "pass",
+   "proto": "#ptabs button.on",
+   "impl": ".p10-tabs [aria-selected=\"true\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "BUTTON",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-tab-dark-impl.png"
+  },
+  "nav link-dark": {
+   "verdict": "pass",
+   "proto": ".links a.on",
+   "impl": ".ux-links a[aria-current=\"page\"]",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "A",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-nav-link-dark-impl.png"
+  }
+ },
+ "tokens": {
+  "light": {
+   "verdict": "pass",
+   "compared": 44,
+   "mismatches": [],
+   "noCounterpart": [
+    "--plum",
+    "--plum-2",
+    "--plum-3",
+    "--plum-ink",
+    "--plum-muted"
+   ],
+   "noCounterpartNote": "prototype --plum* feed only the base .band / .bthero rules, which later v11 rules override (their computed styles are compared as landmarks: pass)",
+   "skippedAsData": [
+    "--theme-band"
+   ],
+   "bodyBackground": "rgb(255, 255, 255)"
+  },
+  "dark": {
+   "verdict": "pass",
+   "compared": 44,
+   "mismatches": [],
+   "noCounterpart": [
+    "--plum",
+    "--plum-2",
+    "--plum-3",
+    "--plum-ink",
+    "--plum-muted"
+   ],
+   "noCounterpartNote": "prototype --plum* feed only the base .band / .bthero rules, which later v11 rules override (their computed styles are compared as landmarks: pass)",
+   "skippedAsData": [
+    "--theme-band"
+   ],
+   "bodyBackground": "rgb(20, 19, 18)"
+  }
+ },
+ "motion": {
+  "home": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "blindtest game": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "quiz game": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "prototype": {
+   "running": 0
+  }
+ }
+}

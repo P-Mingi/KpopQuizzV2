@@ -1,0 +1,462 @@
+[
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,quiz_of_the_day_date",
+   "eq": {
+    "status": "published",
+    "is_quiz_of_the_day": true
+   },
+   "order": [
+    "quiz_of_the_day_date",
+    false
+   ],
+   "limit": 3
+  },
+  "rows": 3,
+  "data": [
+   {
+    "slug": "stray-kids-district-9-quiz",
+    "quiz_of_the_day_date": "2026-06-30"
+   },
+   {
+    "slug": "red-velvet-the-perfect-velvet-era",
+    "quiz_of_the_day_date": "2026-06-29"
+   },
+   {
+    "slug": "k-pop-social-media-and-online-culture",
+    "quiz_of_the_day_date": "2026-06-28"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "quiz_of_the_day_date": "2026-09-26"
+   }
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,quiz_of_the_day_date",
+   "eq": {
+    "status": "published"
+   },
+   "not": [
+    "quiz_of_the_day_date",
+    "is",
+    null
+   ],
+   "order": [
+    "quiz_of_the_day_date",
+    true
+   ]
+  },
+  "rows": 84,
+  "data": [
+   {
+    "slug": "ultimate-bts-era-quiz-only-real-armys-survive",
+    "quiz_of_the_day_date": "2026-03-26"
+   },
+   {
+    "slug": "can-you-guess-the-ive-song-from-3-clues-",
+    "quiz_of_the_day_date": "2026-03-27"
+   },
+   {
+    "slug": "k-pop-fandoms-true-or-false",
+    "quiz_of_the_day_date": "2026-04-06"
+   },
+   {
+    "slug": "k-pop-music-production",
+    "quiz_of_the_day_date": "2026-04-07"
+   },
+   {
+    "slug": "gi-dle-the-tomboy-era",
+    "quiz_of_the_day_date": "2026-04-08"
+   },
+   {
+    "slug": "k-pop-survival-shows",
+    "quiz_of_the_day_date": "2026-04-09"
+   },
+   {
+    "slug": "txt-the-chaos-chapter-era",
+    "quiz_of_the_day_date": "2026-04-10"
+   },
+   {
+    "slug": "astro-a-to-z",
+    "quiz_of_the_day_date": "2026-04-11"
+   },
+   {
+    "slug": "itzy-the-crazy-in-love-era",
+    "quiz_of_the_day_date": "2026-04-12"
+   },
+   {
+    "slug": "monsta-x-ultimate-fan-quiz",
+    "quiz_of_the_day_date": "2026-04-13"
+   },
+   {
+    "slug": "k-pop-surprising-and-weird-facts",
+    "quiz_of_the_day_date": "2026-04-15"
+   },
+   {
+    "slug": "exo-the-exodus-era",
+    "quiz_of_the_day_date": "2026-04-16"
+   },
+   {
+    "slug": "k-pop-variety-shows-and-games",
+    "quiz_of_the_day_date": "2026-04-17"
+   },
+   {
+    "slug": "got7-the-flight-log-trilogy",
+    "quiz_of_the_day_date": "2026-04-18"
+   },
+   {
+    "slug": "seventeen-caratland-quiz",
+    "quiz_of_the_day_date": "2026-04-19"
+   },
+   {
+    "slug": "k-pop-training-system-and-idol-life",
+    "quiz_of_the_day_date": "2026-04-20"
+   },
+   {
+    "slug": "mamamoo-the-curtain-call-era",
+    "quiz_of_the_day_date": "2026-04-21"
+   },
+   {
+    "slug": "bts-the-ultimate-quiz",
+    "quiz_of_the_day_date": "2026-04-22"
+   },
+   {
+    "slug": "k-pop-label-structure-and-companies",
+    "quiz_of_the_day_date": "2026-04-23"
+   },
+   {
+    "slug": "k-pop-viral-dance-challenges",
+    "quiz_of_the_day_date": "2026-04-24"
+   },
+   {
+    "slug": "k-pop-and-k-drama-osts",
+    "quiz_of_the_day_date": "2026-04-25"
+   },
+   {
+    "slug": "mamamoo-hip-quiz",
+    "quiz_of_the_day_date": "2026-04-26"
+   },
+   {
+    "slug": "enhypen-the-dark-blood-era",
+    "quiz_of_the_day_date": "2026-04-27"
+   },
+   {
+    "slug": "k-pop-surprise-collaborations",
+    "quiz_of_the_day_date": "2026-04-28"
+   },
+   {
+    "slug": "enhypen-drunk-dazed-quiz",
+    "quiz_of_the_day_date": "2026-04-29"
+   },
+   {
+    "slug": "k-pop-and-japan",
+    "quiz_of_the_day_date": "2026-04-30"
+   },
+   {
+    "slug": "got7-never-ever-quiz",
+    "quiz_of_the_day_date": "2026-05-01"
+   },
+   {
+    "slug": "k-pop-inside-jokes-and-running-gags",
+    "quiz_of_the_day_date": "2026-05-02"
+   },
+   {
+    "slug": "blackpink-kill-this-love-era",
+    "quiz_of_the_day_date": "2026-05-03"
+   },
+   {
+    "slug": "girls-generation-the-legend-quiz",
+    "quiz_of_the_day_date": "2026-05-04"
+   },
+   {
+    "slug": "k-pop-milestones-and-firsts-true-or-false",
+    "quiz_of_the_day_date": "2026-05-05"
+   },
+   {
+    "slug": "k-pop-sub-units-and-solo-debuts",
+    "quiz_of_the_day_date": "2026-05-06"
+   },
+   {
+    "slug": "red-velvet-psycho-quiz",
+    "quiz_of_the_day_date": "2026-05-07"
+   },
+   {
+    "slug": "bts-the-hyyh-era-hwa-yang-yeon-hwa",
+    "quiz_of_the_day_date": "2026-05-08"
+   },
+   {
+    "slug": "k-pop-fashion-and-brand-ambassadors",
+    "quiz_of_the_day_date": "2026-05-09"
+   },
+   {
+    "slug": "k-pop-merchandise-and-collecting",
+    "quiz_of_the_day_date": "2026-05-10"
+   },
+   {
+    "slug": "k-pop-generation-history",
+    "quiz_of_the_day_date": "2026-05-11"
+   },
+   {
+    "slug": "aespa-black-mamba-quiz",
+    "quiz_of_the_day_date": "2026-05-12"
+   },
+   {
+    "slug": "nct-127-regular-irregular-era",
+    "quiz_of_the_day_date": "2026-05-13"
+   },
+   {
+    "slug": "k-pop-lingo-and-fan-culture",
+    "quiz_of_the_day_date": "2026-05-14"
+   },
+   {
+    "slug": "k-pop-music-shows-true-or-false",
+    "quiz_of_the_day_date": "2026-05-15"
+   },
+   {
+    "slug": "k-pop-member-nicknames-and-fun-facts",
+    "quiz_of_the_day_date": "2026-05-16"
+   },
+   {
+    "slug": "k-pop-variety-shows",
+    "quiz_of_the_day_date": "2026-05-17"
+   },
+   {
+    "slug": "bigbang-vips-only-quiz",
+    "quiz_of_the_day_date": "2026-05-18"
+   },
+   {
+    "slug": "4th-gen-groups-true-or-false",
+    "quiz_of_the_day_date": "2026-05-19"
+   },
+   {
+    "slug": "shinee-the-sherlock-era",
+    "quiz_of_the_day_date": "2026-05-20"
+   },
+   {
+    "slug": "k-pop-goes-west",
+    "quiz_of_the_day_date": "2026-05-21"
+   },
+   {
+    "slug": "shinee-ring-ding-dong-quiz",
+    "quiz_of_the_day_date": "2026-05-22"
+   },
+   {
+    "slug": "twice-formula-of-love-era",
+    "quiz_of_the_day_date": "2026-05-23"
+   },
+   {
+    "slug": "k-pop-idol-life-true-or-false",
+    "quiz_of_the_day_date": "2026-05-24"
+   },
+   {
+    "slug": "k-pop-concert-tours",
+    "quiz_of_the_day_date": "2026-05-25"
+   },
+   {
+    "slug": "k-pop-group-friendships",
+    "quiz_of_the_day_date": "2026-05-26"
+   },
+   {
+    "slug": "k-pop-debuts-and-disbandments-true-or-false",
+    "quiz_of_the_day_date": "2026-05-27"
+   },
+   {
+    "slug": "ateez-fireworks-quiz",
+    "quiz_of_the_day_date": "2026-05-28"
+   },
+   {
+    "slug": "k-pop-agencies-true-or-false",
+    "quiz_of_the_day_date": "2026-05-29"
+   },
+   {
+    "slug": "newjeans-omg-quiz",
+    "quiz_of_the_day_date": "2026-05-30"
+   },
+   {
+    "slug": "bts-true-or-false",
+    "quiz_of_the_day_date": "2026-06-01"
+   },
+   {
+    "slug": "k-pop-fan-moments-and-memes",
+    "quiz_of_the_day_date": "2026-06-02"
+   },
+   {
+    "slug": "3rd-generation-k-pop-true-or-false",
+    "quiz_of_the_day_date": "2026-06-03"
+   },
+   {
+    "slug": "txt-cant-you-see-me-quiz",
+    "quiz_of_the_day_date": "2026-06-04"
+   },
+   {
+    "slug": "exo-power-quiz",
+    "quiz_of_the_day_date": "2026-06-05"
+   },
+   {
+    "slug": "k-pop-girl-groups-true-or-false",
+    "quiz_of_the_day_date": "2026-06-06"
+   },
+   {
+    "slug": "k-pop-international-collaborations",
+    "quiz_of_the_day_date": "2026-06-07"
+   },
+   {
+    "slug": "aespa-my-world-era",
+    "quiz_of_the_day_date": "2026-06-08"
+   },
+   {
+    "slug": "nct-127-limitless-quiz",
+    "quiz_of_the_day_date": "2026-06-09"
+   },
+   {
+    "slug": "k-pop-streaming-records",
+    "quiz_of_the_day_date": "2026-06-10"
+   },
+   {
+    "slug": "ive-the-ive-ive-era",
+    "quiz_of_the_day_date": "2026-06-11"
+   },
+   {
+    "slug": "itzy-dalla-dalla-quiz",
+    "quiz_of_the_day_date": "2026-06-12"
+   },
+   {
+    "slug": "blackpink-true-or-false-1781311005",
+    "quiz_of_the_day_date": "2026-06-13"
+   },
+   {
+    "slug": "k-pop-concert-and-light-stick-culture",
+    "quiz_of_the_day_date": "2026-06-14"
+   },
+   {
+    "slug": "blackpink-how-you-like-that-quiz",
+    "quiz_of_the_day_date": "2026-06-15"
+   },
+   {
+    "slug": "k-pop-boy-groups-true-or-false",
+    "quiz_of_the_day_date": "2026-06-16"
+   },
+   {
+    "slug": "ateez-the-fever-era",
+    "quiz_of_the_day_date": "2026-06-17"
+   },
+   {
+    "slug": "stray-kids-the-miroh-era",
+    "quiz_of_the_day_date": "2026-06-19"
+   },
+   {
+    "slug": "k-pop-mascots-and-cute-culture",
+    "quiz_of_the_day_date": "2026-06-20"
+   },
+   {
+    "slug": "gi-dle-tomboy-quiz",
+    "quiz_of_the_day_date": "2026-06-21"
+   },
+   {
+    "slug": "k-pop-awards-and-records-true-or-false",
+    "quiz_of_the_day_date": "2026-06-22"
+   },
+   {
+    "slug": "k-pop-group-colors-and-lightsticks",
+    "quiz_of_the_day_date": "2026-06-23"
+   },
+   {
+    "slug": "k-pop-choreography-and-dance",
+    "quiz_of_the_day_date": "2026-06-24"
+   },
+   {
+    "slug": "k-pop-idol-nationalities",
+    "quiz_of_the_day_date": "2026-06-25"
+   },
+   {
+    "slug": "k-pop-awards-and-milestones",
+    "quiz_of_the_day_date": "2026-06-26"
+   },
+   {
+    "slug": "k-pop-social-media-and-online-culture",
+    "quiz_of_the_day_date": "2026-06-28"
+   },
+   {
+    "slug": "red-velvet-the-perfect-velvet-era",
+    "quiz_of_the_day_date": "2026-06-29"
+   },
+   {
+    "slug": "stray-kids-district-9-quiz",
+    "quiz_of_the_day_date": "2026-06-30"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,title,question_count,total_score_sum,total_completions,difficulty,quiz_type,quiz_of_the_day_date",
+   "eq": {
+    "slug": "mamamoo-the-curtain-call-era"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "slug": "mamamoo-the-curtain-call-era",
+    "title": "MAMAMOO: The Curtain Call Era",
+    "question_count": 10,
+    "total_score_sum": 50,
+    "total_completions": 7,
+    "difficulty": "hard",
+    "quiz_type": "multiple_choice",
+    "quiz_of_the_day_date": "2026-04-21"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "qotd_log",
+   "s": "*",
+   "order": [
+    "date",
+    false
+   ],
+   "limit": 3
+  },
+  "data": null,
+  "error": "column qotd_log.date does not exist"
+ },
+ {
+  "q": {
+   "t": "activity_events",
+   "count": true,
+   "head": true,
+   "in": {
+    "id": [
+     43238,
+     43237,
+     43236,
+     43235,
+     43234,
+     43233,
+     43232,
+     43231,
+     43230,
+     43229,
+     43228,
+     43227,
+     43226,
+     43225
+    ]
+   }
+  },
+  "count": 14
+ }
+]
