@@ -1,0 +1,268 @@
+{
+ "totals": {
+  "passed": 542,
+  "flaky": 1,
+  "failed": 0,
+  "skipped": 8
+ },
+ "rows": [
+  {
+   "file": "auth.setup.ts",
+   "project": "setup",
+   "passed": 1,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "kit.spec.ts",
+   "project": "ux-1440",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "kit.spec.ts",
+   "project": "ux-390",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p1.spec.ts",
+   "project": "ux-1440",
+   "passed": 18,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p1.spec.ts",
+   "project": "ux-390",
+   "passed": 18,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p10.spec.ts",
+   "project": "ux-1440",
+   "passed": 42,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p10.spec.ts",
+   "project": "ux-390",
+   "passed": 42,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p11.spec.ts",
+   "project": "ux-1440",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p11.spec.ts",
+   "project": "ux-390",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p3.spec.ts",
+   "project": "ux-1440",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p3.spec.ts",
+   "project": "ux-390",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-1440",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-390",
+   "passed": 21,
+   "flaky": 1,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p5.spec.ts",
+   "project": "ux-1440",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p5.spec.ts",
+   "project": "ux-390",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p6.spec.ts",
+   "project": "ux-1440",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p6.spec.ts",
+   "project": "ux-390",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p7.spec.ts",
+   "project": "ux-1440",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p7.spec.ts",
+   "project": "ux-390",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-1440",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-390",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p9.spec.ts",
+   "project": "ux-1440",
+   "passed": 20,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p9.spec.ts",
+   "project": "ux-390",
+   "passed": 20,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-1440",
+   "passed": 15,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "passed": 12,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 4
+  }
+ ],
+ "failures": [],
+ "flakes": [
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-390",
+   "title": "P4 interactions › like, comments (guest -> sign in to reply), report sheet payload"
+  }
+ ],
+ "skips": [
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-1440",
+   "title": "P4 interactions › phones: sticky Start appears once the first Start scrolls away",
+   "why": "phone only"
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-1440",
+   "title": "Verse gates › VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode",
+   "why": "this server runs with VERSE_PUBLIC=true: the case above"
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-390",
+   "title": "Verse gates › VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode",
+   "why": "this server runs with VERSE_PUBLIC=true: the case above"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-1440",
+   "title": "keyboard + sign-in › phone: guest \"You\" tab opens the sign-in bottom sheet",
+   "why": "phone only"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "client navigation › keyboard: Enter on a nav link lands on the new H1",
+   "why": "desktop nav"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1440px: one line, no overlap",
+   "why": "desktop widths"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1280px: one line, no overlap",
+   "why": "desktop widths"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1100px: one line, no overlap",
+   "why": "desktop widths"
+  }
+ ]
+}
