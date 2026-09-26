@@ -150,6 +150,32 @@ export function useRankedRun(opts: {
     cleanup();
   }, [cleanup]);
 
+  // Leaving the page (tab closed, back button) quits an open run: it is recorded now
+  // with the songs answered, not only at the next start or the nightly job.
+  useEffect(() => {
+    const leave = (): void => {
+      const token = tokenRef.current;
+      if (!token || closedRef.current) return;
+      closedRef.current = true;
+      try {
+        void fetch('/api/ranked/run/submit', {
+          method: 'POST',
+          keepalive: true,
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        }).catch(() => {});
+      } catch {
+        // the next start or the nightly job closes it
+      }
+    };
+    window.addEventListener('pagehide', leave);
+    return () => {
+      window.removeEventListener('pagehide', leave);
+      leave();
+    };
+  }, []);
+
   const stopTimer = useCallback(() => {
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
     if (blockedRef.current) { clearTimeout(blockedRef.current); blockedRef.current = null; }
