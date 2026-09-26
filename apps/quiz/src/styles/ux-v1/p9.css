@@ -31,8 +31,8 @@
 .p9-psub { display: block; height: 25.6px; font-size: 13px; line-height: 25.6px; color: var(--ux-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .p9-pts { display: block; margin-top: 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ux-ink); }
 .p9-pod[data-rank="1"] .p9-pts { color: var(--ux-pink-ink); }
-.p9-unit { font-size: 13px; font-weight: 500; letter-spacing: normal; color: var(--ux-muted); }
-.p9-pts .p9-unit { font-size: .6em; }
+/* the prototype's `<small class="muted" style="font-weight:500">XP</small>`: the browser's "smaller" size */
+.p9-unit { font-size: smaller; font-weight: 500; color: var(--ux-muted); }
 /* the name is the pod's link; the whole pod is its click target */
 .p9-pod .p9-link::after, .p9-lrow .p9-link::after { content: ""; position: absolute; inset: 0; }
 /* hover: pink-ink name, except a fan's own name colour (17.8 flair stays theirs) */
