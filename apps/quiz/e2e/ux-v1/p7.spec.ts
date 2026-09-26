@@ -323,6 +323,14 @@ for (const theme of THEMES) {
       expect(cmp.mismatches, 'computed styles equal to styles.json').toEqual([]);
       const axe = await runAxe(page, { include: '.ux-page' });
       if (axe) expect(axe, 'axe serious / critical on the ranked results').toEqual([]);
+
+      // Play another ranked run: a new run starts; quitting it closes it.
+      await page.locator('.p6-resact .ux-btn-primary').click();
+      await expect(page.locator('.p6-ans:not([disabled])')).toHaveCount(4);
+      expect(h.ranked.filter((c) => c.path === '/api/ranked/run')).toHaveLength(2);
+      await page.getByRole('button', { name: 'Quit blindtest' }).click();
+      await expect(page.locator('.p7-card')).toBeVisible();
+      expect(h.server.state?.status).toBe('quit');
       expect(h.writes, 'nothing else was written').toEqual([]);
     });
 

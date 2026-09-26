@@ -71,7 +71,8 @@ export function RankedController({ children }: { children: React.ReactNode }): R
   const [ladders, setLadders] = useState<Partial<Record<LadderScope, LadderState>>>({});
   const [tick, setTick] = useState(0);
   const alive = useRef(true);
-  useEffect(() => () => { alive.current = false; }, []);
+  // Set on (re)mount too: Strict Mode unmounts and remounts once in development.
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
 
   // The season card (and whether ranked is live at all).
   useEffect(() => {
