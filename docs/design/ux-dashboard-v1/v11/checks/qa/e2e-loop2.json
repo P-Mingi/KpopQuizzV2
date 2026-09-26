@@ -1,0 +1,554 @@
+{
+ "totals": {
+  "passed": 738,
+  "flaky": 0,
+  "failed": 37,
+  "skipped": 8
+ },
+ "rows": [
+  {
+   "file": "auth.setup.ts",
+   "project": "setup",
+   "passed": 1,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "kit.spec.ts",
+   "project": "ux-1440",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "kit.spec.ts",
+   "project": "ux-390",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p1.spec.ts",
+   "project": "ux-1440",
+   "passed": 18,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p1.spec.ts",
+   "project": "ux-390",
+   "passed": 18,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p10.spec.ts",
+   "project": "ux-1440",
+   "passed": 42,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p10.spec.ts",
+   "project": "ux-390",
+   "passed": 42,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p11.spec.ts",
+   "project": "ux-1440",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p11.spec.ts",
+   "project": "ux-390",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p3.spec.ts",
+   "project": "ux-1440",
+   "passed": 19,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p3.spec.ts",
+   "project": "ux-390",
+   "passed": 19,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-1440",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-390",
+   "passed": 23,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p5.spec.ts",
+   "project": "ux-1440",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p5.spec.ts",
+   "project": "ux-390",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p6.spec.ts",
+   "project": "ux-1440",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p6.spec.ts",
+   "project": "ux-390",
+   "passed": 29,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p7.spec.ts",
+   "project": "ux-1440",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p7.spec.ts",
+   "project": "ux-390",
+   "passed": 17,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-1440",
+   "passed": 31,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-390",
+   "passed": 31,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "p9.spec.ts",
+   "project": "ux-1440",
+   "passed": 20,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "p9.spec.ts",
+   "project": "ux-390",
+   "passed": 20,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "passed": 70,
+   "flaky": 0,
+   "failed": 18,
+   "skipped": 0
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "passed": 70,
+   "flaky": 0,
+   "failed": 18,
+   "skipped": 0
+  },
+  {
+   "file": "qa-keyboard.spec.ts",
+   "project": "ux-1440",
+   "passed": 21,
+   "flaky": 0,
+   "failed": 1,
+   "skipped": 0
+  },
+  {
+   "file": "qa-keyboard.spec.ts",
+   "project": "ux-390",
+   "passed": 22,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 0
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-1440",
+   "passed": 15,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 1
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "passed": 12,
+   "flaky": 0,
+   "failed": 0,
+   "skipped": 4
+  }
+ ],
+ "failures": [
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › quizzes (/quizzes)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | label:nth-child(1) > .fbd-label | label:nth-child(2) > .fbd-label | label:nth-child(3) > .fbd-label | label:nth-child(4) > .fbd-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › trivia (/blackpink-trivia)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent.transition-colors[href=\"/\"] | .hover\\:text-accent.transition-colors[href$=\"blackpink-quiz\"] | .group-updated | time | .btn-outline > span / expect(received).toEqual(expected) // deep equal"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › blindtest-mode (/blindtest/classic)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .mb-6 | .hover\\:text-\\[var\\(--text-secondary\\)\\] / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › pt (/pt)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .btn-outline | .daily-col > .sec-label | .daily-author | .discord-context-line | .bt-cta-go-label / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › pt-blindtest (/pt/blindtest)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | .bt-kicker | .bt-pick-all-title | .bt-pick-all-sub | .bt-pick-heading:nth-child(1) / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › pt-leaderboard (/pt/leaderboard)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ #main > div > div:nth-child(1) > div | div:nth-child(1) > span | div:nth-child(2) > span | div:nth-child(3) > div:nth-child(3) > span / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › articles (/articles)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-cat | a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-date | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(1) | a[href$=\"w"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › article (/articles/best-kpop-quiz-sites-2026)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .art-breadcrumbs > a[href=\"/\"] | .art-breadcrumbs > a[href$=\"articles\"] | .art-category | .art-date | .art-tag:nth-child(1) / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, light › stats (/stats)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .stats-breadcrumbs > a[href=\"/\"] | .stats-breadcrumbs > span:nth-child(3) | .stats-subtitle | .stats-updated | .stats-card:nth-child(1) > .stats-card-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › quizzes (/quizzes)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | div[aria-label=\"Filter by language\"] > .filter-group-label | a[href$=\"popular-today\"] | .browse-popular-row:nth-child(7) > a[href$=\"popular-this-week\"] | a[href$=\"popular-this-month\"] / "
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › trivia (/blackpink-trivia)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent.transition-colors[href=\"/\"] | .hover\\:text-accent.transition-colors[href$=\"blackpink-quiz\"] | .group-updated | time | .btn-outline > span / expect(received).toEqual(expected) // deep equal"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › blindtest-mode (/blindtest/classic)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .mb-6 | .hover\\:text-\\[var\\(--text-secondary\\)\\] / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › pt (/pt)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .btn-outline | .daily-col > .sec-label | .daily-author | .discord-context-line | .bt-cta-go-label / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › pt-blindtest (/pt/blindtest)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | .bt-kicker | .bt-pick-all-title | .bt-pick-all-sub | .bt-pick-heading:nth-child(1) / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › pt-leaderboard (/pt/leaderboard)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ #main > div > div:nth-child(1) > div | div:nth-child(1) > span | div:nth-child(2) > span | div:nth-child(3) > div:nth-child(3) > span / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › articles (/articles)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-cat | a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-date | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(1) | a[href$=\"w"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › article (/articles/best-kpop-quiz-sites-2026)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .art-breadcrumbs > a[href=\"/\"] | .art-breadcrumbs > a[href$=\"articles\"] | .art-category | .art-date | .art-tag:nth-child(1) / serious scrollable-region-focusable: Scrollable region must have keyboard access @"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, light › stats (/stats)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .stats-breadcrumbs > a[href=\"/\"] | .stats-breadcrumbs > span:nth-child(3) | .stats-subtitle | .stats-updated | .stats-card:nth-child(1) > .stats-card-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › quizzes (/quizzes)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | label:nth-child(1) > .fbd-label | label:nth-child(2) > .fbd-label | label:nth-child(3) > .fbd-label | label:nth-child(4) > .fbd-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › trivia (/blackpink-trivia)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent.transition-colors[href=\"/\"] | .hover\\:text-accent.transition-colors[href$=\"blackpink-quiz\"] | .group-updated | time | .trivia-stat:nth-child(1) > .trivia-stat-label / expect(received).toEq"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › blindtest-mode (/blindtest/classic)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .mb-6 | .hover\\:text-\\[var\\(--text-secondary\\)\\] / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › pt (/pt)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .daily-col > .sec-label | .daily-reset | .daily-author | .discord-context-line | .bt-cta-go-label / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › pt-blindtest (/pt/blindtest)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | .bt-pick-all-sub | .bt-pick-heading:nth-child(1) | .bt-pick-heading:nth-child(3) | .bt-pick-group > .bt-pick-heading / expect(received).toEqual(expected) // deep equality / - Expected  -"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › pt-leaderboard (/pt/leaderboard)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ #main > div > div:nth-child(1) > div | div:nth-child(1) > span | div:nth-child(2) > span | div:nth-child(3) > div:nth-child(3) > span / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › articles (/articles)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-date | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(1) | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(2"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › article (/articles/best-kpop-quiz-sites-2026)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .art-breadcrumbs > a[href=\"/\"] | .art-breadcrumbs > a[href$=\"articles\"] | .art-date | .art-tag:nth-child(1) | .art-tag:nth-child(2) / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-1440",
+   "title": "QA axe, guest, dark › stats (/stats)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .stats-breadcrumbs > a[href=\"/\"] | .stats-breadcrumbs > span:nth-child(3) | .stats-subtitle | .stats-updated | .stats-card:nth-child(1) > .stats-card-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › quizzes (/quizzes)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | div[aria-label=\"Filter by language\"] > .filter-group-label | .grid-full:nth-child(15) > .bg-accent-bg.border-\\[1\\.5px\\].border-dashed > .text-\\[15px\\].text-accent-hover.font-bold | .grid"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › trivia (/blackpink-trivia)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent.transition-colors[href=\"/\"] | .hover\\:text-accent.transition-colors[href$=\"blackpink-quiz\"] | .group-updated | time | .trivia-stat:nth-child(1) > .trivia-stat-label / expect(received).toEq"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › blindtest-mode (/blindtest/classic)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .mb-6 | .px-10 | .hover\\:text-\\[var\\(--text-secondary\\)\\] / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › pt (/pt)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .daily-col > .sec-label | .daily-reset | .daily-author | .discord-context-line | .bt-cta-go-label / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › pt-blindtest (/pt/blindtest)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .hover\\:text-accent | .bt-pick-all-sub | .bt-pick-heading:nth-child(1) | .bt-pick-heading:nth-child(3) | .bt-pick-group > .bt-pick-heading / expect(received).toEqual(expected) // deep equality / - Expected  -"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › pt-leaderboard (/pt/leaderboard)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ #main > div > div:nth-child(1) > div | div:nth-child(1) > span | div:nth-child(2) > span | div:nth-child(3) > div:nth-child(3) > span / expect(received).toEqual(expected) // deep equality / - Expected  -  1"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › articles (/articles)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ a[href$=\"who-is-cortis\"] > .artx-card-top > .artx-card-date | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(1) | a[href$=\"who-is-cortis\"] > .artx-card-tags > .artx-card-tag:nth-child(2"
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › article (/articles/best-kpop-quiz-sites-2026)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .art-breadcrumbs > a[href=\"/\"] | .art-breadcrumbs > a[href$=\"articles\"] | .art-date | .art-tag:nth-child(1) | .art-tag:nth-child(2) / serious scrollable-region-focusable: Scrollable region must have keyboard "
+  },
+  {
+   "file": "qa-a11y.spec.ts",
+   "project": "ux-390",
+   "title": "QA axe, guest, dark › stats (/stats)",
+   "line": 159,
+   "error": "Error: serious color-contrast: Elements must meet minimum color contrast ratio thresholds @ .stats-breadcrumbs > a[href=\"/\"] | .stats-breadcrumbs > span:nth-child(3) | .stats-subtitle | .stats-updated | .stats-card:nth-child(1) > .stats-card-label / expect(received).toEqual(expected) // deep equalit"
+  },
+  {
+   "file": "qa-keyboard.spec.ts",
+   "project": "ux-1440",
+   "title": "QA keyboard walk (light) › quizzes (/quizzes)",
+   "line": 304,
+   "error": "Error: disclosures open with Enter, close with Escape, focus returns / expect(received).toEqual(expected) // deep equality / - Expected  - 1"
+  }
+ ],
+ "flakes": [],
+ "skips": [
+  {
+   "file": "p4.spec.ts",
+   "project": "ux-1440",
+   "title": "P4 interactions › phones: sticky Start appears once the first Start scrolls away",
+   "why": "phone only"
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-1440",
+   "title": "Verse gates › VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode",
+   "why": "this server runs with VERSE_PUBLIC=true: the case above"
+  },
+  {
+   "file": "p8.spec.ts",
+   "project": "ux-390",
+   "title": "Verse gates › VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode",
+   "why": "this server runs with VERSE_PUBLIC=true: the case above"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-1440",
+   "title": "keyboard + sign-in › phone: guest \"You\" tab opens the sign-in bottom sheet",
+   "why": "phone only"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "client navigation › keyboard: Enter on a nav link lands on the new H1",
+   "why": "desktop nav"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1440px: one line, no overlap",
+   "why": "desktop widths"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1280px: one line, no overlap",
+   "why": "desktop widths"
+  },
+  {
+   "file": "shell.spec.ts",
+   "project": "ux-390",
+   "title": "nav fits › at 1100px: one line, no overlap",
+   "why": "desktop widths"
+  }
+ ]
+}
