@@ -25,8 +25,10 @@
 .p9-pav-tier .p7-gem { width: 44px; height: 44px; border-radius: 12px; }
 .p9-prk { display: block; margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--ux-muted); }
 .p9-pod[data-rank="1"] .p9-prk { color: var(--ux-pink-ink); }
-.p9-pname { margin-top: 2px; font-size: 18px; font-weight: 600; line-height: 1.6; letter-spacing: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.p9-psub { font-size: 13px; color: var(--ux-muted); }
+/* real names can be longer than the prototype's: one line, ellipsis (the pods keep their height) */
+.p9-pname { margin-top: 2px; font-size: 18px; font-weight: 600; line-height: 1.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* the prototype's inline <small> sits in a 25.6px line box: the same box as a block, with an ellipsis */
+.p9-psub { display: block; height: 25.6px; font-size: 13px; line-height: 25.6px; color: var(--ux-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .p9-pts { display: block; margin-top: 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ux-ink); }
 .p9-pod[data-rank="1"] .p9-pts { color: var(--ux-pink-ink); }
 .p9-unit { font-size: 13px; font-weight: 500; letter-spacing: normal; color: var(--ux-muted); }
