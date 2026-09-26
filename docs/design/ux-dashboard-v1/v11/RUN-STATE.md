@@ -22,9 +22,9 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | ux11/c1-check | running (loop 1, spawned on 48189d5) | - | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | running (loop 1, spawned on 48189d5) | - | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | running (loop 1, spawned on 48189d5) | - | - | v11/REPORT.md |
+| C1 | ux11/c1-check | running (loop 1; resumed 18:26 after the app stopped; evidence was uncommitted, told to commit) | - | - | v11/checks/pixel/ |
+| C2 | ux11/c2-check | running (loop 1; resumed 18:26; 3 commits pushed; issue C2-001 filed for A0) | 26b53ba | - | v11/checks/backend/ |
+| C3 | ux11/c3-check | running (loop 1; resumed 18:26; 3 local commits, told to push) | 936850c | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -103,6 +103,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 18:24 The app stopped: C1, C2, C3 and the :3021 server were stopped. Server restarted from the same dcc3159 build (.worktrees/ux11-integration-b); checkers resumed from their transcripts. Load average ~40 from other projects on the machine (Pricely test runs, a VM), not this run. First issue in: C2-001 (A0): /api/quizzes/count (Phase 1 endpoint) answers 200 with the flag off; gate it (404 flag off) or delete it. Fixes are batched after loop 1 so there is one rebuild.
 - 2026-09-26 Server swapped to the dcc3159 build (809/809 pages; /community 200 noindex, follow). C1, C2, C3 told to check the community states and rows now.
 - 2026-09-26 P8 merged (dcc3159) after the Verse gate fix (no Verse table read while VERSE_PUBLIC is not 'true', parked spaces never shown, gated post URLs 404 before any read, gate applied outside every cache; 9 unit tests that fail without the gate; e2e in both VERSE_PUBLIC modes). Integration: tsc 0, unit 805/805, check:routes 340 both ways. All page agents merged except P2 (owner push). Rebuilding the flag-on build in .worktrees/ux11-integration-b to swap on :3021.
 - 2026-09-26 First combined flag-on production build of the integration branch (48189d5): compiled, 808/808 pages. Served on :3021 (flag on confirmed; / /quizzes /blindtest /leaderboard /groups /bts-quiz /create /blindtest/ranked /ux-v1/kit = 200; /community = 404 until P8). Phase 3 loop 1 started: C1, C2, C3 spawned; community states pending P8, quizzes pending P2.
