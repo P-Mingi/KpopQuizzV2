@@ -104,6 +104,7 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
 .p5-rights { display: block; }
 .p5-rights.is-err .ux-check i { border-color: var(--ux-no); }
 .p5-remove { margin-top: 12px; font-size: 14px; }
+.p5-covhelp { margin-top: 12px; }
 
 /* ---------- step 2 ---------- */
 .p5-qfield { margin-top: 40px; }
@@ -168,11 +169,7 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
 /* ---------- step 3 ---------- */
 .p5-pubfield { margin-top: 40px; }
 .p5-pubgrid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; align-items: start; }
-.p5-card { cursor: default; height: auto; }
-.p5-card:hover { border-color: var(--ux-line); transform: none; box-shadow: none; }
-.p5-card:hover .ux-qcov-img { transform: none; }
-.p5-card:hover .ux-qt { color: inherit; }
-.p5-card .ux-qcov-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* A0's UxQuizCard preview; the title wraps balanced like the prototype's card */
 .p5-card .ux-qt { text-wrap: balance; }
 .p5-checks { margin: 0; padding: 0; list-style: none; }
 .p5-check { padding: 12px 0; line-height: 25.6px; }

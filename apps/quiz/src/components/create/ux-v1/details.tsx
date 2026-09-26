@@ -114,14 +114,19 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
       <div className="ux-field">
         <label htmlFor="p5-lang">Language</label>
         <div className="p5-select">
-          <select id="p5-lang" className="ux-inp" value={d.language} onChange={(e) => f.setLanguage(e.target.value)}>
+          <select id="p5-lang" className="ux-inp" value={d.language} onChange={(e) => f.setLanguage(e.target.value)} aria-describedby="p5-lang-h">
             {LANGUAGES.map((l) => (
               <option key={l.code} value={l.code}>{l.label === l.native ? l.label : `${l.label} (${l.native})`}</option>
             ))}
           </select>
           <Icon name="chev" className="p5-select-i" />
         </div>
-        {d.language !== 'en' ? <p className="ux-help">Quizzes written in English reach a much bigger audience. Choose English to be seen by the most fans.</p> : null}
+        {/* the live funnel's language note, both cases (kept: the prototype has no line here) */}
+        <p className="ux-help" id="p5-lang-h">
+          {d.language === 'en'
+            ? 'English reaches the most fans, so your quiz can be played by the biggest audience.'
+            : 'Quizzes written in English reach a much bigger audience. Choose English to be seen by the most fans.'}
+        </p>
       </div>
 
       <div className="ux-field">
@@ -147,7 +152,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
                 type="file"
                 className="ux-sr"
                 accept={ACCEPTED_IMAGE_TYPES.join(',')}
-                aria-describedby="p5-cover-l"
+                aria-describedby="p5-cover-l p5-cover-h"
                 onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }}
               />
               <span>
@@ -170,6 +175,8 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
             ) : null}
           </div>
         </div>
+        {/* the live funnel's cover line (kept: the prototype has no equivalent sentence) */}
+        <p className="ux-help p5-covhelp" id="p5-cover-h">A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background.</p>
       </div>
     </div>
   );
