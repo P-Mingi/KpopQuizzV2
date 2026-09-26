@@ -4,6 +4,7 @@
 //
 //   UX11_CHROMIUM=... node docs/design/ux-dashboard-v1/v11/reports/P5/make-shots.mjs \
 //     --after http://localhost:3035 [--before http://localhost:3045] [--out <dir>] [--only create-1,signin]
+//     [--raw <dir>: keep the after PNGs] [--after-raw <dir>: reuse them, e.g. with --before on a flag-off server]
 //
 // The page gets the prototype's sample as a localStorage draft (sample-draft.mjs);
 // every mutating request is answered locally (nothing is saved anywhere). Guest.
@@ -30,6 +31,7 @@ const BEFORE = opt('--before', null);
 const OUT = opt('--out', here);
 const ONLY = opt('--only', null)?.split(',') ?? null;
 const RAW = opt('--raw', null); // also keep the raw implementation PNGs here
+const AFTER_RAW = opt('--after-raw', null); // reuse after PNGs shot earlier (one dev server per folder)
 
 const STATES = ['create-1', 'create-2', 'create-3', 'signin'];
 const STEP = { 'create-1': 1, 'create-2': 2, 'create-3': 3, signin: 3 };
@@ -49,6 +51,8 @@ async function shoot(base, state, width, theme, v11) {
     if (m === 'GET' || m === 'HEAD' || m === 'OPTIONS') { await route.continue(); return; }
     await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
   });
+  // the sample title exists live: pin the soft duplicate hint off so the layout compares with the prototype's
+  await page.route('**/api/quiz/title-check**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"exists":false}' }));
   await page.goto(`${base}/create`, { waitUntil: 'networkidle', timeout: 120_000 });
   if (v11) {
     await page.waitForSelector(`.p5-pane[data-step="${STEP[state]}"]`, { timeout: 60_000 });
@@ -90,7 +94,8 @@ for (const state of STATES) {
     for (const theme of ['light', 'dark']) {
       const parts = [];
       if (BEFORE) parts.push(await label(await shoot(BEFORE, state, width, theme, false), `before (flag off) ${width} ${theme}`));
-      const after = await shoot(AFTER, state, width, theme, true);
+      const cached = AFTER_RAW ? path.join(AFTER_RAW, `${width}-${theme}-${state}.png`) : null;
+      const after = cached && fs.existsSync(cached) ? fs.readFileSync(cached) : await shoot(AFTER, state, width, theme, true);
       if (RAW) { fs.mkdirSync(RAW, { recursive: true }); fs.writeFileSync(path.join(RAW, `${width}-${theme}-${state}.png`), after); }
       parts.push(await label(after, `after (flag on) ${state} ${width} ${theme}`));
       const ref = path.join(REF, `${width}-${theme}-${state}.png`);

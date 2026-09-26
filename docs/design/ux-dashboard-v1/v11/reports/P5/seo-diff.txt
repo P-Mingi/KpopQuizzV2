@@ -1,0 +1,30 @@
+== /create
+  SAME status: "200"
+  SAME title: "Create a quiz | KpopQuiz"
+  SAME description: "Create a K-pop quiz in minutes and challenge your fandom."
+  SAME robots: "noindex, follow"
+  SAME canonical: null
+  SAME hreflang: ""
+  SAME og: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. | og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans | og:image:height=630 | og:image:width=1200 | og:image=https://kpopquiz.org/og-default.png | og:locale=en_US | og:site_name=KpopQuiz | og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans | og:type=website | twitter:card=summary_large_image | twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. | twitter:image=https://kpopquiz.org/og-default.png | twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+  SAME h1: ["What's your quiz about?"]
+  SAME intro: "No account needed to start. You can change everything later."
+  SAME json-ld (2 blocks): ["{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}","{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"]
+  SAME link set: flag off 22 unique hrefs (35 <a>), flag on 38 unique (51 <a>); missing flag on: none
+    flag off: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+    added flag on (16.10 additions allowed): #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+== /create?group=bts
+  SAME status: "200"
+  SAME title: "Create a quiz | KpopQuiz"
+  SAME description: "Create a K-pop quiz in minutes and challenge your fandom."
+  SAME robots: "noindex, follow"
+  SAME canonical: null
+  SAME hreflang: ""
+  SAME og: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. | og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans | og:image:height=630 | og:image:width=1200 | og:image=https://kpopquiz.org/og-default.png | og:locale=en_US | og:site_name=KpopQuiz | og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans | og:type=website | twitter:card=summary_large_image | twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. | twitter:image=https://kpopquiz.org/og-default.png | twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+  SAME h1: ["What's your quiz about?"]
+  SAME intro: "No account needed to start. You can change everything later."
+  SAME json-ld (2 blocks): ["{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}","{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"]
+  SAME link set: flag off 22 unique hrefs (35 <a>), flag on 38 unique (51 <a>); missing flag on: none
+    flag off: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+    added flag on (16.10 additions allowed): #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+== /pt/create (mirror): SAME 404 -> 404
+no SEO difference (title, meta, robots, canonical, hreflang, og, JSON-LD, H1, intro, link set)
