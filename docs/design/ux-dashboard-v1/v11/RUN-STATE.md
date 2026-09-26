@@ -16,7 +16,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P3 | ux11/p3-groups | fix loop 1 running (C1-001, hub noscript links, cached failed reads) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | fix loop 1 running (C3-004) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | fix loop 1 running (C3-005, UxQuizCard preview) on ux11/p5-fix1 | b846ae1 | 0 | v11/reports/P5.md |
-| P6 | ux11/p6-blindtest | fix loop 1 running (C3-009) | 5af008e | 0 | v11/reports/P6.md |
+| P6 | ux11/p6-blindtest | fix loop 1 merged (982cf9c, PR #61): C3-009 | 2c74301 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
@@ -101,10 +101,12 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 25. P9: the H1 stays "Community" (SEO lock) instead of "Leaderboard"; "Around the community" is kept until /community is indexable; Players = all-time XP (no XP history exists); the weekly change is the real percent change, not rank moves; migration 097 (Rising) is not applied in prod; 19 groups have fandom_name 'fan'; the shared getFandomWarMap caches an empty board for 1h after an RPC error (P9 reads through its own throwing getWarMap).
 26. Security, existing (found by P8): the existing /api/verse/* write routes (threads, essays, discussions, reactions, flags) do not check VERSE_PUBLIC or LIVE_SPACES themselves, so a hand-crafted request can write Verse rows for hidden or parked spaces today. The v11 /community never offers them for gated content. Owner call.
 27. P8 remaining decisions: apply v11-p8-community.sql; blogs keep curator review and a space Join (no cover upload); the feed shows the last 3 closed daily debates; the daily debate reply is sent with the vote; /community stays noindex until the owner decides. The feed shows no Verse item unless VERSE_PUBLIC is 'true', and never a parked space (lib/ux-v1/p8/verse-gate.ts).
-28. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+28. Cached failed reads on legacy (flag-off) code, found by P2, P1, P6 and C3: lib/db/queries/popular.ts, getFandomWarMap, getQuizOfTheDay (null for the day), lib/db/queries/blindtest.ts getBlindtestStats (`count ?? 0` inside unstable_cache), and ISR pages keeping a render whose reads failed. The v11 pages no longer do this (P1, P3, P6 fixes). Owner call for the legacy code (one task chip exists for popular.ts).
+29. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P6 fix loop 1 merged (982cf9c): no cached hub read stores a failure (today's players keyed by UTC day, song count, popularity, playable groups; the playable list now cached at the catalog TTL instead of re-reading 4,120 songs per render); failed ISR regeneration throws so the last good /blindtest stays. tsc 0, unit 817/817.
 - 2026-09-26 P10 test fix merged (4a2fa44): unit 809/809 at load ~35-40. P5 started on C3-005.
 - 2026-09-26 P1 fix loop 1 merged (1b3120f): a render that lost a read is never cached (runtime throw keeps the last complete page, 30 s retry; build prerender revalidates in 30 s; accepted after 15 min of failures so the home cannot freeze), proven with a DB-cutting proxy; rail photos 220w (154 KB vs 598 KB); only published Verse spaces linked; streak wording = A0's; every saved run in Continue. Existing (flag off): live getQuizOfTheDay caches null for the day when its reads fail and the flag-off home has the same page-cache exposure (owner note). Unit 808/809: P10's sharp WebP test times out at 5 s under load 41 (CI passes): P10 raising its timeout.
 - 2026-09-26 P8 fix merged (249efd4): the feed panel shows the shared focus ring (one `outline: none` removed; the new keyboard case fails with it back). P6 started on C3-009.
