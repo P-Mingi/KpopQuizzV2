@@ -1,0 +1,170 @@
+/* ==========================================================================
+   UX v11.2 home (P1). NOT imported anywhere: app/api/ux-v1/a0/styles serves this
+   folder to flag-on pages only (A0 report, section 4.1). Every rule targets a
+   .p1-* class that only the flag-on home renders. Values measured on the pinned
+   prototype (docs/design/ux-dashboard-v1/prototype.html, #home) at 1440 and 390.
+   ========================================================================== */
+
+/* page: the home sits 24px under the nav (16 on phones), 17.11 */
+.p1-home.ux-pg { padding-top: 24px; }
+
+/* ---------- live ticker (17.11): the live ActivityTicker, restyled from outside.
+   Its styles are inline, so the overrides need !important; the component itself
+   is imported as is. The slot keeps the bar height while it loads (no jump). */
+.p1-ticker { min-height: 44px; }
+.p1-ticker > div {
+  height: 44px; margin: 0 !important; padding: 0 16px !important; gap: 12px !important;
+  background: var(--ux-raised) !important; border: 1px solid var(--ux-line) !important; border-radius: 14px !important;
+  color: var(--ux-ink);
+}
+.p1-ticker > div > span:first-of-type { gap: 7px !important; }
+.p1-ticker > div > span:first-of-type > span:first-child { width: 7px !important; height: 7px !important; background: var(--ux-pink) !important; }
+.p1-ticker > div > span:first-of-type > span:last-child {
+  font-size: 11px !important; font-weight: 800 !important; letter-spacing: .1em !important; line-height: 1.6;
+  color: var(--ux-pink-ink) !important; text-transform: uppercase;
+}
+.p1-ticker [aria-live] { display: flex; align-items: center; min-width: 0; }
+.p1-ticker [aria-live] > span { font-size: 14px !important; line-height: 1.6; color: var(--ux-ink) !important; min-width: 0; }
+
+/* ---------- centred header (17.11) ---------- */
+.p1-hhead { text-align: center; max-width: 760px; margin: 48px auto 44px; }
+.p1-hhead h1 {
+  font-size: clamp(32px, 6vw, 48px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.04;
+  border-radius: 8px; text-wrap: balance;
+}
+.p1-eyb { display: block; font-size: .4em; font-weight: 700; letter-spacing: .02em; line-height: 1.2; color: var(--ux-muted); margin-bottom: 8px; }
+.p1-hhead h1 em { font-style: italic; color: var(--ux-hl); padding-right: .05em; }
+.p1-hhead .p1-hsub {
+  font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0; color: var(--ux-muted);
+  max-width: 480px; margin: 14px auto 0;
+}
+.p1-hcta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+.p1-hcta .ux-ico { width: 16px; height: 16px; }
+
+/* ---------- quiz of the day (17.2, 17.10, 17.11): one calm row ---------- */
+.p1-qotd {
+  display: flex; align-items: center; gap: 24px; padding: 22px 24px 22px 28px;
+  border: 1px solid var(--ux-qotd-edge); border-radius: 20px; background: var(--ux-qotd-bg); color: var(--ux-ink);
+}
+.p1-qd-main { flex: 1; min-width: 0; }
+.p1-qtop { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.p1-qlab { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }
+.p1-qlab .ux-ico { width: 14px; height: 14px; }
+.p1-note { font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+.p1-qotd h2 { font-size: 22px; line-height: 1.3; font-weight: 700; letter-spacing: -0.015em; margin-top: 6px; }
+.p1-qline { font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 4px; }
+.p1-qline i { font-style: normal; margin: 0 2px 0 6px; opacity: .55; }
+.p1-qline span { white-space: nowrap; }
+.p1-qd-go { flex: 0 0 auto; }
+.p1-qd-go .ux-ico { width: 16px; height: 16px; }
+
+/* ---------- continue playing ---------- */
+.p1-cont { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.p1-citem { display: flex; gap: 14px; align-items: center; color: var(--ux-ink); }
+.p1-citem:hover .ux-rt { color: var(--ux-pink-ink); }
+.p1-cthumb {
+  position: relative; width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: 0 0 auto;
+  background: var(--ux-surface); box-shadow: var(--ux-photo-edge);
+  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+}
+.p1-grow { flex: 1; min-width: 0; }
+.p1-bar { display: block; height: 4px; border-radius: 4px; background: var(--ux-surface-2); margin-top: 8px; overflow: hidden; }
+.p1-bar i { display: block; height: 100%; border-radius: 4px; background: var(--ux-ink); }
+
+/* shared: photos inside round / square thumbs */
+.p1-img { object-fit: cover; object-position: center 25%; }
+.p1-cthumb.is-ini, .p1-gav.is-ini, .p1-cav.is-ini { background: var(--ux-surface-2); color: var(--ux-muted); font-weight: 600; }
+.p1-cav { position: relative; }
+
+/* ---------- groups rail (16.7) ---------- */
+.p1-grail { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; padding: 4px 2px 8px; margin: -4px -2px 0; }
+.p1-grail::-webkit-scrollbar { display: none; }
+.p1-gitem { display: block; flex: 0 0 auto; width: 88px; text-align: center; color: var(--ux-ink); }
+.p1-gav {
+  position: relative; display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto; border-radius: 50%;
+  overflow: hidden; background: var(--ux-surface-2); box-shadow: var(--ux-photo-edge);
+  font-size: 20px; font-weight: 700; line-height: 1.6; transition: transform .25s var(--ux-spring);
+}
+.p1-gitem:hover .p1-gav { transform: translateY(-3px); }
+.p1-gn { display: block; font-size: 14px; font-weight: 500; line-height: 1.6; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p1-gitem:hover .p1-gn { color: var(--ux-pink-ink); }
+.p1-gc { font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+.p1-gc.is-new { color: var(--ux-ink); font-weight: 500; }
+
+/* ---------- trending: the live home's six cards in one row. Four are in view at
+   1440 exactly as the prototype's grid (same card width and gap), the rest scroll
+   in the same row like the groups rail. Room above / below for the hover lift. */
+@media (min-width: 761px) {
+  .p1-trend .ux-qgrid {
+    display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
+    padding: 4px 2px 26px; margin: -4px -2px -26px;
+  }
+  .p1-trend .ux-qgrid::-webkit-scrollbar { display: none; }
+  .p1-trend .ux-qgrid > .ux-qcard { flex: 0 0 calc((100% - 3 * 24px) / 4); scroll-snap-align: start; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .p1-trend .ux-qgrid > .ux-qcard { flex-basis: calc((100% - 2 * 24px) / 3); }
+}
+
+/* ---------- all time best | new quizzes ---------- */
+.p1-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+.p1-glyph { width: 40px; height: 40px; border-radius: 10px; }
+.p1-glyph .ux-ico { width: 20px; height: 20px; }
+
+/* ---------- blindtest of the day band (16.7, 17.5 day mode) ---------- */
+.p1-band {
+  position: relative; overflow: hidden; border-radius: 24px; padding: 44px 48px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: center;
+  background: var(--ux-bt-bg); color: var(--ux-ink); border: 1px solid var(--ux-qotd-edge);
+}
+.p1-band::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(520px 260px at 0% 0%, rgba(232, 69, 122, .14), transparent 60%), radial-gradient(420px 260px at 100% 100%, rgba(122, 80, 220, .12), transparent 60%);
+}
+.p1-band > * { position: relative; }
+.p1-kick { font-size: 14px; font-weight: 500; line-height: 1.6; color: var(--ux-muted); display: flex; align-items: center; gap: 8px; }
+.p1-pulse { width: 8px; height: 8px; border-radius: 50%; background: #FF7AA5; display: inline-block; flex: 0 0 auto; animation: p1-pulse 1.8s infinite; }
+@keyframes p1-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(1.35); } }
+.p1-band h2 { font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; }
+.p1-band-p { color: var(--ux-muted); margin-top: 8px; max-width: 48ch; }
+.p1-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 24px; }
+.p1-eqv { display: flex; align-items: flex-end; gap: 6px; height: 88px; }
+.p1-eqv i { width: 8px; height: 18px; border-radius: 4px; background: linear-gradient(180deg, #FF8FB4, #E8457A); animation: p1-eqb 1.2s ease-in-out infinite; }
+@keyframes p1-eqb { 0%, 100% { height: 18px; } 50% { height: 84px; } }
+.p1-stat { font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 14px; text-align: center; }
+.p1-stat b { color: var(--ux-ink); font-weight: 600; }
+/* the prototype's sentence with "see where you rank" as a quiet in-text link */
+.p1-inl { color: inherit; text-decoration: underline; text-decoration-color: var(--ux-edge); text-underline-offset: 3px; }
+.p1-inl:hover { color: var(--ux-pink-ink); text-decoration-color: currentColor; }
+
+/* ---------- community: the live home's Verse space links, one compact line ---------- */
+.p1-spaces { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 0; margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+.p1-spaces + .p1-spaces { margin-top: 6px; }
+.p1-spaces > span { margin-right: 8px; }
+.p1-spaces .ux-lnk { font-size: 13px; }
+.p1-spaces i { font-style: normal; margin: 0 8px; opacity: .55; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .p1-two { gap: 40px; }
+}
+@media (max-width: 760px) {
+  .p1-home.ux-pg { padding-top: 16px; }
+  .p1-ticker { min-height: 40px; }
+  .p1-ticker > div { height: 40px; padding: 0 14px !important; }
+  .p1-ticker [aria-live] > span { font-size: 13px !important; }
+  .p1-hhead { margin: 32px auto 28px; }
+  .p1-hhead .p1-hsub { font-size: 15px; }
+  .p1-qotd { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px; }
+  .p1-qotd h2 { font-size: 20px; }
+  .p1-qd-go { width: 100%; height: 44px; }
+  .p1-cont { grid-template-columns: 1fr; }
+  .p1-two { grid-template-columns: 1fr; gap: 40px; }
+  .p1-band { grid-template-columns: 1fr; padding: 32px 24px; }
+  .p1-eqwrap { display: none; }
+  .p1-actions .ux-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p1-pulse, .p1-eqv i { animation: none; }
+  .p1-gav { transition: none; }
+}
