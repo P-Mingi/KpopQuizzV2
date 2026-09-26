@@ -5,6 +5,8 @@ import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
 import { GroupTriviaPage, generateGroupTriviaMetadata } from './group-trivia-page';
+import { UX_V1 } from '@/lib/ux-v1';
+import { GroupHubV11 } from '@/components/group/ux-v1/hub';
 
 import type { Metadata } from 'next';
 
@@ -78,6 +80,9 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
   const group = await getGroupBySlug(parsed.groupSlug);
   if (!group) notFound();
 
-  if (parsed.type === 'quiz') return GroupQuizPage({ group });
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): the v11 hub, same metadata, H1, intro,
+  // FAQ, JSON-LD and links. Flag off renders exactly today's page. The -trivia
+  // pages keep today's content inside the v11 shell.
+  if (parsed.type === 'quiz') return UX_V1 ? GroupHubV11({ group }) : GroupQuizPage({ group });
   return GroupTriviaPage({ group });
 }
