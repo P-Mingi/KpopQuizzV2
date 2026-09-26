@@ -59,7 +59,7 @@
 /* ---------- rail (desktop) ---------- */
 .p8-rail { position: sticky; top: 96px; align-self: start; display: flex; flex-direction: column; gap: 20px; padding-top: 8px; }
 .p8-rail > .ux-panel { line-height: 1.6; }
-.p8-panel-h { font-size: 15px; line-height: 24px; font-weight: 600; letter-spacing: -0.015em; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.p8-panel-h { font-size: 15px; line-height: 1.6; font-weight: 600; letter-spacing: -0.015em; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .p8-panel-h > span { display: inline-flex; align-items: center; gap: 8px; }
 .p8-panel-h .ux-ico { width: 18px; height: 18px; color: var(--ux-pink); align-self: center; }
 .p8-panel-h small { font-size: 13px; font-weight: 500; color: var(--ux-muted); }
@@ -103,7 +103,7 @@
 .p8-warstrip .p8-grow { flex: 1; min-width: 0; font-size: 15px; line-height: 24px; }
 .p8-warstrip .p8-grow b { font-weight: 700; }
 .p8-warstrip .p8-chev { color: var(--ux-muted); }
-.p8-mine { display: block; background: var(--ux-surface); border-radius: 14px; padding: 20px; }
+.p8-mine { display: block; background: var(--ux-surface); border-radius: 14px; padding: 20px; margin-top: 12px; }
 .p8-plabel { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; line-height: 20.8px; font-weight: 500; color: var(--ux-muted); }
 .p8-plabel .ux-ico { width: 16px; height: 16px; }
 
@@ -137,7 +137,7 @@
 .p8-nextq .ux-rt { font-size: 17px; line-height: 1.4; }
 .p8-nextq .p8-go { margin-left: auto; width: 40px; height: 40px; border-radius: 50%; background: var(--ux-pink-fill); color: #fff; display: grid; place-items: center; flex: 0 0 auto; }
 .p8-pacts { margin-top: 20px; }
-.p8-pv .ux-sec > .ux-h2 { margin-bottom: 8px; }
+.p8-post-page .ux-sec > .ux-h2 { margin-bottom: 8px; }
 
 /* reply box + replies (17.7: heart + count, pink when liked) */
 .p8-cform { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0 12px; }
@@ -174,11 +174,11 @@
 .p8-modes4 { margin-top: 4px; }
 .p8-ed .ux-field { margin-top: 20px; }
 .p8-ed .p8-help { margin-top: 12px; }
-.p8-gbox { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 48px; width: 100%; padding: 7px 16px 7px 12px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); color: var(--ux-ink); position: relative; }
+.p8-gbox { display: flex; align-items: center; flex-wrap: nowrap; gap: 10px; min-height: 48px; width: 100%; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); color: var(--ux-ink); position: relative; }
 .p8-gbox:focus-within { border-color: var(--ux-pink); box-shadow: 0 0 0 3px var(--ux-pink-soft); }
-.p8-gbox input { flex: 1; min-width: 120px; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--ux-ink); height: 32px; -webkit-appearance: none; appearance: none; }
+.p8-gbox input { flex: 1; min-width: 60px; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--ux-ink); height: 32px; -webkit-appearance: none; appearance: none; }
 .p8-gbox input::placeholder { color: var(--ux-muted); }
-.p8-gchip { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px 0 4px; border-radius: 999px; background: var(--ux-surface); font-size: 14px; font-weight: 600; color: var(--ux-ink); }
+.p8-gchip { display: inline-flex; align-items: center; gap: 8px; height: 32px; flex: 0 1 auto; min-width: 0; white-space: nowrap; padding: 0 10px 0 4px; border-radius: 999px; background: var(--ux-surface); font-size: 14px; font-weight: 600; color: var(--ux-ink); }
 .p8-gchip .ux-gav { width: 24px; height: 24px; font-size: 11px; }
 .p8-gchip button { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: var(--ux-muted); }
 .p8-gchip button:hover { color: var(--ux-ink); background: var(--ux-surface-2); }
@@ -214,7 +214,7 @@
   .p8-cgrid { grid-template-columns: minmax(0, 1fr); }
   .p8-rail { display: none; }
   .p8-mtop { display: block; }
-  .p8-mrail { display: block; border: 1px solid var(--ux-line); border-radius: 20px; padding: 20px; margin-bottom: 16px; background: var(--ux-raised); }
+  .p8-mrail { display: block; border: 1px solid var(--ux-line); border-radius: 20px; padding: 20px; margin-bottom: 16px; }
   .p8-mrail .p8-cheer { opacity: 1; }
 }
 @media (max-width: 760px) {
@@ -223,8 +223,9 @@
   .p8-card-blog { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
   .p8-card-blog > .p8-bcov { grid-column: 1; grid-row: auto; order: 0; }
   .p8-card-blog > .ux-ptt, .p8-card-blog > .ux-pbd, .p8-card-blog > .ux-pacts { grid-column: 1; grid-row: auto; }
+  .p8-card-blog > .ux-ptt { margin-top: 24px; }
   .p8-card-blog > .ux-ph2 { order: -3; } .p8-card-blog > .ux-ptype { order: -2; } .p8-card-blog > .p8-bcov { order: -1; }
-  .p8-post-t { font-size: 24px; }
+  .p8-ed .ux-field > label, .p8-ed .ux-flabel { flex-wrap: wrap; row-gap: 2px; }
   .p8-ed-foot { padding: 0 20px calc(20px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) {

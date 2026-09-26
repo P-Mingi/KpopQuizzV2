@@ -14,6 +14,7 @@ import { feedSources, getP8Groups, mergeFeed } from '@/lib/ux-v1/p8/feed';
 import { utcDate } from '@/lib/ux-v1/p8/format';
 import { getBadgeWatch, getHappening, getPulse, getTodayDebate, getWarEntries } from '@/lib/ux-v1/p8/rail';
 
+import type { FeedPost } from '@/lib/ux-v1/p8/types';
 import type { Metadata } from 'next';
 
 // /community (DESIGN-SPEC 12.1 / 13 / 16.7 / 17.7; prototype view #community).
@@ -39,11 +40,11 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
   const features = await safeFetch(getP8Features(), NO_FEATURES, '[p8] features');
   const src = feedSources(features, now);
   const [threads, blogs, debates, fanDebates, challenges, groups, today, happening, pulse, badges, war] = await Promise.all([
-    safeFetch(src.threads, [], '[p8] threads'),
-    safeFetch(src.blogs, [], '[p8] blogs'),
-    safeFetch(src.debates, [], '[p8] debates'),
-    safeFetch(src.fanDebates, [], '[p8] fan debates'),
-    safeFetch(src.challenges, [], '[p8] challenges'),
+    safeFetch<FeedPost[] | null>(src.threads, null, '[p8] threads'),
+    safeFetch<FeedPost[] | null>(src.blogs, null, '[p8] blogs'),
+    safeFetch<FeedPost[] | null>(src.debates, null, '[p8] debates'),
+    safeFetch<FeedPost[] | null>(src.fanDebates, null, '[p8] fan debates'),
+    safeFetch<FeedPost[] | null>(src.challenges, null, '[p8] challenges'),
     safeFetch(getP8Groups(), [], '[p8] groups'),
     safeFetch(getTodayDebate(utcDate(now)), null, '[p8] today debate'),
     safeFetch(getHappening(5, now), [], '[p8] happening'),
@@ -51,7 +52,9 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
     safeFetch(getBadgeWatch(3, utcDate(now)), [], '[p8] badges'),
     safeFetch(getWarEntries(), [], '[p8] war'),
   ]);
-  const posts = mergeFeed([threads, blogs, debates, fanDebates, challenges], now);
+  const posts = mergeFeed([threads ?? [], blogs ?? [], debates ?? [], fanDebates ?? [], challenges ?? []], now);
+  // Every always-on source failed (DB blip): say so, never "no posts yet".
+  const loadFailed = threads === null && blogs === null && debates === null;
   const editorGroups = groups.map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
 
   const mtop = (
@@ -72,7 +75,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
                 <p>Threads, blogs, debates and score challenges from every fandom.</p>
               </header>
               <Composer />
-              <CommunityFeed posts={posts} mtop={mtop} mrail={<MobileRail rows={happening} pulse={pulse} badges={badges} />} />
+              <CommunityFeed posts={posts} loadFailed={loadFailed} mtop={mtop} mrail={<MobileRail rows={happening} pulse={pulse} badges={badges} />} />
             </div>
             <aside className="p8-rail" aria-label="Community activity">
               {today ? <DebatePanel debate={today} /> : null}

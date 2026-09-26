@@ -66,7 +66,7 @@ function GroupMenu({ groups, value, onChange }: { groups: { slug: string; name: 
   );
 }
 
-export function CommunityFeed({ posts, mtop, mrail }: { posts: FeedPost[]; mtop?: React.ReactNode; mrail?: React.ReactNode }): React.ReactElement {
+export function CommunityFeed({ posts, loadFailed = false, mtop, mrail }: { posts: FeedPost[]; loadFailed?: boolean; mtop?: React.ReactNode; mrail?: React.ReactNode }): React.ReactElement {
   const v = useP8Viewer();
   const signIn = useSignIn();
   const [tab, setTab] = useState<Tab>('all');
@@ -91,7 +91,9 @@ export function CommunityFeed({ posts, mtop, mrail }: { posts: FeedPost[]; mtop?
 
   let empty: React.ReactNode = null;
   if (!visible.length) {
-    if (tab === 'following' && !v.signedIn) {
+    if (loadFailed) {
+      empty = <div className="p8-empty" role="status"><b>The feed did not load</b>Refresh the page in a moment.</div>;
+    } else if (tab === 'following' && !v.signedIn) {
       empty = (
         <div className="p8-empty">
           <b>Follow fans to fill this tab</b>
