@@ -130,11 +130,11 @@ export async function searchCatalog(q: string): Promise<P11SearchPayload> {
   const none = <T,>(): Promise<Attempt<T[]>> => Promise.resolve({ value: [] as T[], ok: true });
   const quizByTitle = pattern
     ? attempt(() => db.from('quizzes').select(QUIZ_COLS).eq('status', 'published').ilike('title', pattern)
-      .order('play_count', { ascending: false }).limit(MAX_QUIZZES).then(pgRows('quizzes by title', toQuizRows)), [] as QuizRow[], 'quizzes by title')
+      .order('play_count', { ascending: false }).order('title', { ascending: true }).limit(MAX_QUIZZES).then(pgRows('quizzes by title', toQuizRows)), [] as QuizRow[], 'quizzes by title')
     : none<QuizRow>();
   const quizByGroup = slugs.length
     ? attempt(() => db.from('quizzes').select(QUIZ_COLS).eq('status', 'published').in('groups.slug', slugs)
-      .order('play_count', { ascending: false }).limit(MAX_QUIZZES).then(pgRows('quizzes by group', toQuizRows)), [] as QuizRow[], 'quizzes by group')
+      .order('play_count', { ascending: false }).order('title', { ascending: true }).limit(MAX_QUIZZES).then(pgRows('quizzes by group', toQuizRows)), [] as QuizRow[], 'quizzes by group')
     : none<QuizRow>();
   // The blindtest pool rules (lib/blind-test-playlists.ts cleanSongs): active,
   // no remix / instrumental / karaoke rows.
@@ -143,7 +143,7 @@ export async function searchCatalog(q: string): Promise<P11SearchPayload> {
       .eq('status', 'active')
       .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%')
       .ilike(col, pattern)
-      .order('play_count', { ascending: false })
+      .order('play_count', { ascending: false }).order('title', { ascending: true })
       .limit(MAX_SONGS)
       .then(pgRows(`songs by ${col}`, toSongRows)), [] as SongRow[], `songs by ${col}`)
     : none<SongRow>());
@@ -159,8 +159,8 @@ export async function searchCatalog(q: string): Promise<P11SearchPayload> {
     q,
     mode: 'query',
     groups: groups.map(groupView),
-    quizzes: mergeQuizzes([byTitle.value, byGroup.value]).map((r) => quizView(r, `${r.group_name} · ${playsLabel(r.play_count ?? 0)}`)),
-    songs: mergeSongs([songTitle.value, songArtist.value]).map((s) => ({ title: s.title, href: songHref(s.group_slug, playableSet), sub: s.artist_name ?? '' })),
+    quizzes: mergeQuizzes([byTitle.value, byGroup.value], q).map((r) => quizView(r, `${r.group_name} · ${playsLabel(r.play_count ?? 0)}`)),
+    songs: mergeSongs([songTitle.value, songArtist.value], q).map((s) => ({ title: s.title, href: songHref(s.group_slug, playableSet), sub: s.artist_name ?? '' })),
     degraded,
   };
 }

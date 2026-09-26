@@ -9,7 +9,7 @@ import {
   streakRow, targetOf, unreadLine,
 } from './notifications';
 import {
-  compact, flatRows, likePattern, matchGroups, mergeQuizzes, mergeSongs, normalizeQuery, playsLabel, quizzesLabel,
+  compact, flatRows, likePattern, matchGroups, mergeQuizzes, mergeSongs, nameScore, normalizeQuery, playsLabel, quizzesLabel,
   resultSummary, songHref,
 } from './search-model';
 
@@ -199,18 +199,43 @@ describe('search model', () => {
     expect(matchGroups(groups, 'b').map((g) => g.slug)).toEqual(['bts', 'blackpink', 'babymonster', 'btob']);
     expect(matchGroups(groups, '')).toEqual([]);
   });
+  it('the closest name wins over the quiz count; punctuation-free matching needs 3 characters', () => {
+    const more = [...groups, { slug: 'ive', name: 'IVE', quizzes: 2, photo: null }, { slug: 'five-stars', name: 'Five Stars', quizzes: 10, photo: null }];
+    expect(matchGroups(more, 'ive').map((g) => g.slug)).toEqual(['ive', 'five-stars']);
+    expect(matchGroups(more, "o'")).toEqual([]);
+    expect(nameScore('Stray Kids', 'kids')).toBe(2);
+    expect(nameScore('Stray Kids', 'ray')).toBe(1);
+    expect(nameScore('(G)I-DLE', 'g i dle')).toBe(3);
+    expect(nameScore('BTS', 'xyz')).toBe(0);
+  });
   it('merges title and group matches, one row per quiz, most played first', () => {
     const a = [{ slug: 'x', title: 'X', play_count: 10, cover_image_url: null, group_name: 'BTS', group_slug: 'bts' }];
     const b = [
       { slug: 'x', title: 'X', play_count: 10, cover_image_url: null, group_name: 'BTS', group_slug: 'bts' },
       { slug: 'y', title: 'Y', play_count: 900, cover_image_url: null, group_name: 'BTS', group_slug: 'bts' },
     ];
-    expect(mergeQuizzes([a, b]).map((q) => q.slug)).toEqual(['y', 'x']);
-    expect(mergeQuizzes([Array.from({ length: 8 }, (_, i) => ({ ...a[0]!, slug: `s${i}`, play_count: i }))]).length).toBe(5);
+    expect(mergeQuizzes([a, b], 'bts').map((q) => q.slug)).toEqual(['y', 'x']);
+    expect(mergeQuizzes([Array.from({ length: 8 }, (_, i) => ({ ...a[0]!, slug: `s${i}`, play_count: i }))], 'bts').length).toBe(5);
+  });
+  it('the group typed and word starts rank before a title that only contains the query', () => {
+    const q = (slug: string, title: string, group: string, plays: number) => ({ slug, title, play_count: plays, cover_image_url: null, group_name: group, group_slug: group.toLowerCase() });
+    const byTitle = [q('a', 'Ultimate BTS era quiz - only real ARMYs survive', 'BTS', 2400), q('b', 'How well do you know IVE?', 'IVE', 567)];
+    const byGroup = [q('b', 'How well do you know IVE?', 'IVE', 567), q('c', 'IVE true or false', 'IVE', 373)];
+    expect(mergeQuizzes([byTitle, byGroup], 'ive').map((x) => x.slug)).toEqual(['b', 'c', 'a']);
   });
   it('merges song matches, max 3', () => {
     const s = (id: string, p: number) => ({ id, title: id, artist_name: 'BTS', play_count: p, group_slug: 'bts' });
-    expect(mergeSongs([[s('a', 1), s('b', 5)], [s('b', 5), s('c', 3), s('d', 0)]]).map((x) => x.id)).toEqual(['b', 'c', 'a']);
+    expect(mergeSongs([[s('a', 1), s('b', 5)], [s('b', 5), s('c', 3), s('d', 0)]], 'bts').map((x) => x.id)).toEqual(['b', 'c', 'a']);
+  });
+  it('the artist typed comes first, then word-start title matches', () => {
+    const songs = [
+      { id: '1', title: 'Angel Pt. 2 (feat. Jimin of BTS, Charlie Puth)', artist_name: 'Jimin', play_count: 9, group_slug: 'jimin' },
+      { id: '2', title: 'Body to Body', artist_name: 'BTS', play_count: 0, group_slug: 'bts' },
+      { id: '3', title: 'Human Extinction', artist_name: 'WOODZ', play_count: 50, group_slug: null },
+      { id: '4', title: 'Kick It', artist_name: 'NCT 127', play_count: 0, group_slug: 'nct-127' },
+    ];
+    expect(mergeSongs([songs.slice(0, 2)], 'bts').map((x) => x.id)).toEqual(['2', '1']);
+    expect(mergeSongs([songs.slice(2)], 'nct').map((x) => x.id)).toEqual(['4', '3']);
   });
   it('labels', () => {
     expect(quizzesLabel(28)).toBe('28 quizzes');

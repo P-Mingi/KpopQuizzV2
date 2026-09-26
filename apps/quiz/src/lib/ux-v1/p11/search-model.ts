@@ -78,16 +78,31 @@ export interface GroupRow {
   photo: string | null;
 }
 
-/** Group names that contain the query (also ignoring spaces and punctuation),
- *  most quizzes first (prototype: sort by count), then A to Z. */
-export function matchGroups<T extends GroupRow>(groups: T[], q: string, limit = MAX_GROUPS): T[] {
-  const needle = q.toLowerCase();
+/** How well a name answers the query: 3 = the same name (ignoring case, spaces and
+ *  punctuation), 2 = a word of the name starts with it, 1 = it is inside the name,
+ *  0 = no match. The punctuation-free form only counts from 3 characters, so a
+ *  query like "o'" does not match every name with an "o". */
+export function nameScore(name: string, q: string): number {
+  const needle = q.toLowerCase().trim();
+  if (!needle) return 0;
+  const hay = name.toLowerCase();
   const needleC = compact(q);
-  if (!needle) return [];
+  const hayC = compact(name);
+  if (needleC.length > 0 && hayC === needleC) return 3;
+  if (hay.startsWith(needle) || hay.split(/[\s\-(/]+/).some((w) => w.startsWith(needle))) return 2;
+  if (hay.includes(needle) || (needleC.length >= 3 && hayC.includes(needleC))) return 1;
+  return 0;
+}
+
+/** Group names that match the query (nameScore), the closest names first, then
+ *  the most quizzes (prototype: sort by count), then A to Z. */
+export function matchGroups<T extends GroupRow>(groups: T[], q: string, limit = MAX_GROUPS): T[] {
   return groups
-    .filter((g) => g.name.toLowerCase().includes(needle) || (needleC.length > 0 && compact(g.name).includes(needleC)))
-    .sort((a, b) => b.quizzes - a.quizzes || a.name.localeCompare(b.name, 'en'))
-    .slice(0, limit);
+    .map((g) => ({ g, s: nameScore(g.name, q) }))
+    .filter((x) => x.s > 0)
+    .sort((a, b) => b.s - a.s || b.g.quizzes - a.g.quizzes || a.g.name.localeCompare(b.g.name, 'en'))
+    .slice(0, limit)
+    .map((x) => x.g);
 }
 
 export function quizzesLabel(n: number): string {
@@ -108,14 +123,18 @@ export interface QuizRow {
   group_slug: string;
 }
 
-/** Title matches and the quizzes of the matched groups, one row per quiz, most
- *  played first (prototype: sort by plays), capped. */
-export function mergeQuizzes(lists: QuizRow[][], limit = MAX_QUIZZES): QuizRow[] {
+/** Title matches and the quizzes of the matched groups, one row per quiz: the
+ *  closest match first (the group typed, or a title word that starts with the
+ *  query, before a title that only contains it: "ive" = IVE quizzes before
+ *  "...survive"), then most played (prototype: sort by plays), capped. */
+export function mergeQuizzes(lists: QuizRow[][], q: string, limit = MAX_QUIZZES): QuizRow[] {
   const bySlug = new Map<string, QuizRow>();
   for (const list of lists) for (const r of list) if (!bySlug.has(r.slug)) bySlug.set(r.slug, r);
   return [...bySlug.values()]
-    .sort((a, b) => (b.play_count ?? 0) - (a.play_count ?? 0) || a.title.localeCompare(b.title, 'en'))
-    .slice(0, limit);
+    .map((r) => ({ r, k: Math.max(nameScore(r.group_name, q), nameScore(r.title, q)) }))
+    .sort((a, b) => b.k - a.k || (b.r.play_count ?? 0) - (a.r.play_count ?? 0) || a.r.title.localeCompare(b.r.title, 'en'))
+    .slice(0, limit)
+    .map((x) => x.r);
 }
 
 export interface SongRow {
@@ -126,12 +145,23 @@ export interface SongRow {
   group_slug: string | null;
 }
 
-export function mergeSongs(lists: SongRow[][], limit = MAX_SONGS): SongRow[] {
+/** Songs by title or artist, one row per song: the artist the fan typed first
+ *  ("bts" = BTS songs before a title that mentions BTS), then title matches at a
+ *  word start, then the rest; most played, then A to Z, within each. */
+export function mergeSongs(lists: SongRow[][], q: string, limit = MAX_SONGS): SongRow[] {
   const byId = new Map<string, SongRow>();
   for (const list of lists) for (const r of list) if (!byId.has(r.id)) byId.set(r.id, r);
+  const score = (s: SongRow): number => {
+    const a = nameScore(s.artist_name ?? '', q);
+    if (a === 3) return 5;
+    if (a > 0) return 3 + (a === 2 ? 1 : 0);
+    return nameScore(s.title, q);
+  };
   return [...byId.values()]
-    .sort((a, b) => (b.play_count ?? 0) - (a.play_count ?? 0) || a.title.localeCompare(b.title, 'en'))
-    .slice(0, limit);
+    .map((s) => ({ s, k: score(s) }))
+    .sort((a, b) => b.k - a.k || (b.s.play_count ?? 0) - (a.s.play_count ?? 0) || a.s.title.localeCompare(b.s.title, 'en'))
+    .slice(0, limit)
+    .map((x) => x.s);
 }
 
 /** A song opens its group's blindtest playlist when that playlist exists
