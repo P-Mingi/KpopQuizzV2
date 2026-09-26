@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 129 |
+| PASS | 138 |
 | FAIL | 7 |
-| NOT VERIFIED | 10 |
+| NOT VERIFIED | 12 |
 | PENDING | 0 |
 | N/A | 16 |
-| TODO | 105 |
+| TODO | 94 |
 | Total | 267 |
 
 ## Rows
@@ -200,17 +200,17 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R226](R226.md) | P9 | Players tab | EXISTS | PASS | - |
 | [R227](R227.md) | P9 | Creators tab | EXISTS | PASS | - |
 | [R228](R228.md) | P9 | Streak leaders | EXISTS | N/A (not in the v11 prototype) | - |
-| R234 | 11. | List grouped by day, unread state | - | TODO | - |
-| R235 | 11. | Tabs = 5 categories | - | TODO | - |
-| R236 | 11. | Row icon per type | - | TODO | - |
-| R237 | 11. | Row link | - | TODO | - |
-| R238 | 11. | Mark all read | - | TODO | - |
-| R239 | 11. | Per-row read on click | - | TODO | - |
-| R240 | 11. | Category toggles | - | TODO | - |
-| R241 | 11. | Streak at risk card | - | TODO | - |
-| R242 | 11. | Weekly recap email toggle | - | TODO | - |
-| R243 | 11. | Unread badge in topbar | - | TODO | - |
-| R244 | 11. | `battle_beaten` type | - | TODO | - |
+| [R234](R234.md) | P11 | List grouped by day, unread state | EXISTS | PASS | - |
+| [R235](R235.md) | P11 | Tabs = 5 categories | EXISTS | PASS | - |
+| [R236](R236.md) | P11 | Row icon per type | EXISTS | PASS (unit p11.test) | - |
+| [R237](R237.md) | P11 | Row link | EXISTS | PASS | - |
+| [R238](R238.md) | P11 | Mark all read | EXISTS | PASS (payload); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R239](R239.md) | P11 | Per-row read on click | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
+| [R240](R240.md) | P11 / P10 | Category toggles | EXISTS | PASS (link); toggles checked in the settings rows | - |
+| [R241](R241.md) | P11 | Streak at risk card | EXISTS | PASS (none state); at-risk / saved states NOT VERIFIED live (the test user has no streak; creating one is a write) | - |
+| [R242](R242.md) | P10 | Weekly recap email toggle | NEW | NOT VERIFIED until v11-p10-email-prefs.sql | - |
+| [R243](R243.md) | A0 / P11 | Unread badge in topbar | EXISTS | PASS | - |
+| [R244](R244.md) | P11 | `battle_beaten` type | PARTIAL | NOT VERIFIED until migration 154 (the type arrives only then); icon mapping unit-tested | - |
 | R250 | 12. | Setup: playlist All / By group (multi) / Girl / Boy / Generation; rounds 5-10-15 | - | TODO | - |
 | R251 | 12. | Your stats (rank title, best, combo, streak) | - | TODO | - |
 | R252 | 12. | Quick play | - | TODO | - |
