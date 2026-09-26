@@ -12,6 +12,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { formatJoinDate } from '@/lib/utils';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress, computeNearMastery, computeClimbs, computeMilestones, snapshotIfStale } from '@/lib/passport';
 import { passportAccent } from '@/lib/passport-themes';
+import { UX_V1 } from '@/lib/ux-v1';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ContributionGraph } from '@/components/verse/contribution-graph';
@@ -140,6 +141,42 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
   // card). It lived on the public /u/[username] passport but not on /me, so the
   // owner could not see "how their quizzes are doing" from their own profile.
   const createdQuizzes = await safeFetch(getQuizzesByCreator(user.id, 0, 10), [], '[me] getQuizzesByCreator');
+
+  // UX v11 (P10): the redesigned passport. Every call above runs exactly as it
+  // does flag off (same calls, same writes, same order); the flag only adds the
+  // read-only extras below (fandom name, fandom war rank, average score, recent
+  // plays) and swaps the render.
+  if (UX_V1) {
+    const [{ UxPassport }, { buildPassport }, data] = await Promise.all([
+      import('@/components/profile/ux-v1/passport'),
+      import('@/lib/ux-v1/p10/build-passport'),
+      import('@/lib/ux-v1/p10/passport-data'),
+    ]);
+    const main = spine?.ult_groups?.[0] ?? null;
+    const [fandomName, averagePct, history] = await Promise.all([
+      data.readFandomName(supabase, main),
+      data.readAverage(supabase, user.id),
+      data.readHistory(supabase, user.id, 20),
+    ]);
+    const war = await data.readWar(main, fandomName);
+    const props = buildPassport({
+      mode: 'personal',
+      profile,
+      spine,
+      groupStats,
+      collection,
+      groups: allGroups,
+      badgeDefs: allBadges,
+      earnedBadgeIds,
+      quizzes: createdQuizzes,
+      fandomName,
+      war,
+      averagePct,
+      history,
+      now: Date.now(),
+    });
+    return <UxPassport {...props} />;
+  }
 
   return (
     // One 520 column for the whole passport (matches PassportView's own width), so

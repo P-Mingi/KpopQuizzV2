@@ -16,6 +16,7 @@ import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
 import { passportAccent } from '@/lib/passport-themes';
+import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge } from '@/lib/db/types';
@@ -160,6 +161,77 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
   const displayName = profile.display_name ?? profile.username;
+
+  // BreadcrumbList + ProfilePage JSON-LD for the v11 render: a copy of the legacy
+  // elements below (same JSON), so the flag-off tree stays untouched.
+  const jsonLd = (): React.ReactElement => (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+              { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
+            ],
+          }),
+        }}
+      />
+
+      {profile.total_quizzes_created >= 3 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ProfilePage',
+              mainEntity: {
+                '@type': 'Person',
+                name: displayName,
+                url: `https://kpopquiz.org/u/${profile.username}`,
+                interactionStatistic: [{
+                  '@type': 'InteractionCounter',
+                  interactionType: 'https://schema.org/CreateAction',
+                  userInteractionCount: profile.total_quizzes_created,
+                }],
+              },
+            }),
+          }}
+        />
+      )}
+    </>
+  );
+
+  // UX v11 (P10): the redesigned public passport. Same reads as above (cookie-free,
+  // ISR), plus two read-only extras (main group fandom name + fandom war rank).
+  // Owner-only controls resolve on the client (/api/auth/me), as today.
+  if (UX_V1) {
+    const [{ UxPassport }, { buildPassport }, { readFandomName, readWar }] = await Promise.all([
+      import('@/components/profile/ux-v1/passport'),
+      import('@/lib/ux-v1/p10/build-passport'),
+      import('@/lib/ux-v1/p10/passport-data'),
+    ]);
+    const main = spine?.ult_groups?.[0] ?? null;
+    const fandomName = await readFandomName(db, main);
+    const war = await readWar(main, fandomName);
+    const props = buildPassport({
+      mode: 'public',
+      profile,
+      spine,
+      groupStats,
+      collection,
+      groups: (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string }>,
+      badgeDefs: allBadges,
+      earnedBadgeIds,
+      quizzes: initialQuizzes,
+      fandomName,
+      war,
+      now: Date.now(),
+    });
+    return <UxPassport {...props} footer={<><ModNotifyButton recipientUsername={profile.username} />{jsonLd()}</>} />;
+  }
 
   return (
     // One 520 column for the WHOLE profile (matches the passport). Every child -
