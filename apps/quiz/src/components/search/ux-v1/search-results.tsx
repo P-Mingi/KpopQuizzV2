@@ -164,10 +164,10 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
 
   const popularMode = shown.mode === 'popular';
   const empty = rows.length === 0;
-  let n = -1;
-  const row = (href: string): { className: string; href: string; onClick: (e: React.MouseEvent) => void; onMouseEnter: () => void; onFocus: () => void } => {
-    n += 1;
-    const idx = n;
+  // Rows are numbered in display order (groups, then quizzes, then songs): the keyboard order.
+  const qBase = shown.groups.length;
+  const sBase = qBase + shown.quizzes.length;
+  const row = (href: string, idx: number): { className: string; href: string; onClick: (e: React.MouseEvent) => void; onMouseEnter: () => void; onFocus: () => void } => {
     return {
       className: `ux-srow${idx === activeIdx ? ' is-active' : ''}`,
       href,
@@ -191,9 +191,9 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
         <>
           <div className="ux-sov-l" id={`${uid}-g`}>{popularMode ? 'Popular groups' : 'Groups'}</div>
           <ul aria-labelledby={`${uid}-g`}>
-            {shown.groups.map((g) => (
+            {shown.groups.map((g, gi) => (
               <li key={g.slug}>
-                <Link {...row(g.href)}>
+                <Link {...row(g.href, gi)}>
                   <Thumb src={g.photo} initials={g.initials} seed={g.slug} />
                   <span className="p11-st">{g.name}</span>
                   <small>{g.sub}</small>
@@ -207,9 +207,9 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
         <>
           <div className="ux-sov-l" id={`${uid}-q`}>{popularMode ? 'Most played quizzes' : 'Quizzes'}</div>
           <ul aria-labelledby={`${uid}-q`}>
-            {shown.quizzes.map((x) => (
+            {shown.quizzes.map((x, qi) => (
               <li key={x.href}>
-                <Link {...row(x.href)}>
+                <Link {...row(x.href, qBase + qi)}>
                   <Thumb src={x.thumb} initials={x.initials} square seed={x.title} />
                   <span className="p11-st">{x.title}</span>
                   <small>{x.sub}</small>
@@ -225,7 +225,7 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
           <ul aria-labelledby={`${uid}-s`}>
             {shown.songs.map((s, k) => (
               <li key={`${s.title}|${s.sub}|${k}`}>
-                <Link {...row(s.href)}>
+                <Link {...row(s.href, sBase + k)}>
                   <span className="ux-srow-th is-sq p11-song-th" aria-hidden="true"><Icon name="music" size="sm" /></span>
                   <span className="p11-st">{s.title}</span>
                   <small>{s.sub}</small>
