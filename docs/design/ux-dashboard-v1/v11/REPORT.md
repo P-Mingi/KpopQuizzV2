@@ -2,10 +2,15 @@
 
 ## Progress
 
-- Status: loop 2 DONE on `feat/ux-v1-v11` cc6c394 (all fix loop 1 merges). C3's checks, C1's pixel loop 2
-  (`ux11/c1-check` cd46f34) and C2's wiring loop 2 (`ux11/c2-check` 9603f9b) are all in this report.
-- One issue is open: C2-008 (P4, signed-in results crash when the run is not stored yet). Every C1, C2 and C3
-  issue of loop 1 is fixed. `/quizzes` (P2) is pending the owner.
+- Status: FINAL. Every checker issue is closed: C1-001..002, C2-001..008, C3-001..009. C3 checked loop 2 on
+  `feat/ux-v1-v11` cc6c394; P4's C2-008 fix (e54b847) was re-checked by C2 in loop 3 (5bcd84e, merged at bb9b5a5);
+  this report sits on top of the integration head ce46e6f. C1's pixel loop 2 (cd46f34) and C2's wiring loop 3 are
+  included.
+- Open items (none is a checker issue):
+  1. `/quizzes` (P2): pending the owner's push of `ux11/p2-quizzes`.
+  2. P7 populated ranked states, and every NOT verified row: waiting for their migrations (list below) or owner
+     decision 1 (production writes as the test user).
+  3. Lighthouse scores (perf >= 85, SEO 100, a11y >= 95): pending the owner's OK to install and run Lighthouse.
 - Branch `ux11/c3-check`, local only: the session permission check refused the push; the owner decides how it
   is published. Worktree `.claude/worktrees/agent-a0c9933401ee9710b`.
 - Servers: the shared flag-on production build on http://localhost:3021 (loop 1: dcc3159, loop 2: cc6c394);
@@ -26,15 +31,15 @@
 | Cached failed reads | P1 home and P3 pages now refuse to cache a render that lost a read (unit-tested; the cc6c394 prerenders are complete); P6 count read throws; runtime failure path not fault-injected (needs a failing production read) | `checks/qa/ISSUES-STATUS.md` |
 | Performance (390, DPR 3, 4x CPU, slow 4G; Playwright, not Lighthouse) | LCP flag on / off: home 2.42 / 3.28 s, BLACKPINK hub 3.01 / 3.31 s (loop 1: quiz 2.34 / 2.42 s, /blindtest 2.22 / 2.05 s); CLS at most 0.054 (home; today's home 0.05 to 0.07); home images 495 KB (loop 1: 908; flag off 182, it shows no photos); every photo from public/idols right-sized. Lighthouse scores PENDING the owner's OK | `checks/qa/perf/SUMMARY-loop2.md`, `SUMMARY.md` |
 | Whole-app tsc (e2e specs included, with the C3 QA specs) | 0 errors (loop 1 and loop 2) | this run |
-| Pixel (C1) | 152 checks: 136 pass, 0 fail, 16 not verified (P2 pending, ranked and post-challenge need their migrations) | `checks/pixel/README.md` (C1 branch) |
-| Wiring (C2) | 267 rows: 195 PASS, 1 FAIL (C2-008), 33 NOT VERIFIED (production writes, migrations), 7 PENDING (P2), 31 N/A | `checks/backend/README.md` (C2 branch) |
+| Pixel (C1, loop 2) | 152 checks: 136 pass, 0 fail, 16 not verified (P2 pending, ranked and post-challenge need their migrations) | `checks/pixel/README.md` |
+| Wiring (C2, loop 3) | 267 rows: 196 PASS, 0 FAIL, 33 NOT VERIFIED (production writes, migrations), 7 PENDING (P2), 31 N/A; C2-008 fixed (R119 PASS) | `checks/backend/README.md` |
 
 ## Per page
 
 Status: DONE = every check passes or is NOT verified for a stated reason; OPEN = an open issue; PENDING =
 not merged. Pixel = C1 (`v11/checks/pixel/<state>/`, "pass n/m" = landmarks within 2px and computed
 styles equal). Wiring = C2 (`v11/checks/backend/`, WIRING-MAP rows). e2e = C3 loop 2 run, per project.
-Thumbnails: C1's reference | implementation side by side (1440 light), on C1's branch under `v11/checks/pixel/`.
+Thumbnails: C1's reference | implementation side by side (1440 light), under `v11/checks/pixel/`.
 
 ### Shell, nav, tab bar, footer, sheets, tokens (A0): DONE
 
@@ -88,16 +93,15 @@ Thumbnails: C1's reference | implementation side by side (1440 light), on C1's b
 - Perf (slow 4G, BLACKPINK): LCP 3.01 s (off 3.31 s), images 82 KB (off 713), photos right-sized.
 - C3 issues: C3-001 (hub links only in <noscript>), C3-002 (/groups cached a failed read): FIXED.
 
-### Quiz page, game, results, share (P4): OPEN (C2-008)
+### Quiz page, game, results, share (P4): DONE
 
 ![quiz](checks/pixel/quiz/1440-light-side.webp) ![end](checks/pixel/end-guest/1440-light-side.webp)
 
 - Pixel: quiz, play, play-answered, play-qotd, end, end-guest, share pass, 4 combos each (the live Discord line
   + Brag row under the result actions is recorded as a known deviation, C2-003).
-- Wiring: 48 PASS, 1 FAIL, 4 NOT VERIFIED (production writes, the two P4 migrations), 6 N/A. C2-003 (Discord line
-  / Brag) FIXED. **C2-008 OPEN**: a signed-in fan whose run is not stored yet gets a standing without a rank;
-  results.tsx calls toLocaleString on undefined and the page shows "Something went wrong" about 1 s after the
-  results (fix: `typeof standing.rank === 'number'`).
+- Wiring (C2 loop 3): 49 PASS, 4 NOT VERIFIED (production writes, the two P4 migrations), 6 N/A. C2-003 (Discord
+  line / Brag) FIXED; C2-008 (signed-in results crash when the standing has no rank) FIXED in e54b847 and
+  re-checked by C2 (R119 PASS, results and share sheet stay up).
 - e2e: p4.spec 22 + 1 skip by design (1440), 23/23 (390); the like test is no longer flaky.
 - a11y: axe 0 on quiz (3 types), play, play-answered, play-qotd, end-guest, share, signed-in quiz page; quit
   confirm and share sheet pass every sheet check; live region verified.
@@ -185,7 +189,7 @@ Full lines (expected, actual, evidence) in `v11/issues/<owner>.md`; loop 2 statu
 
 | Id | Owner | Summary | Loop 2 |
 |---|---|---|---|
-| C2-008 | P4 | signed-in results crash when the standing has no rank (run not stored yet) | **OPEN** |
+| C2-008 | P4 | signed-in results crash when the standing has no rank (run not stored yet) | fixed (C2 loop 3) |
 | C1-001 | P3 | /groups group tile count line | fixed |
 | C1-002 | A0 | header sheet drop zone opened in its hover look | fixed |
 | C2-001 | A0 | /api/quizzes/count answered 200 with the flag off | fixed |
@@ -302,7 +306,8 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 28. Cached failed reads on legacy (flag-off) code, found by P2, P1, P6 and C3: lib/db/queries/popular.ts, getFandomWarMap, getQuizOfTheDay (null for the day), lib/db/queries/blindtest.ts getBlindtestStats (`count ?? 0` inside unstable_cache), and ISR pages keeping a render whose reads failed. The v11 pages no longer do this (P1, P3, P6 fixes). Owner call for the legacy code (one task chip exists for popular.ts).
 29. Shared hub reads (found by P3): 10 shared reads used by the group hubs (group-hub, community, freshness, related quizzes, trivia facts) return an empty value when Supabase fails and unstable_cache keeps it up to an hour, on the v11 hubs and the live ones alike (in this loop every flag-on hub lost its fandom war line until the dev cache was cleared). A ready fix is in docs/design/ux-dashboard-v1/v11/reports/P3/fail-closed-queries.patch (39 lines, applies cleanly, type-checks; callers to check are listed in v11/requests/P3.md request 2). It changes shared flag-off code, so it is the owner's call, not applied in this run.
 30. P4: the v11 results keep the live Discord line and Brag button (70% and up, hidden while the Discord flex webhook is unset): one centred row that is not in the prototype; the link uses the v11 muted colour because the legacy blue fails AA on dark.
-31. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+31. Parked Verse links (C3 owner note): the v11 home and hubs no longer link /verse/blackpink, /verse/seventeen, /verse/stray-kids, /verse/ateez (parked spaces: 404 with VERSE_PUBLIC=true as in dev, 302 to the /verse teaser on live). Dropped on purpose by C2-005/006; confirm.
+32. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 
 ## Evidence index (v11/checks/qa/)
