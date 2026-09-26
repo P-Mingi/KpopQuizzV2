@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import {
   addDays, autoSchedule, autoScheduleCompact, pickBankEntryForDate, pickCatalogQotd, qotdRotationFixEnabled,
@@ -14,9 +14,19 @@ import {
 } from './format';
 import { LIVE_HUB_ORDER } from './hubs';
 import { rotateQotd } from './qotd-rotation';
+import { DEGRADED_HOLD_MS, DEGRADED_REVALIDATE_S, degradedAction, renderPhase, RenderHealth, settleRender } from './render-health';
 
 import type { CatalogQuiz, OpenBankEntry, QotdLogRow, QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 import type { QotdStore } from './qotd-rotation';
+
+// render-health lowers a degraded render's revalidate through unstable_cache: record the calls.
+const cacheCalls: { keys: string[]; revalidate: number | false | undefined }[] = [];
+vi.mock('next/cache', () => ({
+  unstable_cache: (fn: () => Promise<unknown>, keys: string[], opts: { revalidate?: number | false }) => {
+    cacheCalls.push({ keys, revalidate: opts?.revalidate });
+    return fn;
+  },
+}));
 
 /* A seeded source so shuffles are reproducible. */
 function seeded(seed = 7): () => number {
@@ -289,5 +299,56 @@ describe('home link parity with the live home', () => {
     for (let i = 1; i < out.length; i++) expect(out[i]![0]).not.toBe(out[i - 1]![0]);
     expect(spreadBy(['a1', 'a2'], (x) => x[0]!)).toEqual(['a1', 'a2']); // no other order exists
     expect(spreadBy(['a', 'b', 'c'], (x) => x)).toEqual(['a', 'b', 'c']); // already fine: order kept
+  });
+});
+
+describe('a render that lost a read is never kept in the page cache (C3-003)', () => {
+  afterEach(() => { vi.unstubAllEnvs(); cacheCalls.length = 0; });
+
+  it('knows the build, a runtime regeneration and dev apart', () => {
+    expect(renderPhase({ NEXT_PHASE: 'phase-production-build', NODE_ENV: 'production' })).toBe('build');
+    expect(renderPhase({ NODE_ENV: 'production' })).toBe('runtime');
+    expect(renderPhase({ NODE_ENV: 'development' })).toBe('dev');
+  });
+
+  it('throws at runtime (the cached page stays), renders briefly at build, gives up holding after the window', () => {
+    expect(degradedAction('runtime', 0, 1000)).toBe('throw');
+    expect(degradedAction('runtime', 0, DEGRADED_HOLD_MS - 1)).toBe('throw');
+    expect(degradedAction('runtime', 0, DEGRADED_HOLD_MS)).toBe('short-cache');
+    expect(degradedAction('build', 0, 0)).toBe('short-cache');
+    expect(degradedAction('dev', 0, 0)).toBe('short-cache');
+  });
+
+  it('records the reads that failed and returns their fallback', async () => {
+    const h = new RenderHealth();
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    expect(await h.read('ok', Promise.resolve(3), 0)).toBe(3);
+    expect(await h.read('groups', Promise.reject(new Error('503')), [] as number[])).toEqual([]);
+    expect(h.failed).toEqual(['groups']);
+    // Next's own signals (dynamic bail-out, notFound, redirect) still pass through.
+    const bail = Object.assign(new Error('bail'), { digest: 'DYNAMIC_SERVER_USAGE' });
+    await expect(h.read('x', Promise.reject(bail), null)).rejects.toBe(bail);
+  });
+
+  it('settleRender: complete = no-op; runtime = throw; build = revalidate in 30 s', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await settleRender(new RenderHealth());
+    expect(cacheCalls).toEqual([]);
+
+    const lost = new RenderHealth();
+    lost.failed.push('groups');
+    vi.stubEnv('NODE_ENV', 'production');
+    await expect(settleRender(lost, 1_000)).rejects.toThrow(/reads failed \(groups\): keeping the cached page/);
+    // still failing after the hold window in this process: rendered, short revalidate
+    await expect(settleRender(lost, 1_000 + DEGRADED_HOLD_MS)).resolves.toBeUndefined();
+    expect(cacheCalls.at(-1)).toEqual({ keys: ['ux-v1:p1:degraded-render'], revalidate: DEGRADED_REVALIDATE_S });
+    // a complete render resets the window
+    await settleRender(new RenderHealth(), 2_000 + DEGRADED_HOLD_MS);
+    await expect(settleRender(lost, 3_000 + DEGRADED_HOLD_MS)).rejects.toThrow();
+
+    vi.stubEnv('NEXT_PHASE', 'phase-production-build');
+    cacheCalls.length = 0;
+    await expect(settleRender(lost, 4_000 + DEGRADED_HOLD_MS)).resolves.toBeUndefined();
+    expect(cacheCalls).toEqual([{ keys: ['ux-v1:p1:degraded-render'], revalidate: 30 }]);
   });
 });

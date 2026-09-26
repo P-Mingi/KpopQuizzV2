@@ -29,22 +29,23 @@ function subscribe(cb: () => void): () => void {
 }
 
 /**
- * Continue playing (16.7, prototype: signed-in only). Up to 3 unfinished runs, each
- * a real link that resumes at the saved question (P4's resumeHref). A quiz the home
- * already shows elsewhere (`exclude`) is left out ("no quiz appears twice", 16.7).
+ * Continue playing (16.7, prototype: signed-in only). Up to 3 unfinished runs, newest
+ * first, each a real link that resumes at the saved question (P4's resumeHref). A saved
+ * run always shows (C2-004), also when its quiz is listed elsewhere on the home: the
+ * lists are the same for everyone (static), the run is this fan's own progress.
  * Renders NOTHING for guests or when there is no saved run (min-gate).
  */
-export function ContinuePlaying({ exclude = [] }: { exclude?: string[] }): React.ReactElement | null {
+export function ContinuePlaying(): React.ReactElement | null {
   const me = useUxMe();
   const raw = useSyncExternalStore(subscribe, snapshot, () => null);
   const runs = useMemo(() => {
     if (!raw) return [];
     try {
-      return (JSON.parse(raw) as Row[]).filter((r) => r.slug && r.total > 0 && r.answered > 0 && r.answered < r.total && !exclude.includes(r.slug));
+      return (JSON.parse(raw) as Row[]).filter((r) => r.slug && r.total > 0 && r.answered > 0 && r.answered < r.total);
     } catch {
       return [];
     }
-  }, [raw, exclude]);
+  }, [raw]);
 
   if (!me?.profile || runs.length === 0) return null;
   return (
