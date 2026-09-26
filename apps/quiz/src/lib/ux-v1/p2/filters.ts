@@ -279,6 +279,29 @@ export function p2PageCount(total: number, pageSize = P2_PAGE_SIZE): number {
   return Math.max(1, Math.ceil(total / pageSize));
 }
 
+/** Most pages one ?page=N render reads when the total is unknown (facet read failed). */
+export const P2_MAX_PAGES_UNKNOWN = 10;
+
+/**
+ * The pages a /quizzes?page=N render shows: 1..N, the "Load more" state after
+ * N-1 clicks (so every link of the live ?page=N, whose grid shows page 1 and whose
+ * crawl list shows page N, is on it). A page past the end shows page 1 and says so.
+ */
+export function p2ShownPages(page: number, total: number | null): { last: number; outOfRange: boolean } {
+  if (total === null) return { last: Math.min(page, P2_MAX_PAGES_UNKNOWN), outOfRange: false };
+  const count = p2PageCount(total);
+  if (page > count && total > 0) return { last: 1, outOfRange: true };
+  return { last: Math.min(page, count), outOfRange: false };
+}
+
+/** Concatenate pages, first occurrence wins (a play can move a quiz across a page edge). */
+export function p2Concat<T extends { id: string }>(pages: readonly T[][]): T[] {
+  const seen = new Set<string>();
+  const out: T[] = [];
+  for (const page of pages) for (const q of page) if (!seen.has(q.id)) { seen.add(q.id); out.push(q); }
+  return out;
+}
+
 /** "422 quizzes" / "1 quiz" (the live region line and the result summary). */
 export function quizCountLabel(n: number): string {
   return `${n.toLocaleString('en-US')} ${n === 1 ? 'quiz' : 'quizzes'}`;

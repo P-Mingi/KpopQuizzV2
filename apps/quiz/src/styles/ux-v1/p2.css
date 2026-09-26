@@ -28,6 +28,7 @@
 /* active filters, result */
 .p2-chips { margin-top: 16px; }
 .p2-chip { cursor: pointer; }
+.p2-notice { margin-top: 16px; font-size: 15px; color: var(--ux-muted); }
 .p2-results { margin-top: 32px; }
 .p2-results .p2-grid { transition: opacity .15s; }
 .p2-results.is-pending .p2-grid { opacity: .55; }

@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
 import { languageLabel } from '@/lib/languages';
-import { getP2FacetRows, getP2Page } from '@/lib/ux-v1/p2/queries';
+import { getP2FacetRows, getP2Page, getP2Pages } from '@/lib/ux-v1/p2/queries';
 import {
   P2_GENERAL_GROUP, P2_LEVELS, P2_PAGE_SIZE, P2_SORTS, P2_TYPES,
-  hasFacet, levelLabel, p2Facets, p2FilterKey, p2Href, p2Languages, p2PageCount, parseP2Filters,
-  quizCountLabel, typeLabel,
+  hasFacet, levelLabel, p2Concat, p2Facets, p2FilterKey, p2Href, p2Languages, p2PageCount, p2ShownPages,
+  parseP2Filters, quizCountLabel, typeLabel,
 } from '@/lib/ux-v1/p2/filters';
 import { P2QuizzesPage } from '@/components/quizzes/ux-v1/quizzes-page';
 import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
@@ -45,12 +45,26 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
 
   const f = parseP2Filters(sp, { groupSlugs: new Set(groups.map((g) => g.slug)), languages: p2Languages(rows) });
   const group = f.group ? groups.find((g) => g.slug === f.group) ?? null : null;
-  const quizzes = await safeFetch(getP2Page(f, group?.id ?? null, rows, now), [], '[browse ux] page');
+  const groupId = group?.id ?? null;
   // Counts come from the facet rows; if that read failed, offer every option without
   // a count and fall back to the live page's "a full page means there may be more".
   const facets: P2Facets | null = rows.length > 0 ? p2Facets(rows, f, now) : null;
   const total = facets?.total ?? null;
-  const hasNext = total !== null ? f.page * P2_PAGE_SIZE < total : quizzes.length >= P2_PAGE_SIZE;
+
+  // ?page=N shows pages 1..N (the "Load more" state; it also keeps every link of the
+  // live ?page=N, whose grid shows page 1 and whose crawl list shows page N). The
+  // ItemList JSON-LD lists page N alone, read with the live query, as today.
+  const { last, outOfRange } = p2ShownPages(f.page, total);
+  const pages = await safeFetch(getP2Pages(f, last, groupId, rows, now), [], '[browse ux] pages');
+  const quizzes = p2Concat(pages);
+  const pageN = !outOfRange && f.page <= pages.length
+    ? pages[f.page - 1] ?? []
+    : await safeFetch(getP2Page(f, groupId, rows, now), [], '[browse ux] page');
+  const lastFull = (pages[pages.length - 1]?.length ?? 0) >= P2_PAGE_SIZE;
+  const hasNext = total !== null ? last * P2_PAGE_SIZE < total : lastFull;
+  const notice = outOfRange && total !== null
+    ? `There is no page ${f.page.toLocaleString('en-US')}: this list has ${p2PageCount(total).toLocaleString('en-US')}. Here is the first one.`
+    : null;
 
   const offered = (count: number | undefined, current: boolean): boolean => current || facets === null || (count ?? 0) > 0;
 
@@ -82,7 +96,7 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
   const cleared = p2Href(f, { type: null, level: null, group: null, lang: null, page: 1 });
   let empty: P2Empty | null = null;
   if (quizzes.length === 0) {
-    if (total !== null && total > 0 && f.page > 1) {
+    if (total !== null && total > 0) {
       empty = { title: 'No quizzes on this page', text: 'This list is shorter now.', action: { href: p2Href(f, { page: 1 }), label: 'Back to the first page', focusId: 'p2-dd-type' } };
     } else if (group && !f.type && !f.level && !f.lang && f.sort !== 'trending') {
       empty = { title: `No ${group.name} quizzes yet`, text: 'Be the first to make one.', action: { href: cleared, label: 'Clear filters', focusId: 'p2-dd-group' }, create: true };
@@ -104,11 +118,11 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
       ...(item.href ? { item: `${SITE}${item.href}` } : {}),
     })),
   };
-  const itemListLd = quizzes.length > 0 ? {
+  const itemListLd = pageN.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'K-pop quizzes',
-    itemListElement: quizzes.map((q, i) => ({
+    itemListElement: pageN.map((q, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       url: `${SITE}/q/${q.slug}`,
@@ -120,7 +134,8 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
 
   return (
     <P2QuizzesPage
-      filters={f}
+      filters={{ ...f, page: last }}
+      notice={notice}
       filterKey={p2FilterKey(f)}
       summary={total === 0 || (total === null && quizzes.length === 0) ? 'No quizzes match these filters' : quizCountLabel(total ?? quizzes.length)}
       h1={H1}

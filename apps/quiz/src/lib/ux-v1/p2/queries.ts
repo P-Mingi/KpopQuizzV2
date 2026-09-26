@@ -105,3 +105,19 @@ export async function getP2Page(
   if (ids.length === 0) return [];
   return getP2CardsByIds(ids);
 }
+
+/**
+ * Pages 1..`last` of a result, each read exactly as that page alone would be (the
+ * same cache entries as ?page=k), in parallel. /quizzes?page=N shows what "Load
+ * more quizzes" shows after N-1 clicks: pages 1 to N.
+ */
+export async function getP2Pages(
+  f: P2Filters,
+  last: number,
+  groupId: number | null,
+  facetRows: readonly P2FacetRow[],
+  now: number,
+): Promise<QuizCardData[][]> {
+  const pages = Array.from({ length: Math.max(0, last) }, (_, i) => i + 1);
+  return Promise.all(pages.map((page) => getP2Page({ ...f, page }, groupId, facetRows, now)));
+}

@@ -29,7 +29,10 @@ export interface P2Empty {
 }
 
 export interface P2QuizzesPageProps {
+  /** The filters, with `page` = the last page shown (pages 1..page are on screen). */
   filters: P2Filters;
+  /** A line above the grid (a ?page= past the end). */
+  notice: string | null;
   filterKey: string;
   /** Live-region line once a new result is shown ("48 quizzes"). */
   summary: string;
@@ -100,6 +103,8 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
           {p.chips.map((c) => <P2Chip key={c.key} label={c.label} href={c.href} focusId={c.focusId} />)}
         </div>
 
+        {p.notice ? <p className="p2-notice" role="status">{p.notice}</p> : null}
+
         {p.quizzes.length > 0 ? (
           <P2Results key={`${p.filterKey}#${p.filters.page}`} filters={p.filters} ids={p.quizzes.map((q) => q.id)} hasNext={p.hasNext} pageCount={p.pageCount}>
             {p.quizzes.map((q, i) => <UxQuizCard key={q.id} quiz={q} priority={i < 4} />)}
@@ -135,6 +140,9 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
           <Link href="/new">newest</Link>
           <span aria-hidden="true"> · </span>
           <Link href="/most-liked">most liked</Link>
+          <span aria-hidden="true"> · </span>
+          {/* the live page searches in place; its search is the /search page here */}
+          <Link href="/search">search</Link>
         </p>
       </nav>
 
