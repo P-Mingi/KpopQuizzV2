@@ -1,0 +1,95 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:02:53.566Z",
+ "h1": "What's your quiz about?",
+ "groupsAttr": "91",
+ "titleHint": "",
+ "groupHint": "Your quiz appears on the BTS page and counts for ARMY in the fandom war.",
+ "types": [
+  "Classic [x]",
+  "True or false",
+  "Guess from clues",
+  "Image quiz",
+  "Find the intruder"
+ ],
+ "pasteStatus": "3 questions found",
+ "qlabel": "Questions 3 added · 3 needed to publish",
+ "draftKeys": [
+  "kq_create_draft_v1",
+  "kq_create_step_v1"
+ ],
+ "checklist": [
+  "Title\n: done",
+  "Type and group\n: done",
+  "3 complete questions\n: done",
+  "Cover image\n: recommended",
+  "Fun fact on every question\n: recommended"
+ ],
+ "note": "",
+ "card": "BTS C2 probe quiz, never published Medium New",
+ "afterPublish": "",
+ "errors": [
+  "load /create: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/profiles?select=username&id=eq.<test user id>",
+   "status": 200
+  },
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "title + title-check",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/title-check?title=BTS%20era%20quiz",
+   "status": 200
+  },
+  {
+   "step": "title + title-check",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/title-check?title=C2%20probe%20quiz%2C%20never%20published",
+   "status": 200
+  },
+  {
+   "step": "publish",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/create",
+   "body": "{\"group_id\":1,\"title\":\"C2 probe quiz, never published\",\"quiz_type\":\"multiple_choice\",\"difficulty\":\"medium\",\"language\":\"en\",\"questions\":[{\"question\":\"Who is the leader of BTS?\",\"correct\":3,\"options\":[\"Jin\",\"Suga\",\"V\",\"RM\"]},{\"question\":\"Which year did BTS debut?\",\"correct\":3,\"options\":[\"2012\",\"2014\",\"2015\",\"2013\"]},{\"question\":\"What is the BTS fandom called?\",\"correct\":1,\"options\":[\"BLINK\",\"ARMY\",\"ONCE\",\"STAY\"]}],\"settings\":{\"timer\":true,\"timer_seconds\":15,\"shuffle\":false,\"show_answers\":true,\"creator_note\":\"A short note from the C2 checker.\"}}"
+  }
+ ]
+}

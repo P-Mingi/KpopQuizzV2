@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 89 |
+| PASS | 108 |
 | FAIL | 5 |
-| NOT VERIFIED | 5 |
+| NOT VERIFIED | 9 |
 | PENDING | 0 |
-| N/A | 11 |
-| TODO | 157 |
+| N/A | 13 |
+| TODO | 132 |
 | Total | 267 |
 
 ## Rows
@@ -126,30 +126,30 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R127](R127.md) | P4 | Beat my score (battle link) | PARTIAL | PASS (payload); DB effect NOT VERIFIED | - |
 | [R128](R128.md) | P4 | Streak backup nudge | EXISTS | PASS (mounted); NOT VERIFIED visually | - |
 | [R129](R129.md) | P4 | Report | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
-| R135 | 6. | Autosave chip | - | TODO | - |
-| R136 | 6. | Stepper 1/2/3 | - | TODO | - |
-| R137 | 6. | Title (5+) + counter | - | TODO | - |
-| R138 | 6. | About 280 | - | TODO | - |
-| R139 | 6. | Quiz type cards (5) | - | TODO | - |
-| R140 | 6. | Group search with chip | - | TODO | - |
-| R141 | 6. | Difficulty segments | - | TODO | - |
-| R142 | 6. | Language | - | TODO | - |
-| R143 | 6. | Cover + rights checkbox | - | TODO | - |
-| R144 | 6. | Start adding questions | - | TODO | - |
-| R145 | 6. | Question list (drag, expand, duplicate, delete) | - | TODO | - |
-| R146 | 6. | Answers with circle marker, TF, clues, image labels | - | TODO | - |
-| R147 | 6. | Fun fact | - | TODO | - |
-| R148 | 6. | Add an image per question | - | TODO | - |
-| R149 | 6. | Add a question | - | TODO | - |
-| R150 | 6. | Paste several at once | - | TODO | - |
-| R151 | 6. | Preview | - | TODO | - |
-| R152 | 6. | Done -> Publish step | - | TODO | - |
-| R153 | 6. | Checklist (title, type, group, 3+ complete, cover, fun facts) | - | TODO | - |
-| R154 | 6. | How it will look (card preview) | - | TODO | - |
-| R155 | 6. | Publish | - | TODO | - |
-| R156 | 6. | Save as draft | - | TODO | - |
-| R157 | 6. | Done state: URL, Copy, Open, Post a challenge | - | TODO | - |
-| R158 | 6. | Creator XP | - | TODO | - |
+| [R135](R135.md) | P5 | Autosave chip | EXISTS | PASS | - |
+| [R136](R136.md) | P5 | Stepper 1/2/3 | EXISTS | N/A (client state, no backend) | - |
+| [R137](R137.md) | P5 | Title (5+) + counter | EXISTS | PASS | - |
+| [R138](R138.md) | P5 | About 280 | EXISTS | PASS | - |
+| [R139](R139.md) | P5 | Quiz type cards (5) | EXISTS | PASS | - |
+| [R140](R140.md) | P5 | Group search with chip | EXISTS | PASS | - |
+| [R141](R141.md) | P5 | Difficulty segments | EXISTS | PASS | - |
+| [R142](R142.md) | P5 | Language | EXISTS | PASS | - |
+| [R143](R143.md) | P5 | Cover + rights checkbox | EXISTS | NOT VERIFIED by C2 live (upload = production write); p5.spec records the multipart POST | - |
+| [R144](R144.md) | P5 | Start adding questions | EXISTS | PASS | - |
+| [R145](R145.md) | P5 | Question list (drag, expand, duplicate, delete) | EXISTS | PASS (unit parity 59/59) | - |
+| [R146](R146.md) | P5 | Answers with circle marker, TF, clues, image labels | EXISTS | PASS | - |
+| [R147](R147.md) | P5 | Fun fact | EXISTS | PASS (checklist counts it) | - |
+| [R148](R148.md) | P5 | Add an image per question | EXISTS | NOT VERIFIED by C2 live (upload); p5.spec | - |
+| [R149](R149.md) | P5 | Add a question | EXISTS | PASS | - |
+| [R150](R150.md) | P5 | Paste several at once | NEW | PASS | - |
+| [R151](R151.md) | P5 | Preview | NEW | N/A (not in the v11 prototype) | - |
+| [R152](R152.md) | P5 | Done -> Publish step | EXISTS | PASS | - |
+| [R153](R153.md) | P5 | Checklist (title, type, group, 3+ complete, cover, fun facts) | PARTIAL | PASS | - |
+| [R154](R154.md) | P5 | How it will look (card preview) | NEW | PASS | - |
+| [R155](R155.md) | P5 | Publish | EXISTS | PASS (payload); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R156](R156.md) | P5 | Save as draft | EXISTS | PASS | - |
+| [R157](R157.md) | P5 | Done state: URL, Copy, Open, Post a challenge | PARTIAL | NOT VERIFIED live (needs a real create response); p5.spec asserts the done state with a recorded response | - |
+| [R158](R158.md) | P5 | Creator XP | EXISTS | NOT VERIFIED (server side award_xp in the unchanged create route; needs a real publish) | - |
 | [R164](R164.md) | P8 | New post composer + 4 modes | NEW | PASS (thread payload); fan debate / challenge posts NOT VERIFIED until v11-p8-community.sql (fail-soft proven) | - |
 | [R165](R165.md) | P8 | Tabs For you / Following / Trending / Blogs | NEW | PASS | - |
 | [R166](R166.md) | P8 | Group chips | EXISTS | PASS | - |
@@ -278,7 +278,7 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R341](R341.md) | P4 | Results · Comment field | Real textarea, score chip, Send | PASS (payload); DB effect NOT VERIFIED | - |
 | [R342](R342.md) | P4 | Share sheet · Numbers | From the finished run (score, beat %, rank) | PASS | - |
 | [R343](R343.md) | P4 (A0 ShareSheet) | Share sheet · More apps | navigator.share with the story image as a file where supported | NOT VERIFIED (the OS share sheet is not reachable headless) | - |
-| R344 | v10 | Create · Publish as guest | - | TODO | - |
+| [R344](R344.md) | P5 | Create · Publish as guest | Opens sign-in, keeps the draft, then publishes | PASS (sheet + draft kept); the resume after a real sign-in NOT VERIFIED (no other sign-in allowed) | - |
 | R345 | v10 | Blindtest hub · Accept a challenge | - | TODO | - |
 | R346 | v10 | Blindtest game · Replay + sound | - | TODO | - |
 | R347 | v10 | Blindtest game · Autoplay blocked state | - | TODO | - |
