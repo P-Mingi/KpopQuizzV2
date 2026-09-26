@@ -117,17 +117,23 @@ export function RankedPane(): React.ReactElement {
   const { seen } = useLbTab();
   const opened = seen.has('ranked');
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
-
-  const load = useCallback(() => {
-    setStatus({ kind: 'loading' });
-    Promise.all([rankedApi.me(), rankedApi.ladder('global')])
-      .then(([card, ladder]) => setStatus({ kind: 'live', season: card.season, ladder }))
-      .catch((e: unknown) => setStatus(e instanceof RankedApiError && e.code === 'not_live' ? { kind: 'not_live' } : { kind: 'error' }));
-  }, []);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    if (opened && status.kind === 'idle') load();
-  }, [opened, status.kind, load]);
+    if (!opened) return undefined;
+    let on = true;
+    Promise.all([rankedApi.me(), rankedApi.ladder('global')])
+      .then(([card, ladder]) => { if (on) setStatus({ kind: 'live', season: card.season, ladder }); })
+      .catch((e: unknown) => { if (on) setStatus(e instanceof RankedApiError && e.code === 'not_live' ? { kind: 'not_live' } : { kind: 'error' }); });
+    return () => { on = false; };
+  }, [opened, attempt]);
 
-  return <div className="p9-ranked" aria-live="polite"><RankedBody status={status} retry={load} /></div>;
+  const retry = useCallback(() => {
+    setStatus({ kind: 'loading' });
+    setAttempt((a) => a + 1);
+  }, []);
+
+  // Opened and not answered yet = loading (derived, no state set inside the effect).
+  const shown: Status = opened && status.kind === 'idle' ? { kind: 'loading' } : status;
+  return <div className="p9-ranked" aria-live="polite"><RankedBody status={shown} retry={retry} /></div>;
 }

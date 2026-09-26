@@ -176,7 +176,7 @@ describe('How points work (the real rules, 13.5)', () => {
     expect(t).toContain('10 XP');
     expect(t).toContain('plays their quizzes have received');
     expect(t).not.toContain('This week counts');
-    expect(t).not.toMatch(/[–—]/);
+    expect(t).not.toMatch(/[\u2013\u2014]/);
     const all = text(html(h(HowPoints, { creatorViews: ['all', 'week', 'rising'] })));
     expect(all).toContain('This week counts the plays of the quizzes they published in the last 7 days.');
     expect(all).toContain('Rising counts new followers in the last 7 days.');
@@ -213,7 +213,7 @@ describe('Around the community (the live page\'s other links)', () => {
     expect(t).toContain('BABYMONSTER · by freyaa · 9 plays');
     expect(t).toContain('after scoring 13/16 · 11d ago');
     expect(out).toContain('ux-bmed');
-    expect(t).not.toMatch(/[–—]/);
+    expect(t).not.toMatch(/[\u2013\u2014]/);
   });
 
   it('each panel hides below its floor (data already gated); the blindtest of the day always shows', () => {

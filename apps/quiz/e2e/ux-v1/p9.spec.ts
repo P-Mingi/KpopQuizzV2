@@ -340,7 +340,7 @@ for (const theme of THEMES) {
       await expect(accs.nth(2)).toHaveAttribute('open', '');
       await expect(accs.nth(2).locator('.p9-ab')).toContainText('plays their quizzes have received');
       const all = await how.innerText();
-      expect(all).not.toMatch(/[–—]/);
+      expect(all).not.toMatch(/[\u2013\u2014]/);
       expect(o!.writes).toEqual([]);
     });
 
