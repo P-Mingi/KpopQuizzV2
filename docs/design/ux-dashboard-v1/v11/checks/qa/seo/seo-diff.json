@@ -1,5 +1,5 @@
 {
- "at": "2026-09-26T15:57:32.727Z",
+ "at": "2026-09-26T16:55:04.840Z",
  "servers": {
   "ON": "http://localhost:3021",
   "OFF": "http://localhost:4203",
@@ -43,8 +43,8 @@
      "WebSite",
      "ItemList"
     ],
-    "links": 61,
-    "ssrTextBytes": 2142
+    "links": 79,
+    "ssrTextBytes": 3002
    },
    "onVsOff": {
     "lostProse": [
@@ -52,90 +52,58 @@
     ],
     "links": {
      "off": 70,
-     "on": 61,
+     "on": 79,
      "lost": [
-      "/babymonster-quiz",
-      "/cortis-quiz",
-      "/enhypen-quiz",
-      "/exo-quiz",
-      "/general-kpop-quiz",
-      "/illit-quiz",
-      "/itzy-quiz",
-      "/ive-quiz",
-      "/le-sserafim-quiz",
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
       "/quizzes/most-liked",
-      "/quizzes/new",
-      "/txt-quiz",
-      "/verse/blackpink",
-      "/verse/bts",
-      "/verse/seventeen",
-      "/verse/stray-kids"
+      "/quizzes/new"
      ],
-     "addedCount": 8,
+     "addedCount": 11,
      "added": [
       "/ateez-quiz",
       "/blindtest/ranked",
       "/community",
       "/daily",
+      "/girls-generation-quiz",
       "/most-liked",
       "/new",
       "/profile",
-      "/trending"
+      "/trending",
+      "/verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3",
+      "/verse/bts/essays/2"
      ]
     }
    },
    "onVsLive": {
-    "jsonld": {
-     "only_live": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
-     ],
-     "only_on": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
-     ]
-    },
     "links": {
      "live": 64,
-     "on": 61,
+     "on": 79,
      "lost": [
-      "/babymonster-quiz",
-      "/cortis-quiz",
-      "/enhypen-quiz",
-      "/exo-quiz",
-      "/general-kpop-quiz",
-      "/illit-quiz",
-      "/itzy-quiz",
-      "/ive-quiz",
-      "/le-sserafim-quiz",
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
       "/quizzes/most-liked",
-      "/quizzes/new",
-      "/txt-quiz"
+      "/quizzes/new"
      ],
-     "addedCount": 10,
+     "addedCount": 17,
      "added": [
       "/ateez-quiz",
       "/blindtest/ranked",
       "/community",
       "/daily",
+      "/girls-generation-quiz",
       "/most-liked",
       "/new",
       "/profile",
       "/pt",
       "/trending",
-      "/verse"
+      "/verse",
+      "/verse/blackpink",
+      "/verse/bts",
+      "/verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3",
+      "/verse/bts/essays/2",
+      "/verse/seventeen",
+      "/verse/stray-kids"
      ]
     }
    },
    "offVsLive": {
-    "jsonld": {
-     "only_live": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
-     ],
-     "only_on": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
-     ]
-    },
     "links": {
      "live": 64,
      "on": 70,
@@ -188,17 +156,13 @@
      "Organization",
      "SiteNavigationElement"
     ],
-    "links": 54,
-    "ssrTextBytes": 1214
+    "links": 56,
+    "ssrTextBytes": 1340
    },
    "onVsOff": {
     "links": {
      "off": 49,
-     "on": 54,
-     "lost": [
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
-      "https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily"
-     ],
+     "on": 56,
      "addedCount": 7,
      "added": [
       "/ateez-quiz",
@@ -214,13 +178,8 @@
    "onVsLive": {
     "links": {
      "live": 48,
-     "on": 54,
-     "lost": [
-      "/q/are-you-a-real-eyekon",
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
-      "https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily"
-     ],
-     "addedCount": 9,
+     "on": 56,
+     "addedCount": 8,
      "added": [
       "/ateez-quiz",
       "/blindtest/ranked",
@@ -228,7 +187,6 @@
       "/daily",
       "/new",
       "/profile",
-      "/q/are-you-real-coer",
       "/trending",
       "/verse"
      ]
@@ -238,12 +196,8 @@
     "links": {
      "live": 48,
      "on": 49,
-     "lost": [
-      "/q/are-you-a-real-eyekon"
-     ],
-     "addedCount": 2,
+     "addedCount": 1,
      "added": [
-      "/q/are-you-real-coer",
       "/verse"
      ]
     }
@@ -773,17 +727,6 @@
     }
    },
    "onVsLive": {
-    "description": {
-     "live": [
-      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 181 fans have played it, scoring 68% on average. Can you beat them?"
-     ],
-     "on": [
-      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 182 fans have played it, scoring 68% on average. Can you beat them?"
-     ]
-    },
-    "lostProse": [
-     "Test your Cortis knowledge with this medium 5-question quiz by multistancookie. 181 fans have taken it, averaging 68%. Think you can beat that?"
-    ],
     "links": {
      "live": 31,
      "on": 47,
@@ -809,17 +752,6 @@
     }
    },
    "offVsLive": {
-    "description": {
-     "live": [
-      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 181 fans have played it, scoring 68% on average. Can you beat them?"
-     ],
-     "on": [
-      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 182 fans have played it, scoring 68% on average. Can you beat them?"
-     ]
-    },
-    "lostProse": [
-     "Test your Cortis knowledge with this medium 5-question quiz by multistancookie. 181 fans have taken it, averaging 68%. Think you can beat that?"
-    ],
     "links": {
      "live": 31,
      "on": 32,
@@ -1294,13 +1226,9 @@
      "BreadcrumbList"
     ],
     "links": 119,
-    "ssrTextBytes": 2579
+    "ssrTextBytes": 2661
    },
    "onVsOff": {
-    "lostProse": [
-     "Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.",
-     "3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen · 12 with no generation recorded"
-    ],
     "links": {
      "off": 66,
      "on": 119,
@@ -1363,10 +1291,6 @@
     }
    },
    "onVsLive": {
-    "lostProse": [
-     "Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.",
-     "3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen · 12 with no generation recorded"
-    ],
     "links": {
      "live": 65,
      "on": 119,
@@ -1918,72 +1842,14 @@
      "Organization",
      "SiteNavigationElement"
     ],
-    "links": 67,
-    "ssrTextBytes": 4282
+    "links": 98,
+    "ssrTextBytes": 6677
    },
    "onVsOff": {
-    "lostProse": [
-     "Love it, really fun !! You should try to share them on reddit or somwhere for people to play it !!"
-    ],
     "links": {
-     "off": 76,
-     "on": 67,
-     "lost": [
-      "/q/a-straykids-quiz",
-      "/q/are-u-a-real-bunnie",
-      "/q/fifty-fifty-discography-quiz",
-      "/q/guess-the-group-from-their-lightstick-girl-groups",
-      "/q/loona-true-or-false",
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
-      "/q/shinee-ring-ding-dong-quiz",
-      "/q/stray-kids-lee-know-quiz-part-1",
-      "/q/twice-formula-of-love-era",
-      "/u/fearnot",
-      "/u/freyaa",
-      "/u/jellytaengs",
-      "/u/mingi",
-      "/u/peachyblssom2014",
-      "/u/skz_johayo",
-      "/u/talentless_stay"
-     ],
-     "addedCount": 7,
-     "added": [
-      "/blindtest/ranked",
-      "/community",
-      "/daily",
-      "/groups",
-      "/new",
-      "/profile",
-      "/trending"
-     ]
-    }
-   },
-   "onVsLive": {
-    "lostProse": [
-     "Love it, really fun !! You should try to share them on reddit or somwhere for people to play it !!"
-    ],
-    "links": {
-     "live": 75,
-     "on": 67,
-     "lost": [
-      "/q/a-straykids-quiz",
-      "/q/are-u-a-real-bunnie",
-      "/q/fifty-fifty-discography-quiz",
-      "/q/guess-the-group-from-their-lightstick-girl-groups",
-      "/q/loona-true-or-false",
-      "/q/mamamoo-the-curtain-call-era?daily=quiz",
-      "/q/shinee-ring-ding-dong-quiz",
-      "/q/stray-kids-lee-know-quiz-part-1",
-      "/q/twice-formula-of-love-era",
-      "/u/fearnot",
-      "/u/freyaa",
-      "/u/jellytaengs",
-      "/u/mingi",
-      "/u/peachyblssom2014",
-      "/u/skz_johayo",
-      "/u/talentless_stay"
-     ],
-     "addedCount": 8,
+     "off": 78,
+     "on": 98,
+     "addedCount": 20,
      "added": [
       "/blindtest/ranked",
       "/community",
@@ -1992,14 +1858,56 @@
       "/new",
       "/profile",
       "/trending",
+      "/u/carat",
+      "/u/ersopa",
+      "/u/joonified",
+      "/u/kpophistory",
+      "/u/kpopquizz",
+      "/u/lea_mnm",
+      "/u/mapple",
+      "/u/mina",
+      "/u/njeansstan",
+      "/u/pinkvelvet",
+      "/u/roseeeyh",
+      "/u/skzrealm",
+      "/u/twiceland"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 77,
+     "on": 98,
+     "addedCount": 21,
+     "added": [
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/profile",
+      "/trending",
+      "/u/carat",
+      "/u/ersopa",
+      "/u/joonified",
+      "/u/kpophistory",
+      "/u/kpopquizz",
+      "/u/lea_mnm",
+      "/u/mapple",
+      "/u/mina",
+      "/u/njeansstan",
+      "/u/pinkvelvet",
+      "/u/roseeeyh",
+      "/u/skzrealm",
+      "/u/twiceland",
       "/verse"
      ]
     }
    },
    "offVsLive": {
     "links": {
-     "live": 75,
-     "on": 76,
+     "live": 77,
+     "on": 78,
      "addedCount": 1,
      "added": [
       "/verse"
@@ -2075,11 +1983,7 @@
     "links": {
      "live": 24,
      "on": 40,
-     "lost": [
-      "/u/freyaa",
-      "/u/once_mina"
-     ],
-     "addedCount": 18,
+     "addedCount": 16,
      "added": [
       "/aespa-quiz",
       "/ateez-quiz",
@@ -2096,8 +2000,6 @@
       "/stray-kids-quiz",
       "/trending",
       "/twice-quiz",
-      "/u/fearnot",
-      "/u/jellytaengs",
       "/verse"
      ]
     }
@@ -2106,14 +2008,8 @@
     "links": {
      "live": 24,
      "on": 25,
-     "lost": [
-      "/u/freyaa",
-      "/u/once_mina"
-     ],
-     "addedCount": 3,
+     "addedCount": 1,
      "added": [
-      "/u/fearnot",
-      "/u/jellytaengs",
       "/verse"
      ]
     }
@@ -2828,25 +2724,13 @@
      "Organization",
      "SiteNavigationElement"
     ],
-    "links": 37,
-    "ssrTextBytes": 690
+    "links": 47,
+    "ssrTextBytes": 1283
    },
    "onVsOff": {
     "links": {
      "off": 32,
-     "on": 37,
-     "lost": [
-      "/q/blackpink-true-or-false",
-      "/q/blackpink-ultimate-fan-challenge",
-      "/q/bts-discography-challenge",
-      "/q/bts-solo-era-quiz-match-the-member-to-the-music",
-      "/q/bts-true-or-false-test-your-army-knowledge",
-      "/q/k-pop-company-quiz-match-the-group-to-the-label",
-      "/q/skz-true-or-false-only-real-stays-pass",
-      "/q/stray-kids-basics",
-      "/q/twice-members-once-test",
-      "/q/ultimate-bts-era-quiz-only-real-armys-survive"
-     ],
+     "on": 47,
      "addedCount": 15,
      "added": [
       "/aespa-quiz",
@@ -2870,19 +2754,7 @@
    "onVsLive": {
     "links": {
      "live": 31,
-     "on": 37,
-     "lost": [
-      "/q/blackpink-true-or-false",
-      "/q/blackpink-ultimate-fan-challenge",
-      "/q/bts-discography-challenge",
-      "/q/bts-solo-era-quiz-match-the-member-to-the-music",
-      "/q/bts-true-or-false-test-your-army-knowledge",
-      "/q/k-pop-company-quiz-match-the-group-to-the-label",
-      "/q/skz-true-or-false-only-real-stays-pass",
-      "/q/stray-kids-basics",
-      "/q/twice-members-once-test",
-      "/q/ultimate-bts-era-quiz-only-real-armys-survive"
-     ],
+     "on": 47,
      "addedCount": 16,
      "added": [
       "/aespa-quiz",
@@ -3070,25 +2942,13 @@
      "CollectionPage",
      "BreadcrumbList"
     ],
-    "links": 37,
-    "ssrTextBytes": 1368
+    "links": 39,
+    "ssrTextBytes": 1454
    },
    "onVsOff": {
-    "jsonld": {
-     "only_off": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: August 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-08\"},{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: July 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-07\"}],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
-     ],
-     "only_on": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
-     ]
-    },
     "links": {
      "off": 24,
-     "on": 37,
-     "lost": [
-      "/data/pulse/2026-07",
-      "/data/pulse/2026-08"
-     ],
+     "on": 39,
      "addedCount": 15,
      "added": [
       "/aespa-quiz",
@@ -3110,21 +2970,9 @@
     }
    },
    "onVsLive": {
-    "jsonld": {
-     "only_live": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: August 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-08\"},{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: July 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-07\"}],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
-     ],
-     "only_on": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
-     ]
-    },
     "links": {
      "live": 23,
-     "on": 37,
-     "lost": [
-      "/data/pulse/2026-07",
-      "/data/pulse/2026-08"
-     ],
+     "on": 39,
      "addedCount": 16,
      "added": [
       "/aespa-quiz",
@@ -3190,8 +3038,8 @@
      "Organization",
      "SiteNavigationElement"
     ],
-    "links": 56,
-    "ssrTextBytes": 3539
+    "links": 57,
+    "ssrTextBytes": 3544
    },
    "onVsOff": {
     "status": {
