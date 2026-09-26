@@ -1,4 +1,33 @@
-# C2 backend check (UX v11.2 run, Phase 3, loop 1)
+# C2 backend check (UX v11.2 run, Phase 3, loops 1 and 2)
+
+## Loop 2 (cc6c394, after fix loop 1)
+
+Re-checked on the shared flag-on build at cc6c394 (and flag off on my dev :4202, stopped after use).
+Proofs: `proofs/loop2/`. Data guard before / after: every count only grew (site traffic), and the test
+user's rows are unchanged (`proofs/loop2/data-guard-diff.md`, `proofs/loop2/test-user-after.txt`).
+
+| Issue | Owner | Loop 2 | Evidence |
+|---|---|---|---|
+| C2-001 /api/quizzes/count flag off | A0 | FIXED: 404 flag off (37/37 new endpoints 404), 200 {count:425} flag on | proofs/loop2/flag-off-endpoints-dev-4202.txt |
+| C2-002 home streak wording | P1 | FIXED: "Play the daily quiz or the daily blindtest today to start a streak." | proofs/loop2/home-user-1440.json |
+| C2-003 results Discord line + Brag | P4 | FIXED: line + Brag on >= 70%, POST /api/discord/flex payload = the live keys (stubbed, never sent); none under 70% | proofs/loop2/quiz-brag-*.json |
+| C2-004 Continue hides listed quizzes | P1 | FIXED: a run on a home-listed quiz shows and resumes at question 3 | proofs/loop2/quiz-continue-user-listed-quiz.json |
+| C2-005 home links parked Verse spaces | P1 | FIXED: only /verse/bts and bts posts (all 200); flag off unchanged | proofs/loop2/home-verse-links.txt |
+| C2-006 hub Verse link for parked spaces | P3 | FIXED: none on BLACKPINK / ATEEZ, /verse/bts kept on BTS | proofs/loop2/hub-guest-1440.json |
+| C2-007 hub empty-state door | P3 | FIXED: "Play the top quiz and leave the first comment" -> the top quiz | proofs/loop2/hub-guest-1440.json |
+| C2-008 (new) results crash, signed in, no stored play | P4 | OPEN: standing {played:false} has no rank; rank !== null passes, toLocaleString throws, "Something went wrong" | proofs/loop2/crash-user-skz-true-or-false-on.json |
+
+Rows touched by the other fixes, re-checked: P1 home reads (sections complete, rail = published counts,
+QOTD unchanged, 4 render-health unit tests pass); P3 /groups + hubs (90 groups, 10 most-played counts =
+published counts, 4 sorts ALL SAME, 3 fail-closed unit tests pass); P4 like / follow / comment-load races
+(stale reads dropped, see R120, R076, R125); P6 hub (79 playlists, popular six = recomputed, board =
+daily_blindtest_scores, 8 no-cached-failure unit tests pass); P5 /create (the live language and cover lines
+are back, publish payload identical). The runtime failure paths of the P1 / P3 / P6 read fixes (throw so the
+last good ISR page stays) are NOT VERIFIED live: that needs a failing read on a production server, which C2
+cannot cause on ORCH's build; they are unit-proven. Flag off, the touched pages (10 guest, 5 signed in) send
+no request to a v11 endpoint.
+
+## Loop 1
 
 Checker: C2 (backend). Branch `ux11/c2-check`. Target: the shared flag-on production build of
 `feat/ux-v1-v11` served by ORCH on http://localhost:3021 (48189d5 at spawn, rebuilt at dcc3159 with P8
@@ -49,7 +78,7 @@ stopped after use; :3021 was never started or stopped by C2.
 | Nested challenge attempt routes (P4, P6) | PASS on the production build and on a flag-on dev server: the routes' own JSON (400 invalid_json / 404 not_found + no-store), not Next's HTML 404 | proofs/nested-routes-*.txt |
 | Verse gate (P8) | PASS: bts only while public; with VERSE_PUBLIC=false no Verse item, Blogs tab and composer gone, thread / blog URLs 404; parked case = unit tests (no parked row exists) | R167 |
 
-## Findings filed (v11/issues)
+## Findings filed in loop 1 (v11/issues; loop 2 status in the table above)
 
 - C2-001 (A0): /api/quizzes/count answers 200 with the flag off.
 - C2-002 (P1): signed-in home header says any quiz or blindtest starts / keeps the streak (not the real rule).
@@ -80,8 +109,8 @@ client-only display, or not in the v11 prototype).
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 187 |
-| FAIL | 9 |
+| PASS | 195 |
+| FAIL | 1 |
 | NOT VERIFIED | 33 |
 | PENDING | 7 |
 | N/A | 31 |
@@ -93,7 +122,7 @@ client-only display, or not in the v11 prototype).
 | Row | Owner | Control | Map status | Verdict | Issue |
 |---|---|---|---|---|---|
 | [R023](R023.md) | A0 | Sidebar Dashboard | EXISTS | PASS | - |
-| [R024](R024.md) | A0 | Sidebar Quizzes + count 419 | EXISTS | FAIL (flag off only: C2-001); the control itself passes (link; the count is dropped by design) | C2-001 |
+| [R024](R024.md) | A0 | Sidebar Quizzes + count 419 | EXISTS | PASS (C2-001 fixed on cc6c394) | C2-001 (fixed) |
 | [R025](R025.md) | A0 | Sidebar Blindtest | EXISTS | PASS | - |
 | [R026](R026.md) | A0 (link) / P8 (page) | Sidebar Community | NEW | PASS | - |
 | [R027](R027.md) | A0 | Sidebar Leaderboard | EXISTS | PASS | - |
@@ -117,7 +146,7 @@ client-only display, or not in the v11 prototype).
 | [R050](R050.md) | P1 | Trending this week grid + arrows | EXISTS | PASS | - |
 | [R051](R051.md) | P1 | New quizzes grid | EXISTS | PASS | - |
 | [R052](R052.md) | P1 | All time best grid | EXISTS | PASS | - |
-| [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | FAIL (C2-005, carried from the live home); the debate and Verse rows pass | C2-005 |
+| [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | PASS (C2-005 fixed on cc6c394) | C2-005 (fixed) |
 | [R054](R054.md) | P1 | Blindtest panel (Classic, Daily, By group) | EXISTS | PASS | - |
 | [R055](R055.md) | A0 (card) / P1 | Quiz card (any) | EXISTS | PASS | - |
 | [R061](R061.md) | P2 | Sort tabs Trending / Newest / Most played / Top rated | EXISTS | PENDING (P2 not merged: waiting for the owner's push of ux11/p2-quizzes) | - |
@@ -161,9 +190,9 @@ client-only display, or not in the v11 prototype).
 | [R114](R114.md) | P4 | Confetti on pass | EXISTS | N/A (client only) | - |
 | [R115](R115.md) | P4 | Share this card | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
 | [R116](R116.md) | P4 | Play again | EXISTS | PASS | - |
-| [R117](R117.md) | P4 | Discord line / Brag | EXISTS | FAIL (C2-003) | C2-003 |
+| [R117](R117.md) | P4 | Discord line / Brag | EXISTS | PASS (C2-003 fixed on cc6c394) | C2-003 (fixed) |
 | [R118](R118.md) | P4 | Run ledger You/Avg/Pass/XP/Time | EXISTS | PASS | - |
-| [R119](R119.md) | P4 | Your rank on this quiz | EXISTS | PASS (signed in); guest rank line NOT VERIFIED until v11-p4-rank-for-score.sql | - |
+| [R119](R119.md) | P4 | Your rank on this quiz | EXISTS | FAIL (C2-008, found in loop 2): results crash for a signed-in fan with no stored play on the quiz | C2-008 |
 | [R120](R120.md) | P4 | Like | EXISTS | PASS (payload + read state); DB effect NOT VERIFIED | - |
 | [R121](R121.md) | P4 | Saved to passport / Put my name on it | EXISTS | PASS (signed in 'Saved to your passport'; guest sheet); claim after a real sign-in NOT VERIFIED (no other sign-in allowed) | - |
 | [R122](R122.md) | P4 | Level up overlay | EXISTS | NOT VERIFIED live (needs a real save response with leveled_up, owner decision 1) | - |
@@ -217,7 +246,7 @@ client-only display, or not in the v11 prototype).
 | [R185](R185.md) | P3 | Photo hero | EXISTS | PASS | - |
 | [R186](R186.md) | P3 | Play the top quiz | EXISTS | PASS | - |
 | [R187](R187.md) | P3 | Blindtest N songs | EXISTS | PASS | - |
-| [R188](R188.md) | P3 | From the community (3 rows) + composer | PARTIAL | FAIL (C2-007: empty-state CTA); the rows themselves PASS | C2-007 |
+| [R188](R188.md) | P3 | From the community (3 rows) + composer | PARTIAL | PASS (C2-007 fixed on cc6c394) | C2-007 (fixed) |
 | [R189](R189.md) | P3 | Facts strip (gen, members, debut, label, quizzes, plays) | EXISTS | PASS | - |
 | [R190](R190.md) | P3 | Updated month | EXISTS | PASS (SEO diff SAME, P3) | - |
 | [R191](R191.md) | P3 | Tiles quizzes / blind test | EXISTS | PASS | - |
@@ -230,7 +259,7 @@ client-only display, or not in the v11 prototype).
 | [R198](R198.md) | P3 | Fandom war line | EXISTS | PASS | - |
 | [R199](R199.md) | P3 (link) / P5 (prefill) | Make a group quiz | EXISTS | PASS | - |
 | [R200](R200.md) | P3 | Live room panel | NEW | N/A (live rooms not shipped: removed until rooms exist, 16.7) | - |
-| [R201](R201.md) | P3 | Verse links | drop from this page | FAIL (C2-006: the kept link is a 404 for parked spaces; owner decision 21) | C2-006 |
+| [R201](R201.md) | P3 | Verse links | drop from this page | PASS (C2-006 fixed on cc6c394) | C2-006 (fixed) |
 | [R207](R207.md) | P10 | Header (theme, avatar, name font/colour, level title, meta) | EXISTS | PASS (public passports, guest); signed-in /me NOT VERIFIED (writes on view, owner decision 1/4) | - |
 | [R208](R208.md) | P10 | XP bar | EXISTS | PASS | - |
 | [R209](R209.md) | P10 | Stats (streak, mastered, quizzes made, plays received) | EXISTS | PASS (public stats); owner stats NOT VERIFIED (/me) | - |
@@ -310,13 +339,13 @@ client-only display, or not in the v11 prototype).
 | [R317](R317.md) | A0 | Images | `public/idols/*.jpg`, `public/mascot/*.png`, `public/logos/blackpink.svg`; never redraw logos | PASS (unit) | - |
 | [R318](R318.md) | P4 / P6 | Sounds | `lib/sounds.ts`, `lib/haptics.ts` | PASS | - |
 | [R319](R319.md) | all | Reduced motion | `reduceMotion` in players | N/A (client, C3) | - |
-| [R320](R320.md) | A0 / P4 | Discord / Reddit | `/api/discord/*`, `lib/reddit-api.ts`, share images | FAIL (C2-003 on results); footer links PASS | C2-003 |
+| [R320](R320.md) | A0 / P4 | Discord / Reddit | `/api/discord/*`, `lib/reddit-api.ts`, share images | PASS (C2-003 fixed on cc6c394) | C2-003 (fixed) |
 | [R321](R321.md) | unowned (RUN-STATE open item) | i18n `/pt` | `lib/i18n` | PASS in C2 scope (no /pt mirror of new pages; /pt renders inside the shell) | - |
 | [R330](R330.md) | A0 | Shell · Top nav links, logo, search, Create, streak, bell, avatar | Replace the 232px sidebar shell of Phase 1 | PASS | - |
 | [R331](R331.md) | A0 / P11 | Shell · Search overlay | Groups, quizzes (incl. quizzes of a matched group), songs; no-results state; Enter opens first | PASS | - |
-| [R332](R332.md) | A0 (+ P1 copy) | Shell · Streak pill + popover | Neutral; pink flame when at risk; switches to "saved" after any quiz or blindtest | FAIL vs the v10 rule (the live rule is kept: owner decision 12); the pill shows the stored value; the home line misstates the rule (C2-002) | C2-002 |
+| [R332](R332.md) | A0 (+ P1 copy) | Shell · Streak pill + popover | Neutral; pink flame when at risk; switches to "saved" after any quiz or blindtest | PASS for the copy (C2-002 fixed); the v10 any-game rule is still NOT implemented (the live rule is kept: owner decision 12) | C2-002 (fixed) |
 | [R333](R333.md) | A0 | Any · Sign-in sheet | Google, Discord, email magic link; continues the pending action after auth | PASS (continue the action proven with the test user); a real provider round trip NOT VERIFIED | - |
-| [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | FAIL for a quiz the home also lists (C2-004); PASS for an unlisted quiz | C2-004 |
+| [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | PASS (C2-004 fixed on cc6c394) | C2-004 (fixed) |
 | [R335](R335.md) | P1 | Home · Daily band played state | After the daily: score + See today's board | PASS (not played state); NOT VERIFIED played state (needs a daily blindtest play = production write, owner decision 1) | - |
 | [R336](R336.md) | P2 | Quizzes · Sort + Type/Level/Group chips | Real server filtering; empty state; ?page=2 link | PENDING (P2 not merged) | - |
 | [R337](R337.md) | P4 | Quiz · Play without a timer | Relaxed run; excluded from hall of fame and quiz_time_stats | NOT VERIFIED until v11-p4-relaxed-runs.sql (fail-soft proven) | - |
@@ -340,7 +369,7 @@ client-only display, or not in the v11 prototype).
 | [R355](R355.md) | P10 | Passport · Band default | Main group photo blurred over tint when no image | PASS (flat band case) | - |
 | [R356](R356.md) | P10 | Settings · Sign out | Signs out and returns home | PASS | - |
 | [R362](R362.md) | P1 | Home · Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | PASS | - |
-| [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | FAIL (C2-002) | C2-002 |
+| [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | PASS (C2-002 fixed on cc6c394) | C2-002 (fixed) |
 | [R364](R364.md) | P1 | Home · Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | PASS | - |
 | [R365](R365.md) | A0 | Nav · Pink pill active item + icons + Home link | Route-aware active state | PASS (unit + DOM) | - |
 | [R366](R366.md) | P6 | Blindtest · Playlist menu groups | All playable groups under All K-pop, searchable, counts | PASS | - |

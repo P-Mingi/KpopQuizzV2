@@ -1,0 +1,212 @@
+{
+ "base": "http://localhost:4202",
+ "takenAt": "2026-09-26T21:47:13.781Z",
+ "pages": [
+  {
+   "path": "/",
+   "who": "guest",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/activity/recent 200",
+    "GET /api/stats/live 200",
+    "GET /api/discord/widget 200"
+   ],
+   "errors": [
+    "/: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ]
+  },
+  {
+   "path": "/groups",
+   "who": "guest",
+   "status": 200,
+   "final": "/groups",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/groups: console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ]
+  },
+  {
+   "path": "/bts-quiz",
+   "who": "guest",
+   "status": 200,
+   "final": "/bts-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/05/672f0afb-77c7-43f0-a8e6-556316cf7468.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/9c540376-0edc-4d46-9cdc-b1aa4dcf8e2b.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/seventeen.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/txt.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/enhypen.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/14063591-e57b-4e17-8dc6-970df20b149f.jpg 200"
+   ],
+   "errors": [
+    "/bts-quiz: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called."
+   ]
+  },
+  {
+   "path": "/blackpink-quiz",
+   "who": "guest",
+   "status": 200,
+   "final": "/blackpink-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/aespa.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/twice.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/red-velvet.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/0d72e185-d8f4-4697-87c0-180cb829a96e.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/d234947b-cce0-4e20-b908-6af4c202f230.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/20b1b121-27b6-46c8-ab33-39b479e9c784.jpg 200"
+   ],
+   "errors": [
+    "/blackpink-quiz: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called."
+   ]
+  },
+  {
+   "path": "/chungha-quiz",
+   "who": "guest",
+   "status": 200,
+   "final": "/chungha-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/chungha-quiz: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/chungha-quiz: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.",
+    "/chungha-quiz: console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ]
+  },
+  {
+   "path": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "who": "guest",
+   "status": 200,
+   "final": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/follow?username=mina 200",
+    "GET /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/my-rank 200"
+   ],
+   "errors": [
+    "/q/ultimate-bts-era-quiz-only-real-armys-survive: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called."
+   ]
+  },
+  {
+   "path": "/blindtest",
+   "who": "guest",
+   "status": 200,
+   "final": "/blindtest",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200"
+   ],
+   "errors": [
+    "/blindtest: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called."
+   ]
+  },
+  {
+   "path": "/create",
+   "who": "guest",
+   "status": 200,
+   "final": "/create",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/create: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called."
+   ]
+  },
+  {
+   "path": "/community",
+   "who": "guest",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/activity/recent 200",
+    "GET /api/stats/live 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/discord/widget 200"
+   ],
+   "errors": [
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes wi @  | - A server/client branch `if (typeof window !== 'undefined')`. | - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/community: console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ]
+  },
+  {
+   "path": "/blindtest/ranked",
+   "who": "guest",
+   "status": 404,
+   "final": "/blindtest/ranked",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [],
+   "errors": [
+    "/blindtest/ranked: console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "/blindtest/ranked: console: Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+   ]
+  }
+ ]
+}

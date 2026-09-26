@@ -1,4 +1,33 @@
-# C2 backend check (UX v11.2 run, Phase 3, loop 1)
+# C2 backend check (UX v11.2 run, Phase 3, loops 1 and 2)
+
+## Loop 2 (cc6c394, after fix loop 1)
+
+Re-checked on the shared flag-on build at cc6c394 (and flag off on my dev :4202, stopped after use).
+Proofs: `proofs/loop2/`. Data guard before / after: every count only grew (site traffic), and the test
+user's rows are unchanged (`proofs/loop2/data-guard-diff.md`, `proofs/loop2/test-user-after.txt`).
+
+| Issue | Owner | Loop 2 | Evidence |
+|---|---|---|---|
+| C2-001 /api/quizzes/count flag off | A0 | FIXED: 404 flag off (37/37 new endpoints 404), 200 {count:425} flag on | proofs/loop2/flag-off-endpoints-dev-4202.txt |
+| C2-002 home streak wording | P1 | FIXED: "Play the daily quiz or the daily blindtest today to start a streak." | proofs/loop2/home-user-1440.json |
+| C2-003 results Discord line + Brag | P4 | FIXED: line + Brag on >= 70%, POST /api/discord/flex payload = the live keys (stubbed, never sent); none under 70% | proofs/loop2/quiz-brag-*.json |
+| C2-004 Continue hides listed quizzes | P1 | FIXED: a run on a home-listed quiz shows and resumes at question 3 | proofs/loop2/quiz-continue-user-listed-quiz.json |
+| C2-005 home links parked Verse spaces | P1 | FIXED: only /verse/bts and bts posts (all 200); flag off unchanged | proofs/loop2/home-verse-links.txt |
+| C2-006 hub Verse link for parked spaces | P3 | FIXED: none on BLACKPINK / ATEEZ, /verse/bts kept on BTS | proofs/loop2/hub-guest-1440.json |
+| C2-007 hub empty-state door | P3 | FIXED: "Play the top quiz and leave the first comment" -> the top quiz | proofs/loop2/hub-guest-1440.json |
+| C2-008 (new) results crash, signed in, no stored play | P4 | OPEN: standing {played:false} has no rank; rank !== null passes, toLocaleString throws, "Something went wrong" | proofs/loop2/crash-user-skz-true-or-false-on.json |
+
+Rows touched by the other fixes, re-checked: P1 home reads (sections complete, rail = published counts,
+QOTD unchanged, 4 render-health unit tests pass); P3 /groups + hubs (90 groups, 10 most-played counts =
+published counts, 4 sorts ALL SAME, 3 fail-closed unit tests pass); P4 like / follow / comment-load races
+(stale reads dropped, see R120, R076, R125); P6 hub (79 playlists, popular six = recomputed, board =
+daily_blindtest_scores, 8 no-cached-failure unit tests pass); P5 /create (the live language and cover lines
+are back, publish payload identical). The runtime failure paths of the P1 / P3 / P6 read fixes (throw so the
+last good ISR page stays) are NOT VERIFIED live: that needs a failing read on a production server, which C2
+cannot cause on ORCH's build; they are unit-proven. Flag off, the touched pages (10 guest, 5 signed in) send
+no request to a v11 endpoint.
+
+## Loop 1
 
 Checker: C2 (backend). Branch `ux11/c2-check`. Target: the shared flag-on production build of
 `feat/ux-v1-v11` served by ORCH on http://localhost:3021 (48189d5 at spawn, rebuilt at dcc3159 with P8
@@ -49,7 +78,7 @@ stopped after use; :3021 was never started or stopped by C2.
 | Nested challenge attempt routes (P4, P6) | PASS on the production build and on a flag-on dev server: the routes' own JSON (400 invalid_json / 404 not_found + no-store), not Next's HTML 404 | proofs/nested-routes-*.txt |
 | Verse gate (P8) | PASS: bts only while public; with VERSE_PUBLIC=false no Verse item, Blogs tab and composer gone, thread / blog URLs 404; parked case = unit tests (no parked row exists) | R167 |
 
-## Findings filed (v11/issues)
+## Findings filed in loop 1 (v11/issues; loop 2 status in the table above)
 
 - C2-001 (A0): /api/quizzes/count answers 200 with the flag off.
 - C2-002 (P1): signed-in home header says any quiz or blindtest starts / keeps the streak (not the real rule).
