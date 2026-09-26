@@ -18,7 +18,7 @@ import type { DebateData } from '@/lib/ux-v1/p8/types';
 // results after voting). The daily debate's reply rides with the vote (the existing
 // RPC stores one vote + one optional comment per fan per day), so the optional reply
 // field sits right under the sides: a tap on a side sends both. A fan debate votes
-// through /api/ux-v1/p8/debates/<id>/vote (pending store).
+// through /api/ux-v1/p8/debate-vote (pending store).
 
 export function DailyDebateVote({ date, question, sides, votes, open }: { date: string; question: string; sides: [string, string]; votes: [number, number]; open: boolean }): React.ReactElement {
   const v = useP8Viewer();
@@ -98,7 +98,7 @@ export function FanDebateVote({ id, question, debate }: { id: number; question: 
     let ok = false;
     let data: { counts?: number[]; error?: string } = {};
     try {
-      const r = await fetch(`/api/ux-v1/p8/debates/${id}/vote`, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ option_index: i }) });
+      const r = await fetch('/api/ux-v1/p8/debate-vote', { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ debate_id: id, option_index: i }) });
       data = (await r.json().catch(() => ({}))) as typeof data;
       ok = r.ok;
     } catch { ok = false; }

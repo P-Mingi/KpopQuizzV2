@@ -11,7 +11,7 @@ import { toPerson } from './people';
 import { parsePostKey } from './post';
 import { collapseSpree, eventPhrase } from './rail';
 import { isPostKind } from './types';
-import { checkChallenge, checkDebate, checkLike, checkReply, checkVote, hasLink } from './validate';
+import { checkChallenge, checkDebate, checkDebateId, checkLike, checkReply, checkVote, hasLink } from './validate';
 
 import type { Draft } from './draft';
 import type { FeedPost } from './types';
@@ -158,6 +158,8 @@ describe('route payloads', () => {
     expect(checkDebate({ ...ok, group_id: -1 }).ok).toBe(false);
   });
   it('checkVote, checkChallenge, checkReply, hasLink', () => {
+    expect(checkDebateId({ debate_id: 7 })).toEqual({ ok: true, value: 7 });
+    expect(checkDebateId({ debate_id: '7x' }).ok).toBe(false);
     expect(checkVote({ option_index: 1 }, 2)).toEqual({ ok: true, value: 1 });
     expect(checkVote({ option_index: 2 }, 2).ok).toBe(false);
     expect(checkVote({ option_index: 1.5 }, 4).ok).toBe(false);

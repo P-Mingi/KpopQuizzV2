@@ -56,7 +56,7 @@ const COMMUNITY: Pair[] = [
   ['.rail', '.p8-rail', ['width']], ['.rail>section', '.p8-rail > .ux-panel', ['width']], ['.rail h3', '.p8-rail .p8-panel-h', []], ['.rail h3 small', '.p8-rail .p8-panel-h small', []],
   ['.rail .dq', '.p8-rail .p8-dq', []], ['.rail .vote', '.p8-rail .p8-vote', []], ['.rail .vote button', '.p8-rail .p8-vote button', ['width', 'height']], ['.rail .pl3', '.p8-rail .p8-pl3', []],
   ['.rail .pl3 b', '.p8-rail .p8-pl3 b', []], ['.rail .hn', '.p8-rail .p8-hn', ['width']], ['.rail .hn .ava', '.p8-rail .p8-hn .ux-ava', ['width', 'height'], ['line-height', 'font-size']], ['.rail .hn .tm', '.p8-rail .p8-tm', []],
-  ['.warstrip', '.p8-warstrip', ['height']], ['.warstrip .grow', '.p8-warstrip .p8-grow', []], ['.mdebate .mine', '.p8-mine', []], ['.mine .plabel', '.p8-plabel', []], ['.mine .dq', '.p8-mine .p8-dq', []],
+  ['.warstrip', '.p8-warstrip', ['height']], ['.warstrip .grow', '.p8-warstrip .p8-grow', []], ['.mdebate .mine', '.p8-mine', [], ['gap']], // the prototype box is display:block there (gap inert) ['.mine .plabel', '.p8-plabel', []], ['.mine .dq', '.p8-mine .p8-dq', []],
   ['.mine .vote button', '.p8-mine .p8-vote button', ['height']], ['.mrail', '.p8-mrail', ['width']], ['.mrail h3', '.p8-mrail .p8-panel-h', []], ['.mrail .hn', '.p8-mrail .p8-hn', []],
 ];
 const POST: Pair[] = [
@@ -525,7 +525,7 @@ for (const theme of THEMES) {
       const pending: [string, unknown][] = [
         ['/api/ux-v1/p8/like', { target_type: 'thread', target_id: '1' }],
         ['/api/ux-v1/p8/debates', { question: 'Best title track?', options: ['A', 'B'], days: 3 }],
-        ['/api/ux-v1/p8/debates/1/vote', { option_index: 0 }],
+        ['/api/ux-v1/p8/debate-vote', { debate_id: 1, option_index: 0 }],
         ['/api/ux-v1/p8/challenges', { play_id: '00000000-0000-4000-8000-000000000000' }],
         ['/api/ux-v1/p8/replies', { target_type: 'debate', target_id: 1, body: 'hi' }],
       ];

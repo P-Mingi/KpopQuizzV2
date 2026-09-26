@@ -43,6 +43,13 @@ export function checkDebate(body: unknown): Checked<DebateInput> {
   return { ok: true, value: { groupId: gid, question, body: text || null, options, days } };
 }
 
+/** The fan debate a vote is for (debate-vote route body). */
+export function checkDebateId(body: unknown): Checked<number> {
+  const id = Number((body as Record<string, unknown> | null)?.debate_id);
+  if (!Number.isSafeInteger(id) || id <= 0) return { ok: false, error: 'bad_params' };
+  return { ok: true, value: id };
+}
+
 export function checkVote(body: unknown, optionCount: number): Checked<number> {
   const i = Number((body as Record<string, unknown> | null)?.option_index);
   if (!Number.isInteger(i) || i < 0 || i >= optionCount || i > 3) return { ok: false, error: 'bad_option' };
