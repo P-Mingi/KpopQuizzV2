@@ -32,7 +32,7 @@ export function StreakBody({ v, close }: { v: StreakView; close: () => void }): 
     <>
       <div className="ux-streakpop-big">{v.days} {v.days === 1 ? 'day' : 'days'}</div>
       <p>{risk
-        ? `Today is not played yet. Play any quiz or blindtest in the next ${v.left} to keep it.`
+        ? `Today is not played yet. Play the daily quiz or the daily blindtest in the next ${v.left} to keep it.`
         : `Today is played. Come back tomorrow to make it ${v.days + 1}.`}</p>
       <ol className="ux-week" aria-label="This week">
         {v.week.map((d, i) => (

@@ -279,6 +279,16 @@ test.describe('kit interactions', () => {
     }
   });
 
+  // P11 request 4: the at-risk streak popover states the real rule (only the daily
+  // quiz and the daily blindtest move the streak), as P11's streak row does.
+  test('streak popover: the real rule (daily quiz or daily blindtest)', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const risk = page.getByRole('dialog', { name: 'Streak at risk (static)' });
+    await expect(risk.locator('p')).toHaveText(/^Today is not played yet\. Play the daily quiz or the daily blindtest in the next \d+h \d+m to keep it\.$/);
+    await expect(risk.getByRole('link', { name: "Play today's quiz" })).toHaveAttribute('href', '/daily');
+    await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
+  });
+
   // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
   test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
     test.skip(!(await openKit(page)), 'kit not served here');
