@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 13 |
-| FAIL | 1 |
+| PASS | 29 |
+| FAIL | 2 |
 | NOT VERIFIED | 0 |
 | PENDING | 0 |
-| N/A | 1 |
-| TODO | 252 |
+| N/A | 2 |
+| TODO | 234 |
 | Total | 267 |
 
 ## Rows
@@ -59,19 +59,19 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R035](R035.md) | A0 | Mobile bottom nav (5) | EXISTS | PASS | - |
 | [R036](R036.md) | A0 | Footer links | EXISTS | PASS | - |
 | [R037](R037.md) | A0 | UX notes drawer | drop | N/A (dropped by design) | - |
-| R043 | 1. | Greeting "Good evening, Mingi" | - | TODO | - |
-| R044 | 1. | Hero "Today's Ten" daily challenge | - | TODO | - |
-| R045 | 1. | "Play now" | - | TODO | - |
-| R046 | 1. | "Daily blindtest" | - | TODO | - |
-| R047 | 1. | Keep playing (resume rows, progress %) | - | TODO | - |
-| R048 | 1. | Keep playing stats (streak, best BT, rank) | - | TODO | - |
-| R049 | 1. | Groups of the moment rail (NEW badge) | - | TODO | - |
-| R050 | 1. | Trending this week grid + arrows | - | TODO | - |
-| R051 | 1. | New quizzes grid | - | TODO | - |
-| R052 | 1. | All time best grid | - | TODO | - |
-| R053 | 1. | From the community (3 rows) | - | TODO | - |
-| R054 | 1. | Blindtest panel (Classic, Daily, By group) | - | TODO | - |
-| R055 | 1. | Quiz card (any) | - | TODO | - |
+| [R043](R043.md) | P1 | Greeting "Good evening, Mingi" | EXISTS | PASS | - |
+| [R044](R044.md) | P1 | Hero "Today's Ten" daily challenge | PARTIAL | PASS | - |
+| [R045](R045.md) | P1 | "Play now" | EXISTS | PASS | - |
+| [R046](R046.md) | P1 | "Daily blindtest" | EXISTS | PASS | - |
+| [R047](R047.md) | P1 (home) / P4 (store) | Keep playing (resume rows, progress %) | NEW | PASS (see R334) | - |
+| [R048](R048.md) | P1 | Keep playing stats (streak, best BT, rank) | PARTIAL | N/A (not in the v11 home) | - |
+| [R049](R049.md) | P1 | Groups of the moment rail (NEW badge) | EXISTS | PASS | - |
+| [R050](R050.md) | P1 | Trending this week grid + arrows | EXISTS | PASS | - |
+| [R051](R051.md) | P1 | New quizzes grid | EXISTS | PASS | - |
+| [R052](R052.md) | P1 | All time best grid | EXISTS | PASS | - |
+| [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | PASS | - |
+| [R054](R054.md) | P1 | Blindtest panel (Classic, Daily, By group) | EXISTS | PASS | - |
+| [R055](R055.md) | A0 (card) / P1 | Quiz card (any) | EXISTS | PASS | - |
 | R061 | 2. | Sort tabs Trending / Newest / Most played / Top rated | - | TODO | - |
 | R062 | 2. | Type chips (5) | - | TODO | - |
 | R063 | 2. | Level chips | - | TODO | - |
@@ -268,8 +268,8 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R331 | v10 | Shell · Search overlay | - | TODO | - |
 | R332 | v10 | Shell · Streak pill + popover | - | TODO | - |
 | R333 | v10 | Any · Sign-in sheet | - | TODO | - |
-| R334 | v10 | Home · Continue playing | - | TODO | - |
-| R335 | v10 | Home · Daily band played state | - | TODO | - |
+| [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | PASS | - |
+| [R335](R335.md) | P1 | Home · Daily band played state | After the daily: score + See today's board | PASS (not played state); NOT VERIFIED played state (needs a daily blindtest play = production write, owner decision 1) | - |
 | R336 | v10 | Quizzes · Sort + Type/Level/Group chips | - | TODO | - |
 | R337 | v10 | Quiz · Play without a timer | - | TODO | - |
 | R338 | v10 | Quiz game · Quit confirm | - | TODO | - |
@@ -291,9 +291,9 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R354 | v10 | Post · Reply field | - | TODO | - |
 | R355 | v10 | Passport · Band default | - | TODO | - |
 | R356 | v10 | Settings · Sign out | - | TODO | - |
-| R362 | v11 | Home · Quiz of the day card (v11.1 minimal) | - | TODO | - |
-| R363 | v11 | Home · Header (v11.2, centred live-site hero) | - | TODO | - |
-| R364 | v11 | Home · Live ticker | - | TODO | - |
+| [R362](R362.md) | P1 | Home · Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | PASS | - |
+| [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | FAIL (C2-002) | C2-002 |
+| [R364](R364.md) | P1 | Home · Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | PASS | - |
 | R365 | v11 | Nav · Pink pill active item + icons + Home link | - | TODO | - |
 | R366 | v11 | Blindtest · Playlist menu groups | - | TODO | - |
 | R367 | v11 | Blindtest · Play by group (v11.1) | - | TODO | - |
