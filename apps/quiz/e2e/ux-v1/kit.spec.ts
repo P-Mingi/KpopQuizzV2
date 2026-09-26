@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
+import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
-import { A0_LANDMARKS, compareLandmarks } from './helpers/landmarks';
+import { A0_LANDMARKS, compareLandmarks, loadReference } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 
 // /ux-v1/kit, the A0 gallery: every shared component in every state, light and
 // dark, at the project width (ux-1440 / ux-390). Computed styles of the shared
@@ -16,7 +17,7 @@ import type { Page } from '@playwright/test';
 // (it needs '/ux-v1/' in lib/route-allowlist.ts, requested from ORCH).
 
 const env = loadTestEnv();
-const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'icons'];
+const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'viewer', 'route-focus', 'icons'];
 
 async function openKit(page: Page): Promise<boolean> {
   const res = await page.goto('/ux-v1/kit');
@@ -162,5 +163,200 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Search' })).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+
+  // P2 request 3: Segmented and UxDropdown with link options. Segmented is a <nav> of
+  // real links in the server HTML (aria-current on the pick, same pill as the button
+  // mode); once hydrated a plain click navigates softly, modified clicks stay the
+  // browser's. Dropdown link items are <a role="menuitemradio" aria-checked> with a
+  // count; Space picks; onNavigate hands the href to the page's router.
+  test('link options: Segmented nav of links, UxDropdown link items, soft navigation', async ({ page }) => {
+    const html = await (await page.request.get('/ux-v1/kit')).text();
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const nav = html.match(/<nav[^>]*aria-label="Sort \(links\)"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? '';
+    expect(nav.match(/<a\b/g)?.length ?? 0, 'server HTML: 4 real links').toBe(4);
+    expect(nav).toContain('href="/ux-v1/kit?kitsort=newest"');
+    expect(nav.match(/aria-current="page"/g)?.length ?? 0).toBe(1);
+    expect(nav).toMatch(/<a[^>]*href="\/ux-v1\/kit"[^>]*aria-current="page"|<a[^>]*aria-current="page"[^>]*href="\/ux-v1\/kit"/);
+
+    const links = page.locator('[data-kit="link-controls"]').getByRole('navigation', { name: 'Sort (links)' });
+    const buttons = page.locator('[data-kit="controls"]').getByRole('group', { name: 'Sort' });
+    const props = ['background-color', 'color', 'font-size', 'font-weight', 'box-shadow', 'border-radius', 'padding-left', 'padding-right', 'height'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => {
+      const cs = getComputedStyle(el);
+      return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)]));
+    }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(links.locator('a[aria-current="page"]')), 'picked link = pressed button').toEqual(await styleOf(buttons.locator('button[aria-pressed="true"]')));
+    expect(await styleOf(links.locator('a:not([aria-current])').first()), 'other link = other button').toEqual(await styleOf(buttons.locator('button[aria-pressed="false"]').first()));
+
+    const prevented = await links.getByRole('link', { name: 'Top rated' }).evaluate((a) => {
+      const out: Record<string, boolean> = {};
+      for (const [name, init] of [['ctrl', { ctrlKey: true }], ['meta', { metaKey: true }], ['shift', { shiftKey: true }]] as const) {
+        let seen = true;
+        const on = (e: Event): void => { seen = e.defaultPrevented; e.preventDefault(); };
+        window.addEventListener('click', on);
+        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ...init }));
+        window.removeEventListener('click', on);
+        out[name] = seen;
+      }
+      return out;
+    });
+    expect(prevented, 'modified clicks are left to the browser').toEqual({ ctrl: false, meta: false, shift: false });
+
+    await page.evaluate(() => { (window as unknown as { __kitMarker?: number }).__kitMarker = 1; });
+    await links.getByRole('link', { name: 'Newest' }).click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit\?kitsort=newest$/);
+    await expect(links.getByRole('link', { name: 'Newest' })).toHaveAttribute('aria-current', 'page');
+    await expect(links.getByRole('link', { name: 'Trending' })).not.toHaveAttribute('aria-current', 'page');
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker), 'soft navigation (no reload)').toBe(1);
+
+    const trigger = page.locator('[data-kit="link-controls"]').getByRole('button', { name: 'Type (links)' });
+    await trigger.click();
+    const items = page.getByRole('menu', { name: 'Type (links)' }).getByRole('menuitemradio');
+    await expect(items).toHaveCount(3);
+    await expect(items.first()).toBeFocused();
+    expect(await items.evaluateAll((els) => els.map((e) => [e.tagName, e.getAttribute('href'), e.querySelector('small')?.textContent ?? '']))).toEqual([
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=classic', '1,204'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=tf', '312'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=image', '88'],
+    ]);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press(' ');
+    await expect(page).toHaveURL(/kitsort=newest&kittype=tf$/);
+    expect(await page.evaluate(() => (window as unknown as { __kitLastNav?: string }).__kitLastNav), 'onNavigate got the href').toBe('/ux-v1/kit?kitsort=newest&kittype=tf');
+    await expect(page.getByRole('menu', { name: 'Type (links)' })).toBeHidden();
+    await expect(page.locator('[data-kit="link-controls"]').getByRole('button', { name: /Type \(links\): True\/false/ })).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker)).toBe(1);
+  });
+
+  // P2 request 2: the card body inherits the prototype's 1.6 line height (eyebrow and
+  // footer 20.8px at 13px) and stacked phone cards drop the title's top margin
+  // (prototype `.qgrid.stack h3{margin-top:0}`). Against styles.json, whose cards have
+  // two-line titles: a grid or rail card at the reference width has the reference
+  // height, less one title line when its (real) title fits on one line; a two-line
+  // stacked row (the kit stacks its longest real title first) has the reference height.
+  test('quiz cards: body line heights and card heights as the prototype', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    test.skip((await sec.locator('.ux-qcard').count()) === 0, 'no quizzes to show (data unavailable)');
+    const lh = await sec.locator('.ux-qcard').first().evaluate((card) => ({
+      qg: getComputedStyle(card.querySelector('.ux-qg') as Element).lineHeight,
+      qf: getComputedStyle(card.querySelector('.ux-qf') as Element).lineHeight,
+    }));
+    expect(lh).toEqual({ qg: '20.8px', qf: '20.8px' });
+
+    const ref = loadReference();
+    const phone = widthOf(page) <= 760;
+    const sets: [string, string][] = phone
+      ? [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '390-light-home'], ['.ux-qgrid.ux-qgrid-stack > .ux-qcard', '390-light-quizzes']]
+      : [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '1440-light-home']];
+    for (const [sel, state] of sets) {
+      const r = ref[state]?.['.qcard'];
+      expect(r, `styles.json ${state} .qcard`).toBeTruthy();
+      const want = { w: parseFloat(r?.width ?? '0'), h: parseFloat(r?.height ?? '0') };
+      const cards = (await sec.locator(sel).evaluateAll((els) => els.map((el) => {
+        const t = el.querySelector('.ux-qt') as HTMLElement;
+        const box = el.getBoundingClientRect();
+        const lh = parseFloat(getComputedStyle(t).lineHeight);
+        return { w: box.width, h: box.height, lh, lines: Math.round(t.getBoundingClientRect().height / lh), top: getComputedStyle(t).marginTop };
+      }))).filter((c) => Math.abs(c.w - want.w) < 1);
+      expect(cards.length, `${state}: kit cards at the reference width ${want.w}px`).toBeGreaterThan(0);
+      if (state !== '390-light-quizzes') {
+        for (const c of cards) {
+          const expected = want.h - (2 - c.lines) * c.lh;
+          expect(Math.abs(c.h - expected), `${state}: ${c.lines}-line card ${c.h} vs ${expected}`).toBeLessThan(0.6);
+        }
+        continue;
+      }
+      for (const c of cards) expect(c.top).toBe('0px');
+      const twoLine = cards.filter((c) => c.lines === 2);
+      if (!twoLine.length) {
+        test.info().annotations.push({ type: 'note', description: 'no two-line stacked title in the real data today: stack height not compared' });
+        continue;
+      }
+      for (const c of twoLine) expect(Math.abs(c.h - want.h), `${state}: stacked card ${c.h} vs ${want.h}`).toBeLessThan(0.6);
+    }
+  });
+
+  // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
+  test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const tabs = page.locator('[data-kit="controls"]').getByRole('tablist', { name: 'Feed' });
+    const selected = tabs.getByRole('tab', { name: 'For you' });
+    const other = tabs.getByRole('tab', { name: 'Following' });
+    const color = (l: typeof selected): Promise<string> => l.evaluate((el) => getComputedStyle(el).color);
+    const pinkSoftInk = await page.evaluate(() => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink-soft-ink)';
+      document.querySelector('.ux-page')?.appendChild(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const ink = await page.evaluate(() => getComputedStyle(document.querySelector('.ux-page') as HTMLElement).color);
+    await selected.hover();
+    await expect.poll(() => color(selected)).toBe(pinkSoftInk);
+    await other.hover();
+    await expect.poll(() => color(other)).toBe(ink); // an unselected tab still turns ink on hover
+    await other.click();
+    await expect(other).toHaveAttribute('aria-selected', 'true');
+    await expect.poll(() => color(other)).toBe(pinkSoftInk); // pointer still on it right after the click
+  });
+
+  // P4 request 5: share sheet opens on "Copy link"; on phones the challenge label wraps.
+  test('share sheet: Copy link has the focus; phone label wraps under the title', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: 'Share your score' });
+    await expect(dlg).toBeVisible();
+    await expect(dlg.getByRole('button', { name: 'Copy link' })).toBeFocused();
+    const geo = await dlg.locator('.ux-flabel').evaluate((el) => {
+      const small = el.querySelector('small') as HTMLElement;
+      const a = el.getBoundingClientRect(); const s = small.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return { wrap: cs.flexWrap, rowGap: cs.rowGap, labelWidth: a.width, smallTop: s.top, labelTop: a.top, smallWidth: s.width };
+    });
+    if (widthOf(page) <= 760) {
+      expect(geo.wrap).toBe('wrap');
+      expect(geo.rowGap).toBe('2px');
+      expect(geo.smallTop, 'the note drops under the label').toBeGreaterThan(geo.labelTop + 10);
+    } else {
+      expect(geo.wrap).toBe('nowrap');
+    }
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
+
+  // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
+  // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
+  test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'out', { timeout: 15_000 });
+    await expect(probe).toHaveText('Browsing as a guest');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+  });
+});
+
+signedInTest.describe('kit viewer state (test user, read only)', () => {
+  signedInTest('a late island hydrates without a mismatch (signed in)', async ({ page }) => {
+    skipUnlessSignedIn();
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await preparePage(page, 'light');
+    const calls = await guardWrites(page, env.supabaseUrl);
+    // /api/auth/me answers "signed out" when Supabase auth takes over 2.5 s (a cold
+    // dev compile can): warm it first (GET, read only) so the page gets the viewer.
+    await page.request.get('/api/auth/me');
+    signedInTest.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'in', { timeout: 15_000 });
+    await expect(probe).toContainText('Signed in as ');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+    expect(calls, 'no write attempted').toEqual([]);
   });
 });
