@@ -86,7 +86,10 @@ for (const theme of THEMES) {
       expect(new URL(page.url()).pathname, 'the plain click opened the overlay, not /search').toBe('/');
       await expect(page.locator('#ux-sq')).toBeFocused();
       await page.locator('#ux-sq').fill('bts');
-      await expect(dlg.locator('a.ux-srow')).toHaveAttribute('href', '/search?q=bts');
+      // The body is P11's SearchResults slot (its rows are covered by p11.spec): the host
+      // renders it under the field and keeps the typed query.
+      await expect(dlg.locator('[data-p11="search"]')).toBeVisible();
+      await expect(page.locator('#ux-sq')).toHaveValue('bts');
       await page.keyboard.press('Escape');
       await expect(dlg).toBeHidden();
       await expect(trigger).toBeFocused();
