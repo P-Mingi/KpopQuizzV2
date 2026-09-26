@@ -10,7 +10,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | fix loop 1 running (C2-001, C1-002) | 5c9c483 | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | fix loop 1 merged (eb09ce6, PR #57): C2-001, C1-002 | ab88390 | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | fix loop 1 running (C3-003, C3-006, C3-008) | d30aee5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | fix loop 1 running (C1-001, hub noscript links, cached failed reads) | 6399b50 | 0 | v11/reports/P3.md |
@@ -103,6 +103,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 A0 fix loop 1 merged (eb09ce6): /api/quizzes/count 404 unless the flag is on (C2-001); drop zone resting look on open, 2px ring only for keyboard focus (C1-002). tsc 0, unit 805/805.
 - 2026-09-26 C3 own checks done (local branch edb382e): e2e 542 pass / 1 flaky (C3-004 race) / 0 fail / 8 skipped by design of 551; axe 0 serious/critical on all 190 v11 state runs (legacy contrast failures exist flag off too, fewer flag on); keyboard ok on 14 pages except C3-007; all 9 sheets pass; live regions ok; SEO fields equal on 34 URLs, robots.txt identical, sitemap 2998 both ways; LCP (390, 4x CPU, slow 4G, gzip as Vercel) home 2.22 vs 3.04 s, quiz 2.34 vs 2.42, hub 2.30 vs 3.25, blindtest 2.22 vs 2.05, CLS <= 0.0003; Lighthouse pending the owner. Issues: P1 C3-003/006/008, P3 C3-001/002, P4 C3-004, P5 C3-005 (low), P6 C3-009 (low), P8 C3-007. Fix loop 1 now: A0, P3, P1, P4, P8; P5 and P6 next.
 - 2026-09-26 C1 loop 1 done and merged (69b3a47): 152 checks, 128 pass, 8 fail (groups x4: P3 C1-001 tile 133.2 vs 138px; header-sheet x4: A0 C1-002 drop zone opens in hover look), 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). Nav fit, hover, focus, tokens (44), reduced motion, no horizontal scroll at 390: all pass. Fix loop 1 started for A0 (C2-001, C1-002) and P3 (C1-001 + C3's noscript links + cached failed reads) while C2 and C3 finish.
 - 2026-09-26 C3's push of ux11/c3-check was refused by the permission check ("Git Destructive"). C3 stopped, then was resumed to continue with local commits only; publishing its branch waits for the owner, like P2. C3 so far: robots.txt identical, sitemap 2998 URLs both ways, no new URL; title, description, robots, canonical, hreflang, H1 identical on every existing URL; /community 200 noindex flag on, 301 flag off. Link losses in its first pass came from ISR pages cached with empty sections while the machine was saturated (fail-soft reads cached); most recovered, /groups and /data/pulse to re-check.
