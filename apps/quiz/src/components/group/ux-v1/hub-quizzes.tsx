@@ -45,11 +45,12 @@ function Card({ q }: { q: HubQuiz }): React.ReactElement {
 /**
  * "<Group> quizzes" (prototype #hb-qs, DESIGN-SPEC 16.7): sort Popular / Newest /
  * Most liked / Hardest (the live group feed's four orders), Type and Level
- * dropdowns over the types and levels this group really has, 6 text cards, then
+ * dropdowns over the types and levels this group really has, 12 text cards, then
  * "Show all N". Every quiz of the group is a real <a href> in the SERVER HTML:
- * the first 6 as cards, the rest inside a native <details> whose summary is the
- * "Show all N" button (crawlable, and it opens without JavaScript, like P6's
- * "Show all 79 groups"). Nothing lives only in <noscript>.
+ * the first 12 as visible cards (today's hub shows its top 10), the rest inside a
+ * native <details> whose summary is the "Show all N" button (crawlable, and it
+ * opens without JavaScript, like P6's "Show all 79 groups"). Nothing lives only
+ * in <noscript>.
  */
 export function HubQuizzes({ groupName, quizzes }: HubQuizzesProps): React.ReactElement {
   const uid = useId().replace(/:/g, '');

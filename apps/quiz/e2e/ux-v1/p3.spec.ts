@@ -30,6 +30,9 @@ const HUB_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(a[href="/blackpi
 const HUB_2_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(.p3-fan):has(.p3-war):has(a[href="/articles/stray-kids-vs-ateez"])';
 const HUB_2 = '/ateez-quiz';
 const EMPTY = '/chungha-quiz';
+// Visible quiz cards before "Show all N" (lib/ux-v1/p3/model.ts HUB_FIRST_CARDS):
+// today's hub shows its popular top 10, so all of them stay visible links (C3-001).
+const FIRST = 12;
 const TRIVIA = '/blackpink-trivia';
 
 async function json(route: Route, body: unknown, status = 200): Promise<void> {
@@ -260,8 +263,9 @@ for (const theme of THEMES) {
       const writes = await setup(page, theme);
       test.skip(!(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')), 'UX v1 flag is OFF on this build');
       const cards = page.locator('.p3-qs .ux-tcard:visible');
-      await expect(cards).toHaveCount(6);
       const n = Number((await page.locator('.p3-qs .ux-sec-h p').textContent())?.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
+      expect(n, 'BLACKPINK has more quizzes than the first cards').toBeGreaterThan(FIRST);
+      await expect(cards).toHaveCount(FIRST);
       const more = page.locator('.p3-more > summary');
       await expect(more).toHaveText(`Show all ${n}`);
       await expect(more).toBeVisible();
@@ -323,13 +327,13 @@ for (const theme of THEMES) {
       await page.locator('.ux-ddpop [role="menuitemradio"]', { hasText: 'All levels' }).click();
 
       // Show all (native <details>): the list opens in place with the keyboard, the
-      // button goes away and focus moves to card 7.
-      await expect(cards).toHaveCount(6);
+      // button goes away and focus moves to the first new card.
+      await expect(cards).toHaveCount(FIRST);
       await more.focus();
       await page.keyboard.press('Enter');
       await expect(cards).toHaveCount(n);
       await expect(page).toHaveURL(/\/blackpink-quiz$/);
-      await expect(cards.nth(6)).toBeFocused();
+      await expect(cards.nth(FIRST)).toBeFocused();
       await expect(more).toBeHidden();
       await expect(page.getByTestId('ux-live')).toContainText(`${n} quizzes shown`);
       expect(writes).toEqual([]);
@@ -347,12 +351,12 @@ for (const theme of THEMES) {
       if (!res || res.status() !== 200 || (await page.locator('.p3').count()) === 0) { await ctx.close(); test.skip(true, 'UX v1 flag is OFF on this build'); return; }
       const quizFact = (await page.locator('.p3-facts span', { hasText: /quizz?(es)?$/ }).textContent()) ?? '';
       const count = Number(quizFact.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
-      expect(count).toBeGreaterThan(6);
+      expect(count).toBeGreaterThan(FIRST);
       // Server HTML, scripts off: one real <a href="/q/..."> card per published quiz,
-      // none of them in <noscript>; the first 6 visible, the rest behind Show all.
+      // none of them in <noscript>; the first 12 visible, the rest behind Show all.
       await expect(page.locator('.p3-qs a.ux-tcard[href^="/q/"]')).toHaveCount(count);
       await expect(page.locator('noscript a[href^="/q/"]')).toHaveCount(0);
-      await expect(page.locator('.p3-qs a.ux-tcard:visible')).toHaveCount(6);
+      await expect(page.locator('.p3-qs a.ux-tcard:visible')).toHaveCount(FIRST);
       await page.locator('.p3-more > summary').click();
       await expect(page.locator('.p3-qs a.ux-tcard:visible')).toHaveCount(count);
       // Every quiz link of today's hub (flag off) is among them.
@@ -519,7 +523,7 @@ signedInTest.describe('signed in (read only)', () => {
     await expect(page.getByTestId('ux-toast')).toContainText('Group alerts are not switched on yet');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     expect(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')).toBe(true);
-    await expect(page.locator('.p3-qs .ux-tcard:visible')).toHaveCount(6);
+    await expect(page.locator('.p3-qs .ux-tcard:visible')).toHaveCount(FIRST);
     expect(writes, 'the signed-in visit writes nothing').toEqual([]);
   });
 });

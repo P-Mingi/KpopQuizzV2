@@ -250,7 +250,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         ) : null}
       </section>
 
-      {/* Every quiz of the group is a real, server-rendered <a href> (6 cards, the
+      {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
       {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
 

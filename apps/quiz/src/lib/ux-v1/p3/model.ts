@@ -269,8 +269,12 @@ export function filterHubQuizzes(list: readonly HubQuiz[], f: { type: string | n
   return list.filter((q) => (!f.type || q.quiz_type === f.type) && (!f.level || (q.difficulty ?? '').toLowerCase() === f.level));
 }
 
-/** Cards shown before "Show all N" (DESIGN-SPEC 16.7: 6 text cards). */
-export const HUB_FIRST_CARDS = 6;
+/**
+ * Cards shown before "Show all N". DESIGN-SPEC 16.7 draws 6; fix loop 1 (C3-001)
+ * raises it to 12 so every quiz card today's hub shows (its popular top 10) stays
+ * a VISIBLE link on the v11 hub, JavaScript or not; 12 keeps full rows of 3 and 2.
+ */
+export const HUB_FIRST_CARDS = 12;
 
 /** Coarse age of a comment row ("just now", "5h", "3d", "2mo"). */
 export function coarseAge(iso: string, now = Date.now()): string {
