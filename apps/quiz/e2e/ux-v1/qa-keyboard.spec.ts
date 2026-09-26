@@ -123,6 +123,11 @@ async function tagCandidates(page: Page): Promise<number> {
         if (stop !== el) continue;
       }
       el.dataset.qaK = String(n++);
+      // the unfocused look, to tell a focus indicator that is not an outline or a shadow
+      // (a border or background change, as the prototype's search field) from none
+      const look = (e: Element): string => { const s = getComputedStyle(e); return [s.outlineStyle, s.outlineWidth, s.outlineColor, s.boxShadow, s.borderTopColor, s.borderBottomColor, s.borderBottomWidth, s.backgroundColor, s.color, s.textDecorationLine].join('|'); };
+      el.dataset.qaLook = look(el);
+      if (el.parentElement) el.dataset.qaLookP = look(el.parentElement);
     }
     return n;
   });
@@ -137,8 +142,11 @@ async function readStop(page: Page, i: number): Promise<Stop> {
       const outline = cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 1;
       return outline || (cs.boxShadow !== 'none' && cs.boxShadow !== '');
     };
-    // an indicator can sit on the control or on its wrapper (:focus-within)
-    let ring = own(el);
+    // an indicator can sit on the control or on its wrapper (:focus-within): an outline, a
+    // shadow, or any visible change of border, background, colour or underline vs unfocused
+    const look = (e: Element): string => { const s = getComputedStyle(e); return [s.outlineStyle, s.outlineWidth, s.outlineColor, s.boxShadow, s.borderTopColor, s.borderBottomColor, s.borderBottomWidth, s.backgroundColor, s.color, s.textDecorationLine].join('|'); };
+    let ring = own(el) || (el.dataset.qaLook !== undefined && look(el) !== el.dataset.qaLook);
+    if (!ring && el.parentElement && el.dataset.qaLookP !== undefined) ring = look(el.parentElement) !== el.dataset.qaLookP;
     for (let p = el.parentElement, k = 0; !ring && p && k < 3; p = p.parentElement, k++) ring = own(p) && p.matches(':focus-within');
     const r = el.getBoundingClientRect();
     const inView = r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth;
@@ -191,15 +199,17 @@ async function disclosures(page: Page): Promise<{ checked: number; failed: strin
     const before = await t.getAttribute('aria-expanded');
     if (before === 'true') continue;
     await t.focus();
-    await page.keyboard.press('Enter');
+    // a combobox opens with ArrowDown (APG combobox), a button with Enter
+    const combo = (await t.getAttribute('role')) === 'combobox' || tag === 'input';
+    await page.keyboard.press(combo ? 'ArrowDown' : 'Enter');
     await page.waitForTimeout(300);
     const opened = (await t.getAttribute('aria-expanded')) === 'true';
-    if (!opened) { failed.push(`"${label}": Enter did not open (aria-expanded stayed ${before})`); continue; }
+    checked++;
+    if (!opened) { failed.push(`"${label || tag}": ${combo ? 'ArrowDown' : 'Enter'} did not open (aria-expanded stayed ${before})`); continue; }
     await page.keyboard.press('Escape');
     await page.waitForTimeout(300);
     const closed = (await t.getAttribute('aria-expanded')) !== 'true';
     const back = await t.evaluate((el) => document.activeElement === el);
-    checked++;
     if (!closed) { failed.push(`"${label}": Escape did not close`); await t.click().catch(() => {}); continue; }
     if (!back) failed.push(`"${label}": focus did not return to the trigger after Escape`);
   }
@@ -336,6 +346,8 @@ test.describe('QA sheets and popovers (guest, light)', () => {
     await page.locator('.p4-act .ux-btn-primary').click();
     await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 90_000 });
     await page.locator('.p4-answers .p4-ans, .p4-igrid .p4-ians').first().click();
+    // the game moves focus to Next 60 ms after an answer: open the confirm after that, as a person would
+    await expect(page.locator('.p4-nextrow .ux-btn-primary')).toBeFocused();
     const r = await checkDialog(page, 'quit confirm', page.getByRole('button', { name: 'Quit quiz' }), () => page.locator('.ux-sheet[role="alertdialog"], .ux-sheet[role="dialog"]').first(), { modal: true });
     record({ kind: 'dialog', state: 'quit confirm', owner: 'P4/A0', width: widthOf(page), result: r, problems: dialogProblems(r, true) });
     expect(dialogProblems(r, true)).toEqual([]);

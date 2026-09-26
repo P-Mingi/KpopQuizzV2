@@ -212,7 +212,7 @@ for (const theme of THEMES) {
       } else {
         record({ kind: 'note', state: 'share', owner: 'P4', width: widthOf(page), theme, note: 'no Share button on the results for this score (primary is Play again); share covered by the quiz-page share' });
       }
-      await page.goto(QUIZ, { waitUntil: 'domcontentloaded' });
+      await openPage(page, { path: QUIZ, ready: '.p4-act[data-ready]' });
       await page.getByRole('button', { name: 'Share this quiz' }).click();
       await expect(page.getByRole('dialog', { name: 'Share this quiz' })).toBeVisible();
       await page.waitForTimeout(400);
