@@ -127,6 +127,23 @@ async function playRun(page: Page, qs: () => Q[], mode: 'right' | 'wrong'): Prom
 
 const writesTo = (calls: StubbedCall[], re: RegExp): StubbedCall[] => calls.filter((c) => re.test(new URL(c.url).pathname));
 
+const fmt = (n: number): string => n.toLocaleString('en-US');
+const LIKE_PATH = /^\/api\/quiz\/[^/]+\/like$/;
+const COMMENT_PATH = /^\/api\/quiz\/[^/]+\/comment$/;
+
+/** A read held until the test releases it (to answer after a click, like a slow network). */
+function heldRead(): { wait: Promise<void>; release: () => void } {
+  let release = (): void => {};
+  const wait = new Promise<void>((r) => { release = r; });
+  return { wait, release };
+}
+
+/** The Brag button shows only when GET /api/discord/flex/status says the webhook is set;
+ *  a read stub stands in for that server setting (the POST itself stays with guardWrites). */
+async function flexWebhookOn(page: Page): Promise<void> {
+  await page.route((url) => url.pathname === '/api/discord/flex/status', (route) => route.fulfill({ json: { enabled: true, already_flexed: false } }));
+}
+
 for (const theme of THEMES) {
   test.describe(`P4 ${theme}`, () => {
     test.beforeEach(async ({ page }) => { await preparePage(page, theme); });
@@ -228,7 +245,9 @@ for (const theme of THEMES) {
       test.setTimeout(120_000);
       const calls = await guardWrites(page, env.supabaseUrl);
       const qs = await recordQuestions(page);
+      await flexWebhookOn(page);
       test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off or quiz not reachable');
+      const title = (await page.locator('h1.p4-title').innerText()).trim();
       await start(page);
       const n = await playRun(page, qs.get, 'right');
 
@@ -255,6 +274,12 @@ for (const theme of THEMES) {
       await expect(page.locator('.p4-resact .ux-btn-primary')).toHaveText(/Share/);
       await expect(page.locator('.p4-keep a[href^="/q/"]').first()).toBeVisible();
       await expect(page.locator('.p4-keep a[href^="/blindtest"]')).toBeVisible();
+      // C2-003: the EXISTS Discord line and, on a good result (70% and up), Brag (quiz-player.tsx K2, K7)
+      const discord = page.getByTestId('p4-discord');
+      await expect(discord.locator('a.discord-results-line')).toHaveText(/Compare with the community on Discord/);
+      await expect(discord.locator('a.discord-results-line')).toHaveAttribute('href', /utm_campaign=result-quiz-result/);
+      const brag = discord.locator('.brag-btn');
+      await expect(brag).toHaveText('Brag in the Discord');
 
       const w = widthOf(page);
       const cmp = await compareLandmarks(page, w, theme, P4_LANDMARKS.end!);
@@ -266,6 +291,14 @@ for (const theme of THEMES) {
       const axe = await runAxe(page, { include: '.p4-page' });
       if (axe) expect(axe, 'axe serious / critical on results').toEqual([]);
       await info.attach(`end-${w}-${theme}.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+
+      // Brag: first click asks for an optional display name, the second posts the EXISTS payload (stubbed)
+      await brag.click();
+      await expect(discord.getByRole('textbox', { name: 'Display name' })).toBeVisible();
+      await expect(brag).toHaveText('Brag it!');
+      await brag.click();
+      await expect.poll(() => writesTo(calls, /^\/api\/discord\/flex$/).length, { timeout: 30_000 }).toBe(1);
+      expect(JSON.parse(writesTo(calls, /^\/api\/discord\/flex$/)[0]!.body ?? '{}')).toEqual({ kind: 'quiz', title, score: n, total: n, quizSlug: SLUG.classic });
     });
   });
 }
@@ -385,11 +418,15 @@ test.describe('P4 interactions', () => {
     test.setTimeout(180_000);
     await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
+    await flexWebhookOn(page);
     test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
     await start(page);
     await playRun(page, qs.get, 'wrong');
     await expect(page.locator('.p4-resact .ux-btn-primary')).toHaveText(/Play again/);
     await expect(page.locator('.p4-stamp')).toContainText(/Keep trying/i);
+    // the Discord line stays; Brag is for a good result only (under 70%: none, webhook on or not)
+    await expect(page.getByTestId('p4-discord').locator('a.discord-results-line')).toBeVisible();
+    await expect(page.getByTestId('p4-discord').locator('.brag-btn')).toHaveCount(0);
     await page.locator('.p4-resact .ux-btn-primary').click();
     // a new run reads fresh questions (same GET as Start)
     await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 90_000 });
@@ -405,10 +442,12 @@ test.describe('P4 interactions', () => {
     await playRun(page, qs.get, 'right');
 
     const like = page.locator('.p4-likeb');
+    // the first read reconciles the ISR count with the live one: read the count after it
+    await expect(like).toHaveAttribute('data-synced', '', { timeout: 30_000 });
     const before = Number((await like.innerText()).replace(/\D/g, ''));
     await like.click();
     await expect(like).toHaveAttribute('aria-pressed', 'true');
-    await expect(like).toContainText(String(before + 1));
+    await expect(like.locator('.ux-num')).toHaveText(fmt(before + 1));
     await expect.poll(() => writesTo(calls, /\/api\/quiz\/[^/]+\/like$/).length, { timeout: 30_000 }).toBe(1);
     const likes = writesTo(calls, /\/api\/quiz\/[^/]+\/like$/);
     expect(likes.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ action: 'like' }]);
@@ -430,6 +469,40 @@ test.describe('P4 interactions', () => {
     await expect(page.getByTestId('ux-toast')).toContainText("Thanks for reporting");
     const reports = writesTo(calls, /\/api\/quiz\/[^/]+\/report$/);
     expect(reports.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ reason: 'wrong_answers', details: '' }]);
+  });
+
+  test('like: a first read that answers after the click never undoes it (C3-004)', async ({ page }) => {
+    test.setTimeout(180_000);
+    const calls = await guardWrites(page, env.supabaseUrl);
+    const qs = await recordQuestions(page);
+    // the pill's first GET is held until the click is done, then answers with the pre-click state
+    const read = heldRead();
+    let stale = { liked: false, like_count: -1 };
+    await page.route((url) => LIKE_PATH.test(url.pathname), async (route) => {
+      if (route.request().method() !== 'GET') { await route.fallback(); return; }
+      await read.wait;
+      await route.fulfill({ json: stale });
+    });
+    test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
+    await start(page);
+    const firstRead = page.waitForRequest((r) => LIKE_PATH.test(new URL(r.url()).pathname) && r.method() === 'GET', { timeout: 60_000 });
+    await playRun(page, qs.get, 'right');
+    await firstRead;
+    const like = page.locator('.p4-likeb');
+    await expect(like).not.toHaveAttribute('data-synced', '');
+    const before = Number((await like.innerText()).replace(/\D/g, ''));
+    stale = { liked: false, like_count: before };
+    await like.click();
+    await expect(like).toHaveAttribute('aria-pressed', 'true');
+    await expect(like.locator('.ux-num')).toHaveText(fmt(before + 1));
+    await expect.poll(() => writesTo(calls, LIKE_PATH).length, { timeout: 30_000 }).toBe(1);
+    expect(JSON.parse(writesTo(calls, LIKE_PATH)[0]!.body ?? '{}')).toEqual({ action: 'like' });
+    // now the late read lands
+    read.release();
+    await expect(like).toHaveAttribute('data-synced', '', { timeout: 30_000 });
+    await expect(like).toHaveAttribute('aria-pressed', 'true');
+    await expect(like.locator('.ux-num')).toHaveText(fmt(before + 1));
+    await expect(like).toHaveAttribute('aria-label', `Like this quiz, ${before + 1} likes`);
   });
 
   test('guest: Sign in to save and Follow open the sign-in sheet and keep the action', async ({ page }) => {
@@ -593,19 +666,54 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     signedInTest.setTimeout(120_000);
     const calls = await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
+    // Late reads (the C3-004 family): the follow status and the comment list are held until after
+    // the user's click, then answer with the state from before it; the click must win. Their POSTs
+    // are answered here with each endpoint's own success shape (never sent) and recorded like
+    // guardWrites does, so the page takes its success path.
+    const followRead = heldRead();
+    await page.route((url) => url.pathname === '/api/follow', async (route) => {
+      const req = route.request();
+      if (req.method() === 'GET') { await followRead.wait; await route.fulfill({ json: { isSelf: false, following: false } }); return; }
+      calls.push({ method: req.method(), url: req.url(), body: req.postData() });
+      const { action } = JSON.parse(req.postData() ?? '{}') as { action?: string };
+      await route.fulfill({ json: { following: action === 'follow' } });
+    });
+    const listRead = heldRead();
+    const t0 = new Date(Date.now() - 3_600_000).toISOString();
+    await page.route((url) => COMMENT_PATH.test(url.pathname), async (route) => {
+      const req = route.request();
+      if (req.method() === 'GET') {
+        await listRead.wait;
+        await route.fulfill({ json: { comments: [
+          { id: 'e2e-s1', username: 'e2e_fan_one', content: 'Older comment one', created_at: t0 },
+          { id: 'e2e-s2', username: 'e2e_fan_two', content: 'Older comment two', created_at: t0 },
+        ] } });
+        return;
+      }
+      calls.push({ method: req.method(), url: req.url(), body: req.postData() });
+      const { content } = JSON.parse(req.postData() ?? '{}') as { content?: string };
+      await route.fulfill({ json: { comment: { id: 'e2e-new', username: 'e2e_you', content, created_at: new Date().toISOString() } } });
+    });
+    const followStatus = page.waitForRequest((r) => new URL(r.url()).pathname === '/api/follow' && r.method() === 'GET', { timeout: 90_000 });
     signedInTest.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
     await expect(page.locator('.ux-nav-signin'), 'signed in: no Sign in button').toHaveCount(0);
     await expect(page.getByTestId('p4-mine')).toContainText(/Your best \d+\/\d+|Play to put your name on this board\./);
     await expect(page.locator('.p4-timerline')).not.toContainText('No account needed');
-    // Follow the creator: the existing POST /api/follow { username, action } (stubbed)
+    // Follow the creator: the existing POST /api/follow { username, action }, clicked while the
+    // status read is still in flight; the read then lands with "not following"
     const creator = (await page.locator('.p4-author a.p4-handle').innerText()).trim();
     const follow = page.locator('.p4-author button.ux-lnk');
-    await follow.and(page.locator('[data-ready]')).waitFor({ timeout: 60_000 }).catch(() => {});
-    if (await follow.count()) {
-      await follow.click();
-      await expect.poll(() => writesTo(calls, /^\/api\/follow$/).length).toBe(1);
-      expect(JSON.parse(writesTo(calls, /^\/api\/follow$/)[0]!.body ?? '{}')).toMatchObject({ username: creator, action: expect.stringMatching(/^(follow|unfollow)$/) });
-    }
+    await follow.and(page.locator('[data-ready]')).waitFor({ timeout: 60_000 });
+    await followStatus;
+    await expect(follow).not.toHaveAttribute('data-synced', '');
+    await follow.click();
+    await expect.poll(() => writesTo(calls, /^\/api\/follow$/).length).toBe(1);
+    expect(JSON.parse(writesTo(calls, /^\/api\/follow$/)[0]!.body ?? '{}')).toEqual({ username: creator, action: 'follow' });
+    await expect(follow).toHaveText('Following');
+    followRead.release();
+    await expect(follow).toHaveAttribute('data-synced', '', { timeout: 30_000 });
+    await expect(follow).toHaveText('Following');
+    await expect(follow).toHaveAttribute('aria-pressed', 'true');
     await start(page);
     const n = await playRun(page, qs.get, 'right');
     const plays = writesTo(calls, /^\/api\/quiz\/[^/]+\/play$/);
@@ -615,13 +723,22 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     // rank line from get_quiz_rank for the session user (read only): shown when they have a play on this quiz
     const mine = await (await page.request.get(`/api/ux-v1/p4/standing?quiz=${await page.locator('[data-p4-quiz]').getAttribute('data-p4-quiz')}`)).json() as { played?: boolean };
     if (mine.played) await expect(page.getByTestId('p4-rankline')).toContainText(/^#\d+ of [\d,]+ players · your best \d+\/\d+$/);
-    // the comment field posts the existing payload for a signed-in fan
-    await page.locator('.p4-acc > summary', { hasText: 'Comments' }).click();
+    // the comment field posts the existing payload for a signed-in fan, sent before the list read
+    // answers: the list still loads and merges under the new comment
+    const listStarted = page.waitForRequest((r) => COMMENT_PATH.test(new URL(r.url()).pathname) && r.method() === 'GET', { timeout: 30_000 });
+    const summary = page.locator('.p4-acc > summary', { hasText: 'Comments' });
+    await summary.click();
+    await listStarted;
     await page.locator('.p4-cform textarea').fill('Great quiz');
     await page.locator('.p4-cform').getByRole('button', { name: 'Send' }).click();
-    await expect.poll(() => writesTo(calls, /\/api\/quiz\/[^/]+\/comment$/).length, { timeout: 30_000 }).toBe(1);
-    const sent = writesTo(calls, /\/api\/quiz\/[^/]+\/comment$/);
+    await expect.poll(() => writesTo(calls, COMMENT_PATH).length, { timeout: 30_000 }).toBe(1);
+    const sent = writesTo(calls, COMMENT_PATH);
     expect(sent.map((c) => JSON.parse(c.body ?? '{}'))).toEqual([{ content: 'Great quiz' }]);
+    await expect(page.locator('.p4-cmt')).toHaveCount(1);
+    listRead.release();
+    await expect(page.locator('.p4-cmt')).toHaveCount(3, { timeout: 30_000 });
+    await expect(page.locator('.p4-cmt').first()).toContainText('Great quiz');
+    await expect(summary).toHaveText(/^Comments \(3\)/);
     const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/(play|comment)$|\/api\/share\/generate$|\/api\/ux-v1\/p4\/|^\/api\/follow$/.test(new URL(c.url).pathname));
     expect(other, 'no other write attempt').toEqual([]);
   });

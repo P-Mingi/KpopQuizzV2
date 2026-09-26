@@ -45,7 +45,9 @@ export function P4Comments({ quizId, isClues, count, chip, pendingText }: {
   pendingText: string | null;
 }): React.ReactElement {
   const [open, setOpen] = useState(pendingText !== null);
-  const [list, setList] = useState<CommentRow[] | null>(null);
+  /** the server's list (null until the first read answers) and what this page posted since */
+  const [server, setServer] = useState<CommentRow[] | null>(null);
+  const [mine, setMine] = useState<CommentRow[]>([]);
   const [fresh, setFresh] = useState<Set<string>>(new Set());
   const [text, setText] = useState(pendingText ?? '');
   const [focused, setFocused] = useState(pendingText !== null);
@@ -56,15 +58,20 @@ export function P4Comments({ quizId, isClues, count, chip, pendingText }: {
   const uid = useId().replace(/:/g, '');
   const area = useRef<HTMLTextAreaElement>(null);
 
+  // A comment posted while this read is in flight must not cancel it (the list would stay
+  // at the new comment alone): the read depends on the server list only, and the two merge.
   useEffect(() => {
-    if (!open || list !== null) return;
+    if (!open || server !== null) return;
     let cancelled = false;
     fetch(`/api/quiz/${quizId}/comment?limit=20`)
       .then((r) => (r.ok ? (r.json() as Promise<{ comments: CommentRow[] }>) : { comments: [] }))
-      .then((d) => { if (!cancelled) setList(d.comments ?? []); })
-      .catch(() => { if (!cancelled) setList([]); });
+      .then((d) => { if (!cancelled) setServer(d.comments ?? []); })
+      .catch(() => { if (!cancelled) setServer([]); });
     return () => { cancelled = true; };
-  }, [open, list, quizId]);
+  }, [open, server, quizId]);
+  const list: CommentRow[] | null = server === null
+    ? (mine.length > 0 ? mine : null)
+    : [...mine, ...server.filter((c) => !mine.some((m) => m.id === c.id))];
 
   useEffect(() => {
     if (pendingText !== null) window.setTimeout(() => area.current?.focus(), 80);
@@ -91,7 +98,7 @@ export function P4Comments({ quizId, isClues, count, chip, pendingText }: {
       const d = res.ok ? ((await res.json()) as { comment?: CommentRow }) : null;
       if (!d?.comment) { toast('Could not post. Try again.'); return; }
       const c: CommentRow = { ...d.comment, avatar_url: d.comment.avatar_url ?? me?.profile?.avatar_url ?? null };
-      setList((prev) => [c, ...(prev ?? [])]);
+      setMine((prev) => [c, ...prev]);
       setFresh((prev) => new Set(prev).add(c.id));
       setText('');
       setFocused(false);
@@ -104,7 +111,7 @@ export function P4Comments({ quizId, isClues, count, chip, pendingText }: {
     }
   };
 
-  const shown = list?.length ?? count;
+  const shown = server === null ? count + mine.length : (list?.length ?? count);
   const myName = me?.profile?.username ?? '';
 
   return (

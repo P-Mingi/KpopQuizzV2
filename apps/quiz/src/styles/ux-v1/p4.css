@@ -220,6 +220,13 @@
 .p4-rankline b { color: var(--ux-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .p4-resact { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 .p4-likeb { display: inline-flex; align-items: center; gap: 6px; height: 48px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ux-edge); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ux-ink); transition: all .2s var(--ux-spring); }
+/* the EXISTS Discord line + Brag (C2-003), in the v11 ink: legacy #5865F2 text is under AA on dark */
+.p4-discord { display: flex; justify-content: center; align-items: center; gap: 8px 16px; margin-top: 12px; flex-wrap: wrap; }
+.p4-discord .discord-results-line { margin-top: 0; min-height: 44px; padding: 0 4px; color: var(--ux-muted); font-size: 14px; }
+.p4-discord .discord-results-line:hover { color: var(--ux-ink); }
+.p4-discord .discord-results-line:focus-visible { outline: 2px solid var(--ux-pink); }
+.p4-discord .brag-wrap { margin-top: 0; }
+.p4-discord .brag-name { background: var(--ux-surface); border-color: var(--ux-input); color: var(--ux-ink); }
 .p4-likeb:hover { background: var(--ux-surface); }
 .p4-likeb[aria-pressed="true"] { border-color: var(--ux-pink); color: var(--ux-pink-ink); }
 .p4-likeb[aria-pressed="true"] .ux-ico { fill: var(--ux-pink); stroke: var(--ux-pink); }
