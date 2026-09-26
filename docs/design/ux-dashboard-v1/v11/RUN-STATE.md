@@ -24,7 +24,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | running (loop 1; resumed 18:26 after the app stopped; evidence was uncommitted, told to commit) | - | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | running (loop 1; resumed 18:26; 3 commits pushed; issue C2-001 filed for A0) | 26b53ba | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | running (loop 1; resumed 18:26; 3 local commits, told to push) | 936850c | - | v11/REPORT.md |
+| C3 | ux11/c3-check | running LOCALLY: its push was refused by the permission check ("Git Destructive"); branch unpublished, waiting for the owner like P2 | 4f3ef6c | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -64,7 +64,7 @@ FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the 
 
 DAILY DEBATE ROTATION (P8 + P9): the only caller of ensure_daily_debate is the legacy CommunityContent on /leaderboard (a write on view); no cron calls it. With the flag on, /leaderboard no longer mounts it and /verse/community 302s guests while the Verse is hidden, so the daily debate stops rotating. No write path was added. Owner call before turning the flag on (for example a Vercel cron).
 
-WAITING ON THE OWNER NOW: P2's branch `ux11/p2-quizzes` (9 commits, adea732, local only, worktree .claude/worktrees/agent-a2b9cc4c27e8fa88a) could not be pushed: the permission check refused the agent's push. Either the owner pushes it (`git push -u origin ux11/p2-quizzes`, then a PR into feat/ux-v1-v11) or tells ORCH to push it.
+WAITING ON THE OWNER NOW (2 branches the permission check would not let agents push): C3's branch `ux11/c3-check` (4f3ef6c and later, worktree .claude/worktrees/agent-a0c9933401ee9710b; QA specs, SEO diff, REPORT.md) and P2's branch `ux11/p2-quizzes` (9 commits, adea732, local only, worktree .claude/worktrees/agent-a2b9cc4c27e8fa88a) could not be pushed: the permission check refused the agent's push. Either the owner pushes it (`git push -u origin ux11/p2-quizzes`, then a PR into feat/ux-v1-v11) or tells ORCH to push it.
 
 SECURITY, LIVE SITE (found by P2, confirmed by ORCH in code): /quizzes puts user-written quiz titles into an ld+json script tag with a bare JSON.stringify (titles only length-checked), so a title containing </script> could break out: likely stored XSS. The Verse code already has the escaping sink jsonLdScript (lib/verse/jsonld.tsx). Handed to the owner as a separate task chip (fix on main).
 
@@ -103,6 +103,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 C3's push of ux11/c3-check was refused by the permission check ("Git Destructive"). C3 stopped, then was resumed to continue with local commits only; publishing its branch waits for the owner, like P2. C3 so far: robots.txt identical, sitemap 2998 URLs both ways, no new URL; title, description, robots, canonical, hreflang, H1 identical on every existing URL; /community 200 noindex flag on, 301 flag off. Link losses in its first pass came from ISR pages cached with empty sections while the machine was saturated (fail-soft reads cached); most recovered, /groups and /data/pulse to re-check.
 - 2026-09-26 18:24 The app stopped: C1, C2, C3 and the :3021 server were stopped. Server restarted from the same dcc3159 build (.worktrees/ux11-integration-b); checkers resumed from their transcripts. Load average ~40 from other projects on the machine (Pricely test runs, a VM), not this run. First issue in: C2-001 (A0): /api/quizzes/count (Phase 1 endpoint) answers 200 with the flag off; gate it (404 flag off) or delete it. Fixes are batched after loop 1 so there is one rebuild.
 - 2026-09-26 Server swapped to the dcc3159 build (809/809 pages; /community 200 noindex, follow). C1, C2, C3 told to check the community states and rows now.
 - 2026-09-26 P8 merged (dcc3159) after the Verse gate fix (no Verse table read while VERSE_PUBLIC is not 'true', parked spaces never shown, gated post URLs 404 before any read, gate applied outside every cache; 9 unit tests that fail without the gate; e2e in both VERSE_PUBLIC modes). Integration: tsc 0, unit 805/805, check:routes 340 both ways. All page agents merged except P2 (owner push). Rebuilding the flag-on build in .worktrees/ux11-integration-b to swap on :3021.
