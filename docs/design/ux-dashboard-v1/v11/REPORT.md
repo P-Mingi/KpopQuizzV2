@@ -1,251 +1,242 @@
-# UX v11.2 run report (C3, Phase 3, loop 1)
+# UX v11.2 run report (C3, Phase 3)
 
 ## Progress
 
-- Status: C3's own checks DONE (e2e, accessibility, SEO, performance, whole-app tsc). REPORT.md is a DRAFT until
-  C1 (pixel) and C2 (wiring) finish: their columns below are snapshots of their branches (C1 `ux11/c1-check`
-  at fa89993, C2 `ux11/c2-check` at f85bbd3) and are refreshed when ORCH says both are done.
-- Branch `ux11/c3-check`, local only: the session permission check refused the push (ORCH and the owner decide
-  how it is published). Worktree `.claude/worktrees/agent-a0c9933401ee9710b`.
-- Build under test: the shared flag-on production build of `feat/ux-v1-v11` at dcc3159 (P8 included) on
-  http://localhost:3021. Flag off: a production build of the same head in the C3 worktree (`next start` :4203).
-  Live: https://kpopquiz.org (= main).
-- Pending by design: `/quizzes` (P2's branch waits for the owner; the server shows the pre-P2 page inside the
-  shell). Populated ranked states: NOT verified until the ranked migration is applied.
-- C3 issues filed: C3-001 to C3-009 (P1: C3-003, C3-006, C3-008; P3: C3-001, C3-002; P4: C3-004; P5: C3-005;
-  P6: C3-009; P8: C3-007). Evidence under `v11/checks/qa/`.
+- Status: loop 2 DONE on `feat/ux-v1-v11` cc6c394 (all fix loop 1 merges). C3's checks, C1's pixel loop 2
+  (`ux11/c1-check` cd46f34) and C2's wiring loop 2 (`ux11/c2-check` 9603f9b) are all in this report.
+- One issue is open: C2-008 (P4, signed-in results crash when the run is not stored yet). Every C1, C2 and C3
+  issue of loop 1 is fixed. `/quizzes` (P2) is pending the owner.
+- Branch `ux11/c3-check`, local only: the session permission check refused the push; the owner decides how it
+  is published. Worktree `.claude/worktrees/agent-a0c9933401ee9710b`.
+- Servers: the shared flag-on production build on http://localhost:3021 (loop 1: dcc3159, loop 2: cc6c394);
+  flag off: a production build of the same head in the C3 worktree (`next start` :4203); live:
+  https://kpopquiz.org (= main). No production write was sent: every mutating request was answered locally.
 
-## At a glance
+## At a glance (loop 2, cc6c394)
 
 | Check | Result | Evidence |
 |---|---|---|
-| e2e, every `e2e/ux-v1/*.spec.ts` except parity (551 tests: ux-1440 + ux-390, light + dark, guest + signed in) | **542 passed, 1 flaky, 0 failed, 8 skipped by design** (21 min). Flaky: p4 "like" at 390 (C3-004, a real race). Skips: 3 "desktop widths" + 1 "desktop nav" + 1 "phone only" (shell), 1 "phone only" (p4), 2 "VERSE_PUBLIC=true on this server" (p8 hidden-Verse case) | `checks/qa/e2e-run3.md` |
-| axe, whole document, every v11 state x 1440 / 390 x light / dark, guest and signed in (read only) | **0 serious or critical on 190 of 190 v11 runs.** 36 runs with serious color-contrast on legacy content rendered inside the shell (/pt, /pt/blindtest, /pt/leaderboard, /articles, an article, /stats, /blackpink-trivia, /blindtest/classic, /quizzes pre-P2): every one exists with the flag off, and the flag-on counts are lower (the shell replaces the legacy nav and footer) | `checks/qa/QA-A11Y.md`, `checks/qa/evidence/a11y-legacy-pages-on-vs-off.txt` |
-| Keyboard walk (Tab until focus cycles) of 14 v11 pages at 1440 and 390 | every visible control reached, focus never lost to <body>; one Tab stop without a visible focus indicator: the community feed tab panel (C3-007); pre-P2 /quizzes "All groups" dropdown does not return focus after Escape (pending P2) | `checks/qa/QA-A11Y.md` |
-| Sheets and popovers (sign-in, search, share, quit confirm, editor, header, playlist, bell, account) | all pass: role, name, aria-modal, focus in, Tab trapped, X / Escape / backdrop close, focus returns (non-modal popovers: Escape returns focus; a click outside leaves focus where the pointer went) | `checks/qa/QA-A11Y.md` |
-| Game semantics | quiz: timer "15 seconds left", question H1 focused, answers in a named group, live region "Not quite. The answer is Jin. 0 of 1 so far." then "Quiz finished. 3 out of 8."; blindtest: "Correct, plus 200 points. God's Menu by Stray Kids." then "Blindtest finished. 3 out of 10, 600 points."; one H1 on each results screen | `checks/qa/QA-A11Y.md` |
-| SEO, 34 URLs, flag on vs flag off vs live (server HTML, no JS) | title, description, robots, canonical, hreflang, og, H1 identical on every existing URL; JSON-LD identical except live counters (/stats plays); robots.txt identical; sitemap 2998 URLs on and off, no new page in it; new pages (/community + posts, /blindtest/ranked) noindex, 301 or 404 with the flag off. Lost: 4 or 3 quiz links per hub as visible anchors (C3-001), the home's /quizzes/new and /quizzes/most-liked (live 404s, replaced by /new and /most-liked, owner-known), 2 sentences (C3-005 /create, C3-006 home with VERSE_PUBLIC on) | `checks/qa/seo/SUMMARY.md`, `seo-diff.json` |
-| Cached failed reads | the build-time copies of / (C3-003) and /groups (C3-002) were served with empty sections for up to their ISR window; data caches of P1, P3, P4, P8, P9, P11 throw on a failed read; P6's today count does not (C3-009) | `checks/qa/evidence/` |
-| Performance (390, DPR 3, 4x CPU; Playwright, not Lighthouse) | slow 4G LCP flag on / off: home 2.22 / 3.04 s, quiz 2.34 / 2.42 s, BLACKPINK hub 2.30 / 3.25 s, /blindtest 2.22 / 2.05 s; CLS at most 0.0003 flag on (flag-off home 0.05 to 0.07); JS +47 to +80 KB except /blindtest (-15 KB); home images 908 vs 185 KB (C3-008). Lighthouse scores PENDING the owner's OK | `checks/qa/perf/SUMMARY.md` |
-| Whole-app tsc (e2e specs included, with the C3 QA specs) | 0 errors | this run |
+| e2e, every owner spec `e2e/ux-v1/*.spec.ts` except parity (563 tests: ux-1440 + ux-390, light + dark, guest + signed in) | **555 passed, 0 failed, 0 flaky, 8 skipped by design** (3 "desktop widths", 1 "desktop nav", 1 "phone only" in shell; 1 "phone only" in p4; 2 "VERSE_PUBLIC=true on this server" in p8). Loop 1: 542 passed, 1 flaky (C3-004) | `checks/qa/e2e-loop2.md`, loop 1 `e2e-run3.md` |
+| C3 QA specs (`qa-a11y.spec.ts`, `qa-keyboard.spec.ts`), same projects | 183 passed; 37 failed, all expected: 36 = axe color-contrast on legacy content inside the shell (existing, flag off has more), 1 = keyboard on the pre-P2 /quizzes (pending P2) | `checks/qa/e2e-loop2.md` |
+| axe, whole document, every v11 state x 1440 / 390 x light / dark, guest and signed in (read only) | **0 serious or critical on 190 of 190 v11 runs** (loop 1 and loop 2) | `checks/qa/QA-A11Y-loop2.md` |
+| Keyboard walk (Tab until focus cycles), 14 v11 pages at 1440 and 390 | every visible control reached; every Tab stop shows a focus indicator (loop 1 gap C3-007 fixed); focus never lost to <body>; dropdowns and comboboxes open by keyboard and close with Escape, focus back | `checks/qa/QA-A11Y-loop2.md` |
+| Sheets and popovers (sign-in, search, share, quit confirm, editor, header picture, playlist, bell, account) | 17 of 17 checks clean: role, name, aria-modal, focus in, Tab trapped, X / Escape / backdrop close, focus returns | `checks/qa/QA-A11Y-loop2.md` |
+| Game semantics | quiz: named timer ("15 seconds left"), question H1 focused, answers in a named group, live region ("Not quite. The answer is 2016. 0 of 1 so far.", then "Quiz finished. 0 out of 8."); blindtest: "Correct, plus 200 points. God's Menu by Stray Kids.", then "Blindtest finished. 3 out of 10, 600 points."; one H1 on each results screen | `checks/qa/QA-A11Y-loop2.md` |
+| SEO, flag on vs flag off vs live, server HTML without JS (loop 1: 34 URLs; loop 2: /, /pt, /groups, 3 hubs, /create, /blindtest) | title, description, robots, canonical, hreflang, og, H1 identical; JSON-LD identical except live counters (plays); robots.txt identical; sitemap 2998 URLs on and off, no new page in it; new pages noindex and 301 / 404 with the flag off. Link set: every flag-off link kept except (a) the live home's two 404 links /quizzes/new and /quizzes/most-liked (replaced by /new and /most-liked) and (b) links to PARKED Verse spaces (/verse/blackpink, /verse/seventeen, /verse/stray-kids on the home, /verse/blackpink and /verse/ateez on those hubs), which 404 locally and 302 to /verse on kpopquiz.org (dropped by the C2-005 / C2-006 fixes: owner to confirm) | `checks/qa/seo-loop2/SUMMARY.md`, `checks/qa/seo/SUMMARY.md` |
+| Cached failed reads | P1 home and P3 pages now refuse to cache a render that lost a read (unit-tested; the cc6c394 prerenders are complete); P6 count read throws; runtime failure path not fault-injected (needs a failing production read) | `checks/qa/ISSUES-STATUS.md` |
+| Performance (390, DPR 3, 4x CPU, slow 4G; Playwright, not Lighthouse) | LCP flag on / off: home 2.42 / 3.28 s, BLACKPINK hub 3.01 / 3.31 s (loop 1: quiz 2.34 / 2.42 s, /blindtest 2.22 / 2.05 s); CLS at most 0.054 (home; today's home 0.05 to 0.07); home images 495 KB (loop 1: 908; flag off 182, it shows no photos); every photo from public/idols right-sized. Lighthouse scores PENDING the owner's OK | `checks/qa/perf/SUMMARY-loop2.md`, `SUMMARY.md` |
+| Whole-app tsc (e2e specs included, with the C3 QA specs) | 0 errors (loop 1 and loop 2) | this run |
+| Pixel (C1) | 152 checks: 136 pass, 0 fail, 16 not verified (P2 pending, ranked and post-challenge need their migrations) | `checks/pixel/README.md` (C1 branch) |
+| Wiring (C2) | 267 rows: 195 PASS, 1 FAIL (C2-008), 33 NOT VERIFIED (production writes, migrations), 7 PENDING (P2), 31 N/A | `checks/backend/README.md` (C2 branch) |
 
 ## Per page
 
-Status: DONE = every check passes or is NOT verified for a stated reason; OPEN = an open issue. Pixel = C1
-(`v11/checks/pixel/<state>/`, cells "pass n/m" = landmarks within 2px and computed styles equal). Wiring = C2
-(`v11/checks/backend/README.md`, WIRING-MAP rows). e2e = C3's full run (`checks/qa/e2e-run3.md`), per project.
-Thumbnails: C1's side-by-side reference | implementation (1440 light), under `v11/checks/pixel/`.
+Status: DONE = every check passes or is NOT verified for a stated reason; OPEN = an open issue; PENDING =
+not merged. Pixel = C1 (`v11/checks/pixel/<state>/`, "pass n/m" = landmarks within 2px and computed
+styles equal). Wiring = C2 (`v11/checks/backend/`, WIRING-MAP rows). e2e = C3 loop 2 run, per project.
+Thumbnails: C1's reference | implementation side by side (1440 light), on C1's branch under `v11/checks/pixel/`.
 
-### Shell, nav, tab bar, footer, sheets, tokens (A0): OPEN
+### Shell, nav, tab bar, footer, sheets, tokens (A0): DONE
 
 ![shell](checks/pixel/home-guest/1440-light-side.webp)
 
-- Pixel (C1 snapshot): shell landmarks pass inside every state; focus and hover extras in `checks/pixel/_extra/`.
-  Open: C1-002 (header sheet drop zone opens in its hover look; A0 HeaderPictureSheet).
-- Wiring (C2 snapshot): 17 PASS, 1 FAIL (C2-001: GET /api/quizzes/count answers 200 with the flag off), 2 N/A.
-- e2e: kit.spec 21/21 at both widths; shell.spec 15 passed + 1 skipped (1440), 12 passed + 4 skipped (390), the
-  skips are width-specific cases.
-- a11y: sign-in sheet, search overlay, account menu: axe 0, every sheet check passes. Legacy content inside the
-  shell (/pt pages, articles, /stats, trivia, blindtest mode pages) keeps its existing contrast failures (owner note).
-- SEO: the shell adds about 15 links per page (nav, tab bar, footer); no page loses a shell link (/search is back).
-- Issues: C1-002, C2-001.
+- Pixel: shell landmarks pass in every state; focus ring and hover extras pass; C1-002 (header sheet drop zone
+  in its hover look) FIXED in loop 2.
+- Wiring: 29 PASS, 2 N/A; C2-001 (/api/quizzes/count 200 with the flag off) FIXED: 37 of 37 new endpoints 404
+  with the flag off.
+- e2e: kit.spec 22/22 and shell.spec 15 + 1 skip (1440), 12 + 4 skips (390); skips are width-specific cases.
+- a11y: sign-in sheet, search overlay, account menu, bell: axe 0, every sheet check passes.
+- SEO: the shell adds about 15 links per page (nav, tab bar, footer), removes none (/search is back).
+- Owner note: legacy pages rendered inside the shell keep their existing contrast failures (see Owner notes).
 
-### Home (P1): OPEN
+### Home (P1): DONE
 
 ![home](checks/pixel/home/1440-light-side.webp) ![home guest](checks/pixel/home-guest/1440-light-side.webp)
 
-- Pixel (C1 snapshot): home and home-guest pass at 1440 and 390, light and dark (17/17 and 19/19 landmarks).
-- Wiring (C2 snapshot): 13 PASS, 3 FAIL (C2-002 signed-in header line, C2-004 Continue playing, C2-005 From the
-  community), 1 N/A.
+- Pixel: home 17/17 and home-guest 19/19 at 1440 and 390, light and dark (loop 2 re-run).
+- Wiring: 16 PASS, 1 N/A; C2-002 (streak line wording), C2-004 (Continue hid listed quizzes), C2-005 (links to
+  parked Verse spaces) FIXED.
 - e2e: p1.spec 18/18 at both widths.
-- a11y: axe 0 (guest and signed in, 4 combos each); keyboard walk: 106 controls reached at 1440, 104 at 390.
-- SEO: fields identical; link set 79 on / 70 off / 64 live; lost only /quizzes/new and /quizzes/most-liked (live
-  404s, P1 links /new and /most-liked); lost sentence with VERSE_PUBLIC on (C3-006, low).
-- Perf (slow 4G): LCP 2.22 s (off 3.04 s), CLS 0.0001, JS 367 KB (off 320); images 908 KB vs 185 KB (C3-008).
-- Issues: C2-002, C2-004, C2-005, C3-003 (page cache kept a failed read), C3-006 (low), C3-008.
+- a11y: axe 0 guest and signed in, 4 combos each; keyboard: 103 controls reached at 1440, 101 at 390.
+- SEO: fields identical; 76 links on / 70 off / 64 live; lost only the live 404s /quizzes/new, /quizzes/most-liked
+  and 3 parked Verse space links (dead doors, C2-005 fix).
+- Perf (slow 4G): LCP 2.42 s (off 3.28 s), CLS 0.054, JS 366 KB (off 320), images 495 KB (loop 1: 908).
+- C3 issues: C3-003 (page cache kept a failed read), C3-006 (Verse sentence), C3-008 (photo size): FIXED.
 
 ### Quizzes (P2): PENDING
 
 ![quizzes](checks/pixel/quizzes/1440-light-side.webp)
 
-- P2's branch `ux11/p2-quizzes` is not merged (the permission check refused its push; waits for the owner). The
-  server shows the pre-P2 page inside the shell: pixel "not verified" (C1), rows pending (C2).
-- What C3 checked on the pre-P2 page: SEO identical to flag off (89 / 79 / 78 links, 0 lost on /quizzes,
-  ?page=2, ?group=bts); legacy contrast failures exist with the flag off too; its "All groups" dropdown does not
-  return focus after Escape (pre-P2 markup, to re-check on P2).
+- P2's branch `ux11/p2-quizzes` is not merged (its push was refused; waits for the owner). The server shows the
+  pre-P2 page inside the shell: pixel not verified (C1), 7 rows PENDING (C2).
+- On the pre-P2 page: SEO identical to flag off (0 links lost on /quizzes, ?page=2, ?group=bts); legacy contrast
+  failures (existing); its "All groups" dropdown does not return focus after Escape (legacy markup; re-check on P2).
 
-### Groups and group hubs (P3): OPEN
+### Groups and group hubs (P3): DONE
 
 ![groups](checks/pixel/groups/1440-light-side.webp) ![hub](checks/pixel/hub-blackpink/1440-light-side.webp)
 
-- Pixel (C1 snapshot): hubs (BLACKPINK, ATEEZ, empty) pass 14/14 and 8/8; /groups fails 10/11 (C1-001: the group
-  tile count line).
-- Wiring (C2 snapshot): 16 PASS, 2 FAIL (C2-006 hub Verse links, C2-007 hub From the community), 1 NOT VERIFIED
-  (Notify me: migration pending), 1 N/A.
-- e2e: p3.spec 17/17 at both widths.
-- a11y: axe 0 on /groups, three hubs, signed-in hub; keyboard: 173 controls on /groups, 96 on BLACKPINK, 54 on
-  the empty hub, all reached; hub dropdowns open with Enter and close with Escape, focus back.
-- SEO: fields identical on /groups, 3 hubs, /bts-trivia; /groups 119 links (off 66); hubs keep every link in the
-  raw HTML but quizzes 7+ only inside <noscript> (C3-001); /groups served "0 groups" from a failed build read for
-  the ISR hour (C3-002).
-- Perf (slow 4G, BLACKPINK hub): LCP 2.30 s (off 3.25 s), images 97 KB (off 713), photos sized right.
-- Issues: C1-001, C2-006, C2-007, C3-001, C3-002.
+- Pixel: /groups 11/11 (C1-001 group tile FIXED), hubs BLACKPINK and ATEEZ 14/14, empty hub 8/8.
+- Wiring: 18 PASS, 1 NOT VERIFIED (Notify me: migration pending), 1 N/A; C2-006 (Verse link to parked spaces)
+  and C2-007 (empty-state door) FIXED.
+- e2e: p3.spec 19/19 at both widths.
+- a11y: axe 0 on /groups, three hubs, signed-in hub; keyboard: 173 controls on /groups, 101 on BLACKPINK, all
+  reached; hub dropdowns open by keyboard and close with Escape, focus back.
+- SEO: fields identical on /groups, 3 hubs, /bts-trivia; every quiz of a hub is now a visible link in the server
+  HTML (BLACKPINK 27 visible quiz links vs 18 flag off, no <noscript> list); the only link dropped is the parked
+  Verse space (/verse/blackpink, /verse/ateez; dead doors, C2-006 fix).
+- Perf (slow 4G, BLACKPINK): LCP 3.01 s (off 3.31 s), images 82 KB (off 713), photos right-sized.
+- C3 issues: C3-001 (hub links only in <noscript>), C3-002 (/groups cached a failed read): FIXED.
 
-### Quiz page, game, results, share (P4): OPEN
+### Quiz page, game, results, share (P4): OPEN (C2-008)
 
 ![quiz](checks/pixel/quiz/1440-light-side.webp) ![end](checks/pixel/end-guest/1440-light-side.webp)
 
-- Pixel (C1 snapshot): quiz, play, play-answered, play-qotd, end, end-guest, share: all pass, 4 combos each.
-- Wiring (C2 snapshot): 45 PASS, 1 FAIL (C2-003 results Discord line / Brag), 4 NOT VERIFIED (DB effects, owner
-  decision 1, and the two P4 migrations), 6 N/A.
-- e2e: p4.spec 21 passed + 1 skipped by design (1440), 21 passed + 1 flaky (390: the like count race, C3-004).
-- a11y: axe 0 on quiz (3 types), play, play-answered, play-qotd, end-guest, share (4 combos) and signed in;
-  keyboard: 68 controls reached; quit confirm (alertdialog) and share sheet pass every sheet check; game live
-  region verified (see At a glance).
-- SEO: fields and JSON-LD (BreadcrumbList, Quiz) identical on 3 quiz types; 47 links on vs 33 off, 0 lost.
-- Perf (slow 4G): LCP 2.34 s (off 2.42 s), CLS 0.0003, JS 402 KB (off 322).
-- Issues: C2-003, C3-004.
+- Pixel: quiz, play, play-answered, play-qotd, end, end-guest, share pass, 4 combos each (the live Discord line
+  + Brag row under the result actions is recorded as a known deviation, C2-003).
+- Wiring: 48 PASS, 1 FAIL, 4 NOT VERIFIED (production writes, the two P4 migrations), 6 N/A. C2-003 (Discord line
+  / Brag) FIXED. **C2-008 OPEN**: a signed-in fan whose run is not stored yet gets a standing without a rank;
+  results.tsx calls toLocaleString on undefined and the page shows "Something went wrong" about 1 s after the
+  results (fix: `typeof standing.rank === 'number'`).
+- e2e: p4.spec 22 + 1 skip by design (1440), 23/23 (390); the like test is no longer flaky.
+- a11y: axe 0 on quiz (3 types), play, play-answered, play-qotd, end-guest, share, signed-in quiz page; quit
+  confirm and share sheet pass every sheet check; live region verified.
+- SEO: fields and JSON-LD (BreadcrumbList, Quiz) identical on 3 quiz types, 0 links lost (loop 1).
+- Perf (loop 1, slow 4G): LCP 2.34 s (off 2.42 s), JS 402 KB (off 322).
+- C3 issues: C3-004 (like count race): FIXED.
 
-### Create (P5): OPEN (low)
+### Create (P5): DONE
 
 ![create](checks/pixel/create-1/1440-light-side.webp)
 
-- Pixel (C1 snapshot): create-1, create-2, create-3, signin pass, 4 combos each.
-- Wiring (C2 snapshot): 19 PASS, 4 NOT VERIFIED (publish = a production write, owner decision 1), 2 N/A.
+- Pixel: create-1, create-2, create-3, signin pass, 4 combos each (loop 2 re-run).
+- Wiring: 19 PASS, 4 NOT VERIFIED (publish is a production write), 2 N/A.
 - e2e: p5.spec 22/22 at both widths.
-- a11y: axe 0 on the three steps and the sign-in sheet (guest) and create-1 signed in; keyboard: all reached,
-  the group combobox opens with ArrowDown and closes with Escape.
-- SEO: /create is noindex, follow (as today); fields identical; the cover helper sentence is missing (C3-005, low).
-- Issues: C3-005.
+- a11y: axe 0 on the three steps, the sign-in sheet and create-1 signed in; the group combobox opens with
+  ArrowDown and closes with Escape.
+- SEO: noindex, follow as today; fields identical; 0 lost text or links (loop 2).
+- C3 issues: C3-005 (cover helper sentence): FIXED.
 
-### Blindtest (P6): OPEN (low)
+### Blindtest (P6): DONE
 
 ![blindtest](checks/pixel/blindtest/1440-light-side.webp) ![btplay](checks/pixel/btplay/1440-light-side.webp)
 
-- Pixel (C1 snapshot): blindtest, playlist open, group search, btplay, btplay-answered pass, 4 combos each.
-- Wiring (C2 snapshot): 21 PASS, 3 NOT VERIFIED, 13 N/A.
+- Pixel: blindtest, playlist open, group search, btplay, btplay-answered pass, 4 combos each (loop 2 re-run).
+- Wiring: 21 PASS, 3 NOT VERIFIED, 13 N/A.
 - e2e: p6.spec 29/29 at both widths.
-- a11y: axe 0 on the hub, playlist menu, group search, game, answered, results; keyboard: 117 controls reached,
-  the group search shows its pink border on focus; live region verified.
-- SEO: /blindtest fields, FAQ and JSON-LD identical, 137 links (off 121), 0 lost; /blindtest/classic,
-  /blindtest/girl-groups, /pt/blindtest unchanged inside the shell.
-- Perf (slow 4G): LCP 2.22 s (off 2.05 s), JS 275 KB (off 290), images 261 KB (off 15: the popular photo tiles).
-- Issues: C3-009 (low, found in code).
+- a11y: axe 0 on the hub, playlist menu, group search, game, answered, results; keyboard: 117 controls reached;
+  live region verified.
+- SEO: /blindtest fields, FAQ and JSON-LD identical, 137 links (off 121), 0 lost; the mode pages and
+  /pt/blindtest unchanged inside the shell.
+- Perf (loop 1, slow 4G): LCP 2.22 s (off 2.05 s), JS 275 KB (off 290).
+- C3 issues: C3-009 (today count cached a failed read): FIXED in code.
 
 ### Ranked (P7): DONE for the not-live state; populated states NOT verified
 
 ![ranked](checks/pixel/ranked/1440-light-side.webp)
 
-- Pixel (C1 snapshot): ranked and btend-ranked NOT verified until `v11-p7-ranked.sql` is applied; the not-live
-  state is checked.
-- Wiring (C2 snapshot): 15 NOT VERIFIED (the ranked tables do not exist).
+- Pixel and wiring: NOT verified until `v11-p7-ranked.sql` is applied (15 rows); the not-live state is checked.
 - e2e: p7.spec 17/17 at both widths (the API answers 503 not_live before any write).
-- a11y: axe 0 on /blindtest/ranked (4 combos); keyboard: 56 controls reached.
-- SEO: /blindtest/ranked is new: 200 noindex, follow with the flag on, 404 flag off and live, not in the sitemap.
+- a11y: axe 0 on /blindtest/ranked, 4 combos; keyboard: 56 controls reached.
+- SEO: new URL, 200 noindex, follow with the flag on, 404 flag off and live, not in the sitemap.
 
-### Community (P8): OPEN
+### Community (P8): DONE
 
 ![community](checks/pixel/community/1440-light-side.webp) ![post](checks/pixel/post-blog/1440-light-side.webp)
 
-- Pixel (C1 snapshot): community, post-blog, post-debate, editor pass; post-challenge NOT verified (no challenge
-  post can exist until `v11-p8-community.sql`).
-- Wiring (C2 snapshot): 17 PASS, 1 NOT VERIFIED, 3 N/A.
-- e2e: p8.spec 29 passed + 1 skipped at each width (the VERSE_PUBLIC=false case: this server runs with it on;
-  P8 ran both modes).
-- a11y: axe 0 on the feed (guest, signed in), 3 post types and the editor; editor sheet passes every check;
-  keyboard: the feed tab panel is a Tab stop without a focus ring (C3-007).
-- SEO: /community and posts are new: 200 noindex with the flag on, 301 to / with the flag off and live, not in
-  the sitemap.
-- Issues: C3-007.
+- Pixel: community, post-blog, post-debate, editor pass; post-challenge NOT verified (no challenge post can exist
+  until `v11-p8-community.sql`).
+- Wiring: 17 PASS, 1 NOT VERIFIED, 3 N/A.
+- e2e: p8.spec 31 + 1 skip at each width (the VERSE_PUBLIC=false case; this server runs with it on; P8 ran both).
+- a11y: axe 0 on the feed (guest, signed in), 3 post types, the editor; keyboard: every Tab stop shows its ring.
+- SEO: new URLs, 200 noindex with the flag on, 301 to / with the flag off and live, not in the sitemap.
+- C3 issues: C3-007 (feed panel without focus ring): FIXED.
 
-### Leaderboard (P9): DONE (C3 checks); C1 / C2 snapshot clean
+### Leaderboard (P9): DONE
 
 ![leaderboard](checks/pixel/leaderboard/1440-light-side.webp)
 
-- Pixel (C1 snapshot): pass 8/8, 4 combos.
-- Wiring (C2 snapshot): 5 PASS, 2 N/A (rows still being checked).
-- e2e: p9.spec 20/20 at both widths.
-- a11y: axe 0 guest and signed in; keyboard: 107 controls reached, tabs keep the ring.
-- SEO: fields identical; 98 links on vs 78 off, 0 lost (after the ISR window; a first read during the loaded build
-  lost 16, fixed by regeneration). /pt/leaderboard unchanged.
+- Pixel: 8/8, 4 combos. Wiring: 5 PASS, 2 N/A. e2e: p9.spec 20/20 at both widths.
+- a11y: axe 0 guest and signed in; keyboard: 107 controls reached.
+- SEO (loop 1): fields identical; 98 links on vs 78 off, 0 lost. /pt/leaderboard unchanged.
 
-### Passport and settings (P10): OPEN (via A0)
+### Passport and settings (P10): DONE
 
 ![passport](checks/pixel/passport/1440-light-side.webp)
 
-- Pixel (C1 snapshot): passport, passport-badges, settings pass; header-sheet fails 3/4 (C1-002, drop zone, A0's
-  component).
-- Wiring (C2 snapshot): 12 PASS, 4 NOT VERIFIED (header storage and email switches: migrations; signed-in /me:
-  owner decision 1).
+- Pixel: passport, passport-badges, settings, header-sheet pass (header sheet fixed through A0, C1-002).
+- Wiring: 12 PASS, 4 NOT VERIFIED (header storage and email switches: migrations; signed-in /me: owner decision 1).
 - e2e: p10.spec 42/42 at both widths.
-- a11y: axe 0 on /u/testtest (guest and as its owner), /settings, header sheet; header sheet passes every sheet check.
-  Signed-in /me: NOT verified (owner decision 1).
-- SEO: /u/testtest fields identical (noindex, follow as today), 38 links vs 22, 0 lost.
+- a11y: axe 0 on /u/testtest (guest and its owner), /settings, header sheet; header sheet passes every sheet
+  check. Signed-in /me NOT verified (it writes on view).
+- SEO (loop 1): /u/testtest fields identical (noindex, follow), 0 links lost.
 
-### Notifications, search, bell (P11): DONE (C3 checks); C1 / C2 snapshot clean
+### Notifications, search, bell (P11): DONE
 
 ![notifications](checks/pixel/notifications/1440-light-side.webp)
 
-- Pixel (C1 snapshot): notifications, search, bell pass, 4 combos.
-- Wiring (C2 snapshot): 8 PASS, 1 NOT VERIFIED.
-- e2e: p11.spec 21/21 at both widths.
-- a11y: axe 0 on /notifications and the bell (signed in), search overlay and /search (guest); the bell popover
-  closes with Escape and returns focus.
-- SEO: /search fields identical, 0 links lost.
+- Pixel: notifications, search, bell pass, 4 combos. Wiring: 8 PASS, 1 NOT VERIFIED. e2e: p11.spec 21/21.
+- a11y: axe 0 on /notifications and the bell (signed in), the search overlay and /search (guest).
+- SEO (loop 1): /search fields identical, 0 links lost.
 
-## Open issues
+## Issues
 
-Full lines (expected, actual, evidence) in `v11/issues/<owner>.md`. C1 and C2 lines are from their branches
-(snapshots named above); they land in this folder when their branches are merged.
+Full lines (expected, actual, evidence) in `v11/issues/<owner>.md`; loop 2 status lines are appended there.
 
-| Id | Owner | State / row | Summary | Severity |
-|---|---|---|---|---|
-| C3-001 | P3 | hubs with more than 6 quizzes | quizzes 7+ are visible anchors flag off, only inside <noscript> flag on (3 or 4 quiz links per hub) | SEO, medium |
-| C3-002 | P3 | /groups | a failed build-time read served "0 groups" and no generation line for the ISR hour | SEO / data, medium |
-| C3-003 | P1 | home | the page cache served a build copy with timed-out reads (no groups rail, no quiz of the day, 8 hub links) for 8 to 36 min | SEO / data, medium |
-| C3-004 | P4 | end, end-guest | the Like pill count reverts when the mount read answers after the click (flaky e2e) | UI, low |
-| C3-005 | P5 | /create (noindex) | the cover helper sentence of the flag-off HTML is gone | copy, low |
-| C3-006 | P1 | home, VERSE_PUBLIC on | the Verse strip sentence is gone (links kept); no effect while the Verse is hidden in production | copy, low |
-| C3-007 | P8 | community | the feed tab panel is a Tab stop with its focus ring removed (p8.css) | a11y, medium |
-| C3-008 | P1 | home groups rail | 80 px photos load at 640 px on DPR 3 phones (908 KB of images vs 185 KB flag off) | perf, medium |
-| C3-009 | P6 | /blindtest hero count | the today-players read caches a failed count as 0 for 1 h (code) | data, low |
-| C1-001 | P3 | /groups | group tile count line (C1 snapshot) | pixel |
-| C1-002 | A0 | header-sheet | drop zone opens in its hover look (C1 snapshot) | pixel |
-| C2-001 | A0 | R024 | GET /api/quizzes/count answers 200 with the flag off (C2 snapshot) | flag off |
-| C2-002 | P1 | home signed in | header line, R363 + R332 (C2 snapshot) | wiring |
-| C2-003 | P4 | results | Discord line / Brag, R117 (C2 snapshot) | wiring |
-| C2-004 | P1 | home | Continue playing, R338 / R334 (C2 snapshot) | wiring |
-| C2-005 | P1 | home | From the community, R053 (C2 snapshot) | wiring |
-| C2-006 | P3 | hubs | Verse links, R201 (C2 snapshot) | wiring |
-| C2-007 | P3 | hub | From the community, R188 (C2 snapshot) | wiring |
+| Id | Owner | Summary | Loop 2 |
+|---|---|---|---|
+| C2-008 | P4 | signed-in results crash when the standing has no rank (run not stored yet) | **OPEN** |
+| C1-001 | P3 | /groups group tile count line | fixed |
+| C1-002 | A0 | header sheet drop zone opened in its hover look | fixed |
+| C2-001 | A0 | /api/quizzes/count answered 200 with the flag off | fixed |
+| C2-002 | P1 | signed-in home streak line wording | fixed |
+| C2-003 | P4 | results Discord line / Brag missing | fixed |
+| C2-004 | P1 | Continue playing hid quizzes listed on the home | fixed |
+| C2-005 | P1 | home linked parked Verse spaces | fixed |
+| C2-006 | P3 | hubs linked parked Verse spaces | fixed |
+| C2-007 | P3 | empty hub offered a dead door | fixed |
+| C3-001 | P3 | hub quizzes 7+ only inside <noscript> | fixed |
+| C3-002 | P3 | /groups served "0 groups" from a failed build read | fixed in code (not fault-injected) |
+| C3-003 | P1 | home page cache kept a render that lost reads | fixed in code (not fault-injected) |
+| C3-004 | P4 | Like count reverted when the first read answered late | fixed |
+| C3-005 | P5 | /create cover helper sentence missing | fixed |
+| C3-006 | P1 | home Verse strip sentence missing (VERSE_PUBLIC on) | fixed |
+| C3-007 | P8 | community feed panel focus ring removed | fixed |
+| C3-008 | P1 | home rail photos served at 640 px on DPR 3 phones | fixed |
+| C3-009 | P6 | today-players count cached a failed read as 0 | fixed in code |
 
 ## Owner notes from C3 (no owning agent)
 
-- Legacy content rendered inside the v11 shell keeps its existing serious color-contrast failures (flag off has
-  more): /pt/leaderboard (the "Ranking" label and the #4+ rank numbers: #9E998F on white, 2.8:1), /pt,
-  /pt/blindtest, /articles and articles, /stats, the -trivia pages, the /blindtest/<mode> pages, and /quizzes
+- Link set: the v11 home and hubs no longer link parked Verse spaces (/verse/blackpink, /verse/seventeen,
+  /verse/stray-kids, /verse/ateez): these 404 on both local builds and 302 to /verse on kpopquiz.org, so the flag-off
+  pages link dead doors. Dropped on purpose by the C2-005 / C2-006 fixes; the link-set rule counts them as lost
+  internal links: owner to confirm. /verse and /verse/bts stay.
+- Legacy content rendered inside the v11 shell keeps its existing serious color-contrast failures (the flag-off
+  pages have more): /pt/leaderboard (the "Ranking" label and the #4+ rank numbers, #9E998F on white, 2.8:1),
+  /pt, /pt/blindtest, /articles and articles, /stats, the -trivia pages, the /blindtest/<mode> pages, and /quizzes
   until P2 lands. Nobody owns these pages in this run (`checks/qa/evidence/a11y-legacy-pages-on-vs-off.txt`).
-- ISR pages keep a failed read for their whole window, flag on and flag off alike (safeFetch renders the empty
-  state, the full-route cache serves it): seen on the dcc3159 build for /most-liked ("No quizzes yet.", 0 quiz
-  links), /data/pulse (empty hasPart, both month links missing), /pt (no daily block) and /leaderboard (16 links)
-  until they regenerated. Same class as P2's popular.ts note. A fix (keep the last good copy when a read fails)
-  is a platform decision.
-- next.config `images.imageSizes` stops at 220 and `deviceSizes` starts at 640: any `fill` image with a small
-  `sizes` jumps to 640 px on DPR 3 phones (C3-008 is the v11 case). Adding 256 (and 384) is a global change.
-- The v11 stylesheet route (`/api/ux-v1/a0/styles`, force-static, 160 KB raw, 28 KB gzip) is not compressed by
-  a local `next start`; on Vercel the edge compresses it. With it compressed, no v11 page is slower than today
-  (`checks/qa/perf/SUMMARY.md`). To confirm on the first Vercel preview (content-encoding of that route).
-- The shared checker server runs with VERSE_PUBLIC on; production has it off. The Verse-dependent home and hub
-  rows were checked in the "on" mode only by C3 (P8's own e2e covers both modes).
+- ISR pages outside v11 keep a failed read for their whole window, flag on and flag off alike: seen on the
+  dcc3159 build for /most-liked ("No quizzes yet.", 0 quiz links), /data/pulse (empty hasPart, both month links
+  missing), /pt (no daily block) and /leaderboard (16 links) until they regenerated. Same class as P2's
+  popular.ts note; the P1 / P3 pattern (throw at runtime, short revalidate at build) could be applied there.
+- next.config `images.imageSizes` stops at 220 and `deviceSizes` starts at 640: a `fill` image with a small
+  `sizes` jumps to 640 px on DPR 3 phones (the v11 case, C3-008, is fixed with fixed-size images).
+- The v11 stylesheet route (`/api/ux-v1/a0/styles`, force-static, 160 KB raw, 28 KB gzip) is not compressed by a
+  local `next start`; Vercel compresses it. With it compressed, no v11 page measured is slower than today except
+  /blindtest (+0.17 s LCP on slow 4G). To confirm on the first Vercel preview (content-encoding of that route).
+- The shared checker server runs with VERSE_PUBLIC on; production has it off. C3 checked the Verse-dependent rows
+  in the "on" mode only (P8's own e2e covers both modes).
 
 ## NOT verified, and why
 
-- Lighthouse (perf >= 85, SEO 100, a11y >= 95): not installed; adding it is a new dependency. PENDING the owner's OK.
-  Playwright measurements stand in (`checks/qa/perf/SUMMARY.md`).
+- Lighthouse (perf >= 85, SEO 100, a11y >= 95): not installed; adding it is a new dependency. PENDING the owner's
+  OK. Playwright measurements stand in (`checks/qa/perf/`).
 - Anything that writes production data (finishing a quiz or a blindtest for real, liking, commenting, voting,
   posting, saving settings, header upload): owner decision 1. Every such request was answered locally
   (guardWrites) and its payload checked (e2e, C2).
 - Signed-in /me and /profile (they write on view): owner decision 1. Passport checked through /u/testtest.
+- The runtime failure path of the P1 / P3 / P6 read fixes (throw so the last good ISR page stays): needs a failing
+  read on a production server; unit-proven by the owners, not fault-injected by C2 or C3.
 - Populated ranked states (ranked board, btend-ranked): until `v11-p7-ranked.sql` is applied.
 - post-challenge, fan debates, hearts on posts: until `v11-p8-community.sql` is applied.
 - Notify me (empty hub), header storage, email switches, relaxed runs, guest rank line: until their migrations.
@@ -267,6 +258,7 @@ Full lines (expected, actual, evidence) in `v11/issues/<owner>.md`. C1 and C2 li
 
 ## Owner decisions needed (copied from v11/RUN-STATE.md)
 
+SECURITY, LIVE SITE (found by C2, confirmed by ORCH in code): /auth/callback redirects to returnTo without checking it stays on the site (`NextResponse.redirect(new URL(returnTo, request.url))`): an open redirect after sign-in. Auth is out of this run's scope; handed to the owner as a separate task chip.
 
 FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the weekly board with made-up accounts from lib/weekly-leaderboard-padding.ts (FAKE_USERS). Handed to the owner as a separate task chip.
 
@@ -307,16 +299,22 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 25. P9: the H1 stays "Community" (SEO lock) instead of "Leaderboard"; "Around the community" is kept until /community is indexable; Players = all-time XP (no XP history exists); the weekly change is the real percent change, not rank moves; migration 097 (Rising) is not applied in prod; 19 groups have fandom_name 'fan'; the shared getFandomWarMap caches an empty board for 1h after an RPC error (P9 reads through its own throwing getWarMap).
 26. Security, existing (found by P8): the existing /api/verse/* write routes (threads, essays, discussions, reactions, flags) do not check VERSE_PUBLIC or LIVE_SPACES themselves, so a hand-crafted request can write Verse rows for hidden or parked spaces today. The v11 /community never offers them for gated content. Owner call.
 27. P8 remaining decisions: apply v11-p8-community.sql; blogs keep curator review and a space Join (no cover upload); the feed shows the last 3 closed daily debates; the daily debate reply is sent with the vote; /community stays noindex until the owner decides. The feed shows no Verse item unless VERSE_PUBLIC is 'true', and never a parked space (lib/ux-v1/p8/verse-gate.ts).
-28. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+28. Cached failed reads on legacy (flag-off) code, found by P2, P1, P6 and C3: lib/db/queries/popular.ts, getFandomWarMap, getQuizOfTheDay (null for the day), lib/db/queries/blindtest.ts getBlindtestStats (`count ?? 0` inside unstable_cache), and ISR pages keeping a render whose reads failed. The v11 pages no longer do this (P1, P3, P6 fixes). Owner call for the legacy code (one task chip exists for popular.ts).
+29. Shared hub reads (found by P3): 10 shared reads used by the group hubs (group-hub, community, freshness, related quizzes, trivia facts) return an empty value when Supabase fails and unstable_cache keeps it up to an hour, on the v11 hubs and the live ones alike (in this loop every flag-on hub lost its fandom war line until the dev cache was cleared). A ready fix is in docs/design/ux-dashboard-v1/v11/reports/P3/fail-closed-queries.patch (39 lines, applies cleanly, type-checks; callers to check are listed in v11/requests/P3.md request 2). It changes shared flag-off code, so it is the owner's call, not applied in this run.
+30. P4: the v11 results keep the live Discord line and Brag button (70% and up, hidden while the Discord flex webhook is unset): one centred row that is not in the prototype; the link uses the v11 muted colour because the legacy blue fails AA on dark.
+31. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 
 ## Evidence index (v11/checks/qa/)
 
-- `e2e-run3.md` / `.json`: the full owner e2e run; `e2e-qa2.md` / `.json`: the QA specs run.
-- `QA-A11Y.md`, `results/qa-a11y.jsonl`, `results/qa-keyboard.jsonl`: axe, keyboard walk, sheets, game semantics
-  (specs `apps/quiz/e2e/ux-v1/qa-a11y.spec.ts`, `qa-keyboard.spec.ts`; summary `qa-summary.mjs`).
-- `seo/SUMMARY.md`, `seo/seo-diff.json`: SEO diff (script `seo-diff.mjs`, summary `seo-summary.mjs`, link placement
-  `link-detail.mjs`).
-- `perf/SUMMARY.md`, `perf/perf-on-gzip.json`, `perf-on.json`, `perf-off.json`: performance (`perf.mjs`,
-  `gzip-proxy.mjs`, `perf-summary.mjs`).
-- `evidence/`: one file per issue; `axe-urls.mjs`, `probe-like-race.mjs`: probes.
+- e2e: `e2e-loop2.md` / `.json` (loop 2, owner + QA specs), `e2e-run3.md` (loop 1 owner specs), `e2e-qa2.md`
+  (loop 1 QA specs); summariser `e2e-summary.mjs`.
+- Accessibility: `QA-A11Y-loop2.md` + `results-loop2/` (loop 2), `QA-A11Y.md` + `results/` (loop 1); specs
+  `apps/quiz/e2e/ux-v1/qa-a11y.spec.ts`, `qa-keyboard.spec.ts`; summary `qa-summary.mjs`; legacy pages flag on vs
+  off `evidence/a11y-legacy-pages-on-vs-off.txt` (probe `axe-urls.mjs`).
+- SEO: `seo-loop2/SUMMARY.md` + `seo-diff.json` (loop 2), `seo/` (loop 1, 34 URLs); scripts `seo-diff.mjs`,
+  `seo-summary.mjs`, `link-detail.mjs`.
+- Performance: `perf/SUMMARY-loop2.md`, `perf/SUMMARY.md` and the JSON runs; scripts `perf.mjs`, `gzip-proxy.mjs`,
+  `perf-summary.mjs`.
+- Issues: `ISSUES-STATUS.md` (loop 2 verdicts), `evidence/` (one file per issue), probes `probe-like-race.mjs`,
+  `build-cache-state.mjs`.
