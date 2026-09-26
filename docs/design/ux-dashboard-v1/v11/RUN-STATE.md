@@ -23,7 +23,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P10 | ux11/p10-passport | fix merged (4a2fa44, PR #60): sharp tests 30 s timeout | 26e6e47 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | loop 2 done, merged (7b910c1): 267 rows, 195 pass / 1 fail (C2-008) / 33 not verified / 7 pending P2 / 31 n/a | 9603f9b | - | v11/checks/backend/ |
+| C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | loop 2 done LOCALLY, REPORT.md finished (unpublished: waits for the owner) | 1245da1 | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
@@ -109,6 +109,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 Server swapped to e54b847 (809/809). C2 loop 3: C2-008 FIXED (no stored play: results render, no rank line, no error; stored play: rank line; the standing endpoint answers the full shape in every branch). C2 merged (bb9b5a5): 196 pass, 0 fail. Every checker issue is now fixed (C1 2, C2 8, C3 9). C3 finalizing REPORT.md locally.
 - 2026-09-27 P4 fix loop 2 merged (e54b847): one standing parser (missing or non-positive rank/total -> null), the endpoint always sends every field, the rank line only with real numbers; red/green e2e with C2's recorded answer; p4.spec 48 pass / 1 skipped / 0 fail. Integration: tsc 0, unit 829/829. Rebuilding the checker server in .worktrees/ux11-integration-b for C2's re-check of C2-008.
 - 2026-09-26 C3 loop 2 done (local 1245da1), REPORT.md finished with C1 and C2 loop 2: owner specs 555 pass / 0 fail / 0 flaky / 8 skipped by design of 563; QA specs 183 pass, 37 expected failures (36 legacy contrast inside the shell, present flag off too; 1 keyboard on the pre-P2 /quizzes); axe 0 serious/critical on 190/190 v11 runs; keyboard + visible focus on 14 pages; 17/17 sheets and popovers; live regions ok; SEO fields, JSON-LD, robots.txt, sitemap (2998) identical; every hub quiz a visible link; LCP home 2.42 vs 3.28 s, BLACKPINK hub 3.01 vs 3.31 s; home images 908 -> 495 KB; home CLS 0.054. C3 issues: 001/004/005/006/007/008 fixed and re-checked live; 002/003/009 fixed in code with unit tests (not fault-injected). Page status: P4 OPEN (C2-008, fix loop 2 running), P2 PENDING, P7 populated states NOT verified; A0, P1, P3, P5, P6, P8, P9, P10, P11 DONE.
 - 2026-09-26 C2 loop 2 merged (7b910c1; issue files A0.md and P3.md conflicted again with C1's appended status lines, resolved as the union): C2-001..007 all fixed; 195 pass / 1 fail / 33 not verified / 7 pending / 31 n/a. New C2-008 (P4): results crash for a signed-in fan with no stored play (standing answers without rank; `rank !== null` lets undefined through). Fix loop 2 started for P4. Not verifiable on the shared server: the runtime failure path of the P1, P3, P6 read fixes (needs a failing read on a production server; covered by unit tests and P1's DB-cut proof).
