@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 152 |
+| PASS | 173 |
 | FAIL | 7 |
-| NOT VERIFIED | 15 |
+| NOT VERIFIED | 18 |
 | PENDING | 0 |
-| N/A | 17 |
-| TODO | 76 |
+| N/A | 30 |
+| TODO | 39 |
 | Total | 267 |
 
 ## Rows
@@ -211,35 +211,35 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R242](R242.md) | P10 | Weekly recap email toggle | NEW | NOT VERIFIED until v11-p10-email-prefs.sql | - |
 | [R243](R243.md) | A0 / P11 | Unread badge in topbar | EXISTS | PASS | - |
 | [R244](R244.md) | P11 | `battle_beaten` type | PARTIAL | NOT VERIFIED until migration 154 (the type arrives only then); icon mapping unit-tested | - |
-| R250 | 12. | Setup: playlist All / By group (multi) / Girl / Boy / Generation; rounds 5-10-15 | - | TODO | - |
-| R251 | 12. | Your stats (rank title, best, combo, streak) | - | TODO | - |
-| R252 | 12. | Quick play | - | TODO | - |
-| R253 | 12. | Blindtest of the day + board | - | TODO | - |
-| R254 | 12. | Ranked | - | TODO | - |
-| R255 | 12. | Challenge a friend | - | TODO | - |
-| R256 | 12. | Live rooms (Soon) | - | TODO | - |
-| R257 | 12. | Today's board | - | TODO | - |
-| R258 | 12. | Your recent runs | - | TODO | - |
-| R259 | 12. | Playlists (title tracks, b-sides, recent, legends, 4th gen gg/bg, solo, speed) | - | TODO | - |
-| R260 | 12. | How scoring works | - | TODO | - |
-| R261 | 12. | Blindtest by group rail | - | TODO | - |
-| R262 | 12. | How it works, FAQ | - | TODO | - |
-| R263 | 12. | Removed: Intro, Lyrics modes | - | TODO | - |
-| R269 | 13. | Quit, progress, counter | - | TODO | - |
-| R270 | 13. | Points pill + combo | - | TODO | - |
-| R271 | 13. | Orb: ring 10s, equaliser, seconds, danger | - | TODO | - |
-| R272 | 13. | Playing clip / Loading clip | - | TODO | - |
-| R273 | 13. | Song round / Artist round badge, question | - | TODO | - |
-| R274 | 13. | Choices 4 + marks | - | TODO | - |
-| R275 | 13. | Reveal (cover, title, artist, album) | - | TODO | - |
-| R276 | 13. | Points pop, combo badge | - | TODO | - |
-| R277 | 13. | Auto-next 3s + Skip | - | TODO | - |
-| R278 | 13. | Keyboard 1-4 | - | TODO | - |
-| R279 | 13. | Results: mascot, score, label, points, combo, avg answer, XP, today rank | - | TODO | - |
-| R280 | 13. | Challenge a friend link | - | TODO | - |
-| R281 | 13. | Song breakdown with covers | - | TODO | - |
-| R282 | 13. | Level card (rank title, xp) | - | TODO | - |
-| R283 | 13. | Daily results: board + come back tomorrow | - | TODO | - |
+| [R250](R250.md) | P6 | Setup: playlist All / By group (multi) / Girl / Boy / Generation; rounds 5-10-15 | EXISTS | PASS (payload); the run itself: p6.spec on :3021 | - |
+| [R251](R251.md) | P6 | Your stats (rank title, best, combo, streak) | DEAD | NOT VERIFIED (bt_players unwired: production writes need the owner, P6 owner item 5) | - |
+| [R252](R252.md) | P6 | Quick play | EXISTS | PASS | - |
+| [R253](R253.md) | P6 | Blindtest of the day + board | EXISTS | PASS (reads real; submit payload via p6.spec); DB effect NOT VERIFIED | - |
+| [R254](R254.md) | P6 / P7 | Ranked | NEW | NOT VERIFIED until v11-p7-ranked.sql (fail-soft proven, see R293) | - |
+| [R255](R255.md) | P6 | Challenge a friend | NEW | PASS (payloads + route resolution); DB write NOT VERIFIED (owner decision 1) | - |
+| [R256](R256.md) | P6 | Live rooms (Soon) | NEW, phase 3 | N/A (phase 3, not built) | - |
+| [R257](R257.md) | P6 | Today's board | EXISTS | PASS | - |
+| [R258](R258.md) | P6 | Your recent runs | PARTIAL | N/A (free play records nothing today; owner item 4) | - |
+| [R259](R259.md) | P6 | Playlists (title tracks, b-sides, recent, legends, 4th gen gg/bg, solo, speed) | EXISTS (verify each id in blind-test-playlists.ts) | PASS (the 18 theme playlists are linked; the map's 8 ids exist); Recent hits / Legends / Speed round mixes not offered (owner item 7) | - |
+| [R260](R260.md) | P6 | How scoring works | NEW | PASS (display only; server scoring is ranked only, P7) | - |
+| [R261](R261.md) | P6 | Blindtest by group rail | EXISTS | PASS | - |
+| [R262](R262.md) | P6 | How it works, FAQ | EXISTS | PASS (FAQ text kept, SEO lock) | - |
+| [R263](R263.md) | P6 | Removed: Intro, Lyrics modes | drop | PASS (Intro page kept, owner item 1) | - |
+| [R269](R269.md) | P6 | Quit, progress, counter | EXISTS | N/A (client state, no backend) | - |
+| [R270](R270.md) | P6 | Points pill + combo | NEW | PASS (display; not stored) | - |
+| [R271](R271.md) | P6 | Orb: ring 10s, equaliser, seconds, danger | EXISTS | N/A (client) | - |
+| [R272](R272.md) | P6 | Playing clip / Loading clip | EXISTS | PASS | - |
+| [R273](R273.md) | P6 | Song round / Artist round badge, question | EXISTS | PASS | - |
+| [R274](R274.md) | P6 | Choices 4 + marks | EXISTS | N/A (client) | - |
+| [R275](R275.md) | P6 | Reveal (cover, title, artist, album) | EXISTS | N/A (client) | - |
+| [R276](R276.md) | P6 | Points pop, combo badge | NEW | N/A (client) | - |
+| [R277](R277.md) | P6 | Auto-next 3s + Skip | PARTIAL | N/A (client) | - |
+| [R278](R278.md) | P6 | Keyboard 1-4 | NEW | N/A (client; p6.spec keys 1-4) | - |
+| [R279](R279.md) | P6 | Results: mascot, score, label, points, combo, avg answer, XP, today rank | PARTIAL | PASS (daily XP from /api/daily/complete; free play awards none, as today) | - |
+| [R280](R280.md) | P6 | Challenge a friend link | NEW | PASS (payload) | - |
+| [R281](R281.md) | P6 | Song breakdown with covers | EXISTS | N/A (client) | - |
+| [R282](R282.md) | P6 | Level card (rank title, xp) | DEAD -> wire | NOT VERIFIED (bt_players 0 rows, unwired: owner item 5) | - |
+| [R283](R283.md) | P6 | Daily results: board + come back tomorrow | EXISTS | PASS | - |
 | R293 | 14. | Play a ranked run | - | TODO | - |
 | R294 | 14. | Submit run | - | TODO | - |
 | R295 | 14. | Daily cap 15 | - | TODO | - |
@@ -279,11 +279,11 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R342](R342.md) | P4 | Share sheet · Numbers | From the finished run (score, beat %, rank) | PASS | - |
 | [R343](R343.md) | P4 (A0 ShareSheet) | Share sheet · More apps | navigator.share with the story image as a file where supported | NOT VERIFIED (the OS share sheet is not reachable headless) | - |
 | [R344](R344.md) | P5 | Create · Publish as guest | Opens sign-in, keeps the draft, then publishes | PASS (sheet + draft kept); the resume after a real sign-in NOT VERIFIED (no other sign-in allowed) | - |
-| R345 | v10 | Blindtest hub · Accept a challenge | - | TODO | - |
-| R346 | v10 | Blindtest game · Replay + sound | - | TODO | - |
-| R347 | v10 | Blindtest game · Autoplay blocked state | - | TODO | - |
-| R348 | v10 | Blindtest results · Song row play button | - | TODO | - |
-| R349 | v10 | Blindtest · Daily one try | - | TODO | - |
+| [R345](R345.md) | P6 | Blindtest hub · Accept a challenge | Starts the run with the score to beat | PASS (route + read path); attempt write NOT VERIFIED | - |
+| [R346](R346.md) | P6 | Blindtest game · Replay + sound | Replay the clip, mute | N/A (client) | - |
+| [R347](R347.md) | P6 | Blindtest game · Autoplay blocked state | "Tap to play the clip" | PASS | - |
+| [R348](R348.md) | P6 | Blindtest results · Song row play button | Replays that clip | N/A (client, preview URL) | - |
+| [R349](R349.md) | P6 | Blindtest · Daily one try | Second attempt goes to the board | PASS (structure + p6.spec); second real attempt NOT VERIFIED (write) | - |
 | R350 | v10 | Ranked · Target number | - | TODO | - |
 | [R351](R351.md) | P3 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | Server-rendered; counts from published quizzes | PASS | - |
 | [R352](R352.md) | P3 | Group hub · Empty group (0 quizzes) | Make the first quiz + Notify me; noindex until 3 quizzes | NOT VERIFIED until v11-p3-group-quiz-alerts.sql (fail-soft proven) | - |
@@ -295,9 +295,9 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | FAIL (C2-002) | C2-002 |
 | [R364](R364.md) | P1 | Home · Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | PASS | - |
 | R365 | v11 | Nav · Pink pill active item + icons + Home link | - | TODO | - |
-| R366 | v11 | Blindtest · Playlist menu groups | - | TODO | - |
-| R367 | v11 | Blindtest · Play by group (v11.1) | - | TODO | - |
-| R368 | v11 | Blindtest · Day mode | - | TODO | - |
+| [R366](R366.md) | P6 | Blindtest · Playlist menu groups | All playable groups under All K-pop, searchable, counts | PASS | - |
+| [R367](R367.md) | P6 | Blindtest · Play by group (v11.1) | Popular six photo tiles + searchable index of every playable group, first 24 then Show all | PASS | - |
+| [R368](R368.md) | P6 | Blindtest · Day mode | Light hero, game, results, home band | N/A (styles only) | - |
 | R369 | v11 | Ranked · Whole system | - | TODO | - |
 | [R370](R370.md) | P8 | Community · Comment like heart | Toggle like with count | NOT VERIFIED until v11-p8-community.sql (fail-soft + once-per-user structure proven) | - |
 | [R371](R371.md) | P8 (A0 PersonName) | Community · Author flair | Accent, font, bias chip on every name | PASS (read side); saving the flair: see R376 | - |
