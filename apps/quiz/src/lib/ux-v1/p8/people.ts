@@ -61,8 +61,4 @@ export async function readPeople(db: SupabaseClient, ids: Array<string | null | 
   return out;
 }
 
-/** "Lv 9" or "Lv 9 Stan" (post view), "" for the system account. */
-export function levelLine(p: P8Person | null, withTitle = false): string {
-  if (!p || p.level === null) return '';
-  return withTitle && p.levelTitle ? `Lv ${p.level} ${p.levelTitle}` : `Lv ${p.level}`;
-}
+export { levelLine } from './format';

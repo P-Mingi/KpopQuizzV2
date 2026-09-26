@@ -189,12 +189,13 @@ async function readBadgeWatch(limit: number, today: string): Promise<BadgeWatchR
     if (!def) return null;
     const who = people.get(b.latest.user_id);
     const tail = b.n > 1 ? `${b.n.toLocaleString('en-US')} fans this week` : `${who?.username ?? who?.name ?? 'a fan'} ${dayAgo(b.latest.earned_at, now)}`;
-    return { badgeId: id, name: def.name, description: def.description, sub: `${def.description} · ${tail}` };
+    const desc = def.description.trim().replace(/[.!]+$/, '');
+    return { badgeId: id, name: def.name, description: desc, sub: `${desc} · ${tail}` };
   }).filter((r): r is BadgeWatchRow => r !== null);
 }
 
 /** Badge watch: the latest 3 badges earned this week, with how many fans earned each. */
-export const getBadgeWatch = unstable_cache(readBadgeWatch, ['ux-v1:p8:badges:v1'], { revalidate: 300, tags: ['community'] });
+export const getBadgeWatch = unstable_cache(readBadgeWatch, ['ux-v1:p8:badges:v2'], { revalidate: 300, tags: ['community'] });
 
 /* ------------------------------------------------------------- fandom war --- */
 

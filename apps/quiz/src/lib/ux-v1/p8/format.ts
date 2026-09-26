@@ -3,6 +3,8 @@
 // "20 min ago", "1 hour ago", "yesterday", "1,902 votes", "1.9k", "closes in 2 days".
 // No em or en dashes anywhere (verse-laws 14).
 
+import type { P8Person } from './types';
+
 const MIN = 60_000;
 const HOUR = 60 * MIN;
 const DAY = 24 * HOUR;
@@ -87,11 +89,13 @@ export function percents(counts: readonly number[]): number[] {
   return out;
 }
 
-/** Index of the leading option (first one on a tie), or -1 when nobody voted. */
+/** Index of the single leading option, or -1 when nobody voted or the top is a tie
+ *  (no option is painted as the winner of a tie). */
 export function leaderIndex(counts: readonly number[]): number {
   let best = -1;
   let max = 0;
   counts.forEach((c, i) => { if (c > max) { max = c; best = i; } });
+  if (best >= 0 && counts.filter((c) => c === max).length > 1) return -1;
   return best;
 }
 
@@ -115,3 +119,9 @@ export function utcDate(now: number = Date.now()): string {
 }
 
 export const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** "Lv 9" or "Lv 9 Stan" (post view), "" for the system account. */
+export function levelLine(p: Pick<P8Person, 'level' | 'levelTitle'> | null, withTitle = false): string {
+  if (!p || p.level === null) return '';
+  return withTitle && p.levelTitle ? `Lv ${p.level} ${p.levelTitle}` : `Lv ${p.level}`;
+}

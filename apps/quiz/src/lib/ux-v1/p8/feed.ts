@@ -28,6 +28,9 @@ import type { FeedPost, P8Features, P8Group } from './types';
 export const FEED_CAP = 60;
 const SRC_CAP = 50;
 const DEBATE_DAYS = 60;
+/** Closed daily debates shown as posts: the last 3 that got votes (one debate a day
+ *  would otherwise bury every thread and blog; today's debate is in the rail). */
+export const PAST_DEBATES_IN_FEED = 3;
 
 type Db = SupabaseClient;
 
@@ -200,7 +203,7 @@ async function readDebatePosts(live: boolean, today: string): Promise<FeedPost[]
   const db = createPublicReadClient();
   const groups = await getP8Groups();
   const general = groups.find((g) => g.slug === 'general-kpop') ?? null;
-  const past = (await readDailyDebates(db, today)).filter((d) => d.date < today && d.votesA + d.votesB > 0);
+  const past = (await readDailyDebates(db, today)).filter((d) => d.date < today && d.votesA + d.votesB > 0).slice(0, PAST_DEBATES_IN_FEED);
   const likes = await likeCounts('daily_debate', past.map((d) => d.date), live);
   return past.map((d): FeedPost => ({
     kind: 'debate', key: d.date, href: `/community/debate/${d.date}`,
@@ -324,7 +327,7 @@ async function replyScores(db: Db, rows: { id: number; quiz_id: string }[], repl
 
 const cachedThreads = unstable_cache((live: boolean) => readThreads(live), ['ux-v1:p8:threads:v1'], { revalidate: 120, tags: ['community'] });
 const cachedBlogs = unstable_cache(() => readBlogs(), ['ux-v1:p8:blogs:v1'], { revalidate: 120, tags: ['community'] });
-const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v1'], { revalidate: 120, tags: ['community'] });
+const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v2'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
 
