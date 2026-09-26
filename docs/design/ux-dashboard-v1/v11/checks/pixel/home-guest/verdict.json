@@ -1,0 +1,871 @@
+{
+ "state": "home-guest",
+ "owner": "P1",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:15:21.489Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 20,
+    "pass": 19,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3014
+    ],
+    "implSize": [
+     1440,
+     3263
+    ],
+    "diffPct": 10.4,
+    "maskedPct": 19
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page frame",
+     "proto": ".wrap.pg",
+     "impl": ".p1-home",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "ticker",
+     "proto": ".ticker",
+     "impl": ".p1-ticker > div",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": ".hhead",
+     "impl": ".p1-hhead",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "H1",
+     "proto": ".hhead h1",
+     "impl": ".p1-hhead h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero CTAs",
+     "proto": ".hcta",
+     "impl": ".p1-hcta",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".hcta .btn-primary",
+     "impl": ".p1-hcta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz of the day",
+     "proto": ".qotd",
+     "impl": ".p1-qotd",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "why": "phone: the real title and replay line wrap (text)"
+    },
+    {
+     "name": "qotd label",
+     "proto": ".qlab",
+     "impl": ".p1-qlab",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "qotd meta line",
+     "proto": ".qline",
+     "impl": ".p1-qline",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "sections",
+     "proto": "section.sec",
+     "impl": ".p1-home > section.ux-sec",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "gap before #3",
+       "expected": 80,
+       "actual": 54,
+       "info": true
+      }
+     ]
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p1-home .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p1-home .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card photo",
+     "proto": ".qcard .qcov",
+     "impl": ".p1-home .ux-qcard .ux-qcov",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "blindtest band",
+     "proto": ".band",
+     "impl": ".p1-band",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-09-26T17:15:41.797Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 20,
+    "pass": 19,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4117
+    ],
+    "implSize": [
+     390,
+     4695
+    ],
+    "diffPct": 21.88,
+    "maskedPct": 34.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page frame",
+     "proto": ".wrap.pg",
+     "impl": ".p1-home",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "ticker",
+     "proto": ".ticker",
+     "impl": ".p1-ticker > div",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": ".hhead",
+     "impl": ".p1-hhead",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "H1",
+     "proto": ".hhead h1",
+     "impl": ".p1-hhead h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero CTAs",
+     "proto": ".hcta",
+     "impl": ".p1-hcta",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".hcta .btn-primary",
+     "impl": ".p1-hcta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz of the day",
+     "proto": ".qotd",
+     "impl": ".p1-qotd",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "why": "phone: the real title and replay line wrap (text)"
+    },
+    {
+     "name": "qotd label",
+     "proto": ".qlab",
+     "impl": ".p1-qlab",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "qotd meta line",
+     "proto": ".qline",
+     "impl": ".p1-qline",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "sections",
+     "proto": "section.sec",
+     "impl": ".p1-home > section.ux-sec",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p1-home .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p1-home .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card photo",
+     "proto": ".qcard .qcov",
+     "impl": ".p1-home .ux-qcard .ux-qcov",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "blindtest band",
+     "proto": ".band",
+     "impl": ".p1-band",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    }
+   ],
+   "seconds": 18
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:15:24.079Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 20,
+    "pass": 19,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3014
+    ],
+    "implSize": [
+     1440,
+     3263
+    ],
+    "diffPct": 12.86,
+    "maskedPct": 19
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page frame",
+     "proto": ".wrap.pg",
+     "impl": ".p1-home",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "ticker",
+     "proto": ".ticker",
+     "impl": ".p1-ticker > div",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": ".hhead",
+     "impl": ".p1-hhead",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "H1",
+     "proto": ".hhead h1",
+     "impl": ".p1-hhead h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero CTAs",
+     "proto": ".hcta",
+     "impl": ".p1-hcta",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".hcta .btn-primary",
+     "impl": ".p1-hcta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz of the day",
+     "proto": ".qotd",
+     "impl": ".p1-qotd",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "why": "phone: the real title and replay line wrap (text)"
+    },
+    {
+     "name": "qotd label",
+     "proto": ".qlab",
+     "impl": ".p1-qlab",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "qotd meta line",
+     "proto": ".qline",
+     "impl": ".p1-qline",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "sections",
+     "proto": "section.sec",
+     "impl": ".p1-home > section.ux-sec",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "gap before #3",
+       "expected": 80,
+       "actual": 54,
+       "info": true
+      }
+     ]
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p1-home .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p1-home .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card photo",
+     "proto": ".qcard .qcov",
+     "impl": ".p1-home .ux-qcard .ux-qcov",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "blindtest band",
+     "proto": ".band",
+     "impl": ".p1-band",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:15:59.596Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 20,
+    "pass": 19,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4117
+    ],
+    "implSize": [
+     390,
+     4695
+    ],
+    "diffPct": 23.37,
+    "maskedPct": 34.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page frame",
+     "proto": ".wrap.pg",
+     "impl": ".p1-home",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "ticker",
+     "proto": ".ticker",
+     "impl": ".p1-ticker > div",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": ".hhead",
+     "impl": ".p1-hhead",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "H1",
+     "proto": ".hhead h1",
+     "impl": ".p1-hhead h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero CTAs",
+     "proto": ".hcta",
+     "impl": ".p1-hcta",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".hcta .btn-primary",
+     "impl": ".p1-hcta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz of the day",
+     "proto": ".qotd",
+     "impl": ".p1-qotd",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "why": "phone: the real title and replay line wrap (text)"
+    },
+    {
+     "name": "qotd label",
+     "proto": ".qlab",
+     "impl": ".p1-qlab",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "qotd meta line",
+     "proto": ".qline",
+     "impl": ".p1-qline",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "sections",
+     "proto": "section.sec",
+     "impl": ".p1-home > section.ux-sec",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p1-home .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p1-home .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card photo",
+     "proto": ".qcard .qcov",
+     "impl": ".p1-home .ux-qcard .ux-qcov",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "blindtest band",
+     "proto": ".band",
+     "impl": ".p1-band",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    }
+   ],
+   "seconds": 18
+  }
+ },
+ "auth": "guest",
+ "shot": "full",
+ "verdict": "pass"
+}

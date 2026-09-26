@@ -1,0 +1,345 @@
+{
+ "state": "play",
+ "owner": "P4",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:18:24.376Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.01,
+    "maskedPct": 3.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p4-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "progress segments",
+     "proto": ".segs",
+     "impl": ".p4-segs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".tring",
+     "impl": ".p4-tring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "background-image"
+     ],
+     "why": "the ring sweep is a live countdown"
+    },
+    {
+     "name": "question",
+     "proto": "h1.qq",
+     "impl": ".p4-qq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answers",
+     "proto": ".answers",
+     "impl": ".p4-answers",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".answers > *",
+     "impl": ".p4-answers .p4-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:18:25.987Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.01,
+    "maskedPct": 4.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p4-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "progress segments",
+     "proto": ".segs",
+     "impl": ".p4-segs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".tring",
+     "impl": ".p4-tring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "background-image"
+     ],
+     "why": "the ring sweep is a live countdown"
+    },
+    {
+     "name": "question",
+     "proto": "h1.qq",
+     "impl": ".p4-qq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answers",
+     "proto": ".answers",
+     "impl": ".p4-answers",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".answers > *",
+     "impl": ".p4-answers .p4-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-09-26T17:18:27.608Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.15,
+    "maskedPct": 11
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p4-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "progress segments",
+     "proto": ".segs",
+     "impl": ".p4-segs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".tring",
+     "impl": ".p4-tring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "background-image"
+     ],
+     "why": "the ring sweep is a live countdown"
+    },
+    {
+     "name": "question",
+     "proto": "h1.qq",
+     "impl": ".p4-qq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answers",
+     "proto": ".answers",
+     "impl": ".p4-answers",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".answers > *",
+     "impl": ".p4-answers .p4-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:18:29.123Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.15,
+    "maskedPct": 10.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p4-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "progress segments",
+     "proto": ".segs",
+     "impl": ".p4-segs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".tring",
+     "impl": ".p4-tring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "background-image"
+     ],
+     "why": "the ring sweep is a live countdown"
+    },
+    {
+     "name": "question",
+     "proto": "h1.qq",
+     "impl": ".p4-qq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answers",
+     "proto": ".answers",
+     "impl": ".p4-answers",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".answers > *",
+     "impl": ".p4-answers .p4-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "verdict": "pass"
+}

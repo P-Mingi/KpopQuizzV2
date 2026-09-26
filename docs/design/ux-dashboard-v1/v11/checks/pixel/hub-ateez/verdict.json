@@ -1,0 +1,649 @@
+{
+ "state": "hub-ateez",
+ "owner": "P3",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:17:54.574Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/ateez-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2420
+    ],
+    "implSize": [
+     1440,
+     3403
+    ],
+    "diffPct": 33.68,
+    "maskedPct": 17.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:17:57.140Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/ateez-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2420
+    ],
+    "implSize": [
+     1440,
+     3403
+    ],
+    "diffPct": 33.53,
+    "maskedPct": 17.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-09-26T17:18:00.223Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/ateez-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4045
+    ],
+    "implSize": [
+     390,
+     6108
+    ],
+    "diffPct": 43.54,
+    "maskedPct": 30.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:18:03.390Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/ateez-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4045
+    ],
+    "implSize": [
+     390,
+     6108
+    ],
+    "diffPct": 43.45,
+    "maskedPct": 30.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

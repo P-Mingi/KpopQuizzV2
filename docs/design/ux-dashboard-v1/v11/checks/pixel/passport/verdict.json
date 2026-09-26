@@ -1,0 +1,548 @@
+{
+ "state": "passport",
+ "owner": "P10",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:29:49.450Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 10,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1736
+    ],
+    "implSize": [
+     1440,
+     1703
+    ],
+    "diffPct": 3.7,
+    "maskedPct": 18.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "band",
+     "proto": ".pband",
+     "impl": ".p10-band",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "head",
+     "proto": ".phead",
+     "impl": ".p10-head",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "avatar",
+     "proto": ".pav",
+     "impl": ".p10-pav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height"
+     ],
+     "why": "photo in the reference, initials here (the test user has no photo): text styles of the initial are not the photo"
+    },
+    {
+     "name": "identity",
+     "proto": ".pid",
+     "impl": ".p10-id",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp bar",
+     "proto": ".xpw",
+     "impl": ".p10-xpw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
+    },
+    {
+     "name": "stats",
+     "proto": ".statsin",
+     "impl": ".p10-stats",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tabs",
+     "proto": "#ptabs",
+     "impl": ".p10-tabs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tab on",
+     "proto": ".utabs button.on",
+     "impl": ".p10-tabs [aria-selected=\"true\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:29:51.383Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 10,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1736
+    ],
+    "implSize": [
+     1440,
+     1703
+    ],
+    "diffPct": 3.78,
+    "maskedPct": 18.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "band",
+     "proto": ".pband",
+     "impl": ".p10-band",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "head",
+     "proto": ".phead",
+     "impl": ".p10-head",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "avatar",
+     "proto": ".pav",
+     "impl": ".p10-pav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height"
+     ],
+     "why": "photo in the reference, initials here (the test user has no photo): text styles of the initial are not the photo"
+    },
+    {
+     "name": "identity",
+     "proto": ".pid",
+     "impl": ".p10-id",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp bar",
+     "proto": ".xpw",
+     "impl": ".p10-xpw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
+    },
+    {
+     "name": "stats",
+     "proto": ".statsin",
+     "impl": ".p10-stats",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tabs",
+     "proto": "#ptabs",
+     "impl": ".p10-tabs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tab on",
+     "proto": ".utabs button.on",
+     "impl": ".p10-tabs [aria-selected=\"true\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-09-26T17:29:53.412Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2737
+    ],
+    "implSize": [
+     390,
+     2268
+    ],
+    "diffPct": 22.57,
+    "maskedPct": 29
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "band",
+     "proto": ".pband",
+     "impl": ".p10-band",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "head",
+     "proto": ".phead",
+     "impl": ".p10-head",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "avatar",
+     "proto": ".pav",
+     "impl": ".p10-pav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height"
+     ],
+     "why": "photo in the reference, initials here (the test user has no photo): text styles of the initial are not the photo"
+    },
+    {
+     "name": "identity",
+     "proto": ".pid",
+     "impl": ".p10-id",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp bar",
+     "proto": ".xpw",
+     "impl": ".p10-xpw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
+    },
+    {
+     "name": "stats",
+     "proto": ".statsin",
+     "impl": ".p10-stats",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tabs",
+     "proto": "#ptabs",
+     "impl": ".p10-tabs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tab on",
+     "proto": ".utabs button.on",
+     "impl": ".p10-tabs [aria-selected=\"true\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:29:55.530Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2737
+    ],
+    "implSize": [
+     390,
+     2268
+    ],
+    "diffPct": 23.15,
+    "maskedPct": 29
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "band",
+     "proto": ".pband",
+     "impl": ".p10-band",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "head",
+     "proto": ".phead",
+     "impl": ".p10-head",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "avatar",
+     "proto": ".pav",
+     "impl": ".p10-pav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height"
+     ],
+     "why": "photo in the reference, initials here (the test user has no photo): text styles of the initial are not the photo"
+    },
+    {
+     "name": "identity",
+     "proto": ".pid",
+     "impl": ".p10-id",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp bar",
+     "proto": ".xpw",
+     "impl": ".p10-xpw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
+    },
+    {
+     "name": "stats",
+     "proto": ".statsin",
+     "impl": ".p10-stats",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tabs",
+     "proto": "#ptabs",
+     "impl": ".p10-tabs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "tab on",
+     "proto": ".utabs button.on",
+     "impl": ".p10-tabs [aria-selected=\"true\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "guest",
+ "shot": "full",
+ "note": "checked on /u/testtest as a guest (signed-in /me NOT verified, owner decision 1): no owner controls",
+ "verdict": "pass"
+}
