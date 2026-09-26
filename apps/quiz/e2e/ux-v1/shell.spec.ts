@@ -83,6 +83,7 @@ for (const theme of THEMES) {
       await trigger.click();
       const dlg = page.getByRole('dialog', { name: 'Search' });
       await expect(dlg).toBeVisible();
+      expect(new URL(page.url()).pathname, 'the plain click opened the overlay, not /search').toBe('/');
       await expect(page.locator('#ux-sq')).toBeFocused();
       await page.locator('#ux-sq').fill('bts');
       await expect(dlg.locator('a.ux-srow')).toHaveAttribute('href', '/search?q=bts');
@@ -99,6 +100,57 @@ for (const theme of THEMES) {
     });
   });
 }
+
+// P1 request 3, P2 request 1, P7 request 1 (link-set rule, COMMON done-when 5): the
+// nav search control is a real <a href="/search"> in the server HTML. Hydrated, a
+// plain click opens the overlay; modified clicks keep the browser's behaviour; and
+// without JavaScript the link reaches the search page.
+test.describe('search link', () => {
+  test('server HTML links to /search; only a plain click opens the overlay', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    const res = await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    const html = (await res?.text()) ?? '';
+    const tag = html.match(/<a\b[^>]*class="ux-sbtn"[^>]*>/)?.[0] ?? '';
+    expect(tag, 'server HTML: the search control is a link').toContain('href="/search"');
+    await waitHydrated(page);
+    const trigger = page.locator('.ux-sbtn');
+    await expect(trigger).toHaveAttribute('href', '/search');
+    // Which clicks does the page take over? Read defaultPrevented at the window (after
+    // React's listener), then cancel it there so the probe navigates nowhere.
+    const prevented = await trigger.evaluate((a) => {
+      const out: Record<string, boolean> = {};
+      for (const [name, init] of [['ctrl', { ctrlKey: true }], ['meta', { metaKey: true }], ['shift', { shiftKey: true }], ['alt', { altKey: true }], ['middle', { button: 1 }]] as const) {
+        let seen = true;
+        const on = (e: Event): void => { seen = e.defaultPrevented; e.preventDefault(); };
+        window.addEventListener('click', on);
+        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ...init }));
+        window.removeEventListener('click', on);
+        out[name] = seen;
+      }
+      return out;
+    });
+    expect(prevented, 'modified clicks are left to the browser').toEqual({ ctrl: false, meta: false, shift: false, alt: false, middle: false });
+    const dlg = page.getByRole('dialog', { name: 'Search' });
+    await expect(dlg).toBeHidden();
+    await trigger.click();
+    await expect(dlg).toBeVisible();
+    expect(new URL(page.url()).pathname).toBe('/');
+  });
+});
+
+test.describe('search link without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('the search link opens the search page', async ({ page }) => {
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    const trigger = page.locator('.ux-sbtn');
+    test.skip((await trigger.count()) === 0, 'UX v1 flag is OFF on this build');
+    await trigger.click();
+    await expect(page).toHaveURL(/\/search$/, { timeout: 60_000 });
+  });
+});
 
 test.describe('keyboard + sign-in', () => {
   test.beforeEach(async ({ page }) => { await preparePage(page, 'light'); });
