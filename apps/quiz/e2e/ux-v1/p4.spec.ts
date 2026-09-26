@@ -97,9 +97,18 @@ async function openQuiz(page: Page, slug: string, query = ''): Promise<boolean> 
 }
 
 async function start(page: Page): Promise<void> {
-  await page.locator('.p4-act .ux-btn-primary').click();
-  // the first question waits on GET /api/quiz/[id]/questions (live DB, slow on a loaded dev machine)
-  await expect(page.locator('.p4-qq')).toBeVisible({ timeout: 90_000 });
+  const question = page.locator('.p4-qq');
+  // a failed questions read (the shared production DB answers 500 under load) shows the app's
+  // retry toast and leaves Start in place: press it again, as a fan would (at most three times)
+  const failed = page.locator('.ux-toast.is-shown', { hasText: "Couldn't load the questions" });
+  for (let attempt = 1; ; attempt++) {
+    await page.locator('.p4-act .ux-btn-primary').click();
+    // the first question waits on GET /api/quiz/[id]/questions (live DB, slow on a loaded dev machine)
+    await expect(question.or(failed)).toBeVisible({ timeout: 90_000 });
+    if (await question.isVisible()) return;
+    expect(attempt, 'the questions read failed three times').toBeLessThan(3);
+    await expect(failed).toHaveCount(0, { timeout: 15_000 });
+  }
 }
 
 const answerButtons = (page: Page) => page.locator('.p4-answers .p4-ans, .p4-igrid .p4-ians');
@@ -434,7 +443,7 @@ test.describe('P4 interactions', () => {
   });
 
   test('like, comments (guest -> sign in to reply), report sheet payload', async ({ page }) => {
-    test.setTimeout(120_000);
+    test.setTimeout(180_000);
     const calls = await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
     test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
