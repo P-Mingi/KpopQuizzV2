@@ -333,6 +333,32 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
   });
 
+  // P5 request 3: UxQuizCard preview mode (a draft on create step 3): the same card,
+  // no link, one named image for assistive tech, a data: cover as a plain <img>, no
+  // hover lift; same box styles as a linked card.
+  test('quiz card preview mode: no link, data: cover, same card styles', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    const card = sec.locator('.ux-qcard.is-preview');
+    test.skip((await card.count()) === 0, 'no quizzes to show (data unavailable)');
+    expect(await card.evaluate((el) => el.tagName)).toBe('DIV');
+    await expect(card).toHaveAttribute('role', 'img');
+    await expect(card).toHaveAttribute('aria-label', /^Preview: .+, .+, (Easy|Medium|Hard)$/);
+    await expect(card.locator('a')).toHaveCount(0);
+    expect(await card.locator('img').getAttribute('src')).toMatch(/^data:image\/svg\+xml,/);
+    await expect(card.locator('.ux-qpl')).toHaveText('New');
+    const linked = sec.locator('.ux-qgrid:not(.ux-qgrid-stack) > a.ux-qcard').first();
+    const props = ['border-top-width', 'border-top-color', 'border-radius', 'background-color', 'padding-top', 'width'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => { const cs = getComputedStyle(el); return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)])); }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(card)).toEqual(await styleOf(linked));
+    const before = await styleOf(card);
+    await card.hover();
+    await page.waitForTimeout(300);
+    expect(await styleOf(card), 'no hover state on a preview').toEqual(before);
+    expect(await card.evaluate((el) => getComputedStyle(el).transform)).toBe('none');
+  });
+
   // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
   test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
     test.skip(!(await openKit(page)), 'kit not served here');

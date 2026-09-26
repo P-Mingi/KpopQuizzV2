@@ -311,6 +311,10 @@ button.ux-chip[aria-pressed="true"] { background: var(--ux-ink); color: var(--ux
 .ux-qcov-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform .5s var(--ux-ease); }
 .ux-qcard:hover .ux-qcov-img { transform: scale(1.035); }
 .ux-qcov-fb { position: absolute; inset: 0; display: grid; place-items: center; background: var(--ux-surface); }
+.ux-qcard.is-preview { cursor: default; }
+.ux-qcard.is-preview:hover { border-color: var(--ux-line); transform: none; box-shadow: none; }
+.ux-qcard.is-preview:hover .ux-qcov-img { transform: none; }
+.ux-qcard.is-preview:hover .ux-qt { color: inherit; }
 .ux-fbn { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; text-align: center; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ux-ink); opacity: .72; line-height: 1.15; }
 .ux-fbn .ux-ico { width: 22px; height: 22px; color: var(--ux-muted); }
 .ux-qb { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; min-width: 0; }
