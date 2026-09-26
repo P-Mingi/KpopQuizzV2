@@ -1,0 +1,3387 @@
+{
+ "at": "2026-09-26T15:57:32.727Z",
+ "servers": {
+  "ON": "http://localhost:3021",
+  "OFF": "http://localhost:4203",
+  "LIVE": "https://kpopquiz.org"
+ },
+ "rows": [
+  {
+   "page": "/",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group"
+    ],
+    "description": [
+     "Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play."
+    ],
+    "robots": [],
+    "canonical": [
+     "/"
+    ],
+    "hreflang": [
+     "en /",
+     "pt-BR /pt",
+     "x-default /"
+    ],
+    "h1": [
+     "K-pop Quiz Are you a real fan?"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "WebSite",
+     "ItemList"
+    ],
+    "links": 61,
+    "ssrTextBytes": 2142
+   },
+   "onVsOff": {
+    "lostProse": [
+     "Each fandom's home: members, discography, timeline and community, built on open data and run by fans."
+    ],
+    "links": {
+     "off": 70,
+     "on": 61,
+     "lost": [
+      "/babymonster-quiz",
+      "/cortis-quiz",
+      "/enhypen-quiz",
+      "/exo-quiz",
+      "/general-kpop-quiz",
+      "/illit-quiz",
+      "/itzy-quiz",
+      "/ive-quiz",
+      "/le-sserafim-quiz",
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "/quizzes/most-liked",
+      "/quizzes/new",
+      "/txt-quiz",
+      "/verse/blackpink",
+      "/verse/bts",
+      "/verse/seventeen",
+      "/verse/stray-kids"
+     ],
+     "addedCount": 8,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/most-liked",
+      "/new",
+      "/profile",
+      "/trending"
+     ]
+    }
+   },
+   "onVsLive": {
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
+     ]
+    },
+    "links": {
+     "live": 64,
+     "on": 61,
+     "lost": [
+      "/babymonster-quiz",
+      "/cortis-quiz",
+      "/enhypen-quiz",
+      "/exo-quiz",
+      "/general-kpop-quiz",
+      "/illit-quiz",
+      "/itzy-quiz",
+      "/ive-quiz",
+      "/le-sserafim-quiz",
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "/quizzes/most-liked",
+      "/quizzes/new",
+      "/txt-quiz"
+     ],
+     "addedCount": 10,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/most-liked",
+      "/new",
+      "/profile",
+      "/pt",
+      "/trending",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"One for Sones\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/one-for-sones\"},{\"@type\":\"ListItem\",\"name\":\"Cortis quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/cortis-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Illit fans here\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/illit-fans-here\"},{\"@type\":\"ListItem\",\"name\":\"Blackpink\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink\"},{\"@type\":\"ListItem\",\"name\":\"Are you a real COER?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer\"},{\"@type\":\"ListItem\",\"name\":\"SKZ QUIZ\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/skz-quiz\"},{\"@type\":\"ListItem\",\"name\":\"Name 10 Enhypen M/Vs (Are you a real engene?)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/name-10-enhypen-mvs-are-you-a-real-engene\"},{\"@type\":\"ListItem\",\"name\":\"Are you real H2U\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-h2u\"},{\"@type\":\"ListItem\",\"name\":\"Are you real COER (version 2)\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/are-you-real-coer-version-2\"}],\"name\":\"Trending K-pop quizzes\"}"
+     ]
+    },
+    "links": {
+     "live": 64,
+     "on": 70,
+     "addedCount": 6,
+     "added": [
+      "/pt",
+      "/verse",
+      "/verse/blackpink",
+      "/verse/bts",
+      "/verse/seventeen",
+      "/verse/stray-kids"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/pt",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "KpopQuiz - Quiz de K-pop Feito por Fas | KpopQuiz"
+    ],
+    "description": [
+     "Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Feito por fas de verdade, jogado por milhares."
+    ],
+    "robots": [
+     "index, follow"
+    ],
+    "canonical": [
+     "/pt"
+    ],
+    "hreflang": [
+     "en /",
+     "pt-BR /pt",
+     "x-default /"
+    ],
+    "h1": [
+     "Quiz de K-pop feito por fas"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 54,
+    "ssrTextBytes": 1214
+   },
+   "onVsOff": {
+    "links": {
+     "off": 49,
+     "on": 54,
+     "lost": [
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily"
+     ],
+     "addedCount": 7,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/new",
+      "/profile",
+      "/trending"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 48,
+     "on": 54,
+     "lost": [
+      "/q/are-you-a-real-eyekon",
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily"
+     ],
+     "addedCount": 9,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/new",
+      "/profile",
+      "/q/are-you-real-coer",
+      "/trending",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 48,
+     "on": 49,
+     "lost": [
+      "/q/are-you-a-real-eyekon"
+     ],
+     "addedCount": 2,
+     "added": [
+      "/q/are-you-real-coer",
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/quizzes",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+    ],
+    "description": [
+     "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now."
+    ],
+    "robots": [],
+    "canonical": [
+     "/quizzes"
+    ],
+    "hreflang": [
+     "en /quizzes",
+     "pt-BR /pt/quizzes",
+     "x-default /quizzes"
+    ],
+    "h1": [
+     "K-pop quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "ItemList",
+     "FAQPage"
+    ],
+    "links": 89,
+    "ssrTextBytes": 5470
+   },
+   "onVsOff": {
+    "links": {
+     "off": 79,
+     "on": 89,
+     "addedCount": 10,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 78,
+     "on": 89,
+     "addedCount": 11,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 78,
+     "on": 79,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/quizzes?page=2",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+    ],
+    "description": [
+     "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now."
+    ],
+    "robots": [],
+    "canonical": [
+     "/quizzes?page=2"
+    ],
+    "hreflang": [],
+    "h1": [
+     "K-pop quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "ItemList"
+    ],
+    "links": 89,
+    "ssrTextBytes": 4807
+   },
+   "onVsOff": {
+    "links": {
+     "off": 76,
+     "on": 89,
+     "addedCount": 13,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 75,
+     "on": 89,
+     "addedCount": 14,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 75,
+     "on": 76,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/quizzes?group=bts",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+    ],
+    "description": [
+     "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now."
+    ],
+    "robots": [],
+    "canonical": [
+     "/bts-quiz"
+    ],
+    "hreflang": [],
+    "h1": [
+     "K-pop quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "ItemList"
+    ],
+    "links": 68,
+    "ssrTextBytes": 3269
+   },
+   "onVsOff": {
+    "links": {
+     "off": 55,
+     "on": 68,
+     "addedCount": 13,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 54,
+     "on": 68,
+     "addedCount": 14,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 54,
+     "on": 55,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Ultimate BTS era qui...RMYs survive · 8 questions | KpopQuiz"
+    ],
+    "description": [
+     "Ultimate BTS era quiz - only real ARMYs survive: a medium 8-question K-pop quiz on BTS, made by mina. 2,382 fans have played it, scoring 52% on average. Can you beat them?"
+    ],
+    "robots": [],
+    "canonical": [
+     "/q/ultimate-bts-era-quiz-only-real-armys-survive"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Ultimate BTS era quiz - only real ARMYs survive"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "Quiz"
+    ],
+    "links": 47,
+    "ssrTextBytes": 4245
+   },
+   "onVsOff": {
+    "links": {
+     "off": 33,
+     "on": 47,
+     "addedCount": 14,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 32,
+     "on": 47,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 32,
+     "on": 33,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/q/skz-true-or-false-only-real-stays-pass",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "SKZ true or false -...l STAYs pass · 8 questions | KpopQuiz"
+    ],
+    "description": [
+     "SKZ true or false - only real STAYs pass: a easy 8-question K-pop quiz on Stray Kids, made by mapple. 1,447 fans have played it, scoring 72% on average. Can you beat them?"
+    ],
+    "robots": [],
+    "canonical": [
+     "/q/skz-true-or-false-only-real-stays-pass"
+    ],
+    "hreflang": [],
+    "h1": [
+     "SKZ true or false - only real STAYs pass"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "Quiz"
+    ],
+    "links": 47,
+    "ssrTextBytes": 3766
+   },
+   "onVsOff": {
+    "links": {
+     "off": 33,
+     "on": 47,
+     "addedCount": 14,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 32,
+     "on": 47,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 32,
+     "on": 33,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/q/real-coers-cortis-fans-can-take-this-quiz",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "real COERS (cortis f...e this quiz! · 5 questions | KpopQuiz"
+    ],
+    "description": [
+     "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 182 fans have played it, scoring 68% on average. Can you beat them?"
+    ],
+    "robots": [],
+    "canonical": [
+     "/q/real-coers-cortis-fans-can-take-this-quiz"
+    ],
+    "hreflang": [],
+    "h1": [
+     "real COERS (cortis fans) can take this quiz!"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "Quiz"
+    ],
+    "links": 47,
+    "ssrTextBytes": 2960
+   },
+   "onVsOff": {
+    "links": {
+     "off": 32,
+     "on": 47,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "description": {
+     "live": [
+      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 181 fans have played it, scoring 68% on average. Can you beat them?"
+     ],
+     "on": [
+      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 182 fans have played it, scoring 68% on average. Can you beat them?"
+     ]
+    },
+    "lostProse": [
+     "Test your Cortis knowledge with this medium 5-question quiz by multistancookie. 181 fans have taken it, averaging 68%. Think you can beat that?"
+    ],
+    "links": {
+     "live": 31,
+     "on": 47,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "description": {
+     "live": [
+      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 181 fans have played it, scoring 68% on average. Can you beat them?"
+     ],
+     "on": [
+      "real COERS (cortis fans) can take this quiz!: a medium 5-question K-pop quiz on Cortis, made by multistancookie. 182 fans have played it, scoring 68% on average. Can you beat them?"
+     ]
+    },
+    "lostProse": [
+     "Test your Cortis knowledge with this medium 5-question quiz by multistancookie. 181 fans have taken it, averaging 68%. Think you can beat that?"
+    ],
+    "links": {
+     "live": 31,
+     "on": 32,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/blackpink-quiz",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "BLACKPINK Quiz: Can Every BLINK Name All 4? (2026) | KpopQuiz"
+    ],
+    "description": [
+     "Play 29+ free BLACKPINK quizzes made by fans. Name all 4 members, guess the song, and prove you are a real BLINK. Start now, no sign-up."
+    ],
+    "robots": [],
+    "canonical": [
+     "/blackpink-quiz"
+    ],
+    "hreflang": [],
+    "h1": [
+     "BLACKPINK Quiz - Test How Well You Know BLACKPINK"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "FAQPage",
+     "CollectionPage",
+     "ItemList"
+    ],
+    "links": 63,
+    "ssrTextBytes": 3737
+   },
+   "onVsOff": {
+    "links": {
+     "off": 53,
+     "on": 63,
+     "lost": [
+      "/q/blackpink-members-quiz",
+      "/q/blackpink-solo-careers-deep-dive",
+      "/q/blackpink-the-album-quiz",
+      "/q/blackpink-world-records-and-achievements"
+     ],
+     "addedCount": 14,
+     "added": [
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blackpink-quiz?page=2",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending"
+     ]
+    }
+   },
+   "onVsLive": {
+    "lostProse": [
+     "BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,905 plays and counting."
+    ],
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"dateModified\":\"<n>\",\"description\":\"BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,905 plays and counting.\",\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"BLACKPINK ultimate fan challenge\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-ultimate-fan-challenge\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false - think you know everything?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false-think-you-know-everything\"},{\"@type\":\"ListItem\",\"name\":\"Guess the BLACKPINK song from clues\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/guess-the-blackpink-song-from-clues\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK discography deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-discography-deep-dive\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK brand deals and fashion quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-brand-deals-and-fashion-quiz\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK world records and achievements\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-world-records-and-achievements\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK solo careers deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blac"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"dateModified\":\"<n>\",\"description\":\"BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,906 plays and counting.\",\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"BLACKPINK ultimate fan challenge\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-ultimate-fan-challenge\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false - think you know everything?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false-think-you-know-everything\"},{\"@type\":\"ListItem\",\"name\":\"Guess the BLACKPINK song from clues\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/guess-the-blackpink-song-from-clues\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK discography deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-discography-deep-dive\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK brand deals and fashion quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-brand-deals-and-fashion-quiz\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK world records and achievements\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-world-records-and-achievements\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK solo careers deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blac"
+     ]
+    },
+    "links": {
+     "live": 52,
+     "on": 63,
+     "lost": [
+      "/q/blackpink-members-quiz",
+      "/q/blackpink-solo-careers-deep-dive",
+      "/q/blackpink-the-album-quiz",
+      "/q/blackpink-world-records-and-achievements"
+     ],
+     "addedCount": 15,
+     "added": [
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blackpink-quiz?page=2",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "lostProse": [
+     "BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,905 plays and counting."
+    ],
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"dateModified\":\"<n>\",\"description\":\"BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,905 plays and counting.\",\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"BLACKPINK ultimate fan challenge\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-ultimate-fan-challenge\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false - think you know everything?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false-think-you-know-everything\"},{\"@type\":\"ListItem\",\"name\":\"Guess the BLACKPINK song from clues\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/guess-the-blackpink-song-from-clues\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK discography deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-discography-deep-dive\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK brand deals and fashion quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-brand-deals-and-fashion-quiz\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK world records and achievements\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-world-records-and-achievements\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK solo careers deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blac"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"dateModified\":\"<n>\",\"description\":\"BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,906 plays and counting.\",\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"BLACKPINK ultimate fan challenge\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-ultimate-fan-challenge\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false - think you know everything?\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false-think-you-know-everything\"},{\"@type\":\"ListItem\",\"name\":\"Guess the BLACKPINK song from clues\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/guess-the-blackpink-song-from-clues\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK true or false\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-true-or-false\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK discography deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-discography-deep-dive\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK brand deals and fashion quiz\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-brand-deals-and-fashion-quiz\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK world records and achievements\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blackpink-world-records-and-achievements\"},{\"@type\":\"ListItem\",\"name\":\"BLACKPINK solo careers deep dive\",\"position\":\"<n>\",\"url\":\"https://kpopquiz.org/q/blac"
+     ]
+    },
+    "links": {
+     "live": 52,
+     "on": 53,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/ateez-quiz",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "ATEEZ Quiz: 20 Free Fan-Made Tests | KpopQuiz"
+    ],
+    "description": [
+     "Play 20 free ATEEZ quizzes made by fans. Test your knowledge of ATEEZ's members, songs, eras, and history, then prove you are a real ATINY."
+    ],
+    "robots": [],
+    "canonical": [
+     "/ateez-quiz"
+    ],
+    "hreflang": [],
+    "h1": [
+     "ATEEZ Quiz - Test How Well You Know ATEEZ"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "FAQPage",
+     "CollectionPage",
+     "ItemList"
+    ],
+    "links": 61,
+    "ssrTextBytes": 3620
+   },
+   "onVsOff": {
+    "links": {
+     "off": 50,
+     "on": 61,
+     "lost": [
+      "/q/ateez-guess-the-music-video-from-the-screenshot",
+      "/q/ateez-lyrics-quiz",
+      "/q/ateez-music-videos-quiz",
+      "/q/ateez-pre-debut-quiz"
+     ],
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/ateez-quiz?page=2",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 49,
+     "on": 61,
+     "lost": [
+      "/q/ateez-guess-the-music-video-from-the-screenshot",
+      "/q/ateez-lyrics-quiz",
+      "/q/ateez-music-videos-quiz",
+      "/q/ateez-pre-debut-quiz"
+     ],
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/ateez-quiz?page=2",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 49,
+     "on": 50,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/chungha-quiz",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Chungha Quiz: Free Fan-Made Trivia Test | KpopQuiz"
+    ],
+    "description": [
+     "Play the free Chungha quiz made by fans. Test your knowledge of Chungha's members, songs, eras, and history, then prove you are a real Byulharang."
+    ],
+    "robots": [],
+    "canonical": [
+     "/chungha-quiz"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Chungha Quiz - Test How Well You Know Chungha"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "CollectionPage",
+     "ItemList"
+    ],
+    "links": 39,
+    "ssrTextBytes": 1397
+   },
+   "onVsOff": {
+    "links": {
+     "off": 24,
+     "on": 39,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 23,
+     "on": 39,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 23,
+     "on": 24,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/bts-trivia",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "BTS Trivia: 100 Facts Only Real Fans Know | KpopQuiz"
+    ],
+    "description": [
+     "How well do you really know BTS? 100 surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes."
+    ],
+    "robots": [],
+    "canonical": [
+     "/bts-trivia"
+    ],
+    "hreflang": [],
+    "h1": [
+     "BTS trivia and fun facts"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "Article"
+    ],
+    "links": 52,
+    "ssrTextBytes": 13744
+   },
+   "onVsOff": {
+    "links": {
+     "off": 38,
+     "on": 52,
+     "addedCount": 14,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 37,
+     "on": 52,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 37,
+     "on": 38,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/groups",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "All K-pop Groups | KpopQuiz"
+    ],
+    "description": [
+     "Every K-pop group with quizzes on KpopQuiz, listed A to Z with its generation. Browse the full list and jump straight to a group to play."
+    ],
+    "robots": [],
+    "canonical": [
+     "/groups"
+    ],
+    "hreflang": [],
+    "h1": [
+     "All K-pop groups"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList"
+    ],
+    "links": 119,
+    "ssrTextBytes": 2579
+   },
+   "onVsOff": {
+    "lostProse": [
+     "Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.",
+     "3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen · 12 with no generation recorded"
+    ],
+    "links": {
+     "off": 66,
+     "on": 119,
+     "addedCount": 53,
+     "added": [
+      "/2ne1-quiz",
+      "/2pm-quiz",
+      "/apink-quiz",
+      "/bibi-quiz",
+      "/billlie-quiz",
+      "/blindtest/ranked",
+      "/boynextdoor-quiz",
+      "/btob-quiz",
+      "/chungha-quiz",
+      "/community",
+      "/daily",
+      "/day6-quiz",
+      "/fromis-9-quiz",
+      "/fx-quiz",
+      "/groups",
+      "/heize-quiz",
+      "/hwasa-quiz",
+      "/hyuna-quiz",
+      "/ikon-quiz",
+      "/iu-quiz",
+      "/jay-park-quiz",
+      "/jennie-quiz",
+      "/jeon-somi-quiz",
+      "/jimin-quiz",
+      "/jungkook-quiz",
+      "/kara-quiz",
+      "/kep1er-quiz",
+      "/kiss-of-life-quiz",
+      "/miss-a-quiz",
+      "/nct-dream-quiz",
+      "/new",
+      "/p1harmony-quiz",
+      "/pentagon-quiz",
+      "/profile",
+      "/psy-quiz",
+      "/purple-kiss-quiz",
+      "/riize-quiz",
+      "/rose-quiz",
+      "/sistar-quiz",
+      "/stayc-quiz",
+      "/sunmi-quiz",
+      "/t-ara-quiz",
+      "/taeyang-quiz",
+      "/taeyeon-quiz",
+      "/the-boyz-quiz",
+      "/trending",
+      "/triples-quiz",
+      "/v-bts-quiz",
+      "/viviz-quiz",
+      "/winner-quiz",
+      "/wonder-girls-quiz",
+      "/zerobaseone-quiz",
+      "/zico-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "lostProse": [
+     "Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.",
+     "3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen · 12 with no generation recorded"
+    ],
+    "links": {
+     "live": 65,
+     "on": 119,
+     "addedCount": 54,
+     "added": [
+      "/2ne1-quiz",
+      "/2pm-quiz",
+      "/apink-quiz",
+      "/bibi-quiz",
+      "/billlie-quiz",
+      "/blindtest/ranked",
+      "/boynextdoor-quiz",
+      "/btob-quiz",
+      "/chungha-quiz",
+      "/community",
+      "/daily",
+      "/day6-quiz",
+      "/fromis-9-quiz",
+      "/fx-quiz",
+      "/groups",
+      "/heize-quiz",
+      "/hwasa-quiz",
+      "/hyuna-quiz",
+      "/ikon-quiz",
+      "/iu-quiz",
+      "/jay-park-quiz",
+      "/jennie-quiz",
+      "/jeon-somi-quiz",
+      "/jimin-quiz",
+      "/jungkook-quiz",
+      "/kara-quiz",
+      "/kep1er-quiz",
+      "/kiss-of-life-quiz",
+      "/miss-a-quiz",
+      "/nct-dream-quiz",
+      "/new",
+      "/p1harmony-quiz",
+      "/pentagon-quiz",
+      "/profile",
+      "/psy-quiz",
+      "/purple-kiss-quiz",
+      "/riize-quiz",
+      "/rose-quiz",
+      "/sistar-quiz",
+      "/stayc-quiz",
+      "/sunmi-quiz",
+      "/t-ara-quiz",
+      "/taeyang-quiz",
+      "/taeyeon-quiz",
+      "/the-boyz-quiz",
+      "/trending",
+      "/triples-quiz",
+      "/v-bts-quiz",
+      "/verse",
+      "/viviz-quiz",
+      "/winner-quiz",
+      "/wonder-girls-quiz",
+      "/zerobaseone-quiz",
+      "/zico-quiz"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 65,
+     "on": 66,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/blindtest",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Blind Test - Guess the Song from a Clip | KpopQuiz"
+    ],
+    "description": [
+     "Play the free K-pop blind test: hear a 10-second clip and guess the song. 300+ songs across 60+ groups, from every generation. No sign-up."
+    ],
+    "robots": [],
+    "canonical": [
+     "/blindtest"
+    ],
+    "hreflang": [
+     "en /blindtest",
+     "pt-BR /pt/blindtest",
+     "x-default /blindtest"
+    ],
+    "h1": [
+     "Name that K-pop song"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "FAQPage",
+     "WebApplication"
+    ],
+    "links": 137,
+    "ssrTextBytes": 4548
+   },
+   "onVsOff": {
+    "links": {
+     "off": 121,
+     "on": 137,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest#bt-start",
+      "/blindtest/ranked",
+      "/blindtest?daily=true",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 120,
+     "on": 137,
+     "addedCount": 17,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest#bt-start",
+      "/blindtest/ranked",
+      "/blindtest?daily=true",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 120,
+     "on": 121,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/blindtest/classic",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Classic - K-pop Blind Test | KpopQuiz"
+    ],
+    "description": [
+     "10 seconds of chorus - the standard blind test. 10 songs, 10s clips."
+    ],
+    "robots": [],
+    "canonical": [
+     "/blindtest/classic"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Classic"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 774
+   },
+   "onVsOff": {
+    "links": {
+     "off": 22,
+     "on": 37,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 21,
+     "on": 37,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/blindtest/girl-groups",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Girl groups - K-pop Blind Test | KpopQuiz"
+    ],
+    "description": [
+     "Every generation of girl groups mixed together. 10 songs, 10s clips."
+    ],
+    "robots": [],
+    "canonical": [
+     "/blindtest/girl-groups"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Girl groups"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 784
+   },
+   "onVsOff": {
+    "links": {
+     "off": 22,
+     "on": 37,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 21,
+     "on": 37,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/pt/blindtest",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Blind Test de K-pop: Adivinhe a Musica pelo Clipe | KpopQuiz"
+    ],
+    "description": [
+     "Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica. Mais de 300 musicas de mais de 60 grupos. Sem cadastro."
+    ],
+    "robots": [
+     "index, follow"
+    ],
+    "canonical": [
+     "/pt/blindtest"
+    ],
+    "hreflang": [
+     "en /blindtest",
+     "pt-BR /pt/blindtest",
+     "x-default /blindtest"
+    ],
+    "h1": [
+     "Adivinhe a musica de K-pop"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList",
+     "FAQPage"
+    ],
+    "links": 40,
+    "ssrTextBytes": 3100
+   },
+   "onVsOff": {
+    "links": {
+     "off": 25,
+     "on": 40,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 24,
+     "on": 40,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 24,
+     "on": 25,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/blindtest/ranked",
+   "status": {
+    "on": 200,
+    "off": 404,
+    "live": 404
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Ranked blindtest | KpopQuiz"
+    ],
+    "description": [
+     "Ranked K-pop blindtest: ten server-drawn songs, the same rules for everyone, a season ladder with tiers from Bronze to Legend."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/blindtest/ranked"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Ranked"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 2428
+   },
+   "onVsOff": {
+    "status": {
+     "off": "404",
+     "on": "200"
+    }
+   },
+   "onVsLive": {
+    "status": {
+     "live": "404",
+     "on": "200"
+    }
+   },
+   "offVsLive": {}
+  },
+  {
+   "page": "/leaderboard",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Fandom Leaderboard: Who Wins This Week | KpopQuiz"
+    ],
+    "description": [
+     "See which K-pop fandom is winning the week on the fandom war map, watch what fans are playing right now, and follow the top quiz creators."
+    ],
+    "robots": [],
+    "canonical": [
+     "/leaderboard"
+    ],
+    "hreflang": [
+     "en /leaderboard",
+     "pt-BR /pt/leaderboard",
+     "x-default /leaderboard"
+    ],
+    "h1": [
+     "Community"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 67,
+    "ssrTextBytes": 4282
+   },
+   "onVsOff": {
+    "lostProse": [
+     "Love it, really fun !! You should try to share them on reddit or somwhere for people to play it !!"
+    ],
+    "links": {
+     "off": 76,
+     "on": 67,
+     "lost": [
+      "/q/a-straykids-quiz",
+      "/q/are-u-a-real-bunnie",
+      "/q/fifty-fifty-discography-quiz",
+      "/q/guess-the-group-from-their-lightstick-girl-groups",
+      "/q/loona-true-or-false",
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "/q/shinee-ring-ding-dong-quiz",
+      "/q/stray-kids-lee-know-quiz-part-1",
+      "/q/twice-formula-of-love-era",
+      "/u/fearnot",
+      "/u/freyaa",
+      "/u/jellytaengs",
+      "/u/mingi",
+      "/u/peachyblssom2014",
+      "/u/skz_johayo",
+      "/u/talentless_stay"
+     ],
+     "addedCount": 7,
+     "added": [
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/profile",
+      "/trending"
+     ]
+    }
+   },
+   "onVsLive": {
+    "lostProse": [
+     "Love it, really fun !! You should try to share them on reddit or somwhere for people to play it !!"
+    ],
+    "links": {
+     "live": 75,
+     "on": 67,
+     "lost": [
+      "/q/a-straykids-quiz",
+      "/q/are-u-a-real-bunnie",
+      "/q/fifty-fifty-discography-quiz",
+      "/q/guess-the-group-from-their-lightstick-girl-groups",
+      "/q/loona-true-or-false",
+      "/q/mamamoo-the-curtain-call-era?daily=quiz",
+      "/q/shinee-ring-ding-dong-quiz",
+      "/q/stray-kids-lee-know-quiz-part-1",
+      "/q/twice-formula-of-love-era",
+      "/u/fearnot",
+      "/u/freyaa",
+      "/u/jellytaengs",
+      "/u/mingi",
+      "/u/peachyblssom2014",
+      "/u/skz_johayo",
+      "/u/talentless_stay"
+     ],
+     "addedCount": 8,
+     "added": [
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/profile",
+      "/trending",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 75,
+     "on": 76,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/pt/leaderboard",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Ranking de K-pop - Top Fas e Criadores | KpopQuiz"
+    ],
+    "description": [
+     "Os melhores criadores e jogadores de quiz de K-pop do kpopquiz.org. Veja quem esta em alta esta semana e quem chegou ao nivel Lenda."
+    ],
+    "robots": [
+     "index, follow"
+    ],
+    "canonical": [
+     "/pt/leaderboard"
+    ],
+    "hreflang": [
+     "en /leaderboard",
+     "pt-BR /pt/leaderboard",
+     "x-default /leaderboard"
+    ],
+    "h1": [
+     "Top fas esta semana"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 40,
+    "ssrTextBytes": 989
+   },
+   "onVsOff": {
+    "links": {
+     "off": 25,
+     "on": 40,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 24,
+     "on": 40,
+     "lost": [
+      "/u/freyaa",
+      "/u/once_mina"
+     ],
+     "addedCount": 18,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/u/fearnot",
+      "/u/jellytaengs",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 24,
+     "on": 25,
+     "lost": [
+      "/u/freyaa",
+      "/u/once_mina"
+     ],
+     "addedCount": 3,
+     "added": [
+      "/u/fearnot",
+      "/u/jellytaengs",
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/u/testtest",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "testtest's K-pop Quizzes | KpopQuiz"
+    ],
+    "description": [
+     "testtest's K-pop quizzes on KpopQuiz. 0 quizzes created, 0 total plays."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/u/testtest"
+    ],
+    "hreflang": [],
+    "h1": [
+     "testtest"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "BreadcrumbList"
+    ],
+    "links": 38,
+    "ssrTextBytes": 5767
+   },
+   "onVsOff": {
+    "links": {
+     "off": 22,
+     "on": 38,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/illit-quiz",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 21,
+     "on": 38,
+     "addedCount": 17,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/illit-quiz",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/create",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Create a quiz | KpopQuiz"
+    ],
+    "description": [
+     "Create a K-pop quiz in minutes and challenge your fandom."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [],
+    "hreflang": [],
+    "h1": [
+     "What's your quiz about?"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 2643
+   },
+   "onVsOff": {
+    "lostProse": [
+     "A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background."
+    ],
+    "links": {
+     "off": 22,
+     "on": 37,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "lostProse": [
+     "A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background."
+    ],
+    "links": {
+     "live": 21,
+     "on": 37,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/search",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Search | KpopQuiz"
+    ],
+    "description": [
+     "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [],
+    "hreflang": [],
+    "h1": [
+     "Search"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 692
+   },
+   "onVsOff": {
+    "links": {
+     "off": 22,
+     "on": 37,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 21,
+     "on": 37,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/articles",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Articles: Guides, Comparisons, and Original Data | KpopQuiz"
+    ],
+    "description": [
+     "Original articles about K-pop quizzes, blind tests, and fan culture. Guides, group comparisons, quiz site reviews, and data-driven analysis from the KpopQuiz team."
+    ],
+    "robots": [],
+    "canonical": [
+     "/articles"
+    ],
+    "hreflang": [
+     "en /articles",
+     "pt-BR /pt/articles",
+     "x-default /articles"
+    ],
+    "h1": [
+     "Articles"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "CollectionPage",
+     "BreadcrumbList"
+    ],
+    "links": 59,
+    "ssrTextBytes": 6777
+   },
+   "onVsOff": {
+    "links": {
+     "off": 44,
+     "on": 59,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 43,
+     "on": 59,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 43,
+     "on": 44,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/articles/best-kpop-quiz-sites-2026",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Best Free K-pop Quiz Sites in 2026: 5 Ranked and Reviewed | KpopQuiz"
+    ],
+    "description": [
+     "We ranked 5 free K-pop quiz sites for 2026, from fan-made platforms to mobile apps. See which one fits how you like to test your K-pop knowledge."
+    ],
+    "robots": [],
+    "canonical": [
+     "/articles/best-kpop-quiz-sites-2026"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Best Free K-pop Quiz Sites in 2026: 5 Ranked and Reviewed"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "Article",
+     "BreadcrumbList",
+     "FAQPage"
+    ],
+    "links": 37,
+    "ssrTextBytes": 6154
+   },
+   "onVsOff": {
+    "links": {
+     "off": 22,
+     "on": 37,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 21,
+     "on": 37,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 21,
+     "on": 22,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/trending",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Trending K-pop Quizzes | KpopQuiz"
+    ],
+    "description": [
+     "The most popular K-pop quizzes right now. Play trending quizzes about BTS, BLACKPINK, Stray Kids, and more - created by real fans."
+    ],
+    "robots": [],
+    "canonical": [
+     "/trending"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Trending quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 47,
+    "ssrTextBytes": 1110
+   },
+   "onVsOff": {
+    "links": {
+     "off": 32,
+     "on": 47,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 31,
+     "on": 47,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 31,
+     "on": 32,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/new",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "New K-pop Quizzes | KpopQuiz"
+    ],
+    "description": [
+     "The newest K-pop quizzes just published by fans. Fresh trivia about your favorite groups - be the first to play."
+    ],
+    "robots": [],
+    "canonical": [
+     "/new"
+    ],
+    "hreflang": [],
+    "h1": [
+     "New quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 47,
+    "ssrTextBytes": 1175
+   },
+   "onVsOff": {
+    "links": {
+     "off": 32,
+     "on": 47,
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 31,
+     "on": 47,
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 31,
+     "on": 32,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/most-liked",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Most Liked K-pop Quizzes | KpopQuiz"
+    ],
+    "description": [
+     "The most loved K-pop quizzes as voted by fans. Play fan-favorite quizzes about BTS, BLACKPINK, Stray Kids, and more."
+    ],
+    "robots": [],
+    "canonical": [
+     "/most-liked"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Most liked quizzes"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 37,
+    "ssrTextBytes": 690
+   },
+   "onVsOff": {
+    "links": {
+     "off": 32,
+     "on": 37,
+     "lost": [
+      "/q/blackpink-true-or-false",
+      "/q/blackpink-ultimate-fan-challenge",
+      "/q/bts-discography-challenge",
+      "/q/bts-solo-era-quiz-match-the-member-to-the-music",
+      "/q/bts-true-or-false-test-your-army-knowledge",
+      "/q/k-pop-company-quiz-match-the-group-to-the-label",
+      "/q/skz-true-or-false-only-real-stays-pass",
+      "/q/stray-kids-basics",
+      "/q/twice-members-once-test",
+      "/q/ultimate-bts-era-quiz-only-real-armys-survive"
+     ],
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "links": {
+     "live": 31,
+     "on": 37,
+     "lost": [
+      "/q/blackpink-true-or-false",
+      "/q/blackpink-ultimate-fan-challenge",
+      "/q/bts-discography-challenge",
+      "/q/bts-solo-era-quiz-match-the-member-to-the-music",
+      "/q/bts-true-or-false-test-your-army-knowledge",
+      "/q/k-pop-company-quiz-match-the-group-to-the-label",
+      "/q/skz-true-or-false-only-real-stays-pass",
+      "/q/stray-kids-basics",
+      "/q/twice-members-once-test",
+      "/q/ultimate-bts-era-quiz-only-real-armys-survive"
+     ],
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 31,
+     "on": 32,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/stats",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "K-pop Quiz Statistics 2026 - Fan Data from kpopquiz.org | KpopQuiz"
+    ],
+    "description": [
+     "Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts. Free to cite with a link."
+    ],
+    "robots": [],
+    "canonical": [
+     "/stats"
+    ],
+    "hreflang": [
+     "en /stats",
+     "pt-BR /pt/stats",
+     "x-default /stats"
+    ],
+    "h1": [
+     "K-pop Quiz Statistics"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "Dataset",
+     "WebPage",
+     "BreadcrumbList"
+    ],
+    "links": 55,
+    "ssrTextBytes": 2939
+   },
+   "onVsOff": {
+    "lostProse": [
+     "According to kpopquiz.org, Girls' Generation is the most-played K-pop fandom of the week, with 382 quiz plays as of September 26, 2026."
+    ],
+    "jsonld": {
+     "only_off": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 425 quizzes, 4120 blind test songs, 67.9K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":425},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67883},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 425 quizzes, 4120 blind test songs, 67.9K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":425},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67880},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ]
+    },
+    "links": {
+     "off": 48,
+     "on": 55,
+     "addedCount": 7,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/new",
+      "/profile",
+      "/trending"
+     ]
+    }
+   },
+   "onVsLive": {
+    "lostProse": [
+     "KpopQuiz hosts 422 fan-made quizzes and 4,120 blind test songs covering 91 K-pop groups across 5 generations (1st through 5th). The platform has recorded 67.4K total plays since launch, with new quizzes added daily by the community.",
+     "According to kpopquiz.org, Girls' Generation is the most-played K-pop fandom of the week, with 382 quiz plays as of September 24, 2026.",
+     "The hardest quiz on kpopquiz.org is \"Stray Kids: Guess the Song Quiz\", where fans average just 42%. Ranked from 251 quizzes with at least 30 plays, as of September 24, 2026."
+    ],
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 422 quizzes, 4120 blind test songs, 67.4K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":422},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67354},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 425 quizzes, 4120 blind test songs, 67.9K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":425},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67880},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ]
+    },
+    "links": {
+     "live": 47,
+     "on": 55,
+     "addedCount": 8,
+     "added": [
+      "/ateez-quiz",
+      "/blindtest/ranked",
+      "/community",
+      "/daily",
+      "/new",
+      "/profile",
+      "/trending",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "lostProse": [
+     "KpopQuiz hosts 422 fan-made quizzes and 4,120 blind test songs covering 91 K-pop groups across 5 generations (1st through 5th). The platform has recorded 67.4K total plays since launch, with new quizzes added daily by the community.",
+     "According to kpopquiz.org, Girls' Generation is the most-played K-pop fandom of the week, with 382 quiz plays as of September 24, 2026.",
+     "The hardest quiz on kpopquiz.org is \"Stray Kids: Guess the Song Quiz\", where fans average just 42%. Ranked from 251 quizzes with at least 30 plays, as of September 24, 2026."
+    ],
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 422 quizzes, 4120 blind test songs, 67.4K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":422},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67354},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"dateModified\":\"<n>\",\"description\":\"Live statistics from kpopquiz.org: 425 quizzes, 4120 blind test songs, 67.9K total plays across 91 K-pop groups and 5 generations.\",\"name\":\"KpopQuiz Platform Statistics\",\"temporalCoverage\":\"2024/2026\",\"url\":\"https://kpopquiz.org/stats\",\"variableMeasured\":[{\"@type\":\"PropertyValue\",\"name\":\"Total Quizzes\",\"value\":425},{\"@type\":\"PropertyValue\",\"name\":\"Total Songs\",\"value\":4120},{\"@type\":\"PropertyValue\",\"name\":\"Total Plays\",\"value\":67883},{\"@type\":\"PropertyValue\",\"name\":\"Groups Covered\",\"value\":91}]}"
+     ]
+    },
+    "links": {
+     "live": 47,
+     "on": 48,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/data/pulse",
+   "status": {
+    "on": 200,
+    "off": 200,
+    "live": 200
+   },
+   "location": {
+    "on": null,
+    "off": null,
+    "live": null
+   },
+   "on": {
+    "title": [
+     "Monthly K-pop Pulse - First-Party Fan Data from kpopquiz.org | KpopQuiz"
+    ],
+    "description": [
+     "A monthly K-pop data report from kpopquiz.org: the fandom of the month by real quiz plays, the most-played quizzes, fan duel verdicts, and honest community growth. First-party, dated, and free to cite with a link."
+    ],
+    "robots": [],
+    "canonical": [
+     "/data/pulse"
+    ],
+    "hreflang": [],
+    "h1": [
+     "The K-pop Pulse"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement",
+     "CollectionPage",
+     "BreadcrumbList"
+    ],
+    "links": 37,
+    "ssrTextBytes": 1368
+   },
+   "onVsOff": {
+    "jsonld": {
+     "only_off": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: August 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-08\"},{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: July 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-07\"}],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
+     ]
+    },
+    "links": {
+     "off": 24,
+     "on": 37,
+     "lost": [
+      "/data/pulse/2026-07",
+      "/data/pulse/2026-08"
+     ],
+     "addedCount": 15,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz"
+     ]
+    }
+   },
+   "onVsLive": {
+    "jsonld": {
+     "only_live": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: August 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-08\"},{\"@type\":\"Dataset\",\"dateModified\":\"<n>\",\"name\":\"K-pop Pulse: July 2026\",\"url\":\"https://kpopquiz.org/data/pulse/2026-07\"}],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
+     ],
+     "only_on": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Monthly first-party K-pop fan data reports from kpopquiz.org, free to cite with a link.\",\"hasPart\":[],\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\"},\"name\":\"Monthly K-pop Pulse\",\"url\":\"https://kpopquiz.org/data/pulse\"}"
+     ]
+    },
+    "links": {
+     "live": 23,
+     "on": 37,
+     "lost": [
+      "/data/pulse/2026-07",
+      "/data/pulse/2026-08"
+     ],
+     "addedCount": 16,
+     "added": [
+      "/aespa-quiz",
+      "/ateez-quiz",
+      "/blackpink-quiz",
+      "/blindtest/ranked",
+      "/bts-quiz",
+      "/community",
+      "/daily",
+      "/groups",
+      "/new",
+      "/newjeans-quiz",
+      "/profile",
+      "/seventeen-quiz",
+      "/stray-kids-quiz",
+      "/trending",
+      "/twice-quiz",
+      "/verse"
+     ]
+    }
+   },
+   "offVsLive": {
+    "links": {
+     "live": 23,
+     "on": 24,
+     "addedCount": 1,
+     "added": [
+      "/verse"
+     ]
+    }
+   }
+  },
+  {
+   "page": "/community",
+   "status": {
+    "on": 200,
+    "off": 301,
+    "live": 301
+   },
+   "location": {
+    "on": null,
+    "off": "/",
+    "live": "/"
+   },
+   "on": {
+    "title": [
+     "Community | KpopQuiz"
+    ],
+    "description": [
+     "Threads, blogs, debates and score challenges from every K-pop fandom, the daily debate and what fans are playing right now on kpopquiz.org."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/community"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Community"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 56,
+    "ssrTextBytes": 3539
+   },
+   "onVsOff": {
+    "status": {
+     "off": "301 /",
+     "on": "200"
+    }
+   },
+   "onVsLive": {
+    "status": {
+     "live": "301 /",
+     "on": "200"
+    }
+   },
+   "offVsLive": {}
+  },
+  {
+   "page": "/community/thread/1",
+   "status": {
+    "on": 200,
+    "off": 301,
+    "live": 301
+   },
+   "location": {
+    "on": null,
+    "off": "/",
+    "live": "/"
+   },
+   "on": {
+    "title": [
+     "Which B-side do you think deserved its own music video? We will go first: Dis-ea | KpopQuiz"
+    ],
+    "description": [
+     "Which B-side do you think deserved its own music video? We will go first: Dis-ease from BE still goes harder live than half the title tracks, and we will..."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/community/thread/1"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Which B-side do you think deserved its own music video? We will go first: Dis-ea"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 40,
+    "ssrTextBytes": 1373
+   },
+   "onVsOff": {
+    "status": {
+     "off": "301 /",
+     "on": "200"
+    }
+   },
+   "onVsLive": {
+    "status": {
+     "live": "301 /",
+     "on": "200"
+    }
+   },
+   "offVsLive": {}
+  },
+  {
+   "page": "/community/blog/2",
+   "status": {
+    "on": 200,
+    "off": 301,
+    "live": 301
+   },
+   "location": {
+    "on": null,
+    "off": "/",
+    "live": "/"
+   },
+   "on": {
+    "title": [
+     "Why ARMY documents everything: the archive instinct of a fandom | KpopQuiz"
+    ],
+    "description": [
+     "Every fandom remembers. ARMY writes it down. Ask a question about any stage, any era, any stray piece of lore, and within minutes someone appears with the…"
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/community/blog/2"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Why ARMY documents everything: the archive instinct of a fandom"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 40,
+    "ssrTextBytes": 2808
+   },
+   "onVsOff": {
+    "status": {
+     "off": "301 /",
+     "on": "200"
+    }
+   },
+   "onVsLive": {
+    "status": {
+     "live": "301 /",
+     "on": "200"
+    }
+   },
+   "offVsLive": {}
+  },
+  {
+   "page": "/community/debate/2026-09-22",
+   "status": {
+    "on": 200,
+    "off": 301,
+    "live": 301
+   },
+   "location": {
+    "on": null,
+    "off": "/",
+    "live": "/"
+   },
+   "on": {
+    "title": [
+     "Choreo with props or pure dance | KpopQuiz"
+    ],
+    "description": [
+     "A debate in the KpopQuiz community about General K-pop."
+    ],
+    "robots": [
+     "noindex, follow"
+    ],
+    "canonical": [
+     "/community/debate/2026-09-22"
+    ],
+    "hreflang": [],
+    "h1": [
+     "Choreo with props or pure dance"
+    ],
+    "jsonldTypes": [
+     "Organization",
+     "SiteNavigationElement"
+    ],
+    "links": 41,
+    "ssrTextBytes": 1101
+   },
+   "onVsOff": {
+    "status": {
+     "off": "301 /",
+     "on": "200"
+    }
+   },
+   "onVsLive": {
+    "status": {
+     "live": "301 /",
+     "on": "200"
+    }
+   },
+   "offVsLive": {}
+  }
+ ],
+ "site": {
+  "robotsIdentical": true,
+  "robotsOn": "User-Agent: *\nAllow: /\nAllow: /api/og/\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: GPTBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: ChatGPT-User\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: Google-Extended\nAllow: /\n\nUser-Agent: anthropic-ai\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: ClaudeBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: PerplexityBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: Bytespider\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: cohere-ai\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nSitemap: https://kpopquiz.org/sitemap.xml\n",
+  "robotsOff": "User-Agent: *\nAllow: /\nAllow: /api/og/\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: GPTBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: ChatGPT-User\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: Google-Extended\nAllow: /\n\nUser-Agent: anthropic-ai\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: ClaudeBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: PerplexityBot\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: Bytespider\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nUser-Agent: cohere-ai\nAllow: /\nDisallow: /api/\nDisallow: /auth/\nDisallow: /admin/\nDisallow: /settings/\nDisallow: /onboarding/\n\nSitemap: https://kpopquiz.org/sitemap.xml\n",
+  "sitemapFiles": {
+   "on": {
+    "/sitemap.xml": {
+     "status": 200,
+     "bytes": 562850
+    }
+   },
+   "off": {
+    "/sitemap.xml": {
+     "status": 200,
+     "bytes": 562850
+    }
+   }
+  },
+  "sitemapCount": {
+   "on": 2998,
+   "off": 2998
+  },
+  "sitemapOnlyOn": [],
+  "sitemapOnlyOff": [],
+  "sitemapHasNewPages": []
+ }
+}
