@@ -10,16 +10,16 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged (2cad6a7, PR #45); resumed for the request queue (P4 x2, P10 x1) + streak test time bomb | 9b71ace | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | PR #49 open; sent back: flag-on home lost 7 of 18 group hub links (incl. /cortis-quiz), SEO blocker | b6e6a23 | 0 | v11/reports/P1.md |
-| P2 | ux11/p2-quizzes | running (spawned from 5e6db4e with briefs/COMMON.md + P2.md) | - | 0 | v11/reports/P2.md |
-| P3 | ux11/p3-groups | running (spawned from integration with briefs/COMMON.md + P3.md) | - | 0 | v11/reports/P3.md |
+| A0 | ux11/a0-foundation | request queue PR #50 open; more items sent (/search as a real link, card line-height, link options) | - | 0 | v11/reports/A0.md |
+| P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
+| P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
+| P3 | ux11/p3-groups | PR #51 open (report pending) | - | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | running | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
-| P7 | ux11/p7-ranked | running (UI pass 2, resumed on its branch; draft PR #44 covers both passes) | 56eb011 | 0 | v11/reports/P7.md |
-| P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
-| P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
+| P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
+| P8 | ux11/p8-community | running | - | 0 | v11/reports/P8.md |
+| P9 | ux11/p9-leaderboard | running | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | queued | - | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
@@ -43,6 +43,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - Dev ports (Next 16 allows one `next dev` per directory; each worktree has its own): A0 3030, P1 3031, P2 3032, P3 3033,
   P4 3034, P5 3035, P6 3036, P7 3037, P8 3038, P9 3039, P10 3040, P11 3041, integration/checkers 3021.
   Start with `NEXT_PUBLIC_UX_V1=1 PORT=<port> pnpm --filter quiz dev` from the worktree. Stop it when done.
+- Checkers: P10's header-image unit test timed out under a load average near 50 (seen by P7); the a0 streak tests are a date time bomb until A0's PR #50 lands.
 - Checkers (from P1): on a local `next start`, a cold home load can hang AVIF image keys for good; warm the images one at a time before measuring. Vercel is not affected.
 - Ownership guard: hooks are installed per worktree only (`extensions.worktreeConfig` + `git config --worktree core.hooksPath`),
   never repo-wide; the guard is a no-op when `UX11_AGENT` is unset.
@@ -56,6 +57,12 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
+
+WAITING ON THE OWNER NOW: P2's branch `ux11/p2-quizzes` (9 commits, adea732, local only, worktree .claude/worktrees/agent-a2b9cc4c27e8fa88a) could not be pushed: the permission check refused the agent's push. Either the owner pushes it (`git push -u origin ux11/p2-quizzes`, then a PR into feat/ux-v1-v11) or tells ORCH to push it.
+
+SECURITY, LIVE SITE (found by P2, confirmed by ORCH in code): /quizzes puts user-written quiz titles into an ld+json script tag with a bare JSON.stringify (titles only length-checked), so a title containing </script> could break out: likely stored XSS. The Verse code already has the escaping sink jsonLdScript (lib/verse/jsonld.tsx). Handed to the owner as a separate task chip (fix on main).
+
+BROKEN LINKS, LIVE SITE (found by P1, confirmed by ORCH): the live home links /quizzes/new and /quizzes/most-liked, both 404; /new and /most-liked are the real pages (the v11 home links those).
 
 BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindtest/<mode> page (97) fails on Play. The legacy BlindTestPlayer (components/blind-test/blind-test-player.tsx, YouTube) reads `data.songs[0]`, but /api/blind-test/generate was rewritten for Deezer and returns `questions`. Flag-off code, outside this run; flagged to the owner as a separate task.
 
@@ -75,10 +82,14 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 14. P10: header storage: create the profile-headers bucket or reuse the avatars bucket; an email sender for the email switches; a "flat theme colour" band mode needs a new column; a real delete-account flow (today the confirm sheet sends the fan to /contact). Signed-in /me is NOT verified live (render test only) until decision 1.
 15. P1: QOTD rotation stopped because ensure_daily_quiz only publishes a bank row dated exactly today and nothing was scheduled after 2026-06-30 (the cron still answered ok). The fix ships behind the server env QOTD_ROTATION_FIX=1 (off by default, production cron unchanged); until it is set the home shows the real stored pick labelled "Picked on June 30".
 16. Security, existing (found by P1): quiz_bank (migration 018) and quiz_time_stats (032) have write-all RLS policies, so anyone with the anon key could insert a bank row the cron would then publish. Not tested. Tightening is an RLS change, owner call.
-17. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+17. P1 design changes made to keep every live home link: 6 cards per rail instead of 4 or 5, a "Most liked" link, Verse and Discord lines under the community rows; the 17 hub links sit in the scrolling groups rail in the live order (Cortis is 4th there).
+18. P7: Season rewards are shown as designed but not built (build them or hide the section before go-live); no /pt mirror for /blindtest/ranked.
+19. P2 deviations: the live H1, intro and breadcrumb (SEO lock) push the grid 64.7px lower than the reference; default sort shown as "Most played" (the live default); ?page=N shows pages 1..N; ?level= is noindex with canonical /quizzes (flag on only); no Language dropdown (?lang= still works); no Create banners; the popular-* subpages are not redesigned. P2 also found that lib/db/queries/popular.ts caches a failed plays read as an empty window for an hour (task chip spawned by P2).
+20. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P1 re-done (all 17 live hub links in the rail, full link-set proof) and merged (1bc1cb1); P7 merged (91a8030). Integration: tsc clean, check:routes 327 both ways, unit 494/496 (the 2 streak time-bomb tests). P2 finished but its push was denied by the permission check: left for the owner. P5, P8, P9 spawned. A0 opened PR #50 (queue) and got 3 more items; P3 opened PR #51.
 - 2026-09-26 P1 finished (PR #49, guard ok 65 files, p1.spec 37/37) but NOT merged: its flag-on home server-renders 11 group hub links vs 18 on the live home (lost /cortis-quiz, /exo-quiz, /itzy-quiz, /ive-quiz, /le-sserafim-quiz, /txt-quiz + 1). Rule 6 blocker, sent back. COMMON.md done-when 5 now requires the full link-set diff; running agents told. P1's A0 request (focus H1 on client navigation) added to A0's queue.
 - 2026-09-26 P10 merged (2dd8f9f): guard ok (51 files), tsc clean, check:routes 318 both ways, flag-off diff identical on 8 pages (per P10), test user's rows unchanged since 2026-09-22. Unit run on integration: 240/242; the 2 failures are A0's streak-view tests, a time bomb (lib/streak.ts streakState reads the wall clock while the tests pin now to 2026-09-25); product behaviour is right; A0 fixes the test with a frozen system clock. P3 spawned in P10's slot; A0 resumed for its request queue.
 - 2026-09-26 P7 UI pass started (resumed agent) and P2 spawned. The blindtest mode-page bug was handed to the owner as a separate task chip (fix on main, outside this run). P1 told to read Continue playing through lib/ux-v1/p4/continue.ts.
@@ -92,4 +103,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: P1 and P10 running; P7 (UI pass, resumed on ux11/p7-ranked) and P2 starting. For each finished agent: guard in range mode, check its report, merge --no-ff into feat/ux-v1-v11, push, then fill the free slot in this order: P3, P5, P8, P9, P11. Then respawn A0 for the request queue (v11/requests/*.md), then Phase 3 (C1, C2, C3). Spawn prompt = "You are <ID> <name> on the KpopQuiz UX v11 run. Read and follow docs/design/ux-dashboard-v1/v11/briefs/COMMON.md and v11/briefs/<ID>.md."
+NEXT ACTION: wait for A0 (#50), P3 (#51), P5, P8, P9. Merge each after guard + report check. P2 waits for the owner's push. Then P11 in the next free slot, then the A0 queue again if new requests, then Phase 3 (C1, C2, C3; briefs to write). Spawn prompt = "You are <ID> <name> on the KpopQuiz UX v11 run. Read and follow docs/design/ux-dashboard-v1/v11/briefs/COMMON.md and v11/briefs/<ID>.md."
