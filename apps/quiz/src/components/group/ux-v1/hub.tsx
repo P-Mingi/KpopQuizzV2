@@ -103,7 +103,8 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
     safeFetch(getGroupMvPulse(g.id), null, '[group-hub v11] getGroupMvPulse'),
     safeFetch(getGroupContentDate(g.id), null, '[group-hub v11] getGroupContentDate'),
     // v11 reads (lib/ux-v1/p3/data.ts).
-    safeFetch(getHubQuizzes(g.id), [], '[group-hub v11] getHubQuizzes'),
+    // null = the read failed (never mistaken for "no quiz yet").
+    safeFetch<HubQuiz[] | null>(getHubQuizzes(g.id), null, '[group-hub v11] getHubQuizzes'),
     safeFetch(getGroupsIndex(), [], '[group-hub v11] getGroupsIndex'),
     safeFetch(getPlayableSongs(), {} as Record<string, number>, '[group-hub v11] getPlayableSongs'),
     safeFetch(getGroupComments(g.id), [], '[group-hub v11] getGroupComments'),
@@ -115,12 +116,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // hub still lists what it has (never the empty state for a group with quizzes).
   // getGroupQuizLinks is every published quiz of the group, so its length is the
   // same real count as the full list.
-  const list: HubQuiz[] = quizzes.length > 0 ? quizzes : initialQuizzes.map(toHubQuiz);
-  const published = Math.max(quizzes.length, allQuizLinks.length, list.length);
+  const list: HubQuiz[] = quizzes && quizzes.length > 0 ? quizzes : initialQuizzes.map(toHubQuiz);
+  const published = Math.max(quizzes?.length ?? 0, allQuizLinks.length, list.length);
   const hasQuizzes = published > 0;
-  // The empty state only when no read found a quiz AND the (over-counting) column
-  // agrees: a DB blip must not turn a group with quizzes into "Make the first quiz".
-  const isEmptyGroup = !hasQuizzes && g.quiz_count === 0;
+  // The empty state when the full read answered "no published quiz"; when that read
+  // failed, only when the (over-counting) column also says 0: a DB blip must never
+  // turn a group with quizzes into "Make the first quiz".
+  const isEmptyGroup = !hasQuizzes && (quizzes !== null || g.quiz_count === 0);
   const topSlug = initialQuizzes[0]?.slug ?? list[0]?.slug ?? null;
   const songs = playable[g.slug] ?? 0;
   const photo = groupPhotoUrl(g.slug);
