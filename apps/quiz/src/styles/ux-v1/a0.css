@@ -273,7 +273,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-utabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
 .ux-utabs::-webkit-scrollbar { display: none; }
 .ux-utabs > button, .ux-utabs > a { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border-radius: 999px; font-size: 15px; font-weight: 500; line-height: 24px; color: var(--ux-muted); white-space: nowrap; transition: color .15s, background .15s; }
-.ux-utabs > button:hover, .ux-utabs > a:hover { color: var(--ux-ink); }
+.ux-utabs > button:not([aria-selected="true"]):hover, .ux-utabs > a:not([aria-current="page"]):hover { color: var(--ux-ink); }
 .ux-utabs > [aria-selected="true"], .ux-utabs > [aria-current="page"] { background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-weight: 600; }
 .ux-utabs .ux-ico { width: 16px; height: 16px; }
 .ux-seg { display: inline-flex; background: var(--ux-surface); border-radius: 999px; padding: 4px; gap: 2px; max-width: 100%; }

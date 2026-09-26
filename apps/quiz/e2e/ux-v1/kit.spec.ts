@@ -165,6 +165,31 @@ test.describe('kit interactions', () => {
     await expect(trigger).toBeFocused();
   });
 
+  // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
+  test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const tabs = page.locator('[data-kit="controls"]').getByRole('tablist', { name: 'Feed' });
+    const selected = tabs.getByRole('tab', { name: 'For you' });
+    const other = tabs.getByRole('tab', { name: 'Following' });
+    const color = (l: typeof selected): Promise<string> => l.evaluate((el) => getComputedStyle(el).color);
+    const pinkSoftInk = await page.evaluate(() => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink-soft-ink)';
+      document.querySelector('.ux-page')?.appendChild(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const ink = await page.evaluate(() => getComputedStyle(document.querySelector('.ux-page') as HTMLElement).color);
+    await selected.hover();
+    await expect.poll(() => color(selected)).toBe(pinkSoftInk);
+    await other.hover();
+    await expect.poll(() => color(other)).toBe(ink); // an unselected tab still turns ink on hover
+    await other.click();
+    await expect(other).toHaveAttribute('aria-selected', 'true');
+    await expect.poll(() => color(other)).toBe(pinkSoftInk); // pointer still on it right after the click
+  });
+
   // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
   // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
   test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
