@@ -40,11 +40,15 @@ function p1Landmarks(width: number): Landmark[] {
   ];
 }
 
-/** Top of each landmark in the guest reference (prototype, measured), px from the document top. */
+/** Top of each landmark in the guest reference (prototype, measured), px from the document top.
+ *  Everything above the quiz of the day has fixed content (production's H1 / H2 / CTAs), so it is
+ *  compared absolutely; below it the real title and note set the height, so the first section is
+ *  compared by its gap to the quiz of the day (80 at 1440, 48 at 390, the reference's gap). */
 const GUEST_TOPS: Record<number, Record<string, number>> = {
-  1440: { '.p1-ticker': 89, '.p1-hhead': 181, '.p1-hcta': 323.9, '.p1-qotd': 407.9, '.p1-home .ux-sec': 615.7 },
-  390: { '.p1-ticker': 81, '.p1-hhead': 153, '.p1-hcta': 292.6, '.p1-qotd': 410.6, '.p1-home .ux-sec': 662.2 },
+  1440: { '.p1-ticker': 89, '.p1-hhead': 181, '.p1-hcta': 323.9, '.p1-qotd': 407.9 },
+  390: { '.p1-ticker': 81, '.p1-hhead': 153, '.p1-hcta': 292.6, '.p1-qotd': 410.6 },
 };
+const QOTD_TO_SECTION: Record<number, number> = { 1440: 615.7 - (407.9 + 127.8), 390: 662.2 - (410.6 + 203.6) };
 
 async function rest<T>(query: string, count = false): Promise<{ rows: T; count: number | null }> {
   // GET only. Retried on a network error (the shared live backend can be slow to connect).
@@ -140,6 +144,10 @@ for (const theme of THEMES) {
         const y = (box?.y ?? -999) + (await page.evaluate(() => window.scrollY));
         expect(Math.abs(y - top), `${sel} top ${y} vs reference ${top}`).toBeLessThanOrEqual(2);
       }
+      const qb = await page.locator('.p1-qotd').boundingBox();
+      const sb = await page.locator('.p1-home .ux-sec').first().boundingBox();
+      const gap = (sb?.y ?? 0) - ((qb?.y ?? 0) + (qb?.height ?? 0));
+      expect(Math.abs(gap - (QOTD_TO_SECTION[w] ?? 0)), `quiz of the day to first section ${gap} vs reference ${QOTD_TO_SECTION[w]}`).toBeLessThanOrEqual(2);
       expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
 
       // Computed styles equal to styles.json (C1).

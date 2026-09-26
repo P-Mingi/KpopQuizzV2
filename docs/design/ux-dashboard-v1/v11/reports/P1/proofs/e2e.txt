@@ -1,41 +1,41 @@
-# e2e/ux-v1/p1.spec.ts at 83607f9 (merged with feat/ux-v1-v11 08ed654, Continue on P4's store) against a flag-on production build of that commit (next build + next start, NEXT_PUBLIC_UX_V1=1), Chromium 1234 headless shell, :4003, --retries=0
-# earlier: 37/37 on the flag-on dev server (:3031) at 1fd20b5 and 37/37 on a flag-on build of f5262dd
+# e2e/ux-v1/p1.spec.ts (link-parity version) against a flag-on production build of e2b7a10 (next build + next start, NEXT_PUBLIC_UX_V1=1), Chromium 1234 headless shell, :4003, --retries=0
+# earlier versions: 37/37 on the flag-on dev server (:3031) and on flag-on builds of f5262dd and 83607f9
 [1/37] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
-[2/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:117:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
-[3/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:161:5 › home light › live ticker: the live component and its two endpoints, restyled
-[4/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:185:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
-[5/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:210:5 › home light › groups rail: 10 real groups, published counts, hub links
-[6/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:240:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
-[7/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:270:5 › home light › blindtest band: real count, Play the daily, modes link, played state
-[8/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:293:5 › home light › community rows and continue (guest: hidden)
-[9/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:310:5 › home light › keyboard reaches and operates every home control, pink focus ring
-[10/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:117:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
-[11/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:161:5 › home dark › live ticker: the live component and its two endpoints, restyled
-[12/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:185:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
-[13/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:210:5 › home dark › groups rail: 10 real groups, published counts, hub links
-[14/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:240:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
-[15/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:270:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
-[16/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:293:5 › home dark › community rows and continue (guest: hidden)
-[17/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:310:5 › home dark › keyboard reaches and operates every home control, pink focus ring
-[18/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:343:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
-[19/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:343:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
-[20/37] [ux-390] › e2e/ux-v1/p1.spec.ts:117:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
-[21/37] [ux-390] › e2e/ux-v1/p1.spec.ts:161:5 › home light › live ticker: the live component and its two endpoints, restyled
-[22/37] [ux-390] › e2e/ux-v1/p1.spec.ts:185:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
-[23/37] [ux-390] › e2e/ux-v1/p1.spec.ts:210:5 › home light › groups rail: 10 real groups, published counts, hub links
-[24/37] [ux-390] › e2e/ux-v1/p1.spec.ts:240:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
-[25/37] [ux-390] › e2e/ux-v1/p1.spec.ts:270:5 › home light › blindtest band: real count, Play the daily, modes link, played state
-[26/37] [ux-390] › e2e/ux-v1/p1.spec.ts:293:5 › home light › community rows and continue (guest: hidden)
-[27/37] [ux-390] › e2e/ux-v1/p1.spec.ts:310:5 › home light › keyboard reaches and operates every home control, pink focus ring
-[28/37] [ux-390] › e2e/ux-v1/p1.spec.ts:117:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
-[29/37] [ux-390] › e2e/ux-v1/p1.spec.ts:161:5 › home dark › live ticker: the live component and its two endpoints, restyled
-[30/37] [ux-390] › e2e/ux-v1/p1.spec.ts:185:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
-[31/37] [ux-390] › e2e/ux-v1/p1.spec.ts:210:5 › home dark › groups rail: 10 real groups, published counts, hub links
-[32/37] [ux-390] › e2e/ux-v1/p1.spec.ts:240:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
-[33/37] [ux-390] › e2e/ux-v1/p1.spec.ts:270:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
-[34/37] [ux-390] › e2e/ux-v1/p1.spec.ts:293:5 › home dark › community rows and continue (guest: hidden)
-[35/37] [ux-390] › e2e/ux-v1/p1.spec.ts:310:5 › home dark › keyboard reaches and operates every home control, pink focus ring
-[36/37] [ux-390] › e2e/ux-v1/p1.spec.ts:343:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
-[37/37] [ux-390] › e2e/ux-v1/p1.spec.ts:343:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
-  37 passed (41.6s)
+[2/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:122:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
+[3/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:170:5 › home light › live ticker: the live component and its two endpoints, restyled
+[4/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:194:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
+[5/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:219:5 › home light › groups rail: 10 real groups, published counts, hub links
+[6/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:258:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+[7/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:298:5 › home light › blindtest band: real count, Play the daily, modes link, played state
+[8/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:322:5 › home light › community rows and continue (guest: hidden)
+[9/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:349:5 › home light › keyboard reaches and operates every home control, pink focus ring
+[10/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:122:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
+[11/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:170:5 › home dark › live ticker: the live component and its two endpoints, restyled
+[12/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:194:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
+[13/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:219:5 › home dark › groups rail: 10 real groups, published counts, hub links
+[14/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:258:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+[15/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:298:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
+[16/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:322:5 › home dark › community rows and continue (guest: hidden)
+[17/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:349:5 › home dark › keyboard reaches and operates every home control, pink focus ring
+[18/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:382:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
+[19/37] [ux-1440] › e2e/ux-v1/p1.spec.ts:382:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
+[20/37] [ux-390] › e2e/ux-v1/p1.spec.ts:122:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
+[21/37] [ux-390] › e2e/ux-v1/p1.spec.ts:170:5 › home light › live ticker: the live component and its two endpoints, restyled
+[22/37] [ux-390] › e2e/ux-v1/p1.spec.ts:194:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
+[23/37] [ux-390] › e2e/ux-v1/p1.spec.ts:219:5 › home light › groups rail: 10 real groups, published counts, hub links
+[24/37] [ux-390] › e2e/ux-v1/p1.spec.ts:258:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+[25/37] [ux-390] › e2e/ux-v1/p1.spec.ts:298:5 › home light › blindtest band: real count, Play the daily, modes link, played state
+[26/37] [ux-390] › e2e/ux-v1/p1.spec.ts:322:5 › home light › community rows and continue (guest: hidden)
+[27/37] [ux-390] › e2e/ux-v1/p1.spec.ts:349:5 › home light › keyboard reaches and operates every home control, pink focus ring
+[28/37] [ux-390] › e2e/ux-v1/p1.spec.ts:122:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
+[29/37] [ux-390] › e2e/ux-v1/p1.spec.ts:170:5 › home dark › live ticker: the live component and its two endpoints, restyled
+[30/37] [ux-390] › e2e/ux-v1/p1.spec.ts:194:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
+[31/37] [ux-390] › e2e/ux-v1/p1.spec.ts:219:5 › home dark › groups rail: 10 real groups, published counts, hub links
+[32/37] [ux-390] › e2e/ux-v1/p1.spec.ts:258:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+[33/37] [ux-390] › e2e/ux-v1/p1.spec.ts:298:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
+[34/37] [ux-390] › e2e/ux-v1/p1.spec.ts:322:5 › home dark › community rows and continue (guest: hidden)
+[35/37] [ux-390] › e2e/ux-v1/p1.spec.ts:349:5 › home dark › keyboard reaches and operates every home control, pink focus ring
+[36/37] [ux-390] › e2e/ux-v1/p1.spec.ts:382:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
+[37/37] [ux-390] › e2e/ux-v1/p1.spec.ts:382:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
+  37 passed (3.1m)
 exit 0
