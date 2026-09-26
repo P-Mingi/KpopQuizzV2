@@ -3,15 +3,16 @@
  "owner": "P3",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:10:46.611Z",
+   "at": "2026-09-26T16:56:58.447Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/blackpink-quiz",
+   "signedIn": true,
    "counts": {
-    "landmarks": 9,
-    "pass": 7,
-    "fail": 0,
-    "missing": 1,
+    "landmarks": 15,
+    "pass": 13,
+    "fail": 1,
+    "missing": 0,
     "extra": 0,
     "absent": 1
    },
@@ -68,11 +69,101 @@
      "mismatches": []
     },
     {
-     "name": "hub header",
-     "status": "missing",
+     "name": "hub hero",
      "proto": ".hub2",
-     "impl": ".p3-hub2, .p3-head",
-     "note": "in the reference, not found in the implementation"
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(107, 101, 94)",
+       "actual": "rgb(31, 27, 23)"
+      },
+      {
+       "what": "color",
+       "expected": "rgb(107, 101, 94)",
+       "actual": "rgb(31, 27, 23)"
+      },
+      {
+       "what": "font-size",
+       "expected": "56px",
+       "actual": "16px"
+      },
+      {
+       "what": "font-weight",
+       "expected": "700",
+       "actual": "400"
+      },
+      {
+       "what": "line-height",
+       "expected": "89.6px",
+       "actual": "25.6px"
+      },
+      {
+       "what": "letter-spacing",
+       "expected": "-1.12px",
+       "actual": "normal"
+      },
+      {
+       "what": "box-shadow",
+       "expected": "rgba(31, 27, 23, 0.04) 0px 0px 0px 1px inset",
+       "actual": "none"
+      }
+     ],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
     },
     {
      "name": "section title",
@@ -99,7 +190,577 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 7
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:57:05.535Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/blackpink-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 13,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2420
+    ],
+    "implSize": [
+     1440,
+     3379
+    ],
+    "diffPct": 33.71,
+    "maskedPct": 19
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(168, 161, 152)",
+       "actual": "rgb(243, 240, 235)"
+      },
+      {
+       "what": "color",
+       "expected": "rgb(168, 161, 152)",
+       "actual": "rgb(243, 240, 235)"
+      },
+      {
+       "what": "font-size",
+       "expected": "56px",
+       "actual": "16px"
+      },
+      {
+       "what": "font-weight",
+       "expected": "700",
+       "actual": "400"
+      },
+      {
+       "what": "line-height",
+       "expected": "89.6px",
+       "actual": "25.6px"
+      },
+      {
+       "what": "letter-spacing",
+       "expected": "-1.12px",
+       "actual": "normal"
+      },
+      {
+       "what": "box-shadow",
+       "expected": "rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
+       "actual": "none"
+      }
+     ],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
+  },
+  "390-light": {
+   "at": "2026-09-26T16:57:12.780Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/blackpink-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 13,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4305
+    ],
+    "implSize": [
+     390,
+     6047
+    ],
+    "diffPct": 38.32,
+    "maskedPct": 31.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(107, 101, 94)",
+       "actual": "rgb(31, 27, 23)"
+      },
+      {
+       "what": "color",
+       "expected": "rgb(107, 101, 94)",
+       "actual": "rgb(31, 27, 23)"
+      },
+      {
+       "what": "font-size",
+       "expected": "56px",
+       "actual": "16px"
+      },
+      {
+       "what": "font-weight",
+       "expected": "700",
+       "actual": "400"
+      },
+      {
+       "what": "line-height",
+       "expected": "89.6px",
+       "actual": "25.6px"
+      },
+      {
+       "what": "letter-spacing",
+       "expected": "-1.12px",
+       "actual": "normal"
+      },
+      {
+       "what": "box-shadow",
+       "expected": "rgba(31, 27, 23, 0.04) 0px 0px 0px 1px inset",
+       "actual": "none"
+      }
+     ],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 8
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:57:20.774Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/blackpink-quiz",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 13,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4305
+    ],
+    "implSize": [
+     390,
+     6047
+    ],
+    "diffPct": 38.32,
+    "maskedPct": 31.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub hero",
+     "proto": ".hub2",
+     "impl": ".p3-hero",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub photo",
+     "proto": "#hb-hero",
+     "impl": ".p3-photo",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(168, 161, 152)",
+       "actual": "rgb(243, 240, 235)"
+      },
+      {
+       "what": "color",
+       "expected": "rgb(168, 161, 152)",
+       "actual": "rgb(243, 240, 235)"
+      },
+      {
+       "what": "font-size",
+       "expected": "56px",
+       "actual": "16px"
+      },
+      {
+       "what": "font-weight",
+       "expected": "700",
+       "actual": "400"
+      },
+      {
+       "what": "line-height",
+       "expected": "89.6px",
+       "actual": "25.6px"
+      },
+      {
+       "what": "letter-spacing",
+       "expected": "-1.12px",
+       "actual": "normal"
+      },
+      {
+       "what": "box-shadow",
+       "expected": "rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
+       "actual": "none"
+      }
+     ],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "hub actions",
+     "proto": "#hb-act",
+     "impl": ".p3-hero .p3-actions",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quizzes section",
+     "proto": "#hb-qs",
+     "impl": ".p3-qs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz controls",
+     "proto": "#hb-qs > div:nth-of-type(2)",
+     "impl": ".p3-qctl",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid main",
+     "proto": "#hb-low > div:first-child",
+     "impl": ".p3-low-main",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "lower grid side",
+     "proto": "#hb-low > div:last-child",
+     "impl": ".p3-low-side",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 8
   }
  },
  "auth": "user",

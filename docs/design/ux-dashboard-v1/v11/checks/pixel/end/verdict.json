@@ -3,15 +3,15 @@
  "owner": "P4",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:38:21.118Z",
+   "at": "2026-09-26T17:00:31.555Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -33,7 +33,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.1,0,0.1,0,0.1,0.1,0.1,0.1],\"anon_id\":\"1dbc3059-db77-4d25-bcd1-1c54b1723229\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[1.1,0.9,0,0.9,0,0,0,0],\"anon_id\":\"573e7f4f-aae5-4140-a09a-b1291b3952cb\"}"
     }
    ],
    "landmarks": [
@@ -94,20 +94,154 @@
      "name": "photocard",
      "proto": ".pcard",
      "impl": ".p4-pcard",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "color",
-       "expected": "rgb(31, 27, 23)",
-       "actual": "rgb(255, 255, 255)"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color"
      ],
-     "why": "photo"
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
+    },
+    {
+     "name": "result column",
+     "proto": ".res-in",
+     "impl": ".p4-res-in",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp line",
+     "proto": ".xpline",
+     "impl": ".p4-xpline",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "result actions",
+     "proto": ".resact",
+     "impl": ".p4-resact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "keep playing",
+     "proto": ".res-in > section.sec",
+     "impl": ".p4-keep",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 10
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:00:40.404Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1912
+    ],
+    "implSize": [
+     1440,
+     2042
+    ],
+    "diffPct": 6.28,
+    "maskedPct": 11.3
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.1,0,0.9,0.8,0,0,0,0],\"anon_id\":\"75a34093-353c-4902-9ba3-b82d0fa81e24\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stats row",
+     "proto": ".stats3",
+     "impl": ".p4-res-in .ux-stats3",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p4-resact .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p4-keep .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "photocard",
+     "proto": ".pcard",
+     "impl": ".p4-pcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color"
+     ],
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
     },
     {
      "name": "result column",
@@ -144,158 +278,16 @@
    ],
    "seconds": 8
   },
-  "1440-dark": {
-   "at": "2026-09-26T16:38:33.382Z",
-   "base": "http://localhost:3021",
-   "verdict": "fail",
-   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
-   "signedIn": true,
-   "counts": {
-    "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
-    "missing": 0,
-    "extra": 0,
-    "absent": 1
-   },
-   "overflowX": 0,
-   "pixel": {
-    "refSize": [
-     1440,
-     1912
-    ],
-    "implSize": [
-     1440,
-     2042
-    ],
-    "diffPct": 6.28,
-    "maskedPct": 11.3
-   },
-   "writes": [
-    {
-     "method": "POST",
-     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":5,\"max_score\":8,\"per_question_times\":[0.1,0.1,0.9,0.9,0.5,0.1,0.9,0.9],\"anon_id\":\"39f556ea-65f9-45e2-9308-3a3150cefa4b\"}"
-    }
-   ],
-   "landmarks": [
-    {
-     "name": "nav",
-     "proto": ".nav",
-     "impl": ".ux-nav",
-     "status": "pass",
-     "styleRef": "styles.json",
-     "mismatches": []
-    },
-    {
-     "name": "nav active pill",
-     "proto": ".links a.on",
-     "impl": ".ux-links a[aria-current=\"page\"]",
-     "status": "pass",
-     "styleRef": "styles.json",
-     "mismatches": []
-    },
-    {
-     "name": "tab bar",
-     "status": "absent",
-     "note": "in neither"
-    },
-    {
-     "name": "footer",
-     "proto": ".foot",
-     "impl": ".ux-foot",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "stats row",
-     "proto": ".stats3",
-     "impl": ".p4-res-in .ux-stats3",
-     "status": "pass",
-     "styleRef": "styles.json",
-     "mismatches": []
-    },
-    {
-     "name": "primary button",
-     "proto": ".btn-primary",
-     "impl": ".p4-resact .ux-btn-primary",
-     "status": "pass",
-     "styleRef": "styles.json",
-     "mismatches": []
-    },
-    {
-     "name": "section title",
-     "proto": ".sec-h h2",
-     "impl": ".p4-keep .ux-sec-h h2",
-     "status": "pass",
-     "styleRef": "styles.json",
-     "mismatches": []
-    },
-    {
-     "name": "photocard",
-     "proto": ".pcard",
-     "impl": ".p4-pcard",
-     "status": "fail",
-     "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "color",
-       "expected": "rgb(243, 240, 235)",
-       "actual": "rgb(255, 255, 255)"
-      }
-     ],
-     "skipped": [
-      "background-image",
-      "background-color"
-     ],
-     "why": "photo"
-    },
-    {
-     "name": "result column",
-     "proto": ".res-in",
-     "impl": ".p4-res-in",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "xp line",
-     "proto": ".xpline",
-     "impl": ".p4-xpline",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "result actions",
-     "proto": ".resact",
-     "impl": ".p4-resact",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "keep playing",
-     "proto": ".res-in > section.sec",
-     "impl": ".p4-keep",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    }
-   ],
-   "seconds": 13
-  },
   "390-light": {
-   "at": "2026-09-26T16:38:44.085Z",
+   "at": "2026-09-26T17:00:48.238Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -317,7 +309,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.9,0.1,0.4,0.1,0.1,0.1,0,0],\"anon_id\":\"feefc607-9aea-48ca-86c7-d209b9d876b2\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.9,0,0.8,0,0,0,0.8,0],\"anon_id\":\"09b28211-d635-43e8-b48c-1cb7f53a24cf\"}"
     }
    ],
    "landmarks": [
@@ -378,20 +370,16 @@
      "name": "photocard",
      "proto": ".pcard",
      "impl": ".p4-pcard",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "color",
-       "expected": "rgb(31, 27, 23)",
-       "actual": "rgb(255, 255, 255)"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color"
      ],
-     "why": "photo"
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
     },
     {
      "name": "result column",
@@ -426,18 +414,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
+   "seconds": 7
   },
   "390-dark": {
-   "at": "2026-09-26T16:38:55.025Z",
+   "at": "2026-09-26T17:00:55.220Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -459,7 +447,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.4,0.9,0,0.9,0.1,0,0.1,0.4],\"anon_id\":\"aec8238b-b7db-4766-b1f9-09ac7228cf04\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.1,0.8,0,0,0,0.8,0,0],\"anon_id\":\"1e532c37-31d6-464d-8b11-1bbe9937bcac\"}"
     }
    ],
    "landmarks": [
@@ -520,20 +508,16 @@
      "name": "photocard",
      "proto": ".pcard",
      "impl": ".p4-pcard",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "color",
-       "expected": "rgb(243, 240, 235)",
-       "actual": "rgb(255, 255, 255)"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color"
      ],
-     "why": "photo"
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
     },
     {
      "name": "result column",
@@ -568,10 +552,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
+   "seconds": 8
   }
  },
  "auth": "user",
  "shot": "full",
- "verdict": "fail"
+ "verdict": "pass"
 }

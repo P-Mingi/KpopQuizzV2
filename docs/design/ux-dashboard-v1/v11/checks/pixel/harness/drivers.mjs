@@ -253,6 +253,10 @@ async function firstPostHref(page, kind) {
 // lists style props not compared (with the reason in `why`). `seq: true` compares every
 // match in order (x, w and the vertical gap between consecutive boxes).
 
+// Photo boxes: the fill is the real photo, and the text styles only apply to the
+// initials fallback; the box, radius and photo edge are compared.
+const PHOTO = ['background-image', 'background-color', 'color', 'border-top-color', 'font-size', 'font-weight', 'line-height', 'letter-spacing'];
+
 const NAV = [
   { name: 'nav', proto: '.nav', impl: '.ux-nav', box: ['x', 'y', 'w', 'h'] },
   { name: 'nav active pill', proto: '.links a.on', impl: '.ux-links a[aria-current="page"]', box: ['h', 'y'] },
@@ -278,10 +282,12 @@ export const STATES = {
       { name: 'sections', proto: 'section.sec', impl: '.p1-home > section.ux-sec', seq: true, gapInfo: true, styles: false },
       { name: 'section title', proto: '.sec-h h2', impl: '.p1-home .ux-sec-h h2', box: ['h'] },
       { name: 'quiz card', proto: '.qcard', impl: '.p1-home .ux-qcard', box: ['w'] },
-      { name: 'quiz card photo', proto: '.qcard .qcov', impl: '.p1-home .ux-qcard .ux-qcov', box: ['w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'quiz card photo', proto: '.qcard .qcov', impl: '.p1-home .ux-qcard .ux-qcov', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'quiz card body', proto: '.qcard .qb', impl: '.p1-home .ux-qcard .ux-qb', box: ['w'] },
       { name: 'quiz cards row', proto: '#h-trend .qcard', impl: '.p1-trend .ux-qcard', seq: 'row', styles: false },
       { name: 'blindtest band', proto: '.band', impl: '.p1-band', box: ['x', 'w', 'h'] },
+      { name: 'group tile', proto: '#h-groups .gitem', impl: '.p1-gitem', box: ['w', 'h'] },
+      { name: 'group photo', proto: '#h-groups .gitem .gav', impl: '.p1-gitem .p1-gav', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
     ],
   },
   'home-guest': {
@@ -300,8 +306,10 @@ export const STATES = {
       { name: 'sections', proto: 'section.sec', impl: '.p1-home > section.ux-sec', seq: true, gapInfo: true, styles: false },
       { name: 'section title', proto: '.sec-h h2', impl: '.p1-home .ux-sec-h h2', box: ['h'] },
       { name: 'quiz card', proto: '.qcard', impl: '.p1-home .ux-qcard', box: ['w'] },
-      { name: 'quiz card photo', proto: '.qcard .qcov', impl: '.p1-home .ux-qcard .ux-qcov', box: ['w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'quiz card photo', proto: '.qcard .qcov', impl: '.p1-home .ux-qcard .ux-qcov', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'blindtest band', proto: '.band', impl: '.p1-band', box: ['x', 'w', 'h'] },
+      { name: 'group tile', proto: '#h-groups .gitem', impl: '.p1-gitem', box: ['w', 'h'] },
+      { name: 'group photo', proto: '#h-groups .gitem .gav', impl: '.p1-gitem .p1-gav', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
     ],
   },
   groups: {
@@ -312,7 +320,7 @@ export const STATES = {
       { name: 'sections', proto: 'section.sec', impl: '.ux-page section.ux-sec', seq: true, gapInfo: true, styles: false },
       { name: 'section title', proto: '.sec-h h2', impl: '.ux-sec-h h2', box: ['h'] },
       { name: 'group tile', proto: '.gitem', impl: '.p3-gitem', box: ['w', 'h'] },
-      { name: 'group photo', proto: '.gitem .gav', impl: '.p3-gitem .p3-gav', box: ['w', 'h'], skip: ['background-image', 'background-color', 'line-height', 'color', 'border-top-color'], why: 'photo (text colours only apply to the initials fallback)' },
+      { name: 'group photo', proto: '.gitem .gav', impl: '.p3-gitem .p3-gav', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'A to Z columns', proto: '.azl', impl: '.p3-azl', box: ['x', 'w'] },
     ],
   },
@@ -330,7 +338,7 @@ export const STATES = {
       { name: 'author line', proto: '.author', impl: '.p4-author', box: ['x', 'y', 'w', 'h'] },
       { name: 'sections', proto: '.col.pg > section', impl: '.p4-intro > section', seq: true, gapInfo: true, styles: false },
       { name: 'crumb', proto: '.crumb', impl: '.p4-page .ux-crumb', box: ['x', 'y', 'w', 'h'] },
-      { name: 'cover', proto: '.qcover', impl: '.p4-cover', box: ['x', 'y', 'w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'cover', proto: '.qcover', impl: '.p4-cover', box: ['x', 'y', 'w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'H1', proto: 'h1.qtitle', impl: '.p4-page h1', box: ['x', 'y', 'w'] },
       { name: 'actions', proto: '.qact', impl: '.p4-act', box: ['x', 'w', 'h'] },
       { name: 'primary button', proto: '.qact .btn-primary', impl: '.p4-act .ux-btn-primary', box: ['h'] },
@@ -452,7 +460,7 @@ export const STATES = {
       { name: 'stepper', proto: '.stepper', impl: '.p5-stepper', box: ['x', 'w', 'h'] },
       { name: 'fields', proto: '.cpane.on > .field', impl: '.p5-pane > .ux-field', seq: true, gapInfo: true, styles: false },
       { name: 'card preview', proto: '.qcard', impl: '.p5-card', box: ['w', 'h'] },
-      { name: 'sticky bar', proto: '.cbar', impl: '.p5-bar', box: ['vx', 'vy', 'w', 'h'], relTo: 'stepper', why: 'short step: the bar follows the content; top measured from the stepper (the SEO-locked intro above is one line shorter)' },
+      { name: 'sticky bar', proto: '.cbar', impl: '.p5-bar', box: ['vx', 'vy', 'w', 'h'], relTo: 'stepper', phoneRelTo: null, why: '1440 short step: the bar follows the content (on phones it is pinned to the viewport bottom, compared as is); top measured from the stepper (the SEO-locked intro above is one line shorter)' },
       { name: 'next button', proto: '#cnext', impl: '.p5-next', box: ['h'] },
     ],
   },
@@ -521,7 +529,7 @@ export const STATES = {
       { name: 'orb stage', proto: '.orbw', impl: '.p6-orbw', box: ['x', 'y', 'w', 'h'] },
       { name: 'listening line', proto: '.lstate', impl: '.p6-lstate', box: ['x', 'y', 'w', 'h'] },
       { name: 'reveal', proto: '.reveal', impl: '.p6-reveal', box: ['y', 'h'], why: 'width and x follow the song and artist text (centred block)' },
-      { name: 'reveal cover', proto: '.reveal .cv', impl: '.p6-reveal .p6-cv, .p6-cv', box: ['w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'reveal cover', proto: '.reveal .cv', impl: '.p6-reveal .p6-cv, .p6-cv', box: ['w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'answer buttons', proto: '.btans > *, .answers > *', impl: '.p6-ans', seq: true },
     ],
   },
@@ -546,6 +554,8 @@ export const STATES = {
       { name: 'feed post', proto: '.post', impl: '.p8-feed .ux-post', box: ['x', 'w'] },
       { name: 'rail', proto: '.rail', impl: '.p8-rail', box: ['x', 'w'] },
       { name: 'rail panel', proto: '.rail>section', impl: '.p8-rail > .ux-panel', box: ['w'] },
+      { name: 'phone rail', proto: '.mrail', impl: '.p8-mrail', box: ['x', 'w'] },
+      { name: 'feed controls', proto: '.fctl', impl: '.p8-fctl', box: ['x', 'y', 'w', 'h'] },
       { name: 'feed tab on', proto: '.utabs button.on', impl: '.p8-fctl [aria-selected="true"]', box: ['h'] },
     ],
   },
@@ -565,7 +575,7 @@ export const STATES = {
     lm: [...NAV,
       { name: 'crumb', proto: '#pv .crumb', impl: '.p8-pv .ux-crumb', box: ['x', 'y', 'w'] },
       { name: 'post title', proto: '.post-t', impl: '.p8-post-t', box: ['x', 'w'] },
-      { name: 'cover', proto: '.post-cover', impl: '.p8-post-cover', box: ['x', 'w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'cover', proto: '.post-cover', impl: '.p8-post-cover', box: ['x', 'w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'section title', proto: '.sec-h h2', impl: '.p8-post-page .ux-sec-h h2', box: ['h'] },
     ],
   },
@@ -614,7 +624,7 @@ export const STATES = {
     lm: [...NAV,
       { name: 'crumb', proto: '.crumb', impl: '.p3-hub .ux-crumb', box: ['x', 'y', 'w'] },
       { name: 'hub hero', proto: '.hub2', impl: '.p3-hero', box: ['x', 'y', 'w'] },
-      { name: 'hub photo', proto: '#hb-hero', impl: '.p3-photo', box: ['x', 'w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'hub photo', proto: '#hb-hero', impl: '.p3-photo', box: ['x', 'w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'hub actions', proto: '#hb-act', impl: '.p3-hero .p3-actions', box: ['x', 'w', 'h'] },
       { name: 'quizzes section', proto: '#hb-qs', impl: '.p3-qs', box: ['x', 'w'] },
       { name: 'quiz controls', proto: '#hb-qs > div:nth-of-type(2)', impl: '.p3-qctl', box: ['x', 'w', 'h'] },
@@ -631,7 +641,7 @@ export const STATES = {
     lm: [...NAV,
       { name: 'crumb', proto: '.crumb', impl: '.p3-hub .ux-crumb', box: ['x', 'y', 'w'] },
       { name: 'hub hero', proto: '.hub2', impl: '.p3-hero', box: ['x', 'y', 'w'] },
-      { name: 'hub photo', proto: '#hb-hero', impl: '.p3-photo', box: ['x', 'w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
+      { name: 'hub photo', proto: '#hb-hero', impl: '.p3-photo', box: ['x', 'w', 'h'], skip: PHOTO, why: 'photo' },
       { name: 'hub actions', proto: '#hb-act', impl: '.p3-hero .p3-actions', box: ['x', 'w', 'h'] },
       { name: 'quizzes section', proto: '#hb-qs', impl: '.p3-qs', box: ['x', 'w'] },
       { name: 'quiz controls', proto: '#hb-qs > div:nth-of-type(2)', impl: '.p3-qctl', box: ['x', 'w', 'h'] },

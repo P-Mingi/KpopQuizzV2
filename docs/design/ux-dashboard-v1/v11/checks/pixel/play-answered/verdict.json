@@ -3,7 +3,7 @@
  "owner": "P4",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:36:31.285Z",
+   "at": "2026-09-26T16:59:23.445Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -27,7 +27,7 @@
      900
     ],
     "diffPct": 0.42,
-    "maskedPct": 5.5
+    "maskedPct": 5.9
    },
    "writes": [],
    "landmarks": [
@@ -73,7 +73,8 @@
      "impl": ".p4-ans.is-ok",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer picked wrong",
@@ -81,7 +82,8 @@
      "impl": ".p4-ans.is-no",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer rest",
@@ -89,7 +91,8 @@
      "impl": ".p4-ans:not(.is-ok):not(.is-no)",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "fact",
@@ -111,7 +114,7 @@
    "seconds": 7
   },
   "1440-dark": {
-   "at": "2026-09-26T16:36:38.551Z",
+   "at": "2026-09-26T16:59:30.303Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -134,8 +137,8 @@
      1440,
      900
     ],
-    "diffPct": 0.1,
-    "maskedPct": 5.6
+    "diffPct": 0.42,
+    "maskedPct": 5.7
    },
    "writes": [],
    "landmarks": [
@@ -181,7 +184,8 @@
      "impl": ".p4-ans.is-ok",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer picked wrong",
@@ -189,7 +193,8 @@
      "impl": ".p4-ans.is-no",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer rest",
@@ -197,7 +202,8 @@
      "impl": ".p4-ans:not(.is-ok):not(.is-no)",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "fact",
@@ -219,15 +225,15 @@
    "seconds": 7
   },
   "390-light": {
-   "at": "2026-09-26T16:36:45.586Z",
+   "at": "2026-09-26T16:59:39.032Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
    "signedIn": true,
    "counts": {
     "landmarks": 9,
-    "pass": 8,
-    "fail": 1,
+    "pass": 9,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 0
@@ -242,8 +248,8 @@
      390,
      844
     ],
-    "diffPct": 3.32,
-    "maskedPct": 18.4
+    "diffPct": 5.97,
+    "maskedPct": 22.1
    },
    "writes": [],
    "landmarks": [
@@ -289,21 +295,17 @@
      "impl": ".p4-ans.is-ok",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer picked wrong",
      "proto": ".answers .ans.no",
      "impl": ".p4-ans.is-no",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box h",
-       "expected": 65.2,
-       "actual": 56
-      }
-     ]
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer rest",
@@ -311,7 +313,8 @@
      "impl": ".p4-ans:not(.is-ok):not(.is-no)",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "fact",
@@ -330,18 +333,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 7
+   "seconds": 8
   },
   "390-dark": {
-   "at": "2026-09-26T16:36:52.609Z",
+   "at": "2026-09-26T16:59:43.557Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
    "signedIn": true,
    "counts": {
     "landmarks": 9,
-    "pass": 8,
-    "fail": 1,
+    "pass": 9,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 0
@@ -356,8 +359,8 @@
      390,
      844
     ],
-    "diffPct": 4.39,
-    "maskedPct": 19.1
+    "diffPct": 6.26,
+    "maskedPct": 21.3
    },
    "writes": [],
    "landmarks": [
@@ -403,21 +406,17 @@
      "impl": ".p4-ans.is-ok",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer picked wrong",
      "proto": ".answers .ans.no",
      "impl": ".p4-ans.is-no",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box h",
-       "expected": 65.2,
-       "actual": 56
-      }
-     ]
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "answer rest",
@@ -425,7 +424,8 @@
      "impl": ".p4-ans:not(.is-ok):not(.is-no)",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the real answer text wraps"
     },
     {
      "name": "fact",
@@ -444,10 +444,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 7
+   "seconds": 5
   }
  },
  "auth": "user",
  "shot": "viewport",
- "verdict": "fail"
+ "verdict": "pass"
 }

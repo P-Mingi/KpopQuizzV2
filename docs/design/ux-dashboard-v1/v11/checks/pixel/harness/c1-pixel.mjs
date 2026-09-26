@@ -70,7 +70,8 @@ function measureInPage({ lms, props, scope }) {
     if (!els.length) { out[l.name] = null; continue; }
     const cs = getComputedStyle(els[0]);
     const val = (p) => cs.getPropertyValue(p).replace(/url\((["']?)(data:[^;,]{0,40})[^)]*\1\)/g, 'url($2...)').replace(/url\((["']?)([^)]{0,80})[^)]*\1\)/g, 'url($2)');
-    out[l.name] = { n: els.length, boxes: els.slice(0, 24).map(box), style: Object.fromEntries(props.map((p) => [p, val(p)])) };
+    const after = getComputedStyle(els[0], '::after');
+    out[l.name] = { n: els.length, boxes: els.slice(0, 24).map(box), style: Object.fromEntries(props.map((p) => [p, val(p)])), afterShadow: after.content !== 'none' ? after.boxShadow : 'none' };
   }
   return out;
 }
@@ -139,11 +140,12 @@ function compare(key, lms, proto, impl) {
     } else {
       // relTo: y / vy measured from another landmark's top (the content above it is SEO-locked
       // copy or real data of another height), on both sides
-      const a = l.relTo ? { p: proto[l.relTo]?.boxes[0], i: impl[l.relTo]?.boxes[0] } : null;
+      const rel = key.startsWith('390-') && 'phoneRelTo' in l ? l.phoneRelTo : l.relTo;
+      const a = rel ? { p: proto[rel]?.boxes[0], i: impl[rel]?.boxes[0] } : null;
       for (const part of (key.startsWith('390-') && l.phoneBox) ? l.phoneBox : (l.box ?? [])) {
         const off = a && (part === 'y' || part === 'vy') && a.p && a.i ? { p: a.p[part], i: a.i[part] } : { p: 0, i: 0 };
         const ev = p.boxes[0][part] - off.p; const av = i.boxes[0][part] - off.i;
-        if (Math.abs(av - ev) > TOL_BOX) mism.push({ what: `box ${part}${off.p || off.i ? ` (from ${l.relTo})` : ''}`, expected: +ev.toFixed(1), actual: +av.toFixed(1) });
+        if (Math.abs(av - ev) > TOL_BOX) mism.push({ what: `box ${part}${off.p || off.i ? ` (from ${rel})` : ''}`, expected: +ev.toFixed(1), actual: +av.toFixed(1) });
       }
     }
     let styleRef = 'live prototype';
@@ -159,6 +161,9 @@ function compare(key, lms, proto, impl) {
         // H1 radius is its focus style) is not a visual difference
         const bare = (st) => /rgba\(0, 0, 0, 0\)|transparent/.test(st['background-color']) && (st['background-image'] ?? 'none') === 'none' && parseFloat(st['border-top-width']) === 0 && (st['box-shadow'] ?? 'none') === 'none';
         if (prop === 'border-radius' && bare(ref) && bare(i.style)) continue;
+        // a photo edge drawn by an ::after overlay (over the <img>) is the same paint as the
+        // prototype's inset shadow on the background-image box
+        if (prop === 'box-shadow' && i.style[prop] === 'none' && i.afterShadow && styleEqual(String(ref[prop]), i.afterShadow, prop)) continue;
         if (!styleEqual(String(ref[prop]), String(i.style[prop]), prop)) mism.push({ what: prop, expected: String(ref[prop]).slice(0, 200), actual: String(i.style[prop]).slice(0, 200) });
       }
     }

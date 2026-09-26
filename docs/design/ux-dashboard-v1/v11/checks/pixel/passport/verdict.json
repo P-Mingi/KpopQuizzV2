@@ -3,7 +3,7 @@
  "owner": "P10",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:50:12.339Z",
+   "at": "2026-09-26T17:02:53.135Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/u/testtest",
@@ -105,7 +105,8 @@
      "impl": ".p10-xpw",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
     },
     {
      "name": "stats",
@@ -132,10 +133,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 7
+   "seconds": 5
   },
   "1440-dark": {
-   "at": "2026-09-26T16:50:18.424Z",
+   "at": "2026-09-26T17:02:58.409Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/u/testtest",
@@ -237,7 +238,8 @@
      "impl": ".p10-xpw",
      "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": []
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
     },
     {
      "name": "stats",
@@ -264,18 +266,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 5
   },
   "390-light": {
-   "at": "2026-09-26T16:50:24.149Z",
+   "at": "2026-09-26T17:03:02.933Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/u/testtest",
    "signedIn": false,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -370,15 +372,10 @@
      "name": "xp bar",
      "proto": ".xpw",
      "impl": ".p10-xpw",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box y",
-       "expected": 402.6,
-       "actual": 378.6
-      }
-     ]
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
     },
     {
      "name": "stats",
@@ -405,18 +402,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 4
   },
   "390-dark": {
-   "at": "2026-09-26T16:50:30.154Z",
+   "at": "2026-09-26T17:03:06.799Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/u/testtest",
    "signedIn": false,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -511,15 +508,10 @@
      "name": "xp bar",
      "proto": ".xpw",
      "impl": ".p10-xpw",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box y",
-       "expected": 402.6,
-       "actual": 378.6
-      }
-     ]
+     "mismatches": [],
+     "why": "phone: the identity block above wraps with the real name, bias and badge (data)"
     },
     {
      "name": "stats",
@@ -546,11 +538,11 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 4
   }
  },
  "auth": "guest",
  "shot": "full",
  "note": "checked on /u/testtest as a guest (signed-in /me NOT verified, owner decision 1): no owner controls",
- "verdict": "fail"
+ "verdict": "pass"
 }
