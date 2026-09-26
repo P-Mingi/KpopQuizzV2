@@ -1,0 +1,48 @@
+# C3-003: the v11 home never keeps a render that lost a read in the page cache
+# Flag-on production build of 64916fc (next build + next start, NEXT_PUBLIC_UX_V1=1, :4003),
+# 2026-09-26, machine load average 40 to 60 (other projects). Read only: GET / only.
+# Probe: GET / (server HTML without scripts): x-nextjs-cache, hub links (/<slug>-quiz),
+# groups rail ("All N groups"), quiz of the day (?daily=quiz), bytes.
+
+## 1. Build: the prerender met the load (the same situation as C3's dcc3159 build)
+
+build log (next build):
+  [ux-home] qotd timed out after 5000ms - using fallback
+  [ux-home] groups timed out after 5000ms - using fallback
+  [ux-home] community timed out after 5000ms - using fallback
+  [ux-home] reads failed (qotd, groups, community): rendered without them, revalidate in 30s
+route table:            ┌ ○ /   30s   1y        (a complete render: 10m)
+prerender-manifest.json: routes["/"].initialRevalidateSeconds = 30
+
+## 2. Runtime, database reachable: the degraded build page lives one request
+
+20:42:29  status 200  x-nextjs-cache STALE  hub links 8   groups rail no   quiz of the day no   bytes 32548
+20:44:48  status 200  x-nextjs-cache HIT    hub links 19  groups rail yes  quiz of the day yes  bytes 45324
+20:45:10 .. 20:46:14 (4 more)  HIT  hub links 19  groups rail yes  quiz of the day yes
+(C3 saw the same degraded build page served as HIT for 8 to 36 minutes.)
+
+## 3. Runtime, database unreachable: the complete page stays
+
+Setup: the server restarted behind a local CONNECT proxy (NODE_USE_ENV_PROXY) that refuses
+every connection to the database host (a DB outage as the server sees it); the groups rail's
+data-cache entry removed so the regeneration has to read it. The complete page of section 2
+is stale (revalidate 30 from the manifest after a restart).
+
+20:48:12  first request of the cold server: the client gave up after 5 min (load ~60), no content
+20:53:41  status 200  x-nextjs-cache STALE  hub links 19  groups rail yes  quiz of the day yes  bytes 45324
+20:54:02  status 200  x-nextjs-cache HIT    hub links 19  groups rail yes  quiz of the day yes  bytes 45324
+20:54:23 .. 20:55:46 (5 more)  STALE / HIT  hub links 19  groups rail yes  quiz of the day yes
+server log, each regeneration (4 times):
+  [ux-home] groups failed: Error: fetchAllRows: TypeError: fetch failed
+  ⨯ Error: [ux-home] reads failed (groups): keeping the cached page, retry soon
+proxy log: 10 refused database connections, 18:53:39Z to 18:55:46Z
+
+## 4. Runtime, database reachable again: regenerated within one request
+
+20:56:18  status 200  x-nextjs-cache STALE  hub links 19  groups rail yes  quiz of the day yes  bytes 45324
+20:56:40  status 200  x-nextjs-cache HIT    hub links 19  groups rail yes  quiz of the day yes  bytes 45324
+20:57:00 .. 20:57:20 (2 more)  HIT  hub links 19
+
+Unit tests (p1.test.ts, "a render that lost a read is never kept in the page cache"):
+phase detection, throw at runtime / 30 s at build, the 15-minute hold window, Next's own
+signals still re-thrown.

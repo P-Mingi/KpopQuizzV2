@@ -15,7 +15,10 @@ export function GroupsRail({ groups }: { groups: RailGroup[] }): React.ReactElem
       {groups.map((g) => (
         <Link key={g.slug} href={`/${g.slug}-quiz`} className="p1-gitem">
           <span className={`p1-gav${g.photo ? '' : ' is-ini'}`} aria-hidden="true">
-            {g.photo ? <Image src={g.photo} alt="" fill sizes="80px" className="p1-img" /> : g.initials}
+            {/* A fixed 80 x 80 image (C3-008): next/image gives it 1x / 2x candidates
+                (96 / 220 w). With fill + sizes="80px" a DPR 3 phone needs 240 w, finds
+                no image size between 220 and the first device size and loads 640 w. */}
+            {g.photo ? <Image src={g.photo} alt="" width={80} height={80} className="p1-img p1-img-fix" /> : g.initials}
           </span>
           <span className="p1-gn">{g.name}</span>
           <span className={`p1-gc ux-num${g.isNew ? ' is-new' : ''}`}>

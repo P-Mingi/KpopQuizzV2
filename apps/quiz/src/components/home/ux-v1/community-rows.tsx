@@ -6,14 +6,14 @@ import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 
 import { UxRow } from '@/components/ux-v1/panel';
 
-import type { CommunityRow, VerseSpaceLink } from '@/lib/ux-v1/p1/home-data';
+import type { CommunityRow, HomeVerse } from '@/lib/ux-v1/p1/home-data';
 
 /** From the community (16.7: 3 rows). Real rows only: today's debate and, while the
- *  Verse is public, the latest thread and featured essay of the spaces that opted
- *  into the feed. Under them, compact lines that keep the live home's community
- *  links: the "Fandom spaces on Verse" links (while the Verse is public) and the
- *  two Discord links. */
-export function CommunityRows({ rows, spaces = [] }: { rows: CommunityRow[]; spaces?: VerseSpaceLink[] }): React.ReactElement {
+ *  Verse is public, the latest thread and featured essay of the published spaces that
+ *  opted into the feed. Under them, compact lines that keep the live home's community
+ *  strips: the Verse strip while the Verse is public (its sentence, the published
+ *  spaces, Explore Verse) and the two Discord links. */
+export function CommunityRows({ rows, verse = null }: { rows: CommunityRow[]; verse?: HomeVerse | null }): React.ReactElement {
   return (
     <>
       {rows.length > 0 ? (
@@ -33,16 +33,16 @@ export function CommunityRows({ rows, spaces = [] }: { rows: CommunityRow[]; spa
           ))}
         </div>
       ) : null}
-      {spaces.length > 0 ? (
+      {verse ? (
         <p className="p1-spaces">
           <span>Fandom spaces on Verse:</span>{' '}
-          {spaces.map((s, i) => (
+          <span className="p1-vs">Each fandom&apos;s home: members, discography, timeline and community, built on open data and run by fans.</span>{' '}
+          {verse.spaces.map((s) => (
             <Fragment key={s.slug}>
               <Link href={`/verse/${s.slug}`} className="ux-lnk" aria-label={`${s.label}, the ${s.name} space`}>{s.label}</Link>
-              {i < spaces.length - 1 ? <i aria-hidden="true">·</i> : null}
+              <i aria-hidden="true">·</i>
             </Fragment>
           ))}
-          <i aria-hidden="true">·</i>
           <Link href="/verse" className="ux-lnk">Explore Verse</Link>
         </p>
       ) : null}
