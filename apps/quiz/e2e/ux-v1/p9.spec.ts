@@ -64,6 +64,20 @@ async function open(page: Page, theme: Theme, stubs?: (p: Page) => Promise<void>
   return { writes, api };
 }
 
+/** open(), signed in: /api/auth/me fails open (signed out) when Supabase auth answers slower than 2.5 s
+ *  (seen under load), so a load that came back as a guest is reloaded (the assertions stay the same). */
+async function openSignedIn(page: Page, theme: Theme, stubs?: (p: Page) => Promise<void>): Promise<Opened | null> {
+  const o = await open(page, theme, stubs);
+  if (!o) return null;
+  for (let i = 0; i < 3 && (await page.locator('.ux-avabtn').count()) === 0; i++) {
+    await page.reload();
+    await waitHydrated(page);
+    await page.waitForFunction(() => !document.querySelector('.p9-pane:not([hidden]) .p9-pin-wait'), undefined, { timeout: 30_000 });
+  }
+  expect(await page.locator('.ux-avabtn').count(), 'the shell shows the signed-in account button').toBeGreaterThan(0);
+  return o;
+}
+
 function tab(page: Page, name: string): ReturnType<Page['getByRole']> {
   return page.getByRole('tab', { name });
 }
@@ -394,7 +408,7 @@ signedInTest.describe('leaderboard signed in (test user, read only)', () => {
         expect(s.player.rank).toBe((count ?? 0) + 1);
       }
 
-      const o = await open(page, theme);
+      const o = await openSignedIn(page, theme);
       signedInTest.skip(!o, 'UX v1 flag is OFF on this build');
       const warPin = page.locator('#lb-panel-war .ux-pin');
       await expect(warPin).toHaveClass(/is-you/);
@@ -441,7 +455,7 @@ signedInTest.describe('leaderboard signed in (test user, read only)', () => {
         player: { rank: 212, xp: 640, line: 'Lv 7 · STAY' },
         creator: { rank: 38, quizzes: 3, plays: 312 },
       };
-      const o = await open(page, theme, async (p) => {
+      const o = await openSignedIn(page, theme, async (p) => {
         await p.route((u) => u.pathname === '/api/ux-v1/p9/standing', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(fixture) }));
       });
       signedInTest.skip(!o, 'UX v1 flag is OFF on this build');
