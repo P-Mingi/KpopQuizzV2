@@ -1,0 +1,14 @@
+# flag-off parity: A = origin/feat/ux-v1-v11 a20e709, B = ux11/p1-home 7a4cb84 (both next build + next start, NEXT_PUBLIC_UX_V1 unset; A :4001, B :4002)
+## structure (DOM, head, meta, canonical, JSON-LD, text, links, stylesheets; JS chunk tags + inline RSC payload removed)
+IDENTICAL (structure)  /  status 200/200  raw bytes 228585/228543  normalised 142749/142749  js chunks 13/13
+IDENTICAL (structure)  /pt  status 200/200  raw bytes 149608/149565  normalised 92218/92218  js chunks 14/14
+all 2 pages identical after normalising build ids and hashed asset names
+## bytes (build ids + hashed asset names normalised); what remains differs only in the RSC client-module ids (two build folders)
+DIFFERENT (bytes)  /  status 200/200  raw bytes 228585/228543  normalised 226842/226800  js chunks 13/13
+DIFFERENT (bytes)  /pt  status 200/200  raw bytes 149565/149565  normalised 147991/147991  js chunks 14/14
+2 page(s) differ
+## JS weight (every chunk the served HTML references) + P1 code markers in those chunks
+http://localhost:4001/  js files 13  708,864 B  P1 markers in JS: none  in HTML: none
+http://localhost:4001/pt  js files 14  707,239 B  P1 markers in JS: none  in HTML: none
+http://localhost:4002/  js files 13  709,913 B  P1 markers in JS: QotdNote,BlindtestBand  in HTML: none
+http://localhost:4002/pt  js files 14  707,242 B  P1 markers in JS: none  in HTML: none
