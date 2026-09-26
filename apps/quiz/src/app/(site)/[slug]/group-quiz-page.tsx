@@ -19,7 +19,7 @@ import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 
-function generateDefaultIntro(group: Group): string {
+export function generateDefaultIntro(group: Group): string {
   if (group.quiz_count === 0) {
     return `No ${group.name} quizzes yet - be the first to create one! Think you know ${group.name} well enough to challenge other ${group.fandom_name}s? Create a free quiz at kpopquiz.org.`;
   }
@@ -34,7 +34,7 @@ function generateDefaultIntro(group: Group): string {
 // same array feeds the visible <dl> and the FAQPage JSON-LD, so the markup and the
 // page always agree (Google requires the FAQ answers to be visible on the page).
 const FAQ_PLACEHOLDER_FANDOMS = new Set(['fan', '']);
-function buildGroupFaqs(
+export function buildGroupFaqs(
   group: Group,
   memberCount: number | null,
   blindtestQualifies: boolean,
