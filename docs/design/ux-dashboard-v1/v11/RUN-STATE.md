@@ -16,9 +16,9 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P3 | ux11/p3-groups | fix loop 1 running (C1-001, hub noscript links, cached failed reads) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | fix loop 1 running (C3-004) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
-| P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
+| P6 | ux11/p6-blindtest | fix loop 1 running (C3-009) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
-| P8 | ux11/p8-community | fix loop 1 running (C3-007) | 97f02e0 | 0 | v11/reports/P8.md |
+| P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
@@ -105,6 +105,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P8 fix merged (249efd4): the feed panel shows the shared focus ring (one `outline: none` removed; the new keyboard case fails with it back). P6 started on C3-009.
 - 2026-09-26 C2 loop 1 done and merged (e95c0ef; issue files A0.md and P3.md were add/add conflicts with C1's, resolved as the union of both lists). Must-prove passes: QOTD pick/average/label, ticker, /groups counts and hub sorts, 79 playlists, daily one try, badge rarity, sign-in returns to the action, mark-read payloads, the Verse gate (VERSE_PUBLIC=false run too), ranked 233 unit tests + 503 before any write, P8 writes 503 not_live, header routes refuse private addresses + 503 bucket_missing, nested challenge attempt routes resolve on both prod build and dev (P8's dev 404 does not reproduce). Data guard: counts only grew, test user unchanged, no production write. New issues routed: P1 C2-002/004/005, P3 C2-006/007, P4 C2-003.
 - 2026-09-26 A0 fix loop 1 merged (eb09ce6): /api/quizzes/count 404 unless the flag is on (C2-001); drop zone resting look on open, 2px ring only for keyboard focus (C1-002). tsc 0, unit 805/805.
 - 2026-09-26 C3 own checks done (local branch edb382e): e2e 542 pass / 1 flaky (C3-004 race) / 0 fail / 8 skipped by design of 551; axe 0 serious/critical on all 190 v11 state runs (legacy contrast failures exist flag off too, fewer flag on); keyboard ok on 14 pages except C3-007; all 9 sheets pass; live regions ok; SEO fields equal on 34 URLs, robots.txt identical, sitemap 2998 both ways; LCP (390, 4x CPU, slow 4G, gzip as Vercel) home 2.22 vs 3.04 s, quiz 2.34 vs 2.42, hub 2.30 vs 3.25, blindtest 2.22 vs 2.05, CLS <= 0.0003; Lighthouse pending the owner. Issues: P1 C3-003/006/008, P3 C3-001/002, P4 C3-004, P5 C3-005 (low), P6 C3-009 (low), P8 C3-007. Fix loop 1 now: A0, P3, P1, P4, P8; P5 and P6 next.
