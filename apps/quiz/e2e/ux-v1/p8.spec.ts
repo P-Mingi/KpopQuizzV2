@@ -291,6 +291,43 @@ for (const theme of THEMES) {
       expect(h.writes).toEqual([]);
     });
 
+    test('keyboard (C3-007): the feed panel is a Tab stop and shows the 16.9 focus ring (A0 shared style)', async ({ page }, info) => {
+      const h = await harness(page, theme);
+      test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
+      const panel = page.locator('.p8-feed[role="tabpanel"]');
+      await expect(panel).toHaveAttribute('tabindex', '0');
+      // From the selected tab, Tab walks the controls in reading order until the panel.
+      await page.locator('.p8-fctl [role="tab"][aria-selected="true"]').focus();
+      let reached = false;
+      for (let i = 0; i < 6 && !reached; i++) {
+        await page.keyboard.press('Tab');
+        reached = await panel.evaluate((el) => el === document.activeElement);
+      }
+      expect(reached, 'the feed panel is reached with Tab').toBe(true);
+      const ring = await panel.evaluate((el) => {
+        const probe = document.createElement('span');
+        probe.style.color = 'var(--ux-pink)';
+        el.parentElement!.appendChild(probe);
+        const pink = getComputedStyle(probe).color;
+        probe.remove();
+        const cs = getComputedStyle(el);
+        return { visible: el.matches(':focus-visible'), style: cs.outlineStyle, width: cs.outlineWidth, color: cs.outlineColor, offset: cs.outlineOffset, pink };
+      });
+      expect(ring.visible).toBe(true);
+      expect(ring, 'A0 shared ring: 2px solid pink, 2px offset').toMatchObject({ style: 'solid', width: '2px', offset: '2px', color: ring.pink });
+      // The ring as a fan sees it (report image): the panel's top edge, in the viewport.
+      await panel.scrollIntoViewIfNeeded();
+      const box = (await panel.boundingBox())!;
+      const vp = page.viewportSize()!;
+      const x = Math.max(0, box.x - 8);
+      const y = Math.max(0, box.y - 8);
+      await info.attach(`feed-focus-${theme}.png`, {
+        body: await page.screenshot({ clip: { x, y, width: Math.min(box.width + 16, vp.width - x), height: Math.max(40, Math.min(160, vp.height - y)) } }),
+        contentType: 'image/png',
+      });
+      expect(h.writes).toEqual([]);
+    });
+
     test('editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in', async ({ page, request }, info) => {
       test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
