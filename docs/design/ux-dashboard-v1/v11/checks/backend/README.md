@@ -34,10 +34,10 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 |---|---:|
 | PASS | 173 |
 | FAIL | 7 |
-| NOT VERIFIED | 18 |
+| NOT VERIFIED | 33 |
 | PENDING | 0 |
 | N/A | 30 |
-| TODO | 39 |
+| TODO | 24 |
 | Total | 267 |
 
 ## Rows
@@ -240,19 +240,19 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R281](R281.md) | P6 | Song breakdown with covers | EXISTS | N/A (client) | - |
 | [R282](R282.md) | P6 | Level card (rank title, xp) | DEAD -> wire | NOT VERIFIED (bt_players 0 rows, unwired: owner item 5) | - |
 | [R283](R283.md) | P6 | Daily results: board + come back tomorrow | EXISTS | PASS | - |
-| R293 | 14. | Play a ranked run | - | TODO | - |
-| R294 | 14. | Submit run | - | TODO | - |
-| R295 | 14. | Daily cap 15 | - | TODO | - |
-| R296 | 14. | Quit = recorded | - | TODO | - |
-| R297 | 14. | Season score | - | TODO | - |
-| R298 | 14. | Tiers + divisions | - | TODO | - |
-| R299 | 14. | Ladder tabs Global / My fandom / Following | - | TODO | - |
-| R300 | 14. | Your card (tier, score, best 5, progress to next) | - | TODO | - |
-| R301 | 14. | Your ranked runs | - | TODO | - |
-| R302 | 14. | Season impact block on results | - | TODO | - |
-| R303 | 14. | Placement 3/5 | - | TODO | - |
-| R304 | 14. | Rewards | - | TODO | - |
-| R305 | 14. | Rank title card (Idol, xp) | - | TODO | - |
+| [R293](R293.md) | P7 | Play a ranked run | Play a ranked run | NOT VERIFIED until v11-p7-ranked.sql (fail-soft + unit proven) | - |
+| [R294](R294.md) | P7 | Submit run | Submit run | NOT VERIFIED until v11-p7-ranked.sql (server scoring unit-proven) | - |
+| [R295](R295.md) | P7 | Daily cap 15 | Daily cap 15 | NOT VERIFIED live (needs the migration); limit unit-proven | - |
+| [R296](R296.md) | P7 | Quit = recorded | Quit = recorded | NOT VERIFIED live; unit-proven | - |
+| [R297](R297.md) | P7 | Season score | Season score | NOT VERIFIED live; unit-proven | - |
+| [R298](R298.md) | P7 | Tiers + divisions | Tiers + divisions | NOT VERIFIED live; mapping unit-proven | - |
+| [R299](R299.md) | P7 | Ladder tabs Global / My fandom / Following | Ladder tabs Global / My fandom / Following | NOT VERIFIED until the migration (fail-soft proven) | - |
+| [R300](R300.md) | P7 | Your card (tier, score, best 5, progress to next) | Your card (tier, score, best 5, progress to next) | NOT VERIFIED until the migration (fail-soft proven) | - |
+| [R301](R301.md) | P7 | Your ranked runs | Your ranked runs | NOT VERIFIED until the migration | - |
+| [R302](R302.md) | P7 | Season impact block on results | Season impact block on results | NOT VERIFIED until the migration; view unit-proven | - |
+| [R303](R303.md) | P7 | Placement 3/5 | Placement 3/5 | NOT VERIFIED until the migration; unit-proven | - |
+| [R304](R304.md) | P7 | Rewards | Rewards | NOT VERIFIED (shown as designed, not built: owner decision 18) | - |
+| [R305](R305.md) | P7 / P6 | Rank title card (Idol, xp) | Rank title card (Idol, xp) | NOT VERIFIED (bt_players 0 rows, unwired) | - |
 | R311 | 15. | Auth gates (guest vs signed-in) | - | TODO | - |
 | R312 | 15. | Guest play | - | TODO | - |
 | R313 | 15. | SEO | - | TODO | - |
@@ -284,7 +284,7 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R347](R347.md) | P6 | Blindtest game · Autoplay blocked state | "Tap to play the clip" | PASS | - |
 | [R348](R348.md) | P6 | Blindtest results · Song row play button | Replays that clip | N/A (client, preview URL) | - |
 | [R349](R349.md) | P6 | Blindtest · Daily one try | Second attempt goes to the board | PASS (structure + p6.spec); second real attempt NOT VERIFIED (write) | - |
-| R350 | v10 | Ranked · Target number | - | TODO | - |
+| [R350](R350.md) | P7 | Ranked · Target number | Lowest of the best 5 runs, list sorted desc, sum shown | NOT VERIFIED until the migration; unit-proven | - |
 | [R351](R351.md) | P3 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | Server-rendered; counts from published quizzes | PASS | - |
 | [R352](R352.md) | P3 | Group hub · Empty group (0 quizzes) | Make the first quiz + Notify me; noindex until 3 quizzes | NOT VERIFIED until v11-p3-group-quiz-alerts.sql (fail-soft proven) | - |
 | [R353](R353.md) | P8 | Community · Composer, tabs, mobile rail blocks | As section 16.7 | PASS (see R164 to R169) | - |
@@ -298,7 +298,7 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R366](R366.md) | P6 | Blindtest · Playlist menu groups | All playable groups under All K-pop, searchable, counts | PASS | - |
 | [R367](R367.md) | P6 | Blindtest · Play by group (v11.1) | Popular six photo tiles + searchable index of every playable group, first 24 then Show all | PASS | - |
 | [R368](R368.md) | P6 | Blindtest · Day mode | Light hero, game, results, home band | N/A (styles only) | - |
-| R369 | v11 | Ranked · Whole system | - | TODO | - |
+| [R369](R369.md) | P7 | Ranked · Whole system | Scoring, season, tiers, divisions, limits, anti-cheat | NOT VERIFIED until v11-p7-ranked.sql; engine unit-proven (233 tests), API fails soft (503 before any write), flag off 404 | - |
 | [R370](R370.md) | P8 | Community · Comment like heart | Toggle like with count | NOT VERIFIED until v11-p8-community.sql (fail-soft + once-per-user structure proven) | - |
 | [R371](R371.md) | P8 (A0 PersonName) | Community · Author flair | Accent, font, bias chip on every name | PASS (read side); saving the flair: see R376 | - |
 | [R372](R372.md) | P8 | Community · Happening now | Live feed + cheer | PASS | - |

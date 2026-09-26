@@ -1,0 +1,235 @@
+✓ src/lib/ranked/tiers.test.ts > tier thresholds (15.4) > Bronze 0, Silver 4,000, Gold 6,500, Platinum 8,500, Diamond 10,500, Master 12,000 2ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 0 -> Bronze III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 1333 -> Bronze III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 1334 -> Bronze II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 2666 -> Bronze II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 2667 -> Bronze I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 3999 -> Bronze I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 4000 -> Silver III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 4833 -> Silver III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 4834 -> Silver II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 5666 -> Silver II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 5667 -> Silver I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 6499 -> Silver I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 6500 -> Gold III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 7166 -> Gold III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 7167 -> Gold II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 7833 -> Gold II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 7834 -> Gold I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 8290 -> Gold I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 8499 -> Gold I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 8500 -> Platinum III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 8610 -> Platinum III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 9166 -> Platinum III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 9167 -> Platinum II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 9833 -> Platinum II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 9834 -> Platinum I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 10499 -> Platinum I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 10500 -> Diamond III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 10999 -> Diamond III 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 11000 -> Diamond II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 11499 -> Diamond II 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 11500 -> Diamond I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 11999 -> Diamond I 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 12000 -> Master 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > 14500 -> Master 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > Master has no division 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > rejects -1 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > rejects 1.5 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > rejects NaN 0ms
+✓ src/lib/ranked/tiers.test.ts > tierFor: divisions III / II / I are equal thirds, Master has none > every step starts exactly where tierFor changes 2ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 8290 -> Platinum III at 8500 (210 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 0 -> Bronze II at 1334 (1334 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 3999 -> Silver III at 4000 (1 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 7166 -> Gold II at 7167 (1 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 7500 -> Gold I at 7834 (334 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > 11999 -> Master at 12000 (1 to go) 0ms
+✓ src/lib/ranked/tiers.test.ts > nextStep ("210 points to Platinum III") > Master has no next step (Legend is the top 100, not a score) 0ms
+✓ src/lib/ranked/tiers.test.ts > isPromotion > 8,290 -> 8,610 is a promotion (Gold I -> Platinum III) 0ms
+✓ src/lib/ranked/tiers.test.ts > isPromotion > no promotion inside a division, none when equal 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 0 ms -> 100 1ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 1999 ms -> 100 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 2000 ms -> 100 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 2001 ms -> 100 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 2040 ms -> 100 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 2041 ms -> 99 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 3000 ms -> 88 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 4000 ms -> 75 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 5000 ms -> 63 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 6000 ms -> 50 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 7000 ms -> 38 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 8000 ms -> 25 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 9000 ms -> 13 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 9960 ms -> 1 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 9961 ms -> 0 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 9999 ms -> 0 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 10000 ms -> 0 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > t = 12000 ms -> 0 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > rejects -1 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > rejects NaN 0ms
+✓ src/lib/ranked/scoring.test.ts > speedBonus: 100 under 2 s, then round(100 x (10 - t) / 8), 0 at 10 s > rejects Infinity 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 1 -> 10 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 2 -> 11 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 5 -> 14 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 10 -> 19 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 11 -> 20 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 12 -> 20 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > streak 50 -> 20 tenths 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > rejects a streak below 1 0ms
+✓ src/lib/ranked/scoring.test.ts > comboTenths: x1.0, +0.1 per right answer in a row, cap x2.0 > labels 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > has at least 20 table cases 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > fast, first 1ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > fast, x1.1 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 1.999 s, x1.2 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 2.000 s, x1.3 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 3 s, x1.0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 3 s, x1.1 (206.8) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 5 s, x1.0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 5 s, x1.4 (228.2) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 5 s, x1.5 (244.5 half up) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 6 s, 10th in a row x1.9 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 6 s, 11th in a row x2.0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 6 s, capped x2.0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 9.96 s, bonus 1 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 9.961 s, bonus 0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 9.999 s, x1.5 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 7 s, x1.2 (165.6) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 9 s, x1.7 (192.1) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 4 s, x1.3 (227.5 half up) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 2.041 s, bonus 99 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 2.040 s, bonus 100, x1.1 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > 8 s, x1.0 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > wrong resets 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > slow wrong 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > timeout resets 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRound: right = (100 + speed) x combo, wrong / timeout = 0 and resets > unanswered (quit) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > a perfect fast 10-song run is 2,900 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > all wrong is 0 with no average 1ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > a miss resets the combo 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > a timeout resets the combo too 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > a quit run keeps the answered songs and scores the rest 0 1ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > the cap holds on a longer run (x2.0 from the 11th right answer) 0ms
+✓ src/lib/ranked/scoring.test.ts > scoreRun > refuses more outcomes than rounds 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier iconic -> easy when there are no stats 1ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier popular -> easy when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier medium -> medium when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier hard -> hard when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier unknown -> hard when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier null -> medium when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > tier something-new -> medium when there are no stats 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 1 -> easy 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 0.7 -> easy 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 0.69 -> medium 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 0.4 -> medium 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 0.39 -> hard 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy 0 -> hard 0ms
+✓ src/lib/ranked/select.test.ts > difficulty: community accuracy once trusted, curated tier before > accuracy wins over the tier from 20 answers, not before 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > seed 1: exact mix, distinct acts and titles 1ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > seed 2: exact mix, distinct acts and titles 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > seed 3: exact mix, distinct acts and titles 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > seed 42: exact mix, distinct acts and titles 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > seed 2026: exact mix, distinct acts and titles 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > 6 song rounds and 4 artist rounds, in a random order 2ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > a bucket too small refuses the draw instead of bending the rules 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > rounds: 4 options, the right one exactly once, no option repeated 10ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > artist options prefer the same generation and gender 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > title options use the same act first 0ms
+✓ src/lib/ranked/select.test.ts > server-drawn run: 4 easy / 4 medium / 2 hard, 6 song + 4 artist rounds > the same seed draws the same run (reproducible for tests) 1ms
+✓ src/lib/ranked/run.test.ts > rounds are released one at a time and never leak the answer > the public round carries the options but not the correct index or the song 4ms
+✓ src/lib/ranked/run.test.ts > rounds are released one at a time and never leak the answer > rounds start in order, once each, only after the previous answer 1ms
+✓ src/lib/ranked/run.test.ts > rounds are released one at a time and never leak the answer > an answer is locked once (replaying it is refused) 0ms
+✓ src/lib/ranked/run.test.ts > rounds are released one at a time and never leak the answer > impossible timings are refused and the round stays open 2ms
+✓ src/lib/ranked/run.test.ts > rounds are released one at a time and never leak the answer > the reveal scores with the server-checked time 1ms
+✓ src/lib/ranked/run.test.ts > the token is single use > a full run submits once; every later call on the token is refused 1ms
+✓ src/lib/ranked/run.test.ts > the token is single use > an expired run refuses rounds but can still be closed (recorded as quit) 0ms
+✓ src/lib/ranked/run.test.ts > quit runs are recorded with the answered songs > 3 answered, then quit: the rest score 0; an open round counts as a timeout 1ms
+✓ src/lib/ranked/run.test.ts > quit runs are recorded with the answered songs > a wrong pick and a timeout reset the combo 0ms
+✓ src/lib/ranked/run.test.ts > quit runs are recorded with the answered songs > publicRound refuses a round that does not exist 0ms
+✓ src/lib/ranked/view.test.ts > tier display > 8290 (legend false) -> gold Gold I 2ms
+✓ src/lib/ranked/view.test.ts > tier display > 8610 (legend false) -> platinum Platinum III 0ms
+✓ src/lib/ranked/view.test.ts > tier display > 12000 (legend false) -> master Master 0ms
+✓ src/lib/ranked/view.test.ts > tier display > 13240 (legend true) -> legend Legend 0ms
+✓ src/lib/ranked/view.test.ts > tier display > 11000 (legend true) -> diamond Diamond II 0ms
+✓ src/lib/ranked/view.test.ts > tier display > the strip has the seven stops of 15.4 0ms
+✓ src/lib/ranked/view.test.ts > ladder rows > maps a ranked_ladder() row to what the page shows, public fields only 0ms
+✓ src/lib/ranked/view.test.ts > ladder rows > splits the top of the scope from your own row 1ms
+✓ src/lib/ranked/view.test.ts > season card > state from the API answer 0ms
+✓ src/lib/ranked/view.test.ts > season card > copy lines 21ms
+✓ src/lib/ranked/view.test.ts > season card > progress bar = distance between the current step and the next one 0ms
+✓ src/lib/ranked/view.test.ts > season card > best 5 strip flags the lowest once 5 runs count 0ms
+✓ src/lib/ranked/view.test.ts > season impact sentence (results slot) > prototype: 1,740 replaces 1,420, season 8,610, you reach Platinum III 7ms
+✓ src/lib/ranked/view.test.ts > season impact sentence (results slot) > a run that does not beat the 5th best 0ms
+✓ src/lib/ranked/view.test.ts > season impact sentence (results slot) > counted without a promotion 0ms
+✓ src/lib/ranked/view.test.ts > season impact sentence (results slot) > placement runs, then placement complete 0ms
+✓ src/lib/ranked/service.test.ts > not live > no season covering now -> not_live (the route answers 503) 4ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > issue -> 10 rounds -> submit: 2,900, submitted, placement 1/5 6ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > previews are refreshed at issue time 1ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > token replay is rejected: a second submit, and answering after submit 2ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > another player's token is not found 0ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > an impossible timing is refused with 422 and changes nothing 5ms
+✓ src/lib/ranked/service.test.ts > a full ranked run through the service > a stale step (two tabs racing) is a 409 conflict 0ms
+✓ src/lib/ranked/service.test.ts > 15 runs a day > the 16th run of the UTC day is refused, the next day is fine 4ms
+✓ src/lib/ranked/service.test.ts > quit runs are recorded > starting a new run closes the open one as quit, with the songs answered 1ms
+✓ src/lib/ranked/service.test.ts > quit runs are recorded > an explicit quit (submit before the end) is recorded as quit 1ms
+✓ src/lib/ranked/service.test.ts > quit runs are recorded > the nightly job closes expired runs as quit and runs the SQL nightly 1ms
+✓ src/lib/ranked/service.test.ts > placement and the season card > first 5 runs place the player; then the ladder shows a position 11ms
+✓ src/lib/ranked/service.test.ts > placement and the season card > guests get the season only 0ms
+✓ src/lib/ranked/service.test.ts > the season ladder (Global / My fandom / Following) > Global: placed players only, ordered by season score, with the asking player's row 20ms
+✓ src/lib/ranked/service.test.ts > the season ladder (Global / My fandom / Following) > guests get Global only; My fandom needs a main fandom 9ms
+✓ src/lib/ranked/service.test.ts > the season ladder (Global / My fandom / Following) > Following: the players you follow and you 26ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > prototype: 8,290 = Gold I, score over 1,420 to count 3ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > prototype run: 1,740 replaces 1,420 -> season 8,610 -> Platinum III 1ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > before the run the card reads "210 points to Platinum III" 0ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > a run must BEAT the 5th best: equal or lower does not count, the score never goes down 0ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > while fewer than 5 runs, every run counts and nothing is replaced 0ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > equal points: the earlier run keeps its place 0ms
+✓ src/lib/ranked/season.test.ts > season score = sum of the best 5 runs > empty season is 0 and nothing to beat 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > 0 finished runs -> { done: 0, of: 5, complete: false } 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > 3 finished runs -> { done: 3, of: 5, complete: false } 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > 4 finished runs -> { done: 4, of: 5, complete: false } 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > 5 finished runs -> { done: 5, of: 5, complete: true } 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > 12 finished runs -> { done: 5, of: 5, complete: true } 0ms
+✓ src/lib/ranked/season.test.ts > placement: the first 5 runs place you > rejects negative counts 0ms
+✓ src/lib/ranked/season.test.ts > season tie-break value: average answer time of the counted runs > weights by right answers and ignores runs with none 0ms
+✓ src/lib/ranked/season.test.ts > season calendar (8 weeks, back to back) > next season starts when the last one ends and lasts 56 days 0ms
+✓ src/lib/ranked/season.test.ts > season calendar (8 weeks, back to back) > currentSeason covers [startsAt, endsAt) 0ms
+✓ src/lib/ranked/season.test.ts > season calendar (8 weeks, back to back) > days left rounds up ("ends in 19 days") and stops at 0 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > faster than a human (299 ms) 2ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > 0 ms 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > after the 10 s timer 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > more time than the server saw 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > 1 ms beyond the clock tolerance 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > negative 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > not a number 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > infinite 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > an answer without a time 0ms
+✓ src/lib/ranked/timing.test.ts > impossible timings are rejected > a broken server clock 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > honest, fast network 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > honest, slow clip load 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > under-reported by the client 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > at the human floor 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > at the clock tolerance 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > decimals round 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > answer at exactly 10 s is a timeout 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > arrived long after the clip ended: timeout 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > client timer ran out 0ms
+✓ src/lib/ranked/timing.test.ts > accepted timings: effective = max(client, server - 1.5 s allowance) > early give-up counts as a timeout 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > the limit is 15 1ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > 0 started today -> 15 left, can start: true 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > 3 started today -> 12 left, can start: true 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > 14 started today -> 1 left, can start: true 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > 15 started today -> 0 left, can start: false 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > 16 started today -> 0 left, can start: false 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > rejects impossible counts 0ms
+✓ src/lib/ranked/limits.test.ts > 15 ranked runs a day > the day is the UTC day (same as the daily blindtest) 1ms
+✓ src/lib/ranked/ladder.test.ts > ties are broken by average answer time > same score: the faster average ranks first 3ms
+✓ src/lib/ranked/ladder.test.ts > ties are broken by average answer time > same score and average: who reached it first, then id 0ms
+✓ src/lib/ranked/ladder.test.ts > ties are broken by average answer time > no right answer (no average) sorts after any average 0ms
+✓ src/lib/ranked/ladder.test.ts > ties are broken by average answer time > players still placing (under 5 runs) are not on the ladder 0ms
+✓ src/lib/ranked/ladder.test.ts > Legend = top 100 Masters > keeps the 100 best Masters in ladder order, never a non-Master 2ms
+✓ src/lib/ranked/ladder.test.ts > Legend = top 100 Masters > fewer than 100 Masters: all of them 0ms
+✓ src/lib/ranked/http.test.ts > POST-only routes answer GET > 404 with the flag off 386ms
+✓ src/lib/ranked/http.test.ts > POST-only routes answer GET > 405 with the flag on, Allow: POST 2ms
+✓ src/lib/ranked/http.test.ts > POST-only routes answer GET > every ranked route is 404 with the flag off, before any read 1ms
+Test Files  11 passed (11)
+Tests  233 passed (233)
